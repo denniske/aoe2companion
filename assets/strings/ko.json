@@ -1,1 +1,793 @@
-{"language":"en","age":[{"id":0,"string":"Standard"},{"id":2,"string":"Dark Age"},{"id":3,"string":"Feudal Age"},{"id":4,"string":"Castle Age"},{"id":5,"string":"Imperial Age"},{"id":6,"string":"Post-Imperial Age"}],"civ":[{"id":0,"string":"Aztecs"},{"id":1,"string":"Berbers"},{"id":2,"string":"Britons"},{"id":3,"string":"Bulgarians"},{"id":4,"string":"Burmese"},{"id":5,"string":"Byzantines"},{"id":6,"string":"Celts"},{"id":7,"string":"Chinese"},{"id":8,"string":"Cumans"},{"id":9,"string":"Ethiopians"},{"id":10,"string":"Franks"},{"id":11,"string":"Goths"},{"id":12,"string":"Huns"},{"id":13,"string":"Incas"},{"id":14,"string":"Indians"},{"id":15,"string":"Italians"},{"id":16,"string":"Japanese"},{"id":17,"string":"Khmer"},{"id":18,"string":"Koreans"},{"id":19,"string":"Lithuanians"},{"id":20,"string":"Magyars"},{"id":21,"string":"Malay"},{"id":22,"string":"Malians"},{"id":23,"string":"Mayans"},{"id":24,"string":"Mongols"},{"id":25,"string":"Persians"},{"id":26,"string":"Portuguese"},{"id":27,"string":"Saracens"},{"id":28,"string":"Slavs"},{"id":29,"string":"Spanish"},{"id":30,"string":"Tatars"},{"id":31,"string":"Teutons"},{"id":32,"string":"Turks"},{"id":33,"string":"Vietnamese"},{"id":34,"string":"Vikings"}],"game_type":[{"id":0,"string":"Random Map"},{"id":1,"string":"Regicide"},{"id":2,"string":"Death Match"},{"id":3,"string":"Scenario"},{"id":6,"string":"King of the Hill"},{"id":7,"string":"Wonder Race"},{"id":8,"string":"Defend the Wonder"},{"id":9,"string":"Turbo Random Map"},{"id":10,"string":"Capture the Relic"},{"id":11,"string":"Sudden Death"},{"id":13,"string":"Empire Wars"}],"leaderboard":[{"id":0,"string":"Unranked"},{"id":1,"string":"1v1 Death Match"},{"id":2,"string":"Team Death Match"},{"id":3,"string":"1v1 Random Map"},{"id":4,"string":"Team Random Map"}],"map_size":[{"id":0,"string":"Tiny (2 player)"},{"id":1,"string":"Small (3 player)"},{"id":2,"string":"Medium (4 player)"},{"id":3,"string":"Normal (6 player)"},{"id":4,"string":"Large (8 player)"},{"id":5,"string":"Giant"},{"id":6,"string":"Ludicrous"}],"map_type":[{"id":9,"string":"Arabia"},{"id":10,"string":"Archipelago"},{"id":11,"string":"Baltic"},{"id":12,"string":"Black Forest"},{"id":13,"string":"Coastal"},{"id":14,"string":"Continental"},{"id":15,"string":"Crater Lake"},{"id":16,"string":"Fortress"},{"id":17,"string":"Gold Rush"},{"id":18,"string":"Highland"},{"id":19,"string":"Islands"},{"id":20,"string":"Mediterranean"},{"id":21,"string":"Migration"},{"id":22,"string":"Rivers"},{"id":23,"string":"Team Islands"},{"id":24,"string":"Full Random"},{"id":25,"string":"Scandinavia"},{"id":26,"string":"Mongolia"},{"id":27,"string":"Yucatan"},{"id":28,"string":"Salt Marsh"},{"id":29,"string":"Arena"},{"id":31,"string":"Oasis"},{"id":32,"string":"Ghost Lake"},{"id":33,"string":"Nomad"},{"id":49,"string":"Iberia"},{"id":50,"string":"Britain"},{"id":51,"string":"Mideast"},{"id":52,"string":"Texas"},{"id":53,"string":"Italy"},{"id":54,"string":"Central America"},{"id":55,"string":"France"},{"id":56,"string":"Norse Lands"},{"id":57,"string":"Sea of Japan (East Sea)"},{"id":58,"string":"Byzantium"},{"id":59,"string":"Custom"},{"id":60,"string":"Random Land Map"},{"id":62,"string":"Random Real World Map"},{"id":63,"string":"Blind Random"},{"id":65,"string":"Random Special Map"},{"id":66,"string":"Random Special Map"},{"id":67,"string":"Acropolis"},{"id":68,"string":"Budapest"},{"id":69,"string":"Cenotes"},{"id":70,"string":"City of Lakes"},{"id":71,"string":"Golden Pit"},{"id":72,"string":"Hideout"},{"id":73,"string":"Hill Fort"},{"id":74,"string":"Lombardia"},{"id":75,"string":"Steppe"},{"id":76,"string":"Valley"},{"id":77,"string":"MegaRandom"},{"id":78,"string":"Hamburger"},{"id":79,"string":"CtR Random"},{"id":80,"string":"CtR Monsoon"},{"id":81,"string":"CtR Pyramid Descent"},{"id":82,"string":"CtR Spiral"},{"id":83,"string":"Kilimanjaro"},{"id":84,"string":"Mountain Pass"},{"id":85,"string":"Nile Delta"},{"id":86,"string":"Serengeti"},{"id":87,"string":"Socotra"},{"id":88,"string":"Amazon"},{"id":89,"string":"China"},{"id":90,"string":"Horn of Africa"},{"id":91,"string":"India"},{"id":92,"string":"Madagascar"},{"id":93,"string":"West Africa"},{"id":94,"string":"Bohemia"},{"id":95,"string":"Earth"},{"id":96,"string":"Canyons"},{"id":97,"string":"Enemy Archipelago"},{"id":98,"string":"Enemy Islands"},{"id":99,"string":"Far Out"},{"id":100,"string":"Front Line"},{"id":101,"string":"Inner Circle"},{"id":102,"string":"Motherland"},{"id":103,"string":"Open Plains"},{"id":104,"string":"Ring of Water"},{"id":105,"string":"Snakepit"},{"id":106,"string":"The Eye"},{"id":107,"string":"Australia"},{"id":108,"string":"Indochina"},{"id":109,"string":"Indonesia"},{"id":110,"string":"Strait of Malacca"},{"id":111,"string":"Philippines"},{"id":112,"string":"Bog Islands"},{"id":113,"string":"Mangrove Jungle"},{"id":114,"string":"Pacific Islands"},{"id":115,"string":"Sandbank"},{"id":116,"string":"Water Nomad"},{"id":117,"string":"Jungle Islands"},{"id":118,"string":"Holy Line"},{"id":119,"string":"Border Stones"},{"id":120,"string":"Yin Yang"},{"id":121,"string":"Jungle Lanes"},{"id":122,"string":"Alpine Lakes"},{"id":123,"string":"Bogland"},{"id":124,"string":"Mountain Ridge"},{"id":125,"string":"Ravines"},{"id":126,"string":"Wolf Hill"},{"id":132,"string":"Antarctica"},{"id":137,"string":"Custom Map Pool"},{"id":139,"string":"Golden Swamp"},{"id":140,"string":"Four Lakes"}],"rating_type":[{"id":0,"string":"Unranked"},{"id":1,"string":"1v1 Death Match"},{"id":2,"string":"1v1 Random Map"},{"id":3,"string":"Team Death Match"},{"id":4,"string":"Team Random Map"}],"resources":[{"id":0,"string":"Standard"},{"id":1,"string":"Low"},{"id":2,"string":"Medium"},{"id":3,"string":"High"},{"id":4,"string":"Ultra High"},{"id":5,"string":"Infinite"},{"id":6,"string":"Random"}],"speed":[{"id":0,"string":"Slow"},{"id":1,"string":"Casual"},{"id":2,"string":"Normal"},{"id":3,"string":"Fast"}],"victory":[{"id":1,"string":"Conquest"},{"id":7,"string":"Time Limit"},{"id":8,"string":"Score"},{"id":9,"string":"Standard"},{"id":11,"string":"Last Man Standing"}],"visibility":[{"id":0,"string":"Normal"},{"id":1,"string":"Explored"},{"id":2,"string":"All Visible"}]}
+{
+    "language": "ko",
+    "age": [
+        {
+            "id": 0,
+            "string": "표준"
+        },
+        {
+            "id": 2,
+            "string": "암흑 시대"
+        },
+        {
+            "id": 3,
+            "string": "봉건 시대"
+        },
+        {
+            "id": 4,
+            "string": "성주 시대"
+        },
+        {
+            "id": 5,
+            "string": "왕정 시대"
+        },
+        {
+            "id": 6,
+            "string": "후기 왕정 시대"
+        }
+    ],
+    "civ": [
+        {
+            "id": 0,
+            "string": "아즈텍"
+        },
+        {
+            "id": 1,
+            "string": "베르베르인"
+        },
+        {
+            "id": 2,
+            "string": "브리튼인"
+        },
+        {
+            "id": 3,
+            "string": "불가리아인"
+        },
+        {
+            "id": 4,
+            "string": "버마인"
+        },
+        {
+            "id": 5,
+            "string": "비잔티움족"
+        },
+        {
+            "id": 6,
+            "string": "켈트족"
+        },
+        {
+            "id": 7,
+            "string": "중국인"
+        },
+        {
+            "id": 8,
+            "string": "쿠만인"
+        },
+        {
+            "id": 9,
+            "string": "에티오피아인"
+        },
+        {
+            "id": 10,
+            "string": "프랑크족"
+        },
+        {
+            "id": 11,
+            "string": "고트족"
+        },
+        {
+            "id": 12,
+            "string": "훈족"
+        },
+        {
+            "id": 13,
+            "string": "잉카족"
+        },
+        {
+            "id": 14,
+            "string": "인도인"
+        },
+        {
+            "id": 15,
+            "string": "이탈리아인"
+        },
+        {
+            "id": 16,
+            "string": "일본인"
+        },
+        {
+            "id": 17,
+            "string": "크메르인"
+        },
+        {
+            "id": 18,
+            "string": "한국인"
+        },
+        {
+            "id": 19,
+            "string": "리투아니아인"
+        },
+        {
+            "id": 20,
+            "string": "마자르족"
+        },
+        {
+            "id": 21,
+            "string": "말레이인"
+        },
+        {
+            "id": 22,
+            "string": "말리인"
+        },
+        {
+            "id": 23,
+            "string": "마야"
+        },
+        {
+            "id": 24,
+            "string": "몽골인"
+        },
+        {
+            "id": 25,
+            "string": "페르시아인"
+        },
+        {
+            "id": 26,
+            "string": "포르투갈인"
+        },
+        {
+            "id": 27,
+            "string": "사라센족"
+        },
+        {
+            "id": 28,
+            "string": "슬라브족"
+        },
+        {
+            "id": 29,
+            "string": "스페인인"
+        },
+        {
+            "id": 30,
+            "string": "타타르"
+        },
+        {
+            "id": 31,
+            "string": "튜턴족"
+        },
+        {
+            "id": 32,
+            "string": "튀르크족"
+        },
+        {
+            "id": 33,
+            "string": "베트남인"
+        },
+        {
+            "id": 34,
+            "string": "바이킹족"
+        }
+    ],
+    "game_type": [
+        {
+            "id": 0,
+            "string": "랜덤 지도"
+        },
+        {
+            "id": 1,
+            "string": "국왕 시해"
+        },
+        {
+            "id": 2,
+            "string": "전멸전"
+        },
+        {
+            "id": 3,
+            "string": "시나리오"
+        },
+        {
+            "id": 6,
+            "string": "유적 점령"
+        },
+        {
+            "id": 7,
+            "string": "불가사의 건설"
+        },
+        {
+            "id": 8,
+            "string": "불가사의 방어"
+        },
+        {
+            "id": 9,
+            "string": "랜덤 지도(터보)"
+        },
+        {
+            "id": 10,
+            "string": "유물 뺏기"
+        },
+        {
+            "id": 11,
+            "string": "단판승부"
+        },
+        {
+            "id": 13,
+            "string": "제국 전쟁"
+        }
+    ],
+    "leaderboard": [
+        {
+            "id": 0,
+            "string": "랭크되지 않음"
+        },
+        {
+            "id": 1,
+            "string": "전멸전"
+        },
+        {
+            "id": 2,
+            "string": "팀 전멸전"
+        },
+        {
+            "id": 3,
+            "string": "랜덤 지도"
+        },
+        {
+            "id": 4,
+            "string": "팀 랜덤 지도"
+        }
+    ],
+    "map_size": [
+        {
+            "id": 0,
+            "string": "가장 작게 (2명)"
+        },
+        {
+            "id": 1,
+            "string": "작게 (3명)"
+        },
+        {
+            "id": 2,
+            "string": "보통 (4명)"
+        },
+        {
+            "id": 3,
+            "string": "조금 크게 (6명)"
+        },
+        {
+            "id": 4,
+            "string": "크게 (8명)"
+        },
+        {
+            "id": 5,
+            "string": "거대하게"
+        },
+        {
+            "id": 6,
+            "string": "가장 거대하게"
+        }
+    ],
+    "map_type": [
+        {
+            "id": 9,
+            "string": "아라비아"
+        },
+        {
+            "id": 10,
+            "string": "군도"
+        },
+        {
+            "id": 11,
+            "string": "발트해"
+        },
+        {
+            "id": 12,
+            "string": "삼림 지대"
+        },
+        {
+            "id": 13,
+            "string": "해안 지대"
+        },
+        {
+            "id": 14,
+            "string": "대륙"
+        },
+        {
+            "id": 15,
+            "string": "호수 지대"
+        },
+        {
+            "id": 16,
+            "string": "요새"
+        },
+        {
+            "id": 17,
+            "string": "금광 지대"
+        },
+        {
+            "id": 18,
+            "string": "고원 지대"
+        },
+        {
+            "id": 19,
+            "string": "섬"
+        },
+        {
+            "id": 20,
+            "string": "지중해"
+        },
+        {
+            "id": 21,
+            "string": "이주지"
+        },
+        {
+            "id": 22,
+            "string": "강"
+        },
+        {
+            "id": 23,
+            "string": "섬(팀별로 배정)"
+        },
+        {
+            "id": 24,
+            "string": "무작위"
+        },
+        {
+            "id": 25,
+            "string": "스칸디나비아"
+        },
+        {
+            "id": 26,
+            "string": "몽골"
+        },
+        {
+            "id": 27,
+            "string": "유카탄"
+        },
+        {
+            "id": 28,
+            "string": "습 지대"
+        },
+        {
+            "id": 29,
+            "string": "전투장"
+        },
+        {
+            "id": 31,
+            "string": "오아시스"
+        },
+        {
+            "id": 32,
+            "string": "유령 호수"
+        },
+        {
+            "id": 33,
+            "string": "유목 지대"
+        },
+        {
+            "id": 49,
+            "string": "이베리아"
+        },
+        {
+            "id": 50,
+            "string": "브리튼"
+        },
+        {
+            "id": 51,
+            "string": "중동"
+        },
+        {
+            "id": 52,
+            "string": "텍사스"
+        },
+        {
+            "id": 53,
+            "string": "이탈리아"
+        },
+        {
+            "id": 54,
+            "string": "중앙 아메리카"
+        },
+        {
+            "id": 55,
+            "string": "프랑스"
+        },
+        {
+            "id": 56,
+            "string": "북유럽"
+        },
+        {
+            "id": 57,
+            "string": "동해"
+        },
+        {
+            "id": 58,
+            "string": "비잔티움"
+        },
+        {
+            "id": 59,
+            "string": "사용자 정의"
+        },
+        {
+            "id": 60,
+            "string": "무작위(대륙)"
+        },
+        {
+            "id": 62,
+            "string": "랜덤 실존 세계 지도"
+        },
+        {
+            "id": 63,
+            "string": "무작위(블라인드)"
+        },
+        {
+            "id": 65,
+            "string": "랜덤 특별 지도"
+        },
+        {
+            "id": 66,
+            "string": "랜덤 특별 지도"
+        },
+        {
+            "id": 67,
+            "string": "아크로폴리스"
+        },
+        {
+            "id": 68,
+            "string": "부다페스트"
+        },
+        {
+            "id": 69,
+            "string": "석회암 지대"
+        },
+        {
+            "id": 70,
+            "string": "호수지대"
+        },
+        {
+            "id": 71,
+            "string": "황금 구덩이"
+        },
+        {
+            "id": 72,
+            "string": "은신처"
+        },
+        {
+            "id": 73,
+            "string": "언덕 위의 성채"
+        },
+        {
+            "id": 74,
+            "string": "롬바르디아"
+        },
+        {
+            "id": 75,
+            "string": "초원 지대"
+        },
+        {
+            "id": 76,
+            "string": "계곡"
+        },
+        {
+            "id": 77,
+            "string": "무작위(메가랜덤)"
+        },
+        {
+            "id": 78,
+            "string": "햄버거"
+        },
+        {
+            "id": 79,
+            "string": "랜덤 유물 찾기"
+        },
+        {
+            "id": 80,
+            "string": "몬순 유물 찾기"
+        },
+        {
+            "id": 81,
+            "string": "하강 피라미드 유물 찾기"
+        },
+        {
+            "id": 82,
+            "string": "나선 유물 찾기"
+        },
+        {
+            "id": 83,
+            "string": "킬리만자로"
+        },
+        {
+            "id": 84,
+            "string": "산 고개"
+        },
+        {
+            "id": 85,
+            "string": "나일강 삼각주"
+        },
+        {
+            "id": 86,
+            "string": "세렌게티"
+        },
+        {
+            "id": 87,
+            "string": "소코트라"
+        },
+        {
+            "id": 88,
+            "string": "아마존"
+        },
+        {
+            "id": 89,
+            "string": "중국"
+        },
+        {
+            "id": 90,
+            "string": "아프리카의 뿔"
+        },
+        {
+            "id": 91,
+            "string": "인도"
+        },
+        {
+            "id": 92,
+            "string": "마다가스카"
+        },
+        {
+            "id": 93,
+            "string": "서 아프리카"
+        },
+        {
+            "id": 94,
+            "string": "보헤미아"
+        },
+        {
+            "id": 95,
+            "string": "지구"
+        },
+        {
+            "id": 96,
+            "string": "협곡"
+        },
+        {
+            "id": 97,
+            "string": "적의 다도해"
+        },
+        {
+            "id": 98,
+            "string": "적의 섬들"
+        },
+        {
+            "id": 99,
+            "string": "오지"
+        },
+        {
+            "id": 100,
+            "string": "전방"
+        },
+        {
+            "id": 101,
+            "string": "중심부"
+        },
+        {
+            "id": 102,
+            "string": "고향"
+        },
+        {
+            "id": 103,
+            "string": "넓은 평원"
+        },
+        {
+            "id": 104,
+            "string": "물의 링"
+        },
+        {
+            "id": 105,
+            "string": "뱀 구덩이"
+        },
+        {
+            "id": 106,
+            "string": "눈"
+        },
+        {
+            "id": 107,
+            "string": "호주"
+        },
+        {
+            "id": 108,
+            "string": "인도차이나"
+        },
+        {
+            "id": 109,
+            "string": "인도네시아"
+        },
+        {
+            "id": 110,
+            "string": "말라카해협"
+        },
+        {
+            "id": 111,
+            "string": "필리핀"
+        },
+        {
+            "id": 112,
+            "string": "보그 섬"
+        },
+        {
+            "id": 113,
+            "string": "맹그로브 밀림"
+        },
+        {
+            "id": 114,
+            "string": "태평양 섬"
+        },
+        {
+            "id": 115,
+            "string": "모래톱"
+        },
+        {
+            "id": 116,
+            "string": "바다 유목민"
+        },
+        {
+            "id": 117,
+            "string": "밀림의 섬"
+        },
+        {
+            "id": 118,
+            "string": "성의 선"
+        },
+        {
+            "id": 119,
+            "string": "경계 석조"
+        },
+        {
+            "id": 120,
+            "string": "음양"
+        },
+        {
+            "id": 121,
+            "string": "밀림선"
+        },
+        {
+            "id": 122,
+            "string": "고산호"
+        },
+        {
+            "id": 123,
+            "string": "늪지대"
+        },
+        {
+            "id": 124,
+            "string": "산마루"
+        },
+        {
+            "id": 125,
+            "string": "협곡"
+        },
+        {
+            "id": 126,
+            "string": "늑대 언덕"
+        },
+        {
+            "id": 132,
+            "string": "남극"
+        },
+        {
+            "id": 137,
+            "string": "사용자 지정 지도 풀"
+        },
+        {
+            "id": 139,
+            "string": "Golden Swamp"
+        },
+        {
+            "id": 140,
+            "string": "Four Lakes"
+        }
+    ],
+    "rating_type": [
+        {
+            "id": 0,
+            "string": "랭크되지 않음"
+        },
+        {
+            "id": 1,
+            "string": "전멸전"
+        },
+        {
+            "id": 2,
+            "string": "랜덤 지도"
+        },
+        {
+            "id": 3,
+            "string": "팀 전멸전"
+        },
+        {
+            "id": 4,
+            "string": "팀 랜덤 지도"
+        }
+    ],
+    "resources": [
+        {
+            "id": 0,
+            "string": "표준"
+        },
+        {
+            "id": 1,
+            "string": "거칠게"
+        },
+        {
+            "id": 2,
+            "string": "보통"
+        },
+        {
+            "id": 3,
+            "string": "크게"
+        },
+        {
+            "id": 4,
+            "string": "매우 높음"
+        },
+        {
+            "id": 5,
+            "string": "제한 없음"
+        },
+        {
+            "id": 6,
+            "string": "무작위"
+        }
+    ],
+    "speed": [
+        {
+            "id": 0,
+            "string": "느리게"
+        },
+        {
+            "id": 1,
+            "string": "쉬움"
+        },
+        {
+            "id": 2,
+            "string": "보통"
+        },
+        {
+            "id": 3,
+            "string": "빠르게"
+        }
+    ],
+    "victory": [
+        {
+            "id": 1,
+            "string": "정복"
+        },
+        {
+            "id": 7,
+            "string": "시간 제한"
+        },
+        {
+            "id": 8,
+            "string": "점수"
+        },
+        {
+            "id": 9,
+            "string": "표준"
+        },
+        {
+            "id": 11,
+            "string": "최후 생존"
+        }
+    ],
+    "visibility": [
+        {
+            "id": 0,
+            "string": "보통"
+        },
+        {
+            "id": 1,
+            "string": "모두 표시(탐색 필요)"
+        },
+        {
+            "id": 2,
+            "string": "모두 표시(적 위치 포함)"
+        }
+    ]
+}

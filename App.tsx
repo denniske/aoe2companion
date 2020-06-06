@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Image, StyleSheet, Text, View } from 'react-native';
 import { YellowBox } from 'react-native';
-import { format, startOfDay } from 'date-fns';
+import { format, formatDistanceToNow, formatDistanceToNowStrict } from 'date-fns';
 import { de } from 'date-fns/locale'
 var fromUnixTime = require('date-fns/fromUnixTime');
 
 YellowBox.ignoreWarnings(['Remote debugger']);
+
+const LANGUAGE = 'en';
+
+const strings: IStringCollection = {
+    'en': require('./assets/strings/en.json'),
+};
 
 const civList = [
     require('./assets/civilizations/aztecs.png'),
@@ -44,6 +50,33 @@ const civList = [
     require('./assets/civilizations/vietnamese.png'),
     require('./assets/civilizations/vikings.png'),
 ];
+
+interface IStringItem {
+    id: number;
+    string: string;
+}
+
+interface IStrings {
+    age: IStringItem[];
+    civ: IStringItem[];
+    game_type: IStringItem[];
+    leaderboard: IStringItem[];
+    map_size: IStringItem[];
+    map_type: IStringItem[];
+    rating_type: IStringItem[];
+    resources: IStringItem[];
+    speed: IStringItem[];
+    victory: IStringItem[];
+    visibility: IStringItem[];
+}
+
+interface IStringCollection {
+    [key: string]: IStrings;
+}
+
+function getString(category: keyof IStrings, id: number) {
+    return strings[LANGUAGE][category].find(i => i.id === id)?.string;
+}
 
 interface IPlayer {
     civ: number;
@@ -140,38 +173,43 @@ function getCivIcon(civ: number) {
     return civList[civ];
 }
 
+function formatDate(date: Date) {
+    return format(date, 'dd MM yyyy', {locale: de});
+}
+
+function formatAgo(date: Date) {
+    return formatDistanceToNowStrict(date, {locale: de, addSuffix: true});
+}
+
 export function Player({player}: IPlayerProps) {
 
     const boxStyle = StyleSheet.flatten([styles.square, {backgroundColor: getPlayerBackgroundColor(player.color)}]);
 
     return (
             <View style={styles.player}>
-
                 <View style={boxStyle}>
                     <Text>{player.color}</Text>
                 </View>
 
+                <Text style={styles.playerName}> {player.rating}  {player.name}</Text>
 
                 <Image style={styles.civIcon} source={getCivIcon(player.civ)}/>
-
-                <Text>{player.rating} {player.name}</Text>
-
+                <Text> {getString('civ', player.civ)}</Text>
             </View>
     );
 }
 
-export function Game({data}: IGameProps) {
 
+export function Game({data}: IGameProps) {
     const playersInTeam1 = data.players.filter(p => p.team == 1);
     const playersInTeam2 = data.players.filter(p => p.team == 2);
 
     return (
             <View>
-
-                <Text>Team-Zufallskarte</Text>
-                <Text>Arena - 24553459</Text>
-
-                <Text>{data.name}</Text>
+                <Text>{getString('leaderboard', data.leaderboard_id)}</Text>
+                <Text>{getString('map_type', data.map_type)} - {data.match_id} - {data.server}</Text>
+                <Text>{formatAgo(data.started)}</Text>
+                <Text/>
 
                 {
                     playersInTeam1.map((v, i) =>
@@ -193,11 +231,11 @@ export function Game({data}: IGameProps) {
     );
 }
 
+
 function processGameJson(json: ILastMatchRaw): ILastMatch {
     const converted = {
         ...json,
         started: fromUnixTime(json.started),
-        // started: new Date(json.started),
     };
     console.log("started", converted.started);
     console.log("started", format(converted.started, 'MMMM Do', {locale: de}));
@@ -231,25 +269,10 @@ export default function App() {
             <View style={styles.container}>
                 <Text>AoE II Companion</Text>
                 <Text/>
-                <Text>Current game:</Text>
-
                 {
                     data &&
                     <Game data={data}/>
                 }
-
-                {/*{isLoading ? <ActivityIndicator/>:(*/}
-                {/*        <FlatList*/}
-                {/*                data={data}*/}
-                {/*                keyExtractor={({id}, index) => id}*/}
-                {/*                renderItem={({item}: { item: any }) => (*/}
-                {/*                        <Text>{item}</Text>*/}
-                {/*                        // <Text>{item.title}, {item.releaseYear}</Text>*/}
-                {/*                )}*/}
-                {/*        />*/}
-                {/*)}*/}
-
-
             </View>
     );
 }
@@ -267,6 +290,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginRight: 3
     },
+    playerName: {
+      width: 150,
+    },
     civIcon: {
       width: 20,
       height: 20,
@@ -281,6 +307,7 @@ const styles = StyleSheet.create({
         color: 'white',
         width: 30,
         height: 30,
+        margin: 20,
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center'

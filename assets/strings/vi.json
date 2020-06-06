@@ -1,1 +1,793 @@
-{"language":"en","age":[{"id":0,"string":"Standard"},{"id":2,"string":"Dark Age"},{"id":3,"string":"Feudal Age"},{"id":4,"string":"Castle Age"},{"id":5,"string":"Imperial Age"},{"id":6,"string":"Post-Imperial Age"}],"civ":[{"id":0,"string":"Aztecs"},{"id":1,"string":"Berbers"},{"id":2,"string":"Britons"},{"id":3,"string":"Bulgarians"},{"id":4,"string":"Burmese"},{"id":5,"string":"Byzantines"},{"id":6,"string":"Celts"},{"id":7,"string":"Chinese"},{"id":8,"string":"Cumans"},{"id":9,"string":"Ethiopians"},{"id":10,"string":"Franks"},{"id":11,"string":"Goths"},{"id":12,"string":"Huns"},{"id":13,"string":"Incas"},{"id":14,"string":"Indians"},{"id":15,"string":"Italians"},{"id":16,"string":"Japanese"},{"id":17,"string":"Khmer"},{"id":18,"string":"Koreans"},{"id":19,"string":"Lithuanians"},{"id":20,"string":"Magyars"},{"id":21,"string":"Malay"},{"id":22,"string":"Malians"},{"id":23,"string":"Mayans"},{"id":24,"string":"Mongols"},{"id":25,"string":"Persians"},{"id":26,"string":"Portuguese"},{"id":27,"string":"Saracens"},{"id":28,"string":"Slavs"},{"id":29,"string":"Spanish"},{"id":30,"string":"Tatars"},{"id":31,"string":"Teutons"},{"id":32,"string":"Turks"},{"id":33,"string":"Vietnamese"},{"id":34,"string":"Vikings"}],"game_type":[{"id":0,"string":"Random Map"},{"id":1,"string":"Regicide"},{"id":2,"string":"Death Match"},{"id":3,"string":"Scenario"},{"id":6,"string":"King of the Hill"},{"id":7,"string":"Wonder Race"},{"id":8,"string":"Defend the Wonder"},{"id":9,"string":"Turbo Random Map"},{"id":10,"string":"Capture the Relic"},{"id":11,"string":"Sudden Death"},{"id":13,"string":"Empire Wars"}],"leaderboard":[{"id":0,"string":"Unranked"},{"id":1,"string":"1v1 Death Match"},{"id":2,"string":"Team Death Match"},{"id":3,"string":"1v1 Random Map"},{"id":4,"string":"Team Random Map"}],"map_size":[{"id":0,"string":"Tiny (2 player)"},{"id":1,"string":"Small (3 player)"},{"id":2,"string":"Medium (4 player)"},{"id":3,"string":"Normal (6 player)"},{"id":4,"string":"Large (8 player)"},{"id":5,"string":"Giant"},{"id":6,"string":"Ludicrous"}],"map_type":[{"id":9,"string":"Arabia"},{"id":10,"string":"Archipelago"},{"id":11,"string":"Baltic"},{"id":12,"string":"Black Forest"},{"id":13,"string":"Coastal"},{"id":14,"string":"Continental"},{"id":15,"string":"Crater Lake"},{"id":16,"string":"Fortress"},{"id":17,"string":"Gold Rush"},{"id":18,"string":"Highland"},{"id":19,"string":"Islands"},{"id":20,"string":"Mediterranean"},{"id":21,"string":"Migration"},{"id":22,"string":"Rivers"},{"id":23,"string":"Team Islands"},{"id":24,"string":"Full Random"},{"id":25,"string":"Scandinavia"},{"id":26,"string":"Mongolia"},{"id":27,"string":"Yucatan"},{"id":28,"string":"Salt Marsh"},{"id":29,"string":"Arena"},{"id":31,"string":"Oasis"},{"id":32,"string":"Ghost Lake"},{"id":33,"string":"Nomad"},{"id":49,"string":"Iberia"},{"id":50,"string":"Britain"},{"id":51,"string":"Mideast"},{"id":52,"string":"Texas"},{"id":53,"string":"Italy"},{"id":54,"string":"Central America"},{"id":55,"string":"France"},{"id":56,"string":"Norse Lands"},{"id":57,"string":"Sea of Japan (East Sea)"},{"id":58,"string":"Byzantium"},{"id":59,"string":"Custom"},{"id":60,"string":"Random Land Map"},{"id":62,"string":"Random Real World Map"},{"id":63,"string":"Blind Random"},{"id":65,"string":"Random Special Map"},{"id":66,"string":"Random Special Map"},{"id":67,"string":"Acropolis"},{"id":68,"string":"Budapest"},{"id":69,"string":"Cenotes"},{"id":70,"string":"City of Lakes"},{"id":71,"string":"Golden Pit"},{"id":72,"string":"Hideout"},{"id":73,"string":"Hill Fort"},{"id":74,"string":"Lombardia"},{"id":75,"string":"Steppe"},{"id":76,"string":"Valley"},{"id":77,"string":"MegaRandom"},{"id":78,"string":"Hamburger"},{"id":79,"string":"CtR Random"},{"id":80,"string":"CtR Monsoon"},{"id":81,"string":"CtR Pyramid Descent"},{"id":82,"string":"CtR Spiral"},{"id":83,"string":"Kilimanjaro"},{"id":84,"string":"Mountain Pass"},{"id":85,"string":"Nile Delta"},{"id":86,"string":"Serengeti"},{"id":87,"string":"Socotra"},{"id":88,"string":"Amazon"},{"id":89,"string":"China"},{"id":90,"string":"Horn of Africa"},{"id":91,"string":"India"},{"id":92,"string":"Madagascar"},{"id":93,"string":"West Africa"},{"id":94,"string":"Bohemia"},{"id":95,"string":"Earth"},{"id":96,"string":"Canyons"},{"id":97,"string":"Enemy Archipelago"},{"id":98,"string":"Enemy Islands"},{"id":99,"string":"Far Out"},{"id":100,"string":"Front Line"},{"id":101,"string":"Inner Circle"},{"id":102,"string":"Motherland"},{"id":103,"string":"Open Plains"},{"id":104,"string":"Ring of Water"},{"id":105,"string":"Snakepit"},{"id":106,"string":"The Eye"},{"id":107,"string":"Australia"},{"id":108,"string":"Indochina"},{"id":109,"string":"Indonesia"},{"id":110,"string":"Strait of Malacca"},{"id":111,"string":"Philippines"},{"id":112,"string":"Bog Islands"},{"id":113,"string":"Mangrove Jungle"},{"id":114,"string":"Pacific Islands"},{"id":115,"string":"Sandbank"},{"id":116,"string":"Water Nomad"},{"id":117,"string":"Jungle Islands"},{"id":118,"string":"Holy Line"},{"id":119,"string":"Border Stones"},{"id":120,"string":"Yin Yang"},{"id":121,"string":"Jungle Lanes"},{"id":122,"string":"Alpine Lakes"},{"id":123,"string":"Bogland"},{"id":124,"string":"Mountain Ridge"},{"id":125,"string":"Ravines"},{"id":126,"string":"Wolf Hill"},{"id":132,"string":"Antarctica"},{"id":137,"string":"Custom Map Pool"},{"id":139,"string":"Golden Swamp"},{"id":140,"string":"Four Lakes"}],"rating_type":[{"id":0,"string":"Unranked"},{"id":1,"string":"1v1 Death Match"},{"id":2,"string":"1v1 Random Map"},{"id":3,"string":"Team Death Match"},{"id":4,"string":"Team Random Map"}],"resources":[{"id":0,"string":"Standard"},{"id":1,"string":"Low"},{"id":2,"string":"Medium"},{"id":3,"string":"High"},{"id":4,"string":"Ultra High"},{"id":5,"string":"Infinite"},{"id":6,"string":"Random"}],"speed":[{"id":0,"string":"Slow"},{"id":1,"string":"Casual"},{"id":2,"string":"Normal"},{"id":3,"string":"Fast"}],"victory":[{"id":1,"string":"Conquest"},{"id":7,"string":"Time Limit"},{"id":8,"string":"Score"},{"id":9,"string":"Standard"},{"id":11,"string":"Last Man Standing"}],"visibility":[{"id":0,"string":"Normal"},{"id":1,"string":"Explored"},{"id":2,"string":"All Visible"}]}
+{
+    "language": "vi",
+    "age": [
+        {
+            "id": 0,
+            "string": "Tiêu chuẩn"
+        },
+        {
+            "id": 2,
+            "string": "Thời tăm tối"
+        },
+        {
+            "id": 3,
+            "string": "Thời phong kiến"
+        },
+        {
+            "id": 4,
+            "string": "Thời lâu đài"
+        },
+        {
+            "id": 5,
+            "string": "Thời đế quốc"
+        },
+        {
+            "id": 6,
+            "string": "Thời hậu đế quốc"
+        }
+    ],
+    "civ": [
+        {
+            "id": 0,
+            "string": "Aztec"
+        },
+        {
+            "id": 1,
+            "string": "Berber"
+        },
+        {
+            "id": 2,
+            "string": "Briton"
+        },
+        {
+            "id": 3,
+            "string": "Bulgaria"
+        },
+        {
+            "id": 4,
+            "string": "Miến Điện"
+        },
+        {
+            "id": 5,
+            "string": "Đông La Mã"
+        },
+        {
+            "id": 6,
+            "string": "Celt"
+        },
+        {
+            "id": 7,
+            "string": "Trung Quốc"
+        },
+        {
+            "id": 8,
+            "string": "Cuman"
+        },
+        {
+            "id": 9,
+            "string": "Ethiopia"
+        },
+        {
+            "id": 10,
+            "string": "Frank"
+        },
+        {
+            "id": 11,
+            "string": "Goth"
+        },
+        {
+            "id": 12,
+            "string": "Hung"
+        },
+        {
+            "id": 13,
+            "string": "Inca"
+        },
+        {
+            "id": 14,
+            "string": "Ấn Độ"
+        },
+        {
+            "id": 15,
+            "string": "Italy"
+        },
+        {
+            "id": 16,
+            "string": "Nhật Bản"
+        },
+        {
+            "id": 17,
+            "string": "Khmer"
+        },
+        {
+            "id": 18,
+            "string": "Triều Tiên"
+        },
+        {
+            "id": 19,
+            "string": "Litva"
+        },
+        {
+            "id": 20,
+            "string": "Magyar"
+        },
+        {
+            "id": 21,
+            "string": "Mã Lai"
+        },
+        {
+            "id": 22,
+            "string": "Mali"
+        },
+        {
+            "id": 23,
+            "string": "Maya"
+        },
+        {
+            "id": 24,
+            "string": "Mông Cổ"
+        },
+        {
+            "id": 25,
+            "string": "Ba Tư"
+        },
+        {
+            "id": 26,
+            "string": "Bồ Đào Nha"
+        },
+        {
+            "id": 27,
+            "string": "Saracen"
+        },
+        {
+            "id": 28,
+            "string": "Slav"
+        },
+        {
+            "id": 29,
+            "string": "Tây Ban Nha"
+        },
+        {
+            "id": 30,
+            "string": "Tatar"
+        },
+        {
+            "id": 31,
+            "string": "Teuton"
+        },
+        {
+            "id": 32,
+            "string": "Đột Quyết"
+        },
+        {
+            "id": 33,
+            "string": "Đại Việt"
+        },
+        {
+            "id": 34,
+            "string": "Viking"
+        }
+    ],
+    "game_type": [
+        {
+            "id": 0,
+            "string": "Bản đồ ngẫu nhiên"
+        },
+        {
+            "id": 1,
+            "string": "Hành thích"
+        },
+        {
+            "id": 2,
+            "string": "Tử chiến"
+        },
+        {
+            "id": 3,
+            "string": "Bối cảnh"
+        },
+        {
+            "id": 6,
+            "string": "Bá chủ núi đồi"
+        },
+        {
+            "id": 7,
+            "string": "Cuộc đua kỳ quan"
+        },
+        {
+            "id": 8,
+            "string": "Bảo vệ kỳ quan"
+        },
+        {
+            "id": 9,
+            "string": "Bản đồ ngẫu nhiên siêu tốc"
+        },
+        {
+            "id": 10,
+            "string": "Chiếm di vật"
+        },
+        {
+            "id": 11,
+            "string": "Cái chết bất ngờ"
+        },
+        {
+            "id": 13,
+            "string": "Chiến tranh đế quốc"
+        }
+    ],
+    "leaderboard": [
+        {
+            "id": 0,
+            "string": "Không xếp hạng"
+        },
+        {
+            "id": 1,
+            "string": "Tử chiến"
+        },
+        {
+            "id": 2,
+            "string": "Death Match đội"
+        },
+        {
+            "id": 3,
+            "string": "Bản đồ ngẫu nhiên"
+        },
+        {
+            "id": 4,
+            "string": "Bản đồ ngẫu nhiên đội"
+        }
+    ],
+    "map_size": [
+        {
+            "id": 0,
+            "string": "Rất nhỏ (2 người chơi)"
+        },
+        {
+            "id": 1,
+            "string": "Nhỏ (3 người chơi)"
+        },
+        {
+            "id": 2,
+            "string": "Trung bình (4 người chơi)"
+        },
+        {
+            "id": 3,
+            "string": "Bình thường (6 người chơi)"
+        },
+        {
+            "id": 4,
+            "string": "Lớn (8 người chơi)"
+        },
+        {
+            "id": 5,
+            "string": "Khổng lồ"
+        },
+        {
+            "id": 6,
+            "string": "Cực đại"
+        }
+    ],
+    "map_type": [
+        {
+            "id": 9,
+            "string": "Ả-rập"
+        },
+        {
+            "id": 10,
+            "string": "Quần đảo"
+        },
+        {
+            "id": 11,
+            "string": "Baltic"
+        },
+        {
+            "id": 12,
+            "string": "Rừng tối tăm"
+        },
+        {
+            "id": 13,
+            "string": "Bờ biển"
+        },
+        {
+            "id": 14,
+            "string": "Lục địa"
+        },
+        {
+            "id": 15,
+            "string": "Hồ núi lửa"
+        },
+        {
+            "id": 16,
+            "string": "Pháo đài"
+        },
+        {
+            "id": 17,
+            "string": "Cơn sốt vàng"
+        },
+        {
+            "id": 18,
+            "string": "Cao nguyên"
+        },
+        {
+            "id": 19,
+            "string": "Đảo"
+        },
+        {
+            "id": 20,
+            "string": "Địa Trung Hải"
+        },
+        {
+            "id": 21,
+            "string": "Di trú"
+        },
+        {
+            "id": 22,
+            "string": "Sông"
+        },
+        {
+            "id": 23,
+            "string": "Đảo đội"
+        },
+        {
+            "id": 24,
+            "string": "Ngẫu nhiên đầy đủ"
+        },
+        {
+            "id": 25,
+            "string": "Scandinavia"
+        },
+        {
+            "id": 26,
+            "string": "Mông Cổ"
+        },
+        {
+            "id": 27,
+            "string": "Yucatan"
+        },
+        {
+            "id": 28,
+            "string": "Vùng ngập mặn"
+        },
+        {
+            "id": 29,
+            "string": "Đấu trường"
+        },
+        {
+            "id": 31,
+            "string": "Ốc đảo"
+        },
+        {
+            "id": 32,
+            "string": "Hồ ma"
+        },
+        {
+            "id": 33,
+            "string": "Dân du mục"
+        },
+        {
+            "id": 49,
+            "string": "Iberia"
+        },
+        {
+            "id": 50,
+            "string": "Anh quốc"
+        },
+        {
+            "id": 51,
+            "string": "Trung Đông"
+        },
+        {
+            "id": 52,
+            "string": "Texas"
+        },
+        {
+            "id": 53,
+            "string": "Italy"
+        },
+        {
+            "id": 54,
+            "string": "Trung Mỹ"
+        },
+        {
+            "id": 55,
+            "string": "Pháp"
+        },
+        {
+            "id": 56,
+            "string": "Lãnh thổ Bắc Âu"
+        },
+        {
+            "id": 57,
+            "string": "Biển Nhật Bản (Biển Đông Triều Tiên)"
+        },
+        {
+            "id": 58,
+            "string": "Byzantium"
+        },
+        {
+            "id": 59,
+            "string": "Tùy chỉnh"
+        },
+        {
+            "id": 60,
+            "string": "Bản đồ vùng đất ngẫu nhiên"
+        },
+        {
+            "id": 62,
+            "string": "Bản đồ thế giới thực ngẫu nhiên"
+        },
+        {
+            "id": 63,
+            "string": "Ngẫu nhiên mờ mịt"
+        },
+        {
+            "id": 65,
+            "string": "Bản đồ đặc biệt ngẫu nhiên"
+        },
+        {
+            "id": 66,
+            "string": "Bản đồ đặc biệt ngẫu nhiên"
+        },
+        {
+            "id": 67,
+            "string": "Vệ thành"
+        },
+        {
+            "id": 68,
+            "string": "Budapest"
+        },
+        {
+            "id": 69,
+            "string": "Hố sụt"
+        },
+        {
+            "id": 70,
+            "string": "Thành phố hồ"
+        },
+        {
+            "id": 71,
+            "string": "Hầm vàng"
+        },
+        {
+            "id": 72,
+            "string": "Chỗ trú ẩn"
+        },
+        {
+            "id": 73,
+            "string": "Hào lũy trên đồi"
+        },
+        {
+            "id": 74,
+            "string": "Lombardia"
+        },
+        {
+            "id": 75,
+            "string": "Thảo nguyên"
+        },
+        {
+            "id": 76,
+            "string": "Thung lũng"
+        },
+        {
+            "id": 77,
+            "string": "Cực kỳ ngẫu nhiên"
+        },
+        {
+            "id": 78,
+            "string": "Hamburger"
+        },
+        {
+            "id": 79,
+            "string": "Chiếm di vật – Ngẫu nhiên"
+        },
+        {
+            "id": 80,
+            "string": "Chiếm di vật – Gió mùa"
+        },
+        {
+            "id": 81,
+            "string": "Chiếm di vật – Leo xuống Kim tự tháp"
+        },
+        {
+            "id": 82,
+            "string": "Chiếm di vật – Đường xoắn ốc"
+        },
+        {
+            "id": 83,
+            "string": "Kilimanjaro"
+        },
+        {
+            "id": 84,
+            "string": "Sơn đạo"
+        },
+        {
+            "id": 85,
+            "string": "Đồng bằng sông Nile"
+        },
+        {
+            "id": 86,
+            "string": "Serengeti"
+        },
+        {
+            "id": 87,
+            "string": "Socotra"
+        },
+        {
+            "id": 88,
+            "string": "Amazon"
+        },
+        {
+            "id": 89,
+            "string": "Trung Hoa"
+        },
+        {
+            "id": 90,
+            "string": "Sừng châu Phi"
+        },
+        {
+            "id": 91,
+            "string": "Ấn Độ"
+        },
+        {
+            "id": 92,
+            "string": "Madagascar"
+        },
+        {
+            "id": 93,
+            "string": "Tây Phi"
+        },
+        {
+            "id": 94,
+            "string": "Bohemia"
+        },
+        {
+            "id": 95,
+            "string": "Trái Đất"
+        },
+        {
+            "id": 96,
+            "string": "Hẻm núi"
+        },
+        {
+            "id": 97,
+            "string": "Quần đảo của kẻ thù"
+        },
+        {
+            "id": 98,
+            "string": "Đảo của kẻ thù"
+        },
+        {
+            "id": 99,
+            "string": "Dàn trải"
+        },
+        {
+            "id": 100,
+            "string": "Tiền tuyến"
+        },
+        {
+            "id": 101,
+            "string": "Vòng tròn bên trong"
+        },
+        {
+            "id": 102,
+            "string": "Đất mẹ"
+        },
+        {
+            "id": 103,
+            "string": "Đồng bằng trống trải"
+        },
+        {
+            "id": 104,
+            "string": "Vành đai nước"
+        },
+        {
+            "id": 105,
+            "string": "Hang rắn"
+        },
+        {
+            "id": 106,
+            "string": "Con mắt"
+        },
+        {
+            "id": 107,
+            "string": "Australia"
+        },
+        {
+            "id": 108,
+            "string": "Đông Dương"
+        },
+        {
+            "id": 109,
+            "string": "Indonesia"
+        },
+        {
+            "id": 110,
+            "string": "Eo biển Malacca"
+        },
+        {
+            "id": 111,
+            "string": "Philippines"
+        },
+        {
+            "id": 112,
+            "string": "Đảo đầm lầy"
+        },
+        {
+            "id": 113,
+            "string": "Rừng đước"
+        },
+        {
+            "id": 114,
+            "string": "Đảo Thái Bình Dương"
+        },
+        {
+            "id": 115,
+            "string": "Bãi cát"
+        },
+        {
+            "id": 116,
+            "string": "Thời tiền sử trên mặt nước"
+        },
+        {
+            "id": 117,
+            "string": "Đảo rừng rậm"
+        },
+        {
+            "id": 118,
+            "string": "Ranh giới linh thiêng"
+        },
+        {
+            "id": 119,
+            "string": "Biên giới đá"
+        },
+        {
+            "id": 120,
+            "string": "Âm dương"
+        },
+        {
+            "id": 121,
+            "string": "Đường rừng"
+        },
+        {
+            "id": 122,
+            "string": "Hồ trên núi"
+        },
+        {
+            "id": 123,
+            "string": "Bãi lầy"
+        },
+        {
+            "id": 124,
+            "string": "Đỉnh núi"
+        },
+        {
+            "id": 125,
+            "string": "Hẻm núi"
+        },
+        {
+            "id": 126,
+            "string": "Lang Sơn"
+        },
+        {
+            "id": 132,
+            "string": "Nam Cực"
+        },
+        {
+            "id": 137,
+            "string": "Nhóm bản đồ tùy chỉnh"
+        },
+        {
+            "id": 139,
+            "string": "Golden Swamp"
+        },
+        {
+            "id": 140,
+            "string": "Four Lakes"
+        }
+    ],
+    "rating_type": [
+        {
+            "id": 0,
+            "string": "Không xếp hạng"
+        },
+        {
+            "id": 1,
+            "string": "Tử chiến"
+        },
+        {
+            "id": 2,
+            "string": "Bản đồ ngẫu nhiên"
+        },
+        {
+            "id": 3,
+            "string": "Death Match đội"
+        },
+        {
+            "id": 4,
+            "string": "Bản đồ ngẫu nhiên đội"
+        }
+    ],
+    "resources": [
+        {
+            "id": 0,
+            "string": "Tiêu chuẩn"
+        },
+        {
+            "id": 1,
+            "string": "Thấp"
+        },
+        {
+            "id": 2,
+            "string": "Trung bình"
+        },
+        {
+            "id": 3,
+            "string": "Cao"
+        },
+        {
+            "id": 4,
+            "string": "Ultra High"
+        },
+        {
+            "id": 5,
+            "string": "Infinite"
+        },
+        {
+            "id": 6,
+            "string": "Ngẫu nhiên"
+        }
+    ],
+    "speed": [
+        {
+            "id": 0,
+            "string": "Chậm"
+        },
+        {
+            "id": 1,
+            "string": "Thông thường"
+        },
+        {
+            "id": 2,
+            "string": "Bình thường"
+        },
+        {
+            "id": 3,
+            "string": "Nhanh"
+        }
+    ],
+    "victory": [
+        {
+            "id": 1,
+            "string": "Chinh phục"
+        },
+        {
+            "id": 7,
+            "string": "Thời gian giới hạn"
+        },
+        {
+            "id": 8,
+            "string": "Điểm số"
+        },
+        {
+            "id": 9,
+            "string": "Tiêu chuẩn"
+        },
+        {
+            "id": 11,
+            "string": "Kẻ cuối cùng trụ lại"
+        }
+    ],
+    "visibility": [
+        {
+            "id": 0,
+            "string": "Bình thường"
+        },
+        {
+            "id": 1,
+            "string": "Đã thăm dò"
+        },
+        {
+            "id": 2,
+            "string": "Nhìn thấy tất cả"
+        }
+    ]
+}

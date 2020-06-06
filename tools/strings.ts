@@ -10,19 +10,13 @@ function sleep(ms: number) {
 
 async function loadStringsForLanguage(language: string) {
     const filePath = path.resolve(__dirname, '..', 'assets', 'strings', language + '.json');
-    const writer = fs.createWriteStream(filePath);
     const response = await axios({
         method: 'GET',
         url: `https://aoe2.net/api/strings?game=aoe2de&language=${language}`,
-        responseType: 'stream',
     });
 
-    response.data.pipe(writer);
-
-    return new Promise((resolve, reject) => {
-        writer.on('finish', resolve)
-        writer.on('error', reject)
-    });
+    const json = response.data;
+    fs.writeFileSync(filePath, JSON.stringify(json, null, 4));
 }
 
 async function loadStrings() {
