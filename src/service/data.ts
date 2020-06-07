@@ -19,12 +19,12 @@ interface IPlayer {
     won: any;
 }
 
-interface ILastMatchRaw {
+interface IMatchRaw {
     average_rating: any;
     cheats: boolean;
     ending_age: number;
     expansion: any;
-    finished: number;
+    finished: any;
     full_tech_tree: boolean;
     game_type: any;
     has_custom_content: any;
@@ -63,8 +63,10 @@ interface ILastMatchRaw {
     visibility: any;
 }
 
-interface ILastMatch extends ILastMatchRaw {
+interface IMatch extends IMatchRaw {
     started: Date;
+    opened: Date;
+    finished: Date;
 }
 
 

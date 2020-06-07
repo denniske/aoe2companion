@@ -8,13 +8,30 @@ import { createStackNavigator, HeaderBackground } from '@react-navigation/stack'
 import { Provider as PaperProvider } from 'react-native-paper';
 import Header from './src/view/header';
 import Constants from 'expo-constants';
-import { BlurView } from 'expo/build/removed.web';
+import { parseUserId, printUserId } from './src/service/user';
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
 export type RootStackParamList = {
     Main: undefined;
+    Profile: { steam_id: string, name: string };
     Name: { name: string };
+};
+
+const linking = {
+    prefixes: ['https://aoe2companion.com', 'aoe2companion://'],
+    config: {
+        Profile: {
+            path: 'profile/:id/:name',
+            parse: {
+                id: parseUserId,
+                name: String,
+            },
+            stringify: {
+                id: printUserId,
+            },
+        },
+    },
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -24,36 +41,29 @@ const headerStatusBarHeight = 60;
 export default function App() {
     return (
             <PaperProvider>
-                <NavigationContainer>
-                    {/*<View style={styles.header}>*/}
-                    {/*    <Image style={styles.icon} source={require('./assets/icon.png')}/>*/}
-                    {/*    <Text>AoE II Companion</Text>*/}
-                    {/*</View>*/}
+                <NavigationContainer linking={linking}>
                     <Stack.Navigator screenOptions={{animationEnabled: false}}>
                         <Stack.Screen
                                 name="Main"
                                 component={MainPage}
                                 options={{
-                                    // title: 'asdas',
-                                    // headerTransparent: true,
-                                    // headerBackground: () => (
-                                    //         <BlurView tint="light" intensity={100} style={StyleSheet.absoluteFill} />
-                                    // ),
+                                    title: 'Me',
                                     headerStatusBarHeight: headerStatusBarHeight,
                                     headerBackground: () => (
                                             <HeaderBackground><Header/></HeaderBackground>
                                     ),
-                                    // headerTitle: props => <Header {...props} />,
-
-                                    // headerStyle: styles.header,
-                                    // headerRight: () => (
-                                    //         <Button
-                                    //                 onPress={() => alert('This is a button!')}
-                                    //                 title="Info"
-                                    //                 color="#fff"
-                                    //         />
-                                    // ),
                                 }}
+                        />
+                        <Stack.Screen
+                                name="Profile"
+                                component={NamePage}
+                                options={({route}) => ({
+                                    title: route.params.name,
+                                    headerStatusBarHeight: headerStatusBarHeight,
+                                    headerBackground: () => (
+                                            <HeaderBackground><Header/></HeaderBackground>
+                                    ),
+                                })}
                         />
                         <Stack.Screen
                                 name="Name"
@@ -68,8 +78,6 @@ export default function App() {
                     </Stack.Navigator>
                 </NavigationContainer>
             </PaperProvider>
-            // <NamePage/>
-            // <Main/>
     );
 }
 

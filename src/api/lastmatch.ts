@@ -1,10 +1,12 @@
 const fromUnixTime = require('date-fns/fromUnixTime');
 
 
-function convertTimestampsToDates(json: ILastMatchRaw): ILastMatch {
+function convertTimestampsToDates(json: IMatchRaw): IMatch {
     return {
         ...json,
         started: fromUnixTime(json.started),
+        finished: fromUnixTime(json.finished),
+        opened: fromUnixTime(json.opened),
     };
 }
 

@@ -7,7 +7,7 @@ import { formatAgo } from '../service/util';
 import Constants from 'expo-constants';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../App';
-import { RouteProp } from '@react-navigation/native';
+import { Link, RouteProp } from '@react-navigation/native';
 
 interface IPlayerProps {
     player: ILeaderboardPlayer;
@@ -69,7 +69,7 @@ export default function NamePage({navigation, route}: Props) {
     }, [text]);
 
     return (
-            <SafeAreaView style={styles.container}>
+            <View style={styles.container}>
                 <Text>Enter your AoE username to track your games:</Text>
 
                 <TextInput
@@ -102,7 +102,7 @@ export default function NamePage({navigation, route}: Props) {
                 {/*    )*/}
                 {/*}*/}
 
-            </SafeAreaView>
+            </View>
     );
 }
 
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
         // borderBottomWidth: 1,
     },
     container: {
-        marginTop: Constants.statusBarHeight,
+        paddingTop: 20,
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Image, Picker, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { Button, FlatList, Image, Modal, Picker, SafeAreaView, ScrollView, StyleSheet, Text, TextStyle, TouchableHighlight, View } from 'react-native';
 import { formatAgo } from '../service/util';
 import { getCivIcon } from '../service/civs';
 import { getPlayerBackgroundColor } from '../service/colors';
@@ -7,28 +7,73 @@ import { fetchLastMatch } from '../api/lastmatch';
 import { getString } from '../service/strings';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../App';
-import { RouteProp } from '@react-navigation/native';
+import { Link, RouteProp } from '@react-navigation/native';
 import Header from './header';
 import Constants from 'expo-constants';
+import { printUserId } from '../service/user';
+import { fetchMatches } from '../api/matches';
+import { AppSettings } from '../service/constants';
 
 interface IPlayerProps {
     player: IPlayer;
 }
 
 interface IGameProps {
-    data: ILastMatch;
+    data: IMatch;
 }
 
 export function Player({player}: IPlayerProps) {
+    const [modalVisible, setModalVisible] = useState(false);
+
     const boxStyle = StyleSheet.flatten([styles.square, {backgroundColor: getPlayerBackgroundColor(player.color)}]);
+
+    const isCurrentPlayer = player.steam_id === AppSettings.steam_id || player.profile_id === AppSettings.profile_id;
+    const playerNameStyle = StyleSheet.flatten([styles.playerName, {textDecorationLine: isCurrentPlayer ? 'underline':'none'}]) as TextStyle;
+    // const playerNameStyle = StyleSheet.flatten([styles.playerName, {fontWeight: isCurrentPlayer ? 'bold':'normal'}]) as TextStyle;
+
+    const openRatingModal = () => {
+        setModalVisible(true);
+    };
 
     return (
             <View style={styles.player}>
+
+                <Modal
+                        animationType="none"
+                        transparent={true}
+                        visible={modalVisible}
+                        onRequestClose={() => {
+                            alert("Modal has been closed.");
+                        }}
+                >
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            <Text style={styles.modalText}>Rating Graph</Text>
+
+                            <TouchableHighlight
+                                    style={{...styles.openButton, backgroundColor: "#2196F3"}}
+                                    onPress={() => {
+                                        setModalVisible(!modalVisible);
+                                    }}
+                            >
+                                <Text style={styles.textStyle}>Hide Modal</Text>
+                            </TouchableHighlight>
+                        </View>
+                    </View>
+                </Modal>
+                <Text style={styles.playerWon}>{player.won ? '👑':''}</Text>
+
                 <View style={boxStyle}>
                     <Text>{player.color}</Text>
                 </View>
 
-                <Text style={styles.playerName}> {player.rating} {player.name}</Text>
+                <TouchableHighlight onPress={openRatingModal} underlayColor="white">
+                    <Text style={styles.playerRating}>{player.rating}</Text>
+                </TouchableHighlight>
+
+
+                <Link to={'/profile/' + printUserId(player) + '/' + player.name} style={playerNameStyle}>{player.name}</Link>
+
 
                 <Image style={styles.civIcon} source={getCivIcon(player.civ)}/>
                 <Text> {getString('civ', player.civ)}</Text>
@@ -42,9 +87,10 @@ export function Game({data}: IGameProps) {
 
     return (
             <View>
+                <Text style={styles.matchTitle}>{getString('map_type', data.map_type)} - {data.match_id} - {data.server}</Text>
                 <Text>{getString('leaderboard', data.leaderboard_id)}</Text>
-                <Text>{getString('map_type', data.map_type)} - {data.match_id} - {data.server}</Text>
-                <Text>{formatAgo(data.started)}</Text>
+                <Text>{data.started ? formatAgo(data.started):'none'}</Text>
+
                 <Text/>
 
                 {
@@ -62,6 +108,8 @@ export function Game({data}: IGameProps) {
                             <Player key={playersInTeam2[i].profile_id} player={playersInTeam2[i]}/>
                     )
                 }
+                <Text/>
+                <Text/>
             </View>
     );
 }
@@ -75,15 +123,17 @@ export default function MainPage({navigation}: Props) {
 
     console.log("navigation1", navigation);
 
-    const [isLoading, setLoading] = useState(true);
-    const [data, setData] = useState(null as unknown as ILastMatch);
+    const [loading, setLoading] = useState(true);
+    const [data, setData] = useState(null as unknown as IMatch[]);
 
     const game = 'aoe2de';
     const steam_id = '76561197995781128';
     const profile_id = '209525';
 
     const loadData = async () => {
-        const lastMatch = await fetchLastMatch(game, profile_id);
+        setLoading(true);
+        // const lastMatch = await fetchLastMatch(game, profile_id);
+        const lastMatch = await fetchMatches(game, profile_id, 0, 10);
         setData(lastMatch);
         setLoading(false);
     };
@@ -93,34 +143,36 @@ export default function MainPage({navigation}: Props) {
     }, []);
 
     return (
-            <SafeAreaView style={styles.container}>
+            <View style={styles.container}>
 
-                {/*<Header/>*/}
+                {/*<ScrollView>*/}
+                    <View style={styles.content}>
 
-                <View style={styles.content}>
-                    <Text/>
-                    <Button
-                            title="Go to Jane's profile"
-                            onPress={() =>
-                                    navigation.navigate('Name', {name: 'Jane'})
-                            }
-                    />
 
-                    <Text/>
 
-                    <Text>AoE II Companion</Text>
-                    <Text/>
-                    {
-                        data &&
-                        <Game data={data}/>
-                    }
-                </View>
 
-            </SafeAreaView>
+
+                        {
+                            data &&
+                            <FlatList
+                                    // onRefresh={loadData}
+                                    // refreshing={loading}
+                                data={data}
+                                renderItem={({item}) => <Game data={item}/>}
+                                keyExtractor={(item, index) => index.toString()}
+                            />
+                        }
+                    </View>
+                {/*</ScrollView>*/}
+
+            </View>
     );
 }
 
 const styles = StyleSheet.create({
+    matchTitle: {
+        fontWeight: 'bold',
+    },
     square: {
         flexGrow: 0,
         width: 20,
@@ -133,8 +185,18 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginRight: 3
     },
+    playerWon: {
+        // marginLeft: 5,
+        width: 25,
+    },
+    playerRating: {
+        marginLeft: 5,
+        width: 35,
+        // textDecorationLine: 'underline',
+    },
     playerName: {
-        width: 150,
+        marginLeft: 5,
+        width: 140,
     },
     civIcon: {
         width: 20,
@@ -148,18 +210,19 @@ const styles = StyleSheet.create({
         borderRadius: 10000,
         backgroundColor: 'grey',
         color: 'white',
-        width: 30,
-        height: 30,
-        margin: 20,
+        width: 25,
+        height: 25,
+        margin: 10,
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center'
     },
     versusText: {
         color: 'white',
+        fontSize: 12,
     },
     container: {
-        marginTop: Constants.statusBarHeight,
+        paddingTop: 20,
         flex: 1,
         backgroundColor: '#fff',
         // alignItems: 'center',
@@ -169,4 +232,40 @@ const styles = StyleSheet.create({
         flex: 1,
         alignSelf: 'center',
     },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 10,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
+    },
+    openButton: {
+        backgroundColor: "#F194FF",
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2
+    },
+    textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center"
+    }
 });
