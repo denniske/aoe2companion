@@ -72,7 +72,7 @@ export default function Rating({steam_id, profile_id}: IRatingProps) {
         '#6188C1',
         '#8970AE',
     ];
-    // {left: 50, top: 50}
+
     return (
             <View style={styles.container}>
                 {
