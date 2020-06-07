@@ -59,7 +59,7 @@ export default function NamePage({navigation, route}: Props) {
     // const search = 'rogge';
 
     const loadData = async () => {
-        const leaderboard = await fetchLeaderboard(game, leaderboard_id, text, 50);
+        const leaderboard = await fetchLeaderboard(game, leaderboard_id, { count: 50, search: text });
         setData(leaderboard);
         setLoading(false);
     };
