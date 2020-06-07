@@ -70,11 +70,6 @@ export default function NamePage({navigation, route}: Props) {
 
     return (
             <SafeAreaView style={styles.container}>
-                <View style={styles.header}>
-                    <Image style={styles.icon} source={require('../../assets/icon.png')}/>
-                    <Text>AoE II Companion</Text>
-                </View>
-
                 <Text>Enter your AoE username to track your games:</Text>
 
                 <TextInput
@@ -91,13 +86,6 @@ export default function NamePage({navigation, route}: Props) {
                     <Text style={styles.cellGames}>Games</Text>
                     <Text style={styles.cellLastMatch}>Last Match</Text>
                 </View>
-
-
-                {/*<TouchableOpacity onPress={_onPressButton}>*/}
-                {/*    <View style={styles.button}>*/}
-                {/*        <Text style={styles.buttonText}>TouchableOpacity</Text>*/}
-                {/*    </View>*/}
-                {/*</TouchableOpacity>*/}
 
                 {
                     data &&
@@ -129,15 +117,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         padding: 20,
         color: 'white'
-    },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        margin: 10,
-    },
-    icon: {
-        width: 30,
-        height: 30,
     },
     cellRating: {
         width: 40,

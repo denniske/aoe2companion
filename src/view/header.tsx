@@ -1,5 +1,6 @@
-import { Picker, StyleSheet, View } from 'react-native';
+import { Image, Picker, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
+import Constants from 'expo-constants';
 
 
 export default function Header() {
@@ -8,35 +9,29 @@ export default function Header() {
 
     return (
             <View style={styles.container}>
-                <Picker
-                        selectedValue={game}
-                        mode={'dropdown'}
-                        style={{height: 50, width: 130}}
-                        onValueChange={(itemValue, itemIndex) =>
-                                setGame(itemValue)
-                        }>
-                    <Picker.Item label="AoE2:DE" value="aoe2de" />
-                    <Picker.Item label="AoE2:HD" value="aoe2hd" />
-                </Picker>
-                <Picker
-                        selectedValue={view}
-                        style={{height: 50, width: 160}}
-                        onValueChange={(itemValue, itemIndex) =>
-                                setView(itemValue)
-                        }>
-                    <Picker.Item label="Leaderboard Team Random Map" value="leaderboard" />
-                    <Picker.Item label="My Matches" value="my-matches" />
-                </Picker>
+                <View style={styles.header}>
+                    <Image style={styles.icon} source={require('../../assets/icon.png')}/>
+                    <Text>AoE II Companion</Text>
+                </View>
             </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 0,
+    header: {
         flexDirection: 'row',
-        backgroundColor: '#f00',
-        // alignItems: 'center',
+        alignItems: 'center',
+        margin: 10,
+    },
+    icon: {
+        width: 30,
+        height: 30,
+    },
+    container: {
+        marginTop: Constants.statusBarHeight,
+        flex: 1,
+        // backgroundColor: '#f00',
+        alignItems: 'center',
         // justifyContent: 'center',
     },
 });
