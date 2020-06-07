@@ -13,6 +13,8 @@ import Constants from 'expo-constants';
 import { printUserId } from '../service/user';
 import { fetchMatches } from '../api/matches';
 import { AppSettings } from '../service/constants';
+import { fetchLeaderboard } from '../api/leaderboard';
+import Profile, { IProfile } from './profile';
 
 interface IPlayerProps {
     player: IPlayer;
@@ -114,6 +116,8 @@ export function Game({data}: IGameProps) {
     );
 }
 
+
+
 type Props = {
     navigation: StackNavigationProp<RootStackParamList, 'Main'>;
     route: RouteProp<RootStackParamList, 'Main'>;
@@ -126,9 +130,12 @@ export default function MainPage({navigation}: Props) {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState(null as unknown as IMatch[]);
 
+    const [loadingProfile, setLoadingProfile] = useState(true);
+    const [profile, setProfile] = useState(null as unknown as IProfile);
+
     const game = 'aoe2de';
     const steam_id = '76561197995781128';
-    const profile_id = '209525';
+    const profile_id = 209525;
 
     const loadData = async () => {
         setLoading(true);
@@ -138,8 +145,39 @@ export default function MainPage({navigation}: Props) {
         setLoading(false);
     };
 
+    const loadProfile = async () => {
+        setLoadingProfile(true);
+
+        let leaderboards = await Promise.all([
+            fetchLeaderboard(game, '0', { count: 1, profile_id }),
+            fetchLeaderboard(game, '1', { count: 1, profile_id }),
+            fetchLeaderboard(game, '2', { count: 1, profile_id }),
+            fetchLeaderboard(game, '3', { count: 1, profile_id }),
+            fetchLeaderboard(game, '4', { count: 1, profile_id }),
+        ]);
+
+        const leaderboardInfos = leaderboards.flatMap(l => l.leaderboard);
+        leaderboardInfos.sort((a, b) => b.last_match.getTime() - a.last_match.getTime());
+        const mostRecentLeaderboard = leaderboardInfos[0];
+
+        setProfile({
+            clan: mostRecentLeaderboard.clan,
+            country: mostRecentLeaderboard.country,
+            icon: mostRecentLeaderboard.icon,
+            name: mostRecentLeaderboard.name,
+            profile_id: mostRecentLeaderboard.profile_id,
+            steam_id: mostRecentLeaderboard.steam_id,
+            games: leaderboardInfos.map(l => l.games).reduce((pv, cv) => pv + cv, 0),
+            drops: leaderboardInfos.map(l => l.drops).reduce((pv, cv) => pv + cv, 0),
+            leaderboards: leaderboards,
+        });
+
+        setLoadingProfile(false);
+    };
+
     useEffect(() => {
         loadData();
+        loadProfile();
     }, []);
 
     return (
@@ -148,9 +186,10 @@ export default function MainPage({navigation}: Props) {
                 {/*<ScrollView>*/}
                     <View style={styles.content}>
 
-
-
-
+                        {
+                            profile &&
+                            <Profile data={profile} />
+                        }
 
                         {
                             data &&

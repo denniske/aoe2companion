@@ -1,3 +1,5 @@
+import { makeQueryString } from '../service/util';
+
 const fromUnixTime = require('date-fns/fromUnixTime');
 
 
@@ -11,8 +13,21 @@ function convertTimestampsToDates(leaderboardRaw: ILeaderboardRaw): ILeaderboard
     };
 }
 
-export async function fetchLeaderboard(game: string, leaderboard_id : string, search: string, count: number) {
-    const response = await fetch(`https://aoe2.net/api/leaderboard?game=${game}&leaderboard_id=${leaderboard_id}&search=${search}&count=${count}`)
+export interface IFetchLeaderboardParams {
+    count: number;
+    search?: string;
+    steam_id?: string;
+    profile_id?: number;
+}
+
+
+export async function fetchLeaderboard(game: string, leaderboard_id: string, params: IFetchLeaderboardParams) {
+    const queryString = makeQueryString({
+        game,
+        leaderboard_id,
+        ...params,
+    });
+    const response = await fetch(`https://aoe2.net/api/leaderboard?${queryString}`);
     const json = await response.json();
     console.log("response.json()", json);
 

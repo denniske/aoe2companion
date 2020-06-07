@@ -11,7 +11,7 @@ function convertTimestampsToDates(json: IMatchRaw): IMatch {
 }
 
 
-export async function fetchMatches(game: string, profile_id: string, start: number, count: number) {
+export async function fetchMatches(game: string, profile_id: number, start: number, count: number) {
     const response = await fetch(`https://aoe2.net/api/player/matches?game=${game}&profile_id=${profile_id}&start=${start}&count=${count}`)
     const json = await response.json() as IMatchRaw[];
     console.log("response.json()", json);

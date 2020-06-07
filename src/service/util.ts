@@ -8,3 +8,18 @@ export function formatDate(date: Date) {
 export function formatAgo(date: Date) {
     return formatDistanceToNowStrict(date, {locale: de, addSuffix: true});
 }
+
+interface IParams {
+    [key: string]: any;
+}
+
+export function makeQueryString(params: IParams) {
+    return Object.keys(params)
+            .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+            .join('&');
+}
+
+export function getLeaderboardAbbr(leaderboard_id: number) {
+    const abbreviations = ['U', 'DM', 'DM (Team)', 'RM', 'RM (Team)'];
+    return abbreviations[leaderboard_id];
+}
