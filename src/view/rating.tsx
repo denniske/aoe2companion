@@ -1,8 +1,9 @@
 import { StyleSheet, View, Text } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { fetchRatingHistory } from '../api/rating-history';
-import { VictoryBar, VictoryChart, VictoryTheme, VictoryLine, VictoryScatter, VictoryLegend } from "victory-native";
+import { VictoryChart, VictoryTheme, VictoryLine, VictoryScatter } from "victory-native";
 import { getLeaderboardAbbr } from '../service/util';
+import ContentLoader, { Rect, Circle } from 'react-content-loader/native'
 
 interface IRatingHistoryRow {
     leaderboard_id: number;
@@ -14,15 +15,25 @@ interface IRatingProps {
     profile_id: number;
 }
 
+const MyLoader = () => {
+    const parts = Array(5).fill(0);
+    return (
+        <ContentLoader viewBox="0 0 350 380" width={350} height={367}>
+            <Rect x="0" y="0" rx="3" ry="3" width="350" height="340" />
+            {
+                parts.map((part, i) => (
+                    <Rect key={i} x={i* 73} y="360" rx="3" ry="3" width="60" height="20" />
+                ))
+            }
+        </ContentLoader>
+)}
+
 export default function Rating({steam_id, profile_id}: IRatingProps) {
 
     const [loading, setLoading] = useState(true);
     const [ratingHistories, setRatingHistories] = useState(null as unknown as IRatingHistoryRow[]);
 
     const game = 'aoe2de';
-    // const steam_id = '76561198081486543';
-    // const steam_id = '76561197995781128';
-    // const profile_id = 209525;
 
     console.log("render rating");
 
@@ -46,8 +57,6 @@ export default function Rating({steam_id, profile_id}: IRatingProps) {
 
         ratingHistoryRows = ratingHistoryRows.filter(rh => rh.data?.length);
 
-        // console.log("ratingHistoryRows", ratingHistoryRows);
-
         setRatingHistories(ratingHistoryRows);
         setLoading(false);
     };
@@ -63,16 +72,16 @@ export default function Rating({steam_id, profile_id}: IRatingProps) {
         '#6188C1',
         '#8970AE',
     ];
-
+    // {left: 50, top: 50}
     return (
             <View style={styles.container}>
                 {
                     !ratingHistories &&
-                    <Text>Loading</Text>
+                    <MyLoader/>
                 }
                 {
                     ratingHistories &&
-                    <VictoryChart width={350} theme={VictoryTheme.material}>
+                    <VictoryChart width={350} height={350} theme={VictoryTheme.material} padding={{left: 50, bottom: 50, top: 15, right: 25}}>
                         {
                             ratingHistories.map(ratingHistory => (
                                     <VictoryLine
@@ -85,7 +94,6 @@ export default function Rating({steam_id, profile_id}: IRatingProps) {
                                     />
                             ))
                         }
-
                         {
                             ratingHistories.map(ratingHistory => (
                                     <VictoryScatter
@@ -116,8 +124,6 @@ export default function Rating({steam_id, profile_id}: IRatingProps) {
                     ))
                 }
                 </View>
-
-                {/*<Text>{ratingHistories?.length}</Text>*/}
             </View>
     )
 }
@@ -125,7 +131,7 @@ export default function Rating({steam_id, profile_id}: IRatingProps) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'green'
+        // backgroundColor: 'green'
     },
     legend: {
         flexDirection: 'row',
