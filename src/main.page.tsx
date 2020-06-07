@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Button, Image, StyleSheet, Text, View } from 'react-native';
 import { formatAgo } from './util';
 import { getCivIcon } from './civs';
 import { getPlayerBackgroundColor } from './colors';
 import { fetchLastMatch } from './api/lastmatch';
 import { getString } from './strings';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../App';
+import { RouteProp } from '@react-navigation/native';
 
 interface IPlayerProps {
     player: IPlayer;
@@ -23,7 +26,7 @@ export function Player({player}: IPlayerProps) {
                     <Text>{player.color}</Text>
                 </View>
 
-                <Text style={styles.playerName}> {player.rating}  {player.name}</Text>
+                <Text style={styles.playerName}> {player.rating} {player.name}</Text>
 
                 <Image style={styles.civIcon} source={getCivIcon(player.civ)}/>
                 <Text> {getString('civ', player.civ)}</Text>
@@ -61,7 +64,15 @@ export function Game({data}: IGameProps) {
     );
 }
 
-export default function Main({ navigation } : any) {
+type Props = {
+    navigation: StackNavigationProp<RootStackParamList, 'Main'>;
+    route: RouteProp<RootStackParamList, 'Main'>;
+};
+
+export default function MainPage({navigation}: Props) {
+
+    console.log("navigation1", navigation);
+
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState(null as unknown as ILastMatch);
 
@@ -82,12 +93,12 @@ export default function Main({ navigation } : any) {
     return (
             <View style={styles.container}>
 
-                {/*<Button*/}
-                {/*title="Go to Jane's profile"*/}
-                {/*onPress={() =>*/}
-                {/*        navigation.navigate('Profile', { name: 'Jane' })*/}
-                {/*}*/}
-                {/*/>*/}
+                <Button
+                        title="Go to Jane's profile"
+                        onPress={() =>
+                                navigation.navigate('Name', {name: 'Jane'})
+                        }
+                />
 
                 <Text>AoE II Companion</Text>
                 <Text/>
@@ -113,11 +124,11 @@ const styles = StyleSheet.create({
         marginRight: 3
     },
     playerName: {
-      width: 150,
+        width: 150,
     },
     civIcon: {
-      width: 20,
-      height: 20,
+        width: 20,
+        height: 20,
     },
     player: {
         flexDirection: 'row',

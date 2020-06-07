@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { fetchLastMatch } from './api/lastmatch';
 import { Button, FlatList, Image, SafeAreaView, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
-import { Game } from './main';
+import { Game } from './main.page';
 import { fetchLeaderboard } from './api/leaderboard';
 import { formatAgo } from './util';
 import Constants from 'expo-constants';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../App';
+import { RouteProp } from '@react-navigation/native';
 
 interface IPlayerProps {
     player: ILeaderboardPlayer;
@@ -37,9 +40,15 @@ function Player({player}: IPlayerProps) {
     )
 }
 
-// <Text>{player.rating} {player.country} {player.name} {player.games}</Text>
 
-export default function NamePage() {
+type Props = {
+    navigation: StackNavigationProp<RootStackParamList, 'Name'>;
+    route: RouteProp<RootStackParamList, 'Name'>;
+};
+
+export default function NamePage({navigation, route}: Props) {
+    console.log("navigation2", navigation);
+    console.log("route2", route);
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState(null as unknown as ILeaderboard);
     const [text, setText] = useState('rogge');
