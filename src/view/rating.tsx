@@ -81,7 +81,7 @@ export default function Rating({steam_id, profile_id}: IRatingProps) {
                 }
                 {
                     ratingHistories &&
-                    <VictoryChart width={350} height={350} theme={VictoryTheme.material} padding={{left: 50, bottom: 50, top: 15, right: 25}}>
+                    <VictoryChart width={350} height={350} theme={VictoryTheme.material} padding={{left: 50, bottom: 50, top: 20, right: 30}}>
                         {
                             ratingHistories.map(ratingHistory => (
                                     <VictoryLine
