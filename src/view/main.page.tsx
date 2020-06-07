@@ -88,6 +88,8 @@ export function Game({data}: IGameProps) {
     const playersInTeam1 = data.players.filter(p => p.team == 1);
     const playersInTeam2 = data.players.filter(p => p.team == 2);
 
+    console.log("render game " + data.match_id);
+
     return (
             <View>
                 <Text style={styles.matchTitle}>{getString('map_type', data.map_type)} - {data.match_id} - {data.server}</Text>
@@ -116,7 +118,6 @@ export function Game({data}: IGameProps) {
             </View>
     );
 }
-
 
 
 type Props = {
@@ -150,11 +151,11 @@ export default function MainPage({navigation}: Props) {
         setLoadingProfile(true);
 
         let leaderboards = await Promise.all([
-            fetchLeaderboard(game, '0', { count: 1, profile_id }),
-            fetchLeaderboard(game, '1', { count: 1, profile_id }),
-            fetchLeaderboard(game, '2', { count: 1, profile_id }),
-            fetchLeaderboard(game, '3', { count: 1, profile_id }),
-            fetchLeaderboard(game, '4', { count: 1, profile_id }),
+            fetchLeaderboard(game, '0', {count: 1, profile_id}),
+            fetchLeaderboard(game, '1', {count: 1, profile_id}),
+            fetchLeaderboard(game, '2', {count: 1, profile_id}),
+            fetchLeaderboard(game, '3', {count: 1, profile_id}),
+            fetchLeaderboard(game, '4', {count: 1, profile_id}),
         ]);
 
         const leaderboardInfos = leaderboards.flatMap(l => l.leaderboard);
@@ -178,35 +179,74 @@ export default function MainPage({navigation}: Props) {
 
     useEffect(() => {
         loadData();
-        // loadProfile();
+        loadProfile();
     }, []);
+
+    const parentData = ['profile', 'rating', 'list'];
+
+
 
     return (
             <View style={styles.container}>
 
+                <View style={styles.content}>
+
+                    <FlatList
+
+                            style={{flex:1}}
+                            data={parentData}
+                            renderItem={({item, index}) => {
+                                switch (item) {
+                                    case 'rating':
+                                        return <Rating/>;
+                                    case 'profile':
+                                        if (profile == null) return <Text>...</Text>;
+                                        return <Profile data={profile}/>;
+                                    case 'list':
+                                        if (data == null) return <Text>...</Text>;
+                                        return (
+                                                <FlatList
+                                                        // style={{maxHeight:700}}
+                                                        // onRefresh={loadData}
+                                                        // refreshing={loading}
+                                                        // nestedScrollEnabled={true}
+                                                        data={data}
+                                                        renderItem={({item}) => <Game data={item}/>}
+                                                        keyExtractor={(item, index) => index.toString()}
+                                                />
+                                        );
+                                    default:
+                                        return null;
+                                }
+
+                            }}
+                            keyExtractor={(item, index) => index.toString()}
+                    />
+                </View>
+
                 {/*<ScrollView nestedScrollEnabled={true}>*/}
-                    <View style={styles.content}>
+                {/*    <View style={styles.content}>*/}
 
-                        <Rating />
+                {/*        <Rating />*/}
 
-                        {/*{*/}
-                        {/*    profile &&*/}
-                        {/*    <Profile data={profile} />*/}
-                        {/*}*/}
+                {/*        /!*{*!/*/}
+                {/*        /!*    profile &&*!/*/}
+                {/*        /!*    <Profile data={profile} />*!/*/}
+                {/*        /!*}*!/*/}
 
-                        {/*{*/}
-                        {/*    data &&*/}
-                        {/*    <FlatList*/}
-                        {/*            // style={{maxHeight:700}}*/}
-                        {/*            // onRefresh={loadData}*/}
-                        {/*            // refreshing={loading}*/}
-                        {/*            // nestedScrollEnabled={true}*/}
-                        {/*        data={data}*/}
-                        {/*        renderItem={({item}) => <Game data={item}/>}*/}
-                        {/*        keyExtractor={(item, index) => index.toString()}*/}
-                        {/*    />*/}
-                        {/*}*/}
-                    </View>
+                {/*        /!*{*!/*/}
+                {/*        /!*    data &&*!/*/}
+                {/*        /!*    <FlatList*!/*/}
+                {/*        /!*            // style={{maxHeight:700}}*!/*/}
+                {/*        /!*            // onRefresh={loadData}*!/*/}
+                {/*        /!*            // refreshing={loading}*!/*/}
+                {/*        /!*            // nestedScrollEnabled={true}*!/*/}
+                {/*        /!*        data={data}*!/*/}
+                {/*        /!*        renderItem={({item}) => <Game data={item}/>}*!/*/}
+                {/*        /!*        keyExtractor={(item, index) => index.toString()}*!/*/}
+                {/*        /!*    />*!/*/}
+                {/*        /!*}*!/*/}
+                {/*    </View>*/}
                 {/*</ScrollView>*/}
 
             </View>
@@ -267,6 +307,7 @@ const styles = StyleSheet.create({
     },
     container: {
         paddingTop: 20,
+        paddingBottom: 50,
         flex: 1,
         backgroundColor: '#fff',
         // alignItems: 'center',

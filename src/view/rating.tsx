@@ -22,6 +22,8 @@ export default function Rating() {
     const loadData = async () => {
         setLoading(true);
 
+        console.log("loading ratings");
+
         let ratingHistories = await Promise.all([
             fetchRatingHistory(game, 0, 0, 500, {steam_id}),
             fetchRatingHistory(game, 1, 0, 500, {steam_id}),
