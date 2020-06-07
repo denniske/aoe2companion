@@ -9,15 +9,22 @@ interface IRatingHistoryRow {
     data: IRatingHistoryEntry[];
 }
 
-export default function Rating() {
+interface IRatingProps {
+    steam_id: string;
+    profile_id: number;
+}
+
+export default function Rating({steam_id, profile_id}: IRatingProps) {
 
     const [loading, setLoading] = useState(true);
     const [ratingHistories, setRatingHistories] = useState(null as unknown as IRatingHistoryRow[]);
 
     const game = 'aoe2de';
-    const steam_id = '76561198081486543';
+    // const steam_id = '76561198081486543';
     // const steam_id = '76561197995781128';
-    const profile_id = 209525;
+    // const profile_id = 209525;
+
+    console.log("render rating");
 
     const loadData = async () => {
         setLoading(true);
@@ -59,6 +66,10 @@ export default function Rating() {
 
     return (
             <View style={styles.container}>
+                {
+                    !ratingHistories &&
+                    <Text>Loading</Text>
+                }
                 {
                     ratingHistories &&
                     <VictoryChart width={350} theme={VictoryTheme.material}>
@@ -114,7 +125,7 @@ export default function Rating() {
 
 const styles = StyleSheet.create({
     container: {
-
+        backgroundColor: 'green'
     },
     legend: {
         flexDirection: 'row',

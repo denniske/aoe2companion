@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, FlatList, Image, Modal, Picker, SafeAreaView, ScrollView, StyleSheet, Text, TextStyle, TouchableHighlight, View } from 'react-native';
+import { Button, FlatList, Image, Modal, Picker, SafeAreaView, ScrollView, StyleSheet, Text, TextStyle, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native';
 import { formatAgo } from '../service/util';
 import { getCivIcon } from '../service/civs';
 import { getPlayerBackgroundColor } from '../service/colors';
@@ -38,6 +38,10 @@ export function Player({player}: IPlayerProps) {
         setModalVisible(true);
     };
 
+    const closeRatingModal = () => {
+        setModalVisible(false);
+    };
+
     return (
             <View style={styles.player}>
 
@@ -49,20 +53,31 @@ export function Player({player}: IPlayerProps) {
                             alert("Modal has been closed.");
                         }}
                 >
-                    <View style={styles.centeredView}>
-                        <View style={styles.modalView}>
-                            <Text style={styles.modalText}>Rating Graph</Text>
+                    <TouchableWithoutFeedback onPress={closeRatingModal}>
+                        <View style={styles.centeredView}>
+                            <View style={styles.modalView}>
+                                <TouchableHighlight style={styles.modalCloseIcon} onPress={closeRatingModal} underlayColor="white">
+                                    <Text>❌</Text>
+                                </TouchableHighlight>
 
-                            <TouchableHighlight
-                                    style={{...styles.openButton, backgroundColor: "#2196F3"}}
-                                    onPress={() => {
-                                        setModalVisible(!modalVisible);
-                                    }}
-                            >
-                                <Text style={styles.textStyle}>Hide Modal</Text>
-                            </TouchableHighlight>
+                                <Text style={styles.modalText}>{player.name}</Text>
+
+                                {/*<View style={styles.modalHeader}>*/}
+                                {/*</View>*/}
+
+                                <Rating steam_id={player.steam_id} profile_id={player.profile_id}/>
+
+                                {/*<TouchableHighlight*/}
+                                {/*        style={{...styles.openButton, backgroundColor: "#2196F3"}}*/}
+                                {/*        onPress={() => {*/}
+                                {/*            setModalVisible(!modalVisible);*/}
+                                {/*        }}*/}
+                                {/*>*/}
+                                {/*    <Text style={styles.textStyle}>Hide Modal</Text>*/}
+                                {/*</TouchableHighlight>*/}
+                            </View>
                         </View>
-                    </View>
+                    </TouchableWithoutFeedback>
                 </Modal>
                 <Text style={styles.playerWon}>{player.won ? '👑':''}</Text>
 
@@ -88,7 +103,7 @@ export function Game({data}: IGameProps) {
     const playersInTeam1 = data.players.filter(p => p.team == 1);
     const playersInTeam2 = data.players.filter(p => p.team == 2);
 
-    console.log("render game " + data.match_id);
+    // console.log("render game " + data.match_id);
 
     return (
             <View>
@@ -142,7 +157,7 @@ export default function MainPage({navigation}: Props) {
     const loadData = async () => {
         setLoading(true);
         // const lastMatch = await fetchLastMatch(game, profile_id);
-        const lastMatch = await fetchMatches(game, profile_id, 0, 10);
+        const lastMatch = await fetchMatches(game, profile_id, 0, 100);
         setData(lastMatch);
         setLoading(false);
     };
@@ -182,9 +197,9 @@ export default function MainPage({navigation}: Props) {
         loadProfile();
     }, []);
 
-    const parentData = ['profile', 'rating', 'list'];
+    const parentData = data ? ['profile', 'rating', ...data] : ['profile', 'rating'];
 
-
+    console.log("render ---");
 
     return (
             <View style={styles.container}>
@@ -192,31 +207,19 @@ export default function MainPage({navigation}: Props) {
                 <View style={styles.content}>
 
                     <FlatList
-
+                            // initialNumToRender={3}
                             style={{flex:1}}
                             data={parentData}
                             renderItem={({item, index}) => {
+                                console.log("render", index);
                                 switch (item) {
                                     case 'rating':
-                                        return <Rating/>;
+                                        return <Rating steam_id={steam_id} profile_id={profile_id}/>;
                                     case 'profile':
                                         if (profile == null) return <Text>...</Text>;
                                         return <Profile data={profile}/>;
-                                    case 'list':
-                                        if (data == null) return <Text>...</Text>;
-                                        return (
-                                                <FlatList
-                                                        // style={{maxHeight:700}}
-                                                        // onRefresh={loadData}
-                                                        // refreshing={loading}
-                                                        // nestedScrollEnabled={true}
-                                                        data={data}
-                                                        renderItem={({item}) => <Game data={item}/>}
-                                                        keyExtractor={(item, index) => index.toString()}
-                                                />
-                                        );
                                     default:
-                                        return null;
+                                        return  <Game data={item as IMatch}/>;
                                 }
 
                             }}
@@ -321,13 +324,14 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 22
+        // marginTop: 22,
+        backgroundColor: 'rgba(0,0,0,0.5)',
     },
     modalView: {
-        margin: 20,
+        margin: 0,
         backgroundColor: "white",
-        borderRadius: 10,
-        padding: 35,
+        borderRadius: 5,
+        padding: 15,
         alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
@@ -351,6 +355,16 @@ const styles = StyleSheet.create({
     },
     modalText: {
         marginBottom: 15,
-        textAlign: "center"
+        textAlign: "center",
+        color: 'black',
+    },
+    modalHeader: {
+        flexDirection: 'row',
+        backgroundColor: 'yellow'
+    },
+    modalCloseIcon: {
+        position: 'absolute',
+        right: 15,
+        top: 15,
     }
 });
