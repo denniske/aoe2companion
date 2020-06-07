@@ -4,3 +4,7 @@
   - Maps
 
 - Elo History Graph
+
+- Remove dependencies
+  - react native paper
+  - react native picker

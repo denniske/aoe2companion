@@ -15,6 +15,7 @@ import { fetchMatches } from '../api/matches';
 import { AppSettings } from '../service/constants';
 import { fetchLeaderboard } from '../api/leaderboard';
 import Profile, { IProfile } from './profile';
+import Rating from './rating';
 
 interface IPlayerProps {
     player: IPlayer;
@@ -177,30 +178,34 @@ export default function MainPage({navigation}: Props) {
 
     useEffect(() => {
         loadData();
-        loadProfile();
+        // loadProfile();
     }, []);
 
     return (
             <View style={styles.container}>
 
-                {/*<ScrollView>*/}
+                {/*<ScrollView nestedScrollEnabled={true}>*/}
                     <View style={styles.content}>
 
-                        {
-                            profile &&
-                            <Profile data={profile} />
-                        }
+                        <Rating />
 
-                        {
-                            data &&
-                            <FlatList
-                                    // onRefresh={loadData}
-                                    // refreshing={loading}
-                                data={data}
-                                renderItem={({item}) => <Game data={item}/>}
-                                keyExtractor={(item, index) => index.toString()}
-                            />
-                        }
+                        {/*{*/}
+                        {/*    profile &&*/}
+                        {/*    <Profile data={profile} />*/}
+                        {/*}*/}
+
+                        {/*{*/}
+                        {/*    data &&*/}
+                        {/*    <FlatList*/}
+                        {/*            // style={{maxHeight:700}}*/}
+                        {/*            // onRefresh={loadData}*/}
+                        {/*            // refreshing={loading}*/}
+                        {/*            // nestedScrollEnabled={true}*/}
+                        {/*        data={data}*/}
+                        {/*        renderItem={({item}) => <Game data={item}/>}*/}
+                        {/*        keyExtractor={(item, index) => index.toString()}*/}
+                        {/*    />*/}
+                        {/*}*/}
                     </View>
                 {/*</ScrollView>*/}
 

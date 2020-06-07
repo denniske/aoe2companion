@@ -69,6 +69,19 @@ interface IMatch extends IMatchRaw {
     finished: Date;
 }
 
+interface IRatingHistoryEntryRaw {
+    drops: number;
+    num_losses: number;
+    num_wins: number;
+    rating: number;
+    streak: number;
+    timestamp: any;
+}
+
+interface IRatingHistoryEntry extends IRatingHistoryEntryRaw {
+    timestamp: Date;
+}
+
 
 interface ILeaderboardPlayerRaw {
     clan: string;
