@@ -29,5 +29,5 @@ export function getString(category: keyof IStrings, id: number) {
 }
 
 const strings: IStringCollection = {
-    'en': require('../assets/strings/en.json'),
+    'en': require('../../assets/strings/en.json'),
 };

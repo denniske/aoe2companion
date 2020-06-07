@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { fetchLastMatch } from './api/lastmatch';
+import { fetchLastMatch } from '../api/lastmatch';
 import { Button, FlatList, Image, SafeAreaView, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import { Game } from './main.page';
-import { fetchLeaderboard } from './api/leaderboard';
-import { formatAgo } from './util';
+import { fetchLeaderboard } from '../api/leaderboard';
+import { formatAgo } from '../service/util';
 import Constants from 'expo-constants';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../App';
+import { RootStackParamList } from '../../App';
 import { RouteProp } from '@react-navigation/native';
 
 interface IPlayerProps {
@@ -71,7 +71,7 @@ export default function NamePage({navigation, route}: Props) {
     return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.header}>
-                    <Image style={styles.icon} source={require('../assets/icon.png')}/>
+                    <Image style={styles.icon} source={require('../../assets/icon.png')}/>
                     <Text>AoE II Companion</Text>
                 </View>
 

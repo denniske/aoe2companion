@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Image, StyleSheet, Text, View } from 'react-native';
-import { formatAgo } from './util';
-import { getCivIcon } from './civs';
-import { getPlayerBackgroundColor } from './colors';
-import { fetchLastMatch } from './api/lastmatch';
-import { getString } from './strings';
+import { Button, Image, Picker, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { formatAgo } from '../service/util';
+import { getCivIcon } from '../service/civs';
+import { getPlayerBackgroundColor } from '../service/colors';
+import { fetchLastMatch } from '../api/lastmatch';
+import { getString } from '../service/strings';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../App';
+import { RootStackParamList } from '../../App';
 import { RouteProp } from '@react-navigation/native';
+import Header from './header';
+import Constants from 'expo-constants';
 
 interface IPlayerProps {
     player: IPlayer;
@@ -91,22 +93,30 @@ export default function MainPage({navigation}: Props) {
     }, []);
 
     return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
 
-                <Button
-                        title="Go to Jane's profile"
-                        onPress={() =>
-                                navigation.navigate('Name', {name: 'Jane'})
-                        }
-                />
+                {/*<Header/>*/}
 
-                <Text>AoE II Companion</Text>
-                <Text/>
-                {
-                    data &&
-                    <Game data={data}/>
-                }
-            </View>
+                <View style={styles.content}>
+                    <Text/>
+                    <Button
+                            title="Go to Jane's profile"
+                            onPress={() =>
+                                    navigation.navigate('Name', {name: 'Jane'})
+                            }
+                    />
+
+                    <Text/>
+
+                    <Text>AoE II Companion</Text>
+                    <Text/>
+                    {
+                        data &&
+                        <Game data={data}/>
+                    }
+                </View>
+
+            </SafeAreaView>
     );
 }
 
@@ -149,9 +159,14 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     container: {
+        marginTop: Constants.statusBarHeight,
         flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+        // alignItems: 'center',
+        // justifyContent: 'center',
+    },
+    content: {
+        flex: 1,
+        alignSelf: 'center',
     },
 });
