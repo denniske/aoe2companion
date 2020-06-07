@@ -57,7 +57,7 @@ export default function Profile({data}: IProfileProps) {
 
                 <View style={styles.row}>
                     <Text style={styles.cellRating}>Elo</Text>
-                    <Text style={styles.cellLeaderboard}>Board</Text>
+                    <Text style={styles.cellLeaderboard}/>
                     <Text style={styles.cellGames}>Games</Text>
                     <Text style={styles.cellLastMatch}>Last Match</Text>
                 </View>

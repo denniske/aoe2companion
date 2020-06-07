@@ -3,8 +3,9 @@
   - Flags
   - Maps
 
-- Elo History Graph
-
 - Remove dependencies
   - react native paper
   - react native picker
+
+- Data by aoe2.net
+- Not affiliated with microsoft
