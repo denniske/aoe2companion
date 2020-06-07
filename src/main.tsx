@@ -61,7 +61,7 @@ export function Game({data}: IGameProps) {
     );
 }
 
-export default function Main() {
+export default function Main({ navigation } : any) {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState(null as unknown as ILastMatch);
 
@@ -81,6 +81,14 @@ export default function Main() {
 
     return (
             <View style={styles.container}>
+
+                {/*<Button*/}
+                {/*title="Go to Jane's profile"*/}
+                {/*onPress={() =>*/}
+                {/*        navigation.navigate('Profile', { name: 'Jane' })*/}
+                {/*}*/}
+                {/*/>*/}
+
                 <Text>AoE II Companion</Text>
                 <Text/>
                 {

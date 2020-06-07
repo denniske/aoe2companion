@@ -1,0 +1,6 @@
+
+- Images for
+  - Flags
+  - Maps
+
+- Elo History Graph

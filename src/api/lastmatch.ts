@@ -1,13 +1,11 @@
 const fromUnixTime = require('date-fns/fromUnixTime');
 
 
-function processGameJson(json: ILastMatchRaw): ILastMatch {
-    const converted = {
+function convertTimestampsToDates(json: ILastMatchRaw): ILastMatch {
+    return {
         ...json,
         started: fromUnixTime(json.started),
     };
-    console.log("started", converted.started);
-    return converted;
 }
 
 export async function fetchLastMatch(game: string, profile_id: string) {
@@ -17,5 +15,5 @@ export async function fetchLastMatch(game: string, profile_id: string) {
     const json = await response.json();
     console.log("response.json()", json);
 
-    return processGameJson(json.last_match);
+    return convertTimestampsToDates(json.last_match);
 }
