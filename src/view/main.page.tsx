@@ -1,24 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { Button, FlatList, Image, Modal, Picker, SafeAreaView, ScrollView, StyleSheet, Text, TextStyle, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native';
+import React, { useState } from 'react';
+import { FlatList, Image, Modal, StyleSheet, Text, TextStyle, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native';
 import { formatAgo } from '../helper/util';
 import { getCivIcon } from '../helper/civs';
 import { getPlayerBackgroundColor } from '../helper/colors';
-import { fetchLastMatch } from '../api/lastmatch';
 import { getString } from '../helper/strings';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../App';
 import { Link, RouteProp } from '@react-navigation/native';
-import Header from './header';
-import Constants from 'expo-constants';
 import { printUserId } from '../helper/user';
 import { fetchMatches } from '../api/matches';
 import { AppSettings } from '../helper/constants';
-import { fetchLeaderboard } from '../api/leaderboard';
-import Profile, { IProfile } from './profile';
+import Profile from './profile';
 import Rating from './rating';
-import { fetchRatingHistory } from '../api/rating-history';
 import { useApi } from '../hooks/use-api';
 import { loadRatingHistories } from '../service/rating';
+import { loadProfile } from '../service/profile';
 
 interface IPlayerProps {
     player: IPlayer;
@@ -30,6 +26,7 @@ interface IGameProps {
 
 export function Player({player}: IPlayerProps) {
     const [modalVisible, setModalVisible] = useState(false);
+    // const rating = useApi(loadRatingHistories, 'aoe2de', player.steam_id);
 
     const boxStyle = StyleSheet.flatten([styles.square, {backgroundColor: getPlayerBackgroundColor(player.color)}]);
 
@@ -59,7 +56,7 @@ export function Player({player}: IPlayerProps) {
                                     <Text>❌</Text>
                                 </TouchableHighlight>
                                 <Text style={styles.modalText}>{player.name}</Text>
-                                {/*<Rating steam_id={player.steam_id} profile_id={player.profile_id}/>*/}
+                                {/*<Rating ratingHistories={rating.result}/>*/}
                             </View>
                         </View>
                     </TouchableWithoutFeedback>
@@ -122,96 +119,35 @@ type Props = {
 };
 
 export default function MainPage({navigation}: Props) {
-    // const [update, setUpdate] = useState(new Date());
-    // const [loadingRating, setLoadingRating] = useState(true);
-    // const [loading, setLoading] = useState(true);
-    // const [data, setData] = useState(null as unknown as IMatch[]);
-    // const [loadingProfile, setLoadingProfile] = useState(true);
-    // const [profile, setProfile] = useState(null as unknown as IProfile);
-
     const game = 'aoe2de';
     const steam_id = '76561197995781128';
     const profile_id = 209525;
 
     const rating = useApi(loadRatingHistories, 'aoe2de', steam_id);
+    const profile = useApi(loadProfile, 'aoe2de', profile_id);
+    const matches = useApi(fetchMatches, game, profile_id, 0, 10);
 
-    // const {result: ratingHistories, loading: loadingHistories, refetch, reload} =
-    //         useApi(loadRatingHistories, 'aoe2de', steam_id2);
-
-    // refetch('aoe2de', steam_id2)
-
-    // const loadData2 = async () => {
-    //     setLoading(true);
-    //     const lastMatch = await fetchMatches(game, profile_id, 0, 10);
-    //     setData(lastMatch);
-    //     setLoading(false);
-    // };
-    //
-    // const loadProfile = async () => {
-    //     setLoadingProfile(true);
-    //
-    //     let leaderboards = await Promise.all([
-    //         fetchLeaderboard(game, '0', {count: 1, profile_id}),
-    //         fetchLeaderboard(game, '1', {count: 1, profile_id}),
-    //         fetchLeaderboard(game, '2', {count: 1, profile_id}),
-    //         fetchLeaderboard(game, '3', {count: 1, profile_id}),
-    //         fetchLeaderboard(game, '4', {count: 1, profile_id}),
-    //     ]);
-    //
-    //     const leaderboardInfos = leaderboards.flatMap(l => l.leaderboard);
-    //     leaderboardInfos.sort((a, b) => b.last_match.getTime() - a.last_match.getTime());
-    //     const mostRecentLeaderboard = leaderboardInfos[0];
-    //
-    //     setProfile({
-    //         clan: mostRecentLeaderboard.clan,
-    //         country: mostRecentLeaderboard.country,
-    //         icon: mostRecentLeaderboard.icon,
-    //         name: mostRecentLeaderboard.name,
-    //         profile_id: mostRecentLeaderboard.profile_id,
-    //         steam_id: mostRecentLeaderboard.steam_id,
-    //         games: leaderboardInfos.map(l => l.games).reduce((pv, cv) => pv + cv, 0),
-    //         drops: leaderboardInfos.map(l => l.drops).reduce((pv, cv) => pv + cv, 0),
-    //         leaderboards: leaderboards.filter(l => l.leaderboard?.length > 0),
-    //     });
-    //
-    //     setLoadingProfile(false);
-    // };
-    //
-    // useEffect(() => {
-    //     loadData2();
-    //     loadProfile();
-    // }, []);
-
-    const parentData = ['rating'];
-    // const parentData = data ? ['profile', 'rating', ...data]:['profile', 'rating'];
+    const parentData = matches.result ? ['profile', 'rating', ...matches.result]:['profile', 'rating'];
 
     return (
             <View style={styles.container}>
                 <View style={styles.content}>
 
                     <FlatList
-                            onRefresh={() => rating.reload()}
-                            refreshing={rating.loading}
+                            onRefresh={() => { rating.reload(); profile.reload(); matches.reload(); }}
+                            refreshing={rating.loading || profile.loading || matches.loading}
                             style={styles.list}
                             data={parentData}
                             renderItem={({item, index}) => {
                                 switch (item) {
                                     case 'rating':
-                                        return <Rating
-                                                ratingHistories={rating.result}
-                                                // steam_id={steam_id}
-                                                // profile_id={profile_id}
-                                                // update={update}
-                                                // updating={setLoadingRating}
-                                        />;
+                                        // if (rating.result == null) return <Text>...</Text>;
+                                        return <Rating ratingHistories={rating.result}/>;
                                     case 'profile':
-                                        return <Text>sadasd</Text>
-                                        // if (profile == null) return <Text>...</Text>;
-                                        // return <Profile data={profile}/>;
+                                        if (profile.result == null) return <Text>...</Text>;
+                                        return <Profile data={profile.result}/>;
                                     default:
-                                        return <Text>sadasd</Text>
-                                    // default:
-                                    //     return <Game data={item as IMatch}/>;
+                                        return <Game data={item as IMatch}/>;
                                 }
 
                             }}
