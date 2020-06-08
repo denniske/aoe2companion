@@ -20,6 +20,6 @@ export function makeQueryString(params: IParams) {
 }
 
 export function getLeaderboardAbbr(leaderboard_id: number) {
-    const abbreviations = ['UNR', 'DM', 'DM (Team)', 'RM', 'RM (Team)'];
+    const abbreviations = ['Unranked', 'DM 1v1', 'DM Team', 'RM 1v1', 'RM Team'];
     return abbreviations[leaderboard_id];
 }

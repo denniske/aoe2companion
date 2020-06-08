@@ -14,6 +14,27 @@
 - C:\Users\Dennis\Games\Age of Empires 2 DE\76561197995781128\mods\subscribed\1062_Improved Tech Tree UI Mod\widgetui\textures\ingame\emblems
 
 
+- Tabs
+  - Profile (Rating & History)
+    - Legende
+  - Matches (Accordion View of matches, first expanded) <- Default Tab
+  - Following
+
+- User Profile Page
+  - Follow Button
+
+- Move search into top header
+- Add three dot menu to top header
+  - About
+
+
+
+
+
+
+//  - Follow button in search results?
+//  - Current / Last Match -> 15sec update
+
 
 
 

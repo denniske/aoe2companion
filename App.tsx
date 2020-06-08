@@ -2,15 +2,17 @@ import 'react-native-gesture-handler';
 import { Link, NavigationContainer, useLinkTo } from '@react-navigation/native';
 import React from 'react';
 import MainPage from './src/view/main.page';
-import { Button, Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View, YellowBox } from 'react-native';
+import { Alert, Button, Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View, YellowBox } from 'react-native';
 import SearchPage from './src/view/search.page';
 import { createStackNavigator, HeaderBackground } from '@react-navigation/stack';
-import { Provider as PaperProvider } from 'react-native-paper';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import Header from './src/view/header';
 import Constants from 'expo-constants';
 import { parseUserId, printUserId, UserId } from './src/helper/user';
 import { FontAwesome } from '@expo/vector-icons';
 import UserPage from './src/view/user.page';
+import AsyncStorage from '@react-native-community/async-storage';
+import { useApi } from './src/hooks/use-api';
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -49,21 +51,63 @@ const headerStatusBarHeight = 60;
 export function Menu() {
     const linkTo = useLinkTo();
 
+    const me = useApi(() => AsyncStorage.getItem('settings'));
+
+    const doDeleteUser = async () => {
+      await AsyncStorage.removeItem('settings');
+      console.log("REMOVED ME");
+    };
+
+    const deleteUser = () => {
+        Alert.alert(
+                "Delete Me?",
+                "Do you want to reset me page?",
+                [
+                    {
+                        text: "Cancel",
+                        style: "cancel"
+                    },
+                    {
+                        text: "Reset",
+                        onPress: doDeleteUser,
+                    }
+                ],
+                { cancelable: false }
+        );
+    };
+
+
     return (
             <View style={styles.menu}>
                 <TouchableOpacity onPress={() => linkTo('/search')}>
                     <FontAwesome style={styles.menuButton} name="search" size={18} />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => linkTo('/main')}>
-                    <FontAwesome style={styles.menuButton} name="user" size={18} />
-                </TouchableOpacity>
+                {
+                    me.data == null &&
+                    <TouchableOpacity onPress={deleteUser}>
+                        <FontAwesome style={styles.menuButton} name="close" size={18} />
+                    </TouchableOpacity>
+                }
+                {/*<TouchableOpacity onPress={() => linkTo('/main')}>*/}
+                {/*    <FontAwesome style={styles.menuButton} name="user" size={18} />*/}
+                {/*</TouchableOpacity>*/}
             </View>
     );
 }
 
+const theme = {
+    ...DefaultTheme,
+    roundness: 2,
+    colors: {
+        ...DefaultTheme.colors,
+        primary: '#3498db',
+        accent: '#f1c40f',
+    },
+};
+
 export default function App() {
     return (
-            <PaperProvider>
+            <PaperProvider theme={theme}>
                 <NavigationContainer linking={linking}>
                     <Stack.Navigator screenOptions={{animationEnabled: false}}>
                         <Stack.Screen

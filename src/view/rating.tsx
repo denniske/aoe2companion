@@ -5,6 +5,7 @@ import { getLeaderboardAbbr } from '../helper/util';
 import ContentLoader, { Rect } from 'react-content-loader/native'
 import { getLeaderboardColor } from '../helper/colors';
 import { IRatingHistoryRow } from '../service/rating';
+import { getString } from '../helper/strings';
 
 interface IRatingProps {
     ratingHistories: IRatingHistoryRow[];
@@ -70,13 +71,16 @@ export default function Rating({ratingHistories}: IRatingProps) {
                     ratingHistories && ratingHistories.map(ratingHistory => (
                             <Text
                                     key={'legend-' + ratingHistory.leaderboard_id}
-                                    style={{fontSize: 12, color:getLeaderboardColor(ratingHistory.leaderboard_id)}}
+                                    style={{paddingHorizontal: 10, paddingVertical: 5,fontSize: 12, color:getLeaderboardColor(ratingHistory.leaderboard_id)}}
                             >
                                 {getLeaderboardAbbr(ratingHistory.leaderboard_id)}
+                                {/*{getString('leaderboard', ratingHistory.leaderboard_id)} ({getLeaderboardAbbr(ratingHistory.leaderboard_id)})*/}
                             </Text>
                     ))
                 }
                 </View>
+
+                <Text style={styles.legendDesc}>RM = Random Map    DM = Death Match</Text>
             </View>
     )
 }
@@ -89,7 +93,12 @@ const styles = StyleSheet.create({
     legend: {
         flexDirection: 'row',
         justifyContent: 'space-evenly',
+        flexWrap: 'wrap',
         marginLeft: 10,
         marginRight: 10,
+    },
+    legendDesc: {
+        textAlign: 'center',
+        fontSize: 12
     },
 });

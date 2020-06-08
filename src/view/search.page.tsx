@@ -1,26 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { fetchLastMatch } from '../api/lastmatch';
-import { Button, FlatList, Image, SafeAreaView, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
-import { Game } from './main.page';
+import { AsyncStorage, Button, FlatList, Image, SafeAreaView, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import { fetchLeaderboard } from '../api/leaderboard';
 import { formatAgo } from '../helper/util';
 import Constants from 'expo-constants';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../App';
-import { Link, RouteProp } from '@react-navigation/native';
+import { Link, RouteProp, useNavigation } from '@react-navigation/native';
 
 interface IPlayerProps {
     player: ILeaderboardPlayer;
+    selectedUser: () => void;
 }
 
-function Player({player}: IPlayerProps) {
+// type SearchScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Search'>;
 
-    const doSomething = () => {
-        console.log("Do Something");
-    };
+function Player({player, selectedUser}: IPlayerProps) {
 
     const _onPressButton = () => {
-        alert('You tapped the button!')
+        AsyncStorage.setItem('settings', JSON.stringify({
+            steam_id: player.steam_id,
+            profile_id: player.profile_id,
+        }));
+
+        selectedUser();
+        // navigation.replace('Main');
     };
 
     return (
@@ -41,14 +45,14 @@ function Player({player}: IPlayerProps) {
 }
 
 
-type Props = {
-    navigation: StackNavigationProp<RootStackParamList, 'Name'>;
-    route: RouteProp<RootStackParamList, 'Name'>;
-};
+// type Props = {
+//     navigation: StackNavigationProp<RootStackParamList, 'Name'>;
+//     route: RouteProp<RootStackParamList, 'Name'>;
+// };
 
-export default function SearchPage({navigation, route}: Props) {
-    console.log("navigation2", navigation);
-    console.log("route2", route);
+export default function SearchPage({selectedUser}: any) {
+    // console.log("navigation2", navigation);
+    // console.log("route2", route);
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState(null as unknown as ILeaderboard);
     const [text, setText] = useState('rogge');
@@ -73,6 +77,7 @@ export default function SearchPage({navigation, route}: Props) {
                 <Text>Enter your AoE username to track your games:</Text>
 
                 <TextInput
+                        autoFocus={true}
                         style={{height: 50}}
                         placeholder="username"
                         onChangeText={text => setText(text)}
@@ -91,7 +96,7 @@ export default function SearchPage({navigation, route}: Props) {
                     data &&
                     <FlatList
                         data={data.leaderboard}
-                        renderItem={({ item }) => <Player player={item}/>}
+                        renderItem={({ item }) => <Player player={item} selectedUser={selectedUser}/>}
                         keyExtractor={(item, index) => index.toString()}
                     />
                 }
