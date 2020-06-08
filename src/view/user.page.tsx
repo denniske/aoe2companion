@@ -20,6 +20,10 @@ type Props = {
 export default function UserPage({navigation}: Props) {
     const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
 
+    console.log("==> USER PAGE");
+    console.log("==> USER PAGE");
+    console.log("==> USER PAGE");
+
     const game = 'aoe2de';
     const steam_id = route.params.id.steam_id;
     const profile_id = route.params.id.profile_id;

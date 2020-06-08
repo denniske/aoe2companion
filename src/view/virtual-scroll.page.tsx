@@ -107,12 +107,7 @@ function MainHome() {
 
 
 function MainMatches() {
-    // const me = useApi(loadSettingsFromStorage);
-    //
-    // if (me.loading) {
-    //     return <View style={styles.container}/>;
-    // }
-    //
+
     // const matches = useLazyApi(fetchMatches, 'aoe2de', profile_id, 0, 10);
 
     return (
@@ -135,11 +130,7 @@ function MainFollowing() {
 const Tab = createMaterialTopTabNavigator();//<MainTabParamList>();
 
 
-
-
-
-
-export default function MainPage() {
+export default function VirtualScrollMainPage() {
     const me = useApi(() => loadSettingsFromStorage());
 
     if (me.loading) {

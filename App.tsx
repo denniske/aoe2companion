@@ -13,14 +13,9 @@ import { FontAwesome } from '@expo/vector-icons';
 import UserPage from './src/view/user.page';
 import AsyncStorage from '@react-native-community/async-storage';
 import { useApi } from './src/hooks/use-api';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 YellowBox.ignoreWarnings(['Remote debugger']);
-
-export type RootStackParamList = {
-    Main: undefined;
-    User: { id: UserId, name: string };
-    Search: { name: string };
-};
 
 const linking = {
     prefixes: ['https://aoe2companion.com', 'aoe2companion://'],
@@ -42,6 +37,12 @@ const linking = {
             path: 'main',
         },
     },
+};
+
+export type RootStackParamList = {
+    Main: undefined;
+    User: { id: UserId, name: string };
+    Search: { name: string };
 };
 
 const Stack = createStackNavigator<RootStackParamList>();

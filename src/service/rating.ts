@@ -10,10 +10,10 @@ export const loadRatingHistories = async (game: string, steam_id: string) => {
 
     let ratingHistories = await Promise.all([
         fetchRatingHistory(game, 0, 0, 500, {steam_id}),
-        fetchRatingHistory(game, 1, 0, 500, {steam_id}),
-        fetchRatingHistory(game, 2, 0, 500, {steam_id}),
-        fetchRatingHistory(game, 3, 0, 500, {steam_id}),
-        fetchRatingHistory(game, 4, 0, 500, {steam_id}),
+        // fetchRatingHistory(game, 1, 0, 500, {steam_id}),
+        // fetchRatingHistory(game, 2, 0, 500, {steam_id}),
+        // fetchRatingHistory(game, 3, 0, 500, {steam_id}),
+        // fetchRatingHistory(game, 4, 0, 500, {steam_id}),
     ]);
 
     let ratingHistoryRows = ratingHistories.map((rh, i) => ({
@@ -22,6 +22,8 @@ export const loadRatingHistories = async (game: string, steam_id: string) => {
     }));
 
     ratingHistoryRows = ratingHistoryRows.filter(rh => rh.data?.length);
+
+    console.log("RETURNING ratingHistoryRows", ratingHistoryRows);
 
     return ratingHistoryRows;
 };

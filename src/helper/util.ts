@@ -1,6 +1,12 @@
 import { format, formatDistanceToNowStrict } from "date-fns";
 import { de } from "date-fns/locale";
 
+export function sleep(ms: number) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
+}
+
 export function formatDate(date: Date) {
     return format(date, 'dd MM yyyy', {locale: de});
 }

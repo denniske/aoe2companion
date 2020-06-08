@@ -52,9 +52,6 @@ interface IProfileProps {
 }
 
 export default function Profile({data}: IProfileProps) {
-
-    console.log("leader", data.leaderboards);
-
     return (
             <View style={styles.container}>
                 <Text>{data.country} {data.name}</Text>
