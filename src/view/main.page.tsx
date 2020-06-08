@@ -15,19 +15,10 @@ import { loadSettingsFromStorage } from '../service/storage';
 import SearchPage from './search.page';
 
 
-type Props = {
-    navigation: StackNavigationProp<RootStackParamList, 'Main'>;
-    route: RouteProp<RootStackParamList, 'Main'>;
-};
-
 function Main({steam_id, profile_id, deletedUser}: any) {
-    const game = 'aoe2de';
-    // const steam_id = '76561197995781128';
-    // const profile_id = 209525;
-
     const rating = useApi(loadRatingHistories, 'aoe2de', steam_id);
     const profile = useApi(loadProfile, 'aoe2de', profile_id);
-    const matches = useApi(fetchMatches, game, profile_id, 0, 10);
+    const matches = useApi(fetchMatches, 'aoe2de', profile_id, 0, 10);
 
     const list = ['profile', 'rating', 'not-me'];//, ...(matches.data || [])];
 
@@ -43,7 +34,6 @@ function Main({steam_id, profile_id, deletedUser}: any) {
 
     const doDeleteUser = async () => {
         await AsyncStorage.removeItem('settings');
-        console.log("REMOVED ME");
         deletedUser();
     };
 
@@ -86,17 +76,9 @@ function Main({steam_id, profile_id, deletedUser}: any) {
     );
 }
 
-type MainScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Main'>;
-
 
 
 export default function MainPage() {
-    // const game = 'aoe2de';
-    // const steam_id = '76561197995781128';
-    // const profile_id = 209525;
-    // const linkTo = useLinkTo();
-    // const navigation = useNavigation<MainScreenNavigationProp>();
-
     const me = useApi(() => loadSettingsFromStorage());
 
     if (me.loading) {
@@ -104,17 +86,13 @@ export default function MainPage() {
     }
 
     if (me.data == null) {
-        // navigation.replace('Search', {name: '___'});
         return <SearchPage selectedUser={me.reload}/>;
-        // linkTo('/search', );
     }
-
-    console.log("RENDERING---");
 
     return (
             <Main
-                    steam_id={me.data?.steam_id}
-                    profile_id={me.data?.profile_id}
+                    steam_id={me.data.steam_id}
+                    profile_id={me.data.profile_id}
                     deletedUser={me.reload}
             />
     );

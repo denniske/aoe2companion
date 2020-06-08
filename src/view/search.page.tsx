@@ -1,117 +1,102 @@
 import React, { useEffect, useState } from 'react';
-import { fetchLastMatch } from '../api/lastmatch';
-import { AsyncStorage, Button, FlatList, Image, SafeAreaView, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
-import { fetchLeaderboard } from '../api/leaderboard';
+import { AsyncStorage, FlatList, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { formatAgo } from '../helper/util';
-import Constants from 'expo-constants';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../../App';
-import { Link, RouteProp, useNavigation } from '@react-navigation/native';
+import { IFetchedUser, loadUser } from '../service/user';
+import { useLazyApi } from '../hooks/use-lazy-api';
+import { Searchbar } from 'react-native-paper';
 
 interface IPlayerProps {
-    player: ILeaderboardPlayer;
+    player: IFetchedUser;
     selectedUser: () => void;
 }
 
-// type SearchScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Search'>;
-
 function Player({player, selectedUser}: IPlayerProps) {
-
-    const _onPressButton = () => {
-        AsyncStorage.setItem('settings', JSON.stringify({
+    const onSelect = async () => {
+        await AsyncStorage.setItem('settings', JSON.stringify({
             steam_id: player.steam_id,
             profile_id: player.profile_id,
         }));
-
         selectedUser();
-        // navigation.replace('Main');
     };
 
     return (
-
-
-            <TouchableHighlight onPress={_onPressButton} underlayColor="white">
+            <TouchableHighlight onPress={onSelect} underlayColor="white">
                 <View style={styles.row}>
-                    <Text style={styles.cellRating}>{player.rating}</Text>
                     <Text style={styles.cellCountry}>{player.country}</Text>
                     <Text style={styles.cellName}>{player.name}</Text>
                     <Text style={styles.cellGames}>{player.games}</Text>
                     <Text style={styles.cellLastMatch}>{formatAgo(player.last_match)}</Text>
-                    {/*<Button title="asd" onPress={doSomething}></Button>*/}
                 </View>
             </TouchableHighlight>
-
-    )
+    );
 }
 
-
-// type Props = {
-//     navigation: StackNavigationProp<RootStackParamList, 'Name'>;
-//     route: RouteProp<RootStackParamList, 'Name'>;
-// };
-
 export default function SearchPage({selectedUser}: any) {
-    // console.log("navigation2", navigation);
-    // console.log("route2", route);
-    const [isLoading, setLoading] = useState(true);
-    const [data, setData] = useState(null as unknown as ILeaderboard);
-    const [text, setText] = useState('rogge');
+    const [text, setText] = useState('baal');
 
-    const game = 'aoe2de';
-    const steam_id = '76561197995781128';
-    const leaderboard_id = '4';
-    // const search = 'rogge';
-
-    const loadData = async () => {
-        const leaderboard = await fetchLeaderboard(game, leaderboard_id, { count: 50, search: text });
-        setData(leaderboard);
-        setLoading(false);
-    };
+    const user = useLazyApi(loadUser, 'aoe2de', text);
 
     useEffect(() => {
-        loadData();
+        if (text.length < 3) return;
+        user.refetch('aoe2de', text);
     }, [text]);
 
     return (
             <View style={styles.container}>
                 <Text>Enter your AoE username to track your games:</Text>
 
-                <TextInput
-                        autoFocus={true}
-                        style={{height: 50}}
+                <Searchbar
+                        style={styles.searchbar}
                         placeholder="username"
                         onChangeText={text => setText(text)}
-                        defaultValue={text}
+                        value={text}
                 />
 
-                <View style={styles.headerRow}>
-                    <Text style={styles.cellRating}>Elo</Text>
-                    <Text style={styles.cellCountry}> </Text>
-                    <Text style={styles.cellName}>Name</Text>
-                    <Text style={styles.cellGames}>Games</Text>
-                    <Text style={styles.cellLastMatch}>Last Match</Text>
-                </View>
+                {/*<TextInput*/}
+                {/*        autoFocus={true}*/}
+                {/*        style={{height: 50}}*/}
+                {/*        placeholder="username"*/}
+                {/*        onChangeText={text => setText(text)}*/}
+                {/*        defaultValue={text}*/}
+                {/*/>*/}
 
                 {
-                    data &&
+                    text.length < 3 &&
+                    <Text>Enter at least 3 chars.</Text>
+                }
+
+                {
+                    user.data && user.data.length > 0 && text.length >= 3 &&
+                    <View style={styles.headerRow}>
+                        <Text style={styles.cellCountry}> </Text>
+                        <Text style={styles.cellName}>Name</Text>
+                        <Text style={styles.cellGames}>Games</Text>
+                        <Text style={styles.cellLastMatch}>Last Match</Text>
+                    </View>
+                }
+                {
+                    user.data && user.data.length > 0 && text.length >= 3 &&
                     <FlatList
-                        data={data.leaderboard}
-                        renderItem={({ item }) => <Player player={item} selectedUser={selectedUser}/>}
+                        data={user.data}
+                        renderItem={({item}) => <Player player={item} selectedUser={selectedUser}/>}
                         keyExtractor={(item, index) => index.toString()}
                     />
                 }
-
-                {/*{*/}
-                {/*    data && data.leaderboard.map((player, i) =>*/}
-                {/*            <Player key={i} player={player}/>*/}
-                {/*    )*/}
-                {/*}*/}
-
+                {
+                    user.data && user.data.length == 0 && text.length >= 3 &&
+                    <Text>No user found.</Text>
+                }
             </View>
     );
 }
 
 const styles = StyleSheet.create({
+    searchbar: {
+        marginTop: 15,
+        marginBottom: 15,
+        marginRight: 30,
+        marginLeft: 30,
+    },
     button: {
         marginBottom: 30,
         width: 260,

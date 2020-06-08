@@ -16,6 +16,7 @@
     "@react-navigation/stack": "^5.4.2",
     "date-fns": "^2.14.0",
     "expo": "~37.0.3",
+    "lodash-es": "^4.17.15",
     "react": "~16.9.0",
     "react-content-loader": "^5.0.4",
     "react-dom": "~16.9.0",
@@ -31,6 +32,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
+    "@types/lodash-es": "^4.17.3",
     "@types/node": "^14.0.11",
     "@types/react": "~16.9.23",
     "@types/react-native": "~0.61.17",

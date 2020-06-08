@@ -31,12 +31,18 @@
 
 
 
+// type MainScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Main'>;
+// navigation.replace('Search', {name: '___'});
+// linkTo('/search', );
 
 //  - Follow button in search results?
 //  - Current / Last Match -> 15sec update
 
 
 
+// const game = 'aoe2de';
+// const steam_id = '76561197995781128';
+// const profile_id = 209525;
 
 https://github.com/facebook/react-native/issues/11989
 My practical solution was to edit react-native source code at:

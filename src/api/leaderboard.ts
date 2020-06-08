@@ -21,7 +21,7 @@ export interface IFetchLeaderboardParams {
 }
 
 
-export async function fetchLeaderboard(game: string, leaderboard_id: string, params: IFetchLeaderboardParams) {
+export async function fetchLeaderboard(game: string, leaderboard_id: number, params: IFetchLeaderboardParams) {
     const queryString = makeQueryString({
         game,
         leaderboard_id,
