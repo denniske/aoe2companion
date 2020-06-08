@@ -1,7 +1,8 @@
-import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { StyleSheet, Text, TouchableHighlight, View, ViewStyle } from 'react-native';
 import { formatAgo, getLeaderboardAbbr } from '../service/util';
 import React from 'react';
 import { getString } from '../service/strings';
+import { getLeaderboardColor, getPlayerBackgroundColor } from '../service/colors';
 
 interface ILeaderboardRowProps {
     data: ILeaderboard;
@@ -9,20 +10,26 @@ interface ILeaderboardRowProps {
 
 function LeaderboardRow({data}: ILeaderboardRowProps) {
 
-    const leaderboardInfo = data.leaderboard ? data.leaderboard[0]:null;
+    const leaderboardInfo = data.leaderboard[0];
+    const color = {color: getLeaderboardColor(data.leaderboard_id)};
 
     return (
             <View style={styles.row}>
-                <Text style={styles.cellRating}>{leaderboardInfo ? leaderboardInfo.rating:''}</Text>
-                <Text style={styles.cellLeaderboard}>{getLeaderboardAbbr(data.leaderboard_id)}</Text>
-                {
-                    leaderboardInfo && (
-                            <>
-                                <Text style={styles.cellGames}>{leaderboardInfo.games}</Text>
-                                <Text style={styles.cellLastMatch}>{formatAgo(leaderboardInfo.last_match)}</Text>
-                            </>
-                    )
-                }
+                <Text style={StyleSheet.flatten([styles.cellRank, color])}>
+                    #{leaderboardInfo.rank}
+                </Text>
+                <Text style={StyleSheet.flatten([styles.cellRating, color])}>
+                    {leaderboardInfo.rating}
+                </Text>
+                <Text style={StyleSheet.flatten([styles.cellLeaderboard, color])}>
+                    {getLeaderboardAbbr(data.leaderboard_id)}
+                </Text>
+                <Text style={StyleSheet.flatten([styles.cellGames, color])}>
+                    {leaderboardInfo.games}
+                </Text>
+                <Text style={StyleSheet.flatten([styles.cellLastMatch, color])}>
+                    {formatAgo(leaderboardInfo.last_match)}
+                </Text>
             </View>
     )
 }
@@ -51,12 +58,13 @@ export default function Profile({data}: IProfileProps) {
     return (
             <View style={styles.container}>
                 <Text>{data.country} {data.name}</Text>
-                <Text>{data.games} Games, {data.drops} Drops ({(data.drops / data.games).toFixed()}%)</Text>
+                <Text>{data.games} Games, {data.drops} Drops ({(data.drops / data.games).toFixed(2)}%)</Text>
 
                 <Text/>
 
                 <View style={styles.row}>
-                    <Text style={styles.cellRating}>Elo</Text>
+                    <Text style={styles.cellRank}>Elo</Text>
+                    <Text style={styles.cellRating}/>
                     <Text style={styles.cellLeaderboard}/>
                     <Text style={styles.cellGames}>Games</Text>
                     <Text style={styles.cellLastMatch}>Last Match</Text>
@@ -77,6 +85,9 @@ export default function Profile({data}: IProfileProps) {
 const styles = StyleSheet.create({
     cellLeaderboard: {
         width: 100,
+    },
+    cellRank: {
+        width: 60,
     },
     cellRating: {
         width: 40,

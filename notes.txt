@@ -9,3 +9,18 @@
 
 - Data by aoe2.net
 - Not affiliated with microsoft
+
+- Tech Tree UI
+- C:\Users\Dennis\Games\Age of Empires 2 DE\76561197995781128\mods\subscribed\1062_Improved Tech Tree UI Mod\widgetui\textures\ingame\emblems
+
+
+
+
+
+https://github.com/facebook/react-native/issues/11989
+My practical solution was to edit react-native source code at:
+node-modules/react-native/Libraries/Components/Touchable/Touchable.js
+
+Here I've changed "console.error" to "console.log" at line 628, this way I receive the message, however my app is not interrupted and the error is "dissmissed"
+
+

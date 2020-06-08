@@ -44,14 +44,10 @@ export function Player({player}: IPlayerProps) {
 
     return (
             <View style={styles.player}>
-
                 <Modal
                         animationType="none"
                         transparent={true}
                         visible={modalVisible}
-                        onRequestClose={() => {
-                            alert("Modal has been closed.");
-                        }}
                 >
                     <TouchableWithoutFeedback onPress={closeRatingModal}>
                         <View style={styles.centeredView}>
@@ -59,22 +55,8 @@ export function Player({player}: IPlayerProps) {
                                 <TouchableHighlight style={styles.modalCloseIcon} onPress={closeRatingModal} underlayColor="white">
                                     <Text>❌</Text>
                                 </TouchableHighlight>
-
                                 <Text style={styles.modalText}>{player.name}</Text>
-
-                                {/*<View style={styles.modalHeader}>*/}
-                                {/*</View>*/}
-
                                 <Rating steam_id={player.steam_id} profile_id={player.profile_id}/>
-
-                                {/*<TouchableHighlight*/}
-                                {/*        style={{...styles.openButton, backgroundColor: "#2196F3"}}*/}
-                                {/*        onPress={() => {*/}
-                                {/*            setModalVisible(!modalVisible);*/}
-                                {/*        }}*/}
-                                {/*>*/}
-                                {/*    <Text style={styles.textStyle}>Hide Modal</Text>*/}
-                                {/*</TouchableHighlight>*/}
                             </View>
                         </View>
                     </TouchableWithoutFeedback>
@@ -89,9 +71,7 @@ export function Player({player}: IPlayerProps) {
                     <Text style={styles.playerRating}>{player.rating}</Text>
                 </TouchableHighlight>
 
-
                 <Link to={'/profile/' + printUserId(player) + '/' + player.name} style={playerNameStyle}>{player.name}</Link>
-
 
                 <Image style={styles.civIcon} source={getCivIcon(player.civ)}/>
                 <Text> {getString('civ', player.civ)}</Text>
@@ -102,8 +82,6 @@ export function Player({player}: IPlayerProps) {
 export function Game({data}: IGameProps) {
     const playersInTeam1 = data.players.filter(p => p.team == 1);
     const playersInTeam2 = data.players.filter(p => p.team == 2);
-
-    // console.log("render game " + data.match_id);
 
     return (
             <View>
@@ -141,8 +119,9 @@ type Props = {
 };
 
 export default function MainPage({navigation}: Props) {
+    const [update, setUpdate] = useState(new Date());
 
-    console.log("navigation1", navigation);
+    const [loadingRating, setLoadingRating] = useState(true);
 
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState(null as unknown as IMatch[]);
@@ -156,8 +135,7 @@ export default function MainPage({navigation}: Props) {
 
     const loadData = async () => {
         setLoading(true);
-        // const lastMatch = await fetchLastMatch(game, profile_id);
-        const lastMatch = await fetchMatches(game, profile_id, 0, 100);
+        const lastMatch = await fetchMatches(game, profile_id, 0, 10);
         setData(lastMatch);
         setLoading(false);
     };
@@ -186,7 +164,7 @@ export default function MainPage({navigation}: Props) {
             steam_id: mostRecentLeaderboard.steam_id,
             games: leaderboardInfos.map(l => l.games).reduce((pv, cv) => pv + cv, 0),
             drops: leaderboardInfos.map(l => l.drops).reduce((pv, cv) => pv + cv, 0),
-            leaderboards: leaderboards,
+            leaderboards: leaderboards.filter(l => l.leaderboard?.length > 0),
         });
 
         setLoadingProfile(false);
@@ -197,66 +175,47 @@ export default function MainPage({navigation}: Props) {
         loadProfile();
     }, []);
 
-    const parentData = data ? ['profile', 'rating', ...data] : ['profile', 'rating'];
-
-    console.log("render ---");
+    const parentData = data ? ['profile', 'rating', ...data]:['profile', 'rating'];
 
     return (
             <View style={styles.container}>
-
                 <View style={styles.content}>
 
                     <FlatList
-                            // initialNumToRender={3}
-                            style={{flex:1}}
+                            onRefresh={() => setUpdate(new Date())}
+                            refreshing={loadingRating}
+                            style={styles.list}
                             data={parentData}
                             renderItem={({item, index}) => {
-                                console.log("render", index);
                                 switch (item) {
                                     case 'rating':
-                                        return <Rating steam_id={steam_id} profile_id={profile_id}/>;
+                                        return <Rating
+                                                steam_id={steam_id}
+                                                profile_id={profile_id}
+                                                update={update}
+                                                updating={setLoadingRating}
+                                        />;
                                     case 'profile':
                                         if (profile == null) return <Text>...</Text>;
                                         return <Profile data={profile}/>;
                                     default:
-                                        return  <Game data={item as IMatch}/>;
+                                        return <Game data={item as IMatch}/>;
                                 }
 
                             }}
                             keyExtractor={(item, index) => index.toString()}
                     />
                 </View>
-
-                {/*<ScrollView nestedScrollEnabled={true}>*/}
-                {/*    <View style={styles.content}>*/}
-
-                {/*        <Rating />*/}
-
-                {/*        /!*{*!/*/}
-                {/*        /!*    profile &&*!/*/}
-                {/*        /!*    <Profile data={profile} />*!/*/}
-                {/*        /!*}*!/*/}
-
-                {/*        /!*{*!/*/}
-                {/*        /!*    data &&*!/*/}
-                {/*        /!*    <FlatList*!/*/}
-                {/*        /!*            // style={{maxHeight:700}}*!/*/}
-                {/*        /!*            // onRefresh={loadData}*!/*/}
-                {/*        /!*            // refreshing={loading}*!/*/}
-                {/*        /!*            // nestedScrollEnabled={true}*!/*/}
-                {/*        /!*        data={data}*!/*/}
-                {/*        /!*        renderItem={({item}) => <Game data={item}/>}*!/*/}
-                {/*        /!*        keyExtractor={(item, index) => index.toString()}*!/*/}
-                {/*        /!*    />*!/*/}
-                {/*        /!*}*!/*/}
-                {/*    </View>*/}
-                {/*</ScrollView>*/}
-
             </View>
     );
 }
 
 const styles = StyleSheet.create({
+    list: {
+        paddingTop: 20,
+        paddingLeft: 20,
+        paddingRight: 20,
+    },
     matchTitle: {
         fontWeight: 'bold',
     },
@@ -309,8 +268,6 @@ const styles = StyleSheet.create({
         fontSize: 12,
     },
     container: {
-        paddingTop: 20,
-        paddingBottom: 50,
         flex: 1,
         backgroundColor: '#fff',
         // alignItems: 'center',
@@ -318,7 +275,7 @@ const styles = StyleSheet.create({
     },
     content: {
         flex: 1,
-        alignSelf: 'center',
+        // alignSelf: 'center',
     },
     centeredView: {
         flex: 1,

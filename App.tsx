@@ -1,14 +1,15 @@
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
+import { Link, NavigationContainer, useLinkTo } from '@react-navigation/native';
 import React from 'react';
 import MainPage from './src/view/main.page';
-import { Button, Image, StyleSheet, Text, View, YellowBox } from 'react-native';
+import { Button, Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View, YellowBox } from 'react-native';
 import NamePage from './src/view/name.page';
 import { createStackNavigator, HeaderBackground } from '@react-navigation/stack';
 import { Provider as PaperProvider } from 'react-native-paper';
 import Header from './src/view/header';
 import Constants from 'expo-constants';
 import { parseUserId, printUserId } from './src/service/user';
+import { FontAwesome } from '@expo/vector-icons';
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -31,12 +32,33 @@ const linking = {
                 id: printUserId,
             },
         },
+        Name: {
+            path: 'name',
+        },
+        Main: {
+            path: 'main',
+        },
     },
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 const headerStatusBarHeight = 60;
+
+export function Menu() {
+    const linkTo = useLinkTo();
+
+    return (
+            <View style={styles.menu}>
+                <TouchableOpacity onPress={() => linkTo('/name')}>
+                    <FontAwesome style={styles.menuButton} name="search" size={18} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => linkTo('/main')}>
+                    <FontAwesome style={styles.menuButton} name="user" size={18} />
+                </TouchableOpacity>
+            </View>
+    );
+}
 
 export default function App() {
     return (
@@ -51,6 +73,19 @@ export default function App() {
                                     headerStatusBarHeight: headerStatusBarHeight,
                                     headerBackground: () => (
                                             <HeaderBackground><Header/></HeaderBackground>
+                                    ),
+                                    headerRight: () => (
+                                            <Menu />
+                                            // <Button title="asd" onPress={() => alert('This is a button!')}><FontAwesome name="search" size={18} /></Button>
+
+                                            // <FontAwesome.Button name="facebook"  onPress={() => alert('This is a button!')}>
+                                            // </FontAwesome.Button>
+                                            // <Icon name="rocket" size={30} color="#900" />
+                                            // <Button
+                                            //         onPress={() => alert('This is a button!')}
+                                            //         title="Info"
+                                            //         // color="#fff"
+                                            // />
                                     ),
                                 }}
                         />
@@ -69,6 +104,7 @@ export default function App() {
                                 name="Name"
                                 component={NamePage}
                                 options={{
+                                    title: 'Search',
                                     headerStatusBarHeight: headerStatusBarHeight,
                                     headerBackground: () => (
                                             <HeaderBackground><Header/></HeaderBackground>
@@ -92,4 +128,10 @@ const styles = StyleSheet.create({
         width: 30,
         height: 30,
     },
+    menu: {
+        flexDirection: 'row',
+    },
+    menuButton: {
+        marginRight: 20,
+    }
 });

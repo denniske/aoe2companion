@@ -4,6 +4,7 @@ import { fetchRatingHistory } from '../api/rating-history';
 import { VictoryChart, VictoryTheme, VictoryLine, VictoryScatter } from "victory-native";
 import { getLeaderboardAbbr } from '../service/util';
 import ContentLoader, { Rect, Circle } from 'react-content-loader/native'
+import { getLeaderboardColor } from '../service/colors';
 
 interface IRatingHistoryRow {
     leaderboard_id: number;
@@ -13,6 +14,8 @@ interface IRatingHistoryRow {
 interface IRatingProps {
     steam_id: string;
     profile_id: number;
+    update?: Date;
+    updating?: (updating: boolean) => void;
 }
 
 const MyLoader = () => {
@@ -28,7 +31,7 @@ const MyLoader = () => {
         </ContentLoader>
 )}
 
-export default function Rating({steam_id, profile_id}: IRatingProps) {
+export default function Rating({steam_id, profile_id, update, updating}: IRatingProps) {
 
     const [loading, setLoading] = useState(true);
     const [ratingHistories, setRatingHistories] = useState(null as unknown as IRatingHistoryRow[]);
@@ -39,6 +42,7 @@ export default function Rating({steam_id, profile_id}: IRatingProps) {
 
     const loadData = async () => {
         setLoading(true);
+        if (updating != null) updating(true);
 
         console.log("loading ratings");
 
@@ -59,19 +63,12 @@ export default function Rating({steam_id, profile_id}: IRatingProps) {
 
         setRatingHistories(ratingHistoryRows);
         setLoading(false);
+        if (updating != null) updating(false);
     };
 
     useEffect(() => {
         loadData();
-    }, []);
-
-    const strokes = [
-        '#757476',
-        '#D65154',
-        '#E19659',
-        '#6188C1',
-        '#8970AE',
-    ];
+    }, [update]);
 
     return (
             <View style={styles.container}>
@@ -89,7 +86,7 @@ export default function Rating({steam_id, profile_id}: IRatingProps) {
                                             data={ratingHistory.data}
                                             x="timestamp"
                                             y="rating" style={{
-                                        data: {stroke: strokes[ratingHistory.leaderboard_id]}
+                                        data: {stroke: getLeaderboardColor(ratingHistory.leaderboard_id)}
                                     }}
                                     />
                             ))
@@ -104,7 +101,7 @@ export default function Rating({steam_id, profile_id}: IRatingProps) {
                                             y="rating"
                                             size={1.5}
                                             style={{
-                                                data: {fill: strokes[ratingHistory.leaderboard_id]}
+                                                data: {fill: getLeaderboardColor(ratingHistory.leaderboard_id)}
                                             }}
                                     />
                             ))
@@ -117,7 +114,7 @@ export default function Rating({steam_id, profile_id}: IRatingProps) {
                     ratingHistories && ratingHistories.map(ratingHistory => (
                             <Text
                                     key={'legend-' + ratingHistory.leaderboard_id}
-                                    style={{fontSize: 12, color:strokes[ratingHistory.leaderboard_id]}}
+                                    style={{fontSize: 12, color:getLeaderboardColor(ratingHistory.leaderboard_id)}}
                             >
                                 {getLeaderboardAbbr(ratingHistory.leaderboard_id)}
                             </Text>
