@@ -1,17 +1,13 @@
-import { StyleSheet, View, Text } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import { fetchRatingHistory } from '../api/rating-history';
-import { VictoryChart, VictoryTheme, VictoryLine, VictoryScatter } from "victory-native";
+import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { VictoryChart, VictoryLine, VictoryScatter, VictoryTheme } from "victory-native";
 import { getLeaderboardAbbr } from '../helper/util';
-import ContentLoader, { Rect, Circle } from 'react-content-loader/native'
+import ContentLoader, { Rect } from 'react-content-loader/native'
 import { getLeaderboardColor } from '../helper/colors';
+import { IRatingHistoryRow } from '../service/rating';
 
 interface IRatingProps {
     ratingHistories: IRatingHistoryRow[];
-    // steam_id: string;
-    // profile_id: number;
-    // update?: Date;
-    // updating?: (updating: boolean) => void;
 }
 
 const MyLoader = () => {
@@ -27,19 +23,8 @@ const MyLoader = () => {
         </ContentLoader>
 )}
 
-
-
 export default function Rating({ratingHistories}: IRatingProps) {
-
-
-    // const [loading, setLoading] = useState(true);
-    // const [ratingHistories, setRatingHistories] = useState(null as unknown as IRatingHistoryRow[]);
-
     console.log("render rating");
-
-    // useEffect(() => {
-    //     loadData();
-    // }, [update]);
 
     return (
             <View style={styles.container}>

@@ -18,6 +18,7 @@ import Profile, { IProfile } from './profile';
 import Rating from './rating';
 import { fetchRatingHistory } from '../api/rating-history';
 import { useApi } from '../hooks/use-api';
+import { loadRatingHistories } from '../service/rating';
 
 interface IPlayerProps {
     player: IPlayer;
@@ -118,34 +119,6 @@ export function Game({data}: IGameProps) {
 type Props = {
     navigation: StackNavigationProp<RootStackParamList, 'Main'>;
     route: RouteProp<RootStackParamList, 'Main'>;
-};
-
-
-
-interface IRatingHistoryRow {
-    leaderboard_id: number;
-    data: IRatingHistoryEntry[];
-}
-
-const loadRatingHistories = async (game: string, steam_id: string) => {
-    console.log("loading ratings", game, steam_id);
-
-    let ratingHistories = await Promise.all([
-        fetchRatingHistory(game, 0, 0, 500, {steam_id}),
-        fetchRatingHistory(game, 1, 0, 500, {steam_id}),
-        fetchRatingHistory(game, 2, 0, 500, {steam_id}),
-        fetchRatingHistory(game, 3, 0, 500, {steam_id}),
-        fetchRatingHistory(game, 4, 0, 500, {steam_id}),
-    ]);
-
-    let ratingHistoryRows = ratingHistories.map((rh, i) => ({
-        leaderboard_id: i,
-        data: rh,
-    }));
-
-    ratingHistoryRows = ratingHistoryRows.filter(rh => rh.data?.length);
-
-    return ratingHistoryRows;
 };
 
 export default function MainPage({navigation}: Props) {
