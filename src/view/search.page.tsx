@@ -46,7 +46,7 @@ type Props = {
     route: RouteProp<RootStackParamList, 'Name'>;
 };
 
-export default function NamePage({navigation, route}: Props) {
+export default function SearchPage({navigation, route}: Props) {
     console.log("navigation2", navigation);
     console.log("route2", route);
     const [isLoading, setLoading] = useState(true);

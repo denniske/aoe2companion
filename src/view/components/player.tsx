@@ -57,7 +57,7 @@ export function Player({player}: IPlayerProps) {
                     <Text style={styles.playerRating}>{player.rating}</Text>
                 </TouchableHighlight>
 
-                <Link to={'/profile/' + printUserId(player) + '/' + player.name} style={playerNameStyle}>{player.name}</Link>
+                <Link to={'/user/' + printUserId(player) + '/' + player.name} style={playerNameStyle}>{player.name}</Link>
 
                 <Image style={styles.civIcon} source={getCivIcon(player.civ)}/>
                 <Text> {getString('civ', player.civ)}</Text>

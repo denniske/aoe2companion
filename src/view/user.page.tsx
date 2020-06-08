@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../App';
-import { RouteProp } from '@react-navigation/native';
+import { RouteProp, useRoute } from '@react-navigation/native';
 import { fetchMatches } from '../api/matches';
 import Profile from './profile';
 import Rating from './rating';
@@ -17,16 +17,18 @@ type Props = {
     route: RouteProp<RootStackParamList, 'Main'>;
 };
 
-export default function MainPage({navigation}: Props) {
+export default function UserPage({navigation}: Props) {
+    const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
+
     const game = 'aoe2de';
-    const steam_id = '76561197995781128';
-    const profile_id = 209525;
+    const steam_id = route.params.id.steam_id;
+    const profile_id = route.params.id.profile_id;
 
     const rating = useApi(loadRatingHistories, 'aoe2de', steam_id);
     const profile = useApi(loadProfile, 'aoe2de', profile_id);
     const matches = useApi(fetchMatches, game, profile_id, 0, 10);
 
-    const list = ['profile', 'rating', ...(matches.data || [])];
+    const list = ['profile', 'rating', 'matches-header', ...(matches.data || [])];
 
     return (
             <View style={styles.container}>
@@ -44,6 +46,8 @@ export default function MainPage({navigation}: Props) {
                                     case 'profile':
                                         if (profile.data == null) return <Text>...</Text>;
                                         return <Profile data={profile.data}/>;
+                                    case 'matches-header':
+                                        return <Text style={styles.matchesHeader}>Matches</Text>;
                                     default:
                                         return <Game data={item as IMatch}/>;
                                 }
@@ -57,6 +61,12 @@ export default function MainPage({navigation}: Props) {
 }
 
 const styles = StyleSheet.create({
+    matchesHeader: {
+        marginTop: 20,
+        marginBottom: 20,
+        fontSize: 14,
+        textAlign: 'center',
+    },
     list: {
         paddingTop: 20,
         paddingLeft: 20,

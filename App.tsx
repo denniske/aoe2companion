@@ -3,27 +3,28 @@ import { Link, NavigationContainer, useLinkTo } from '@react-navigation/native';
 import React from 'react';
 import MainPage from './src/view/main.page';
 import { Button, Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View, YellowBox } from 'react-native';
-import NamePage from './src/view/name.page';
+import SearchPage from './src/view/search.page';
 import { createStackNavigator, HeaderBackground } from '@react-navigation/stack';
 import { Provider as PaperProvider } from 'react-native-paper';
 import Header from './src/view/header';
 import Constants from 'expo-constants';
-import { parseUserId, printUserId } from './src/helper/user';
+import { parseUserId, printUserId, UserId } from './src/helper/user';
 import { FontAwesome } from '@expo/vector-icons';
+import UserPage from './src/view/user.page';
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
 export type RootStackParamList = {
     Main: undefined;
-    Profile: { steam_id: string, name: string };
-    Name: { name: string };
+    User: { id: UserId, name: string };
+    Search: { name: string };
 };
 
 const linking = {
     prefixes: ['https://aoe2companion.com', 'aoe2companion://'],
     config: {
-        Profile: {
-            path: 'profile/:id/:name',
+        User: {
+            path: 'user/:id/:name',
             parse: {
                 id: parseUserId,
                 name: String,
@@ -32,8 +33,8 @@ const linking = {
                 id: printUserId,
             },
         },
-        Name: {
-            path: 'name',
+        Search: {
+            path: 'search',
         },
         Main: {
             path: 'main',
@@ -50,7 +51,7 @@ export function Menu() {
 
     return (
             <View style={styles.menu}>
-                <TouchableOpacity onPress={() => linkTo('/name')}>
+                <TouchableOpacity onPress={() => linkTo('/search')}>
                     <FontAwesome style={styles.menuButton} name="search" size={18} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => linkTo('/main')}>
@@ -76,22 +77,12 @@ export default function App() {
                                     ),
                                     headerRight: () => (
                                             <Menu />
-                                            // <Button title="asd" onPress={() => alert('This is a button!')}><FontAwesome name="search" size={18} /></Button>
-
-                                            // <FontAwesome.Button name="facebook"  onPress={() => alert('This is a button!')}>
-                                            // </FontAwesome.Button>
-                                            // <Icon name="rocket" size={30} color="#900" />
-                                            // <Button
-                                            //         onPress={() => alert('This is a button!')}
-                                            //         title="Info"
-                                            //         // color="#fff"
-                                            // />
                                     ),
                                 }}
                         />
                         <Stack.Screen
-                                name="Profile"
-                                component={NamePage}
+                                name="User"
+                                component={UserPage}
                                 options={({route}) => ({
                                     title: route.params.name,
                                     headerStatusBarHeight: headerStatusBarHeight,
@@ -101,8 +92,8 @@ export default function App() {
                                 })}
                         />
                         <Stack.Screen
-                                name="Name"
-                                component={NamePage}
+                                name="Search"
+                                component={SearchPage}
                                 options={{
                                     title: 'Search',
                                     headerStatusBarHeight: headerStatusBarHeight,
