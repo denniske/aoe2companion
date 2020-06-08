@@ -51,43 +51,11 @@ const headerStatusBarHeight = 60;
 export function Menu() {
     const linkTo = useLinkTo();
 
-    const me = useApi(() => AsyncStorage.getItem('settings'));
-
-    const doDeleteUser = async () => {
-      await AsyncStorage.removeItem('settings');
-      console.log("REMOVED ME");
-    };
-
-    const deleteUser = () => {
-        Alert.alert(
-                "Delete Me?",
-                "Do you want to reset me page?",
-                [
-                    {
-                        text: "Cancel",
-                        style: "cancel"
-                    },
-                    {
-                        text: "Reset",
-                        onPress: doDeleteUser,
-                    }
-                ],
-                { cancelable: false }
-        );
-    };
-
-
     return (
             <View style={styles.menu}>
-                <TouchableOpacity onPress={() => linkTo('/search')}>
-                    <FontAwesome style={styles.menuButton} name="search" size={18} />
-                </TouchableOpacity>
-                {
-                    me.data == null &&
-                    <TouchableOpacity onPress={deleteUser}>
-                        <FontAwesome style={styles.menuButton} name="close" size={18} />
-                    </TouchableOpacity>
-                }
+                {/*<TouchableOpacity onPress={() => linkTo('/search')}>*/}
+                {/*    <FontAwesome style={styles.menuButton} name="search" size={18} />*/}
+                {/*</TouchableOpacity>*/}
                 {/*<TouchableOpacity onPress={() => linkTo('/main')}>*/}
                 {/*    <FontAwesome style={styles.menuButton} name="user" size={18} />*/}
                 {/*</TouchableOpacity>*/}
