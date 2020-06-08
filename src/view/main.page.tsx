@@ -15,6 +15,7 @@ import Rating from './rating';
 import { useApi } from '../hooks/use-api';
 import { loadRatingHistories } from '../service/rating';
 import { loadProfile } from '../service/profile';
+import { useLazyApi } from '../hooks/use-lazy-api';
 
 interface IPlayerProps {
     player: IPlayer;
@@ -26,16 +27,16 @@ interface IGameProps {
 
 export function Player({player}: IPlayerProps) {
     const [modalVisible, setModalVisible] = useState(false);
-    // const rating = useApi(loadRatingHistories, 'aoe2de', player.steam_id);
+    const rating = useLazyApi(loadRatingHistories, 'aoe2de', player.steam_id);
 
     const boxStyle = StyleSheet.flatten([styles.square, {backgroundColor: getPlayerBackgroundColor(player.color)}]);
 
     const isCurrentPlayer = player.steam_id === AppSettings.steam_id || player.profile_id === AppSettings.profile_id;
     const playerNameStyle = StyleSheet.flatten([styles.playerName, {textDecorationLine: isCurrentPlayer ? 'underline':'none'}]) as TextStyle;
-    // const playerNameStyle = StyleSheet.flatten([styles.playerName, {fontWeight: isCurrentPlayer ? 'bold':'normal'}]) as TextStyle;
 
     const openRatingModal = () => {
         setModalVisible(true);
+        rating.reload();
     };
 
     const closeRatingModal = () => {
@@ -56,7 +57,7 @@ export function Player({player}: IPlayerProps) {
                                     <Text>❌</Text>
                                 </TouchableHighlight>
                                 <Text style={styles.modalText}>{player.name}</Text>
-                                {/*<Rating ratingHistories={rating.result}/>*/}
+                                <Rating ratingHistories={rating.data}/>
                             </View>
                         </View>
                     </TouchableWithoutFeedback>
@@ -127,7 +128,7 @@ export default function MainPage({navigation}: Props) {
     const profile = useApi(loadProfile, 'aoe2de', profile_id);
     const matches = useApi(fetchMatches, game, profile_id, 0, 10);
 
-    const parentData = matches.result ? ['profile', 'rating', ...matches.result]:['profile', 'rating'];
+    const list = ['profile', 'rating', ...(matches.data || [])];
 
     return (
             <View style={styles.container}>
@@ -137,15 +138,14 @@ export default function MainPage({navigation}: Props) {
                             onRefresh={() => { rating.reload(); profile.reload(); matches.reload(); }}
                             refreshing={rating.loading || profile.loading || matches.loading}
                             style={styles.list}
-                            data={parentData}
+                            data={list}
                             renderItem={({item, index}) => {
                                 switch (item) {
                                     case 'rating':
-                                        // if (rating.result == null) return <Text>...</Text>;
-                                        return <Rating ratingHistories={rating.result}/>;
+                                        return <Rating ratingHistories={rating.data}/>;
                                     case 'profile':
-                                        if (profile.result == null) return <Text>...</Text>;
-                                        return <Profile data={profile.result}/>;
+                                        if (profile.data == null) return <Text>...</Text>;
+                                        return <Profile data={profile.data}/>;
                                     default:
                                         return <Game data={item as IMatch}/>;
                                 }
