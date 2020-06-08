@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert, AsyncStorage, FlatList, StyleSheet, Text, View } from 'react-native';
 import {  Button } from 'react-native-paper';
 import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
@@ -16,6 +16,7 @@ import SearchPage from './search.page';
 import { UserId } from '../helper/user';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useLazyApi } from '../hooks/use-lazy-api';
+import { createContainer } from 'unstated-next';
 
 // @refresh reset
 
@@ -135,6 +136,25 @@ function MainFollowing() {
 const Tab = createMaterialTopTabNavigator();//<MainTabParamList>();
 
 
+function useCounter(initialState = 0) {
+    let [count, setCount] = useState(initialState)
+    let decrement = () => setCount(count - 1)
+    let increment = () => setCount(count + 1)
+    return { count, decrement, increment }
+}
+
+let Counter = createContainer(useCounter)
+
+function CounterDisplay() {
+    let counter = Counter.useContainer()
+    return (
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Button onPress={counter.decrement}>-</Button>
+                <Text>{counter.count}</Text>
+                <Button onPress={counter.increment}>+</Button>
+            </View>
+    )
+}
 
 
 
@@ -151,11 +171,22 @@ export default function MainPage() {
     }
 
     return (
-            <Tab.Navigator swipeEnabled={false} lazy={true}>
-                <Tab.Screen name="MainHome" options={{ title: 'Profile' }} component={MainHome} />
-                <Tab.Screen name="MainMatches" options={{ title: 'Matches' }} component={MainMatches} />
-                <Tab.Screen name="MainFollowing" options={{ title: 'Following' }} component={MainFollowing} />
-            </Tab.Navigator>
+
+            <Counter.Provider>
+                <CounterDisplay />
+                <Counter.Provider initialState={2}>
+                    <View>
+                        <View>
+                            <CounterDisplay />
+                        </View>
+                    </View>
+                </Counter.Provider>
+            </Counter.Provider>
+            // <Tab.Navigator swipeEnabled={false} lazy={true}>
+            //     <Tab.Screen name="MainHome" options={{ title: 'Profile' }} component={MainHome} />
+            //     <Tab.Screen name="MainMatches" options={{ title: 'Matches' }} component={MainMatches} />
+            //     <Tab.Screen name="MainFollowing" options={{ title: 'Following' }} component={MainFollowing} />
+            // </Tab.Navigator>
     );
 }
 
