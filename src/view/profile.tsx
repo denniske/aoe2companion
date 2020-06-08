@@ -1,8 +1,8 @@
 import { StyleSheet, Text, TouchableHighlight, View, ViewStyle } from 'react-native';
-import { formatAgo, getLeaderboardAbbr } from '../service/util';
+import { formatAgo, getLeaderboardAbbr } from '../helper/util';
 import React from 'react';
-import { getString } from '../service/strings';
-import { getLeaderboardColor, getPlayerBackgroundColor } from '../service/colors';
+import { getString } from '../helper/strings';
+import { getLeaderboardColor, getPlayerBackgroundColor } from '../helper/colors';
 
 interface ILeaderboardRowProps {
     data: ILeaderboard;

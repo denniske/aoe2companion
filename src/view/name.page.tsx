@@ -3,7 +3,7 @@ import { fetchLastMatch } from '../api/lastmatch';
 import { Button, FlatList, Image, SafeAreaView, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import { Game } from './main.page';
 import { fetchLeaderboard } from '../api/leaderboard';
-import { formatAgo } from '../service/util';
+import { formatAgo } from '../helper/util';
 import Constants from 'expo-constants';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../App';

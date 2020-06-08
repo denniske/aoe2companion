@@ -2,20 +2,16 @@ import { StyleSheet, View, Text } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { fetchRatingHistory } from '../api/rating-history';
 import { VictoryChart, VictoryTheme, VictoryLine, VictoryScatter } from "victory-native";
-import { getLeaderboardAbbr } from '../service/util';
+import { getLeaderboardAbbr } from '../helper/util';
 import ContentLoader, { Rect, Circle } from 'react-content-loader/native'
-import { getLeaderboardColor } from '../service/colors';
-
-interface IRatingHistoryRow {
-    leaderboard_id: number;
-    data: IRatingHistoryEntry[];
-}
+import { getLeaderboardColor } from '../helper/colors';
 
 interface IRatingProps {
-    steam_id: string;
-    profile_id: number;
-    update?: Date;
-    updating?: (updating: boolean) => void;
+    ratingHistories: IRatingHistoryRow[];
+    // steam_id: string;
+    // profile_id: number;
+    // update?: Date;
+    // updating?: (updating: boolean) => void;
 }
 
 const MyLoader = () => {
@@ -31,44 +27,19 @@ const MyLoader = () => {
         </ContentLoader>
 )}
 
-export default function Rating({steam_id, profile_id, update, updating}: IRatingProps) {
 
-    const [loading, setLoading] = useState(true);
-    const [ratingHistories, setRatingHistories] = useState(null as unknown as IRatingHistoryRow[]);
 
-    const game = 'aoe2de';
+export default function Rating({ratingHistories}: IRatingProps) {
+
+
+    // const [loading, setLoading] = useState(true);
+    // const [ratingHistories, setRatingHistories] = useState(null as unknown as IRatingHistoryRow[]);
 
     console.log("render rating");
 
-    const loadData = async () => {
-        setLoading(true);
-        if (updating != null) updating(true);
-
-        console.log("loading ratings");
-
-        let ratingHistories = await Promise.all([
-            fetchRatingHistory(game, 0, 0, 500, {steam_id}),
-            fetchRatingHistory(game, 1, 0, 500, {steam_id}),
-            fetchRatingHistory(game, 2, 0, 500, {steam_id}),
-            fetchRatingHistory(game, 3, 0, 500, {steam_id}),
-            fetchRatingHistory(game, 4, 0, 500, {steam_id}),
-        ]);
-
-        let ratingHistoryRows = ratingHistories.map((rh, i) => ({
-            leaderboard_id: i,
-            data: rh,
-        }));
-
-        ratingHistoryRows = ratingHistoryRows.filter(rh => rh.data?.length);
-
-        setRatingHistories(ratingHistoryRows);
-        setLoading(false);
-        if (updating != null) updating(false);
-    };
-
-    useEffect(() => {
-        loadData();
-    }, [update]);
+    // useEffect(() => {
+    //     loadData();
+    // }, [update]);
 
     return (
             <View style={styles.container}>

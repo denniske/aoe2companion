@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Button, FlatList, Image, Modal, Picker, SafeAreaView, ScrollView, StyleSheet, Text, TextStyle, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native';
-import { formatAgo } from '../service/util';
-import { getCivIcon } from '../service/civs';
-import { getPlayerBackgroundColor } from '../service/colors';
+import { formatAgo } from '../helper/util';
+import { getCivIcon } from '../helper/civs';
+import { getPlayerBackgroundColor } from '../helper/colors';
 import { fetchLastMatch } from '../api/lastmatch';
-import { getString } from '../service/strings';
+import { getString } from '../helper/strings';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../App';
 import { Link, RouteProp } from '@react-navigation/native';
 import Header from './header';
 import Constants from 'expo-constants';
-import { printUserId } from '../service/user';
+import { printUserId } from '../helper/user';
 import { fetchMatches } from '../api/matches';
-import { AppSettings } from '../service/constants';
+import { AppSettings } from '../helper/constants';
 import { fetchLeaderboard } from '../api/leaderboard';
 import Profile, { IProfile } from './profile';
 import Rating from './rating';
+import { fetchRatingHistory } from '../api/rating-history';
+import { useApi } from '../hooks/use-api';
 
 interface IPlayerProps {
     player: IPlayer;
@@ -56,7 +58,7 @@ export function Player({player}: IPlayerProps) {
                                     <Text>❌</Text>
                                 </TouchableHighlight>
                                 <Text style={styles.modalText}>{player.name}</Text>
-                                <Rating steam_id={player.steam_id} profile_id={player.profile_id}/>
+                                {/*<Rating steam_id={player.steam_id} profile_id={player.profile_id}/>*/}
                             </View>
                         </View>
                     </TouchableWithoutFeedback>
@@ -118,88 +120,125 @@ type Props = {
     route: RouteProp<RootStackParamList, 'Main'>;
 };
 
+
+
+interface IRatingHistoryRow {
+    leaderboard_id: number;
+    data: IRatingHistoryEntry[];
+}
+
+const loadRatingHistories = async (game: string, steam_id: string) => {
+    console.log("loading ratings", game, steam_id);
+
+    let ratingHistories = await Promise.all([
+        fetchRatingHistory(game, 0, 0, 500, {steam_id}),
+        fetchRatingHistory(game, 1, 0, 500, {steam_id}),
+        fetchRatingHistory(game, 2, 0, 500, {steam_id}),
+        fetchRatingHistory(game, 3, 0, 500, {steam_id}),
+        fetchRatingHistory(game, 4, 0, 500, {steam_id}),
+    ]);
+
+    let ratingHistoryRows = ratingHistories.map((rh, i) => ({
+        leaderboard_id: i,
+        data: rh,
+    }));
+
+    ratingHistoryRows = ratingHistoryRows.filter(rh => rh.data?.length);
+
+    return ratingHistoryRows;
+};
+
 export default function MainPage({navigation}: Props) {
-    const [update, setUpdate] = useState(new Date());
-
-    const [loadingRating, setLoadingRating] = useState(true);
-
-    const [loading, setLoading] = useState(true);
-    const [data, setData] = useState(null as unknown as IMatch[]);
-
-    const [loadingProfile, setLoadingProfile] = useState(true);
-    const [profile, setProfile] = useState(null as unknown as IProfile);
+    // const [update, setUpdate] = useState(new Date());
+    // const [loadingRating, setLoadingRating] = useState(true);
+    // const [loading, setLoading] = useState(true);
+    // const [data, setData] = useState(null as unknown as IMatch[]);
+    // const [loadingProfile, setLoadingProfile] = useState(true);
+    // const [profile, setProfile] = useState(null as unknown as IProfile);
 
     const game = 'aoe2de';
     const steam_id = '76561197995781128';
     const profile_id = 209525;
 
-    const loadData = async () => {
-        setLoading(true);
-        const lastMatch = await fetchMatches(game, profile_id, 0, 10);
-        setData(lastMatch);
-        setLoading(false);
-    };
+    const rating = useApi(loadRatingHistories, 'aoe2de', steam_id);
 
-    const loadProfile = async () => {
-        setLoadingProfile(true);
+    // const {result: ratingHistories, loading: loadingHistories, refetch, reload} =
+    //         useApi(loadRatingHistories, 'aoe2de', steam_id2);
 
-        let leaderboards = await Promise.all([
-            fetchLeaderboard(game, '0', {count: 1, profile_id}),
-            fetchLeaderboard(game, '1', {count: 1, profile_id}),
-            fetchLeaderboard(game, '2', {count: 1, profile_id}),
-            fetchLeaderboard(game, '3', {count: 1, profile_id}),
-            fetchLeaderboard(game, '4', {count: 1, profile_id}),
-        ]);
+    // refetch('aoe2de', steam_id2)
 
-        const leaderboardInfos = leaderboards.flatMap(l => l.leaderboard);
-        leaderboardInfos.sort((a, b) => b.last_match.getTime() - a.last_match.getTime());
-        const mostRecentLeaderboard = leaderboardInfos[0];
+    // const loadData2 = async () => {
+    //     setLoading(true);
+    //     const lastMatch = await fetchMatches(game, profile_id, 0, 10);
+    //     setData(lastMatch);
+    //     setLoading(false);
+    // };
+    //
+    // const loadProfile = async () => {
+    //     setLoadingProfile(true);
+    //
+    //     let leaderboards = await Promise.all([
+    //         fetchLeaderboard(game, '0', {count: 1, profile_id}),
+    //         fetchLeaderboard(game, '1', {count: 1, profile_id}),
+    //         fetchLeaderboard(game, '2', {count: 1, profile_id}),
+    //         fetchLeaderboard(game, '3', {count: 1, profile_id}),
+    //         fetchLeaderboard(game, '4', {count: 1, profile_id}),
+    //     ]);
+    //
+    //     const leaderboardInfos = leaderboards.flatMap(l => l.leaderboard);
+    //     leaderboardInfos.sort((a, b) => b.last_match.getTime() - a.last_match.getTime());
+    //     const mostRecentLeaderboard = leaderboardInfos[0];
+    //
+    //     setProfile({
+    //         clan: mostRecentLeaderboard.clan,
+    //         country: mostRecentLeaderboard.country,
+    //         icon: mostRecentLeaderboard.icon,
+    //         name: mostRecentLeaderboard.name,
+    //         profile_id: mostRecentLeaderboard.profile_id,
+    //         steam_id: mostRecentLeaderboard.steam_id,
+    //         games: leaderboardInfos.map(l => l.games).reduce((pv, cv) => pv + cv, 0),
+    //         drops: leaderboardInfos.map(l => l.drops).reduce((pv, cv) => pv + cv, 0),
+    //         leaderboards: leaderboards.filter(l => l.leaderboard?.length > 0),
+    //     });
+    //
+    //     setLoadingProfile(false);
+    // };
+    //
+    // useEffect(() => {
+    //     loadData2();
+    //     loadProfile();
+    // }, []);
 
-        setProfile({
-            clan: mostRecentLeaderboard.clan,
-            country: mostRecentLeaderboard.country,
-            icon: mostRecentLeaderboard.icon,
-            name: mostRecentLeaderboard.name,
-            profile_id: mostRecentLeaderboard.profile_id,
-            steam_id: mostRecentLeaderboard.steam_id,
-            games: leaderboardInfos.map(l => l.games).reduce((pv, cv) => pv + cv, 0),
-            drops: leaderboardInfos.map(l => l.drops).reduce((pv, cv) => pv + cv, 0),
-            leaderboards: leaderboards.filter(l => l.leaderboard?.length > 0),
-        });
-
-        setLoadingProfile(false);
-    };
-
-    useEffect(() => {
-        loadData();
-        loadProfile();
-    }, []);
-
-    const parentData = data ? ['profile', 'rating', ...data]:['profile', 'rating'];
+    const parentData = ['rating'];
+    // const parentData = data ? ['profile', 'rating', ...data]:['profile', 'rating'];
 
     return (
             <View style={styles.container}>
                 <View style={styles.content}>
 
                     <FlatList
-                            onRefresh={() => setUpdate(new Date())}
-                            refreshing={loadingRating}
+                            onRefresh={() => rating.reload()}
+                            refreshing={rating.loading}
                             style={styles.list}
                             data={parentData}
                             renderItem={({item, index}) => {
                                 switch (item) {
                                     case 'rating':
                                         return <Rating
-                                                steam_id={steam_id}
-                                                profile_id={profile_id}
-                                                update={update}
-                                                updating={setLoadingRating}
+                                                ratingHistories={rating.result}
+                                                // steam_id={steam_id}
+                                                // profile_id={profile_id}
+                                                // update={update}
+                                                // updating={setLoadingRating}
                                         />;
                                     case 'profile':
-                                        if (profile == null) return <Text>...</Text>;
-                                        return <Profile data={profile}/>;
+                                        return <Text>sadasd</Text>
+                                        // if (profile == null) return <Text>...</Text>;
+                                        // return <Profile data={profile}/>;
                                     default:
-                                        return <Game data={item as IMatch}/>;
+                                        return <Text>sadasd</Text>
+                                    // default:
+                                    //     return <Game data={item as IMatch}/>;
                                 }
 
                             }}

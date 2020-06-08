@@ -1,4 +1,4 @@
-import { makeQueryString } from '../service/util';
+import { makeQueryString } from '../helper/util';
 
 const fromUnixTime = require('date-fns/fromUnixTime');
 

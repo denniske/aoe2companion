@@ -8,7 +8,7 @@ import { createStackNavigator, HeaderBackground } from '@react-navigation/stack'
 import { Provider as PaperProvider } from 'react-native-paper';
 import Header from './src/view/header';
 import Constants from 'expo-constants';
-import { parseUserId, printUserId } from './src/service/user';
+import { parseUserId, printUserId } from './src/helper/user';
 import { FontAwesome } from '@expo/vector-icons';
 
 YellowBox.ignoreWarnings(['Remote debugger']);
