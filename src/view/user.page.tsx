@@ -17,27 +17,53 @@ type Props = {
     route: RouteProp<RootStackParamList, 'Main'>;
 };
 
-export default function UserPage({navigation}: Props) {
+export default function UserPage() {
     const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
 
-    console.log("==> USER PAGE");
-    console.log("==> USER PAGE");
-    console.log("==> USER PAGE");
+    console.log("==> ON RENDER UserPage");
 
-    const game = 'aoe2de';
-    const steam_id = route.params.id.steam_id;
-    const profile_id = route.params.id.profile_id;
+    const auth = route.params.id;
 
-    const rating = useApi(loadRatingHistories, 'aoe2de', steam_id);
-    const profile = useApi(loadProfile, 'aoe2de', profile_id);
-    const matches = useApi(fetchMatches, game, profile_id, 0, 10);
+    const rating = useApi(
+            [],
+            state => state.user[auth.id]?.rating,
+            (state, value) => {
+                if (state.user[auth.id] == null) {
+                    state.user[auth.id] = {};
+                }
+                state.user[auth.id].rating = value;
+            },
+            loadRatingHistories, 'aoe2de', auth.steam_id
+    );
+
+    const profile = useApi(
+            [],
+            state => state.user[auth.id]?.profile,
+            (state, value) => {
+                if (state.user[auth.id] == null) {
+                    state.user[auth.id] = {};
+                }
+                state.user[auth.id].profile = value;
+            },
+            loadProfile, 'aoe2de', auth.profile_id
+    );
+    const matches = useApi(
+            [],
+            state => state.user[auth.id]?.matches,
+            (state, value) => {
+                if (state.user[auth.id] == null) {
+                    state.user[auth.id] = {};
+                }
+                state.user[auth.id].matches = value;
+            },
+            fetchMatches, 'aoe2de', auth.profile_id, 0, 10
+    );
 
     const list = ['profile', 'rating', 'matches-header', ...(matches.data || [])];
 
     return (
             <View style={styles.container}>
                 <View style={styles.content}>
-
                     <FlatList
                             onRefresh={() => { rating.reload(); profile.reload(); matches.reload(); }}
                             refreshing={rating.loading || profile.loading || matches.loading}
