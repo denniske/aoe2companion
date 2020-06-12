@@ -1,11 +1,10 @@
 {
   "expo": {
-    "name": "aoe2-companion",
-    "slug": "aoe2-companion",
+    "name": "AoE II Companion",
+    "slug": "aoe2companion",
     "platforms": [
       "ios",
-      "android",
-      "web"
+      "android"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
@@ -21,8 +20,14 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "android": {
+      "package": "com.aoe2companion",
+      "versionCode": 1
+    },
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.aoe2companion",
+      "buildNumber": "1.0.0",
+      "supportsTablet": false
     }
   }
 }

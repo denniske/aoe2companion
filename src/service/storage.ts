@@ -8,10 +8,10 @@ export interface ISettings {
 
 
 export const loadSettingsFromStorage = async () => {
-    // await sleep(2000);
+    await sleep(2000);
     const entry = await AsyncStorage.getItem('settings');
     if (entry == null) {
-        return null;
+        return undefined;
     }
     console.log("json settings", entry);
     return JSON.parse(entry) as ISettings;
