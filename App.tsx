@@ -15,24 +15,11 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { useApi } from './src/hooks/use-api';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { ISettings, loadSettingsFromStorage } from './src/service/storage';
-import { createContainer } from 'unstated-next';
-import { Settings } from './src/context/storage';
 import SplashPage from './src/view/splash.page';
 import { NativeModules } from 'react-native';
-
-
-// @refresh reset
-
-// if (__DEV__) {
-//     const { DevSettings } = NativeModules;
-//     // DevSettings.setHotLoadingEnabled(false);
-//     DevSettings.setLiveReloadEnabled(false);
-// }
-
-// console.log(NativeModules);
-// console.log(NativeModules.DevSettings.getConstants());
-// NativeModules.DevSettings.setLiveReloadEnabled(true);
-
+import store from './src/redux/store';
+import { Provider } from 'react-redux';
+import { useSelector } from './src/redux/reducer';
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -84,57 +71,42 @@ export function Menu() {
     );
 }
 
-const theme = {
-    ...DefaultTheme,
-    roundness: 2,
-    colors: {
-        ...DefaultTheme.colors,
-        primary: '#3498db',
-        accent: '#f1c40f',
-    },
-};
-
-
 export default function App() {
     return (
-            <View>
-                <Text/>
-                <Text/>
-                <Text>App is loaded</Text>
-            </View>
-            // <Settings.Provider>
-            //     <NavigationContainer linking={linking}>
-            //         <PaperProvider theme={theme}>
-            //             <App2/>
-            //         </PaperProvider>
-            //     </NavigationContainer>
-            // </Settings.Provider>
+            <Provider store={store}>
+                <NavigationContainer linking={linking}>
+                    <App2/>
+                </NavigationContainer>
+            </Provider>
     );
 }
 
-
 export function App2() {
 
-    const me = useApi(() => loadSettingsFromStorage());
-    const {settings, setSettings} = Settings.useContainer()
-    const linkTo = useLinkTo();
-    const [linked, setLinked] = useState(false);
+    const auth = useSelector(state => state.auth);
 
-    console.log("==> APP PAGE me.loading =", me.loading, ', data =', me.data != null);
-    console.log("==> APP PAGE settings =", settings != null);
+    const me = useApi(state => state.auth, (state, value) => state.auth = value, () => loadSettingsFromStorage());
 
+    // const {settings, setSettings} = Settings.useContainer()
+    // const linkTo = useLinkTo();
+    // const [linked, setLinked] = useState(false);
 
-
-
-
+    console.log("==> APP PAGE me.loading =", me.loading, ', data =', me.data);
+    // console.log("==> APP PAGE settings =", settings != null);
 
 
-
-
-
+    if (auth === undefined) {
+        return (
+                <View>
+                    <Text/>
+                    <Text/>
+                    <Text>loading auth</Text>
+                </View>
+        );
+    }
 
     if (!me.loading) {
-        setSettings(me.data);
+        // setSettings(me.data);
         // console.log("=> SPLASH PAGE linkTo main already =", linked);
         // if (!linked) {
         //     setLinked(true);
@@ -145,10 +117,9 @@ export function App2() {
     // const linkTo = useLinkTo();
 
 
-
-    if (settings == null) {
-        return <View><Text/><Text/><Text>Loading Me</Text></View>;
-    }
+    // if (settings == null) {
+    //     return <View><Text/><Text/><Text>Loading Me</Text></View>;
+    // }
 
     // if (me.data == null) {
     //     return <SearchPage selectedUser={me.reload}/>;
@@ -159,55 +130,60 @@ export function App2() {
     // }
 
     return (
-            <Stack.Navigator screenOptions={{animationEnabled: false}}>
-                {/*<Stack.Screen*/}
-                {/*        name="Splash"*/}
-                {/*        component={SplashPage}*/}
-                {/*        options={{*/}
-                {/*            title: 'Splash',*/}
-                {/*            headerStatusBarHeight: headerStatusBarHeight,*/}
-                {/*            headerBackground: () => (*/}
-                {/*                    <HeaderBackground><Header/></HeaderBackground>*/}
-                {/*            ),*/}
-                {/*        }}*/}
-                {/*/>*/}
-                <Stack.Screen
-                        name="Main"
-                        component={MainPage}
-                        options={{
-                            title: 'Me',
-                            headerStatusBarHeight: headerStatusBarHeight,
-                            headerBackground: () => (
-                                    <HeaderBackground><Header/></HeaderBackground>
-                            ),
-                            headerRight: () => (
-                                    <Menu/>
-                            ),
-                        }}
-                />
-                <Stack.Screen
-                        name="User"
-                        component={UserPage}
-                        options={({route}) => ({
-                            title: route.params.name,
-                            headerStatusBarHeight: headerStatusBarHeight,
-                            headerBackground: () => (
-                                    <HeaderBackground><Header/></HeaderBackground>
-                            ),
-                        })}
-                />
-                <Stack.Screen
-                        name="Search"
-                        component={SearchPage}
-                        options={{
-                            title: 'Search',
-                            headerStatusBarHeight: headerStatusBarHeight,
-                            headerBackground: () => (
-                                    <HeaderBackground><Header/></HeaderBackground>
-                            ),
-                        }}
-                />
-            </Stack.Navigator>
+            <View>
+                <Text/>
+                <Text/>
+                <Text>steam_id: {auth?.steam_id}</Text>
+            </View>
+            // <Stack.Navigator screenOptions={{animationEnabled: false}}>
+            //     {/*<Stack.Screen*/}
+            //     {/*        name="Splash"*/}
+            //     {/*        component={SplashPage}*/}
+            //     {/*        options={{*/}
+            //     {/*            title: 'Splash',*/}
+            //     {/*            headerStatusBarHeight: headerStatusBarHeight,*/}
+            //     {/*            headerBackground: () => (*/}
+            //     {/*                    <HeaderBackground><Header/></HeaderBackground>*/}
+            //     {/*            ),*/}
+            //     {/*        }}*/}
+            //     {/*/>*/}
+            //     <Stack.Screen
+            //             name="Main"
+            //             component={MainPage}
+            //             options={{
+            //                 title: 'Me',
+            //                 headerStatusBarHeight: headerStatusBarHeight,
+            //                 headerBackground: () => (
+            //                         <HeaderBackground><Header/></HeaderBackground>
+            //                 ),
+            //                 headerRight: () => (
+            //                         <Menu/>
+            //                 ),
+            //             }}
+            //     />
+            //     <Stack.Screen
+            //             name="User"
+            //             component={UserPage}
+            //             options={({route}) => ({
+            //                 title: route.params.name,
+            //                 headerStatusBarHeight: headerStatusBarHeight,
+            //                 headerBackground: () => (
+            //                         <HeaderBackground><Header/></HeaderBackground>
+            //                 ),
+            //             })}
+            //     />
+            //     <Stack.Screen
+            //             name="Search"
+            //             component={SearchPage}
+            //             options={{
+            //                 title: 'Search',
+            //                 headerStatusBarHeight: headerStatusBarHeight,
+            //                 headerBackground: () => (
+            //                         <HeaderBackground><Header/></HeaderBackground>
+            //                 ),
+            //             }}
+            //     />
+            // </Stack.Navigator>
     );
 }
 

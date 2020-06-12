@@ -16,15 +16,13 @@ import SearchPage from './search.page';
 import { UserId } from '../helper/user';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useLazyApi } from '../hooks/use-lazy-api';
-import { createContainer } from 'unstated-next';
-import { Settings } from '../context/storage';
 
 // @refresh reset
 
 
 function MainHome() {
 
-    const { settings } = Settings.useContainer()
+    // const { settings } = Settings.useContainer()
 
 
 
@@ -55,7 +53,8 @@ function MainHome() {
     console.log("==> ON RENDER");
 
     return (
-            <Text>HELLO.... {settings?.steam_id} & {(new Date()).getSeconds()}</Text>
+            <Text>ddd</Text>
+            // <Text>HELLO.... {settings?.steam_id} & {(new Date()).getSeconds()}</Text>
             // <Text>HELLO {(steam_id as Date).getSeconds()} & {(new Date()).getSeconds()}</Text>
             // <View style={styles.container}>
             //     <View style={styles.content}>
@@ -126,9 +125,9 @@ function MainMatches() {
     //
     // const matches = useLazyApi(fetchMatches, 'aoe2de', profile_id, 0, 10);
 
-    const { settings } = Settings.useContainer()
+    // const { settings } = Settings.useContainer()
     return (
-            <Text>Matches {settings?.steam_id}</Text>
+            <Text>Matches</Text>
     );
 }
 
@@ -149,28 +148,32 @@ const Tab = createMaterialTopTabNavigator();//<MainTabParamList>();
 
 
 
-function SettingsDisplay() {
-    let {settings} = Settings.useContainer()
-    return (
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                {/*<Button onPress={settings.decrement}>-</Button>*/}
-                <Text>steam_id: {settings?.steam_id}</Text>
-                {/*<Button onPress={settings.increment}>+</Button>*/}
-            </View>
-    )
-}
+// function SettingsDisplay() {
+//     let {settings} = Settings.useContainer()
+//     return (
+//             <View style={{flexDirection: 'row', alignItems: 'center'}}>
+//                 {/*<Button onPress={settings.decrement}>-</Button>*/}
+//                 <Text>steam_id: {settings?.steam_id}</Text>
+//                 {/*<Button onPress={settings.increment}>+</Button>*/}
+//             </View>
+//     )
+// }
 
 
 export default function MainPage() {
-    const settings = Settings.useContainer()
+    // const settings = Settings.useContainer()
 
-    console.log("==> MAIN PAGE settings =", settings != null);
+    console.log("==> MAIN PAGE");
 
-    if (settings == null) {
-        return <SearchPage selectedUser={() => console.log(1)}/>;
-    }
+    // if (settings == null) {
+    //     return <SearchPage selectedUser={() => console.log(1)}/>;
+    // }
 
     return (
+            <View>
+                <Text/>
+                <Text>Main Page</Text>
+            </View>
 
             // <Settings.Provider initialState={me.data}>
             //     <SettingsDisplay />
@@ -183,11 +186,11 @@ export default function MainPage() {
             //     </Settings.Provider>
             // </Settings.Provider>
 
-                <Tab.Navigator swipeEnabled={false} lazy={true}>
-                    <Tab.Screen name="MainHome" options={{title: 'Profile'}} component={MainHome}/>
-                    <Tab.Screen name="MainMatches" options={{title: 'Matches'}} component={MainMatches}/>
-                    <Tab.Screen name="MainFollowing" options={{title: 'Following'}} component={MainFollowing}/>
-                </Tab.Navigator>
+                // <Tab.Navigator swipeEnabled={false} lazy={true}>
+                //     <Tab.Screen name="MainHome" options={{title: 'Profile'}} component={MainHome}/>
+                //     <Tab.Screen name="MainMatches" options={{title: 'Matches'}} component={MainMatches}/>
+                //     <Tab.Screen name="MainFollowing" options={{title: 'Following'}} component={MainFollowing}/>
+                // </Tab.Navigator>
     );
 }
 

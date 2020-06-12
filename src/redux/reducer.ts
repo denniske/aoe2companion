@@ -8,7 +8,7 @@ export function getNoteId() {
 
 export const EXEC = 'EXEC'
 
-export function exec(mutation: any) {
+export function exec(mutation: StateMutation) {
   return {
     type: EXEC,
     mutation
@@ -17,31 +17,33 @@ export function exec(mutation: any) {
 
 export const useSelector: TypedUseSelectorHook<AppState> = useReduxSelector
 
+type StateMutation = (state: AppState) => void;
+
 export function useMutate() {
   const dispatch = useDispatch()
-  return (m: any) => dispatch(exec(m));
+  return (m: StateMutation) => dispatch(exec(m));
 }
 
-export function createNote(title: string, value: string) {
-  return (notes: AppState) => {
-    notes.push({
-      id: getNoteId(),
-      note: {
-        noteTitle: title,
-        noteValue: value,
-      },
-    });
-  };
-}
-
-export function updateNote(id: string, title: string, value: string) {
-  return (notes: AppState) => {
-    const noteEntry = notes.find(n => n.id === id);
-    if (noteEntry == null) throw Error('Cannot find note');
-    noteEntry.note.noteTitle = title;
-    noteEntry.note.noteValue = value;
-  };
-}
+// export function createNote(title: string, value: string) {
+//   return (notes: AppState) => {
+//     notes.push({
+//       id: getNoteId(),
+//       note: {
+//         noteTitle: title,
+//         noteValue: value,
+//       },
+//     });
+//   };
+// }
+//
+// export function updateNote(id: string, title: string, value: string) {
+//   return (notes: AppState) => {
+//     const noteEntry = notes.find(n => n.id === id);
+//     if (noteEntry == null) throw Error('Cannot find note');
+//     noteEntry.note.noteTitle = title;
+//     noteEntry.note.noteValue = value;
+//   };
+// }
 
 interface IAction {
   type: string;
@@ -60,9 +62,19 @@ interface INote {
   noteValue: string;
 }
 
-type AppState = INoteEntry[];
+export interface AppState {
+  auth?: {
+    steam_id?: string;
+    profile_id?: number;
+  };
+}
 
-const initialState: AppState = []
+const initialState: AppState = {
+  // auth: {
+  //   // steam_id: null,
+  //   // profile_id: null,
+  // }
+};
 
 function notesReducer(state = initialState, action: IAction) {
   switch (action.type) {

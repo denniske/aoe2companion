@@ -10,28 +10,27 @@ import { useApi } from '../hooks/use-api';
 import { loadRatingHistories } from '../service/rating';
 import { loadProfile } from '../service/profile';
 import { Game } from './components/game';
-import { Settings } from '../context/storage';
 import SearchPage from './search.page';
 import { loadSettingsFromStorage } from '../service/storage';
 
 
 export default function SplashPage() {
-    const me = useApi(() => loadSettingsFromStorage());
-    const {settings, setSettings} = Settings.useContainer()
-    const linkTo = useLinkTo();
-    const [linked, setLinked] = useState(false);
-
-    console.log("==> SPLASH PAGE me.loading =", me.loading, ', data =', me.data != null);
-    console.log("==> SPLASH PAGE settings =", settings != null);
-
-    if (!me.loading) {
-        setSettings(me.data);
-        // console.log("=> SPLASH PAGE linkTo main already =", linked);
-        if (!linked) {
-            setLinked(true);
-            linkTo('/main');
-        }
-    }
+    // const me = useApi(() => loadSettingsFromStorage());
+    // const {settings, setSettings} = Settings.useContainer()
+    // const linkTo = useLinkTo();
+    // const [linked, setLinked] = useState(false);
+    //
+    // console.log("==> SPLASH PAGE me.loading =", me.loading, ', data =', me.data != null);
+    // console.log("==> SPLASH PAGE settings =", settings != null);
+    //
+    // if (!me.loading) {
+    //     setSettings(me.data);
+    //     // console.log("=> SPLASH PAGE linkTo main already =", linked);
+    //     if (!linked) {
+    //         setLinked(true);
+    //         linkTo('/main');
+    //     }
+    // }
 
     return (
             <Text>Splash Page</Text>

@@ -8,12 +8,13 @@ export interface ISettings {
 
 
 export const loadSettingsFromStorage = async () => {
+    console.log("RETRIEVING JSON settings...");
     await sleep(2000);
     const entry = await AsyncStorage.getItem('settings');
+    console.log("RETRIEVED JSON settings", entry);
     if (entry == null) {
-        return undefined;
+        return null;
     }
-    console.log("json settings", entry);
     return JSON.parse(entry) as ISettings;
     // return {
     //     steam_id: new Date(),
