@@ -12,13 +12,14 @@ import Profile from './profile';
 import { loadRatingHistories } from '../service/rating';
 import Rating from './rating';
 
-// @refresh reset
+
 
 function MainHome() {
     const auth = useSelector(state => state.auth!);
     const mutate = useMutate();
 
     const rating = useApi(
+            [],
             state => state.user[auth.id]?.rating,
             (state, value) => {
                 if (state.user[auth.id] == null) {
@@ -29,7 +30,10 @@ function MainHome() {
             loadRatingHistories, 'aoe2de', auth.steam_id
     );
 
+    console.log("AUTH", auth);
+
     const profile = useApi(
+            [],
             state => state.user[auth.id]?.profile,
             (state, value) => {
                 if (state.user[auth.id] == null) {
@@ -87,8 +91,8 @@ function MainHome() {
                                         if (profile.data == null) return <Text>...</Text>;
                                         return (
                                                 <View>
-                                                    {/*<Text>Test2</Text>*/}
-                                                    {/*<Text/>*/}
+                                                    <Text>{auth.steam_id}</Text>
+                                                    <Text/>
                                                     <Profile data={profile.data}/>
                                                 </View>
                                         );

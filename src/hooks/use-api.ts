@@ -6,7 +6,7 @@ type UnPromisify<T> = T extends Promise<infer U> ? U:T;
 type SelectorFun = (state: AppState) => any;
 type MutatorFun = (state: AppState, value: any) => void;
 
-export function useApi<A extends (...args: any) => any>(selectorFun: SelectorFun, mutatorFun: MutatorFun, action: A, ...defArgs: Parameters<A>) {
+export function useApi<A extends (...args: any) => any>(dep: any, selectorFun: SelectorFun, mutatorFun: MutatorFun, action: A, ...defArgs: Parameters<A>) {
     const allState = useSelector(state => state);
     const selectedState = useSelector(selectorFun);
     const mutate = useMutate()
@@ -46,20 +46,21 @@ export function useApi<A extends (...args: any) => any>(selectorFun: SelectorFun
 
 
     useEffect(() => {
-        // console.log("useApi useEffect");
+        console.log("useApi useEffect");
         // console.log("----- useApi useEffect loading", loading);
         // console.log("----- useApi useEffect hot", hot);
         // if (hot === 100) {
         //     setHot(200);
             // console.log("==> USE EFFECT IN useApi", name)
         if (selectedState === undefined) {
+            console.log("useApi wants to load", defArgs);
             load(...defArgs);
         } else {
             console.log("useApi has cached all", allState);
             console.log("useApi has cached value", selectedState);
         }
         // }
-    }, []);
+    }, dep);
 
     return {data, loading, refetch, reload};
 }

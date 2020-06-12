@@ -6,7 +6,7 @@ import { getPlayerBackgroundColor } from '../../helper/colors';
 import { AppSettings } from '../../helper/constants';
 import Rating from '../rating';
 import { Link } from '@react-navigation/native';
-import { composeUserId } from '../../helper/user';
+import { composeUserId, composeUserIdFromParts } from '../../helper/user';
 import { getCivIcon } from '../../helper/civs';
 import { getString } from '../../helper/strings';
 
@@ -57,7 +57,7 @@ export function Player({player}: IPlayerProps) {
                     <Text style={styles.playerRating}>{player.rating}</Text>
                 </TouchableHighlight>
 
-                <Link to={'/user/' + composeUserId(player) + '/' + player.name} style={playerNameStyle}>{player.name}</Link>
+                <Link to={'/user/' + composeUserIdFromParts(player.steam_id, player.profile_id) + '/' + player.name} style={playerNameStyle}>{player.name}</Link>
 
                 <Image style={styles.civIcon} source={getCivIcon(player.civ)}/>
                 <Text> {getString('civ', player.civ)}</Text>

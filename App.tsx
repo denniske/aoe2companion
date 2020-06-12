@@ -92,7 +92,7 @@ export function App2() {
 
     const auth = useSelector(state => state.auth);
 
-    const me = useApi(state => state.auth, (state, value) => state.auth = value, () => loadSettingsFromStorage());
+    const me = useApi([], state => state.auth, (state, value) => state.auth = value, () => loadSettingsFromStorage());
 
 
     // const {settings, setSettings} = Settings.useContainer()

@@ -80,7 +80,10 @@ export default function Rating({ratingHistories}: IRatingProps) {
                 }
                 </View>
 
-                <Text style={styles.legendDesc}>RM = Random Map    DM = Death Match</Text>
+                {
+                    ratingHistories &&
+                    <Text style={styles.legendDesc}>RM = Random Map    DM = Death Match</Text>
+                }
             </View>
     )
 }

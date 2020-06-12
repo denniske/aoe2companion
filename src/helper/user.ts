@@ -17,3 +17,7 @@ export function parseUserId(str: string): UserId {
 export function composeUserId(id: UserId): string {
     return id.steam_id + '-' + id.profile_id;
 }
+
+export function composeUserIdFromParts(steam_id: string, profile_id: number): string {
+    return steam_id + '-' + profile_id;
+}
