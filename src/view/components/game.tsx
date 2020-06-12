@@ -12,8 +12,6 @@ export function Game({data}: IGameProps) {
     const playersInTeam1 = data.players.filter(p => p.team == 1);
     const playersInTeam2 = data.players.filter(p => p.team == 2);
 
-    console.log('playersInTeam2', playersInTeam2)
-
     return (
             <View>
                 <Text style={styles.matchTitle}>{getString('map_type', data.map_type)} - {data.match_id} - {data.server}</Text>
