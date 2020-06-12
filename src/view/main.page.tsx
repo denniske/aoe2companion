@@ -16,15 +16,18 @@ import SearchPage from './search.page';
 import { UserId } from '../helper/user';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useLazyApi } from '../hooks/use-lazy-api';
+import { setAuth, useMutate, useSelector } from '../redux/reducer';
 
 // @refresh reset
 
 
 function MainHome() {
 
+
     // const { settings } = Settings.useContainer()
 
-
+    const auth = useSelector(state => state.auth);
+    const mutate = useMutate();
 
     // const rating = useApi(loadRatingHistories, 'aoe2de', steam_id);
     // const profile = useApi(loadProfile, 'aoe2de', profile_id);
@@ -45,15 +48,19 @@ function MainHome() {
     // //     console.log("==> USE EFFECT IN MAIN", steam_id, profile_id, deletedUser);
     // // }, []);
     //
-    // const doDeleteUser = async () => {
-    //     await AsyncStorage.removeItem('settings');
-    //     // deletedUser();
-    // };
+    const doDeleteUser = async () => {
+        await AsyncStorage.removeItem('settings');
+        mutate(setAuth(null))
+    };
 
     console.log("==> ON RENDER");
 
     return (
-            <Text>ddd</Text>
+            <View>
+                <Text>steam_id: {auth?.steam_id}</Text>
+                <Text/>
+                <Button mode="outlined" onPress={doDeleteUser}>This is not me</Button>
+            </View>
             // <Text>HELLO.... {settings?.steam_id} & {(new Date()).getSeconds()}</Text>
             // <Text>HELLO {(steam_id as Date).getSeconds()} & {(new Date()).getSeconds()}</Text>
             // <View style={styles.container}>
@@ -162,19 +169,31 @@ const Tab = createMaterialTopTabNavigator();//<MainTabParamList>();
 
 export default function MainPage() {
     // const settings = Settings.useContainer()
+    const auth = useSelector(state => state.auth);
+    const mutate = useMutate();
 
     console.log("==> MAIN PAGE");
 
-    // if (settings == null) {
-    //     return <SearchPage selectedUser={() => console.log(1)}/>;
-    // }
+    const onSelect = async (user: UserId) => {
+        await AsyncStorage.setItem('settings', JSON.stringify({
+            steam_id: user.steam_id,
+            profile_id: user.profile_id,
+        }));
+        mutate(setAuth(user));
+    };
+
+    if (auth == null) {
+        return <SearchPage selectedUser={onSelect}/>;
+    }
 
     return (
-            <View>
-                <Text/>
-                <Text>Main Page</Text>
-            </View>
-
+            // <View>
+            //     <Text/>
+            //     <Text>Main Page</Text>
+            //     <Text/>
+            //     <Text/>
+            //     <Text>steam_id: {auth?.steam_id}</Text>
+            // </View>
             // <Settings.Provider initialState={me.data}>
             //     <SettingsDisplay />
             //     <Settings.Provider initialState={{ steam_id: 'abc' } as ISettings}>
@@ -186,11 +205,11 @@ export default function MainPage() {
             //     </Settings.Provider>
             // </Settings.Provider>
 
-                // <Tab.Navigator swipeEnabled={false} lazy={true}>
-                //     <Tab.Screen name="MainHome" options={{title: 'Profile'}} component={MainHome}/>
-                //     <Tab.Screen name="MainMatches" options={{title: 'Matches'}} component={MainMatches}/>
-                //     <Tab.Screen name="MainFollowing" options={{title: 'Following'}} component={MainFollowing}/>
-                // </Tab.Navigator>
+                <Tab.Navigator swipeEnabled={false} lazy={true}>
+                    <Tab.Screen name="MainHome" options={{title: 'Profile'}} component={MainHome}/>
+                    <Tab.Screen name="MainMatches" options={{title: 'Matches'}} component={MainMatches}/>
+                    <Tab.Screen name="MainFollowing" options={{title: 'Following'}} component={MainFollowing}/>
+                </Tab.Navigator>
     );
 }
 

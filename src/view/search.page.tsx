@@ -4,19 +4,23 @@ import { formatAgo } from '../helper/util';
 import { IFetchedUser, loadUser } from '../service/user';
 import { useLazyApi } from '../hooks/use-lazy-api';
 import { Searchbar } from 'react-native-paper';
+import { UserId } from '../helper/user';
 
 interface IPlayerProps {
     player: IFetchedUser;
-    selectedUser: () => void;
+    selectedUser: (user: UserId) => void;
 }
 
 function Player({player, selectedUser}: IPlayerProps) {
     const onSelect = async () => {
-        await AsyncStorage.setItem('settings', JSON.stringify({
+        // await AsyncStorage.setItem('settings', JSON.stringify({
+        //     steam_id: player.steam_id,
+        //     profile_id: player.profile_id,
+        // }));
+        selectedUser({
             steam_id: player.steam_id,
             profile_id: player.profile_id,
-        }));
-        selectedUser();
+        });
     };
 
     return (

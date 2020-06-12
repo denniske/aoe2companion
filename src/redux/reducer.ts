@@ -1,6 +1,7 @@
 import {produce} from "immer";
 import { v4 as uuidv4 } from 'uuid';
 import { TypedUseSelectorHook, useDispatch, useSelector as useReduxSelector } from 'react-redux';
+import { UserId } from '../helper/user';
 
 export function getNoteId() {
   return uuidv4();
@@ -15,6 +16,7 @@ export function exec(mutation: StateMutation) {
   }
 }
 
+
 export const useSelector: TypedUseSelectorHook<AppState> = useReduxSelector
 
 type StateMutation = (state: AppState) => void;
@@ -22,6 +24,12 @@ type StateMutation = (state: AppState) => void;
 export function useMutate() {
   const dispatch = useDispatch()
   return (m: StateMutation) => dispatch(exec(m));
+}
+
+export function setAuth(user: UserId | null) {
+  return (state: AppState) => {
+    state.auth = user;
+  };
 }
 
 // export function createNote(title: string, value: string) {
@@ -63,10 +71,7 @@ interface INote {
 }
 
 export interface AppState {
-  auth?: {
-    steam_id?: string;
-    profile_id?: number;
-  };
+  auth?: UserId | null;
 }
 
 const initialState: AppState = {

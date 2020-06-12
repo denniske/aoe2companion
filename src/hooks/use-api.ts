@@ -11,6 +11,7 @@ export function useApi<A extends (...args: any) => any>(selectorFun: SelectorFun
     const [loading, setLoading] = useState(true);
     const [hot, setHot] = useState(100);
 
+    const allState = useSelector(state => state);
     const selectedState = useSelector(selectorFun);
     const mutate = useMutate()
 
@@ -51,6 +52,7 @@ export function useApi<A extends (...args: any) => any>(selectorFun: SelectorFun
         if (selectedState === undefined) {
             load(...defArgs);
         } else {
+            console.log("useApi has cached all", allState);
             console.log("useApi has cached value", selectedState);
         }
         // }
