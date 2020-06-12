@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { TypedUseSelectorHook, useDispatch, useSelector as useReduxSelector } from 'react-redux';
 import { UserId } from '../helper/user';
 import { IProfile } from '../view/profile';
+import { IRatingHistoryRow } from '../service/rating';
 
 export function getNoteId() {
   return uuidv4();
@@ -72,7 +73,8 @@ interface INote {
 }
 
 interface IUser {
-  profile: IProfile;
+  profile?: IProfile;
+  rating?: IRatingHistoryRow[];
 }
 
 interface IUserDict {

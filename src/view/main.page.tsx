@@ -1,46 +1,46 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Alert, AsyncStorage, FlatList, StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
-import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../../App';
-import { NavigationContainer, RouteProp, useLinkTo, useNavigation } from '@react-navigation/native';
-import { fetchMatches } from '../api/matches';
-import Rating from './rating';
 import { useApi } from '../hooks/use-api';
-import { loadRatingHistories } from '../service/rating';
 import { loadProfile } from '../service/profile';
 import { Game } from './components/game';
-import { ISettings, loadSettingsFromStorage } from '../service/storage';
 import SearchPage from './search.page';
 import { composeUserId, UserId } from '../helper/user';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { useLazyApi } from '../hooks/use-lazy-api';
 import { setAuth, useMutate, useSelector } from '../redux/reducer';
 import Profile from './profile';
+import { loadRatingHistories } from '../service/rating';
+import Rating from './rating';
 
 // @refresh reset
 
-
 function MainHome() {
-
-
-    // const { settings } = Settings.useContainer()
-
     const auth = useSelector(state => state.auth!);
     const mutate = useMutate();
 
-    // const rating = useApi(loadRatingHistories, 'aoe2de', steam_id);
-
+    const rating = useApi(
+            state => state.user[auth.id]?.rating,
+            (state, value) => {
+                if (state.user[auth.id] == null) {
+                    state.user[auth.id] = {};
+                }
+                state.user[auth.id].rating = value;
+            },
+            loadRatingHistories, 'aoe2de', auth.steam_id
+    );
 
     const profile = useApi(
-            state => state.user[auth.id],
-            (state, value) => state.user[auth.id] = value,
+            state => state.user[auth.id]?.profile,
+            (state, value) => {
+                if (state.user[auth.id] == null) {
+                    state.user[auth.id] = {};
+                }
+                state.user[auth.id].profile = value;
+            },
             loadProfile, 'aoe2de', auth.profile_id
     );
 
-
-
-    const list = ['profile', 'not-me'];//, ...(matches.data || [])];
+    const list = ['profile', 'rating', 'not-me'];//, ...(matches.data || [])];
 
     const deleteUser = () => {
         Alert.alert("Delete Me?", "Do you want to reset me page?",
@@ -52,34 +52,14 @@ function MainHome() {
         );
     };
 
-    console.log("==> ON RENDER MainHome");
-    // console.log("==> ON RENDER auth", auth);
-    // console.log("==> ON RENDER profile", profile.loading);
-    // console.log("==> ON RENDER profile", profile.data);
-
-    // // useEffect(() => {
-    // //     console.log("==> USE EFFECT IN MAIN", steam_id, profile_id, deletedUser);
-    // // }, []);
-
     const doDeleteUser = async () => {
         await AsyncStorage.removeItem('settings');
         mutate(setAuth(null))
     };
 
-
-
-
-
-
-
-
+    console.log("==> ON RENDER MainHome");
 
     return (
-            // <View>
-            //     <Text>steam_id: {auth?.steam_id}</Text>
-            //     <Text/>
-            //     <Button mode="outlined" onPress={doDeleteUser}>This is not me</Button>
-            // </View>
             // <Text>HELLO.... {settings?.steam_id} & {(new Date()).getSeconds()}</Text>
             // <Text>HELLO {(steam_id as Date).getSeconds()} & {(new Date()).getSeconds()}</Text>
             <View style={styles.container}>
@@ -92,23 +72,23 @@ function MainHome() {
                     <FlatList
                             onRefresh={() => {
                                 console.log("==> ON REFRESHING");
-                                // rating.reload();
+                                rating.reload();
                                 profile.reload();
                                 // matches.reload();
                             }}
-                            refreshing={profile.loading}
+                            refreshing={rating.loading || profile.loading}
                             contentContainerStyle={styles.list}
                             data={list}
                             renderItem={({item, index}) => {
                                 switch (item) {
-                                        // case 'rating':
-                                        //     return <Rating ratingHistories={rating.data}/>;
+                                    case 'rating':
+                                        return <Rating ratingHistories={rating.data}/>;
                                     case 'profile':
                                         if (profile.data == null) return <Text>...</Text>;
                                         return (
                                                 <View>
-                                                    <Text>Test</Text>
-                                                    <Text/>
+                                                    {/*<Text>Test2</Text>*/}
+                                                    {/*<Text/>*/}
                                                     <Profile data={profile.data}/>
                                                 </View>
                                         );
@@ -124,16 +104,13 @@ function MainHome() {
                                 }
 
                             }}
-                    keyExtractor={(item, index) => index.toString()}
-                />
+                            keyExtractor={(item, index) => index.toString()}
+                    />
+                </View>
             </View>
-</View>
-)
-    ;
+    )
+            ;
 }
-
-
-
 
 
 // function MainHome() {
@@ -196,7 +173,6 @@ const Tab = createMaterialTopTabNavigator();//<MainTabParamList>();
 // }
 
 
-
 export default function MainPage() {
     // const settings = Settings.useContainer()
     const auth = useSelector(state => state.auth);
@@ -237,6 +213,7 @@ export default function MainPage() {
             //         </View>
             //     </Settings.Provider>
             // </Settings.Provider>
+
 
             <Tab.Navigator swipeEnabled={false} lazy={true}>
                 <Tab.Screen name="MainHome" options={{title: 'Profile'}} component={MainHome}/>

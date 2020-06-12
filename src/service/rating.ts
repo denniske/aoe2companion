@@ -5,15 +5,15 @@ export interface IRatingHistoryRow {
     data: IRatingHistoryEntry[];
 }
 
-export const loadRatingHistories = async (game: string, steam_id: string) => {
+export const loadRatingHistories = async (game: string, steam_id: string): Promise<IRatingHistoryRow[]> => {
     console.log("loading ratings", game, steam_id);
 
     let ratingHistories = await Promise.all([
         fetchRatingHistory(game, 0, 0, 500, {steam_id}),
-        // fetchRatingHistory(game, 1, 0, 500, {steam_id}),
-        // fetchRatingHistory(game, 2, 0, 500, {steam_id}),
-        // fetchRatingHistory(game, 3, 0, 500, {steam_id}),
-        // fetchRatingHistory(game, 4, 0, 500, {steam_id}),
+        fetchRatingHistory(game, 1, 0, 500, {steam_id}),
+        fetchRatingHistory(game, 2, 0, 500, {steam_id}),
+        fetchRatingHistory(game, 3, 0, 500, {steam_id}),
+        fetchRatingHistory(game, 4, 0, 500, {steam_id}),
     ]);
 
     let ratingHistoryRows = ratingHistories.map((rh, i) => ({
