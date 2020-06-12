@@ -13,7 +13,7 @@ export function useApi<A extends (...args: any) => any>(selectorFun: SelectorFun
 
     const [data, setData] = useState(selectedState);//undefined as UnPromisify<ReturnType<A>>);
     const [loading, setLoading] = useState(selectorFun === undefined);
-    const [hot, setHot] = useState(100);
+    // const [hot, setHot] = useState(100);
 
 
     // console.log("----- useApi loading", loading);
@@ -46,10 +46,11 @@ export function useApi<A extends (...args: any) => any>(selectorFun: SelectorFun
 
 
     useEffect(() => {
+        // console.log("useApi useEffect");
         // console.log("----- useApi useEffect loading", loading);
         // console.log("----- useApi useEffect hot", hot);
         // if (hot === 100) {
-            setHot(200);
+        //     setHot(200);
             // console.log("==> USE EFFECT IN useApi", name)
         if (selectedState === undefined) {
             load(...defArgs);

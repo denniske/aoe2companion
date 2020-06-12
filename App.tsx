@@ -1,3 +1,10 @@
+
+// const whyDidYouRender = require('@welldone-software/why-did-you-render');
+// whyDidYouRender(React, {
+//     trackHooks: true,
+//     // trackAllPureComponents: true,
+// });
+
 import 'react-native-gesture-handler';
 import { Link, NavigationContainer, useLinkTo } from '@react-navigation/native';
 import React, { useState } from 'react';

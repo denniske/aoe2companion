@@ -5,7 +5,6 @@ import { createStackNavigator, StackNavigationProp } from '@react-navigation/sta
 import { RootStackParamList } from '../../App';
 import { NavigationContainer, RouteProp, useLinkTo, useNavigation } from '@react-navigation/native';
 import { fetchMatches } from '../api/matches';
-import Profile from './profile';
 import Rating from './rating';
 import { useApi } from '../hooks/use-api';
 import { loadRatingHistories } from '../service/rating';
@@ -17,6 +16,7 @@ import { composeUserId, UserId } from '../helper/user';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useLazyApi } from '../hooks/use-lazy-api';
 import { setAuth, useMutate, useSelector } from '../redux/reducer';
+import Profile from './profile';
 
 // @refresh reset
 
@@ -31,11 +31,13 @@ function MainHome() {
 
     // const rating = useApi(loadRatingHistories, 'aoe2de', steam_id);
 
+
     const profile = useApi(
             state => state.user[auth.id],
             (state, value) => state.user[auth.id] = value,
             loadProfile, 'aoe2de', auth.profile_id
     );
+
 
 
     const list = ['profile', 'not-me'];//, ...(matches.data || [])];
@@ -52,7 +54,8 @@ function MainHome() {
 
     console.log("==> ON RENDER MainHome");
     // console.log("==> ON RENDER auth", auth);
-    // console.log("==> ON RENDER profile", profile);
+    // console.log("==> ON RENDER profile", profile.loading);
+    // console.log("==> ON RENDER profile", profile.data);
 
     // // useEffect(() => {
     // //     console.log("==> USE EFFECT IN MAIN", steam_id, profile_id, deletedUser);
@@ -62,6 +65,12 @@ function MainHome() {
         await AsyncStorage.removeItem('settings');
         mutate(setAuth(null))
     };
+
+
+
+
+
+
 
 
 
@@ -87,7 +96,7 @@ function MainHome() {
                                 profile.reload();
                                 // matches.reload();
                             }}
-                            refreshing={/*rating.loading ||*/ profile.loading /*|| matches.loading*/}
+                            refreshing={profile.loading}
                             contentContainerStyle={styles.list}
                             data={list}
                             renderItem={({item, index}) => {
@@ -122,6 +131,8 @@ function MainHome() {
 )
     ;
 }
+
+
 
 
 
