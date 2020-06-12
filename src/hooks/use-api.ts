@@ -11,16 +11,8 @@ export function useApi<A extends (...args: any) => any>(dep: any, selectorFun: S
     const selectedState = useSelector(selectorFun);
     const mutate = useMutate()
 
-    const [data, setData] = useState(selectedState);//undefined as UnPromisify<ReturnType<A>>);
+    const [data, setData] = useState(selectedState);
     const [loading, setLoading] = useState(selectorFun === undefined);
-    // const [hot, setHot] = useState(100);
-
-
-    // console.log("----- useApi loading", loading);
-    // console.log("----- useApi2 loading2", loading2);
-    // console.log("----- useApi2 data == null", data == null);
-
-
 
     const load = async (...args: Parameters<A>) => {
         setLoading(true);
@@ -35,7 +27,6 @@ export function useApi<A extends (...args: any) => any>(dep: any, selectorFun: S
         setLoading(false);
     };
 
-
     const reload = () => {
         load(...defArgs);
     }
@@ -44,14 +35,7 @@ export function useApi<A extends (...args: any) => any>(dep: any, selectorFun: S
         load(...args);
     }
 
-
     useEffect(() => {
-        console.log("useApi useEffect");
-        // console.log("----- useApi useEffect loading", loading);
-        // console.log("----- useApi useEffect hot", hot);
-        // if (hot === 100) {
-        //     setHot(200);
-            // console.log("==> USE EFFECT IN useApi", name)
         if (selectedState === undefined) {
             console.log("useApi wants to load", defArgs);
             load(...defArgs);
@@ -59,7 +43,6 @@ export function useApi<A extends (...args: any) => any>(dep: any, selectorFun: S
             console.log("useApi has cached all", allState);
             console.log("useApi has cached value", selectedState);
         }
-        // }
     }, dep);
 
     return {data, loading, refetch, reload};

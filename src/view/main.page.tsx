@@ -64,17 +64,11 @@ function MainHome() {
     return (
             <View style={styles.container}>
                 <View style={styles.content}>
-
-                    {/*<Text>steam_id: {auth?.steam_id}</Text>*/}
-                    {/*<Text/>*/}
-                    {/*<SettingsDisplay/>*/}
-
                     <FlatList
                             onRefresh={() => {
                                 console.log("==> ON REFRESHING");
                                 rating.reload();
                                 profile.reload();
-                                // matches.reload();
                             }}
                             refreshing={rating.loading || profile.loading}
                             contentContainerStyle={styles.list}
