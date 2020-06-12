@@ -75,6 +75,7 @@ interface INote {
 interface IUser {
   profile?: IProfile;
   rating?: IRatingHistoryRow[];
+  matches?: IMatch[];
 }
 
 interface IUserDict {

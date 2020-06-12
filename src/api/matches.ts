@@ -4,6 +4,7 @@ const fromUnixTime = require('date-fns/fromUnixTime');
 function convertTimestampsToDates(json: IMatchRaw): IMatch {
     return {
         ...json,
+        players: json.players.filter(p => p.profile_id != null || p.steam_id != null),
         started: json.started ? fromUnixTime(json.started) : null,
         finished: json.finished ? fromUnixTime(json.finished) : null,
         opened: json.opened ? fromUnixTime(json.opened) : null,
@@ -11,7 +12,7 @@ function convertTimestampsToDates(json: IMatchRaw): IMatch {
 }
 
 
-export async function fetchMatches(game: string, profile_id: number, start: number, count: number) {
+export async function fetchMatches(game: string, profile_id: number, start: number, count: number): Promise<IMatch[]> {
     const response = await fetch(`https://aoe2.net/api/player/matches?game=${game}&profile_id=${profile_id}&start=${start}&count=${count}`)
     const json = await response.json() as IMatchRaw[];
     console.log("response.json()", json);
