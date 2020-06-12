@@ -8,7 +8,7 @@ import { createStackNavigator, HeaderBackground } from '@react-navigation/stack'
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import Header from './src/view/header';
 import Constants from 'expo-constants';
-import { parseUserId, printUserId, UserId } from './src/helper/user';
+import { parseUserId, composeUserId, UserId } from './src/helper/user';
 import { FontAwesome } from '@expo/vector-icons';
 import UserPage from './src/view/user.page';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -33,7 +33,7 @@ const linking = {
                 name: String,
             },
             stringify: {
-                id: printUserId,
+                id: composeUserId,
             },
         },
         Search: {

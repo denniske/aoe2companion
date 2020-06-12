@@ -2,6 +2,7 @@ import {produce} from "immer";
 import { v4 as uuidv4 } from 'uuid';
 import { TypedUseSelectorHook, useDispatch, useSelector as useReduxSelector } from 'react-redux';
 import { UserId } from '../helper/user';
+import { IProfile } from '../view/profile';
 
 export function getNoteId() {
   return uuidv4();
@@ -70,11 +71,23 @@ interface INote {
   noteValue: string;
 }
 
+interface IUser {
+  profile: IProfile;
+}
+
+interface IUserDict {
+  [key: string]: IUser;
+}
+
 export interface AppState {
   auth?: UserId | null;
+  user: IUserDict;
 }
 
 const initialState: AppState = {
+  user: {
+
+  },
   // auth: {
   //   // steam_id: null,
   //   // profile_id: null,

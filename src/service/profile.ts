@@ -1,7 +1,8 @@
 import { fetchLeaderboard } from '../api/leaderboard';
 import { sortBy, sumBy } from 'lodash-es'
+import { IProfile } from '../view/profile';
 
-export const loadProfile = async (game: string, profile_id: number) => {
+export const loadProfile = async (game: string, profile_id: number): Promise<IProfile> => {
     console.log("loading profile", game, profile_id);
 
     let leaderboards = await Promise.all([

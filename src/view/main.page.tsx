@@ -13,7 +13,7 @@ import { loadProfile } from '../service/profile';
 import { Game } from './components/game';
 import { ISettings, loadSettingsFromStorage } from '../service/storage';
 import SearchPage from './search.page';
-import { UserId } from '../helper/user';
+import { composeUserId, UserId } from '../helper/user';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useLazyApi } from '../hooks/use-lazy-api';
 import { setAuth, useMutate, useSelector } from '../redux/reducer';
@@ -26,84 +26,103 @@ function MainHome() {
 
     // const { settings } = Settings.useContainer()
 
-    const auth = useSelector(state => state.auth);
+    const auth = useSelector(state => state.auth!);
     const mutate = useMutate();
 
     // const rating = useApi(loadRatingHistories, 'aoe2de', steam_id);
-    // const profile = useApi(loadProfile, 'aoe2de', profile_id);
-    //
-    // const list = ['profile', 'rating', 'not-me'];//, ...(matches.data || [])];
-    //
-    // const deleteUser = () => {
-    //     Alert.alert("Delete Me?", "Do you want to reset me page?",
-    //             [
-    //                 {text: "Cancel", style: "cancel"},
-    //                 {text: "Reset", onPress: doDeleteUser,}
-    //             ],
-    //             {cancelable: false}
-    //     );
-    // };
-    //
+
+    const profile = useApi(
+            state => state.user[auth.id],
+            (state, value) => state.user[auth.id] = value,
+            loadProfile, 'aoe2de', auth.profile_id
+    );
+
+
+    const list = ['profile', 'not-me'];//, ...(matches.data || [])];
+
+    const deleteUser = () => {
+        Alert.alert("Delete Me?", "Do you want to reset me page?",
+                [
+                    {text: "Cancel", style: "cancel"},
+                    {text: "Reset", onPress: doDeleteUser,}
+                ],
+                {cancelable: false}
+        );
+    };
+
+    console.log("==> ON RENDER MainHome");
+    // console.log("==> ON RENDER auth", auth);
+    // console.log("==> ON RENDER profile", profile);
+
     // // useEffect(() => {
     // //     console.log("==> USE EFFECT IN MAIN", steam_id, profile_id, deletedUser);
     // // }, []);
-    //
+
     const doDeleteUser = async () => {
         await AsyncStorage.removeItem('settings');
         mutate(setAuth(null))
     };
 
-    console.log("==> ON RENDER");
+
 
     return (
-            <View>
-                <Text>steam_id: {auth?.steam_id}</Text>
-                <Text/>
-                <Button mode="outlined" onPress={doDeleteUser}>This is not me</Button>
-            </View>
+            // <View>
+            //     <Text>steam_id: {auth?.steam_id}</Text>
+            //     <Text/>
+            //     <Button mode="outlined" onPress={doDeleteUser}>This is not me</Button>
+            // </View>
             // <Text>HELLO.... {settings?.steam_id} & {(new Date()).getSeconds()}</Text>
             // <Text>HELLO {(steam_id as Date).getSeconds()} & {(new Date()).getSeconds()}</Text>
-            // <View style={styles.container}>
-            //     <View style={styles.content}>
-            //
-            //
-            //         <SettingsDisplay/>
-            //
-            //         <FlatList
-            //                 onRefresh={() => {
-            //                     console.log("==> ON REFRESHING");
-            //                     rating.reload();
-            //                     profile.reload();
-            //                     // matches.reload();
-            //                 }}
-            //                 refreshing={rating.loading || profile.loading /*|| matches.loading*/}
-            //                 contentContainerStyle={styles.list}
-            //                 data={list}
-            //                 renderItem={({item, index}) => {
-            //                     switch (item) {
-            //                         case 'rating':
-            //                             return <Rating ratingHistories={rating.data}/>;
-            //                         case 'profile':
-            //                             if (profile.data == null) return <Text>...</Text>;
-            //                             return <Profile data={profile.data}/>;
-            //                         case 'not-me':
-            //                             return <View>
-            //                                 <Text/>
-            //                                 <Button mode="outlined" onPress={deleteUser}>This is not me</Button>
-            //                             </View>;
-            //                             // if (profile.data == null) return <Text>...</Text>;
-            //                             // return <Profile data={profile.data}/>;
-            //                         default:
-            //                             return <Game data={item as any}/>;
-            //                     }
-            //
-            //                 }}
-            //                 keyExtractor={(item, index) => index.toString()}
-            //         />
-            //     </View>
-            // </View>
-    );
+            <View style={styles.container}>
+                <View style={styles.content}>
+
+                    {/*<Text>steam_id: {auth?.steam_id}</Text>*/}
+                    {/*<Text/>*/}
+                    {/*<SettingsDisplay/>*/}
+
+                    <FlatList
+                            onRefresh={() => {
+                                console.log("==> ON REFRESHING");
+                                // rating.reload();
+                                profile.reload();
+                                // matches.reload();
+                            }}
+                            refreshing={/*rating.loading ||*/ profile.loading /*|| matches.loading*/}
+                            contentContainerStyle={styles.list}
+                            data={list}
+                            renderItem={({item, index}) => {
+                                switch (item) {
+                                        // case 'rating':
+                                        //     return <Rating ratingHistories={rating.data}/>;
+                                    case 'profile':
+                                        if (profile.data == null) return <Text>...</Text>;
+                                        return (
+                                                <View>
+                                                    <Text>Test</Text>
+                                                    <Text/>
+                                                    <Profile data={profile.data}/>
+                                                </View>
+                                        );
+                                    case 'not-me':
+                                        return <View>
+                                            <Text/>
+                                            <Button mode="outlined" onPress={deleteUser}>This is not me</Button>
+                                        </View>;
+                                        // if (profile.data == null) return <Text>...</Text>;
+                                        // return <Profile data={profile.data}/>;
+                                    default:
+                                        return <Game data={item as any}/>;
+                                }
+
+                            }}
+                    keyExtractor={(item, index) => index.toString()}
+                />
+            </View>
+</View>
+)
+    ;
 }
+
 
 
 // function MainHome() {
@@ -124,6 +143,7 @@ function MainHome() {
 
 
 function MainMatches() {
+    console.log("==> ON RENDER MainMatches");
     // const me = useApi(loadSettingsFromStorage);
     //
     // if (me.loading) {
@@ -153,8 +173,6 @@ function MainFollowing() {
 const Tab = createMaterialTopTabNavigator();//<MainTabParamList>();
 
 
-
-
 // function SettingsDisplay() {
 //     let {settings} = Settings.useContainer()
 //     return (
@@ -167,6 +185,7 @@ const Tab = createMaterialTopTabNavigator();//<MainTabParamList>();
 // }
 
 
+
 export default function MainPage() {
     // const settings = Settings.useContainer()
     const auth = useSelector(state => state.auth);
@@ -176,11 +195,14 @@ export default function MainPage() {
 
     const onSelect = async (user: UserId) => {
         await AsyncStorage.setItem('settings', JSON.stringify({
+            id: composeUserId(user),
             steam_id: user.steam_id,
             profile_id: user.profile_id,
         }));
         mutate(setAuth(user));
     };
+
+    console.log("==> ON RENDER MainPage");
 
     if (auth == null) {
         return <SearchPage selectedUser={onSelect}/>;
@@ -205,11 +227,11 @@ export default function MainPage() {
             //     </Settings.Provider>
             // </Settings.Provider>
 
-                <Tab.Navigator swipeEnabled={false} lazy={true}>
-                    <Tab.Screen name="MainHome" options={{title: 'Profile'}} component={MainHome}/>
-                    <Tab.Screen name="MainMatches" options={{title: 'Matches'}} component={MainMatches}/>
-                    <Tab.Screen name="MainFollowing" options={{title: 'Following'}} component={MainFollowing}/>
-                </Tab.Navigator>
+            <Tab.Navigator swipeEnabled={false} lazy={true}>
+                <Tab.Screen name="MainHome" options={{title: 'Profile'}} component={MainHome}/>
+                <Tab.Screen name="MainMatches" options={{title: 'Matches'}} component={MainMatches}/>
+                <Tab.Screen name="MainFollowing" options={{title: 'Following'}} component={MainFollowing}/>
+            </Tab.Navigator>
     );
 }
 

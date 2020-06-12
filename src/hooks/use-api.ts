@@ -7,13 +7,14 @@ type SelectorFun = (state: AppState) => any;
 type MutatorFun = (state: AppState, value: any) => void;
 
 export function useApi<A extends (...args: any) => any>(selectorFun: SelectorFun, mutatorFun: MutatorFun, action: A, ...defArgs: Parameters<A>) {
-    const [data, setData] = useState(undefined as UnPromisify<ReturnType<A>>);
-    const [loading, setLoading] = useState(true);
-    const [hot, setHot] = useState(100);
-
     const allState = useSelector(state => state);
     const selectedState = useSelector(selectorFun);
     const mutate = useMutate()
+
+    const [data, setData] = useState(selectedState);//undefined as UnPromisify<ReturnType<A>>);
+    const [loading, setLoading] = useState(selectorFun === undefined);
+    const [hot, setHot] = useState(100);
+
 
     // console.log("----- useApi loading", loading);
     // console.log("----- useApi2 loading2", loading2);
@@ -33,6 +34,7 @@ export function useApi<A extends (...args: any) => any>(selectorFun: SelectorFun
 
         setLoading(false);
     };
+
 
     const reload = () => {
         load(...defArgs);
