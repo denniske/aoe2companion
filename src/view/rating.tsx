@@ -22,7 +22,7 @@ const MyLoader = () => {
                 ))
             }
         </ContentLoader>
-)}
+)};
 
 export default function Rating({ratingHistories}: IRatingProps) {
     console.log("render rating");

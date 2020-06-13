@@ -89,21 +89,10 @@ export default function App() {
 }
 
 export function App2() {
-
     const auth = useSelector(state => state.auth);
-
     const me = useApi([], state => state.auth, (state, value) => state.auth = value, () => loadSettingsFromStorage());
 
-
-    // const {settings, setSettings} = Settings.useContainer()
-    // const linkTo = useLinkTo();
-    // const [linked, setLinked] = useState(false);
-
     console.log("==> APP PAGE me.loading =", me.loading, ', data =', me.data);
-    // console.log("==> APP PAGE settings =", settings != null);
-
-
-
 
     if (auth === undefined) {
         return (

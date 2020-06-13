@@ -78,11 +78,10 @@ function MainHome() {
                                     case 'rating':
                                         return <Rating ratingHistories={rating.data}/>;
                                     case 'profile':
-                                        if (profile.data == null) return <Text>...</Text>;
                                         return (
                                                 <View>
-                                                    <Text>{auth.steam_id}</Text>
-                                                    <Text/>
+                                                    {/*<Text>{auth.steam_id}</Text>*/}
+                                                    {/*<Text/>*/}
                                                     <Profile data={profile.data}/>
                                                 </View>
                                         );

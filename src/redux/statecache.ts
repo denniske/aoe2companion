@@ -7,6 +7,11 @@ let mycache: any = {
 
 
 
+
+
+
+
+
 export function setcache(value: any) {
     mycache = value;
     console.log('setcache', value);
