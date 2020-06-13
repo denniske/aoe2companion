@@ -59,7 +59,6 @@ export type RootStackParamList = {
 };
 
 export type RootStackProp = StackNavigationProp<RootStackParamList, 'Main'>;
-export type RootStackProp2 = StackNavigationProp<RootStackParamList, 'Search'>;
 
 const Stack = createStackNavigator<RootStackParamList>();
 

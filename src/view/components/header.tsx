@@ -4,13 +4,13 @@ import Constants from 'expo-constants';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import { useLinkTo, useNavigation } from '@react-navigation/native';
 import { Menu } from 'react-native-paper';
-import { RootStackParamList, RootStackProp, RootStackProp2 } from '../../../App';
+import { RootStackParamList, RootStackProp } from '../../../App';
 
 export default function Header() {
     const [menu, setMenu] = useState(false);
     const linkTo = useLinkTo();
 
-    const navigation = useNavigation<RootStackProp2>();
+    const navigation = useNavigation<RootStackProp>();
 
     const nav = async (route: keyof RootStackParamList) => {
         navigation.reset({
