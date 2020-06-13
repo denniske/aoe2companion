@@ -66,7 +66,6 @@ const headerStatusBarHeight = 60;
 
 export function Menu() {
     const linkTo = useLinkTo();
-
     return (
             <View style={styles.menu}>
                 {/*<TouchableOpacity onPress={() => linkTo('/search')}>*/}
