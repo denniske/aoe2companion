@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { FlatList, Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { formatAgo } from '../helper/util';
 import { IFetchedUser, loadUser } from '../service/user';
 import { useLazyApi } from '../hooks/use-lazy-api';
 import { Searchbar } from 'react-native-paper';
 import { composeUserIdFromParts, UserId, UserInfo } from '../helper/user';
+import { getFlagIcon } from '../helper/flags';
 
 interface IPlayerProps {
     player: IFetchedUser;
@@ -24,16 +25,14 @@ function Player({player, selectedUser}: IPlayerProps) {
     return (
             <TouchableHighlight onPress={onSelect} underlayColor="white">
                 <View style={styles.row}>
-                    <Text style={styles.cellCountry}>{player.country}</Text>
-                    <Text style={styles.cellName}>{player.name}</Text>
+                    <View style={styles.cellCountry}><Image style={styles.countryIcon} source={getFlagIcon(player.country)}/></View>
+                    <Text  style={styles.cellName} numberOfLines={1}>{player.name}</Text>
                     <Text style={styles.cellGames}>{player.games}</Text>
                     <Text style={styles.cellLastMatch}>{formatAgo(player.last_match)}</Text>
                 </View>
             </TouchableHighlight>
     );
 }
-
-// Enter your AoE username to track your games:
 
 export default function Search({title, selectedUser}: any) {
     const [text, setText] = useState('baal');
@@ -47,7 +46,7 @@ export default function Search({title, selectedUser}: any) {
 
     return (
             <View style={styles.container}>
-                <Text>{title}</Text>
+                <Text style={styles.centerText}>{title}</Text>
 
                 <Searchbar
                         style={styles.searchbar}
@@ -58,7 +57,7 @@ export default function Search({title, selectedUser}: any) {
 
                 {
                     text.length < 3 &&
-                    <Text>Enter at least 3 chars.</Text>
+                    <Text style={styles.centerText}>Enter at least 3 chars.</Text>
                 }
                 {
                     user.data && user.data.length > 0 && text.length >= 3 &&
@@ -79,29 +78,26 @@ export default function Search({title, selectedUser}: any) {
                 }
                 {
                     user.data && user.data.length == 0 && text.length >= 3 &&
-                    <Text>No user found.</Text>
+                    <Text style={styles.centerText}>No user found.</Text>
                 }
             </View>
     );
 }
 
 const styles = StyleSheet.create({
+    centerText: {
+        textAlign: 'center',
+    },
+    countryIcon: {
+        width: 21,
+        height: 15,
+        marginRight: 5,
+    },
     searchbar: {
         marginTop: 15,
         marginBottom: 15,
         marginRight: 30,
         marginLeft: 30,
-    },
-    button: {
-        marginBottom: 30,
-        width: 260,
-        alignItems: 'center',
-        backgroundColor: '#2196F3'
-    },
-    buttonText: {
-        textAlign: 'center',
-        padding: 20,
-        color: 'white'
     },
     cellRating: {
         width: 40,
@@ -110,28 +106,38 @@ const styles = StyleSheet.create({
         width: 30,
     },
     cellName: {
-        width: 110,
+        flex: 1,
     },
     cellGames: {
         width: 60,
+        marginLeft: 5,
     },
     cellLastMatch: {
         width: 110,
     },
     headerRow: {
         flexDirection: 'row',
+        alignItems: 'center',
         marginBottom: 3,
         padding: 3,
         borderRadius: 5,
+        marginRight: 30,
+        marginLeft: 30,
     },
     row: {
+        marginRight: 30,
+        marginLeft: 30,
+        // width: '100%',
+        // height: 100,
+        flex: 1,
         flexDirection: 'row',
+        alignItems: 'center',
         marginBottom: 3,
-        borderColor: '#CCC',
-        borderWidth: 1,
+        // borderColor: '#CCC',
+        // borderWidth: 1,
         padding: 3,
-        borderRadius: 5,
-        backgroundColor: '#EEE',
+        // borderRadius: 5,
+        // backgroundColor: '#EEE',
         // borderBottomColor: '#CCC',
         // borderBottomWidth: 1,
     },
@@ -139,7 +145,7 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+        // alignItems: 'center',
+        // justifyContent: 'center',
     },
 });

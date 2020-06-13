@@ -28,6 +28,13 @@ export default function AboutPage() {
                     {/*<Text style={styles.content}>.</Text>*/}
 
                 </View>
+                <Text/>
+                <View style={styles.row}>
+                    <Text style={styles.content}>Icons from </Text>
+                    <TouchableOpacity onPress={() => Linking.openURL('https://github.com/madebybowtie/FlagKit')}>
+                        <Text style={styles.link}>FlagKit</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
     );
 }

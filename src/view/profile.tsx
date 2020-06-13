@@ -1,9 +1,11 @@
-import { StyleSheet, Text, TouchableHighlight, View, ViewStyle } from 'react-native';
+import { Image, StyleSheet, Text, TouchableHighlight, View, ViewStyle } from 'react-native';
 import { formatAgo, getLeaderboardAbbr } from '../helper/util';
 import React from 'react';
 import { getString } from '../helper/strings';
 import { getLeaderboardColor, getPlayerBackgroundColor } from '../helper/colors';
 import ContentLoader, { Rect } from 'react-content-loader/native';
+import { getCivIcon } from '../helper/civs';
+import { getFlagIcon } from '../helper/flags';
 
 interface ILeaderboardRowProps {
     data: ILeaderboard;
@@ -28,7 +30,7 @@ function LeaderboardRow({data}: ILeaderboardRowProps) {
                 <Text style={StyleSheet.flatten([styles.cellGames, color])}>
                     {leaderboardInfo.games}
                 </Text>
-                <Text style={StyleSheet.flatten([styles.cellLastMatch, color])}>
+                <Text style={StyleSheet.flatten([styles.cellLastMatch, color])} numberOfLines={1}>
                     {formatAgo(leaderboardInfo.last_match)}
                 </Text>
             </View>
@@ -74,8 +76,13 @@ export default function Profile({data}: IProfileProps) {
                 <View>
                     {/*<Text>{data.steam_id} {data.profile_id}</Text>*/}
 
-                    {/* country may be null */}
-                    <Text>{data.country} {data.name}</Text>
+                    <View style={styles.row}>
+                        {
+                            data.country &&
+                            <Image style={styles.countryIcon} source={getFlagIcon(data.country)}/>
+                        }
+                        <Text>{data.name}</Text>
+                    </View>
 
                     <Text>{data.games} Games, {data.drops} Drops ({(data.drops / data.games).toFixed(2)}%)</Text>
 
@@ -114,12 +121,20 @@ const styles = StyleSheet.create({
         width: 60,
     },
     cellLastMatch: {
-        width: 110,
+        flex: 1,
+        // width: 40,
     },
     row: {
         flexDirection: 'row',
+        alignItems: 'center',
     },
     container: {
         marginBottom: 12,
+        // backgroundColor: 'red',
+    },
+    countryIcon: {
+        width: 21,
+        height: 15,
+        marginRight: 5,
     },
 });

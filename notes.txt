@@ -31,6 +31,8 @@
 - User without steam_id
   - Baalrahab 2194579
 
+- Game Duration
+
 
 // type MainScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Main'>;
 // navigation.replace('Search', {name: '___'});

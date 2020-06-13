@@ -59,7 +59,7 @@ export function Player({player}: IPlayerProps) {
 
                 <Link to={'/user/' + composeUserIdFromParts(player.steam_id, player.profile_id) + '/' + player.name} style={playerNameStyle}>{player.name}</Link>
 
-                <Image style={styles.civIcon} source={getCivIcon(player.civ)}/>
+                <Image style={styles.countryIcon} source={getCivIcon(player.civ)}/>
                 <Text> {getString('civ', player.civ)}</Text>
             </View>
     );
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         width: 140,
     },
-    civIcon: {
+    countryIcon: {
         width: 20,
         height: 20,
     },
