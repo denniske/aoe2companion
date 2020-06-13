@@ -4,13 +4,13 @@ import { Button } from 'react-native-paper';
 import { useApi } from '../hooks/use-api';
 import { loadProfile } from '../service/profile';
 import { Game } from './components/game';
-import Search from './search';
+import Search from './components/search';
 import { composeUserId, UserId, UserInfo } from '../helper/user';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { setAuth, useMutate, useSelector } from '../redux/reducer';
-import Profile from './profile';
+import Profile from './components/profile';
 import { loadRatingHistories } from '../service/rating';
-import Rating from './rating';
+import Rating from './components/rating';
 import { fetchMatches } from '../api/matches';
 
 

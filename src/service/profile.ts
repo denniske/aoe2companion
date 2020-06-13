@@ -1,6 +1,6 @@
 import { fetchLeaderboard } from '../api/leaderboard';
 import { sortBy, sumBy } from 'lodash-es'
-import { IProfile } from '../view/profile';
+import { IProfile } from '../view/components/profile';
 import { composeUserId, minifyUserId, UserIdBase } from '../helper/user';
 
 export const loadProfile = async (game: string, userId: UserIdBase): Promise<IProfile> => {

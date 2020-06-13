@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { VictoryChart, VictoryLine, VictoryScatter, VictoryTheme } from "victory-native";
-import { getLeaderboardAbbr } from '../helper/util';
+import { getLeaderboardAbbr } from '../../helper/util';
 import ContentLoader, { Rect } from 'react-content-loader/native'
-import { getLeaderboardColor } from '../helper/colors';
-import { IRatingHistoryRow } from '../service/rating';
-import { getString } from '../helper/strings';
+import { getLeaderboardColor } from '../../helper/colors';
+import { IRatingHistoryRow } from '../../service/rating';
+import { getString } from '../../helper/strings';
 
 interface IRatingProps {
     ratingHistories: IRatingHistoryRow[];

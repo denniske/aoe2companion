@@ -5,7 +5,7 @@ import { IFetchedUser, loadUser } from '../service/user';
 import { useLazyApi } from '../hooks/use-lazy-api';
 import { Searchbar } from 'react-native-paper';
 import { composeUserId, composeUserIdFromParts, UserId, UserInfo } from '../helper/user';
-import Search from './search';
+import Search from './components/search';
 import { setAuth } from '../redux/reducer';
 import { Link, useLinkTo } from '@react-navigation/native';
 

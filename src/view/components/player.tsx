@@ -4,7 +4,7 @@ import { loadRatingHistories } from '../../service/rating';
 import { Image, Modal, StyleSheet, Text, TextStyle, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native';
 import { getPlayerBackgroundColor } from '../../helper/colors';
 import { AppSettings } from '../../helper/constants';
-import Rating from '../rating';
+import Rating from './rating';
 import { useNavigation } from '@react-navigation/native';
 import { userIdFromBase } from '../../helper/user';
 import { getCivIcon } from '../../helper/civs';

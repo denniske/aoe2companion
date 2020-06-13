@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
-import { formatAgo } from '../helper/util';
-import { IFetchedUser, loadUser } from '../service/user';
-import { useLazyApi } from '../hooks/use-lazy-api';
+import { formatAgo } from '../../helper/util';
+import { IFetchedUser, loadUser } from '../../service/user';
+import { useLazyApi } from '../../hooks/use-lazy-api';
 import { Searchbar } from 'react-native-paper';
-import { composeUserIdFromParts, UserId, UserInfo } from '../helper/user';
-import { getFlagIcon } from '../helper/flags';
+import { composeUserIdFromParts, UserId, UserInfo } from '../../helper/user';
+import { getFlagIcon } from '../../helper/flags';
 
 interface IPlayerProps {
     player: IFetchedUser;

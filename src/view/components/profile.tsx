@@ -1,11 +1,11 @@
 import { Image, StyleSheet, Text, TouchableHighlight, View, ViewStyle } from 'react-native';
-import { formatAgo, getLeaderboardAbbr } from '../helper/util';
+import { formatAgo, getLeaderboardAbbr } from '../../helper/util';
 import React from 'react';
-import { getString } from '../helper/strings';
-import { getLeaderboardColor, getPlayerBackgroundColor } from '../helper/colors';
+import { getString } from '../../helper/strings';
+import { getLeaderboardColor, getPlayerBackgroundColor } from '../../helper/colors';
 import ContentLoader, { Rect } from 'react-content-loader/native';
-import { getCivIcon } from '../helper/civs';
-import { getFlagIcon } from '../helper/flags';
+import { getCivIcon } from '../../helper/civs';
+import { getFlagIcon } from '../../helper/flags';
 
 interface ILeaderboardRowProps {
     data: ILeaderboard;
