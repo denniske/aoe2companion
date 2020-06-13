@@ -104,36 +104,7 @@ export function App2() {
         );
     }
 
-    if (!me.loading) {
-        // setSettings(me.data);
-        // console.log("=> SPLASH PAGE linkTo main already =", linked);
-        // if (!linked) {
-        //     setLinked(true);
-        //     linkTo('/main');
-        // }
-    }
-
-    // const linkTo = useLinkTo();
-
-
-    // if (settings == null) {
-    //     return <View><Text/><Text/><Text>Loading Me</Text></View>;
-    // }
-
-    // if (me.data == null) {
-    //     return <SearchPage selectedUser={me.reload}/>;
-    // }
-    // if (!me.loading) {
-    //     console.log("=> APP linkTo main");
-    //     linkTo('/main');
-    // }
-
     return (
-            // <View>
-            //     <Text/>
-            //     <Text/>
-            //     <Text>steam_id: {auth?.steam_id}</Text>
-            // </View>
             <Stack.Navigator screenOptions={{animationEnabled: false}}>
                 {/*<Stack.Screen*/}
                 {/*        name="Splash"*/}
