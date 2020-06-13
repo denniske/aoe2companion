@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 import MainPage from './src/view/main.page';
 import { Alert, Button, Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View, YellowBox } from 'react-native';
 import Search from './src/view/search';
-import { createStackNavigator, HeaderBackground } from '@react-navigation/stack';
+import { createStackNavigator, HeaderBackground, StackNavigationProp } from '@react-navigation/stack';
 import Header from './src/view/header';
 import Constants from 'expo-constants';
 import { parseUserId, composeUserId, UserId } from './src/helper/user';
@@ -61,6 +61,8 @@ export type RootStackParamList = {
     User: { id: UserId, name: string };
     Search: { name: string };
 };
+
+export type RootStackProp = StackNavigationProp<RootStackParamList, 'Main'>;
 
 const Stack = createStackNavigator<RootStackParamList>();
 

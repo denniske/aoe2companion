@@ -5,10 +5,11 @@ import { Image, Modal, StyleSheet, Text, TextStyle, TouchableHighlight, Touchabl
 import { getPlayerBackgroundColor } from '../../helper/colors';
 import { AppSettings } from '../../helper/constants';
 import Rating from '../rating';
-import { Link } from '@react-navigation/native';
-import { composeUserId, composeUserIdFromParts, userIdFromBase } from '../../helper/user';
+import { useNavigation } from '@react-navigation/native';
+import { userIdFromBase } from '../../helper/user';
 import { getCivIcon } from '../../helper/civs';
 import { getString } from '../../helper/strings';
+import { RootStackProp } from '../../../App';
 
 interface IPlayerProps {
     player: IPlayer;
@@ -30,6 +31,15 @@ export function Player({player}: IPlayerProps) {
 
     const closeRatingModal = () => {
         setModalVisible(false);
+    };
+
+    const navigation = useNavigation<RootStackProp>();
+
+    const gotoPlayer = () => {
+        navigation.push('User', {
+            id: userIdFromBase(player),
+            name: player.name,
+        });
     };
 
     return (
@@ -57,7 +67,11 @@ export function Player({player}: IPlayerProps) {
                     <Text style={styles.playerRating}>{player.rating}</Text>
                 </TouchableHighlight>
 
-                <Link to={'/user/' + composeUserIdFromParts(player.steam_id, player.profile_id) + '/' + player.name} style={playerNameStyle}>{player.name}</Link>
+                <TouchableHighlight onPress={gotoPlayer}>
+                    <Text style={playerNameStyle}>{player.name}</Text>
+                </TouchableHighlight>
+
+                {/*<Link target="_blank" to={'/user/' + composeUserIdFromParts(player.steam_id, player.profile_id) + '/' + player.name} style={playerNameStyle}>{player.name}</Link>*/}
 
                 <Image style={styles.countryIcon} source={getCivIcon(player.civ)}/>
                 <Text> {getString('civ', player.civ)}</Text>
