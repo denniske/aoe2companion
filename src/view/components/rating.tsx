@@ -12,13 +12,13 @@ interface IRatingProps {
 }
 
 const MyLoader = () => {
-    const parts = Array(5).fill(0);
+    const legendParts = Array(5).fill(0);
     return (
-            <ContentLoader viewBox="0 0 350 380" width={350} height={367}>
-                <Rect x="0" y="0" rx="3" ry="3" width="350" height="340"/>
+            <ContentLoader viewBox="0 0 350 360" width={350} height={360}>
+                <Rect x="0" y="0" rx="3" ry="3" width="350" height="320"/>
                 {
-                    parts.map((part, i) => (
-                            <Rect key={i} x={i * 73} y="360" rx="3" ry="3" width="60" height="20"/>
+                    legendParts.map((part, i) => (
+                            <Rect key={i} x={i * 73} y="340" rx="3" ry="3" width="60" height="20"/>
                     ))
                 }
             </ContentLoader>
