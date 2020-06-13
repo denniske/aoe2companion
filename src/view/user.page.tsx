@@ -20,7 +20,7 @@ type Props = {
 export default function UserPage() {
     const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
 
-    console.log("==> ON RENDER UserPage");
+    console.log("==> ON RENDER UserPage", route.params.id);
 
     const auth = route.params.id;
 
@@ -33,7 +33,7 @@ export default function UserPage() {
                 }
                 state.user[auth.id].rating = value;
             },
-            loadRatingHistories, 'aoe2de', auth.steam_id
+            loadRatingHistories, 'aoe2de', auth
     );
 
     const profile = useApi(
@@ -45,7 +45,7 @@ export default function UserPage() {
                 }
                 state.user[auth.id].profile = value;
             },
-            loadProfile, 'aoe2de', auth.profile_id
+            loadProfile, 'aoe2de', auth
     );
     const matches = useApi(
             [],
@@ -56,7 +56,7 @@ export default function UserPage() {
                 }
                 state.user[auth.id].matches = value;
             },
-            fetchMatches, 'aoe2de', auth.profile_id, 0, 10
+            fetchMatches, 'aoe2de', 0, 10, auth
     );
 
     const list = ['profile', 'rating', 'matches-header', ...(matches.data || [])];

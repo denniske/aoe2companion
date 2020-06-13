@@ -4,8 +4,8 @@ import { Button } from 'react-native-paper';
 import { useApi } from '../hooks/use-api';
 import { loadProfile } from '../service/profile';
 import { Game } from './components/game';
-import SearchPage from './search.page';
-import { composeUserId, UserId } from '../helper/user';
+import Search from './search';
+import { composeUserId, UserId, UserInfo } from '../helper/user';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { setAuth, useMutate, useSelector } from '../redux/reducer';
 import Profile from './profile';
@@ -27,7 +27,7 @@ function MainHome() {
                 }
                 state.user[auth.id].rating = value;
             },
-            loadRatingHistories, 'aoe2de', auth.steam_id
+            loadRatingHistories, 'aoe2de', auth
     );
 
     const profile = useApi(
@@ -39,7 +39,7 @@ function MainHome() {
                 }
                 state.user[auth.id].profile = value;
             },
-            loadProfile, 'aoe2de', auth.profile_id
+            loadProfile, 'aoe2de', auth
     );
 
     const list = ['profile', 'rating', 'not-me'];
@@ -120,7 +120,7 @@ function MainMatches() {
                 }
                 state.user[auth.id].matches = value;
             },
-            fetchMatches, 'aoe2de', auth.profile_id, 0, 10
+            fetchMatches, 'aoe2de', 0, 10, auth
     );
 
     console.log(matches.data);
@@ -172,7 +172,7 @@ export default function MainPage() {
 
     console.log("==> MAIN PAGE");
 
-    const onSelect = async (user: UserId) => {
+    const onSelect = async (user: UserInfo) => {
         await AsyncStorage.setItem('settings', JSON.stringify({
             id: composeUserId(user),
             steam_id: user.steam_id,
@@ -184,7 +184,7 @@ export default function MainPage() {
     console.log("==> ON RENDER MainPage");
 
     if (auth == null) {
-        return <SearchPage selectedUser={onSelect}/>;
+        return <Search title="Enter your AoE username to track your games:" selectedUser={onSelect}/>;
     }
 
     return (

@@ -1,16 +1,17 @@
 import { fetchLeaderboard } from '../api/leaderboard';
 import { sortBy, sumBy } from 'lodash-es'
 import { IProfile } from '../view/profile';
+import { composeUserId, minifyUserId, UserIdBase } from '../helper/user';
 
-export const loadProfile = async (game: string, profile_id: number): Promise<IProfile> => {
-    console.log("loading profile", game, profile_id);
+export const loadProfile = async (game: string, userId: UserIdBase): Promise<IProfile> => {
+    console.log("loading profile", game, composeUserId(userId));
 
     let leaderboards = await Promise.all([
-        fetchLeaderboard(game, 0, {count: 1, profile_id}),
-        fetchLeaderboard(game, 1, {count: 1, profile_id}),
-        fetchLeaderboard(game, 2, {count: 1, profile_id}),
-        fetchLeaderboard(game, 3, {count: 1, profile_id}),
-        fetchLeaderboard(game, 4, {count: 1, profile_id}),
+        fetchLeaderboard(game, 0, {count: 1, ...minifyUserId(userId)}),
+        fetchLeaderboard(game, 1, {count: 1, ...minifyUserId(userId)}),
+        fetchLeaderboard(game, 2, {count: 1, ...minifyUserId(userId)}),
+        fetchLeaderboard(game, 3, {count: 1, ...minifyUserId(userId)}),
+        fetchLeaderboard(game, 4, {count: 1, ...minifyUserId(userId)}),
     ]);
 
     const leaderboardInfos = leaderboards.flatMap(l => l.leaderboard);

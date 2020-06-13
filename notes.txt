@@ -28,7 +28,8 @@
   - About
 
 
-
+- User without steam_id
+  - Baalrahab 2194579
 
 
 // type MainScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Main'>;

@@ -9,7 +9,7 @@ import { Link, NavigationContainer, useLinkTo } from '@react-navigation/native';
 import React, { useState } from 'react';
 import MainPage from './src/view/main.page';
 import { Alert, Button, Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View, YellowBox } from 'react-native';
-import SearchPage from './src/view/search.page';
+import Search from './src/view/search';
 import { createStackNavigator, HeaderBackground } from '@react-navigation/stack';
 import Header from './src/view/header';
 import Constants from 'expo-constants';
@@ -26,6 +26,7 @@ import store from './src/redux/store';
 import { Provider as ReduxProvider } from 'react-redux';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { useSelector } from './src/redux/reducer';
+import SearchPage from './src/view/search.page';
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 

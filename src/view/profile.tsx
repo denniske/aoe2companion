@@ -72,7 +72,11 @@ export default function Profile({data}: IProfileProps) {
     return (
             <View style={styles.container}>
                 <View>
+                    {/*<Text>{data.steam_id} {data.profile_id}</Text>*/}
+
+                    {/* country may be null */}
                     <Text>{data.country} {data.name}</Text>
+
                     <Text>{data.games} Games, {data.drops} Drops ({(data.drops / data.games).toFixed(2)}%)</Text>
 
                     <Text/>

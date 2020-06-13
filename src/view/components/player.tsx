@@ -6,7 +6,7 @@ import { getPlayerBackgroundColor } from '../../helper/colors';
 import { AppSettings } from '../../helper/constants';
 import Rating from '../rating';
 import { Link } from '@react-navigation/native';
-import { composeUserId, composeUserIdFromParts } from '../../helper/user';
+import { composeUserId, composeUserIdFromParts, userIdFromBase } from '../../helper/user';
 import { getCivIcon } from '../../helper/civs';
 import { getString } from '../../helper/strings';
 
@@ -16,7 +16,7 @@ interface IPlayerProps {
 
 export function Player({player}: IPlayerProps) {
     const [modalVisible, setModalVisible] = useState(false);
-    const rating = useLazyApi(loadRatingHistories, 'aoe2de', player.steam_id);
+    const rating = useLazyApi(loadRatingHistories, 'aoe2de', userIdFromBase(player));
 
     const boxStyle = StyleSheet.flatten([styles.square, {backgroundColor: getPlayerBackgroundColor(player.color)}]);
 
