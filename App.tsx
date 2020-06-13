@@ -5,23 +5,19 @@
 // });
 
 import 'react-native-gesture-handler';
-import { Link, NavigationContainer, useLinkTo } from '@react-navigation/native';
-import React, { useState } from 'react';
+import { NavigationContainer, useLinkTo } from '@react-navigation/native';
+import React from 'react';
 import MainPage from './src/view/main.page';
-import { Alert, Button, Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View, YellowBox } from 'react-native';
+import { StyleSheet, Text, View, YellowBox } from 'react-native';
 import Search from './src/view/components/search';
 import { createStackNavigator, HeaderBackground, StackNavigationProp } from '@react-navigation/stack';
 import Header from './src/view/components/header';
 import Constants from 'expo-constants';
-import { parseUserId, composeUserId, UserId } from './src/helper/user';
-import { FontAwesome } from '@expo/vector-icons';
+import { composeUserId, parseUserId, UserId } from './src/helper/user';
 import UserPage from './src/view/user.page';
-import AsyncStorage from '@react-native-community/async-storage';
 import { useApi } from './src/hooks/use-api';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { ISettings, loadSettingsFromStorage } from './src/service/storage';
+import { loadSettingsFromStorage } from './src/service/storage';
 import AboutPage from './src/view/about.page';
-import { NativeModules } from 'react-native';
 import store from './src/redux/store';
 import { Provider as ReduxProvider } from 'react-redux';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
@@ -63,6 +59,7 @@ export type RootStackParamList = {
 };
 
 export type RootStackProp = StackNavigationProp<RootStackParamList, 'Main'>;
+export type RootStackProp2 = StackNavigationProp<RootStackParamList, 'Search'>;
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -75,9 +72,6 @@ export function Menu() {
             <View style={styles.menu}>
                 {/*<TouchableOpacity onPress={() => linkTo('/search')}>*/}
                 {/*    <FontAwesome style={styles.menuButton} name="search" size={18} />*/}
-                {/*</TouchableOpacity>*/}
-                {/*<TouchableOpacity onPress={() => linkTo('/main')}>*/}
-                {/*    <FontAwesome style={styles.menuButton} name="user" size={18} />*/}
                 {/*</TouchableOpacity>*/}
             </View>
     );
