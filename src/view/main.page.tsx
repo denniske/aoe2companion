@@ -125,7 +125,7 @@ function MainMatches() {
 
     console.log(matches.data);
 
-    const list = [...(matches.data || [])];
+    const list = [...(matches.data || Array(5).fill(null))];
 
     return (
             <View style={styles.container}>

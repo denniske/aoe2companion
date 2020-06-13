@@ -65,37 +65,32 @@ const MyLoader = () => {
 };
 
 export default function Profile({data}: IProfileProps) {
+    if (!data) {
+        return <View style={styles.container}><MyLoader/></View>;
+    }
+
     return (
             <View style={styles.container}>
-                {
-                    !data &&
-                    <MyLoader/>
-                }
-                {
-                    data &&
-                    <View>
-                        <Text>{data.country} {data.name}</Text>
-                        <Text>{data.games} Games, {data.drops} Drops ({(data.drops / data.games).toFixed(2)}%)</Text>
+                <View>
+                    <Text>{data.country} {data.name}</Text>
+                    <Text>{data.games} Games, {data.drops} Drops ({(data.drops / data.games).toFixed(2)}%)</Text>
 
-                        <Text/>
+                    <Text/>
 
-                        <View style={styles.row}>
-                            <Text style={styles.cellRank}>Elo</Text>
-                            <Text style={styles.cellRating}/>
-                            <Text style={styles.cellLeaderboard}/>
-                            <Text style={styles.cellGames}>Games</Text>
-                            <Text style={styles.cellLastMatch}>Last Match</Text>
-                        </View>
-
-                        {
-                            data.leaderboards.map(leaderboard =>
-                                    <LeaderboardRow key={leaderboard.leaderboard_id} data={leaderboard}/>
-                            )
-                        }
+                    <View style={styles.row}>
+                        <Text style={styles.cellRank}>Elo</Text>
+                        <Text style={styles.cellRating}/>
+                        <Text style={styles.cellLeaderboard}/>
+                        <Text style={styles.cellGames}>Games</Text>
+                        <Text style={styles.cellLastMatch}>Last Match</Text>
                     </View>
-                }
 
-                <Text/>
+                    {
+                        data.leaderboards.map(leaderboard =>
+                                <LeaderboardRow key={leaderboard.leaderboard_id} data={leaderboard}/>
+                        )
+                    }
+                </View>
             </View>
     )
 }
@@ -120,5 +115,7 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
     },
-    container: {},
+    container: {
+        marginBottom: 12,
+    },
 });
