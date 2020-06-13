@@ -79,7 +79,7 @@ export default function UserPage() {
                                     case 'matches-header':
                                         return <Text style={styles.matchesHeader}>Matches</Text>;
                                     default:
-                                        return <Game data={item as IMatch}/>;
+                                        return <Game data={item as IMatch} expanded={index === 3}/>;
                                 }
 
                             }}

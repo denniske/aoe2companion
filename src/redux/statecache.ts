@@ -3,15 +3,7 @@ let mycache: any = {
     user: {
 
     },
-    // auth: {
-    //     // steam_id: null,
-    //     // profile_id: null,
-    // }
 };
-
-
-
-
 
 
 

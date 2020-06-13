@@ -94,7 +94,8 @@ function MainHome() {
                                         // if (profile.data == null) return <Text>...</Text>;
                                         // return <Profile data={profile.data}/>;
                                     default:
-                                        return <Game data={item as any}/>;
+                                        return <View/>;
+                                    //     return <Game data={item as any} expanded={}/>;
                                 }
 
                             }}
@@ -104,6 +105,7 @@ function MainHome() {
             </View>
     );
 }
+
 
 function MainMatches() {
     console.log("==> ON RENDER MainMatches");
@@ -140,7 +142,7 @@ function MainMatches() {
                             renderItem={({item, index}) => {
                                 switch (item) {
                                     default:
-                                        return <Game data={item as any}/>;
+                                        return <Game data={item as any} expanded={index === 0}/>;
                                 }
 
                             }}
