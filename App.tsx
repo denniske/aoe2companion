@@ -1,4 +1,3 @@
-
 // const whyDidYouRender = require('@welldone-software/why-did-you-render');
 // whyDidYouRender(React, {
 //     trackHooks: true,
@@ -12,7 +11,6 @@ import MainPage from './src/view/main.page';
 import { Alert, Button, Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View, YellowBox } from 'react-native';
 import SearchPage from './src/view/search.page';
 import { createStackNavigator, HeaderBackground } from '@react-navigation/stack';
-import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import Header from './src/view/header';
 import Constants from 'expo-constants';
 import { parseUserId, composeUserId, UserId } from './src/helper/user';
@@ -25,7 +23,8 @@ import { ISettings, loadSettingsFromStorage } from './src/service/storage';
 import SplashPage from './src/view/splash.page';
 import { NativeModules } from 'react-native';
 import store from './src/redux/store';
-import { Provider } from 'react-redux';
+import { Provider as ReduxProvider } from 'react-redux';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { useSelector } from './src/redux/reducer';
 
 YellowBox.ignoreWarnings(['Remote debugger']);
@@ -80,11 +79,13 @@ export function Menu() {
 
 export default function App() {
     return (
-            <Provider store={store}>
-                <NavigationContainer linking={linking}>
-                    <App2/>
-                </NavigationContainer>
-            </Provider>
+            <ReduxProvider store={store}>
+                    <NavigationContainer linking={linking}>
+                        <PaperProvider theme={DefaultTheme}>
+                        <App2/>
+                        </PaperProvider>
+                    </NavigationContainer>
+            </ReduxProvider>
     );
 }
 
