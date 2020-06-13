@@ -20,7 +20,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { useApi } from './src/hooks/use-api';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { ISettings, loadSettingsFromStorage } from './src/service/storage';
-import SplashPage from './src/view/splash.page';
+import AboutPage from './src/view/about.page';
 import { NativeModules } from 'react-native';
 import store from './src/redux/store';
 import { Provider as ReduxProvider } from 'react-redux';
@@ -48,11 +48,14 @@ const linking = {
         Main: {
             path: 'main',
         },
+        About: {
+            path: 'about',
+        },
     },
 };
 
 export type RootStackParamList = {
-    Splash: undefined;
+    About: undefined;
     Main: undefined;
     User: { id: UserId, name: string };
     Search: { name: string };
@@ -107,17 +110,6 @@ export function App2() {
 
     return (
             <Stack.Navigator screenOptions={{animationEnabled: false}}>
-                {/*<Stack.Screen*/}
-                {/*        name="Splash"*/}
-                {/*        component={SplashPage}*/}
-                {/*        options={{*/}
-                {/*            title: 'Splash',*/}
-                {/*            headerStatusBarHeight: headerStatusBarHeight,*/}
-                {/*            headerBackground: () => (*/}
-                {/*                    <HeaderBackground><Header/></HeaderBackground>*/}
-                {/*            ),*/}
-                {/*        }}*/}
-                {/*/>*/}
                 <Stack.Screen
                         name="Main"
                         component={MainPage}
@@ -148,6 +140,17 @@ export function App2() {
                         component={SearchPage}
                         options={{
                             title: 'Search',
+                            headerStatusBarHeight: headerStatusBarHeight,
+                            headerBackground: () => (
+                                    <HeaderBackground><Header/></HeaderBackground>
+                            ),
+                        }}
+                />
+                <Stack.Screen
+                        name="About"
+                        component={AboutPage}
+                        options={{
+                            title: 'About',
                             headerStatusBarHeight: headerStatusBarHeight,
                             headerBackground: () => (
                                     <HeaderBackground><Header/></HeaderBackground>

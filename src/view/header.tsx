@@ -33,7 +33,7 @@ export default function Header() {
                                 </TouchableOpacity>
                             }
                     >
-                        <Menu.Item onPress={() => {}} title="About" />
+                        <Menu.Item onPress={() => { linkTo('/about'); setMenu(false); }} title="About" />
                     </Menu>
                 </View>
             </View>
