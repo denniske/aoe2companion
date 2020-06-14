@@ -4,7 +4,7 @@ import { formatAgo } from '../../helper/util';
 import { IFetchedUser, loadUser } from '../../service/user';
 import { useLazyApi } from '../../hooks/use-lazy-api';
 import { Searchbar } from 'react-native-paper';
-import { composeUserIdFromParts, UserId, UserInfo } from '../../helper/user';
+import { composeUserIdFromParts, UserInfo } from '../../helper/user';
 import { getFlagIcon } from '../../helper/flags';
 
 interface IPlayerProps {
@@ -26,7 +26,7 @@ function Player({player, selectedUser}: IPlayerProps) {
             <TouchableHighlight onPress={onSelect} underlayColor="white">
                 <View style={styles.row}>
                     <View style={styles.cellCountry}><Image style={styles.countryIcon} source={getFlagIcon(player.country)}/></View>
-                    <Text  style={styles.cellName} numberOfLines={1}>{player.name}</Text>
+                    <Text style={styles.cellName} numberOfLines={1}>{player.name}</Text>
                     <Text style={styles.cellGames}>{player.games}</Text>
                     <Text style={styles.cellLastMatch}>{formatAgo(player.last_match)}</Text>
                 </View>
@@ -35,14 +35,29 @@ function Player({player, selectedUser}: IPlayerProps) {
 }
 
 export default function Search({title, selectedUser}: any) {
-    const [text, setText] = useState('baal');
+    const [text, setText] = useState('');
 
     const user = useLazyApi(loadUser, 'aoe2de', text);
 
-    useEffect(() => {
-        if (text.length < 3) return;
+    const refresh = () => {
+        if (text.length < 3) {
+            user.reset();
+            return;
+        }
         user.refetch('aoe2de', text);
+    };
+
+    useEffect(() => {
+        refresh();
     }, [text]);
+
+    let list: any[] = user.data ? [...user.data]:[];
+    if (user.touched && (user.data == null || user.data.length === 0)) {
+        list = [{type: 'text', content: 'No user found.'}];
+    }
+    if (text.length < 3) {
+        list = [{type: 'text', content: 'Enter at least 3 chars.'}];
+    }
 
     return (
             <View style={styles.container}>
@@ -56,10 +71,6 @@ export default function Search({title, selectedUser}: any) {
                 />
 
                 {
-                    text.length < 3 &&
-                    <Text style={styles.centerText}>Enter at least 3 chars.</Text>
-                }
-                {
                     user.data && user.data.length > 0 && text.length >= 3 &&
                     <View style={styles.headerRow}>
                         <Text style={styles.cellCountry}> </Text>
@@ -68,18 +79,19 @@ export default function Search({title, selectedUser}: any) {
                         <Text style={styles.cellLastMatch}>Last Match</Text>
                     </View>
                 }
-                {
-                    user.data && user.data.length > 0 && text.length >= 3 &&
-                    <FlatList
-                        data={user.data}
-                        renderItem={({item}) => <Player player={item} selectedUser={selectedUser}/>}
+
+                <FlatList
+                        refreshing={user.loading}
+                        onRefresh={refresh}
+                        data={list}
+                        renderItem={({item}) => {
+                            if (item.type === 'text') {
+                                return <Text style={styles.centerText}>{item.content}</Text>;
+                            }
+                            return <Player player={item} selectedUser={selectedUser}/>;
+                        }}
                         keyExtractor={(item, index) => index.toString()}
-                    />
-                }
-                {
-                    user.data && user.data.length == 0 && text.length >= 3 &&
-                    <Text style={styles.centerText}>No user found.</Text>
-                }
+                />
             </View>
     );
 }
@@ -127,25 +139,15 @@ const styles = StyleSheet.create({
     row: {
         marginRight: 30,
         marginLeft: 30,
-        // width: '100%',
-        // height: 100,
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 3,
-        // borderColor: '#CCC',
-        // borderWidth: 1,
         padding: 3,
-        // borderRadius: 5,
-        // backgroundColor: '#EEE',
-        // borderBottomColor: '#CCC',
-        // borderBottomWidth: 1,
     },
     container: {
         paddingTop: 20,
         flex: 1,
         backgroundColor: '#fff',
-        // alignItems: 'center',
-        // justifyContent: 'center',
     },
 });

@@ -152,16 +152,9 @@ function MainMatches() {
     );
 }
 
-function MainFollowing() {
-    return (
-            <Text>Following</Text>
-    );
-}
-
 // export type MainTabParamList = {
 //     MainHome: { };
 //     MainMatches: { };
-//     MainFollowing: { };
 // };
 
 const Tab = createMaterialTopTabNavigator();//<MainTabParamList>();
@@ -191,7 +184,6 @@ export default function MainPage() {
             <Tab.Navigator swipeEnabled={false} lazy={true}>
                 <Tab.Screen name="MainHome" options={{title: 'Profile'}} component={MainHome}/>
                 <Tab.Screen name="MainMatches" options={{title: 'Matches'}} component={MainMatches}/>
-                {/*<Tab.Screen name="MainFollowing" options={{title: 'Following'}} component={MainFollowing}/>*/}
             </Tab.Navigator>
     );
 }
