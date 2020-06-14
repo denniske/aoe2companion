@@ -1,6 +1,8 @@
 # Prevent Fastlane from overwriting README.md
 skip_docs
 
+setup_travis
+
 default_platform(:ios)
 
 def suppress_output
