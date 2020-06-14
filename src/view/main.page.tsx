@@ -78,23 +78,16 @@ function MainHome() {
                                     case 'rating':
                                         return <Rating ratingHistories={rating.data}/>;
                                     case 'profile':
-                                        return (
-                                                <View>
-                                                    {/*<Text>{auth.steam_id}</Text>*/}
-                                                    {/*<Text/>*/}
-                                                    <Profile data={profile.data}/>
-                                                </View>
-                                        );
+                                        return <Profile data={profile.data}/>;
                                     case 'not-me':
-                                        return <View>
-                                            <Text/>
-                                            <Button mode="outlined" onPress={deleteUser}>This is not me</Button>
-                                        </View>;
-                                        // if (profile.data == null) return <Text>...</Text>;
-                                        // return <Profile data={profile.data}/>;
+                                        return (
+                                            <View>
+                                                <Text/>
+                                                <Button mode="outlined" onPress={deleteUser}>This is not me</Button>
+                                            </View>
+                                        );
                                     default:
                                         return <View/>;
-                                    //     return <Game data={item as any} expanded={}/>;
                                 }
 
                             }}

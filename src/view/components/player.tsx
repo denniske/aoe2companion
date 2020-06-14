@@ -10,6 +10,7 @@ import { userIdFromBase } from '../../helper/user';
 import { getCivIcon } from '../../helper/civs';
 import { getString } from '../../helper/strings';
 import { RootStackProp } from '../../../App';
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 interface IPlayerProps {
     player: IPlayer;
@@ -47,13 +48,15 @@ export function Player({player}: IPlayerProps) {
                 <Modal animationType="none" transparent={true} visible={modalVisible}>
                     <TouchableWithoutFeedback onPress={closeRatingModal}>
                         <View style={styles.centeredView}>
+                            <TouchableWithoutFeedback onPress={() => {}}>
                             <View style={styles.modalView}>
                                 <TouchableHighlight style={styles.modalCloseIcon} onPress={closeRatingModal} underlayColor="white">
-                                    <Text>❌</Text>
+                                    <Icon name={'close'} size={24}/>
                                 </TouchableHighlight>
-                                <Text style={styles.modalText}>{player.name}</Text>
+                                <Text style={styles.modalText} numberOfLines={1}>{player.name}</Text>
                                 <Rating ratingHistories={rating.data}/>
                             </View>
+                            </TouchableWithoutFeedback>
                         </View>
                     </TouchableWithoutFeedback>
                 </Modal>
@@ -70,8 +73,6 @@ export function Player({player}: IPlayerProps) {
                 <TouchableHighlight onPress={gotoPlayer}>
                     <Text style={playerNameStyle}>{player.name}</Text>
                 </TouchableHighlight>
-
-                {/*<Link target="_blank" to={'/user/' + composeUserIdFromParts(player.steam_id, player.profile_id) + '/' + player.name} style={playerNameStyle}>{player.name}</Link>*/}
 
                 <Image style={styles.countryIcon} source={getCivIcon(player.civ)}/>
                 <Text> {getString('civ', player.civ)}</Text>
@@ -115,7 +116,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        // marginTop: 22,
         backgroundColor: 'rgba(0,0,0,0.5)',
     },
     modalView: {
@@ -133,8 +133,8 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5
     },
-
     modalText: {
+        paddingVertical: 3,
         marginBottom: 15,
         textAlign: "center",
         color: 'black',

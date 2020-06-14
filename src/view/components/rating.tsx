@@ -25,6 +25,22 @@ const MyLoader = () => {
     )
 };
 
+
+function replaceRobotoWithSystemFont(obj: any) {
+    const keys = Object.keys(obj);
+    keys.forEach(function(key) {
+        const value = obj[key];
+        if (key === 'fontFamily') {
+            obj[key] = obj[key].replace("'Roboto',", "'System',");
+        }
+        if (typeof value === 'object') {
+            replaceRobotoWithSystemFont(obj[key]);
+        }
+    });
+    return obj;
+}
+
+
 export default function Rating({ratingHistories}: IRatingProps) {
     console.log("render rating");
 
@@ -32,9 +48,12 @@ export default function Rating({ratingHistories}: IRatingProps) {
         return <MyLoader/>;
     }
 
+    const themeWithSystemFont = replaceRobotoWithSystemFont({...VictoryTheme.material});
+    // console.log('theme', themeWithSystemFont);
+
     return (
             <View style={styles.container}>
-                <VictoryChart width={350} height={350} theme={VictoryTheme.material} padding={{left: 50, bottom: 50, top: 20, right: 30}}>
+                <VictoryChart width={350} height={350} theme={themeWithSystemFont} padding={{left: 50, bottom: 50, top: 20, right: 30}}>
                     {
                         ratingHistories.map(ratingHistory => (
                                 <VictoryLine

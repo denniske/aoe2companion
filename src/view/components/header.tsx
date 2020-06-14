@@ -80,8 +80,6 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         marginTop: Constants.statusBarHeight,
-        flex: 1,
-        marginBottom: 45,
         paddingLeft: 16,
         paddingRight: 12, // because of three dots icon
     },

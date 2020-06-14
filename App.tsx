@@ -5,26 +5,26 @@
 // });
 
 import 'react-native-gesture-handler';
-import { NavigationContainer, useLinkTo } from '@react-navigation/native';
+import {NavigationContainer, useLinkTo} from '@react-navigation/native';
 import React from 'react';
 import MainPage from './src/view/main.page';
-import { StyleSheet, Text, View, YellowBox } from 'react-native';
+import {StyleSheet, View, YellowBox} from 'react-native';
 import Search from './src/view/components/search';
-import { createStackNavigator, HeaderBackground, StackNavigationProp } from '@react-navigation/stack';
+import {createStackNavigator, HeaderBackground, StackNavigationProp} from '@react-navigation/stack';
 import Header from './src/view/components/header';
 import Constants from 'expo-constants';
-import { composeUserId, parseUserId, UserId, userIdEmpty } from './src/helper/user';
+import {composeUserId, parseUserId, UserId} from './src/helper/user';
 import UserPage from './src/view/user.page';
-import { useApi } from './src/hooks/use-api';
-import { loadSettingsFromStorage } from './src/service/storage';
+import {useApi} from './src/hooks/use-api';
+import {loadSettingsFromStorage} from './src/service/storage';
 import AboutPage from './src/view/about.page';
 import store from './src/redux/store';
-import { Provider as ReduxProvider } from 'react-redux';
-import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
-import { useSelector } from './src/redux/reducer';
+import {Provider as ReduxProvider} from 'react-redux';
+import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
+import {useSelector} from './src/redux/reducer';
 import SearchPage from './src/view/search.page';
 import PrivacyPage from './src/view/privacy.page';
-import WelcomePage from './src/view/welcome.page';
+import {AppLoading} from "expo";
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -101,16 +101,18 @@ export function App2() {
     const auth = useSelector(state => state.auth);
     const me = useApi([], state => state.auth, (state, value) => state.auth = value, () => loadSettingsFromStorage());
 
-    console.log("==> APP PAGE me.loading =", me.loading, ', data =', me.data);
+    // let [fontsLoaded] = useFonts({
+    //     Roboto: Roboto_400Regular,
+    // });
+
+    console.log("==> APP PAGE me.loading =", me.loading, ', data =', me.data); //, ', fontsLoaded =', fontsLoaded);
+
+    // if (!fontsLoaded) {
+    //     return <AppLoading />;
+    // }
 
     if (auth === undefined) {
-        return (
-                <View>
-                    <Text/>
-                    <Text/>
-                    <Text>loading auth</Text>
-                </View>
-        );
+        return <AppLoading />;
     }
 
     return (
