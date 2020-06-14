@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useRef, useState} from 'react';
 import { AppState, useMutate, useSelector } from '../redux/reducer';
 
 type UnPromisify<T> = T extends Promise<infer U> ? U:T;
@@ -13,10 +13,16 @@ export function useApi<A extends (...args: any) => any>(dep: any, selectorFun: S
 
     const [data, setData] = useState(selectedState);
     const [loading, setLoading] = useState(selectorFun === undefined);
+    const mountedRef = useRef(true);
 
     const load = async (...args: Parameters<A>) => {
         setLoading(true);
         const data = await action(...args);
+
+        if (!mountedRef.current) {
+            // console.log("useApi aborted due to unmount");
+            return null;
+        }
 
         setData(data);
 
@@ -43,6 +49,9 @@ export function useApi<A extends (...args: any) => any>(dep: any, selectorFun: S
             console.log("useApi has cached all", allState);
             console.log("useApi has cached value", selectedState);
         }
+        return () => {
+            mountedRef.current = false;
+        };
     }, dep);
 
     return {data, loading, refetch, reload};
