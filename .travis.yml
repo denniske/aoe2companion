@@ -121,8 +121,12 @@ jobs:
 #        - yarn
 #        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT-`date +%s`.tar.gz"
         - turtle setup:ios --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
-        - fastlane
-
+        - echo $FASTLANE_SERVICE_ACCOUNT_BASE64 > play-store-service-account.json.base64
+        - base64 --decode play-store-service-account.json.base64 > play-store-service-account.json
+        - aws s3 cp s3://$AWS_BUCKET/expo-project-cfa0ea188e2cd4eb1909794282022c361a29f1dd-1592088799.aab expo-project-cfa0.aab
+        - ls -al
+        - cd android
+        - fastlane deploy_play_store
 
 #    - stage: build standalone apps
 #      os: osx
