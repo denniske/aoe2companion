@@ -52,6 +52,7 @@
     "@types/uuid": "^8.0.0",
     "axios": "^0.19.2",
     "babel-preset-expo": "~8.1.0",
+    "detox": "^16.8.1",
     "expo-cli": "^3.21.5",
     "ts-node": "^8.10.2",
     "typescript": "~3.8.3"
