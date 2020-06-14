@@ -19,7 +19,7 @@ export default function AboutPage() {
 
                 <Text/>
                 <View style={styles.row}>
-                    <Text style={styles.content}>All data in this app is fetched from </Text>
+                    <Text style={styles.content}>Data from </Text>
                     <TouchableOpacity onPress={() => Linking.openURL('https://aoe2.net')}>
                         <Text style={styles.link}>aoe2.net</Text>
                     </TouchableOpacity>
