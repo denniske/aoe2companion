@@ -22,7 +22,8 @@
     ],
     "android": {
       "package": "com.aoe2companion",
-      "versionCode": 1
+      "versionCode": 1,
+      "permissions": []
     },
     "ios": {
       "bundleIdentifier": "com.aoe2companion",
