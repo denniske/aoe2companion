@@ -7,10 +7,10 @@ export interface IRatingHistoryRow {
 }
 
 export const loadRatingHistories = async (game: string, userId: UserIdBase): Promise<IRatingHistoryRow[]> => {
-    console.log("loading ratings", game, composeUserId(userId));
+    // console.log("loading ratings", game, composeUserId(userId));
 
-    console.log("userId", userId);
-    console.log("preciseUserId", minifyUserId(userId));
+    // console.log("userId", userId);
+    // console.log("preciseUserId", minifyUserId(userId));
 
     let ratingHistories = await Promise.all([
         fetchRatingHistory(game, 0, 0, 500, minifyUserId(userId)),
@@ -27,7 +27,7 @@ export const loadRatingHistories = async (game: string, userId: UserIdBase): Pro
 
     ratingHistoryRows = ratingHistoryRows.filter(rh => rh.data?.length);
 
-    console.log("RETURNING ratingHistoryRows", ratingHistoryRows);
+    // console.log("RETURNING ratingHistoryRows", ratingHistoryRows);
 
     return ratingHistoryRows;
 };

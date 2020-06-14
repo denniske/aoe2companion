@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Alert, AsyncStorage, FlatList, StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useApi } from '../hooks/use-api';
@@ -12,6 +12,9 @@ import Profile from './components/profile';
 import { loadRatingHistories } from '../service/rating';
 import Rating from './components/rating';
 import { fetchMatches } from '../api/matches';
+import {useNavigation} from "@react-navigation/native";
+import {capture} from "../ci/capture";
+import {RootStackProp} from "../../App";
 
 
 function MainHome() {
@@ -59,14 +62,13 @@ function MainHome() {
         mutate(setAuth(null))
     };
 
-    console.log("==> ON RENDER MainHome");
+    // console.log("==> ON RENDER MainHome");
 
     return (
             <View style={styles.container}>
                 <View style={styles.content}>
                     <FlatList
                             onRefresh={() => {
-                                console.log("==> ON REFRESHING");
                                 rating.reload();
                                 profile.reload();
                             }}
@@ -100,7 +102,7 @@ function MainHome() {
 
 
 function MainMatches() {
-    console.log("==> ON RENDER MainMatches");
+    // console.log("==> ON RENDER MainMatches");
 
     const auth = useSelector(state => state.auth!);
 
@@ -116,7 +118,7 @@ function MainMatches() {
             fetchMatches, 'aoe2de', 0, 10, auth
     );
 
-    console.log(matches.data);
+    // console.log(matches.data);
 
     const list = [...(matches.data || Array(5).fill(null))];
 
@@ -125,7 +127,6 @@ function MainMatches() {
                 <View style={styles.content}>
                     <FlatList
                             onRefresh={() => {
-                                console.log("==> ON REFRESHING");
                                 matches.reload();
                             }}
                             refreshing={matches.loading}
@@ -156,7 +157,14 @@ export default function MainPage() {
     const auth = useSelector(state => state.auth);
     const mutate = useMutate();
 
-    console.log("==> MAIN PAGE");
+
+    const navigation = useNavigation<RootStackProp>();
+
+    useEffect(() => {
+        capture(navigation);
+    }, []);
+
+    // console.log("==> MAIN PAGE");
 
     const onSelect = async (user: UserInfo) => {
         await AsyncStorage.setItem('settings', JSON.stringify({
@@ -167,7 +175,7 @@ export default function MainPage() {
         mutate(setAuth(user));
     };
 
-    console.log("==> ON RENDER MainPage");
+    // console.log("==> ON RENDER MainPage");
 
     if (auth == null) {
         return <Search title="Enter your AoE username to track your games:" selectedUser={onSelect}/>;

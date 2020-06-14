@@ -43,11 +43,11 @@ export function useApi<A extends (...args: any) => any>(dep: any, selectorFun: S
 
     useEffect(() => {
         if (selectedState === undefined) {
-            console.log("useApi wants to load", defArgs);
+            // console.log("useApi wants to load", defArgs);
             load(...defArgs);
         } else {
-            console.log("useApi has cached all", allState);
-            console.log("useApi has cached value", selectedState);
+            // console.log("useApi has cached all", allState);
+            // console.log("useApi has cached value", selectedState);
         }
         return () => {
             mountedRef.current = false;

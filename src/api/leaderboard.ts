@@ -30,7 +30,7 @@ export async function fetchLeaderboard(game: string, leaderboard_id: number, par
     const response = await fetch(`https://aoe2.net/api/leaderboard?${queryString}`);
     try {
         const json = await response.json();
-        console.log("fetchLeaderboard", leaderboard_id, params, json);
+        // console.log("fetchLeaderboard", leaderboard_id, params, json);
         return convertTimestampsToDates(json);
     } catch (e) {
         console.log("FAILED", `https://aoe2.net/api/leaderboard?${queryString}`);

@@ -20,7 +20,7 @@ type Props = {
 export default function UserPage() {
     const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
 
-    console.log("==> ON RENDER UserPage", route.params.id);
+    // console.log("==> ON RENDER UserPage", route.params.id);
 
     const auth = route.params.id;
 

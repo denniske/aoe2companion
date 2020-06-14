@@ -26,7 +26,7 @@ export async function fetchRatingHistory(game: string, leaderboard_id: number, s
     });
     const response = await fetch(`https://aoe2.net/api/player/ratinghistory?${queryString}`);
     const json = await response.json() as IRatingHistoryEntryRaw[];
-    console.log("response.json()", json);
+    // console.log("response.json()", json);
 
     return json.map(match => convertTimestampsToDates(match));
 }

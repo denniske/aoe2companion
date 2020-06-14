@@ -4,7 +4,7 @@ import { IProfile } from '../view/components/profile';
 import { composeUserId, minifyUserId, UserIdBase } from '../helper/user';
 
 export const loadProfile = async (game: string, userId: UserIdBase): Promise<IProfile> => {
-    console.log("loading profile", game, composeUserId(userId));
+    // console.log("loading profile", game, composeUserId(userId));
 
     let leaderboards = await Promise.all([
         fetchLeaderboard(game, 0, {count: 1, ...minifyUserId(userId)}),

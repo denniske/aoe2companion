@@ -5,15 +5,15 @@
 // });
 
 import 'react-native-gesture-handler';
-import {NavigationContainer, useLinkTo} from '@react-navigation/native';
-import React from 'react';
+import {NavigationContainer, useLinkTo, useNavigation} from '@react-navigation/native';
+import React, {useEffect} from 'react';
 import MainPage from './src/view/main.page';
 import {StyleSheet, View, YellowBox} from 'react-native';
 import Search from './src/view/components/search';
 import {createStackNavigator, HeaderBackground, StackNavigationProp} from '@react-navigation/stack';
 import Header from './src/view/components/header';
 import Constants from 'expo-constants';
-import {composeUserId, parseUserId, UserId} from './src/helper/user';
+import {composeUserId, parseUserId, UserId, userIdFromBase} from './src/helper/user';
 import UserPage from './src/view/user.page';
 import {useApi} from './src/hooks/use-api';
 import {loadSettingsFromStorage} from './src/service/storage';
@@ -25,6 +25,7 @@ import {useSelector} from './src/redux/reducer';
 import SearchPage from './src/view/search.page';
 import PrivacyPage from './src/view/privacy.page';
 import {AppLoading} from "expo";
+import {capture} from "./src/ci/capture";
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -105,7 +106,8 @@ export function App2() {
     //     Roboto: Roboto_400Regular,
     // });
 
-    console.log("==> APP PAGE me.loading =", me.loading, ', data =', me.data); //, ', fontsLoaded =', fontsLoaded);
+    // console.log("==> APP PAGE me.loading =", me.loading, ', data =', me.data); //, ', fontsLoaded =', fontsLoaded);
+
 
     // if (!fontsLoaded) {
     //     return <AppLoading />;

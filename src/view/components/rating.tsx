@@ -42,7 +42,7 @@ function replaceRobotoWithSystemFont(obj: any) {
 
 
 export default function Rating({ratingHistories}: IRatingProps) {
-    console.log("render rating");
+    // console.log("render rating");
 
     if (!ratingHistories) {
         return <MyLoader/>;

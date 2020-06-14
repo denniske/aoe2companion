@@ -28,7 +28,7 @@ export async function fetchMatches(game: string, start: number, count: number, p
     });
     const response = await fetch(`https://aoe2.net/api/player/matches?${queryString}`)
     const json = await response.json() as IMatchRaw[];
-    console.log("response.json()", json);
+    // console.log("response.json()", json);
 
     return json.map(match => convertTimestampsToDates(match));
 }
