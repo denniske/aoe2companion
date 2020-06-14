@@ -13,7 +13,7 @@ import Search from './src/view/components/search';
 import { createStackNavigator, HeaderBackground, StackNavigationProp } from '@react-navigation/stack';
 import Header from './src/view/components/header';
 import Constants from 'expo-constants';
-import { composeUserId, parseUserId, UserId } from './src/helper/user';
+import { composeUserId, parseUserId, UserId, userIdEmpty } from './src/helper/user';
 import UserPage from './src/view/user.page';
 import { useApi } from './src/hooks/use-api';
 import { loadSettingsFromStorage } from './src/service/storage';
@@ -24,6 +24,7 @@ import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { useSelector } from './src/redux/reducer';
 import SearchPage from './src/view/search.page';
 import PrivacyPage from './src/view/privacy.page';
+import WelcomePage from './src/view/welcome.page';
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -52,10 +53,14 @@ const linking = {
         Privacy: {
             path: 'privacy',
         },
+        Welcome: {
+            path: 'welcome',
+        },
     },
 };
 
 export type RootStackParamList = {
+    Welcome: undefined;
     Privacy: undefined;
     About: undefined;
     Main: undefined;
@@ -110,11 +115,22 @@ export function App2() {
 
     return (
             <Stack.Navigator screenOptions={{animationEnabled: false}}>
+                {/*<Stack.Screen*/}
+                {/*        name="Welcome"*/}
+                {/*        component={WelcomePage}*/}
+                {/*        options={{*/}
+                {/*            title: '',*/}
+                {/*            headerStatusBarHeight: headerStatusBarHeight,*/}
+                {/*            headerBackground: () => (*/}
+                {/*                    <HeaderBackground><Header/></HeaderBackground>*/}
+                {/*            ),*/}
+                {/*        }}*/}
+                {/*/>*/}
                 <Stack.Screen
                         name="Main"
                         component={MainPage}
                         options={{
-                            title: 'Me',
+                            title: 'Me',//(!auth || userIdEmpty(auth)) ? 'Welcome' : 'Me',
                             headerStatusBarHeight: headerStatusBarHeight,
                             headerBackground: () => (
                                     <HeaderBackground><Header/></HeaderBackground>

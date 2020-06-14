@@ -46,3 +46,7 @@ export function minifyUserId(id: UserIdBase): UserIdBase {
 export function composeUserIdFromParts(steam_id: string, profile_id: number): string {
     return steam_id + '-' + profile_id;
 }
+
+export function userIdEmpty(userId: UserIdBase) {
+    return userId.steam_id != null || userId.profile_id != null;
+}

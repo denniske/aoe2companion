@@ -8,7 +8,6 @@ import { RootStackParamList, RootStackProp } from '../../../App';
 
 export default function Header() {
     const [menu, setMenu] = useState(false);
-    const linkTo = useLinkTo();
 
     const navigation = useNavigation<RootStackProp>();
 
