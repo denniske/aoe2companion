@@ -23,6 +23,7 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { useSelector } from './src/redux/reducer';
 import SearchPage from './src/view/search.page';
+import PrivacyPage from './src/view/privacy.page';
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -48,10 +49,14 @@ const linking = {
         About: {
             path: 'about',
         },
+        Privacy: {
+            path: 'privacy',
+        },
     },
 };
 
 export type RootStackParamList = {
+    Privacy: undefined;
     About: undefined;
     Main: undefined;
     User: { id: UserId, name: string };
@@ -146,6 +151,17 @@ export function App2() {
                         component={AboutPage}
                         options={{
                             title: 'About',
+                            headerStatusBarHeight: headerStatusBarHeight,
+                            headerBackground: () => (
+                                    <HeaderBackground><Header/></HeaderBackground>
+                            ),
+                        }}
+                />
+                <Stack.Screen
+                        name="Privacy"
+                        component={PrivacyPage}
+                        options={{
+                            title: 'Privacy',
                             headerStatusBarHeight: headerStatusBarHeight,
                             headerBackground: () => (
                                     <HeaderBackground><Header/></HeaderBackground>
