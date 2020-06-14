@@ -53,7 +53,7 @@ jobs:
 #        - yarn global add gulp-cli turtle-cli@$TURTLE_VERSION
 #      script:
 #        - yarn
-#        - export ARTIFACT_PATH="/home/travis/expo-project-$TRAVIS_COMMIT-`date +%s`.apk"
+#        - export ARTIFACT_PATH="/home/travis/expo-project-$TRAVIS_COMMIT.apk"
 #        - turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null || travis_terminate 1
 #        - echo $EXPO_ANDROID_KEYSTORE_BASE64 > expo-project.jks.base64
 #        - base64 --decode expo-project.jks.base64 > expo-project.jks
@@ -88,7 +88,7 @@ jobs:
         - yarn global add gulp-cli turtle-cli@$TURTLE_VERSION
       script:
         - yarn
-        - export ARTIFACT_PATH="/home/travis/expo-project-$TRAVIS_COMMIT-`date +%s`.aab"
+        - export ARTIFACT_PATH="/home/travis/expo-project-$TRAVIS_COMMIT.aab"
         - turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null || travis_terminate 1
         - echo $EXPO_ANDROID_KEYSTORE_BASE64 > expo-project.jks.base64
         - base64 --decode expo-project.jks.base64 > expo-project.jks
@@ -123,7 +123,7 @@ jobs:
         - yarn global add turtle-cli@$TURTLE_VERSION
       script:
         - yarn
-        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT-`date +%s`-2.aab"
+        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT-2.aab"
         - turtle setup:android --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
         - echo $EXPO_ANDROID_KEYSTORE_BASE64 > expo-project.jks.base64
         - base64 --decode expo-project.jks.base64 > expo-project.jks
@@ -157,7 +157,7 @@ jobs:
 #        - yarn global add turtle-cli@$TURTLE_VERSION
 #      script:
 #        - yarn
-#        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT-`date +%s`-2.aab"
+#        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT-2.aab"
 #        - turtle setup:android --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
 #        - fastlane
 
@@ -187,7 +187,7 @@ jobs:
     #        - yarn global add turtle-cli@$TURTLE_VERSION
     #      script:
     #        - yarn
-    #        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT-`date +%s`.tar.gz"
+    #        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT.tar.gz"
     #        - turtle setup:ios --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
     #        - turtle build:ios
     #            --team-id $EXPO_APPLE_TEAM_ID
@@ -217,7 +217,7 @@ jobs:
         - yarn global add turtle-cli@$TURTLE_VERSION
       script:
         - yarn
-        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT-`date +%s`.ipa"
+        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT.ipa"
         - turtle setup:ios --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
         - echo $EXPO_IOS_DIST_P12_BASE64 > expo-project_dist.p12.base64
         - base64 --decode expo-project_dist.p12.base64 > expo-project_dist.p12
@@ -257,7 +257,7 @@ jobs:
         - yarn global add turtle-cli@$TURTLE_VERSION
       script:
 #        - yarn
-        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT-`date +%s`.aab"
+        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT.aab"
         - turtle setup:ios --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
         - echo $FASTLANE_SERVICE_ACCOUNT_BASE64 > play-store-service-account.json.base64
         - base64 --decode play-store-service-account.json.base64 > play-store-service-account.json
@@ -287,10 +287,8 @@ jobs:
         - yarn global add turtle-cli@$TURTLE_VERSION
       script:
 #        - yarn
-        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT-`date +%s`.ipa"
+        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT.ipa"
         - turtle setup:ios --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
-        - echo $FASTLANE_SERVICE_ACCOUNT_BASE64 > play-store-service-account.json.base64
-        - base64 --decode play-store-service-account.json.base64 > play-store-service-account.json
         - aws s3 cp s3://$AWS_BUCKET/`basename $ARTIFACT_PATH` expo-project-cfa0.ipa
         - ls -al
         - cd ios
