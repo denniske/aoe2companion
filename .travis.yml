@@ -92,10 +92,6 @@ jobs:
         - base64 --decode expo-project.jks.base64 > expo-project.jks
         - echo $FASTLANE_SERVICE_ACCOUNT_BASE64 > play-store-service-account.json.base64
         - base64 --decode play-store-service-account.json.base64 > play-store-service-account.json
-        - aws s3 cp s3://$AWS_BUCKET/expo-project-cfa0ea188e2cd4eb1909794282022c361a29f1dd-1592088799.aab expo-project-cfa0.aab
-        - ls -al
-        - cd android
-        - fastlane deploy_play_store
         - turtle build:android
             --keystore-path ./expo-project.jks
             --keystore-alias $EXPO_ANDROID_KEYSTORE_ALIAS
@@ -141,37 +137,39 @@ jobs:
 #        - fastlane deploy_play_store
 
 
-#    - stage: deploy standalone apps
-#      os: osx
-#      osx_image: xcode11.2
-#      language: node_js
-#      node_js: "12.13"
-#      env:
-#        - CACHE_NAME=deploy-android YARN_CACHE_FOLDER="/Users/travis/yarn_cache"
-#      cache:
-#        directories:
-#          - $HOME/.turtle
-#          - $HOME/yarn_cache
-#      before_install:
-#        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
-#        - export PATH="$HOME/.yarn/bin:$PATH"
-#      install:
-#        - pip install --user awscli
-#        - export PATH=/Users/travis/Library/Python/2.7/bin:$PATH
-#        - yarn global add turtle-cli@$TURTLE_VERSION
-#      script:
-##        - yarn
-##        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT-`date +%s`.tar.gz"
-#        - turtle setup:ios --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
-#        - echo $FASTLANE_SERVICE_ACCOUNT_BASE64 > play-store-service-account.json.base64
-#        - base64 --decode play-store-service-account.json.base64 > play-store-service-account.json
-#        - aws s3 cp s3://$AWS_BUCKET/expo-project-cd064b27a06b507873e369a653285a94dcd8ae9a-1592124342.ipa expo-project-cfa0.ipa
-#        - ls -al
-#        - cd ios
-#        - fastlane build_and_deploy_testflight
+    # DEPLOY
+    - stage: build standalone apps
+      os: osx
+      osx_image: xcode11.2
+      language: node_js
+      node_js: "12.13"
+      env:
+        - CACHE_NAME=deploy-android YARN_CACHE_FOLDER="/Users/travis/yarn_cache"
+      cache:
+        directories:
+          - $HOME/.turtle
+          - $HOME/yarn_cache
+      before_install:
+        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
+        - export PATH="$HOME/.yarn/bin:$PATH"
+      install:
+        - pip install --user awscli
+        - export PATH=/Users/travis/Library/Python/2.7/bin:$PATH
+        - yarn global add turtle-cli@$TURTLE_VERSION
+      script:
+#        - yarn
+#        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT-`date +%s`.tar.gz"
+        - turtle setup:ios --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
+        - echo $FASTLANE_SERVICE_ACCOUNT_BASE64 > play-store-service-account.json.base64
+        - base64 --decode play-store-service-account.json.base64 > play-store-service-account.json
+        - aws s3 cp s3://$AWS_BUCKET/expo-project-cd064b27a06b507873e369a653285a94dcd8ae9a-1592124342.ipa expo-project-cfa0.ipa
+        - ls -al
+        - cd ios
+        - fastlane build_and_deploy_testflight
 
 
 
+# BUILD
 
 #    - stage: build standalone apps
 #      os: osx
