@@ -38,7 +38,7 @@ export default function Header() {
                             visible={menu}
                             onDismiss={() => setMenu(false)}
                             anchor={
-                                <TouchableOpacity style={styles.menuButton} onPress={() => setMenu(true)}>
+                                <TouchableOpacity style={styles.menuButtonDots} onPress={() => setMenu(true)}>
                                     <FontAwesomeIcon name="ellipsis-v" size={18} />
                                 </TouchableOpacity>
                             }
@@ -57,9 +57,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     menuButton: {
+        // backgroundColor: 'blue',
         marginLeft: 10,
         paddingLeft: 4,
         paddingRight: 4,
+    },
+    menuButtonDots: {
+        // backgroundColor: 'blue',
+        marginLeft: 6,
+        paddingLeft: 8,
+        paddingRight: 8,
     },
     header: {
         // backgroundColor: 'blue',
@@ -77,6 +84,6 @@ const styles = StyleSheet.create({
         flex: 1,
         marginBottom: 45,
         paddingLeft: 16,
-        paddingRight: 16,
+        paddingRight: 12, // because of three dots icon
     },
 });
