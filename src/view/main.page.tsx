@@ -21,6 +21,12 @@ function MainHome() {
     const auth = useSelector(state => state.auth!);
     const mutate = useMutate();
 
+    const navigation = useNavigation<RootStackProp>();
+
+    // useEffect(() => {
+    //     capture(navigation);
+    // }, []);
+
     const rating = useApi(
             [],
             state => state.user[auth.id]?.rating,
@@ -86,6 +92,13 @@ function MainHome() {
                                             <View>
                                                 <Text/>
                                                 <Button mode="outlined" onPress={deleteUser}>This is not me</Button>
+                                                {
+                                                    __DEV__ &&
+                                                    <View>
+                                                        <Text/>
+                                                        <Button mode="outlined" onPress={() => capture(navigation)}>Capture</Button>
+                                                    </View>
+                                                }
                                             </View>
                                         );
                                     default:
@@ -158,11 +171,6 @@ export default function MainPage() {
     const mutate = useMutate();
 
 
-    const navigation = useNavigation<RootStackProp>();
-
-    useEffect(() => {
-        capture(navigation);
-    }, []);
 
     // console.log("==> MAIN PAGE");
 
