@@ -72,7 +72,7 @@ export type RootStackProp = StackNavigationProp<RootStackParamList, 'Main'>;
 
 const Stack = createStackNavigator<RootStackParamList>();
 
-const headerStatusBarHeight = 60;
+const headerStatusBarHeight = 30 + Constants.statusBarHeight;
 
 export function Menu() {
     const linkTo = useLinkTo();

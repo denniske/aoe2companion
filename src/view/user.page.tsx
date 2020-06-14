@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     matchesHeader: {
         marginTop: 20,
         marginBottom: 20,
-        fontSize: 14,
+        fontSize: 15,
         textAlign: 'center',
     },
     list: {

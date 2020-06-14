@@ -1,4 +1,4 @@
-import { Image, Picker, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {Image, Picker, Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, { useState } from 'react';
 import Constants from 'expo-constants';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
@@ -78,8 +78,12 @@ const styles = StyleSheet.create({
         height: 30,
     },
     container: {
+        // backgroundColor: 'blue',
         flexDirection: 'row',
         marginTop: Constants.statusBarHeight,
+        height: 36,
+        paddingTop: Platform.OS === 'ios' ? 0 : 6,
+        paddingBottom: Platform.OS === 'ios' ? 4 : 0,
         paddingLeft: 16,
         paddingRight: 12, // because of three dots icon
     },
