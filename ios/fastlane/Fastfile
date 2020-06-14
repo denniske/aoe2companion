@@ -1,0 +1,69 @@
+# Prevent Fastlane from overwriting README.md
+skip_docs
+
+default_platform(:ios)
+
+def suppress_output
+  original_stdout, original_stderr = $stdout.clone, $stderr.clone
+  $stderr.reopen File.new('/dev/null', 'w')
+  $stdout.reopen File.new('/dev/null', 'w')
+  yield
+ensure
+  $stdout.reopen original_stdout
+  $stderr.reopen original_stderr
+end
+
+def ensure_temp_keychain(name)
+  delete_keychain(
+    name: name
+  ) if File.exist? File.expand_path("~/Library/Keychains/#{name}-db")
+  create_keychain(
+    name: name,
+    password: 'temppassword',
+    unlock: true,
+    timeout: false
+  )
+end
+
+# This should be run after running
+# flutter build ios --release --no-codesign
+# to build the app using the Flutter toolchain. This lane is meant to only
+# rebuild the app by:
+# 1- Signing using the publishing credentials; and
+# 2- xcodebuild with archive option
+platform :ios do
+  desc 'Push a new release to TestFlight'
+  lane :build_and_deploy_testflight do |options|
+    # Doesn't do anything when not on a CI bot. Even though it's called
+    # "setup_travis", this also runs on Cirrus, since the CI environment
+    # variable is set. When on a CI bot, it creates a temporary keychain and
+    # switches "match" to readonly mode to not create new profiles/certs on CI.
+    #setup_travis
+
+    # Relative to this file.
+    # raw_version = File.read('../../../../version')  " #{raw_version}..."
+    puts "Building and deploying version"
+
+    # Build and archive the app again.
+    # cocoapods
+    # ensure_temp_keychain 'fastlane_appstore'
+    # match(
+    #   type: "appstore",
+    #   readonly: is_ci,
+    #   keychain_name: 'fastlane_appstore',
+    #   keychain_password: 'temppassword'
+    # )
+    # gym(
+    #   workspace: 'Runner.xcworkspace',
+    #   scheme: 'Runner',
+    #   export_method: 'app-store',
+    # )
+
+    #if options[:upload]
+    pilot(
+        ipa: '../expo-project-cfa0.ipa',
+        skip_waiting_for_build_processing: false
+    )
+    #end
+  end
+end

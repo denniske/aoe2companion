@@ -138,13 +138,14 @@ jobs:
 
 
 
+
     - stage: build standalone apps
       os: osx
       osx_image: xcode11.2
       language: node_js
       node_js: "12.13"
       env:
-        - CACHE_NAME=build-ios-simulator YARN_CACHE_FOLDER="/Users/travis/yarn_cache"
+        - CACHE_NAME=deploy-android YARN_CACHE_FOLDER="/Users/travis/yarn_cache"
       cache:
         directories:
           - $HOME/.turtle
@@ -154,19 +155,51 @@ jobs:
         - export PATH="$HOME/.yarn/bin:$PATH"
       install:
         - pip install --user awscli
-#        - python3 -m pip install --user awscli
         - export PATH=/Users/travis/Library/Python/2.7/bin:$PATH
         - yarn global add turtle-cli@$TURTLE_VERSION
       script:
-        - yarn
-        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT-`date +%s`.tar.gz"
+#        - yarn
+#        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT-`date +%s`.tar.gz"
         - turtle setup:ios --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
-        - turtle build:ios
-            --team-id $EXPO_APPLE_TEAM_ID
-            --type simulator
-            -o $ARTIFACT_PATH
-      after_success:
-        - aws s3 cp $ARTIFACT_PATH s3://$AWS_BUCKET/`basename $ARTIFACT_PATH`
+        - echo $FASTLANE_SERVICE_ACCOUNT_BASE64 > play-store-service-account.json.base64
+        - base64 --decode play-store-service-account.json.base64 > play-store-service-account.json
+        - aws s3 cp s3://$AWS_BUCKET/expo-project-cd064b27a06b507873e369a653285a94dcd8ae9a-1592124342.ipa expo-project-cfa0.ipa
+        - ls -al
+        - cd ios
+        - fastlane build_and_deploy_testflight
+
+
+
+
+#    - stage: build standalone apps
+#      os: osx
+#      osx_image: xcode11.2
+#      language: node_js
+#      node_js: "12.13"
+#      env:
+#        - CACHE_NAME=build-ios-simulator YARN_CACHE_FOLDER="/Users/travis/yarn_cache"
+#      cache:
+#        directories:
+#          - $HOME/.turtle
+#          - $HOME/yarn_cache
+#      before_install:
+#        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
+#        - export PATH="$HOME/.yarn/bin:$PATH"
+#      install:
+#        - pip install --user awscli
+##        - python3 -m pip install --user awscli
+#        - export PATH=/Users/travis/Library/Python/2.7/bin:$PATH
+#        - yarn global add turtle-cli@$TURTLE_VERSION
+#      script:
+#        - yarn
+#        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT-`date +%s`.tar.gz"
+#        - turtle setup:ios --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
+#        - turtle build:ios
+#            --team-id $EXPO_APPLE_TEAM_ID
+#            --type simulator
+#            -o $ARTIFACT_PATH
+#      after_success:
+#        - aws s3 cp $ARTIFACT_PATH s3://$AWS_BUCKET/`basename $ARTIFACT_PATH`
 
 #    - stage: build standalone apps
 #      os: osx
