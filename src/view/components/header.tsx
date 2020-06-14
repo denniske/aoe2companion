@@ -26,20 +26,20 @@ export default function Header() {
                     <Text>AoE II Companion</Text>
                 </View>
                 <View style={styles.menu}>
-                    <TouchableOpacity onPress={() => nav('Search')}>
-                        <FontAwesomeIcon style={styles.menuButton} name="search" size={18} />
+                    <TouchableOpacity style={styles.menuButton} onPress={() => nav('Search')}>
+                        <FontAwesomeIcon name="search" size={18} />
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => nav('Main')}>
-                        <FontAwesomeIcon style={styles.menuButton} name="user" size={18} />
+                    <TouchableOpacity style={styles.menuButton} onPress={() => nav('Main')}>
+                        <FontAwesomeIcon name="user" size={18} />
                     </TouchableOpacity>
 
                     <Menu
                             visible={menu}
                             onDismiss={() => setMenu(false)}
                             anchor={
-                                <TouchableOpacity onPress={() => setMenu(true)}>
-                                    <FontAwesomeIcon style={styles.menuButton} name="ellipsis-v" size={18} />
+                                <TouchableOpacity style={styles.menuButton} onPress={() => setMenu(true)}>
+                                    <FontAwesomeIcon name="ellipsis-v" size={18} />
                                 </TouchableOpacity>
                             }
                     >
@@ -57,7 +57,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     menuButton: {
-        marginLeft: 20,
+        marginLeft: 10,
+        paddingLeft: 4,
+        paddingRight: 4,
     },
     header: {
         // backgroundColor: 'blue',
