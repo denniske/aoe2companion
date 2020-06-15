@@ -18,7 +18,7 @@ jobs:
     - stage: testing
       env:
         - CACHE_NAME=test1
-      if: branch =~ v.*
+      if: branch = deploy
 #      on:
 #        all_branches: true
 #        tag: true
