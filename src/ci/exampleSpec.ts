@@ -13,9 +13,6 @@ async function capture() {
   await captureImage('screen-' + imageNumber++);
 }
 
-
-// "rnCliPath": "./rn-cli.config.js",
-
 export default function(spec: any) {
 
   spec.describe('Home', function() {

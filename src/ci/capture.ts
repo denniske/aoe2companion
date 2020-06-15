@@ -13,8 +13,8 @@ export async function captureImage(name: string = 'screen') {
         });
         // Remove line breaks from dataUri on iOS
         const dataUriNormalized = dataUri.replace(/\s/g, '');
-        console.log("Image saved:");
-        console.log(dataUriNormalized);
+        console.log("Image saved");
+        // console.log(dataUriNormalized);
         // console.log("Image saved to", uri.substr(0, 20)+'...');
         // const result = await fetch('http://10.0.2.2:3000/', {
         const result = await fetch('http://localhost:3000/', {
