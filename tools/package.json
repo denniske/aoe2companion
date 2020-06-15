@@ -4,6 +4,7 @@
   "description": "",
   "main": "dist/server.js",
   "scripts": {
+    "server" : "nodemon",
     "build-ts": "tsc",
     "start": "npm run serve",
     "serve": "node dist/server.js",

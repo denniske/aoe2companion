@@ -3,7 +3,7 @@
   "scripts": {
     "start": "expo start -c",
     "eject": "expo eject",
-    "strings": "ts-node tools/strings.ts",
+    "strings": "ts-node tools/src/strings.ts",
     "flags": "ts-node tools/flags.ts"
   },
   "dependencies": {
