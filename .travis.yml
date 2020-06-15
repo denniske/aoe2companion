@@ -19,12 +19,12 @@ jobs:
       env:
         - CACHE_NAME=test1
       on:
-        all_branches: true
+#        all_branches: true
         tag: true
         condition: "$TRAVIS_TAG =~ ^v.*$"
       script:
         - echo 1
-        - echo $TRAVIS_TAG
+        - echo 1-$TRAVIS_TAG-
 
 
 #    - stage: publish app
