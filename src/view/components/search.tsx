@@ -25,7 +25,7 @@ function Player({player, selectedUser}: IPlayerProps) {
         });
     };
 
-    console.log(player.country, player.name, composeUserIdFromParts(player.steam_id, player.profile_id));
+    // console.log(player.country, player.name, composeUserIdFromParts(player.steam_id, player.profile_id));
 
     return (
             <TouchableHighlight onPress={onSelect} underlayColor="white"

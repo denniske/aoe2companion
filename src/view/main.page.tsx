@@ -65,7 +65,7 @@ function MainHome() {
         mutate(setAuth(null))
     };
 
-    console.log("==> ON RENDER MainHome", rating.loading, profile.loading);
+    // console.log("==> ON RENDER MainHome", rating.loading, profile.loading);
 
     return (
             <View style={styles.container}>

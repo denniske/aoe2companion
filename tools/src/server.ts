@@ -16,13 +16,13 @@ app.get('/', (req, res) => {
 app.post('/', async (req, res) => {
     console.log(req.body);
 
-    const { name, data } = req.body;
+    const { path, data } = req.body;
 
     res.send('Hello World!');
 
-    console.log('Received image:', name);
+    console.log('Received screenshot:', path);
 
-    let filePath = './images/' + name;
+    let filePath = './screenshots/' + path;
     await imageDataURI.outputFile(data, filePath);
 });
 
