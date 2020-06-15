@@ -9,6 +9,7 @@
     "version": "1.0.4",
     "orientation": "portrait",
     "privacy": "public",
+    "githubUrl": "https://github.com/denniske/aoe2companion",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",

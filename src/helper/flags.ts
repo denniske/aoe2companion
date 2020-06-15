@@ -1,4 +1,4 @@
-const flagList: any = {
+const flagList = {
     'AD': require('../../assets/flags/AD_2x.png'),
     'AE': require('../../assets/flags/AE_2x.png'),
     'AF': require('../../assets/flags/AF_2x.png'),
@@ -256,8 +256,9 @@ const flagList: any = {
     'ZW': require('../../assets/flags/ZW_2x.png'),
 };
 
+export type Flag = keyof typeof flagList;
 
-export function getFlagIcon(flag: string) {
+export function getFlagIcon(flag: Flag) {
     if (flagList[flag]) {
         return flagList[flag];
     }

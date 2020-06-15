@@ -1,9 +1,10 @@
 import { fetchLeaderboard } from '../api/leaderboard';
 import { groupBy, sortBy, sumBy } from 'lodash-es'
+import {Flag} from "../helper/flags";
 
 export interface IFetchedUser {
     clan: string;
-    country: string;
+    country: Flag;
     drops: number;
     games: number;
     icon: any;
