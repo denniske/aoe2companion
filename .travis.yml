@@ -20,7 +20,7 @@ jobs:
         - CACHE_NAME=test1
       on:
 #        all_branches: true
-        tag: true
+#        tag: true
         condition: "$TRAVIS_TAG =~ ^v.*$"
       script:
         - echo 1
