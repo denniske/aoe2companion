@@ -237,62 +237,62 @@ jobs:
     # DEPLOY
     ####################################
 
-    - stage: deploy standalone apps
-      os: osx
-      osx_image: xcode11.2
-      language: node_js
-      node_js: "12.13"
-      env:
-        - CACHE_NAME=deploy-android YARN_CACHE_FOLDER="/Users/travis/yarn_cache"
-      cache:
-        directories:
-          - $HOME/.turtle
-          - $HOME/yarn_cache
-      before_install:
-        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
-        - export PATH="$HOME/.yarn/bin:$PATH"
-      install:
-        - pip install --user awscli
-        - export PATH=/Users/travis/Library/Python/2.7/bin:$PATH
-        - yarn global add turtle-cli@$TURTLE_VERSION
-      script:
-#        - yarn
-        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT.aab"
-        - turtle setup:ios --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
-        - echo $FASTLANE_SERVICE_ACCOUNT_BASE64 > play-store-service-account.json.base64
-        - base64 --decode play-store-service-account.json.base64 > play-store-service-account.json
-        - aws s3 cp s3://$AWS_BUCKET/`basename $ARTIFACT_PATH` expo-project-cfa0.aab
-        - ls -al
-        - cd android
-        - fastlane deploy_play_store
-
-
-    - stage: deploy standalone apps
-      os: osx
-      osx_image: xcode11.2
-      language: node_js
-      node_js: "12.13"
-      env:
-        - CACHE_NAME=deploy-android YARN_CACHE_FOLDER="/Users/travis/yarn_cache"
-      cache:
-        directories:
-          - $HOME/.turtle
-          - $HOME/yarn_cache
-      before_install:
-        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
-        - export PATH="$HOME/.yarn/bin:$PATH"
-      install:
-        - pip install --user awscli
-        - export PATH=/Users/travis/Library/Python/2.7/bin:$PATH
-        - yarn global add turtle-cli@$TURTLE_VERSION
-      script:
-#        - yarn
-        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT.ipa"
-        - turtle setup:ios --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
-        - aws s3 cp s3://$AWS_BUCKET/`basename $ARTIFACT_PATH` expo-project-cfa0.ipa
-        - ls -al
-        - cd ios
-        - fastlane build_and_deploy_testflight
+#    - stage: deploy standalone apps
+#      os: osx
+#      osx_image: xcode11.2
+#      language: node_js
+#      node_js: "12.13"
+#      env:
+#        - CACHE_NAME=deploy-android YARN_CACHE_FOLDER="/Users/travis/yarn_cache"
+#      cache:
+#        directories:
+#          - $HOME/.turtle
+#          - $HOME/yarn_cache
+#      before_install:
+#        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
+#        - export PATH="$HOME/.yarn/bin:$PATH"
+#      install:
+#        - pip install --user awscli
+#        - export PATH=/Users/travis/Library/Python/2.7/bin:$PATH
+#        - yarn global add turtle-cli@$TURTLE_VERSION
+#      script:
+##        - yarn
+#        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT.aab"
+#        - turtle setup:ios --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
+#        - echo $FASTLANE_SERVICE_ACCOUNT_BASE64 > play-store-service-account.json.base64
+#        - base64 --decode play-store-service-account.json.base64 > play-store-service-account.json
+#        - aws s3 cp s3://$AWS_BUCKET/`basename $ARTIFACT_PATH` expo-project-cfa0.aab
+#        - ls -al
+#        - cd android
+#        - fastlane deploy_play_store
+#
+#
+#    - stage: deploy standalone apps
+#      os: osx
+#      osx_image: xcode11.2
+#      language: node_js
+#      node_js: "12.13"
+#      env:
+#        - CACHE_NAME=deploy-android YARN_CACHE_FOLDER="/Users/travis/yarn_cache"
+#      cache:
+#        directories:
+#          - $HOME/.turtle
+#          - $HOME/yarn_cache
+#      before_install:
+#        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
+#        - export PATH="$HOME/.yarn/bin:$PATH"
+#      install:
+#        - pip install --user awscli
+#        - export PATH=/Users/travis/Library/Python/2.7/bin:$PATH
+#        - yarn global add turtle-cli@$TURTLE_VERSION
+#      script:
+##        - yarn
+#        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT.ipa"
+#        - turtle setup:ios --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
+#        - aws s3 cp s3://$AWS_BUCKET/`basename $ARTIFACT_PATH` expo-project-cfa0.ipa
+#        - ls -al
+#        - cd ios
+#        - fastlane build_and_deploy_testflight
 
 
 
