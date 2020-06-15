@@ -1,8 +1,8 @@
 language: java
 
-branches:
-  only:
-  - master
+#branches:
+#  only:
+#  - master
 
 env:
   global:
