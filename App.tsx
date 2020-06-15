@@ -5,15 +5,15 @@
 // });
 
 import 'react-native-gesture-handler';
-import {NavigationContainer, useLinkTo, useNavigation} from '@react-navigation/native';
-import React, {useEffect, useRef} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import React from 'react';
 import MainPage from './src/view/main.page';
-import {StyleSheet, TextInput, Text, View, YellowBox} from 'react-native';
+import {StyleSheet, Text, View, YellowBox} from 'react-native';
 import Search from './src/view/components/search';
 import {createStackNavigator, HeaderBackground, StackNavigationProp} from '@react-navigation/stack';
 import Header from './src/view/components/header';
 import Constants from 'expo-constants';
-import {composeUserId, parseUserId, UserId, userIdFromBase} from './src/helper/user';
+import {composeUserId, parseUserId, UserId} from './src/helper/user';
 import UserPage from './src/view/user.page';
 import {useApi} from './src/hooks/use-api';
 import {loadSettingsFromStorage} from './src/service/storage';
@@ -25,9 +25,7 @@ import {useSelector} from './src/redux/reducer';
 import SearchPage from './src/view/search.page';
 import PrivacyPage from './src/view/privacy.page';
 import {AppLoading} from "expo";
-import {Tester, TestHookStore, useCavy} from "cavy";
-
-// @ts-ignore
+import {Tester, TestHookStore} from "cavy";
 import ExampleSpec from './src/ci/exampleSpec';
 
 YellowBox.ignoreWarnings(['Remote debugger']);
@@ -78,47 +76,18 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 const headerStatusBarHeight = 30 + Constants.statusBarHeight;
 
-export function Menu() {
-    const linkTo = useLinkTo();
-    return (
-        <View style={styles.menu}>
-            {/*<TouchableOpacity onPress={() => linkTo('/search')}>*/}
-            {/*    <FontAwesome style={styles.menuButton} name="search" size={18} />*/}
-            {/*</TouchableOpacity>*/}
-        </View>
-    );
-}
+// export function Menu() {
+//     const linkTo = useLinkTo();
+//     return (
+//         <View style={styles.menu}>
+//             {/*<TouchableOpacity onPress={() => linkTo('/search')}>*/}
+//             {/*    <FontAwesome style={styles.menuButton} name="search" size={18} />*/}
+//             {/*</TouchableOpacity>*/}
+//         </View>
+//     );
+// }
 
-
-export function AppReal() {
-    // const generateTestHook = useCavy();
-    // const navigation = useNavigation();
-    // const navRef = useRef(navigation);
-    // generateTestHook('Navigation', navRef);
-
-    return (
-        <ReduxProvider store={store}>
-            <PaperProvider theme={DefaultTheme}>
-                <App2/>
-            </PaperProvider>
-        </ReduxProvider>
-    );
-}
-
-
-const testHookStore = new TestHookStore();
-
-export default function App() {
-    return (
-        <NavigationContainer linking={linking}>
-            <Tester waitTime={1000} specs={[ExampleSpec]} store={testHookStore}>
-                <AppReal/>
-            </Tester>
-        </NavigationContainer>
-    );
-}
-
-export function App2() {
+export function InnerApp() {
     const auth = useSelector(state => state.auth);
 
     // Trigger loading of auth
@@ -155,13 +124,10 @@ export function App2() {
                 name="Main"
                 component={MainPage}
                 options={{
-                    title: 'Me',//(!auth || userIdEmpty(auth)) ? 'Welcome' : 'Me',
+                    title: 'Me',
                     headerStatusBarHeight: headerStatusBarHeight,
                     headerBackground: () => (
                         <HeaderBackground><Header/></HeaderBackground>
-                    ),
-                    headerRight: () => (
-                        <Menu/>
                     ),
                 }}
             />
@@ -213,21 +179,39 @@ export function App2() {
     );
 }
 
-const styles = StyleSheet.create({
-    header: {
-        marginTop: Constants.statusBarHeight,
-        flexDirection: 'row',
-        alignItems: 'center',
-        margin: 10,
-    },
-    icon: {
-        width: 30,
-        height: 30,
-    },
-    menu: {
-        flexDirection: 'row',
-    },
-    menuButton: {
-        marginRight: 20,
+const testHookStore: TestHookStore | null = null;
+// const testHookStore = new TestHookStore();
+
+function ConditionalTester({children}: any) {
+    if (testHookStore) {
+        return (
+            <Tester clearAsyncStorage={true} waitTime={1000} specs={[ExampleSpec]} store={testHookStore}>
+                {children}
+            </Tester>
+        );
     }
+    return children;
+}
+
+export default function App() {
+    return (
+        <NavigationContainer linking={linking}>
+            <ConditionalTester>
+                <ReduxProvider store={store}>
+                    <PaperProvider theme={DefaultTheme}>
+                        <InnerApp/>
+                    </PaperProvider>
+                </ReduxProvider>
+            </ConditionalTester>
+        </NavigationContainer>
+    );
+}
+
+const styles = StyleSheet.create({
+    // menu: {
+    //     flexDirection: 'row',
+    // },
+    // menuButton: {
+    //     marginRight: 20,
+    // }
 });

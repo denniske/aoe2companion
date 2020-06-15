@@ -15,7 +15,7 @@ export interface IFetchedUser {
 }
 
 export const loadUser = async (game: string, search: string) => {
-    // console.log("loading user", game, search);
+    console.log("loading user", game, search);
 
     let leaderboards = await Promise.all([
         fetchLeaderboard(game, 0, {count: 50, search: search}),
