@@ -8,7 +8,7 @@ import 'react-native-gesture-handler';
 import {NavigationContainer, useLinkTo, useNavigation} from '@react-navigation/native';
 import React, {useEffect} from 'react';
 import MainPage from './src/view/main.page';
-import {StyleSheet, View, YellowBox} from 'react-native';
+import {StyleSheet, TextInput, Text, View, YellowBox} from 'react-native';
 import Search from './src/view/components/search';
 import {createStackNavigator, HeaderBackground, StackNavigationProp} from '@react-navigation/stack';
 import Header from './src/view/components/header';
@@ -26,6 +26,10 @@ import SearchPage from './src/view/search.page';
 import PrivacyPage from './src/view/privacy.page';
 import {AppLoading} from "expo";
 import {capture} from "./src/ci/capture";
+import {Tester, TestHookStore, useCavy} from "cavy";
+
+// @ts-ignore
+import ExampleSpec from './specs/exampleSpec';
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -86,15 +90,43 @@ export function Menu() {
     );
 }
 
+const testHookStore = new TestHookStore();
+
+
+export function AppReal() {
+    const generateTestHook = useCavy();
+
+    return (
+
+        <ReduxProvider store={store}>
+                <PaperProvider theme={DefaultTheme}>
+                    {/*<View>*/}
+                        {/*<Text/>*/}
+                        {/*<Text/>*/}
+                        {/*<Text/>*/}
+                        {/*<TextInput*/}
+                        {/*    ref={generateTestHook('Scene.TextInput')}*/}
+                        {/*    placeholder="placeholder"*/}
+                        {/*    value="zzz"*/}
+                        {/*    onChangeText={() => {}}*/}
+                        {/*/>*/}
+                        <App2/>
+                    {/*</View>*/}
+                            </PaperProvider>
+                </ReduxProvider>
+
+    );
+}
+
+
 export default function App() {
     return (
-            <ReduxProvider store={store}>
-                    <NavigationContainer linking={linking}>
-                        <PaperProvider theme={DefaultTheme}>
-                        <App2/>
-                        </PaperProvider>
-                    </NavigationContainer>
-            </ReduxProvider>
+
+<NavigationContainer linking={linking}>
+        <Tester waitTime={1000} specs={[ExampleSpec]} store={testHookStore}>
+            <AppReal/>
+        </Tester>
+</NavigationContainer>
     );
 }
 

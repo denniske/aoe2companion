@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
-import { Alert, AsyncStorage, FlatList, StyleSheet, Text, View } from 'react-native';
-import { Button } from 'react-native-paper';
+import React, {useEffect, useState} from 'react';
+import {Alert, AsyncStorage, FlatList, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Button, Provider as PaperProvider} from 'react-native-paper';
 import { useApi } from '../hooks/use-api';
 import { loadProfile } from '../service/profile';
 import { Game } from './components/game';
@@ -14,13 +14,16 @@ import Rating from './components/rating';
 import { fetchMatches } from '../api/matches';
 import {useNavigation} from "@react-navigation/native";
 import {capture} from "../ci/capture";
-import {RootStackProp} from "../../App";
+import {App2, RootStackProp} from "../../App";
+import {useCavy} from "cavy";
 
 
 function MainHome() {
     const auth = useSelector(state => state.auth!);
     const mutate = useMutate();
 
+    const [text, setText] = useState('');
+    const generateTestHook = useCavy();
     const navigation = useNavigation<RootStackProp>();
 
     // useEffect(() => {
@@ -68,11 +71,20 @@ function MainHome() {
         mutate(setAuth(null))
     };
 
-    // console.log("==> ON RENDER MainHome");
+    console.log("==> ON RENDER MainHome", rating.loading, profile.loading);
 
     return (
             <View style={styles.container}>
                 <View style={styles.content}>
+                    <View>
+                        <Text/>
+                        <TextInput
+                            ref={generateTestHook('Scene.TextInput')}
+                            placeholder="placeholder"
+                            value={text}
+                            onChangeText={setText}
+                        />
+                    </View>
                     <FlatList
                             onRefresh={() => {
                                 rating.reload();
@@ -171,6 +183,7 @@ export default function MainPage() {
     const mutate = useMutate();
 
 
+    const generateTestHook = useCavy();
 
     // console.log("==> MAIN PAGE");
 
@@ -190,6 +203,9 @@ export default function MainPage() {
     }
 
     return (
+
+
+
             <Tab.Navigator swipeEnabled={false} lazy={true}>
                 <Tab.Screen name="MainHome" options={{title: 'Profile'}} component={MainHome}/>
                 <Tab.Screen name="MainMatches" options={{title: 'Matches'}} component={MainMatches}/>

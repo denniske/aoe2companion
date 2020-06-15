@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import {FlatList, Image, StyleSheet, Text, TextInput, TouchableHighlight, View} from 'react-native';
 import { formatAgo } from '../../helper/util';
 import { IFetchedUser, loadUser } from '../../service/user';
 import { useLazyApi } from '../../hooks/use-lazy-api';
 import { Searchbar } from 'react-native-paper';
 import { composeUserIdFromParts, UserInfo } from '../../helper/user';
 import { getFlagIcon } from '../../helper/flags';
+import {useCavy} from "cavy";
 
 interface IPlayerProps {
     player: IFetchedUser;
@@ -47,6 +48,7 @@ export default function Search({title, selectedUser}: any) {
         user.refetch('aoe2de', text);
     };
 
+    const generateTestHook = useCavy();
     useEffect(() => {
         refresh();
     }, [text]);
@@ -64,6 +66,8 @@ export default function Search({title, selectedUser}: any) {
                 <Text style={styles.centerText}>{title}</Text>
 
                 <Searchbar
+
+                    ref={generateTestHook('Scene.TextInput')}
                         style={styles.searchbar}
                         placeholder="username"
                         onChangeText={text => setText(text)}

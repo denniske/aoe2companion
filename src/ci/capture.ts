@@ -15,7 +15,8 @@ export async function captureImage(navigation:  StackNavigationProp<RootStackPar
     //     });
     // };
 
-    await sleep(5 * 1000);
+    console.log("captureScreen");
+    await sleep(500);
     const uri = await captureScreen({
         format: "jpg",
         quality: 0.8
