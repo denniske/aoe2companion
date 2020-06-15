@@ -24,6 +24,7 @@ jobs:
         condition: "$TRAVIS_TAG =~ ^v.*$"
       script:
         - echo 1
+        - echo $TRAVIS_TAG
 
 
 #    - stage: publish app
