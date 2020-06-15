@@ -13,6 +13,8 @@ async function capture() {
   await captureImage('screen-' + imageNumber++);
 }
 
+const waitTime = 6000;
+
 export default function(spec: any) {
 
   spec.describe('Home', function() {
@@ -24,17 +26,18 @@ export default function(spec: any) {
 
       await spec.exists('Search.Input');
       await spec.fillIn('Search.Input', 'baal');
-      await sleep(3000);
+      await sleep(waitTime);
       await capture();
+      await sleep(1000);
 
       await spec.exists('Search.Player.76561197995781128-209525');
       await spec.press('Search.Player.76561197995781128-209525');
-      await sleep(3000);
+      await sleep(waitTime);
       await capture();
 
       const navigation = await spec.findComponent('Navigation');
       navigation.navigate('MainMatches');
-      await sleep(3000);
+      await sleep(waitTime);
       await capture();
 
       await spec.exists('Header.Search');
@@ -42,12 +45,12 @@ export default function(spec: any) {
       await sleep(1000);
 
       await spec.exists('Search.Input');
-      await spec.fillIn('Search.Input', 'rogge');
-      await sleep(3000);
+      await spec.fillIn('Search.Input', 'baratticus');
+      await sleep(waitTime);
 
-      await spec.exists('Search.Player.76561199026927891-1919951');
-      await spec.press('Search.Player.76561199026927891-1919951');
-      await sleep(3000);
+      await spec.exists('Search.Player.76561198116899512-336655');
+      await spec.press('Search.Player.76561198116899512-336655');
+      await sleep(waitTime);
       await capture();
 
       // await spec.containsText('Tab.Matches', 'asd');
