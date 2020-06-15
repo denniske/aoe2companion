@@ -6,7 +6,7 @@
 
 import 'react-native-gesture-handler';
 import {NavigationContainer, useLinkTo, useNavigation} from '@react-navigation/native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import MainPage from './src/view/main.page';
 import {StyleSheet, TextInput, Text, View, YellowBox} from 'react-native';
 import Search from './src/view/components/search';
@@ -25,11 +25,10 @@ import {useSelector} from './src/redux/reducer';
 import SearchPage from './src/view/search.page';
 import PrivacyPage from './src/view/privacy.page';
 import {AppLoading} from "expo";
-import {capture} from "./src/ci/capture";
 import {Tester, TestHookStore, useCavy} from "cavy";
 
 // @ts-ignore
-import ExampleSpec from './specs/exampleSpec';
+import ExampleSpec from './src/ci/exampleSpec';
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -82,56 +81,47 @@ const headerStatusBarHeight = 30 + Constants.statusBarHeight;
 export function Menu() {
     const linkTo = useLinkTo();
     return (
-            <View style={styles.menu}>
-                {/*<TouchableOpacity onPress={() => linkTo('/search')}>*/}
-                {/*    <FontAwesome style={styles.menuButton} name="search" size={18} />*/}
-                {/*</TouchableOpacity>*/}
-            </View>
+        <View style={styles.menu}>
+            {/*<TouchableOpacity onPress={() => linkTo('/search')}>*/}
+            {/*    <FontAwesome style={styles.menuButton} name="search" size={18} />*/}
+            {/*</TouchableOpacity>*/}
+        </View>
     );
 }
-
-const testHookStore = new TestHookStore();
 
 
 export function AppReal() {
-    const generateTestHook = useCavy();
+    // const generateTestHook = useCavy();
+    // const navigation = useNavigation();
+    // const navRef = useRef(navigation);
+    // generateTestHook('Navigation', navRef);
 
     return (
-
         <ReduxProvider store={store}>
-                <PaperProvider theme={DefaultTheme}>
-                    {/*<View>*/}
-                        {/*<Text/>*/}
-                        {/*<Text/>*/}
-                        {/*<Text/>*/}
-                        {/*<TextInput*/}
-                        {/*    ref={generateTestHook('Scene.TextInput')}*/}
-                        {/*    placeholder="placeholder"*/}
-                        {/*    value="zzz"*/}
-                        {/*    onChangeText={() => {}}*/}
-                        {/*/>*/}
-                        <App2/>
-                    {/*</View>*/}
-                            </PaperProvider>
-                </ReduxProvider>
-
+            <PaperProvider theme={DefaultTheme}>
+                <App2/>
+            </PaperProvider>
+        </ReduxProvider>
     );
 }
 
 
+const testHookStore = new TestHookStore();
+
 export default function App() {
     return (
-
-<NavigationContainer linking={linking}>
-        <Tester waitTime={1000} specs={[ExampleSpec]} store={testHookStore}>
-            <AppReal/>
-        </Tester>
-</NavigationContainer>
+        <NavigationContainer linking={linking}>
+            <Tester waitTime={1000} specs={[ExampleSpec]} store={testHookStore}>
+                <AppReal/>
+            </Tester>
+        </NavigationContainer>
     );
 }
 
 export function App2() {
     const auth = useSelector(state => state.auth);
+
+    // Trigger loading of auth
     const me = useApi([], state => state.auth, (state, value) => state.auth = value, () => loadSettingsFromStorage());
 
     // let [fontsLoaded] = useFonts({
@@ -140,87 +130,86 @@ export function App2() {
 
     // console.log("==> APP PAGE me.loading =", me.loading, ', data =', me.data); //, ', fontsLoaded =', fontsLoaded);
 
-
     // if (!fontsLoaded) {
     //     return <AppLoading />;
     // }
 
     if (auth === undefined) {
-        return <AppLoading />;
+        return <AppLoading/>;
     }
 
     return (
-            <Stack.Navigator screenOptions={{animationEnabled: false}}>
-                {/*<Stack.Screen*/}
-                {/*        name="Welcome"*/}
-                {/*        component={WelcomePage}*/}
-                {/*        options={{*/}
-                {/*            title: '',*/}
-                {/*            headerStatusBarHeight: headerStatusBarHeight,*/}
-                {/*            headerBackground: () => (*/}
-                {/*                    <HeaderBackground><Header/></HeaderBackground>*/}
-                {/*            ),*/}
-                {/*        }}*/}
-                {/*/>*/}
-                <Stack.Screen
-                        name="Main"
-                        component={MainPage}
-                        options={{
-                            title: 'Me',//(!auth || userIdEmpty(auth)) ? 'Welcome' : 'Me',
-                            headerStatusBarHeight: headerStatusBarHeight,
-                            headerBackground: () => (
-                                    <HeaderBackground><Header/></HeaderBackground>
-                            ),
-                            headerRight: () => (
-                                    <Menu/>
-                            ),
-                        }}
-                />
-                <Stack.Screen
-                        name="User"
-                        component={UserPage}
-                        options={({route}) => ({
-                            title: route.params.name,
-                            headerStatusBarHeight: headerStatusBarHeight,
-                            headerBackground: () => (
-                                    <HeaderBackground><Header/></HeaderBackground>
-                            ),
-                        })}
-                />
-                <Stack.Screen
-                        name="Search"
-                        component={SearchPage}
-                        options={{
-                            title: 'Search',
-                            headerStatusBarHeight: headerStatusBarHeight,
-                            headerBackground: () => (
-                                    <HeaderBackground><Header/></HeaderBackground>
-                            ),
-                        }}
-                />
-                <Stack.Screen
-                        name="About"
-                        component={AboutPage}
-                        options={{
-                            title: 'About',
-                            headerStatusBarHeight: headerStatusBarHeight,
-                            headerBackground: () => (
-                                    <HeaderBackground><Header/></HeaderBackground>
-                            ),
-                        }}
-                />
-                <Stack.Screen
-                        name="Privacy"
-                        component={PrivacyPage}
-                        options={{
-                            title: 'Privacy',
-                            headerStatusBarHeight: headerStatusBarHeight,
-                            headerBackground: () => (
-                                    <HeaderBackground><Header/></HeaderBackground>
-                            ),
-                        }}
-                />
-            </Stack.Navigator>
+        <Stack.Navigator screenOptions={{animationEnabled: false}}>
+            {/*<Stack.Screen*/}
+            {/*        name="Welcome"*/}
+            {/*        component={WelcomePage}*/}
+            {/*        options={{*/}
+            {/*            title: '',*/}
+            {/*            headerStatusBarHeight: headerStatusBarHeight,*/}
+            {/*            headerBackground: () => (*/}
+            {/*                    <HeaderBackground><Header/></HeaderBackground>*/}
+            {/*            ),*/}
+            {/*        }}*/}
+            {/*/>*/}
+            <Stack.Screen
+                name="Main"
+                component={MainPage}
+                options={{
+                    title: 'Me',//(!auth || userIdEmpty(auth)) ? 'Welcome' : 'Me',
+                    headerStatusBarHeight: headerStatusBarHeight,
+                    headerBackground: () => (
+                        <HeaderBackground><Header/></HeaderBackground>
+                    ),
+                    headerRight: () => (
+                        <Menu/>
+                    ),
+                }}
+            />
+            <Stack.Screen
+                name="User"
+                component={UserPage}
+                options={({route}) => ({
+                    title: route.params.name,
+                    headerStatusBarHeight: headerStatusBarHeight,
+                    headerBackground: () => (
+                        <HeaderBackground><Header/></HeaderBackground>
+                    ),
+                })}
+            />
+            <Stack.Screen
+                name="Search"
+                component={SearchPage}
+                options={{
+                    title: 'Search',
+                    headerStatusBarHeight: headerStatusBarHeight,
+                    headerBackground: () => (
+                        <HeaderBackground><Header/></HeaderBackground>
+                    ),
+                }}
+            />
+            <Stack.Screen
+                name="About"
+                component={AboutPage}
+                options={{
+                    title: 'About',
+                    headerStatusBarHeight: headerStatusBarHeight,
+                    headerBackground: () => (
+                        <HeaderBackground><Header/></HeaderBackground>
+                    ),
+                }}
+            />
+            <Stack.Screen
+                name="Privacy"
+                component={PrivacyPage}
+                options={{
+                    title: 'Privacy',
+                    headerStatusBarHeight: headerStatusBarHeight,
+                    headerBackground: () => (
+                        <HeaderBackground><Header/></HeaderBackground>
+                    ),
+                }}
+            />
+        </Stack.Navigator>
     );
 }
 

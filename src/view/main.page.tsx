@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Alert, AsyncStorage, FlatList, StyleSheet, Text, TextInput, View} from 'react-native';
 import {Button, Provider as PaperProvider} from 'react-native-paper';
 import { useApi } from '../hooks/use-api';
@@ -13,22 +13,16 @@ import { loadRatingHistories } from '../service/rating';
 import Rating from './components/rating';
 import { fetchMatches } from '../api/matches';
 import {useNavigation} from "@react-navigation/native";
-import {capture} from "../ci/capture";
-import {App2, RootStackProp} from "../../App";
+import {RootStackProp} from "../../App";
 import {useCavy} from "cavy";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 
 function MainHome() {
     const auth = useSelector(state => state.auth!);
     const mutate = useMutate();
-
-    const [text, setText] = useState('');
-    const generateTestHook = useCavy();
     const navigation = useNavigation<RootStackProp>();
-
-    // useEffect(() => {
-    //     capture(navigation);
-    // }, []);
+    const generateTestHook = useCavy();
 
     const rating = useApi(
             [],
@@ -76,15 +70,6 @@ function MainHome() {
     return (
             <View style={styles.container}>
                 <View style={styles.content}>
-                    <View>
-                        <Text/>
-                        <TextInput
-                            ref={generateTestHook('Scene.TextInput')}
-                            placeholder="placeholder"
-                            value={text}
-                            onChangeText={setText}
-                        />
-                    </View>
                     <FlatList
                             onRefresh={() => {
                                 rating.reload();
@@ -103,12 +88,12 @@ function MainHome() {
                                         return (
                                             <View>
                                                 <Text/>
-                                                <Button mode="outlined" onPress={deleteUser}>This is not me</Button>
+                                                <Button mode="outlined" ref={generateTestHook('abc')} onPress={deleteUser}>This is not me</Button>
                                                 {
                                                     __DEV__ &&
                                                     <View>
                                                         <Text/>
-                                                        <Button mode="outlined" onPress={() => capture(navigation)}>Capture</Button>
+                                                        {/*<Button mode="outlined" onPress={() => capture(navigation)}>Capture</Button>*/}
                                                     </View>
                                                 }
                                             </View>
@@ -178,12 +163,25 @@ function MainMatches() {
 
 const Tab = createMaterialTopTabNavigator();//<MainTabParamList>();
 
+function TabBarLabel({ title }: any) {
+    const generateTestHook = useCavy();
+    const navigation = useNavigation();
+    // ref={generateTestHook('Tab.'+title)}
+    return (
+        <View >
+            <Text style={{fontSize: 13}} onPress={() => navigation.navigate(title)} >{title.toUpperCase()}</Text>
+        </View>
+    );
+    // return <Text style={{fontSize: 13}} onPress={() => navigation.navigate(title)} ref={generateTestHook('Tab.'+title)}>{title.toUpperCase()}</Text>;
+}
+
 export default function MainPage() {
     const auth = useSelector(state => state.auth);
     const mutate = useMutate();
 
-
     const generateTestHook = useCavy();
+    const navigation = useNavigation();
+    generateTestHook('Navigation')(navigation);
 
     // console.log("==> MAIN PAGE");
 
@@ -203,12 +201,10 @@ export default function MainPage() {
     }
 
     return (
-
-
-
             <Tab.Navigator swipeEnabled={false} lazy={true}>
-                <Tab.Screen name="MainHome" options={{title: 'Profile'}} component={MainHome}/>
-                <Tab.Screen name="MainMatches" options={{title: 'Matches'}} component={MainMatches}/>
+                {/*<Tab.Screen name="MainHome" options={{title: 'Profile'}} component={MainHome}/>*/}
+                <Tab.Screen name="MainHome" options={{tabBarLabel: (_) => <TabBarLabel title="Profile"/>}} component={MainHome}/>
+                <Tab.Screen name="MainMatches" options={{tabBarLabel: (_) => <TabBarLabel title="Matches"/>}} component={MainMatches}/>
             </Tab.Navigator>
     );
 }

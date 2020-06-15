@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
 import { Tester, TestHookStore } from 'cavy';
 // @ts-ignore
-import ExampleSpec from './specs/exampleSpec';
+import ExampleSpec from './src/ci/exampleSpec';
 import App from "./App";
 
 const testHookStore = new TestHookStore();

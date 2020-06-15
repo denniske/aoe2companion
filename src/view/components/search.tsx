@@ -14,6 +14,8 @@ interface IPlayerProps {
 }
 
 function Player({player, selectedUser}: IPlayerProps) {
+    const generateTestHook = useCavy();
+
     const onSelect = async () => {
         selectedUser({
             id: composeUserIdFromParts(player.steam_id, player.profile_id),
@@ -23,8 +25,11 @@ function Player({player, selectedUser}: IPlayerProps) {
         });
     };
 
+    console.log(player.country, player.name, composeUserIdFromParts(player.steam_id, player.profile_id));
+
     return (
-            <TouchableHighlight onPress={onSelect} underlayColor="white">
+            <TouchableHighlight onPress={onSelect} underlayColor="white"
+                                ref={generateTestHook('Search.Player.' + composeUserIdFromParts(player.steam_id, player.profile_id))}>
                 <View style={styles.row}>
                     <View style={styles.cellCountry}><Image style={styles.countryIcon} source={getFlagIcon(player.country)}/></View>
                     <Text style={styles.cellName} numberOfLines={1}>{player.name}</Text>
@@ -49,6 +54,7 @@ export default function Search({title, selectedUser}: any) {
     };
 
     const generateTestHook = useCavy();
+
     useEffect(() => {
         refresh();
     }, [text]);
@@ -66,8 +72,7 @@ export default function Search({title, selectedUser}: any) {
                 <Text style={styles.centerText}>{title}</Text>
 
                 <Searchbar
-
-                    ref={generateTestHook('Scene.TextInput')}
+                        ref={generateTestHook('Search.Input')}
                         style={styles.searchbar}
                         placeholder="username"
                         onChangeText={text => setText(text)}

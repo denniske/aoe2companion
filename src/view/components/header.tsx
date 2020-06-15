@@ -5,8 +5,11 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import { useLinkTo, useNavigation } from '@react-navigation/native';
 import { Menu } from 'react-native-paper';
 import { RootStackParamList, RootStackProp } from '../../../App';
+import {useCavy} from "cavy";
 
 export default function Header() {
+    const generateTestHook = useCavy();
+
     const [menu, setMenu] = useState(false);
 
     const navigation = useNavigation<RootStackProp>();
@@ -25,11 +28,11 @@ export default function Header() {
                     <Text>AoE II Companion</Text>
                 </View>
                 <View style={styles.menu}>
-                    <TouchableOpacity style={styles.menuButton} onPress={() => nav('Search')}>
+                    <TouchableOpacity style={styles.menuButton} onPress={() => nav('Search')} ref={generateTestHook('Header.Search')}>
                         <FontAwesomeIcon name="search" size={18} />
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.menuButton} onPress={() => nav('Main')}>
+                    <TouchableOpacity style={styles.menuButton} onPress={() => nav('Main')} ref={generateTestHook('Header.User')}>
                         <FontAwesomeIcon name="user" size={18} />
                     </TouchableOpacity>
 
