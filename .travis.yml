@@ -18,13 +18,14 @@ jobs:
     - stage: testing
       env:
         - CACHE_NAME=test1
-      if: tag =~ ^v.*$
+      if: branch =~ ^v.*$
 #      on:
 #        all_branches: true
 #        tag: true
 #        condition: "$TRAVIS_TAG =~ ^v.*$"
       script:
         - echo 1
+        - echo 1-$TRAVIS_BRANCH-
         - echo 1-$TRAVIS_TAG-
 
 
