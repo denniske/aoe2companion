@@ -21,7 +21,6 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 function MainHome() {
     const auth = useSelector(state => state.auth!);
     const mutate = useMutate();
-    const navigation = useNavigation<RootStackProp>();
     const generateTestHook = useCavy();
 
     const rating = useApi(

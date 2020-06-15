@@ -3,17 +3,6 @@ import { Linking, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Constants from 'expo-constants';
 import { useLinkTo } from '@react-navigation/native';
 
-// const doChange = throttle(
-//         (v) => {
-//             field.input.onChange(v);
-//         },
-//         250,
-//         {
-//             leading: false,
-//             trailing: true,
-//         }
-// );
-
 export default function AboutPage() {
     const linkTo = useLinkTo();
 
