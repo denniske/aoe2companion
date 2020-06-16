@@ -1,4 +1,20 @@
 
+@font-face {
+    font-family: 'Merriweather';
+    src: url('public/font/Merriweather/Merriweather-Regular.ttf');
+    font-weight: bold;
+    font-display: auto;
+    font-style: normal;
+}
+
+body {
+    /*font-family: 'Merriweather', sans-serif !important;*/
+}
+
+h1, h3 {
+    font-family: 'Merriweather', sans-serif !important;
+}
+
 .phone-container {
     width: 400px;
 }
