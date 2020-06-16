@@ -1,66 +1,61 @@
 import Head from 'next/head'
+import AspectRatio from 'react-aspect-ratio';
 
 export default function Home() {
-  return (
-    <div className="container">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    return (
+        <div className="container2">
+            <Head>
+                <title>AoE II Companion</title>
+                <link rel="icon" href="/favicon.ico"/>
+            </Head>
 
-      <main>
-        <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+            <main>
+                <div className="container">
+                    <div className="showcase">
+                        <div>
 
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
+                            {/*<h1>The best way to connect with your friends is with <span className="main-title">AoE II Companion</span></h1>*/}
 
-        <div className="grid">
-          <a href="https://nextjs.org/docs" className="card">
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+                            <h1><span className="main-title">AoE II Companion</span></h1>
+                            <h3>Track your games now.</h3>
+                            <br/>
 
-          <a href="https://nextjs.org/learn" className="card">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+                            <div className="flex-container flex-rowle">
+                                <a href="https://play.google.com/store/apps/details?id=app.fiftynineseconds.game">
+                                    <img src="/app-button-play-store.png" className="app-button app-button-play-store" />
+                                </a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="https://apps.apple.com/app/id1489505410">
+                                    <img src="/app-button-app-store.png" className="app-button app-button-app-store" />
+                                </a>
+                            </div>
+                        </div>
 
-          <a
-            href="https://github.com/zeit/next.js/tree/master/examples"
-            className="card"
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+                        <div className="spacer"/>
 
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="card"
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
+                        <div className="phone-container">
+                            <AspectRatio ratio="360/718" style={{maxWidth: '400px'}}>
+                                <div className="frame"/>
+                            </AspectRatio>
+                        </div>
+                    </div>
+                </div>
+            </main>
 
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
-        </a>
-      </footer>
+            <footer>
+                <a
+                    href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Powered by{' '}
+                    <img src="/vercel.svg" alt="Vercel Logo" className="logo"/>
+                </a>
+            </footer>
 
-      <style jsx>{`
-        .container {
+            <style jsx>{`
+      
+        .container2 {
           min-height: 100vh;
           padding: 0 0.5rem;
           display: flex;
@@ -190,7 +185,7 @@ export default function Home() {
         }
       `}</style>
 
-      <style jsx global>{`
+            <style jsx global>{`
         html,
         body {
           padding: 0;
@@ -204,6 +199,6 @@ export default function Home() {
           box-sizing: border-box;
         }
       `}</style>
-    </div>
-  )
+        </div>
+    )
 }
