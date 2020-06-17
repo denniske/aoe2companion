@@ -1,5 +1,5 @@
 import { format, formatDistanceToNowStrict } from "date-fns";
-import { de } from "date-fns/locale";
+import { enUS, de } from "date-fns/locale";
 
 export function sleep(ms: number) {
     return new Promise((resolve) => {
@@ -8,11 +8,11 @@ export function sleep(ms: number) {
 }
 
 export function formatDate(date: Date) {
-    return format(date, 'dd MM yyyy', {locale: de});
+    return format(date, 'dd MM yyyy', {locale: enUS});
 }
 
 export function formatAgo(date: Date) {
-    return formatDistanceToNowStrict(date, {locale: de, addSuffix: true});
+    return formatDistanceToNowStrict(date, {locale: enUS, addSuffix: true});
 }
 
 interface IParams {
