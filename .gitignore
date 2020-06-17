@@ -10,6 +10,9 @@ npm-debug.*
 web-build/
 web-report/
 
+*.aab
+*.ipa
+
 # macOS
 .DS_Store
 
