@@ -18,7 +18,7 @@ jobs:
     - stage: build
       if: branch = master
       env:
-        - CACHE_NAME=test1-every-version
+        - CACHE_NAME=test1-master
       script:
         - echo 1
 
