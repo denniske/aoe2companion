@@ -4,7 +4,7 @@ const tag = process.argv[2];
 
 if (tag === 'master') {
     console.log('master');
-    process.exit()
+    process.exit();
 }
 
 console.log('prod-v' + semver.major(tag));
