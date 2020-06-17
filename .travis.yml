@@ -17,16 +17,26 @@ jobs:
 
     - stage: testing
       env:
-        - CACHE_NAME=test1
+        - CACHE_NAME=test1-publish
       if: tag =~ ^v.+$
-#      on:
-#        all_branches: true
-#        tag: true
-#        condition: "$TRAVIS_TAG =~ ^v.*$"
       script:
-        - echo 1
-        - echo 1-$TRAVIS_BRANCH-
-        - echo 1-$TRAVIS_TAG-
+        - export CHANNEL=prod-$(node deploy/channel-from-semver.js $TRAVIS_TAG) && echo $CHANNEL
+        - echo $CHANNEL
+#        - echo 1-$TRAVIS_BRANCH-
+#        - echo 1-$TRAVIS_TAG-
+
+#    - stage: testing
+#      env:
+#        - CACHE_NAME=test1-deploy-native
+#      if: tag =~ ^v.+-native$
+##      on:
+##        all_branches: true
+##        tag: true
+##        condition: "$TRAVIS_TAG =~ ^v.*$"
+#      script:
+#        - echo 1
+#        - echo 1-$TRAVIS_BRANCH-
+#        - echo 1-$TRAVIS_TAG-
 
 
 #    - stage: publish app
