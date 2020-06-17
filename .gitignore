@@ -12,6 +12,7 @@ web-report/
 
 *.aab
 *.ipa
+*.afdesign
 
 # macOS
 .DS_Store
