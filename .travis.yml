@@ -34,19 +34,16 @@ jobs:
         - nvm use $NODE_VERSION
         - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
         - export PATH="$HOME/.yarn/bin:$PATH"
-#      install:
+      install:
+        - sysctl fs.inotify.max_user_instances=524288
+        - sysctl fs.inotify.max_user_watches=524288
+        - sysctl fs.inotify.max_queued_events=524288
+        - sysctl -p
 #        - yarn global add expo-cli
       script:
         - yarn
         - export CHANNEL=$(node deploy/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
         - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD --non-interactive
-        - sudo sysctl fs.inotify.max_user_instances=524288
-        - sudo sysctl fs.inotify.max_user_watches=524288
-        - sudo sysctl fs.inotify.max_queued_events=524288
-#        - echo fs.inotify.max_user_instances=524288 | tee -a /etc/sysctl.conf
-#        - echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf
-#        - echo fs.inotify.max_queued_events=524288 | tee -a /etc/sysctl.conf
-        - sysctl -p
         - npx expo publish --release-channel $CHANNEL
 
 
