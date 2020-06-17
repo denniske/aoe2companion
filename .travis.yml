@@ -127,31 +127,31 @@ jobs:
     # Deploy iOS
     ####################################
 
-    - stage: deploy standalone apps
-      os: osx
-      osx_image: xcode11.2
-      language: node_js
-      node_js: "12.13"
-#      if: branch = master OR tag IS present
-      env:
-        - CACHE_NAME=deploy YARN_CACHE_FOLDER="/Users/travis/yarn_cache"
-      cache:
-        directories:
-          - $HOME/yarn_cache
-      before_install:
-        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
-        - export PATH="$HOME/.yarn/bin:$PATH"
-      install:
-        - pip install --user awscli
-        - export PATH=/Users/travis/Library/Python/2.7/bin:$PATH
-        - yarn global add expo-cli
-      script:
-#        - yarn
-#        - export CHANNEL=$(node deploy/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
-        - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD --non-interactive
-        - aws s3 cp s3://build.aoe2companion.com/expo-project-e2afb446f2b5e23674b8c8e034925ac039edf700.ipa expo-project-cfa0.ipa
-        - npx expo upload:ios
-            --path expo-project-cfa0.ipa
+#    - stage: deploy standalone apps
+#      os: osx
+#      osx_image: xcode11.2
+#      language: node_js
+#      node_js: "12.13"
+##      if: branch = master OR tag IS present
+#      env:
+#        - CACHE_NAME=deploy YARN_CACHE_FOLDER="/Users/travis/yarn_cache"
+#      cache:
+#        directories:
+#          - $HOME/yarn_cache
+#      before_install:
+#        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
+#        - export PATH="$HOME/.yarn/bin:$PATH"
+#      install:
+#        - pip install --user awscli
+#        - export PATH=/Users/travis/Library/Python/2.7/bin:$PATH
+#        - yarn global add expo-cli
+#      script:
+##        - yarn
+##        - export CHANNEL=$(node deploy/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
+#        - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD --non-interactive
+#        - aws s3 cp s3://build.aoe2companion.com/expo-project-e2afb446f2b5e23674b8c8e034925ac039edf700.ipa expo-project-cfa0.ipa
+#        - npx expo upload:ios
+#            --path expo-project-cfa0.ipa
 
 
 
