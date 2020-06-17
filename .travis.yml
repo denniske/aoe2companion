@@ -11,6 +11,10 @@ env:
     - NODE_VERSION="12.13.1"
     - YARN_VERSION="1.21.1"
 
+# Note: The env var $TRAVIS_BRANCH will contain
+# COMMIT: branch name
+# TAG:    tag name
+
 jobs:
   include:
 
@@ -34,7 +38,7 @@ jobs:
 #        - yarn global add expo-cli
       script:
         - yarn
-        - export CHANNEL=$(node deploy/channel-from-tag.js $TRAVIS_TAG) && echo $CHANNEL
+        - export CHANNEL=$(node deploy/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
         - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD --non-interactive
         - npx expo publish --release-channel $CHANNEL
 
