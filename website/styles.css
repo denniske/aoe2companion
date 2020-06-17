@@ -111,3 +111,42 @@ h1, h3 {
 .flex-1 {
     flex: 1;
 }
+
+.align-center {
+    align-items: center;
+}
+
+.github {
+    margin-right: 15px;
+    width: 30px;
+    height: 30px;
+    background-image: url("public/github.svg");
+    background-size: contain;
+
+    opacity: 0.8;
+}
+
+.text-link {
+    opacity: 0.8;
+    color: black !important;
+    text-decoration: none !important;
+}
+
+
+/* MOBILE */
+
+.github-section {
+    margin-top: 50px;
+    font-size: 0.9em;
+    justify-content: center;
+}
+
+
+/* LARGE */
+
+@media (min-width: 992px) {
+
+    .github-section {
+        justify-content: flex-start;
+    }
+}

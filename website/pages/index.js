@@ -13,7 +13,7 @@ export default function Home() {
                     <h3>Track your games now.</h3>
                     <br/>
 
-                    <div className="flex-container flex-rowle">
+                    <div className="flex-container flex-row">
                         <a href="https://play.google.com/store/apps/details?id=app.fiftynineseconds.game">
                             <img src="/app-button-play-store.png" className="app-button app-button-play-store" />
                         </a>
@@ -21,6 +21,10 @@ export default function Home() {
                         <a href="https://apps.apple.com/app/id1489505410">
                             <img src="/app-button-app-store.png" className="app-button app-button-app-store" />
                         </a>
+                    </div>
+                    <div className="flex-container flex-row align-center github-section">
+                        <a target="_blank" href="https://github.com/denniske/aoe2companion" className="github"></a>
+                        <a target="_blank" href="https://github.com/denniske/aoe2companion" className="text-link">Visit this project on Github</a>
                     </div>
                 </div>
 
