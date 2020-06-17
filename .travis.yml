@@ -16,14 +16,14 @@ jobs:
 
 
     - stage: testing
-      if: tag =~ ^v.+$
+      if: branch = master AND tag =~ ^v.+$
       env:
         - CACHE_NAME=test1-every-version
       script:
         - echo 1
 
     - stage: deploy
-      if: tag =~ ^v.+.0.0$
+      if: branch = master AND tag =~ ^v.+.0.0$
       env:
         - CACHE_NAME=test1-major-version
       script:
