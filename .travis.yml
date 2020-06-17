@@ -15,15 +15,22 @@ jobs:
   include:
 
 
+    - stage: build
+      if: branch = master
+      env:
+        - CACHE_NAME=test1-every-version
+      script:
+        - echo 1
+
     - stage: testing
-      if: branch = master AND tag =~ ^v.+$
+      if: tag =~ ^v.+$
       env:
         - CACHE_NAME=test1-every-version
       script:
         - echo 1
 
     - stage: deploy
-      if: branch = master AND tag =~ ^v.+.0.0$
+      if: tag =~ ^v.+.0.0$
       env:
         - CACHE_NAME=test1-major-version
       script:
