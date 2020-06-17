@@ -40,9 +40,12 @@ jobs:
         - yarn
         - export CHANNEL=$(node deploy/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
         - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD --non-interactive
-        - sysctl fs.inotify.max_user_instances=524288
-        - sysctl fs.inotify.max_user_watches=524288
-        - sysctl fs.inotify.max_queued_events=524288
+#        - sysctl fs.inotify.max_user_instances=524288
+#        - sysctl fs.inotify.max_user_watches=524288
+#        - sysctl fs.inotify.max_queued_events=524288
+        - echo fs.inotify.max_user_instances=524288 | tee -a /etc/sysctl.conf
+        - echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf
+        - echo fs.inotify.max_queued_events=524288 | tee -a /etc/sysctl.conf
         - sysctl -p
         - npx expo publish --release-channel $CHANNEL
 
