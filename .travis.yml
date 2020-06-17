@@ -128,15 +128,17 @@ jobs:
     ####################################
 
     - stage: deploy standalone apps
+      os: osx
+      osx_image: xcode11.2
+      language: node_js
+      node_js: "12.13"
 #      if: branch = master OR tag IS present
       env:
-        - CACHE_NAME=deploy YARN_CACHE_FOLDER="/home/travis/yarn_cache"
+        - CACHE_NAME=deploy YARN_CACHE_FOLDER="/Users/travis/yarn_cache"
       cache:
         directories:
           - $HOME/yarn_cache
       before_install:
-        - nvm install $NODE_VERSION
-        - nvm use $NODE_VERSION
         - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
         - export PATH="$HOME/.yarn/bin:$PATH"
       install:
