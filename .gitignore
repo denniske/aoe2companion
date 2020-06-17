@@ -13,6 +13,8 @@ web-report/
 # macOS
 .DS_Store
 
+dist
+
 .idea
 
 design
