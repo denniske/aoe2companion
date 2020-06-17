@@ -55,7 +55,6 @@
     "axios": "^0.19.2",
     "babel-preset-expo": "~8.1.0",
     "cavy": "^4.0.0",
-    "detox": "^16.8.1",
     "expo-cli": "^3.21.5",
     "semver": "^7.3.2",
     "ts-node": "^8.10.2",

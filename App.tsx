@@ -185,7 +185,7 @@ const testHookStore: TestHookStore | null = null;
 function ConditionalTester({children}: any) {
     if (testHookStore && __DEV__) {
         return (
-            <Tester clearAsyncStorage={true} waitTime={1000} specs={[ExampleSpec]} store={testHookStore}>
+            <Tester clearAsyncStorage={false} waitTime={1000} specs={[ExampleSpec]} store={testHookStore}>
                 {children}
             </Tester>
         );
