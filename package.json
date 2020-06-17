@@ -59,7 +59,6 @@
     "expo-cli": "^3.21.5",
     "semver": "^7.3.2",
     "ts-node": "^8.10.2",
-    "turtle-cli": "^0.15.0",
     "typescript": "~3.8.3"
   },
   "private": true
