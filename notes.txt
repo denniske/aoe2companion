@@ -2,7 +2,7 @@
 
 git tag v1.0.2 && git push --tags
 
-
+defaults write -g com.apple.keyboard.fnState true
 
 
 Git Flows

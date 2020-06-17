@@ -16,7 +16,7 @@ jobs:
 
 
     - stage: build
-      if: branch = master
+      if: branch = master OR tag IS present
       env:
         - CACHE_NAME=test1-master
       script:
