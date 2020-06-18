@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     icon: {
+        marginRight: 5,
         width: 30,
         height: 30,
     },
