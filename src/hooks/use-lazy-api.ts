@@ -9,13 +9,12 @@ export function useLazyApi<A extends (...args: any) => any>(action: A, ...defArg
     const mountedRef = useRef(true);
 
     const load = async (...args: Parameters<A>) => {
+        if (!mountedRef.current) return null;
+
         setLoading(true);
         const data = await action(...args);
 
-        if (!mountedRef.current) {
-            // console.log("useLazyApi aborted due to unmount");
-            return null;
-        }
+        if (!mountedRef.current) return null;
 
         setData(data);
         setLoading(false);
@@ -27,15 +26,16 @@ export function useLazyApi<A extends (...args: any) => any>(action: A, ...defArg
         setTouched(false);
     }
 
-    const reload = () => {
-        load(...defArgs);
+    const reload = async () => {
+        await load(...defArgs);
     }
 
-    const refetch = (...args: Parameters<A>) => {
-        load(...args);
+    const refetch = async (...args: Parameters<A>) => {
+        await load(...args);
     }
 
     useEffect(() => {
+        mountedRef.current = true;
         return () => {
             mountedRef.current = false;
         };

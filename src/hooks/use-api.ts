@@ -7,24 +7,28 @@ type SelectorFun = (state: AppState) => any;
 type MutatorFun = (state: AppState, value: any) => void;
 
 export function useApi<A extends (...args: any) => any>(dep: any, selectorFun: SelectorFun, mutatorFun: MutatorFun, action: A, ...defArgs: Parameters<A>) {
-    const allState = useSelector(state => state);
     const selectedState = useSelector(selectorFun);
     const mutate = useMutate()
 
-    const [data, setData] = useState(selectedState);
+    // const [data, setData] = useState(selectedState);
     const [loading, setLoading] = useState(selectorFun === undefined);
     const mountedRef = useRef(true);
 
     const load = async (...args: Parameters<A>) => {
+        if (!mountedRef.current) {
+            console.log('unmounted1');
+            return null;
+        }
+
         setLoading(true);
         const data = await action(...args);
 
         if (!mountedRef.current) {
-            // console.log("useApi aborted due to unmount");
+            console.log('unmounted2');
             return null;
         }
 
-        setData(data);
+        // setData(data);
 
         mutate(state => {
             mutatorFun(state, data);
@@ -33,15 +37,17 @@ export function useApi<A extends (...args: any) => any>(dep: any, selectorFun: S
         setLoading(false);
     };
 
-    const reload = () => {
-        load(...defArgs);
+    const reload = async () => {
+        await load(...defArgs);
     }
 
-    const refetch = (...args: Parameters<A>) => {
-        load(...args);
+    const refetch = async (...args: Parameters<A>) => {
+        await load(...args);
     }
+
 
     useEffect(() => {
+        mountedRef.current = true;
         if (selectedState === undefined) {
             // console.log("useApi wants to load", defArgs);
             load(...defArgs);
@@ -54,6 +60,6 @@ export function useApi<A extends (...args: any) => any>(dep: any, selectorFun: S
         };
     }, dep);
 
-    return {data, loading, refetch, reload};
+    return {data: selectedState, loading, refetch, reload};
 }
 

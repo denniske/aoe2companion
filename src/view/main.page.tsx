@@ -1,21 +1,19 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {Alert, AsyncStorage, FlatList, StyleSheet, Text, TextInput, View} from 'react-native';
-import {Button, Provider as PaperProvider} from 'react-native-paper';
-import { useApi } from '../hooks/use-api';
-import { loadProfile } from '../service/profile';
-import { Game } from './components/game';
+import React, {useState} from 'react';
+import {ActivityIndicator, Alert, AsyncStorage, FlatList, StyleSheet, Text, View} from 'react-native';
+import {Button} from 'react-native-paper';
+import {useApi} from '../hooks/use-api';
+import {loadProfile} from '../service/profile';
+import {Game} from './components/game';
 import Search from './components/search';
-import { composeUserId, UserId, UserInfo } from '../helper/user';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { setAuth, useMutate, useSelector } from '../redux/reducer';
+import {composeUserId, UserInfo} from '../helper/user';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import {setAuth, useMutate, useSelector} from '../redux/reducer';
 import Profile from './components/profile';
-import { loadRatingHistories } from '../service/rating';
+import {loadRatingHistories} from '../service/rating';
 import Rating from './components/rating';
-import { fetchMatches } from '../api/matches';
+import {fetchMatches} from '../api/matches';
 import {useNavigation} from "@react-navigation/native";
-import {RootStackProp} from "../../App";
 import {useCavy} from "cavy";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 
 function MainHome() {
@@ -112,6 +110,8 @@ function MainHome() {
 
 function MainMatches() {
     // console.log("==> ON RENDER MainMatches");
+    const [refetching, setRefetching] = useState(false);
+    const [fetchingMore, setFetchingMore] = useState(false);
 
     const auth = useSelector(state => state.auth!);
 
@@ -124,21 +124,46 @@ function MainMatches() {
                 }
                 state.user[auth.id].matches = value;
             },
-            fetchMatches, 'aoe2de', 0, 10, auth
+            fetchMatches, 'aoe2de', 0, 15, auth
     );
+
+    const onRefresh = async () => {
+        console.log('onReload');
+        setRefetching(true);
+        await matches.reload();
+        setRefetching(false);
+        console.log('onReload DONE');
+    };
+
+    const onEndReached = async () => {
+        console.log('endReached TRY');
+        if (fetchingMore) return;
+        console.log('endReached');
+        setFetchingMore(true);
+        await matches.refetch('aoe2de', 0, (matches.data?.length ?? 0) + 15, auth);
+        setFetchingMore(false);
+        console.log('endReached DONE');
+    };
 
     // console.log(matches.data);
 
-    const list = [...(matches.data || Array(5).fill(null))];
+    const list = [...(matches.data || Array(15).fill(null))];
+
+    const _renderFooter = () => {
+        if (!fetchingMore) return null;
+        return (
+            <View style={styles.loadMoreIndicator}>
+                <ActivityIndicator animating size="large" />
+            </View>
+        );
+    };
 
     return (
             <View style={styles.container}>
                 <View style={styles.content}>
                     <FlatList
-                            onRefresh={() => {
-                                matches.reload();
-                            }}
-                            refreshing={matches.loading}
+                            onRefresh={onRefresh}
+                            refreshing={refetching}
                             contentContainerStyle={styles.list}
                             data={list}
                             renderItem={({item, index}) => {
@@ -146,8 +171,10 @@ function MainMatches() {
                                     default:
                                         return <Game data={item as any} expanded={index === 0}/>;
                                 }
-
                             }}
+                            ListFooterComponent={_renderFooter}
+                            onEndReached={onEndReached}
+                            onEndReachedThreshold={0.1}
                             keyExtractor={(item, index) => index.toString()}
                     />
                 </View>
@@ -209,6 +236,11 @@ export default function MainPage() {
 }
 
 const styles = StyleSheet.create({
+    loadMoreIndicator: {
+        paddingTop: 50,
+        paddingBottom: 30,
+        justifyContent: 'center',
+    },
     outlineButton: {
         backgroundColor: 'red',
     },

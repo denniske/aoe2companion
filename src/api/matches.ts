@@ -1,4 +1,4 @@
-import { makeQueryString } from '../helper/util';
+import {makeQueryString, sleep} from '../helper/util';
 
 const fromUnixTime = require('date-fns/fromUnixTime');
 
@@ -20,6 +20,11 @@ export interface IFetchMatchesParams {
 
 
 export async function fetchMatches(game: string, start: number, count: number, params: IFetchMatchesParams): Promise<IMatch[]> {
+    console.log('fetchMatches', start, count);
+    // await sleep(2000);
+
+    const start2 = new Date();
+
     const queryString = makeQueryString({
         game,
         start,
@@ -29,6 +34,9 @@ export async function fetchMatches(game: string, start: number, count: number, p
     const response = await fetch(`https://aoe2.net/api/player/matches?${queryString}`)
     const json = await response.json() as IMatchRaw[];
     // console.log("response.json()", json);
+
+    const end = new Date();
+    console.log((end.getTime() - start2.getTime())/1000);
 
     return json.map(match => convertTimestampsToDates(match));
 }
