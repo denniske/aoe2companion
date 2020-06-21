@@ -13,6 +13,7 @@ import {useLazyApi} from "../hooks/use-lazy-api";
 import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
 import {TabBarLabel} from "./main.page";
 import {getString} from "../helper/strings";
+import {DataTable, IconButton} from "react-native-paper";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -99,6 +100,33 @@ export function Leaderboard({leaderboardId} : any) {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>{getString('leaderboard', leaderboardId)}</Text>
+            {/*<DataTable>*/}
+            {/*    <DataTable.Header>*/}
+            {/*        <DataTable.Title>Dessert</DataTable.Title>*/}
+            {/*        <DataTable.Title numeric>Calories</DataTable.Title>*/}
+            {/*        <DataTable.Title numeric>Fat</DataTable.Title>*/}
+            {/*    </DataTable.Header>*/}
+
+            {/*    <DataTable.Row>*/}
+            {/*        <DataTable.Cell>Frozen yogurt</DataTable.Cell>*/}
+            {/*        <DataTable.Cell numeric>159</DataTable.Cell>*/}
+            {/*        <DataTable.Cell numeric>6.0</DataTable.Cell>*/}
+            {/*    </DataTable.Row>*/}
+
+            {/*    <DataTable.Row>*/}
+            {/*        <DataTable.Cell>Ice cream sandwich</DataTable.Cell>*/}
+            {/*        <DataTable.Cell numeric>237</DataTable.Cell>*/}
+            {/*        <DataTable.Cell numeric>8.0</DataTable.Cell>*/}
+            {/*    </DataTable.Row>*/}
+
+            {/*    <DataTable.Pagination*/}
+            {/*        page={1}*/}
+            {/*        numberOfPages={3}*/}
+            {/*        onPageChange={(page) => { console.log(page); }}*/}
+            {/*        label="1-2 of 6"*/}
+            {/*    />*/}
+            {/*</DataTable>*/}
+
             <View style={styles.measureContainer} onLayout={measureView}>
                 <View style={styles.headerRow}>
                     <Text style={styles.cellRank} numberOfLines={1}>Rank</Text>
@@ -136,12 +164,26 @@ export function Leaderboard({leaderboardId} : any) {
 
                 <Text style={styles.pageInfo}>{from}-{to} of {total}</Text>
 
-                <TouchableFeedback style={styles.arrowIcon} onPress={previousPage} disabled={!canPrevious} underlayColor="white">
-                    <Icon name={'chevron-left'} color={canPrevious ? 'black' : 'grey'} size={24}/>
-                </TouchableFeedback>
-                <TouchableHighlight style={styles.arrowIcon} onPress={nextPage} disabled={!canNext} underlayColor="white">
-                    <Icon name={'chevron-right'} color={canNext ? 'black' : 'grey'} size={24}/>
-                </TouchableHighlight>
+                <IconButton
+                    style={styles.arrowIcon}
+                    icon={({ size, color }) => (<Icon name="chevron-left" color={color} size={size}/>)}
+                    color={canPrevious ? 'black' : 'grey'}
+                    disabled={!canPrevious}
+                    // onPress={previousPage}
+                />
+                <IconButton
+                    icon={({ size, color }) => (<Icon name="chevron-right" color={color} size={size}/>)}
+                    color={canNext ? 'black' : 'grey'}
+                    disabled={!canNext}
+                    onPress={nextPage}
+                />
+
+                {/*<TouchableFeedback style={styles.arrowIcon} onPress={previousPage} disabled={!canPrevious} underlayColor="white">*/}
+                {/*    <Icon name={'chevron-left'} color={canPrevious ? 'black' : 'grey'} size={24}/>*/}
+                {/*</TouchableFeedback>*/}
+                {/*<TouchableFeedback style={styles.arrowIcon} onPress={nextPage} disabled={!canNext} underlayColor="white">*/}
+                {/*    <Icon name={'chevron-right'} color={canNext ? 'black' : 'grey'} size={24}/>*/}
+                {/*</TouchableFeedback>*/}
             </View>
         </View>
     );
@@ -166,7 +208,8 @@ const styles = StyleSheet.create({
         marginLeft: 15,
     },
     arrowIcon: {
-        marginLeft: 15,
+        marginLeft: 25,
+        // backgroundColor: 'red',
     },
     name: {
         flex: 1,

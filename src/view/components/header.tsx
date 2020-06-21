@@ -1,10 +1,10 @@
-import {Image, Picker, Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, { useState } from 'react';
+import {Image, Platform, StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
 import Constants from 'expo-constants';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import { useLinkTo, useNavigation } from '@react-navigation/native';
-import { Menu } from 'react-native-paper';
-import { RootStackParamList, RootStackProp } from '../../../App';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {useNavigation} from '@react-navigation/native';
+import {IconButton, Menu} from 'react-native-paper';
+import {RootStackParamList, RootStackProp} from '../../../App';
 import {useCavy} from "cavy";
 
 export default function Header() {
@@ -28,25 +28,37 @@ export default function Header() {
                     <Text>AoE II Companion</Text>
                 </View>
                 <View style={styles.menu}>
-                    <TouchableOpacity style={styles.menuButton} onPress={() => nav('Leaderboard')} ref={generateTestHook('Header.Leaderboard')}>
-                        <FontAwesomeIcon name="trophy" size={18} />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.menuButton} onPress={() => nav('Search')} ref={generateTestHook('Header.Search')}>
-                        <FontAwesomeIcon name="search" size={18} />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.menuButton} onPress={() => nav('Main')} ref={generateTestHook('Header.User')}>
-                        <FontAwesomeIcon name="user" size={18} />
-                    </TouchableOpacity>
-
+                    <IconButton
+                        style={styles.menuButton}
+                        size={18}
+                        icon={({size, color}) => (<Icon name="trophy" color={color} size={size}/>)}
+                        onPress={() => nav('Leaderboard')}
+                        ref={generateTestHook('Header.Leaderboard') as any}
+                    />
+                    <IconButton
+                        style={styles.menuButton}
+                        size={18}
+                        icon={({size, color}) => (<Icon name="search" color={color} size={size}/>)}
+                        onPress={() => nav('Search')}
+                        ref={generateTestHook('Header.Search') as any}
+                    />
+                    <IconButton
+                        style={styles.menuButton}
+                        size={18}
+                        icon={({size, color}) => (<Icon name="user" color={color} size={size}/>)}
+                        onPress={() => nav('Main')}
+                        ref={generateTestHook('Header.User') as any}
+                    />
                     <Menu
                             visible={menu}
                             onDismiss={() => setMenu(false)}
                             anchor={
-                                <TouchableOpacity style={styles.menuButtonDots} onPress={() => setMenu(true)}>
-                                    <FontAwesomeIcon name="ellipsis-v" size={18} />
-                                </TouchableOpacity>
+                                <IconButton
+                                    style={styles.menuButtonDots}
+                                    size={18}
+                                    icon={({size, color}) => (<Icon name="ellipsis-v" color={color} size={size}/>)}
+                                    onPress={() => setMenu(true)}
+                                />
                             }
                     >
                         <Menu.Item onPress={() => { nav('About'); setMenu(false); }} title="About" />
@@ -64,15 +76,13 @@ const styles = StyleSheet.create({
     },
     menuButton: {
         // backgroundColor: 'blue',
-        marginLeft: 10,
-        paddingLeft: 4,
-        paddingRight: 4,
+        margin: 0,
+        marginLeft: 4,
     },
     menuButtonDots: {
         // backgroundColor: 'blue',
-        marginLeft: 6,
-        paddingLeft: 8,
-        paddingRight: 8,
+        margin: 0,
+        marginLeft: 0,
     },
     header: {
         // backgroundColor: 'blue',
