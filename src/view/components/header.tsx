@@ -25,7 +25,7 @@ export default function Header() {
             <View style={styles.container}>
                 <View style={styles.header}>
                     <Image style={styles.icon} source={require('../../../assets/icon.png')}/>
-                    <Text>AoE II Companion22</Text>
+                    <Text>AoE II Companion</Text>
                 </View>
                 <View style={styles.menu}>
                     <TouchableOpacity style={styles.menuButton} onPress={() => nav('Leaderboard')} ref={generateTestHook('Header.Leaderboard')}>
