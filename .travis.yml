@@ -14,39 +14,39 @@ env:
 jobs:
   include:
 
-    - stage: placeholder
-      env:
-        - CACHE_NAME=placeholder
-      script:
-        - echo 1
-
-#    ####################################
-#    # PUBLISH
-#    ####################################
-#
-#    - stage: publish
-#      if: branch = master OR tag IS present
+#    - stage: placeholder
 #      env:
-#        - CACHE_NAME=publish YARN_CACHE_FOLDER="/home/travis/yarn_cache"
-#      cache:
-#        directories:
-#          - $HOME/yarn_cache
-#      before_install:
-#        - nvm install $NODE_VERSION
-#        - nvm use $NODE_VERSION
-#        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
-#        - export PATH="$HOME/.yarn/bin:$PATH"
+#        - CACHE_NAME=placeholder
 #      script:
-#        - yarn
-#        - export CHANNEL=$(node deploy/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
-#        - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD --non-interactive
-#        - sudo sysctl fs.inotify.max_user_instances=524288
-#        - sudo sysctl fs.inotify.max_user_watches=524288
-#        - sudo sysctl fs.inotify.max_queued_events=524288
-#        - sysctl -p
-#        - npx expo publish --release-channel $CHANNEL
-#
-#
+#        - echo 1
+
+    ####################################
+    # PUBLISH
+    ####################################
+
+    - stage: publish
+      if: branch = master OR tag IS present
+      env:
+        - CACHE_NAME=publish YARN_CACHE_FOLDER="/home/travis/yarn_cache"
+      cache:
+        directories:
+          - $HOME/yarn_cache
+      before_install:
+        - nvm install $NODE_VERSION
+        - nvm use $NODE_VERSION
+        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
+        - export PATH="$HOME/.yarn/bin:$PATH"
+      script:
+        - yarn
+        - export CHANNEL=$(node deploy/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
+        - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD --non-interactive
+        - sudo sysctl fs.inotify.max_user_instances=524288
+        - sudo sysctl fs.inotify.max_user_watches=524288
+        - sudo sysctl fs.inotify.max_queued_events=524288
+        - sysctl -p
+        - npx expo publish --release-channel $CHANNEL
+
+
 #    ####################################
 #    # BUILD iOS
 #    ####################################
