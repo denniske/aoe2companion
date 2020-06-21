@@ -23,7 +23,8 @@ export function parseUserId(str: string): UserId {
 
 export function userIdFromBase(base: UserIdBase): UserId {
     return {
-        ...base,
+        steam_id: base.steam_id,
+        profile_id: base.profile_id,
         id: composeUserId(base),
     };
 }

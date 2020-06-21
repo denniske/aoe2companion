@@ -28,6 +28,7 @@ export const loadUser = async (game: string, search: string) => {
 
     // Group by
     const leaderboardEntries = leaderboards.flatMap(l => l.leaderboard);
+
     const users = groupBy(leaderboardEntries, l => l.steam_id + '-' + l.profile_id);
 
     const result = [];

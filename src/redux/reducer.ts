@@ -4,6 +4,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector as useReduxSelector } fr
 import { UserId } from '../helper/user';
 import { IProfile } from '../view/components/profile';
 import { IRatingHistoryRow } from '../service/rating';
+import {ILeaderboard, IMatch} from "../helper/data";
 
 export function getNoteId() {
   return uuidv4();
@@ -82,14 +83,20 @@ interface IUserDict {
   [key: string]: IUser;
 }
 
+interface ILeaderboardDict {
+  [key: string]: ILeaderboard;
+}
+
 export interface AppState {
   auth?: UserId | null;
   user: IUserDict;
+  leaderboard: ILeaderboardDict;
 }
 
 const initialState: AppState = {
   user: {
-
+  },
+  leaderboard: {
   },
   // auth: {
   //   // steam_id: null,

@@ -1,9 +1,12 @@
 
 let mycache: any = {
-    user: {
-
-    },
+    user: { },
+    leaderboard: { },
 };
+
+
+
+
 
 
 export function setcache(value: any) {

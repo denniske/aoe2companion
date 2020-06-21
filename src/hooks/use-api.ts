@@ -7,7 +7,7 @@ type SelectorFun = (state: AppState) => any;
 type MutatorFun = (state: AppState, value: any) => void;
 
 export function useApi<A extends (...args: any) => any>(dep: any, selectorFun: SelectorFun, mutatorFun: MutatorFun, action: A, ...defArgs: Parameters<A>) {
-    const selectedState = useSelector(selectorFun);
+    const selectedState = useSelector(selectorFun) as UnPromisify<ReturnType<A>>;
     const mutate = useMutate()
 
     // const [data, setData] = useState(selectedState);

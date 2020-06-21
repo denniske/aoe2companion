@@ -1,3 +1,4 @@
+import {Flag} from "./flags";
 
 interface IPlayer {
     civ: number;
@@ -19,7 +20,7 @@ interface IPlayer {
     won: any;
 }
 
-interface IMatchRaw {
+export interface IMatchRaw {
     average_rating: any;
     cheats: boolean;
     ending_age: number;
@@ -63,7 +64,7 @@ interface IMatchRaw {
     visibility: any;
 }
 
-interface IMatch extends IMatchRaw {
+export interface IMatch extends IMatchRaw {
     started: Date;
     opened: Date;
     finished: Date;
@@ -83,9 +84,9 @@ interface IRatingHistoryEntry extends IRatingHistoryEntryRaw {
 }
 
 
-interface ILeaderboardPlayerRaw {
+export interface ILeaderboardPlayerRaw {
     clan: string;
-    country: string;
+    country: Flag;
     drops: number;
     games: number;
     highest_rating: number;
@@ -105,7 +106,7 @@ interface ILeaderboardPlayerRaw {
     wins: number;
 }
 
-interface ILeaderboardRaw {
+export interface ILeaderboardRaw {
     count: number;
     leaderboard: ILeaderboardPlayerRaw[];
     length: number;
@@ -115,11 +116,11 @@ interface ILeaderboardRaw {
 }
 
 
-interface ILeaderboardPlayer extends ILeaderboardPlayerRaw {
+export interface ILeaderboardPlayer extends ILeaderboardPlayerRaw {
     last_match: Date;
     last_match_time: Date;
 }
 
-interface ILeaderboard extends ILeaderboardRaw{
+export interface ILeaderboard extends ILeaderboardRaw{
     leaderboard: ILeaderboardPlayer[];
 }

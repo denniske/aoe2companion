@@ -1,4 +1,5 @@
 import {makeQueryString, sleep} from '../helper/util';
+import {IMatch, IMatchRaw} from "../helper/data";
 
 const fromUnixTime = require('date-fns/fromUnixTime');
 
@@ -33,7 +34,6 @@ export async function fetchMatches(game: string, start: number, count: number, p
     });
     const response = await fetch(`https://aoe2.net/api/player/matches?${queryString}`)
     const json = await response.json() as IMatchRaw[];
-    // console.log("response.json()", json);
 
     const end = new Date();
     console.log((end.getTime() - start2.getTime())/1000);

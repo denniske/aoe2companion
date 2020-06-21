@@ -27,6 +27,7 @@ import PrivacyPage from './src/view/privacy.page';
 import {AppLoading} from "expo";
 import {Tester, TestHookStore} from "cavy";
 import ExampleSpec from './src/ci/exampleSpec';
+import LeaderboardPage from "./src/view/leaderboard.page";
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -58,6 +59,9 @@ const linking = {
         Welcome: {
             path: 'welcome',
         },
+        Leaderboard: {
+            path: 'leaderboard',
+        },
     },
 };
 
@@ -66,6 +70,7 @@ export type RootStackParamList = {
     Privacy: undefined;
     About: undefined;
     Main: undefined;
+    Leaderboard: undefined;
     User: { id: UserId, name: string };
     Search: { name: string };
 };
@@ -125,6 +130,17 @@ export function InnerApp() {
                 component={MainPage}
                 options={{
                     title: 'Me',
+                    headerStatusBarHeight: headerStatusBarHeight,
+                    headerBackground: () => (
+                        <HeaderBackground><Header/></HeaderBackground>
+                    ),
+                }}
+            />
+            <Stack.Screen
+                name="Leaderboard"
+                component={LeaderboardPage}
+                options={{
+                    title: 'Leaderboard',
                     headerStatusBarHeight: headerStatusBarHeight,
                     headerBackground: () => (
                         <HeaderBackground><Header/></HeaderBackground>
