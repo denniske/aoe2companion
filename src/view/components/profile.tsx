@@ -6,6 +6,7 @@ import { getLeaderboardColor, getPlayerBackgroundColor } from '../../helper/colo
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { getCivIcon } from '../../helper/civs';
 import { getFlagIcon } from '../../helper/flags';
+import {ILeaderboard} from "../../helper/data";
 
 interface ILeaderboardRowProps {
     data: ILeaderboard;

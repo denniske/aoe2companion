@@ -11,6 +11,7 @@ import { getCivIcon } from '../../helper/civs';
 import { getString } from '../../helper/strings';
 import { RootStackProp } from '../../../App';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import {IPlayer} from "../../helper/data";
 
 interface IPlayerProps {
     player: IPlayer;

@@ -1,6 +1,6 @@
 import {Flag} from "./flags";
 
-interface IPlayer {
+export interface IPlayer {
     civ: number;
     clan: string;
     color: number;

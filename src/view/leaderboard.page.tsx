@@ -1,25 +1,26 @@
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {
+    ActivityIndicator, Dimensions, Image, ImageProps, StyleSheet, Text, TextProps, TouchableHighlight, View
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {fetchLeaderboard} from "../api/leaderboard";
-import {composeUserId, userIdFromBase} from "../helper/user";
+import {userIdFromBase} from "../helper/user";
 import {getFlagIcon} from "../helper/flags";
 import {useCavy} from "cavy";
 import {ILeaderboardPlayer} from "../helper/data";
 import {RootStackProp} from "../../App";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import {TouchableFeedback} from "./components/touchable-feedback";
 import {useLazyApi} from "../hooks/use-lazy-api";
 import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
 import {TabBarLabel} from "./main.page";
 import {getString} from "../helper/strings";
-import {DataTable, IconButton} from "react-native-paper";
+import {IconButton} from "react-native-paper";
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function LeaderboardPage() {
     return (
-        <Tab.Navigator swipeEnabled={false}lazy={true}>
+        <Tab.Navigator swipeEnabled={false} lazy={true}>
             <Tab.Screen name="MainHome" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="RM 1v1"/>}}>
                 {() => <Leaderboard leaderboardId={3} />}
             </Tab.Screen>
@@ -39,11 +40,70 @@ export default function LeaderboardPage() {
     );
 }
 
+function ImageLoader(props: ImageProps) {
+    if (props.source == null) {
+        return (
+            <View {...props} style={[props.style, { height: 'auto', flexDirection: 'row', backgroundColor: 'white', display: 'flex'}]}>
+                <View style={[{backgroundColor: '#ECE9ED', borderRadius: 5, flexDirection: 'row'}]}>
+                    <Text style={{color: '#ECE9ED'}} numberOfLines={1}>....................................</Text>
+                </View>
+            </View>
+        );
+    }
+    return (
+        <Image {...props}/>
+    )
+}
+
+
+type TextLoaderProps = TextProps & { children?: React.ReactNode }
+
+function TextLoader(props: TextLoaderProps) {
+    // console.log("text loader", props);
+    const { children, ...rest } = props;
+    // console.log('rest', rest);
+
+    // flex: 1.5, padding: 8,
+
+    if (props.children == null) {
+        return (
+            <View {...rest} style={[rest.style, { flexDirection: 'row', backgroundColor: 'white', display: 'flex'}]}>
+                <View style={[{backgroundColor: '#ECE9ED', borderRadius: 5, flexDirection: 'row'}]}>
+                    <Text style={{color: '#ECE9ED'}} numberOfLines={1}>....................................</Text>
+                </View>
+            </View>
+        );
+        // return (
+        //     <View {...rest}>
+        //         <View style={[{backgroundColor: '#ECE9ED', borderRadius: 5, flex: 1}]}/>
+        //     </View>
+        // );
+        // return (
+        //     <View style={{flexDirection: 'row', backgroundColor: 'red', width: '100%'}}>
+        //   <Text {...rest}>nulfsdfl</Text>
+        //     </View>
+        // );
+        // return (
+        //   <Text {...rest}>null</Text>
+        // );
+    }
+    return (
+        <Text {...props}/>
+    )
+}
+
+
+const window = Dimensions.get("window");
+const screen = Dimensions.get("screen");
+
 export function Leaderboard({leaderboardId} : any) {
     const generateTestHook = useCavy();
     const navigation = useNavigation<RootStackProp>();
     const [page, setPage] = useState(0);
-    const [perPage, setPerPage] = useState(-1);
+    const [perPage, setPerPage] = useState(Math.floor((window.height - 250) / 40));//12);
+
+    console.log('window', window);
+    console.log('screen', screen);
 
     const players = useLazyApi(
         // [],
@@ -58,7 +118,7 @@ export function Leaderboard({leaderboardId} : any) {
     );
 
     useEffect(() => {
-        if (perPage === -1) return;
+        // if (perPage === 12) return;
         players.refetch('aoe2de', leaderboardId, {start: page * perPage, count: perPage});
     }, [page, perPage]);
 
@@ -84,10 +144,12 @@ export function Leaderboard({leaderboardId} : any) {
     };
 
     const measureView = (event: any) => {
-        if (perPage !== -1) return;
-        console.log(event.nativeEvent.layout.height);
-        const height = event.nativeEvent.layout.height;
-        setPerPage(Math.floor(height / 40));
+        // if (perPage !== 12) return;
+        // console.log(event.nativeEvent.layout.height);
+        // console.log(Math.floor(event.nativeEvent.layout.height / 40));
+        // const height = event.nativeEvent.layout.height;
+        // // setPerPage(Math.floor(height / 40));
+        // setPerPage(Math.floor(height / 38));
     };
 
     const count = players.data?.leaderboard.length;
@@ -97,79 +159,148 @@ export function Leaderboard({leaderboardId} : any) {
     const canPrevious = page > 0;
     const canNext = to < total;
 
+    const list = [...(players.data?.leaderboard || Array(perPage).fill(null))];
+    // const list = [...(players.data?.leaderboard) || [], ...Array(2).fill(null)];
+
+    console.log("list", list);
+
+    // const list = [...(players.data?.leaderboard || Array(0).fill(null))];
+
+    const _renderRow = (player: any, i: number) => {
+        // if (player == null) {
+        //     return (
+        //         <View style={styles.innerRow}>
+        //             <Text style={styles.cellRating} numberOfLines={1}>{player.rating}</Text>
+        //             <View style={styles.cellName}>
+        //                 <Image style={styles.countryIcon} source={getFlagIcon(player.country)}/>
+        //                 <Text style={styles.name} numberOfLines={1}>{player.name}</Text>
+        //             </View>
+        //             <Text style={styles.cellGames}>{player.games}</Text>
+        //             {/*<Text style={styles.cellWins}>{player.wins}</Text>*/}
+        //         </View>
+        //     );
+        // }
+
+        // composeUserId(player)
+
+        return (
+            <TouchableHighlight style={styles.row} key={i}
+                                onPress={() => onSelect(player)} underlayColor="white">
+                <View style={styles.innerRow}>
+
+
+                    {/*<ContentLoader animate={false} style={{backgroundColor: 'white', paddingVertical: 2, width: '100%', height: '100%'}}>*/}
+                    {/*    <Rect x="0" y="0" rx="3" ry="3" width="100%" height="100%"/>*/}
+                    {/*</ContentLoader>*/}
+
+                    {/*viewBox="0 0 100 26"*/}
+                    {/*<View style={[styles.cellRank, {backgroundColor: 'white', height: 40}]}>*/}
+                    {/*    <ContentLoader animate={false} style={{backgroundColor: 'white', paddingVertical: 2, width: '100%', height: '100%'}}>*/}
+                    {/*        <Rect x="0" y="0" rx="3" ry="3" width="100%" height="100%"/>*/}
+                    {/*    </ContentLoader>*/}
+                    {/*</View>*/}
+
+
+                    {/*<Text style={styles.cellRank} numberOfLines={1}>#{player?.rank}</Text>*/}
+
+
+                    {/*<View style={[styles.cellRank, {backgroundColor: 'white'}]}>*/}
+                    {/*    <View style={[{backgroundColor: '#ECE9ED', borderRadius: 5, flex: 1}]}/>*/}
+                    {/*</View>*/}
+
+                    {/*<View style={[styles.cellRating, {backgroundColor: 'white'}]}>*/}
+                    {/*    <View style={[{backgroundColor: '#ECE9ED', borderRadius: 5, flex: 1}]}/>*/}
+                    {/*</View>*/}
+                    {/*<View style={[styles.cellName2, {backgroundColor: 'white'}]}>*/}
+                    {/*    <View style={[{backgroundColor: '#ECE9ED', borderRadius: 5, flex: 1}]}/>*/}
+                    {/*</View>*/}
+
+                    {/*<View style={[styles.cellGames, {backgroundColor: 'white'}]}>*/}
+                    {/*    <View style={[{backgroundColor: '#ECE9ED', borderRadius: 5, flex: 1}]}/>*/}
+                    {/*</View>*/}
+
+                    {/*<Text style={styles.cellRating} numberOfLines={1}>{player.rating}</Text>*/}
+
+
+                    <TextLoader style={styles.cellRank}>{player?.rank}</TextLoader>
+                    <TextLoader style={styles.cellRating}>{player?.rating}</TextLoader>
+                    <View style={styles.cellName}>
+                        <ImageLoader style={styles.countryIcon} source={getFlagIcon(player?.country)}/>
+                        <TextLoader style={styles.name} numberOfLines={1}>{player?.name}</TextLoader>
+                    </View>
+                    <TextLoader style={styles.cellGames}>{player?.games}</TextLoader>
+
+                    {/*{*/}
+                    {/*    (player == null || player?.games < 500) &&*/}
+                    {/*    <TextLoader style={styles.cellGames}></TextLoader>*/}
+                    {/*}*/}
+                    {/*{*/}
+                    {/*    player?.games >= 500 &&*/}
+                    {/*    <TextLoader style={styles.cellGames}>{player?.games}</TextLoader>*/}
+                    {/*}*/}
+
+
+                </View>
+            </TouchableHighlight>
+        );
+        // return (
+        //     <TouchableHighlight style={styles.row} key={composeUserId(player)}
+        //                         onPress={() => onSelect(player)} underlayColor="white"
+        //                         ref={generateTestHook('Leaderboard.Player.' + composeUserId(player))}>
+        //         <View style={styles.innerRow}>
+        //             <Text style={styles.cellRank} numberOfLines={1}>{player.rank}</Text>
+        //             <Text style={styles.cellRating} numberOfLines={1}>{player.rating}</Text>
+        //             <View style={styles.cellName}>
+        //                 <Image style={styles.countryIcon} source={getFlagIcon(player.country)}/>
+        //                 <Text style={styles.name} numberOfLines={1}>{player.name}</Text>
+        //             </View>
+        //             <Text style={styles.cellGames}>{player.games}</Text>
+        //             {/*<Text style={styles.cellWins}>{player.wins}</Text>*/}
+        //         </View>
+        //     </TouchableHighlight>
+        // );
+    };
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>{getString('leaderboard', leaderboardId)}</Text>
-            {/*<DataTable>*/}
-            {/*    <DataTable.Header>*/}
-            {/*        <DataTable.Title>Dessert</DataTable.Title>*/}
-            {/*        <DataTable.Title numeric>Calories</DataTable.Title>*/}
-            {/*        <DataTable.Title numeric>Fat</DataTable.Title>*/}
-            {/*    </DataTable.Header>*/}
 
-            {/*    <DataTable.Row>*/}
-            {/*        <DataTable.Cell>Frozen yogurt</DataTable.Cell>*/}
-            {/*        <DataTable.Cell numeric>159</DataTable.Cell>*/}
-            {/*        <DataTable.Cell numeric>6.0</DataTable.Cell>*/}
-            {/*    </DataTable.Row>*/}
-
-            {/*    <DataTable.Row>*/}
-            {/*        <DataTable.Cell>Ice cream sandwich</DataTable.Cell>*/}
-            {/*        <DataTable.Cell numeric>237</DataTable.Cell>*/}
-            {/*        <DataTable.Cell numeric>8.0</DataTable.Cell>*/}
-            {/*    </DataTable.Row>*/}
-
-            {/*    <DataTable.Pagination*/}
-            {/*        page={1}*/}
-            {/*        numberOfPages={3}*/}
-            {/*        onPageChange={(page) => { console.log(page); }}*/}
-            {/*        label="1-2 of 6"*/}
-            {/*    />*/}
-            {/*</DataTable>*/}
+            <View style={styles.headerRow}>
+                <Text style={styles.cellRank} numberOfLines={1}>Rank</Text>
+                <Text style={styles.cellRating} numberOfLines={1}>Rating</Text>
+                <Text style={styles.cellName} numberOfLines={1}>Name</Text>
+                <Text style={styles.cellGames} numberOfLines={1}>Games</Text>
+                {/*<Text style={styles.cellWins} numberOfLines={1}>Wins</Text>*/}
+            </View>
 
             <View style={styles.measureContainer} onLayout={measureView}>
-                <View style={styles.headerRow}>
-                    <Text style={styles.cellRank} numberOfLines={1}>Rank</Text>
-                    <Text style={styles.cellRating} numberOfLines={1}>Rating</Text>
-                    <Text style={styles.cellName} numberOfLines={1}>Name</Text>
-                    <Text style={styles.cellGames} numberOfLines={1}>Games</Text>
-                    {/*<Text style={styles.cellWins} numberOfLines={1}>Wins</Text>*/}
-                </View>
                 {
-                    players.data && players.data.leaderboard.map((player, i) =>
-                        <TouchableHighlight style={styles.row} key={composeUserId(player)}
-                                            onPress={() => onSelect(player)} underlayColor="white"
-                                            ref={generateTestHook('Leaderboard.Player.' + composeUserId(player))}>
-                            <View style={styles.innerRow}>
-                                <Text style={styles.cellRank} numberOfLines={1}>{player.rank}</Text>
-                                <Text style={styles.cellRating} numberOfLines={1}>{player.rating}</Text>
-                                <View style={styles.cellName}>
-                                    <Image style={styles.countryIcon} source={getFlagIcon(player.country)}/>
-                                    <Text style={styles.name} numberOfLines={1}>{player.name}</Text>
-                                </View>
-                                <Text style={styles.cellGames}>{player.games}</Text>
-                                {/*<Text style={styles.cellWins}>{player.wins}</Text>*/}
-                            </View>
-                        </TouchableHighlight>
-                    )
+                    list.map((player, i) => _renderRow(player, i))
                 }
             </View>
-            <View style={styles.footerRow}>
-                <View style={styles.activityInfo}>
-                    {
-                        players.loading &&
-                        <ActivityIndicator animating size="small"/>
-                    }
-                </View>
 
-                <Text style={styles.pageInfo}>{from}-{to} of {total}</Text>
+            <View style={styles.footerRow}>
+                {
+                    players.touched &&
+                    <View style={styles.activityInfo}>
+                        {
+                            players.loading &&
+                            <ActivityIndicator animating size="small"/>
+                        }
+                    </View>
+                }
+
+                {
+                    players.touched &&
+                    <Text style={styles.pageInfo}>{isNaN(to) ? null : `${from}-${to} of ${total}`}</Text>
+                }
 
                 <IconButton
                     style={styles.arrowIcon}
                     icon={({ size, color }) => (<Icon name="chevron-left" color={color} size={size}/>)}
                     color={canPrevious ? 'black' : 'grey'}
                     disabled={!canPrevious}
-                    // onPress={previousPage}
+                    onPress={previousPage}
                 />
                 <IconButton
                     icon={({ size, color }) => (<Icon name="chevron-right" color={color} size={size}/>)}
@@ -197,6 +328,9 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         flex: 1,
         overflow: 'visible',
+        // backgroundColor: 'yellow',
+        padding: 5,
+        width: '100%',
     },
     activityInfo: {
         flex: 1,
@@ -218,6 +352,8 @@ const styles = StyleSheet.create({
         padding: padding,
         textAlign: 'left',
         flex: 1,
+        // marginRight: 20,
+        // backgroundColor: 'red',
     },
     cellRating: {
         padding: padding,
@@ -231,11 +367,16 @@ const styles = StyleSheet.create({
         padding: padding,
         flex: 4,
         flexDirection: 'row',
+        alignItems: 'center',
+    },
+    cellName2: {
+        padding: padding,
+        flex: 4,
     },
     cellGames: {
         padding: padding,
         flex: 1.5,
-        marginLeft: 5,
+        // marginLeft: 5,
     },
     cellWins: {
         padding: padding,
@@ -244,6 +385,7 @@ const styles = StyleSheet.create({
     footerRow: {
         flexDirection: 'row',
         alignItems: 'center',
+        justifyContent: 'flex-end',
         marginBottom: 3,
         // padding: 3,
         // paddingVertical: 5,
@@ -266,12 +408,18 @@ const styles = StyleSheet.create({
         borderBottomColor: '#DDD',
     },
     row: {
-        marginRight: 30,
-        marginLeft: 30,
-        width: '100%',
-        flex: 3,
+        // marginRight: 30,
+        // marginLeft: 30,
+        // width: '100%',
+        // flex: 3,
+        flex: 1,
+        backgroundColor: 'white',
     },
     innerRow: {
+        flex: 1,
+        // height: 40,
+        // alignItems: "center",
+        // backgroundColor: 'blue',
         width: '100%',
         flexDirection: 'row',
         borderBottomWidth: 1,
@@ -280,6 +428,7 @@ const styles = StyleSheet.create({
     countryIcon: {
         width: 21,
         height: 15,
+        // paddingBottom: 4,
         marginRight: 5,
     },
     title: {
