@@ -14,7 +14,7 @@ export default function Home() {
                     <br/>
 
                     <div className="flex-container flex-row">
-                        <a href="https://play.google.com/store/apps/details?id=app.fiftynineseconds.game">
+                        <a href="https://play.google.com/store/apps/details?id=com.aoe2companion">
                             <img src="/app-button-play-store.png" className="app-button app-button-play-store" />
                         </a>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
