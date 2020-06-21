@@ -10,14 +10,39 @@ import {RootStackProp} from "../../App";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {TouchableFeedback} from "./components/touchable-feedback";
 import {useLazyApi} from "../hooks/use-lazy-api";
+import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
+import {TabBarLabel} from "./main.page";
+import {getString} from "../helper/strings";
+
+const Tab = createMaterialTopTabNavigator();
 
 export default function LeaderboardPage() {
+    return (
+        <Tab.Navigator swipeEnabled={false}lazy={true}>
+            <Tab.Screen name="MainHome" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="RM 1v1"/>}}>
+                {() => <Leaderboard leaderboardId={3} />}
+            </Tab.Screen>
+            <Tab.Screen name="MainMatches" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="RM Team"/>}}>
+                {() => <Leaderboard leaderboardId={4} />}
+            </Tab.Screen>
+            <Tab.Screen name="MainMatches2" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="DM 1v1"/>}}>
+                {() => <Leaderboard leaderboardId={1} />}
+            </Tab.Screen>
+            <Tab.Screen name="MainMatches3" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="DM Team"/>}}>
+                {() => <Leaderboard leaderboardId={2} />}
+            </Tab.Screen>
+            <Tab.Screen name="MainMatches4" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="Unr."/>}}>
+                {() => <Leaderboard leaderboardId={0} />}
+            </Tab.Screen>
+        </Tab.Navigator>
+    );
+}
+
+export function Leaderboard({leaderboardId} : any) {
     const generateTestHook = useCavy();
     const navigation = useNavigation<RootStackProp>();
     const [page, setPage] = useState(0);
     const [perPage, setPerPage] = useState(-1);
-
-    const leaderboardId = 4;
 
     const players = useLazyApi(
         // [],
@@ -64,23 +89,30 @@ export default function LeaderboardPage() {
         setPerPage(Math.floor(height / 40));
     };
 
+    const count = players.data?.leaderboard.length;
+    const total = players.data?.total;
+    const from = page * perPage + 1;
+    const to = from + count - 1;
+    const canPrevious = page > 0;
+    const canNext = to < total;
+
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Team Random Map</Text>
+            <Text style={styles.title}>{getString('leaderboard', leaderboardId)}</Text>
             <View style={styles.measureContainer} onLayout={measureView}>
                 <View style={styles.headerRow}>
                     <Text style={styles.cellRank} numberOfLines={1}>Rank</Text>
                     <Text style={styles.cellRating} numberOfLines={1}>Rating</Text>
                     <Text style={styles.cellName} numberOfLines={1}>Name</Text>
                     <Text style={styles.cellGames} numberOfLines={1}>Games</Text>
-                    <Text style={styles.cellWins} numberOfLines={1}>Wins</Text>
+                    {/*<Text style={styles.cellWins} numberOfLines={1}>Wins</Text>*/}
                 </View>
                 {
                     players.data && players.data.leaderboard.map((player, i) =>
                         <TouchableHighlight style={styles.row} key={composeUserId(player)}
                                             onPress={() => onSelect(player)} underlayColor="white"
                                             ref={generateTestHook('Leaderboard.Player.' + composeUserId(player))}>
-                            <View style={styles.row2}>
+                            <View style={styles.innerRow}>
                                 <Text style={styles.cellRank} numberOfLines={1}>{player.rank}</Text>
                                 <Text style={styles.cellRating} numberOfLines={1}>{player.rating}</Text>
                                 <View style={styles.cellName}>
@@ -88,14 +120,13 @@ export default function LeaderboardPage() {
                                     <Text style={styles.name} numberOfLines={1}>{player.name}</Text>
                                 </View>
                                 <Text style={styles.cellGames}>{player.games}</Text>
-                                <Text style={styles.cellWins}>{player.wins}</Text>
+                                {/*<Text style={styles.cellWins}>{player.wins}</Text>*/}
                             </View>
                         </TouchableHighlight>
                     )
                 }
             </View>
             <View style={styles.footerRow}>
-
                 <View style={styles.activityInfo}>
                     {
                         players.loading &&
@@ -103,16 +134,15 @@ export default function LeaderboardPage() {
                     }
                 </View>
 
-                <Text style={styles.pageInfo}>{page * perPage + 1}-{page * perPage + perPage} of {players.data?.total}</Text>
+                <Text style={styles.pageInfo}>{from}-{to} of {total}</Text>
 
-                <TouchableFeedback style={styles.arrowIcon} onPress={previousPage} disabled={page === 0} underlayColor="white">
-                    <Icon name={'chevron-left'} color={page === 0 ? 'grey' : 'black'} size={24}/>
+                <TouchableFeedback style={styles.arrowIcon} onPress={previousPage} disabled={!canPrevious} underlayColor="white">
+                    <Icon name={'chevron-left'} color={canPrevious ? 'black' : 'grey'} size={24}/>
                 </TouchableFeedback>
-                <TouchableHighlight style={styles.arrowIcon} onPress={nextPage} disabled={page + perPage >= players.data?.total} underlayColor="white">
-                    <Icon name={'chevron-right'} size={24}/>
+                <TouchableHighlight style={styles.arrowIcon} onPress={nextPage} disabled={!canNext} underlayColor="white">
+                    <Icon name={'chevron-right'} color={canNext ? 'black' : 'grey'} size={24}/>
                 </TouchableHighlight>
             </View>
-
         </View>
     );
 }
@@ -148,8 +178,7 @@ const styles = StyleSheet.create({
     },
     cellRating: {
         padding: padding,
-        flex: 1,
-        // width: 40,
+        flex: 1.5,
     },
     cellCountry: {
         padding: padding,
@@ -162,7 +191,7 @@ const styles = StyleSheet.create({
     },
     cellGames: {
         padding: padding,
-        flex: 1,
+        flex: 1.5,
         marginLeft: 5,
     },
     cellWins: {
@@ -173,7 +202,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 3,
-        padding: 3,
+        // padding: 3,
+        // paddingVertical: 5,
+        padding: 5,
         borderRadius: 5,
         marginRight: 30,
         marginLeft: 30,
@@ -195,37 +226,21 @@ const styles = StyleSheet.create({
         marginRight: 30,
         marginLeft: 30,
         width: '100%',
-        // flexDirection: 'row',
-        // alignItems: 'center',
-        // marginBottom: 3,
-        // padding: 3,
-        // borderBottomWidth: 1,
-        // borderBottomColor: '#EEE',
         flex: 3,
-        // backgroundColor: 'red',
     },
-    row2: {
-        // marginRight: 30,
-        // marginLeft: 30,
+    innerRow: {
         width: '100%',
         flexDirection: 'row',
-        // alignItems: 'center',
-        // // marginBottom: 3,
-        // padding: 3,
         borderBottomWidth: 1,
         borderBottomColor: '#EEE',
-        // flex: 3,
-        // backgroundColor: 'red',
     },
     countryIcon: {
         width: 21,
         height: 15,
         marginRight: 5,
-        // flex: 10,
-        // alignSelf: 'center',
     },
     title: {
-        // marginTop: 20,
+        marginBottom: 10,
         fontSize: 16,
         fontWeight: 'bold',
     },
@@ -235,5 +250,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         alignItems: 'center',
         padding: 20,
+        paddingTop: 18,
     },
 });

@@ -189,16 +189,11 @@ function MainMatches() {
 
 const Tab = createMaterialTopTabNavigator();//<MainTabParamList>();
 
-function TabBarLabel({ title }: any) {
-    const generateTestHook = useCavy();
+export function TabBarLabel({ title, focused, color }: any) {
     const navigation = useNavigation();
-    // ref={generateTestHook('Tab.'+title)}
     return (
-        <View >
-            <Text style={{fontSize: 13}} onPress={() => navigation.navigate(title)} >{title.toUpperCase()}</Text>
-        </View>
+        <Text style={{fontSize: 13, color: color}} onPress={() => navigation.navigate(title)} >{title.toUpperCase()}</Text>
     );
-    // return <Text style={{fontSize: 13}} onPress={() => navigation.navigate(title)} ref={generateTestHook('Tab.'+title)}>{title.toUpperCase()}</Text>;
 }
 
 export default function MainPage() {
@@ -229,8 +224,14 @@ export default function MainPage() {
     return (
             <Tab.Navigator swipeEnabled={false} lazy={true}>
                 {/*<Tab.Screen name="MainHome" options={{title: 'Profile'}} component={MainHome}/>*/}
-                <Tab.Screen name="MainHome" options={{tabBarLabel: (_) => <TabBarLabel title="Profile"/>}} component={MainHome}/>
-                <Tab.Screen name="MainMatches" options={{tabBarLabel: (_) => <TabBarLabel title="Matches"/>}} component={MainMatches}/>
+                <Tab.Screen name="MainHome" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="Profile"/>}} component={MainHome}/>
+                <Tab.Screen name="MainMatches" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="Matches"/>}} component={MainMatches}/>
+                <Tab.Screen name="MainMatches3" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="Matches3"/>}} component={MainMatches}/>
+                {/*<Tab.Screen name="MainHome" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="RM 1v1"/>}} component={MainHome}/>*/}
+                {/*<Tab.Screen name="MainMatches" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="RM Team"/>}} component={MainMatches}/>*/}
+                {/*<Tab.Screen name="MainMatches2" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="DM 1v1"/>}} component={MainMatches}/>*/}
+                {/*<Tab.Screen name="MainMatches3" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="DM Team"/>}} component={MainMatches}/>*/}
+                {/*<Tab.Screen name="MainMatches4" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="Unr."/>}} component={MainMatches}/>*/}
             </Tab.Navigator>
     );
 }

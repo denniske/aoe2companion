@@ -2,7 +2,15 @@
 
 git tag v1.0.2 && git push --tags
 
+defaults read -g com.apple.keyboard.fnState
 defaults write -g com.apple.keyboard.fnState true
+defaults write -g com.apple.keyboard.fnState -bool TRUE
+defaults write -g com.apple.keyboard.fnState -bool FALSE
+
+defaults -currentHost write -globalDomain AppleFontSmoothing -int 1
+defaults -currentHost write -globalDomain AppleFontSmoothing -int 2
+defaults -currentHost write -globalDomain AppleFontSmoothing -int 3
+
 sudo defaults delete /Library/Preferences/com.apple.keyboardtype
 
 Git Flows
