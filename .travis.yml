@@ -14,6 +14,12 @@ env:
 jobs:
   include:
 
+    - stage: placeholder
+      env:
+        - CACHE_NAME=placeholder
+      script:
+        - echo 1
+
 #    ####################################
 #    # PUBLISH
 #    ####################################
