@@ -15,7 +15,7 @@ export default function AboutPage() {
                 <Text style={styles.content}>Niklas Ohlrogge</Text>
 
                 <Text style={styles.heading}>Version</Text>
-                <Text style={styles.content}>{Constants.manifest.version}n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}</Text>
+                <Text style={styles.content}>{Constants.manifest.releaseChannel || 'dev'}-{Constants.manifest.version}n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}</Text>
 
                 <Text/>
                 <View style={styles.row}>

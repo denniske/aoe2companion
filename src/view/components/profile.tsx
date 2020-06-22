@@ -5,7 +5,7 @@ import { getString } from '../../helper/strings';
 import { getLeaderboardColor, getPlayerBackgroundColor } from '../../helper/colors';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { getCivIcon } from '../../helper/civs';
-import { getFlagIcon } from '../../helper/flags';
+import {Flag, getFlagIcon} from '../../helper/flags';
 import {ILeaderboard} from "../../helper/data";
 
 interface ILeaderboardRowProps {
@@ -41,7 +41,7 @@ function LeaderboardRow({data}: ILeaderboardRowProps) {
 
 export interface IProfile {
     clan: string;
-    country: string;
+    country: Flag;
     icon: any;
     name: string;
     profile_id: number;
