@@ -20,6 +20,7 @@
     "date-fns": "^2.14.0",
     "expo": "~37.0.3",
     "expo-font": "~8.1.0",
+    "expo-updates": "~0.2.1",
     "immer": "^7.0.0",
     "lodash-es": "^4.17.15",
     "react": "~16.9.0",
