@@ -218,7 +218,7 @@ export default function MainPage() {
     // console.log("==> ON RENDER MainPage");
 
     if (auth == null) {
-        return <Search title="Enter your AoE username to track your games:" selectedUser={onSelect}/>;
+        return <Search title="Enter your AoE username to track your games:" selectedUser={onSelect} actionText="Choose" />;
     }
 
     return (

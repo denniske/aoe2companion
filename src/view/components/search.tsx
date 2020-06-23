@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import {FlatList, Image, StyleSheet, Text, TextInput, TouchableHighlight, View} from 'react-native';
-import { formatAgo } from '../../helper/util';
-import { IFetchedUser, loadUser } from '../../service/user';
-import { useLazyApi } from '../../hooks/use-lazy-api';
-import { Searchbar } from 'react-native-paper';
-import { composeUserIdFromParts, UserInfo } from '../../helper/user';
-import { getFlagIcon } from '../../helper/flags';
+import React, {useEffect, useState} from 'react';
+import {FlatList, Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {IFetchedUser, loadUser} from '../../service/user';
+import {useLazyApi} from '../../hooks/use-lazy-api';
+import {Button, Searchbar} from 'react-native-paper';
+import {composeUserIdFromParts, UserInfo} from '../../helper/user';
+import {getFlagIcon} from '../../helper/flags';
 import {useCavy} from "cavy";
 
 interface IPlayerProps {
     player: IFetchedUser;
     selectedUser: (user: UserInfo) => void;
+    actionText: string;
 }
 
-function Player({player, selectedUser}: IPlayerProps) {
+function Player({player, selectedUser, actionText}: IPlayerProps) {
     const generateTestHook = useCavy();
 
     const onSelect = async () => {
@@ -31,16 +31,31 @@ function Player({player, selectedUser}: IPlayerProps) {
             <TouchableHighlight onPress={onSelect} underlayColor="white"
                                 ref={generateTestHook('Search.Player.' + composeUserIdFromParts(player.steam_id, player.profile_id))}>
                 <View style={styles.row}>
-                    <View style={styles.cellCountry}><Image style={styles.countryIcon} source={getFlagIcon(player.country)}/></View>
-                    <Text style={styles.cellName} numberOfLines={1}>{player.name}</Text>
+                    <View style={styles.cellName}>
+                        <Image style={styles.countryIcon} source={getFlagIcon(player.country)}/>
+                        <Text style={styles.name} numberOfLines={1}>{player.name}</Text>
+                    </View>
                     <Text style={styles.cellGames}>{player.games}</Text>
-                    <Text style={styles.cellLastMatch}>{formatAgo(player.last_match)}</Text>
+                    <View style={styles.cellAction}>
+                        <Button
+                            style={{padding: 0, margin: 0}}
+                            labelStyle={{fontSize: 13, padding: 0, margin: 0, marginVertical: 0}}
+                            contentStyle={{height: 22, padding: 0, margin: 0}}
+                            onPress={onSelect}
+                            mode="contained"
+                            compact
+                            uppercase={false}
+                            dark={true}
+                        >
+                            {actionText}
+                        </Button>
+                    </View>
                 </View>
             </TouchableHighlight>
     );
 }
 
-export default function Search({title, selectedUser}: any) {
+export default function Search({title, selectedUser, actionText}: any) {
     const [text, setText] = useState('');
 
     const user = useLazyApi(loadUser, 'aoe2de', text);
@@ -82,10 +97,9 @@ export default function Search({title, selectedUser}: any) {
                 {
                     user.data && user.data.length > 0 && text.length >= 3 &&
                     <View style={styles.headerRow}>
-                        <Text style={styles.cellCountry}> </Text>
                         <Text style={styles.cellName}>Name</Text>
                         <Text style={styles.cellGames}>Games</Text>
-                        <Text style={styles.cellLastMatch}>Last Match</Text>
+                        <Text style={styles.cellAction}/>
                     </View>
                 }
 
@@ -97,7 +111,7 @@ export default function Search({title, selectedUser}: any) {
                             if (item.type === 'text') {
                                 return <Text style={styles.centerText}>{item.content}</Text>;
                             }
-                            return <Player player={item} selectedUser={selectedUser}/>;
+                            return <Player player={item} selectedUser={selectedUser} actionText={actionText}/>;
                         }}
                         keyExtractor={(item, index) => index.toString()}
                 />
@@ -123,15 +137,20 @@ const styles = StyleSheet.create({
     cellRating: {
         width: 40,
     },
-    cellCountry: {
-        width: 30,
-    },
     cellName: {
+        // backgroundColor: 'red',
+        flex: 4,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    name: {
         flex: 1,
     },
     cellGames: {
-        width: 60,
-        marginLeft: 5,
+        flex: 1.2,
+    },
+    cellAction: {
+        flex: 1.5,
     },
     cellLastMatch: {
         width: 110,

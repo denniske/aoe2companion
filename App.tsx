@@ -209,12 +209,22 @@ function ConditionalTester({children}: any) {
     return children;
 }
 
+const customPaperTheme = {
+    ...DefaultTheme,
+    // roundness: 2,
+    colors: {
+        ...DefaultTheme.colors,
+        primary: '#3498db',
+        // accent: '#f1c40f',
+    },
+};
+
 export default function App() {
     return (
         <NavigationContainer linking={linking}>
             <ConditionalTester>
                 <ReduxProvider store={store}>
-                    <PaperProvider theme={DefaultTheme}>
+                    <PaperProvider theme={customPaperTheme}>
                         <InnerApp/>
                     </PaperProvider>
                 </ReduxProvider>

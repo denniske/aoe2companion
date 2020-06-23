@@ -14,5 +14,5 @@ export default function SearchPage() {
         });
     };
 
-    return <Search title="Search for user" selectedUser={onSelect}/>;
+    return <Search title="Search for user" selectedUser={onSelect} actionText="Show" />;
 }

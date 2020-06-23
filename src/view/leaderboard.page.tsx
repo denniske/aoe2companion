@@ -359,10 +359,6 @@ const styles = StyleSheet.create({
         padding: padding,
         flex: 1.5,
     },
-    cellCountry: {
-        padding: padding,
-        width: 30,
-    },
     cellName: {
         padding: padding,
         flex: 4,
