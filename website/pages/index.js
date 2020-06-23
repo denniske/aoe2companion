@@ -18,9 +18,13 @@ export default function Home() {
                             <img src="/app-button-play-store.png" className="app-button app-button-play-store" />
                         </a>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="https://apps.apple.com/app/id1489505410">
+                        {/*<a href="https://apps.apple.com/app/id1489505410">*/}
+                        <div style={{textAlign: 'center', opacity: 0.7}}>
                             <img src="/app-button-app-store.png" className="app-button app-button-app-store" />
-                        </a>
+                            <br/>
+                            (in near future)
+                        </div>
+                        {/*</a>*/}
                     </div>
                     <div className="flex-container flex-row align-center github-section">
                         <a target="_blank" href="https://github.com/denniske/aoe2companion" className="github"></a>
