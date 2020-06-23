@@ -12,7 +12,7 @@ export default function AboutPage() {
     const linkTo = useLinkTo();
     const [updateManifest, setUpdateManifest] = useState<Manifest>();
     const [updating, setUpdating] = useState(false);
-    const [updateModalVisible, setUpdateModalVisible] = useState(true);
+    const [updateModalVisible, setUpdateModalVisible] = useState(false);
 
     const init = async () => {
         const update = await checkForUpdateAsync();
