@@ -36,7 +36,7 @@ export default function Home() {
                     </div>
                     <div className="flex-container flex-row justify-content-center">
                         <div className="legal">
-                            Data from <a href="https://aoe2.net">aoe2.net</a>
+                            Data from <a href="https://aoe2.net" target="_blank">aoe2.net</a>
                             <br/>
                             <br/>
                             This site is not affiliated with or endorsed by Microsoft Corporation. Age
