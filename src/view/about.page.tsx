@@ -55,7 +55,7 @@ export default function AboutPage() {
 
             {
                 updateManifest &&
-                <Button onPress={fetchUpdate}>Update to {updateManifest.version}</Button>
+                <Button onPress={fetchUpdate} mode="contained" dark={true}>Update to {updateManifest.version}</Button>
             }
             {
                 updating &&
@@ -70,7 +70,7 @@ export default function AboutPage() {
                                 <Text/>
                                 <View style={styles.buttonRow}>
                                     <Button style={styles.button} onPress={closeUpdateModal} mode="outlined">Restart Later</Button>
-                                    <Button style={styles.button} onPress={update} mode="contained">Restart</Button>
+                                    <Button style={styles.button} onPress={update} mode="contained" dark={true}>Restart</Button>
                                 </View>
                             </View>
                         </TouchableWithoutFeedback>
