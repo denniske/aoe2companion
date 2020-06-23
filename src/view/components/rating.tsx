@@ -1,11 +1,10 @@
-import { StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import { VictoryChart, VictoryLine, VictoryScatter, VictoryTheme } from "victory-native";
-import { getLeaderboardAbbr } from '../../helper/util';
-import ContentLoader, { Rect } from 'react-content-loader/native'
-import { getLeaderboardColor } from '../../helper/colors';
-import { IRatingHistoryRow } from '../../service/rating';
-import { getString } from '../../helper/strings';
+import {VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTheme} from "victory-native";
+import {formatDateShort, getLeaderboardAbbr, parseUnixTimestamp} from '../../helper/util';
+import ContentLoader, {Rect} from 'react-content-loader/native'
+import {getLeaderboardColor} from '../../helper/colors';
+import {IRatingHistoryRow} from '../../service/rating';
 
 interface IRatingProps {
     ratingHistories: IRatingHistoryRow[];
@@ -49,11 +48,18 @@ export default function Rating({ratingHistories}: IRatingProps) {
     }
 
     const themeWithSystemFont = replaceRobotoWithSystemFont({...VictoryTheme.material});
-    // console.log('theme', themeWithSystemFont);
+
+    // We need to supply our custom tick formatter because otherwise victory native will
+    // print too much ticks on the x-axis.
+    const formatTick = (tick: any, index: number, ticks: any[]) => {
+        return formatDateShort(parseUnixTimestamp(ticks[index]/1000));
+    };
 
     return (
             <View style={styles.container}>
                 <VictoryChart width={350} height={350} theme={themeWithSystemFont} padding={{left: 50, bottom: 50, top: 20, right: 30}}>
+                    <VictoryAxis crossAxis tickFormat={formatTick} />
+                    <VictoryAxis dependentAxis crossAxis />
                     {
                         ratingHistories.map(ratingHistory => (
                                 <VictoryLine
