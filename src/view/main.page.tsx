@@ -86,13 +86,6 @@ function MainHome() {
                                             <View>
                                                 <Text/>
                                                 <Button mode="outlined" ref={generateTestHook('abc')} onPress={deleteUser}>This is not me</Button>
-                                                {
-                                                    __DEV__ &&
-                                                    <View>
-                                                        <Text/>
-                                                        {/*<Button mode="outlined" onPress={() => capture(navigation)}>Capture</Button>*/}
-                                                    </View>
-                                                }
                                             </View>
                                         );
                                     default:
