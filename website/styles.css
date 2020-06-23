@@ -30,6 +30,7 @@ h1, h3 {
 
 .phone-container {
     width: 400px;
+    max-width: 90vw;
 }
 
 .spacer {
@@ -37,13 +38,11 @@ h1, h3 {
     height: 50px;
 }
 
-.app-button {
-    /*display: block;*/
-    /*height: 168px;*/
-    height: 60px;
-}
-
 /* MOBILE */
+
+.app-button {
+    height: 50px;
+}
 
 .container {
     max-width: 960px;
@@ -64,6 +63,10 @@ h1, h3 {
 
 @media (min-width: 992px) {
 
+    .app-button {
+        height: 60px;
+    }
+
     .container {
         max-width: 960px;
     }
@@ -83,7 +86,7 @@ h1, h3 {
 .app-button-play-store {
     /*width: 564px;*/
     /*background-image: url("public/app-button-play-store.png");*/
-    height: 59px;
+    /*height: 59px;*/
 }
 
 .app-button-app-store {
@@ -112,8 +115,20 @@ h1, h3 {
     flex: 1;
 }
 
+.legal {
+    font-size: 0.8em;
+    width: 415px;
+    margin-top: 50px;
+    text-align: justify;
+    max-width: 90vw;
+}
+
 .align-center {
     align-items: center;
+}
+
+.justify-content-center {
+    justify-content: center;
 }
 
 .github {

@@ -1,5 +1,6 @@
 import AspectRatio from 'react-aspect-ratio';
 import Layout from "../components/layout";
+import React from "react";
 
 export default function Home() {
     return (
@@ -13,11 +14,14 @@ export default function Home() {
                     <h3>Track your games now.</h3>
                     <br/>
 
-                    <div className="flex-container flex-row">
+                    <div className="flex-container flex-row justify-content-center">
                         <a href="https://play.google.com/store/apps/details?id=com.aoe2companion">
                             <img src="/app-button-play-store.png" className="app-button app-button-play-store" />
                         </a>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {/*<a href="https://apps.apple.com/app/id1489505410">*/}
+                        {/*    <img src="/app-button-app-store.png" className="app-button app-button-app-store" />*/}
+                        {/*</a>*/}
                         {/*<a href="https://apps.apple.com/app/id1489505410">*/}
                         <div style={{textAlign: 'center', opacity: 0.7}}>
                             <img src="/app-button-app-store.png" className="app-button app-button-app-store" />
@@ -29,6 +33,16 @@ export default function Home() {
                     <div className="flex-container flex-row align-center github-section">
                         <a target="_blank" href="https://github.com/denniske/aoe2companion" className="github"></a>
                         <a target="_blank" href="https://github.com/denniske/aoe2companion" className="text-link">Visit this project on Github</a>
+                    </div>
+                    <div className="flex-container flex-row justify-content-center">
+                        <div className="legal">
+                            Data from <a href="https://aoe2.net">aoe2.net</a>
+                            <br/>
+                            <br/>
+                            This site is not affiliated with or endorsed by Microsoft Corporation. Age
+                            of Empires II: HD and Age of Empires II: Definitive Edition are trademarks or
+                            registered trademarks of Microsoft Corporation in the U.S. and other countries.
+                        </div>
                     </div>
                 </div>
 
