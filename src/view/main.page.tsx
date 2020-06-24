@@ -45,7 +45,7 @@ function MainHome() {
             loadProfile, 'aoe2de', auth
     );
 
-    const list = ['profile', 'rating', 'not-me'];
+    const list = ['profile', 'rating-header', 'rating', 'not-me'];
 
     const deleteUser = () => {
         Alert.alert("Delete Me?", "Do you want to reset me page?",
@@ -77,6 +77,8 @@ function MainHome() {
                             data={list}
                             renderItem={({item, index}) => {
                                 switch (item) {
+                                    case 'rating-header':
+                                        return <Text style={styles.sectionHeader}>Rating History</Text>;
                                     case 'rating':
                                         return <Rating ratingHistories={rating.data}/>;
                                     case 'profile':
@@ -223,6 +225,13 @@ export default function MainPage() {
 }
 
 const styles = StyleSheet.create({
+    sectionHeader: {
+        marginTop: 20,
+        marginBottom: 20,
+        fontSize: 15,
+        fontWeight: '500',
+        textAlign: 'center',
+    },
     loadMoreIndicator: {
         paddingTop: 50,
         paddingBottom: 30,

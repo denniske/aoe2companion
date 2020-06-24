@@ -7,6 +7,10 @@ import ContentLoader, { Rect } from 'react-content-loader/native';
 import { getCivIcon } from '../../helper/civs';
 import {Flag, getFlagIcon} from '../../helper/flags';
 import {ILeaderboard} from "../../helper/data";
+import {composeUserId} from "../../helper/user";
+import {Button} from "react-native-paper";
+import {ImageLoader} from "../loader/image-loader";
+import {TextLoader} from "../loader/text-loader";
 
 interface ILeaderboardRowProps {
     data: ILeaderboard;
@@ -19,14 +23,14 @@ function LeaderboardRow({data}: ILeaderboardRowProps) {
 
     return (
             <View style={styles.row}>
+                <Text style={StyleSheet.flatten([styles.cellLeaderboard, color])}>
+                    {getLeaderboardAbbr(data.leaderboard_id)}
+                </Text>
                 <Text style={StyleSheet.flatten([styles.cellRank, color])}>
                     #{leaderboardInfo.rank}
                 </Text>
                 <Text style={StyleSheet.flatten([styles.cellRating, color])}>
                     {leaderboardInfo.rating}
-                </Text>
-                <Text style={StyleSheet.flatten([styles.cellLeaderboard, color])}>
-                    {getLeaderboardAbbr(data.leaderboard_id)}
                 </Text>
                 <Text style={StyleSheet.flatten([styles.cellGames, color])}>
                     {leaderboardInfo.games}
@@ -55,51 +59,62 @@ interface IProfileProps {
     data: IProfile;
 }
 
-const MyLoader = () => {
-    return (
-            <ContentLoader viewBox="0 0 350 150" width={350} height={150}>
-                <Rect x="0" y="0" rx="3" ry="3" width="100" height="20"/>
-                <Rect x="0" y="30" rx="3" ry="3" width="200" height="20"/>
-                <Rect x="0" y="70" rx="3" ry="3" width="350" height="20"/>
-                <Rect x="0" y="100" rx="3" ry="3" width="350" height="20"/>
-                <Rect x="0" y="130" rx="3" ry="3" width="350" height="20"/>
-            </ContentLoader>
-    )
-};
-
 export default function Profile({data}: IProfileProps) {
-    if (!data) {
-        return <View style={styles.container}><MyLoader/></View>;
-    }
-
     return (
             <View style={styles.container}>
                 <View>
-                    {/*<Text>{data.steam_id} {data.profile_id}</Text>*/}
 
                     <View style={styles.row}>
+                        <ImageLoader style={styles.countryIcon} source={getFlagIcon(data?.country)}/>
+                        <TextLoader ready={data}>{data?.name}</TextLoader>
                         {
-                            data.country &&
-                            <Image style={styles.countryIcon} source={getFlagIcon(data.country)}/>
+                            data?.clan &&
+                            <Text> (Clan{':'} {data?.clan})</Text>
                         }
-                        <Text>{data.name}</Text>
+
+                        {/*<Text>{data.steam_id} {data.profile_id}</Text>*/}
+                        {/*<Button*/}
+                        {/*    labelStyle={{fontSize: 13, marginVertical: 0}}*/}
+                        {/*    contentStyle={{height: 22}}*/}
+                        {/*    onPress={() => {}}*/}
+                        {/*    mode="contained"*/}
+                        {/*    compact*/}
+                        {/*    uppercase={false}*/}
+                        {/*    dark={true}*/}
+                        {/*>*/}
+                        {/*    Steam*/}
+                        {/*</Button>*/}
                     </View>
 
-                    <Text>{data.games} Games, {data.drops} Drops ({(data.drops / data.games).toFixed(2)}%)</Text>
+                    <View style={styles.row}>
+                        <TextLoader ready={data}>{data?.games} Games, {data?.drops} Drops ({(data?.drops / data?.games).toFixed(2)}%)</TextLoader>
+                    </View>
 
                     <Text/>
 
                     <View style={styles.row}>
-                        <Text style={styles.cellRank}>Elo</Text>
-                        <Text style={styles.cellRating}/>
                         <Text style={styles.cellLeaderboard}/>
+                        <Text style={styles.cellRank}>Rank</Text>
+                        <Text style={styles.cellRating}>Rating</Text>
                         <Text style={styles.cellGames}>Games</Text>
                         <Text style={styles.cellLastMatch}>Last Match</Text>
                     </View>
 
                     {
-                        data.leaderboards.map(leaderboard =>
+                        data?.leaderboards.map(leaderboard =>
                                 <LeaderboardRow key={leaderboard.leaderboard_id} data={leaderboard}/>
+                        )
+                    }
+
+                    {
+                        !data && Array(2).fill(0).map((a, i) =>
+                            <View key={i} style={styles.row}>
+                                <TextLoader style={styles.cellLeaderboard}/>
+                                <TextLoader style={styles.cellRank}/>
+                                <TextLoader style={styles.cellRating}/>
+                                <TextLoader style={styles.cellGames}/>
+                                <TextLoader style={styles.cellLastMatch}/>
+                            </View>
                         )
                     }
                 </View>
@@ -110,16 +125,20 @@ export default function Profile({data}: IProfileProps) {
 
 const styles = StyleSheet.create({
     cellLeaderboard: {
-        width: 100,
+        width: 80,
+        marginRight: 8,
     },
     cellRank: {
         width: 60,
+        marginRight: 8,
     },
     cellRating: {
-        width: 40,
+        width: 50,
+        marginRight: 8,
     },
     cellGames: {
         width: 60,
+        marginRight: 8,
     },
     cellLastMatch: {
         flex: 1,
@@ -128,9 +147,10 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         alignItems: 'center',
+        paddingVertical: 4,
     },
     container: {
-        marginBottom: 12,
+        // marginBottom: 12,
         // backgroundColor: 'red',
     },
     countryIcon: {

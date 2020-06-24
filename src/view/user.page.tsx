@@ -10,6 +10,7 @@ import { useApi } from '../hooks/use-api';
 import { loadRatingHistories } from '../service/rating';
 import { loadProfile } from '../service/profile';
 import { Game } from './components/game';
+import {IMatch} from "../helper/data";
 
 
 type Props = {
@@ -59,7 +60,7 @@ export default function UserPage() {
             fetchMatches, 'aoe2de', 0, 10, auth
     );
 
-    const list = ['profile', 'rating', 'matches-header', ...(matches.data || [])];
+    const list = ['profile', 'rating-header', 'rating', 'matches-header', ...(matches.data || [])];
 
     return (
             <View style={styles.container}>
@@ -71,12 +72,14 @@ export default function UserPage() {
                             data={list}
                             renderItem={({item, index}) => {
                                 switch (item) {
-                                    case 'rating':
-                                        return <Rating ratingHistories={rating.data}/>;
                                     case 'profile':
                                         return <Profile data={profile.data}/>;
+                                    case 'rating-header':
+                                        return <Text style={styles.sectionHeader}>Rating History</Text>;
+                                    case 'rating':
+                                        return <Rating ratingHistories={rating.data}/>;
                                     case 'matches-header':
-                                        return <Text style={styles.matchesHeader}>Matches</Text>;
+                                        return <Text style={styles.sectionHeader}>Match History</Text>;
                                     default:
                                         return <Game data={item as IMatch} expanded={false}/>;
                                 }
@@ -90,10 +93,11 @@ export default function UserPage() {
 }
 
 const styles = StyleSheet.create({
-    matchesHeader: {
+    sectionHeader: {
         marginTop: 20,
         marginBottom: 20,
         fontSize: 15,
+        fontWeight: '500',
         textAlign: 'center',
     },
     list: {

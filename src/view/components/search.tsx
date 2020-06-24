@@ -38,9 +38,8 @@ function Player({player, selectedUser, actionText}: IPlayerProps) {
                     <Text style={styles.cellGames}>{player.games}</Text>
                     <View style={styles.cellAction}>
                         <Button
-                            style={{padding: 0, margin: 0}}
-                            labelStyle={{fontSize: 13, padding: 0, margin: 0, marginVertical: 0}}
-                            contentStyle={{height: 22, padding: 0, margin: 0}}
+                            labelStyle={{fontSize: 13, marginVertical: 0}}
+                            contentStyle={{height: 22}}
                             onPress={onSelect}
                             mode="contained"
                             compact

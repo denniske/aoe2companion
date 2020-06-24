@@ -15,6 +15,8 @@ import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs
 import {TabBarLabel} from "./main.page";
 import {getString} from "../helper/strings";
 import {IconButton} from "react-native-paper";
+import {TextLoader} from "./loader/text-loader";
+import {ImageLoader} from "./loader/image-loader";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -39,59 +41,6 @@ export default function LeaderboardPage() {
         </Tab.Navigator>
     );
 }
-
-function ImageLoader(props: ImageProps) {
-    if (props.source == null) {
-        return (
-            <View {...props} style={[props.style, { height: 'auto', flexDirection: 'row', backgroundColor: 'white', display: 'flex'}]}>
-                <View style={[{backgroundColor: '#ECE9ED', borderRadius: 5, flexDirection: 'row'}]}>
-                    <Text style={{color: '#ECE9ED'}} numberOfLines={1}>....................................</Text>
-                </View>
-            </View>
-        );
-    }
-    return (
-        <Image {...props}/>
-    )
-}
-
-
-type TextLoaderProps = TextProps & { children?: React.ReactNode }
-
-function TextLoader(props: TextLoaderProps) {
-    // console.log("text loader", props);
-    const { children, ...rest } = props;
-    // console.log('rest', rest);
-
-    // flex: 1.5, padding: 8,
-
-    if (props.children == null) {
-        return (
-            <View {...rest} style={[rest.style, { flexDirection: 'row', backgroundColor: 'white', display: 'flex'}]}>
-                <View style={[{backgroundColor: '#ECE9ED', borderRadius: 5, flexDirection: 'row'}]}>
-                    <Text style={{color: '#ECE9ED'}} numberOfLines={1}>....................................</Text>
-                </View>
-            </View>
-        );
-        // return (
-        //     <View {...rest}>
-        //         <View style={[{backgroundColor: '#ECE9ED', borderRadius: 5, flex: 1}]}/>
-        //     </View>
-        // );
-        // return (
-        //     <View style={{flexDirection: 'row', backgroundColor: 'red', width: '100%'}}>
-        //   <Text {...rest}>nulfsdfl</Text>
-        //     </View>
-        // );
-        // return (
-        //   <Text {...rest}>null</Text>
-        // );
-    }
-    return (
-        <Text {...props}/>
-    )
-}
-
 
 const window = Dimensions.get("window");
 const screen = Dimensions.get("screen");
