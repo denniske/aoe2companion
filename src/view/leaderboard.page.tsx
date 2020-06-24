@@ -110,67 +110,13 @@ export function Leaderboard({leaderboardId} : any) {
 
     const list = [...(players.data?.leaderboard || Array(perPage).fill(null))];
     // const list = [...(players.data?.leaderboard) || [], ...Array(2).fill(null)];
-
+    // const list = [...(players.data?.leaderboard || Array(0).fill(null))];
     console.log("list", list);
 
-    // const list = [...(players.data?.leaderboard || Array(0).fill(null))];
-
     const _renderRow = (player: any, i: number) => {
-        // if (player == null) {
-        //     return (
-        //         <View style={styles.innerRow}>
-        //             <Text style={styles.cellRating} numberOfLines={1}>{player.rating}</Text>
-        //             <View style={styles.cellName}>
-        //                 <Image style={styles.countryIcon} source={getFlagIcon(player.country)}/>
-        //                 <Text style={styles.name} numberOfLines={1}>{player.name}</Text>
-        //             </View>
-        //             <Text style={styles.cellGames}>{player.games}</Text>
-        //             {/*<Text style={styles.cellWins}>{player.wins}</Text>*/}
-        //         </View>
-        //     );
-        // }
-
-        // composeUserId(player)
-
         return (
-            <TouchableHighlight style={styles.row} key={i}
-                                onPress={() => onSelect(player)} underlayColor="white">
+            <TouchableHighlight style={styles.row} key={i} onPress={() => onSelect(player)} underlayColor="white">
                 <View style={styles.innerRow}>
-
-
-                    {/*<ContentLoader animate={false} style={{backgroundColor: 'white', paddingVertical: 2, width: '100%', height: '100%'}}>*/}
-                    {/*    <Rect x="0" y="0" rx="3" ry="3" width="100%" height="100%"/>*/}
-                    {/*</ContentLoader>*/}
-
-                    {/*viewBox="0 0 100 26"*/}
-                    {/*<View style={[styles.cellRank, {backgroundColor: 'white', height: 40}]}>*/}
-                    {/*    <ContentLoader animate={false} style={{backgroundColor: 'white', paddingVertical: 2, width: '100%', height: '100%'}}>*/}
-                    {/*        <Rect x="0" y="0" rx="3" ry="3" width="100%" height="100%"/>*/}
-                    {/*    </ContentLoader>*/}
-                    {/*</View>*/}
-
-
-                    {/*<Text style={styles.cellRank} numberOfLines={1}>#{player?.rank}</Text>*/}
-
-
-                    {/*<View style={[styles.cellRank, {backgroundColor: 'white'}]}>*/}
-                    {/*    <View style={[{backgroundColor: '#ECE9ED', borderRadius: 5, flex: 1}]}/>*/}
-                    {/*</View>*/}
-
-                    {/*<View style={[styles.cellRating, {backgroundColor: 'white'}]}>*/}
-                    {/*    <View style={[{backgroundColor: '#ECE9ED', borderRadius: 5, flex: 1}]}/>*/}
-                    {/*</View>*/}
-                    {/*<View style={[styles.cellName2, {backgroundColor: 'white'}]}>*/}
-                    {/*    <View style={[{backgroundColor: '#ECE9ED', borderRadius: 5, flex: 1}]}/>*/}
-                    {/*</View>*/}
-
-                    {/*<View style={[styles.cellGames, {backgroundColor: 'white'}]}>*/}
-                    {/*    <View style={[{backgroundColor: '#ECE9ED', borderRadius: 5, flex: 1}]}/>*/}
-                    {/*</View>*/}
-
-                    {/*<Text style={styles.cellRating} numberOfLines={1}>{player.rating}</Text>*/}
-
-
                     <TextLoader style={styles.cellRank}>{player?.rank}</TextLoader>
                     <TextLoader style={styles.cellRating}>{player?.rating}</TextLoader>
                     <View style={styles.cellName}>
@@ -178,36 +124,9 @@ export function Leaderboard({leaderboardId} : any) {
                         <TextLoader style={styles.name} numberOfLines={1}>{player?.name}</TextLoader>
                     </View>
                     <TextLoader style={styles.cellGames}>{player?.games}</TextLoader>
-
-                    {/*{*/}
-                    {/*    (player == null || player?.games < 500) &&*/}
-                    {/*    <TextLoader style={styles.cellGames}></TextLoader>*/}
-                    {/*}*/}
-                    {/*{*/}
-                    {/*    player?.games >= 500 &&*/}
-                    {/*    <TextLoader style={styles.cellGames}>{player?.games}</TextLoader>*/}
-                    {/*}*/}
-
-
                 </View>
             </TouchableHighlight>
         );
-        // return (
-        //     <TouchableHighlight style={styles.row} key={composeUserId(player)}
-        //                         onPress={() => onSelect(player)} underlayColor="white"
-        //                         ref={generateTestHook('Leaderboard.Player.' + composeUserId(player))}>
-        //         <View style={styles.innerRow}>
-        //             <Text style={styles.cellRank} numberOfLines={1}>{player.rank}</Text>
-        //             <Text style={styles.cellRating} numberOfLines={1}>{player.rating}</Text>
-        //             <View style={styles.cellName}>
-        //                 <Image style={styles.countryIcon} source={getFlagIcon(player.country)}/>
-        //                 <Text style={styles.name} numberOfLines={1}>{player.name}</Text>
-        //             </View>
-        //             <Text style={styles.cellGames}>{player.games}</Text>
-        //             {/*<Text style={styles.cellWins}>{player.wins}</Text>*/}
-        //         </View>
-        //     </TouchableHighlight>
-        // );
     };
 
     return (
@@ -257,13 +176,6 @@ export function Leaderboard({leaderboardId} : any) {
                     disabled={!canNext}
                     onPress={nextPage}
                 />
-
-                {/*<TouchableFeedback style={styles.arrowIcon} onPress={previousPage} disabled={!canPrevious} underlayColor="white">*/}
-                {/*    <Icon name={'chevron-left'} color={canPrevious ? 'black' : 'grey'} size={24}/>*/}
-                {/*</TouchableFeedback>*/}
-                {/*<TouchableFeedback style={styles.arrowIcon} onPress={nextPage} disabled={!canNext} underlayColor="white">*/}
-                {/*    <Icon name={'chevron-right'} color={canNext ? 'black' : 'grey'} size={24}/>*/}
-                {/*</TouchableFeedback>*/}
             </View>
         </View>
     );

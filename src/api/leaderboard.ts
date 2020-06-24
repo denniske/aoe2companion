@@ -29,11 +29,12 @@ export async function fetchLeaderboard(game: string, leaderboard_id: number, par
         leaderboard_id,
         ...params,
     });
+    // console.log("fetchLeaderboard", `https://aoe2.net/api/leaderboard?${queryString}`);
     const response = await fetch(`https://aoe2.net/api/leaderboard?${queryString}`);
     try {
         const json = await response.json();
-        console.log("fetchLeaderboard", leaderboard_id, params, json);
-        console.log("fetchLeaderboard response", json);
+        // console.log("fetchLeaderboard", leaderboard_id, params, json);
+        // console.log("fetchLeaderboard response", json);
         return convertTimestampsToDates(json);
     } catch (e) {
         console.log("FAILED", `https://aoe2.net/api/leaderboard?${queryString}`);
