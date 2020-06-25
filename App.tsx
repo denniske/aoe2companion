@@ -5,7 +5,7 @@
 // });
 
 import 'react-native-gesture-handler';
-import {NavigationContainer} from '@react-navigation/native';
+import {DefaultTheme as NavigationDefaultTheme, NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import MainPage from './src/view/main.page';
 import {Image, Linking, Platform, StyleSheet, Text, TouchableOpacity, View, YellowBox} from 'react-native';
@@ -20,7 +20,7 @@ import {loadSettingsFromStorage} from './src/service/storage';
 import AboutPage from './src/view/about.page';
 import store from './src/redux/store';
 import {Provider as ReduxProvider} from 'react-redux';
-import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
+import {DefaultTheme as PaperDefaultTheme, Provider as PaperProvider} from 'react-native-paper';
 import {useSelector} from './src/redux/reducer';
 import SearchPage from './src/view/search.page';
 import PrivacyPage from './src/view/privacy.page';
@@ -261,18 +261,26 @@ function ConditionalTester({children}: any) {
 }
 
 const customPaperTheme = {
-    ...DefaultTheme,
+    ...PaperDefaultTheme,
     // roundness: 2,
     colors: {
-        ...DefaultTheme.colors,
+        ...PaperDefaultTheme.colors,
         primary: '#3498db',
         // accent: '#f1c40f',
     },
 };
 
+const customNavigationTheme = {
+    ...NavigationDefaultTheme,
+    colors: {
+        ...NavigationDefaultTheme.colors,
+        background: 'white'
+    },
+};
+
 export default function App() {
     return (
-        <NavigationContainer linking={linking}>
+        <NavigationContainer theme={customNavigationTheme} linking={linking}>
             <ConditionalTester>
                 <ReduxProvider store={store}>
                     <PaperProvider theme={customPaperTheme}>

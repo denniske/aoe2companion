@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
-    Linking, Modal, StyleSheet, Text, TouchableHighlight, TouchableOpacity, TouchableWithoutFeedback, View
+    Linking, Modal, ScrollView, StyleSheet, Text, TouchableHighlight, TouchableOpacity, TouchableWithoutFeedback, View
 } from 'react-native';
 import Constants from 'expo-constants';
 import {useLinkTo} from '@react-navigation/native';
@@ -28,6 +28,7 @@ export default function AboutPage() {
     });
 
     const fetchUpdate = async () => {
+        setUpdating(true);
         await fetchUpdateAsync();
         setUpdateModalVisible(true);
         setUpdating(false);
@@ -42,7 +43,7 @@ export default function AboutPage() {
     };
 
     return (
-        <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
             <Text style={styles.title}>AoE II Companion</Text>
 
             <Text style={styles.heading}>Created by</Text>
@@ -58,7 +59,10 @@ export default function AboutPage() {
 
             {
                 updateManifest &&
-                <Button onPress={fetchUpdate} mode="contained" dark={true}>Update to {updateManifest.version}</Button>
+                <View>
+                    <Text/>
+                    <Button onPress={fetchUpdate} mode="contained" dark={true}>Update to {updateManifest.version}</Button>
+                </View>
             }
             {
                 updating &&
@@ -104,13 +108,17 @@ export default function AboutPage() {
             </View>
 
             <Text style={styles.heading}>Legal</Text>
+            <Text/>
             <View style={styles.row}>
                 <TouchableOpacity onPress={() => linkTo('/privacy')}>
                     <Text style={styles.link}>Privacy Policy</Text>
                 </TouchableOpacity>
             </View>
 
-            <View style={styles.expanded}/>
+            {/*<View style={styles.expanded}/>*/}
+
+            <Text/>
+            <Text/>
 
             <Text style={styles.textJustify}>
                 This app was created under Microsoft's "
@@ -122,7 +130,7 @@ export default function AboutPage() {
                 of Empires II: HD and Age of Empires II: Definitive Edition are trademarks or
                 registered trademarks of Microsoft Corporation in the U.S. and other countries.
             </Text>
-        </View>
+        </ScrollView>
     );
 }
 
@@ -163,7 +171,7 @@ const styles = StyleSheet.create({
         color: '#397AF9',
     },
     container: {
-        flex: 1,
+        // flex: 1,
         backgroundColor: 'white',
         alignItems: 'center',
         padding: 20,
