@@ -103,10 +103,13 @@ export default function AboutPage() {
 
             <View style={styles.expanded}/>
 
-            <Text style={styles.textJustify}>This app is not affiliated with or endorsed by Microsoft Corporation. Age
+            {/*https://www.xbox.com/en-us/developers/rules*/}
+            <Text style={styles.textJustify}>
+                This app was created under Microsoft's "Game Content Usage Rules" using assets from Age of Empires II.
+                This app is not affiliated with or endorsed by Microsoft Corporation. Age
                 of Empires II: HD and Age of Empires II: Definitive Edition are trademarks or
-                registered trademarks of Microsoft Corporation in the U.S. and other countries.</Text>
-
+                registered trademarks of Microsoft Corporation in the U.S. and other countries.
+            </Text>
         </View>
     );
 }
