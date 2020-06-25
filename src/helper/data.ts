@@ -1,4 +1,5 @@
 import {Flag} from "./flags";
+import {AoeMap} from "./maps";
 
 export interface IPlayer {
     civ: number;
@@ -35,7 +36,7 @@ export interface IMatchRaw {
     lock_speed: boolean;
     lock_teams: boolean;
     map_size: number;
-    map_type: number;
+    map_type: AoeMap;
     match_id: string;
     match_uuid: string;
     name: string;

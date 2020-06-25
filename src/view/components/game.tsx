@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import { getString } from '../../helper/strings';
 import { formatAgo } from '../../helper/util';
 import React, { useState } from 'react';
@@ -6,6 +6,9 @@ import { Player } from './player';
 import MyListAccordion from './accordion';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import OverlayContainer from './overlay-container';
+import {IMatch} from "../../helper/data";
+import {getCivIcon} from "../../helper/civs";
+import {getMapImage} from "../../helper/maps";
 
 interface IGameProps {
     data: IMatch;
@@ -63,10 +66,13 @@ export function Game({data, expanded}: IGameProps) {
                             <MyListAccordion
                                     expanded={expanded}
                                     left={props => (
-                                            <View>
-                                                <Text style={styles.matchTitle}>{getString('map_type', data.map_type)} - {data.match_id} - {data.server}</Text>
-                                                <Text>{getString('leaderboard', data.leaderboard_id)}</Text>
-                                                <Text>{data.started ? formatAgo(data.started):'none'}</Text>
+                                            <View style={styles.row}>
+                                                <Image style={styles.map} source={getMapImage(data.map_type)} />
+                                                <View>
+                                                    <Text style={styles.matchTitle}>{getString('map_type', data.map_type)} - {data.match_id} - {data.server}</Text>
+                                                    <Text>{getString('leaderboard', data.leaderboard_id)}</Text>
+                                                    <Text>{data.started ? formatAgo(data.started):'none'}</Text>
+                                                </View>
                                             </View>
                                     )}
                             >
@@ -96,6 +102,14 @@ export function Game({data, expanded}: IGameProps) {
 }
 
 const styles = StyleSheet.create({
+    map: {
+        marginRight: 10,
+        width: 50,
+        height: 50,
+    },
+    row: {
+        flexDirection: 'row',
+    },
     matchTitle: {
         fontWeight: 'bold',
     },
