@@ -125,20 +125,20 @@ export default function Profile({data}: IProfileProps) {
 
 const styles = StyleSheet.create({
     cellLeaderboard: {
-        width: 80,
-        marginRight: 8,
+        width: 70,
+        marginRight: 5,
     },
     cellRank: {
         width: 60,
-        marginRight: 8,
+        marginRight: 5,
     },
     cellRating: {
         width: 50,
-        marginRight: 8,
+        marginRight: 5,
     },
     cellGames: {
         width: 60,
-        marginRight: 8,
+        marginRight: 5,
     },
     cellLastMatch: {
         flex: 1,

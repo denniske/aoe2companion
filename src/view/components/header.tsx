@@ -6,13 +6,9 @@ import Icon5 from 'react-native-vector-icons/FontAwesome5';
 import {useNavigation} from '@react-navigation/native';
 import {IconButton, Menu} from 'react-native-paper';
 import {RootStackParamList, RootStackProp} from '../../../App';
-import {useCavy} from "cavy";
 
 export default function Header() {
-    const generateTestHook = useCavy();
-
     const [menu, setMenu] = useState(false);
-
     const navigation = useNavigation<RootStackProp>();
 
     const nav = async (route: keyof RootStackParamList) => {
@@ -34,35 +30,30 @@ export default function Header() {
                         size={18}
                         icon={({size, color}) => (<Icon name="search" color={color} size={size}/>)}
                         onPress={() => nav('Search')}
-                        ref={generateTestHook('Header.Search') as any}
                     />
                     <IconButton
                         style={styles.menuButton}
                         size={18}
                         icon={({size, color}) => (<Icon name="user" color={color} size={size}/>)}
                         onPress={() => nav('Main')}
-                        ref={generateTestHook('Header.User') as any}
                     />
                     <IconButton
                         style={styles.menuButton}
                         size={18}
                         icon={({size, color}) => (<Icon name="trophy" color={color} size={size}/>)}
                         onPress={() => nav('Leaderboard')}
-                        ref={generateTestHook('Header.Leaderboard') as any}
                     />
                     <IconButton
                         style={styles.menuButton}
                         size={18}
                         icon={({size, color}) => (<Icon5 name="landmark" color={color} size={size}/>)}
                         onPress={() => nav('Civ')}
-                        ref={generateTestHook('Header.Civ') as any}
                     />
                     <IconButton
                         style={styles.menuButton}
                         size={18}
                         icon={({size, color}) => (<Icon name="graduation-cap" color={color} size={size}/>)}
                         onPress={() => nav('Guide')}
-                        ref={generateTestHook('Header.Guide') as any}
                     />
                     <Menu
                             visible={menu}

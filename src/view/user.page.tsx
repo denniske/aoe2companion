@@ -13,16 +13,8 @@ import { Game } from './components/game';
 import {IMatch} from "../helper/data";
 
 
-type Props = {
-    navigation: StackNavigationProp<RootStackParamList, 'Main'>;
-    route: RouteProp<RootStackParamList, 'Main'>;
-};
-
 export default function UserPage() {
     const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
-
-    // console.log("==> ON RENDER UserPage", route.params.id);
-
     const auth = route.params.id;
 
     const rating = useApi(

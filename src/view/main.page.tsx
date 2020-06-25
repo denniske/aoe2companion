@@ -62,8 +62,6 @@ function MainHome() {
         mutate(setAuth(null))
     };
 
-    // console.log("==> ON RENDER MainHome", rating.loading, profile.loading);
-
     return (
             <View style={styles.container}>
                 <View style={styles.content}>
@@ -104,7 +102,6 @@ function MainHome() {
 
 
 function MainMatches() {
-    // console.log("==> ON RENDER MainMatches");
     const [refetching, setRefetching] = useState(false);
     const [fetchingMore, setFetchingMore] = useState(false);
 
@@ -123,24 +120,22 @@ function MainMatches() {
     );
 
     const onRefresh = async () => {
-        console.log('onReload');
+        // console.log('onReload');
         setRefetching(true);
         await matches.reload();
         setRefetching(false);
-        console.log('onReload DONE');
+        // console.log('onReload DONE');
     };
 
     const onEndReached = async () => {
-        console.log('endReached TRY');
+        // console.log('endReached TRY');
         if (fetchingMore) return;
-        console.log('endReached');
+        // console.log('endReached');
         setFetchingMore(true);
         await matches.refetch('aoe2de', 0, (matches.data?.length ?? 0) + 15, auth);
         setFetchingMore(false);
-        console.log('endReached DONE');
+        // console.log('endReached DONE');
     };
-
-    // console.log(matches.data);
 
     const list = [...(matches.data || Array(15).fill(null))];
 
@@ -177,12 +172,7 @@ function MainMatches() {
     );
 }
 
-// export type MainTabParamList = {
-//     MainHome: { };
-//     MainMatches: { };
-// };
-
-const Tab = createMaterialTopTabNavigator();//<MainTabParamList>();
+const Tab = createMaterialTopTabNavigator();
 
 export function TabBarLabel({ title, focused, color }: any) {
     const navigation = useNavigation();

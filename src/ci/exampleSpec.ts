@@ -24,24 +24,24 @@ export default function(spec: any) {
 
       await sleep(1000);
 
+      const navigation = await spec.findComponent('Navigation');
+
       await spec.exists('Search.Input');
       await spec.fillIn('Search.Input', 'baal');
       await sleep(waitTime);
-      await capture();
+      // await capture();
       await sleep(1000);
 
       await spec.exists('Search.Player.76561197995781128-209525');
       await spec.press('Search.Player.76561197995781128-209525');
       await sleep(waitTime);
-      await capture();
+      // await capture();
 
-      const navigation = await spec.findComponent('Navigation');
       navigation.navigate('MainMatches');
       await sleep(waitTime);
-      await capture();
+      // await capture();
 
-      await spec.exists('Header.Search');
-      await spec.press('Header.Search');
+      navigation.navigate('Search');
       await sleep(1000);
 
       await spec.exists('Search.Input');
@@ -51,7 +51,7 @@ export default function(spec: any) {
       await spec.exists('Search.Player.76561198116899512-336655');
       await spec.press('Search.Player.76561198116899512-336655');
       await sleep(waitTime);
-      await capture();
+      // await capture();
     });
   });
 }
