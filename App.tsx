@@ -8,7 +8,7 @@ import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import MainPage from './src/view/main.page';
-import {StyleSheet, Text, View, YellowBox} from 'react-native';
+import {Linking, StyleSheet, Text, TouchableOpacity, View, YellowBox} from 'react-native';
 import Search from './src/view/components/search';
 import {createStackNavigator, HeaderBackground, StackNavigationProp} from '@react-navigation/stack';
 import Header from './src/view/components/header';
@@ -28,6 +28,7 @@ import {AppLoading} from "expo";
 import {Tester, TestHookStore} from "cavy";
 import ExampleSpec from './src/ci/exampleSpec';
 import LeaderboardPage from "./src/view/leaderboard.page";
+import GuidePage from "./src/view/guide.page";
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -71,6 +72,7 @@ export type RootStackParamList = {
     About: undefined;
     Main: undefined;
     Leaderboard: undefined;
+    Guide: undefined;
     User: { id: UserId, name: string };
     Search: { name: string };
 };
@@ -91,6 +93,14 @@ const headerStatusBarHeight = 30 + Constants.statusBarHeight;
 //         </View>
 //     );
 // }
+
+function LinkTitle(props: any) {
+    return (
+        <TouchableOpacity onPress={() => Linking.openURL('https://buildorderguide.com')}>
+            <Text style={styles.link}>buildorderguide.com</Text>
+        </TouchableOpacity>
+    );
+}
 
 export function InnerApp() {
     const auth = useSelector(state => state.auth);
@@ -141,6 +151,17 @@ export function InnerApp() {
                 component={LeaderboardPage}
                 options={{
                     title: 'Leaderboard',
+                    headerStatusBarHeight: headerStatusBarHeight,
+                    headerBackground: () => (
+                        <HeaderBackground><Header/></HeaderBackground>
+                    ),
+                }}
+            />
+            <Stack.Screen
+                name="Guide"
+                component={GuidePage}
+                options={{
+                    headerTitle: props => <LinkTitle {...props} />,
                     headerStatusBarHeight: headerStatusBarHeight,
                     headerBackground: () => (
                         <HeaderBackground><Header/></HeaderBackground>
@@ -234,6 +255,9 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+    link: {
+        color: '#397AF9',
+    },
     // menu: {
     //     flexDirection: 'row',
     // },

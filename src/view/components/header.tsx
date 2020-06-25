@@ -31,13 +31,6 @@ export default function Header() {
                     <IconButton
                         style={styles.menuButton}
                         size={18}
-                        icon={({size, color}) => (<Icon name="trophy" color={color} size={size}/>)}
-                        onPress={() => nav('Leaderboard')}
-                        ref={generateTestHook('Header.Leaderboard') as any}
-                    />
-                    <IconButton
-                        style={styles.menuButton}
-                        size={18}
                         icon={({size, color}) => (<Icon name="search" color={color} size={size}/>)}
                         onPress={() => nav('Search')}
                         ref={generateTestHook('Header.Search') as any}
@@ -48,6 +41,20 @@ export default function Header() {
                         icon={({size, color}) => (<Icon name="user" color={color} size={size}/>)}
                         onPress={() => nav('Main')}
                         ref={generateTestHook('Header.User') as any}
+                    />
+                    <IconButton
+                        style={styles.menuButton}
+                        size={18}
+                        icon={({size, color}) => (<Icon name="trophy" color={color} size={size}/>)}
+                        onPress={() => nav('Leaderboard')}
+                        ref={generateTestHook('Header.Leaderboard') as any}
+                    />
+                    <IconButton
+                        style={styles.menuButton}
+                        size={18}
+                        icon={({size, color}) => (<Icon name="graduation-cap" color={color} size={size}/>)}
+                        onPress={() => nav('Guide')}
+                        ref={generateTestHook('Header.Guide') as any}
                     />
                     <Menu
                             visible={menu}

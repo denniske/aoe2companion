@@ -49,6 +49,9 @@ export default function AboutPage() {
             <Text style={styles.content}>Dennis Keil</Text>
             <Text style={styles.content}>Niklas Ohlrogge</Text>
 
+            <Text style={styles.heading}>Contributors</Text>
+            <Text style={styles.content}>Johannes Berger</Text>
+
             <Text style={styles.heading}>Version</Text>
             <Text
                 style={styles.content}>{Constants.manifest.releaseChannel || 'dev'}-{Constants.manifest.version}n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}</Text>
@@ -88,7 +91,7 @@ export default function AboutPage() {
 
             <Text/>
             <View style={styles.row}>
-                <Text style={styles.content}>Icons from </Text>
+                <Text style={styles.content}>Flag Icons from </Text>
                 <TouchableOpacity onPress={() => Linking.openURL('https://github.com/madebybowtie/FlagKit')}>
                     <Text style={styles.link}>FlagKit</Text>
                 </TouchableOpacity>
