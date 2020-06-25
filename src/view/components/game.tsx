@@ -69,9 +69,9 @@ export function Game({data, expanded}: IGameProps) {
                                             <View style={styles.row}>
                                                 <Image style={styles.map} source={getMapImage(data.map_type)} />
                                                 <View>
-                                                    <Text style={styles.matchTitle}>{getString('map_type', data.map_type)} - {data.match_id} - {data.server}</Text>
-                                                    <Text>{getString('leaderboard', data.leaderboard_id)}</Text>
-                                                    <Text>{data.started ? formatAgo(data.started):'none'}</Text>
+                                                    <Text numberOfLines={1} style={styles.matchTitle}>{getString('map_type', data.map_type)} - {data.match_id} - {data.server}</Text>
+                                                    <Text numberOfLines={1}>{getString('leaderboard', data.leaderboard_id)}</Text>
+                                                    <Text numberOfLines={1}>{data.started ? formatAgo(data.started):'none'}</Text>
                                                 </View>
                                             </View>
                                     )}
