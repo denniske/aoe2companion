@@ -2,6 +2,7 @@ import {Image, Platform, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import Constants from 'expo-constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon5 from 'react-native-vector-icons/FontAwesome5';
 import {useNavigation} from '@react-navigation/native';
 import {IconButton, Menu} from 'react-native-paper';
 import {RootStackParamList, RootStackProp} from '../../../App';
@@ -48,6 +49,13 @@ export default function Header() {
                         icon={({size, color}) => (<Icon name="trophy" color={color} size={size}/>)}
                         onPress={() => nav('Leaderboard')}
                         ref={generateTestHook('Header.Leaderboard') as any}
+                    />
+                    <IconButton
+                        style={styles.menuButton}
+                        size={18}
+                        icon={({size, color}) => (<Icon5 name="landmark" color={color} size={size}/>)}
+                        onPress={() => nav('Civ')}
+                        ref={generateTestHook('Header.Civ') as any}
                     />
                     <IconButton
                         style={styles.menuButton}

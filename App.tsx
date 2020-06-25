@@ -8,7 +8,7 @@ import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import MainPage from './src/view/main.page';
-import {Linking, StyleSheet, Text, TouchableOpacity, View, YellowBox} from 'react-native';
+import {Image, Linking, Platform, StyleSheet, Text, TouchableOpacity, View, YellowBox} from 'react-native';
 import Search from './src/view/components/search';
 import {createStackNavigator, HeaderBackground, StackNavigationProp} from '@react-navigation/stack';
 import Header from './src/view/components/header';
@@ -29,6 +29,8 @@ import {Tester, TestHookStore} from "cavy";
 import ExampleSpec from './src/ci/exampleSpec';
 import LeaderboardPage from "./src/view/leaderboard.page";
 import GuidePage from "./src/view/guide.page";
+import CivPage from "./src/view/civ.page";
+import {civs, getCivIcon} from "./src/helper/civs";
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -63,6 +65,9 @@ const linking = {
         Leaderboard: {
             path: 'leaderboard',
         },
+        Civ: {
+            path: 'civ/:civ',
+        },
     },
 };
 
@@ -72,6 +77,7 @@ export type RootStackParamList = {
     About: undefined;
     Main: undefined;
     Leaderboard: undefined;
+    Civ: { civ: string };
     Guide: undefined;
     User: { id: UserId, name: string };
     Search: { name: string };
@@ -100,6 +106,18 @@ function LinkTitle(props: any) {
             <Text style={styles.link}>buildorderguide.com</Text>
         </TouchableOpacity>
     );
+}
+
+function CivTitle(props: any) {
+    if (props.route?.params?.civ) {
+        return (
+            <View style={styles.civRow}>
+                <Image style={styles.icon} source={getCivIcon(civs.indexOf(props.route?.params?.civ))}/>
+                <Text style={styles.title}>{props.route.params?.civ}</Text>
+            </View>
+        );
+    }
+    return <Text style={styles.title}>Civs</Text>
 }
 
 export function InnerApp() {
@@ -156,6 +174,18 @@ export function InnerApp() {
                         <HeaderBackground><Header/></HeaderBackground>
                     ),
                 }}
+            />
+            <Stack.Screen
+                name="Civ"
+                component={CivPage}
+                options={props => ({
+                    headerTitle: props2 => <CivTitle {...props} />,
+                    // title: props.route.params?.civ || 'Civs',
+                    headerStatusBarHeight: headerStatusBarHeight,
+                    headerBackground: () => (
+                        <HeaderBackground><Header/></HeaderBackground>
+                    ),
+                })}
             />
             <Stack.Screen
                 name="Guide"
@@ -258,6 +288,33 @@ const styles = StyleSheet.create({
     link: {
         color: '#397AF9',
     },
+    civRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    icon: {
+        marginRight: 5,
+        width: 30,
+        height: 30,
+    },
+
+    // From react-navigation HeaderTitle.tsx
+    title: Platform.select({
+        ios: {
+            fontSize: 17,
+            fontWeight: '600',
+        },
+        android: {
+            fontSize: 20,
+            fontFamily: 'sans-serif-medium',
+            fontWeight: 'normal',
+        },
+        default: {
+            fontSize: 18,
+            fontWeight: '500',
+        },
+    }),
+
     // menu: {
     //     flexDirection: 'row',
     // },

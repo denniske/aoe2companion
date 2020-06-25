@@ -81,7 +81,7 @@ export default function AboutPage() {
                 </TouchableWithoutFeedback>
             </Modal>
 
-            <Text/>
+            <Text style={styles.heading}>Source</Text>
             <View style={styles.row}>
                 <Text style={styles.content}>Data from </Text>
                 <TouchableOpacity onPress={() => Linking.openURL('https://aoe2.net')}>
@@ -89,7 +89,13 @@ export default function AboutPage() {
                 </TouchableOpacity>
             </View>
 
-            <Text/>
+            <View style={styles.row}>
+                <Text style={styles.content}>Game info from </Text>
+                <TouchableOpacity onPress={() => Linking.openURL('https://github.com/SiegeEngineers/aoe2techtree')}>
+                    <Text style={styles.link}>aoe2techtree</Text>
+                </TouchableOpacity>
+            </View>
+
             <View style={styles.row}>
                 <Text style={styles.content}>Flag Icons from </Text>
                 <TouchableOpacity onPress={() => Linking.openURL('https://github.com/madebybowtie/FlagKit')}>
@@ -97,7 +103,7 @@ export default function AboutPage() {
                 </TouchableOpacity>
             </View>
 
-            <Text/>
+            <Text style={styles.heading}>Legal</Text>
             <View style={styles.row}>
                 <TouchableOpacity onPress={() => linkTo('/privacy')}>
                     <Text style={styles.link}>Privacy Policy</Text>
