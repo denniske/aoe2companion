@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
     content: {
         marginBottom: 5,
         textAlign: 'left',
+        lineHeight: 20,
     },
     detailsContainer: {
         flex: 1,
