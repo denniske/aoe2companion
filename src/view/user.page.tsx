@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../App';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { fetchMatches } from '../api/matches';
@@ -11,9 +10,13 @@ import { loadRatingHistories } from '../service/rating';
 import { loadProfile } from '../service/profile';
 import { Game } from './components/game';
 import {IMatch} from "../helper/data";
+import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
 
 
 export default function UserPage() {
+    const [refetching, setRefetching] = useState(false);
+    const [fetchingMore, setFetchingMore] = useState(false);
+
     const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
     const auth = route.params.id;
 
@@ -52,14 +55,32 @@ export default function UserPage() {
             fetchMatches, 'aoe2de', 0, 10, auth
     );
 
-    const list = ['profile', 'rating-header', 'rating', 'matches-header', ...(matches.data || [])];
+    const onRefresh = async () => {
+        setRefetching(true);
+        await Promise.all([rating.reload(), profile.reload(), matches.reload()]);
+        setRefetching(false);
+    };
+
+    const onEndReached = async () => {
+        if (fetchingMore) return;
+        setFetchingMore(true);
+        await matches.refetch('aoe2de', 0, (matches.data?.length ?? 0) + 15, auth);
+        setFetchingMore(false);
+    };
+
+    const list = ['profile', 'rating-header', 'rating', 'matches-header', ...(matches.data || Array(15).fill(null))];
+
+    const _renderFooter = () => {
+        if (!fetchingMore) return null;
+        return <FlatListLoadingIndicator />;
+    };
 
     return (
             <View style={styles.container}>
                 <View style={styles.content}>
                     <FlatList
-                            onRefresh={() => { rating.reload(); profile.reload(); matches.reload(); }}
-                            refreshing={rating.loading || profile.loading || matches.loading}
+                            onRefresh={onRefresh}
+                            refreshing={refetching}
                             style={styles.list}
                             data={list}
                             renderItem={({item, index}) => {
@@ -77,6 +98,9 @@ export default function UserPage() {
                                 }
 
                             }}
+                            ListFooterComponent={_renderFooter}
+                            onEndReached={onEndReached}
+                            onEndReachedThreshold={0.1}
                             keyExtractor={(item, index) => index.toString()}
                     />
                 </View>

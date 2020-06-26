@@ -12,11 +12,11 @@ import {RootStackProp} from "../../App";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {useLazyApi} from "../hooks/use-lazy-api";
 import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
-import {TabBarLabel} from "./main.page";
 import {getString} from "../helper/strings";
 import {IconButton} from "react-native-paper";
 import {TextLoader} from "./loader/text-loader";
 import {ImageLoader} from "./loader/image-loader";
+import {TabBarLabel} from "./components/tab-bar-label";
 
 const Tab = createMaterialTopTabNavigator();
 

@@ -14,6 +14,8 @@ import Rating from './components/rating';
 import {fetchMatches} from '../api/matches';
 import {useNavigation} from "@react-navigation/native";
 import {useCavy} from "cavy";
+import {TabBarLabel} from "./components/tab-bar-label";
+import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
 
 
 function MainHome() {
@@ -120,32 +122,23 @@ function MainMatches() {
     );
 
     const onRefresh = async () => {
-        // console.log('onReload');
         setRefetching(true);
         await matches.reload();
         setRefetching(false);
-        // console.log('onReload DONE');
     };
 
     const onEndReached = async () => {
-        // console.log('endReached TRY');
         if (fetchingMore) return;
-        // console.log('endReached');
         setFetchingMore(true);
         await matches.refetch('aoe2de', 0, (matches.data?.length ?? 0) + 15, auth);
         setFetchingMore(false);
-        // console.log('endReached DONE');
     };
 
     const list = [...(matches.data || Array(15).fill(null))];
 
     const _renderFooter = () => {
         if (!fetchingMore) return null;
-        return (
-            <View style={styles.loadMoreIndicator}>
-                <ActivityIndicator animating size="large" />
-            </View>
-        );
+        return <FlatListLoadingIndicator />;
     };
 
     return (
@@ -173,13 +166,6 @@ function MainMatches() {
 }
 
 const Tab = createMaterialTopTabNavigator();
-
-export function TabBarLabel({ title, focused, color }: any) {
-    const navigation = useNavigation();
-    return (
-        <Text style={{fontSize: 13, color: color}} onPress={() => navigation.navigate(title)} >{title.toUpperCase()}</Text>
-    );
-}
 
 export default function MainPage() {
     const auth = useSelector(state => state.auth);
@@ -221,11 +207,6 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: '500',
         textAlign: 'center',
-    },
-    loadMoreIndicator: {
-        paddingTop: 50,
-        paddingBottom: 30,
-        justifyContent: 'center',
     },
     outlineButton: {
         backgroundColor: 'red',
