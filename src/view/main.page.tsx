@@ -152,7 +152,7 @@ function MainMatches() {
                             renderItem={({item, index}) => {
                                 switch (item) {
                                     default:
-                                        return <Game data={item as any} expanded={index === 0}/>;
+                                        return <Game data={item as any} expanded={index === -1}/>;
                                 }
                             }}
                             ListFooterComponent={_renderFooter}

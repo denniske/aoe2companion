@@ -25,9 +25,9 @@ export default function MyListAccordion(props: Props) {
     const handlePress = () => setExpanded(!expanded);
 
     return (
-            <View>
+            <View style={style}>
                 <TouchableRipple
-                        style={[styles.container, style]}
+                        style={[styles.container]}
                         onPress={handlePress}
                         accessibilityTraits="button"
                         accessibilityComponentType="button"
@@ -43,7 +43,7 @@ export default function MyListAccordion(props: Props) {
                     </View>
                 </TouchableRipple>
 
-                <View style={styles.row}>
+                <View style={styles.row2}>
                     {expanded
                             ? React.Children.map(children, child => {
                                 if (React.isValidElement(child)) {
@@ -61,11 +61,17 @@ export default function MyListAccordion(props: Props) {
 
 const styles = StyleSheet.create({
     container: {
-        paddingBottom: 10,
+        // paddingBottom: 10,
+        // backgroundColor: 'red',
     },
     row: {
         flexDirection: 'row',
         alignItems: 'center',
+    },
+    row2: {
+        flexDirection: 'row',
+        // backgroundColor: 'green'
+
     },
     multiline: {
         height: 40,
@@ -79,13 +85,16 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
     item: {
+        // backgroundColor: 'purple',
         margin: 0,
     },
     child: {
-        paddingBottom: 20,
+        // paddingBottom: 20,
     },
     content: {
         flex: 1,
-        justifyContent: 'center',
+        // alignItems: 'center',
+        // justifyContent: 'center',
+        marginRight: 10,
     },
 });

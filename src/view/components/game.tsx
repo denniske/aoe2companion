@@ -1,117 +1,127 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
-import { getString } from '../../helper/strings';
-import { formatAgo } from '../../helper/util';
-import React, { useState } from 'react';
-import { Player } from './player';
+import {getString} from '../../helper/strings';
+import {formatAgo} from '../../helper/util';
+import React from 'react';
+import {Player, PlayerSkeleton} from './player';
 import MyListAccordion from './accordion';
-import ContentLoader, { Rect } from 'react-content-loader/native';
-import OverlayContainer from './overlay-container';
+import ContentLoader, {Rect} from 'react-content-loader/native';
 import {IMatch} from "../../helper/data";
-import {getCivIcon} from "../../helper/civs";
 import {getMapImage} from "../../helper/maps";
+import {TextLoader} from "../loader/text-loader";
+import {ImageLoader} from "../loader/image-loader";
+import {ViewLoader} from "../loader/view-loader";
 
 interface IGameProps {
     data: IMatch;
     expanded: boolean;
 }
 
-const MyLoader = ({expanded}: any) => {
-    if (expanded) {
-        return (
-                <ContentLoader viewBox="0 0 350 300" width={350} height={300}>
-                    <Rect x="0" y={0 * 20 + 3} rx="3" ry="3" width="200" height="15"/>
-                    <Rect x="0" y={1 * 20 + 3} rx="3" ry="3" width="150" height="15"/>
-                    <Rect x="0" y={2 * 20 + 3} rx="3" ry="3" width="100" height="15"/>
-                    <Rect x="326" y={15} rx="3" ry="3" width="25" height="25"/>
-
-                    <Rect x="0" y={0 * 26 + 74} rx="3" ry="3" width="170" height="15"/>
-                    <Rect x="0" y={1 * 26 + 74} rx="3" ry="3" width="170" height="15"/>
-                    <Rect x="0" y={2 * 26 + 74} rx="3" ry="3" width="170" height="15"/>
-                    <Rect x="235" y={0 * 26 + 74} rx="3" ry="3" width={350-235} height="15"/>
-                    <Rect x="235" y={1 * 26 + 74} rx="3" ry="3" width={350-235} height="15"/>
-                    <Rect x="235" y={2 * 26 + 74} rx="3" ry="3" width={350-235} height="15"/>
-                    <Rect x="155" y={155} rx="3" ry="3" width="25" height="25"/>
-                    <Rect x="0" y={0 * 26 + 198} rx="3" ry="3" width="170" height="15"/>
-                    <Rect x="0" y={1 * 26 + 198} rx="3" ry="3" width="170" height="15"/>
-                    <Rect x="0" y={2 * 26 + 198} rx="3" ry="3" width="170" height="15"/>
-                    <Rect x="235" y={0 * 26 + 198} rx="3" ry="3" width={350-235} height="15"/>
-                    <Rect x="235" y={1 * 26 + 198} rx="3" ry="3" width={350-235} height="15"/>
-                    <Rect x="235" y={2 * 26 + 198} rx="3" ry="3" width={350-235} height="15"/>
-                </ContentLoader>
-        );
-    } else {
-        return (
-                <ContentLoader viewBox="0 0 350 65" width={350} height={65}>
-                    <Rect x="0" y={0 * 20 + 3} rx="3" ry="3" width="200" height="15"/>
-                    <Rect x="0" y={1 * 20 + 3} rx="3" ry="3" width="150" height="15"/>
-                    <Rect x="0" y={2 * 20 + 3} rx="3" ry="3" width="100" height="15"/>
-                    <Rect x="326" y={15} rx="3" ry="3" width="25" height="25"/>
-                </ContentLoader>
-        );
-    }
-};
-
 export function Game({data, expanded}: IGameProps) {
-    if (!data) {
-        return <View><MyLoader expanded={expanded}/></View>;
+    const playersInTeam1 = data?.players.filter(p => p.team == 1) || Array(3).fill(0);
+    const playersInTeam2 = data?.players.filter(p => p.team == 2) || Array(3).fill(0);
+
+    if (data == null) {
+        return (
+            <View>
+                <MyListAccordion
+                    style={styles.accordion}
+                    expanded={expanded}
+                    left={props => (
+                        <View style={styles.row}>
+                            <ImageLoader style={styles.map}/>
+                            <View style={styles.header}>
+                                <TextLoader numberOfLines={1}
+                                            style={[styles.matchTitle, {marginVertical: 2, height: 10}]}/>
+                                <TextLoader numberOfLines={1}
+                                            style={[styles.matchContent, {marginVertical: 2, height: 10}]}/>
+                                <TextLoader numberOfLines={1}
+                                            style={[styles.matchContent, {marginVertical: 2, height: 10}]}/>
+                            </View>
+                        </View>
+                    )}
+                >
+                    <View style={styles.playerList}>
+                        {
+                            playersInTeam1.map((player, i) => <PlayerSkeleton key={i}/>)
+                        }
+                        <ViewLoader style={[styles.versus, {backgroundColor: '#ECE9ED'}]}/>
+                        {
+                            playersInTeam2.map((player, i) => <PlayerSkeleton key={i}/>)
+                        }
+                    </View>
+                </MyListAccordion>
+            </View>
+        );
     }
 
-    const playersInTeam1 = data.players.filter(p => p.team == 1);
-    const playersInTeam2 = data.players.filter(p => p.team == 2);
 
     return (
-            // <OverlayContainer behind={<MyLoader expanded={expanded}/>} front={
-
-                        <View>
-                            <MyListAccordion
-                                    expanded={expanded}
-                                    left={props => (
-                                            <View style={styles.row}>
-                                                <Image style={styles.map} source={getMapImage(data.map_type)} />
-                                                <View>
-                                                    <Text numberOfLines={1} style={styles.matchTitle}>{getString('map_type', data.map_type)} - {data.match_id} - {data.server}</Text>
-                                                    <Text numberOfLines={1}>{getString('leaderboard', data.leaderboard_id)}</Text>
-                                                    <Text numberOfLines={1}>{data.started ? formatAgo(data.started):'none'}</Text>
-                                                </View>
-                                            </View>
-                                    )}
-                            >
-                                <View>
-                                    {
-                                        playersInTeam1.map((v, i) =>
-                                                <Player key={playersInTeam1[i].profile_id} player={playersInTeam1[i]}/>
-                                        )
-                                    }
-
-                                    <View style={styles.versus}>
-                                        <Text style={styles.versusText}>VS</Text>
-                                    </View>
-
-                                    {
-                                        playersInTeam2.map((v, i) =>
-                                                <Player key={playersInTeam2[i].profile_id} player={playersInTeam2[i]}/>
-                                        )
-                                    }
-                                </View>
-                            </MyListAccordion>
-                        </View>
-
-            // }></OverlayContainer>
-
+        <MyListAccordion
+            style={styles.accordion}
+            expanded={expanded}
+            left={props => (
+                <View style={styles.row}>
+                    <Image style={styles.map} source={getMapImage(data.map_type)}/>
+                    <View style={styles.header}>
+                        <Text numberOfLines={1} style={styles.matchTitle}>
+                            {getString('map_type', data.map_type)} - {data.match_id} - {data.server}
+                        </Text>
+                        <Text numberOfLines={1} style={styles.matchContent}>
+                            {getString('leaderboard', data.leaderboard_id)}
+                        </Text>
+                        <Text numberOfLines={1} style={styles.matchContent}>
+                            {data.started ? formatAgo(data.started) : 'none'}
+                        </Text>
+                    </View>
+                </View>
+            )}
+        >
+            <View style={styles.playerList}>
+                {
+                    playersInTeam1.map((player, i) => <Player key={i} player={player}/>)
+                }
+                <View style={styles.versus}>
+                    <Text style={styles.versusText}>VS</Text>
+                </View>
+                {
+                    playersInTeam2.map((player, i) => <Player key={i} player={player}/>)
+                }
+            </View>
+        </MyListAccordion>
     );
 }
 
 const styles = StyleSheet.create({
+    accordion: {
+        // backgroundColor: 'yellow',
+        paddingBottom: 20,
+    },
+    header: {
+        // backgroundColor: 'red',
+        flex: 1,
+    },
     map: {
         marginRight: 10,
         width: 50,
         height: 50,
     },
     row: {
+        // backgroundColor: 'purple',
         flexDirection: 'row',
     },
     matchTitle: {
         fontWeight: 'bold',
+        flex: 1,
+        // paddingVertical: 2,
+    },
+    matchContent: {
+        flex: 1,
+        // marginVertical: 2,
+    },
+    playerList: {
+        flex: 1,
+        paddingTop: 20,
+        // backgroundColor: 'purple'
     },
     versus: {
         borderRadius: 10000,
