@@ -98,12 +98,18 @@ export default function Rating({ratingHistories}: IRatingProps) {
                 <View style={styles.legend}>
                     {
                         (ratingHistories || Array(2).fill(0)).map((ratingHistory, i) => (
-                                <TextLoader
-                                        key={'legend-' + i}
-                                        style={{paddingHorizontal: 10, paddingVertical: 5, fontSize: 12, color: getLeaderboardColor(ratingHistory.leaderboard_id)}}
-                                >
-                                    {getLeaderboardAbbr(ratingHistory.leaderboard_id)}
-                                </TextLoader>
+                            <TextLoader
+                                width={100}
+                                key={'legend-' + i}
+                                style={{
+                                    paddingHorizontal: 10,
+                                    paddingVertical: 5,
+                                    fontSize: 12,
+                                    color: getLeaderboardColor(ratingHistory.leaderboard_id)
+                                }}
+                            >
+                                {getLeaderboardAbbr(ratingHistory.leaderboard_id)}
+                            </TextLoader>
                         ))
                     }
                 </View>

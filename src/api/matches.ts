@@ -22,7 +22,7 @@ export interface IFetchMatchesParams {
 
 export async function fetchMatches(game: string, start: number, count: number, params: IFetchMatchesParams): Promise<IMatch[]> {
     console.log('fetchMatches', start, count);
-    await sleep(7000);
+    // await sleep(7000);
 
     const start2 = new Date();
 
