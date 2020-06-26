@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { useLazyApi } from '../../hooks/use-lazy-api';
 import { loadRatingHistories } from '../../service/rating';
-import { Image, Modal, StyleSheet, Text, TextStyle, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native';
+import {
+    Image, Modal, StyleSheet, Text, TextStyle, TouchableHighlight, TouchableOpacity, TouchableWithoutFeedback, View
+} from 'react-native';
 import { getPlayerBackgroundColor } from '../../helper/colors';
 import { AppSettings } from '../../helper/constants';
 import Rating from './rating';
 import { useNavigation } from '@react-navigation/native';
 import { userIdFromBase } from '../../helper/user';
-import { getCivIcon } from '../../helper/civs';
+import {civs, getCivIcon} from '../../helper/civs';
 import { getString } from '../../helper/strings';
 import { RootStackProp } from '../../../App';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -75,8 +77,12 @@ export function Player({player}: IPlayerProps) {
                     <Text style={playerNameStyle}>{player.name}</Text>
                 </TouchableHighlight>
 
-                <Image style={styles.countryIcon} source={getCivIcon(player.civ)}/>
-                <Text> {getString('civ', player.civ)}</Text>
+                <TouchableOpacity onPress={() => navigation.push('Civ', { civ: civs[player.civ] })}>
+                    <View style={styles.row}>
+                        <Image style={styles.countryIcon} source={getCivIcon(player.civ)}/>
+                        <Text> {getString('civ', player.civ)}</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
     );
 }
@@ -104,6 +110,10 @@ const styles = StyleSheet.create({
     playerName: {
         marginLeft: 5,
         width: 140,
+    },
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     countryIcon: {
         width: 20,

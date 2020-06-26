@@ -39,11 +39,11 @@ export function CivList() {
             <View style={styles.civContainer}>
                 {
                     civs.map((civ, i) =>
-                        <TouchableOpacity key={civ} onPress={() => navigation.push('Civ', { civ })}>
-                        <View style={styles.civBlock}>
-                            <Image style={styles.icon} source={getCivIcon(i)}/>
-                            <Text style={styles.name}>{civ}</Text>
-                        </View>
+                        <TouchableOpacity key={civ} onPress={() => navigation.push('Civ', {civ})}>
+                            <View style={styles.civBlock}>
+                                <Image style={styles.icon} source={getCivIcon(i)}/>
+                                <Text style={styles.name}>{civ}</Text>
+                            </View>
                         </TouchableOpacity>
                     )
                 }
