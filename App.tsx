@@ -80,7 +80,12 @@ export type RootStackParamList = {
     Civ: { civ: string };
     Guide: undefined;
     User: { id: UserId, name: string };
-    Search: { name: string };
+    Search: { name?: string };
+};
+
+export type RootTabParamList = {
+    MainHome: undefined;
+    MainMatches: undefined;
 };
 
 export type RootStackProp = StackNavigationProp<RootStackParamList, 'Main'>;
@@ -179,8 +184,8 @@ export function InnerApp() {
                 name="Civ"
                 component={CivPage}
                 options={props => ({
+                    headerBackTitle: 'Civs',
                     headerTitle: props2 => <CivTitle {...props} />,
-                    // title: props.route.params?.civ || 'Civs',
                     headerStatusBarHeight: headerStatusBarHeight,
                     headerBackground: () => (
                         <HeaderBackground><Header/></HeaderBackground>

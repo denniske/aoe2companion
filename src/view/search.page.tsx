@@ -7,6 +7,8 @@ import { RootStackProp } from '../../App';
 export default function SearchPage() {
     const navigation = useNavigation<RootStackProp>();
 
+// navigation.navigate('Civ', {civ: })
+
     const onSelect = async (user: UserInfo) => {
         navigation.push('User', {
             id: user,
