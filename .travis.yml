@@ -159,7 +159,10 @@ jobs:
         - npx expo upload:ios
             --non-interactive
             --path app.ipa
+            --apple-id $EXPO_APPLE_ID
+            --apple-id-password $EXPO_APPLE_ID_PASSWORD
 
+#            --itc-team-id $EXPO_APPLE_TEAM_ID
 
 
     - stage: deploy standalone apps
@@ -186,8 +189,9 @@ jobs:
         - aws s3 cp s3://$AWS_BUCKET/`basename $ARTIFACT_PATH` app.aab
         - ls -al
         - npx expo upload:android
-            --non-interactive
             --path app.aab
+
+#            --non-interactive
 
 
 
