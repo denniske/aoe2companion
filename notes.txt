@@ -1,6 +1,7 @@
 
 
 git tag v1.0.2 && git push --tags
+git tag -d v6.0.0 && git push --delete origin v6.0.0
 
 defaults read -g com.apple.keyboard.fnState
 defaults write -g com.apple.keyboard.fnState true
