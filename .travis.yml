@@ -192,7 +192,7 @@ jobs:
         - aws s3 cp s3://$AWS_BUCKET/`basename $ARTIFACT_PATH` app.ipa
         - ls -al
         - cd ios
-        - fastlane build_and_deploy_testflight
+        - travis_wait 30 fastlane build_and_deploy_testflight
 
 
 
