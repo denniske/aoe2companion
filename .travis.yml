@@ -157,7 +157,6 @@ jobs:
         - aws s3 cp s3://$AWS_BUCKET/`basename $ARTIFACT_PATH` app.ipa
         - ls -al
         - npx expo upload:ios
-            --verbose
             --non-interactive
             --path app.ipa
             --apple-id $EXPO_APPLE_ID
@@ -194,8 +193,7 @@ jobs:
             --verbose
             --path app.aab
             --key play-store-service-account.json
-
-#            --non-interactive
+            --track production
 
 
 
