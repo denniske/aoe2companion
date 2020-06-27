@@ -133,6 +133,39 @@ jobs:
 #    # Deploy iOS
 #    ####################################
 #
+
+#    - stage: deploy standalone apps
+#      os: osx
+#      osx_image: xcode11.2
+#      language: node_js
+#      node_js: "12.13"
+##      if: tag =~ ^v.+.0.0$
+#      env:
+#        - CACHE_NAME=deploy-ios YARN_CACHE_FOLDER="/Users/travis/yarn_cache"
+#      cache:
+#        directories:
+#          - $HOME/yarn_cache
+#      before_install:
+#        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
+#        - export PATH="$HOME/.yarn/bin:$PATH"
+#      install:
+#        - pip install --user awscli
+#        - export PATH=/Users/travis/Library/Python/2.7/bin:$PATH
+#        - yarn global add expo-cli
+#      script:
+#        - export ARTIFACT_PATH="/home/travis/expo-project-d48ea335d22aa9a651e5bf5d264f47fcd57d01b3.ipa"
+#        - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD --non-interactive
+#        - aws s3 cp s3://$AWS_BUCKET/`basename $ARTIFACT_PATH` app.ipa
+#        - ls -al
+#        - npx expo upload:ios
+#            --non-interactive
+#            --path app.ipa
+#            --apple-id $EXPO_APPLE_ID
+#            --apple-id-password $EXPO_APPLE_ID_PASSWORD
+#            --itc-team-id $EXPO_APPLE_TEAM_ID
+
+
+
     - stage: deploy standalone apps
       os: osx
       osx_image: xcode11.2
@@ -143,6 +176,7 @@ jobs:
         - CACHE_NAME=deploy-ios YARN_CACHE_FOLDER="/Users/travis/yarn_cache"
       cache:
         directories:
+          - $HOME/.turtle
           - $HOME/yarn_cache
       before_install:
         - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
@@ -150,18 +184,15 @@ jobs:
       install:
         - pip install --user awscli
         - export PATH=/Users/travis/Library/Python/2.7/bin:$PATH
-        - yarn global add expo-cli
+        - yarn global add turtle-cli@$TURTLE_VERSION
       script:
-        - export ARTIFACT_PATH="/home/travis/expo-project-d48ea335d22aa9a651e5bf5d264f47fcd57d01b3.ipa"
-        - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD --non-interactive
+        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT.ipa"
+        - turtle setup:ios --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
         - aws s3 cp s3://$AWS_BUCKET/`basename $ARTIFACT_PATH` app.ipa
         - ls -al
-        - npx expo upload:ios
-            --non-interactive
-            --path app.ipa
-            --apple-id $EXPO_APPLE_ID
-            --apple-id-password $EXPO_APPLE_ID_PASSWORD
-            --itc-team-id $EXPO_APPLE_TEAM_ID
+        - cd ios
+        - fastlane build_and_deploy_testflight
+
 
 
     - stage: deploy standalone apps
@@ -169,7 +200,7 @@ jobs:
       osx_image: xcode11.2
       language: node_js
       node_js: "12.13"
-#      if: tag =~ ^v.+.0.0$
+      if: tag =~ ^v.+.0.0$
       env:
         - CACHE_NAME=deploy-android YARN_CACHE_FOLDER="/Users/travis/yarn_cache"
       cache:

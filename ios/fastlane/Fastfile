@@ -63,7 +63,7 @@ platform :ios do
 
     #if options[:upload]
     pilot(
-        ipa: '../expo-project-cfa0.ipa',
+        ipa: '../app.ipa',
         skip_waiting_for_build_processing: true
     )
     #end
