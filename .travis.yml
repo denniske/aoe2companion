@@ -157,12 +157,12 @@ jobs:
         - aws s3 cp s3://$AWS_BUCKET/`basename $ARTIFACT_PATH` app.ipa
         - ls -al
         - npx expo upload:ios
+            --verbose
             --non-interactive
             --path app.ipa
             --apple-id $EXPO_APPLE_ID
             --apple-id-password $EXPO_APPLE_ID_PASSWORD
-
-#            --itc-team-id $EXPO_APPLE_TEAM_ID
+            --itc-team-id $EXPO_APPLE_TEAM_ID
 
 
     - stage: deploy standalone apps
@@ -187,9 +187,13 @@ jobs:
         - export ARTIFACT_PATH="/home/travis/expo-project-d48ea335d22aa9a651e5bf5d264f47fcd57d01b3.aab"
         - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD --non-interactive
         - aws s3 cp s3://$AWS_BUCKET/`basename $ARTIFACT_PATH` app.aab
+        - echo $FASTLANE_SERVICE_ACCOUNT_BASE64 > play-store-service-account.json.base64
+        - base64 --decode play-store-service-account.json.base64 > play-store-service-account.json
         - ls -al
         - npx expo upload:android
+            --verbose
             --path app.aab
+            --key play-store-service-account.json
 
 #            --non-interactive
 
