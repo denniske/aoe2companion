@@ -186,7 +186,8 @@ jobs:
         - export PATH=/Users/travis/Library/Python/2.7/bin:$PATH
         - yarn global add turtle-cli@$TURTLE_VERSION
       script:
-        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT.ipa"
+#        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT.ipa"
+        - export ARTIFACT_PATH="/Users/travis/expo-project-d48ea335d22aa9a651e5bf5d264f47fcd57d01b3.ipa"
         - turtle setup:ios --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
         - aws s3 cp s3://$AWS_BUCKET/`basename $ARTIFACT_PATH` app.ipa
         - ls -al
