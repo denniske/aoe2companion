@@ -46,29 +46,19 @@ const window = Dimensions.get("window");
 const screen = Dimensions.get("screen");
 
 export function Leaderboard({leaderboardId} : any) {
-    const generateTestHook = useCavy();
     const navigation = useNavigation<RootStackProp>();
     const [page, setPage] = useState(0);
-    const [perPage, setPerPage] = useState(Math.floor((window.height - 250) / 40));//12);
+    const [perPage, setPerPage] = useState(Math.floor((window.height - 250) / 40));
 
     console.log('window', window);
     console.log('screen', screen);
 
     const players = useLazyApi(
-        // [],
-        // state => state.leaderboard[leaderboardId],
-        // (state, value) => {
-        //     if (state.leaderboard[leaderboardId] == null) {
-        //         state.leaderboard[leaderboardId] = [] as any;
-        //     }
-        //     state.leaderboard[leaderboardId] = value;
-        // },
-        fetchLeaderboard, 'aoe2de', leaderboardId, {start: page, count: perPage}
+        fetchLeaderboard, 'aoe2de', leaderboardId, {start: page * perPage + 1, count: perPage}
     );
 
     useEffect(() => {
-        // if (perPage === 12) return;
-        players.refetch('aoe2de', leaderboardId, {start: page * perPage, count: perPage});
+        players.refetch('aoe2de', leaderboardId, {start: page * perPage + 1, count: perPage});
     }, [page, perPage]);
 
     const onSelect = async (player: ILeaderboardPlayer) => {
@@ -92,15 +82,6 @@ export function Leaderboard({leaderboardId} : any) {
         setPage(page + 1);
     };
 
-    const measureView = (event: any) => {
-        // if (perPage !== 12) return;
-        // console.log(event.nativeEvent.layout.height);
-        // console.log(Math.floor(event.nativeEvent.layout.height / 40));
-        // const height = event.nativeEvent.layout.height;
-        // // setPerPage(Math.floor(height / 40));
-        // setPerPage(Math.floor(height / 38));
-    };
-
     const count = players.data?.leaderboard.length;
     const total = players.data?.total;
     const from = page * perPage + 1;
@@ -109,8 +90,6 @@ export function Leaderboard({leaderboardId} : any) {
     const canNext = to < total;
 
     const list = [...(players.data?.leaderboard || Array(perPage).fill(null))];
-    // const list = [...(players.data?.leaderboard) || [], ...Array(2).fill(null)];
-    // const list = [...(players.data?.leaderboard || Array(0).fill(null))];
     console.log("list", list);
 
     const _renderRow = (player: any, i: number) => {
@@ -138,10 +117,9 @@ export function Leaderboard({leaderboardId} : any) {
                 <Text style={styles.cellRating} numberOfLines={1}>Rating</Text>
                 <Text style={styles.cellName} numberOfLines={1}>Name</Text>
                 <Text style={styles.cellGames} numberOfLines={1}>Games</Text>
-                {/*<Text style={styles.cellWins} numberOfLines={1}>Wins</Text>*/}
             </View>
 
-            <View style={styles.measureContainer} onLayout={measureView}>
+            <View style={styles.measureContainer}>
                 {
                     list.map((player, i) => _renderRow(player, i))
                 }
