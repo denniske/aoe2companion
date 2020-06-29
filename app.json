@@ -6,7 +6,7 @@
       "ios",
       "android"
     ],
-    "version": "6.0.1",
+    "version": "6.0.2",
     "orientation": "portrait",
     "privacy": "public",
     "githubUrl": "https://github.com/denniske/aoe2companion",
@@ -24,12 +24,12 @@
     ],
     "android": {
       "package": "com.aoe2companion",
-      "versionCode": 60001,
+      "versionCode": 60002,
       "permissions": []
     },
     "ios": {
       "bundleIdentifier": "com.aoe2companion",
-      "buildNumber": "6.0.1",
+      "buildNumber": "6.0.2",
       "supportsTablet": false,
       "config": {
         "usesNonExemptEncryption": false
