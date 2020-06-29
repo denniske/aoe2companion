@@ -103,6 +103,7 @@ export default function Search({title, selectedUser, actionText}: any) {
                 }
 
                 <FlatList
+                        keyboardShouldPersistTaps={'always'}
                         refreshing={user.loading}
                         onRefresh={refresh}
                         data={list}
