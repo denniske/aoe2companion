@@ -54,9 +54,9 @@ export default function Rating({ratingHistories}: IRatingProps) {
 
     // We need to supply our custom tick formatter because otherwise victory native will
     // print too much ticks on the x-axis.
-    // const formatTick = (tick: any, index: number, ticks: any[]) => {
-    //     return formatDateShort(parseUnixTimestamp(ticks[index]/1000));
-    // };
+    const formatTick = (tick: any, index: number, ticks: any[]) => {
+        return formatDateShort(parseUnixTimestamp(ticks[index]/1000));
+    };
 
     return (
             <View style={styles.container}>
@@ -64,8 +64,8 @@ export default function Rating({ratingHistories}: IRatingProps) {
                 <ViewLoader ready={ratingHistories}>
                     <VictoryChart width={Dimensions.get('screen').width - 40} height={300} theme={themeWithSystemFont}
                                   padding={{left: 50, bottom: 30, top: 20, right: 20}}>
-                        {/*<VictoryAxis crossAxis tickFormat={formatTick} />*/}
-                        {/*<VictoryAxis dependentAxis crossAxis />*/}
+                        <VictoryAxis crossAxis tickFormat={formatTick} />
+                        <VictoryAxis dependentAxis crossAxis />
                         {
                             ratingHistories?.map(ratingHistory => (
                                 <VictoryLine
