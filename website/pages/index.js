@@ -34,6 +34,10 @@ export default function Home() {
                         <a target="_blank" href="https://github.com/denniske/aoe2companion" className="github"></a>
                         <a target="_blank" href="https://github.com/denniske/aoe2companion" className="text-link">Visit this project on Github</a>
                     </div>
+                    <div className="flex-container flex-row align-center github-section">
+                        <a target="_blank" href="https://discord.gg/gCunWKx" className="discord"></a>
+                        <a target="_blank" href="https://discord.gg/gCunWKx" className="text-link">Visit this project on Discord</a>
+                    </div>
                     <div className="flex-container flex-row justify-content-center">
                         <div className="legal">
                             Data from <a href="https://aoe2.net" target="_blank">aoe2.net</a>

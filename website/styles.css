@@ -141,6 +141,16 @@ h1, h3 {
     opacity: 0.8;
 }
 
+.discord {
+    margin-right: 15px;
+    width: 30px;
+    height: 30px;
+    background-image: url("public/discord.svg");
+    background-size: contain;
+
+    opacity: 0.8;
+}
+
 .text-link {
     opacity: 0.8;
     color: black !important;
