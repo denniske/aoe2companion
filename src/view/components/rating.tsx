@@ -2,7 +2,6 @@ import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTheme} from "victory-native";
 import {formatDateShort, getLeaderboardAbbr, parseUnixTimestamp} from '../../helper/util';
-import ContentLoader, {Rect} from 'react-content-loader/native'
 import {getLeaderboardColor} from '../../helper/colors';
 import {IRatingHistoryRow} from '../../service/rating';
 import {TextLoader} from "../loader/text-loader";
@@ -11,21 +10,6 @@ import {ViewLoader} from "../loader/view-loader";
 interface IRatingProps {
     ratingHistories: IRatingHistoryRow[];
 }
-
-const MyLoader = () => {
-    const legendParts = Array(5).fill(0);
-    return (
-            <ContentLoader viewBox="0 0 350 360" width={350} height={360}>
-                <Rect x="0" y="0" rx="3" ry="3" width="350" height="320"/>
-                {
-                    legendParts.map((part, i) => (
-                            <Rect key={i} x={i * 73} y="340" rx="3" ry="3" width="60" height="20"/>
-                    ))
-                }
-            </ContentLoader>
-    )
-};
-
 
 function replaceRobotoWithSystemFont(obj: any) {
     const keys = Object.keys(obj);
@@ -41,16 +25,10 @@ function replaceRobotoWithSystemFont(obj: any) {
     return obj;
 }
 
-
 export default function Rating({ratingHistories}: IRatingProps) {
     // console.log("render rating");
 
-    // if (!ratingHistories) {
-    //     return <MyLoader/>;
-    // }
-
     const themeWithSystemFont = replaceRobotoWithSystemFont({...VictoryTheme.material});
-    // console.log("themeWithSystemFont", themeWithSystemFont);
 
     // We need to supply our custom tick formatter because otherwise victory native will
     // print too much ticks on the x-axis.
@@ -128,12 +106,6 @@ const styles = StyleSheet.create({
         // backgroundColor: 'green',
         // position: "relative"
     },
-    // container2: {
-    //     backgroundColor: 'purple',
-    //     width: '100%',
-    //     height: 600,
-    //     position: "relative"
-    // },
     legend: {
         flexDirection: 'row',
         justifyContent: 'space-evenly',

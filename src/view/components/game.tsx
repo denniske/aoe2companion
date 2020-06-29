@@ -4,7 +4,6 @@ import {formatAgo} from '../../helper/util';
 import React from 'react';
 import {Player, PlayerSkeleton} from './player';
 import MyListAccordion from './accordion';
-import ContentLoader, {Rect} from 'react-content-loader/native';
 import {IMatch} from "../../helper/data";
 import {getMapImage} from "../../helper/maps";
 import {TextLoader} from "../loader/text-loader";
