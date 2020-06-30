@@ -125,6 +125,10 @@ function CivTitle(props: any) {
     return <Text style={styles.title}>Civs</Text>
 }
 
+function civTitle(props: any) {
+    return props.route?.params?.civ || 'Civs';
+}
+
 export function InnerApp() {
     const auth = useSelector(state => state.auth);
 
@@ -184,8 +188,8 @@ export function InnerApp() {
                 name="Civ"
                 component={CivPage}
                 options={props => ({
-                    headerBackTitle: 'Civs',
-                    headerTitle: props2 => <CivTitle {...props} />,
+                    title: civTitle(props),
+                    headerTitle: titleProps => <CivTitle {...props} />,
                     headerStatusBarHeight: headerStatusBarHeight,
                     headerBackground: () => (
                         <HeaderBackground><Header/></HeaderBackground>
