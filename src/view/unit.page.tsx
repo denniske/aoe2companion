@@ -3,14 +3,14 @@ import { StyleSheet, Text, TouchableOpacity, Image, View, ScrollView } from 'rea
 import {RouteProp, useLinkTo, useNavigation, useRoute} from "@react-navigation/native";
 import {RootStackParamList, RootStackProp} from "../../App";
 import {getUnitLineIcon, getUnitLineName, UnitLine, unitLines} from "../helper/units";
-import {getTechIcon, getTechName, techs} from "../helper/techs";
+import {getTechIcon, getTechName, techEffectDict, techs} from "../helper/techs";
 import {aoeCivKey} from "../data/data";
 
 
 export function UnitDetails({unit}: {unit: UnitLine}) {
     const navigation = useNavigation<RootStackProp>();
     const unitLine = unitLines[unit];
-    const unitLineUpgrades = unitLine.upgrades.map(u => techs[u]);
+    const unitLineUpgrades = unitLine.upgrades.map(u => techEffectDict[u]);
 
     let groups = [
         {
@@ -22,6 +22,11 @@ export function UnitDetails({unit}: {unit: UnitLine}) {
             name: 'Range',
             prop: 'range',
             upgrades: unitLineUpgrades.filter(u => 'range' in u.effect),
+        },
+        {
+            name: 'FiringRate',
+            prop: 'firingRate',
+            upgrades: unitLineUpgrades.filter(u => 'firingRate' in u.effect),
         },
         {
             name: 'Accuracy',
@@ -53,6 +58,11 @@ export function UnitDetails({unit}: {unit: UnitLine}) {
             prop: 'creationSpeed',
             upgrades: unitLineUpgrades.filter(u => 'creationSpeed' in u.effect),
         },
+        {
+            name: 'Other',
+            prop: 'other',
+            upgrades: unitLineUpgrades.filter(u => 'other' in u.effect),
+        },
     ];
 
     groups = groups.filter(g => g.upgrades.length > 0);
@@ -72,10 +82,10 @@ export function UnitDetails({unit}: {unit: UnitLine}) {
                         </View>
                         {
                             group.upgrades.map(upgrade =>
-                                <View style={styles.row} key={upgrade.name}>
-                                    <Image style={styles.unitIcon} source={getTechIcon(upgrade.name)}/>
+                                <View style={styles.row} key={upgrade.tech}>
+                                    <Image style={styles.unitIcon} source={getTechIcon(upgrade.tech)}/>
                                     <Text>
-                                        {getTechName(upgrade.name)}
+                                        {getTechName(upgrade.tech)}
                                         {upgrade.effect[group.prop] ? ' (' + upgrade.effect[group.prop] + ')' : ''}
                                     </Text>
                                 </View>

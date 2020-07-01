@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, Image, View, ScrollView } from 'rea
 import {civs, getCivIcon} from "../helper/civs";
 import {RouteProp, useLinkTo, useNavigation, useRoute} from "@react-navigation/native";
 import {RootStackParamList, RootStackProp} from "../../App";
-import {getUnitLineIcon, getUnitLineName} from "../helper/units";
+import {getUnitLineIcon, getUnitLineName, unitLines} from "../helper/units";
 import {aoeData} from "../data/data";
 
 type aoeStringKey = keyof typeof aoeData.strings;
@@ -41,8 +41,11 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
             <Text/>
             <Text style={styles.content}>{civDescriptionContent}</Text>
             <Text/>
-            <Unit unit="Kamayuk"/>
-            <Unit unit="Slinger"/>
+            {
+                Object.keys(unitLines).map(ul =>
+                    <Unit key={ul} unit={ul}/>
+                )
+            }
         </View>
     );
 }

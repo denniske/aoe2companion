@@ -32,7 +32,7 @@ import GuidePage from "./src/view/guide.page";
 import CivPage from "./src/view/civ.page";
 import {civs, getCivIcon} from "./src/helper/civs";
 import UnitPage from "./src/view/unit.page";
-import {getUnitLineIcon} from "./src/helper/units";
+import {getUnitLineIcon, getUnitLineName} from "./src/helper/units";
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -137,7 +137,7 @@ function UnitTitle(props: any) {
         return (
             <View style={styles.civRow}>
                 <Image style={styles.icon} source={getUnitLineIcon(props.route?.params?.unit)}/>
-                <Text style={styles.title}>{props.route.params?.unit}</Text>
+                <Text style={styles.title}>{getUnitLineName(props.route.params?.unit)}</Text>
             </View>
         );
     }

@@ -1,11 +1,11 @@
-import {Tech} from "./techs";
+import {Tech, TechEffect} from "./techs";
 import {ImageSourcePropType} from "react-native";
 import {aoeData, aoeStringKey, aoeUnitDataId} from "../data/data";
 
 
 interface IUnitLine {
     units: string[];
-    upgrades: Tech[];
+    upgrades: TechEffect[];
 }
 
 interface IUnitLineDict {
@@ -13,6 +13,44 @@ interface IUnitLineDict {
 }
 
 export const unitLines: IUnitLineDict = {
+    'Archer': {
+        units: ['Archer', 'Crossbowman', 'Arbalester'],
+        upgrades: [
+            'Fletching',
+            'BodkinArrow',
+            'Bracer',
+            'Chemistry',
+            'ObsidianArrows',
+            'Yeomen',
+            'ThumbRing-18',
+            'Ballistics',
+            'PaddedArcherArmor',
+            'LeatherArcherArmor',
+            'RingArcherArmor',
+            'Pavise',
+            'Faith',
+            'Heresy',
+            'Kamandaran',
+            'Conscription',
+        ],
+    },
+    'PlumedArcher': {
+        units: ['PlumedArcher', 'ElitePlumedArcher'],
+        upgrades: [
+            'Fletching',
+            'BodkinArrow',
+            'Bracer',
+            'Chemistry',
+            'ThumbRing-18',
+            'Ballistics',
+            'PaddedArcherArmor',
+            'LeatherArcherArmor',
+            'RingArcherArmor',
+            'Faith',
+            'Heresy',
+            'Conscription',
+        ],
+    },
     'Slinger': {
         units: ['Slinger'],
         upgrades: [
@@ -21,7 +59,7 @@ export const unitLines: IUnitLineDict = {
             'Bracer',
             'Chemistry',
             'AndeanSling',
-            'ThumbRing',
+            'ThumbRing-No',
             'Ballistics',
             'PaddedArcherArmor',
             'LeatherArcherArmor',
@@ -53,23 +91,34 @@ export const unitLines: IUnitLineDict = {
 };
 
 export const units: UnitDict = {
+    'Archer': {
+        dataId: '4',
+    },
+    'Crossbowman': {
+        dataId: '24',
+    },
+    'Arbalester': {
+        dataId: '492',
+    },
+    'PlumedArcher': {
+        dataId: '763',
+    },
+    'ElitePlumedArcher': {
+        dataId: '765',
+    },
     'Slinger': {
         dataId: '185',
-        line: 'Slinger',
     },
     'Kamayuk': {
         dataId: '879',
-        line: 'Kamayuk',
     },
     'EliteKamayuk': {
         dataId: '881',
-        line: 'Kamayuk',
     },
 };
 
 interface IUnit {
     dataId: aoeUnitDataId;
-    line: string;
 }
 
 interface UnitDict {
@@ -83,6 +132,8 @@ interface UnitIconDict {
 const unitIcons: UnitIconDict = {
     'Kamayuk': require('../../assets/units/Kamayuk.png'),
     'Slinger': require('../../assets/units/Slinger.png'),
+    'PlumedArcher': require('../../assets/units/PlumedArcher.png'),
+    'Archer': require('../../assets/units/Archer.png'),
 };
 
 export type Unit = keyof typeof units;
@@ -95,6 +146,9 @@ export function getUnitLineIcon(unitLine: UnitLine) {
 
 export function getUnitLineName(unitLine: UnitLine) {
     const unit = unitLines[unitLine].units[0] as Unit;
+    const unitEntry = units[unit];
+    if (unitEntry == null)
+        throw Error(`getUnitLineName ${unitLine} - no dataId`);
     const dataId = units[unit].dataId;
     const data = aoeData.data.units[dataId];
     return aoeData.strings[data.LanguageNameId.toString() as aoeStringKey];
