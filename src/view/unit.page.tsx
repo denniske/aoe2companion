@@ -1,15 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, TouchableOpacity, Image, View, ScrollView } from 'react-native';
-import {civs, getCivIcon} from "../helper/civs";
 import {RouteProp, useLinkTo, useNavigation, useRoute} from "@react-navigation/native";
 import {RootStackParamList, RootStackProp} from "../../App";
-import * as aoeData from "../data/data.json"
-import {getString} from "../helper/strings";
 import {getUnitLineIcon, getUnitLineName, UnitLine, unitLines} from "../helper/units";
 import {getTechIcon, getTechName, techs} from "../helper/techs";
+import {aoeCivKey} from "../data/data";
 
-type aoeStringKey = keyof typeof aoeData.strings;
-type aoeCivKey = keyof typeof aoeData.civ_helptexts;
 
 export function UnitDetails({unit}: {unit: UnitLine}) {
     const navigation = useNavigation<RootStackProp>();

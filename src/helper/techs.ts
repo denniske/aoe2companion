@@ -1,7 +1,5 @@
-import * as aoeData from "../data/data.json"
+import {aoeData, aoeStringKey, aoeTechDataId} from "../data/data";
 
-type aoeTechDataId = keyof typeof aoeData.data.techs;
-type aoeStringKey = keyof typeof aoeData.strings;
 
 interface IEffect {
     accuracy?: string;

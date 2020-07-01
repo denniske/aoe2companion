@@ -1,9 +1,7 @@
 import {Tech} from "./techs";
-import * as aoeData from "../data/data.json";
 import {ImageSourcePropType} from "react-native";
+import {aoeData, aoeStringKey, aoeUnitDataId} from "../data/data";
 
-type aoeStringKey = keyof typeof aoeData.strings;
-type aoeUnitDataId = keyof typeof aoeData.data.units;
 
 interface IUnitLine {
     units: string[];
@@ -95,7 +93,7 @@ export function getUnitLineIcon(unitLine: UnitLine) {
     return unitIcons[unit];
 }
 
-export function getUnitLineName(unitLine: string) {
+export function getUnitLineName(unitLine: UnitLine) {
     const unit = unitLines[unitLine].units[0] as Unit;
     const dataId = units[unit].dataId;
     const data = aoeData.data.units[dataId];

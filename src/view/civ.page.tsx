@@ -3,9 +3,8 @@ import { StyleSheet, Text, TouchableOpacity, Image, View, ScrollView } from 'rea
 import {civs, getCivIcon} from "../helper/civs";
 import {RouteProp, useLinkTo, useNavigation, useRoute} from "@react-navigation/native";
 import {RootStackParamList, RootStackProp} from "../../App";
-import * as aoeData from "../data/data.json"
-import {getString} from "../helper/strings";
 import {getUnitLineIcon, getUnitLineName} from "../helper/units";
+import {aoeData} from "../data/data";
 
 type aoeStringKey = keyof typeof aoeData.strings;
 type aoeCivKey = keyof typeof aoeData.civ_helptexts;
