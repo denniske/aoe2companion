@@ -31,6 +31,8 @@ import LeaderboardPage from "./src/view/leaderboard.page";
 import GuidePage from "./src/view/guide.page";
 import CivPage from "./src/view/civ.page";
 import {civs, getCivIcon} from "./src/helper/civs";
+import UnitPage from "./src/view/unit.page";
+import {getUnitLineIcon} from "./src/helper/units";
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -78,6 +80,7 @@ export type RootStackParamList = {
     Main: undefined;
     Leaderboard: undefined;
     Civ: { civ: string };
+    Unit: { unit: string };
     Guide: undefined;
     User: { id: UserId, name: string };
     Search: { name?: string };
@@ -127,6 +130,22 @@ function CivTitle(props: any) {
 
 function civTitle(props: any) {
     return props.route?.params?.civ || 'Civs';
+}
+
+function UnitTitle(props: any) {
+    if (props.route?.params?.unit) {
+        return (
+            <View style={styles.civRow}>
+                <Image style={styles.icon} source={getUnitLineIcon(props.route?.params?.unit)}/>
+                <Text style={styles.title}>{props.route.params?.unit}</Text>
+            </View>
+        );
+    }
+    return <Text style={styles.title}>Civs</Text>
+}
+
+function unitTitle(props: any) {
+    return props.route?.params?.unit || 'Units';
 }
 
 export function InnerApp() {
@@ -183,6 +202,18 @@ export function InnerApp() {
                         <HeaderBackground><Header/></HeaderBackground>
                     ),
                 }}
+            />
+            <Stack.Screen
+                name="Unit"
+                component={UnitPage}
+                options={props => ({
+                    title: unitTitle(props),
+                    headerTitle: titleProps => <UnitTitle {...props} />,
+                    headerStatusBarHeight: headerStatusBarHeight,
+                    headerBackground: () => (
+                        <HeaderBackground><Header/></HeaderBackground>
+                    ),
+                })}
             />
             <Stack.Screen
                 name="Civ"
