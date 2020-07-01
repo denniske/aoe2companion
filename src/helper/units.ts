@@ -1,19 +1,13 @@
 import {Tech} from "./techs";
+import * as aoeData from "../data/data.json";
+import {ImageSourcePropType} from "react-native";
 
-interface IUpgrade {
-    tech: Tech;
-    attack?: string;
-    armor?: string;
-    speed?: string;
-    sight?: string;
-    conversionDefense?: string;
-    creationSpeed?: string;
-    [key: string]: string | undefined;
-}
+type aoeStringKey = keyof typeof aoeData.strings;
+type aoeUnitDataId = keyof typeof aoeData.data.units;
 
 interface IUnitLine {
     units: string[];
-    upgrades: IUpgrade[];
+    upgrades: Tech[];
 }
 
 interface IUnitLineDict {
@@ -21,83 +15,76 @@ interface IUnitLineDict {
 }
 
 export const unitLines: IUnitLineDict = {
+    'Slinger': {
+        units: ['Slinger'],
+        upgrades: [
+            'Fletching',
+            'BodkinArrow',
+            'Bracer',
+            'Chemistry',
+            'AndeanSling',
+            'ThumbRing',
+            'Ballistics',
+            'PaddedArcherArmor',
+            'LeatherArcherArmor',
+            'RingArcherArmor',
+            'Couriers',
+            'Faith',
+            'Heresy',
+            'Conscription',
+        ],
+    },
     'Kamayuk': {
         units: ['Kamayuk', 'EliteKamayuk'],
         upgrades: [
-            {
-                tech: 'Forging',
-                attack: '+1',
-            },
-            {
-                tech: 'IronCasting',
-                attack: '+1',
-            },
-            {
-                tech: 'BlastFurnace',
-                attack: '+2',
-            },
-            {
-                tech: 'Arson',
-                attack: '+2 attack against standard buildings',
-            },
-            {
-                tech: 'ScaleMailArmor',
-                armor: '+1/+1',
-            },
-            {
-                tech: 'ChainMailArmor',
-                armor: '+1/+1',
-            },
-            {
-                tech: 'PlateMailArmor',
-                armor: '+1/+2',
-            },
-            {
-                tech: 'Couriers',
-                armor: '+1/+2',
-                speed: '+10%', // Todo: Remove
-            },
-            {
-                tech: 'Squires',
-                speed: '+10%',
-            },
-            {
-                tech: 'Tracking',
-                sight: '+2',
-            },
-            {
-                tech: 'Faith',
-                conversionDefense: '',
-            },
-            {
-                tech: 'Heresy',
-                conversionDefense: '',
-            },
-            {
-                tech: 'Conscription',
-                creationSpeed: '+33%',
-            },
+            'Forging',
+            'IronCasting',
+            'BlastFurnace',
+            'Arson',
+            'ScaleMailArmor',
+            'ChainMailArmor',
+            'PlateMailArmor',
+            'Couriers',
+            'Squires',
+            'Tracking',
+            'Faith',
+            'Heresy',
+            'Conscription',
         ],
-    }
+    },
 };
 
-export const units = {
+export const units: UnitDict = {
+    'Slinger': {
+        dataId: '185',
+        line: 'Slinger',
+    },
     'Kamayuk': {
-        dataId: 879,
+        dataId: '879',
         line: 'Kamayuk',
     },
     'EliteKamayuk': {
-        dataId: 881,
+        dataId: '881',
         line: 'Kamayuk',
     },
 };
 
-interface UnitDict {
-    [unit: string]: any;
+interface IUnit {
+    dataId: aoeUnitDataId;
+    line: string;
 }
 
-const unitIcons: UnitDict = {
+interface UnitDict {
+    [unit: string]: IUnit;
+}
+
+interface UnitIconDict {
+    [unit: string]: ImageSourcePropType;
+}
+
+const unitIcons: UnitIconDict = {
     'Kamayuk': require('../../assets/units/Kamayuk.png'),
+    'Slinger': require('../../assets/units/Slinger.png'),
 };
 
 export type Unit = keyof typeof units;
@@ -109,5 +96,8 @@ export function getUnitLineIcon(unitLine: UnitLine) {
 }
 
 export function getUnitLineName(unitLine: string) {
-    return 'Kamayuk Line';
+    const unit = unitLines[unitLine].units[0] as Unit;
+    const dataId = units[unit].dataId;
+    const data = aoeData.data.units[dataId];
+    return aoeData.strings[data.LanguageNameId.toString() as aoeStringKey];
 }

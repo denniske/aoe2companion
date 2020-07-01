@@ -10,6 +10,18 @@ import {getUnitLineIcon, getUnitLineName} from "../helper/units";
 type aoeStringKey = keyof typeof aoeData.strings;
 type aoeCivKey = keyof typeof aoeData.civ_helptexts;
 
+function Unit({unit}: any) {
+    const navigation = useNavigation<RootStackProp>();
+    return (
+        <TouchableOpacity onPress={() => navigation.push('Unit', {unit: unit})}>
+            <View style={styles.row}>
+                <Image style={styles.unitIcon} source={getUnitLineIcon(unit)}/>
+                <Text> {getUnitLineName(unit)}</Text>
+            </View>
+        </TouchableOpacity>
+    );
+}
+
 export function CivDetails({civ}: {civ: aoeCivKey}) {
     const navigation = useNavigation<RootStackProp>();
     const civStringKey = aoeData.civ_helptexts[civ] as aoeStringKey;
@@ -30,13 +42,8 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
             <Text/>
             <Text style={styles.content}>{civDescriptionContent}</Text>
             <Text/>
-
-            <TouchableOpacity onPress={() => navigation.push('Unit', {unit: 'Kamayuk'})}>
-                <View style={styles.row}>
-                    <Image style={styles.unitIcon} source={getUnitLineIcon('Kamayuk')}/>
-                    <Text> {getUnitLineName('Kamayuk')}</Text>
-                </View>
-            </TouchableOpacity>
+            <Unit unit="Kamayuk"/>
+            <Unit unit="Slinger"/>
         </View>
     );
 }
@@ -126,7 +133,7 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         flexDirection: 'row',
         alignItems: 'center',
-        width: 100,
+        marginBottom: 5,
         // backgroundColor: 'blue',
     },
     unitIcon: {

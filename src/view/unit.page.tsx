@@ -6,7 +6,7 @@ import {RootStackParamList, RootStackProp} from "../../App";
 import * as aoeData from "../data/data.json"
 import {getString} from "../helper/strings";
 import {getUnitLineIcon, getUnitLineName, UnitLine, unitLines} from "../helper/units";
-import {getTechIcon, getTechName} from "../helper/techs";
+import {getTechIcon, getTechName, techs} from "../helper/techs";
 
 type aoeStringKey = keyof typeof aoeData.strings;
 type aoeCivKey = keyof typeof aoeData.civ_helptexts;
@@ -14,48 +14,60 @@ type aoeCivKey = keyof typeof aoeData.civ_helptexts;
 export function UnitDetails({unit}: {unit: UnitLine}) {
     const navigation = useNavigation<RootStackProp>();
     const unitLine = unitLines[unit];
+    const unitLineUpgrades = unitLine.upgrades.map(u => techs[u]);
 
-    const groups = [
+    let groups = [
         {
             name: 'Attack',
             prop: 'attack',
-            upgrades: unitLine.upgrades.filter(u => 'attack' in u),
+            upgrades: unitLineUpgrades.filter(u => 'attack' in u.effect),
+        },
+        {
+            name: 'Range',
+            prop: 'range',
+            upgrades: unitLineUpgrades.filter(u => 'range' in u.effect),
+        },
+        {
+            name: 'Accuracy',
+            prop: 'accuracy',
+            upgrades: unitLineUpgrades.filter(u => 'accuracy' in u.effect),
         },
         {
             name: 'Armor',
             prop: 'armor',
-            upgrades: unitLine.upgrades.filter(u => 'armor' in u),
+            upgrades: unitLineUpgrades.filter(u => 'armor' in u.effect),
         },
         {
             name: 'Speed',
             prop: 'speed',
-            upgrades: unitLine.upgrades.filter(u => 'speed' in u),
+            upgrades: unitLineUpgrades.filter(u => 'speed' in u.effect),
         },
         {
             name: 'Sight',
             prop: 'sight',
-            upgrades: unitLine.upgrades.filter(u => 'sight' in u),
+            upgrades: unitLineUpgrades.filter(u => 'sight' in u.effect),
         },
         {
             name: 'Conversion Defense',
             prop: 'conversionDefense',
-            upgrades: unitLine.upgrades.filter(u => 'conversionDefense' in u),
+            upgrades: unitLineUpgrades.filter(u => 'conversionDefense' in u.effect),
         },
         {
             name: 'Creation Speed',
             prop: 'creationSpeed',
-            upgrades: unitLine.upgrades.filter(u => 'creationSpeed' in u),
+            upgrades: unitLineUpgrades.filter(u => 'creationSpeed' in u.effect),
         },
     ];
 
-    // @ts-ignore
+    groups = groups.filter(g => g.upgrades.length > 0);
+
     return (
         <View style={styles.detailsContainer}>
             <View style={styles.row}>
                 <Image style={styles.unitIcon} source={getUnitLineIcon(unit)}/>
                 <Text> {getUnitLineName(unit)}</Text>
             </View>
-
+            <Text/>
             {
                 groups.map(group =>
                     <View key={group.name}>
@@ -64,11 +76,11 @@ export function UnitDetails({unit}: {unit: UnitLine}) {
                         </View>
                         {
                             group.upgrades.map(upgrade =>
-                                <View style={styles.row} key={upgrade.tech}>
-                                    <Image style={styles.unitIcon} source={getTechIcon(upgrade.tech)}/>
+                                <View style={styles.row} key={upgrade.name}>
+                                    <Image style={styles.unitIcon} source={getTechIcon(upgrade.name)}/>
                                     <Text>
-                                        {getTechName(upgrade.tech)}
-                                        {upgrade[group.prop] ? ' (' + upgrade[group.prop] + ')' : ''}
+                                        {getTechName(upgrade.name)}
+                                        {upgrade.effect[group.prop] ? ' (' + upgrade.effect[group.prop] + ')' : ''}
                                     </Text>
                                 </View>
                             )
