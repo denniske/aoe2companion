@@ -13,6 +13,28 @@ interface IUnitLineDict {
 }
 
 export const unitLines: IUnitLineDict = {
+    'Skirmisher': {
+        units: ['Skirmisher', 'EliteSkirmisher', 'ImperialSkirmisher'],
+        upgrades: [
+            'Fletching',
+            'BodkinArrow',
+            'Bracer',
+            'Chemistry',
+            'Atlatl',
+            'Yeomen',
+            'AndeanSling',
+            'ThumbRing-No',
+            'Ballistics',
+            'PaddedArcherArmor',
+            'LeatherArcherArmor',
+            'RingArcherArmor',
+            'Pavise',
+            'TowerShields',
+            'Faith',
+            'Heresy',
+            'Conscription',
+        ],
+    },
     'Archer': {
         units: ['Archer', 'Crossbowman', 'Arbalester'],
         upgrades: [
@@ -91,6 +113,15 @@ export const unitLines: IUnitLineDict = {
 };
 
 export const units: UnitDict = {
+    'Skirmisher': {
+        dataId: '7',
+    },
+    'EliteSkirmisher': {
+        dataId: '6',
+    },
+    'ImperialSkirmisher': {
+        dataId: '1155',
+    },
     'Archer': {
         dataId: '4',
     },
@@ -134,6 +165,7 @@ const unitIcons: UnitIconDict = {
     'Slinger': require('../../assets/units/Slinger.png'),
     'PlumedArcher': require('../../assets/units/PlumedArcher.png'),
     'Archer': require('../../assets/units/Archer.png'),
+    'Skirmisher': require('../../assets/units/Skirmisher.png'),
 };
 
 export type Unit = keyof typeof units;

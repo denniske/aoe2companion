@@ -34,6 +34,19 @@ interface ITechEffectDict {
 
 
 const techEffectDictInternal = {
+    'Atlatl': {
+        tech: 'Atlatl',
+        effect: {
+            attack: '+1',
+            range: '+1',
+        },
+    },
+    'TowerShields': {
+        tech: 'TowerShields',
+        effect: {
+            armor: '+2 pierce armor',
+        },
+    },
     'ObsidianArrows': {
         tech: 'ObsidianArrows',
         effect: {
@@ -243,6 +256,14 @@ export const techEffectDict = techEffectDictInternal as ITechEffectDict;
 
 export const techList: ITech[] = [
     {
+        dataId: '460',
+        name: 'Atlatl',
+    },
+    {
+        dataId: '692',
+        name: 'TowerShields',
+    },
+    {
         dataId: '485',
         name: 'ObsidianArrows',
     },
@@ -391,8 +412,10 @@ const techIcons: TechDict = {
     'Yeomen': require('../../assets/techs/UniqueTechCastle.png'),
     'Pavise': require('../../assets/techs/UniqueTechCastle.png'),
     'Kamandaran': require('../../assets/techs/UniqueTechCastle.png'),
+    'Atlatl': require('../../assets/techs/UniqueTechCastle.png'),
 
     'Couriers': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'TowerShields': require('../../assets/techs/UniqueTechImperial.jpg'),
 };
 
 export type Tech = keyof typeof techIcons;
