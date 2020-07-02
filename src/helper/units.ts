@@ -14,6 +14,88 @@ interface IUnitLineDict {
 }
 
 export const unitLines: IUnitLineDict = {
+    'Scorpion': {
+        units: ['Scorpion', 'HeavyScorpion'],
+        upgrades: [
+            'FurorCeltica',
+            'SiegeEngineers',
+            'Chemistry',
+            'Rocketry-4',
+            'TorsionEngines',
+            'DoubleCrossbow',
+            'Ironclad',
+            'Drill',
+            'Faith',
+            'Heresy',
+        ],
+    },
+    'HandCannoneer': {
+        units: ['HandCannoneer'],
+        upgrades: [
+            'Shatagni',
+            'Arquebus',
+            'PaddedArcherArmor',
+            'LeatherArcherArmor',
+            'RingArcherArmor',
+            'Faith',
+            'Heresy',
+            'Conscription',
+        ],
+    },
+    'KarambitWarrior': {
+        units: ['KarambitWarrior', 'EliteKarambitWarrior'],
+        unique: true,
+        upgrades: [
+            'Forging',
+            'IronCasting',
+            'BlastFurnace',
+            'Arson',
+            'ScaleMailArmor',
+            'ChainMailArmor',
+            'PlateMailArmor',
+            'Squires',
+            'Tracking',
+            'Faith',
+            'Heresy',
+            'Conscription',
+        ],
+    },
+    'Gbeto': {
+        units: ['Gbeto', 'EliteGbeto'],
+        unique: true,
+        upgrades: [
+            'Forging',
+            'IronCasting',
+            'Arson',
+            'ScaleMailArmor',
+            'ChainMailArmor',
+            'PlateMailArmor',
+            'Squires',
+            'Tracking',
+            'Faith',
+            'Heresy',
+            'Conscription',
+        ],
+    },
+    'ShotelWarrior': {
+        units: ['ShotelWarrior', 'EliteShotelWarrior'],
+        unique: true,
+        upgrades: [
+            'Forging',
+            'IronCasting',
+            'BlastFurnace',
+            'Arson',
+            'ScaleMailArmor',
+            'ChainMailArmor',
+            'PlateMailArmor',
+            'Squires',
+            'Tracking',
+            'Faith',
+            'Heresy',
+            'Conscription',
+            'RoyalHeirs',
+        ],
+    },
     'Condottiero': {
         units: ['Condottiero'],
         unique: true,
@@ -666,7 +748,7 @@ export const unitLines: IUnitLineDict = {
             'BodkinArrow',
             'Bracer',
             'Chemistry',
-            'Rocketry',
+            'Rocketry-2',
             'ThumbRing-25',
             'Ballistics',
             'PaddedArcherArmor',
@@ -818,6 +900,33 @@ export const unitLines: IUnitLineDict = {
 };
 
 const unitsInternal = {
+    'Scorpion': {
+        dataId: '279',
+    },
+    'HeavyScorpion': {
+        dataId: '542',
+    },
+    'HandCannoneer': {
+        dataId: '5',
+    },
+    'KarambitWarrior': {
+        dataId: '1123',
+    },
+    'EliteKarambitWarrior': {
+        dataId: '1125',
+    },
+    'Gbeto': {
+        dataId: '1013',
+    },
+    'EliteGbeto': {
+        dataId: '1015',
+    },
+    'ShotelWarrior': {
+        dataId: '1016',
+    },
+    'EliteShotelWarrior': {
+        dataId: '1018',
+    },
     'Condottiero': {
         dataId: '882',
     },
@@ -1171,6 +1280,12 @@ const unitIcons: UnitIconDict = {
     'Berserk': require('../../assets/units/Berserk.png'),
     'JaguarWarrior': require('../../assets/units/JaguarWarrior.png'),
     'Condottiero': require('../../assets/units/Condottiero.png'),
+    'ShotelWarrior': require('../../assets/units/ShotelWarrior.png'),
+    'Gbeto': require('../../assets/units/Gbeto.png'),
+    'KarambitWarrior': require('../../assets/units/KarambitWarrior.png'),
+    'HandCannoneer': require('../../assets/units/HandCannoneer.png'),
+    'Scorpion': require('../../assets/units/Scorpion.png'),
+    'HeavyScorpion': require('../../assets/units/HeavyScorpion.png'),
 };
 
 

@@ -35,6 +35,61 @@ interface ITechEffectDict {
 
 
 const techEffectDictInternal = {
+    'FurorCeltica': {
+        tech: 'FurorCeltica',
+        effect: {
+            hitPoints: '+40%',
+        },
+    },
+    'SiegeEngineers': {
+        tech: 'SiegeEngineers',
+        effect: {
+            attack: '+20% attack against buildings',
+            range: '+1',
+        },
+    },
+    'TorsionEngines': {
+        tech: 'TorsionEngines',
+        effect: {
+            attack: 'increases blast damage radius',
+        },
+    },
+    'DoubleCrossbow': {
+        tech: 'DoubleCrossbow',
+        effect: {
+            attack: 'gives a second projectile',
+        },
+    },
+    'Ironclad': {
+        tech: 'Ironclad',
+        effect: {
+            armor: '+4/+0',
+        },
+    },
+    'Drill': {
+        tech: 'Drill',
+        effect: {
+            speed: '+50%',
+        },
+    },
+    'Shatagni': {
+        tech: 'Shatagni',
+        effect: {
+            range: '+1',
+        },
+    },
+    'Arquebus': {
+        tech: 'Arquebus',
+        effect: {
+            accuracy: 'hit moving targets',
+        },
+    },
+    'RoyalHeirs': {
+        tech: 'RoyalHeirs',
+        effect: {
+            creationSpeed: '+100%',
+        },
+    },
     'Berserkergang': {
         tech: 'Berserkergang',
         effect: {
@@ -210,10 +265,16 @@ const techEffectDictInternal = {
             other: 'gives regeneration ability',
         },
     },
-    'Rocketry': {
+    'Rocketry-2': {
         tech: 'Rocketry',
         effect: {
             attack: '+2',
+        },
+    },
+    'Rocketry-4': {
+        tech: 'Rocketry',
+        effect: {
+            attack: '+4',
         },
     },
     'Bloodlines': {
@@ -520,6 +581,42 @@ export const techEffectDict = techEffectDictInternal as ITechEffectDict;
 
 export const techList: ITech[] = [
     {
+        dataId: '5',
+        name: 'FurorCeltica',
+    },
+    {
+        dataId: '377',
+        name: 'SiegeEngineers',
+    },
+    {
+        dataId: '575',
+        name: 'TorsionEngines',
+    },
+    {
+        dataId: '623',
+        name: 'DoubleCrossbow',
+    },
+    {
+        dataId: '489',
+        name: 'Ironclad',
+    },
+    {
+        dataId: '6',
+        name: 'Drill',
+    },
+    {
+        dataId: '507',
+        name: 'Shatagni',
+    },
+    {
+        dataId: '573',
+        name: 'Arquebus',
+    },
+    {
+        dataId: '574',
+        name: 'RoyalHeirs',
+    },
+    {
         dataId: '49',
         name: 'Berserkergang',
     },
@@ -823,6 +920,7 @@ const techIcons: TechDict = {
     'ChainBardingArmor': require('../../assets/techs/ChainBardingArmor.png'),
     'PlateBardingArmor': require('../../assets/techs/PlateBardingArmor.png'),
     'Supplies': require('../../assets/techs/Supplies.png'),
+    'SiegeEngineers': require('../../assets/techs/SiegeEngineers.png'),
 
     'AndeanSling': require('../../assets/techs/UniqueTechCastle.png'),
     'ObsidianArrows': require('../../assets/techs/UniqueTechCastle.png'),
@@ -842,6 +940,8 @@ const techIcons: TechDict = {
     'CorvinianArmy': require('../../assets/techs/UniqueTechCastle.png'),
     'Chieftains': require('../../assets/techs/UniqueTechCastle.png'),
     'Anarchy': require('../../assets/techs/UniqueTechCastle.png'),
+    'RoyalHeirs': require('../../assets/techs/UniqueTechCastle.png'),
+    'Ironclad': require('../../assets/techs/UniqueTechCastle.png'),
 
     'Couriers': require('../../assets/techs/UniqueTechImperial.jpg'),
     'TowerShields': require('../../assets/techs/UniqueTechImperial.jpg'),
@@ -862,6 +962,12 @@ const techIcons: TechDict = {
     'ElDorado': require('../../assets/techs/UniqueTechImperial.jpg'),
     'BeardedAxe': require('../../assets/techs/UniqueTechImperial.jpg'),
     'Berserkergang': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'Shatagni': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'Arquebus': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'FurorCeltica': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'TorsionEngines': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'DoubleCrossbow': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'Drill': require('../../assets/techs/UniqueTechImperial.jpg'),
 };
 
 export type Tech = keyof typeof techIcons;
