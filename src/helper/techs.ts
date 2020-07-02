@@ -35,6 +35,72 @@ interface ITechEffectDict {
 
 
 const techEffectDictInternal = {
+    'Berserkergang': {
+        tech: 'Berserkergang',
+        effect: {
+            other: 'increases regeneration speed',
+        },
+    },
+    'Anarchy': {
+        tech: 'Anarchy',
+        effect: {
+            other: 'allows creation at Barracks',
+        },
+    },
+    'BeardedAxe': {
+        tech: 'BeardedAxe',
+        effect: {
+            range: '+1',
+        },
+    },
+    'ElDorado': {
+        tech: 'ElDorado',
+        effect: {
+            hitPoints: '+40',
+        },
+    },
+    'Bagains': {
+        tech: 'Bagains',
+        effect: {
+            armor: '+5/+0',
+        },
+    },
+    'ForcedLevy': {
+        tech: 'ForcedLevy',
+        effect: {
+            other: 'changes gold cost to extra food cost',
+        },
+    },
+    'GarlandWars': {
+        tech: 'GarlandWars',
+        effect: {
+            attack: '+4',
+        },
+    },
+    'Druzhina': {
+        tech: 'Druzhina',
+        effect: {
+            attack: 'gives trample damage',
+        },
+    },
+    'Chieftains': {
+        tech: 'Chieftains',
+        effect: {
+            attack: 'gives +5 attack against cavalry and +4 against camels',
+        },
+    },
+    'Perfusion': {
+        tech: 'Perfusion',
+        effect: {
+            creationSpeed: '+100%',
+        },
+    },
+    'Supplies': {
+        tech: 'Supplies',
+        effect: {
+            other: '-15 food cost',
+        },
+    },
     'CorvinianArmy': {
         tech: 'CorvinianArmy',
         effect: {
@@ -427,7 +493,7 @@ const techEffectDictInternal = {
     'Tracking': {
         tech: 'Tracking',
         effect: {
-            sight: '+10%',
+            sight: '+2',
         },
     },
     'Faith': {
@@ -453,6 +519,50 @@ const techEffectDictInternal = {
 export const techEffectDict = techEffectDictInternal as ITechEffectDict;
 
 export const techList: ITech[] = [
+    {
+        dataId: '49',
+        name: 'Berserkergang',
+    },
+    {
+        dataId: '16',
+        name: 'Anarchy',
+    },
+    {
+        dataId: '83',
+        name: 'BeardedAxe',
+    },
+    {
+        dataId: '4',
+        name: 'ElDorado',
+    },
+    {
+        dataId: '686',
+        name: 'Bagains',
+    },
+    {
+        dataId: '625',
+        name: 'ForcedLevy',
+    },
+    {
+        dataId: '24',
+        name: 'GarlandWars',
+    },
+    {
+        dataId: '513',
+        name: 'Druzhina',
+    },
+    {
+        dataId: '463',
+        name: 'Chieftains',
+    },
+    {
+        dataId: '457',
+        name: 'Perfusion',
+    },
+    {
+        dataId: '716',
+        name: 'Supplies',
+    },
     {
         dataId: '514',
         name: 'CorvinianArmy',
@@ -712,6 +822,7 @@ const techIcons: TechDict = {
     'ScaleBardingArmor': require('../../assets/techs/ScaleBardingArmor.png'),
     'ChainBardingArmor': require('../../assets/techs/ChainBardingArmor.png'),
     'PlateBardingArmor': require('../../assets/techs/PlateBardingArmor.png'),
+    'Supplies': require('../../assets/techs/Supplies.png'),
 
     'AndeanSling': require('../../assets/techs/UniqueTechCastle.png'),
     'ObsidianArrows': require('../../assets/techs/UniqueTechCastle.png'),
@@ -729,6 +840,8 @@ const techIcons: TechDict = {
     'Howdah': require('../../assets/techs/UniqueTechCastle.png'),
     'Marauders': require('../../assets/techs/UniqueTechCastle.png'),
     'CorvinianArmy': require('../../assets/techs/UniqueTechCastle.png'),
+    'Chieftains': require('../../assets/techs/UniqueTechCastle.png'),
+    'Anarchy': require('../../assets/techs/UniqueTechCastle.png'),
 
     'Couriers': require('../../assets/techs/UniqueTechImperial.jpg'),
     'TowerShields': require('../../assets/techs/UniqueTechImperial.jpg'),
@@ -741,6 +854,14 @@ const techIcons: TechDict = {
     'TuskSwords': require('../../assets/techs/UniqueTechImperial.jpg'),
     'Logistica': require('../../assets/techs/UniqueTechImperial.jpg'),
     'Mahouts': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'GarlandWars': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'Druzhina': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'Perfusion': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'Bagains': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'ForcedLevy': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'ElDorado': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'BeardedAxe': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'Berserkergang': require('../../assets/techs/UniqueTechImperial.jpg'),
 };
 
 export type Tech = keyof typeof techIcons;

@@ -103,17 +103,22 @@ export function UnitDetails({unit}: {unit: UnitLine}) {
                     </View>
                 )
             }
-            <Text/>
-            <View style={styles.row}>
-                <Text>Upgrades</Text>
-            </View>
             {
-                developments.map(unit =>
-                    <View key={unit} style={styles.row}>
-                        <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(unit)}/>
-                        <Text> {getUnitName(unit)}</Text>
+                developments.length > 0 &&
+                    <View>
+                        <Text/>
+                        <View style={styles.row}>
+                            <Text>Upgrades</Text>
+                        </View>
+                        {
+                            developments.map(unit =>
+                                <View key={unit} style={styles.row}>
+                                    <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(unit)}/>
+                                    <Text> {getUnitName(unit)}</Text>
+                                </View>
+                            )
+                        }
                     </View>
-                )
             }
         </View>
     );
