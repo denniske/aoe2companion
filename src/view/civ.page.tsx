@@ -76,7 +76,7 @@ export default function CivPage() {
     const civ = route.params?.civ as aoeCivKey;
 
     if (civ) {
-        return <CivDetails civ={civ} />;
+        return <ScrollView><CivDetails civ={civ} /></ScrollView>;
     }
 
     return <CivList/>

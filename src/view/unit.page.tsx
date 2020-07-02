@@ -2,7 +2,9 @@ import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, TouchableOpacity, Image, View, ScrollView } from 'react-native';
 import {RouteProp, useLinkTo, useNavigation, useRoute} from "@react-navigation/native";
 import {RootStackParamList, RootStackProp} from "../../App";
-import {getUnitLineIcon, getUnitLineName, UnitLine, unitLines} from "../helper/units";
+import {
+    getEliteUniqueResearchIcon, getUnitIcon, getUnitLineIcon, getUnitLineName, getUnitName, UnitLine, unitLines, units
+} from "../helper/units";
 import {getTechIcon, getTechName, techEffectDict, techs} from "../helper/techs";
 import {aoeCivKey} from "../data/data";
 
@@ -12,7 +14,14 @@ export function UnitDetails({unit}: {unit: UnitLine}) {
     const unitLine = unitLines[unit];
     const unitLineUpgrades = unitLine.upgrades.map(u => techEffectDict[u]);
 
+    const developments = unitLine.units.filter((u, i) => i > 0);//.map(u => units[u]);
+
     let groups = [
+        {
+            name: 'Hit Points',
+            prop: 'hitPoints',
+            upgrades: unitLineUpgrades.filter(u => 'hitPoints' in u.effect),
+        },
         {
             name: 'Attack',
             prop: 'attack',
@@ -24,7 +33,7 @@ export function UnitDetails({unit}: {unit: UnitLine}) {
             upgrades: unitLineUpgrades.filter(u => 'range' in u.effect),
         },
         {
-            name: 'FiringRate',
+            name: 'Firing Rate',
             prop: 'firingRate',
             upgrades: unitLineUpgrades.filter(u => 'firingRate' in u.effect),
         },
@@ -94,7 +103,18 @@ export function UnitDetails({unit}: {unit: UnitLine}) {
                     </View>
                 )
             }
-
+            <Text/>
+            <View style={styles.row}>
+                <Text>Upgrades</Text>
+            </View>
+            {
+                developments.map(unit =>
+                    <View key={unit} style={styles.row}>
+                        <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(unit)}/>
+                        <Text> {getUnitName(unit)}</Text>
+                    </View>
+                )
+            }
         </View>
     );
 }
@@ -103,7 +123,7 @@ export default function UnitPage() {
     const route = useRoute<RouteProp<RootStackParamList, 'Unit'>>();
     const unit = route.params?.unit as aoeCivKey;
 
-    return <UnitDetails unit={unit} />;
+    return <ScrollView><UnitDetails unit={unit} /></ScrollView>;
 }
 
 const styles = StyleSheet.create({
