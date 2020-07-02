@@ -1,4 +1,5 @@
 import { makeQueryString } from '../helper/util';
+import {IRatingHistoryEntry, IRatingHistoryEntryRaw} from "../helper/data";
 
 const fromUnixTime = require('date-fns/fromUnixTime');
 

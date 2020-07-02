@@ -1,6 +1,7 @@
 import { fetchLeaderboard } from '../api/leaderboard';
 import { groupBy, sortBy, sumBy } from 'lodash-es'
 import {Flag} from "../helper/flags";
+import {ILeaderboardPlayer} from "../helper/data";
 
 export interface IFetchedUser {
     clan: string;

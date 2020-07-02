@@ -71,7 +71,7 @@ export interface IMatch extends IMatchRaw {
     finished: Date;
 }
 
-interface IRatingHistoryEntryRaw {
+export interface IRatingHistoryEntryRaw {
     drops: number;
     num_losses: number;
     num_wins: number;
@@ -80,7 +80,7 @@ interface IRatingHistoryEntryRaw {
     timestamp: any;
 }
 
-interface IRatingHistoryEntry extends IRatingHistoryEntryRaw {
+export interface IRatingHistoryEntry extends IRatingHistoryEntryRaw {
     timestamp: Date;
 }
 

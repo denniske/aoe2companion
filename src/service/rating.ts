@@ -1,5 +1,6 @@
 import { fetchRatingHistory } from '../api/rating-history';
 import { composeUserId, minifyUserId, UserId, UserIdBase } from '../helper/user';
+import {IRatingHistoryEntry} from "../helper/data";
 
 export interface IRatingHistoryRow {
     leaderboard_id: number;
