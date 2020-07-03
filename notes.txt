@@ -7,6 +7,7 @@ tech:
 - tech.page
 - https://ageofempires.fandom.com/wiki/Steppe_Husbandry 50% or 80%???
 
+mogrify -format jpg *.png
 
 git tag v1.0.2 && git push --tags
 git tag -d v6.0.0 && git push --delete origin v6.0.0
