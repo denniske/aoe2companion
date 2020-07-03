@@ -67,6 +67,7 @@ export default function StatsCiv({matches}: IProps) {
 
     return (
             <View style={styles.container}>
+                <Text/>
                 <View>
                     <View style={styles.row}>
                         <Text numberOfLines={1} style={styles.cellLeaderboard}>Civ</Text>

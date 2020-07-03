@@ -47,13 +47,14 @@ export default function StatsPlayer({matches}: IProps) {
     let rows: IRow[] | null = null;
 
     if (matches) {
-
         let otherPlayers = matches.flatMap(m => m.players).filter(p => p.steam_id !== auth.steam_id && p.profile_id !== auth.profile_id);
         let otherPlayersUniq = uniqBy(otherPlayers, p => composeUserId(p));
 
         rows = otherPlayersUniq.map(otherPlayer => {
             const gamesWithPlayer = matches.filter(m => m.players.filter(p =>
-                (p.steam_id === otherPlayer.steam_id || p.profile_id === otherPlayer.profile_id)
+                (p.steam_id === otherPlayer.steam_id && p.profile_id === otherPlayer.profile_id)
+                // ((p.steam_id != null && otherPlayer.steam_id != null && p.steam_id === otherPlayer.steam_id)
+                //     || (p.profile_id != null && otherPlayer.profile_id != null && p.profile_id === otherPlayer.profile_id))
             ).length > 0);
             const gamesWithPlayerWon = gamesWithPlayer.filter(m => m.players.filter(p =>
                 p.won &&
@@ -68,12 +69,11 @@ export default function StatsPlayer({matches}: IProps) {
         rows = rows.filter(r => r.games > 0);
         rows = orderBy(rows, [r => r.games], ['desc']);
         // rows = orderBy(rows, [r => r.won], ['desc']);
-        rows = rows.filter((r, i) => i < 8);
+        rows = rows.filter((r, i) => i < 10);
     }
 
     return (
             <View style={styles.container}>
-                <Text/>
                 <View>
                     <View style={styles.row}>
                         <Text numberOfLines={1} style={styles.cellLeaderboard}>Player</Text>
