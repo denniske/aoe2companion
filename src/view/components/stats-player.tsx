@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import React from 'react';
 import {IMatch, IPlayer} from "../../helper/data";
 import {TextLoader} from "../loader/text-loader";
@@ -7,7 +7,9 @@ import {useSelector} from "../../redux/reducer";
 import {AoeMap, getMapImage, getMapName, maps} from "../../helper/maps";
 import {orderBy, sortBy, uniq, uniqBy} from "lodash-es";
 import {getFlagIcon} from "../../helper/flags";
-import {composeUserId} from "../../helper/user";
+import {composeUserId, userIdFromBase} from "../../helper/user";
+import {useNavigation} from "@react-navigation/native";
+import {RootStackProp} from "../../../App";
 
 interface IRow {
     player: IPlayer;
@@ -20,13 +22,23 @@ interface IRowProps {
 }
 
 function Row({data}: IRowProps) {
+    const navigation = useNavigation<RootStackProp>();
+
+    const gotoPlayer = () => {
+        navigation.push('User', {
+            id: userIdFromBase(data.player),
+            name: data.player.name,
+        });
+    };
 
     return (
             <View style={styles.row}>
-                <View style={styles.cellLeaderboard}>
-                    <Image style={styles.icon} source={getFlagIcon(data.player.country)}/>
-                    <Text>{data.player.name}</Text>
-                </View>
+                <TouchableHighlight style={styles.cellLeaderboard} onPress={gotoPlayer}>
+                    <View style={styles.row}>
+                        <Image style={styles.icon} source={getFlagIcon(data.player.country)}/>
+                        <Text>{data.player.name}</Text>
+                    </View>
+                </TouchableHighlight>
                 <Text style={styles.cellGames}>
                     {data.games}
                 </Text>

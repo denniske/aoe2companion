@@ -1,10 +1,14 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import React from 'react';
 import {IMatch} from "../../helper/data";
 import {TextLoader} from "../loader/text-loader";
 import {Civ, civs, getCivIcon} from "../../helper/civs";
 import {useSelector} from "../../redux/reducer";
 import {orderBy} from "lodash-es";
+import {getFlagIcon} from "../../helper/flags";
+import {useNavigation} from "@react-navigation/native";
+import {RootStackProp} from "../../../App";
+import {userIdFromBase} from "../../helper/user";
 
 interface IRow {
     civ: Civ;
@@ -17,13 +21,20 @@ interface IRowProps {
 }
 
 function Row({data}: IRowProps) {
+    const navigation = useNavigation<RootStackProp>();
+
+    const gotoCiv = () => {
+        navigation.push('Civ', { civ: data.civ });
+    };
 
     return (
             <View style={styles.row}>
-                <View style={styles.cellLeaderboard}>
-                    <Image style={styles.icon} source={getCivIcon(data.civ)}/>
-                    <Text>{data.civ}</Text>
-                </View>
+                <TouchableHighlight style={styles.cellLeaderboard} onPress={gotoCiv}>
+                    <View style={styles.row}>
+                        <Image style={styles.icon} source={getCivIcon(data.civ)}/>
+                        <Text>{data.civ}</Text>
+                    </View>
+                </TouchableHighlight>
                 <Text style={styles.cellGames}>
                     {data.games}
                 </Text>
