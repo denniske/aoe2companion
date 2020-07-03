@@ -5,21 +5,11 @@ import {RouteProp, useLinkTo, useNavigation, useRoute} from "@react-navigation/n
 import {RootStackParamList, RootStackProp} from "../../App";
 import {getUnitLineIcon, getUnitLineName, unitLines} from "../helper/units";
 import {aoeData} from "../data/data";
+import {UnitComp} from "./unit.page";
 
 type aoeStringKey = keyof typeof aoeData.strings;
 type aoeCivKey = keyof typeof aoeData.civ_helptexts;
 
-function Unit({unit}: any) {
-    const navigation = useNavigation<RootStackProp>();
-    return (
-        <TouchableOpacity onPress={() => navigation.push('Unit', {unit: unit})}>
-            <View style={styles.row}>
-                <Image style={styles.unitIcon} source={getUnitLineIcon(unit)}/>
-                <Text> {getUnitLineName(unit)}</Text>
-            </View>
-        </TouchableOpacity>
-    );
-}
 
 export function CivDetails({civ}: {civ: aoeCivKey}) {
     const navigation = useNavigation<RootStackProp>();
@@ -43,7 +33,7 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
             <Text/>
             {
                 Object.keys(unitLines).map(ul =>
-                    <Unit key={ul} unit={ul}/>
+                    <UnitComp key={ul} unit={ul}/>
                 )
             }
         </View>

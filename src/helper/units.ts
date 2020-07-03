@@ -3,7 +3,7 @@ import {ImageSourcePropType} from "react-native";
 import {aoeData, aoeStringKey, aoeUnitDataId} from "../data/data";
 
 
-interface IUnitLine {
+export interface IUnitLine {
     unique?: boolean;
     units: Unit[];
     upgrades: TechEffect[];
@@ -1569,7 +1569,7 @@ const unitsInternal = {
         dataId: '569',
     },
     'XolotlWarrior': {
-        dataId: '448', // Todo: Change
+        dataId: '10000',
     },
     'ScoutCavalry': {
         dataId: '448',
@@ -1832,6 +1832,33 @@ export function getUnitName(unit: Unit) {
         throw Error(`getUnitLineName ${unit} - no dataId`);
     }
     const dataId = units[unit].dataId;
+    // console.log("DATA ID", dataId);
+    // console.log("DATA ID", aoeData.data.units);
     const data = aoeData.data.units[dataId];
     return aoeData.strings[data.LanguageNameId.toString() as aoeStringKey];
+}
+
+function strRemoveTo(str: string, find: string) {
+    return str.substring(str.indexOf(find) + find.length);
+}
+
+function strRemoveFrom(str: string, find: string) {
+    return str.substring(0, str.indexOf(find));
+}
+
+export function getUnitDescription(unit: Unit) {
+    const unitEntry = units[unit];
+    if (unitEntry == null) {
+        throw Error(`getUnitLineName ${unit} - no dataId`);
+    }
+    const dataId = units[unit].dataId;
+    // console.log("DATA ID", dataId);
+    // console.log("DATA ID", aoeData.data.units);
+    const data = aoeData.data.units[dataId];
+    let description = aoeData.strings[data.LanguageHelpId.toString() as aoeStringKey];
+
+    description = strRemoveTo(description, '<br>');
+    description = strRemoveFrom(description, '<i> Upgrades:');
+
+    return description;
 }

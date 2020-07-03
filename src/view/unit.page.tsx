@@ -3,12 +3,16 @@ import { StyleSheet, Text, TouchableOpacity, Image, View, ScrollView } from 'rea
 import {RouteProp, useLinkTo, useNavigation, useRoute} from "@react-navigation/native";
 import {RootStackParamList, RootStackProp} from "../../App";
 import {
-    getEliteUniqueResearchIcon, getUnitIcon, getUnitLineIcon, getUnitLineName, getUnitName, UnitLine, unitLines, units
+    getEliteUniqueResearchIcon, getUnitDescription, getUnitIcon, getUnitLineIcon, getUnitLineName, getUnitName,
+    IUnitLine, Unit, UnitLine,
+    unitLines,
+    units
 } from "../helper/units";
 import {getTechIcon, getTechName, ITechEffect, Tech, techEffectDict, techs} from "../helper/techs";
 import {aoeCivKey} from "../data/data";
-import {groupBy} from "lodash-es";
-import {Civ, civs} from "../helper/civs";
+import {groupBy, sortBy} from "lodash-es";
+import {Civ, civs, getCivIcon} from "../helper/civs";
+import {CivDetails, CivList} from "./civ.page";
 
 
 export function UnitDetails({unit}: {unit: UnitLine}) {
@@ -105,10 +109,11 @@ export function UnitDetails({unit}: {unit: UnitLine}) {
 
     return (
         <View style={styles.detailsContainer}>
-            <View style={styles.row}>
-                <Image style={styles.unitIcon} source={getUnitLineIcon(unit)}/>
-                <Text> {getUnitLineName(unit)}</Text>
-            </View>
+            {/*<View style={styles.row}>*/}
+            {/*    <Image style={styles.unitIcon} source={getUnitLineIcon(unit)}/>*/}
+            {/*    <Text> {getUnitLineName(unit)}</Text>*/}
+            {/*</View>*/}
+            <Text style={styles.description}> {getUnitDescription(unitLines[unit].units[0])}</Text>
             <Text/>
             {
                 groups.map(group =>
@@ -161,14 +166,75 @@ export function UnitDetails({unit}: {unit: UnitLine}) {
     );
 }
 
+export function UnitComp({unit}: any) {
+    const navigation = useNavigation<RootStackProp>();
+    return (
+        <TouchableOpacity onPress={() => navigation.push('Unit', {unit: unit})}>
+            <View style={styles.row}>
+                <Image style={styles.unitIcon} source={getUnitLineIcon(unit)}/>
+                <Text> {getUnitLineName(unit)}</Text>
+            </View>
+        </TouchableOpacity>
+    );
+}
+
+function getUnitLineTitle(unitLine: IUnitLine) {
+    // if (unitLine.unique) {
+    //     return getUnitName(unitLine.units[0]);// + ' + Elite';
+    // }
+    return unitLine.units.filter((x, i) => i > 0).map(getUnitName).join(', ');
+}
+
+export function UnitCompBig({unit}: any) {
+    const navigation = useNavigation<RootStackProp>();
+    return (
+        <TouchableOpacity onPress={() => navigation.push('Unit', {unit: unit})}>
+            <View style={styles.rowBig}>
+                <Image style={styles.unitIconBig} source={getUnitLineIcon(unit)}/>
+                <View style={styles.unitIconTitle}>
+                    <Text> {getUnitLineName(unit)}</Text>
+                    {
+                        unitLines[unit].units.length > 1 && !unitLines[unit].unique &&
+                        <Text numberOfLines={1} style={styles.small}> {getUnitLineTitle(unitLines[unit])}</Text>
+                    }
+                </View>
+                {/*<Text> {getUnitLineName(unit)}</Text>*/}
+            </View>
+        </TouchableOpacity>
+    );
+}
+
+export function UnitList() {
+    const navigation = useNavigation<RootStackProp>();
+
+    return (
+        <ScrollView contentContainerStyle={styles.container}>
+            <View style={styles.civContainer}>
+                {
+                    sortBy(Object.keys(unitLines)).map(ul =>
+                        <UnitCompBig key={ul} unit={ul}/>
+                    )
+                }
+            </View>
+        </ScrollView>
+    );
+}
+
 export default function UnitPage() {
     const route = useRoute<RouteProp<RootStackParamList, 'Unit'>>();
     const unit = route.params?.unit as aoeCivKey;
 
-    return <ScrollView><UnitDetails unit={unit} /></ScrollView>;
+    if (unit) {
+        return <ScrollView><UnitDetails unit={unit} /></ScrollView>;
+    }
+
+    return <UnitList/>
 }
 
 const styles = StyleSheet.create({
+    description: {
+        lineHeight: 20,
+    },
     title: {
         marginTop: 20,
         fontSize: 16,
@@ -207,16 +273,26 @@ const styles = StyleSheet.create({
         marginVertical: 5,
     },
     civContainer: {
+        // flex: 1,
+        // backgroundColor: 'yellow',
         // flexDirection: 'row',
         // flexWrap: 'wrap',
     },
     container: {
         // flex: 1,
         backgroundColor: 'white',
-        alignItems: 'center',
+        // alignItems: 'center',
         padding: 20,
     },
 
+    rowBig: {
+        marginLeft: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 10,
+        // width: 100,
+        // backgroundColor: 'blue',
+    },
     row: {
         marginLeft: 5,
         flexDirection: 'row',
@@ -230,7 +306,23 @@ const styles = StyleSheet.create({
         height: 20,
         marginRight: 5,
     },
+    unitIconBig: {
+        width: 30,
+        height: 30,
+        // flex: 1,
+        // marginRight: 5,
+    },
+    unitIconTitle: {
+        // width: '100%',
+        flex: 1,
+        // marginLeft: 5,
+        paddingLeft: 5,
+        // backgroundColor: 'red',
+    },
     link: {
         color: '#397AF9',
     },
+    small: {
+        fontSize: 12,
+    }
 });

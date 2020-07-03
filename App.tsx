@@ -147,7 +147,7 @@ function UnitTitle(props: any) {
             </View>
         );
     }
-    return <Text style={styles.title}>Civs</Text>
+    return <Text style={styles.title}>Units</Text>
 }
 
 function unitTitle(props: any) {

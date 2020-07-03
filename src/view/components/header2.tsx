@@ -49,6 +49,8 @@ export default function Header2() {
                                 <View><Text> </Text></View>
                             }
                     >
+                        <Menu.Item onPress={() => { nav('Unit'); setMenu(false); }} title="Technologies" />
+                        <Menu.Item onPress={() => { nav('Unit'); setMenu(false); }} title="Units" />
                         <Menu.Item onPress={() => { nav('About'); setMenu(false); }} title="About" />
                     </Menu>
                 </View>
