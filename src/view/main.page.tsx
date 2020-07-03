@@ -60,7 +60,7 @@ function MainHome() {
         //     }
         //     state.user[auth.id].matches = value;
         // },
-        fetchMatches, 'aoe2de', 0, 500, auth
+        fetchMatches, 'aoe2de', 0, 1000, auth
     );
 
     const list = ['profile', 'rating-header', 'rating', 'stats-header', 'stats-player', 'stats-civ', 'stats-map', 'not-me'];
