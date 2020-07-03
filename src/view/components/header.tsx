@@ -6,12 +6,14 @@ import Icon5 from 'react-native-vector-icons/FontAwesome5';
 import {useNavigation} from '@react-navigation/native';
 import {IconButton, Menu} from 'react-native-paper';
 import {RootStackParamList, RootStackProp} from '../../../App';
+import {getRootNavigation} from "../../service/navigation";
 
 export default function Header() {
     const [menu, setMenu] = useState(false);
-    const navigation = useNavigation<RootStackProp>();
+    // const navigation = useNavigation<RootStackProp>();
 
     const nav = async (route: keyof RootStackParamList) => {
+        const navigation = getRootNavigation();
         navigation.reset({
             index: 0,
             routes: [{name: route}]
@@ -25,50 +27,50 @@ export default function Header() {
                     <Text>AoE II Companion</Text>
                 </View>
                 <View style={styles.menu}>
-                    <IconButton
-                        style={styles.menuButton}
-                        size={18}
-                        icon={({size, color}) => (<Icon name="search" color={color} size={size}/>)}
-                        onPress={() => nav('Search')}
-                    />
-                    <IconButton
-                        style={styles.menuButton}
-                        size={18}
-                        icon={({size, color}) => (<Icon name="user" color={color} size={size}/>)}
-                        onPress={() => nav('Main')}
-                    />
-                    <IconButton
-                        style={styles.menuButton}
-                        size={18}
-                        icon={({size, color}) => (<Icon name="trophy" color={color} size={size}/>)}
-                        onPress={() => nav('Leaderboard')}
-                    />
-                    <IconButton
-                        style={styles.menuButton}
-                        size={18}
-                        icon={({size, color}) => (<Icon5 name="landmark" color={color} size={size}/>)}
-                        onPress={() => nav('Civ')}
-                    />
-                    <IconButton
-                        style={styles.menuButton}
-                        size={18}
-                        icon={({size, color}) => (<Icon name="graduation-cap" color={color} size={size}/>)}
-                        onPress={() => nav('Guide')}
-                    />
-                    <Menu
-                            visible={menu}
-                            onDismiss={() => setMenu(false)}
-                            anchor={
-                                <IconButton
-                                    style={styles.menuButtonDots}
-                                    size={18}
-                                    icon={({size, color}) => (<Icon name="ellipsis-v" color={color} size={size}/>)}
-                                    onPress={() => setMenu(true)}
-                                />
-                            }
-                    >
-                        <Menu.Item onPress={() => { nav('About'); setMenu(false); }} title="About" />
-                    </Menu>
+                    {/*<IconButton*/}
+                    {/*    style={styles.menuButton}*/}
+                    {/*    size={18}*/}
+                    {/*    icon={({size, color}) => (<Icon name="search" color={color} size={size}/>)}*/}
+                    {/*    onPress={() => nav('Search')}*/}
+                    {/*/>*/}
+                    {/*<IconButton*/}
+                    {/*    style={styles.menuButton}*/}
+                    {/*    size={18}*/}
+                    {/*    icon={({size, color}) => (<Icon name="user" color={color} size={size}/>)}*/}
+                    {/*    onPress={() => nav('Main')}*/}
+                    {/*/>*/}
+                    {/*<IconButton*/}
+                    {/*    style={styles.menuButton}*/}
+                    {/*    size={18}*/}
+                    {/*    icon={({size, color}) => (<Icon name="trophy" color={color} size={size}/>)}*/}
+                    {/*    onPress={() => nav('Leaderboard')}*/}
+                    {/*/>*/}
+                    {/*<IconButton*/}
+                    {/*    style={styles.menuButton}*/}
+                    {/*    size={18}*/}
+                    {/*    icon={({size, color}) => (<Icon5 name="landmark" color={color} size={size}/>)}*/}
+                    {/*    onPress={() => nav('Civ')}*/}
+                    {/*/>*/}
+                    {/*<IconButton*/}
+                    {/*    style={styles.menuButton}*/}
+                    {/*    size={18}*/}
+                    {/*    icon={({size, color}) => (<Icon name="graduation-cap" color={color} size={size}/>)}*/}
+                    {/*    onPress={() => nav('Guide')}*/}
+                    {/*/>*/}
+                    {/*<Menu*/}
+                    {/*        visible={menu}*/}
+                    {/*        onDismiss={() => setMenu(false)}*/}
+                    {/*        anchor={*/}
+                    {/*            <IconButton*/}
+                    {/*                style={styles.menuButtonDots}*/}
+                    {/*                size={18}*/}
+                    {/*                icon={({size, color}) => (<Icon name="ellipsis-v" color={color} size={size}/>)}*/}
+                    {/*                onPress={() => setMenu(true)}*/}
+                    {/*            />*/}
+                    {/*        }*/}
+                    {/*>*/}
+                    {/*    <Menu.Item onPress={() => { nav('About'); setMenu(false); }} title="About" />*/}
+                    {/*</Menu>*/}
                 </View>
             </View>
     );

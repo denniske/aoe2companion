@@ -20,7 +20,7 @@ import {loadSettingsFromStorage} from './src/service/storage';
 import AboutPage from './src/view/about.page';
 import store from './src/redux/store';
 import {Provider as ReduxProvider} from 'react-redux';
-import {DefaultTheme as PaperDefaultTheme, Provider as PaperProvider} from 'react-native-paper';
+import {DefaultTheme as PaperDefaultTheme, IconButton, Provider as PaperProvider} from 'react-native-paper';
 import {useSelector} from './src/redux/reducer';
 import SearchPage from './src/view/search.page';
 import PrivacyPage from './src/view/privacy.page';
@@ -92,6 +92,12 @@ export type RootTabParamList = {
 };
 
 export type RootStackProp = StackNavigationProp<RootStackParamList, 'Main'>;
+
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Icon from "react-native-vector-icons/FontAwesome";
+import {navigationRef} from "./src/service/navigation";
+import Header2 from "./src/view/components/header2";
+const Tab = createBottomTabNavigator();
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -169,6 +175,36 @@ export function InnerApp() {
     }
 
     return (
+
+        // <Tab.Navigator lazy={true}>
+        //     <Tab.Screen
+        //     name="Main"
+        //     component={MainPage}
+        //     options={{
+        //         title: 'Me',
+        //         tabBarIcon: ({size, color}) => (<Icon name="user" color={color} size={size}/>)
+        //         // headerStatusBarHeight: headerStatusBarHeight,
+        //         // headerBackground: () => (
+        //         //     <HeaderBackground><Header/></HeaderBackground>
+        //         // ),
+        //     }}
+        // />
+        //     <Tab.Screen
+        //         name="Leaderboard"
+        //         component={LeaderboardPage}
+        //         options={{
+        //             title: 'Leaderboard',
+        //             tabBarIcon: ({size, color}) => (<Icon name="trophy" color={color} size={size}/>)
+        //
+        //             // headerStatusBarHeight: headerStatusBarHeight,
+        //             // headerBackground: () => (
+        //             //     <HeaderBackground><Header/></HeaderBackground>
+        //             // ),
+        //         }}
+        //     />
+        // </Tab.Navigator>
+
+        <View style={styles.box}>
         <Stack.Navigator screenOptions={{animationEnabled: false}}>
             {/*<Stack.Screen*/}
             {/*        name="Welcome"*/}
@@ -283,6 +319,8 @@ export function InnerApp() {
                 }}
             />
         </Stack.Navigator>
+            <Header2/>
+        </View>
     );
 }
 
@@ -320,7 +358,7 @@ const customNavigationTheme = {
 
 export default function App() {
     return (
-        <NavigationContainer theme={customNavigationTheme} linking={linking}>
+        <NavigationContainer ref={navigationRef} theme={customNavigationTheme} linking={linking}>
             <ConditionalTester>
                 <ReduxProvider store={store}>
                     <PaperProvider theme={customPaperTheme}>
@@ -333,6 +371,11 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+    box: {
+        // backgroundColor: '#397AF9',
+        // height: '100%',
+        flex: 1,
+    },
     link: {
         color: '#397AF9',
     },
