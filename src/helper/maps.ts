@@ -101,9 +101,9 @@ const maps = {
     125: require('../../assets/maps/rm_ravines.png'),
     126: require('../../assets/maps/rm_wolf-hill.png'),
     132: require('../../assets/maps/rwm_antarctica.png'),
-    // 137: require('../../assets/maps/custom map pool'),
-    // 139: require('../../assets/maps/golden swamp'),
-    // 140: require('../../assets/maps/four lakes'),
+    137: require('../../assets/maps/cm_generic.png'),
+    139: require('../../assets/maps/rm_golden-swamp.png'),
+    140: require('../../assets/maps/rm_four-lakes.png'),
 };
 
 export type AoeMap = keyof typeof maps;
