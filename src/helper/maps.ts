@@ -34,7 +34,7 @@ const maps = {
     56: require('../../assets/maps/rwm_norse_lands.png'),
     57: require('../../assets/maps/rwm_sea_of_japan.png'),
     58: require('../../assets/maps/rwm_byzantium.png'),
-    // 59: require('../../assets/maps/custom'),
+    59: require('../../assets/maps/cm_generic.png'),
     60: require('../../assets/maps/rm_random_land_map.png'),
     62: require('../../assets/maps/rwm_random_real_world_map.png'),
     63: require('../../assets/maps/rm_blind_random.png'),
