@@ -1,5 +1,6 @@
 import {aoeData, aoeStringKey, aoeTechDataId} from "../data/data";
 import {Civ} from "./civs";
+import {strRemoveTo} from "./util";
 
 
 interface IEffect {
@@ -1655,4 +1656,19 @@ export function getTechName(tech: Tech) {
     const dataId = techEntry.dataId;
     const data = aoeData.data.techs[dataId];
     return aoeData.strings[data.LanguageNameId.toString() as aoeStringKey];
+}
+
+export function getTechDescription(tech: Tech) {
+    const techEntry = techs[tech];
+    if (techEntry == null) {
+        throw Error(`getTechName ${tech} - no dataId`);
+    }
+    const dataId = techEntry.dataId;
+    const data = aoeData.data.techs[dataId];
+    let description = aoeData.strings[data.LanguageHelpId.toString() as aoeStringKey];
+
+    description = strRemoveTo(description, '<br>');
+    // description = strRemoveFrom(description, '<i> Upgrades:');
+
+    return description;
 }

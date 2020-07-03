@@ -70,6 +70,12 @@ const linking = {
         Civ: {
             path: 'civ/:civ',
         },
+        Unit: {
+            path: 'unit/:unit',
+        },
+        Tech: {
+            path: 'tech/:tech',
+        },
     },
 };
 
@@ -81,6 +87,7 @@ export type RootStackParamList = {
     Leaderboard: undefined;
     Civ: { civ: Civ };
     Unit: { unit: string };
+    Tech: { tech: string };
     Guide: undefined;
     User: { id: UserId, name: string };
     Search: { name?: string };
@@ -93,11 +100,10 @@ export type RootTabParamList = {
 
 export type RootStackProp = StackNavigationProp<RootStackParamList, 'Main'>;
 
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Icon from "react-native-vector-icons/FontAwesome";
 import {navigationRef} from "./src/service/navigation";
 import Header2 from "./src/view/components/header2";
-const Tab = createBottomTabNavigator();
+import {getTechIcon, getTechName} from "./src/helper/techs";
+import TechPage from "./src/view/tech.page";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -152,6 +158,22 @@ function UnitTitle(props: any) {
 
 function unitTitle(props: any) {
     return props.route?.params?.unit || 'Units';
+}
+
+function TechTitle(props: any) {
+    if (props.route?.params?.tech) {
+        return (
+            <View style={styles.civRow}>
+                <Image style={styles.icon} source={getTechIcon(props.route?.params?.tech)}/>
+                <Text style={styles.title}>{getTechName(props.route.params?.tech)}</Text>
+            </View>
+        );
+    }
+    return <Text style={styles.title}>Techs</Text>
+}
+
+function techTitle(props: any) {
+    return props.route?.params?.tech || 'Techs';
 }
 
 export function InnerApp() {
@@ -238,6 +260,18 @@ export function InnerApp() {
                         <HeaderBackground><Header/></HeaderBackground>
                     ),
                 }}
+            />
+            <Stack.Screen
+                name="Tech"
+                component={TechPage}
+                options={props => ({
+                    title: techTitle(props),
+                    headerTitle: titleProps => <TechTitle {...props} />,
+                    headerStatusBarHeight: headerStatusBarHeight,
+                    headerBackground: () => (
+                        <HeaderBackground><Header/></HeaderBackground>
+                    ),
+                })}
             />
             <Stack.Screen
                 name="Unit"

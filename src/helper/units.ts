@@ -1,6 +1,7 @@
 import {Tech, TechEffect} from "./techs";
 import {ImageSourcePropType} from "react-native";
 import {aoeData, aoeStringKey, aoeUnitDataId} from "../data/data";
+import {strRemoveFrom, strRemoveTo} from "./util";
 
 
 export interface IUnitLine {
@@ -1838,22 +1839,12 @@ export function getUnitName(unit: Unit) {
     return aoeData.strings[data.LanguageNameId.toString() as aoeStringKey];
 }
 
-function strRemoveTo(str: string, find: string) {
-    return str.substring(str.indexOf(find) + find.length);
-}
-
-function strRemoveFrom(str: string, find: string) {
-    return str.substring(0, str.indexOf(find));
-}
-
 export function getUnitDescription(unit: Unit) {
     const unitEntry = units[unit];
     if (unitEntry == null) {
         throw Error(`getUnitLineName ${unit} - no dataId`);
     }
     const dataId = units[unit].dataId;
-    // console.log("DATA ID", dataId);
-    // console.log("DATA ID", aoeData.data.units);
     const data = aoeData.data.units[dataId];
     let description = aoeData.strings[data.LanguageHelpId.toString() as aoeStringKey];
 
@@ -1861,4 +1852,13 @@ export function getUnitDescription(unit: Unit) {
     description = strRemoveFrom(description, '<i> Upgrades:');
 
     return description;
+}
+
+const unitList = Object.keys(unitLines).map(ul => ({
+    name: ul,
+    ...unitLines[ul],
+}))
+
+export function getUnitLineForUnit(unit: Unit) {
+    return unitList.find(ul => ul.units.includes(unit))?.name;
 }
