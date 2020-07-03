@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, TouchableOpacity, Image, View, ScrollView } from 'react-native';
-import {civs, getCivIcon} from "../helper/civs";
+import {civs, getCivIconByIndex} from "../helper/civs";
 import {RouteProp, useLinkTo, useNavigation, useRoute} from "@react-navigation/native";
 import {RootStackParamList, RootStackProp} from "../../App";
 import {
@@ -97,7 +97,7 @@ export function CivList() {
                     civs.map((civ, i) =>
                         <TouchableOpacity key={civ} onPress={() => navigation.push('Civ', {civ})}>
                             <View style={styles.civBlock}>
-                                <Image style={styles.icon} source={getCivIcon(i)}/>
+                                <Image style={styles.icon} source={getCivIconByIndex(i)}/>
                                 <Text style={styles.name}>{civ}</Text>
                             </View>
                         </TouchableOpacity>

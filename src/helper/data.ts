@@ -5,7 +5,7 @@ export interface IPlayer {
     civ: number;
     clan: string;
     color: number;
-    country: string;
+    country: Flag;
     drops: number;
     games: number;
     name: string;

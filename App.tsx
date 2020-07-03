@@ -30,7 +30,7 @@ import ExampleSpec from './src/ci/exampleSpec';
 import LeaderboardPage from "./src/view/leaderboard.page";
 import GuidePage from "./src/view/guide.page";
 import CivPage from "./src/view/civ.page";
-import {civs, getCivIcon, Civ} from "./src/helper/civs";
+import {civs, getCivIconByIndex, Civ} from "./src/helper/civs";
 import UnitPage from "./src/view/unit.page";
 import {getUnitLineIcon, getUnitLineName} from "./src/helper/units";
 
@@ -132,7 +132,7 @@ function CivTitle(props: any) {
     if (props.route?.params?.civ) {
         return (
             <View style={styles.civRow}>
-                <Image style={styles.icon} source={getCivIcon(civs.indexOf(props.route?.params?.civ))}/>
+                <Image style={styles.icon} source={getCivIconByIndex(civs.indexOf(props.route?.params?.civ))}/>
                 <Text style={styles.title}>{props.route.params?.civ}</Text>
             </View>
         );

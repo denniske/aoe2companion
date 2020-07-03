@@ -1,5 +1,6 @@
+import {getString} from "./strings";
 
-const maps = {
+export const maps = {
     9: require('../../assets/maps/rm_arabia.png'),
     10: require('../../assets/maps/rm_archipelago.png'),
     11: require('../../assets/maps/rm_baltic.png'),
@@ -111,3 +112,8 @@ export type AoeMap = keyof typeof maps;
 export function getMapImage(map: AoeMap) {
     return maps[map];
 }
+
+export function getMapName(map: AoeMap) {
+    return getString('map_type', map);
+}
+

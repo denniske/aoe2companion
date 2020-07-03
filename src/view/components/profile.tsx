@@ -30,7 +30,7 @@ function LeaderboardRow({data}: ILeaderboardRowProps) {
                 <Text style={StyleSheet.flatten([styles.cellGames, color])}>
                     {leaderboardInfo.games}
                 </Text>
-                <Text style={StyleSheet.flatten([styles.cellLastMatch, color])} numberOfLines={1}>
+                <Text style={StyleSheet.flatten([styles.cellWon, color])} numberOfLines={1}>
                     {formatAgo(leaderboardInfo.last_match)}
                 </Text>
             </View>
@@ -92,7 +92,7 @@ export default function Profile({data}: IProfileProps) {
                         <Text numberOfLines={1} style={styles.cellRank}>Rank</Text>
                         <Text numberOfLines={1} style={styles.cellRating}>Rating</Text>
                         <Text numberOfLines={1} style={styles.cellGames}>Games</Text>
-                        <Text numberOfLines={1} style={styles.cellLastMatch}>Last Match</Text>
+                        <Text numberOfLines={1} style={styles.cellWon}>Last Match</Text>
                     </View>
 
                     {
@@ -108,7 +108,7 @@ export default function Profile({data}: IProfileProps) {
                                 <TextLoader style={styles.cellRank}/>
                                 <TextLoader style={styles.cellRating}/>
                                 <TextLoader style={styles.cellGames}/>
-                                <TextLoader style={styles.cellLastMatch}/>
+                                <TextLoader style={styles.cellWon}/>
                             </View>
                         )
                     }
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
         width: 60,
         marginRight: 5,
     },
-    cellLastMatch: {
+    cellWon: {
         flex: 1,
     },
     row: {

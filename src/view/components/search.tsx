@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     cellAction: {
         flex: 1.5,
     },
-    cellLastMatch: {
+    cellWon: {
         width: 110,
     },
     headerRow: {

@@ -11,7 +11,7 @@ import {
 import {getTechDescription, getTechIcon, getTechName, ITechEffect, Tech, techEffectDict, techs} from "../helper/techs";
 import {aoeCivKey} from "../data/data";
 import {groupBy, sortBy} from "lodash-es";
-import {Civ, civs, getCivIcon} from "../helper/civs";
+import {Civ, civs, getCivIconByIndex} from "../helper/civs";
 import {CivDetails, CivList} from "./civ.page";
 
 

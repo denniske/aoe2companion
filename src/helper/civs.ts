@@ -78,6 +78,10 @@ const civList = [
     require('../../assets/civilizations/vikings.png'),
 ];
 
-export function getCivIcon(civ: number) {
+export function getCivIconByIndex(civ: number) {
     return civList[civ];
+}
+
+export function getCivIcon(civ: Civ) {
+    return civList[civs.indexOf(civ as any)];
 }

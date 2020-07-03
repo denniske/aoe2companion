@@ -9,7 +9,7 @@ import {AppSettings} from '../../helper/constants';
 import Rating from './rating';
 import {useNavigation} from '@react-navigation/native';
 import {userIdFromBase} from '../../helper/user';
-import {civs, getCivIcon} from '../../helper/civs';
+import {civs, getCivIconByIndex} from '../../helper/civs';
 import {getString} from '../../helper/strings';
 import {RootStackProp} from '../../../App';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -108,7 +108,7 @@ export function Player({player}: IPlayerProps) {
 
             <TouchableOpacity onPress={() => navigation.push('Civ', {civ: civs[player.civ]})}>
                 <View style={styles.row}>
-                    <Image style={styles.countryIcon} source={getCivIcon(player.civ)}/>
+                    <Image style={styles.countryIcon} source={getCivIconByIndex(player.civ)}/>
                     <Text> {getString('civ', player.civ)}</Text>
                 </View>
             </TouchableOpacity>

@@ -16,6 +16,10 @@ import {useNavigation} from "@react-navigation/native";
 import {useCavy} from "cavy";
 import {TabBarLabel} from "./components/tab-bar-label";
 import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
+import {useLazyApi} from "../hooks/use-lazy-api";
+import StatsCiv from "./components/stats-civ";
+import StatsMap from "./components/stats-map";
+import StatsPlayer from "./components/stats-player";
 
 
 function MainHome() {
@@ -47,7 +51,19 @@ function MainHome() {
             loadProfile, 'aoe2de', auth
     );
 
-    const list = ['profile', 'rating-header', 'rating', 'not-me'];
+    const matches = useLazyApi(
+        // [],
+        // state => state.user[auth.id]?.matches,
+        // (state, value) => {
+        //     if (state.user[auth.id] == null) {
+        //         state.user[auth.id] = {};
+        //     }
+        //     state.user[auth.id].matches = value;
+        // },
+        fetchMatches, 'aoe2de', 0, 15, auth
+    );
+
+    const list = ['profile', 'rating-header', 'rating', 'stats-header', 'stats-civ', 'stats-map', 'stats-player', 'not-me'];
 
     const deleteUser = () => {
         Alert.alert("Delete Me?", "Do you want to reset me page?",
@@ -79,6 +95,33 @@ function MainHome() {
                                 switch (item) {
                                     case 'rating-header':
                                         return <Text style={styles.sectionHeader}>Rating History</Text>;
+                                    case 'stats-header':
+                                        return <View>
+                                            <Text style={styles.sectionHeader}>Stats</Text>
+                                            {
+                                                !matches.touched && !matches.loading &&
+                                                <Button
+                                                    labelStyle={{fontSize: 13, marginVertical: 0}}
+                                                    contentStyle={{height: 22}}
+                                                    onPress={() => matches.reload()}
+                                                    mode="contained"
+                                                    compact
+                                                    uppercase={false}
+                                                    dark={true}
+                                                >
+                                                    Load Stats
+                                                </Button>
+                                            }
+                                        </View>;
+                                    case 'stats-civ':
+                                        if (!matches.touched && !matches.loading) return <View/>;
+                                        return <StatsCiv matches={matches.data}/>;
+                                    case 'stats-map':
+                                        if (!matches.touched && !matches.loading) return <View/>;
+                                        return <StatsMap matches={matches.data}/>;
+                                    case 'stats-player':
+                                        if (!matches.touched && !matches.loading) return <View/>;
+                                        return <StatsPlayer matches={matches.data}/>;
                                     case 'rating':
                                         return <Rating ratingHistories={rating.data}/>;
                                     case 'profile':
