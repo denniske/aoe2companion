@@ -5,8 +5,10 @@ import {RootStackParamList, RootStackProp} from "../../App";
 import {
     getEliteUniqueResearchIcon, getUnitIcon, getUnitLineIcon, getUnitLineName, getUnitName, UnitLine, unitLines, units
 } from "../helper/units";
-import {getTechIcon, getTechName, techEffectDict, techs} from "../helper/techs";
+import {getTechIcon, getTechName, ITechEffect, Tech, techEffectDict, techs} from "../helper/techs";
 import {aoeCivKey} from "../data/data";
+import {groupBy} from "lodash-es";
+import {Civ, civs} from "../helper/civs";
 
 
 export function UnitDetails({unit}: {unit: UnitLine}) {
@@ -16,7 +18,26 @@ export function UnitDetails({unit}: {unit: UnitLine}) {
 
     const developments = unitLine.units.filter((u, i) => i > 0);//.map(u => units[u]);
 
+    // const mergeUpgradesOfSameGroup = (effects: ITechEffect[]): ITechEffect[] => {
+    //     const groupedEffects = groupBy(effects, e => e.tech);
+    //     return Object.entries(groupedEffects).map((tech, effectsForTech) => ({
+    //         tech: tech,
+    //         civ: Civ,
+    //         effect: IEffect,
+    //     }));
+    // };
+
     let groups = [
+        {
+            name: 'Carry Capacity',
+            prop: 'carryCapacity',
+            upgrades: unitLineUpgrades.filter(u => 'carryCapacity' in u.effect),
+        },
+        {
+            name: 'Gathering Speed',
+            prop: 'gatheringSpeed',
+            upgrades: unitLineUpgrades.filter(u => 'gatheringSpeed' in u.effect),
+        },
         {
             name: 'Hit Points',
             prop: 'hitPoints',
@@ -68,12 +89,18 @@ export function UnitDetails({unit}: {unit: UnitLine}) {
             upgrades: unitLineUpgrades.filter(u => 'creationSpeed' in u.effect),
         },
         {
+            name: 'Capacity',
+            prop: 'capacity',
+            upgrades: unitLineUpgrades.filter(u => 'capacity' in u.effect),
+        },
+        {
             name: 'Other',
             prop: 'other',
             upgrades: unitLineUpgrades.filter(u => 'other' in u.effect),
         },
     ];
 
+    // groups = groups.forEach(g => g.upgrades = mergeUpgradesOfSameGroup(g.upgrades));
     groups = groups.filter(g => g.upgrades.length > 0);
 
     return (
@@ -91,11 +118,21 @@ export function UnitDetails({unit}: {unit: UnitLine}) {
                         </View>
                         {
                             group.upgrades.map(upgrade =>
-                                <View style={styles.row} key={upgrade.tech}>
+                                <View style={styles.row} key={upgrade.name}>
                                     <Image style={styles.unitIcon} source={getTechIcon(upgrade.tech)}/>
                                     <Text>
                                         {getTechName(upgrade.tech)}
-                                        {upgrade.effect[group.prop] ? ' (' + upgrade.effect[group.prop] + ')' : ''}
+                                        {upgrade.effect[group.prop] ? ' (' + upgrade.effect[group.prop] : ''}
+
+                                        {
+                                            upgrade.civ &&
+                                            <>
+                                                <Text>, only </Text>
+                                                <Text style={styles.link} onPress={() => navigation.push('Civ', {civ: upgrade.civ!})}>{upgrade.civ}</Text>
+                                            </>
+                                        }
+
+                                        {upgrade.effect[group.prop] ? ')' : ''}
                                     </Text>
                                 </View>
                             )
@@ -192,5 +229,8 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
         marginRight: 5,
+    },
+    link: {
+        color: '#397AF9',
     },
 });

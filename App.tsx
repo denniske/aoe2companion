@@ -30,7 +30,7 @@ import ExampleSpec from './src/ci/exampleSpec';
 import LeaderboardPage from "./src/view/leaderboard.page";
 import GuidePage from "./src/view/guide.page";
 import CivPage from "./src/view/civ.page";
-import {civs, getCivIcon} from "./src/helper/civs";
+import {civs, getCivIcon, Civ} from "./src/helper/civs";
 import UnitPage from "./src/view/unit.page";
 import {getUnitLineIcon, getUnitLineName} from "./src/helper/units";
 
@@ -79,7 +79,7 @@ export type RootStackParamList = {
     About: undefined;
     Main: undefined;
     Leaderboard: undefined;
-    Civ: { civ: string };
+    Civ: { civ: Civ };
     Unit: { unit: string };
     Guide: undefined;
     User: { id: UserId, name: string };

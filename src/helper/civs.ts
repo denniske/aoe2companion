@@ -35,7 +35,10 @@ export const civs = [
     'Turks',
     'Vietnamese',
     'Vikings',
-];
+] as const;
+
+type ValueOf<T> = T[keyof T];
+export type Civ = ValueOf<typeof civs>;
 
 const civList = [
     require('../../assets/civilizations/aztecs.png'),

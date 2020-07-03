@@ -1,7 +1,10 @@
 import {aoeData, aoeStringKey, aoeTechDataId} from "../data/data";
+import {Civ} from "./civs";
 
 
 interface IEffect {
+    carryCapacity?: string;
+    gatheringSpeed?: string;
     hitPoints?: string;
     accuracy?: string;
     attack?: string;
@@ -10,6 +13,7 @@ interface IEffect {
     sight?: string;
     conversionDefense?: string;
     creationSpeed?: string;
+    capacity?: string;
     other?: string;
     [key: string]: string | undefined;
 }
@@ -20,8 +24,10 @@ interface ITech {
     effect?: IEffect;
 }
 
-interface ITechEffect {
+export interface ITechEffect {
+    name?: string;
     tech: Tech;
+    civ?: Civ;
     effect: IEffect;
 }
 
@@ -29,123 +35,490 @@ interface ITechDict {
     [tech: string]: ITech;
 }
 
-interface ITechEffectDict {
-    [tech: string]: ITechEffect;
-}
+type ITechEffectDict = {
+    [techEffect in TechEffect]: ITechEffect;
+};
+type ITechEffectDict2 = {
+    [techEffect: string]: ITechEffect;
+};
 
-
+// : ITechEffectDict2
 const techEffectDictInternal = {
+    'Wheelbarrow': {
+        tech: 'Wheelbarrow',
+        effect: {
+            carryCapacity: '+3',
+            speed: '+10%',
+        },
+    },
+    'HandCart': {
+        tech: 'HandCart',
+        effect: {
+            carryCapacity: '+7',
+            speed: '+10%',
+        },
+    },
+    'HeavyPlow': {
+        tech: 'HeavyPlow',
+        effect: {
+            carryCapacity: '+1, only Farmers',
+        },
+    },
+    'DoubleBitAxe': {
+        tech: 'DoubleBitAxe',
+        effect: {
+            gatheringSpeed: 'wood +20%',
+        },
+    },
+    'BowSaw': {
+        tech: 'BowSaw',
+        effect: {
+            gatheringSpeed: 'wood +20%',
+        },
+    },
+    'TwoManSaw': {
+        tech: 'TwoManSaw',
+        effect: {
+            gatheringSpeed: 'wood +10%',
+        },
+    },
+    'StoneMining': {
+        tech: 'StoneMining',
+        effect: {
+            gatheringSpeed: 'stone +15%',
+        },
+    },
+    'StoneShaftMining': {
+        tech: 'StoneShaftMining',
+        effect: {
+            gatheringSpeed: 'stone +15%',
+        },
+    },
+    'GoldMining': {
+        tech: 'GoldMining',
+        effect: {
+            gatheringSpeed: 'gold +15%',
+        },
+    },
+    'GoldShaftMining': {
+        tech: 'GoldShaftMining',
+        effect: {
+            gatheringSpeed: 'gold +15%',
+        },
+    },
+    'Loom': {
+        tech: 'Loom',
+        effect: {
+            hitPoints: '+15',
+            armor: '+1/+2',
+        },
+    },
+    'Sappers': {
+        tech: 'Sappers',
+        effect: {
+            attack: '+15 attack against buildings and fortifications',
+        },
+    },
+    'TreadmillCrane': {
+        tech: 'TreadmillCrane',
+        effect: {
+            other: '+20% construction speed',
+        },
+    },
+    'Supremacy': {
+        tech: 'Supremacy',
+        civ: 'Spanish',
+        effect: {
+            hitPoints: '+40',
+            attack: '+6',
+            armor: '+2/+2',
+        },
+    },
+    'Gillnets': {
+        tech: 'Gillnets',
+        effect: {
+            other: '+25% working speed',
+        },
+    },
+    'Caravan': {
+        tech: 'Caravan',
+        effect: {
+            speed: '+50%',
+        },
+    },
+    'SilkRoad': {
+        tech: 'SilkRoad',
+        civ: 'Italians',
+        effect: {
+            other: '-50% cost',
+        },
+    },
+    'Sultans-GatheringSpeed': {
+        tech: 'Sultans',
+        civ: 'Indians',
+        effect: {
+            gatheringSpeed: 'gold +10%',
+        },
+    },
+    'Sultans': {
+        tech: 'Sultans',
+        civ: 'Indians',
+        effect: {
+            other: '+10% gold generation',
+        },
+    },
+    'Sanctity-5': {
+        tech: 'Sanctity',
+        civ: 'Aztecs',
+        effect: {
+            hitPoints: '+5',
+        },
+    },
+    'Sanctity': {
+        tech: 'Sanctity',
+        effect: {
+            hitPoints: '+15',
+        },
+    },
+    'Redemption-5': {
+        tech: 'Redemption',
+        civ: 'Aztecs',
+        effect: {
+            hitPoints: '+5',
+        },
+    },
+    'Redemption': {
+        tech: 'Redemption',
+        effect: {
+            other: 'convert buildings and siege weapons',
+        },
+    },
+    'Atonement-5': {
+        tech: 'Atonement',
+        civ: 'Aztecs',
+        effect: {
+            hitPoints: '+5',
+        },
+    },
+    'Atonement': {
+        tech: 'Atonement',
+        effect: {
+            other: 'convert monks',
+        },
+    },
+    'HerbalMedicine-5': {
+        tech: 'HerbalMedicine',
+        civ: 'Aztecs',
+        effect: {
+            hitPoints: '+5',
+        },
+    },
+    'Fervor-5': {
+        tech: 'Fervor',
+        civ: 'Aztecs',
+        effect: {
+            hitPoints: '+5',
+        },
+    },
+    'Fervor': {
+        tech: 'Fervor',
+        effect: {
+            speed: '+15%',
+        },
+    },
+    'Illumination-5': {
+        tech: 'Illumination',
+        civ: 'Aztecs',
+        effect: {
+            hitPoints: '+5',
+        },
+    },
+    'Illumination': {
+        tech: 'Illumination',
+        effect: {
+            other: 'regain faith faster',
+        },
+    },
+    'BlockPrinting-5': {
+        tech: 'BlockPrinting',
+        civ: 'Aztecs',
+        effect: {
+            hitPoints: '+5',
+        },
+    },
+    'BlockPrinting': {
+        tech: 'BlockPrinting',
+        effect: {
+            range: '+3',
+        },
+    },
+    'Theocracy-5': {
+        tech: 'Theocracy',
+        civ: 'Aztecs',
+        effect: {
+            hitPoints: '+5',
+        },
+    },
+    'Theocracy': {
+        tech: 'Theocracy',
+        effect: {
+            other: 'only one Monk rests after conversion',
+        },
+    },
+    'Orthodoxy': {
+        tech: 'Orthodoxy',
+        civ: 'Slavs',
+        effect: {
+            armor: '+3/+3',
+        },
+    },
+    'Inquisition': {
+        tech: 'Inquisition',
+        civ: 'Spanish',
+        effect: {
+            other: 'monks convert faster',
+        },
+    },
+    'Madrasah': {
+        tech: 'Madrasah',
+        civ: 'Saracens',
+        effect: {
+            other: 'monks return gold when they die',
+        },
+    },
+
+    'GreekFire': {
+        tech: 'GreekFire',
+        civ: 'Byzantines',
+        effect: {
+            range: '+1',
+        },
+    },
+    'Carrack': {
+        tech: 'Carrack',
+        civ: 'Portuguese',
+        effect: {
+            armor: '+1/+1',
+        },
+    },
+    'Panokseon': {
+        tech: 'Panokseon',
+        civ: 'Koreans',
+        effect: {
+            speed: '+15%',
+        },
+    },
+    'Shipwright': {
+        tech: 'Shipwright',
+        effect: {
+            creationSpeed: '+54%',
+            other: 'cost -20%',
+        },
+    },
+    'Careening-5': {
+        tech: 'Careening',
+        effect: {
+            armor: '+0/+1',
+            capacity: '+5',
+        },
+    },
+    'Careening': {
+        tech: 'Careening',
+        effect: {
+            armor: '+0/+1',
+        },
+    },
+    'DryDock-10': {
+        tech: 'DryDock',
+        effect: {
+            speed: '+15%',
+            capacity: '+10',
+        },
+    },
+    'DryDock': {
+        tech: 'DryDock',
+        effect: {
+            speed: '+15%',
+        },
+    },
+    'Warwolf': {
+        tech: 'Warwolf',
+        civ: 'Britons',
+        effect: {
+            attack: 'gives blast damage',
+            accuracy: 'increases accuracy against units to 100%',
+        },
+    },
+    'TimuridSiegecraft': {
+        tech: 'TimuridSiegecraft',
+        civ: 'Malay',
+        effect: {
+            range: '+2',
+        },
+    },
+    'Kataparuto': {
+        tech: 'Kataparuto',
+        civ: 'Japanese',
+        effect: {
+            firingRate: '+33%',
+            other: 'pack/unpack 4x faster',
+        },
+    },
+    'Artillery': {
+        tech: 'Artillery',
+        civ: 'Turks',
+        effect: {
+            range: '+2',
+        },
+    },
+    'Shinkichon': {
+        tech: 'Shinkichon',
+        civ: 'Koreans',
+        effect: {
+            range: '+1',
+        },
+    },
     'FurorCeltica': {
         tech: 'FurorCeltica',
+        civ: 'Celts',
         effect: {
             hitPoints: '+40%',
         },
     },
-    'SiegeEngineers': {
+    'SiegeEngineers-20-1': {
         tech: 'SiegeEngineers',
         effect: {
             attack: '+20% attack against buildings',
             range: '+1',
         },
     },
+    'SiegeEngineers-20': {
+        tech: 'SiegeEngineers',
+        effect: {
+            attack: '+20% attack against buildings',
+        },
+    },
+    'SiegeEngineers-40': {
+        tech: 'SiegeEngineers',
+        effect: {
+            attack: '+40% attack against buildings',
+        },
+    },
     'TorsionEngines': {
         tech: 'TorsionEngines',
+        civ: 'Ethiopians',
         effect: {
             attack: 'increases blast damage radius',
         },
     },
     'DoubleCrossbow': {
         tech: 'DoubleCrossbow',
+        civ: 'Khmer',
         effect: {
             attack: 'gives a second projectile',
         },
     },
     'Ironclad': {
         tech: 'Ironclad',
+        civ: 'Teutons',
         effect: {
             armor: '+4/+0',
         },
     },
     'Drill': {
         tech: 'Drill',
+        civ: 'Mongols',
         effect: {
             speed: '+50%',
         },
     },
     'Shatagni': {
         tech: 'Shatagni',
+        civ: 'Indians',
         effect: {
             range: '+1',
         },
     },
     'Arquebus': {
         tech: 'Arquebus',
+        civ: 'Portuguese',
         effect: {
             accuracy: 'hit moving targets',
         },
     },
     'RoyalHeirs': {
         tech: 'RoyalHeirs',
+        civ: 'Ethiopians',
         effect: {
             creationSpeed: '+100%',
         },
     },
     'Berserkergang': {
         tech: 'Berserkergang',
+        civ: 'Vikings',
         effect: {
             other: 'increases regeneration speed',
         },
     },
     'Anarchy': {
         tech: 'Anarchy',
+        civ: 'Goths',
         effect: {
             other: 'allows creation at Barracks',
         },
     },
     'BeardedAxe': {
         tech: 'BeardedAxe',
+        civ: 'Franks',
         effect: {
             range: '+1',
         },
     },
     'ElDorado': {
         tech: 'ElDorado',
+        civ: 'Mayans',
         effect: {
             hitPoints: '+40',
         },
     },
     'Bagains': {
         tech: 'Bagains',
+        civ: 'Khmer',
         effect: {
             armor: '+5/+0',
         },
     },
     'ForcedLevy': {
         tech: 'ForcedLevy',
+        civ: 'Malay',
         effect: {
             other: 'changes gold cost to extra food cost',
         },
     },
     'GarlandWars': {
         tech: 'GarlandWars',
+        civ: 'Aztecs',
         effect: {
             attack: '+4',
         },
     },
     'Druzhina': {
         tech: 'Druzhina',
+        civ: 'Slavs',
         effect: {
             attack: 'gives trample damage',
         },
     },
     'Chieftains': {
         tech: 'Chieftains',
+        civ: 'Vikings',
         effect: {
             attack: 'gives +5 attack against cavalry and +4 against camels',
         },
     },
     'Perfusion': {
         tech: 'Perfusion',
+        civ: 'Goths',
         effect: {
             creationSpeed: '+100%',
         },
@@ -158,72 +531,84 @@ const techEffectDictInternal = {
     },
     'CorvinianArmy': {
         tech: 'CorvinianArmy',
+        civ: 'Magyars',
         effect: {
             other: 'eliminates the gold cost',
         },
     },
     'Marauders': {
         tech: 'Marauders',
+        civ: 'Huns',
         effect: {
             other: 'allows creation at Stables',
         },
     },
     'Mahouts': {
         tech: 'Mahouts',
+        civ: 'Persians',
         effect: {
             speed: '+30%',
         },
     },
     'Logistica': {
         tech: 'Logistica',
+        civ: 'Byzantines',
         effect: {
             attack: '+6 attack against infantry and adds trample damage',
         },
     },
     'Chatras': {
         tech: 'Chatras',
+        civ: 'Vietnamese',
         effect: {
             hitPoints: '+50',
         },
     },
     'TuskSwords': {
         tech: 'TuskSwords',
+        civ: 'Khmer',
         effect: {
             attack: '+3',
         },
     },
     'Howdah': {
         tech: 'Howdah',
+        civ: 'Burmese',
         effect: {
             armor: '+1/+1',
         },
     },
     'Zealotry': {
         tech: 'Zealotry',
+        civ: 'Saracens',
         effect: {
             hitPoints: '+30',
         },
     },
     'Farimba': {
         tech: 'Farimba',
+        civ: 'Malians',
         effect: {
             attack: '+5',
         },
     },
     'ManipurCavalry': {
         tech: 'ManipurCavalry',
+        civ: 'Burmese',
         effect: {
             attack: '+3 attack against buildings and standard buildings',
         },
     },
     'Stirrups': {
         tech: 'Stirrups',
+        civ: 'Khmer',
         effect: {
             firingRate: '+25% attack speed',
         },
     },
     'Stirrups-Mounted': {
         tech: 'Stirrups',
+        civ: 'Khmer',
         effect: {
             firingRate: '+25% attack speed, Mounted',
         },
@@ -248,6 +633,7 @@ const techEffectDictInternal = {
     },
     'Chivalry': {
         tech: 'Chivalry',
+        civ: 'Franks',
         effect: {
             creationSpeed: '+40%',
         },
@@ -255,24 +641,28 @@ const techEffectDictInternal = {
 
     'Kasbah': {
         tech: 'Kasbah',
+        civ: 'Berbers',
         effect: {
             creationSpeed: '+25%',
         },
     },
     'MaghrebiCamels': {
         tech: 'MaghrebiCamels',
+        civ: 'Berbers',
         effect: {
             other: 'gives regeneration ability',
         },
     },
     'Rocketry-2': {
         tech: 'Rocketry',
+        civ: 'Chinese',
         effect: {
             attack: '+2',
         },
     },
     'Rocketry-4': {
         tech: 'Rocketry',
+        civ: 'Chinese',
         effect: {
             attack: '+4',
         },
@@ -285,6 +675,7 @@ const techEffectDictInternal = {
     },
     'Sipahi': {
         tech: 'Sipahi',
+        civ: 'Turks',
         effect: {
             hitPoints: '+20',
         },
@@ -305,6 +696,7 @@ const techEffectDictInternal = {
     },
     'RecurveBow': {
         tech: 'RecurveBow',
+        civ: 'Indians',
         effect: {
             attack: '+1',
             range: '+1',
@@ -312,6 +704,7 @@ const techEffectDictInternal = {
     },
     'SilkArmor': {
         tech: 'SilkArmor',
+        civ: 'Malay',
         effect: {
             armor: '+1 pierce armor',
         },
@@ -324,6 +717,7 @@ const techEffectDictInternal = {
     },
     'SteppeHusbandry': {
         tech: 'SteppeHusbandry',
+        civ: 'Burmese',
         effect: {
             creationSpeed: '+50%',
         },
@@ -331,6 +725,7 @@ const techEffectDictInternal = {
 
     'Atlatl': {
         tech: 'Atlatl',
+        civ: 'Aztecs',
         effect: {
             attack: '+1',
             range: '+1',
@@ -338,30 +733,35 @@ const techEffectDictInternal = {
     },
     'TowerShields': {
         tech: 'TowerShields',
+        civ: 'Vietnamese',
         effect: {
             armor: '+2 pierce armor',
         },
     },
     'ObsidianArrows': {
         tech: 'ObsidianArrows',
+        civ: 'Mayans',
         effect: {
             attack: 'gives +6 attack against standard buildings and fortifications',
         },
     },
     'Yeomen': {
         tech: 'Yeomen',
+        civ: 'Britons',
         effect: {
             range: '+1',
         },
     },
     'Pavise': {
         tech: 'Pavise',
+        civ: 'Italians',
         effect: {
             armor: '+1/+1',
         },
     },
     'Kamandaran': {
         tech: 'Kamandaran',
+        civ: 'Persians',
         effect: {
             other: 'replaces the cost gold for wood, for total 60 wood each unit',
         },
@@ -414,6 +814,7 @@ const techEffectDictInternal = {
     },
     'AndeanSling': {
         tech: 'AndeanSling',
+        civ: 'Incas',
         effect: {
             range: 'eliminates the minimum range',
         },
@@ -485,6 +886,27 @@ const techEffectDictInternal = {
             attack: '+2',
         },
     },
+    'Forging-Villager': {
+        tech: 'Forging',
+        civ: 'Incas',
+        effect: {
+            attack: '+1',
+        },
+    },
+    'IronCasting-Villager': {
+        tech: 'IronCasting',
+        civ: 'Incas',
+        effect: {
+            attack: '+1',
+        },
+    },
+    'BlastFurnace-Villager': {
+        tech: 'BlastFurnace',
+        civ: 'Incas',
+        effect: {
+            attack: '+2',
+        },
+    },
     'Arson': {
         tech: 'Arson',
         effect: {
@@ -515,6 +937,27 @@ const techEffectDictInternal = {
             armor: '+1/+2',
         },
     },
+    'ScaleMailArmor-Villager': {
+        tech: 'ScaleMailArmor',
+        civ: 'Incas',
+        effect: {
+            armor: '+1/+1',
+        },
+    },
+    'ChainMailArmor-Villager': {
+        tech: 'ChainMailArmor',
+        civ: 'Incas',
+        effect: {
+            armor: '+1/+1',
+        },
+    },
+    'PlateMailArmor-Villager': {
+        tech: 'PlateMailArmor',
+        civ: 'Incas',
+        effect: {
+            armor: '+1/+2',
+        },
+    },
     'ScaleMailArmor-Dismounted': {
         tech: 'ScaleMailArmor',
         effect: {
@@ -535,6 +978,7 @@ const techEffectDictInternal = {
     },
     'Couriers': {
         tech: 'Couriers',
+        civ: 'Indians',
         effect: {
             armor: '+1/+2',
         },
@@ -557,10 +1001,24 @@ const techEffectDictInternal = {
             sight: '+2',
         },
     },
+    'Faith-5': {
+        tech: 'Faith',
+        civ: 'Aztecs',
+        effect: {
+            hitPoints: '+5',
+        },
+    },
     'Faith': {
         tech: 'Faith',
         effect: {
             conversionDefense: '',
+        },
+    },
+    'Heresy-5': {
+        tech: 'Heresy',
+        civ: 'Aztecs',
+        effect: {
+            hitPoints: '+5',
         },
     },
     'Heresy': {
@@ -577,9 +1035,181 @@ const techEffectDictInternal = {
     },
 };
 
-export const techEffectDict = techEffectDictInternal as ITechEffectDict;
+function addNameToTechEffectDict(dict: ITechEffectDict): ITechEffectDict {
+    for (const key in dict) {
+        dict[key as TechEffect].name = key as string;
+    }
+    return dict;
+}
+
+// export const techEffectDict = techEffectDictInternal as ITechEffectDict;
+export const techEffectDict = addNameToTechEffectDict(techEffectDictInternal as any) as ITechEffectDict;
+
+// var d = techEffectDictInternal['Artillery'].
+// var d = techEffectDict['Artillery']
 
 export const techList: ITech[] = [
+    {
+        dataId: '213',
+        name: 'Wheelbarrow',
+    },
+    {
+        dataId: '249',
+        name: 'HandCart',
+    },
+    {
+        dataId: '13',
+        name: 'HeavyPlow',
+    },
+    {
+        dataId: '202',
+        name: 'DoubleBitAxe',
+    },
+    {
+        dataId: '203',
+        name: 'BowSaw',
+    },
+    {
+        dataId: '221',
+        name: 'TwoManSaw',
+    },
+    {
+        dataId: '55',
+        name: 'StoneMining',
+    },
+    {
+        dataId: '279',
+        name: 'StoneShaftMining',
+    },
+    {
+        dataId: '55',
+        name: 'GoldMining',
+    },
+    {
+        dataId: '182',
+        name: 'GoldShaftMining',
+    },
+    {
+        dataId: '22',
+        name: 'Loom',
+    },
+    {
+        dataId: '321',
+        name: 'Sappers',
+    },
+    {
+        dataId: '54',
+        name: 'TreadmillCrane',
+    },
+    {
+        dataId: '440',
+        name: 'Supremacy',
+    },
+    {
+        dataId: '65',
+        name: 'Gillnets',
+    },
+    {
+        dataId: '48',
+        name: 'Caravan',
+    },
+    {
+        dataId: '499',
+        name: 'SilkRoad',
+    },
+    {
+        dataId: '506',
+        name: 'Sultans',
+    },
+    {
+        dataId: '231',
+        name: 'Sanctity',
+    },
+    {
+        dataId: '316',
+        name: 'Redemption',
+    },
+    {
+        dataId: '319',
+        name: 'Atonement',
+    },
+    {
+        dataId: '441',
+        name: 'HerbalMedicine',
+    },
+    {
+        dataId: '252',
+        name: 'Fervor',
+    },
+    {
+        dataId: '233',
+        name: 'Illumination',
+    },
+    {
+        dataId: '230',
+        name: 'BlockPrinting',
+    },
+    {
+        dataId: '438',
+        name: 'Theocracy',
+    },
+    {
+        dataId: '512',
+        name: 'Orthodoxy',
+    },
+    {
+        dataId: '492',
+        name: 'Inquisition',
+    },
+    {
+        dataId: '490',
+        name: 'Madrasah',
+    },
+
+    {
+        dataId: '464',
+        name: 'GreekFire',
+    },
+    {
+        dataId: '572',
+        name: 'Carrack',
+    },
+    {
+        dataId: '486',
+        name: 'Panokseon',
+    },
+    {
+        dataId: '373',
+        name: 'Shipwright',
+    },
+    {
+        dataId: '374',
+        name: 'Careening',
+    },
+    {
+        dataId: '375',
+        name: 'DryDock',
+    },
+    {
+        dataId: '461',
+        name: 'Warwolf',
+    },
+    {
+        dataId: '688',
+        name: 'TimuridSiegecraft',
+    },
+    {
+        dataId: '59',
+        name: 'Kataparuto',
+    },
+    {
+        dataId: '10',
+        name: 'Artillery',
+    },
+    {
+        dataId: '445',
+        name: 'Shinkichon',
+    },
     {
         dataId: '5',
         name: 'FurorCeltica',
@@ -921,6 +1551,32 @@ const techIcons: TechDict = {
     'PlateBardingArmor': require('../../assets/techs/PlateBardingArmor.png'),
     'Supplies': require('../../assets/techs/Supplies.png'),
     'SiegeEngineers': require('../../assets/techs/SiegeEngineers.png'),
+    'Careening': require('../../assets/techs/Careening.png'),
+    'DryDock': require('../../assets/techs/DryDock.png'),
+    'Shipwright': require('../../assets/techs/Shipwright.png'),
+    'Sanctity': require('../../assets/techs/Sanctity.png'),
+    'Redemption': require('../../assets/techs/Redemption.png'),
+    'Atonement': require('../../assets/techs/Atonement.png'),
+    'HerbalMedicine': require('../../assets/techs/HerbalMedicine.png'),
+    'Fervor': require('../../assets/techs/Fervor.png'),
+    'Illumination': require('../../assets/techs/Illumination.png'),
+    'BlockPrinting': require('../../assets/techs/BlockPrinting.png'),
+    'Theocracy': require('../../assets/techs/Theocracy.png'),
+    'Caravan': require('../../assets/techs/Caravan.png'),
+    'Gillnets': require('../../assets/techs/Gillnets.png'),
+    'Wheelbarrow': require('../../assets/techs/Wheelbarrow.png'),
+    'HandCart': require('../../assets/techs/HandCart.png'),
+    'HeavyPlow': require('../../assets/techs/HeavyPlow.png'),
+    'DoubleBitAxe': require('../../assets/techs/DoubleBitAxe.png'),
+    'BowSaw': require('../../assets/techs/BowSaw.png'),
+    'TwoManSaw': require('../../assets/techs/TwoManSaw.png'),
+    'StoneMining': require('../../assets/techs/StoneMining.png'),
+    'StoneShaftMining': require('../../assets/techs/StoneShaftMining.png'),
+    'GoldMining': require('../../assets/techs/GoldMining.png'),
+    'GoldShaftMining': require('../../assets/techs/GoldShaftMining.png'),
+    'Loom': require('../../assets/techs/Loom.png'),
+    'Sappers': require('../../assets/techs/Sappers.png'),
+    'TreadmillCrane': require('../../assets/techs/TreadmillCrane.png'),
 
     'AndeanSling': require('../../assets/techs/UniqueTechCastle.png'),
     'ObsidianArrows': require('../../assets/techs/UniqueTechCastle.png'),
@@ -942,6 +1598,13 @@ const techIcons: TechDict = {
     'Anarchy': require('../../assets/techs/UniqueTechCastle.png'),
     'RoyalHeirs': require('../../assets/techs/UniqueTechCastle.png'),
     'Ironclad': require('../../assets/techs/UniqueTechCastle.png'),
+    'Panokseon': require('../../assets/techs/UniqueTechCastle.png'),
+    'Carrack': require('../../assets/techs/UniqueTechCastle.png'),
+    'GreekFire': require('../../assets/techs/UniqueTechCastle.png'),
+    'Orthodoxy': require('../../assets/techs/UniqueTechCastle.png'),
+    'Inquisition': require('../../assets/techs/UniqueTechCastle.png'),
+    'Madrasah': require('../../assets/techs/UniqueTechCastle.png'),
+    'Sultans': require('../../assets/techs/UniqueTechCastle.png'),
 
     'Couriers': require('../../assets/techs/UniqueTechImperial.jpg'),
     'TowerShields': require('../../assets/techs/UniqueTechImperial.jpg'),
@@ -968,6 +1631,13 @@ const techIcons: TechDict = {
     'TorsionEngines': require('../../assets/techs/UniqueTechImperial.jpg'),
     'DoubleCrossbow': require('../../assets/techs/UniqueTechImperial.jpg'),
     'Drill': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'Shinkichon': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'Artillery': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'Warwolf': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'TimuridSiegecraft': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'Kataparuto': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'SilkRoad': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'Supremacy': require('../../assets/techs/UniqueTechImperial.jpg'),
 };
 
 export type Tech = keyof typeof techIcons;
@@ -978,7 +1648,11 @@ export function getTechIcon(tech: Tech) {
 }
 
 export function getTechName(tech: Tech) {
-    const dataId = techs[tech].dataId;
+    const techEntry = techs[tech];
+    if (techEntry == null) {
+        throw Error(`getTechName ${tech} - no dataId`);
+    }
+    const dataId = techEntry.dataId;
     const data = aoeData.data.techs[dataId];
     return aoeData.strings[data.LanguageNameId.toString() as aoeStringKey];
 }

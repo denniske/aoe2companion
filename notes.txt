@@ -2,7 +2,6 @@
 
 units:
 - xolotl warrior dataId missing also in aoe2techtree
-- upgrade to elite etc.
 
 tech:
 - tech.page

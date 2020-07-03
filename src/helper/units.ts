@@ -14,11 +14,355 @@ interface IUnitLineDict {
 }
 
 export const unitLines: IUnitLineDict = {
+    'TradeCart': {
+        units: ['TradeCart'],
+        upgrades: [
+            'Sultans',
+            'Caravan',
+            'Faith',
+            'Heresy',
+            'SilkRoad',
+        ],
+    },
+    'TradeCog': {
+        units: ['TradeCog'],
+        upgrades: [
+            'Sultans',
+            'Careening',
+            'Carrack',
+            'DryDock',
+            'Caravan',
+            'Faith',
+            'Heresy',
+            'Shipwright',
+            'SilkRoad',
+        ],
+    },
+    'FishingShip': {
+        units: ['FishingShip'],
+        upgrades: [
+            'Gillnets',
+            'Careening',
+            'Carrack',
+            'DryDock',
+            'Faith',
+            'Heresy',
+            'Shipwright',
+        ],
+    },
+    'TransportShip': {
+        units: ['TransportShip'],
+        upgrades: [
+            'Careening-5',
+            'Carrack',
+            'DryDock-10',
+            'Faith',
+            'Heresy',
+            'Shipwright',
+        ],
+    },
+    'Villager': {
+        units: ['Villager'],
+        upgrades: [
+            'Wheelbarrow',
+            'HandCart',
+            'HeavyPlow',
+            'DoubleBitAxe',
+            'BowSaw',
+            'TwoManSaw',
+            'StoneMining',
+            'StoneShaftMining',
+            'GoldMining',
+            'GoldShaftMining',
+            'Sultans-GatheringSpeed',
+            'Loom',
+            'Sappers',
+            'Forging-Villager',
+            'IronCasting-Villager',
+            'BlastFurnace-Villager',
+            'ScaleMailArmor-Villager',
+            'ChainMailArmor-Villager',
+            'PlateMailArmor-Villager',
+            'Supremacy',
+            'Faith',
+            'Heresy',
+            'TreadmillCrane',
+        ],
+    },
+    'Missionary': {
+        units: ['Missionary'],
+        upgrades: [
+            'Sanctity',
+            'Bloodlines',
+            'BlockPrinting',
+            'Fervor',
+            'Husbandry',
+            'Redemption',
+            'Atonement',
+            'Illumination',
+            'Theocracy',
+            'Inquisition',
+            'Faith',
+            'Heresy',
+        ],
+    },
+    'Monk': {
+        units: ['Monk'],
+        upgrades: [
+            'Sanctity',
+            'Sanctity-5',
+            'Redemption',
+            'Redemption-5',
+            'Atonement',
+            'Atonement-5',
+            'HerbalMedicine-5',
+            'Heresy',
+            'Heresy-5',
+            'Fervor',
+            'Fervor-5',
+            'Faith',
+            'Faith-5',
+            'Illumination',
+            'Illumination-5',
+            'BlockPrinting',
+            'BlockPrinting-5',
+            'Theocracy',
+            'Theocracy-5',
+            'Orthodoxy',
+            'Inquisition',
+            'Madrasah',
+        ],
+    },
+    'DemolitionRaft': {
+        units: ['DemolitionRaft', 'DemolitionShip', 'HeavyDemolitionShip'],
+        upgrades: [
+            'Careening',
+            'Carrack',
+            'DryDock',
+            'Faith',
+            'Heresy',
+            'Shipwright',
+        ],
+    },
+    'FireGalley': {
+        units: ['FireGalley', 'FireShip', 'FastFireShip'],
+        upgrades: [
+            'GreekFire',
+            'Careening',
+            'Carrack',
+            'DryDock',
+            'Faith',
+            'Heresy',
+            'Shipwright',
+        ],
+    },
+    'Galley': {
+        units: ['Galley', 'WarGalley', 'Galleon'],
+        upgrades: [
+            'Fletching',
+            'BodkinArrow',
+            'Bracer',
+            'Chemistry',
+            'Ballistics',
+            'Careening',
+            'Carrack',
+            'DryDock',
+            'Faith',
+            'Heresy',
+            'Shipwright',
+        ],
+    },
+    'Arambai': {
+        units: ['Arambai', 'EliteArambai'],
+        unique: true,
+        upgrades: [
+            'Bloodlines',
+            'ManipurCavalry',
+            'Ballistics',
+            'PaddedArcherArmor',
+            'Husbandry',
+            'Faith',
+            'Conscription',
+        ],
+    },
+    'OrganGun': {
+        units: ['OrganGun', 'EliteOrganGun'],
+        unique: true,
+        upgrades: [
+            'SiegeEngineers-20-1',
+            'Arquebus',
+            'Faith',
+            'Heresy',
+            'Conscription',
+        ],
+    },
+    'Caravel': {
+        units: ['Caravel', 'EliteCaravel'],
+        unique: true,
+        upgrades: [
+            'Fletching',
+            'BodkinArrow',
+            'Bracer',
+            'Chemistry',
+            'Ballistics',
+            'Careening',
+            'Carrack',
+            'DryDock',
+            'Faith',
+            'Heresy',
+        ],
+    },
+    'SiegeTower': {
+        units: ['SiegeTower'],
+        upgrades: [
+            'FurorCeltica',
+            'Ironclad',
+            'Drill',
+            'Faith',
+            'Heresy',
+        ],
+    },
+    'Conquistador': {
+        units: ['Conquistador', 'EliteConquistador'],
+        unique: true,
+        upgrades: [
+            'Bloodlines',
+            'PaddedArcherArmor',
+            'LeatherArcherArmor',
+            'RingArcherArmor',
+            'Husbandry',
+            'Faith',
+            'Heresy',
+            'Conscription',
+        ],
+    },
+    'TurtleShip': {
+        units: ['TurtleShip', 'EliteTurtleShip'],
+        unique: true,
+        upgrades: [
+            'Careening',
+            'DryDock',
+            'Panokseon',
+            'Faith',
+            'Shipwright',
+        ],
+    },
+    'Longboat': {
+        units: ['Longboat', 'EliteLongboat'],
+        unique: true,
+        upgrades: [
+            'Fletching',
+            'BodkinArrow',
+            'Bracer',
+            'Chemistry',
+            'Ballistics',
+            'Careening',
+            'DryDock',
+            'Faith',
+            'Heresy',
+        ],
+    },
+    'Janissary': {
+        units: ['Janissary', 'EliteJanissary'],
+        unique: true,
+        upgrades: [
+            'PaddedArcherArmor',
+            'LeatherArcherArmor',
+            'RingArcherArmor',
+            'Faith',
+            'Heresy',
+            'Conscription',
+        ],
+    },
+    'BallistaElephant': {
+        units: ['BallistaElephant', 'EliteBallistaElephant'],
+        unique: true,
+        upgrades: [
+            'Bloodlines',
+            'SiegeEngineers-20-1',
+            'Chemistry',
+            'DoubleCrossbow',
+            'ScaleBardingArmor',
+            'ChainBardingArmor',
+            'PlateBardingArmor',
+            'Husbandry',
+            'Conscription',
+        ],
+    },
+    'FlamingCamel': {
+        units: ['FlamingCamel'],
+        upgrades: [
+            'SiegeEngineers-20',
+            'Conscription',
+            'Bloodlines',
+            'Husbandry',
+        ],
+    },
+    'Petard': {
+        units: ['Petard'],
+        upgrades: [
+            'SiegeEngineers-40',
+            'Faith',
+            'Heresy',
+            'Conscription',
+        ],
+    },
+    'Trebuchet': {
+        units: ['Trebuchet'],
+        upgrades: [
+            'SiegeEngineers-20-1',
+            'Chemistry',
+            'Warwolf',
+            'TimuridSiegecraft',
+            'Kataparuto',
+            'Ironclad',
+            'Faith',
+            'Heresy',
+            'Conscription',
+        ],
+    },
+    'BombardCannon': {
+        units: ['BombardCannon'],
+        upgrades: [
+            'SiegeEngineers-20-1',
+            'TorsionEngines',
+            'Artillery',
+            'Arquebus',
+            'Ironclad',
+            'Faith',
+            'Heresy',
+        ],
+    },
+    'Mangonel': {
+        units: ['Mangonel', 'Onager', 'SiegeOnager'],
+        upgrades: [
+            'FurorCeltica',
+            'SiegeEngineers-20-1',
+            'Chemistry',
+            'TorsionEngines',
+            'Shinkichon',
+            'Ironclad',
+            'Drill',
+            'Faith',
+            'Heresy',
+        ],
+    },
+    'BatteringRam': {
+        units: ['BatteringRam', 'CappedRam', 'SiegeRam'],
+        upgrades: [
+            'FurorCeltica',
+            'SiegeEngineers-20',
+            'Ironclad',
+            'Drill',
+            'Faith',
+            'Heresy',
+        ],
+    },
     'Scorpion': {
         units: ['Scorpion', 'HeavyScorpion'],
         upgrades: [
             'FurorCeltica',
-            'SiegeEngineers',
+            'SiegeEngineers-20-1',
             'Chemistry',
             'Rocketry-4',
             'TorsionEngines',
@@ -900,6 +1244,141 @@ export const unitLines: IUnitLineDict = {
 };
 
 const unitsInternal = {
+    'TradeCart': {
+        dataId: '128',
+    },
+    'TradeCog': {
+        dataId: '17',
+    },
+    'FishingShip': {
+        dataId: '13',
+    },
+    'TransportShip': {
+        dataId: '545',
+    },
+    'Villager': {
+        dataId: '83',
+    },
+    'Monk': {
+        dataId: '125',
+    },
+    'Missionary': {
+        dataId: '775',
+    },
+    'CannonGalleon': {
+        dataId: '420',
+    },
+    'EliteCannonGalleon': {
+        dataId: '691',
+    },
+    'DemolitionRaft': {
+        dataId: '1104',
+    },
+    'DemolitionShip': {
+        dataId: '527',
+    },
+    'HeavyDemolitionShip': {
+        dataId: '528',
+    },
+    'FireGalley': {
+        dataId: '1103',
+    },
+    'FireShip': {
+        dataId: '529',
+    },
+    'FastFireShip': {
+        dataId: '532',
+    },
+    'Galley': {
+        dataId: '539',
+    },
+    'WarGalley': {
+        dataId: '21',
+    },
+    'Galleon': {
+        dataId: '442',
+    },
+    'Arambai': {
+        dataId: '1126',
+    },
+    'EliteArambai': {
+        dataId: '1128',
+    },
+    'OrganGun': {
+        dataId: '1001',
+    },
+    'EliteOrganGun': {
+        dataId: '1003',
+    },
+    'Caravel': {
+        dataId: '1004',
+    },
+    'EliteCaravel': {
+        dataId: '1006',
+    },
+    'SiegeTower': {
+        dataId: '1105',
+    },
+    'Conquistador': {
+        dataId: '771',
+    },
+    'EliteConquistador': {
+        dataId: '773',
+    },
+    'TurtleShip': {
+        dataId: '831',
+    },
+    'EliteTurtleShip': {
+        dataId: '832',
+    },
+    'Longboat': {
+        dataId: '250',
+    },
+    'EliteLongboat': {
+        dataId: '533',
+    },
+    'Janissary': {
+        dataId: '46',
+    },
+    'EliteJanissary': {
+        dataId: '557',
+    },
+    'BallistaElephant': {
+        dataId: '1120',
+    },
+    'EliteBallistaElephant': {
+        dataId: '1122',
+    },
+    'FlamingCamel': {
+        dataId: '1263',
+    },
+    'Petard': {
+        dataId: '440',
+    },
+    'Trebuchet': {
+        dataId: '42',
+    },
+    'BombardCannon': {
+        dataId: '36',
+    },
+    'Mangonel': {
+        dataId: '280',
+    },
+    'Onager': {
+        dataId: '550',
+    },
+    'SiegeOnager': {
+        dataId: '588',
+    },
+    'BatteringRam': {
+        dataId: '35',
+    },
+    'CappedRam': {
+        dataId: '422',
+    },
+    'SiegeRam': {
+        dataId: '548',
+    },
     'Scorpion': {
         dataId: '279',
     },
@@ -1286,6 +1765,43 @@ const unitIcons: UnitIconDict = {
     'HandCannoneer': require('../../assets/units/HandCannoneer.png'),
     'Scorpion': require('../../assets/units/Scorpion.png'),
     'HeavyScorpion': require('../../assets/units/HeavyScorpion.png'),
+    'BatteringRam': require('../../assets/units/BatteringRam.png'),
+    'CappedRam': require('../../assets/units/CappedRam.png'),
+    'SiegeRam': require('../../assets/units/SiegeRam.png'),
+    'Mangonel': require('../../assets/units/Mangonel.png'),
+    'Onager': require('../../assets/units/Onager.png'),
+    'SiegeOnager': require('../../assets/units/SiegeOnager.png'),
+    'BombardCannon': require('../../assets/units/BombardCannon.png'),
+    'Trebuchet': require('../../assets/units/Trebuchet.png'),
+    'Petard': require('../../assets/units/Petard.png'),
+    'FlamingCamel': require('../../assets/units/FlamingCamel.png'),
+    'BallistaElephant': require('../../assets/units/BallistaElephant.png'),
+    'Janissary': require('../../assets/units/Janissary.png'),
+    'Longboat': require('../../assets/units/Longboat.png'),
+    'TurtleShip': require('../../assets/units/TurtleShip.png'),
+    'Conquistador': require('../../assets/units/Conquistador.png'),
+    'SiegeTower': require('../../assets/units/SiegeTower.png'),
+    'Caravel': require('../../assets/units/Caravel.png'),
+    'OrganGun': require('../../assets/units/OrganGun.png'),
+    'Arambai': require('../../assets/units/Arambai.png'),
+    'Galley': require('../../assets/units/Galley.png'),
+    'WarGalley': require('../../assets/units/WarGalley.png'),
+    'Galleon': require('../../assets/units/Galleon.png'),
+    'FireGalley': require('../../assets/units/FireGalley.png'),
+    'FireShip': require('../../assets/units/FireShip.png'),
+    'FastFireShip': require('../../assets/units/FastFireShip.png'),
+    'DemolitionRaft': require('../../assets/units/DemolitionRaft.png'),
+    'DemolitionShip': require('../../assets/units/DemolitionShip.png'),
+    'HeavyDemolitionShip': require('../../assets/units/HeavyDemolitionShip.png'),
+    'CannonGalleon': require('../../assets/units/CannonGalleon.png'),
+    'EliteCannonGalleon': require('../../assets/units/EliteCannonGalleon.png'),
+    'Monk': require('../../assets/units/Monk.png'),
+    'Missionary': require('../../assets/units/Missionary.png'),
+    'TradeCart': require('../../assets/units/TradeCart.png'),
+    'TradeCog': require('../../assets/units/TradeCog.png'),
+    'FishingShip': require('../../assets/units/FishingShip.png'),
+    'TransportShip': require('../../assets/units/TransportShip.png'),
+    'Villager': require('../../assets/units/Villager.png'),
 };
 
 
@@ -1312,8 +1828,9 @@ export function getUnitIcon(unit: Unit) {
 
 export function getUnitName(unit: Unit) {
     const unitEntry = units[unit];
-    if (unitEntry == null)
+    if (unitEntry == null) {
         throw Error(`getUnitLineName ${unit} - no dataId`);
+    }
     const dataId = units[unit].dataId;
     const data = aoeData.data.units[dataId];
     return aoeData.strings[data.LanguageNameId.toString() as aoeStringKey];
