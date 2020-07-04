@@ -80,7 +80,9 @@ jobs:
         - base64 --decode expo-project_dist.p12.base64 > expo-project_dist.p12
         - echo $EXPO_IOS_PROVISIONING_PROFILE_BASE64 > expo-project.mobileprovision.base64
         - base64 --decode expo-project.mobileprovision.base64 > expo-project.mobileprovision
+        - ls -al
         - turtle build:ios
+            --config app.json
             --release-channel $CHANNEL
             --team-id $EXPO_APPLE_TEAM_ID
             --dist-p12-path ./expo-project_dist.p12
@@ -119,7 +121,9 @@ jobs:
         - turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null || travis_terminate 1
         - echo $EXPO_ANDROID_KEYSTORE_BASE64 > expo-project.jks.base64
         - base64 --decode expo-project.jks.base64 > expo-project.jks
+        - ls -al
         - turtle build:android
+            --config app.json
             --release-channel $CHANNEL
             --keystore-path ./expo-project.jks
             --keystore-alias $EXPO_ANDROID_KEYSTORE_ALIAS
