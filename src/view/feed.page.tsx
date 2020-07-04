@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {AsyncStorage, FlatList, StyleSheet, Text, View} from 'react-native';
 import { RootStackParamList } from '../../App';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { fetchMatches } from '../api/matches';
@@ -12,32 +12,57 @@ import { Game } from './components/game';
 import {IMatch, IPlayer} from "../helper/data";
 import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
 import {fetchMatchesMulti} from "../service/matches";
+import Search from "./components/search";
+import {composeUserId, UserInfo} from "../helper/user";
+import {setAuth, setFollowing, useMutate, useSelector} from "../redux/reducer";
+import {loadFollowingFromStorage, loadSettingsFromStorage, saveFollowingToStorage} from "../service/storage";
+import {useCavy} from "cavy";
+import {useCachedLazyApi} from "../hooks/use-cached-lazy-api";
+import {usePrevious} from "../hooks/use-previous";
 
 
-export default function FeedPage() {
+export function FeedList() {
     const [refetching, setRefetching] = useState(false);
     const [fetchingMore, setFetchingMore] = useState(false);
 
-    const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
+    const following = useSelector(state => state.following);
+    const prevFollowing = usePrevious({following});
 
-    const following = [
-        {id: "76561197984749679-196240", steam_id: "76561197984749679", profile_id: 196240, name: "TheViper"},
-        {id: "76561198044559189-198035", steam_id: "76561198044559189", profile_id: 198035, name: "_DauT_"},
-    ];
+    // console.log("following", following);
+    // console.log("prevFollowing", prevFollowing);
 
-    const auth = following[0];
+    // const following = [
+    //     {id: "76561197984749679-196240", steam_id: "76561197984749679", profile_id: 196240, name: "TheViper"},
+    //     {id: "76561198044559189-198035", steam_id: "76561198044559189", profile_id: 198035, name: "_DauT_"},
+    // ];
 
-    const matches = useApi(
-            [],
-            state => state.followedMatches,
-            (state, value) => {
-                // if (state.user[auth.id] == null) {
-                //     state.user[auth.id] = {};
-                // }
-                state.followedMatches = value;
-            },
-        fetchMatchesMulti, 'aoe2de', 0, 10, following
+    const matches = useCachedLazyApi(
+        [],
+        state => state.followedMatches,
+        (state, value) => {
+            state.followedMatches = value;
+        },
+        fetchMatchesMulti, 'aoe2de', 0, 15, following
     );
+
+    const refresh = () => {
+        // console.log("refresh <-->");
+        // console.log("following2", following);
+        // console.log("prevFollowing2", prevFollowing);
+        if (prevFollowing == null) {
+            matches.init('aoe2de', 0, 15, following);
+        } else {
+            matches.refetch('aoe2de', 0, 15, following);
+        }
+    };
+
+    useEffect(() => {
+        refresh();
+    }, [following]);
+
+    // useEffect(() => {
+    //     console.log("REACTIVATE");
+    // }, []);
 
     const onRefresh = async () => {
         setRefetching(true);
@@ -78,7 +103,10 @@ export default function FeedPage() {
                                     default:
                                         const match = item as IMatch;
                                         return <View>
-                                            <Text style={styles.players}>{filterPlayers(match.players).map(p => p.name).join(' and ')} {match.finished ? 'played' : 'playing now'}</Text>
+                                            {
+                                                match &&
+                                                <Text style={styles.players}>{filterPlayers(match.players).map(p => p.name).join(' and ')} {match.finished ? 'played' : 'playing now'}</Text>
+                                            }
                                             <Game data={item as IMatch} expanded={false}/>
                                         </View>;
                                 }
@@ -91,6 +119,30 @@ export default function FeedPage() {
                 </View>
             </View>
     );
+}
+
+export default function FeedPage() {
+
+
+    const route = useRoute<RouteProp<RootStackParamList, 'Feed'>>();
+    const mutate = useMutate();
+
+    const onSelect = async (user: UserInfo) => {
+        const following = await loadFollowingFromStorage();
+        following.push({
+            id: composeUserId(user),
+            steam_id: user.steam_id,
+            profile_id: user.profile_id,
+        });
+        await saveFollowingToStorage(following);
+        mutate(setFollowing(following));
+    };
+
+    if (route.params?.action) {
+        return <Search title="Enter AoE username you want to follow:" selectedUser={onSelect} actionText="Follow" />;
+    }
+
+    return <FeedList/>;
 }
 
 const styles = StyleSheet.create({

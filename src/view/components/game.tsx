@@ -10,11 +10,20 @@ import {TextLoader} from "../loader/text-loader";
 import {ImageLoader} from "../loader/image-loader";
 import {ViewLoader} from "../loader/view-loader";
 import {groupBy} from "lodash-es";
+import {differenceInSeconds} from "date-fns";
 
 interface IGameProps {
     data: IMatch;
     expanded: boolean;
 }
+
+const formatDuration = (start: Date, finish: Date) => {
+    const diffTime = differenceInSeconds(finish, start);
+    if (!diffTime) return '00:00'; // divide by 0 protection
+    const minutes = Math.abs(Math.floor(diffTime / 60) % 60).toString();
+    const hours = Math.abs(Math.floor(diffTime / 60 / 60)).toString();
+    return `${hours.length < 2 ? 0 + hours : hours}:${minutes.length < 2 ? 0 + minutes : minutes} min`;
+};
 
 export function Game({data, expanded}: IGameProps) {
     if (data == null) {
@@ -55,6 +64,12 @@ export function Game({data, expanded}: IGameProps) {
 
     const teams = Object.entries(groupBy(data.players, p => p.team));
 
+    let duration: string = '';
+    if (data.started) {
+        const finished = data.finished || new Date();
+        duration = formatDuration(data.started, finished);
+    }
+
     return (
         <MyListAccordion
             style={styles.accordion}
@@ -70,8 +85,22 @@ export function Game({data, expanded}: IGameProps) {
                             {getString('leaderboard', data.leaderboard_id)}
                         </Text>
                         <Text numberOfLines={1} style={styles.matchContent}>
-                            {data.started ? formatAgo(data.started) : 'none'}
+                            {
+                                !data.finished &&
+                                <Text>{duration}</Text>
+                            }
+                            {
+                                data.finished &&
+                                <Text>{data.started ? formatAgo(data.started) : 'none'}</Text>
+                            }
                         </Text>
+                        {/*<Text style={{color:'grey'}}>{duration}</Text>*/}
+                        {/*<Text numberOfLines={1} style={styles.matchContent}>*/}
+                        {/*    {*/}
+                        {/*        data.finished &&*/}
+                        {/*        <Text>{data.started ? formatAgo(data.started) : 'none'}</Text>*/}
+                        {/*    }*/}
+                        {/*</Text>*/}
                     </View>
                 </View>
             )}

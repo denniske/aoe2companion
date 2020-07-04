@@ -5,6 +5,7 @@ import { UserId } from '../helper/user';
 import { IProfile } from '../view/components/profile';
 import { IRatingHistoryRow } from '../service/rating';
 import {ILeaderboard, IMatch} from "../helper/data";
+import {IFollowingEntry} from "../service/storage";
 
 export function getNoteId() {
   return uuidv4();
@@ -32,6 +33,12 @@ export function useMutate() {
 export function setAuth(user: UserId | null) {
   return (state: AppState) => {
     state.auth = user;
+  };
+}
+
+export function setFollowing(following: IFollowingEntry[]) {
+  return (state: AppState) => {
+    state.following = following;
   };
 }
 
@@ -90,7 +97,10 @@ interface ILeaderboardDict {
 export interface AppState {
   auth?: UserId | null;
   user: IUserDict;
+
+  following: IFollowingEntry[];
   followedMatches?: IMatch[];
+
   leaderboard: ILeaderboardDict;
 }
 

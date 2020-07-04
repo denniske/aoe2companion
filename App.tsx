@@ -5,7 +5,7 @@
 // });
 
 import 'react-native-gesture-handler';
-import {DefaultTheme as NavigationDefaultTheme, NavigationContainer} from '@react-navigation/native';
+import {DefaultTheme as NavigationDefaultTheme, NavigationContainer, useLinkTo, useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import MainPage from './src/view/main.page';
 import {
@@ -19,7 +19,7 @@ import Header from './src/view/components/header';
 import {composeUserId, parseUserId, UserId} from './src/helper/user';
 import UserPage from './src/view/user.page';
 import {useApi} from './src/hooks/use-api';
-import {loadSettingsFromStorage} from './src/service/storage';
+import {loadFollowingFromStorage, loadSettingsFromStorage} from './src/service/storage';
 import AboutPage from './src/view/about.page';
 import store from './src/redux/store';
 import {Provider as ReduxProvider} from 'react-redux';
@@ -42,6 +42,7 @@ import {getTechIcon, getTechName, Tech} from "./src/helper/techs";
 import TechPage from "./src/view/tech.page";
 import { Asset } from 'expo-asset';
 import FeedPage from "./src/view/feed.page";
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -96,7 +97,7 @@ export type RootStackParamList = {
     Privacy: undefined;
     About: undefined;
     Main: undefined;
-    Feed: undefined;
+    Feed: { action?: string };
     Leaderboard: undefined;
     Civ: { civ: Civ };
     Unit: { unit: Unit };
@@ -172,6 +173,19 @@ function techTitle(props: any) {
     return props.route?.params?.tech || 'Techs';
 }
 
+function feedTitle(props: any) {
+    return props.route?.params?.action ? 'Follow Player' : 'Following';
+}
+
+function feedMenu(props: any) {
+    return () => {
+        if (props.route?.params?.action) {
+            return <View/>;
+        }
+        return <FeedMenu/>;
+    }
+}
+
 // function cacheImages(images: (string | number)[]) {
 //     return images.map(image => {
 //         if (typeof image === 'string') {
@@ -184,11 +198,24 @@ function techTitle(props: any) {
 //     });
 // }
 
+export function FeedMenu() {
+    const navigation = useNavigation<RootStackProp>();
+    return (
+        <View style={styles.menu}>
+            <TouchableOpacity onPress={() => navigation.push('Feed', { action: 'add' })}>
+                <FontAwesomeIcon style={styles.menuButton} name="plus" size={18} />
+            </TouchableOpacity>
+        </View>
+    );
+}
+
 export function InnerApp() {
     const auth = useSelector(state => state.auth);
+    const following = useSelector(state => state.following);
 
-    // Trigger loading of auth
+    // Trigger loading of auth and following
     const me = useApi([], state => state.auth, (state, value) => state.auth = value, () => loadSettingsFromStorage());
+    const meFollowing = useApi([], state => state.following, (state, value) => state.following = value, () => loadFollowingFromStorage());
 
     // let [fontsLoaded] = useFonts({
     //     Roboto: Roboto_400Regular,
@@ -221,7 +248,7 @@ export function InnerApp() {
     //     );
     // }
 
-    if (auth === undefined) {
+    if (auth === undefined || following === undefined) {
         return <AppLoading/>;
     }
 
@@ -243,9 +270,14 @@ export function InnerApp() {
                 <Stack.Screen
                     name="Feed"
                     component={FeedPage}
-                    options={{
-                        title: 'Following',
-                    }}
+                    options={props => ({
+                        animationEnabled: !!props.route?.params?.action,
+                        title: feedTitle(props),
+                        headerRight: feedMenu(props),
+                        // headerRight: () => (
+                        //     <Menu/>
+                        // ),
+                    })}
                 />
                 <Stack.Screen
                     name="Leaderboard"
@@ -405,4 +437,11 @@ const styles = StyleSheet.create({
             fontWeight: '500',
         },
     }),
+
+    menu: {
+        flexDirection: 'row',
+    },
+    menuButton: {
+        marginRight: 20,
+    }
 });
