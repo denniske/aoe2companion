@@ -1,3 +1,7 @@
+import {civsConfig} from "../data/civs";
+import {Tech, techs} from "./techs";
+import {unwrap} from "./util";
+import {Unit, units} from "./units";
 
 export const civs = [
     'Aztecs',
@@ -37,8 +41,12 @@ export const civs = [
     'Vikings',
 ] as const;
 
-type ValueOf<T> = T[keyof T];
-export type Civ = ValueOf<typeof civs>;
+const CivUnion = unwrap(civs);
+export type Civ = typeof CivUnion;
+
+// type RRRR = keyof typeof civs;
+// type ValueOf<T> = T[keyof T];
+// export type Civ = ValueOf<typeof civs>;
 
 export const civList = [
     require('../../assets/civilizations/aztecs.png'),
@@ -126,4 +134,26 @@ export function getCivIcon(civ: Civ) {
 
 export function getCivHistoryImage(civ: Civ) {
     return civHistoryList[civs.indexOf(civ as any)];
+}
+
+export function getCivHasTech(civ: Civ, tech: Tech) {
+    const entry = techs[tech];
+    const civConfig = civsConfig[civ];
+
+    if ((civConfig as any).disableHorses && ['Bloodlines', 'Husbandry'].includes(tech)) {
+        return false;
+    }
+
+    return !civsConfig[civ].disabled.techs.includes(parseInt(entry.dataId));
+}
+
+export function getCivHasUnit(civ: Civ, unit: Unit) {
+    const entry = units[unit];
+    const civConfig = civsConfig[civ];
+
+    if (['ImperialSkirmisher', 'ImperialCamelRider'].includes(unit)) {
+        return (civsConfig[civ] as any).enabled?.units?.includes(parseInt(entry.dataId));
+    }
+
+    return !civsConfig[civ].disabled.units.includes(parseInt(entry.dataId));
 }

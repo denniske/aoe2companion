@@ -72,7 +72,7 @@ function TechList() {
 
 export default function TechPage() {
     const route = useRoute<RouteProp<RootStackParamList, 'Tech'>>();
-    const tech = route.params?.tech as aoeCivKey;
+    const tech = route.params?.tech as Tech;
 
     if (tech) {
         return <ScrollView><TechDetails tech={tech} /></ScrollView>;

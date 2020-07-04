@@ -21,7 +21,7 @@ interface IEffect {
 
 interface ITech {
     dataId: aoeTechDataId;
-    name: string;
+    name: Tech;
     effect?: IEffect;
 }
 
@@ -1522,7 +1522,7 @@ interface TechDict {
     [tech: string]: any;
 }
 
-const techIcons: TechDict = {
+const techIcons = {
     'Forging': require('../../assets/techs/Forging.png'),
     'IronCasting': require('../../assets/techs/IronCasting.png'),
     'BlastFurnace': require('../../assets/techs/BlastFurnace.png'),
@@ -1640,6 +1640,9 @@ const techIcons: TechDict = {
     'SilkRoad': require('../../assets/techs/UniqueTechImperial.jpg'),
     'Supremacy': require('../../assets/techs/UniqueTechImperial.jpg'),
 };
+
+// const CivUnion = unwrap(civs);
+// export type Civ = typeof CivUnion;
 
 export type Tech = keyof typeof techIcons;
 export type TechEffect = keyof typeof techEffectDictInternal;

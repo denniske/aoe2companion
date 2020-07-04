@@ -50,3 +50,7 @@ export function strRemoveFrom(str: string, find: string) {
 export function escapeRegExpFn (string: string): string {
     return string.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
 }
+
+export function unwrap<X>(arg: readonly X[]): X {
+    return null as any;
+}
