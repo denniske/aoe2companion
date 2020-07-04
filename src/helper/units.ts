@@ -1570,7 +1570,7 @@ const unitsInternal = {
         dataId: '569',
     },
     'XolotlWarrior': {
-        dataId: '10000',
+        dataId: '1570',
     },
     'ScoutCavalry': {
         dataId: '448',
