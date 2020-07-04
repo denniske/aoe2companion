@@ -1,28 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, Image, View, ScrollView, ImageBackground} from 'react-native';
-import {civs, getCivIconByIndex} from "../helper/civs";
+import {civs, getCivHistoryImage, getCivIconByIndex} from "../helper/civs";
 import {RouteProp, useLinkTo, useNavigation, useRoute} from "@react-navigation/native";
 import {RootStackParamList, RootStackProp} from "../../App";
 import {
     getUnitLineForUnit, getUnitLineIcon, getUnitLineName, getUnitName, Unit, unitLines, units
 } from "../helper/units";
-import {aoeData} from "../data/data";
-import {UnitComp} from "./unit.page";
+import {aoeCivKey, aoeData, aoeStringKey} from "../data/data";
 import {getTechName, techList} from "../helper/techs";
-
-type aoeStringKey = keyof typeof aoeData.strings;
-type aoeCivKey = keyof typeof aoeData.civ_helptexts;
-
-
-
-
-
-
-
-
-function escapeRegExpFn (string: string): string {
-    return string.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
-}
+import {escapeRegExpFn} from "../helper/util";
 
 
 export function CivDetails({civ}: {civ: aoeCivKey}) {
@@ -84,7 +70,6 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
             {/*    )*/}
             {/*}*/}
         </View>
-        // </ImageBackground>
     );
 }
 
@@ -109,18 +94,12 @@ export function CivList() {
     );
 }
 
-// const image = require('../../assets/history/civs/history_goths.png');
-// const image = require('../../assets/history/civs/history_malay.png');
-// const image = require('../../assets/history/civs/history_japanese.png');
-// const image = require('../../assets/history/civs/history_persians.png');
-const image = require('../../assets/history/civs/history_indians.png');
-
 export default function CivPage() {
     const route = useRoute<RouteProp<RootStackParamList, 'Civ'>>();
     const civ = route.params?.civ as aoeCivKey;
 
     if (civ) {
-        return <ImageBackground imageStyle={styles.imageInner} source={image} style={styles.image}>
+        return <ImageBackground imageStyle={styles.imageInner} source={getCivHistoryImage(civ)} style={styles.image}>
             <ScrollView>
                 <CivDetails civ={civ}/>
             </ScrollView>

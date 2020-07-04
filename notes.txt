@@ -54,6 +54,8 @@ https://buildorderguide.com/
 - User Profile Page
   - Follow Button
 
+637 23,5mb
+
 - Move search into top header
 - Add three dot menu to top header
   - About

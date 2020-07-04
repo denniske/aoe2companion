@@ -46,3 +46,7 @@ export function strRemoveTo(str: string, find: string) {
 export function strRemoveFrom(str: string, find: string) {
     return str.substring(0, str.indexOf(find));
 }
+
+export function escapeRegExpFn (string: string): string {
+    return string.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+}
