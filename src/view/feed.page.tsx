@@ -52,7 +52,7 @@ export default function FeedPage() {
         setFetchingMore(false);
     };
 
-    const list = ['matches-header', ...(matches.data || Array(15).fill(null))];
+    const list = [...(matches.data || Array(15).fill(null))];
 
     const _renderFooter = () => {
         if (!fetchingMore) return null;
@@ -73,12 +73,12 @@ export default function FeedPage() {
                             data={list}
                             renderItem={({item, index}) => {
                                 switch (item) {
-                                    case 'matches-header':
-                                        return <Text style={styles.sectionHeader}>Match History</Text>;
+                                    // case 'matches-header':
+                                    //     return <Text style={styles.sectionHeader}>Match History</Text>;
                                     default:
                                         const match = item as IMatch;
                                         return <View>
-                                            <Text style={styles.players}>{filterPlayers(match.players).map(p => p.name).join(' and ')} played</Text>
+                                            <Text style={styles.players}>{filterPlayers(match.players).map(p => p.name).join(' and ')} {match.finished ? 'played' : 'playing now'}</Text>
                                             <Game data={item as IMatch} expanded={false}/>
                                         </View>;
                                 }
