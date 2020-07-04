@@ -288,7 +288,8 @@ export function CivList() {
                         <TouchableOpacity key={civ} onPress={() => navigation.push('Civ', {civ})}>
                             <View style={styles.civBlock}>
                                 <Image style={styles.icon} source={getCivIconByIndex(i)}/>
-                                {/*<Text style={styles.name}>{civ} {getCivHasTech(civ, 'ThumbRing') ? '' : 'FALSE'}</Text>*/}
+                                <Text style={styles.name}>{civ}</Text>
+                                {/*<Text style={styles.name}>{civ} {getCivHasTech(civ, 'Supplies') ? '' : 'FALSE'}</Text>*/}
                             </View>
                         </TouchableOpacity>
                     )
