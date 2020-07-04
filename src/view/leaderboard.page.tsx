@@ -62,10 +62,6 @@ export function Leaderboard({leaderboardId} : any) {
     }, [page, perPage]);
 
     const onSelect = async (player: ILeaderboardPlayer) => {
-        console.log('naivigate', {
-            id: userIdFromBase(player),
-            name: player.name,
-        });
         navigation.push('User', {
             id: userIdFromBase(player),
             name: player.name,
