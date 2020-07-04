@@ -6,7 +6,7 @@
 
 import 'react-native-gesture-handler';
 import {DefaultTheme as NavigationDefaultTheme, NavigationContainer} from '@react-navigation/native';
-import React from 'react';
+import React, {useState} from 'react';
 import MainPage from './src/view/main.page';
 import {
     Image, Linking, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View, YellowBox
@@ -33,13 +33,14 @@ import ExampleSpec from './src/ci/exampleSpec';
 import LeaderboardPage from "./src/view/leaderboard.page";
 import GuidePage from "./src/view/guide.page";
 import CivPage from "./src/view/civ.page";
-import {civs, getCivIconByIndex, Civ} from "./src/helper/civs";
+import {civs, getCivIconByIndex, Civ, getCivIcon, civList} from "./src/helper/civs";
 import UnitPage from "./src/view/unit.page";
-import {getUnitLineIcon, getUnitLineName, Unit} from "./src/helper/units";
+import {getUnitLineIcon, getUnitLineName, Unit, unitIcons} from "./src/helper/units";
 import {navigationRef} from "./src/service/navigation";
 import Footer from "./src/view/components/footer";
 import {getTechIcon, getTechName, Tech} from "./src/helper/techs";
 import TechPage from "./src/view/tech.page";
+import { Asset } from 'expo-asset';
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -166,6 +167,18 @@ function techTitle(props: any) {
     return props.route?.params?.tech || 'Techs';
 }
 
+// function cacheImages(images: (string | number)[]) {
+//     return images.map(image => {
+//         if (typeof image === 'string') {
+//             console.log("prefetch", image);
+//             return Image.prefetch(image);
+//         } else {
+//             console.log("fromModule", image);
+//             return Asset.fromModule(image).downloadAsync();
+//         }
+//     });
+// }
+
 export function InnerApp() {
     const auth = useSelector(state => state.auth);
 
@@ -180,6 +193,27 @@ export function InnerApp() {
 
     // if (!fontsLoaded) {
     //     return <AppLoading />;
+    // }
+
+    // const [ready, setReady] = useState(false);
+    // const loadAssets = async () => {
+    //     const imageAssets = cacheImages([...civList]);
+    //     await Promise.all([...imageAssets]);
+    //     const fontAssets = cacheFonts([FontAwesome.font]);
+    //     await Promise.all([...imageAssets, ...fontAssets]);
+    // }
+
+    // if (auth === undefined || !ready) {
+    //     return (
+    //         <AppLoading
+    //             startAsync={loadAssets}
+    //             onFinish={() => {
+    //                 console.log("READY TRUE");
+    //                 setReady(true);
+    //             }}
+    //             onError={console.warn}
+    //         />
+    //     );
     // }
 
     if (auth === undefined) {

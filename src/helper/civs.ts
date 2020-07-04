@@ -40,7 +40,7 @@ export const civs = [
 type ValueOf<T> = T[keyof T];
 export type Civ = ValueOf<typeof civs>;
 
-const civList = [
+export const civList = [
     require('../../assets/civilizations/aztecs.png'),
     require('../../assets/civilizations/berber.png'),
     require('../../assets/civilizations/britons.png'),
