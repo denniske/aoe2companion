@@ -63,7 +63,7 @@ function MainHome() {
         fetchMatches, 'aoe2de', 0, 1000, auth
     );
 
-    const list = ['profile', 'rating-header', 'rating', 'stats-header', 'stats-player', 'stats-civ', 'stats-map', 'not-me'];
+    const list = ['profile', 'rating-header', 'rating', 'stats-header', 'stats-player', 'stats-civ', 'stats-map', 'settings-header', 'not-me'];
 
     const deleteUser = () => {
         Alert.alert("Delete Me?", "Do you want to reset me page?",
@@ -93,6 +93,8 @@ function MainHome() {
                             data={list}
                             renderItem={({item, index}) => {
                                 switch (item) {
+                                    case 'settings-header':
+                                        return <Text style={styles.sectionHeader}>Settings</Text>;
                                     case 'rating-header':
                                         return <Text style={styles.sectionHeader}>Rating History</Text>;
                                     case 'stats-header':
@@ -101,8 +103,8 @@ function MainHome() {
                                             {
                                                 !matches.touched && !matches.loading &&
                                                 <Button
-                                                    labelStyle={{fontSize: 13, marginVertical: 0}}
-                                                    contentStyle={{height: 22}}
+                                                    // labelStyle={{fontSize: 13, marginVertical: 0}}
+                                                    // contentStyle={{height: 22}}
                                                     onPress={() => matches.reload()}
                                                     mode="contained"
                                                     compact
@@ -245,8 +247,8 @@ export default function MainPage() {
 
 const styles = StyleSheet.create({
     sectionHeader: {
-        marginTop: 20,
-        marginBottom: 20,
+        marginTop: 30,
+        marginBottom: 15,
         fontSize: 15,
         fontWeight: '500',
         textAlign: 'center',

@@ -87,6 +87,12 @@ export default function StatsPlayer({matches}: IProps) {
     return (
             <View style={styles.container}>
                 <View>
+
+                    {
+                        matches &&
+                            <Text style={styles.info}>(based on the last {matches.length} matches)</Text>
+                    }
+
                     <View style={styles.row}>
                         <Text numberOfLines={1} style={styles.cellLeaderboard}>Player</Text>
                         <Text numberOfLines={1} style={styles.cellGames}>Games</Text>
@@ -117,6 +123,12 @@ export default function StatsPlayer({matches}: IProps) {
 const padding = 5;
 
 const styles = StyleSheet.create({
+    info: {
+        textAlign: 'center',
+        marginBottom: 10,
+        color: '#555',
+        fontSize: 12,
+    },
     cellLeaderboard: {
         // backgroundColor: 'red',
         padding: padding,
