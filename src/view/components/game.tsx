@@ -94,13 +94,6 @@ export function Game({data, expanded}: IGameProps) {
                                 <Text>{data.started ? formatAgo(data.started) : 'none'}</Text>
                             }
                         </Text>
-                        {/*<Text style={{color:'grey'}}>{duration}</Text>*/}
-                        {/*<Text numberOfLines={1} style={styles.matchContent}>*/}
-                        {/*    {*/}
-                        {/*        data.finished &&*/}
-                        {/*        <Text>{data.started ? formatAgo(data.started) : 'none'}</Text>*/}
-                        {/*    }*/}
-                        {/*</Text>*/}
                     </View>
                 </View>
             )}
