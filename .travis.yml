@@ -84,7 +84,7 @@ jobs:
         - turtle build:ios
             --config app.json
             --release-channel $CHANNEL
-            --team-id $EXPO_APPLE_TEAM_ID
+            --team-id "$EXPO_APPLE_TEAM_ID"
             --dist-p12-path ./expo-project_dist.p12
             --provisioning-profile-path ./expo-project.mobileprovision
             -o $ARTIFACT_PATH
