@@ -61,7 +61,7 @@ export default function StatsMap({matches}: IProps) {
             });
         });
         rows = rows.filter(r => r.games > 0);
-        rows = orderBy(rows, [r => r.games], ['desc']);
+        rows = orderBy(rows, r => r.games, 'desc');
         // rows = orderBy(rows, [r => r.won], ['desc']);
     }
 

@@ -26,6 +26,9 @@ export default function Footer() {
                     <TouchableOpacity style={styles.menuButton} onPress={() => nav('Search')}>
                         <Icon name="search" size={iconSize} />
                     </TouchableOpacity>
+                    <TouchableOpacity style={styles.menuButton} onPress={() => nav('Feed')}>
+                        <Icon name="home" size={iconSize} />
+                    </TouchableOpacity>
                     <TouchableOpacity style={styles.menuButton} onPress={() => nav('Main')}>
                         <Icon name="user" size={iconSize} />
                     </TouchableOpacity>
@@ -89,7 +92,6 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     container: {
-        zIndex: 10000000,
         // backgroundColor: 'blue',
         borderTopWidth: 1,
         borderTopColor: '#CCC',

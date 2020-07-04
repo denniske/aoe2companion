@@ -9,71 +9,58 @@ import { useApi } from '../hooks/use-api';
 import { loadRatingHistories } from '../service/rating';
 import { loadProfile } from '../service/profile';
 import { Game } from './components/game';
-import {IMatch} from "../helper/data";
+import {IMatch, IPlayer} from "../helper/data";
 import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
+import {fetchMatchesMulti} from "../service/matches";
 
 
-export default function UserPage() {
+export default function FeedPage() {
     const [refetching, setRefetching] = useState(false);
     const [fetchingMore, setFetchingMore] = useState(false);
 
     const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
-    const auth = route.params.id;
-    console.log("user auth", auth);
 
-    const rating = useApi(
-            [],
-            state => state.user[auth.id]?.rating,
-            (state, value) => {
-                if (state.user[auth.id] == null) {
-                    state.user[auth.id] = {};
-                }
-                state.user[auth.id].rating = value;
-            },
-            loadRatingHistories, 'aoe2de', auth
-    );
+    const following = [
+        {id: "76561197984749679-196240", steam_id: "76561197984749679", profile_id: 196240, name: "TheViper"},
+        {id: "76561198044559189-198035", steam_id: "76561198044559189", profile_id: 198035, name: "_DauT_"},
+    ];
 
-    const profile = useApi(
-            [],
-            state => state.user[auth.id]?.profile,
-            (state, value) => {
-                if (state.user[auth.id] == null) {
-                    state.user[auth.id] = {};
-                }
-                state.user[auth.id].profile = value;
-            },
-            loadProfile, 'aoe2de', auth
-    );
+    const auth = following[0];
+
     const matches = useApi(
             [],
-            state => state.user[auth.id]?.matches,
+            state => state.followedMatches,
             (state, value) => {
-                if (state.user[auth.id] == null) {
-                    state.user[auth.id] = {};
-                }
-                state.user[auth.id].matches = value;
+                // if (state.user[auth.id] == null) {
+                //     state.user[auth.id] = {};
+                // }
+                state.followedMatches = value;
             },
-            fetchMatches, 'aoe2de', 0, 10, auth
+        fetchMatchesMulti, 'aoe2de', 0, 10, following
     );
 
     const onRefresh = async () => {
         setRefetching(true);
-        await Promise.all([rating.reload(), profile.reload(), matches.reload()]);
+        await Promise.all([matches.reload()]);
         setRefetching(false);
     };
 
     const onEndReached = async () => {
         if (fetchingMore) return;
         setFetchingMore(true);
-        await matches.refetch('aoe2de', 0, (matches.data?.length ?? 0) + 15, auth);
+        await matches.refetch('aoe2de', 0, (matches.data?.length ?? 0) + 15, following);
         setFetchingMore(false);
     };
 
-    const list = ['profile', 'rating-header', 'rating', 'matches-header', ...(matches.data || Array(15).fill(null))];
+    const list = ['matches-header', ...(matches.data || Array(15).fill(null))];
 
     const _renderFooter = () => {
         if (!fetchingMore) return null;
         return <FlatListLoadingIndicator />;
+    };
+
+    const filterPlayers = (players: IPlayer[]) => {
+      return players.filter(p => following.filter(f => p.steam_id === f.steam_id && p.profile_id === f.profile_id).length > 0)
     };
 
     return (
@@ -86,18 +73,15 @@ export default function UserPage() {
                             data={list}
                             renderItem={({item, index}) => {
                                 switch (item) {
-                                    case 'profile':
-                                        return <Profile data={profile.data}/>;
-                                    case 'rating-header':
-                                        return <Text style={styles.sectionHeader}>Rating History</Text>;
-                                    case 'rating':
-                                        return <Rating ratingHistories={rating.data}/>;
                                     case 'matches-header':
                                         return <Text style={styles.sectionHeader}>Match History</Text>;
                                     default:
-                                        return <Game data={item as IMatch} expanded={false}/>;
+                                        const match = item as IMatch;
+                                        return <View>
+                                            <Text style={styles.players}>{filterPlayers(match.players).map(p => p.name).join(' and ')} played</Text>
+                                            <Game data={item as IMatch} expanded={false}/>
+                                        </View>;
                                 }
-
                             }}
                             ListFooterComponent={_renderFooter}
                             onEndReached={onEndReached}
@@ -110,6 +94,9 @@ export default function UserPage() {
 }
 
 const styles = StyleSheet.create({
+    players: {
+      marginBottom: 10,
+    },
     sectionHeader: {
         marginTop: 20,
         marginBottom: 20,

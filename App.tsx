@@ -41,6 +41,7 @@ import Footer from "./src/view/components/footer";
 import {getTechIcon, getTechName, Tech} from "./src/helper/techs";
 import TechPage from "./src/view/tech.page";
 import { Asset } from 'expo-asset';
+import FeedPage from "./src/view/feed.page";
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -62,6 +63,9 @@ const linking = {
         },
         Main: {
             path: 'main',
+        },
+        Feed: {
+            path: 'feed',
         },
         About: {
             path: 'about',
@@ -92,6 +96,7 @@ export type RootStackParamList = {
     Privacy: undefined;
     About: undefined;
     Main: undefined;
+    Feed: undefined;
     Leaderboard: undefined;
     Civ: { civ: Civ };
     Unit: { unit: Unit };
@@ -233,6 +238,13 @@ export function InnerApp() {
                     component={MainPage}
                     options={{
                         title: 'Me',
+                    }}
+                />
+                <Stack.Screen
+                    name="Feed"
+                    component={FeedPage}
+                    options={{
+                        title: 'Following',
                     }}
                 />
                 <Stack.Screen

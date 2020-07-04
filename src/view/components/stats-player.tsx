@@ -79,7 +79,7 @@ export default function StatsPlayer({matches}: IProps) {
             });
         });
         rows = rows.filter(r => r.games > 0);
-        rows = orderBy(rows, [r => r.games], ['desc']);
+        rows = orderBy(rows, r => r.games, 'desc');
         // rows = orderBy(rows, [r => r.won], ['desc']);
         rows = rows.filter((r, i) => i < 10);
     }

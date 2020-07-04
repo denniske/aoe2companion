@@ -90,6 +90,7 @@ interface ILeaderboardDict {
 export interface AppState {
   auth?: UserId | null;
   user: IUserDict;
+  followedMatches?: IMatch[];
   leaderboard: ILeaderboardDict;
 }
 

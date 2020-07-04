@@ -38,5 +38,6 @@ export async function fetchMatches(game: string, start: number, count: number, p
     const end = new Date();
     console.log((end.getTime() - start2.getTime())/1000);
 
+    console.log("matches json", json);
     return json.map(match => convertTimestampsToDates(match));
 }

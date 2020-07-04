@@ -9,6 +9,7 @@ import {getMapImage} from "../../helper/maps";
 import {TextLoader} from "../loader/text-loader";
 import {ImageLoader} from "../loader/image-loader";
 import {ViewLoader} from "../loader/view-loader";
+import {groupBy} from "lodash-es";
 
 interface IGameProps {
     data: IMatch;
@@ -16,10 +17,9 @@ interface IGameProps {
 }
 
 export function Game({data, expanded}: IGameProps) {
-    const playersInTeam1 = data?.players.filter(p => p.team == 1) || Array(3).fill(0);
-    const playersInTeam2 = data?.players.filter(p => p.team == 2) || Array(3).fill(0);
-
     if (data == null) {
+        const playersInTeam1 = Array(3).fill(0);
+        const playersInTeam2 = Array(3).fill(0);
         return (
             <View>
                 <MyListAccordion
@@ -53,6 +53,7 @@ export function Game({data, expanded}: IGameProps) {
         );
     }
 
+    const teams = Object.entries(groupBy(data.players, p => p.team));
 
     return (
         <MyListAccordion
@@ -77,13 +78,23 @@ export function Game({data, expanded}: IGameProps) {
         >
             <View style={styles.playerList}>
                 {
-                    playersInTeam1.map((player, i) => <Player key={i} player={player}/>)
-                }
-                <View style={styles.versus}>
-                    <Text style={styles.versusText}>VS</Text>
-                </View>
-                {
-                    playersInTeam2.map((player, i) => <Player key={i} player={player}/>)
+                    teams.map(([team, players], i) =>
+                        <View key={team}>
+                            {
+                                players.map((player, j) => <Player key={j} player={player}/>)
+                            }
+                            {
+                                i < teams.length-1 &&
+                                <View style={styles.row}>
+                                    {/*<View style={styles.versus2}/>*/}
+                                    <View style={styles.versus}>
+                                        <Text style={styles.versusText}>VS</Text>
+                                    </View>
+                                    <View style={styles.versus2}/>
+                                </View>
+                            }
+                        </View>
+                    )
                 }
             </View>
         </MyListAccordion>
@@ -123,18 +134,49 @@ const styles = StyleSheet.create({
         // backgroundColor: 'purple'
     },
     versus: {
-        borderRadius: 10000,
-        backgroundColor: 'grey',
-        color: 'white',
-        width: 25,
-        height: 25,
+        // borderRadius: 10000,
+        // backgroundColor: 'grey',
+        // color: 'white',
+        // width: 25,
+        // height: 20,
+        // color: 'black',
         margin: 10,
+        marginLeft: 35,
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center'
     },
-    versusText: {
+    versus2: {
+        // borderRadius: 10000,
+        // backgroundColor: 'grey',
+        // backgroundColor: '#999',
         color: 'white',
+        // width: 25,
+        flex: 1,
+        height: 1,
+        margin: 10,
+        // justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center'
+    },
+    versusText: {
+        // color: 'white',
+        color: '#666',
         fontSize: 12,
     },
+    // versus: {
+    //     borderRadius: 10000,
+    //     backgroundColor: 'grey',
+    //     color: 'white',
+    //     width: 25,
+    //     height: 25,
+    //     margin: 10,
+    //     justifyContent: 'center',
+    //     alignItems: 'center',
+    //     alignSelf: 'center'
+    // },
+    // versusText: {
+    //     color: 'white',
+    //     fontSize: 12,
+    // },
 });
