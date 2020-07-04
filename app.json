@@ -32,7 +32,6 @@
       "assets/*"
     ],
     "android": {
-      "icon": "./assets/icon.png",
       "package": "com.aoe2companion",
       "versionCode": 80000,
       "permissions": []
