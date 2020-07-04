@@ -126,7 +126,10 @@ export function UnitDetails({unit}: {unit: UnitLine}) {
                                 <View style={styles.row} key={upgrade.name}>
                                     <Image style={styles.unitIcon} source={getTechIcon(upgrade.tech)}/>
                                     <Text>
-                                        {getTechName(upgrade.tech)}
+
+                                        {/*{getTechName(upgrade.tech)}*/}
+                                        <Text style={styles.link} onPress={() => navigation.push('Tech', {tech: upgrade.tech!})}>{getTechName(upgrade.tech)}</Text>
+
                                         {upgrade.effect[group.prop] ? ' (' + upgrade.effect[group.prop] : ''}
 
                                         {
