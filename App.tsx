@@ -32,7 +32,7 @@ import GuidePage from "./src/view/guide.page";
 import CivPage from "./src/view/civ.page";
 import {civs, getCivIconByIndex, Civ} from "./src/helper/civs";
 import UnitPage from "./src/view/unit.page";
-import {getUnitLineIcon, getUnitLineName} from "./src/helper/units";
+import {getUnitLineIcon, getUnitLineName, Unit} from "./src/helper/units";
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -86,8 +86,8 @@ export type RootStackParamList = {
     Main: undefined;
     Leaderboard: undefined;
     Civ: { civ: Civ };
-    Unit: { unit: string };
-    Tech: { tech: string };
+    Unit: { unit: Unit };
+    Tech: { tech: Tech };
     Guide: undefined;
     User: { id: UserId, name: string };
     Search: { name?: string };
@@ -102,7 +102,7 @@ export type RootStackProp = StackNavigationProp<RootStackParamList, 'Main'>;
 
 import {navigationRef} from "./src/service/navigation";
 import Header2 from "./src/view/components/header2";
-import {getTechIcon, getTechName} from "./src/helper/techs";
+import {getTechIcon, getTechName, Tech} from "./src/helper/techs";
 import TechPage from "./src/view/tech.page";
 
 const Stack = createStackNavigator<RootStackParamList>();
