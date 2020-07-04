@@ -32,11 +32,13 @@
       "assets/*"
     ],
     "android": {
+      "icon": "./assets/icon.png",
       "package": "com.aoe2companion",
       "versionCode": 80000,
       "permissions": []
     },
     "ios": {
+      "icon": "./assets/icon-no-alpha.png",
       "bundleIdentifier": "com.aoe2companion",
       "buildNumber": "8.0.0",
       "supportsTablet": false,
