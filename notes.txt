@@ -55,7 +55,6 @@ https://docs.google.com/spreadsheets/d/1XMFVhx-bJQJ3PbZEbJ4C4Bpw1CY5dKFiE6sr9MWp
 
 https://github.com/JacksonCohen/aoe2-companion-app
 https://aoe2.club/playerprofile/196240
-      "assets/**/*"
 
 - Tabs
   - Profile (Rating & History)
@@ -67,6 +66,13 @@ https://aoe2.club/playerprofile/196240
   - Follow Button
 
 637 23,5mb
+
+600
++ 35 history civ
++ 1 data.json
+
+"assets/**/*"
+
 
 - Move search into top header
 - Add three dot menu to top header
