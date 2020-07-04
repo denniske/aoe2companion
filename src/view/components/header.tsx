@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     container: {
         // backgroundColor: 'blue',
         flexDirection: 'row',
-        marginTop: Constants.statusBarHeight,
+        // marginTop: Constants.statusBarHeight,
         height: 36,
         paddingTop: Platform.OS === 'ios' ? 0 : 6,
         paddingBottom: Platform.OS === 'ios' ? 4 : 0,

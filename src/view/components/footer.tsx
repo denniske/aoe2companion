@@ -7,7 +7,7 @@ import {Menu} from 'react-native-paper';
 import {RootStackParamList, RootStackProp} from '../../../App';
 import {getRootNavigation} from "../../service/navigation";
 
-export default function Header2() {
+export default function Footer() {
     const [menu, setMenu] = useState(false);
 
     const nav = async (route: keyof RootStackParamList) => {
@@ -89,14 +89,16 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     container: {
+        zIndex: 10000000,
         // backgroundColor: 'blue',
         borderTopWidth: 1,
         borderTopColor: '#CCC',
         flexDirection: 'row',
-        marginBottom: 22,
-        height: 46,
-        paddingTop: Platform.OS === 'ios' ? 0 : 6,
-        paddingBottom: Platform.OS === 'ios' ? 4 : 0,
+        // marginBottom: 22,
+        // marginBottom: 22,
+        height: 48,
+        // paddingTop: Platform.OS === 'ios' ? 0 : 6,
+        // paddingBottom: Platform.OS === 'ios' ? 4 : 0,
         paddingLeft: 16,
         paddingRight: 12, // because of three dots icon
     },

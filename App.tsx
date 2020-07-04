@@ -8,11 +8,14 @@ import 'react-native-gesture-handler';
 import {DefaultTheme as NavigationDefaultTheme, NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import MainPage from './src/view/main.page';
-import {Image, Linking, Platform, StyleSheet, Text, TouchableOpacity, View, YellowBox} from 'react-native';
+import {
+    Image, Linking, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View, YellowBox
+} from 'react-native';
 import Search from './src/view/components/search';
-import {createStackNavigator, HeaderBackground, StackNavigationProp} from '@react-navigation/stack';
+import {
+    createStackNavigator, StackNavigationProp, TransitionPresets
+} from '@react-navigation/stack';
 import Header from './src/view/components/header';
-import Constants from 'expo-constants';
 import {composeUserId, parseUserId, UserId} from './src/helper/user';
 import UserPage from './src/view/user.page';
 import {useApi} from './src/hooks/use-api';
@@ -33,6 +36,10 @@ import CivPage from "./src/view/civ.page";
 import {civs, getCivIconByIndex, Civ} from "./src/helper/civs";
 import UnitPage from "./src/view/unit.page";
 import {getUnitLineIcon, getUnitLineName, Unit} from "./src/helper/units";
+import {navigationRef} from "./src/service/navigation";
+import Footer from "./src/view/components/footer";
+import {getTechIcon, getTechName, Tech} from "./src/helper/techs";
+import TechPage from "./src/view/tech.page";
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -100,14 +107,8 @@ export type RootTabParamList = {
 
 export type RootStackProp = StackNavigationProp<RootStackParamList, 'Main'>;
 
-import {navigationRef} from "./src/service/navigation";
-import Header2 from "./src/view/components/header2";
-import {getTechIcon, getTechName, Tech} from "./src/helper/techs";
-import TechPage from "./src/view/tech.page";
 
 const Stack = createStackNavigator<RootStackParamList>();
-
-const headerStatusBarHeight = 30 + Constants.statusBarHeight;
 
 function LinkTitle(props: any) {
     return (
@@ -186,28 +187,18 @@ export function InnerApp() {
     }
 
     return (
-        <View style={styles.container}>
-            <Stack.Navigator screenOptions={{animationEnabled: false}}>
-                {/*<Stack.Screen*/}
-                {/*        name="Welcome"*/}
-                {/*        component={WelcomePage}*/}
-                {/*        options={{*/}
-                {/*            title: '',*/}
-                {/*            headerStatusBarHeight: headerStatusBarHeight,*/}
-                {/*            headerBackground: () => (*/}
-                {/*                    <HeaderBackground><Header/></HeaderBackground>*/}
-                {/*            ),*/}
-                {/*        }}*/}
-                {/*/>*/}
+        <SafeAreaView style={styles.container}>
+            <Header/>
+            <Stack.Navigator screenOptions={{
+                ...TransitionPresets.SlideFromRightIOS,
+                headerStatusBarHeight: 0,
+                animationEnabled: false,
+            }}>
                 <Stack.Screen
                     name="Main"
                     component={MainPage}
                     options={{
                         title: 'Me',
-                        headerStatusBarHeight: headerStatusBarHeight,
-                        headerBackground: () => (
-                            <HeaderBackground><Header/></HeaderBackground>
-                        ),
                     }}
                 />
                 <Stack.Screen
@@ -215,68 +206,49 @@ export function InnerApp() {
                     component={LeaderboardPage}
                     options={{
                         title: 'Leaderboard',
-                        headerStatusBarHeight: headerStatusBarHeight,
-                        headerBackground: () => (
-                            <HeaderBackground><Header/></HeaderBackground>
-                        ),
                     }}
                 />
                 <Stack.Screen
                     name="Tech"
                     component={TechPage}
                     options={props => ({
+                        animationEnabled: !!props.route?.params?.tech,
                         title: techTitle(props),
                         headerTitle: titleProps => <TechTitle {...props} />,
-                        headerStatusBarHeight: headerStatusBarHeight,
-                        headerBackground: () => (
-                            <HeaderBackground><Header/></HeaderBackground>
-                        ),
                     })}
                 />
                 <Stack.Screen
                     name="Unit"
                     component={UnitPage}
                     options={props => ({
+                        animationEnabled: !!props.route?.params?.unit,
                         title: unitTitle(props),
                         headerTitle: titleProps => <UnitTitle {...props} />,
-                        headerStatusBarHeight: headerStatusBarHeight,
-                        headerBackground: () => (
-                            <HeaderBackground><Header/></HeaderBackground>
-                        ),
                     })}
                 />
                 <Stack.Screen
                     name="Civ"
                     component={CivPage}
                     options={props => ({
+                        animationEnabled: !!props.route?.params?.civ,
                         title: civTitle(props),
                         headerTitle: titleProps => <CivTitle {...props} />,
-                        headerStatusBarHeight: headerStatusBarHeight,
-                        headerBackground: () => (
-                            <HeaderBackground><Header/></HeaderBackground>
-                        ),
                     })}
                 />
                 <Stack.Screen
                     name="Guide"
                     component={GuidePage}
                     options={{
+                        animationEnabled: false,
                         headerTitle: props => <LinkTitle {...props} />,
-                        headerStatusBarHeight: headerStatusBarHeight,
-                        headerBackground: () => (
-                            <HeaderBackground><Header/></HeaderBackground>
-                        ),
                     }}
                 />
                 <Stack.Screen
                     name="User"
                     component={UserPage}
                     options={({route}) => ({
+                        animationEnabled: true,
                         title: route.params.name,
-                        headerStatusBarHeight: headerStatusBarHeight,
-                        headerBackground: () => (
-                            <HeaderBackground><Header/></HeaderBackground>
-                        ),
                     })}
                 />
                 <Stack.Screen
@@ -284,10 +256,6 @@ export function InnerApp() {
                     component={SearchPage}
                     options={{
                         title: 'Search',
-                        headerStatusBarHeight: headerStatusBarHeight,
-                        headerBackground: () => (
-                            <HeaderBackground><Header/></HeaderBackground>
-                        ),
                     }}
                 />
                 <Stack.Screen
@@ -295,10 +263,6 @@ export function InnerApp() {
                     component={AboutPage}
                     options={{
                         title: 'About',
-                        headerStatusBarHeight: headerStatusBarHeight,
-                        headerBackground: () => (
-                            <HeaderBackground><Header/></HeaderBackground>
-                        ),
                     }}
                 />
                 <Stack.Screen
@@ -306,15 +270,11 @@ export function InnerApp() {
                     component={PrivacyPage}
                     options={{
                         title: 'Privacy',
-                        headerStatusBarHeight: headerStatusBarHeight,
-                        headerBackground: () => (
-                            <HeaderBackground><Header/></HeaderBackground>
-                        ),
                     }}
                 />
             </Stack.Navigator>
-            <Header2/>
-        </View>
+            <Footer/>
+        </SafeAreaView>
     );
 }
 
@@ -367,6 +327,7 @@ export default function App() {
 const styles = StyleSheet.create({
     container: {
         // backgroundColor: '#397AF9',
+        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
         flex: 1,
     },
     link: {
