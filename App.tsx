@@ -35,7 +35,7 @@ import GuidePage from "./src/view/guide.page";
 import CivPage from "./src/view/civ.page";
 import {civs, getCivIconByIndex, Civ, getCivIcon, civList} from "./src/helper/civs";
 import UnitPage from "./src/view/unit.page";
-import {getUnitLineIcon, getUnitLineName, Unit, unitIcons} from "./src/helper/units";
+import {getUnitLineIcon, getUnitLineName, Unit} from "./src/helper/units";
 import {navigationRef} from "./src/service/navigation";
 import Footer from "./src/view/components/footer";
 import {getTechIcon, getTechName, Tech} from "./src/helper/techs";

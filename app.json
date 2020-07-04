@@ -6,7 +6,7 @@
       "ios",
       "android"
     ],
-    "version": "7.0.0",
+    "version": "8.0.0",
     "orientation": "portrait",
     "privacy": "public",
     "githubUrl": "https://github.com/denniske/aoe2companion",
@@ -20,16 +20,25 @@
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
-      "assets/civilizations/*"
+      "node_modules/**",
+      "assets/civilizations/**",
+      "assets/flags/**",
+      "assets/font/**",
+      "assets/legal/**",
+      "assets/maps/**",
+      "assets/strings/**",
+      "assets/techs/**",
+      "assets/units/**",
+      "assets/*"
     ],
     "android": {
       "package": "com.aoe2companion",
-      "versionCode": 70000,
+      "versionCode": 80000,
       "permissions": []
     },
     "ios": {
       "bundleIdentifier": "com.aoe2companion",
-      "buildNumber": "7.0.0",
+      "buildNumber": "8.0.0",
       "supportsTablet": false,
       "config": {
         "usesNonExemptEncryption": false

@@ -11,7 +11,8 @@
     "watch-node": "nodemon dist/server.js",
     "watch-ts": "tsc -w",
     "strings": "ts-node src/strings.ts",
-    "temp": "ts-node src/temp.ts"
+    "temp": "ts-node src/temp.ts",
+    "temp2": "ts-node src/temp2.ts"
   },
   "author": "",
   "license": "ISC",

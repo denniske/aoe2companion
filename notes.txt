@@ -45,6 +45,18 @@ https://buildorderguide.com/
 - C:\Users\Dennis\Games\Age of Empires 2 DE\76561197995781128\mods\subscribed\1062_Improved Tech Tree UI Mod\widgetui\textures\ingame\emblems
 
 
+npx expo publish -c --release-channel assets --config app.json
+
+wget -i temp.txt
+for file in *; do mv "$file" "$file.png"; done
+
+Age of Empires 2 Visual Counter List 2.0
+https://docs.google.com/spreadsheets/d/1XMFVhx-bJQJ3PbZEbJ4C4Bpw1CY5dKFiE6sr9MWpJME/edit#gid=0
+
+https://github.com/JacksonCohen/aoe2-companion-app
+https://aoe2.club/playerprofile/196240
+      "assets/**/*"
+
 - Tabs
   - Profile (Rating & History)
     - Legende
