@@ -109,17 +109,6 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 const headerStatusBarHeight = 30 + Constants.statusBarHeight;
 
-// export function Menu() {
-//     const linkTo = useLinkTo();
-//     return (
-//         <View style={styles.menu}>
-//             {/*<TouchableOpacity onPress={() => linkTo('/search')}>*/}
-//             {/*    <FontAwesome style={styles.menuButton} name="search" size={18} />*/}
-//             {/*</TouchableOpacity>*/}
-//         </View>
-//     );
-// }
-
 function LinkTitle(props: any) {
     return (
         <TouchableOpacity onPress={() => Linking.openURL('https://buildorderguide.com')}>
@@ -197,162 +186,133 @@ export function InnerApp() {
     }
 
     return (
-
-        // <Tab.Navigator lazy={true}>
-        //     <Tab.Screen
-        //     name="Main"
-        //     component={MainPage}
-        //     options={{
-        //         title: 'Me',
-        //         tabBarIcon: ({size, color}) => (<Icon name="user" color={color} size={size}/>)
-        //         // headerStatusBarHeight: headerStatusBarHeight,
-        //         // headerBackground: () => (
-        //         //     <HeaderBackground><Header/></HeaderBackground>
-        //         // ),
-        //     }}
-        // />
-        //     <Tab.Screen
-        //         name="Leaderboard"
-        //         component={LeaderboardPage}
-        //         options={{
-        //             title: 'Leaderboard',
-        //             tabBarIcon: ({size, color}) => (<Icon name="trophy" color={color} size={size}/>)
-        //
-        //             // headerStatusBarHeight: headerStatusBarHeight,
-        //             // headerBackground: () => (
-        //             //     <HeaderBackground><Header/></HeaderBackground>
-        //             // ),
-        //         }}
-        //     />
-        // </Tab.Navigator>
-
-        <View style={styles.box}>
-        <Stack.Navigator screenOptions={{animationEnabled: false}}>
-            {/*<Stack.Screen*/}
-            {/*        name="Welcome"*/}
-            {/*        component={WelcomePage}*/}
-            {/*        options={{*/}
-            {/*            title: '',*/}
-            {/*            headerStatusBarHeight: headerStatusBarHeight,*/}
-            {/*            headerBackground: () => (*/}
-            {/*                    <HeaderBackground><Header/></HeaderBackground>*/}
-            {/*            ),*/}
-            {/*        }}*/}
-            {/*/>*/}
-            <Stack.Screen
-                name="Main"
-                component={MainPage}
-                options={{
-                    title: 'Me',
-                    headerStatusBarHeight: headerStatusBarHeight,
-                    headerBackground: () => (
-                        <HeaderBackground><Header/></HeaderBackground>
-                    ),
-                }}
-            />
-            <Stack.Screen
-                name="Leaderboard"
-                component={LeaderboardPage}
-                options={{
-                    title: 'Leaderboard',
-                    headerStatusBarHeight: headerStatusBarHeight,
-                    headerBackground: () => (
-                        <HeaderBackground><Header/></HeaderBackground>
-                    ),
-                }}
-            />
-            <Stack.Screen
-                name="Tech"
-                component={TechPage}
-                options={props => ({
-                    title: techTitle(props),
-                    headerTitle: titleProps => <TechTitle {...props} />,
-                    headerStatusBarHeight: headerStatusBarHeight,
-                    headerBackground: () => (
-                        <HeaderBackground><Header/></HeaderBackground>
-                    ),
-                })}
-            />
-            <Stack.Screen
-                name="Unit"
-                component={UnitPage}
-                options={props => ({
-                    title: unitTitle(props),
-                    headerTitle: titleProps => <UnitTitle {...props} />,
-                    headerStatusBarHeight: headerStatusBarHeight,
-                    headerBackground: () => (
-                        <HeaderBackground><Header/></HeaderBackground>
-                    ),
-                })}
-            />
-            <Stack.Screen
-                name="Civ"
-                component={CivPage}
-                options={props => ({
-                    title: civTitle(props),
-                    headerTitle: titleProps => <CivTitle {...props} />,
-                    headerStatusBarHeight: headerStatusBarHeight,
-                    headerBackground: () => (
-                        <HeaderBackground><Header/></HeaderBackground>
-                    ),
-                })}
-            />
-            <Stack.Screen
-                name="Guide"
-                component={GuidePage}
-                options={{
-                    headerTitle: props => <LinkTitle {...props} />,
-                    headerStatusBarHeight: headerStatusBarHeight,
-                    headerBackground: () => (
-                        <HeaderBackground><Header/></HeaderBackground>
-                    ),
-                }}
-            />
-            <Stack.Screen
-                name="User"
-                component={UserPage}
-                options={({route}) => ({
-                    title: route.params.name,
-                    headerStatusBarHeight: headerStatusBarHeight,
-                    headerBackground: () => (
-                        <HeaderBackground><Header/></HeaderBackground>
-                    ),
-                })}
-            />
-            <Stack.Screen
-                name="Search"
-                component={SearchPage}
-                options={{
-                    title: 'Search',
-                    headerStatusBarHeight: headerStatusBarHeight,
-                    headerBackground: () => (
-                        <HeaderBackground><Header/></HeaderBackground>
-                    ),
-                }}
-            />
-            <Stack.Screen
-                name="About"
-                component={AboutPage}
-                options={{
-                    title: 'About',
-                    headerStatusBarHeight: headerStatusBarHeight,
-                    headerBackground: () => (
-                        <HeaderBackground><Header/></HeaderBackground>
-                    ),
-                }}
-            />
-            <Stack.Screen
-                name="Privacy"
-                component={PrivacyPage}
-                options={{
-                    title: 'Privacy',
-                    headerStatusBarHeight: headerStatusBarHeight,
-                    headerBackground: () => (
-                        <HeaderBackground><Header/></HeaderBackground>
-                    ),
-                }}
-            />
-        </Stack.Navigator>
+        <View style={styles.container}>
+            <Stack.Navigator screenOptions={{animationEnabled: false}}>
+                {/*<Stack.Screen*/}
+                {/*        name="Welcome"*/}
+                {/*        component={WelcomePage}*/}
+                {/*        options={{*/}
+                {/*            title: '',*/}
+                {/*            headerStatusBarHeight: headerStatusBarHeight,*/}
+                {/*            headerBackground: () => (*/}
+                {/*                    <HeaderBackground><Header/></HeaderBackground>*/}
+                {/*            ),*/}
+                {/*        }}*/}
+                {/*/>*/}
+                <Stack.Screen
+                    name="Main"
+                    component={MainPage}
+                    options={{
+                        title: 'Me',
+                        headerStatusBarHeight: headerStatusBarHeight,
+                        headerBackground: () => (
+                            <HeaderBackground><Header/></HeaderBackground>
+                        ),
+                    }}
+                />
+                <Stack.Screen
+                    name="Leaderboard"
+                    component={LeaderboardPage}
+                    options={{
+                        title: 'Leaderboard',
+                        headerStatusBarHeight: headerStatusBarHeight,
+                        headerBackground: () => (
+                            <HeaderBackground><Header/></HeaderBackground>
+                        ),
+                    }}
+                />
+                <Stack.Screen
+                    name="Tech"
+                    component={TechPage}
+                    options={props => ({
+                        title: techTitle(props),
+                        headerTitle: titleProps => <TechTitle {...props} />,
+                        headerStatusBarHeight: headerStatusBarHeight,
+                        headerBackground: () => (
+                            <HeaderBackground><Header/></HeaderBackground>
+                        ),
+                    })}
+                />
+                <Stack.Screen
+                    name="Unit"
+                    component={UnitPage}
+                    options={props => ({
+                        title: unitTitle(props),
+                        headerTitle: titleProps => <UnitTitle {...props} />,
+                        headerStatusBarHeight: headerStatusBarHeight,
+                        headerBackground: () => (
+                            <HeaderBackground><Header/></HeaderBackground>
+                        ),
+                    })}
+                />
+                <Stack.Screen
+                    name="Civ"
+                    component={CivPage}
+                    options={props => ({
+                        title: civTitle(props),
+                        headerTitle: titleProps => <CivTitle {...props} />,
+                        headerStatusBarHeight: headerStatusBarHeight,
+                        headerBackground: () => (
+                            <HeaderBackground><Header/></HeaderBackground>
+                        ),
+                    })}
+                />
+                <Stack.Screen
+                    name="Guide"
+                    component={GuidePage}
+                    options={{
+                        headerTitle: props => <LinkTitle {...props} />,
+                        headerStatusBarHeight: headerStatusBarHeight,
+                        headerBackground: () => (
+                            <HeaderBackground><Header/></HeaderBackground>
+                        ),
+                    }}
+                />
+                <Stack.Screen
+                    name="User"
+                    component={UserPage}
+                    options={({route}) => ({
+                        title: route.params.name,
+                        headerStatusBarHeight: headerStatusBarHeight,
+                        headerBackground: () => (
+                            <HeaderBackground><Header/></HeaderBackground>
+                        ),
+                    })}
+                />
+                <Stack.Screen
+                    name="Search"
+                    component={SearchPage}
+                    options={{
+                        title: 'Search',
+                        headerStatusBarHeight: headerStatusBarHeight,
+                        headerBackground: () => (
+                            <HeaderBackground><Header/></HeaderBackground>
+                        ),
+                    }}
+                />
+                <Stack.Screen
+                    name="About"
+                    component={AboutPage}
+                    options={{
+                        title: 'About',
+                        headerStatusBarHeight: headerStatusBarHeight,
+                        headerBackground: () => (
+                            <HeaderBackground><Header/></HeaderBackground>
+                        ),
+                    }}
+                />
+                <Stack.Screen
+                    name="Privacy"
+                    component={PrivacyPage}
+                    options={{
+                        title: 'Privacy',
+                        headerStatusBarHeight: headerStatusBarHeight,
+                        headerBackground: () => (
+                            <HeaderBackground><Header/></HeaderBackground>
+                        ),
+                    }}
+                />
+            </Stack.Navigator>
             <Header2/>
         </View>
     );
@@ -405,9 +365,8 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-    box: {
+    container: {
         // backgroundColor: '#397AF9',
-        // height: '100%',
         flex: 1,
     },
     link: {
@@ -439,11 +398,4 @@ const styles = StyleSheet.create({
             fontWeight: '500',
         },
     }),
-
-    // menu: {
-    //     flexDirection: 'row',
-    // },
-    // menuButton: {
-    //     marginRight: 20,
-    // }
 });
