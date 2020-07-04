@@ -88,7 +88,7 @@ export default function StatsCiv({matches}: IProps) {
 
                     {
                         rows && rows.map(leaderboard =>
-                                <Row key={leaderboard.civ} data={leaderboard}/>
+                                <Row key={leaderboard.civ.toString()} data={leaderboard}/>
                         )
                     }
 
