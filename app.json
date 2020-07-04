@@ -20,7 +20,7 @@
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
-      "**/*"
+      "assets/civilizations/*"
     ],
     "android": {
       "package": "com.aoe2companion",
