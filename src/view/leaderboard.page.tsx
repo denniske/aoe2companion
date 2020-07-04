@@ -48,7 +48,7 @@ const screen = Dimensions.get("screen");
 export function Leaderboard({leaderboardId} : any) {
     const navigation = useNavigation<RootStackProp>();
     const [page, setPage] = useState(0);
-    const [perPage, setPerPage] = useState(Math.floor((window.height - 250) / 40));
+    const [perPage, setPerPage] = useState(Math.floor((window.height - 300) / 42));
 
     console.log('window', window);
     console.log('screen', screen);
@@ -221,14 +221,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-end',
-        marginBottom: 3,
+        // marginBottom: 3,
         // padding: 3,
         // paddingVertical: 5,
-        padding: 5,
+        paddingHorizontal: 5,
         borderRadius: 5,
         marginRight: 30,
         marginLeft: 30,
         width: '100%',
+        // backgroundColor: 'blue',
     },
     headerRow: {
         flexDirection: 'row',
@@ -274,9 +275,10 @@ const styles = StyleSheet.create({
     container: {
         display: 'flex',
         flex: 1,
-        backgroundColor: 'white',
+        // backgroundColor: 'red',
         alignItems: 'center',
-        padding: 20,
+        paddingHorizontal: 20,
         paddingTop: 18,
+        paddingBottom: 5,
     },
 });
