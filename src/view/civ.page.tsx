@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { StyleSheet, Text, TouchableOpacity, Image, View, ScrollView } from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, Image, View, ScrollView, ImageBackground} from 'react-native';
 import {civs, getCivIconByIndex} from "../helper/civs";
 import {RouteProp, useLinkTo, useNavigation, useRoute} from "@react-navigation/native";
 import {RootStackParamList, RootStackProp} from "../../App";
@@ -84,6 +84,7 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
             {/*    )*/}
             {/*}*/}
         </View>
+        // </ImageBackground>
     );
 }
 
@@ -108,18 +109,44 @@ export function CivList() {
     );
 }
 
+// const image = require('../../assets/history/civs/history_goths.png');
+// const image = require('../../assets/history/civs/history_malay.png');
+// const image = require('../../assets/history/civs/history_japanese.png');
+// const image = require('../../assets/history/civs/history_persians.png');
+const image = require('../../assets/history/civs/history_indians.png');
+
 export default function CivPage() {
     const route = useRoute<RouteProp<RootStackParamList, 'Civ'>>();
     const civ = route.params?.civ as aoeCivKey;
 
     if (civ) {
-        return <ScrollView><CivDetails civ={civ} /></ScrollView>;
+        return <ImageBackground imageStyle={styles.imageInner} source={image} style={styles.image}>
+            <ScrollView>
+                <CivDetails civ={civ}/>
+            </ScrollView>
+        </ImageBackground>;
     }
 
     return <CivList/>
 }
 
 const styles = StyleSheet.create({
+    imageInner: {
+        opacity: 0.1,
+        resizeMode: "cover",
+        alignSelf: 'flex-end',
+        bottom: -50,
+        // right: 0,
+        // left: undefined,
+        top: undefined,
+        height: 400,
+        // width: '100%',
+    },
+    image: {
+        flex: 1,
+        resizeMode: "contain",
+        // backgroundColor: 'blue',
+    },
     link: {
         color: '#397AF9',
     },
@@ -140,7 +167,7 @@ const styles = StyleSheet.create({
     },
     detailsContainer: {
         flex: 1,
-        backgroundColor: 'white',
+        // backgroundColor: 'yellow',
         padding: 20,
     },
 
