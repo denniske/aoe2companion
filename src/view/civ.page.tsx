@@ -289,12 +289,6 @@ export function CivList() {
                             <View style={styles.civBlock}>
                                 <Image style={styles.icon} source={getCivIconByIndex(i)}/>
                                 {/*<Text style={styles.name}>{civ} {getCivHasTech(civ, 'ThumbRing') ? '' : 'FALSE'}</Text>*/}
-                                {/*<Text style={styles.name}>{civ} {getCivHasTech(civ, 'Bloodlines') ? '' : 'FALSE'}</Text>*/}
-                                {/*<Text style={styles.name}>{civ} {getCivHasUnit(civ, 'BombardCannon') ? '' : 'FALSE'}</Text>*/}
-                                {/*<Text style={styles.name}>{civ} {getCivHasUnit(civ, 'CannonGalleon') ? '' : 'FALSE'}</Text>*/}
-                                <Text style={styles.name}>{civ} {getCivHasUnit(civ, 'Arbalester') ? '' : 'FALSE'}</Text>
-                                {/*<Text style={styles.name}>{civ} {getCivHasTech(civ, 'RingArcherArmor') ? '' : 'FALSE'}</Text>*/}
-                                {/*<Text style={styles.name}>{civ} {getCivHasTech(civ, 'Supplies') ? '' : 'FALSE'}</Text>*/}
                             </View>
                         </TouchableOpacity>
                     )
