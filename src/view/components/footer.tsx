@@ -27,7 +27,7 @@ export default function Footer() {
                         <Icon name="search" size={iconSize} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuButton} onPress={() => nav('Feed')}>
-                        <Icon name="home" size={iconSize} />
+                        <Icon name="heart" size={iconSize} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuButton} onPress={() => nav('Main')}>
                         <Icon name="user" size={iconSize} />
