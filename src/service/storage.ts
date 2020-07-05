@@ -35,28 +35,15 @@ export const loadSettingsFromStorage = async () => {
 };
 
 export const loadFollowingFromStorage = async () => {
-    // console.log("RETRIEVING JSON settings...");
-    // await sleep(2000);
     const entry = await AsyncStorage.getItem('following');
-    // console.log("RETRIEVED JSON settings", entry);
     if (entry == null) {
         return [];
     }
     return JSON.parse(entry) as IFollowingEntry[];
-    // return {
-    //     steam_id: new Date(),
-    //     profile_id: 1,
-    // }
 };
 
 export const saveFollowingToStorage = async (following: IFollowingEntry[]) => {
-    // console.log("RETRIEVING JSON settings...");
-    // await sleep(2000);
     await AsyncStorage.setItem('following', JSON.stringify(following));
-    // return {
-    //     steam_id: new Date(),
-    //     profile_id: 1,
-    // }
 };
 
 export const toggleFollowingInStorage = async (user: IPlayerListPlayer) => {
@@ -65,7 +52,7 @@ export const toggleFollowingInStorage = async (user: IPlayerListPlayer) => {
     if (index > -1) {
         following.splice(index, 1);
     } else {
-        if (following.length >= 2) {
+        if (following.length >= 5) {
             alert('You can follow a maxmium of 2 users. Unfollow a user first to follow a new one.');
             return;
         }

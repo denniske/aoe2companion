@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
-import {RootStackParamList} from '../../App';
-import {RouteProp, useNavigationState, useRoute} from '@react-navigation/native';
+import {RootStackParamList, RootStackProp} from '../../App';
+import {RouteProp, useNavigation, useNavigationState, useRoute} from '@react-navigation/native';
 import {Game} from './components/game';
 import {IMatch, IPlayer} from "../helper/data";
 import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
 import {fetchMatchesMulti} from "../service/matches";
 import Search from "./components/search";
-import {sameUser} from "../helper/user";
+import {sameUser, UserId, UserInfo, UserIdBase, userIdFromBase, UserIdBaseWithName} from "../helper/user";
 import {setFollowing, useMutate, useSelector} from "../redux/reducer";
 import {toggleFollowingInStorage} from "../service/storage";
 import {useCachedLazyApi} from "../hooks/use-cached-lazy-api";
@@ -18,6 +18,8 @@ import PlayerList, {IPlayerListPlayer} from "./components/player-list";
 
 
 export function FeedList() {
+    const navigation = useNavigation<RootStackProp>();
+
     const [refetching, setRefetching] = useState(false);
     const [fetchingMore, setFetchingMore] = useState(false);
 
@@ -89,6 +91,13 @@ export function FeedList() {
       return players.filter(p => following.filter(f => p.steam_id === f.steam_id && p.profile_id === f.profile_id).length > 0)
     };
 
+    const gotoPlayer = (player: UserIdBaseWithName) => {
+        navigation.push('User', {
+            id: userIdFromBase(player),
+            name: player.name,
+        });
+    };
+
     return (
             <View style={styles.container}>
                 <View style={styles.content}>
@@ -108,13 +117,21 @@ export function FeedList() {
                                 switch (item) {
                                     default:
                                         const match = item as IMatch;
+                                        const filteredPlayers = filterPlayers(match.players);
                                         return <View>
                                             {
                                                 match &&
-                                                <Text style={styles.players}>{filterPlayers(match.players).map(p => p.name).join(' and ')} {match.finished ? 'played' : 'playing now'}</Text>
-                                                // <Text style={styles.players}>{filterPlayers(match.players).map(p => `${p.name} (${p.rating_change})`).join(' and ')} {match.finished ? 'played' : 'playing now'}</Text>
+                                                <Text style={styles.players}>
+                                                    {filteredPlayers.map((p, i) =>
+                                                        <Text key={i}>
+                                                            <Text onPress={() => gotoPlayer(p)}>{p.name}</Text>
+                                                            { i < filteredPlayers.length-1 && <Text> and </Text> }
+                                                        </Text>
+                                                    )}
+                                                    <Text> {match.finished ? 'played' : 'playing now'}</Text>
+                                                </Text>
                                             }
-                                            <Game data={item as IMatch} expanded={false}/>
+                                            <Game data={item as IMatch}/>
                                         </View>;
                                 }
                             }}

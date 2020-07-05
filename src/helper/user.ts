@@ -12,6 +12,10 @@ export interface UserInfo extends UserId {
     name: string;
 }
 
+export interface UserIdBaseWithName extends UserIdBase {
+    name: string;
+}
+
 export function parseUserId(str: string): UserId {
     const parts = str.split('-');
     return {

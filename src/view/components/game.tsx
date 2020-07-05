@@ -14,7 +14,7 @@ import {differenceInSeconds} from "date-fns";
 
 interface IGameProps {
     data: IMatch;
-    expanded: boolean;
+    expanded?: boolean;
 }
 
 const formatDuration = (start: Date, finish: Date) => {
@@ -25,7 +25,7 @@ const formatDuration = (start: Date, finish: Date) => {
     return `${hours.length < 2 ? 0 + hours : hours}:${minutes.length < 2 ? 0 + minutes : minutes} min`;
 };
 
-export function Game({data, expanded}: IGameProps) {
+export function Game({data, expanded = false}: IGameProps) {
     if (data == null) {
         const playersInTeam1 = Array(3).fill(0);
         const playersInTeam2 = Array(3).fill(0);
