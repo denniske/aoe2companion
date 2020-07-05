@@ -1,22 +1,15 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {AsyncStorage, FlatList, StyleSheet, Text, View} from 'react-native';
-import { RootStackParamList } from '../../App';
-import { RouteProp, useRoute, useNavigationState } from '@react-navigation/native';
-import { fetchMatches } from '../api/matches';
-import Profile from './components/profile';
-import Rating from './components/rating';
-import { useApi } from '../hooks/use-api';
-import { loadRatingHistories } from '../service/rating';
-import { loadProfile } from '../service/profile';
-import { Game } from './components/game';
+import React, {useEffect, useState} from 'react';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {RootStackParamList} from '../../App';
+import {RouteProp, useNavigationState, useRoute} from '@react-navigation/native';
+import {Game} from './components/game';
 import {IMatch, IPlayer} from "../helper/data";
 import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
 import {fetchMatchesMulti} from "../service/matches";
 import Search from "./components/search";
-import {composeUserId, sameUser, UserInfo} from "../helper/user";
-import {setAuth, setFollowing, useMutate, useSelector} from "../redux/reducer";
-import {loadFollowingFromStorage, loadSettingsFromStorage, saveFollowingToStorage} from "../service/storage";
-import {useCavy} from "cavy";
+import {sameUser} from "../helper/user";
+import {setFollowing, useMutate, useSelector} from "../redux/reducer";
+import {toggleFollowingInStorage} from "../service/storage";
 import {useCachedLazyApi} from "../hooks/use-cached-lazy-api";
 import {usePrevious} from "../hooks/use-previous";
 import {Button} from "react-native-paper";
@@ -138,31 +131,13 @@ export function FeedList() {
 function FeedAction({user}: {user: IPlayerListPlayer}) {
     const mutate = useMutate();
     const following = useSelector(state => state.following);
-
     const followingThisUser = following.find(f => sameUser(f, user));
 
     const onSelect = async () => {
-        const following = await loadFollowingFromStorage();
-        const index = following.findIndex(f => sameUser(f, user));
-        if (index > -1) {
-            following.splice(index, 1);
-        } else {
-            if (following.length >= 2) {
-                alert('You can follow a maxmium of 2 users. Unfollow a user first to follow a new one.');
-                return;
-            }
-            following.push({
-                id: composeUserId(user),
-                steam_id: user.steam_id,
-                profile_id: user.profile_id,
-                name: user.name,
-                games: user.games,
-                country: user.country,
-            });
+        const following = await toggleFollowingInStorage(user);
+        if (following) {
+            mutate(setFollowing(following));
         }
-        console.log("MODIFIED FOLLOWING", following);
-        await saveFollowingToStorage(following);
-        mutate(setFollowing(following));
     };
 
     return (

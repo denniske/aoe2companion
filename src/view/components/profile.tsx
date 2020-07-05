@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import { formatAgo, getLeaderboardAbbr } from '../../helper/util';
 import React from 'react';
 import { getLeaderboardColor } from '../../helper/colors';
@@ -6,6 +6,10 @@ import {Flag, getFlagIcon} from '../../helper/flags';
 import {ILeaderboard} from "../../helper/data";
 import {ImageLoader} from "../loader/image-loader";
 import {TextLoader} from "../loader/text-loader";
+import Icon from "react-native-vector-icons/FontAwesome5";
+import {setFollowing, useMutate, useSelector} from "../../redux/reducer";
+import {sameUser} from "../../helper/user";
+import {toggleFollowingInStorage} from "../../service/storage";
 
 interface ILeaderboardRowProps {
     data: ILeaderboard;
@@ -55,34 +59,49 @@ interface IProfileProps {
 }
 
 export default function Profile({data}: IProfileProps) {
+    const mutate = useMutate();
+    const auth = useSelector(state => state.auth);
+    const following = useSelector(state => state.following);
+    const followingThisUser = !!following.find(f => data && sameUser(f, data));
+
+    const toggleFollowing = async () => {
+        const following = await toggleFollowingInStorage(data);
+        if (following) {
+            mutate(setFollowing(following));
+        }
+    };
+
     return (
             <View style={styles.container}>
                 <View>
 
                     <View style={styles.row}>
-                        <ImageLoader style={styles.countryIcon} source={getFlagIcon(data?.country)}/>
-                        <TextLoader width={100}>{data?.name}</TextLoader>
+                        <View>
+                            <View style={styles.row}>
+                                <ImageLoader style={styles.countryIcon} source={getFlagIcon(data?.country)}/>
+                                <TextLoader width={100}>{data?.name}</TextLoader>
+                                {
+                                    data?.clan &&
+                                    <Text> (Clan{':'} {data?.clan})</Text>
+                                }
+                            </View>
+                            <View style={styles.row}>
+                                <TextLoader width={180} ready={data}>{data?.games} Games, {data?.drops} Drops
+                                    ({(data?.drops / data?.games).toFixed(2)}%)</TextLoader>
+                            </View>
+                        </View>
+                        <View style={styles.expanded}/>
                         {
-                            data?.clan &&
-                            <Text> (Clan{':'} {data?.clan})</Text>
+                            auth && data && !sameUser(auth, data) &&
+                            <TouchableOpacity onPress={toggleFollowing}>
+                                <View style={styles.followButton}>
+                                    <Icon solid={followingThisUser} name="heart" size={22} style={styles.followButtonIcon}/>
+                                    <Text style={styles.followButtonText}>
+                                        {followingThisUser ? 'Unfollow' : 'Follow'}
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
                         }
-
-                        {/*<Text>{data.steam_id} {data.profile_id}</Text>*/}
-                        {/*<Button*/}
-                        {/*    labelStyle={{fontSize: 13, marginVertical: 0}}*/}
-                        {/*    contentStyle={{height: 22}}*/}
-                        {/*    onPress={() => {}}*/}
-                        {/*    mode="contained"*/}
-                        {/*    compact*/}
-                        {/*    uppercase={false}*/}
-                        {/*    dark={true}*/}
-                        {/*>*/}
-                        {/*    Steam*/}
-                        {/*</Button>*/}
-                    </View>
-
-                    <View style={styles.row}>
-                        <TextLoader width={180} ready={data}>{data?.games} Games, {data?.drops} Drops ({(data?.drops / data?.games).toFixed(2)}%)</TextLoader>
                     </View>
 
                     <Text/>
@@ -119,6 +138,22 @@ export default function Profile({data}: IProfileProps) {
 
 
 const styles = StyleSheet.create({
+    followButton: {
+        // backgroundColor: 'blue',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 0,
+        marginHorizontal: 2,
+    },
+    followButtonText: {
+        fontSize: 12,
+        color: '#666',
+        marginTop: 3
+    },
+    followButtonIcon: {
+        color: '#666',
+    },
     cellLeaderboard: {
         // backgroundColor: 'red',
         width: 70,
@@ -151,5 +186,8 @@ const styles = StyleSheet.create({
         width: 21,
         height: 15,
         marginRight: 5,
+    },
+    expanded: {
+        flex: 1,
     },
 });

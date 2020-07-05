@@ -1,7 +1,8 @@
 import { AsyncStorage } from 'react-native';
 import { sleep } from '../helper/util';
-import {composeUserId} from "../helper/user";
+import {composeUserId, sameUser} from "../helper/user";
 import {Flag} from "../helper/flags";
+import {IPlayerListPlayer} from "../view/components/player-list";
 
 export interface ISettings {
     steam_id: string;
@@ -56,4 +57,28 @@ export const saveFollowingToStorage = async (following: IFollowingEntry[]) => {
     //     steam_id: new Date(),
     //     profile_id: 1,
     // }
+};
+
+export const toggleFollowingInStorage = async (user: IPlayerListPlayer) => {
+    const following = await loadFollowingFromStorage();
+    const index = following.findIndex(f => sameUser(f, user));
+    if (index > -1) {
+        following.splice(index, 1);
+    } else {
+        if (following.length >= 2) {
+            alert('You can follow a maxmium of 2 users. Unfollow a user first to follow a new one.');
+            return;
+        }
+        following.push({
+            id: composeUserId(user),
+            steam_id: user.steam_id,
+            profile_id: user.profile_id,
+            name: user.name,
+            games: user.games,
+            country: user.country,
+        });
+    }
+    console.log("MODIFIED FOLLOWING", following);
+    await saveFollowingToStorage(following);
+    return following;
 };
