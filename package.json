@@ -10,7 +10,6 @@
     "@expo-google-fonts/roboto": "^0.1.0",
     "@react-native-community/async-storage": "^1.11.0",
     "@react-native-community/masked-view": "0.1.6",
-    "@react-native-community/picker": "^1.6.1",
     "@react-navigation/bottom-tabs": "^5.6.1",
     "@react-navigation/material-top-tabs": "^5.2.10",
     "@react-navigation/native": "^5.5.1",
