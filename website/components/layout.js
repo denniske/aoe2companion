@@ -7,7 +7,9 @@ export default function Layout(props) {
         <div className="container2">
             <Head>
                 <title>AoE II Companion</title>
-                <link rel="icon" href="/favicon.ico"/>
+                <link rel="icon" type="image/png" href="/favicon-16x16.png?v=200706014637" sizes="16x16"/>
+                <link rel="icon" type="image/png" href="/favicon-32x32.png?v=200706014637" sizes="32x32"/>
+                <link rel="icon" type="image/png" href="/favicon-96x96.png?v=200706014637" sizes="96x96"/>
             </Head>
 
             <main>
