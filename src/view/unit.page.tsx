@@ -1,18 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, Image, View, ScrollView, Linking} from 'react-native';
-import {RouteProp, useLinkTo, useNavigation, useRoute} from "@react-navigation/native";
+import React from 'react';
+import {Image, Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {RootStackParamList, RootStackProp} from "../../App";
 import {
     getEliteUniqueResearchIcon, getUnitDescription, getUnitIcon, getUnitLineIcon, getUnitLineName, getUnitName,
-    IUnitLine, Unit, UnitLine,
-    unitLines,
-    units
+    IUnitLine, Unit, UnitLine, unitLines
 } from "../helper/units";
-import {getTechIcon, getTechName, ITechEffect, Tech, techEffectDict, techs} from "../helper/techs";
+import {getTechIcon, getTechName, Tech, techEffectDict} from "../helper/techs";
 import {aoeCivKey} from "../data/data";
-import {groupBy, sortBy} from "lodash-es";
-import {Civ, civs, getCivIconByIndex} from "../helper/civs";
-import {CivDetails, CivList} from "./civ.page";
+import {sortBy} from "lodash-es";
+import {Civ} from "../helper/civs";
 
 
 export function UnitDetails({unit}: {unit: UnitLine}) {
