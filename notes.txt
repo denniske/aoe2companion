@@ -1,12 +1,4 @@
 
-
-units:
-- xolotl warrior dataId missing also in aoe2techtree
-
-tech:
-- tech.page
-- https://ageofempires.fandom.com/wiki/Steppe_Husbandry 50% or 80%???
-
 mogrify -format jpg *.png
 
 git tag v1.0.2 && git push --tags
@@ -23,27 +15,8 @@ defaults -currentHost write -globalDomain AppleFontSmoothing -int 3
 
 sudo defaults delete /Library/Preferences/com.apple.keyboardtype
 
-Git Flows
-https://medium.com/@patrickporto/4-branching-workflows-for-git-30d0aaee7bf
-
-https://buildorderguide.com/
-
-- Minify Flags (80%)
-
-- Images for
-  - Flags
-  - Maps
-
-- Remove dependencies
-  - react native paper
-  - react native picker
-
-- Data by aoe2.net
-- Not affiliated with microsoft
-
 - Tech Tree UI
 - C:\Users\Dennis\Games\Age of Empires 2 DE\76561197995781128\mods\subscribed\1062_Improved Tech Tree UI Mod\widgetui\textures\ingame\emblems
-
 
 npx expo publish -c --release-channel assets --config app.json
 
@@ -56,15 +29,6 @@ https://docs.google.com/spreadsheets/d/1XMFVhx-bJQJ3PbZEbJ4C4Bpw1CY5dKFiE6sr9MWp
 https://github.com/JacksonCohen/aoe2-companion-app
 https://aoe2.club/playerprofile/196240
 
-- Tabs
-  - Profile (Rating & History)
-    - Legende
-  - Matches (Accordion View of matches, first expanded) <- Default Tab
-  - Following
-
-- User Profile Page
-  - Follow Button
-
 637 23,5mb
 
 600
@@ -73,26 +37,10 @@ https://aoe2.club/playerprofile/196240
 
 "assets/**/*"
 
-
-- Move search into top header
-- Add three dot menu to top header
-  - About
-
-
 - User without steam_id
   - Baalrahab 2194579
 
 - Game Duration
-
-
-// type MainScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Main'>;
-// navigation.replace('Search', {name: '___'});
-// linkTo('/search', );
-
-//  - Follow button in search results?
-//  - Current / Last Match -> 15sec update
-
-
 
 // const game = 'aoe2de';
 // const steam_id = '76561197995781128';
@@ -103,5 +51,3 @@ My practical solution was to edit react-native source code at:
 node-modules/react-native/Libraries/Components/Touchable/Touchable.js
 
 Here I've changed "console.error" to "console.log" at line 628, this way I receive the message, however my app is not interrupted and the error is "dissmissed"
-
-
