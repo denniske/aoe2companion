@@ -85,18 +85,31 @@ export default function AboutPage() {
                 </TouchableWithoutFeedback>
             </Modal>
 
+
             <Text style={styles.heading}>Source</Text>
+
             <View style={styles.row}>
-                <Text style={styles.content}>Data from </Text>
+                <Text style={styles.content}>Stats from </Text>
                 <TouchableOpacity onPress={() => Linking.openURL('https://aoe2.net')}>
                     <Text style={styles.link}>aoe2.net</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.row}>
-                <Text style={styles.content}>Game info from </Text>
+                <Text style={styles.content}>Game data from </Text>
                 <TouchableOpacity onPress={() => Linking.openURL('https://github.com/SiegeEngineers/aoe2techtree')}>
                     <Text style={styles.link}>aoe2techtree</Text>
+                </TouchableOpacity>
+            </View>
+
+            <View style={styles.row}>
+                <Text style={styles.content}>Game data from </Text>
+                <TouchableOpacity onPress={() => Linking.openURL('https://ageofempires.fandom.com/wiki/Age_of_Empires_II:Portal')}>
+                    <Text style={styles.link}>Age of Empires II Wiki</Text>
+                </TouchableOpacity>
+                <Text style={styles.content}> at </Text>
+                <TouchableOpacity onPress={() => Linking.openURL('https://www.fandom.com/')}>
+                    <Text style={styles.link}>Fandom</Text>
                 </TouchableOpacity>
             </View>
 
@@ -115,7 +128,7 @@ export default function AboutPage() {
                 </TouchableOpacity>
             </View>
 
-            {/*<View style={styles.expanded}/>*/}
+            <View style={styles.expanded}/>
 
             <Text/>
             <Text/>
@@ -172,6 +185,7 @@ const styles = StyleSheet.create({
     },
     container: {
         // flex: 1,
+        minHeight: '100%',
         backgroundColor: 'white',
         alignItems: 'center',
         padding: 20,

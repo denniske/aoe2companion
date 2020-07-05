@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { StyleSheet, Text, TouchableOpacity, Image, View, ScrollView } from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, Image, View, ScrollView, Linking} from 'react-native';
 import {RouteProp, useLinkTo, useNavigation, useRoute} from "@react-navigation/native";
 import {RootStackParamList, RootStackProp} from "../../App";
 import {
@@ -21,15 +21,6 @@ export function UnitDetails({unit}: {unit: UnitLine}) {
     const unitLineUpgrades = unitLine.upgrades.map(u => techEffectDict[u]);
 
     const developments = unitLine.units.filter((u, i) => i > 0);//.map(u => units[u]);
-
-    // const mergeUpgradesOfSameGroup = (effects: ITechEffect[]): ITechEffect[] => {
-    //     const groupedEffects = groupBy(effects, e => e.tech);
-    //     return Object.entries(groupedEffects).map((tech, effectsForTech) => ({
-    //         tech: tech,
-    //         civ: Civ,
-    //         effect: IEffect,
-    //     }));
-    // };
 
     let groups = [
         {
@@ -104,7 +95,6 @@ export function UnitDetails({unit}: {unit: UnitLine}) {
         },
     ];
 
-    // groups = groups.forEach(g => g.upgrades = mergeUpgradesOfSameGroup(g.upgrades));
     groups = groups.filter(g => g.upgrades.length > 0);
 
     return (
@@ -165,6 +155,19 @@ export function UnitDetails({unit}: {unit: UnitLine}) {
                         }
                     </View>
             }
+
+            <View style={styles.expanded}/>
+            <Text/>
+            <Text/>
+            <Text style={styles.copy}>
+                <Text style={styles.copyText}>This article uses material from the "{getUnitLineName(unit)}" article on the </Text>
+                <Text style={styles.copyLink} onPress={() => Linking.openURL('https://ageofempires.fandom.com/wiki/Age_of_Empires_II:Portal')}>Age of Empires II Wiki</Text>
+                <Text style={styles.copyText}> at </Text>
+                <Text style={styles.copyLink} onPress={() => Linking.openURL('https://www.fandom.com/')}>Fandom</Text>
+                <Text style={styles.copyText}> and is licensed under the </Text>
+                <Text style={styles.copyLink} onPress={() => Linking.openURL('https://creativecommons.org/licenses/by-sa/3.0/')}>Creative Commons Attribution-Share Alike License</Text>
+                <Text style={styles.copyText}>.</Text>
+            </Text>
         </View>
     );
 }
@@ -208,8 +211,6 @@ export function UnitCompBig({unit}: any) {
 }
 
 export function UnitList() {
-    const navigation = useNavigation<RootStackProp>();
-
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.civContainer}>
@@ -255,10 +256,10 @@ const styles = StyleSheet.create({
     },
     detailsContainer: {
         flex: 1,
+        minHeight: '100%',
         backgroundColor: 'white',
         padding: 20,
     },
-
     icon: {
       width: 30,
       height: 30,
@@ -287,7 +288,6 @@ const styles = StyleSheet.create({
         // alignItems: 'center',
         padding: 20,
     },
-
     rowBig: {
         marginLeft: 5,
         flexDirection: 'row',
@@ -327,5 +327,19 @@ const styles = StyleSheet.create({
     },
     small: {
         fontSize: 12,
-    }
+    },
+    expanded: {
+        flex: 1,
+    },
+    copy: {
+        lineHeight: 16,
+    },
+    copyLink: {
+        fontSize: 12,
+        color: '#397AF9',
+    },
+    copyText: {
+        fontSize: 12,
+        marginBottom: 5,
+    },
 });
