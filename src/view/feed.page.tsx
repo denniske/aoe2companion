@@ -15,10 +15,13 @@ import {usePrevious} from "../hooks/use-previous";
 import {Button} from "react-native-paper";
 import {IFetchedUser} from "../service/user";
 import PlayerList, {IPlayerListPlayer} from "./components/player-list";
+import {useCavy} from "cavy";
 
 
 export function FeedList() {
+    const generateTestHook = useCavy();
     const navigation = useNavigation<RootStackProp>();
+    generateTestHook('Navigation')(navigation);
 
     const [refetching, setRefetching] = useState(false);
     const [fetchingMore, setFetchingMore] = useState(false);
@@ -49,9 +52,9 @@ export function FeedList() {
     const refresh = () => {
         if (!isActiveRoute) return;
         // AsyncStorage.removeItem('following');
-        // console.log("refresh <-->");
-        // console.log("following2", following);
-        // console.log("prevFollowing2", prevFollowing);
+        console.log("refresh <-->");
+        console.log("following2", following);
+        console.log("prevFollowing2", prevFollowing);
         if (prevFollowing == null) {
             matches.init('aoe2de', 0, 15, following);
         } else {
@@ -74,8 +77,9 @@ export function FeedList() {
     };
 
     const onEndReached = async () => {
-        if (fetchingMore) return;
+        if (fetchingMore || !matches.data) return;
         setFetchingMore(true);
+        console.log("prevFollowing2 onEndReached");
         await matches.refetch('aoe2de', 0, (matches.data?.length ?? 0) + 15, following);
         setFetchingMore(false);
     };
@@ -88,7 +92,7 @@ export function FeedList() {
     };
 
     const filterPlayers = (players: IPlayer[]) => {
-      return players.filter(p => following.filter(f => p.steam_id === f.steam_id && p.profile_id === f.profile_id).length > 0)
+      return players.filter(p => following.filter(f => sameUser(p, f)).length > 0)
     };
 
     const gotoPlayer = (player: UserIdBaseWithName) => {
@@ -117,10 +121,14 @@ export function FeedList() {
                                 switch (item) {
                                     default:
                                         const match = item as IMatch;
+
+                                        if (match == null) {
+                                            return <Game data={item as IMatch}/>;
+                                        }
+
                                         const filteredPlayers = filterPlayers(match.players);
                                         return <View>
                                             {
-                                                match &&
                                                 <Text style={styles.players}>
                                                     {filteredPlayers.map((p, i) =>
                                                         <Text key={i}>

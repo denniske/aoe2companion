@@ -29,8 +29,7 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
     // console.log(player.country, player.name, composeUserIdFromParts(player.steam_id, player.profile_id));
 
     return (
-            <TouchableHighlight underlayColor="white"
-                                ref={generateTestHook('Search.Player.' + composeUserIdFromParts(player.steam_id, player.profile_id))}>
+            <TouchableHighlight underlayColor="white">
                 <View style={styles.row}>
                     <View style={styles.cellName}>
                         <Image style={styles.countryIcon} source={getFlagIcon(player.country)}/>
@@ -51,6 +50,7 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
                                 compact
                                 uppercase={false}
                                 dark={true}
+                                ref={generateTestHook('Search.Player.' + composeUserIdFromParts(player.steam_id, player.profile_id))}
                             >
                                 {actionText}
                             </Button>

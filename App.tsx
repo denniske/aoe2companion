@@ -271,13 +271,6 @@ export function InnerApp() {
                 animationEnabled: false,
             }}>
                 <Stack.Screen
-                    name="Main"
-                    component={MainPage}
-                    options={{
-                        title: 'Me',
-                    }}
-                />
-                <Stack.Screen
                     name="Feed"
                     component={FeedPage}
                     options={props => ({
@@ -285,6 +278,13 @@ export function InnerApp() {
                         title: feedTitle(props),
                         headerRight: feedMenu(props),
                     })}
+                />
+                <Stack.Screen
+                    name="Main"
+                    component={MainPage}
+                    options={{
+                        title: 'Me',
+                    }}
                 />
                 <Stack.Screen
                     name="Leaderboard"
