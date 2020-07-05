@@ -7,7 +7,7 @@ import {useSelector} from "../../redux/reducer";
 import {AoeMap, getMapImage, getMapName, maps} from "../../helper/maps";
 import {orderBy, sortBy, uniq, uniqBy} from "lodash-es";
 import {getFlagIcon} from "../../helper/flags";
-import {composeUserId, userIdFromBase} from "../../helper/user";
+import {composeUserId, sameUser, userIdFromBase} from "../../helper/user";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 
@@ -63,14 +63,10 @@ export default function StatsPlayer({matches}: IProps) {
         let otherPlayersUniq = uniqBy(otherPlayers, p => composeUserId(p));
 
         rows = otherPlayersUniq.map(otherPlayer => {
-            const gamesWithPlayer = matches.filter(m => m.players.filter(p =>
-                (p.steam_id === otherPlayer.steam_id && p.profile_id === otherPlayer.profile_id)
-                // ((p.steam_id != null && otherPlayer.steam_id != null && p.steam_id === otherPlayer.steam_id)
-                //     || (p.profile_id != null && otherPlayer.profile_id != null && p.profile_id === otherPlayer.profile_id))
-            ).length > 0);
+            const gamesWithPlayer = matches.filter(m => m.players.filter(p => sameUser(p, otherPlayer)).length > 0);
             const gamesWithPlayerWon = gamesWithPlayer.filter(m => m.players.filter(p =>
                 p.won &&
-                (p.steam_id === auth.steam_id || p.profile_id === auth.profile_id)
+                sameUser(p, auth)
             ).length > 0);
             return ({
                 player: otherPlayer,

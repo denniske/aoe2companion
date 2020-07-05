@@ -174,7 +174,14 @@ function techTitle(props: any) {
 }
 
 function feedTitle(props: any) {
-    return props.route?.params?.action ? 'Follow Player' : 'Following';
+    switch (props.route?.params?.action) {
+        case 'add':
+            return 'Follow Player';
+        case 'config':
+            return 'Manage Follows';
+        default:
+            return 'Following';
+    }
 }
 
 function feedMenu(props: any) {
@@ -184,6 +191,20 @@ function feedMenu(props: any) {
         }
         return <FeedMenu/>;
     }
+}
+
+export function FeedMenu() {
+    const navigation = useNavigation<RootStackProp>();
+    return (
+        <View style={styles.menu}>
+            <TouchableOpacity onPress={() => navigation.push('Feed', { action: 'add' })}>
+                <FontAwesomeIcon style={styles.menuButton} name="plus" size={18} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.push('Feed', { action: 'config' })}>
+                <FontAwesomeIcon style={styles.menuButton} name="cog" size={18} />
+            </TouchableOpacity>
+        </View>
+    );
 }
 
 // function cacheImages(images: (string | number)[]) {
@@ -197,17 +218,6 @@ function feedMenu(props: any) {
 //         }
 //     });
 // }
-
-export function FeedMenu() {
-    const navigation = useNavigation<RootStackProp>();
-    return (
-        <View style={styles.menu}>
-            <TouchableOpacity onPress={() => navigation.push('Feed', { action: 'add' })}>
-                <FontAwesomeIcon style={styles.menuButton} name="plus" size={18} />
-            </TouchableOpacity>
-        </View>
-    );
-}
 
 export function InnerApp() {
     const auth = useSelector(state => state.auth);
@@ -274,9 +284,6 @@ export function InnerApp() {
                         animationEnabled: !!props.route?.params?.action,
                         title: feedTitle(props),
                         headerRight: feedMenu(props),
-                        // headerRight: () => (
-                        //     <Menu/>
-                        // ),
                     })}
                 />
                 <Stack.Screen

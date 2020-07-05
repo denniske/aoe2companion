@@ -1,6 +1,7 @@
 import { AsyncStorage } from 'react-native';
 import { sleep } from '../helper/util';
 import {composeUserId} from "../helper/user";
+import {Flag} from "../helper/flags";
 
 export interface ISettings {
     steam_id: string;
@@ -11,6 +12,9 @@ export interface IFollowingEntry {
     id?: string;
     steam_id?: string;
     profile_id?: number;
+    name: string;
+    games: number;
+    country: Flag;
 }
 
 

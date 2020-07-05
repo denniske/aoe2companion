@@ -44,10 +44,17 @@ export function minifyUserId(id: UserIdBase): UserIdBase {
     };
 }
 
-export function composeUserIdFromParts(steam_id: string, profile_id: number): string {
+export function composeUserIdFromParts(steam_id?: string, profile_id?: number): string {
     return steam_id + '-' + profile_id;
 }
 
 export function userIdEmpty(userId: UserIdBase) {
     return userId.steam_id != null || userId.profile_id != null;
+}
+
+export function sameUser(userA: UserIdBase, userB: UserIdBase) {
+   return (
+       (userA.steam_id != null && userB.steam_id != null && userA.steam_id === userB.steam_id) ||
+       (userA.profile_id != null && userB.profile_id != null && userA.profile_id === userB.profile_id)
+   );
 }

@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {AsyncStorage, FlatList, StyleSheet, Text, View} from 'react-native';
 import { RootStackParamList } from '../../App';
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { RouteProp, useRoute, useNavigationState } from '@react-navigation/native';
 import { fetchMatches } from '../api/matches';
 import Profile from './components/profile';
 import Rating from './components/rating';
@@ -13,23 +13,29 @@ import {IMatch, IPlayer} from "../helper/data";
 import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
 import {fetchMatchesMulti} from "../service/matches";
 import Search from "./components/search";
-import {composeUserId, UserInfo} from "../helper/user";
+import {composeUserId, sameUser, UserInfo} from "../helper/user";
 import {setAuth, setFollowing, useMutate, useSelector} from "../redux/reducer";
 import {loadFollowingFromStorage, loadSettingsFromStorage, saveFollowingToStorage} from "../service/storage";
 import {useCavy} from "cavy";
 import {useCachedLazyApi} from "../hooks/use-cached-lazy-api";
 import {usePrevious} from "../hooks/use-previous";
+import {Button} from "react-native-paper";
+import {IFetchedUser} from "../service/user";
+import PlayerList, {IPlayerListPlayer} from "./components/player-list";
 
 
 export function FeedList() {
     const [refetching, setRefetching] = useState(false);
     const [fetchingMore, setFetchingMore] = useState(false);
 
+    const state = useNavigationState(state => state);
+    const activeRoute = state.routes[state.index];
+    const isActiveRoute = activeRoute.name === 'Feed' && activeRoute.params == null;
+
     const following = useSelector(state => state.following);
     const prevFollowing = usePrevious({following});
 
-    // console.log("following", following);
-    // console.log("prevFollowing", prevFollowing);
+    console.log("following", following);
 
     // const following = [
     //     {id: "76561197984749679-196240", steam_id: "76561197984749679", profile_id: 196240, name: "TheViper"},
@@ -46,6 +52,8 @@ export function FeedList() {
     );
 
     const refresh = () => {
+        if (!isActiveRoute) return;
+        // AsyncStorage.removeItem('following');
         // console.log("refresh <-->");
         // console.log("following2", following);
         // console.log("prevFollowing2", prevFollowing);
@@ -58,7 +66,7 @@ export function FeedList() {
 
     useEffect(() => {
         refresh();
-    }, [following]);
+    }, [following, isActiveRoute]);
 
     // useEffect(() => {
     //     console.log("REACTIVATE");
@@ -91,6 +99,13 @@ export function FeedList() {
     return (
             <View style={styles.container}>
                 <View style={styles.content}>
+                    {
+                        list.length === 0 &&
+                            <View style={styles.centered}>
+                                <Text style={styles.sectionHeader}>Follow players to see their match history.</Text>
+                                <Text style={styles.sectionHeader}>Click the + button to follow a player.</Text>
+                            </View>
+                    }
                     <FlatList
                             onRefresh={onRefresh}
                             refreshing={refetching}
@@ -98,14 +113,13 @@ export function FeedList() {
                             data={list}
                             renderItem={({item, index}) => {
                                 switch (item) {
-                                    // case 'matches-header':
-                                    //     return <Text style={styles.sectionHeader}>Match History</Text>;
                                     default:
                                         const match = item as IMatch;
                                         return <View>
                                             {
                                                 match &&
                                                 <Text style={styles.players}>{filterPlayers(match.players).map(p => p.name).join(' and ')} {match.finished ? 'played' : 'playing now'}</Text>
+                                                // <Text style={styles.players}>{filterPlayers(match.players).map(p => `${p.name} (${p.rating_change})`).join(' and ')} {match.finished ? 'played' : 'playing now'}</Text>
                                             }
                                             <Game data={item as IMatch} expanded={false}/>
                                         </View>;
@@ -121,25 +135,78 @@ export function FeedList() {
     );
 }
 
-export default function FeedPage() {
-
-
-    const route = useRoute<RouteProp<RootStackParamList, 'Feed'>>();
+function FeedAction({user}: {user: IPlayerListPlayer}) {
     const mutate = useMutate();
+    const following = useSelector(state => state.following);
 
-    const onSelect = async (user: UserInfo) => {
+    const followingThisUser = following.find(f => sameUser(f, user));
+
+    const onSelect = async () => {
         const following = await loadFollowingFromStorage();
-        following.push({
-            id: composeUserId(user),
-            steam_id: user.steam_id,
-            profile_id: user.profile_id,
-        });
+        const index = following.findIndex(f => sameUser(f, user));
+        if (index > -1) {
+            following.splice(index, 1);
+        } else {
+            if (following.length >= 2) {
+                alert('You can follow a maxmium of 2 users. Unfollow a user first to follow a new one.');
+                return;
+            }
+            following.push({
+                id: composeUserId(user),
+                steam_id: user.steam_id,
+                profile_id: user.profile_id,
+                name: user.name,
+                games: user.games,
+                country: user.country,
+            });
+        }
+        console.log("MODIFIED FOLLOWING", following);
         await saveFollowingToStorage(following);
         mutate(setFollowing(following));
     };
 
-    if (route.params?.action) {
-        return <Search title="Enter AoE username you want to follow:" selectedUser={onSelect} actionText="Follow" />;
+    return (
+        <Button
+            labelStyle={{fontSize: 13, marginVertical: 0}}
+            contentStyle={{height: 22}}
+            onPress={onSelect}
+            mode="contained"
+            compact
+            uppercase={false}
+            dark={true}
+        >
+            {followingThisUser ? 'Unfollow' : 'Follow'}
+        </Button>
+    );
+}
+
+export function FeedAdd() {
+    return <Search
+        title="Enter AoE username you want to follow:"
+        action={
+            (user: IFetchedUser) => <FeedAction user={user}/>
+        }
+    />;
+}
+
+export function FeedConfig() {
+    const following = useSelector(state => state.following);
+    return <PlayerList
+        list={following}
+        action={
+            (user: IPlayerListPlayer) => <FeedAction user={user}/>
+        }
+    />;
+}
+
+export default function FeedPage() {
+    const route = useRoute<RouteProp<RootStackParamList, 'Feed'>>();
+
+    if (route.params?.action === 'add') {
+        return <FeedAdd/>;
+    }
+    if (route.params?.action === 'config') {
+        return <FeedConfig/>;
     }
 
     return <FeedList/>;
@@ -148,6 +215,12 @@ export default function FeedPage() {
 const styles = StyleSheet.create({
     players: {
       marginBottom: 10,
+    },
+    centered: {
+        // backgroundColor: 'yellow',
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     sectionHeader: {
         marginTop: 20,

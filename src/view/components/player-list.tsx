@@ -1,17 +1,23 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {FlatList, Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
-import {IFetchedUser, loadUser} from '../../service/user';
-import {useLazyApi} from '../../hooks/use-lazy-api';
-import {Button, Searchbar} from 'react-native-paper';
+import {Button} from 'react-native-paper';
 import {composeUserIdFromParts, UserInfo} from '../../helper/user';
-import {getFlagIcon} from '../../helper/flags';
+import {Flag, getFlagIcon} from '../../helper/flags';
 import {useCavy} from "cavy";
 
+export interface IPlayerListPlayer {
+    country: Flag;
+    games: number;
+    name: string;
+    profile_id?: number;
+    steam_id?: string;
+}
+
 interface IPlayerProps {
-    player: IFetchedUser;
+    player: IPlayerListPlayer;
     selectedUser?: (user: UserInfo) => void;
     actionText?: string;
-    action?: (player: IFetchedUser) => React.ReactNode;
+    action?: (player: IPlayerListPlayer) => React.ReactNode;
 }
 
 function Player({player, selectedUser, actionText, action}: IPlayerProps) {
@@ -62,53 +68,18 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
 }
 
 interface ISearchProps {
-    title: string;
+    list: IPlayerListPlayer[];
     selectedUser?: (user: UserInfo) => void;
     actionText?: string;
-    action?: (player: IFetchedUser) => React.ReactNode;
+    action?: (player: IPlayerListPlayer) => React.ReactNode;
 }
 
-export default function Search({title, selectedUser, actionText, action}: ISearchProps) {
-    const [text, setText] = useState('');
-
-    const user = useLazyApi(loadUser, 'aoe2de', text);
-
-    const refresh = () => {
-        if (text.length < 3) {
-            user.reset();
-            return;
-        }
-        user.refetch('aoe2de', text);
-    };
-
-    const generateTestHook = useCavy();
-
-    useEffect(() => {
-        refresh();
-    }, [text]);
-
-    let list: any[] = user.data ? [...user.data]:[];
-    if (user.touched && (user.data == null || user.data.length === 0)) {
-        list = [{type: 'text', content: 'No user found.'}];
-    }
-    if (text.length < 3) {
-        list = [{type: 'text', content: 'Enter at least 3 chars.'}];
-    }
+export default function PlayerList({list, selectedUser, actionText, action}: ISearchProps) {
 
     return (
             <View style={styles.container}>
-                <Text style={styles.centerText}>{title}</Text>
-
-                <Searchbar
-                        ref={generateTestHook('Search.Input')}
-                        style={styles.searchbar}
-                        placeholder="username"
-                        onChangeText={text => setText(text)}
-                        value={text}
-                />
-
                 {
-                    user.data && user.data.length > 0 && text.length >= 3 &&
+                    list && list.length > 0 &&
                     <View style={styles.headerRow}>
                         <Text style={styles.cellName}>Name</Text>
                         <Text style={styles.cellGames}>Games</Text>
@@ -118,13 +89,10 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
 
                 <FlatList
                         keyboardShouldPersistTaps={'always'}
-                        refreshing={user.loading}
-                        onRefresh={refresh}
+                        // refreshing={user.loading}
+                        // onRefresh={refresh}
                         data={list}
                         renderItem={({item}) => {
-                            if (item.type === 'text') {
-                                return <Text style={styles.centerText}>{item.content}</Text>;
-                            }
                             return <Player player={item} selectedUser={selectedUser} actionText={actionText} action={action}/>;
                         }}
                         keyExtractor={(item, index) => index.toString()}

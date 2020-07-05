@@ -104,7 +104,7 @@ export interface AppState {
   leaderboard: ILeaderboardDict;
 }
 
-const initialState: AppState = {
+const initialState: Partial<AppState> = {
   user: {
   },
   leaderboard: {
