@@ -52,9 +52,9 @@ export default function Footer() {
                                 <View><Text> </Text></View>
                             }
                     >
+                        <Menu.Item onPress={() => { nav('About'); setMenu(false); }} title="About" />
                         <Menu.Item onPress={() => { nav('Tech'); setMenu(false); }} title="Techs" />
                         <Menu.Item onPress={() => { nav('Unit'); setMenu(false); }} title="Units" />
-                        <Menu.Item onPress={() => { nav('About'); setMenu(false); }} title="About" />
                     </Menu>
                 </View>
             </View>
