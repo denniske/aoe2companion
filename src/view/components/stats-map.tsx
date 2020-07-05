@@ -2,10 +2,9 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {IMatch} from "../../helper/data";
 import {TextLoader} from "../loader/text-loader";
-import {Civ, civs, getCivIcon} from "../../helper/civs";
-import {useSelector} from "../../redux/reducer";
 import {AoeMap, getMapImage, getMapName, maps} from "../../helper/maps";
-import {orderBy, sortBy} from "lodash-es";
+import {orderBy} from "lodash-es";
+import {sameUser, UserIdBase} from "../../helper/user";
 
 interface IRow {
     map: AoeMap;
@@ -37,11 +36,10 @@ function Row({data}: IRowProps) {
 
 interface IProps {
     matches: IMatch[];
+    user: UserIdBase;
 }
 
-export default function StatsMap({matches}: IProps) {
-    const auth = useSelector(state => state.auth!);
-
+export default function StatsMap({matches, user}: IProps) {
     let rows: IRow[] | null = null;
 
     if (matches) {
@@ -52,7 +50,7 @@ export default function StatsMap({matches}: IProps) {
             const gamesWithMap = matches.filter(m => m.map_type === parseInt(map));
             const gamesWithMapWon = gamesWithMap.filter(m => m.players.filter(p =>
                 p.won &&
-                (p.steam_id === auth.steam_id || p.profile_id === auth.profile_id)
+                sameUser(p, user)
             ).length > 0);
             return ({
                 map: parseInt(map) as AoeMap,

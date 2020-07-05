@@ -3,12 +3,10 @@ import React from 'react';
 import {IMatch} from "../../helper/data";
 import {TextLoader} from "../loader/text-loader";
 import {Civ, civs, getCivIcon} from "../../helper/civs";
-import {useSelector} from "../../redux/reducer";
 import {orderBy} from "lodash-es";
-import {getFlagIcon} from "../../helper/flags";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
-import {userIdFromBase} from "../../helper/user";
+import {sameUser, UserIdBase} from "../../helper/user";
 
 interface IRow {
     civ: Civ;
@@ -47,23 +45,22 @@ function Row({data}: IRowProps) {
 
 interface IProps {
     matches: IMatch[];
+    user: UserIdBase;
 }
 
-export default function StatsCiv({matches}: IProps) {
-    const auth = useSelector(state => state.auth!);
-
+export default function StatsCiv({matches, user}: IProps) {
     let rows: IRow[] | null = null;
 
     if (matches) {
         rows = civs.map(civ => {
             const gamesWithCiv = matches.filter(m => m.players.filter(p =>
                 p.civ === civs.indexOf(civ) &&
-                (p.steam_id === auth.steam_id || p.profile_id === auth.profile_id)
+                sameUser(p, user)
             ).length > 0);
             const gamesWithCivWon = matches.filter(m => m.players.filter(p =>
                 p.civ === civs.indexOf(civ) &&
                 p.won &&
-                (p.steam_id === auth.steam_id || p.profile_id === auth.profile_id)
+                sameUser(p, user)
             ).length > 0);
             return ({
                 civ: civ,

@@ -2,12 +2,9 @@ import {Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import React from 'react';
 import {IMatch, IPlayer} from "../../helper/data";
 import {TextLoader} from "../loader/text-loader";
-import {Civ, civs, getCivIcon} from "../../helper/civs";
-import {useSelector} from "../../redux/reducer";
-import {AoeMap, getMapImage, getMapName, maps} from "../../helper/maps";
-import {orderBy, sortBy, uniq, uniqBy} from "lodash-es";
+import {orderBy, uniqBy} from "lodash-es";
 import {getFlagIcon} from "../../helper/flags";
-import {composeUserId, sameUser, userIdFromBase} from "../../helper/user";
+import {composeUserId, sameUser, UserIdBase, userIdFromBase} from "../../helper/user";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 
@@ -51,22 +48,21 @@ function Row({data}: IRowProps) {
 
 interface IProps {
     matches: IMatch[];
+    user: UserIdBase;
 }
 
-export default function StatsPlayer({matches}: IProps) {
-    const auth = useSelector(state => state.auth!);
-
+export default function StatsPlayer({matches, user}: IProps) {
     let rows: IRow[] | null = null;
 
     if (matches) {
-        let otherPlayers = matches.flatMap(m => m.players).filter(p => p.steam_id !== auth.steam_id && p.profile_id !== auth.profile_id);
+        let otherPlayers = matches.flatMap(m => m.players).filter(p => p.steam_id !== user.steam_id && p.profile_id !== user.profile_id);
         let otherPlayersUniq = uniqBy(otherPlayers, p => composeUserId(p));
 
         rows = otherPlayersUniq.map(otherPlayer => {
             const gamesWithPlayer = matches.filter(m => m.players.filter(p => sameUser(p, otherPlayer)).length > 0);
             const gamesWithPlayerWon = gamesWithPlayer.filter(m => m.players.filter(p =>
                 p.won &&
-                sameUser(p, auth)
+                sameUser(p, user)
             ).length > 0);
             return ({
                 player: otherPlayer,

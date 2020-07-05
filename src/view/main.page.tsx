@@ -52,14 +52,6 @@ function MainHome() {
     );
 
     const matches = useLazyApi(
-        // [],
-        // state => state.user[auth.id]?.matches,
-        // (state, value) => {
-        //     if (state.user[auth.id] == null) {
-        //         state.user[auth.id] = {};
-        //     }
-        //     state.user[auth.id].matches = value;
-        // },
         fetchMatches, 'aoe2de', 0, 1000, auth
     );
 
@@ -103,8 +95,6 @@ function MainHome() {
                                             {
                                                 !matches.touched && !matches.loading &&
                                                 <Button
-                                                    // labelStyle={{fontSize: 13, marginVertical: 0}}
-                                                    // contentStyle={{height: 22}}
                                                     onPress={() => matches.reload()}
                                                     mode="contained"
                                                     compact
@@ -117,13 +107,13 @@ function MainHome() {
                                         </View>;
                                     case 'stats-civ':
                                         if (!matches.touched && !matches.loading) return <View/>;
-                                        return <StatsCiv matches={matches.data}/>;
+                                        return <StatsCiv matches={matches.data} user={auth}/>;
                                     case 'stats-map':
                                         if (!matches.touched && !matches.loading) return <View/>;
-                                        return <StatsMap matches={matches.data}/>;
+                                        return <StatsMap matches={matches.data} user={auth}/>;
                                     case 'stats-player':
                                         if (!matches.touched && !matches.loading) return <View/>;
-                                        return <StatsPlayer matches={matches.data}/>;
+                                        return <StatsPlayer matches={matches.data} user={auth}/>;
                                     case 'rating':
                                         return <Rating ratingHistories={rating.data}/>;
                                     case 'profile':
