@@ -1860,5 +1860,9 @@ const unitList = Object.keys(unitLines).map(ul => ({
 }))
 
 export function getUnitLineForUnit(unit: Unit) {
+    return unitList.find(ul => ul.units.includes(unit));
+}
+
+export function getUnitLineNameForUnit(unit: Unit) {
     return unitList.find(ul => ul.units.includes(unit))?.name;
 }

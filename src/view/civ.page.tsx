@@ -7,7 +7,7 @@ import {RouteProp, useLinkTo, useNavigation, useRoute} from "@react-navigation/n
 import {RootStackParamList, RootStackProp} from "../../App";
 import {
     getUnitIcon,
-    getUnitLineForUnit, getUnitLineIcon, getUnitLineName, getUnitName, Unit, unitLines, units
+    getUnitLineNameForUnit, getUnitLineIcon, getUnitLineName, getUnitName, Unit, unitLines, units, getUnitLineForUnit
 } from "../helper/units";
 import {aoeCivKey, aoeData, aoeStringKey} from "../data/data";
 import {getTechIcon, getTechName, Tech, techList} from "../helper/techs";
@@ -30,7 +30,7 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
     const civDescriptionContent = civDescription.split('\n').filter((a, b) => b >= 2).join('\n');
 
     const techReplaceList = techList.map(t => ({ name: t.name, text: getTechName(t.name)}));
-    const unitReplaceList = Object.keys(units).map(t => ({ name: getUnitLineForUnit(t as Unit), text: getUnitName(t as Unit)}));
+    const unitReplaceList = Object.keys(units).map(t => ({ name: getUnitLineNameForUnit(t as Unit), text: getUnitName(t as Unit)}));
     const reverseTechMap = Object.assign({}, ...techReplaceList.map((x) => ({[x.text]: x})));
     const reverseUnitMap = Object.assign({}, ...unitReplaceList.map((x) => ({[x.text]: x})));
 
@@ -224,6 +224,7 @@ function getAbilityEnabled({civ, tech, unit}: AbilityProps) {
     }
     return false;
 }
+
 function getAbilityIcon({tech, unit}: AbilityHelperProps) {
     if (tech) {
         return getTechIcon(tech);
@@ -232,6 +233,17 @@ function getAbilityIcon({tech, unit}: AbilityHelperProps) {
         return getUnitIcon(unit);
     }
     return false;
+}
+
+function getAbilityNavCallback({tech, unit}: AbilityHelperProps) {
+    const navigation = useNavigation<RootStackProp>();
+    if (tech) {
+        return () => navigation.push('Tech', {tech: tech});
+    }
+    if (unit) {
+        return () => navigation.push('Unit', {unit: getUnitLineForUnit(unit)!.units[0]});
+    }
+    return () => {};
 }
 
 function Ability0({civ, tech, unit}: AbilityProps) {
@@ -257,17 +269,16 @@ function Ability({civ, tech, unit}: AbilityProps) {
 function Ability2({civ, tech, unit}: AbilityProps) {
     const enabled = getAbilityEnabled({civ, tech, unit});
     const color = enabled ? '#555' : '#C00';
-    // const color = '#555';
     const opacity = enabled ? 1 : 0.4;
     return (
-        <View style={[styles.imageContainer2, {borderColor: color, opacity: opacity}]}>
-        <ImageBackground source={getAbilityIcon({tech, unit})} imageStyle={styles.imageInner2} style={styles.image2}>
-            {
-                !enabled &&
-                <Icon name={'close'} size={40} color="red" />
-            }
-        </ImageBackground>
-        </View>
+        <TouchableOpacity style={[styles.imageContainer2, {borderColor: color, opacity: opacity}]} onPress={getAbilityNavCallback({tech, unit})}>
+            <ImageBackground source={getAbilityIcon({tech, unit})} imageStyle={styles.imageInner2} style={styles.image2}>
+                {
+                    !enabled &&
+                    <Icon name={'close'} size={40} color="red" />
+                }
+            </ImageBackground>
+        </TouchableOpacity>
     );
 }
 
