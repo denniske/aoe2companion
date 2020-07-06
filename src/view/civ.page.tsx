@@ -39,7 +39,7 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
     const regex = new RegExp('('+allReplaceList.map(m => '\\b'+escapeRegExpFn(m.text)+'\\b').join("|")+')', '');
 
     const parts = civDescriptionContent.split(regex);
-    console.log('parts', parts);
+    // console.log('parts', parts);
     // console.log('map', map);
 
     const texts = [];
