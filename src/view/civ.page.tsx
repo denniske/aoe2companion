@@ -30,6 +30,7 @@ export function civTitle(props: any) {
 export function CivDetails({civ}: {civ: aoeCivKey}) {
     const navigation = useNavigation<RootStackProp>();
     const civDescription = getCivDescription(civ);
+    console.log("civ desc", JSON.stringify(civDescription));
 
     const civNameStringKey = aoeData.civ_names[civ] as aoeStringKey;
     const civName = aoeData.strings[civNameStringKey];

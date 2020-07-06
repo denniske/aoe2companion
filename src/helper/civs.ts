@@ -164,12 +164,12 @@ export function getCivDescription(civ: Civ) {
     return aoeData.strings[civStringKey]
         .replace(/<b>/g, '')
         .replace(/<\/b>/g, '')
-        .replace(/<br>/g, '')
-        .replace(/\s+\n/g, '\n');
+        .replace(/<br>/g, '');
 }
 
 export function getCivTeamBonus(civ: Civ) {
     let description = getCivDescription(civ);
+    description = description.replace(/\s+\n/g, '\n');
     description = strRemoveTo(description, 'Team Bonus:\n');
     return description;
 }
