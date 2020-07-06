@@ -17,6 +17,7 @@ import {IPlayer} from "../../helper/data";
 import {TextLoader} from "../loader/text-loader";
 import {ImageLoader} from "../loader/image-loader";
 import {ViewLoader} from "../loader/view-loader";
+import IconFA5 from 'react-native-vector-icons/FontAwesome5';
 
 interface IPlayerProps {
     player: IPlayer;
@@ -89,7 +90,10 @@ export function Player({player}: IPlayerProps) {
                 </TouchableWithoutFeedback>
             </Modal>
             <View style={styles.playerWonCol}>
-                <Text>{player.won ? '👑' : ''}</Text>
+                {
+                    player.won &&
+                    <IconFA5 name="crown" size={14} style={{}} color="goldenrod" />
+                }
             </View>
 
             <View style={styles.squareCol}>
@@ -103,7 +107,7 @@ export function Player({player}: IPlayerProps) {
             </TouchableHighlight>
 
             <TouchableHighlight style={styles.playerNameCol} onPress={gotoPlayer}>
-                <Text style={playerNameStyle}>{player.name}</Text>
+                <Text style={playerNameStyle} numberOfLines={1}>{player.name}</Text>
             </TouchableHighlight>
 
             <TouchableOpacity onPress={() => navigation.push('Civ', {civ: civs[player.civ]})}>
