@@ -10,7 +10,23 @@ import {getTechIcon, getTechName, Tech, techEffectDict} from "../helper/techs";
 import {aoeCivKey} from "../data/data";
 import {sortBy} from "lodash-es";
 import {Civ} from "../helper/civs";
+import IconHeader from "./components/icon-header";
 
+
+export function UnitTitle(props: any) {
+    if (props.route?.params?.unit) {
+        return <IconHeader
+            icon={getUnitLineIcon(props.route?.params?.unit)}
+            text={getUnitLineName(props.route.params?.unit)}
+            onLayout={props.titleProps.onLayout}
+        />;
+    }
+    return <Text style={styles.title}>Techs</Text>
+}
+
+export function unitTitle(props: any) {
+    return props.route?.params?.unit ? getUnitLineName(props.route.params?.unit) : 'Units';
+}
 
 export function UnitDetails({unit}: {unit: UnitLine}) {
     const navigation = useNavigation<RootStackProp>();

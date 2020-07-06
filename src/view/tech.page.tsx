@@ -13,7 +13,23 @@ import {aoeCivKey} from "../data/data";
 import {groupBy, sortBy} from "lodash-es";
 import {Civ, civs, getCivIconByIndex} from "../helper/civs";
 import {CivDetails, CivList} from "./civ.page";
+import IconHeader from "./components/icon-header";
 
+
+export function TechTitle(props: any) {
+    if (props.route?.params?.tech) {
+        return <IconHeader
+            icon={getTechIcon(props.route?.params?.tech)}
+            text={getTechName(props.route.params?.tech)}
+            onLayout={props.titleProps.onLayout}
+        />;
+    }
+    return <Text style={styles.title}>Techs</Text>
+}
+
+export function techTitle(props: any) {
+    return props.route?.params?.tech ? getTechName(props.route.params?.tech) : 'Techs';
+}
 
 export function TechDetails({tech}: {tech: Tech}) {
     const navigation = useNavigation<RootStackProp>();

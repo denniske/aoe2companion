@@ -13,7 +13,23 @@ import {aoeCivKey, aoeData, aoeStringKey} from "../data/data";
 import {getTechIcon, getTechName, Tech, techList} from "../helper/techs";
 import {escapeRegExpFn} from "../helper/util";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import IconHeader from "./components/icon-header";
 
+
+export function CivTitle(props: any) {
+    if (props.route?.params?.civ) {
+        return <IconHeader
+            icon={getCivIconByIndex(civs.indexOf(props.route?.params?.civ))}
+            text={props.route.params?.civ}
+            onLayout={props.titleProps.onLayout}
+        />;
+    }
+    return <Text style={styles.title}>Civs</Text>
+}
+
+export function civTitle(props: any) {
+    return props.route?.params?.civ || 'Civs';
+}
 
 export function CivDetails({civ}: {civ: aoeCivKey}) {
     const navigation = useNavigation<RootStackProp>();
