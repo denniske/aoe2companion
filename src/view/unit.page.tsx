@@ -116,7 +116,7 @@ export function UnitDetails({unit}: {unit: UnitLine}) {
             {/*    <Image style={styles.unitIcon} source={getUnitLineIcon(unit)}/>*/}
             {/*    <Text> {getUnitLineName(unit)}</Text>*/}
             {/*</View>*/}
-            <Text style={styles.description}> {getUnitDescription(unitLines[unit].units[0])}</Text>
+            <Text style={styles.description}>{getUnitDescription(unitLines[unit].units[0])}</Text>
             <Text/>
             {
                 groups.map(group =>
@@ -225,15 +225,13 @@ export function UnitCompBig({unit}: any) {
 
 export function UnitList() {
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <View style={styles.civContainer}>
-                {
-                    sortBy(Object.keys(unitLines)).map(ul =>
-                        <UnitCompBig key={ul} unit={ul}/>
-                    )
-                }
-            </View>
-        </ScrollView>
+        <View style={styles.civContainer}>
+            {
+                sortBy(Object.keys(unitLines)).map(ul =>
+                    <UnitCompBig key={ul} unit={ul}/>
+                )
+            }
+        </View>
     );
 }
 
@@ -242,10 +240,14 @@ export default function UnitPage() {
     const unit = route.params?.unit as aoeCivKey;
 
     if (unit) {
-        return <ScrollView><UnitDetails unit={unit} /></ScrollView>;
+        return <ScrollView contentContainerStyle={styles.container}><UnitDetails unit={unit} /></ScrollView>;
     }
 
-    return <UnitList/>
+    return (
+        <ScrollView contentContainerStyle={styles.container}>
+            <UnitList/>
+        </ScrollView>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -294,12 +296,12 @@ const styles = StyleSheet.create({
         // backgroundColor: 'yellow',
         // flexDirection: 'row',
         // flexWrap: 'wrap',
+        padding: 20,
     },
     container: {
         // flex: 1,
         backgroundColor: 'white',
         // alignItems: 'center',
-        padding: 20,
     },
     rowBig: {
         marginLeft: 5,

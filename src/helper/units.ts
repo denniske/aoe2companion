@@ -1848,7 +1848,7 @@ export function getUnitDescription(unit: Unit) {
     const data = aoeData.data.units[dataId];
     let description = aoeData.strings[data.LanguageHelpId.toString() as aoeStringKey];
 
-    description = strRemoveTo(description, '<br>');
+    description = strRemoveTo(description, '<br>\n');
     description = strRemoveFrom(description, '<i> Upgrades:');
 
     return description;
