@@ -1641,9 +1641,6 @@ const techIcons = {
     'Supremacy': require('../../assets/techs/UniqueTechImperial.jpg'),
 };
 
-// const CivUnion = unwrap(civs);
-// export type Civ = typeof CivUnion;
-
 export type Tech = keyof typeof techIcons;
 export type TechEffect = keyof typeof techEffectDictInternal;
 
@@ -1670,8 +1667,7 @@ export function getTechDescription(tech: Tech) {
     const data = aoeData.data.techs[dataId];
     let description = aoeData.strings[data.LanguageHelpId.toString() as aoeStringKey];
 
-    description = strRemoveTo(description, '<br>');
-    // description = strRemoveFrom(description, '<i> Upgrades:');
+    description = strRemoveTo(description, '<br>\n');
 
     return description;
 }

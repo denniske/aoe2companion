@@ -26,7 +26,7 @@ export function techTitle(props: any) {
 export function TechDetails({tech}: {tech: Tech}) {
     return (
         <View style={styles.detailsContainer}>
-            <Text style={styles.description}> {getTechDescription(tech)}</Text>
+            <Text style={styles.description}>{getTechDescription(tech)}</Text>
             <Text/>
         </View>
     );
@@ -47,8 +47,6 @@ export function TechCompBig({tech: tech}: any) {
 }
 
 function TechList() {
-    const navigation = useNavigation<RootStackProp>();
-
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.civContainer}>
