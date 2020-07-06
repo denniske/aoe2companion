@@ -1,9 +1,3 @@
-// const whyDidYouRender = require('@welldone-software/why-did-you-render');
-// whyDidYouRender(React, {
-//     trackHooks: true,
-//     // trackAllPureComponents: true,
-// });
-
 import 'react-native-gesture-handler';
 import {DefaultTheme as NavigationDefaultTheme, NavigationContainer, useNavigation} from '@react-navigation/native';
 import React from 'react';
