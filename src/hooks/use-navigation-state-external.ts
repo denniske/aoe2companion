@@ -17,13 +17,13 @@ export function useNavigationStateExternal() {
 
         const nav = getRootNavigation();
 
-        console.log('evented SUBSCRIBED');
+        // console.log('evented SUBSCRIBED');
         nav.addListener('state', onNavigationStateChanged);
 
         setState(nav.getRootState());
 
         return () => {
-            console.log('evented UNSUBSCRIBED');
+            // console.log('evented UNSUBSCRIBED');
             nav.removeListener('state', onNavigationStateChanged);
             mountedRef.current = false;
         };

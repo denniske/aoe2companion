@@ -50,8 +50,8 @@ export function Leaderboard({leaderboardId} : any) {
     const [page, setPage] = useState(0);
     const [perPage, setPerPage] = useState(Math.floor((window.height - 300) / 42));
 
-    console.log('window', window);
-    console.log('screen', screen);
+    // console.log('window', window);
+    // console.log('screen', screen);
 
     const players = useLazyApi(
         fetchLeaderboard, 'aoe2de', leaderboardId, {start: page * perPage + 1, count: perPage}

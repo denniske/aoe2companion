@@ -63,7 +63,7 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
         if (i % 2 == 0) {
             texts.push(<Text key={i}>{parts[i]}</Text>);
         } else {
-            console.log('part', parts[i]);
+            // console.log('part', parts[i]);
             const matchingTech = reverseTechMap[parts[i]]?.name;
             if (matchingTech) {
                 texts.push(<Text key={i} style={styles.link} onPress={() => navigation.push('Tech', {tech: matchingTech})}>{parts[i]}</Text>);

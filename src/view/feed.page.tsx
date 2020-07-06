@@ -52,9 +52,9 @@ export function FeedList() {
     const refresh = () => {
         if (!isActiveRoute) return;
         // AsyncStorage.removeItem('following');
-        console.log("refresh <-->");
-        console.log("following2", following);
-        console.log("prevFollowing2", prevFollowing);
+        // console.log("refresh <-->");
+        // console.log("following2", following);
+        // console.log("prevFollowing2", prevFollowing);
         if (prevFollowing == null) {
             matches.init('aoe2de', 0, 15, following);
         } else {
