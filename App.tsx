@@ -9,7 +9,8 @@ import {DefaultTheme as NavigationDefaultTheme, NavigationContainer, useLinkTo, 
 import React, {useState} from 'react';
 import MainPage from './src/view/main.page';
 import {
-    Image, Linking, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View, YellowBox
+    Image, ImageBackground, Linking, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View,
+    YellowBox
 } from 'react-native';
 import Search from './src/view/components/search';
 import {
@@ -158,19 +159,40 @@ function unitTitle(props: any) {
 }
 
 function TechTitle(props: any) {
+    console.log("TECH PROPS", props);
+
     if (props.route?.params?.tech) {
         return (
-            <View style={styles.civRow}>
-                <Image style={styles.icon} source={getTechIcon(props.route?.params?.tech)}/>
-                <Text style={styles.title}>{getTechName(props.route.params?.tech)}</Text>
+            // <Text style={styles.title} numberOfLines={1}>{getTechName(props.route.params?.tech) + 'sadkl asda sdas dads'}</Text>
+            <View style={styles.civRow} onLayout={props.titleProps.onLayout}>
+                    <ImageBackground source={getTechIcon(props.route?.params?.tech)} imageStyle={styles.imageInner2} style={styles.image2}>
+                     <Text style={styles.title} numberOfLines={1}>{getTechName(props.route.params?.tech) }</Text>
+                    </ImageBackground>
             </View>
+        // <View style={styles.civRow} onLayout={props.titleProps.onLayout}>
+        //         <View style={{flex: 2}}>
+        //             <Image style={styles.icon} source={getTechIcon(props.route?.params?.tech)}/>
+        //         </View>
+        //         <View style={{}}>
+        //             <Text style={styles.title} numberOfLines={1}>ad dd dd dd</Text>
+        //         </View>
+        //         <View style={{
+        //             flexDirection: 'row',
+        //             // flex: 1,
+        //             // flexGrow: 1,
+        //             // width: '100%',
+        //         }}>
+        //             <Text style={styles.title} numberOfLines={1}>{getTechName(props.route.params?.tech) + ' sadkl asda sdas dads'}</Text>
+        //         </View>
+        //     </View>
         );
     }
     return <Text style={styles.title}>Techs</Text>
 }
 
 function techTitle(props: any) {
-    return props.route?.params?.tech || 'Techs';
+    return props.route?.params?.tech ? getTechName(props.route.params?.tech) + 'sadkl asda sdas dads' : 'Techs';
+    // return props.route?.params?.tech || 'Techs';
 }
 
 function feedTitle(props: any) {
@@ -299,7 +321,8 @@ export function InnerApp() {
                     options={props => ({
                         animationEnabled: !!props.route?.params?.tech,
                         title: techTitle(props),
-                        headerTitle: titleProps => <TechTitle {...props} />,
+                        headerTitle: titleProps => <TechTitle {...props} titleProps={titleProps} />,
+                        // headerTitleContainerStyle: { width: 60 }
                     })}
                 />
                 <Stack.Screen
@@ -316,8 +339,9 @@ export function InnerApp() {
                     component={CivPage}
                     options={props => ({
                         animationEnabled: !!props.route?.params?.civ,
+                        // title: 'Back',
                         title: civTitle(props),
-                        headerTitle: titleProps => <CivTitle {...props} />,
+                        // headerTitle: titleProps => <CivTitle {...props} />,
                     })}
                 />
                 <Stack.Screen
@@ -419,11 +443,16 @@ const styles = StyleSheet.create({
         color: '#397AF9',
     },
     civRow: {
+        // backgroundColor: 'red',
+
         flexDirection: 'row',
         alignItems: 'center',
+        width: '100%',
+        // width: 290,
+        // flex: 1,
     },
     icon: {
-        marginRight: 5,
+        // marginRight: 5,
         width: 30,
         height: 30,
     },
@@ -431,6 +460,7 @@ const styles = StyleSheet.create({
     // From react-navigation HeaderTitle.tsx
     title: Platform.select({
         ios: {
+            // backgroundColor: 'yellow',
             fontSize: 17,
             fontWeight: '600',
         },
@@ -450,5 +480,27 @@ const styles = StyleSheet.create({
     },
     menuButton: {
         marginRight: 20,
-    }
+    },
+    imageInner2: {
+        // backgroundColor: 'blue',
+
+        // opacity: 0.1,
+        resizeMode: "contain",
+        // alignSelf: 'flex-end',
+        // bottom: -50,
+        // right: 0,
+        width: 30,
+        left: 0,
+        // top: undefined,
+        // height: 400,
+        // width: '100%',
+    },
+    image2: {
+        // alignItems: 'center',
+        justifyContent: 'center',
+        // width: 38,
+        paddingLeft: 35,
+        height: 38,
+        // backgroundColor: 'blue',
+    },
 });
