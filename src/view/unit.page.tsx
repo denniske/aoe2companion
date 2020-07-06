@@ -10,7 +10,8 @@ import {getTechIcon, getTechName, Tech, techEffectDict} from "../helper/techs";
 import {aoeCivKey} from "../data/data";
 import {sortBy} from "lodash-es";
 import {Civ} from "../helper/civs";
-import IconHeader from "./components/icon-header";
+import IconHeader from "./navigation-header/icon-header";
+import TextHeader from "./navigation-header/text-header";
 
 
 export function UnitTitle(props: any) {
@@ -21,7 +22,7 @@ export function UnitTitle(props: any) {
             onLayout={props.titleProps.onLayout}
         />;
     }
-    return <Text style={styles.title}>Techs</Text>
+    return <TextHeader text={'Units'} onLayout={props.titleProps.onLayout}/>;
 }
 
 export function unitTitle(props: any) {

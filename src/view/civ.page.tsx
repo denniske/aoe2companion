@@ -1,19 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {
-    StyleSheet, Text, TouchableOpacity, Image, View, ScrollView, ImageBackground, TouchableHighlight
-} from 'react-native';
+import React from 'react';
+import {Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Civ, civs, getCivHasTech, getCivHasUnit, getCivHistoryImage, getCivIconByIndex} from "../helper/civs";
-import {RouteProp, useLinkTo, useNavigation, useRoute} from "@react-navigation/native";
+import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {RootStackParamList, RootStackProp} from "../../App";
-import {
-    getUnitIcon,
-    getUnitLineNameForUnit, getUnitLineIcon, getUnitLineName, getUnitName, Unit, unitLines, units, getUnitLineForUnit
-} from "../helper/units";
+import {getUnitIcon, getUnitLineForUnit, getUnitLineNameForUnit, getUnitName, Unit, units} from "../helper/units";
 import {aoeCivKey, aoeData, aoeStringKey} from "../data/data";
 import {getTechIcon, getTechName, Tech, techList} from "../helper/techs";
 import {escapeRegExpFn} from "../helper/util";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import IconHeader from "./components/icon-header";
+import IconHeader from "./navigation-header/icon-header";
+import TextHeader from "./navigation-header/text-header";
 
 
 export function CivTitle(props: any) {
@@ -24,7 +20,7 @@ export function CivTitle(props: any) {
             onLayout={props.titleProps.onLayout}
         />;
     }
-    return <Text style={styles.title}>Civs</Text>
+    return <TextHeader text={'Civs'} onLayout={props.titleProps.onLayout}/>;
 }
 
 export function civTitle(props: any) {
@@ -80,37 +76,6 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
             <Text style={styles.content}>{civType}</Text>
             <Text/>
             <Text style={styles.content}>{texts}</Text>
-
-            {/*<Text style={styles.content}>Has Bloodlines: {getCivHasTech(civ, 'Bloodlines') ? 'true' : 'false'}</Text>*/}
-            {/*<Image style={styles.unitIcon} source={getTechIcon(tech)}/>*/}
-
-            {/*<View style={styles.row2}>*/}
-            {/*    <Ability0 civ={civ}/>*/}
-            {/*    <Ability0 civ={civ}/>*/}
-            {/*    <Ability0 civ={civ}/>*/}
-            {/*    <Ability0 civ={civ}/>*/}
-            {/*    <Ability civ={civ} tech="Forging"/>*/}
-            {/*    <Ability2 civ={civ} tech="ScaleMailArmor"/>*/}
-            {/*    <Ability2 civ={civ} tech="ScaleBardingArmor"/>*/}
-            {/*</View>*/}
-            {/*<View style={styles.row2}>*/}
-            {/*    <Ability0 civ={civ}/>*/}
-            {/*    <Ability0 civ={civ}/>*/}
-            {/*    <Ability0 civ={civ}/>*/}
-            {/*    <Ability0 civ={civ}/>*/}
-            {/*    <Ability2 civ={civ} tech="Fletching"/>*/}
-            {/*    <Ability2 civ={civ} tech="PaddedArcherArmor"/>*/}
-            {/*    <Ability0 civ={civ}/>*/}
-            {/*</View>*/}
-            {/*<View style={styles.row2}>*/}
-            {/*    <Ability2 civ={civ} unit="SiegeRam"/>*/}
-            {/*    <Ability2 civ={civ} unit="SiegeOnager"/>*/}
-            {/*    <Ability2 civ={civ} unit="HeavyScorpion"/>*/}
-            {/*    <Ability2 civ={civ} unit="BombardCannon"/>*/}
-            {/*    <Ability2 civ={civ} tech="Bloodlines"/>*/}
-            {/*    <Ability2 civ={civ} tech="Husbandry"/>*/}
-            {/*    <Ability2 civ={civ} tech="ThumbRing"/>*/}
-            {/*</View>*/}
 
             <Text style={styles.sectionHeader}>Tech Tree</Text>
 
