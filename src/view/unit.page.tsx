@@ -328,8 +328,8 @@ const styles = StyleSheet.create({
     unitIconBig: {
         width: 30,
         height: 30,
-        // flex: 1,
-        // marginRight: 5,
+        // borderWidth: 1,
+        // borderColor: '#555',
     },
     unitIconTitle: {
         // width: '100%',
