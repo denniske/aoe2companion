@@ -39,9 +39,8 @@ export function TechCompBig({tech: tech}: any) {
             <View style={styles.rowBig}>
                 <Image style={styles.unitIconBig} source={getTechIcon(tech)}/>
                 <View style={styles.unitIconTitle}>
-                    <Text> {getTechName(tech)}</Text>
+                    <Text>{getTechName(tech)}</Text>
                 </View>
-                {/*<Text> {getUnitLineName(unit)}</Text>*/}
             </View>
         </TouchableOpacity>
     );
@@ -55,7 +54,6 @@ function TechList() {
             <View style={styles.civContainer}>
                 {
                     sortBy(Object.keys(techs)).map(ul =>
-                            // <Text key={ul} >{ul}</Text>
                         <TechCompBig key={ul} tech={ul}/>
                     )
                 }
