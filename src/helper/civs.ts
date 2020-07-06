@@ -1,7 +1,8 @@
 import {civsConfig} from "../data/civs";
 import {Tech, techs} from "./techs";
-import {unwrap} from "./util";
+import {strRemoveTo, unwrap} from "./util";
 import {Unit, units} from "./units";
+import {aoeData, aoeStringKey} from "../data/data";
 
 export const civs = [
     'Aztecs',
@@ -152,8 +153,23 @@ export function getCivHasUnit(civ: Civ, unit: Unit) {
     const civConfig = civsConfig[civ];
 
     if (['ImperialSkirmisher', 'ImperialCamelRider'].includes(unit)) {
-        return (civsConfig[civ] as any).enabled?.units?.includes(parseInt(entry.dataId));
+        return (civConfig as any).enabled?.units?.includes(parseInt(entry.dataId));
     }
 
     return !civsConfig[civ].disabled.units.includes(parseInt(entry.dataId));
+}
+
+export function getCivDescription(civ: Civ) {
+    const civStringKey = aoeData.civ_helptexts[civ] as aoeStringKey;
+    return aoeData.strings[civStringKey]
+        .replace(/<b>/g, '')
+        .replace(/<\/b>/g, '')
+        .replace(/<br>/g, '')
+        .replace(/\s+\n/g, '\n');
+}
+
+export function getCivTeamBonus(civ: Civ) {
+    let description = getCivDescription(civ);
+    description = strRemoveTo(description, 'Team Bonus:\n');
+    return description;
 }

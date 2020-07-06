@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {Civ, civs, getCivHistoryImage, getCivIconByIndex} from "../helper/civs";
+import {Civ, civs, getCivDescription, getCivHistoryImage, getCivIconByIndex, getCivTeamBonus} from "../helper/civs";
 import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {RootStackParamList, RootStackProp} from "../../App";
 import {getUnitLineNameForUnit, getUnitName, Unit, units} from "../helper/units";
@@ -29,11 +29,7 @@ export function civTitle(props: any) {
 
 export function CivDetails({civ}: {civ: aoeCivKey}) {
     const navigation = useNavigation<RootStackProp>();
-    const civStringKey = aoeData.civ_helptexts[civ] as aoeStringKey;
-    const civDescription = aoeData.strings[civStringKey]
-        .replace(/<b>/g, '')
-        .replace(/<\/b>/g, '')
-        .replace(/<br>/g, '');
+    const civDescription = getCivDescription(civ);
 
     const civNameStringKey = aoeData.civ_names[civ] as aoeStringKey;
     const civName = aoeData.strings[civNameStringKey];
@@ -90,10 +86,13 @@ export function CivList() {
                 {
                     civs.map((civ, i) =>
                         <TouchableOpacity key={civ} onPress={() => navigation.push('Civ', {civ})}>
-                            <View style={styles.civBlock}>
-                                <Image style={styles.icon} source={getCivIconByIndex(i)}/>
-                                <Text style={styles.name}>{civ}</Text>
-                            </View>
+                                <View style={styles.civBlock}>
+                                    <Image style={styles.icon} source={getCivIconByIndex(i)}/>
+                                    <View style={styles.civRow}>
+                                        <Text style={styles.name}>{civ}</Text>
+                                        <Text style={styles.small} numberOfLines={1}>{getCivTeamBonus(civ)}</Text>
+                                    </View>
+                                </View>
                         </TouchableOpacity>
                     )
                 }
@@ -167,20 +166,21 @@ const styles = StyleSheet.create({
       height: 30,
     },
     name: {
-        textAlign: 'center',
-        marginLeft: 15,
     },
     civBlock: {
         flexDirection: 'row',
-        alignItems: 'center',
-        marginHorizontal: 0,
         marginVertical: 5,
+        // backgroundColor: 'yellow',
+    },
+    civRow: {
+        flex: 1,
+        marginLeft: 10,
+        // backgroundColor: 'blue',
     },
     civList: {
+        // backgroundColor: 'red',
     },
     container: {
-        backgroundColor: 'white',
-        alignItems: 'center',
         padding: 20,
     },
     row: {
@@ -189,5 +189,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 5,
         // backgroundColor: 'blue',
+    },
+    small: {
+        fontSize: 12,
+        color: '#333',
     },
 });
