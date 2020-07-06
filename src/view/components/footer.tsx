@@ -11,9 +11,8 @@ import {useNavigationStateExternal} from "../../hooks/use-navigation-state-exter
 
 export default function Footer() {
     const [menu, setMenu] = useState(false);
-
-    // const state = useNavigationState(state => state);
-    // const activeRoute = state.routes[state.index];
+    const navigationState = useNavigationStateExternal();
+    const activeRoute = navigationState?.routes[navigationState.index];
 
     const nav = async (route: keyof RootStackParamList) => {
         const navigation = getRootNavigation();
@@ -23,18 +22,9 @@ export default function Footer() {
         });
     };
 
-    const navigationState = useNavigationStateExternal();
-    const activeRoute = navigationState?.routes[navigationState.index];
-
     const iconStyle = (...routes: string[]) => {
-
-        // const nav = getRootNavigation();
-        // const state = nav?.getRootState();
-        // const activeRoute = state?.routes[state.index];
-
-        console.log('currentRoute', activeRoute?.name);
-
-        const isActiveRoute = routes.includes(activeRoute?.name); // && activeRoute.params == null;
+        // console.log('currentRoute', activeRoute?.name);
+        const isActiveRoute = routes.includes(activeRoute?.name);
         return isActiveRoute ? styles.iconActive : styles.icon;
     };
 
@@ -90,7 +80,7 @@ const styles = StyleSheet.create({
         // backgroundColor: 'yellow',
     },
     icon: {
-        color: '#999',
+        color: '#888',
     },
     iconActive: {
         color: '#000',
@@ -122,11 +112,7 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
         borderTopColor: '#CCC',
         flexDirection: 'row',
-        // marginBottom: 22,
-        // marginBottom: 22,
         height: 48,
-        // paddingTop: Platform.OS === 'ios' ? 0 : 6,
-        // paddingBottom: Platform.OS === 'ios' ? 4 : 0,
         paddingLeft: 16,
         paddingRight: 12, // because of three dots icon
     },
