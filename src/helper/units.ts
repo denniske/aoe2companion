@@ -1851,6 +1851,8 @@ export function getUnitDescription(unit: Unit) {
     description = strRemoveTo(description, '<br>\n');
     description = strRemoveFrom(description, '<i> Upgrades:');
 
+    description = description.trim();
+
     return description;
 }
 

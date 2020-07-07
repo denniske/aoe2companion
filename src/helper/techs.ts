@@ -1670,6 +1670,7 @@ export function getTechDescription(tech: Tech) {
     description = strRemoveTo(description, '\n');
 
     description = description.replace(/\n/g, ' ');
+    description = description.trim();
 
     // console.log("new desc", JSON.stringify(description));
 
