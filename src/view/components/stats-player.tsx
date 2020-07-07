@@ -32,7 +32,7 @@ function Row({data}: IRowProps) {
             <View style={styles.row}>
                 <TouchableHighlight style={styles.cellLeaderboard} onPress={gotoPlayer}>
                     <View style={styles.row}>
-                        <Image style={styles.icon} source={getFlagIcon(data.player.country)}/>
+                        <Image style={styles.countryIcon} source={getFlagIcon(data.player.country)}/>
                         <Text>{data.player.name}</Text>
                     </View>
                 </TouchableHighlight>
@@ -188,9 +188,9 @@ const styles = StyleSheet.create({
     container: {
         // backgroundColor: 'red',
     },
-    icon: {
-        width: 22,
-        height: 22,
+    countryIcon: {
+        width: 21,
+        height: 15,
         marginRight: 5,
     },
 });
