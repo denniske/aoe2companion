@@ -77,7 +77,7 @@ export default function StatsPlayer({matches, user}: IProps) {
         rowsAlly = rowsAlly.filter(r => r.games > 0);
         rowsAlly = orderBy(rowsAlly, r => r.games, 'desc');
         rowsAlly = rowsAlly.filter((r, i) => i < maxRowCount);
-        
+
         rowsOpponent = otherPlayersUniq.map(otherPlayer => {
             const gamesWithOpponent = matches.filter(m => {
                 const userTeam = m.players.find(p => sameUser(p, user))?.team;
