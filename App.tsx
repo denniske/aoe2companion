@@ -31,7 +31,7 @@ import {Unit} from "./src/helper/units";
 import {navigationRef} from "./src/service/navigation";
 import Footer from "./src/view/components/footer";
 import {Tech} from "./src/helper/techs";
-import TechPage, {techTitle, TechTitle} from "./src/view/tech.page";
+import TechPage, {techTitle, TechTitle} from "./src/view/tech/tech.page";
 import FeedPage from "./src/view/feed.page";
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {appStyles} from "./src/view/styles";

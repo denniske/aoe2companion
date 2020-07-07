@@ -93,7 +93,7 @@ export default function UnitDetails({unit}: {unit: UnitLine}) {
     groups = groups.filter(g => g.upgrades.length > 0);
 
     return (
-        <View style={styles.detailsContainer}>
+        <View style={styles.container}>
             {/*<View style={styles.row}>*/}
             {/*    <Image style={styles.unitIcon} source={getUnitLineIcon(unit)}/>*/}
             {/*    <Text> {getUnitLineName(unit)}</Text>*/}
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
     description: {
         lineHeight: 20,
     },
-    detailsContainer: {
+    container: {
         flex: 1,
         minHeight: '100%',
         backgroundColor: 'white',
