@@ -1,6 +1,6 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {IMatch} from "../../helper/data";
+import {IMatch, validMatch} from "../../helper/data";
 import {TextLoader} from "./loader/text-loader";
 import {AoeMap, getMapImage, getMapName, maps} from "../../helper/maps";
 import {orderBy} from "lodash-es";
@@ -28,7 +28,7 @@ function Row({data}: IRowProps) {
                     {data.games}
                 </Text>
                 <Text style={styles.cellWon}>
-                    {data.won.toFixed(0)} %
+                    {isNaN(data.won) ? '-' : data.won.toFixed(0) + ' %'}
                 </Text>
             </View>
     )
@@ -47,14 +47,15 @@ export default function StatsMap({matches, user}: IProps) {
         // console.log(matches);
         rows = mapList.map((map: string) => {
             const gamesWithMap = matches.filter(m => m.map_type === parseInt(map));
-            const gamesWithMapWon = gamesWithMap.filter(m => m.players.filter(p =>
+            const validGamesWithMap = gamesWithMap.filter(validMatch);
+            const validGamesWithMapWon = validGamesWithMap.filter(m => m.players.filter(p =>
                 p.won &&
                 sameUser(p, user)
             ).length > 0);
             return ({
                 map: parseInt(map) as AoeMap,
                 games: gamesWithMap.length,
-                won: gamesWithMapWon.length / gamesWithMap.length * 100,
+                won: validGamesWithMapWon.length / validGamesWithMap.length * 100,
             });
         });
         rows = rows.filter(r => r.games > 0);
@@ -69,13 +70,18 @@ export default function StatsMap({matches, user}: IProps) {
                     <View style={styles.row}>
                         <Text numberOfLines={1} style={styles.cellLeaderboard}>Map</Text>
                         <Text numberOfLines={1} style={styles.cellGames}>Games</Text>
-                        <Text numberOfLines={1} style={styles.cellWon}>Won</Text>
+                        <Text numberOfLines={1} style={styles.cellWon}>Won*</Text>
                     </View>
 
                     {
                         rows && rows.map(leaderboard =>
                                 <Row key={leaderboard.map} data={leaderboard}/>
                         )
+                    }
+                    <Text/>
+                    {
+                        matches &&
+                        <Text style={styles.info}>*based on matches with known result</Text>
                     }
 
                     {
@@ -96,6 +102,12 @@ export default function StatsMap({matches, user}: IProps) {
 const padding = 5;
 
 const styles = StyleSheet.create({
+    info: {
+        textAlign: 'center',
+        marginBottom: 10,
+        color: '#555',
+        fontSize: 12,
+    },
     cellLeaderboard: {
         // backgroundColor: 'red',
         padding: padding,

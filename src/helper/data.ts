@@ -125,3 +125,7 @@ export interface ILeaderboardPlayer extends ILeaderboardPlayerRaw {
 export interface ILeaderboard extends ILeaderboardRaw{
     leaderboard: ILeaderboardPlayer[];
 }
+
+export function validMatch(m: IMatch) {
+    return m.players.filter(p => p.won !== null).length === m.num_players;
+}

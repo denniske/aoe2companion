@@ -1,6 +1,6 @@
 import {Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import React from 'react';
-import {IMatch} from "../../helper/data";
+import {IMatch, validMatch} from "../../helper/data";
 import {TextLoader} from "./loader/text-loader";
 import {Civ, civs, getCivIcon} from "../../helper/civs";
 import {orderBy} from "lodash-es";
@@ -37,7 +37,7 @@ function Row({data}: IRowProps) {
                     {data.games}
                 </Text>
                 <Text style={styles.cellWon}>
-                    {data.won.toFixed(0)} %
+                    {isNaN(data.won) ? '-' : data.won.toFixed(0) + ' %'}
                 </Text>
             </View>
     )
@@ -57,15 +57,12 @@ export default function StatsCiv({matches, user}: IProps) {
                 p.civ === civs.indexOf(civ) &&
                 sameUser(p, user)
             ).length > 0);
-            const gamesWithCivWon = matches.filter(m => m.players.filter(p =>
-                p.civ === civs.indexOf(civ) &&
-                p.won &&
-                sameUser(p, user)
-            ).length > 0);
+            const validGamesWithCiv = gamesWithCiv.filter(validMatch);
+            const validGamesWithCivWon = validGamesWithCiv.filter(m => m.players.filter(p => p.won && sameUser(p, user)).length > 0);
             return ({
                 civ: civ,
                 games: gamesWithCiv.length,
-                won: gamesWithCivWon.length / gamesWithCiv.length * 100,
+                won: validGamesWithCivWon.length / validGamesWithCiv.length * 100,
             });
         });
         rows = rows.filter(r => r.games > 0);
@@ -80,7 +77,7 @@ export default function StatsCiv({matches, user}: IProps) {
                     <View style={styles.row}>
                         <Text numberOfLines={1} style={styles.cellLeaderboard}>Civ</Text>
                         <Text numberOfLines={1} style={styles.cellGames}>Games</Text>
-                        <Text numberOfLines={1} style={styles.cellWon}>Won</Text>
+                        <Text numberOfLines={1} style={styles.cellWon}>Won*</Text>
                     </View>
 
                     {

@@ -1,6 +1,6 @@
 import {Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import React from 'react';
-import {IMatch, IPlayer} from "../../helper/data";
+import {IMatch, IPlayer, validMatch} from "../../helper/data";
 import {TextLoader} from "./loader/text-loader";
 import {orderBy, uniqBy} from "lodash-es";
 import {getFlagIcon} from "../../helper/flags";
@@ -51,10 +51,6 @@ interface IProps {
     user: UserIdBase;
 }
 
-function validMatch(m: IMatch) {
-    return m.players.filter(p => p.won !== null).length === m.num_players;
-}
-
 export default function StatsPlayer({matches, user}: IProps) {
     let rowsAlly: IRow[] | null = null;
     let rowsOpponent: IRow[] | null = null;
@@ -81,7 +77,7 @@ export default function StatsPlayer({matches, user}: IProps) {
         rowsAlly = rowsAlly.filter(r => r.games > 0);
         rowsAlly = orderBy(rowsAlly, r => r.games, 'desc');
         rowsAlly = rowsAlly.filter((r, i) => i < maxRowCount);
-
+        
         rowsOpponent = otherPlayersUniq.map(otherPlayer => {
             const gamesWithOpponent = matches.filter(m => {
                 const userTeam = m.players.find(p => sameUser(p, user))?.team;
@@ -142,11 +138,6 @@ export default function StatsPlayer({matches, user}: IProps) {
                         rowsOpponent && rowsOpponent.map(leaderboard =>
                                 <Row key={composeUserId(leaderboard.player)} data={leaderboard}/>
                         )
-                    }
-                    <Text/>
-                    {
-                        matches &&
-                        <Text style={styles.info}>*based on matches with known result</Text>
                     }
 
                     {
