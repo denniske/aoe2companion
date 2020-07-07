@@ -1,16 +1,15 @@
 import {makeQueryString, sleep} from '../helper/util';
 import {IMatch, IMatchRaw} from "../helper/data";
-
-const fromUnixTime = require('date-fns/fromUnixTime');
+import {fromUnixTime} from "date-fns";
 
 
 function convertTimestampsToDates(json: IMatchRaw): IMatch {
     return {
         ...json,
         players: json.players.filter(p => p.profile_id != null || p.steam_id != null),
-        started: json.started ? fromUnixTime(json.started) : null,
-        finished: json.finished ? fromUnixTime(json.finished) : null,
-        opened: json.opened ? fromUnixTime(json.opened) : null,
+        started: json.started ? fromUnixTime(json.started) : undefined,
+        finished: json.finished ? fromUnixTime(json.finished) : undefined,
+        opened: json.opened ? fromUnixTime(json.opened) : undefined,
     };
 }
 

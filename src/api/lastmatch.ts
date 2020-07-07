@@ -1,5 +1,5 @@
 import {IMatch, IMatchRaw} from "../helper/data";
-const fromUnixTime = require('date-fns/fromUnixTime');
+import {fromUnixTime} from "date-fns";
 
 
 function convertTimestampsToDates(json: IMatchRaw): IMatch {

@@ -26,7 +26,7 @@ export interface IMatchRaw {
     cheats: boolean;
     ending_age: number;
     expansion: any;
-    finished: any;
+    finished?: any;
     full_tech_tree: boolean;
     game_type: any;
     has_custom_content: any;
@@ -42,7 +42,7 @@ export interface IMatchRaw {
     name: string;
     num_players: number;
     num_slots: number;
-    opened: any;
+    opened?: any;
     players: IPlayer[];
     pop: number;
     ranked: boolean;
@@ -53,7 +53,7 @@ export interface IMatchRaw {
     server: string;
     shared_exploration: boolean;
     speed: number;
-    started: any;
+    started?: any;
     starting_age: number;
     team_positions: boolean;
     team_together: boolean;
@@ -66,9 +66,9 @@ export interface IMatchRaw {
 }
 
 export interface IMatch extends IMatchRaw {
-    started: Date;
-    opened: Date;
-    finished: Date;
+    started?: Date;
+    opened?: Date;
+    finished?: Date;
 }
 
 export interface IRatingHistoryEntryRaw {
@@ -77,11 +77,11 @@ export interface IRatingHistoryEntryRaw {
     num_wins: number;
     rating: number;
     streak: number;
-    timestamp: any;
+    timestamp?: any;
 }
 
 export interface IRatingHistoryEntry extends IRatingHistoryEntryRaw {
-    timestamp: Date;
+    timestamp?: Date;
 }
 
 

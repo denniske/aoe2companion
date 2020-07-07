@@ -7,13 +7,28 @@ import {sortBy} from "lodash-es";
 import {getUnitLineName, unitLines} from "../../helper/units";
 
 
+export function TechComp({tech: tech}: any) {
+    const navigation = useNavigation<RootStackProp>();
+    return (
+        <TouchableOpacity onPress={() => navigation.push('Tech', {tech: tech})}>
+            <View style={styles.row}>
+                <Image style={styles.unitIcon} source={getTechIcon(tech)}/>
+                <View style={styles.unitIconTitle}>
+                    <Text>{getTechName(tech)}</Text>
+                    <Text numberOfLines={1} style={styles.small}>{getTechDescription(tech)}</Text>
+                </View>
+            </View>
+        </TouchableOpacity>
+    );
+}
+
 export function TechCompBig({tech: tech}: any) {
     const navigation = useNavigation<RootStackProp>();
     return (
         <TouchableOpacity onPress={() => navigation.push('Tech', {tech: tech})}>
             <View style={styles.rowBig}>
                 <Image style={styles.unitIconBig} source={getTechIcon(tech)}/>
-                <View style={styles.unitIconTitle}>
+                <View style={styles.unitIconBigTitle}>
                     <Text>{getTechName(tech)}</Text>
                     <Text numberOfLines={1} style={styles.small}>{getTechDescription(tech)}</Text>
                 </View>
@@ -34,30 +49,41 @@ export default function TechList() {
     );
 }
 
+
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
         padding: 20,
     },
+
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 2,
+        // backgroundColor: 'blue',
+    },
+    unitIcon: {
+        width: 20,
+        height: 20,
+        marginRight: 5,
+    },
+    unitIconTitle: {
+        flex: 1,
+        // backgroundColor: 'red',
+    },
+
+
     rowBig: {
-        marginLeft: 5,
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 10,
-        // backgroundColor: 'blue',
-    },
-    row: {
-        marginLeft: 5,
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 5,
         // backgroundColor: 'blue',
     },
     unitIconBig: {
         width: 30,
         height: 30,
     },
-    unitIconTitle: {
+    unitIconBigTitle: {
         flex: 1,
         paddingLeft: 8,
         // backgroundColor: 'red',

@@ -13,12 +13,12 @@ function getUnitLineTitle(unitLine: IUnitLine) {
     return unitLine.units.filter((x, i) => i > 0).map(getUnitName).join(', ');
 }
 
-export function UnitCompBig({unit}: any) {
+export function UnitComp({unit}: any) {
     const navigation = useNavigation<RootStackProp>();
     return (
         <TouchableOpacity onPress={() => navigation.push('Unit', {unit: unit})}>
-            <View style={styles.rowBig}>
-                <Image style={styles.unitIconBig} source={getUnitLineIcon(unit)}/>
+            <View style={styles.row}>
+                <Image style={styles.unitIcon} source={getUnitLineIcon(unit)}/>
                 <View style={styles.unitIconTitle}>
                     <Text>{getUnitLineName(unit)}</Text>
                     {
@@ -26,7 +26,24 @@ export function UnitCompBig({unit}: any) {
                         <Text numberOfLines={1} style={styles.small}>{getUnitLineTitle(unitLines[unit])}</Text>
                     }
                 </View>
-                {/*<Text> {getUnitLineName(unit)}</Text>*/}
+            </View>
+        </TouchableOpacity>
+    );
+}
+
+export function UnitCompBig({unit}: any) {
+    const navigation = useNavigation<RootStackProp>();
+    return (
+        <TouchableOpacity onPress={() => navigation.push('Unit', {unit: unit})}>
+            <View style={styles.rowBig}>
+                <Image style={styles.unitIconBig} source={getUnitLineIcon(unit)}/>
+                <View style={styles.unitIconBigTitle}>
+                    <Text>{getUnitLineName(unit)}</Text>
+                    {
+                        unitLines[unit].units.length > 1 && !unitLines[unit].unique &&
+                        <Text numberOfLines={1} style={styles.small}>{getUnitLineTitle(unitLines[unit])}</Text>
+                    }
+                </View>
             </View>
         </TouchableOpacity>
     );
@@ -49,12 +66,10 @@ const styles = StyleSheet.create({
         // backgroundColor: 'yellow',
         padding: 20,
     },
-    rowBig: {
-        marginLeft: 5,
+    row: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 10,
-        // width: 100,
+        marginVertical: 2,
         // backgroundColor: 'blue',
     },
     unitIcon: {
@@ -62,13 +77,24 @@ const styles = StyleSheet.create({
         height: 20,
         marginRight: 5,
     },
+    unitIconTitle: {
+        flex: 1,
+        // backgroundColor: 'red',
+    },
+
+    rowBig: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 10,
+        // backgroundColor: 'blue',
+    },
     unitIconBig: {
         width: 30,
         height: 30,
         // borderWidth: 1,
         // borderColor: '#555',
     },
-    unitIconTitle: {
+    unitIconBigTitle: {
         flex: 1,
         paddingLeft: 8,
         // backgroundColor: 'red',

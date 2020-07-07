@@ -1,13 +1,12 @@
 import { makeQueryString } from '../helper/util';
 import {IRatingHistoryEntry, IRatingHistoryEntryRaw} from "../helper/data";
-
-const fromUnixTime = require('date-fns/fromUnixTime');
+import {fromUnixTime} from "date-fns";
 
 
 function convertTimestampsToDates(json: IRatingHistoryEntryRaw): IRatingHistoryEntry {
     return {
         ...json,
-        timestamp: json.timestamp ? fromUnixTime(json.timestamp):null,
+        timestamp: json.timestamp ? fromUnixTime(json.timestamp) : undefined,
     };
 }
 

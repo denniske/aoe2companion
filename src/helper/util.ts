@@ -1,6 +1,6 @@
-import { format, formatDistanceToNowStrict } from "date-fns";
+import {format, formatDistanceToNowStrict, fromUnixTime} from "date-fns";
 import { enUS, de } from "date-fns/locale";
-const fromUnixTime = require('date-fns/fromUnixTime');
+
 
 export function sleep(ms: number) {
     return new Promise((resolve) => {
@@ -52,6 +52,10 @@ export function escapeRegExpFn (string: string): string {
 }
 
 export function unwrap<X>(arg: readonly X[]): X {
+    return null as any;
+}
+
+export function unwrapWithMapper<X, Y>(arg: readonly X[], mapper: (x: X) => Y): Y {
     return null as any;
 }
 

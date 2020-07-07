@@ -1,16 +1,20 @@
 import React from 'react';
 import {Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {Civ, civs, getCivDescription, getCivHistoryImage, getCivIconByIndex, getCivTeamBonus} from "../helper/civs";
+import {
+    Civ, civs, civDict, getCivDescription, getCivHistoryImage, getCivIconByIndex, getCivTeamBonus, parseCivDescription
+} from "../helper/civs";
 import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {RootStackParamList, RootStackProp} from "../../App";
 import {getUnitLineNameForUnit, getUnitName, Unit, units} from "../helper/units";
-import {aoeCivKey, aoeData, aoeStringKey} from "../data/data";
+import {aoeCivKey} from "../data/data";
 import {getTechName, Tech, techList} from "../helper/techs";
 import {escapeRegExpFn} from "../helper/util";
 import IconHeader from "./components/navigation-header/icon-header";
 import TextHeader from "./components/navigation-header/text-header";
 import {TechTree} from "./components/tech-tree";
 import {appStyles} from "./styles";
+import {UnitCompBig} from "./unit/unit-list";
+import {TechCompBig} from "./tech/tech-list";
 
 
 export function CivTitle(props: any) {
@@ -28,15 +32,8 @@ export function civTitle(props: any) {
     return props.route?.params?.civ || 'Civs';
 }
 
-export function CivDetails({civ}: {civ: aoeCivKey}) {
+function highlightUnitAndTechs(str: string) {
     const navigation = useNavigation<RootStackProp>();
-    const civDescription = getCivDescription(civ);
-
-    const civNameStringKey = aoeData.civ_names[civ] as aoeStringKey;
-    const civName = aoeData.strings[civNameStringKey];
-
-    const civType = civDescription.split('\n')[0];
-    const civDescriptionContent = civDescription.split('\n').filter((a, b) => b >= 2).join('\n');
 
     const techReplaceList = techList.map(t => ({ name: t.name, text: getTechName(t.name)}));
     const unitReplaceList = Object.keys(units).map(t => ({ name: getUnitLineNameForUnit(t as Unit), text: getUnitName(t as Unit)}));
@@ -44,10 +41,10 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
     const reverseUnitMap = Object.assign({}, ...unitReplaceList.map((x) => ({[x.text]: x})));
 
     const allReplaceList = [...techReplaceList, ...unitReplaceList];
-    
+
     const regex = new RegExp('('+allReplaceList.map(m => '\\b'+escapeRegExpFn(m.text)+'\\b').join("|")+')', '');
 
-    const parts = civDescriptionContent.split(regex);
+    const parts = str.split(regex);
     // console.log('parts', parts);
     // console.log('map', map);
 
@@ -67,12 +64,48 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
             }
         }
     }
+    return texts;
+}
+
+export function CivDetails({civ}: {civ: aoeCivKey}) {
+    const civDescription = parseCivDescription(civ);
+    const civDescription2 = getCivDescription(civ);
+
+    const {type, boni, uniqueUnitsTitle, uniqueTechsTitle, teamBonusTitle, teamBonus} = civDescription;
 
     return (
         <View style={styles.detailsContainer}>
-            <Text style={styles.content}>{civType}</Text>
+            <Text style={styles.content}>{type}</Text>
             <Text/>
-            <Text style={styles.content}>{texts}</Text>
+
+            {
+                boni.map((bonus, i) =>
+                    <View key={i} style={styles.bonusRow}>
+                        <Text style={styles.content}>• </Text>
+                        <Text style={styles.content}>{highlightUnitAndTechs(bonus)}</Text>
+                    </View>
+                )
+            }
+
+            <Text/>
+            {
+                civDict[civ].uniqueUnits.map(unit =>
+                    <UnitCompBig key={unit} unit={unit}/>
+                )
+            }
+
+            <Text/>
+            {
+                civDict[civ].uniqueTechs.map(tech =>
+                    <TechCompBig key={tech} tech={tech}/>
+                )
+            }
+
+            <Text style={styles.heading}>{teamBonusTitle}</Text>
+            <Text style={styles.content}>{highlightUnitAndTechs(teamBonus)}</Text>
+
+            {/*<Text style={styles.content}>{civDescription2}</Text>*/}
+
             <TechTree civ={civ} />
         </View>
     );
@@ -146,11 +179,10 @@ const styles = StyleSheet.create({
     },
     heading: {
         marginTop: 10,
-        fontWeight: 'bold',
-        marginBottom: 5,
+        lineHeight: 20,
     },
     content: {
-        marginBottom: 5,
+        // marginBottom: 5,
         textAlign: 'left',
         lineHeight: 20,
     },
@@ -191,5 +223,8 @@ const styles = StyleSheet.create({
     small: {
         fontSize: 12,
         color: '#333',
+    },
+    bonusRow: {
+        flexDirection: 'row',
     },
 });
