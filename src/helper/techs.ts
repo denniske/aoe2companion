@@ -1051,6 +1051,50 @@ export const techEffectDict = addNameToTechEffectDict(techEffectDictInternal as 
 
 export const techList: ITech[] = [
     {
+        dataId: '629',
+        name: 'PaperMoney',
+    },
+    {
+        dataId: '11',
+        name: 'Crenellations',
+    },
+    {
+        dataId: '487',
+        name: 'Nomads',
+    },
+    {
+        dataId: '576',
+        name: 'Tigui',
+    },
+    {
+        dataId: '624',
+        name: 'Thalassocracy',
+    },
+    {
+        dataId: '691',
+        name: 'HillForts',
+    },
+    {
+        dataId: '484',
+        name: 'Yasama',
+    },
+    {
+        dataId: '21',
+        name: 'Atheism',
+    },
+    {
+        dataId: '690',
+        name: 'CumanMercenaries',
+    },
+    {
+        dataId: '462',
+        name: 'GreatWall',
+    },
+    {
+        dataId: '482',
+        name: 'Stronghold',
+    },
+    {
         dataId: '213',
         name: 'Wheelbarrow',
     },
@@ -1606,6 +1650,14 @@ const techIcons = {
     'Inquisition': require('../../assets/techs/UniqueTechCastle.png'),
     'Madrasah': require('../../assets/techs/UniqueTechCastle.png'),
     'Sultans': require('../../assets/techs/UniqueTechCastle.png'),
+    'Stronghold': require('../../assets/techs/UniqueTechCastle.png'),
+    'GreatWall': require('../../assets/techs/UniqueTechCastle.png'),
+    'Yasama': require('../../assets/techs/UniqueTechCastle.png'),
+    'HillForts': require('../../assets/techs/UniqueTechCastle.png'),
+    'Thalassocracy': require('../../assets/techs/UniqueTechCastle.png'),
+    'Tigui': require('../../assets/techs/UniqueTechCastle.png'),
+    'Nomads': require('../../assets/techs/UniqueTechCastle.png'),
+    'TuskSwords': require('../../assets/techs/UniqueTechCastle.png'),
 
     'Couriers': require('../../assets/techs/UniqueTechImperial.jpg'),
     'TowerShields': require('../../assets/techs/UniqueTechImperial.jpg'),
@@ -1615,7 +1667,6 @@ const techIcons = {
     'Farimba': require('../../assets/techs/UniqueTechImperial.jpg'),
     'ManipurCavalry': require('../../assets/techs/UniqueTechImperial.jpg'),
     'Zealotry': require('../../assets/techs/UniqueTechImperial.jpg'),
-    'TuskSwords': require('../../assets/techs/UniqueTechImperial.jpg'),
     'Logistica': require('../../assets/techs/UniqueTechImperial.jpg'),
     'Mahouts': require('../../assets/techs/UniqueTechImperial.jpg'),
     'GarlandWars': require('../../assets/techs/UniqueTechImperial.jpg'),
@@ -1639,6 +1690,10 @@ const techIcons = {
     'Kataparuto': require('../../assets/techs/UniqueTechImperial.jpg'),
     'SilkRoad': require('../../assets/techs/UniqueTechImperial.jpg'),
     'Supremacy': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'Atheism': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'CumanMercenaries': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'Crenellations': require('../../assets/techs/UniqueTechImperial.jpg'),
+    'PaperMoney': require('../../assets/techs/UniqueTechImperial.jpg'),
 };
 
 export type Tech = keyof typeof techIcons;
