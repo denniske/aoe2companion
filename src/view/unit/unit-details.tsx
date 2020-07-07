@@ -8,6 +8,7 @@ import {
 import {getTechIcon, getTechName, Tech, techEffectDict} from "../../helper/techs";
 import {Civ} from "../../helper/civs";
 import {appStyles, linkColor} from "../styles";
+import Fandom from "../components/fandom";
 
 
 export default function UnitDetails({unit}: {unit: UnitLine}) {
@@ -152,17 +153,7 @@ export default function UnitDetails({unit}: {unit: UnitLine}) {
             }
 
             <View style={appStyles.expanded}/>
-            <Text/>
-            <Text/>
-            <Text style={styles.copy}>
-                <Text style={styles.copyText}>This article uses material from the "{getUnitLineName(unit)}" article on the </Text>
-                <Text style={styles.copyLink} onPress={() => Linking.openURL('https://ageofempires.fandom.com/wiki/Age_of_Empires_II:Portal')}>Age of Empires II Wiki</Text>
-                <Text style={styles.copyText}> at </Text>
-                <Text style={styles.copyLink} onPress={() => Linking.openURL('https://www.fandom.com/')}>Fandom</Text>
-                <Text style={styles.copyText}> and is licensed under the </Text>
-                <Text style={styles.copyLink} onPress={() => Linking.openURL('https://creativecommons.org/licenses/by-sa/3.0/')}>Creative Commons Attribution-Share Alike License</Text>
-                <Text style={styles.copyText}>.</Text>
-            </Text>
+            <Fandom articleName={getUnitLineName(unit)}/>
         </View>
     );
 }
@@ -190,16 +181,5 @@ const styles = StyleSheet.create({
     },
     unitDesc: {
         lineHeight: 20,
-    },
-    copy: {
-        lineHeight: 16,
-    },
-    copyLink: {
-        fontSize: 12,
-        color: linkColor,
-    },
-    copyText: {
-        fontSize: 12,
-        marginBottom: 5,
     },
 });

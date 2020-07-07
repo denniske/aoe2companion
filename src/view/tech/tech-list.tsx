@@ -24,7 +24,7 @@ export function TechCompBig({tech: tech}: any) {
 
 export default function TechList() {
     return (
-        <View>
+        <View style={styles.container}>
             {
                 sortBy(Object.keys(techs)).map(ul =>
                     <TechCompBig key={ul} tech={ul}/>

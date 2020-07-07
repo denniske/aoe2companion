@@ -34,7 +34,7 @@ export function UnitCompBig({unit}: any) {
 
 export default function UnitList() {
     return (
-        <View style={styles.civContainer}>
+        <View style={styles.container}>
             {
                 sortBy(Object.keys(unitLines)).map(ul =>
                     <UnitCompBig key={ul} unit={ul}/>
@@ -45,7 +45,7 @@ export default function UnitList() {
 }
 
 const styles = StyleSheet.create({
-    civContainer: {
+    container: {
         // backgroundColor: 'yellow',
         padding: 20,
     },
