@@ -6,9 +6,9 @@ import {Player, PlayerSkeleton} from './player';
 import MyListAccordion from './accordion';
 import {IMatch} from "../../helper/data";
 import {getMapImage} from "../../helper/maps";
-import {TextLoader} from "../loader/text-loader";
-import {ImageLoader} from "../loader/image-loader";
-import {ViewLoader} from "../loader/view-loader";
+import {TextLoader} from "./loader/text-loader";
+import {ImageLoader} from "./loader/image-loader";
+import {ViewLoader} from "./loader/view-loader";
 import {groupBy} from "lodash-es";
 import {differenceInSeconds} from "date-fns";
 

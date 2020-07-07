@@ -1,7 +1,7 @@
 import {Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import React from 'react';
 import {IMatch} from "../../helper/data";
-import {TextLoader} from "../loader/text-loader";
+import {TextLoader} from "./loader/text-loader";
 import {Civ, civs, getCivIcon} from "../../helper/civs";
 import {orderBy} from "lodash-es";
 import {useNavigation} from "@react-navigation/native";

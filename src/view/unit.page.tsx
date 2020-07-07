@@ -10,8 +10,8 @@ import {getTechIcon, getTechName, Tech, techEffectDict} from "../helper/techs";
 import {aoeCivKey} from "../data/data";
 import {sortBy} from "lodash-es";
 import {Civ} from "../helper/civs";
-import IconHeader from "./navigation-header/icon-header";
-import TextHeader from "./navigation-header/text-header";
+import IconHeader from "./components/navigation-header/icon-header";
+import TextHeader from "./components/navigation-header/text-header";
 
 
 export function UnitTitle(props: any) {

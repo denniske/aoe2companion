@@ -1,7 +1,7 @@
 import {Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import React from 'react';
 import {IMatch, IPlayer} from "../../helper/data";
-import {TextLoader} from "../loader/text-loader";
+import {TextLoader} from "./loader/text-loader";
 import {orderBy, uniqBy} from "lodash-es";
 import {getFlagIcon} from "../../helper/flags";
 import {composeUserId, sameUser, UserIdBase, userIdFromBase} from "../../helper/user";

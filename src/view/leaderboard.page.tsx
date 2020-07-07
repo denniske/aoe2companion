@@ -14,8 +14,8 @@ import {useLazyApi} from "../hooks/use-lazy-api";
 import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
 import {getString} from "../helper/strings";
 import {IconButton} from "react-native-paper";
-import {TextLoader} from "./loader/text-loader";
-import {ImageLoader} from "./loader/image-loader";
+import {TextLoader} from "./components/loader/text-loader";
+import {ImageLoader} from "./components/loader/image-loader";
 import {TabBarLabel} from "./components/tab-bar-label";
 
 const Tab = createMaterialTopTabNavigator();

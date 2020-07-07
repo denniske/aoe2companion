@@ -7,8 +7,8 @@ import {getUnitLineNameForUnit, getUnitName, Unit, units} from "../helper/units"
 import {aoeCivKey, aoeData, aoeStringKey} from "../data/data";
 import {getTechName, Tech, techList} from "../helper/techs";
 import {escapeRegExpFn} from "../helper/util";
-import IconHeader from "./navigation-header/icon-header";
-import TextHeader from "./navigation-header/text-header";
+import IconHeader from "./components/navigation-header/icon-header";
+import TextHeader from "./components/navigation-header/text-header";
 import {TechTree} from "./components/tech-tree";
 
 

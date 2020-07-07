@@ -1,7 +1,7 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {IMatch} from "../../helper/data";
-import {TextLoader} from "../loader/text-loader";
+import {TextLoader} from "./loader/text-loader";
 import {AoeMap, getMapImage, getMapName, maps} from "../../helper/maps";
 import {orderBy} from "lodash-es";
 import {sameUser, UserIdBase} from "../../helper/user";

@@ -14,9 +14,9 @@ import {getString} from '../../helper/strings';
 import {RootStackProp} from '../../../App';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {IPlayer} from "../../helper/data";
-import {TextLoader} from "../loader/text-loader";
-import {ImageLoader} from "../loader/image-loader";
-import {ViewLoader} from "../loader/view-loader";
+import {TextLoader} from "./loader/text-loader";
+import {ImageLoader} from "./loader/image-loader";
+import {ViewLoader} from "./loader/view-loader";
 import IconFA5 from 'react-native-vector-icons/FontAwesome5';
 
 interface IPlayerProps {

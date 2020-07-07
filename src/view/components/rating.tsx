@@ -4,8 +4,8 @@ import {VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTheme} fr
 import {formatDateShort, getLeaderboardAbbr, parseUnixTimestamp} from '../../helper/util';
 import {getLeaderboardColor} from '../../helper/colors';
 import {IRatingHistoryRow} from '../../service/rating';
-import {TextLoader} from "../loader/text-loader";
-import {ViewLoader} from "../loader/view-loader";
+import {TextLoader} from "./loader/text-loader";
+import {ViewLoader} from "./loader/view-loader";
 
 interface IRatingProps {
     ratingHistories: IRatingHistoryRow[];

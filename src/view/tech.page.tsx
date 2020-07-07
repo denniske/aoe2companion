@@ -4,8 +4,8 @@ import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {RootStackParamList, RootStackProp} from "../../App";
 import {getTechDescription, getTechIcon, getTechName, Tech, techs} from "../helper/techs";
 import {sortBy} from "lodash-es";
-import IconHeader from "./navigation-header/icon-header";
-import TextHeader from "./navigation-header/text-header";
+import IconHeader from "./components/navigation-header/icon-header";
+import TextHeader from "./components/navigation-header/text-header";
 
 
 export function TechTitle(props: any) {
