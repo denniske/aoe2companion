@@ -79,7 +79,6 @@ export function FeedList() {
     const onEndReached = async () => {
         if (fetchingMore || !matches.data) return;
         setFetchingMore(true);
-        console.log("prevFollowing2 onEndReached");
         await matches.refetch('aoe2de', 0, (matches.data?.length ?? 0) + 15, following);
         setFetchingMore(false);
     };

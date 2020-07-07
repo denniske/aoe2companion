@@ -86,7 +86,6 @@ export function Leaderboard({leaderboardId} : any) {
     const canNext = to < total;
 
     const list = [...(players.data?.leaderboard || Array(perPage).fill(null))];
-    console.log("list", list);
 
     const _renderRow = (player: any, i: number) => {
         return (

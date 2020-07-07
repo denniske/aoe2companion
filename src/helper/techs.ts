@@ -1,6 +1,6 @@
 import {aoeData, aoeStringKey, aoeTechDataId} from "../data/data";
 import {Civ} from "./civs";
-import {strRemoveTo} from "./util";
+import {sanitizeGameDescription, strRemoveTo} from "./util";
 
 
 interface IEffect {
@@ -1665,9 +1665,13 @@ export function getTechDescription(tech: Tech) {
     }
     const dataId = techEntry.dataId;
     const data = aoeData.data.techs[dataId];
-    let description = aoeData.strings[data.LanguageHelpId.toString() as aoeStringKey];
+    let description = sanitizeGameDescription(aoeData.strings[data.LanguageHelpId.toString() as aoeStringKey]);
 
-    description = strRemoveTo(description, '<br>\n');
+    description = strRemoveTo(description, '\n');
+
+    description = description.replace(/\n/g, ' ');
+
+    // console.log("new desc", JSON.stringify(description));
 
     return description;
 }

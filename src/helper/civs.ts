@@ -1,6 +1,6 @@
 import {civsConfig} from "../data/civs";
 import {Tech, techs} from "./techs";
-import {strRemoveTo, unwrap} from "./util";
+import {sanitizeGameDescription, strRemoveTo, unwrap} from "./util";
 import {Unit, units} from "./units";
 import {aoeData, aoeStringKey} from "../data/data";
 
@@ -161,10 +161,7 @@ export function getCivHasUnit(civ: Civ, unit: Unit) {
 
 export function getCivDescription(civ: Civ) {
     const civStringKey = aoeData.civ_helptexts[civ] as aoeStringKey;
-    return aoeData.strings[civStringKey]
-        .replace(/<b>/g, '')
-        .replace(/<\/b>/g, '')
-        .replace(/<br>/g, '');
+    return sanitizeGameDescription(aoeData.strings[civStringKey]);
 }
 
 export function getCivTeamBonus(civ: Civ) {

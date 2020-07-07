@@ -54,3 +54,12 @@ export function escapeRegExpFn (string: string): string {
 export function unwrap<X>(arg: readonly X[]): X {
     return null as any;
 }
+
+export function sanitizeGameDescription(description: string) {
+    return description
+        .replace(/<b>/g, '')
+        .replace(/<\/b>/g, '')
+        .replace(/<i>/g, '')
+        .replace(/<\/i>/g, '')
+        .replace(/<br>/g, '');
+}
