@@ -7,6 +7,7 @@ import {
 } from "../../helper/units";
 import {getTechIcon, getTechName, Tech, techEffectDict} from "../../helper/techs";
 import {Civ} from "../../helper/civs";
+import {appStyles, linkColor} from "../styles";
 
 
 export default function UnitDetails({unit}: {unit: UnitLine}) {
@@ -112,7 +113,7 @@ export default function UnitDetails({unit}: {unit: UnitLine}) {
                                     <Text style={styles.unitDesc}>
 
                                         {/*{getTechName(upgrade.tech)}*/}
-                                        <Text style={styles.link} onPress={() => navigation.push('Tech', {tech: upgrade.tech!})}>{getTechName(upgrade.tech)}</Text>
+                                        <Text style={appStyles.link} onPress={() => navigation.push('Tech', {tech: upgrade.tech!})}>{getTechName(upgrade.tech)}</Text>
 
                                         {upgrade.effect[group.prop] ? ' (' + upgrade.effect[group.prop] : ''}
 
@@ -120,7 +121,7 @@ export default function UnitDetails({unit}: {unit: UnitLine}) {
                                             upgrade.civ &&
                                             <>
                                                 <Text>, only </Text>
-                                                <Text style={styles.link} onPress={() => navigation.push('Civ', {civ: upgrade.civ!})}>{upgrade.civ}</Text>
+                                                <Text style={appStyles.link} onPress={() => navigation.push('Civ', {civ: upgrade.civ!})}>{upgrade.civ}</Text>
                                             </>
                                         }
 
@@ -150,7 +151,7 @@ export default function UnitDetails({unit}: {unit: UnitLine}) {
                     </View>
             }
 
-            <View style={styles.expanded}/>
+            <View style={appStyles.expanded}/>
             <Text/>
             <Text/>
             <Text style={styles.copy}>
@@ -190,18 +191,12 @@ const styles = StyleSheet.create({
     unitDesc: {
         lineHeight: 20,
     },
-    link: {
-        color: '#397AF9',
-    },
-    expanded: {
-        flex: 1,
-    },
     copy: {
         lineHeight: 16,
     },
     copyLink: {
         fontSize: 12,
-        color: '#397AF9',
+        color: linkColor,
     },
     copyText: {
         fontSize: 12,
