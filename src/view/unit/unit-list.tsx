@@ -20,10 +20,10 @@ export function UnitCompBig({unit}: any) {
             <View style={styles.rowBig}>
                 <Image style={styles.unitIconBig} source={getUnitLineIcon(unit)}/>
                 <View style={styles.unitIconTitle}>
-                    <Text> {getUnitLineName(unit)}</Text>
+                    <Text>{getUnitLineName(unit)}</Text>
                     {
                         unitLines[unit].units.length > 1 && !unitLines[unit].unique &&
-                        <Text numberOfLines={1} style={styles.small}> {getUnitLineTitle(unitLines[unit])}</Text>
+                        <Text numberOfLines={1} style={styles.small}>{getUnitLineTitle(unitLines[unit])}</Text>
                     }
                 </View>
                 {/*<Text> {getUnitLineName(unit)}</Text>*/}
@@ -70,10 +70,11 @@ const styles = StyleSheet.create({
     },
     unitIconTitle: {
         flex: 1,
-        paddingLeft: 5,
+        paddingLeft: 8,
         // backgroundColor: 'red',
     },
     small: {
         fontSize: 12,
+        color: '#333',
     },
 });

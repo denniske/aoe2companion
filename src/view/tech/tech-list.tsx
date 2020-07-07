@@ -2,8 +2,9 @@ import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
-import {getTechIcon, getTechName, Tech, techs} from "../../helper/techs";
+import {getTechDescription, getTechIcon, getTechName, Tech, techs} from "../../helper/techs";
 import {sortBy} from "lodash-es";
+import {getUnitLineName, unitLines} from "../../helper/units";
 
 
 export function TechCompBig({tech: tech}: any) {
@@ -14,6 +15,7 @@ export function TechCompBig({tech: tech}: any) {
                 <Image style={styles.unitIconBig} source={getTechIcon(tech)}/>
                 <View style={styles.unitIconTitle}>
                     <Text>{getTechName(tech)}</Text>
+                    <Text numberOfLines={1} style={styles.small}>{getTechDescription(tech)}</Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -57,7 +59,11 @@ const styles = StyleSheet.create({
     },
     unitIconTitle: {
         flex: 1,
-        paddingLeft: 5,
+        paddingLeft: 8,
         // backgroundColor: 'red',
+    },
+    small: {
+        fontSize: 12,
+        color: '#333',
     },
 });
