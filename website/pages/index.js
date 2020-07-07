@@ -19,16 +19,9 @@ export default function Home() {
                             <img src="/app-button-play-store.png" className="app-button app-button-play-store" />
                         </a>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {/*<a href="https://apps.apple.com/app/id1489505410">*/}
-                        {/*    <img src="/app-button-app-store.png" className="app-button app-button-app-store" />*/}
-                        {/*</a>*/}
-                        {/*<a href="https://apps.apple.com/app/id1489505410">*/}
-                        <div style={{textAlign: 'center', opacity: 0.7}}>
+                        <a href="https://apps.apple.com/app/id1518463195">
                             <img src="/app-button-app-store.png" className="app-button app-button-app-store" />
-                            <br/>
-                            (in near future)
-                        </div>
-                        {/*</a>*/}
+                        </a>
                     </div>
                     <div className="flex-container flex-row align-center github-section">
                         <a target="_blank" href="https://github.com/denniske/aoe2companion" className="github"></a>
