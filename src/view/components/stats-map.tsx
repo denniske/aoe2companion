@@ -44,9 +44,8 @@ export default function StatsMap({matches, user}: IProps) {
 
     if (matches) {
         const mapList = Object.keys(maps);
-        console.log(matches);
+        // console.log(matches);
         rows = mapList.map((map: string) => {
-            console.log(map);
             const gamesWithMap = matches.filter(m => m.map_type === parseInt(map));
             const gamesWithMapWon = gamesWithMap.filter(m => m.players.filter(p =>
                 p.won &&

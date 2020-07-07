@@ -166,6 +166,9 @@ export function InnerApp() {
     const auth = useSelector(state => state.auth);
     const following = useSelector(state => state.following);
 
+    // AsyncStorage.removeItem('settings');
+    // AsyncStorage.removeItem('following');
+
     // Trigger loading of auth and following
     const me = useApi([], state => state.auth, (state, value) => state.auth = value, () => loadSettingsFromStorage());
     const meFollowing = useApi([], state => state.following, (state, value) => state.following = value, () => loadFollowingFromStorage());

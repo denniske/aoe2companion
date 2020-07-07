@@ -92,7 +92,7 @@ export default function Profile({data}: IProfileProps) {
                         </View>
                         <View style={styles.expanded}/>
                         {
-                            auth && data && !sameUser(auth, data) &&
+                            data && (auth == null || !sameUser(auth, data)) &&
                             <TouchableOpacity onPress={toggleFollowing}>
                                 <View style={styles.followButton}>
                                     <Icon solid={followingThisUser} name="heart" size={22} style={styles.followButtonIcon}/>

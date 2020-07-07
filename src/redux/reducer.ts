@@ -39,29 +39,11 @@ export function setAuth(user: UserId | null) {
 export function setFollowing(following: IFollowingEntry[]) {
   return (state: AppState) => {
     state.following = following;
+
+    // Invalidate followedMatches cache
+    state.followedMatches = undefined;
   };
 }
-
-// export function createNote(title: string, value: string) {
-//   return (notes: AppState) => {
-//     notes.push({
-//       id: getNoteId(),
-//       note: {
-//         noteTitle: title,
-//         noteValue: value,
-//       },
-//     });
-//   };
-// }
-//
-// export function updateNote(id: string, title: string, value: string) {
-//   return (notes: AppState) => {
-//     const noteEntry = notes.find(n => n.id === id);
-//     if (noteEntry == null) throw Error('Cannot find note');
-//     noteEntry.note.noteTitle = title;
-//     noteEntry.note.noteValue = value;
-//   };
-// }
 
 interface IAction {
   type: string;
@@ -105,14 +87,8 @@ export interface AppState {
 }
 
 const initialState: Partial<AppState> = {
-  user: {
-  },
-  leaderboard: {
-  },
-  // auth: {
-  //   // steam_id: null,
-  //   // profile_id: null,
-  // }
+  user: {},
+  leaderboard: {},
 };
 
 function notesReducer(state = initialState, action: IAction) {
