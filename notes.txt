@@ -1,4 +1,7 @@
 
+- OTA Update Size
+  https://stackoverflow.com/questions/57597051/find-the-size-of-expo-react-native-ota-update
+
 cat ~/.zsh_history | grep mogrify
 mogrify -format jpg *.png
 mogrify -crop 1242x2208+0+0 -path ./cropped *.jpg
