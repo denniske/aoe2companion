@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         // backgroundColor: 'yellow',
     },
     icon: {
-        color: '#888',
+        color: '#777',
     },
     iconActive: {
         color: '#000',
