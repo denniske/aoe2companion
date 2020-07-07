@@ -26,7 +26,7 @@ import LeaderboardPage from "./src/view/leaderboard.page";
 import GuidePage from "./src/view/guide.page";
 import CivPage, {CivTitle, civTitle} from "./src/view/civ.page";
 import {Civ} from "./src/helper/civs";
-import UnitPage, {UnitTitle, unitTitle} from "./src/view/unit.page";
+import UnitPage, {UnitTitle, unitTitle} from "./src/view/unit/unit.page";
 import {Unit} from "./src/helper/units";
 import {navigationRef} from "./src/service/navigation";
 import Footer from "./src/view/components/footer";

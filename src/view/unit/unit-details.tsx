@@ -1,35 +1,15 @@
 import React from 'react';
-import {Image, Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
-import {RootStackParamList, RootStackProp} from "../../App";
+import {Image, Linking, StyleSheet, Text, View} from 'react-native';
+import {useNavigation} from "@react-navigation/native";
+import {RootStackProp} from "../../../App";
 import {
-    getEliteUniqueResearchIcon, getUnitDescription, getUnitIcon, getUnitLineIcon, getUnitLineName, getUnitName,
-    IUnitLine, Unit, UnitLine, unitLines
-} from "../helper/units";
-import {getTechIcon, getTechName, Tech, techEffectDict} from "../helper/techs";
-import {aoeCivKey} from "../data/data";
-import {sortBy} from "lodash-es";
-import {Civ} from "../helper/civs";
-import IconHeader from "./components/navigation-header/icon-header";
-import TextHeader from "./components/navigation-header/text-header";
+    getEliteUniqueResearchIcon, getUnitDescription, getUnitIcon, getUnitLineName, getUnitName, UnitLine, unitLines
+} from "../../helper/units";
+import {getTechIcon, getTechName, Tech, techEffectDict} from "../../helper/techs";
+import {Civ} from "../../helper/civs";
 
 
-export function UnitTitle(props: any) {
-    if (props.route?.params?.unit) {
-        return <IconHeader
-            icon={getUnitLineIcon(props.route?.params?.unit)}
-            text={getUnitLineName(props.route.params?.unit)}
-            onLayout={props.titleProps.onLayout}
-        />;
-    }
-    return <TextHeader text={'Units'} onLayout={props.titleProps.onLayout}/>;
-}
-
-export function unitTitle(props: any) {
-    return props.route?.params?.unit ? getUnitLineName(props.route.params?.unit) : 'Units';
-}
-
-export function UnitDetails({unit}: {unit: UnitLine}) {
+export default function UnitDetails({unit}: {unit: UnitLine}) {
     const navigation = useNavigation<RootStackProp>();
     const unitLine = unitLines[unit];
     const unitLineUpgrades = unitLine.upgrades.map(u => techEffectDict[u]);
@@ -186,88 +166,8 @@ export function UnitDetails({unit}: {unit: UnitLine}) {
     );
 }
 
-export function UnitComp({unit}: any) {
-    const navigation = useNavigation<RootStackProp>();
-    return (
-        <TouchableOpacity onPress={() => navigation.push('Unit', {unit: unit})}>
-            <View style={styles.row}>
-                <Image style={styles.unitIcon} source={getUnitLineIcon(unit)}/>
-                <Text> {getUnitLineName(unit)}</Text>
-            </View>
-        </TouchableOpacity>
-    );
-}
-
-function getUnitLineTitle(unitLine: IUnitLine) {
-    // if (unitLine.unique) {
-    //     return getUnitName(unitLine.units[0]);// + ' + Elite';
-    // }
-    return unitLine.units.filter((x, i) => i > 0).map(getUnitName).join(', ');
-}
-
-export function UnitCompBig({unit}: any) {
-    const navigation = useNavigation<RootStackProp>();
-    return (
-        <TouchableOpacity onPress={() => navigation.push('Unit', {unit: unit})}>
-            <View style={styles.rowBig}>
-                <Image style={styles.unitIconBig} source={getUnitLineIcon(unit)}/>
-                <View style={styles.unitIconTitle}>
-                    <Text> {getUnitLineName(unit)}</Text>
-                    {
-                        unitLines[unit].units.length > 1 && !unitLines[unit].unique &&
-                        <Text numberOfLines={1} style={styles.small}> {getUnitLineTitle(unitLines[unit])}</Text>
-                    }
-                </View>
-                {/*<Text> {getUnitLineName(unit)}</Text>*/}
-            </View>
-        </TouchableOpacity>
-    );
-}
-
-export function UnitList() {
-    return (
-        <View style={styles.civContainer}>
-            {
-                sortBy(Object.keys(unitLines)).map(ul =>
-                    <UnitCompBig key={ul} unit={ul}/>
-                )
-            }
-        </View>
-    );
-}
-
-export default function UnitPage() {
-    const route = useRoute<RouteProp<RootStackParamList, 'Unit'>>();
-    const unit = route.params?.unit as aoeCivKey;
-
-    if (unit) {
-        return <ScrollView contentContainerStyle={styles.container}><UnitDetails unit={unit} /></ScrollView>;
-    }
-
-    return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <UnitList/>
-        </ScrollView>
-    );
-}
-
 const styles = StyleSheet.create({
     description: {
-        lineHeight: 20,
-    },
-    title: {
-        marginTop: 20,
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    heading: {
-        // marginTop: 20,
-        fontWeight: 'bold',
-        marginBottom: 5,
-    },
-    content: {
-        marginBottom: 5,
-        textAlign: 'left',
         lineHeight: 20,
     },
     detailsContainer: {
@@ -275,42 +175,6 @@ const styles = StyleSheet.create({
         minHeight: '100%',
         backgroundColor: 'white',
         padding: 20,
-    },
-    icon: {
-      width: 30,
-      height: 30,
-    },
-    name: {
-        textAlign: 'center',
-        marginLeft: 15,
-    },
-    civBlock: {
-        flexDirection: 'row',
-        // justifyContent: 'center',
-        alignItems: 'center',
-        // flex: 1,
-        marginHorizontal: 0,
-        marginVertical: 5,
-    },
-    civContainer: {
-        // flex: 1,
-        // backgroundColor: 'yellow',
-        // flexDirection: 'row',
-        // flexWrap: 'wrap',
-        padding: 20,
-    },
-    container: {
-        // flex: 1,
-        backgroundColor: 'white',
-        // alignItems: 'center',
-    },
-    rowBig: {
-        marginLeft: 5,
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 10,
-        // width: 100,
-        // backgroundColor: 'blue',
     },
     row: {
         marginLeft: 5,
@@ -326,22 +190,8 @@ const styles = StyleSheet.create({
     unitDesc: {
         lineHeight: 20,
     },
-    unitIconBig: {
-        width: 30,
-        height: 30,
-        // borderWidth: 1,
-        // borderColor: '#555',
-    },
-    unitIconTitle: {
-        flex: 1,
-        paddingLeft: 5,
-        // backgroundColor: 'red',
-    },
     link: {
         color: '#397AF9',
-    },
-    small: {
-        fontSize: 12,
     },
     expanded: {
         flex: 1,
