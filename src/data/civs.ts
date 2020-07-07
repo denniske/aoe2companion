@@ -16,7 +16,6 @@
 //     unique(uniqueConfig || [], selectedCiv.monkPrefix);
 // }
 
-
 const UNIQUE_UNIT = "UNIQUE UNIT";
 const ELITE_UNIQUE_UNIT = "ELITE UNIQUE UNIT";
 const UNIQUE_TECH_1 = "UNIQUE TECH 1";
@@ -345,6 +344,17 @@ const CUMAN_MERCENARIES = 690;
 const HILL_FORTS = 691;
 const TOWER_SHIELDS = 692;
 const SUPPLIES = 716;
+
+export const horseDisabledBuildings = [STABLE];
+export const horseDisabledUnits = [SCOUT_CAVALRY, LIGHT_CAVALRY, HUSSAR, KNIGHT, PALADIN, CAMEL_RIDER,
+   HEAVY_CAMEL_RIDER, CAVALIER, CAVALRY_ARCHER, HEAVY_CAV_ARCHER];
+export const horseDisabledTechs = [BLOODLINES, HUSBANDRY, SCALE_BARDING_ARMOR, CHAIN_BARDING_ARMOR,
+   PLATE_BARDING_ARMOR, PARTHIAN_TACTICS];
+
+export const defaultDisabledUnits = [EAGLE_SCOUT, EAGLE_WARRIOR, ELITE_EAGLE_WARRIOR, BATTLE_ELEPHANT,
+   ELITE_BATTLE_ELEPHANT, STEPPE_LANCER, ELITE_STEPPE_LANCER, FLAMING_CAMEL, XOLOTL_WARRIOR];
+
+export const defaultDisabledBuildings = [KREPOST, FEITORIA];
 
 export const civsConfig = {
    Aztecs: {

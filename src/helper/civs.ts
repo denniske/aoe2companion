@@ -1,4 +1,4 @@
-import {civsConfig} from "../data/civs";
+import {civsConfig, horseDisabledTechs, horseDisabledUnits} from "../data/civs";
 import {Tech, techs} from "./techs";
 import {sanitizeGameDescription, strRemoveTo, unwrap} from "./util";
 import {Unit, units} from "./units";
@@ -141,7 +141,7 @@ export function getCivHasTech(civ: Civ, tech: Tech) {
     const entry = techs[tech];
     const civConfig = civsConfig[civ];
 
-    if ((civConfig as any).disableHorses && ['Bloodlines', 'Husbandry'].includes(tech)) {
+    if ((civConfig as any).disableHorses && horseDisabledTechs.includes(parseInt(entry.dataId))) {
         return false;
     }
 
@@ -154,6 +154,10 @@ export function getCivHasUnit(civ: Civ, unit: Unit) {
 
     if (['ImperialSkirmisher', 'ImperialCamelRider'].includes(unit)) {
         return (civConfig as any).enabled?.units?.includes(parseInt(entry.dataId));
+    }
+
+    if ((civConfig as any).disableHorses && horseDisabledUnits.includes(parseInt(entry.dataId))) {
+        return false;
     }
 
     return !civsConfig[civ].disabled.units.includes(parseInt(entry.dataId));
