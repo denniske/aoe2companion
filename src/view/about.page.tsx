@@ -7,6 +7,7 @@ import {useLinkTo} from '@react-navigation/native';
 import {checkForUpdateAsync, fetchUpdateAsync, reloadAsync} from "expo-updates";
 import {Button} from "react-native-paper";
 import {Manifest} from "expo-updates/build/Updates.types";
+import {appStyles} from "./styles";
 
 export default function AboutPage() {
     const linkTo = useLinkTo();
@@ -91,32 +92,32 @@ export default function AboutPage() {
             <View style={styles.row}>
                 <Text style={styles.content}>Stats from </Text>
                 <TouchableOpacity onPress={() => Linking.openURL('https://aoe2.net')}>
-                    <Text style={styles.link}>aoe2.net</Text>
+                    <Text style={appStyles.link}>aoe2.net</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.row}>
                 <Text style={styles.content}>Game data from </Text>
                 <TouchableOpacity onPress={() => Linking.openURL('https://github.com/SiegeEngineers/aoe2techtree')}>
-                    <Text style={styles.link}>aoe2techtree</Text>
+                    <Text style={appStyles.link}>aoe2techtree</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.row}>
                 <Text style={styles.content}>Game data from </Text>
                 <TouchableOpacity onPress={() => Linking.openURL('https://ageofempires.fandom.com/wiki/Age_of_Empires_II:Portal')}>
-                    <Text style={styles.link}>Age of Empires II Wiki</Text>
+                    <Text style={appStyles.link}>Age of Empires II Wiki</Text>
                 </TouchableOpacity>
                 <Text style={styles.content}> at </Text>
                 <TouchableOpacity onPress={() => Linking.openURL('https://www.fandom.com/')}>
-                    <Text style={styles.link}>Fandom</Text>
+                    <Text style={appStyles.link}>Fandom</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.row}>
                 <Text style={styles.content}>Flag Icons from </Text>
                 <TouchableOpacity onPress={() => Linking.openURL('https://github.com/madebybowtie/FlagKit')}>
-                    <Text style={styles.link}>FlagKit</Text>
+                    <Text style={appStyles.link}>FlagKit</Text>
                 </TouchableOpacity>
             </View>
 
@@ -124,7 +125,7 @@ export default function AboutPage() {
             <Text/>
             <View style={styles.row}>
                 <TouchableOpacity onPress={() => linkTo('/privacy')}>
-                    <Text style={styles.link}>Privacy Policy</Text>
+                    <Text style={appStyles.link}>Privacy Policy</Text>
                 </TouchableOpacity>
             </View>
 
@@ -135,7 +136,7 @@ export default function AboutPage() {
 
             <Text style={styles.textJustify}>
                 This app was created under Microsoft's "
-                <Text style={styles.link} onPress={() => {Linking.openURL('https://www.xbox.com/en-us/developers/rules')}}>
+                <Text style={appStyles.link} onPress={() => {Linking.openURL('https://www.xbox.com/en-us/developers/rules')}}>
                 Game Content Usage Rules
                 </Text>
                 " using assets from Age of Empires II.
@@ -179,9 +180,6 @@ const styles = StyleSheet.create({
     },
     button: {
         marginLeft: 10,
-    },
-    link: {
-        color: '#397AF9',
     },
     container: {
         // flex: 1,

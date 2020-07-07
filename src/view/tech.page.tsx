@@ -142,9 +142,6 @@ const styles = StyleSheet.create({
         paddingLeft: 5,
         // backgroundColor: 'red',
     },
-    link: {
-        color: '#397AF9',
-    },
     small: {
         fontSize: 12,
     }

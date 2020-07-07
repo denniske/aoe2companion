@@ -10,6 +10,7 @@ import {escapeRegExpFn} from "../helper/util";
 import IconHeader from "./components/navigation-header/icon-header";
 import TextHeader from "./components/navigation-header/text-header";
 import {TechTree} from "./components/tech-tree";
+import {appStyles} from "./styles";
 
 
 export function CivTitle(props: any) {
@@ -58,11 +59,11 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
             // console.log('part', parts[i]);
             const matchingTech = reverseTechMap[parts[i]]?.name;
             if (matchingTech) {
-                texts.push(<Text key={i} style={styles.link} onPress={() => navigation.push('Tech', {tech: matchingTech})}>{parts[i]}</Text>);
+                texts.push(<Text key={i} style={appStyles.link} onPress={() => navigation.push('Tech', {tech: matchingTech})}>{parts[i]}</Text>);
             }
             const matchingUnit = reverseUnitMap[parts[i]]?.name;
             if (matchingUnit) {
-                texts.push(<Text key={i} style={styles.link} onPress={() => navigation.push('Unit', {unit: matchingUnit})}>{parts[i]}</Text>);
+                texts.push(<Text key={i} style={appStyles.link} onPress={() => navigation.push('Unit', {unit: matchingUnit})}>{parts[i]}</Text>);
             }
         }
     }
@@ -137,9 +138,6 @@ const styles = StyleSheet.create({
         flex: 1,
         resizeMode: "contain",
         // backgroundColor: 'blue',
-    },
-    link: {
-        color: '#397AF9',
     },
     title: {
         marginTop: 20,

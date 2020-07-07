@@ -34,6 +34,7 @@ import {Tech} from "./src/helper/techs";
 import TechPage, {techTitle, TechTitle} from "./src/view/tech.page";
 import FeedPage from "./src/view/feed.page";
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import {appStyles} from "./src/view/styles";
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -110,7 +111,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 function LinkTitle(props: any) {
     return (
         <TouchableOpacity onPress={() => Linking.openURL('https://buildorderguide.com')}>
-            <Text style={styles.link}>buildorderguide.com</Text>
+            <Text style={appStyles.link}>buildorderguide.com</Text>
         </TouchableOpacity>
     );
 }
@@ -354,9 +355,6 @@ const styles = StyleSheet.create({
         // backgroundColor: '#397AF9',
         paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
         flex: 1,
-    },
-    link: {
-        color: '#397AF9',
     },
     menu: {
         flexDirection: 'row',

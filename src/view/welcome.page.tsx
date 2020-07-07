@@ -78,9 +78,6 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
     },
-    link: {
-        color: '#397AF9',
-    },
     container: {
         flex: 1,
         backgroundColor: 'white',
