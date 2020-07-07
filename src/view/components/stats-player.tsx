@@ -61,13 +61,8 @@ export default function StatsPlayer({matches, user}: IProps) {
     const maxRowCount = 8;
 
     if (matches) {
-        // const start = new Date();
-        // console.log("start", new Date().getTime() - start.getTime());
-
         let otherPlayers = matches.flatMap(m => m.players).filter(p => !sameUser(p, user));
         let otherPlayersUniq = uniqBy(otherPlayers, p => composeUserId(p));
-
-        // console.log("start1", new Date().getTime() - start.getTime());
 
         rowsAlly = otherPlayersUniq.map(otherPlayer => {
             const gamesWithAlly = matches.filter(m => {
@@ -87,8 +82,6 @@ export default function StatsPlayer({matches, user}: IProps) {
         rowsAlly = orderBy(rowsAlly, r => r.games, 'desc');
         rowsAlly = rowsAlly.filter((r, i) => i < maxRowCount);
 
-        // console.log("start2", new Date().getTime() - start.getTime());
-
         rowsOpponent = otherPlayersUniq.map(otherPlayer => {
             const gamesWithOpponent = matches.filter(m => {
                 const userTeam = m.players.find(p => sameUser(p, user))?.team;
@@ -106,8 +99,6 @@ export default function StatsPlayer({matches, user}: IProps) {
         rowsOpponent = rowsOpponent.filter(r => r.games > 0);
         rowsOpponent = orderBy(rowsOpponent, r => r.games, 'desc');
         rowsOpponent = rowsOpponent.filter((r, i) => i < maxRowCount);
-
-        // console.log("start3", new Date().getTime() - start.getTime());
     }
 
     return (
