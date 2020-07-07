@@ -129,7 +129,7 @@ export function UnitDetails({unit}: {unit: UnitLine}) {
                             group.upgrades.map(upgrade =>
                                 <View style={styles.row} key={upgrade.name}>
                                     <Image style={styles.unitIcon} source={getTechIcon(upgrade.tech)}/>
-                                    <Text>
+                                    <Text style={styles.unitDesc}>
 
                                         {/*{getTechName(upgrade.tech)}*/}
                                         <Text style={styles.link} onPress={() => navigation.push('Tech', {tech: upgrade.tech!})}>{getTechName(upgrade.tech)}</Text>
@@ -315,15 +315,16 @@ const styles = StyleSheet.create({
     row: {
         marginLeft: 5,
         flexDirection: 'row',
-        alignItems: 'center',
         marginBottom: 5,
-        // width: 100,
         // backgroundColor: 'blue',
     },
     unitIcon: {
         width: 20,
         height: 20,
         marginRight: 5,
+    },
+    unitDesc: {
+        lineHeight: 20,
     },
     unitIconBig: {
         width: 30,
@@ -332,9 +333,7 @@ const styles = StyleSheet.create({
         // borderColor: '#555',
     },
     unitIconTitle: {
-        // width: '100%',
         flex: 1,
-        // marginLeft: 5,
         paddingLeft: 5,
         // backgroundColor: 'red',
     },
