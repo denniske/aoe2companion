@@ -40,7 +40,7 @@ function Row({data}: IRowProps) {
                     {data.games}
                 </Text>
                 <Text style={styles.cellWon}>
-                    {data.won.toFixed(0)} %
+                    {isNaN(data.won) ? '-' : data.won.toFixed(0) + ' %'}
                 </Text>
             </View>
     )
@@ -51,54 +51,115 @@ interface IProps {
     user: UserIdBase;
 }
 
+function validMatch(m: IMatch) {
+    return m.players.filter(p => p.won !== null).length === m.num_players;
+}
+
 export default function StatsPlayer({matches, user}: IProps) {
-    let rows: IRow[] | null = null;
+    let rowsAlly: IRow[] | null = null;
+    let rowsOpponent: IRow[] | null = null;
+    const maxRowCount = 8;
 
     if (matches) {
-        let otherPlayers = matches.flatMap(m => m.players).filter(p => p.steam_id !== user.steam_id && p.profile_id !== user.profile_id);
+        // const start = new Date();
+        // console.log("start", new Date().getTime() - start.getTime());
+
+        let otherPlayers = matches.flatMap(m => m.players).filter(p => !sameUser(p, user));
         let otherPlayersUniq = uniqBy(otherPlayers, p => composeUserId(p));
 
-        rows = otherPlayersUniq.map(otherPlayer => {
-            const gamesWithPlayer = matches.filter(m => m.players.filter(p => sameUser(p, otherPlayer)).length > 0);
-            const gamesWithPlayerWon = gamesWithPlayer.filter(m => m.players.filter(p =>
-                p.won &&
-                sameUser(p, user)
-            ).length > 0);
+        // console.log("start1", new Date().getTime() - start.getTime());
+
+        rowsAlly = otherPlayersUniq.map(otherPlayer => {
+            const gamesWithAlly = matches.filter(m => {
+                const userTeam = m.players.find(p => sameUser(p, user))?.team;
+                const otherPlayerTeam = m.players.find(p => sameUser(p, otherPlayer))?.team;
+                return userTeam != null && otherPlayerTeam != null && userTeam === otherPlayerTeam;
+            });
+            const validGamesWithAlly = gamesWithAlly.filter(validMatch);
+            const validGamesWithPlayerWon = validGamesWithAlly.filter(m => m.players.filter(p => p.won && sameUser(p, user)).length > 0);
             return ({
                 player: otherPlayer,
-                games: gamesWithPlayer.length,
-                won: gamesWithPlayerWon.length / gamesWithPlayer.length * 100,
+                games: gamesWithAlly.length,
+                won: validGamesWithPlayerWon.length / validGamesWithAlly.length * 100,
             });
         });
-        rows = rows.filter(r => r.games > 0);
-        rows = orderBy(rows, r => r.games, 'desc');
-        // rows = orderBy(rows, [r => r.won], ['desc']);
-        rows = rows.filter((r, i) => i < 10);
+        rowsAlly = rowsAlly.filter(r => r.games > 0);
+        rowsAlly = orderBy(rowsAlly, r => r.games, 'desc');
+        rowsAlly = rowsAlly.filter((r, i) => i < maxRowCount);
+
+        // console.log("start2", new Date().getTime() - start.getTime());
+
+        rowsOpponent = otherPlayersUniq.map(otherPlayer => {
+            const gamesWithOpponent = matches.filter(m => {
+                const userTeam = m.players.find(p => sameUser(p, user))?.team;
+                const otherPlayerTeam = m.players.find(p => sameUser(p, otherPlayer))?.team;
+                return userTeam != null && otherPlayerTeam != null && userTeam !== otherPlayerTeam;
+            });
+            const validGamesWithOpponent = gamesWithOpponent.filter(validMatch);
+            const validGamesWithPlayerWon = validGamesWithOpponent.filter(m => m.players.filter(p => p.won && sameUser(p, user)).length > 0);
+            return ({
+                player: otherPlayer,
+                games: gamesWithOpponent.length,
+                won: validGamesWithPlayerWon.length / validGamesWithOpponent.length * 100,
+            });
+        });
+        rowsOpponent = rowsOpponent.filter(r => r.games > 0);
+        rowsOpponent = orderBy(rowsOpponent, r => r.games, 'desc');
+        rowsOpponent = rowsOpponent.filter((r, i) => i < maxRowCount);
+
+        // console.log("start3", new Date().getTime() - start.getTime());
     }
 
     return (
             <View style={styles.container}>
                 <View>
-
                     {
                         matches &&
-                            <Text style={styles.info}>(based on the last {matches.length} matches)</Text>
+                        <Text style={styles.info}>(of the last {matches.length} matches)</Text>
                     }
 
                     <View style={styles.row}>
-                        <Text numberOfLines={1} style={styles.cellLeaderboard}>Player</Text>
+                        <Text numberOfLines={1} style={styles.cellLeaderboard}>Ally</Text>
                         <Text numberOfLines={1} style={styles.cellGames}>Games</Text>
-                        <Text numberOfLines={1} style={styles.cellWon}>Won</Text>
+                        <Text numberOfLines={1} style={styles.cellWon}>Won*</Text>
                     </View>
 
                     {
-                        rows && rows.map(leaderboard =>
+                        rowsAlly && rowsAlly.map(leaderboard =>
                                 <Row key={composeUserId(leaderboard.player)} data={leaderboard}/>
                         )
                     }
 
                     {
-                        !rows && Array(8).fill(0).map((a, i) =>
+                        !rowsAlly && Array(8).fill(0).map((a, i) =>
+                            <View key={i} style={styles.row}>
+                                <TextLoader style={styles.cellLeaderboard}/>
+                                <TextLoader style={styles.cellGames}/>
+                                <TextLoader style={styles.cellWon}/>
+                            </View>
+                        )
+                    }
+
+                    <Text/>
+                    <View style={styles.row}>
+                        <Text numberOfLines={1} style={styles.cellLeaderboard}>Opponent</Text>
+                        <Text numberOfLines={1} style={styles.cellGames}>Games</Text>
+                        <Text numberOfLines={1} style={styles.cellWon}>Won*</Text>
+                    </View>
+
+                    {
+                        rowsOpponent && rowsOpponent.map(leaderboard =>
+                                <Row key={composeUserId(leaderboard.player)} data={leaderboard}/>
+                        )
+                    }
+                    <Text/>
+                    {
+                        matches &&
+                        <Text style={styles.info}>*based on matches with known result</Text>
+                    }
+
+                    {
+                        !rowsOpponent && Array(8).fill(0).map((a, i) =>
                             <View key={i} style={styles.row}>
                                 <TextLoader style={styles.cellLeaderboard}/>
                                 <TextLoader style={styles.cellGames}/>
@@ -131,10 +192,12 @@ const styles = StyleSheet.create({
     cellGames: {
         padding: padding,
         flex: 1,
+        // textAlign: 'right'
     },
     cellWon: {
         padding: padding,
         flex: 1,
+        // textAlign: 'right'
     },
     row: {
         flexDirection: 'row',
