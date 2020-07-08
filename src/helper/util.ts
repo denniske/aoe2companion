@@ -1,6 +1,9 @@
 import {format, formatDistanceToNowStrict, fromUnixTime} from "date-fns";
 import { enUS, de } from "date-fns/locale";
 
+export function keysOf<T>(arr: T): Array<keyof T> {
+    return Object.keys(arr) as Array<keyof T>;
+}
 
 export function sleep(ms: number) {
     return new Promise((resolve) => {

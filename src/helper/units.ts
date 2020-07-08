@@ -1,18 +1,100 @@
 import {Tech, TechEffect} from "./techs";
 import {ImageSourcePropType} from "react-native";
 import {aoeData, aoeStringKey, aoeUnitDataId} from "../data/data";
-import {strRemoveFrom, strRemoveTo} from "./util";
+import {keysOf, strRemoveFrom, strRemoveTo, unwrap} from "./util";
+import {sortBy, uniq} from "lodash-es";
 
 
 export interface IUnitLine {
     unique?: boolean;
     units: Unit[];
+    counteredBy?: UnitLine[];
     upgrades: TechEffect[];
 }
+
+// type IUnitLineDict = {
+//     [unit in UnitLine]: IUnitLine;
+// };
 
 interface IUnitLineDict {
     [unit: string]: IUnitLine;
 }
+
+const unitLineNames = [
+    'TradeCart',
+    'TradeCog',
+    'FishingShip',
+    'TransportShip',
+    'Villager',
+    'Missionary',
+    'Monk',
+    'DemolitionRaft',
+    'FireGalley',
+    'Galley',
+    'CannonGalleon',
+    'Arambai',
+    'OrganGun',
+    'Caravel',
+    'SiegeTower',
+    'Conquistador',
+    'TurtleShip',
+    'Longboat',
+    'Janissary',
+    'BallistaElephant',
+    'FlamingCamel',
+    'Petard',
+    'Trebuchet',
+    'BombardCannon',
+    'Mangonel',
+    'BatteringRam',
+    'Scorpion',
+    'HandCannoneer',
+    'KarambitWarrior',
+    'Gbeto',
+    'ShotelWarrior',
+    'Condottiero',
+    'JaguarWarrior',
+    'Berserk',
+    'TeutonicKnight',
+    'Samurai',
+    'Huskarl',
+    'ThrowingAxeman',
+    'WoadRaider',
+    'EagleScout',
+    'Spearman',
+    'Militia',
+    'Keshik',
+    'Leitis',
+    'Konnik',
+    'Boyar',
+    'MagyarHuszar',
+    'Tarkan',
+    'Mameluke',
+    'WarElephant',
+    'Cataphract',
+    'SteppeLancer',
+    'BattleElephant',
+    'CamelRider',
+    'Knight',
+    'XolotlWarrior',
+    'ScoutCavalry',
+    'Kipchak',
+    'RattanArcher',
+    'Genitour',
+    'CamelArcher',
+    'GenoeseCrossbowman',
+    'ElephantArcher',
+    'WarWagon',
+    'Mangudai',
+    'ChuKoNu',
+    'Longbowman',
+    'CavalryArcher',
+    'Skirmisher',
+    'Archer',
+    'PlumedArcher',
+    'Slinger',
+    'Kamayuk',
+] as const;
 
 export const unitLines: IUnitLineDict = {
     'TradeCart': {
@@ -109,6 +191,11 @@ export const unitLines: IUnitLineDict = {
     },
     'Monk': {
         units: ['Monk'],
+        counteredBy: [
+            'EagleScout',
+            'ScoutCavalry',
+            'Monk',
+        ],
         upgrades: [
             'Sanctity',
             'Sanctity-5',
@@ -147,6 +234,10 @@ export const unitLines: IUnitLineDict = {
     },
     'FireGalley': {
         units: ['FireGalley', 'FireShip', 'FastFireShip'],
+        counteredBy: [
+            'Galley',
+            'DemolitionRaft',
+        ],
         upgrades: [
             'GreekFire',
             'Careening',
@@ -159,12 +250,35 @@ export const unitLines: IUnitLineDict = {
     },
     'Galley': {
         units: ['Galley', 'WarGalley', 'Galleon'],
+        counteredBy: [
+            'FireGalley',
+        ],
         upgrades: [
             'Fletching',
             'BodkinArrow',
             'Bracer',
             'Chemistry',
             'Ballistics',
+            'Careening',
+            'Carrack',
+            'DryDock',
+            'Faith',
+            'Heresy',
+            'Shipwright',
+        ],
+    },
+    'CannonGalleon': {
+        units: ['CannonGalleon', 'EliteCannonGalleon'],
+        counteredBy: [
+          'BombardCannon',
+          'Monk',
+          'Galley',
+          'FireGalley',
+          'DemolitionRaft',
+        ],
+        upgrades: [
+            'Artillery',
+            'Arquebus',
             'Careening',
             'Carrack',
             'DryDock',
@@ -215,6 +329,13 @@ export const unitLines: IUnitLineDict = {
     },
     'SiegeTower': {
         units: ['SiegeTower'],
+        counteredBy: [
+            'EagleScout',
+            'Knight',
+            'CamelRider',
+            'ScoutCavalry',
+            'SteppeLancer',
+        ],
         upgrades: [
             'FurorCeltica',
             'Ironclad',
@@ -301,6 +422,14 @@ export const unitLines: IUnitLineDict = {
     },
     'Petard': {
         units: ['Petard'],
+        counteredBy: [
+            'EagleScout',
+            'Archer',
+            'CavalryArcher',
+            'ScoutCavalry',
+            'Knight',
+            'Scorpion',
+        ],
         upgrades: [
             'SiegeEngineers-40',
             'Faith',
@@ -310,6 +439,17 @@ export const unitLines: IUnitLineDict = {
     },
     'Trebuchet': {
         units: ['Trebuchet'],
+        counteredBy: [
+            'EagleScout',
+            'Knight',
+            'CamelRider',
+            'ScoutCavalry',
+            'SteppeLancer',
+            'BombardCannon',
+            'Trebuchet',
+            'BatteringRam',
+            'Mangonel',
+        ],
         upgrades: [
             'SiegeEngineers-20-1',
             'Chemistry',
@@ -324,6 +464,14 @@ export const unitLines: IUnitLineDict = {
     },
     'BombardCannon': {
         units: ['BombardCannon'],
+        counteredBy: [
+            'EagleScout',
+            'Knight',
+            'CamelRider',
+            'ScoutCavalry',
+            'SteppeLancer',
+            'BombardCannon',
+        ],
         upgrades: [
             'SiegeEngineers-20-1',
             'TorsionEngines',
@@ -336,6 +484,16 @@ export const unitLines: IUnitLineDict = {
     },
     'Mangonel': {
         units: ['Mangonel', 'Onager', 'SiegeOnager'],
+        counteredBy: [
+            'EagleScout',
+            'Knight',
+            'CamelRider',
+            'ScoutCavalry',
+            'SteppeLancer',
+            'BombardCannon',
+            'Monk',
+            'Mangonel',
+        ],
         upgrades: [
             'FurorCeltica',
             'SiegeEngineers-20-1',
@@ -350,6 +508,15 @@ export const unitLines: IUnitLineDict = {
     },
     'BatteringRam': {
         units: ['BatteringRam', 'CappedRam', 'SiegeRam'],
+        counteredBy: [
+            'Militia',
+            'EagleScout',
+            'Knight',
+            'CamelRider',
+            'ScoutCavalry',
+            'BombardCannon',
+            'Mangonel',
+        ],
         upgrades: [
             'FurorCeltica',
             'SiegeEngineers-20',
@@ -361,6 +528,14 @@ export const unitLines: IUnitLineDict = {
     },
     'Scorpion': {
         units: ['Scorpion', 'HeavyScorpion'],
+        counteredBy: [
+            'EagleScout',
+            'Knight',
+            'CamelRider',
+            'ScoutCavalry',
+            'BombardCannon',
+            'Mangonel',
+        ],
         upgrades: [
             'FurorCeltica',
             'SiegeEngineers-20-1',
@@ -376,6 +551,12 @@ export const unitLines: IUnitLineDict = {
     },
     'HandCannoneer': {
         units: ['HandCannoneer'],
+        counteredBy: [
+            'Skirmisher',
+            'CavalryArcher',
+            'Scorpion',
+            'Mangonel',
+        ],
         upgrades: [
             'Shatagni',
             'Arquebus',
@@ -592,6 +773,10 @@ export const unitLines: IUnitLineDict = {
     },
     'EagleScout': {
         units: ['EagleScout', 'EagleWarrior', 'EliteEagleWarrior'],
+        counteredBy: [
+            'Militia',
+            'HandCannoneer',
+        ],
         upgrades: [
             'ElDorado',
             'Forging',
@@ -612,6 +797,13 @@ export const unitLines: IUnitLineDict = {
     },
     'Spearman': {
         units: ['Spearman', 'Pikeman', 'Halberdier'],
+        counteredBy: [
+            'Militia',
+            'Archer',
+            'Skirmisher',
+            'HandCannoneer',
+            'Scorpion',
+        ],
         upgrades: [
             'Forging',
             'IronCasting',
@@ -634,6 +826,12 @@ export const unitLines: IUnitLineDict = {
     },
     'Militia': {
         units: ['Militia', 'ManAtArms', 'LongSwordsman', 'TwoHandedSwordsman', 'Champion'],
+        counteredBy: [
+            'Archer',
+            'CavalryArcher',
+            'HandCannoneer',
+            'Scorpion',
+        ],
         upgrades: [
             'Forging',
             'IronCasting',
@@ -814,6 +1012,12 @@ export const unitLines: IUnitLineDict = {
     },
     'SteppeLancer': {
         units: ['SteppeLancer', 'EliteSteppeLancer'],
+        counteredBy: [
+            'Spearman',
+            'Militia',
+            'CamelRider',
+            'Knight',
+        ],
         upgrades: [
             'Bloodlines',
             'Forging',
@@ -832,6 +1036,12 @@ export const unitLines: IUnitLineDict = {
     },
     'BattleElephant': {
         units: ['BattleElephant', 'EliteBattleElephant'],
+        counteredBy: [
+            'Spearman',
+            // 'CavalryArcher', // Maybe
+            'Scorpion',
+            'Monk',
+        ],
         upgrades: [
             'Bloodlines',
             'Chatras',
@@ -852,6 +1062,10 @@ export const unitLines: IUnitLineDict = {
     },
     'CamelRider': {
         units: ['CamelRider', 'HeavyCamelRider', 'ImperialCamelRider'],
+        counteredBy: [
+            'Militia',
+            'Spearman',
+        ],
         upgrades: [
             'Bloodlines',
             'Zealotry',
@@ -871,6 +1085,11 @@ export const unitLines: IUnitLineDict = {
     },
     'Knight': {
         units: ['Knight', 'Cavalier', 'Paladin'],
+        counteredBy: [
+            'Spearman',
+            'CamelRider',
+            'Monk',
+        ],
         upgrades: [
             'Bloodlines',
             'Forging',
@@ -901,6 +1120,13 @@ export const unitLines: IUnitLineDict = {
     },
     'ScoutCavalry': {
         units: ['ScoutCavalry', 'LightCavalry', 'Hussar'],
+        counteredBy: [
+            'Militia',
+            'Spearman',
+            'EagleScout',
+            'CamelRider',
+            'SteppeLancer',
+        ],
         upgrades: [
             'Bloodlines',
             'Forging',
@@ -1121,6 +1347,15 @@ export const unitLines: IUnitLineDict = {
     },
     'CavalryArcher': {
         units: ['CavalryArcher', 'HeavyCavalryArcher'],
+        counteredBy: [
+            'EagleScout',
+            'Spearman', // Maybe
+            'Skirmisher',
+            'Knight',
+            'CamelRider',
+            'Mangonel',
+            'BatteringRam',
+        ],
         upgrades: [
             'Bloodlines',
             'Sipahi',
@@ -1145,6 +1380,18 @@ export const unitLines: IUnitLineDict = {
     },
     'Skirmisher': {
         units: ['Skirmisher', 'EliteSkirmisher', 'ImperialSkirmisher'],
+        counteredBy: [
+            'Militia',
+            'EagleScout',
+            'ScoutCavalry',
+            'Knight',
+            'BattleElephant',
+            'CamelRider',
+            'SteppeLancer',
+            'Mangonel',
+            'Scorpion',
+            'BatteringRam', // Maybe
+        ],
         upgrades: [
             'Fletching',
             'BodkinArrow',
@@ -1167,6 +1414,16 @@ export const unitLines: IUnitLineDict = {
     },
     'Archer': {
         units: ['Archer', 'Crossbowman', 'Arbalester'],
+        counteredBy: [
+          'EagleScout',
+          'Skirmisher',
+          'ScoutCavalry',
+          'Knight',
+          'BombardCannon',
+          'Scorpion',
+          'Mangonel',
+          'BatteringRam',
+        ],
         upgrades: [
             'Fletching',
             'BodkinArrow',
@@ -1682,6 +1939,9 @@ const unitsInternal = {
     },
 };
 
+const UnitLineUnion = unwrap(unitLineNames);
+export type UnitLine = typeof UnitLineUnion;
+
 export const units = unitsInternal as UnitDict;
 
 interface IUnit {
@@ -1807,7 +2067,6 @@ const unitIcons: UnitIconDict = {
 
 
 export type Unit = keyof typeof unitsInternal;
-export type UnitLine = keyof typeof unitLines;
 
 export function getUnitLineIcon(unitLine: UnitLine) {
     const unit = unitLines[unitLine].units[0] as Unit;
@@ -1856,7 +2115,7 @@ export function getUnitDescription(unit: Unit) {
     return description;
 }
 
-const unitList = Object.keys(unitLines).map(ul => ({
+const unitList = keysOf(unitLines).map(ul => ({
     name: ul,
     ...unitLines[ul],
 }))
@@ -1867,4 +2126,112 @@ export function getUnitLineForUnit(unit: Unit) {
 
 export function getUnitLineNameForUnit(unit: Unit) {
     return unitList.find(ul => ul.units.includes(unit))?.name;
+}
+
+export function getInferiorUnitLines(unitLineName: UnitLine) {
+    const inferiorUnitLines: UnitLine[] = [];
+    for (const otherUnitLineName of unitLineNames) {
+        const otherUnitLine = unitLines[otherUnitLineName];
+        if ((otherUnitLine.counteredBy || []).includes(unitLineName)) {
+            inferiorUnitLines.push(otherUnitLineName);
+        }
+    }
+    return inferiorUnitLines;
+}
+
+// const inferiorUnitLines: UnitLine[] = [];
+// for (const otherUnitLineName of unitLineNames) {
+//     if (!unitLines[otherUnitLineName].unique) {
+//         inferiorUnitLines.push(otherUnitLineName);
+//     }
+// }
+// console.log('inf', sortBy(inferiorUnitLines));
+
+// For sorting in counter unit list
+export const unitLineOrder = [
+    'TradeCart',
+    'Villager',
+
+    'Militia',
+    'Spearman',
+    'EagleScout',
+
+    'Archer',
+    'Skirmisher',
+    'CavalryArcher',
+    'Slinger',
+    'HandCannoneer',
+
+    'ScoutCavalry',
+    'Knight',
+    'CamelRider',
+    'SteppeLancer',
+    'BattleElephant',
+
+    'Missionary',
+    'Monk',
+
+    'FishingShip',
+    'TradeCog',
+    'TransportShip',
+    'Galley',
+    'FireGalley',
+    'DemolitionRaft',
+    'CannonGalleon',
+
+    'BatteringRam',
+    'Mangonel',
+    'Scorpion',
+    'BombardCannon',
+    'Trebuchet',
+    'Petard',
+    'FlamingCamel',
+    'SiegeTower',
+
+    'XolotlWarrior',
+
+    'Arambai',
+    'BallistaElephant',
+    'Berserk',
+    'Boyar',
+    'CamelArcher',
+    'Caravel',
+    'Cataphract',
+    'ChuKoNu',
+    'Condottiero',
+    'Conquistador',
+    'ElephantArcher',
+    'Gbeto',
+    'Genitour',
+    'GenoeseCrossbowman',
+    'Huskarl',
+    'JaguarWarrior',
+    'Janissary',
+    'Kamayuk',
+    'KarambitWarrior',
+    'Keshik',
+    'Kipchak',
+    'Konnik',
+    'Leitis',
+    'Longboat',
+    'Longbowman',
+    'MagyarHuszar',
+    'Mameluke',
+    'Mangudai',
+    'OrganGun',
+    'PlumedArcher',
+    'RattanArcher',
+    'Samurai',
+    'ShotelWarrior',
+    'Tarkan',
+    'TeutonicKnight',
+    'ThrowingAxeman',
+    'TurtleShip',
+    'WarElephant',
+    'WarWagon',
+    'WoadRaider',
+];
+
+export function sortUnitCounter(unitLines: UnitLine[]) {
+    return sortBy(unitLines, ul => unitLineOrder.indexOf(ul));
 }

@@ -1,9 +1,11 @@
 import React from 'react';
-import {Image, Linking, StyleSheet, Text, View} from 'react-native';
+import {Image, Linking, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {
-    getEliteUniqueResearchIcon, getUnitDescription, getUnitIcon, getUnitLineName, getUnitName, UnitLine, unitLines
+    getEliteUniqueResearchIcon, getInferiorUnitLines, getUnitDescription, getUnitIcon, getUnitLineIcon, getUnitLineName,
+    getUnitName, sortUnitCounter, Unit,
+    UnitLine, unitLines
 } from "../../helper/units";
 import {getTechIcon, getTechName, Tech, techEffectDict} from "../../helper/techs";
 import {Civ} from "../../helper/civs";
@@ -11,9 +13,9 @@ import {appStyles, linkColor} from "../styles";
 import Fandom from "../components/fandom";
 
 
-export default function UnitDetails({unit}: {unit: UnitLine}) {
+export default function UnitDetails({unitLineName}: {unitLineName: UnitLine}) {
     const navigation = useNavigation<RootStackProp>();
-    const unitLine = unitLines[unit];
+    const unitLine = unitLines[unitLineName];
     const unitLineUpgrades = unitLine.upgrades.map(u => techEffectDict[u]);
 
     const developments = unitLine.units.filter((u, i) => i > 0);//.map(u => units[u]);
@@ -93,13 +95,54 @@ export default function UnitDetails({unit}: {unit: UnitLine}) {
 
     groups = groups.filter(g => g.upgrades.length > 0);
 
+    const gotoCiv = (civ: Civ) => navigation.push('Civ', {civ: civ});
+    const gotoUnit = (unit: Unit) => navigation.push('Unit', {unit: unit});
+    const gotoTech = (tech: Tech) => navigation.push('Tech', {tech: tech});
+
     return (
         <View style={styles.container}>
-            {/*<View style={styles.row}>*/}
-            {/*    <Image style={styles.unitIcon} source={getUnitLineIcon(unit)}/>*/}
-            {/*    <Text> {getUnitLineName(unit)}</Text>*/}
-            {/*</View>*/}
-            <Text style={styles.description}>{getUnitDescription(unitLines[unit].units[0])}</Text>
+            <Text style={styles.description}>{getUnitDescription(unitLines[unitLineName].units[0])}</Text>
+            <Text/>
+
+            {
+                unitLine.counteredBy && (
+                    <>
+                        <View style={styles.row}>
+                            <Text>Weak vs.</Text>
+                        </View>
+                        {
+                            sortUnitCounter(unitLine.counteredBy).map(counterUnit =>
+                                <TouchableOpacity key={counterUnit} onPress={() => gotoUnit(counterUnit)}>
+                                    <View style={styles.row}>
+                                        <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitLineIcon(counterUnit)}/>
+                                        <Text style={styles.unitDesc}>
+                                            {getUnitLineName(counterUnit)}
+                                        </Text>
+                                    </View>
+                                </TouchableOpacity>
+                            )
+                        }
+
+                        <Text/>
+                        <View style={styles.row}>
+                            <Text>Strong vs.</Text>
+                        </View>
+                        {
+                            sortUnitCounter(getInferiorUnitLines(unitLineName)).map(counterUnit =>
+                                <TouchableOpacity key={counterUnit} onPress={() => gotoUnit(counterUnit)}>
+                                    <View style={styles.row}>
+                                        <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitLineIcon(counterUnit)}/>
+                                        <Text style={styles.unitDesc}>
+                                            {getUnitLineName(counterUnit)}
+                                        </Text>
+                                    </View>
+                                </TouchableOpacity>
+                            )
+                        }
+                    </>
+                )
+            }
+
             <Text/>
             {
                 groups.map(group =>
@@ -114,7 +157,7 @@ export default function UnitDetails({unit}: {unit: UnitLine}) {
                                     <Text style={styles.unitDesc}>
 
                                         {/*{getTechName(upgrade.tech)}*/}
-                                        <Text style={appStyles.link} onPress={() => navigation.push('Tech', {tech: upgrade.tech!})}>{getTechName(upgrade.tech)}</Text>
+                                        <Text style={appStyles.link} onPress={() => gotoTech(upgrade.tech!)}>{getTechName(upgrade.tech)}</Text>
 
                                         {upgrade.effect[group.prop] ? ' (' + upgrade.effect[group.prop] : ''}
 
@@ -122,7 +165,7 @@ export default function UnitDetails({unit}: {unit: UnitLine}) {
                                             upgrade.civ &&
                                             <>
                                                 <Text>, only </Text>
-                                                <Text style={appStyles.link} onPress={() => navigation.push('Civ', {civ: upgrade.civ!})}>{upgrade.civ}</Text>
+                                                <Text style={appStyles.link} onPress={() => gotoCiv(upgrade.civ!)}>{upgrade.civ}</Text>
                                             </>
                                         }
 
@@ -153,7 +196,7 @@ export default function UnitDetails({unit}: {unit: UnitLine}) {
             }
 
             <View style={appStyles.expanded}/>
-            <Fandom articleName={getUnitLineName(unit)}/>
+            <Fandom articleName={getUnitLineName(unitLineName)}/>
         </View>
     );
 }
@@ -169,7 +212,6 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     row: {
-        marginLeft: 5,
         flexDirection: 'row',
         marginBottom: 5,
         // backgroundColor: 'blue',
