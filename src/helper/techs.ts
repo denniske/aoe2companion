@@ -313,7 +313,7 @@ const techEffectDictInternal = {
         tech: 'Shipwright',
         effect: {
             creationSpeed: '+54%',
-            other: 'cost -20%',
+            other: 'wood cost -20%',
         },
     },
     'Careening-5': {
