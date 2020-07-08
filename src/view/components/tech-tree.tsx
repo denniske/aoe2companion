@@ -71,11 +71,25 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                 <Ability2 civ={civ} tech="SiegeEngineers"/>
             </View>
 
-            <Text style={styles.heading}>Infantry & Cavalry</Text>
+            <Text style={styles.heading}>Infantry</Text>
             <View style={styles.row}>
                 <Ability2 civ={civ} unit="LongSwordsman"/>
                 <Ability2 civ={civ} unit="Spearman"/>
-                <Ability0 civ={civ}/>
+                <Ability2 civ={civ} unit="EagleScout"/>
+            </View>
+            <View style={styles.row}>
+                <Ability2 civ={civ} unit="TwoHandedSwordsman"/>
+                <Ability2 civ={civ} unit="Pikeman"/>
+                <Ability2 civ={civ} unit="EagleWarrior"/>
+            </View>
+            <View style={styles.row}>
+                <Ability2 civ={civ} unit="Champion"/>
+                <Ability2 civ={civ} unit="Halberdier"/>
+                <Ability2 civ={civ} unit="EliteEagleWarrior"/>
+            </View>
+
+            <Text style={styles.heading}>Cavalry</Text>
+            <View style={styles.row}>
                 <Ability2 civ={civ} unit="ScoutCavalry"/>
                 <Ability2 civ={civ} unit="Knight"/>
                 <Ability2 civ={civ} unit="CamelRider"/>
@@ -83,9 +97,6 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                 <Ability2 civ={civ} unit="SteppeLancer"/>
             </View>
             <View style={styles.row}>
-                <Ability2 civ={civ} unit="TwoHandedSwordsman"/>
-                <Ability2 civ={civ} unit="Pikeman"/>
-                <Ability0 civ={civ}/>
                 <Ability2 civ={civ} unit="LightCavalry"/>
                 <Ability2 civ={civ} unit="Cavalier"/>
                 <Ability2 civ={civ} unit="HeavyCamelRider"/>
@@ -93,9 +104,6 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                 <Ability2 civ={civ} unit="EliteSteppeLancer"/>
             </View>
             <View style={styles.row}>
-                <Ability2 civ={civ} unit="Champion"/>
-                <Ability2 civ={civ} unit="Halberdier"/>
-                <Ability0 civ={civ}/>
                 <Ability2 civ={civ} unit="Hussar"/>
                 <Ability2 civ={civ} unit="Paladin"/>
                 <Ability2 civ={civ} unit="ImperialCamelRider"/>
