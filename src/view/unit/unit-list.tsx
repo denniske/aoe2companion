@@ -2,14 +2,15 @@ import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
-import {getUnitLineIcon, getUnitLineName, getUnitName, IUnitLine, Unit, unitLines} from "../../helper/units";
+import {
+    getUnitIcon,
+    getUnitLineIcon, getUnitLineName, getUnitLineNameForUnit, getUnitName, IUnitLine, Unit, UnitLine, unitLineNames,
+    unitLines
+} from "../../helper/units";
 import {sortBy} from "lodash-es";
 
 
 function getUnitLineTitle(unitLine: IUnitLine) {
-    // if (unitLine.unique) {
-    //     return getUnitName(unitLine.units[0]);// + ' + Elite';
-    // }
     return unitLine.units.filter((x, i) => i > 0).map(getUnitName).join(', ');
 }
 
@@ -31,17 +32,31 @@ export function UnitComp({unit}: any) {
     );
 }
 
-export function UnitCompBig({unit}: any) {
+export function UnitCompBig({unit}: {unit: Unit}) {
     const navigation = useNavigation<RootStackProp>();
     return (
-        <TouchableOpacity onPress={() => navigation.push('Unit', {unit: unit})}>
+        <TouchableOpacity onPress={() => navigation.push('Unit', {unit: getUnitLineNameForUnit(unit)})}>
             <View style={styles.rowBig}>
-                <Image style={styles.unitIconBig} source={getUnitLineIcon(unit)}/>
+                <Image style={styles.unitIconBig} source={getUnitIcon(unit)}/>
                 <View style={styles.unitIconBigTitle}>
-                    <Text>{getUnitLineName(unit)}</Text>
+                    <Text>{getUnitName(unit)}</Text>
+                </View>
+            </View>
+        </TouchableOpacity>
+    );
+}
+
+export function UnitLineCompBig({unitLine}: {unitLine: UnitLine}) {
+    const navigation = useNavigation<RootStackProp>();
+    return (
+        <TouchableOpacity onPress={() => navigation.push('Unit', {unit: unitLine})}>
+            <View style={styles.rowBig}>
+                <Image style={styles.unitIconBig} source={getUnitLineIcon(unitLine)}/>
+                <View style={styles.unitIconBigTitle}>
+                    <Text>{getUnitLineName(unitLine)}</Text>
                     {
-                        unitLines[unit].units.length > 1 && !unitLines[unit].unique &&
-                        <Text numberOfLines={1} style={styles.small}>{getUnitLineTitle(unitLines[unit])}</Text>
+                        unitLines[unitLine].units.length > 1 && !unitLines[unitLine].unique &&
+                        <Text numberOfLines={1} style={styles.small}>{getUnitLineTitle(unitLines[unitLine])}</Text>
                     }
                 </View>
             </View>
@@ -53,8 +68,8 @@ export default function UnitList() {
     return (
         <View style={styles.container}>
             {
-                sortBy(Object.keys(unitLines)).map(ul =>
-                    <UnitCompBig key={ul} unit={ul}/>
+                sortBy(unitLineNames).map(ul =>
+                    <UnitLineCompBig key={ul} unitLine={ul}/>
                 )
             }
         </View>

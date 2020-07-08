@@ -79,6 +79,8 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                 <Ability2 civ={civ} unit="ScoutCavalry"/>
                 <Ability2 civ={civ} unit="Knight"/>
                 <Ability2 civ={civ} unit="CamelRider"/>
+                <Ability2 civ={civ} unit="BattleElephant"/>
+                <Ability2 civ={civ} unit="SteppeLancer"/>
             </View>
             <View style={styles.row}>
                 <Ability2 civ={civ} unit="TwoHandedSwordsman"/>
@@ -87,6 +89,8 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                 <Ability2 civ={civ} unit="LightCavalry"/>
                 <Ability2 civ={civ} unit="Cavalier"/>
                 <Ability2 civ={civ} unit="HeavyCamelRider"/>
+                <Ability2 civ={civ} unit="EliteBattleElephant"/>
+                <Ability2 civ={civ} unit="EliteSteppeLancer"/>
             </View>
             <View style={styles.row}>
                 <Ability2 civ={civ} unit="Champion"/>
@@ -95,6 +99,8 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                 <Ability2 civ={civ} unit="Hussar"/>
                 <Ability2 civ={civ} unit="Paladin"/>
                 <Ability2 civ={civ} unit="ImperialCamelRider"/>
+                <Ability0 civ={civ}/>
+                <Ability0 civ={civ}/>
             </View>
 
             <Text style={styles.heading}>Archer</Text>

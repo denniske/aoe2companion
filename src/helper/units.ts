@@ -20,7 +20,7 @@ interface IUnitLineDict {
     [unit: string]: IUnitLine;
 }
 
-const unitLineNames = [
+export const unitLineNames = [
     'TradeCart',
     'TradeCog',
     'FishingShip',
@@ -2115,7 +2115,7 @@ export function getUnitDescription(unit: Unit) {
     return description;
 }
 
-const unitList = keysOf(unitLines).map(ul => ({
+const unitList = unitLineNames.map(ul => ({
     name: ul,
     ...unitLines[ul],
 }))
@@ -2125,7 +2125,7 @@ export function getUnitLineForUnit(unit: Unit) {
 }
 
 export function getUnitLineNameForUnit(unit: Unit) {
-    return unitList.find(ul => ul.units.includes(unit))?.name;
+    return unitList.find(ul => ul.units.includes(unit))!.name;
 }
 
 export function getInferiorUnitLines(unitLineName: UnitLine) {

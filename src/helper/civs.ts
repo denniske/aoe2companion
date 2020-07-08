@@ -1,4 +1,4 @@
-import {civsConfig, horseDisabledTechs, horseDisabledUnits} from "../data/civs";
+import {civsConfig, defaultDisabledUnits, horseDisabledTechs, horseDisabledUnits} from "../data/civs";
 import {Tech, techs} from "./techs";
 import {sanitizeGameDescription, unwrap} from "./util";
 import {Unit, units} from "./units";
@@ -345,8 +345,12 @@ export function getCivHasUnit(civ: Civ, unit: Unit) {
     const entry = units[unit];
     const civConfig = civsConfig[civ];
 
-    if (['ImperialSkirmisher', 'ImperialCamelRider'].includes(unit)) {
-        return (civConfig as any).enabled?.units?.includes(parseInt(entry.dataId));
+    if ((civConfig as any).enabled?.units?.includes(parseInt(entry.dataId))) {
+        return true;
+    }
+
+    if (defaultDisabledUnits.includes(parseInt(entry.dataId))) {
+        return false;
     }
 
     if ((civConfig as any).disableHorses && horseDisabledUnits.includes(parseInt(entry.dataId))) {

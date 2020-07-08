@@ -2,7 +2,7 @@ import React from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import {RouteProp, useRoute} from "@react-navigation/native";
 import {RootStackParamList} from "../../../App";
-import {getUnitLineIcon, getUnitLineName} from "../../helper/units";
+import {getUnitLineIcon, getUnitLineName, UnitLine} from "../../helper/units";
 import {aoeCivKey} from "../../data/data";
 import IconHeader from "../components/navigation-header/icon-header";
 import TextHeader from "../components/navigation-header/text-header";
@@ -27,12 +27,12 @@ export function unitTitle(props: any) {
 
 export default function UnitPage() {
     const route = useRoute<RouteProp<RootStackParamList, 'Unit'>>();
-    const unit = route.params?.unit as aoeCivKey;
+    const unit = route.params?.unit as UnitLine;
 
     if (unit) {
         return (
             <ScrollView contentContainerStyle={styles.container}>
-                <UnitDetails unit={unit}/>
+                <UnitDetails unitLineName={unit}/>
             </ScrollView>
         );
     }
