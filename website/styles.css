@@ -1,4 +1,25 @@
 
+.newsletter {
+    margin-top: 30px;
+    width: 415px;
+    max-width: 90vw;
+    padding: 3px !important;
+}
+
+.newsletter p {
+    font-size: 0.9em;
+}
+.newsletter input {
+    padding: 5px;
+    margin-right: 10px;
+    width: 200px;
+}
+.newsletter button {
+    padding: 5px;
+    cursor: pointer;
+}
+
+
 html,
 body {
     padding: 0;
@@ -30,7 +51,13 @@ h1, h3 {
 
 .phone-container {
     width: 400px;
-    max-width: 90vw;
+}
+
+.phone-container-desktop {
+    display: none;
+}
+.phone-container-mobile {
+    display: block;
 }
 
 .spacer {
@@ -81,6 +108,18 @@ h1, h3 {
     .showcase h1, .showcase h3 {
         text-align: left;
     }
+
+    .phone-container {
+        width: 400px;
+        max-width: 90vw;
+    }
+
+    .phone-container-desktop {
+        display: block;
+    }
+    .phone-container-mobile {
+        display: none;
+    }
 }
 
 .app-button-play-store {
@@ -97,10 +136,12 @@ h1, h3 {
 .frame {
     background-image: url("public/ios-shot.png");
     background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .flex-container {
     display: flex;
+    flex-direction: column;
 }
 
 .flex-row {
@@ -157,21 +198,12 @@ h1, h3 {
     text-decoration: none !important;
 }
 
-
-/* MOBILE */
-
 .github-section {
     margin-top: 50px;
     font-size: 0.9em;
-    justify-content: center;
-}
-
-
-/* LARGE */
-
-@media (min-width: 992px) {
-
-    .github-section {
-        justify-content: flex-start;
-    }
+    width: 415px;
+    justify-content: flex-start;
+    display: flex;
+    align-items: center;
+    max-width: 90vw;
 }

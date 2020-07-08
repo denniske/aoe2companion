@@ -21,18 +21,16 @@ export default function Layout(props) {
             <footer>
 
                 <div className="container flex-container flex-row flex-1">
-                <Link href="/privacy"><a>Privacy Policy</a></Link>
-
+                    <Link href="/privacy"><a>Privacy Policy</a></Link>
                     <div className="flex-1"/>
-
-                <a
-                    href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Powered by{' '}
-                    <img src="/vercel.svg" alt="Vercel Logo" className="logo"/>
-                </a>
+                    <a
+                        href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Powered by{' '}
+                        <img src="/vercel.svg" alt="Vercel Logo" className="logo"/>
+                    </a>
                 </div>
             </footer>
 
