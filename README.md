@@ -49,3 +49,17 @@ Overview of all techs.
 ### Sources
 
 I want to thank the authors of the following open source projects and wikis: [aoe2.net](https://aoe2.net), [aoe2techtree](https://github.com/SiegeEngineers/aoe2techtree), [Age of Empires II Wiki](https://ageofempires.fandom.com/wiki/Age_of_Empires_II:Portal), [FlagKit](https://github.com/madebybowtie/FlagKit). The app was created under Microsoft's "[Game Content Usage Rules](https://www.xbox.com/en-us/developers/rules)" using assets from Age of Empires II.
+
+
+## Updates
+
+### Play Store / App Store
+
+Major updates are pushed to the app stores.
+
+
+### Over-the-Air (OTA) updates
+
+Minor updates can be loaded by the app itself. Tap on the "⋮" (three dots) in the footer and then on "About". The app will then look for OTA updates. If an update is found, you will be presented with an "Update to vXX.X.X" button. Click that button to trigger download of the update and restart of the app.
+
+
