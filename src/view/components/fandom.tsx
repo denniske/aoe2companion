@@ -1,5 +1,4 @@
 import {Linking, StyleSheet, Text, View} from "react-native";
-import {getUnitLineName} from "../../helper/units";
 import React from "react";
 import {linkColor} from "../styles";
 
@@ -25,7 +24,7 @@ export default function Fandom(props: FandomProps) {
 
 const styles = StyleSheet.create({
     container: {
-        // marginTop: 20,
+        marginTop: 20,
         lineHeight: 16,
     },
     link: {
