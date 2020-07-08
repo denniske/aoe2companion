@@ -62,4 +62,4 @@ Major updates are pushed to the app stores.
 
 Minor updates can be loaded by the app itself. Tap on the "⋮" (three dots) in the footer and then on "About". The app will then look for OTA updates. If an update is found, you will be presented with an "Update to vXX.X.X" button. Click that button to trigger download of the update and restart of the app.
 
-
+<img src="/tools/docs/update.png" height="110">
