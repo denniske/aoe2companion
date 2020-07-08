@@ -1,25 +1,4 @@
 
-.newsletter {
-    margin-top: 30px;
-    width: 415px;
-    max-width: 90vw;
-    padding: 3px !important;
-}
-
-.newsletter p {
-    font-size: 0.9em;
-}
-.newsletter input {
-    padding: 5px;
-    margin-right: 10px;
-    width: 200px;
-}
-.newsletter button {
-    padding: 5px;
-    cursor: pointer;
-}
-
-
 html,
 body {
     padding: 0;
@@ -206,4 +185,32 @@ h1, h3 {
     display: flex;
     align-items: center;
     max-width: 90vw;
+}
+
+
+.newsletter {
+    margin-top: 30px;
+    width: 415px;
+    max-width: 90vw;
+    padding: 3px !important;
+}
+
+.newsletter p {
+    font-size: 0.9em;
+}
+
+.newsletter .status {
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+
+.newsletter input {
+    padding: 5px;
+    margin-right: 10px;
+    width: 200px;
+}
+
+.newsletter button {
+    padding: 5px;
+    cursor: pointer;
 }
