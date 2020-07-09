@@ -15,7 +15,7 @@ import {loadFollowingFromStorage, loadSettingsFromStorage} from './src/service/s
 import AboutPage from './src/view/about.page';
 import store from './src/redux/store';
 import {Provider as ReduxProvider} from 'react-redux';
-import {DefaultTheme as PaperDefaultTheme, Provider as PaperProvider} from 'react-native-paper';
+import {DefaultTheme as PaperDefaultTheme, DarkTheme as PaperDarkTheme, Provider as PaperProvider} from 'react-native-paper';
 import {useSelector} from './src/redux/reducer';
 import SearchPage from './src/view/search.page';
 import PrivacyPage from './src/view/privacy.page';
@@ -323,6 +323,14 @@ function ConditionalTester({children}: any) {
     }
     return children;
 }
+
+// const customPaperTheme = {
+//     ...PaperDarkTheme,
+//     colors: {
+//         ...PaperDarkTheme.colors,
+//         // primary: '#3498db',
+//     },
+// };
 
 const customPaperTheme = {
     ...PaperDefaultTheme,

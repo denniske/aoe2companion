@@ -1,14 +1,35 @@
 import React, {useEffect, useState} from 'react';
 import {
-    Linking, Modal, ScrollView, StyleSheet, Text, TouchableHighlight, TouchableOpacity, TouchableWithoutFeedback, View
+    Linking, ScrollView, StyleSheet, Text, TouchableHighlight, TouchableOpacity, TouchableWithoutFeedback, View, Modal
 } from 'react-native';
 import Constants from 'expo-constants';
 import {useLinkTo} from '@react-navigation/native';
-import {checkForUpdateAsync, fetchUpdateAsync, reloadAsync} from "expo-updates";
-import {Button} from "react-native-paper";
+import {checkForUpdateAsync, fetchUpdateAsync, reloadAsync, UpdateCheckResult} from "expo-updates";
+import {Button, Portal} from "react-native-paper";
 import {Manifest} from "expo-updates/build/Updates.types";
 import {appStyles} from "./styles";
 import {MyText} from "./components/my-text";
+import {sleep} from "../helper/util";
+import Snackbar from "./components/snackbar";
+
+async function doCheckForUpdateAsync() {
+    if (__DEV__) {
+        return {
+            isAvailable: true,
+            manifest: {
+                version: '20.0.0',
+            },
+        } as UpdateCheckResult;
+    }
+    return await checkForUpdateAsync();
+}
+
+async function doFetchUpdateAsync() {
+    if (__DEV__) {
+        return await sleep(2000);
+    }
+    return await fetchUpdateAsync();
+}
 
 export default function AboutPage() {
     const linkTo = useLinkTo();
@@ -17,21 +38,19 @@ export default function AboutPage() {
     const [updateModalVisible, setUpdateModalVisible] = useState(false);
 
     const init = async () => {
-        const update = await checkForUpdateAsync();
+        const update = await doCheckForUpdateAsync();
         if (update.isAvailable) {
             setUpdateManifest(update.manifest);
         }
     };
 
     useEffect(() => {
-        if (!__DEV__) {
-            init();
-        }
-    });
+        init();
+    }, []);
 
     const fetchUpdate = async () => {
         setUpdating(true);
-        await fetchUpdateAsync();
+        await doFetchUpdateAsync();
         setUpdateModalVisible(true);
         setUpdating(false);
     };
@@ -46,6 +65,20 @@ export default function AboutPage() {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
+            {/*<Portal>*/}
+            {/*    <Snackbar*/}
+            {/*        visible={updateManifest != null}*/}
+            {/*        onDismiss={() => alert('dismiss')}*/}
+            {/*        action={{*/}
+            {/*            label: 'Undo',*/}
+            {/*            onPress: () => {*/}
+            {/*                // Do something*/}
+            {/*            },*/}
+            {/*        }}>*/}
+            {/*        Update available!*/}
+            {/*    </Snackbar>*/}
+            {/*</Portal>*/}
+
             <MyText style={styles.title}>AoE II Companion</MyText>
 
             <MyText style={styles.heading}>Created by</MyText>
@@ -56,8 +89,9 @@ export default function AboutPage() {
             <MyText style={styles.content}>Johannes Berger</MyText>
 
             <MyText style={styles.heading}>Version</MyText>
-            <MyText
-                style={styles.content}>{Constants.manifest.releaseChannel || 'dev'}-{Constants.manifest.version}n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}</MyText>
+            <MyText style={styles.content}>
+                {Constants.manifest.releaseChannel || 'dev'}-{Constants.manifest.version}n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}
+            </MyText>
 
             {
                 updateManifest &&
@@ -68,8 +102,12 @@ export default function AboutPage() {
             }
             {
                 updating &&
-                <MyText style={styles.content}>Loading Update...</MyText>
+                <View>
+                    <MyText/>
+                    <MyText style={styles.content}>Loading Update...</MyText>
+                </View>
             }
+
             <Modal animationType="none" transparent={true} visible={updateModalVisible}>
                 <TouchableWithoutFeedback onPress={closeUpdateModal}>
                     <View style={styles.centeredView}>
@@ -145,6 +183,7 @@ export default function AboutPage() {
                 of Empires II: HD and Age of Empires II: Definitive Edition are trademarks or
                 registered trademarks of Microsoft Corporation in the U.S. and other countries.
             </MyText>
+
         </ScrollView>
     );
 }
