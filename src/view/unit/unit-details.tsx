@@ -180,7 +180,7 @@ export default function UnitDetails({unitLineName}: {unitLineName: UnitLine}) {
                         <MyText style={styles.cellValue}>
                             {
                                 attacks.length > 0 && attacks.map(a =>
-                                    <MyText>{getAttackValue(a.Class as UnitClassNumber)} ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
+                                    <MyText key={a.Class}>{getAttackValue(a.Class as UnitClassNumber)} ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
                                 )
                                 || <Text>-</Text>
                             }
@@ -191,7 +191,7 @@ export default function UnitDetails({unitLineName}: {unitLineName: UnitLine}) {
                         <View style={styles.cellValue}>
                             {
                                 attackBonuses.length > 0 && attackBonuses.map(a =>
-                                    <MyText>{getAttackBonusValue(a.Class as UnitClassNumber)} ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
+                                    <MyText key={a.Class}>{getAttackBonusValue(a.Class as UnitClassNumber)} ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
                                 )
                                 || <Text>-</Text>
                             }
@@ -233,7 +233,7 @@ export default function UnitDetails({unitLineName}: {unitLineName: UnitLine}) {
                         <View style={styles.cellValue}>
                             {
                                 armourClasses.length > 0 && armourClasses.map(a =>
-                                    <MyText>{getArmourValue(a.Class as UnitClassNumber)} ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
+                                    <MyText key={a.Class}>{getArmourValue(a.Class as UnitClassNumber)} ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
                                 )
                                 || <Text>-</Text>
                             }
