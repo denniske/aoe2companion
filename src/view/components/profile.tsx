@@ -10,6 +10,7 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import {setFollowing, useMutate, useSelector} from "../../redux/reducer";
 import {sameUser} from "../../helper/user";
 import {toggleFollowingInStorage} from "../../service/storage";
+import {MyText} from "./my-text";
 
 interface ILeaderboardRowProps {
     data: ILeaderboard;
@@ -22,21 +23,21 @@ function LeaderboardRow({data}: ILeaderboardRowProps) {
 
     return (
             <View style={styles.row}>
-                <Text style={StyleSheet.flatten([styles.cellLeaderboard, color])}>
+                <MyText style={StyleSheet.flatten([styles.cellLeaderboard, color])}>
                     {getLeaderboardAbbr(data.leaderboard_id)}
-                </Text>
-                <Text style={StyleSheet.flatten([styles.cellRank, color])}>
+                </MyText>
+                <MyText style={StyleSheet.flatten([styles.cellRank, color])}>
                     #{leaderboardInfo.rank}
-                </Text>
-                <Text style={StyleSheet.flatten([styles.cellRating, color])}>
+                </MyText>
+                <MyText style={StyleSheet.flatten([styles.cellRating, color])}>
                     {leaderboardInfo.rating}
-                </Text>
-                <Text style={StyleSheet.flatten([styles.cellGames, color])}>
+                </MyText>
+                <MyText style={StyleSheet.flatten([styles.cellGames, color])}>
                     {leaderboardInfo.games}
-                </Text>
-                <Text style={StyleSheet.flatten([styles.cellWon, color])} numberOfLines={1}>
+                </MyText>
+                <MyText style={StyleSheet.flatten([styles.cellWon, color])} numberOfLines={1}>
                     {formatAgo(leaderboardInfo.last_match)}
-                </Text>
+                </MyText>
             </View>
     )
 }
@@ -82,7 +83,7 @@ export default function Profile({data}: IProfileProps) {
                                 <TextLoader width={100}>{data?.name}</TextLoader>
                                 {
                                     data?.clan &&
-                                    <Text> (Clan{':'} {data?.clan})</Text>
+                                    <MyText> (Clan{':'} {data?.clan})</MyText>
                                 }
                             </View>
                             <View style={styles.row}>
@@ -96,22 +97,22 @@ export default function Profile({data}: IProfileProps) {
                             <TouchableOpacity onPress={toggleFollowing}>
                                 <View style={styles.followButton}>
                                     <Icon solid={followingThisUser} name="heart" size={22} style={styles.followButtonIcon}/>
-                                    <Text style={styles.followButtonText}>
+                                    <MyText style={styles.followButtonText}>
                                         {followingThisUser ? 'Unfollow' : 'Follow'}
-                                    </Text>
+                                    </MyText>
                                 </View>
                             </TouchableOpacity>
                         }
                     </View>
 
-                    <Text/>
+                    <MyText/>
 
                     <View style={styles.row}>
-                        <Text numberOfLines={1} style={styles.cellLeaderboard}/>
-                        <Text numberOfLines={1} style={styles.cellRank}>Rank</Text>
-                        <Text numberOfLines={1} style={styles.cellRating}>Rating</Text>
-                        <Text numberOfLines={1} style={styles.cellGames}>Games</Text>
-                        <Text numberOfLines={1} style={styles.cellWon}>Last Match</Text>
+                        <MyText numberOfLines={1} style={styles.cellLeaderboard}/>
+                        <MyText numberOfLines={1} style={styles.cellRank}>Rank</MyText>
+                        <MyText numberOfLines={1} style={styles.cellRating}>Rating</MyText>
+                        <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>
+                        <MyText numberOfLines={1} style={styles.cellWon}>Last Match</MyText>
                     </View>
 
                     {

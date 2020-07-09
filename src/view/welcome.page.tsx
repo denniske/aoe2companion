@@ -4,6 +4,7 @@ import Constants from 'expo-constants';
 import { useLinkTo, useNavigation } from '@react-navigation/native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import { RootStackParamList, RootStackProp } from '../../App';
+import {MyText} from "./components/my-text";
 
 export default function WelcomePage() {
     const navigation = useNavigation<RootStackProp>();
@@ -17,29 +18,29 @@ export default function WelcomePage() {
 
     return (
             <View style={styles.container}>
-                <Text style={styles.title}>Welcome to AoE II Companion</Text>
+                <MyText style={styles.title}>Welcome to AoE II Companion</MyText>
 
                 <View style={styles.expanded}/>
 
-                {/*<Text></Text>*/}
+                {/*<MyText></MyText>*/}
 
                 {/*<TouchableOpacity style={styles.feature} onPress={() => nav('Search')}>*/}
                 <View style={styles.feature}>
                     <FontAwesomeIcon style={styles.featureIcon} name="search" size={18} />
-                    <Text>Search for users</Text>
+                    <MyText>Search for users</MyText>
                 </View>
 
-                <Text/>
+                <MyText/>
                 {/*<TouchableOpacity style={styles.feature} onPress={() => nav('Main')}>*/}
                 <View style={styles.feature}>
                     <FontAwesomeIcon style={styles.featureIcon} name="user" size={18} />
-                    <Text>Track your matches</Text>
+                    <MyText>Track your matches</MyText>
                 </View>
 
                 <View style={styles.expanded}/>
 
-                <Text style={styles.textJustify}>This app is not affiliated with or endorsed by Microsoft Corporation. Age of Empires II: HD and Age of Empires II: Definitive Edition are trademarks or
-                    registered trademarks of Microsoft Corporation in the U.S. and other countries.</Text>
+                <MyText style={styles.textJustify}>This app is not affiliated with or endorsed by Microsoft Corporation. Age of Empires II: HD and Age of Empires II: Definitive Edition are trademarks or
+                    registered trademarks of Microsoft Corporation in the U.S. and other countries.</MyText>
 
             </View>
     );

@@ -16,6 +16,7 @@ import {Button} from "react-native-paper";
 import {IFetchedUser} from "../service/user";
 import PlayerList, {IPlayerListPlayer} from "./components/player-list";
 import {useCavy} from "cavy";
+import {MyText} from "./components/my-text";
 
 
 export function FeedList() {
@@ -107,8 +108,8 @@ export function FeedList() {
                     {
                         list.length === 0 &&
                             <View style={styles.centered}>
-                                <Text style={styles.sectionHeader}>Follow players to see their match history.</Text>
-                                <Text style={styles.sectionHeader}>Click the + button to follow a player.</Text>
+                                <MyText style={styles.sectionHeader}>Follow players to see their match history.</MyText>
+                                <MyText style={styles.sectionHeader}>Click the + button to follow a player.</MyText>
                             </View>
                     }
                     <FlatList
@@ -128,15 +129,15 @@ export function FeedList() {
                                         const filteredPlayers = filterPlayers(match.players);
                                         return <View>
                                             {
-                                                <Text style={styles.players}>
+                                                <MyText style={styles.players}>
                                                     {filteredPlayers.map((p, i) =>
-                                                        <Text key={i}>
-                                                            <Text onPress={() => gotoPlayer(p)}>{p.name}</Text>
-                                                            { i < filteredPlayers.length-1 && <Text> and </Text> }
-                                                        </Text>
+                                                        <MyText key={i}>
+                                                            <MyText onPress={() => gotoPlayer(p)}>{p.name}</MyText>
+                                                            { i < filteredPlayers.length-1 && <MyText> and </MyText> }
+                                                        </MyText>
                                                     )}
-                                                    <Text> {match.finished ? 'played' : 'playing now'}</Text>
-                                                </Text>
+                                                    <MyText> {match.finished ? 'played' : 'playing now'}</MyText>
+                                                </MyText>
                                             }
                                             <Game data={item as IMatch}/>
                                         </View>;

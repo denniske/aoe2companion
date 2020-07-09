@@ -1,5 +1,6 @@
 import {Image, ImageProps, ImageSourcePropType, Text, View} from "react-native";
 import React from "react";
+import {MyText} from "../my-text";
 
 // interface ImageLoaderProps extends ImageProps {
 //     source?: ImageSourcePropType;
@@ -13,7 +14,7 @@ export function ImageLoader(props: ImageLoaderProps) {
         return (
             <View {...props} style={[props.style, { height: 'auto', flexDirection: 'row', display: 'flex'}]}>
                 <View style={[{backgroundColor: '#ECE9ED', borderRadius: 5, flexDirection: 'row'}]}>
-                    <Text style={{color: '#ECE9ED'}} numberOfLines={1}>....................................</Text>
+                    <MyText style={{color: '#ECE9ED'}} numberOfLines={1}>....................................</MyText>
                 </View>
             </View>
         );

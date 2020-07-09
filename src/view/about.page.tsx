@@ -8,6 +8,7 @@ import {checkForUpdateAsync, fetchUpdateAsync, reloadAsync} from "expo-updates";
 import {Button} from "react-native-paper";
 import {Manifest} from "expo-updates/build/Updates.types";
 import {appStyles} from "./styles";
+import {MyText} from "./components/my-text";
 
 export default function AboutPage() {
     const linkTo = useLinkTo();
@@ -45,37 +46,37 @@ export default function AboutPage() {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.title}>AoE II Companion</Text>
+            <MyText style={styles.title}>AoE II Companion</MyText>
 
-            <Text style={styles.heading}>Created by</Text>
-            <Text style={styles.content}>Dennis Keil</Text>
-            <Text style={styles.content}>Niklas Ohlrogge</Text>
+            <MyText style={styles.heading}>Created by</MyText>
+            <MyText style={styles.content}>Dennis Keil</MyText>
+            <MyText style={styles.content}>Niklas Ohlrogge</MyText>
 
-            <Text style={styles.heading}>Contributors</Text>
-            <Text style={styles.content}>Johannes Berger</Text>
+            <MyText style={styles.heading}>Contributors</MyText>
+            <MyText style={styles.content}>Johannes Berger</MyText>
 
-            <Text style={styles.heading}>Version</Text>
-            <Text
-                style={styles.content}>{Constants.manifest.releaseChannel || 'dev'}-{Constants.manifest.version}n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}</Text>
+            <MyText style={styles.heading}>Version</MyText>
+            <MyText
+                style={styles.content}>{Constants.manifest.releaseChannel || 'dev'}-{Constants.manifest.version}n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}</MyText>
 
             {
                 updateManifest &&
                 <View>
-                    <Text/>
+                    <MyText/>
                     <Button onPress={fetchUpdate} mode="contained" dark={true}>Update to {updateManifest.version}</Button>
                 </View>
             }
             {
                 updating &&
-                <Text style={styles.content}>Loading Update...</Text>
+                <MyText style={styles.content}>Loading Update...</MyText>
             }
             <Modal animationType="none" transparent={true} visible={updateModalVisible}>
                 <TouchableWithoutFeedback onPress={closeUpdateModal}>
                     <View style={styles.centeredView}>
                         <TouchableWithoutFeedback onPress={() => {}}>
                             <View style={styles.modalView}>
-                                <Text style={styles.content}>Do you want to restart now to apply the update?</Text>
-                                <Text/>
+                                <MyText style={styles.content}>Do you want to restart now to apply the update?</MyText>
+                                <MyText/>
                                 <View style={styles.buttonRow}>
                                     <Button style={styles.button} onPress={closeUpdateModal} mode="outlined">Restart Later</Button>
                                     <Button style={styles.button} onPress={update} mode="contained" dark={true}>Restart</Button>
@@ -87,63 +88,63 @@ export default function AboutPage() {
             </Modal>
 
 
-            <Text style={styles.heading}>Source</Text>
+            <MyText style={styles.heading}>Source</MyText>
 
             <View style={styles.row}>
-                <Text style={styles.content}>Stats from </Text>
+                <MyText style={styles.content}>Stats from </MyText>
                 <TouchableOpacity onPress={() => Linking.openURL('https://aoe2.net')}>
-                    <Text style={appStyles.link}>aoe2.net</Text>
+                    <MyText style={appStyles.link}>aoe2.net</MyText>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.row}>
-                <Text style={styles.content}>Game data from </Text>
+                <MyText style={styles.content}>Game data from </MyText>
                 <TouchableOpacity onPress={() => Linking.openURL('https://github.com/SiegeEngineers/aoe2techtree')}>
-                    <Text style={appStyles.link}>aoe2techtree</Text>
+                    <MyText style={appStyles.link}>aoe2techtree</MyText>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.row}>
-                <Text style={styles.content}>Game data from </Text>
+                <MyText style={styles.content}>Game data from </MyText>
                 <TouchableOpacity onPress={() => Linking.openURL('https://ageofempires.fandom.com/wiki/Age_of_Empires_II:Portal')}>
-                    <Text style={appStyles.link}>Age of Empires II Wiki</Text>
+                    <MyText style={appStyles.link}>Age of Empires II Wiki</MyText>
                 </TouchableOpacity>
-                <Text style={styles.content}> at </Text>
+                <MyText style={styles.content}> at </MyText>
                 <TouchableOpacity onPress={() => Linking.openURL('https://www.fandom.com/')}>
-                    <Text style={appStyles.link}>Fandom</Text>
+                    <MyText style={appStyles.link}>Fandom</MyText>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.row}>
-                <Text style={styles.content}>Flag Icons from </Text>
+                <MyText style={styles.content}>Flag Icons from </MyText>
                 <TouchableOpacity onPress={() => Linking.openURL('https://github.com/madebybowtie/FlagKit')}>
-                    <Text style={appStyles.link}>FlagKit</Text>
+                    <MyText style={appStyles.link}>FlagKit</MyText>
                 </TouchableOpacity>
             </View>
 
-            <Text style={styles.heading}>Legal</Text>
-            <Text/>
+            <MyText style={styles.heading}>Legal</MyText>
+            <MyText/>
             <View style={styles.row}>
                 <TouchableOpacity onPress={() => linkTo('/privacy')}>
-                    <Text style={appStyles.link}>Privacy Policy</Text>
+                    <MyText style={appStyles.link}>Privacy Policy</MyText>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.expanded}/>
 
-            <Text/>
-            <Text/>
+            <MyText/>
+            <MyText/>
 
-            <Text style={styles.textJustify}>
+            <MyText style={styles.textJustify}>
                 This app was created under Microsoft's "
-                <Text style={appStyles.link} onPress={() => {Linking.openURL('https://www.xbox.com/en-us/developers/rules')}}>
+                <MyText style={appStyles.link} onPress={() => {Linking.openURL('https://www.xbox.com/en-us/developers/rules')}}>
                 Game Content Usage Rules
-                </Text>
+                </MyText>
                 " using assets from Age of Empires II.
                 This app is not affiliated with or endorsed by Microsoft Corporation. Age
                 of Empires II: HD and Age of Empires II: Definitive Edition are trademarks or
                 registered trademarks of Microsoft Corporation in the U.S. and other countries.
-            </Text>
+            </MyText>
         </ScrollView>
     );
 }

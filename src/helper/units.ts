@@ -2216,7 +2216,7 @@ export function getUnitData(unit: Unit) {
     const dataId = units[unit].dataId;
     // console.log("DATA ID", dataId);
     // console.log("DATA ID", aoeData.data.units);
-    return aoeData.data.units[dataId] as IUnitInfo;
+    return aoeData.data.units[dataId] as unknown as IUnitInfo;
 }
 
 export function getUnitDescription(unit: Unit) {

@@ -20,6 +20,7 @@ import {useLazyApi} from "../hooks/use-lazy-api";
 import StatsCiv from "./components/stats-civ";
 import StatsMap from "./components/stats-map";
 import StatsPlayer from "./components/stats-player";
+import {MyText} from "./components/my-text";
 
 
 function MainHome() {
@@ -86,12 +87,12 @@ function MainHome() {
                             renderItem={({item, index}) => {
                                 switch (item) {
                                     case 'settings-header':
-                                        return <Text style={styles.sectionHeader}>Settings</Text>;
+                                        return <MyText style={styles.sectionHeader}>Settings</MyText>;
                                     case 'rating-header':
-                                        return <Text style={styles.sectionHeader}>Rating History</Text>;
+                                        return <MyText style={styles.sectionHeader}>Rating History</MyText>;
                                     case 'stats-header':
                                         return <View>
-                                            <Text style={styles.sectionHeader}>Stats</Text>
+                                            <MyText style={styles.sectionHeader}>Stats</MyText>
                                             {
                                                 !matches.touched && !matches.loading &&
                                                 <Button
@@ -121,7 +122,7 @@ function MainHome() {
                                     case 'not-me':
                                         return (
                                             <View>
-                                                <Text/>
+                                                <MyText/>
                                                 <Button mode="outlined" ref={generateTestHook('abc')} onPress={deleteUser}>This is not me</Button>
                                             </View>
                                         );

@@ -5,6 +5,8 @@ import {RootStackProp} from "../../../App";
 import {getTechDescription, getTechIcon, getTechName, Tech, techs} from "../../helper/techs";
 import {sortBy} from "lodash-es";
 import {getUnitLineName, unitLines} from "../../helper/units";
+import {MyText} from "../components/my-text";
+import {iconHeight, iconWidth} from "../../helper/theme";
 
 
 export function TechComp({tech: tech}: any) {
@@ -14,8 +16,8 @@ export function TechComp({tech: tech}: any) {
             <View style={styles.row}>
                 <Image style={styles.unitIcon} source={getTechIcon(tech)}/>
                 <View style={styles.unitIconTitle}>
-                    <Text>{getTechName(tech)}</Text>
-                    <Text numberOfLines={1} style={styles.small}>{getTechDescription(tech)}</Text>
+                    <MyText>{getTechName(tech)}</MyText>
+                    <MyText numberOfLines={1} style={styles.small}>{getTechDescription(tech)}</MyText>
                 </View>
             </View>
         </TouchableOpacity>
@@ -29,8 +31,8 @@ export function TechCompBig({tech: tech}: any) {
             <View style={styles.rowBig}>
                 <Image style={styles.unitIconBig} source={getTechIcon(tech)}/>
                 <View style={styles.unitIconBigTitle}>
-                    <Text>{getTechName(tech)}</Text>
-                    <Text numberOfLines={1} style={styles.small}>{getTechDescription(tech)}</Text>
+                    <MyText>{getTechName(tech)}</MyText>
+                    <MyText numberOfLines={1} style={styles.small}>{getTechDescription(tech)}</MyText>
                 </View>
             </View>
         </TouchableOpacity>
@@ -80,8 +82,8 @@ const styles = StyleSheet.create({
         // backgroundColor: 'blue',
     },
     unitIconBig: {
-        width: 30,
-        height: 30,
+        width: iconWidth,
+        height: iconHeight,
     },
     unitIconBigTitle: {
         flex: 1,

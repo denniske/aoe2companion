@@ -6,6 +6,7 @@ import {Button, Searchbar} from 'react-native-paper';
 import {composeUserIdFromParts, UserInfo} from '../../helper/user';
 import {getFlagIcon} from '../../helper/flags';
 import {useCavy} from "cavy";
+import {MyText} from "./my-text";
 
 interface IPlayerProps {
     player: IFetchedUser;
@@ -33,9 +34,9 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
                 <View style={styles.row}>
                     <View style={styles.cellName}>
                         <Image style={styles.countryIcon} source={getFlagIcon(player.country)}/>
-                        <Text style={styles.name} numberOfLines={1}>{player.name}</Text>
+                        <MyText style={styles.name} numberOfLines={1}>{player.name}</MyText>
                     </View>
-                    <Text style={styles.cellGames}>{player.games}</Text>
+                    <MyText style={styles.cellGames}>{player.games}</MyText>
                     <View style={styles.cellAction}>
                         {
                             action && action(player)
@@ -97,7 +98,7 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
 
     return (
             <View style={styles.container}>
-                <Text style={styles.centerText}>{title}</Text>
+                <MyText style={styles.centerText}>{title}</MyText>
 
                 <Searchbar
                         ref={generateTestHook('Search.Input')}
@@ -110,9 +111,9 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
                 {
                     user.data && user.data.length > 0 && text.length >= 3 &&
                     <View style={styles.headerRow}>
-                        <Text style={styles.cellName}>Name</Text>
-                        <Text style={styles.cellGames}>Games</Text>
-                        <Text style={styles.cellAction}/>
+                        <MyText style={styles.cellName}>Name</MyText>
+                        <MyText style={styles.cellGames}>Games</MyText>
+                        <MyText style={styles.cellAction}/>
                     </View>
                 }
 
@@ -123,7 +124,7 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
                         data={list}
                         renderItem={({item}) => {
                             if (item.type === 'text') {
-                                return <Text style={styles.centerText}>{item.content}</Text>;
+                                return <MyText style={styles.centerText}>{item.content}</MyText>;
                             }
                             return <Player player={item} selectedUser={selectedUser} actionText={actionText} action={action}/>;
                         }}

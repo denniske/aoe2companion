@@ -18,6 +18,7 @@ import {TextLoader} from "./loader/text-loader";
 import {ImageLoader} from "./loader/image-loader";
 import {ViewLoader} from "./loader/view-loader";
 import IconFA5 from 'react-native-vector-icons/FontAwesome5';
+import {MyText} from "./my-text";
 
 interface IPlayerProps {
     player: IPlayer;
@@ -82,7 +83,7 @@ export function Player({player}: IPlayerProps) {
                                                     underlayColor="white">
                                     <Icon name={'close'} size={24}/>
                                 </TouchableHighlight>
-                                <Text style={styles.modalText} numberOfLines={1}>{player.name}</Text>
+                                <MyText style={styles.modalText} numberOfLines={1}>{player.name}</MyText>
                                 <Rating ratingHistories={rating.data}/>
                             </View>
                         </TouchableWithoutFeedback>
@@ -98,22 +99,22 @@ export function Player({player}: IPlayerProps) {
 
             <View style={styles.squareCol}>
                 <View style={boxStyle}>
-                    <Text>{player.color}</Text>
+                    <MyText>{player.color}</MyText>
                 </View>
             </View>
 
             <TouchableHighlight style={styles.playerRatingCol} onPress={openRatingModal} underlayColor="white">
-                <Text>{player.rating}</Text>
+                <MyText>{player.rating}</MyText>
             </TouchableHighlight>
 
             <TouchableHighlight style={styles.playerNameCol} onPress={gotoPlayer}>
-                <Text style={playerNameStyle} numberOfLines={1}>{player.name}</Text>
+                <MyText style={playerNameStyle} numberOfLines={1}>{player.name}</MyText>
             </TouchableHighlight>
 
             <TouchableOpacity onPress={() => navigation.push('Civ', {civ: civs[player.civ]})}>
                 <View style={styles.row}>
                     <Image style={styles.countryIcon} fadeDuration={0} source={getCivIconByIndex(player.civ) as any}/>
-                    <Text> {getString('civ', player.civ)}</Text>
+                    <MyText> {getString('civ', player.civ)}</MyText>
                 </View>
             </TouchableOpacity>
         </View>

@@ -17,6 +17,8 @@ import {appStyles, linkColor} from "../styles";
 import Fandom from "../components/fandom";
 import {Button} from "react-native-paper";
 import {keysOf} from "../../helper/util";
+import {MyText} from "../components/my-text";
+import {iconHeight, iconSmallHeight, iconSmallWidth, iconWidth} from "../../helper/theme";
 
 
 export default function UnitDetails({unitLineName}: {unitLineName: UnitLine}) {
@@ -116,13 +118,13 @@ export default function UnitDetails({unitLineName}: {unitLineName: UnitLine}) {
     //     if (eliteData && eliteData[key] > 0) {
     //         return (
     //             <>
-    //                 <Text>{data[key]}, {eliteData[key]} (elite)</Text>
+    //                 <MyText>{data[key]}, {eliteData[key]} (elite)</MyText>
     //             </>
     //         );
     //     } else {
     //         return (
     //             <>
-    //                 <Text>{data[key]}</Text>
+    //                 <MyText>{data[key]}</MyText>
     //             </>
     //         );
     //     }
@@ -133,14 +135,14 @@ export default function UnitDetails({unitLineName}: {unitLineName: UnitLine}) {
         if (eliteData && path(eliteData) !== path(data)) {
             return (
                 <>
-                    <Text>{formatter(path(data))}, {formatter(path(eliteData))} </Text>
-                    <Text style={styles.small}>(elite)</Text>
+                    <MyText>{formatter(path(data))}, {formatter(path(eliteData))} </MyText>
+                    <MyText style={styles.small}>(elite)</MyText>
                 </>
             );
         } else {
             return (
                 <>
-                    <Text>{formatter(path(data))}</Text>
+                    <MyText>{formatter(path(data))}</MyText>
                 </>
             );
         }
@@ -168,16 +170,16 @@ export default function UnitDetails({unitLineName}: {unitLineName: UnitLine}) {
                 {
                     sortResources(keysOf(data.Cost)).map(res =>
                         <View style={styles.resRow}>
-                            <Image style={styles.unitIcon} source={getOtherIcon(res as Other)}/>
-                            <Text style={styles.resDescription}>{data.Cost[res]}</Text>
+                            <Image style={styles.resIcon} source={getOtherIcon(res as Other)}/>
+                            <MyText style={styles.resDescription}>{data.Cost[res]}</MyText>
                         </View>
                     )
                 }
-                <Text style={styles.description}>Trained in {data.TrainTime}s</Text>
+                <MyText style={styles.description}>Trained in {data.TrainTime}s</MyText>
             </View>
 
-            <Text style={styles.description}>{getUnitDescription(baseUnit)}</Text>
-            <Text/>
+            <MyText style={styles.description}>{getUnitDescription(baseUnit)}</MyText>
+            <MyText/>
 
             {/*<View style={styles.statsRow}>*/}
             {/*    <Button*/}
@@ -197,92 +199,92 @@ export default function UnitDetails({unitLineName}: {unitLineName: UnitLine}) {
                 statsVisible &&
                 <View style={styles.statsContainer}>
                     <View style={styles.statsRow2}>
-                        <Text style={styles.cellName}>Hit Points</Text>
-                        <Text style={styles.cellValue}>{getValue('HP')}</Text>
+                        <MyText style={styles.cellName}>Hit Points</MyText>
+                        <MyText style={styles.cellValue}>{getValue('HP')}</MyText>
                     </View>
                     <View style={styles.statsRow2}>
-                        <Text style={styles.cellName}>Attack</Text>
-                        <Text style={styles.cellValue}>
+                        <MyText style={styles.cellName}>Attack</MyText>
+                        <MyText style={styles.cellValue}>
                             {
                                 data.Attacks
                                     .filter(a => attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber)))
                                     .map(a =>
-                                        <Text>{getAttackValue(a.Class as UnitClassNumber)} ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</Text>
+                                        <MyText>{getAttackValue(a.Class as UnitClassNumber)} ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
                                     )
                             }
-                        </Text>
+                        </MyText>
                     </View>
                     <View style={styles.statsRow2}>
-                        <Text style={styles.cellName}>Attack Bonuses</Text>
+                        <MyText style={styles.cellName}>Attack Bonuses</MyText>
                         <View style={styles.cellValue}>
                             {
                                 data.Attacks
                                     .filter(a => a.Amount > 0 && !attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber)))
                                     .map(a =>
-                                        <Text>{getAttackBonusValue(a.Class as UnitClassNumber)} ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</Text>
+                                        <MyText>{getAttackBonusValue(a.Class as UnitClassNumber)} ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
                                     )
                             }
                         </View>
                     </View>
                     <View style={styles.statsRow2}>
-                        <Text style={styles.cellName}>Rate of Fire</Text>
-                        <Text style={styles.cellValue}>{getValue('ReloadTime')}</Text>
+                        <MyText style={styles.cellName}>Rate of Fire</MyText>
+                        <MyText style={styles.cellValue}>{getValue('ReloadTime')}</MyText>
                     </View>
                     <View style={styles.statsRow2}>
-                        <Text style={styles.cellName}>Frame Delay</Text>
-                        <Text style={styles.cellValue}>{getValue('FrameDelay')}</Text>
+                        <MyText style={styles.cellName}>Frame Delay</MyText>
+                        <MyText style={styles.cellValue}>{getValue('FrameDelay')}</MyText>
                     </View>
                     <View style={styles.statsRow2}>
-                        <Text style={styles.cellName}>Range</Text>
-                        <Text style={styles.cellValue}>{getValue('Range')}</Text>
+                        <MyText style={styles.cellName}>Range</MyText>
+                        <MyText style={styles.cellValue}>{getValue('Range')}</MyText>
                     </View>
                     {
                         data.MinRange > 0 &&
                         <View style={styles.statsRow2}>
-                            <Text style={styles.cellName}>Minimum Range</Text>
-                            <Text style={styles.cellValue}>{getValue('MinRange')}</Text>
+                            <MyText style={styles.cellName}>Minimum Range</MyText>
+                            <MyText style={styles.cellValue}>{getValue('MinRange')}</MyText>
                         </View>
                     }
                     <View style={styles.statsRow2}>
-                        <Text style={styles.cellName}>Accuracy</Text>
-                        <Text style={styles.cellValue}>{getValue('AccuracyPercent')}%</Text>
+                        <MyText style={styles.cellName}>Accuracy</MyText>
+                        <MyText style={styles.cellValue}>{getValue('AccuracyPercent')}%</MyText>
                     </View>
                     <View style={styles.statsRow2}>
-                        <Text style={styles.cellName}>Melee Armour</Text>
-                        <Text style={styles.cellValue}>{getValue('MeleeArmor')}</Text>
+                        <MyText style={styles.cellName}>Melee Armour</MyText>
+                        <MyText style={styles.cellValue}>{getValue('MeleeArmor')}</MyText>
                     </View>
                     <View style={styles.statsRow2}>
-                        <Text style={styles.cellName}>Pierce Armour</Text>
-                        <Text style={styles.cellValue}>{getValue('PierceArmor')}</Text>
+                        <MyText style={styles.cellName}>Pierce Armour</MyText>
+                        <MyText style={styles.cellValue}>{getValue('PierceArmor')}</MyText>
                     </View>
                     <View style={styles.statsRow2}>
-                        <Text style={styles.cellName}>Armor Classes</Text>
+                        <MyText style={styles.cellName}>Armor Classes</MyText>
                         <View style={styles.cellValue}>
                             {
                                 data.Armours
                                     .filter(a => (a.Amount > 0 || a.Class === 19) && !attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber)))
                                     .map(a =>
-                                        <Text>{getArmourValue(a.Class as UnitClassNumber)} ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</Text>
+                                        <MyText>{getArmourValue(a.Class as UnitClassNumber)} ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
                                     )
                             }
                         </View>
                     </View>
                     <View style={styles.statsRow2}>
-                        <Text style={styles.cellName}>Speed</Text>
-                        <Text style={styles.cellValue}>{getValue('Speed')}</Text>
+                        <MyText style={styles.cellName}>Speed</MyText>
+                        <MyText style={styles.cellValue}>{getValue('Speed')}</MyText>
                     </View>
                     <View style={styles.statsRow2}>
-                        <Text style={styles.cellName}>Line Of Sight</Text>
-                        <Text style={styles.cellValue}>{getValue('LineOfSight')}</Text>
+                        <MyText style={styles.cellName}>Line Of Sight</MyText>
+                        <MyText style={styles.cellValue}>{getValue('LineOfSight')}</MyText>
                     </View>
                     {
                         data.GarrisonCapacity > 0 &&
                         <View style={styles.statsRow2}>
-                            <Text style={styles.cellName}>Garrison Capacity</Text>
-                            <Text style={styles.cellValue}>{getValue('GarrisonCapacity')}</Text>
+                            <MyText style={styles.cellName}>Garrison Capacity</MyText>
+                            <MyText style={styles.cellValue}>{getValue('GarrisonCapacity')}</MyText>
                         </View>
                     }
-                    <Text/>
+                    <MyText/>
                 </View>
             }
 
@@ -290,38 +292,38 @@ export default function UnitDetails({unitLineName}: {unitLineName: UnitLine}) {
                 unitLine.counteredBy && (
                     <>
                         <View style={styles.row}>
-                            <Text>Weak vs.</Text>
+                            <MyText size="headline">Weak vs.</MyText>
                         </View>
                         {
                             sortUnitCounter(unitLine.counteredBy).map(counterUnit =>
                                 <TouchableOpacity key={counterUnit} onPress={() => gotoUnit(counterUnit)}>
                                     <View style={styles.row}>
                                         <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitLineIcon(counterUnit)}/>
-                                        <Text style={styles.unitDesc}>
+                                        <MyText style={styles.unitDesc}>
                                             {getUnitLineName(counterUnit)}
-                                        </Text>
+                                        </MyText>
                                     </View>
                                 </TouchableOpacity>
                             )
                         }
 
-                        <Text/>
+                        <MyText/>
                         <View style={styles.row}>
-                            <Text>Strong vs.</Text>
+                            <MyText size="headline">Strong vs.</MyText>
                         </View>
                         {
                             sortUnitCounter(getInferiorUnitLines(unitLineName)).map(counterUnit =>
                                 <TouchableOpacity key={counterUnit} onPress={() => gotoUnit(counterUnit)}>
                                     <View style={styles.row}>
                                         <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitLineIcon(counterUnit)}/>
-                                        <Text style={styles.unitDesc}>
+                                        <MyText style={styles.unitDesc}>
                                             {getUnitLineName(counterUnit)}
-                                        </Text>
+                                        </MyText>
                                     </View>
                                 </TouchableOpacity>
                             )
                         }
-                        <Text/>
+                        <MyText/>
                     </>
                 )
             }
@@ -330,29 +332,27 @@ export default function UnitDetails({unitLineName}: {unitLineName: UnitLine}) {
                 groups.map(group =>
                     <View key={group.name}>
                         <View style={styles.row}>
-                            <Text>{group.name}</Text>
+                            <MyText size="headline">{group.name}</MyText>
                         </View>
                         {
                             group.upgrades.map(upgrade =>
                                 <View style={styles.row} key={upgrade.name}>
                                     <Image style={styles.unitIcon} source={getTechIcon(upgrade.tech)}/>
-                                    <Text style={styles.unitDesc}>
-
-                                        {/*{getTechName(upgrade.tech)}*/}
-                                        <Text style={appStyles.link} onPress={() => gotoTech(upgrade.tech!)}>{getTechName(upgrade.tech)}</Text>
-
-                                        {upgrade.effect[group.prop] ? ' (' + upgrade.effect[group.prop] : ''}
-
-                                        {
-                                            upgrade.civ &&
-                                            <>
-                                                <Text>, only </Text>
-                                                <Text style={appStyles.link} onPress={() => gotoCiv(upgrade.civ!)}>{upgrade.civ}</Text>
-                                            </>
-                                        }
-
-                                        {upgrade.effect[group.prop] ? ')' : ''}
-                                    </Text>
+                                    <MyText style={styles.unitDesc}>
+                                        <MyText style={appStyles.link} onPress={() => gotoTech(upgrade.tech!)}>{getTechName(upgrade.tech)}</MyText>
+                                        <MyText size="footnote">
+                                            {upgrade.effect[group.prop] ? ' (' + upgrade.effect[group.prop] : ''}
+                                            {/*{upgrade.effect[group.prop]}*/}
+                                            {
+                                                upgrade.civ &&
+                                                <>
+                                                    <MyText size="footnote">, only </MyText>
+                                                    <MyText size="footnote" style={appStyles.link} onPress={() => gotoCiv(upgrade.civ!)}>{upgrade.civ}</MyText>
+                                                </>
+                                            }
+                                            {upgrade.effect[group.prop] ? ')' : ''}
+                                        </MyText>
+                                    </MyText>
                                 </View>
                             )
                         }
@@ -362,15 +362,15 @@ export default function UnitDetails({unitLineName}: {unitLineName: UnitLine}) {
             {
                 developments.length > 0 &&
                     <View>
-                        <Text/>
+                        <MyText/>
                         <View style={styles.row}>
-                            <Text>Upgrades</Text>
+                            <MyText size="headline">Upgrades</MyText>
                         </View>
                         {
                             developments.map(unit =>
                                 <View key={unit} style={styles.row}>
                                     <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(unit)}/>
-                                    <Text> {getUnitName(unit)}</Text>
+                                    <MyText> {getUnitName(unit)}</MyText>
                                 </View>
                             )
                         }
@@ -442,9 +442,14 @@ const styles = StyleSheet.create({
         color: '#333',
     },
 
+    resIcon: {
+        width: 22,
+        height: 22,
+        marginRight: 5,
+    },
     unitIcon: {
-        width: 20,
-        height: 20,
+        width: iconSmallWidth,
+        height: iconSmallHeight,
         marginRight: 5,
     },
     unitDesc: {

@@ -7,6 +7,7 @@ import {orderBy} from "lodash-es";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {sameUser, UserIdBase} from "../../helper/user";
+import {MyText} from "./my-text";
 
 interface IRow {
     civ: Civ;
@@ -30,15 +31,15 @@ function Row({data}: IRowProps) {
                 <TouchableHighlight style={styles.cellLeaderboard} onPress={gotoCiv}>
                     <View style={styles.row}>
                         <Image style={styles.icon} source={getCivIcon(data.civ)}/>
-                        <Text>{data.civ}</Text>
+                        <MyText>{data.civ}</MyText>
                     </View>
                 </TouchableHighlight>
-                <Text style={styles.cellGames}>
+                <MyText style={styles.cellGames}>
                     {data.games}
-                </Text>
-                <Text style={styles.cellWon}>
+                </MyText>
+                <MyText style={styles.cellWon}>
                     {isNaN(data.won) ? '-' : data.won.toFixed(0) + ' %'}
-                </Text>
+                </MyText>
             </View>
     )
 }
@@ -72,12 +73,12 @@ export default function StatsCiv({matches, user}: IProps) {
 
     return (
             <View style={styles.container}>
-                <Text/>
+                <MyText/>
                 <View>
                     <View style={styles.row}>
-                        <Text numberOfLines={1} style={styles.cellLeaderboard}>Civ</Text>
-                        <Text numberOfLines={1} style={styles.cellGames}>Games</Text>
-                        <Text numberOfLines={1} style={styles.cellWon}>Won*</Text>
+                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>Civ</MyText>
+                        <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>
+                        <MyText numberOfLines={1} style={styles.cellWon}>Won*</MyText>
                     </View>
 
                     {

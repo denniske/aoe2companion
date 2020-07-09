@@ -1,5 +1,6 @@
 import {StyleProp, Text, TextProps, TextStyle, View} from "react-native";
 import React from "react";
+import {MyText} from "../my-text";
 
 type TextLoaderProps = TextProps & {
     children?: React.ReactNode,
@@ -22,12 +23,12 @@ export function TextLoader(props: TextLoaderProps) {
         return (
             <View {...rest} style={[rest.style, hostStyle]}>
                 <View style={[{backgroundColor: '#ECE9ED', borderRadius: 5, flexDirection: 'row', flex: 1}]}>
-                    <Text numberOfLines={1} style={[{color: '#ECE9ED'}]}>....................................</Text>
+                    <MyText numberOfLines={1} style={[{color: '#ECE9ED'}]}>....................................</MyText>
                 </View>
             </View>
         );
     }
     return (
-        <Text {...props}/>
+        <MyText {...props}/>
     )
 }

@@ -7,15 +7,16 @@ import {ImageBackground, StyleSheet, Text, TouchableOpacity, View} from "react-n
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import React from "react";
 import {aoeCivKey} from "../../data/data";
+import {MyText} from "./my-text";
 
 
 export function TechTree({civ}: {civ: aoeCivKey}) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.sectionHeader}>Tech Tree</Text>
+            <MyText style={styles.sectionHeader}>Tech Tree</MyText>
 
-            <Text style={styles.heading}>Blacksmith</Text>
+            <MyText style={styles.heading}>Blacksmith</MyText>
             <View style={styles.row}>
                 <Ability2 civ={civ} tech="Forging"/>
                 <Ability2 civ={civ} tech="ScaleMailArmor"/>
@@ -41,7 +42,7 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                 <Ability2 civ={civ} tech="RingArcherArmor"/>
             </View>
 
-            <Text style={styles.heading}>Other</Text>
+            <MyText style={styles.heading}>Other</MyText>
             <View style={styles.row}>
                 <Ability2 civ={civ} tech="Bloodlines"/>
                 <Ability2 civ={civ} tech="Husbandry"/>
@@ -51,7 +52,7 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                 <Ability2 civ={civ} tech="ParthianTactics"/>
             </View>
 
-            <Text style={styles.heading}>Siege</Text>
+            <MyText style={styles.heading}>Siege</MyText>
             <View style={styles.row}>
                 <Ability2 civ={civ} unit="BatteringRam"/>
                 <Ability2 civ={civ} unit="Mangonel"/>
@@ -72,7 +73,7 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                 <Ability2 civ={civ} tech="SiegeEngineers"/>
             </View>
 
-            <Text style={styles.heading}>Infantry</Text>
+            <MyText style={styles.heading}>Infantry</MyText>
             <View style={styles.row}>
                 <Ability2 civ={civ} unit="LongSwordsman"/>
                 <Ability2 civ={civ} unit="Spearman"/>
@@ -89,7 +90,7 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                 <Ability2 civ={civ} unit="EliteEagleWarrior"/>
             </View>
 
-            <Text style={styles.heading}>Cavalry</Text>
+            <MyText style={styles.heading}>Cavalry</MyText>
             <View style={styles.row}>
                 <Ability2 civ={civ} unit="ScoutCavalry"/>
                 <Ability2 civ={civ} unit="Knight"/>
@@ -112,7 +113,7 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                 <Ability0 civ={civ}/>
             </View>
 
-            <Text style={styles.heading}>Archer</Text>
+            <MyText style={styles.heading}>Archer</MyText>
             <View style={styles.row}>
                 <Ability2 civ={civ} unit="Archer"/>
                 <Ability2 civ={civ} unit="Skirmisher"/>
@@ -190,7 +191,7 @@ function Ability({civ, tech, unit}: AbilityProps) {
             <ImageBackground source={getAbilityIcon({tech, unit})} imageStyle={styles.imageInner2} style={styles.image2}>
                 {
                     enabled &&
-                    <Text style={styles.imageText}>+4</Text>
+                    <MyText style={styles.imageText}>+4</MyText>
                 }
             </ImageBackground>
         </View>
@@ -215,7 +216,7 @@ function Ability2({civ, tech, unit}: AbilityProps) {
 
 function AbilityText({civ, tech, unit}: AbilityProps) {
     return (
-        <Text style={styles.content}>Has Bloodlines: {getCivHasTech(civ, tech!) ? 'true' : 'false'}</Text>
+        <MyText style={styles.content}>Has Bloodlines: {getCivHasTech(civ, tech!) ? 'true' : 'false'}</MyText>
     );
 }
 

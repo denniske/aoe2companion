@@ -1,5 +1,7 @@
 import {ImageBackground, ImageSourcePropType, LayoutChangeEvent, Platform, StyleSheet, Text, View} from "react-native";
 import React from "react";
+import {MyText} from "../my-text";
+import {iconWidth} from "../../../helper/theme";
 
 interface IconHeaderProps {
     icon: ImageSourcePropType;
@@ -14,7 +16,7 @@ export default function IconHeader(props: IconHeaderProps) {
             <ImageBackground source={icon}
                              imageStyle={styles.imageInner}
                              style={styles.image}>
-                <Text style={styles.title} numberOfLines={1}>{text}</Text>
+                <MyText style={styles.title} numberOfLines={1}>{text}</MyText>
             </ImageBackground>
         </View>
     );
@@ -30,13 +32,13 @@ const styles = StyleSheet.create({
     image: {
         // backgroundColor: 'blue',
         justifyContent: 'center',
-        paddingLeft: 35,
+        paddingLeft: iconWidth*1.15,
         height: 38,
     },
     imageInner: {
         // backgroundColor: 'blue',
         resizeMode: "contain",
-        width: 30,
+        width: iconWidth,
         left: 0,
     },
     // From react-navigation HeaderTitle.tsx

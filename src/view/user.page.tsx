@@ -16,6 +16,7 @@ import StatsCiv from "./components/stats-civ";
 import StatsMap from "./components/stats-map";
 import StatsPlayer from "./components/stats-player";
 import {useLazyApi} from "../hooks/use-lazy-api";
+import {MyText} from "./components/my-text";
 
 
 export default function UserPage() {
@@ -96,10 +97,10 @@ export default function UserPage() {
                             renderItem={({item, index}) => {
                                 switch (item) {
                                     case 'rating-header':
-                                        return <Text style={styles.sectionHeader}>Rating History</Text>;
+                                        return <MyText style={styles.sectionHeader}>Rating History</MyText>;
                                     case 'stats-header':
                                         return <View>
-                                            <Text style={styles.sectionHeader}>Stats</Text>
+                                            <MyText style={styles.sectionHeader}>Stats</MyText>
                                             {
                                                 !matches2.touched && !matches2.loading &&
                                                 <Button
@@ -127,7 +128,7 @@ export default function UserPage() {
                                     case 'rating':
                                         return <Rating ratingHistories={rating.data}/>;
                                     case 'matches-header':
-                                        return <Text style={styles.sectionHeader}>Match History</Text>;
+                                        return <MyText style={styles.sectionHeader}>Match History</MyText>;
                                     default:
                                         return <Game data={item as IMatch} expanded={false}/>;
                                 }

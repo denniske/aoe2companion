@@ -8,6 +8,8 @@ import {
     unitLines
 } from "../../helper/units";
 import {sortBy} from "lodash-es";
+import {MyText} from "../components/my-text";
+import {iconHeight, iconWidth} from "../../helper/theme";
 
 
 function getUnitLineTitle(unitLine: IUnitLine) {
@@ -21,10 +23,10 @@ export function UnitComp({unit}: any) {
             <View style={styles.row}>
                 <Image style={styles.unitIcon} source={getUnitLineIcon(unit)}/>
                 <View style={styles.unitIconTitle}>
-                    <Text>{getUnitLineName(unit)}</Text>
+                    <MyText>{getUnitLineName(unit)}</MyText>
                     {
                         unitLines[unit].units.length > 1 && !unitLines[unit].unique &&
-                        <Text numberOfLines={1} style={styles.small}>{getUnitLineTitle(unitLines[unit])}</Text>
+                        <MyText numberOfLines={1} style={styles.small}>{getUnitLineTitle(unitLines[unit])}</MyText>
                     }
                 </View>
             </View>
@@ -39,7 +41,7 @@ export function UnitCompBig({unit}: {unit: Unit}) {
             <View style={styles.rowBig}>
                 <Image style={styles.unitIconBig} source={getUnitIcon(unit)}/>
                 <View style={styles.unitIconBigTitle}>
-                    <Text>{getUnitName(unit)}</Text>
+                    <MyText>{getUnitName(unit)}</MyText>
                 </View>
             </View>
         </TouchableOpacity>
@@ -53,10 +55,10 @@ export function UnitLineCompBig({unitLine}: {unitLine: UnitLine}) {
             <View style={styles.rowBig}>
                 <Image style={styles.unitIconBig} source={getUnitLineIcon(unitLine)}/>
                 <View style={styles.unitIconBigTitle}>
-                    <Text>{getUnitLineName(unitLine)}</Text>
+                    <MyText>{getUnitLineName(unitLine)}</MyText>
                     {
                         unitLines[unitLine].units.length > 1 && !unitLines[unitLine].unique &&
-                        <Text numberOfLines={1} style={styles.small}>{getUnitLineTitle(unitLines[unitLine])}</Text>
+                        <MyText numberOfLines={1} style={styles.small}>{getUnitLineTitle(unitLines[unitLine])}</MyText>
                     }
                 </View>
             </View>
@@ -104,8 +106,8 @@ const styles = StyleSheet.create({
         // backgroundColor: 'blue',
     },
     unitIconBig: {
-        width: 30,
-        height: 30,
+        width: iconWidth,
+        height: iconHeight,
         // borderWidth: 1,
         // borderColor: '#555',
     },

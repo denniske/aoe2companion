@@ -4,6 +4,7 @@ import {Button} from 'react-native-paper';
 import {composeUserIdFromParts, UserInfo} from '../../helper/user';
 import {Flag, getFlagIcon} from '../../helper/flags';
 import {useCavy} from "cavy";
+import {MyText} from "./my-text";
 
 export interface IPlayerListPlayer {
     country: Flag;
@@ -40,9 +41,9 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
                 <View style={styles.row}>
                     <View style={styles.cellName}>
                         <Image style={styles.countryIcon} source={getFlagIcon(player.country)}/>
-                        <Text style={styles.name} numberOfLines={1}>{player.name}</Text>
+                        <MyText style={styles.name} numberOfLines={1}>{player.name}</MyText>
                     </View>
-                    <Text style={styles.cellGames}>{player.games}</Text>
+                    <MyText style={styles.cellGames}>{player.games}</MyText>
                     <View style={styles.cellAction}>
                         {
                             action && action(player)
@@ -81,9 +82,9 @@ export default function PlayerList({list, selectedUser, actionText, action}: ISe
                 {
                     list && list.length > 0 &&
                     <View style={styles.headerRow}>
-                        <Text style={styles.cellName}>Name</Text>
-                        <Text style={styles.cellGames}>Games</Text>
-                        <Text style={styles.cellAction}/>
+                        <MyText style={styles.cellName}>Name</MyText>
+                        <MyText style={styles.cellGames}>Games</MyText>
+                        <MyText style={styles.cellAction}/>
                     </View>
                 }
 

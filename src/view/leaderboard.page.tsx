@@ -17,6 +17,7 @@ import {IconButton} from "react-native-paper";
 import {TextLoader} from "./components/loader/text-loader";
 import {ImageLoader} from "./components/loader/image-loader";
 import {TabBarLabel} from "./components/tab-bar-label";
+import {MyText} from "./components/my-text";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -105,13 +106,13 @@ export function Leaderboard({leaderboardId} : any) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>{getString('leaderboard', leaderboardId)}</Text>
+            <MyText style={styles.title}>{getString('leaderboard', leaderboardId)}</MyText>
 
             <View style={styles.headerRow}>
-                <Text style={styles.cellRank} numberOfLines={1}>Rank</Text>
-                <Text style={styles.cellRating} numberOfLines={1}>Rating</Text>
-                <Text style={styles.cellName} numberOfLines={1}>Name</Text>
-                <Text style={styles.cellGames} numberOfLines={1}>Games</Text>
+                <MyText style={styles.cellRank} numberOfLines={1}>Rank</MyText>
+                <MyText style={styles.cellRating} numberOfLines={1}>Rating</MyText>
+                <MyText style={styles.cellName} numberOfLines={1}>Name</MyText>
+                <MyText style={styles.cellGames} numberOfLines={1}>Games</MyText>
             </View>
 
             <View style={styles.measureContainer}>
@@ -133,7 +134,7 @@ export function Leaderboard({leaderboardId} : any) {
 
                 {
                     players.touched &&
-                    <Text style={styles.pageInfo}>{isNaN(to) ? null : `${from}-${to} of ${total}`}</Text>
+                    <MyText style={styles.pageInfo}>{isNaN(to) ? null : `${from}-${to} of ${total}`}</MyText>
                 }
 
                 <IconButton

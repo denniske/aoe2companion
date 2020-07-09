@@ -7,6 +7,7 @@ import {getFlagIcon} from "../../helper/flags";
 import {composeUserId, sameUser, UserIdBase, userIdFromBase} from "../../helper/user";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
+import {MyText} from "./my-text";
 
 interface IRow {
     player: IPlayer;
@@ -33,15 +34,15 @@ function Row({data}: IRowProps) {
                 <TouchableHighlight style={styles.cellLeaderboard} onPress={gotoPlayer}>
                     <View style={styles.row}>
                         <Image style={styles.countryIcon} source={getFlagIcon(data.player.country)}/>
-                        <Text>{data.player.name}</Text>
+                        <MyText>{data.player.name}</MyText>
                     </View>
                 </TouchableHighlight>
-                <Text style={styles.cellGames}>
+                <MyText style={styles.cellGames}>
                     {data.games}
-                </Text>
-                <Text style={styles.cellWon}>
+                </MyText>
+                <MyText style={styles.cellWon}>
                     {isNaN(data.won) ? '-' : data.won.toFixed(0) + ' %'}
-                </Text>
+                </MyText>
             </View>
     )
 }
@@ -102,13 +103,13 @@ export default function StatsPlayer({matches, user}: IProps) {
                 <View>
                     {
                         matches &&
-                        <Text style={styles.info}>(of the last {matches.length} matches)</Text>
+                        <MyText style={styles.info}>(of the last {matches.length} matches)</MyText>
                     }
 
                     <View style={styles.row}>
-                        <Text numberOfLines={1} style={styles.cellLeaderboard}>Ally</Text>
-                        <Text numberOfLines={1} style={styles.cellGames}>Games</Text>
-                        <Text numberOfLines={1} style={styles.cellWon}>Won*</Text>
+                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>Ally</MyText>
+                        <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>
+                        <MyText numberOfLines={1} style={styles.cellWon}>Won*</MyText>
                     </View>
 
                     {
@@ -127,11 +128,11 @@ export default function StatsPlayer({matches, user}: IProps) {
                         )
                     }
 
-                    <Text/>
+                    <MyText/>
                     <View style={styles.row}>
-                        <Text numberOfLines={1} style={styles.cellLeaderboard}>Opponent</Text>
-                        <Text numberOfLines={1} style={styles.cellGames}>Games</Text>
-                        <Text numberOfLines={1} style={styles.cellWon}>Won*</Text>
+                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>Opponent</MyText>
+                        <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>
+                        <MyText numberOfLines={1} style={styles.cellWon}>Won*</MyText>
                     </View>
 
                     {

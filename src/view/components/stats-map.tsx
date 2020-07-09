@@ -5,6 +5,7 @@ import {TextLoader} from "./loader/text-loader";
 import {AoeMap, getMapImage, getMapName, maps} from "../../helper/maps";
 import {orderBy} from "lodash-es";
 import {sameUser, UserIdBase} from "../../helper/user";
+import {MyText} from "./my-text";
 
 interface IRow {
     map: AoeMap;
@@ -22,14 +23,14 @@ function Row({data}: IRowProps) {
             <View style={styles.row}>
                 <View style={styles.cellLeaderboard}>
                     <Image style={styles.icon} source={getMapImage(data.map)}/>
-                    <Text>{getMapName(data.map)}</Text>
+                    <MyText>{getMapName(data.map)}</MyText>
                 </View>
-                <Text style={styles.cellGames}>
+                <MyText style={styles.cellGames}>
                     {data.games}
-                </Text>
-                <Text style={styles.cellWon}>
+                </MyText>
+                <MyText style={styles.cellWon}>
                     {isNaN(data.won) ? '-' : data.won.toFixed(0) + ' %'}
-                </Text>
+                </MyText>
             </View>
     )
 }
@@ -65,12 +66,12 @@ export default function StatsMap({matches, user}: IProps) {
 
     return (
             <View style={styles.container}>
-                <Text/>
+                <MyText/>
                 <View>
                     <View style={styles.row}>
-                        <Text numberOfLines={1} style={styles.cellLeaderboard}>Map</Text>
-                        <Text numberOfLines={1} style={styles.cellGames}>Games</Text>
-                        <Text numberOfLines={1} style={styles.cellWon}>Won*</Text>
+                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>Map</MyText>
+                        <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>
+                        <MyText numberOfLines={1} style={styles.cellWon}>Won*</MyText>
                     </View>
 
                     {
@@ -78,10 +79,10 @@ export default function StatsMap({matches, user}: IProps) {
                                 <Row key={leaderboard.map} data={leaderboard}/>
                         )
                     }
-                    <Text/>
+                    <MyText/>
                     {
                         matches &&
-                        <Text style={styles.info}>*based on matches with known result</Text>
+                        <MyText style={styles.info}>*based on matches with known result</MyText>
                     }
 
                     {

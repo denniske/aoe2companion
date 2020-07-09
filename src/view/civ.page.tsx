@@ -15,6 +15,8 @@ import {TechTree} from "./components/tech-tree";
 import {appStyles} from "./styles";
 import {UnitCompBig} from "./unit/unit-list";
 import {TechCompBig} from "./tech/tech-list";
+import {MyText} from "./components/my-text";
+import {iconHeight, iconWidth} from "../helper/theme";
 
 
 export function CivTitle(props: any) {
@@ -51,16 +53,16 @@ function highlightUnitAndTechs(str: string) {
     const texts = [];
     for (let i = 0; i < parts.length; i++) {
         if (i % 2 == 0) {
-            texts.push(<Text key={i}>{parts[i]}</Text>);
+            texts.push(<MyText key={i}>{parts[i]}</MyText>);
         } else {
             // console.log('part', parts[i]);
             const matchingTech = reverseTechMap[parts[i]]?.name;
             if (matchingTech) {
-                texts.push(<Text key={i} style={appStyles.link} onPress={() => navigation.push('Tech', {tech: matchingTech})}>{parts[i]}</Text>);
+                texts.push(<MyText key={i} style={appStyles.link} onPress={() => navigation.push('Tech', {tech: matchingTech})}>{parts[i]}</MyText>);
             }
             const matchingUnit = reverseUnitMap[parts[i]]?.name;
             if (matchingUnit) {
-                texts.push(<Text key={i} style={appStyles.link} onPress={() => navigation.push('Unit', {unit: matchingUnit})}>{parts[i]}</Text>);
+                texts.push(<MyText key={i} style={appStyles.link} onPress={() => navigation.push('Unit', {unit: matchingUnit})}>{parts[i]}</MyText>);
             }
         }
     }
@@ -75,23 +77,23 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
 
     return (
         <View style={styles.detailsContainer}>
-            <Text style={styles.content}>{type}</Text>
-            {/*<Text/>*/}
+            <MyText style={styles.content}>{type}</MyText>
+            {/*<MyText/>*/}
 
             <View style={styles.box}>
-                <Text style={styles.heading}>Bonus</Text>
+                <MyText style={styles.heading}>Bonus</MyText>
             {
                 boni.map((bonus, i) =>
                     <View key={i} style={styles.bonusRow}>
-                        <Text style={styles.content}>• </Text>
-                        <Text style={styles.content}>{highlightUnitAndTechs(bonus)}</Text>
+                        <MyText style={styles.content}>• </MyText>
+                        <MyText style={styles.content}>{highlightUnitAndTechs(bonus)}</MyText>
                     </View>
                 )
             }
             </View>
 
             <View style={styles.box}>
-            <Text style={styles.heading}>Unique Unit</Text>
+            <MyText style={styles.heading}>Unique Unit</MyText>
             {
                 civDict[civ].uniqueUnits.map(unit =>
                     <UnitCompBig key={unit} unit={unit}/>
@@ -100,7 +102,7 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
             </View>
 
             <View style={styles.box}>
-            <Text style={styles.heading}>Unique Tech</Text>
+            <MyText style={styles.heading}>Unique Tech</MyText>
             {
                 civDict[civ].uniqueTechs.map(tech =>
                     <TechCompBig key={tech} tech={tech}/>
@@ -109,11 +111,11 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
             </View>
 
             <View style={styles.box}>
-            <Text style={styles.heading}>{teamBonusTitle.replace(':', '')}</Text>
-            <Text style={styles.content}>{highlightUnitAndTechs(teamBonus)}</Text>
+            <MyText style={styles.heading}>{teamBonusTitle.replace(':', '')}</MyText>
+            <MyText style={styles.content}>{highlightUnitAndTechs(teamBonus)}</MyText>
             </View>
 
-            {/*<Text style={styles.content}>{civDescription2}</Text>*/}
+            {/*<MyText style={styles.content}>{civDescription2}</MyText>*/}
 
             <View style={styles.box}>
             <TechTree civ={civ} />
@@ -134,8 +136,8 @@ export function CivList() {
                                 <View style={styles.civBlock}>
                                     <Image style={styles.icon} source={getCivIconByIndex(i)}/>
                                     <View style={styles.civRow}>
-                                        <Text style={styles.name}>{civ}</Text>
-                                        <Text style={styles.small} numberOfLines={1}>{getCivTeamBonus(civ)}</Text>
+                                        <MyText style={styles.name}>{civ}</MyText>
+                                        <MyText style={styles.small} numberOfLines={1}>{getCivTeamBonus(civ)}</MyText>
                                     </View>
                                 </View>
                         </TouchableOpacity>
@@ -217,8 +219,8 @@ const styles = StyleSheet.create({
         // backgroundColor: 'yellow',
     },
     icon: {
-      width: 30,
-      height: 30,
+      width: iconWidth,
+      height: iconHeight,
     },
     name: {
     },

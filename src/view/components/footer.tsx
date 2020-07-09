@@ -8,6 +8,7 @@ import {RootStackParamList, RootStackProp} from '../../../App';
 import {getRootNavigation} from "../../service/navigation";
 import {useNavigationState} from "@react-navigation/native";
 import {useNavigationStateExternal} from "../../hooks/use-navigation-state-external";
+import {MyText} from "./my-text";
 
 export default function Footer() {
     const [menu, setMenu] = useState(false);
@@ -59,7 +60,7 @@ export default function Footer() {
                             visible={menu}
                             onDismiss={() => setMenu(false)}
                             anchor={
-                                <View><Text> </Text></View>
+                                <View><MyText> </MyText></View>
                             }
                     >
                         <Menu.Item onPress={() => { nav('About'); setMenu(false); }} title="About" />

@@ -11,6 +11,7 @@ import {ImageLoader} from "./loader/image-loader";
 import {ViewLoader} from "./loader/view-loader";
 import {groupBy} from "lodash-es";
 import {differenceInSeconds} from "date-fns";
+import { MyText } from './my-text';
 
 interface IGameProps {
     data: IMatch;
@@ -78,22 +79,22 @@ export function Game({data, expanded = false}: IGameProps) {
                 <View style={styles.row}>
                     <Image style={styles.map} source={getMapImage(data.map_type)}/>
                     <View style={styles.header}>
-                        <Text numberOfLines={1} style={styles.matchTitle}>
+                        <MyText numberOfLines={1} style={styles.matchTitle}>
                             {getString('map_type', data.map_type)} - {data.match_id} - {data.server}
-                        </Text>
-                        <Text numberOfLines={1} style={styles.matchContent}>
+                        </MyText>
+                        <MyText numberOfLines={1} style={styles.matchContent}>
                             {getString('leaderboard', data.leaderboard_id)}
-                        </Text>
-                        <Text numberOfLines={1} style={styles.matchContent}>
+                        </MyText>
+                        <MyText numberOfLines={1} style={styles.matchContent}>
                             {
                                 !data.finished &&
-                                <Text>{duration}</Text>
+                                <MyText>{duration}</MyText>
                             }
                             {
                                 data.finished &&
-                                <Text>{data.started ? formatAgo(data.started) : 'none'}</Text>
+                                <MyText>{data.started ? formatAgo(data.started) : 'none'}</MyText>
                             }
-                        </Text>
+                        </MyText>
                     </View>
                 </View>
             )}
@@ -110,7 +111,7 @@ export function Game({data, expanded = false}: IGameProps) {
                                 <View style={styles.row}>
                                     {/*<View style={styles.versus2}/>*/}
                                     <View style={styles.versus}>
-                                        <Text style={styles.versusText}>VS</Text>
+                                        <MyText style={styles.versusText}>VS</MyText>
                                     </View>
                                     <View style={styles.versus2}/>
                                 </View>

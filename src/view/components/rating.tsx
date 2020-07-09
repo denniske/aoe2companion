@@ -91,7 +91,7 @@ export default function Rating({ratingHistories}: IRatingProps) {
                         ))
                     }
                 </View>
-                {/*<Text style={styles.legendDesc}>RM = Random Map &nbsp;&nbsp;&nbsp; DM = Death Match</Text>*/}
+                {/*<MyText style={styles.legendDesc}>RM = Random Map &nbsp;&nbsp;&nbsp; DM = Death Match</MyText>*/}
             </View>
     )
 }

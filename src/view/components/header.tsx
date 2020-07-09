@@ -7,6 +7,8 @@ import {useNavigation} from '@react-navigation/native';
 import {IconButton, Menu} from 'react-native-paper';
 import {RootStackParamList, RootStackProp} from '../../../App';
 import {getRootNavigation} from "../../service/navigation";
+import {MyText} from "./my-text";
+import {iconHeight, iconWidth} from "../../helper/theme";
 
 export default function Header() {
     const [menu, setMenu] = useState(false);
@@ -24,7 +26,7 @@ export default function Header() {
             <View style={styles.container}>
                 <View style={styles.header}>
                     <Image style={styles.icon} source={require('../../../assets/icon.png')}/>
-                    <Text>AoE II Companion</Text>
+                    <MyText>AoE II Companion</MyText>
                 </View>
                 <View style={styles.menu}>
                     {/*<IconButton*/}
@@ -100,8 +102,8 @@ const styles = StyleSheet.create({
     },
     icon: {
         marginRight: 5,
-        width: 30,
-        height: 30,
+        width: iconWidth,
+        height: iconHeight,
     },
     container: {
         // backgroundColor: 'blue',

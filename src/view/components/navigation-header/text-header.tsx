@@ -1,5 +1,6 @@
 import {LayoutChangeEvent, Platform, StyleSheet, Text, View} from "react-native";
 import React from "react";
+import {MyText} from "../my-text";
 
 interface TextHeaderProps {
     text: string;
@@ -10,7 +11,7 @@ export default function TextHeader(props: TextHeaderProps) {
     const {text, onLayout} = props;
     return (
         <View style={styles.container} onLayout={onLayout}>
-            <Text style={styles.title} numberOfLines={1}>{text}</Text>
+            <MyText style={styles.title} numberOfLines={1}>{text}</MyText>
         </View>
     );
 }
