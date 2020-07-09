@@ -1,6 +1,7 @@
 import {aoeData, aoeStringKey, aoeTechDataId} from "../data/data";
 import {Civ} from "./civs";
 import {sanitizeGameDescription, strRemoveTo} from "./util";
+import {ICostDict} from "./units";
 
 
 interface IEffect {
@@ -1699,27 +1700,34 @@ const techIcons = {
 export type Tech = keyof typeof techIcons;
 export type TechEffect = keyof typeof techEffectDictInternal;
 
+export interface ITechInfo {
+    Cost: ICostDict;
+    ID: number;
+    LanguageHelpId: number;
+    LanguageNameId: number;
+    ResearchTime: number;
+}
+
 export function getTechIcon(tech: Tech) {
     return techIcons[tech];
 }
 
-export function getTechName(tech: Tech) {
+export function getTechData(tech: Tech) {
     const techEntry = techs[tech];
     if (techEntry == null) {
         throw Error(`getTechName ${tech} - no dataId`);
     }
     const dataId = techEntry.dataId;
-    const data = aoeData.data.techs[dataId];
+    return aoeData.data.techs[dataId] as ITechInfo;
+}
+
+export function getTechName(tech: Tech) {
+    const data = getTechData(tech);
     return aoeData.strings[data.LanguageNameId.toString() as aoeStringKey];
 }
 
 export function getTechDescription(tech: Tech) {
-    const techEntry = techs[tech];
-    if (techEntry == null) {
-        throw Error(`getTechName ${tech} - no dataId`);
-    }
-    const dataId = techEntry.dataId;
-    const data = aoeData.data.techs[dataId];
+    const data = getTechData(tech);
     let description = sanitizeGameDescription(aoeData.strings[data.LanguageHelpId.toString() as aoeStringKey]);
 
     description = strRemoveTo(description, '\n');

@@ -82,43 +82,43 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
 
             <View style={styles.box}>
                 <MyText style={styles.heading}>Bonus</MyText>
-            {
-                boni.map((bonus, i) =>
-                    <View key={i} style={styles.bonusRow}>
-                        <MyText style={styles.content}>• </MyText>
-                        <MyText style={styles.content}>{highlightUnitAndTechs(bonus)}</MyText>
-                    </View>
-                )
-            }
+                {
+                    boni.map((bonus, i) =>
+                        <View key={i} style={styles.bonusRow}>
+                            <MyText style={styles.content}>• </MyText>
+                            <MyText style={styles.content}>{highlightUnitAndTechs(bonus)}</MyText>
+                        </View>
+                    )
+                }
             </View>
 
             <View style={styles.box}>
-            <MyText style={styles.heading}>Unique Unit</MyText>
-            {
-                civDict[civ].uniqueUnits.map(unit =>
-                    <UnitCompBig key={unit} unit={unit}/>
-                )
-            }
+                <MyText style={styles.heading}>Unique Unit</MyText>
+                {
+                    civDict[civ].uniqueUnits.map(unit =>
+                        <UnitCompBig key={unit} unit={unit}/>
+                    )
+                }
             </View>
 
             <View style={styles.box}>
-            <MyText style={styles.heading}>Unique Tech</MyText>
-            {
-                civDict[civ].uniqueTechs.map(tech =>
-                    <TechCompBig key={tech} tech={tech}/>
-                )
-            }
+                <MyText style={styles.heading}>Unique Tech</MyText>
+                {
+                    civDict[civ].uniqueTechs.map(tech =>
+                        <TechCompBig key={tech} tech={tech}/>
+                    )
+                }
             </View>
 
             <View style={styles.box}>
-            <MyText style={styles.heading}>{teamBonusTitle.replace(':', '')}</MyText>
-            <MyText style={styles.content}>{highlightUnitAndTechs(teamBonus)}</MyText>
+                <MyText style={styles.heading}>{teamBonusTitle.replace(':', '')}</MyText>
+                <MyText style={styles.content}>{highlightUnitAndTechs(teamBonus)}</MyText>
             </View>
 
             {/*<MyText style={styles.content}>{civDescription2}</MyText>*/}
 
             <View style={styles.box}>
-            <TechTree civ={civ} />
+                <TechTree civ={civ}/>
             </View>
         </View>
     );
@@ -196,15 +196,14 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 
-
     box: {
         // borderTopWidth: 1,
         // borderTopColor: '#DDD',
         // borderBottomWidth: 1,
         // borderBottomColor: '#CCC',
-        marginTop: 10,
-        marginHorizontal: -20,
-        paddingHorizontal: 20,
+        // marginTop: 10,
+        // marginHorizontal: -20,
+        // paddingHorizontal: 20,
     },
 
     content: {

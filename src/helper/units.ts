@@ -1962,15 +1962,15 @@ interface IUnitClassPair {
     Class: UnitClassNumber,
 }
 
-type IUnitCostDict = {
-    [key in Other]: number;
+export type ICostDict = {
+    [key in Other]?: number;
 };
 
 export interface IUnitInfo {
     AccuracyPercent: number;
     Attack: number;
     Attacks: IUnitClassPair[];
-    Cost: IUnitCostDict;
+    Cost: ICostDict;
     FrameDelay: number;
     GarrisonCapacity: number;
     HP: number;
@@ -2197,14 +2197,7 @@ export function getUnitIcon(unit: Unit) {
 }
 
 export function getUnitName(unit: Unit) {
-    const unitEntry = units[unit];
-    if (unitEntry == null) {
-        throw Error(`getUnitLineName ${unit} - no dataId`);
-    }
-    const dataId = units[unit].dataId;
-    // console.log("DATA ID", dataId);
-    // console.log("DATA ID", aoeData.data.units);
-    const data = aoeData.data.units[dataId];
+    const data = getUnitData(unit);
     return aoeData.strings[data.LanguageNameId.toString() as aoeStringKey];
 }
 
@@ -2214,18 +2207,11 @@ export function getUnitData(unit: Unit) {
         throw Error(`getUnitLineName ${unit} - no dataId`);
     }
     const dataId = units[unit].dataId;
-    // console.log("DATA ID", dataId);
-    // console.log("DATA ID", aoeData.data.units);
-    return aoeData.data.units[dataId] as unknown as IUnitInfo;
+    return aoeData.data.units[dataId] as IUnitInfo;
 }
 
 export function getUnitDescription(unit: Unit) {
-    const unitEntry = units[unit];
-    if (unitEntry == null) {
-        throw Error(`getUnitLineName ${unit} - no dataId`);
-    }
-    const dataId = units[unit].dataId;
-    const data = aoeData.data.units[dataId];
+    const data = getUnitData(unit);
     let description = aoeData.strings[data.LanguageHelpId.toString() as aoeStringKey];
 
     description = strRemoveTo(description, '<br>\n');

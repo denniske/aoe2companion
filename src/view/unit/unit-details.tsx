@@ -114,24 +114,7 @@ export default function UnitDetails({unitLineName}: {unitLineName: UnitLine}) {
     const data = getUnitData(baseUnit);
     const eliteData = eliteUnit ? getUnitData(eliteUnit) : null;
 
-    // const getValue = (key: keyof IUnitInfo) => {
-    //     if (eliteData && eliteData[key] > 0) {
-    //         return (
-    //             <>
-    //                 <MyText>{data[key]}, {eliteData[key]} (elite)</MyText>
-    //             </>
-    //         );
-    //     } else {
-    //         return (
-    //             <>
-    //                 <MyText>{data[key]}</MyText>
-    //             </>
-    //         );
-    //     }
-    // };
-
     const getValueByPath = (path: (x: IUnitInfo) => any, formatter: (x: number) => string = x => x.toString()) => {
-        console.log("bypath", path(data));
         if (eliteData && path(eliteData) !== path(data)) {
             return (
                 <>
@@ -164,12 +147,16 @@ export default function UnitDetails({unitLineName}: {unitLineName: UnitLine}) {
         return getValueByPath((x: IUnitInfo) => x.Armours.find(a => a.Class === unitClassNumber)?.Amount, x => '+'+x);
     };
 
+    const attacks = data.Attacks.filter(a => attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber)));
+    const attackBonuses = data.Attacks.filter(a => a.Amount > 0 && !attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber)));
+    const armourClasses = data.Armours.filter(a => (a.Amount > 0 || a.Class === 19) && !attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber)));
+
     return (
         <View style={styles.container}>
-            <View style={styles.statsRow}>
+            <View style={styles.costsRow}>
                 {
                     sortResources(keysOf(data.Cost)).map(res =>
-                        <View style={styles.resRow}>
+                        <View key={res} style={styles.resRow}>
                             <Image style={styles.resIcon} source={getOtherIcon(res as Other)}/>
                             <MyText style={styles.resDescription}>{data.Cost[res]}</MyText>
                         </View>
@@ -181,105 +168,88 @@ export default function UnitDetails({unitLineName}: {unitLineName: UnitLine}) {
             <MyText style={styles.description}>{getUnitDescription(baseUnit)}</MyText>
             <MyText/>
 
-            {/*<View style={styles.statsRow}>*/}
-            {/*    <Button*/}
-            {/*        labelStyle={{fontSize: 13, marginVertical: 0}}*/}
-            {/*        contentStyle={{height: 22}}*/}
-            {/*        onPress={() => setStatsVisible(true)}*/}
-            {/*        mode="contained"*/}
-            {/*        compact*/}
-            {/*        uppercase={false}*/}
-            {/*        dark={true}*/}
-            {/*    >*/}
-            {/*        Show more*/}
-            {/*    </Button>*/}
-            {/*</View>*/}
-
             {
                 statsVisible &&
                 <View style={styles.statsContainer}>
-                    <View style={styles.statsRow2}>
+                    <View style={styles.statsRow}>
                         <MyText style={styles.cellName}>Hit Points</MyText>
                         <MyText style={styles.cellValue}>{getValue('HP')}</MyText>
                     </View>
-                    <View style={styles.statsRow2}>
+                    <View style={styles.statsRow}>
                         <MyText style={styles.cellName}>Attack</MyText>
                         <MyText style={styles.cellValue}>
                             {
-                                data.Attacks
-                                    .filter(a => attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber)))
-                                    .map(a =>
-                                        <MyText>{getAttackValue(a.Class as UnitClassNumber)} ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
-                                    )
+                                attacks.length > 0 && attacks.map(a =>
+                                    <MyText>{getAttackValue(a.Class as UnitClassNumber)} ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
+                                )
+                                || <Text>-</Text>
                             }
                         </MyText>
                     </View>
-                    <View style={styles.statsRow2}>
+                    <View style={styles.statsRow}>
                         <MyText style={styles.cellName}>Attack Bonuses</MyText>
                         <View style={styles.cellValue}>
                             {
-                                data.Attacks
-                                    .filter(a => a.Amount > 0 && !attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber)))
-                                    .map(a =>
-                                        <MyText>{getAttackBonusValue(a.Class as UnitClassNumber)} ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
-                                    )
+                                attackBonuses.length > 0 && attackBonuses.map(a =>
+                                    <MyText>{getAttackBonusValue(a.Class as UnitClassNumber)} ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
+                                )
+                                || <Text>-</Text>
                             }
                         </View>
                     </View>
-                    <View style={styles.statsRow2}>
+                    <View style={styles.statsRow}>
                         <MyText style={styles.cellName}>Rate of Fire</MyText>
                         <MyText style={styles.cellValue}>{getValue('ReloadTime')}</MyText>
                     </View>
-                    <View style={styles.statsRow2}>
+                    <View style={styles.statsRow}>
                         <MyText style={styles.cellName}>Frame Delay</MyText>
                         <MyText style={styles.cellValue}>{getValue('FrameDelay')}</MyText>
                     </View>
-                    <View style={styles.statsRow2}>
+                    <View style={styles.statsRow}>
                         <MyText style={styles.cellName}>Range</MyText>
                         <MyText style={styles.cellValue}>{getValue('Range')}</MyText>
                     </View>
                     {
                         data.MinRange > 0 &&
-                        <View style={styles.statsRow2}>
+                        <View style={styles.statsRow}>
                             <MyText style={styles.cellName}>Minimum Range</MyText>
                             <MyText style={styles.cellValue}>{getValue('MinRange')}</MyText>
                         </View>
                     }
-                    <View style={styles.statsRow2}>
+                    <View style={styles.statsRow}>
                         <MyText style={styles.cellName}>Accuracy</MyText>
                         <MyText style={styles.cellValue}>{getValue('AccuracyPercent')}%</MyText>
                     </View>
-                    <View style={styles.statsRow2}>
+                    <View style={styles.statsRow}>
                         <MyText style={styles.cellName}>Melee Armour</MyText>
                         <MyText style={styles.cellValue}>{getValue('MeleeArmor')}</MyText>
                     </View>
-                    <View style={styles.statsRow2}>
+                    <View style={styles.statsRow}>
                         <MyText style={styles.cellName}>Pierce Armour</MyText>
                         <MyText style={styles.cellValue}>{getValue('PierceArmor')}</MyText>
                     </View>
-                    <View style={styles.statsRow2}>
+                    <View style={styles.statsRow}>
                         <MyText style={styles.cellName}>Armor Classes</MyText>
                         <View style={styles.cellValue}>
                             {
-                                data.Armours
-                                    .filter(a => (a.Amount > 0 || a.Class === 19) && !attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber)))
-                                    .map(a =>
-                                        <MyText>{getArmourValue(a.Class as UnitClassNumber)} ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
-                                    )
+                                armourClasses.length > 0 && armourClasses.map(a =>
+                                    <MyText>{getArmourValue(a.Class as UnitClassNumber)} ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
+                                )
+                                || <Text>-</Text>
                             }
                         </View>
                     </View>
-                    <View style={styles.statsRow2}>
+                    <View style={styles.statsRow}>
                         <MyText style={styles.cellName}>Speed</MyText>
                         <MyText style={styles.cellValue}>{getValue('Speed')}</MyText>
                     </View>
-                    <View style={styles.statsRow2}>
+                    <View style={styles.statsRow}>
                         <MyText style={styles.cellName}>Line Of Sight</MyText>
                         <MyText style={styles.cellValue}>{getValue('LineOfSight')}</MyText>
                     </View>
                     {
                         data.GarrisonCapacity > 0 &&
-                        <View style={styles.statsRow2}>
+                        <View style={styles.statsRow}>
                             <MyText style={styles.cellName}>Garrison Capacity</MyText>
                             <MyText style={styles.cellValue}>{getValue('GarrisonCapacity')}</MyText>
                         </View>
@@ -342,7 +312,6 @@ export default function UnitDetails({unitLineName}: {unitLineName: UnitLine}) {
                                         <MyText style={appStyles.link} onPress={() => gotoTech(upgrade.tech!)}>{getTechName(upgrade.tech)}</MyText>
                                         <MyText size="footnote">
                                             {upgrade.effect[group.prop] ? ' (' + upgrade.effect[group.prop] : ''}
-                                            {/*{upgrade.effect[group.prop]}*/}
                                             {
                                                 upgrade.civ &&
                                                 <>
@@ -370,7 +339,7 @@ export default function UnitDetails({unitLineName}: {unitLineName: UnitLine}) {
                             developments.map(unit =>
                                 <View key={unit} style={styles.row}>
                                     <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(unit)}/>
-                                    <MyText> {getUnitName(unit)}</MyText>
+                                    <MyText style={styles.unitDesc}>{getUnitName(unit)}</MyText>
                                 </View>
                             )
                         }
@@ -388,9 +357,6 @@ const padding = 2;
 const styles = StyleSheet.create({
     description: {
         lineHeight: 20,
-    },
-    resDescription: {
-        marginRight: 20,
     },
     container: {
         flex: 1,
@@ -410,19 +376,27 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         // backgroundColor: 'blue',
     },
+    resIcon: {
+        width: 22,
+        height: 22,
+        marginRight: 5,
+    },
+    resDescription: {
+        marginRight: 20,
+    },
 
-    statsRow: {
+    costsRow: {
         flexDirection: 'row',
-        // justifyContent: 'center',
         marginBottom: 5,
         // backgroundColor: 'blue',
     },
+
     statsContainer: {
         marginTop: 5,
         marginHorizontal: -padding,
         // alignItems: 'center',
     },
-    statsRow2: {
+    statsRow: {
         flexDirection: 'row',
         justifyContent: 'center',
         // marginBottom: 5,
@@ -442,11 +416,6 @@ const styles = StyleSheet.create({
         color: '#333',
     },
 
-    resIcon: {
-        width: 22,
-        height: 22,
-        marginRight: 5,
-    },
     unitIcon: {
         width: iconSmallWidth,
         height: iconSmallHeight,
