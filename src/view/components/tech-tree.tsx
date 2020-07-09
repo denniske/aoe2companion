@@ -48,6 +48,7 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                 <Ability0 civ={civ}/>
                 <Ability0 civ={civ}/>
                 <Ability2 civ={civ} tech="ThumbRing"/>
+                <Ability2 civ={civ} tech="ParthianTactics"/>
             </View>
 
             <Text style={styles.heading}>Siege</Text>
