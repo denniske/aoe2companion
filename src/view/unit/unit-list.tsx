@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     rowBig: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 10,
+        marginBottom: 4, // TODO ROLLBACK
         // backgroundColor: 'blue',
     },
     unitIconBig: {

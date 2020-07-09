@@ -1,8 +1,9 @@
 import {Tech, TechEffect} from "./techs";
 import {ImageSourcePropType} from "react-native";
 import {aoeData, aoeStringKey, aoeUnitDataId} from "../data/data";
-import {keysOf, strRemoveFrom, strRemoveTo, unwrap} from "./util";
+import {keysOf, strRemoveFrom, strRemoveTo, unwrap, ValueOf} from "./util";
 import {sortBy, uniq} from "lodash-es";
+import {civs} from "./civs";
 
 
 export interface IUnitLine {
@@ -1956,6 +1957,115 @@ interface UnitIconDict {
     [unit: string]: ImageSourcePropType;
 }
 
+interface IUnitClassPair {
+    Amount: number;
+    Class: UnitClassNumber,
+}
+
+type IUnitCostDict = {
+    [key in Other]: number;
+};
+
+export interface IUnitInfo {
+    AccuracyPercent: number;
+    Attack: number;
+    Attacks: IUnitClassPair[];
+    Cost: IUnitCostDict;
+    FrameDelay: number;
+    GarrisonCapacity: number;
+    HP: number;
+    ID: number;
+    LanguageHelpId: number;
+    LanguageNameId: number;
+    LineOfSight: number;
+    MeleeArmor: number;
+    MinRange: number;
+    PierceArmor: number;
+    Armours: IUnitClassPair[];
+    Range: number;
+    ReloadTime: number;
+    Speed: number;
+    TrainTime: number;
+}
+
+const unitClasses = {
+    0: "Unused",
+    1: "Infantry",
+    2: "Turtle Ships",
+    3: "Pierce",
+    4: "Melee",
+    5: "War Elephants",
+    6: "Unused",
+    7: "Unused",
+    8: "Cavalry",
+    9: "Unused",
+    10: "Unused",
+    11: "All Buildings", // except Port
+    12: "Unused",
+    13: "Stone Defense",
+    14: "FE Predator Animals",
+    15: "Archers",
+    16: "Ships & Camels & Saboteurs",
+    17: "Rams",
+    18: "Trees",
+    19: "Unique Units", // except Turtle Ship
+    20: "Siege Weapons",
+    21: "Standard Buildings",
+    22: "Walls & Gates",
+    23: "FE Gunpowder Units",
+    24: "Boars",
+    25: "Monks",
+    26: "Castle",
+    27: "Spearmen",
+    28: "Cavalry Archers",
+    29: "Eagle Warriors",
+    30: "HD Camels",
+    31: "Anti-Leitis",
+    32: "Condottieros",
+    33: "Organ Gun Damage",
+    34: "Fishing Ships",
+    35: "Mamelukes",
+    36: "Heroes and Kings",
+} as const;
+
+export const attackClasses = [
+    'Melee',
+    'Pierce',
+];
+
+export type UnitClassNumber = keyof typeof unitClasses;
+export type UnitClass = ValueOf<typeof unitClasses>;
+
+export function getUnitClassName(unitClassNumber: UnitClassNumber): UnitClass {
+    return unitClasses[unitClassNumber];
+}
+
+
+export const otherNames = [
+    'Wood',
+    'Food',
+    'Gold',
+    'Stone',
+] as const;
+
+const otherIcons = {
+    'Wood': require('../../assets/other/Wood.png'),
+    'Food': require('../../assets/other/Food.png'),
+    'Gold': require('../../assets/other/Gold.png'),
+    'Stone': require('../../assets/other/Stone.png'),
+};
+
+const OtherUnion = unwrap(otherNames);
+export type Other = typeof OtherUnion;
+
+export function getOtherIcon(other: Other) {
+    return otherIcons[other];
+}
+
+export function sortResources(resources: Other[]) {
+    return sortBy(resources, res => otherNames.indexOf(res));
+}
+
 const unitIcons: UnitIconDict = {
     'Kamayuk': require('../../assets/units/Kamayuk.png'),
     'Slinger': require('../../assets/units/Slinger.png'),
@@ -2096,6 +2206,17 @@ export function getUnitName(unit: Unit) {
     // console.log("DATA ID", aoeData.data.units);
     const data = aoeData.data.units[dataId];
     return aoeData.strings[data.LanguageNameId.toString() as aoeStringKey];
+}
+
+export function getUnitData(unit: Unit) {
+    const unitEntry = units[unit];
+    if (unitEntry == null) {
+        throw Error(`getUnitLineName ${unit} - no dataId`);
+    }
+    const dataId = units[unit].dataId;
+    // console.log("DATA ID", dataId);
+    // console.log("DATA ID", aoeData.data.units);
+    return aoeData.data.units[dataId] as IUnitInfo;
 }
 
 export function getUnitDescription(unit: Unit) {

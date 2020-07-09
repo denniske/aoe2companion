@@ -76,8 +76,10 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
     return (
         <View style={styles.detailsContainer}>
             <Text style={styles.content}>{type}</Text>
-            <Text/>
+            {/*<Text/>*/}
 
+            <View style={styles.box}>
+                <Text style={styles.heading}>Bonus</Text>
             {
                 boni.map((bonus, i) =>
                     <View key={i} style={styles.bonusRow}>
@@ -86,27 +88,36 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
                     </View>
                 )
             }
+            </View>
 
-            <Text/>
+            <View style={styles.box}>
+            <Text style={styles.heading}>Unique Unit</Text>
             {
                 civDict[civ].uniqueUnits.map(unit =>
                     <UnitCompBig key={unit} unit={unit}/>
                 )
             }
+            </View>
 
-            <Text/>
+            <View style={styles.box}>
+            <Text style={styles.heading}>Unique Tech</Text>
             {
                 civDict[civ].uniqueTechs.map(tech =>
                     <TechCompBig key={tech} tech={tech}/>
                 )
             }
+            </View>
 
-            <Text style={styles.heading}>{teamBonusTitle}</Text>
+            <View style={styles.box}>
+            <Text style={styles.heading}>{teamBonusTitle.replace(':', '')}</Text>
             <Text style={styles.content}>{highlightUnitAndTechs(teamBonus)}</Text>
+            </View>
 
             {/*<Text style={styles.content}>{civDescription2}</Text>*/}
 
+            <View style={styles.box}>
             <TechTree civ={civ} />
+            </View>
         </View>
     );
 }
@@ -178,13 +189,27 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     heading: {
-        marginTop: 10,
+        marginVertical: 10,
         lineHeight: 20,
+        fontWeight: 'bold',
     },
+
+
+    box: {
+        // borderTopWidth: 1,
+        // borderTopColor: '#DDD',
+        // borderBottomWidth: 1,
+        // borderBottomColor: '#CCC',
+        marginTop: 10,
+        marginHorizontal: -20,
+        paddingHorizontal: 20,
+    },
+
     content: {
         // marginBottom: 5,
         textAlign: 'left',
-        lineHeight: 20,
+        lineHeight: 22,
+        // fontSize: 17,
     },
     detailsContainer: {
         flex: 1,
@@ -225,6 +250,7 @@ const styles = StyleSheet.create({
         color: '#333',
     },
     bonusRow: {
+        // marginLeft: 40,
         flexDirection: 'row',
     },
 });
