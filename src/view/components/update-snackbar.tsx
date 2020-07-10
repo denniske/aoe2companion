@@ -1,49 +1,34 @@
 import * as React from 'react';
-import {useEffect, useState} from 'react';
-import {StyleSheet} from 'react-native';
+import {useEffect} from 'react';
+import {Linking, Platform, StyleSheet} from 'react-native';
 import Snackbar from "./snackbar";
-import {setUpdateAvailable, setUpdateManifest, setUpdateState, useMutate, useSelector} from "../../redux/reducer";
-import {checkForUpdateAsync, fetchUpdateAsync, reloadAsync, UpdateCheckResult} from "expo-updates";
-import {sleep} from "../../helper/util";
+import {
+    setUpdateAvailable, setUpdateManifest, setUpdateState, setUpdateStoreManifest, useMutate, useSelector
+} from "../../redux/reducer";
+import {reloadAsync} from "expo-updates";
+import {doCheckForUpdateAsync, doFetchUpdateAsync} from "../../service/update";
 
-
-export async function doCheckForUpdateAsync() {
-    if (__DEV__) {
-        await sleep(1000);
-        return {
-            isAvailable: true,
-            manifest: {
-                version: '20.0.0',
-            },
-        } as UpdateCheckResult;
-    }
-    return await checkForUpdateAsync();
-}
-
-export async function doFetchUpdateAsync() {
-    if (__DEV__) {
-        return await sleep(2000);
-    }
-    return await fetchUpdateAsync();
-}
 
 export default function UpdateSnackbar() {
     const updateManifest = useSelector(state => state.updateManifest);
+    const updateStoreManifest = useSelector(state => state.updateStoreManifest);
     const updateAvailable = useSelector(state => state.updateAvailable);
     const updateState = useSelector(state => state.updateState);
     const mutate = useMutate();
 
-    console.log("UpdateSnackbar updateManifest", updateManifest);
-
     const init = async () => {
         if (updateManifest !== undefined) return;
-        console.log("init");
         const update = await doCheckForUpdateAsync();
         if (update.isAvailable) {
             mutate(setUpdateManifest(update.manifest));
-        } else {
-            close();
+            return;
         }
+        const storeUpdate = await doCheckForUpdateAsync();
+        if (storeUpdate) {
+            mutate(setUpdateStoreManifest(storeUpdate));
+            return;
+        }
+        close();
     };
 
     useEffect(() => {
@@ -54,6 +39,14 @@ export default function UpdateSnackbar() {
         mutate(setUpdateState('downloading'));
         await doFetchUpdateAsync();
         mutate(setUpdateState('downloaded'));
+    };
+
+    const openStore = async () => {
+        if (await Linking.canOpenURL(updateStoreManifest.storeUrl)) {
+            await Linking.openURL(updateStoreManifest.storeUrl);
+            return;
+        }
+        await Linking.openURL(updateStoreManifest.url);
     };
 
     const restart = async () => {
@@ -67,12 +60,26 @@ export default function UpdateSnackbar() {
     let message = '';
     let actions: any = [];
     switch (updateState) {
-        case 'updateAvailable':
+        case 'expoUpdateAvailable':
             message = `Update v${updateManifest?.version} available!`;
             actions = [
                 {
                     label: 'Load',
                     onPress: fetchUpdate,
+                },
+                {
+                    label: 'X',
+                    onPress: close,
+                },
+            ];
+            break;
+        case 'storeUpdateAvailable':
+            const store = Platform.select({ios: 'App Store', android: 'Play Store'});
+            message = `Update v${updateStoreManifest.version} in ${store}!`;
+            actions = [
+                {
+                    label: 'Open',
+                    onPress: openStore,
                 },
                 {
                     label: 'X',

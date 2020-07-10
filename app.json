@@ -43,6 +43,9 @@
       "supportsTablet": false,
       "config": {
         "usesNonExemptEncryption": false
+      },
+      "infoPlist": {
+        "LSApplicationQueriesSchemes": ["itms-apps"]
       }
     }
   }

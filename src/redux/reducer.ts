@@ -50,7 +50,15 @@ export function setUpdateManifest(updateManifest: Manifest | null) {
   return (state: AppState) => {
     state.updateManifest = updateManifest;
     state.updateAvailable = true;
-    state.updateState = 'updateAvailable';
+    state.updateState = 'expoUpdateAvailable';
+  };
+}
+
+export function setUpdateStoreManifest(updateStoreManifest: any | null) {
+  return (state: AppState) => {
+    state.updateStoreManifest = updateStoreManifest;
+    state.updateAvailable = true;
+    state.updateState = 'storeUpdateAvailable';
   };
 }
 
@@ -109,6 +117,7 @@ export interface AppState {
   updateState: string;
   updateAvailable: boolean;
   updateManifest?: Manifest | null;
+  updateStoreManifest?: any | null;
 }
 
 const initialState: Partial<AppState> = {

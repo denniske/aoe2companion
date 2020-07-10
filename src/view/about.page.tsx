@@ -5,8 +5,8 @@ import {useLinkTo} from '@react-navigation/native';
 import {Button} from "react-native-paper";
 import {appStyles} from "./styles";
 import {MyText} from "./components/my-text";
-import {setUpdateManifest, useMutate} from "../redux/reducer";
-import {doCheckForUpdateAsync} from "./components/update-snackbar";
+import {setUpdateManifest, setUpdateStoreManifest, useMutate} from "../redux/reducer";
+import {doCheckForStoreUpdate, doCheckForUpdateAsync} from "../service/update";
 
 
 export default function AboutPage() {
@@ -19,6 +19,14 @@ export default function AboutPage() {
         const update = await doCheckForUpdateAsync();
         if (update.isAvailable) {
             mutate(setUpdateManifest(update.manifest));
+            setState('checked');
+            return;
+        }
+        const storeUpdate = await doCheckForStoreUpdate();
+        if (storeUpdate) {
+            mutate(setUpdateStoreManifest(storeUpdate));
+            setState('checked');
+            return;
         }
         setState('checked');
     };
