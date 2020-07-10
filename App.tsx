@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import {DefaultTheme as NavigationDefaultTheme, NavigationContainer, useNavigation} from '@react-navigation/native';
+import {DefaultTheme as NavigationDefaultTheme, DarkTheme as NavigationDarkTheme, NavigationContainer, useNavigation} from '@react-navigation/native';
 import React from 'react';
 import MainPage from './src/view/main.page';
 import {
@@ -39,6 +39,7 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {appStyles} from "./src/view/styles";
 import {MyText} from "./src/view/components/my-text";
 import UpdateSnackbar from "./src/view/components/update-snackbar";
+import {ITheme, makeVariants, useTheme} from "./src/view/theming";
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -141,6 +142,7 @@ function feedMenu(props: any) {
 }
 
 export function FeedMenu() {
+    const styles = useTheme(variants);
     const navigation = useNavigation<RootStackProp>();
     return (
         <View style={styles.menu}>
@@ -167,6 +169,7 @@ export function FeedMenu() {
 // }
 
 export function InnerApp() {
+    const styles = useTheme(variants);
     const auth = useSelector(state => state.auth);
     const following = useSelector(state => state.following);
 
@@ -349,6 +352,14 @@ const customPaperTheme = {
     },
 };
 
+const customDarkPaperTheme = {
+    ...PaperDarkTheme,
+    colors: {
+        ...PaperDarkTheme.colors,
+        primary: '#3498db',
+    },
+};
+
 const customNavigationTheme = {
     ...NavigationDefaultTheme,
     colors: {
@@ -357,30 +368,56 @@ const customNavigationTheme = {
     },
 };
 
-export default function App() {
+const customDarkNavigationTheme = {
+    ...NavigationDarkTheme,
+    colors: {
+        ...NavigationDarkTheme.colors,
+        background: 'rgb(1,1,1)',
+    },
+};
+
+
+export function AppWrapper() {
+    const darkMode = useSelector(state => state.darkMode!);
+    console.log('mode', darkMode ? 'dark' : 'light');
+    console.log('react nav theme', darkMode === 'light' ? customNavigationTheme : customDarkNavigationTheme);
     return (
-        <NavigationContainer ref={navigationRef} theme={customNavigationTheme} linking={linking}>
+        <NavigationContainer ref={navigationRef}
+                             theme={darkMode === 'light' ? customNavigationTheme : customDarkNavigationTheme}
+                             linking={linking}>
             <ConditionalTester>
-                <ReduxProvider store={store}>
-                    <PaperProvider theme={customPaperTheme}>
-                        <InnerApp/>
-                    </PaperProvider>
-                </ReduxProvider>
+                <PaperProvider theme={darkMode === 'light' ? customPaperTheme : customDarkPaperTheme}>
+                    <InnerApp/>
+                </PaperProvider>
             </ConditionalTester>
         </NavigationContainer>
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        // backgroundColor: '#397AF9',
-        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-        flex: 1,
-    },
-    menu: {
-        flexDirection: 'row',
-    },
-    menuButton: {
-        marginRight: 20,
-    },
-});
+export default function App() {
+    return (
+        <ReduxProvider store={store}>
+            <AppWrapper/>
+        </ReduxProvider>
+    );
+}
+
+const getStyles = (theme: ITheme) => {
+    return StyleSheet.create({
+        container: {
+            // backgroundColor: '#397AF9',
+            backgroundColor: theme.backgroundColor,
+            paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+            flex: 1,
+        },
+        menu: {
+            flexDirection: 'row',
+        },
+        menuButton: {
+            color: theme.textColor,
+            marginRight: 20,
+        },
+    });
+};
+
+const variants = makeVariants(getStyles);

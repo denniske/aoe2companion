@@ -74,6 +74,12 @@ export function setUpdateState(updateState: string) {
   };
 }
 
+export function setDarkMode(darkMode: DarkMode) {
+  return (state: AppState) => {
+    state.darkMode = darkMode;
+  };
+}
+
 interface IAction {
   type: string;
   id?: string;
@@ -105,6 +111,8 @@ interface ILeaderboardDict {
   [key: string]: ILeaderboard;
 }
 
+export type DarkMode = 'light' | 'dark' | 'auto';
+
 export interface AppState {
   auth?: UserId | null;
   user: IUserDict;
@@ -118,6 +126,8 @@ export interface AppState {
   updateAvailable: boolean;
   updateManifest?: Manifest | null;
   updateStoreManifest?: any | null;
+
+  darkMode?: DarkMode;
 }
 
 const initialState: Partial<AppState> = {

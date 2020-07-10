@@ -75,6 +75,7 @@ export function Game({data, expanded = false}: IGameProps) {
         <MyListAccordion
             style={styles.accordion}
             expanded={expanded}
+            expandable={true}
             left={props => (
                 <View style={styles.row}>
                     <Image style={styles.map} source={getMapImage(data.map_type)}/>

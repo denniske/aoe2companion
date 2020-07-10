@@ -111,7 +111,7 @@ export default function AboutPage() {
 
             <MyText style={styles.textJustify}>
                 This app was created under Microsoft's "
-                <MyText style={appStyles.link} onPress={() => {Linking.openURL('https://www.xbox.com/en-us/developers/rules')}}>
+                <MyText style={[styles.textJustify, appStyles.link]} onPress={() => {Linking.openURL('https://www.xbox.com/en-us/developers/rules')}}>
                 Game Content Usage Rules
                 </MyText>
                 " using assets from Age of Empires II.
@@ -159,7 +159,6 @@ const styles = StyleSheet.create({
     },
     container: {
         minHeight: '100%',
-        backgroundColor: 'white',
         alignItems: 'center',
         padding: 20,
     },
@@ -171,7 +170,6 @@ const styles = StyleSheet.create({
     },
     modalView: {
         margin: 0,
-        backgroundColor: "white",
         borderRadius: 5,
         padding: 15,
         alignItems: "center",

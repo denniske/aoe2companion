@@ -1,4 +1,7 @@
 
+Expo 38
+https://dev.to/expo/expo-sdk-38-is-now-available-5aa0
+
 - steam counter list
 - liquipedia
   https://liquipedia.net/ageofempires/Main_Page

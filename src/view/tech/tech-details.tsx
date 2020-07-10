@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         minHeight: '100%',
-        backgroundColor: 'white',
         padding: 20,
     },
 });

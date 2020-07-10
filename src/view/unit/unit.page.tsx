@@ -46,6 +46,5 @@ export default function UnitPage() {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'white',
     },
 });

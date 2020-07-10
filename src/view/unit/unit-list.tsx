@@ -10,6 +10,7 @@ import {
 import {sortBy} from "lodash-es";
 import {MyText} from "../components/my-text";
 import {iconHeight, iconWidth} from "../../helper/theme";
+import {ITheme, makeVariants, useTheme} from "../theming";
 
 
 function getUnitLineTitle(unitLine: IUnitLine) {
@@ -17,6 +18,7 @@ function getUnitLineTitle(unitLine: IUnitLine) {
 }
 
 export function UnitComp({unit}: any) {
+    const styles = useTheme(variants);
     const navigation = useNavigation<RootStackProp>();
     return (
         <TouchableOpacity onPress={() => navigation.push('Unit', {unit: unit})}>
@@ -35,6 +37,7 @@ export function UnitComp({unit}: any) {
 }
 
 export function UnitCompBig({unit}: {unit: Unit}) {
+    const styles = useTheme(variants);
     const navigation = useNavigation<RootStackProp>();
     return (
         <TouchableOpacity onPress={() => navigation.push('Unit', {unit: getUnitLineNameForUnit(unit)})}>
@@ -49,6 +52,7 @@ export function UnitCompBig({unit}: {unit: Unit}) {
 }
 
 export function UnitLineCompBig({unitLine}: {unitLine: UnitLine}) {
+    const styles = useTheme(variants);
     const navigation = useNavigation<RootStackProp>();
     return (
         <TouchableOpacity onPress={() => navigation.push('Unit', {unit: unitLine})}>
@@ -67,6 +71,7 @@ export function UnitLineCompBig({unitLine}: {unitLine: UnitLine}) {
 }
 
 export default function UnitList() {
+    const styles = useTheme(variants);
     return (
         <View style={styles.container}>
             {
@@ -78,46 +83,52 @@ export default function UnitList() {
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        // backgroundColor: 'yellow',
-        padding: 20,
-    },
-    row: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginVertical: 2,
-        // backgroundColor: 'blue',
-    },
-    unitIcon: {
-        width: 20,
-        height: 20,
-        marginRight: 5,
-    },
-    unitIconTitle: {
-        flex: 1,
-        // backgroundColor: 'red',
-    },
 
-    rowBig: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 10, // TODO ROLLBACK
-        // backgroundColor: 'blue',
-    },
-    unitIconBig: {
-        width: iconWidth,
-        height: iconHeight,
-        // borderWidth: 1,
-        // borderColor: '#555',
-    },
-    unitIconBigTitle: {
-        flex: 1,
-        paddingLeft: 8,
-        // backgroundColor: 'red',
-    },
-    small: {
-        fontSize: 12,
-        color: '#333',
-    },
-});
+const getStyles = (theme: ITheme) => {
+    return StyleSheet.create({
+        container: {
+            // backgroundColor: 'yellow',
+            padding: 20,
+        },
+        row: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginVertical: 2,
+            // backgroundColor: 'blue',
+        },
+        unitIcon: {
+            width: 20,
+            height: 20,
+            marginRight: 5,
+        },
+        unitIconTitle: {
+            flex: 1,
+            // backgroundColor: 'red',
+        },
+
+        rowBig: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: 10, // TODO ROLLBACK
+            // backgroundColor: 'blue',
+        },
+        unitIconBig: {
+            width: iconWidth,
+            height: iconHeight,
+            // borderWidth: 1,
+            // borderColor: '#555',
+        },
+        unitIconBigTitle: {
+            flex: 1,
+            paddingLeft: 8,
+            // backgroundColor: 'red',
+        },
+        small: {
+            fontSize: 12,
+            color: theme.textNoteColor,
+        },
+    });
+};
+
+const variants = makeVariants(getStyles);
+

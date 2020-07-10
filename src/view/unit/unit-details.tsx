@@ -19,9 +19,11 @@ import {Button} from "react-native-paper";
 import {keysOf} from "../../helper/util";
 import {MyText} from "../components/my-text";
 import {iconHeight, iconSmallHeight, iconSmallWidth, iconWidth} from "../../helper/theme";
+import {ITheme, makeVariants, useTheme} from "../theming";
 
 
 export default function UnitDetails({unitLineName}: {unitLineName: UnitLine}) {
+    const styles = useTheme(variants);
     const navigation = useNavigation<RootStackProp>();
     const unitLine = unitLines[unitLineName];
     const unitLineUpgrades = unitLine.upgrades.map(u => techEffectDict[u]);
@@ -354,74 +356,79 @@ export default function UnitDetails({unitLineName}: {unitLineName: UnitLine}) {
 
 const padding = 2;
 
-const styles = StyleSheet.create({
-    description: {
-        lineHeight: 20,
-    },
-    container: {
-        flex: 1,
-        minHeight: '100%',
-        backgroundColor: 'white',
-        padding: 20,
-    },
-    row: {
-        flexDirection: 'row',
-        marginBottom: 5,
-        // backgroundColor: 'blue',
-    },
 
-    resRow: {
-        flexDirection: 'row',
-        marginBottom: 5,
-        alignItems: 'center',
-        // backgroundColor: 'blue',
-    },
-    resIcon: {
-        width: 22,
-        height: 22,
-        marginRight: 5,
-    },
-    resDescription: {
-        marginRight: 20,
-    },
+const getStyles = (theme: ITheme) => {
+    return StyleSheet.create({
+        description: {
+            lineHeight: 20,
+        },
+        container: {
+            flex: 1,
+            minHeight: '100%',
+            padding: 20,
+        },
+        row: {
+            flexDirection: 'row',
+            marginBottom: 5,
+            // backgroundColor: 'blue',
+        },
 
-    costsRow: {
-        flexDirection: 'row',
-        marginBottom: 5,
-        // backgroundColor: 'blue',
-    },
+        resRow: {
+            flexDirection: 'row',
+            marginBottom: 5,
+            alignItems: 'center',
+            // backgroundColor: 'blue',
+        },
+        resIcon: {
+            width: 22,
+            height: 22,
+            marginRight: 5,
+        },
+        resDescription: {
+            marginRight: 20,
+        },
 
-    statsContainer: {
-        marginTop: 5,
-        marginHorizontal: -padding,
-        // alignItems: 'center',
-    },
-    statsRow: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        // marginBottom: 5,
-        // width: 250,
-        // backgroundColor: 'blue',
-    },
-    cellName: {
-        padding: padding,
-        flex: 4,
-    },
-    cellValue: {
-        padding: padding,
-        flex: 8,
-    },
-    small: {
-        fontSize: 12,
-        color: '#333',
-    },
+        costsRow: {
+            flexDirection: 'row',
+            marginBottom: 5,
+            // backgroundColor: 'blue',
+        },
 
-    unitIcon: {
-        width: iconSmallWidth,
-        height: iconSmallHeight,
-        marginRight: 5,
-    },
-    unitDesc: {
-        lineHeight: 20,
-    },
-});
+        statsContainer: {
+            marginTop: 5,
+            marginHorizontal: -padding,
+            // alignItems: 'center',
+        },
+        statsRow: {
+            flexDirection: 'row',
+            justifyContent: 'center',
+            // marginBottom: 5,
+            // width: 250,
+            // backgroundColor: 'blue',
+        },
+        cellName: {
+            padding: padding,
+            flex: 4,
+        },
+        cellValue: {
+            padding: padding,
+            flex: 8,
+        },
+        small: {
+            fontSize: 12,
+            color: theme.textNoteColor,
+        },
+
+        unitIcon: {
+            width: iconSmallWidth,
+            height: iconSmallHeight,
+            marginRight: 5,
+        },
+        unitDesc: {
+            lineHeight: 20,
+        },
+    });
+};
+
+const variants = makeVariants(getStyles);
+

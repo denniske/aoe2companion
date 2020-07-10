@@ -253,7 +253,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         // backgroundColor: '#B89579',
-        backgroundColor: '#fff',
     },
     content: {
         flex: 1,

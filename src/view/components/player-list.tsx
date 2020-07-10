@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Button} from 'react-native-paper';
 import {composeUserIdFromParts, UserInfo} from '../../helper/user';
 import {Flag, getFlagIcon} from '../../helper/flags';
@@ -36,7 +36,7 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
     // console.log(player.country, player.name, composeUserIdFromParts(player.steam_id, player.profile_id));
 
     return (
-            <TouchableHighlight underlayColor="white"
+            <TouchableOpacity
                                 ref={generateTestHook('Search.Player.' + composeUserIdFromParts(player.steam_id, player.profile_id))}>
                 <View style={styles.row}>
                     <View style={styles.cellName}>
@@ -64,7 +64,7 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
                         }
                     </View>
                 </View>
-            </TouchableHighlight>
+            </TouchableOpacity>
     );
 }
 
@@ -159,6 +159,5 @@ const styles = StyleSheet.create({
     container: {
         paddingTop: 20,
         flex: 1,
-        backgroundColor: '#fff',
     },
 });

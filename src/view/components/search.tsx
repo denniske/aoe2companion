@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {IFetchedUser, loadUser} from '../../service/user';
 import {useLazyApi} from '../../hooks/use-lazy-api';
 import {Button, Searchbar} from 'react-native-paper';
@@ -30,7 +30,7 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
     // console.log(player.country, player.name, composeUserIdFromParts(player.steam_id, player.profile_id));
 
     return (
-            <TouchableHighlight underlayColor="white">
+            <TouchableOpacity>
                 <View style={styles.row}>
                     <View style={styles.cellName}>
                         <Image style={styles.countryIcon} source={getFlagIcon(player.country)}/>
@@ -58,7 +58,7 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
                         }
                     </View>
                 </View>
-            </TouchableHighlight>
+            </TouchableOpacity>
     );
 }
 
@@ -191,6 +191,5 @@ const styles = StyleSheet.create({
     container: {
         paddingTop: 20,
         flex: 1,
-        backgroundColor: '#fff',
     },
 });

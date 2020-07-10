@@ -45,6 +45,5 @@ export default function TechPage() {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'white',
     },
 });

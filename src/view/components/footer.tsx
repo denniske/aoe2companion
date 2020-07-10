@@ -9,8 +9,10 @@ import {getRootNavigation} from "../../service/navigation";
 import {useNavigationState} from "@react-navigation/native";
 import {useNavigationStateExternal} from "../../hooks/use-navigation-state-external";
 import {MyText} from "./my-text";
+import {ITheme, makeVariants, useTheme} from "../theming";
 
 export default function Footer() {
+    const styles = useTheme(variants);
     const [menu, setMenu] = useState(false);
     const navigationState = useNavigationStateExternal();
     const activeRoute = navigationState?.routes[navigationState.index];
@@ -72,49 +74,52 @@ export default function Footer() {
     );
 }
 
-const styles = StyleSheet.create({
-    menu: {
-        flexDirection: 'row',
-        alignItems: 'stretch',
-        justifyContent: 'space-evenly',
-        flex: 1,
-        // backgroundColor: 'yellow',
-    },
-    icon: {
-        color: '#777',
-    },
-    iconActive: {
-        color: '#000',
-    },
-    menuButton: {
-        // backgroundColor: 'blue',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        margin: 0,
-        marginHorizontal: 2,
-    },
-    menuButtonDots: {
-        // backgroundColor: 'blue',
-        flex: 0.7,
-        justifyContent: 'center',
-        alignItems: 'center',
-        margin: 0,
-        marginHorizontal: 2,
-    },
-    header: {
-        // backgroundColor: 'blue',
-        flexDirection: 'row',
-        alignItems: 'center',
-        flex: 1,
-    },
-    container: {
-        // backgroundColor: 'blue',
-        borderTopWidth: 1,
-        borderTopColor: '#CCC',
-        flexDirection: 'row',
-        height: 48,
-        paddingLeft: 16,
-        paddingRight: 12, // because of three dots icon
-    },
-});
+const getStyles = (theme: ITheme) =>
+    StyleSheet.create({
+        menu: {
+            flexDirection: 'row',
+            alignItems: 'stretch',
+            justifyContent: 'space-evenly',
+            flex: 1,
+            // backgroundColor: 'yellow',
+        },
+        icon: {
+            color: '#777',
+        },
+        iconActive: {
+            color: theme.textColor,
+        },
+        menuButton: {
+            // backgroundColor: 'blue',
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            margin: 0,
+            marginHorizontal: 2,
+        },
+        menuButtonDots: {
+            // backgroundColor: 'blue',
+            flex: 0.7,
+            justifyContent: 'center',
+            alignItems: 'center',
+            margin: 0,
+            marginHorizontal: 2,
+        },
+        header: {
+            // backgroundColor: 'blue',
+            flexDirection: 'row',
+            alignItems: 'center',
+            flex: 1,
+        },
+        container: {
+            // backgroundColor: 'blue',
+            borderTopWidth: 1,
+            borderTopColor: theme.borderColor,
+            flexDirection: 'row',
+            height: 48,
+            paddingLeft: 16,
+            paddingRight: 12, // because of three dots icon
+        },
+    });
+
+const variants = makeVariants(getStyles);

@@ -7,9 +7,11 @@ import {sortBy} from "lodash-es";
 import {getUnitLineName, unitLines} from "../../helper/units";
 import {MyText} from "../components/my-text";
 import {iconHeight, iconWidth} from "../../helper/theme";
+import {ITheme, makeVariants, useTheme} from "../theming";
 
 
 export function TechComp({tech: tech}: any) {
+    const styles = useTheme(variants);
     const navigation = useNavigation<RootStackProp>();
     return (
         <TouchableOpacity onPress={() => navigation.push('Tech', {tech: tech})}>
@@ -25,6 +27,7 @@ export function TechComp({tech: tech}: any) {
 }
 
 export function TechCompBig({tech: tech}: any) {
+    const styles = useTheme(variants);
     const navigation = useNavigation<RootStackProp>();
     return (
         <TouchableOpacity onPress={() => navigation.push('Tech', {tech: tech})}>
@@ -40,6 +43,7 @@ export function TechCompBig({tech: tech}: any) {
 }
 
 export default function TechList() {
+    const styles = useTheme(variants);
     return (
         <View style={styles.container}>
             {
@@ -52,46 +56,50 @@ export default function TechList() {
 }
 
 
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: 'white',
-        padding: 20,
-    },
+const getStyles = (theme: ITheme) => {
+    return StyleSheet.create({
+        container: {
+            padding: 20,
+        },
 
-    row: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginVertical: 2,
-        // backgroundColor: 'blue',
-    },
-    unitIcon: {
-        width: 20,
-        height: 20,
-        marginRight: 5,
-    },
-    unitIconTitle: {
-        flex: 1,
-        // backgroundColor: 'red',
-    },
+        row: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginVertical: 2,
+            // backgroundColor: 'blue',
+        },
+        unitIcon: {
+            width: 20,
+            height: 20,
+            marginRight: 5,
+        },
+        unitIconTitle: {
+            flex: 1,
+            // backgroundColor: 'red',
+        },
 
 
-    rowBig: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 10,
-        // backgroundColor: 'blue',
-    },
-    unitIconBig: {
-        width: iconWidth,
-        height: iconHeight,
-    },
-    unitIconBigTitle: {
-        flex: 1,
-        paddingLeft: 8,
-        // backgroundColor: 'red',
-    },
-    small: {
-        fontSize: 12,
-        color: '#333',
-    },
-});
+        rowBig: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: 10,
+            // backgroundColor: 'blue',
+        },
+        unitIconBig: {
+            width: iconWidth,
+            height: iconHeight,
+        },
+        unitIconBigTitle: {
+            flex: 1,
+            paddingLeft: 8,
+            // backgroundColor: 'red',
+        },
+        small: {
+            fontSize: 12,
+            color: theme.textNoteColor,
+        },
+    });
+};
+
+const variants = makeVariants(getStyles);
+

@@ -3,23 +3,28 @@ import { useState } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle, } from 'react-native';
 import { TouchableRipple } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {usePaperTheme} from "../theming";
+import {MyText} from "./my-text";
 
 
 type Props = {
     left?: (props: {}) => React.ReactNode;
     expanded?: boolean;
+    expandable?: boolean;
     onPress?: () => void;
     children: React.ReactNode;
     style?: StyleProp<ViewStyle>;
 };
 
 export default function MyListAccordion(props: Props) {
+    const theme = usePaperTheme();
     const [expanded, setExpanded] = useState(props.expanded);
 
     const {
         left,
         children,
         style,
+        expandable,
     } = props;
 
     const handlePress = () => setExpanded(!expanded);
@@ -38,7 +43,7 @@ export default function MyListAccordion(props: Props) {
                             {left ? left({}):null}
                         </View>
                         <View style={styles.item}>
-                            <Icon name={expanded ? 'chevron-up':'chevron-down'} size={30}/>
+                            <Icon name={expanded ? 'chevron-up':'chevron-down'} color={theme.colors.text} style={{opacity: expandable ? 1 : 0}} size={30}/>
                         </View>
                     </View>
                 </TouchableRipple>

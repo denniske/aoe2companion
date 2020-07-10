@@ -17,6 +17,7 @@ import {UnitCompBig} from "./unit/unit-list";
 import {TechCompBig} from "./tech/tech-list";
 import {MyText} from "./components/my-text";
 import {iconHeight, iconWidth} from "../helper/theme";
+import {ITheme, makeVariants, useTheme} from "./theming";
 
 
 export function CivTitle(props: any) {
@@ -35,6 +36,7 @@ export function civTitle(props: any) {
 }
 
 function highlightUnitAndTechs(str: string) {
+    const styles = useTheme(variants);
     const navigation = useNavigation<RootStackProp>();
 
     const techReplaceList = techList.map(t => ({ name: t.name, text: getTechName(t.name)}));
@@ -70,6 +72,7 @@ function highlightUnitAndTechs(str: string) {
 }
 
 export function CivDetails({civ}: {civ: aoeCivKey}) {
+    const styles = useTheme(variants);
     const civDescription = parseCivDescription(civ);
     const civDescription2 = getCivDescription(civ);
 
@@ -125,6 +128,7 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
 }
 
 export function CivList() {
+    const styles = useTheme(variants);
     const navigation = useNavigation<RootStackProp>();
 
     return (
@@ -149,6 +153,7 @@ export function CivList() {
 }
 
 export default function CivPage() {
+    const styles = useTheme(variants);
     const route = useRoute<RouteProp<RootStackParamList, 'Civ'>>();
     const civ = route.params?.civ as aoeCivKey;
 
@@ -165,93 +170,98 @@ export default function CivPage() {
     return <CivList/>
 }
 
-const styles = StyleSheet.create({
-    sectionHeader: {
-        marginTop: 30,
-        marginBottom: 15,
-        fontSize: 15,
-        fontWeight: '500',
-    },
-    imageInner: {
-        opacity: 0.1,
-        resizeMode: "cover",
-        alignSelf: 'flex-end',
-        bottom: -50,
-        top: undefined,
-        height: 400,
-    },
-    image: {
-        flex: 1,
-        resizeMode: "contain",
-        // backgroundColor: 'blue',
-    },
-    title: {
-        marginTop: 20,
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    heading: {
-        marginVertical: 10,
-        lineHeight: 20,
-        fontWeight: 'bold',
-    },
 
-    box: {
-        // borderTopWidth: 1,
-        // borderTopColor: '#DDD',
-        // borderBottomWidth: 1,
-        // borderBottomColor: '#CCC',
-        // marginTop: 10,
-        // marginHorizontal: -20,
-        // paddingHorizontal: 20,
-    },
+const getStyles = (theme: ITheme) => {
+    return StyleSheet.create({
+        sectionHeader: {
+            marginTop: 30,
+            marginBottom: 15,
+            fontSize: 15,
+            fontWeight: '500',
+        },
+        imageInner: {
+            opacity: 0.1,
+            resizeMode: "cover",
+            alignSelf: 'flex-end',
+            bottom: -50,
+            top: undefined,
+            height: 400,
+        },
+        image: {
+            flex: 1,
+            resizeMode: "contain",
+            // backgroundColor: 'blue',
+        },
+        title: {
+            marginTop: 20,
+            fontSize: 16,
+            fontWeight: 'bold',
+        },
+        heading: {
+            marginVertical: 10,
+            lineHeight: 20,
+            fontWeight: 'bold',
+        },
 
-    content: {
-        // marginBottom: 5,
-        textAlign: 'left',
-        lineHeight: 22,
-        // fontSize: 17,
-    },
-    detailsContainer: {
-        flex: 1,
-        padding: 20,
-        // backgroundColor: 'yellow',
-    },
-    icon: {
-      width: iconWidth,
-      height: iconHeight,
-    },
-    name: {
-    },
-    civBlock: {
-        flexDirection: 'row',
-        marginVertical: 5,
-        // backgroundColor: 'yellow',
-    },
-    civRow: {
-        flex: 1,
-        marginLeft: 10,
-        // backgroundColor: 'blue',
-    },
-    civList: {
-        // backgroundColor: 'red',
-    },
-    container: {
-        padding: 20,
-    },
-    row: {
-        marginLeft: 5,
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 5,
-        // backgroundColor: 'blue',
-    },
-    small: {
-        fontSize: 12,
-        color: '#333',
-    },
-    bonusRow: {
-        // marginLeft: 40,
-        flexDirection: 'row',
-    },
-});
+        box: {
+            // borderTopWidth: 1,
+            // borderTopColor: '#DDD',
+            // borderBottomWidth: 1,
+            // borderBottomColor: '#CCC',
+            // marginTop: 10,
+            // marginHorizontal: -20,
+            // paddingHorizontal: 20,
+        },
+
+        content: {
+            // marginBottom: 5,
+            textAlign: 'left',
+            lineHeight: 22,
+            // fontSize: 17,
+        },
+        detailsContainer: {
+            flex: 1,
+            padding: 20,
+            // backgroundColor: 'yellow',
+        },
+        icon: {
+            width: iconWidth,
+            height: iconHeight,
+        },
+        name: {},
+        civBlock: {
+            flexDirection: 'row',
+            marginVertical: 5,
+            // backgroundColor: 'yellow',
+        },
+        civRow: {
+            flex: 1,
+            marginLeft: 10,
+            // backgroundColor: 'blue',
+        },
+        civList: {
+            // backgroundColor: 'red',
+        },
+        container: {
+            padding: 20,
+        },
+        row: {
+            marginLeft: 5,
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: 5,
+            // backgroundColor: 'blue',
+        },
+        small: {
+            fontSize: 12,
+            color: theme.textNoteColor,
+        },
+        bonusRow: {
+            // marginLeft: 40,
+            flexDirection: 'row',
+        },
+    });
+};
+
+const variants = makeVariants(getStyles);
+

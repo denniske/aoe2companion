@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {IMatch, validMatch} from "../../helper/data";
 import {TextLoader} from "./loader/text-loader";
@@ -28,12 +28,12 @@ function Row({data}: IRowProps) {
 
     return (
             <View style={styles.row}>
-                <TouchableHighlight style={styles.cellLeaderboard} onPress={gotoCiv}>
+                <TouchableOpacity style={styles.cellLeaderboard} onPress={gotoCiv}>
                     <View style={styles.row}>
                         <Image style={styles.icon} source={getCivIcon(data.civ)}/>
                         <MyText>{data.civ}</MyText>
                     </View>
-                </TouchableHighlight>
+                </TouchableOpacity>
                 <MyText style={styles.cellGames}>
                     {data.games}
                 </MyText>

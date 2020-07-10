@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useLazyApi} from '../../hooks/use-lazy-api';
 import {loadRatingHistories} from '../../service/rating';
 import {
-    Image, Modal, StyleSheet, Text, TextStyle, TouchableHighlight, TouchableOpacity, TouchableWithoutFeedback, View
+    Image, Modal, StyleSheet, Text, TextStyle, TouchableOpacity, TouchableWithoutFeedback, View
 } from 'react-native';
 import {getPlayerBackgroundColor} from '../../helper/colors';
 import {AppSettings} from '../../helper/constants';
@@ -79,10 +79,10 @@ export function Player({player}: IPlayerProps) {
                         <TouchableWithoutFeedback onPress={() => {
                         }}>
                             <View style={styles.modalView}>
-                                <TouchableHighlight style={styles.modalCloseIcon} onPress={closeRatingModal}
-                                                    underlayColor="white">
+                                <TouchableOpacity style={styles.modalCloseIcon} onPress={closeRatingModal}
+                                                   >
                                     <Icon name={'close'} size={24}/>
-                                </TouchableHighlight>
+                                </TouchableOpacity>
                                 <MyText style={styles.modalText} numberOfLines={1}>{player.name}</MyText>
                                 <Rating ratingHistories={rating.data}/>
                             </View>
@@ -103,13 +103,13 @@ export function Player({player}: IPlayerProps) {
                 </View>
             </View>
 
-            <TouchableHighlight style={styles.playerRatingCol} onPress={openRatingModal} underlayColor="white">
+            <TouchableOpacity style={styles.playerRatingCol} onPress={openRatingModal}>
                 <MyText>{player.rating}</MyText>
-            </TouchableHighlight>
+            </TouchableOpacity>
 
-            <TouchableHighlight style={styles.playerNameCol} onPress={gotoPlayer}>
+            <TouchableOpacity style={styles.playerNameCol} onPress={gotoPlayer}>
                 <MyText style={playerNameStyle} numberOfLines={1}>{player.name}</MyText>
-            </TouchableHighlight>
+            </TouchableOpacity>
 
             <TouchableOpacity onPress={() => navigation.push('Civ', {civ: civs[player.civ]})}>
                 <View style={styles.row}>
