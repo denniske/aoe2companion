@@ -6,7 +6,7 @@ import {
     setUpdateAvailable, setUpdateManifest, setUpdateState, setUpdateStoreManifest, useMutate, useSelector
 } from "../../redux/reducer";
 import {reloadAsync} from "expo-updates";
-import {doCheckForUpdateAsync, doFetchUpdateAsync} from "../../service/update";
+import {doCheckForStoreUpdate, doCheckForUpdateAsync, doFetchUpdateAsync} from "../../service/update";
 
 
 export default function UpdateSnackbar() {
@@ -23,7 +23,7 @@ export default function UpdateSnackbar() {
             mutate(setUpdateManifest(update.manifest));
             return;
         }
-        const storeUpdate = await doCheckForUpdateAsync();
+        const storeUpdate = await doCheckForStoreUpdate();
         if (storeUpdate) {
             mutate(setUpdateStoreManifest(storeUpdate));
             return;
