@@ -1,84 +1,30 @@
-import React, {useEffect, useState} from 'react';
-import {
-    Linking, ScrollView, StyleSheet, Text, TouchableHighlight, TouchableOpacity, TouchableWithoutFeedback, View, Modal
-} from 'react-native';
+import React, {useState} from 'react';
+import {Linking, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Constants from 'expo-constants';
 import {useLinkTo} from '@react-navigation/native';
-import {checkForUpdateAsync, fetchUpdateAsync, reloadAsync, UpdateCheckResult} from "expo-updates";
-import {Button, Portal} from "react-native-paper";
-import {Manifest} from "expo-updates/build/Updates.types";
+import {Button} from "react-native-paper";
 import {appStyles} from "./styles";
 import {MyText} from "./components/my-text";
-import {sleep} from "../helper/util";
-import Snackbar from "./components/snackbar";
+import {setUpdateManifest, useMutate} from "../redux/reducer";
+import {doCheckForUpdateAsync} from "./components/update-snackbar";
 
-async function doCheckForUpdateAsync() {
-    if (__DEV__) {
-        return {
-            isAvailable: true,
-            manifest: {
-                version: '20.0.0',
-            },
-        } as UpdateCheckResult;
-    }
-    return await checkForUpdateAsync();
-}
-
-async function doFetchUpdateAsync() {
-    if (__DEV__) {
-        return await sleep(2000);
-    }
-    return await fetchUpdateAsync();
-}
 
 export default function AboutPage() {
     const linkTo = useLinkTo();
-    const [updateManifest, setUpdateManifest] = useState<Manifest>();
-    const [updating, setUpdating] = useState(false);
-    const [updateModalVisible, setUpdateModalVisible] = useState(false);
+    const [state, setState] = useState('');
+    const mutate = useMutate();
 
-    const init = async () => {
+    const checkForUpdate = async () => {
+        setState('checkingForUpdate');
         const update = await doCheckForUpdateAsync();
         if (update.isAvailable) {
-            setUpdateManifest(update.manifest);
+            mutate(setUpdateManifest(update.manifest));
         }
-    };
-
-    useEffect(() => {
-        init();
-    }, []);
-
-    const fetchUpdate = async () => {
-        setUpdating(true);
-        await doFetchUpdateAsync();
-        setUpdateModalVisible(true);
-        setUpdating(false);
-    };
-
-    const update = async () => {
-        await reloadAsync();
-    };
-
-    const closeUpdateModal = () => {
-        setUpdateModalVisible(false);
+        setState('checked');
     };
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            {/*<Portal>*/}
-            {/*    <Snackbar*/}
-            {/*        visible={updateManifest != null}*/}
-            {/*        onDismiss={() => alert('dismiss')}*/}
-            {/*        action={{*/}
-            {/*            label: 'Undo',*/}
-            {/*            onPress: () => {*/}
-            {/*                // Do something*/}
-            {/*            },*/}
-            {/*        }}>*/}
-            {/*        Update available!*/}
-            {/*    </Snackbar>*/}
-            {/*</Portal>*/}
-
             <MyText style={styles.title}>AoE II Companion</MyText>
 
             <MyText style={styles.heading}>Created by</MyText>
@@ -94,37 +40,19 @@ export default function AboutPage() {
             </MyText>
 
             {
-                updateManifest &&
+                state === '' &&
                 <View>
                     <MyText/>
-                    <Button onPress={fetchUpdate} mode="contained" dark={true}>Update to {updateManifest.version}</Button>
+                    <Button onPress={checkForUpdate} mode="contained" dark={true}>Check for update</Button>
                 </View>
             }
             {
-                updating &&
+                state === 'checkingForUpdate' &&
                 <View>
                     <MyText/>
-                    <MyText style={styles.content}>Loading Update...</MyText>
+                    <MyText style={styles.content}>Checking for update...</MyText>
                 </View>
             }
-
-            <Modal animationType="none" transparent={true} visible={updateModalVisible}>
-                <TouchableWithoutFeedback onPress={closeUpdateModal}>
-                    <View style={styles.centeredView}>
-                        <TouchableWithoutFeedback onPress={() => {}}>
-                            <View style={styles.modalView}>
-                                <MyText style={styles.content}>Do you want to restart now to apply the update?</MyText>
-                                <MyText/>
-                                <View style={styles.buttonRow}>
-                                    <Button style={styles.button} onPress={closeUpdateModal} mode="outlined">Restart Later</Button>
-                                    <Button style={styles.button} onPress={update} mode="contained" dark={true}>Restart</Button>
-                                </View>
-                            </View>
-                        </TouchableWithoutFeedback>
-                    </View>
-                </TouchableWithoutFeedback>
-            </Modal>
-
 
             <MyText style={styles.heading}>Source</MyText>
 
@@ -215,14 +143,13 @@ const styles = StyleSheet.create({
     buttonRow: {
         flexDirection: 'row',
         alignSelf: 'stretch',
-        // backgroundColor: 'red',
         justifyContent: "flex-end",
+        // backgroundColor: 'red',
     },
     button: {
         marginLeft: 10,
     },
     container: {
-        // flex: 1,
         minHeight: '100%',
         backgroundColor: 'white',
         alignItems: 'center',

@@ -1,33 +1,41 @@
 import * as React from 'react';
-import {Animated, SafeAreaView, StyleProp, StyleSheet, ViewStyle, View} from 'react-native';
+import {Animated, SafeAreaView, StyleProp, StyleSheet, ViewStyle, View, ActivityIndicator} from 'react-native';
 import {Button, Surface, Theme, Text, withTheme} from "react-native-paper";
 import {useEffect, useState} from "react";
+import {usePrevious} from "../../hooks/use-previous";
 
 type Props = React.ComponentProps<typeof Surface> & {
     visible: boolean;
-    action?: {
+    actions?: {
         label: string;
         accessibilityLabel?: string;
         onPress: () => void;
-    };
+    }[];
     onDismiss: () => void;
     children: React.ReactNode;
     wrapperStyle?: StyleProp<ViewStyle>;
     style?: StyleProp<ViewStyle>;
     ref?: React.RefObject<View>;
     theme: Theme;
+    working?: boolean;
 };
 
 function Snackbar(props: Props) {
 
     const [opacity, setOpacity] = useState(new Animated.Value(0.0));
     const [hidden, setHidden] = useState(!props.visible);
+    const prevVisible = usePrevious(props.visible);
 
     useEffect(() => {
+        console.log('snack visible', prevVisible, ' => ', props.visible);
+        if (props.visible === prevVisible) return;
         if (props.visible) {
             show();
         }
-    }, []);
+        if (!props.visible) {
+            hide();
+        }
+    }, [props.visible]);
 
     // componentDidUpdate(prevProps: Props) {
     //     if (prevProps.visible !== props.visible) {
@@ -50,6 +58,7 @@ function Snackbar(props: Props) {
     // };
 
     const show = () => {
+        console.log("show");
         setHidden(false);
         const {scale} = props.theme.animation;
         Animated.timing(opacity, {
@@ -79,11 +88,12 @@ function Snackbar(props: Props) {
     const {
         children,
         visible,
-        action,
+        actions,
         onDismiss,
         theme,
         style,
         wrapperStyle,
+        working,
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         ...rest
     } = props;
@@ -126,20 +136,25 @@ function Snackbar(props: Props) {
                 }
                 {...rest}
             >
-                <Text
-                    style={[
-                        styles.content,
-                        {marginRight: action ? 0 : 16, color: colors.surface},
-                    ]}
-                >
-                    {children}
-                </Text>
-                {action ? (
+                {
+                    working &&
+                    <ActivityIndicator style={styles.indicator} animating size="small"/>
+                }
+                <View style={[
+                    styles.content,
+                    {marginRight: actions ? 0 : 16},
+                ]}>
+                    <Text style={{color: colors.surface}}>
+                        {children}
+                    </Text>
+                </View>
+                {actions ? actions.map(action => (
                     <Button
+                        key={action.label}
                         accessibilityLabel={action.accessibilityLabel}
                         onPress={() => {
                             action.onPress();
-                            onDismiss();
+                            // onDismiss();
                         }}
                         style={styles.button}
                         color={colors.accent}
@@ -148,13 +163,16 @@ function Snackbar(props: Props) {
                     >
                         {action.label}
                     </Button>
-                ) : null}
+                )) : null}
             </Surface>
         </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
+    indicator: {
+        marginRight: 10,
+    },
     wrapper: {
         position: 'absolute',
         top: 0,
@@ -167,10 +185,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         margin: 8,
         borderRadius: 4,
+        paddingLeft: 16,
     },
     content: {
-        marginLeft: 16,
-        marginVertical: 14,
+        flexDirection: 'row',
+        alignItems: 'center',
+        // marginLeft: 16,
+        marginVertical: 15,
+        // minHeight: 30,
         flexWrap: 'wrap',
         flex: 1,
     },

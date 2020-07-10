@@ -6,6 +6,7 @@ import { IProfile } from '../view/components/profile';
 import { IRatingHistoryRow } from '../service/rating';
 import {ILeaderboard, IMatch} from "../helper/data";
 import {IFollowingEntry} from "../service/storage";
+import {Manifest} from "expo-updates/build/Updates.types";
 
 export function getNoteId() {
   return uuidv4();
@@ -42,6 +43,26 @@ export function setFollowing(following: IFollowingEntry[]) {
 
     // Invalidate followedMatches cache
     state.followedMatches = undefined;
+  };
+}
+
+export function setUpdateManifest(updateManifest: Manifest | null) {
+  return (state: AppState) => {
+    state.updateManifest = updateManifest;
+    state.updateAvailable = true;
+    state.updateState = 'updateAvailable';
+  };
+}
+
+export function setUpdateAvailable(updateAvailable: boolean) {
+  return (state: AppState) => {
+    state.updateAvailable = updateAvailable;
+  };
+}
+
+export function setUpdateState(updateState: string) {
+  return (state: AppState) => {
+    state.updateState = updateState;
   };
 }
 
@@ -84,6 +105,10 @@ export interface AppState {
   followedMatches?: IMatch[];
 
   leaderboard: ILeaderboardDict;
+
+  updateState: string;
+  updateAvailable: boolean;
+  updateManifest?: Manifest | null;
 }
 
 const initialState: Partial<AppState> = {

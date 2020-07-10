@@ -1,4 +1,9 @@
 
+- steam counter list
+- liquipedia
+  https://liquipedia.net/ageofempires/Main_Page
+
+
 - OTA Update Size
   https://stackoverflow.com/questions/57597051/find-the-size-of-expo-react-native-ota-update
 
