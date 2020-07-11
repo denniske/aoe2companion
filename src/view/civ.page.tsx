@@ -12,12 +12,12 @@ import {escapeRegExpFn} from "../helper/util";
 import IconHeader from "./components/navigation-header/icon-header";
 import TextHeader from "./components/navigation-header/text-header";
 import {TechTree} from "./components/tech-tree";
-import {appStyles} from "./styles";
+import {appStyles} from "../styles";
 import {UnitCompBig} from "./unit/unit-list";
 import {TechCompBig} from "./tech/tech-list";
 import {MyText} from "./components/my-text";
 import {iconHeight, iconWidth} from "../helper/theme";
-import {ITheme, makeVariants, useTheme} from "./theming";
+import {ITheme, makeVariants, useTheme} from "../theming";
 
 
 export function CivTitle(props: any) {

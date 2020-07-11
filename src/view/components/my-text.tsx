@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, TextProps, View} from 'react-native';
-import {usePaperTheme} from "../theming";
+import {usePaperTheme} from "../../theming";
 
 // Body 17
 

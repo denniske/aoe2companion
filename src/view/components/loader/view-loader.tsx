@@ -1,6 +1,6 @@
 import {StyleSheet, Text, TextProps, View} from "react-native";
 import React from "react";
-import {ITheme, makeVariants, useTheme} from "../../theming";
+import {ITheme, makeVariants, useTheme} from "../../../theming";
 
 type TextLoaderProps = TextProps & { children?: React.ReactNode, ready?: any }
 

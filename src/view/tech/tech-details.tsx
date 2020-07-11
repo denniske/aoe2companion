@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {getTechData, getTechDescription, getTechName, Tech} from "../../helper/techs";
-import {appStyles} from "../styles";
+import {appStyles} from "../../styles";
 import Fandom from "../components/fandom";
 import {getOtherIcon, getUnitData, getUnitLineName, Other, sortResources} from "../../helper/units";
 import {MyText} from "../components/my-text";

@@ -3,7 +3,7 @@ import {Linking, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-nat
 import Constants from 'expo-constants';
 import {useLinkTo} from '@react-navigation/native';
 import {Button} from "react-native-paper";
-import {appStyles} from "./styles";
+import {appStyles} from "../styles";
 import {MyText} from "./components/my-text";
 import {setUpdateManifest, setUpdateStoreManifest, useMutate} from "../redux/reducer";
 import {doCheckForStoreUpdate, doCheckForUpdateAsync} from "../service/update";

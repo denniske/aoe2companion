@@ -6,7 +6,7 @@ import {AoeMap, getMapImage, getMapName, maps} from "../../helper/maps";
 import {orderBy} from "lodash-es";
 import {sameUser, UserIdBase} from "../../helper/user";
 import {MyText} from "./my-text";
-import {ITheme, makeVariants, useTheme} from "../theming";
+import {ITheme, makeVariants, useTheme} from "../../theming";
 
 interface IRow {
     map: AoeMap;

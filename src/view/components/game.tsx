@@ -12,7 +12,7 @@ import {ViewLoader} from "./loader/view-loader";
 import {groupBy} from "lodash-es";
 import {differenceInSeconds} from "date-fns";
 import { MyText } from './my-text';
-import {ITheme, makeVariants, useTheme} from "../theming";
+import {ITheme, makeVariants, useTheme} from "../../theming";
 
 interface IGameProps {
     data: IMatch;

@@ -6,7 +6,7 @@ import {getRootNavigation} from "../../service/navigation";
 import {MyText} from "./my-text";
 import {iconHeight, iconWidth} from "../../helper/theme";
 import {useMutate} from "../../redux/reducer";
-import {ITheme, makeVariants, useTheme} from "../theming";
+import {ITheme, makeVariants, useTheme} from "../../theming";
 
 
 export default function Header() {

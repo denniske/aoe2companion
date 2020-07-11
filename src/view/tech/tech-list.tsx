@@ -7,7 +7,7 @@ import {sortBy} from "lodash-es";
 import {getUnitLineName, unitLines} from "../../helper/units";
 import {MyText} from "../components/my-text";
 import {iconHeight, iconWidth} from "../../helper/theme";
-import {ITheme, makeVariants, useTheme} from "../theming";
+import {ITheme, makeVariants, useTheme} from "../../theming";
 
 
 export function TechComp({tech: tech}: any) {

@@ -8,7 +8,7 @@ import {composeUserId, sameUser, UserIdBase, userIdFromBase} from "../../helper/
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {MyText} from "./my-text";
-import {ITheme, makeVariants, useTheme} from "../theming";
+import {ITheme, makeVariants, useTheme} from "../../theming";
 
 interface IRow {
     player: IPlayer;

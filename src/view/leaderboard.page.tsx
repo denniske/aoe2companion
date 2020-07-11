@@ -19,7 +19,7 @@ import {TextLoader} from "./components/loader/text-loader";
 import {ImageLoader} from "./components/loader/image-loader";
 import {TabBarLabel} from "./components/tab-bar-label";
 import {MyText} from "./components/my-text";
-import {ITheme, makeVariants, usePaperTheme, useTheme} from "./theming";
+import {ITheme, makeVariants, usePaperTheme, useTheme} from "../theming";
 
 const Tab = createMaterialTopTabNavigator();
 

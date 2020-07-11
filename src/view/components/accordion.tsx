@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle, } from 'react-native';
 import { TouchableRipple } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {usePaperTheme} from "../theming";
+import {usePaperTheme} from "../../theming";
 import {MyText} from "./my-text";
 
 

@@ -10,7 +10,7 @@ import {
 import {sortBy} from "lodash-es";
 import {MyText} from "../components/my-text";
 import {iconHeight, iconWidth} from "../../helper/theme";
-import {ITheme, makeVariants, useTheme} from "../theming";
+import {ITheme, makeVariants, useTheme} from "../../theming";
 
 
 function getUnitLineTitle(unitLine: IUnitLine) {

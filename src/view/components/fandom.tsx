@@ -1,6 +1,6 @@
 import {Linking, StyleSheet, Text, View} from "react-native";
 import React from "react";
-import {linkColor} from "../styles";
+import {linkColor} from "../../styles";
 import {MyText} from "./my-text";
 
 

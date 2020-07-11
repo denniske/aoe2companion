@@ -39,10 +39,10 @@ import {Tech} from "./src/helper/techs";
 import TechPage, {techTitle, TechTitle} from "./src/view/tech/tech.page";
 import FeedPage from "./src/view/feed.page";
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import {appStyles} from "./src/view/styles";
+import {appStyles} from "./src/styles";
 import {MyText} from "./src/view/components/my-text";
 import UpdateSnackbar from "./src/view/components/update-snackbar";
-import {ITheme, makeVariants, useTheme} from "./src/view/theming";
+import {ITheme, makeVariants, useTheme} from "./src/theming";
 import SettingsPage from "./src/view/settings.page";
 
 YellowBox.ignoreWarnings(['Remote debugger']);

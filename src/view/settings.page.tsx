@@ -5,7 +5,7 @@ import {DarkMode, setConfig, useMutate, useSelector} from "../redux/reducer";
 import {capitalize} from "lodash-es";
 import {saveConfigToStorage} from "../service/storage";
 import Picker from "./components/picker";
-import {ITheme, makeVariants, useTheme} from "./theming";
+import {ITheme, makeVariants, useTheme} from "../theming";
 
 
 export default function SettingsPage() {

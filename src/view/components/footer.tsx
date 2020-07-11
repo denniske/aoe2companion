@@ -9,7 +9,7 @@ import {getRootNavigation} from "../../service/navigation";
 import {useNavigationState} from "@react-navigation/native";
 import {useNavigationStateExternal} from "../../hooks/use-navigation-state-external";
 import {MyText} from "./my-text";
-import {ITheme, makeVariants, useTheme} from "../theming";
+import {ITheme, makeVariants, useTheme} from "../../theming";
 
 export default function Footer() {
     const styles = useTheme(variants);

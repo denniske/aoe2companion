@@ -3,7 +3,7 @@ import {StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle} from "react-na
 import {MyText} from "./my-text";
 import Icon from "react-native-vector-icons/FontAwesome";
 import React, {useState} from "react";
-import {usePaperTheme} from "../theming";
+import {usePaperTheme} from "../../theming";
 
 interface IPickerProps<T> {
     value: T;
