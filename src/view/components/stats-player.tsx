@@ -121,7 +121,7 @@ export default function StatsPlayer({matches, user, leaderboardId}: IProps) {
                     }
 
                     {
-                        hasAlly && rowsAlly && rowsAlly.length > 0 &&
+                        hasAlly &&
                         <View style={styles.row}>
                             <MyText numberOfLines={1} style={styles.cellLeaderboard}>Ally</MyText>
                             <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>
