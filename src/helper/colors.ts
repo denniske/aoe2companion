@@ -22,6 +22,15 @@ const leaderboardColors = [
     '#8970AE',
 ];
 
-export function getLeaderboardColor(leaderboard_id: number) {
-    return leaderboardColors[leaderboard_id];
+const darkLeaderboardColors = [
+    '#8e8e8e',
+    '#D65154',
+    '#E19659',
+    '#6188C1',
+    '#8970AE',
+];
+
+export function getLeaderboardColor(leaderboard_id: number, darkMode: boolean) {
+    const colors = darkMode ? darkLeaderboardColors : leaderboardColors;
+    return colors[leaderboard_id];
 }

@@ -12,15 +12,18 @@ import {sameUser} from "../../helper/user";
 import {toggleFollowingInStorage} from "../../service/storage";
 import {MyText} from "./my-text";
 import {formatLeaderboardId} from "../../helper/leaderboards";
+import {ITheme, makeVariants, usePaperTheme, useTheme} from "../../theming";
 
 interface ILeaderboardRowProps {
     data: ILeaderboard;
 }
 
 function LeaderboardRow({data}: ILeaderboardRowProps) {
+    const theme = usePaperTheme();
+    const styles = useTheme(variants);
 
     const leaderboardInfo = data.leaderboard[0];
-    const color = {color: getLeaderboardColor(data.leaderboard_id)};
+    const color = {color: getLeaderboardColor(data.leaderboard_id, theme.dark)};
 
     return (
             <View style={styles.row}>
@@ -61,6 +64,7 @@ interface IProfileProps {
 }
 
 export default function Profile({data}: IProfileProps) {
+    const styles = useTheme(variants);
     const mutate = useMutate();
     const auth = useSelector(state => state.auth);
     const following = useSelector(state => state.following);
@@ -138,58 +142,61 @@ export default function Profile({data}: IProfileProps) {
     )
 }
 
+const getStyles = (theme: ITheme) => {
+    return StyleSheet.create({
+        followButton: {
+            // backgroundColor: 'blue',
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            margin: 0,
+            marginHorizontal: 2,
+        },
+        followButtonText: {
+            fontSize: 12,
+            color: theme.textNoteColor,
+            marginTop: 3
+        },
+        followButtonIcon: {
+            color: theme.textNoteColor,
+        },
+        cellLeaderboard: {
+            // backgroundColor: 'red',
+            width: 70,
+            marginRight: 5,
+        },
+        cellRank: {
+            width: 60,
+            marginRight: 5,
+        },
+        cellRating: {
+            width: 50,
+            marginRight: 5,
+        },
+        cellGames: {
+            width: 60,
+            marginRight: 5,
+        },
+        cellWon: {
+            flex: 1,
+        },
+        row: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingVertical: 2,
+        },
+        container: {
+            // backgroundColor: 'red',
+        },
+        countryIcon: {
+            width: 21,
+            height: 15,
+            marginRight: 5,
+        },
+        expanded: {
+            flex: 1,
+        },
+    });
+};
 
-const styles = StyleSheet.create({
-    followButton: {
-        // backgroundColor: 'blue',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        margin: 0,
-        marginHorizontal: 2,
-    },
-    followButtonText: {
-        fontSize: 12,
-        color: '#666',
-        marginTop: 3
-    },
-    followButtonIcon: {
-        color: '#666',
-    },
-    cellLeaderboard: {
-        // backgroundColor: 'red',
-        width: 70,
-        marginRight: 5,
-    },
-    cellRank: {
-        width: 60,
-        marginRight: 5,
-    },
-    cellRating: {
-        width: 50,
-        marginRight: 5,
-    },
-    cellGames: {
-        width: 60,
-        marginRight: 5,
-    },
-    cellWon: {
-        flex: 1,
-    },
-    row: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingVertical: 2,
-    },
-    container: {
-        // backgroundColor: 'red',
-    },
-    countryIcon: {
-        width: 21,
-        height: 15,
-        marginRight: 5,
-    },
-    expanded: {
-        flex: 1,
-    },
-});
+const variants = makeVariants(getStyles);
