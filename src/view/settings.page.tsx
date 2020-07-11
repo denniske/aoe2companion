@@ -5,9 +5,11 @@ import {DarkMode, setConfig, useMutate, useSelector} from "../redux/reducer";
 import {capitalize} from "lodash-es";
 import {saveConfigToStorage} from "../service/storage";
 import Picker from "./components/picker";
+import {ITheme, makeVariants, useTheme} from "./theming";
 
 
 export default function SettingsPage() {
+    const styles = useTheme(variants);
     const mutate = useMutate();
     const config = useSelector(state => state.config);
 
@@ -32,6 +34,7 @@ export default function SettingsPage() {
             <View style={styles.row}>
                 <View style={styles.cellName}>
                     <MyText>Dark Mode</MyText>
+                    <MyText style={styles.small}>(except build order guides)</MyText>
                 </View>
                 <View style={styles.cellValue}>
                     <Picker value={capitalize(config.darkMode)} values={values.map(capitalize)} onSelect={nav}/>
@@ -58,24 +61,32 @@ export default function SettingsPage() {
 
 const padding = 5;
 
-const styles = StyleSheet.create({
-    cellName: {
-        padding: padding,
-        flex: 1,
-    },
-    cellValue: {
-        padding: padding,
-        flex: 1,
-    },
-    row: {
-        // backgroundColor: 'yellow',
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 10,
-    },
-    container: {
-        minHeight: '100%',
-        alignItems: 'center',
-        padding: 20,
-    },
-});
+const getStyles = (theme: ITheme) => {
+    return StyleSheet.create({
+        cellName: {
+            padding: padding,
+            flex: 1,
+        },
+        cellValue: {
+            padding: padding,
+            flex: 1,
+        },
+        row: {
+            // backgroundColor: 'yellow',
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: 10,
+        },
+        container: {
+            minHeight: '100%',
+            alignItems: 'center',
+            padding: 20,
+        },
+        small: {
+            fontSize: 12,
+            color: theme.textNoteColor,
+        },
+    });
+};
+
+const variants = makeVariants(getStyles);
