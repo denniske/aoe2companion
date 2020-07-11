@@ -6,7 +6,7 @@
       "ios",
       "android"
     ],
-    "version": "10.0.5",
+    "version": "10.0.6",
     "orientation": "portrait",
     "privacy": "public",
     "githubUrl": "https://github.com/denniske/aoe2companion",
@@ -33,13 +33,13 @@
     ],
     "android": {
       "package": "com.aoe2companion",
-      "versionCode": 100005,
+      "versionCode": 100006,
       "permissions": []
     },
     "ios": {
       "icon": "./assets/icon-no-alpha.png",
       "bundleIdentifier": "com.aoe2companion",
-      "buildNumber": "10.0.5",
+      "buildNumber": "10.0.6",
       "supportsTablet": false,
       "config": {
         "usesNonExemptEncryption": false
