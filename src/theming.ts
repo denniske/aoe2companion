@@ -31,6 +31,11 @@ export function useTheme<S>(
     return variants[paperTheme.dark ? 'dark' : 'light'];
 }
 
+export function useAppTheme() {
+    const paperTheme = usePaperTheme();
+    return paperTheme.dark ? dark : light;
+}
+
 export interface ITheme {
     backgroundColor: string;
     textColor: string;

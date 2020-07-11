@@ -7,6 +7,8 @@ import {IRatingHistoryRow} from '../../service/rating';
 import {TextLoader} from "./loader/text-loader";
 import {ViewLoader} from "./loader/view-loader";
 import {formatLeaderboardId} from "../../helper/leaderboards";
+import {merge} from "lodash-es";
+import {useAppTheme} from "../../theming";
 
 interface IRatingProps {
     ratingHistories: IRatingHistoryRow[];
@@ -27,9 +29,21 @@ function replaceRobotoWithSystemFont(obj: any) {
 }
 
 export default function Rating({ratingHistories}: IRatingProps) {
-    // console.log("render rating");
+    const appTheme = useAppTheme();
 
-    const themeWithSystemFont = replaceRobotoWithSystemFont({...VictoryTheme.material});
+    let themeWithSystemFont = replaceRobotoWithSystemFont({...VictoryTheme.material});
+
+    const themeCustomizations = {
+        axis: {
+            style: {
+                tickLabels: {
+                    fill: appTheme.textColor,
+                },
+            },
+        },
+    };
+
+    themeWithSystemFont = merge(themeWithSystemFont, themeCustomizations);
 
     // We need to supply our custom tick formatter because otherwise victory native will
     // print too much ticks on the x-axis.
