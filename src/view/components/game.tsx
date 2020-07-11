@@ -12,6 +12,7 @@ import {ViewLoader} from "./loader/view-loader";
 import {groupBy} from "lodash-es";
 import {differenceInSeconds} from "date-fns";
 import { MyText } from './my-text';
+import {ITheme, makeVariants, useTheme} from "../theming";
 
 interface IGameProps {
     data: IMatch;
@@ -27,6 +28,7 @@ const formatDuration = (start: Date, finish: Date) => {
 };
 
 export function Game({data, expanded = false}: IGameProps) {
+    const styles = useTheme(variants);
     if (data == null) {
         const playersInTeam1 = Array(3).fill(0);
         const playersInTeam2 = Array(3).fill(0);
@@ -125,82 +127,86 @@ export function Game({data, expanded = false}: IGameProps) {
     );
 }
 
-const styles = StyleSheet.create({
-    accordion: {
-        // backgroundColor: 'yellow',
-        paddingBottom: 20,
-    },
-    header: {
-        // backgroundColor: 'red',
-        flex: 1,
-    },
-    map: {
-        marginRight: 10,
-        width: 50,
-        height: 50,
-    },
-    row: {
-        // backgroundColor: 'purple',
-        flexDirection: 'row',
-    },
-    matchTitle: {
-        fontWeight: 'bold',
-        flex: 1,
-        // paddingVertical: 2,
-    },
-    matchContent: {
-        flex: 1,
-        // marginVertical: 2,
-    },
-    playerList: {
-        flex: 1,
-        paddingTop: 20,
-        // backgroundColor: 'purple'
-    },
-    versus: {
-        // borderRadius: 10000,
-        // backgroundColor: 'grey',
-        // color: 'white',
-        // width: 25,
-        // height: 20,
-        // color: 'black',
-        margin: 10,
-        marginLeft: 35,
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignSelf: 'center'
-    },
-    versus2: {
-        // borderRadius: 10000,
-        // backgroundColor: 'grey',
-        // backgroundColor: '#999',
-        color: 'white',
-        // width: 25,
-        flex: 1,
-        height: 1,
-        margin: 10,
-        // justifyContent: 'center',
-        alignItems: 'center',
-        alignSelf: 'center'
-    },
-    versusText: {
-        // color: 'white',
-        color: '#666',
-        fontSize: 12,
-    },
-    // versus: {
-    //     borderRadius: 10000,
-    //     backgroundColor: 'grey',
-    //     color: 'white',
-    //     width: 25,
-    //     height: 25,
-    //     margin: 10,
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //     alignSelf: 'center'
-    // },
-    // versusText: {
-    //     color: 'white',
-    //     fontSize: 12,
-    // },
-});
+const getStyles = (theme: ITheme) => {
+    return StyleSheet.create({
+        accordion: {
+            // backgroundColor: 'yellow',
+            paddingBottom: 20,
+        },
+        header: {
+            // backgroundColor: 'red',
+            flex: 1,
+        },
+        map: {
+            marginRight: 10,
+            width: 50,
+            height: 50,
+        },
+        row: {
+            // backgroundColor: 'purple',
+            flexDirection: 'row',
+        },
+        matchTitle: {
+            fontWeight: 'bold',
+            flex: 1,
+            // paddingVertical: 2,
+        },
+        matchContent: {
+            flex: 1,
+            // marginVertical: 2,
+        },
+        playerList: {
+            flex: 1,
+            paddingTop: 20,
+            // backgroundColor: 'purple'
+        },
+        versus: {
+            // borderRadius: 10000,
+            // backgroundColor: 'grey',
+            // color: 'white',
+            // width: 25,
+            // height: 20,
+            // color: 'black',
+            margin: 10,
+            marginLeft: 35,
+            justifyContent: 'center',
+            alignItems: 'center',
+            alignSelf: 'center'
+        },
+        versus2: {
+            // borderRadius: 10000,
+            // backgroundColor: 'grey',
+            // backgroundColor: '#999',
+            color: 'white',
+            // width: 25,
+            flex: 1,
+            height: 1,
+            margin: 10,
+            // justifyContent: 'center',
+            alignItems: 'center',
+            alignSelf: 'center'
+        },
+        versusText: {
+            // color: 'white',
+            color: theme.textNoteColor,
+            fontSize: 12,
+        },
+        // versus: {
+        //     borderRadius: 10000,
+        //     backgroundColor: 'grey',
+        //     color: 'white',
+        //     width: 25,
+        //     height: 25,
+        //     margin: 10,
+        //     justifyContent: 'center',
+        //     alignItems: 'center',
+        //     alignSelf: 'center'
+        // },
+        // versusText: {
+        //     color: 'white',
+        //     fontSize: 12,
+        // },
+    });
+};
+
+const variants = makeVariants(getStyles);

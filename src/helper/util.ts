@@ -39,11 +39,6 @@ export function makeQueryString(params: IParams) {
             .join('&');
 }
 
-export function getLeaderboardAbbr(leaderboard_id: number) {
-    const abbreviations = ['Unranked', 'DM 1v1', 'DM Team', 'RM 1v1', 'RM Team'];
-    return abbreviations[leaderboard_id];
-}
-
 export function strRemoveTo(str: string, find: string) {
     return str.substring(str.indexOf(find) + find.length);
 }

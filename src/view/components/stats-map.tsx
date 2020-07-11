@@ -6,6 +6,7 @@ import {AoeMap, getMapImage, getMapName, maps} from "../../helper/maps";
 import {orderBy} from "lodash-es";
 import {sameUser, UserIdBase} from "../../helper/user";
 import {MyText} from "./my-text";
+import {ITheme, makeVariants, useTheme} from "../theming";
 
 interface IRow {
     map: AoeMap;
@@ -18,7 +19,7 @@ interface IRowProps {
 }
 
 function Row({data}: IRowProps) {
-
+    const styles = useTheme(variants);
     return (
             <View style={styles.row}>
                 <View style={styles.cellLeaderboard}>
@@ -36,11 +37,12 @@ function Row({data}: IRowProps) {
 }
 
 interface IProps {
-    matches: IMatch[];
+    matches?: IMatch[];
     user: UserIdBase;
 }
 
 export default function StatsMap({matches, user}: IProps) {
+    const styles = useTheme(variants);
     let rows: IRow[] | null = null;
 
     if (matches) {
@@ -62,6 +64,10 @@ export default function StatsMap({matches, user}: IProps) {
         rows = rows.filter(r => r.games > 0);
         rows = orderBy(rows, r => r.games, 'desc');
         // rows = orderBy(rows, [r => r.won], ['desc']);
+    }
+
+    if (matches && matches.length === 0) {
+        return <View/>;
     }
 
     return (
@@ -102,38 +108,43 @@ export default function StatsMap({matches, user}: IProps) {
 
 const padding = 5;
 
-const styles = StyleSheet.create({
-    info: {
-        textAlign: 'center',
-        marginBottom: 10,
-        color: '#555',
-        fontSize: 12,
-    },
-    cellLeaderboard: {
-        // backgroundColor: 'red',
-        padding: padding,
-        flex: 4,
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    cellGames: {
-        padding: padding,
-        flex: 1,
-    },
-    cellWon: {
-        padding: padding,
-        flex: 1,
-    },
-    row: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    container: {
-        // backgroundColor: 'red',
-    },
-    icon: {
-        width: 22,
-        height: 22,
-        marginRight: 5,
-    },
-});
+const getStyles = (theme: ITheme) => {
+    return StyleSheet.create({
+        info: {
+            textAlign: 'center',
+            marginBottom: 10,
+            color: theme.textNoteColor,
+            fontSize: 12,
+        },
+        cellLeaderboard: {
+            // backgroundColor: 'red',
+            padding: padding,
+            flex: 4,
+            flexDirection: 'row',
+            alignItems: 'center',
+        },
+        cellGames: {
+            padding: padding,
+            flex: 1,
+        },
+        cellWon: {
+            padding: padding,
+            flex: 1,
+        },
+        row: {
+            flexDirection: 'row',
+            alignItems: 'center',
+        },
+        container: {
+            // backgroundColor: 'red',
+        },
+        icon: {
+            width: 22,
+            height: 22,
+            marginRight: 5,
+        },
+    });
+};
+
+const variants = makeVariants(getStyles);
+

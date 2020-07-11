@@ -1,11 +1,12 @@
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTheme} from "victory-native";
-import {formatDateShort, getLeaderboardAbbr, parseUnixTimestamp} from '../../helper/util';
+import {formatDateShort, parseUnixTimestamp} from '../../helper/util';
 import {getLeaderboardColor} from '../../helper/colors';
 import {IRatingHistoryRow} from '../../service/rating';
 import {TextLoader} from "./loader/text-loader";
 import {ViewLoader} from "./loader/view-loader";
+import {formatLeaderboardId} from "../../helper/leaderboards";
 
 interface IRatingProps {
     ratingHistories: IRatingHistoryRow[];
@@ -86,7 +87,7 @@ export default function Rating({ratingHistories}: IRatingProps) {
                                     color: getLeaderboardColor(ratingHistory.leaderboard_id)
                                 }}
                             >
-                                {getLeaderboardAbbr(ratingHistory.leaderboard_id)}
+                                {formatLeaderboardId(ratingHistory.leaderboard_id)}
                             </TextLoader>
                         ))
                     }

@@ -5,7 +5,7 @@ import { UserId } from '../helper/user';
 import { IProfile } from '../view/components/profile';
 import { IRatingHistoryRow } from '../service/rating';
 import {ILeaderboard, IMatch} from "../helper/data";
-import {IConfig, IFollowingEntry} from "../service/storage";
+import {IConfig, IFollowingEntry, IPrefs} from "../service/storage";
 import {Manifest} from "expo-updates/build/Updates.types";
 
 export function getNoteId() {
@@ -29,6 +29,12 @@ type StateMutation = (state: AppState) => void;
 export function useMutate() {
   const dispatch = useDispatch()
   return (m: StateMutation) => dispatch(exec(m));
+}
+
+export function setPrefValue<T extends keyof IPrefs>(key: T, value: IPrefs[T]) {
+  return (state: AppState) => {
+    state.prefs[key] = value;
+  };
 }
 
 export function setAuth(user: UserId | null) {
@@ -118,6 +124,7 @@ export interface AppState {
   user: IUserDict;
 
   config: IConfig;
+  prefs: IPrefs;
 
   following: IFollowingEntry[];
   followedMatches?: IMatch[];

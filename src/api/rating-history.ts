@@ -1,6 +1,7 @@
 import { makeQueryString } from '../helper/util';
 import {IRatingHistoryEntry, IRatingHistoryEntryRaw} from "../helper/data";
 import {fromUnixTime} from "date-fns";
+import {LeaderboardId} from "../helper/leaderboards";
 
 
 function convertTimestampsToDates(json: IRatingHistoryEntryRaw): IRatingHistoryEntry {
@@ -16,7 +17,7 @@ export interface IFetchRatingHistoryParams {
     profile_id?: number;
 }
 
-export async function fetchRatingHistory(game: string, leaderboard_id: number, start: number, count: number, params: IFetchRatingHistoryParams) {
+export async function fetchRatingHistory(game: string, leaderboard_id: LeaderboardId, start: number, count: number, params: IFetchRatingHistoryParams) {
     const queryString = makeQueryString({
         game,
         leaderboard_id,

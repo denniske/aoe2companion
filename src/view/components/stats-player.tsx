@@ -8,6 +8,7 @@ import {composeUserId, sameUser, UserIdBase, userIdFromBase} from "../../helper/
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {MyText} from "./my-text";
+import {ITheme, makeVariants, useTheme} from "../theming";
 
 interface IRow {
     player: IPlayer;
@@ -20,6 +21,7 @@ interface IRowProps {
 }
 
 function Row({data}: IRowProps) {
+    const styles = useTheme(variants);
     const navigation = useNavigation<RootStackProp>();
 
     const gotoPlayer = () => {
@@ -48,11 +50,12 @@ function Row({data}: IRowProps) {
 }
 
 interface IProps {
-    matches: IMatch[];
+    matches?: IMatch[];
     user: UserIdBase;
 }
 
 export default function StatsPlayer({matches, user}: IProps) {
+    const styles = useTheme(variants);
     let rowsAlly: IRow[] | null = null;
     let rowsOpponent: IRow[] | null = null;
     const maxRowCount = 8;
@@ -98,19 +101,29 @@ export default function StatsPlayer({matches, user}: IProps) {
         rowsOpponent = rowsOpponent.filter((r, i) => i < maxRowCount);
     }
 
+    if (matches && matches.length === 0) {
+        return (<View>
+                <MyText style={styles.info}>No matches yet!</MyText>
+            </View>
+        );
+    }
+
     return (
             <View style={styles.container}>
                 <View>
                     {
                         matches &&
-                        <MyText style={styles.info}>(of the last {matches.length} matches)</MyText>
+                        <MyText style={styles.info}>the last {matches.length} matches:</MyText>
                     }
 
-                    <View style={styles.row}>
-                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>Ally</MyText>
-                        <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>
-                        <MyText numberOfLines={1} style={styles.cellWon}>Won*</MyText>
-                    </View>
+                    {
+                        rowsAlly && rowsAlly.length > 0 &&
+                        <View style={styles.row}>
+                            <MyText numberOfLines={1} style={styles.cellLeaderboard}>Ally</MyText>
+                            <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>
+                            <MyText numberOfLines={1} style={styles.cellWon}>Won*</MyText>
+                        </View>
+                    }
 
                     {
                         rowsAlly && rowsAlly.map(leaderboard =>
@@ -158,40 +171,45 @@ export default function StatsPlayer({matches, user}: IProps) {
 
 const padding = 5;
 
-const styles = StyleSheet.create({
-    info: {
-        textAlign: 'center',
-        marginBottom: 10,
-        color: '#555',
-        fontSize: 12,
-    },
-    cellLeaderboard: {
-        // backgroundColor: 'red',
-        padding: padding,
-        flex: 4,
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    cellGames: {
-        padding: padding,
-        flex: 1,
-        // textAlign: 'right'
-    },
-    cellWon: {
-        padding: padding,
-        flex: 1,
-        // textAlign: 'right'
-    },
-    row: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    container: {
-        // backgroundColor: 'red',
-    },
-    countryIcon: {
-        width: 21,
-        height: 15,
-        marginRight: 5,
-    },
-});
+const getStyles = (theme: ITheme) => {
+    return StyleSheet.create({
+        info: {
+            textAlign: 'center',
+            marginBottom: 10,
+            color: theme.textNoteColor,
+            fontSize: 12,
+        },
+        cellLeaderboard: {
+            // backgroundColor: 'red',
+            padding: padding,
+            flex: 4,
+            flexDirection: 'row',
+            alignItems: 'center',
+        },
+        cellGames: {
+            padding: padding,
+            flex: 1,
+            // textAlign: 'right'
+        },
+        cellWon: {
+            padding: padding,
+            flex: 1,
+            // textAlign: 'right'
+        },
+        row: {
+            flexDirection: 'row',
+            alignItems: 'center',
+        },
+        container: {
+            // backgroundColor: 'red',
+        },
+        countryIcon: {
+            width: 21,
+            height: 15,
+            marginRight: 5,
+        },
+    });
+};
+
+const variants = makeVariants(getStyles);
+

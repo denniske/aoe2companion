@@ -1,17 +1,15 @@
 import { fetchRatingHistory } from '../api/rating-history';
 import { composeUserId, minifyUserId, UserId, UserIdBase } from '../helper/user';
 import {IRatingHistoryEntry} from "../helper/data";
+import {LeaderboardId} from "../helper/leaderboards";
 
 export interface IRatingHistoryRow {
-    leaderboard_id: number;
+    leaderboard_id: LeaderboardId;
     data: IRatingHistoryEntry[];
 }
 
 export const loadRatingHistories = async (game: string, userId: UserIdBase): Promise<IRatingHistoryRow[]> => {
     // console.log("loading ratings", game, composeUserId(userId));
-
-    // console.log("userId", userId);
-    // console.log("preciseUserId", minifyUserId(userId));
 
     let ratingHistories = await Promise.all([
         fetchRatingHistory(game, 0, 0, 500, minifyUserId(userId)),
@@ -22,7 +20,7 @@ export const loadRatingHistories = async (game: string, userId: UserIdBase): Pro
     ]);
 
     let ratingHistoryRows = ratingHistories.map((rh, i) => ({
-        leaderboard_id: i,
+        leaderboard_id: i as LeaderboardId,
         data: rh,
     }));
 

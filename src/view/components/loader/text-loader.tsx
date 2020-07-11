@@ -36,7 +36,7 @@ export function TextLoader(props: TextLoaderProps) {
 const getStyles = (theme: ITheme) => {
     return StyleSheet.create({
         container: {
-            backgroundColor: theme.backgroundColor,
+            backgroundColor: theme.skeletonColor,
             borderRadius: 5,
             flexDirection: 'row',
             flex: 1

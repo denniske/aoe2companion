@@ -4,9 +4,15 @@ import {composeUserId, sameUser} from "../helper/user";
 import {Flag} from "../helper/flags";
 import {IPlayerListPlayer} from "../view/components/player-list";
 import {DarkMode} from "../redux/reducer";
+import {LeaderboardId} from "../helper/leaderboards";
+import store from "../redux/store";
 
 export interface IConfig {
     darkMode: DarkMode;
+}
+
+export interface IPrefs {
+    leaderboardId?: LeaderboardId;
 }
 
 export interface ISettings {
@@ -23,6 +29,22 @@ export interface IFollowingEntry {
     games: number;
     country: Flag;
 }
+
+export const loadPrefsFromStorage = async () => {
+    const entry = await AsyncStorage.getItem('prefs');
+    console.log('loadPrefsFromStorage', entry);
+    if (entry == null) {
+        return {
+
+        };
+    }
+    return JSON.parse(entry) as IPrefs;
+};
+
+export const saveCurrentPrefsToStorage = async () => {
+    const prefs = store.getState().prefs;
+    await AsyncStorage.setItem('prefs', JSON.stringify(prefs));
+};
 
 export const loadConfigFromStorage = async () => {
     const entry = await AsyncStorage.getItem('config');

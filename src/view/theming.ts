@@ -2,17 +2,19 @@ import {useTheme as usePaperTheme2} from "react-native-paper";
 
 export const usePaperTheme = usePaperTheme2;
 
-const light = {
+const light: ITheme = {
     backgroundColor: "white",
     textColor: "black",
     textNoteColor: "#333",
     borderColor: '#CCC',
+    skeletonColor: '#EEE',
 };
-const dark = {
+const dark: ITheme = {
     backgroundColor: "#121212",
     textColor: "white",
     textNoteColor: "#BBB",
     borderColor: '#101010',
+    skeletonColor: '#111',
 };
 
 export function makeVariants<S>(factory: (theme: ITheme) => S): IVariantDict<S> {
@@ -34,6 +36,7 @@ export interface ITheme {
     textColor: string;
     textNoteColor: string;
     borderColor: string;
+    skeletonColor: string;
 }
 
 interface IVariantDict<S> {

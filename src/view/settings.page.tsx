@@ -37,7 +37,7 @@ export default function SettingsPage() {
                     <MyText style={styles.small}>(except build order guides)</MyText>
                 </View>
                 <View style={styles.cellValue}>
-                    <Picker value={capitalize(config.darkMode)} values={values.map(capitalize)} onSelect={nav}/>
+                    <Picker value={config.darkMode} values={values} formatter={capitalize} onSelect={nav}/>
                 </View>
             </View>
 

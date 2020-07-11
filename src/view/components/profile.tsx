@@ -1,5 +1,5 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import { formatAgo, getLeaderboardAbbr } from '../../helper/util';
+import { formatAgo } from '../../helper/util';
 import React from 'react';
 import { getLeaderboardColor } from '../../helper/colors';
 import {Flag, getFlagIcon} from '../../helper/flags';
@@ -11,6 +11,7 @@ import {setFollowing, useMutate, useSelector} from "../../redux/reducer";
 import {sameUser} from "../../helper/user";
 import {toggleFollowingInStorage} from "../../service/storage";
 import {MyText} from "./my-text";
+import {formatLeaderboardId} from "../../helper/leaderboards";
 
 interface ILeaderboardRowProps {
     data: ILeaderboard;
@@ -24,7 +25,7 @@ function LeaderboardRow({data}: ILeaderboardRowProps) {
     return (
             <View style={styles.row}>
                 <MyText style={StyleSheet.flatten([styles.cellLeaderboard, color])}>
-                    {getLeaderboardAbbr(data.leaderboard_id)}
+                    {formatLeaderboardId(data.leaderboard_id)}
                 </MyText>
                 <MyText style={StyleSheet.flatten([styles.cellRank, color])}>
                     #{leaderboardInfo.rank}

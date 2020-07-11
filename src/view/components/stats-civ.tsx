@@ -8,6 +8,7 @@ import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {sameUser, UserIdBase} from "../../helper/user";
 import {MyText} from "./my-text";
+import {ITheme, makeVariants, useTheme} from "../theming";
 
 interface IRow {
     civ: Civ;
@@ -20,6 +21,7 @@ interface IRowProps {
 }
 
 function Row({data}: IRowProps) {
+    const styles = useTheme(variants);
     const navigation = useNavigation<RootStackProp>();
 
     const gotoCiv = () => {
@@ -45,11 +47,12 @@ function Row({data}: IRowProps) {
 }
 
 interface IProps {
-    matches: IMatch[];
+    matches?: IMatch[];
     user: UserIdBase;
 }
 
 export default function StatsCiv({matches, user}: IProps) {
+    const styles = useTheme(variants);
     let rows: IRow[] | null = null;
 
     if (matches) {
@@ -69,6 +72,10 @@ export default function StatsCiv({matches, user}: IProps) {
         rows = rows.filter(r => r.games > 0);
         rows = orderBy(rows, r => r.games, 'desc');
         // rows = orderBy(rows, [r => r.won], ['desc']);
+    }
+
+    if (matches && matches.length === 0) {
+        return <View/>;
     }
 
     return (
@@ -104,32 +111,36 @@ export default function StatsCiv({matches, user}: IProps) {
 
 const padding = 5;
 
-const styles = StyleSheet.create({
-    cellLeaderboard: {
-        // backgroundColor: 'red',
-        padding: padding,
-        flex: 4,
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    cellGames: {
-        padding: padding,
-        flex: 1,
-    },
-    cellWon: {
-        padding: padding,
-        flex: 1,
-    },
-    row: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    container: {
-        // backgroundColor: 'red',
-    },
-    icon: {
-        width: 22,
-        height: 22,
-        marginRight: 5,
-    },
-});
+const getStyles = (theme: ITheme) => {
+    return StyleSheet.create({
+        cellLeaderboard: {
+            // backgroundColor: 'red',
+            padding: padding,
+            flex: 4,
+            flexDirection: 'row',
+            alignItems: 'center',
+        },
+        cellGames: {
+            padding: padding,
+            flex: 1,
+        },
+        cellWon: {
+            padding: padding,
+            flex: 1,
+        },
+        row: {
+            flexDirection: 'row',
+            alignItems: 'center',
+        },
+        container: {
+            // backgroundColor: 'red',
+        },
+        icon: {
+            width: 22,
+            height: 22,
+            marginRight: 5,
+        },
+    });
+};
+
+const variants = makeVariants(getStyles);

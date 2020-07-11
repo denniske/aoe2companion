@@ -1,5 +1,6 @@
 import {Flag} from "./flags";
 import {AoeMap} from "./maps";
+import {LeaderboardId} from "./leaderboards";
 
 export interface IPlayer {
     civ: number;
@@ -111,7 +112,7 @@ export interface ILeaderboardRaw {
     count: number;
     leaderboard: ILeaderboardPlayerRaw[];
     length: number;
-    leaderboard_id: number;
+    leaderboard_id: LeaderboardId;
     start: number;
     total: number;
 }

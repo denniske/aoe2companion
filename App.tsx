@@ -3,6 +3,7 @@ import {DefaultTheme as NavigationDefaultTheme, DarkTheme as NavigationDarkTheme
 import React from 'react';
 import MainPage from './src/view/main.page';
 import {
+    AsyncStorage,
     Linking, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View, YellowBox
 } from 'react-native';
 import Search from './src/view/components/search';
@@ -11,7 +12,9 @@ import Header from './src/view/components/header';
 import {composeUserId, parseUserId, UserId} from './src/helper/user';
 import UserPage from './src/view/user.page';
 import {useApi} from './src/hooks/use-api';
-import {loadConfigFromStorage, loadFollowingFromStorage, loadSettingsFromStorage} from './src/service/storage';
+import {
+    loadConfigFromStorage, loadFollowingFromStorage, loadPrefsFromStorage, loadSettingsFromStorage
+} from './src/service/storage';
 import AboutPage from './src/view/about.page';
 import store from './src/redux/store';
 import {Provider as ReduxProvider} from 'react-redux';
@@ -172,9 +175,6 @@ export function FeedMenu() {
 
 export function InnerApp() {
     const styles = useTheme(variants);
-
-    // AsyncStorage.removeItem('settings');
-    // AsyncStorage.removeItem('following');
 
     // let [fontsLoaded] = useFonts({
     //     Roboto: Roboto_400Regular,
@@ -377,17 +377,23 @@ const customDarkNavigationTheme = {
 
 
 export function AppWrapper() {
+    // AsyncStorage.removeItem('prefs');
+    // AsyncStorage.removeItem('settings');
+    // AsyncStorage.removeItem('following');
+
     const auth = useSelector(state => state.auth);
     const following = useSelector(state => state.following);
+    const prefs = useSelector(state => state.prefs);
     const config = useSelector(state => state.config);
     const darkMode = useSelector(state => state.config?.darkMode);
 
     // Trigger loading of auth and following
     const _auth = useApi([], state => state.auth, (state, value) => state.auth = value, () => loadSettingsFromStorage());
     const _following = useApi([], state => state.following, (state, value) => state.following = value, () => loadFollowingFromStorage());
+    const _prefs = useApi([], state => state.prefs, (state, value) => state.prefs = value, () => loadPrefsFromStorage());
     const _config = useApi([], state => state.config, (state, value) => state.config = value, () => loadConfigFromStorage());
 
-    if (auth === undefined || following === undefined || config === undefined) {
+    if (auth === undefined || following === undefined || config === undefined || prefs === undefined) {
         return <AppLoading/>;
     }
 

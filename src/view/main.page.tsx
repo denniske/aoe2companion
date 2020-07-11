@@ -7,7 +7,7 @@ import {Game} from './components/game';
 import Search from './components/search';
 import {composeUserId, UserInfo} from '../helper/user';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {setAuth, useMutate, useSelector} from '../redux/reducer';
+import {setAuth, setPrefValue, useMutate, useSelector} from '../redux/reducer';
 import Profile from './components/profile';
 import {loadRatingHistories} from '../service/rating';
 import Rating from './components/rating';
@@ -21,13 +21,17 @@ import StatsCiv from "./components/stats-civ";
 import StatsMap from "./components/stats-map";
 import StatsPlayer from "./components/stats-player";
 import {MyText} from "./components/my-text";
-import {saveSettingsToStorage} from "../service/storage";
+import {saveCurrentPrefsToStorage, saveSettingsToStorage} from "../service/storage";
+import Picker from "./components/picker";
+import {formatLeaderboardId, LeaderboardId, leaderboardList} from "../helper/leaderboards";
+import {IMatch} from "../helper/data";
 
 
 function MainHome() {
     const auth = useSelector(state => state.auth!);
     const mutate = useMutate();
     const generateTestHook = useCavy();
+    const leaderboardId = useSelector(state => state.prefs.leaderboardId) ?? LeaderboardId.RM1v1;
 
     const rating = useApi(
             [],
@@ -53,9 +57,16 @@ function MainHome() {
             loadProfile, 'aoe2de', auth
     );
 
-    const matches = useLazyApi(
+    let matches = useLazyApi(
         fetchMatches, 'aoe2de', 0, 1000, auth
     );
+
+    const filterMatchesByLeaderboardId = (matchList: IMatch[]) => {
+        if (matchList == null) {
+            return undefined;
+        }
+        return matchList.filter(m => m.leaderboard_id === leaderboardId);
+    };
 
     const list = ['profile', 'rating-header', 'rating', 'stats-header', 'stats-player', 'stats-civ', 'stats-map', 'settings-header', 'not-me'];
 
@@ -72,6 +83,11 @@ function MainHome() {
     const doDeleteUser = async () => {
         await AsyncStorage.removeItem('settings');
         mutate(setAuth(null))
+    };
+
+    const onLeaderboardSelected = async (leaderboardId: LeaderboardId) => {
+        mutate(setPrefValue('leaderboardId', leaderboardId));
+        await saveCurrentPrefsToStorage();
     };
 
     return (
@@ -94,6 +110,7 @@ function MainHome() {
                                     case 'stats-header':
                                         return <View>
                                             <MyText style={styles.sectionHeader}>Stats</MyText>
+                                            <Picker style={styles.statsPicker} value={leaderboardId} values={leaderboardList} formatter={formatLeaderboardId} onSelect={onLeaderboardSelected}/>
                                             {
                                                 !matches.touched && !matches.loading &&
                                                 <Button
@@ -109,13 +126,13 @@ function MainHome() {
                                         </View>;
                                     case 'stats-civ':
                                         if (!matches.touched && !matches.loading) return <View/>;
-                                        return <StatsCiv matches={matches.data} user={auth}/>;
+                                        return <StatsCiv matches={filterMatchesByLeaderboardId(matches.data)} user={auth}/>;
                                     case 'stats-map':
                                         if (!matches.touched && !matches.loading) return <View/>;
-                                        return <StatsMap matches={matches.data} user={auth}/>;
+                                        return <StatsMap matches={filterMatchesByLeaderboardId(matches.data)} user={auth}/>;
                                     case 'stats-player':
                                         if (!matches.touched && !matches.loading) return <View/>;
-                                        return <StatsPlayer matches={matches.data} user={auth}/>;
+                                        return <StatsPlayer matches={filterMatchesByLeaderboardId(matches.data)} user={auth}/>;
                                     case 'rating':
                                         return <Rating ratingHistories={rating.data}/>;
                                     case 'profile':
@@ -238,6 +255,10 @@ export default function MainPage() {
 }
 
 const styles = StyleSheet.create({
+    statsPicker: {
+        alignSelf: 'center',
+        marginBottom: 10
+    },
     sectionHeader: {
         marginTop: 30,
         marginBottom: 15,
