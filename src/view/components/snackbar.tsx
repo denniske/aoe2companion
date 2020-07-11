@@ -27,7 +27,6 @@ function Snackbar(props: Props) {
     const prevVisible = usePrevious(props.visible);
 
     useEffect(() => {
-        console.log('snack visible', prevVisible, ' => ', props.visible);
         if (props.visible === prevVisible) return;
         if (props.visible) {
             show();
@@ -98,8 +97,6 @@ function Snackbar(props: Props) {
         ...rest
     } = props;
     const {colors, roundness, dark} = theme;
-
-    console.log("theme dark:", dark);
 
     if (hidden) {
         return null;

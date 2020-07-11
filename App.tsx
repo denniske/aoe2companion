@@ -11,7 +11,7 @@ import Header from './src/view/components/header';
 import {composeUserId, parseUserId, UserId} from './src/helper/user';
 import UserPage from './src/view/user.page';
 import {useApi} from './src/hooks/use-api';
-import {loadFollowingFromStorage, loadSettingsFromStorage} from './src/service/storage';
+import {loadConfigFromStorage, loadFollowingFromStorage, loadSettingsFromStorage} from './src/service/storage';
 import AboutPage from './src/view/about.page';
 import store from './src/redux/store';
 import {Provider as ReduxProvider} from 'react-redux';
@@ -40,6 +40,7 @@ import {appStyles} from "./src/view/styles";
 import {MyText} from "./src/view/components/my-text";
 import UpdateSnackbar from "./src/view/components/update-snackbar";
 import {ITheme, makeVariants, useTheme} from "./src/view/theming";
+import SettingsPage from "./src/view/settings.page";
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -93,6 +94,7 @@ export type RootStackParamList = {
     Welcome: undefined;
     Privacy: undefined;
     About: undefined;
+    Settings: undefined;
     Main: undefined;
     Feed: { action?: string };
     Leaderboard: undefined;
@@ -170,15 +172,9 @@ export function FeedMenu() {
 
 export function InnerApp() {
     const styles = useTheme(variants);
-    const auth = useSelector(state => state.auth);
-    const following = useSelector(state => state.following);
 
     // AsyncStorage.removeItem('settings');
     // AsyncStorage.removeItem('following');
-
-    // Trigger loading of auth and following
-    const me = useApi([], state => state.auth, (state, value) => state.auth = value, () => loadSettingsFromStorage());
-    const meFollowing = useApi([], state => state.following, (state, value) => state.following = value, () => loadFollowingFromStorage());
 
     // let [fontsLoaded] = useFonts({
     //     Roboto: Roboto_400Regular,
@@ -210,10 +206,6 @@ export function InnerApp() {
     //         />
     //     );
     // }
-
-    if (auth === undefined || following === undefined) {
-        return <AppLoading/>;
-    }
 
 
     return (
@@ -310,6 +302,13 @@ export function InnerApp() {
                     }}
                 />
                 <Stack.Screen
+                    name="Settings"
+                    component={SettingsPage}
+                    options={{
+                        title: 'Settings',
+                    }}
+                />
+                <Stack.Screen
                     name="Privacy"
                     component={PrivacyPage}
                     options={{
@@ -378,8 +377,21 @@ const customDarkNavigationTheme = {
 
 
 export function AppWrapper() {
-    const darkMode = useSelector(state => state.darkMode!);
-    console.log('mode', darkMode ? 'dark' : 'light');
+    const auth = useSelector(state => state.auth);
+    const following = useSelector(state => state.following);
+    const config = useSelector(state => state.config);
+    const darkMode = useSelector(state => state.config?.darkMode);
+
+    // Trigger loading of auth and following
+    const _auth = useApi([], state => state.auth, (state, value) => state.auth = value, () => loadSettingsFromStorage());
+    const _following = useApi([], state => state.following, (state, value) => state.following = value, () => loadFollowingFromStorage());
+    const _config = useApi([], state => state.config, (state, value) => state.config = value, () => loadConfigFromStorage());
+
+    if (auth === undefined || following === undefined || config === undefined) {
+        return <AppLoading/>;
+    }
+
+    console.log('mode', darkMode);
     console.log('react nav theme', darkMode === 'light' ? customNavigationTheme : customDarkNavigationTheme);
     return (
         <NavigationContainer ref={navigationRef}

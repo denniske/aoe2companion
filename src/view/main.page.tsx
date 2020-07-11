@@ -21,6 +21,7 @@ import StatsCiv from "./components/stats-civ";
 import StatsMap from "./components/stats-map";
 import StatsPlayer from "./components/stats-player";
 import {MyText} from "./components/my-text";
+import {saveSettingsToStorage} from "../service/storage";
 
 
 function MainHome() {
@@ -214,11 +215,11 @@ export default function MainPage() {
     // console.log("==> MAIN PAGE");
 
     const onSelect = async (user: UserInfo) => {
-        await AsyncStorage.setItem('settings', JSON.stringify({
+        await saveSettingsToStorage({
             id: composeUserId(user),
             steam_id: user.steam_id,
             profile_id: user.profile_id,
-        }));
+        });
         mutate(setAuth(user));
     };
 

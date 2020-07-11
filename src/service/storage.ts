@@ -3,10 +3,16 @@ import { sleep } from '../helper/util';
 import {composeUserId, sameUser} from "../helper/user";
 import {Flag} from "../helper/flags";
 import {IPlayerListPlayer} from "../view/components/player-list";
+import {DarkMode} from "../redux/reducer";
+
+export interface IConfig {
+    darkMode: DarkMode;
+}
 
 export interface ISettings {
-    steam_id: string;
-    profile_id: number;
+    id: string;
+    steam_id?: string;
+    profile_id?: number;
 }
 
 export interface IFollowingEntry {
@@ -18,21 +24,33 @@ export interface IFollowingEntry {
     country: Flag;
 }
 
+export const loadConfigFromStorage = async () => {
+    const entry = await AsyncStorage.getItem('config');
+    console.log('loadConfigFromStorage', entry);
+    if (entry == null) {
+        return {
+            darkMode: 'light',
+        };
+    }
+    return JSON.parse(entry) as IConfig;
+};
+
+export const saveConfigToStorage = async (config: IConfig) => {
+    await AsyncStorage.setItem('config', JSON.stringify(config));
+};
 
 export const loadSettingsFromStorage = async () => {
-    // console.log("RETRIEVING JSON settings...");
-    // await sleep(2000);
     const entry = await AsyncStorage.getItem('settings');
-    // console.log("RETRIEVED JSON settings", entry);
     if (entry == null) {
         return null;
     }
     return JSON.parse(entry) as ISettings;
-    // return {
-    //     steam_id: new Date(),
-    //     profile_id: 1,
-    // }
 };
+
+export const saveSettingsToStorage = async (settings: ISettings) => {
+    await AsyncStorage.setItem('settings', JSON.stringify(settings));
+};
+
 
 export const loadFollowingFromStorage = async () => {
     const entry = await AsyncStorage.getItem('following');

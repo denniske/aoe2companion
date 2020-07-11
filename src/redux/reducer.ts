@@ -5,7 +5,7 @@ import { UserId } from '../helper/user';
 import { IProfile } from '../view/components/profile';
 import { IRatingHistoryRow } from '../service/rating';
 import {ILeaderboard, IMatch} from "../helper/data";
-import {IFollowingEntry} from "../service/storage";
+import {IConfig, IFollowingEntry} from "../service/storage";
 import {Manifest} from "expo-updates/build/Updates.types";
 
 export function getNoteId() {
@@ -74,9 +74,9 @@ export function setUpdateState(updateState: string) {
   };
 }
 
-export function setDarkMode(darkMode: DarkMode) {
+export function setConfig(config: IConfig) {
   return (state: AppState) => {
-    state.darkMode = darkMode;
+    state.config = config;
   };
 }
 
@@ -111,11 +111,13 @@ interface ILeaderboardDict {
   [key: string]: ILeaderboard;
 }
 
-export type DarkMode = 'light' | 'dark' | 'auto';
+export type DarkMode = 'light' | 'dark';// | 'auto';
 
 export interface AppState {
   auth?: UserId | null;
   user: IUserDict;
+
+  config: IConfig;
 
   following: IFollowingEntry[];
   followedMatches?: IMatch[];
@@ -126,8 +128,6 @@ export interface AppState {
   updateAvailable: boolean;
   updateManifest?: Manifest | null;
   updateStoreManifest?: any | null;
-
-  darkMode?: DarkMode;
 }
 
 const initialState: Partial<AppState> = {

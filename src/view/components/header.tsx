@@ -5,7 +5,7 @@ import {RootStackParamList, RootStackProp} from '../../../App';
 import {getRootNavigation} from "../../service/navigation";
 import {MyText} from "./my-text";
 import {iconHeight, iconWidth} from "../../helper/theme";
-import {setDarkMode, useMutate} from "../../redux/reducer";
+import {useMutate} from "../../redux/reducer";
 import {ITheme, makeVariants, useTheme} from "../theming";
 
 
@@ -27,14 +27,14 @@ export default function Header() {
                 <View style={styles.header}>
                     <Image style={styles.icon} source={require('../../../assets/icon.png')}/>
                     <MyText>AoE II Companion</MyText>
-                    <Checkbox.Android
-                        status={checked ? 'checked' : 'unchecked'}
-                        onPress={() => {
-                            mutate(setDarkMode(checked ? 'dark' : 'light'));
-                            setChecked(!checked);
-                        }}
-                    />
-                    <MyText>Light Mode</MyText>
+                    {/*<Checkbox.Android*/}
+                    {/*    status={checked ? 'checked' : 'unchecked'}*/}
+                    {/*    onPress={() => {*/}
+                    {/*        mutate(setDarkMode(checked ? 'dark' : 'light'));*/}
+                    {/*        setChecked(!checked);*/}
+                    {/*    }}*/}
+                    {/*/>*/}
+                    {/*<MyText>Light Mode</MyText>*/}
                 </View>
             </View>
     );

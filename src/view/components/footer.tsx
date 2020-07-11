@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import Constants from 'expo-constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon5 from 'react-native-vector-icons/FontAwesome5';
-import {Menu} from 'react-native-paper';
+import {Divider, Menu} from 'react-native-paper';
 import {RootStackParamList, RootStackProp} from '../../../App';
 import {getRootNavigation} from "../../service/navigation";
 import {useNavigationState} from "@react-navigation/native";
@@ -55,7 +55,7 @@ export default function Footer() {
                         <Icon name="graduation-cap" size={iconSize} style={iconStyle('Guide')} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuButtonDots} onPress={() => setMenu(true)}>
-                        <Icon name="ellipsis-v" size={iconSize} style={iconStyle('Tech', 'Unit', 'About')} />
+                        <Icon name="ellipsis-v" size={iconSize} style={iconStyle('Tech', 'Unit', 'About', 'Settings')} />
                     </TouchableOpacity>
                     <Menu
                         contentStyle={{marginBottom: 50}}
@@ -66,6 +66,8 @@ export default function Footer() {
                             }
                     >
                         <Menu.Item onPress={() => { nav('About'); setMenu(false); }} title="About" />
+                        <Menu.Item onPress={() => { nav('Settings'); setMenu(false); }} title="Settings" />
+                        <Divider />
                         <Menu.Item onPress={() => { nav('Tech'); setMenu(false); }} title="Techs" />
                         <Menu.Item onPress={() => { nav('Unit'); setMenu(false); }} title="Units" />
                     </Menu>
