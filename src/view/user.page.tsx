@@ -17,15 +17,20 @@ import StatsMap from "./components/stats-map";
 import StatsPlayer from "./components/stats-player";
 import {useLazyApi} from "../hooks/use-lazy-api";
 import {MyText} from "./components/my-text";
+import {setPrefValue, useMutate, useSelector} from "../redux/reducer";
+import {formatLeaderboardId, LeaderboardId, leaderboardList} from "../helper/leaderboards";
+import Picker from "./components/picker";
+import {saveCurrentPrefsToStorage} from "../service/storage";
 
 
 export default function UserPage() {
     const [refetching, setRefetching] = useState(false);
     const [fetchingMore, setFetchingMore] = useState(false);
+    const mutate = useMutate();
+    const leaderboardId = useSelector(state => state.prefs.leaderboardId) ?? LeaderboardId.RM1v1;
 
     const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
     const auth = route.params.id;
-    console.log("user auth", auth);
 
     const rating = useApi(
             [],
@@ -81,9 +86,21 @@ export default function UserPage() {
         fetchMatches, 'aoe2de', 0, 1000, auth
     );
 
+    const filterMatchesByLeaderboardId = (matchList: IMatch[]) => {
+        if (matchList == null) {
+            return undefined;
+        }
+        return matchList.filter(m => m.leaderboard_id === leaderboardId);
+    };
+
     const _renderFooter = () => {
         if (!fetchingMore) return null;
         return <FlatListLoadingIndicator />;
+    };
+
+    const onLeaderboardSelected = async (leaderboardId: LeaderboardId) => {
+        mutate(setPrefValue('leaderboardId', leaderboardId));
+        await saveCurrentPrefsToStorage();
     };
 
     return (
@@ -101,6 +118,7 @@ export default function UserPage() {
                                     case 'stats-header':
                                         return <View>
                                             <MyText style={styles.sectionHeader}>Stats</MyText>
+                                            <Picker style={styles.statsPicker} value={leaderboardId} values={leaderboardList} formatter={formatLeaderboardId} onSelect={onLeaderboardSelected}/>
                                             {
                                                 !matches2.touched && !matches2.loading &&
                                                 <Button
@@ -116,13 +134,13 @@ export default function UserPage() {
                                         </View>;
                                     case 'stats-civ':
                                         if (!matches2.touched && !matches2.loading) return <View/>;
-                                        return <StatsCiv matches={matches2.data} user={auth}/>;
+                                        return <StatsCiv matches={filterMatchesByLeaderboardId(matches2.data)} user={auth}/>;
                                     case 'stats-map':
                                         if (!matches2.touched && !matches2.loading) return <View/>;
-                                        return <StatsMap matches={matches2.data} user={auth}/>;
+                                        return <StatsMap matches={filterMatchesByLeaderboardId(matches2.data)} user={auth}/>;
                                     case 'stats-player':
                                         if (!matches2.touched && !matches2.loading) return <View/>;
-                                        return <StatsPlayer matches={matches2.data} user={auth}/>;
+                                        return <StatsPlayer matches={filterMatchesByLeaderboardId(matches2.data)} user={auth} leaderboardId={leaderboardId}/>;
                                     case 'profile':
                                         return <Profile data={profile.data}/>;
                                     case 'rating':
@@ -145,6 +163,10 @@ export default function UserPage() {
 }
 
 const styles = StyleSheet.create({
+    statsPicker: {
+        alignSelf: 'center',
+        marginBottom: 10
+    },
     sectionHeader: {
         marginTop: 20,
         marginBottom: 20,

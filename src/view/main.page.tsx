@@ -132,7 +132,7 @@ function MainHome() {
                                         return <StatsMap matches={filterMatchesByLeaderboardId(matches.data)} user={auth}/>;
                                     case 'stats-player':
                                         if (!matches.touched && !matches.loading) return <View/>;
-                                        return <StatsPlayer matches={filterMatchesByLeaderboardId(matches.data)} user={auth}/>;
+                                        return <StatsPlayer matches={filterMatchesByLeaderboardId(matches.data)} user={auth} leaderboardId={leaderboardId}/>;
                                     case 'rating':
                                         return <Rating ratingHistories={rating.data}/>;
                                     case 'profile':

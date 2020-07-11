@@ -9,6 +9,7 @@ import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {MyText} from "./my-text";
 import {ITheme, makeVariants, useTheme} from "../../theming";
+import {LeaderboardId} from "../../helper/leaderboards";
 
 interface IRow {
     player: IPlayer;
@@ -52,9 +53,10 @@ function Row({data}: IRowProps) {
 interface IProps {
     matches?: IMatch[];
     user: UserIdBase;
+    leaderboardId: LeaderboardId;
 }
 
-export default function StatsPlayer({matches, user}: IProps) {
+export default function StatsPlayer({matches, user, leaderboardId}: IProps) {
     const styles = useTheme(variants);
     let rowsAlly: IRow[] | null = null;
     let rowsOpponent: IRow[] | null = null;
@@ -108,6 +110,8 @@ export default function StatsPlayer({matches, user}: IProps) {
         );
     }
 
+    const hasAlly = [LeaderboardId.DMTeam, LeaderboardId.RMTeam, LeaderboardId.Unranked].includes(leaderboardId);
+
     return (
             <View style={styles.container}>
                 <View>
@@ -117,7 +121,7 @@ export default function StatsPlayer({matches, user}: IProps) {
                     }
 
                     {
-                        rowsAlly && rowsAlly.length > 0 &&
+                        hasAlly && rowsAlly && rowsAlly.length > 0 &&
                         <View style={styles.row}>
                             <MyText numberOfLines={1} style={styles.cellLeaderboard}>Ally</MyText>
                             <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>
@@ -126,13 +130,13 @@ export default function StatsPlayer({matches, user}: IProps) {
                     }
 
                     {
-                        rowsAlly && rowsAlly.map(leaderboard =>
+                        hasAlly && rowsAlly && rowsAlly.map(leaderboard =>
                                 <Row key={composeUserId(leaderboard.player)} data={leaderboard}/>
                         )
                     }
 
                     {
-                        !rowsAlly && Array(8).fill(0).map((a, i) =>
+                        hasAlly && !rowsAlly && Array(8).fill(0).map((a, i) =>
                             <View key={i} style={styles.row}>
                                 <TextLoader style={styles.cellLeaderboard}/>
                                 <TextLoader style={styles.cellGames}/>
