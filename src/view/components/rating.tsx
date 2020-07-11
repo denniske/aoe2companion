@@ -8,7 +8,7 @@ import {TextLoader} from "./loader/text-loader";
 import {ViewLoader} from "./loader/view-loader";
 import {formatLeaderboardId} from "../../helper/leaderboards";
 import {merge} from "lodash-es";
-import {useAppTheme} from "../../theming";
+import {useAppTheme, usePaperTheme} from "../../theming";
 
 interface IRatingProps {
     ratingHistories: IRatingHistoryRow[];
@@ -29,6 +29,7 @@ function replaceRobotoWithSystemFont(obj: any) {
 }
 
 export default function Rating({ratingHistories}: IRatingProps) {
+    const paperTheme = usePaperTheme();
     const appTheme = useAppTheme();
 
     let themeWithSystemFont = replaceRobotoWithSystemFont({...VictoryTheme.material});
@@ -66,7 +67,7 @@ export default function Rating({ratingHistories}: IRatingProps) {
                                     data={ratingHistory.data}
                                     x="timestamp"
                                     y="rating" style={{
-                                    data: {stroke: getLeaderboardColor(ratingHistory.leaderboard_id)}
+                                    data: {stroke: getLeaderboardColor(ratingHistory.leaderboard_id, paperTheme.dark)}
                                 }}
                                 />
                             ))
@@ -81,7 +82,7 @@ export default function Rating({ratingHistories}: IRatingProps) {
                                     y="rating"
                                     size={1.5}
                                     style={{
-                                        data: {fill: getLeaderboardColor(ratingHistory.leaderboard_id)}
+                                        data: {fill: getLeaderboardColor(ratingHistory.leaderboard_id, paperTheme.dark)}
                                     }}
                                 />
                             ))
@@ -98,7 +99,7 @@ export default function Rating({ratingHistories}: IRatingProps) {
                                     paddingHorizontal: 10,
                                     paddingVertical: 5,
                                     fontSize: 12,
-                                    color: getLeaderboardColor(ratingHistory.leaderboard_id)
+                                    color: getLeaderboardColor(ratingHistory.leaderboard_id, paperTheme.dark)
                                 }}
                             >
                                 {formatLeaderboardId(ratingHistory.leaderboard_id)}

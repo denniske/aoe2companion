@@ -1,5 +1,5 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {IMatch, validMatch} from "../../helper/data";
 import {TextLoader} from "./loader/text-loader";
 import {AoeMap, getMapImage, getMapName, maps} from "../../helper/maps";
@@ -7,6 +7,7 @@ import {orderBy} from "lodash-es";
 import {sameUser, UserIdBase} from "../../helper/user";
 import {MyText} from "./my-text";
 import {ITheme, makeVariants, useTheme} from "../../theming";
+import {useLazyApi} from "../../hooks/use-lazy-api";
 
 interface IRow {
     map: AoeMap;
@@ -41,10 +42,8 @@ interface IProps {
     user: UserIdBase;
 }
 
-export default function StatsMap({matches, user}: IProps) {
-    const styles = useTheme(variants);
+function getRows({matches, user}: IProps) {
     let rows: IRow[] | null = null;
-
     if (matches) {
         const mapList = Object.keys(maps);
         // console.log(matches);
@@ -65,6 +64,18 @@ export default function StatsMap({matches, user}: IProps) {
         rows = orderBy(rows, r => r.games, 'desc');
         // rows = orderBy(rows, [r => r.won], ['desc']);
     }
+    return { rows, matches, user };
+}
+
+export default function StatsMap(props: IProps) {
+    const styles = useTheme(variants);
+
+    const _rows = useLazyApi(getRows, props);
+    const { rows, matches, user } = _rows.data || {};
+
+    useEffect(() => {
+        _rows.reload();
+    }, [props.matches]);
 
     if (matches && matches.length === 0) {
         return <View/>;

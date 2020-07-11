@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, Alert, AsyncStorage, FlatList, StyleSheet, Text, View} from 'react-native';
 import {Button} from 'react-native-paper';
 import {useApi} from '../hooks/use-api';
@@ -25,6 +25,7 @@ import {saveCurrentPrefsToStorage, saveSettingsToStorage} from "../service/stora
 import Picker from "./components/picker";
 import {formatLeaderboardId, LeaderboardId, leaderboardList} from "../helper/leaderboards";
 import {IMatch} from "../helper/data";
+import { sleep } from '../helper/util';
 
 
 function MainHome() {
@@ -61,12 +62,16 @@ function MainHome() {
         fetchMatches, 'aoe2de', 0, 1000, auth
     );
 
-    const filterMatchesByLeaderboardId = (matchList: IMatch[]) => {
-        if (matchList == null) {
-            return undefined;
-        }
-        return matchList.filter(m => m.leaderboard_id === leaderboardId);
+    const getFilteredMatches = async ({matches, leaderboardId} : any) => {
+        return matches.data?.filter((m: any) => m.leaderboard_id === leaderboardId);
     };
+
+    const _filteredMatches = useLazyApi(getFilteredMatches, {matches, leaderboardId});
+    const filteredMatches = _filteredMatches.data;
+
+    useEffect(() => {
+        _filteredMatches.reload();
+    }, [matches.data, leaderboardId]);
 
     const list = ['profile', 'rating-header', 'rating', 'stats-header', 'stats-player', 'stats-civ', 'stats-map', 'settings-header', 'not-me'];
 
@@ -126,13 +131,13 @@ function MainHome() {
                                         </View>;
                                     case 'stats-civ':
                                         if (!matches.touched && !matches.loading) return <View/>;
-                                        return <StatsCiv matches={filterMatchesByLeaderboardId(matches.data)} user={auth}/>;
+                                        return <StatsCiv matches={filteredMatches} user={auth}/>;
                                     case 'stats-map':
                                         if (!matches.touched && !matches.loading) return <View/>;
-                                        return <StatsMap matches={filterMatchesByLeaderboardId(matches.data)} user={auth}/>;
+                                        return <StatsMap matches={filteredMatches} user={auth}/>;
                                     case 'stats-player':
                                         if (!matches.touched && !matches.loading) return <View/>;
-                                        return <StatsPlayer matches={filterMatchesByLeaderboardId(matches.data)} user={auth} leaderboardId={leaderboardId}/>;
+                                        return <StatsPlayer matches={filteredMatches} user={auth} leaderboardId={leaderboardId}/>;
                                     case 'rating':
                                         return <Rating ratingHistories={rating.data}/>;
                                     case 'profile':

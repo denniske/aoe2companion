@@ -1,5 +1,5 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {IMatch, IPlayer, validMatch} from "../../helper/data";
 import {TextLoader} from "./loader/text-loader";
 import {orderBy, uniqBy} from "lodash-es";
@@ -10,6 +10,8 @@ import {RootStackProp} from "../../../App";
 import {MyText} from "./my-text";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import {LeaderboardId} from "../../helper/leaderboards";
+import {useLazyApi} from "../../hooks/use-lazy-api";
+import {loadUser} from "../../service/user";
 
 interface IRow {
     player: IPlayer;
@@ -56,11 +58,12 @@ interface IProps {
     leaderboardId: LeaderboardId;
 }
 
-export default function StatsPlayer({matches, user, leaderboardId}: IProps) {
-    const styles = useTheme(variants);
+function getRows({matches, user, leaderboardId}: IProps) {
     let rowsAlly: IRow[] | null = null;
     let rowsOpponent: IRow[] | null = null;
     const maxRowCount = 8;
+
+    console.log("=====> CALC");
 
     if (matches) {
         let otherPlayers = matches.flatMap(m => m.players).filter(p => !sameUser(p, user));
@@ -102,6 +105,20 @@ export default function StatsPlayer({matches, user, leaderboardId}: IProps) {
         rowsOpponent = orderBy(rowsOpponent, r => r.games, 'desc');
         rowsOpponent = rowsOpponent.filter((r, i) => i < maxRowCount);
     }
+    return { rowsAlly, rowsOpponent, matches, leaderboardId, user };
+}
+
+export default function StatsPlayer(props: IProps) {
+    const styles = useTheme(variants);
+
+    const _rows = useLazyApi(getRows, props);
+    const { rowsAlly, rowsOpponent, matches, leaderboardId, user } = _rows.data || {};
+
+    useEffect(() => {
+        _rows.reload();
+    }, [props.matches]);
+
+    // console.log("==>  MATCH COUNT", matches?.length);
 
     if (matches && matches.length === 0) {
         return (<View>

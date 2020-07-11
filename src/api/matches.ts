@@ -20,7 +20,7 @@ export interface IFetchMatchesParams {
 
 
 export async function fetchMatches(game: string, start: number, count: number, params: IFetchMatchesParams): Promise<IMatch[]> {
-    console.log('fetchMatches', start, count);
+    // console.log('fetchMatches', start, count);
     // await sleep(7000);
 
     const start2 = new Date();
@@ -35,8 +35,8 @@ export async function fetchMatches(game: string, start: number, count: number, p
     const json = await response.json() as IMatchRaw[];
 
     const end = new Date();
-    console.log((end.getTime() - start2.getTime())/1000);
+    // console.log((end.getTime() - start2.getTime())/1000);
 
-    console.log("matches json", json);
+    // console.log("matches json", json);
     return json.map(match => convertTimestampsToDates(match));
 }

@@ -399,8 +399,8 @@ export function AppWrapper() {
         return <AppLoading/>;
     }
 
-    console.log('mode', darkMode);
-    console.log('react nav theme', darkMode === 'light' ? customNavigationTheme : customDarkNavigationTheme);
+    // console.log('mode', darkMode);
+    // console.log('react nav theme', darkMode === 'light' ? customNavigationTheme : customDarkNavigationTheme);
     return (
         <NavigationContainer ref={navigationRef}
                              theme={darkMode === 'light' ? customNavigationTheme : customDarkNavigationTheme}

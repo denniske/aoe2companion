@@ -1,5 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
 import { AppState, useMutate, useSelector } from '../redux/reducer';
+import {sleep} from "../helper/util";
 
 type UnPromisify<T> = T extends Promise<infer U> ? U:T;
 
@@ -21,6 +22,11 @@ export function useApi<A extends (...args: any) => any>(dep: any, selectorFun: S
         }
 
         setLoading(true);
+
+        // If load is called in useEffect() it may be run synchronously if action is an synchronous function.
+        // So we call an async function to force running asynchronously.
+        await sleep(0);
+
         const data = await action(...args);
 
         if (!mountedRef.current) {

@@ -1,4 +1,5 @@
 import {useEffect, useRef, useState} from 'react';
+import {sleep} from "../helper/util";
 
 type UnPromisify<T> = T extends Promise<infer U> ? U : T;
 
@@ -12,6 +13,11 @@ export function useLazyApi<A extends (...args: any) => any>(action: A, ...defArg
         if (!mountedRef.current) return null;
 
         setLoading(true);
+
+        // If load is called in useEffect() it may be run synchronously if action is an synchronous function.
+        // So we call an async function to force running asynchronously.
+        await sleep(0);
+
         const data = await action(...args);
 
         if (!mountedRef.current) return null;
