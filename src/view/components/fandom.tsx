@@ -1,7 +1,7 @@
 import {Linking, StyleSheet, Text, View} from "react-native";
 import React from "react";
-import {linkColor} from "../../styles";
 import {MyText} from "./my-text";
+import {ITheme, makeVariants, useTheme} from "../../theming";
 
 
 interface FandomProps {
@@ -9,6 +9,7 @@ interface FandomProps {
 }
 
 export default function Fandom(props: FandomProps) {
+    const styles = useTheme(variants);
     const { articleName } = props;
     return (
         <MyText style={styles.container}>
@@ -23,17 +24,21 @@ export default function Fandom(props: FandomProps) {
     );
 }
 
-const styles = StyleSheet.create({
+const getStyles = (theme: ITheme) => {
+    return StyleSheet.create({
     container: {
         marginTop: 20,
         lineHeight: 16,
     },
     link: {
         fontSize: 12,
-        color: linkColor,
+        color: theme.linkColor,
     },
     text: {
         fontSize: 12,
         marginBottom: 5,
     },
 });
+};
+
+const variants = makeVariants(getStyles);

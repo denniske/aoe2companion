@@ -39,11 +39,11 @@ import {Tech} from "./src/helper/techs";
 import TechPage, {techTitle, TechTitle} from "./src/view/tech/tech.page";
 import FeedPage from "./src/view/feed.page";
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import {appStyles} from "./src/styles";
 import {MyText} from "./src/view/components/my-text";
 import UpdateSnackbar from "./src/view/components/update-snackbar";
 import {ITheme, makeVariants, useTheme} from "./src/theming";
 import SettingsPage from "./src/view/settings.page";
+import {appVariants} from "./src/styles";
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -119,6 +119,7 @@ export type RootStackProp = StackNavigationProp<RootStackParamList, 'Main'>;
 const Stack = createStackNavigator<RootStackParamList>();
 
 function LinkTitle(props: any) {
+    const appStyles = useTheme(appVariants);
     return (
         <TouchableOpacity onPress={() => Linking.openURL('https://buildorderguide.com')}>
             <MyText style={appStyles.link}>buildorderguide.com</MyText>
@@ -342,6 +343,7 @@ function ConditionalTester({children}: any) {
 //         // primary: '#3498db',
 //     },
 // };
+
 
 const customPaperTheme = {
     ...PaperDefaultTheme,

@@ -13,16 +13,17 @@ import {
 } from "../../helper/units";
 import {getTechIcon, getTechName, Tech, techEffectDict} from "../../helper/techs";
 import {Civ} from "../../helper/civs";
-import {appStyles, linkColor} from "../../styles";
 import Fandom from "../components/fandom";
 import {Button} from "react-native-paper";
 import {keysOf} from "../../helper/util";
 import {MyText} from "../components/my-text";
 import {iconHeight, iconSmallHeight, iconSmallWidth, iconWidth} from "../../helper/theme";
 import {ITheme, makeVariants, useTheme} from "../../theming";
+import {appVariants} from "../../styles";
 
 
 export default function UnitDetails({unitLineName}: {unitLineName: UnitLine}) {
+    const appStyles = useTheme(appVariants);
     const styles = useTheme(variants);
     const navigation = useNavigation<RootStackProp>();
     const unitLine = unitLines[unitLineName];

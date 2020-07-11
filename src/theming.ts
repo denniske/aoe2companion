@@ -8,6 +8,7 @@ const light: ITheme = {
     textNoteColor: "#333",
     borderColor: '#CCC',
     skeletonColor: '#EEE',
+    linkColor: '#397AF9',
 };
 const dark: ITheme = {
     backgroundColor: "#121212",
@@ -15,6 +16,7 @@ const dark: ITheme = {
     textNoteColor: "#BBB",
     borderColor: '#101010',
     skeletonColor: '#111',
+    linkColor: '#0A84FF', // from react navigation dark theme primary
 };
 
 export function makeVariants<S>(factory: (theme: ITheme) => S): IVariantDict<S> {
@@ -42,6 +44,7 @@ export interface ITheme {
     textNoteColor: string;
     borderColor: string;
     skeletonColor: string;
+    linkColor: string;
 }
 
 interface IVariantDict<S> {
