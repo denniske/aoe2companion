@@ -379,6 +379,7 @@ const customDarkNavigationTheme = {
 };
 
 
+
 export function AppWrapper() {
     // AsyncStorage.removeItem('prefs');
     // AsyncStorage.removeItem('settings');
@@ -401,11 +402,12 @@ export function AppWrapper() {
         return <AppLoading/>;
     }
 
-    const finalDarkMode = darkMode === "system" && ['light', 'dark'].includes(colorScheme) ? colorScheme : darkMode;
 
-    // console.log('Dark mode', darkMode);
-    // console.log('Appearance mode', colorScheme);
-    // console.log('Final mode', finalDarkMode);
+    const finalDarkMode = darkMode === "system" && (colorScheme === 'light' || colorScheme === 'dark') ? colorScheme : darkMode;
+
+    console.log('Dark mode', darkMode);
+    console.log('Appearance mode', colorScheme);
+    console.log('Final mode', finalDarkMode);
 
     // console.log('mode', darkMode);
     // console.log('react nav theme', darkMode === 'light' ? customNavigationTheme : customDarkNavigationTheme);
@@ -415,6 +417,10 @@ export function AppWrapper() {
                              linking={linking}>
             <ConditionalTester>
                 <PaperProvider theme={finalDarkMode === 'light' ? customPaperTheme : customDarkPaperTheme}>
+                    <StatusBar barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'} backgroundColor="transparent" translucent={true} />
+                    {/*<StatusBar barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'} backgroundColor="transparent" translucent={true} />*/}
+                    {/*<StatusBar barStyle="dark-content" backgroundColor="white" />*/}
+                    {/*<StatusBar barStyle="light-content" backgroundColor="transparent" />*/}
                     <InnerApp/>
                 </PaperProvider>
             </ConditionalTester>
