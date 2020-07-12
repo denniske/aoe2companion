@@ -11,7 +11,6 @@ import {MyText} from "./my-text";
 
 
 export function TechTree({civ}: {civ: aoeCivKey}) {
-
     return (
         <View style={styles.container}>
             <MyText style={styles.sectionHeader}>Tech Tree</MyText>
@@ -173,7 +172,7 @@ function getAbilityNavCallback({tech, unit}: AbilityHelperProps) {
         return () => navigation.push('Tech', {tech: tech});
     }
     if (unit) {
-        return () => navigation.push('Unit', {unit: getUnitLineForUnit(unit)!.units[0]});
+        return () => navigation.push('Unit', {unit: unit});
     }
     return () => {};
 }

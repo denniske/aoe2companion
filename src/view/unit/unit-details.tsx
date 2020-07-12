@@ -5,11 +5,11 @@ import {RootStackProp} from "../../../App";
 import {
     attackClasses,
     getEliteUniqueResearchIcon, getInferiorUnitLines, getOtherIcon, getUnitClassName, getUnitData, getUnitDescription,
-    getUnitIcon,
+    getUnitIcon, getUnitLineForUnit,
     getUnitLineIcon,
-    getUnitLineName,
+    getUnitLineName, getUnitLineNameForUnit,
     getUnitName, IUnitInfo, Other, sortResources, sortUnitCounter, Unit, UnitClassNumber,
-    UnitLine, unitLines
+    UnitLine, unitLines, units
 } from "../../helper/units";
 import {getTechIcon, getTechName, Tech, techEffectDict} from "../../helper/techs";
 import {Civ} from "../../helper/civs";
@@ -22,14 +22,19 @@ import {ITheme, makeVariants, useTheme} from "../../theming";
 import {appVariants} from "../../styles";
 
 
-export default function UnitDetails({unitLineName}: {unitLineName: UnitLine}) {
+export default function UnitDetails({unitName}: {unitName: Unit}) {
     const appStyles = useTheme(appVariants);
     const styles = useTheme(variants);
     const navigation = useNavigation<RootStackProp>();
+    const unitLineName = getUnitLineNameForUnit(unitName);
     const unitLine = unitLines[unitLineName];
     const unitLineUpgrades = unitLine.upgrades.map(u => techEffectDict[u]);
 
-    const developments = unitLine.units.filter((u, i) => i > 0);//.map(u => units[u]);
+    const unitIndex = unitLine.units.indexOf(unitName);
+    const upgradedFrom = unitIndex > 0 ? unitLine.units[unitIndex-1] : null;
+    const upgradedTo = unitIndex < unitLine.units.length-1 ? unitLine.units[unitIndex+1] : null;
+
+    const developments = unitLine.units;//.filter((u, i) => i > 0);//.map(u => units[u]);
 
     const [statsVisible, setStatsVisible] = useState(true);
 
@@ -112,7 +117,7 @@ export default function UnitDetails({unitLineName}: {unitLineName: UnitLine}) {
     const gotoUnit = (unit: Unit) => navigation.push('Unit', {unit: unit});
     const gotoTech = (tech: Tech) => navigation.push('Tech', {tech: tech});
 
-    const baseUnit = unitLines[unitLineName].units[0];
+    const baseUnit = unitName;
     const eliteUnit = unitLine.unique ? unitLines[unitLineName].units[1] : null;
     const data = getUnitData(baseUnit);
     const eliteData = eliteUnit ? getUnitData(eliteUnit) : null;
@@ -332,25 +337,58 @@ export default function UnitDetails({unitLineName}: {unitLineName: UnitLine}) {
                 )
             }
             {
-                developments.length > 0 &&
+                upgradedFrom &&
                     <View>
                         <MyText/>
                         <View style={styles.row}>
-                            <MyText size="headline">Upgrades</MyText>
+                            <MyText size="headline">Upgraded From</MyText>
                         </View>
-                        {
-                            developments.map(unit =>
-                                <View key={unit} style={styles.row}>
-                                    <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(unit)}/>
-                                    <MyText style={styles.unitDesc}>{getUnitName(unit)}</MyText>
-                                </View>
-                            )
-                        }
+                        <TouchableOpacity onPress={() => gotoUnit(upgradedFrom)}>
+                            <View style={styles.row}>
+                                <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(upgradedFrom)}/>
+                                <MyText style={styles.unitDesc}>{getUnitName(upgradedFrom)}</MyText>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+            }
+            {
+                upgradedTo &&
+                <View>
+                        <MyText/>
+                        <View style={styles.row}>
+                            <MyText size="headline">Upgraded To</MyText>
+                        </View>
+                        <TouchableOpacity disabled={unitLine.unique} onPress={() => gotoUnit(upgradedTo)}>
+                            <View style={styles.row}>
+                                <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(upgradedTo)}/>
+                                <MyText style={styles.unitDesc}>{getUnitName(upgradedTo)}</MyText>
+                            </View>
+                        </TouchableOpacity>
                     </View>
             }
 
+            {/*{*/}
+            {/*    developments.length > 0 &&*/}
+            {/*        <View>*/}
+            {/*            <MyText/>*/}
+            {/*            <View style={styles.row}>*/}
+            {/*                <MyText size="headline">Unit line</MyText>*/}
+            {/*            </View>*/}
+            {/*            {*/}
+            {/*                developments.map(unit =>*/}
+            {/*                    <TouchableOpacity key={unit} onPress={() => gotoUnit(unit)}>*/}
+            {/*                        <View style={styles.row}>*/}
+            {/*                            <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(unit)}/>*/}
+            {/*                            <MyText style={styles.unitDesc}>{getUnitName(unit)}</MyText>*/}
+            {/*                        </View>*/}
+            {/*                    </TouchableOpacity>*/}
+            {/*                )*/}
+            {/*            }*/}
+            {/*        </View>*/}
+            {/*}*/}
+
             <View style={appStyles.expanded}/>
-            <Fandom articleName={getUnitLineName(unitLineName)}/>
+            <Fandom articleName={getUnitName(unitName)}/>
         </View>
     );
 }
@@ -427,6 +465,7 @@ const getStyles = (theme: ITheme) => {
         },
         unitDesc: {
             lineHeight: 20,
+            flex: 1,
         },
     });
 };
