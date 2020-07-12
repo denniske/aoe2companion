@@ -10,6 +10,7 @@ const light: ITheme = {
     skeletonColor: '#EEE',
     linkColor: '#397AF9',
 };
+
 const dark: ITheme = {
     backgroundColor: "#121212",
     textColor: "white",

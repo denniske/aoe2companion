@@ -16,7 +16,7 @@ export default function SettingsPage() {
     const values: DarkMode[] = [
         'light',
         'dark',
-        // 'auto',
+        'system',
     ];
 
     const nav = async (str: any) => {

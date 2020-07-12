@@ -117,7 +117,7 @@ interface ILeaderboardDict {
   [key: string]: ILeaderboard;
 }
 
-export type DarkMode = 'light' | 'dark';// | 'auto';
+export type DarkMode = 'light' | 'dark' | 'system';
 
 export interface AppState {
   auth?: UserId | null;

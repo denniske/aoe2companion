@@ -44,6 +44,7 @@ import UpdateSnackbar from "./src/view/components/update-snackbar";
 import {ITheme, makeVariants, useTheme} from "./src/theming";
 import SettingsPage from "./src/view/settings.page";
 import {appVariants} from "./src/styles";
+import {Appearance, AppearanceProvider, useColorScheme} from "react-native-appearance";
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -388,6 +389,7 @@ export function AppWrapper() {
     const prefs = useSelector(state => state.prefs);
     const config = useSelector(state => state.config);
     const darkMode = useSelector(state => state.config?.darkMode);
+    const colorScheme = useColorScheme();
 
     // Trigger loading of auth and following
     const _auth = useApi([], state => state.auth, (state, value) => state.auth = value, () => loadSettingsFromStorage());
@@ -399,14 +401,20 @@ export function AppWrapper() {
         return <AppLoading/>;
     }
 
+    const finalDarkMode = darkMode === "system" && ['light', 'dark'].includes(colorScheme) ? colorScheme : darkMode;
+
+    // console.log('Dark mode', darkMode);
+    // console.log('Appearance mode', colorScheme);
+    // console.log('Final mode', finalDarkMode);
+
     // console.log('mode', darkMode);
     // console.log('react nav theme', darkMode === 'light' ? customNavigationTheme : customDarkNavigationTheme);
     return (
         <NavigationContainer ref={navigationRef}
-                             theme={darkMode === 'light' ? customNavigationTheme : customDarkNavigationTheme}
+                             theme={finalDarkMode === 'light' ? customNavigationTheme : customDarkNavigationTheme}
                              linking={linking}>
             <ConditionalTester>
-                <PaperProvider theme={darkMode === 'light' ? customPaperTheme : customDarkPaperTheme}>
+                <PaperProvider theme={finalDarkMode === 'light' ? customPaperTheme : customDarkPaperTheme}>
                     <InnerApp/>
                 </PaperProvider>
             </ConditionalTester>
@@ -416,9 +424,11 @@ export function AppWrapper() {
 
 export default function App() {
     return (
-        <ReduxProvider store={store}>
-            <AppWrapper/>
-        </ReduxProvider>
+        <AppearanceProvider>
+          <ReduxProvider store={store}>
+                <AppWrapper/>
+            </ReduxProvider>
+        </AppearanceProvider>
     );
 }
 
