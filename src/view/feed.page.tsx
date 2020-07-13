@@ -17,6 +17,7 @@ import {IFetchedUser} from "../service/user";
 import PlayerList, {IPlayerListPlayer} from "./components/player-list";
 import {useCavy} from "cavy";
 import {MyText} from "./components/my-text";
+import {orderBy} from "lodash-es";
 
 
 export function FeedList() {
@@ -31,6 +32,7 @@ export function FeedList() {
     const activeRoute = state.routes[state.index];
     const isActiveRoute = activeRoute.name === 'Feed' && activeRoute.params == null;
 
+    const auth = useSelector(state => state.auth);
     const following = useSelector(state => state.following);
     const prevFollowing = usePrevious({following});
 
@@ -91,8 +93,10 @@ export function FeedList() {
         return <FlatListLoadingIndicator />;
     };
 
-    const filterPlayers = (players: IPlayer[]) => {
-      return players.filter(p => following.filter(f => sameUser(p, f)).length > 0)
+    const filterAndSortPlayers = (players: IPlayer[]) => {
+        let filteredPlayers = players.filter(p => following.filter(f => sameUser(p, f)).length > 0 || (auth && sameUser(p, auth)));
+        filteredPlayers = orderBy(filteredPlayers, p => (auth && sameUser(p, auth)));
+        return filteredPlayers;
     };
 
     const gotoPlayer = (player: UserIdBaseWithName) => {
@@ -100,6 +104,10 @@ export function FeedList() {
             id: userIdFromBase(player),
             name: player.name,
         });
+    };
+
+    const formatPlayer = (player: UserIdBaseWithName) => {
+        return (auth && sameUser(player, auth)) ? 'you' : player.name;
     };
 
     return (
@@ -126,14 +134,16 @@ export function FeedList() {
                                             return <Game data={item as IMatch}/>;
                                         }
 
-                                        const filteredPlayers = filterPlayers(match.players);
+                                        const filteredPlayers = filterAndSortPlayers(match.players);
+                                        const len = filteredPlayers.length;
                                         return <View>
                                             {
                                                 <MyText style={styles.players}>
                                                     {filteredPlayers.map((p, i) =>
                                                         <MyText key={i}>
-                                                            <MyText onPress={() => gotoPlayer(p)}>{p.name}</MyText>
-                                                            { i < filteredPlayers.length-1 && <MyText> and </MyText> }
+                                                            <MyText onPress={() => gotoPlayer(p)}>{formatPlayer(p)}</MyText>
+                                                            { i < len-2 && <MyText>, </MyText> }
+                                                            { i == len-2 && <MyText> and </MyText> }
                                                         </MyText>
                                                     )}
                                                     <MyText> {match.finished ? 'played' : 'playing now'}</MyText>
