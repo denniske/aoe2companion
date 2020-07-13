@@ -1,8 +1,6 @@
 
-let mycache: any = {
-    user: { },
-    leaderboard: { },
-};
+let mycache: any = undefined;
+
 
 
 
