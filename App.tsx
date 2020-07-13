@@ -176,6 +176,7 @@ export function FeedMenu() {
 // }
 
 export function InnerApp() {
+    console.log('==> :INNER_APP');
     const styles = useTheme(variants);
 
     // let [fontsLoaded] = useFonts({
@@ -224,6 +225,13 @@ export function InnerApp() {
                 animationEnabled: false,
             }}>
                 <Stack.Screen
+                    name="Main"
+                    component={MainPage}
+                    options={{
+                        title: 'Me',
+                    }}
+                />
+                <Stack.Screen
                     name="Feed"
                     component={FeedPage}
                     options={props => ({
@@ -231,13 +239,6 @@ export function InnerApp() {
                         title: feedTitle(props),
                         headerRight: feedMenu(props),
                     })}
-                />
-                <Stack.Screen
-                    name="Main"
-                    component={MainPage}
-                    options={{
-                        title: 'Me',
-                    }}
                 />
                 <Stack.Screen
                     name="Leaderboard"
@@ -385,6 +386,10 @@ export function AppWrapper() {
     // AsyncStorage.removeItem('settings');
     // AsyncStorage.removeItem('following');
 
+    console.log('==> :APP_WRAPPER');
+    console.log(' ');
+    console.log(' ');
+
     const auth = useSelector(state => state.auth);
     const following = useSelector(state => state.following);
     const prefs = useSelector(state => state.prefs);
@@ -393,10 +398,21 @@ export function AppWrapper() {
     const colorScheme = useColorScheme();
 
     // Trigger loading of auth and following
-    const _auth = useApi([], state => state.auth, (state, value) => state.auth = value, () => loadSettingsFromStorage());
-    const _following = useApi([], state => state.following, (state, value) => state.following = value, () => loadFollowingFromStorage());
-    const _prefs = useApi([], state => state.prefs, (state, value) => state.prefs = value, () => loadPrefsFromStorage());
-    const _config = useApi([], state => state.config, (state, value) => state.config = value, () => loadConfigFromStorage());
+    const _auth = useApi([auth], state => state.auth, (state, value) => state.auth = value, () => loadSettingsFromStorage());
+    const _following = useApi([following], state => state.following, (state, value) => state.following = value, () => loadFollowingFromStorage());
+    const _prefs = useApi([prefs], state => state.prefs, (state, value) => state.prefs = value, () => loadPrefsFromStorage());
+    const _config = useApi([config], state => state.config, (state, value) => state.config = value, () => loadConfigFromStorage());
+
+    // const mutate = useMutate();
+    // const initialState = useSelector(state => state.nav);//<NavigationState<any>>();
+    // const [initialState, setInitialState] = useState<NavigationState<any>>();
+
+    // const prevAuth = usePrevious(auth);
+    // useEffect(() => {
+    //     console.log('PREV AUTH', prevAuth);
+    //     console.log('AUTH', auth);
+    //     console.log('SAME?', auth === prevAuth);
+    // }, [auth]);
 
     if (auth === undefined || following === undefined || config === undefined || prefs === undefined) {
         return <AppLoading/>;
@@ -405,16 +421,27 @@ export function AppWrapper() {
 
     const finalDarkMode = darkMode === "system" && (colorScheme === 'light' || colorScheme === 'dark') ? colorScheme : darkMode;
 
-    console.log('Dark mode', darkMode);
-    console.log('Appearance mode', colorScheme);
-    console.log('Final mode', finalDarkMode);
+    // console.log('NAV initialState', initialState);
+    // console.log(' ');
+    // console.log('Dark mode', darkMode);
+    // console.log('Appearance mode', colorScheme);
+    // console.log('Final mode', finalDarkMode);
 
     // console.log('mode', darkMode);
     // console.log('react nav theme', darkMode === 'light' ? customNavigationTheme : customDarkNavigationTheme);
     return (
         <NavigationContainer ref={navigationRef}
                              theme={finalDarkMode === 'light' ? customNavigationTheme : customDarkNavigationTheme}
-                             linking={linking}>
+                             linking={linking}
+                             // initialState={initialState}
+                             // onStateChange={(state) => {
+                             //     console.log("NAV STATE", state);
+                             //     // setInitialState(state);
+                             //     mutate(setNav(state));
+                             //     // AsyncStorage.setItem(PERSISTENCE_KEY, JSON.stringify(state));
+                             //    }
+                             // }
+        >
             <ConditionalTester>
                 <PaperProvider theme={finalDarkMode === 'light' ? customPaperTheme : customDarkPaperTheme}>
                     <StatusBar barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'} backgroundColor="transparent" translucent={true} />
@@ -429,6 +456,7 @@ export function AppWrapper() {
 }
 
 export default function App() {
+    console.log('==> :APP');
     return (
         <AppearanceProvider>
           <ReduxProvider store={store}>

@@ -1,15 +1,20 @@
-import {Image, ImageStyle, Platform, StatusBar, StyleSheet, Text, TextStyle, View, ViewStyle} from 'react-native';
+import {
+    Image, ImageStyle, Platform, StatusBar, StyleSheet, Text, TextStyle, TouchableOpacity, View, ViewStyle
+} from 'react-native';
 import React, {useState} from 'react';
 import {Checkbox, IconButton, Menu, useTheme as usePaperTheme} from 'react-native-paper';
 import {RootStackParamList, RootStackProp} from '../../../App';
 import {getRootNavigation} from "../../service/navigation";
 import {MyText} from "./my-text";
 import {iconHeight, iconWidth} from "../../helper/theme";
-import {useMutate} from "../../redux/reducer";
+import {setInitialState, useMutate} from "../../redux/reducer";
 import {ITheme, makeVariants, useTheme} from "../../theming";
+import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
+import {appVariants} from "../../styles";
 
 
 export default function Header() {
+    const appStyles = useTheme(appVariants);
     const styles = useTheme(variants);
     const [checked, setChecked] = useState(false);
     const mutate = useMutate();
@@ -22,11 +27,18 @@ export default function Header() {
         });
     };
 
+    const resetState = () => {
+        mutate(setInitialState());
+        // const navi = getRootNavigation();
+        // navi.resetRoot(navi.getRootState());
+    };
+
     return (
             <View style={styles.container}>
                 <View style={styles.header}>
                     <Image style={styles.icon} source={require('../../../assets/icon.png')}/>
                     <MyText>AoE II Companion</MyText>
+
                     {/*<Checkbox.Android*/}
                     {/*    status={checked ? 'checked' : 'unchecked'}*/}
                     {/*    onPress={() => {*/}
@@ -35,6 +47,11 @@ export default function Header() {
                     {/*    }}*/}
                     {/*/>*/}
                     {/*<MyText>Light Mode</MyText>*/}
+
+                    {/*<View style={appStyles.expanded}/>*/}
+                    {/*<TouchableOpacity onPress={resetState}>*/}
+                    {/*    <FontAwesomeIcon style={styles.menuButton} name="refresh" color="#666" size={18} />*/}
+                    {/*</TouchableOpacity>*/}
                 </View>
             </View>
     );

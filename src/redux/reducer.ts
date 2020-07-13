@@ -86,6 +86,12 @@ export function setConfig(config: IConfig) {
   };
 }
 
+// export function setNav(nav: any) {
+//   return (state: AppState) => {
+//     state.nav = nav;
+//   };
+// }
+
 interface IAction {
   type: string;
   id?: string;
@@ -120,6 +126,7 @@ interface ILeaderboardDict {
 export type DarkMode = 'light' | 'dark' | 'system';
 
 export interface AppState {
+  // nav: any;
   auth?: UserId | null;
   user: IUserDict;
 
@@ -140,7 +147,15 @@ export interface AppState {
 const initialState: Partial<AppState> = {
   user: {},
   leaderboard: {},
+  auth: undefined,
 };
+
+
+export function setInitialState() {
+  return (state: AppState) => {
+    Object.assign(state, initialState);
+  };
+}
 
 function notesReducer(state = initialState, action: IAction) {
   switch (action.type) {
