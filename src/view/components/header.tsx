@@ -27,11 +27,9 @@ export default function Header() {
         });
     };
 
-    const resetState = () => {
-        mutate(setInitialState());
-        // const navi = getRootNavigation();
-        // navi.resetRoot(navi.getRootState());
-    };
+    // const resetState = () => {
+    //     mutate(setInitialState());
+    // };
 
     return (
             <View style={styles.container}>

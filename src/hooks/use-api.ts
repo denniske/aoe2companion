@@ -51,12 +51,8 @@ export function useApi<A extends (...args: any) => any>(dep: any, selectorFun: S
         await load(...args);
     }
 
-    console.log('useApi', selectedState);
-
     useEffect(() => {
         mountedRef.current = true;
-
-        console.log('useApi effect', selectedState);
 
         if (selectedState === undefined) {
             // console.log("useApi wants to load", defArgs);

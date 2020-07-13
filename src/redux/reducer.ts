@@ -86,12 +86,6 @@ export function setConfig(config: IConfig) {
   };
 }
 
-// export function setNav(nav: any) {
-//   return (state: AppState) => {
-//     state.nav = nav;
-//   };
-// }
-
 interface IAction {
   type: string;
   id?: string;
@@ -126,7 +120,6 @@ interface ILeaderboardDict {
 export type DarkMode = 'light' | 'dark' | 'system';
 
 export interface AppState {
-  // nav: any;
   auth?: UserId | null;
   user: IUserDict;
 

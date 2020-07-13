@@ -176,7 +176,6 @@ export function FeedMenu() {
 // }
 
 export function InnerApp() {
-    console.log('==> :INNER_APP');
     const styles = useTheme(variants);
 
     // let [fontsLoaded] = useFonts({
@@ -209,7 +208,6 @@ export function InnerApp() {
     //         />
     //     );
     // }
-
 
     return (
         <SafeAreaView style={styles.container}>
@@ -386,7 +384,6 @@ export function AppWrapper() {
     // AsyncStorage.removeItem('settings');
     // AsyncStorage.removeItem('following');
 
-    console.log('==> :APP_WRAPPER');
     console.log(' ');
     console.log(' ');
 
@@ -403,17 +400,6 @@ export function AppWrapper() {
     const _prefs = useApi([prefs], state => state.prefs, (state, value) => state.prefs = value, () => loadPrefsFromStorage());
     const _config = useApi([config], state => state.config, (state, value) => state.config = value, () => loadConfigFromStorage());
 
-    // const mutate = useMutate();
-    // const initialState = useSelector(state => state.nav);//<NavigationState<any>>();
-    // const [initialState, setInitialState] = useState<NavigationState<any>>();
-
-    // const prevAuth = usePrevious(auth);
-    // useEffect(() => {
-    //     console.log('PREV AUTH', prevAuth);
-    //     console.log('AUTH', auth);
-    //     console.log('SAME?', auth === prevAuth);
-    // }, [auth]);
-
     if (auth === undefined || following === undefined || config === undefined || prefs === undefined) {
         return <AppLoading/>;
     }
@@ -421,26 +407,14 @@ export function AppWrapper() {
 
     const finalDarkMode = darkMode === "system" && (colorScheme === 'light' || colorScheme === 'dark') ? colorScheme : darkMode;
 
-    // console.log('NAV initialState', initialState);
-    // console.log(' ');
     // console.log('Dark mode', darkMode);
     // console.log('Appearance mode', colorScheme);
     // console.log('Final mode', finalDarkMode);
 
-    // console.log('mode', darkMode);
-    // console.log('react nav theme', darkMode === 'light' ? customNavigationTheme : customDarkNavigationTheme);
     return (
         <NavigationContainer ref={navigationRef}
                              theme={finalDarkMode === 'light' ? customNavigationTheme : customDarkNavigationTheme}
                              linking={linking}
-                             // initialState={initialState}
-                             // onStateChange={(state) => {
-                             //     console.log("NAV STATE", state);
-                             //     // setInitialState(state);
-                             //     mutate(setNav(state));
-                             //     // AsyncStorage.setItem(PERSISTENCE_KEY, JSON.stringify(state));
-                             //    }
-                             // }
         >
             <ConditionalTester>
                 <PaperProvider theme={finalDarkMode === 'light' ? customPaperTheme : customDarkPaperTheme}>
@@ -456,7 +430,6 @@ export function AppWrapper() {
 }
 
 export default function App() {
-    console.log('==> :APP');
     return (
         <AppearanceProvider>
           <ReduxProvider store={store}>
