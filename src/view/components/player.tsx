@@ -5,20 +5,18 @@ import {
     Image, Modal, StyleSheet, Text, TextStyle, TouchableOpacity, TouchableWithoutFeedback, View
 } from 'react-native';
 import {getPlayerBackgroundColor} from '../../helper/colors';
-import {AppSettings} from '../../helper/constants';
 import Rating from './rating';
 import {useNavigation} from '@react-navigation/native';
-import {userIdFromBase} from '../../helper/user';
+import {sameUserNull, userIdFromBase} from '../../helper/user';
 import {civs, getCivIconByIndex} from '../../helper/civs';
 import {getString} from '../../helper/strings';
 import {RootStackProp} from '../../../App';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {IPlayer} from "../../helper/data";
 import {TextLoader} from "./loader/text-loader";
-import {ImageLoader} from "./loader/image-loader";
-import {ViewLoader} from "./loader/view-loader";
 import IconFA5 from 'react-native-vector-icons/FontAwesome5';
 import {MyText} from "./my-text";
+import {useSelector} from "../../redux/reducer";
 
 interface IPlayerProps {
     player: IPlayer;
@@ -45,12 +43,13 @@ export function PlayerSkeleton() {
 }
 
 export function Player({player}: IPlayerProps) {
+    const auth = useSelector(state => state.auth);
     const [modalVisible, setModalVisible] = useState(false);
     const rating = useLazyApi(loadRatingHistories, 'aoe2de', userIdFromBase(player));
 
     const boxStyle = StyleSheet.flatten([styles.square, {backgroundColor: getPlayerBackgroundColor(player.color)}]);
 
-    const isCurrentPlayer = player.steam_id === AppSettings.steam_id || player.profile_id === AppSettings.profile_id;
+    const isCurrentPlayer = sameUserNull(player, auth);
     const playerNameStyle = StyleSheet.flatten([{textDecorationLine: isCurrentPlayer ? 'underline' : 'none'}]) as TextStyle;
 
     const openRatingModal = () => {
