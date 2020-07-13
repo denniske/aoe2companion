@@ -32,7 +32,6 @@ export interface IFollowingEntry {
 
 export const loadPrefsFromStorage = async () => {
     const entry = await AsyncStorage.getItem('prefs');
-    console.log('loadPrefsFromStorage', entry);
     if (entry == null) {
         return {
 
@@ -48,7 +47,6 @@ export const saveCurrentPrefsToStorage = async () => {
 
 export const loadConfigFromStorage = async () => {
     const entry = await AsyncStorage.getItem('config');
-    console.log('loadConfigFromStorage', entry);
     if (entry == null) {
         return {
             darkMode: 'light',
