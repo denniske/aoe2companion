@@ -27,9 +27,9 @@ export default function Header() {
         });
     };
 
-    // const resetState = () => {
-    //     mutate(setInitialState());
-    // };
+    const resetState = () => {
+        mutate(setInitialState());
+    };
 
     return (
             <View style={styles.container}>
@@ -46,10 +46,14 @@ export default function Header() {
                     {/*/>*/}
                     {/*<MyText>Light Mode</MyText>*/}
 
-                    {/*<View style={appStyles.expanded}/>*/}
-                    {/*<TouchableOpacity onPress={resetState}>*/}
-                    {/*    <FontAwesomeIcon style={styles.menuButton} name="refresh" color="#666" size={18} />*/}
-                    {/*</TouchableOpacity>*/}
+                    <View style={appStyles.expanded}/>
+
+                    {
+                        __DEV__ &&
+                        <TouchableOpacity onPress={resetState}>
+                            <FontAwesomeIcon style={styles.menuButton} name="refresh" color="#666" size={18} />
+                        </TouchableOpacity>
+                    }
                 </View>
             </View>
     );
