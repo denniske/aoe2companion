@@ -7,7 +7,7 @@ import {IMatch, IPlayer} from "../helper/data";
 import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
 import {fetchMatchesMulti} from "../service/matches";
 import Search from "./components/search";
-import {sameUser, UserId, UserInfo, UserIdBase, userIdFromBase, UserIdBaseWithName} from "../helper/user";
+import {sameUser, UserId, UserInfo, UserIdBase, userIdFromBase, UserIdBaseWithName, sameUserNull} from "../helper/user";
 import {setFollowing, useMutate, useSelector} from "../redux/reducer";
 import {toggleFollowingInStorage} from "../service/storage";
 import {useCachedLazyApi} from "../hooks/use-cached-lazy-api";
@@ -94,8 +94,8 @@ export function FeedList() {
     };
 
     const filterAndSortPlayers = (players: IPlayer[]) => {
-        let filteredPlayers = players.filter(p => following.filter(f => sameUser(p, f)).length > 0 || (auth && sameUser(p, auth)));
-        filteredPlayers = orderBy(filteredPlayers, p => (auth && sameUser(p, auth)));
+        let filteredPlayers = players.filter(p => following.filter(f => sameUserNull(p, f)).length > 0 || sameUserNull(p, auth));
+        filteredPlayers = orderBy(filteredPlayers, p => sameUserNull(p, auth));
         return filteredPlayers;
     };
 
@@ -107,7 +107,7 @@ export function FeedList() {
     };
 
     const formatPlayer = (player: UserIdBaseWithName) => {
-        return (auth && sameUser(player, auth)) ? 'you' : player.name;
+        return sameUserNull(player, auth) ? 'you' : player.name;
     };
 
     return (
