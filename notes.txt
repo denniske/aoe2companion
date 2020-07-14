@@ -2,11 +2,11 @@
 add content
 - tips and tricks
 - remaining unit counts
-- dark mode
-  - player color
-  - rating dialog
-- back button close app????
-- fix feed menu buttons click area
+x dark mode
+  x player color
+  x rating dialog
+x back button close app
+x fix feed menu buttons click area
 
 Expo 38
 https://dev.to/expo/expo-sdk-38-is-now-available-5aa0
