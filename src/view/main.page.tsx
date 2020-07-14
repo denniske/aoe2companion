@@ -19,29 +19,15 @@ import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
 import {useLazyApi} from "../hooks/use-lazy-api";
 import StatsCiv from "./components/stats-civ";
 import StatsMap from "./components/stats-map";
-import StatsPlayer, {getStatsPlayerRows} from "./components/stats-player";
+import StatsPlayer from "./components/stats-player";
 import {MyText} from "./components/my-text";
 import {saveCurrentPrefsToStorage, saveSettingsToStorage} from "../service/storage";
 import Picker from "./components/picker";
 import {formatLeaderboardId, LeaderboardId, leaderboardList} from "../helper/leaderboards";
-import {IMatch} from "../helper/data";
-import { sleep } from '../helper/util';
-import {getCacheEntry, setCacheEntry} from "../redux/cache";
 import {usePrevious} from "../hooks/use-previous";
 import {useCachedConservedLazyApi} from "../hooks/use-cached-conserved-lazy-api";
 import {get, set} from "lodash-es";
-
-async function getFilteredMatches({matches, user, leaderboardId} : any) {
-    console.log("==> CALC", user.id, leaderboardId);
-
-    const filteredMatches = matches.data?.filter((m: any) => m.leaderboard_id === leaderboardId);
-
-    const statsPlayerRows = await getStatsPlayerRows({matches: filteredMatches, user, leaderboardId});
-
-    return {
-        statsPlayerRows,
-    };
-}
+import {getStats} from "../service/stats";
 
 
 function MainHome() {
@@ -50,17 +36,17 @@ function MainHome() {
     const generateTestHook = useCavy();
     const leaderboardId = useSelector(state => state.prefs.leaderboardId) ?? LeaderboardId.RM1v1;
 
-    // const rating = useApi(
-    //         [],
-    //         state => state.user[auth.id]?.rating,
-    //         (state, value) => {
-    //             if (state.user[auth.id] == null) {
-    //                 state.user[auth.id] = {};
-    //             }
-    //             state.user[auth.id].rating = value;
-    //         },
-    //         loadRatingHistories, 'aoe2de', auth
-    // );
+    const rating = useApi(
+            [],
+            state => state.user[auth.id]?.rating,
+            (state, value) => {
+                if (state.user[auth.id] == null) {
+                    state.user[auth.id] = {};
+                }
+                state.user[auth.id].rating = value;
+            },
+            loadRatingHistories, 'aoe2de', auth
+    );
 
     const profile = useApi(
             [],
@@ -74,35 +60,45 @@ function MainHome() {
             loadProfile, 'aoe2de', auth
     );
 
-    let matches = useLazyApi(
+    let allMatches = useLazyApi(
         fetchMatches, 'aoe2de', 0, 1000, auth
     );
 
     const cachedData = useSelector(state => get(state.statsPlayer, [auth.id, leaderboardId]));
 
-    const filteredMatches = useCachedConservedLazyApi(
-            [matches.data, leaderboardId],
-            () => matches.data != null,
+    const stats = useCachedConservedLazyApi(
+            [allMatches.data, leaderboardId],
+            () => allMatches.data != null,
             state => get(state, ['statsPlayer', auth.id, leaderboardId]),
             (state, value) => set(state, ['statsPlayer', auth.id, leaderboardId], value),
-            getFilteredMatches, {matches, user: auth, leaderboardId}
+            getStats, {matches: allMatches.data, user: auth, leaderboardId}
     );
 
-    let statsPlayerRows = filteredMatches.data?.statsPlayerRows;
+    let statsPlayer = stats.data?.statsPlayer;
+    let statsCiv = stats.data?.statsCiv;
+    let statsMap = stats.data?.statsMap;
 
-    const hasMatches = matches.loading || (matches.data != null);
+    const hasMatches = allMatches.loading || (allMatches.data != null);
     const hasStats = cachedData != null;
     const hasMatchesOrStats = hasMatches || hasStats;
+    const loadingMatchesOrStats = (allMatches.loading || stats.loading);
 
     const prevLeaderboardId = usePrevious(leaderboardId);
+
+    const loadStats = () => allMatches.reload();
 
     useEffect(() => {
         console.log("FETCHING MATCHES TRY");
         if (!hasMatchesOrStats && prevLeaderboardId != null) {
             console.log("FETCHING MATCHES");
-            matches.reload();
+            allMatches.reload();
         }
     }, [leaderboardId]);
+
+    const onLeaderboardSelected = async (leaderboardId: LeaderboardId) => {
+        mutate(setPrefValue('leaderboardId', leaderboardId));
+        await saveCurrentPrefsToStorage();
+    };
 
     const list = ['profile', 'rating-header', 'rating', 'stats-header', 'stats-player', 'stats-civ', 'stats-map', 'settings-header', 'not-me'];
 
@@ -120,12 +116,6 @@ function MainHome() {
         await AsyncStorage.removeItem('settings');
         mutate(setAuth(null))
     };
-
-    const onLeaderboardSelected = async (leaderboardId: LeaderboardId) => {
-        mutate(setPrefValue('leaderboardId', leaderboardId));
-        await saveCurrentPrefsToStorage();
-    };
-
     const [refreshing, setRefreshing] = useState(false);
 
     return (
@@ -135,7 +125,7 @@ function MainHome() {
                             onRefresh={async () => {
                                 setRefreshing(true);
                                 await mutate(clearStatsPlayer(auth));
-                                await Promise.all([profile.reload(), matches.reload()]);
+                                await Promise.all([rating.reload(), profile.reload(), allMatches.reload()]);
                                 setRefreshing(false);
                             }}
                             refreshing={refreshing}
@@ -145,22 +135,21 @@ function MainHome() {
                                 switch (item) {
                                     case 'settings-header':
                                         return <MyText style={styles.sectionHeader}>Settings</MyText>;
-                                    // case 'rating-header':
-                                    //     return <MyText style={styles.sectionHeader}>Rating History</MyText>;
+                                    case 'rating-header':
+                                        return <MyText style={styles.sectionHeader}>Rating History</MyText>;
                                     case 'stats-header':
-                                        const loading = (matches.loading || filteredMatches.loading);
                                         return <View>
                                             <MyText style={styles.sectionHeader}>Stats</MyText>
 
-                                            <View style={styles.row}>
-                                                <ActivityIndicator style={styles.indicator} animating={loading} size="small"/>
-                                                <Picker style={styles.statsPicker} disabled={loading} value={leaderboardId} values={leaderboardList} formatter={formatLeaderboardId} onSelect={onLeaderboardSelected}/>
+                                            <View style={styles.pickerRow}>
+                                                <ActivityIndicator animating={loadingMatchesOrStats} size="small"/>
+                                                <Picker disabled={loadingMatchesOrStats} value={leaderboardId} values={leaderboardList} formatter={formatLeaderboardId} onSelect={onLeaderboardSelected}/>
                                             </View>
 
                                             {
                                                 !hasMatchesOrStats &&
                                                 <Button
-                                                    onPress={() => matches.reload()}
+                                                    onPress={loadStats}
                                                     mode="contained"
                                                     compact
                                                     uppercase={false}
@@ -170,19 +159,17 @@ function MainHome() {
                                                 </Button>
                                             }
                                         </View>;
-                                    // case 'stats-civ':
-                                    //     // if (!matches.touched && !matches.loading) return <View/>;
-                                    //     if (!hasStats2) return <View/>;
-                                    //     return <StatsCiv data={statsPlayerRows} user={auth} leaderboardId={leaderboardId}/>;
-                                    // case 'stats-map':
-                                    //     if (!matches.touched && !matches.loading) return <View/>;
-                                    //     return <StatsMap matches={filteredMatches} user={auth}/>;
+                                    case 'stats-civ':
+                                        if (!hasMatchesOrStats) return <View/>;
+                                        return <StatsCiv data={statsCiv} user={auth}/>;
+                                    case 'stats-map':
+                                        if (!hasMatchesOrStats) return <View/>;
+                                        return <StatsMap data={statsMap} user={auth}/>;
                                     case 'stats-player':
                                         if (!hasMatchesOrStats) return <View/>;
-                                        // if (!matches.touched && !matches.loading && !hasStats1) return <View/>;
-                                        return <StatsPlayer data={statsPlayerRows} user={auth} leaderboardId={leaderboardId}/>;
-                                    // case 'rating':
-                                    //     return <Rating ratingHistories={rating.data}/>;
+                                        return <StatsPlayer data={statsPlayer} user={auth} leaderboardId={leaderboardId}/>;
+                                    case 'rating':
+                                        return <Rating ratingHistories={rating.data}/>;
                                     case 'profile':
                                         return <Profile data={profile.data}/>;
                                     case 'not-me':
@@ -303,18 +290,13 @@ export default function MainPage() {
 }
 
 const styles = StyleSheet.create({
-    indicator: {
-        // backgroundColor: 'green',
-    },
-    row: {
+    pickerRow: {
         // backgroundColor: 'yellow',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         paddingRight: 20,
         marginBottom: 10
-    },
-    statsPicker: {
     },
     sectionHeader: {
         marginTop: 30,

@@ -8,12 +8,9 @@ import {sameUser, UserIdBase} from "../../helper/user";
 import {MyText} from "./my-text";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import {useLazyApi} from "../../hooks/use-lazy-api";
+import {LeaderboardId} from "../../helper/leaderboards";
+import {IRow} from "../../service/stats/stats-map";
 
-interface IRow {
-    map: AoeMap;
-    games: number;
-    won: number;
-}
 
 interface IRowProps {
     data: any;
@@ -40,44 +37,22 @@ function Row({data}: IRowProps) {
 interface IProps {
     matches?: IMatch[];
     user: UserIdBase;
+    data: IData;
 }
 
-function getRows({matches, user}: IProps) {
-    let rows: IRow[] | null = null;
-    if (matches) {
-        const mapList = Object.keys(maps);
-        // console.log(matches);
-        rows = mapList.map((map: string) => {
-            const gamesWithMap = matches.filter(m => m.map_type === parseInt(map));
-            const validGamesWithMap = gamesWithMap.filter(validMatch);
-            const validGamesWithMapWon = validGamesWithMap.filter(m => m.players.filter(p =>
-                p.won &&
-                sameUser(p, user)
-            ).length > 0);
-            return ({
-                map: parseInt(map) as AoeMap,
-                games: gamesWithMap.length,
-                won: validGamesWithMapWon.length / validGamesWithMap.length * 100,
-            });
-        });
-        rows = rows.filter(r => r.games > 0);
-        rows = orderBy(rows, r => r.games, 'desc');
-        // rows = orderBy(rows, [r => r.won], ['desc']);
-    }
-    return { rows, matches, user };
+interface IData {
+    rows: IRow[] | null;
+    matches?: IMatch[] | null;
+    user: UserIdBase;
 }
 
 export default function StatsMap(props: IProps) {
     const styles = useTheme(variants);
 
-    const _rows = useLazyApi(getRows, props);
-    const { rows, matches, user } = _rows.data || {};
+    const { data, user } = props;
+    const { rows } = data || {};
 
-    useEffect(() => {
-        _rows.reload();
-    }, [props.matches]);
-
-    if (matches && matches.length === 0) {
+    if (rows?.length === 0) {
         return <View/>;
     }
 
@@ -98,7 +73,7 @@ export default function StatsMap(props: IProps) {
                     }
                     <MyText/>
                     {
-                        matches &&
+                        rows &&
                         <MyText style={styles.info}>*based on matches with known result</MyText>
                     }
 

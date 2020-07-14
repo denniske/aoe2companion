@@ -11,12 +11,9 @@ import {MyText} from "./my-text";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import {AoeMap, maps} from "../../helper/maps";
 import {useLazyApi} from "../../hooks/use-lazy-api";
+import {LeaderboardId} from "../../helper/leaderboards";
+import {IRow} from "../../service/stats/stats-civ";
 
-interface IRow {
-    civ: Civ;
-    games: number;
-    won: number;
-}
 
 interface IRowProps {
     data: any;
@@ -48,45 +45,25 @@ function Row({data}: IRowProps) {
     )
 }
 
+
 interface IProps {
-    matches?: IMatch[];
     user: UserIdBase;
+    data: IData;
 }
 
-function getRows({matches, user}: IProps) {
-    let rows: IRow[] | null = null;
-    if (matches) {
-        rows = civs.map(civ => {
-            const gamesWithCiv = matches.filter(m => m.players.filter(p =>
-                p.civ === civs.indexOf(civ) &&
-                sameUser(p, user)
-            ).length > 0);
-            const validGamesWithCiv = gamesWithCiv.filter(validMatch);
-            const validGamesWithCivWon = validGamesWithCiv.filter(m => m.players.filter(p => p.won && sameUser(p, user)).length > 0);
-            return ({
-                civ: civ,
-                games: gamesWithCiv.length,
-                won: validGamesWithCivWon.length / validGamesWithCiv.length * 100,
-            });
-        });
-        rows = rows.filter(r => r.games > 0);
-        rows = orderBy(rows, r => r.games, 'desc');
-        // rows = orderBy(rows, [r => r.won], ['desc']);
-    }
-    return { rows, matches, user };
+interface IData {
+    rows: IRow[] | null;
+    matches?: IMatch[] | null;
+    user: UserIdBase;
 }
 
 export default function StatsCiv(props: IProps) {
     const styles = useTheme(variants);
 
-    const _rows = useLazyApi(getRows, props);
-    const { rows, matches, user } = _rows.data || {};
+    const { data, user } = props;
+    const { rows } = data || {};
 
-    useEffect(() => {
-        _rows.reload();
-    }, [props.matches]);
-
-    if (matches && matches.length === 0) {
+    if (rows?.length === 0) {
         return <View/>;
     }
 

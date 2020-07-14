@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {ActivityIndicator, FlatList, StyleSheet, Text, View} from 'react-native';
 import { RootStackParamList } from '../../App';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { fetchMatches } from '../api/matches';
@@ -15,12 +15,16 @@ import {Button} from "react-native-paper";
 import StatsCiv from "./components/stats-civ";
 import StatsMap from "./components/stats-map";
 import StatsPlayer from "./components/stats-player";
-import {useLazyApi} from "../hooks/use-lazy-api";
 import {MyText} from "./components/my-text";
-import {setPrefValue, useMutate, useSelector} from "../redux/reducer";
+import {clearStatsPlayer, setPrefValue, useMutate, useSelector} from "../redux/reducer";
 import {formatLeaderboardId, LeaderboardId, leaderboardList} from "../helper/leaderboards";
 import Picker from "./components/picker";
 import {saveCurrentPrefsToStorage} from "../service/storage";
+import {get, set} from "lodash-es";
+import {useCachedConservedLazyApi} from "../hooks/use-cached-conserved-lazy-api";
+import {getStats} from "../service/stats";
+import {usePrevious} from "../hooks/use-previous";
+import {useLazyApi} from "../hooks/use-lazy-api";
 
 
 export default function UserPage() {
@@ -67,9 +71,57 @@ export default function UserPage() {
             fetchMatches, 'aoe2de', 0, 10, auth
     );
 
+    const allMatches = useLazyApi(
+        fetchMatches, 'aoe2de', 0, 1000, auth
+    );
+
+    const cachedData = useSelector(state => get(state.statsPlayer, [auth.id, leaderboardId]));
+
+    const stats = useCachedConservedLazyApi(
+        [allMatches.data, leaderboardId],
+        () => allMatches.data != null,
+        state => get(state, ['statsPlayer', auth.id, leaderboardId]),
+        (state, value) => set(state, ['statsPlayer', auth.id, leaderboardId], value),
+        getStats, {matches: allMatches.data, user: auth, leaderboardId}
+    );
+
+    let statsPlayer = stats.data?.statsPlayer;
+    let statsCiv = stats.data?.statsCiv;
+    let statsMap = stats.data?.statsMap;
+
+    const hasMatches = allMatches.loading || (allMatches.data != null);
+    const hasStats = cachedData != null;
+    const hasMatchesOrStats = hasMatches || hasStats;
+    const loadingMatchesOrStats = (allMatches.loading || stats.loading);
+
+    const prevLeaderboardId = usePrevious(leaderboardId);
+
+    const loadStats = () => allMatches.reload();
+
+    useEffect(() => {
+        console.log("FETCHING MATCHES TRY", hasMatchesOrStats, prevLeaderboardId);
+        if (!hasMatchesOrStats && prevLeaderboardId != null) {
+            console.log("FETCHING MATCHES");
+            allMatches.reload();
+        }
+    }, [leaderboardId]);
+
+    const onLeaderboardSelected = async (leaderboardId: LeaderboardId) => {
+        mutate(setPrefValue('leaderboardId', leaderboardId));
+        await saveCurrentPrefsToStorage();
+    };
+
+    const list = ['profile', 'rating-header', 'rating', 'stats-header', 'stats-player', 'stats-civ', 'stats-map', 'matches-header', ...(matches.data || Array(15).fill(null))];
+
+    const _renderFooter = () => {
+        if (!fetchingMore) return null;
+        return <FlatListLoadingIndicator />;
+    };
+
     const onRefresh = async () => {
         setRefetching(true);
-        await Promise.all([rating.reload(), profile.reload(), matches.reload()]);
+        await mutate(clearStatsPlayer(auth));
+        await Promise.all([rating.reload(), profile.reload(), matches.reload(), allMatches.reload()]);
         setRefetching(false);
     };
 
@@ -78,29 +130,6 @@ export default function UserPage() {
         setFetchingMore(true);
         await matches.refetch('aoe2de', 0, (matches.data?.length ?? 0) + 15, auth);
         setFetchingMore(false);
-    };
-
-    const list = ['profile', 'rating-header', 'rating', 'stats-header', 'stats-player', 'stats-civ', 'stats-map', 'matches-header', ...(matches.data || Array(15).fill(null))];
-
-    const matches2 = useLazyApi(
-        fetchMatches, 'aoe2de', 0, 1000, auth
-    );
-
-    const filterMatchesByLeaderboardId = (matchList: IMatch[]) => {
-        if (matchList == null) {
-            return undefined;
-        }
-        return matchList.filter(m => m.leaderboard_id === leaderboardId);
-    };
-
-    const _renderFooter = () => {
-        if (!fetchingMore) return null;
-        return <FlatListLoadingIndicator />;
-    };
-
-    const onLeaderboardSelected = async (leaderboardId: LeaderboardId) => {
-        mutate(setPrefValue('leaderboardId', leaderboardId));
-        await saveCurrentPrefsToStorage();
     };
 
     return (
@@ -118,11 +147,16 @@ export default function UserPage() {
                                     case 'stats-header':
                                         return <View>
                                             <MyText style={styles.sectionHeader}>Stats</MyText>
-                                            <Picker style={styles.statsPicker} value={leaderboardId} values={leaderboardList} formatter={formatLeaderboardId} onSelect={onLeaderboardSelected}/>
+
+                                            <View style={styles.pickerRow}>
+                                                <ActivityIndicator animating={loadingMatchesOrStats} size="small"/>
+                                                <Picker disabled={loadingMatchesOrStats} value={leaderboardId} values={leaderboardList} formatter={formatLeaderboardId} onSelect={onLeaderboardSelected}/>
+                                            </View>
+
                                             {
-                                                !matches2.touched && !matches2.loading &&
+                                                !hasMatchesOrStats &&
                                                 <Button
-                                                    onPress={() => matches2.reload()}
+                                                    onPress={loadStats}
                                                     mode="contained"
                                                     compact
                                                     uppercase={false}
@@ -133,14 +167,14 @@ export default function UserPage() {
                                             }
                                         </View>;
                                     case 'stats-civ':
-                                        if (!matches2.touched && !matches2.loading) return <View/>;
-                                        return <StatsCiv matches={filterMatchesByLeaderboardId(matches2.data)} user={auth}/>;
+                                        if (!hasMatchesOrStats) return <View/>;
+                                        return <StatsCiv data={statsCiv} user={auth}/>;
                                     case 'stats-map':
-                                        if (!matches2.touched && !matches2.loading) return <View/>;
-                                        return <StatsMap matches={filterMatchesByLeaderboardId(matches2.data)} user={auth}/>;
+                                        if (!hasMatchesOrStats) return <View/>;
+                                        return <StatsMap data={statsMap} user={auth}/>;
                                     case 'stats-player':
-                                        if (!matches2.touched && !matches2.loading) return <View/>;
-                                        return <StatsPlayer matches={filterMatchesByLeaderboardId(matches2.data)} user={auth} leaderboardId={leaderboardId}/>;
+                                        if (!hasMatchesOrStats) return <View/>;
+                                        return <StatsPlayer data={statsPlayer} user={auth} leaderboardId={leaderboardId}/>;
                                     case 'profile':
                                         return <Profile data={profile.data}/>;
                                     case 'rating':
@@ -163,8 +197,12 @@ export default function UserPage() {
 }
 
 const styles = StyleSheet.create({
-    statsPicker: {
-        alignSelf: 'center',
+    pickerRow: {
+        // backgroundColor: 'yellow',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingRight: 20,
         marginBottom: 10
     },
     sectionHeader: {

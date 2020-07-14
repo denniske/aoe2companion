@@ -13,12 +13,7 @@ import {LeaderboardId} from "../../helper/leaderboards";
 import {useLazyApi} from "../../hooks/use-lazy-api";
 import {loadUser} from "../../service/user";
 import { sleep } from '../../helper/util';
-
-interface IRow {
-    player: IPlayer;
-    games: number;
-    won: number;
-}
+import {IRow} from "../../service/stats/stats-player";
 
 interface IRowProps {
     data: IRow;
@@ -53,14 +48,8 @@ function Row({data}: IRowProps) {
     )
 }
 
-interface IProps2 {
-    matches?: IMatch[];
-    user: UserIdBase;
-    leaderboardId: LeaderboardId;
-}
 
 interface IProps {
-    matches?: IMatch[];
     user: UserIdBase;
     leaderboardId: LeaderboardId;
     data: IData;
@@ -74,82 +63,20 @@ interface IData {
     leaderboardId: LeaderboardId;
 }
 
-export async function getStatsPlayerRows({matches, user, leaderboardId}: IProps2) {
-    let rowsAlly: IRow[] | null = null;
-    let rowsOpponent: IRow[] | null = null;
-    const maxRowCount = 8;
-
-    await sleep(2000);
-
-    if (matches) {
-        let otherPlayers = matches.flatMap(m => m.players).filter(p => !sameUser(p, user));
-        let otherPlayersUniq = uniqBy(otherPlayers, p => composeUserId(p));
-
-        rowsAlly = otherPlayersUniq.map(otherPlayer => {
-            const gamesWithAlly = matches.filter(m => {
-                const userTeam = m.players.find(p => sameUser(p, user))?.team;
-                const otherPlayerTeam = m.players.find(p => sameUser(p, otherPlayer))?.team;
-                return userTeam != null && otherPlayerTeam != null && userTeam === otherPlayerTeam;
-            });
-            const validGamesWithAlly = gamesWithAlly.filter(validMatch);
-            const validGamesWithPlayerWon = validGamesWithAlly.filter(m => m.players.filter(p => p.won && sameUser(p, user)).length > 0);
-            return ({
-                player: otherPlayer,
-                games: gamesWithAlly.length,
-                won: validGamesWithPlayerWon.length / validGamesWithAlly.length * 100,
-            });
-        });
-        rowsAlly = rowsAlly.filter(r => r.games > 0);
-        rowsAlly = orderBy(rowsAlly, r => r.games, 'desc');
-        rowsAlly = rowsAlly.filter((r, i) => i < maxRowCount);
-
-        rowsOpponent = otherPlayersUniq.map(otherPlayer => {
-            const gamesWithOpponent = matches.filter(m => {
-                const userTeam = m.players.find(p => sameUser(p, user))?.team;
-                const otherPlayerTeam = m.players.find(p => sameUser(p, otherPlayer))?.team;
-                return userTeam != null && otherPlayerTeam != null && userTeam !== otherPlayerTeam;
-            });
-            const validGamesWithOpponent = gamesWithOpponent.filter(validMatch);
-            const validGamesWithPlayerWon = validGamesWithOpponent.filter(m => m.players.filter(p => p.won && sameUser(p, user)).length > 0);
-            return ({
-                player: otherPlayer,
-                games: gamesWithOpponent.length,
-                won: validGamesWithPlayerWon.length / validGamesWithOpponent.length * 100,
-            });
-        });
-        rowsOpponent = rowsOpponent.filter(r => r.games > 0);
-        rowsOpponent = orderBy(rowsOpponent, r => r.games, 'desc');
-        rowsOpponent = rowsOpponent.filter((r, i) => i < maxRowCount);
-    }
-    return { rowsAlly, rowsOpponent, matches, leaderboardId, user };
-}
 
 export default function StatsPlayer(props: IProps) {
     const styles = useTheme(variants);
 
-    const { data, matches, user } = props;
-
-    // useEffect(() => {
-    //     _rows.reload();
-    // }, [props.matches]);
-
-    // console.log("==>  MATCH COUNT", matches?.length);
-
-    // if (!data) {
-    //     return (<View>
-    //             <MyText style={styles.info}>No matches yet!</MyText>
-    //         </View>
-    //     );
-    // }
-
-    const { rowsAlly, rowsOpponent, leaderboardId } = data || { leaderboardId: props.leaderboardId };
+    const { data, user } = props;
+    const { rowsAlly, rowsOpponent, matches, leaderboardId } = data || { leaderboardId: props.leaderboardId };
 
     const hasAlly = [LeaderboardId.DMTeam, LeaderboardId.RMTeam, LeaderboardId.Unranked].includes(leaderboardId);
 
     console.log("rowsOpponent", !!rowsOpponent ? 'TRUE' : 'FALSE');
 
-    if (rowsOpponent && rowsOpponent.length === 0) {
-        return (<View>
+    if (rowsOpponent?.length === 0) {
+        return (
+            <View>
                 <MyText style={styles.info}>No matches yet!</MyText>
             </View>
         );
