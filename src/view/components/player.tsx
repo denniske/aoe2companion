@@ -17,12 +17,14 @@ import {TextLoader} from "./loader/text-loader";
 import IconFA5 from 'react-native-vector-icons/FontAwesome5';
 import {MyText} from "./my-text";
 import {useSelector} from "../../redux/reducer";
+import {ITheme, makeVariants, useTheme} from "../../theming";
 
 interface IPlayerProps {
     player: IPlayer;
 }
 
 export function PlayerSkeleton() {
+    const styles = useTheme(variants);
     return (
         <View style={styles.player}>
             <TextLoader style={styles.playerWonCol}/>
@@ -43,14 +45,15 @@ export function PlayerSkeleton() {
 }
 
 export function Player({player}: IPlayerProps) {
+    const styles = useTheme(variants);
     const auth = useSelector(state => state.auth);
     const [modalVisible, setModalVisible] = useState(false);
     const rating = useLazyApi(loadRatingHistories, 'aoe2de', userIdFromBase(player));
 
-    const boxStyle = StyleSheet.flatten([styles.square, {backgroundColor: getPlayerBackgroundColor(player.color)}]);
+    const boxStyle = [styles.square, {backgroundColor: getPlayerBackgroundColor(player.color)}];
 
     const isCurrentPlayer = sameUserNull(player, auth);
-    const playerNameStyle = StyleSheet.flatten([{textDecorationLine: isCurrentPlayer ? 'underline' : 'none'}]) as TextStyle;
+    const playerNameStyle = [{textDecorationLine: isCurrentPlayer ? 'underline' : 'none'}] as TextStyle;
 
     const openRatingModal = () => {
         setModalVisible(true);
@@ -98,7 +101,7 @@ export function Player({player}: IPlayerProps) {
 
             <View style={styles.squareCol}>
                 <View style={boxStyle}>
-                    <MyText>{player.color}</MyText>
+                    <MyText style={styles.squareText}>{player.color}</MyText>
                 </View>
             </View>
 
@@ -120,87 +123,94 @@ export function Player({player}: IPlayerProps) {
     );
 }
 
-const styles = StyleSheet.create({
-    squareCol: {
-        marginLeft: 5,
-        width: 20,
-    },
-    square: {
-        flexGrow: 0,
-        width: 20,
-        height: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderWidth: 1,
-        borderColor: 'black',
-        backgroundColor: 'red',
-        flexDirection: 'row',
-    },
-    playerWonCol: {
-        marginLeft: 3,
-        width: 22,
-    },
-    playerRatingCol: {
-        marginLeft: 7,
-        width: 35,
-    },
-    playerNameCol: {
-        marginLeft: 5,
-        flex: 1,
-    },
-    row: {
-        marginLeft: 5,
-        flexDirection: 'row',
-        alignItems: 'center',
-        width: 100,
-        // backgroundColor: 'blue',
-    },
-    countryIcon: {
-        width: 20,
-        height: 20,
-    },
-    player: {
-        flexDirection: 'row',
-        padding: 3,
-        // backgroundColor: 'red',
-        alignItems: 'center',
-        // borderColor: 'black',
-        // borderWidth: 1,
-    },
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: 'rgba(0,0,0,0.5)',
-    },
-    modalView: {
-        margin: 0,
-        backgroundColor: "white",
-        borderRadius: 5,
-        padding: 15,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2
+const getStyles = (theme: ITheme) =>
+    StyleSheet.create({
+        squareText: {
+            color: '#333',
         },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5
-    },
-    modalText: {
-        paddingVertical: 3,
-        marginBottom: 15,
-        textAlign: "center",
-        color: 'black',
-    },
-    modalHeader: {
-        flexDirection: 'row',
-        // backgroundColor: 'yellow'
-    },
-    modalCloseIcon: {
-        position: 'absolute',
-        right: 15,
-        top: 15,
-    }
-});
+        squareCol: {
+            marginLeft: 5,
+            width: 20,
+        },
+        square: {
+            flexGrow: 0,
+            width: 20,
+            height: 20,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderWidth: 1,
+            borderColor: '#333',
+            backgroundColor: 'red',
+            flexDirection: 'row',
+        },
+        playerWonCol: {
+            marginLeft: 3,
+            width: 22,
+        },
+        playerRatingCol: {
+            marginLeft: 7,
+            width: 35,
+        },
+        playerNameCol: {
+            marginLeft: 5,
+            flex: 1,
+        },
+        row: {
+            marginLeft: 5,
+            flexDirection: 'row',
+            alignItems: 'center',
+            width: 100,
+            // backgroundColor: 'blue',
+        },
+        countryIcon: {
+            width: 20,
+            height: 20,
+        },
+        player: {
+            flexDirection: 'row',
+            padding: 3,
+            // backgroundColor: 'red',
+            alignItems: 'center',
+            // borderColor: 'black',
+            // borderWidth: 1,
+        },
+        centeredView: {
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: 'rgba(0,0,0,0.5)',
+        },
+        modalView: {
+            margin: 0,
+            backgroundColor: "white",
+            borderRadius: 5,
+            padding: 15,
+            alignItems: "center",
+            shadowColor: "#000",
+            shadowOffset: {
+                width: 0,
+                height: 2
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+            elevation: 5
+        },
+        modalText: {
+            paddingVertical: 3,
+            marginBottom: 15,
+            textAlign: "center",
+            color: 'black',
+        },
+        modalHeader: {
+            flexDirection: 'row',
+            // backgroundColor: 'yellow'
+        },
+        modalCloseIcon: {
+            position: 'absolute',
+            right: 15,
+            top: 15,
+        }
+    });
+
+const variants = makeVariants(getStyles);
+
