@@ -9,7 +9,9 @@ export function useNavigationStateExternal() {
 
     const onNavigationStateChanged = (ev: any) => {
         const state = ev.data.state as NavigationState<any>;
-        setState(state);
+        if (state != null) {
+            setState(state);
+        }
     };
 
     useEffect(() => {
