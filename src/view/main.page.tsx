@@ -197,6 +197,7 @@ function MainHome() {
 function MainMatches() {
     const [refetching, setRefetching] = useState(false);
     const [fetchingMore, setFetchingMore] = useState(false);
+    const [fetchedAll, setFetchedAll] = useState(false);
 
     const auth = useSelector(state => state.auth!);
 
@@ -221,7 +222,11 @@ function MainMatches() {
     const onEndReached = async () => {
         if (fetchingMore) return;
         setFetchingMore(true);
-        await matches.refetch('aoe2de', 0, (matches.data?.length ?? 0) + 15, auth);
+        const matchesLength = matches.data?.length ?? 0;
+        const newMatchesData = await matches.refetch('aoe2de', 0, matchesLength + 15, auth);
+        if (matchesLength === newMatchesData.length) {
+            setFetchedAll(true);
+        }
         setFetchingMore(false);
     };
 
@@ -247,7 +252,7 @@ function MainMatches() {
                                 }
                             }}
                             ListFooterComponent={_renderFooter}
-                            onEndReached={onEndReached}
+                            onEndReached={fetchedAll ? null : onEndReached}
                             onEndReachedThreshold={0.1}
                             keyExtractor={(item, index) => index.toString()}
                     />

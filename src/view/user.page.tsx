@@ -30,6 +30,7 @@ import {useLazyApi} from "../hooks/use-lazy-api";
 export default function UserPage() {
     const [refetching, setRefetching] = useState(false);
     const [fetchingMore, setFetchingMore] = useState(false);
+    const [fetchedAll, setFetchedAll] = useState(false);
     const mutate = useMutate();
     const prefLeaderboardId = useSelector(state => state.prefs.leaderboardId) ?? LeaderboardId.RM1v1;
     const [leaderboardId, setLeaderboardId] = useState(prefLeaderboardId);
@@ -130,7 +131,11 @@ export default function UserPage() {
     const onEndReached = async () => {
         if (fetchingMore) return;
         setFetchingMore(true);
-        await matches.refetch('aoe2de', 0, (matches.data?.length ?? 0) + 15, auth);
+        const matchesLength = matches.data?.length ?? 0;
+        const newMatchesData = await matches.refetch('aoe2de', 0, matchesLength + 15, auth);
+        if (matchesLength === newMatchesData.length) {
+            setFetchedAll(true);
+        }
         setFetchingMore(false);
     };
 
@@ -140,7 +145,7 @@ export default function UserPage() {
                     <FlatList
                             onRefresh={onRefresh}
                             refreshing={refetching}
-                            style={styles.list}
+                            contentContainerStyle={styles.list}
                             data={list}
                             renderItem={({item, index}) => {
                                 switch (item) {
@@ -189,7 +194,7 @@ export default function UserPage() {
 
                             }}
                             ListFooterComponent={_renderFooter}
-                            onEndReached={onEndReached}
+                            onEndReached={fetchedAll ? null : onEndReached}
                             onEndReachedThreshold={0.1}
                             keyExtractor={(item, index) => index.toString()}
                     />

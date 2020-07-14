@@ -41,6 +41,8 @@ export function useApi<A extends (...args: any) => any>(dep: any, selectorFun: S
         });
 
         setLoading(false);
+
+        return data;
     };
 
     const reload = async () => {
@@ -48,7 +50,7 @@ export function useApi<A extends (...args: any) => any>(dep: any, selectorFun: S
     }
 
     const refetch = async (...args: Parameters<A>) => {
-        await load(...args);
+        return await load(...args);
     }
 
     useEffect(() => {
