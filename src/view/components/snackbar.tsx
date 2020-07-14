@@ -1,5 +1,7 @@
 import * as React from 'react';
-import {Animated, SafeAreaView, StyleProp, StyleSheet, ViewStyle, View, ActivityIndicator} from 'react-native';
+import {
+    Animated, SafeAreaView, StyleProp, StyleSheet, ViewStyle, View, ActivityIndicator, Platform, StatusBar
+} from 'react-native';
 import {Button, Surface, Theme, Text, withTheme} from "react-native-paper";
 import {useEffect, useState} from "react";
 import {usePrevious} from "../../hooks/use-previous";
@@ -21,7 +23,6 @@ type Props = React.ComponentProps<typeof Surface> & {
 };
 
 function Snackbar(props: Props) {
-
     const [opacity, setOpacity] = useState(new Animated.Value(0.0));
     const [hidden, setHidden] = useState(!props.visible);
     const prevVisible = usePrevious(props.visible);
@@ -35,26 +36,6 @@ function Snackbar(props: Props) {
             hide();
         }
     }, [props.visible]);
-
-    // componentDidUpdate(prevProps: Props) {
-    //     if (prevProps.visible !== props.visible) {
-    //         toggle();
-    //     }
-    // }
-    //
-    // componentWillUnmount() {
-    //     if (hideTimeout) {
-    //         clearTimeout(hideTimeout);
-    //     }
-    // }
-
-    // private toggle = () => {
-    //     if (props.visible) {
-    //         show();
-    //     } else {
-    //         hide();
-    //     }
-    // };
 
     const show = () => {
         console.log("show");
@@ -172,7 +153,7 @@ const styles = StyleSheet.create({
     },
     wrapper: {
         position: 'absolute',
-        top: 0,
+        top: Platform.OS === "android" ? StatusBar.currentHeight : 0,
         width: '100%',
     },
     container: {
