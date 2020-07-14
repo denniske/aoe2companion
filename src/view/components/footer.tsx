@@ -1,12 +1,10 @@
 import {Image, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useState} from 'react';
-import Constants from 'expo-constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon5 from 'react-native-vector-icons/FontAwesome5';
 import {Divider, Menu} from 'react-native-paper';
-import {RootStackParamList, RootStackProp} from '../../../App';
+import {RootStackParamList} from '../../../App';
 import {getRootNavigation} from "../../service/navigation";
-import {useNavigationState} from "@react-navigation/native";
 import {useNavigationStateExternal} from "../../hooks/use-navigation-state-external";
 import {MyText} from "./my-text";
 import {ITheme, makeVariants, useTheme} from "../../theming";
@@ -15,7 +13,7 @@ export default function Footer() {
     const styles = useTheme(variants);
     const [menu, setMenu] = useState(false);
     const navigationState = useNavigationStateExternal();
-    const activeRoute = navigationState?.routes[navigationState.index];
+    const activeRoute = navigationState?.routes[0];
 
     const nav = async (route: keyof RootStackParamList) => {
         const navigation = getRootNavigation();
@@ -79,11 +77,11 @@ export default function Footer() {
 const getStyles = (theme: ITheme) =>
     StyleSheet.create({
         menu: {
+            // backgroundColor: 'yellow',
             flexDirection: 'row',
             alignItems: 'stretch',
             justifyContent: 'space-evenly',
             flex: 1,
-            // backgroundColor: 'yellow',
         },
         icon: {
             color: '#777',
