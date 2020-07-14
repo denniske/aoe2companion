@@ -11,6 +11,7 @@ import {setInitialState, useMutate} from "../../redux/reducer";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import {appVariants} from "../../styles";
+import {clearCache} from "../../redux/cache";
 
 
 export default function Header() {
@@ -28,6 +29,8 @@ export default function Header() {
     };
 
     const resetState = () => {
+        clearCache();
+        console.clear();
         mutate(setInitialState());
     };
 
