@@ -7,11 +7,13 @@ import {RootStackParamList, RootStackProp} from '../../../App';
 import {getRootNavigation} from "../../service/navigation";
 import {MyText} from "./my-text";
 import {iconHeight, iconWidth} from "../../helper/theme";
-import {setInitialState, useMutate} from "../../redux/reducer";
+import {setConfig, setInitialState, useMutate, useSelector} from "../../redux/reducer";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
+import FontAwesomeIcon5 from "react-native-vector-icons/FontAwesome5";
 import {appVariants} from "../../styles";
 import {clearCache} from "../../redux/cache";
+import {IConfig, saveConfigToStorage} from "../../service/storage";
 
 
 export default function Header() {
@@ -19,6 +21,7 @@ export default function Header() {
     const styles = useTheme(variants);
     const [checked, setChecked] = useState(false);
     const mutate = useMutate();
+    const config = useSelector(state => state.config);
 
     const nav = async (route: keyof RootStackParamList) => {
         const navigation = getRootNavigation();
@@ -26,6 +29,15 @@ export default function Header() {
             index: 0,
             routes: [{name: route}]
         });
+    };
+
+    const toggleDarkMode = async () => {
+        const newConfig: IConfig = {
+            ...config,
+            darkMode: config.darkMode === 'light' ? 'dark' : 'light',
+        };
+        await saveConfigToStorage(newConfig)
+        mutate(setConfig(newConfig));
     };
 
     const resetState = () => {
@@ -53,6 +65,12 @@ export default function Header() {
 
                     {
                         __DEV__ &&
+                        <TouchableOpacity onPress={toggleDarkMode}>
+                            <FontAwesomeIcon5 style={styles.menuButton} name="lightbulb" color="#666" size={18} />
+                        </TouchableOpacity>
+                    }
+                    {
+                        __DEV__ &&
                         <TouchableOpacity onPress={resetState}>
                             <FontAwesomeIcon style={styles.menuButton} name="refresh" color="#666" size={18} />
                         </TouchableOpacity>
@@ -72,7 +90,7 @@ const getStyles = (theme: ITheme) =>
             menuButton: {
                 // backgroundColor: 'blue',
                 margin: 0,
-                marginLeft: 4,
+                marginRight: 10,
             },
             menuButtonDots: {
 
