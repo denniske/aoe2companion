@@ -7,7 +7,7 @@ import {Game} from './components/game';
 import Search from './components/search';
 import {composeUserId, UserInfo} from '../helper/user';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {setAuth, setPrefValue, useMutate, useSelector} from '../redux/reducer';
+import {clearStatsPlayer, setAuth, setPrefValue, useMutate, useSelector} from '../redux/reducer';
 import Profile from './components/profile';
 import {loadRatingHistories} from '../service/rating';
 import Rating from './components/rating';
@@ -28,6 +28,8 @@ import {IMatch} from "../helper/data";
 import { sleep } from '../helper/util';
 import {getCacheEntry, setCacheEntry} from "../redux/cache";
 import {usePrevious} from "../hooks/use-previous";
+import {useCachedConservedLazyApi} from "../hooks/use-cached-conserved-lazy-api";
+import {get, set} from "lodash-es";
 
 async function getFilteredMatches({matches, user, leaderboardId} : any) {
     const cacheKey = [composeUserId(user), leaderboardId.toString()];
@@ -87,19 +89,37 @@ function MainHome() {
         fetchMatches, 'aoe2de', 0, 1000, auth
     );
 
-    const _filteredMatches = useLazyApi(getFilteredMatches, {matches, user: auth, leaderboardId});
+
+
+
+    const cached = useSelector(state => state.statsPlayer);
+    const cachedData = useSelector(state => get(state.statsPlayer, [auth.id, leaderboardId]));
+
+    const _filteredMatches = useCachedConservedLazyApi(
+            [matches.data, leaderboardId],
+            () => matches.data != null,
+            state => get(state, ['statsPlayer', auth.id, leaderboardId]),
+            (state, value) => set(state, ['statsPlayer', auth.id, leaderboardId], value),
+            getFilteredMatches, {matches, user: auth, leaderboardId}
+    );
+
+    // const _filteredMatches = useLazyApi(getFilteredMatches, {matches, user: auth, leaderboardId});
     let statsPlayerRows = _filteredMatches.data?.statsPlayerRows;
 
-    const cacheKey = [composeUserId(auth), leaderboardId.toString()];
-    const data = getCacheEntry(cacheKey);
-    const hasStats1 = data != null;
-    const hasStats2 = (matches.loading || matches.data) || data != null;
-    // const hasStats2 = !matches.loading && !matches.data && data == null;
+    const hasStats1 = cachedData != null;
+    const hasStats2 = (matches.loading || matches.data != null) || cachedData != null;
 
-    if (hasStats1) {
-        // console.log("USING CACHED DATA", data.statsPlayerRows);
-        statsPlayerRows = data.statsPlayerRows;
-    }
+    console.log("cache path", ['statsPlayer', auth.id, leaderboardId]);
+    // console.log("cached", cached);
+    console.log("cachedData", cachedData);
+    console.log("hasStats1", hasStats1);
+    console.log("hasStats2", hasStats2);
+
+
+    // if (hasStats1) {
+    //     // console.log("USING CACHED DATA", data.statsPlayerRows);
+    //     statsPlayerRows = data.statsPlayerRows;
+    // }
 
     const prevLeaderboardId = usePrevious(leaderboardId);
 
@@ -111,14 +131,14 @@ function MainHome() {
         }
     }, [leaderboardId]);
 
-    useEffect(() => {
-        console.log("FILTERING MATCHES TRY");
-        // if (matches.data || hasStats1) {
-        if (matches.data && !hasStats1) {
-            console.log("FILTERING MATCHES", matches?.data?.length);
-            _filteredMatches.reload();
-        }
-    }, [matches.data, leaderboardId]);
+    // useEffect(() => {
+    //     console.log("FILTERING MATCHES TRY");
+    //     // if (matches.data || hasStats1) {
+    //     if (matches.data && !hasStats1) {
+    //         console.log("FILTERING MATCHES", matches?.data?.length);
+    //         _filteredMatches.reload();
+    //     }
+    // }, [matches.data, leaderboardId]);
 
     const list = ['profile', 'rating-header', 'rating', 'stats-header', 'stats-player', 'stats-civ', 'stats-map', 'settings-header', 'not-me'];
 
@@ -142,15 +162,19 @@ function MainHome() {
         await saveCurrentPrefsToStorage();
     };
 
+    const [refreshing, setRefreshing] = useState(false);
+
     return (
             <View style={styles.container}>
                 <View style={styles.content}>
                     <FlatList
-                            onRefresh={() => {
-                                matches.reload();
+                            onRefresh={async () => {
+                                setRefreshing(true);
+                                await mutate(clearStatsPlayer(auth));
+                                await matches.reload();
+                                setRefreshing(false);
                             }}
-                            refreshing={matches.loading}
-                            // refreshing={rating.loading || profile.loading}
+                            refreshing={refreshing}
                             contentContainerStyle={styles.list}
                             data={list}
                             renderItem={({item, index}) => {

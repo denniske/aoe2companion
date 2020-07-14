@@ -1,7 +1,7 @@
 import {produce} from "immer";
 import { v4 as uuidv4 } from 'uuid';
 import { TypedUseSelectorHook, useDispatch, useSelector as useReduxSelector } from 'react-redux';
-import { UserId } from '../helper/user';
+import {UserId} from '../helper/user';
 import { IProfile } from '../view/components/profile';
 import { IRatingHistoryRow } from '../service/rating';
 import {ILeaderboard, IMatch} from "../helper/data";
@@ -86,6 +86,13 @@ export function setConfig(config: IConfig) {
   };
 }
 
+export function clearStatsPlayer(user: UserId) {
+  return (state: AppState) => {
+    state.statsPlayer[user.id] = undefined;
+  };
+}
+
+
 interface IAction {
   type: string;
   id?: string;
@@ -122,6 +129,7 @@ export type DarkMode = 'light' | 'dark' | 'system';
 export interface AppState {
   auth?: UserId | null;
   user: IUserDict;
+  statsPlayer: any;
 
   config: IConfig;
   prefs: IPrefs;
@@ -141,6 +149,7 @@ const initialState: Partial<AppState> = {
   user: {},
   leaderboard: {},
   auth: undefined,
+  statsPlayer: undefined,
 };
 
 
