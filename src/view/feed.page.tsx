@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {RootStackParamList, RootStackProp} from '../../App';
 import {RouteProp, useNavigation, useNavigationState, useRoute} from '@react-navigation/native';
 import {Game} from './components/game';
@@ -18,9 +18,47 @@ import PlayerList, {IPlayerListPlayer} from "./components/player-list";
 import {useCavy} from "cavy";
 import {MyText} from "./components/my-text";
 import {orderBy} from "lodash-es";
+import {ITheme, makeVariants, useTheme} from "../theming";
+import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 
+
+export function feedTitle(props: any) {
+    switch (props.route?.params?.action) {
+        case 'add':
+            return 'Follow Player';
+        case 'config':
+            return 'Manage Follows';
+        default:
+            return 'Following';
+    }
+}
+
+export function feedMenu(props: any) {
+    return () => {
+        if (props.route?.params?.action) {
+            return <View/>;
+        }
+        return <FeedMenu/>;
+    }
+}
+
+export function FeedMenu() {
+    const styles = useTheme(variants);
+    const navigation = useNavigation<RootStackProp>();
+    return (
+        <View style={styles.menu}>
+            <TouchableOpacity style={styles.menuButton} onPress={() => navigation.push('Feed', { action: 'add' })}>
+                <FontAwesomeIcon style={styles.menuIcon} name="plus" size={20} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.menuButton}  onPress={() => navigation.push('Feed', { action: 'config' })}>
+                <FontAwesomeIcon style={styles.menuIcon} name="cog" size={20} />
+            </TouchableOpacity>
+        </View>
+    );
+}
 
 export function FeedList() {
+    const styles = useTheme(variants);
     const generateTestHook = useCavy();
     const navigation = useNavigation<RootStackProp>();
     generateTestHook('Navigation')(navigation);
@@ -222,33 +260,54 @@ export default function FeedPage() {
     return <FeedList/>;
 }
 
-const styles = StyleSheet.create({
-    players: {
-      marginBottom: 10,
-    },
-    centered: {
-        // backgroundColor: 'yellow',
-        height: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    sectionHeader: {
-        marginTop: 20,
-        marginBottom: 20,
-        fontSize: 15,
-        fontWeight: '500',
-        textAlign: 'center',
-    },
-    list: {
-        paddingTop: 20,
-        paddingLeft: 20,
-        paddingRight: 20,
-    },
-    container: {
-        flex: 1,
-        // backgroundColor: '#B89579',
-    },
-    content: {
-        flex: 1,
-    },
-});
+const getStyles = (theme: ITheme) => {
+    return StyleSheet.create({
+        menu: {
+            // backgroundColor: 'red',
+            flexDirection: 'row',
+            flex: 1,
+            marginRight: 10,
+        },
+        menuButton: {
+            // backgroundColor: 'blue',
+            width: 40,
+            justifyContent: 'center',
+            alignItems: 'center',
+            margin: 0,
+            marginHorizontal: 2,
+        },
+        menuIcon: {
+            color: theme.textColor,
+        },
+        players: {
+            marginBottom: 10,
+        },
+        centered: {
+            // backgroundColor: 'yellow',
+            height: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        sectionHeader: {
+            marginTop: 20,
+            marginBottom: 20,
+            fontSize: 15,
+            fontWeight: '500',
+            textAlign: 'center',
+        },
+        list: {
+            paddingTop: 20,
+            paddingLeft: 20,
+            paddingRight: 20,
+        },
+        container: {
+            flex: 1,
+            // backgroundColor: '#B89579',
+        },
+        content: {
+            flex: 1,
+        },
+    });
+};
+
+const variants = makeVariants(getStyles);

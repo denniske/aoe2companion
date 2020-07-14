@@ -37,14 +37,13 @@ import {navigationRef} from "./src/service/navigation";
 import Footer from "./src/view/components/footer";
 import {Tech} from "./src/helper/techs";
 import TechPage, {techTitle, TechTitle} from "./src/view/tech/tech.page";
-import FeedPage from "./src/view/feed.page";
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import FeedPage, {feedMenu, feedTitle} from "./src/view/feed.page";
 import {MyText} from "./src/view/components/my-text";
 import UpdateSnackbar from "./src/view/components/update-snackbar";
 import {ITheme, makeVariants, useTheme} from "./src/theming";
 import SettingsPage from "./src/view/settings.page";
 import {appVariants} from "./src/styles";
-import {Appearance, AppearanceProvider, useColorScheme} from "react-native-appearance";
+import {AppearanceProvider, useColorScheme} from "react-native-appearance";
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -125,41 +124,6 @@ function LinkTitle(props: any) {
         <TouchableOpacity onPress={() => Linking.openURL('https://buildorderguide.com')}>
             <MyText style={appStyles.link}>buildorderguide.com</MyText>
         </TouchableOpacity>
-    );
-}
-
-function feedTitle(props: any) {
-    switch (props.route?.params?.action) {
-        case 'add':
-            return 'Follow Player';
-        case 'config':
-            return 'Manage Follows';
-        default:
-            return 'Following';
-    }
-}
-
-function feedMenu(props: any) {
-    return () => {
-        if (props.route?.params?.action) {
-            return <View/>;
-        }
-        return <FeedMenu/>;
-    }
-}
-
-export function FeedMenu() {
-    const styles = useTheme(variants);
-    const navigation = useNavigation<RootStackProp>();
-    return (
-        <View style={styles.menu}>
-            <TouchableOpacity onPress={() => navigation.push('Feed', { action: 'add' })}>
-                <FontAwesomeIcon style={styles.menuButton} name="plus" size={18} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.push('Feed', { action: 'config' })}>
-                <FontAwesomeIcon style={styles.menuButton} name="cog" size={18} />
-            </TouchableOpacity>
-        </View>
     );
 }
 
@@ -404,7 +368,6 @@ export function AppWrapper() {
         return <AppLoading/>;
     }
 
-
     const finalDarkMode = darkMode === "system" && (colorScheme === 'light' || colorScheme === 'dark') ? colorScheme : darkMode;
 
     // console.log('Dark mode', darkMode);
@@ -446,13 +409,6 @@ const getStyles = (theme: ITheme) => {
             backgroundColor: theme.backgroundColor,
             paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
             flex: 1,
-        },
-        menu: {
-            flexDirection: 'row',
-        },
-        menuButton: {
-            color: theme.textColor,
-            marginRight: 20,
         },
     });
 };
