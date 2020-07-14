@@ -84,14 +84,16 @@ export const saveFollowingToStorage = async (following: IFollowingEntry[]) => {
     await AsyncStorage.setItem('following', JSON.stringify(following));
 };
 
+const maxFollowing = 5;
+
 export const toggleFollowingInStorage = async (user: IPlayerListPlayer) => {
     const following = await loadFollowingFromStorage();
     const index = following.findIndex(f => sameUser(f, user));
     if (index > -1) {
         following.splice(index, 1);
     } else {
-        if (following.length >= 5) {
-            alert('You can follow a maxmium of 2 users. Unfollow a user first to follow a new one.');
+        if (following.length >= maxFollowing) {
+            alert(`You can follow a maxmium of ${maxFollowing} users. Unfollow a user first to follow a new one.`);
             return;
         }
         following.push({
