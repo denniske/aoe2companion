@@ -89,13 +89,10 @@ function MainHome() {
         fetchMatches, 'aoe2de', 0, 1000, auth
     );
 
-
-
-
-    const cached = useSelector(state => state.statsPlayer);
+    // const cached = useSelector(state => state.statsPlayer);
     const cachedData = useSelector(state => get(state.statsPlayer, [auth.id, leaderboardId]));
 
-    const _filteredMatches = useCachedConservedLazyApi(
+    const filteredMatches = useCachedConservedLazyApi(
             [matches.data, leaderboardId],
             () => matches.data != null,
             state => get(state, ['statsPlayer', auth.id, leaderboardId]),
@@ -103,42 +100,27 @@ function MainHome() {
             getFilteredMatches, {matches, user: auth, leaderboardId}
     );
 
-    // const _filteredMatches = useLazyApi(getFilteredMatches, {matches, user: auth, leaderboardId});
-    let statsPlayerRows = _filteredMatches.data?.statsPlayerRows;
+    let statsPlayerRows = filteredMatches.data?.statsPlayerRows;
 
-    const hasStats1 = cachedData != null;
-    const hasStats2 = (matches.loading || matches.data != null) || cachedData != null;
+    const hasMatches = matches.loading || (matches.data != null);
+    const hasStats = cachedData != null;
+    const hasMatchesOrStats = hasMatches || hasStats;
 
-    console.log("cache path", ['statsPlayer', auth.id, leaderboardId]);
+    // console.log("cache path", ['statsPlayer', auth.id, leaderboardId]);
     // console.log("cached", cached);
-    console.log("cachedData", cachedData);
-    console.log("hasStats1", hasStats1);
-    console.log("hasStats2", hasStats2);
-
-
-    // if (hasStats1) {
-    //     // console.log("USING CACHED DATA", data.statsPlayerRows);
-    //     statsPlayerRows = data.statsPlayerRows;
-    // }
+    // console.log("cachedData", cachedData);
+    // console.log("hasStats1", hasStats);
+    // console.log("hasStats2", hasMatchesOrStats);
 
     const prevLeaderboardId = usePrevious(leaderboardId);
 
     useEffect(() => {
         console.log("FETCHING MATCHES TRY");
-        if (!matches.data && !hasStats1 && prevLeaderboardId != null) {
+        if (!hasMatchesOrStats && prevLeaderboardId != null) {
             console.log("FETCHING MATCHES");
             matches.reload();
         }
     }, [leaderboardId]);
-
-    // useEffect(() => {
-    //     console.log("FILTERING MATCHES TRY");
-    //     // if (matches.data || hasStats1) {
-    //     if (matches.data && !hasStats1) {
-    //         console.log("FILTERING MATCHES", matches?.data?.length);
-    //         _filteredMatches.reload();
-    //     }
-    // }, [matches.data, leaderboardId]);
 
     const list = ['profile', 'rating-header', 'rating', 'stats-header', 'stats-player', 'stats-civ', 'stats-map', 'settings-header', 'not-me'];
 
@@ -184,11 +166,9 @@ function MainHome() {
                                     // case 'rating-header':
                                     //     return <MyText style={styles.sectionHeader}>Rating History</MyText>;
                                     case 'stats-header':
-                                        const loading = (matches.loading ||_filteredMatches.loading);
+                                        const loading = (matches.loading || filteredMatches.loading);
                                         return <View>
                                             <MyText style={styles.sectionHeader}>Stats</MyText>
-                                            {/*<MyText>{matches.loading ? 'LOADING MATCHES' : 'DONE'}</MyText>*/}
-                                            {/*<MyText>{_filteredMatches.loading ? 'FILTERING' : 'DONE'}</MyText>*/}
 
                                             <View style={styles.row}>
                                                 <ActivityIndicator style={styles.indicator} animating={loading} size="small"/>
@@ -196,8 +176,7 @@ function MainHome() {
                                             </View>
 
                                             {
-                                                // !matches.touched && !matches.loading &&
-                                                !hasStats2 &&
+                                                !hasMatchesOrStats &&
                                                 <Button
                                                     onPress={() => matches.reload()}
                                                     mode="contained"
@@ -217,8 +196,8 @@ function MainHome() {
                                     //     if (!matches.touched && !matches.loading) return <View/>;
                                     //     return <StatsMap matches={filteredMatches} user={auth}/>;
                                     case 'stats-player':
-                                        // if (!matches.touched && !matches.loading) return <View/>;
-                                        if (!matches.touched && !matches.loading && !hasStats1) return <View/>;
+                                        if (!hasMatchesOrStats) return <View/>;
+                                        // if (!matches.touched && !matches.loading && !hasStats1) return <View/>;
                                         return <StatsPlayer data={statsPlayerRows} user={auth} leaderboardId={leaderboardId}/>;
                                     // case 'rating':
                                     //     return <Rating ratingHistories={rating.data}/>;
