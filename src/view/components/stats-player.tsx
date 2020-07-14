@@ -12,6 +12,7 @@ import {ITheme, makeVariants, useTheme} from "../../theming";
 import {LeaderboardId} from "../../helper/leaderboards";
 import {useLazyApi} from "../../hooks/use-lazy-api";
 import {loadUser} from "../../service/user";
+import { sleep } from '../../helper/util';
 
 interface IRow {
     player: IPlayer;
@@ -52,18 +53,35 @@ function Row({data}: IRowProps) {
     )
 }
 
-interface IProps {
+interface IProps2 {
     matches?: IMatch[];
     user: UserIdBase;
     leaderboardId: LeaderboardId;
 }
 
-function getRows({matches, user, leaderboardId}: IProps) {
+interface IProps {
+    matches?: IMatch[];
+    user: UserIdBase;
+    leaderboardId: LeaderboardId;
+    data: IData;
+}
+
+interface IData {
+    rowsAlly: IRow[] | null;
+    rowsOpponent: IRow[] | null;
+    matches?: IMatch[] | null;
+    user: UserIdBase;
+    leaderboardId: LeaderboardId;
+}
+
+export async function getStatsPlayerRows({matches, user, leaderboardId}: IProps2) {
     let rowsAlly: IRow[] | null = null;
     let rowsOpponent: IRow[] | null = null;
     const maxRowCount = 8;
 
-    console.log("=====> CALC");
+    console.log("=====> CALC2", matches?.length);
+
+    await sleep(2000);
 
     if (matches) {
         let otherPlayers = matches.flatMap(m => m.players).filter(p => !sameUser(p, user));
@@ -111,23 +129,33 @@ function getRows({matches, user, leaderboardId}: IProps) {
 export default function StatsPlayer(props: IProps) {
     const styles = useTheme(variants);
 
-    const _rows = useLazyApi(getRows, props);
-    const { rowsAlly, rowsOpponent, matches, leaderboardId, user } = _rows.data || {};
+    const { data, matches, user } = props;
 
-    useEffect(() => {
-        _rows.reload();
-    }, [props.matches]);
+    // useEffect(() => {
+    //     _rows.reload();
+    // }, [props.matches]);
 
     // console.log("==>  MATCH COUNT", matches?.length);
 
-    if (matches && matches.length === 0) {
+    // if (!data) {
+    //     return (<View>
+    //             <MyText style={styles.info}>No matches yet!</MyText>
+    //         </View>
+    //     );
+    // }
+
+    const { rowsAlly, rowsOpponent, leaderboardId } = data || { leaderboardId: props.leaderboardId };
+
+    const hasAlly = [LeaderboardId.DMTeam, LeaderboardId.RMTeam, LeaderboardId.Unranked].includes(leaderboardId);
+
+    console.log("rowsOpponent", !!rowsOpponent ? 'TRUE' : 'FALSE');
+
+    if (rowsOpponent && rowsOpponent.length === 0) {
         return (<View>
                 <MyText style={styles.info}>No matches yet!</MyText>
             </View>
         );
     }
-
-    const hasAlly = [LeaderboardId.DMTeam, LeaderboardId.RMTeam, LeaderboardId.Unranked].includes(leaderboardId);
 
     return (
             <View style={styles.container}>
