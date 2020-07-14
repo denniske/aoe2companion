@@ -22,8 +22,6 @@ export async function getStatsPlayer({matches, user, leaderboardId}: IParam) {
     let rowsOpponent: IRow[] | null = null;
     const maxRowCount = 8;
 
-    await sleep(2000);
-
     if (matches) {
         let otherPlayers = matches.flatMap(m => m.players).filter(p => !sameUser(p, user));
         let otherPlayersUniq = uniqBy(otherPlayers, p => composeUserId(p));
