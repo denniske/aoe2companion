@@ -5,7 +5,7 @@ import React from 'react';
 import {Player, PlayerSkeleton} from './player';
 import MyListAccordion from './accordion';
 import {IMatch} from "../../helper/data";
-import {getMapImage} from "../../helper/maps";
+import { getMapImage, getMapName } from "../../helper/maps";
 import {TextLoader} from "./loader/text-loader";
 import {ImageLoader} from "./loader/image-loader";
 import {ViewLoader} from "./loader/view-loader";
@@ -83,7 +83,11 @@ export function Game({data, expanded = false}: IGameProps) {
                     <Image style={styles.map} source={getMapImage(data.map_type)}/>
                     <View style={styles.header}>
                         <MyText numberOfLines={1} style={styles.matchTitle}>
-                            {getString('map_type', data.map_type)} - {data.match_id} - {data.server}
+                            {getMapName(data.map_type)} - {data.match_id}
+                            {
+                                data.server &&
+                                <MyText> - {data.server}</MyText>
+                            }
                         </MyText>
                         <MyText numberOfLines={1} style={styles.matchContent}>
                             {getString('leaderboard', data.leaderboard_id)}

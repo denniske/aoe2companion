@@ -110,10 +110,16 @@ export const maps = {
 export type AoeMap = keyof typeof maps;
 
 export function getMapImage(map: AoeMap) {
+    if (map == null) {
+        return require('../../assets/maps/cm_generic.png');
+    }
     return maps[map];
 }
 
 export function getMapName(map: AoeMap) {
+    if (map == null) {
+        return 'Custom';
+    }
     return getString('map_type', map);
 }
 
