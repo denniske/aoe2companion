@@ -11,13 +11,16 @@ interface IPickerProps<T> {
     formatter: (value: T) => string;
     onSelect: (value: T) => void;
     style?: StyleProp<ViewStyle>;
+    disabled?: boolean;
 }
 
 export default function Picker<T>(props: IPickerProps<T>) {
     const theme = usePaperTheme();
     const [menu, setMenu] = useState(false);
 
-    const { value, values, onSelect, style, formatter = (x) => x } = props;
+    const { value, values, onSelect, style, disabled, formatter = (x) => x } = props;
+
+    const color = disabled ? theme.colors.disabled : theme.colors.text;
 
     return (
         <View style={[style]}>
@@ -26,10 +29,10 @@ export default function Picker<T>(props: IPickerProps<T>) {
                 visible={menu}
                 onDismiss={() => setMenu(false)}
                 anchor={
-                    <TouchableOpacity style={[styles.anchor]} onPress={() => setMenu(true)}>
+                    <TouchableOpacity style={[styles.anchor]} onPress={() => setMenu(true)} disabled={disabled}>
                         <View style={styles.row}>
-                            <MyText style={styles.text}>{formatter(value)}</MyText>
-                            <Icon style={styles.handle} name="chevron-down" color={theme.colors.text} size={12} />
+                            <MyText style={[styles.text, { color: color }]}>{formatter(value)}</MyText>
+                            <Icon style={styles.handle} name="chevron-down" color={color} size={12} />
                         </View>
                     </TouchableOpacity>
                 }
