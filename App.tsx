@@ -1,9 +1,9 @@
 import 'react-native-gesture-handler';
 import {DefaultTheme as NavigationDefaultTheme, DarkTheme as NavigationDarkTheme, NavigationContainer, useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import MainPage from './src/view/main.page';
 import {
-    AsyncStorage,
+    AsyncStorage, BackHandler,
     Linking, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View, YellowBox
 } from 'react-native';
 import Search from './src/view/components/search';
@@ -392,7 +392,18 @@ export function AppWrapper() {
     );
 }
 
+
+
 export default function App() {
+
+    // Prevent closing of app when back button is tapped.
+    // View navigation using back button is still possible.
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', () => true);
+        return () =>
+            BackHandler.removeEventListener('hardwareBackPress', () => true);
+    }, []);
+
     return (
         <AppearanceProvider>
           <ReduxProvider store={store}>
