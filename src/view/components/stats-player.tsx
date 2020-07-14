@@ -79,8 +79,6 @@ export async function getStatsPlayerRows({matches, user, leaderboardId}: IProps2
     let rowsOpponent: IRow[] | null = null;
     const maxRowCount = 8;
 
-    console.log("=====> CALC2", matches?.length);
-
     await sleep(2000);
 
     if (matches) {

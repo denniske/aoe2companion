@@ -32,26 +32,15 @@ import {useCachedConservedLazyApi} from "../hooks/use-cached-conserved-lazy-api"
 import {get, set} from "lodash-es";
 
 async function getFilteredMatches({matches, user, leaderboardId} : any) {
-    const cacheKey = [composeUserId(user), leaderboardId.toString()];
-    // const data = getCacheEntry(cacheKey);
-    // if (data) {
-    //     console.log("==> CACHED", cacheKey);
-    //     // await sleep(2000);
-    //     return data;
-    // }
+    console.log("==> CALC", user.id, leaderboardId);
 
-    console.log("==> CALC1", cacheKey);
-    const matches2 = matches.data?.filter((m: any) => m.leaderboard_id === leaderboardId);
+    const filteredMatches = matches.data?.filter((m: any) => m.leaderboard_id === leaderboardId);
 
-    const statsPlayerRows = await getStatsPlayerRows({matches: matches2, user, leaderboardId});
+    const statsPlayerRows = await getStatsPlayerRows({matches: filteredMatches, user, leaderboardId});
 
-    const result = {
+    return {
         statsPlayerRows,
     };
-
-    setCacheEntry(cacheKey, result);
-
-    return result;
 }
 
 
@@ -72,24 +61,23 @@ function MainHome() {
     //         },
     //         loadRatingHistories, 'aoe2de', auth
     // );
-    //
-    // const profile = useApi(
-    //         [],
-    //         state => state.user[auth.id]?.profile,
-    //         (state, value) => {
-    //             if (state.user[auth.id] == null) {
-    //                 state.user[auth.id] = {};
-    //             }
-    //             state.user[auth.id].profile = value;
-    //         },
-    //         loadProfile, 'aoe2de', auth
-    // );
+
+    const profile = useApi(
+            [],
+            state => state.user[auth.id]?.profile,
+            (state, value) => {
+                if (state.user[auth.id] == null) {
+                    state.user[auth.id] = {};
+                }
+                state.user[auth.id].profile = value;
+            },
+            loadProfile, 'aoe2de', auth
+    );
 
     let matches = useLazyApi(
         fetchMatches, 'aoe2de', 0, 1000, auth
     );
 
-    // const cached = useSelector(state => state.statsPlayer);
     const cachedData = useSelector(state => get(state.statsPlayer, [auth.id, leaderboardId]));
 
     const filteredMatches = useCachedConservedLazyApi(
@@ -105,12 +93,6 @@ function MainHome() {
     const hasMatches = matches.loading || (matches.data != null);
     const hasStats = cachedData != null;
     const hasMatchesOrStats = hasMatches || hasStats;
-
-    // console.log("cache path", ['statsPlayer', auth.id, leaderboardId]);
-    // console.log("cached", cached);
-    // console.log("cachedData", cachedData);
-    // console.log("hasStats1", hasStats);
-    // console.log("hasStats2", hasMatchesOrStats);
 
     const prevLeaderboardId = usePrevious(leaderboardId);
 
@@ -153,7 +135,7 @@ function MainHome() {
                             onRefresh={async () => {
                                 setRefreshing(true);
                                 await mutate(clearStatsPlayer(auth));
-                                await matches.reload();
+                                await Promise.all([profile.reload(), matches.reload()]);
                                 setRefreshing(false);
                             }}
                             refreshing={refreshing}
@@ -201,8 +183,8 @@ function MainHome() {
                                         return <StatsPlayer data={statsPlayerRows} user={auth} leaderboardId={leaderboardId}/>;
                                     // case 'rating':
                                     //     return <Rating ratingHistories={rating.data}/>;
-                                    // case 'profile':
-                                    //     return <Profile data={profile.data}/>;
+                                    case 'profile':
+                                        return <Profile data={profile.data}/>;
                                     case 'not-me':
                                         return (
                                             <View>
