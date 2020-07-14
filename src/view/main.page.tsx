@@ -34,7 +34,8 @@ function MainHome() {
     const auth = useSelector(state => state.auth!);
     const mutate = useMutate();
     const generateTestHook = useCavy();
-    const leaderboardId = useSelector(state => state.prefs.leaderboardId) ?? LeaderboardId.RM1v1;
+    const prefLeaderboardId = useSelector(state => state.prefs.leaderboardId) ?? LeaderboardId.RM1v1;
+    const [leaderboardId, setLeaderboardId] = useState(prefLeaderboardId);
 
     const rating = useApi(
             [],
@@ -98,6 +99,7 @@ function MainHome() {
     const onLeaderboardSelected = async (leaderboardId: LeaderboardId) => {
         mutate(setPrefValue('leaderboardId', leaderboardId));
         await saveCurrentPrefsToStorage();
+        setLeaderboardId(leaderboardId);
     };
 
     const list = ['profile', 'rating-header', 'rating', 'stats-header', 'stats-player', 'stats-civ', 'stats-map', 'settings-header', 'not-me'];

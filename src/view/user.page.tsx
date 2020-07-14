@@ -31,7 +31,8 @@ export default function UserPage() {
     const [refetching, setRefetching] = useState(false);
     const [fetchingMore, setFetchingMore] = useState(false);
     const mutate = useMutate();
-    const leaderboardId = useSelector(state => state.prefs.leaderboardId) ?? LeaderboardId.RM1v1;
+    const prefLeaderboardId = useSelector(state => state.prefs.leaderboardId) ?? LeaderboardId.RM1v1;
+    const [leaderboardId, setLeaderboardId] = useState(prefLeaderboardId);
 
     const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
     const auth = route.params.id;
@@ -109,6 +110,7 @@ export default function UserPage() {
     const onLeaderboardSelected = async (leaderboardId: LeaderboardId) => {
         mutate(setPrefValue('leaderboardId', leaderboardId));
         await saveCurrentPrefsToStorage();
+        setLeaderboardId(leaderboardId);
     };
 
     const list = ['profile', 'rating-header', 'rating', 'stats-header', 'stats-player', 'stats-civ', 'stats-map', 'matches-header', ...(matches.data || Array(15).fill(null))];
