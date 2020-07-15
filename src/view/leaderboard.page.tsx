@@ -26,7 +26,7 @@ const Tab = createMaterialTopTabNavigator();
 export default function LeaderboardPage() {
     const styles = useTheme(variants);
     return (
-        <Tab.Navigator swipeEnabled={false} lazy={true}>
+        <Tab.Navigator lazy={true}>
             <Tab.Screen name="MainHome" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="RM 1v1"/>}}>
                 {() => <Leaderboard leaderboardId={3} />}
             </Tab.Screen>

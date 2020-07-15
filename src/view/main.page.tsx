@@ -289,7 +289,7 @@ export default function MainPage() {
     }
 
     return (
-            <Tab.Navigator swipeEnabled={false} lazy={true}>
+            <Tab.Navigator lazy={true}>
                 <Tab.Screen name="MainHome" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="Profile"/>}} component={MainHome}/>
                 <Tab.Screen name="MainMatches" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="Matches"/>}} component={MainMatches}/>
             </Tab.Navigator>
