@@ -7,6 +7,12 @@ x dark mode
   x rating dialog
 x back button close app
 x fix feed menu buttons click area
+- changelog after update
+- error when data cannot be loaded
+- leaderboard infinite scroll
+- leaderbord by country?
+
+
 
 Expo 38
 https://dev.to/expo/expo-sdk-38-is-now-available-5aa0
