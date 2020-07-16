@@ -46,6 +46,7 @@ jobs:
         - npm i
         - cd ..
         - cd ..
+      test:
       deploy:
         provider: firebase
         token:
