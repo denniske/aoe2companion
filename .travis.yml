@@ -50,7 +50,7 @@ jobs:
       deploy:
         provider: firebase
         token:
-          secure: 'i6sTQvMUfwvK6LbuUPrZjN1k5opg7hVVoGY31xhqKQKNN+r5hN44flILYX2Ef2HbAJhTn6TVNsygiTFuBPHtVPcETKQCKZfWmf/EfbcIYeH+7x79JExJZX0uCXP8X0NS7jqbLqAYqn44gNmMUGZI+Oi/AOU++o1q7dr4wTMbnZLd/WscRPdarn/m3VaYBkb0htx85MhpKWt1rXha4GKzs42azDSR1pxMnpOW002qzH8x9eFrvGTxX8W1J4K980TpVNRm7uK8WvK/ot2kETFAKy9ykQJ8sjDDKN/l8ncV1TdCyCvKq31MLEk+FzA5NoLVtnxyqG1Sb5uxJDQhBAzAcMZcPErMqIUfj2yIJjKAXFl/ymqmX9b+LNMZWLxOos234r2Bgx+mX21W7IxwiwGMxZx9mufTHLHraDAX2hCgAozAXmfFEkQh7QyJfvh5S+opv25UsQoj3gzoz4thyx9CDK7OU4sVkFstOL0qTkUf3i7y/Ofbzii6f7kdmTp79MoTBvk92pqr9CKgG+L03am6xOudCgCLJG5HjqMauxIjQcJEkKZWj4ulJgz3uZoyidhykyK85hQ/Dgim9oTOUH85HkE2piWv7aJXynriwbg00+j0z+c4p31ygsG+uKCqMOFXf4AqP3c+fPVsyqSKhhJDC/+/HRLnDObRgdv2uAcDW2M='
+          secure: 'GWn3ZKpH6D98pR0KKGTW7NoPmIJO+Gulg8tRbACzPPmdTqLVq0tinnBKaZlo20oica+nHy4q+zpfg2/u9K/UrX6K/8O/Ae8QNd8QZo8PsC1D8/LCqzDqzoRwk2Q6e3Cdo/F6K46y/kSMeTFeCDr0EYN00i35UYKpjOFqj4kKvVPAd2zCzANSWSR8GbrNlzDDe6XkncIN5GEMAxhpafsHjnPIw8a0YfiuVCL2FBpJZsu4z/vqeV5uGqjFwaMjF4rebAa33tgCh5I47h8NbqGu/ETl9Edj08w3ZxmLJASo+e+fAmdFEKLfPT2skIhIR73rCI6xmtN3LTifO20xuPok4GS+Njsc4k5tiB1k/lHPWp5jYDaqZLtxK+LuQa/Hug1d4jVPKdRgyzo3qMsvFatlP5mdSqR7eBvX0zezYLE4nP8dwh61mNHUsINulhzh0isT2OA3pXl25QFp+DqStAMFoOf4ra9IXE1g/MD4CUxqYGZJu0fOowpI+womqFD7ycL08hUnw7w1Zt0Rpwkn5BAqgvGyYMz5BMTjIx22QoOCtxGA+7VNucUjiyS9x7rvNQGwAsqrnXybDmFB+jEtrykPqUGlMsSKzVy5GzBBhK+CHYVN22u0hpMAk8RUVjUreaNWQBiI4QaqSp4IZPvgewcZmfHDrCjFDbs6fedmHI0H0zc='
         skip_cleanup: true
 
 #    - stage: publish
