@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@types/node-fetch": "^2.5.7",
+    "@types/react": "^16.9.43",
     "autoprefixer": "^9.8.0",
     "babel-plugin-transform-typescript-metadata": "^0.3.0",
     "cors": "^2.8.5",
