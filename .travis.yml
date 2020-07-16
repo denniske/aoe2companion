@@ -28,7 +28,7 @@ jobs:
     - stage: publish
       if: branch = master OR tag IS present
       env:
-        - CACHE_NAME=publish YARN_CACHE_FOLDER="/home/travis/yarn_cache"
+        - CACHE_NAME=functions YARN_CACHE_FOLDER="/home/travis/yarn_cache"
       cache:
         directories:
           - $HOME/yarn_cache
@@ -38,14 +38,38 @@ jobs:
         - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
         - export PATH="$HOME/.yarn/bin:$PATH"
       script:
+        - cd server
+        - cd functions
         - yarn
-        - export CHANNEL=$(node deploy/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
-        - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD --non-interactive
-        - sudo sysctl fs.inotify.max_user_instances=524288
-        - sudo sysctl fs.inotify.max_user_watches=524288
-        - sudo sysctl fs.inotify.max_queued_events=524288
-        - sysctl -p
-        - npx expo publish --release-channel $CHANNEL
+        - cd ..
+        - cd ..
+      deploy:
+        provider: firebase
+        token:
+          secure: 'i6sTQvMUfwvK6LbuUPrZjN1k5opg7hVVoGY31xhqKQKNN+r5hN44flILYX2Ef2HbAJhTn6TVNsygiTFuBPHtVPcETKQCKZfWmf/EfbcIYeH+7x79JExJZX0uCXP8X0NS7jqbLqAYqn44gNmMUGZI+Oi/AOU++o1q7dr4wTMbnZLd/WscRPdarn/m3VaYBkb0htx85MhpKWt1rXha4GKzs42azDSR1pxMnpOW002qzH8x9eFrvGTxX8W1J4K980TpVNRm7uK8WvK/ot2kETFAKy9ykQJ8sjDDKN/l8ncV1TdCyCvKq31MLEk+FzA5NoLVtnxyqG1Sb5uxJDQhBAzAcMZcPErMqIUfj2yIJjKAXFl/ymqmX9b+LNMZWLxOos234r2Bgx+mX21W7IxwiwGMxZx9mufTHLHraDAX2hCgAozAXmfFEkQh7QyJfvh5S+opv25UsQoj3gzoz4thyx9CDK7OU4sVkFstOL0qTkUf3i7y/Ofbzii6f7kdmTp79MoTBvk92pqr9CKgG+L03am6xOudCgCLJG5HjqMauxIjQcJEkKZWj4ulJgz3uZoyidhykyK85hQ/Dgim9oTOUH85HkE2piWv7aJXynriwbg00+j0z+c4p31ygsG+uKCqMOFXf4AqP3c+fPVsyqSKhhJDC/+/HRLnDObRgdv2uAcDW2M='
+        skip_cleanup: true
+
+#    - stage: publish
+#      if: branch = master OR tag IS present
+#      env:
+#        - CACHE_NAME=publish YARN_CACHE_FOLDER="/home/travis/yarn_cache"
+#      cache:
+#        directories:
+#          - $HOME/yarn_cache
+#      before_install:
+#        - nvm install $NODE_VERSION
+#        - nvm use $NODE_VERSION
+#        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
+#        - export PATH="$HOME/.yarn/bin:$PATH"
+#      script:
+#        - yarn
+#        - export CHANNEL=$(node deploy/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
+#        - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD --non-interactive
+#        - sudo sysctl fs.inotify.max_user_instances=524288
+#        - sudo sysctl fs.inotify.max_user_watches=524288
+#        - sudo sysctl fs.inotify.max_queued_events=524288
+#        - sysctl -p
+#        - npx expo publish --release-channel $CHANNEL
 
 
 #    ####################################
