@@ -17,3 +17,5 @@ dist
 .env
 
 .firebase/
+
+test.ts

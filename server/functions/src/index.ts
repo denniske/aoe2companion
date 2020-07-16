@@ -5,10 +5,16 @@ const deleteInactiveGames = async () => {
     console.log("DeleteInactiveGames");
 };
 
-// export const deleteInactiveGamesTrigger = functions.https.onRequest(async (req, res) => {
+// export const deleteInactiveGamesTrigger = functions.region('europe-west1').https.onRequest(async (req, res) => {
 //     await deleteInactiveGames();
 //     res.send("OK");
 // });
+
+export const deleteInactiveGamesTrigger = functions.https.onCall(async (data, context) => {
+    await deleteInactiveGames();
+    return "OK";
+});
+
 
 export const deleteInactiveGamesSchedule = functions.region('europe-west1').pubsub.schedule('every 1 hours').onRun(async (context: any) => {
     await deleteInactiveGames();
