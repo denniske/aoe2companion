@@ -77,24 +77,31 @@ async function fetchLeaderboard(game: string, leaderboard_id: number, params: IF
 
 let counter = 0;
 export default async (req: NowRequest, res: NowResponse) => {
-    counter++;
+    try {
 
-    console.log('Counter: ', counter);
+        counter++;
 
-    const connection = await createDB();
+        console.log('Counter: ', counter);
 
-    // const { name = 'World' } = request.query
-    // response.status(200).send(`${process.env.TEMP} ${name}!`)
+        const connection = await createDB();
 
-    const { country = 'DE', start = 0, count = 10 } = req.query;
+        // const { name = 'World' } = request.query
+        // response.status(200).send(`${process.env.TEMP} ${name}!`)
 
-    // @ts-ignore
+        const { country = 'DE', start = 0, count = 10 } = req.query;
 
-    const users = await connection.manager.find(User, {where: { country: country }, skip: start, take: count });
+        // @ts-ignore
 
-    res.json({
-        // updated: getUnixTime(updated),
-        counter: counter,
-        users: users.map(u => u.data),
-    });
+        const users = await connection.manager.find(User, {where: { country: country }, skip: start, take: count });
+
+        res.json({
+            // updated: getUnixTime(updated),
+            counter: counter,
+            users: users.map(u => u.data),
+        });
+    } catch(err) {
+        res.json({
+            error: err,
+        });
+    }
 }
