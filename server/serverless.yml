@@ -20,6 +20,7 @@ org: denniskeil10
 # Check out our docs for more details
 # frameworkVersion: "=X.X.X"
 
+
 provider:
   name: aws
   runtime: nodejs12.x
