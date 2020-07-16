@@ -10,7 +10,7 @@ const deleteInactiveGames = async () => {
 //     res.send("OK");
 // });
 
-export const deleteInactiveGamesTrigger = functions.https.onCall(async (data, context) => {
+export const deleteInactiveGamesTrigger = functions.region('europe-west1').https.onCall(async (data, context) => {
     await deleteInactiveGames();
     return "OK";
 });
