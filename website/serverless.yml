@@ -61,6 +61,7 @@ region: eu-central-1
 #    - exclude-me.js
 #    - exclude-me-dir/**
 
+
 functions:
   hello3:
     handler: handler.hello3
