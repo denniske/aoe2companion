@@ -18,6 +18,11 @@ vercel monorepo
 https://github.com/vercel/vercel/issues/3547
 
 
+heroku run node scheduled-job.js
+heroku logs --tail
+
+
+
 Expo 38
 https://dev.to/expo/expo-sdk-38-is-now-available-5aa0
 
