@@ -1,4 +1,4 @@
-import {createConnection, getConnectionManager} from "typeorm";
+import {createConnection, getConnectionManager, getMetadataArgsStorage} from "typeorm";
 import {User} from "../entity/user";
 
 export async function createDB() {
@@ -25,6 +25,8 @@ export async function createDB() {
             console.log('Using existing connection. Connected: ', existingConnection.entityMetadatas);
 
             return existingConnection;
+        } else {
+            throw err;
         }
     }
 }
