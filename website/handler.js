@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports.hello2 = async event => {
+module.exports.hello3 = async event => {
   console.log(1234);
   // throw new Error('lol');
   return {
