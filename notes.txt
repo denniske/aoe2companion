@@ -13,6 +13,7 @@ x fix feed menu buttons click area
 - leaderbord by country?
 
 
+function.aoe2companion.com
 
 sls invoke local -f hello2 -l -r eu-central-1
 
