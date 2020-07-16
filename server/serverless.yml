@@ -62,7 +62,7 @@ region: eu-central-1
 #    - exclude-me-dir/**
 
 functions:
-  hello:
+  hello2:
     handler: handler.hello2
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
