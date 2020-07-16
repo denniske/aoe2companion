@@ -46,7 +46,8 @@ jobs:
         - npm i
         - cd ..
         - cd ..
-      test:
+      script:
+        - echo "skipping tests"
       deploy:
         provider: firebase
         token:
