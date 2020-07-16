@@ -12,6 +12,10 @@ x fix feed menu buttons click area
 - leaderboard infinite scroll
 - leaderbord by country?
 
+feghouli unranked -> caligula unranked -> fortnite gamer
+
+vercel monorepo
+https://github.com/vercel/vercel/issues/3547
 
 
 Expo 38
