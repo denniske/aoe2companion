@@ -13,7 +13,7 @@
 
 service: aoe2companion
 # app and org for use with dashboard.serverless.com
-app: my-first-app
+app: aoe2companion
 org: denniskeil10
 
 # You can pin your service to only deploy with a specific Serverless version
