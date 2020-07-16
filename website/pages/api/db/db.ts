@@ -12,6 +12,7 @@ export async function createDB() {
             entities: [
                 User,
             ],
+            // entities: getMetadataArgsStorage().tables.map(tbl => tbl.target),
             synchronize: true,
             logging: false
         });
