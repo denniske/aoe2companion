@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports.hello3 = async event => {
-  console.log(1234);
+  console.log(12345);
   // throw new Error('lol');
   return {
     statusCode: 200,
