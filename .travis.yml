@@ -26,6 +26,9 @@ jobs:
     ####################################
 
     - stage: publish
+      language: node_js
+      node_js:
+        - 6
       if: branch = master OR tag IS present
       env:
         - CACHE_NAME=functions YARN_CACHE_FOLDER="/home/travis/yarn_cache"
