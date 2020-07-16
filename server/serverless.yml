@@ -28,7 +28,7 @@ provider:
   runtime: nodejs12.x
 
 # you can overwrite defaults here
-stage: production
+stage: dev
 region: eu-central-1
 
 # you can add statements to the Lambda function's IAM Role here
