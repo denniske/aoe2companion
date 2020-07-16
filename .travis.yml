@@ -45,7 +45,6 @@ jobs:
         - cd functions
         - npm i
         - cd ..
-        - cd ..
       script:
         - echo "skipping tests"
       deploy:
