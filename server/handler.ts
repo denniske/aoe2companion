@@ -22,7 +22,7 @@ export async function createDB() {
       ],
       // entities: getMetadataArgsStorage().tables.map(tbl => tbl.target),
       synchronize: true,
-      logging: false
+      logging: true
     });
     console.log('Using NEW connection. Connected: ', connection.isConnected);
     return connection;
