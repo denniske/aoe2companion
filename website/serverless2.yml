@@ -22,7 +22,13 @@ org: denniskeil10
 
 
 
-
+#plugins:
+#  - serverless-domain-manager
+#
+#custom:
+#  customDomain:
+#    domainName: function.aoe2companion.com
+#    basePath: dev
 
 provider:
   name: aws
