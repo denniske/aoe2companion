@@ -7,7 +7,7 @@ import {createConnection, getConnectionManager} from "typeorm";
 import * as pg2 from 'pg';
 import {User} from "./entity/user";
 
-console.log(pg2);
+// console.log(pg2);
 
 export async function createDB() {
   try {
@@ -57,7 +57,7 @@ export const hello3: APIGatewayProxyHandler = async (event, _context) => {
     statusCode: 200,
     body: JSON.stringify({
       message: 'Hi:' + process.env.TWITTER_ACCESS_TOKEN + '. Ho:' + process.env.TWITTER_ACCESS_TOKEN2 + '. Go Serverless Webpack (Typescript) v10.0! Your function executed successfully!',
-      input: event,
+      // input: event,
       users: users.map(u => u.data),
     }, null, 2),
   };
