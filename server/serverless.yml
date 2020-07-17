@@ -25,6 +25,9 @@ custom:
     webpackConfig: './webpack.config.js'
     includeModules: true
 
+plugins:
+  - serverless-webpack
+  - serverless-offline
 
 #plugins:
 #  - serverless-domain-manager
