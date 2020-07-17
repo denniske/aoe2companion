@@ -30,6 +30,7 @@ const serverlessConfiguration: Serverless = {
   functions: {
     hello: {
       handler: 'handler.hello',
+      memorySize: 256,
       events: [
         {
           http: {

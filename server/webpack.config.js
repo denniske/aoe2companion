@@ -7,6 +7,10 @@ module.exports = {
   context: __dirname,
   // mode: slsw.lib.webpack.isLocal ? 'development' : 'production',
   mode: 'development',
+  // optimization: {
+  //   // We no not want to minimize our code.
+  //   minimize: false
+  // },
   entry: slsw.lib.entries,
   devtool: slsw.lib.webpack.isLocal ? 'cheap-module-eval-source-map' : 'source-map',
   resolve: {
