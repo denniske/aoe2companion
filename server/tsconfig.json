@@ -7,7 +7,9 @@
     "noUnusedParameters": true,
     "sourceMap": true,
     "target": "es2017",
-    "outDir": "lib"
+    "outDir": "lib",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   },
   "include": ["./**/*.ts"],
   "exclude": [
