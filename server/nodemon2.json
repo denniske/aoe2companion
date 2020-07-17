@@ -1,0 +1,6 @@
+{
+  "watch": ["entity", "handler.ts", "runner.ts"],
+  "ext": "ts",
+  "ignore": [],
+  "exec": "tsc && node  ./dist/runner.js"
+}

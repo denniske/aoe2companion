@@ -12,17 +12,21 @@
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
     "babel-loader": "^8.1.0",
+    "dotenv": "^8.2.0",
+    "lodash": "^4.17.19",
+    "node-fetch": "^2.6.0",
     "pg": "^8.3.0",
     "source-map-support": "^0.5.10",
-    "typeorm": "^0.2.25",
-    "dotenv": "^8.2.0"
+    "typeorm": "^0.2.25"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/plugin-proposal-decorators": "^7.10.5",
     "@types/aws-lambda": "^8.10.17",
+    "@types/lodash": "^4.14.157",
     "@types/node": "^10.12.18",
     "@types/serverless": "^1.72.5",
+    "@types/node-fetch": "^2.5.7",
     "babel-plugin-transform-typescript-metadata": "^0.3.0",
     "fork-ts-checker-webpack-plugin": "^3.0.1",
     "nodemon": "^2.0.4",

@@ -81,15 +81,27 @@ region: eu-central-1
 
 functions:
   hello3:
-    handler: handler.hello3
-#    The following are a few example events you can configure
-#    NOTE: Please make sure to change your handler code to work with those events
-#    Check the event documentation for details
+    handler: src/hello3.hello3
     memorySize: 256
     events:
       - http:
           path: hello3
           method: get
+  leaderboard:
+    handler: src/leaderboard.leaderboard
+    memorySize: 256
+    events:
+      - http:
+          path: leaderboard
+          method: get
+  ingest:
+    handler: src/ingest.ingest
+    memorySize: 256
+    events:
+      - http:
+          path: ingest
+          method: get
+
 #      - websocket: $connect
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)
