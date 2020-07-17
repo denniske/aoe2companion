@@ -97,6 +97,7 @@ functions:
   ingest:
     handler: src/ingest.ingest
     memorySize: 256
+    timeout: 300
     events:
       - http:
           path: ingest
