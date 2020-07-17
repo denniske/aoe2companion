@@ -7,7 +7,9 @@
     "test": "echo \"no test specified\""
   },
   "dependencies": {
-    "source-map-support": "^0.5.10"
+    "source-map-support": "^0.5.10",
+    "typeorm": "^0.2.25",
+    "pg": "^8.3.0"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.17",
