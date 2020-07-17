@@ -46,7 +46,11 @@ export const hello3: APIGatewayProxyHandler = async (event, _context) => {
   const connection = await createDB();
   console.log(connection);
 
+  const users1 = await connection.manager.find('User');
+  console.log(users1.length);
+
   const users = await connection.manager.find(User, {where: { country: 'DE' }, skip: 0, take: 5 });
+  console.log(users);
 
   return {
     statusCode: 200,
