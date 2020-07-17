@@ -40,6 +40,9 @@ plugins:
 provider:
   name: aws
   runtime: nodejs12.x
+  environment:
+    TWITTER_ACCESS_TOKEN: '1234abcd'
+    TWITTER_ACCESS_TOKEN2: ${param:twitterAccessToken2}
 
 # you can overwrite defaults here
 stage: dev
