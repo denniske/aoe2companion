@@ -87,9 +87,9 @@ export const ingest: APIGatewayProxyHandler = async (event, _context) => {
     const connection = await createDB();
 
     await fetchLeaderboardData(1);
-    // await fetchLeaderboardData(2);
-    // await fetchLeaderboardData(3);
-    // await fetchLeaderboardData(4);
+    await fetchLeaderboardData(2);
+    await fetchLeaderboardData(3);
+    await fetchLeaderboardData(4);
 
     await setValue('leaderboardUpdated', new Date());
 
