@@ -2,6 +2,10 @@ import { APIGatewayProxyHandler } from 'aws-lambda';
 import 'source-map-support/register';
 import {createConnection, getConnectionManager} from "typeorm";
 
+import * as pg2 from 'pg';
+
+console.log(pg2);
+
 export async function createDB() {
   try {
     const connection  = await  createConnection({

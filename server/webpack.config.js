@@ -22,22 +22,45 @@ module.exports = {
   externals: [nodeExternals()],
   module: {
     rules: [
-      // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
       {
-        test: /\.(tsx?)$/,
-        loader: 'ts-loader',
-        exclude: [
-          [
-            path.resolve(__dirname, 'node_modules'),
-            path.resolve(__dirname, '.serverless'),
-            path.resolve(__dirname, '.webpack'),
-          ],
-        ],
-        options: {
-          transpileOnly: true,
-          experimentalWatchApi: true,
-        },
+        test: () => true,
+        sideEffects: true,
       },
+      {
+        test: /\.ts$/,
+        loader: 'babel-loader',
+        options: {
+          presets: [
+            [
+              '@babel/preset-env',
+              {
+                targets: {
+                  node: true,
+                },
+              },
+            ],
+            '@babel/typescript',
+          ],
+        },
+        include: [__dirname],
+        exclude: /node_modules/,
+      },
+      // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
+      // {
+      //   test: /\.(tsx?)$/,
+      //   loader: 'ts-loader',
+      //   exclude: [
+      //     [
+      //       path.resolve(__dirname, 'node_modules'),
+      //       path.resolve(__dirname, '.serverless'),
+      //       path.resolve(__dirname, '.webpack'),
+      //     ],
+      //   ],
+      //   options: {
+      //     transpileOnly: true,
+      //     experimentalWatchApi: true,
+      //   },
+      // },
     ],
   },
   plugins: [
