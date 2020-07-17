@@ -4,10 +4,13 @@ import { APIGatewayProxyHandler } from 'aws-lambda';
 import 'source-map-support/register';
 import {createConnection, getConnectionManager} from "typeorm";
 
-import * as pg2 from 'pg';
 import {User} from "./entity/user";
 
-// console.log(pg2);
+require('dotenv').config();
+
+// Use pg2 to force inclusion in final package
+import * as pg2 from 'pg';
+console.log(pg2 != null ? 'pg initialized' : '');
 
 export async function createDB() {
   try {

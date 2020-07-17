@@ -14,7 +14,8 @@
     "babel-loader": "^8.1.0",
     "pg": "^8.3.0",
     "source-map-support": "^0.5.10",
-    "typeorm": "^0.2.25"
+    "typeorm": "^0.2.25",
+    "dotenv": "^8.2.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.10.4",
