@@ -24,6 +24,7 @@ export async function createDB() {
       synchronize: true,
       logging: false
     });
+    console.log('Using NEW connection. Connected: ', connection.isConnected);
     return connection;
   } catch (err) {
     // If AlreadyHasActiveConnectionError occurs, return already existing connection
@@ -46,7 +47,7 @@ export const hello3: APIGatewayProxyHandler = async (event, _context) => {
   const connection = await createDB();
   console.log(connection);
 
-  const users1 = await connection.manager.find('User');
+  const users1 = await connection.manager.find(User);
   console.log(users1.length);
 
   const users = await connection.manager.find(User, {where: { country: 'DE' }, skip: 0, take: 5 });
