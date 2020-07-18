@@ -52,7 +52,9 @@ export const leaderboard: APIGatewayProxyHandler = async (event, _context) => {
             start: start,
             count: count,
             country: country,
-            leaderboard: users.map(u => u.data),
+            leaderboard: users.map((u, i) => {
+                return {...u.data, rank: start+i};
+            }),
         }, null, 2),
     };
 }

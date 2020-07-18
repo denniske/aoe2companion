@@ -27,7 +27,7 @@ import PrivacyPage from './src/view/privacy.page';
 import {AppLoading} from "expo";
 import {Tester, TestHookStore} from "cavy";
 import ExampleSpec from './src/ci/exampleSpec';
-import LeaderboardPage from "./src/view/leaderboard.page";
+import LeaderboardPage, {leaderboardMenu} from "./src/view/leaderboard.page";
 import GuidePage from "./src/view/guide.page";
 import CivPage, {CivTitle, civTitle} from "./src/view/civ.page";
 import {Civ} from "./src/helper/civs";
@@ -187,6 +187,14 @@ export function InnerApp() {
                 animationEnabled: false,
             }}>
                 <Stack.Screen
+                    name="Leaderboard"
+                    component={LeaderboardPage}
+                    options={props => ({
+                        title: 'Leaderboard',
+                        headerRight: leaderboardMenu(props),
+                    })}
+                />
+                <Stack.Screen
                     name="Main"
                     component={MainPage}
                     options={{
@@ -201,13 +209,6 @@ export function InnerApp() {
                         title: feedTitle(props),
                         headerRight: feedMenu(props),
                     })}
-                />
-                <Stack.Screen
-                    name="Leaderboard"
-                    component={LeaderboardPage}
-                    options={{
-                        title: 'Leaderboard',
-                    }}
                 />
                 <Stack.Screen
                     name="Tech"

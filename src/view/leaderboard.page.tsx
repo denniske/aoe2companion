@@ -6,11 +6,12 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {fetchLeaderboard} from "../api/leaderboard";
 import {userIdFromBase} from "../helper/user";
-import {getFlagIcon} from "../helper/flags";
+import {countriesDistinct, Country, getCountryName, getFlagIcon} from "../helper/flags";
 import {useCavy} from "cavy";
 import {ILeaderboardPlayer} from "../helper/data";
 import {RootStackProp} from "../../App";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import IconFA from "react-native-vector-icons/FontAwesome";
 import {useLazyApi} from "../hooks/use-lazy-api";
 import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
 import {getString} from "../helper/strings";
@@ -20,8 +21,57 @@ import {ImageLoader} from "./components/loader/image-loader";
 import {TabBarLabel} from "./components/tab-bar-label";
 import {MyText} from "./components/my-text";
 import {ITheme, makeVariants, usePaperTheme, useTheme} from "../theming";
+import Picker from "./components/picker";
+import {orderBy} from "lodash-es";
+import {setLeaderboardCountry, useMutate, useSelector} from "../redux/reducer";
 
 const Tab = createMaterialTopTabNavigator();
+
+
+export function leaderboardMenu(props: any) {
+    return () => {
+        return <LeaderboardMenu/>;
+    }
+}
+
+const countryWorld = 'WORLD';
+
+export function LeaderboardMenu() {
+    const styles = useTheme(variants);
+    const mutate = useMutate();
+    const country = useSelector(state => state.leaderboardCountry);
+
+    const loadingMatchesOrStats = false;
+
+    const formatCountry = (x: string, inList?: boolean) => {
+        if (x == countryWorld) {
+            return 'Earth';
+        }
+        return inList ? getCountryName(x as Country) : x;
+    };
+    const orderedCountriesDistinct = orderBy(countriesDistinct, c => formatCountry(c, true));
+    const countryList: any[] = [countryWorld, 'DE', ...orderedCountriesDistinct];
+    const divider = (x: any, i?: number) => !!i && i < 2;
+    const icon = (x: any) => {
+        if (x == countryWorld) {
+            return <IconFA name="globe" size={21} style={{paddingLeft: 2, paddingRight: 7, backgroundColor: 'white'}} />;
+        }
+        return <Image style={styles.countryIcon} source={getFlagIcon(x)}/>;
+    };
+    const onCountrySelected = (country: string) => {
+        mutate(setLeaderboardCountry(country));
+    };
+
+    return (
+        <View style={styles.menu}>
+            <View style={styles.pickerRow}>
+                <ActivityIndicator animating={loadingMatchesOrStats} size="small"/>
+                <Picker divider={divider} icon={icon} disabled={loadingMatchesOrStats} value={country} values={countryList} formatter={formatCountry} onSelect={onCountrySelected}/>
+            </View>
+        </View>
+    );
+}
+
 
 export default function LeaderboardPage() {
     const styles = useTheme(variants);
@@ -55,17 +105,22 @@ export function Leaderboard({leaderboardId} : any) {
     const navigation = useNavigation<RootStackProp>();
     const [page, setPage] = useState(0);
     const [perPage, setPerPage] = useState(Math.floor((window.height - 300) / 42));
+    const leaderboardCountry = useSelector(state => state.leaderboardCountry);
 
-    // console.log('window', window);
-    // console.log('screen', screen);
+    const getParams = () => {
+        if (leaderboardCountry === countryWorld) {
+            return {start: page * perPage + 1, count: perPage};
+        }
+        return {start: page * perPage + 1, count: perPage, country: leaderboardCountry};
+    }
 
     const players = useLazyApi(
-        fetchLeaderboard, 'aoe2de', leaderboardId, {start: page * perPage + 1, count: perPage}
+        fetchLeaderboard, 'aoe2de', leaderboardId, getParams()
     );
 
     useEffect(() => {
-        players.refetch('aoe2de', leaderboardId, {start: page * perPage + 1, count: perPage});
-    }, [page, perPage]);
+        players.refetch('aoe2de', leaderboardId, getParams());
+    }, [page, perPage, leaderboardCountry]);
 
     const onSelect = async (player: ILeaderboardPlayer) => {
         navigation.push('User', {
@@ -165,6 +220,34 @@ const padding = 8;
 
 const getStyles = (theme: ITheme) => {
     return StyleSheet.create({
+
+        pickerRow: {
+            // backgroundColor: 'yellow',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingRight: 20,
+        },
+
+        menu: {
+            // backgroundColor: 'red',
+            flexDirection: 'row',
+            alignItems: 'center',
+            flex: 1,
+            marginRight: 10,
+        },
+        menuButton: {
+            // backgroundColor: 'blue',
+            width: 40,
+            justifyContent: 'center',
+            alignItems: 'center',
+            margin: 0,
+            marginHorizontal: 2,
+        },
+        menuIcon: {
+            color: theme.textColor,
+        },
+
         measureContainer: {
             display: 'flex',
             flexDirection: 'column',

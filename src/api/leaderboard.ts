@@ -20,6 +20,7 @@ export interface IFetchLeaderboardParams {
     search?: string;
     steam_id?: string;
     profile_id?: number;
+    country?: string;
 }
 
 

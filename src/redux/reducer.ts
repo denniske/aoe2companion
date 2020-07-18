@@ -7,6 +7,7 @@ import { IRatingHistoryRow } from '../service/rating';
 import {ILeaderboard, IMatch} from "../helper/data";
 import {IConfig, IFollowingEntry, IPrefs} from "../service/storage";
 import {Manifest} from "expo-updates/build/Updates.types";
+import {set} from "lodash-es";
 
 export function getNoteId() {
   return uuidv4();
@@ -40,6 +41,12 @@ export function setPrefValue<T extends keyof IPrefs>(key: T, value: IPrefs[T]) {
 export function setAuth(user: UserId | null) {
   return (state: AppState) => {
     state.auth = user;
+  };
+}
+
+export function setLeaderboardCountry(country?: string) {
+  return (state: AppState) => {
+    state.leaderboardCountry = country;
   };
 }
 
@@ -88,7 +95,7 @@ export function setConfig(config: IConfig) {
 
 export function clearStatsPlayer(user: UserId) {
   return (state: AppState) => {
-    state.statsPlayer[user.id] = undefined;
+    set(state, ['statsPlayer', user.id], undefined);
   };
 }
 
@@ -136,6 +143,8 @@ export interface AppState {
 
   following: IFollowingEntry[];
   followedMatches?: IMatch[];
+
+  leaderboardCountry?: string;
 
   leaderboard: ILeaderboardDict;
 
