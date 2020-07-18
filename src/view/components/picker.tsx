@@ -15,15 +15,16 @@ interface IPickerProps<T> {
     onSelect: (value: T) => void;
     style?: StyleProp<ViewStyle>;
     disabled?: boolean;
+    flatlist?: boolean;
 }
 
 
 function defaultCell(props: any) {
-    const {value, color, icon, formatter} = props;
+    const {value, color, icon, formatter, selected} = props;
     return (
         <View style={styles.row}>
             {icon && icon(value)}
-            <MyText numberOfLines={1} style={[styles.text, { color: color }]}>{formatter(value)}</MyText>
+            <MyText numberOfLines={1} style={[styles.text, { color: color, fontWeight: selected ? 'bold' : 'normal' }]}>{formatter(value)}</MyText>
         </View>
     );
 }
@@ -32,9 +33,23 @@ export default function Picker<T>(props: IPickerProps<T>) {
     const theme = usePaperTheme();
     const [menu, setMenu] = useState(false);
 
-    const { value, values, onSelect, style, disabled, formatter = (x) => x, icon = x => undefined, cell = defaultCell, divider = x => false } = props;
+    const { value, values, onSelect, style, disabled, formatter = (x) => x, icon = x => undefined, cell = defaultCell, divider = x => false, flatlist = false } = props;
 
     const color = disabled ? theme.colors.disabled : theme.colors.text;
+
+    const renderItem = (v: T, i: number) => (
+        <View key={i}>
+            <TouchableOpacity onPress={() => {onSelect(v); setMenu(false);}} disabled={disabled}>
+                <View style={styles.menuItem}>
+                    {cell({value: v, selected: v == value, formatter: (x: any, i: any) => formatter(x, true), color, icon})}
+                </View>
+            </TouchableOpacity>
+            {
+                divider && divider(v, i) &&
+                <Divider/>
+            }
+        </View>
+    );
 
     return (
         <View style={[style]}>
@@ -51,28 +66,25 @@ export default function Picker<T>(props: IPickerProps<T>) {
                     </TouchableOpacity>
                 }
             >
-
-
-                <FlatList
-                    keyboardShouldPersistTaps={'always'}
-                    data={values}
-                    style={{height: Dimensions.get('screen').height-200}}
-                    renderItem={
-                        ({item: v, index: i}) =>
-                            <View key={i}>
-                                <TouchableOpacity onPress={() => {onSelect(v); setMenu(false);}} disabled={disabled}>
-                                    <View style={styles.menuItem}>
-                                        {cell({value: v, formatter: (x: any, i: any) => formatter(x, true), color, icon})}
-                                    </View>
-                                </TouchableOpacity>
-                                {
-                                    divider && divider(v, i) &&
-                                    <Divider/>
-                                }
-                            </View>
-                    }
-                    keyExtractor={(item, index) => index.toString()}
-                />
+                {
+                    flatlist &&
+                    <FlatList
+                        keyboardShouldPersistTaps={'always'}
+                        data={values}
+                        style={{height: Dimensions.get('screen').height-200}}
+                        renderItem={({v, i}: any) => renderItem(v, i)}
+                        keyExtractor={(item, index) => index.toString()}
+                    />
+                }
+                {
+                    !flatlist && values.map(renderItem)
+                }
+                {/*{*/}
+                {/*    values.map((v, i) =>*/}
+                {/*        <Menu.Item titleStyle={[styles.menuItem, {fontWeight: v == value ? 'bold' : 'normal'}]}*/}
+                {/*                   onPress={() => { onSelect(v); setMenu(false); }} title={formatter(v)} key={i} />*/}
+                {/*    )*/}
+                {/*}*/}
             </Menu>
         </View>
     );
@@ -80,6 +92,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
 
 const styles = StyleSheet.create({
     menuItem: {
+        // backgroundColor: 'yellow',
         paddingHorizontal: 15,
         paddingVertical: 10,
     },
