@@ -7,6 +7,7 @@ const light: ITheme = {
     textColor: "black",
     textNoteColor: "#333",
     borderColor: '#CCC',
+    lightBorderColor: '#EEE',
     skeletonColor: '#EEE',
     linkColor: '#397AF9',
 };
@@ -16,6 +17,7 @@ const dark: ITheme = {
     textColor: "white",
     textNoteColor: "#BBB",
     borderColor: '#101010',
+    lightBorderColor: '#090909',
     skeletonColor: '#111',
     linkColor: '#0A84FF', // from react navigation dark theme primary
 };
@@ -44,6 +46,7 @@ export interface ITheme {
     textColor: string;
     textNoteColor: string;
     borderColor: string;
+    lightBorderColor: string;
     skeletonColor: string;
     linkColor: string;
 }

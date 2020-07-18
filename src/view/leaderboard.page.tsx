@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, Dimensions, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {ActivityIndicator, Dimensions, FlatList, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {useNavigation, useRoute, useNavigationState} from '@react-navigation/native';
 import {fetchLeaderboard} from "../api/leaderboard";
 import {userIdFromBase} from "../helper/user";
 import {countriesDistinct, Country, getCountryName, getFlagIcon} from "../helper/flags";
@@ -23,6 +23,7 @@ import SubtitleHeader from "./components/navigation-header/subtitle-header";
 import {useNavigationStateExternal} from "../hooks/use-navigation-state-external";
 import {getString} from "../helper/strings";
 import TextHeader from "./components/navigation-header/text-header";
+import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
 
 type TabParamList = {
     LeaderboardRm1v1: { leaderboardId: number };
@@ -103,7 +104,6 @@ function getActiveRoute(state: any): any {
 
 export function LeaderboardTitle(props: any) {
     const navigationState = useNavigationStateExternal();
-
     const leaderboardState = findState(navigationState, 'Leaderboard');
     const activeRoute = getActiveRoute(leaderboardState);
     const leaderboardId = activeRoute?.params?.leaderboardId;
@@ -143,28 +143,173 @@ export default function LeaderboardPage() {
 const window = Dimensions.get("window");
 const screen = Dimensions.get("screen");
 
-export function Leaderboard({leaderboardId} : any) {
-    const paperTheme = usePaperTheme();
-    const styles = useTheme(variants);
-    const navigation = useNavigation<RootStackProp>();
-    const [page, setPage] = useState(0);
-    const [perPage, setPerPage] = useState(Math.floor((window.height - 300) / 42));
-    const leaderboardCountry = useSelector(state => state.leaderboardCountry);
+// export function Leaderboard({leaderboardId} : any) {
+//     const paperTheme = usePaperTheme();
+//     const styles = useTheme(variants);
+//     const navigation = useNavigation<RootStackProp>();
+//     const [page, setPage] = useState(0);
+//     const [perPage, setPerPage] = useState(Math.floor((window.height - 300) / 42));
+//     const leaderboardCountry = useSelector(state => state.leaderboardCountry);
+//
+//     const getParams = () => {
+//         if (leaderboardCountry === countryEarth) {
+//             return {start: page * perPage + 1, count: perPage};
+//         }
+//         return {start: page * perPage + 1, count: perPage, country: leaderboardCountry};
+//     }
+//
+//     const players = useLazyApi(
+//         fetchLeaderboard, 'aoe2de', leaderboardId, getParams()
+//     );
+//
+//     useEffect(() => {
+//         players.refetch('aoe2de', leaderboardId, getParams());
+//     }, [page, perPage, leaderboardCountry]);
+//
+//     const onSelect = async (player: ILeaderboardPlayer) => {
+//         navigation.push('User', {
+//             id: userIdFromBase(player),
+//             name: player.name,
+//         });
+//     };
+//
+//     const previousPage = async () => {
+//         if (page > 0) {
+//             setPage(page - 1);
+//         }
+//     };
+//
+//     const nextPage = async () => {
+//         setPage(page + 1);
+//     };
+//
+//     const count = players.data?.leaderboard.length;
+//     const total = players.data?.total;
+//     const from = page * perPage + 1;
+//     const to = from + count - 1;
+//     const canPrevious = page > 0;
+//     const canNext = to < total;
+//
+//     const list = [...(players.data?.leaderboard || Array(perPage).fill(null))];
+//
+//     const _renderRow = (player: any, i: number) => {
+//         return (
+//             <TouchableOpacity style={styles.row} key={i} onPress={() => onSelect(player)}>
+//                 <View style={styles.innerRow}>
+//                     <TextLoader style={styles.cellRank}>{player?.rank}</TextLoader>
+//                     <TextLoader style={styles.cellRating}>{player?.rating}</TextLoader>
+//                     <View style={styles.cellName}>
+//                         <ImageLoader style={styles.countryIcon} source={getFlagIcon(player?.country)}/>
+//                         <TextLoader style={styles.name} numberOfLines={1}>{player?.name}</TextLoader>
+//                     </View>
+//                     <TextLoader style={styles.cellGames}>{player?.games}</TextLoader>
+//                 </View>
+//             </TouchableOpacity>
+//         );
+//     };
+//
+//     return (
+//         <View style={styles.container}>
+//             {/*<MyText style={styles.title}>{getString('leaderboard', leaderboardId)}</MyText>*/}
+//
+//             <View style={styles.headerRow}>
+//                 <MyText style={styles.cellRank} numberOfLines={1}>Rank</MyText>
+//                 <MyText style={styles.cellRating} numberOfLines={1}>Rating</MyText>
+//                 <MyText style={styles.cellName} numberOfLines={1}>Name</MyText>
+//                 <MyText style={styles.cellGames} numberOfLines={1}>Games</MyText>
+//             </View>
+//
+//             <View style={styles.measureContainer}>
+//                 {
+//                     list.map((player, i) => _renderRow(player, i))
+//                 }
+//             </View>
+//         </View>
+//     );
+// }
 
-    const getParams = () => {
+
+// const _renderRow = (player: any, i: number) => {
+//     return (
+//         <TouchableOpacity style={styles.row} key={i} onPress={() => onSelect(player)}>
+//             <View style={styles.innerRow}>
+//                 <TextLoader style={styles.cellRank}>#{player?.rank}</TextLoader>
+//                 <TextLoader style={styles.cellRating}>{player?.rating}</TextLoader>
+//                 <View style={styles.cellName}>
+//                     <View style={styles.flexRow}>
+//                         <ImageLoader style={styles.countryIcon} source={getFlagIcon(player?.country)}/>
+//                         <TextLoader style={styles.name} numberOfLines={1}>{player?.name}</TextLoader>
+//                     </View>
+//                     <TextLoader style={styles.cellGames}>{player?.games} games</TextLoader>
+//                 </View>
+//             </View>
+//         </TouchableOpacity>
+//     );
+// };
+
+
+function Leaderboard({leaderboardId}: any) {
+    const styles = useTheme(variants);
+    const [refetching, setRefetching] = useState(false);
+    const [fetchingMore, setFetchingMore] = useState(false);
+    const [fetchedAll, setFetchedAll] = useState(false);
+    const leaderboardCountry = useSelector(state => state.leaderboardCountry);
+    const navigation = useNavigation<RootStackProp>();
+
+    // const navigationState = useNavigationStateExternal();
+    // const leaderboardState = findState(navigationState, 'Leaderboard');
+    // const activeRoute = getActiveRoute(leaderboardState);
+    // const navLeaderboardId = activeRoute?.params?.leaderboardId;
+
+    // const route = useRoute();
+
+    const currentRouteLeaderboardId = useNavigationState(state => (state.routes[state.index].params as any)?.leaderboardId);
+
+    const getParams = (start: number, count: number) => {
         if (leaderboardCountry === countryEarth) {
-            return {start: page * perPage + 1, count: perPage};
+            return {start, count};
         }
-        return {start: page * perPage + 1, count: perPage, country: leaderboardCountry};
+        return {start, count, country: leaderboardCountry};
     }
 
-    const players = useLazyApi(
-        fetchLeaderboard, 'aoe2de', leaderboardId, getParams()
+    const matches = useLazyApi(
+        fetchLeaderboard, 'aoe2de', leaderboardId, getParams(1, 15)
     );
 
+    const onRefresh = async () => {
+        setFetchedAll(false);
+        setRefetching(true);
+        await matches.reload();
+        setRefetching(false);
+    };
+
+    const onEndReached = async () => {
+        if (fetchingMore) return;
+        setFetchingMore(true);
+        const matchesLength = matches.data?.leaderboard?.length ?? 0;
+        console.log('REFETCHING', matchesLength);
+        const newMatchesData = await matches.refetch('aoe2de', leaderboardId, getParams(1, matchesLength + 15));
+        if (matchesLength === newMatchesData?.leaderboard?.length) {
+            setFetchedAll(true);
+        }
+        setFetchingMore(false);
+    };
+
     useEffect(() => {
-        players.refetch('aoe2de', leaderboardId, getParams());
-    }, [page, perPage, leaderboardCountry]);
+        console.log('useffect', currentRouteLeaderboardId, leaderboardId);
+        if (currentRouteLeaderboardId != leaderboardId) return;
+        // console.log('useffect', navLeaderboardId, leaderboardId);
+        // if (navLeaderboardId != leaderboardId) return;
+        setFetchedAll(false);
+        matches.reload();
+    }, [currentRouteLeaderboardId, leaderboardCountry]);
+
+    const list = [...(matches.data?.leaderboard || Array(15).fill(null))];
+
+    const _renderFooter = () => {
+        if (!fetchingMore) return null;
+        return <FlatListLoadingIndicator />;
+    };
 
     const onSelect = async (player: ILeaderboardPlayer) => {
         navigation.push('User', {
@@ -173,97 +318,70 @@ export function Leaderboard({leaderboardId} : any) {
         });
     };
 
-    const previousPage = async () => {
-        if (page > 0) {
-            setPage(page - 1);
-        }
-    };
-
-    const nextPage = async () => {
-        setPage(page + 1);
-    };
-
-    const count = players.data?.leaderboard.length;
-    const total = players.data?.total;
-    const from = page * perPage + 1;
-    const to = from + count - 1;
-    const canPrevious = page > 0;
-    const canNext = to < total;
-
-    const list = [...(players.data?.leaderboard || Array(perPage).fill(null))];
-
     const _renderRow = (player: any, i: number) => {
         return (
             <TouchableOpacity style={styles.row} key={i} onPress={() => onSelect(player)}>
                 <View style={styles.innerRow}>
-                    <TextLoader style={styles.cellRank}>{player?.rank}</TextLoader>
+                    <TextLoader style={styles.cellRank}>#{player?.rank}</TextLoader>
                     <TextLoader style={styles.cellRating}>{player?.rating}</TextLoader>
                     <View style={styles.cellName}>
                         <ImageLoader style={styles.countryIcon} source={getFlagIcon(player?.country)}/>
                         <TextLoader style={styles.name} numberOfLines={1}>{player?.name}</TextLoader>
                     </View>
-                    <TextLoader style={styles.cellGames}>{player?.games}</TextLoader>
+                    <TextLoader style={styles.cellGames}>{player?.games} games</TextLoader>
                 </View>
             </TouchableOpacity>
         );
     };
 
     return (
-        <View style={styles.container}>
-            {/*<MyText style={styles.title}>{getString('leaderboard', leaderboardId)}</MyText>*/}
-
-            <View style={styles.headerRow}>
-                <MyText style={styles.cellRank} numberOfLines={1}>Rank</MyText>
-                <MyText style={styles.cellRating} numberOfLines={1}>Rating</MyText>
-                <MyText style={styles.cellName} numberOfLines={1}>Name</MyText>
-                <MyText style={styles.cellGames} numberOfLines={1}>Games</MyText>
-            </View>
-
-            <View style={styles.measureContainer}>
-                {
-                    list.map((player, i) => _renderRow(player, i))
-                }
-            </View>
-
-            <View style={styles.footerRow}>
-                {
-                    players.touched &&
-                    <View style={styles.activityInfo}>
-                        {
-                            players.loading &&
-                            <ActivityIndicator animating size="small"/>
+        <View style={styles.container2}>
+            <View style={styles.content}>
+                {/*<View style={styles.headerRow}>*/}
+                {/*    <MyText style={styles.cellRank} numberOfLines={1}>Rank</MyText>*/}
+                {/*    <MyText style={styles.cellRating} numberOfLines={1}>Rating</MyText>*/}
+                {/*    <MyText style={styles.cellName} numberOfLines={1}>Name</MyText>*/}
+                {/*    <MyText style={styles.cellGames} numberOfLines={1}>Games</MyText>*/}
+                {/*</View>*/}
+                <FlatList
+                    onRefresh={onRefresh}
+                    refreshing={refetching}
+                    contentContainerStyle={styles.list}
+                    data={list}
+                    renderItem={({item, index}) => {
+                        switch (item) {
+                            default:
+                                return _renderRow(item, index);
                         }
-                    </View>
-                }
-
-                {
-                    players.touched &&
-                    <MyText style={styles.pageInfo}>{isNaN(to) ? null : `${from}-${to} of ${total}`}</MyText>
-                }
-
-                <IconButton
-                    style={styles.arrowIcon}
-                    icon={({ size, color }) => (<Icon name="chevron-left" color={color} size={size}/>)}
-                    color={canPrevious ? paperTheme.colors.text : paperTheme.colors.disabled}
-                    disabled={!canPrevious}
-                    onPress={previousPage}
-                />
-                <IconButton
-                    icon={({ size, color }) => (<Icon name="chevron-right" color={color} size={size}/>)}
-                    color={canNext ? paperTheme.colors.text : paperTheme.colors.disabled}
-                    disabled={!canNext}
-                    onPress={nextPage}
+                    }}
+                    ListFooterComponent={_renderFooter}
+                    onEndReached={fetchedAll ? null : onEndReached}
+                    onEndReachedThreshold={0.1}
+                    keyExtractor={(item, index) => index.toString()}
                 />
             </View>
         </View>
     );
 }
 
-const padding = 8;
 
+
+const padding = 8;
 
 const getStyles = (theme: ITheme) => {
     return StyleSheet.create({
+
+
+        list: {
+            padding: 20,
+        },
+        container2: {
+            flex: 1,
+            // backgroundColor: '#B89579',
+        },
+        content: {
+            flex: 1,
+        },
 
         pickerRow: {
             // backgroundColor: 'yellow',
@@ -328,7 +446,11 @@ const getStyles = (theme: ITheme) => {
             padding: padding,
             flex: 1.5,
         },
+        flexRow: {
+            flexDirection: 'row',
+        },
         cellName: {
+            // backgroundColor: 'yellow',
             padding: padding,
             flex: 4,
             flexDirection: 'row',
@@ -340,7 +462,12 @@ const getStyles = (theme: ITheme) => {
         },
         cellGames: {
             padding: padding,
-            flex: 1.5,
+            flex: 2.5,
+            textAlign: 'right',
+            fontSize: 12,
+            // marginLeft: 26,
+            // marginTop: 4,
+            color: theme.textNoteColor,
             // marginLeft: 5,
         },
         cellWins: {
@@ -387,8 +514,11 @@ const getStyles = (theme: ITheme) => {
             // backgroundColor: 'blue',
             width: '100%',
             flexDirection: 'row',
+            alignItems: 'center',
+            paddingHorizontal: 5,
+            paddingVertical: 6,
             borderBottomWidth: 1,
-            borderBottomColor: theme.borderColor,
+            borderBottomColor: theme.lightBorderColor,
         },
         countryIcon: {
             width: 21,

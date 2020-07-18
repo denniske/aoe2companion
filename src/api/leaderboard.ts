@@ -44,7 +44,7 @@ export async function fetchLeaderboard(game: string, leaderboard_id: number, par
         console.log("fetchLeaderboard response", json);
         return convertTimestampsToDates(json);
     } catch (e) {
-        console.log("FAILED", `https://aoe2.net/api/leaderboard?${queryString}`);
+        console.log("FAILED", e);
         throw e;
     }
 }

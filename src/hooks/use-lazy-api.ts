@@ -18,13 +18,15 @@ export function useLazyApi<A extends (...args: any) => any>(action: A, ...defArg
         // So we call an async function to force running asynchronously.
         await sleep(0);
 
-        const data = await action(...args);
+        const data = await action(...args) as UnPromisify<ReturnType<A>>;
 
         if (!mountedRef.current) return null;
 
         setData(data);
         setLoading(false);
         setTouched(true);
+
+        return data;
     };
 
     const reset = () => {
@@ -37,7 +39,7 @@ export function useLazyApi<A extends (...args: any) => any>(action: A, ...defArg
     }
 
     const refetch = async (...args: Parameters<A>) => {
-        await load(...args);
+        return await load(...args);
     }
 
     useEffect(() => {

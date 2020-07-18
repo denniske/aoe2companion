@@ -133,7 +133,7 @@ export default function UserPage() {
         setFetchingMore(true);
         const matchesLength = matches.data?.length ?? 0;
         const newMatchesData = await matches.refetch('aoe2de', 0, matchesLength + 15, auth);
-        if (matchesLength === newMatchesData.length) {
+        if (matchesLength === newMatchesData?.length) {
             setFetchedAll(true);
         }
         setFetchingMore(false);

@@ -27,7 +27,7 @@ export function useApi<A extends (...args: any) => any>(dep: any, selectorFun: S
         // So we call an async function to force running asynchronously.
         await sleep(0);
 
-        const data = await action(...args);
+        const data = await action(...args) as UnPromisify<ReturnType<A>>;
 
         if (!mountedRef.current) {
             console.log('unmounted2');
