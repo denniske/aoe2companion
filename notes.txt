@@ -18,6 +18,10 @@ function.aoe2companion.com
 sls invoke local -f hello2 -l -r eu-central-1
 
 
+xcrun simctl boot 05D9592C-5EC4-4547-A519-8B6748CACBEE
+open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/
+
+
 
 Expo 38
 https://dev.to/expo/expo-sdk-38-is-now-available-5aa0

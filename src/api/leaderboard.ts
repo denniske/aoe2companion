@@ -1,6 +1,7 @@
 import { makeQueryString } from '../helper/util';
 import {ILeaderboard, ILeaderboardRaw} from "../helper/data";
 import {fromUnixTime} from "date-fns";
+import {Platform} from "react-native";
 
 
 function convertTimestampsToDates(leaderboardRaw: ILeaderboardRaw): ILeaderboard {
@@ -28,12 +29,18 @@ export async function fetchLeaderboard(game: string, leaderboard_id: number, par
         leaderboard_id,
         ...params,
     });
-    // console.log("fetchLeaderboard", `https://aoe2.net/api/leaderboard?${queryString}`);
-    const response = await fetch(`https://aoe2.net/api/leaderboard?${queryString}`);
+
+
+    const host = Platform.select({ios: 'localhost', android: '10.0.2.2'});
+    const screenshotsEndpoint = `http://${host}:3000/dev/`;
+
+    const url = screenshotsEndpoint + `api/leaderboard?${queryString}`;
+    console.log("fetchLeaderboard", url);
+    const response = await fetch(url);
     try {
         const json = await response.json();
         // console.log("fetchLeaderboard", leaderboard_id, params, json);
-        // console.log("fetchLeaderboard response", json);
+        console.log("fetchLeaderboard response", json);
         return convertTimestampsToDates(json);
     } catch (e) {
         console.log("FAILED", `https://aoe2.net/api/leaderboard?${queryString}`);

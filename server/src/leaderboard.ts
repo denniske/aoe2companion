@@ -16,7 +16,7 @@ export const leaderboard: APIGatewayProxyHandler = async (event, _context) => {
 
     const start = parseInt(getParam(event.queryStringParameters, 'start') ?? '1');
     const count = parseInt(getParam(event.queryStringParameters, 'count') ?? '10');
-    const leaderboardId = parseInt(getParam(event.queryStringParameters, 'leaderboardId'));
+    const leaderboardId = parseInt(getParam(event.queryStringParameters, 'leaderboard_id'));
     const country = getParam(event.queryStringParameters, 'country') || null;
 
     if (
