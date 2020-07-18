@@ -16,16 +16,16 @@ export function useNavigationStateExternal() {
 
     useEffect(() => {
         mountedRef.current = true;
+        let nav = getRootNavigation();
 
-        const nav = getRootNavigation();
-
-        // console.log('evented SUBSCRIBED');
-        nav.addListener('state', onNavigationStateChanged);
-
-        setState(nav.getRootState());
+        const timeoutHandler = setTimeout( () => {
+            nav = getRootNavigation();
+            nav.addListener('state', onNavigationStateChanged);
+            setState(nav.getRootState());
+        });
 
         return () => {
-            // console.log('evented UNSUBSCRIBED');
+            clearTimeout(timeoutHandler);
             nav.removeListener('state', onNavigationStateChanged);
             mountedRef.current = false;
         };

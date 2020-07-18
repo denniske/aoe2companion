@@ -1,20 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {
-    ActivityIndicator, Dimensions, Image, ImageProps, StyleSheet, Text, TextProps, TouchableOpacity,
-    View
-} from 'react-native';
+import {ActivityIndicator, Dimensions, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {fetchLeaderboard} from "../api/leaderboard";
 import {userIdFromBase} from "../helper/user";
 import {countriesDistinct, Country, getCountryName, getFlagIcon} from "../helper/flags";
-import {useCavy} from "cavy";
 import {ILeaderboardPlayer} from "../helper/data";
 import {RootStackProp} from "../../App";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import IconFA from "react-native-vector-icons/FontAwesome";
 import {useLazyApi} from "../hooks/use-lazy-api";
 import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
-import {getString} from "../helper/strings";
 import {IconButton} from "react-native-paper";
 import {TextLoader} from "./components/loader/text-loader";
 import {ImageLoader} from "./components/loader/image-loader";
@@ -24,8 +19,21 @@ import {ITheme, makeVariants, usePaperTheme, useTheme} from "../theming";
 import Picker from "./components/picker";
 import {orderBy} from "lodash-es";
 import {setLeaderboardCountry, useMutate, useSelector} from "../redux/reducer";
+import SubtitleHeader from "./components/navigation-header/subtitle-header";
+import {useNavigationStateExternal} from "../hooks/use-navigation-state-external";
+import {getString} from "../helper/strings";
+import TextHeader from "./components/navigation-header/text-header";
 
-const Tab = createMaterialTopTabNavigator();
+type TabParamList = {
+    LeaderboardRm1v1: { leaderboardId: number };
+    LeaderboardRmTeam: { leaderboardId: number };
+    LeaderboardDm1v1: { leaderboardId: number };
+    LeaderboardDmTeam: { leaderboardId: number };
+    LeaderboardUnranked: { leaderboardId: number };
+};
+
+// const Tab = createMaterialTopTabNavigator();
+const Tab = createMaterialTopTabNavigator<TabParamList>();
 
 
 export function leaderboardMenu(props: any) {
@@ -72,25 +80,61 @@ export function LeaderboardMenu() {
     );
 }
 
+function findState(state: any, routeName: string): any {
+    if (state == null) return null;
+    const activeRoute = state.routes[state.index];
+    const activeRouteName = activeRoute?.name;
+    if (activeRouteName == routeName) {
+        return activeRoute.state;
+    }
+    return findState(state, routeName);
+}
+
+function getActiveRouteName(state: any): any {
+    if (state == null) return null;
+    const activeRoute = state.routes[state.index];
+    return activeRoute?.name;
+}
+
+function getActiveRoute(state: any): any {
+    if (state == null) return null;
+    return state.routes[state.index];
+}
+
+export function LeaderboardTitle(props: any) {
+    const navigationState = useNavigationStateExternal();
+
+    const leaderboardState = findState(navigationState, 'Leaderboard');
+    const activeRoute = getActiveRoute(leaderboardState);
+    const leaderboardId = activeRoute?.params?.leaderboardId;
+
+    // console.log('activeRoute', activeRoute);
+    // console.log('leaderboardId', leaderboardId);
+
+    const subtitle = getString('leaderboard', leaderboardId) || '';
+
+    return <TextHeader text={'Leaderboard'} onLayout={props.titleProps.onLayout}/>;
+    // return <SubtitleHeader text={'Leaderboard'} subtitle={subtitle} onLayout={props.titleProps.onLayout}/>;
+}
 
 export default function LeaderboardPage() {
     const styles = useTheme(variants);
     return (
         <Tab.Navigator lazy={true}>
-            <Tab.Screen name="MainHome" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="RM 1v1"/>}}>
-                {() => <Leaderboard leaderboardId={3} />}
+            <Tab.Screen name="LeaderboardRm1v1" initialParams={{leaderboardId: 3}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title="RM 1v1"/>}}>
+                {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
-            <Tab.Screen name="MainMatches" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="RM Team"/>}}>
-                {() => <Leaderboard leaderboardId={4} />}
+            <Tab.Screen name="LeaderboardRmTeam" initialParams={{leaderboardId: 4}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title="RM Team"/>}}>
+                {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
-            <Tab.Screen name="MainMatches2" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="DM 1v1"/>}}>
-                {() => <Leaderboard leaderboardId={1} />}
+            <Tab.Screen name="LeaderboardDm1v1" initialParams={{leaderboardId: 1}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title="DM 1v1"/>}}>
+                {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
-            <Tab.Screen name="MainMatches3" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="DM Team"/>}}>
-                {() => <Leaderboard leaderboardId={2} />}
+            <Tab.Screen name="LeaderboardDmTeam" initialParams={{leaderboardId: 2}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title="DM Team"/>}}>
+                {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
-            <Tab.Screen name="MainMatches4" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="Unr."/>}}>
-                {() => <Leaderboard leaderboardId={0} />}
+            <Tab.Screen name="LeaderboardUnranked" initialParams={{leaderboardId: 0}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title="Unr."/>}}>
+                {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
         </Tab.Navigator>
     );
@@ -166,7 +210,7 @@ export function Leaderboard({leaderboardId} : any) {
 
     return (
         <View style={styles.container}>
-            <MyText style={styles.title}>{getString('leaderboard', leaderboardId)}</MyText>
+            {/*<MyText style={styles.title}>{getString('leaderboard', leaderboardId)}</MyText>*/}
 
             <View style={styles.headerRow}>
                 <MyText style={styles.cellRank} numberOfLines={1}>Rank</MyText>

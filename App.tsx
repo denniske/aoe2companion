@@ -27,7 +27,7 @@ import PrivacyPage from './src/view/privacy.page';
 import {AppLoading} from "expo";
 import {Tester, TestHookStore} from "cavy";
 import ExampleSpec from './src/ci/exampleSpec';
-import LeaderboardPage, {leaderboardMenu} from "./src/view/leaderboard.page";
+import LeaderboardPage, {leaderboardMenu, LeaderboardTitle} from "./src/view/leaderboard.page";
 import GuidePage from "./src/view/guide.page";
 import CivPage, {CivTitle, civTitle} from "./src/view/civ.page";
 import {Civ} from "./src/helper/civs";
@@ -44,6 +44,7 @@ import {ITheme, makeVariants, useTheme} from "./src/theming";
 import SettingsPage from "./src/view/settings.page";
 import {appVariants} from "./src/styles";
 import {AppearanceProvider, useColorScheme} from "react-native-appearance";
+import {NavigationState} from "@react-navigation/routers";
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -192,6 +193,7 @@ export function InnerApp() {
                     options={props => ({
                         title: 'Leaderboard',
                         headerRight: leaderboardMenu(props),
+                        headerTitle: titleProps => <LeaderboardTitle {...props} titleProps={titleProps} />,
                     })}
                 />
                 <Stack.Screen
