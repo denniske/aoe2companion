@@ -24,6 +24,7 @@ import {useNavigationStateExternal} from "../hooks/use-navigation-state-external
 import {getString} from "../helper/strings";
 import TextHeader from "./components/navigation-header/text-header";
 import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
+import {formatAgo, formatDate, formatDateShort, formatDayAndTime} from "../helper/util";
 
 type TabParamList = {
     LeaderboardRm1v1: { leaderboardId: number };
@@ -46,6 +47,7 @@ export function leaderboardMenu(props: any) {
 const countryEarth = null;
 
 export function LeaderboardMenu() {
+    const theme = usePaperTheme();
     const styles = useTheme(variants);
     const mutate = useMutate();
     const country = useSelector(state => state.leaderboardCountry);
@@ -63,7 +65,7 @@ export function LeaderboardMenu() {
     const divider = (x: any, i?: number) => !!i && i < 2;
     const icon = (x: any) => {
         if (x == countryEarth) {
-            return <IconFA name="globe" size={21} style={{paddingLeft: 2, paddingRight: 7, backgroundColor: 'white'}} />;
+            return <IconFA name="globe" size={21} style={{paddingLeft: 2, paddingRight: 7}} color={theme.colors.text} />;
         }
         return <Image style={styles.countryIcon} source={getFlagIcon(x)}/>;
     };
@@ -267,7 +269,7 @@ function Leaderboard({leaderboardId}: any) {
 
     const getParams = (start: number, count: number) => {
         // start -= 1;
-        if (leaderboardCountry === countryEarth) {
+        if (leaderboardCountry == countryEarth) {
             return {start, count};
         }
         return {start, count, country: leaderboardCountry};
@@ -356,6 +358,13 @@ function Leaderboard({leaderboardId}: any) {
                         <MyText>No players listed.</MyText>
                     </View>
                 }
+
+                {
+                    list && list[0] &&
+                    <MyText style={styles.info}>
+                        {matches.data.total} entries{matches.data.updated ? ', updated ' + formatAgo(matches.data.updated) : ''}</MyText>
+                }
+
                 <FlatList
                     onRefresh={onRefresh}
                     refreshing={refetching}
@@ -558,6 +567,13 @@ const getStyles = (theme: ITheme) => {
             height: '100%',
             alignItems: 'center',
             justifyContent: 'center',
+        },
+
+        info: {
+            textAlign: 'center',
+            marginBottom: 10,
+            color: theme.textNoteColor,
+            fontSize: 12,
         },
     });
 };

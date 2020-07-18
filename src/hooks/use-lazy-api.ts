@@ -27,6 +27,7 @@ export function useLazyApi<A extends (...args: any) => any>(action: A, ...defArg
             setData(data);
             setLoading(false);
             setTouched(true);
+            setError(false);
 
             return data;
         } catch (e) {

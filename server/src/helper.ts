@@ -7,7 +7,7 @@ export async function setValue(id: string, value: any) {
 
     const keyValue = new KeyValue();
     keyValue.id = id;
-    keyValue.value = value;
+    keyValue.value = JSON.stringify(value);
 
     const query = connection.createQueryBuilder()
         .insert()
@@ -21,7 +21,8 @@ export async function setValue(id: string, value: any) {
 export async function getValue(id: string) {
     const connection = await createDB();
     const keyValue = await connection.manager.findOne(KeyValue, 'leaderboardUpdated');
-    return keyValue?.value;
+    console.log('keyValue?.value', keyValue?.value);
+    return JSON.parse(keyValue?.value ?? null);
 }
 
 

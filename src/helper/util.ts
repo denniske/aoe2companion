@@ -21,12 +21,17 @@ export function formatDateShort(date: Date) {
     return format(date, 'MMM d', {locale: enUS});
 }
 
+export function formatDayAndTime(date: Date) {
+    console.log(date);
+    return format(date, 'MMM d hh:mm', {locale: enUS});
+}
+
 export function formatDate(date: Date) {
     return format(date, 'dd MM yyyy', {locale: enUS});
 }
 
 export function formatAgo(date: Date) {
-    return formatDistanceToNowStrict(date, {locale: enUS, addSuffix: true});
+    return formatDistanceToNowStrict(date, {locale: enUS, addSuffix: true, unit: 'hour'});
 }
 
 interface IParams {

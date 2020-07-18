@@ -115,6 +115,7 @@ export interface ILeaderboardRaw {
     leaderboard_id: LeaderboardId;
     start: number;
     total: number;
+    updated?: any;
 }
 
 
@@ -125,6 +126,7 @@ export interface ILeaderboardPlayer extends ILeaderboardPlayerRaw {
 
 export interface ILeaderboard extends ILeaderboardRaw{
     leaderboard: ILeaderboardPlayer[];
+    updated?: Date;
 }
 
 export function validMatch(m: IMatch) {

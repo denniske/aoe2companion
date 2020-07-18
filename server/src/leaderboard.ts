@@ -3,6 +3,7 @@ import {User} from "../entity/user";
 import {createDB} from "./handler";
 import {getValue, setValue} from "./helper";
 import {LeaderboardRow} from "../entity/leaderboard-row";
+import {getUnixTime} from 'date-fns';
 
 function getParam(params: { [name: string]: string } | null, key: string): string {
     if (params == null) {
@@ -46,7 +47,7 @@ export const leaderboard: APIGatewayProxyHandler = async (event, _context) => {
     return {
         statusCode: 200,
         body: JSON.stringify({
-            updated: leaderboardUpdated,
+            updated: getUnixTime(leaderboardUpdated),
             total: total,
             leaderboard_id: leaderboardId,
             start: start,
