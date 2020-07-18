@@ -34,7 +34,7 @@ export function leaderboardMenu(props: any) {
     }
 }
 
-const countryWorld = 'WORLD';
+const countryEarth = null;
 
 export function LeaderboardMenu() {
     const styles = useTheme(variants);
@@ -44,16 +44,16 @@ export function LeaderboardMenu() {
     const loadingMatchesOrStats = false;
 
     const formatCountry = (x: string, inList?: boolean) => {
-        if (x == countryWorld) {
+        if (x == countryEarth) {
             return 'Earth';
         }
         return inList ? getCountryName(x as Country) : x;
     };
     const orderedCountriesDistinct = orderBy(countriesDistinct, c => formatCountry(c, true));
-    const countryList: any[] = [countryWorld, 'DE', ...orderedCountriesDistinct];
+    const countryList: any[] = [countryEarth, 'DE', ...orderedCountriesDistinct];
     const divider = (x: any, i?: number) => !!i && i < 2;
     const icon = (x: any) => {
-        if (x == countryWorld) {
+        if (x == countryEarth) {
             return <IconFA name="globe" size={21} style={{paddingLeft: 2, paddingRight: 7, backgroundColor: 'white'}} />;
         }
         return <Image style={styles.countryIcon} source={getFlagIcon(x)}/>;
@@ -66,7 +66,7 @@ export function LeaderboardMenu() {
         <View style={styles.menu}>
             <View style={styles.pickerRow}>
                 <ActivityIndicator animating={loadingMatchesOrStats} size="small"/>
-                <Picker divider={divider} icon={icon} disabled={loadingMatchesOrStats} value={country} values={countryList} formatter={formatCountry} onSelect={onCountrySelected}/>
+                <Picker flatlist={true} divider={divider} icon={icon} disabled={loadingMatchesOrStats} value={country} values={countryList} formatter={formatCountry} onSelect={onCountrySelected}/>
             </View>
         </View>
     );
@@ -108,7 +108,7 @@ export function Leaderboard({leaderboardId} : any) {
     const leaderboardCountry = useSelector(state => state.leaderboardCountry);
 
     const getParams = () => {
-        if (leaderboardCountry === countryWorld) {
+        if (leaderboardCountry === countryEarth) {
             return {start: page * perPage + 1, count: perPage};
         }
         return {start: page * perPage + 1, count: perPage, country: leaderboardCountry};

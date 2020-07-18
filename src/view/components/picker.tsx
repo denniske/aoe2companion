@@ -72,7 +72,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
                         keyboardShouldPersistTaps={'always'}
                         data={values}
                         style={{height: Dimensions.get('screen').height-200}}
-                        renderItem={({v, i}: any) => renderItem(v, i)}
+                        renderItem={({item, index}) => renderItem(item, index)}
                         keyExtractor={(item, index) => index.toString()}
                     />
                 }
