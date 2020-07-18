@@ -86,7 +86,7 @@ async function fetchLeaderboardData(leaderboardId: number) {
 export const ingest: APIGatewayProxyHandler = async (event, _context) => {
     const connection = await createDB();
 
-    await fetchLeaderboardData(0);
+    // await fetchLeaderboardData(0);
     await fetchLeaderboardData(1);
     await fetchLeaderboardData(2);
     await fetchLeaderboardData(3);

@@ -25,6 +25,7 @@ import {getString} from "../helper/strings";
 import TextHeader from "./components/navigation-header/text-header";
 import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
 import {formatAgo, formatDate, formatDateShort, formatDayAndTime} from "../helper/util";
+import {usePrevious} from "../hooks/use-previous";
 
 type TabParamList = {
     LeaderboardRm1v1: { leaderboardId: number };
@@ -50,7 +51,7 @@ export function LeaderboardMenu() {
     const theme = usePaperTheme();
     const styles = useTheme(variants);
     const mutate = useMutate();
-    const country = useSelector(state => state.leaderboardCountry);
+    const country = useSelector(state => state.leaderboardCountry) || null;
 
     const loadingMatchesOrStats = false;
 
@@ -255,8 +256,10 @@ function Leaderboard({leaderboardId}: any) {
     const [refetching, setRefetching] = useState(false);
     const [fetchingMore, setFetchingMore] = useState(false);
     const [fetchedAll, setFetchedAll] = useState(false);
-    const leaderboardCountry = useSelector(state => state.leaderboardCountry);
+    const leaderboardCountry = useSelector(state => state.leaderboardCountry) || null;
     const navigation = useNavigation<RootStackProp>();
+
+    console.log('leaderboardCountry', leaderboardCountry);
 
     // const navigationState = useNavigationStateExternal();
     // const leaderboardState = findState(navigationState, 'Leaderboard');
@@ -298,16 +301,18 @@ function Leaderboard({leaderboardId}: any) {
         setFetchingMore(false);
     };
 
+    const prevLeaderboardCountry = usePrevious(leaderboardCountry);
+
     useEffect(() => {
-        console.log('useffect', currentRouteLeaderboardId, leaderboardId);
+        // console.log('useffect', currentRouteLeaderboardId, leaderboardId);
+        // console.log('useffect2', prevLeaderboardCountry, leaderboardCountry);
         if (currentRouteLeaderboardId != leaderboardId) return;
-        // console.log('useffect', navLeaderboardId, leaderboardId);
-        // if (navLeaderboardId != leaderboardId) return;
+        if (matches.touched && prevLeaderboardCountry === leaderboardCountry) return;
         setFetchedAll(false);
         matches.reload();
     }, [currentRouteLeaderboardId, leaderboardCountry]);
 
-    const list = [...(matches.data?.leaderboard || Array(15).fill(null))];
+    const list = ['info', ...(matches.data?.leaderboard || Array(15).fill(null))];
 
     const _renderFooter = () => {
         if (!fetchingMore) return null;
@@ -353,34 +358,36 @@ function Leaderboard({leaderboardId}: any) {
                     </View>
                 }
                 {
-                    list.length === 0 &&
+                    matches.data?.total === 0 &&
                     <View style={styles.centered}>
                         <MyText>No players listed.</MyText>
                     </View>
                 }
-
                 {
-                    list && list[0] &&
-                    <MyText style={styles.info}>
-                        {matches.data.total} entries{matches.data.updated ? ', updated ' + formatAgo(matches.data.updated) : ''}</MyText>
+                    matches.data?.total > 0 &&
+                    <FlatList
+                        onRefresh={onRefresh}
+                        refreshing={refetching}
+                        contentContainerStyle={styles.list}
+                        data={list}
+                        renderItem={({item, index}) => {
+                            switch (item) {
+                                case 'info':
+                                    return (
+                                        <MyText style={styles.info}>
+                                            {matches.data.total} players{matches.data.updated ? ' (updated ' + formatAgo(matches.data.updated) + ')' : ''}
+                                        </MyText>
+                                    );
+                                default:
+                                    return _renderRow(item, index);
+                            }
+                        }}
+                        ListFooterComponent={_renderFooter}
+                        onEndReached={fetchedAll ? null : onEndReached}
+                        onEndReachedThreshold={0.1}
+                        keyExtractor={(item, index) => index.toString()}
+                    />
                 }
-
-                <FlatList
-                    onRefresh={onRefresh}
-                    refreshing={refetching}
-                    contentContainerStyle={styles.list}
-                    data={list}
-                    renderItem={({item, index}) => {
-                        switch (item) {
-                            default:
-                                return _renderRow(item, index);
-                        }
-                    }}
-                    ListFooterComponent={_renderFooter}
-                    onEndReached={fetchedAll ? null : onEndReached}
-                    onEndReachedThreshold={0.1}
-                    keyExtractor={(item, index) => index.toString()}
-                />
             </View>
         </View>
     );
@@ -571,7 +578,7 @@ const getStyles = (theme: ITheme) => {
 
         info: {
             textAlign: 'center',
-            marginBottom: 10,
+            marginBottom: 20,
             color: theme.textNoteColor,
             fontSize: 12,
         },

@@ -12,6 +12,7 @@
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
     "babel-loader": "^8.1.0",
+    "date-fns": "^2.15.0",
     "dotenv": "^8.2.0",
     "lodash": "^4.17.19",
     "node-fetch": "^2.6.0",
