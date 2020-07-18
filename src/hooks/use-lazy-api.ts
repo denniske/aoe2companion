@@ -7,6 +7,7 @@ export function useLazyApi<A extends (...args: any) => any>(action: A, ...defArg
     const [data, setData] = useState(null as UnPromisify<ReturnType<A>>);
     const [loading, setLoading] = useState(false);
     const [touched, setTouched] = useState(false);
+    const [error, setError] = useState(false);
     const mountedRef = useRef(true);
 
     const load = async (...args: Parameters<A>) => {
@@ -18,15 +19,20 @@ export function useLazyApi<A extends (...args: any) => any>(action: A, ...defArg
         // So we call an async function to force running asynchronously.
         await sleep(0);
 
-        const data = await action(...args) as UnPromisify<ReturnType<A>>;
+        try {
+            const data = await action(...args) as UnPromisify<ReturnType<A>>;
 
-        if (!mountedRef.current) return null;
+            if (!mountedRef.current) return null;
 
-        setData(data);
-        setLoading(false);
-        setTouched(true);
+            setData(data);
+            setLoading(false);
+            setTouched(true);
 
-        return data;
+            return data;
+        } catch (e) {
+            setError(true);
+            return null;
+        }
     };
 
     const reset = () => {
@@ -49,5 +55,5 @@ export function useLazyApi<A extends (...args: any) => any>(action: A, ...defArg
         };
     }, []);
 
-    return {touched, data, loading, refetch, reload, reset};
+    return {touched, data, loading, refetch, reload, reset, error};
 }

@@ -266,6 +266,7 @@ function Leaderboard({leaderboardId}: any) {
     const currentRouteLeaderboardId = useNavigationState(state => (state.routes[state.index].params as any)?.leaderboardId);
 
     const getParams = (start: number, count: number) => {
+        // start -= 1;
         if (leaderboardCountry === countryEarth) {
             return {start, count};
         }
@@ -343,6 +344,18 @@ function Leaderboard({leaderboardId}: any) {
                 {/*    <MyText style={styles.cellName} numberOfLines={1}>Name</MyText>*/}
                 {/*    <MyText style={styles.cellGames} numberOfLines={1}>Games</MyText>*/}
                 {/*</View>*/}
+                {
+                    matches.error &&
+                    <View style={styles.centered}>
+                        <MyText>Error occured when fetching data.</MyText>
+                    </View>
+                }
+                {
+                    list.length === 0 &&
+                    <View style={styles.centered}>
+                        <MyText>No players listed.</MyText>
+                    </View>
+                }
                 <FlatList
                     onRefresh={onRefresh}
                     refreshing={refetching}
@@ -539,6 +552,12 @@ const getStyles = (theme: ITheme) => {
             paddingHorizontal: 20,
             paddingTop: 18,
             paddingBottom: 5,
+        },
+        centered: {
+            // backgroundColor: 'yellow',
+            height: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
         },
     });
 };
