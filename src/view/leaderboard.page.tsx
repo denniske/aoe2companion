@@ -94,7 +94,7 @@ function findState(state: any, routeName: string): any {
     if (activeRouteName == routeName) {
         return activeRoute.state;
     }
-    return findState(state, routeName);
+    return findState(activeRoute.state, routeName);
 }
 
 function getActiveRouteName(state: any): any {
@@ -109,15 +109,15 @@ function getActiveRoute(state: any): any {
 }
 
 export function LeaderboardTitle(props: any) {
-    const navigationState = useNavigationStateExternal();
-    const leaderboardState = findState(navigationState, 'Leaderboard');
-    const activeRoute = getActiveRoute(leaderboardState);
-    const leaderboardId = activeRoute?.params?.leaderboardId;
+    // const navigationState = useNavigationStateExternal();
+    // const leaderboardState = findState(navigationState, 'Leaderboard');
+    // const activeRoute = getActiveRoute(leaderboardState);
+    // const leaderboardId = activeRoute?.params?.leaderboardId;
 
     // console.log('activeRoute', activeRoute);
     // console.log('leaderboardId', leaderboardId);
 
-    const subtitle = getString('leaderboard', leaderboardId) || '';
+    // const subtitle = getString('leaderboard', leaderboardId) || '';
 
     return <TextHeader text={'Leaderboard'} onLayout={props.titleProps.onLayout}/>;
     // return <SubtitleHeader text={'Leaderboard'} subtitle={subtitle} onLayout={props.titleProps.onLayout}/>;
