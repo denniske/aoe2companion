@@ -362,10 +362,10 @@ export function AppWrapper() {
     const colorScheme = useColorScheme();
 
     // Trigger loading of auth and following
-    const _auth = useApi([auth], state => state.auth, (state, value) => state.auth = value, () => loadSettingsFromStorage());
-    const _following = useApi([following], state => state.following, (state, value) => state.following = value, () => loadFollowingFromStorage());
-    const _prefs = useApi([prefs], state => state.prefs, (state, value) => state.prefs = value, () => loadPrefsFromStorage());
-    const _config = useApi([config], state => state.config, (state, value) => state.config = value, () => loadConfigFromStorage());
+    const _auth = useApi({}, [auth], state => state.auth, (state, value) => state.auth = value, () => loadSettingsFromStorage());
+    const _following = useApi({}, [following], state => state.following, (state, value) => state.following = value, () => loadFollowingFromStorage());
+    const _prefs = useApi({}, [prefs], state => state.prefs, (state, value) => state.prefs = value, () => loadPrefsFromStorage());
+    const _config = useApi({}, [config], state => state.config, (state, value) => state.config = value, () => loadConfigFromStorage());
 
     if (auth === undefined || following === undefined || config === undefined || prefs === undefined) {
         return <AppLoading/>;

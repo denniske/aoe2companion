@@ -44,7 +44,7 @@ export function setAuth(user: UserId | null) {
   };
 }
 
-export function setLeaderboardCountry(country?: string) {
+export function setLeaderboardCountry(country?: string | null) {
   return (state: AppState) => {
     state.leaderboardCountry = country;
   };
@@ -144,7 +144,7 @@ export interface AppState {
   following: IFollowingEntry[];
   followedMatches?: IMatch[];
 
-  leaderboardCountry?: string;
+  leaderboardCountry?: string | null;
 
   leaderboard: ILeaderboardDict;
 

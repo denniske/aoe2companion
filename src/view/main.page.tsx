@@ -38,6 +38,7 @@ function MainHome() {
     const [leaderboardId, setLeaderboardId] = useState(prefLeaderboardId);
 
     const rating = useApi(
+            {},
             [],
             state => state.user[auth.id]?.rating,
             (state, value) => {
@@ -50,6 +51,7 @@ function MainHome() {
     );
 
     const profile = useApi(
+            {},
             [],
             state => state.user[auth.id]?.profile,
             (state, value) => {
@@ -62,6 +64,7 @@ function MainHome() {
     );
 
     let allMatches = useLazyApi(
+        {},
         fetchMatches, 'aoe2de', 0, 1000, auth
     );
 
@@ -202,6 +205,12 @@ function MainMatches() {
     const auth = useSelector(state => state.auth!);
 
     const matches = useApi(
+            {
+                append: (data, newData) => {
+                    console.log('APPEND', data, newData);
+                    return [...(data || []), ...newData];
+                },
+            },
             [],
             state => state.user[auth.id]?.matches,
             (state, value) => {
@@ -224,6 +233,7 @@ function MainMatches() {
         setFetchingMore(true);
         const matchesLength = matches.data?.length ?? 0;
         const newMatchesData = await matches.refetch('aoe2de', 0, matchesLength + 15, auth);
+        // const newMatchesData = await matches.refetchAppend('aoe2de', matchesLength+1, 15, auth);
         if (matchesLength === newMatchesData?.length) {
             setFetchedAll(true);
         }

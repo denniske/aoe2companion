@@ -72,7 +72,7 @@ interface ISearchProps {
 export default function Search({title, selectedUser, actionText, action}: ISearchProps) {
     const [text, setText] = useState('');
 
-    const user = useLazyApi(loadUser, 'aoe2de', text);
+    const user = useLazyApi({}, loadUser, 'aoe2de', text);
 
     const refresh = () => {
         if (text.length < 3) {

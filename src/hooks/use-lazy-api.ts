@@ -3,33 +3,44 @@ import {sleep} from "../helper/util";
 
 type UnPromisify<T> = T extends Promise<infer U> ? U : T;
 
-export function useLazyApi<A extends (...args: any) => any>(action: A, ...defArgs: Parameters<A>) {
+interface ILazyApiOptions<A extends (...args: any) => any> {
+    append?: (data: UnPromisify<ReturnType<A>>, newData: UnPromisify<ReturnType<A>>) => UnPromisify<ReturnType<A>>;
+}
+
+export function useLazyApi<A extends (...args: any) => any>(options: ILazyApiOptions<A>, action: A, ...defArgs: Parameters<A>) {
     const [data, setData] = useState(null as UnPromisify<ReturnType<A>>);
     const [loading, setLoading] = useState(false);
     const [touched, setTouched] = useState(false);
     const [error, setError] = useState(false);
+    const [lastParams, setLastParams] = useState(null as any);
     const mountedRef = useRef(true);
 
-    const load = async (...args: Parameters<A>) => {
+    const load = async (append: boolean, ...args: Parameters<A>) => {
         if (!mountedRef.current) return null;
 
         setLoading(true);
+        setLastParams(args);
 
         // If load is called in useEffect() it may be run synchronously if action is an synchronous function.
         // So we call an async function to force running asynchronously.
         await sleep(0);
 
         try {
-            const data = await action(...args) as UnPromisify<ReturnType<A>>;
+            let newData = await action(...args) as UnPromisify<ReturnType<A>>;
+
+            if (append) {
+                if (!options.append) throw new Error('options.append not defined');
+                newData = options.append(data, newData);
+            }
 
             if (!mountedRef.current) return null;
 
-            setData(data);
+            setData(newData);
             setLoading(false);
             setTouched(true);
             setError(false);
 
-            return data;
+            return newData;
         } catch (e) {
             setError(true);
             return null;
@@ -42,11 +53,15 @@ export function useLazyApi<A extends (...args: any) => any>(action: A, ...defArg
     }
 
     const reload = async () => {
-        await load(...defArgs);
+        await load(false, ...defArgs);
     }
 
     const refetch = async (...args: Parameters<A>) => {
-        return await load(...args);
+        return await load(false, ...args);
+    }
+
+    const refetchAppend = async (...args: Parameters<A>) => {
+        return await load(true, ...args);
     }
 
     useEffect(() => {
@@ -56,5 +71,5 @@ export function useLazyApi<A extends (...args: any) => any>(action: A, ...defArg
         };
     }, []);
 
-    return {touched, data, loading, refetch, reload, reset, error};
+    return {touched, data, loading, refetch, reload, reset, error, lastParams, refetchAppend};
 }

@@ -55,22 +55,23 @@ export function LeaderboardMenu() {
 
     const loadingMatchesOrStats = false;
 
-    const formatCountry = (x: string, inList?: boolean) => {
+    const formatCountry = (x: (string | null), inList?: boolean) => {
         if (x == countryEarth) {
             return 'Earth';
         }
         return inList ? getCountryName(x as Country) : x;
     };
     const orderedCountriesDistinct = orderBy(countriesDistinct, c => formatCountry(c, true));
-    const countryList: any[] = [countryEarth, 'DE', ...orderedCountriesDistinct];
+    const countryList: (string | null)[] = [countryEarth, 'DE', ...orderedCountriesDistinct];
     const divider = (x: any, i?: number) => !!i && i < 2;
     const icon = (x: any) => {
         if (x == countryEarth) {
             return <IconFA name="globe" size={21} style={{paddingLeft: 2, paddingRight: 7}} color={theme.colors.text} />;
         }
+        // console.log('getFlagIcon(x)', x, getFlagIcon(x));
         return <Image style={styles.countryIcon} source={getFlagIcon(x)}/>;
     };
-    const onCountrySelected = (country: string) => {
+    const onCountrySelected = (country: string | null) => {
         mutate(setLeaderboardCountry(country));
     };
 
@@ -258,6 +259,7 @@ function Leaderboard({leaderboardId}: any) {
     const [fetchedAll, setFetchedAll] = useState(false);
     const leaderboardCountry = useSelector(state => state.leaderboardCountry) || null;
     const navigation = useNavigation<RootStackProp>();
+    const flatListRef = React.useRef<FlatList>(null);
 
     console.log('leaderboardCountry', leaderboardCountry);
 
@@ -279,7 +281,13 @@ function Leaderboard({leaderboardId}: any) {
     }
 
     const matches = useLazyApi(
-        fetchLeaderboard, 'aoe2de', leaderboardId, getParams(1, 15)
+        {
+            append: (data, newData) => {
+                data.leaderboard.push(...newData.leaderboard);
+                return data;
+            },
+        },
+        fetchLeaderboard, 'aoe2de', leaderboardId, getParams(1, 25)
     );
 
     const onRefresh = async () => {
@@ -293,23 +301,21 @@ function Leaderboard({leaderboardId}: any) {
         if (fetchingMore) return;
         setFetchingMore(true);
         const matchesLength = matches.data?.leaderboard?.length ?? 0;
-        console.log('REFETCHING', matchesLength);
-        const newMatchesData = await matches.refetch('aoe2de', leaderboardId, getParams(1, matchesLength + 15));
+        const newMatchesData = await matches.refetchAppend('aoe2de', leaderboardId, getParams(matchesLength+1, 25));
         if (matchesLength === newMatchesData?.leaderboard?.length) {
             setFetchedAll(true);
         }
         setFetchingMore(false);
     };
 
-    const prevLeaderboardCountry = usePrevious(leaderboardCountry);
-
     useEffect(() => {
         // console.log('useffect', currentRouteLeaderboardId, leaderboardId);
         // console.log('useffect2', prevLeaderboardCountry, leaderboardCountry);
         if (currentRouteLeaderboardId != leaderboardId) return;
-        if (matches.touched && prevLeaderboardCountry === leaderboardCountry) return;
+        if (matches.touched && matches.lastParams?.leaderboardCountry === leaderboardCountry) return;
         setFetchedAll(false);
         matches.reload();
+        flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
     }, [currentRouteLeaderboardId, leaderboardCountry]);
 
     const list = ['info', ...(matches.data?.leaderboard || Array(15).fill(null))];
@@ -366,6 +372,7 @@ function Leaderboard({leaderboardId}: any) {
                 {
                     matches.data?.total > 0 &&
                     <FlatList
+                        ref={flatListRef}
                         onRefresh={onRefresh}
                         refreshing={refetching}
                         contentContainerStyle={styles.list}

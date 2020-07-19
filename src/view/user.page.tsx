@@ -39,41 +39,45 @@ export default function UserPage() {
     const auth = route.params.id;
 
     const rating = useApi(
-            [],
-            state => state.user[auth.id]?.rating,
-            (state, value) => {
-                if (state.user[auth.id] == null) {
-                    state.user[auth.id] = {};
-                }
-                state.user[auth.id].rating = value;
-            },
-            loadRatingHistories, 'aoe2de', auth
+        {},
+        [],
+        state => state.user[auth.id]?.rating,
+        (state, value) => {
+            if (state.user[auth.id] == null) {
+                state.user[auth.id] = {};
+            }
+            state.user[auth.id].rating = value;
+        },
+        loadRatingHistories, 'aoe2de', auth
     );
 
     const profile = useApi(
-            [],
-            state => state.user[auth.id]?.profile,
-            (state, value) => {
-                if (state.user[auth.id] == null) {
-                    state.user[auth.id] = {};
-                }
-                state.user[auth.id].profile = value;
-            },
-            loadProfile, 'aoe2de', auth
+        {},
+        [],
+        state => state.user[auth.id]?.profile,
+        (state, value) => {
+            if (state.user[auth.id] == null) {
+                state.user[auth.id] = {};
+            }
+            state.user[auth.id].profile = value;
+        },
+        loadProfile, 'aoe2de', auth
     );
     const matches = useApi(
-            [],
-            state => state.user[auth.id]?.matches,
-            (state, value) => {
-                if (state.user[auth.id] == null) {
-                    state.user[auth.id] = {};
-                }
-                state.user[auth.id].matches = value;
-            },
-            fetchMatches, 'aoe2de', 0, 10, auth
+        {},
+        [],
+        state => state.user[auth.id]?.matches,
+        (state, value) => {
+            if (state.user[auth.id] == null) {
+                state.user[auth.id] = {};
+            }
+            state.user[auth.id].matches = value;
+        },
+        fetchMatches, 'aoe2de', 0, 10, auth
     );
 
     const allMatches = useLazyApi(
+        {},
         fetchMatches, 'aoe2de', 0, 1000, auth
     );
 

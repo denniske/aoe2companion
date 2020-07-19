@@ -10,12 +10,12 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
     "esModuleInterop": true,
     "importHelpers": true,
     "resolveJsonModule": true,
     "target": "es5",
     "strict": true,
-    "noImplicitAny": false,
     "strictNullChecks": false,
     "typeRoots": [
       "node_modules/@types"

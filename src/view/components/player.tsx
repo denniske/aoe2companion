@@ -48,7 +48,7 @@ export function Player({player}: IPlayerProps) {
     const styles = useTheme(variants);
     const auth = useSelector(state => state.auth);
     const [modalVisible, setModalVisible] = useState(false);
-    const rating = useLazyApi(loadRatingHistories, 'aoe2de', userIdFromBase(player));
+    const rating = useLazyApi({}, loadRatingHistories, 'aoe2de', userIdFromBase(player));
 
     const boxStyle = [styles.square, {backgroundColor: getPlayerBackgroundColor(player.color)}];
 

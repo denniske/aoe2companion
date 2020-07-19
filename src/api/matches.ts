@@ -31,12 +31,14 @@ export async function fetchMatches(game: string, start: number, count: number, p
         count,
         ...params,
     });
-    const response = await fetch(`https://aoe2.net/api/player/matches?${queryString}`)
+    const url = `https://aoe2.net/api/player/matches?${queryString}`;
+    console.log(url);
+    const response = await fetch(url)
     const json = await response.json() as IMatchRaw[];
 
     const end = new Date();
     // console.log((end.getTime() - start2.getTime())/1000);
 
-    // console.log("matches json", json);
+    console.log("matches json", json);
     return json.map(match => convertTimestampsToDates(match));
 }
