@@ -13,6 +13,8 @@ x fix feed menu buttons click area
 - leaderbord by country?
 
 
+user count 16.30: 198938 users
+
 function.aoe2companion.com
 
 sls invoke local -f hello2 -l -r eu-central-1

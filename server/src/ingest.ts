@@ -8,7 +8,7 @@ import { chunk } from 'lodash';
 async function fetchLeaderboardDataset(leaderboardId: number, start: number, count: number) {
     const connection = await createDB();
 
-    console.log("Fetch leaderboard dataset", start, count);
+    console.log("Fetch leaderboard dataset", leaderboardId, ': ', start, '+', count);
 
     const data = await fetchLeaderboard('aoe2de', leaderboardId, { start, count });
     const entries: ILeaderboardPlayerRaw[] = data.leaderboard;
@@ -84,8 +84,6 @@ async function fetchLeaderboardData(leaderboardId: number) {
 }
 
 export const ingest: APIGatewayProxyHandler = async (event, _context) => {
-    const connection = await createDB();
-
     await fetchLeaderboardData(0);
     await fetchLeaderboardData(1);
     await fetchLeaderboardData(2);
@@ -104,7 +102,6 @@ export const ingest: APIGatewayProxyHandler = async (event, _context) => {
             message: 'Hu:' + process.env.TWITTER_ACCESS_TOKEN + '. Ho:' + process.env.TWITTER_ACCESS_TOKEN2 + '. Go Serverless Webpack (Typescript) v10.0! Your function executed successfully!',
             updated: new Date(),
             // input: event,
-            // users: users,//.map(u => u.data),
         }, null, 2),
     };
 }

@@ -27,10 +27,10 @@ export interface IFetchLeaderboardParams {
 export type Host = 'aoe2companion' | 'aoe2net';
 
 function getHost(host: Host) {
-    // if (__DEV__) {
-    //     const platformHost = Platform.select({ios: 'localhost', android: '10.0.2.2'});
-    //     return `http://${platformHost}:3000/dev/`;
-    // }
+    if (__DEV__) {
+        const platformHost = Platform.select({ios: 'localhost', android: '10.0.2.2'});
+        return `http://${platformHost}:3000/dev/`;
+    }
     switch (host) {
         case "aoe2companion":
             return `https://function.aoe2companion.com/`;
@@ -73,4 +73,8 @@ export async function fetchLeaderboard(game: string, leaderboard_id: number, par
         }
         throw e;
     }
+}
+
+export async function fetchLeaderboardLegacy(game: string, leaderboard_id: number, params: IFetchLeaderboardParams) {
+    return await fetchLeaderboardInternal(getHost('aoe2net'), game, leaderboard_id, params);
 }

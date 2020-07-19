@@ -4,6 +4,7 @@ import {createDB} from "./handler";
 import {getValue, setValue} from "./helper";
 import {LeaderboardRow} from "../entity/leaderboard-row";
 import {getUnixTime} from 'date-fns';
+import {Like} from "typeorm";
 
 function getParam(params: { [name: string]: string } | null, key: string): string {
     if (params == null) {
@@ -19,6 +20,11 @@ export const leaderboard: APIGatewayProxyHandler = async (event, _context) => {
     const count = parseInt(getParam(event.queryStringParameters, 'count') ?? '10');
     const leaderboardId = parseInt(getParam(event.queryStringParameters, 'leaderboard_id'));
     const country = getParam(event.queryStringParameters, 'country') || null;
+    const steamId = getParam(event.queryStringParameters, 'steam_id') || null;
+    const profileId = getParam(event.queryStringParameters, 'profile_id') || null;
+    const search = getParam(event.queryStringParameters, 'search') || null;
+
+    console.log('params:', event.queryStringParameters);
 
     if (
         count > 200 ||
@@ -36,9 +42,10 @@ export const leaderboard: APIGatewayProxyHandler = async (event, _context) => {
     const leaderboardUpdated = new Date(await getValue('leaderboardUpdated')) || new Date(1970);
 
     let where: any = {'leaderboardId': leaderboardId};
-    if (country) {
-        where['country'] = country;
-    }
+    if (country) where['country'] = country;
+    if (steamId) where['steamId'] = steamId;
+    if (profileId) where['profileId'] = profileId;
+    if (search) where['name'] = Like(`%${search}%`);
 
     // @ts-ignore
     const users = await connection.manager.find(LeaderboardRow, {where: where, skip: start-1, take: count, order: { 'rank': 'ASC' }});
@@ -54,7 +61,10 @@ export const leaderboard: APIGatewayProxyHandler = async (event, _context) => {
             count: count,
             country: country,
             leaderboard: users.map((u, i) => {
-                return {...u.data, rank: start+i};
+                if (country) {
+                    return {...u.data, rank: start+i};
+                }
+                return u.data;
             }),
         }, null, 2),
     };

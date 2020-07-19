@@ -1,4 +1,4 @@
-import { fetchLeaderboard } from '../api/leaderboard';
+import {fetchLeaderboard, fetchLeaderboardLegacy} from '../api/leaderboard';
 import { groupBy, sortBy, sumBy } from 'lodash-es'
 import {Flag} from "../helper/flags";
 import {ILeaderboardPlayer} from "../helper/data";
@@ -20,11 +20,11 @@ export const loadUser = async (game: string, search: string) => {
     console.log("loading user", game, search);
 
     let leaderboards = await Promise.all([
-        fetchLeaderboard(game, 0, {count: 50, search: search}),
-        fetchLeaderboard(game, 1, {count: 50, search: search}),
-        fetchLeaderboard(game, 2, {count: 50, search: search}),
-        fetchLeaderboard(game, 3, {count: 50, search: search}),
-        fetchLeaderboard(game, 4, {count: 50, search: search}),
+        fetchLeaderboardLegacy(game, 0, {count: 50, search: search}),
+        fetchLeaderboardLegacy(game, 1, {count: 50, search: search}),
+        fetchLeaderboardLegacy(game, 2, {count: 50, search: search}),
+        fetchLeaderboardLegacy(game, 3, {count: 50, search: search}),
+        fetchLeaderboardLegacy(game, 4, {count: 50, search: search}),
     ]);
 
     // Group by

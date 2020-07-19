@@ -21,7 +21,6 @@ export async function setValue(id: string, value: any) {
 export async function getValue(id: string) {
     const connection = await createDB();
     const keyValue = await connection.manager.findOne(KeyValue, id);
-    console.log('keyValue?.value', keyValue?.value);
     return JSON.parse(keyValue?.value ?? null);
 }
 

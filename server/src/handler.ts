@@ -38,18 +38,11 @@ export async function createDB() {
         // If AlreadyHasActiveConnectionError occurs, return already existing connection
         if (err.name === "AlreadyHasActiveConnectionError") {
             const existingConnection = getConnectionManager().get("default");
-            console.log('Using existing connection. Connected: ', existingConnection.isConnected);
+            // console.log('Using existing connection. Connected: ', existingConnection.isConnected);
             // console.log('Using existing connection. Connected: ', existingConnection.entityMetadatas);
-
             return existingConnection;
         } else {
             throw err;
         }
     }
 }
-
-
-// export {hello3} from "./hello3";
-// export {leaderboard} from "./leaderboard";
-// export {ingest} from "./ingest";
-

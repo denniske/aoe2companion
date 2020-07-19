@@ -289,7 +289,7 @@ function Leaderboard({leaderboardId}: any) {
                 return data;
             },
         },
-        fetchLeaderboard, 'aoe2de', leaderboardId, getParams(1, 25)
+        fetchLeaderboard, 'aoe2de', leaderboardId, getParams(1, 100)
     );
 
     const onRefresh = async () => {
@@ -303,7 +303,7 @@ function Leaderboard({leaderboardId}: any) {
         if (fetchingMore) return;
         setFetchingMore(true);
         const matchesLength = matches.data?.leaderboard?.length ?? 0;
-        const newMatchesData = await matches.refetchAppend('aoe2de', leaderboardId, getParams(matchesLength+1, 25));
+        const newMatchesData = await matches.refetchAppend('aoe2de', leaderboardId, getParams(matchesLength+1, 100));
         if (matchesLength === newMatchesData?.leaderboard?.length) {
             setFetchedAll(true);
         }
@@ -480,13 +480,12 @@ const getStyles = (theme: ITheme) => {
         cellRank: {
             padding: padding,
             textAlign: 'left',
-            flex: 1,
-            // marginRight: 20,
+            width: 60,
             // backgroundColor: 'red',
         },
         cellRating: {
             padding: padding,
-            flex: 1.5,
+            width: 55,
         },
         flexRow: {
             flexDirection: 'row',
@@ -507,10 +506,7 @@ const getStyles = (theme: ITheme) => {
             flex: 2.5,
             textAlign: 'right',
             fontSize: 12,
-            // marginLeft: 26,
-            // marginTop: 4,
             color: theme.textNoteColor,
-            // marginLeft: 5,
         },
         cellWins: {
             padding: padding,

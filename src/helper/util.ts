@@ -31,7 +31,7 @@ export function formatDate(date: Date) {
 }
 
 export function formatAgo(date: Date) {
-    return formatDistanceToNowStrict(date, {locale: enUS, addSuffix: true, unit: 'hour'});
+    return formatDistanceToNowStrict(date, {locale: enUS, addSuffix: true});
 }
 
 interface IParams {
