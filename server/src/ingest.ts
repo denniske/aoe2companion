@@ -67,7 +67,7 @@ async function fetchLeaderboardData(leaderboardId: number) {
     let rowCount = 0;
     const count = 10000;
 
-    for (let start = 1; start < 70000; start += count) {
+    for (let start = 1; start < 200000; start += count) {
         const resultCount = await fetchLeaderboardDataset(leaderboardId, start, count);
         rowCount += resultCount;
         if (resultCount < count) break;
