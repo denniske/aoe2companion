@@ -65,7 +65,7 @@ export function LeaderboardMenu() {
     };
     const orderedCountriesDistinct = orderBy(countriesDistinct, c => formatCountry(c, true));
     const countryList: (string | null)[] = [countryEarth, 'DE', ...orderedCountriesDistinct];
-    const divider = (x: any, i?: number) => !!i && i < 2;
+    const divider = (x: any, i: number) => i < 2;
     const icon = (x: any) => {
         if (x == countryEarth) {
             return <IconFA name="globe" size={21} style={{paddingLeft: 2, paddingRight: 7}} color={theme.colors.text} />;

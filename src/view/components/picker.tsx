@@ -10,7 +10,7 @@ interface IPickerProps<T> {
     values: T[];
     formatter: (value: T, inList?: boolean) => string;
     icon?: (value: T) => React.ReactNode;
-    divider?: (value: T, index?: number) => boolean;
+    divider?: (value: T, index: number) => boolean;
     cell?: (props: {}) => React.ReactNode;
     onSelect: (value: T) => void;
     style?: StyleProp<ViewStyle>;
