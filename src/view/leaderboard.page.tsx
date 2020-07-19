@@ -263,7 +263,7 @@ function Leaderboard({leaderboardId}: any) {
     const navigation = useNavigation<RootStackProp>();
     const flatListRef = React.useRef<FlatList>(null);
 
-    console.log('leaderboardCountry', leaderboardCountry);
+    // console.log('leaderboardCountry', leaderboardCountry);
 
     // const navigationState = useNavigationStateExternal();
     // const leaderboardState = findState(navigationState, 'Leaderboard');

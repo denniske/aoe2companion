@@ -106,9 +106,9 @@ export default function UserPage() {
     const loadStats = () => allMatches.reload();
 
     useEffect(() => {
-        console.log("FETCHING MATCHES TRY", hasMatchesOrStats, prevLeaderboardId);
+        // console.log("FETCHING MATCHES TRY", hasMatchesOrStats, prevLeaderboardId);
         if (!hasMatchesOrStats && prevLeaderboardId != null) {
-            console.log("FETCHING MATCHES");
+            // console.log("FETCHING MATCHES");
             allMatches.reload();
         }
     }, [leaderboardId]);

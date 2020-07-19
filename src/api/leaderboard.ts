@@ -50,13 +50,12 @@ async function fetchLeaderboardInternal(baseUrl: string, game: string, leaderboa
     });
 
     const url = baseUrl + `api/leaderboard?${queryString}`;
-    console.log("fetchLeaderboardInternal", url);
     const response = await fetch(url);
     try {
         const json = await response.json();
         // console.log("fetchLeaderboard response", json);
 
-        console.log('DURATION', (new Date().getTime() - start.getTime()));
+        // console.log('DURATION', (new Date().getTime() - start.getTime()));
 
         return convertTimestampsToDates(json);
     } catch (e) {

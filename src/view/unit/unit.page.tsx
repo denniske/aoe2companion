@@ -28,7 +28,6 @@ export function unitTitle(props: any) {
 export default function UnitPage() {
     const route = useRoute<RouteProp<RootStackParamList, 'Unit'>>();
     const unit = route.params?.unit as Unit;
-    console.log("unit.page", unit);
 
     if (unit) {
         return (

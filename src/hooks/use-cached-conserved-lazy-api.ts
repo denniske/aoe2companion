@@ -54,10 +54,10 @@ export function useCachedConservedLazyApi<A extends (...args: any) => any>(dep: 
     const init = async (...args: Parameters<A>) => {
         if (selectedState === undefined) {
             // console.log("useApi wants to load", defArgs);
-            console.log("==> CACHED LAZY LOAD");
+            // console.log("==> CACHED LAZY LOAD");
             await load(...args);
         } else {
-            console.log("==> CACHED LAZY INIT");
+            // console.log("==> CACHED LAZY INIT");
             // console.log("useApi has cached all", allState);
             // console.log("useApi has cached value", selectedState);
         }
@@ -66,9 +66,9 @@ export function useCachedConservedLazyApi<A extends (...args: any) => any>(dep: 
     useEffect(() => {
         mountedRef.current = true;
 
-        console.log("==> RELOAD TRY", selectedState, reloadPredicate());
+        // console.log("==> RELOAD TRY", selectedState, reloadPredicate());
         if (selectedState === undefined && reloadPredicate()) {
-            console.log("==> RELOAD");
+            // console.log("==> RELOAD");
             load(...defArgs);
         }
 
@@ -77,8 +77,8 @@ export function useCachedConservedLazyApi<A extends (...args: any) => any>(dep: 
         };
     }, dep);
 
-    console.log('API SelectedState', selectedState);
-    console.log('API data', data);
+    // console.log('API SelectedState', selectedState);
+    // console.log('API data', data);
 
     return {data: selectedState !== undefined ? selectedState : data, loading, refetch, reload, init};
 }
