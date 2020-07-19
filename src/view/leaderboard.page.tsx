@@ -63,7 +63,7 @@ export function LeaderboardMenu() {
         }
         return inList ? getCountryName(x as Country) : x;
     };
-    const orderedCountriesDistinct = orderBy(countriesDistinct, c => formatCountry(c, true));
+    const orderedCountriesDistinct = countriesDistinct.sort((a, b) => formatCountry(a, true).localeCompare(formatCountry(b, true)));
     const countryList: (string | null)[] = [countryEarth, 'DE', ...orderedCountriesDistinct];
     const divider = (x: any, i: number) => i < 2;
     const icon = (x: any) => {
@@ -71,7 +71,7 @@ export function LeaderboardMenu() {
             return <IconFA name="globe" size={21} style={{paddingLeft: 2, paddingRight: 7}} color={theme.colors.text} />;
         }
         // console.log('getFlagIcon(x)', x, getFlagIcon(x));
-        return <Image style={styles.countryIcon} source={getFlagIcon(x)}/>;
+        return <Image fadeDuration={0} style={styles.countryIcon} source={getFlagIcon(x)}/>;
     };
     const onCountrySelected = (country: string | null) => {
         mutate(setLeaderboardCountry(country));
