@@ -90,8 +90,6 @@ export default function PlayerList({list, selectedUser, actionText, action}: ISe
 
                 <FlatList
                         keyboardShouldPersistTaps={'always'}
-                        // refreshing={user.loading}
-                        // onRefresh={refresh}
                         data={list}
                         renderItem={({item}) => {
                             return <Player player={item} selectedUser={selectedUser} actionText={actionText} action={action}/>;

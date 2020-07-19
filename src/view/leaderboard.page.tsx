@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, Dimensions, FlatList, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+    ActivityIndicator, Dimensions, FlatList, Image, StyleSheet, TouchableOpacity, View
+} from 'react-native';
 import {useNavigation, useRoute, useNavigationState} from '@react-navigation/native';
 import {fetchLeaderboard} from "../api/leaderboard";
 import {userIdFromBase} from "../helper/user";
@@ -25,7 +27,7 @@ import {getString} from "../helper/strings";
 import TextHeader from "./components/navigation-header/text-header";
 import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
 import {formatAgo, formatDate, formatDateShort, formatDayAndTime} from "../helper/util";
-import {usePrevious} from "../hooks/use-previous";
+import RefreshControlThemed from "./components/refresh-control-themed";
 
 type TabParamList = {
     LeaderboardRm1v1: { leaderboardId: number };
@@ -373,8 +375,6 @@ function Leaderboard({leaderboardId}: any) {
                     matches.data?.total > 0 &&
                     <FlatList
                         ref={flatListRef}
-                        onRefresh={onRefresh}
-                        refreshing={refetching}
                         contentContainerStyle={styles.list}
                         data={list}
                         renderItem={({item, index}) => {
@@ -393,6 +393,12 @@ function Leaderboard({leaderboardId}: any) {
                         onEndReached={fetchedAll ? null : onEndReached}
                         onEndReachedThreshold={0.1}
                         keyExtractor={(item, index) => index.toString()}
+                        refreshControl={
+                            <RefreshControlThemed
+                                onRefresh={onRefresh}
+                                refreshing={refetching}
+                            />
+                        }
                     />
                 }
             </View>

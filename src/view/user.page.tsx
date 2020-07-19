@@ -25,6 +25,7 @@ import {useCachedConservedLazyApi} from "../hooks/use-cached-conserved-lazy-api"
 import {getStats} from "../service/stats";
 import {usePrevious} from "../hooks/use-previous";
 import {useLazyApi} from "../hooks/use-lazy-api";
+import RefreshControlThemed from "./components/refresh-control-themed";
 
 
 export default function UserPage() {
@@ -147,8 +148,6 @@ export default function UserPage() {
             <View style={styles.container}>
                 <View style={styles.content}>
                     <FlatList
-                            onRefresh={onRefresh}
-                            refreshing={refetching}
                             contentContainerStyle={styles.list}
                             data={list}
                             renderItem={({item, index}) => {
@@ -195,12 +194,17 @@ export default function UserPage() {
                                     default:
                                         return <Game data={item as IMatch} expanded={false}/>;
                                 }
-
                             }}
                             ListFooterComponent={_renderFooter}
                             onEndReached={fetchedAll ? null : onEndReached}
                             onEndReachedThreshold={0.1}
                             keyExtractor={(item, index) => index.toString()}
+                            refreshControl={
+                                <RefreshControlThemed
+                                    onRefresh={onRefresh}
+                                    refreshing={refetching}
+                                />
+                            }
                     />
                 </View>
             </View>

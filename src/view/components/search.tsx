@@ -7,6 +7,7 @@ import {composeUserIdFromParts, UserInfo} from '../../helper/user';
 import {getFlagIcon} from '../../helper/flags';
 import {useCavy} from "cavy";
 import {MyText} from "./my-text";
+import RefreshControlThemed from "./refresh-control-themed";
 
 interface IPlayerProps {
     player: IFetchedUser;
@@ -119,8 +120,6 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
 
                 <FlatList
                         keyboardShouldPersistTaps={'always'}
-                        refreshing={user.loading}
-                        onRefresh={refresh}
                         data={list}
                         renderItem={({item}) => {
                             if (item.type === 'text') {
@@ -129,6 +128,12 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
                             return <Player player={item} selectedUser={selectedUser} actionText={actionText} action={action}/>;
                         }}
                         keyExtractor={(item, index) => index.toString()}
+                        refreshControl={
+                            <RefreshControlThemed
+                                refreshing={user.loading}
+                                onRefresh={refresh}
+                            />
+                        }
                 />
             </View>
     );

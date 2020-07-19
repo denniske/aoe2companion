@@ -20,6 +20,7 @@ import {MyText} from "./components/my-text";
 import {orderBy} from "lodash-es";
 import {ITheme, makeVariants, useTheme} from "../theming";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
+import RefreshControlThemed from "./components/refresh-control-themed";
 
 
 export function feedTitle(props: any) {
@@ -159,8 +160,6 @@ export function FeedList() {
                             </View>
                     }
                     <FlatList
-                            onRefresh={onRefresh}
-                            refreshing={refetching}
                             style={styles.list}
                             data={list}
                             renderItem={({item, index}) => {
@@ -195,6 +194,12 @@ export function FeedList() {
                             onEndReached={onEndReached}
                             onEndReachedThreshold={0.1}
                             keyExtractor={(item, index) => index.toString()}
+                            refreshControl={
+                                <RefreshControlThemed
+                                    onRefresh={onRefresh}
+                                    refreshing={refetching}
+                                />
+                            }
                     />
                 </View>
             </View>

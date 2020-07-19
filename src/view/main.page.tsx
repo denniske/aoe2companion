@@ -28,6 +28,7 @@ import {usePrevious} from "../hooks/use-previous";
 import {useCachedConservedLazyApi} from "../hooks/use-cached-conserved-lazy-api";
 import {get, set} from "lodash-es";
 import {getStats} from "../service/stats";
+import RefreshControlThemed from "./components/refresh-control-themed";
 
 
 function MainHome() {
@@ -127,13 +128,6 @@ function MainHome() {
             <View style={styles.container}>
                 <View style={styles.content}>
                     <FlatList
-                            onRefresh={async () => {
-                                setRefreshing(true);
-                                await mutate(clearStatsPlayer(auth));
-                                await Promise.all([rating.reload(), profile.reload(), allMatches.reload()]);
-                                setRefreshing(false);
-                            }}
-                            refreshing={refreshing}
                             contentContainerStyle={styles.list}
                             data={list}
                             renderItem={({item, index}) => {
@@ -190,6 +184,17 @@ function MainHome() {
 
                             }}
                             keyExtractor={(item, index) => index.toString()}
+                            refreshControl={
+                                <RefreshControlThemed
+                                    onRefresh={async () => {
+                                        setRefreshing(true);
+                                        await mutate(clearStatsPlayer(auth));
+                                        await Promise.all([rating.reload(), profile.reload(), allMatches.reload()]);
+                                        setRefreshing(false);
+                                    }}
+                                    refreshing={refreshing}
+                                />
+                            }
                     />
                 </View>
             </View>
@@ -251,8 +256,6 @@ function MainMatches() {
             <View style={styles.container}>
                 <View style={styles.content}>
                     <FlatList
-                            onRefresh={onRefresh}
-                            refreshing={refetching}
                             contentContainerStyle={styles.list}
                             data={list}
                             renderItem={({item, index}) => {
@@ -265,6 +268,12 @@ function MainMatches() {
                             onEndReached={fetchedAll ? null : onEndReached}
                             onEndReachedThreshold={0.1}
                             keyExtractor={(item, index) => index.toString()}
+                            refreshControl={
+                                <RefreshControlThemed
+                                    onRefresh={onRefresh}
+                                    refreshing={refetching}
+                                />
+                            }
                     />
                 </View>
             </View>
