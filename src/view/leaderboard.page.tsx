@@ -243,7 +243,7 @@ function Leaderboard({leaderboardId}: any) {
 
     return (
         <View style={styles.container2}>
-            <View style={styles.content}>
+            <View style={[styles.content, {opacity: matches.loading ? 0.7 : 1}]}>
                 {
                     matches.error &&
                     <View style={styles.centered}>
@@ -297,7 +297,8 @@ const padding = 8;
 const getStyles = (theme: ITheme) => {
     return StyleSheet.create({
         list: {
-            padding: 20,
+            paddingHorizontal: 15,
+            paddingVertical: 20,
         },
         container2: {
             flex: 1,
@@ -385,7 +386,7 @@ const getStyles = (theme: ITheme) => {
         },
         cellGames: {
             padding: padding,
-            flex: 2.5,
+            width: 90,
             textAlign: 'right',
             fontSize: 12,
             color: theme.textNoteColor,
@@ -436,7 +437,7 @@ const getStyles = (theme: ITheme) => {
             flexDirection: 'row',
             alignItems: 'center',
             paddingHorizontal: 5,
-            paddingVertical: 6,
+            paddingVertical: 5,
             borderBottomWidth: 1,
             borderBottomColor: theme.lightBorderColor,
         },
@@ -469,7 +470,7 @@ const getStyles = (theme: ITheme) => {
 
         info: {
             textAlign: 'center',
-            marginBottom: 20,
+            marginBottom: 15,
             color: theme.textNoteColor,
             fontSize: 12,
         },
