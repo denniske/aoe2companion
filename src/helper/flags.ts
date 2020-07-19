@@ -68,7 +68,7 @@ const flagList = {
     'ER': require('../../assets/flags/ER_2x.png'),
     'ES': require('../../assets/flags/ES_2x.png'),
     'ET': require('../../assets/flags/ET_2x.png'),
-    'EU': require('../../assets/flags/EU_2x.png'),
+    // 'EU': require('../../assets/flags/EU_2x.png'),
     'FI': require('../../assets/flags/FI_2x.png'),
     'FJ': require('../../assets/flags/FJ_2x.png'),
     'FK': require('../../assets/flags/FK_2x.png'),
@@ -77,11 +77,6 @@ const flagList = {
     'FR': require('../../assets/flags/FR_2x.png'),
     'GA': require('../../assets/flags/GA_2x.png'),
     'GB': require('../../assets/flags/GB_2x.png'),
-    'GB-ENG': require('../../assets/flags/GB-ENG_2x.png'),
-    'GB-NIR': require('../../assets/flags/GB-NIR_2x.png'),
-    'GB-SCT': require('../../assets/flags/GB-SCT_2x.png'),
-    'GB-WLS': require('../../assets/flags/GB-WLS_2x.png'),
-    'GB-ZET': require('../../assets/flags/GB-ZET_2x.png'),
     'GD': require('../../assets/flags/GD_2x.png'),
     'GE': require('../../assets/flags/GE_2x.png'),
     'GF': require('../../assets/flags/GF_2x.png'),
@@ -133,7 +128,6 @@ const flagList = {
     'LA': require('../../assets/flags/LA_2x.png'),
     'LB': require('../../assets/flags/LB_2x.png'),
     'LC': require('../../assets/flags/LC_2x.png'),
-    'LGBT': require('../../assets/flags/LGBT_2x.png'),
     'LI': require('../../assets/flags/LI_2x.png'),
     'LK': require('../../assets/flags/LK_2x.png'),
     'LR': require('../../assets/flags/LR_2x.png'),
@@ -239,7 +233,6 @@ const flagList = {
     'UG': require('../../assets/flags/UG_2x.png'),
     'UM': require('../../assets/flags/UM_2x.png'),
     'US': require('../../assets/flags/US_2x.png'),
-    'US-CA': require('../../assets/flags/US-CA_2x.png'),
     'UY': require('../../assets/flags/UY_2x.png'),
     'UZ': require('../../assets/flags/UZ_2x.png'),
     'VA': require('../../assets/flags/VA_2x.png'),
@@ -511,7 +504,7 @@ const countryNames = {
    'ZW': 'Zimbabw',
 };
 
-export const countriesDistinct = uniq(keysOf(flagList).map(country => country.substr(0, 2))) as Country[];
+export const countriesDistinct = uniq(keysOf(flagList)) as Country[];
 
 export type Flag = keyof typeof flagList;
 export type Country = keyof typeof countryNames;
