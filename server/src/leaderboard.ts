@@ -33,7 +33,7 @@ export const leaderboard: APIGatewayProxyHandler = async (event, _context) => {
     }
 
     // @ts-ignore
-    const leaderboardUpdated = await getValue('leaderboardUpdated') || new Date(1970);
+    const leaderboardUpdated = new Date(await getValue('leaderboardUpdated')) || new Date(1970);
 
     let where: any = {'leaderboardId': leaderboardId};
     if (country) {
