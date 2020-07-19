@@ -70,7 +70,6 @@ export function LeaderboardMenu() {
         if (x == countryEarth) {
             return <IconFA name="globe" size={21} style={{paddingLeft: 2, paddingRight: 7}} color={theme.colors.text} />;
         }
-        // console.log('getFlagIcon(x)', x, getFlagIcon(x));
         return <Image fadeDuration={0} style={styles.countryIcon} source={getFlagIcon(x)}/>;
     };
     const onCountrySelected = (country: string | null) => {
@@ -145,114 +144,6 @@ export default function LeaderboardPage() {
         </Tab.Navigator>
     );
 }
-
-const window = Dimensions.get("window");
-const screen = Dimensions.get("screen");
-
-// export function Leaderboard({leaderboardId} : any) {
-//     const paperTheme = usePaperTheme();
-//     const styles = useTheme(variants);
-//     const navigation = useNavigation<RootStackProp>();
-//     const [page, setPage] = useState(0);
-//     const [perPage, setPerPage] = useState(Math.floor((window.height - 300) / 42));
-//     const leaderboardCountry = useSelector(state => state.leaderboardCountry);
-//
-//     const getParams = () => {
-//         if (leaderboardCountry === countryEarth) {
-//             return {start: page * perPage + 1, count: perPage};
-//         }
-//         return {start: page * perPage + 1, count: perPage, country: leaderboardCountry};
-//     }
-//
-//     const players = useLazyApi(
-//         fetchLeaderboard, 'aoe2de', leaderboardId, getParams()
-//     );
-//
-//     useEffect(() => {
-//         players.refetch('aoe2de', leaderboardId, getParams());
-//     }, [page, perPage, leaderboardCountry]);
-//
-//     const onSelect = async (player: ILeaderboardPlayer) => {
-//         navigation.push('User', {
-//             id: userIdFromBase(player),
-//             name: player.name,
-//         });
-//     };
-//
-//     const previousPage = async () => {
-//         if (page > 0) {
-//             setPage(page - 1);
-//         }
-//     };
-//
-//     const nextPage = async () => {
-//         setPage(page + 1);
-//     };
-//
-//     const count = players.data?.leaderboard.length;
-//     const total = players.data?.total;
-//     const from = page * perPage + 1;
-//     const to = from + count - 1;
-//     const canPrevious = page > 0;
-//     const canNext = to < total;
-//
-//     const list = [...(players.data?.leaderboard || Array(perPage).fill(null))];
-//
-//     const _renderRow = (player: any, i: number) => {
-//         return (
-//             <TouchableOpacity style={styles.row} key={i} onPress={() => onSelect(player)}>
-//                 <View style={styles.innerRow}>
-//                     <TextLoader style={styles.cellRank}>{player?.rank}</TextLoader>
-//                     <TextLoader style={styles.cellRating}>{player?.rating}</TextLoader>
-//                     <View style={styles.cellName}>
-//                         <ImageLoader style={styles.countryIcon} source={getFlagIcon(player?.country)}/>
-//                         <TextLoader style={styles.name} numberOfLines={1}>{player?.name}</TextLoader>
-//                     </View>
-//                     <TextLoader style={styles.cellGames}>{player?.games}</TextLoader>
-//                 </View>
-//             </TouchableOpacity>
-//         );
-//     };
-//
-//     return (
-//         <View style={styles.container}>
-//             {/*<MyText style={styles.title}>{getString('leaderboard', leaderboardId)}</MyText>*/}
-//
-//             <View style={styles.headerRow}>
-//                 <MyText style={styles.cellRank} numberOfLines={1}>Rank</MyText>
-//                 <MyText style={styles.cellRating} numberOfLines={1}>Rating</MyText>
-//                 <MyText style={styles.cellName} numberOfLines={1}>Name</MyText>
-//                 <MyText style={styles.cellGames} numberOfLines={1}>Games</MyText>
-//             </View>
-//
-//             <View style={styles.measureContainer}>
-//                 {
-//                     list.map((player, i) => _renderRow(player, i))
-//                 }
-//             </View>
-//         </View>
-//     );
-// }
-
-
-// const _renderRow = (player: any, i: number) => {
-//     return (
-//         <TouchableOpacity style={styles.row} key={i} onPress={() => onSelect(player)}>
-//             <View style={styles.innerRow}>
-//                 <TextLoader style={styles.cellRank}>#{player?.rank}</TextLoader>
-//                 <TextLoader style={styles.cellRating}>{player?.rating}</TextLoader>
-//                 <View style={styles.cellName}>
-//                     <View style={styles.flexRow}>
-//                         <ImageLoader style={styles.countryIcon} source={getFlagIcon(player?.country)}/>
-//                         <TextLoader style={styles.name} numberOfLines={1}>{player?.name}</TextLoader>
-//                     </View>
-//                     <TextLoader style={styles.cellGames}>{player?.games} games</TextLoader>
-//                 </View>
-//             </View>
-//         </TouchableOpacity>
-//     );
-// };
-
 
 function Leaderboard({leaderboardId}: any) {
     const styles = useTheme(variants);
@@ -353,12 +244,6 @@ function Leaderboard({leaderboardId}: any) {
     return (
         <View style={styles.container2}>
             <View style={styles.content}>
-                {/*<View style={styles.headerRow}>*/}
-                {/*    <MyText style={styles.cellRank} numberOfLines={1}>Rank</MyText>*/}
-                {/*    <MyText style={styles.cellRating} numberOfLines={1}>Rating</MyText>*/}
-                {/*    <MyText style={styles.cellName} numberOfLines={1}>Name</MyText>*/}
-                {/*    <MyText style={styles.cellGames} numberOfLines={1}>Games</MyText>*/}
-                {/*</View>*/}
                 {
                     matches.error &&
                     <View style={styles.centered}>
@@ -407,13 +292,10 @@ function Leaderboard({leaderboardId}: any) {
 }
 
 
-
 const padding = 8;
 
 const getStyles = (theme: ITheme) => {
     return StyleSheet.create({
-
-
         list: {
             padding: 20,
         },
