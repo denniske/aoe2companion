@@ -22,6 +22,11 @@ xcrun simctl boot 05D9592C-5EC4-4547-A519-8B6748CACBEE
 open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/
 
 
+aoe2net /player/matches does ignore the "start" parameter.
+the following request results return the same match "abc [DMWC3_Prairie]":
+https://aoe2.net/api/player/matches?game=aoe2de&start=1&count=1&id=76561197984749679-196240&steam_id=76561197984749679&profile_id=196240
+https://aoe2.net/api/player/matches?game=aoe2de&start=2&count=1&id=76561197984749679-196240&steam_id=76561197984749679&profile_id=196240
+
 
 Expo 38
 https://dev.to/expo/expo-sdk-38-is-now-available-5aa0
