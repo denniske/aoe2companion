@@ -1,0 +1,81 @@
+
+export interface IChange {
+    type: 'feature' | 'bugfix' | 'minor';
+    title: string;
+    content?: string;
+}
+
+export interface IChangelog {
+    [version: string]: IChange[];
+}
+
+export const changelog: IChangelog = {
+    '11.0.6': [
+        {
+            type: 'feature',
+            title: 'Changelog',
+            content: 'The changelog shows new features and bugfixes after each release.',
+        },
+    ],
+    '11.0.5': [
+        {
+            type: 'feature',
+            title: 'Country Leaderboard',
+            content: 'The leaderboard page can now show leaderboard for every country.',
+        },
+    ],
+    '11.0.0': [
+        {
+            type: 'feature',
+            title: 'System-based dark mode',
+            content: 'Added option to change dark mode based on device settings.',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix status bar color in dark mode',
+        },
+    ],
+    '10.0.6': [
+        {
+            type: 'feature',
+            title: 'Statistics filtering',
+            content: 'Added statistics filtering by leaderboard (RM 1v1, RM Team, DM 1v1, DM Team, Unranked)',
+        },
+        {
+            type: 'feature',
+            title: 'Dark Mode',
+            content: 'Added dark mode (see settings)',
+        },
+    ],
+    '10.0.4': [
+        {
+            type: 'feature',
+            title: 'Update Bar',
+            content: 'Check for updates on startup and show update bar if update is available.',
+        },
+    ],
+    '10.0.3': [
+        {
+            type: 'minor',
+            title: 'Added cost, training time and many other information on unit page',
+        },
+        {
+            type: 'minor',
+            title: 'Added cost, research time on tech page',
+        },
+        {
+            type: 'minor',
+            title: 'Added Parthian Tactics to tech tree',
+        },
+    ],
+    '10.0.2': [
+        {
+            type: 'minor',
+            title: 'Added Steppe Lancer, Battle Elephant and Eagle line to tech tree',
+        },
+        {
+            type: 'minor',
+            title: 'Fixed Indians civ page',
+        },
+    ],
+};

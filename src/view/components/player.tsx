@@ -18,6 +18,7 @@ import IconFA5 from 'react-native-vector-icons/FontAwesome5';
 import {MyText} from "./my-text";
 import {useSelector} from "../../redux/reducer";
 import {ITheme, makeVariants, useTheme} from "../../theming";
+import SimpleModal from "./simple-modal";
 
 interface IPlayerProps {
     player: IPlayer;
@@ -75,23 +76,10 @@ export function Player({player}: IPlayerProps) {
 
     return (
         <View style={styles.player}>
-            <Modal animationType="none" transparent={true} visible={modalVisible}>
-                <TouchableWithoutFeedback onPress={closeRatingModal}>
-                    <View style={styles.centeredView}>
-                        <TouchableWithoutFeedback onPress={() => {
-                        }}>
-                            <View style={styles.modalView}>
-                                <TouchableOpacity style={styles.modalCloseIcon} onPress={closeRatingModal}
-                                                   >
-                                    <Icon name={'close'} size={24}/>
-                                </TouchableOpacity>
-                                <MyText style={styles.modalText} numberOfLines={1}>{player.name}</MyText>
-                                <Rating ratingHistories={rating.data}/>
-                            </View>
-                        </TouchableWithoutFeedback>
-                    </View>
-                </TouchableWithoutFeedback>
-            </Modal>
+            <SimpleModal title={player.name} visible={modalVisible} onClose={closeRatingModal}>
+                <Rating ratingHistories={rating.data}/>
+            </SimpleModal>
+
             <View style={styles.playerWonCol}>
                 {
                     player.won &&

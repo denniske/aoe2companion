@@ -45,6 +45,7 @@ import SettingsPage from "./src/view/settings.page";
 import {appVariants} from "./src/styles";
 import {AppearanceProvider, useColorScheme} from "react-native-appearance";
 import {NavigationState} from "@react-navigation/routers";
+import ChangelogPage from "./src/view/changelog.page";
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -73,6 +74,9 @@ const linking = {
         About: {
             path: 'about',
         },
+        Changelog: {
+            path: 'changelog',
+        },
         Privacy: {
             path: 'privacy',
         },
@@ -98,6 +102,7 @@ export type RootStackParamList = {
     Welcome: undefined;
     Privacy: undefined;
     About: undefined;
+    Changelog: undefined;
     Settings: undefined;
     Main: undefined;
     Feed: { action?: string };
@@ -188,6 +193,27 @@ export function InnerApp() {
                 animationEnabled: false,
             }}>
                 <Stack.Screen
+                    name="Main"
+                    component={MainPage}
+                    options={{
+                        title: 'Me',
+                    }}
+                />
+                <Stack.Screen
+                    name="Changelog"
+                    component={ChangelogPage}
+                    options={{
+                        title: 'Changelog',
+                    }}
+                />
+                <Stack.Screen
+                    name="About"
+                    component={AboutPage}
+                    options={{
+                        title: 'About',
+                    }}
+                />
+                <Stack.Screen
                     name="Leaderboard"
                     component={LeaderboardPage}
                     options={props => ({
@@ -195,13 +221,6 @@ export function InnerApp() {
                         headerRight: leaderboardMenu(props),
                         headerTitle: titleProps => <LeaderboardTitle {...props} titleProps={titleProps} />,
                     })}
-                />
-                <Stack.Screen
-                    name="Main"
-                    component={MainPage}
-                    options={{
-                        title: 'Me',
-                    }}
                 />
                 <Stack.Screen
                     name="Feed"
@@ -260,13 +279,6 @@ export function InnerApp() {
                     component={SearchPage}
                     options={{
                         title: 'Search',
-                    }}
-                />
-                <Stack.Screen
-                    name="About"
-                    component={AboutPage}
-                    options={{
-                        title: 'About',
                     }}
                 />
                 <Stack.Screen

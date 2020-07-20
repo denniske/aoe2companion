@@ -28,6 +28,7 @@ export default function UpdateSnackbar() {
             mutate(setUpdateStoreManifest(storeUpdate));
             return;
         }
+
         close();
     };
 

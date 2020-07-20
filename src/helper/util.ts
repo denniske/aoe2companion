@@ -72,3 +72,5 @@ export function sanitizeGameDescription(description: string) {
         .replace(/<\/i>/g, '')
         .replace(/<br>/g, '');
 }
+
+export const noop = () => {};
