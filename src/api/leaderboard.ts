@@ -2,6 +2,7 @@ import { makeQueryString } from '../helper/util';
 import {ILeaderboard, ILeaderboardRaw} from "../helper/data";
 import {fromUnixTime} from "date-fns";
 import {Platform} from "react-native";
+import Constants from 'expo-constants';
 
 
 function convertTimestampsToDates(leaderboardRaw: ILeaderboardRaw): ILeaderboard {
@@ -27,9 +28,9 @@ export interface IFetchLeaderboardParams {
 export type Host = 'aoe2companion' | 'aoe2net';
 
 function getHost(host: Host) {
-    if (__DEV__) {
-        const platformHost = Platform.select({ios: 'localhost', android: '10.0.2.2'});
-        return `http://${platformHost}:3000/dev/`;
+    if (__DEV__ && !Constants.isDevice) {
+       const platformHost = Platform.select({ios: 'localhost', android: '10.0.2.2'});
+       return `http://${platformHost}:3000/dev/`;
     }
     switch (host) {
         case "aoe2companion":
