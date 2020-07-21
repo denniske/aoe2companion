@@ -19,6 +19,8 @@ x fix feed menu buttons click area
 - leaderbord by country?
 
 
+npx expo build:web
+
 user count 16.30: 198938 users
 
 function.aoe2companion.com
