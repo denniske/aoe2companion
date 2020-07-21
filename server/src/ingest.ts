@@ -5,6 +5,12 @@ import {fetchLeaderboard, ILeaderboardPlayerRaw, setValue} from "./helper";
 import {LeaderboardRow} from "../entity/leaderboard-row";
 import { chunk } from 'lodash';
 
+function sleep(ms: number) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
+}
+
 async function fetchLeaderboardDataset(leaderboardId: number, start: number, count: number) {
     const connection = await createDB();
 
@@ -35,7 +41,6 @@ async function fetchLeaderboardDataset(leaderboardId: number, start: number, cou
         await query.execute();
     }
 
-
     const userRows = entries.map(entry => {
         const user = new User();
         user.profileId = entry.profile_id;
@@ -54,6 +59,7 @@ async function fetchLeaderboardDataset(leaderboardId: number, start: number, cou
             .values(chunkUserRows)
             .orUpdate({ conflict_target: ['"profileId"'], overwrite: ['"steamId"', 'name', 'clan', 'country', 'data'] });
         await query.execute();
+        await sleep(100);
     }
 
     console.log("Saved entries:", rows.length);
