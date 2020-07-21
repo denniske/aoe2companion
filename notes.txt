@@ -1,4 +1,10 @@
 
+api performance
+- do not use jsonb
+- indices?
+- do use separate connection for ingest
+- use vercel for api
+
 add content
 - tips and tricks
 - remaining unit counts
