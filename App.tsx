@@ -46,6 +46,7 @@ import {appVariants} from "./src/styles";
 import {AppearanceProvider, useColorScheme} from "react-native-appearance";
 import {NavigationState} from "@react-navigation/routers";
 import ChangelogPage from "./src/view/changelog.page";
+import ChangelogSnackbar from "./src/view/components/changelog-snackbar";
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -102,7 +103,7 @@ export type RootStackParamList = {
     Welcome: undefined;
     Privacy: undefined;
     About: undefined;
-    Changelog: undefined;
+    Changelog: { changelogLastVersionRead?: string };
     Settings: undefined;
     Main: undefined;
     Feed: { action?: string };
@@ -184,6 +185,7 @@ export function InnerApp() {
 
             <Portal>
                 <UpdateSnackbar/>
+                <ChangelogSnackbar/>
             </Portal>
 
             <Header/>

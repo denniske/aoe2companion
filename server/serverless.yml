@@ -1,23 +1,8 @@
-# Welcome to Serverless!
-#
-# This file is the main config file for your service.
-# It's very minimal at this point and uses default values.
-# You can always add more config options for more control.
-# We've included some commented out config examples here.
-# Just uncomment any of them to get that config option.
-#
-# For full config options, check the docs:
-#    docs.serverless.com
-#
-# Happy Coding!
 
 service: aoe2companion
-# app and org for use with dashboard.serverless.com
 app: aoe2companion
 org: denniskeil10
 
-# You can pin your service to only deploy with a specific Serverless version
-# Check out our docs for more details
 frameworkVersion: ">=1.72.0"
 
 custom:
@@ -45,7 +30,6 @@ provider:
     TWITTER_ACCESS_TOKEN2: ${param:twitterAccessToken2}
     DATABASE_URL: ${param:DATABASE_URL}
 
-# you can overwrite defaults here
 stage: dev
 region: eu-central-1
 
@@ -78,7 +62,6 @@ region: eu-central-1
 #    - exclude-me.js
 #    - exclude-me-dir/**
 
-
 functions:
   hello3:
     handler: src/hello3.hello3
@@ -97,7 +80,7 @@ functions:
   ingest:
     handler: src/ingest.ingest
     memorySize: 256
-    timeout: 300
+    timeout: 350
     events:
       - http:
           path: ingest

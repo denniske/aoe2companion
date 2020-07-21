@@ -16,6 +16,14 @@ export const changelog: IChangelog = {
             title: 'Changelog',
             content: 'The changelog shows new features and bugfixes after each release.',
         },
+        {
+            type: 'minor',
+            title: 'Added "my rank" to leaderboard',
+        },
+        {
+            type: 'bugfix',
+            title: 'Startup screen is now "me" page again.',
+        },
     ],
     '11.0.5': [
         {

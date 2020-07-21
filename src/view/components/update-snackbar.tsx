@@ -7,6 +7,8 @@ import {
 } from "../../redux/reducer";
 import {reloadAsync} from "expo-updates";
 import {doCheckForStoreUpdate, doCheckForUpdateAsync, doFetchUpdateAsync} from "../../service/update";
+import {lt} from "semver";
+import Constants from "expo-constants";
 
 
 export default function UpdateSnackbar() {
@@ -14,6 +16,7 @@ export default function UpdateSnackbar() {
     const updateStoreManifest = useSelector(state => state.updateStoreManifest);
     const updateAvailable = useSelector(state => state.updateAvailable);
     const updateState = useSelector(state => state.updateState);
+    const changelogLastVersionRead = useSelector(state => state.prefs.changelogLastVersionRead);
     const mutate = useMutate();
 
     const init = async () => {
@@ -28,7 +31,9 @@ export default function UpdateSnackbar() {
             mutate(setUpdateStoreManifest(storeUpdate));
             return;
         }
+        if (changelogLastVersionRead == null || lt(changelogLastVersionRead, Constants.manifest.version!)) {
 
+        }
         close();
     };
 
@@ -109,7 +114,7 @@ export default function UpdateSnackbar() {
     return (
         <Snackbar
             visible={updateAvailable}
-            onDismiss={() => alert('dismiss')}
+            onDismiss={close}
             actions={actions}
             working={updateState === 'downloading'}>
             {message}

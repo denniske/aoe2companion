@@ -29,6 +29,12 @@ export async function doFetchUpdateAsync() {
     return await fetchUpdateAsync();
 }
 
+
+export async function doCheckForChangelog(changelogLastVersionRead: string) {
+    return ;
+}
+
+
 export async function doCheckForStoreUpdate() {
     switch (Platform.OS) {
         case 'android': {

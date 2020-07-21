@@ -13,6 +13,7 @@ export interface IConfig {
 
 export interface IPrefs {
     leaderboardId?: LeaderboardId;
+    changelogLastVersionRead?: string;
 }
 
 export interface ISettings {

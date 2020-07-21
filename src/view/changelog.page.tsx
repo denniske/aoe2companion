@@ -3,10 +3,15 @@ import {ScrollView, StyleSheet, View, ViewStyle} from 'react-native';
 import {MyText} from "./components/my-text";
 import {ITheme, makeVariants, useTheme} from "../theming";
 import {changelog, IChange} from "../changelog";
+import {RouteProp, useRoute} from "@react-navigation/native";
+import {RootStackParamList} from "../../App";
+import {lt} from "semver";
 
 
 export default function ChangelogPage() {
     const styles = useTheme(variants);
+    const route = useRoute<RouteProp<RootStackParamList, 'Changelog'>>();
+    const changelogLastVersionRead = route.params?.changelogLastVersionRead;
 
     const labelStyle = (change: IChange): ViewStyle => {
         const colors = {
@@ -19,17 +24,30 @@ export default function ChangelogPage() {
         };
     };
 
+    const newStyle = (): ViewStyle => {
+        return {
+            backgroundColor: 'orange',
+        };
+    };
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
             {
                 Object.entries(changelog).map(([version, changes]) =>
                     <View key={version}>
-                        <MyText style={styles.heading}>Version {version}</MyText>
+                        <View style={styles.row}>
+                            <MyText style={styles.heading}>Version {version}</MyText>
+                            {
+                                changelogLastVersionRead && lt(changelogLastVersionRead, version) &&
+                                <MyText style={styles.headingNote}> (new)</MyText>
+                            }
+                        </View>
                         {
                             changes.map(change =>
                                 <View key={change.title} style={styles.row}>
-                                    <View style={[styles.labelContainer, labelStyle(change)]}><MyText
-                                        style={styles.label}>{change.type}</MyText></View>
+                                    <View style={[styles.labelContainer, labelStyle(change)]}>
+                                        <MyText style={styles.label}>{change.type}</MyText>
+                                    </View>
                                     <View style={styles.textContainer}>
                                         <MyText style={styles.title}>{change.title}</MyText>
                                         <MyText style={styles.content}>{change.content}</MyText>
@@ -74,6 +92,13 @@ const getStyles = (theme: ITheme) => {
             fontWeight: 'bold',
             marginBottom: 10,
         },
+        headingNote: {
+            marginTop: 22,
+            fontWeight: 'bold',
+            marginBottom: 10,
+            fontSize: 12,
+            color: theme.textNoteColor,
+        },
         title: {
             fontWeight: '500',
             marginBottom: 5,
@@ -85,7 +110,6 @@ const getStyles = (theme: ITheme) => {
         },
         container: {
             minHeight: '100%',
-            // alignItems: 'center',
             padding: 20,
             paddingTop: 0,
         },
