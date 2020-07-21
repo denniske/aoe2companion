@@ -22,6 +22,10 @@ export const changelog: IChangelog = {
         },
         {
             type: 'bugfix',
+            title: 'Leaderboard does not fail if few entries are displayed.',
+        },
+        {
+            type: 'bugfix',
             title: 'Startup screen is now "me" page again.',
         },
     ],

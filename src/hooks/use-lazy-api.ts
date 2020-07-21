@@ -42,6 +42,7 @@ export function useLazyApi<A extends (...args: any) => any>(options: ILazyApiOpt
 
             return newData;
         } catch (e) {
+            console.warn(e);
             setError(true);
             return null;
         }

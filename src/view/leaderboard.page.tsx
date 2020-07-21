@@ -176,6 +176,7 @@ function Leaderboard({leaderboardId}: any) {
     const matches = useLazyApi(
         {
             append: (data, newData) => {
+                // console.log('APPEND', data, newData);
                 data.leaderboard.push(...newData.leaderboard);
                 return data;
             },
@@ -192,8 +193,9 @@ function Leaderboard({leaderboardId}: any) {
 
     const onEndReached = async () => {
         if (fetchingMore) return;
-        setFetchingMore(true);
         const matchesLength = matches.data?.leaderboard?.length ?? 0;
+        if (matchesLength < 100) return;
+        setFetchingMore(true);
         const newMatchesData = await matches.refetchAppend('aoe2de', leaderboardId, getParams(matchesLength+1, 100));
         if (matchesLength === newMatchesData?.leaderboard?.length) {
             setFetchedAll(true);
@@ -212,6 +214,8 @@ function Leaderboard({leaderboardId}: any) {
     }, [currentRouteLeaderboardId, leaderboardCountry]);
 
     const list = ['info', ...(matches.data?.leaderboard || Array(15).fill(null))];
+
+    console.log(matches?.error);
 
     const _renderFooter = () => {
         if (!fetchingMore) return null;
@@ -257,7 +261,7 @@ function Leaderboard({leaderboardId}: any) {
                     </View>
                 }
                 {
-                    matches.data?.total > 0 &&
+                    matches.data?.total !== 0 &&
                     <FlatList
                         ref={flatListRef}
                         contentContainerStyle={styles.list}
@@ -267,7 +271,7 @@ function Leaderboard({leaderboardId}: any) {
                                 case 'info':
                                     return (
                                         <MyText style={styles.info}>
-                                            {matches.data.total} players{matches.data.updated ? ' (updated ' + formatAgo(matches.data.updated) + ')' : ''}
+                                            {matches.data?.total} players{matches.data?.updated ? ' (updated ' + formatAgo(matches.data.updated) + ')' : ''}
                                         </MyText>
                                     );
                                 default:
