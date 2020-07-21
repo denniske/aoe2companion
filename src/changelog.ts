@@ -10,7 +10,7 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
-    '11.0.6': [
+    '12.0.0': [
         {
             type: 'feature',
             title: 'Changelog',
