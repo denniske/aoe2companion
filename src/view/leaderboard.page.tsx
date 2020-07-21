@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import {useNavigation, useRoute, useNavigationState} from '@react-navigation/native';
 import {fetchLeaderboard} from "../api/leaderboard";
-import {userIdFromBase} from "../helper/user";
+import {minifyUserId, sameUserNull, userIdFromBase} from "../helper/user";
 import {countriesDistinct, Country, getCountryName, getFlagIcon} from "../helper/flags";
 import {ILeaderboardPlayer} from "../helper/data";
 import {RootStackProp} from "../../App";
@@ -147,6 +147,7 @@ export default function LeaderboardPage() {
 
 function Leaderboard({leaderboardId}: any) {
     const styles = useTheme(variants);
+    const auth = useSelector(state => state.auth!);
     const [refetching, setRefetching] = useState(false);
     const [fetchingMore, setFetchingMore] = useState(false);
     const [fetchedAll, setFetchedAll] = useState(false);
@@ -165,13 +166,18 @@ function Leaderboard({leaderboardId}: any) {
 
     const currentRouteLeaderboardId = useNavigationState(state => (state.routes[state.index].params as any)?.leaderboardId);
 
-    const getParams = (start: number, count: number) => {
+    const getParams = (start: number, count: number, rest: object = {}) => {
         // start -= 1;
         if (leaderboardCountry == countryEarth) {
-            return {start, count};
+            return {start, count, ...rest};
         }
-        return {start, count, country: leaderboardCountry};
+        return {start, count, ...rest, country: leaderboardCountry};
     }
+
+    const myRank = useLazyApi(
+        {},
+        fetchLeaderboard, 'aoe2de', leaderboardId, getParams(1, 1, minifyUserId(auth))
+    );
 
     const matches = useLazyApi(
         {
@@ -187,7 +193,7 @@ function Leaderboard({leaderboardId}: any) {
     const onRefresh = async () => {
         setFetchedAll(false);
         setRefetching(true);
-        await matches.reload();
+        await Promise.all([matches.reload(), myRank.reload()]);
         setRefetching(false);
     };
 
@@ -210,10 +216,11 @@ function Leaderboard({leaderboardId}: any) {
         if (matches.touched && matches.lastParams?.leaderboardCountry === leaderboardCountry) return;
         setFetchedAll(false);
         matches.reload();
+        myRank.reload();
         flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
     }, [currentRouteLeaderboardId, leaderboardCountry]);
 
-    const list = ['info', ...(matches.data?.leaderboard || Array(15).fill(null))];
+    const list = ['info', ...(myRank.data?.leaderboard || []), ...(matches.data?.leaderboard || Array(15).fill(null))];
 
     console.log(matches?.error);
 
@@ -229,15 +236,17 @@ function Leaderboard({leaderboardId}: any) {
         });
     };
 
-    const _renderRow = (player: any, i: number) => {
+    const _renderRow = (player: ILeaderboardPlayer, i: number) => {
+        const isMe = sameUserNull(player, auth);
+        const isMyRankRow = isMe && i === 1;
         return (
             <TouchableOpacity style={styles.row} key={i} onPress={() => onSelect(player)}>
-                <View style={styles.innerRow}>
-                    <TextLoader style={styles.cellRank}>#{player?.rank}</TextLoader>
-                    <TextLoader style={styles.cellRating}>{player?.rating}</TextLoader>
+                <View style={isMyRankRow ? styles.innerRow : styles.innerRowWithBorder}>
+                    <TextLoader style={isMe ? styles.cellRankMe : styles.cellRank}>#{player?.rank}</TextLoader>
+                    <TextLoader style={isMe ? styles.cellRatingMe : styles.cellRating}>{player?.rating}</TextLoader>
                     <View style={styles.cellName}>
                         <ImageLoader style={styles.countryIcon} source={getFlagIcon(player?.country)}/>
-                        <TextLoader style={styles.name} numberOfLines={1}>{player?.name}</TextLoader>
+                        <TextLoader style={isMe ? styles.nameMe : styles.name} numberOfLines={1}>{player?.name}</TextLoader>
                     </View>
                     <TextLoader style={styles.cellGames}>{player?.games} games</TextLoader>
                 </View>
@@ -364,15 +373,29 @@ const getStyles = (theme: ITheme) => {
         name: {
             flex: 1,
         },
+        nameMe: {
+            flex: 1,
+            fontWeight: 'bold',
+        },
+        cellRankMe: {
+            padding: padding,
+            textAlign: 'left',
+            minWidth: 60,
+            fontWeight: 'bold',
+        },
         cellRank: {
             padding: padding,
             textAlign: 'left',
             width: 60,
-            // backgroundColor: 'red',
         },
         cellRating: {
             padding: padding,
             width: 55,
+        },
+        cellRatingMe: {
+            padding: padding,
+            width: 55,
+            fontWeight: 'bold',
         },
         flexRow: {
             flexDirection: 'row',
@@ -434,9 +457,14 @@ const getStyles = (theme: ITheme) => {
         },
         innerRow: {
             flex: 1,
-            // height: 40,
-            // alignItems: "center",
-            // backgroundColor: 'blue',
+            width: '100%',
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingHorizontal: 5,
+            paddingVertical: 12,
+        },
+        innerRowWithBorder: {
+            flex: 1,
             width: '100%',
             flexDirection: 'row',
             alignItems: 'center',

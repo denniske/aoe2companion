@@ -1,7 +1,6 @@
 import {APIGatewayProxyHandler} from "aws-lambda";
-import {User} from "../entity/user";
 import {createDB} from "./handler";
-import {getValue, setValue} from "./helper";
+import {getValue} from "./helper";
 import {LeaderboardRow} from "../entity/leaderboard-row";
 import {getUnixTime} from 'date-fns';
 import {Like} from "typeorm";
@@ -27,6 +26,7 @@ export const leaderboard: APIGatewayProxyHandler = async (event, _context) => {
     console.log('params:', event.queryStringParameters);
 
     if (
+        start < 1 ||
         count > 200 ||
         ![0, 1, 2, 3, 4].includes(leaderboardId)
     ) {
@@ -43,13 +43,45 @@ export const leaderboard: APIGatewayProxyHandler = async (event, _context) => {
 
     let where: any = {'leaderboardId': leaderboardId};
     if (country) where['country'] = country;
+
+    // Execute total before single-result restrictions are appended to where clause
+    const total = await connection.manager.count(LeaderboardRow, {where: where});
+
     if (steamId) where['steamId'] = steamId;
     if (profileId) where['profileId'] = profileId;
     if (search) where['name'] = Like(`%${search}%`);
 
+    if (country != null && (steamId != null || profileId != null)) {
+        const users = await connection
+            .createQueryBuilder()
+            .select('data')
+            .addSelect(subQuery => {
+                return subQuery
+                    .select('count(user.name)', 'rank')
+                    .from(LeaderboardRow, "user")
+                    .where('user.leaderboardId = :leaderboardId AND user.country = :country AND user.rank <= outer.rank', {leaderboardId, country});
+            })
+            .from(LeaderboardRow, "outer")
+            .where(where)
+            .getRawMany();
+
+        return {
+            statusCode: 200,
+            body: JSON.stringify({
+                updated: getUnixTime(leaderboardUpdated),
+                total: total,
+                leaderboard_id: leaderboardId,
+                start: start,
+                count: count,
+                country: country,
+                leaderboard: users.map(u => ({...u.data, rank: parseInt(u.rank)})),
+            }, null, 2),
+        };
+    }
+
+
     // @ts-ignore
     const users = await connection.manager.find(LeaderboardRow, {where: where, skip: start-1, take: count, order: { 'rank': 'ASC' }});
-    const total = await connection.manager.count(LeaderboardRow, {where: where});
 
     return {
         statusCode: 200,

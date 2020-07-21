@@ -43,7 +43,6 @@ function getHost(host: Host) {
 async function fetchLeaderboardInternal(baseUrl: string, game: string, leaderboard_id: number, params: IFetchLeaderboardParams) {
     const start = new Date();
 
-
     const queryString = makeQueryString({
         game,
         leaderboard_id,
@@ -51,6 +50,7 @@ async function fetchLeaderboardInternal(baseUrl: string, game: string, leaderboa
     });
 
     const url = baseUrl + `api/leaderboard?${queryString}`;
+    // console.log(url);
     const response = await fetch(url);
     try {
         const json = await response.json();
