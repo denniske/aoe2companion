@@ -74,13 +74,12 @@ export async function fetchLeaderboard(game: string, leaderboard_id: number, par
         ...params,
     });
 
-    // console.log("fetchLeaderboard", `https://aoe2.net/api/leaderboard?${queryString}`);
-    const response = await fetch(`https://aoe2.net/api/leaderboard?${queryString}`);
+    const url = `http://aoe2.net/api/leaderboard?${queryString}`;
+    const response = await fetch(url);
     try {
-        const json = await response.json();
-        return json;
+        return await response.json();
     } catch (e) {
-        console.log("FAILED", `https://aoe2.net/api/leaderboard?${queryString}`);
+        console.log("FAILED", url);
         throw e;
     }
 }

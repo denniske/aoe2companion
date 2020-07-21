@@ -12,10 +12,12 @@ import {lt} from "semver";
 import Constants from "expo-constants";
 import {RootStackParamList} from "../../../App";
 import {getRootNavigation} from "../../service/navigation";
+import { saveCurrentPrefsToStorage } from '../../service/storage';
 
 
 export default function ChangelogSnackbar() {
     const updateAvailable = useSelector(state => state.updateAvailable);
+    const prefs = useSelector(state => state.prefs);
     const changelogLastVersionRead = useSelector(state => state.prefs.changelogLastVersionRead);
     const mutate = useMutate();
 
@@ -35,6 +37,7 @@ export default function ChangelogSnackbar() {
 
     const close = () => {
         mutate(setPrefValue('changelogLastVersionRead', Constants.manifest.version));
+        saveCurrentPrefsToStorage();
     };
 
     let message = 'App has been updated.';

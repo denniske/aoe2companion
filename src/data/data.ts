@@ -1,4 +1,4 @@
-import * as aoeDataInternal from "../data/data.json"
+import { aoeDataInternal } from './aoe-data';
 
 export type aoeStringKey = keyof typeof aoeData.strings;
 export type aoeTechDataId = keyof typeof aoeData.data.techs;

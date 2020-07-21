@@ -25,7 +25,7 @@ import {useSelector} from './src/redux/reducer';
 import SearchPage from './src/view/search.page';
 import PrivacyPage from './src/view/privacy.page';
 import {AppLoading} from "expo";
-import {Tester, TestHookStore} from "cavy";
+// import {Tester, TestHookStore} from "cavy";
 import ExampleSpec from './src/ci/exampleSpec';
 import LeaderboardPage, {leaderboardMenu, LeaderboardTitle} from "./src/view/leaderboard.page";
 import GuidePage from "./src/view/guide.page";
@@ -303,19 +303,19 @@ export function InnerApp() {
     );
 }
 
-const testHookStore: TestHookStore | null = null;
+// const testHookStore: TestHookStore | null = null;
 // const testHookStore = new TestHookStore();
 
-function ConditionalTester({children}: any) {
-    if (testHookStore && __DEV__) {
-        return (
-            <Tester clearAsyncStorage={false} waitTime={1000} specs={[ExampleSpec]} store={testHookStore}>
-                {children}
-            </Tester>
-        );
-    }
-    return children;
-}
+// function ConditionalTester({children}: any) {
+//     if (testHookStore && __DEV__) {
+//         return (
+//             <Tester clearAsyncStorage={false} waitTime={1000} specs={[ExampleSpec]} store={testHookStore}>
+//                 {children}
+//             </Tester>
+//         );
+//     }
+//     return children;
+// }
 
 // const customPaperTheme = {
 //     ...PaperDarkTheme,
@@ -396,7 +396,7 @@ export function AppWrapper() {
                              theme={finalDarkMode === 'light' ? customNavigationTheme : customDarkNavigationTheme}
                              linking={linking}
         >
-            <ConditionalTester>
+            {/*<ConditionalTester>*/}
                 <PaperProvider theme={finalDarkMode === 'light' ? customPaperTheme : customDarkPaperTheme}>
                     <StatusBar barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'} backgroundColor="transparent" translucent={true} />
                     {/*<StatusBar barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'} backgroundColor="transparent" translucent={true} />*/}
@@ -404,7 +404,7 @@ export function AppWrapper() {
                     {/*<StatusBar barStyle="light-content" backgroundColor="transparent" />*/}
                     <InnerApp/>
                 </PaperProvider>
-            </ConditionalTester>
+            {/*</ConditionalTester>*/}
         </NavigationContainer>
     );
 }

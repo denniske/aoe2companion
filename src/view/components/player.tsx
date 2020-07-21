@@ -48,22 +48,22 @@ export function PlayerSkeleton() {
 export function Player({player}: IPlayerProps) {
     const styles = useTheme(variants);
     const auth = useSelector(state => state.auth);
-    const [modalVisible, setModalVisible] = useState(false);
-    const rating = useLazyApi({}, loadRatingHistories, 'aoe2de', userIdFromBase(player));
+    // const [modalVisible, setModalVisible] = useState(false);
+    // const rating = useLazyApi({}, loadRatingHistories, 'aoe2de', userIdFromBase(player));
 
     const boxStyle = [styles.square, {backgroundColor: getPlayerBackgroundColor(player.color)}];
 
     const isCurrentPlayer = sameUserNull(player, auth);
     const playerNameStyle = [{textDecorationLine: isCurrentPlayer ? 'underline' : 'none'}] as TextStyle;
 
-    const openRatingModal = () => {
-        setModalVisible(true);
-        rating.reload();
-    };
+    // const openRatingModal = () => {
+    //     setModalVisible(true);
+    //     rating.reload();
+    // };
 
-    const closeRatingModal = () => {
-        setModalVisible(false);
-    };
+    // const closeRatingModal = () => {
+    //     setModalVisible(false);
+    // };
 
     const navigation = useNavigation<RootStackProp>();
 
@@ -76,9 +76,9 @@ export function Player({player}: IPlayerProps) {
 
     return (
         <View style={styles.player}>
-            <SimpleModal title={player.name} visible={modalVisible} onClose={closeRatingModal}>
-                <Rating ratingHistories={rating.data}/>
-            </SimpleModal>
+            {/*<SimpleModal title={player.name} visible={modalVisible} onClose={closeRatingModal}>*/}
+            {/*    <Rating ratingHistories={rating.data}/>*/}
+            {/*</SimpleModal>*/}
 
             <View style={styles.playerWonCol}>
                 {
@@ -93,7 +93,7 @@ export function Player({player}: IPlayerProps) {
                 </View>
             </View>
 
-            <TouchableOpacity style={styles.playerRatingCol} onPress={openRatingModal}>
+            <TouchableOpacity style={styles.playerRatingCol} onPress={gotoPlayer}>
                 <MyText>{player.rating}</MyText>
             </TouchableOpacity>
 

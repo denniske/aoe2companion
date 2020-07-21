@@ -12,7 +12,7 @@ async function loadStringsForLanguage(language: string) {
     const filePath = path.resolve(__dirname, '..', 'assets', 'strings', language + '.json');
     const response = await axios({
         method: 'GET',
-        url: `https://aoe2.net/api/strings?game=aoe2de&language=${language}`,
+        url: `http://aoe2.net/api/strings?game=aoe2de&language=${language}`,
     });
 
     const json = response.data;

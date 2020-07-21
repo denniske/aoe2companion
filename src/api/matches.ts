@@ -1,6 +1,7 @@
 import {makeQueryString, sleep} from '../helper/util';
 import {IMatch, IMatchRaw} from "../helper/data";
 import {fromUnixTime} from "date-fns";
+import { getHost } from './host';
 
 
 function convertTimestampsToDates(json: IMatchRaw): IMatch {
@@ -20,18 +21,13 @@ export interface IFetchMatchesParams {
 
 
 export async function fetchMatches(game: string, start: number, count: number, params: IFetchMatchesParams): Promise<IMatch[]> {
-    // console.log('fetchMatches', start, count);
-    // await sleep(7000);
-
-    const start2 = new Date();
-
     const queryString = makeQueryString({
         game,
         start,
         count,
         ...params,
     });
-    const url = `https://aoe2.net/api/player/matches?${queryString}`;
+    const url = getHost('aoe2companion') + `/api/player/matches?${queryString}`;
     console.log(url);
     const response = await fetch(url)
     const json = await response.json() as IMatchRaw[];

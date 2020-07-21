@@ -5,7 +5,7 @@ import {useLazyApi} from '../../hooks/use-lazy-api';
 import {Button, Searchbar} from 'react-native-paper';
 import {composeUserIdFromParts, UserInfo} from '../../helper/user';
 import {getFlagIcon} from '../../helper/flags';
-import {useCavy} from "cavy";
+// import {useCavy} from "cavy";
 import {MyText} from "./my-text";
 import RefreshControlThemed from "./refresh-control-themed";
 
@@ -17,7 +17,6 @@ interface IPlayerProps {
 }
 
 function Player({player, selectedUser, actionText, action}: IPlayerProps) {
-    const generateTestHook = useCavy();
 
     const onSelect = async () => {
         selectedUser!({
@@ -52,7 +51,6 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
                                 compact
                                 uppercase={false}
                                 dark={true}
-                                ref={generateTestHook('Search.Player.' + composeUserIdFromParts(player.steam_id, player.profile_id))}
                             >
                                 {actionText}
                             </Button>
@@ -83,7 +81,7 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
         user.refetch('aoe2de', text);
     };
 
-    const generateTestHook = useCavy();
+    // const generateTestHook = useCavy();
 
     useEffect(() => {
         refresh();
@@ -102,7 +100,7 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
                 <MyText style={styles.centerText}>{title}</MyText>
 
                 <Searchbar
-                        ref={generateTestHook('Search.Input')}
+                        // ref={generateTestHook('Search.Input')}
                         style={styles.searchbar}
                         placeholder="username"
                         onChangeText={text => setText(text)}

@@ -15,7 +15,7 @@ import {usePrevious} from "../hooks/use-previous";
 import {Button} from "react-native-paper";
 import {IFetchedUser} from "../service/user";
 import PlayerList, {IPlayerListPlayer} from "./components/player-list";
-import {useCavy} from "cavy";
+// import {useCavy} from "cavy";
 import {MyText} from "./components/my-text";
 import {orderBy} from "lodash-es";
 import {ITheme, makeVariants, useTheme} from "../theming";
@@ -60,9 +60,9 @@ export function FeedMenu() {
 
 export function FeedList() {
     const styles = useTheme(variants);
-    const generateTestHook = useCavy();
+    // const generateTestHook = useCavy();
     const navigation = useNavigation<RootStackProp>();
-    generateTestHook('Navigation')(navigation);
+    // generateTestHook('Navigation')(navigation);
 
     const [refetching, setRefetching] = useState(false);
     const [fetchingMore, setFetchingMore] = useState(false);
@@ -160,7 +160,7 @@ export function FeedList() {
                             </View>
                     }
                     <FlatList
-                            style={styles.list}
+                            contentContainerStyle={styles.list}
                             data={list}
                             renderItem={({item, index}) => {
                                 switch (item) {

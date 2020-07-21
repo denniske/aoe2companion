@@ -1,8 +1,7 @@
 import { makeQueryString } from '../helper/util';
 import {ILeaderboard, ILeaderboardRaw} from "../helper/data";
 import {fromUnixTime} from "date-fns";
-import {Platform} from "react-native";
-import Constants from 'expo-constants';
+import { getHost } from './host';
 
 
 function convertTimestampsToDates(leaderboardRaw: ILeaderboardRaw): ILeaderboard {
@@ -25,24 +24,7 @@ export interface IFetchLeaderboardParams {
     country?: string;
 }
 
-export type Host = 'aoe2companion' | 'aoe2net';
-
-function getHost(host: Host) {
-    if (__DEV__ && !Constants.isDevice) {
-       const platformHost = Platform.select({ios: 'localhost', android: '10.0.2.2'});
-       return `http://${platformHost}:3000/dev/`;
-    }
-    switch (host) {
-        case "aoe2companion":
-            return `https://function.aoe2companion.com/`;
-        case "aoe2net":
-            return `http://aoe2.net/`;
-    }
-}
-
 async function fetchLeaderboardInternal(baseUrl: string, game: string, leaderboard_id: number, params: IFetchLeaderboardParams) {
-    const start = new Date();
-
     const queryString = makeQueryString({
         game,
         leaderboard_id,
@@ -50,14 +32,9 @@ async function fetchLeaderboardInternal(baseUrl: string, game: string, leaderboa
     });
 
     const url = baseUrl + `api/leaderboard?${queryString}`;
-    // console.log(url);
     const response = await fetch(url);
     try {
         const json = await response.json();
-        // console.log("fetchLeaderboard response", json);
-
-        // console.log('DURATION', (new Date().getTime() - start.getTime()));
-
         return convertTimestampsToDates(json);
     } catch (e) {
         console.log("FAILED", e);

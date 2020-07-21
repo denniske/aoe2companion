@@ -4,7 +4,7 @@ import {sleep} from "../helper/util";
 import {checkForUpdateAsync, fetchUpdateAsync, UpdateCheckResult} from "expo-updates";
 import {lt} from "semver";
 
-const packageName = Constants.manifest.android.package;
+const packageName = Constants.manifest.android?.package;
 
 export async function doCheckForUpdateAsync() {
     if (__DEV__) {

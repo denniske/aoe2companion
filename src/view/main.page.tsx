@@ -13,7 +13,7 @@ import {loadRatingHistories} from '../service/rating';
 import Rating from './components/rating';
 import {fetchMatches} from '../api/matches';
 import {useNavigation} from "@react-navigation/native";
-import {useCavy} from "cavy";
+// import {useCavy} from "cavy";
 import {TabBarLabel} from "./components/tab-bar-label";
 import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
 import {useLazyApi} from "../hooks/use-lazy-api";
@@ -34,7 +34,6 @@ import RefreshControlThemed from "./components/refresh-control-themed";
 function MainHome() {
     const auth = useSelector(state => state.auth!);
     const mutate = useMutate();
-    const generateTestHook = useCavy();
     const prefLeaderboardId = useSelector(state => state.prefs.leaderboardId) ?? LeaderboardId.RM1v1;
     const [leaderboardId, setLeaderboardId] = useState(prefLeaderboardId);
 
@@ -175,7 +174,7 @@ function MainHome() {
                                         return (
                                             <View>
                                                 <MyText/>
-                                                <Button mode="outlined" ref={generateTestHook('abc')} onPress={deleteUser}>This is not me</Button>
+                                                <Button mode="outlined" onPress={deleteUser}>This is not me</Button>
                                             </View>
                                         );
                                     default:
@@ -238,7 +237,6 @@ function MainMatches() {
         setFetchingMore(true);
         const matchesLength = matches.data?.length ?? 0;
         const newMatchesData = await matches.refetch('aoe2de', 0, matchesLength + 15, auth);
-        // const newMatchesData = await matches.refetchAppend('aoe2de', matchesLength+1, 15, auth);
         if (matchesLength === newMatchesData?.length) {
             setFetchedAll(true);
         }
@@ -286,11 +284,9 @@ export default function MainPage() {
     const auth = useSelector(state => state.auth);
     const mutate = useMutate();
 
-    const generateTestHook = useCavy();
-    const navigation = useNavigation();
-    generateTestHook('Navigation')(navigation);
-
-    // console.log("==> MAIN PAGE");
+    // const generateTestHook = useCavy();
+    // const navigation = useNavigation();
+    // generateTestHook('Navigation')(navigation);
 
     const onSelect = async (user: UserInfo) => {
         await saveSettingsToStorage({
@@ -300,8 +296,6 @@ export default function MainPage() {
         });
         mutate(setAuth(user));
     };
-
-    // console.log("==> ON RENDER MainPage");
 
     if (auth == null) {
         return <Search title="Enter your AoE username to track your games:" selectedUser={onSelect} actionText="Choose" />;

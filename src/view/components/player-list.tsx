@@ -22,7 +22,7 @@ interface IPlayerProps {
 }
 
 function Player({player, selectedUser, actionText, action}: IPlayerProps) {
-    const generateTestHook = useCavy();
+    // const generateTestHook = useCavy();
 
     const onSelect = async () => {
         selectedUser!({
@@ -37,7 +37,8 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
 
     return (
             <TouchableOpacity
-                                ref={generateTestHook('Search.Player.' + composeUserIdFromParts(player.steam_id, player.profile_id))}>
+                // ref={generateTestHook('Search.Player.' + composeUserIdFromParts(player.steam_id, player.profile_id))}
+            >
                 <View style={styles.row}>
                     <View style={styles.cellName}>
                         <Image style={styles.countryIcon} source={getFlagIcon(player.country)}/>

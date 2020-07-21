@@ -25,7 +25,7 @@ export async function fetchRatingHistory(game: string, leaderboard_id: Leaderboa
         count,
         ...params,
     });
-    const response = await fetch(`https://aoe2.net/api/player/ratinghistory?${queryString}`);
+    const response = await fetch(`https://powerful-gorge-32054.herokuapp.com/http://aoe2.net/api/player/ratinghistory?${queryString}`);
     const json = await response.json() as IRatingHistoryEntryRaw[];
     // console.log("response.json()", json);
 
