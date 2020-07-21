@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
         width: 44,
         height: 44,
         margin: 2,
-        // backgroundColor: 'blue',
+        backgroundColor: 'black',
     },
     heading: {
         marginTop: 10,
