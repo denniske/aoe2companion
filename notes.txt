@@ -1,5 +1,6 @@
 
 api performance
+- https://www.bookstack.cn/read/TypeORM/caching.md
 - do not use jsonb
 - indices?
 - do use separate connection for ingest
@@ -7,40 +8,31 @@ api performance
 
 add content
 - tips and tricks
-- remaining unit counts
-x dark mode
-  x player color
-  x rating dialog
-x back button close app
-x fix feed menu buttons click area
-- changelog after update
-- error when data cannot be loaded
-- leaderboard infinite scroll
-- leaderbord by country?
+- remaining unit counters
+- error when data cannot be loaded (implemented in leaderboard already)
+- filter match list by leaderboard
+- matches versus
 
 
 npx expo build:web
 
 user count 16.30: 198938 users
 
+21.07.2020
+user count 14.30: 203966 users
+
+
 function.aoe2companion.com
 
 sls invoke local -f hello2 -l -r eu-central-1
 
-
 xcrun simctl boot 05D9592C-5EC4-4547-A519-8B6748CACBEE
 open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/
-
-
-- leaderboard eigenen rang anzeigen
-- filter match list by leaderboard
-- matches versus
 
 aoe2net /player/matches does ignore the "start" parameter.
 the following request results return the same match "abc [DMWC3_Prairie]":
 https://aoe2.net/api/player/matches?game=aoe2de&start=1&count=1&id=76561197984749679-196240&steam_id=76561197984749679&profile_id=196240
 https://aoe2.net/api/player/matches?game=aoe2de&start=2&count=1&id=76561197984749679-196240&steam_id=76561197984749679&profile_id=196240
-
 
 Expo 38
 https://dev.to/expo/expo-sdk-38-is-now-available-5aa0
