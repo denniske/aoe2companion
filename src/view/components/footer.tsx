@@ -73,8 +73,8 @@ export default function Footer() {
                                 <View><MyText> </MyText></View>
                             }
                    >
-                        <Menu.Item icon={useIcon('hands-helping')} onPress={() => { Linking.openURL('https://www.buymeacoffee.com/denniskeil'); setMenu(false); }} title="Help" />
-                        <Menu.Item icon={useIcon('money-bill-alt')} onPress={() => { Linking.openURL('https://discord.com/invite/gCunWKx'); setMenu(false); }} title="Support" />
+                        <Menu.Item icon={useIcon('hands-helping')} titleStyle={iconPopupStyle('')} onPress={() => { Linking.openURL('https://discord.com/invite/gCunWKx'); setMenu(false); }} title="Help" />
+                        <Menu.Item icon={useIcon('coffee')} titleStyle={iconPopupStyle('')} onPress={() => { Linking.openURL('https://www.buymeacoffee.com/denniskeil'); setMenu(false); }} title="Buy me a coffee" />
                         <Divider />
                         <Menu.Item icon={useIcon('question-circle', 'About')} titleStyle={iconPopupStyle('About')} onPress={() => { nav('About'); setMenu(false); }} title="About" />
                         <Menu.Item icon={useIcon('exchange-alt', 'Changelog')} titleStyle={iconPopupStyle('Changelog')} onPress={() => { nav('Changelog'); setMenu(false); }} title="Changelog" />
