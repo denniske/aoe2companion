@@ -30,11 +30,16 @@ export default function Footer() {
         return isActiveRoute ? styles.iconActive : styles.icon;
     };
 
+    const iconPopupStyle = (...routes: string[]) => {
+        const isActiveRoute = routes.includes(activeRoute?.name);
+        return isActiveRoute ? styles.iconActive : styles.iconInPopup;
+    };
+
     // setTimeout(() => setMenu(true), 100);
 
     const iconSize = 22;
 
-    const useIcon = (name: string) => (props: any) => <Icon5 name={name} {...props} style={{backgroundColor: 'white', alignSelf: 'center'}} size={iconSize} solid />;
+    const useIcon = (name: string, page?: string) => (props: any) => <Icon5 name={name} {...props} style={[styles.menuIcon, iconPopupStyle(page || '')]} size={iconSize} solid />;
 
     return (
             <View style={styles.container}>
@@ -71,13 +76,13 @@ export default function Footer() {
                         <Menu.Item icon={useIcon('hands-helping')} onPress={() => { Linking.openURL('https://www.buymeacoffee.com/denniskeil'); setMenu(false); }} title="Help" />
                         <Menu.Item icon={useIcon('money-bill-alt')} onPress={() => { Linking.openURL('https://discord.com/invite/gCunWKx'); setMenu(false); }} title="Support" />
                         <Divider />
-                        <Menu.Item icon={useIcon('question-circle')} onPress={() => { nav('About'); setMenu(false); }} title="About" />
-                        <Menu.Item icon={useIcon('exchange-alt')} onPress={() => { nav('Changelog'); setMenu(false); }} title="Changelog" />
+                        <Menu.Item icon={useIcon('question-circle', 'About')} titleStyle={iconPopupStyle('About')} onPress={() => { nav('About'); setMenu(false); }} title="About" />
+                        <Menu.Item icon={useIcon('exchange-alt', 'Changelog')} titleStyle={iconPopupStyle('Changelog')} onPress={() => { nav('Changelog'); setMenu(false); }} title="Changelog" />
                         <Divider />
-                        <Menu.Item icon={useIcon('cog')} onPress={() => { nav('Settings'); setMenu(false); }} title="Settings" />
+                        <Menu.Item icon={useIcon('cog', 'Settings')} titleStyle={iconPopupStyle('Settings')} onPress={() => { nav('Settings'); setMenu(false); }} title="Settings" />
                         <Divider />
-                        <Menu.Item icon={useIcon('flask')} onPress={() => { nav('Tech'); setMenu(false); }} title="Techs" />
-                        <Menu.Item icon={useIcon('fist-raised')} onPress={() => { nav('Unit'); setMenu(false); }} title="Units" />
+                        <Menu.Item icon={useIcon('flask', 'Tech')} titleStyle={iconPopupStyle('Tech')} onPress={() => { nav('Tech'); setMenu(false); }} title="Techs" />
+                        <Menu.Item icon={useIcon('fist-raised', 'Unit')} titleStyle={iconPopupStyle('Unit')} onPress={() => { nav('Unit'); setMenu(false); }} title="Units" />
                     </Menu>
                 </View>
             </View>
@@ -93,11 +98,18 @@ const getStyles = (theme: ITheme) =>
             justifyContent: 'space-evenly',
             flex: 1,
         },
+        menuIcon: {
+            alignSelf: 'center'
+        },
+        iconInPopup: {
+            color: theme.textNoteColor,
+        },
         icon: {
             color: '#777',
         },
         iconActive: {
             color: theme.textColor,
+            fontWeight: 'bold',
         },
         menuButton: {
             // backgroundColor: 'blue',

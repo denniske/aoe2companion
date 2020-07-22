@@ -10,10 +10,16 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '12.0.3': [
+        {
+            type: 'bugfix',
+            title: 'Fix footer popup menu for dark mode.',
+        },
+    ],
     '12.0.2': [
         {
             type: 'bugfix',
-            title: 'Fix leaderboard',
+            title: 'Fix leaderboard.',
         },
     ],
     '12.0.1': [
