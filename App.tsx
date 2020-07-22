@@ -25,6 +25,7 @@ import {useSelector} from './src/redux/reducer';
 import SearchPage from './src/view/search.page';
 import PrivacyPage from './src/view/privacy.page';
 import {AppLoading} from "expo";
+import Icon5 from 'react-native-vector-icons/FontAwesome5';
 // import {Tester, TestHookStore} from "cavy";
 import ExampleSpec from './src/ci/exampleSpec';
 import LeaderboardPage, {leaderboardMenu, LeaderboardTitle} from "./src/view/leaderboard.page";
@@ -397,7 +398,12 @@ export function AppWrapper() {
                              linking={linking}
         >
             {/*<ConditionalTester>*/}
-                <PaperProvider theme={finalDarkMode === 'light' ? customPaperTheme : customDarkPaperTheme}>
+                <PaperProvider
+                    theme={finalDarkMode === 'light' ? customPaperTheme : customDarkPaperTheme}
+                    settings={{
+                        icon: props => <Icon5 {...props} />,
+                    }}
+                >
                     <StatusBar barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'} backgroundColor="transparent" translucent={true} />
                     {/*<StatusBar barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'} backgroundColor="transparent" translucent={true} />*/}
                     {/*<StatusBar barStyle="dark-content" backgroundColor="white" />*/}

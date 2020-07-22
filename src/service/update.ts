@@ -29,12 +29,6 @@ export async function doFetchUpdateAsync() {
     return await fetchUpdateAsync();
 }
 
-
-export async function doCheckForChangelog(changelogLastVersionRead: string) {
-    return ;
-}
-
-
 export async function doCheckForStoreUpdate() {
     switch (Platform.OS) {
         case 'android': {
@@ -63,6 +57,7 @@ export async function doCheckForStoreUpdate() {
                 const appId = result.results[0].trackId;
                 const storeUrl = `itms-apps://apps.apple.com/app/id${appId}`;
                 const url = `https://apps.apple.com/app/id${appId}`;
+                console.log('ads', Constants.manifest.version!, version);
                 if (lt(Constants.manifest.version!, version)) {
                     return {
                         version,

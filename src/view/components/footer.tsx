@@ -1,4 +1,4 @@
-import {Image, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, Linking, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon5 from 'react-native-vector-icons/FontAwesome5';
@@ -8,6 +8,7 @@ import {getRootNavigation} from "../../service/navigation";
 import {useNavigationStateExternal} from "../../hooks/use-navigation-state-external";
 import {MyText} from "./my-text";
 import {ITheme, makeVariants, useTheme} from "../../theming";
+
 
 export default function Footer() {
     const styles = useTheme(variants);
@@ -29,7 +30,11 @@ export default function Footer() {
         return isActiveRoute ? styles.iconActive : styles.icon;
     };
 
+    // setTimeout(() => setMenu(true), 100);
+
     const iconSize = 22;
+
+    const useIcon = (name: string) => (props: any) => <Icon5 name={name} {...props} style={{backgroundColor: 'white', alignSelf: 'center'}} size={iconSize} solid />;
 
     return (
             <View style={styles.container}>
@@ -53,22 +58,26 @@ export default function Footer() {
                         <Icon name="graduation-cap" size={iconSize} style={iconStyle('Guide')} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuButtonDots} onPress={() => setMenu(true)}>
-                        <Icon name="ellipsis-v" size={iconSize} style={iconStyle('Tech', 'Unit', 'About', 'Settings')} />
+                        <Icon name="ellipsis-v" size={iconSize} style={iconStyle('Tech', 'Unit', 'About', 'Settings', 'Changelog')} />
                     </TouchableOpacity>
-                    <Menu
+                   <Menu
                         contentStyle={{marginBottom: 50}}
                             visible={menu}
                             onDismiss={() => setMenu(false)}
                             anchor={
                                 <View><MyText> </MyText></View>
                             }
-                    >
-                        <Menu.Item onPress={() => { nav('About'); setMenu(false); }} title="About" />
-                        <Menu.Item onPress={() => { nav('Changelog'); setMenu(false); }} title="Changelog" />
-                        <Menu.Item onPress={() => { nav('Settings'); setMenu(false); }} title="Settings" />
+                   >
+                        <Menu.Item icon={useIcon('hands-helping')} onPress={() => { Linking.openURL('https://www.buymeacoffee.com/denniskeil'); setMenu(false); }} title="Help" />
+                        <Menu.Item icon={useIcon('money-bill-alt')} onPress={() => { Linking.openURL('https://discord.com/invite/gCunWKx'); setMenu(false); }} title="Support" />
                         <Divider />
-                        <Menu.Item onPress={() => { nav('Tech'); setMenu(false); }} title="Techs" />
-                        <Menu.Item onPress={() => { nav('Unit'); setMenu(false); }} title="Units" />
+                        <Menu.Item icon={useIcon('question-circle')} onPress={() => { nav('About'); setMenu(false); }} title="About" />
+                        <Menu.Item icon={useIcon('exchange-alt')} onPress={() => { nav('Changelog'); setMenu(false); }} title="Changelog" />
+                        <Divider />
+                        <Menu.Item icon={useIcon('cog')} onPress={() => { nav('Settings'); setMenu(false); }} title="Settings" />
+                        <Divider />
+                        <Menu.Item icon={useIcon('flask')} onPress={() => { nav('Tech'); setMenu(false); }} title="Techs" />
+                        <Menu.Item icon={useIcon('fist-raised')} onPress={() => { nav('Unit'); setMenu(false); }} title="Units" />
                     </Menu>
                 </View>
             </View>

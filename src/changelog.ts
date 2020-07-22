@@ -10,6 +10,16 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '12.0.1': [
+        {
+            type: 'minor',
+            title: 'Added help and support links to footer popup menu. Add icons to popup menu.',
+        },
+        {
+            type: 'bugfix',
+            title: '"App updated..." notification only shows up once.',
+        },
+    ],
     '12.0.0': [
         {
             type: 'feature',

@@ -8,6 +8,7 @@ import {getFlagIcon} from '../../helper/flags';
 // import {useCavy} from "cavy";
 import {MyText} from "./my-text";
 import RefreshControlThemed from "./refresh-control-themed";
+import {ITheme, makeVariants, useTheme} from "../../theming";
 
 interface IPlayerProps {
     player: IFetchedUser;
@@ -17,6 +18,7 @@ interface IPlayerProps {
 }
 
 function Player({player, selectedUser, actionText, action}: IPlayerProps) {
+    const styles = useTheme(variants);
 
     const onSelect = async () => {
         selectedUser!({
@@ -69,6 +71,7 @@ interface ISearchProps {
 }
 
 export default function Search({title, selectedUser, actionText, action}: ISearchProps) {
+    const styles = useTheme(variants);
     const [text, setText] = useState('');
 
     const user = useLazyApi({}, loadUser, 'aoe2de', text);
@@ -89,10 +92,23 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
 
     let list: any[] = user.data ? [...user.data]:[];
     if (user.touched && (user.data == null || user.data.length === 0)) {
-        list = [{type: 'text', content: 'No user found.'}];
+        list.push({
+            type: 'text',
+            content: <MyText style={styles.centerText}>No user found.</MyText>,
+        }, {
+            type: 'text',
+            content: (
+                <View style={styles.headerRow}>
+                    <MyText style={styles.note}>A user must have played at least 10 games in a timespan of about 3 months to be found.</MyText>
+                </View>
+            ),
+        });
     }
     if (text.length < 3) {
-        list = [{type: 'text', content: 'Enter at least 3 chars.'}];
+        list.push({
+            type: 'text',
+            content: <MyText style={styles.centerText}>Enter at least 3 chars.</MyText>,
+        });
     }
 
     return (
@@ -118,10 +134,11 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
 
                 <FlatList
                         keyboardShouldPersistTaps={'always'}
+                        contentContainerStyle={styles.list}
                         data={list}
                         renderItem={({item}) => {
                             if (item.type === 'text') {
-                                return <MyText style={styles.centerText}>{item.content}</MyText>;
+                                return item.content;
                             }
                             return <Player player={item} selectedUser={selectedUser} actionText={actionText} action={action}/>;
                         }}
@@ -137,62 +154,71 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
     );
 }
 
-const styles = StyleSheet.create({
-    centerText: {
-        textAlign: 'center',
-    },
-    countryIcon: {
-        width: 21,
-        height: 15,
-        marginRight: 5,
-    },
-    searchbar: {
-        marginTop: 15,
-        marginBottom: 15,
-        marginRight: 30,
-        marginLeft: 30,
-    },
-    cellRating: {
-        width: 40,
-    },
-    cellName: {
-        // backgroundColor: 'red',
-        flex: 2.7,
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    name: {
-        flex: 1,
-    },
-    cellGames: {
-        flex: 1.2,
-    },
-    cellAction: {
-        flex: 1.5,
-    },
-    cellWon: {
-        width: 110,
-    },
-    headerRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 3,
-        padding: 3,
-        borderRadius: 5,
-        marginRight: 30,
-        marginLeft: 30,
-    },
-    row: {
-        marginRight: 30,
-        marginLeft: 30,
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 3,
-        padding: 3,
-    },
-    container: {
-        paddingTop: 20,
-        flex: 1,
-    },
-});
+const getStyles = (theme: ITheme) => {
+    return StyleSheet.create({
+        centerText: {
+            textAlign: 'center',
+            marginVertical: 20,
+        },
+        note: {
+            lineHeight: 20,
+            color: theme.textNoteColor,
+        },
+        countryIcon: {
+            width: 21,
+            height: 15,
+            marginRight: 5,
+        },
+        searchbar: {
+            marginTop: 15,
+            marginBottom: 15,
+            marginRight: 30,
+            marginLeft: 30,
+        },
+        cellRating: {
+            width: 40,
+        },
+        cellName: {
+            // backgroundColor: 'red',
+            flex: 2.7,
+            flexDirection: 'row',
+            alignItems: 'center',
+        },
+        name: {
+            flex: 1,
+        },
+        cellGames: {
+            flex: 1.2,
+        },
+        cellAction: {
+            flex: 1.5,
+        },
+        cellWon: {
+            width: 110,
+        },
+        list: {
+            marginRight: 30,
+            marginLeft: 30,
+        },
+        headerRow: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: 3,
+            padding: 3,
+            borderRadius: 5,
+        },
+        row: {
+            flex: 1,
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: 3,
+            padding: 3,
+        },
+        container: {
+            paddingTop: 20,
+            flex: 1,
+        },
+    });
+};
+
+const variants = makeVariants(getStyles);
