@@ -26,7 +26,7 @@ import {useNavigationStateExternal} from "../hooks/use-navigation-state-external
 import {getString} from "../helper/strings";
 import TextHeader from "./components/navigation-header/text-header";
 import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
-import {formatAgo, formatDate, formatDateShort, formatDayAndTime} from "../helper/util";
+import {formatAgo, formatDate, formatDateShort, formatDayAndTime, noop} from "../helper/util";
 import RefreshControlThemed from "./components/refresh-control-themed";
 
 type TabParamList = {
@@ -176,7 +176,7 @@ function Leaderboard({leaderboardId}: any) {
 
     const myRank = useLazyApi(
         {},
-        fetchLeaderboard, 'aoe2de', leaderboardId, getParams(1, 1, minifyUserId(auth))
+        fetchLeaderboard, 'aoe2de', leaderboardId, getParams(1, 1, auth ? minifyUserId(auth) : {})
     );
 
     const matches = useLazyApi(
@@ -193,7 +193,7 @@ function Leaderboard({leaderboardId}: any) {
     const onRefresh = async () => {
         setFetchedAll(false);
         setRefetching(true);
-        await Promise.all([matches.reload(), myRank.reload()]);
+        await Promise.all([matches.reload(), auth ? myRank.reload() : noop()]);
         setRefetching(false);
     };
 
@@ -216,7 +216,9 @@ function Leaderboard({leaderboardId}: any) {
         if (matches.touched && matches.lastParams?.leaderboardCountry === leaderboardCountry) return;
         setFetchedAll(false);
         matches.reload();
-        myRank.reload();
+        if (auth) {
+            myRank.reload();
+        }
         flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
     }, [currentRouteLeaderboardId, leaderboardCountry]);
 

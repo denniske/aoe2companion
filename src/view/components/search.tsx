@@ -203,15 +203,17 @@ const getStyles = (theme: ITheme) => {
         headerRow: {
             flexDirection: 'row',
             alignItems: 'center',
-            marginBottom: 3,
+            marginVertical: 6,
             padding: 3,
             borderRadius: 5,
+            marginRight: 30,
+            marginLeft: 30,
         },
         row: {
             flex: 1,
             flexDirection: 'row',
             alignItems: 'center',
-            marginBottom: 3,
+            marginVertical: 3,
             padding: 3,
         },
         container: {

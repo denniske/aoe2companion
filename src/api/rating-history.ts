@@ -2,6 +2,7 @@ import { makeQueryString } from '../helper/util';
 import {IRatingHistoryEntry, IRatingHistoryEntryRaw} from "../helper/data";
 import {fromUnixTime} from "date-fns";
 import {LeaderboardId} from "../helper/leaderboards";
+import {getHost} from "./host";
 
 
 function convertTimestampsToDates(json: IRatingHistoryEntryRaw): IRatingHistoryEntry {
@@ -25,7 +26,9 @@ export async function fetchRatingHistory(game: string, leaderboard_id: Leaderboa
         count,
         ...params,
     });
-    const response = await fetch(`https://powerful-gorge-32054.herokuapp.com/http://aoe2.net/api/player/ratinghistory?${queryString}`);
+    const url = getHost('aoe2net') + `api/player/ratinghistory?${queryString}`;
+    console.log(url);
+    const response = await fetch(url);
     const json = await response.json() as IRatingHistoryEntryRaw[];
     // console.log("response.json()", json);
 

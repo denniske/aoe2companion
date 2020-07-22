@@ -27,14 +27,11 @@ export async function fetchMatches(game: string, start: number, count: number, p
         count,
         ...params,
     });
-    const url = getHost('aoe2companion') + `/api/player/matches?${queryString}`;
+    const url = getHost('aoe2net') + `/api/player/matches?${queryString}`;
     console.log(url);
     const response = await fetch(url)
     const json = await response.json() as IMatchRaw[];
-
-    const end = new Date();
-    // console.log((end.getTime() - start2.getTime())/1000);
-
     // console.log("matches json", json);
+
     return json.map(match => convertTimestampsToDates(match));
 }

@@ -1,5 +1,6 @@
 import {IMatch, IMatchRaw} from "../helper/data";
 import {fromUnixTime} from "date-fns";
+import {getHost} from "./host";
 
 
 function convertTimestampsToDates(json: IMatchRaw): IMatch {
@@ -12,7 +13,9 @@ function convertTimestampsToDates(json: IMatchRaw): IMatch {
 }
 
 export async function fetchLastMatch(game: string, profile_id: string) {
-    const response = await fetch(`https://powerful-gorge-32054.herokuapp.com/http://aoe2.net/api/player/lastmatch?game=${game}&profile_id=${profile_id}`)
+    const url = getHost('aoe2net') + `api/player/lastmatch?game=${game}&profile_id=${profile_id}`;
+    console.log(url);
+    const response = await fetch(url);
     const json = await response.json();
     return convertTimestampsToDates(json.last_match);
 }
