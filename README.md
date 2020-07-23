@@ -24,8 +24,7 @@ You can follow other players to see their _activity (recent matches)_ feed.
 
 After entering your _steam / xbox username_ you have access to your profile page. There you find your _current rating,_ your _rating history_ and _recent matches_. You can also fetch stats about your _most played civs, maps, allies and opponents_.
 
-<img src="/tools/screenshots/ios/screen-2.jpg" height="400">
-<img src="/tools/screenshots/ios/screen-3.jpg" height="400">
+<img src="/tools/screenshots/ios/screen-2.jpg" height="400"> <img src="/tools/screenshots/ios/screen-3.jpg" height="400">
 
 ### Search
 
