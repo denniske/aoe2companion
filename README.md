@@ -20,15 +20,19 @@ This is the repository for the [AoE II Companion](https://aoe2companion.com/) ap
 
 You can follow other players to see their _activity (recent matches)_ feed.
 
+<img src="/tools/screenshots/ios/screen-0.jpg" height="400">
+
 ### Your Profile
 
 After entering your _steam / xbox username_ you have access to your profile page. There you find your _current rating,_ your _rating history_ and _recent matches_. You can also fetch stats about your _most played civs, maps, allies and opponents_.
 
-<img src="/tools/screenshots/ios/screen-2.jpg" height="400"> <img src="/tools/screenshots/ios/screen-3.jpg" height="400">
+<img src="/tools/screenshots/ios/screen-2.jpg" height="400">    <img src="/tools/screenshots/ios/screen-3.jpg" height="400">
 
 ### Search
 
 You can search for users and see their _profile_.
+
+<img src="/tools/screenshots/ios/screen-1.jpg" height="400">    <img src="/tools/screenshots/ios/screen-4.jpg" height="400">
 
 ### Leaderboard
 
@@ -47,9 +51,13 @@ I embedded the site [https://buildorderguide.com](https://buildorderguide.com/#/
 
 Overview of all civilizations and their _team bonus_. Civilization detail page with info about their _strengths_ and a _compact tech tree_.
 
+<img src="/tools/screenshots/ios/screen-7.jpg" height="400">    <img src="/tools/screenshots/ios/screen-1.jpg" height="400">
+
 ### Units
 
 Overview of all units. Unit detail page with info about _cost_, _stats_ and with a list of all _upgrades that can be researched and their effects_. Also for some units a _counter units_ displayed.
+
+<img src="/tools/screenshots/ios/screen-9.jpg" height="400">
 
 ### Techs
 
