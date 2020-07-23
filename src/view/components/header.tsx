@@ -14,6 +14,7 @@ import FontAwesomeIcon5 from "react-native-vector-icons/FontAwesome5";
 import {appVariants} from "../../styles";
 import {clearCache} from "../../redux/cache";
 import {IConfig, saveConfigToStorage} from "../../service/storage";
+import { reloadAsync } from 'expo-updates';
 
 
 export default function Header() {
@@ -46,6 +47,10 @@ export default function Header() {
         mutate(setInitialState());
     };
 
+    const restart = async () => {
+        await reloadAsync();
+    };
+
     return (
             <View style={styles.container}>
                 <View style={styles.header}>
@@ -75,6 +80,12 @@ export default function Header() {
                             <FontAwesomeIcon style={styles.menuButton} name="refresh" color="#666" size={18} />
                         </TouchableOpacity>
                     }
+                    {
+                        __DEV__ &&
+                        <TouchableOpacity onPress={restart}>
+                            <FontAwesomeIcon5 style={styles.menuButton} name="power-off" color="#666" size={18} />
+                        </TouchableOpacity>
+                    }
                 </View>
             </View>
     );
@@ -90,7 +101,7 @@ const getStyles = (theme: ITheme) =>
             menuButton: {
                 // backgroundColor: 'blue',
                 margin: 0,
-                marginRight: 10,
+                marginHorizontal: 10,
             },
             menuButtonDots: {
 
