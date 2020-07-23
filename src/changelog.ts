@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '12.0.4': [
+        {
+            type: 'minor',
+            title: 'Transparent units/tech images for light mode.',
+        },
+    ],
     '12.0.3': [
         {
             type: 'bugfix',
