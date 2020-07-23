@@ -10,7 +10,7 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
-    '12.0.4': [
+    '12.0.5': [
         {
             type: 'minor',
             title: 'Transparent units/tech images for light mode.',
