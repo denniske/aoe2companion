@@ -30,14 +30,16 @@ You can search for users and see their _profile_.
 
 ### Leaderboard
 
-Display the _leaderboard_ for RM 1v1, RM Team, DM 1v1, DM Team and Unranked.
+Display the _leaderboard_ for RM 1v1, RM Team, DM 1v1, DM Team and Unranked. You can also _filter the leaderboard by country_. If you are ranked in the leaderboard you have selected, _your rank_ will be shown above the list.
 
-<img src="/tools/screenshots/ios/screen-5.jpg" height="300">
+<img src="/tools/screenshots/ios/screen-5.jpg" height="400">
 
 
 ### Build Orders
 
 I embedded the site [https://buildorderguide.com](https://buildorderguide.com/#/) with some useful _build orders_.
+
+<img src="/tools/screenshots/ios/screen-6.jpg" height="400">
 
 ### Civilizations
 
@@ -45,7 +47,7 @@ Overview of all civilizations and their _team bonus_. Civilization detail page w
 
 ### Units
 
-Overview of all units. Unit detail page with a list of all _upgrades that can be researched and their effects_.
+Overview of all units. Unit detail page with info about _cost_, _stats_ and with a list of all _upgrades that can be researched and their effects_. Also for some units a _counter units_ displayed.
 
 ### Techs
 
