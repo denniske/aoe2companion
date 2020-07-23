@@ -51,7 +51,7 @@ I embedded the site [https://buildorderguide.com](https://buildorderguide.com/#/
 
 Overview of all civilizations and their _team bonus_. Civilization detail page with info about their _strengths_ and a _compact tech tree_.
 
-<img src="/tools/screenshots/ios/screen-7.jpg" height="400">    <img src="/tools/screenshots/ios/screen-1.jpg" height="400">
+<img src="/tools/screenshots/ios/screen-7.jpg" height="400">    <img src="/tools/screenshots/ios/screen-8.jpg" height="400">
 
 ### Units
 
@@ -62,11 +62,6 @@ Overview of all units. Unit detail page with info about _cost_, _stats_ and with
 ### Techs
 
 Overview of all techs.
-
-### Roadmap
-
-- Add _unit counters_ to unit page  
-- Add c_urrent match_ screen with information about your civilization and the enemies civs is displayed when you are in a game
 
 ### Sources
 
