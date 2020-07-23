@@ -8,13 +8,11 @@
 [![Build Status](https://travis-ci.org/denniske/aoe2companion.svg?branch=master)](https://travis-ci.org/denniske/aoe2companion)
 [![GitHub release](https://img.shields.io/github/tag/denniske/aoe2companion.svg)](https://GitHub.com/denniske/aoe2companion/tags/)
 
-
-</div>
-
 This is the repository for the [AoE II Companion](https://aoe2companion.com/) app using the data from [aoe2.net](https://aoe2.net).
 
 <a href="https://play.google.com/store/apps/details?id=com.aoe2companion"><img src="/website/public/app-button-play-store.png" height="50"></a> <a href="https://apps.apple.com/app/id1518463195"><img src="/website/public/app-button-app-store.png" height="50"></a>
 
+</div>
 
 ## Features
 
