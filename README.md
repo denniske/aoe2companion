@@ -1,11 +1,20 @@
+
+<div align="center">
+  
+<img src="/website/public/ios-shot.png" height="500">
+
 # AoE II Companion
 
 [![Build Status](https://travis-ci.org/denniske/aoe2companion.svg?branch=master)](https://travis-ci.org/denniske/aoe2companion)
 [![GitHub release](https://img.shields.io/github/tag/denniske/aoe2companion.svg)](https://GitHub.com/denniske/aoe2companion/tags/)
 
+
+</div>
+
 This is the repository for the [AoE II Companion](https://aoe2companion.com/) app using the data from [aoe2.net](https://aoe2.net).
 
 <a href="https://play.google.com/store/apps/details?id=com.aoe2companion"><img src="/website/public/app-button-play-store.png" height="50"></a> <a href="https://apps.apple.com/app/id1518463195"><img src="/website/public/app-button-app-store.png" height="50"></a>
+
 
 ## Features
 
@@ -24,6 +33,9 @@ You can search for users and see their _profile_.
 ### Leaderboard
 
 Display the _leaderboard_ for RM 1v1, RM Team, DM 1v1, DM Team and Unranked.
+
+<img src="/tools/screenshots/ios/screen-5.jpg" height="300">
+
 
 ### Build Orders
 
