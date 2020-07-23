@@ -93,7 +93,7 @@ export default function Profile({data}: IProfileProps) {
                             </View>
                             <View style={styles.row}>
                                 <TextLoader width={180} ready={data}>{data?.games} Games, {data?.drops} Drops
-                                    ({(data?.drops / data?.games).toFixed(2)}%)</TextLoader>
+                                    ({(data?.drops / data?.games * 100).toFixed(2)}%)</TextLoader>
                             </View>
                         </View>
                         <View style={styles.expanded}/>

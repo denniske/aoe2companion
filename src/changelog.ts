@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '12.0.6': [
+        {
+            type: 'bugfix',
+            title: 'Fix drop rate calculation.',
+        },
+    ],
     '12.0.5': [
         {
             type: 'minor',

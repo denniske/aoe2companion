@@ -88,12 +88,12 @@ const getStyles = (theme: ITheme) => {
             marginRight: 15,
         },
         heading: {
-            marginTop: 20,
+            marginTop: 10,
             fontWeight: 'bold',
             marginBottom: 10,
         },
         headingNote: {
-            marginTop: 22,
+            marginTop: 12,
             fontWeight: 'bold',
             marginBottom: 10,
             fontSize: 12,
