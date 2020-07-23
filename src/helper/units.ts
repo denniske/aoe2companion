@@ -2189,7 +2189,7 @@ export function getUnitLineName(unitLine: UnitLine) {
 }
 
 export function getEliteUniqueResearchIcon() {
-    return require('../../assets/units/EliteUniqueResearch.jpg');
+    return require('../../assets/units/EliteUniqueResearch.png');
 }
 
 export function getUnitIcon(unit: Unit) {
