@@ -54,7 +54,29 @@ async function fetchLeaderboardDataset(leaderboardId: number, start: number, cou
             .insert()
             .into(LeaderboardRow)
             .values(chunkRows)
-            .orUpdate({ conflict_target: ['"leaderboardId"', 'rank'], overwrite: ['"profileId"', '"steamId"', 'name', 'country', 'data'] });
+            .orUpdate({
+                conflict_target: ['"leaderboardId"', 'rank'], overwrite: [
+                    '"profileId"',
+                    '"steamId"',
+                    'name',
+                    'country',
+                    'data',
+                    'clan',
+                    'icon',
+                    'wins',
+                    'drops',
+                    'games',
+                    'losses',
+                    'rating',
+                    'streak',
+                    'last_match',
+                    'lowest_streak',
+                    'highest_rating',
+                    'highest_streak',
+                    'last_match_time',
+                    'previous_rating',
+                ]
+            });
         await query.execute();
     }
 
