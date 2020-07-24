@@ -4,6 +4,7 @@ import {createDB} from "./handler";
 import {fetchLeaderboard, ILeaderboardPlayerRaw, setValue} from "./helper";
 import {LeaderboardRow} from "../entity/leaderboard-row";
 import { chunk } from 'lodash';
+import {Column} from "typeorm";
 
 function sleep(ms: number) {
     return new Promise((resolve) => {
@@ -29,6 +30,22 @@ async function fetchLeaderboardDataset(leaderboardId: number, start: number, cou
         leaderboardRow.name = entry.name;
         leaderboardRow.country = entry.country;
         leaderboardRow.data = entry;
+
+        leaderboardRow.clan = entry.clan;
+        leaderboardRow.icon = entry.icon;
+        leaderboardRow.wins = entry.wins;
+        leaderboardRow.drops = entry.drops;
+        leaderboardRow.games = entry.games;
+        leaderboardRow.losses = entry.losses;
+        leaderboardRow.rating = entry.rating;
+        leaderboardRow.streak = entry.streak;
+        leaderboardRow.last_match = entry.last_match;
+        leaderboardRow.lowest_streak = entry.lowest_streak;
+        leaderboardRow.highest_rating = entry.highest_rating;
+        leaderboardRow.highest_streak = entry.highest_streak;
+        leaderboardRow.last_match_time = entry.last_match_time;
+        leaderboardRow.previous_rating = entry.previous_rating;
+
         return leaderboardRow;
     });
 
