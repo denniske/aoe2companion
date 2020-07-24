@@ -10,6 +10,16 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '12.0.7': [
+        {
+            type: 'minor',
+            title: 'Added supporter list to about page.',
+        },
+        {
+            type: 'minor',
+            title: 'Updated map images.',
+        },
+    ],
     '12.0.6': [
         {
             type: 'bugfix',

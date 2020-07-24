@@ -9,7 +9,7 @@ function sleep(ms: number) {
 }
 
 async function loadStringsForLanguage(language: string) {
-    const filePath = path.resolve(__dirname, '..', 'assets', 'strings', language + '.json');
+    const filePath = path.resolve(__dirname, '..', '..', 'assets', 'strings', language + '.json');
     const response = await axios({
         method: 'GET',
         url: `http://aoe2.net/api/strings?game=aoe2de&language=${language}`,

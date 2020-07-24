@@ -44,6 +44,10 @@ export default function AboutPage() {
             <MyText style={styles.heading}>Contributors</MyText>
             <MyText style={styles.content}>Johannes Berger</MyText>
 
+            <MyText style={styles.heading}>Supporters</MyText>
+            <MyText style={styles.content}>Kloakan</MyText>
+            <MyText style={styles.content}>Sihing Mo</MyText>
+
             <MyText style={styles.heading}>Version</MyText>
             <MyText style={styles.content}>
                 {Constants.manifest.releaseChannel || 'dev'}-{Constants.manifest.version}n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}
