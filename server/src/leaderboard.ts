@@ -41,25 +41,25 @@ export const leaderboard: APIGatewayProxyHandler = async (event, _context) => {
     // @ts-ignore
     const leaderboardUpdated = new Date(await getValue('leaderboardUpdated')) || new Date(1970);
 
-    let where: any = {'leaderboardId': leaderboardId};
+    let where: any = {'leaderboard_id': leaderboardId};
     if (country) where['country'] = country;
 
     // Execute total before single-result restrictions are appended to where clause
     const total = await connection.manager.count(LeaderboardRow, {where: where});
 
-    if (steamId) where['steamId'] = steamId;
-    if (profileId) where['profileId'] = profileId;
+    if (steamId) where['steam_id'] = steamId;
+    if (profileId) where['profile_id'] = profileId;
     if (search) where['name'] = Like(`%${search}%`);
 
     if (country != null && (steamId != null || profileId != null)) {
         const users = await connection
             .createQueryBuilder()
-            .select('data')
+            .select('*')
             .addSelect(subQuery => {
                 return subQuery
                     .select('count(user.name)', 'rank')
                     .from(LeaderboardRow, "user")
-                    .where('user.leaderboardId = :leaderboardId AND user.country = :country AND user.rank <= outer.rank', {leaderboardId, country});
+                    .where('user.leaderboard_id = :leaderboardId AND user.country = :country AND user.rank <= outer.rank', {leaderboardId, country});
             })
             .from(LeaderboardRow, "outer")
             .where(where)
@@ -74,7 +74,7 @@ export const leaderboard: APIGatewayProxyHandler = async (event, _context) => {
                 start: start,
                 count: count,
                 country: country,
-                leaderboard: users.map(u => ({...u.data, rank: parseInt(u.rank)})),
+                leaderboard: users.map(u => ({...u, rank: parseInt(u.rank)})),
             }, null, 2),
         };
     }
@@ -94,9 +94,9 @@ export const leaderboard: APIGatewayProxyHandler = async (event, _context) => {
             country: country,
             leaderboard: users.map((u, i) => {
                 if (country) {
-                    return {...u.data, rank: start+i};
+                    return {...u, rank: start+i};
                 }
-                return u.data;
+                return u;
             }),
         }, null, 2),
     };

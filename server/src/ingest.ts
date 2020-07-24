@@ -23,14 +23,12 @@ async function fetchLeaderboardDataset(leaderboardId: number, start: number, cou
 
     const rows = entries.map(entry => {
         const leaderboardRow = new LeaderboardRow();
-        leaderboardRow.leaderboardId = leaderboardId;
+        leaderboardRow.leaderboard_id = leaderboardId;
         leaderboardRow.rank = entry.rank;
-        leaderboardRow.profileId = entry.profile_id;
-        leaderboardRow.steamId = entry.steam_id;
+        leaderboardRow.profile_id = entry.profile_id;
+        leaderboardRow.steam_id = entry.steam_id;
         leaderboardRow.name = entry.name;
         leaderboardRow.country = entry.country;
-        leaderboardRow.data = entry;
-
         leaderboardRow.clan = entry.clan;
         leaderboardRow.icon = entry.icon;
         leaderboardRow.wins = entry.wins;
@@ -45,7 +43,6 @@ async function fetchLeaderboardDataset(leaderboardId: number, start: number, cou
         leaderboardRow.highest_streak = entry.highest_streak;
         leaderboardRow.last_match_time = entry.last_match_time;
         leaderboardRow.previous_rating = entry.previous_rating;
-
         return leaderboardRow;
     });
 
@@ -55,12 +52,11 @@ async function fetchLeaderboardDataset(leaderboardId: number, start: number, cou
             .into(LeaderboardRow)
             .values(chunkRows)
             .orUpdate({
-                conflict_target: ['"leaderboardId"', 'rank'], overwrite: [
-                    '"profileId"',
-                    '"steamId"',
+                conflict_target: ['leaderboard_id', 'rank'], overwrite: [
+                    'profile_id',
+                    'steam_id',
                     'name',
                     'country',
-                    'data',
                     'clan',
                     'icon',
                     'wins',
@@ -82,12 +78,24 @@ async function fetchLeaderboardDataset(leaderboardId: number, start: number, cou
 
     const userRows = entries.map(entry => {
         const user = new User();
-        user.profileId = entry.profile_id;
-        user.steamId = entry.steam_id;
+        user.profile_id = entry.profile_id;
+        user.steam_id = entry.steam_id;
         user.name = entry.name;
         user.clan = entry.clan;
         user.country = entry.country;
-        user.data = entry;
+        user.icon = entry.icon;
+        user.wins = entry.wins;
+        user.drops = entry.drops;
+        user.games = entry.games;
+        user.losses = entry.losses;
+        user.rating = entry.rating;
+        user.streak = entry.streak;
+        user.last_match = entry.last_match;
+        user.lowest_streak = entry.lowest_streak;
+        user.highest_rating = entry.highest_rating;
+        user.highest_streak = entry.highest_streak;
+        user.last_match_time = entry.last_match_time;
+        user.previous_rating = entry.previous_rating;
         return user;
     });
 
@@ -96,7 +104,26 @@ async function fetchLeaderboardDataset(leaderboardId: number, start: number, cou
             .insert()
             .into(User)
             .values(chunkUserRows)
-            .orUpdate({ conflict_target: ['"profileId"'], overwrite: ['"steamId"', 'name', 'clan', 'country', 'data'] });
+            .orUpdate({
+                conflict_target: ['profile_id'], overwrite: [
+                    'steam_id',
+                    'name',
+                    'clan',
+                    'country',
+                    'icon',
+                    'wins',
+                    'drops',
+                    'games',
+                    'losses',
+                    'rating',
+                    'streak',
+                    'last_match',
+                    'lowest_streak',
+                    'highest_rating',
+                    'highest_streak',
+                    'last_match_time',
+                    'previous_rating',]
+            });
         await query.execute();
         await sleep(100);
     }
@@ -121,7 +148,7 @@ async function fetchLeaderboardData(leaderboardId: number) {
     const query = connection.createQueryBuilder()
         .delete()
         .from(LeaderboardRow)
-        .where("rank > :rank AND leaderboardId = :leaderboardId", { rank: rowCount, leaderboardId });
+        .where("rank > :rank AND leaderboard_id = :leaderboardId", { rank: rowCount, leaderboardId });
 
     await query.execute();
 

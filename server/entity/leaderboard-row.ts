@@ -3,25 +3,22 @@ import {Entity, Column, PrimaryColumn} from "typeorm";
 @Entity()
 export class LeaderboardRow {
     @PrimaryColumn()
-    leaderboardId: number;
+    leaderboard_id: number;
 
     @PrimaryColumn()
     rank: number;
 
     @Column()
-    profileId: number;
+    profile_id: number;
 
     @Column({ nullable: true })
-    steamId: string;
+    steam_id: string;
 
     @Column()
     name: string;
 
     @Column({ nullable: true })
     country?: string;
-
-    @Column('jsonb')
-    data: any;
 
     @Column({ nullable: true })
     clan?: string;

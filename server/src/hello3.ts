@@ -16,13 +16,12 @@ async function fetchLeaderboardDataset(leaderboardId: number, start: number, cou
 
     const rows = entries.map(entry => {
         const leaderboardRow = new LeaderboardRow();
-        leaderboardRow.leaderboardId = leaderboardId;
+        leaderboardRow.leaderboard_id = leaderboardId;
         leaderboardRow.rank = entry.rank;
-        leaderboardRow.profileId = entry.profile_id;
-        leaderboardRow.steamId = entry.steam_id;
+        leaderboardRow.profile_id = entry.profile_id;
+        leaderboardRow.steam_id = entry.steam_id;
         leaderboardRow.name = entry.name;
         leaderboardRow.country = entry.country;
-        leaderboardRow.data = entry;
         return leaderboardRow;
     });
 
