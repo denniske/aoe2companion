@@ -12,6 +12,7 @@ add content
 - error when data cannot be loaded (implemented in leaderboard already)
 - filter match list by leaderboard
 - matches versus
+- aoe de forum
 
 
 npx expo build:web
