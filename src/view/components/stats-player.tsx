@@ -86,11 +86,6 @@ export default function StatsPlayer(props: IProps) {
             <View style={styles.container}>
                 <View>
                     {
-                        matches &&
-                        <MyText style={styles.info}>the last {matches.length} matches:</MyText>
-                    }
-
-                    {
                         hasAlly &&
                         <View style={styles.row}>
                             <MyText numberOfLines={1} style={styles.cellLeaderboard}>Ally</MyText>

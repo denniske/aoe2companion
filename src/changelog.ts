@@ -12,7 +12,11 @@ export interface IChangelog {
 export const changelog: IChangelog = {
     '12.0.8': [
         {
-            type: 'minor',
+            type: 'feature',
+            title: 'Added pocket/flank position stats.',
+        },
+        {
+            type: 'feature',
             title: 'Added ability to search for techs and units.',
         },
     ],

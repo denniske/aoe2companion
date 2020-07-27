@@ -26,9 +26,12 @@ import {getStats} from "../service/stats";
 import {usePrevious} from "../hooks/use-previous";
 import {useLazyApi} from "../hooks/use-lazy-api";
 import RefreshControlThemed from "./components/refresh-control-themed";
+import {ITheme, makeVariants, useTheme} from "../theming";
+import StatsPosition from "./components/stats-position";
 
 
 export default function UserPage() {
+    const styles = useTheme(variants);
     const [refetching, setRefetching] = useState(false);
     const [fetchingMore, setFetchingMore] = useState(false);
     const [fetchedAll, setFetchedAll] = useState(false);
@@ -95,6 +98,7 @@ export default function UserPage() {
     let statsPlayer = stats.data?.statsPlayer;
     let statsCiv = stats.data?.statsCiv;
     let statsMap = stats.data?.statsMap;
+    let statsPosition = stats.data?.statsPosition;
 
     const hasMatches = allMatches.loading || (allMatches.data != null);
     const hasStats = cachedData != null;
@@ -119,7 +123,7 @@ export default function UserPage() {
         setLeaderboardId(leaderboardId);
     };
 
-    const list = ['profile', 'rating-header', 'rating', 'stats-header', 'stats-player', 'stats-civ', 'stats-map', 'matches-header', ...(matches.data || Array(15).fill(null))];
+    const list = ['profile', 'rating-header', 'rating', 'stats-header', 'stats-position', 'stats-player', 'stats-civ', 'stats-map', 'matches-header', ...(matches.data || Array(15).fill(null))];
 
     const _renderFooter = () => {
         if (!fetchingMore) return null;
@@ -175,7 +179,14 @@ export default function UserPage() {
                                                     Load Stats
                                                 </Button>
                                             }
+                                            {
+                                                hasStats && statsPlayer?.matches?.length != 0 &&
+                                                <MyText style={styles.info}>the last {statsPlayer?.matches?.length} matches:</MyText>
+                                            }
                                         </View>;
+                                    case 'stats-position':
+                                        if (!hasMatchesOrStats) return <View/>;
+                                        return <StatsPosition data={statsPosition} user={auth} leaderboardId={leaderboardId}/>;
                                     case 'stats-civ':
                                         if (!hasMatchesOrStats) return <View/>;
                                         return <StatsCiv data={statsCiv} user={auth}/>;
@@ -211,7 +222,15 @@ export default function UserPage() {
     );
 }
 
-const styles = StyleSheet.create({
+
+const getStyles = (theme: ITheme) => {
+    return StyleSheet.create({
+        info: {
+            textAlign: 'center',
+            marginBottom: 10,
+            color: theme.textNoteColor,
+            fontSize: 12,
+        },
     pickerRow: {
         // backgroundColor: 'yellow',
         flexDirection: 'row',
@@ -239,4 +258,8 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
     },
-});
+
+    });
+};
+
+const variants = makeVariants(getStyles);

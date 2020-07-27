@@ -29,9 +29,12 @@ import {useCachedConservedLazyApi} from "../hooks/use-cached-conserved-lazy-api"
 import {get, set} from "lodash-es";
 import {getStats} from "../service/stats";
 import RefreshControlThemed from "./components/refresh-control-themed";
+import StatsPosition from "./components/stats-position";
+import {ITheme, makeVariants, useTheme} from "../theming";
 
 
 function MainHome() {
+    const styles = useTheme(variants);
     const auth = useSelector(state => state.auth!);
     const mutate = useMutate();
     const prefLeaderboardId = useSelector(state => state.prefs.leaderboardId) ?? LeaderboardId.RM1v1;
@@ -78,6 +81,7 @@ function MainHome() {
             getStats, {matches: allMatches.data, user: auth, leaderboardId}
     );
 
+    let statsPosition = stats.data?.statsPosition;
     let statsPlayer = stats.data?.statsPlayer;
     let statsCiv = stats.data?.statsCiv;
     let statsMap = stats.data?.statsMap;
@@ -105,7 +109,7 @@ function MainHome() {
         setLeaderboardId(leaderboardId);
     };
 
-    const list = ['profile', 'rating-header', 'rating', 'stats-header', 'stats-player', 'stats-civ', 'stats-map', 'settings-header', 'not-me'];
+    const list = ['profile', 'rating-header', 'rating', 'stats-header', 'stats-position', 'stats-player', 'stats-civ', 'stats-map', 'settings-header', 'not-me'];
 
     const deleteUser = () => {
         Alert.alert("Delete Me?", "Do you want to reset me page?",
@@ -156,7 +160,14 @@ function MainHome() {
                                                     Load Stats
                                                 </Button>
                                             }
+                                            {
+                                                hasStats && statsPlayer?.matches?.length != 0 &&
+                                                <MyText style={styles.info}>the last {statsPlayer?.matches?.length} matches:</MyText>
+                                            }
                                         </View>;
+                                    case 'stats-position':
+                                        if (!hasMatchesOrStats) return <View/>;
+                                        return <StatsPosition data={statsPosition} user={auth} leaderboardId={leaderboardId}/>;
                                     case 'stats-civ':
                                         if (!hasMatchesOrStats) return <View/>;
                                         return <StatsCiv data={statsCiv} user={auth}/>;
@@ -202,6 +213,7 @@ function MainHome() {
 
 
 function MainMatches() {
+    const styles = useTheme(variants);
     const [refetching, setRefetching] = useState(false);
     const [fetchingMore, setFetchingMore] = useState(false);
     const [fetchedAll, setFetchedAll] = useState(false);
@@ -281,6 +293,7 @@ function MainMatches() {
 const Tab = createMaterialTopTabNavigator();
 
 export default function MainPage() {
+    const styles = useTheme(variants);
     const auth = useSelector(state => state.auth);
     const mutate = useMutate();
 
@@ -309,33 +322,44 @@ export default function MainPage() {
     );
 }
 
-const styles = StyleSheet.create({
-    pickerRow: {
-        // backgroundColor: 'yellow',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingRight: 20,
-        marginBottom: 10
-    },
-    sectionHeader: {
-        marginTop: 30,
-        marginBottom: 15,
-        fontSize: 15,
-        fontWeight: '500',
-        textAlign: 'center',
-    },
-    outlineButton: {
-        backgroundColor: 'red',
-    },
-    list: {
-        padding: 20,
-    },
-    container: {
-        flex: 1,
-        // backgroundColor: '#B89579',
-    },
-    content: {
-        flex: 1,
-    },
-});
+const getStyles = (theme: ITheme) => {
+    return StyleSheet.create({
+        info: {
+            textAlign: 'center',
+            marginBottom: 10,
+            color: theme.textNoteColor,
+            fontSize: 12,
+        },
+
+        pickerRow: {
+            // backgroundColor: 'yellow',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingRight: 20,
+            marginBottom: 10
+        },
+        sectionHeader: {
+            marginTop: 30,
+            marginBottom: 15,
+            fontSize: 15,
+            fontWeight: '500',
+            textAlign: 'center',
+        },
+        outlineButton: {
+            backgroundColor: 'red',
+        },
+        list: {
+            padding: 20,
+        },
+        container: {
+            flex: 1,
+            // backgroundColor: '#B89579',
+        },
+        content: {
+            flex: 1,
+        },
+    });
+};
+
+const variants = makeVariants(getStyles);

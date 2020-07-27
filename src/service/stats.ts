@@ -4,6 +4,7 @@ import {getStatsPlayer} from "./stats/stats-player";
 import {IMatch} from "../helper/data";
 import {UserId, UserIdBase} from "../helper/user";
 import {LeaderboardId} from "../helper/leaderboards";
+import {getStatsPosition} from "./stats/stats-position";
 
 
 export interface IParam {
@@ -17,11 +18,13 @@ export async function getStats({matches, user, leaderboardId}: IParam) {
 
     const filteredMatches = matches?.filter((m: any) => m.leaderboard_id === leaderboardId);
 
+    const statsPosition = await getStatsPosition({matches: filteredMatches, user, leaderboardId});
     const statsCiv = await getStatsCiv({matches: filteredMatches, user});
     const statsMap = await getStatsMap({matches: filteredMatches, user});
     const statsPlayer = await getStatsPlayer({matches: filteredMatches, user, leaderboardId});
 
     return {
+        statsPosition,
         statsCiv,
         statsMap,
         statsPlayer,
