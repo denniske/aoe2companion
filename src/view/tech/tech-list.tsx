@@ -1,13 +1,16 @@
-import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {getTechDescription, getTechIcon, getTechName, Tech, techs} from "../../helper/techs";
-import {sortBy} from "lodash-es";
+import {keys, sortBy} from "lodash-es";
 import {getUnitLineName, unitLines} from "../../helper/units";
 import {MyText} from "../components/my-text";
 import {iconHeight, iconWidth} from "../../helper/theme";
 import {ITheme, makeVariants, useTheme} from "../../theming";
+import {Searchbar} from "react-native-paper";
+import RefreshControlThemed from "../components/refresh-control-themed";
+import {keysOf} from "../../helper/util";
 
 
 export function TechComp({tech: tech}: any) {
@@ -42,15 +45,43 @@ export function TechCompBig({tech: tech}: any) {
     );
 }
 
+const allTechs = sortBy(Object.keys(techs));
+
 export default function TechList() {
     const styles = useTheme(variants);
+    const [text, setText] = useState('');
+    const [list, setList] = useState(allTechs);
+
+    const refresh = () => {
+        if (text.length == 0) {
+            setList(allTechs);
+            return;
+        }
+        const found = allTechs.filter(tech => getTechName(tech as Tech).includes(text));
+        setList(found);
+    };
+
+    useEffect(() => {
+        refresh();
+    }, [text]);
+
     return (
         <View style={styles.container}>
-            {
-                sortBy(Object.keys(techs)).map(ul =>
-                    <TechCompBig key={ul} tech={ul}/>
-                )
-            }
+            <Searchbar
+                style={styles.searchbar}
+                placeholder="tech"
+                onChangeText={text => setText(text)}
+                value={text}
+            />
+            <FlatList
+                keyboardShouldPersistTaps={'always'}
+                contentContainerStyle={styles.list}
+                data={list}
+                renderItem={({item}) => {
+                    return <TechCompBig key={item} tech={item}/>
+                }}
+                keyExtractor={(item, index) => index.toString()}
+            />
         </View>
     );
 }
@@ -59,7 +90,18 @@ export default function TechList() {
 const getStyles = (theme: ITheme) => {
     return StyleSheet.create({
         container: {
-            padding: 20,
+            paddingTop: 10,
+            flex: 1,
+        },
+        list: {
+            paddingHorizontal: 20,
+            paddingBottom: 20,
+        },
+
+        searchbar: {
+            // marginTop: 15,
+            marginBottom: 25,
+            marginHorizontal: 20,
         },
 
         row: {
@@ -102,4 +144,3 @@ const getStyles = (theme: ITheme) => {
 };
 
 const variants = makeVariants(getStyles);
-

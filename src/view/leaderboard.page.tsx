@@ -220,6 +220,8 @@ function Leaderboard({leaderboardId}: any) {
             myRank.reload();
         }
         flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
+        // flatListRef.current?.scrollToOffset({ animated: true, offset: 10000 });
+        // flatListRef.current?.scrollToIndex({ animated: true, index: 80 });
     }, [currentRouteLeaderboardId, leaderboardCountry]);
 
     const list = ['info', ...(myRank.data?.leaderboard || []), ...(matches.data?.leaderboard || Array(15).fill(null))];

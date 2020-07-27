@@ -36,11 +36,7 @@ export default function TechPage() {
         );
     }
 
-    return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <TechList/>
-        </ScrollView>
-    );
+    return <TechList/>;
 }
 
 const styles = StyleSheet.create({

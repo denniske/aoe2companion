@@ -37,11 +37,7 @@ export default function UnitPage() {
         );
     }
 
-    return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <UnitList/>
-        </ScrollView>
-    );
+    return <UnitList/>;
 }
 
 const styles = StyleSheet.create({

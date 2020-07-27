@@ -1,5 +1,5 @@
-import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {
@@ -11,6 +11,9 @@ import {sortBy} from "lodash-es";
 import {MyText} from "../components/my-text";
 import {iconHeight, iconWidth} from "../../helper/theme";
 import {ITheme, makeVariants, useTheme} from "../../theming";
+import {getTechName, Tech, techs} from "../../helper/techs";
+import {Searchbar} from "react-native-paper";
+import {TechCompBig} from "../tech/tech-list";
 
 
 function getUnitLineTitle(unitLine: IUnitLine) {
@@ -70,15 +73,45 @@ export function UnitLineCompBig({unitLine}: {unitLine: UnitLine}) {
     );
 }
 
+const allUnitLines = sortBy(unitLineNames);
+
 export default function UnitList() {
     const styles = useTheme(variants);
+    const [text, setText] = useState('');
+    const [list, setList] = useState(allUnitLines);
+
+    const refresh = () => {
+        if (text.length == 0) {
+            setList(allUnitLines);
+            return;
+        }
+        const found = allUnitLines.filter(unitLine => {
+            return unitLines[unitLine].units.some(u => getUnitName(u).includes(text));
+        });
+        setList(found);
+    };
+
+    useEffect(() => {
+        refresh();
+    }, [text]);
+
     return (
         <View style={styles.container}>
-            {
-                sortBy(unitLineNames).map(ul =>
-                    <UnitLineCompBig key={ul} unitLine={ul}/>
-                )
-            }
+            <Searchbar
+                style={styles.searchbar}
+                placeholder="unit"
+                onChangeText={text => setText(text)}
+                value={text}
+            />
+            <FlatList
+                keyboardShouldPersistTaps={'always'}
+                contentContainerStyle={styles.list}
+                data={list}
+                renderItem={({item}) => {
+                    return <UnitLineCompBig key={item} unitLine={item}/>
+                }}
+                keyExtractor={(item, index) => index.toString()}
+            />
         </View>
     );
 }
@@ -87,9 +120,20 @@ export default function UnitList() {
 const getStyles = (theme: ITheme) => {
     return StyleSheet.create({
         container: {
-            // backgroundColor: 'yellow',
-            padding: 20,
+            paddingTop: 10,
+            flex: 1,
         },
+        list: {
+            paddingHorizontal: 20,
+            paddingBottom: 20,
+        },
+
+        searchbar: {
+            // marginTop: 15,
+            marginBottom: 25,
+            marginHorizontal: 20,
+        },
+
         row: {
             flexDirection: 'row',
             alignItems: 'center',

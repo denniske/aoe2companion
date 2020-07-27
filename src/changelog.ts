@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '12.0.8': [
+        {
+            type: 'minor',
+            title: 'Added ability to search for techs and units.',
+        },
+    ],
     '12.0.7': [
         {
             type: 'minor',
