@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {getTechDescription, getTechIcon, getTechName, Tech, techs} from "../../helper/techs";
@@ -57,7 +57,7 @@ export default function TechList() {
             setList(allTechs);
             return;
         }
-        const found = allTechs.filter(tech => getTechName(tech as Tech).includes(text));
+        const found = allTechs.filter(tech => getTechName(tech as Tech).toLowerCase().includes(text.toLowerCase()));
         setList(found);
     };
 
@@ -68,6 +68,7 @@ export default function TechList() {
     return (
         <View style={styles.container}>
             <Searchbar
+
                 style={styles.searchbar}
                 placeholder="tech"
                 onChangeText={text => setText(text)}
@@ -90,18 +91,16 @@ export default function TechList() {
 const getStyles = (theme: ITheme) => {
     return StyleSheet.create({
         container: {
-            paddingTop: 10,
             flex: 1,
         },
         list: {
-            paddingHorizontal: 20,
-            paddingBottom: 20,
+            padding: 20,
         },
 
         searchbar: {
-            // marginTop: 15,
-            marginBottom: 25,
-            marginHorizontal: 20,
+            marginTop: Platform.select({ ios: 5 }),
+            borderRadius: 0,
+            paddingHorizontal: 10,
         },
 
         row: {

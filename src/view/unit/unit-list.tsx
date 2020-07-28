@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, Image, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {
@@ -86,7 +86,7 @@ export default function UnitList() {
             return;
         }
         const found = allUnitLines.filter(unitLine => {
-            return unitLines[unitLine].units.some(u => getUnitName(u).includes(text));
+            return unitLines[unitLine].units.some(u => getUnitName(u).toLowerCase().includes(text.toLowerCase()));
         });
         setList(found);
     };
@@ -120,18 +120,16 @@ export default function UnitList() {
 const getStyles = (theme: ITheme) => {
     return StyleSheet.create({
         container: {
-            paddingTop: 10,
             flex: 1,
         },
         list: {
-            paddingHorizontal: 20,
-            paddingBottom: 20,
+            padding: 20,
         },
 
         searchbar: {
-            // marginTop: 15,
-            marginBottom: 25,
-            marginHorizontal: 20,
+            marginTop: Platform.select({ ios: 5 }),
+            borderRadius: 0,
+            paddingHorizontal: 10,
         },
 
         row: {
