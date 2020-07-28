@@ -157,6 +157,7 @@ export default function UserPage() {
                             renderItem={({item, index}) => {
                                 switch (item) {
                                     case 'rating-header':
+                                        if (rating.data.length === 0) return <View/>;
                                         return <MyText style={styles.sectionHeader}>Rating History</MyText>;
                                     case 'stats-header':
                                         return <View>
@@ -197,8 +198,10 @@ export default function UserPage() {
                                         if (!hasMatchesOrStats) return <View/>;
                                         return <StatsPlayer data={statsPlayer} user={auth} leaderboardId={leaderboardId}/>;
                                     case 'profile':
+                                        if (profile.data === null) return <View/>;
                                         return <Profile data={profile.data}/>;
                                     case 'rating':
+                                        if (rating.data.length === 0) return <View/>;
                                         return <Rating ratingHistories={rating.data}/>;
                                     case 'matches-header':
                                         return <MyText style={styles.sectionHeader}>Match History</MyText>;

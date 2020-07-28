@@ -3,7 +3,7 @@ import { sortBy, sumBy } from 'lodash-es'
 import { IProfile } from '../view/components/profile';
 import { composeUserId, minifyUserId, UserIdBase } from '../helper/user';
 
-export const loadProfile = async (game: string, userId: UserIdBase): Promise<IProfile> => {
+export const loadProfile = async (game: string, userId: UserIdBase): Promise<IProfile | null> => {
     // console.log("loading profile", game, composeUserId(userId));
 
     let leaderboards = await Promise.all([
@@ -17,6 +17,10 @@ export const loadProfile = async (game: string, userId: UserIdBase): Promise<IPr
     const leaderboardInfos = leaderboards.flatMap(l => l.leaderboard);
     const sortedLeaderboardInfos = sortBy(leaderboardInfos, l => l.last_match);
     const mostRecentLeaderboard = sortedLeaderboardInfos[0];
+
+    if (sortedLeaderboardInfos?.length === 0) {
+        return null;
+    }
 
     return {
         clan: mostRecentLeaderboard.clan,
