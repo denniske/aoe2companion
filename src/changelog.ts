@@ -10,6 +10,20 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '12.0.9': [
+        {
+            type: 'minor',
+            title: 'Implement AoE II DE Update 39284',
+        },
+        {
+            type: 'minor',
+            title: 'Techs/Units are now sorted into categories',
+        },
+        {
+            type: 'bugfix',
+            title: 'Tech/Unit search is not case sensitive anymore.',
+        },
+    ],
     '12.0.8': [
         {
             type: 'feature',

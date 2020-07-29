@@ -1,28 +1,55 @@
-import {ImageBackground, ImageSourcePropType, LayoutChangeEvent, Platform, StyleSheet, Text, View} from "react-native";
+import {
+    Image, ImageBackground, ImageSourcePropType, LayoutChangeEvent, Platform, StyleSheet, Text, View
+} from "react-native";
 import React from "react";
 import {MyText} from "../my-text";
-import {iconWidth} from "../../../helper/theme";
+import {iconHeight, iconWidth} from "../../../helper/theme";
+import {ITheme, makeVariants, useTheme} from "../../../theming";
 
 interface IconHeaderProps {
     icon: ImageSourcePropType;
+    badgeIcon?: ImageSourcePropType;
     text: string;
+    subtitle?: string;
     onLayout: (e: LayoutChangeEvent) => void;
 }
 
 export default function IconHeader(props: IconHeaderProps) {
-    const {icon, text, onLayout} = props;
+    const styles = useTheme(variants);
+    const {icon, badgeIcon, text, subtitle, onLayout} = props;
     return (
         <View style={styles.container} onLayout={onLayout}>
+
             <ImageBackground source={icon}
                              imageStyle={styles.imageInner}
                              style={styles.image}>
-                <MyText style={styles.title} numberOfLines={1}>{text}</MyText>
+                {
+                    badgeIcon &&
+                    <Image style={styles.unitIconBigBanner} source={badgeIcon}/>
+                }
+                <MyText style={subtitle ? styles.titleSmall : styles.title} numberOfLines={1}>{text}</MyText>
+                {
+                    subtitle &&
+                    <MyText style={styles.subtitle} numberOfLines={1}>{subtitle}</MyText>
+                }
             </ImageBackground>
+
         </View>
     );
 }
 
-const styles = StyleSheet.create({
+
+const getStyles = (theme: ITheme) => {
+    return StyleSheet.create({
+
+    unitIconBigBanner: {
+        position: 'absolute',
+        width: iconWidth*0.5,
+        height: iconHeight*0.5,
+        left: iconWidth*0.50+5,
+        bottom: 3,
+    },
+
     container: {
         // backgroundColor: 'red',
         flexDirection: 'row',
@@ -32,14 +59,14 @@ const styles = StyleSheet.create({
     image: {
         // backgroundColor: 'blue',
         justifyContent: 'center',
-        paddingLeft: iconWidth*1.15,
+        paddingLeft: iconWidth+15,
         height: 38,
     },
     imageInner: {
         // backgroundColor: 'blue',
         resizeMode: "contain",
         width: iconWidth,
-        left: 0,
+        left: 5,
     },
     // From react-navigation HeaderTitle.tsx
     title: Platform.select({
@@ -58,4 +85,46 @@ const styles = StyleSheet.create({
             fontWeight: '500',
         },
     }),
-});
+
+    titleSmall: Platform.select({
+        ios: {
+            // backgroundColor: 'yellow',
+            fontSize: 15,
+            fontWeight: '600',
+        },
+        android: {
+            fontSize: 15,
+            fontFamily: 'sans-serif-medium',
+            fontWeight: 'normal',
+        },
+        default: {
+            fontSize: 18,
+            fontWeight: '500',
+        },
+    }),
+
+    subtitle: Platform.select({
+        ios: {
+            // backgroundColor: 'yellow',
+            fontSize: 10,
+            fontWeight: '600',
+            color: theme.textNoteColor,
+            marginTop: 0,
+        },
+        android: {
+            fontSize: 10,
+            fontFamily: 'sans-serif-medium',
+            fontWeight: 'normal',
+            color: theme.textNoteColor,
+            marginTop: -2,
+        },
+        default: {
+            fontSize: 14,
+            fontWeight: '500',
+            color: theme.textNoteColor,
+        },
+    })
+    });
+};
+
+const variants = makeVariants(getStyles);

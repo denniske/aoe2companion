@@ -20,10 +20,14 @@ interface IEffect {
     [key: string]: string | undefined;
 }
 
+export type Age = 'Dark' | 'Feudal' | 'Castle' | 'Imperial';
+
 interface ITech {
     dataId: aoeTechDataId;
     name: Tech;
     effect?: IEffect;
+    civ?: Civ;
+    age?: Age;
 }
 
 export interface ITechEffect {
@@ -353,7 +357,7 @@ const techEffectDictInternal = {
     },
     'TimuridSiegecraft': {
         tech: 'TimuridSiegecraft',
-        civ: 'Malay',
+        civ: 'Tatars',
         effect: {
             range: '+2',
         },
@@ -485,7 +489,7 @@ const techEffectDictInternal = {
     },
     'Bagains': {
         tech: 'Bagains',
-        civ: 'Khmer',
+        civ: 'Bulgarians',
         effect: {
             armor: '+5/+0',
         },
@@ -603,7 +607,7 @@ const techEffectDictInternal = {
     },
     'Stirrups': {
         tech: 'Stirrups',
-        civ: 'Khmer',
+        civ: 'Bulgarians',
         effect: {
             firingRate: '+25% attack speed',
         },
@@ -698,7 +702,7 @@ const techEffectDictInternal = {
     },
     'RecurveBow': {
         tech: 'RecurveBow',
-        civ: 'Indians',
+        civ: 'Magyars',
         effect: {
             attack: '+1',
             range: '+1',
@@ -706,7 +710,7 @@ const techEffectDictInternal = {
     },
     'SilkArmor': {
         tech: 'SilkArmor',
-        civ: 'Malay',
+        civ: 'Tatars',
         effect: {
             armor: '+1 pierce armor',
         },
@@ -719,7 +723,7 @@ const techEffectDictInternal = {
     },
     'SteppeHusbandry': {
         tech: 'SteppeHusbandry',
-        civ: 'Burmese',
+        civ: 'Cumans',
         effect: {
             creationSpeed: '+50%',
         },
@@ -735,7 +739,7 @@ const techEffectDictInternal = {
     },
     'TowerShields': {
         tech: 'TowerShields',
-        civ: 'Vietnamese',
+        civ: 'Lithuanians',
         effect: {
             armor: '+2 pierce armor',
         },
@@ -980,7 +984,7 @@ const techEffectDictInternal = {
     },
     'FabricShields': {
         tech: 'FabricShields',
-        civ: 'Indians',
+        civ: 'Incas',
         effect: {
             armor: '+1/+2',
         },
@@ -1052,514 +1056,718 @@ export const techEffectDict = addNameToTechEffectDict(techEffectDictInternal as 
 
 export const techList: ITech[] = [
     {
-        dataId: '629',
-        name: 'PaperMoney',
+        "dataId": "51",
+        "name": "Architecture",
     },
     {
-        dataId: '11',
-        name: 'Crenellations',
+        "dataId": "608",
+        "name": "ArrowSlits",
     },
     {
-        dataId: '487',
-        name: 'Nomads',
+        "dataId": "17",
+        "name": "Banking",
     },
     {
-        dataId: '576',
-        name: 'Tigui',
+        "dataId": "23",
+        "name": "Coinage",
     },
     {
-        dataId: '624',
-        name: 'Thalassocracy',
+        "dataId": "15",
+        "name": "Guilds",
     },
     {
-        dataId: '691',
-        name: 'HillForts',
+        "dataId": "380",
+        "name": "HeatedShot",
     },
     {
-        dataId: '484',
-        name: 'Yasama',
+        "dataId": "379",
+        "name": "Hoardings",
     },
     {
-        dataId: '21',
-        name: 'Atheism',
+        "dataId": "50",
+        "name": "Masonry",
     },
     {
-        dataId: '690',
-        name: 'CumanMercenaries',
+        "dataId": "322",
+        "name": "MurderHoles",
     },
     {
-        dataId: '462',
-        name: 'GreatWall',
+        "dataId": "280",
+        "name": "TownPatrol",
     },
     {
-        dataId: '482',
-        name: 'Stronghold',
+        "dataId": "8",
+        "name": "TownWatch",
     },
     {
-        dataId: '213',
-        name: 'Wheelbarrow',
+        "dataId": "408",
+        "name": "SpiesTreason",
     },
     {
-        dataId: '249',
-        name: 'HandCart',
+        "dataId": "14",
+        "name": "HorseCollar",
     },
     {
-        dataId: '13',
-        name: 'HeavyPlow',
+        "dataId": "12",
+        "name": "CropRotation",
     },
     {
-        dataId: '202',
-        name: 'DoubleBitAxe',
+        "dataId": "629",
+        "name": "PaperMoney",
+        "civ": "Vietnamese",
+        "age": 'Imperial',
     },
     {
-        dataId: '203',
-        name: 'BowSaw',
+        "dataId": "11",
+        "name": "Crenellations",
+        "civ": "Teutons",
+        "age": 'Imperial',
     },
     {
-        dataId: '221',
-        name: 'TwoManSaw',
+        "dataId": "487",
+        "name": "Nomads",
+        "civ": "Mongols",
+        "age": 'Castle',
     },
     {
-        dataId: '278',
-        name: 'StoneMining',
+        "dataId": "576",
+        "name": "Tigui",
+        "civ": "Malians",
+        "age": 'Castle',
     },
     {
-        dataId: '279',
-        name: 'StoneShaftMining',
+        "dataId": "624",
+        "name": "Thalassocracy",
+        "civ": "Malay",
+        "age": 'Castle',
     },
     {
-        dataId: '55',
-        name: 'GoldMining',
+        "dataId": "691",
+        "name": "HillForts",
+        "civ": "Lithuanians",
+        "age": 'Castle',
     },
     {
-        dataId: '182',
-        name: 'GoldShaftMining',
+        "dataId": "484",
+        "name": "Yasama",
+        "civ": "Japanese",
+        "age": 'Castle',
     },
     {
-        dataId: '22',
-        name: 'Loom',
+        "dataId": "21",
+        "name": "Atheism",
+        "civ": "Huns",
+        "age": 'Imperial',
     },
     {
-        dataId: '321',
-        name: 'Sappers',
+        "dataId": "690",
+        "name": "CumanMercenaries",
+        "civ": "Cumans",
+        "age": 'Imperial',
     },
     {
-        dataId: '54',
-        name: 'TreadmillCrane',
+        "dataId": "462",
+        "name": "GreatWall",
+        "civ": "Chinese",
+        "age": 'Castle',
     },
     {
-        dataId: '440',
-        name: 'Supremacy',
+        "dataId": "482",
+        "name": "Stronghold",
+        "civ": "Celts",
+        "age": 'Castle',
     },
     {
-        dataId: '65',
-        name: 'Gillnets',
+        "dataId": "213",
+        "name": "Wheelbarrow"
     },
     {
-        dataId: '48',
-        name: 'Caravan',
+        "dataId": "249",
+        "name": "HandCart"
     },
     {
-        dataId: '499',
-        name: 'SilkRoad',
+        "dataId": "13",
+        "name": "HeavyPlow"
     },
     {
-        dataId: '506',
-        name: 'Sultans',
+        "dataId": "202",
+        "name": "DoubleBitAxe"
     },
     {
-        dataId: '231',
-        name: 'Sanctity',
+        "dataId": "203",
+        "name": "BowSaw"
     },
     {
-        dataId: '316',
-        name: 'Redemption',
+        "dataId": "221",
+        "name": "TwoManSaw"
     },
     {
-        dataId: '319',
-        name: 'Atonement',
+        "dataId": "278",
+        "name": "StoneMining"
     },
     {
-        dataId: '441',
-        name: 'HerbalMedicine',
+        "dataId": "279",
+        "name": "StoneShaftMining"
     },
     {
-        dataId: '252',
-        name: 'Fervor',
+        "dataId": "55",
+        "name": "GoldMining"
     },
     {
-        dataId: '233',
-        name: 'Illumination',
+        "dataId": "182",
+        "name": "GoldShaftMining"
     },
     {
-        dataId: '230',
-        name: 'BlockPrinting',
+        "dataId": "22",
+        "name": "Loom"
     },
     {
-        dataId: '438',
-        name: 'Theocracy',
+        "dataId": "321",
+        "name": "Sappers"
     },
     {
-        dataId: '512',
-        name: 'Orthodoxy',
+        "dataId": "54",
+        "name": "TreadmillCrane"
     },
     {
-        dataId: '492',
-        name: 'Inquisition',
+        "dataId": "440",
+        "name": "Supremacy",
+        "civ": "Spanish",
+        "age": 'Imperial',
     },
     {
-        dataId: '490',
-        name: 'Madrasah',
+        "dataId": "65",
+        "name": "Gillnets"
     },
-
     {
-        dataId: '464',
-        name: 'GreekFire',
+        "dataId": "48",
+        "name": "Caravan"
     },
     {
-        dataId: '572',
-        name: 'Carrack',
+        "dataId": "499",
+        "name": "SilkRoad",
+        "civ": "Italians",
+        "age": 'Imperial',
     },
     {
-        dataId: '486',
-        name: 'Panokseon',
+        "dataId": "506",
+        "name": "Sultans",
+        "civ": "Indians",
+        "age": 'Castle',
     },
     {
-        dataId: '373',
-        name: 'Shipwright',
+        "dataId": "231",
+        "name": "Sanctity",
     },
     {
-        dataId: '374',
-        name: 'Careening',
+        "dataId": "316",
+        "name": "Redemption",
     },
     {
-        dataId: '375',
-        name: 'DryDock',
+        "dataId": "319",
+        "name": "Atonement",
     },
     {
-        dataId: '461',
-        name: 'Warwolf',
+        "dataId": "441",
+        "name": "HerbalMedicine",
     },
     {
-        dataId: '688',
-        name: 'TimuridSiegecraft',
+        "dataId": "252",
+        "name": "Fervor",
     },
     {
-        dataId: '59',
-        name: 'Kataparuto',
+        "dataId": "233",
+        "name": "Illumination",
     },
     {
-        dataId: '10',
-        name: 'Artillery',
+        "dataId": "230",
+        "name": "BlockPrinting",
     },
     {
-        dataId: '445',
-        name: 'Shinkichon',
+        "dataId": "438",
+        "name": "Theocracy",
     },
     {
-        dataId: '5',
-        name: 'FurorCeltica',
+        "dataId": "512",
+        "name": "Orthodoxy",
+        "civ": "Slavs",
+        "age": 'Castle',
     },
     {
-        dataId: '377',
-        name: 'SiegeEngineers',
+        "dataId": "492",
+        "name": "Inquisition",
+        "civ": "Spanish",
+        "age": 'Castle',
     },
     {
-        dataId: '575',
-        name: 'TorsionEngines',
+        "dataId": "490",
+        "name": "Madrasah",
+        "civ": "Saracens",
+        "age": 'Castle',
     },
     {
-        dataId: '623',
-        name: 'DoubleCrossbow',
+        "dataId": "464",
+        "name": "GreekFire",
+        "civ": "Byzantines",
+        "age": 'Castle',
     },
     {
-        dataId: '489',
-        name: 'Ironclad',
+        "dataId": "572",
+        "name": "Carrack",
+        "civ": "Portuguese",
+        "age": 'Castle',
     },
     {
-        dataId: '6',
-        name: 'Drill',
+        "dataId": "486",
+        "name": "Panokseon",
+        "civ": "Koreans",
+        "age": 'Castle',
     },
     {
-        dataId: '507',
-        name: 'Shatagni',
+        "dataId": "373",
+        "name": "Shipwright"
     },
     {
-        dataId: '573',
-        name: 'Arquebus',
+        "dataId": "374",
+        "name": "Careening"
     },
     {
-        dataId: '574',
-        name: 'RoyalHeirs',
+        "dataId": "375",
+        "name": "DryDock"
     },
     {
-        dataId: '49',
-        name: 'Berserkergang',
+        "dataId": "461",
+        "name": "Warwolf",
+        "civ": "Britons",
+        "age": 'Imperial',
     },
     {
-        dataId: '16',
-        name: 'Anarchy',
+        "dataId": "688",
+        "name": "TimuridSiegecraft",
+        "civ": "Tatars",
+        "age": 'Imperial',
     },
     {
-        dataId: '83',
-        name: 'BeardedAxe',
+        "dataId": "59",
+        "name": "Kataparuto",
+        "civ": "Japanese",
+        "age": 'Imperial',
     },
     {
-        dataId: '4',
-        name: 'ElDorado',
+        "dataId": "10",
+        "name": "Artillery",
+        "civ": "Turks",
+        "age": 'Imperial',
     },
     {
-        dataId: '686',
-        name: 'Bagains',
+        "dataId": "445",
+        "name": "Shinkichon",
+        "civ": "Koreans",
+        "age": 'Imperial',
     },
     {
-        dataId: '625',
-        name: 'ForcedLevy',
+        "dataId": "5",
+        "name": "FurorCeltica",
+        "civ": "Celts",
+        "age": 'Imperial',
     },
     {
-        dataId: '24',
-        name: 'GarlandWars',
+        "dataId": "377",
+        "name": "SiegeEngineers"
     },
     {
-        dataId: '513',
-        name: 'Druzhina',
+        "dataId": "575",
+        "name": "TorsionEngines",
+        "civ": "Ethiopians",
+        "age": 'Imperial',
     },
     {
-        dataId: '463',
-        name: 'Chieftains',
+        "dataId": "623",
+        "name": "DoubleCrossbow",
+        "civ": "Khmer",
+        "age": 'Imperial',
     },
     {
-        dataId: '457',
-        name: 'Perfusion',
+        "dataId": "489",
+        "name": "Ironclad",
+        "civ": "Teutons",
+        "age": 'Castle',
     },
     {
-        dataId: '716',
-        name: 'Supplies',
+        "dataId": "6",
+        "name": "Drill",
+        "civ": "Mongols",
+        "age": 'Imperial',
     },
     {
-        dataId: '514',
-        name: 'CorvinianArmy',
+        "dataId": "507",
+        "name": "Shatagni",
+        "civ": "Indians",
+        "age": 'Imperial',
     },
     {
-        dataId: '483',
-        name: 'Marauders',
+        "dataId": "573",
+        "name": "Arquebus",
+        "civ": "Portuguese",
+        "age": 'Imperial',
     },
     {
-        dataId: '7',
-        name: 'Mahouts',
+        "dataId": "574",
+        "name": "RoyalHeirs",
+        "civ": "Ethiopians",
+        "age": 'Castle',
     },
     {
-        dataId: '61',
-        name: 'Logistica',
+        "dataId": "49",
+        "name": "Berserkergang",
+        "civ": "Vikings",
+        "age": 'Imperial',
     },
     {
-        dataId: '626',
-        name: 'Howdah',
+        "dataId": "16",
+        "name": "Anarchy",
+        "civ": "Goths",
+        "age": 'Castle',
     },
     {
-        dataId: '622',
-        name: 'TuskSwords',
+        "dataId": "83",
+        "name": "BeardedAxe",
+        "civ": "Franks",
+        "age": 'Imperial',
     },
     {
-        dataId: '628',
-        name: 'Chatras',
+        "dataId": "4",
+        "name": "ElDorado",
+        "civ": "Mayans",
+        "age": 'Imperial',
     },
     {
-        dataId: '9',
-        name: 'Zealotry',
+        "dataId": "686",
+        "name": "Bagains",
+        "civ": "Bulgarians",
+        "age": 'Imperial',
     },
     {
-        dataId: '577',
-        name: 'Farimba',
+        "dataId": "625",
+        "name": "ForcedLevy",
+        "civ": "Malay",
+        "age": 'Imperial',
     },
     {
-        dataId: '627',
-        name: 'ManipurCavalry',
+        "dataId": "24",
+        "name": "GarlandWars",
+        "civ": "Aztecs",
+        "age": 'Imperial',
     },
     {
-        dataId: '685',
-        name: 'Stirrups',
+        "dataId": "513",
+        "name": "Druzhina",
+        "civ": "Slavs",
+        "age": 'Imperial',
     },
     {
-        dataId: '81',
-        name: 'ScaleBardingArmor',
+        "dataId": "463",
+        "name": "Chieftains",
+        "civ": "Vikings",
+        "age": 'Castle',
     },
     {
-        dataId: '82',
-        name: 'ChainBardingArmor',
+        "dataId": "457",
+        "name": "Perfusion",
+        "civ": "Goths",
+        "age": 'Imperial',
     },
     {
-        dataId: '80',
-        name: 'PlateBardingArmor',
+        "dataId": "716",
+        "name": "Supplies"
     },
     {
-        dataId: '493',
-        name: 'Chivalry',
+        "dataId": "514",
+        "name": "CorvinianArmy",
+        "civ": "Magyars",
+        "age": 'Castle',
     },
-
     {
-        dataId: '578',
-        name: 'Kasbah',
+        "dataId": "483",
+        "name": "Marauders",
+        "civ": "Huns",
+        "age": 'Castle',
     },
     {
-        dataId: '579',
-        name: 'MaghrebiCamels',
+        "dataId": "7",
+        "name": "Mahouts",
+        "civ": "Persians",
+        "age": 'Imperial',
     },
     {
-        dataId: '52',
-        name: 'Rocketry',
+        "dataId": "61",
+        "name": "Logistica",
+        "civ": "Byzantines",
+        "age": 'Imperial',
     },
     {
-        dataId: '435',
-        name: 'Bloodlines',
+        "dataId": "626",
+        "name": "Howdah",
+        "civ": "Burmese",
+        "age": 'Castle',
     },
     {
-        dataId: '491',
-        name: 'Sipahi',
+        "dataId": "622",
+        "name": "TuskSwords",
+        "civ": "Khmer",
+        "age": 'Castle',
     },
     {
-        dataId: '436',
-        name: 'ParthianTactics',
+        "dataId": "628",
+        "name": "Chatras",
+        "civ": "Vietnamese",
+        "age": 'Castle',
     },
     {
-        dataId: '515',
-        name: 'RecurveBow',
+        "dataId": "9",
+        "name": "Zealotry",
+        "civ": "Saracens",
+        "age": 'Imperial',
     },
     {
-        dataId: '687',
-        name: 'SilkArmor',
+        "dataId": "577",
+        "name": "Farimba",
+        "civ": "Malians",
+        "age": 'Imperial',
     },
     {
-        dataId: '39',
-        name: 'Husbandry',
+        "dataId": "627",
+        "name": "ManipurCavalry",
+        "civ": "Burmese",
+        "age": 'Imperial',
     },
     {
-        dataId: '689',
-        name: 'SteppeHusbandry',
+        "dataId": "685",
+        "name": "Stirrups",
+        "civ": "Bulgarians",
+        "age": 'Castle',
     },
-
     {
-        dataId: '460',
-        name: 'Atlatl',
+        "dataId": "81",
+        "name": "ScaleBardingArmor"
     },
     {
-        dataId: '692',
-        name: 'TowerShields',
+        "dataId": "82",
+        "name": "ChainBardingArmor"
     },
     {
-        dataId: '485',
-        name: 'ObsidianArrows',
+        "dataId": "80",
+        "name": "PlateBardingArmor"
     },
     {
-        dataId: '3',
-        name: 'Yeomen',
+        "dataId": "493",
+        "name": "Chivalry",
+        "civ": "Franks",
+        "age": 'Castle',
     },
     {
-        dataId: '494',
-        name: 'Pavise',
+        "dataId": "578",
+        "name": "Kasbah",
+        "civ": "Berbers",
+        "age": 'Castle',
     },
     {
-        dataId: '488',
-        name: 'Kamandaran',
+        "dataId": "579",
+        "name": "MaghrebiCamels",
+        "civ": "Berbers",
+        "age": 'Imperial',
     },
-
     {
-        dataId: '437',
-        name: 'ThumbRing',
+        "dataId": "52",
+        "name": "Rocketry",
+        "civ": "Chinese",
+        "age": 'Imperial',
     },
     {
-        dataId: '93',
-        name: 'Ballistics',
+        "dataId": "435",
+        "name": "Bloodlines"
     },
     {
-        dataId: '516',
-        name: 'AndeanSling',
+        "dataId": "491",
+        "name": "Sipahi",
+        "civ": "Turks",
+        "age": 'Castle',
     },
-
     {
-        dataId: '211',
-        name: 'PaddedArcherArmor',
+        "dataId": "436",
+        "name": "ParthianTactics"
     },
     {
-        dataId: '212',
-        name: 'LeatherArcherArmor',
+        "dataId": "515",
+        "name": "RecurveBow",
+        "civ": "Magyars",
+        "age": 'Imperial',
     },
     {
-        dataId: '219',
-        name: 'RingArcherArmor',
+        "dataId": "687",
+        "name": "SilkArmor",
+        "civ": "Tatars",
+        "age": 'Castle',
     },
-
     {
-        dataId: '199',
-        name: 'Fletching',
+        "dataId": "39",
+        "name": "Husbandry"
     },
     {
-        dataId: '200',
-        name: 'BodkinArrow',
+        "dataId": "689",
+        "name": "SteppeHusbandry",
+        "civ": "Cumans",
+        "age": 'Castle',
     },
     {
-        dataId: '201',
-        name: 'Bracer',
+        "dataId": "460",
+        "name": "Atlatl",
+        "civ": "Aztecs",
+        "age": 'Castle',
     },
-
     {
-        dataId: '47',
-        name: 'Chemistry',
+        "dataId": "692",
+        "name": "TowerShields",
+        "civ": "Lithuanians",
+        "age": 'Imperial',
     },
-
     {
-        dataId: '67',
-        name: 'Forging',
+        "dataId": "485",
+        "name": "ObsidianArrows",
+        "civ": "Mayans",
+        "age": 'Castle',
     },
     {
-        dataId: '68',
-        name: 'IronCasting',
+        "dataId": "3",
+        "name": "Yeomen",
+        "civ": "Britons",
+        "age": 'Castle',
     },
     {
-        dataId: '75',
-        name: 'BlastFurnace',
+        "dataId": "494",
+        "name": "Pavise",
+        "civ": "Italians",
+        "age": 'Castle',
     },
     {
-        dataId: '602',
-        name: 'Arson',
+        "dataId": "488",
+        "name": "Kamandaran",
+        "civ": "Persians",
+        "age": 'Castle',
     },
     {
-        dataId: '74',
-        name: 'ScaleMailArmor',
+        "dataId": "437",
+        "name": "ThumbRing"
     },
     {
-        dataId: '76',
-        name: 'ChainMailArmor',
+        "dataId": "93",
+        "name": "Ballistics"
     },
     {
-        dataId: '77',
-        name: 'PlateMailArmor',
+        "dataId": "516",
+        "name": "AndeanSling",
+        "civ": "Incas",
+        "age": 'Castle',
     },
     {
-        dataId: '517',
-        name: 'FabricShields',
+        "dataId": "211",
+        "name": "PaddedArcherArmor"
     },
     {
-        dataId: '215',
-        name: 'Squires',
+        "dataId": "212",
+        "name": "LeatherArcherArmor"
     },
     {
-        dataId: '90',
-        name: 'Tracking',
+        "dataId": "219",
+        "name": "RingArcherArmor"
     },
     {
-        dataId: '45',
-        name: 'Faith',
+        "dataId": "199",
+        "name": "Fletching"
     },
     {
-        dataId: '439',
-        name: 'Heresy',
+        "dataId": "200",
+        "name": "BodkinArrow"
     },
     {
-        dataId: '315',
-        name: 'Conscription',
+        "dataId": "201",
+        "name": "Bracer"
     },
+    {
+        "dataId": "47",
+        "name": "Chemistry"
+    },
+    {
+        "dataId": "67",
+        "name": "Forging",
+    },
+    {
+        "dataId": "68",
+        "name": "IronCasting",
+    },
+    {
+        "dataId": "75",
+        "name": "BlastFurnace",
+    },
+    {
+        "dataId": "602",
+        "name": "Arson"
+    },
+    {
+        "dataId": "74",
+        "name": "ScaleMailArmor",
+    },
+    {
+        "dataId": "76",
+        "name": "ChainMailArmor",
+    },
+    {
+        "dataId": "77",
+        "name": "PlateMailArmor",
+    },
+    {
+        "dataId": "517",
+        "name": "FabricShields",
+        "civ": "Incas",
+        "age": "Imperial",
+    },
+    {
+        "dataId": "215",
+        "name": "Squires"
+    },
+    {
+        "dataId": "90",
+        "name": "Tracking"
+    },
+    {
+        "dataId": "45",
+        "name": "Faith",
+    },
+    {
+        "dataId": "439",
+        "name": "Heresy",
+    },
+    {
+        "dataId": "315",
+        "name": "Conscription"
+    }
 ];
+
+// const newTechList = techList.map(tech => {
+//    const newTech: any = {
+//        ...tech,
+//    };
+//    for (const key in techEffectDictInternal) {
+//        if (techEffectDictInternal[key].tech === tech.name && techEffectDictInternal[key].civ) {
+//            newTech.civ = techEffectDictInternal[key].civ;
+//        }
+//    }
+//    return newTech;
+// });
+// console.log(newTechList);
+
+
+console.log(techList.filter(t => !t.civ).map(t => t.name));
 
 export const techs: ITechDict = Object.assign({}, ...techList.map((x) => ({[x.name]: x})));
 
@@ -1568,6 +1776,20 @@ interface TechDict {
 }
 
 const techIcons = {
+    'Architecture': require('../../assets/techs/Architecture.png'),
+    'ArrowSlits': require('../../assets/techs/ArrowSlits.png'),
+    'Banking': require('../../assets/techs/Banking.png'),
+    'Coinage': require('../../assets/techs/Coinage.png'),
+    'Guilds': require('../../assets/techs/Guilds.png'),
+    'HeatedShot': require('../../assets/techs/HeatedShot.png'),
+    'Hoardings': require('../../assets/techs/Hoardings.png'),
+    'Masonry': require('../../assets/techs/Masonry.png'),
+    'MurderHoles': require('../../assets/techs/MurderHoles.png'),
+    'TownPatrol': require('../../assets/techs/TownPatrol.png'),
+    'TownWatch': require('../../assets/techs/TownWatch.png'),
+    'SpiesTreason': require('../../assets/techs/SpiesTreason.png'),
+    'HorseCollar': require('../../assets/techs/HorseCollar.png'),
+    'CropRotation': require('../../assets/techs/CropRotation.png'),
     'Forging': require('../../assets/techs/Forging.png'),
     'IronCasting': require('../../assets/techs/IronCasting.png'),
     'BlastFurnace': require('../../assets/techs/BlastFurnace.png'),

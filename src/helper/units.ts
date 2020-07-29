@@ -3,10 +3,11 @@ import {ImageSourcePropType} from "react-native";
 import {aoeData, aoeStringKey, aoeUnitDataId} from "../data/data";
 import {keysOf, strRemoveFrom, strRemoveTo, unwrap, ValueOf} from "./util";
 import {sortBy, uniq} from "lodash-es";
-import {civs} from "./civs";
+import {Civ} from "./civs";
 
 
 export interface IUnitLine {
+    civ?: Civ;
     unique?: boolean;
     units: Unit[];
     counteredBy?: UnitLine[];
@@ -291,6 +292,7 @@ export const unitLines: IUnitLineDict = {
     'Arambai': {
         units: ['Arambai', 'EliteArambai'],
         unique: true,
+        civ: 'Burmese',
         upgrades: [
             'Bloodlines',
             'ManipurCavalry',
@@ -304,6 +306,7 @@ export const unitLines: IUnitLineDict = {
     'OrganGun': {
         units: ['OrganGun', 'EliteOrganGun'],
         unique: true,
+        civ: 'Portuguese',
         upgrades: [
             'SiegeEngineers-20-1',
             'Arquebus',
@@ -315,6 +318,7 @@ export const unitLines: IUnitLineDict = {
     'Caravel': {
         units: ['Caravel', 'EliteCaravel'],
         unique: true,
+        civ: 'Portuguese',
         upgrades: [
             'Fletching',
             'BodkinArrow',
@@ -348,6 +352,7 @@ export const unitLines: IUnitLineDict = {
     'Conquistador': {
         units: ['Conquistador', 'EliteConquistador'],
         unique: true,
+        civ: 'Spanish',
         upgrades: [
             'Bloodlines',
             'PaddedArcherArmor',
@@ -362,6 +367,7 @@ export const unitLines: IUnitLineDict = {
     'TurtleShip': {
         units: ['TurtleShip', 'EliteTurtleShip'],
         unique: true,
+        civ: 'Koreans',
         upgrades: [
             'Careening',
             'DryDock',
@@ -373,6 +379,7 @@ export const unitLines: IUnitLineDict = {
     'Longboat': {
         units: ['Longboat', 'EliteLongboat'],
         unique: true,
+        civ: 'Vikings',
         upgrades: [
             'Fletching',
             'BodkinArrow',
@@ -388,6 +395,7 @@ export const unitLines: IUnitLineDict = {
     'Janissary': {
         units: ['Janissary', 'EliteJanissary'],
         unique: true,
+        civ: 'Turks',
         upgrades: [
             'PaddedArcherArmor',
             'LeatherArcherArmor',
@@ -400,6 +408,7 @@ export const unitLines: IUnitLineDict = {
     'BallistaElephant': {
         units: ['BallistaElephant', 'EliteBallistaElephant'],
         unique: true,
+        civ: 'Khmer',
         upgrades: [
             'Bloodlines',
             'SiegeEngineers-20-1',
@@ -572,6 +581,7 @@ export const unitLines: IUnitLineDict = {
     'KarambitWarrior': {
         units: ['KarambitWarrior', 'EliteKarambitWarrior'],
         unique: true,
+        civ: 'Malay',
         upgrades: [
             'Forging',
             'IronCasting',
@@ -590,6 +600,7 @@ export const unitLines: IUnitLineDict = {
     'Gbeto': {
         units: ['Gbeto', 'EliteGbeto'],
         unique: true,
+        civ: 'Malians',
         upgrades: [
             'Forging',
             'IronCasting',
@@ -607,6 +618,7 @@ export const unitLines: IUnitLineDict = {
     'ShotelWarrior': {
         units: ['ShotelWarrior', 'EliteShotelWarrior'],
         unique: true,
+        civ: 'Ethiopians',
         upgrades: [
             'Forging',
             'IronCasting',
@@ -648,6 +660,7 @@ export const unitLines: IUnitLineDict = {
     'JaguarWarrior': {
         units: ['JaguarWarrior', 'EliteJaguarWarrior'],
         unique: true,
+        civ: 'Aztecs',
         upgrades: [
             'Forging',
             'IronCasting',
@@ -667,6 +680,7 @@ export const unitLines: IUnitLineDict = {
     'Berserk': {
         units: ['Berserk', 'EliteBerserk'],
         unique: true,
+        civ: 'Vikings',
         upgrades: [
             'Forging',
             'IronCasting',
@@ -687,6 +701,7 @@ export const unitLines: IUnitLineDict = {
     'TeutonicKnight': {
         units: ['TeutonicKnight', 'EliteTeutonicKnight'],
         unique: true,
+        civ: 'Teutons',
         upgrades: [
             'Forging',
             'IronCasting',
@@ -705,6 +720,7 @@ export const unitLines: IUnitLineDict = {
     'Samurai': {
         units: ['Samurai', 'EliteSamurai'],
         unique: true,
+        civ: 'Japanese',
         upgrades: [
             'Forging',
             'IronCasting',
@@ -722,6 +738,7 @@ export const unitLines: IUnitLineDict = {
     'Huskarl': {
         units: ['Huskarl', 'EliteHuskarl'],
         unique: true,
+        civ: 'Goths',
         upgrades: [
             'Forging',
             'IronCasting',
@@ -739,6 +756,7 @@ export const unitLines: IUnitLineDict = {
     'ThrowingAxeman': {
         units: ['ThrowingAxeman', 'EliteThrowingAxeman'],
         unique: true,
+        civ: 'Franks',
         upgrades: [
             'Forging',
             'IronCasting',
@@ -758,6 +776,7 @@ export const unitLines: IUnitLineDict = {
     'WoadRaider': {
         units: ['WoadRaider', 'EliteWoadRaider'],
         unique: true,
+        civ: 'Celts',
         upgrades: [
             'Forging',
             'IronCasting',
@@ -858,6 +877,7 @@ export const unitLines: IUnitLineDict = {
     'Keshik': {
         units: ['Keshik', 'EliteKeshik'],
         unique: true,
+        civ: 'Tatars',
         upgrades: [
             'Bloodlines',
             'Forging',
@@ -873,6 +893,7 @@ export const unitLines: IUnitLineDict = {
     'Leitis': {
         units: ['Leitis', 'EliteLeitis'],
         unique: true,
+        civ: 'Lithuanians',
         upgrades: [
             'Bloodlines',
             'Forging',
@@ -890,6 +911,7 @@ export const unitLines: IUnitLineDict = {
     'Konnik': {
         units: ['Konnik', 'EliteKonnik'],
         unique: true,
+        civ: 'Bulgarians',
         upgrades: [
             'Bloodlines',
             'Forging',
@@ -913,6 +935,7 @@ export const unitLines: IUnitLineDict = {
     'Boyar': {
         units: ['Boyar', 'EliteBoyar'],
         unique: true,
+        civ: 'Slavs',
         upgrades: [
             'Bloodlines',
             'Forging',
@@ -928,6 +951,7 @@ export const unitLines: IUnitLineDict = {
     'MagyarHuszar': {
         units: ['MagyarHuszar', 'EliteMagyarHuszar'],
         unique: true,
+        civ: 'Magyars',
         upgrades: [
             'Bloodlines',
             'Forging',
@@ -945,6 +969,7 @@ export const unitLines: IUnitLineDict = {
     'Tarkan': {
         units: ['Tarkan', 'EliteTarkan'],
         unique: true,
+        civ: 'Huns',
         upgrades: [
             'Bloodlines',
             'Forging',
@@ -963,6 +988,7 @@ export const unitLines: IUnitLineDict = {
     'Mameluke': {
         units: ['Mameluke', 'EliteMameluke'],
         unique: true,
+        civ: 'Saracens',
         upgrades: [
             'Bloodlines',
             'Zealotry',
@@ -981,6 +1007,7 @@ export const unitLines: IUnitLineDict = {
     'WarElephant': {
         units: ['WarElephant', 'EliteWarElephant'],
         unique: true,
+        civ: 'Persians',
         upgrades: [
             'Bloodlines',
             'Forging',
@@ -998,6 +1025,7 @@ export const unitLines: IUnitLineDict = {
     'Cataphract': {
         units: ['Cataphract', 'EliteCataphract'],
         unique: true,
+        civ: 'Byzantines',
         upgrades: [
             'Forging',
             'IronCasting',
@@ -1151,6 +1179,7 @@ export const unitLines: IUnitLineDict = {
     'Kipchak': {
         units: ['Kipchak', 'EliteKipchak'],
         unique: true,
+        civ: 'Cumans',
         upgrades: [
             'Bloodlines',
             'Sipahi',
@@ -1176,6 +1205,7 @@ export const unitLines: IUnitLineDict = {
     'RattanArcher': {
         units: ['RattanArcher', 'EliteRattanArcher'],
         unique: true,
+        civ: 'Vietnamese',
         upgrades: [
             'Fletching',
             'BodkinArrow',
@@ -1217,6 +1247,7 @@ export const unitLines: IUnitLineDict = {
     'CamelArcher': {
         units: ['CamelArcher', 'EliteCamelArcher'],
         unique: true,
+        civ: 'Berbers',
         upgrades: [
             'Bloodlines',
             'Fletching',
@@ -1239,6 +1270,7 @@ export const unitLines: IUnitLineDict = {
     'GenoeseCrossbowman': {
         units: ['GenoeseCrossbowman', 'EliteGenoeseCrossbowman'],
         unique: true,
+        civ: 'Italians',
         upgrades: [
             'Fletching',
             'BodkinArrow',
@@ -1257,6 +1289,7 @@ export const unitLines: IUnitLineDict = {
     'ElephantArcher': {
         units: ['ElephantArcher', 'EliteElephantArcher'],
         unique: true,
+        civ: 'Indians',
         upgrades: [
             'Bloodlines',
             'Fletching',
@@ -1277,6 +1310,7 @@ export const unitLines: IUnitLineDict = {
     'WarWagon': {
         units: ['WarWagon', 'EliteWarWagon'],
         unique: true,
+        civ: 'Koreans',
         upgrades: [
             'Fletching',
             'BodkinArrow',
@@ -1295,6 +1329,7 @@ export const unitLines: IUnitLineDict = {
     'Mangudai': {
         units: ['Mangudai', 'EliteMangudai'],
         unique: true,
+        civ: 'Mongols',
         upgrades: [
             'Bloodlines',
             'Fletching',
@@ -1315,6 +1350,7 @@ export const unitLines: IUnitLineDict = {
     'ChuKoNu': {
         units: ['ChuKoNu', 'EliteChuKoNu'],
         unique: true,
+        civ: 'Chinese',
         upgrades: [
             'Fletching',
             'BodkinArrow',
@@ -1333,6 +1369,7 @@ export const unitLines: IUnitLineDict = {
     'Longbowman': {
         units: ['Longbowman', 'EliteLongbowman'],
         unique: true,
+        civ: 'Britons',
         upgrades: [
             'Fletching',
             'BodkinArrow',
@@ -1447,6 +1484,7 @@ export const unitLines: IUnitLineDict = {
     'PlumedArcher': {
         units: ['PlumedArcher', 'ElitePlumedArcher'],
         unique: true,
+        civ: 'Mayans',
         upgrades: [
             'Fletching',
             'BodkinArrow',
@@ -1484,6 +1522,7 @@ export const unitLines: IUnitLineDict = {
     'Kamayuk': {
         units: ['Kamayuk', 'EliteKamayuk'],
         unique: true,
+        civ: 'Incas',
         upgrades: [
             'Forging',
             'IronCasting',
@@ -2184,6 +2223,7 @@ export function getUnitLineIcon(unitLine: UnitLine) {
 }
 
 export function getUnitLineName(unitLine: UnitLine) {
+    if (!unitLines[unitLine]) throw new Error(`Unit line ${unitLine} does not exist.`);
     const unit = unitLines[unitLine].units[0] as Unit;
     return getUnitName(unit);
 }
@@ -2198,7 +2238,7 @@ export function getUnitIcon(unit: Unit) {
 
 export function getUnitName(unit: Unit) {
     const data = getUnitData(unit);
-    return aoeData.strings[data.LanguageNameId.toString() as aoeStringKey];
+    return aoeData.strings[data.LanguageNameId.toString() as aoeStringKey].replace(' (Male)', '');
 }
 
 export function getUnitData(unit: Unit) {
@@ -2222,7 +2262,7 @@ export function getUnitDescription(unit: Unit) {
     return description;
 }
 
-const unitList = unitLineNames.map(ul => ({
+export const unitList = unitLineNames.map(ul => ({
     name: ul,
     ...unitLines[ul],
 }))

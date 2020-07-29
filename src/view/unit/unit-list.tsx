@@ -1,19 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, Image, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, Platform, SectionList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {
-    getUnitIcon,
-    getUnitLineIcon, getUnitLineName, getUnitLineNameForUnit, getUnitName, IUnitLine, Unit, UnitLine, unitLineNames,
+    getUnitIcon, getUnitLineIcon, getUnitLineName, getUnitLineNameForUnit, getUnitName, IUnitLine, Unit, UnitLine,
     unitLines
 } from "../../helper/units";
-import {sortBy} from "lodash-es";
 import {MyText} from "../components/my-text";
 import {iconHeight, iconWidth} from "../../helper/theme";
 import {ITheme, makeVariants, useTheme} from "../../theming";
-import {getTechName, Tech, techs} from "../../helper/techs";
 import {Searchbar} from "react-native-paper";
-import {TechCompBig} from "../tech/tech-list";
+import {civDict, civs} from "../../helper/civs";
 
 
 function getUnitLineTitle(unitLine: IUnitLine) {
@@ -73,22 +70,124 @@ export function UnitLineCompBig({unitLine}: {unitLine: UnitLine}) {
     );
 }
 
-const allUnitLines = sortBy(unitLineNames);
+interface ISection {
+    title: string;
+    data: (UnitLine | Unit)[];
+}
+
+const sections: ISection[] = [
+    {
+        title: 'Infantry',
+        data:
+            [
+                'Militia',
+                'Spearman',
+                'EagleScout',
+            ],
+    },
+    {
+        title: 'Archer',
+        data:
+            [
+                'Archer',
+                'Skirmisher',
+                'CavalryArcher',
+                'Genitour',
+            ],
+    },
+    {
+        title: 'Cavalry',
+        data:
+            [
+                'ScoutCavalry',
+                'Knight',
+                'CamelRider',
+                'SteppeLancer',
+                'BattleElephant',
+                'XolotlWarrior',
+            ],
+    },
+    {
+        title: 'Siege',
+        data:
+            [
+                'BatteringRam',
+                'Mangonel',
+                'Scorpion',
+                'SiegeTower',
+                'BombardCannon',
+                'Trebuchet',
+                'Petard',
+            ],
+    },
+    {
+        title: 'Trade',
+        data:
+            [
+                'TradeCart',
+                'TradeCog',
+            ],
+    },
+    {
+        title: 'Villager',
+        data:
+            [
+                'Villager',
+            ],
+    },
+    {
+        title: 'Navy',
+        data:
+            [
+                'FishingShip',
+                'TransportShip',
+                'Galley',
+                'FireGalley',
+                'DemolitionRaft',
+                'CannonGalleon',
+            ],
+    },
+    {
+        title: 'Monk',
+        data:
+            [
+                // 'Missionary',
+                'Monk',
+            ],
+    },
+    ...civs.map(civ => ({
+        title: civ,
+        data: civDict[civ].uniqueUnits,
+    })),
+];
+
+console.log(sections);
+
 
 export default function UnitList() {
     const styles = useTheme(variants);
     const [text, setText] = useState('');
-    const [list, setList] = useState(allUnitLines);
+    const [list, setList] = useState(sections);
 
     const refresh = () => {
-        if (text.length == 0) {
-            setList(allUnitLines);
-            return;
-        }
-        const found = allUnitLines.filter(unitLine => {
-            return unitLines[unitLine].units.some(u => getUnitName(u).toLowerCase().includes(text.toLowerCase()));
-        });
-        setList(found);
+        const newSections = sections.map(section => ({
+            ...section,
+            data: section.data.map(u => {
+                if (unitLines[u] && !unitLines[u].unique) {
+                    return unitLines[u].units;
+                }
+                return [u];
+            })
+                .flatMap(u => u)
+                .filter(u => {
+                    // if (unitLines[u]) {
+                    //     return unitLines[u].units.some(u => getUnitName(u).toLowerCase().includes(text.toLowerCase()));
+                    // }
+                    return getUnitName(u).toLowerCase().includes(text.toLowerCase());
+                }
+            ),
+        })).filter(section => section.data.length > 0);
+        setList(newSections);
     };
 
     useEffect(() => {
@@ -103,12 +202,29 @@ export default function UnitList() {
                 onChangeText={text => setText(text)}
                 value={text}
             />
-            <FlatList
+            <SectionList
                 keyboardShouldPersistTaps={'always'}
                 contentContainerStyle={styles.list}
-                data={list}
+                sections={list}
+                stickySectionHeadersEnabled={false}
                 renderItem={({item}) => {
-                    return <UnitLineCompBig key={item} unitLine={item}/>
+                    // if (unitLines[item] && text.length === 0) {
+                    //     return <UnitLineCompBig key={item} unitLine={item}/>
+                    // }
+                    return <UnitCompBig key={item} unit={item}/>
+                }}
+                renderSectionHeader={({ section: { title } }) => {
+                    // if (civ) {
+                    //     return (
+                    //         <View style={styles.row}>
+                    //             {/*<Image source={getCivIcon(civ)} style={styles.unitIcon}/>*/}
+                    //             <Text style={styles.heading}>{title}</Text>
+                    //         </View>
+                    //     );
+                    // }
+                    return (
+                        <Text style={styles.heading}>{title}</Text>
+                    );
                 }}
                 keyExtractor={(item, index) => index.toString()}
             />
@@ -168,6 +284,13 @@ const getStyles = (theme: ITheme) => {
         small: {
             fontSize: 12,
             color: theme.textNoteColor,
+        },
+
+        heading: {
+            paddingVertical: 12,
+            marginBottom: 5,
+            fontWeight: 'bold',
+            // backgroundColor: theme.backgroundColor,
         },
     });
 };
