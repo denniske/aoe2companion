@@ -181,7 +181,7 @@ const sections: ISection[] = [
         ],
     },
     {
-        title: 'ArcheryRange',
+        title: 'Archery Range',
         data: [
             "ThumbRing",
             "ParthianTactics",
