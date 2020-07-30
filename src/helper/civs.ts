@@ -1,4 +1,6 @@
-import {civsConfig, defaultDisabledUnits, horseDisabledTechs, horseDisabledUnits} from "../data/civs";
+import {
+    civsConfig, defaultDisabledBuildings, defaultDisabledUnits, horseDisabledTechs, horseDisabledUnits
+} from "../data/civs";
 import {Tech, techs} from "./techs";
 import {sanitizeGameDescription, unwrap} from "./util";
 import {Unit, units} from "./units";
@@ -345,6 +347,10 @@ export function getCivHasTech(civ: Civ, tech: Tech) {
 export function getCivHasBuilding(civ: Civ, building: Building) {
     const entry = buildings[building];
     const civConfig = civsConfig[civ];
+
+    if (defaultDisabledBuildings.includes(parseInt(entry.dataId))) {
+        return false;
+    }
 
     return !((civConfig.disabled as any).buildings || []).includes(parseInt(entry.dataId));
 }

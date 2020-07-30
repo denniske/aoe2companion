@@ -357,6 +357,19 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2 civ={civ} unit="DemolitionShip"/>
                         <Ability2 civ={civ} unit="WarGalley"/>
                         <Ability2 civ={civ} tech="Careening"/>
+                        <Ability2/>
+                        {
+                            civInfo.uniqueUnits.includes('Caravel') &&
+                            <Ability2 civ={civ} unit="Caravel"/>
+                        }
+                        {
+                            civInfo.uniqueUnits.includes('Longboat') &&
+                            <Ability2 civ={civ} unit="Longboat"/>
+                        }
+                        {
+                            civInfo.uniqueUnits.includes('TurtleShip') &&
+                            <Ability2 civ={civ} unit="TurtleShip"/>
+                        }
                     </View>
                     <View style={styles.row}>
                         <Ability3 age="ImperialAge"/>
@@ -366,8 +379,21 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2 civ={civ} unit="Galleon"/>
                         <Ability2 civ={civ} tech="DryDock"/>
                         <Ability2 civ={civ} tech="Shipwright"/>
+                        {
+                            civInfo.uniqueUnits.includes('Caravel') &&
+                            <Ability2 civ={civ} unit="EliteCaravel"/>
+                        }
+                        {
+                            civInfo.uniqueUnits.includes('Longboat') &&
+                            <Ability2 civ={civ} unit="EliteLongboat"/>
+                        }
+                        {
+                            civInfo.uniqueUnits.includes('TurtleShip') &&
+                            <Ability2 civ={civ} unit="EliteTurtleShip"/>
+                        }
                     </View>
                     <View style={styles.row}>
+                        <Ability2/>
                         <Ability2/>
                         <Ability2 civ={civ} unit="EliteCannonGalleon"/>
                     </View>
