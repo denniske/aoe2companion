@@ -1,4 +1,4 @@
-export const aoeDataInternal: any = {
+export const aoeDataInternal = {
     "age_names": {
         "Castle Age": "4203",
         "Dark Age": "4201",
@@ -12426,4 +12426,4 @@ export const aoeDataInternal: any = {
         "Unique Unit": "300082",
         "Unit": "300083"
     }
-};
+} as const;

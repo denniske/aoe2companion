@@ -1056,6 +1056,23 @@ export const techEffectDict = addNameToTechEffectDict(techEffectDictInternal as 
 
 export const techList: ITech[] = [
     {
+        "dataId": "64",
+        "name": "BombardTower",
+    },
+    {
+        "dataId": "63",
+        "name": "Keep",
+    },
+    {
+        "dataId": "140",
+        "name": "GuardTower",
+    },
+    {
+        "dataId": "194",
+        "name": "FortifiedWall",
+    },
+
+    {
         "dataId": "51",
         "name": "Architecture",
     },
@@ -1776,6 +1793,10 @@ interface TechDict {
 }
 
 const techIcons = {
+    'BombardTower': require('../../assets/buildings/BombardTower.png'),
+    'Keep': require('../../assets/buildings/Keep.png'),
+    'GuardTower': require('../../assets/buildings/GuardTower.png'),
+    'FortifiedWall': require('../../assets/buildings/FortifiedWall.png'),
     'Architecture': require('../../assets/techs/Architecture.png'),
     'ArrowSlits': require('../../assets/techs/ArrowSlits.png'),
     'Banking': require('../../assets/techs/Banking.png'),

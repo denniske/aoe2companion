@@ -63,7 +63,7 @@ export default function Footer() {
                         <Icon name="graduation-cap" size={iconSize} style={iconStyle('Guide')} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuButtonDots} onPress={() => setMenu(true)}>
-                        <Icon name="ellipsis-v" size={iconSize} style={iconStyle('Tech', 'Unit', 'About', 'Settings', 'Changelog')} />
+                        <Icon name="ellipsis-v" size={iconSize} style={iconStyle('Tech', 'Unit', 'Building', 'About', 'Settings', 'Changelog')} />
                     </TouchableOpacity>
                    <Menu
                         contentStyle={{marginBottom: 50}}
@@ -81,6 +81,7 @@ export default function Footer() {
                         <Divider />
                         <Menu.Item icon={useIcon('cog', 'Settings')} titleStyle={iconPopupStyle('Settings')} onPress={() => { nav('Settings'); setMenu(false); }} title="Settings" />
                         <Divider />
+                        <Menu.Item icon={useIcon('archway', 'Building')} titleStyle={iconPopupStyle('Building')} onPress={() => { nav('Building'); setMenu(false); }} title="Buildings" />
                         <Menu.Item icon={useIcon('flask', 'Tech')} titleStyle={iconPopupStyle('Tech')} onPress={() => { nav('Tech'); setMenu(false); }} title="Techs" />
                         <Menu.Item icon={useIcon('fist-raised', 'Unit')} titleStyle={iconPopupStyle('Unit')} onPress={() => { nav('Unit'); setMenu(false); }} title="Units" />
                     </Menu>

@@ -14,6 +14,7 @@ export interface IConfig {
 export interface IPrefs {
     leaderboardId?: LeaderboardId;
     changelogLastVersionRead?: string;
+    techTreeSize?: string;
 }
 
 export interface ISettings {

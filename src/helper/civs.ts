@@ -3,6 +3,7 @@ import {Tech, techs} from "./techs";
 import {sanitizeGameDescription, unwrap} from "./util";
 import {Unit, units} from "./units";
 import {aoeData, aoeStringKey} from "../data/data";
+import {Building, buildings} from "./buildings";
 
 export const civs = [
     'Aztecs',
@@ -338,7 +339,14 @@ export function getCivHasTech(civ: Civ, tech: Tech) {
         return false;
     }
 
-    return !civsConfig[civ].disabled.techs.includes(parseInt(entry.dataId));
+    return !civConfig.disabled.techs.includes(parseInt(entry.dataId));
+}
+
+export function getCivHasBuilding(civ: Civ, building: Building) {
+    const entry = buildings[building];
+    const civConfig = civsConfig[civ];
+
+    return !((civConfig.disabled as any).buildings || []).includes(parseInt(entry.dataId));
 }
 
 export function getCivHasUnit(civ: Civ, unit: Unit) {
@@ -357,7 +365,7 @@ export function getCivHasUnit(civ: Civ, unit: Unit) {
         return false;
     }
 
-    return !civsConfig[civ].disabled.units.includes(parseInt(entry.dataId));
+    return !civConfig.disabled.units.includes(parseInt(entry.dataId));
 }
 
 export function getCivDescription(civ: Civ) {

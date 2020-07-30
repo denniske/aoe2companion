@@ -48,6 +48,8 @@ import {AppearanceProvider, useColorScheme} from "react-native-appearance";
 import {NavigationState} from "@react-navigation/routers";
 import ChangelogPage from "./src/view/changelog.page";
 import ChangelogSnackbar from "./src/view/components/changelog-snackbar";
+import {Building} from "./src/helper/buildings";
+import BuildingPage, {BuildingTitle, buildingTitle} from "./src/view/building/building.page";
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -111,6 +113,7 @@ export type RootStackParamList = {
     Leaderboard: undefined;
     Civ: { civ: Civ };
     Unit: { unit: Unit };
+    Building: { building: Building };
     Tech: { tech: Tech };
     Guide: undefined;
     User: { id: UserId, name: string };
@@ -250,6 +253,15 @@ export function InnerApp() {
                         animationEnabled: !!props.route?.params?.unit,
                         title: unitTitle(props),
                         headerTitle: titleProps => <UnitTitle {...props} titleProps={titleProps} />,
+                    })}
+                />
+                <Stack.Screen
+                    name="Building"
+                    component={BuildingPage}
+                    options={props => ({
+                        animationEnabled: !!props.route?.params?.building,
+                        title: buildingTitle(props),
+                        headerTitle: titleProps => <BuildingTitle {...props} titleProps={titleProps} />,
                     })}
                 />
                 <Stack.Screen

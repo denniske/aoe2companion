@@ -112,7 +112,7 @@ const sections: ISection[] = [
         ],
     },
     {
-        title: 'Monastry',
+        title: 'Monastery',
         data: [
             "Sanctity",
             "Redemption",

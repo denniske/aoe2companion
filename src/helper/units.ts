@@ -2081,6 +2081,10 @@ export function getUnitClassName(unitClassNumber: UnitClassNumber): UnitClass {
 
 
 export const otherNames = [
+    'DarkAge',
+    'FeudalAge',
+    'CastleAge',
+    'ImperialAge',
     'Wood',
     'Food',
     'Gold',
@@ -2088,6 +2092,10 @@ export const otherNames = [
 ] as const;
 
 const otherIcons = {
+    'DarkAge': require('../../assets/other/DarkAge.png'),
+    'FeudalAge': require('../../assets/other/FeudalAgeFull.png'),
+    'CastleAge': require('../../assets/other/CastleAge.png'),
+    'ImperialAge': require('../../assets/other/ImperialAge.png'),
     'Wood': require('../../assets/other/Wood.png'),
     'Food': require('../../assets/other/Food.png'),
     'Gold': require('../../assets/other/Gold.png'),
@@ -2233,6 +2241,7 @@ export function getEliteUniqueResearchIcon() {
 }
 
 export function getUnitIcon(unit: Unit) {
+    if (unitIcons[unit] == null) return require('../../assets/units/EliteUniqueResearch.png');
     return unitIcons[unit];
 }
 

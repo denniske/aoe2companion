@@ -10,6 +10,16 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '12.0.10': [
+        {
+            type: 'feature',
+            title: 'Full tech tree on civ page',
+        },
+        {
+            type: 'feature',
+            title: 'Added buildings screen',
+        },
+    ],
     '12.0.9': [
         {
             type: 'minor',
