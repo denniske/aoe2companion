@@ -27,6 +27,7 @@
       "assets/legal/**",
       "assets/maps/**",
       "assets/strings/**",
+      "assets/buildings/**",
       "assets/techs/**",
       "assets/units/**",
       "assets/*"
