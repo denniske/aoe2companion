@@ -2,16 +2,31 @@ import React from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import {RouteProp, useRoute} from "@react-navigation/native";
 import {RootStackParamList} from "../../../App";
-import {getUnitIcon, getUnitLineIcon, getUnitLineName, getUnitName, Unit, UnitLine} from "../../helper/units";
+import {
+    getUnitIcon, getUnitLineForUnit, getUnitLineIcon, getUnitLineName, getUnitName, Unit, UnitLine
+} from "../../helper/units";
 import {aoeCivKey} from "../../data/data";
 import IconHeader from "../components/navigation-header/icon-header";
 import TextHeader from "../components/navigation-header/text-header";
 import UnitDetails from "./unit-details";
 import UnitList from "./unit-list";
+import {getTechIcon, getTechName, techs} from "../../helper/techs";
+import {getCivIcon} from "../../helper/civs";
 
 
 export function UnitTitle(props: any) {
-    if (props.route?.params?.unit) {
+    const unit = props.route?.params?.unit;
+    if (unit) {
+        const unitLine = getUnitLineForUnit(unit);
+        if (unitLine?.civ) {
+            return <IconHeader
+                // badgeIcon={unitLine.civ ? getCivIcon(unitLine.civ) : null}
+                icon={getUnitIcon(props.route?.params?.unit)}
+                text={getUnitName(props.route.params?.unit)}
+                subtitle={unitLine.civ + ' unique unit'}
+                onLayout={props.titleProps.onLayout}
+            />;
+        }
         return <IconHeader
             icon={getUnitIcon(props.route?.params?.unit)}
             text={getUnitName(props.route.params?.unit)}

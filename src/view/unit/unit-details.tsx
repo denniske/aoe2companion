@@ -11,16 +11,52 @@ import {
     getUnitName, IUnitInfo, Other, sortResources, sortUnitCounter, Unit, UnitClassNumber,
     UnitLine, unitLines, units
 } from "../../helper/units";
-import {getTechIcon, getTechName, Tech, techEffectDict} from "../../helper/techs";
-import {Civ} from "../../helper/civs";
+import {getTechIcon, getTechName, Tech, techEffectDict, techList} from "../../helper/techs";
+import {Civ, civs} from "../../helper/civs";
 import Fandom from "../components/fandom";
 import {Button} from "react-native-paper";
-import {keysOf} from "../../helper/util";
+import {escapeRegExpFn, keysOf} from "../../helper/util";
 import {MyText} from "../components/my-text";
 import {iconHeight, iconSmallHeight, iconSmallWidth, iconWidth} from "../../helper/theme";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import {appVariants} from "../../styles";
 
+
+// function highlightUnitAndCivs(str: string) {
+//     const appStyles = useTheme(appVariants);
+//     const navigation = useNavigation<RootStackProp>();
+//
+//     const civReplaceList = civs.map(civ => ({ name: civ, text: civ}));
+//     const unitReplaceList = Object.keys(units).map(t => ({ name: getUnitLineNameForUnit(t as Unit), text: getUnitName(t as Unit)}));
+//     const reverseCivMap = Object.assign({}, ...civReplaceList.map((x) => ({[x.text]: x})));
+//     const reverseUnitMap = Object.assign({}, ...unitReplaceList.map((x) => ({[x.text]: x})));
+//
+//     const allReplaceList = [...civReplaceList, ...unitReplaceList];
+//
+//     const regex = new RegExp('('+allReplaceList.map(m => '\\b'+escapeRegExpFn(m.text)+'\\b').join("|")+')', '');
+//
+//     const parts = str.split(regex);
+//     // console.log('parts', parts);
+//     // console.log('map', map);
+//
+//     const texts = [];
+//     for (let i = 0; i < parts.length; i++) {
+//         if (i % 2 == 0) {
+//             texts.push(<MyText key={i}>{parts[i]}</MyText>);
+//         } else {
+//             // console.log('part', parts[i]);
+//             const matchingTech = reverseCivMap[parts[i]]?.name;
+//             if (matchingTech) {
+//                 texts.push(<MyText key={i} style={appStyles.link} onPress={() => navigation.push('Tech', {tech: matchingTech})}>{parts[i]}</MyText>);
+//             }
+//             const matchingUnit = reverseUnitMap[parts[i]]?.name;
+//             if (matchingUnit) {
+//                 texts.push(<MyText key={i} style={appStyles.link} onPress={() => navigation.push('Unit', {unit: matchingUnit})}>{parts[i]}</MyText>);
+//             }
+//         }
+//     }
+//     return texts;
+// }
 
 export default function UnitDetails({unitName}: {unitName: Unit}) {
     const appStyles = useTheme(appVariants);

@@ -37,7 +37,6 @@ export function civTitle(props: any) {
 
 function highlightUnitAndTechs(str: string) {
     const appStyles = useTheme(appVariants);
-    const styles = useTheme(variants);
     const navigation = useNavigation<RootStackProp>();
 
     const techReplaceList = techList.map(t => ({ name: t.name, text: getTechName(t.name)}));

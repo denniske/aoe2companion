@@ -3,14 +3,16 @@ import {Image, Platform, SectionList, StyleSheet, Text, TouchableOpacity, View} 
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {
-    getUnitIcon, getUnitLineIcon, getUnitLineName, getUnitLineNameForUnit, getUnitName, IUnitLine, Unit, UnitLine,
-    unitLines
+    getUnitIcon, getUnitLineForUnit, getUnitLineIcon, getUnitLineName, getUnitLineNameForUnit, getUnitName, IUnitLine,
+    Unit, UnitLine,
+    unitLines, units
 } from "../../helper/units";
 import {MyText} from "../components/my-text";
 import {iconHeight, iconWidth} from "../../helper/theme";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import {Searchbar} from "react-native-paper";
 import {civDict, civs} from "../../helper/civs";
+import {sortBy} from "lodash-es";
 
 
 function getUnitLineTitle(unitLine: IUnitLine) {
@@ -51,6 +53,26 @@ export function UnitCompBig({unit}: {unit: Unit}) {
     );
 }
 
+export function UnitCompBigWithCiv({unit}: {unit: Unit}) {
+    const styles = useTheme(variants);
+    const navigation = useNavigation<RootStackProp>();
+    const unitLine = getUnitLineForUnit(unit);
+    return (
+        <TouchableOpacity onPress={() => navigation.push('Unit', {unit: unit})}>
+            <View style={styles.rowBig}>
+                <Image style={styles.unitIconBig} source={getUnitIcon(unit)}/>
+                <View style={styles.unitIconBigTitle}>
+                    <MyText>{getUnitName(unit)}</MyText>
+                    {/*{*/}
+                    {/*    unitLine?.unique && false &&*/}
+                    {/*    <MyText numberOfLines={1} style={styles.small}>{unitLine.civ} unique unit</MyText>*/}
+                    {/*}*/}
+                </View>
+            </View>
+        </TouchableOpacity>
+    );
+}
+
 export function UnitLineCompBig({unitLine}: {unitLine: UnitLine}) {
     const styles = useTheme(variants);
     const navigation = useNavigation<RootStackProp>();
@@ -83,6 +105,7 @@ const sections: ISection[] = [
                 'Militia',
                 'Spearman',
                 'EagleScout',
+                'Condottiero',
             ],
     },
     {
@@ -118,6 +141,7 @@ const sections: ISection[] = [
                 'BombardCannon',
                 'Trebuchet',
                 'Petard',
+                'FlamingCamel',
             ],
     },
     {
@@ -145,6 +169,9 @@ const sections: ISection[] = [
                 'FireGalley',
                 'DemolitionRaft',
                 'CannonGalleon',
+                'Caravel',
+                'Longboat',
+                'TurtleShip',
             ],
     },
     {
@@ -155,10 +182,10 @@ const sections: ISection[] = [
                 'Monk',
             ],
     },
-    ...civs.map(civ => ({
-        title: civ,
-        data: civDict[civ].uniqueUnits,
-    })),
+    {
+        title: 'Unique',
+        data: sortBy(civs.flatMap(civ => civDict[civ].uniqueUnits[0])),
+    },
 ];
 
 console.log(sections);

@@ -20,6 +20,10 @@ export const changelog: IChangelog = {
             title: 'Added buildings screen',
         },
         {
+            type: 'minor',
+            title: 'Sort unique units alphabetically',
+        },
+        {
             type: 'bugfix',
             title: 'Fixed unit list linking',
         },
