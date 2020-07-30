@@ -19,6 +19,10 @@ export const changelog: IChangelog = {
             type: 'feature',
             title: 'Added buildings screen',
         },
+        {
+            type: 'bugfix',
+            title: 'Fixed unit list linking',
+        },
     ],
     '12.0.9': [
         {

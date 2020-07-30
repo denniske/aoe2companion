@@ -40,7 +40,7 @@ export function UnitCompBig({unit}: {unit: Unit}) {
     const styles = useTheme(variants);
     const navigation = useNavigation<RootStackProp>();
     return (
-        <TouchableOpacity onPress={() => navigation.push('Unit', {unit: getUnitLineNameForUnit(unit)})}>
+        <TouchableOpacity onPress={() => navigation.push('Unit', {unit: unit})}>
             <View style={styles.rowBig}>
                 <Image style={styles.unitIconBig} source={getUnitIcon(unit)}/>
                 <View style={styles.unitIconBigTitle}>
