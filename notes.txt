@@ -13,7 +13,9 @@ add content
 - filter match list by leaderboard
 - matches versus
 - aoe de forum
+- zoom rating history
 
+https://www.reddit.com/r/aoe2/comments/99rhrv/how_can_i_set_the_tech_tree_like_this_while/
 
 npx expo build:web
 
