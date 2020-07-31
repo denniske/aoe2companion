@@ -10,6 +10,16 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '12.0.11': [
+        {
+            type: 'bugfix',
+            title: 'Bulgarian now have krepost in tech tree',
+        },
+        {
+            type: 'bugfix',
+            title: 'Show more armour classes for units',
+        },
+    ],
     '12.0.10': [
         {
             type: 'feature',
