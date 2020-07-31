@@ -6,11 +6,12 @@ import {Button} from "react-native-paper";
 import {MyText} from "./components/my-text";
 import {setUpdateManifest, setUpdateStoreManifest, useMutate} from "../redux/reducer";
 import {doCheckForStoreUpdate, doCheckForUpdateAsync} from "../service/update";
-import {useTheme} from "../theming";
+import {ITheme, makeVariants, useTheme} from "../theming";
 import {appVariants} from "../styles";
 
 
 export default function AboutPage() {
+    const styles = useTheme(variants);
     const appStyles = useTheme(appVariants);
     const linkTo = useLinkTo();
     const [state, setState] = useState('');
@@ -47,6 +48,7 @@ export default function AboutPage() {
             <MyText style={styles.heading}>Supporters</MyText>
             <MyText style={styles.content}>Kloakan</MyText>
             <MyText style={styles.content}>Sihing Mo</MyText>
+            <MyText style={styles.content2}>+ anonymous supporters</MyText>
 
             <MyText style={styles.heading}>Version</MyText>
             <MyText style={styles.content}>
@@ -130,62 +132,71 @@ export default function AboutPage() {
     );
 }
 
-const styles = StyleSheet.create({
-    title: {
-        marginTop: 20,
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    heading: {
-        marginTop: 20,
-        fontWeight: 'bold',
-        marginBottom: 5,
-    },
-    content: {
-        marginBottom: 5,
-    },
-    textJustify: {
-        textAlign: 'justify',
-        fontSize: 12,
-    },
-    expanded: {
-        flex: 1,
-    },
-    row: {
-        flexDirection: 'row',
-    },
-    buttonRow: {
-        flexDirection: 'row',
-        alignSelf: 'stretch',
-        justifyContent: "flex-end",
-        // backgroundColor: 'red',
-    },
-    button: {
-        marginLeft: 10,
-    },
-    container: {
-        minHeight: '100%',
-        alignItems: 'center',
-        padding: 20,
-    },
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: 'rgba(0,0,0,0.5)',
-    },
-    modalView: {
-        margin: 0,
-        borderRadius: 5,
-        padding: 15,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2
+const getStyles = (theme: ITheme) => {
+    return StyleSheet.create({
+        title: {
+            marginTop: 20,
+            fontSize: 16,
+            fontWeight: 'bold',
         },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5
-    },
-});
+        heading: {
+            marginTop: 20,
+            fontWeight: 'bold',
+            marginBottom: 5,
+        },
+        content: {
+            marginBottom: 5,
+        },
+        content2: {
+            color: theme.textNoteColor,
+            marginBottom: 5,
+        },
+        textJustify: {
+            textAlign: 'justify',
+            fontSize: 12,
+        },
+        expanded: {
+            flex: 1,
+        },
+        row: {
+            flexDirection: 'row',
+        },
+        buttonRow: {
+            flexDirection: 'row',
+            alignSelf: 'stretch',
+            justifyContent: "flex-end",
+            // backgroundColor: 'red',
+        },
+        button: {
+            marginLeft: 10,
+        },
+        container: {
+            minHeight: '100%',
+            alignItems: 'center',
+            padding: 20,
+        },
+        centeredView: {
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: 'rgba(0,0,0,0.5)',
+        },
+        modalView: {
+            margin: 0,
+            borderRadius: 5,
+            padding: 15,
+            alignItems: "center",
+            shadowColor: "#000",
+            shadowOffset: {
+                width: 0,
+                height: 2
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+            elevation: 5
+        },
+    });
+};
+
+const variants = makeVariants(getStyles);
+
