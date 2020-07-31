@@ -9,6 +9,7 @@ import {ViewLoader} from "./loader/view-loader";
 import {formatLeaderboardId} from "../../helper/leaderboards";
 import {merge} from "lodash-es";
 import {useAppTheme, usePaperTheme} from "../../theming";
+import {VictoryZoomContainer} from "victory-native/lib";
 
 interface IRatingProps {
     ratingHistories: IRatingHistoryRow[];
@@ -57,7 +58,11 @@ export default function Rating({ratingHistories}: IRatingProps) {
 
                 <ViewLoader ready={ratingHistories}>
                     <VictoryChart width={Dimensions.get('screen').width - 40} height={300} theme={themeWithSystemFont}
-                                  padding={{left: 50, bottom: 30, top: 20, right: 20}}>
+                                  padding={{left: 50, bottom: 30, top: 20, right: 20}}
+                                  // containerComponent={
+                                  //     <VictoryZoomContainer/>
+                                  // }
+                    >
                         <VictoryAxis crossAxis tickFormat={formatTick} />
                         <VictoryAxis dependentAxis crossAxis />
                         {
