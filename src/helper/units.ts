@@ -2072,6 +2072,17 @@ export const attackClasses = [
     'Pierce',
 ];
 
+export const hiddenArmourClasses = [
+    'Melee',
+    'Pierce',
+    'FE Predator Animals',
+    'Trees',
+    'Boars',
+    'Anti-Leitis',
+    'Organ Gun Damage',
+    'Heroes and Kings',
+];
+
 export type UnitClassNumber = keyof typeof unitClasses;
 export type UnitClass = ValueOf<typeof unitClasses>;
 

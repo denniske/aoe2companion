@@ -8,7 +8,7 @@ import {
     getUnitIcon, getUnitLineForUnit,
     getUnitLineIcon,
     getUnitLineName, getUnitLineNameForUnit,
-    getUnitName, IUnitInfo, Other, sortResources, sortUnitCounter, Unit, UnitClassNumber,
+    getUnitName, hiddenArmourClasses, IUnitInfo, Other, sortResources, sortUnitCounter, Unit, UnitClassNumber,
     UnitLine, unitLines, units
 } from "../../helper/units";
 import {getTechIcon, getTechName, Tech, techEffectDict, techList} from "../../helper/techs";
@@ -193,7 +193,7 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
 
     const attacks = data.Attacks.filter(a => attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber)));
     const attackBonuses = data.Attacks.filter(a => a.Amount > 0 && !attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber)));
-    const armourClasses = data.Armours.filter(a => (a.Amount > 0 || a.Class === 19) && !attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber)));
+    const armourClasses = data.Armours.filter(a => !hiddenArmourClasses.includes(getUnitClassName(a.Class as UnitClassNumber)));
 
     return (
         <View style={styles.container}>
