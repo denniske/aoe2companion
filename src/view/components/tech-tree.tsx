@@ -320,16 +320,21 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability3 age="CastleAge"/>
                         <Ability2 civ={civ} unit="Crossbowman"/>
                         <Ability2 civ={civ} unit="EliteSkirmisher"/>
-                        <Ability2/>
                         <Ability2 civ={civ} unit="CavalryArcher"/>
+                        <Ability2 civ={civ} unit="Genitour"/>
+                        <Ability2 civ={civ} unit="Slinger"/>
+                        <Ability2/>
+                        <Ability2 civ={civ} tech="ThumbRing"/>
                     </View>
                     <View style={styles.row}>
                         <Ability3 age="ImperialAge"/>
                         <Ability2 civ={civ} unit="Arbalester"/>
                         <Ability2 civ={civ} unit="ImperialSkirmisher"/>
-                        <Ability2/>
                         <Ability2 civ={civ} unit="HeavyCavalryArcher"/>
+                        <Ability2 civ={civ} unit="EliteGenitour"/>
                         <Ability2 civ={civ} unit="HandCannoneer"/>
+                        <Ability2/>
+                        <Ability2 civ={civ} tech="ParthianTactics"/>
                     </View>
 
 
