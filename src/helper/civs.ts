@@ -348,6 +348,10 @@ export function getCivHasBuilding(civ: Civ, building: Building) {
     const entry = buildings[building];
     const civConfig = civsConfig[civ];
 
+    if ((civConfig as any).enabled?.buildings?.includes(parseInt(entry.dataId))) {
+        return true;
+    }
+
     if (defaultDisabledBuildings.includes(parseInt(entry.dataId))) {
         return false;
     }
