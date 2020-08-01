@@ -177,12 +177,14 @@ export const unitLines: IUnitLineDict = {
     'Missionary': {
         units: ['Missionary'],
         counteredBy: [
-            'EagleScout',
-            'ScoutCavalry',
-            'Monk',
-            'Arambai',
+            'Spearman',
+            'Archer',
+            'Monk', 
+            'CamelRider', 
+            'ScoutCavalry', 
             'ShotelWarrior',
-            'MagyarHuszar'
+            'GenoeseCrossbowman',
+            'Arambai'
         ],
         upgrades: [
             'Sanctity',
@@ -202,12 +204,12 @@ export const unitLines: IUnitLineDict = {
     'Monk': {
         units: ['Monk'],
         counteredBy: [
-            'EagleScout',
-            'ScoutCavalry',
             'Monk',
-            'Arambai',
+            'ScoutCavalry',
             'ShotelWarrior',
-            'MagyarHuszar'
+            'EagleScout',
+            'MagyarHuszar',
+            'Arambai'
         ],
         upgrades: [
             'Sanctity',
@@ -236,6 +238,10 @@ export const unitLines: IUnitLineDict = {
     },
     'DemolitionRaft': {
         units: ['DemolitionRaft', 'DemolitionShip', 'HeavyDemolitionShip'],
+        counteredBy: [
+            'Archer',
+            'Mangonel'
+        ],
         upgrades: [
             'Careening',
             'Carrack',
@@ -249,7 +255,12 @@ export const unitLines: IUnitLineDict = {
         units: ['FireGalley', 'FireShip', 'FastFireShip'],
         counteredBy: [
             'Galley',
-            'DemolitionRaft'
+            'DemolitionRaft',
+            'Longboat',
+            'TurtleShip',
+            'BombardCannon',
+            'Mangonel',
+            'BallistaElephant'
         ],
         upgrades: [
             'GreekFire',
@@ -265,6 +276,12 @@ export const unitLines: IUnitLineDict = {
         units: ['Galley', 'WarGalley', 'Galleon'],
         counteredBy: [
             'FireGalley',
+            'Longboat',
+            'TurtleShip',
+            'Petard',
+            'Mangonel',
+            'BombardCannon',
+            'BallistaElephant'
         ],
         upgrades: [
             'Fletching',
@@ -283,11 +300,13 @@ export const unitLines: IUnitLineDict = {
     'CannonGalleon': {
         units: ['CannonGalleon', 'EliteCannonGalleon'],
         counteredBy: [
-          'BombardCannon',
-          'Monk',
           'Galley',
           'FireGalley',
           'DemolitionRaft',
+          'Longboat',
+          'Caravel',
+          'Monk',  
+          'BombardCannon'
         ],
         upgrades: [
             'Artillery',
@@ -304,6 +323,17 @@ export const unitLines: IUnitLineDict = {
         units: ['Arambai', 'EliteArambai'],
         unique: true,
         civ: 'Burmese',
+        counteredBy: [
+            'Spearman',
+            'Skirmisher',
+            'CamelRider',
+            'CavalryArcher',
+            'Samurai',
+            'Kamayuk',
+            'Huskarl',
+            'GenoeseCrossbowman',
+            'Mameluke'
+        ],
         upgrades: [
             'Bloodlines',
             'ManipurCavalry',
@@ -318,6 +348,23 @@ export const unitLines: IUnitLineDict = {
         units: ['OrganGun', 'EliteOrganGun'],
         unique: true,
         civ: 'Portuguese',
+        counteredBy: [
+            'Knight',
+            'CamelRider',
+            'ScoutCavalry',
+            'Mangonel',
+            'BombardCannon',
+            'Condottiero',
+            'Huskarl',
+            'Longbowman',
+            'Tarkan',
+            'Konnik',
+            'Boyar',
+            'MagyarHuszar',
+            'Mameluke',
+            'Cataphract',
+            'SteppeLancer'
+        ],
         upgrades: [
             'SiegeEngineers-20-1',
             'Arquebus',
@@ -330,6 +377,13 @@ export const unitLines: IUnitLineDict = {
         units: ['Caravel', 'EliteCaravel'],
         unique: true,
         civ: 'Portuguese',
+        counteredBy: [
+            'FireGalley',
+            'Longboat',
+            'TurtleShip',
+            'Mangonel',
+            'BombardCannon'
+        ],
         upgrades: [
             'Fletching',
             'BodkinArrow',
@@ -346,15 +400,20 @@ export const unitLines: IUnitLineDict = {
     'SiegeTower': {
         units: ['SiegeTower'],
         counteredBy: [
-            'EagleScout',
+            'ScoutCavalry',
             'Knight',
             'CamelRider',
-            'ScoutCavalry',
             'SteppeLancer',
+            'EagleScout',
             'ShotelWarrior',
-            'Tarkan',
             'Condottiero',
-            'MagyarHuszar'
+            'Tarkan',
+            'Konnik',
+            'Boyar',
+            'MagyarHuszar',
+            'Mameluke',
+            'Cataphract',
+            'SteppeLancer'
         ],
         upgrades: [
             'FurorCeltica',
@@ -369,17 +428,17 @@ export const unitLines: IUnitLineDict = {
         unique: true,
         civ: 'Spanish',
         counteredBy: [
+            'Spearman',
+            'Skirmisher',
+            'CamelRider',
+            'Mangonel',
             'Condottiero',
             'Huskarl',
-            'GenoeseCrossbowman',
             'Berserk',
             'Kamayuk',
             'Samurai',
             'EagleScout',
-            'Mangonel',
-            'Skirmisher',
-            'CamelRider',
-            'Spearman'
+            'GenoeseCrossbowman'
         ],
         upgrades: [
             'Bloodlines',
@@ -396,6 +455,12 @@ export const unitLines: IUnitLineDict = {
         units: ['TurtleShip', 'EliteTurtleShip'],
         unique: true,
         civ: 'Koreans',
+        counteredBy: [
+            'Monk',
+            'BombardCannon',
+            'Trebuchet',
+            'Missionary'
+        ],
         upgrades: [
             'Careening',
             'DryDock',
@@ -410,7 +475,10 @@ export const unitLines: IUnitLineDict = {
         civ: 'Vikings',
         counteredBy: [
             'FireGalley',
-            "TurtleShip"
+            "TurtleShip",
+            'Mangonel',
+            'BombardCannon',
+            'Samurai'
         ],
         upgrades: [
             'Fletching',
@@ -429,14 +497,14 @@ export const unitLines: IUnitLineDict = {
         unique: true,
         civ: 'Turks',
         counteredBy: [
+            'Archer',
+            'Skirmisher',
+            'Mangonel',
+            'BombardCannon',
+            'Scorpion',
             'Samurai',
             'Condottiero',
             'Huskarl',
-            'BombardCannon',
-            'Skirmisher',
-            'Mangonel',
-            'Scorpion',
-            'Archer'
                 ],
         upgrades: [
             'PaddedArcherArmor',
@@ -452,19 +520,19 @@ export const unitLines: IUnitLineDict = {
         unique: true,
         civ: 'Khmer',
         counteredBy: [
-            'Mameluke',
-            'Samurai',
-            'Kamayuk',
-            'Huskarl',
-            'Mangudai',
-            'MagyarHuszar',
-            'EagleScout',
+            'Spearman', 
+            'CamelRider',
+            'Mangonel',
+            'BombardCannon',
             'BatteringRam',
             'Scorpion',
-            'BombardCannon',
-            'Mangonel',
-            'Spearman', 
-            'CamelRider'
+            'Samurai',
+            'EagleScout',
+            'Kamayuk',
+            'Huskarl',
+            'Mameluke',
+            'MagyarHuszar',
+            'Mangudai'
         ],
         upgrades: [
             'Bloodlines',
@@ -481,9 +549,9 @@ export const unitLines: IUnitLineDict = {
     'FlamingCamel': {
         units: ['FlamingCamel'],
         counteredBy: [
+            'Spearman',
             'Archer',
             'Monk',
-            'Spearman',
             'Scorpion'
         ],
         upgrades: [
@@ -496,12 +564,12 @@ export const unitLines: IUnitLineDict = {
     'Petard': {
         units: ['Petard'],
         counteredBy: [
-            'EagleScout',
             'Archer',
-            'CavalryArcher',
-            'ScoutCavalry',
             'Knight',
+            'ScoutCavalry',
+            'CavalryArcher',
             'Scorpion',
+            'EagleScout',
             'MagyarHuszar',
             'Mangudai'
         ],
@@ -515,20 +583,26 @@ export const unitLines: IUnitLineDict = {
     'Trebuchet': {
         units: ['Trebuchet'],
         counteredBy: [
-            'EagleScout',
+            'ScoutCavalry',
             'Knight',
             'CamelRider',
-            'ScoutCavalry',
-            'SteppeLancer',
+            'Mangonel',
             'BombardCannon',
             'Trebuchet',
+            'Petard',
             'BatteringRam',
-            'Mangonel',
-            'Tarkan',
-            'ThrowingAxeman',
+            'EagleScout',
             'WoadRaider',
+            'ThrowingAxeman',
+            'Tarkan',
+            'Konnik',
+            'Boyar',
+            'MagyarHuszar',
+            'Mameluke',
             'Cataphract',
-            'Petard'
+            'SteppeLancer',
+            'WarElephant',
+            'BattleElephant'
         ],
         upgrades: [
             'SiegeEngineers-20-1',
@@ -545,19 +619,23 @@ export const unitLines: IUnitLineDict = {
     'BombardCannon': {
         units: ['BombardCannon'],
         counteredBy: [
-            'EagleScout',
+            'ScoutCavalry',
             'Knight',
             'CamelRider',
-            'ScoutCavalry',
-            'SteppeLancer',
             'BombardCannon',
             'Petard',
-            'MagyarHuszar',
+            'EagleScout',
             'Huskarl',
             'Cataphract',
             'WoadRaider',
+            'ShotelWarrior',
             'Tarkan',
-            'ShotelWarrior'
+            'Konnik',
+            'Boyar',
+            'MagyarHuszar',
+            'Mameluke',
+            'Cataphract',
+            'SteppeLancer'
         ],
         upgrades: [
             'SiegeEngineers-20-1',
@@ -572,23 +650,23 @@ export const unitLines: IUnitLineDict = {
     'Mangonel': {
         units: ['Mangonel', 'Onager', 'SiegeOnager'],
         counteredBy: [
-            'EagleScout',
+            'Monk',
+            'ScoutCavalry',
             'Knight',
             'CamelRider',
-            'ScoutCavalry',
-            'SteppeLancer',
-            'BombardCannon',
-            'Monk',
             'Mangonel',
-            'ShotelWarrior',
-            'Tarkan',
-            'WoadRaider',
-            'Cataphract',
+            'BombardCannon',
             'Petard',
-            'MagyarHuszar',
+            'ShotelWarrior',
+            'WoadRaider',
             'Huskarl',
-            'Mangudai',
-            'Longbowman'
+            'EagleScout',
+            'Longbowman',
+            'Tarkan',
+            'Cataphract',
+            'MagyarHuszar',
+            'SteppeLancer',
+            'Mangudai'
         ],
         upgrades: [
             'FurorCeltica',
@@ -606,25 +684,25 @@ export const unitLines: IUnitLineDict = {
         units: ['BatteringRam', 'CappedRam', 'SiegeRam'],
         counteredBy: [
             'Militia',
-            'EagleScout',
+            'ScoutCavalry',
             'Knight',
             'CamelRider',
-            'ScoutCavalry',
-            'BombardCannon',
             'Mangonel',
+            'BombardCannon',
+            'Petard',
             'KarambitWarrior',
             'Gbeto',
             'ShotelWarrior',
             'Condottiero',
+            'EagleScout',
             'Conquistador',
-            'Tarkan',
-            'Mangudai',
+            'WoadRaider',
             'ThrowingAxeman',
             'ChuKoNu',
-            'WoadRaider',
+            'Tarkan',
+            'Mangudai',
             'Cataphract',
-            'MagyarHuszar',
-            'Petard'
+            'MagyarHuszar'
         ],
         upgrades: [
             'FurorCeltica',
@@ -638,17 +716,17 @@ export const unitLines: IUnitLineDict = {
     'Scorpion': {
         units: ['Scorpion', 'HeavyScorpion'],
         counteredBy: [
-            'EagleScout',
+            'ScoutCavalry',
             'Knight',
             'CamelRider',
-            'ScoutCavalry',
-            'BombardCannon',
             'Mangonel',
+            'BombardCannon',
             'ShotelWarrior',
+            'EagleScout',
             'Condottiero',
-            'Tarkan',
             'WoadRaider',
-            'Petard'
+            'Petard',
+            'Tarkan'
         ],
         upgrades: [
             'FurorCeltica',
@@ -666,17 +744,14 @@ export const unitLines: IUnitLineDict = {
     'HandCannoneer': {
         units: ['HandCannoneer'],
         counteredBy: [
+            'Archer',
             'Skirmisher',
             'CavalryArcher',
-            'Scorpion',
             'Mangonel',
-            'RattanArcher',
+            'Scorpion',
             'Condottiero',
+            'RattanArcher',
             'PlumedArcher',
-            'Mangonel',
-            'Scorpion',
-            'Skirmisher',
-            'Archer'
         ],
         upgrades: [
             'Shatagni',
@@ -694,19 +769,19 @@ export const unitLines: IUnitLineDict = {
         unique: true,
         civ: 'Malay',
         counteredBy: [
-            'Janissary',
+            'Militia',
+            'HandCannoneer',
+            'Archer',
+            'Knight',
             'JaguarWarrior',
             'TeutonicKnight',
             'Berserk',
             'Samurai',
+            'Janissary',
+            'Slinger',
             'Cataphract',
             'Boyar',
-            'Slinger',
-            'Conquistador',
-            'Knight',
-            'Militia',
-            'HandCannoneer',
-            'Archer'
+            'Conquistador'
         ],
         upgrades: [
             'Forging',
@@ -728,17 +803,17 @@ export const unitLines: IUnitLineDict = {
         unique: true,
         civ: 'Malians',
         counteredBy: [
-            'PlumedArcher',
-            'Slinger',
-            'Samurai',
-            'Janissary',
+            'HandCannoneer',
+            'Archer',
             'Monk',
             'Missionary',
-            'Scorpion',
-            'Mangonel',
             'Knight',
-            'HandCannoneer',
-            'Archer'
+            'Mangonel',
+            'Scorpion',
+            'Samurai',
+            'PlumedArcher',
+            'Slinger',
+            'Janissary'
         ],
         upgrades: [
             'Forging',
@@ -759,14 +834,14 @@ export const unitLines: IUnitLineDict = {
         unique: true,
         civ: 'Ethiopians',
         counteredBy: [
-            'Janissary',
-            'HandCannoneer',
-            'Mangonel',
-            'CavalryArcher',
-            'Knight',
             'Militia',
+            'HandCannoneer',
+            'Knight',
+            'CavalryArcher',
+            'Mangonel',
             'Huskarl',
-            'TeutonicKnight'
+            'TeutonicKnight',
+            'Janissary'
         ],
         upgrades: [
             'Forging',
@@ -788,12 +863,12 @@ export const unitLines: IUnitLineDict = {
         units: ['Condottiero'],
         unique: true,
         counteredBy: [
-            'Cataphract',
+            'Archer',
+            'Scorpion',
             'Samurai',
             'TeutonicKnight',
-            'Boyar',
-            'Scorpion',
-            'Archer'
+            'Cataphract',
+            'Boyar'
         ],
         upgrades: [
             'Forging',
@@ -819,17 +894,17 @@ export const unitLines: IUnitLineDict = {
         unique: true,
         civ: 'Aztecs',
         counteredBy: [
+           'HandCannoneer',
+           'Archer',
+           'Knight',
+           'Mangonel',
+           'Scorpion',
            'Gbeto',
            'Slinger',
            'Janissary',
            'Cataphract',
            'Boyar',
            'Conquistador',
-           'Mangonel',
-           'Scorpion',
-           'Knight',
-           'HandCannoneer',
-           'Archer'
         ],
         upgrades: [
             'Forging',
@@ -852,14 +927,14 @@ export const unitLines: IUnitLineDict = {
         unique: true,
         civ: 'Vikings',
         counteredBy: [
-            'Boyar',
+            'HandCannoneer',
             'JaguarWarrior',
             'TeutonicKnight',
             'PlumedArcher',
             'Slinger',
-            'Conquistador',
             'Janissary',
-            'HandCannoneer'
+            'Boyar',
+            'Conquistador',
         ],
         upgrades: [
             'Forging',
@@ -883,18 +958,18 @@ export const unitLines: IUnitLineDict = {
         unique: true,
         civ: 'Teutons',
         counteredBy: [
-            'Slinger',
-            'Conquistador',
-            'ChuKoNu',
-            'RattanArcher',
-            'Samurai',
-            'Janissary',
+            'HandCannoneer',
+            'Archer',
+            'Monk',
+            'Missionary',
             'Mangonel',
             'Scorpion',
-            'Missionary',
-            'Monk',
-            'HandCannoneer',
-            'Archer'
+            'Samurai',
+            'Slinger',
+            'ChuKoNu',
+            'RattanArcher',
+            'Janissary',
+            'Conquistador'
         ],
         upgrades: [
             'Forging',
@@ -916,9 +991,9 @@ export const unitLines: IUnitLineDict = {
         unique: true,
         civ: 'Japanese',
         counteredBy: [
-            'Knight',
             'HandCannoneer',
-            'Archer'
+            'Archer',
+            'Knight'
         ],
         upgrades: [
             'Forging',
@@ -939,12 +1014,12 @@ export const unitLines: IUnitLineDict = {
         unique: true,
         civ: 'Goths',
         counteredBy: [
-            'ThrowingAxeman',
-            'WoadRaider',
             'Mangonel',
+            'WoadRaider',
             'Militia',
             'Samurai',
-            'TeutonicKnight'
+            'TeutonicKnight',
+            'ThrowingAxeman'
         ],
         upgrades: [
             'Forging',
@@ -965,17 +1040,17 @@ export const unitLines: IUnitLineDict = {
         unique: true,
         civ: 'Franks',
         counteredBy: [
+            'HandCannoneer',
+            'Archer',
             'JaguarWarrior',
-            'Janissary',
             'TeutonicKnight',
             'Berserk',
             'Samurai',
-            'Cataphract',
-            'Boyar',
             'Slinger',
+            'Janissary',
             'Conquistador',
-            'HandCannoneer',
-            'Archer'
+            'Cataphract',
+            'Boyar'
         ],
         upgrades: [
             'Forging',
@@ -998,15 +1073,15 @@ export const unitLines: IUnitLineDict = {
         unique: true,
         civ: 'Celts',
         counteredBy: [
-              'Boyar',
+              'HandCannoneer',
               'TeutonicKnight',
               'Berserk',
               'Samurai',
-              'Slinger',
-              'Conquistador',
-              'HandCannoneer',
+              'JaguarWarrior',
               'Janissary',
-              'JaguarWarrior'
+              'Slinger',
+              'Boyar',
+              'Conquistador'
         ],
         upgrades: [
             'Forging',
@@ -1031,8 +1106,8 @@ export const unitLines: IUnitLineDict = {
             'Berserk',
             'Samurai',
             'Huskarl',
-            'ThrowingAxeman',
             'WoadRaider',
+            'ThrowingAxeman',
             'Slinger',
             'Janissary',
             'Cataphract'
@@ -1060,20 +1135,20 @@ export const unitLines: IUnitLineDict = {
         counteredBy: [
             'Militia',
             'Archer',
-            'Skirmisher',
             'HandCannoneer',
+            'Skirmisher',
             'Scorpion',
-            'ChuKoNu',
-            'Mameluke',
             'KarambitWarrior',
-            'Gbeto',
             'ShotelWarrior',
             'Kamayuk',
             'Berserk',
-            'ThrowingAxeman',
             'WoadRaider',
+            'ThrowingAxeman',
+            'ChuKoNu',
+            'Gbeto',
             'Janissary',
             'Slinger',
+            'Mameluke'
         ],
         upgrades: [
             'Forging',
@@ -1099,20 +1174,22 @@ export const unitLines: IUnitLineDict = {
         units: ['Militia', 'ManAtArms', 'LongSwordsman', 'TwoHandedSwordsman', 'Champion'],
         counteredBy: [
             'Archer',
-            'CavalryArcher',
             'HandCannoneer',
+            'CavalryArcher',
             'Scorpion',
+            'TeutonicKnight',
+            'JaguarWarrior',
+            'Slinger',
             'ChuKoNu',
+            'Janissary',
+            'Cataphract',
+            'Boyar',
+            'Conquistador',
             'WarWagon',
             'BallistaElephant',
             'Genitour',
-            'TeutonicKnight',
-            'Slinger',
-            'Janissary',
-            'Conquistador',
-            'Cataphract',
-            'Boyar',
-            'JaguarWarrior'
+            'Kipchak',
+            'Mangudai'
         ],
         upgrades: [
             'Forging',
@@ -1141,17 +1218,17 @@ export const unitLines: IUnitLineDict = {
         unique: true,
         civ: 'Tatars',
         counteredBy: [
-            'Boyar',
             'Spearman',
+            'Monk',
+            'Knight',
             'Kamayuk',
             'Berserk',
-            'GenoeseCrossbowman',
             'TeutonicKnight',
+            'GenoeseCrossbowman',
             'Mameluke',
             'CamelRider',
-            'Monk',
             'WarElephant',
-            'Knight'
+            'Boyar'
         ],
         upgrades: [
             'Bloodlines',
@@ -1171,13 +1248,13 @@ export const unitLines: IUnitLineDict = {
         civ: 'Lithuanians',
         counteredBy: [
             'Spearman',
+            'Monk',
+            'CamelRider',
             'Kamayuk',
+            'Samurai',
             'GenoeseCrossbowman',
             'Mameluke',
-            'CamelRider',
-            'Monk',
-            'WarElephant',
-            'Samurai'
+            'WarElephant'
         ],
         upgrades: [
             'Bloodlines',
@@ -1222,18 +1299,18 @@ export const unitLines: IUnitLineDict = {
         unique: true,
         civ: 'Slavs',
         counteredBy: [
+          'Spearman',
+          'Archer',
+          'Monk',
+          'Missionary',
+          'CamelRider',
+          'Scorpion',
           'TeutonicKnight',
           'Berserk',
           'Kamayuk',
           'Samurai',
           'WarElephant',
-          'Mameluke',
-          'Missionary',
-          'Monk',
-          'Scorpion',
-          'CamelRider',
-          'Archer',
-          'Spearman'
+          'Mameluke'
         ],
         upgrades: [
             'Bloodlines',
@@ -1251,6 +1328,18 @@ export const unitLines: IUnitLineDict = {
         units: ['MagyarHuszar', 'EliteMagyarHuszar'],
         unique: true,
         civ: 'Magyars',
+        counteredBy: [
+            'Spearman',
+            'CamelRider',
+            'EagleScout',
+            'Berserk',
+            'TeutonicKnight',
+            'Kamayuk',
+            'Samurai',
+            'GenoeseCrossbowman',
+            'Mameluke',
+            'Boyar'
+        ],
         upgrades: [
             'Bloodlines',
             'Forging',
@@ -1269,6 +1358,16 @@ export const unitLines: IUnitLineDict = {
         units: ['Tarkan', 'EliteTarkan'],
         unique: true,
         civ: 'Huns',
+        counteredBy: [
+            'Militia',
+            'Spearman',
+            'CamelRider',
+            'Knight',
+            'GenoeseCrossbowman',
+            'Mameluke',
+            'Konnik',
+            'Boyar'
+        ],
         upgrades: [
             'Bloodlines',
             'Forging',
@@ -1288,6 +1387,11 @@ export const unitLines: IUnitLineDict = {
         units: ['Mameluke', 'EliteMameluke'],
         unique: true,
         civ: 'Saracens',
+        counteredBy: [
+            'Spearman',
+            'GenoeseCrossbowman',
+            'Kamayuk'
+        ],
         upgrades: [
             'Bloodlines',
             'Zealotry',
@@ -1307,6 +1411,18 @@ export const unitLines: IUnitLineDict = {
         units: ['WarElephant', 'EliteWarElephant'],
         unique: true,
         civ: 'Persians',
+        counteredBy: [
+            'Spearman',
+            'Monk',
+            'Missionary',
+            'CamelRider',
+            'Samurai',
+            'Kamayuk',
+            'ChuKoNu',
+            'GenoeseCrossbowman',
+            'Mameluke',
+            'CamelArcher'
+        ],
         upgrades: [
             'Bloodlines',
             'Forging',
@@ -1325,6 +1441,11 @@ export const unitLines: IUnitLineDict = {
         units: ['Cataphract', 'EliteCataphract'],
         unique: true,
         civ: 'Byzantines',
+        counteredBy: [
+            'Knight',
+            'WarElephant',
+            'Boyar'
+        ],
         upgrades: [
             'Forging',
             'IronCasting',
@@ -1341,10 +1462,13 @@ export const unitLines: IUnitLineDict = {
     'SteppeLancer': {
         units: ['SteppeLancer', 'EliteSteppeLancer'],
         counteredBy: [
-            'Spearman',
             'Militia',
+            'Spearman',
             'CamelRider',
             'Knight',
+            'Boyar',
+            'Konnik',
+            'Mameluke'
         ],
         upgrades: [
             'Bloodlines',
@@ -1366,9 +1490,14 @@ export const unitLines: IUnitLineDict = {
         units: ['BattleElephant', 'EliteBattleElephant'],
         counteredBy: [
             'Spearman',
-            // 'CavalryArcher', // Maybe
-            'Scorpion',
             'Monk',
+            'CamelRider',
+            'CavalryArcher', // Maybe (EDIT BY FifthSense: https://ageofempires.fandom.com/wiki/Battle_Elephant states they do)
+            'Scorpion',
+            'Kamayuk',
+            'GenoeseCrossbowman',
+            'Mameluke',
+            'WarElephant'
         ],
         upgrades: [
             'Bloodlines',
@@ -1393,6 +1522,10 @@ export const unitLines: IUnitLineDict = {
         counteredBy: [
             'Militia',
             'Spearman',
+            'Berserk',
+            'TeutonicKnight',
+            'GenoeseCrossbowman',
+            'Cataphract'
         ],
         upgrades: [
             'Bloodlines',
@@ -1417,6 +1550,15 @@ export const unitLines: IUnitLineDict = {
             'Spearman',
             'CamelRider',
             'Monk',
+            'Kamayuk',
+            'Berserk',
+            'TeutonicKnight',
+            'GenoeseCrossbowman',
+            'ThrowingAxeman',
+            'Mameluke',
+            'WarElephant',
+            'Boyar'
+
         ],
         upgrades: [
             'Bloodlines',
@@ -1438,6 +1580,18 @@ export const unitLines: IUnitLineDict = {
     },
     'XolotlWarrior': {
         units: ['XolotlWarrior'],
+        counteredBy: [
+            'Spearman',
+            'Monk',
+            'CamelRider',
+            'Kamayuk',
+            'Berserk',
+            'TeutonicKnight',
+            'GenoeseCrossbowman',
+            'Boyar',
+            'Mameluke',
+            'WarElephant'
+        ],
         upgrades: [
             'Forging',
             'IronCasting',
@@ -1451,9 +1605,21 @@ export const unitLines: IUnitLineDict = {
         counteredBy: [
             'Militia',
             'Spearman',
-            'EagleScout',
+            'Skirmisher',
             'CamelRider',
+            'Knight',
+            'EagleScout',
+            'WoadRaider',
+            'Berserk',
+            'ShotelWarrior',
+            'Kamayuk',
+            'Huskarl',
+            'GenoeseCrossbowman',
+            'ThrowingAxeman',
+            'Tarkan',
+            'Mameluke',
             'SteppeLancer',
+            'Cataphract'
         ],
         upgrades: [
             'Bloodlines',
@@ -1479,6 +1645,18 @@ export const unitLines: IUnitLineDict = {
         units: ['Kipchak', 'EliteKipchak'],
         unique: true,
         civ: 'Cumans',
+        counteredBy: [
+            'Skirmisher',
+            'CamelRider',
+            'Mangonel',
+            'Scorpion',
+            'Kamayuk',
+            'Huskarl',
+            'EagleScout',
+            'RattanArcher',
+            'GenoeseCrossbowman',
+            'Genitour'
+        ],
         upgrades: [
             'Bloodlines',
             'Sipahi',
@@ -1505,6 +1683,20 @@ export const unitLines: IUnitLineDict = {
         units: ['RattanArcher', 'EliteRattanArcher'],
         unique: true,
         civ: 'Vietnamese',
+        counteredBy: [
+            'ScoutCavalry',
+            'CamelRider',
+            'Knight',
+            'Mangonel',
+            'Scorpion',
+            'Huskarl',
+            'EagleScout',
+            'Boyar',
+            'MagyarHuszar',
+            'Mameluke',
+            'Cataphract',
+            'SteppeLancer'
+        ], 
         upgrades: [
             'Fletching',
             'BodkinArrow',
@@ -1522,6 +1714,15 @@ export const unitLines: IUnitLineDict = {
     'Genitour': {
         units: ['Genitour', 'EliteGenitour'],
         unique: true,
+        counteredBy: [
+            'Spearman',
+            'CamelRider',
+            'Mangonel',
+            'Scorpion',
+            'Huskarl',
+            'EagleScout',
+            'GenoeseCrossbowman'
+        ],
         upgrades: [
             'Bloodlines',
             'Sipahi',
@@ -1547,6 +1748,13 @@ export const unitLines: IUnitLineDict = {
         units: ['CamelArcher', 'EliteCamelArcher'],
         unique: true,
         civ: 'Berbers',
+        counteredBy: [
+            'Skirmisher',
+            'CamelRider',
+            'Mangonel',
+            'EagleScout',
+            'Huskarl'
+        ],
         upgrades: [
             'Bloodlines',
             'Fletching',
@@ -1570,6 +1778,18 @@ export const unitLines: IUnitLineDict = {
         units: ['GenoeseCrossbowman', 'EliteGenoeseCrossbowman'],
         unique: true,
         civ: 'Italians',
+        counteredBy: [
+            'Archer',
+            'Skirmisher',
+            'Mangonel',
+            'Scorpion',
+            'Samurai',
+            'EagleScout',
+            'Huskarl',
+            'PlumedArcher',
+            'ChuKoNu',
+            'RattanArcher'
+        ],
         upgrades: [
             'Fletching',
             'BodkinArrow',
@@ -1589,6 +1809,19 @@ export const unitLines: IUnitLineDict = {
         units: ['ElephantArcher', 'EliteElephantArcher'],
         unique: true,
         civ: 'Indians',
+        counteredBy: [
+            'Spearman',
+            'Monk',
+            'Skirmisher',
+            'CamelRider',
+            'Kamayuk',
+            'Berserk',
+            'Huskarl',
+            'EagleScout',
+            'Samurai',
+            'GenoeseCrossbowman',
+            'Mameluke'
+        ],
         upgrades: [
             'Bloodlines',
             'Fletching',
@@ -1610,6 +1843,19 @@ export const unitLines: IUnitLineDict = {
         units: ['WarWagon', 'EliteWarWagon'],
         unique: true,
         civ: 'Koreans',
+        counteredBy: [
+            'Spearman',
+            'Monk',
+            'Skirmisher',
+            'Knight',
+            'Mangonel',
+            'Kamayuk',
+            'Huskarl',
+            'EagleScout',
+            'Samurai',
+            'GenoeseCrossbowman',
+            'Mameluke'
+        ],
         upgrades: [
             'Fletching',
             'BodkinArrow',
@@ -1629,6 +1875,19 @@ export const unitLines: IUnitLineDict = {
         units: ['Mangudai', 'EliteMangudai'],
         unique: true,
         civ: 'Mongols',
+        counteredBy: [
+            'Spearman',
+            'Skirmisher',
+            'CamelRider',
+            'Knight',
+            'EagleScout',
+            'Kamayuk',
+            'Huskarl',
+            'Samurai',
+            'GenoeseCrossbowman',
+            'Mameluke',
+            'CamelArcher'
+        ]
         upgrades: [
             'Bloodlines',
             'Fletching',
@@ -1650,6 +1909,17 @@ export const unitLines: IUnitLineDict = {
         units: ['ChuKoNu', 'EliteChuKoNu'],
         unique: true,
         civ: 'Chinese',
+        counteredBy: [
+            'Skirmisher',
+            'Knight',
+            'Mangonel',
+            'Scorpion',
+            'EagleScout',
+            'Huskarl',
+            'Boyar',
+            'Cataphract',
+            'Genitour'
+        ],
         upgrades: [
             'Fletching',
             'BodkinArrow',
@@ -1669,6 +1939,17 @@ export const unitLines: IUnitLineDict = {
         units: ['Longbowman', 'EliteLongbowman'],
         unique: true,
         civ: 'Britons',
+        counteredBy: [
+            'Skirmisher',
+            'Knight',
+            'Scorpion', 
+            'EagleScout',
+            'Samurai',
+            'Huskarl',
+            'Boyar',
+            'Cataphract',
+            'Genitour'
+        ],
         upgrades: [
             'Fletching',
             'BodkinArrow',
@@ -1685,13 +1966,18 @@ export const unitLines: IUnitLineDict = {
     'CavalryArcher': {
         units: ['CavalryArcher', 'HeavyCavalryArcher'],
         counteredBy: [
-            'EagleScout',
-            'Spearman', // Maybe
+            //'Spearman',  Maybe 'FS-EDIT: neither the wiki nor the spreadsheet considers them to be a counter'
             'Skirmisher',
             'Knight',
             'CamelRider',
             'Mangonel',
             'BatteringRam',
+            'EagleScout',
+            'Kamayuk',
+            'Huskarl',
+            'RattanArcher',
+            'GenoeseCrossbowman',
+            'CamelArcher'
         ],
         upgrades: [
             'Bloodlines',
@@ -1719,15 +2005,22 @@ export const unitLines: IUnitLineDict = {
         units: ['Skirmisher', 'EliteSkirmisher', 'ImperialSkirmisher'],
         counteredBy: [
             'Militia',
-            'EagleScout',
-            'ScoutCavalry',
             'Knight',
-            'BattleElephant',
+            'ScoutCavalry',
             'CamelRider',
-            'SteppeLancer',
             'Mangonel',
             'Scorpion',
-            'BatteringRam', // Maybe
+            'BatteringRam',
+            'EagleScout',
+            'BattleElephant',
+            'WarElephant',
+            'Tarkan',
+            'Konnik',
+            'Boyar',
+            'MagyarHuszar',
+            'Mameluke',
+            'Cataphract',
+            'SteppeLancer'
         ],
         upgrades: [
             'Fletching',
@@ -1752,14 +2045,14 @@ export const unitLines: IUnitLineDict = {
     'Archer': {
         units: ['Archer', 'Crossbowman', 'Arbalester'],
         counteredBy: [
-          'EagleScout',
           'Skirmisher',
-          'ScoutCavalry',
           'Knight',
-          'BombardCannon',
+          'ScoutCavalry',
           'Scorpion',
           'Mangonel',
+          'BombardCannon',
           'BatteringRam',
+          'EagleScout'
         ],
         upgrades: [
             'Fletching',
@@ -1784,6 +2077,17 @@ export const unitLines: IUnitLineDict = {
         units: ['PlumedArcher', 'ElitePlumedArcher'],
         unique: true,
         civ: 'Mayans',
+        counteredBy: [
+            'Skirmisher',
+            'Knight',
+            'ScoutCavalry',
+            'Mangonel',
+            'Scorpion',
+            'Huskarl',
+            'EagleScout',
+            'RattanArcher',
+            'Genitour'
+        ],
         upgrades: [
             'Fletching',
             'BodkinArrow',
@@ -1801,6 +2105,22 @@ export const unitLines: IUnitLineDict = {
     },
     'Slinger': {
         units: ['Slinger'],
+        counteredBy: [
+            'Skirmisher',
+            'Knight',
+            'ScoutCavalry',
+            'Mangonel',
+            'Scorpion',
+            'Huskarl',
+            'RattanArcher',
+            'Genitour',
+            'Tarkan',
+            'Boyar',
+            'MagyarHuszar',
+            'Mameluke',
+            'Cataphract',
+            'SteppeLancer'
+        ],
         upgrades: [
             'Fletching',
             'BodkinArrow',
@@ -1822,6 +2142,17 @@ export const unitLines: IUnitLineDict = {
         units: ['Kamayuk', 'EliteKamayuk'],
         unique: true,
         civ: 'Incas',
+        counteredBy: [
+            'HandCannoneer',
+            'Monk',
+            'Mangonel',
+            'Scorpion',
+            'TeutonicKnight',
+            'Slinger',
+            'Janissary',
+            'PlumedArcher',
+            'Cataphract'
+        ],
         upgrades: [
             'Forging',
             'IronCasting',
