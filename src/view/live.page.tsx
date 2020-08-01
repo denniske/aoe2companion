@@ -67,13 +67,15 @@ export default function LivePage() {
             for (const update of updates) {
                 const existingMatchIndex = newMatches.findIndex(m => m.id === update.id);
                 if (existingMatchIndex >= 0) {
-                    if (update.active) {
+                    if (update.active && update.numSlots > 1) {
                         newMatches.splice(existingMatchIndex, 1, update);
                     } else {
                         newMatches.splice(existingMatchIndex, 1);
                     }
                 } else {
-                    newMatches.push(update);
+                    if (update.active && update.numSlots > 1) {
+                        newMatches.push(update);
+                    }
                 }
             }
             return newMatches;
@@ -125,7 +127,7 @@ export default function LivePage() {
         };
     }, []);
 
-    const list = [...(filteredMatches || Array(15).fill(null))];
+    const list = ['header', ...(filteredMatches || Array(15).fill(null))];
 
     return (
         <View style={styles.container}>
@@ -145,11 +147,13 @@ export default function LivePage() {
                     data={list}
                     renderItem={({item, index}) => {
                         switch (item) {
+                            case 'header':
+                                return <MyText style={styles.header}>{filteredMatches?.length} lobbies</MyText>
                             default:
                                 return <LiveGame data={item as any} expanded={index === -1}/>;
                         }
                     }}
-                    keyExtractor={(item, index) => item.id}
+                    keyExtractor={(item, index) => typeof item === 'string' ? item : item.id}
                 />
             </View>
         </View>
@@ -163,12 +167,18 @@ const getStyles = (theme: ITheme) => {
             paddingHorizontal: 10,
         },
 
+        header: {
+            textAlign: 'center',
+            marginBottom: 15,
+        },
+
         usageRow: {
             backgroundColor: theme.backgroundColor,
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',
             paddingBottom: 15,
+            paddingTop: Platform.select({ android: 15 }),
         },
         usageIcon: {
             marginRight: 5,

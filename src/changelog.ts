@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '12.0.13': [
+        {
+            type: 'bugfix',
+            title: 'Lobby Browser now removes lobbies correctly',
+        },
+    ],
     '12.0.12': [
         {
             type: 'feature',
