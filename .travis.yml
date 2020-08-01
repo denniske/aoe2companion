@@ -26,7 +26,7 @@ jobs:
     ####################################
 
     - stage: publish
-      if: branch = master OR tag IS present
+      if: (type != pull_request) AND (branch = master OR tag IS present)
       env:
         - CACHE_NAME=publish YARN_CACHE_FOLDER="/home/travis/yarn_cache"
       cache:
