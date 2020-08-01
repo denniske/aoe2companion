@@ -51,6 +51,7 @@ import ChangelogSnackbar from "./src/view/components/changelog-snackbar";
 import {Building} from "./src/helper/buildings";
 import BuildingPage, {BuildingTitle, buildingTitle} from "./src/view/building/building.page";
 import LivePage from "./src/view/live.page";
+import PushPage from "./src/view/push.page";
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -104,6 +105,7 @@ const linking = {
 };
 
 export type RootStackParamList = {
+    Push: undefined;
     Live: undefined;
     Welcome: undefined;
     Privacy: undefined;
@@ -226,6 +228,13 @@ export function InnerApp() {
                     component={LivePage}
                     options={{
                         title: 'Lobbies',
+                    }}
+                />
+                <Stack.Screen
+                    name="Push"
+                    component={PushPage}
+                    options={{
+                        title: 'Push',
                     }}
                 />
                 <Stack.Screen
