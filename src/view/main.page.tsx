@@ -349,9 +349,6 @@ const getStyles = (theme: ITheme) => {
             fontWeight: '500',
             textAlign: 'center',
         },
-        outlineButton: {
-            backgroundColor: 'red',
-        },
         list: {
             padding: 20,
         },

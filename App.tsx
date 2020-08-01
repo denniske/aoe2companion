@@ -50,6 +50,7 @@ import ChangelogPage from "./src/view/changelog.page";
 import ChangelogSnackbar from "./src/view/components/changelog-snackbar";
 import {Building} from "./src/helper/buildings";
 import BuildingPage, {BuildingTitle, buildingTitle} from "./src/view/building/building.page";
+import LivePage from "./src/view/live.page";
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -103,6 +104,7 @@ const linking = {
 };
 
 export type RootStackParamList = {
+    Live: undefined;
     Welcome: undefined;
     Privacy: undefined;
     About: undefined;
@@ -217,6 +219,13 @@ export function InnerApp() {
                     component={AboutPage}
                     options={{
                         title: 'About',
+                    }}
+                />
+                <Stack.Screen
+                    name="Live"
+                    component={LivePage}
+                    options={{
+                        title: 'Lobbies',
                     }}
                 />
                 <Stack.Screen

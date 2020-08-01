@@ -116,7 +116,6 @@ export function Game({data, expanded = false}: IGameProps) {
                             {
                                 i < teams.length-1 &&
                                 <View style={styles.row}>
-                                    {/*<View style={styles.versus2}/>*/}
                                     <View style={styles.versus}>
                                         <MyText style={styles.versusText}>VS</MyText>
                                     </View>
@@ -153,11 +152,9 @@ const getStyles = (theme: ITheme) => {
         matchTitle: {
             fontWeight: 'bold',
             flex: 1,
-            // paddingVertical: 2,
         },
         matchContent: {
             flex: 1,
-            // marginVertical: 2,
         },
         playerList: {
             flex: 1,
@@ -165,12 +162,6 @@ const getStyles = (theme: ITheme) => {
             // backgroundColor: 'purple'
         },
         versus: {
-            // borderRadius: 10000,
-            // backgroundColor: 'grey',
-            // color: 'white',
-            // width: 25,
-            // height: 20,
-            // color: 'black',
             margin: 10,
             marginLeft: 35,
             justifyContent: 'center',
@@ -178,38 +169,17 @@ const getStyles = (theme: ITheme) => {
             alignSelf: 'center'
         },
         versus2: {
-            // borderRadius: 10000,
-            // backgroundColor: 'grey',
-            // backgroundColor: '#999',
             color: 'white',
-            // width: 25,
             flex: 1,
             height: 1,
             margin: 10,
-            // justifyContent: 'center',
             alignItems: 'center',
             alignSelf: 'center'
         },
         versusText: {
-            // color: 'white',
             color: theme.textNoteColor,
             fontSize: 12,
         },
-        // versus: {
-        //     borderRadius: 10000,
-        //     backgroundColor: 'grey',
-        //     color: 'white',
-        //     width: 25,
-        //     height: 25,
-        //     margin: 10,
-        //     justifyContent: 'center',
-        //     alignItems: 'center',
-        //     alignSelf: 'center'
-        // },
-        // versusText: {
-        //     color: 'white',
-        //     fontSize: 12,
-        // },
     });
 };
 

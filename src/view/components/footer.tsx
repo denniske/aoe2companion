@@ -81,6 +81,8 @@ export default function Footer() {
                         <Divider />
                         <Menu.Item icon={useIcon('cog', 'Settings')} titleStyle={iconPopupStyle('Settings')} onPress={() => { nav('Settings'); setMenu(false); }} title="Settings" />
                         <Divider />
+                        <Menu.Item icon={useIcon('play', 'Live')} titleStyle={iconPopupStyle('Live')} onPress={() => { nav('Live'); setMenu(false); }} title="Lobbies" />
+                        <Divider />
                         <Menu.Item icon={useIcon('archway', 'Building')} titleStyle={iconPopupStyle('Building')} onPress={() => { nav('Building'); setMenu(false); }} title="Buildings" />
                         <Menu.Item icon={useIcon('flask', 'Tech')} titleStyle={iconPopupStyle('Tech')} onPress={() => { nav('Tech'); setMenu(false); }} title="Techs" />
                         <Menu.Item icon={useIcon('fist-raised', 'Unit')} titleStyle={iconPopupStyle('Unit')} onPress={() => { nav('Unit'); setMenu(false); }} title="Units" />

@@ -22,6 +22,62 @@ export interface IPlayer {
     won: any;
 }
 
+export interface ILobbyPlayerRaw {
+    color: number;
+    civ: number;
+    avatar: string;
+    avatarfull: string;
+    avatarmedium: string;
+    countryCode: Flag;
+    drops: number;
+    games: number;
+    name: string;
+    profileId: number;
+    rating: number;
+    slot: number;
+    slotType: number;
+    steamId: string;
+    streak: number;
+    unrankedRating: number;
+    wins: number;
+}
+
+export interface ILobbyMatchRaw {
+    active: boolean;
+    appId: number;
+    averageRating: number;
+    cheats: boolean;
+    full: boolean;
+    fullTechTree: boolean;
+    gameType: string;
+    gameTypeId: number;
+    hasPassword: boolean;
+    hidden: boolean;
+    id: string;
+    location: string;
+    lockSpeed: boolean;
+    lockTeams: boolean;
+    mapSize: string;
+    name: string;
+    numPlayers: number;
+    numSlots: number;
+    players: ILobbyPlayerRaw[];
+    pop: number;
+    ranked: boolean;
+    ratingType: number;
+    resources: string;
+    server: string;
+    sharedExploration: boolean;
+    speed: string;
+    startingAge: string;
+    status: string;
+    steamLobbyId: string;
+    turbo: boolean;
+    victory: string;
+    visibility: string;
+}
+
+
 export interface IMatchRaw {
     average_rating: any;
     cheats: boolean;

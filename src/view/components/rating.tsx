@@ -60,7 +60,7 @@ export default function Rating({ratingHistories}: IRatingProps) {
                     <VictoryChart width={Dimensions.get('screen').width - 40} height={300} theme={themeWithSystemFont}
                                   padding={{left: 50, bottom: 30, top: 20, right: 20}}
                                   // containerComponent={
-                                  //     <VictoryZoomContainer/>
+                                  //     <VictoryZoomContainer key={'zoom'}/>
                                   // }
                     >
                         <VictoryAxis crossAxis tickFormat={formatTick} />

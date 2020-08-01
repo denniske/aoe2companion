@@ -1,4 +1,4 @@
-import {getString} from "./strings";
+import {getString, getStringId} from "./strings";
 
 export const maps = {
     9: require('../../assets/maps/rm_arabia.png'),
@@ -115,6 +115,17 @@ export function getMapImage(map: AoeMap) {
         return require('../../assets/maps/cm_generic.png');
     }
     return maps[map];
+}
+
+export function getMapImageByLocationString(map: string) {
+    if (map == null) {
+        return require('../../assets/maps/cm_generic.png');
+    }
+    const stringId = getStringId('map_type', map) as AoeMap;
+    if (stringId == null || !(stringId in maps)) {
+        return require('../../assets/maps/cm_generic.png');
+    }
+    return maps[stringId as AoeMap];
 }
 
 export function getMapName(map: AoeMap) {
