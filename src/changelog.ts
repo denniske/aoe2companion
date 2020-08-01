@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '12.0.12': [
+        {
+            type: 'feature',
+            title: 'Lobby Browser',
+        },
+    ],
     '12.0.11': [
         {
             type: 'bugfix',
