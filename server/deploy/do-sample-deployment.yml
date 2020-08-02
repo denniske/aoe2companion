@@ -23,4 +23,4 @@ spec:
               name: http
           env:
             - name: PORT
-              value: 80
+              value: "80"
