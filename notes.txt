@@ -22,6 +22,11 @@ doctl kubernetes cluster kubeconfig save kubernetes-fra1
 
 https://www.digitalocean.com/community/tutorials/how-to-automate-deployments-to-digitalocean-kubernetes-with-circleci
 
+travis
+https://codeburst.io/dockerize-deploy-1cfc4f0e7c72
+
+domain
+https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nginx-ingress-on-digitalocean-kubernetes-using-helm
 
 
 

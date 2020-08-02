@@ -7,6 +7,9 @@ env:
     - NODE_VERSION="12.13.1"
     - YARN_VERSION="1.21.1"
 
+services:
+  - docker
+
 # Note: The env var $TRAVIS_BRANCH will contain
 # COMMIT: branch name
 # TAG:    tag name
@@ -19,6 +22,21 @@ jobs:
 #        - CACHE_NAME=placeholder
 #      script:
 #        - echo 1
+
+
+    ####################################
+    # PUBLISH
+    ####################################
+
+    - stage: publish
+      if: (type != pull_request) AND (branch = master OR tag IS present)
+      env:
+        - CACHE_NAME=server
+        - IMAGE_NAME=denniske/do-kubernetes-sample-app
+      script:
+        - docker build -t $IMAGE_NAME:latest .
+        - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+        - docker push $IMAGE_NAME:latest
 
 
     ####################################
