@@ -1,3 +1,14 @@
-FROM nginx:1.14
+FROM node:12
 
-COPY index.html /usr/share/nginx/html/index.html
+WORKDIR /usr/src/app
+
+COPY package.json ./
+
+RUN npm install
+RUN npm run build
+
+COPY ./dist .
+
+EXPOSE 4000
+
+CMD ["node", "server.js"]
