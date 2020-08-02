@@ -284,6 +284,7 @@ const getStyles = (theme: ITheme) => {
         menuIcon: {
             color: theme.textColor,
         },
+
         players: {
             marginBottom: 10,
         },

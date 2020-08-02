@@ -114,10 +114,14 @@ const getStyles = (theme: ITheme) => {
         cellGames: {
             padding: padding,
             flex: 1,
+            textAlign: 'right',
+            fontVariant: ['tabular-nums'],
         },
         cellWon: {
             padding: padding,
             flex: 1,
+            textAlign: 'right',
+            fontVariant: ['tabular-nums'],
         },
         row: {
             flexDirection: 'row',

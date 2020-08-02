@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import { formatAgo } from '../../helper/util';
 import React from 'react';
 import { getLeaderboardColor } from '../../helper/colors';
@@ -12,11 +12,19 @@ import {sameUser} from "../../helper/user";
 import {toggleFollowingInStorage} from "../../service/storage";
 import {MyText} from "./my-text";
 import {formatLeaderboardId} from "../../helper/leaderboards";
-import {ITheme, makeVariants, usePaperTheme, useTheme} from "../../theming";
+import {ITheme, makeVariants, useAppTheme, usePaperTheme, useTheme} from "../../theming";
+import IconFA5 from "react-native-vector-icons/FontAwesome5";
 
 interface ILeaderboardRowProps {
     data: ILeaderboard;
 }
+
+const formatStreak = (streak: number) => {
+  if (streak > 0) {
+      return '+' + streak;
+  }
+  return streak;
+};
 
 function LeaderboardRow({data}: ILeaderboardRowProps) {
     const theme = usePaperTheme();
@@ -26,7 +34,7 @@ function LeaderboardRow({data}: ILeaderboardRowProps) {
     const color = {color: getLeaderboardColor(data.leaderboard_id, theme.dark)};
 
     return (
-            <View style={styles.row}>
+            <View style={styles.leaderboardRow}>
                 <MyText style={StyleSheet.flatten([styles.cellLeaderboard, color])}>
                     {formatLeaderboardId(data.leaderboard_id)}
                 </MyText>
@@ -40,8 +48,74 @@ function LeaderboardRow({data}: ILeaderboardRowProps) {
                     {leaderboardInfo.games}
                 </MyText>
                 <MyText style={StyleSheet.flatten([styles.cellWon, color])} numberOfLines={1}>
+                    {(leaderboardInfo?.wins / leaderboardInfo?.games * 100).toFixed(2)}%
+                </MyText>
+                <MyText style={StyleSheet.flatten([styles.cellStreak, color])} numberOfLines={1}>
+                    {formatStreak(leaderboardInfo?.streak)}
+                </MyText>
+                <MyText style={StyleSheet.flatten([styles.cellLastMatch, color])} numberOfLines={1}>
                     {formatAgo(leaderboardInfo.last_match)}
                 </MyText>
+            </View>
+    )
+}
+
+function LeaderboardRow1({data}: ILeaderboardRowProps) {
+    const theme = usePaperTheme();
+    const styles = useTheme(variants);
+
+    const leaderboardInfo = data.leaderboard[0];
+    const color = {color: getLeaderboardColor(data.leaderboard_id, theme.dark)};
+
+    return (
+            <View style={styles.leaderboardRow}>
+                <MyText style={StyleSheet.flatten([styles.cellLeaderboard, color])}>
+                    {formatLeaderboardId(data.leaderboard_id)}
+                </MyText>
+                <MyText style={StyleSheet.flatten([styles.cellRank, color])}>
+                    #{leaderboardInfo.rank}
+                </MyText>
+                <MyText style={StyleSheet.flatten([styles.cellRating, color])}>
+                    {leaderboardInfo.rating}
+                </MyText>
+                <MyText style={StyleSheet.flatten([styles.cellRating2, color])}>
+                    {leaderboardInfo.highest_rating == leaderboardInfo.rating ? '←' : leaderboardInfo.highest_rating}
+                </MyText>
+                <MyText style={StyleSheet.flatten([styles.cellRatingChange, color])}>
+                    {formatStreak(leaderboardInfo.rating-leaderboardInfo.previous_rating)}
+                </MyText>
+            </View>
+    )
+}
+
+
+function LeaderboardRow2({data}: ILeaderboardRowProps) {
+    const theme = usePaperTheme();
+    const styles = useTheme(variants);
+
+    const leaderboardInfo = data.leaderboard[0];
+    const color = {color: getLeaderboardColor(data.leaderboard_id, theme.dark)};
+
+    return (
+            <View style={styles.leaderboardRow}>
+                <MyText style={StyleSheet.flatten([styles.cellLeaderboard, color])}>
+                    {formatLeaderboardId(data.leaderboard_id)}
+                </MyText>
+                <MyText style={StyleSheet.flatten([styles.cellGames, color])}>
+                    {leaderboardInfo.games}
+                </MyText>
+                <MyText style={StyleSheet.flatten([styles.cellWon, color])} numberOfLines={1}>
+                    {(leaderboardInfo?.wins / leaderboardInfo?.games * 100).toFixed(2)} %
+                </MyText>
+                <MyText style={StyleSheet.flatten([styles.cellStreak, color])} numberOfLines={1}>
+                    {formatStreak(leaderboardInfo?.streak)}
+                </MyText>
+                {/*<MyText style={StyleSheet.flatten([styles.cellStreak, color])} numberOfLines={1}>*/}
+                {/*    {leaderboardInfo.highest_streak == leaderboardInfo.streak ? '←' : formatStreak(leaderboardInfo.highest_streak)}*/}
+                {/*</MyText>*/}
+                {/*<MyText style={StyleSheet.flatten([styles.cellLastMatch, color])} numberOfLines={1}>*/}
+                {/*    {formatAgo(leaderboardInfo.last_match)}*/}
+                {/*</MyText>*/}
             </View>
     )
 }
@@ -64,6 +138,7 @@ interface IProfileProps {
 }
 
 export default function Profile({data}: IProfileProps) {
+    const theme = useAppTheme();
     const styles = useTheme(variants);
     const mutate = useMutate();
     const auth = useSelector(state => state.auth);
@@ -93,7 +168,7 @@ export default function Profile({data}: IProfileProps) {
                             </View>
                             <View style={styles.row}>
                                 <TextLoader width={180} ready={data}>{data?.games} Games, {data?.drops} Drops
-                                    ({(data?.drops / data?.games * 100).toFixed(2)}%)</TextLoader>
+                                    ({(data?.drops / data?.games * 100).toFixed(2)} %)</TextLoader>
                             </View>
                         </View>
                         <View style={styles.expanded}/>
@@ -110,19 +185,41 @@ export default function Profile({data}: IProfileProps) {
                         }
                     </View>
 
-                    <MyText/>
+                    <MyText style={styles.sectionHeader}>Rating</MyText>
 
-                    <View style={styles.row}>
+                    {/*<ScrollView contentContainerStyle={styles.scrollContent} style={styles.scrollContainer} horizontal={true} persistentScrollbar={true}>*/}
+                    {/*    <View style={styles.leaderboardRow}>*/}
+                    {/*        <MyText numberOfLines={1} style={styles.cellLeaderboard}/>*/}
+                    {/*        <MyText numberOfLines={1} style={styles.cellRank}>Rank</MyText>*/}
+                    {/*        <MyText numberOfLines={1} style={styles.cellRating}>Rating</MyText>*/}
+                    {/*        <MyText numberOfLines={1} style={styles.cellGames}><IconFA5 name="fist-raised" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
+                    {/*        <MyText numberOfLines={1} style={styles.cellWon}><IconFA5 name="crown" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
+                    {/*        <MyText numberOfLines={1} style={styles.cellStreak}> </MyText>*/}
+                    {/*        <MyText numberOfLines={1} style={styles.cellWon}><IconFA5 name="clock" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
+                    {/*    </View>*/}
+                    {/*    {*/}
+                    {/*        data?.leaderboards.map(leaderboard =>*/}
+                    {/*                <LeaderboardRow key={leaderboard.leaderboard_id} data={leaderboard}/>*/}
+                    {/*        )*/}
+                    {/*    }*/}
+                    {/*</ScrollView>*/}
+
+
+
+
+
+
+
+                    <View style={styles.leaderboardRow}>
                         <MyText numberOfLines={1} style={styles.cellLeaderboard}/>
                         <MyText numberOfLines={1} style={styles.cellRank}>Rank</MyText>
                         <MyText numberOfLines={1} style={styles.cellRating}>Rating</MyText>
-                        <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>
-                        <MyText numberOfLines={1} style={styles.cellWon}>Last Match</MyText>
+                        <MyText numberOfLines={1} style={styles.cellRating2}>max</MyText>
+                        <MyText numberOfLines={1} style={styles.cellRatingChange}>change</MyText>
                     </View>
-
                     {
                         data?.leaderboards.map(leaderboard =>
-                                <LeaderboardRow key={leaderboard.leaderboard_id} data={leaderboard}/>
+                                <LeaderboardRow1 key={leaderboard.leaderboard_id} data={leaderboard}/>
                         )
                     }
 
@@ -132,11 +229,38 @@ export default function Profile({data}: IProfileProps) {
                                 <TextLoader style={styles.cellLeaderboard}/>
                                 <TextLoader style={styles.cellRank}/>
                                 <TextLoader style={styles.cellRating}/>
-                                <TextLoader style={styles.cellGames}/>
-                                <TextLoader style={styles.cellWon}/>
+                                <TextLoader style={styles.cellRating2}/>
+                                <TextLoader style={styles.cellRatingChange}/>
                             </View>
                         )
                     }
+                    <MyText/>
+                    <View style={styles.leaderboardRow}>
+                        <MyText numberOfLines={1} style={styles.cellLeaderboard}/>
+                        <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>
+                        {/*<MyText numberOfLines={1} style={styles.cellWon}><IconFA5 name="crown" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
+                        <MyText numberOfLines={1} style={styles.cellWon}>Won</MyText>
+                        <MyText numberOfLines={1} style={styles.cellStreak}>Streak</MyText>
+                        {/*<MyText numberOfLines={1} style={styles.cellStreak}>max</MyText>*/}
+                        {/*<MyText numberOfLines={1} style={styles.cellWon}><IconFA5 name="clock" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
+                    </View>
+                    {
+                        data?.leaderboards.map(leaderboard =>
+                                <LeaderboardRow2 key={leaderboard.leaderboard_id} data={leaderboard}/>
+                        )
+                    }
+
+                    {
+                        !data && Array(2).fill(0).map((a, i) =>
+                            <View key={i} style={styles.row}>
+                                <TextLoader style={styles.cellLeaderboard}/>
+                                <TextLoader style={styles.cellGames}/>
+                                <TextLoader style={styles.cellWon}/>
+                                <TextLoader style={styles.cellStreak}/>
+                            </View>
+                        )
+                    }
+
                 </View>
             </View>
     )
@@ -144,6 +268,12 @@ export default function Profile({data}: IProfileProps) {
 
 const getStyles = (theme: ITheme) => {
     return StyleSheet.create({
+        sectionHeader: {
+            marginVertical: 25,
+            fontSize: 15,
+            fontWeight: '500',
+            textAlign: 'center',
+        },
         followButton: {
             // backgroundColor: 'blue',
             flex: 1,
@@ -162,28 +292,65 @@ const getStyles = (theme: ITheme) => {
         },
         cellLeaderboard: {
             // backgroundColor: 'red',
-            width: 70,
+            width: 75,
             marginRight: 5,
         },
         cellRank: {
             width: 60,
             marginRight: 5,
+            fontVariant: ['tabular-nums'],
         },
         cellRating: {
             width: 50,
             marginRight: 5,
+            fontVariant: ['tabular-nums'],
+        },
+        cellRating2: {
+            width: 60,
+            marginRight: 5,
+            fontVariant: ['tabular-nums'],
+        },
+        cellRatingChange: {
+            flex: 1,
+            marginRight: 5,
+            fontVariant: ['tabular-nums'],
         },
         cellGames: {
             width: 60,
             marginRight: 5,
+            fontVariant: ['tabular-nums'],
         },
         cellWon: {
+            width: 60,
+            marginRight: 5,
+            fontVariant: ['tabular-nums'],
+        },
+        cellStreak: {
+            width: 45,
+            marginRight: 10,
+            textAlign: 'right',
+            fontVariant: ['tabular-nums'],
+        },
+        cellLastMatch: {
             flex: 1,
         },
         row: {
             flexDirection: 'row',
             alignItems: 'center',
             paddingVertical: 2,
+        },
+        leaderboardRow: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingVertical: 3,
+        },
+        scrollContainer: {
+            marginHorizontal: -20,
+        },
+        scrollContent: {
+            flexDirection: 'column',
+            paddingBottom: 10,
+            paddingHorizontal: 20,
         },
         container: {
             // backgroundColor: 'red',

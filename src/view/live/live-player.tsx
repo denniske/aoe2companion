@@ -61,8 +61,8 @@ export function LivePlayer({player}: IPlayerProps) {
                     {player.slotType != 1 ? slotTypes[player.slotType as keyof typeof slotTypes] : player.name}
                 </MyText>
                 <MyText style={styles.playerGamesCol}>{player.games && player.games + ''}</MyText>
-                <MyText style={styles.playerWonCol}>{player.games && (player?.wins / player?.games * 100).toFixed(0) + '%'}</MyText>
-                <MyText style={styles.playerWonCol}>{player.games && (player?.drops / player?.games * 100).toFixed(0) + '%'}</MyText>
+                <MyText style={styles.playerWonCol}>{player.games && (player?.wins / player?.games * 100).toFixed(0) + ' %'}</MyText>
+                <MyText style={styles.playerWonCol}>{player.games && (player?.drops / player?.games * 100).toFixed(0) + ' %'}</MyText>
             </TouchableOpacity>
     );
 }
@@ -71,21 +71,26 @@ const getStyles = (theme: ITheme) =>
     StyleSheet.create({
         playerGamesCol: {
             marginLeft: 7,
-            width: 35,
+            width: 38,
             textAlign: 'right',
+            fontVariant: ['tabular-nums'],
         },
         playerWonCol: {
             marginLeft: 7,
             width: 45,
             textAlign: 'right',
+            fontVariant: ['tabular-nums'],
         },
         playerCountryCol: {
             marginLeft: 7,
             width: 21,
+            fontVariant: ['tabular-nums'],
         },
         playerRatingCol: {
             marginLeft: 7,
             width: 35,
+            letterSpacing: -0.5,
+            fontVariant: ['tabular-nums'],
         },
         playerNameCol: {
             marginLeft: 5,

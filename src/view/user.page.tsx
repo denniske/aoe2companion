@@ -152,6 +152,7 @@ export default function UserPage() {
             <View style={styles.container}>
                 <View style={styles.content}>
                     <FlatList
+                            // scrollEnabled={false}
                             contentContainerStyle={styles.list}
                             data={list}
                             renderItem={({item, index}) => {
@@ -161,7 +162,7 @@ export default function UserPage() {
                                         return <MyText style={styles.sectionHeader}>Rating History</MyText>;
                                     case 'stats-header':
                                         return <View>
-                                            <MyText style={styles.sectionHeader}>Stats</MyText>
+                                            <MyText style={styles.sectionHeader}>Statistics</MyText>
 
                                             <View style={styles.pickerRow}>
                                                 <ActivityIndicator animating={loadingMatchesOrStats} size="small"/>
@@ -243,8 +244,7 @@ const getStyles = (theme: ITheme) => {
         marginBottom: 10
     },
     sectionHeader: {
-        marginTop: 20,
-        marginBottom: 20,
+        marginVertical: 25,
         fontSize: 15,
         fontWeight: '500',
         textAlign: 'center',

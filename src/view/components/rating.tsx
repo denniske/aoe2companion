@@ -53,6 +53,8 @@ export default function Rating({ratingHistories}: IRatingProps) {
         return formatDateShort(parseUnixTimestamp(ticks[index]/1000));
     };
 
+    // https://formidable.com/open-source/victory/guides/zoom-on-large-datasets/
+
     return (
             <View style={styles.container}>
 
@@ -68,6 +70,7 @@ export default function Rating({ratingHistories}: IRatingProps) {
                         {
                             ratingHistories?.map(ratingHistory => (
                                 <VictoryLine
+                                    name={'line-' + ratingHistory.leaderboard_id}
                                     key={'line-' + ratingHistory.leaderboard_id}
                                     data={ratingHistory.data}
                                     x="timestamp"
@@ -80,7 +83,7 @@ export default function Rating({ratingHistories}: IRatingProps) {
                         {
                             ratingHistories?.map(ratingHistory => (
                                 <VictoryScatter
-                                    name="ad"
+                                    name={'scatter-' + ratingHistory.leaderboard_id}
                                     key={'scatter-' + ratingHistory.leaderboard_id}
                                     data={ratingHistory.data}
                                     x="timestamp"
@@ -131,8 +134,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         flexWrap: 'wrap',
-        marginLeft: 10,
-        marginRight: 10,
+        marginHorizontal: -8,
         marginTop: 10,
         // backgroundColor: 'red',
     },

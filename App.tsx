@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import {DefaultTheme as NavigationDefaultTheme, DarkTheme as NavigationDarkTheme, NavigationContainer, useNavigation} from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import MainPage from './src/view/main.page';
+import MainPage, {mainMenu} from './src/view/main.page';
 import {
     AsyncStorage, BackHandler,
     Linking, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View, YellowBox
@@ -207,6 +207,7 @@ export function InnerApp() {
                     component={MainPage}
                     options={{
                         title: 'Me',
+                        headerRight: mainMenu(),
                     }}
                 />
                 <Stack.Screen
