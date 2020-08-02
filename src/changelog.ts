@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '12.0.15': [
+        {
+            type: 'minor',
+            title: 'More info in user profile',
+        },
+    ],
     '12.0.14': [
         {
             type: 'minor',
