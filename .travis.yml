@@ -40,12 +40,11 @@ jobs:
         - chmod u+x ./kubectl
         - sudo mv kubectl /usr/local/bin/
       script:
-        - ls -al
         - cd server
+        - docker build -t $IMAGE_NAME:$TRAVIS_COMMIT .
+        - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+        - docker push $IMAGE_NAME:$TRAVIS_COMMIT
         - cd deploy
-#        - docker build -t $IMAGE_NAME:$TRAVIS_COMMIT .
-#        - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-#        - docker push $IMAGE_NAME:$TRAVIS_COMMIT
         - bash ./deploy.sh
 
 
