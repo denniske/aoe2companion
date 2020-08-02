@@ -2,8 +2,9 @@ import express from 'express';
 // @ts-ignore
 import imageDataURI from "image-data-uri";
 import WebSocket from 'ws';
-import {ILobbyMatchRaw, makeQueryString, minifyUserId} from "./server.type";
+import {ILastMatchRaw, ILobbyMatchRaw, IMatchRaw, makeQueryString, minifyUserId} from "./server.type";
 import fetch from "node-fetch";
+import {myfunsi} from "../../serverless/entity/myfuns";
 const cors = require('cors');
 const app = express();
 
@@ -16,34 +17,63 @@ let checkCount = 0;
 
 const matches: ILobbyMatchRaw[] = [];
 
+export function sleep(ms: number) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
+}
+
 const ws = new WebSocket('wss://aoe2.net/ws', {
     origin: 'https://aoe2.net',
 });
 
 async function fetchIntoJson(url: string) {
     const result = await fetch(url);
+    if (result.status != 200) {
+        return null;
+    }
     return await result.json();
 }
 
+async function notify(match: IMatchRaw) {
+
+
+}
+
+console.log('test myfunsi');
+myfunsi();
+
 async function checkExistance(match: ILobbyMatchRaw) {
-    checkCount++;
-    if (checkCount > 1) return;
+    console.log();
+    console.log('Existance New', match.name, '-> ', match.id);
 
-    console.log('Existance ', match.name);
-
-    const requests = [];
     for (const player of match.players.filter(p => p.profileId || p.steamId)) {
         const queryString = makeQueryString({
             game: 'aoe2de',
+            // profile_id: 3169763,
             ...minifyUserId(player),
         });
         const url = `http://aoe2.net/api/player/lastmatch?${queryString}`;
         console.log(url);
-        requests.push(fetchIntoJson(url));
+        console.log();
+        const playerLastMatch = await fetchIntoJson(url) as ILastMatchRaw;
+        if (playerLastMatch == null) {
+            console.log('SKIP', match.name);
+            continue;
+        }
+        // if (!playerLastMatch.last_match?.match_id) continue;
+        // console.log(playerLastMatch.last_match);
+        // await sleep(2000);
+        if (match.id == playerLastMatch.last_match.match_id) {
+            console.log('NOTIFY', match.name, '-> ', match.id);
+            await notify(playerLastMatch.last_match);
+            return;
+        } else {
+            console.log('NO MATCH FOUND', match.name, '-> ', match.id);
+            return;
+        }
     }
 
-    let results = await Promise.all(requests);
-    console.log(results);
 }
 
 function onUpdate(updates: ILobbyMatchRaw[]) {
@@ -55,9 +85,12 @@ function onUpdate(updates: ILobbyMatchRaw[]) {
             if (update.active && update.numSlots > 1) {
                 matches.splice(existingMatchIndex, 1, update);
             } else {
-                console.log('Removing ', update.name);
+                // console.log('Removing ', update.name);
                 matches.splice(existingMatchIndex, 1);
-                setTimeout(() => checkExistance(update), 5000);
+                checkCount++;
+                if (checkCount > 6) return;
+                // setTimeout(() => checkExistance(update), 5000);
+                setTimeout(() => checkExistance(update), 15000);
             }
         } else {
             if (update.active && update.numSlots > 1) {
