@@ -17,6 +17,13 @@ add content
 
 https://www.reddit.com/r/aoe2/comments/99rhrv/how_can_i_set_the_tech_tree_like_this_while/
 
+doctl auth init
+doctl kubernetes cluster kubeconfig save kubernetes-fra1
+
+https://www.digitalocean.com/community/tutorials/how-to-automate-deployments-to-digitalocean-kubernetes-with-circleci
+
+
+
 npx expo build:web
 
 user count 16.30: 198938 users
