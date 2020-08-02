@@ -57,6 +57,10 @@ export default function LivePage() {
                        m.players.some(p => p.name?.toLowerCase().indexOf(part) >= 0);
             });
         });
+
+        // const players = matches.flatMap(m => m.players).filter(p => p.games == null);
+        // console.log('players', players);
+
         setFilteredMatches(filtered);
     }, [text, matches]);
 
