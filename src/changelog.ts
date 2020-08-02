@@ -10,7 +10,7 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
-    '12.0.15': [
+    '13.0.0': [
         {
             type: 'minor',
             title: 'More info in user profile',
