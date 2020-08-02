@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: do-kubernetes-sample-app
+  name: aoe2companion-api
   namespace: default
   labels:
-    app: do-kubernetes-sample-app
+    app: aoe2companion-api
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: do-kubernetes-sample-app
+      app: aoe2companion-api
   template:
     metadata:
       labels:
-        app: do-kubernetes-sample-app
+        app: aoe2companion-api
     spec:
       containers:
-        - name: do-kubernetes-sample-app
-          image: denniske/do-kubernetes-sample-app:$COMMIT_SHA1
+        - name: aoe2companion-api
+          image: denniske/aoe2companion-api:$COMMIT_SHA1
           ports:
             - containerPort: 80
               name: http

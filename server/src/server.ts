@@ -10,8 +10,10 @@ app.use(bodyParser.json({limit: '100mb', extended: true}));
 app.use(cors());
 
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+    res.send('Hello World 2!');
 });
+
+console.log('Hello console 2!');
 
 app.post('/', async (req, res) => {
     console.log(req.body);

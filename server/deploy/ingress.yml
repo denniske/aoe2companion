@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: do-kubernetes-sample-ingress
+  name: aoe2companion-api-ingress
   annotations:
     kubernetes.io/ingress.class: nginx
 spec:
@@ -10,5 +10,5 @@ spec:
       http:
         paths:
           - backend:
-              serviceName: do-kubernetes-sample-app
+              serviceName: aoe2companion-api
               servicePort: 80
