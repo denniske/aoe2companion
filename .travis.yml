@@ -33,12 +33,12 @@ jobs:
       env:
         - CACHE_NAME=server
         - IMAGE_NAME=denniske/do-kubernetes-sample-app
-      install:
-        - apt-get update
-        - apt-get -y install gettext-base
+      before_install:
+        - sudo apt-get update
+        - sudo apt-get -y install gettext-base
         - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
         - chmod u+x ./kubectl
-        - mv kubectl /usr/local/bin/
+        - sudo mv kubectl /usr/local/bin/
       script:
         - ls -al
         - cd server
