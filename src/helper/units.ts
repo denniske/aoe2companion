@@ -1900,7 +1900,7 @@ export const unitLines: IUnitLineDict = {
             'GenoeseCrossbowman',
             'Mameluke',
             'CamelArcher'
-        ]
+        ],
         upgrades: [
             'Bloodlines',
             'Fletching',
