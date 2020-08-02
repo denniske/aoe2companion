@@ -33,11 +33,20 @@ jobs:
       env:
         - CACHE_NAME=server
         - IMAGE_NAME=denniske/do-kubernetes-sample-app
+      install:
+        - apt-get update
+        - apt-get -y install gettext-base
+        - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+        - chmod u+x ./kubectl
+        - mv kubectl /usr/local/bin/
       script:
+        - ls -al
         - cd server
-        - docker build -t $IMAGE_NAME:latest .
-        - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-        - docker push $IMAGE_NAME:latest
+        - cd deploy
+#        - docker build -t $IMAGE_NAME:$TRAVIS_COMMIT .
+#        - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+#        - docker push $IMAGE_NAME:$TRAVIS_COMMIT
+        - bash ./deploy.sh
 
 
     ####################################

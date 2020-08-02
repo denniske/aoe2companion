@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: do-kubernetes-sample-app
-          image: denniske/do-kubernetes-sample-app:latest
+          image: denniske/do-kubernetes-sample-app:$COMMIT_SHA1
           ports:
             - containerPort: 80
               name: http
