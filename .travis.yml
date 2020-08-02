@@ -34,6 +34,7 @@ jobs:
         - CACHE_NAME=server
         - IMAGE_NAME=denniske/do-kubernetes-sample-app
       script:
+        - cd server
         - docker build -t $IMAGE_NAME:latest .
         - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
         - docker push $IMAGE_NAME:latest
