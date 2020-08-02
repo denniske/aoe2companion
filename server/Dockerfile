@@ -10,8 +10,6 @@ COPY . .
 
 RUN npm run build
 
-COPY ./dist .
-
 EXPOSE 80
 
-CMD ["node", "server.js"]
+CMD ["node", "dist/server.js"]
