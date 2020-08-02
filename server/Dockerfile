@@ -2,13 +2,14 @@ FROM node:12
 
 WORKDIR /usr/src/app
 
-COPY package.json ./
+#COPY package.json ./
 
-RUN npm install
+#RUN npm install
 
 COPY . .
+RUN ls -al
 
-RUN npm run build
+#RUN npm run build
 
 EXPOSE 80
 

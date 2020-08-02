@@ -41,6 +41,9 @@ jobs:
         - sudo mv kubectl /usr/local/bin/
       script:
         - cd server
+        - npm install
+        - npm run build
+        - ls -al
         - docker build -t $IMAGE_NAME:$TRAVIS_COMMIT .
         - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
         - docker push $IMAGE_NAME:$TRAVIS_COMMIT
