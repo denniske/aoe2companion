@@ -4,6 +4,6 @@ metadata:
   name: cicd
   namespace: default
 rules:
-  - apiGroups: ["", "apps", "batch", "extensions"]
-    resources: ["deployments", "services", "replicasets", "pods", "jobs", "cronjobs"]
+  - apiGroups: ["", "apps", "batch", "extensions", "networking.k8s.io"]
+    resources: ["ingresses", "deployments", "services", "replicasets", "pods", "jobs", "cronjobs"]
     verbs: ["*"]
