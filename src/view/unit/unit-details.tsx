@@ -9,7 +9,7 @@ import {
     getUnitLineIcon,
     getUnitLineName, getUnitLineNameForUnit,
     getUnitName, hiddenArmourClasses, IUnitInfo, Other, sortResources, sortUnitCounter, Unit, UnitClassNumber,
-    UnitLine, unitLines, units
+    UnitLine, unitLines, units, IUnitLine
 } from "../../helper/units";
 import {getTechIcon, getTechName, Tech, techEffectDict, techList} from "../../helper/techs";
 import {Civ, civs} from "../../helper/civs";
@@ -69,6 +69,25 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
     const unitIndex = unitLine.units.indexOf(unitName);
     const upgradedFrom = unitIndex > 0 ? unitLine.units[unitIndex-1] : null;
     const upgradedTo = unitIndex < unitLine.units.length-1 ? unitLine.units[unitIndex+1] : null;
+    const getNonUniqueUnitCounters = (x: IUnitLine[])=>{
+        let nonUUArray: UnitLine[] = [];
+        sortUnitCounter(x.counteredBy).forEach((counterUnit)=>{
+            let counterUnitObj = unitLines[getUnitLineNameForUnit(counterUnit)];
+            if(counterUnitObj.unique){
+                nonUUArray.push(counterUnit);
+            }
+        });
+        return nonUUArray.map(counterUnit =>
+            <TouchableOpacity key={counterUnit} onPress={() => gotoUnit(counterUnit)}>
+                <View style={styles.row}>
+                    <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitLineIcon(counterUnit)}/>
+                    <MyText style={styles.unitDesc}>
+                        {getUnitLineName(counterUnit)}
+                    </MyText>
+                </View>
+            </TouchableOpacity>
+        )
+    }
 
     const developments = unitLine.units;//.filter((u, i) => i > 0);//.map(u => units[u]);
 
@@ -309,16 +328,7 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
                             <MyText size="headline">Weak vs.</MyText>
                         </View>
                         {
-                            sortUnitCounter(unitLine.counteredBy).map(counterUnit =>
-                                <TouchableOpacity key={counterUnit} onPress={() => gotoUnit(counterUnit)}>
-                                    <View style={styles.row}>
-                                        <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitLineIcon(counterUnit)}/>
-                                        <MyText style={styles.unitDesc}>
-                                            {getUnitLineName(counterUnit)}
-                                        </MyText>
-                                    </View>
-                                </TouchableOpacity>
-                            )
+                            getNonUniqueUnitCounters(unitLine)
                         }
 
                         <MyText/>
