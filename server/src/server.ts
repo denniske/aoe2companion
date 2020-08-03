@@ -2,7 +2,6 @@ import express from 'express';
 import WebSocket from 'ws';
 import {ILastMatchRaw, ILobbyMatchRaw, IMatchRaw, makeQueryString, minifyUserId} from "./server.type";
 import fetch from "node-fetch";
-import {myfunsi} from "../../serverless/entity/myfuns";
 import {createDB} from "./db";
 import {User} from "../../serverless/entity/user";
 import {LeaderboardRow} from "../../serverless/entity/leaderboard-row";
@@ -16,6 +15,9 @@ app.use(bodyParser.json({limit: '100mb', extended: true}));
 app.use(cors());
 
 let checkCount = 0;
+let sentPushNotifications = 0;
+let sentRequests = 0;
+let serverStarted = new Date();
 
 const matches: ILobbyMatchRaw[] = [];
 
@@ -30,6 +32,7 @@ const ws = new WebSocket('wss://aoe2.net/ws', {
 });
 
 async function fetchIntoJson(url: string) {
+    sentRequests++;
     const result = await fetch(url);
     if (result.status != 200) {
         return null;
@@ -38,6 +41,8 @@ async function fetchIntoJson(url: string) {
 }
 
 async function insertUsers(match: IMatchRaw) {
+    console.log('NOTIFY', match.name, '-> ', match.match_id);
+
     const connection = await createDB();
 
     const userRows = match.players.filter(p => p.profile_id).map(entry => {
@@ -80,6 +85,8 @@ async function insertUsers(match: IMatchRaw) {
 }
 
 async function sendPushNotification(expoPushToken: string, body: string) {
+    sentPushNotifications++;
+
     const message = {
         to: expoPushToken,
         sound: 'default',
@@ -100,6 +107,8 @@ async function sendPushNotification(expoPushToken: string, body: string) {
 }
 
 async function notify(match: IMatchRaw) {
+    console.log('NOTIFY', match.name, '-> ', match.match_id);
+
     const connection = await createDB();
 
     const players = match.players.filter(p => p.profile_id);
@@ -107,22 +116,23 @@ async function notify(match: IMatchRaw) {
     for (const player of players) {
         const following = await connection.manager.find(Following, {where: { profile_id: player.profile_id }});
         const tokens = following.map(f => f.push_token);
-        console.log('tokens', tokens);
-        for (const token of tokens) {
-            await sendPushNotification(token, match.name + ' - ' + match.match_id);
+        if (tokens.length > 0) {
+            console.log('tokens', tokens.length);
+            for (const token of tokens) {
+                await sendPushNotification(token, match.name + ' - ' + match.match_id);
+            }
         }
     }
 }
 
-console.log('test myfunsi');
-myfunsi();
-
 console.log('db');
 createDB();
 
-async function checkExistance(match: ILobbyMatchRaw) {
+async function checkExistance(match: ILobbyMatchRaw, attempt: number = 0) {
+    if (attempt > 2) return;
+
     console.log();
-    console.log('Existance New', match.name, '-> ', match.id);
+    console.log('Existance', attempt, match.name, '-> ', match.id);
 
     for (const player of match.players.filter(p => p.profileId || p.steamId)) {
         const queryString = makeQueryString({
@@ -134,50 +144,49 @@ async function checkExistance(match: ILobbyMatchRaw) {
         console.log(url);
         console.log();
         const playerLastMatch = await fetchIntoJson(url) as ILastMatchRaw;
-        if (playerLastMatch == null) {
-            console.log('SKIP', match.name);
-            continue;
+        if (playerLastMatch != null) {
+            if (match.id == playerLastMatch.last_match.match_id) {
+                if (attempt > 0) {
+                    console.log('FOUND AFTER TIME !!!!!!!!!!!!!!!!', match.name, '-> ', match.id);
+                }
+                await insertUsers(playerLastMatch.last_match);
+                await notify(playerLastMatch.last_match);
+                return;
+            } else {
+                console.log('NO MATCH FOUND', match.name, '-> ', match.id);
+                // setTimeout(() => checkExistance(match, attempt+1), 5000);
+                return;
+            }
         }
-        // if (!playerLastMatch.last_match?.match_id) continue;
-        // console.log(playerLastMatch.last_match);
-        // await sleep(2000);
-        if (match.id == playerLastMatch.last_match.match_id) {
-            console.log('NOTIFY', match.name, '-> ', match.id);
-            await insertUsers(playerLastMatch.last_match);
-            await notify(playerLastMatch.last_match);
-            return;
-        } else {
-            console.log('NO MATCH FOUND', match.name, '-> ', match.id);
-            return;
-        }
+        console.log('NEXT PLAYER', match.name);
     }
-
+    console.log('NO MATCH FOUND', match.name, '-> ', match.id);
+    // setTimeout(() => checkExistance(match, attempt+1), 5000);
 }
 
 function onUpdate(updates: ILobbyMatchRaw[]) {
     console.log(updates.length);
 
     for (const update of updates) {
+        const existingMatchIndex = matches.findIndex(m => m.id === update.id);
 
         if (update.name.indexOf('ice cube') >= 0) {
-            console.log('ICE', update);
+            console.log('ICE', existingMatchIndex, update);
         }
 
-        const existingMatchIndex = matches.findIndex(m => m.id === update.id);
         if (existingMatchIndex >= 0) {
             if (update.active) {
                 matches.splice(existingMatchIndex, 1, update);
             } else {
-                console.log('Removing ', update.name);
+                // console.log('Removing ', update.name);
                 matches.splice(existingMatchIndex, 1);
 
                 // checkCount++;
                 // if (checkCount > 6) return;
 
-                if (update.name.indexOf('ice cube') < 0) return;
+                // if (update.name.indexOf('ice cube') < 0) return;
 
-                // setTimeout(() => checkExistance(update), 5000);
-                setTimeout(() => checkExistance(update), 15000);
+                setTimeout(() => checkExistance(update), 5000);
             }
         } else {
             if (update.active) {
@@ -191,9 +200,9 @@ function onUpdate(updates: ILobbyMatchRaw[]) {
 
 ws.on('open', () => {
     // ws.send(JSON.stringify({"message":"subscribe","subscribe":[0]})); // subscribe chat
-    if (process.env.LOCAL === 'true') {
+    // if (process.env.LOCAL === 'true') {
         ws.send(JSON.stringify({"message":"subscribe","subscribe":[813780]})); // subscribe de lobbies
-    }
+    // }
 });
 
 ws.on('message', (data) => {
@@ -232,6 +241,17 @@ app.get('/', (req, res) => {
 
 app.get('/status', (req, res) => {
     res.send({
+        sentPushNotifications: sentPushNotifications,
+        sentRequests: sentRequests,
+        sentRequestsPerMinute: (sentRequests / ((new Date().getTime() - serverStarted.getTime()) / 1000 / 60)).toFixed(2),
+        uptime: ((new Date().getTime() - serverStarted.getTime()) / 1000 / 60).toFixed(2),
+        matches: matches.length,
+        openMatches: matches.filter(m => m.numSlots > 1).length,
+    });
+});
+
+app.get('/status2', (req, res) => {
+    res.send({
         matches: matches,
         openMatches: matches.filter(m => m.numSlots > 1),
     });
@@ -247,4 +267,4 @@ app.post('/', async (req, res) => {
     console.log('Received screenshot:', path);
 });
 
-app.listen(process.env.PORT || 3000, () => console.log(`Image server listening on port ${process.env.PORT || 3000}!`));
+app.listen(process.env.PORT || 3000, () => console.log(`Server listening on port ${process.env.PORT || 3000}!`));
