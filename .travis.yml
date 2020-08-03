@@ -40,6 +40,9 @@ jobs:
         - chmod u+x ./kubectl
         - sudo mv kubectl /usr/local/bin/
       script:
+        - cd serverless
+        - npm install
+        - cd ..
         - cd server
         - npm install
         - npm run build
