@@ -27,3 +27,7 @@ spec:
           env:
             - name: PORT
               value: "80"
+            - name: K8S_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name

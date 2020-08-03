@@ -7,11 +7,11 @@ COMMIT_SHA1=$TRAVIS_COMMIT
 # We must export it so it's available for envsubst
 export COMMIT_SHA1=$COMMIT_SHA1
 
-# since the only way for envsubst to work on files is using input/output redirection,
-#  it's not possible to do in-place substitution, so we need to save the output to another file
-#  and overwrite the original with that one.
-envsubst <./deployment.yml >./deployment.yml.out
-mv ./deployment.yml.out ./deployment.yml
+# Since the only way for envsubst to work on files is using input/output redirection,
+# it's not possible to do in-place substitution, so we need to save the output to another file
+# and overwrite the original with that one.
+envsubst <./daemonset.yml >./daemonset.yml.out
+mv ./daemonset.yml.out ./daemonset.yml
 
 echo "$KUBERNETES_CLUSTER_CERTIFICATE" | base64 --decode > cert.crt
 

@@ -6,7 +6,6 @@ import {createDB} from "./db";
 import {User} from "../../serverless/entity/user";
 import {LeaderboardRow} from "../../serverless/entity/leaderboard-row";
 import {Following} from "../../serverless/entity/following";
-import {setValue} from "../../serverless/src/helper";
 const cors = require('cors');
 const app = express();
 
@@ -21,11 +20,6 @@ let sentRequests = 0;
 let serverStarted = new Date();
 
 const matches: ILobbyMatchRaw[] = [];
-
-setInterval(async () => {
-    console.log('Writing keyvalue', process.env.K8S_POD_NAME);
-    await setValue(process.env.K8S_POD_NAME + '_uptime', ((new Date().getTime() - serverStarted.getTime()) / 1000 / 60).toFixed(2));
-}, 5000);
 
 export function sleep(ms: number) {
     return new Promise((resolve) => {
