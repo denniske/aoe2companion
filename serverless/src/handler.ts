@@ -29,7 +29,7 @@ export async function createDB() {
                 LeaderboardRow,
             ],
             // entities: getMetadataArgsStorage().tables.map(tbl => tbl.target),
-            synchronize: true,
+            synchronize: !!process.env.IS_OFFLINE,
             logging: false,//!!process.env.IS_OFFLINE,
         });
         console.log('Using NEW connection. Connected: ', connection.isConnected);

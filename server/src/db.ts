@@ -10,8 +10,10 @@ import * as pg2 from 'pg';
 import {KeyValue} from "../../serverless/entity/keyvalue";
 import {LeaderboardRow} from "../../serverless/entity/leaderboard-row";
 import {User} from "../../serverless/entity/user";
+import {Following} from "../../serverless/entity/following";
 
 console.log(pg2 != null ? 'pg initialized' : '');
+console.log('process.env.LOCAL', process.env.LOCAL);
 
 export async function createDB() {
     try {
@@ -22,12 +24,13 @@ export async function createDB() {
                 rejectUnauthorized: false,
             },
             entities: [
+                Following,
                 KeyValue,
                 User,
                 LeaderboardRow,
             ],
             // entities: getMetadataArgsStorage().tables.map(tbl => tbl.target),
-            synchronize: true,
+            synchronize: process.env.LOCAL === 'true',
             logging: false,//!!process.env.IS_OFFLINE,
         });
         console.log('Using NEW connection. Connected: ', connection.isConnected);

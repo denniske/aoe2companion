@@ -58,7 +58,9 @@ export default function LivePage() {
             });
         });
 
-        const players = matches.flatMap(m => m.players).filter(p => p.games == null);
+        // const players = matches.flatMap(m => m.players).filter(p => p.games == null);
+        // const players = matches.flatMap(m => m.players).filter(p => !p.profileId && p.steamId);
+        const players = matches.flatMap(m => m.players).filter(p => p.profileId == '209525');
         console.log('players', players);
 
         setFilteredMatches(filtered);

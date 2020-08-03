@@ -1,11 +1,12 @@
 import express from 'express';
-// @ts-ignore
-import imageDataURI from "image-data-uri";
 import WebSocket from 'ws';
 import {ILastMatchRaw, ILobbyMatchRaw, IMatchRaw, makeQueryString, minifyUserId} from "./server.type";
 import fetch from "node-fetch";
 import {myfunsi} from "../../serverless/entity/myfuns";
 import {createDB} from "./db";
+import {User} from "../../serverless/entity/user";
+import {LeaderboardRow} from "../../serverless/entity/leaderboard-row";
+import {Following} from "../../serverless/entity/following";
 const cors = require('cors');
 const app = express();
 
@@ -36,9 +37,81 @@ async function fetchIntoJson(url: string) {
     return await result.json();
 }
 
+async function insertUsers(match: IMatchRaw) {
+    const connection = await createDB();
+
+    const userRows = match.players.filter(p => p.profile_id).map(entry => {
+        const user = new User();
+        user.profile_id = entry.profile_id;
+        user.steam_id = entry.steam_id;
+        user.name = entry.name;
+        user.live_country = entry.country;
+        user.live_clan = entry.clan;
+        user.live_wins = entry.wins;
+        user.live_drops = entry.drops;
+        user.live_games = entry.games;
+        user.live_rating = entry.rating;
+        user.live_streak = entry.streak;
+        user.live_last_match = parseInt(match.match_id);
+        user.live_last_match_time = match.started;
+        return user;
+    });
+
+    const query = connection.createQueryBuilder()
+        .insert()
+        .into(User)
+        .values(userRows)
+        .orUpdate({
+            conflict_target: ['profile_id'], overwrite: [
+                'live_country',
+                'live_clan',
+                'live_wins',
+                'live_drops',
+                'live_games',
+                'live_rating',
+                'live_streak',
+                'live_last_match',
+                'live_last_match_time',
+            ]
+        });
+    await query.execute();
+
+    console.log('Inserted', userRows.map(u => u.profile_id));
+}
+
+async function sendPushNotification(expoPushToken: string, body: string) {
+    const message = {
+        to: expoPushToken,
+        sound: 'default',
+        title: 'Match started',
+        body,
+        data: { data: 'goes here' },
+    };
+
+    await fetch('https://exp.host/--/api/v2/push/send', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Accept-encoding': 'gzip, deflate',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(message),
+    });
+}
+
 async function notify(match: IMatchRaw) {
+    const connection = await createDB();
 
+    const players = match.players.filter(p => p.profile_id);
 
+    for (const player of players) {
+        const following = await connection.manager.find(Following, {where: { profile_id: player.profile_id }});
+        const tokens = following.map(f => f.push_token);
+        console.log('tokens', tokens);
+        for (const token of tokens) {
+            await sendPushNotification(token, match.name + ' - ' + match.match_id);
+        }
+    }
 }
 
 console.log('test myfunsi');
@@ -70,6 +143,7 @@ async function checkExistance(match: ILobbyMatchRaw) {
         // await sleep(2000);
         if (match.id == playerLastMatch.last_match.match_id) {
             console.log('NOTIFY', match.name, '-> ', match.id);
+            await insertUsers(playerLastMatch.last_match);
             await notify(playerLastMatch.last_match);
             return;
         } else {
@@ -84,20 +158,29 @@ function onUpdate(updates: ILobbyMatchRaw[]) {
     console.log(updates.length);
 
     for (const update of updates) {
+
+        if (update.name.indexOf('ice cube') >= 0) {
+            console.log('ICE', update);
+        }
+
         const existingMatchIndex = matches.findIndex(m => m.id === update.id);
         if (existingMatchIndex >= 0) {
-            if (update.active && update.numSlots > 1) {
+            if (update.active) {
                 matches.splice(existingMatchIndex, 1, update);
             } else {
-                // console.log('Removing ', update.name);
+                console.log('Removing ', update.name);
                 matches.splice(existingMatchIndex, 1);
-                checkCount++;
-                if (checkCount > 6) return;
+
+                // checkCount++;
+                // if (checkCount > 6) return;
+
+                if (update.name.indexOf('ice cube') < 0) return;
+
                 // setTimeout(() => checkExistance(update), 5000);
                 setTimeout(() => checkExistance(update), 15000);
             }
         } else {
-            if (update.active && update.numSlots > 1) {
+            if (update.active) {
                 matches.push(update);
             }
         }
@@ -108,7 +191,9 @@ function onUpdate(updates: ILobbyMatchRaw[]) {
 
 ws.on('open', () => {
     // ws.send(JSON.stringify({"message":"subscribe","subscribe":[0]})); // subscribe chat
-    ws.send(JSON.stringify({"message":"subscribe","subscribe":[813780]})); // subscribe de lobbies
+    if (process.env.LOCAL === 'true') {
+        ws.send(JSON.stringify({"message":"subscribe","subscribe":[813780]})); // subscribe de lobbies
+    }
 });
 
 ws.on('message', (data) => {
@@ -142,10 +227,15 @@ ws.on('close', (e: any) => {
 
 
 app.get('/', (req, res) => {
-    res.send('Hello World 2!');
+    res.send('Hello World!');
 });
 
-console.log('Hello console 2!');
+app.get('/status', (req, res) => {
+    res.send({
+        matches: matches,
+        openMatches: matches.filter(m => m.numSlots > 1),
+    });
+});
 
 app.post('/', async (req, res) => {
     console.log(req.body);
@@ -155,9 +245,6 @@ app.post('/', async (req, res) => {
     res.send('Hello World!');
 
     console.log('Received screenshot:', path);
-
-    let filePath = './screenshots/' + path;
-    await imageDataURI.outputFile(data, filePath);
 });
 
 app.listen(process.env.PORT || 3000, () => console.log(`Image server listening on port ${process.env.PORT || 3000}!`));
