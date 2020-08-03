@@ -325,7 +325,6 @@ export const unitLines: IUnitLineDict = {
             'Skirmisher',
             'CamelRider',
             'CavalryArcher',
-            'Samurai',
             'Kamayuk',
             'Huskarl',
             'GenoeseCrossbowman',
@@ -434,7 +433,6 @@ export const unitLines: IUnitLineDict = {
             'Huskarl',
             'Berserk',
             'Kamayuk',
-            'Samurai',
             'EagleScout',
             'GenoeseCrossbowman',
             'Mameluke'
@@ -476,8 +474,7 @@ export const unitLines: IUnitLineDict = {
             'FireGalley',
             "TurtleShip",
             'Mangonel',
-            'BombardCannon',
-            'Samurai'
+            'BombardCannon'
         ],
         upgrades: [
             'Fletching',
@@ -501,7 +498,6 @@ export const unitLines: IUnitLineDict = {
             'Mangonel',
             'BombardCannon',
             'Scorpion',
-            'Samurai',
             'Condottiero',
             'Huskarl',
                 ],
@@ -1254,7 +1250,6 @@ export const unitLines: IUnitLineDict = {
             'Monk',
             'CamelRider',
             'Kamayuk',
-            'Samurai',
             'GenoeseCrossbowman',
             'Mameluke',
             'WarElephant'
@@ -1278,7 +1273,6 @@ export const unitLines: IUnitLineDict = {
         unique: true,
         civ: 'Bulgarians',
         counteredBy: [
-            'Samurai',
             'TeutonicKnight',
             'Kamayuk',
             'GenoeseCrossbowman',
@@ -1322,7 +1316,6 @@ export const unitLines: IUnitLineDict = {
           'TeutonicKnight',
           'Berserk',
           'Kamayuk',
-          'Samurai',
           'WarElephant',
           'Mameluke',
           'Leitis'
@@ -1350,7 +1343,6 @@ export const unitLines: IUnitLineDict = {
             'Berserk',
             'TeutonicKnight',
             'Kamayuk',
-            'Samurai',
             'GenoeseCrossbowman',
             'Mameluke',
             'Boyar'
@@ -1597,10 +1589,7 @@ export const unitLines: IUnitLineDict = {
     },
     'XolotlWarrior': {
         units: ['XolotlWarrior'],
-<<<<<<< HEAD
         unique: true,
-=======
->>>>>>> fe4c5cbc72c658ac2a43d5cedab394056b07b243
         counteredBy: [
             'Spearman',
             'Monk',
@@ -1804,7 +1793,6 @@ export const unitLines: IUnitLineDict = {
             'Skirmisher',
             'Mangonel',
             'Scorpion',
-            'Samurai',
             'EagleScout',
             'Huskarl',
             'PlumedArcher',
@@ -1839,7 +1827,6 @@ export const unitLines: IUnitLineDict = {
             'Berserk',
             'Huskarl',
             'EagleScout',
-            'Samurai',
             'GenoeseCrossbowman',
             'Mameluke'
         ],
@@ -1873,7 +1860,6 @@ export const unitLines: IUnitLineDict = {
             'Kamayuk',
             'Huskarl',
             'EagleScout',
-            'Samurai',
             'GenoeseCrossbowman',
             'Mameluke'
         ],
@@ -1904,7 +1890,6 @@ export const unitLines: IUnitLineDict = {
             'EagleScout',
             'Kamayuk',
             'Huskarl',
-            'Samurai',
             'GenoeseCrossbowman',
             'Mameluke',
             'CamelArcher'
@@ -1965,7 +1950,6 @@ export const unitLines: IUnitLineDict = {
             'Knight',
             'Scorpion', 
             'EagleScout',
-            'Samurai',
             'Huskarl',
             'Boyar',
             'Cataphract',
