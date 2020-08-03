@@ -9,7 +9,7 @@ spec:
   minReadySeconds: 30
   selector:
     matchLabels:
-      name: aoe2companion-api
+      app: aoe2companion-api
   updateStrategy:
     type: RollingUpdate
     rollingUpdate:
