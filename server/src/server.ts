@@ -7,6 +7,8 @@ import {User} from "../../serverless/entity/user";
 import {setValue} from "../../serverless/src/helper";
 import {Player} from "../../serverless/entity/player";
 import {Match} from "../../serverless/entity/match";
+import {Push} from "../../serverless/entity/push";
+import {getRepository} from 'typeorm';
 const cors = require('cors');
 const app = express();
 
@@ -89,100 +91,125 @@ async function insertUsers(match: IMatchRaw) {
     console.log('Inserted', userRows.map(u => u.profile_id));
 }
 
-async function insertMatch(match: IMatchRaw) {
-    console.log('Insert Match', match.name, '-> ', match.match_id);
+async function insertMatch(matchRaw: IMatchRaw) {
+    console.log('Insert Match', matchRaw.name, '-> ', matchRaw.match_id);
 
-    const connection = await createDB();
+    // const connection = await createDB();
 
-    const matchRows = [match].map(entry => {
+    const pushRepo = getRepository(Match);
+
+    const matchRows = [matchRaw].map(matchEntry => {
         const match = new Match();
-        match.id = entry.match_id;
-        match.match_uuid = entry.match_uuid;
-        match.lobby_id = entry.lobby_id;
-        match.name = entry.name;
-        match.opened = entry.opened;
-        match.started = entry.started;
-        match.finished = entry.finished;
-        match.leaderboard_id = entry.leaderboard_id;
-        match.num_slots = entry.num_slots;
-        match.has_password = entry.has_password;
-        match.server = entry.server;
-        match.map_type = entry.map_type;
-        match.average_rating = entry.average_rating;
-        match.cheats = entry.cheats;
-        match.ending_age = entry.ending_age;
-        match.expansion = entry.expansion;
-        match.full_tech_tree = entry.full_tech_tree;
-        match.game_type = entry.game_type;
-        match.has_custom_content = entry.has_custom_content;
-        match.lock_speed = entry.lock_speed;
-        match.lock_teams = entry.lock_teams;
-        match.map_size = entry.map_size;
-        match.num_players = entry.num_players;
-        match.pop = entry.pop;
-        match.ranked = entry.ranked;
-        match.rating_type = entry.rating_type;
-        match.resources = entry.resources;
-        match.rms = entry.rms;
-        match.scenario = entry.scenario;
-        match.shared_exploration = entry.shared_exploration;
-        match.speed = entry.speed;
-        match.starting_age = entry.starting_age;
-        match.team_positions = entry.team_positions;
-        match.team_together = entry.team_together;
-        match.treaty_length = entry.treaty_length;
-        match.turbo = entry.turbo;
-        match.version = entry.version;
-        match.victory = entry.victory;
-        match.victory_time = entry.victory_time;
-        match.visibility = entry.visibility;
+        match.id = matchEntry.match_id;
+        match.match_uuid = matchEntry.match_uuid;
+        match.lobby_id = matchEntry.lobby_id;
+        match.name = matchEntry.name;
+        match.opened = matchEntry.opened;
+        match.started = matchEntry.started;
+        match.finished = matchEntry.finished;
+        match.leaderboard_id = matchEntry.leaderboard_id;
+        match.num_slots = matchEntry.num_slots;
+        match.has_password = matchEntry.has_password;
+        match.server = matchEntry.server;
+        match.map_type = matchEntry.map_type;
+        match.average_rating = matchEntry.average_rating;
+        match.cheats = matchEntry.cheats;
+        match.ending_age = matchEntry.ending_age;
+        match.expansion = matchEntry.expansion;
+        match.full_tech_tree = matchEntry.full_tech_tree;
+        match.game_type = matchEntry.game_type;
+        match.has_custom_content = matchEntry.has_custom_content;
+        match.lock_speed = matchEntry.lock_speed;
+        match.lock_teams = matchEntry.lock_teams;
+        match.map_size = matchEntry.map_size;
+        match.num_players = matchEntry.num_players;
+        match.pop = matchEntry.pop;
+        match.ranked = matchEntry.ranked;
+        match.rating_type = matchEntry.rating_type;
+        match.resources = matchEntry.resources;
+        match.rms = matchEntry.rms;
+        match.scenario = matchEntry.scenario;
+        match.shared_exploration = matchEntry.shared_exploration;
+        match.speed = matchEntry.speed;
+        match.starting_age = matchEntry.starting_age;
+        match.team_positions = matchEntry.team_positions;
+        match.team_together = matchEntry.team_together;
+        match.treaty_length = matchEntry.treaty_length;
+        match.turbo = matchEntry.turbo;
+        match.version = matchEntry.version;
+        match.victory = matchEntry.victory;
+        match.victory_time = matchEntry.victory_time;
+        match.visibility = matchEntry.visibility;
+
+        match.players = matchEntry.players.filter(p => p.profile_id).map(playerEntry => {
+            const user = new Player();
+            user.match = { id: matchEntry.match_id } as Match;
+            user.profile_id = playerEntry.profile_id;
+            user.steam_id = playerEntry.steam_id;
+            user.civ = playerEntry.civ;
+            user.clan = playerEntry.clan;
+            user.color = playerEntry.color;
+            user.country = playerEntry.country;
+            user.drops = playerEntry.drops;
+            user.games = playerEntry.games;
+            user.name = playerEntry.name;
+            user.rating = playerEntry.rating;
+            user.rating_change = playerEntry.rating_change;
+            user.slot = playerEntry.slot;
+            user.slot_type = playerEntry.slot_type;
+            user.streak = playerEntry.streak;
+            user.team = playerEntry.team;
+            user.wins = playerEntry.wins;
+            user.won = playerEntry.won;
+            return user;
+        });
+
         return match;
     });
 
-    let queryMatch = connection.createQueryBuilder()
-        .insert()
-        .into(Match)
-        .values(matchRows)
-        .orUpdate({
-            conflict_target: ['match_id'], overwrite: []
-        });
-    await queryMatch.execute();
+    await pushRepo.save(matchRows);
 
-    const playerRows = match.players.filter(p => p.profile_id).map(entry => {
-        const user = new Player();
-        user.match = { id: match.match_id } as Match;
-        user.profile_id = entry.profile_id;
-        user.steam_id = entry.steam_id;
-        user.civ = entry.civ;
-        user.clan = entry.clan;
-        user.color = entry.color;
-        user.country = entry.country;
-        user.drops = entry.drops;
-        user.games = entry.games;
-        user.name = entry.name;
-        user.rating = entry.rating;
-        user.rating_change = entry.rating_change;
-        user.slot = entry.slot;
-        user.slot_type = entry.slot_type;
-        user.streak = entry.streak;
-        user.team = entry.team;
-        user.wins = entry.wins;
-        user.won = entry.won;
-        return user;
-    });
-
-    const queryPlayer = connection.createQueryBuilder()
-        .insert()
-        .into(Player)
-        .values(playerRows)
-        .orUpdate({
-            conflict_target: ['profile_id'], overwrite: []
-        });
-    await queryPlayer.execute();
+    // let queryMatch = connection.createQueryBuilder()
+    //     .insert()
+    //     .into(Match)
+    //     .values(matchRows)
+    //     .orUpdate({
+    //         conflict_target: ['match_id'], overwrite: []
+    //     });
+    // await queryMatch.execute();
+    //
+    // const playerRows = match.players.filter(p => p.profile_id).map(entry => {
+    //     const user = new Player();
+    //     user.match = { id: match.match_id } as Match;
+    //     user.profile_id = entry.profile_id;
+    //     user.steam_id = entry.steam_id;
+    //     user.civ = entry.civ;
+    //     user.clan = entry.clan;
+    //     user.color = entry.color;
+    //     user.country = entry.country;
+    //     user.drops = entry.drops;
+    //     user.games = entry.games;
+    //     user.name = entry.name;
+    //     user.rating = entry.rating;
+    //     user.rating_change = entry.rating_change;
+    //     user.slot = entry.slot;
+    //     user.slot_type = entry.slot_type;
+    //     user.streak = entry.streak;
+    //     user.team = entry.team;
+    //     user.wins = entry.wins;
+    //     user.won = entry.won;
+    //     return user;
+    // });
+    //
+    // const queryPlayer = connection.createQueryBuilder()
+    //     .insert()
+    //     .into(Player)
+    //     .values(playerRows)
+    //     .orUpdate({
+    //         conflict_target: ['profile_id'], overwrite: []
+    //     });
+    // await queryPlayer.execute();
 }
-
-console.log('db');
-createDB();
 
 async function checkExistance(match: ILobbyMatchRaw, attempt: number = 0) {
     if (attempt > 2) return;

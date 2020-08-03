@@ -29,7 +29,7 @@ jobs:
     ####################################
 
     - stage: publish
-      if: (type != pull_request) AND (branch = master OR tag IS present)
+      if: tag =~ ^server-v.+$
       env:
         - CACHE_NAME=server
         - IMAGE_NAME=denniske/aoe2companion-api
@@ -47,10 +47,11 @@ jobs:
         - npm install
         - npm run build
         - ls -al
-        - docker build -t $IMAGE_NAME:$TRAVIS_COMMIT .
+        - docker build -f deploy/server/Dockerfile -t $IMAGE_NAME:$TRAVIS_COMMIT .
         - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
         - docker push $IMAGE_NAME:$TRAVIS_COMMIT
         - cd deploy
+        - cd server
         - bash ./deploy.sh
 
 

@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: aoe2companion-api
+  name: aoe2companion-notify
   namespace: default
   labels:
-    app: aoe2companion-api
+    app: aoe2companion-notify
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: aoe2companion-api
+      app: aoe2companion-notify
   template:
     metadata:
       labels:
-        app: aoe2companion-api
+        app: aoe2companion-notify
     spec:
       containers:
-        - name: aoe2companion-api
-          image: denniske/aoe2companion-api:$COMMIT_SHA1
+        - name: aoe2companion-notify
+          image: denniske/aoe2companion-notify:$COMMIT_SHA1
           ports:
             - containerPort: 80
               name: http

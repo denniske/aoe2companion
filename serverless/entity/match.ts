@@ -126,13 +126,9 @@ export class Match {
     @Column({ nullable: true,  })
     visibility?: number;
 
-    // @JoinColumn({ name: 'acct_number', referencedColumnName: 'match_id2' })
-
-    @OneToMany(type => Player, player => player.match) // note: we will create author property in the Photo class below
+    @OneToMany(type => Player, player => player.match, { cascade: true })
     players: Player[];
 
     // expansion: null,
     // has_custom_content: null,
-    // rms: null,
-    // scenario: null,
 }
