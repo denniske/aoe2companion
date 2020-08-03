@@ -17,6 +17,9 @@ app.use(bodyParser.json({limit: '100mb', extended: true}));
 
 app.use(cors());
 
+// Initialize DB with correct entities
+createDB();
+
 let sentRequests = 0;
 let serverStarted = new Date();
 

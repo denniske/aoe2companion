@@ -21,6 +21,9 @@ app.use(bodyParser.json({limit: '100mb', extended: true}));
 
 app.use(cors());
 
+// Initialize DB with correct entities
+createDB();
+
 let sentPushNotifications = 0;
 
 setInterval(async () => {

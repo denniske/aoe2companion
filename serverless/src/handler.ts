@@ -13,6 +13,10 @@ require('dotenv').config();
 import * as pg2 from 'pg';
 import {KeyValue} from "../entity/keyvalue";
 import {LeaderboardRow} from "../entity/leaderboard-row";
+import {Push} from "../entity/push";
+import {Match} from "../entity/match";
+import {Player} from "../entity/player";
+import {Following} from "../entity/following";
 
 console.log(pg2 != null ? 'pg initialized' : '');
 
@@ -25,6 +29,10 @@ export async function createDB() {
                 rejectUnauthorized: false,
             },
             entities: [
+                Push,
+                Match,
+                Player,
+                Following,
                 KeyValue,
                 User,
                 LeaderboardRow,

@@ -54,6 +54,32 @@ jobs:
         - cd server
         - bash ./deploy.sh
 
+    - stage: publish
+      if: tag =~ ^notify-v.+$
+      env:
+        - CACHE_NAME=notify
+        - IMAGE_NAME=denniske/aoe2companion-notify
+      before_install:
+        - sudo apt-get update
+        - sudo apt-get -y install gettext-base
+        - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+        - chmod u+x ./kubectl
+        - sudo mv kubectl /usr/local/bin/
+      script:
+        - cd serverless
+        - npm install
+        - cd ..
+        - cd server
+        - npm install
+        - npm run build
+        - ls -al
+        - docker build -f deploy/notify/Dockerfile -t $IMAGE_NAME:$TRAVIS_COMMIT .
+        - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+        - docker push $IMAGE_NAME:$TRAVIS_COMMIT
+        - cd deploy
+        - cd notify
+        - bash ./deploy.sh
+
 
     ####################################
     # PUBLISH
