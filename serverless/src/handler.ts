@@ -3,6 +3,7 @@ import "reflect-metadata";
 import {APIGatewayProxyHandler} from 'aws-lambda';
 import 'source-map-support/register';
 import {createConnection, getConnectionManager} from "typeorm";
+import {SnakeNamingStrategy} from "typeorm-naming-strategies";
 
 import {User} from "../entity/user";
 
@@ -31,6 +32,7 @@ export async function createDB() {
             // entities: getMetadataArgsStorage().tables.map(tbl => tbl.target),
             synchronize: !!process.env.IS_OFFLINE,
             logging: false,//!!process.env.IS_OFFLINE,
+            namingStrategy: new SnakeNamingStrategy(),
         });
         console.log('Using NEW connection. Connected: ', connection.isConnected);
         return connection;

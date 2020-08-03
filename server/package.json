@@ -4,7 +4,8 @@
   "description": "",
   "main": "dist/server.js",
   "scripts": {
-    "server": "nodemon",
+    "server": "nodemon --exec 'tsc && node ./dist/server/src/server.js' --ext ts --watch src",
+    "notify": "nodemon --exec 'tsc && node ./dist/server/src/notify.js' --ext ts --watch src",
     "build": "tsc",
     "build-ts": "tsc",
     "start": "npm run serve",
@@ -31,20 +32,21 @@
     "typeorm": "^0.2.25"
   },
   "dependencies": {
-    "@types/express": "^4.16.0",
-    "@types/node-fetch": "^2.5.7",
-    "@types/ws": "^7.2.6",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/plugin-proposal-decorators": "^7.10.5",
+    "@types/express": "^4.16.0",
     "@types/lodash": "^4.14.157",
     "@types/node": "^10.12.18",
+    "@types/node-fetch": "^2.5.7",
     "@types/pg": "^7.14.4",
+    "@types/ws": "^7.2.6",
     "babel-plugin-transform-typescript-metadata": "^0.3.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.16.3",
     "node-fetch": "^2.6.0",
     "tslib": "^2.0.0",
+    "typeorm-naming-strategies": "^1.1.0",
     "ws": "^7.3.1"
   }
 }

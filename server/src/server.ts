@@ -4,9 +4,9 @@ import {ILastMatchRaw, ILobbyMatchRaw, IMatchRaw, makeQueryString, minifyUserId}
 import fetch from "node-fetch";
 import {createDB} from "./db";
 import {User} from "../../serverless/entity/user";
-import {LeaderboardRow} from "../../serverless/entity/leaderboard-row";
-import {Following} from "../../serverless/entity/following";
 import {setValue} from "../../serverless/src/helper";
+import {Player} from "../../serverless/entity/player";
+import {Match} from "../../serverless/entity/match";
 const cors = require('cors');
 const app = express();
 
@@ -15,14 +15,13 @@ app.use(bodyParser.json({limit: '100mb', extended: true}));
 
 app.use(cors());
 
-let checkCount = 0;
-let sentPushNotifications = 0;
 let sentRequests = 0;
 let serverStarted = new Date();
 
 const matches: ILobbyMatchRaw[] = [];
 
 setInterval(async () => {
+    if (!process.env.K8S_POD_NAME) return;
     console.log('Writing keyvalue', process.env.K8S_POD_NAME);
     await setValue(process.env.K8S_POD_NAME + '_uptime', ((new Date().getTime() - serverStarted.getTime()) / 1000 / 60).toFixed(2));
 }, 5000);
@@ -47,7 +46,7 @@ async function fetchIntoJson(url: string) {
 }
 
 async function insertUsers(match: IMatchRaw) {
-    console.log('NOTIFY', match.name, '-> ', match.match_id);
+    console.log('Insert Users', match.name, '-> ', match.match_id);
 
     const connection = await createDB();
 
@@ -90,45 +89,96 @@ async function insertUsers(match: IMatchRaw) {
     console.log('Inserted', userRows.map(u => u.profile_id));
 }
 
-async function sendPushNotification(expoPushToken: string, body: string) {
-    sentPushNotifications++;
-
-    const message = {
-        to: expoPushToken,
-        sound: 'default',
-        title: 'Match started',
-        body,
-        data: { data: 'goes here' },
-    };
-
-    await fetch('https://exp.host/--/api/v2/push/send', {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Accept-encoding': 'gzip, deflate',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(message),
-    });
-}
-
-async function notify(match: IMatchRaw) {
-    console.log('NOTIFY', match.name, '-> ', match.match_id);
+async function insertMatch(match: IMatchRaw) {
+    console.log('Insert Match', match.name, '-> ', match.match_id);
 
     const connection = await createDB();
 
-    const players = match.players.filter(p => p.profile_id);
+    const matchRows = [match].map(entry => {
+        const match = new Match();
+        match.id = entry.match_id;
+        match.match_uuid = entry.match_uuid;
+        match.lobby_id = entry.lobby_id;
+        match.name = entry.name;
+        match.opened = entry.opened;
+        match.started = entry.started;
+        match.finished = entry.finished;
+        match.leaderboard_id = entry.leaderboard_id;
+        match.num_slots = entry.num_slots;
+        match.has_password = entry.has_password;
+        match.server = entry.server;
+        match.map_type = entry.map_type;
+        match.average_rating = entry.average_rating;
+        match.cheats = entry.cheats;
+        match.ending_age = entry.ending_age;
+        match.expansion = entry.expansion;
+        match.full_tech_tree = entry.full_tech_tree;
+        match.game_type = entry.game_type;
+        match.has_custom_content = entry.has_custom_content;
+        match.lock_speed = entry.lock_speed;
+        match.lock_teams = entry.lock_teams;
+        match.map_size = entry.map_size;
+        match.num_players = entry.num_players;
+        match.pop = entry.pop;
+        match.ranked = entry.ranked;
+        match.rating_type = entry.rating_type;
+        match.resources = entry.resources;
+        match.rms = entry.rms;
+        match.scenario = entry.scenario;
+        match.shared_exploration = entry.shared_exploration;
+        match.speed = entry.speed;
+        match.starting_age = entry.starting_age;
+        match.team_positions = entry.team_positions;
+        match.team_together = entry.team_together;
+        match.treaty_length = entry.treaty_length;
+        match.turbo = entry.turbo;
+        match.version = entry.version;
+        match.victory = entry.victory;
+        match.victory_time = entry.victory_time;
+        match.visibility = entry.visibility;
+        return match;
+    });
 
-    for (const player of players) {
-        const following = await connection.manager.find(Following, {where: { profile_id: player.profile_id }});
-        const tokens = following.map(f => f.push_token);
-        if (tokens.length > 0) {
-            console.log('tokens', tokens.length);
-            for (const token of tokens) {
-                await sendPushNotification(token, match.name + ' - ' + match.match_id);
-            }
-        }
-    }
+    let queryMatch = connection.createQueryBuilder()
+        .insert()
+        .into(Match)
+        .values(matchRows)
+        .orUpdate({
+            conflict_target: ['match_id'], overwrite: []
+        });
+    await queryMatch.execute();
+
+    const playerRows = match.players.filter(p => p.profile_id).map(entry => {
+        const user = new Player();
+        user.match = { id: match.match_id } as Match;
+        user.profile_id = entry.profile_id;
+        user.steam_id = entry.steam_id;
+        user.civ = entry.civ;
+        user.clan = entry.clan;
+        user.color = entry.color;
+        user.country = entry.country;
+        user.drops = entry.drops;
+        user.games = entry.games;
+        user.name = entry.name;
+        user.rating = entry.rating;
+        user.rating_change = entry.rating_change;
+        user.slot = entry.slot;
+        user.slot_type = entry.slot_type;
+        user.streak = entry.streak;
+        user.team = entry.team;
+        user.wins = entry.wins;
+        user.won = entry.won;
+        return user;
+    });
+
+    const queryPlayer = connection.createQueryBuilder()
+        .insert()
+        .into(Player)
+        .values(playerRows)
+        .orUpdate({
+            conflict_target: ['profile_id'], overwrite: []
+        });
+    await queryPlayer.execute();
 }
 
 console.log('db');
@@ -139,6 +189,15 @@ async function checkExistance(match: ILobbyMatchRaw, attempt: number = 0) {
 
     console.log();
     console.log('Existance', attempt, match.name, '-> ', match.id);
+
+    const connection = await createDB();
+
+    const existingMatch = await connection.manager.findOne(Match, {where: { id: match.id }});
+
+    if (existingMatch) {
+        console.log('Match already in DB', match.name, '-> ', match.id);
+        return;
+    }
 
     for (const player of match.players.filter(p => p.profileId || p.steamId)) {
         const queryString = makeQueryString({
@@ -156,7 +215,7 @@ async function checkExistance(match: ILobbyMatchRaw, attempt: number = 0) {
                     console.log('FOUND AFTER TIME !!!!!!!!!!!!!!!!', match.name, '-> ', match.id);
                 }
                 await insertUsers(playerLastMatch.last_match);
-                await notify(playerLastMatch.last_match);
+                await insertMatch(playerLastMatch.last_match);
                 return;
             } else {
                 console.log('NO MATCH FOUND', match.name, '-> ', match.id);
@@ -187,12 +246,9 @@ function onUpdate(updates: ILobbyMatchRaw[]) {
                 // console.log('Removing ', update.name);
                 matches.splice(existingMatchIndex, 1);
 
-                // checkCount++;
-                // if (checkCount > 6) return;
-
                 // if (update.name.indexOf('ice cube') < 0) return;
 
-                setTimeout(() => checkExistance(update), 5000);
+                setTimeout(() => checkExistance(update), 4000 + 6000 * Math.random());
             }
         } else {
             if (update.active) {
@@ -245,7 +301,7 @@ app.get('/', (req, res) => {
 
 app.get('/status', (req, res) => {
     res.send({
-        sentPushNotifications: sentPushNotifications,
+        podName: process.env.K8S_POD_NAME,
         sentRequests: sentRequests,
         sentRequestsPerMinute: (sentRequests / ((new Date().getTime() - serverStarted.getTime()) / 1000 / 60)).toFixed(2),
         uptime: ((new Date().getTime() - serverStarted.getTime()) / 1000 / 60).toFixed(2),
@@ -256,6 +312,7 @@ app.get('/status', (req, res) => {
 
 app.get('/status2', (req, res) => {
     res.send({
+        podName: process.env.K8S_POD_NAME,
         matches: matches,
         openMatches: matches.filter(m => m.numSlots > 1),
     });
