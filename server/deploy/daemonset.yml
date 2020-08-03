@@ -6,6 +6,7 @@ metadata:
   labels:
     app: aoe2companion-api
 spec:
+  minReadySeconds: 30
   selector:
     matchLabels:
       name: aoe2companion-api
@@ -13,7 +14,6 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxUnavailable: 1
-      minReadySeconds: 30
   template:
     metadata:
       labels:
