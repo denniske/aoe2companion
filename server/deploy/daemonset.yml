@@ -4,7 +4,7 @@ metadata:
   name: aoe2companion-api
   namespace: default
   labels:
-    k8s-app: aoe2companion-api
+    app: aoe2companion-api
 spec:
   selector:
     matchLabels:
@@ -13,10 +13,11 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxUnavailable: 1
+      minReadySeconds: 30
   template:
     metadata:
       labels:
-        name: aoe2companion-api
+        app: aoe2companion-api
     spec:
       terminationGracePeriodSeconds: 30
       containers:
