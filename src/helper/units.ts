@@ -1597,7 +1597,10 @@ export const unitLines: IUnitLineDict = {
     },
     'XolotlWarrior': {
         units: ['XolotlWarrior'],
+<<<<<<< HEAD
         unique: true,
+=======
+>>>>>>> fe4c5cbc72c658ac2a43d5cedab394056b07b243
         counteredBy: [
             'Spearman',
             'Monk',
