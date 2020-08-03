@@ -5,6 +5,7 @@ import WebSocket from 'ws';
 import {ILastMatchRaw, ILobbyMatchRaw, IMatchRaw, makeQueryString, minifyUserId} from "./server.type";
 import fetch from "node-fetch";
 import {myfunsi} from "../../serverless/entity/myfuns";
+import {createDB} from "./db";
 const cors = require('cors');
 const app = express();
 
@@ -42,6 +43,9 @@ async function notify(match: IMatchRaw) {
 
 console.log('test myfunsi');
 myfunsi();
+
+console.log('db', process.env.DATABASE_URL);
+createDB();
 
 async function checkExistance(match: ILobbyMatchRaw) {
     console.log();

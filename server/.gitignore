@@ -13,3 +13,5 @@ npm-debug.*
 .DS_Store
 
 dist
+
+.env

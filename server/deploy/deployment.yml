@@ -24,3 +24,8 @@ spec:
           env:
             - name: PORT
               value: "80"
+            - name: SECRET_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: server-secret
+                  key: DATABASE_URL
