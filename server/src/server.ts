@@ -194,8 +194,6 @@ function onUpdate(updates: ILobbyMatchRaw[]) {
             }
         }
     }
-
-
 }
 
 ws.on('open', () => {
