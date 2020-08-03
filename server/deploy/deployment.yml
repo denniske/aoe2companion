@@ -21,11 +21,9 @@ spec:
           ports:
             - containerPort: 80
               name: http
+          envFrom:
+            - secretRef:
+              name: server-secret
           env:
             - name: PORT
               value: "80"
-            - name: SECRET_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: server-secret
-                  key: DATABASE_URL

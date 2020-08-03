@@ -44,7 +44,7 @@ async function notify(match: IMatchRaw) {
 console.log('test myfunsi');
 myfunsi();
 
-console.log('db', process.env.DATABASE_URL);
+console.log('db');
 createDB();
 
 async function checkExistance(match: ILobbyMatchRaw) {
