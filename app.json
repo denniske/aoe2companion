@@ -32,6 +32,9 @@
       "assets/units/**",
       "assets/*"
     ],
+    "notification": {
+      "icon": "./assets/notification.png"
+    },
     "android": {
       "userInterfaceStyle": "automatic",
       "package": "com.aoe2companion",
