@@ -239,6 +239,7 @@ function onUpdate(updates: ILobbyMatchRaw[]) {
         } else {
             if (update.active) {
                 matches.push(update);
+                console.log('NOT IN LIST ACTIVE', update.name)
             }
             if (!update.active) {
                 console.log('NOT IN LIST NOT ACTIVE', update.name)
@@ -256,7 +257,7 @@ ws.on('open', () => {
 
 ws.on('message', (data) => {
     const message = JSON.parse(data as any);
-    console.log(message.data);
+    // console.log(message.data);
 
     if (message.message === "ping") {
         console.log('SEND', JSON.stringify(message));

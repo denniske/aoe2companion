@@ -67,19 +67,22 @@ export default function LivePage() {
     }, [text, matches]);
 
     const onUpdate = (updates: any) => {
+
+        // console.log(updates);
+
         setMatches(matches => {
             const newMatches = [...matches];
 
             for (const update of updates) {
                 const existingMatchIndex = newMatches.findIndex(m => m.id === update.id);
                 if (existingMatchIndex >= 0) {
-                    if (update.active && update.numSlots > 1) {
+                    if (update.active) { // && update.numSlots > 1) {
                         newMatches.splice(existingMatchIndex, 1, update);
                     } else {
                         newMatches.splice(existingMatchIndex, 1);
                     }
                 } else {
-                    if (update.active && update.numSlots > 1) {
+                    if (update.active) { // && update.numSlots > 1) {
                         newMatches.push(update);
                     }
                 }
