@@ -58,6 +58,7 @@ export default function AboutPage() {
             <MyText style={styles.content}>Kloakan</MyText>
             <MyText style={styles.content}>Sihing Mo</MyText>
             <MyText style={styles.content}>Sebastian Janus</MyText>
+            <MyText style={styles.content}>Ultima Gaina</MyText>
             <MyText style={styles.content2}>+ anonymous supporters</MyText>
 
             <MyText style={styles.heading}>Version</MyText>
