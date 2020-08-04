@@ -40,7 +40,8 @@
       "package": "com.aoe2companion",
       "versionCode": 130000,
       "permissions": [],
-      "googleServicesFile": "./google-services.json"
+      "googleServicesFile": "./google-services.json",
+      "useNextNotificationsApi": true
     },
     "ios": {
       "userInterfaceStyle": "automatic",
