@@ -1,28 +1,23 @@
 apiVersion: apps/v1
-kind: DaemonSet
+kind: Deployment
 metadata:
-  name: aoe2companion-match
+  name: aoe2companion-api
   namespace: default
   labels:
-    app: aoe2companion-match
+    app: aoe2companion-api
 spec:
-  minReadySeconds: 30
+  replicas: 1
   selector:
     matchLabels:
-      app: aoe2companion-match
-  updateStrategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 1
+      app: aoe2companion-api
   template:
     metadata:
       labels:
-        app: aoe2companion-match
+        app: aoe2companion-api
     spec:
-      terminationGracePeriodSeconds: 30
       containers:
-        - name: aoe2companion-match
-          image: denniske/aoe2companion-match:$COMMIT_SHA1
+        - name: aoe2companion-api
+          image: denniske/aoe2companion-api:$COMMIT_SHA1
           ports:
             - containerPort: 80
               name: http

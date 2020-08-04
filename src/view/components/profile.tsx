@@ -9,11 +9,11 @@ import {TextLoader} from "./loader/text-loader";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import {setFollowing, useMutate, useSelector} from "../../redux/reducer";
 import {sameUser} from "../../helper/user";
-import {toggleFollowingInStorage} from "../../service/storage";
 import {MyText} from "./my-text";
 import {formatLeaderboardId} from "../../helper/leaderboards";
 import {ITheme, makeVariants, useAppTheme, usePaperTheme, useTheme} from "../../theming";
 import IconFA5 from "react-native-vector-icons/FontAwesome5";
+import {toggleFollowing} from "../../service/following";
 
 interface ILeaderboardRowProps {
     data: ILeaderboard;
@@ -145,8 +145,8 @@ export default function Profile({data}: IProfileProps) {
     const following = useSelector(state => state.following);
     const followingThisUser = !!following.find(f => data && sameUser(f, data));
 
-    const toggleFollowing = async () => {
-        const following = await toggleFollowingInStorage(data);
+    const _toggleFollowing = async () => {
+        const following = await toggleFollowing(data);
         if (following) {
             mutate(setFollowing(following));
         }
@@ -174,7 +174,7 @@ export default function Profile({data}: IProfileProps) {
                         <View style={styles.expanded}/>
                         {
                             data && (auth == null || !sameUser(auth, data)) &&
-                            <TouchableOpacity onPress={toggleFollowing}>
+                            <TouchableOpacity onPress={_toggleFollowing}>
                                 <View style={styles.followButton}>
                                     <Icon solid={followingThisUser} name="heart" size={22} style={styles.followButtonIcon}/>
                                     <MyText style={styles.followButtonText}>

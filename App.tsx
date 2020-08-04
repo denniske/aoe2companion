@@ -13,6 +13,7 @@ import {composeUserId, parseUserId, UserId} from './src/helper/user';
 import UserPage from './src/view/user.page';
 import {useApi} from './src/hooks/use-api';
 import {
+    loadAccountFromStorage,
     loadConfigFromStorage, loadFollowingFromStorage, loadPrefsFromStorage, loadSettingsFromStorage
 } from './src/service/storage';
 import AboutPage from './src/view/about.page';
@@ -235,7 +236,7 @@ export function InnerApp() {
                     name="Push"
                     component={PushPage}
                     options={{
-                        title: 'Push',
+                        title: 'Push Notifications',
                     }}
                 />
                 <Stack.Screen
@@ -400,6 +401,7 @@ export function AppWrapper() {
     console.log(' ');
     console.log(' ');
 
+    const account = useSelector(state => state.account);
     const auth = useSelector(state => state.auth);
     const following = useSelector(state => state.following);
     const prefs = useSelector(state => state.prefs);
@@ -408,6 +410,7 @@ export function AppWrapper() {
     const colorScheme = useColorScheme();
 
     // Trigger loading of auth and following
+    const _account = useApi({}, [account], state => state.account, (state, value) => state.account = value, () => loadAccountFromStorage());
     const _auth = useApi({}, [auth], state => state.auth, (state, value) => state.auth = value, () => loadSettingsFromStorage());
     const _following = useApi({}, [following], state => state.following, (state, value) => state.following = value, () => loadFollowingFromStorage());
     const _prefs = useApi({}, [prefs], state => state.prefs, (state, value) => state.prefs = value, () => loadPrefsFromStorage());
@@ -418,10 +421,6 @@ export function AppWrapper() {
     }
 
     const finalDarkMode = darkMode === "system" && (colorScheme === 'light' || colorScheme === 'dark') ? colorScheme : darkMode;
-
-    // console.log('Dark mode', darkMode);
-    // console.log('Appearance mode', colorScheme);
-    // console.log('Final mode', finalDarkMode);
 
     return (
         <NavigationContainer ref={navigationRef}

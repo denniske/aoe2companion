@@ -2,13 +2,13 @@ import React, {useEffect, useRef, useState} from 'react';
 import {Platform, ScrollView, StyleSheet, View} from 'react-native';
 import {ITheme, makeVariants, useAppTheme, useTheme} from "../theming";
 import {MyText} from "./components/my-text";
-import IconFA5 from "react-native-vector-icons/FontAwesome5";
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
 import {Button} from "react-native-paper";
 import {AndroidNotificationPriority} from "expo-notifications";
 import {IosAuthorizationStatus} from "expo-notifications/build/NotificationPermissions.types";
+import {maskToken} from "../service/push";
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -71,15 +71,15 @@ export default function PushPage() {
         if (Constants.isDevice) {
             const settings = await Notifications.getPermissionsAsync();
             let newStatus = settings.granted || settings.ios?.status === IosAuthorizationStatus.PROVISIONAL;
-            log(newStatus);
+            log('newPermission', newStatus);
             const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-            log(existingStatus);
+            log('existingPermission', existingStatus);
             let finalStatus = existingStatus;
             if (existingStatus !== 'granted') {
                 const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
                 finalStatus = status;
             }
-            log(finalStatus);
+            log('finalPermission', finalStatus);
             if (finalStatus !== 'granted') {
                 log('Failed to get push token for push notification!');
                 return;
@@ -88,7 +88,7 @@ export default function PushPage() {
             // throw "Deliberate Error!";
 
             token = (await Notifications.getExpoPushTokenAsync()).data;
-            log(token);
+            log(maskToken(token));
 
             if (Platform.OS === 'android') {
                 Notifications.setNotificationChannelAsync('default', {
@@ -99,9 +99,6 @@ export default function PushPage() {
                 });
             }
         }
-        // else {
-        //     alert('Must use physical device for Push Notifications');
-        // }
 
         return token;
     }
@@ -145,33 +142,36 @@ export default function PushPage() {
 
     return (
         <ScrollView
-            style={{
-                flex: 1,
-                padding: 20,
-            }}
-            contentContainerStyle={{
-                alignItems: 'center',
-            }}>
-            <MyText style={{textAlign: 'center'}}>Secret expo push token: {expoPushToken}</MyText>
-            <MyText/>
-            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <MyText>Title: {notification && notification.request.content.title} </MyText>
-                <MyText>Body: {notification && notification.request.content.body}</MyText>
-                <MyText>Data: {notification && JSON.stringify(notification.request.content.data)}</MyText>
-            </View>
+            style={styles.container}
+            contentContainerStyle={styles.content}>
+            <MyText>{expoPushToken ? maskToken(expoPushToken) : 'Could not retrieve push token.'}</MyText>
+            {
+                notification &&
+                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                    <MyText/>
+                    <MyText>Last received notification:</MyText>
+                    <MyText/>
+                    <MyText>Date: {notification.date} </MyText>
+                    <MyText>Title: {notification.request.content.title} </MyText>
+                    <MyText>Body: {notification.request.content.body}</MyText>
+                    <MyText>Data: {JSON.stringify(notification.request.content.data)}</MyText>
+                </View>
+            }
             <MyText/>
             {
                 expoPushToken &&
                 <Button
+                    mode="outlined"
                     onPress={async () => {
                         await sendPushNotification(expoPushToken);
                     }}
                 >
-                    Press to Send Notification
+                    Send Test Notification
                 </Button>
             }
             <MyText/>
-            <MyText>Messages:</MyText>
+            <MyText>Troubleshoot info:</MyText>
+            <MyText/>
             {
                 messages.map((message, i) =>
                     <MyText key={i}>{message}</MyText>
@@ -183,7 +183,16 @@ export default function PushPage() {
 
 const getStyles = (theme: ITheme) => {
     return StyleSheet.create({
-
+        container: {
+            flex: 1,
+            padding: 20,
+        },
+        content: {
+            alignItems: 'center',
+        },
+        text: {
+            textAlign: 'center',
+        },
     });
 };
 

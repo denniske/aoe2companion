@@ -7,12 +7,16 @@ import {saveConfigToStorage} from "../service/storage";
 import Picker from "./components/picker";
 import {ITheme, makeVariants, useTheme} from "../theming";
 import { Checkbox } from 'react-native-paper';
+import {useNavigation} from "@react-navigation/native";
+import {appVariants} from "../styles";
 
 
 export default function SettingsPage() {
     const styles = useTheme(variants);
     const mutate = useMutate();
     const config = useSelector(state => state.config);
+    const navigation = useNavigation();
+    const appStyles = useTheme(appVariants);
 
     const values: DarkMode[] = [
         'light',
@@ -20,10 +24,19 @@ export default function SettingsPage() {
         'system',
     ];
 
-    const nav = async (str: any) => {
+    const setDarkMode = async (darkMode: any) => {
         const newConfig = {
             ...config,
-            darkMode: str.toLowerCase(),
+            darkMode: darkMode.toLowerCase(),
+        };
+        await saveConfigToStorage(newConfig)
+        mutate(setConfig(newConfig));
+    };
+
+    const setPushNotificationsEnabled = async (pushNotificationsEnabled: any) => {
+        const newConfig = {
+            ...config,
+            pushNotificationsEnabled,
         };
         await saveConfigToStorage(newConfig)
         mutate(setConfig(newConfig));
@@ -38,25 +51,28 @@ export default function SettingsPage() {
                     <MyText style={styles.small}>(except build order guides)</MyText>
                 </View>
                 <View style={styles.cellValue}>
-                    <Picker value={config.darkMode} values={values} formatter={capitalize} onSelect={nav}/>
+                    <Picker value={config.darkMode} values={values} formatter={capitalize} onSelect={setDarkMode}/>
                 </View>
             </View>
 
-            {/*<View style={styles.row}>*/}
-            {/*    <View style={styles.cellName}>*/}
-            {/*        <MyText>Push notifications</MyText>*/}
-            {/*        <MyText style={styles.small}>Receive push notifications when a player you are following starts a game.</MyText>*/}
-            {/*    </View>*/}
-            {/*    <View style={styles.cellValue}>*/}
-            {/*        <Checkbox.Android*/}
-            {/*            status={checked ? 'checked' : 'unchecked'}*/}
-            {/*            onPress={() => {*/}
-            {/*                mutate(setDarkMode(checked ? 'dark' : 'light'));*/}
-            {/*                setChecked(!checked);*/}
-            {/*            }}*/}
-            {/*        />*/}
-            {/*    </View>*/}
-            {/*</View>*/}
+            <View style={styles.row}>
+                <View style={styles.cellName}>
+                    <MyText>Push notifications</MyText>
+                    <MyText style={styles.small}>Receive push notifications when a player you are following starts a game.</MyText>
+                </View>
+                <View style={styles.cellValueRow}>
+                    <Checkbox.Android
+                        status={config.pushNotificationsEnabled ? 'checked' : 'unchecked'}
+                        onPress={() => {
+                            setPushNotificationsEnabled(!config.pushNotificationsEnabled);
+                        }}
+                    />
+                    {
+                        config.pushNotificationsEnabled &&
+                        <MyText style={appStyles.link} onPress={() => navigation.navigate('Push')}>Troubleshoot</MyText>
+                    }
+                </View>
+            </View>
         </ScrollView>
     );
 }
@@ -70,6 +86,12 @@ const getStyles = (theme: ITheme) => {
             flex: 1,
         },
         cellValue: {
+            padding: padding,
+            flex: 1,
+        },
+        cellValueRow: {
+            flexDirection: 'row',
+            alignItems: 'center',
             padding: padding,
             flex: 1,
         },

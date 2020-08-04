@@ -4,8 +4,9 @@
   "description": "",
   "main": "dist/server.js",
   "scripts": {
-    "server": "nodemon --exec 'tsc && node ./dist/server/src/server.js' --ext ts --watch src",
+    "match": "nodemon --exec 'tsc && node ./dist/server/src/match.js' --ext ts --watch src",
     "notify": "nodemon --exec 'tsc && node ./dist/server/src/notify.js' --ext ts --watch src",
+    "api": "nodemon --exec 'tsc && node ./dist/server/src/api.js' --ext ts --watch src",
     "build": "tsc",
     "build-ts": "tsc",
     "start": "npm run serve",

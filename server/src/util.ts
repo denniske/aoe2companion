@@ -1,3 +1,5 @@
+import {ParsedQs} from "qs";
+import {Params, ParamsDictionary, PathParams, RequestHandler} from "express-serve-static-core";
 
 export interface UserIdBase {
     steamId?: string;
@@ -184,3 +186,23 @@ export interface ILobbiesMessage {
 }
 
 export type Message = IPingMessage | IChatMessage | ILobbiesMessage;
+
+
+export function asyncHandler<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs>(fn: RequestHandler<P, ResBody, ReqBody, ReqQuery>) {
+
+    return ((req, res, next) => {
+        return Promise
+            .resolve(fn(req, res, next))
+            .catch(next);
+    }) as RequestHandler<P, ResBody, ReqBody, ReqQuery>;
+}
+
+// export const asyncHandler = fn => (req, res, next) => {
+//     return Promise
+//         .resolve(fn(req, res, next))
+//         .catch(next);
+// };
+
+// function b<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs>(req: RequestHandler<P, ResBody, ReqBody, ReqQuery>): T {
+//
+// }

@@ -1,6 +1,6 @@
 import express from 'express';
 import WebSocket from 'ws';
-import {ILastMatchRaw, ILobbyMatchRaw, IMatchRaw, makeQueryString, minifyUserId} from "./server.type";
+import {ILastMatchRaw, ILobbyMatchRaw, IMatchRaw, makeQueryString, minifyUserId} from "./util";
 import fetch from "node-fetch";
 import {createDB} from "./db";
 import {User} from "../../serverless/entity/user";
@@ -97,7 +97,7 @@ async function insertUsers(match: IMatchRaw) {
 async function insertMatch(matchRaw: IMatchRaw) {
     console.log('Insert Match', matchRaw.name, '-> ', matchRaw.match_id);
 
-    const pushRepo = getRepository(Match);
+    const matchRepo = getRepository(Match);
 
     const matchRows = [matchRaw].map(matchEntry => {
         const match = new Match();
@@ -168,7 +168,7 @@ async function insertMatch(matchRaw: IMatchRaw) {
         return match;
     });
 
-    await pushRepo.save(matchRows);
+    await matchRepo.save(matchRows);
 }
 
 async function checkExistance(match: ILobbyMatchRaw, attempt: number = 0) {
@@ -307,14 +307,4 @@ app.get('/status2', (req, res) => {
     });
 });
 
-app.post('/', async (req, res) => {
-    console.log(req.body);
-
-    const { path, data } = req.body;
-
-    res.send('Hello World!');
-
-    console.log('Received screenshot:', path);
-});
-
-app.listen(process.env.PORT || 3000, () => console.log(`Server listening on port ${process.env.PORT || 3000}!`));
+app.listen(process.env.PORT || 3001, () => console.log(`Server listening on port ${process.env.PORT || 3001}!`));

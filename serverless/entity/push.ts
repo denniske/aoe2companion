@@ -12,5 +12,5 @@ export class Push {
     body: string;
 
     @CreateDateColumn()
-    createdAt: string;
+    created_at: Date;
 }

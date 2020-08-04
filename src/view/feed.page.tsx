@@ -9,7 +9,6 @@ import {fetchMatchesMulti} from "../service/matches";
 import Search from "./components/search";
 import {sameUser, UserId, UserInfo, UserIdBase, userIdFromBase, UserIdBaseWithName, sameUserNull} from "../helper/user";
 import {setFollowing, useMutate, useSelector} from "../redux/reducer";
-import {toggleFollowingInStorage} from "../service/storage";
 import {useCachedLazyApi} from "../hooks/use-cached-lazy-api";
 import {usePrevious} from "../hooks/use-previous";
 import {Button} from "react-native-paper";
@@ -21,6 +20,7 @@ import {orderBy} from "lodash-es";
 import {ITheme, makeVariants, useTheme} from "../theming";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import RefreshControlThemed from "./components/refresh-control-themed";
+import {toggleFollowing} from "../service/following";
 
 
 export function feedTitle(props: any) {
@@ -75,7 +75,7 @@ export function FeedList() {
     const following = useSelector(state => state.following);
     const prevFollowing = usePrevious({following});
 
-    console.log("following", following);
+    // console.log("following", following);
 
     // const following = [
     //     {id: "76561197984749679-196240", steam_id: "76561197984749679", profile_id: 196240, name: "TheViper"},
@@ -210,12 +210,19 @@ function FeedAction({user}: {user: IPlayerListPlayer}) {
     const mutate = useMutate();
     const following = useSelector(state => state.following);
     const followingThisUser = following.find(f => sameUser(f, user));
+    const [loading, setLoading] = useState(false);
 
     const onSelect = async () => {
-        const following = await toggleFollowingInStorage(user);
-        if (following) {
-            mutate(setFollowing(following));
+        setLoading(true);
+        try {
+            const following = await toggleFollowing(user);
+            if (following) {
+                mutate(setFollowing(following));
+            }
+        } catch(e) {
+            alert('Follow/Unfollow failed.\n\n' + e);
         }
+        setLoading(false);
     };
 
     return (
@@ -223,6 +230,7 @@ function FeedAction({user}: {user: IPlayerListPlayer}) {
             labelStyle={{fontSize: 13, marginVertical: 0}}
             contentStyle={{height: 22}}
             onPress={onSelect}
+            disabled={loading}
             mode="contained"
             compact
             uppercase={false}

@@ -5,13 +5,10 @@ import {UserId} from '../helper/user';
 import { IProfile } from '../view/components/profile';
 import { IRatingHistoryRow } from '../service/rating';
 import {ILeaderboard, IMatch} from "../helper/data";
-import {IConfig, IFollowingEntry, IPrefs} from "../service/storage";
+import {IAccount, IConfig, IFollowingEntry, IPrefs} from "../service/storage";
 import {Manifest} from "expo-updates/build/Updates.types";
 import {set} from "lodash-es";
 
-export function getNoteId() {
-  return uuidv4();
-}
 
 export const EXEC = 'EXEC'
 
@@ -134,6 +131,7 @@ interface ILeaderboardDict {
 export type DarkMode = 'light' | 'dark' | 'system';
 
 export interface AppState {
+  account: IAccount;
   auth?: UserId | null;
   user: IUserDict;
   statsPlayer: any;

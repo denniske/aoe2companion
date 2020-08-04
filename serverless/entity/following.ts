@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryColumn} from "typeorm";
+import {Entity, Column, PrimaryColumn, UpdateDateColumn} from "typeorm";
 
 @Entity()
 export class Following {
@@ -7,4 +7,13 @@ export class Following {
 
     @PrimaryColumn()
     profile_id: number;
+
+    @Column({nullable: true})
+    enabled?: boolean;
+
+    @Column({nullable: true})
+    token_profile_id?: number;
+
+    @UpdateDateColumn()
+    updated_at: string;
 }

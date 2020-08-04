@@ -12,4 +12,4 @@ RUN ls -al
 
 EXPOSE 80
 
-CMD ["node", "dist/server/src/match.js"]
+CMD ["node", "dist/server/src/api.js"]

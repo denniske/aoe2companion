@@ -6,9 +6,11 @@ import {IPlayerListPlayer} from "../view/components/player-list";
 import {DarkMode} from "../redux/reducer";
 import {LeaderboardId} from "../helper/leaderboards";
 import store from "../redux/store";
+import {v4 as uuidv4} from "uuid";
 
 export interface IConfig {
     darkMode: DarkMode;
+    pushNotificationsEnabled: boolean;
 }
 
 export interface IPrefs {
@@ -21,6 +23,10 @@ export interface ISettings {
     id: string;
     steam_id?: string;
     profile_id?: number;
+}
+
+export interface IAccount {
+    id: string;
 }
 
 export interface IFollowingEntry {
@@ -69,6 +75,16 @@ export const loadSettingsFromStorage = async () => {
     return JSON.parse(entry) as ISettings;
 };
 
+export const loadAccountFromStorage = async () => {
+    const entry = await AsyncStorage.getItem('account');
+    if (entry == null) {
+        return {
+            id: uuidv4(),
+        };
+    }
+    return JSON.parse(entry) as IAccount;
+};
+
 export const saveSettingsToStorage = async (settings: ISettings) => {
     await AsyncStorage.setItem('settings', JSON.stringify(settings));
 };
@@ -84,30 +100,4 @@ export const loadFollowingFromStorage = async () => {
 
 export const saveFollowingToStorage = async (following: IFollowingEntry[]) => {
     await AsyncStorage.setItem('following', JSON.stringify(following));
-};
-
-const maxFollowing = 5;
-
-export const toggleFollowingInStorage = async (user: IPlayerListPlayer) => {
-    const following = await loadFollowingFromStorage();
-    const index = following.findIndex(f => sameUser(f, user));
-    if (index > -1) {
-        following.splice(index, 1);
-    } else {
-        if (following.length >= maxFollowing) {
-            alert(`You can follow a maxmium of ${maxFollowing} users. Unfollow a user first to follow a new one.`);
-            return;
-        }
-        following.push({
-            id: composeUserId(user),
-            steam_id: user.steam_id,
-            profile_id: user.profile_id,
-            name: user.name,
-            games: user.games,
-            country: user.country,
-        });
-    }
-    console.log("MODIFIED FOLLOWING", following);
-    await saveFollowingToStorage(following);
-    return following;
 };

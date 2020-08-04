@@ -13,6 +13,16 @@ export function sleep(ms: number) {
     });
 }
 
+let timeLastDate: Date | null = null;
+export function time(start?: any) {
+    if (timeLastDate == null || start) {
+        console.log('-');
+    } else {
+        console.log(new Date().getTime() - timeLastDate.getTime());
+    }
+    timeLastDate = new Date();
+}
+
 export function parseUnixTimestamp(timestamp: number) {
     return fromUnixTime(timestamp);
 }

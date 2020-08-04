@@ -1,6 +1,6 @@
 import express from 'express';
 import WebSocket from 'ws';
-import {ILastMatchRaw, ILobbyMatchRaw, IMatchRaw, makeQueryString, minifyUserId} from "./server.type";
+import {ILastMatchRaw, ILobbyMatchRaw, IMatchRaw, makeQueryString, minifyUserId} from "./util";
 import fetch from "node-fetch";
 import {createDB} from "./db";
 import {User} from "../../serverless/entity/user";
@@ -65,6 +65,7 @@ async function sendPushNotification(expoPushToken: string, title: string, body: 
     // });
 }
 
+
 async function notify(match: Match) {
     const connection = await createDB();
 
@@ -119,4 +120,4 @@ app.get('/status', (req, res) => {
     });
 });
 
-app.listen(process.env.PORT || 3001, () => console.log(`Server listening on port ${process.env.PORT || 3001}!`));
+app.listen(process.env.PORT || 3002, () => console.log(`Server listening on port ${process.env.PORT || 3002}!`));
