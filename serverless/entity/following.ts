@@ -1,18 +1,16 @@
-import {Entity, Column, PrimaryColumn, UpdateDateColumn} from "typeorm";
+import {Entity, Column, PrimaryColumn, UpdateDateColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Account} from "./account";
 
 @Entity()
 export class Following {
-    @PrimaryColumn()
-    push_token: string;
+    @ManyToOne(type => Account, account => account.followings, { primary: true })
+    account: Account;
 
     @PrimaryColumn()
     profile_id: number;
 
     @Column({nullable: true})
     enabled?: boolean;
-
-    @Column({nullable: true})
-    token_profile_id?: number;
 
     @UpdateDateColumn()
     updated_at: string;

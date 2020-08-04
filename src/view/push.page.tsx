@@ -160,14 +160,18 @@ export default function PushPage() {
             <MyText/>
             {
                 expoPushToken &&
-                <Button
-                    mode="outlined"
-                    onPress={async () => {
-                        await sendPushNotification(expoPushToken);
-                    }}
-                >
-                    Send Test Notification
-                </Button>
+                <>
+                    <Button
+                        mode="outlined"
+                        onPress={async () => {
+                            await sendPushNotification(expoPushToken);
+                        }}
+                    >
+                        Send Test Notification
+                    </Button>
+                    <MyText/>
+                    <MyText style={styles.note}>Test notification may take a minute to reach your phone.</MyText>
+                </>
             }
             <MyText/>
             <MyText>Troubleshoot info:</MyText>
@@ -191,6 +195,10 @@ const getStyles = (theme: ITheme) => {
             alignItems: 'center',
         },
         text: {
+            textAlign: 'center',
+        },
+        note: {
+            color: theme.textNoteColor,
             textAlign: 'center',
         },
     });

@@ -32,7 +32,7 @@ export interface IAccount {
 export interface IFollowingEntry {
     id?: string;
     steam_id?: string;
-    profile_id?: number;
+    profile_id: number;
     name: string;
     games: number;
     country: Flag;

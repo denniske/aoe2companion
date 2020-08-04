@@ -17,6 +17,7 @@ import {Push} from "../entity/push";
 import {Match} from "../entity/match";
 import {Player} from "../entity/player";
 import {Following} from "../entity/following";
+import {Account} from "../entity/account";
 
 console.log(pg2 != null ? 'pg initialized' : '');
 
@@ -29,6 +30,7 @@ export async function createDB() {
                 rejectUnauthorized: false,
             },
             entities: [
+                Account,
                 Push,
                 Match,
                 Player,

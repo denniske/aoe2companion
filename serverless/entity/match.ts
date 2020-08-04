@@ -3,7 +3,7 @@ import {Player} from "./player";
 
 @Entity()
 export class Match {
-    @PrimaryColumn({ name: 'match_id'  })
+    @PrimaryColumn({ name: 'match_id' })
     id: string;
 
     @Column({ nullable: true })
@@ -128,7 +128,4 @@ export class Match {
 
     @OneToMany(type => Player, player => player.match, { cascade: true })
     players: Player[];
-
-    // expansion: null,
-    // has_custom_content: null,
 }

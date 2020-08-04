@@ -197,12 +197,19 @@ export function asyncHandler<P extends Params = ParamsDictionary, ResBody = any,
     }) as RequestHandler<P, ResBody, ReqBody, ReqQuery>;
 }
 
-// export const asyncHandler = fn => (req, res, next) => {
-//     return Promise
-//         .resolve(fn(req, res, next))
-//         .catch(next);
-// };
+let timeLastDate: Date | null = null;
+export function time(start?: any) {
+    if (timeLastDate == null || start) {
+        console.log('-');
+    } else {
+        console.log(new Date().getTime() - timeLastDate.getTime());
+    }
+    timeLastDate = new Date();
+}
 
-// function b<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs>(req: RequestHandler<P, ResBody, ReqBody, ReqQuery>): T {
-//
-// }
+export function getParam(params: { [name: string]: string } | null, key: string): string {
+    if (params == null) {
+        return null;
+    }
+    return params[key];
+}

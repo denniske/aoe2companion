@@ -72,8 +72,8 @@ async function notify(match: Match) {
     console.log('NOTIFY', match.name, '-> ', match.id);
     const players = match.players.filter(p => p.profile_id);
 
-    const followings = await connection.manager.find(Following, {where: { profile_id: In(players.map(p => p.profile_id)) }});
-    const tokens = Object.entries(groupBy(followings, p => p.push_token));
+    const followings = await connection.manager.find(Following, {where: { profile_id: In(players.map(p => p.profile_id)) }, relations: ["account"]});
+    const tokens = Object.entries(groupBy(followings, p => p.account.push_token));
     if (tokens.length > 0) {
         console.log('tokens', tokens.length);
         for (const [token, followings] of tokens) {

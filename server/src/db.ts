@@ -15,6 +15,7 @@ import {Match} from "../../serverless/entity/match";
 import {Player} from "../../serverless/entity/player";
 import {SnakeNamingStrategy} from "typeorm-naming-strategies";
 import {Push} from "../../serverless/entity/push";
+import {Account} from "../../serverless/entity/account";
 
 console.log(pg2 != null ? 'pg initialized' : '');
 console.log('process.env.LOCAL', process.env.LOCAL);
@@ -28,6 +29,7 @@ export async function createDB() {
                 rejectUnauthorized: false,
             },
             entities: [
+                Account,
                 Push,
                 Match,
                 Player,
@@ -38,7 +40,7 @@ export async function createDB() {
             ],
             // entities: getMetadataArgsStorage().tables.map(tbl => tbl.target),
             synchronize: process.env.LOCAL === 'true',
-            logging: false && process.env.LOCAL === 'true',//!!process.env.IS_OFFLINE,
+            logging: process.env.LOCAL === 'true',//!!process.env.IS_OFFLINE,
             namingStrategy: new SnakeNamingStrategy(),
         });
         console.log('Using NEW connection. Connected: ', connection.isConnected);
