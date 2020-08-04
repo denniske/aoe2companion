@@ -20,7 +20,7 @@ interface IParam {
 export async function getStatsPlayer({matches, user, leaderboardId}: IParam) {
     let rowsAlly: IRow[] | null = null;
     let rowsOpponent: IRow[] | null = null;
-    const maxRowCount = 8;
+    const maxRowCount = 12;
 
     if (matches) {
         let otherPlayers = matches.flatMap(m => m.players).filter(p => !sameUser(p, user));

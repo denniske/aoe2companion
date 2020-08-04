@@ -97,8 +97,6 @@ async function insertUsers(match: IMatchRaw) {
 async function insertMatch(matchRaw: IMatchRaw) {
     console.log('Insert Match', matchRaw.name, '-> ', matchRaw.match_id);
 
-    // const connection = await createDB();
-
     const pushRepo = getRepository(Match);
 
     const matchRows = [matchRaw].map(matchEntry => {
@@ -171,47 +169,6 @@ async function insertMatch(matchRaw: IMatchRaw) {
     });
 
     await pushRepo.save(matchRows);
-
-    // let queryMatch = connection.createQueryBuilder()
-    //     .insert()
-    //     .into(Match)
-    //     .values(matchRows)
-    //     .orUpdate({
-    //         conflict_target: ['match_id'], overwrite: []
-    //     });
-    // await queryMatch.execute();
-    //
-    // const playerRows = match.players.filter(p => p.profile_id).map(entry => {
-    //     const user = new Player();
-    //     user.match = { id: match.match_id } as Match;
-    //     user.profile_id = entry.profile_id;
-    //     user.steam_id = entry.steam_id;
-    //     user.civ = entry.civ;
-    //     user.clan = entry.clan;
-    //     user.color = entry.color;
-    //     user.country = entry.country;
-    //     user.drops = entry.drops;
-    //     user.games = entry.games;
-    //     user.name = entry.name;
-    //     user.rating = entry.rating;
-    //     user.rating_change = entry.rating_change;
-    //     user.slot = entry.slot;
-    //     user.slot_type = entry.slot_type;
-    //     user.streak = entry.streak;
-    //     user.team = entry.team;
-    //     user.wins = entry.wins;
-    //     user.won = entry.won;
-    //     return user;
-    // });
-    //
-    // const queryPlayer = connection.createQueryBuilder()
-    //     .insert()
-    //     .into(Player)
-    //     .values(playerRows)
-    //     .orUpdate({
-    //         conflict_target: ['profile_id'], overwrite: []
-    //     });
-    // await queryPlayer.execute();
 }
 
 async function checkExistance(match: ILobbyMatchRaw, attempt: number = 0) {
@@ -232,7 +189,6 @@ async function checkExistance(match: ILobbyMatchRaw, attempt: number = 0) {
     for (const player of match.players.filter(p => p.profileId || p.steamId)) {
         const queryString = makeQueryString({
             game: 'aoe2de',
-            // profile_id: 3169763,
             ...minifyUserId(player),
         });
         const url = `http://aoe2.net/api/player/lastmatch?${queryString}`;
@@ -284,6 +240,9 @@ function onUpdate(updates: ILobbyMatchRaw[]) {
             if (update.active) {
                 matches.push(update);
             }
+            if (!update.active) {
+                console.log('NOT IN LIST NOT ACTIVE', update.name)
+            }
         }
     }
 }
@@ -297,7 +256,7 @@ ws.on('open', () => {
 
 ws.on('message', (data) => {
     const message = JSON.parse(data as any);
-    // console.log(message.data);
+    console.log(message.data);
 
     if (message.message === "ping") {
         console.log('SEND', JSON.stringify(message));

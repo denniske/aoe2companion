@@ -6,6 +6,7 @@ import {capitalize} from "lodash-es";
 import {saveConfigToStorage} from "../service/storage";
 import Picker from "./components/picker";
 import {ITheme, makeVariants, useTheme} from "../theming";
+import { Checkbox } from 'react-native-paper';
 
 
 export default function SettingsPage() {
@@ -43,7 +44,8 @@ export default function SettingsPage() {
 
             {/*<View style={styles.row}>*/}
             {/*    <View style={styles.cellName}>*/}
-            {/*        <MyText>Dark Mode</MyText>*/}
+            {/*        <MyText>Push notifications</MyText>*/}
+            {/*        <MyText style={styles.small}>Receive push notifications when a player you are following starts a game.</MyText>*/}
             {/*    </View>*/}
             {/*    <View style={styles.cellValue}>*/}
             {/*        <Checkbox.Android*/}
