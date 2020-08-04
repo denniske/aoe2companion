@@ -7,6 +7,8 @@ import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
 import {Button} from "react-native-paper";
+import {AndroidNotificationPriority} from "expo-notifications";
+import {IosAuthorizationStatus} from "expo-notifications/build/NotificationPermissions.types";
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -14,7 +16,19 @@ Notifications.setNotificationHandler({
         shouldPlaySound: false,
         shouldSetBadge: false,
     }),
+    handleSuccess: notificationId => alert('success:' + notificationId),
+    handleError: notificationId => alert('error:' + notificationId),
 });
+
+interface FirebaseData {
+    title?: string;
+    message?: string;
+    subtitle?: string;
+    sound?: boolean | string;
+    vibrate?: boolean | number[];
+    priority?: AndroidNotificationPriority;
+    badge?: number;
+}
 
 // Can use this function below, OR use Expo's Push Notification Tool-> https://expo.io/dashboard/notifications
 async function sendPushNotification(expoPushToken: string) {
@@ -55,6 +69,9 @@ export default function PushPage() {
     const registerForPushNotificationsAsync = async () => {
         let token;
         if (Constants.isDevice) {
+            const settings = await Notifications.getPermissionsAsync();
+            let newStatus = settings.granted || settings.ios?.status === IosAuthorizationStatus.PROVISIONAL;
+            log(newStatus);
             const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
             log(existingStatus);
             let finalStatus = existingStatus;
