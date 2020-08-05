@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '14.0.3': [
+        {
+            type: 'feature',
+            title: 'Add unique unit counters',
+        },
+    ],
     '14.0.2': [
         {
             type: 'bugfix',
