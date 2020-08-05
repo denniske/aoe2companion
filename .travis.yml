@@ -32,7 +32,7 @@ jobs:
       if: tag =~ ^match-v.+$
       env:
         - CACHE_NAME=match
-        - IMAGE_NAME=denniske/aoe2companion-api
+        - IMAGE_NAME=denniske/aoe2companion-match
       before_install:
         - sudo apt-get update
         - sudo apt-get -y install gettext-base
