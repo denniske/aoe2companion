@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '14.0.4': [
+        {
+            type: 'bugfix',
+            title: 'Try to fix country selector again',
+        },
+    ],
     '14.0.3': [
         {
             type: 'feature',

@@ -68,7 +68,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
             >
                 {
                     flatlist &&
-                    <View style={{height: Dimensions.get('screen').height-200, minWidth: 200}}>
+                    <View style={{height: Dimensions.get('screen').height-250, minWidth: 200}}>
                         <FlatList
                             keyboardShouldPersistTaps={'always'}
                             data={values}
