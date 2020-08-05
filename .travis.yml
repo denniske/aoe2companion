@@ -43,7 +43,7 @@ jobs:
         - cd serverless
         - npm install
         - cd ..
-        - cd match
+        - cd server
         - npm install
         - npm run build
         - ls -al
