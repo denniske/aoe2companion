@@ -2643,7 +2643,7 @@ export type ICostDict = {
 export interface IUnitInfo {
     AccuracyPercent: number;
     Attack: number;
-    Attacks: IUnitClassPair[];
+    Attacks: ReadonlyArray<IUnitClassPair>;
     Cost: ICostDict;
     FrameDelay: number;
     GarrisonCapacity: number;
@@ -2655,7 +2655,7 @@ export interface IUnitInfo {
     MeleeArmor: number;
     MinRange: number;
     PierceArmor: number;
-    Armours: IUnitClassPair[];
+    Armours: ReadonlyArray<IUnitClassPair>;
     Range: number;
     ReloadTime: number;
     Speed: number;
@@ -2907,7 +2907,7 @@ export function getUnitData(unit: Unit) {
 
 export function getUnitDescription(unit: Unit) {
     const data = getUnitData(unit);
-    let description = aoeData.strings[data.LanguageHelpId.toString() as aoeStringKey];
+    let description = aoeData.strings[data.LanguageHelpId.toString() as aoeStringKey] as string;
 
     description = strRemoveTo(description, '<br>\n');
     description = strRemoveFrom(description, '<i> Upgrades:');
