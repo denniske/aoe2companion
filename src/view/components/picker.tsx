@@ -68,13 +68,14 @@ export default function Picker<T>(props: IPickerProps<T>) {
             >
                 {
                     flatlist &&
-                    <FlatList
-                        keyboardShouldPersistTaps={'always'}
-                        data={values}
-                        style={{height: Dimensions.get('screen').height-200}}
-                        renderItem={({item, index}) => renderItem(item, index)}
-                        keyExtractor={(item, index) => index.toString()}
-                    />
+                    <View style={{height: Dimensions.get('screen').height-200, minWidth: 200}}>
+                        <FlatList
+                            keyboardShouldPersistTaps={'always'}
+                            data={values}
+                            renderItem={({item, index}) => renderItem(item, index)}
+                            keyExtractor={(item, index) => index.toString()}
+                        />
+                    </View>
                 }
                 {
                     !flatlist && values.map(renderItem)
