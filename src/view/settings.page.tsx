@@ -10,12 +10,13 @@ import { Checkbox } from 'react-native-paper';
 import {useNavigation} from "@react-navigation/native";
 import {appVariants} from "../styles";
 import {getToken} from "../service/push";
-import {follow, setAccountPushToken, setNotificationConfig} from "../api/following";
+import {follow, setAccountProfile, setAccountPushToken, setNotificationConfig} from "../api/following";
 
 
 export default function SettingsPage() {
     const styles = useTheme(variants);
     const mutate = useMutate();
+    const auth = useSelector(state => state.auth);
     const config = useSelector(state => state.config);
     const accountId = useSelector(state => state.account.id);
     const navigation = useNavigation();
@@ -38,7 +39,7 @@ export default function SettingsPage() {
         mutate(setConfig(newConfig));
     };
 
-    const setPushNotificationsEnabled = async (pushNotificationsEnabled: any) => {
+    const enablePushNotifications = async (pushNotificationsEnabled: any) => {
         setLoadingPushNotificationEnabled(true);
         try {
             if (pushNotificationsEnabled) {
@@ -47,6 +48,9 @@ export default function SettingsPage() {
                     throw 'Could not create token';
                 }
                 await setAccountPushToken(accountId, token);
+                if (auth && auth.profile_id) {
+                    await setAccountProfile(accountId, auth.profile_id, auth.steam_id);
+                }
                 await follow(accountId, following.map(p => p.profile_id), true);
             }
 
@@ -87,13 +91,10 @@ export default function SettingsPage() {
                         disabled={loadingPushNotificationEnabled}
                         status={config.pushNotificationsEnabled ? 'checked' : 'unchecked'}
                         onPress={() => {
-                            setPushNotificationsEnabled(!config.pushNotificationsEnabled);
+                            enablePushNotifications(!config.pushNotificationsEnabled);
                         }}
                     />
-                    {/*{*/}
-                    {/*    config.pushNotificationsEnabled &&*/}
-                        <MyText style={appStyles.link} onPress={() => navigation.navigate('Push')}>Troubleshoot</MyText>
-                    {/*}*/}
+                    <MyText style={appStyles.link} onPress={() => navigation.navigate('Push')}>Troubleshoot</MyText>
                 </View>
             </View>
 

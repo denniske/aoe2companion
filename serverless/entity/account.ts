@@ -7,6 +7,12 @@ export class Account implements IAccount {
     id: string;
 
     @Column({ nullable: true })
+    profile_id?: number;
+
+    @Column({ nullable: true })
+    steam_id?: string;
+
+    @Column({ nullable: true })
     push_token?: string;
 
     @OneToMany('Following', 'account', { cascade: true })

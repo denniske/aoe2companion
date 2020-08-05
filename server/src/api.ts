@@ -43,6 +43,12 @@ interface IAccountPushTokenRequest {
     push_token: string;
 }
 
+interface IAccountProfileRequest {
+    account_id: string;
+    profile_id: number;
+    steam_id?: string;
+}
+
 interface IFollowRequest {
     account_id: string;
     profile_ids: number[];
@@ -129,6 +135,31 @@ app.post('/account/push_token', asyncHandler(async (req, res) => {
     const accountEntry = new Account();
     accountEntry.id = account_id;
     accountEntry.push_token = push_token;
+
+    console.log(accountEntry);
+
+    await accountRepo.save(accountEntry);
+
+    res.send({ success: true });
+    time();
+}));
+
+
+app.post('/account/profile', asyncHandler(async (req, res) => {
+    time(1);
+    const connection = await createDB();
+
+    const { account_id, profile_id, steam_id } = req.body as IAccountProfileRequest;
+
+    // console.log('/follow');
+    // console.log(req.body);
+
+    const accountRepo = getRepository(Account);
+
+    const accountEntry = new Account();
+    accountEntry.id = account_id;
+    accountEntry.profile_id = profile_id;
+    accountEntry.steam_id = steam_id;
 
     console.log(accountEntry);
 
