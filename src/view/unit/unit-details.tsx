@@ -14,12 +14,13 @@ import {
 import {getTechIcon, getTechName, Tech, techEffectDict, techList} from "../../helper/techs";
 import {Civ, civs} from "../../helper/civs";
 import Fandom from "../components/fandom";
-import {Button} from "react-native-paper";
+import {Button, Checkbox} from "react-native-paper";
 import {escapeRegExpFn, keysOf} from "../../helper/util";
 import {MyText} from "../components/my-text";
 import {iconHeight, iconSmallHeight, iconSmallWidth, iconWidth} from "../../helper/theme";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import {appVariants} from "../../styles";
+import { useMutate } from '../../redux/reducer';
 
 
 // function highlightUnitAndCivs(str: string) {
@@ -65,6 +66,7 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
     const unitLineName = getUnitLineNameForUnit(unitName);
     const unitLine = unitLines[unitLineName];
     const unitLineUpgrades = unitLine.upgrades.map(u => techEffectDict[u]);
+    const [checked, setChecked] = useState(false);
 
     const unitIndex = unitLine.units.indexOf(unitName);
     const upgradedFrom = unitIndex > 0 ? unitLine.units[unitIndex-1] : null;
@@ -73,7 +75,7 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
         let nonUUArray: UnitLine[] = [];
         sortUnitCounter(x.counteredBy).forEach((counterUnit)=>{
             let counterUnitObj = unitLines[getUnitLineNameForUnit(counterUnit)];
-            if(counterUnitObj.unique){
+            if(!counterUnitObj.unique){
                 nonUUArray.push(counterUnit);
             }
         });
@@ -324,11 +326,34 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
             {
                 unitLine.counteredBy && (
                     <>
-                        <View style={styles.row}>
+                <View>
+                    <View style={styles.row}>
                             <MyText size="headline">Weak vs.</MyText>
+                    </View>
+                    <View style={styles.row}>
+                        <View style={styles.cellName}>
+                            <MyText>Display Unique Units</MyText>
                         </View>
-                        {
-                            getNonUniqueUnitCounters(unitLine)
+                        <View style={styles.cellValue}>
+                        <Checkbox.Android
+                            status={checked ? 'checked' : 'unchecked'}
+                            onPress={() => {
+                                setChecked(!checked);
+                            }
+                        }
+                            
+                        />
+                        </View>
+                     </View>
+                        {checked ? sortUnitCounter(unitLine.counteredBy).map(counterUnit =>
+                                <TouchableOpacity key={counterUnit} onPress={() => gotoUnit(counterUnit)}>
+                                    <View style={styles.row}>
+                                        <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitLineIcon(counterUnit)}/>
+                                        <MyText style={styles.unitDesc}>
+                                            {getUnitLineName(counterUnit)}
+                                        </MyText>
+                                    </View>
+                                </TouchableOpacity>) : getNonUniqueUnitCounters(unitLine)
                         }
 
                         <MyText/>
@@ -348,6 +373,7 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
                             )
                         }
                         <MyText/>
+                </View>
                     </>
                 )
             }

@@ -2110,6 +2110,7 @@ export const unitLines: IUnitLineDict = {
     },
     'Slinger': {
         units: ['Slinger'],
+        unique: true,
         counteredBy: [
             'Skirmisher',
             'Knight',
