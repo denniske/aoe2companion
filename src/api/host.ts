@@ -21,7 +21,7 @@ export function getHost(host: Host) {
                 const platformHost = '192.168.178.41';
                 return `http://${platformHost}:3000/`;
             }
-            return `https://api.aoe2companion.com/`;
+            return `http://api.aoe2companion.com/`;
         }
         case "aoe2net": {
             if (Platform.OS === 'web') {

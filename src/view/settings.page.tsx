@@ -96,6 +96,12 @@ export default function SettingsPage() {
                     {/*}*/}
                 </View>
             </View>
+
+            <View style={styles.row}>
+                <View style={styles.cellName}>
+                    <MyText>Note: You can already enable push notifications and test them. But they won't be sent when games are started. I am waiting for an update on the aoe2.net api for this.</MyText>
+                </View>
+            </View>
         </ScrollView>
     );
 }
