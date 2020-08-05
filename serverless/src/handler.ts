@@ -32,8 +32,8 @@ export async function createDB() {
             entities: [
                 Account,
                 Push,
-                Match,
                 Player,
+                Match,
                 Following,
                 KeyValue,
                 User,

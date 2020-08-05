@@ -85,18 +85,3 @@ export class User {
     @Column({ nullable: true })
     live_last_match_time?: number;
 }
-
-// export interface IPlayer {
-//     country: string;
-//     clan: string;
-//     wins: any;
-//     drops: number;
-//     games: number;
-//     rating: number;
-//     // rating_change: any;
-//     // slot: number;
-//     // slot_type: number;
-//     // streak: any;
-//     // team: number;
-//     // won: any;
-// }

@@ -4,7 +4,6 @@ import {createDB} from "./handler";
 import {fetchLeaderboard, ILeaderboardPlayerRaw, setValue} from "./helper";
 import {LeaderboardRow} from "../entity/leaderboard-row";
 import { chunk } from 'lodash';
-import {Column} from "typeorm";
 
 function sleep(ms: number) {
     return new Promise((resolve) => {

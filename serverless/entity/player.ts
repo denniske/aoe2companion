@@ -1,13 +1,13 @@
 import {Entity, Column, PrimaryGeneratedColumn, ManyToOne} from "typeorm";
-import {Match} from "./match";
+import {IMatch, IPlayer} from "./entity.type";
 
 @Entity()
-export class Player {
+export class Player implements IPlayer {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(type => Match, match => match.players)
-    match: Match;
+    @ManyToOne('Match', 'players')
+    match: IMatch;
 
     @Column()
     profile_id: number;

@@ -1,14 +1,14 @@
 import {Entity, Column, PrimaryColumn, OneToMany} from "typeorm";
-import {Following} from "./following";
+import {IAccount, IFollowing} from "./entity.type";
 
 @Entity()
-export class Account {
+export class Account implements IAccount {
     @PrimaryColumn()
     id: string;
 
     @Column({ nullable: true })
     push_token?: string;
 
-    @OneToMany(type => Following, following => following.account, { cascade: true })
-    followings?: Following[];
+    @OneToMany('Following', 'account', { cascade: true })
+    followings?: IFollowing[];
 }

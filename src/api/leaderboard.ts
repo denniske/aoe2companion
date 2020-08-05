@@ -33,6 +33,7 @@ async function fetchLeaderboardInternal(baseUrl: string, game: string, leaderboa
 
     const url = baseUrl + `api/leaderboard?${queryString}`;
     const response = await fetch(url);
+    console.log(url);
     try {
         const json = await response.json();
         return convertTimestampsToDates(json);

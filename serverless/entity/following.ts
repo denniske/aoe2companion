@@ -1,10 +1,10 @@
-import {Entity, Column, PrimaryColumn, UpdateDateColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
-import {Account} from "./account";
+import {Entity, Column, PrimaryColumn, UpdateDateColumn, ManyToOne} from "typeorm";
+import {IAccount, IFollowing} from "./entity.type";
 
 @Entity()
-export class Following {
-    @ManyToOne(type => Account, account => account.followings, { primary: true })
-    account: Account;
+export class Following implements IFollowing {
+    @ManyToOne('Account', 'followings', { primary: true })
+    account: IAccount;
 
     @PrimaryColumn()
     profile_id: number;

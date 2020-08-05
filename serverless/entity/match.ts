@@ -1,8 +1,8 @@
 import {Entity, Column, PrimaryColumn, OneToMany} from "typeorm";
-import {Player} from "./player";
+import {IMatch, IPlayer} from "./entity.type";
 
 @Entity()
-export class Match {
+export class Match implements IMatch {
     @PrimaryColumn({ name: 'match_id' })
     id: string;
 
@@ -126,6 +126,6 @@ export class Match {
     @Column({ nullable: true,  })
     visibility?: number;
 
-    @OneToMany(type => Player, player => player.match, { cascade: true })
-    players: Player[];
+    @OneToMany('Player', 'match', { cascade: true })
+    players: IPlayer[];
 }
