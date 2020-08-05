@@ -4,7 +4,6 @@ import {aoeData, aoeStringKey, aoeUnitDataId} from "../data/data";
 import {keysOf, strRemoveFrom, strRemoveTo, unwrap, ValueOf} from "./util";
 import {sortBy, uniq} from "lodash-es";
 import {Civ} from "./civs";
-import { tr } from "date-fns/locale";
 
 
 export interface IUnitLine {
