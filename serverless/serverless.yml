@@ -96,7 +96,8 @@ functions:
     handler: src/match.match
     tags:
       func: match
-    memorySize: 128
+    memorySize: 256
+    timeout: 30
     events:
       - http:
           path: match

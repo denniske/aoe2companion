@@ -26,11 +26,15 @@ async function fetchMatchesSinceLastTime() {
     const entries = uniqBy(await fetchMatches('aoe2de', 0, 1000, getUnixTime(lastFetchDate)), e => e.match_id);
     console.log(entries.length);
 
+    if (entries.length > 0) {
+        console.log(entries[0].match_id, '-', entries[entries.length-1].match_id);
+    }
+
     const matchRepo = getRepository(Match);
 
     const matchRows = entries.map(matchEntry => {
         const match = new Match();
-        console.log(matchEntry.match_id);
+        // console.log(matchEntry.match_id);
         match.id = matchEntry.match_id;
         match.match_uuid = matchEntry.match_uuid;
         match.lobby_id = matchEntry.lobby_id;
