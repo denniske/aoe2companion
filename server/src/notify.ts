@@ -1,14 +1,9 @@
 import express from 'express';
-import WebSocket from 'ws';
-import {ILastMatchRaw, ILobbyMatchRaw, IMatchRaw, makeQueryString, minifyUserId} from "./util";
 import fetch from "node-fetch";
 import {createDB} from "./db";
-import {User} from "../../serverless/entity/user";
-import {LeaderboardRow} from "../../serverless/entity/leaderboard-row";
 import {Following} from "../../serverless/entity/following";
 import {setValue} from "../../serverless/src/helper";
 import {Match} from "../../serverless/entity/match";
-import {Player} from "../../serverless/entity/player";
 import {groupBy} from "lodash";
 import {In, MoreThan, getRepository} from "typeorm";
 import {getUnixTime} from 'date-fns';
@@ -52,7 +47,7 @@ async function sendPushNotification(expoPushToken: string, title: string, body: 
     console.log(message);
 
     const pushRepo = getRepository(Push);
-    await pushRepo.save({ title: message.title, body: message.body });
+    await pushRepo.save({ title: message.title, body: message.body, push_token: expoPushToken });
 
     await fetch('https://exp.host/--/api/v2/push/send', {
         method: 'POST',
@@ -77,8 +72,14 @@ async function notify(match: Match) {
     if (tokens.length > 0) {
         console.log('tokens', tokens.length);
         for (const [token, followings] of tokens) {
+
+            // console.log('token', token);
+            // console.log('followings', followings);
+
             const names = followings.map(following => players.find(p => p.profile_id == following.profile_id).name).join(', ');
-            await sendPushNotification(token, match.name + ' - ' + match.id, names + ' are playing.');
+            const verb = followings.length > 1 ? 'are' : 'is';
+
+            await sendPushNotification(token, match.name + ' - ' + match.id, names + ' ' + verb + ' playing.');
         }
     }
 
@@ -98,6 +99,7 @@ async function notifyAll() {
 
     const oneMinuteAgo = getUnixTime(new Date()) - 60*5;
 
+    // const matches = await connection.manager.find(Match, {where: { id: '33054980'}, relations: ["players"]});
     const matches = await connection.manager.find(Match, {where: { notified: false, started: MoreThan(oneMinuteAgo) }, relations: ["players"]});
     console.log(matches);
 

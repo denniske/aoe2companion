@@ -11,6 +11,9 @@ export class Push {
     @Column()
     body: string;
 
+    @Column({ nullable: true })
+    push_token?: string;
+
     @CreateDateColumn()
     created_at: Date;
 }
