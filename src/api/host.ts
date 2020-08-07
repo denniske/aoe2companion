@@ -13,13 +13,9 @@ export function getHost(host: Host) {
             return `https://function.aoe2companion.com/`;
         }
         case "aoe2companion-api": {
-            if (__DEV__ && !Constants.isDevice) {
-                const platformHost = Platform.select({ios: 'localhost', android: '10.0.2.2'});
-                return `http://${platformHost}:3000/`;
-            }
             if (__DEV__ && Constants.isDevice) {
                 const platformHost = '192.168.178.41';
-                return `http://${platformHost}:3000/`;
+                return `http://${platformHost}:3003/`;
             }
             return `http://api.aoe2companion.com/`;
         }

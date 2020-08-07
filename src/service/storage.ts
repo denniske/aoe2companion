@@ -75,11 +75,17 @@ export const loadSettingsFromStorage = async () => {
     return JSON.parse(entry) as ISettings;
 };
 
+export const saveAccountToStorage = async (account: IAccount) => {
+    await AsyncStorage.setItem('account', JSON.stringify(account));
+};
+
 export const loadAccountFromStorage = async () => {
     const entry = await AsyncStorage.getItem('account');
     if (entry == null) {
+        const newAccountId = uuidv4();
+        await saveAccountToStorage({ id: newAccountId });
         return {
-            id: uuidv4(),
+            id: newAccountId,
         };
     }
     return JSON.parse(entry) as IAccount;

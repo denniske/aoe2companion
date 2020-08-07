@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '14.0.6': [
+        {
+            type: 'bugfix',
+            title: 'Fixed storage of settings',
+        },
+    ],
     '14.0.5': [
         {
             type: 'feature',
