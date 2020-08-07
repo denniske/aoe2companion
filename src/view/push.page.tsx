@@ -16,8 +16,8 @@ Notifications.setNotificationHandler({
         shouldPlaySound: false,
         shouldSetBadge: false,
     }),
-    handleSuccess: notificationId => alert('success:' + notificationId),
-    handleError: notificationId => alert('error:' + notificationId),
+    handleSuccess: notificationId => console.log('success:' + notificationId),
+    handleError: notificationId => console.log('error:' + notificationId),
 });
 
 interface FirebaseData {

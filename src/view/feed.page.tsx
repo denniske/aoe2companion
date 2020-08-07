@@ -5,7 +5,6 @@ import {RouteProp, useNavigation, useNavigationState, useRoute} from '@react-nav
 import {Game} from './components/game';
 import {IMatch, IPlayer} from "../helper/data";
 import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
-import {fetchMatchesMulti} from "../service/matches";
 import Search from "./components/search";
 import {sameUser, UserId, UserInfo, UserIdBase, userIdFromBase, UserIdBaseWithName, sameUserNull} from "../helper/user";
 import {setFollowing, useMutate, useSelector} from "../redux/reducer";
@@ -21,6 +20,7 @@ import {ITheme, makeVariants, useTheme} from "../theming";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import RefreshControlThemed from "./components/refresh-control-themed";
 import {toggleFollowing} from "../service/following";
+import {fetchPlayerMatches} from "../api/player-matches";
 
 
 export function feedTitle(props: any) {
@@ -88,7 +88,7 @@ export function FeedList() {
         (state, value) => {
             state.followedMatches = value;
         },
-        fetchMatchesMulti, 'aoe2de', 0, 15, following
+        fetchPlayerMatches, 'aoe2de', 0, 15, following
     );
 
     const refresh = () => {

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, FlatList, StyleSheet, Text, View} from 'react-native';
 import { RootStackParamList } from '../../App';
 import { RouteProp, useRoute } from '@react-navigation/native';
-import { fetchMatches } from '../api/matches';
+import { fetchPlayerMatches } from '../api/player-matches';
 import Profile from './components/profile';
 import Rating from './components/rating';
 import { useApi } from '../hooks/use-api';
@@ -77,12 +77,12 @@ export default function UserPage() {
             }
             state.user[auth.id].matches = value;
         },
-        fetchMatches, 'aoe2de', 0, 10, auth
+        fetchPlayerMatches, 'aoe2de', 0, 10, [auth]
     );
 
     const allMatches = useLazyApi(
         {},
-        fetchMatches, 'aoe2de', 0, 1000, auth
+        fetchPlayerMatches, 'aoe2de', 0, 1000, [auth]
     );
 
     const cachedData = useSelector(state => get(state.statsPlayer, [auth.id, leaderboardId]));

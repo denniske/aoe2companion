@@ -11,6 +11,9 @@ import {useNavigation} from "@react-navigation/native";
 import {appVariants} from "../styles";
 import {getToken} from "../service/push";
 import {follow, setAccountProfile, setAccountPushToken, setNotificationConfig} from "../api/following";
+import * as Notifications from "expo-notifications";
+import {IosAuthorizationStatus} from "expo-notifications/build/NotificationPermissions.types";
+import * as Permissions from "expo-permissions";
 
 
 export default function SettingsPage() {
@@ -43,6 +46,22 @@ export default function SettingsPage() {
         setLoadingPushNotificationEnabled(true);
         try {
             if (pushNotificationsEnabled) {
+                const settings = await Notifications.getPermissionsAsync();
+                let newStatus = settings.granted || settings.ios?.status === IosAuthorizationStatus.PROVISIONAL;
+                console.log('newPermission', newStatus);
+                const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+                console.log('existingPermission', existingStatus);
+                let finalStatus = existingStatus;
+                if (existingStatus !== 'granted') {
+                    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+                    finalStatus = status;
+                }
+                console.log('finalPermission', finalStatus);
+                if (finalStatus !== 'granted') {
+                    console.log('Failed to get push token for push notification!');
+                    return;
+                }
+
                 const token = await getToken();
                 if (!token) {
                     throw 'Could not create token';
@@ -95,12 +114,6 @@ export default function SettingsPage() {
                         }}
                     />
                     <MyText style={appStyles.link} onPress={() => navigation.navigate('Push')}>Troubleshoot</MyText>
-                </View>
-            </View>
-
-            <View style={styles.row}>
-                <View style={styles.cellName}>
-                    <MyText>Note: You can already enable push notifications and test them. But they will only be sent for some games that are started. I am waiting for an update on the aoe2.net api for full implementation.</MyText>
                 </View>
             </View>
         </ScrollView>

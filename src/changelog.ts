@@ -10,10 +10,28 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '14.0.5': [
+        {
+            type: 'feature',
+            title: 'Push Notifications when followed player starts match (see settings)',
+        },
+        {
+            type: 'feature',
+            title: 'Increased followed players limit to 30',
+        },
+        {
+            type: 'minor',
+            title: 'Faster following page',
+        },
+        {
+            type: 'bugfix',
+            title: 'Try to fix country selector width',
+        },
+    ],
     '14.0.4': [
         {
             type: 'bugfix',
-            title: 'Try to fix country selector again',
+            title: 'Fixed country selector',
         },
     ],
     '14.0.3': [

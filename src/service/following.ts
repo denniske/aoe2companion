@@ -5,7 +5,7 @@ import {follow, unfollow} from "../api/following";
 import store from "../redux/store";
 import {time} from "../helper/util";
 
-const maxFollowing = 5;
+const maxFollowing = 30;
 
 export const toggleFollowing = async (user: IPlayerListPlayer) => {
     time(1);

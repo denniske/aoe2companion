@@ -53,7 +53,7 @@ import {Building} from "./src/helper/buildings";
 import BuildingPage, {BuildingTitle, buildingTitle} from "./src/view/building/building.page";
 import LivePage from "./src/view/live.page";
 import PushPage from "./src/view/push.page";
-import TipsPage from "./src/view/tips.page";
+import SplashPage from "./src/view/splash.page";
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -107,6 +107,7 @@ const linking = {
 };
 
 export type RootStackParamList = {
+    Splash: undefined;
     Tips: undefined;
     Push: undefined;
     Live: undefined;
@@ -212,6 +213,13 @@ export function InnerApp() {
                 {/*        title: 'Tips & Tricks',*/}
                 {/*    }}*/}
                 {/*/>*/}
+                <Stack.Screen
+                    name="Splash"
+                    component={SplashPage}
+                    options={{
+                        title: '',
+                    }}
+                />
                 <Stack.Screen
                     name="Main"
                     component={MainPage}

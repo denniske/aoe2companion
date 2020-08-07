@@ -20,13 +20,14 @@ export interface IFetchMatchesParams {
 }
 
 
-export async function fetchMatches(game: string, start: number, count: number, params: IFetchMatchesParams): Promise<IMatch[]> {
-    const queryString = makeQueryString({
+export async function fetchPlayerMatches(game: string, start: number, count: number, params: IFetchMatchesParams[]): Promise<IMatch[]> {
+    const args = {
         game,
         start,
         count,
-        ...params,
-    });
+        profile_ids: params.map(p => p.profile_id),
+    };
+    const queryString = makeQueryString(args);
     const url = getHost('aoe2net') + `/api/player/matches?${queryString}`;
     console.log(url);
     const response = await fetch(url)

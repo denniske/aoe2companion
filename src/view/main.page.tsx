@@ -11,7 +11,7 @@ import {clearStatsPlayer, setAuth, setPrefValue, useMutate, useSelector} from '.
 import Profile from './components/profile';
 import {loadRatingHistories} from '../service/rating';
 import Rating from './components/rating';
-import {fetchMatches} from '../api/matches';
+import { fetchPlayerMatches} from '../api/player-matches';
 import {useNavigation} from "@react-navigation/native";
 // import {useCavy} from "cavy";
 import {TabBarLabel} from "./components/tab-bar-label";
@@ -108,7 +108,7 @@ function MainHome() {
 
     let allMatches = useLazyApi(
         {},
-        fetchMatches, 'aoe2de', 0, 1000, auth
+        fetchPlayerMatches, 'aoe2de', 0, 1000, [auth]
     );
 
     const cachedData = useSelector(state => get(state.statsPlayer, [auth.id, leaderboardId]));
@@ -270,7 +270,7 @@ function MainMatches() {
                 }
                 state.user[auth.id].matches = value;
             },
-            fetchMatches, 'aoe2de', 0, 15, auth
+            fetchPlayerMatches, 'aoe2de', 0, 15, [auth]
     );
 
     const onRefresh = async () => {
@@ -283,7 +283,7 @@ function MainMatches() {
         if (fetchingMore) return;
         setFetchingMore(true);
         const matchesLength = matches.data?.length ?? 0;
-        const newMatchesData = await matches.refetch('aoe2de', 0, matchesLength + 15, auth);
+        const newMatchesData = await matches.refetch('aoe2de', 0, matchesLength + 15, [auth]);
         if (matchesLength === newMatchesData?.length) {
             setFetchedAll(true);
         }
