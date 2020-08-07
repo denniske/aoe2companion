@@ -8,7 +8,7 @@ import {getUnixTime, parseISO} from "date-fns";
 import {Match} from "../entity/match";
 import {Player} from "../entity/player";
 import {getRepository} from "typeorm";
-import {uniqBy} from "lodash-es";
+import {uniqBy} from "lodash";
 
 function sleep(ms: number) {
     return new Promise((resolve) => {
