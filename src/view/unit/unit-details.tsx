@@ -346,10 +346,12 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
                 unitLine.counteredBy && (
                     <>
                     <View style={styles.row}>
-                        <View style={styles.cellName}>
-                            <MyText>Display Unique Units</MyText>
-                        </View>
-                        <View style={styles.cellValue}>
+                        <MyText style={styles.header1}>
+                            Counters
+                        </MyText>
+                    </View>
+                    <View style={styles.row}>
+                        <View style={styles.checkboxCell}>
                         <Checkbox.Android
                             status={checked ? 'checked' : 'unchecked'}
                             onPress={() => {
@@ -358,10 +360,13 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
                         }     
                         />
                         </View>
+                        <View style={styles.checkboxDesc}>
+                            <MyText style={styles.small}>Display Unique Units</MyText>
+                        </View>
                      </View>
                 <View>
                     <View style={styles.row}>
-                            <MyText size="headline">Weak vs.</MyText>
+                            <MyText style={styles.header2}>Weak vs.</MyText>
                     </View>
                     
                         {checked ? sortUnitCounter(unitLine.counteredBy).map(counterUnit =>
@@ -376,7 +381,7 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
                         }
 
                         <View style={styles.row}>
-                            <MyText size="headline">Strong vs.</MyText>
+                            <MyText  style={styles.header2}>Strong vs.</MyText>
                         </View>
                         {checked ? 
                             sortUnitCounter(getInferiorUnitLines(unitLineName)).map(counterUnit =>
@@ -498,6 +503,7 @@ const getStyles = (theme: ITheme) => {
         row: {
             flexDirection: 'row',
             marginBottom: 5,
+            alignItems: 'center',
             // backgroundColor: 'blue',
         },
 
@@ -542,11 +548,26 @@ const getStyles = (theme: ITheme) => {
             padding: padding,
             flex: 8,
         },
+        checkboxCell: {
+            flex: 1,
+            marginLeft: -6
+        },
+        checkboxDesc: {
+            flex: 11,
+            marginLeft: 4
+        },
         small: {
             fontSize: 12,
             color: theme.textNoteColor,
         },
-
+        header1: {
+            fontSize: 18,
+            fontWeight: '500'
+        },
+        header2: {
+            fontSize: 16,
+            fontWeight: '300'
+        },
         unitIcon: {
             width: iconSmallWidth,
             height: iconSmallHeight,
