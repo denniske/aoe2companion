@@ -65,6 +65,8 @@ region: eu-central-1
 functions:
   hello3:
     handler: src/hello3.hello3
+    tags:
+      func: hello3
     memorySize: 256
     events:
       - http:
@@ -72,6 +74,8 @@ functions:
           method: get
   leaderboard:
     handler: src/leaderboard.leaderboard
+    tags:
+      func: leaderboard
     memorySize: 256
     events:
       - http:
@@ -79,6 +83,8 @@ functions:
           method: get
   ingest:
     handler: src/ingest.ingest
+    tags:
+      func: ingest
     memorySize: 256
     timeout: 500
     events:
@@ -86,6 +92,16 @@ functions:
           path: ingest
           method: get
       - schedule: cron(0 * * * ? *)
+  match:
+    handler: src/match.match
+    tags:
+      func: match
+    memorySize: 128
+    events:
+      - http:
+          path: match
+          method: get
+      - schedule: cron(* * * * ? *)
 
 #      - websocket: $connect
 #      - s3: ${env:BUCKET}

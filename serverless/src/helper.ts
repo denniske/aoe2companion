@@ -1,6 +1,7 @@
 import {createDB} from "./handler";
 import {KeyValue} from "../entity/keyvalue";
 import fetch from "node-fetch";
+import {IMatch, IPlayer} from "../entity/entity.type";
 
 export async function setValue(id: string, value: any) {
     const connection = await createDB();
@@ -67,6 +68,52 @@ export interface ILeaderboardPlayerRaw {
     wins: number;
 }
 
+
+export interface IMatchRaw {
+    match_id: string;
+    match_uuid: string;
+    lobby_id: any;
+    name: string;
+    opened?: any;
+    started?: any;
+    finished?: any;
+    leaderboard_id: number;
+    num_slots: number;
+    has_password: boolean;
+    server: string;
+    map_type: number;
+    average_rating: any;
+    cheats: boolean;
+    ending_age: number;
+    expansion: any;
+    full_tech_tree: boolean;
+    game_type: any;
+    has_custom_content: any;
+    lock_speed: boolean;
+    lock_teams: boolean;
+    map_size: number;
+    num_players: number;
+    players: IPlayer[];
+    pop: number;
+    ranked: boolean;
+    rating_type: any;
+    resources: any;
+    rms: any;
+    scenario: any;
+    shared_exploration: boolean;
+    speed: number;
+    starting_age: number;
+    team_positions: boolean;
+    team_together: boolean;
+    treaty_length: any;
+    turbo: boolean;
+    version: string;
+    victory: any;
+    victory_time: any;
+    visibility: any;
+}
+
+
 export async function fetchLeaderboard(game: string, leaderboard_id: number, params: IFetchLeaderboardParams) {
     const queryString = makeQueryString({
         game,
@@ -75,6 +122,25 @@ export async function fetchLeaderboard(game: string, leaderboard_id: number, par
     });
 
     const url = `http://aoe2.net/api/leaderboard?${queryString}`;
+    const response = await fetch(url);
+    try {
+        return await response.json();
+    } catch (e) {
+        console.log("FAILED", url);
+        throw e;
+    }
+}
+
+export async function fetchMatches(game: string, start: number, count: number, since?: number): Promise<IMatchRaw[]> {
+    const queryString = makeQueryString({
+        game,
+        start,
+        count,
+        since,
+    });
+
+    const url = `http://aoe2.net/api/matches?${queryString}`;
+    console.log(url);
     const response = await fetch(url);
     try {
         return await response.json();

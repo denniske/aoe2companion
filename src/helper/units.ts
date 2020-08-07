@@ -2177,6 +2177,12 @@ export const unitLines: IUnitLineDict = {
 };
 
 const unitsInternal = {
+    'Sheep': {
+        dataId: '-1', // Placeholder data id. Sheep does not exist in data.
+    },
+    'Boar': {
+        dataId: '-1', // Placeholder data id. Boar does not exist in data.
+    },
     'TradeCart': {
         dataId: '128',
     },
@@ -2760,6 +2766,8 @@ export function sortResources(resources: Other[]) {
 }
 
 const unitIcons: UnitIconDict = {
+    'Sheep': require('../../assets/units/Sheep.png'),
+    'Boar': require('../../assets/units/Boar.png'),
     'Kamayuk': require('../../assets/units/Kamayuk.png'),
     'Slinger': require('../../assets/units/Slinger.png'),
     'PlumedArcher': require('../../assets/units/PlumedArcher.png'),

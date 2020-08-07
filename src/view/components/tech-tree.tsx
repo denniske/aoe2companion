@@ -649,7 +649,7 @@ function getAbilityEnabled({civ, tech, unit, building}: AbilityProps2) {
     return false;
 }
 
-function getAbilityIcon({tech, unit, building}: AbilityHelperProps) {
+export function getAbilityIcon({tech, unit, building}: AbilityHelperProps) {
     if (tech) {
         return getTechIcon(tech);
     }
