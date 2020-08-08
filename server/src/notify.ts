@@ -32,6 +32,14 @@ export function sleep(ms: number) {
     });
 }
 
+interface IExpoPushResponse {
+    data: {
+        status: string;
+        message: string;
+        details?: { error?: 'DeviceNotRegistered' };
+    };
+}
+
 async function sendPushNotification(expoPushToken: string, title: string, body: string) {
     sentPushNotifications++;
 
@@ -46,10 +54,7 @@ async function sendPushNotification(expoPushToken: string, title: string, body: 
     console.log('PUSH');
     console.log(message);
 
-    const pushRepo = getRepository(Push);
-    await pushRepo.save({ title: message.title, body: message.body, push_token: expoPushToken });
-
-    await fetch('https://exp.host/--/api/v2/push/send', {
+    const result = await fetch('https://exp.host/--/api/v2/push/send', {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -58,7 +63,40 @@ async function sendPushNotification(expoPushToken: string, title: string, body: 
         },
         body: JSON.stringify(message),
     });
+    const expoPushResponse = await result.json() as IExpoPushResponse;
+    console.log(expoPushResponse);
+
+    const status = expoPushResponse.data.status == 'ok' ? 'ok' : expoPushResponse.data.details?.error;
+
+    const pushRepo = getRepository(Push);
+    await pushRepo.save({ title: message.title, body: message.body, push_token: expoPushToken, status });
 }
+
+// async function temp() {
+//
+//     const message = {
+//         to: 'ExponentPushToken[LH9OpSPJ7Meko9QQBm6lFy]',
+//         sound: 'default',
+//         title: 'd',
+//         body: 'asd',
+//         data: { data: 'goes here' },
+//     };
+//
+//     const result = await fetch('https://exp.host/--/api/v2/push/send', {
+//         method: 'POST',
+//         headers: {
+//             Accept: 'application/json',
+//             'Accept-encoding': 'gzip, deflate',
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(message),
+//     });
+//     console.log(result);
+//     const data = await result.json();
+//     console.log(data);
+// }
+//
+// temp();
 
 
 async function notify(match: Match) {
@@ -101,7 +139,7 @@ async function notifyAll() {
 
     // const matches = await connection.manager.find(Match, {where: { id: '33054980'}, relations: ["players"]});
     const matches = await connection.manager.find(Match, {where: { notified: false, started: MoreThan(oneMinuteAgo) }, relations: ["players"]});
-    console.log(matches);
+    console.log(matches.length);
 
     for (const match of matches) {
         await notify(match);

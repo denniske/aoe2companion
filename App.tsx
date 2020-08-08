@@ -57,6 +57,7 @@ import SplashPage from "./src/view/splash.page";
 import * as Sentry from 'sentry-expo';
 import ErrorSnackbar from "./src/view/components/snackbar/error-snackbar";
 import ErrorPage from "./src/view/error.page";
+import * as Notifications from "expo-notifications";
 
 if (!__DEV__) {
     Sentry.init({
@@ -64,6 +65,20 @@ if (!__DEV__) {
         enableInExpoDevelopment: false,
         debug: false,
     });
+}
+
+try {
+    Notifications.setNotificationHandler({
+        handleNotification: async () => ({
+            shouldShowAlert: true,
+            shouldPlaySound: false,
+            shouldSetBadge: false,
+        }),
+        handleSuccess: notificationId => console.log('success:' + notificationId),
+        handleError: notificationId => console.log('error:' + notificationId),
+    });
+} catch(e) {
+
 }
 
 YellowBox.ignoreWarnings(['Remote debugger']);

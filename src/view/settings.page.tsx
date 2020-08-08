@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {Platform, ScrollView, StyleSheet, View} from 'react-native';
 import {MyText} from "./components/my-text";
 import {DarkMode, setConfig, useMutate, useSelector} from "../redux/reducer";
 import {capitalize} from "lodash-es";
@@ -66,6 +66,16 @@ export default function SettingsPage() {
                 if (!token) {
                     throw 'Could not create token';
                 }
+
+                if (Platform.OS === 'android') {
+                    await Notifications.setNotificationChannelAsync('default', {
+                        name: 'default',
+                        importance: Notifications.AndroidImportance.MAX,
+                        vibrationPattern: [0, 250, 250, 250],
+                        lightColor: '#FF231F7C',
+                    });
+                }
+
                 await setAccountPushToken(accountId, token);
                 if (auth && auth.profile_id) {
                     await setAccountProfile(accountId, auth.profile_id, auth.steam_id);

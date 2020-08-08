@@ -9,16 +9,7 @@ import {Button} from "react-native-paper";
 import {AndroidNotificationPriority} from "expo-notifications";
 import {IosAuthorizationStatus} from "expo-notifications/build/NotificationPermissions.types";
 import {maskToken} from "../service/push";
-
-Notifications.setNotificationHandler({
-    handleNotification: async () => ({
-        shouldShowAlert: true,
-        shouldPlaySound: false,
-        shouldSetBadge: false,
-    }),
-    handleSuccess: notificationId => console.log('success:' + notificationId),
-    handleError: notificationId => console.log('error:' + notificationId),
-});
+import {useSelector} from "../redux/reducer";
 
 interface FirebaseData {
     title?: string;
@@ -61,6 +52,7 @@ export default function PushPage() {
     const [notification, setNotification] = useState<Notifications.Notification>();
     const notificationListener = useRef<any>();
     const responseListener = useRef<any>();
+    const account = useSelector(state => state.account);
 
     const log = (...message: any) => {
         setMessages(messages => [...messages, message.join(' ')]);
@@ -91,7 +83,7 @@ export default function PushPage() {
             log(maskToken(token));
 
             if (Platform.OS === 'android') {
-                Notifications.setNotificationChannelAsync('default', {
+                await Notifications.setNotificationChannelAsync('default', {
                     name: 'default',
                     importance: Notifications.AndroidImportance.MAX,
                     vibrationPattern: [0, 250, 250, 250],
@@ -144,6 +136,9 @@ export default function PushPage() {
         <ScrollView
             style={styles.container}
             contentContainerStyle={styles.content}>
+            <MyText>{account ? 'Account' : ''}</MyText>
+            <MyText>{account ? account.id : 'Could not retrieve account.'}</MyText>
+            <MyText/>
             <MyText>{expoPushToken ? maskToken(expoPushToken) : 'Could not retrieve push token.'}</MyText>
             {
                 notification &&
