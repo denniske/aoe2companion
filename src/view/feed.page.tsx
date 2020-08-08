@@ -15,12 +15,13 @@ import {IFetchedUser} from "../service/user";
 import PlayerList, {IPlayerListPlayer} from "./components/player-list";
 // import {useCavy} from "cavy";
 import {MyText} from "./components/my-text";
-import {orderBy} from "lodash-es";
+import {isEqual, orderBy} from "lodash-es";
 import {ITheme, makeVariants, useTheme} from "../theming";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import RefreshControlThemed from "./components/refresh-control-themed";
 import {toggleFollowing} from "../service/following";
 import {fetchPlayerMatches} from "../api/player-matches";
+import {IFollowingEntry} from "../service/storage";
 
 
 export function feedTitle(props: any) {
@@ -73,7 +74,8 @@ export function FeedList() {
 
     const auth = useSelector(state => state.auth);
     const following = useSelector(state => state.following);
-    const prevFollowing = usePrevious({following});
+    const [prevFollowing, setPrevFollowing] = useState<IFollowingEntry[] | null>(null);
+    // const prevFollowing = usePrevious({following});
 
     // console.log("following", following);
 
@@ -93,15 +95,23 @@ export function FeedList() {
 
     const refresh = () => {
         if (!isActiveRoute) return;
-        // AsyncStorage.removeItem('following');
-        // console.log("refresh <-->");
-        // console.log("following2", following);
-        // console.log("prevFollowing2", prevFollowing);
+
+        if (isEqual(prevFollowing, following)) {
+            // console.log("FEEDLIST", 'same');
+            // console.log("FEEDLIST", prevFollowing);
+            // console.log("FEEDLIST", following);
+            return;
+        }
+
         if (prevFollowing == null) {
+            // console.log("FEEDLIST", 'init');
             matches.init('aoe2de', 0, 15, following);
         } else {
+            // console.log("FEEDLIST", 'refetch');
             matches.refetch('aoe2de', 0, 15, following);
         }
+
+        setPrevFollowing(following);
     };
 
     useEffect(() => {
@@ -121,6 +131,7 @@ export function FeedList() {
     const onEndReached = async () => {
         if (fetchingMore || !matches.data) return;
         setFetchingMore(true);
+        // console.log("FEEDLIST", 'onEndReached');
         await matches.refetch('aoe2de', 0, (matches.data?.length ?? 0) + 15, following);
         setFetchingMore(false);
     };
