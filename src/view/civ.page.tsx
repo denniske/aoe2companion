@@ -81,7 +81,6 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
     return (
         <View style={styles.detailsContainer}>
             <MyText style={styles.content}>{type}</MyText>
-            {/*<MyText/>*/}
 
             <View style={styles.box}>
                 <MyText style={styles.heading}>Bonus</MyText>

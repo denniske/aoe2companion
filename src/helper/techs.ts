@@ -1961,6 +1961,9 @@ export function getTechData(tech: Tech) {
         throw Error(`getTechName ${tech} - no dataId`);
     }
     const dataId = techEntry.dataId;
+    if (dataId == null) {
+        throw Error(`getTechName ${tech} - no dataId`);
+    }
     return aoeData.data.techs[dataId] as ITechInfo;
 }
 

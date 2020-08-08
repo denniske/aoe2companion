@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '14.0.7': [
+        {
+            type: 'bugfix',
+            title: 'Fix civ/unit/tech/building screens',
+        },
+    ],
     '14.0.6': [
         {
             type: 'bugfix',

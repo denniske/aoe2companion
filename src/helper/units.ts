@@ -2178,10 +2178,10 @@ export const unitLines: IUnitLineDict = {
 
 const unitsInternal = {
     'Sheep': {
-        dataId: '-1', // Placeholder data id. Sheep does not exist in data.
+        dataId: '128', // Placeholder data id. Sheep does not exist in data.
     },
     'Boar': {
-        dataId: '-1', // Placeholder data id. Boar does not exist in data.
+        dataId: '128', // Placeholder data id. Boar does not exist in data.
     },
     'TradeCart': {
         dataId: '128',
@@ -2935,7 +2935,11 @@ export function getUnitLineForUnit(unit: Unit) {
 }
 
 export function getUnitLineNameForUnit(unit: Unit) {
-    return unitList.find(ul => ul.units.includes(unit))!.name;
+    const unitInfo = unitList.find(ul => ul.units.includes(unit));
+    if (unitInfo == null) {
+        return getUnitName(unit);
+    }
+    return unitInfo.name;
 }
 
 export function getInferiorUnitLines(unitLineName: UnitLine) {
