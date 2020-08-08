@@ -2,6 +2,20 @@ import {Flag} from "./flags";
 import {AoeMap} from "./maps";
 import {LeaderboardId} from "./leaderboards";
 
+
+export const slotTypes = {
+    1: 'Player',
+    5: 'Open',
+    3: 'AI',
+    4: 'Closed',
+} as const;
+
+export type SlotType = keyof typeof slotTypes;
+
+export function getSlotTypeName(slotType: SlotType) {
+    return slotTypes[slotType] || slotType;
+}
+
 export interface IPlayer {
     civ: number;
     clan: string;
@@ -14,7 +28,7 @@ export interface IPlayer {
     rating: number;
     rating_change: any;
     slot: number;
-    slot_type: number;
+    slot_type: SlotType;
     steam_id: string;
     streak: any;
     team: number;
@@ -35,7 +49,7 @@ export interface ILobbyPlayerRaw {
     profileId: number;
     rating: number;
     slot: number;
-    slotType: number;
+    slotType: SlotType;
     steamId: string;
     streak: number;
     unrankedRating: number;

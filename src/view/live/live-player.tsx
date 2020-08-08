@@ -3,7 +3,7 @@ import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {userIdFromBase} from '../../helper/user';
 import {RootStackProp} from '../../../App';
-import {ILobbyPlayerRaw} from "../../helper/data";
+import {getSlotTypeName, ILobbyPlayerRaw} from "../../helper/data";
 import IconFA5 from 'react-native-vector-icons/FontAwesome5';
 import {useSelector} from "../../redux/reducer";
 import {ITheme, makeVariants, useAppTheme, useTheme} from "../../theming";
@@ -13,12 +13,6 @@ import {getFlagIcon} from "../../helper/flags";
 interface IPlayerProps {
     player: ILobbyPlayerRaw | null;
 }
-
-const slotTypes = {
-    5: 'Open',
-    3: 'AI',
-    4: 'Closed',
-};
 
 export function LivePlayer({player}: IPlayerProps) {
     const theme = useAppTheme();
@@ -58,7 +52,7 @@ export function LivePlayer({player}: IPlayerProps) {
                 </View>
                 <MyText style={styles.playerRatingCol}>{player.rating}</MyText>
                 <MyText style={styles.playerNameCol} numberOfLines={1}>
-                    {player.slotType != 1 ? slotTypes[player.slotType as keyof typeof slotTypes] : player.name}
+                    {player.slotType != 1 ? getSlotTypeName(player.slotType) : player.name}
                 </MyText>
                 <MyText style={styles.playerGamesCol}>{player.games && player.games + ''}</MyText>
                 <MyText style={styles.playerWonCol}>{player.games && (player?.wins / player?.games * 100).toFixed(0) + ' %'}</MyText>

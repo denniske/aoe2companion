@@ -10,6 +10,16 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '14.0.8': [
+        {
+            type: 'minor',
+            title: 'Show AI in match details',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix fetching more player matches',
+        },
+    ],
     '14.0.7': [
         {
             type: 'bugfix',

@@ -12,7 +12,7 @@ import {civs, getCivIconByIndex} from '../../helper/civs';
 import {getString} from '../../helper/strings';
 import {RootStackProp} from '../../../App';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import {IPlayer} from "../../helper/data";
+import {getSlotTypeName, IPlayer} from "../../helper/data";
 import {TextLoader} from "./loader/text-loader";
 import IconFA5 from 'react-native-vector-icons/FontAwesome5';
 import {MyText} from "./my-text";
@@ -96,7 +96,9 @@ export function Player({player}: IPlayerProps) {
                 </View>
 
                 <MyText style={styles.playerRatingCol}>{player.rating}</MyText>
-                <MyText style={[styles.playerNameCol, playerNameStyle]} numberOfLines={1}>{player.name}</MyText>
+                <MyText style={[styles.playerNameCol, playerNameStyle]} numberOfLines={1}>
+                    {player.slot_type != 1 ? getSlotTypeName(player.slot_type) : player.name}
+                </MyText>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.civCol} onPress={() => navigation.push('Civ', {civ: civs[player.civ]})}>
