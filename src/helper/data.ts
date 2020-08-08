@@ -5,9 +5,9 @@ import {LeaderboardId} from "./leaderboards";
 
 export const slotTypes = {
     1: 'Player',
-    5: 'Open',
     3: 'AI',
     4: 'Closed',
+    5: 'Open',
 } as const;
 
 export type SlotType = keyof typeof slotTypes;

@@ -33,6 +33,7 @@ export async function fetchPlayerMatches(game: string, start: number, count: num
     const response = await fetch(url)
     const json = await response.json() as IMatchRaw[];
     // console.log("matches json", json);
+    // console.log("matches json", json.filter(m => m.players.some(p => ![1,3,4,5].includes(p.slot_type))));
 
     return json.map(match => convertTimestampsToDates(match));
 }
