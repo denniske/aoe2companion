@@ -153,6 +153,7 @@ export interface AppState {
 }
 
 const initialState: Partial<AppState> = {
+  config: undefined,
   user: {},
   leaderboard: {},
   auth: undefined,

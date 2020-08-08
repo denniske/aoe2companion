@@ -57,7 +57,7 @@ export const loadConfigFromStorage = async () => {
     const entry = await AsyncStorage.getItem('config');
     if (entry == null) {
         return {
-            darkMode: 'light',
+            darkMode: 'system',
         };
     }
     return JSON.parse(entry) as IConfig;

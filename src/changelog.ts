@@ -16,6 +16,10 @@ export const changelog: IChangelog = {
             title: 'Show AI in match details',
         },
         {
+            type: 'minor',
+            title: 'Change default dark mode to system',
+        },
+        {
             type: 'bugfix',
             title: 'Fix fetching more player matches',
         },

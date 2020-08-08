@@ -414,6 +414,7 @@ export function AppWrapper() {
     // AsyncStorage.removeItem('prefs');
     // AsyncStorage.removeItem('settings');
     // AsyncStorage.removeItem('following');
+    // AsyncStorage.removeItem('config');
 
     console.log(' ');
     console.log(' ');
