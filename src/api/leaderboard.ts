@@ -1,7 +1,8 @@
 import { makeQueryString } from '../helper/util';
-import {ILeaderboard, ILeaderboardRaw} from "../helper/data";
+import {ILeaderboard, ILeaderboardRaw, IRatingHistoryEntryRaw} from "../helper/data";
 import {fromUnixTime} from "date-fns";
 import { getHost } from './host';
+import {fetchJson} from "./util";
 
 
 function convertTimestampsToDates(leaderboardRaw: ILeaderboardRaw): ILeaderboard {
@@ -30,17 +31,9 @@ async function fetchLeaderboardInternal(baseUrl: string, game: string, leaderboa
         leaderboard_id,
         ...params,
     });
-
     const url = baseUrl + `api/leaderboard?${queryString}`;
-    const response = await fetch(url);
-    console.log(url);
-    try {
-        const json = await response.json();
-        return convertTimestampsToDates(json);
-    } catch (e) {
-        console.log("FAILED", e);
-        throw e;
-    }
+    const json = await fetchJson('fetchLeaderboard', url);
+    return convertTimestampsToDates(json);
 }
 
 export async function fetchLeaderboard(game: string, leaderboard_id: number, params: IFetchLeaderboardParams) {

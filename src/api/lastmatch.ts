@@ -1,6 +1,7 @@
-import {IMatch, IMatchRaw} from "../helper/data";
+import {IMatch, IMatchRaw, IRatingHistoryEntryRaw} from "../helper/data";
 import {fromUnixTime} from "date-fns";
 import {getHost} from "./host";
+import {fetchJson} from "./util";
 
 
 function convertTimestampsToDates(json: IMatchRaw): IMatch {
@@ -14,8 +15,6 @@ function convertTimestampsToDates(json: IMatchRaw): IMatch {
 
 export async function fetchLastMatch(game: string, profile_id: string) {
     const url = getHost('aoe2net') + `api/player/lastmatch?game=${game}&profile_id=${profile_id}`;
-    console.log(url);
-    const response = await fetch(url);
-    const json = await response.json();
+    const json = await fetchJson('fetchLastMatch', url);
     return convertTimestampsToDates(json.last_match);
 }

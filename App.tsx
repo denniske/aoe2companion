@@ -58,12 +58,13 @@ import * as Sentry from 'sentry-expo';
 import ErrorSnackbar from "./src/view/components/snackbar/error-snackbar";
 import ErrorPage from "./src/view/error.page";
 
-
-Sentry.init({
-    dsn: 'https://9081bd9af23c4367b6023a6b62d48164@o329359.ingest.sentry.io/5382944',
-    enableInExpoDevelopment: true,
-    debug: true,
-});
+if (!__DEV__) {
+    Sentry.init({
+        dsn: 'https://9081bd9af23c4367b6023a6b62d48164@o329359.ingest.sentry.io/5382944',
+        enableInExpoDevelopment: false,
+        debug: false,
+    });
+}
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
