@@ -312,7 +312,7 @@ const getStyles = (theme: ITheme) => {
             fontSize: 12,
             color: theme.textNoteColor,
         },
-
+        
         heading: {
             paddingVertical: 12,
             marginBottom: 5,

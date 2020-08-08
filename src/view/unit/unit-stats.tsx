@@ -167,6 +167,7 @@ const getStyles = (theme: ITheme) => {
         cellName: {
             padding: padding,
             flex: 4,
+            fontWeight: 'bold',
         },
         cellValue: {
             padding: padding,

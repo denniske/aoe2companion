@@ -120,7 +120,7 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
               groups.map(group =>
                   <View key={group.name}>
                       <View style={styles.row}>
-                          <MyText size="headline">{group.name}</MyText>
+                          <MyText style={styles.header2}>{group.name}</MyText>
                       </View>
                       {
                           group.upgrades.map(upgrade =>
@@ -151,7 +151,7 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
               <View>
                   <MyText/>
                   <View style={styles.row}>
-                      <MyText size="headline">Upgraded From</MyText>
+                      <MyText style={styles.header2}>Upgraded From</MyText>
                   </View>
                   <TouchableOpacity onPress={() => gotoUnit(upgradedFrom)}>
                       <View style={styles.row}>
@@ -166,7 +166,7 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
               <View>
                   <MyText/>
                   <View style={styles.row}>
-                      <MyText size="headline">Upgraded To</MyText>
+                      <MyText style={styles.header2}>Upgraded To</MyText>
                   </View>
                   <TouchableOpacity disabled={unitLine.unique} onPress={() => gotoUnit(upgradedTo)}>
                       <View style={styles.row}>
@@ -235,7 +235,6 @@ const getStyles = (theme: ITheme) => {
         },
         header2: {
             fontSize: 16,
-            fontWeight: '300',
             marginVertical: 5,
         },
         unitIcon: {

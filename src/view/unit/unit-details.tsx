@@ -140,7 +140,11 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
             }
 
             <MyText/>
-
+            <View style={styles.row}>
+                <MyText style={styles.header1}>
+                    Upgrades
+                </MyText>
+            </View>
             <UnitUpgrades unitLineId={unitLineId} unitId={unitName} />
 
             <View style={appStyles.expanded}/>
@@ -180,11 +184,10 @@ const getStyles = (theme: ITheme) => {
         },
         header1: {
             fontSize: 18,
-            fontWeight: '500',
+            fontWeight: 'bold',
         },
         header2: {
             fontSize: 16,
-            fontWeight: '300',
             marginVertical: 5,
         },
         unitIcon: {
