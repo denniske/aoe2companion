@@ -2,6 +2,20 @@ import {Flag} from "./flags";
 import {AoeMap} from "./maps";
 import {LeaderboardId} from "./leaderboards";
 
+
+export const slotTypes = {
+    1: 'Player',
+    3: 'AI',
+    4: 'Closed',
+    5: 'Open',
+} as const;
+
+export type SlotType = keyof typeof slotTypes;
+
+export function getSlotTypeName(slotType: SlotType) {
+    return slotTypes[slotType] || slotType;
+}
+
 export interface IPlayer {
     civ: number;
     clan: string;
@@ -14,13 +28,69 @@ export interface IPlayer {
     rating: number;
     rating_change: any;
     slot: number;
-    slot_type: number;
+    slot_type: SlotType;
     steam_id: string;
     streak: any;
     team: number;
     wins: any;
     won: any;
 }
+
+export interface ILobbyPlayerRaw {
+    color: number;
+    civ: number;
+    avatar: string;
+    avatarfull: string;
+    avatarmedium: string;
+    countryCode: Flag;
+    drops: number;
+    games: number;
+    name: string;
+    profileId: number;
+    rating: number;
+    slot: number;
+    slotType: SlotType;
+    steamId: string;
+    streak: number;
+    unrankedRating: number;
+    wins: number;
+}
+
+export interface ILobbyMatchRaw {
+    active: boolean;
+    appId: number;
+    averageRating: number;
+    cheats: boolean;
+    full: boolean;
+    fullTechTree: boolean;
+    gameType: string;
+    gameTypeId: number;
+    hasPassword: boolean;
+    hidden: boolean;
+    id: string;
+    location: string;
+    lockSpeed: boolean;
+    lockTeams: boolean;
+    mapSize: string;
+    name: string;
+    numPlayers: number;
+    numSlots: number;
+    players: ILobbyPlayerRaw[];
+    pop: number;
+    ranked: boolean;
+    ratingType: number;
+    resources: string;
+    server: string;
+    sharedExploration: boolean;
+    speed: string;
+    startingAge: string;
+    status: string;
+    steamLobbyId: string;
+    turbo: boolean;
+    victory: string;
+    visibility: string;
+}
+
 
 export interface IMatchRaw {
     average_rating: any;

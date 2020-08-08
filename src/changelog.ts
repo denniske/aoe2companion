@@ -10,6 +10,102 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '14.0.8': [
+        {
+            type: 'minor',
+            title: 'Change default dark mode to system',
+        },
+        {
+            type: 'bugfix',
+            title: 'Show AI in match player list',
+        },
+        {
+            type: 'bugfix',
+            title: 'Filtering of unique unit counters for both weak vs. / strong vs.',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix fetching more player matches',
+        },
+    ],
+    '14.0.7': [
+        {
+            type: 'bugfix',
+            title: 'Fix civ/unit/tech/building screens',
+        },
+    ],
+    '14.0.6': [
+        {
+            type: 'bugfix',
+            title: 'Fixed storage of settings',
+        },
+    ],
+    '14.0.5': [
+        {
+            type: 'feature',
+            title: 'Push Notifications when followed player starts match (see settings)',
+        },
+        {
+            type: 'feature',
+            title: 'Increased followed players limit to 30',
+        },
+        {
+            type: 'minor',
+            title: 'Faster following page',
+        },
+        {
+            type: 'bugfix',
+            title: 'Try to fix country selector width',
+        },
+    ],
+    '14.0.4': [
+        {
+            type: 'bugfix',
+            title: 'Fixed country selector',
+        },
+    ],
+    '14.0.3': [
+        {
+            type: 'feature',
+            title: 'Add unique unit counters',
+        },
+    ],
+    '14.0.2': [
+        {
+            type: 'bugfix',
+            title: 'Try to fix country selector',
+        },
+    ],
+    '14.0.0': [
+        {
+            type: 'minor',
+            title: 'Prepare push notifications',
+        },
+    ],
+    '13.0.0': [
+        {
+            type: 'minor',
+            title: 'More info in user profile',
+        },
+    ],
+    '12.0.14': [
+        {
+            type: 'minor',
+            title: 'Prepare push notifications',
+        },
+    ],
+    '12.0.13': [
+        {
+            type: 'bugfix',
+            title: 'Lobby Browser now removes lobbies correctly',
+        },
+    ],
+    '12.0.12': [
+        {
+            type: 'feature',
+            title: 'Lobby Browser',
+        },
+    ],
     '12.0.11': [
         {
             type: 'bugfix',

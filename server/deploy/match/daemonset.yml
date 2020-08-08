@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: aoe2companion-match
+  namespace: default
+  labels:
+    app: aoe2companion-match
+spec:
+  minReadySeconds: 30
+  selector:
+    matchLabels:
+      app: aoe2companion-match
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: aoe2companion-match
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: aoe2companion-match
+          image: denniske/aoe2companion-match:$COMMIT_SHA1
+          ports:
+            - containerPort: 80
+              name: http
+          envFrom:
+            - secretRef:
+                name: server-secret
+          env:
+            - name: PORT
+              value: "80"
+            - name: K8S_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name

@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import {DefaultTheme as NavigationDefaultTheme, DarkTheme as NavigationDarkTheme, NavigationContainer, useNavigation} from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import MainPage from './src/view/main.page';
+import MainPage, {mainMenu} from './src/view/main.page';
 import {
     AsyncStorage, BackHandler,
     Linking, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View, YellowBox
@@ -13,6 +13,7 @@ import {composeUserId, parseUserId, UserId} from './src/helper/user';
 import UserPage from './src/view/user.page';
 import {useApi} from './src/hooks/use-api';
 import {
+    loadAccountFromStorage,
     loadConfigFromStorage, loadFollowingFromStorage, loadPrefsFromStorage, loadSettingsFromStorage
 } from './src/service/storage';
 import AboutPage from './src/view/about.page';
@@ -50,6 +51,9 @@ import ChangelogPage from "./src/view/changelog.page";
 import ChangelogSnackbar from "./src/view/components/changelog-snackbar";
 import {Building} from "./src/helper/buildings";
 import BuildingPage, {BuildingTitle, buildingTitle} from "./src/view/building/building.page";
+import LivePage from "./src/view/live.page";
+import PushPage from "./src/view/push.page";
+import SplashPage from "./src/view/splash.page";
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -103,6 +107,10 @@ const linking = {
 };
 
 export type RootStackParamList = {
+    Splash: undefined;
+    Tips: undefined;
+    Push: undefined;
+    Live: undefined;
     Welcome: undefined;
     Privacy: undefined;
     About: undefined;
@@ -198,11 +206,26 @@ export function InnerApp() {
                 headerStatusBarHeight: 0,
                 animationEnabled: false,
             }}>
+                {/*<Stack.Screen*/}
+                {/*    name="Tips"*/}
+                {/*    component={TipsPage}*/}
+                {/*    options={{*/}
+                {/*        title: 'Tips & Tricks',*/}
+                {/*    }}*/}
+                {/*/>*/}
+                <Stack.Screen
+                    name="Splash"
+                    component={SplashPage}
+                    options={{
+                        title: '',
+                    }}
+                />
                 <Stack.Screen
                     name="Main"
                     component={MainPage}
                     options={{
                         title: 'Me',
+                        headerRight: mainMenu(),
                     }}
                 />
                 <Stack.Screen
@@ -217,6 +240,20 @@ export function InnerApp() {
                     component={AboutPage}
                     options={{
                         title: 'About',
+                    }}
+                />
+                <Stack.Screen
+                    name="Live"
+                    component={LivePage}
+                    options={{
+                        title: 'Lobbies',
+                    }}
+                />
+                <Stack.Screen
+                    name="Push"
+                    component={PushPage}
+                    options={{
+                        title: 'Push Notifications',
                     }}
                 />
                 <Stack.Screen
@@ -377,10 +414,12 @@ export function AppWrapper() {
     // AsyncStorage.removeItem('prefs');
     // AsyncStorage.removeItem('settings');
     // AsyncStorage.removeItem('following');
+    // AsyncStorage.removeItem('config');
 
     console.log(' ');
     console.log(' ');
 
+    const account = useSelector(state => state.account);
     const auth = useSelector(state => state.auth);
     const following = useSelector(state => state.following);
     const prefs = useSelector(state => state.prefs);
@@ -389,6 +428,7 @@ export function AppWrapper() {
     const colorScheme = useColorScheme();
 
     // Trigger loading of auth and following
+    const _account = useApi({}, [account], state => state.account, (state, value) => state.account = value, () => loadAccountFromStorage());
     const _auth = useApi({}, [auth], state => state.auth, (state, value) => state.auth = value, () => loadSettingsFromStorage());
     const _following = useApi({}, [following], state => state.following, (state, value) => state.following = value, () => loadFollowingFromStorage());
     const _prefs = useApi({}, [prefs], state => state.prefs, (state, value) => state.prefs = value, () => loadPrefsFromStorage());
@@ -399,10 +439,6 @@ export function AppWrapper() {
     }
 
     const finalDarkMode = darkMode === "system" && (colorScheme === 'light' || colorScheme === 'dark') ? colorScheme : darkMode;
-
-    // console.log('Dark mode', darkMode);
-    // console.log('Appearance mode', colorScheme);
-    // console.log('Final mode', finalDarkMode);
 
     return (
         <NavigationContainer ref={navigationRef}

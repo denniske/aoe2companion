@@ -12,7 +12,7 @@ import {civs, getCivIconByIndex} from '../../helper/civs';
 import {getString} from '../../helper/strings';
 import {RootStackProp} from '../../../App';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import {IPlayer} from "../../helper/data";
+import {getSlotTypeName, IPlayer} from "../../helper/data";
 import {TextLoader} from "./loader/text-loader";
 import IconFA5 from 'react-native-vector-icons/FontAwesome5';
 import {MyText} from "./my-text";
@@ -80,28 +80,28 @@ export function Player({player}: IPlayerProps) {
             {/*    <Rating ratingHistories={rating.data}/>*/}
             {/*</SimpleModal>*/}
 
-            <View style={styles.playerWonCol}>
-                {
-                    player.won &&
-                    <IconFA5 name="crown" size={14} style={{}} color="goldenrod" />
-                }
-            </View>
+            <TouchableOpacity style={styles.playerCol} onPress={gotoPlayer}>
 
-            <View style={styles.squareCol}>
-                <View style={boxStyle}>
-                    <MyText style={styles.squareText}>{player.color}</MyText>
+                <View style={styles.playerWonCol}>
+                    {
+                        player.won &&
+                        <IconFA5 name="crown" size={14} style={{}} color="goldenrod" />
+                    }
                 </View>
-            </View>
 
-            <TouchableOpacity style={styles.playerRatingCol} onPress={gotoPlayer}>
-                <MyText>{player.rating}</MyText>
+                <View style={styles.squareCol}>
+                    <View style={boxStyle}>
+                        <MyText style={styles.squareText}>{player.color}</MyText>
+                    </View>
+                </View>
+
+                <MyText style={styles.playerRatingCol}>{player.rating}</MyText>
+                <MyText style={[styles.playerNameCol, playerNameStyle]} numberOfLines={1}>
+                    {player.slot_type != 1 ? getSlotTypeName(player.slot_type) : player.name}
+                </MyText>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.playerNameCol} onPress={gotoPlayer}>
-                <MyText style={playerNameStyle} numberOfLines={1}>{player.name}</MyText>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => navigation.push('Civ', {civ: civs[player.civ]})}>
+            <TouchableOpacity style={styles.civCol} onPress={() => navigation.push('Civ', {civ: civs[player.civ]})}>
                 <View style={styles.row}>
                     <Image style={styles.countryIcon} fadeDuration={0} source={getCivIconByIndex(player.civ) as any}/>
                     <MyText> {getString('civ', player.civ)}</MyText>
@@ -137,7 +137,22 @@ const getStyles = (theme: ITheme) =>
         },
         playerRatingCol: {
             marginLeft: 7,
-            width: 35,
+            width: 38,
+            letterSpacing: -0.5,
+            fontVariant: ['tabular-nums'],
+        },
+        playerCol: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginLeft: 5,
+            flex: 1,
+            paddingVertical: 3,
+        },
+        civCol: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginLeft: 5,
+            paddingVertical: 3,
         },
         playerNameCol: {
             marginLeft: 5,
@@ -156,7 +171,7 @@ const getStyles = (theme: ITheme) =>
         },
         player: {
             flexDirection: 'row',
-            padding: 3,
+            // padding: 3,
             // backgroundColor: 'red',
             alignItems: 'center',
             // borderColor: 'black',

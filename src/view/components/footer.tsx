@@ -1,5 +1,5 @@
 import {Image, Linking, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon5 from 'react-native-vector-icons/FontAwesome5';
 import {Divider, Menu} from 'react-native-paper';
@@ -8,6 +8,7 @@ import {getRootNavigation} from "../../service/navigation";
 import {useNavigationStateExternal} from "../../hooks/use-navigation-state-external";
 import {MyText} from "./my-text";
 import {ITheme, makeVariants, useTheme} from "../../theming";
+import * as Notifications from "expo-notifications";
 
 
 export default function Footer() {
@@ -15,6 +16,9 @@ export default function Footer() {
     const [menu, setMenu] = useState(false);
     const navigationState = useNavigationStateExternal();
     const activeRoute = navigationState?.routes[0];
+    const notificationListener = useRef<any>();
+    const responseListener = useRef<any>();
+    const initialRouteHandle = useRef<any>();
 
     const nav = async (route: keyof RootStackParamList) => {
         const navigation = getRootNavigation();
@@ -34,6 +38,38 @@ export default function Footer() {
         const isActiveRoute = routes.includes(activeRoute?.name);
         return isActiveRoute ? styles.iconActive : styles.iconInPopup;
     };
+
+    useEffect(() => {
+        initialRouteHandle.current = setTimeout(() => {
+            nav('Main');
+        }, 10);
+
+        try {
+            // Notification is received while the app is foregrounded
+            notificationListener.current = Notifications.addNotificationReceivedListener(notification2 => {
+                console.log('notificationListener', notification2);
+            });
+
+            // A user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
+            responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+                console.log('responseListener', response.notification);
+                clearTimeout(initialRouteHandle.current);
+                nav('Feed');
+            });
+        } catch(e) {
+            console.log(e);
+        }
+
+        return () => {
+            try {
+                clearTimeout(initialRouteHandle.current);
+                Notifications.removeNotificationSubscription(notificationListener.current);
+                Notifications.removeNotificationSubscription(responseListener.current);
+            } catch(e) {
+                console.log(e);
+            }
+        };
+    }, []);
 
     // setTimeout(() => setMenu(true), 100);
 
@@ -80,6 +116,10 @@ export default function Footer() {
                         <Menu.Item icon={useIcon('exchange-alt', 'Changelog')} titleStyle={iconPopupStyle('Changelog')} onPress={() => { nav('Changelog'); setMenu(false); }} title="Changelog" />
                         <Divider />
                         <Menu.Item icon={useIcon('cog', 'Settings')} titleStyle={iconPopupStyle('Settings')} onPress={() => { nav('Settings'); setMenu(false); }} title="Settings" />
+                        <Divider />
+                        {/*<Menu.Item icon={useIcon('lightbulb', 'Tips')} titleStyle={iconPopupStyle('Tips')} onPress={() => { nav('Tips'); setMenu(false); }} title="Tips & Tricks" />*/}
+                        {/*<Divider />*/}
+                        <Menu.Item icon={useIcon('play', 'Live')} titleStyle={iconPopupStyle('Live')} onPress={() => { nav('Live'); setMenu(false); }} title="Lobbies" />
                         <Divider />
                         <Menu.Item icon={useIcon('archway', 'Building')} titleStyle={iconPopupStyle('Building')} onPress={() => { nav('Building'); setMenu(false); }} title="Buildings" />
                         <Menu.Item icon={useIcon('flask', 'Tech')} titleStyle={iconPopupStyle('Tech')} onPress={() => { nav('Tech'); setMenu(false); }} title="Techs" />

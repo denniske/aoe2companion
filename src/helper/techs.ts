@@ -1784,7 +1784,7 @@ export const techList: ITech[] = [
 // console.log(newTechList);
 
 
-console.log(techList.filter(t => !t.civ).map(t => t.name));
+// console.log(techList.filter(t => !t.civ).map(t => t.name));
 
 export const techs: ITechDict = Object.assign({}, ...techList.map((x) => ({[x.name]: x})));
 
@@ -1961,6 +1961,9 @@ export function getTechData(tech: Tech) {
         throw Error(`getTechName ${tech} - no dataId`);
     }
     const dataId = techEntry.dataId;
+    if (dataId == null) {
+        throw Error(`getTechName ${tech} - no dataId`);
+    }
     return aoeData.data.techs[dataId] as ITechInfo;
 }
 

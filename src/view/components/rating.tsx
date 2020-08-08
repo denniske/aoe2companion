@@ -9,6 +9,7 @@ import {ViewLoader} from "./loader/view-loader";
 import {formatLeaderboardId} from "../../helper/leaderboards";
 import {merge} from "lodash-es";
 import {useAppTheme, usePaperTheme} from "../../theming";
+import {VictoryZoomContainer} from "victory-native/lib";
 
 interface IRatingProps {
     ratingHistories: IRatingHistoryRow[];
@@ -52,17 +53,24 @@ export default function Rating({ratingHistories}: IRatingProps) {
         return formatDateShort(parseUnixTimestamp(ticks[index]/1000));
     };
 
+    // https://formidable.com/open-source/victory/guides/zoom-on-large-datasets/
+
     return (
             <View style={styles.container}>
 
                 <ViewLoader ready={ratingHistories}>
                     <VictoryChart width={Dimensions.get('screen').width - 40} height={300} theme={themeWithSystemFont}
-                                  padding={{left: 50, bottom: 30, top: 20, right: 20}}>
+                                  padding={{left: 50, bottom: 30, top: 20, right: 20}}
+                                  // containerComponent={
+                                  //     <VictoryZoomContainer key={'zoom'}/>
+                                  // }
+                    >
                         <VictoryAxis crossAxis tickFormat={formatTick} />
                         <VictoryAxis dependentAxis crossAxis />
                         {
                             ratingHistories?.map(ratingHistory => (
                                 <VictoryLine
+                                    name={'line-' + ratingHistory.leaderboard_id}
                                     key={'line-' + ratingHistory.leaderboard_id}
                                     data={ratingHistory.data}
                                     x="timestamp"
@@ -75,7 +83,7 @@ export default function Rating({ratingHistories}: IRatingProps) {
                         {
                             ratingHistories?.map(ratingHistory => (
                                 <VictoryScatter
-                                    name="ad"
+                                    name={'scatter-' + ratingHistory.leaderboard_id}
                                     key={'scatter-' + ratingHistory.leaderboard_id}
                                     data={ratingHistory.data}
                                     x="timestamp"
@@ -126,8 +134,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         flexWrap: 'wrap',
-        marginLeft: 10,
-        marginRight: 10,
+        marginHorizontal: -8,
         marginTop: 10,
         // backgroundColor: 'red',
     },

@@ -10,7 +10,7 @@ export interface IPlayerListPlayer {
     country: Flag;
     games: number;
     name: string;
-    profile_id?: number;
+    profile_id: number;
     steam_id?: string;
 }
 

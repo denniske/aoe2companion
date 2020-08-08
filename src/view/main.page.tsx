@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, Alert, AsyncStorage, FlatList, StyleSheet, Text, View} from 'react-native';
+import {ActivityIndicator, Alert, AsyncStorage, FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Button} from 'react-native-paper';
 import {useApi} from '../hooks/use-api';
 import {loadProfile} from '../service/profile';
@@ -11,7 +11,7 @@ import {clearStatsPlayer, setAuth, setPrefValue, useMutate, useSelector} from '.
 import Profile from './components/profile';
 import {loadRatingHistories} from '../service/rating';
 import Rating from './components/rating';
-import {fetchMatches} from '../api/matches';
+import { fetchPlayerMatches} from '../api/player-matches';
 import {useNavigation} from "@react-navigation/native";
 // import {useCavy} from "cavy";
 import {TabBarLabel} from "./components/tab-bar-label";
@@ -31,7 +31,47 @@ import {getStats} from "../service/stats";
 import RefreshControlThemed from "./components/refresh-control-themed";
 import StatsPosition from "./components/stats-position";
 import {ITheme, makeVariants, useTheme} from "../theming";
+import IconFA5 from "react-native-vector-icons/FontAwesome5";
 
+
+export function mainMenu() {
+    return () => {
+        return <MainMenu/>;
+    }
+}
+
+export function MainMenu() {
+    const styles = useTheme(variants);
+    const mutate = useMutate();
+    const auth = useSelector(state => state.auth!);
+
+    const deleteUser = () => {
+        Alert.alert("Delete Me?", "Do you want to reset me page?",
+            [
+                {text: "Cancel", style: "cancel"},
+                {text: "Reset", onPress: doDeleteUser,}
+            ],
+            {cancelable: false}
+        );
+    };
+
+    const doDeleteUser = async () => {
+        await AsyncStorage.removeItem('settings');
+        mutate(setAuth(null))
+    };
+
+    if (auth == null) {
+        return <View/>;
+    }
+
+    return (
+        <View style={styles.menu}>
+            <TouchableOpacity style={styles.menuButton} onPress={deleteUser}>
+                <IconFA5 style={styles.menuIcon} name="user-times" size={16} />
+            </TouchableOpacity>
+        </View>
+    );
+}
 
 function MainHome() {
     const styles = useTheme(variants);
@@ -68,7 +108,7 @@ function MainHome() {
 
     let allMatches = useLazyApi(
         {},
-        fetchMatches, 'aoe2de', 0, 1000, auth
+        fetchPlayerMatches, 'aoe2de', 0, 1000, [auth]
     );
 
     const cachedData = useSelector(state => get(state.statsPlayer, [auth.id, leaderboardId]));
@@ -109,7 +149,7 @@ function MainHome() {
         setLeaderboardId(leaderboardId);
     };
 
-    const list = ['profile', 'rating-header', 'rating', 'stats-header', 'stats-position', 'stats-player', 'stats-civ', 'stats-map', 'settings-header', 'not-me'];
+    const list = ['profile', 'rating-header', 'rating', 'stats-header', 'stats-position', 'stats-player', 'stats-civ', 'stats-map'];
 
     const deleteUser = () => {
         Alert.alert("Delete Me?", "Do you want to reset me page?",
@@ -131,18 +171,17 @@ function MainHome() {
             <View style={styles.container}>
                 <View style={styles.content}>
                     <FlatList
+                            // scrollEnabled={false}
                             contentContainerStyle={styles.list}
                             data={list}
                             renderItem={({item, index}) => {
                                 switch (item) {
-                                    case 'settings-header':
-                                        return <MyText style={styles.sectionHeader}>Settings</MyText>;
                                     case 'rating-header':
                                         if (rating.data?.length === 0) return <View/>;
                                         return <MyText style={styles.sectionHeader}>Rating History</MyText>;
                                     case 'stats-header':
                                         return <View>
-                                            <MyText style={styles.sectionHeader}>Stats</MyText>
+                                            <MyText style={styles.sectionHeader}>Statistics</MyText>
 
                                             <View style={styles.pickerRow}>
                                                 <ActivityIndicator animating={loadingMatchesOrStats} size="small"/>
@@ -184,13 +223,6 @@ function MainHome() {
                                     case 'rating':
                                         if (rating.data?.length === 0) return <View/>;
                                         return <Rating ratingHistories={rating.data}/>;
-                                    case 'not-me':
-                                        return (
-                                            <View>
-                                                <MyText/>
-                                                <Button mode="outlined" onPress={deleteUser}>This is not me</Button>
-                                            </View>
-                                        );
                                     default:
                                         return <View/>;
                                 }
@@ -238,7 +270,7 @@ function MainMatches() {
                 }
                 state.user[auth.id].matches = value;
             },
-            fetchMatches, 'aoe2de', 0, 15, auth
+            fetchPlayerMatches, 'aoe2de', 0, 15, [auth]
     );
 
     const onRefresh = async () => {
@@ -251,7 +283,7 @@ function MainMatches() {
         if (fetchingMore) return;
         setFetchingMore(true);
         const matchesLength = matches.data?.length ?? 0;
-        const newMatchesData = await matches.refetch('aoe2de', 0, matchesLength + 15, auth);
+        const newMatchesData = await matches.refetch('aoe2de', 0, matchesLength + 15, [auth]);
         if (matchesLength === newMatchesData?.length) {
             setFetchedAll(true);
         }
@@ -318,7 +350,7 @@ export default function MainPage() {
     }
 
     return (
-            <Tab.Navigator lazy={true}>
+            <Tab.Navigator lazy={true} swipeEnabled={true}>
                 <Tab.Screen name="MainHome" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="Profile"/>}} component={MainHome}/>
                 <Tab.Screen name="MainMatches" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="Matches"/>}} component={MainMatches}/>
             </Tab.Navigator>
@@ -327,6 +359,25 @@ export default function MainPage() {
 
 const getStyles = (theme: ITheme) => {
     return StyleSheet.create({
+        menu: {
+            // backgroundColor: 'red',
+            flexDirection: 'row',
+            flex: 1,
+            marginRight: 10,
+        },
+        menuButton: {
+            // backgroundColor: 'blue',
+            width: 40,
+            justifyContent: 'center',
+            alignItems: 'center',
+            margin: 0,
+            marginHorizontal: 2,
+        },
+        menuIcon: {
+            opacity: 0.5,
+            color: theme.textColor,
+        },
+
         info: {
             textAlign: 'center',
             marginBottom: 10,
@@ -343,14 +394,10 @@ const getStyles = (theme: ITheme) => {
             marginBottom: 10
         },
         sectionHeader: {
-            marginTop: 30,
-            marginBottom: 15,
+            marginVertical: 25,
             fontSize: 15,
             fontWeight: '500',
             textAlign: 'center',
-        },
-        outlineButton: {
-            backgroundColor: 'red',
         },
         list: {
             padding: 20,

@@ -4,7 +4,6 @@ import {aoeData, aoeStringKey, aoeUnitDataId} from "../data/data";
 import {keysOf, strRemoveFrom, strRemoveTo, unwrap, ValueOf} from "./util";
 import {sortBy, uniq} from "lodash-es";
 import {Civ} from "./civs";
-import { tr } from "date-fns/locale";
 
 
 export interface IUnitLine {
@@ -23,7 +22,7 @@ interface IUnitLineDict {
     [unit: string]: IUnitLine;
 }
 
-export const unitLineNames = [
+export const unitLineIds = [
     'TradeCart',
     'TradeCog',
     'FishingShip',
@@ -2178,6 +2177,12 @@ export const unitLines: IUnitLineDict = {
 };
 
 const unitsInternal = {
+    'Sheep': {
+        dataId: '128', // Placeholder data id. Sheep does not exist in data.
+    },
+    'Boar': {
+        dataId: '128', // Placeholder data id. Boar does not exist in data.
+    },
     'TradeCart': {
         dataId: '128',
     },
@@ -2615,7 +2620,7 @@ const unitsInternal = {
     },
 };
 
-const UnitLineUnion = unwrap(unitLineNames);
+const UnitLineUnion = unwrap(unitLineIds);
 export type UnitLine = typeof UnitLineUnion;
 
 export const units = unitsInternal as UnitDict;
@@ -2644,7 +2649,7 @@ export type ICostDict = {
 export interface IUnitInfo {
     AccuracyPercent: number;
     Attack: number;
-    Attacks: IUnitClassPair[];
+    Attacks: ReadonlyArray<IUnitClassPair>;
     Cost: ICostDict;
     FrameDelay: number;
     GarrisonCapacity: number;
@@ -2656,7 +2661,7 @@ export interface IUnitInfo {
     MeleeArmor: number;
     MinRange: number;
     PierceArmor: number;
-    Armours: IUnitClassPair[];
+    Armours: ReadonlyArray<IUnitClassPair>;
     Range: number;
     ReloadTime: number;
     Speed: number;
@@ -2761,6 +2766,8 @@ export function sortResources(resources: Other[]) {
 }
 
 const unitIcons: UnitIconDict = {
+    'Sheep': require('../../assets/units/Sheep.png'),
+    'Boar': require('../../assets/units/Boar.png'),
     'Kamayuk': require('../../assets/units/Kamayuk.png'),
     'Slinger': require('../../assets/units/Slinger.png'),
     'PlumedArcher': require('../../assets/units/PlumedArcher.png'),
@@ -2908,7 +2915,7 @@ export function getUnitData(unit: Unit) {
 
 export function getUnitDescription(unit: Unit) {
     const data = getUnitData(unit);
-    let description = aoeData.strings[data.LanguageHelpId.toString() as aoeStringKey];
+    let description = aoeData.strings[data.LanguageHelpId.toString() as aoeStringKey] as string;
 
     description = strRemoveTo(description, '<br>\n');
     description = strRemoveFrom(description, '<i> Upgrades:');
@@ -2918,25 +2925,37 @@ export function getUnitDescription(unit: Unit) {
     return description;
 }
 
-export const unitList = unitLineNames.map(ul => ({
+export const unitList = unitLineIds.map(ul => ({
     name: ul,
     ...unitLines[ul],
 }))
 
-export function getUnitLineForUnit(unit: Unit) {
+export function getUnitLineForUnit(unit: Unit): IUnitLine | undefined {
     return unitList.find(ul => ul.units.includes(unit));
 }
 
-export function getUnitLineNameForUnit(unit: Unit) {
-    return unitList.find(ul => ul.units.includes(unit))!.name;
+export function getUnitLineIdForUnit(unit: Unit) {
+    const unitInfo = unitList.find(ul => ul.units.includes(unit));
+    if (unitInfo == null) {
+        throw new Error(`Unit ${unit} has no unit line.`)
+    }
+    return unitInfo.name;
 }
 
-export function getInferiorUnitLines(unitLineName: UnitLine) {
+export function getUnitLineNameForUnit(unit: Unit) {
+    const unitInfo = unitList.find(ul => ul.units.includes(unit));
+    if (unitInfo == null) {
+        return getUnitName(unit);
+    }
+    return getUnitName(unitInfo.units[0]);
+}
+
+export function getInferiorUnitLines(unitLineId: UnitLine) {
     const inferiorUnitLines: UnitLine[] = [];
-    for (const otherUnitLineName of unitLineNames) {
-        const otherUnitLine = unitLines[otherUnitLineName];
-        if ((otherUnitLine.counteredBy || []).includes(unitLineName)) {
-            inferiorUnitLines.push(otherUnitLineName);
+    for (const otherUnitLineId of unitLineIds) {
+        const otherUnitLine = unitLines[otherUnitLineId];
+        if ((otherUnitLine.counteredBy || []).includes(unitLineId)) {
+            inferiorUnitLines.push(otherUnitLineId);
         }
     }
     return inferiorUnitLines;

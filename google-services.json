@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1049808031734",
+    "firebase_url": "https://aoe2companion.firebaseio.com",
+    "project_id": "aoe2companion",
+    "storage_bucket": "aoe2companion.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1049808031734:android:50768a4781f7824bf241d7",
+        "android_client_info": {
+          "package_name": "com.aoe2companion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1049808031734-giqcbfet8ns4n6f5ohdl148ck6nia6rf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBibW1Xy2zlLeIoN5zGTY9DiAovNa6uSuY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1049808031734-giqcbfet8ns4n6f5ohdl148ck6nia6rf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

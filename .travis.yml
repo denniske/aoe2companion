@@ -7,6 +7,9 @@ env:
     - NODE_VERSION="12.13.1"
     - YARN_VERSION="1.21.1"
 
+services:
+  - docker
+
 # Note: The env var $TRAVIS_BRANCH will contain
 # COMMIT: branch name
 # TAG:    tag name
@@ -26,7 +29,90 @@ jobs:
     ####################################
 
     - stage: publish
-      if: branch = master OR tag IS present
+      if: tag =~ ^match-v.+$
+      env:
+        - CACHE_NAME=match
+        - IMAGE_NAME=denniske/aoe2companion-match
+      before_install:
+        - sudo apt-get update
+        - sudo apt-get -y install gettext-base
+        - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+        - chmod u+x ./kubectl
+        - sudo mv kubectl /usr/local/bin/
+      script:
+        - cd serverless
+        - npm install
+        - cd ..
+        - cd server
+        - npm install
+        - npm run build
+        - ls -al
+        - docker build -f deploy/match/Dockerfile -t $IMAGE_NAME:$TRAVIS_COMMIT .
+        - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+        - docker push $IMAGE_NAME:$TRAVIS_COMMIT
+        - cd deploy
+        - cd match
+        - bash ./deploy.sh
+
+    - stage: publish
+      if: tag =~ ^notify-v.+$
+      env:
+        - CACHE_NAME=notify
+        - IMAGE_NAME=denniske/aoe2companion-notify
+      before_install:
+        - sudo apt-get update
+        - sudo apt-get -y install gettext-base
+        - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+        - chmod u+x ./kubectl
+        - sudo mv kubectl /usr/local/bin/
+      script:
+        - cd serverless
+        - npm install
+        - cd ..
+        - cd server
+        - npm install
+        - npm run build
+        - ls -al
+        - docker build -f deploy/notify/Dockerfile -t $IMAGE_NAME:$TRAVIS_COMMIT .
+        - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+        - docker push $IMAGE_NAME:$TRAVIS_COMMIT
+        - cd deploy
+        - cd notify
+        - bash ./deploy.sh
+
+    - stage: publish
+      if: tag =~ ^api-v.+$
+      env:
+        - CACHE_NAME=api
+        - IMAGE_NAME=denniske/aoe2companion-api
+      before_install:
+        - sudo apt-get update
+        - sudo apt-get -y install gettext-base
+        - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+        - chmod u+x ./kubectl
+        - sudo mv kubectl /usr/local/bin/
+      script:
+        - cd serverless
+        - npm install
+        - cd ..
+        - cd server
+        - npm install
+        - npm run build
+        - ls -al
+        - docker build -f deploy/api/Dockerfile -t $IMAGE_NAME:$TRAVIS_COMMIT .
+        - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+        - docker push $IMAGE_NAME:$TRAVIS_COMMIT
+        - cd deploy
+        - cd api
+        - bash ./deploy.sh
+
+
+    ####################################
+    # PUBLISH
+    ####################################
+
+    - stage: publish
+      if: (type != pull_request) AND (branch = master OR tag IS present)
       env:
         - CACHE_NAME=publish YARN_CACHE_FOLDER="/home/travis/yarn_cache"
       cache:

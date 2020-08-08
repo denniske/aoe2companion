@@ -1,13 +1,26 @@
 {
-  "name": "typeservice",
+  "name": "aoe2companion-server",
   "version": "1.0.0",
-  "description": "Serverless webpack example using Typescript",
-  "main": "handler.js",
+  "description": "",
+  "main": "dist/server.js",
   "scripts": {
-    "test": "echo \"no test specified\"",
-    "start": "nodemon"
+    "match": "nodemon --exec 'tsc && node ./dist/server/src/match.js' --ext ts --watch src",
+    "notify": "nodemon --exec 'tsc && node ./dist/server/src/notify.js' --ext ts --watch src",
+    "api": "nodemon --exec 'tsc && node ./dist/server/src/api.js' --ext ts --watch src",
+    "build": "tsc",
+    "build-ts": "tsc",
+    "start": "npm run serve",
+    "serve": "node dist/server.js",
+    "watch-node": "nodemon dist/server.js",
+    "watch-ts": "tsc -w"
   },
-  "dependencies": {
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.18.3",
+    "tslint": "^5.11.0",
+    "typescript": "^3.0.1",
+    "ts-node": "^8.10.2",
     "@babel/core": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
@@ -15,31 +28,26 @@
     "date-fns": "^2.15.0",
     "dotenv": "^8.2.0",
     "lodash": "^4.17.19",
-    "node-fetch": "^2.6.0",
     "pg": "^8.3.0",
     "source-map-support": "^0.5.10",
     "typeorm": "^0.2.25"
   },
-  "devDependencies": {
+  "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/plugin-proposal-decorators": "^7.10.5",
-    "@types/aws-lambda": "^8.10.17",
+    "@types/express": "^4.16.0",
     "@types/lodash": "^4.14.157",
     "@types/node": "^10.12.18",
     "@types/node-fetch": "^2.5.7",
     "@types/pg": "^7.14.4",
-    "@types/serverless": "^1.72.5",
+    "@types/ws": "^7.2.6",
     "babel-plugin-transform-typescript-metadata": "^0.3.0",
-    "fork-ts-checker-webpack-plugin": "^3.0.1",
-    "nodemon": "^2.0.4",
-    "serverless-offline": "^6.4.0",
-    "serverless-webpack": "^5.2.0",
-    "ts-loader": "^5.3.3",
-    "ts-node": "^8.10.2",
-    "typescript": "^3.2.4",
-    "webpack": "^4.29.0",
-    "webpack-node-externals": "^1.7.2"
-  },
-  "author": "The serverless webpack authors (https://github.com/elastic-coders/serverless-webpack)",
-  "license": "MIT"
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.3",
+    "node-fetch": "^2.6.0",
+    "tslib": "^2.0.0",
+    "typeorm-naming-strategies": "^1.1.0",
+    "ws": "^7.3.1"
+  }
 }

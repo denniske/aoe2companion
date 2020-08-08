@@ -89,7 +89,7 @@ function Snackbar(props: Props) {
             style={[styles.wrapper, wrapperStyle]}
         >
             <Surface
-                pointerEvents="box-none"
+                // pointerEvents="box-none"
                 accessibilityLiveRegion="polite"
                 style={
                     [

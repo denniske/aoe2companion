@@ -16,15 +16,16 @@ interface IPickerProps<T> {
     style?: StyleProp<ViewStyle>;
     disabled?: boolean;
     flatlist?: boolean;
+    textMinWidth?: number;
 }
 
 
 function defaultCell(props: any) {
-    const {value, color, icon, formatter, selected} = props;
+    const {value, color, icon, formatter, selected, textMinWidth} = props;
     return (
         <View style={styles.row}>
             {icon && icon(value)}
-            <MyText numberOfLines={1} style={[styles.text, { color: color, fontWeight: selected ? 'bold' : 'normal' }]}>{formatter(value)}</MyText>
+            <MyText numberOfLines={1} style={[styles.text, { minWidth: textMinWidth, color: color, fontWeight: selected ? 'bold' : 'normal' }]}>{formatter(value)}</MyText>
         </View>
     );
 }
@@ -33,7 +34,10 @@ export default function Picker<T>(props: IPickerProps<T>) {
     const theme = usePaperTheme();
     const [menu, setMenu] = useState(false);
 
-    const { value, values, onSelect, style, disabled, formatter = (x) => x, icon = x => undefined, cell = defaultCell, divider = x => false, flatlist = false } = props;
+    const { value, values, onSelect, style, disabled,
+            formatter = (x) => x, icon = x => undefined, cell = defaultCell, divider = x => false, flatlist = false,
+            textMinWidth = 0,
+    } = props;
 
     const color = disabled ? theme.colors.disabled : theme.colors.text;
 
@@ -41,7 +45,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
         <View key={i}>
             <TouchableOpacity onPress={() => {onSelect(v); setMenu(false);}} disabled={disabled}>
                 <View style={styles.menuItem}>
-                    {cell({value: v, selected: v == value, formatter: (x: any, i: any) => formatter(x, true), color, icon})}
+                    {cell({value: v, selected: v == value, formatter: (x: any, i: any) => formatter(x, true), color, icon, textMinWidth})}
                 </View>
             </TouchableOpacity>
             {
@@ -68,13 +72,14 @@ export default function Picker<T>(props: IPickerProps<T>) {
             >
                 {
                     flatlist &&
-                    <FlatList
-                        keyboardShouldPersistTaps={'always'}
-                        data={values}
-                        style={{height: Dimensions.get('screen').height-200}}
-                        renderItem={({item, index}) => renderItem(item, index)}
-                        keyExtractor={(item, index) => index.toString()}
-                    />
+                    <View style={{height: Dimensions.get('screen').height-250, minWidth: 200}}>
+                        <FlatList
+                            keyboardShouldPersistTaps={'always'}
+                            data={values}
+                            renderItem={({item, index}) => renderItem(item, index)}
+                            keyExtractor={(item, index) => index.toString()}
+                        />
+                    </View>
                 }
                 {
                     !flatlist && values.map(renderItem)

@@ -188,7 +188,7 @@ const sections: ISection[] = [
     },
 ];
 
-console.log(sections);
+// console.log(sections);
 
 
 export default function UnitList() {

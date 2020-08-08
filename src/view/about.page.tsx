@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Linking, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Constants from 'expo-constants';
-import {useLinkTo} from '@react-navigation/native';
+import {useLinkTo, useNavigation} from '@react-navigation/native';
 import {Button} from "react-native-paper";
 import {MyText} from "./components/my-text";
 import {setUpdateManifest, setUpdateStoreManifest, useMutate} from "../redux/reducer";
@@ -15,7 +15,9 @@ export default function AboutPage() {
     const appStyles = useTheme(appVariants);
     const linkTo = useLinkTo();
     const [state, setState] = useState('');
+    const [pushPageClickCount, setPushPageClickCount] = useState(0);
     const mutate = useMutate();
+    const navigation = useNavigation();
 
     const checkForUpdate = async () => {
         setState('checkingForUpdate');
@@ -34,6 +36,13 @@ export default function AboutPage() {
         setState('checked');
     };
 
+    const incrementPushPageClickCount = () => {
+        setPushPageClickCount(pushPageClickCount + 1);
+        if (pushPageClickCount > 5) {
+            navigation.navigate('Push');
+        }
+    };
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <MyText style={styles.title}>AoE II Companion</MyText>
@@ -48,12 +57,16 @@ export default function AboutPage() {
             <MyText style={styles.heading}>Supporters</MyText>
             <MyText style={styles.content}>Kloakan</MyText>
             <MyText style={styles.content}>Sihing Mo</MyText>
+            <MyText style={styles.content}>Sebastian Janus</MyText>
+            <MyText style={styles.content}>Ultima Gaina</MyText>
             <MyText style={styles.content2}>+ anonymous supporters</MyText>
 
             <MyText style={styles.heading}>Version</MyText>
-            <MyText style={styles.content}>
-                {Constants.manifest.releaseChannel || 'dev'}-{Constants.manifest.version}n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}
-            </MyText>
+            <TouchableOpacity onPress={incrementPushPageClickCount}>
+                <MyText style={styles.content}>
+                    {Constants.manifest.releaseChannel || 'dev'}-{Constants.manifest.version}n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}
+                </MyText>
+            </TouchableOpacity>
 
             {
                 state === '' &&

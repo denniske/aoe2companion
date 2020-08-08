@@ -1,19 +1,24 @@
 import "reflect-metadata";
 
-import {APIGatewayProxyHandler} from 'aws-lambda';
 import 'source-map-support/register';
 import {createConnection, getConnectionManager} from "typeorm";
-
-import {User} from "../entity/user";
 
 require('dotenv').config();
 
 // Use pg2 to force inclusion in final package
 import * as pg2 from 'pg';
-import {KeyValue} from "../entity/keyvalue";
-import {LeaderboardRow} from "../entity/leaderboard-row";
+import {KeyValue} from "../../serverless/entity/keyvalue";
+import {LeaderboardRow} from "../../serverless/entity/leaderboard-row";
+import {User} from "../../serverless/entity/user";
+import {Following} from "../../serverless/entity/following";
+import {Match} from "../../serverless/entity/match";
+import {Player} from "../../serverless/entity/player";
+import {SnakeNamingStrategy} from "typeorm-naming-strategies";
+import {Push} from "../../serverless/entity/push";
+import {Account} from "../../serverless/entity/account";
 
 console.log(pg2 != null ? 'pg initialized' : '');
+console.log('process.env.LOCAL', process.env.LOCAL);
 
 export async function createDB() {
     try {
@@ -24,13 +29,19 @@ export async function createDB() {
                 rejectUnauthorized: false,
             },
             entities: [
+                Account,
+                Push,
+                Match,
+                Player,
+                Following,
                 KeyValue,
                 User,
                 LeaderboardRow,
             ],
             // entities: getMetadataArgsStorage().tables.map(tbl => tbl.target),
-            synchronize: true,
-            logging: false,//!!process.env.IS_OFFLINE,
+            synchronize: process.env.LOCAL === 'true',
+            logging: process.env.LOCAL === 'true',//!!process.env.IS_OFFLINE,
+            namingStrategy: new SnakeNamingStrategy(),
         });
         console.log('Using NEW connection. Connected: ', connection.isConnected);
         return connection;

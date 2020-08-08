@@ -28,6 +28,10 @@ export function getString(category: keyof IStrings, id: number) {
     return strings[LANGUAGE][category].find(i => i.id === id)?.string;
 }
 
+export function getStringId(category: keyof IStrings, str: string) {
+    return strings[LANGUAGE][category].find(i => i.string === str)?.id;
+}
+
 const strings: IStringCollection = {
     'en': require('../../assets/strings/en.json'),
 };

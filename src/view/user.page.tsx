@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, FlatList, StyleSheet, Text, View} from 'react-native';
 import { RootStackParamList } from '../../App';
 import { RouteProp, useRoute } from '@react-navigation/native';
-import { fetchMatches } from '../api/matches';
+import { fetchPlayerMatches } from '../api/player-matches';
 import Profile from './components/profile';
 import Rating from './components/rating';
 import { useApi } from '../hooks/use-api';
@@ -77,12 +77,12 @@ export default function UserPage() {
             }
             state.user[auth.id].matches = value;
         },
-        fetchMatches, 'aoe2de', 0, 10, auth
+        fetchPlayerMatches, 'aoe2de', 0, 10, [auth]
     );
 
     const allMatches = useLazyApi(
         {},
-        fetchMatches, 'aoe2de', 0, 1000, auth
+        fetchPlayerMatches, 'aoe2de', 0, 1000, [auth]
     );
 
     const cachedData = useSelector(state => get(state.statsPlayer, [auth.id, leaderboardId]));
@@ -141,7 +141,7 @@ export default function UserPage() {
         if (fetchingMore) return;
         setFetchingMore(true);
         const matchesLength = matches.data?.length ?? 0;
-        const newMatchesData = await matches.refetch('aoe2de', 0, matchesLength + 15, auth);
+        const newMatchesData = await matches.refetch('aoe2de', 0, matchesLength + 15, [auth]);
         if (matchesLength === newMatchesData?.length) {
             setFetchedAll(true);
         }
@@ -152,6 +152,7 @@ export default function UserPage() {
             <View style={styles.container}>
                 <View style={styles.content}>
                     <FlatList
+                            // scrollEnabled={false}
                             contentContainerStyle={styles.list}
                             data={list}
                             renderItem={({item, index}) => {
@@ -161,7 +162,7 @@ export default function UserPage() {
                                         return <MyText style={styles.sectionHeader}>Rating History</MyText>;
                                     case 'stats-header':
                                         return <View>
-                                            <MyText style={styles.sectionHeader}>Stats</MyText>
+                                            <MyText style={styles.sectionHeader}>Statistics</MyText>
 
                                             <View style={styles.pickerRow}>
                                                 <ActivityIndicator animating={loadingMatchesOrStats} size="small"/>
@@ -243,8 +244,7 @@ const getStyles = (theme: ITheme) => {
         marginBottom: 10
     },
     sectionHeader: {
-        marginTop: 20,
-        marginBottom: 20,
+        marginVertical: 25,
         fontSize: 15,
         fontWeight: '500',
         textAlign: 'center',

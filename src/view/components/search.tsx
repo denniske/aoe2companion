@@ -9,6 +9,7 @@ import {getFlagIcon} from '../../helper/flags';
 import {MyText} from "./my-text";
 import RefreshControlThemed from "./refresh-control-themed";
 import {ITheme, makeVariants, useTheme} from "../../theming";
+import {usePrevious} from "../../hooks/use-previous";
 
 interface IPlayerProps {
     player: IFetchedUser;
@@ -73,6 +74,7 @@ interface ISearchProps {
 export default function Search({title, selectedUser, actionText, action}: ISearchProps) {
     const styles = useTheme(variants);
     const [text, setText] = useState('');
+    const previousText = usePrevious(text);
 
     const user = useLazyApi({}, loadUser, 'aoe2de', text);
 
@@ -81,7 +83,10 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
             user.reset();
             return;
         }
-        user.refetch('aoe2de', text);
+        if (previousText?.trim() === text.trim()) {
+            return;
+        }
+        user.refetch('aoe2de', text.trim());
     };
 
     // const generateTestHook = useCavy();
