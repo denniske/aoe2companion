@@ -76,7 +76,8 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
                                             {getUnitLineName(counterUnit)}
                                         </MyText>
                                     </View>
-                                </TouchableOpacity>) : sortNonUniqueUnitCounters(unitLine).map(counterUnit =>
+                                </TouchableOpacity>
+                                ) : sortNonUniqueUnitCounters(unitLine).map(counterUnit =>
                                 <TouchableOpacity key={counterUnit} onPress={() => gotoUnit(counterUnit)}>
                                     <View style={styles.row}>
                                         <Image style={styles.unitIcon} source={getUnitLineIcon(counterUnit)}/>
