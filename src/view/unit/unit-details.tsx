@@ -4,7 +4,7 @@ import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {
     getInferiorUnitLines, getUnitDescription, getUnitLineIcon, getUnitLineIdForUnit, getUnitLineName,
-    getUnitLineNameForUnit, getUnitName, IUnitLine, sortUnitCounter, Unit, UnitLine, unitLines
+    getUnitLineNameForUnit, getUnitName, IUnitLine, sortUnitCounter, sortNonUniqueInferiorUnitLines, sortNonUniqueUnitCounters, Unit, UnitLine, unitLines
 } from "../../helper/units";
 import Fandom from "../components/fandom";
 import {Checkbox} from "react-native-paper";
@@ -29,45 +29,6 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
     console.log('unitLine', unitLine);
     console.log('unitLineId', unitLineId);
     console.log('unitLineName', unitLineName);
-
-    const getNonUniqueUnitCounters = (x: IUnitLine)=>{
-        let nonUUArray: UnitLine[] = [];
-        sortUnitCounter(x.counteredBy ?? []).forEach((counterUnit)=>{
-            let counterUnitObj = unitLines[getUnitLineIdForUnit(counterUnit)];
-            if(!counterUnitObj.unique){
-                nonUUArray.push(counterUnit);
-            }
-        });
-        return nonUUArray.map(counterUnit =>
-            <TouchableOpacity key={counterUnit} onPress={() => gotoUnit(counterUnit)}>
-                <View style={styles.row}>
-                    <Image style={styles.unitIcon} source={getUnitLineIcon(counterUnit)}/>
-                    <MyText style={styles.unitDesc}>
-                        {getUnitLineName(counterUnit)}
-                    </MyText>
-                </View>
-            </TouchableOpacity>
-        )
-    }
-    const getNonUniqueInferiorUnitLines = (x: UnitLine) => {
-        let nonUUArray: UnitLine[] = []
-        sortUnitCounter(getInferiorUnitLines(x)).forEach((counterUnit)=>{
-            let counterUnitObj = unitLines[getUnitLineIdForUnit(counterUnit)];
-            if(!counterUnitObj.unique){
-                nonUUArray.push(counterUnit);
-            }
-        });
-        return nonUUArray.map(counterUnit => 
-             <TouchableOpacity key={counterUnit} onPress={() => gotoUnit(counterUnit)}>
-                 <View style={styles.row}>
-                     <Image style={styles.unitIcon} source={getUnitLineIcon(counterUnit)}/>
-                     <MyText style={styles.unitDesc}>
-                         {getUnitLineName(counterUnit)}
-                     </MyText>
-                 </View>
-            </TouchableOpacity>
-         )
-    }
 
     const gotoUnit = (unit: Unit) => navigation.push('Unit', {unit: unit});
 
@@ -107,7 +68,6 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
                     <View style={styles.row}>
                             <MyText style={styles.header2}>Weak vs.</MyText>
                     </View>
-                    
                         {checked ? sortUnitCounter(unitLine.counteredBy).map(counterUnit =>
                                 <TouchableOpacity key={counterUnit} onPress={() => gotoUnit(counterUnit)}>
                                     <View style={styles.row}>
@@ -116,7 +76,16 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
                                             {getUnitLineName(counterUnit)}
                                         </MyText>
                                     </View>
-                                </TouchableOpacity>) : getNonUniqueUnitCounters(unitLine)
+                                </TouchableOpacity>) : sortNonUniqueUnitCounters(unitLine).map(counterUnit =>
+                                <TouchableOpacity key={counterUnit} onPress={() => gotoUnit(counterUnit)}>
+                                    <View style={styles.row}>
+                                        <Image style={styles.unitIcon} source={getUnitLineIcon(counterUnit)}/>
+                                        <MyText style={styles.unitDesc}>
+                                            {getUnitLineName(counterUnit)}
+                                        </MyText>
+                                    </View>
+                                </TouchableOpacity>
+                            )
                         }
 
                         <View style={styles.row}>
@@ -132,7 +101,16 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
                                         </MyText>
                                     </View>
                                 </TouchableOpacity>
-                            ) : getNonUniqueInferiorUnitLines(unitLineId)
+                            ) : sortNonUniqueInferiorUnitLines(unitLineId).map(counterUnit => 
+                                <TouchableOpacity key={counterUnit} onPress={() => gotoUnit(counterUnit)}>
+                                    <View style={styles.row}>
+                                        <Image style={styles.unitIcon} source={getUnitLineIcon(counterUnit)}/>
+                                        <MyText style={styles.unitDesc}>
+                                            {getUnitLineName(counterUnit)}
+                                        </MyText>
+                                    </View>
+                               </TouchableOpacity>
+                            )
                         }
                 </View>
                     </>
