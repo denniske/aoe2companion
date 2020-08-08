@@ -1,6 +1,6 @@
 import React from 'react';
 import { WebView } from 'react-native-webview';
-import { Platform } from 'react-native';
+import {Platform, View} from 'react-native';
 
 export default function GuidePage() {
     if (Platform.OS === 'web') {
@@ -14,9 +14,14 @@ export default function GuidePage() {
     }
 
     return (
+        <View
+            style={{minHeight: 200, flex: 1, backgroundColor: 'grey'}}
+        >
             <WebView
                     source={{uri: 'https://buildorderguide.com/#/'}}
                     scalesPageToFit={false}
+                    style={{minHeight: 200, backgroundColor: 'grey'}}
             />
+        </View>
     );
 }
