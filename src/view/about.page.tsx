@@ -15,7 +15,7 @@ export default function AboutPage() {
     const appStyles = useTheme(appVariants);
     const linkTo = useLinkTo();
     const [state, setState] = useState('');
-    const [pushPageClickCount, setPushPageClickCount] = useState(0);
+    const [errorPageClickCount, setErrorPageClickCount] = useState(0);
     const mutate = useMutate();
     const navigation = useNavigation();
 
@@ -36,11 +36,11 @@ export default function AboutPage() {
         setState('checked');
     };
 
-    const incrementPushPageClickCount = () => {
-        setPushPageClickCount(pushPageClickCount + 1);
-        if (pushPageClickCount > 5) {
-            navigation.navigate('Push');
-        }
+    const incrementErrorPageClickCount = () => {
+        // setErrorPageClickCount(errorPageClickCount + 1);
+        // if (errorPageClickCount > 5) {
+        navigation.navigate('Error');
+        // }
     };
 
     return (
@@ -62,7 +62,7 @@ export default function AboutPage() {
             <MyText style={styles.content2}>+ anonymous supporters</MyText>
 
             <MyText style={styles.heading}>Version</MyText>
-            <TouchableOpacity onPress={incrementPushPageClickCount}>
+            <TouchableOpacity onPress={incrementErrorPageClickCount}>
                 <MyText style={styles.content}>
                     {Constants.manifest.releaseChannel || 'dev'}-{Constants.manifest.version}n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}
                 </MyText>

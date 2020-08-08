@@ -1,12 +1,12 @@
 import * as React from 'react';
 import {useEffect} from 'react';
 import {Linking, Platform, StyleSheet} from 'react-native';
-import Snackbar from "./snackbar";
+import Snackbar from "../snackbar";
 import {
     setUpdateAvailable, setUpdateManifest, setUpdateState, setUpdateStoreManifest, useMutate, useSelector
-} from "../../redux/reducer";
+} from "../../../redux/reducer";
 import {reloadAsync} from "expo-updates";
-import {doCheckForStoreUpdate, doCheckForUpdateAsync, doFetchUpdateAsync} from "../../service/update";
+import {doCheckForStoreUpdate, doCheckForUpdateAsync, doFetchUpdateAsync} from "../../../service/update";
 import {lt} from "semver";
 import Constants from "expo-constants";
 

@@ -3,6 +3,7 @@ import {IRatingHistoryEntry, IRatingHistoryEntryRaw} from "../helper/data";
 import {fromUnixTime} from "date-fns";
 import {LeaderboardId} from "../helper/leaderboards";
 import {getHost} from "./host";
+import {fetchJson} from "./util";
 
 
 function convertTimestampsToDates(json: IRatingHistoryEntryRaw): IRatingHistoryEntry {
@@ -26,11 +27,8 @@ export async function fetchRatingHistory(game: string, leaderboard_id: Leaderboa
         count,
         ...params,
     });
-    const url = getHost('aoe2net') + `api/player/ratinghistory?${queryString}`;
-    console.log(url);
-    const response = await fetch(url);
-    const json = await response.json() as IRatingHistoryEntryRaw[];
-    // console.log("response.json()", json);
 
+    const url = getHost('aoe2net') + `api/player/ratinghistory?${queryString}`;
+    const json = await fetchJson('fetchRatingHistory', url) as IRatingHistoryEntryRaw[];
     return json.map(match => convertTimestampsToDates(match));
 }

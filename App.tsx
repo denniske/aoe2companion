@@ -41,20 +41,22 @@ import {Tech} from "./src/helper/techs";
 import TechPage, {techTitle, TechTitle} from "./src/view/tech/tech.page";
 import FeedPage, {feedMenu, feedTitle} from "./src/view/feed.page";
 import {MyText} from "./src/view/components/my-text";
-import UpdateSnackbar from "./src/view/components/update-snackbar";
+import UpdateSnackbar from "./src/view/components/snackbar/update-snackbar";
 import {ITheme, makeVariants, useTheme} from "./src/theming";
 import SettingsPage from "./src/view/settings.page";
 import {appVariants} from "./src/styles";
 import {AppearanceProvider, useColorScheme} from "react-native-appearance";
 import {NavigationState} from "@react-navigation/routers";
 import ChangelogPage from "./src/view/changelog.page";
-import ChangelogSnackbar from "./src/view/components/changelog-snackbar";
+import ChangelogSnackbar from "./src/view/components/snackbar/changelog-snackbar";
 import {Building} from "./src/helper/buildings";
 import BuildingPage, {BuildingTitle, buildingTitle} from "./src/view/building/building.page";
 import LivePage from "./src/view/live.page";
 import PushPage from "./src/view/push.page";
 import SplashPage from "./src/view/splash.page";
 import * as Sentry from 'sentry-expo';
+import ErrorSnackbar from "./src/view/components/snackbar/error-snackbar";
+import ErrorPage from "./src/view/error.page";
 
 
 Sentry.init({
@@ -115,6 +117,7 @@ const linking = {
 };
 
 export type RootStackParamList = {
+    Error: undefined;
     Splash: undefined;
     Tips: undefined;
     Push: undefined;
@@ -206,6 +209,7 @@ export function InnerApp() {
             <Portal>
                 <UpdateSnackbar/>
                 <ChangelogSnackbar/>
+                <ErrorSnackbar/>
             </Portal>
 
             <Header/>
@@ -262,6 +266,13 @@ export function InnerApp() {
                     component={PushPage}
                     options={{
                         title: 'Push Notifications',
+                    }}
+                />
+                <Stack.Screen
+                    name="Error"
+                    component={ErrorPage}
+                    options={{
+                        title: 'Errors',
                     }}
                 />
                 <Stack.Screen

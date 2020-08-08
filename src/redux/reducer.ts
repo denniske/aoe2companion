@@ -1,5 +1,4 @@
 import {produce} from "immer";
-import { v4 as uuidv4 } from 'uuid';
 import { TypedUseSelectorHook, useDispatch, useSelector as useReduxSelector } from 'react-redux';
 import {UserId} from '../helper/user';
 import { IProfile } from '../view/components/profile';
@@ -27,6 +26,21 @@ type StateMutation = (state: AppState) => void;
 export function useMutate() {
   const dispatch = useDispatch()
   return (m: StateMutation) => dispatch(exec(m));
+}
+
+export function setError(error: IError | null) {
+  return (state: AppState) => {
+    state.error = error;
+    if (state.errors == null) {
+      state.errors = [];
+    }
+    if (error) {
+      state.errors.push(error);
+    }
+    if (state.errors.length > 10) {
+      state.errors.unshift();
+    }
+  };
 }
 
 export function setPrefValue<T extends keyof IPrefs>(key: T, value: IPrefs[T]) {
@@ -128,6 +142,12 @@ interface ILeaderboardDict {
   [key: string]: ILeaderboard;
 }
 
+export interface IError {
+  title: string;
+  extra: any;
+  error: Error;
+}
+
 export type DarkMode = 'light' | 'dark' | 'system';
 
 export interface AppState {
@@ -135,6 +155,9 @@ export interface AppState {
   auth?: UserId | null;
   user: IUserDict;
   statsPlayer: any;
+
+  error?: IError | null;
+  errors?: IError[] | null;
 
   config: IConfig;
   prefs: IPrefs;

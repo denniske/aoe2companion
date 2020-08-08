@@ -1,18 +1,11 @@
 import * as React from 'react';
-import {useEffect} from 'react';
-import {Linking, Platform, StyleSheet} from 'react-native';
-import Snackbar from "./snackbar";
-import {
-    setPrefValue,
-    setUpdateAvailable, setUpdateManifest, setUpdateState, setUpdateStoreManifest, useMutate, useSelector
-} from "../../redux/reducer";
-import {reloadAsync} from "expo-updates";
-import {doCheckForStoreUpdate, doCheckForUpdateAsync, doFetchUpdateAsync} from "../../service/update";
+import {StyleSheet} from 'react-native';
+import Snackbar from "../snackbar";
+import {setPrefValue, useMutate, useSelector} from "../../../redux/reducer";
 import {lt} from "semver";
 import Constants from "expo-constants";
-import {RootStackParamList} from "../../../App";
-import {getRootNavigation} from "../../service/navigation";
-import { saveCurrentPrefsToStorage } from '../../service/storage';
+import {getRootNavigation} from "../../../service/navigation";
+import {saveCurrentPrefsToStorage} from '../../../service/storage';
 
 
 export default function ChangelogSnackbar() {
