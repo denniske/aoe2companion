@@ -22,7 +22,7 @@ interface IUnitLineDict {
     [unit: string]: IUnitLine;
 }
 
-export const unitLineNames = [
+export const unitLineIds = [
     'TradeCart',
     'TradeCog',
     'FishingShip',
@@ -2620,7 +2620,7 @@ const unitsInternal = {
     },
 };
 
-const UnitLineUnion = unwrap(unitLineNames);
+const UnitLineUnion = unwrap(unitLineIds);
 export type UnitLine = typeof UnitLineUnion;
 
 export const units = unitsInternal as UnitDict;
@@ -2925,13 +2925,21 @@ export function getUnitDescription(unit: Unit) {
     return description;
 }
 
-export const unitList = unitLineNames.map(ul => ({
+export const unitList = unitLineIds.map(ul => ({
     name: ul,
     ...unitLines[ul],
 }))
 
-export function getUnitLineForUnit(unit: Unit) {
+export function getUnitLineForUnit(unit: Unit): IUnitLine | undefined {
     return unitList.find(ul => ul.units.includes(unit));
+}
+
+export function getUnitLineIdForUnit(unit: Unit) {
+    const unitInfo = unitList.find(ul => ul.units.includes(unit));
+    if (unitInfo == null) {
+        throw new Error(`Unit ${unit} has no unit line.`)
+    }
+    return unitInfo.name;
 }
 
 export function getUnitLineNameForUnit(unit: Unit) {
@@ -2939,15 +2947,15 @@ export function getUnitLineNameForUnit(unit: Unit) {
     if (unitInfo == null) {
         return getUnitName(unit);
     }
-    return unitInfo.name;
+    return getUnitName(unitInfo.units[0]);
 }
 
-export function getInferiorUnitLines(unitLineName: UnitLine) {
+export function getInferiorUnitLines(unitLineId: UnitLine) {
     const inferiorUnitLines: UnitLine[] = [];
-    for (const otherUnitLineName of unitLineNames) {
-        const otherUnitLine = unitLines[otherUnitLineName];
-        if ((otherUnitLine.counteredBy || []).includes(unitLineName)) {
-            inferiorUnitLines.push(otherUnitLineName);
+    for (const otherUnitLineId of unitLineIds) {
+        const otherUnitLine = unitLines[otherUnitLineId];
+        if ((otherUnitLine.counteredBy || []).includes(unitLineId)) {
+            inferiorUnitLines.push(otherUnitLineId);
         }
     }
     return inferiorUnitLines;

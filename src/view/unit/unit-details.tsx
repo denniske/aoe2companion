@@ -9,7 +9,7 @@ import {
     getUnitLineIcon,
     getUnitLineName, getUnitLineNameForUnit,
     getUnitName, hiddenArmourClasses, IUnitInfo, Other, sortResources, sortUnitCounter, Unit, UnitClassNumber,
-    UnitLine, unitLines, units, IUnitLine
+    UnitLine, unitLines, units, IUnitLine, getUnitLineIdForUnit
 } from "../../helper/units";
 import {getTechIcon, getTechName, Tech, techEffectDict, techList} from "../../helper/techs";
 import {Civ, civs} from "../../helper/civs";
@@ -23,58 +23,28 @@ import {appVariants} from "../../styles";
 import { useMutate } from '../../redux/reducer';
 
 
-// function highlightUnitAndCivs(str: string) {
-//     const appStyles = useTheme(appVariants);
-//     const navigation = useNavigation<RootStackProp>();
-//
-//     const civReplaceList = civs.map(civ => ({ name: civ, text: civ}));
-//     const unitReplaceList = Object.keys(units).map(t => ({ name: getUnitLineNameForUnit(t as Unit), text: getUnitName(t as Unit)}));
-//     const reverseCivMap = Object.assign({}, ...civReplaceList.map((x) => ({[x.text]: x})));
-//     const reverseUnitMap = Object.assign({}, ...unitReplaceList.map((x) => ({[x.text]: x})));
-//
-//     const allReplaceList = [...civReplaceList, ...unitReplaceList];
-//
-//     const regex = new RegExp('('+allReplaceList.map(m => '\\b'+escapeRegExpFn(m.text)+'\\b').join("|")+')', '');
-//
-//     const parts = str.split(regex);
-//     // console.log('parts', parts);
-//     // console.log('map', map);
-//
-//     const texts = [];
-//     for (let i = 0; i < parts.length; i++) {
-//         if (i % 2 == 0) {
-//             texts.push(<MyText key={i}>{parts[i]}</MyText>);
-//         } else {
-//             // console.log('part', parts[i]);
-//             const matchingTech = reverseCivMap[parts[i]]?.name;
-//             if (matchingTech) {
-//                 texts.push(<MyText key={i} style={appStyles.link} onPress={() => navigation.push('Tech', {tech: matchingTech})}>{parts[i]}</MyText>);
-//             }
-//             const matchingUnit = reverseUnitMap[parts[i]]?.name;
-//             if (matchingUnit) {
-//                 texts.push(<MyText key={i} style={appStyles.link} onPress={() => navigation.push('Unit', {unit: matchingUnit})}>{parts[i]}</MyText>);
-//             }
-//         }
-//     }
-//     return texts;
-// }
-
 export default function UnitDetails({unitName}: {unitName: Unit}) {
     const appStyles = useTheme(appVariants);
     const styles = useTheme(variants);
     const navigation = useNavigation<RootStackProp>();
+    const unitLineId = getUnitLineIdForUnit(unitName);
     const unitLineName = getUnitLineNameForUnit(unitName);
-    const unitLine = unitLines[unitLineName];
+    const unitLine = unitLines[unitLineId];
     const unitLineUpgrades = unitLine.upgrades.map(u => techEffectDict[u]);
     const [checked, setChecked] = useState(false);
 
     const unitIndex = unitLine.units.indexOf(unitName);
     const upgradedFrom = unitIndex > 0 ? unitLine.units[unitIndex-1] : null;
     const upgradedTo = unitIndex < unitLine.units.length-1 ? unitLine.units[unitIndex+1] : null;
-    const getNonUniqueUnitCounters = (x: IUnitLine[])=>{
+
+    console.log('unitLine', unitLine);
+    console.log('unitLineId', unitLineId);
+    console.log('unitLineName', unitLineName);
+
+    const getNonUniqueUnitCounters = (x: IUnitLine)=>{
         let nonUUArray: UnitLine[] = [];
-        sortUnitCounter(x.counteredBy).forEach((counterUnit)=>{
-            let counterUnitObj = unitLines[getUnitLineNameForUnit(counterUnit)];
+        sortUnitCounter(x.counteredBy ?? []).forEach((counterUnit)=>{
+            let counterUnitObj = unitLines[getUnitLineIdForUnit(counterUnit)];
             if(!counterUnitObj.unique){
                 nonUUArray.push(counterUnit);
             }
@@ -82,7 +52,7 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
         return nonUUArray.map(counterUnit =>
             <TouchableOpacity key={counterUnit} onPress={() => gotoUnit(counterUnit)}>
                 <View style={styles.row}>
-                    <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitLineIcon(counterUnit)}/>
+                    <Image style={styles.unitIcon} source={getUnitLineIcon(counterUnit)}/>
                     <MyText style={styles.unitDesc}>
                         {getUnitLineName(counterUnit)}
                     </MyText>
@@ -90,10 +60,10 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
             </TouchableOpacity>
         )
     }
-    const getNonUniqueInferiorUnitLines = () => {
+    const getNonUniqueInferiorUnitLines = (x: UnitLine) => {
         let nonUUArray: UnitLine[] = []
-        sortUnitCounter(getInferiorUnitLines(unitLineName)).forEach((counterUnit)=>{
-            let counterUnitObj = unitLines[getUnitLineNameForUnit(counterUnit)];
+        sortUnitCounter(getInferiorUnitLines(x)).forEach((counterUnit)=>{
+            let counterUnitObj = unitLines[getUnitLineIdForUnit(counterUnit)];
             if(!counterUnitObj.unique){
                 nonUUArray.push(counterUnit);
             }
@@ -101,7 +71,7 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
         return nonUUArray.map(counterUnit => 
              <TouchableOpacity key={counterUnit} onPress={() => gotoUnit(counterUnit)}>
                  <View style={styles.row}>
-                     <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitLineIcon(counterUnit)}/>
+                     <Image style={styles.unitIcon} source={getUnitLineIcon(counterUnit)}/>
                      <MyText style={styles.unitDesc}>
                          {getUnitLineName(counterUnit)}
                      </MyText>
@@ -109,10 +79,6 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
             </TouchableOpacity>
          )
     }
-
-    const developments = unitLine.units;//.filter((u, i) => i > 0);//.map(u => units[u]);
-
-    const [statsVisible, setStatsVisible] = useState(true);
 
     let groups = [
         {
@@ -193,6 +159,7 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
     const gotoUnit = (unit: Unit) => navigation.push('Unit', {unit: unit});
     const gotoTech = (tech: Tech) => navigation.push('Tech', {tech: tech});
 
+
     const baseUnit = unitName;
     const eliteUnit = unitLine.unique ? unitLines[unitLineName].units[1] : null;
     const data = getUnitData(baseUnit);
@@ -252,95 +219,92 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
             <MyText style={styles.description}>{getUnitDescription(baseUnit)}</MyText>
             <MyText/>
 
-            {
-                statsVisible &&
-                <View style={styles.statsContainer}>
-                    <View style={styles.statsRow}>
-                        <MyText style={styles.cellName}>Hit Points</MyText>
-                        <MyText style={styles.cellValue}>{getValue('HP')}</MyText>
-                    </View>
-                    <View style={styles.statsRow}>
-                        <MyText style={styles.cellName}>Attack</MyText>
-                        <MyText style={styles.cellValue}>
-                            {
-                                attacks.length > 0 && attacks.map(a =>
-                                    <MyText key={a.Class}>{getAttackValue(a.Class as UnitClassNumber)} ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
-                                )
-                                || <Text>-</Text>
-                            }
-                        </MyText>
-                    </View>
-                    <View style={styles.statsRow}>
-                        <MyText style={styles.cellName}>Attack Bonuses</MyText>
-                        <View style={styles.cellValue}>
-                            {
-                                attackBonuses.length > 0 && attackBonuses.map(a =>
-                                    <MyText key={a.Class}>{getAttackBonusValue(a.Class as UnitClassNumber)} ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
-                                )
-                                || <Text>-</Text>
-                            }
-                        </View>
-                    </View>
-                    <View style={styles.statsRow}>
-                        <MyText style={styles.cellName}>Rate of Fire</MyText>
-                        <MyText style={styles.cellValue}>{getValue('ReloadTime')}</MyText>
-                    </View>
-                    <View style={styles.statsRow}>
-                        <MyText style={styles.cellName}>Frame Delay</MyText>
-                        <MyText style={styles.cellValue}>{getValue('FrameDelay')}</MyText>
-                    </View>
-                    <View style={styles.statsRow}>
-                        <MyText style={styles.cellName}>Range</MyText>
-                        <MyText style={styles.cellValue}>{getValue('Range')}</MyText>
-                    </View>
-                    {
-                        data.MinRange > 0 &&
-                        <View style={styles.statsRow}>
-                            <MyText style={styles.cellName}>Minimum Range</MyText>
-                            <MyText style={styles.cellValue}>{getValue('MinRange')}</MyText>
-                        </View>
-                    }
-                    <View style={styles.statsRow}>
-                        <MyText style={styles.cellName}>Accuracy</MyText>
-                        <MyText style={styles.cellValue}>{getValue('AccuracyPercent')}%</MyText>
-                    </View>
-                    <View style={styles.statsRow}>
-                        <MyText style={styles.cellName}>Melee Armour</MyText>
-                        <MyText style={styles.cellValue}>{getValue('MeleeArmor')}</MyText>
-                    </View>
-                    <View style={styles.statsRow}>
-                        <MyText style={styles.cellName}>Pierce Armour</MyText>
-                        <MyText style={styles.cellValue}>{getValue('PierceArmor')}</MyText>
-                    </View>
-                    <View style={styles.statsRow}>
-                        <MyText style={styles.cellName}>Armor Classes</MyText>
-                        <View style={styles.cellValue}>
-                            {
-                                armourClasses.length > 0 && armourClasses.map(a =>
-                                    <MyText key={a.Class}>{getArmourValue(a.Class as UnitClassNumber)} ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
-                                )
-                                || <Text>-</Text>
-                            }
-                        </View>
-                    </View>
-                    <View style={styles.statsRow}>
-                        <MyText style={styles.cellName}>Speed</MyText>
-                        <MyText style={styles.cellValue}>{getValue('Speed')}</MyText>
-                    </View>
-                    <View style={styles.statsRow}>
-                        <MyText style={styles.cellName}>Line Of Sight</MyText>
-                        <MyText style={styles.cellValue}>{getValue('LineOfSight')}</MyText>
-                    </View>
-                    {
-                        data.GarrisonCapacity > 0 &&
-                        <View style={styles.statsRow}>
-                            <MyText style={styles.cellName}>Garrison Capacity</MyText>
-                            <MyText style={styles.cellValue}>{getValue('GarrisonCapacity')}</MyText>
-                        </View>
-                    }
-                    <MyText/>
+            <View style={styles.statsContainer}>
+                <View style={styles.statsRow}>
+                    <MyText style={styles.cellName}>Hit Points</MyText>
+                    <MyText style={styles.cellValue}>{getValue('HP')}</MyText>
                 </View>
-            }
+                <View style={styles.statsRow}>
+                    <MyText style={styles.cellName}>Attack</MyText>
+                    <MyText style={styles.cellValue}>
+                        {
+                            attacks.length > 0 && attacks.map(a =>
+                                <MyText key={a.Class}>{getAttackValue(a.Class as UnitClassNumber)} ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
+                            )
+                            || <Text>-</Text>
+                        }
+                    </MyText>
+                </View>
+                <View style={styles.statsRow}>
+                    <MyText style={styles.cellName}>Attack Bonuses</MyText>
+                    <View style={styles.cellValue}>
+                        {
+                            attackBonuses.length > 0 && attackBonuses.map(a =>
+                                <MyText key={a.Class}>{getAttackBonusValue(a.Class as UnitClassNumber)} ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
+                            )
+                            || <Text>-</Text>
+                        }
+                    </View>
+                </View>
+                <View style={styles.statsRow}>
+                    <MyText style={styles.cellName}>Rate of Fire</MyText>
+                    <MyText style={styles.cellValue}>{getValue('ReloadTime')}</MyText>
+                </View>
+                <View style={styles.statsRow}>
+                    <MyText style={styles.cellName}>Frame Delay</MyText>
+                    <MyText style={styles.cellValue}>{getValue('FrameDelay')}</MyText>
+                </View>
+                <View style={styles.statsRow}>
+                    <MyText style={styles.cellName}>Range</MyText>
+                    <MyText style={styles.cellValue}>{getValue('Range')}</MyText>
+                </View>
+                {
+                    data.MinRange > 0 &&
+                    <View style={styles.statsRow}>
+                        <MyText style={styles.cellName}>Minimum Range</MyText>
+                        <MyText style={styles.cellValue}>{getValue('MinRange')}</MyText>
+                    </View>
+                }
+                <View style={styles.statsRow}>
+                    <MyText style={styles.cellName}>Accuracy</MyText>
+                    <MyText style={styles.cellValue}>{getValue('AccuracyPercent')}%</MyText>
+                </View>
+                <View style={styles.statsRow}>
+                    <MyText style={styles.cellName}>Melee Armour</MyText>
+                    <MyText style={styles.cellValue}>{getValue('MeleeArmor')}</MyText>
+                </View>
+                <View style={styles.statsRow}>
+                    <MyText style={styles.cellName}>Pierce Armour</MyText>
+                    <MyText style={styles.cellValue}>{getValue('PierceArmor')}</MyText>
+                </View>
+                <View style={styles.statsRow}>
+                    <MyText style={styles.cellName}>Armor Classes</MyText>
+                    <View style={styles.cellValue}>
+                        {
+                            armourClasses.length > 0 && armourClasses.map(a =>
+                                <MyText key={a.Class}>{getArmourValue(a.Class as UnitClassNumber)} ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
+                            )
+                            || <Text>-</Text>
+                        }
+                    </View>
+                </View>
+                <View style={styles.statsRow}>
+                    <MyText style={styles.cellName}>Speed</MyText>
+                    <MyText style={styles.cellValue}>{getValue('Speed')}</MyText>
+                </View>
+                <View style={styles.statsRow}>
+                    <MyText style={styles.cellName}>Line Of Sight</MyText>
+                    <MyText style={styles.cellValue}>{getValue('LineOfSight')}</MyText>
+                </View>
+                {
+                    data.GarrisonCapacity > 0 &&
+                    <View style={styles.statsRow}>
+                        <MyText style={styles.cellName}>Garrison Capacity</MyText>
+                        <MyText style={styles.cellValue}>{getValue('GarrisonCapacity')}</MyText>
+                    </View>
+                }
+                <MyText/>
+            </View>
 
             {
                 unitLine.counteredBy && (
@@ -372,7 +336,7 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
                         {checked ? sortUnitCounter(unitLine.counteredBy).map(counterUnit =>
                                 <TouchableOpacity key={counterUnit} onPress={() => gotoUnit(counterUnit)}>
                                     <View style={styles.row}>
-                                        <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitLineIcon(counterUnit)}/>
+                                        <Image style={styles.unitIcon} source={getUnitLineIcon(counterUnit)}/>
                                         <MyText style={styles.unitDesc}>
                                             {getUnitLineName(counterUnit)}
                                         </MyText>
@@ -384,21 +348,23 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
                             <MyText  style={styles.header2}>Strong vs.</MyText>
                         </View>
                         {checked ? 
-                            sortUnitCounter(getInferiorUnitLines(unitLineName)).map(counterUnit =>
+                            sortUnitCounter(getInferiorUnitLines(unitLineId)).map(counterUnit =>
                                 <TouchableOpacity key={counterUnit} onPress={() => gotoUnit(counterUnit)}>
                                     <View style={styles.row}>
-                                        <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitLineIcon(counterUnit)}/>
+                                        <Image style={styles.unitIcon} source={getUnitLineIcon(counterUnit)}/>
                                         <MyText style={styles.unitDesc}>
                                             {getUnitLineName(counterUnit)}
                                         </MyText>
                                     </View>
                                 </TouchableOpacity>
-                            ) : getNonUniqueInferiorUnitLines()
+                            ) : getNonUniqueInferiorUnitLines(unitLineId)
                         }
                 </View>
                     </>
                 )
             }
+
+            <MyText/>
 
             {
                 groups.map(group =>
@@ -461,26 +427,6 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
                     </View>
             }
 
-            {/*{*/}
-            {/*    developments.length > 0 &&*/}
-            {/*        <View>*/}
-            {/*            <MyText/>*/}
-            {/*            <View style={styles.row}>*/}
-            {/*                <MyText size="headline">Unit line</MyText>*/}
-            {/*            </View>*/}
-            {/*            {*/}
-            {/*                developments.map(unit =>*/}
-            {/*                    <TouchableOpacity key={unit} onPress={() => gotoUnit(unit)}>*/}
-            {/*                        <View style={styles.row}>*/}
-            {/*                            <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(unit)}/>*/}
-            {/*                            <MyText style={styles.unitDesc}>{getUnitName(unit)}</MyText>*/}
-            {/*                        </View>*/}
-            {/*                    </TouchableOpacity>*/}
-            {/*                )*/}
-            {/*            }*/}
-            {/*        </View>*/}
-            {/*}*/}
-
             <View style={appStyles.expanded}/>
             <Fandom articleName={getUnitName(unitName)}/>
         </View>
@@ -525,20 +471,15 @@ const getStyles = (theme: ITheme) => {
         costsRow: {
             flexDirection: 'row',
             marginBottom: 5,
-            // backgroundColor: 'blue',
         },
 
         statsContainer: {
             marginTop: 5,
             marginHorizontal: -padding,
-            // alignItems: 'center',
         },
         statsRow: {
             flexDirection: 'row',
             justifyContent: 'center',
-            // marginBottom: 5,
-            // width: 250,
-            // backgroundColor: 'blue',
         },
         cellName: {
             padding: padding,
@@ -562,11 +503,12 @@ const getStyles = (theme: ITheme) => {
         },
         header1: {
             fontSize: 18,
-            fontWeight: '500'
+            fontWeight: '500',
         },
         header2: {
             fontSize: 16,
-            fontWeight: '300'
+            fontWeight: '300',
+            marginVertical: 5,
         },
         unitIcon: {
             width: iconSmallWidth,
