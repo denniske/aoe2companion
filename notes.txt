@@ -8,14 +8,19 @@ api performance
 
 add content
 - tips and tricks
+- stats
+- user / main page
+- rating time frame
+- filter match list by leaderboard
+
 - remaining unit counters
 - error when data cannot be loaded (implemented in leaderboard already)
-- filter match list by leaderboard
-- matches versus
 - aoe de forum
 - zoom rating history
 - leaderboard rating distribution
 - lobbies online players per mode
+
+- matches versus
 
 npx npkill
 

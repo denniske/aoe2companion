@@ -55,6 +55,17 @@
       "infoPlist": {
         "LSApplicationQueriesSchemes": ["itms-apps"]
       }
+    },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "aoe2companion",
+            "project": "aoe2companion"
+          }
+        }
+      ]
     }
   }
 }
