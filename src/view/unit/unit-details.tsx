@@ -166,26 +166,6 @@ const getStyles = (theme: ITheme) => {
             // backgroundColor: 'blue',
         },
 
-        resRow: {
-            flexDirection: 'row',
-            marginBottom: 5,
-            alignItems: 'center',
-            // backgroundColor: 'blue',
-        },
-        resIcon: {
-            width: 22,
-            height: 22,
-            marginRight: 5,
-        },
-        resDescription: {
-            marginRight: 20,
-        },
-
-        costsRow: {
-            flexDirection: 'row',
-            marginBottom: 5,
-        },
-
         checkboxCell: {
             flex: 1,
             marginLeft: -6

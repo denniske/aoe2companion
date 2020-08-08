@@ -154,6 +154,7 @@ export interface AppState {
 
 const initialState: Partial<AppState> = {
   config: undefined,
+  followedMatches: undefined,
   user: {},
   leaderboard: {},
   auth: undefined,

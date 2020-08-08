@@ -7,7 +7,7 @@
       "android"
     ],
     "userInterfaceStyle": "automatic",
-    "version": "14.0.7",
+    "version": "14.0.8",
     "orientation": "portrait",
     "privacy": "public",
     "githubUrl": "https://github.com/denniske/aoe2companion",
@@ -38,7 +38,7 @@
     "android": {
       "userInterfaceStyle": "automatic",
       "package": "com.aoe2companion",
-      "versionCode": 140007,
+      "versionCode": 140008,
       "permissions": [],
       "googleServicesFile": "./google-services.json",
       "useNextNotificationsApi": true
@@ -47,7 +47,7 @@
       "userInterfaceStyle": "automatic",
       "icon": "./assets/icon-no-alpha.png",
       "bundleIdentifier": "com.aoe2companion",
-      "buildNumber": "14.0.7",
+      "buildNumber": "14.0.8",
       "supportsTablet": false,
       "config": {
         "usesNonExemptEncryption": false

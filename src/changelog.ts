@@ -13,11 +13,15 @@ export const changelog: IChangelog = {
     '14.0.8': [
         {
             type: 'minor',
-            title: 'Show AI in match details',
+            title: 'Change default dark mode to system',
         },
         {
-            type: 'minor',
-            title: 'Change default dark mode to system',
+            type: 'bugfix',
+            title: 'Show AI in match player list',
+        },
+        {
+            type: 'bugfix',
+            title: 'Filtering of unique unit counters for both weak vs. / strong vs.',
         },
         {
             type: 'bugfix',
