@@ -2,6 +2,7 @@ import {makeQueryString, sleep} from '../helper/util';
 import {IMatch, IMatchRaw} from "../helper/data";
 import {fromUnixTime} from "date-fns";
 import { getHost } from './host';
+import {uniqBy} from "lodash-es";
 
 
 function convertTimestampsToDates(json: IMatchRaw): IMatch {
@@ -31,9 +32,12 @@ export async function fetchPlayerMatches(game: string, start: number, count: num
     const url = getHost('aoe2net') + `/api/player/matches?${queryString}`;
     console.log(url);
     const response = await fetch(url)
-    const json = await response.json() as IMatchRaw[];
+    let json = await response.json() as IMatchRaw[];
     // console.log("matches json", json);
     // console.log("matches json", json.filter(m => m.players.some(p => ![1,3,4,5].includes(p.slot_type))));
+
+    // TODO: Temporary fix: Filter duplicate matches
+    json = uniqBy(json, m => m.match_id);
 
     return json.map(match => convertTimestampsToDates(match));
 }
