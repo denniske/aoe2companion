@@ -80,7 +80,7 @@ export function LeaderboardMenu() {
         <View style={styles.menu}>
             <View style={styles.pickerRow}>
                 <ActivityIndicator animating={loadingMatchesOrStats} size="small"/>
-                <Picker textMinWidth={150} flatlist={true} divider={divider} icon={icon} disabled={loadingMatchesOrStats} value={country} values={countryList} formatter={formatCountry} onSelect={onCountrySelected}/>
+                <Picker itemHeight={40} textMinWidth={150} flatlist={true} divider={divider} icon={icon} disabled={loadingMatchesOrStats} value={country} values={countryList} formatter={formatCountry} onSelect={onCountrySelected}/>
             </View>
         </View>
     );

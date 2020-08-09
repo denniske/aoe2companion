@@ -1,5 +1,7 @@
 import {Divider, Menu} from "react-native-paper";
-import {Dimensions, FlatList, StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle} from "react-native";
+import {
+    Dimensions, FlatList, FlatListProps, StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle
+} from "react-native";
 import {MyText} from "./my-text";
 import Icon from "react-native-vector-icons/FontAwesome";
 import React, {useState} from "react";
@@ -17,6 +19,7 @@ interface IPickerProps<T> {
     disabled?: boolean;
     flatlist?: boolean;
     textMinWidth?: number;
+    itemHeight?: number;
 }
 
 
@@ -36,13 +39,13 @@ export default function Picker<T>(props: IPickerProps<T>) {
 
     const { value, values, onSelect, style, disabled,
             formatter = (x) => x, icon = x => undefined, cell = defaultCell, divider = x => false, flatlist = false,
-            textMinWidth = 0,
+            textMinWidth = 0, itemHeight
     } = props;
 
     const color = disabled ? theme.colors.disabled : theme.colors.text;
 
     const renderItem = (v: T, i: number) => (
-        <View key={i}>
+        <View key={i} style={{ height: itemHeight }}>
             <TouchableOpacity onPress={() => {onSelect(v); setMenu(false);}} disabled={disabled}>
                 <View style={styles.menuItem}>
                     {cell({value: v, selected: v == value, formatter: (x: any, i: any) => formatter(x, true), color, icon, textMinWidth})}
@@ -54,6 +57,14 @@ export default function Picker<T>(props: IPickerProps<T>) {
             }
         </View>
     );
+
+    const flatListProps: Partial<FlatListProps<T>> = {};
+    if (itemHeight) {
+        flatListProps.getItemLayout = (data, index) => (
+            {length: itemHeight, offset: itemHeight * index, index}
+        );
+        flatListProps.initialScrollIndex = value !== undefined ? Math.max(0, values.indexOf(value)) : 0;
+    }
 
     return (
         <View style={[style]}>
@@ -74,6 +85,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
                     flatlist &&
                     <View style={{height: Dimensions.get('screen').height-250, minWidth: 200}}>
                         <FlatList
+                            {...flatListProps}
                             keyboardShouldPersistTaps={'always'}
                             data={values}
                             renderItem={({item, index}) => renderItem(item, index)}
