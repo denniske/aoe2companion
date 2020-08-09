@@ -4,7 +4,7 @@ import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {
     getInferiorUnitLines, getUnitDescription, getUnitLineIcon, getUnitLineIdForUnit, getUnitLineName,
-    getUnitLineNameForUnit, getUnitName, IUnitLine, sortUnitCounter, Unit, UnitLine, unitLines
+    getUnitLineNameForUnit, getUnitName, IUnitLine, sortUnitCounter, Unit, UnitLine, unitLines, getNonUniqueUnits
 } from "../../helper/units";
 import Fandom from "../components/fandom";
 import {Checkbox} from "react-native-paper";
@@ -15,6 +15,8 @@ import {appVariants} from "../../styles";
 import {UnitStats} from "./unit-stats";
 import {UnitUpgrades} from "./unit-upgrades";
 import {UnitCosts} from "./unit-costs";
+import {UnitCounters} from "./unit-counters";
+import { sort } from 'semver';
 
 
 export default function UnitDetails({unitName}: {unitName: Unit}) {
@@ -29,45 +31,6 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
     console.log('unitLine', unitLine);
     console.log('unitLineId', unitLineId);
     console.log('unitLineName', unitLineName);
-
-    const getNonUniqueUnitCounters = (x: IUnitLine)=>{
-        let nonUUArray: UnitLine[] = [];
-        sortUnitCounter(x.counteredBy ?? []).forEach((counterUnit)=>{
-            let counterUnitObj = unitLines[getUnitLineIdForUnit(counterUnit)];
-            if(!counterUnitObj.unique){
-                nonUUArray.push(counterUnit);
-            }
-        });
-        return nonUUArray.map(counterUnit =>
-            <TouchableOpacity key={counterUnit} onPress={() => gotoUnit(counterUnit)}>
-                <View style={styles.row}>
-                    <Image style={styles.unitIcon} source={getUnitLineIcon(counterUnit)}/>
-                    <MyText style={styles.unitDesc}>
-                        {getUnitLineName(counterUnit)}
-                    </MyText>
-                </View>
-            </TouchableOpacity>
-        )
-    }
-    const getNonUniqueInferiorUnitLines = (x: UnitLine) => {
-        let nonUUArray: UnitLine[] = []
-        sortUnitCounter(getInferiorUnitLines(x)).forEach((counterUnit)=>{
-            let counterUnitObj = unitLines[getUnitLineIdForUnit(counterUnit)];
-            if(!counterUnitObj.unique){
-                nonUUArray.push(counterUnit);
-            }
-        });
-        return nonUUArray.map(counterUnit => 
-             <TouchableOpacity key={counterUnit} onPress={() => gotoUnit(counterUnit)}>
-                 <View style={styles.row}>
-                     <Image style={styles.unitIcon} source={getUnitLineIcon(counterUnit)}/>
-                     <MyText style={styles.unitDesc}>
-                         {getUnitLineName(counterUnit)}
-                     </MyText>
-                 </View>
-            </TouchableOpacity>
-         )
-    }
 
     const gotoUnit = (unit: Unit) => navigation.push('Unit', {unit: unit});
 
@@ -107,8 +70,7 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
                     <View style={styles.row}>
                             <MyText style={styles.header2}>Weak vs.</MyText>
                     </View>
-                    
-                        {checked ? sortUnitCounter(unitLine.counteredBy).map(counterUnit =>
+                    {checked ? sortUnitCounter(unitLine.counteredBy).map(counterUnit =>
                                 <TouchableOpacity key={counterUnit} onPress={() => gotoUnit(counterUnit)}>
                                     <View style={styles.row}>
                                         <Image style={styles.unitIcon} source={getUnitLineIcon(counterUnit)}/>
@@ -116,9 +78,18 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
                                             {getUnitLineName(counterUnit)}
                                         </MyText>
                                     </View>
-                                </TouchableOpacity>) : getNonUniqueUnitCounters(unitLine)
+                                </TouchableOpacity>
+                                ) : getNonUniqueUnits(unitLine.counteredBy).map(counterUnit =>
+                                <TouchableOpacity key={counterUnit} onPress={() => gotoUnit(counterUnit)}>
+                                    <View style={styles.row}>
+                                        <Image style={styles.unitIcon} source={getUnitLineIcon(counterUnit)}/>
+                                        <MyText style={styles.unitDesc}>
+                                            {getUnitLineName(counterUnit)}
+                                        </MyText>
+                                    </View>
+                                </TouchableOpacity>
+                            )
                         }
-
                         <View style={styles.row}>
                             <MyText  style={styles.header2}>Strong vs.</MyText>
                         </View>
@@ -132,7 +103,16 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
                                         </MyText>
                                     </View>
                                 </TouchableOpacity>
-                            ) : getNonUniqueInferiorUnitLines(unitLineId)
+                            ) : getNonUniqueUnits(getInferiorUnitLines(unitLineId)).map(counterUnit => 
+                                <TouchableOpacity key={counterUnit} onPress={() => gotoUnit(counterUnit)}>
+                                    <View style={styles.row}>
+                                        <Image style={styles.unitIcon} source={getUnitLineIcon(counterUnit)}/>
+                                        <MyText style={styles.unitDesc}>
+                                            {getUnitLineName(counterUnit)}
+                                        </MyText>
+                                    </View>
+                               </TouchableOpacity>
+                            )
                         }
                 </View>
                     </>
@@ -140,7 +120,11 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
             }
 
             <MyText/>
-
+            <View style={styles.row}>
+                <MyText style={styles.header1}>
+                    Upgrades
+                </MyText>
+            </View>
             <UnitUpgrades unitLineId={unitLineId} unitId={unitName} />
 
             <View style={appStyles.expanded}/>
@@ -180,11 +164,10 @@ const getStyles = (theme: ITheme) => {
         },
         header1: {
             fontSize: 18,
-            fontWeight: '500',
+            fontWeight: 'bold',
         },
         header2: {
             fontSize: 16,
-            fontWeight: '300',
             marginVertical: 5,
         },
         unitIcon: {

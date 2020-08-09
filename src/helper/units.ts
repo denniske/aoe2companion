@@ -3057,3 +3057,14 @@ export const unitLineOrder = [
 export function sortUnitCounter(unitLines: UnitLine[]) {
     return sortBy(unitLines, ul => unitLineOrder.indexOf(ul));
 }
+
+export function getNonUniqueUnits(unitArray){
+    let nonUUArray: UnitLine[] = [];
+    sortUnitCounter(unitArray).forEach((counterUnit)=>{
+        let counterUnitObj = unitLines[getUnitLineIdForUnit(counterUnit)];
+        if(!counterUnitObj.unique){
+            nonUUArray.push(counterUnit);
+        }
+    });
+    return nonUUArray
+}
