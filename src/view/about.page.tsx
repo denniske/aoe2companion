@@ -52,10 +52,12 @@ export default function AboutPage() {
             <MyText style={styles.content}>Niklas Ohlrogge</MyText>
 
             <MyText style={styles.heading}>Contributors</MyText>
+            <MyText style={styles.content}>FifthSense</MyText>
             <MyText style={styles.content}>Johannes Berger</MyText>
 
             <MyText style={styles.heading}>Supporters</MyText>
             <MyText style={styles.content}>Kloakan</MyText>
+            <MyText style={styles.content}>Ron</MyText>
             <MyText style={styles.content}>Sihing Mo</MyText>
             <MyText style={styles.content}>Sebastian Janus</MyText>
             <MyText style={styles.content}>Ultima Gaina</MyText>

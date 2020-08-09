@@ -7,13 +7,11 @@ api performance
 - use vercel for api
 
 add content
-- tips and tricks
 - stats
 - user / main page
 - rating time frame
 - filter match list by leaderboard
 
-- remaining unit counters
 - error when data cannot be loaded (implemented in leaderboard already)
 - aoe de forum
 - zoom rating history
