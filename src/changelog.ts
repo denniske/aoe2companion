@@ -10,6 +10,16 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '14.0.9': [
+        {
+            type: 'feature',
+            title: 'Tips & Tricks',
+        },
+        {
+            type: 'bugfix',
+            title: 'Open Following Page when push notification is clicked',
+        },
+    ],
     '14.0.8': [
         {
             type: 'minor',

@@ -236,18 +236,18 @@ export function InnerApp() {
                 animationEnabled: false,
             }}>
                 <Stack.Screen
-                    name="Splash"
-                    component={SplashPage}
-                    options={{
-                        title: '',
-                    }}
-                />
-                <Stack.Screen
                     name="Main"
                     component={MainPage}
                     options={{
                         title: 'Me',
                         headerRight: mainMenu(),
+                    }}
+                />
+                <Stack.Screen
+                    name="Splash"
+                    component={SplashPage}
+                    options={{
+                        title: '',
                     }}
                 />
                 <Stack.Screen

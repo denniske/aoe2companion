@@ -18,7 +18,7 @@ export default function Footer() {
     const activeRoute = navigationState?.routes[0];
     const notificationListener = useRef<any>();
     const responseListener = useRef<any>();
-    const initialRouteHandle = useRef<any>();
+    // const initialRouteHandle = useRef<any>();
 
     const nav = async (route: keyof RootStackParamList) => {
         const navigation = getRootNavigation();
@@ -40,9 +40,9 @@ export default function Footer() {
     };
 
     useEffect(() => {
-        initialRouteHandle.current = setTimeout(() => {
-            nav('Main');
-        }, 10);
+        // initialRouteHandle.current = setTimeout(() => {
+        //     nav('Main');
+        // }, 10);
 
         try {
             // Notification is received while the app is foregrounded
@@ -53,7 +53,7 @@ export default function Footer() {
             // A user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
             responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
                 console.log('responseListener', response.notification);
-                clearTimeout(initialRouteHandle.current);
+                // clearTimeout(initialRouteHandle.current);
                 nav('Feed');
             });
         } catch(e) {
@@ -62,7 +62,7 @@ export default function Footer() {
 
         return () => {
             try {
-                clearTimeout(initialRouteHandle.current);
+                // clearTimeout(initialRouteHandle.current);
                 Notifications.removeNotificationSubscription(notificationListener.current);
                 Notifications.removeNotificationSubscription(responseListener.current);
             } catch(e) {
