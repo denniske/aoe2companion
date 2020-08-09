@@ -27,6 +27,11 @@ interface ITip {
 }
 
 const videoBaseUrl = 'https://firebasestorage.googleapis.com/v0/b/aoe2companion.appspot.com/o/tips%2Fvideo%2F';
+const imageBaseUrl = 'https://firebasestorage.googleapis.com/v0/b/aoe2companion.appspot.com/o/tips%2Fimage%2F';
+
+function getImageSource(name: string) {
+    return { uri: imageBaseUrl + name + '?alt=media' };
+}
 
 function getVideoSource(name: string) {
     return { uri: videoBaseUrl + name + '?alt=media' };
@@ -36,7 +41,7 @@ const tips: ITip[] = [
     // {
     //     title: 'Defend the drush',
     //     description: 'Move villagers into town center and do quick-walls to win.',
-    //     // video: require('../../assets/tips/aoe-1.mp4'),
+    //     video: require('../../assets/tips/aoe-1.mp4'),
     //     video: getVideoUrl('http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'),
     //     url: 'https://www.ageofempires.com/mods/details/2695',
     // },
@@ -44,7 +49,6 @@ const tips: ITip[] = [
         title: 'Gathering efficiently',
         description: 'Shift + Right Click new sheep',
         video: getVideoSource('aoe-sheep.mp4'),
-        // video: require('../../assets/tips/aoe-sheep.mp4'),
         videoPoster: require('../../assets/tips/poster/aoe-sheep.png'),
         unit: 'Sheep',
     },
@@ -52,41 +56,36 @@ const tips: ITip[] = [
         title: 'Save villager from boar',
         description: 'Build house to distract the boar',
         video: getVideoSource('aoe-boar.mp4'),
-        // video: require('../../assets/tips/aoe-boar.mp4'),
         unit: 'Boar',
     },
     {
         title: 'Autoscout',
         description: 'Use auto scout to use AI scouting',
         video: getVideoSource('aoe-auto-scout.mp4'),
-        // video: require('../../assets/tips/aoe-auto-scout.mp4'),
         unit: 'ScoutCavalry',
     },
     {
         title: 'Automatic farm seeding',
         description: 'Use auto seed to automatically seed new farms',
         video: getVideoSource('aoe-auto-seed.mp4'),
-        // video: require('../../assets/tips/aoe-auto-seed.mp4'),
         building: 'Farm',
     },
     {
         title: 'Rotate Gates',
         description: 'Use Control + Scroll to rotate gates',
         video: getVideoSource('aoe-gate.mp4'),
-        // video: require('../../assets/tips/aoe-gate.mp4'),
         building: 'PalisadeGate',
     },
     {
         title: 'Task Queue',
         description: 'Use Shift + Right Click to queue up tasks',
         video: getVideoSource('aoe-task-queue.mp4'),
-        // video: require('../../assets/tips/aoe-task-queue.mp4'),
         imageIcon: require('../../assets/tips/icon/aoe-task-queue.png'),
     },
     {
         title: 'Farming efficiently',
         description: 'Build farms in circle around mill and town center.',
-        image: require('../../assets/tips/image/aoe-farm.png'),
+        image: getImageSource('aoe-farm.png'),
         building: 'Farm',
     },
 
@@ -94,14 +93,13 @@ const tips: ITip[] = [
         title: 'Small Trees',
         description: 'Replaces trees with a smaller version. Gives better overview and makes it easier to detect holes.',
         video: getVideoSource('aoe-small-trees.mp4'),
-        // video: require('../../assets/tips/aoe-small-trees.mp4'),
         url: 'https://www.ageofempires.com/mods/details/790',
         imageIcon: require('../../assets/tips/icon/aoe-small-trees.png'),
     },
     {
         title: 'Zetnus Improved Grid Mod',
         description: 'Shows a grid on the terrain. Makes it easier to place buildings and measure distances. More subtle than the integrated grid.',
-        image: require('../../assets/tips/image/aoe-grid.png'),
+        image: getImageSource('aoe-grid.png'),
         url: 'https://www.ageofempires.com/mods/details/812',
         imageIcon: require('../../assets/tips/icon/aoe-grid.png'),
     },
@@ -109,14 +107,13 @@ const tips: ITip[] = [
         title: 'Idle Villager Pointer (UHD supported)',
         description: 'Adds an exclamation point over all idle villagers making it easier for you to identify them.',
         video: getVideoSource('aoe-idle-villager-pointer.mp4'),
-        // video: require('../../assets/tips/aoe-idle-villager-pointer.mp4'),
         url: 'https://www.ageofempires.com/mods/details/2686',
         imageIcon: require('../../assets/tips/icon/aoe-idle-villager-pointer.png'),
     },
     {
         title: 'Idle Villager highlight by arrow',
         description: 'Highlights the idle villager button by adding a red arrow underneath.',
-        image: require('../../assets/tips/image/aoe-idle-villager-arrow.png'),
+        image: getImageSource('aoe-idle-villager-arrow.png'),
         url: 'https://www.ageofempires.com/mods/details/3789',
         imageIcon: require('../../assets/tips/icon/aoe-idle-villager-arrow.png'),
     },
@@ -176,44 +173,38 @@ export default function TipsPage() {
 
     return (
         <View style={styles.container}>
+            <View style={styles.showcaseContainer}>
+            <View style={styles.showcaseInner}>
             {
                 !currentTip.video && !currentTip.image &&
-                <View style={styles.showcaseContainer}>
                     <View style={[styles.showcase, { width: '100%', aspectRatio: 16/9, opacity: loading ? 0.5 : 1 }]}>
                         <MyText>No Preview</MyText>
                     </View>
-                </View>
             }
             {
                 currentTip.video &&
-                <View style={styles.showcaseContainer}>
-                    {
-                        currentTip.video &&
-                        <Video
-                            source={currentTip.video}
-                            posterSource={currentTip.videoPoster}
-                            usePoster={true}
-                            // source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
-                            isMuted={true}
-                            resizeMode="cover"
-                            shouldPlay={true}
-                            // shouldPlay={false}
-                            positionMillis={videoPosition}
-                            isLooping
-                            onLoad={() => setLoading(false)}
-                            onLoadStart={() => setLoading(true)}
-                            style={[styles.showcase, { width: '100%', aspectRatio: 16/9, opacity: loading ? 0.5 : 1 }]}
-                        />
-                    }
-                </View>
+                    <Video
+                        source={currentTip.video}
+                        posterSource={currentTip.videoPoster}
+                        usePoster={true}
+                        // source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
+                        isMuted={true}
+                        resizeMode="cover"
+                        shouldPlay={true}
+                        // shouldPlay={false}
+                        positionMillis={videoPosition}
+                        isLooping
+                        onLoad={() => setLoading(false)}
+                        onLoadStart={() => setLoading(true)}
+                        style={[styles.showcase, { width: '100%', aspectRatio: 16/9, opacity: loading ? 0.5 : 1 }]}
+                    />
             }
             {
                 currentTip.image &&
-                <View style={styles.showcaseContainer}>
-                    <ImageSized source={currentTip.image}
-                       style={[styles.showcase, { width: '100%', aspectRatio: 16/9, opacity: loading ? 0.5 : 1 }]} />
-                </View>
+                    <ImageSized source={currentTip.image} style={[styles.showcase, { width: '100%', aspectRatio: 16/9, opacity: loading ? 0.5 : 1 }]} />
             }
+            </View>
+            </View>
             <ScrollView
                 style={styles.container}
                 contentContainerStyle={styles.content}>
@@ -272,6 +263,10 @@ const getStyles = (theme: ITheme) => {
             borderTopColor: theme.borderColor,
             borderBottomWidth: 2,
             borderBottomColor: theme.borderColor,
+        },
+        showcaseInner: {
+            width: '100%',
+            aspectRatio: 16/9,
         },
         textContainer: {
             flex: 1,
