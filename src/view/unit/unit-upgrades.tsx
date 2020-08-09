@@ -115,6 +115,11 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
 
     return (
       <View>
+          <View style={styles.row}>
+              <MyText style={styles.header1}>
+                  Upgrades
+              </MyText>
+          </View>
 
           {
               groups.map(group =>

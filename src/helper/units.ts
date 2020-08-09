@@ -3058,13 +3058,15 @@ export function sortUnitCounter(unitLines: UnitLine[]) {
     return sortBy(unitLines, ul => unitLineOrder.indexOf(ul));
 }
 
-export function getNonUniqueUnits(unitArray){
-    let nonUUArray: UnitLine[] = [];
-    sortUnitCounter(unitArray).forEach((counterUnit)=>{
-        let counterUnitObj = unitLines[getUnitLineIdForUnit(counterUnit)];
-        if(!counterUnitObj.unique){
-            nonUUArray.push(counterUnit);
+export function filterUnits(unitLineIds: UnitLine[], filter: { unique?: boolean }) {
+    return unitLineIds.filter(unitlineId => {
+        const unitLine = unitLines[unitlineId];
+        if (filter.unique === false) {
+            return unitLine.unique == null || !unitLine.unique;
         }
+        if (filter.unique === true) {
+            return unitLine.unique;
+        }
+        return true;
     });
-    return nonUUArray
 }
