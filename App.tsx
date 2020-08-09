@@ -58,6 +58,7 @@ import * as Sentry from 'sentry-expo';
 import ErrorSnackbar from "./src/view/components/snackbar/error-snackbar";
 import ErrorPage from "./src/view/error.page";
 import * as Notifications from "expo-notifications";
+import TipsPage from "./src/view/tips.page";
 
 if (!__DEV__) {
     Sentry.init({
@@ -234,13 +235,6 @@ export function InnerApp() {
                 headerStatusBarHeight: 0,
                 animationEnabled: false,
             }}>
-                {/*<Stack.Screen*/}
-                {/*    name="Tips"*/}
-                {/*    component={TipsPage}*/}
-                {/*    options={{*/}
-                {/*        title: 'Tips & Tricks',*/}
-                {/*    }}*/}
-                {/*/>*/}
                 <Stack.Screen
                     name="Splash"
                     component={SplashPage}
@@ -261,6 +255,13 @@ export function InnerApp() {
                     component={ChangelogPage}
                     options={{
                         title: 'Changelog',
+                    }}
+                />
+                <Stack.Screen
+                    name="Tips"
+                    component={TipsPage}
+                    options={{
+                        title: 'Tips & Tricks',
                     }}
                 />
                 <Stack.Screen

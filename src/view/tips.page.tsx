@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {Image, ImageSourcePropType, ScrollView, Share, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Image, ImageSourcePropType, Linking, ScrollView, Share, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {ITheme, makeVariants, useAppTheme, useTheme} from "../theming";
 import {MyText} from "./components/my-text";
 import {Video} from "expo-av";
-import {getUnitIcon, Unit} from "../helper/units";
+import {Unit} from "../helper/units";
 import {iconHeight, iconWidth} from "../helper/theme";
 import IconFA5 from "react-native-vector-icons/FontAwesome5";
 import {AVPlaybackSource} from "expo-av/build/AV";
@@ -22,6 +22,14 @@ interface ITip {
     building?: Building;
     tech?: Tech;
     url?: string;
+    imageIcon?: string;
+    icon?: string;
+}
+
+const videoBaseUrl = 'https://firebasestorage.googleapis.com/v0/b/aoe2companion.appspot.com/o/tips%2Fvideo%2F';
+
+function getVideoSource(name: string) {
+    return { uri: videoBaseUrl + name + '?alt=media' };
 }
 
 const tips: ITip[] = [
@@ -29,96 +37,100 @@ const tips: ITip[] = [
     //     title: 'Defend the drush',
     //     description: 'Move villagers into town center and do quick-walls to win.',
     //     // video: require('../../assets/tips/aoe-1.mp4'),
-    //     video: { uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' },
+    //     video: getVideoUrl('http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'),
     //     url: 'https://www.ageofempires.com/mods/details/2695',
     // },
-
     {
         title: 'Gathering efficiently',
-        description: 'Shift-Right Click new sheep.',
-        video: require('../../assets/tips/aoe-sheep.mp4'),
-        videoPoster: require('../../assets/tips/aoe-sheep.png'),
-        // video: { uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' },
+        description: 'Shift + Right Click new sheep',
+        video: getVideoSource('aoe-sheep.mp4'),
+        // video: require('../../assets/tips/aoe-sheep.mp4'),
+        videoPoster: require('../../assets/tips/poster/aoe-sheep.png'),
         unit: 'Sheep',
     },
     {
         title: 'Save villager from boar',
-        description: 'Build house to distract boar.',
-        video: require('../../assets/tips/aoe-boar.mp4'),
-        videoPoster: require('../../assets/tips/aoe-boar.png'),
-        // video: { uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' },
+        description: 'Build house to distract the boar',
+        video: getVideoSource('aoe-boar.mp4'),
+        // video: require('../../assets/tips/aoe-boar.mp4'),
         unit: 'Boar',
     },
-
     {
         title: 'Autoscout',
-        description: 'Use autoscout to automatically scout',
-        video: require('../../assets/tips/aoe-auto-scout.mp4'),
+        description: 'Use auto scout to use AI scouting',
+        video: getVideoSource('aoe-auto-scout.mp4'),
+        // video: require('../../assets/tips/aoe-auto-scout.mp4'),
         unit: 'ScoutCavalry',
-        // tech: 'Cartography',
     },
     {
         title: 'Automatic farm seeding',
         description: 'Use auto seed to automatically seed new farms',
-        video: require('../../assets/tips/aoe-auto-seed.mp4'),
+        video: getVideoSource('aoe-auto-seed.mp4'),
+        // video: require('../../assets/tips/aoe-auto-seed.mp4'),
         building: 'Farm',
     },
     {
         title: 'Rotate Gates',
-        description: 'Use Control-Scroll to rotate gates',
-        video: require('../../assets/tips/aoe-gate.mp4'),
+        description: 'Use Control + Scroll to rotate gates',
+        video: getVideoSource('aoe-gate.mp4'),
+        // video: require('../../assets/tips/aoe-gate.mp4'),
         building: 'PalisadeGate',
     },
     {
         title: 'Task Queue',
-        description: 'Use shift click to queue up tasks',
-        video: require('../../assets/tips/aoe-task-queue.mp4'),
+        description: 'Use Shift + Right Click to queue up tasks',
+        video: getVideoSource('aoe-task-queue.mp4'),
+        // video: require('../../assets/tips/aoe-task-queue.mp4'),
+        imageIcon: require('../../assets/tips/icon/aoe-task-queue.png'),
     },
-
     {
         title: 'Farming efficiently',
         description: 'Build farms in circle around mill and town center.',
-        image: require('../../assets/tips/aoe-farm.png'),
+        image: require('../../assets/tips/image/aoe-farm.png'),
         building: 'Farm',
     },
 
     {
         title: 'Small Trees',
         description: 'Replaces trees with a smaller version. Gives better overview and makes it easier to detect holes.',
-        video: require('../../assets/tips/aoe-small-trees.mp4'),
+        video: getVideoSource('aoe-small-trees.mp4'),
+        // video: require('../../assets/tips/aoe-small-trees.mp4'),
         url: 'https://www.ageofempires.com/mods/details/790',
+        imageIcon: require('../../assets/tips/icon/aoe-small-trees.png'),
     },
     {
         title: 'Zetnus Improved Grid Mod',
-        description: 'Shows a grid on the terrain. Makes it easier to place buildings and measure distances. More subtle than the integrated grid mod.',
-        image: require('../../assets/tips/aoe-grid.png'),
+        description: 'Shows a grid on the terrain. Makes it easier to place buildings and measure distances. More subtle than the integrated grid.',
+        image: require('../../assets/tips/image/aoe-grid.png'),
         url: 'https://www.ageofempires.com/mods/details/812',
+        imageIcon: require('../../assets/tips/icon/aoe-grid.png'),
     },
     {
         title: 'Idle Villager Pointer (UHD supported)',
         description: 'Adds an exclamation point over all idle villagers making it easier for you to identify them.',
-        video: require('../../assets/tips/aoe-idle-villager-pointer.mp4'),
+        video: getVideoSource('aoe-idle-villager-pointer.mp4'),
+        // video: require('../../assets/tips/aoe-idle-villager-pointer.mp4'),
         url: 'https://www.ageofempires.com/mods/details/2686',
+        imageIcon: require('../../assets/tips/icon/aoe-idle-villager-pointer.png'),
     },
     {
         title: 'Idle Villager highlight by arrow',
         description: 'Highlights the idle villager button by adding a red arrow underneath.',
-        image: require('../../assets/tips/aoe-idle-villager-arrow.png'),
+        image: require('../../assets/tips/image/aoe-idle-villager-arrow.png'),
         url: 'https://www.ageofempires.com/mods/details/3789',
+        imageIcon: require('../../assets/tips/icon/aoe-idle-villager-arrow.png'),
     },
     {
         title: 'No Intro',
         description: 'Replaces the intro video with a 0.2s long blank video to effectively skip the intro video every time.',
-        // video: require('../../assets/tips/aoe-2.mp4'),
-        video: { uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' },
         url: 'https://www.ageofempires.com/mods/details/2416',
+        icon: 'video',
     },
     {
         title: 'Huge Number',
         description: 'Increases control group numbers up to 50% for an optimal visibility.',
-        // video: require('../../assets/tips/aoe-2.mp4'),
-        video: { uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' },
         url: 'https://www.ageofempires.com/mods/details/1779',
+        imageIcon: require('../../assets/tips/icon/aoe-huge-number.png'),
     },
 ];
 
@@ -153,6 +165,10 @@ export default function TipsPage() {
         }
     };
 
+    const onOpen = async (tip: any) => {
+        await Linking.openURL(tip.url);
+    };
+
     const setTip = (tip: ITip) => {
         setCurrentTip(tip);
         setVideoPosition(0);
@@ -161,23 +177,34 @@ export default function TipsPage() {
     return (
         <View style={styles.container}>
             {
+                !currentTip.video && !currentTip.image &&
+                <View style={styles.showcaseContainer}>
+                    <View style={[styles.showcase, { width: '100%', aspectRatio: 16/9, opacity: loading ? 0.5 : 1 }]}>
+                        <MyText>No Preview</MyText>
+                    </View>
+                </View>
+            }
+            {
                 currentTip.video &&
                 <View style={styles.showcaseContainer}>
-                    <Video
-                        source={currentTip.video}
-                        posterSource={currentTip.videoPoster}
-                        usePoster={true}
-                        // source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
-                        isMuted={true}
-                        resizeMode="cover"
-                        shouldPlay={true}
-                        // shouldPlay={false}
-                        positionMillis={videoPosition}
-                        isLooping
-                        onLoad={() => setLoading(false)}
-                        onLoadStart={() => setLoading(true)}
-                        style={[styles.showcase, { width: '100%', aspectRatio: 16/9, opacity: loading ? 0.5 : 1 }]}
-                    />
+                    {
+                        currentTip.video &&
+                        <Video
+                            source={currentTip.video}
+                            posterSource={currentTip.videoPoster}
+                            usePoster={true}
+                            // source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
+                            isMuted={true}
+                            resizeMode="cover"
+                            shouldPlay={true}
+                            // shouldPlay={false}
+                            positionMillis={videoPosition}
+                            isLooping
+                            onLoad={() => setLoading(false)}
+                            onLoadStart={() => setLoading(true)}
+                            style={[styles.showcase, { width: '100%', aspectRatio: 16/9, opacity: loading ? 0.5 : 1 }]}
+                        />
+                    }
                 </View>
             }
             {
@@ -195,7 +222,16 @@ export default function TipsPage() {
                         <View key={tip.title} style={styles.row}>
                             <TouchableOpacity style={styles.tip} onPress={() => setTip(tip)}>
                                 <View style={styles.rowInner}>
-                                    <Image style={styles.unitIconBig} source={getAbilityIcon(tip)}/>
+                                    {
+                                        tip.icon &&
+                                        <View style={styles.unitIconBig}>
+                                            <IconFA5  name="video" size={14} color={theme.textNoteColor} />
+                                        </View>
+                                    }
+                                    {
+                                        !tip.icon &&
+                                        <Image style={styles.unitIconBig} source={tip.imageIcon ? tip.imageIcon : getAbilityIcon(tip)}/>
+                                    }
                                     <View style={styles.textContainer}>
                                         <MyText style={[styles.title, {fontWeight: currentTip.title == tip.title ? 'bold' : 'normal'}]}>{tip.title}</MyText>
                                         <MyText style={styles.description}>{tip.description}</MyText>
@@ -204,7 +240,7 @@ export default function TipsPage() {
                             </TouchableOpacity>
                             {
                                 tip.url &&
-                                <TouchableOpacity style={styles.action} onPress={() => onShare(tip)}>
+                                <TouchableOpacity style={styles.action} onPress={() => onOpen(tip)}>
                                     {/*<IconFA5 name="share-square" size={14} color={theme.textNoteColor} />*/}
                                     {/*<IconFA5 name="external-link-alt" size={14} color={theme.textNoteColor} />*/}
                                     <IconFA5 name="external-link-square-alt" size={14} color={theme.textNoteColor} />
@@ -228,6 +264,8 @@ const getStyles = (theme: ITheme) => {
 
         },
         showcase: {
+            alignItems: 'center',
+            justifyContent: 'center',
         },
         showcaseContainer: {
             borderTopWidth: 2,
@@ -245,6 +283,8 @@ const getStyles = (theme: ITheme) => {
             flex: 1,
         },
         unitIconBig: {
+            alignItems: 'center',
+            justifyContent: 'center',
             width: iconWidth,
             height: iconHeight,
             marginLeft: 5,

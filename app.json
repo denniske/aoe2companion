@@ -30,6 +30,8 @@
       "assets/buildings/**",
       "assets/techs/**",
       "assets/units/**",
+      "assets/tips/icon/**",
+      "assets/tips/poster/**",
       "assets/*"
     ],
     "notification": {
