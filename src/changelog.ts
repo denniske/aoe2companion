@@ -15,10 +15,10 @@ export const changelog: IChangelog = {
             type: 'feature',
             title: 'Tips & Tricks',
         },
-        {
-            type: 'bugfix',
-            title: 'Open Following Page when push notification is clicked',
-        },
+        // {
+        //     type: 'bugfix',
+        //     title: 'Open Following Page when push notification is clicked',
+        // },
     ],
     '14.0.8': [
         {
