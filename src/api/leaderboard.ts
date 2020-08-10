@@ -1,4 +1,4 @@
-import { makeQueryString } from '../helper/util';
+import {makeQueryString, sleep} from '../helper/util';
 import {ILeaderboard, ILeaderboardRaw, IRatingHistoryEntryRaw} from "../helper/data";
 import {fromUnixTime} from "date-fns";
 import { getHost } from './host';
@@ -37,6 +37,7 @@ async function fetchLeaderboardInternal(baseUrl: string, game: string, leaderboa
 }
 
 export async function fetchLeaderboard(game: string, leaderboard_id: number, params: IFetchLeaderboardParams) {
+    await sleep(4000);
     try {
         return await fetchLeaderboardInternal(getHost('aoe2companion'), game, leaderboard_id, params);
     } catch (e) {

@@ -1,32 +1,25 @@
 import React, {useEffect, useState} from 'react';
 import {
-    ActivityIndicator, Dimensions, FlatList, Image, StyleSheet, TouchableOpacity, View
+    ActivityIndicator, FlatList, Image, NativeScrollEvent, NativeSyntheticEvent, StyleSheet, TouchableOpacity, View
 } from 'react-native';
-import {useNavigation, useRoute, useNavigationState} from '@react-navigation/native';
+import {useNavigation, useNavigationState} from '@react-navigation/native';
 import {fetchLeaderboard} from "../api/leaderboard";
 import {minifyUserId, sameUserNull, userIdFromBase} from "../helper/user";
 import {countriesDistinct, Country, getCountryName, getFlagIcon} from "../helper/flags";
 import {ILeaderboardPlayer} from "../helper/data";
 import {RootStackProp} from "../../App";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import IconFA from "react-native-vector-icons/FontAwesome";
 import {useLazyApi} from "../hooks/use-lazy-api";
 import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
-import {IconButton} from "react-native-paper";
 import {TextLoader} from "./components/loader/text-loader";
 import {ImageLoader} from "./components/loader/image-loader";
 import {TabBarLabel} from "./components/tab-bar-label";
 import {MyText} from "./components/my-text";
 import {ITheme, makeVariants, usePaperTheme, useTheme} from "../theming";
 import Picker from "./components/picker";
-import {orderBy} from "lodash-es";
 import {setLeaderboardCountry, useMutate, useSelector} from "../redux/reducer";
-import SubtitleHeader from "./components/navigation-header/subtitle-header";
-import {useNavigationStateExternal} from "../hooks/use-navigation-state-external";
-import {getString} from "../helper/strings";
 import TextHeader from "./components/navigation-header/text-header";
-import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
-import {formatAgo, formatDate, formatDateShort, formatDayAndTime, noop} from "../helper/util";
+import {formatAgo, noop} from "../helper/util";
 import RefreshControlThemed from "./components/refresh-control-themed";
 
 type TabParamList = {
@@ -149,11 +142,11 @@ function Leaderboard({leaderboardId}: any) {
     const styles = useTheme(variants);
     const auth = useSelector(state => state.auth!);
     const [refetching, setRefetching] = useState(false);
-    const [fetchingMore, setFetchingMore] = useState(false);
-    const [fetchedAll, setFetchedAll] = useState(false);
     const leaderboardCountry = useSelector(state => state.leaderboardCountry) || null;
     const navigation = useNavigation<RootStackProp>();
     const flatListRef = React.useRef<FlatList>(null);
+    const [fetchingPage, setFetchingPage] = useState<number>();
+    const [contentOffsetY, setContentOffsetY] = useState<number>();
 
     // console.log('leaderboardCountry', leaderboardCountry);
 
@@ -181,9 +174,11 @@ function Leaderboard({leaderboardId}: any) {
 
     const matches = useLazyApi(
         {
-            append: (data, newData) => {
-                // console.log('APPEND', data, newData);
-                data.leaderboard.push(...newData.leaderboard);
+            append: (data, newData, args) => {
+                const [game, leaderboard_id, params] = args;
+                // console.log('APPEND', data, newData, params);
+                newData.leaderboard.forEach((value, index) => data.leaderboard[index+params.start!-1] = value);
+                console.log('APPENDED', params);
                 return data;
             },
         },
@@ -191,22 +186,9 @@ function Leaderboard({leaderboardId}: any) {
     );
 
     const onRefresh = async () => {
-        setFetchedAll(false);
         setRefetching(true);
         await Promise.all([matches.reload(), auth ? myRank.reload() : noop()]);
         setRefetching(false);
-    };
-
-    const onEndReached = async () => {
-        if (fetchingMore) return;
-        const matchesLength = matches.data?.leaderboard?.length ?? 0;
-        if (matchesLength < 100) return;
-        setFetchingMore(true);
-        const newMatchesData = await matches.refetchAppend('aoe2de', leaderboardId, getParams(matchesLength+1, 100));
-        if (matchesLength === newMatchesData?.leaderboard?.length) {
-            setFetchedAll(true);
-        }
-        setFetchingMore(false);
     };
 
     useEffect(() => {
@@ -214,24 +196,20 @@ function Leaderboard({leaderboardId}: any) {
         // console.log('useffect2', prevLeaderboardCountry, leaderboardCountry);
         if (currentRouteLeaderboardId != leaderboardId) return;
         if (matches.touched && matches.lastParams?.leaderboardCountry === leaderboardCountry) return;
-        setFetchedAll(false);
         matches.reload();
         if (auth) {
             myRank.reload();
         }
-        flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
-        // flatListRef.current?.scrollToOffset({ animated: true, offset: 10000 });
-        // flatListRef.current?.scrollToIndex({ animated: true, index: 80 });
+        // flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
+        flatListRef.current?.scrollToIndex({ animated: true, index: 195 });
     }, [currentRouteLeaderboardId, leaderboardCountry]);
 
-    const list = ['info', ...(myRank.data?.leaderboard || []), ...(matches.data?.leaderboard || Array(15).fill(null))];
-
-    console.log(matches?.error);
-
-    const _renderFooter = () => {
-        if (!fetchingMore) return null;
-        return <FlatListLoadingIndicator />;
-    };
+    const list: any = ['info', ...(myRank.data?.leaderboard || []), ...(matches.data?.leaderboard || [])];
+    if (matches.data?.total && list.length < matches.data.total+2) {
+        list[matches.data.total+1] = null;
+    } else if (list.length < 200) {
+        list[200] = null;
+    }
 
     const onSelect = async (player: ILeaderboardPlayer) => {
         navigation.push('User', {
@@ -240,22 +218,78 @@ function Leaderboard({leaderboardId}: any) {
         });
     };
 
+    const itemHeight = 50;
+    const myRankItemHeight = 64;
+    const infoItemHeight = 30;
+
     const _renderRow = (player: ILeaderboardPlayer, i: number) => {
         const isMe = sameUserNull(player, auth);
         const isMyRankRow = isMe && i === 1;
         return (
-            <TouchableOpacity style={styles.row} key={i} onPress={() => onSelect(player)}>
+            <TouchableOpacity style={[styles.row, { height: isMyRankRow ? myRankItemHeight : itemHeight }]} onPress={() => onSelect(player)}>
                 <View style={isMyRankRow ? styles.innerRow : styles.innerRowWithBorder}>
-                    <TextLoader style={isMe ? styles.cellRankMe : styles.cellRank}>#{player?.rank}</TextLoader>
+                    <TextLoader style={isMe ? styles.cellRankMe : styles.cellRank}>#{player?.rank || i-1}</TextLoader>
                     <TextLoader style={isMe ? styles.cellRatingMe : styles.cellRating}>{player?.rating}</TextLoader>
                     <View style={styles.cellName}>
-                        <ImageLoader style={styles.countryIcon} source={getFlagIcon(player?.country)}/>
+                        <ImageLoader style={styles.countryIcon} source={player ? getFlagIcon(player.country) : null}/>
                         <TextLoader style={isMe ? styles.nameMe : styles.name} numberOfLines={1}>{player?.name}</TextLoader>
                     </View>
                     <TextLoader style={styles.cellGames}>{player?.games} games</TextLoader>
                 </View>
             </TouchableOpacity>
         );
+    };
+
+    const pageSize = 100;
+
+    const fetchPage = async (page: number) => {
+        if (fetchingPage !== undefined) return;
+        if (matches.loading) return;
+        console.log('FETCHPAGE', page);
+        setFetchingPage(page);
+        await matches.refetchAppend('aoe2de', leaderboardId, getParams(page * pageSize + 1, 100));
+        setFetchingPage(undefined);
+    };
+
+
+    const fetchByContentOffset = (contentOffsetY: number) => {
+        // console.log('handleOnScroll', index);
+        // console.log('handleOnScroll', item);
+
+        const index = Math.floor(contentOffsetY/itemHeight);
+        const indexTop = Math.max(0, index);
+        const indexBottom = Math.min(matches.data.total + 2, index+15);
+
+        if (!list[indexTop]) {
+            const actualIndex = index - 2;
+            fetchPage(Math.floor(actualIndex / pageSize));
+            return;
+        }
+        if (!list[indexBottom]) {
+            const actualIndex = indexBottom - 2;
+            fetchPage(Math.floor(actualIndex / pageSize));
+        }
+    };
+
+    useEffect(() => {
+        console.log('useEffect', contentOffsetY, fetchingPage);
+        if (contentOffsetY === undefined) return;
+        fetchByContentOffset(contentOffsetY);
+    }, [contentOffsetY, fetchingPage])
+
+    const handleOnScrollEndDrag = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+        // console.log('handleOnScrollEndDrag', event.nativeEvent.contentOffset.y);
+        setContentOffsetY(event.nativeEvent.contentOffset.y);
+    };
+
+    const handleOnMomentumScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+        // console.log('handleOnMomentumScrollEnd', event.nativeEvent.contentOffset.y);
+        setContentOffsetY(event.nativeEvent.contentOffset.y);
+    };
+
+    const handleOnScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+        // console.log('handleOnScroll', event.nativeEvent.contentOffset.y);
+        setContentOffsetY(event.nativeEvent.contentOffset.y);
     };
 
     return (
@@ -276,6 +310,13 @@ function Leaderboard({leaderboardId}: any) {
                 {
                     matches.data?.total !== 0 &&
                     <FlatList
+                        onScrollEndDrag={handleOnScrollEndDrag}
+                        onMomentumScrollEnd={handleOnMomentumScrollEnd}
+                        onScroll={handleOnScroll}
+                        scrollEventThrottle={1000}
+                        getItemLayout={(data, index) => (
+                            {length: itemHeight, offset: itemHeight * index, index}
+                        )}
                         ref={flatListRef}
                         contentContainerStyle={styles.list}
                         data={list}
@@ -283,18 +324,17 @@ function Leaderboard({leaderboardId}: any) {
                             switch (item) {
                                 case 'info':
                                     return (
-                                        <MyText style={styles.info}>
-                                            {matches.data?.total} players{matches.data?.updated ? ' (updated ' + formatAgo(matches.data.updated) + ')' : ''}
-                                        </MyText>
+                                        <View style={{height: 30}}>
+                                            <MyText style={styles.info}>
+                                                {matches.data?.total} players{matches.data?.updated ? ' (updated ' + formatAgo(matches.data.updated) + ')' : ''}
+                                            </MyText>
+                                        </View>
                                     );
                                 default:
                                     return _renderRow(item, index);
                             }
                         }}
-                        ListFooterComponent={_renderFooter}
-                        onEndReached={fetchedAll ? null : onEndReached}
-                        onEndReachedThreshold={0.1}
-                        keyExtractor={(item, index) => index.toString()}
+                        keyExtractor={(item, index) => (item?.profile_id || index).toString()}
                         refreshControl={
                             <RefreshControlThemed
                                 onRefresh={onRefresh}
@@ -385,6 +425,7 @@ const getStyles = (theme: ITheme) => {
             padding: padding,
             textAlign: 'left',
             minWidth: 60,
+            // width: 60,
             fontWeight: 'bold',
         },
         cellRank: {
@@ -457,9 +498,11 @@ const getStyles = (theme: ITheme) => {
             // marginLeft: 30,
             // width: '100%',
             // flex: 3,
+            height: 40,
             flex: 1,
         },
         innerRow: {
+            // backgroundColor: 'red',
             flex: 1,
             width: '100%',
             flexDirection: 'row',
@@ -468,6 +511,7 @@ const getStyles = (theme: ITheme) => {
             paddingVertical: 12,
         },
         innerRowWithBorder: {
+            // backgroundColor: 'green',
             flex: 1,
             width: '100%',
             flexDirection: 'row',

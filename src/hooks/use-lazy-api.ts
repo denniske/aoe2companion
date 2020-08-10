@@ -4,7 +4,7 @@ import {sleep} from "../helper/util";
 type UnPromisify<T> = T extends Promise<infer U> ? U : T;
 
 interface ILazyApiOptions<A extends (...args: any) => any> {
-    append?: (data: UnPromisify<ReturnType<A>>, newData: UnPromisify<ReturnType<A>>) => UnPromisify<ReturnType<A>>;
+    append?: (data: UnPromisify<ReturnType<A>>, newData: UnPromisify<ReturnType<A>>, args: Parameters<A>) => UnPromisify<ReturnType<A>>;
 }
 
 export function useLazyApi<A extends (...args: any) => any>(options: ILazyApiOptions<A>, action: A, ...defArgs: Parameters<A>) {
@@ -30,7 +30,7 @@ export function useLazyApi<A extends (...args: any) => any>(options: ILazyApiOpt
 
             if (append) {
                 if (!options.append) throw new Error('options.append not defined');
-                newData = options.append(data, newData);
+                newData = options.append(data, newData, args);
             }
 
             if (!mountedRef.current) return null;

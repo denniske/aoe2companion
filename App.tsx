@@ -236,6 +236,15 @@ export function InnerApp() {
                 animationEnabled: false,
             }}>
                 <Stack.Screen
+                    name="Leaderboard"
+                    component={LeaderboardPage}
+                    options={props => ({
+                        title: 'Leaderboard',
+                        headerRight: leaderboardMenu(props),
+                        headerTitle: titleProps => <LeaderboardTitle {...props} titleProps={titleProps} />,
+                    })}
+                />
+                <Stack.Screen
                     name="Main"
                     component={MainPage}
                     options={{
@@ -291,15 +300,6 @@ export function InnerApp() {
                     options={{
                         title: 'Errors',
                     }}
-                />
-                <Stack.Screen
-                    name="Leaderboard"
-                    component={LeaderboardPage}
-                    options={props => ({
-                        title: 'Leaderboard',
-                        headerRight: leaderboardMenu(props),
-                        headerTitle: titleProps => <LeaderboardTitle {...props} titleProps={titleProps} />,
-                    })}
                 />
                 <Stack.Screen
                     name="Feed"
