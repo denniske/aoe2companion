@@ -512,6 +512,9 @@ export type Flag = keyof typeof flagList;
 export type Country = keyof typeof countryNames;
 
 export function getFlagIcon(flag: Flag) {
+    // if (__DEV__) {
+    //     return require('../../assets/flags/' + flag + '.png');
+    // }
     if (flagList[flag]) {
         return flagList[flag];
     }
