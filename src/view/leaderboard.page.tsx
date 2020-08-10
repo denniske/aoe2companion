@@ -166,10 +166,10 @@ function Leaderboard({leaderboardId}: any) {
         if (auth) {
             myRank.reload();
         }
-        // flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
+        flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
         // flatListRef.current?.scrollToOffset({ animated: true, offset: 5*rowHeight });
         // flatListRef.current?.scrollToIndex({ animated: true, index: 5 });
-        scrollToIndex(1);
+        // scrollToIndex(1);
     }, [currentRouteLeaderboardId, leaderboardCountry]);
 
     const list = matches.data?.leaderboard || [];
@@ -181,7 +181,6 @@ function Leaderboard({leaderboardId}: any) {
             name: player.name,
         });
     };
-
 
     const _renderRow = (player: ILeaderboardPlayer, i: number, isMyRankRow: boolean = false) => {
         const isMe = sameUserNull(player, auth);
@@ -204,7 +203,7 @@ function Leaderboard({leaderboardId}: any) {
         return (
             <>
                 <View style={{height: headerInfoHeight}}>
-                    <TouchableOpacity onPress={() => flatListRef.current?.scrollToIndex({ animated: true, index: 10000 })}>
+                    <TouchableOpacity onPress={() => scrollToIndex(myRank.data.leaderboard[0].rank-1)}>
                         <MyText style={styles.info}>
                             {matches.data?.total} players{matches.data?.updated ? ' (updated ' + formatAgo(matches.data.updated) + ')' : ''}
                         </MyText>

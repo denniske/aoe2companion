@@ -37,7 +37,7 @@ async function fetchLeaderboardInternal(baseUrl: string, game: string, leaderboa
 }
 
 export async function fetchLeaderboard(game: string, leaderboard_id: number, params: IFetchLeaderboardParams) {
-    await sleep(4000);
+    // await sleep(4000);
     try {
         return await fetchLeaderboardInternal(getHost('aoe2companion'), game, leaderboard_id, params);
     } catch (e) {
