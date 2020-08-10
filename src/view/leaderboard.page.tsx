@@ -1,6 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
-    ActivityIndicator, FlatList, Image, NativeScrollEvent, NativeSyntheticEvent, StyleSheet, TouchableOpacity, View
+    ActivityIndicator, Animated, Dimensions, FlatList, Image, NativeScrollEvent, NativeSyntheticEvent, PanResponder,
+    ScrollView,
+    StyleSheet,
+    TouchableOpacity,
+    View
 } from 'react-native';
 import {useNavigation, useNavigationState} from '@react-navigation/native';
 import {fetchLeaderboard} from "../api/leaderboard";
@@ -86,7 +90,7 @@ export function LeaderboardTitle(props: any) {
 export default function LeaderboardPage() {
     const styles = useTheme(variants);
     return (
-        <Tab.Navigator lazy={true}>
+        <Tab.Navigator lazy={true} swipeEnabled={false}>
             <Tab.Screen name="LeaderboardRm1v1" initialParams={{leaderboardId: 3}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title="RM 1v1"/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
@@ -236,10 +240,10 @@ function Leaderboard({leaderboardId}: any) {
         const indexTop = Math.max(0, index);
         const indexBottom = Math.min(matches.data.total-1, index+15);
         console.log('handleOnScrolly', contentOffsetY);
-        console.log('handleOnScroll', index);
-        console.log('handleOnScroll indexBottom', indexBottom);
-        console.log('handleOnScroll matches.data.total', matches.data.total);
-        console.log('handleOnScroll list.length', list.length);
+        // console.log('handleOnScroll', index);
+        // console.log('handleOnScroll indexBottom', indexBottom);
+        // console.log('handleOnScroll matches.data.total', matches.data.total);
+        // console.log('handleOnScroll list.length', list.length);
 
         if (!list[indexTop]) {
             fetchPage(Math.floor(indexTop / pageSize));
@@ -271,53 +275,180 @@ function Leaderboard({leaderboardId}: any) {
         setContentOffsetY(event.nativeEvent.contentOffset.y);
     };
 
+    const [indicator, setIndicator] = useState(new Animated.Value(0));
+    const [wholeHeight, setWholeHeight] = useState(1);
+    const [visibleHeight, setVisibleHeight] = useState(0);
+    const indicatorSize = wholeHeight > visibleHeight ?
+        visibleHeight * visibleHeight / wholeHeight :
+        visibleHeight
+
+    const difference = visibleHeight > indicatorSize ? visibleHeight - indicatorSize : 1
+
+    const position = useRef(new Animated.ValueXY()).current;
+    const panResponder = React.useMemo(() => PanResponder.create({
+        // onStartShouldSetPanResponder: (evt, gestureState) => true,
+        onMoveShouldSetPanResponder: (evt, gestureState) => true,
+        onPanResponderMove: (evt, gestureState) => {
+            // position.setValue({x: position.x._value, y: gestureState.dy});
+            position.setValue({x: gestureState.dx, y: gestureState.dy});
+        },
+        onPanResponderGrant: () => {
+            position.setOffset({
+                x: position.x._value,
+                y: position.y._value,
+            });
+        },
+        onPanResponderRelease: (evt, gestureState) => {
+            position.flattenOffset();
+        },
+    }), []);
+
+    // const [pan, setPan] = useState(new Animated.ValueXY());
+    //
+    // const panResponder = useMemo(() => {
+    //     console.log('create pan responder');
+    //     return PanResponder.create({
+    //         onStartShouldSetPanResponder: () => true,
+    //         onPanResponderMove: Animated.event([null, {
+    //             dx: pan.x,
+    //             dy: pan.y
+    //         }], {useNativeDriver: false}),
+    //         onPanResponderRelease: (e, gesture) => {
+    //         }
+    //     });
+    // }, []);
+
+    // style={[position.getLayout(), styles.circle]}>
+
     return (
-        <View style={styles.container2}>
-            <View style={[styles.content, {opacity: matches.loading ? 0.7 : 1}]}>
-                {
-                    matches.error &&
-                    <View style={styles.centered}>
-                        <MyText>Error occured when fetching data.</MyText>
-                    </View>
-                }
-                {
-                    matches.data?.total === 0 &&
-                    <View style={styles.centered}>
-                        <MyText>No players listed.</MyText>
-                    </View>
-                }
-                {
-                    matches.data?.total !== 0 &&
-                    <FlatList
-                        ref={flatListRef}
-                        onScrollEndDrag={handleOnScrollEndDrag}
-                        onMomentumScrollEnd={handleOnMomentumScrollEnd}
-                        onScroll={handleOnScroll}
-                        scrollEventThrottle={1000}
-                        contentContainerStyle={styles.list}
-                        data={list}
-                        getItemLayout={(data, index) => ({length: rowHeight, offset: rowHeight * index, index})}
-                        renderItem={({item, index}) => _renderRow(item, index)}
-                        keyExtractor={(item, index) => (item?.profile_id || index).toString()}
-                        refreshControl={
-                            <RefreshControlThemed
-                                onRefresh={onRefresh}
-                                refreshing={refetching}
-                            />
-                        }
-                        ListHeaderComponent={_renderHeader}
-                    />
-                }
-            </View>
+        <View style={styles.draggableContainer}>
+            {/*<Animated.View*/}
+            {/*    {...panResponder.panHandlers}*/}
+            {/*    style={[*/}
+            {/*        {transform: position.getTranslateTransform()},*/}
+            {/*        styles.circle,*/}
+            {/*    ]}/>*/}
+            <Animated.View
+                {...panResponder.panHandlers}
+                style={[{top: position.y, right: 18}, styles.circle]}>
+                <MyText style={styles.text}>Drag me!</MyText>
+            </Animated.View>
         </View>
+        // <View style={styles.container2}>
+        //     <View style={[styles.content, {opacity: matches.loading ? 0.7 : 1}]}>
+        //         {
+        //             matches.error &&
+        //             <View style={styles.centered}>
+        //                 <MyText>Error occured when fetching data.</MyText>
+        //             </View>
+        //         }
+        //         {
+        //             matches.data?.total === 0 &&
+        //             <View style={styles.centered}>
+        //                 <MyText>No players listed.</MyText>
+        //             </View>
+        //         }
+        //         {
+        //             matches.data?.total !== 0 &&
+        //             <>
+        //                 <Animated.FlatList
+        //                     // ref={flatListRef}
+        //                     onScrollEndDrag={handleOnScrollEndDrag}
+        //                     onMomentumScrollEnd={handleOnMomentumScrollEnd}
+        //                     // onScroll={handleOnScroll}
+        //
+        //                     onContentSizeChange={(width: any, height: React.SetStateAction<number>) => {
+        //                         setWholeHeight(height);
+        //                     }}
+        //                     onLayout={({ nativeEvent: { layout: { x, y, width, height } } }: any) => setVisibleHeight(height)}
+        //                     onScroll={Animated.event(
+        //                         [{ nativeEvent: { contentOffset: { y: indicator } } }],
+        //                         { useNativeDriver: true },
+        //                         )}
+        //
+        //                     scrollEventThrottle={1000}
+        //                     contentContainerStyle={styles.list}
+        //                     data={list}
+        //                     getItemLayout={(data: any, index: number) => ({length: rowHeight, offset: rowHeight * index, index})}
+        //                     renderItem={({item, index}: any) => _renderRow(item, index)}
+        //                     keyExtractor={(item: { profile_id: any; }, index: any) => (item?.profile_id || index).toString()}
+        //                     refreshControl={
+        //                         <RefreshControlThemed
+        //                             onRefresh={onRefresh}
+        //                             refreshing={refetching}
+        //                         />
+        //                     }
+        //                     ListHeaderComponent={_renderHeader}
+        //                     showsVerticalScrollIndicator={false}
+        //                 //     renderScrollComponent={props => {
+        //                 //     return (
+        //                 //         <ScrollView
+        //                 //             {...props}
+        //                 //             onScroll={() => {
+        //                 //                 console.log("scrolling");
+        //                 //             }}
+        //                 //         />
+        //                 //     );
+        //                 // }}
+        //                 />
+        //                 <Animated.View style={[
+        //                     styles.indicator, {
+        //                         // height: indicatorSize,
+        //                         transform: [{
+        //                             translateY: Animated.multiply(indicator, visibleHeight / wholeHeight).interpolate({
+        //                                 inputRange: [0, difference],
+        //                                 outputRange: [0, difference],
+        //                                 extrapolate: 'clamp'
+        //                             })
+        //                         }]
+        //                     }]}/>
+        //             </>
+        //         }
+        //
+        //     </View>
+        // </View>
     );
 }
 
-
+let CIRCLE_RADIUS = 36;
+let Window = Dimensions.get('window');
 const padding = 8;
 
 const getStyles = (theme: ITheme) => {
     return StyleSheet.create({
+        mainContainer: {
+            flex: 1,
+        },
+        dropZone: {
+            height: 100,
+            backgroundColor: '#2c3e50',
+        },
+        text: {
+            marginTop: 25,
+            marginLeft: 5,
+            marginRight: 5,
+            textAlign: 'center',
+            color: '#fff',
+        },
+        draggableContainer: {
+            position: 'absolute',
+            top: Window.height / 2 - CIRCLE_RADIUS,
+            left: Window.width / 2 - CIRCLE_RADIUS,
+        },
+        circle: {
+            backgroundColor: '#1abc9c',
+            width: CIRCLE_RADIUS * 2,
+            height: CIRCLE_RADIUS * 2,
+            borderRadius: CIRCLE_RADIUS,
+        },
+        indicator: {
+            backgroundColor: 'yellow',
+            width: 30,
+            height: 80,
+            position: 'absolute',
+            right: 0,
+            top: 0,
+        },
         list: {
             paddingHorizontal: 15,
             paddingVertical: 20,
