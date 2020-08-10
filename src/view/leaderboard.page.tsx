@@ -79,40 +79,8 @@ export function LeaderboardMenu() {
     );
 }
 
-function findState(state: any, routeName: string): any {
-    if (state == null) return null;
-    const activeRoute = state.routes[state.index];
-    const activeRouteName = activeRoute?.name;
-    if (activeRouteName == routeName) {
-        return activeRoute.state;
-    }
-    return findState(activeRoute.state, routeName);
-}
-
-function getActiveRouteName(state: any): any {
-    if (state == null) return null;
-    const activeRoute = state.routes[state.index];
-    return activeRoute?.name;
-}
-
-function getActiveRoute(state: any): any {
-    if (state == null) return null;
-    return state.routes[state.index];
-}
-
 export function LeaderboardTitle(props: any) {
-    // const navigationState = useNavigationStateExternal();
-    // const leaderboardState = findState(navigationState, 'Leaderboard');
-    // const activeRoute = getActiveRoute(leaderboardState);
-    // const leaderboardId = activeRoute?.params?.leaderboardId;
-
-    // console.log('activeRoute', activeRoute);
-    // console.log('leaderboardId', leaderboardId);
-
-    // const subtitle = getString('leaderboard', leaderboardId) || '';
-
     return <TextHeader text={'Leaderboard'} onLayout={props.titleProps.onLayout}/>;
-    // return <SubtitleHeader text={'Leaderboard'} subtitle={subtitle} onLayout={props.titleProps.onLayout}/>;
 }
 
 export default function LeaderboardPage() {
@@ -147,15 +115,6 @@ function Leaderboard({leaderboardId}: any) {
     const flatListRef = React.useRef<FlatList>(null);
     const [fetchingPage, setFetchingPage] = useState<number>();
     const [contentOffsetY, setContentOffsetY] = useState<number>();
-
-    // console.log('leaderboardCountry', leaderboardCountry);
-
-    // const navigationState = useNavigationStateExternal();
-    // const leaderboardState = findState(navigationState, 'Leaderboard');
-    // const activeRoute = getActiveRoute(leaderboardState);
-    // const navLeaderboardId = activeRoute?.params?.leaderboardId;
-
-    // const route = useRoute();
 
     const currentRouteLeaderboardId = useNavigationState(state => (state.routes[state.index].params as any)?.leaderboardId);
 
@@ -192,24 +151,18 @@ function Leaderboard({leaderboardId}: any) {
     };
 
     useEffect(() => {
-        // console.log('useffect', currentRouteLeaderboardId, leaderboardId);
-        // console.log('useffect2', prevLeaderboardCountry, leaderboardCountry);
         if (currentRouteLeaderboardId != leaderboardId) return;
         if (matches.touched && matches.lastParams?.leaderboardCountry === leaderboardCountry) return;
         matches.reload();
         if (auth) {
             myRank.reload();
         }
-        // flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
-        flatListRef.current?.scrollToIndex({ animated: true, index: 195 });
+        flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
+        // flatListRef.current?.scrollToIndex({ animated: true, index: 195 });
     }, [currentRouteLeaderboardId, leaderboardCountry]);
 
-    const list: any = ['info', ...(myRank.data?.leaderboard || []), ...(matches.data?.leaderboard || [])];
-    if (matches.data?.total && list.length < matches.data.total+2) {
-        list[matches.data.total+1] = null;
-    } else if (list.length < 200) {
-        list[200] = null;
-    }
+    const list = matches.data?.leaderboard || [];
+    list.length = matches.data?.total || 200;
 
     const onSelect = async (player: ILeaderboardPlayer) => {
         navigation.push('User', {
@@ -220,15 +173,13 @@ function Leaderboard({leaderboardId}: any) {
 
     const itemHeight = 50;
     const myRankItemHeight = 64;
-    const infoItemHeight = 30;
 
-    const _renderRow = (player: ILeaderboardPlayer, i: number) => {
+    const _renderRow = (player: ILeaderboardPlayer, i: number, isMyRankRow: boolean = false) => {
         const isMe = sameUserNull(player, auth);
-        const isMyRankRow = isMe && i === 1;
         return (
             <TouchableOpacity style={[styles.row, { height: isMyRankRow ? myRankItemHeight : itemHeight }]} onPress={() => onSelect(player)}>
                 <View style={isMyRankRow ? styles.innerRow : styles.innerRowWithBorder}>
-                    <TextLoader style={isMe ? styles.cellRankMe : styles.cellRank}>#{player?.rank || i-1}</TextLoader>
+                    <TextLoader style={isMe ? styles.cellRankMe : styles.cellRank}>#{player?.rank || i+1}</TextLoader>
                     <TextLoader style={isMe ? styles.cellRatingMe : styles.cellRating}>{player?.rating}</TextLoader>
                     <View style={styles.cellName}>
                         <ImageLoader style={styles.countryIcon} source={player ? getFlagIcon(player.country) : null}/>
@@ -251,14 +202,18 @@ function Leaderboard({leaderboardId}: any) {
         setFetchingPage(undefined);
     };
 
-
     const fetchByContentOffset = (contentOffsetY: number) => {
+        if (!matches.touched) return;
         // console.log('handleOnScroll', index);
         // console.log('handleOnScroll', item);
 
         const index = Math.floor(contentOffsetY/itemHeight);
         const indexTop = Math.max(0, index);
-        const indexBottom = Math.min(matches.data.total + 2, index+15);
+        const indexBottom = Math.min(matches.data.total-1, index+15);
+        console.log('handleOnScroll', index);
+        console.log('handleOnScroll indexBottom', indexBottom);
+        console.log('handleOnScroll matches.data.total', matches.data.total);
+        console.log('handleOnScroll list.length', list.length);
 
         if (!list[indexTop]) {
             const actualIndex = index - 2;
@@ -292,6 +247,19 @@ function Leaderboard({leaderboardId}: any) {
         setContentOffsetY(event.nativeEvent.contentOffset.y);
     };
 
+    const _renderHeader = () => {
+        return (
+            <>
+                <View style={{height: 30}}>
+                    <MyText style={styles.info}>
+                        {matches.data?.total} players{matches.data?.updated ? ' (updated ' + formatAgo(matches.data.updated) + ')' : ''}
+                    </MyText>
+                </View>
+                {myRank.data && _renderRow(myRank.data.leaderboard[0], 0, true)}
+            </>
+        )
+    };
+
     return (
         <View style={styles.container2}>
             <View style={[styles.content, {opacity: matches.loading ? 0.7 : 1}]}>
@@ -310,30 +278,15 @@ function Leaderboard({leaderboardId}: any) {
                 {
                     matches.data?.total !== 0 &&
                     <FlatList
+                        ref={flatListRef}
                         onScrollEndDrag={handleOnScrollEndDrag}
                         onMomentumScrollEnd={handleOnMomentumScrollEnd}
                         onScroll={handleOnScroll}
                         scrollEventThrottle={1000}
-                        getItemLayout={(data, index) => (
-                            {length: itemHeight, offset: itemHeight * index, index}
-                        )}
-                        ref={flatListRef}
                         contentContainerStyle={styles.list}
                         data={list}
-                        renderItem={({item, index}) => {
-                            switch (item) {
-                                case 'info':
-                                    return (
-                                        <View style={{height: 30}}>
-                                            <MyText style={styles.info}>
-                                                {matches.data?.total} players{matches.data?.updated ? ' (updated ' + formatAgo(matches.data.updated) + ')' : ''}
-                                            </MyText>
-                                        </View>
-                                    );
-                                default:
-                                    return _renderRow(item, index);
-                            }
-                        }}
+                        getItemLayout={(data, index) => ({length: itemHeight, offset: itemHeight * index, index})}
+                        renderItem={({item, index}) => _renderRow(item, index)}
                         keyExtractor={(item, index) => (item?.profile_id || index).toString()}
                         refreshControl={
                             <RefreshControlThemed
@@ -341,6 +294,7 @@ function Leaderboard({leaderboardId}: any) {
                                 refreshing={refetching}
                             />
                         }
+                        ListHeaderComponent={_renderHeader}
                     />
                 }
             </View>
