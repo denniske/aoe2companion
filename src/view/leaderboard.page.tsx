@@ -150,6 +150,15 @@ function Leaderboard({leaderboardId}: any) {
         setRefetching(false);
     };
 
+    const rowHeight = 50;
+    const headerMyRankHeight = 64;
+    const headerInfoHeight = 30;
+    const headerHeight = headerInfoHeight + headerMyRankHeight;
+
+    const scrollToIndex = (index: number) => {
+        flatListRef.current?.scrollToIndex({ animated: true, index: index, viewOffset: -headerHeight-5 });
+    };
+
     useEffect(() => {
         if (currentRouteLeaderboardId != leaderboardId) return;
         if (matches.touched && matches.lastParams?.leaderboardCountry === leaderboardCountry) return;
@@ -157,8 +166,10 @@ function Leaderboard({leaderboardId}: any) {
         if (auth) {
             myRank.reload();
         }
-        flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
-        // flatListRef.current?.scrollToIndex({ animated: true, index: 195 });
+        // flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
+        // flatListRef.current?.scrollToOffset({ animated: true, offset: 5*rowHeight });
+        // flatListRef.current?.scrollToIndex({ animated: true, index: 5 });
+        scrollToIndex(1);
     }, [currentRouteLeaderboardId, leaderboardCountry]);
 
     const list = matches.data?.leaderboard || [];
@@ -171,24 +182,37 @@ function Leaderboard({leaderboardId}: any) {
         });
     };
 
-    const itemHeight = 50;
-    const myRankItemHeight = 64;
 
     const _renderRow = (player: ILeaderboardPlayer, i: number, isMyRankRow: boolean = false) => {
         const isMe = sameUserNull(player, auth);
         return (
-            <TouchableOpacity style={[styles.row, { height: isMyRankRow ? myRankItemHeight : itemHeight }]} onPress={() => onSelect(player)}>
+            <TouchableOpacity style={[styles.row, { height: isMyRankRow ? headerMyRankHeight : rowHeight }]} onPress={() => onSelect(player)}>
                 <View style={isMyRankRow ? styles.innerRow : styles.innerRowWithBorder}>
                     <TextLoader style={isMe ? styles.cellRankMe : styles.cellRank}>#{player?.rank || i+1}</TextLoader>
                     <TextLoader style={isMe ? styles.cellRatingMe : styles.cellRating}>{player?.rating}</TextLoader>
                     <View style={styles.cellName}>
-                        <ImageLoader style={styles.countryIcon} source={player ? getFlagIcon(player.country) : null}/>
+                        <ImageLoader style={styles.countryIcon} ready={player} source={getFlagIcon(player?.country)}/>
                         <TextLoader style={isMe ? styles.nameMe : styles.name} numberOfLines={1}>{player?.name}</TextLoader>
                     </View>
                     <TextLoader style={styles.cellGames}>{player?.games} games</TextLoader>
                 </View>
             </TouchableOpacity>
         );
+    };
+
+    const _renderHeader = () => {
+        return (
+            <>
+                <View style={{height: headerInfoHeight}}>
+                    <TouchableOpacity onPress={() => flatListRef.current?.scrollToIndex({ animated: true, index: 10000 })}>
+                        <MyText style={styles.info}>
+                            {matches.data?.total} players{matches.data?.updated ? ' (updated ' + formatAgo(matches.data.updated) + ')' : ''}
+                        </MyText>
+                    </TouchableOpacity>
+                </View>
+                {myRank.data && _renderRow(myRank.data.leaderboard[0], 0, true)}
+            </>
+        )
     };
 
     const pageSize = 100;
@@ -207,22 +231,23 @@ function Leaderboard({leaderboardId}: any) {
         // console.log('handleOnScroll', index);
         // console.log('handleOnScroll', item);
 
-        const index = Math.floor(contentOffsetY/itemHeight);
+        contentOffsetY -= headerHeight;
+
+        const index = Math.floor(contentOffsetY/rowHeight);
         const indexTop = Math.max(0, index);
         const indexBottom = Math.min(matches.data.total-1, index+15);
+        console.log('handleOnScrolly', contentOffsetY);
         console.log('handleOnScroll', index);
         console.log('handleOnScroll indexBottom', indexBottom);
         console.log('handleOnScroll matches.data.total', matches.data.total);
         console.log('handleOnScroll list.length', list.length);
 
         if (!list[indexTop]) {
-            const actualIndex = index - 2;
-            fetchPage(Math.floor(actualIndex / pageSize));
+            fetchPage(Math.floor(indexTop / pageSize));
             return;
         }
         if (!list[indexBottom]) {
-            const actualIndex = indexBottom - 2;
-            fetchPage(Math.floor(actualIndex / pageSize));
+            fetchPage(Math.floor(indexBottom / pageSize));
         }
     };
 
@@ -243,21 +268,8 @@ function Leaderboard({leaderboardId}: any) {
     };
 
     const handleOnScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-        // console.log('handleOnScroll', event.nativeEvent.contentOffset.y);
+        // console.log('handleOnScroll', event.nativeEvent.contentInset);
         setContentOffsetY(event.nativeEvent.contentOffset.y);
-    };
-
-    const _renderHeader = () => {
-        return (
-            <>
-                <View style={{height: 30}}>
-                    <MyText style={styles.info}>
-                        {matches.data?.total} players{matches.data?.updated ? ' (updated ' + formatAgo(matches.data.updated) + ')' : ''}
-                    </MyText>
-                </View>
-                {myRank.data && _renderRow(myRank.data.leaderboard[0], 0, true)}
-            </>
-        )
     };
 
     return (
@@ -285,7 +297,7 @@ function Leaderboard({leaderboardId}: any) {
                         scrollEventThrottle={1000}
                         contentContainerStyle={styles.list}
                         data={list}
-                        getItemLayout={(data, index) => ({length: itemHeight, offset: itemHeight * index, index})}
+                        getItemLayout={(data, index) => ({length: rowHeight, offset: rowHeight * index, index})}
                         renderItem={({item, index}) => _renderRow(item, index)}
                         keyExtractor={(item, index) => (item?.profile_id || index).toString()}
                         refreshControl={

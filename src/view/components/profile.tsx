@@ -159,7 +159,7 @@ export default function Profile({data}: IProfileProps) {
                     <View style={styles.row}>
                         <View>
                             <View style={styles.row}>
-                                <ImageLoader style={styles.countryIcon} source={getFlagIcon(data?.country)}/>
+                                <ImageLoader style={styles.countryIcon} ready={data} source={getFlagIcon(data?.country)}/>
                                 <TextLoader width={100}>{data?.name}</TextLoader>
                                 {
                                     data?.clan &&
