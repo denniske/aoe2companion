@@ -1,5 +1,6 @@
 import {format, formatDistanceToNowStrict, fromUnixTime} from "date-fns";
 import { enUS, de } from "date-fns/locale";
+import {Animated} from "react-native";
 
 export type ValueOf<T> = T[keyof T];
 
@@ -85,4 +86,9 @@ export function sanitizeGameDescription(description: string) {
 
 export async function noop() {
 
+}
+
+export function getValue(animatedValue: Animated.AnimatedValue) {
+    // @ts-ignore
+    return animatedValue._value;
 }

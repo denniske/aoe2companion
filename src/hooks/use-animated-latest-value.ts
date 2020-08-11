@@ -24,5 +24,5 @@ export function useAnimatedLatestValueRef(animatedValue: Animated.Value, initial
         //may refer to the previous animatedValue's latest value until the new listener returns a value
     }, [animatedValue])
 
-    return {latestValueRef, initialized} as const
+    return {latestValue, latestValueRef, initialized} as const
 }

@@ -10,15 +10,21 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
-    '14.0.9': [
+    '14.0.10': [
         {
-            type: 'feature',
-            title: 'Tips & Tricks',
+            type: 'minor',
+            title: 'Added scroll handle (circle on the right) to leaderboard',
         },
         // {
         //     type: 'bugfix',
         //     title: 'Open Following Page when push notification is clicked',
         // },
+    ],
+    '14.0.9': [
+        {
+            type: 'feature',
+            title: 'Tips & Tricks',
+        },
     ],
     '14.0.8': [
         {
