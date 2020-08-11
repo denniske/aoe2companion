@@ -8,7 +8,6 @@ const light: ITheme = {
     textNoteColor: "#333",
     borderColor: '#CCC',
     lightBorderColor: '#EEE',
-    surfaceColor: "#333",
     skeletonColor: '#EEE',
     linkColor: '#397AF9',
 };
@@ -17,7 +16,6 @@ const dark: ITheme = {
     backgroundColor: "#121212",
     textColor: "white",
     textNoteColor: "#BBB",
-    surfaceColor: "#333",
     borderColor: '#101010',
     lightBorderColor: '#101010',
     skeletonColor: '#111',
@@ -47,7 +45,6 @@ export interface ITheme {
     backgroundColor: string;
     textColor: string;
     textNoteColor: string;
-    surfaceColor: string;
     borderColor: string;
     lightBorderColor: string;
     skeletonColor: string;

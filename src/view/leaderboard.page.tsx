@@ -26,6 +26,7 @@ import {setLeaderboardCountry, useMutate, useSelector} from "../redux/reducer";
 import TextHeader from "./components/navigation-header/text-header";
 import {formatAgo, noop} from "../helper/util";
 import RefreshControlThemed from "./components/refresh-control-themed";
+import {useAnimatedLatestValueRef} from "../hooks/use-animated-latest-value";
 
 type TabParamList = {
     LeaderboardRm1v1: { leaderboardId: number };
@@ -120,6 +121,7 @@ function Leaderboard({leaderboardId}: any) {
     const flatListRef = React.useRef<FlatList>(null);
     const [fetchingPage, setFetchingPage] = useState<number>();
     const [contentOffsetY, setContentOffsetY] = useState<number>();
+    const [scrollId, setScrollId] = useState<number>();
 
     const currentRouteLeaderboardId = useNavigationState(state => (state.routes[state.index].params as any)?.leaderboardId);
 
@@ -177,8 +179,11 @@ function Leaderboard({leaderboardId}: any) {
         // scrollToIndex(1);
     }, [currentRouteLeaderboardId, leaderboardCountry]);
 
+    const total = useRef<any>();
+
     const list = matches.data?.leaderboard || [];
     list.length = matches.data?.total || 200;
+    total.current = matches.data?.total || 200;
 
     const onSelect = async (player: ILeaderboardPlayer) => {
         navigation.push('User', {
@@ -232,19 +237,12 @@ function Leaderboard({leaderboardId}: any) {
 
     const fetchByContentOffset = (contentOffsetY: number) => {
         if (!matches.touched) return;
-        // console.log('handleOnScroll', index);
-        // console.log('handleOnScroll', item);
 
         contentOffsetY -= headerHeight;
 
         const index = Math.floor(contentOffsetY/rowHeight);
         const indexTop = Math.max(0, index);
         const indexBottom = Math.min(matches.data.total-1, index+15);
-        // console.log('handleOnScrolly', contentOffsetY);
-        // console.log('handleOnScroll', index);
-        // console.log('handleOnScroll indexBottom', indexBottom);
-        // console.log('handleOnScroll matches.data.total', matches.data.total);
-        // console.log('handleOnScroll list.length', list.length);
 
         if (!list[indexTop]) {
             fetchPage(Math.floor(indexTop / pageSize));
@@ -264,50 +262,70 @@ function Leaderboard({leaderboardId}: any) {
     const handleOnScrollEndDrag = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         // console.log('handleOnScrollEndDrag', event.nativeEvent.contentOffset.y);
         setContentOffsetY(event.nativeEvent.contentOffset.y);
+        updateTimer();
+        if (!moving.current) {
+            position.setValue({x: 0, y: event.nativeEvent.contentOffset.y / (list.length * rowHeight) * scrollRange.current});
+            console.log('ONSCROLL1', new Date().getTime() - event.timeStamp, event.nativeEvent.contentOffset.y / (rowHeight));
+        }
+    };
+
+    const handleOnMomentumScrollBegin = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+        // console.log(event.nativeEvent.contentOffset.y - (contentOffsetY || 0));
+        momentumScrolling.current = true;
+        // console.log('handleOnMomentumScrollEnd', event.nativeEvent.contentOffset.y);
+        setContentOffsetY(event.nativeEvent.contentOffset.y);
+        updateTimer();
     };
 
     const handleOnMomentumScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         // console.log('handleOnMomentumScrollEnd', event.nativeEvent.contentOffset.y);
+        // console.log(event.nativeEvent.contentOffset.y - (contentOffsetY || 0));
         setContentOffsetY(event.nativeEvent.contentOffset.y);
+        updateTimer();
+        if (!moving.current) {
+            position.setValue({x: 0, y: event.nativeEvent.contentOffset.y / (list.length * rowHeight) * scrollRange.current});
+            console.log('ONSCROLL2', new Date().getTime() - event.timeStamp, event.nativeEvent.contentOffset.y / (rowHeight));
+        } else {
+            console.log('ONSCROLL2 ignored');
+        }
+        momentumScrolling.current = false;
     };
 
     const handleOnScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         // console.log('handleOnScroll', event.nativeEvent.contentInset);
+        // console.log(event.type, event.target, event.currentTarget);
+        // console.log(event.nativeEvent.contentOffset.y - (contentOffsetY || 0));
         setContentOffsetY(event.nativeEvent.contentOffset.y);
-        updateTimer();
+        if (momentumScrolling.current) {
+            updateTimer();
+        }
         if (!moving.current) {
-            position.setValue({x: 0, y: event.nativeEvent.contentOffset.y / (list.length * rowHeight) * 600});
-            console.log('ONSCROLL');
+            position.setValue({x: 0, y: event.nativeEvent.contentOffset.y / (list.length * rowHeight) * scrollRange.current});
+            console.log('ONSCROLL3', new Date().getTime() - event.timeStamp, event.nativeEvent.contentOffset.y / (rowHeight));
+        } else {
+            console.log('ONSCROLL3 ignored');
         }
     };
 
     const inactivityTimeout = useRef<any>();
-    const opacity = useRef(new Animated.Value(0.3)).current;
-    const listLayout = useRef<any>();
-    const initialOffsetY = useRef<any>();
-    const offsetY = useRef<any>();
-    const moving = useRef<any>();
+    const scrollRange = useRef<number>(0);
+    const initialOffsetY = useRef<number>();
+    const offsetY = useRef<number>();
+    const moving = useRef<boolean>();
+    const lastScrollY = useRef<number>();
+    const momentumScrolling = useRef<boolean>();
     const [enabled, setEnabled] = useState(false);
+    const [baseMoving, setBaseMoving] = useState(false);
 
     const position = useRef(new Animated.ValueXY()).current;
-    const panResponder = React.useMemo(() => PanResponder.create({
-        // onStartShouldSetPanResponder: (evt, gestureState) => true,
+    const panResponder = useMemo(() => PanResponder.create({
+        onStartShouldSetPanResponder: (evt, gestureState) => true,
         onMoveShouldSetPanResponder: (evt, gestureState) => true,
         onPanResponderMove: (evt, gestureState) => {
-            // position.setValue({x: position.x._value, y: gestureState.dy});
-
-            // console.log(listLayout.current);
             const min = -(offsetY.current - initialOffsetY.current);
-            const max = min + listLayout.current.height - 36*2;
-
-            // console.log('min', min);
-            // console.log('max', max);
-
-            // position.setValue({x: gestureState.dx, y: Math.max(-offset.current, gestureState.dy)});
-            // position.setValue({x: gestureState.dx, y: gestureState.dy});
+            const max = min + scrollRange.current;
             position.setValue({x: gestureState.dx, y: Math.max(Math.min(gestureState.dy, max), -(offsetY.current - initialOffsetY.current))});
-            if (inactivityTimeout.current) clearTimeout(inactivityTimeout.current);
-            updateTimer();
+            // updateTimer();
         },
         onPanResponderGrant: () => {
             // console.log('OFFSET Y', position.y._value);
@@ -319,49 +337,42 @@ function Leaderboard({leaderboardId}: any) {
             });
             // setMoving(true);
             moving.current = true;
+            setBaseMoving(true);
+        },
+        onPanResponderTerminate: () => {
+            console.log('onPanResponderTerminate');
+
+        },
+        onPanResponderEnd: () => {
+          console.log('onPanResponderEnd');
         },
         onPanResponderRelease: (evt, gestureState) => {
             position.flattenOffset();
             // console.log();
             console.log('offset', position.y._value);
             const offset = position.y._value;
-            const index = (offset / 600) * list.length;
-            console.log('scroll to list.length', list.length);
+            const index = (offset / scrollRange.current) * total.current;
+            console.log('scroll to total.current', total.current);
             console.log('scroll to index', index);
-            flatListRef.current?.scrollToOffset({ animated: false, offset: (offset / 600) * list.length * rowHeight });
+            const newOffset = (offset / scrollRange.current) * total.current * rowHeight;
+            setTimeout(() => {
+                flatListRef.current?.scrollToOffset({ animated: false, offset: newOffset });
+            }, 0);
             // setMoving(false);
-            moving.current = false;
+            // setTimeout(() => {
+                moving.current = false;
+                setBaseMoving(false);
+                // setContentOffsetY(newOffset);
+            // }, 10000);
             offsetY.current = 0;
         },
     }), []);
 
     const updateTimer = () => {
         setEnabled(true);
-        // opacity.setValue(1);
         if (inactivityTimeout.current) clearTimeout(inactivityTimeout.current);
-        // if (inactivityTimeout.current) inactivityTimeout.current.stop();
-        // inactivityTimeout.current = Animated.timing(opacity, {
-        //         delay: 2000,
-        //         toValue: 0,
-        //         duration: 500,
-        //         useNativeDriver: false,
-        //     });
-        // inactivityTimeout.current.start(console.log);
-        // inactivityTimeout.current = setTimeout(() => {
-        //     const hh = Animated.timing(opacity, {
-        //         toValue: 0,
-        //         duration: 1000,
-        //         useNativeDriver: false,
-        //     }).start(console.log);
-        //
-        //     // opacity.setValue(0.3);
-        // }, 2000);
-        inactivityTimeout.current = setTimeout(() => setEnabled(false), 2000);
+        inactivityTimeout.current = setTimeout(() => setEnabled(false), 1000);
     };
-
-    // console.log('lastMoveTrigger', lastMoveTrigger);
-    // console.log('lastMoveTime', lastMoveTime);
-    // let enabled = lastMoveTrigger.getTime() - lastMoveTime.getTime() > 500;
 
     return (
         <View style={styles.container2}>
@@ -381,15 +392,17 @@ function Leaderboard({leaderboardId}: any) {
                 {
                     matches.data?.total !== 0 &&
                     <FlatList
+                        // scrollEnabled={!baseMoving}
                         ref={flatListRef}
                         onScrollEndDrag={handleOnScrollEndDrag}
+                        onMomentumScrollBegin={handleOnMomentumScrollBegin}
                         onMomentumScrollEnd={handleOnMomentumScrollEnd}
                         onScroll={handleOnScroll}
                         onLayout={({nativeEvent: {layout}}: any) => {
                             console.log('ONLAYOUT------------------>');
-                            listLayout.current = layout;
+                            scrollRange.current = layout.height-36*2;
                         }}
-                        scrollEventThrottle={1000}
+                        scrollEventThrottle={500}
                         contentContainerStyle={styles.list}
                         data={list}
                         getItemLayout={(data: any, index: number) => ({length: rowHeight, offset: rowHeight * index, index})}
@@ -402,25 +415,20 @@ function Leaderboard({leaderboardId}: any) {
                             />
                         }
                         ListHeaderComponent={_renderHeader}
-                        showsVerticalScrollIndicator={false}
+                        showsVerticalScrollIndicator={enabled}
                     />
                 }
             </View>
             <View style={styles.draggableContainer} pointerEvents={'box-none'}>
                 <Animated.View
                     {...panResponder.panHandlers}
-                    style={[{top: position.y, right: -36, opacity: enabled ? 1 : 0}, styles.circle]}>
-                    {/*style={[{top: position.y, right: -36, opacity: opacity}, styles.circle]}>*/}
-
+                    style={[{top: position.y, right: -36, opacity: enabled ? 0 : 1}, styles.circle]}>
                     <IconFA5 name="arrows-alt-v" size={26} style={styles.arrows}/>
-                    {/*<IconFA5 name="caret-up" size={26}/>*/}
-                    {/*<IconFA5 name="caret-down" size={26}/>*/}
-
                     {
-                        moving.current &&
+                        baseMoving &&
                         <View style={styles.textContainer}>
                             <View style={styles.textContainer2}>
-                                <AnimDisplay value={position.y} formatter={(offset: number) => ((offset / 600) * list.length).toFixed()} style={styles.text}/>
+                                <AnimDisplay value={position.y} formatter={(offset: number) => ((offset / scrollRange.current) * list.length).toFixed()} style={styles.text}/>
                             </View>
                         </View>
                     }
@@ -430,46 +438,18 @@ function Leaderboard({leaderboardId}: any) {
     );
 }
 
-const useAnimatedLatestValueRef = (animatedValue: Animated.Value, initial?: number) => {
-    //If we're given an initial value then we can pretend we've received a value from the listener already
-    const [latestValue, setLatestValue] = useState(initial ?? 0)
-    const latestValueRef = useRef(initial ?? 0)
-    const initialized = useRef(typeof initial == "number")
-
-    useEffect(() => {
-        const id = animatedValue.addListener((v) => {
-            //Store the latest animated value
-            latestValueRef.current = v.value
-            setLatestValue(v.value);
-            //Indicate that we've recieved a value
-            initialized.current = true
-        })
-
-        //Return a deregister function to clean up
-        return () => animatedValue.removeListener(id)
-
-        //Note that the behavior here isn't 100% correct if the animatedValue changes -- the returned ref
-        //may refer to the previous animatedValue's latest value until the new listener returns a value
-    }, [animatedValue])
-
-    return {latestValueRef, initialized} as const
-}
-
 function AnimDisplay({value, style, formatter} : {value: Animated.Value, style: any, formatter: any}) {
     const value2 = useAnimatedLatestValueRef(value);
     const fixedValue = value2.latestValueRef.current;
     return <MyText style={style}>#{formatter(fixedValue)}</MyText>;
 }
 
-let CIRCLE_RADIUS = 36;
-let Window = Dimensions.get('window');
+const CIRCLE_RADIUS = 36;
+
 const padding = 8;
 
 const getStyles = (theme: ITheme) => {
     return StyleSheet.create({
-        mainContainer: {
-            flex: 1,
-        },
         textContainer: {
             position: 'absolute',
             padding: 5,
@@ -486,7 +466,6 @@ const getStyles = (theme: ITheme) => {
             right: 0,
         },
         text: {
-            // color: 'white',
             color: theme.textNoteColor,
         },
         arrows: {
@@ -497,8 +476,7 @@ const getStyles = (theme: ITheme) => {
         draggableContainer: {
             // backgroundColor: 'yellow',
             position: 'absolute',
-            // top: Window.height / 2 - CIRCLE_RADIUS,
-            top: 0,//Window.height / 2 - CIRCLE_RADIUS,
+            top: 0,
             right: 0,
             bottom: 0,
         },
@@ -696,15 +674,6 @@ const getStyles = (theme: ITheme) => {
             marginBottom: 10,
             fontSize: 16,
             fontWeight: 'bold',
-        },
-        container: {
-            display: 'flex',
-            flex: 1,
-            // backgroundColor: 'red',
-            alignItems: 'center',
-            paddingHorizontal: 20,
-            paddingTop: 18,
-            paddingBottom: 5,
         },
         centered: {
             // backgroundColor: 'yellow',
