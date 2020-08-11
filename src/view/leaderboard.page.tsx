@@ -392,7 +392,6 @@ function Leaderboard({leaderboardId}: any) {
                 {
                     matches.data?.total !== 0 &&
                     <FlatList
-                        // scrollEnabled={!baseMoving}
                         ref={flatListRef}
                         onScrollEndDrag={handleOnScrollEndDrag}
                         onMomentumScrollBegin={handleOnMomentumScrollBegin}
