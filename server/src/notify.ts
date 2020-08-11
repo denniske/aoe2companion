@@ -1,6 +1,6 @@
 import express from 'express';
 import fetch from "node-fetch";
-import {createDB} from "./db";
+import {createDB, getSentry} from "./db";
 import {Following} from "../../serverless/entity/following";
 import {setValue} from "../../serverless/src/helper";
 import {Match} from "../../serverless/entity/match";
@@ -10,6 +10,7 @@ import {getUnixTime} from 'date-fns';
 import {Push} from "../../serverless/entity/push";
 const cors = require('cors');
 const app = express();
+
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json({limit: '100mb', extended: true}));
@@ -72,48 +73,19 @@ async function sendPushNotification(expoPushToken: string, title: string, body: 
     await pushRepo.save({ title: message.title, body: message.body, push_token: expoPushToken, status });
 }
 
-// async function temp() {
-//
-//     const message = {
-//         to: 'ExponentPushToken[LH9OpSPJ7Meko9QQBm6lFy]',
-//         sound: 'default',
-//         title: 'd',
-//         body: 'asd',
-//         data: { data: 'goes here' },
-//     };
-//
-//     const result = await fetch('https://exp.host/--/api/v2/push/send', {
-//         method: 'POST',
-//         headers: {
-//             Accept: 'application/json',
-//             'Accept-encoding': 'gzip, deflate',
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(message),
-//     });
-//     console.log(result);
-//     const data = await result.json();
-//     console.log(data);
-// }
-//
-// temp();
-
-
 async function notify(match: Match) {
     const connection = await createDB();
 
     console.log('NOTIFY', match.name, '-> ', match.id);
     const players = match.players.filter(p => p.profile_id);
 
+    if (players.length === 0) return;
+
     const followings = await connection.manager.find(Following, {where: { profile_id: In(players.map(p => p.profile_id)), enabled: true }, relations: ["account"]});
     const tokens = Object.entries(groupBy(followings, p => p.account.push_token));
     if (tokens.length > 0) {
         console.log('tokens', tokens.length);
         for (const [token, followings] of tokens) {
-
-            // console.log('token', token);
-            // console.log('followings', followings);
-
             const names = followings.map(following => players.find(p => p.profile_id == following.profile_id).name).join(', ');
             const verb = followings.length > 1 ? 'are' : 'is';
 
@@ -133,19 +105,25 @@ async function notify(match: Match) {
 }
 
 async function notifyAll() {
-    const connection = await createDB();
+    try {
+        const connection = await createDB();
 
-    const oneMinuteAgo = getUnixTime(new Date()) - 60*5;
+        const oneMinuteAgo = getUnixTime(new Date()) - 60*5;
 
-    // const matches = await connection.manager.find(Match, {where: { id: '33054980'}, relations: ["players"]});
-    const matches = await connection.manager.find(Match, {where: { notified: false, started: MoreThan(oneMinuteAgo) }, relations: ["players"]});
-    console.log(matches.length);
+        // const matches = await connection.manager.find(Match, {where: { id: '33322038'}, relations: ["players"]});
+        const matches = await connection.manager.find(Match, {where: { notified: false, started: MoreThan(oneMinuteAgo) }, relations: ["players"]});
+        console.log(matches.length);
 
-    for (const match of matches) {
-        await notify(match);
+        for (const match of matches) {
+            await notify(match);
+        }
+        setTimeout(notifyAll, 5000);
+    } catch (e) {
+        console.error(e);
+        getSentry().captureException(e);
+        // sendAlert('notify', e)
+        setTimeout(notifyAll, 60 * 1000);
     }
-
-    setTimeout(notifyAll, 5000);
 }
 
 notifyAll();
