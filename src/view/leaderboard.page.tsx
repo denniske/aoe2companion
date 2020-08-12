@@ -286,7 +286,7 @@ function Leaderboard({leaderboardId}: any) {
     const handleOffsetY = useRef<number>();
     const movingScrollHandle = useRef<boolean>();
     const scollingFlatlist = useRef<boolean>();
-    const [handleVisible, setHandleVisible] = useState(false);
+    const [handleVisible, setHandleVisible] = useState(true);
     const [baseMoving, setBaseMoving] = useState(false);
 
     const position = useRef(new Animated.ValueXY()).current;
