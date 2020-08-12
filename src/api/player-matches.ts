@@ -23,6 +23,9 @@ export interface IFetchMatchesParams {
 
 
 export async function fetchPlayerMatches(game: string, start: number, count: number, params: IFetchMatchesParams[]): Promise<IMatch[]> {
+    if (params.length === 0) {
+        return [];
+    }
     const args = {
         game,
         start,

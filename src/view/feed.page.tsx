@@ -160,16 +160,22 @@ export function FeedList() {
         return sameUserNull(player, auth) ? 'you' : player.name;
     };
 
+    if (following?.length === 0 || list.length === 0) {
+        return (
+            <View style={styles.container}>
+                <View style={styles.content}>
+                    <View style={styles.centered}>
+                        <MyText style={styles.sectionHeader}>Follow players to see their match history.</MyText>
+                        <MyText style={styles.sectionHeader}>Click the + button to follow a player.</MyText>
+                    </View>
+                </View>
+            </View>
+        );
+    }
+
     return (
             <View style={styles.container}>
                 <View style={styles.content}>
-                    {
-                        list.length === 0 &&
-                            <View style={styles.centered}>
-                                <MyText style={styles.sectionHeader}>Follow players to see their match history.</MyText>
-                                <MyText style={styles.sectionHeader}>Click the + button to follow a player.</MyText>
-                            </View>
-                    }
                     <FlatList
                             contentContainerStyle={styles.list}
                             data={list}
