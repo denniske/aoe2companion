@@ -11,6 +11,7 @@ add content
 - user / main page
 - rating time frame
 - filter match list by leaderboard
+- leaderboard/footer less padding & rank col width dynamic
 
 - error when data cannot be loaded (implemented in leaderboard already)
 - aoe de forum

@@ -9,6 +9,7 @@ import {getRepository, In} from "typeorm";
 import {asyncHandler, getParam, time} from "./util";
 import {User} from "../../serverless/entity/user";
 import {Account} from "../../serverless/entity/account";
+import {Not} from "typeorm/index";
 
 const cors = require('cors');
 const app = express();
@@ -129,6 +130,14 @@ app.post('/account/push_token', asyncHandler(async (req, res) => {
 
     // console.log('/follow');
     // console.log(req.body);
+
+    const query = connection.createQueryBuilder()
+        .update(Account)
+        .set({
+            push_token: null,
+        })
+        .where({ push_token: push_token, id: Not(account_id) });
+    await query.execute();
 
     const accountRepo = getRepository(Account);
 
