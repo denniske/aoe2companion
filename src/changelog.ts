@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '14.0.11': [
+        {
+            type: 'bugfix',
+            title: 'Me page is start page again',
+        },
+    ],
     '14.0.10': [
         {
             type: 'minor',
