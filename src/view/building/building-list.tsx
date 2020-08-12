@@ -7,6 +7,7 @@ import {MyText} from "../components/my-text";
 import {iconHeight, iconWidth} from "../../helper/theme";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import {Searchbar} from "react-native-paper";
+import {FinalDarkMode} from "../../redux/reducer";
 
 
 export function BuildingComp({building: building}: any) {
@@ -163,7 +164,7 @@ export default function BuildingList() {
 }
 
 
-const getStyles = (theme: ITheme) => {
+const getStyles = (theme: ITheme, mode: FinalDarkMode) => {
     return StyleSheet.create({
         container: {
             flex: 1,
@@ -173,7 +174,7 @@ const getStyles = (theme: ITheme) => {
         },
 
         searchbar: {
-            marginTop: Platform.select({ ios: 5 }),
+            marginTop: Platform.select({ ios: mode == 'light' ? 5 : 0 }),
             borderRadius: 0,
             paddingHorizontal: 10,
         },

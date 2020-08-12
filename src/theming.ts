@@ -1,4 +1,5 @@
 import {useTheme as usePaperTheme2} from "react-native-paper";
+import {FinalDarkMode} from "./redux/reducer";
 
 export const usePaperTheme = usePaperTheme2;
 
@@ -22,10 +23,10 @@ const dark: ITheme = {
     linkColor: '#0A84FF', // from react navigation dark theme primary
 };
 
-export function makeVariants<S>(factory: (theme: ITheme) => S): IVariantDict<S> {
+export function makeVariants<S>(factory: (theme: ITheme, mode: FinalDarkMode) => S): IVariantDict<S> {
     return {
-        light: factory(light),
-        dark: factory(dark),
+        light: factory(light, 'light'),
+        dark: factory(dark, 'dark'),
     };
 }
 

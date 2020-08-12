@@ -149,6 +149,7 @@ export interface IError {
 }
 
 export type DarkMode = 'light' | 'dark' | 'system';
+export type FinalDarkMode = 'light' | 'dark';
 
 export interface AppState {
   account: IAccount;
