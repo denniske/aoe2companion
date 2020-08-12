@@ -236,6 +236,14 @@ export function InnerApp() {
                 animationEnabled: false,
             }}>
                 <Stack.Screen
+                    name="Main"
+                    component={MainPage}
+                    options={{
+                        title: 'Me',
+                        headerRight: mainMenu(),
+                    }}
+                />
+                <Stack.Screen
                     name="Leaderboard"
                     component={LeaderboardPage}
                     options={props => ({
@@ -243,14 +251,6 @@ export function InnerApp() {
                         headerRight: leaderboardMenu(props),
                         headerTitle: titleProps => <LeaderboardTitle {...props} titleProps={titleProps} />,
                     })}
-                />
-                <Stack.Screen
-                    name="Main"
-                    component={MainPage}
-                    options={{
-                        title: 'Me',
-                        headerRight: mainMenu(),
-                    }}
                 />
                 <Stack.Screen
                     name="Splash"
