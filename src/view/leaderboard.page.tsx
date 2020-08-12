@@ -160,6 +160,10 @@ function Leaderboard({leaderboardId}: any) {
         flatListRef.current?.scrollToIndex({ animated: true, index: index, viewOffset: -headerHeight-5 });
     };
 
+    const scrollToMe = () => {
+        scrollToIndex(myRank.data.leaderboard[0].rank-1);
+    };
+
     useEffect(() => {
         if (currentRouteLeaderboardId != leaderboardId) return;
         if (matches.touched && matches.lastParams?.leaderboardCountry === leaderboardCountry) return;
@@ -186,7 +190,7 @@ function Leaderboard({leaderboardId}: any) {
     const _renderRow = (player: ILeaderboardPlayer, i: number, isMyRankRow: boolean = false) => {
         const isMe = sameUserNull(player, auth);
         return (
-            <TouchableOpacity style={[styles.row, { height: isMyRankRow ? headerMyRankHeight : rowHeight }]} onPress={() => onSelect(player)}>
+            <TouchableOpacity style={[styles.row, { height: isMyRankRow ? headerMyRankHeight : rowHeight }]} onPress={() => isMyRankRow ? scrollToMe() : onSelect(player)}>
                 <View style={isMyRankRow ? styles.innerRow : styles.innerRowWithBorder}>
                     <TextLoader style={isMe ? styles.cellRankMe : styles.cellRank}>#{player?.rank || i+1}</TextLoader>
                     <TextLoader style={isMe ? styles.cellRatingMe : styles.cellRating}>{player?.rating}</TextLoader>
@@ -204,11 +208,9 @@ function Leaderboard({leaderboardId}: any) {
         return (
             <>
                 <View style={{height: headerInfoHeight}}>
-                    <TouchableOpacity onPress={() => scrollToIndex(myRank.data.leaderboard[0].rank-1)}>
-                        <MyText style={styles.info}>
-                            {matches.data?.total} players{matches.data?.updated ? ' (updated ' + formatAgo(matches.data.updated) + ')' : ''}
-                        </MyText>
-                    </TouchableOpacity>
+                    <MyText style={styles.info}>
+                        {matches.data?.total} players{matches.data?.updated ? ' (updated ' + formatAgo(matches.data.updated) + ')' : ''}
+                    </MyText>
                 </View>
                 {myRank.data?.leaderboard.length > 0 && _renderRow(myRank.data.leaderboard[0], 0, true)}
             </>
