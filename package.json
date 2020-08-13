@@ -45,7 +45,7 @@
     "redux": "4.0.5",
     "sentry-expo": "^2.1.2",
     "uuid": "^3.4.0",
-    "victory-native": "^34.3.0"
+    "victory-native": "^35.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
