@@ -73,6 +73,10 @@ async function sendPushNotification(expoPushToken: string, title: string, body: 
     await pushRepo.save({ title: message.title, body: message.body, push_token: expoPushToken, status });
 }
 
+function formatNames(names: string[]) {
+    return names.reduce((a, b, i) => a + (i === names.length-1 ? ' and ' : ', ') + b);
+}
+
 async function notify(match: Match) {
     const connection = await createDB();
 
@@ -86,7 +90,7 @@ async function notify(match: Match) {
     if (tokens.length > 0) {
         console.log('tokens', tokens.length);
         for (const [token, followings] of tokens) {
-            const names = followings.map(following => players.find(p => p.profile_id == following.profile_id).name).join(', ');
+            const names = formatNames(followings.map(following => players.find(p => p.profile_id == following.profile_id).name));
             const verb = followings.length > 1 ? 'are' : 'is';
 
             await sendPushNotification(token, match.name + ' - ' + match.id, names + ' ' + verb + ' playing.');
@@ -127,6 +131,10 @@ async function notifyAll() {
 }
 
 notifyAll();
+
+// console.log(formatNames(['Baratticus']));
+// console.log(formatNames(['Baratticus', 'SihingMo']));
+// console.log(formatNames(['Baratticus', 'SihingMo', 'Walter']));
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
