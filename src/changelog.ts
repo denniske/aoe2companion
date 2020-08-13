@@ -10,6 +10,16 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '14.0.12': [
+        {
+            type: 'minor',
+            title: 'Click on my rank at the top of the leaderboard scrolls to my rank in the leaderboard',
+        },
+        {
+            type: 'bugfix',
+            title: 'Feed page does not show error when no players are being followed',
+        },
+    ],
     '14.0.11': [
         {
             type: 'bugfix',
