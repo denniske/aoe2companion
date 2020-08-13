@@ -22,6 +22,14 @@ export async function fetchJson(title: string, input: RequestInfo, init?: Reques
             },
         })));
         console.log(input, 'failed', response?.status);
+        if (response?.status === 200)
+        {
+            try {
+                console.log(response?.text());
+            } catch(e2) {
+
+            }
+        }
         throw e;
     }
 }
