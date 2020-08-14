@@ -116,6 +116,7 @@ function Leaderboard({leaderboardId}: any) {
     const flatListRef = React.useRef<FlatList>(null);
     const [fetchingPage, setFetchingPage] = useState<number>();
     const [contentOffsetY, setContentOffsetY] = useState<number>();
+    const [rankWidth, setRankWidth] = useState<number>(58);
 
     const currentRouteLeaderboardId = useNavigationState(state => (state.routes[state.index].params as any)?.leaderboardId);
 
@@ -192,7 +193,7 @@ function Leaderboard({leaderboardId}: any) {
         return (
             <TouchableOpacity style={[styles.row, { height: isMyRankRow ? headerMyRankHeight : rowHeight }]} onPress={() => isMyRankRow ? scrollToMe() : onSelect(player)}>
                 <View style={isMyRankRow ? styles.innerRow : styles.innerRowWithBorder}>
-                    <TextLoader style={isMe ? styles.cellRankMe : styles.cellRank}>#{player?.rank || i+1}</TextLoader>
+                    <TextLoader numberOfLines={1} style={isMe ? styles.cellRankMe : [styles.cellRank, { width: rankWidth }]}>#{player?.rank || i+1}</TextLoader>
                     <TextLoader style={isMe ? styles.cellRatingMe : styles.cellRating}>{player?.rating}</TextLoader>
                     <View style={styles.cellName}>
                         <ImageLoader style={styles.countryIcon} ready={player} source={getFlagIcon(player?.country)}/>
@@ -236,6 +237,9 @@ function Leaderboard({leaderboardId}: any) {
         const index = Math.floor(contentOffsetY/rowHeight);
         const indexTop = Math.max(0, index);
         const indexBottom = Math.min(matches.data.total-1, index+15);
+
+        const rankLen = indexBottom.toFixed(0).length;
+        setRankWidth((rankLen+1) * 9 + 16);
 
         if (!list[indexTop]) {
             fetchPage(Math.floor(indexTop / pageSize));
