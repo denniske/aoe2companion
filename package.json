@@ -17,7 +17,7 @@
     "@types/react-native-htmlview": "^0.12.2",
     "@types/react-native-vector-icons": "^6.4.5",
     "date-fns": "^2.14.0",
-    "expo": "^38.0.0",
+    "expo": "^38.0.9",
     "expo-av": "~8.2.1",
     "expo-font": "~8.2.1",
     "expo-notifications": "~0.3.3",

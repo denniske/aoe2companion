@@ -129,6 +129,26 @@ const tips: ITip[] = [
         url: 'https://www.ageofempires.com/mods/details/1779',
         imageIcon: require('../../assets/tips/icon/aoe-huge-number.png'),
     },
+    {
+        title: 'Blacksmith Upgrades',
+        description: 'For Archers always buy the attack upgrades first. For Infantry and Cavarly always buy the defence upgrades first.',
+        building: 'Blacksmith',
+    },
+    {
+        title: 'Selecting all Idle Villagers',
+        description: 'Use Shift + . to select all idle villagers.',
+        unit: 'Villager',
+    },
+    {
+        title: 'Selecting all Land Military Units',
+        description: 'Use Shift + , to select all land military units.',
+        unit: 'ManAtArms',
+    },
+    {
+        title: 'Do not stockpile Resources',
+        description: 'Always try to spend the resources you have, with the exception of saving resources to advance to the next age.',
+        imageIcon: require('../../assets/other/Gold.png'),
+    },
 ];
 
 export default function TipsPage() {
