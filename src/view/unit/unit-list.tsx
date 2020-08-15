@@ -117,6 +117,8 @@ const sections: ISection[] = [
                 'Skirmisher',
                 'CavalryArcher',
                 'Genitour',
+                'HandCannoneer',
+                'Slinger',
             ],
     },
     {

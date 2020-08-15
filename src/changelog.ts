@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '14.0.13': [
+        {
+            type: 'bugfix',
+            title: 'Add hand cannoneer and slinger to unit list',
+        },
+    ],
     '14.0.12': [
         {
             type: 'minor',
