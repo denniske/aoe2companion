@@ -367,7 +367,7 @@ const getStyles = (theme: ITheme) => {
         },
         menuButton: {
             // backgroundColor: 'blue',
-            width: 40,
+            width: 35,
             justifyContent: 'center',
             alignItems: 'center',
             margin: 0,

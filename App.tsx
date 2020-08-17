@@ -10,7 +10,7 @@ import Search from './src/view/components/search';
 import {createStackNavigator, StackNavigationProp, TransitionPresets} from '@react-navigation/stack';
 import Header from './src/view/components/header';
 import {composeUserId, parseUserId, UserId} from './src/helper/user';
-import UserPage from './src/view/user.page';
+import UserPage, {userMenu} from './src/view/user.page';
 import {useApi} from './src/hooks/use-api';
 import {
     loadAccountFromStorage,
@@ -357,9 +357,10 @@ export function InnerApp() {
                 <Stack.Screen
                     name="User"
                     component={UserPage}
-                    options={({route}) => ({
+                    options={props => ({
                         animationEnabled: true,
-                        title: route.params.name,
+                        title: props.route.params.name,
+                        headerRight: userMenu(props),
                     })}
                 />
                 <Stack.Screen
@@ -410,7 +411,6 @@ export function InnerApp() {
 //         // primary: '#3498db',
 //     },
 // };
-
 
 const customPaperTheme = {
     ...PaperDefaultTheme,

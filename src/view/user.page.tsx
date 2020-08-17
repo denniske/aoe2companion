@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, FlatList, StyleSheet, Text, View} from 'react-native';
-import { RootStackParamList } from '../../App';
-import { RouteProp, useRoute } from '@react-navigation/native';
-import { fetchPlayerMatches } from '../api/player-matches';
+import {ActivityIndicator, FlatList, Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {RootStackParamList} from '../../App';
+import {RouteProp, useRoute} from '@react-navigation/native';
+import {fetchPlayerMatches} from '../api/player-matches';
 import Profile from './components/profile';
 import Rating from './components/rating';
-import { useApi } from '../hooks/use-api';
-import { loadRatingHistories } from '../service/rating';
-import { loadProfile } from '../service/profile';
-import { Game } from './components/game';
+import {useApi} from '../hooks/use-api';
+import {loadRatingHistories} from '../service/rating';
+import {loadProfile} from '../service/profile';
+import {Game} from './components/game';
 import {IMatch} from "../helper/data";
 import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
 import {Button} from "react-native-paper";
@@ -29,7 +29,41 @@ import RefreshControlThemed from "./components/refresh-control-themed";
 import {ITheme, makeVariants, useTheme} from "../theming";
 import StatsPosition from "./components/stats-position";
 import {time} from "../helper/util";
+import FontAwesomeIcon5 from "react-native-vector-icons/FontAwesome5";
 
+
+export function userMenu(props: any) {
+    return () => {
+        if (props.route?.params?.id) {
+            return <UserMenu/>;
+        }
+        return <View/>;
+    }
+}
+
+export function UserMenu() {
+    const styles = useTheme(variants);
+    const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
+    const auth = route.params.id;
+    const steamProfileUrl = 'https://steamcommunity.com/profiles/' + auth.steam_id;
+    const xboxProfileUrl = 'https://www.ageofempires.com/stats/?game=age2&profileId=' + auth.profile_id;
+    return (
+        <View style={styles.menu}>
+            {
+                auth.profile_id &&
+                <TouchableOpacity style={styles.menuButton} onPress={() => Linking.openURL(xboxProfileUrl)}>
+                    <FontAwesomeIcon5 style={styles.menuIcon} name="xbox" size={20} />
+                </TouchableOpacity>
+            }
+            {
+                auth.steam_id &&
+                <TouchableOpacity style={styles.menuButton}  onPress={() => Linking.openURL(steamProfileUrl)}>
+                    <FontAwesomeIcon5 style={styles.menuIcon} name="steam" size={20} />
+                </TouchableOpacity>
+            }
+        </View>
+    );
+}
 
 export default function UserPage() {
     const styles = useTheme(variants);
@@ -235,38 +269,57 @@ export default function UserPage() {
 
 const getStyles = (theme: ITheme) => {
     return StyleSheet.create({
+        menu: {
+            // backgroundColor: 'red',
+            flexDirection: 'row',
+            flex: 1,
+            marginRight: 10,
+        },
+        menuButton: {
+            // backgroundColor: 'blue',
+            width: 35,
+            justifyContent: 'center',
+            alignItems: 'center',
+            margin: 0,
+            marginHorizontal: 2,
+        },
+        menuIcon: {
+            // opacity: 0.5,
+            // color: theme.textColor,
+            color: theme.textNoteColor,
+        },
         info: {
             textAlign: 'center',
             marginBottom: 10,
             color: theme.textNoteColor,
             fontSize: 12,
         },
-    pickerRow: {
-        // backgroundColor: 'yellow',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingRight: 20,
-        marginBottom: 10
-    },
-    sectionHeader: {
-        marginVertical: 25,
-        fontSize: 15,
-        fontWeight: '500',
-        textAlign: 'center',
-    },
-    list: {
-        paddingTop: 20,
-        paddingLeft: 20,
-        paddingRight: 20,
-    },
-    container: {
-        flex: 1,
-        // backgroundColor: '#B89579',
-    },
-    content: {
-        flex: 1,
-    },
+        pickerRow: {
+            // backgroundColor: 'yellow',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingRight: 20,
+            marginBottom: 10
+        },
+        sectionHeader: {
+            marginVertical: 25,
+            fontSize: 15,
+            fontWeight: '500',
+            textAlign: 'center',
+        },
+        list: {
+            paddingTop: 20,
+            paddingLeft: 20,
+            paddingRight: 20,
+        },
+        container: {
+            flex: 1,
+            // backgroundColor: '#B89579',
+        },
+        content: {
+            flex: 1,
+        },
 
     });
 };

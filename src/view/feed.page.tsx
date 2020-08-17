@@ -18,6 +18,7 @@ import {MyText} from "./components/my-text";
 import {isEqual, orderBy} from "lodash-es";
 import {ITheme, makeVariants, useTheme} from "../theming";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
+import FontAwesomeIcon5 from "react-native-vector-icons/FontAwesome5";
 import RefreshControlThemed from "./components/refresh-control-themed";
 import {toggleFollowing} from "../service/following";
 import {fetchPlayerMatches} from "../api/player-matches";
@@ -300,7 +301,7 @@ const getStyles = (theme: ITheme) => {
         },
         menuButton: {
             // backgroundColor: 'blue',
-            width: 40,
+            width: 35,
             justifyContent: 'center',
             alignItems: 'center',
             margin: 0,
