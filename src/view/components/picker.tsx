@@ -76,7 +76,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
         flatListProps.getItemLayout = (data, index) => (
             {length: itemHeight, offset: itemHeight * index, index}
         );
-        flatListProps.initialScrollIndex = value !== undefined ? Math.max(0, values.indexOf(value)) : 0;
+        flatListProps.initialScrollIndex = value !== undefined ? Math.max(0, values!.indexOf(value)) : 0;
     }
 
     return (
@@ -112,7 +112,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
                         <SectionList
                             stickySectionHeadersEnabled={false}
                             keyboardShouldPersistTaps={'always'}
-                            sections={sections}
+                            sections={sections!}
                             renderItem={({item, index}) => renderItem(item, index)}
                             renderSectionHeader={({section: { title }}) => renderSectionHeader(title)}
                             keyExtractor={(item, index) => index.toString()}
@@ -120,7 +120,10 @@ export default function Picker<T>(props: IPickerProps<T>) {
                     </View>
                 }
                 {
-                    !container && values.map(renderItem)
+                    !container &&
+                    <View style={{minWidth: 100}}>
+                        {values!.map(renderItem)}
+                    </View>
                 }
                 {/*{*/}
                 {/*    values.map((v, i) =>*/}
@@ -137,7 +140,7 @@ const styles = StyleSheet.create({
     menuItem: {
         // backgroundColor: 'yellow',
         paddingHorizontal: 15,
-        paddingVertical: 1,
+        paddingVertical: 10,
         flex: 1,
     },
     anchor: {

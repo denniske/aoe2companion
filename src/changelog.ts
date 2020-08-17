@@ -12,8 +12,24 @@ export interface IChangelog {
 export const changelog: IChangelog = {
     '14.0.13': [
         {
+            type: 'feature',
+            title: 'Add unit comparison on unit page',
+        },
+        {
+            type: 'minor',
+            title: 'Added more tips & tricks',
+        },
+        {
             type: 'bugfix',
             title: 'Add hand cannoneer and slinger to unit list',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fixed unit/tech links in civ description and bonus list',
+        },
+        {
+            type: 'bugfix',
+            title: 'Leaderboard page now has correctly sized rank column',
         },
     ],
     '14.0.12': [

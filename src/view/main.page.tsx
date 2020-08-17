@@ -185,7 +185,7 @@ function MainHome() {
 
                                             <View style={styles.pickerRow}>
                                                 <ActivityIndicator animating={loadingMatchesOrStats} size="small"/>
-                                                <Picker disabled={loadingMatchesOrStats} value={leaderboardId} values={leaderboardList} formatter={formatLeaderboardId} onSelect={onLeaderboardSelected}/>
+                                                <Picker style={{width: 100, marginLeft: 10}} disabled={loadingMatchesOrStats} value={leaderboardId} values={leaderboardList} formatter={formatLeaderboardId} onSelect={onLeaderboardSelected}/>
                                             </View>
 
                                             {

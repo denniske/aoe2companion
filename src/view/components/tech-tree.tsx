@@ -9,10 +9,10 @@ import React from "react";
 import {aoeCivKey} from "../../data/data";
 import {MyText} from "./my-text";
 import {Building, getBuildingIcon} from "../../helper/buildings";
-import Picker from "./picker";
 import {capitalize} from "lodash-es";
 import {setPrefValue, useMutate, useSelector} from "../../redux/reducer";
 import {saveCurrentPrefsToStorage} from "../../service/storage";
+import ButtonPicker from "./button-picker";
 
 
 export function TechTree({civ}: {civ: aoeCivKey}) {
@@ -35,11 +35,9 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
     return (
         <View style={styles.container}>
             <View style={styles.row2}>
-                <MyText style={styles.sectionHeader}>Tech Tree   (</MyText>
-                <Picker value={techTreeSize} values={values} formatter={capitalize} onSelect={nav}/>
-                <MyText style={styles.sectionHeader}>  )</MyText>
+                <MyText style={styles.sectionHeader}>Tech Tree    </MyText>
+                <ButtonPicker value={techTreeSize} values={values} formatter={capitalize} onSelect={nav}/>
             </View>
-
 
             {
                 techTreeSize === 'compact' &&

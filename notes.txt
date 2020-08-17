@@ -20,6 +20,10 @@ add content
 - lobbies online players per mode
 
 - matches versus
+- infer match results from rating change
+
+https://aoe2de-head2head.herokuapp.com/#Hera,solo
+https://aoenexus.com/
 
 npx npkill
 
