@@ -189,18 +189,22 @@ export function UnitStats({ unitId, unitLineId }: Props) {
             </View>
             <View style={styles.statsRow}>
                 <MyText style={styles.cellName}>Attack</MyText>
+            </View>
+            <View style={styles.statsRow}>
+                <MyText style={[styles.cellName, styles.small]}>melee</MyText>
                 {
                     units.map(u => <GetAttackValue key={u} style={styles.cellValue} unitId={u} unitClassNumber={4}/>)
                 }
             </View>
             <View style={styles.statsRow}>
-                <MyText style={styles.cellName}></MyText>
+                <MyText style={[styles.cellName, styles.small]}>pierce</MyText>
                 {
                     units.map(u => <GetAttackValue key={u} style={styles.cellValue} unitId={u} unitClassNumber={3}/>)
                 }
             </View>
             <View style={styles.statsRow}>
-                <MyText style={styles.cellName}></MyText>
+                <MyText style={[styles.cellName, styles.small]}>bonus</MyText>
+                {/*<MyText style={styles.cellName}></MyText>*/}
                 {
                     units.map(u =>
                         <View key={u} style={styles.cellValue}>
@@ -252,18 +256,22 @@ export function UnitStats({ unitId, unitLineId }: Props) {
             </View>
             <View style={styles.statsRow}>
                 <MyText style={styles.cellName}>Armour</MyText>
+            </View>
+            <View style={styles.statsRow}>
+                <MyText style={[styles.cellName, styles.small]}>melee</MyText>
                 {
                     units.map(u => <GetValue key={u} style={styles.cellValue} unitId={u} prop="MeleeArmor"/>)
                 }
             </View>
             <View style={styles.statsRow}>
-                <MyText style={styles.cellName}></MyText>
+                <MyText style={[styles.cellName, styles.small]}>pierce</MyText>
                 {
                     units.map(u => <GetValue key={u} style={styles.cellValue} unitId={u} prop="PierceArmor"/>)
                 }
             </View>
             <View style={styles.statsRow}>
-                <MyText style={styles.cellName}></MyText>
+                <MyText style={[styles.cellName, styles.small]}>bonus</MyText>
+                {/*<MyText style={styles.cellName}></MyText>*/}
                 {
                     units.map(u =>
                         <View key={u} style={styles.cellValue}>
