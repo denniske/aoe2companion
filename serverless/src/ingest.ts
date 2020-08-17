@@ -75,6 +75,8 @@ async function fetchLeaderboardDataset(leaderboardId: number, start: number, cou
         await query.execute();
     }
 
+    console.log("Saved entries:", rows.length);
+
     const userRows = entries.map(entry => {
         const user = new User();
         user.profile_id = entry.profile_id;
@@ -127,7 +129,7 @@ async function fetchLeaderboardDataset(leaderboardId: number, start: number, cou
         await sleep(100);
     }
 
-    console.log("Saved entries:", rows.length);
+    console.log("Saved user entries:", userRows.length);
 
     return rows.length;
 }
