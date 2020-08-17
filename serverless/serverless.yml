@@ -86,7 +86,7 @@ functions:
     tags:
       func: ingest
     memorySize: 256
-    timeout: 500
+    timeout: 600
     events:
       - http:
           path: ingest
