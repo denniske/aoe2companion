@@ -15,7 +15,7 @@ export default function GuidePage() {
 
     return (
         <View
-            style={{minHeight: 200, flex: 1, backgroundColor: 'grey'}}
+            style={{minHeight: 300, flex: 1}}
         >
             <WebView
                     source={{uri: 'https://buildorderguide.com/#/'}}
