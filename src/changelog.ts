@@ -16,6 +16,10 @@ export const changelog: IChangelog = {
             title: 'Add unit comparison on unit page',
         },
         {
+            type: 'feature',
+            title: 'Add steam/xbox profile links to user page',
+        },
+        {
             type: 'minor',
             title: 'Added more tips & tricks',
         },
