@@ -1,5 +1,6 @@
 import {
-    civsConfig, defaultDisabledBuildings, defaultDisabledUnits, horseDisabledTechs, horseDisabledUnits
+    civsConfig, defaultDisabledBuildings, defaultDisabledUnits, horseDisabledBuildings, horseDisabledTechs,
+    horseDisabledUnits
 } from "../data/civs";
 import {Tech, techs} from "./techs";
 import {sanitizeGameDescription, unwrap} from "./util";
@@ -353,6 +354,10 @@ export function getCivHasBuilding(civ: Civ, building: Building) {
     }
 
     if (defaultDisabledBuildings.includes(parseInt(entry.dataId))) {
+        return false;
+    }
+
+    if ((civConfig as any).disableHorses && horseDisabledBuildings.includes(parseInt(entry.dataId))) {
         return false;
     }
 

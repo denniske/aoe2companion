@@ -7,6 +7,7 @@ import {MyText} from "../components/my-text";
 import {keysOf} from "../../helper/util";
 import {useTheme} from "../../theming";
 import {appVariants} from "../../styles";
+import CivAvailability from "../components/civ-availability";
 
 
 export default function BuildingDetails({building}: {building: Building}) {
@@ -28,6 +29,9 @@ export default function BuildingDetails({building}: {building: Building}) {
 
             <MyText style={styles.description}>{getBuildingDescription(building)}</MyText>
             <MyText/>
+
+            <CivAvailability building={building}/>
+
             <View style={appStyles.expanded}/>
             <Fandom articleName={getBuildingName(building)}/>
         </View>

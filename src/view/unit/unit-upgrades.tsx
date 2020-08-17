@@ -1,19 +1,15 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import {MyText} from "../components/my-text";
-import {
-    attackClasses, getEliteUniqueResearchIcon, getUnitClassName, getUnitData, getUnitIcon, getUnitName,
-    hiddenArmourClasses,
-    IUnitInfo, Unit,
-    UnitClassNumber, UnitLine, unitLines
-} from "../../helper/units";
+import {getEliteUniqueResearchIcon, getUnitIcon, getUnitName, Unit, UnitLine, unitLines} from "../../helper/units";
 import React from "react";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import {iconSmallHeight, iconSmallWidth} from "../../helper/theme";
-import {getTechIcon, getTechName, Tech, techEffectDict} from "../../helper/techs";
+import {effectNames, getEffectName, getTechIcon, getTechName, Tech, techEffectDict} from "../../helper/techs";
 import {appVariants} from "../../styles";
 import {Civ} from "../../helper/civs";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
+import {keysOf} from "../../helper/util";
 
 interface Props {
     unitLineId: UnitLine;
@@ -34,78 +30,11 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
     const upgradedFrom = unitIndex > 0 ? unitLine.units[unitIndex-1] : null;
     const upgradedTo = unitIndex < unitLine.units.length-1 ? unitLine.units[unitIndex+1] : null;
 
-    let groups = [
-        {
-            name: 'Carry Capacity',
-            prop: 'carryCapacity',
-            upgrades: unitLineUpgrades.filter(u => 'carryCapacity' in u.effect),
-        },
-        {
-            name: 'Gathering Speed',
-            prop: 'gatheringSpeed',
-            upgrades: unitLineUpgrades.filter(u => 'gatheringSpeed' in u.effect),
-        },
-        {
-            name: 'Hit Points',
-            prop: 'hitPoints',
-            upgrades: unitLineUpgrades.filter(u => 'hitPoints' in u.effect),
-        },
-        {
-            name: 'Attack',
-            prop: 'attack',
-            upgrades: unitLineUpgrades.filter(u => 'attack' in u.effect),
-        },
-        {
-            name: 'Range',
-            prop: 'range',
-            upgrades: unitLineUpgrades.filter(u => 'range' in u.effect),
-        },
-        {
-            name: 'Firing Rate',
-            prop: 'firingRate',
-            upgrades: unitLineUpgrades.filter(u => 'firingRate' in u.effect),
-        },
-        {
-            name: 'Accuracy',
-            prop: 'accuracy',
-            upgrades: unitLineUpgrades.filter(u => 'accuracy' in u.effect),
-        },
-        {
-            name: 'Armor',
-            prop: 'armor',
-            upgrades: unitLineUpgrades.filter(u => 'armor' in u.effect),
-        },
-        {
-            name: 'Speed',
-            prop: 'speed',
-            upgrades: unitLineUpgrades.filter(u => 'speed' in u.effect),
-        },
-        {
-            name: 'Sight',
-            prop: 'sight',
-            upgrades: unitLineUpgrades.filter(u => 'sight' in u.effect),
-        },
-        {
-            name: 'Conversion Defense',
-            prop: 'conversionDefense',
-            upgrades: unitLineUpgrades.filter(u => 'conversionDefense' in u.effect),
-        },
-        {
-            name: 'Creation Speed',
-            prop: 'creationSpeed',
-            upgrades: unitLineUpgrades.filter(u => 'creationSpeed' in u.effect),
-        },
-        {
-            name: 'Capacity',
-            prop: 'capacity',
-            upgrades: unitLineUpgrades.filter(u => 'capacity' in u.effect),
-        },
-        {
-            name: 'Other',
-            prop: 'other',
-            upgrades: unitLineUpgrades.filter(u => 'other' in u.effect),
-        },
-    ];
+    let groups = keysOf(effectNames).map(effect => ({
+        name: getEffectName(effect),
+        prop: effect,
+        upgrades: unitLineUpgrades.filter(u => effect in u.effect),
+    }));
 
     groups = groups.filter(g => g.upgrades.length > 0);
 
@@ -235,11 +164,12 @@ const getStyles = (theme: ITheme) => {
             color: theme.textNoteColor,
         },
         header1: {
+            marginTop: 10,
             fontSize: 18,
             fontWeight: '500',
         },
         header2: {
-            fontSize: 16,
+            fontSize: 15,
             marginVertical: 5,
         },
         unitIcon: {

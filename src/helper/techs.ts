@@ -3,22 +3,25 @@ import {Civ} from "./civs";
 import {sanitizeGameDescription, strRemoveTo} from "./util";
 import {ICostDict} from "./units";
 
+export type Effect =
+    'carryCapacity' |
+    'gatheringSpeed' |
+    'hitPoints' |
+    'attack' |
+    'range' |
+    'firingRate' |
+    'accuracy' |
+    'armor' |
+    'speed' |
+    'sight' |
+    'conversionDefense' |
+    'creationSpeed' |
+    'capacity' |
+    'other';
 
-interface IEffect {
-    carryCapacity?: string;
-    gatheringSpeed?: string;
-    hitPoints?: string;
-    accuracy?: string;
-    attack?: string;
-    armor?: string;
-    speed?: string;
-    sight?: string;
-    conversionDefense?: string;
-    creationSpeed?: string;
-    capacity?: string;
-    other?: string;
-    [key: string]: string | undefined;
-}
+type IEffect = {
+    [key in Effect]: string | undefined;
+};
 
 export type Age = 'Dark' | 'Feudal' | 'Castle' | 'Imperial';
 
@@ -1770,6 +1773,87 @@ export const techList: ITech[] = [
     }
 ];
 
+
+let groups = [
+    {
+        name: 'Carry Capacity',
+        prop: 'carryCapacity',
+    },
+    {
+        name: 'Gathering Speed',
+        prop: 'gatheringSpeed',
+    },
+    {
+        name: 'Hit Points',
+        prop: 'hitPoints',
+    },
+    {
+        name: 'Attack',
+        prop: 'attack',
+    },
+    {
+        name: 'Range',
+        prop: 'range',
+    },
+    {
+        name: 'Firing Rate',
+        prop: 'firingRate',
+    },
+    {
+        name: 'Accuracy',
+        prop: 'accuracy',
+    },
+    {
+        name: 'Armor',
+        prop: 'armor',
+    },
+    {
+        name: 'Speed',
+        prop: 'speed',
+    },
+    {
+        name: 'Sight',
+        prop: 'sight',
+    },
+    {
+        name: 'Conversion Defense',
+        prop: 'conversionDefense',
+    },
+    {
+        name: 'Creation Speed',
+        prop: 'creationSpeed',
+    },
+    {
+        name: 'Capacity',
+        prop: 'capacity',
+    },
+    {
+        name: 'Other',
+        prop: 'other',
+    },
+];
+
+export const effectNames: TechEffectNameDict = {
+    'carryCapacity': 'Carry Capacity',
+    'gatheringSpeed': 'Gathering Speed',
+    'hitPoints': 'Hit Points',
+    'attack': 'Attack',
+    'range': 'Range',
+    'firingRate': 'Firing Rate',
+    'accuracy': 'Accuracy',
+    'armor': 'Armor',
+    'speed': 'Speed',
+    'sight': 'Sight',
+    'conversionDefense': 'Conversion Defense',
+    'creationSpeed': 'Creation Speed',
+    'capacity': 'Capacity',
+    'other': 'Other',
+};
+
+export function getEffectName(effect: Effect) {
+    return effectNames[effect];
+}
+
 // const newTechList = techList.map(tech => {
 //    const newTech: any = {
 //        ...tech,
@@ -1791,6 +1875,10 @@ export const techs: ITechDict = Object.assign({}, ...techList.map((x) => ({[x.na
 interface TechDict {
     [tech: string]: any;
 }
+
+type TechEffectNameDict = {
+    [techEffect in Effect]: string;
+};
 
 const techIcons = {
     'BombardTower': require('../../assets/buildings/BombardTower.png'),

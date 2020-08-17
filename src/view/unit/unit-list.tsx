@@ -39,7 +39,7 @@ export function UnitComp({unit}: any) {
     );
 }
 
-export function UnitCompBig({unit}: {unit: Unit}) {
+export function UnitCompBig({unit, subtitle}: {unit: Unit, subtitle?: string}) {
     const styles = useTheme(variants);
     const navigation = useNavigation<RootStackProp>();
     return (
@@ -48,6 +48,10 @@ export function UnitCompBig({unit}: {unit: Unit}) {
                 <Image style={styles.unitIconBig} source={getUnitIcon(unit)}/>
                 <View style={styles.unitIconBigTitle}>
                     <MyText>{getUnitName(unit)}</MyText>
+                    {
+                        subtitle &&
+                        <MyText style={styles.small}>{subtitle}</MyText>
+                    }
                 </View>
             </View>
         </TouchableOpacity>

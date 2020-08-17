@@ -105,11 +105,12 @@ const getStyles = (theme: ITheme) => {
             color: theme.textNoteColor,
         },
         header1: {
+            marginTop: 10,
             fontSize: 18,
-            fontWeight: 'bold',
+            fontWeight: '500',
         },
         header2: {
-            fontSize: 16,
+            fontSize: 15,
             marginVertical: 5,
         },
         unitIcon: {

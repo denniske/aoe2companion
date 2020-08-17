@@ -11,6 +11,8 @@ import {UnitStats} from "./unit-stats";
 import {UnitUpgrades} from "./unit-upgrades";
 import {UnitCosts} from "./unit-costs";
 import UnitCounters from "./unit-counters";
+import CivAvailability from "../components/civ-availability";
+import {getAbilityEnabledForAllCivs} from "../components/tech-tree";
 
 
 export default function UnitDetails({unitName}: {unitName: Unit}) {
@@ -37,6 +39,20 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
 
             <UnitUpgrades unitLineId={unitLineId} unitId={unitName} />
 
+            {
+                !getAbilityEnabledForAllCivs({unit: unitName}) &&
+                <>
+
+                    <View style={styles.row}>
+                        <MyText style={styles.header1}>
+                            Availability
+                        </MyText>
+                    </View>
+                    <MyText/>
+                    <CivAvailability unit={unitName}/>
+                </>
+            }
+
             <View style={appStyles.expanded}/>
             <Fandom articleName={getUnitName(unitName)}/>
         </View>
@@ -45,6 +61,18 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
 
 const getStyles = (theme: ITheme) => {
     return StyleSheet.create({
+        row: {
+            flexDirection: 'row',
+            marginBottom: 5,
+            alignItems: 'center',
+            // backgroundColor: 'blue',
+        },
+        header1: {
+            marginTop: 10,
+            fontSize: 18,
+            fontWeight: '500',
+        },
+
         description: {
             lineHeight: 20,
         },

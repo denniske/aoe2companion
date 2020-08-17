@@ -2974,7 +2974,7 @@ export function getInferiorUnitLines(unitLineId: UnitLine) {
 // console.log('inf', sortBy(inferiorUnitLines));
 
 // For sorting in counter unit list
-export const unitLineOrder = [
+export const sortedUnitLines: UnitLine[] = [
     'TradeCart',
     'Villager',
 
@@ -3059,7 +3059,7 @@ export const unitLineOrder = [
 ];
 
 export function sortUnitCounter(unitLines: UnitLine[]) {
-    return sortBy(unitLines, ul => unitLineOrder.indexOf(ul));
+    return sortBy(unitLines, ul => sortedUnitLines.indexOf(ul));
 }
 
 export function filterUnits(unitLineIds: UnitLine[], filter: { unique?: boolean }) {

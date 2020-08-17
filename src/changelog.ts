@@ -17,6 +17,14 @@ export const changelog: IChangelog = {
         },
         {
             type: 'feature',
+            title: 'Add civ availability to unit/tech/building page',
+        },
+        {
+            type: 'feature',
+            title: 'Add affected units to tech page',
+        },
+        {
+            type: 'feature',
             title: 'Add steam/xbox profile links to user page',
         },
         {

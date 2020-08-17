@@ -1,4 +1,4 @@
-import {Civ, civDict, getCivHasBuilding, getCivHasTech, getCivHasUnit} from "../../helper/civs";
+import {Civ, civDict, civs, getCivHasBuilding, getCivHasTech, getCivHasUnit} from "../../helper/civs";
 import {getTechIcon, Tech} from "../../helper/techs";
 import {getOtherIcon, getUnitIcon, getUnitLineForUnit, Other, Unit} from "../../helper/units";
 import {useNavigation} from "@react-navigation/native";
@@ -634,7 +634,7 @@ interface AbilityHelperProps {
     building?: Building;
 }
 
-function getAbilityEnabled({civ, tech, unit, building}: AbilityProps2) {
+export function getAbilityEnabled({civ, tech, unit, building}: AbilityProps2) {
     if (tech) {
         return getCivHasTech(civ, tech);
     }
@@ -645,6 +645,10 @@ function getAbilityEnabled({civ, tech, unit, building}: AbilityProps2) {
         return getCivHasBuilding(civ, building);
     }
     return false;
+}
+
+export function getAbilityEnabledForAllCivs(props: AbilityHelperProps) {
+    return civs.every(civ => getAbilityEnabled({civ, ...props}));
 }
 
 export function getAbilityIcon({tech, unit, building}: AbilityHelperProps) {
