@@ -3,7 +3,7 @@ import {appVariants} from "../styles";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../App";
 import {getTechName, techList} from "./techs";
-import {getUnitLineNameForUnit, getUnitName, Unit, units} from "./units";
+import {getUnitName, hasUnitLine, Unit, units} from "./units";
 import {escapeRegExpFn} from "./util";
 import {MyText} from "../view/components/my-text";
 import React from "react";
@@ -51,13 +51,13 @@ export function highlightUnitAndTechs(str: string) {
     const navigation = useNavigation<RootStackProp>();
 
     const techReplaceList = techList.map(t => ({ name: t.name, text: getTechName(t.name)}));
-    const unitReplaceList = Object.keys(units).map(t => ({ name: getUnitLineNameForUnit(t as Unit), text: getUnitName(t as Unit)}));
-    const reverseTechMap = Object.assign({}, ...techReplaceList.map((x) => ({[x.text]: x})));
-    const reverseUnitMap = Object.assign({}, ...unitReplaceList.map((x) => ({[x.text]: x})));
+    const unitReplaceList = Object.keys(units).filter(t => hasUnitLine(t as Unit)).map(t => ({ name: t, text: getUnitName(t as Unit)}));
+    const reverseTechMap = Object.assign({}, ...techReplaceList.map((x) => ({[x.text.toLowerCase()]: x})));
+    const reverseUnitMap = Object.assign({}, ...unitReplaceList.map((x) => ({[x.text.toLowerCase()]: x, [x.text.toLowerCase()+'s']: x})));
 
     const allReplaceList = [...techReplaceList, ...unitReplaceList];
 
-    const regex = new RegExp('('+allReplaceList.map(m => '\\b'+escapeRegExpFn(m.text)+'\\b').join("|")+')', '');
+    const regex = new RegExp('('+allReplaceList.map(m => '\\b'+escapeRegExpFn(m.text)+'s?\\b').join("|")+')', 'i');
 
     const parts = str.split(regex);
     // console.log('parts', parts);
@@ -69,11 +69,11 @@ export function highlightUnitAndTechs(str: string) {
             texts.push(<MyText key={i}>{parts[i]}</MyText>);
         } else {
             // console.log('part', parts[i]);
-            const matchingTech = reverseTechMap[parts[i]]?.name;
+            const matchingTech = reverseTechMap[parts[i].toLowerCase()]?.name;
             if (matchingTech) {
                 texts.push(<MyText key={i} style={appStyles.link} onPress={() => navigation.push('Tech', {tech: matchingTech})}>{parts[i]}</MyText>);
             }
-            const matchingUnit = reverseUnitMap[parts[i]]?.name;
+            const matchingUnit = reverseUnitMap[parts[i].toLowerCase()]?.name;
             if (matchingUnit) {
                 texts.push(<MyText key={i} style={appStyles.link} onPress={() => navigation.push('Unit', {unit: matchingUnit})}>{parts[i]}</MyText>);
             }
