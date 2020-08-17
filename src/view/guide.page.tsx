@@ -21,6 +21,10 @@ export default function GuidePage() {
                     source={{uri: 'https://buildorderguide.com/#/'}}
                     scalesPageToFit={false}
                     style={{minHeight: 200, backgroundColor: 'grey'}}
+                    onShouldStartLoadWithRequest={event => {
+                        console.log('click', event);
+                        return true;
+                    }}
             />
         </View>
     );
