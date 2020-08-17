@@ -98,7 +98,7 @@ interface ISection {
     data: (UnitLine | Unit)[];
 }
 
-const sections: ISection[] = [
+const unitSections: ISection[] = [
     {
         title: 'Infantry',
         data:
@@ -191,24 +191,26 @@ const sections: ISection[] = [
     },
 ];
 
-// console.log(sections);
+export const allUnitSections = unitSections.map(section => ({
+    ...section,
+    data: section.data.map(u => {
+        if (unitLines[u] && !unitLines[u].unique) {
+            return unitLines[u].units;
+        }
+        return [u];
+    }).flatMap(u => u),
+}));
 
 
 export default function UnitList() {
     const styles = useTheme(variants);
     const [text, setText] = useState('');
-    const [list, setList] = useState(sections);
+    const [list, setList] = useState(allUnitSections);
 
     const refresh = () => {
-        const newSections = sections.map(section => ({
+        const newSections = allUnitSections.map(section => ({
             ...section,
-            data: section.data.map(u => {
-                if (unitLines[u] && !unitLines[u].unique) {
-                    return unitLines[u].units;
-                }
-                return [u];
-            })
-                .flatMap(u => u)
+            data: section.data
                 .filter(u => {
                     // if (unitLines[u]) {
                     //     return unitLines[u].units.some(u => getUnitName(u).toLowerCase().includes(text.toLowerCase()));

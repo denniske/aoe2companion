@@ -1473,7 +1473,6 @@ export const unitLines: IUnitLineDict = {
             'Spearman',
             'Knight',
             'CamelRider',
-            'Knight',
             'Boyar',
             'Konnik',
             'Mameluke'
@@ -2907,7 +2906,7 @@ export function getUnitName(unit: Unit) {
 export function getUnitData(unit: Unit) {
     const unitEntry = units[unit];
     if (unitEntry == null) {
-        throw Error(`getUnitLineName ${unit} - no dataId`);
+        throw Error(`getUnitData ${unit} - no dataId`);
     }
     const dataId = units[unit].dataId;
     return aoeData.data.units[dataId] as IUnitInfo;
@@ -2932,6 +2931,11 @@ export const unitList = unitLineIds.map(ul => ({
 
 export function getUnitLineForUnit(unit: Unit): IUnitLine | undefined {
     return unitList.find(ul => ul.units.includes(unit));
+}
+
+export function hasUnitLine(unit: Unit) {
+    const unitInfo = unitList.find(ul => ul.units.includes(unit));
+    return unitInfo != null;
 }
 
 export function getUnitLineIdForUnit(unit: Unit) {

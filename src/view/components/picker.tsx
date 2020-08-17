@@ -1,6 +1,8 @@
-import {Divider, Menu} from "react-native-paper";
+    import {Divider, Menu} from "react-native-paper";
 import {
-    Dimensions, FlatList, FlatListProps, StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle
+    Dimensions, FlatList, FlatListProps, SectionList, SectionListData, StyleProp, StyleSheet, Text, TouchableOpacity,
+    View,
+    ViewStyle
 } from "react-native";
 import {MyText} from "./my-text";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -9,15 +11,16 @@ import {usePaperTheme} from "../../theming";
 
 interface IPickerProps<T> {
     value?: T;
-    values: T[];
+    values?: T[];
+    sections?: SectionListData<T>[];
     formatter: (value: T, inList?: boolean) => string;
-    icon?: (value: T) => React.ReactNode;
+    icon?: (value: T, inList?: boolean) => React.ReactNode;
     divider?: (value: T, index: number) => boolean;
     cell?: (props: {}) => React.ReactNode;
     onSelect: (value: T) => void;
     style?: StyleProp<ViewStyle>;
     disabled?: boolean;
-    flatlist?: boolean;
+    container?: 'flatlist' | 'sectionlist';
     textMinWidth?: number;
     itemHeight?: number;
 }
@@ -28,7 +31,9 @@ function defaultCell(props: any) {
     return (
         <View style={styles.row}>
             {icon && icon(value)}
-            <MyText numberOfLines={1} style={[styles.text, { minWidth: textMinWidth, color: color, fontWeight: selected ? 'bold' : 'normal' }]}>{formatter(value)}</MyText>
+            <View style={styles.row}>
+                <MyText numberOfLines={1} style={[styles.text, { minWidth: textMinWidth, color: color, fontWeight: selected ? 'bold' : 'normal' }]}>{formatter(value)}</MyText>
+            </View>
         </View>
     );
 }
@@ -37,19 +42,17 @@ export default function Picker<T>(props: IPickerProps<T>) {
     const theme = usePaperTheme();
     const [menu, setMenu] = useState(false);
 
-    const { value, values, onSelect, style, disabled,
-            formatter = (x) => x, icon = x => undefined, cell = defaultCell, divider = x => false, flatlist = false,
+    const { value, values, sections, onSelect, style, disabled,
+            formatter = (x) => x, icon = x => undefined, cell = defaultCell, divider = x => false, container,
             textMinWidth = 0, itemHeight
     } = props;
 
     const color = disabled ? theme.colors.disabled : theme.colors.text;
 
     const renderItem = (v: T, i: number) => (
-        <View key={i} style={{ height: itemHeight }}>
-            <TouchableOpacity onPress={() => {onSelect(v); setMenu(false);}} disabled={disabled}>
-                <View style={styles.menuItem}>
-                    {cell({value: v, selected: v == value, formatter: (x: any, i: any) => formatter(x, true), color, icon, textMinWidth})}
-                </View>
+        <View key={i} style={{ height: itemHeight, flexDirection: 'column' }}>
+            <TouchableOpacity onPress={() => {onSelect(v); setMenu(false);}} disabled={disabled} style={styles.menuItem}>
+                {cell({value: v, selected: v == value, formatter: (x: any, i: any) => formatter(x, true), color, icon: (x: any, i: any) => icon(x, true), textMinWidth})}
             </TouchableOpacity>
             {
                 divider && divider(v, i) &&
@@ -58,8 +61,18 @@ export default function Picker<T>(props: IPickerProps<T>) {
         </View>
     );
 
+    const renderSectionHeader = (title: string) => (
+        <View key={title} style={{ height: itemHeight }}>
+            <View style={styles.menuItem}>
+                <View style={styles.row}>
+                    <MyText numberOfLines={1} style={[styles.text, { minWidth: textMinWidth, color: color }]}>{title}</MyText>
+                </View>
+            </View>
+        </View>
+    );
+
     const flatListProps: Partial<FlatListProps<T>> = {};
-    if (itemHeight) {
+    if (container === 'flatlist' && itemHeight) {
         flatListProps.getItemLayout = (data, index) => (
             {length: itemHeight, offset: itemHeight * index, index}
         );
@@ -82,7 +95,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
                 }
             >
                 {
-                    flatlist &&
+                    container === 'flatlist' &&
                     <View style={{height: Dimensions.get('screen').height-250, minWidth: 200}}>
                         <FlatList
                             {...flatListProps}
@@ -94,7 +107,20 @@ export default function Picker<T>(props: IPickerProps<T>) {
                     </View>
                 }
                 {
-                    !flatlist && values.map(renderItem)
+                    container === 'sectionlist' &&
+                    <View style={{height: Dimensions.get('screen').height-450, minWidth: 200}}>
+                        <SectionList
+                            stickySectionHeadersEnabled={false}
+                            keyboardShouldPersistTaps={'always'}
+                            sections={sections}
+                            renderItem={({item, index}) => renderItem(item, index)}
+                            renderSectionHeader={({section: { title }}) => renderSectionHeader(title)}
+                            keyExtractor={(item, index) => index.toString()}
+                        />
+                    </View>
+                }
+                {
+                    !container && values.map(renderItem)
                 }
                 {/*{*/}
                 {/*    values.map((v, i) =>*/}
@@ -111,7 +137,8 @@ const styles = StyleSheet.create({
     menuItem: {
         // backgroundColor: 'yellow',
         paddingHorizontal: 15,
-        paddingVertical: 10,
+        paddingVertical: 1,
+        flex: 1,
     },
     anchor: {
         // backgroundColor: 'yellow',
@@ -119,15 +146,16 @@ const styles = StyleSheet.create({
     },
     row: {
         // backgroundColor: 'green',
+        flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
     },
     text: {
         // backgroundColor: 'red',
         maxWidth: 160,
-        paddingHorizontal: 5,
     },
     handle: {
+        // backgroundColor: 'red',
         marginLeft: 4,
         paddingBottom: 2,
     },

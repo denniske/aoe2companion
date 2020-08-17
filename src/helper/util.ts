@@ -16,8 +16,9 @@ export function sleep(ms: number) {
 
 let timeLastDate: Date | null = null;
 export function time(start?: any) {
+    if (!__DEV__) return;
     if (timeLastDate == null || start) {
-        console.log('-');
+        console.log('- ' + start);
     } else {
         console.log(new Date().getTime() - timeLastDate.getTime());
     }

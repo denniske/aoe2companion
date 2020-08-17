@@ -28,6 +28,7 @@ import {useLazyApi} from "../hooks/use-lazy-api";
 import RefreshControlThemed from "./components/refresh-control-themed";
 import {ITheme, makeVariants, useTheme} from "../theming";
 import StatsPosition from "./components/stats-position";
+import {time} from "../helper/util";
 
 
 export default function UserPage() {
@@ -107,7 +108,12 @@ export default function UserPage() {
 
     const prevLeaderboardId = usePrevious(leaderboardId);
 
-    const loadStats = () => allMatches.reload();
+    const loadStats = () => {
+        time('loadStats');
+        const res = allMatches.reload();
+        time();
+        return res;
+    };
 
     useEffect(() => {
         // console.log("FETCHING MATCHES TRY", hasMatchesOrStats, prevLeaderboardId);

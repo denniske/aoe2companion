@@ -62,7 +62,7 @@ export function LeaderboardMenu() {
     const divider = (x: any, i: number) => i < 2;
     const icon = (x: any) => {
         if (x == countryEarth) {
-            return <IconFA name="globe" size={21} style={{paddingLeft: 2, paddingRight: 7}} color={theme.colors.text} />;
+            return <IconFA name="globe" size={21} style={{paddingLeft: 2, paddingRight: 12}} color={theme.colors.text} />;
         }
         return <Image fadeDuration={0} style={styles.countryIcon} source={getFlagIcon(x)}/>;
     };
@@ -74,7 +74,7 @@ export function LeaderboardMenu() {
         <View style={styles.menu}>
             <View style={styles.pickerRow}>
                 <ActivityIndicator animating={loadingMatchesOrStats} size="small"/>
-                <Picker itemHeight={40} textMinWidth={150} flatlist={true} divider={divider} icon={icon} disabled={loadingMatchesOrStats} value={country} values={countryList} formatter={formatCountry} onSelect={onCountrySelected}/>
+                <Picker itemHeight={40} textMinWidth={150} container="flatlist" divider={divider} icon={icon} disabled={loadingMatchesOrStats} value={country} values={countryList} formatter={formatCountry} onSelect={onCountrySelected}/>
             </View>
         </View>
     );
@@ -608,7 +608,7 @@ const getStyles = (theme: ITheme) => {
             width: 21,
             height: 15,
             // paddingBottom: 4,
-            marginRight: 5,
+            marginRight: 10,
         },
         title: {
             marginBottom: 10,
