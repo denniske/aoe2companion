@@ -185,7 +185,7 @@ function MainHome() {
 
                                             <View style={styles.pickerRow}>
                                                 <ActivityIndicator animating={loadingMatchesOrStats} size="small"/>
-                                                <Picker style={{width: 100, marginLeft: 10}} disabled={loadingMatchesOrStats} value={leaderboardId} values={leaderboardList} formatter={formatLeaderboardId} onSelect={onLeaderboardSelected}/>
+                                                <Picker style={styles.picker} disabled={loadingMatchesOrStats} value={leaderboardId} values={leaderboardList} formatter={formatLeaderboardId} onSelect={onLeaderboardSelected}/>
                                             </View>
 
                                             {
@@ -392,6 +392,10 @@ const getStyles = (theme: ITheme) => {
             alignItems: 'center',
             paddingRight: 20,
             marginBottom: 10
+        },
+        picker: {
+            width: 100,
+            marginLeft: 10,
         },
         sectionHeader: {
             marginVertical: 25,
