@@ -61,7 +61,7 @@ export default function ButtonPicker<T>(props: IPickerProps<T>) {
 const styles = StyleSheet.create({
     row: {
         // backgroundColor: 'green',
-        flex: 1,
+        // flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
     },

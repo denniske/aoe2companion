@@ -7,9 +7,14 @@ import {IRatingHistoryRow} from '../../service/rating';
 import {TextLoader} from "./loader/text-loader";
 import {ViewLoader} from "./loader/view-loader";
 import {formatLeaderboardId} from "../../helper/leaderboards";
-import {merge} from "lodash-es";
+import {capitalize, merge} from "lodash-es";
 import {useAppTheme, usePaperTheme} from "../../theming";
 import {VictoryZoomContainer} from "victory-native/lib";
+import {setPrefValue, useMutate, useSelector} from "../../redux/reducer";
+import {MyText} from "./my-text";
+import ButtonPicker from "./button-picker";
+import {saveCurrentPrefsToStorage} from "../../service/storage";
+import {isAfter, subMonths, subWeeks} from "date-fns";
 
 interface IRatingProps {
     ratingHistories: IRatingHistoryRow[];
@@ -32,6 +37,20 @@ function replaceRobotoWithSystemFont(obj: any) {
 export default function Rating({ratingHistories}: IRatingProps) {
     const paperTheme = usePaperTheme();
     const appTheme = useAppTheme();
+    const mutate = useMutate();
+
+    const ratingHistoryDuration = useSelector(state => state.prefs.ratingHistoryDuration) || 'max';
+    const values: string[] = [
+        'max',
+        '3m',
+        '1m',
+        '1w',
+    ];
+
+    const nav = async (str: any) => {
+        mutate(setPrefValue('ratingHistoryDuration', str));
+        await saveCurrentPrefsToStorage();
+    };
 
     let themeWithSystemFont = replaceRobotoWithSystemFont({...VictoryTheme.material});
 
@@ -55,8 +74,31 @@ export default function Rating({ratingHistories}: IRatingProps) {
 
     // https://formidable.com/open-source/victory/guides/zoom-on-large-datasets/
 
+    let since: any = null;
+    switch (ratingHistoryDuration) {
+        case '3m':
+            since = subMonths(new Date(), 3);
+            break;
+        case '1m':
+            since = subMonths(new Date(), 1);
+            break;
+        case '1w':
+            since = subWeeks(new Date(), 1);
+            break;
+    }
+
+    if (ratingHistories && since != null) {
+        ratingHistories = ratingHistories.map(r => ({
+            leaderboard_id: r.leaderboard_id,
+            data: r.data.filter(d => isAfter(d.timestamp!, since)),
+        }));
+    }
+
     return (
             <View style={styles.container}>
+                <View style={styles.durationRow}>
+                    <ButtonPicker value={ratingHistoryDuration} values={values} formatter={capitalize} onSelect={nav}/>
+                </View>
 
                 <ViewLoader ready={ratingHistories}>
                     <VictoryChart width={Dimensions.get('screen').width - 40} height={300} theme={themeWithSystemFont}
@@ -125,6 +167,13 @@ const styles = StyleSheet.create({
     chart: {
       backgroundColor: 'yellow',
       width: '100%',
+    },
+    durationRow: {
+        // backgroundColor: 'green',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        // justifyContent: 'flex-end',
+        marginBottom: 10,
     },
     container: {
         // backgroundColor: 'green',

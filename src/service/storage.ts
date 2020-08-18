@@ -17,6 +17,7 @@ export interface IPrefs {
     leaderboardId?: LeaderboardId;
     changelogLastVersionRead?: string;
     techTreeSize?: string;
+    ratingHistoryDuration?: string;
 }
 
 export interface ISettings {

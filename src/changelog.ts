@@ -10,6 +10,16 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '14.0.15': [
+        {
+            type: 'minor',
+            title: 'Add time filter for rating history',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix statistics leaderboard picker',
+        },
+    ],
     '14.0.14': [
         {
             type: 'bugfix',
