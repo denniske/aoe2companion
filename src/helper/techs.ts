@@ -617,7 +617,7 @@ const techEffectDictInternal = {
     },
     'Stirrups-Mounted': {
         tech: 'Stirrups',
-        civ: 'Khmer',
+        civ: 'Bulgarians',
         effect: {
             firingRate: '+25% attack speed, Mounted',
         },
