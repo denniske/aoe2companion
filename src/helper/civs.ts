@@ -4,7 +4,7 @@ import {
 } from "../data/civs";
 import {Tech, techs} from "./techs";
 import {sanitizeGameDescription, unwrap} from "./util";
-import {Unit, units} from "./units";
+import {Unit, UnitLine, units} from "./units";
 import {aoeData, aoeStringKey} from "../data/data";
 import {Building, buildings} from "./buildings";
 

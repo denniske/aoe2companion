@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '14.0.16': [
+        {
+            type: 'minor',
+            title: 'Added dismounted konnik',
+        },
+    ],
     '14.0.15': [
         {
             type: 'minor',

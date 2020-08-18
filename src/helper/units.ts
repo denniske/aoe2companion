@@ -10,6 +10,7 @@ export interface IUnitLine {
     civ?: Civ;
     unique?: boolean;
     units: Unit[];
+    related?: UnitLine[];
     counteredBy?: UnitLine[];
     upgrades: TechEffect[];
 }
@@ -68,6 +69,7 @@ export const unitLineIds = [
     'Keshik',
     'Leitis',
     'Konnik',
+    'KonnikDismounted',
     'Boyar',
     'MagyarHuszar',
     'Tarkan',
@@ -1268,6 +1270,7 @@ export const unitLines: IUnitLineDict = {
         ],
     },
     'Konnik': {
+        related: ['KonnikDismounted'],
         units: ['Konnik', 'EliteKonnik'],
         unique: true,
         civ: 'Bulgarians',
@@ -1279,23 +1282,45 @@ export const unitLines: IUnitLineDict = {
             'WarElephant',
             'BattleElephant',
             'Mameluke'
-
         ],
         upgrades: [
             'Bloodlines',
             'Forging',
             'IronCasting',
             'BlastFurnace',
-            'Arson-Dismounted',
-            'Stirrups-Mounted',
+            'Stirrups',
             'ScaleBardingArmor',
             'ChainBardingArmor',
             'PlateBardingArmor',
-            'ScaleMailArmor-Dismounted',
-            'ChainMailArmor-Dismounted',
-            'PlateMailArmor-Dismounted',
             'Husbandry',
-            'Squires-Dismounted',
+            'Faith',
+            'Heresy',
+            'Conscription',
+        ],
+    },
+    'KonnikDismounted': {
+        related: ['Konnik'],
+        units: ['KonnikDismounted', 'EliteKonnikDismounted'],
+        unique: true,
+        civ: 'Bulgarians',
+        counteredBy: [
+            'TeutonicKnight',
+            'Kamayuk',
+            'GenoeseCrossbowman',
+            'Boyar',
+            'WarElephant',
+            'BattleElephant',
+            'Mameluke'
+        ],
+        upgrades: [
+            'Forging',
+            'IronCasting',
+            'BlastFurnace',
+            'Arson',
+            'ScaleMailArmor',
+            'ChainMailArmor',
+            'PlateMailArmor',
+            'Squires',
             'Faith',
             'Heresy',
             'Conscription',
@@ -2440,6 +2465,12 @@ const unitsInternal = {
     'EliteKonnik': {
         dataId: '1255',
     },
+    'KonnikDismounted': {
+        dataId: '1252',
+    },
+    'EliteKonnikDismounted': {
+        dataId: '1253',
+    },
     'Boyar': {
         dataId: '876',
     },
@@ -2809,6 +2840,7 @@ const unitIcons: UnitIconDict = {
     'MagyarHuszar': require('../../assets/units/MagyarHuszar.png'),
     'Boyar': require('../../assets/units/Boyar.png'),
     'Konnik': require('../../assets/units/Konnik.png'),
+    'KonnikDismounted': require('../../assets/units/KonnikDismounted.png'),
     'Leitis': require('../../assets/units/Leitis.png'),
     'Keshik': require('../../assets/units/Keshik.png'),
     'Militia': require('../../assets/units/Militia.png'),
@@ -2928,6 +2960,10 @@ export const unitList = unitLineIds.map(ul => ({
     name: ul,
     ...unitLines[ul],
 }))
+
+export function getRelatedUnitLines(unitLineId: UnitLine): UnitLine[] {
+    return unitLines[unitLineId].related || [];
+}
 
 export function getUnitLineForUnit(unit: Unit): IUnitLine | undefined {
     return unitList.find(ul => ul.units.includes(unit));

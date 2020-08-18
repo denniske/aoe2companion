@@ -615,13 +615,6 @@ const techEffectDictInternal = {
             firingRate: '+25% attack speed',
         },
     },
-    'Stirrups-Mounted': {
-        tech: 'Stirrups',
-        civ: 'Bulgarians',
-        effect: {
-            firingRate: '+25% attack speed, Mounted',
-        },
-    },
     'ScaleBardingArmor': {
         tech: 'ScaleBardingArmor',
         effect: {
@@ -922,12 +915,6 @@ const techEffectDictInternal = {
             attack: '+2 attack against standard buildings',
         },
     },
-    'Arson-Dismounted': {
-        tech: 'Arson',
-        effect: {
-            attack: '+2 attack against standard buildings, Dismounted',
-        },
-    },
     'ScaleMailArmor': {
         tech: 'ScaleMailArmor',
         effect: {
@@ -967,24 +954,6 @@ const techEffectDictInternal = {
             armor: '+1/+2',
         },
     },
-    'ScaleMailArmor-Dismounted': {
-        tech: 'ScaleMailArmor',
-        effect: {
-            armor: '+1/+1, Dismounted',
-        },
-    },
-    'ChainMailArmor-Dismounted': {
-        tech: 'ChainMailArmor',
-        effect: {
-            armor: '+1/+1, Dismounted',
-        },
-    },
-    'PlateMailArmor-Dismounted': {
-        tech: 'PlateMailArmor',
-        effect: {
-            armor: '+1/+2, Dismounted',
-        },
-    },
     'FabricShields': {
         tech: 'FabricShields',
         civ: 'Incas',
@@ -996,12 +965,6 @@ const techEffectDictInternal = {
         tech: 'Squires',
         effect: {
             speed: '+10%',
-        },
-    },
-    'Squires-Dismounted': {
-        tech: 'Squires',
-        effect: {
-            speed: '+10%, Dismounted',
         },
     },
     'Tracking': {

@@ -13,6 +13,7 @@ import {UnitCosts} from "./unit-costs";
 import UnitCounters from "./unit-counters";
 import CivAvailability from "../components/civ-availability";
 import {getAbilityEnabledForAllCivs} from "../components/tech-tree";
+import UnitRelated from "./unit-related";
 
 
 export default function UnitDetails({unitName}: {unitName: Unit}) {
@@ -32,6 +33,8 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
 
             <MyText style={styles.description}>{getUnitDescription(unitName)}</MyText>
             <MyText/>
+
+            <UnitRelated unitId={unitName}/>
 
             <UnitStats unitLineId={unitLineId} unitId={unitName} />
 

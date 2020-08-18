@@ -3,7 +3,9 @@ import {Image, Platform, SectionList, StyleSheet, Text, TouchableOpacity, View} 
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {
-    getUnitIcon, getUnitLineForUnit, getUnitLineIcon, getUnitLineName, getUnitLineNameForUnit, getUnitName, IUnitLine,
+    getRelatedUnitLines,
+    getUnitIcon, getUnitLineForUnit, getUnitLineIcon, getUnitLineIdForUnit, getUnitLineName, getUnitLineNameForUnit,
+    getUnitName, IUnitLine,
     Unit, UnitLine,
     unitLines, units
 } from "../../helper/units";
@@ -191,7 +193,7 @@ const unitSections: ISection[] = [
     },
     {
         title: 'Unique',
-        data: sortBy(civs.flatMap(civ => civDict[civ].uniqueUnits[0])),
+        data: sortBy(civs.flatMap(civ => [civDict[civ].uniqueUnits[0], ...getRelatedUnitLines(getUnitLineIdForUnit(civDict[civ].uniqueUnits[0]))])),
     },
 ];
 
