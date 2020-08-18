@@ -27,6 +27,7 @@ import SearchPage from './src/view/search.page';
 import PrivacyPage from './src/view/privacy.page';
 import {AppLoading} from "expo";
 import Icon5 from 'react-native-vector-icons/FontAwesome5';
+import { Notifications as LegacyNotifications } from 'expo';
 // import {Tester, TestHookStore} from "cavy";
 import ExampleSpec from './src/ci/exampleSpec';
 import LeaderboardPage, {leaderboardMenu, LeaderboardTitle} from "./src/view/leaderboard.page";
@@ -59,6 +60,7 @@ import ErrorSnackbar from "./src/view/components/snackbar/error-snackbar";
 import ErrorPage from "./src/view/error.page";
 import * as Notifications from "expo-notifications";
 import TipsPage from "./src/view/tips.page";
+import {setSavedNotification} from "./src/helper/notification";
 
 if (!__DEV__) {
     Sentry.init({
@@ -500,8 +502,44 @@ export function AppWrapper() {
 }
 
 
+let notificationListenerAndroid: any = null;
+let notificationListenerIOS: any = null;
+
+// Workaround notification not received when app is killed | Android
+try {
+    if (Platform.OS === 'android') {
+        notificationListenerAndroid = Notifications.addNotificationResponseReceivedListener(({notification}) => {
+            setSavedNotification(notification);
+        });
+    }
+} catch(e) {
+    console.log(e);
+}
 
 export default function App() {
+    // Workaround notification not received when app is killed | iOS
+    useEffect(() => {
+        try {
+            if (Platform.OS === 'ios') {
+                notificationListenerIOS = LegacyNotifications.addListener(({data}) => {
+                    setSavedNotification({
+                        request: {content: {data: {body: data}}},
+                    });
+                });
+            }
+        } catch (e) {
+            console.log(e);
+        }
+
+        return () => {
+            try {
+                notificationListenerAndroid?.remove();
+                notificationListenerIOS?.remove();
+            } catch (e) {
+                console.log(e);
+            }
+        };
+    }, []);
 
     // Prevent closing of app when back button is tapped.
     // View navigation using back button is still possible.

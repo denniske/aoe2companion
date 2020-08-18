@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '14.0.14': [
+        {
+            type: 'bugfix',
+            title: 'Try to redirect to following page when notification is clicked',
+        },
+    ],
     '14.0.13': [
         {
             type: 'feature',

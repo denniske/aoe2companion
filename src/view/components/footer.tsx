@@ -3,12 +3,13 @@ import React, {useEffect, useRef, useState} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon5 from 'react-native-vector-icons/FontAwesome5';
 import {Divider, Menu} from 'react-native-paper';
-import {RootStackParamList} from '../../../App';
 import {getRootNavigation} from "../../service/navigation";
 import {useNavigationStateExternal} from "../../hooks/use-navigation-state-external";
 import {MyText} from "./my-text";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import * as Notifications from "expo-notifications";
+import {RootStackParamList} from "../../../App";
+import {hasSavedNotification} from "../../helper/notification";
 
 
 export default function Footer() {
@@ -39,6 +40,20 @@ export default function Footer() {
         return isActiveRoute ? styles.iconActive : styles.iconInPopup;
     };
 
+    const checkForSavedNotification = (elapsedMs: number = 0) => {
+        console.log('checkForSavedNotification')
+        if (hasSavedNotification()) {
+            console.log('checkForSavedNotification', 'hasSavedNotification')
+            nav('Feed');
+            return;
+        }
+        if (elapsedMs > 1000) {
+            console.log('checkForSavedNotification', 'timeout')
+            return;
+        }
+        setTimeout(() => checkForSavedNotification(elapsedMs+100), 100);
+    };
+
     useEffect(() => {
         // initialRouteHandle.current = setTimeout(() => {
         //     nav('Main');
@@ -56,6 +71,8 @@ export default function Footer() {
                 // clearTimeout(initialRouteHandle.current);
                 nav('Feed');
             });
+
+            checkForSavedNotification();
         } catch(e) {
             console.log(e);
         }
