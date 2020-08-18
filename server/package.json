@@ -8,6 +8,7 @@
     "notify": "nodemon --exec 'tsc && node ./dist/server/src/notify.js' --ext ts --watch src",
     "notify-single": "tsc && node ./dist/server/src/notify.js",
     "api": "nodemon --exec 'tsc && node ./dist/server/src/api.js' --ext ts --watch src",
+    "leaderboard": "nodemon --exec 'tsc && node ./dist/server/src/leaderboard.js' --ext ts --watch src",
     "build": "tsc",
     "build-ts": "tsc",
     "start": "npm run serve",

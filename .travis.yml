@@ -106,6 +106,32 @@ jobs:
         - cd api
         - bash ./deploy.sh
 
+    - stage: publish
+      if: tag =~ ^leaderboard-v.+$
+      env:
+        - CACHE_NAME=leaderboard
+        - IMAGE_NAME=denniske/aoe2companion-leaderboard
+      before_install:
+        - sudo apt-get update
+        - sudo apt-get -y install gettext-base
+        - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+        - chmod u+x ./kubectl
+        - sudo mv kubectl /usr/local/bin/
+      script:
+        - cd serverless
+        - npm install
+        - cd ..
+        - cd server
+        - npm install
+        - npm run build
+        - ls -al
+        - docker build -f deploy/leaderboard/Dockerfile -t $IMAGE_NAME:$TRAVIS_COMMIT .
+        - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+        - docker push $IMAGE_NAME:$TRAVIS_COMMIT
+        - cd deploy
+        - cd leaderboard
+        - bash ./deploy.sh
+
 
     ####################################
     # PUBLISH

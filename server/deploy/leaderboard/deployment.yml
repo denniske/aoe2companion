@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aoe2companion-leaderboard
+  namespace: default
+  labels:
+    app: aoe2companion-leaderboard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aoe2companion-leaderboard
+  template:
+    metadata:
+      labels:
+        app: aoe2companion-leaderboard
+    spec:
+      containers:
+        - name: aoe2companion-leaderboard
+          image: denniske/aoe2companion-leaderboard:$COMMIT_SHA1
+          ports:
+            - containerPort: 80
+              name: http
+          envFrom:
+            - secretRef:
+                name: server-secret
+          env:
+            - name: PORT
+              value: "80"
+            - name: K8S_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name

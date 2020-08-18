@@ -207,7 +207,7 @@ export function time(start?: any) {
     timeLastDate = new Date();
 }
 
-export function getParam(params: { [name: string]: string } | null, key: string): string {
+export function getParam(params: { [name: string]: any } | null, key: string): string {
     if (params == null) {
         return null;
     }

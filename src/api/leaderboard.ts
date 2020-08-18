@@ -1,4 +1,4 @@
-import {makeQueryString, sleep} from '../helper/util';
+import {makeQueryString, sleep, time} from '../helper/util';
 import {ILeaderboard, ILeaderboardRaw, IRatingHistoryEntryRaw} from "../helper/data";
 import {fromUnixTime} from "date-fns";
 import { getHost } from './host';
@@ -26,6 +26,7 @@ export interface IFetchLeaderboardParams {
 }
 
 async function fetchLeaderboardInternal(baseUrl: string, game: string, leaderboard_id: number, params: IFetchLeaderboardParams) {
+    time('fetchLeaderboard');
     const queryString = makeQueryString({
         game,
         leaderboard_id,
@@ -33,6 +34,7 @@ async function fetchLeaderboardInternal(baseUrl: string, game: string, leaderboa
     });
     const url = baseUrl + `api/leaderboard?${queryString}`;
     const json = await fetchJson('fetchLeaderboard', url);
+    time();
     return convertTimestampsToDates(json);
 }
 
