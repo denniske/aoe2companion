@@ -77,6 +77,9 @@ export default function UserPage() {
     const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
     const auth = route.params.id;
 
+    console.log('USER PAGE', auth);
+    console.log('USER PAGE', auth?.profile_id);
+
     const rating = useApi(
         {},
         [],
