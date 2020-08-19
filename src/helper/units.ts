@@ -2044,6 +2044,7 @@ export const unitLines: IUnitLineDict = {
             'WarElephant',
             'Tarkan',
             'Konnik',
+            'KonnikDismounted',
             'Boyar',
             'MagyarHuszar',
             'Mameluke',
