@@ -19,7 +19,7 @@ const dark: ITheme = {
     textColor: "white",
     textNoteColor: "#BBB",
     borderColor: '#101010',
-    lightBackgroundColor: '#AAA',
+    lightBackgroundColor: '#333',
     lightBorderColor: '#101010',
     skeletonColor: '#111',
     linkColor: '#0A84FF', // from react navigation dark theme primary

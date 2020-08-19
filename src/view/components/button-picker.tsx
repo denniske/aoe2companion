@@ -7,7 +7,7 @@ import {useAppTheme, usePaperTheme} from "../../theming";
 interface IPickerProps<T> {
     value?: T;
     values: T[];
-    formatter: (value: T, inList?: boolean) => string;
+    formatter?: (value: T, inList?: boolean) => string;
     onSelect: (value: T) => void;
     style?: StyleProp<ViewStyle>;
     disabled?: boolean;

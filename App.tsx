@@ -159,9 +159,9 @@ export type RootStackParamList = {
 };
 
 export type RootTabParamList = {
-    MainHome: { auth: UserId };
-    MainStats: { auth: UserId };
-    MainMatches: { auth: UserId };
+    MainProfile: { user: UserId };
+    MainStats: { user: UserId };
+    MainMatches: { user: UserId };
 };
 
 export type RootStackProp = StackNavigationProp<RootStackParamList, 'Main'>;
@@ -420,6 +420,7 @@ const customPaperTheme = {
     colors: {
         ...PaperDefaultTheme.colors,
         primary: '#3498db',
+        accent: '#3498db',
     },
 };
 
@@ -428,6 +429,7 @@ const customDarkPaperTheme = {
     colors: {
         ...PaperDarkTheme.colors,
         primary: '#3498db',
+        accent: '#3498db',
     },
 };
 
@@ -455,7 +457,6 @@ export function AppWrapper() {
     // AsyncStorage.removeItem('following');
     // AsyncStorage.removeItem('config');
 
-    console.log(' ');
     console.log(' ');
 
     const account = useSelector(state => state.account);
