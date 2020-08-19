@@ -191,7 +191,7 @@ function Leaderboard({leaderboardId}: any) {
     const _renderRow = (player: ILeaderboardPlayer, i: number, isMyRankRow: boolean = false) => {
         const isMe = sameUserNull(player, auth);
         return (
-            <TouchableOpacity style={[styles.row, { height: isMyRankRow ? headerMyRankHeight : rowHeight }]} onPress={() => isMyRankRow ? scrollToMe() : onSelect(player)}>
+            <TouchableOpacity style={[styles.row, { height: isMyRankRow ? headerMyRankHeight : rowHeight }]} disabled={player == null} onPress={() => isMyRankRow ? scrollToMe() : onSelect(player)}>
                 <View style={isMyRankRow ? styles.innerRow : styles.innerRowWithBorder}>
                     <TextLoader numberOfLines={1} style={isMe ? styles.cellRankMe : [styles.cellRank, { width: rankWidth }]}>#{player?.rank || i+1}</TextLoader>
                     <TextLoader style={isMe ? styles.cellRatingMe : styles.cellRating}>{player?.rating}</TextLoader>
