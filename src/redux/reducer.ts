@@ -55,6 +55,12 @@ export function setAuth(user: UserId | null) {
   };
 }
 
+export function setLoadingMatchesOrStats(loadingMatchesOrStats: boolean) {
+  return (state: AppState) => {
+    state.loadingMatchesOrStats = loadingMatchesOrStats;
+  };
+}
+
 export function setLeaderboardCountry(country?: string | null) {
   return (state: AppState) => {
     state.leaderboardCountry = country;
@@ -156,6 +162,7 @@ export interface AppState {
   auth?: UserId | null;
   user: IUserDict;
   statsPlayer: any;
+  loadingMatchesOrStats: boolean;
 
   error?: IError | null;
   errors?: IError[] | null;

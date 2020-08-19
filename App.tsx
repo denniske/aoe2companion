@@ -159,8 +159,9 @@ export type RootStackParamList = {
 };
 
 export type RootTabParamList = {
-    MainHome: undefined;
-    MainMatches: undefined;
+    MainHome: { auth: UserId };
+    MainStats: { auth: UserId };
+    MainMatches: { auth: UserId };
 };
 
 export type RootStackProp = StackNavigationProp<RootStackParamList, 'Main'>;

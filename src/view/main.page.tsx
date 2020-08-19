@@ -5,14 +5,16 @@ import {useApi} from '../hooks/use-api';
 import {loadProfile} from '../service/profile';
 import {Game} from './components/game';
 import Search from './components/search';
-import {composeUserId, UserInfo} from '../helper/user';
+import {composeUserId, UserId, UserInfo} from '../helper/user';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {clearStatsPlayer, setAuth, setPrefValue, useMutate, useSelector} from '../redux/reducer';
+import {
+    clearStatsPlayer, setAuth, setLoadingMatchesOrStats, setPrefValue, useMutate, useSelector
+} from '../redux/reducer';
 import Profile from './components/profile';
 import {loadRatingHistories} from '../service/rating';
 import Rating from './components/rating';
 import { fetchPlayerMatches} from '../api/player-matches';
-import {useNavigation} from "@react-navigation/native";
+import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 // import {useCavy} from "cavy";
 import {TabBarLabel} from "./components/tab-bar-label";
 import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
@@ -32,6 +34,7 @@ import RefreshControlThemed from "./components/refresh-control-themed";
 import StatsPosition from "./components/stats-position";
 import {ITheme, makeVariants, useTheme} from "../theming";
 import IconFA5 from "react-native-vector-icons/FontAwesome5";
+import {RootStackParamList, RootTabParamList} from "../../App";
 
 
 export function mainMenu() {
@@ -75,10 +78,12 @@ export function MainMenu() {
 
 function MainHome() {
     const styles = useTheme(variants);
-    const auth = useSelector(state => state.auth!);
     const mutate = useMutate();
     const prefLeaderboardId = useSelector(state => state.prefs.leaderboardId) ?? LeaderboardId.RM1v1;
     const [leaderboardId, setLeaderboardId] = useState(prefLeaderboardId);
+
+    const route = useRoute<RouteProp<RootTabParamList, 'MainHome'>>();
+    const { auth } = route.params;
 
     const rating = useApi(
             {},
@@ -149,7 +154,7 @@ function MainHome() {
         setLeaderboardId(leaderboardId);
     };
 
-    const list = ['profile', 'rating-header', 'rating', 'stats-header', 'stats-position', 'stats-player', 'stats-civ', 'stats-map'];
+    const list = ['profile', 'rating-header', 'rating'];
 
     const deleteUser = () => {
         Alert.alert("Delete Me?", "Do you want to reset me page?",
@@ -247,6 +252,83 @@ function MainHome() {
 }
 
 
+function MainStats() {
+    const styles = useTheme(variants);
+    const mutate = useMutate();
+    const prefLeaderboardId = useSelector(state => state.prefs.leaderboardId) ?? LeaderboardId.RM1v1;
+    const [leaderboardId, setLeaderboardId] = useState(prefLeaderboardId);
+
+    const auth = useSelector(state => state.auth!);
+
+    const currentCachedData = useSelector(state => get(state.statsPlayer, [auth.id, leaderboardId]));
+    const previousCachedData = usePrevious(currentCachedData);
+    const loadingMatchesOrStats = useSelector(state => state.loadingMatchesOrStats);
+
+    const cachedData = currentCachedData ?? previousCachedData;
+
+    console.log('MainStats cachedData', cachedData);
+    console.log('MainStats loadingMatchesOrStats', loadingMatchesOrStats);
+
+    let statsPosition = cachedData?.statsPosition;
+    let statsPlayer = cachedData?.statsPlayer;
+    let statsCiv = cachedData?.statsCiv;
+    let statsMap = cachedData?.statsMap;
+
+    const hasStats = cachedData != null;
+    const hasMatchesOrStats = hasStats;
+
+    const list = ['stats-header', 'stats-position', 'stats-player', 'stats-civ', 'stats-map'];
+
+    const onLeaderboardSelected = async (leaderboardId: LeaderboardId) => {
+        mutate(setPrefValue('leaderboardId', leaderboardId));
+        await saveCurrentPrefsToStorage();
+        setLeaderboardId(leaderboardId);
+    };
+
+    return (
+        <View style={styles.container}>
+            <View style={styles.content}>
+                <FlatList
+                    contentContainerStyle={styles.list}
+                    data={list}
+                    renderItem={({item, index}) => {
+                        switch (item) {
+                            case 'stats-header':
+                                return <View>
+                                    <View style={styles.pickerRow}>
+                                        <ActivityIndicator animating={loadingMatchesOrStats} size="small"/>
+                                        <Picker style={styles.picker} disabled={loadingMatchesOrStats} value={leaderboardId} values={leaderboardList} formatter={formatLeaderboardId} onSelect={onLeaderboardSelected}/>
+                                    </View>
+
+                                    {
+                                        hasStats && statsPlayer?.matches?.length != 0 &&
+                                        <MyText style={styles.info}>the last {statsPlayer?.matches?.length} matches:</MyText>
+                                    }
+                                </View>;
+                            case 'stats-position':
+                                if (!hasMatchesOrStats) return <View/>;
+                                return <StatsPosition data={statsPosition} user={auth} leaderboardId={leaderboardId}/>;
+                            case 'stats-civ':
+                                if (!hasMatchesOrStats) return <View/>;
+                                return <StatsCiv data={statsCiv} user={auth}/>;
+                            case 'stats-map':
+                                if (!hasMatchesOrStats) return <View/>;
+                                return <StatsMap data={statsMap} user={auth}/>;
+                            case 'stats-player':
+                                if (!hasMatchesOrStats) return <View/>;
+                                return <StatsPlayer data={statsPlayer} user={auth} leaderboardId={leaderboardId}/>;
+                            default:
+                                return <View/>;
+                        }
+                    }}
+                    keyExtractor={(item, index) => index.toString()}
+                />
+            </View>
+        </View>
+    );
+}
+
+
 function MainMatches() {
     const styles = useTheme(variants);
     const [refetching, setRefetching] = useState(false);
@@ -327,14 +409,13 @@ function MainMatches() {
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function MainPage() {
-    const styles = useTheme(variants);
-    const auth = useSelector(state => state.auth);
-    const mutate = useMutate();
+interface MainPageInnerProps {
+    auth: UserId;
+}
 
-    // const generateTestHook = useCavy();
-    // const navigation = useNavigation();
-    // generateTestHook('Navigation')(navigation);
+export default function MainPage() {
+    const mutate = useMutate();
+    const auth = useSelector(state => state.auth);
 
     const onSelect = async (user: UserInfo) => {
         await saveSettingsToStorage({
@@ -349,10 +430,66 @@ export default function MainPage() {
         return <Search title="Enter your AoE username to track your games:" selectedUser={onSelect} actionText="Choose" />;
     }
 
+    return <MainPageInner auth={auth}/>
+}
+
+export function MainPageInner({ auth }: MainPageInnerProps) {
+    const styles = useTheme(variants);
+    const mutate = useMutate();
+
+    console.log('USER PAGE', auth);
+    console.log('USER PAGE', auth?.profile_id);
+
+    // const generateTestHook = useCavy();
+    // const navigation = useNavigation();
+    // generateTestHook('Navigation')(navigation);
+
+    const leaderboardId = useSelector(state => state.prefs.leaderboardId) ?? LeaderboardId.RM1v1;
+
+    let allMatches = useLazyApi(
+        {},
+        fetchPlayerMatches, 'aoe2de', 0, 1000, [auth]
+    );
+
+    const cachedData = useSelector(state => get(state.statsPlayer, [auth.id, leaderboardId]));
+
+    const stats = useCachedConservedLazyApi(
+        [allMatches.data, leaderboardId],
+        () => allMatches.data != null,
+        state => get(state, ['statsPlayer', auth.id, leaderboardId]),
+        (state, value) => set(state, ['statsPlayer', auth.id, leaderboardId], value),
+        getStats, {matches: allMatches.data, user: auth, leaderboardId}
+    );
+
+    const hasMatches = allMatches.loading || (allMatches.data != null);
+    const hasStats = cachedData != null;
+    const hasMatchesOrStats = hasMatches || hasStats;
+    const loadingMatchesOrStats = (allMatches.loading || stats.loading);
+
+    const prevLeaderboardId = usePrevious(leaderboardId);
+
+    useEffect(() => {
+        console.log("FETCHING MATCHES TRY");
+        if (!hasMatchesOrStats && prevLeaderboardId != null) {
+            console.log("FETCHING MATCHES");
+            allMatches.reload();
+        }
+    }, [leaderboardId]);
+
+    useEffect(() => {
+        console.log('loadingMatchesOrStats', loadingMatchesOrStats);
+        mutate(setLoadingMatchesOrStats(loadingMatchesOrStats));
+    }, [loadingMatchesOrStats]);
+
+    const initialParams = {
+        auth,
+    };
+
     return (
             <Tab.Navigator lazy={true} swipeEnabled={true}>
-                <Tab.Screen name="MainHome" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="Profile"/>}} component={MainHome}/>
-                <Tab.Screen name="MainMatches" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="Matches"/>}} component={MainMatches}/>
+                <Tab.Screen name="MainHome" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="Profile"/>}} component={MainHome} initialParams={initialParams}/>
+                <Tab.Screen name="MainStats" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="Stats"/>}} component={MainStats} initialParams={initialParams}/>
+                <Tab.Screen name="MainMatches" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="Matches"/>}} component={MainMatches} initialParams={initialParams}/>
             </Tab.Navigator>
     );
 }
