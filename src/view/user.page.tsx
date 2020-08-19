@@ -270,6 +270,84 @@ export default function UserPage() {
 }
 
 
+// function MainMatches() {
+//     const styles = useTheme(variants);
+//     const [refetching, setRefetching] = useState(false);
+//     const [fetchingMore, setFetchingMore] = useState(false);
+//     const [fetchedAll, setFetchedAll] = useState(false);
+//
+//     const auth = useSelector(state => state.auth!);
+//
+//     const matches = useApi(
+//         {
+//             append: (data, newData) => {
+//                 // console.log('APPEND', data, newData);
+//                 return [...(data || []), ...newData];
+//             },
+//         },
+//         [],
+//         state => state.user[auth.id]?.matches,
+//         (state, value) => {
+//             if (state.user[auth.id] == null) {
+//                 state.user[auth.id] = {};
+//             }
+//             state.user[auth.id].matches = value;
+//         },
+//         fetchPlayerMatches, 'aoe2de', 0, 15, [auth]
+//     );
+//
+//     const onRefresh = async () => {
+//         setRefetching(true);
+//         await matches.reload();
+//         setRefetching(false);
+//     };
+//
+//     const onEndReached = async () => {
+//         if (fetchingMore) return;
+//         setFetchingMore(true);
+//         const matchesLength = matches.data?.length ?? 0;
+//         const newMatchesData = await matches.refetch('aoe2de', 0, matchesLength + 15, [auth]);
+//         if (matchesLength === newMatchesData?.length) {
+//             setFetchedAll(true);
+//         }
+//         setFetchingMore(false);
+//     };
+//
+//     const list = [...(matches.data || Array(15).fill(null))];
+//
+//     const _renderFooter = () => {
+//         if (!fetchingMore) return null;
+//         return <FlatListLoadingIndicator />;
+//     };
+//
+//     return (
+//         <View style={styles.container}>
+//             <View style={styles.content}>
+//                 <FlatList
+//                     contentContainerStyle={styles.list}
+//                     data={list}
+//                     renderItem={({item, index}) => {
+//                         switch (item) {
+//                             default:
+//                                 return <Game data={item as any} expanded={index === -1}/>;
+//                         }
+//                     }}
+//                     ListFooterComponent={_renderFooter}
+//                     onEndReached={fetchedAll ? null : onEndReached}
+//                     onEndReachedThreshold={0.1}
+//                     keyExtractor={(item, index) => index.toString()}
+//                     refreshControl={
+//                         <RefreshControlThemed
+//                             onRefresh={onRefresh}
+//                             refreshing={refetching}
+//                         />
+//                     }
+//                 />
+//             </View>
+//         </View>
+//     );
+// }
+
 const getStyles = (theme: ITheme) => {
     return StyleSheet.create({
         menu: {

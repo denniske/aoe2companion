@@ -37,5 +37,5 @@ export async function getStatsMap({matches, user}: IParam) {
         rows = orderBy(rows, r => r.games, 'desc');
         // rows = orderBy(rows, [r => r.won], ['desc']);
     }
-    return { rows, matches, user };
+    return { rows, matchCount: matches?.length, user };
 }

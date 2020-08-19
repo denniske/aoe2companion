@@ -62,5 +62,5 @@ export async function getStatsPlayer({matches, user, leaderboardId}: IParam) {
         rowsOpponent = orderBy(rowsOpponent, r => r.games, 'desc');
         rowsOpponent = rowsOpponent.filter((r, i) => i < maxRowCount);
     }
-    return { rowsAlly, rowsOpponent, matches, leaderboardId, user };
+    return { rowsAlly, rowsOpponent, matchCount: matches?.length, leaderboardId, user };
 }

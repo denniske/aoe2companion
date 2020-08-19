@@ -68,5 +68,5 @@ export async function getStatsPosition({matches, user, leaderboardId}: IParam) {
         rows = orderBy(rows, r => r.games, 'desc');
         // rows = orderBy(rows, [r => r.won], ['desc']);
     }
-    return { rows, matches, user, leaderboardId };
+    return { rows, matchCount: matches?.length, user, leaderboardId };
 }

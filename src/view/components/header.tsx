@@ -23,6 +23,7 @@ export default function Header() {
     const [checked, setChecked] = useState(false);
     const mutate = useMutate();
     const config = useSelector(state => state.config);
+    const state = useSelector(state => state);
 
     const nav = async (route: keyof RootStackParamList) => {
         const navigation = getRootNavigation();
@@ -68,6 +69,10 @@ export default function Header() {
 
                     <View style={appStyles.expanded}/>
 
+                    {
+                        __DEV__ &&
+                        <MyText>{(JSON.stringify(state).length / 1000).toFixed()} KB</MyText>
+                    }
                     {
                         __DEV__ &&
                         <TouchableOpacity onPress={toggleDarkMode}>

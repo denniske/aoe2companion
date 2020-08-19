@@ -35,6 +35,7 @@ import StatsPosition from "./components/stats-position";
 import {ITheme, makeVariants, useTheme} from "../theming";
 import IconFA5 from "react-native-vector-icons/FontAwesome5";
 import {RootStackParamList, RootTabParamList} from "../../App";
+import { IMatch } from '../helper/data';
 
 
 export function mainMenu() {
@@ -206,8 +207,8 @@ function MainHome() {
                                                 </Button>
                                             }
                                             {
-                                                hasStats && statsPlayer?.matches?.length != 0 &&
-                                                <MyText style={styles.info}>the last {statsPlayer?.matches?.length} matches:</MyText>
+                                                hasStats && statsPlayer?.matchCount != 0 &&
+                                                <MyText style={styles.info}>the last {statsPlayer?.matchCount} matches:</MyText>
                                             }
                                         </View>;
                                     case 'stats-position':
@@ -258,7 +259,8 @@ function MainStats() {
     const prefLeaderboardId = useSelector(state => state.prefs.leaderboardId) ?? LeaderboardId.RM1v1;
     const [leaderboardId, setLeaderboardId] = useState(prefLeaderboardId);
 
-    const auth = useSelector(state => state.auth!);
+    const route = useRoute<RouteProp<RootTabParamList, 'MainHome'>>();
+    const { auth } = route.params;
 
     const currentCachedData = useSelector(state => get(state.statsPlayer, [auth.id, leaderboardId]));
     const previousCachedData = usePrevious(currentCachedData);
@@ -301,8 +303,8 @@ function MainStats() {
                                     </View>
 
                                     {
-                                        hasStats && statsPlayer?.matches?.length != 0 &&
-                                        <MyText style={styles.info}>the last {statsPlayer?.matches?.length} matches:</MyText>
+                                        hasStats && statsPlayer?.matchCount != 0 &&
+                                        <MyText style={styles.info}>the last {statsPlayer?.matchCount} matches:</MyText>
                                     }
                                 </View>;
                             case 'stats-position':
@@ -335,7 +337,8 @@ function MainMatches() {
     const [fetchingMore, setFetchingMore] = useState(false);
     const [fetchedAll, setFetchedAll] = useState(false);
 
-    const auth = useSelector(state => state.auth!);
+    const route = useRoute<RouteProp<RootTabParamList, 'MainHome'>>();
+    const { auth } = route.params;
 
     const matches = useApi(
             {
@@ -433,6 +436,16 @@ export default function MainPage() {
     return <MainPageInner auth={auth}/>
 }
 
+function shrinkMatches(matches: IMatch[]) {
+    return matches.map(m => ({
+        name: m.name,
+        map_type: m.map_type,
+        players: m.players.map(p => ({
+            name: p.name,
+        })),
+    }));
+}
+
 export function MainPageInner({ auth }: MainPageInnerProps) {
     const styles = useTheme(variants);
     const mutate = useMutate();
@@ -451,6 +464,11 @@ export function MainPageInner({ auth }: MainPageInnerProps) {
         fetchPlayerMatches, 'aoe2de', 0, 1000, [auth]
     );
 
+    const size = JSON.stringify(allMatches.data ?? []).length / 1000;
+    const size2 = JSON.stringify(shrinkMatches(allMatches.data ?? [])).length / 1000;
+    console.log('all matches', size, 'KB');
+    console.log('shrinked matches', size2, 'KB');
+
     const cachedData = useSelector(state => get(state.statsPlayer, [auth.id, leaderboardId]));
 
     const stats = useCachedConservedLazyApi(
@@ -460,6 +478,9 @@ export function MainPageInner({ auth }: MainPageInnerProps) {
         (state, value) => set(state, ['statsPlayer', auth.id, leaderboardId], value),
         getStats, {matches: allMatches.data, user: auth, leaderboardId}
     );
+
+    const size3 = JSON.stringify(stats.data?.statsCiv ?? []).length / 1000;
+    console.log('all stats', size3, 'KB');
 
     const hasMatches = allMatches.loading || (allMatches.data != null);
     const hasStats = cachedData != null;
