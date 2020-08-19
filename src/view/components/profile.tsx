@@ -1,7 +1,7 @@
-import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import { formatAgo } from '../../helper/util';
 import React from 'react';
-import { getLeaderboardColor } from '../../helper/colors';
+import {getLeaderboardTextColor} from '../../helper/colors';
 import {Flag, getFlagIcon} from '../../helper/flags';
 import {ILeaderboard} from "../../helper/data";
 import {ImageLoader} from "./loader/image-loader";
@@ -31,7 +31,7 @@ function LeaderboardRow({data}: ILeaderboardRowProps) {
     const styles = useTheme(variants);
 
     const leaderboardInfo = data.leaderboard[0];
-    const color = {color: getLeaderboardColor(data.leaderboard_id, theme.dark)};
+    const color = {color: getLeaderboardTextColor(data.leaderboard_id, theme.dark)};
 
     return (
             <View style={styles.leaderboardRow}>
@@ -65,7 +65,7 @@ function LeaderboardRow1({data}: ILeaderboardRowProps) {
     const styles = useTheme(variants);
 
     const leaderboardInfo = data.leaderboard[0];
-    const color = {color: getLeaderboardColor(data.leaderboard_id, theme.dark)};
+    const color = {color: getLeaderboardTextColor(data.leaderboard_id, theme.dark)};
 
     return (
             <View style={styles.leaderboardRow}>
@@ -94,7 +94,7 @@ function LeaderboardRow2({data}: ILeaderboardRowProps) {
     const styles = useTheme(variants);
 
     const leaderboardInfo = data.leaderboard[0];
-    const color = {color: getLeaderboardColor(data.leaderboard_id, theme.dark)};
+    const color = {color: getLeaderboardTextColor(data.leaderboard_id, theme.dark)};
 
     return (
             <View style={styles.leaderboardRow}>
