@@ -24,7 +24,7 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
 
     const unitLine = unitLines[unitLineId];
 
-    const unitLineUpgrades = unitLine.upgrades.map(u => techEffectDict[u]);
+    const unitLineUpgrades = unitLine.upgrades.map(u => techEffectDict[u]).filter(u => !u.unit || u.unit == unitId);
 
     const unitIndex = unitLine.units.indexOf(unitId);
     const upgradedFrom = unitIndex > 0 ? unitLine.units[unitIndex-1] : null;

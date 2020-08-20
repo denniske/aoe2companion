@@ -7,10 +7,17 @@ export type aoeUnitDataId = keyof typeof aoeData.data.units;
 export type aoeBuildingDataId = keyof typeof aoeData.data.buildings;
 export type aoeCivKey = keyof typeof aoeData.civ_helptexts;
 
-// Fix cost for dismounted konnik
 export const aoeData = merge(aoeDataInternal, {
     "data": {
         "units": {
+            // Fix line of sight for light cavalry and hussar
+            "546": {
+                "LineOfSight": 8,
+            },
+            "441": {
+                "LineOfSight": 10,
+            },
+            // Fix cost for dismounted konnik
             "1252": {
                 "Cost": {
                     "Food": 60,

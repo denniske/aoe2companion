@@ -51,7 +51,7 @@ export function UnitCompBig({unit, subtitle}: {unit: Unit, subtitle?: string}) {
                 <View style={styles.unitIconBigTitle}>
                     <MyText>{getUnitName(unit)}</MyText>
                     {
-                        subtitle &&
+                        subtitle != null &&
                         <MyText style={styles.small}>{subtitle}</MyText>
                     }
                 </View>

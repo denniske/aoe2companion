@@ -1,7 +1,7 @@
 import {aoeData, aoeStringKey, aoeTechDataId} from "../data/data";
 import {Civ} from "./civs";
 import {sanitizeGameDescription, strRemoveTo} from "./util";
-import {ICostDict} from "./units";
+import {ICostDict, Unit} from "./units";
 
 export type Effect =
     'carryCapacity' |
@@ -37,6 +37,7 @@ export interface ITechEffect {
     name?: string;
     tech: Tech;
     civ?: Civ;
+    unit?: Unit;
     effect: IEffect;
 }
 
@@ -53,6 +54,36 @@ type ITechEffectDict2 = {
 
 // : ITechEffectDict2
 const techEffectDictInternal = {
+    'FeudalAge-ScoutCavalry': {
+        tech: 'FeudalAge',
+        unit: 'ScoutCavalry',
+        effect: {
+            attack: '+2',
+            speed: '+0.35',
+            sight: '+2',
+        },
+    },
+    'CastleAge-ScoutCavalry': {
+        tech: 'CastleAge',
+        unit: 'ScoutCavalry',
+        effect: {
+            sight: '+2',
+        },
+    },
+    'ImperialAge-ScoutCavalry': {
+        tech: 'ImperialAge',
+        unit: 'ScoutCavalry',
+        effect: {
+            sight: '+2',
+        },
+    },
+    'ImperialAge-LightCavalry': {
+        tech: 'ImperialAge',
+        unit: 'LightCavalry',
+        effect: {
+            sight: '+2',
+        },
+    },
     'Wheelbarrow': {
         tech: 'Wheelbarrow',
         effect: {
@@ -1022,6 +1053,18 @@ export const techEffectDict = addNameToTechEffectDict(techEffectDictInternal as 
 
 export const techList: ITech[] = [
     {
+        "dataId": "101",
+        "name": "FeudalAge",
+    },
+    {
+        "dataId": "102",
+        "name": "CastleAge",
+    },
+    {
+        "dataId": "103",
+        "name": "ImperialAge",
+    },
+    {
         "dataId": "64",
         "name": "BombardTower",
     },
@@ -1844,6 +1887,9 @@ type TechEffectNameDict = {
 };
 
 const techIcons = {
+    'FeudalAge': require('../../assets/other/FeudalAgeFull.png'),
+    'CastleAge': require('../../assets/other/CastleAge.png'),
+    'ImperialAge': require('../../assets/other/ImperialAge.png'),
     'BombardTower': require('../../assets/buildings/BombardTower.png'),
     'Keep': require('../../assets/buildings/Keep.png'),
     'GuardTower': require('../../assets/buildings/GuardTower.png'),

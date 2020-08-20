@@ -5,7 +5,9 @@ import {
     techs
 } from "../../helper/techs";
 import Fandom from "../components/fandom";
-import {getOtherIcon, Other, sortedUnitLines, sortResources, UnitLine, unitLines} from "../../helper/units";
+import {
+    getOtherIcon, getUnitLineIdForUnit, Other, sortedUnitLines, sortResources, Unit, UnitLine, unitLines
+} from "../../helper/units";
 import {MyText} from "../components/my-text";
 import {keysOf} from "../../helper/util";
 import {useTheme} from "../../theming";
@@ -23,8 +25,16 @@ function getUpgrades(unitLineId: UnitLine, tech: Tech) {
     return unitLines[unitLineId].upgrades.filter(u => techEffectDict[u].tech == tech).map(u => techEffectDict[u]);
 }
 
+function hasUpgradeUnit(unitId: Unit, tech: Tech) {
+    return unitLines[getUnitLineIdForUnit(unitId)].upgrades.some(u => techEffectDict[u].tech == tech && (!techEffectDict[u].unit || techEffectDict[u].unit == unitId));
+}
+
+function getUpgradesUnit(unitId: Unit, tech: Tech) {
+    return unitLines[getUnitLineIdForUnit(unitId)].upgrades.filter(u => techEffectDict[u].tech == tech && (!techEffectDict[u].unit || techEffectDict[u].unit == unitId)).map(u => techEffectDict[u]);
+}
+
 interface IAffectedUnit {
-    unitLineId: UnitLine;
+    unitId: Unit;
     upgrades: ITechEffect[];
 }
 
@@ -34,10 +44,12 @@ export default function TechDetails({tech}: {tech: Tech}) {
 
     const affectedUnitLines = sortedUnitLines.filter(unitLineId => hasUpgrade(unitLineId, tech));
 
-    const affectedUnitInfos = affectedUnitLines.map(unitLineId => ({
-        unitLineId,
-        upgrades: getUpgrades(unitLineId, tech),
-    }));
+    const affectedUnitInfos = affectedUnitLines.flatMap(unitLineId => unitLines[unitLineId].units)
+        .filter(unitId => hasUpgradeUnit(unitId, tech))
+        .map(unitId => ({
+            unitId,
+            upgrades: getUpgradesUnit(unitId, tech),
+        }));
 
     // console.log(affectedUnitInfos);
 
@@ -82,12 +94,14 @@ export default function TechDetails({tech}: {tech: Tech}) {
                     <MyText>Affected Units</MyText>
                     <MyText/>
                     {
-                        affectedUnitInfos.map(affectedUnit =>
-                            <View>
-                                <UnitCompBig key={affectedUnit.unitLineId} unit={affectedUnit.unitLineId} subtitle={
-                                    getUpgradeList(affectedUnit).map(g => g.name + ': ' + capitalize(g.upgrades.join(', '))).join('\n')
-                                }/>
-                            </View>
+                        affectedUnitInfos.map(affectedUnit => {
+                            console.log(getUpgradeList(affectedUnit).map(g => g.name + ': ' + capitalize(g.upgrades.join(', '))).join('\n'));
+                                return <View>
+                                    <UnitCompBig key={affectedUnit.unitId} unit={affectedUnit.unitId} subtitle={
+                                        getUpgradeList(affectedUnit).map(g => g.name + ': ' + capitalize(g.upgrades.join(', '))).join('\n')
+                                    }/>
+                                </View>;
+                            }
                         )
                     }
                 </View>

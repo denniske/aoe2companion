@@ -206,6 +206,14 @@ const sections: ISection[] = [
             "SpiesTreason",
         ],
     },
+    {
+        title: 'Age',
+        data: [
+            "FeudalAge",
+            "CastleAge",
+            "ImperialAge",
+        ],
+    },
     ...civs.map(civ => ({
         title: civ,
         data: civDict[civ].uniqueTechs,

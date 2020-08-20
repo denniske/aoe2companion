@@ -1655,6 +1655,10 @@ export const unitLines: IUnitLineDict = {
             'Cataphract'
         ],
         upgrades: [
+            'FeudalAge-ScoutCavalry',
+            'CastleAge-ScoutCavalry',
+            'ImperialAge-ScoutCavalry',
+            'ImperialAge-LightCavalry',
             'Bloodlines',
             'Forging',
             'IronCasting',
