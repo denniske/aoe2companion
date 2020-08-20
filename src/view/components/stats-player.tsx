@@ -1,5 +1,5 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {IMatch, IPlayer, validMatch} from "../../helper/data";
 import {TextLoader} from "./loader/text-loader";
 import {orderBy, uniqBy} from "lodash-es";
@@ -8,12 +8,13 @@ import {composeUserId, sameUser, UserIdBase, userIdFromBase} from "../../helper/
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {MyText} from "./my-text";
-import {ITheme, makeVariants, useTheme} from "../../theming";
+import {ITheme, makeVariants, useAppTheme, usePaperTheme, useTheme} from "../../theming";
 import {LeaderboardId} from "../../helper/leaderboards";
 import {useLazyApi} from "../../hooks/use-lazy-api";
 import {loadUser} from "../../service/user";
 import { sleep } from '../../helper/util';
 import {IRow} from "../../service/stats/stats-player";
+import {Button} from "react-native-paper";
 
 interface IRowProps {
     data: IRow;
@@ -66,9 +67,12 @@ interface IData {
 
 export default function StatsPlayer(props: IProps) {
     const styles = useTheme(variants);
+    const [maxRowCountAlly, setMaxRowCountAlly] = useState(12);
+    const [maxRowCountOpponent, setMaxRowCountOpponent] = useState(12);
+    const theme = useAppTheme();
 
     const { data, user } = props;
-    const { rowsAlly, rowsOpponent, matches, leaderboardId } = data || { leaderboardId: props.leaderboardId };
+    let { rowsAlly, rowsOpponent, matches, leaderboardId } = data || { leaderboardId: props.leaderboardId };
 
     const hasAlly = [LeaderboardId.DMTeam, LeaderboardId.RMTeam, LeaderboardId.Unranked].includes(leaderboardId);
 
@@ -78,6 +82,16 @@ export default function StatsPlayer(props: IProps) {
                 <MyText style={styles.info}>No matches yet!</MyText>
             </View>
         );
+    }
+
+    const rowsAllyLength = rowsAlly?.length;
+    const rowsOpponentLength = rowsOpponent?.length;
+
+    if (rowsAlly) {
+        rowsAlly = rowsAlly?.filter((r, i) => i < maxRowCountAlly);
+    }
+    if (rowsOpponent) {
+        rowsOpponent = rowsOpponent?.filter((r, i) => i < maxRowCountOpponent);
     }
 
     return (
@@ -109,6 +123,22 @@ export default function StatsPlayer(props: IProps) {
                     }
 
                     {
+                        rowsAllyLength && rowsAllyLength > maxRowCountAlly &&
+                        <Button
+                            labelStyle={{fontSize: 13, marginVertical: 6}}
+                            style={{marginTop: 6, marginHorizontal: 5}}
+                            onPress={() => setMaxRowCountAlly(maxRowCountAlly + 20)}
+                            mode="contained"
+                            compact
+                            uppercase={false}
+                            dark={true}
+                            color={theme.lightBackgroundColor}
+                        >
+                            Show more
+                        </Button>
+                    }
+
+                    {
                         hasAlly &&
                         <MyText/>
                     }
@@ -134,6 +164,23 @@ export default function StatsPlayer(props: IProps) {
                             </View>
                         )
                     }
+
+                    {
+                        rowsOpponentLength && rowsOpponentLength > maxRowCountOpponent &&
+                        <Button
+                            labelStyle={{fontSize: 13, marginVertical: 6}}
+                            style={{marginTop: 6, marginHorizontal: 5}}
+                            onPress={() => setMaxRowCountOpponent(maxRowCountOpponent + 20)}
+                            mode="contained"
+                            compact
+                            uppercase={false}
+                            dark={true}
+                            color={theme.lightBackgroundColor}
+                        >
+                            Show more
+                        </Button>
+                    }
+
                 </View>
             </View>
     )

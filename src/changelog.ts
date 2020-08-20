@@ -21,6 +21,10 @@ export const changelog: IChangelog = {
         },
         {
             type: 'minor',
+            title: 'Added "Show more" button in player stats',
+        },
+        {
+            type: 'minor',
             title: 'Added dismounted konnik',
         },
         {

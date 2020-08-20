@@ -20,7 +20,7 @@ interface IParam {
 export async function getStatsPlayer({matches, user, leaderboardId}: IParam) {
     let rowsAlly: IRow[] | null = null;
     let rowsOpponent: IRow[] | null = null;
-    const maxRowCount = 12;
+    // const maxRowCount = 1200;
 
     if (matches) {
         let otherPlayers = matches.flatMap(m => m.players).filter(p => !sameUser(p, user));
@@ -42,7 +42,7 @@ export async function getStatsPlayer({matches, user, leaderboardId}: IParam) {
         });
         rowsAlly = rowsAlly.filter(r => r.games > 0);
         rowsAlly = orderBy(rowsAlly, r => r.games, 'desc');
-        rowsAlly = rowsAlly.filter((r, i) => i < maxRowCount);
+        // rowsAlly = rowsAlly.filter((r, i) => i < maxRowCount);
 
         rowsOpponent = otherPlayersUniq.map(otherPlayer => {
             const gamesWithOpponent = matches.filter(m => {
@@ -60,7 +60,7 @@ export async function getStatsPlayer({matches, user, leaderboardId}: IParam) {
         });
         rowsOpponent = rowsOpponent.filter(r => r.games > 0);
         rowsOpponent = orderBy(rowsOpponent, r => r.games, 'desc');
-        rowsOpponent = rowsOpponent.filter((r, i) => i < maxRowCount);
+        // rowsOpponent = rowsOpponent.filter((r, i) => i < maxRowCount);
     }
     return { rowsAlly, rowsOpponent, matchCount: matches?.length, leaderboardId, user };
 }
