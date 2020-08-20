@@ -44,7 +44,11 @@ export default function TechDetails({tech}: {tech: Tech}) {
 
     const affectedUnitLines = sortedUnitLines.filter(unitLineId => hasUpgrade(unitLineId, tech));
 
-    const affectedUnitInfos = affectedUnitLines.flatMap(unitLineId => unitLines[unitLineId].units)
+    const affectedUnitInfos = affectedUnitLines.flatMap(unitLineId => {
+            if (getUpgrades(unitLineId, tech).some(u => u.unit))
+                return unitLines[unitLineId].units;
+            return [unitLines[unitLineId].units[0]];
+        })
         .filter(unitId => hasUpgradeUnit(unitId, tech))
         .map(unitId => ({
             unitId,
