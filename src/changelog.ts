@@ -10,17 +10,23 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '14.0.17': [
+        {
+            type: 'bugfix',
+            title: 'Fix user stats page',
+        },
+    ],
     '14.0.16': [
         {
-            type: 'minor',
+            type: 'feature',
             title: 'Redesign user/me page',
         },
         {
-            type: 'minor',
+            type: 'feature',
             title: 'Add leaderboard filter & search for user match list',
         },
         {
-            type: 'minor',
+            type: 'feature',
             title: 'Added "Show more" button in player stats',
         },
         {

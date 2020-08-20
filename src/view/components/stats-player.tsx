@@ -123,7 +123,7 @@ export default function StatsPlayer(props: IProps) {
                     }
 
                     {
-                        rowsAllyLength && rowsAllyLength > maxRowCountAlly &&
+                        rowsAllyLength != null && rowsAllyLength > maxRowCountAlly &&
                         <Button
                             labelStyle={{fontSize: 13, marginVertical: 6}}
                             style={{marginTop: 6, marginHorizontal: 5}}
@@ -166,7 +166,7 @@ export default function StatsPlayer(props: IProps) {
                     }
 
                     {
-                        rowsOpponentLength && rowsOpponentLength > maxRowCountOpponent &&
+                        rowsOpponentLength != null && rowsOpponentLength > maxRowCountOpponent &&
                         <Button
                             labelStyle={{fontSize: 13, marginVertical: 6}}
                             style={{marginTop: 6, marginHorizontal: 5}}
