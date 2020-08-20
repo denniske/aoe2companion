@@ -1,6 +1,6 @@
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import {Alert, AsyncStorage, FlatList, StyleSheet, View} from "react-native";
-import {clearStatsPlayer, setAuth, useMutate, useSelector} from "../../redux/reducer";
+import {clearMatchesPlayer, clearStatsPlayer, setAuth, useMutate, useSelector} from "../../redux/reducer";
 import {LeaderboardId} from "../../helper/leaderboards";
 import React, {useEffect, useState} from "react";
 import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
@@ -158,7 +158,6 @@ export default function MainProfile() {
                         <RefreshControlThemed
                             onRefresh={async () => {
                                 setRefreshing(true);
-                                await mutate(clearStatsPlayer(user));
                                 await Promise.all([rating.reload(), profile.reload()]);
                                 setRefreshing(false);
                             }}

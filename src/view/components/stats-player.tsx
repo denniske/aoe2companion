@@ -72,8 +72,6 @@ export default function StatsPlayer(props: IProps) {
 
     const hasAlly = [LeaderboardId.DMTeam, LeaderboardId.RMTeam, LeaderboardId.Unranked].includes(leaderboardId);
 
-    console.log("rowsOpponent", !!rowsOpponent ? 'TRUE' : 'FALSE');
-
     if (rowsOpponent?.length === 0) {
         return (
             <View>

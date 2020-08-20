@@ -3,20 +3,16 @@ import {FlatList, Platform, StyleSheet, TouchableOpacity, View} from "react-nati
 import React, {useEffect, useState} from "react";
 import {RouteProp, useRoute} from "@react-navigation/native";
 import {RootTabParamList} from "../../../App";
-import {useApi} from "../../hooks/use-api";
-import {fetchPlayerMatches} from "../../api/player-matches";
-import FlatListLoadingIndicator from "../components/flat-list-loading-indicator";
 import {Game} from "../components/game";
 import RefreshControlThemed from "../components/refresh-control-themed";
-import {FinalDarkMode, setPrefValue, useMutate, useSelector} from "../../redux/reducer";
+import {clearMatchesPlayer, FinalDarkMode, setLoadingMatchesOrStats, useMutate, useSelector} from "../../redux/reducer";
 import {Checkbox, Searchbar} from "react-native-paper";
 import {MyText} from "../components/my-text";
 import {appVariants} from "../../styles";
 import {LeaderboardId} from "../../helper/leaderboards";
-import {saveCurrentPrefsToStorage} from "../../service/storage";
 import TemplatePicker from "../components/template-picker";
 import {get} from "lodash-es";
-import {ILobbyMatchRaw, IMatch} from "../../helper/data";
+import {IMatch} from "../../helper/data";
 import {getMapName} from "../../helper/maps";
 import {sameUser} from "../../helper/user";
 
@@ -24,9 +20,6 @@ import {sameUser} from "../../helper/user";
 export default function MainMatches() {
     const styles = useTheme(variants);
     const appStyles = useTheme(appVariants);
-    const [refetching, setRefetching] = useState(false);
-    const [fetchingMore, setFetchingMore] = useState(false);
-    const [fetchedAll, setFetchedAll] = useState(false);
     const [text, setText] = useState('');
     const mutate = useMutate();
     const [leaderboardId, setLeaderboardId] = useState<LeaderboardId>();
@@ -39,7 +32,6 @@ export default function MainMatches() {
     const { user } = route.params;
 
     const matches = useSelector(state => get(state.user, [user.id, 'matches']));
-    console.log('matches', matches);
 
     useEffect(() => {
         if (matches == null) return;
@@ -68,29 +60,7 @@ export default function MainMatches() {
         setFilteredMatches(filtered);
     }, [text, leaderboardId, withMe, matches]);
 
-    // const onRefresh = async () => {
-    //     setRefetching(true);
-    //     await matches.reload();
-    //     setRefetching(false);
-    // };
-    //
-    // const onEndReached = async () => {
-    //     if (fetchingMore) return;
-    //     setFetchingMore(true);
-    //     const matchesLength = matches.data?.length ?? 0;
-    //     const newMatchesData = await matches.refetch('aoe2de', 0, matchesLength + 15, [user]);
-    //     if (matchesLength === newMatchesData?.length) {
-    //         setFetchedAll(true);
-    //     }
-    //     setFetchingMore(false);
-    // };
-
     const list = [...(filteredMatches ? ['header'] : []), ...(filteredMatches || Array(15).fill(null))];
-
-    const _renderFooter = () => {
-        if (!fetchingMore) return null;
-        return <FlatListLoadingIndicator />;
-    };
 
     const toggleWithMe = () => setWithMe(!withMe);
 
@@ -141,6 +111,14 @@ export default function MainMatches() {
         </View>;
     };
 
+    const [refreshing, setRefreshing] = useState(false);
+
+    useEffect(() => {
+        if (matches) {
+            setRefreshing(false);
+        }
+    }, [matches])
+
     return (
         <View style={styles.container}>
             <View style={styles.content}>
@@ -177,16 +155,17 @@ export default function MainMatches() {
                                 return <Game data={item as any} expanded={index === -1}/>;
                         }
                     }}
-                    ListFooterComponent={_renderFooter}
-                    // onEndReached={fetchedAll ? null : onEndReached}
-                    // onEndReachedThreshold={0.1}
                     keyExtractor={(item, index) => index.toString()}
-                    // refreshControl={
-                    //     <RefreshControlThemed
-                    //         onRefresh={onRefresh}
-                    //         refreshing={refetching}
-                    //     />
-                    // }
+                    refreshControl={
+                        <RefreshControlThemed
+                            onRefresh={async () => {
+                                setRefreshing(true);
+                                await mutate(clearMatchesPlayer(user));
+                                await mutate(setLoadingMatchesOrStats());
+                            }}
+                            refreshing={refreshing}
+                        />
+                    }
                 />
             </View>
         </View>

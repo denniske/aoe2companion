@@ -3,12 +3,11 @@ import {Alert, AsyncStorage, StyleSheet, TouchableOpacity, View} from 'react-nat
 import Search from './components/search';
 import {composeUserId, UserId, UserInfo} from '../helper/user';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {setAuth, setLoadingMatchesOrStats, useMutate, useSelector} from '../redux/reducer';
+import {setAuth, useMutate, useSelector} from '../redux/reducer';
 import {fetchPlayerMatches} from '../api/player-matches';
 import {useNavigationState} from "@react-navigation/native";
 // import {useCavy} from "cavy";
 import {TabBarLabel} from "./components/tab-bar-label";
-import {useLazyApi} from "../hooks/use-lazy-api";
 import {saveSettingsToStorage} from "../service/storage";
 import {LeaderboardId} from "../helper/leaderboards";
 import {useCachedConservedLazyApi} from "../hooks/use-cached-conserved-lazy-api";
@@ -91,26 +90,23 @@ export function MainPageInner({ user }: MainPageInnerProps) {
     const mutate = useMutate();
 
     console.log('USER PAGE', user);
-    console.log('USER PAGE', user?.profile_id);
 
     // const generateTestHook = useCavy();
     // const navigation = useNavigation();
     // generateTestHook('Navigation')(navigation);
 
+    const loadingMatchesOrStatsTrigger = useSelector(state => state.loadingMatchesOrStats);
     const leaderboardId = useSelector(state => state.prefs.leaderboardId) ?? LeaderboardId.RM1v1;
 
     const currentTabIndex = useNavigationState(state => state.routes[state.index].state?.index ?? 0);
-    // console.log('currentTabIndex', currentTabIndex);
 
     let allMatches = useCachedConservedLazyApi(
-        [currentTabIndex],
+        [currentTabIndex, loadingMatchesOrStatsTrigger],
         () => currentTabIndex > 0,
         state => get(state, ['user', user.id, 'matches']),
         (state, value) => set(state, ['user', user.id, 'matches'], value),
         fetchPlayerMatches, 'aoe2de', 0, 1000, [user]
     );
-
-    const cachedData = useSelector(state => get(state.statsPlayer, [user.id, leaderboardId]));
 
     const stats = useCachedConservedLazyApi(
         [allMatches.data, leaderboardId],
@@ -119,24 +115,6 @@ export function MainPageInner({ user }: MainPageInnerProps) {
         (state, value) => set(state, ['statsPlayer', user.id, leaderboardId], value),
         getStats, {matches: allMatches.data, user: user, leaderboardId}
     );
-
-    const hasMatches = allMatches.loading || (allMatches.data != null);
-    const hasStats = cachedData != null;
-    const hasMatchesOrStats = hasMatches || hasStats;
-    const loadingMatchesOrStats = (allMatches.loading || stats.loading);
-
-    // useEffect(() => {
-    //     console.log("FETCHING MATCHES TRY");
-    //     if (!hasMatchesOrStats && currentTabIndex > 0) {
-    //         console.log("FETCHING MATCHES");
-    //         allMatches.reload();
-    //     }
-    // }, [leaderboardId, currentTabIndex]);
-
-    useEffect(() => {
-        console.log('loadingMatchesOrStats', loadingMatchesOrStats);
-        mutate(setLoadingMatchesOrStats(loadingMatchesOrStats));
-    }, [loadingMatchesOrStats]);
 
     const initialParams = { user };
     return (

@@ -1,11 +1,13 @@
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import {FlatList, StyleSheet, View} from "react-native";
-import {setPrefValue, useMutate, useSelector} from "../../redux/reducer";
+import {
+    clearMatchesPlayer, clearStatsPlayer, setLoadingMatchesOrStats, setPrefValue, useMutate, useSelector
+} from "../../redux/reducer";
 import {LeaderboardId} from "../../helper/leaderboards";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {RouteProp, useRoute} from "@react-navigation/native";
 import {RootTabParamList} from "../../../App";
-import {capitalize, get} from "lodash-es";
+import {get} from "lodash-es";
 import {usePrevious} from "../../hooks/use-previous";
 import {saveCurrentPrefsToStorage} from "../../service/storage";
 import {MyText} from "../components/my-text";
@@ -13,9 +15,9 @@ import StatsPosition from "../components/stats-position";
 import StatsCiv from "../components/stats-civ";
 import StatsMap from "../components/stats-map";
 import StatsPlayer from "../components/stats-player";
-import ButtonPicker from "../components/button-picker";
 import TemplatePicker from "../components/template-picker";
 import {TextLoader} from "../components/loader/text-loader";
+import RefreshControlThemed from "../components/refresh-control-themed";
 
 
 export default function MainStats() {
@@ -29,12 +31,8 @@ export default function MainStats() {
 
     const currentCachedData = useSelector(state => get(state.statsPlayer, [user.id, leaderboardId]));
     const previousCachedData = usePrevious(currentCachedData);
-    const loadingMatchesOrStats = useSelector(state => state.loadingMatchesOrStats);
 
     const cachedData = currentCachedData ?? previousCachedData;
-
-    console.log('MainStats cachedData', cachedData);
-    console.log('MainStats loadingMatchesOrStats', loadingMatchesOrStats);
 
     let statsPosition = cachedData?.statsPosition;
     let statsPlayer = cachedData?.statsPlayer;
@@ -42,7 +40,6 @@ export default function MainStats() {
     let statsMap = cachedData?.statsMap;
 
     const hasStats = cachedData != null;
-    const hasMatchesOrStats = hasStats;
 
     const list = ['stats-header', 'stats-position', 'stats-player', 'stats-civ', 'stats-map'];
 
@@ -90,6 +87,14 @@ export default function MainStats() {
         </View>;
     };
 
+    const [refreshing, setRefreshing] = useState(false);
+
+    useEffect(() => {
+        if (currentCachedData) {
+            setRefreshing(false);
+        }
+    }, [currentCachedData])
+
     return (
         <View style={styles.container}>
             <View style={styles.content}>
@@ -118,6 +123,17 @@ export default function MainStats() {
                         }
                     }}
                     keyExtractor={(item, index) => index.toString()}
+                    refreshControl={
+                        <RefreshControlThemed
+                            onRefresh={async () => {
+                                setRefreshing(true);
+                                await mutate(clearStatsPlayer(user));
+                                await mutate(clearMatchesPlayer(user));
+                                await mutate(setLoadingMatchesOrStats());
+                            }}
+                            refreshing={refreshing}
+                        />
+                    }
                 />
             </View>
         </View>
@@ -131,8 +147,6 @@ const getStyles = (theme: ITheme) => {
             // textAlign: 'center',
             marginBottom: 10,
             marginLeft: 5,
-            // color: theme.textNoteColor,
-            // fontSize: 12,
         },
 
         col: {
@@ -149,11 +163,9 @@ const getStyles = (theme: ITheme) => {
         pickerRow: {
             // backgroundColor: 'yellow',
             flexDirection: 'row',
-            // justifyContent: 'center',
             alignItems: 'center',
             paddingRight: 20,
             marginBottom: 20,
-            // marginTop: 20,
         },
         sectionHeader: {
             marginVertical: 25,

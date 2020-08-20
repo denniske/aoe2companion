@@ -55,9 +55,9 @@ export function setAuth(user: UserId | null) {
   };
 }
 
-export function setLoadingMatchesOrStats(loadingMatchesOrStats: boolean) {
+export function setLoadingMatchesOrStats() {
   return (state: AppState) => {
-    state.loadingMatchesOrStats = loadingMatchesOrStats;
+    state.loadingMatchesOrStats = new Date();
   };
 }
 
@@ -116,6 +116,12 @@ export function clearStatsPlayer(user: UserId) {
   };
 }
 
+export function clearMatchesPlayer(user: UserId) {
+  return (state: AppState) => {
+    set(state, ['user', user.id, 'matches'], undefined);
+  };
+}
+
 
 interface IAction {
   type: string;
@@ -164,7 +170,7 @@ export interface AppState {
   auth?: UserId | null;
   user: IUserDict;
   statsPlayer: any;
-  loadingMatchesOrStats: boolean;
+  loadingMatchesOrStats: Date;
 
   error?: IError | null;
   errors?: IError[] | null;

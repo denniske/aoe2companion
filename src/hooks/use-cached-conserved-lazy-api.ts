@@ -67,7 +67,7 @@ export function useCachedConservedLazyApi<A extends (...args: any) => any>(dep: 
         mountedRef.current = true;
 
         // console.log("==> RELOAD TRY", selectedState, reloadPredicate());
-        if (selectedState === undefined && reloadPredicate()) {
+        if (selectedState === undefined && !loading && reloadPredicate()) {
             // console.log("==> RELOAD");
             load(...defArgs);
         }
