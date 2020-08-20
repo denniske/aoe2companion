@@ -15,6 +15,7 @@ import StatsMap from "../components/stats-map";
 import StatsPlayer from "../components/stats-player";
 import ButtonPicker from "../components/button-picker";
 import TemplatePicker from "../components/template-picker";
+import {TextLoader} from "../components/loader/text-loader";
 
 
 export default function MainStats() {
@@ -51,22 +52,6 @@ export default function MainStats() {
         setLeaderboardId(leaderboardId);
     };
 
-    // const values: string[] = [
-    //     'Unranked',
-    //     'RM 1v1',
-    //     'RM Team',
-    //     'DM 1v1',
-    //     'DM Team',
-    // ];
-
-    // const values: string[] = [
-    //     'UNR',
-    //     'RM',
-    //     'RMT',
-    //     'DM',
-    //     'DMT',
-    // ];
-
     const values: number[] = [
         3,
         4,
@@ -74,12 +59,6 @@ export default function MainStats() {
         2,
         0,
     ];
-    const ratingHistoryDuration = values[leaderboardId];
-
-    const nav = async (str: any) => {
-        mutate(setPrefValue('ratingHistoryDuration', str));
-        await saveCurrentPrefsToStorage();
-    };
 
     const valueMapping: any = {
         0: {
@@ -121,56 +100,18 @@ export default function MainStats() {
                         switch (item) {
                             case 'stats-header':
                                 return <View>
-
                                     <View style={styles.pickerRow}>
                                         <TemplatePicker value={leaderboardId} values={values} template={renderLeaderboard} onSelect={onLeaderboardSelected}/>
-                                        {/*<View style={styles.col}>*/}
-                                        {/*    <MyText style={styles.h1}>RM</MyText>*/}
-                                        {/*    <MyText style={styles.h2}>1v1</MyText>*/}
-                                        {/*</View>*/}
-                                        {/*<View style={styles.col}>*/}
-                                        {/*    <MyText style={styles.h1}>RM</MyText>*/}
-                                        {/*    <MyText style={styles.h2}>Team</MyText>*/}
-                                        {/*</View>*/}
-                                        {/*<View style={styles.col}>*/}
-                                        {/*    <MyText style={styles.h1}>DM</MyText>*/}
-                                        {/*    <MyText style={styles.h2}>1v1</MyText>*/}
-                                        {/*</View>*/}
-                                        {/*<View style={styles.col}>*/}
-                                        {/*    <MyText style={styles.h1}>DM</MyText>*/}
-                                        {/*    <MyText style={styles.h2}>Team</MyText>*/}
-                                        {/*</View>*/}
-                                        {/*<View style={styles.col}>*/}
-                                        {/*    <MyText style={styles.h1}>UNR</MyText>*/}
-                                        {/*    <MyText style={styles.h2}>Unranked</MyText>*/}
-                                        {/*</View>*/}
                                     </View>
-
-                                    {/*<FontAwesome5Icon style={styles.menuIcon2} name="user" solid={true} size={16}/>*/}
-                                    {/*<FontAwesome5Icon style={styles.menuIcon2} name="user-plus" solid={true} size={16}/>*/}
-
-                                    {/*<View style={styles.pickerRow}>*/}
-                                    {/*    <ActivityIndicator animating={loadingMatchesOrStats} size="small"/>*/}
-                                    {/*    <ButtonPicker value={ratingHistoryDuration} values={values} onSelect={nav}/>*/}
-                                    {/*    /!*<Picker style={styles.picker} disabled={loadingMatchesOrStats} value={leaderboardId} values={leaderboardList} formatter={formatLeaderboardId} onSelect={onLeaderboardSelected}/>*!/*/}
-                                    {/*</View>*/}
-
-                                    {
-                                        hasStats && statsPlayer?.matchCount != 0 &&
-                                        <MyText style={styles.info}>The last {statsPlayer?.matchCount} matches:</MyText>
-                                    }
+                                    <TextLoader ready={hasStats && statsPlayer?.matchCount != 0} style={styles.info}>The last {statsPlayer?.matchCount} matches:</TextLoader>
                                 </View>;
                             case 'stats-position':
-                                if (!hasMatchesOrStats) return <View/>;
                                 return <StatsPosition data={statsPosition} user={user} leaderboardId={leaderboardId}/>;
                             case 'stats-civ':
-                                if (!hasMatchesOrStats) return <View/>;
                                 return <StatsCiv data={statsCiv} user={user}/>;
                             case 'stats-map':
-                                if (!hasMatchesOrStats) return <View/>;
                                 return <StatsMap data={statsMap} user={user}/>;
                             case 'stats-player':
-                                if (!hasMatchesOrStats) return <View/>;
                                 return <StatsPlayer data={statsPlayer} user={user} leaderboardId={leaderboardId}/>;
                             default:
                                 return <View/>;
@@ -195,16 +136,13 @@ const getStyles = (theme: ITheme) => {
         },
 
         col: {
-            // width: 54,
-            // height: 50,
             paddingHorizontal: 7,
             alignItems: 'center',
         },
         h1: {
-            // color: 'white',
+
         },
         h2: {
-            // color: 'white',
             fontSize: 11,
         },
 

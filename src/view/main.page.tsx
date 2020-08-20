@@ -99,11 +99,16 @@ export function MainPageInner({ user }: MainPageInnerProps) {
 
     const leaderboardId = useSelector(state => state.prefs.leaderboardId) ?? LeaderboardId.RM1v1;
 
-    let allMatches = useLazyApi(
-        {},
+    const currentTabIndex = useNavigationState(state => state.routes[state.index].state?.index ?? 0);
+    // console.log('currentTabIndex', currentTabIndex);
+
+    let allMatches = useCachedConservedLazyApi(
+        [currentTabIndex],
+        () => currentTabIndex > 0,
+        state => get(state, ['user', user.id, 'matches']),
+        (state, value) => set(state, ['user', user.id, 'matches'], value),
         fetchPlayerMatches, 'aoe2de', 0, 1000, [user]
     );
-
 
     const cachedData = useSelector(state => get(state.statsPlayer, [user.id, leaderboardId]));
 
@@ -120,16 +125,13 @@ export function MainPageInner({ user }: MainPageInnerProps) {
     const hasMatchesOrStats = hasMatches || hasStats;
     const loadingMatchesOrStats = (allMatches.loading || stats.loading);
 
-    const currentTabIndex = useNavigationState(state => state.routes[state.index].state?.index ?? 0);
-    // console.log('currentTabIndex', currentTabIndex);
-
-    useEffect(() => {
-        console.log("FETCHING MATCHES TRY");
-        if (!hasMatchesOrStats && currentTabIndex > 0) {
-            console.log("FETCHING MATCHES");
-            allMatches.reload();
-        }
-    }, [leaderboardId, currentTabIndex]);
+    // useEffect(() => {
+    //     console.log("FETCHING MATCHES TRY");
+    //     if (!hasMatchesOrStats && currentTabIndex > 0) {
+    //         console.log("FETCHING MATCHES");
+    //         allMatches.reload();
+    //     }
+    // }, [leaderboardId, currentTabIndex]);
 
     useEffect(() => {
         console.log('loadingMatchesOrStats', loadingMatchesOrStats);

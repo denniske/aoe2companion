@@ -80,7 +80,7 @@ export default function StatsPosition(props: IProps) {
                     }
 
                     {
-                        !rows && Array(8).fill(0).map((a, i) =>
+                        !rows && Array(2).fill(0).map((a, i) =>
                             <View key={i} style={styles.row}>
                                 <TextLoader style={styles.cellLeaderboard}/>
                                 <TextLoader style={styles.cellGames}/>
