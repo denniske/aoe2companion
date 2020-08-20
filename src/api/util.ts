@@ -14,7 +14,7 @@ export async function fetchJson(title: string, input: RequestInfo, init?: Reques
         return await response.json();
     } catch (e) {
         console.log(input, 'failed', response?.status);
-        if (response?.status === 200)
+        if (response?.status !== 400)
         {
             await fetchJson2(title, input, init);
         } else {
