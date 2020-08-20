@@ -77,11 +77,7 @@ export default function StatsPlayer(props: IProps) {
     const hasAlly = [LeaderboardId.DMTeam, LeaderboardId.RMTeam, LeaderboardId.Unranked].includes(leaderboardId);
 
     if (rowsOpponent?.length === 0) {
-        return (
-            <View>
-                <MyText style={styles.info}>No matches yet!</MyText>
-            </View>
-        );
+        return <View/>;
     }
 
     const rowsAllyLength = rowsAlly?.length;
