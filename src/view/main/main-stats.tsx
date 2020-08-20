@@ -104,10 +104,10 @@ export default function MainStats() {
         },
     };
 
-    const formatter = (x: any) => {
+    const renderLeaderboard = (value: LeaderboardId, selected: boolean) => {
         return <View style={styles.col}>
-            <MyText style={styles.h1}>{valueMapping[x].title}</MyText>
-            <MyText style={styles.h2}>{valueMapping[x].subtitle}</MyText>
+            <MyText style={[styles.h1, { fontWeight: selected ? 'bold' : 'normal'}]}>{valueMapping[value].title}</MyText>
+            <MyText style={[styles.h2, { fontWeight: selected ? 'bold' : 'normal'}]}>{valueMapping[value].subtitle}</MyText>
         </View>;
     };
 
@@ -123,7 +123,7 @@ export default function MainStats() {
                                 return <View>
 
                                     <View style={styles.pickerRow}>
-                                        <TemplatePicker value={leaderboardId} values={values} formatter={formatter} onSelect={onLeaderboardSelected}/>
+                                        <TemplatePicker value={leaderboardId} values={values} template={renderLeaderboard} onSelect={onLeaderboardSelected}/>
                                         {/*<View style={styles.col}>*/}
                                         {/*    <MyText style={styles.h1}>RM</MyText>*/}
                                         {/*    <MyText style={styles.h2}>1v1</MyText>*/}
@@ -201,10 +201,10 @@ const getStyles = (theme: ITheme) => {
             alignItems: 'center',
         },
         h1: {
-            color: 'white',
+            // color: 'white',
         },
         h2: {
-            color: 'white',
+            // color: 'white',
             fontSize: 11,
         },
 

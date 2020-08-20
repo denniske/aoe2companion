@@ -7,7 +7,7 @@ import {useAppTheme, usePaperTheme} from "../../theming";
 interface IPickerProps<T> {
     value?: T;
     values: T[];
-    formatter?: (value: T, inList?: boolean) => string;
+    template?: (value: T, selected: boolean) => React.ReactNode;
     onSelect: (value: T) => void;
     style?: StyleProp<ViewStyle>;
     disabled?: boolean;
@@ -17,56 +17,25 @@ export default function TemplatePicker<T>(props: IPickerProps<T>) {
     const paperTheme = usePaperTheme();
     const theme = useAppTheme();
 
-    const { value, values, onSelect, style, disabled, formatter = (x) => x} = props;
-
-    const color = disabled ? paperTheme.colors.disabled : paperTheme.colors.text;
+    const { value, values, onSelect, style, disabled, template = (x) => x} = props;
 
     const renderItem = (v: T, i: number) => {
         let style: ViewStyle = {};
-        const first = i === 0;
-        const last = i === values.length - 1;
         const selected = v == value;
         style.borderTopLeftRadius = 5;
         style.borderBottomLeftRadius = 5;
         style.borderTopRightRadius = 5;
         style.borderBottomRightRadius = 5;
-        style.padding = 5;
-        if (!first) {
-            style.borderTopLeftRadius = 0;
-            style.borderBottomLeftRadius = 0;
-        }
-        if (!last) {
-            style.borderTopRightRadius = 0;
-            style.borderBottomRightRadius = 0;
-        }
+        style.paddingVertical = 5;
         return (
             <TouchableHighlight
                 key={i}
-                // labelStyle={{fontSize: 13, marginVertical: 6}}
-                style={[style, { backgroundColor: selected ? paperTheme.colors.primary : theme.lightBackgroundColor }]}
+                style={[style]}
                 onPress={() => onSelect(v)}
                 underlayColor={theme.hoverBackgroundColor}
-                // mode="contained"
-                // compact
-                // uppercase={false}
-                // dark={true}
-                // color={selected ? paperTheme.colors.primary : theme.lightBackgroundColor}
             >
-                {formatter(v)}
+                {template(v, selected)}
             </TouchableHighlight>
-            // <Button
-            //     key={i}
-            //     labelStyle={{fontSize: 13, marginVertical: 6}}
-            //     style={style}
-            //     onPress={() => onSelect(v)}
-            //     mode="contained"
-            //     compact
-            //     uppercase={false}
-            //     dark={true}
-            //     color={selected ? paperTheme.colors.primary : theme.lightBackgroundColor}
-            // >
-            //     {formatter(v)}
-            // </Button>
         );
     };
 
@@ -80,7 +49,6 @@ export default function TemplatePicker<T>(props: IPickerProps<T>) {
 const styles = StyleSheet.create({
     row: {
         // backgroundColor: 'green',
-        // flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
     },
