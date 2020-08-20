@@ -138,6 +138,8 @@ interface IUser {
   profile?: IProfile;
   rating?: IRatingHistoryRow[];
   matches?: IMatch[];
+  matches5?: IMatch[];
+  matchesVersus?: IMatch[];
 }
 
 interface IUserDict {

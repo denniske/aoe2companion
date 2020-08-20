@@ -110,7 +110,11 @@ export default function StatsPlayer(props: IProps) {
                         )
                     }
 
-                    <MyText/>
+                    {
+                        hasAlly &&
+                        <MyText/>
+                    }
+
                     <View style={styles.row}>
                         <MyText numberOfLines={1} style={styles.cellLeaderboard}>Opponent</MyText>
                         <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>

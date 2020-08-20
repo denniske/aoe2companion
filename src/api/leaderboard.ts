@@ -26,7 +26,7 @@ export interface IFetchLeaderboardParams {
 }
 
 async function fetchLeaderboardInternal(baseUrl: string, game: string, leaderboard_id: number, params: IFetchLeaderboardParams) {
-    time('fetchLeaderboard');
+    // time('fetchLeaderboard');
     const queryString = makeQueryString({
         game,
         leaderboard_id,
@@ -34,7 +34,7 @@ async function fetchLeaderboardInternal(baseUrl: string, game: string, leaderboa
     });
     const url = baseUrl + `api/leaderboard?${queryString}`;
     const json = await fetchJson('fetchLeaderboard', url);
-    time();
+    // time();
     return convertTimestampsToDates(json);
 }
 

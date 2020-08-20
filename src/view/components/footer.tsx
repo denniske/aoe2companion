@@ -41,14 +41,14 @@ export default function Footer() {
     };
 
     const checkForSavedNotification = (elapsedMs: number = 0) => {
-        console.log('checkForSavedNotification')
+        // console.log('checkForSavedNotification')
         if (hasSavedNotification()) {
-            console.log('checkForSavedNotification', 'hasSavedNotification')
+            // console.log('checkForSavedNotification', 'hasSavedNotification')
             nav('Feed');
             return;
         }
         if (elapsedMs > 1000) {
-            console.log('checkForSavedNotification', 'timeout')
+            // console.log('checkForSavedNotification', 'timeout')
             return;
         }
         setTimeout(() => checkForSavedNotification(elapsedMs+100), 100);

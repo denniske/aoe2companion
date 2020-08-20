@@ -85,7 +85,7 @@ export const leaderboard: APIGatewayProxyHandler = async (event, _context) => {
 
     return {
         statusCode: 200,
-        body: JSON.stringify({
+        body: '<'+JSON.stringify({
             updated: getUnixTime(leaderboardUpdated),
             total: total,
             leaderboard_id: leaderboardId,
@@ -100,4 +100,22 @@ export const leaderboard: APIGatewayProxyHandler = async (event, _context) => {
             }),
         }, null, 2),
     };
+
+    // return {
+    //     statusCode: 200,
+    //     body: JSON.stringify({
+    //         updated: getUnixTime(leaderboardUpdated),
+    //         total: total,
+    //         leaderboard_id: leaderboardId,
+    //         start: start,
+    //         count: count,
+    //         country: country,
+    //         leaderboard: users.map((u, i) => {
+    //             if (country) {
+    //                 return {...u, rank: start+i};
+    //             }
+    //             return u;
+    //         }),
+    //     }, null, 2),
+    // };
 }

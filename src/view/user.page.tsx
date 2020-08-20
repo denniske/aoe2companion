@@ -76,9 +76,9 @@ export default function UserPage() {
     // const [leaderboardId, setLeaderboardId] = useState(prefLeaderboardId);
 
     const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
-    const auth = route.params.id;
+    const user = route.params.id;
 
-    return <MainPageInner auth={auth}/>;
+    return <MainPageInner user={user}/>;
 
     // const rating = useApi(
     //     {},

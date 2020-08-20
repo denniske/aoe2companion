@@ -38,7 +38,7 @@ function matchPosition(match: IMatch, user: UserIdBase, position: AoePosition) {
 
     const realPosition = sameUser(userTeamPlayersSorted[0], user) || sameUser(userTeamPlayersSorted[userTeamPlayersSorted.length-1], user) ? 'flank' : 'pocket';
 
-    console.log(realPosition);
+    // console.log(realPosition);
 
     return realPosition === position;
 }

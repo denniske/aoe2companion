@@ -202,3 +202,20 @@ export interface ILeaderboard extends ILeaderboardRaw{
 export function validMatch(m: IMatch) {
     return m.players.filter(p => p.won !== null).length === m.num_players;
 }
+
+function shrinkMatches(matches: IMatch[]) {
+    return matches.map(m => ({
+        name: m.name,
+        map_type: m.map_type,
+        players: m.players.map(p => ({
+            name: p.name,
+        })),
+    }));
+}
+
+// const size = JSON.stringify(allMatches.data ?? []).length / 1000;
+// const size2 = JSON.stringify(shrinkMatches(allMatches.data ?? [])).length / 1000;
+// console.log('all matches', size, 'KB');
+// console.log('shrinked matches', size2, 'KB');
+// const size3 = JSON.stringify(stats.data?.statsCiv ?? []).length / 1000;
+// console.log('all stats', size3, 'KB');

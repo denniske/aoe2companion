@@ -13,7 +13,19 @@ export const changelog: IChangelog = {
     '14.0.16': [
         {
             type: 'minor',
+            title: 'Redesign user/me page',
+        },
+        {
+            type: 'minor',
+            title: 'Add leaderboard filter & search for user match list',
+        },
+        {
+            type: 'minor',
             title: 'Added dismounted konnik',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix scout cavalry line upgrades (line of sight, speed, attack)',
         },
     ],
     '14.0.15': [

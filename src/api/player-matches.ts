@@ -34,7 +34,6 @@ export async function fetchPlayerMatches(game: string, start: number, count: num
     };
     const queryString = makeQueryString(args);
     const url = getHost('aoe2net') + `api/player/matches?${queryString}`;
-    console.log(url);
     let json = await fetchJson('fetchPlayerMatches', url) as IMatchRaw[];
 
     // TODO: Temporary fix: Filter duplicate matches

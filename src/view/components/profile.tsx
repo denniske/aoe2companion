@@ -185,7 +185,8 @@ export default function Profile({data}: IProfileProps) {
                         }
                     </View>
 
-                    <MyText style={styles.sectionHeader}>Rating</MyText>
+                    {/*<MyText style={styles.sectionHeader}>Rating</MyText>*/}
+                    <MyText/>
 
                     {/*<ScrollView contentContainerStyle={styles.scrollContent} style={styles.scrollContainer} horizontal={true} persistentScrollbar={true}>*/}
                     {/*    <View style={styles.leaderboardRow}>*/}
@@ -211,7 +212,7 @@ export default function Profile({data}: IProfileProps) {
 
 
                     <View style={styles.leaderboardRow}>
-                        <MyText numberOfLines={1} style={styles.cellLeaderboard}/>
+                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>Board</MyText>
                         <MyText numberOfLines={1} style={styles.cellRank}>Rank</MyText>
                         <MyText numberOfLines={1} style={styles.cellRating}>Rating</MyText>
                         <MyText numberOfLines={1} style={styles.cellRating2}>max</MyText>
@@ -236,7 +237,7 @@ export default function Profile({data}: IProfileProps) {
                     }
                     <MyText/>
                     <View style={styles.leaderboardRow}>
-                        <MyText numberOfLines={1} style={styles.cellLeaderboard}/>
+                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>Board</MyText>
                         <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>
                         {/*<MyText numberOfLines={1} style={styles.cellWon}><IconFA5 name="crown" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
                         <MyText numberOfLines={1} style={styles.cellWon}>Won</MyText>
@@ -272,7 +273,7 @@ const getStyles = (theme: ITheme) => {
             marginVertical: 25,
             fontSize: 15,
             fontWeight: '500',
-            textAlign: 'center',
+            // textAlign: 'center',
         },
         followButton: {
             // backgroundColor: 'blue',

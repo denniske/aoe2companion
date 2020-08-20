@@ -30,7 +30,7 @@ export default function (spec: any) {
             await sleep(1000);
 
             const navigation = await spec.findComponent('Navigation') as StackNavigationProp<RootStackParamList, "Main">;
-            const tabNavigation = await spec.findComponent('Navigation') as MaterialTopTabNavigationProp<RootTabParamList, "MainHome">;
+            const tabNavigation = await spec.findComponent('Navigation') as MaterialTopTabNavigationProp<RootTabParamList, "MainProfile">;
 
             // navigation.reset({index: 0, routes: [{name: 'Feed'}]});
             await sleep(waitTime*2);
