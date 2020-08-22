@@ -2,13 +2,13 @@ import {StyleSheet, Text, TextProps, View} from "react-native";
 import React from "react";
 import {ITheme, makeVariants, useTheme} from "../../../theming";
 
-type TextLoaderProps = TextProps & { children?: React.ReactNode, ready?: any }
+type TextLoaderProps = TextProps & { children?: React.ReactNode, isReady?: any }
 
 export function ViewLoader(props: TextLoaderProps) {
     const styles = useTheme(variants);
     const { children, ...rest } = props;
 
-    if (props.children == null || ('ready' in props && !props.ready)) {
+    if (props.children == null || ('ready' in props && !props.isReady)) {
         return (
             <View {...rest} style={[rest.style, { flexDirection: 'row', display: 'flex'}]}>
                 <View style={styles.container}>

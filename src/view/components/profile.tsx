@@ -160,7 +160,7 @@ export default function Profile({data}: IProfileProps) {
                     <View style={styles.row}>
                         <View>
                             <View style={styles.row}>
-                                <ImageLoader style={styles.countryIcon} ready={data} source={getFlagIcon(data?.country)}/>
+                                <ImageLoader style={styles.countryIcon} isReady={data} source={getFlagIcon(data?.country)}/>
                                 <TextLoader width={100}>{data?.name}</TextLoader>
                                 {
                                     data?.clan &&
@@ -168,7 +168,7 @@ export default function Profile({data}: IProfileProps) {
                                 }
                             </View>
                             <View style={styles.row}>
-                                <TextLoader width={180} ready={data}>{data?.games} Games, {data?.drops} Drops
+                                <TextLoader width={180} isReady={data}>{data?.games} Games, {data?.drops} Drops
                                     ({(data?.drops / data?.games * 100).toFixed(2)} %)</TextLoader>
                             </View>
                         </View>
