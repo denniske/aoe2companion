@@ -15,7 +15,7 @@ export interface IParam {
 }
 
 export async function getStats({matches, user, leaderboardId}: IParam) {
-    console.log("==> CALC", user.id, leaderboardId, matches);
+    console.log("==> CALC", user.id, leaderboardId);
 
     time('getStats' + matches?.length);
 

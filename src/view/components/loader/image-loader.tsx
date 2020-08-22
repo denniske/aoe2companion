@@ -18,10 +18,8 @@ export function ImageLoader(props: ImageLoaderProps) {
     const styles = useTheme(variants);
     if (props.source == null || ('ready' in props && !props.ready)) {
         return (
-            <View {...props} style={[props.style, { height: 'auto', flexDirection: 'row', display: 'flex'}]}>
-                <View style={styles.container}>
-                    <MyText style={styles.text} numberOfLines={1}>....................................</MyText>
-                </View>
+            <View {...props} style={[props.style, styles.container, {height: 'auto'}]}>
+                <MyText style={styles.text} numberOfLines={1}>....................................</MyText>
             </View>
         );
     }

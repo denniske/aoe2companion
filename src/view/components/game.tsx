@@ -169,7 +169,6 @@ const getStyles = (theme: ITheme) => {
             alignSelf: 'center'
         },
         versus2: {
-            color: 'white',
             flex: 1,
             height: 1,
             margin: 10,
