@@ -1,6 +1,6 @@
 import {format, formatDistanceToNowStrict, fromUnixTime} from "date-fns";
 import { enUS, de } from "date-fns/locale";
-import {Animated} from "react-native";
+import {Animated, Dimensions, Platform} from "react-native";
 
 export type ValueOf<T> = T[keyof T];
 
@@ -13,6 +13,8 @@ export function sleep(ms: number) {
         setTimeout(resolve, ms);
     });
 }
+
+export const windowWidth = Platform.OS === 'web' ? 450 : Dimensions.get('window').width;
 
 let timeLastDate: Date | null = null;
 export function time(start?: any) {

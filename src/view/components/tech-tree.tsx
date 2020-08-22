@@ -13,6 +13,7 @@ import {capitalize} from "lodash-es";
 import {setPrefValue, useMutate, useSelector} from "../../redux/reducer";
 import {saveCurrentPrefsToStorage} from "../../service/storage";
 import ButtonPicker from "./button-picker";
+import {windowWidth} from "../../helper/util";
 
 
 export function TechTree({civ}: {civ: aoeCivKey}) {
@@ -684,7 +685,6 @@ function Ability0() {
     );
 }
 
-const windowWidth = Platform.OS === 'web' ? 450 : Dimensions.get('window').width;
 const techTreeWidth = windowWidth - 28;
 const colSize = (techTreeWidth / 8)-4;
 const colSize2 = colSize-6;

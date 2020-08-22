@@ -1,7 +1,7 @@
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTheme} from "victory";
-import {formatDateShort, parseUnixTimestamp} from '../../helper/util';
+import {formatDateShort, parseUnixTimestamp, windowWidth} from '../../helper/util';
 import {getLeaderboardColor, getLeaderboardTextColor} from '../../helper/colors';
 import {IRatingHistoryRow} from '../../service/rating';
 import {TextLoader} from "./loader/text-loader";
@@ -100,7 +100,7 @@ export default function Rating({ratingHistories}: IRatingProps) {
                 </View>
 
                 <ViewLoader isReady={ratingHistories}>
-                    <VictoryChart width={Dimensions.get('screen').width - 40} height={300} theme={themeWithSystemFont}
+                    <VictoryChart width={windowWidth - 40} height={300} theme={themeWithSystemFont}
                                   padding={{left: 50, bottom: 30, top: 20, right: 20}}
                                   // containerComponent={
                                   //     <VictoryZoomContainer key={'zoom'}/>

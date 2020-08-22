@@ -99,14 +99,10 @@ export default function TechDetails({tech}: {tech: Tech}) {
                     <MyText>Affected Units</MyText>
                     <Space/>
                     {
-                        affectedUnitInfos.map(affectedUnit => {
-                            console.log(getUpgradeList(affectedUnit).map(g => g.name + ': ' + capitalize(g.upgrades.join(', '))).join('\n'));
-                                return <View>
-                                    <UnitCompBig key={affectedUnit.unitId} unit={affectedUnit.unitId} subtitle={
-                                        getUpgradeList(affectedUnit).map(g => g.name + ': ' + capitalize(g.upgrades.join(', '))).join('\n')
-                                    }/>
-                                </View>;
-                            }
+                        affectedUnitInfos.map(affectedUnit =>
+                            <UnitCompBig key={affectedUnit.unitId} unit={affectedUnit.unitId} subtitle={
+                                getUpgradeList(affectedUnit).map(g => g.name + ': ' + capitalize(g.upgrades.join(', '))).join('\n')
+                            }/>
                         )
                     }
                 </View>
