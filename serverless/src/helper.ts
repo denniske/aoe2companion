@@ -25,7 +25,10 @@ export async function getValue(id: string) {
     return JSON.parse(keyValue?.value ?? null);
 }
 
-
+export const cors = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Credentials': true,
+};
 
 export interface IParams {
     [key: string]: any;
