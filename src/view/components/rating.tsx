@@ -13,7 +13,7 @@ import {MyText} from "./my-text";
 import ButtonPicker from "./button-picker";
 import {saveCurrentPrefsToStorage} from "../../service/storage";
 import {isAfter, subMonths, subWeeks} from "date-fns";
-import {VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTheme} from "./victory";
+import {VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTheme} from "../../helper/victory";
 
 interface IRatingProps {
     ratingHistories: IRatingHistoryRow[];

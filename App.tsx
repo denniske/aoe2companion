@@ -55,20 +55,15 @@ import BuildingPage, {BuildingTitle, buildingTitle} from "./src/view/building/bu
 import LivePage from "./src/view/live.page";
 import PushPage from "./src/view/push.page";
 import SplashPage from "./src/view/splash.page";
-// import * as Sentry from 'sentry-expo';
 import ErrorSnackbar from "./src/view/components/snackbar/error-snackbar";
 import ErrorPage from "./src/view/error.page";
 import * as Notifications from "expo-notifications";
 import TipsPage from "./src/view/tips.page";
 import {setSavedNotification} from "./src/helper/notification";
+import initSentry from "./src/helper/sentry";
 
-// if (!__DEV__) {
-//     Sentry.init({
-//         dsn: 'https://9081bd9af23c4367b6023a6b62d48164@o329359.ingest.sentry.io/5382944',
-//         enableInExpoDevelopment: false,
-//         debug: false,
-//     });
-// }
+
+initSentry();
 
 try {
     Notifications.setNotificationHandler({
