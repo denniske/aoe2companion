@@ -505,23 +505,23 @@ const getStyles = (theme: ITheme) => {
             fontWeight: 'bold',
         },
         cellRankMe: {
-            padding: padding,
+            margin: padding,
             textAlign: 'left',
             minWidth: 60,
             // width: 60,
             fontWeight: 'bold',
         },
         cellRank: {
-            padding: padding,
+            margin: padding,
             textAlign: 'left',
             width: 60,
         },
         cellRating: {
-            padding: padding,
+            margin: padding,
             width: 55,
         },
         cellRatingMe: {
-            padding: padding,
+            margin: padding,
             width: 55,
             fontWeight: 'bold',
         },
@@ -530,24 +530,24 @@ const getStyles = (theme: ITheme) => {
         },
         cellName: {
             // backgroundColor: 'yellow',
-            padding: padding,
+            margin: padding,
             flex: 4,
             flexDirection: 'row',
             alignItems: 'center',
         },
         cellName2: {
-            padding: padding,
+            margin: padding,
             flex: 4,
         },
         cellGames: {
-            padding: padding,
+            margin: padding,
             width: 90,
             textAlign: 'right',
             fontSize: 12,
             color: theme.textNoteColor,
         },
         cellWins: {
-            padding: padding,
+            margin: padding,
             flex: 1,
         },
         footerRow: {
