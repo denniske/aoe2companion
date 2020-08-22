@@ -96,7 +96,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
             >
                 {
                     container === 'flatlist' &&
-                    <View style={{height: Dimensions.get('screen').height-250, minWidth: 200}}>
+                    <View style={{height: Dimensions.get('window').height-250, minWidth: 200}}>
                         <FlatList
                             {...flatListProps}
                             keyboardShouldPersistTaps={'always'}
@@ -108,7 +108,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
                 }
                 {
                     container === 'sectionlist' &&
-                    <View style={{height: Dimensions.get('screen').height-450, minWidth: 200}}>
+                    <View style={{height: Dimensions.get('window').height-450, minWidth: 200}}>
                         <SectionList
                             stickySectionHeadersEnabled={false}
                             keyboardShouldPersistTaps={'always'}
