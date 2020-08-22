@@ -41,10 +41,11 @@ https://codeburst.io/dockerize-deploy-1cfc4f0e7c72
 
 domain
 https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nginx-ingress-on-digitalocean-kubernetes-using-helm
-
-
+https://www.digitalocean.com/community/tutorials/how-to-install-software-on-kubernetes-clusters-with-the-helm-3-package-manager
 
 npx expo build:web
+npx expo start:web --no-dev
+
 
 user count 16.30: 198938 users
 

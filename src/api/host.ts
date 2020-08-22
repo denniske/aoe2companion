@@ -21,11 +21,11 @@ export function getHost(host: Host) {
             return `https://function.aoe2companion.com/`;
         }
         case "aoe2companion-api": {
-            if (__DEV__ && Constants.isDevice) {
-                const platformHost = '192.168.178.41';
-                return `http://${platformHost}:3003/`;
-            }
-            return `http://api.aoe2companion.com/`;
+            // if (__DEV__ && Constants.isDevice) {
+            //     const platformHost = '192.168.178.41';
+            //     return `http://${platformHost}:3003/`;
+            // }
+            return `https://api.aoe2companion.com/`;
         }
         case "aoe2net": {
             if (Platform.OS === 'web') {
