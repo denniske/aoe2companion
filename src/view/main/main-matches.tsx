@@ -146,6 +146,8 @@ export default function MainMatches() {
                 />
                 <FlatList
                     contentContainerStyle={styles.list}
+                    initialNumToRender={10}
+                    windowSize={2}
                     data={list}
                     renderItem={({item, index}) => {
                         switch (item) {
