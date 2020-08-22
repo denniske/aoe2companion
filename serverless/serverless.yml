@@ -81,6 +81,7 @@ functions:
       - http:
           path: api/leaderboard
           method: get
+          cors: true
   ingest:
     handler: src/ingest.ingest
     tags:
