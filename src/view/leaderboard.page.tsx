@@ -1,7 +1,8 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
     ActivityIndicator, Animated, FlatList, Image, NativeScrollEvent, NativeSyntheticEvent, PanResponder, StyleSheet,
-    TouchableOpacity, View
+    TextStyle,
+    TouchableOpacity, View, ViewStyle
 } from 'react-native';
 import {useNavigation, useNavigationState} from '@react-navigation/native';
 import {fetchLeaderboard} from "../api/leaderboard";
@@ -116,7 +117,7 @@ function Leaderboard({leaderboardId}: any) {
     const flatListRef = React.useRef<FlatList>(null);
     const [fetchingPage, setFetchingPage] = useState<number>();
     const [contentOffsetY, setContentOffsetY] = useState<number>();
-    const [rankWidth, setRankWidth] = useState<number>(58);
+    const [rankWidth, setRankWidth] = useState<number>(43);
 
     const currentRouteLeaderboardId = useNavigationState(state => (state.routes[state.index].params as any)?.leaderboardId);
 
@@ -190,10 +191,13 @@ function Leaderboard({leaderboardId}: any) {
 
     const _renderRow = (player: ILeaderboardPlayer, i: number, isMyRankRow: boolean = false) => {
         const isMe = sameUserNull(player, auth);
+        const rowStyle = { height: isMyRankRow ? headerMyRankHeight : rowHeight };
+        const weightStyle = { fontWeight: isMe ? 'bold' : 'normal' } as TextStyle;
+        const rankWidthStyle = { width: isMyRankRow ? undefined : rankWidth } as ViewStyle;
         return (
-            <TouchableOpacity style={[styles.row, { height: isMyRankRow ? headerMyRankHeight : rowHeight }]} disabled={player == null} onPress={() => isMyRankRow ? scrollToMe() : onSelect(player)}>
+            <TouchableOpacity style={[styles.row, rowStyle]} disabled={player == null} onPress={() => isMyRankRow ? scrollToMe() : onSelect(player)}>
                 <View style={isMyRankRow ? styles.innerRow : styles.innerRowWithBorder}>
-                    <TextLoader numberOfLines={1} style={isMe ? styles.cellRankMe : [styles.cellRank, { width: rankWidth }]}>#{player?.rank || i+1}</TextLoader>
+                    <TextLoader numberOfLines={1} style={[styles.cellRank, weightStyle, rankWidthStyle]}>#{player?.rank || i+1}</TextLoader>
                     <TextLoader style={isMe ? styles.cellRatingMe : styles.cellRating}>{player?.rating}</TextLoader>
                     <View style={styles.cellName}>
                         <ImageLoader style={styles.countryIcon} ready={player} source={getFlagIcon(player?.country)}/>
