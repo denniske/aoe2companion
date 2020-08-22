@@ -15,6 +15,13 @@ const getStyles = (theme: ITheme) => {
         expanded: {
             flex: 1,
         },
+        tabular: {
+            fontVariant: ['tabular-nums'],
+        },
+        tabularRight: {
+            textAlign: 'right',
+            fontVariant: ['tabular-nums'],
+        },
     });
 
 };

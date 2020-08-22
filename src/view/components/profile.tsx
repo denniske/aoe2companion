@@ -153,6 +153,13 @@ export default function Profile({data}: IProfileProps) {
         }
     };
 
+    // console.log('styles.container');
+    // console.log(styles.container);
+    // const style1 = StyleSheet.compose(styles.container, null);
+    // console.log(style1);
+    // const style2 = StyleSheet.compose(styles.container, styles.expanded);
+    // console.log(style2);
+
     return (
             <View style={styles.container}>
                 <View>
@@ -301,6 +308,7 @@ const getStyles = (theme: ITheme) => {
             width: 60,
             marginRight: 5,
             fontVariant: ['tabular-nums'],
+            display: 'flex',
         },
         cellRating: {
             width: 50,
