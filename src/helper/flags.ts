@@ -506,7 +506,7 @@ const countryNames = {
    'ZW': 'Zimbabw',
 };
 
-export const countriesDistinct = uniq(keysOf(flagList)) as Country[];
+export const countriesDistinct = uniq(keysOf(countryNames)) as Country[];
 
 export type Flag = keyof typeof flagList;
 export type Country = keyof typeof countryNames;
