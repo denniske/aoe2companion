@@ -1,6 +1,6 @@
 import {APIGatewayProxyHandler} from "aws-lambda";
 import {createDB} from "./handler";
-import {getValue} from "./helper";
+import {cors, getValue} from "./helper";
 import {LeaderboardRow} from "../entity/leaderboard-row";
 import {getUnixTime} from 'date-fns';
 import {Like} from "typeorm";
@@ -67,6 +67,7 @@ export const leaderboard: APIGatewayProxyHandler = async (event, _context) => {
 
         return {
             statusCode: 200,
+            headers: { ...cors },
             body: JSON.stringify({
                 updated: getUnixTime(leaderboardUpdated),
                 total: total,
