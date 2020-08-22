@@ -569,14 +569,18 @@ export default function App() {
 const getStyles = (theme: ITheme) => {
     return StyleSheet.create({
         container: {
-            overflow: 'hidden',
-            width: 450,
-            maxHeight: 900,
-            marginHorizontal: 'auto',
-            marginVertical: 'auto',
-            borderColor: '#CCC',
-            borderWidth: 1,
-            borderRadius: 10,
+            ...(Platform.OS === 'web' ? {
+                    overflow: 'hidden',
+                    width: 450,
+                    maxHeight: 900,
+                    marginHorizontal: 'auto',
+                    marginVertical: 'auto',
+                    borderColor: '#CCC',
+                    borderWidth: 1,
+                    borderRadius: 10,
+                } : {}
+            ),
+
             // backgroundColor: '#397AF9',
             backgroundColor: theme.backgroundColor,
             paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
