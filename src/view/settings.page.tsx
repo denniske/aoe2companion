@@ -128,11 +128,11 @@ export default function SettingsPage() {
                     {/*/>*/}
                     <View style={styles.row2}>
                         <Checkbox.Android
-                            disabled={loadingPushNotificationEnabled}
+                            disabled={loadingPushNotificationEnabled || Platform.OS === 'web'}
                             status={config.pushNotificationsEnabled ? 'checked' : 'unchecked'}
                             onPress={togglePushNotifications}
                         />
-                        <TouchableOpacity onPress={togglePushNotifications}>
+                        <TouchableOpacity onPress={togglePushNotifications} disabled={Platform.OS === 'web'}>
                             <MyText style={[styles.testLink]}>{config.pushNotificationsEnabled ? 'Enabled' : 'Disabled'}</MyText>
                         </TouchableOpacity>
                     </View>
@@ -142,6 +142,7 @@ export default function SettingsPage() {
                         compact
                         uppercase={false}
                         dark={true}
+                        disabled={Platform.OS === 'web'}
                     >
                         Test
                     </Button>

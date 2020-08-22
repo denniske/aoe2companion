@@ -227,8 +227,14 @@ export function InnerApp() {
         <SafeAreaView style={styles.container}>
 
             <Portal>
-                <UpdateSnackbar/>
-                <ChangelogSnackbar/>
+                {
+                    Platform.OS !== 'web' &&
+                    <UpdateSnackbar/>
+                }
+                {
+                    Platform.OS !== 'web' &&
+                    <ChangelogSnackbar/>
+                }
                 <ErrorSnackbar/>
             </Portal>
 
