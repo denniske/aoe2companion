@@ -105,19 +105,19 @@ const getStyles = (theme: ITheme) => {
     return StyleSheet.create({
         cellLeaderboard: {
             // backgroundColor: 'red',
-            padding: padding,
+            margin: padding,
             flex: 4,
             flexDirection: 'row',
             alignItems: 'center',
         },
         cellGames: {
-            padding: padding,
+            margin: padding,
             flex: 1,
             textAlign: 'right',
             fontVariant: ['tabular-nums'],
         },
         cellWon: {
-            padding: padding,
+            margin: padding,
             flex: 1,
             textAlign: 'right',
             fontVariant: ['tabular-nums'],
