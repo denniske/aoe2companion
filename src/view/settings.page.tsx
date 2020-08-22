@@ -160,6 +160,7 @@ const getStyles = (theme: ITheme) => {
             // marginLeft: 10,
         },
         cellName: {
+            // backgroundColor: 'grey',
             paddingHorizontal,
             paddingVertical,
             flex: 1,
@@ -199,7 +200,6 @@ const getStyles = (theme: ITheme) => {
         },
         container: {
             minHeight: '100%',
-            alignItems: 'center',
             padding: 20,
         },
         small: {
