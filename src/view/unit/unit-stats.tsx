@@ -9,6 +9,7 @@ import {ITheme, makeVariants, useTheme} from "../../theming";
 import {keysOf} from "../../helper/util";
 import Picker from "../components/picker";
 import {allUnitSections} from "./unit-list";
+import Space from "../components/space";
 
 interface Props {
     unitId: Unit;
@@ -309,7 +310,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                     }
                 </View>
             }
-            <MyText/>
+            <Space/>
         </View>
     );
 }

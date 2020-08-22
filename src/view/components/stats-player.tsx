@@ -15,6 +15,7 @@ import {loadUser} from "../../service/user";
 import { sleep } from '../../helper/util';
 import {IRow} from "../../service/stats/stats-player";
 import {Button} from "react-native-paper";
+import Space from "./space";
 
 interface IRowProps {
     data: IRow;
@@ -136,7 +137,7 @@ export default function StatsPlayer(props: IProps) {
 
                     {
                         hasAlly &&
-                        <MyText/>
+                        <Space/>
                     }
 
                     <View style={styles.row}>

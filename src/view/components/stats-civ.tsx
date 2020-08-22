@@ -13,6 +13,7 @@ import {AoeMap, maps} from "../../helper/maps";
 import {useLazyApi} from "../../hooks/use-lazy-api";
 import {LeaderboardId} from "../../helper/leaderboards";
 import {IRow} from "../../service/stats/stats-civ";
+import Space from "./space";
 
 
 interface IRowProps {
@@ -69,7 +70,7 @@ export default function StatsCiv(props: IProps) {
 
     return (
             <View style={styles.container}>
-                <MyText/>
+                <Space/>
                 <View>
                     <View style={styles.row}>
                         <MyText numberOfLines={1} style={styles.cellLeaderboard}>Civ</MyText>

@@ -5,6 +5,7 @@ import { useLinkTo, useNavigation } from '@react-navigation/native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import { RootStackParamList, RootStackProp } from '../../App';
 import {MyText} from "./components/my-text";
+import Space from "./components/space";
 
 export default function WelcomePage() {
     const navigation = useNavigation<RootStackProp>();
@@ -30,7 +31,7 @@ export default function WelcomePage() {
                     <MyText>Search for users</MyText>
                 </View>
 
-                <MyText/>
+                <Space/>
                 {/*<TouchableOpacity style={styles.feature} onPress={() => nav('Main')}>*/}
                 <View style={styles.feature}>
                     <FontAwesomeIcon style={styles.featureIcon} name="user" size={18} />

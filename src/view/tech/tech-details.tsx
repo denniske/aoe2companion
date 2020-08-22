@@ -15,6 +15,7 @@ import {appVariants} from "../../styles";
 import {UnitCompBig} from "../unit/unit-list";
 import {capitalize} from "lodash-es";
 import CivAvailability from "../components/civ-availability";
+import Space from "../components/space";
 
 
 function hasUpgrade(unitLineId: UnitLine, tech: Tech) {
@@ -87,16 +88,16 @@ export default function TechDetails({tech}: {tech: Tech}) {
             </View>
 
             <MyText style={styles.description}>{getTechDescription(tech)}</MyText>
-            <MyText/>
+            <Space/>
 
             <CivAvailability tech={tech}/>
 
             {
                 !techsAffectingAllUnits.includes(tech) && affectedUnitInfos.length > 0 &&
                 <View>
-                    <MyText/>
+                    <Space/>
                     <MyText>Affected Units</MyText>
-                    <MyText/>
+                    <Space/>
                     {
                         affectedUnitInfos.map(affectedUnit => {
                             console.log(getUpgradeList(affectedUnit).map(g => g.name + ': ' + capitalize(g.upgrades.join(', '))).join('\n'));

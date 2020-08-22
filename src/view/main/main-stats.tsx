@@ -114,12 +114,12 @@ export default function MainStats() {
                                 </View>;
                             case 'stats-position':
                                 return <StatsPosition data={statsPosition} user={user} leaderboardId={leaderboardId}/>;
-                            case 'stats-civ':
-                                return <StatsCiv data={statsCiv} user={user}/>;
-                            case 'stats-map':
-                                return <StatsMap data={statsMap} user={user}/>;
-                            case 'stats-player':
-                                return <StatsPlayer data={statsPlayer} user={user} leaderboardId={leaderboardId}/>;
+                            // case 'stats-civ':
+                            //     return <StatsCiv data={statsCiv} user={user}/>;
+                            // case 'stats-map':
+                            //     return <StatsMap data={statsMap} user={user}/>;
+                            // case 'stats-player':
+                            //     return <StatsPlayer data={statsPlayer} user={user} leaderboardId={leaderboardId}/>;
                             default:
                                 return <View/>;
                         }

@@ -8,6 +8,7 @@ import {MyText} from "./my-text";
 import React from "react";
 import {Building} from "../../helper/buildings";
 import {getAbilityEnabled} from "./tech-tree";
+import Space from "./space";
 
 
 interface CivAvailabilityProps {
@@ -32,7 +33,7 @@ export default function CivAvailability({tech, unit, building}: CivAvailabilityP
         <View style={styles.civListRow}>
             <View style={styles.civList}>
                 <MyText>Available</MyText>
-                <MyText/>
+                <Space/>
                 {
                     !availableForAllCivs && civAvailable.map(civ =>
                         <TouchableOpacity key={civ} style={styles.civCol} onPress={() => navigation.push('Civ', {civ})}>
@@ -50,7 +51,7 @@ export default function CivAvailability({tech, unit, building}: CivAvailabilityP
             </View>
             <View style={styles.civList}>
                 <MyText>Unavailable</MyText>
-                <MyText/>
+                <Space/>
                 {
                     !availableForAllCivs && civUnavailable.map(civ =>
                         <TouchableOpacity key={civ} style={styles.civCol} onPress={() => navigation.push('Civ', {civ})}>

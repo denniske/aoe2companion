@@ -10,6 +10,7 @@ import {Civ} from "../../helper/civs";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {keysOf} from "../../helper/util";
+import Space from "../components/space";
 
 interface Props {
     unitLineId: UnitLine;
@@ -83,7 +84,7 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
           {
               upgradedFrom &&
               <View>
-                  <MyText/>
+                  <Space/>
                   <View style={styles.row}>
                       <MyText style={styles.header2}>Upgraded From</MyText>
                   </View>
@@ -98,7 +99,7 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
           {
               upgradedTo &&
               <View>
-                  <MyText/>
+                  <Space/>
                   <View style={styles.row}>
                       <MyText style={styles.header2}>Upgraded To</MyText>
                   </View>

@@ -8,6 +8,7 @@ import {keysOf} from "../../helper/util";
 import {useTheme} from "../../theming";
 import {appVariants} from "../../styles";
 import CivAvailability from "../components/civ-availability";
+import Space from "../components/space";
 
 
 export default function BuildingDetails({building}: {building: Building}) {
@@ -28,7 +29,7 @@ export default function BuildingDetails({building}: {building: Building}) {
             </View>
 
             <MyText style={styles.description}>{getBuildingDescription(building)}</MyText>
-            <MyText/>
+            <Space/>
 
             <CivAvailability building={building}/>
 

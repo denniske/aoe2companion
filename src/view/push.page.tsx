@@ -10,6 +10,7 @@ import {AndroidNotificationPriority} from "expo-notifications";
 import {IosAuthorizationStatus} from "expo-notifications/build/NotificationPermissions.types";
 import {maskToken} from "../service/push";
 import {useSelector} from "../redux/reducer";
+import Space from "./components/space";
 
 interface FirebaseData {
     title?: string;
@@ -138,21 +139,21 @@ export default function PushPage() {
             contentContainerStyle={styles.content}>
             <MyText>{account ? 'Account' : ''}</MyText>
             <MyText>{account ? account.id : 'Could not retrieve account.'}</MyText>
-            <MyText/>
+            <Space/>
             <MyText>{expoPushToken ? maskToken(expoPushToken) : 'Could not retrieve push token.'}</MyText>
             {
                 notification &&
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                    <MyText/>
+                    <Space/>
                     <MyText>Last received notification:</MyText>
-                    <MyText/>
+                    <Space/>
                     <MyText>Date: {notification.date} </MyText>
                     <MyText>Title: {notification.request.content.title} </MyText>
                     <MyText>Body: {notification.request.content.body}</MyText>
                     <MyText>Data: {JSON.stringify(notification.request.content.data)}</MyText>
                 </View>
             }
-            <MyText/>
+            <Space/>
             {
                 expoPushToken &&
                 <>
@@ -164,13 +165,13 @@ export default function PushPage() {
                     >
                         Send Test Notification
                     </Button>
-                    <MyText/>
+                    <Space/>
                     <MyText style={styles.note}>Test notification may take a minute to reach your phone.</MyText>
                 </>
             }
-            <MyText/>
+            <Space/>
             <MyText>Troubleshoot info:</MyText>
-            <MyText/>
+            <Space/>
             {
                 messages.map((message, i) =>
                     <MyText key={i}>{message}</MyText>

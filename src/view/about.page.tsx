@@ -8,6 +8,7 @@ import {setUpdateManifest, setUpdateStoreManifest, useMutate} from "../redux/red
 import {doCheckForStoreUpdate, doCheckForUpdateAsync} from "../service/update";
 import {ITheme, makeVariants, useTheme} from "../theming";
 import {appVariants} from "../styles";
+import Space from "./components/space";
 
 
 export default function AboutPage() {
@@ -76,14 +77,14 @@ export default function AboutPage() {
             {
                 state === '' &&
                 <View>
-                    <MyText/>
+                    <Space/>
                     <Button onPress={checkForUpdate} mode="contained" dark={true}>Check for update</Button>
                 </View>
             }
             {
                 state === 'checkingForUpdate' &&
                 <View>
-                    <MyText/>
+                    <Space/>
                     <MyText style={styles.content}>Checking for update...</MyText>
                 </View>
             }
@@ -123,7 +124,7 @@ export default function AboutPage() {
             </View>
 
             <MyText style={styles.heading}>Legal</MyText>
-            <MyText/>
+            <Space/>
             <View style={styles.row}>
                 <TouchableOpacity onPress={() => linkTo('/privacy')}>
                     <MyText style={appStyles.link}>Privacy Policy</MyText>
@@ -132,8 +133,8 @@ export default function AboutPage() {
 
             <View style={styles.expanded}/>
 
-            <MyText/>
-            <MyText/>
+            <Space/>
+            <Space/>
 
             <MyText style={styles.textJustify}>
                 This app was created under Microsoft's "

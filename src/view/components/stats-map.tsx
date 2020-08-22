@@ -10,6 +10,7 @@ import {ITheme, makeVariants, useTheme} from "../../theming";
 import {useLazyApi} from "../../hooks/use-lazy-api";
 import {LeaderboardId} from "../../helper/leaderboards";
 import {IRow} from "../../service/stats/stats-map";
+import Space from "./space";
 
 
 interface IRowProps {
@@ -58,7 +59,7 @@ export default function StatsMap(props: IProps) {
 
     return (
             <View style={styles.container}>
-                <MyText/>
+                <Space/>
                 <View>
                     <View style={styles.row}>
                         <MyText numberOfLines={1} style={styles.cellLeaderboard}>Map</MyText>
@@ -71,7 +72,7 @@ export default function StatsMap(props: IProps) {
                                 <Row key={leaderboard.map} data={leaderboard}/>
                         )
                     }
-                    <MyText/>
+                    <Space/>
                     {
                         rows &&
                         <MyText style={styles.info}>*based on matches with known result</MyText>

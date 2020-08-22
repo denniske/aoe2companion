@@ -8,6 +8,7 @@ import {ITheme, makeVariants, useTheme} from "../../theming";
 import Icon5 from 'react-native-vector-icons/FontAwesome5';
 import {AoePosition, IRow} from "../../service/stats/stats-position";
 import {LeaderboardId} from "../../helper/leaderboards";
+import Space from "./space";
 
 interface IRowProps {
     data: any;
@@ -65,7 +66,7 @@ export default function StatsPosition(props: IProps) {
 
     return (
             <View style={styles.container}>
-                <MyText/>
+                <Space/>
                 <View>
                     <View style={styles.row}>
                         <MyText numberOfLines={1} style={styles.cellLeaderboard}>Position</MyText>
@@ -114,18 +115,19 @@ const getStyles = (theme: ITheme) => {
         cellGames: {
             padding: padding,
             flex: 1,
-            textAlign: 'right',
-            fontVariant: ['tabular-nums'],
+            // textAlign: 'right',
+            // fontVariant: ['tabular-nums'],
         },
         cellWon: {
             padding: padding,
             flex: 1,
-            textAlign: 'right',
-            fontVariant: ['tabular-nums'],
+            // textAlign: 'right',
+            // fontVariant: ['tabular-nums'],
         },
         row: {
             flexDirection: 'row',
             alignItems: 'center',
+            // backgroundColor: 'yellow',
         },
         container: {
             // backgroundColor: 'red',

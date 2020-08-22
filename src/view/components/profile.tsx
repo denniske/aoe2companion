@@ -14,6 +14,7 @@ import {formatLeaderboardId} from "../../helper/leaderboards";
 import {ITheme, makeVariants, useAppTheme, usePaperTheme, useTheme} from "../../theming";
 import IconFA5 from "react-native-vector-icons/FontAwesome5";
 import {toggleFollowing} from "../../service/following";
+import Space from "./space";
 
 interface ILeaderboardRowProps {
     data: ILeaderboard;
@@ -186,7 +187,7 @@ export default function Profile({data}: IProfileProps) {
                     </View>
 
                     {/*<MyText style={styles.sectionHeader}>Rating</MyText>*/}
-                    <MyText/>
+                    <Space/>
 
                     {/*<ScrollView contentContainerStyle={styles.scrollContent} style={styles.scrollContainer} horizontal={true} persistentScrollbar={true}>*/}
                     {/*    <View style={styles.leaderboardRow}>*/}
@@ -235,7 +236,7 @@ export default function Profile({data}: IProfileProps) {
                             </View>
                         )
                     }
-                    <MyText/>
+                    <Space/>
                     <View style={styles.leaderboardRow}>
                         <MyText numberOfLines={1} style={styles.cellLeaderboard}>Board</MyText>
                         <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>

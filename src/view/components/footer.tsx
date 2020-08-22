@@ -10,6 +10,7 @@ import {ITheme, makeVariants, useTheme} from "../../theming";
 import * as Notifications from "expo-notifications";
 import {RootStackParamList} from "../../../App";
 import {hasSavedNotification} from "../../helper/notification";
+import Space from "./space";
 
 
 export default function Footer() {
@@ -123,7 +124,7 @@ export default function Footer() {
                             visible={menu}
                             onDismiss={() => setMenu(false)}
                             anchor={
-                                <View><MyText> </MyText></View>
+                                <View><Space/></View>
                             }
                    >
                         <Menu.Item icon={useIcon('hands-helping')} titleStyle={iconPopupStyle('')} onPress={() => { Linking.openURL('https://discord.com/invite/gCunWKx'); setMenu(false); }} title="Help" />

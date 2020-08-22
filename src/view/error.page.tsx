@@ -4,6 +4,7 @@ import {ITheme, makeVariants, useAppTheme, useTheme} from "../theming";
 import {MyText} from "./components/my-text";
 import {Button} from "react-native-paper";
 import {useSelector} from "../redux/reducer";
+import Space from "./components/space";
 
 export default function ErrorPage() {
     const styles = useTheme(variants);
@@ -23,10 +24,10 @@ export default function ErrorPage() {
             style={styles.container}
             contentContainerStyle={styles.content}>
             <Button mode="outlined" onPress={sendErrorDetails}>Send Error Details</Button>
-            <MyText/>
-            <MyText/>
+            <Space/>
+            <Space/>
             <MyText>Troubleshoot info:</MyText>
-            <MyText/>
+            <Space/>
             {
                 errors &&
                 errors.map((error, i) =>
@@ -39,7 +40,7 @@ export default function ErrorPage() {
                         {/*<MyText>*/}
                         {/*    {JSON.stringify(error.extra)}*/}
                         {/*</MyText>*/}
-                        <MyText/>
+                        <Space/>
                     </View>
                 )
             }
