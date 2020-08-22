@@ -86,6 +86,7 @@ export const leaderboard: APIGatewayProxyHandler = async (event, _context) => {
 
     return {
         statusCode: 200,
+        headers: { ...cors },
         body: JSON.stringify({
             updated: getUnixTime(leaderboardUpdated),
             total: total,
