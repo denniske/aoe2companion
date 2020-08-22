@@ -15,7 +15,7 @@ import {IFetchedUser} from "../service/user";
 import PlayerList, {IPlayerListPlayer} from "./components/player-list";
 // import {useCavy} from "cavy";
 import {MyText} from "./components/my-text";
-import {isEqual, orderBy} from "lodash-es";
+import {isEqual, orderBy, uniq} from "lodash-es";
 import {ITheme, makeVariants, useTheme} from "../theming";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import FontAwesomeIcon5 from "react-native-vector-icons/FontAwesome5";
@@ -139,6 +139,8 @@ export function FeedList() {
 
     const list = [...(matches.data || Array(15).fill(null))];
 
+    // console.log('matches', matches.data);
+
     const _renderFooter = () => {
         if (!fetchingMore) return null;
         return <FlatListLoadingIndicator />;
@@ -157,8 +159,8 @@ export function FeedList() {
         });
     };
 
-    const formatPlayer = (player: UserIdBaseWithName) => {
-        return sameUserNull(player, auth) ? 'you' : player.name;
+    const formatPlayer = (player: UserIdBaseWithName, i: number) => {
+        return sameUserNull(player, auth) ? (i == 0 ? 'You' : 'you') : player.name;
     };
 
     if (following?.length === 0 || list.length === 0) {
@@ -191,12 +193,21 @@ export function FeedList() {
 
                                         const filteredPlayers = filterAndSortPlayers(match.players);
                                         const len = filteredPlayers.length;
+
+                                        let relevantUser = undefined;
+                                        if (uniq(filteredPlayers.map(p => p.team)).length === 1) {
+                                            relevantUser = filteredPlayers[0];
+                                        }
+
+                                        // console.log('match', match.match_id);
+                                        // console.log('relevantUser', relevantUser);
+
                                         return <View>
                                             {
                                                 <MyText style={styles.players}>
                                                     {filteredPlayers.map((p, i) =>
                                                         <MyText key={i}>
-                                                            <MyText onPress={() => gotoPlayer(p)}>{formatPlayer(p)}</MyText>
+                                                            <MyText onPress={() => gotoPlayer(p)}>{formatPlayer(p, i)}</MyText>
                                                             { i < len-2 && <MyText>, </MyText> }
                                                             { i == len-2 && <MyText> and </MyText> }
                                                         </MyText>
@@ -204,7 +215,9 @@ export function FeedList() {
                                                     <MyText> {match.finished ? 'played' : 'playing now'}</MyText>
                                                 </MyText>
                                             }
-                                            <Game data={item as IMatch}/>
+                                            <View style={styles.game}>
+                                                <Game data={item as IMatch} highlightedUsers={filteredPlayers} user={relevantUser}/>
+                                            </View>
                                         </View>;
                                 }
                             }}
@@ -293,6 +306,10 @@ export default function FeedPage() {
 
 const getStyles = (theme: ITheme) => {
     return StyleSheet.create({
+        game: {
+            marginLeft: 7,
+            marginTop: 2,
+        },
         menu: {
             // backgroundColor: 'red',
             flexDirection: 'row',

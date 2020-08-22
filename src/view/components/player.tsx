@@ -22,6 +22,7 @@ import SimpleModal from "./simple-modal";
 
 interface IPlayerProps {
     player: IPlayer;
+    highlight?: boolean;
 }
 
 export function PlayerSkeleton() {
@@ -45,7 +46,7 @@ export function PlayerSkeleton() {
     );
 }
 
-export function Player({player}: IPlayerProps) {
+export function Player({player, highlight}: IPlayerProps) {
     const styles = useTheme(variants);
     const auth = useSelector(state => state.auth);
     // const [modalVisible, setModalVisible] = useState(false);
@@ -53,8 +54,8 @@ export function Player({player}: IPlayerProps) {
 
     const boxStyle = [styles.square, {backgroundColor: getPlayerBackgroundColor(player.color)}];
 
-    const isCurrentPlayer = sameUserNull(player, auth);
-    const playerNameStyle = [{textDecorationLine: isCurrentPlayer ? 'underline' : 'none'}] as TextStyle;
+    // const isCurrentPlayer = sameUserNull(player, auth);
+    const playerNameStyle = [{textDecorationLine: highlight ? 'underline' : 'none'}] as TextStyle;
 
     // const openRatingModal = () => {
     //     setModalVisible(true);
@@ -84,8 +85,12 @@ export function Player({player}: IPlayerProps) {
 
                 <View style={styles.playerWonCol}>
                     {
-                        player.won &&
-                        <IconFA5 name="crown" size={14} style={{}} color="goldenrod" />
+                        player.won && player.team != -1 &&
+                        <IconFA5 name="crown" size={14} color="goldenrod" />
+                    }
+                    {
+                        !player.won && player.team != -1 &&
+                        <IconFA5 name="skull" size={14} style={styles.skullIcon} color="grey" />
                     }
                 </View>
 
@@ -113,6 +118,9 @@ export function Player({player}: IPlayerProps) {
 
 const getStyles = (theme: ITheme) =>
     StyleSheet.create({
+        skullIcon: {
+            marginLeft: 2,
+        },
         squareText: {
             color: '#333',
         },

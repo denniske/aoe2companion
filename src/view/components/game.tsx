@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, ImageBackground, StyleSheet, Text, View} from 'react-native';
 import {getString} from '../../helper/strings';
 import {formatAgo} from '../../helper/util';
 import React from 'react';
@@ -13,10 +13,14 @@ import {groupBy} from "lodash-es";
 import {differenceInSeconds} from "date-fns";
 import { MyText } from './my-text';
 import {ITheme, makeVariants, useTheme} from "../../theming";
+import IconFA5 from "react-native-vector-icons/FontAwesome5";
+import {sameUser, sameUserNull, UserIdBase} from "../../helper/user";
 
 interface IGameProps {
     data: IMatch;
     expanded?: boolean;
+    user?: UserIdBase;
+    highlightedUsers?: UserIdBase[];
 }
 
 const formatDuration = (start: Date, finish: Date) => {
@@ -27,7 +31,7 @@ const formatDuration = (start: Date, finish: Date) => {
     return `${hours.length < 2 ? 0 + hours : hours}:${minutes.length < 2 ? 0 + minutes : minutes} min`;
 };
 
-export function Game({data, expanded = false}: IGameProps) {
+export function Game({data, user, highlightedUsers, expanded = false}: IGameProps) {
     const styles = useTheme(variants);
     if (data == null) {
         const playersInTeam1 = Array(3).fill(0);
@@ -80,7 +84,23 @@ export function Game({data, expanded = false}: IGameProps) {
             expandable={true}
             left={props => (
                 <View style={styles.row}>
-                    <Image style={styles.map} source={getMapImage(data.map_type)}/>
+                    <ImageBackground source={getMapImage(data.map_type)}
+                                     imageStyle={styles.imageInner}
+                                     style={styles.map}>
+                        {
+                            data.players.some(p => sameUserNull(p, user) && p.won && p.team != -1) &&
+                            <IconFA5 name="crown" size={14} style={{marginLeft: -7,marginTop:-4}} color="goldenrod" />
+                        }
+                        {
+                            user == null &&
+                            <Image source={require('../../../assets/other/SkullCrown.png')} style={{marginLeft: -6,marginTop:-4, width: 17, height: 17}} />
+                        }
+                        {
+                            data.players.some(p => sameUserNull(p, user) && !p.won && p.team != -1) &&
+                            <IconFA5 name="skull" size={14} style={{marginLeft: -6,marginTop:-4}} color="grey" />
+                        }
+                    </ImageBackground>
+
                     <View style={styles.header}>
                         <MyText numberOfLines={1} style={styles.matchTitle}>
                             {getMapName(data.map_type)} - {data.match_id}
@@ -111,7 +131,7 @@ export function Game({data, expanded = false}: IGameProps) {
                     teams.map(([team, players], i) =>
                         <View key={team}>
                             {
-                                players.map((player, j) => <Player key={j} player={player}/>)
+                                players.map((player, j) => <Player key={j} highlight={highlightedUsers?.some(hu => sameUser(hu, player))} player={player}/>)
                             }
                             {
                                 i < teams.length-1 &&
@@ -132,6 +152,10 @@ export function Game({data, expanded = false}: IGameProps) {
 
 const getStyles = (theme: ITheme) => {
     return StyleSheet.create({
+        imageInner: {
+            // backgroundColor: 'blue',
+            resizeMode: "contain",
+        },
         accordion: {
             // backgroundColor: 'yellow',
             paddingBottom: 20,

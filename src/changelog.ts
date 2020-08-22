@@ -12,6 +12,14 @@ export interface IChangelog {
 export const changelog: IChangelog = {
     '14.0.18': [
         {
+            type: 'feature',
+            title: 'Show crown/skull for win/loose next to map',
+        },
+        {
+            type: 'minor',
+            title: 'Underline relevant players in following page and me/user match list',
+        },
+        {
             type: 'minor',
             title: 'Prepare for web version',
         },

@@ -148,8 +148,7 @@ export default function MainProfile() {
                                 if (rating.data?.length === 0) return <View/>;
                                 return <Rating ratingHistories={rating.data}/>;
                             default:
-                                return <Game data={item as any} expanded={index === -1}/>;
-                                // return <View/>;
+                                return <Game data={item as any} expanded={index === -1} highlightedUsers={[user]} user={user}/>;
                         }
 
                     }}
@@ -176,8 +175,6 @@ const getStyles = (theme: ITheme) => {
             // textAlign: 'center',
             marginBottom: 10,
             marginLeft: 5,
-            // color: theme.textNoteColor,
-            // fontSize: 12,
         },
 
         col: {

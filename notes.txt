@@ -7,20 +7,13 @@ api performance
 - use vercel for api
 
 add content
-- stats
-- user / main page
-- rating time frame
-- filter match list by leaderboard
-- leaderboard/footer less padding & rank col width dynamic
-
 - error when data cannot be loaded (implemented in leaderboard already)
-- aoe de forum
 - zoom rating history
 - leaderboard rating distribution
 - lobbies online players per mode
 
-- matches versus
 - infer match results from rating change
+- show match win/loss in list view already
 
 https://aoe2de-head2head.herokuapp.com/#Hera,solo
 https://aoenexus.com/

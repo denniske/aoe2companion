@@ -154,7 +154,7 @@ export default function MainMatches() {
                             case 'header':
                                 return <MyText style={styles.header}>{filteredMatches?.length} matches</MyText>
                             default:
-                                return <Game data={item as any} expanded={index === -1}/>;
+                                return <Game data={item as any} expanded={index === -1} highlightedUsers={[user]} user={user}/>;
                         }
                     }}
                     keyExtractor={(item, index) => index.toString()}
