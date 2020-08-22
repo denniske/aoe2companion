@@ -14,7 +14,7 @@ import TemplatePicker from "../components/template-picker";
 import {get} from "lodash-es";
 import {IMatch} from "../../helper/data";
 import {getMapName} from "../../helper/maps";
-import {sameUser} from "../../helper/user";
+import {parseUserId, sameUser} from "../../helper/user";
 
 
 export default function MainMatches() {
@@ -29,7 +29,7 @@ export default function MainMatches() {
     const auth = useSelector(state => state.auth);
 
     const route = useRoute<RouteProp<RootTabParamList, 'MainProfile'>>();
-    const { user } = route.params;
+    const user = parseUserId(route.params.user);
 
     const matches = useSelector(state => get(state.user, [user.id, 'matches']));
 

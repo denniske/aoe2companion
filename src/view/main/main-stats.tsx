@@ -18,6 +18,7 @@ import StatsPlayer from "../components/stats-player";
 import TemplatePicker from "../components/template-picker";
 import {TextLoader} from "../components/loader/text-loader";
 import RefreshControlThemed from "../components/refresh-control-themed";
+import {parseUserId} from "../../helper/user";
 
 
 export default function MainStats() {
@@ -27,7 +28,7 @@ export default function MainStats() {
     const [leaderboardId, setLeaderboardId] = useState(prefLeaderboardId);
 
     const route = useRoute<RouteProp<RootTabParamList, 'MainProfile'>>();
-    const { user } = route.params;
+    const user = parseUserId(route.params.user);
 
     const currentCachedData = useSelector(state => get(state.statsPlayer, [user.id, leaderboardId]));
     const previousCachedData = usePrevious(currentCachedData);
