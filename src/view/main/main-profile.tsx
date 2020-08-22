@@ -17,7 +17,7 @@ import {Game} from "../components/game";
 import {Button} from "react-native-paper";
 import {useLazyApi} from "../../hooks/use-lazy-api";
 import {useCachedLazyApi} from "../../hooks/use-cached-lazy-api";
-import {sameUserNull} from "../../helper/user";
+import {parseUserId, sameUserNull} from "../../helper/user";
 
 
 export default function MainProfile() {
@@ -27,7 +27,7 @@ export default function MainProfile() {
     const auth = useSelector(state => state.auth);
 
     const route = useRoute<RouteProp<RootTabParamList, 'MainProfile'>>();
-    const { user } = route.params;
+    const user = parseUserId(route.params.user);
 
     const rating = useApi(
         {},

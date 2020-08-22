@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Alert, AsyncStorage, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Alert, AsyncStorage, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Search from './components/search';
 import {composeUserId, UserId, UserInfo} from '../helper/user';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
@@ -32,13 +32,19 @@ export function MainMenu() {
     const auth = useSelector(state => state.auth!);
 
     const deleteUser = () => {
-        Alert.alert("Delete Me?", "Do you want to reset me page?",
-            [
-                {text: "Cancel", style: "cancel"},
-                {text: "Reset", onPress: doDeleteUser,}
-            ],
-            {cancelable: false}
-        );
+        if (Platform.OS === 'web') {
+            if (confirm("Do you want to reset me page?")){
+                doDeleteUser();
+            }
+        } else {
+            Alert.alert("Delete Me?", "Do you want to reset me page?",
+                [
+                    {text: "Cancel", style: "cancel"},
+                    {text: "Reset", onPress: doDeleteUser,}
+                ],
+                {cancelable: false}
+            );
+        }
     };
 
     const doDeleteUser = async () => {
@@ -116,7 +122,7 @@ export function MainPageInner({ user }: MainPageInnerProps) {
         getStats, {matches: allMatches.data, user: user, leaderboardId}
     );
 
-    const initialParams = { user };
+    const initialParams = { user: composeUserId(user) };
     return (
             <Tab.Navigator lazy={true} swipeEnabled={true}>
                 <Tab.Screen name="MainProfile" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="Profile"/>}} component={MainProfile} initialParams={initialParams}/>

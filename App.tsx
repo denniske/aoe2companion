@@ -159,9 +159,9 @@ export type RootStackParamList = {
 };
 
 export type RootTabParamList = {
-    MainProfile: { user: UserId };
-    MainStats: { user: UserId };
-    MainMatches: { user: UserId };
+    MainProfile: { user: string };
+    MainStats: { user: string };
+    MainMatches: { user: string };
 };
 
 export type RootStackProp = StackNavigationProp<RootStackParamList, 'Main'>;
