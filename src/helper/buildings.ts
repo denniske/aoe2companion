@@ -223,7 +223,7 @@ export function getBuildingDescription(building: Building) {
     description = description.replace(/  /g, ' ');
     description = description.trim();
 
-    console.log("new desc", JSON.stringify(description));
+    // console.log("new desc", JSON.stringify(description));
 
     return description;
 }
