@@ -14,7 +14,7 @@ export function TextLoader(props: TextLoaderProps) {
     const styles = useTheme(variants);
     const { children, ...rest } = props;
 
-    const hostStyle: any = { color: 'transparent' };//{ flexDirection: 'row', display: 'flex', flexShrink: 1, };
+    const hostStyle: any = { color: 'transparent' };
     if ('width' in props) {
         hostStyle.width = props.width;
     }
@@ -47,11 +47,7 @@ const getStyles = (theme: ITheme) => {
             flexShrink: 1,
             backgroundColor: theme.skeletonColor,
             borderRadius: 5,
-            // flexDirection: 'row',
-            // flex: 1
-        },
-        text: {
-            // color: 'transparent',
+            overflow: 'hidden',
         },
     });
 };
