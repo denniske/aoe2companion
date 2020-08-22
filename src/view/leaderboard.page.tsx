@@ -196,7 +196,7 @@ function Leaderboard({leaderboardId}: any) {
                     <TextLoader numberOfLines={1} style={isMe ? styles.cellRankMe : [styles.cellRank, { width: rankWidth }]}>#{player?.rank || i+1}</TextLoader>
                     <TextLoader style={isMe ? styles.cellRatingMe : styles.cellRating}>{player?.rating}</TextLoader>
                     <View style={styles.cellName}>
-                        <ImageLoader style={styles.countryIcon} isReady={player} source={getFlagIcon(player?.country)}/>
+                        <ImageLoader style={styles.countryIcon} ready={player} source={getFlagIcon(player?.country)}/>
                         <TextLoader style={isMe ? styles.nameMe : styles.name} numberOfLines={1}>{player?.name}</TextLoader>
                     </View>
                     <TextLoader style={styles.cellGames}>{player?.games} games</TextLoader>

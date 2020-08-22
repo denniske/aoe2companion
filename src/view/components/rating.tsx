@@ -99,7 +99,7 @@ export default function Rating({ratingHistories}: IRatingProps) {
                     <ButtonPicker value={ratingHistoryDuration} values={values} formatter={capitalize} onSelect={nav}/>
                 </View>
 
-                <ViewLoader isReady={ratingHistories}>
+                <ViewLoader ready={ratingHistories}>
                     <VictoryChart width={windowWidth - 40} height={300} theme={themeWithSystemFont}
                                   padding={{left: 50, bottom: 30, top: 20, right: 20}}
                                   // containerComponent={

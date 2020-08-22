@@ -109,7 +109,7 @@ export default function MainStats() {
                                     <View style={styles.pickerRow}>
                                         <TemplatePicker value={leaderboardId} values={values} template={renderLeaderboard} onSelect={onLeaderboardSelected}/>
                                     </View>
-                                    <TextLoader isReady={hasStats} style={styles.info}>
+                                    <TextLoader ready={hasStats} style={styles.info}>
                                         {statsPlayer?.matchCount > 0 ? `The last ${statsPlayer?.matchCount} matches:` : 'No matches yet.'}
                                     </TextLoader>
                                 </View>;

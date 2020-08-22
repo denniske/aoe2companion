@@ -11,12 +11,12 @@ import {ITheme, makeVariants, useTheme} from "../../../theming";
 
 type Optional<T, K extends keyof T> = Omit<T, K> & Partial<T>;
 type ImageLoaderProps = Optional<ImageProps, 'source'> & {
-    isReady?: any,
+    ready?: any,
 }
 
 export function ImageLoader(props: ImageLoaderProps) {
     const styles = useTheme(variants);
-    if (props.source == null || ('ready' in props && !props.isReady)) {
+    if (props.source == null || ('ready' in props && !props.ready)) {
         return (
             <View {...props} style={[props.style, { height: 'auto', flexDirection: 'row', display: 'flex'}]}>
                 <View style={styles.container}>

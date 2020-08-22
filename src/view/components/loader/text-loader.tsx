@@ -5,7 +5,7 @@ import {ITheme, makeVariants, useTheme} from "../../../theming";
 
 type TextLoaderProps = TextProps & {
     children?: React.ReactNode,
-    isReady?: any,
+    ready?: any,
     textStyle?: StyleProp<TextStyle>,
     width?: number,
 }
@@ -19,7 +19,7 @@ export function TextLoader(props: TextLoaderProps) {
         hostStyle.width = props.width;
     }
 
-    if (props.children == null || ('ready' in props && !props.isReady)) {
+    if (props.children == null || ('ready' in props && !props.ready)) {
         return (
             <MyText numberOfLines={1} style={[rest.style, hostStyle, styles.container]}>......................................</MyText>
         );
@@ -34,7 +34,7 @@ export function TextLoader(props: TextLoaderProps) {
     //     );
     // }
 
-    const { isReady, ...restProps } = props;
+    const { ready, ...restProps } = props;
 
     return (
         <MyText {...restProps}/>
