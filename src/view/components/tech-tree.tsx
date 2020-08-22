@@ -3,7 +3,7 @@ import {getTechIcon, Tech} from "../../helper/techs";
 import {getOtherIcon, getUnitIcon, getUnitLineForUnit, Other, Unit} from "../../helper/units";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
-import {Dimensions, ImageBackground, StyleSheet, TouchableOpacity, View} from "react-native";
+import {Dimensions, ImageBackground, StyleSheet, TouchableOpacity, View, Platform} from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import React from "react";
 import {aoeCivKey} from "../../data/data";
@@ -684,7 +684,8 @@ function Ability0() {
     );
 }
 
-const techTreeWidth = Dimensions.get('window').width - 28;
+const windowWidth = Platform.OS === 'web' ? 450 : Dimensions.get('window').width;
+const techTreeWidth = windowWidth - 28;
 const colSize = (techTreeWidth / 8)-4;
 const colSize2 = colSize-6;
 
@@ -743,7 +744,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: colSize2,
         height: colSize2,
-        resizeMode: "contain",
+        // resizeMode: "contain",
         // backgroundColor: 'blue',
     },
     imageContainer0: {
@@ -776,6 +777,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         fontWeight: 'bold',
         marginBottom: 5,
+        // backgroundColor: 'red',
     },
     heading2: {
         marginVertical: 10,

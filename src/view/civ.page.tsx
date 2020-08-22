@@ -154,7 +154,7 @@ const getStyles = (theme: ITheme) => {
         },
         image: {
             flex: 1,
-            resizeMode: "contain",
+            // resizeMode: "contain",
             // backgroundColor: 'blue',
         },
         title: {
