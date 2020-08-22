@@ -564,7 +564,13 @@ const getStyles = (theme: ITheme) => {
     return StyleSheet.create({
         container: {
             overflow: 'hidden',
-            marginHorizontal: 200,
+            width: 450,
+            maxHeight: 900,
+            marginHorizontal: 'auto',
+            marginVertical: 'auto',
+            borderColor: '#CCC',
+            borderWidth: 1,
+            borderRadius: 10,
             // backgroundColor: '#397AF9',
             backgroundColor: theme.backgroundColor,
             paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,

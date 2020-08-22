@@ -121,6 +121,7 @@ export default function Footer() {
                     </TouchableOpacity>
                    <Menu
                         contentStyle={{marginBottom: 50}}
+                        theme={{animation: {scale: 0}}}
                             visible={menu}
                             onDismiss={() => setMenu(false)}
                             anchor={
