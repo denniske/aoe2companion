@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '15.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix stable units position in full tech tree',
+        },
+    ],
     '14.0.18': [
         {
             type: 'feature',

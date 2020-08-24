@@ -277,26 +277,34 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                     <View style={styles.row}>
                         <Ability3 age="FeudalAge"/>
                         <Ability2 civ={civ} unit="ScoutCavalry"/>
-                        <Ability2 civ={civ} unit="Knight"/>
-                        <Ability2 civ={civ} unit="CamelRider"/>
-                        <Ability2 civ={civ} unit="BattleElephant"/>
-                        <Ability2 civ={civ} unit="SteppeLancer"/>
+                        <Ability2/>
+                        <Ability2/>
+                        <Ability2/>
+                        <Ability2/>
                         <Ability2/>
                         <Ability2 civ={civ} tech="Bloodlines"/>
                     </View>
                     <View style={styles.row}>
                         <Ability3 age="CastleAge"/>
                         <Ability2 civ={civ} unit="LightCavalry"/>
-                        <Ability2 civ={civ} unit="Cavalier"/>
-                        <Ability2 civ={civ} unit="HeavyCamelRider"/>
-                        <Ability2 civ={civ} unit="EliteBattleElephant"/>
-                        <Ability2 civ={civ} unit="EliteSteppeLancer"/>
+                        <Ability2 civ={civ} unit="Knight"/>
+                        <Ability2 civ={civ} unit="CamelRider"/>
+                        <Ability2 civ={civ} unit="BattleElephant"/>
+                        <Ability2 civ={civ} unit="SteppeLancer"/>
                         <Ability2/>
                         <Ability2 civ={civ} tech="Husbandry"/>
                     </View>
                     <View style={styles.row}>
                         <Ability3 age="ImperialAge"/>
                         <Ability2 civ={civ} unit="Hussar"/>
+                        <Ability2 civ={civ} unit="Cavalier"/>
+                        <Ability2 civ={civ} unit="HeavyCamelRider"/>
+                        <Ability2 civ={civ} unit="EliteBattleElephant"/>
+                        <Ability2 civ={civ} unit="EliteSteppeLancer"/>
+                    </View>
+                    <View style={styles.row}>
+                        <Ability2/>
+                        <Ability2/>
                         <Ability2 civ={civ} unit="Paladin"/>
                         <Ability2 civ={civ} unit="ImperialCamelRider"/>
                         <Ability2/>
