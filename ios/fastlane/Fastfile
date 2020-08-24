@@ -64,8 +64,8 @@ platform :ios do
     #if options[:upload]
     pilot(
         ipa: '../app.ipa',
-        apple_id: '1518463195'
-        skip_waiting_for_build_processing: true
+        apple_id: '1518463195',
+        skip_waiting_for_build_processing: true,
         skip_submission: true
     )
     #end
