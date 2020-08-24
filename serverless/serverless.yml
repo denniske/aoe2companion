@@ -82,6 +82,16 @@ functions:
           path: api/leaderboard
           method: get
           cors: true
+  leaderboardTable:
+    handler: src/leaderboard-table.leaderboardTable
+    tags:
+      func: leaderboardTable
+    memorySize: 256
+    events:
+      - http:
+          path: api/leaderboard-table
+          method: post
+          cors: true
   ingest:
     handler: src/ingest.ingest
     tags:
