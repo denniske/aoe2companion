@@ -1,4 +1,3 @@
-import Constants from 'expo-constants';
 import { Platform } from 'react-native';
 
 export type Host = 'aoe2companion' | 'aoe2companion-api' | 'aoe2net';
