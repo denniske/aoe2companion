@@ -61,6 +61,7 @@ import * as Notifications from "expo-notifications";
 import TipsPage from "./src/view/tips.page";
 import {setSavedNotification} from "./src/helper/notification";
 import initSentry from "./src/helper/sentry";
+import * as Device from 'expo-device';
 
 
 initSentry();
@@ -562,17 +563,19 @@ export default function App() {
 }
 
 const getStyles = (theme: ITheme) => {
+    const isMobile = ['Android', 'iOS'].includes(Device.osName!);
     return StyleSheet.create({
         container: {
             ...(Platform.OS === 'web' ? {
                     overflow: 'hidden',
                     width: 450,
+                    maxWidth: '100%',
                     maxHeight: 900,
                     marginHorizontal: 'auto',
                     marginVertical: 'auto',
                     borderColor: '#CCC',
-                    borderWidth: 1,
-                    borderRadius: 10,
+                    borderWidth: isMobile ? 0 : 1,
+                    borderRadius: isMobile ? 0 : 10,
                 } : {}
             ),
 

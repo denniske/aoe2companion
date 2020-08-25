@@ -22,9 +22,10 @@ import {ITheme, makeVariants, usePaperTheme, useTheme} from "../theming";
 import Picker from "./components/picker";
 import {setLeaderboardCountry, useMutate, useSelector} from "../redux/reducer";
 import TextHeader from "./components/navigation-header/text-header";
-import {formatAgo, getValue, noop} from "../helper/util";
+import {formatAgo, noop} from "../helper/util";
 import RefreshControlThemed from "./components/refresh-control-themed";
 import {AnimatedValueText} from "./components/animated-value-text";
+import {getValue} from "../helper/util-component";
 
 type TabParamList = {
     LeaderboardRm1v1: { leaderboardId: number };

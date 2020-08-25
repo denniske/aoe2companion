@@ -19,6 +19,7 @@
     "date-fns": "^2.14.0",
     "expo": "^38.0.9",
     "expo-av": "~8.2.1",
+    "expo-device": "~2.2.1",
     "expo-font": "~8.2.1",
     "expo-notifications": "~0.3.3",
     "expo-permissions": "~9.0.1",

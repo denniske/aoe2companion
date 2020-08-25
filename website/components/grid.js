@@ -1,7 +1,12 @@
-import React, { Component } from 'react';
-import { AgGridReact } from 'ag-grid-react';
+import React, {Component} from 'react';
+import {AgGridReact} from 'ag-grid-react';
 import {simpleHttpRequest} from "ag-grid-community";
 import {fetchLeaderboard} from "./helper";
+import {Menu, Button} from "antd";
+import {MailOutlined, AppstoreOutlined, SettingOutlined} from '@ant-design/icons';
+import {Select} from 'antd';
+
+const {Option} = Select;
 
 class Grid extends Component {
     constructor(props) {
@@ -10,14 +15,14 @@ class Grid extends Component {
         var dataSource = {
             rowCount: null, // behave as infinite scroll
 
-            getRows: async function(params) {
+            getRows: async function (params) {
                 console.log('asking for ' + params.startRow + ' to ' + params.endRow);
                 console.log(params);
 
                 const data = await fetchLeaderboard('aoe2de', 3, {
-                        start: params.startRow+1,
-                        count: params.endRow-params.startRow,
-                    });
+                    start: params.startRow + 1,
+                    count: params.endRow - params.startRow,
+                });
 
                 // At this point in your code, you would call the server, using $http if in AngularJS 1.x.
                 // To make the demo look real, wait for 500ms before returning
@@ -45,10 +50,10 @@ class Grid extends Component {
                     valueGetter: 'node.id',
                     cellRenderer: 'loadingRenderer',
                 },
-                { field: 'rank', minWidth: 150, sortable: true },
-                { field: 'rating', sortable: true },
-                { field: 'country', minWidth: 150, sortable: true },
-                { field: 'name', sortable: true },
+                {field: 'rank', minWidth: 150, sortable: true},
+                {field: 'rating', sortable: true},
+                {field: 'country', minWidth: 150, sortable: true},
+                {field: 'name', sortable: true},
             ],
             defaultColDef: {
                 flex: 1,
@@ -57,7 +62,7 @@ class Grid extends Component {
             },
             suppressMultiSort: true,
             components: {
-                loadingRenderer: function(params) {
+                loadingRenderer: function (params) {
                     if (params.value !== undefined) {
                         return params.value;
                     } else {
@@ -93,17 +98,63 @@ class Grid extends Component {
         this.state = {gridOptions};
     }
 
+    state = {
+        current: 'mail',
+    };
+
+    handleClick = e => {
+        console.log('click ', e);
+        this.setState({current: e.key});
+    };
+
     render() {
+        const {current} = this.state;
         return (
-            <div
-                className="ag-theme-alpine"
-                style={{
-                    height: '800px',
-                    width: '700px' }}
-            >
-                <AgGridReact
-                    gridOptions={this.state.gridOptions}>
-                </AgGridReact>
+            <div>
+                {/*<Button type="primary">Button</Button>*/}
+
+                <Menu onClick={this.handleClick} selectedKeys={[current]} mode="horizontal">
+                    <Menu.Item key="app" icon={<AppstoreOutlined/>}>
+                        Following
+                    </Menu.Item>
+                    <Menu.Item key="mail" icon={<MailOutlined/>}>
+                        Me
+                    </Menu.Item>
+                    <Menu.Item key="app2" icon={<AppstoreOutlined/>}>
+                        Leaderboard
+                    </Menu.Item>
+                    <Menu.Item key="app3" icon={<AppstoreOutlined/>}>
+                        Civs
+                    </Menu.Item>
+                </Menu>
+
+                <br/>
+                <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+                    <Select defaultValue="lucy" bordered={false}><Option value="china"
+                                                                                              label="China">
+                        <div className="demo-option-label-item">
+                            <span role="img" aria-label="China">
+                              🇨🇳
+                            </span>
+                            China (中国)
+                        </div>
+                    </Option>
+                    </Select>
+                </div>
+                <br/>
+                <br/>
+
+                <div
+                    className="ag-theme-alpine"
+                    style={{
+                        height: '800px',
+                        width: '700px'
+                    }}
+                >
+                    <AgGridReact
+                        gridOptions={this.state.gridOptions}>
+                    </AgGridReact>
+                </div>
             </div>
         );
     }
