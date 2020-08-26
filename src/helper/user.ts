@@ -20,8 +20,8 @@ export function parseUserId(str: string): UserId {
     const parts = str.split('-');
     return {
         id: str,
-        steam_id: parts[0] === 'null' ? undefined : parts[0],
-        profile_id: parts[1] === 'null' ? undefined : parseInt(parts[1]),
+        steam_id: (parts[0] === 'null' || parts[0] === 'undefined') ? undefined : parts[0],
+        profile_id: (parts[1] === 'null' || parts[1] === 'undefined') ? undefined : parseInt(parts[1]),
     };
 }
 

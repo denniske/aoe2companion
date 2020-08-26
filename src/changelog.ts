@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '15.0.1': [
+        {
+            type: 'bugfix',
+            title: 'Fix display of game result (won/lost)',
+        },
+    ],
     '15.0.0': [
         {
             type: 'bugfix',

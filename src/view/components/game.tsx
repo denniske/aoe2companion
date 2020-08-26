@@ -88,7 +88,7 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
                                      imageStyle={styles.imageInner}
                                      style={styles.map}>
                         {
-                            data.players.some(p => sameUserNull(p, user) && p.won && p.team != -1) &&
+                            data.players.some(p => sameUserNull(p, user) && p.won === true && p.team != -1) &&
                             <IconFA5 name="crown" size={14} style={{marginLeft: -7,marginTop:-4}} color="goldenrod" />
                         }
                         {
@@ -96,7 +96,7 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
                             <Image source={require('../../../assets/other/SkullCrown.png')} style={{marginLeft: -6,marginTop:-4, width: 17, height: 17}} />
                         }
                         {
-                            data.players.some(p => sameUserNull(p, user) && !p.won && p.team != -1) &&
+                            data.players.some(p => sameUserNull(p, user) && p.won === false && p.team != -1) &&
                             <IconFA5 name="skull" size={14} style={{marginLeft: -6,marginTop:-4}} color="grey" />
                         }
                     </ImageBackground>

@@ -85,11 +85,11 @@ export function Player({player, highlight}: IPlayerProps) {
 
                 <View style={styles.playerWonCol}>
                     {
-                        player.won && player.team != -1 &&
+                        player.won === true && player.team != -1 &&
                         <IconFA5 name="crown" size={14} color="goldenrod" />
                     }
                     {
-                        !player.won && player.team != -1 &&
+                        player.won === false && player.team != -1 &&
                         <IconFA5 name="skull" size={14} style={styles.skullIcon} color="grey" />
                     }
                 </View>
