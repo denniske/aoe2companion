@@ -8,6 +8,7 @@ import {fetchMatches, getValue, setValue} from "../../serverless/src/helper";
 import {chunk, uniqBy} from "lodash";
 import {LeaderboardRow} from "../../serverless/entity/leaderboard-row";
 import * as fs from "fs";
+import {max} from "lodash";
 
 const cors = require('cors');
 const app = express();
@@ -29,22 +30,26 @@ export function sleep(ms: number) {
 
 
 async function fetchMatchesSinceLastTime() {
-    const matchesFetchedLastIndex = parseInt(await getValue('matchesFetchedLastIndex') || '0');
+    const connection = await createDB();
 
-    console.log(new Date(), "Fetch matches dataset", matchesFetchedLastIndex);
+    const matchesFetchedLastStarted = parseInt(await getValue('matchesFetchedLastStarted') || '0');
 
-    const entries = await fetchMatches('aoe2de', matchesFetchedLastIndex, 1000)
-    console.log(new Date(), entries.length);
+    console.log(new Date(), "Fetch matches dataset", matchesFetchedLastStarted);
 
-    fs.writeFileSync(`matches-${matchesFetchedLastIndex}-1000.json`, JSON.stringify(entries));
+    const entries = await fetchMatches('aoe2de', 0, 1000, matchesFetchedLastStarted);
+    console.log(new Date(), 'GOT', entries.length);
+
+    fs.writeFileSync(`matches-${matchesFetchedLastStarted}-1000.json`, JSON.stringify(entries));
 
     if (entries.length > 0) {
         console.log(entries[0].match_id, '-', entries[entries.length-1].match_id);
     }
 
+    const total1 = await connection.manager.count(Match);
+
     const matchRepo = getRepository(Match);
 
-
+    const len = 0;
     for (const chunkRows of chunk(entries, 100)) {
 
         const matchRows = chunkRows.map(matchEntry => {
@@ -121,10 +126,11 @@ async function fetchMatchesSinceLastTime() {
         // console.log(result);
     }
 
+    await setValue('matchesFetchedLastStarted', max(entries.map(e => e.started)));
 
-    await setValue('matchesFetchedLastIndex', matchesFetchedLastIndex+entries.length);
+    const total2 = await connection.manager.count(Match);
 
-    console.log(new Date(), "Saved entries:", entries.length);
+    console.log(new Date(), "Saved entries:", total2-total1);
 
     return entries.length;
 }
