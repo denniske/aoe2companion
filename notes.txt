@@ -1,4 +1,14 @@
 
+web ui
+- core ui admin template
+- ant design pro
+
+db
+- multiple profile_id per match_id 34275971
+- player table match_id is null
+- 2 missing matches before 1737998
+
+
 api performance
 - https://www.bookstack.cn/read/TypeORM/caching.md
 - do not use jsonb
