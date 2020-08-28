@@ -244,7 +244,7 @@ function Leaderboard({leaderboardId}: any) {
         const indexBottom = Math.min(matches.data.total-1, index+15);
 
         const rankLen = indexBottom.toFixed(0).length;
-        setRankWidth((rankLen+1) * 9 + 16);
+        setRankWidth((rankLen+1) * 10);
 
         if (!list[indexTop]) {
             fetchPage(Math.floor(indexTop / pageSize));
@@ -442,7 +442,6 @@ const getStyles = (theme: ITheme) => {
             paddingVertical: 14,
         },
         list: {
-            paddingHorizontal: 15,
             paddingVertical: 20,
         },
         container2: {
@@ -520,21 +519,23 @@ const getStyles = (theme: ITheme) => {
             margin: padding,
             textAlign: 'left',
             width: 60,
+            // backgroundColor: 'yellow',
         },
         cellRating: {
             margin: padding,
-            width: 55,
+            width: 36,
+            // backgroundColor: 'yellow',
         },
         cellRatingMe: {
             margin: padding,
-            width: 55,
+            width: 36,
             fontWeight: 'bold',
+            // backgroundColor: 'yellow',
         },
         flexRow: {
             flexDirection: 'row',
         },
         cellName: {
-            // backgroundColor: 'yellow',
             margin: padding,
             flex: 4,
             flexDirection: 'row',
@@ -595,7 +596,7 @@ const getStyles = (theme: ITheme) => {
             width: '100%',
             flexDirection: 'row',
             alignItems: 'center',
-            paddingHorizontal: 5,
+            paddingHorizontal: 15,
             paddingVertical: 12,
         },
         innerRowWithBorder: {
@@ -604,7 +605,7 @@ const getStyles = (theme: ITheme) => {
             width: '100%',
             flexDirection: 'row',
             alignItems: 'center',
-            paddingHorizontal: 5,
+            paddingHorizontal: 15,
             paddingVertical: 5,
             borderBottomWidth: 1,
             borderBottomColor: theme.lightBorderColor,

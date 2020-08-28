@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '15.0.2': [
+        {
+            type: 'bugfix',
+            title: 'Fix width for player name in leaderboard',
+        },
+    ],
     '15.0.1': [
         {
             type: 'bugfix',
