@@ -1,17 +1,10 @@
 import express from 'express';
 import {createDB} from "./db";
 import {Match} from "../../serverless/entity/match";
-import {getRepository, In, Not} from "typeorm";
-import {getUnixTime} from 'date-fns';
-import {Player} from "../../serverless/entity/player";
-import {fetchLeaderboardRecentMatches, fetchMatches, getValue, setValue} from "../../serverless/src/helper";
-import {chunk, uniqBy} from "lodash";
-import {LeaderboardRow} from "../../serverless/entity/leaderboard-row";
-import * as fs from "fs";
-import {max} from "lodash";
+import {In} from "typeorm";
+import {fetchLeaderboardRecentMatches} from "../../serverless/src/helper";
 import {groupBy} from "lodash";
-import {Account} from "../../serverless/entity/account";
-import {Following} from "../../serverless/entity/following";
+import {PrismaClient} from "@prisma/client"
 
 const cors = require('cors');
 const app = express();
@@ -24,6 +17,8 @@ app.use(cors());
 // Initialize DB with correct entities
 createDB();
 
+
+const prisma = new PrismaClient()
 
 
 export function sleep(ms: number) {
@@ -45,14 +40,6 @@ async function fetchMatchesSinceLastTime() {
     let entries = await fetchLeaderboardRecentMatches();
     console.log(new Date(), 'GOT', entries.data.length);
 
-    // console.log(entries.map(m => {
-    //     return m.players.map(p => [m.match_id, p.profile_id]);
-    // }));
-    //
-    // throw "asdas";
-
-    // fs.writeFileSync(`/Volumes/External/json/matches-${matchesFetchedLastStarted}.json`, JSON.stringify(entries));
-
     if (entries.data.length > 0) {
         console.log(entries.data[0][21], '-', entries.data[entries.data.length-1][21]);
     }
@@ -67,67 +54,22 @@ async function fetchMatchesSinceLastTime() {
     console.log(lastMatchesFinished);
 
     for (const [finishedStr, players] of Object.entries(lastMatchesFinished)) {
-
         const finished = parseInt(finishedStr);
-        const playerProfileIds = [3125132];// players.map(p => p.profile_id);
+        const playerProfileIds = players.map(p => p.profile_id);
 
-        // const rawData = await connection.manager.find(Match, {
-        //     join: {  }
-        //     where: {
-        //         profile_id: In(players.map(p => p.profile_id)), enabled: true
-        //     },
-        //     relations: ["account"]
-        // });
+        const res = await prisma.match.updateMany({
+            where: {
+                AND: [
+                    { started: { lt: finished } },
+                    { finished: null },
+                    { players: { some: { profile_id: { in: playerProfileIds } } } },
+                ],
+            },
+            data: { maybe_finished: finished },
+        })
 
-        const match = await connection.createQueryBuilder()
-            .select('match.match_id')
-            .from(Match, 'match')
-            .innerJoin("match.players", "player")
-            .where({ finished: null, profile_id: In(playerProfileIds) })
-            .getOne();
-
-
-//         const rawData = await connection.manager.query(`
-//             UPDATE match as m
-//                 SET maybe_finished = $1
-//             WHERE
-//                 EXISTS (SELECT COUNT(*) FROM player WHERE match_id=m.match_id AND profile_id = ANY ($2))
-// `, [finished, playerProfileIds]);
-
-        console.log(match);
-
-//         const rawData = await connection.manager.query(`
-//             UPDATE match as m
-//                 SET maybe_finished = $1
-//             WHERE
-//                 EXISTS (SELECT COUNT(*) FROM player WHERE match_id=m.match_id AND profile_id = ANY ($2))
-// `, [finished, playerProfileIds]);
-//
-//         console.log(rawData);
-        break;
-
-
-        // const query = connection.createQueryBuilder()
-        //     .update(Match)
-        //     .set({
-        //         maybeFinished: finished,
-        //     })
-        //     .where({ finished: null, players: Not(account_id) });
-        // await query.execute();
+        console.log('COUNT', res, finished, playerProfileIds);
     }
-
-    //
-    // await setValue('matchesFetchedLastStarted', max(entries.map(e => e.started)));
-    //
-    // const total2 = await connection.manager.count(Match);
-    //
-    // console.log(new Date(), "Saved entries:", total2-total1);
-    //
-    // if (entriesGreater.length === 0) {
-    //     console.log('DONE', entriesGreater.length);
-    // }
-    //
-    // return entriesGreater.length === 0;
 }
 
 async function importMatches() {
@@ -149,3 +91,36 @@ app.get('/', (req, res) => {
 });
 
 app.listen(process.env.PORT || 3002, () => console.log(`Server listening on port ${process.env.PORT || 3002}!`));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const res = await prisma.match.findMany({
+//     include: {
+//         players: true,
+//     },
+//     where: {
+//         AND: [
+//             { players: { some: { profile_id: { in: [196240, 197930] } } } },
+//             // { players: { some: { OR: [{ profile_id: 196240 }, { profile_id: 197930 }] } } },
+//             // { players: { some: { profile_id: 197930 } } },
+//             // { players: { some: { profile_id: 199325 } } },
+//         ],
+//     },
+//     skip: 0,
+//     take: 5,
+//     orderBy: { started: 'desc' },
+// });
+// console.log('res', res);
+//
+// return;

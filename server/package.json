@@ -17,11 +17,14 @@
     "start": "npm run serve",
     "serve": "node dist/server.js",
     "watch-node": "nodemon dist/server.js",
-    "watch-ts": "tsc -w"
+    "watch-ts": "tsc -w",
+    "generate": "npm -s run generate:prisma",
+    "generate:prisma": "prisma generate"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@prisma/cli": "^2.5.1",
     "@babel/core": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
@@ -39,6 +42,7 @@
     "typescript": "^3.0.1"
   },
   "dependencies": {
+    "@prisma/client": "^2.5.1",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/plugin-proposal-decorators": "^7.10.5",
     "@sendgrid/mail": "^7.2.3",

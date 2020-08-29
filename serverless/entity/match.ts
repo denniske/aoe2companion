@@ -25,6 +25,7 @@ export class Match implements IMatch {
     @Column({ nullable: true })
     finished?: number;
 
+    @Index()
     @Column({ nullable: true })
     maybeFinished?: number;
 

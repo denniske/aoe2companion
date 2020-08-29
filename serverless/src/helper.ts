@@ -170,7 +170,7 @@ export async function fetchLeaderboardRecentMatches(): Promise<ILeaderboardListR
         'order[0][column]': 21,
         'order[0][dir]': 'desc',
         start: 0,
-        length: 100,
+        length: 10000,
     };
     const queryString = makeQueryString(query);
 

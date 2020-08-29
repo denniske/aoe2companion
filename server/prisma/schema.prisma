@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model match {
+  match_id           String   @id
+  match_uuid         String?
+  lobby_id           String?
+  name               String?
+  opened             Int?
+  started            Int?
+  finished           Int?
+  maybe_finished           Int?
+  notified           Boolean  @default(false)
+  leaderboard_id     Int?
+  num_slots          Int?
+  has_password       Boolean?
+  server             String?
+  map_type           Int?
+  average_rating     Int?
+  cheats             Boolean?
+  ending_age         Int?
+  expansion          String?
+  full_tech_tree     Boolean?
+  game_type          Int?
+  has_custom_content Boolean?
+  lock_speed         Boolean?
+  lock_teams         Boolean?
+  map_size           Int?
+  num_players        Int?
+  pop                Int?
+  ranked             Boolean?
+  rating_type        Int?
+  resources          Int?
+  rms                String?
+  scenario           String?
+  shared_exploration Boolean?
+  speed              Int?
+  starting_age       Int?
+  team_positions     Boolean?
+  team_together      Boolean?
+  treaty_length      Int?
+  turbo              Boolean?
+  version            String?
+  victory            Int?
+  victory_time       Int?
+  visibility         Int?
+  players            player[]
+
+  @@index([started], name: "IDX_e7b6cfca8139b9aa85880aab9e")
+}
+
+model player {
+  match_id      String
+  profile_id    Int
+  steam_id      String?
+  civ           Int?
+  clan          String?
+  color         Int?
+  country       String?
+  drops         Int?
+  games         Int?
+  name          String?
+  rating        Int?
+  rating_change Int?
+  slot          Int?
+  slot_type     Int?
+  streak        Int?
+  team          Int?
+  wins          Int?
+  won           Boolean?
+  match         match    @relation(fields: [match_id], references: [match_id])
+
+  @@id([match_id, profile_id])
+  @@index([match_id], name: "IDX_58afd2c450f166eacbdf982841")
+}
