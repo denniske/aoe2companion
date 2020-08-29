@@ -71,6 +71,12 @@ export interface ILeaderboardPlayerRaw {
     wins: number;
 }
 
+export interface ILeaderboardListRaw {
+    recordsFiltered: number;
+    draw: number;
+    recordsTotal: number;
+    data: (string | number)[][];
+}
 
 export interface IMatchRaw {
     match_id: string;
@@ -135,18 +141,47 @@ export async function fetchLeaderboard(game: string, leaderboard_id: number, par
 }
 
 export async function fetchMatches(game: string, start: number, count: number, since?: number): Promise<IMatchRaw[]> {
-    const queryString = makeQueryString({
+    let query: any = {
         game,
         start,
         count,
-        since,
-    });
+    };
+    if (since != null) {
+        query.since = since;
+    }
+    const queryString = makeQueryString(query);
 
     const url = `http://aoe2.net/api/matches?${queryString}`;
     console.log(url);
-    const response = await fetch(url);
+    const response = await fetch(url, { timeout: 60 * 1000 });
     try {
-        return await response.json();
+        const text = await response.text();
+        // console.log(text);
+        return JSON.parse(text);
+        // return await response.json();
+    } catch (e) {
+        console.log("FAILED", url);
+        throw e;
+    }
+}
+
+export async function fetchLeaderboardRecentMatches(): Promise<ILeaderboardListRaw> {
+    let query: any = {
+        'order[0][column]': 21,
+        'order[0][dir]': 'desc',
+        start: 0,
+        length: 100,
+    };
+    const queryString = makeQueryString(query);
+
+    const url = `https://aoe2.net/leaderboard/aoe2de/rm-1v1?${queryString}`;
+    console.log(url);
+    const response = await fetch(url, { timeout: 60 * 1000 });
+    try {
+        const text = await response.text();
+        // console.log(text);
+        return JSON.parse(text);
+        // return await response.json();
     } catch (e) {
         console.log("FAILED", url);
         throw e;

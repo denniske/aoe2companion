@@ -8,6 +8,18 @@ db
 - player table match_id is null
 - 2 missing matches before 1737998
 
+indices
+- player.match_id
+  - civ stats
+  - map stats
+- player.profile_id
+  - player recent matches
+
+users
+- viper 289006
+- hera
+- t90 197930
+
 
 api performance
 - https://www.bookstack.cn/read/TypeORM/caching.md

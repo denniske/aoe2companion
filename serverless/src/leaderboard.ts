@@ -51,6 +51,7 @@ export const leaderboard: APIGatewayProxyHandler = async (event, _context) => {
     if (profileId) where['profile_id'] = profileId;
     if (search) where['name'] = Like(`%${search}%`);
 
+    // Only for "My Rank" (will return one row)
     if (country != null && (steamId != null || profileId != null)) {
         const users = await connection
             .createQueryBuilder()

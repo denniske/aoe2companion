@@ -26,9 +26,9 @@ export async function createDB() {
         const connection = await createConnection({
             type: "postgres",
             url: process.env.DATABASE_URL,
-            ssl: {
-                rejectUnauthorized: false,
-            },
+            // ssl: {
+            //     rejectUnauthorized: false,
+            // },
             entities: [
                 Account,
                 Push,
@@ -41,7 +41,7 @@ export async function createDB() {
             ],
             // entities: getMetadataArgsStorage().tables.map(tbl => tbl.target),
             synchronize: !!process.env.IS_OFFLINE,
-            logging: false,//!!process.env.IS_OFFLINE,
+            logging: true,//!!process.env.IS_OFFLINE,
             namingStrategy: new SnakeNamingStrategy(),
         });
         console.log('Using NEW connection. Connected: ', connection.isConnected);

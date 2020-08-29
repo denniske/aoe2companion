@@ -9,6 +9,8 @@
     "notify-single": "tsc && node ./dist/server/src/notify.js",
     "api": "nodemon --exec 'tsc && node ./dist/server/src/api.js' --ext ts --watch src",
     "proxy": "nodemon --exec 'tsc && node ./dist/server/src/proxy.js' --ext ts --watch src",
+    "import": "nodemon --exec 'tsc && node ./dist/server/src/import.js' --ext ts --watch src",
+    "finished": "nodemon --exec 'tsc && node ./dist/server/src/finished.js' --ext ts --watch src",
     "leaderboard": "nodemon --exec 'tsc && node ./dist/server/src/leaderboard.js' --ext ts --watch src",
     "build": "tsc",
     "build-ts": "tsc",
