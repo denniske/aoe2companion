@@ -22,6 +22,7 @@ export class Match implements IMatch {
     @Column({ nullable: true })
     started?: number;
 
+    @Index()
     @Column({ nullable: true })
     finished?: number;
 

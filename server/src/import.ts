@@ -51,14 +51,8 @@ async function fetchMatchesSinceLastTime() {
 
     console.log(new Date(), "Fetch matches dataset", matchesFetchedLastStarted);
 
-    let entries = await fetchMatches('aoe2de', 0, 2000, matchesFetchedLastStarted);
+    let entries = await fetchMatches('aoe2de', 0, 1000, matchesFetchedLastStarted);
     console.log(new Date(), 'GOT', entries.length);
-
-    // console.log(entries.map(m => {
-    //     return m.players.map(p => [m.match_id, p.profile_id]);
-    // }));
-    //
-    // throw "asdas";
 
     fs.writeFileSync(`/Volumes/External/json/matches-${matchesFetchedLastStarted}.json`, JSON.stringify(entries));
 
@@ -68,7 +62,7 @@ async function fetchMatchesSinceLastTime() {
 
     const entriesGreater = entries.filter(e => e.started > matchesFetchedLastStarted);
 
-    const total1 = await connection.manager.count(Match);
+    // const total1 = await connection.manager.count(Match);
 
     const matchRepo = getRepository(Match);
     const playerRepo = getRepository(Player);
@@ -165,9 +159,8 @@ async function fetchMatchesSinceLastTime() {
 
     await setValue('matchesFetchedLastStarted', max(entries.map(e => e.started)));
 
-    const total2 = await connection.manager.count(Match);
-
-    console.log(new Date(), "Saved entries:", total2-total1);
+    // const total2 = await connection.manager.count(Match);
+    // console.log(new Date(), "Saved entries:", total2-total1);
 
     if (entriesGreater.length === 0) {
         console.log('DONE', entriesGreater.length);

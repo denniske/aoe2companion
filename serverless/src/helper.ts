@@ -165,12 +165,33 @@ export async function fetchMatches(game: string, start: number, count: number, s
     }
 }
 
-export async function fetchLeaderboardRecentMatches(): Promise<ILeaderboardListRaw> {
+export async function fetchMatch(game: string, match_id: string): Promise<IMatchRaw> {
+    let query: any = {
+        game,
+        match_id,
+    };
+    const queryString = makeQueryString(query);
+
+    const url = `http://aoe2.net/api/match?${queryString}`;
+    console.log(url);
+    const response = await fetch(url, { timeout: 60 * 1000 });
+    try {
+        const text = await response.text();
+        // console.log(text);
+        return JSON.parse(text);
+        // return await response.json();
+    } catch (e) {
+        console.log("FAILED", url);
+        throw e;
+    }
+}
+
+export async function fetchLeaderboardRecentMatches(count: number): Promise<ILeaderboardListRaw> {
     let query: any = {
         'order[0][column]': 21,
         'order[0][dir]': 'desc',
         start: 0,
-        length: 10000,
+        length: count,
     };
     const queryString = makeQueryString(query);
 

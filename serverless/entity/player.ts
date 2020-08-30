@@ -14,7 +14,7 @@ export class Player implements IPlayer {
     match_id: string;
 
     @Index()
-    @PrimaryColumn()
+    @PrimaryColumn({ default: 0 })
     profile_id: number;
 
     @Column({ nullable: true })
@@ -47,7 +47,7 @@ export class Player implements IPlayer {
     @Column({ nullable: true })
     rating_change?: number;
 
-    @Column({ nullable: true })
+    @PrimaryColumn()
     slot?: number;
 
     @Column({ nullable: true })

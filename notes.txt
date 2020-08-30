@@ -15,6 +15,10 @@ indices
 - player.profile_id
   - player recent matches
 
+missing data
+- leaderboards 1, 2, 3, 4 missing rating change (needed for rating history)
+- leaderboard 0 missing won (use .rec files?)
+
 users
 - viper 289006
 - hera

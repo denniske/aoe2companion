@@ -37,7 +37,7 @@ async function fetchMatchesSinceLastTime() {
 
     console.log(new Date(), "Fetch leaderboard recent matches");
 
-    let entries = await fetchLeaderboardRecentMatches();
+    let entries = await fetchLeaderboardRecentMatches(50);
     console.log(new Date(), 'GOT', entries.data.length);
 
     if (entries.data.length > 0) {
@@ -65,7 +65,8 @@ async function fetchMatchesSinceLastTime() {
                     { players: { some: { profile_id: { in: playerProfileIds } } } },
                 ],
             },
-            data: { maybe_finished: finished },
+            data: { maybe_finished: null },
+            // data: { maybe_finished: finished },
         })
 
         console.log('COUNT', res, finished, playerProfileIds);
@@ -90,7 +91,7 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
-app.listen(process.env.PORT || 3002, () => console.log(`Server listening on port ${process.env.PORT || 3002}!`));
+app.listen(process.env.PORT || 3012, () => console.log(`Server listening on port ${process.env.PORT || 3002}!`));
 
 
 

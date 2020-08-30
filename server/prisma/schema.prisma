@@ -15,7 +15,6 @@ model match {
   opened             Int?
   started            Int?
   finished           Int?
-  maybe_finished           Int?
   notified           Boolean  @default(false)
   leaderboard_id     Int?
   num_slots          Int?
@@ -50,8 +49,11 @@ model match {
   victory            Int?
   victory_time       Int?
   visibility         Int?
+  maybe_finished     Int?
   players            player[]
 
+  @@index([finished], name: "IDX_ae68e51ffaf47285b168278edf")
+  @@index([maybe_finished], name: "IDX_cccc814b67879f5b8c455befad")
   @@index([started], name: "IDX_e7b6cfca8139b9aa85880aab9e")
 }
 
@@ -68,7 +70,7 @@ model player {
   name          String?
   rating        Int?
   rating_change Int?
-  slot          Int?
+  slot          Int
   slot_type     Int?
   streak        Int?
   team          Int?
@@ -76,6 +78,7 @@ model player {
   won           Boolean?
   match         match    @relation(fields: [match_id], references: [match_id])
 
-  @@id([match_id, profile_id])
+  @@id([match_id, profile_id, slot])
   @@index([match_id], name: "IDX_58afd2c450f166eacbdf982841")
+  @@index([profile_id], name: "IDX_ba3de28aa98207f3a21145feb8")
 }
