@@ -13,6 +13,8 @@
     "import-single": "tsc && node ./dist/server/src/import.js",
     "import-json": "nodemon --exec 'tsc && node ./dist/server/src/import-json.js' --ext ts --watch src",
     "import-json-single": "tsc && node ./dist/server/src/import-json.js",
+    "board": "nodemon --exec 'tsc && node ./dist/server/src/job/board.js' --ext ts --watch src",
+    "board-single": "tsc && node ./dist/server/src/job/board.js",
     "migrate-single": "tsc && node ./dist/server/src/migrate.js",
     "refetch-single": "tsc && node ./dist/server/src/refetch.js",
     "finished": "nodemon --exec 'tsc && node ./dist/server/src/finished.js' --ext ts --watch src",

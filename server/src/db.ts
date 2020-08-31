@@ -87,7 +87,7 @@ export async function createDB() {
             ],
             // entities: getMetadataArgsStorage().tables.map(tbl => tbl.target),
             synchronize: process.env.LOCAL === 'true',
-            logging: false && process.env.LOCAL === 'true',//!!process.env.IS_OFFLINE,
+            logging: true && process.env.LOCAL === 'true',//!!process.env.IS_OFFLINE,
             namingStrategy: new SnakeNamingStrategy(),
         });
         console.log('Using NEW connection. Connected: ', connection.isConnected);

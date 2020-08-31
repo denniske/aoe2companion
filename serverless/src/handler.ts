@@ -7,7 +7,7 @@ import {SnakeNamingStrategy} from "typeorm-naming-strategies";
 
 import {User} from "../entity/user";
 
-require('dotenv').config();
+// require('dotenv').config();
 
 // Use pg2 to force inclusion in final package
 import * as pg2 from 'pg';
@@ -20,6 +20,7 @@ import {Following} from "../entity/following";
 import {Account} from "../entity/account";
 
 console.log(pg2 != null ? 'pg initialized' : '');
+console.log(process.env.DATABASE_URL);
 
 export async function createDB() {
     try {

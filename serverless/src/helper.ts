@@ -75,7 +75,30 @@ export interface ILeaderboardListRaw {
     recordsFiltered: number;
     draw: number;
     recordsTotal: number;
-    data: (string | number)[][];
+    data: [
+        string,
+        string,
+        string,
+        string,
+        string,
+        string,
+        string,
+        string,
+        string,
+        string,
+        string,
+        string,
+        string,
+        string,
+        string,
+        string,
+        number,
+        number,
+        number,
+        number,
+        boolean,
+        number,
+    ][];
 }
 
 export interface IMatchRaw {

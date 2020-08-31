@@ -2,7 +2,8 @@ import {Match} from "./match";
 import {IMatchFromApi, IPlayer, IPlayerBase} from "./entity.type";
 import {Player} from "./player";
 import {chunk, uniqBy} from "lodash";
-import {Connection} from "typeorm";
+import {Column, Connection, PrimaryColumn} from "typeorm";
+import {LeaderboardRow} from "./leaderboard-row";
 
 export function createMatchEntity(matchEntry: IMatchFromApi) {
     const match = new Match();
@@ -72,6 +73,31 @@ export function createPlayerEntity(matchEntry: IMatchFromApi, playerEntry: IPlay
     return player;
 }
 
+export function createLeaderboardRowEntity(leaderboardRowEntry: LeaderboardRow) {
+    const leaderboardRow = new LeaderboardRow();
+    leaderboardRow.leaderboard_id = leaderboardRowEntry.leaderboard_id;
+    // leaderboardRow.rank = leaderboardRowEntry.rank;
+    leaderboardRow.profile_id = leaderboardRowEntry.profile_id;
+    leaderboardRow.steam_id = leaderboardRowEntry.steam_id;
+    leaderboardRow.name = leaderboardRowEntry.name;
+    leaderboardRow.country = leaderboardRowEntry.country;
+    leaderboardRow.clan = leaderboardRowEntry.clan;
+    leaderboardRow.icon = leaderboardRowEntry.icon;
+    leaderboardRow.wins = leaderboardRowEntry.wins;
+    leaderboardRow.drops = leaderboardRowEntry.drops;
+    leaderboardRow.games = leaderboardRowEntry.games;
+    leaderboardRow.losses = leaderboardRowEntry.losses;
+    leaderboardRow.rating = leaderboardRowEntry.rating;
+    leaderboardRow.streak = leaderboardRowEntry.streak;
+    leaderboardRow.last_match = leaderboardRowEntry.last_match;
+    leaderboardRow.lowest_streak = leaderboardRowEntry.lowest_streak;
+    leaderboardRow.highest_rating = leaderboardRowEntry.highest_rating;
+    leaderboardRow.highest_streak = leaderboardRowEntry.highest_streak;
+    leaderboardRow.last_match_time = leaderboardRowEntry.last_match_time;
+    leaderboardRow.previous_rating = leaderboardRowEntry.previous_rating;
+    return leaderboardRow;
+}
+
 export async function upsertMatchesWithPlayers(connection: Connection, matchEntries: IMatchFromApi[]) {
     for (const chunkRows of chunk(matchEntries, 100)) {
         const playerRows: Player[] = [];
@@ -100,8 +126,6 @@ export async function upsertAIPlayers(connection: Connection, matchEntries: IMat
         const playerRows: Player[] = [];
 
         chunkRows.forEach(matchEntry => {
-            const match = createMatchEntity(matchEntry);
-
             const otherPlayers = matchEntry.players.filter(p => p.profile_id == null);
 
             const players = otherPlayers.map(playerEntry => {
@@ -113,6 +137,21 @@ export async function upsertAIPlayers(connection: Connection, matchEntries: IMat
 
         await connection.transaction(async transactionalEntityManager => {
             await transactionalEntityManager.save(playerRows);
+        });
+    }
+}
+
+export async function upsertLeaderboardRows(connection: Connection, leaderboardRowEntries: LeaderboardRow[]) {
+    for (const chunkRows of chunk(leaderboardRowEntries, 100)) {
+        const leaderboardRows: LeaderboardRow[] = [];
+
+        chunkRows.forEach(leaderboardEntry => {
+            const leaderboard = createLeaderboardRowEntity(leaderboardEntry);
+            leaderboardRows.push(leaderboard);
+        });
+
+        await connection.transaction(async transactionalEntityManager => {
+            await transactionalEntityManager.save(leaderboardRows);
         });
     }
 }
