@@ -22,15 +22,15 @@ add content
 - leaderboard rating distribution
 - lobbies online players per mode
 - infer match results from rating change
-
+- testflight
 
 - rating history # of games
 
-- unit upgrade cost regex
 - match duration
 - stats match duration
-- testflight
 
+
+/Library/Developer/CoreSimulator/Profiles/Runtimes
 
 https://aoe2de-head2head.herokuapp.com/#Hera,solo
 https://aoenexus.com/

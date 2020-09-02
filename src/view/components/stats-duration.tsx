@@ -6,16 +6,11 @@ import {UserIdBase} from "../../helper/user";
 import {MyText} from "./my-text";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import Icon5 from 'react-native-vector-icons/FontAwesome5';
-import {AoePosition, IRow} from "../../service/stats/stats-position";
-import {LeaderboardId} from "../../helper/leaderboards";
+import {IRow} from "../../service/stats/stats-position";
 import Space from "./space";
 
 interface IRowProps {
     data: any;
-}
-
-function getPositionName(position: AoePosition) {
-    return position === 'flank' ? 'Flank' : 'Pocket';
 }
 
 function Row({data}: IRowProps) {
@@ -24,9 +19,9 @@ function Row({data}: IRowProps) {
             <View style={styles.row}>
                 <View style={styles.cellLeaderboard}>
                     <View style={styles.icon}>
-                        <Icon5 name={data.position == 'flank' ? 'fist-raised' : 'first-aid'} size={14} />
+                        <Icon5 name="clock" size={14} />
                     </View>
-                    <MyText>{getPositionName(data.position)}</MyText>
+                    <MyText style={{marginLeft: data.duration == '30 - 60 min' ? 12.5 : 0}}>{data.duration}</MyText>
                 </View>
                 <MyText style={styles.cellGames}>
                     {data.games}
@@ -42,33 +37,30 @@ interface IProps {
     matches?: IMatch[];
     user: UserIdBase;
     data: IData;
-    leaderboardId: LeaderboardId;
 }
 
 interface IData {
     rows: IRow[] | null;
     matches?: IMatch[] | null;
     user: UserIdBase;
-    leaderboardId: LeaderboardId;
 }
 
-export default function StatsPosition(props: IProps) {
+export default function StatsDuration(props: IProps) {
     const styles = useTheme(variants);
 
     const { data, user } = props;
-    const { rows, leaderboardId } = data || { leaderboardId: props.leaderboardId };
+    const { rows } = data || {};
 
-    const hasPosition = [LeaderboardId.DMTeam, LeaderboardId.RMTeam].includes(leaderboardId);
-
-    if (rows?.length === 0 || !hasPosition) {
+    if (rows?.length === 0) {
         return <View/>;
     }
 
     return (
             <View style={styles.container}>
+                <Space/>
                 <View>
                     <View style={styles.row}>
-                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>Position</MyText>
+                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>Duration</MyText>
                         <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>
                         <MyText numberOfLines={1} style={styles.cellWon}>Won*</MyText>
                     </View>
@@ -142,4 +134,3 @@ const getStyles = (theme: ITheme) => {
 };
 
 const variants = makeVariants(getStyles);
-

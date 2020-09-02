@@ -114,7 +114,7 @@ export function MainPageInner({ user }: MainPageInnerProps) {
         fetchPlayerMatches, 'aoe2de', 0, 1000, [user]
     );
 
-    const stats = useCachedConservedLazyApi(
+    useCachedConservedLazyApi(
         [allMatches.data, leaderboardId],
         () => allMatches.data != null,
         state => get(state, ['statsPlayer', user.id, leaderboardId]),

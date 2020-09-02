@@ -19,6 +19,7 @@ import TemplatePicker from "../components/template-picker";
 import {TextLoader} from "../components/loader/text-loader";
 import RefreshControlThemed from "../components/refresh-control-themed";
 import {parseUserId} from "../../helper/user";
+import StatsDuration from "../components/stats-duration";
 
 
 export default function MainStats() {
@@ -35,6 +36,7 @@ export default function MainStats() {
 
     const cachedData = currentCachedData ?? previousCachedData;
 
+    let statsDuration = cachedData?.statsDuration;
     let statsPosition = cachedData?.statsPosition;
     let statsPlayer = cachedData?.statsPlayer;
     let statsCiv = cachedData?.statsCiv;
@@ -42,7 +44,7 @@ export default function MainStats() {
 
     const hasStats = cachedData != null;
 
-    const list = ['stats-header', 'stats-position', 'stats-player', 'stats-civ', 'stats-map'];
+    const list = ['stats-header', 'stats-duration', 'stats-position', 'stats-player', 'stats-civ', 'stats-map'];
 
     const onLeaderboardSelected = async (leaderboardId: LeaderboardId) => {
         mutate(setPrefValue('leaderboardId', leaderboardId));
@@ -113,6 +115,8 @@ export default function MainStats() {
                                         {statsPlayer?.matchCount > 0 ? `The last ${statsPlayer?.matchCount} matches:` : 'No matches yet.'}
                                     </TextLoader>
                                 </View>;
+                            case 'stats-duration':
+                                return <StatsDuration data={statsDuration} user={user}/>;
                             case 'stats-position':
                                 return <StatsPosition data={statsPosition} user={user} leaderboardId={leaderboardId}/>;
                             case 'stats-civ':

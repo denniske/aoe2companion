@@ -19,7 +19,11 @@ export const changelog: IChangelog = {
     '15.0.3': [
         {
             type: 'feature',
-            title: 'Show duration in game details',
+            title: 'Add stats for match duration',
+        },
+        {
+            type: 'feature',
+            title: 'Show match duration in match details',
         },
         {
             type: 'feature',

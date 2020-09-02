@@ -6,6 +6,7 @@ import {UserId, UserIdBase} from "../helper/user";
 import {LeaderboardId} from "../helper/leaderboards";
 import {getStatsPosition} from "./stats/stats-position";
 import {time} from "../helper/util";
+import {getStatsDuration} from "./stats/stats-duration";
 
 
 export interface IParam {
@@ -23,6 +24,8 @@ export async function getStats({matches, user, leaderboardId}: IParam) {
 
     time();
 
+    const statsDuration = await getStatsDuration({matches: filteredMatches, user});
+    time();
     const statsPosition = await getStatsPosition({matches: filteredMatches, user, leaderboardId});
     time();
     const statsCiv = await getStatsCiv({matches: filteredMatches, user});
@@ -33,6 +36,7 @@ export async function getStats({matches, user, leaderboardId}: IParam) {
     time();
 
     return {
+        statsDuration,
         statsPosition,
         statsCiv,
         statsMap,
