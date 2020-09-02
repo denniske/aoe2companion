@@ -10,12 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
-    // '16.0.0': [
-    //     {
-    //         type: 'bugfix',
-    //         title: 'App does not crash anymore for iOS 11 and below',
-    //     },
-    // ],
+    '16.0.0': [
+        {
+            type: 'bugfix',
+            title: 'App does not crash anymore for iOS 11 and below',
+        },
+    ],
     '15.0.4': [
         {
             type: 'bugfix',
