@@ -12,7 +12,7 @@ import {setPrefValue, useMutate, useSelector} from "../../redux/reducer";
 import {MyText} from "./my-text";
 import ButtonPicker from "./button-picker";
 import {saveCurrentPrefsToStorage} from "../../service/storage";
-import {isAfter, subMonths, subWeeks} from "date-fns";
+import {isAfter, subDays, subMonths, subWeeks} from "date-fns";
 import {VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTheme} from "../../helper/victory";
 
 interface IRatingProps {
@@ -44,6 +44,7 @@ export default function Rating({ratingHistories}: IRatingProps) {
         '3m',
         '1m',
         '1w',
+        '1d',
     ];
 
     const nav = async (str: any) => {
@@ -83,6 +84,9 @@ export default function Rating({ratingHistories}: IRatingProps) {
             break;
         case '1w':
             since = subWeeks(new Date(), 1);
+            break;
+        case '1d':
+            since = subDays(new Date(), 1);
             break;
     }
 

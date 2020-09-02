@@ -21,9 +21,16 @@ add content
 - zoom rating history
 - leaderboard rating distribution
 - lobbies online players per mode
-
 - infer match results from rating change
-- show match win/loss in list view already
+
+
+- rating history # of games
+
+- unit upgrade cost regex
+- match duration
+- stats match duration
+- testflight
+
 
 https://aoe2de-head2head.herokuapp.com/#Hera,solo
 https://aoenexus.com/

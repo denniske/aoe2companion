@@ -12,6 +12,10 @@ export interface IChangelog {
 export const changelog: IChangelog = {
     '15.0.3': [
         {
+            type: 'minor',
+            title: 'Add 1d (one day) to rating history time selection',
+        },
+        {
             type: 'bugfix',
             title: 'Change push notification text active/inactive',
         },
