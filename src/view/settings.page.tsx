@@ -133,7 +133,7 @@ export default function SettingsPage() {
                             onPress={togglePushNotifications}
                         />
                         <TouchableOpacity onPress={togglePushNotifications} disabled={Platform.OS === 'web'}>
-                            <MyText style={[styles.testLink]}>{config.pushNotificationsEnabled ? 'Enabled' : 'Disabled'}</MyText>
+                            <MyText style={[styles.testLink]}>{config.pushNotificationsEnabled ? 'Active' : 'Inactive'}</MyText>
                         </TouchableOpacity>
                     </View>
                     <Button

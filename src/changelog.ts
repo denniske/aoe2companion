@@ -13,6 +13,10 @@ export const changelog: IChangelog = {
     '15.0.3': [
         {
             type: 'bugfix',
+            title: 'Change push notification text active/inactive',
+        },
+        {
+            type: 'bugfix',
             title: 'Fix width w/ me',
         },
     ],
