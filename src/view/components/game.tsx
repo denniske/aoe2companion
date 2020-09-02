@@ -12,7 +12,7 @@ import {ViewLoader} from "./loader/view-loader";
 import {groupBy} from "lodash-es";
 import {differenceInSeconds} from "date-fns";
 import { MyText } from './my-text';
-import {ITheme, makeVariants, useTheme} from "../../theming";
+import {ITheme, makeVariants, useAppTheme, useTheme} from "../../theming";
 import IconFA5 from "react-native-vector-icons/FontAwesome5";
 import {sameUser, sameUserNull, UserIdBase} from "../../helper/user";
 
@@ -28,10 +28,11 @@ const formatDuration = (start: Date, finish: Date) => {
     if (!diffTime) return '00:00'; // divide by 0 protection
     const minutes = Math.abs(Math.floor(diffTime / 60) % 60).toString();
     const hours = Math.abs(Math.floor(diffTime / 60 / 60)).toString();
-    return `${hours.length < 2 ? 0 + hours : hours}:${minutes.length < 2 ? 0 + minutes : minutes} min`;
+    return `${hours.length < 2 ? hours : hours}:${minutes.length < 2 ? 0 + minutes : minutes} h`;
 };
 
 export function Game({data, user, highlightedUsers, expanded = false}: IGameProps) {
+    const theme = useAppTheme();
     const styles = useTheme(variants);
     if (data == null) {
         const playersInTeam1 = Array(3).fill(0);
@@ -112,7 +113,9 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
                         <MyText numberOfLines={1} style={styles.matchContent}>
                             {getString('leaderboard', data.leaderboard_id)}
                         </MyText>
+                        {/*<IconFA5 name="clock" size={11.5} style={{paddingTop: 0}}/>*/}
                         <MyText numberOfLines={1} style={styles.matchContent}>
+                            {/*<MyText style={{fontVariant: ['tabular-nums'] }}> {duration}</MyText>*/}
                             {
                                 !data.finished &&
                                 <MyText>{duration}</MyText>
@@ -127,6 +130,12 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
             )}
         >
             <View style={styles.playerList}>
+                <View style={[styles.timeRow, {alignItems: 'center'}]}>
+                    <IconFA5 name="clock" size={11.5} color={theme.textNoteColor}/>
+                    <MyText style={styles.duration}> {duration}   </MyText>
+                    <IconFA5 name="running" size={11.5} color={theme.textNoteColor}/>
+                    <MyText style={styles.speed}> {getString('speed', data.speed)}</MyText>
+                </View>
                 {
                     teams.map(([team, players], i) =>
                         <View key={team}>
@@ -135,11 +144,8 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
                             }
                             {
                                 i < teams.length-1 &&
-                                <View style={styles.row}>
-                                    <View style={styles.versus}>
-                                        <MyText style={styles.versusText}>VS</MyText>
-                                    </View>
-                                    <View style={styles.versus2}/>
+                                <View style={styles.versus}>
+                                    <MyText style={styles.versusText}>VS</MyText>
                                 </View>
                             }
                         </View>
@@ -173,6 +179,19 @@ const getStyles = (theme: ITheme) => {
             // backgroundColor: 'purple',
             flexDirection: 'row',
         },
+        duration: {
+            fontVariant: ['tabular-nums'],
+            color: theme.textNoteColor,
+        },
+        speed: {
+            color: theme.textNoteColor,
+        },
+        timeRow: {
+            flexDirection: 'row',
+            marginLeft: 60,
+            marginBottom: 11,
+            marginTop: -10,
+        },
         matchTitle: {
             fontWeight: 'bold',
             flex: 1,
@@ -183,21 +202,14 @@ const getStyles = (theme: ITheme) => {
         playerList: {
             flex: 1,
             paddingTop: 20,
-            // backgroundColor: 'purple'
         },
         versus: {
-            margin: 10,
-            marginLeft: 35,
+            marginLeft: 32,
+            width: 20,
+            marginVertical: 6,
             justifyContent: 'center',
             alignItems: 'center',
-            alignSelf: 'center'
-        },
-        versus2: {
-            flex: 1,
-            height: 1,
-            margin: 10,
-            alignItems: 'center',
-            alignSelf: 'center'
+            alignSelf: 'flex-start'
         },
         versusText: {
             color: theme.textNoteColor,

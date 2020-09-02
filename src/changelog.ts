@@ -19,6 +19,10 @@ export const changelog: IChangelog = {
     '15.0.3': [
         {
             type: 'feature',
+            title: 'Show duration in game details',
+        },
+        {
+            type: 'feature',
             title: 'Show unit upgrade cost on unit page',
         },
         {

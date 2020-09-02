@@ -1,24 +1,17 @@
-import React, {useState} from 'react';
-import {useLazyApi} from '../../hooks/use-lazy-api';
-import {loadRatingHistories} from '../../service/rating';
-import {
-    Image, Modal, StyleSheet, Text, TextStyle, TouchableOpacity, TouchableWithoutFeedback, View
-} from 'react-native';
+import React from 'react';
+import {Image, StyleSheet, TextStyle, TouchableOpacity, View} from 'react-native';
 import {getPlayerBackgroundColor} from '../../helper/colors';
-import Rating from './rating';
 import {useNavigation} from '@react-navigation/native';
-import {sameUserNull, userIdFromBase} from '../../helper/user';
+import {userIdFromBase} from '../../helper/user';
 import {civs, getCivIconByIndex} from '../../helper/civs';
 import {getString} from '../../helper/strings';
 import {RootStackProp} from '../../../App';
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {getSlotTypeName, IPlayer} from "../../helper/data";
 import {TextLoader} from "./loader/text-loader";
 import IconFA5 from 'react-native-vector-icons/FontAwesome5';
 import {MyText} from "./my-text";
 import {useSelector} from "../../redux/reducer";
 import {ITheme, makeVariants, useTheme} from "../../theming";
-import SimpleModal from "./simple-modal";
 
 interface IPlayerProps {
     player: IPlayer;
@@ -48,25 +41,10 @@ export function PlayerSkeleton() {
 
 export function Player({player, highlight}: IPlayerProps) {
     const styles = useTheme(variants);
-    const auth = useSelector(state => state.auth);
-    // const [modalVisible, setModalVisible] = useState(false);
-    // const rating = useLazyApi({}, loadRatingHistories, 'aoe2de', userIdFromBase(player));
+    const navigation = useNavigation<RootStackProp>();
 
     const boxStyle = [styles.square, {backgroundColor: getPlayerBackgroundColor(player.color)}];
-
-    // const isCurrentPlayer = sameUserNull(player, auth);
     const playerNameStyle = [{textDecorationLine: highlight ? 'underline' : 'none'}] as TextStyle;
-
-    // const openRatingModal = () => {
-    //     setModalVisible(true);
-    //     rating.reload();
-    // };
-
-    // const closeRatingModal = () => {
-    //     setModalVisible(false);
-    // };
-
-    const navigation = useNavigation<RootStackProp>();
 
     const gotoPlayer = () => {
         navigation.push('User', {
@@ -77,12 +55,7 @@ export function Player({player, highlight}: IPlayerProps) {
 
     return (
         <View style={styles.player}>
-            {/*<SimpleModal title={player.name} visible={modalVisible} onClose={closeRatingModal}>*/}
-            {/*    <Rating ratingHistories={rating.data}/>*/}
-            {/*</SimpleModal>*/}
-
             <TouchableOpacity style={styles.playerCol} onPress={gotoPlayer}>
-
                 <View style={styles.playerWonCol}>
                     {
                         player.won === true && player.team != -1 &&
@@ -152,7 +125,7 @@ const getStyles = (theme: ITheme) =>
         playerCol: {
             flexDirection: 'row',
             alignItems: 'center',
-            marginLeft: 5,
+            marginLeft: 2,
             flex: 1,
             paddingVertical: 3,
         },
@@ -179,11 +152,7 @@ const getStyles = (theme: ITheme) =>
         },
         player: {
             flexDirection: 'row',
-            // padding: 3,
-            // backgroundColor: 'red',
             alignItems: 'center',
-            // borderColor: 'black',
-            // borderWidth: 1,
         },
         centeredView: {
             flex: 1,
@@ -224,4 +193,3 @@ const getStyles = (theme: ITheme) =>
     });
 
 const variants = makeVariants(getStyles);
-
