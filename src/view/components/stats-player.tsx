@@ -125,11 +125,10 @@ export default function StatsPlayer(props: IProps) {
                             labelStyle={{fontSize: 13, marginVertical: 6}}
                             style={{marginTop: 6, marginHorizontal: 5}}
                             onPress={() => setMaxRowCountAlly(maxRowCountAlly + 20)}
-                            mode="contained"
+                            mode="outlined"
                             compact
                             uppercase={false}
                             dark={true}
-                            color={theme.lightBackgroundColor}
                         >
                             Show more
                         </Button>
@@ -168,11 +167,10 @@ export default function StatsPlayer(props: IProps) {
                             labelStyle={{fontSize: 13, marginVertical: 6}}
                             style={{marginTop: 6, marginHorizontal: 5}}
                             onPress={() => setMaxRowCountOpponent(maxRowCountOpponent + 20)}
-                            mode="contained"
+                            mode="outlined"
                             compact
                             uppercase={false}
                             dark={true}
-                            color={theme.lightBackgroundColor}
                         >
                             Show more
                         </Button>
