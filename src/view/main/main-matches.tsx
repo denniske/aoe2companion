@@ -133,7 +133,7 @@ export default function MainMatches() {
                                 onPress={toggleWithMe}
                             />
                             <TouchableOpacity onPress={toggleWithMe}>
-                                <MyText>with me</MyText>
+                                <MyText>w/ me</MyText>
                             </TouchableOpacity>
                         </View>
                     }
