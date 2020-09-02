@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '15.0.3': [
+        {
+            type: 'bugfix',
+            title: 'Fix width w/ me',
+        },
+    ],
     '15.0.2': [
         {
             type: 'bugfix',
