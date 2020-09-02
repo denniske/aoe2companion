@@ -1,3 +1,6 @@
+// For less than iOS 12
+import 'array-flat-polyfill'
+
 import 'react-native-gesture-handler';
 import {DefaultTheme as NavigationDefaultTheme, DarkTheme as NavigationDarkTheme, NavigationContainer, useNavigation} from '@react-navigation/native';
 import React, {useEffect} from 'react';
