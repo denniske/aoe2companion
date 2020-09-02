@@ -1,7 +1,7 @@
 import {Tech, TechEffect} from "./techs";
 import {ImageSourcePropType} from "react-native";
 import {aoeData, aoeStringKey, aoeUnitDataId} from "../data/data";
-import {keysOf, strRemoveFrom, strRemoveTo, unwrap, ValueOf} from "./util";
+import {getAllMatches, keysOf, strRemoveFrom, strRemoveTo, unwrap, ValueOf} from "./util";
 import {sortBy, uniq} from "lodash-es";
 import {Civ} from "./civs";
 
@@ -2960,6 +2960,46 @@ export function getUnitDescription(unit: Unit) {
 
     return description;
 }
+
+export function getUnitDescriptionRaw(unit: Unit) {
+    const data = getUnitData(unit);
+    return aoeData.strings[data.LanguageHelpId.toString() as aoeStringKey] as string;
+}
+
+type ResourceAbbr = 'W' | 'F' | 'G' | 'S';
+
+export function getUnitUpgradeCost(unit: Unit): ICostDict | null {
+    const description = getUnitDescriptionRaw(unit);
+    // console.log(description);
+
+    const regex = /to ([^\d]+) ([^()]+) \(([^)]+)\);/gm;
+    const upgradedTo = regex.exec(description);
+
+    // console.log(upgradedTo);
+    if (upgradedTo == null) return null;
+
+    const [_, unitName, costStr, buildingName] = upgradedTo;
+
+    // console.log(costStr);
+
+    const resourceAbbrDict = {
+        'W': 'Wood' as Other,
+        'F': 'Food' as Other,
+        'G': 'Gold' as Other,
+        'S': 'Stone' as Other,
+    };
+
+    const dict = {} as ICostDict;
+
+    const regex2 = /([\d]+)([WFGS])/gm;
+    getAllMatches(regex2, costStr).map(([_, amount, resource]) => dict[resourceAbbrDict[resource as ResourceAbbr]] = parseInt(amount));
+    // console.log(costList);
+    // console.log(dict);
+
+    return dict;
+}
+
+//  to Heavy Scorpion 1000F, 1100W (Siege Workshop);
 
 export const unitList = unitLineIds.map(ul => ({
     name: ul,

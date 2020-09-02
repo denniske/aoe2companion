@@ -90,3 +90,16 @@ export function sanitizeGameDescription(description: string) {
 export async function noop() {
 
 }
+
+export function getAllMatches(regex: RegExp, str: string) {
+    let matches = [];
+    let m;
+    while ((m = regex.exec(str)) !== null) {
+        // This is necessary to avoid infinite loops with zero-width matches
+        if (m.index === regex.lastIndex) {
+            regex.lastIndex++;
+        }
+        matches.push(m);
+    }
+    return matches;
+}

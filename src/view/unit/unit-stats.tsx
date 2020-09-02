@@ -58,7 +58,7 @@ interface PathProps2 {
     formatter?: IFormatter;
 }
 
-function GetValue(props: PathProps2) {
+export function GetUnitValue(props: PathProps2) {
     const { style, unitId, prop, formatter = (x: any) => x } = props;
     return <GetValueByPath style={style} unitId={unitId} path={ (x: IUnitInfo) => x[prop]} formatter={formatter}/>;
 }
@@ -178,14 +178,14 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                 <View style={styles.statsRow}>
                     <MyText style={styles.cellName}>Trained in</MyText>
                     {
-                        units.map(u => <GetValue key={u} style={styles.cellValue} unitId={u} prop="TrainTime" formatter={x => x + 's'}/>)
+                        units.map(u => <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="TrainTime" formatter={x => x + 's'}/>)
                     }
                 </View>
             }
             <View style={styles.statsRow}>
                 <MyText style={styles.cellName}>Hit Points</MyText>
                 {
-                    units.map(u => <GetValue key={u} style={styles.cellValue} unitId={u} prop="HP"/>)
+                    units.map(u => <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="HP"/>)
                 }
             </View>
             <View style={styles.statsRow}>
@@ -225,19 +225,19 @@ export function UnitStats({ unitId, unitLineId }: Props) {
             <View style={styles.statsRow}>
                 <MyText style={styles.cellName}>Rate of Fire</MyText>
                 {
-                    units.map(u => <GetValue key={u} style={styles.cellValue} unitId={u} prop="ReloadTime"/>)
+                    units.map(u => <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="ReloadTime"/>)
                 }
             </View>
             <View style={styles.statsRow}>
                 <MyText style={styles.cellName}>Frame Delay</MyText>
                 {
-                    units.map(u => <GetValue key={u} style={styles.cellValue} unitId={u} prop="FrameDelay"/>)
+                    units.map(u => <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="FrameDelay"/>)
                 }
             </View>
             <View style={styles.statsRow}>
                 <MyText style={styles.cellName}>Range</MyText>
                 {
-                    units.map(u => <GetValue key={u} style={styles.cellValue} unitId={u} prop="Range"/>)
+                    units.map(u => <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="Range"/>)
                 }
             </View>
             {
@@ -245,14 +245,14 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                 <View style={styles.statsRow}>
                     <MyText style={styles.cellName}>Minimum Range</MyText>
                     {
-                        units.map(u => <GetValue key={u} style={styles.cellValue} unitId={u} prop="MinRange"/>)
+                        units.map(u => <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="MinRange"/>)
                     }
                 </View>
             }
             <View style={styles.statsRow}>
                 <MyText style={styles.cellName}>Accuracy</MyText>
                 {
-                    units.map(u => <GetValue key={u} style={styles.cellValue} unitId={u} prop="AccuracyPercent" formatter={x => x+' %'}/>)
+                    units.map(u => <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="AccuracyPercent" formatter={x => x+' %'}/>)
                 }
             </View>
             <View style={styles.statsRow}>
@@ -261,13 +261,13 @@ export function UnitStats({ unitId, unitLineId }: Props) {
             <View style={styles.statsRow}>
                 <MyText style={[styles.cellName, styles.small]}>melee</MyText>
                 {
-                    units.map(u => <GetValue key={u} style={styles.cellValue} unitId={u} prop="MeleeArmor"/>)
+                    units.map(u => <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="MeleeArmor"/>)
                 }
             </View>
             <View style={styles.statsRow}>
                 <MyText style={[styles.cellName, styles.small]}>pierce</MyText>
                 {
-                    units.map(u => <GetValue key={u} style={styles.cellValue} unitId={u} prop="PierceArmor"/>)
+                    units.map(u => <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="PierceArmor"/>)
                 }
             </View>
             <View style={styles.statsRow}>
@@ -292,13 +292,13 @@ export function UnitStats({ unitId, unitLineId }: Props) {
             <View style={styles.statsRow}>
                 <MyText style={styles.cellName}>Speed</MyText>
                 {
-                    units.map(u => <GetValue key={u} style={styles.cellValue} unitId={u} prop="Speed"/>)
+                    units.map(u => <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="Speed"/>)
                 }
             </View>
             <View style={styles.statsRow}>
                 <MyText style={styles.cellName}>Line Of Sight</MyText>
                 {
-                    units.map(u => <GetValue key={u} style={styles.cellValue} unitId={u} prop="LineOfSight"/>)
+                    units.map(u => <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="LineOfSight"/>)
                 }
             </View>
             {
@@ -306,7 +306,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                 <View style={styles.statsRow}>
                     <MyText style={styles.cellName}>Garrison Capacity</MyText>
                     {
-                        units.map(u => <GetValue key={u} style={styles.cellValue} unitId={u} prop="GarrisonCapacity"/>)
+                        units.map(u => <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="GarrisonCapacity"/>)
                     }
                 </View>
             }

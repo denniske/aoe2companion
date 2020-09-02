@@ -1,6 +1,8 @@
 import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import {MyText} from "../components/my-text";
-import {getEliteUniqueResearchIcon, getUnitIcon, getUnitName, Unit, UnitLine, unitLines} from "../../helper/units";
+import {
+    getEliteUniqueResearchIcon, getUnitIcon, getUnitName, getUnitUpgradeCost, Unit, UnitLine, unitLines
+} from "../../helper/units";
 import React from "react";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import {iconSmallHeight, iconSmallWidth} from "../../helper/theme";
@@ -11,6 +13,7 @@ import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {keysOf} from "../../helper/util";
 import Space from "../components/space";
+import {Costs} from "./unit-costs";
 
 interface Props {
     unitLineId: UnitLine;
@@ -30,6 +33,7 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
     const unitIndex = unitLine.units.indexOf(unitId);
     const upgradedFrom = unitIndex > 0 ? unitLine.units[unitIndex-1] : null;
     const upgradedTo = unitIndex < unitLine.units.length-1 ? unitLine.units[unitIndex+1] : null;
+    const upgradeCost = getUnitUpgradeCost(unitId);
 
     let groups = keysOf(effectNames).map(effect => ({
         name: getEffectName(effect),
@@ -107,6 +111,10 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                       <View style={styles.row}>
                           <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(upgradedTo)}/>
                           <MyText style={styles.unitDesc}>{getUnitName(upgradedTo)}</MyText>
+                          {
+                              upgradeCost &&
+                              <Costs costDict={upgradeCost}/>
+                          }
                       </View>
                   </TouchableOpacity>
               </View>

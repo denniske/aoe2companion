@@ -1,11 +1,30 @@
 import {Image, StyleSheet, View} from "react-native";
 import {MyText} from "../components/my-text";
 import {
-    getOtherIcon, getUnitData, IUnitInfo, Other, sortResources, Unit, UnitLine, unitLines
+    getOtherIcon, getUnitData, ICostDict, Other, sortResources, Unit, UnitLine, unitLines
 } from "../../helper/units";
 import React from "react";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import {keysOf} from "../../helper/util";
+import {GetUnitValue} from "./unit-stats";
+
+
+export function Costs({ costDict }: { costDict: ICostDict }) {
+    const styles = useTheme(variants);
+
+    return (
+        <View style={styles.row}>
+            {
+                sortResources(keysOf(costDict)).map(res =>
+                    <View key={res} style={styles.resRow}>
+                        <Image style={styles.resIcon} source={getOtherIcon(res as Other)}/>
+                        <MyText style={styles.resDescription}>{costDict[res]}</MyText>
+                    </View>
+                )
+            }
+        </View>
+    );
+}
 
 interface Props {
     unitId: Unit;
@@ -14,45 +33,11 @@ interface Props {
 
 export function UnitCosts({ unitId, unitLineId }: Props) {
     const styles = useTheme(variants);
-
     const baseData = getUnitData(unitId);
-
-    const unitLine = unitLines[unitLineId];
-    const eliteUnit = unitLine.unique ? unitLine.units[1] : null;
-    const eliteData = eliteUnit ? getUnitData(eliteUnit) : undefined;
-
-    const getValueByPath = (path: (x: IUnitInfo) => any, formatter: (x: number) => string = x => (x || 0).toString()) => {
-        if (eliteData && path(eliteData) !== path(baseData)) {
-            return (
-                <>
-                    <MyText>{formatter(path(baseData))}, {formatter(path(eliteData))} </MyText>
-                    <MyText style={styles.small}>(elite)</MyText>
-                </>
-            );
-        } else {
-            return (
-                <>
-                    <MyText>{formatter(path(baseData))}</MyText>
-                </>
-            );
-        }
-    };
-
-    const getValue = (key: keyof IUnitInfo, formatter: any = (x: any) => x) => {
-        return getValueByPath((x: IUnitInfo) => x[key], formatter);
-    };
-
     return (
         <View style={styles.costsRow}>
-            {
-                sortResources(keysOf(baseData.Cost)).map(res =>
-                    <View key={res} style={styles.resRow}>
-                        <Image style={styles.resIcon} source={getOtherIcon(res as Other)}/>
-                        <MyText style={styles.resDescription}>{baseData.Cost[res]}</MyText>
-                    </View>
-                )
-            }
-            <MyText style={styles.description}>Trained in {getValue('TrainTime', (x: number) => x+'s')}</MyText>
+            <Costs costDict={baseData.Cost}/>
+            <MyText style={styles.description}>Trained in <GetUnitValue unitId={unitId} prop="TrainTime" formatter={(x: number) => x+'s'}/></MyText>
         </View>
     );
 }
@@ -74,6 +59,9 @@ const getStyles = (theme: ITheme) => {
             marginRight: 20,
         },
 
+        row: {
+            flexDirection: 'row',
+        },
         costsRow: {
             flexDirection: 'row',
             marginBottom: 5,

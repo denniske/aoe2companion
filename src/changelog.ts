@@ -18,7 +18,11 @@ export const changelog: IChangelog = {
     // ],
     '15.0.3': [
         {
-            type: 'minor',
+            type: 'feature',
+            title: 'Show unit upgrade cost on unit page',
+        },
+        {
+            type: 'feature',
             title: 'Add 1d (one day) to rating history time selection',
         },
         {
