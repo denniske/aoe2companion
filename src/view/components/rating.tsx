@@ -1,6 +1,6 @@
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {formatDateShort, parseUnixTimestamp, windowWidth} from '../../helper/util';
+import { formatDateShort, formatMonth, formatTime, formatYear, windowWidth } from '../../helper/util';
 import {getLeaderboardColor, getLeaderboardTextColor} from '../../helper/colors';
 import {IRatingHistoryRow} from '../../service/rating';
 import {TextLoader} from "./loader/text-loader";
@@ -69,7 +69,17 @@ export default function Rating({ratingHistories}: IRatingProps) {
     // We need to supply our custom tick formatter because otherwise victory native will
     // print too much ticks on the x-axis.
     const formatTick = (tick: any, index: number, ticks: any[]) => {
-        return formatDateShort(parseUnixTimestamp(ticks[index]/1000));
+        const date = ticks[index] as Date;
+        if (date.getMonth() == 0 && date.getDate() == 1 && date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
+            return formatYear(date);
+        }
+        if (date.getDate() == 1 && date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
+            return formatMonth(date);
+        }
+        if (date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
+            return formatDateShort(date);
+        }
+        return formatTime(ticks[index]);
     };
 
     // https://formidable.com/open-source/victory/guides/zoom-on-large-datasets/
@@ -106,6 +116,7 @@ export default function Rating({ratingHistories}: IRatingProps) {
                 <ViewLoader ready={ratingHistories}>
                     <VictoryChart width={windowWidth - 40} height={300} theme={themeWithSystemFont}
                                   padding={{left: 50, bottom: 30, top: 20, right: 20}}
+                                  scale={{ x: "time" }}
                                   // containerComponent={
                                   //     <VictoryZoomContainer key={'zoom'}/>
                                   // }

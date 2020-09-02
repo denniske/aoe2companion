@@ -16,6 +16,12 @@ export const changelog: IChangelog = {
     //         title: 'App does not crash anymore for iOS 11 and below',
     //     },
     // ],
+    '15.0.4': [
+        {
+            type: 'bugfix',
+            title: 'Fix rating history time axis',
+        },
+    ],
     '15.0.3': [
         {
             type: 'feature',

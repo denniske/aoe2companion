@@ -6,11 +6,11 @@ import {UserIdBase} from "../../helper/user";
 import {MyText} from "./my-text";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import Icon5 from 'react-native-vector-icons/FontAwesome5';
-import {IRow} from "../../service/stats/stats-position";
 import Space from "./space";
+import {IRow} from "../../service/stats/stats-duration";
 
 interface IRowProps {
-    data: any;
+    data: IRow;
 }
 
 function Row({data}: IRowProps) {
@@ -66,8 +66,8 @@ export default function StatsDuration(props: IProps) {
                     </View>
 
                     {
-                        rows && rows.map(leaderboard =>
-                            <Row key={leaderboard.position} data={leaderboard}/>
+                        rows && rows.map(row =>
+                            <Row key={row.duration} data={row}/>
                         )
                     }
 
