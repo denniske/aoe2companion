@@ -27,6 +27,10 @@ export const changelog: IChangelog = {
         },
         {
             type: 'bugfix',
+            title: 'Maybe fix guide page for some devices',
+        },
+        {
+            type: 'bugfix',
             title: 'Change push notification text active/inactive',
         },
         {
