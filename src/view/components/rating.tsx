@@ -121,7 +121,7 @@ export default function Rating({ratingHistories}: IRatingProps) {
                                   //     <VictoryZoomContainer key={'zoom'}/>
                                   // }
                     >
-                        <VictoryAxis crossAxis tickFormat={formatTick} />
+                        <VictoryAxis crossAxis tickFormat={formatTick} fixLabelOverlap={true} />
                         <VictoryAxis dependentAxis crossAxis />
                         {
                             ratingHistories?.map(ratingHistory => (
