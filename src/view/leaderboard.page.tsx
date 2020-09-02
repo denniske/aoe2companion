@@ -1,6 +1,8 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
-    ActivityIndicator, Animated, FlatList, Image, NativeScrollEvent, NativeSyntheticEvent, PanResponder, StyleSheet,
+    ActivityIndicator, Animated, Dimensions, FlatList, Image, NativeScrollEvent, NativeSyntheticEvent, PanResponder,
+    Platform,
+    StyleSheet,
     TextStyle,
     TouchableOpacity, View, ViewStyle
 } from 'react-native';
@@ -109,6 +111,8 @@ export default function LeaderboardPage() {
     );
 }
 
+export const windowWidth = Platform.OS === 'web' ? 450 : Dimensions.get('window').width;
+
 function Leaderboard({leaderboardId}: any) {
     const styles = useTheme(variants);
     const auth = useSelector(state => state.auth!);
@@ -204,7 +208,10 @@ function Leaderboard({leaderboardId}: any) {
                         <ImageLoader style={styles.countryIcon} ready={player} source={getFlagIcon(player?.country)}/>
                         <TextLoader style={isMe ? styles.nameMe : styles.name} numberOfLines={1}>{player?.name}</TextLoader>
                     </View>
-                    <TextLoader style={styles.cellGames}>{player?.games} games</TextLoader>
+                    {
+                        windowWidth >= 360 &&
+                        <TextLoader style={styles.cellGames}>{player?.games} games</TextLoader>
+                    }
                 </View>
             </TouchableOpacity>
         );
