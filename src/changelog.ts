@@ -22,6 +22,10 @@ export const changelog: IChangelog = {
             title: 'Add 1d (one day) to rating history time selection',
         },
         {
+            type: 'minor',
+            title: 'Leaderboard hides games count for lower resolution devices',
+        },
+        {
             type: 'bugfix',
             title: 'Change push notification text active/inactive',
         },
