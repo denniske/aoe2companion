@@ -34,7 +34,7 @@ export default function AboutPage() {
             setState('checked');
             return;
         }
-        setState('checked');
+        setState('upToDate');
     };
 
     const incrementErrorPageClickCount = () => {
@@ -87,6 +87,13 @@ export default function AboutPage() {
                 <View>
                     <Space/>
                     <MyText style={styles.content}>Checking for update...</MyText>
+                </View>
+            }
+            {
+                state === 'upToDate' &&
+                <View>
+                    <Space/>
+                    <MyText style={styles.content}>Your app is up to date</MyText>
                 </View>
             }
 

@@ -26,6 +26,10 @@ export const changelog: IChangelog = {
             title: 'Leaderboard hides games count for lower resolution devices',
         },
         {
+            type: 'minor',
+            title: 'Show result of update availability check',
+        },
+        {
             type: 'bugfix',
             title: 'Maybe fix guide page for some devices',
         },
