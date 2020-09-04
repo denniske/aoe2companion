@@ -95,7 +95,7 @@ jobs:
         - cd server
         - cd mgz
         - ls -al
-        - docker build -f deploy/mgz/Dockerfile -t $IMAGE_NAME:$TRAVIS_COMMIT .
+        - docker build -f ../deploy/mgz/Dockerfile -t $IMAGE_NAME:$TRAVIS_COMMIT .
         - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
         - docker push $IMAGE_NAME:$TRAVIS_COMMIT
         - cd deploy
