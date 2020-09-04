@@ -1,7 +1,7 @@
 import json
 
 
-def hello(event, context):
+def mgz(event, context):
     body = {
         "message": "Go Serverless v1.0! Your function executed successfully!",
         "input": event
@@ -23,5 +23,5 @@ def hello(event, context):
     }
     """
 
-if __name__ == "__main__":
-    print(hello('', ''))
+# if __name__ == "__main__":
+#     print(mgz('', ''))

@@ -62,9 +62,16 @@ region: eu-central-1
 #    - exclude-me-dir/**
 
 functions:
-  hello:
+  mgz:
     runtime: python3.8
-    handler: src/mgz.hello
+    handler: src/mgz.mgz
+    tags:
+      func: mgz
+    memorySize: 256
+    events:
+      - http:
+          path: api/mgz
+          method: get
   hello3:
     runtime: nodejs12.x
     handler: src/hello3.hello3
