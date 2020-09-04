@@ -81,6 +81,28 @@ jobs:
         - bash ./deploy.sh
 
     - stage: publish
+      if: tag =~ ^mgz-v.+$
+      env:
+        - CACHE_NAME=mgz
+        - IMAGE_NAME=denniske/aoe2companion-mgz
+      before_install:
+        - sudo apt-get update
+        - sudo apt-get -y install gettext-base
+        - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+        - chmod u+x ./kubectl
+        - sudo mv kubectl /usr/local/bin/
+      script:
+        - cd server
+        - cd mgz
+        - ls -al
+        - docker build -f deploy/mgz/Dockerfile -t $IMAGE_NAME:$TRAVIS_COMMIT .
+        - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+        - docker push $IMAGE_NAME:$TRAVIS_COMMIT
+        - cd deploy
+        - cd mgz
+        - bash ./deploy.sh
+
+    - stage: publish
       if: tag =~ ^proxy-v.+$
       env:
         - CACHE_NAME=proxy
