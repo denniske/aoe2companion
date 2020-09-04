@@ -23,12 +23,32 @@ add content
 - lobbies online players per mode
 - infer match results from rating change
 - testflight
+- matomo
+- metabase
 
 - rating history # of games
 
 - match duration
 - stats match duration
 
+
+git clone https://github.com/SiegeEngineers/aoc-mgz-db.git
+virtualenv env
+source env/bin/activate
+
+pip install -e .
+
+python setup.py install
+python mgzdb reset
+python -m mgzdb add match de 3677645
+
+
+
+
+
+https://www.andreagrandi.it/2018/12/19/installing-python-and-virtualenv-on-osx/
+
+base64 aoe2companion_dist.p12
 
 /Library/Developer/CoreSimulator/Profiles/Runtimes
 
