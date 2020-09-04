@@ -64,13 +64,23 @@ region: eu-central-1
 functions:
   mgz:
     runtime: python3.8
-    handler: src/mgz.mgz
+    handler: web/mgz.mgz
     tags:
       func: mgz
     memorySize: 256
     events:
       - http:
           path: api/mgz
+          method: get
+  mgz2:
+    runtime: python3.8
+    handler: mgz.mgz
+    tags:
+      func: mgz
+    memorySize: 256
+    events:
+      - http:
+          path: api/mgz2
           method: get
   hello3:
     runtime: nodejs12.x
