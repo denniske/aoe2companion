@@ -24,7 +24,6 @@ plugins:
 
 provider:
   name: aws
-  runtime: nodejs12.x
   environment:
     TWITTER_ACCESS_TOKEN: '1234abcd'
     TWITTER_ACCESS_TOKEN2: ${param:twitterAccessToken2}
@@ -63,7 +62,11 @@ region: eu-central-1
 #    - exclude-me-dir/**
 
 functions:
+  hello:
+    runtime: python3.8
+    handler: src/mgz.hello
   hello3:
+    runtime: nodejs12.x
     handler: src/hello3.hello3
     tags:
       func: hello3
@@ -73,6 +76,7 @@ functions:
           path: api/hello3
           method: get
   leaderboard:
+    runtime: nodejs12.x
     handler: src/leaderboard.leaderboard
     tags:
       func: leaderboard
@@ -83,6 +87,7 @@ functions:
           method: get
           cors: true
   leaderboardTable:
+    runtime: nodejs12.x
     handler: src/leaderboard-table.leaderboardTable
     tags:
       func: leaderboardTable
@@ -93,6 +98,7 @@ functions:
           method: post
           cors: true
   ingest:
+    runtime: nodejs12.x
     handler: src/ingest.ingest
     tags:
       func: ingest
@@ -104,6 +110,7 @@ functions:
           method: get
       - schedule: cron(0 * * * ? *)
   match:
+    runtime: nodejs12.x
     handler: src/match.match
     tags:
       func: match
