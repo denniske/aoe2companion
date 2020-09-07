@@ -28,6 +28,7 @@ provider:
     TWITTER_ACCESS_TOKEN: '1234abcd'
     TWITTER_ACCESS_TOKEN2: ${param:twitterAccessToken2}
     DATABASE_URL: ${param:DATABASE_URL}
+  cfnRole: arn:aws:iam::982063057166:role/ManualServerlessRole
 
 stage: dev
 region: eu-central-1

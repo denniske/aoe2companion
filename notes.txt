@@ -46,8 +46,8 @@ aoe2companion-dev-ingest
 
 
 
-aoe2companion-graphql
-aoe2companion-mgz
+// aoe2companion-graphql
+// aoe2companion-mgz
 aoe2companion-proxy
 aoe2companion-leaderboard
 aoe2companion-notify
