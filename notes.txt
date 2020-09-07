@@ -9,6 +9,52 @@ db
 - 2 missing matches before 1737998
 
 
+intellij material ui theme
+jetbrains mono
+
+postgres vps
+
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+
+sudo -u postgres psql postgres
+\password postgres
+\q
+
+allow remote connections
+https://docs.boundlessgeo.com/suite/1.1.1/dataadmin/pgGettingStarted/firstconnect.html
+
+sudo nano /etc/postgresql/12/main/pg_hba.conf
+
+https://o7planning.org/de/11913/sichern-und-wiederherstellen-der-postgres-datenbank-mit-pgadmin
+
+// sudo service postgresql restart
+// pg_basebackup -h 77.8.108.184 -U postgres --progress
+// rm -rf /var/lib/postgresql/12/main
+// pg_basebackup -h 77.8.108.184 -U postgres -D /var/lib/postgresql/12/main --progress
+
+docker compose
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04-de
+
+
+
+
+
+
+aoe2companion-graphql
+aoe2companion-mgz
+aoe2companion-proxy
+aoe2companion-leaderboard
+aoe2companion-notify
+aoe2companion-api
+
+
+
+
+
+
+
+
 api performance
 - https://www.bookstack.cn/read/TypeORM/caching.md
 - do not use jsonb
