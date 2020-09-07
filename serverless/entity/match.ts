@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryColumn, OneToMany} from "typeorm";
+import {Entity, Column, PrimaryColumn, OneToMany, Index} from "typeorm";
 import {IMatch, IPlayer} from "./entity.type";
 
 @Entity()
@@ -18,11 +18,17 @@ export class Match implements IMatch {
     @Column({ nullable: true })
     opened?: number;
 
+    @Index()
     @Column({ nullable: true })
     started?: number;
 
+    @Index()
     @Column({ nullable: true })
     finished?: number;
+
+    @Index()
+    @Column({ nullable: true })
+    maybeFinished?: number;
 
     @Column({ default: false })
     notified: boolean;

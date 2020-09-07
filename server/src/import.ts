@@ -30,24 +30,14 @@ export function sleep(ms: number) {
 }
 
 
-async function fetchMatchesSinceLastTime(year: number, month: number) {
+async function fetchMatchesSinceLastTime() {
     const connection = await createDB();
 
-    const identifier = year + ' ' + month.toString().padStart(2, ' ') + ' ';
-
-    const startDate = getUnixTime(new Date(year, month));
-    console.log(identifier, 'startDate', startDate);
-    const endDate = getUnixTime(new Date(year, month+1));
-    console.log(identifier, 'endDate', endDate);
-
-    // const matchesFetchedLastStarted = parseInt(await getValue('matchesFetchedLastStarted') || '0');
     let query = connection.createQueryBuilder();
-    query.select("MAX(match.started)", "max")
-        .from(Match, 'match')
-        .where("started >= :start AND started < :end", { start: startDate, end: endDate });
+    query.select("MAX(match.started)", "max").from(Match, 'match');
     let matchesFetchedLastStartedEntity = await query.getRawOne();
-    let matchesFetchedLastStarted = matchesFetchedLastStartedEntity?.max ?? startDate;
-    console.log(identifier, 'matchesFetchedLastStartedEntity', matchesFetchedLastStartedEntity);
+    let matchesFetchedLastStarted = matchesFetchedLastStartedEntity?.max ?? 0;
+    console.log('matchesFetchedLastStartedEntity', matchesFetchedLastStartedEntity);
 
     if (matchesFetchedLastStartedEntity?.max) {
         query = connection.createQueryBuilder();
@@ -55,25 +45,24 @@ async function fetchMatchesSinceLastTime(year: number, month: number) {
             .from(Match, 'match')
             .where("started < :lastmax", { lastmax: matchesFetchedLastStartedEntity?.max });
         matchesFetchedLastStartedEntity = await query.getRawOne();
-        matchesFetchedLastStarted = matchesFetchedLastStartedEntity?.max ?? startDate;
-        console.log(identifier, 'matchesFetchedLastStartedEntity', matchesFetchedLastStartedEntity);
+        matchesFetchedLastStarted = matchesFetchedLastStartedEntity?.max ?? 0;
+        console.log('matchesFetchedLastStartedEntity', matchesFetchedLastStartedEntity);
     }
 
-    console.log(identifier, new Date(), "Fetch matches dataset", matchesFetchedLastStarted);
+    console.log(new Date(), "Fetch matches dataset", matchesFetchedLastStarted);
 
-    let entries = await fetchMatches('aoe2de', 0, 10, matchesFetchedLastStarted);
-    console.log(identifier, new Date(), 'GOT', entries.length);
+    let entries = await fetchMatches('aoe2de', 0, 1000, matchesFetchedLastStarted);
+    console.log(new Date(), 'GOT', entries.length);
 
-    // fs.writeFileSync(`json/matches-${matchesFetchedLastStarted}.json`, JSON.stringify(entries));
+    fs.writeFileSync(`/Volumes/External/json/matches-${matchesFetchedLastStarted}.json`, JSON.stringify(entries));
 
     if (entries.length > 0) {
-        console.log(identifier, entries[0].match_id, '-', entries[entries.length-1].match_id);
+        console.log(entries[0].match_id, '-', entries[entries.length-1].match_id);
     }
 
-    const entriesGreater = entries.filter(e => e.started >= endDate);
-    entries = entries.filter(e => e.started < endDate);
+    const entriesGreater = entries.filter(e => e.started > matchesFetchedLastStarted);
 
-    const total1 = await connection.manager.count(Match);
+    // const total1 = await connection.manager.count(Match);
 
     const matchRepo = getRepository(Match);
     const playerRepo = getRepository(Player);
@@ -86,7 +75,7 @@ async function fetchMatchesSinceLastTime(year: number, month: number) {
 
         chunkRows.forEach(matchEntry => {
             const match = new Match();
-            console.log(identifier, matchEntry.match_id);
+            // console.log(matchEntry.match_id);
             match.id = matchEntry.match_id;
             match.match_uuid = matchEntry.match_uuid;
             match.lobby_id = matchEntry.lobby_id;
@@ -128,7 +117,7 @@ async function fetchMatchesSinceLastTime(year: number, month: number) {
             match.victory_time = matchEntry.victory_time;
             match.visibility = matchEntry.visibility;
 
-            const players = matchEntry.players.filter(p => p.profile_id).map(playerEntry => {
+            const players = uniqBy(matchEntry.players.filter(p => p.profile_id), p => p.profile_id).map(playerEntry => {
                 const user = new Player();
                 // user.match = { id: matchEntry.match_id } as Match;
                 // user.match = match;
@@ -165,45 +154,35 @@ async function fetchMatchesSinceLastTime(year: number, month: number) {
             const result2 = await transactionalEntityManager.save(playerRows);
         });
 
-        // console.log(identifier, result);
+        // console.log(result);
     }
 
     await setValue('matchesFetchedLastStarted', max(entries.map(e => e.started)));
 
-    const total2 = await connection.manager.count(Match);
+    // const total2 = await connection.manager.count(Match);
+    // console.log(new Date(), "Saved entries:", total2-total1);
 
-    console.log(identifier, new Date(), "Saved entries:", total2-total1);
-
-    if (entriesGreater.length > 0) {
-        console.log(identifier, 'DONE', entriesGreater.length);
+    if (entriesGreater.length === 0) {
+        console.log('DONE', entriesGreater.length);
     }
 
-    return entriesGreater.length > 0;
-}
-
-async function importMatchesBatch(year: number, month: number) {
-    try {
-        const done = await fetchMatchesSinceLastTime(year, month);
-        if (!done) {
-            setTimeout(() => importMatchesBatch(year, month), 0);
-        }
-    } catch (e) {
-        console.error(e);
-        setTimeout(() => importMatchesBatch(year, month), 60 * 1000);
-    }
+    return entriesGreater.length === 0;
 }
 
 async function importMatches() {
     // await createDB();
-    setTimeout(() => importMatchesBatch(2019, 11), 0);
-    setTimeout(() => importMatchesBatch(2020, 0), 2 * 1000);
-    setTimeout(() => importMatchesBatch(2020, 1), 4 * 1000);
-    setTimeout(() => importMatchesBatch(2020, 2), 6 * 1000);
-    setTimeout(() => importMatchesBatch(2020, 3), 8 * 1000);
-    setTimeout(() => importMatchesBatch(2020, 4), 10 * 1000);
-    setTimeout(() => importMatchesBatch(2020, 5), 12 * 1000);
-    setTimeout(() => importMatchesBatch(2020, 6), 14 * 1000);
-    setTimeout(() => importMatchesBatch(2020, 7), 16 * 1000);
+    try {
+        const done = await fetchMatchesSinceLastTime();
+        if (!done) {
+            console.log('Waiting 30s');
+            setTimeout(importMatches, 0 * 1000);
+        } else {
+            console.log('DONE');
+        }
+    } catch (e) {
+        console.error(e);
+        setTimeout(importMatches, 60 * 1000);
+    }
 }
 
 importMatches();

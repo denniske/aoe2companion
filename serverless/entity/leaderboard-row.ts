@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryColumn} from "typeorm";
+import {Entity, Column, PrimaryColumn, Index} from "typeorm";
 
 @Entity()
 export class LeaderboardRow {
@@ -6,10 +6,10 @@ export class LeaderboardRow {
     leaderboard_id: number;
 
     @PrimaryColumn()
-    rank: number;
-
-    @Column()
     profile_id: number;
+
+    // @Column()
+    // rank: number;
 
     @Column({ nullable: true })
     steam_id: string;
@@ -38,6 +38,7 @@ export class LeaderboardRow {
     @Column({ nullable: true })
     losses?: number;
 
+    @Index()
     @Column({ nullable: true })
     rating?: number;
 

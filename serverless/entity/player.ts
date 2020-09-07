@@ -1,15 +1,20 @@
-import {Entity, Column, PrimaryGeneratedColumn, ManyToOne} from "typeorm";
+import {Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, ManyToOne, Index} from "typeorm";
 import {IMatch, IPlayer} from "./entity.type";
 
 @Entity()
 export class Player implements IPlayer {
-    @PrimaryGeneratedColumn()
-    id: number;
+    // @PrimaryGeneratedColumn()
+    // id: number;
 
     @ManyToOne('Match', 'players')
     match: IMatch;
 
-    @Column()
+    @Index()
+    @PrimaryColumn()
+    match_id: string;
+
+    @Index()
+    @PrimaryColumn({ default: 0 })
     profile_id: number;
 
     @Column({ nullable: true })
@@ -42,7 +47,7 @@ export class Player implements IPlayer {
     @Column({ nullable: true })
     rating_change?: number;
 
-    @Column({ nullable: true })
+    @PrimaryColumn()
     slot?: number;
 
     @Column({ nullable: true })

@@ -7,7 +7,7 @@ import {SnakeNamingStrategy} from "typeorm-naming-strategies";
 
 import {User} from "../entity/user";
 
-require('dotenv').config();
+// require('dotenv').config();
 
 // Use pg2 to force inclusion in final package
 import * as pg2 from 'pg';
@@ -20,15 +20,16 @@ import {Following} from "../entity/following";
 import {Account} from "../entity/account";
 
 console.log(pg2 != null ? 'pg initialized' : '');
+console.log(process.env.DATABASE_URL);
 
 export async function createDB() {
     try {
         const connection = await createConnection({
             type: "postgres",
             url: process.env.DATABASE_URL,
-            ssl: {
-                rejectUnauthorized: false,
-            },
+            // ssl: {
+            //     rejectUnauthorized: false,
+            // },
             entities: [
                 Account,
                 Push,
@@ -41,7 +42,7 @@ export async function createDB() {
             ],
             // entities: getMetadataArgsStorage().tables.map(tbl => tbl.target),
             synchronize: !!process.env.IS_OFFLINE,
-            logging: false,//!!process.env.IS_OFFLINE,
+            logging: true,//!!process.env.IS_OFFLINE,
             namingStrategy: new SnakeNamingStrategy(),
         });
         console.log('Using NEW connection. Connected: ', connection.isConnected);

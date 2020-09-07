@@ -8,6 +8,22 @@ db
 - player table match_id is null
 - 2 missing matches before 1737998
 
+indices
+- player.match_id
+  - civ stats
+  - map stats
+- player.profile_id
+  - player recent matches
+
+missing data
+- leaderboards 1, 2, 3, 4 missing rating change (needed for rating history)
+- leaderboard 0 missing won (use .rec files?)
+
+users
+- viper 289006
+- hera
+- t90 197930
+
 
 intellij material ui theme
 jetbrains mono

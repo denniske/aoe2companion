@@ -4,8 +4,7 @@ import {Following} from "./following";
 
 
 
-export interface IMatch {
-    id: string;
+export interface IMatchBase {
     match_uuid?: string;
     lobby_id?: string;
     name?: string;
@@ -49,9 +48,17 @@ export interface IMatch {
     players: IPlayer[];
 }
 
-export interface IPlayer {
-    id: number;
-    match: Match;
+
+export interface IMatch extends IMatchBase {
+    id: string;
+}
+
+export interface IMatchFromApi extends Partial<IMatchBase> {
+    match_id: string;
+}
+
+
+export interface IPlayerBase {
     profile_id: number;
     steam_id?: string;
     civ?: number;
@@ -69,6 +76,11 @@ export interface IPlayer {
     team?: number;
     wins?: number;
     won?: boolean;
+}
+
+export interface IPlayer extends IPlayerBase {
+    match: Match;
+    match_id: string;
 }
 
 export interface IFollowing {
