@@ -50,7 +50,7 @@ export interface IMatch {
 }
 
 export interface IPlayer {
-    // id: number;
+    id: number;
     match: Match;
     profile_id: number;
     steam_id?: string;

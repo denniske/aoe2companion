@@ -3,8 +3,8 @@ import {IMatch, IPlayer} from "./entity.type";
 
 @Entity()
 export class Player implements IPlayer {
-    // @PrimaryGeneratedColumn()
-    // id: number;
+    @PrimaryGeneratedColumn()
+    id: number;
 
     @ManyToOne('Match', 'players')
     match: IMatch;
