@@ -27,9 +27,9 @@ provider:
   environment:
     TWITTER_ACCESS_TOKEN: '1234abcd'
     TWITTER_ACCESS_TOKEN2: ${param:twitterAccessToken2}
-    DATABASE_URL: ${param:DATABASE_URL_LOCAL}
+    DATABASE_URL: ${param:DATABASE_URL}
 
-stage: dev
+stage: prod
 region: eu-central-1
 
 # you can add statements to the Lambda function's IAM Role here
