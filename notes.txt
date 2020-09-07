@@ -37,7 +37,12 @@ docker compose
 https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04-de
 
 
-
+aoe2companion-dev-match
+aoe2companion-dev-leaderboard
+aoe2companion-dev-ingest
+// aoe2companion-dev-custom-resource-apigw-cw-role
+// aoe2companion-dev-leaderboardTable
+// aoe2companion-dev-hello3
 
 
 

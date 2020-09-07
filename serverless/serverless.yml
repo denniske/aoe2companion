@@ -84,17 +84,17 @@ functions:
 #      - http:
 #          path: api/hello3
 #          method: get
-#  leaderboard:
-#    runtime: nodejs12.x
-#    handler: src/leaderboard.leaderboard
-#    tags:
-#      func: leaderboard
-#    memorySize: 256
-#    events:
-#      - http:
-#          path: api/leaderboard
-#          method: get
-#          cors: true
+  leaderboard:
+    runtime: nodejs12.x
+    handler: src/leaderboard.leaderboard
+    tags:
+      func: leaderboard
+    memorySize: 256
+    events:
+      - http:
+          path: api/leaderboard
+          method: get
+          cors: true
 #  leaderboardTable:
 #    runtime: nodejs12.x
 #    handler: src/leaderboard-table.leaderboardTable
@@ -106,30 +106,30 @@ functions:
 #          path: api/leaderboard-table
 #          method: post
 #          cors: true
-#  ingest:
-#    runtime: nodejs12.x
-#    handler: src/ingest.ingest
-#    tags:
-#      func: ingest
-#    memorySize: 256
-#    timeout: 600
-#    events:
-#      - http:
-#          path: ingest
-#          method: get
-#      - schedule: cron(0 * * * ? *)
-#  match:
-#    runtime: nodejs12.x
-#    handler: src/match.match
-#    tags:
-#      func: match
-#    memorySize: 256
-#    timeout: 30
-#    events:
-#      - http:
-#          path: match
-#          method: get
-#      - schedule: cron(* * * * ? *)
+  ingest:
+    runtime: nodejs12.x
+    handler: src/ingest.ingest
+    tags:
+      func: ingest
+    memorySize: 256
+    timeout: 600
+    events:
+      - http:
+          path: ingest
+          method: get
+      - schedule: cron(0 * * * ? *)
+  match:
+    runtime: nodejs12.x
+    handler: src/match.match
+    tags:
+      func: match
+    memorySize: 256
+    timeout: 30
+    events:
+      - http:
+          path: match
+          method: get
+      - schedule: cron(* * * * ? *)
 
 
 
