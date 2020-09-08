@@ -28,7 +28,7 @@ export class Match implements IMatch {
 
     @Index()
     @Column({ nullable: true })
-    maybeFinished?: number;
+    maybe_finished?: number;
 
     @Column({ default: false })
     notified: boolean;

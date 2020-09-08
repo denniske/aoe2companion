@@ -55,6 +55,58 @@ jobs:
         - bash ./deploy.sh
 
     - stage: publish
+      if: tag =~ ^import-v.+$
+      env:
+        - CACHE_NAME=import
+        - IMAGE_NAME=denniske/aoe2companion-import
+      before_install:
+        - sudo apt-get update
+        - sudo apt-get -y install gettext-base
+        - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+        - chmod u+x ./kubectl
+        - sudo mv kubectl /usr/local/bin/
+      script:
+        - cd serverless
+        - npm install
+        - cd ..
+        - cd server
+        - npm install
+        - npm run build
+        - ls -al
+        - docker build -f deploy/import/Dockerfile -t $IMAGE_NAME:$TRAVIS_COMMIT .
+        - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+        - docker push $IMAGE_NAME:$TRAVIS_COMMIT
+        - cd deploy
+        - cd import
+        - bash ./deploy.sh
+
+    - stage: publish
+      if: tag =~ ^refetch-v.+$
+      env:
+        - CACHE_NAME=refetch
+        - IMAGE_NAME=denniske/aoe2companion-refetch
+      before_install:
+        - sudo apt-get update
+        - sudo apt-get -y install gettext-base
+        - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+        - chmod u+x ./kubectl
+        - sudo mv kubectl /usr/local/bin/
+      script:
+        - cd serverless
+        - npm install
+        - cd ..
+        - cd server
+        - npm install
+        - npm run build
+        - ls -al
+        - docker build -f deploy/refetch/Dockerfile -t $IMAGE_NAME:$TRAVIS_COMMIT .
+        - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+        - docker push $IMAGE_NAME:$TRAVIS_COMMIT
+        - cd deploy
+        - cd refetch
+        - bash ./deploy.sh
+
+    - stage: publish
       if: tag =~ ^notify-v.+$
       env:
         - CACHE_NAME=notify
@@ -78,28 +130,6 @@ jobs:
         - docker push $IMAGE_NAME:$TRAVIS_COMMIT
         - cd deploy
         - cd notify
-        - bash ./deploy.sh
-
-    - stage: publish
-      if: tag =~ ^mgz-v.+$
-      env:
-        - CACHE_NAME=mgz
-        - IMAGE_NAME=denniske/aoe2companion-mgz
-      before_install:
-        - sudo apt-get update
-        - sudo apt-get -y install gettext-base
-        - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-        - chmod u+x ./kubectl
-        - sudo mv kubectl /usr/local/bin/
-      script:
-        - cd server
-        - cd mgz
-        - ls -al
-        - docker build -f ../deploy/mgz/Dockerfile -t $IMAGE_NAME:$TRAVIS_COMMIT .
-        - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-        - docker push $IMAGE_NAME:$TRAVIS_COMMIT
-        - cd ../deploy
-        - cd mgz
         - bash ./deploy.sh
 
     - stage: publish
@@ -178,6 +208,28 @@ jobs:
         - docker push $IMAGE_NAME:$TRAVIS_COMMIT
         - cd deploy
         - cd leaderboard
+        - bash ./deploy.sh
+
+    - stage: publish
+      if: tag =~ ^mgz-v.+$
+      env:
+        - CACHE_NAME=mgz
+        - IMAGE_NAME=denniske/aoe2companion-mgz
+      before_install:
+        - sudo apt-get update
+        - sudo apt-get -y install gettext-base
+        - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+        - chmod u+x ./kubectl
+        - sudo mv kubectl /usr/local/bin/
+      script:
+        - cd server
+        - cd mgz
+        - ls -al
+        - docker build -f ../deploy/mgz/Dockerfile -t $IMAGE_NAME:$TRAVIS_COMMIT .
+        - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+        - docker push $IMAGE_NAME:$TRAVIS_COMMIT
+        - cd ../deploy
+        - cd mgz
         - bash ./deploy.sh
 
 

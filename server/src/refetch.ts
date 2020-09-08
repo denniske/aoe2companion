@@ -20,8 +20,9 @@ app.use(cors());
 // Initialize DB with correct entities
 createDB();
 
-
-const prisma = new PrismaClient()
+const prisma = new PrismaClient({
+    log: ['query', 'info', 'warn'],
+});
 
 function formatDayAndTime(date: Date) {
     console.log(date);
@@ -34,10 +35,7 @@ export function sleep(ms: number) {
     });
 }
 
-interface ILastMatchEntry {
-    profile_id: number;
-    finished: number;
-}
+const FETCH_COUNT = 300;
 
 async function refetchMatchesSinceLastTime() {
     const connection = await createDB();
@@ -48,12 +46,11 @@ async function refetchMatchesSinceLastTime() {
         where: {
             AND: [
                 { maybe_finished: null },
-                // { finished: null },
                 { finished: null },
             ],
         },
         orderBy: { started: 'asc' },
-        take: 800,
+        take: FETCH_COUNT,
         include: {
             players: true,
         }
@@ -66,7 +63,7 @@ async function refetchMatchesSinceLastTime() {
     const firstUnfinishedMatch = unfinishedMatches[0];
 
     console.log(new Date(), "Fetch matches dataset", firstUnfinishedMatch.started-1, formatDayAndTime(fromUnixTime(firstUnfinishedMatch.started-1)));
-    let updatedMatches = await fetchMatches('aoe2de', 0, 800, firstUnfinishedMatch.started-1);
+    let updatedMatches = await fetchMatches('aoe2de', 0, FETCH_COUNT, firstUnfinishedMatch.started-1);
     console.log(new Date(), 'GOT', updatedMatches.length);
 
     updatedMatches = updatedMatches.filter(m => unfinishedMatches.find(um => um.match_id === m.match_id));
@@ -92,26 +89,6 @@ async function refetchMatchesSinceLastTime() {
     await upsertMatchesWithPlayers(connection, updatedAndFinishedMatches);
 
     console.log(new Date(), 'SAVED');
-
-    // const res = await prisma.match.update({
-    //     where: {
-    //         match_id: updatedMatch.match_id,
-    //     },
-    //     data: {
-    //         ...updatedMatch,
-    //         players: {
-    //             update: updatedMatch.players.filter(p => p.profile_id).map(p => ({
-    //                 data: {
-    //                     ...p,
-    //                     profile_id: p.profile_id || 0,
-    //                 },
-    //                 where: { match_id_profile_id_slot: { match_id: updatedMatch.match_id, profile_id: p.profile_id || 0, slot: p.slot } },
-    //             })),
-    //         }
-    //     },
-    // });
-
-    // console.log('COUNT', res);
 
     // await sleep(60 * 1000);
     return true;
@@ -140,7 +117,7 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
-app.listen(process.env.PORT || 3010, () => console.log(`Server listening on port ${process.env.PORT || 3002}!`));
+app.listen(process.env.PORT || 3010, () => console.log(`Server listening on port ${process.env.PORT || 3010}!`));
 
 
 
@@ -154,6 +131,17 @@ app.listen(process.env.PORT || 3010, () => console.log(`Server listening on port
 
 
 
+
+
+
+
+
+// console.log('--------');
+// const used = process.memoryUsage() as any;
+// for (let key in used) {
+//     console.log(`${key} ${Math.round(used[key] / 1024 / 1024 * 100) / 100} MB`);
+// }
+// console.log('--------');
 
 // const res = await prisma.match.findMany({
 //     include: {

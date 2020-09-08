@@ -53,6 +53,7 @@ export const leaderboard: APIGatewayProxyHandler = async (event, _context) => {
 
     // Only for "My Rank" (will return one row)
     if (country != null && (steamId != null || profileId != null)) {
+        console.log('TTTT1');
         const users = await connection
             .createQueryBuilder()
             .select('*')
@@ -60,7 +61,38 @@ export const leaderboard: APIGatewayProxyHandler = async (event, _context) => {
                 return subQuery
                     .select('count(user.name)', 'rank')
                     .from(LeaderboardRow, "user")
-                    .where('user.leaderboard_id = :leaderboardId AND user.country = :country AND user.rank <= outer.rank', {leaderboardId, country});
+                    .where('user.leaderboard_id = :leaderboardId AND user.country = :country AND user.rating >= outer.rating', {leaderboardId, country});
+            })
+            .from(LeaderboardRow, "outer")
+            .where(where)
+            .getRawMany();
+
+        return {
+            statusCode: 200,
+            headers: { ...cors },
+            body: JSON.stringify({
+                updated: getUnixTime(leaderboardUpdated),
+                total: total,
+                leaderboard_id: leaderboardId,
+                start: start,
+                count: count,
+                country: country,
+                leaderboard: users.map(u => ({...u, rank: parseInt(u.rank)})),
+            }, null, 2),
+        };
+    }
+
+   // Only for "My Rank" (will return one row)
+    if (steamId != null || profileId != null) {
+        console.log('TTTT2');
+        const users = await connection
+            .createQueryBuilder()
+            .select('*')
+            .addSelect(subQuery => {
+                return subQuery
+                    .select('count(user.name)', 'rank')
+                    .from(LeaderboardRow, "user")
+                    .where('user.leaderboard_id = :leaderboardId AND user.rating >= outer.rating', {leaderboardId});
             })
             .from(LeaderboardRow, "outer")
             .where(where)
@@ -82,8 +114,15 @@ export const leaderboard: APIGatewayProxyHandler = async (event, _context) => {
     }
 
 
+
+
+
+
+
+    console.log('TTTT3');
+
     // @ts-ignore
-    const users = await connection.manager.find(LeaderboardRow, {where: where, skip: start-1, take: count, order: { 'rank': 'ASC' }});
+    const users = await connection.manager.find(LeaderboardRow, {where: where, skip: start-1, take: count, order: { 'rating': 'DESC' }});
 
     return {
         statusCode: 200,
@@ -96,10 +135,10 @@ export const leaderboard: APIGatewayProxyHandler = async (event, _context) => {
             count: count,
             country: country,
             leaderboard: users.map((u, i) => {
-                if (country) {
-                    return {...u, rank: start+i};
-                }
-                return u;
+                // if (country) {
+                return {...u, rank: start+i};
+                // }
+                // return u;
             }),
         }, null, 2),
     };

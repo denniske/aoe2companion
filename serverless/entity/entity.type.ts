@@ -46,6 +46,8 @@ export interface IMatchBase {
     victory_time?: number;
     visibility?: number;
     players: IPlayer[];
+
+    maybe_finished?: number;
 }
 
 

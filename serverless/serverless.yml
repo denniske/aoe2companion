@@ -118,18 +118,20 @@ functions:
           path: ingest
           method: get
       - schedule: cron(0 * * * ? *)
-  match:
-    runtime: nodejs12.x
-    handler: src/match.match
-    tags:
-      func: match
-    memorySize: 256
-    timeout: 30
-    events:
-      - http:
-          path: match
-          method: get
-      - schedule: cron(* * * * ? *)
+#  match:
+#    runtime: nodejs12.x
+#    handler: src/match.match
+#    tags:
+#      func: match
+#    memorySize: 256
+#    timeout: 300
+#    events:
+#      - http:
+#          path: match
+#          method: get
+#      - schedule:
+#          rate: rate(2 minutes)
+#      - schedule: cron(1/2 * * * ? *)
 
 
 

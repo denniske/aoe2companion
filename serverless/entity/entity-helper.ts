@@ -47,6 +47,7 @@ export function createMatchEntity(matchEntry: IMatchFromApi) {
     match.victory = matchEntry.victory;
     match.victory_time = matchEntry.victory_time;
     match.visibility = matchEntry.visibility;
+    match.maybe_finished = matchEntry.maybe_finished;
     return match;
 }
 
@@ -106,8 +107,8 @@ export async function upsertMatchesWithPlayers(connection: Connection, matchEntr
         chunkRows.forEach(matchEntry => {
             const match = createMatchEntity(matchEntry);
 
-            const players = uniqBy(matchEntry.players.filter(p => p.profile_id), p => p.profile_id).map(playerEntry => {
-                return createPlayerEntity(matchEntry, playerEntry);
+            const players = matchEntry.players.map(playerEntry => {
+                return createPlayerEntity(matchEntry, {...playerEntry, profile_id: playerEntry.profile_id || 0});
             });
 
             matchRows.push(match);
