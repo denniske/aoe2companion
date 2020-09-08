@@ -70,7 +70,7 @@ jobs:
         - npm install
         - cd ..
         - cd server
-        - npm install
+        - yarn install
         - npm run build
         - ls -al
         - docker build -f deploy/import/Dockerfile -t $IMAGE_NAME:$TRAVIS_COMMIT .
