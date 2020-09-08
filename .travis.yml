@@ -60,6 +60,8 @@ jobs:
         - CACHE_NAME=import
         - IMAGE_NAME=denniske/aoe2companion-import
       before_install:
+        - nvm install $NODE_VERSION
+        - nvm use $NODE_VERSION
         - sudo apt-get update
         - sudo apt-get -y install gettext-base
         - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
@@ -70,7 +72,7 @@ jobs:
         - npm install
         - cd ..
         - cd server
-        - yarn install
+        - npm install
         - npm run build
         - ls -al
         - docker build -f deploy/import/Dockerfile -t $IMAGE_NAME:$TRAVIS_COMMIT .
@@ -86,6 +88,8 @@ jobs:
         - CACHE_NAME=refetch
         - IMAGE_NAME=denniske/aoe2companion-refetch
       before_install:
+        - nvm install $NODE_VERSION
+        - nvm use $NODE_VERSION
         - sudo apt-get update
         - sudo apt-get -y install gettext-base
         - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
