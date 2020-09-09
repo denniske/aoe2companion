@@ -34,6 +34,8 @@ jobs:
         - CACHE_NAME=match
         - IMAGE_NAME=denniske/aoe2companion-match
       before_install:
+        - nvm install $NODE_VERSION
+        - nvm use $NODE_VERSION
         - sudo apt-get update
         - sudo apt-get -y install gettext-base
         - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
@@ -116,6 +118,8 @@ jobs:
         - CACHE_NAME=notify
         - IMAGE_NAME=denniske/aoe2companion-notify
       before_install:
+        - nvm install $NODE_VERSION
+        - nvm use $NODE_VERSION
         - sudo apt-get update
         - sudo apt-get -y install gettext-base
         - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
@@ -142,6 +146,8 @@ jobs:
         - CACHE_NAME=proxy
         - IMAGE_NAME=denniske/aoe2companion-proxy
       before_install:
+        - nvm install $NODE_VERSION
+        - nvm use $NODE_VERSION
         - sudo apt-get update
         - sudo apt-get -y install gettext-base
         - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
@@ -168,6 +174,8 @@ jobs:
         - CACHE_NAME=api
         - IMAGE_NAME=denniske/aoe2companion-api
       before_install:
+        - nvm install $NODE_VERSION
+        - nvm use $NODE_VERSION
         - sudo apt-get update
         - sudo apt-get -y install gettext-base
         - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
@@ -194,6 +202,8 @@ jobs:
         - CACHE_NAME=leaderboard
         - IMAGE_NAME=denniske/aoe2companion-leaderboard
       before_install:
+        - nvm install $NODE_VERSION
+        - nvm use $NODE_VERSION
         - sudo apt-get update
         - sudo apt-get -y install gettext-base
         - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
