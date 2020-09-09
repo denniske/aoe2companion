@@ -83,10 +83,14 @@ async function importMatches() {
     }
 }
 
-importMatches();
+// importMatches();
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
+});
+
+app.get('/health', (req, res) => {
+    res.send('OK');
 });
 
 app.listen(process.env.PORT || 3002, () => console.log(`Server listening on port ${process.env.PORT || 3002}!`));
