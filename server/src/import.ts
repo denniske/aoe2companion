@@ -83,7 +83,7 @@ async function importMatches() {
     }
 }
 
-// importMatches();
+importMatches();
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
