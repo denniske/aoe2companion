@@ -15,5 +15,5 @@ spec:
       http:
         paths:
           - backend:
-              serviceName: aoe2companion-function
+              serviceName: aoe2companion-leaderboard
               servicePort: 80

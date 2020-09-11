@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: aoe2companion-function
+  name: aoe2companion-leaderboard
   namespace: default
   labels:
-    app: aoe2companion-function
+    app: aoe2companion-leaderboard
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: aoe2companion-function
+      app: aoe2companion-leaderboard
   template:
     metadata:
       labels:
-        app: aoe2companion-function
+        app: aoe2companion-leaderboard
     spec:
       containers:
-        - name: aoe2companion-function
-          image: denniske/aoe2companion-function:$COMMIT_SHA1
+        - name: aoe2companion-leaderboard
+          image: denniske/aoe2companion-leaderboard:$COMMIT_SHA1
           ports:
             - containerPort: 80
               name: http
