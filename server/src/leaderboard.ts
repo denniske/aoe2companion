@@ -124,7 +124,7 @@ app.get('/api/leaderboard', asyncHandler(async (req, res) => {
     console.log('HAS default');
 
     // @ts-ignore
-    const users = await connection.manager.find(LeaderboardRow, {where: where, skip: start-1, take: count, order: { 'rating': 'desc' }});
+    const users = await connection.manager.find(LeaderboardRow, {where: where, skip: start-1, take: count, order: { 'rating': 'DESC' }});
 
     res.send({
         updated: getUnixTime(leaderboardUpdated),
