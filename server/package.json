@@ -10,6 +10,7 @@
     "api": "nodemon --exec 'tsc && node ./dist/server/src/api.js' --ext ts --watch src",
     "proxy": "nodemon --exec 'tsc && node ./dist/server/src/proxy.js' --ext ts --watch src",
     "import": "nodemon --exec 'tsc && node ./dist/server/src/import.js' --ext ts --watch src",
+    "ingest": "nodemon --exec 'tsc && node ./dist/server/src/ingest.js' --ext ts --watch src",
     "import-single": "tsc && node ./dist/server/src/import.js",
     "import-json": "nodemon --exec 'tsc && node ./dist/server/src/import-json.js' --ext ts --watch src",
     "import-json-single": "tsc && node ./dist/server/src/import-json.js",

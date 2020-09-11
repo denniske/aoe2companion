@@ -53,6 +53,8 @@ https://o7planning.org/de/11913/sichern-und-wiederherstellen-der-postgres-datenb
 
 https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04-de
 
+DNS
+CNAME function d-3dn5qeufzf.execute-api.eu-central-1.amazonaws.com 60
 
 // aoe2companion-dev-match
 aoe2companion-dev-leaderboard
