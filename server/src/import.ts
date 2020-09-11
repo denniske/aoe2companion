@@ -64,18 +64,19 @@ async function fetchMatchesSinceLastTime() {
         console.log('DONE', entriesGreater.length);
     }
 
-    return entriesGreater.length === 0;
+    return entriesGreater.length;
 }
 
 async function importMatches() {
     // await createDB();
     try {
-        const done = await fetchMatchesSinceLastTime();
-        if (!done) {
+        const count = await fetchMatchesSinceLastTime();
+        if (count < 100) {
             console.log('Waiting 30s');
-            setTimeout(importMatches, 0 * 1000);
+            setTimeout(importMatches, 30 * 1000);
         } else {
-            console.log('DONE');
+            console.log('Waiting 0s');
+            setTimeout(importMatches, 0 * 1000);
         }
     } catch (e) {
         console.error(e);
