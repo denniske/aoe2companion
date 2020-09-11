@@ -29,6 +29,8 @@ intellij material ui theme
 jetbrains mono
 
 
+- add market
+- hide crown/skull when game is still running
 
 
 ------------------

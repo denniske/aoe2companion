@@ -102,7 +102,7 @@ app.get('/api/leaderboard', asyncHandler(async (req, res) => {
                 return subQuery
                     .select('count(user.name)', 'rank')
                     .from(LeaderboardRow, "user")
-                    .where('user.leaderboard_id = :leaderboardId AND user.rating >= outer.rating', {leaderboardId});
+                    .where('user.leaderboard_id = :leaderboardId AND user.rating <= outer.rating', {leaderboardId});
             })
             .from(LeaderboardRow, "outer")
             .where(where)
@@ -126,7 +126,7 @@ app.get('/api/leaderboard', asyncHandler(async (req, res) => {
     console.log('TTTT3');
 
     // @ts-ignore
-    const users = await connection.manager.find(LeaderboardRow, {where: where, skip: start-1, take: count, order: { 'rating': 'ASC' }});
+    const users = await connection.manager.find(LeaderboardRow, {where: where, skip: start-1, take: count, order: { 'rating': 'desc' }});
 
     res.send({
         updated: getUnixTime(leaderboardUpdated),
