@@ -28,7 +28,14 @@ users
 intellij material ui theme
 jetbrains mono
 
-postgres vps
+
+
+
+------------------
+-- postgres vps
+------------------
+
+sudo nano /etc/hosts
 
 sudo apt update
 sudo apt install postgresql postgresql-contrib
@@ -44,16 +51,10 @@ sudo nano /etc/postgresql/12/main/pg_hba.conf
 
 https://o7planning.org/de/11913/sichern-und-wiederherstellen-der-postgres-datenbank-mit-pgadmin
 
-// sudo service postgresql restart
-// pg_basebackup -h 77.8.108.184 -U postgres --progress
-// rm -rf /var/lib/postgresql/12/main
-// pg_basebackup -h 77.8.108.184 -U postgres -D /var/lib/postgresql/12/main --progress
-
-docker compose
 https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04-de
 
 
-aoe2companion-dev-match
+// aoe2companion-dev-match
 aoe2companion-dev-leaderboard
 aoe2companion-dev-ingest
 // aoe2companion-dev-custom-resource-apigw-cw-role
@@ -64,9 +65,10 @@ aoe2companion-dev-ingest
 
 // aoe2companion-graphql
 // aoe2companion-mgz
-aoe2companion-proxy
-aoe2companion-leaderboard
+aoe2companion-import
 aoe2companion-notify
+aoe2companion-leaderboard
+aoe2companion-proxy
 aoe2companion-api
 
 
