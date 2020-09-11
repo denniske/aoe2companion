@@ -73,7 +73,7 @@ app.get('/api/leaderboard', asyncHandler(async (req, res) => {
                 return subQuery
                     .select('count(user.name)', 'rank')
                     .from(LeaderboardRow, "user")
-                    .where('user.leaderboard_id = :leaderboardId AND user.country = :country AND user.rating <= outer.rating', {leaderboardId, country});
+                    .where('user.leaderboard_id = :leaderboardId AND user.country = :country AND user.rating >= outer.rating', {leaderboardId, country});
             })
             .from(LeaderboardRow, "outer")
             .where(where)
@@ -88,6 +88,7 @@ app.get('/api/leaderboard', asyncHandler(async (req, res) => {
             country: country,
             leaderboard: users.map(u => ({...u, rank: parseInt(u.rank)})),
         });
+        time();
         return;
     }
 
@@ -101,7 +102,7 @@ app.get('/api/leaderboard', asyncHandler(async (req, res) => {
                 return subQuery
                     .select('count(user.name)', 'rank')
                     .from(LeaderboardRow, "user")
-                    .where('user.leaderboard_id = :leaderboardId AND user.rating <= outer.rating', {leaderboardId});
+                    .where('user.leaderboard_id = :leaderboardId AND user.rating >= outer.rating', {leaderboardId});
             })
             .from(LeaderboardRow, "outer")
             .where(where)
@@ -116,6 +117,7 @@ app.get('/api/leaderboard', asyncHandler(async (req, res) => {
             country: country,
             leaderboard: users.map(u => ({...u, rank: parseInt(u.rank)})),
         });
+        time();
         return;
     }
 
