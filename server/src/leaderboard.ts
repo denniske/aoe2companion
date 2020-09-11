@@ -65,6 +65,7 @@ app.get('/api/leaderboard', asyncHandler(async (req, res) => {
 
     // Only for "My Rank" (will return one row)
     if (country != null && (steamId != null || profileId != null)) {
+        console.log('HAS country + id');
         const users = await connection
             .createQueryBuilder()
             .select('*')
@@ -78,23 +79,21 @@ app.get('/api/leaderboard', asyncHandler(async (req, res) => {
             .where(where)
             .getRawMany();
 
-        return {
-            statusCode: 200,
-            body: JSON.stringify({
-                updated: getUnixTime(leaderboardUpdated),
-                total: total,
-                leaderboard_id: leaderboardId,
-                start: start,
-                count: count,
-                country: country,
-                leaderboard: users.map(u => ({...u, rank: parseInt(u.rank)})),
-            }, null, 2),
-        };
+        res.send({
+            updated: getUnixTime(leaderboardUpdated),
+            total: total,
+            leaderboard_id: leaderboardId,
+            start: start,
+            count: count,
+            country: country,
+            leaderboard: users.map(u => ({...u, rank: parseInt(u.rank)})),
+        });
+        return;
     }
 
     // Only for "My Rank" (will return one row)
     if (steamId != null || profileId != null) {
-        console.log('TTTT2');
+        console.log('HAS id');
         const users = await connection
             .createQueryBuilder()
             .select('*')
@@ -108,22 +107,19 @@ app.get('/api/leaderboard', asyncHandler(async (req, res) => {
             .where(where)
             .getRawMany();
 
-        return {
-            statusCode: 200,
-            headers: { ...cors },
-            body: JSON.stringify({
-                updated: getUnixTime(leaderboardUpdated),
-                total: total,
-                leaderboard_id: leaderboardId,
-                start: start,
-                count: count,
-                country: country,
-                leaderboard: users.map(u => ({...u, rank: parseInt(u.rank)})),
-            }, null, 2),
-        };
+        res.send({
+            updated: getUnixTime(leaderboardUpdated),
+            total: total,
+            leaderboard_id: leaderboardId,
+            start: start,
+            count: count,
+            country: country,
+            leaderboard: users.map(u => ({...u, rank: parseInt(u.rank)})),
+        });
+        return;
     }
 
-    console.log('TTTT3');
+    console.log('HAS default');
 
     // @ts-ignore
     const users = await connection.manager.find(LeaderboardRow, {where: where, skip: start-1, take: count, order: { 'rating': 'desc' }});
