@@ -63,6 +63,7 @@ app.get('/api/leaderboard', asyncHandler(async (req, res) => {
     if (profileId) where['profile_id'] = profileId;
     if (search) where['name'] = Like(`%${search}%`);
 
+    // Only for "My Rank" (will return one row)
     if (country != null && (steamId != null || profileId != null)) {
         const users = await connection
             .createQueryBuilder()
@@ -71,7 +72,7 @@ app.get('/api/leaderboard', asyncHandler(async (req, res) => {
                 return subQuery
                     .select('count(user.name)', 'rank')
                     .from(LeaderboardRow, "user")
-                    .where('user.leaderboard_id = :leaderboardId AND user.country = :country AND user.rank <= outer.rank', {leaderboardId, country});
+                    .where('user.leaderboard_id = :leaderboardId AND user.country = :country AND user.rating <= outer.rating', {leaderboardId, country});
             })
             .from(LeaderboardRow, "outer")
             .where(where)
@@ -91,9 +92,41 @@ app.get('/api/leaderboard', asyncHandler(async (req, res) => {
         };
     }
 
+    // Only for "My Rank" (will return one row)
+    if (steamId != null || profileId != null) {
+        console.log('TTTT2');
+        const users = await connection
+            .createQueryBuilder()
+            .select('*')
+            .addSelect(subQuery => {
+                return subQuery
+                    .select('count(user.name)', 'rank')
+                    .from(LeaderboardRow, "user")
+                    .where('user.leaderboard_id = :leaderboardId AND user.rating >= outer.rating', {leaderboardId});
+            })
+            .from(LeaderboardRow, "outer")
+            .where(where)
+            .getRawMany();
+
+        return {
+            statusCode: 200,
+            headers: { ...cors },
+            body: JSON.stringify({
+                updated: getUnixTime(leaderboardUpdated),
+                total: total,
+                leaderboard_id: leaderboardId,
+                start: start,
+                count: count,
+                country: country,
+                leaderboard: users.map(u => ({...u, rank: parseInt(u.rank)})),
+            }, null, 2),
+        };
+    }
+
+    console.log('TTTT3');
 
     // @ts-ignore
-    const users = await connection.manager.find(LeaderboardRow, {where: where, skip: start-1, take: count, order: { 'rank': 'ASC' }});
+    const users = await connection.manager.find(LeaderboardRow, {where: where, skip: start-1, take: count, order: { 'rating': 'ASC' }});
 
     res.send({
         updated: getUnixTime(leaderboardUpdated),
@@ -103,10 +136,10 @@ app.get('/api/leaderboard', asyncHandler(async (req, res) => {
         count: count,
         country: country,
         leaderboard: users.map((u, i) => {
-            if (country) {
-                return {...u, rank: start+i};
-            }
-            return u;
+            // if (country) {
+            return {...u, rank: start+i};
+            // }
+            // return u;
         }),
     });
     // res.send({ success: true });

@@ -82,7 +82,7 @@ export const leaderboard: APIGatewayProxyHandler = async (event, _context) => {
         };
     }
 
-   // Only for "My Rank" (will return one row)
+    // Only for "My Rank" (will return one row)
     if (steamId != null || profileId != null) {
         console.log('TTTT2');
         const users = await connection
