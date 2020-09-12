@@ -17,6 +17,6 @@ export class Push {
     @Column({ nullable: true })
     status?: string;
 
-    @CreateDateColumn()
+    @CreateDateColumn({ type: 'timestamp', default: () => `timezone('utc', now())`, readonly: true })
     created_at: Date;
 }

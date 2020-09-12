@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aoe2companion-metric
+  namespace: default
+  labels:
+    app: aoe2companion-metric
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aoe2companion-metric
+  template:
+    metadata:
+      labels:
+        app: aoe2companion-metric
+    spec:
+      containers:
+        - name: aoe2companion-metric
+          image: denniske/aoe2companion-metric:$COMMIT_SHA1
+          ports:
+            - containerPort: 80
+              name: http
+          envFrom:
+            - secretRef:
+                name: server-secret
+          env:
+            - name: PORT
+              value: "80"
+            - name: K8S_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name

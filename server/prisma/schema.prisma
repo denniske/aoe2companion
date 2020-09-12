@@ -137,3 +137,12 @@ model leaderboard_row {
 
   @@id([leaderboard_id, rank])
 }
+
+model push {
+  id         Int      @default(autoincrement()) @id
+  title      String
+  body       String
+  push_token String?
+  status     String?
+  created_at DateTime @default(now())
+}
