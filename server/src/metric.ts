@@ -3,7 +3,7 @@ import {createDB} from "./db";
 import {Following} from "../../serverless/entity/following";
 import {asyncHandler, time} from "./util";
 import {PrismaClient} from "@prisma/client";
-import {getUnixTime, subDays, subMinutes} from "date-fns";
+import {differenceInMinutes, fromUnixTime, getUnixTime, subDays, subMinutes} from "date-fns";
 
 const cors = require('cors');
 const app = express();
@@ -91,12 +91,21 @@ app.get('/', asyncHandler(async (req, res) => {
         },
     });
 
+    const leaderboardLastMatchTime = await prisma.leaderboard_row.aggregate({
+        max: {
+            last_match_time: true,
+        },
+    });
+
+    const leaderboardLastMatchTimeDiffInMinutes = differenceInMinutes(new Date(), fromUnixTime(leaderboardLastMatchTime.max.last_match_time));
+
     const result = {
         sentPushNotifications: sentPushNotifications.count,
         importedMatches: importedMatches.count,
         unfinishedMatches: unfinishedMatches.count,
         finishedMatches: finishedMatches.count,
         finishedButUndecidedMatches: finishedButUndecidedMatches.count,
+        leaderboardLastMatchTimeDiffInMinutes: leaderboardLastMatchTimeDiffInMinutes,
     };
 
     console.log(result);
