@@ -42,12 +42,13 @@ app.get('/api/leaderboard', asyncHandler(async (req, res) => {
         count > 200 ||
         ![0, 1, 2, 3, 4].includes(leaderboardId)
     ) {
-        return {
+        res.send({
             statusCode: 400,
             body: JSON.stringify({
                 message: 'Invalid or missing params',
             }, null, 2),
-        };
+        });
+        return;
     }
 
     // @ts-ignore
@@ -121,10 +122,12 @@ app.get('/api/leaderboard', asyncHandler(async (req, res) => {
         return;
     }
 
-    console.log('HAS default');
+    console.log('HAS default', where);
 
+    time();
     // @ts-ignore
     const users = await connection.manager.find(LeaderboardRow, {where: where, skip: start-1, take: count, order: { 'rating': 'DESC' }});
+    time();
 
     res.send({
         updated: getUnixTime(leaderboardUpdated),
@@ -140,7 +143,6 @@ app.get('/api/leaderboard', asyncHandler(async (req, res) => {
             // return u;
         }),
     });
-    // res.send({ success: true });
     time();
 }));
 
