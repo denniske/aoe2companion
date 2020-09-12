@@ -45,56 +45,56 @@ export default function SettingsPage() {
 
     const enablePushNotifications = async (pushNotificationsEnabled: any) => {
         setLoadingPushNotificationEnabled(true);
-        // try {
-        //     if (pushNotificationsEnabled) {
-        //         const settings = await Notifications.getPermissionsAsync();
-        //         let newStatus = settings.granted || settings.ios?.status === IosAuthorizationStatus.PROVISIONAL;
-        //         console.log('newPermission', newStatus);
-        //         const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-        //         console.log('existingPermission', existingStatus);
-        //         let finalStatus = existingStatus;
-        //         if (existingStatus !== 'granted') {
-        //             const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-        //             finalStatus = status;
-        //         }
-        //         console.log('finalPermission', finalStatus);
-        //         if (finalStatus !== 'granted') {
-        //             console.log('Failed to get push token for push notification!');
-        //             return;
-        //         }
-        //
+        try {
+            if (pushNotificationsEnabled) {
+                const settings = await Notifications.getPermissionsAsync();
+                let newStatus = settings.granted || settings.ios?.status === IosAuthorizationStatus.PROVISIONAL;
+                console.log('newPermission', newStatus);
+                const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+                console.log('existingPermission', existingStatus);
+                let finalStatus = existingStatus;
+                if (existingStatus !== 'granted') {
+                    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+                    finalStatus = status;
+                }
+                console.log('finalPermission', finalStatus);
+                if (finalStatus !== 'granted') {
+                    console.log('Failed to get push token for push notification!');
+                    return;
+                }
+
                 const token = await getToken();
-        //         if (!token) {
-        //             throw 'Could not create token';
-        //         }
-        //
-        //         if (Platform.OS === 'android') {
-        //             await Notifications.setNotificationChannelAsync('default', {
-        //                 name: 'default',
-        //                 importance: Notifications.AndroidImportance.MAX,
-        //                 vibrationPattern: [0, 250, 250, 250],
-        //                 lightColor: '#FF231F7C',
-        //             });
-        //         }
-        //
-        //         await setAccountPushToken(accountId, token);
-        //         if (auth && auth.profile_id) {
-        //             await setAccountProfile(accountId, auth.profile_id, auth.steam_id);
-        //         }
-        //         await follow(accountId, following.map(p => p.profile_id), true);
-        //     }
-        //
-        //     await setNotificationConfig(accountId, pushNotificationsEnabled);
-        //
+                if (!token) {
+                    throw 'Could not create token';
+                }
+
+                if (Platform.OS === 'android') {
+                    await Notifications.setNotificationChannelAsync('default', {
+                        name: 'default',
+                        importance: Notifications.AndroidImportance.MAX,
+                        vibrationPattern: [0, 250, 250, 250],
+                        lightColor: '#FF231F7C',
+                    });
+                }
+
+                await setAccountPushToken(accountId, token);
+                if (auth && auth.profile_id) {
+                    await setAccountProfile(accountId, auth.profile_id, auth.steam_id);
+                }
+                await follow(accountId, following.map(p => p.profile_id), true);
+            }
+
+            await setNotificationConfig(accountId, pushNotificationsEnabled);
+
             const newConfig = {
                 ...config,
                 pushNotificationsEnabled,
             };
             await saveConfigToStorage(newConfig)
             mutate(setConfig(newConfig));
-        // } catch (e) {
-        //     alert('Changing Push Notification setting failed.\n\n' + e);
-        // }
+        } catch (e) {
+            alert('Changing Push Notification setting failed.\n\n' + e);
+        }
         setLoadingPushNotificationEnabled(false);
     };
 

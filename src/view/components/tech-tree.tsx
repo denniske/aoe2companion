@@ -514,6 +514,29 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2 civ={civ} tech="BombardTower"/>
                     </View>
 
+                    <MyText style={styles.heading}/>
+                    <View style={styles.row}>
+                        <Ability2/>
+                        <Ability2 civ={civ} building="Market"/>
+                    </View>
+                    <View style={styles.row}>
+                        <Ability3 age="FeudalAge"/>
+                        <Ability2 civ={civ} unit="TradeCart"/>
+                    </View>
+                    <View style={styles.row}>
+                        <Ability3 age="CastleAge"/>
+                        <Ability2/>
+                        <Ability2 civ={civ} tech="Caravan"/>
+                        <Ability2 civ={civ} tech="Coinage"/>
+                    </View>
+                    <View style={styles.row}>
+                        <Ability3 age="ImperialAge"/>
+                        <Ability2/>
+                        <Ability2/>
+                        <Ability2 civ={civ} tech="Banking"/>
+                        <Ability2 civ={civ} tech="Guilds"/>
+                        <Ability2/>
+                    </View>
 
                     <MyText style={styles.heading}/>
                     <View style={styles.row}>

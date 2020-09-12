@@ -9,6 +9,7 @@ import {useTheme} from "../../theming";
 import {appVariants} from "../../styles";
 import CivAvailability from "../components/civ-availability";
 import Space from "../components/space";
+import {BuildingStats} from "./building-stats";
 
 
 export default function BuildingDetails({building}: {building: Building}) {
@@ -30,6 +31,8 @@ export default function BuildingDetails({building}: {building: Building}) {
 
             <MyText style={styles.description}>{getBuildingDescription(building)}</MyText>
             <Space/>
+
+            <BuildingStats buildingId={building} />
 
             <CivAvailability building={building}/>
 

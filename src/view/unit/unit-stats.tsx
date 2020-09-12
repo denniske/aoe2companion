@@ -10,6 +10,7 @@ import {keysOf} from "../../helper/util";
 import Picker from "../components/picker";
 import {allUnitSections} from "./unit-list";
 import Space from "../components/space";
+import {Building, getBuildingData, IBuildingInfo} from "../../helper/buildings";
 
 interface Props {
     unitId: Unit;
@@ -26,16 +27,17 @@ function getEliteData(unitLineId: UnitLine) {
 
 interface PathProps {
     style?: TextStyle;
-    unitId: Unit;
+    unitId?: Unit;
+    buildingId?: Building;
     path: (x: IUnitInfo) => any;
     formatter?: IFormatter;
 }
 
-function GetValueByPath(props: PathProps) {
-    const { style, unitId, path, formatter = x => (x || 0).toString() } = props;
+export function GetValueByPath(props: PathProps) {
+    const { style, unitId, buildingId, path, formatter = x => (x || 0).toString() } = props;
     const styles = useTheme(variants);
-    const baseData = getUnitData(unitId);
-    const eliteData = getEliteData(getUnitLineIdForUnit(unitId));
+    const baseData = unitId ? getUnitData(unitId) : getBuildingData(buildingId!) as IUnitInfo;
+    const eliteData = unitId ? getEliteData(getUnitLineIdForUnit(unitId)) : null;
 
     if (eliteData && path(eliteData) !== path(baseData)) {
         return (
@@ -53,43 +55,45 @@ function GetValueByPath(props: PathProps) {
 
 interface PathProps2 {
     style?: TextStyle;
-    unitId: Unit;
+    unitId?: Unit;
+    buildingId?: Building;
     prop: keyof IUnitInfo;
     formatter?: IFormatter;
 }
 
 export function GetUnitValue(props: PathProps2) {
-    const { style, unitId, prop, formatter = (x: any) => x } = props;
-    return <GetValueByPath style={style} unitId={unitId} path={ (x: IUnitInfo) => x[prop]} formatter={formatter}/>;
+    const { style, unitId, buildingId, prop, formatter = (x: any) => x } = props;
+    return <GetValueByPath style={style} unitId={unitId} buildingId={buildingId} path={ (x: IUnitInfo) => x[prop]} formatter={formatter}/>;
 }
 
 interface PathProps3 {
     style?: TextStyle;
-    unitId: Unit;
+    unitId?: Unit;
+    buildingId?: Building;
     unitClassNumber: UnitClassNumber;
 }
 
-function GetAttackValue(props: PathProps3) {
-    const { style, unitId, unitClassNumber } = props;
-    return <GetValueByPath style={style} unitId={unitId} path={(x: IUnitInfo) => x.Attacks.find(a => a.Class === unitClassNumber)?.Amount}/>;
+export function GetAttackValue(props: PathProps3) {
+    const { style, unitId, buildingId, unitClassNumber } = props;
+    return <GetValueByPath style={style} unitId={unitId} buildingId={buildingId} path={(x: IUnitInfo) => x.Attacks.find(a => a.Class === unitClassNumber)?.Amount}/>;
 }
 
-function GetAttackBonusValue(props: PathProps3) {
-    const { style, unitId, unitClassNumber } = props;
-    return <GetValueByPath style={style} unitId={unitId} path={(x: IUnitInfo) => x.Attacks.find(a => a.Class === unitClassNumber)?.Amount} formatter={x => '+'+x}/>
+export function GetAttackBonusValue(props: PathProps3) {
+    const { style, unitId, buildingId, unitClassNumber } = props;
+    return <GetValueByPath style={style} unitId={unitId} buildingId={buildingId} path={(x: IUnitInfo) => x.Attacks.find(a => a.Class === unitClassNumber)?.Amount} formatter={x => '+'+x}/>
 }
 
-function GetArmourValue(props: PathProps3) {
-    const { style, unitId, unitClassNumber } = props;
-    return <GetValueByPath style={style} unitId={unitId} path={(x: IUnitInfo) => x.Armours.find(a => a.Class === unitClassNumber)?.Amount} formatter={x => '+'+x}/>
+export function GetArmourValue(props: PathProps3) {
+    const { style, unitId, buildingId, unitClassNumber } = props;
+    return <GetValueByPath style={style} unitId={unitId} buildingId={buildingId} path={(x: IUnitInfo) => x.Armours.find(a => a.Class === unitClassNumber)?.Amount} formatter={x => '+'+x}/>
 }
 
-function getAttackBonuses(unitId: Unit) {
+export function getAttackBonuses(unitId: Unit) {
     const data = getUnitData(unitId);
     return data.Attacks.filter(a => a.Amount > 0 && !attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber)));
 }
 
-function getArmourClasses(unitId: Unit) {
+export function getArmourClasses(unitId: Unit) {
     const data = getUnitData(unitId);
     return data.Armours.filter(a => !hiddenArmourClasses.includes(getUnitClassName(a.Class as UnitClassNumber)));
 }
@@ -205,7 +209,6 @@ export function UnitStats({ unitId, unitLineId }: Props) {
             </View>
             <View style={styles.statsRow}>
                 <MyText style={[styles.cellName, styles.small]}>bonus</MyText>
-                {/*<MyText style={styles.cellName}></MyText>*/}
                 {
                     units.map(u =>
                         <View key={u} style={styles.cellValue}>
@@ -272,7 +275,6 @@ export function UnitStats({ unitId, unitLineId }: Props) {
             </View>
             <View style={styles.statsRow}>
                 <MyText style={[styles.cellName, styles.small]}>bonus</MyText>
-                {/*<MyText style={styles.cellName}></MyText>*/}
                 {
                     units.map(u =>
                         <View key={u} style={styles.cellValue}>

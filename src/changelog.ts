@@ -10,6 +10,20 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '16.0.1': [
+        {
+            type: 'feature',
+            title: 'Add stats (hit points, attack, etc.) to buildings page',
+        },
+        {
+            type: 'minor',
+            title: 'Add market to tech tree',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix some issues with push notifications (you might to disable and enable them again)',
+        },
+    ],
     '16.0.0': [
         {
             type: 'bugfix',

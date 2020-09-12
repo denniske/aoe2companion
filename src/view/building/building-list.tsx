@@ -48,7 +48,7 @@ interface ISection {
     data: Building[];
 }
 
-const sections: ISection[] = [
+export const buildingSections: ISection[] = [
     {
         title: 'Military Production',
         data: [
@@ -119,14 +119,14 @@ const sections: ISection[] = [
 export default function BuildingList() {
     const styles = useTheme(variants);
     const [text, setText] = useState('');
-    const [list, setList] = useState(sections);
+    const [list, setList] = useState(buildingSections);
 
     const refresh = () => {
         if (text.length == 0) {
-            setList(sections);
+            setList(buildingSections);
             return;
         }
-        const newSections = sections.map(section => ({
+        const newSections = buildingSections.map(section => ({
             ...section,
             data: section.data.filter(building => getBuildingName(building).toLowerCase().includes(text.toLowerCase())),
         })).filter(section => section.data.length > 0);
