@@ -234,7 +234,7 @@ export async function fetchMatch(game: string, match_id: string): Promise<IMatch
     }
 }
 
-const leaderboardUrls = ['unranked', 'rm-1v1', 'rm-team', 'dm-1v1', 'dm-team'];
+const leaderboardUrls = ['unranked', 'dm-1v1', 'dm-team', 'rm-1v1', 'rm-team',];
 
 export async function fetchLeaderboardRecentMatches(leaderboardId: number, count: number): Promise<ILeaderboardListRaw> {
     let query: any = {
