@@ -5,7 +5,6 @@ import {fromUnixTime} from "date-fns";
 import {upsertMatchesWithPlayers} from "../../serverless/entity/entity-helper";
 import {createExpress} from "./helper/express";
 import {formatDayAndTime} from './helper/util';
-import {first} from "lodash-es";
 
 const app = createExpress();
 
