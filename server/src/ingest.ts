@@ -7,8 +7,6 @@ import {getUnixTime, subDays} from "date-fns";
 import {createExpress} from "./helper/express";
 
 
-const app = createExpress();
-
 async function fetchLeaderboardDataset(leaderboardId: number, start: number, count: number) {
     const connection = await createDB();
 
@@ -63,8 +61,6 @@ async function fetchLeaderboardData(leaderboardId: number) {
 async function ingest() {
     console.log("Running ingest...");
 
-    await createDB();
-
     await fetchLeaderboardData(0);
     await fetchLeaderboardData(1);
     await fetchLeaderboardData(2);
@@ -76,7 +72,11 @@ async function ingest() {
 
 async function main() {
     await createDB();
+
+    const app = createExpress();
     app.listen(process.env.PORT || 3002, () => console.log(`Server listening on port ${process.env.PORT || 3002}!`));
+
+    // Every hour
     cron.schedule("0 * * * *", ingest);
 }
 

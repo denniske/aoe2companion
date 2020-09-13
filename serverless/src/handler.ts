@@ -18,6 +18,7 @@ import {Match} from "../entity/match";
 import {Player} from "../entity/player";
 import {Following} from "../entity/following";
 import {Account} from "../entity/account";
+import {RatingHistory} from "../entity/rating-history";
 
 console.log(pg2 != null ? 'pg initialized' : '');
 console.log(process.env.DATABASE_URL);
@@ -39,6 +40,7 @@ export async function createDB() {
                 KeyValue,
                 User,
                 LeaderboardRow,
+                RatingHistory,
             ],
             // entities: getMetadataArgsStorage().tables.map(tbl => tbl.target),
             synchronize: !!process.env.IS_OFFLINE,

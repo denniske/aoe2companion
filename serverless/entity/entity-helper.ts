@@ -4,6 +4,16 @@ import {Player} from "./player";
 import {chunk, uniqBy} from "lodash";
 import {Column, Connection, PrimaryColumn} from "typeorm";
 import {LeaderboardRow} from "./leaderboard-row";
+import {RatingHistory} from "./rating-history";
+
+export interface IRatingHistoryEntryRaw {
+    drops: number;
+    num_losses: number;
+    num_wins: number;
+    rating: number;
+    streak: number;
+    timestamp?: any;
+}
 
 export function createMatchEntity(matchEntry: IMatchFromApi) {
     const match = new Match();
@@ -99,6 +109,16 @@ export function createLeaderboardRowEntity(leaderboardRowEntry: LeaderboardRow) 
     return leaderboardRow;
 }
 
+
+export function createRatingHistoryEntity(leaderboard_id: number, profile_id: number, ratingHistoryEntry: IRatingHistoryEntryRaw) {
+    const ratingHistory = new RatingHistory();
+    ratingHistory.leaderboard_id = leaderboard_id;
+    ratingHistory.profile_id = profile_id;
+    ratingHistory.rating = ratingHistoryEntry.rating;
+    ratingHistory.timestamp = ratingHistoryEntry.timestamp;
+    return ratingHistory;
+}
+
 export async function upsertMatchesWithPlayers(connection: Connection, matchEntries: IMatchFromApi[]) {
     for (const chunkRows of chunk(matchEntries, 100)) {
         const playerRows: Player[] = [];
@@ -153,6 +173,21 @@ export async function upsertLeaderboardRows(connection: Connection, leaderboardR
 
         await connection.transaction(async transactionalEntityManager => {
             await transactionalEntityManager.save(leaderboardRows);
+        });
+    }
+}
+
+export async function upsertRatingHistory(connection: Connection, leaderboard_id: number, profile_id: number, ratingHistoryEntries: IRatingHistoryEntryRaw[]) {
+    for (const chunkRows of chunk(ratingHistoryEntries, 100)) {
+        const ratingHistoryRows: RatingHistory[] = [];
+
+        chunkRows.forEach(ratingHistoryEntry => {
+            const ratingHistory = createRatingHistoryEntity(leaderboard_id, profile_id, ratingHistoryEntry);
+            ratingHistoryRows.push(ratingHistory);
+        });
+
+        await connection.transaction(async transactionalEntityManager => {
+            await transactionalEntityManager.save(ratingHistoryRows);
         });
     }
 }

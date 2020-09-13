@@ -62,4 +62,7 @@ export class LeaderboardRow {
 
     @Column({ nullable: true })
     previous_rating?: number;
+
+    @Column({ nullable: true })
+    history_fetched?: number;
 }

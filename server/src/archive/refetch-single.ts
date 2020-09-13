@@ -1,9 +1,6 @@
 import express from 'express';
-import {createDB} from "./helper/db";
-import {Match} from "../../serverless/entity/match";
-import {In} from "typeorm";
-import {fetchLeaderboardRecentMatches, fetchMatch, fetchMatches} from "../../serverless/src/helper";
-import {groupBy} from "lodash";
+import {createDB} from "../helper/db";
+import {fetchMatches} from "../../../serverless/src/helper";
 import {PrismaClient} from "@prisma/client"
 
 const cors = require('cors');

@@ -13,6 +13,7 @@ import {Account} from "../../../serverless/entity/account";
 import {Event, EventHint} from "@sentry/types";
 // Use pg2 to force inclusion in final package
 import * as pg2 from 'pg';
+import {RatingHistory} from "../../../serverless/entity/rating-history";
 
 const Sentry = require('@sentry/node');
 
@@ -51,6 +52,7 @@ export async function createDB() {
                 KeyValue,
                 User,
                 LeaderboardRow,
+                RatingHistory,
             ],
             // entities: getMetadataArgsStorage().tables.map(tbl => tbl.target),
             synchronize: process.env.LOCAL === 'true',

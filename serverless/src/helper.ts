@@ -2,6 +2,8 @@ import {createDB} from "./handler";
 import {KeyValue} from "../entity/keyvalue";
 import fetch from "node-fetch";
 import {IMatch, IPlayer} from "../entity/entity.type";
+import {IRatingHistoryEntryRaw} from "../entity/entity-helper";
+import {uniqBy} from "lodash";
 
 export async function setValue(id: string, value: any) {
     const connection = await createDB();
@@ -146,6 +148,29 @@ export interface IMatchRaw {
 }
 
 
+export interface IFetchRatingHistoryParams {
+    steam_id?: string;
+    profile_id?: number;
+}
+
+export async function fetchRatingHistoryUniqueByTimestamp(game: string, leaderboard_id: number, start: number, count: number, params: IFetchRatingHistoryParams) {
+    const queryString = makeQueryString({
+        game,
+        leaderboard_id,
+        start,
+        count,
+        ...params,
+    });
+    const url = `http://aoe2.net/api/player/ratinghistory?${queryString}`;
+    const response = await fetch(url);
+    try {
+        return uniqBy(await response.json() as IRatingHistoryEntryRaw[], h => h.timestamp);
+    } catch (e) {
+        console.log("FAILED", url);
+        throw e;
+    }
+}
+
 export async function fetchLeaderboard(game: string, leaderboard_id: number, params: IFetchLeaderboardParams) {
     const queryString = makeQueryString({
         game,
@@ -209,7 +234,9 @@ export async function fetchMatch(game: string, match_id: string): Promise<IMatch
     }
 }
 
-export async function fetchLeaderboardRecentMatches(count: number): Promise<ILeaderboardListRaw> {
+const leaderboardUrls = ['unranked', 'rm-1v1', 'rm-team', 'dm-1v1', 'dm-team'];
+
+export async function fetchLeaderboardRecentMatches(leaderboardId: number, count: number): Promise<ILeaderboardListRaw> {
     let query: any = {
         'order[0][column]': 21,
         'order[0][dir]': 'desc',
@@ -218,7 +245,7 @@ export async function fetchLeaderboardRecentMatches(count: number): Promise<ILea
     };
     const queryString = makeQueryString(query);
 
-    const url = `https://aoe2.net/leaderboard/aoe2de/rm-1v1?${queryString}`;
+    const url = `https://aoe2.net/leaderboard/aoe2de/${leaderboardUrls[leaderboardId]}?${queryString}`;
     console.log(url);
     const response = await fetch(url, { timeout: 60 * 1000 });
     try {

@@ -1,5 +1,4 @@
 import {createDB} from "./helper/db";
-import {fetchLeaderboardRecentMatches} from "../../serverless/src/helper";
 import {groupBy} from "lodash";
 import {PrismaClient} from "@prisma/client"
 import {createExpress} from "./helper/express";
@@ -8,29 +7,18 @@ const app = createExpress();
 
 const prisma = new PrismaClient()
 
-interface ILastMatchEntry {
-    profile_id: number;
-    finished: number;
-}
-
 async function fetchMatchesSinceLastTime() {
-    console.log(new Date(), "Fetch leaderboard recent matches");
+    console.log(new Date(), "Fetch recent matches all leaderboards");
 
-    let entries = await fetchLeaderboardRecentMatches(50);
-    console.log(new Date(), 'GOT', entries.data.length);
+    const recentMatches = await prisma.leaderboard_row.findMany({
+        orderBy: {
+            last_match_time: 'desc',
+        },
+        take: 50,
+    });
 
-    if (entries.data.length > 0) {
-        console.log(entries.data[0][21], '-', entries.data[entries.data.length-1][21]);
-    }
-
-    const lastMatches = entries.data.map(d => ({
-        profile_id: parseInt(d[1].toString()),
-        finished: d[21],
-    } as ILastMatchEntry));
-
-    const lastMatchesFinished = groupBy(lastMatches, m => m.finished);
-
-    console.log(lastMatchesFinished);
+    const lastMatchesFinished = groupBy(recentMatches, m => m.last_match_time);
+    console.log(lastMatchesFinished.length);
 
     for (const [finishedStr, players] of Object.entries(lastMatchesFinished)) {
         const finished = parseInt(finishedStr);

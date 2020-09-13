@@ -116,7 +116,6 @@ model user {
 
 model leaderboard_row {
   leaderboard_id  Int
-  rank            Int
   profile_id      Int
   steam_id        String?
   name            String
@@ -135,8 +134,10 @@ model leaderboard_row {
   highest_streak  Int?
   last_match_time Int?
   previous_rating Int?
+  history_fetched Int?
 
-  @@id([leaderboard_id, rank])
+  @@id([leaderboard_id, profile_id])
+  @@index([rating], name: "IDX_935515e6126c1a045608ca78b9")
 }
 
 model push {
@@ -146,4 +147,14 @@ model push {
   push_token String?
   status     String?
   created_at DateTime @default(now())
+}
+
+model rating_history {
+  leaderboard_id Int
+  profile_id     Int
+  timestamp      Int
+  rating         Int
+
+  @@id([leaderboard_id, profile_id, timestamp])
+  @@index([timestamp], name: "IDX_8d92750e0c397c82a4d2ed628b")
 }

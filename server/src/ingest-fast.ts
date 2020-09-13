@@ -1,28 +1,16 @@
 import {createDB} from "./helper/db";
-import {fetchLeaderboardRecentMatches} from "../../serverless/src/helper";
+import {fetchLeaderboardRecentMatches, setValue} from "../../serverless/src/helper";
 import {LeaderboardRow} from "../../serverless/entity/leaderboard-row";
 import {upsertLeaderboardRows} from "../../serverless/entity/entity-helper";
 import {createExpress} from "./helper/express";
+import * as cron from "node-cron";
 
 
-const app = createExpress();
-
-async function refetchMatchesSinceLastTime() {
+async function fetchLeaderboardData(leaderboardId: number) {
     const connection = await createDB();
 
-    // console.log(new Date(), "Refetch leaderboard recent matches");
-    //
-    // const recentLeaderboardRows = await prisma.leaderboard_row.findMany({
-    //     orderBy: { last_match_time: 'desc' },
-    //     take: 1,
-    // });
-    //
-    // if (recentLeaderboardRows.length != 1) throw "???";
-    //
-    // const lastMatchTime = recentLeaderboardRows[0].last_match_time;
-
-    console.log(new Date(), "Fetch leaderboard recent matches now");
-    let entries = await fetchLeaderboardRecentMatches(50);
+    console.log(new Date(), "Fetch leaderboard recent matches", leaderboardId);
+    let entries = await fetchLeaderboardRecentMatches(leaderboardId, 50);
     console.log(new Date(), 'GOT', entries.data.length);
 
     // "",
@@ -49,7 +37,7 @@ async function refetchMatchesSinceLastTime() {
     // 1598830554
 
     const leaderboardRows = entries.data.map(d => ({
-        leaderboard_id: 3,
+        leaderboard_id: leaderboardId,
         steam_id: d[0],
         profile_id: parseInt(d[1]),
         rank: parseInt(d[2]),
@@ -76,35 +64,32 @@ async function refetchMatchesSinceLastTime() {
 
     if (leaderboardRows.length > 0) {
         console.log(leaderboardRows[0].last_match_time, '-', leaderboardRows[leaderboardRows.length-1].last_match_time);
-
         await upsertLeaderboardRows(connection, leaderboardRows);
     } else {
         console.log('No elements');
     }
-
-    return false;
 }
 
-async function refetchMatches() {
-    try {
-        const matchesProcessed = await refetchMatchesSinceLastTime();
-        if (matchesProcessed) {
-            console.log('Waiting 0s');
-            setTimeout(refetchMatches, 0 * 1000);
-        } else {
-            console.log('Waiting 30s');
-            setTimeout(refetchMatches, 30 * 1000);
-        }
-    } catch (e) {
-        console.error(e);
-        setTimeout(refetchMatches, 60 * 1000);
-    }
+async function ingest() {
+    console.log("Running ingest...");
+
+    await fetchLeaderboardData(0);
+    await fetchLeaderboardData(1);
+    await fetchLeaderboardData(2);
+    await fetchLeaderboardData(3);
+    await fetchLeaderboardData(4);
+
+    await setValue('leaderboardUpdated', new Date());
 }
 
 async function main() {
     await createDB();
+
+    const app = createExpress();
     app.listen(process.env.PORT || 3003, () => console.log(`Server listening on port ${process.env.PORT || 3003}!`));
-    await refetchMatches();
+
+    // Every minute
+    cron.schedule("* * * * *", ingest);
 }
 
 main();
