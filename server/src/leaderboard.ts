@@ -57,7 +57,7 @@ app.get('/api/leaderboard', asyncHandler(async (req, res) => {
 
     if (
         start < 1 ||
-        count > 200 ||
+        count > 10000 ||
         ![0, 1, 2, 3, 4].includes(leaderboardId)
     ) {
         res.send({
@@ -80,7 +80,7 @@ app.get('/api/leaderboard', asyncHandler(async (req, res) => {
     // console.log('TOTAL', where);
     // Execute total before single-result restrictions are appended to where clause
     // const total = await connection.manager.count(LeaderboardRow, {where: where});
-    const total = cache[`(${leaderboardId},${country})`];
+    const total = cache[`(${leaderboardId},${country})`] || 0;
     console.log(`cache(${leaderboardId},${country})`, total, cacheUpdated);
 
     if (steamId) where['steam_id'] = steamId;

@@ -13,7 +13,8 @@
     "strings": "ts-node src/strings.ts",
     "temp": "ts-node src/temp.ts",
     "temp2": "ts-node src/temp2.ts",
-    "temp3": "ts-node src/temp3.ts"
+    "temp3": "ts-node src/temp3.ts",
+    "temp4": "ts-node src/temp4.ts"
   },
   "author": "",
   "license": "ISC",
