@@ -1,28 +1,12 @@
 import express from 'express';
-import {createDB} from "./db";
+import {createDB} from "./helper/db";
 import * as fs from "fs";
 import {upsertAIPlayers} from "../../serverless/entity/entity-helper";
-import {IMatchRaw} from "./util";
+import {IMatchRaw} from "./helper/util";
 import {sum} from "lodash";
+import {createExpress} from "./helper/express";
 
-const cors = require('cors');
-const app = express();
-
-const bodyParser = require('body-parser');
-app.use(bodyParser.json({limit: '100mb', extended: true}));
-
-app.use(cors());
-
-// Initialize DB with correct entities
-createDB();
-
-
-
-export function sleep(ms: number) {
-    return new Promise((resolve) => {
-        setTimeout(resolve, ms);
-    });
-}
+const app = createExpress();
 
 const separator = '/';
 
@@ -65,7 +49,7 @@ async function fetchMatchesSinceLastTime() {
 }
 
 async function importMatches() {
-    // await createDB();
+    await createDB();
     try {
         const done = await fetchMatchesSinceLastTime();
         if (!done) {

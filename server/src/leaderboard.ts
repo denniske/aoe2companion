@@ -1,25 +1,15 @@
-import express from 'express';
-import {createDB} from "./db";
+import {createDB} from "./helper/db";
 import {getValue} from "../../serverless/src/helper";
 import {LeaderboardRow} from "../../serverless/entity/leaderboard-row";
 import {Like} from "typeorm";
-import {asyncHandler, getParam, time} from "./util";
+import {asyncHandler, getParam, time} from "./helper/util";
 import {differenceInMinutes, getUnixTime} from "date-fns";
-
-const cors = require('cors');
-const app = express();
-
-const bodyParser = require('body-parser');
-app.use(bodyParser.json({limit: '100mb', extended: true}));
-
-app.use(cors());
+import {createExpress} from "./helper/express";
 
 const cache: Record<string, number> = {};
 let cacheUpdated: Date = null;
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+const app = createExpress();
 
 interface IRow {
     key: string;
@@ -160,10 +150,7 @@ app.get('/api/leaderboard', asyncHandler(async (req, res) => {
         count: count,
         country: country,
         leaderboard: users.map((u, i) => {
-            // if (country) {
             return {...u, rank: start+i};
-            // }
-            // return u;
         }),
     });
     time();
@@ -171,7 +158,6 @@ app.get('/api/leaderboard', asyncHandler(async (req, res) => {
 }));
 
 async function main() {
-    // Initialize DB with correct entities
     await createDB();
     await updateCache();
     app.listen(process.env.PORT || 3004, () => console.log(`Server listening on port ${process.env.PORT || 3004}!`));

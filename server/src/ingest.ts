@@ -1,18 +1,10 @@
-import {createDB} from "./db";
+import {createDB} from "./helper/db";
 import {fetchLeaderboard, ILeaderboardPlayerRaw, setValue} from "../../serverless/src/helper";
 import {upsertLeaderboardRows} from "../../serverless/entity/entity-helper";
 import * as cron from "node-cron";
 import {LeaderboardRow} from "../../serverless/entity/leaderboard-row";
 import {getUnixTime, subDays} from "date-fns";
 
-// Initialize DB with correct entities
-createDB();
-
-export function sleep(ms: number) {
-    return new Promise((resolve) => {
-        setTimeout(resolve, ms);
-    });
-}
 
 async function fetchLeaderboardDataset(leaderboardId: number, start: number, count: number) {
     const connection = await createDB();
@@ -66,7 +58,9 @@ async function fetchLeaderboardData(leaderboardId: number) {
 }
 
 async function ingest() {
-  console.log("Running ingest...");
+    console.log("Running ingest...");
+
+    await createDB();
 
     await fetchLeaderboardData(0);
     await fetchLeaderboardData(1);

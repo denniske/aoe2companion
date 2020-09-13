@@ -1,31 +1,12 @@
-import express from 'express';
-import {createDB} from "./db";
-import {Match} from "../../serverless/entity/match";
-import {In} from "typeorm";
+import {createDB} from "./helper/db";
 import {fetchLeaderboardRecentMatches} from "../../serverless/src/helper";
 import {groupBy} from "lodash";
 import {PrismaClient} from "@prisma/client"
+import {createExpress} from "./helper/express";
 
-const cors = require('cors');
-const app = express();
-
-const bodyParser = require('body-parser');
-app.use(bodyParser.json({limit: '100mb', extended: true}));
-
-app.use(cors());
-
-// Initialize DB with correct entities
-createDB();
-
+const app = createExpress();
 
 const prisma = new PrismaClient()
-
-
-export function sleep(ms: number) {
-    return new Promise((resolve) => {
-        setTimeout(resolve, ms);
-    });
-}
 
 interface ILastMatchEntry {
     profile_id: number;
@@ -33,8 +14,6 @@ interface ILastMatchEntry {
 }
 
 async function fetchMatchesSinceLastTime() {
-    const connection = await createDB();
-
     console.log(new Date(), "Fetch leaderboard recent matches");
 
     let entries = await fetchLeaderboardRecentMatches(50);
@@ -74,9 +53,8 @@ async function fetchMatchesSinceLastTime() {
 }
 
 async function importMatches() {
-    // await createDB();
     try {
-        const done = await fetchMatchesSinceLastTime();
+        await fetchMatchesSinceLastTime();
         console.log('Waiting 30s');
         setTimeout(importMatches, 30 * 1000);
     } catch (e) {
@@ -85,14 +63,13 @@ async function importMatches() {
     }
 }
 
-importMatches();
+async function main() {
+    await createDB();
+    app.listen(process.env.PORT || 3012, () => console.log(`Server listening on port ${process.env.PORT || 3002}!`));
+    await importMatches();
+}
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
-
-app.listen(process.env.PORT || 3012, () => console.log(`Server listening on port ${process.env.PORT || 3002}!`));
-
+main();
 
 
 

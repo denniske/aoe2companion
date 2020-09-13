@@ -1,20 +1,10 @@
-import express from 'express';
-import {createDB} from "./db";
-import {Following} from "../../serverless/entity/following";
-import {asyncHandler, time} from "./util";
+import {createDB} from "./helper/db";
+import {asyncHandler, time} from "./helper/util";
 import {PrismaClient} from "@prisma/client";
 import {differenceInMinutes, fromUnixTime, getUnixTime, subDays, subMinutes} from "date-fns";
+import {createExpress} from "./helper/express";
 
-const cors = require('cors');
-const app = express();
-
-const bodyParser = require('body-parser');
-app.use(bodyParser.json({limit: '100mb', extended: true}));
-
-app.use(cors());
-
-// Initialize DB with correct entities
-createDB();
+const app = createExpress();
 
 const prisma = new PrismaClient({
     log: ['query', 'info', 'warn'],
@@ -31,8 +21,6 @@ const prisma = new PrismaClient({
 
 app.get('/', asyncHandler(async (req, res) => {
     time(1);
-    const connection = await createDB();
-
     const fiveMinutesAgo = subMinutes(new Date(), 5);
     console.log('fiveMinutesAgo', fiveMinutesAgo);
 
@@ -114,5 +102,9 @@ app.get('/', asyncHandler(async (req, res) => {
     time();
 }));
 
-app.listen(process.env.PORT || 3015, () => console.log(`Server listening on port ${process.env.PORT || 3015}!`));
+async function main() {
+    await createDB();
+    app.listen(process.env.PORT || 3015, () => console.log(`Server listening on port ${process.env.PORT || 3015}!`));
+}
 
+main();

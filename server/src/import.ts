@@ -1,19 +1,14 @@
 import express from 'express';
-import {createDB} from "./db";
+import {createDB} from "./helper/db";
 import {Match} from "../../serverless/entity/match";
 import {fetchMatches, setValue} from "../../serverless/src/helper";
 import {max} from "lodash";
 import {upsertMatchesWithPlayers} from "../../serverless/entity/entity-helper";
 import {format, fromUnixTime} from "date-fns";
 import {enUS} from "date-fns/locale";
+import {createExpress} from "./helper/express";
 
-const cors = require('cors');
-const app = express();
-
-const bodyParser = require('body-parser');
-app.use(bodyParser.json({limit: '100mb', extended: true}));
-
-app.use(cors());
+const app = createExpress();
 
 function formatDayAndTime(date: Date) {
     console.log(date);

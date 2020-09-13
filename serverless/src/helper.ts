@@ -25,7 +25,7 @@ export async function getValue(id: string) {
     return JSON.parse(keyValue?.value ?? null);
 }
 
-export const cors = {
+export const corsHeader = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Credentials': true,
 };

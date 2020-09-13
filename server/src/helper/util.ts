@@ -1,5 +1,7 @@
 import {ParsedQs} from "qs";
 import {Params, ParamsDictionary, PathParams, RequestHandler} from "express-serve-static-core";
+import {format} from "date-fns";
+import {enUS} from "date-fns/locale";
 
 export interface UserIdBase {
     steamId?: string;
@@ -212,4 +214,15 @@ export function getParam(params: { [name: string]: any } | null, key: string): s
         return null;
     }
     return params[key];
+}
+
+export function sleep(ms: number) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
+}
+
+export function formatDayAndTime(date: Date) {
+    console.log(date);
+    return format(date, 'MMM d HH:mm', {locale: enUS});
 }

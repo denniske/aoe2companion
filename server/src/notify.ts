@@ -1,38 +1,14 @@
-import express from 'express';
 import fetch from "node-fetch";
-import {createDB, getSentry} from "./db";
+import {createDB, getSentry} from "./helper/db";
 import {Following} from "../../serverless/entity/following";
-import {setValue} from "../../serverless/src/helper";
 import {Match} from "../../serverless/entity/match";
 import {groupBy} from "lodash";
-import {In, MoreThan, getRepository} from "typeorm";
+import {getRepository, In, MoreThan} from "typeorm";
 import {getUnixTime} from 'date-fns';
 import {Push} from "../../serverless/entity/push";
-const cors = require('cors');
-const app = express();
+import {createExpress} from "./helper/express";
 
-
-
-const bodyParser = require('body-parser');
-app.use(bodyParser.json({limit: '100mb', extended: true}));
-
-app.use(cors());
-
-// Initialize DB with correct entities
-createDB();
-
-let sentPushNotifications = 0;
-
-setInterval(async () => {
-    if (!process.env.K8S_POD_NAME) return;
-    await setValue(process.env.K8S_POD_NAME + '_sentPushNotifications', sentPushNotifications);
-}, 5000);
-
-export function sleep(ms: number) {
-    return new Promise((resolve) => {
-        setTimeout(resolve, ms);
-    });
-}
+const app = createExpress();
 
 interface IExpoPushResponse {
     data: {
@@ -43,8 +19,6 @@ interface IExpoPushResponse {
 }
 
 async function sendPushNotification(expoPushToken: string, title: string, body: string) {
-    sentPushNotifications++;
-
     const message = {
         to: expoPushToken,
         sound: 'default',
@@ -131,24 +105,10 @@ async function notifyAll() {
     }
 }
 
-notifyAll();
+async function main() {
+    await createDB();
+    app.listen(process.env.PORT || 3002, () => console.log(`Server listening on port ${process.env.PORT || 3002}!`));
+    await notifyAll();
+}
 
-// console.log(formatNames(['Baratticus']));
-// console.log(formatNames(['Baratticus', 'SihingMo']));
-// console.log(formatNames(['Baratticus', 'SihingMo', 'Walter']));
-
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
-
-app.get('/status', (req, res) => {
-    res.send({
-        sentPushNotifications: sentPushNotifications,
-    });
-});
-
-app.get('/health', (req, res) => {
-    res.send({ status: 'OK' });
-});
-
-app.listen(process.env.PORT || 3002, () => console.log(`Server listening on port ${process.env.PORT || 3002}!`));
+main();

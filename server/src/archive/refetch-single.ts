@@ -1,5 +1,5 @@
 import express from 'express';
-import {createDB} from "./db";
+import {createDB} from "./helper/db";
 import {Match} from "../../serverless/entity/match";
 import {In} from "typeorm";
 import {fetchLeaderboardRecentMatches, fetchMatch, fetchMatches} from "../../serverless/src/helper";

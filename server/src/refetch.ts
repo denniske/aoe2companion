@@ -1,39 +1,16 @@
-import express from 'express';
-import {createDB} from "./db";
-import {Match} from "../../serverless/entity/match";
+import {createDB} from "./helper/db";
 import {fetchMatches} from "../../serverless/src/helper";
-import {chunk, uniqBy} from "lodash";
 import {PrismaClient} from "@prisma/client"
-import {format, fromUnixTime} from "date-fns";
-import {enUS} from "date-fns/locale";
-import {Player} from "../../serverless/entity/player";
-import {createMatchEntity, upsertMatchesWithPlayers} from "../../serverless/entity/entity-helper";
+import {fromUnixTime} from "date-fns";
+import {upsertMatchesWithPlayers} from "../../serverless/entity/entity-helper";
+import {createExpress} from "./helper/express";
+import {formatDayAndTime} from './helper/util';
 
-const cors = require('cors');
-const app = express();
-
-const bodyParser = require('body-parser');
-app.use(bodyParser.json({limit: '100mb', extended: true}));
-
-app.use(cors());
-
-// Initialize DB with correct entities
-createDB();
+const app = createExpress();
 
 const prisma = new PrismaClient({
     log: ['query', 'info', 'warn'],
 });
-
-function formatDayAndTime(date: Date) {
-    console.log(date);
-    return format(date, 'MMM d HH:mm', {locale: enUS});
-}
-
-export function sleep(ms: number) {
-    return new Promise((resolve) => {
-        setTimeout(resolve, ms);
-    });
-}
 
 const FETCH_COUNT = 300;
 
@@ -111,13 +88,20 @@ async function refetchMatches() {
     }
 }
 
-refetchMatches();
+async function main() {
+    await createDB();
+    app.listen(process.env.PORT || 3010, () => console.log(`Server listening on port ${process.env.PORT || 3010}!`));
+    await refetchMatches();
+}
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+main();
 
-app.listen(process.env.PORT || 3010, () => console.log(`Server listening on port ${process.env.PORT || 3010}!`));
+
+
+
+
+
+
 
 
 

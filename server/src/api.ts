@@ -1,43 +1,11 @@
-import express from 'express';
-import {createDB} from "./db";
-import {setValue} from "../../serverless/src/helper";
-import {LeaderboardRow} from "../../serverless/entity/leaderboard-row";
+import {createDB} from "./helper/db";
 import {Following} from "../../serverless/entity/following";
-import {Match} from "../../serverless/entity/match";
-import {Player} from "../../serverless/entity/player";
-import {getRepository, In} from "typeorm";
-import {asyncHandler, getParam, time} from "./util";
-import {User} from "../../serverless/entity/user";
+import {getRepository, In, Not} from "typeorm";
+import {asyncHandler, time} from "./helper/util";
 import {Account} from "../../serverless/entity/account";
-import {Not} from "typeorm/index";
+import {createExpress} from "./helper/express";
 
-const cors = require('cors');
-const app = express();
-
-const bodyParser = require('body-parser');
-app.use(bodyParser.json({limit: '100mb', extended: true}));
-
-app.use(cors());
-
-// Initialize DB with correct entities
-createDB();
-
-// let sentPushNotifications = 0;
-
-setInterval(async () => {
-    if (!process.env.K8S_POD_NAME) return;
-    // await setValue(process.env.K8S_POD_NAME + '_sentPushNotifications', sentPushNotifications);
-}, 5000);
-
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
-
-app.get('/status', (req, res) => {
-    res.send({
-        // sentPushNotifications: sentPushNotifications,
-    });
-});
+const app = createExpress();
 
 interface IAccountPushTokenRequest {
     account_id: string;
@@ -179,8 +147,6 @@ app.post('/account/profile', asyncHandler(async (req, res) => {
 }));
 
 
-
-
 app.post('/notification/config', asyncHandler(async (req, res) => {
     time(1);
     const connection = await createDB();
@@ -202,72 +168,9 @@ app.post('/notification/config', asyncHandler(async (req, res) => {
     time();
 }));
 
+async function main() {
+    await createDB();
+    app.listen(process.env.PORT || 3003, () => console.log(`Server listening on port ${process.env.PORT || 3003}!`));
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// interface IFollowingEntry {
-//     id?: string;
-//     steam_id?: string;
-//     profile_id?: number;
-// }
-//
-// interface IFollowingRequest {
-//     token: string;
-//     token_profile_id?: number;
-//     following: IFollowingEntry[];
-//     enabled: boolean;
-// }
-//
-// app.post('/following', asyncHandler(async (req, res) => {
-//     time(1);
-//     const connection = await createDB();
-//
-//     const { token, following, token_profile_id, enabled } = req.body as IFollowingRequest;
-//
-//     // console.log('/following');
-//     // console.log(req.body);
-//
-//     throw 'Deliberate error';
-//
-//     const query = connection.createQueryBuilder()
-//         .delete()
-//         .from(Following)
-//         .where({ push_token: token });
-//     await query.execute();
-//
-//     time();
-//     const followingRepo = getRepository(Following);
-//     time();
-//
-//     const rows = Object.values(following).map(follow => {
-//         const followingEntry = new Following();
-//         followingEntry.push_token = token;
-//         followingEntry.profile_id = follow.profile_id;
-//         followingEntry.enabled = enabled;
-//         followingEntry.token_profile_id = token_profile_id;
-//
-//         return followingEntry;
-//     });
-//
-//     await followingRepo.save(rows);
-//
-//     res.send({ success: true });
-//     time();
-// }));
-
-app.listen(process.env.PORT || 3003, () => console.log(`Server listening on port ${process.env.PORT || 3003}!`));
-
+main();

@@ -1,4 +1,4 @@
-import {createDB} from "./db";
+import {createDB} from "./helper/db";
 import {PrismaClient} from "@prisma/client";
 
 // Initialize DB with correct entities

@@ -1,27 +1,14 @@
-import {createDB} from "../db";
+import {createDB} from "./helper/db";
 import {format, fromUnixTime} from "date-fns";
 import {PrismaClient} from "@prisma/client"
 import {enUS} from "date-fns/locale";
-import {fetchLeaderboardRecentMatches} from "../../../serverless/src/helper";
-import {LeaderboardRow} from "../../../serverless/entity/leaderboard-row";
-import {upsertLeaderboardRows} from "../../../serverless/entity/entity-helper";
+import {fetchLeaderboardRecentMatches} from "../../serverless/src/helper";
+import {LeaderboardRow} from "../../serverless/entity/leaderboard-row";
+import {upsertLeaderboardRows} from "../../serverless/entity/entity-helper";
 
 // Initialize DB with correct entities
 createDB();
 
-
-const prisma = new PrismaClient()
-
-function formatDayAndTime(date: Date) {
-    console.log(date);
-    return format(date, 'MMM d HH:mm', {locale: enUS});
-}
-
-export function sleep(ms: number) {
-    return new Promise((resolve) => {
-        setTimeout(resolve, ms);
-    });
-}
 
 async function refetchMatchesSinceLastTime() {
     const connection = await createDB();
