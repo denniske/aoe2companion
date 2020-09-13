@@ -73,7 +73,7 @@ export interface ILeaderboardPlayerRaw {
     wins: number;
 }
 
-export interface ILeaderboardListRaw {
+export interface ILeaderboardLegacyListRaw {
     recordsFiltered: number;
     draw: number;
     recordsTotal: number;
@@ -241,7 +241,58 @@ export async function fetchMatch(game: string, params: IFetchMatchParams): Promi
 
 const leaderboardUrls = ['unranked', 'dm-1v1', 'dm-team', 'rm-1v1', 'rm-team',];
 
+export interface ILeaderboardListRaw {
+    recordsFiltered: number;
+    draw: number;
+    recordsTotal: number;
+    data: {
+        steam_id: string;
+        profile_id: number;
+        rank: number;
+        rating: number;
+        highest_rating: number;
+        previous_rating: number;
+        country_code: string;
+        name: string;
+        known_name: string;
+        avatar: string;
+        avatarfull: string;
+        avatarmedium: string;
+        num_games: number;
+        streak: number;
+        num_wins: number;
+        win_percent: number;
+        rating24h: number;
+        games24h: number;
+        wins24h: number;
+        last_match: number;
+    }[];
+}
+
 export async function fetchLeaderboardRecentMatches(leaderboardId: number, count: number): Promise<ILeaderboardListRaw> {
+    let query: any = {
+        'order[0][column]': 21,
+        'order[0][dir]': 'desc',
+        start: 0,
+        length: count,
+    };
+    const queryString = makeQueryString(query);
+
+    const url = `https://aoe2.net/leaderboard/aoe2de/${leaderboardUrls[leaderboardId]}?${queryString}`;
+    console.log(url);
+    const response = await fetch(url, { timeout: 60 * 1000 });
+    try {
+        const text = await response.text();
+        // console.log(text);
+        return JSON.parse(text);
+        // return await response.json();
+    } catch (e) {
+        console.log("FAILED", url);
+        throw e;
+    }
+}
+
+export async function fetchLeaderboardRecentMatchesLegacy(leaderboardId: number, count: number): Promise<ILeaderboardLegacyListRaw> {
     let query: any = {
         'order[0][column]': 21,
         'order[0][dir]': 'desc',
