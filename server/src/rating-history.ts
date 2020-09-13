@@ -5,7 +5,6 @@ import {createExpress} from "./helper/express";
 import {fetchRatingHistoryUniqueByTimestamp, ILeaderboardPlayerRaw} from "../../serverless/src/helper";
 import {IRatingHistoryEntryRaw, upsertRatingHistory} from "../../serverless/entity/entity-helper";
 import {getUnixTime} from "date-fns";
-import {max} from "lodash-es";
 
 const app = createExpress();
 
