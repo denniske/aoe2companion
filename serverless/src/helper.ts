@@ -213,10 +213,15 @@ export async function fetchMatches(game: string, start: number, count: number, s
     }
 }
 
-export async function fetchMatch(game: string, match_id: string): Promise<IMatchRaw> {
+export interface IFetchMatchParams {
+    match_id?: string;
+    uuid?: string;
+}
+
+export async function fetchMatch(game: string, params: IFetchMatchParams): Promise<IMatchRaw> {
     let query: any = {
         game,
-        match_id,
+        ...params,
     };
     const queryString = makeQueryString(query);
 
