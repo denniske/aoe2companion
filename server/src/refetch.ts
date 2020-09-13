@@ -72,7 +72,6 @@ async function refetchMatchesSinceLastTime() {
 }
 
 async function refetchMatches() {
-    // await createDB();
     try {
         const matchesProcessed = await refetchMatchesSinceLastTime();
         if (matchesProcessed) {

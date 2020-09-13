@@ -97,7 +97,6 @@ async function refetchMatchesSinceLastTime() {
 }
 
 async function refetchMatches() {
-    // await createDB();
     try {
         const done = await refetchMatchesSinceLastTime();
         console.log('Waiting 30s');

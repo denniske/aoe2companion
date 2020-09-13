@@ -1,22 +1,13 @@
-import express from 'express';
 import {createDB} from "./helper/db";
 import {Match} from "../../serverless/entity/match";
 import {fetchMatches, setValue} from "../../serverless/src/helper";
 import {max} from "lodash";
 import {upsertMatchesWithPlayers} from "../../serverless/entity/entity-helper";
-import {format, fromUnixTime} from "date-fns";
-import {enUS} from "date-fns/locale";
+import {fromUnixTime} from "date-fns";
 import {createExpress} from "./helper/express";
+import {formatDayAndTime} from './helper/util';
 
 const app = createExpress();
-
-function formatDayAndTime(date: Date) {
-    console.log(date);
-    return format(date, 'MMM d HH:mm', {locale: enUS});
-}
-
-// Initialize DB with correct entities
-createDB();
 
 async function fetchMatchesSinceLastTime() {
     const connection = await createDB();
@@ -63,7 +54,6 @@ async function fetchMatchesSinceLastTime() {
 }
 
 async function importMatches() {
-    // await createDB();
     try {
         const count = await fetchMatchesSinceLastTime();
         if (count < 100) {
@@ -79,14 +69,10 @@ async function importMatches() {
     }
 }
 
-importMatches();
+async function main() {
+    await createDB();
+    app.listen(process.env.PORT || 3001, () => console.log(`Server listening on port ${process.env.PORT || 3001}!`));
+    await importMatches();
+}
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
-
-app.get('/health', (req, res) => {
-    res.send({ status: 'OK' });
-});
-
-app.listen(process.env.PORT || 3002, () => console.log(`Server listening on port ${process.env.PORT || 3002}!`));
+main();

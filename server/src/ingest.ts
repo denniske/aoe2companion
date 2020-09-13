@@ -4,7 +4,10 @@ import {upsertLeaderboardRows} from "../../serverless/entity/entity-helper";
 import * as cron from "node-cron";
 import {LeaderboardRow} from "../../serverless/entity/leaderboard-row";
 import {getUnixTime, subDays} from "date-fns";
+import {createExpress} from "./helper/express";
 
+
+const app = createExpress();
 
 async function fetchLeaderboardDataset(leaderboardId: number, start: number, count: number) {
     const connection = await createDB();
@@ -71,4 +74,10 @@ async function ingest() {
     await setValue('leaderboardUpdated', new Date());
 }
 
-cron.schedule("0 * * * *", ingest);
+async function main() {
+    await createDB();
+    app.listen(process.env.PORT || 3002, () => console.log(`Server listening on port ${process.env.PORT || 3002}!`));
+    cron.schedule("0 * * * *", ingest);
+}
+
+main();

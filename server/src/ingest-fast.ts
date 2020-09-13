@@ -1,14 +1,11 @@
 import {createDB} from "./helper/db";
-import {format, fromUnixTime} from "date-fns";
-import {PrismaClient} from "@prisma/client"
-import {enUS} from "date-fns/locale";
 import {fetchLeaderboardRecentMatches} from "../../serverless/src/helper";
 import {LeaderboardRow} from "../../serverless/entity/leaderboard-row";
 import {upsertLeaderboardRows} from "../../serverless/entity/entity-helper";
+import {createExpress} from "./helper/express";
 
-// Initialize DB with correct entities
-createDB();
 
+const app = createExpress();
 
 async function refetchMatchesSinceLastTime() {
     const connection = await createDB();
@@ -89,7 +86,6 @@ async function refetchMatchesSinceLastTime() {
 }
 
 async function refetchMatches() {
-    // await createDB();
     try {
         const matchesProcessed = await refetchMatchesSinceLastTime();
         if (matchesProcessed) {
@@ -105,4 +101,10 @@ async function refetchMatches() {
     }
 }
 
-refetchMatches();
+async function main() {
+    await createDB();
+    app.listen(process.env.PORT || 3003, () => console.log(`Server listening on port ${process.env.PORT || 3003}!`));
+    await refetchMatches();
+}
+
+main();
