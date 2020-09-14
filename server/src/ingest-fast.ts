@@ -72,7 +72,7 @@ async function main() {
     app.listen(process.env.PORT || 3003, () => console.log(`Server listening on port ${process.env.PORT || 3003}!`));
 
     // Every 2 minutes, every 6 minutes
-    cron.schedule("0/2 * * * *", ingest1);
+    cron.schedule("*/2 * * * *", ingest1);
     cron.schedule("1,7,13,19,25,31,37,43,49,55 * * * *", ingest2);
 }
 
