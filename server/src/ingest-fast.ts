@@ -73,7 +73,7 @@ async function main() {
 
     // Every 2 minutes, every 6 minutes
     cron.schedule("0/2 * * * *", ingest1);
-    cron.schedule("1/6 * * * *", ingest2);
+    cron.schedule("1,7,13,19,25,31,37,43,49,55 * * * *", ingest2);
 }
 
 main();
