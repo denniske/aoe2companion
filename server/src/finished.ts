@@ -27,13 +27,13 @@ async function fetchMatchesSinceLastTime() {
         const res = await prisma.match.updateMany({
             where: {
                 AND: [
+                    { maybe_finished: { not: -5 } },
                     { started: { lt: finished } },
                     { finished: null },
                     { players: { some: { profile_id: { in: playerProfileIds } } } },
                 ],
             },
             data: { maybe_finished: null },
-            // data: { maybe_finished: finished },
         })
 
         console.log('COUNT', res, finished, playerProfileIds);

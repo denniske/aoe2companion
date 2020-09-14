@@ -23,6 +23,7 @@
     "refetch-single": "tsc && node ./dist/server/src/refetch.js",
     "finished": "nodemon --exec 'tsc && node ./dist/server/src/finished.js' --ext ts --watch src",
     "refetch": "nodemon --exec 'tsc && node ./dist/server/src/refetch.js' --ext ts --watch src",
+    "refetch-again": "nodemon --exec 'tsc && node ./dist/server/src/refetch-again.js' --ext ts --watch src",
     "refetch-timed": "nodemon --exec 'tsc && node ./dist/server/src/refetch-timed.js' --ext ts --watch src",
     "leaderboard": "nodemon --exec 'tsc && node ./dist/server/src/leaderboard.js' --ext ts --watch src",
     "build": "tsc",

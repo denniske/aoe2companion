@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: aoe2companion-refetch-again-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  tls:
+    - hosts:
+        - refetch-again.aoe2companion.com
+      secretName: refetch-again-aoe2companion-com-tls
+  rules:
+    - host: refetch-again.aoe2companion.com
+      http:
+        paths:
+          - backend:
+              serviceName: aoe2companion-refetch-again
+              servicePort: 80

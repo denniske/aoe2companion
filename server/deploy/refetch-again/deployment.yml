@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aoe2companion-refetch-again
+  namespace: default
+  labels:
+    app: aoe2companion-refetch-again
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aoe2companion-refetch-again
+  template:
+    metadata:
+      labels:
+        app: aoe2companion-refetch-again
+    spec:
+      containers:
+        - name: aoe2companion-refetch-again
+          image: denniske/aoe2companion-refetch-again:$COMMIT_SHA1
+          ports:
+            - containerPort: 80
+              name: http
+          envFrom:
+            - secretRef:
+                name: server-secret
+          env:
+            - name: PORT
+              value: "80"
+            - name: K8S_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name

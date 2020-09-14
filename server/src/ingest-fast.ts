@@ -6,11 +6,11 @@ import {createExpress} from "./helper/express";
 import * as cron from "node-cron";
 
 
-async function fetchLeaderboardData(leaderboardId: number) {
+async function fetchLeaderboardData(leaderboardId: number, count: number) {
     const connection = await createDB();
 
     console.log(new Date(), "Fetch leaderboard recent matches", leaderboardId);
-    let entries = await fetchLeaderboardRecentMatches(leaderboardId, 50);
+    let entries = await fetchLeaderboardRecentMatches(leaderboardId, count);
     console.log(new Date(), 'GOT', entries.data.length);
 
     const leaderboardRows = entries.data.map(d => ({
@@ -47,16 +47,22 @@ async function fetchLeaderboardData(leaderboardId: number) {
     }
 }
 
-async function ingest() {
-    console.log("Running ingest...");
+async function ingest1() {
+    console.log("Running ingest1...");
 
-    await fetchLeaderboardData(0);
-    await fetchLeaderboardData(1);
-    await fetchLeaderboardData(2);
-    await fetchLeaderboardData(3);
-    await fetchLeaderboardData(4);
+    await fetchLeaderboardData(1, 100);
+    await fetchLeaderboardData(2, 100);
+
+    await fetchLeaderboardData(3, 100);
+    await fetchLeaderboardData(4, 100);
 
     await setValue('leaderboardUpdated', new Date());
+}
+
+async function ingest2() {
+    console.log("Running ingest2...");
+
+    await fetchLeaderboardData(0, 1000);
 }
 
 async function main() {
@@ -65,8 +71,9 @@ async function main() {
     const app = createExpress();
     app.listen(process.env.PORT || 3003, () => console.log(`Server listening on port ${process.env.PORT || 3003}!`));
 
-    // Every minute
-    cron.schedule("* * * * *", ingest);
+    // Every 2 minutes, every 6 minutes
+    cron.schedule("0/2 * * * *", ingest1);
+    cron.schedule("1/6 * * * *", ingest2);
 }
 
 main();
