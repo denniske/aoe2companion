@@ -77,6 +77,21 @@ async function fetchMatchesSinceLastTime() {
     }
 
     await upsertRatingHistory(connection, first.leaderboard_id, first.profile_id, history);
+    console.log('Saved history entries');
+
+    // Also set matches from this player to finished
+    const res = await prisma.match.updateMany({
+        where: {
+            AND: [
+                { maybe_finished: { not: -5 } },
+                { started: { lt: first.last_match_time } },
+                { finished: null },
+                { players: { some: { profile_id: first.profile_id } } },
+            ],
+        },
+        data: { maybe_finished: null },
+    });
+    console.log(`Also marked ${res.count} matches for refetching.`);
 
     await prisma.leaderboard_row.update({
         where: {
