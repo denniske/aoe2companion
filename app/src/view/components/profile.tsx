@@ -15,6 +15,7 @@ import {ITheme, makeVariants, useAppTheme, usePaperTheme, useTheme} from "../../
 import IconFA5 from "react-native-vector-icons/FontAwesome5";
 import {toggleFollowing} from "../../service/following";
 import Space from "./space";
+import {myTodoList} from "@nex/data";
 
 interface ILeaderboardRowProps {
     data: ILeaderboard;
@@ -167,6 +168,10 @@ export default function Profile({data}: IProfileProps) {
                     <View style={styles.row}>
                         <View>
                             <View style={styles.row}>
+                                <View style={styles.row}>
+                                    <Text>Len: {myTodoList.length}</Text>
+                                </View>
+
                                 <ImageLoader style={styles.countryIcon} ready={data} source={getFlagIcon(data?.country)}/>
                                 <TextLoader width={100}>{data?.name}</TextLoader>
                                 {
