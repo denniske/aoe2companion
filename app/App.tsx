@@ -65,6 +65,8 @@ import TipsPage from "./src/view/tips.page";
 import {setSavedNotification} from "./src/helper/notification";
 import initSentry from "./src/helper/sentry";
 import * as Device from 'expo-device';
+import { Clipboard } from 'react-native'
+import {LinkingOptions} from "@react-navigation/native/lib/typescript/src/types";
 
 
 initSentry();
@@ -85,51 +87,58 @@ try {
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 
-const linking = {
+// HACK: Prevent "Expo pasted from CoreSimulator" notification from spamming continuously
+if (__DEV__) {
+    Clipboard.setString('')
+}
+
+const linking: LinkingOptions = {
     prefixes: ['https://aoe2companion.com', 'aoe2companion://'],
     config: {
-        User: {
-            path: 'user/:id/:name',
-            parse: {
-                id: parseUserId,
-                name: String,
+        screens: {
+            User: {
+                path: 'user/:id/:name',
+                parse: {
+                    id: parseUserId,
+                    name: String,
+                },
+                stringify: {
+                    id: composeUserId,
+                },
             },
-            stringify: {
-                id: composeUserId,
+            Search: {
+                path: 'search',
             },
-        },
-        Search: {
-            path: 'search',
-        },
-        Main: {
-            path: 'main',
-        },
-        Feed: {
-            path: 'feed',
-        },
-        About: {
-            path: 'about',
-        },
-        Changelog: {
-            path: 'changelog',
-        },
-        Privacy: {
-            path: 'privacy',
-        },
-        Welcome: {
-            path: 'welcome',
-        },
-        Leaderboard: {
-            path: 'leaderboard',
-        },
-        Civ: {
-            path: 'civ/:civ',
-        },
-        Unit: {
-            path: 'unit/:unit',
-        },
-        Tech: {
-            path: 'tech/:tech',
+            Main: {
+                path: 'main',
+            },
+            Feed: {
+                path: 'feed',
+            },
+            About: {
+                path: 'about',
+            },
+            Changelog: {
+                path: 'changelog',
+            },
+            Privacy: {
+                path: 'privacy',
+            },
+            Welcome: {
+                path: 'welcome',
+            },
+            Leaderboard: {
+                path: 'leaderboard',
+            },
+            Civ: {
+                path: 'civ/:civ',
+            },
+            Unit: {
+                path: 'unit/:unit',
+            },
+            Tech: {
+                path: 'tech/:tech',
+            },
         },
     },
 };
