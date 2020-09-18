@@ -13,9 +13,9 @@
     "orientation": "portrait",
     "privacy": "public",
     "githubUrl": "https://github.com/denniske/aoe2companion",
-    "icon": "./assets/icon.png",
+    "icon": "./app/assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./app/assets/splash.png",
       "resizeMode": "contain"
     },
     "updates": {
@@ -37,7 +37,7 @@
       "assets/*"
     ],
     "notification": {
-      "icon": "./assets/notification.png"
+      "icon": "./app/assets/notification.png"
     },
     "android": {
       "userInterfaceStyle": "automatic",
@@ -49,7 +49,7 @@
     },
     "ios": {
       "userInterfaceStyle": "automatic",
-      "icon": "./assets/icon-no-alpha.png",
+      "icon": "./app/assets/icon-no-alpha.png",
       "bundleIdentifier": "com.aoe2companion",
       "buildNumber": "16.0.1",
       "supportsTablet": false,

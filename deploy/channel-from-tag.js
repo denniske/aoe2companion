@@ -7,4 +7,4 @@ if (tag === 'master') {
     process.exit();
 }
 
-console.log('prod-v' + semver.major(tag));
+console.log('temp-v' + semver.major(tag));

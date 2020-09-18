@@ -4,6 +4,6 @@ console.log("Applying metro.config.js");
 
 module.exports = {
     resolver: {
-        blacklistRE: blacklist([/^tools\/.*/, /^website\/.*/]),
+        blacklistRE: blacklist([/^tools\/.*/, /^website2\/.*/]),
     },
 };
