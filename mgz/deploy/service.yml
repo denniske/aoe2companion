@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: aoe2companion-mgz
+  namespace: default
+  labels:
+    app: aoe2companion-mgz
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: http
+      name: http
+  selector:
+    app: aoe2companion-mgz
