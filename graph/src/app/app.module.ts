@@ -5,6 +5,7 @@ import {AppService} from './app.service';
 import {ScheduleModule} from "@nestjs/schedule";
 import {RefetchTask} from "../task/refetch.task";
 import {ImportTask} from "../task/import.task";
+import {IngestTask} from "../task/ingest.task";
 
 
 @Module({
@@ -19,6 +20,9 @@ export class TaskModule {
                 break;
             case 'refetch':
                 providers.push(RefetchTask);
+                break;
+            case 'ingest':
+                providers.push(IngestTask);
                 break;
         }
         return {
