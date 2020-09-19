@@ -4,6 +4,7 @@ import fetch from "node-fetch";
 import {IMatch, IPlayer} from "../entity/entity.type";
 import {IRatingHistoryEntryRaw} from "../entity/entity-helper";
 import {uniqBy} from "lodash";
+import {IPlayerRaw} from "../../graph/src/util";
 
 export async function setValue(id: string, value: any) {
     const connection = await createDB();
@@ -127,7 +128,7 @@ export interface IMatchRaw {
     lock_teams: boolean;
     map_size: number;
     num_players: number;
-    players: IPlayer[];
+    players: IPlayerRaw[];
     pop: number;
     ranked: boolean;
     rating_type: any;

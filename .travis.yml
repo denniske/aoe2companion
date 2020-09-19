@@ -28,11 +28,12 @@ jobs:
     # PUBLISH
     ####################################
 
-    - stage: publish
-      if: tag =~ ^refetch-v.+$
+
+
+    - stage: publisher
+      if: tag =~ ^(refetch|import)-v.+$
       env:
-        - CACHE_NAME=refetch
-        - SERVICE_NAME=refetch
+        - CACHE_NAME=publisher
       before_install:
         - nvm install $NODE_VERSION
         - nvm use $NODE_VERSION
@@ -42,6 +43,10 @@ jobs:
         - chmod u+x ./kubectl
         - sudo mv kubectl /usr/local/bin/
       script: chmod +x ./graph/deploy/deploy.sh && ./graph/deploy/deploy.sh
+
+
+
+
 
     - stage: publish
       if: tag =~ ^match-v.+$

@@ -86,7 +86,7 @@ export interface ILobbyMatchRaw {
 
 
 export interface IPlayerRaw {
-    civ: number;
+    civ?: number;
     clan: string;
     color: number;
     country: string;

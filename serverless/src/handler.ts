@@ -1,6 +1,5 @@
 import "reflect-metadata";
 
-import {APIGatewayProxyHandler} from 'aws-lambda';
 import 'source-map-support/register';
 import {createConnection, getConnectionManager} from "typeorm";
 import {SnakeNamingStrategy} from "typeorm-naming-strategies";

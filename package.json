@@ -8,7 +8,9 @@
     "generate": "npm -s run generate:prisma",
     "generate:prisma": "prisma generate --schema graph/prisma/schema.prisma",
     "docker:build": "docker build -f graph/deploy/Dockerfile -t graph .",
-    "docker:run": "docker run -it graph"
+    "docker:run": "docker run -it graph",
+    "refetch": "SERVICE_NAME=refetch nx serve graph",
+    "import": "SERVICE_NAME=import nx serve graph"
   },
   "dependencies": {
     "@expo-google-fonts/roboto": "^0.1.0",
@@ -72,7 +74,6 @@
     "tslib": "^2.0.0",
     "typeorm-naming-strategies": "^1.1.0",
     "typeorm": "^0.2.25",
-    "date-fns": "^2.15.0",
     "dotenv": "^8.2.0",
     "pg": "^8.3.0",
     "source-map-support": "^0.5.10"

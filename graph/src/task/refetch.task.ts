@@ -84,11 +84,11 @@ async function refetchMatches() {
 }
 
 @Injectable()
-export class RefetchService implements OnModuleInit {
-    private readonly logger = new Logger(RefetchService.name);
+export class RefetchTask implements OnModuleInit {
+    private readonly logger = new Logger(RefetchTask.name);
 
     async onModuleInit() {
-        console.log('LEN:', myTodoList.length);
+        console.log('REFETCH LEN:', myTodoList.length);
         await createDB();
         await refetchMatches();
     }

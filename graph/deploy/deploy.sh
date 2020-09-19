@@ -9,6 +9,9 @@ COMMIT_SHA1=$TRAVIS_COMMIT
 # We must export it so it's available for envsubst
 export COMMIT_SHA1=$COMMIT_SHA1
 
+export SERVICE_NAME=$(node deploy/service-name-from-tag.js $TRAVIS_BRANCH)
+echo $SERVICE_NAME
+
 #############################
 # BUILD
 #############################
