@@ -20,13 +20,13 @@ docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:
 echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
 docker push denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT
 
-echo "$KUBERNETES_CLUSTER_CERTIFICATE" | base64 --decode > cert.crt
-
 #############################
 # DEPLOY
 #############################
 
 cd graph/deploy
+
+echo "$KUBERNETES_CLUSTER_CERTIFICATE" | base64 --decode > cert.crt
 
 # Since the only way for envsubst to work on files is using input/output redirection,
 # it's not possible to do in-place substitution, so we need to save the output to another file
