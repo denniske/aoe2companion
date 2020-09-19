@@ -12,6 +12,7 @@ import {RatingHistoryTask} from "../task/rating-history.task";
 import {RefetchAgainTask} from "../task/refetch-again.task";
 import {MetricController} from "../controller/metric.controller";
 import {ApiController} from "../controller/api.controller";
+import {FunctionController} from "../controller/function.controller";
 
 
 @Module({
@@ -48,6 +49,9 @@ export class TaskAndControllerModule {
                 break;
             case 'api':
                 controllers.push(ApiController);
+                break;
+            case 'function':
+                controllers.push(FunctionController);
                 break;
         }
         return {
