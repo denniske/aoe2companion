@@ -10,7 +10,7 @@ COPY graph/deploy/package.json ./
 COPY package-lock.json ./
 RUN npm install
 
-COPY dist .
+COPY dist ./
 
 #RUN ls -al
 
