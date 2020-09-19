@@ -1,10 +1,19 @@
 {
   "main": "node_modules/expo/AppEntry.js",
   "dependencies": {
+    "@nestjs/common": "",
+    "@nestjs/core": "",
+    "@nestjs/platform-express": "",
+    "@nestjs/schedule": "",
     "@prisma/client": "",
     "@sendgrid/mail": "",
     "@sentry/node": "",
+    "date-fns": "",
+    "lodash": "",
     "node-fetch": "",
+    "reflect-metadata": "",
+    "rxjs": "",
+    "uuid": "",
     "tslib": "",
     "typeorm-naming-strategies": "",
     "typeorm": ""
