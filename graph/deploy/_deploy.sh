@@ -13,6 +13,7 @@ export COMMIT_SHA1=$COMMIT_SHA1
 # BUILD
 #############################
 
+npm i -g nx
 nx build graph
 docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT .
 echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
