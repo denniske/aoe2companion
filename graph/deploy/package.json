@@ -20,5 +20,8 @@
     "dotenv": "",
     "pg": ""
   },
+  "devDependencies": {
+    "@prisma/cli": ""
+  },
   "private": true
 }
