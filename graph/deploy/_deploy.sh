@@ -2,8 +2,6 @@
 set -e
 set -o xtrace
 
-source ~/.nvm/nvm.sh
-
 ls -al
 
 COMMIT_SHA1=$TRAVIS_COMMIT
@@ -16,6 +14,7 @@ export COMMIT_SHA1=$COMMIT_SHA1
 #############################
 
 npm i -g nx
+npm i
 nx build graph
 docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT .
 echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
