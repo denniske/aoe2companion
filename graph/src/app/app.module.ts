@@ -13,6 +13,12 @@ import {RefetchAgainTask} from "../task/refetch-again.task";
 import {MetricController} from "../controller/metric.controller";
 import {ApiController} from "../controller/api.controller";
 import {FunctionController} from "../controller/function.controller";
+import {GraphQLModule} from "@nestjs/graphql";
+import {MatchResolver} from "../resolver/match";
+import {UserResolver} from "../resolver/user";
+import {ProfileResolver} from "../resolver/profile";
+import {RatingHistoryEntryResolver, RatingHistoryResolver} from "../resolver/rating_history";
+import {LeaderboardResolver} from "../resolver/leaderboard";
 
 
 @Module({
@@ -63,11 +69,34 @@ export class TaskAndControllerModule {
     }
 }
 
+@Module({
+    providers: [
+        MatchResolver,
+        UserResolver,
+        ProfileResolver,
+        LeaderboardResolver,
+        RatingHistoryResolver,
+        RatingHistoryEntryResolver,
+    ],
+})
+export class ResolverModule {
+}
+
 
 @Module({
     imports: [
         ScheduleModule.forRoot(),
         TaskAndControllerModule.forRoot(),
+        GraphQLModule.forRoot({
+            autoSchemaFile: 'schema.gql',
+            sortSchema: true,
+            playground: {
+                settings: {
+                    'schema.polling.enable': false,
+                } as any
+            }
+        }),
+        ResolverModule,
     ],
     controllers: [
         // AppController
@@ -78,7 +107,3 @@ export class TaskAndControllerModule {
 })
 export class AppModule {
 }
-
-
-
-

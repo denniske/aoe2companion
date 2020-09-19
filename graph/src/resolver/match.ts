@@ -1,0 +1,155 @@
+import {
+    Args, ArgsType, Field, Mutation, Parent, Query, ResolveField, Resolver, Root
+} from "@nestjs/graphql";
+import {createDB} from "../db";
+import {Match, MatchList} from "../object/match";
+import {upsertMatchesWithPlayers} from "../entity/entity-helper";
+import {PrismaClient} from "@prisma/client";
+import {fetchMatch} from "../helper";
+import {myTodoList} from "@nex/data";
+import {fromUnixTime} from "date-fns";
+
+const prisma = new PrismaClient()
+
+// @ArgsType()
+// class MatchArgs {
+//     @Field(type => String, { nullable: true })
+//     match_id?: string;
+//
+//     @Field(type => String, { nullable: true })
+//     match_uuid?: string;
+// }
+
+@Resolver(of => Match)
+export class MatchResolver {
+
+    @Query(returns => Match)
+    async match(
+        // @Args() { match_id, match_uuid }: MatchArgs
+        @Args("match_id", {nullable: true}) match_id?: string,
+        @Args("match_uuid", {nullable: true}) match_uuid?: string
+    ) {
+        let match = await prisma.match.findOne({
+            include: {
+                players: true,
+            },
+            where: {
+                match_id: match_id
+            },
+        });
+
+        console.log('myTodoList.length:', myTodoList.length);
+
+        const connection = await createDB();
+
+        if (match.finished == null) {
+            console.log('REFETCH');
+            const refetchedMatch = await fetchMatch('aoe2de', { match_id: match.match_id, uuid: match.match_uuid });
+            console.log('REFETCHED', refetchedMatch);
+            if (refetchedMatch.finished) {
+                await upsertMatchesWithPlayers(connection, [refetchedMatch]);
+                match = await prisma.match.findOne({
+                    include: {
+                        players: true,
+                    },
+                    where: {
+                        match_id: match_id
+                    },
+                });
+            }
+        }
+
+        return match;
+    }
+
+    @ResolveField()
+    async players(@Parent() match: Match) {
+        return match.players || prisma.match
+            .findOne({
+              where: {
+                  match_id: match.match_id
+              },
+            })
+            .players();
+    }
+
+    @ResolveField()
+    async started(@Parent() match: Match) {
+        return fromUnixTime(match.started as unknown as number);
+    }
+
+    @Query(returns => MatchList)
+    async matches(
+        @Args("start") start: number,
+        @Args("count") count: number,
+        @Args("profile_id", {nullable: true}) profile_id?: number,
+        @Args("leaderboard_id", {nullable: true}) leaderboard_id?: number,
+        @Args("search", {nullable: true}) search?: string,
+    ) {
+        // await sleep(200);
+
+        // https://niallburkley.com/blog/index-columns-for-like-in-postgres/
+
+        if (count > 1000) throw Error('count must be <= 1000');
+
+        search = `%${search}%`;
+
+        let matchIds: any = null;
+        if (leaderboard_id) {
+            matchIds = await prisma.$queryRaw`
+            SELECT m.match_id
+            FROM player as p
+            JOIN match as m ON m.match_id = p.match_id
+            WHERE m.leaderboard_id=${leaderboard_id}
+            AND m.match_id IN (
+                  SELECT m.match_id
+                  FROM player as p
+                  JOIN match as m ON m.match_id = p.match_id
+                  WHERE profile_id=${profile_id}
+               )
+            AND (p.name ILIKE ${search} OR m.name ILIKE ${search})
+            GROUP BY m.match_id
+            ORDER BY m.started desc
+            LIMIT ${count}
+          `;
+        } else {
+            matchIds = await prisma.$queryRaw`
+            SELECT m.match_id
+            FROM player as p
+            JOIN match as m ON m.match_id = p.match_id
+            AND m.match_id IN (
+                  SELECT m.match_id
+                  FROM player as p
+                  JOIN match as m ON m.match_id = p.match_id
+                  WHERE profile_id=${profile_id}
+               )
+            AND (p.name ILIKE ${search} OR m.name ILIKE ${search})
+            GROUP BY m.match_id
+            ORDER BY m.started desc
+            LIMIT ${count}
+          `;
+        }
+
+        // This will not automatically fetch needed match ids
+        // const matches = matchIds;
+
+        const matches = await prisma.match.findMany({
+            include: {
+                players: true,
+            },
+            where: {
+                match_id: {in: matchIds.map(x => x.match_id)}
+            },
+            orderBy: {
+                started: 'desc',
+            },
+        });
+
+        console.log(matches);
+
+        return {
+            total: matches.length,
+            matches,
+        };
+    }
+}

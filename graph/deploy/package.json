@@ -19,7 +19,11 @@
     "typeorm": "",
     "dotenv": "",
     "pg": "",
-    "cors-anywhere": ""
+    "cors-anywhere": "",
+    "@nestjs/graphql": "",
+    "graphql-tools": "",
+    "graphql": "",
+    "apollo-server-express": ""
   },
   "devDependencies": {
     "@prisma/cli": ""
