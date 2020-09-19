@@ -12,4 +12,4 @@ RUN ls -al
 
 EXPOSE 80
 
-CMD ["node", "dist/server/src/import.js"]
+CMD ["node", "dist/server/src/$SERVICE_NAME.js"]

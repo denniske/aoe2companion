@@ -5,6 +5,7 @@ import {createDB} from "../db";
 import {formatDayAndTime} from "../util";
 import {upsertMatchesWithPlayers} from "../entity/entity-helper";
 import {fetchMatch} from "../helper";
+import {myTodoList} from "@nex/data";
 
 const prisma = new PrismaClient({
     // log: ['query', 'info', 'warn'],
@@ -87,6 +88,7 @@ export class RefetchService implements OnModuleInit {
     private readonly logger = new Logger(RefetchService.name);
 
     async onModuleInit() {
+        console.log('LEN:', myTodoList.length);
         await createDB();
         await refetchMatches();
     }

@@ -6,7 +6,9 @@
     "strings": "npm run strings --prefix tools",
     "flags": "ts-node tools/flags.ts",
     "generate": "npm -s run generate:prisma",
-    "generate:prisma": "prisma generate --schema graph/prisma/schema.prisma"
+    "generate:prisma": "prisma generate --schema graph/prisma/schema.prisma",
+    "docker:build": "docker build -f graph/deploy/Dockerfile -t graph .",
+    "docker:run": "docker run -it graph"
   },
   "dependencies": {
     "@expo-google-fonts/roboto": "^0.1.0",
@@ -68,7 +70,8 @@
     "babel-plugin-transform-typescript-metadata": "^0.3.0",
     "node-fetch": "^2.6.0",
     "tslib": "^2.0.0",
-    "typeorm-naming-strategies": "^1.1.0"
+    "typeorm-naming-strategies": "^1.1.0",
+    "typeorm": "^0.2.25"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
@@ -110,8 +113,7 @@
     "date-fns": "^2.15.0",
     "dotenv": "^8.2.0",
     "pg": "^8.3.0",
-    "source-map-support": "^0.5.10",
-    "typeorm": "^0.2.25"
+    "source-map-support": "^0.5.10"
   },
   "private": true
 }

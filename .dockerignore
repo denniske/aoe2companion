@@ -1,0 +1,15 @@
+.expo
+.expo-shared
+.idea
+/app
+/data
+/deploy
+/graph
+/kube
+/server
+/serverless
+/tmp
+/tools
+/website2
+node_modules
+!node_modules/.prisma

@@ -143,7 +143,7 @@ export async function upsertMatchesWithPlayers(connection: Connection, matchEntr
     }
 }
 
-export async function upsertAIPlayers(connection: Connection, matchEntries: IMatchFromApi[]) {
+export async function upsertAIPlayers(connection: Connection, matchEntries: IMatchRaw[]) {
     for (const chunkRows of chunk(matchEntries, 100)) {
         const playerRows: Player[] = [];
 
