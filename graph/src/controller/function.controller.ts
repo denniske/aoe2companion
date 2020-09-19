@@ -5,6 +5,7 @@ import {getParam, time} from "../util";
 import {Like} from "typeorm";
 import {createDB} from "../db";
 import {LeaderboardRow} from "../entity/leaderboard-row";
+import {getValue} from "../helper";
 
 
 const cache: Record<string, number> = {};
