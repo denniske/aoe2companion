@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import 'source-map-support/register';
+// import 'source-map-support/register';
 import {createConnection, getConnectionManager} from "typeorm";
 import {LeaderboardRow} from "./entity/leaderboard-row";
 import {User} from "./entity/user";
