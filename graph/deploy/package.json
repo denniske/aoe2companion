@@ -18,7 +18,8 @@
     "typeorm-naming-strategies": "",
     "typeorm": "",
     "dotenv": "",
-    "pg": ""
+    "pg": "",
+    "cors-anywhere": ""
   },
   "devDependencies": {
     "@prisma/cli": ""
