@@ -4,6 +4,8 @@ set -o xtrace
 
 source ~/.nvm/nvm.sh
 
+ls -al
+
 nvm install $NODE_VERSION
 nvm use $NODE_VERSION
 sudo apt-get update

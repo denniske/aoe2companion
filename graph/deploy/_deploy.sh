@@ -2,6 +2,8 @@
 set -e
 set -o xtrace
 
+source ~/.nvm/nvm.sh
+
 ls -al
 
 COMMIT_SHA1=$TRAVIS_COMMIT
