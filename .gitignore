@@ -27,6 +27,7 @@ assets/tips/image
 assets/tips/video
 
 tmp
+.env
 
 design
 *.aoe2record
