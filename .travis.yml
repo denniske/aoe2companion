@@ -31,7 +31,7 @@ jobs:
 
 
     - stage: publisher
-      if: tag =~ ^(refetch|import|ingest)-v.+$
+      if: tag =~ ^(refetch|import|ingest|ingest-fast)-v.+$
       env:
         - CACHE_NAME=publisher
       before_install:

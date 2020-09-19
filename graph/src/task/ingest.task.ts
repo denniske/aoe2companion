@@ -80,7 +80,7 @@ export class IngestTask implements OnModuleInit {
 
     // Every hour
     @Cron('0 * * * *')
-    async handleCron() {
+    async runIngest() {
         await ingest();
     }
 }
