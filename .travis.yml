@@ -33,7 +33,14 @@ jobs:
       env:
         - CACHE_NAME=refetch
         - SERVICE_NAME=refetch
-      before_install: chmod +x ./graph/deploy/_install.sh && ./graph/deploy/_install.sh
+      before_install:
+        - nvm install $NODE_VERSION
+        - nvm use $NODE_VERSION
+        - sudo apt-get update
+        - sudo apt-get -y install gettext-base
+        - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+        - chmod u+x ./kubectl
+        - sudo mv kubectl /usr/local/bin/
       script: chmod +x ./graph/deploy/_deploy.sh && ./graph/deploy/_deploy.sh
 
     - stage: publish
