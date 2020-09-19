@@ -36,10 +36,10 @@ export class TaskModule {
         TaskModule.forRoot(),
     ],
     controllers: [
-        AppController
+        // AppController
     ],
     providers: [
-        AppService,
+        // AppService,
     ],
 })
 export class AppModule {
