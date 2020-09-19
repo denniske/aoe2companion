@@ -26,5 +26,7 @@ dist
 assets/tips/image
 assets/tips/video
 
+tmp
+
 design
 *.aoe2record

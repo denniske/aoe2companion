@@ -1,0 +1,160 @@
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "darwin", "debian-openssl-1.1.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model match {
+  match_id           String   @id
+  match_uuid         String?
+  lobby_id           String?
+  name               String?
+  opened             Int?
+  started            Int?
+  finished           Int?
+  notified           Boolean  @default(false)
+  leaderboard_id     Int?
+  num_slots          Int?
+  has_password       Boolean?
+  server             String?
+  map_type           Int?
+  average_rating     Int?
+  cheats             Boolean?
+  ending_age         Int?
+  expansion          String?
+  full_tech_tree     Boolean?
+  game_type          Int?
+  has_custom_content Boolean?
+  lock_speed         Boolean?
+  lock_teams         Boolean?
+  map_size           Int?
+  num_players        Int?
+  pop                Int?
+  ranked             Boolean?
+  rating_type        Int?
+  resources          Int?
+  rms                String?
+  scenario           String?
+  shared_exploration Boolean?
+  speed              Int?
+  starting_age       Int?
+  team_positions     Boolean?
+  team_together      Boolean?
+  treaty_length      Int?
+  turbo              Boolean?
+  version            String?
+  victory            Int?
+  victory_time       Int?
+  visibility         Int?
+  maybe_finished     Int?
+  players            player[]
+
+  @@index([finished], name: "IDX_ae68e51ffaf47285b168278edf")
+  @@index([maybe_finished], name: "IDX_cccc814b67879f5b8c455befad")
+  @@index([started], name: "IDX_e7b6cfca8139b9aa85880aab9e")
+}
+
+model player {
+  match_id      String
+  profile_id    Int
+  steam_id      String?
+  civ           Int?
+  clan          String?
+  color         Int?
+  country       String?
+  drops         Int?
+  games         Int?
+  name          String?
+  rating        Int?
+  rating_change Int?
+  slot          Int
+  slot_type     Int?
+  streak        Int?
+  team          Int?
+  wins          Int?
+  won           Boolean?
+  match         match    @relation(fields: [match_id], references: [match_id])
+
+  @@id([match_id, profile_id, slot])
+  @@index([match_id], name: "IDX_58afd2c450f166eacbdf982841")
+  @@index([profile_id], name: "IDX_ba3de28aa98207f3a21145feb8")
+}
+
+model user {
+  profile_id           Int     @id
+  steam_id             String?
+  name                 String
+  country              String?
+  clan                 String?
+  icon                 String?
+  wins                 Int?
+  drops                Int?
+  games                Int?
+  losses               Int?
+  rating               Int?
+  streak               Int?
+  last_match           Int?
+  lowest_streak        Int?
+  highest_rating       Int?
+  highest_streak       Int?
+  last_match_time      Int?
+  previous_rating      Int?
+  live_country         String?
+  live_clan            String?
+  live_wins            Int?
+  live_drops           Int?
+  live_games           Int?
+  live_rating          Int?
+  live_streak          Int?
+  live_last_match      Int?
+  live_last_match_time Int?
+}
+
+model leaderboard_row {
+  leaderboard_id  Int
+  profile_id      Int
+  steam_id        String?
+  name            String
+  country         String?
+  clan            String?
+  icon            String?
+  wins            Int?
+  drops           Int?
+  games           Int?
+  losses          Int?
+  rating          Int?
+  streak          Int?
+  last_match      Int?
+  lowest_streak   Int?
+  highest_rating  Int?
+  highest_streak  Int?
+  last_match_time Int?
+  previous_rating Int?
+  history_fetched Int?
+
+  @@id([leaderboard_id, profile_id])
+  @@index([rating], name: "IDX_935515e6126c1a045608ca78b9")
+}
+
+model push {
+  id         Int      @default(autoincrement()) @id
+  title      String
+  body       String
+  push_token String?
+  status     String?
+  created_at DateTime @default(now())
+}
+
+model rating_history {
+  leaderboard_id Int
+  profile_id     Int
+  timestamp      Int
+  rating         Int
+
+  @@id([leaderboard_id, profile_id, timestamp])
+  @@index([timestamp], name: "IDX_8d92750e0c397c82a4d2ed628b")
+}
