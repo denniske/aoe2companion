@@ -16,7 +16,9 @@
     "uuid": "",
     "tslib": "",
     "typeorm-naming-strategies": "",
-    "typeorm": ""
+    "typeorm": "",
+    "dotenv": "",
+    "pg": ""
   },
   "private": true
 }
