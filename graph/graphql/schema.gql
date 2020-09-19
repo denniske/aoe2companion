@@ -21,6 +21,7 @@ type Leaderboard {
   losses: Float
   lowest_streak: Float
   name: String!
+  name11111: String!
   previous_rating: Float
   profile_id: Int!
   rating: Float

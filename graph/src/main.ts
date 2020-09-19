@@ -9,7 +9,9 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import {startProxy} from "./other/proxy";
 
+
 async function bootstrap() {
+
   const app = await NestFactory.create(AppModule);
   const port = process.env.PORT || 3333;
   await app.listen(port, () => {

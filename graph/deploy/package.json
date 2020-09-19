@@ -23,7 +23,8 @@
     "@nestjs/graphql": "",
     "graphql-tools": "",
     "graphql": "",
-    "apollo-server-express": ""
+    "apollo-server-express": "",
+    "fs-to-json": ""
   },
   "devDependencies": {
     "@prisma/cli": ""

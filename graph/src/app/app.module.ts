@@ -1,4 +1,4 @@
-import {DynamicModule, Module} from '@nestjs/common';
+import {DynamicModule, Injectable, Logger, Module, OnModuleInit} from '@nestjs/common';
 
 import {AppController} from './app.controller';
 import {AppService} from './app.service';
@@ -83,12 +83,25 @@ export class ResolverModule {
 }
 
 
+const fs2json = require('fs-to-json').fs2json;
+
+@Injectable()
+export class SchemaJsonTask implements OnModuleInit {
+    private readonly logger = new Logger(SchemaJsonTask.name);
+
+    async onModuleInit() {
+        await fs2json({input: 'graph/graphql/schema.gql', output: 'graph/graphql/schema.json'});
+        this.logger.log('Created schema.json');
+    }
+}
+
+
 @Module({
     imports: [
         ScheduleModule.forRoot(),
         TaskAndControllerModule.forRoot(),
         GraphQLModule.forRoot({
-            autoSchemaFile: 'schema.gql',
+            autoSchemaFile: 'graph/graphql/schema.gql',
             sortSchema: true,
             playground: {
                 settings: {
@@ -102,7 +115,7 @@ export class ResolverModule {
         // AppController
     ],
     providers: [
-        // AppService,
+        SchemaJsonTask,
     ],
 })
 export class AppModule {
