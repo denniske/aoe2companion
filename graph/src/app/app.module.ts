@@ -10,14 +10,16 @@ import {IngestFastTask} from "../task/ingest-fast.task";
 import {NotifyTask} from "../task/notify.task";
 import {RatingHistoryTask} from "../task/rating-history.task";
 import {RefetchAgainTask} from "../task/refetch-again.task";
+import {MetricController} from "../controller/metric.controller";
 
 
 @Module({
     providers: [],
 })
-export class TaskModule {
+export class TaskAndControllerModule {
     static forRoot(): DynamicModule {
         const providers = [];
+        const controllers = [];
         switch (process.env.SERVICE_NAME) {
             case 'import':
                 providers.push(ImportTask);
@@ -40,9 +42,13 @@ export class TaskModule {
             case 'rating-history':
                 providers.push(RatingHistoryTask);
                 break;
+            case 'metric':
+                controllers.push(MetricController);
+                break;
         }
         return {
-            module: TaskModule,
+            module: TaskAndControllerModule,
+            controllers: controllers,
             providers: providers,
             exports: providers,
         };
@@ -53,7 +59,7 @@ export class TaskModule {
 @Module({
     imports: [
         ScheduleModule.forRoot(),
-        TaskModule.forRoot(),
+        TaskAndControllerModule.forRoot(),
     ],
     controllers: [
         // AppController
