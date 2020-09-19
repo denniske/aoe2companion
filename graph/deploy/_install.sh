@@ -1,4 +1,6 @@
 #! /bin/bash
+set -e
+set -o xtrace
 
 nvm install $NODE_VERSION
 nvm use $NODE_VERSION
