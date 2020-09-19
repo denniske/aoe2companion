@@ -2,6 +2,8 @@
 # exit script when any command ran here returns with non-zero exit code
 set -e
 
+ls -al
+
 COMMIT_SHA1=$TRAVIS_COMMIT
 
 # We must export it so it's available for envsubst
@@ -12,6 +14,15 @@ export COMMIT_SHA1=$COMMIT_SHA1
 # and overwrite the original with that one.
 envsubst <./deployment.yml >./deployment.yml.out
 mv ./deployment.yml.out ./deployment.yml
+envsubst <./ingress.yml >./ingress.yml.out
+mv ./ingress.yml.out ./ingress.yml
+envsubst <./service.yml >./service.yml.out
+mv ./service.yml.out ./service.yml
+
+nx build graph
+docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT .
+echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+docker push denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT
 
 echo "$KUBERNETES_CLUSTER_CERTIFICATE" | base64 --decode > cert.crt
 

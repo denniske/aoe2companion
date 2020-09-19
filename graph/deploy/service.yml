@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: aoe2companion-import
+  name: aoe2companion-$SERVICE_NAME
   namespace: default
   labels:
-    app: aoe2companion-import
+    app: aoe2companion-$SERVICE_NAME
 spec:
   type: ClusterIP
   ports:
@@ -12,4 +12,4 @@ spec:
       targetPort: http
       name: http
   selector:
-    app: aoe2companion-import
+    app: aoe2companion-$SERVICE_NAME

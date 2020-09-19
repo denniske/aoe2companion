@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: aoe2companion-import
+  name: aoe2companion-$SERVICE_NAME
   namespace: default
   labels:
-    app: aoe2companion-import
+    app: aoe2companion-$SERVICE_NAME
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: aoe2companion-import
+      app: aoe2companion-$SERVICE_NAME
   template:
     metadata:
       labels:
-        app: aoe2companion-import
+        app: aoe2companion-$SERVICE_NAME
     spec:
       containers:
-        - name: aoe2companion-import
-          image: denniske/aoe2companion-import:$COMMIT_SHA1
+        - name: aoe2companion-$SERVICE_NAME
+          image: denniske/aoe2companion-$SERVICE_NAME:$COMMIT_SHA1
           ports:
             - containerPort: 80
               name: http
