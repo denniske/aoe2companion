@@ -1,6 +1,0 @@
-{
-  "watch": ["src", "entity", "handler.ts", "runner.ts"],
-  "ext": "ts",
-  "ignore": [],
-  "exec": "serverless offline start"
-}
