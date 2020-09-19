@@ -1,0 +1,797 @@
+{
+    "language": "nl",
+    "age": [
+        {
+            "id": 0,
+            "string": "Standaard"
+        },
+        {
+            "id": 2,
+            "string": "Middeleeuwen"
+        },
+        {
+            "id": 3,
+            "string": "Feodaal tijdperk"
+        },
+        {
+            "id": 4,
+            "string": "Kasteeltijdperk"
+        },
+        {
+            "id": 5,
+            "string": "Keizertijdperk"
+        },
+        {
+            "id": 6,
+            "string": "Postimperiaal tijdperk"
+        }
+    ],
+    "civ": [
+        {
+            "id": 0,
+            "string": "Aztecs"
+        },
+        {
+            "id": 1,
+            "string": "Berbers"
+        },
+        {
+            "id": 2,
+            "string": "Britons"
+        },
+        {
+            "id": 3,
+            "string": "Bulgarians"
+        },
+        {
+            "id": 4,
+            "string": "Burmese"
+        },
+        {
+            "id": 5,
+            "string": "Byzantines"
+        },
+        {
+            "id": 6,
+            "string": "Celts"
+        },
+        {
+            "id": 7,
+            "string": "Chinese"
+        },
+        {
+            "id": 8,
+            "string": "Cumans"
+        },
+        {
+            "id": 9,
+            "string": "Ethiopians"
+        },
+        {
+            "id": 10,
+            "string": "Franks"
+        },
+        {
+            "id": 11,
+            "string": "Goths"
+        },
+        {
+            "id": 12,
+            "string": "Huns"
+        },
+        {
+            "id": 13,
+            "string": "Incas"
+        },
+        {
+            "id": 14,
+            "string": "Indians"
+        },
+        {
+            "id": 15,
+            "string": "Italians"
+        },
+        {
+            "id": 16,
+            "string": "Japanese"
+        },
+        {
+            "id": 17,
+            "string": "Khmer"
+        },
+        {
+            "id": 18,
+            "string": "Koreans"
+        },
+        {
+            "id": 19,
+            "string": "Lithuanians"
+        },
+        {
+            "id": 20,
+            "string": "Magyars"
+        },
+        {
+            "id": 21,
+            "string": "Malay"
+        },
+        {
+            "id": 22,
+            "string": "Malians"
+        },
+        {
+            "id": 23,
+            "string": "Mayans"
+        },
+        {
+            "id": 24,
+            "string": "Mongols"
+        },
+        {
+            "id": 25,
+            "string": "Persians"
+        },
+        {
+            "id": 26,
+            "string": "Portuguese"
+        },
+        {
+            "id": 27,
+            "string": "Saracens"
+        },
+        {
+            "id": 28,
+            "string": "Slavs"
+        },
+        {
+            "id": 29,
+            "string": "Spanish"
+        },
+        {
+            "id": 30,
+            "string": "Tatars"
+        },
+        {
+            "id": 31,
+            "string": "Teutons"
+        },
+        {
+            "id": 32,
+            "string": "Turks"
+        },
+        {
+            "id": 33,
+            "string": "Vietnamese"
+        },
+        {
+            "id": 34,
+            "string": "Vikings"
+        }
+    ],
+    "game_type": [
+        {
+            "id": 0,
+            "string": "Willekeurige kaart"
+        },
+        {
+            "id": 1,
+            "string": "Koningsmoord"
+        },
+        {
+            "id": 2,
+            "string": "Strijd tot de dood"
+        },
+        {
+            "id": 3,
+            "string": "Scenario"
+        },
+        {
+            "id": 6,
+            "string": "Heerser op de heuvel"
+        },
+        {
+            "id": 7,
+            "string": "Wonderrace"
+        },
+        {
+            "id": 8,
+            "string": "Verdedig het wonder"
+        },
+        {
+            "id": 9,
+            "string": "Turbo willekeurig"
+        },
+        {
+            "id": 10,
+            "string": "Verover de relikwie"
+        },
+        {
+            "id": 11,
+            "string": "Sudden Death"
+        },
+        {
+            "id": 13,
+            "string": "Empire Wars"
+        }
+    ],
+    "leaderboard": [
+        {
+            "id": 0,
+            "string": "Unranked"
+        },
+        {
+            "id": 1,
+            "string": "Death Match"
+        },
+        {
+            "id": 2,
+            "string": "Team Death Match"
+        },
+        {
+            "id": 3,
+            "string": "Random Map"
+        },
+        {
+            "id": 4,
+            "string": "Team Random Map"
+        }
+    ],
+    "map_size": [
+        {
+            "id": 0,
+            "string": "Piepklein (2 spelers)"
+        },
+        {
+            "id": 1,
+            "string": "Klein (3 spelers)"
+        },
+        {
+            "id": 2,
+            "string": "Medium (4 spelers)"
+        },
+        {
+            "id": 3,
+            "string": "Normaal (6 spelers)"
+        },
+        {
+            "id": 4,
+            "string": "Groot (8 spelers)"
+        },
+        {
+            "id": 5,
+            "string": "Reusachtig"
+        },
+        {
+            "id": 6,
+            "string": "Absurd"
+        }
+    ],
+    "map_type": [
+        {
+            "id": 9,
+            "string": "Arabie"
+        },
+        {
+            "id": 10,
+            "string": "Archipel"
+        },
+        {
+            "id": 11,
+            "string": "Baltische Zee"
+        },
+        {
+            "id": 12,
+            "string": "Zwarte Woud"
+        },
+        {
+            "id": 13,
+            "string": "Kust"
+        },
+        {
+            "id": 14,
+            "string": "Continentaal"
+        },
+        {
+            "id": 15,
+            "string": "Kratermeer"
+        },
+        {
+            "id": 16,
+            "string": "Vesting"
+        },
+        {
+            "id": 17,
+            "string": "Goudkoorts"
+        },
+        {
+            "id": 18,
+            "string": "Highland"
+        },
+        {
+            "id": 19,
+            "string": "Eilanden"
+        },
+        {
+            "id": 20,
+            "string": "Mediterraan"
+        },
+        {
+            "id": 21,
+            "string": "Migratie"
+        },
+        {
+            "id": 22,
+            "string": "Rivieren"
+        },
+        {
+            "id": 23,
+            "string": "Teameilanden"
+        },
+        {
+            "id": 24,
+            "string": "Volledig willekeurig"
+        },
+        {
+            "id": 25,
+            "string": "Scandinavie"
+        },
+        {
+            "id": 26,
+            "string": "Mongolie"
+        },
+        {
+            "id": 27,
+            "string": "Yucatan"
+        },
+        {
+            "id": 28,
+            "string": "Zoutmoeras"
+        },
+        {
+            "id": 29,
+            "string": "Arena"
+        },
+        {
+            "id": 31,
+            "string": "Oase"
+        },
+        {
+            "id": 32,
+            "string": "Spookmeer"
+        },
+        {
+            "id": 33,
+            "string": "Nomade"
+        },
+        {
+            "id": 49,
+            "string": "Iberie"
+        },
+        {
+            "id": 50,
+            "string": "Groot-Brittannie"
+        },
+        {
+            "id": 51,
+            "string": "Midden-Oosten"
+        },
+        {
+            "id": 52,
+            "string": "Texas"
+        },
+        {
+            "id": 53,
+            "string": "Italie"
+        },
+        {
+            "id": 54,
+            "string": "Centraal-Amerika"
+        },
+        {
+            "id": 55,
+            "string": "Frankrijk"
+        },
+        {
+            "id": 56,
+            "string": "Noordse landen"
+        },
+        {
+            "id": 57,
+            "string": "Japanse Zee (Oostzee)"
+        },
+        {
+            "id": 58,
+            "string": "Byzantium"
+        },
+        {
+            "id": 59,
+            "string": "Aangepast"
+        },
+        {
+            "id": 60,
+            "string": "Willekeurige landkaart"
+        },
+        {
+            "id": 62,
+            "string": "Willekeurige echte wereldkaart"
+        },
+        {
+            "id": 63,
+            "string": "Blind willekeurig"
+        },
+        {
+            "id": 65,
+            "string": "Willekeurige speciale kaart"
+        },
+        {
+            "id": 66,
+            "string": "Willekeurige speciale kaart"
+        },
+        {
+            "id": 67,
+            "string": "Akropolis"
+        },
+        {
+            "id": 68,
+            "string": "Boedapest"
+        },
+        {
+            "id": 69,
+            "string": "Cenotes"
+        },
+        {
+            "id": 70,
+            "string": "Stad der meren"
+        },
+        {
+            "id": 71,
+            "string": "Goudput"
+        },
+        {
+            "id": 72,
+            "string": "Schuilplaats"
+        },
+        {
+            "id": 73,
+            "string": "Heuvelfort"
+        },
+        {
+            "id": 74,
+            "string": "Lombardije"
+        },
+        {
+            "id": 75,
+            "string": "Steppe"
+        },
+        {
+            "id": 76,
+            "string": "Vallei"
+        },
+        {
+            "id": 77,
+            "string": "Mega Willekeurig"
+        },
+        {
+            "id": 78,
+            "string": "Hamburger"
+        },
+        {
+            "id": 79,
+            "string": "VdR Willekeurig"
+        },
+        {
+            "id": 80,
+            "string": "VdR Monsoen"
+        },
+        {
+            "id": 81,
+            "string": "VdR Piramide Afdaling"
+        },
+        {
+            "id": 82,
+            "string": "VdR Spiraal"
+        },
+        {
+            "id": 83,
+            "string": "Kilimanjaro"
+        },
+        {
+            "id": 84,
+            "string": "Mountain Pass"
+        },
+        {
+            "id": 85,
+            "string": "Nile Delta"
+        },
+        {
+            "id": 86,
+            "string": "Serengeti"
+        },
+        {
+            "id": 87,
+            "string": "Socotra"
+        },
+        {
+            "id": 88,
+            "string": "Amazon"
+        },
+        {
+            "id": 89,
+            "string": "China"
+        },
+        {
+            "id": 90,
+            "string": "Horn of Africa"
+        },
+        {
+            "id": 91,
+            "string": "India"
+        },
+        {
+            "id": 92,
+            "string": "Madagascar"
+        },
+        {
+            "id": 93,
+            "string": "West Africa"
+        },
+        {
+            "id": 94,
+            "string": "Bohemia"
+        },
+        {
+            "id": 95,
+            "string": "Earth"
+        },
+        {
+            "id": 96,
+            "string": "Canyons"
+        },
+        {
+            "id": 97,
+            "string": "Enemy Archipelago"
+        },
+        {
+            "id": 98,
+            "string": "Enemy Islands"
+        },
+        {
+            "id": 99,
+            "string": "Far Out"
+        },
+        {
+            "id": 100,
+            "string": "Front Line"
+        },
+        {
+            "id": 101,
+            "string": "Inner Circle"
+        },
+        {
+            "id": 102,
+            "string": "Motherland"
+        },
+        {
+            "id": 103,
+            "string": "Open Plains"
+        },
+        {
+            "id": 104,
+            "string": "Ring of Water"
+        },
+        {
+            "id": 105,
+            "string": "Snakepit"
+        },
+        {
+            "id": 106,
+            "string": "The Eye"
+        },
+        {
+            "id": 107,
+            "string": "Australia"
+        },
+        {
+            "id": 108,
+            "string": "Indochina"
+        },
+        {
+            "id": 109,
+            "string": "Indonesia"
+        },
+        {
+            "id": 110,
+            "string": "Strait of Malacca"
+        },
+        {
+            "id": 111,
+            "string": "Philippines"
+        },
+        {
+            "id": 112,
+            "string": "Bog Islands"
+        },
+        {
+            "id": 113,
+            "string": "Mangrove Jungle"
+        },
+        {
+            "id": 114,
+            "string": "Pacific Islands"
+        },
+        {
+            "id": 115,
+            "string": "Sandbank"
+        },
+        {
+            "id": 116,
+            "string": "Water Nomad"
+        },
+        {
+            "id": 117,
+            "string": "Jungle Islands"
+        },
+        {
+            "id": 118,
+            "string": "Holy Line"
+        },
+        {
+            "id": 119,
+            "string": "Border Stones"
+        },
+        {
+            "id": 120,
+            "string": "Yin Yang"
+        },
+        {
+            "id": 121,
+            "string": "Jungle Lanes"
+        },
+        {
+            "id": 122,
+            "string": "Alpine Lakes"
+        },
+        {
+            "id": 123,
+            "string": "Bogland"
+        },
+        {
+            "id": 124,
+            "string": "Mountain Ridge"
+        },
+        {
+            "id": 125,
+            "string": "Ravines"
+        },
+        {
+            "id": 126,
+            "string": "Wolf Hill"
+        },
+        {
+            "id": 132,
+            "string": "Antarctica"
+        },
+        {
+            "id": 137,
+            "string": "Custom Map Pool"
+        },
+        {
+            "id": 139,
+            "string": "Golden Swamp"
+        },
+        {
+            "id": 140,
+            "string": "Four Lakes"
+        },
+        {
+            "id": 141,
+            "string": "Land Nomad"
+        }
+    ],
+    "rating_type": [
+        {
+            "id": 0,
+            "string": "Unranked"
+        },
+        {
+            "id": 1,
+            "string": "Death Match"
+        },
+        {
+            "id": 2,
+            "string": "Random Map"
+        },
+        {
+            "id": 3,
+            "string": "Team Death Match"
+        },
+        {
+            "id": 4,
+            "string": "Team Random Map"
+        }
+    ],
+    "resources": [
+        {
+            "id": 0,
+            "string": "Standaard"
+        },
+        {
+            "id": 1,
+            "string": "Zacht"
+        },
+        {
+            "id": 2,
+            "string": "Gemiddeld"
+        },
+        {
+            "id": 3,
+            "string": "Moeilijk"
+        },
+        {
+            "id": 4,
+            "string": "Ultra High"
+        },
+        {
+            "id": 5,
+            "string": "Infinite"
+        },
+        {
+            "id": 6,
+            "string": "Random"
+        }
+    ],
+    "speed": [
+        {
+            "id": 0,
+            "string": "Slow"
+        },
+        {
+            "id": 1,
+            "string": "Casual"
+        },
+        {
+            "id": 2,
+            "string": "Normal"
+        },
+        {
+            "id": 3,
+            "string": "Fast"
+        }
+    ],
+    "victory": [
+        {
+            "id": 1,
+            "string": "Verovering"
+        },
+        {
+            "id": 7,
+            "string": "Tijdslimiet"
+        },
+        {
+            "id": 8,
+            "string": "Score"
+        },
+        {
+            "id": 9,
+            "string": "Standaard"
+        },
+        {
+            "id": 11,
+            "string": "Afvalrace"
+        }
+    ],
+    "visibility": [
+        {
+            "id": 0,
+            "string": "Normal"
+        },
+        {
+            "id": 1,
+            "string": "Explored"
+        },
+        {
+            "id": 2,
+            "string": "All Visible"
+        }
+    ]
+}

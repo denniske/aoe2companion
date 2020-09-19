@@ -1,0 +1,43 @@
+
+html {
+    display: flex;
+    height: 100%;
+}
+
+body {
+    display: flex;
+}
+
+#__next {
+    display: flex;
+}
+
+.app-button {
+    height: 45px;
+}
+
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
