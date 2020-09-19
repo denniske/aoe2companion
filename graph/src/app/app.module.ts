@@ -8,6 +8,7 @@ import {ImportTask} from "../task/import.task";
 import {IngestTask} from "../task/ingest.task";
 import {IngestFastTask} from "../task/ingest-fast.task";
 import {NotifyTask} from "../task/notify.task";
+import {RatingHistoryTask} from "../task/rating-history.task";
 
 
 @Module({
@@ -31,6 +32,9 @@ export class TaskModule {
                 break;
             case 'notify':
                 providers.push(NotifyTask);
+                break;
+            case 'rating-history':
+                providers.push(RatingHistoryTask);
                 break;
         }
         return {
