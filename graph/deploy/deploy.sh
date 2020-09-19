@@ -31,16 +31,16 @@ echo "$KUBERNETES_CLUSTER_CERTIFICATE" | base64 --decode > cert.crt
 # Since the only way for envsubst to work on files is using input/output redirection,
 # it's not possible to do in-place substitution, so we need to save the output to another file
 # and overwrite the original with that one.
-envsubst <./deployment.yml >./deployment.yml.out
-mv ./deployment.yml.out ./deployment.yml
-envsubst <./ingress.yml >./ingress.yml.out
-mv ./ingress.yml.out ./ingress.yml
-envsubst <./service.yml >./service.yml.out
-mv ./service.yml.out ./service.yml
+envsubst <./kube/deployment.yml >./kube/deployment.yml.out
+mv ./kube/deployment.yml.out ./kube/deployment.yml
+envsubst <./kube/ingress.yml >./kube/ingress.yml.out
+mv ./kube/ingress.yml.out ./kube/ingress.yml
+envsubst <./kube/service.yml >./kube/service.yml.out
+mv ./kube/service.yml.out ./kube/service.yml
 
 kubectl \
   --kubeconfig=/dev/null \
   --server=$KUBERNETES_SERVER \
   --certificate-authority=cert.crt \
   --token=$KUBERNETES_TOKEN \
-  apply -f .
+  apply -f ./kube
