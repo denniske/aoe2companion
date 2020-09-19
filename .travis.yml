@@ -33,8 +33,8 @@ jobs:
       env:
         - CACHE_NAME=refetch
         - SERVICE_NAME=refetch
-      before_install: ./graph/deploy/_install.sh
-      script: ./graph/deploy/_deploy.sh
+      before_install: chmod +x ./graph/deploy/_install.sh && ./graph/deploy/_install.sh
+      script: chmod +x ./graph/deploy/_deploy.sh && ./graph/deploy/_deploy.sh
 
     - stage: publish
       if: tag =~ ^match-v.+$
