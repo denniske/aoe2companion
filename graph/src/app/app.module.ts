@@ -9,6 +9,7 @@ import {IngestTask} from "../task/ingest.task";
 import {IngestFastTask} from "../task/ingest-fast.task";
 import {NotifyTask} from "../task/notify.task";
 import {RatingHistoryTask} from "../task/rating-history.task";
+import {RefetchAgainTask} from "../task/refetch-again.task";
 
 
 @Module({
@@ -23,6 +24,9 @@ export class TaskModule {
                 break;
             case 'refetch':
                 providers.push(RefetchTask);
+                break;
+            case 'refetch-again':
+                providers.push(RefetchAgainTask);
                 break;
             case 'ingest':
                 providers.push(IngestTask);
