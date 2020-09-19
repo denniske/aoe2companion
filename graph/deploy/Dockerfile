@@ -7,6 +7,7 @@ WORKDIR /usr/src/app
 COPY node_modules ./
 
 COPY graph/deploy/package.json ./
+COPY graph/prisma ./
 COPY package-lock.json ./
 RUN npm install
 
