@@ -4,9 +4,9 @@ import {createDB} from "../db";
 import {formatDayAndTime} from "../util";
 import {upsertMatchesWithPlayers} from "../entity/entity-helper";
 import {myTodoList} from "@nex/data";
-import {Match} from "../../../serverless/entity/match";
-import {fetchMatches, setValue} from "../../../serverless/src/helper";
 import {max} from "lodash";
+import {Match} from "../entity/match";
+import {fetchMatches, setValue} from "../helper";
 
 
 async function fetchMatchesSinceLastTime() {
