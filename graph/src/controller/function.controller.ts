@@ -1,4 +1,4 @@
-import {Controller, Get, Request, Response} from '@nestjs/common';
+import {Controller, Get, OnModuleInit, Request, Response} from '@nestjs/common';
 
 import {differenceInMinutes, getUnixTime} from "date-fns";
 import {getParam, time} from "../util";
@@ -31,7 +31,11 @@ async function updateCache() {
 }
 
 @Controller()
-export class FunctionController {
+export class FunctionController implements OnModuleInit {
+
+    async onModuleInit() {
+        await updateCache();
+    }
 
     @Get('/api/leaderboard')
     async leaderboard(
