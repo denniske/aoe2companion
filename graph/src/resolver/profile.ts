@@ -1,4 +1,4 @@
-import {Args, Parent, Query, ResolveField, Resolver} from "@nestjs/graphql";
+import {Args, Int, Parent, Query, ResolveField, Resolver} from "@nestjs/graphql";
 import {PrismaClient} from "@prisma/client";
 import {fromUnixTime} from "date-fns";
 import {Profile} from "../object/profile";
@@ -103,7 +103,7 @@ export class ProfileResolver {
 
     @Query(returns => Profile)
     async profile(
-        @Args("profile_id", {nullable: true}) profile_id?: number,
+        @Args("profile_id", {type: () => Int, nullable: true}) profile_id?: number,
     ) {
         const user = await prisma.$queryRaw`
           SELECT profile_id, MIN(name) as name, MIN(country) as country, SUM(games) as games, MAX(last_match_time) as last_match_time

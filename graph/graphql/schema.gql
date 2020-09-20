@@ -72,8 +72,8 @@ type Profile {
 
 type Query {
   match(match_id: String, match_uuid: String): Match!
-  matches(count: Float!, leaderboard_id: Float, profile_id: Float, search: String, start: Float!): MatchList!
-  profile(profile_id: Float): Profile!
+  matches(count: Int!, leaderboard_id: Int, profile_id: Int, search: String, start: Int!): MatchList!
+  profile(profile_id: Int): Profile!
   users(search: String!): [User!]!
 }
 

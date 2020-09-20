@@ -1,5 +1,5 @@
 import {
-    Args, ArgsType, Field, Mutation, Parent, Query, ResolveField, Resolver, Root
+    Args, ArgsType, Field, Int, Mutation, Parent, Query, ResolveField, Resolver, Root
 } from "@nestjs/graphql";
 import {createDB} from "../db";
 import {Match, MatchList} from "../object/match";
@@ -80,10 +80,10 @@ export class MatchResolver {
 
     @Query(returns => MatchList)
     async matches(
-        @Args("start") start: number,
-        @Args("count") count: number,
-        @Args("profile_id", {nullable: true}) profile_id?: number,
-        @Args("leaderboard_id", {nullable: true}) leaderboard_id?: number,
+        @Args("start", {type: () => Int }) start: number,
+        @Args("count", {type: () => Int }) count: number,
+        @Args("profile_id", {type: () => Int, nullable: true}) profile_id?: number,
+        @Args("leaderboard_id", {type: () => Int, nullable: true}) leaderboard_id?: number,
         @Args("search", {nullable: true}) search?: string,
     ) {
         // await sleep(200);
@@ -145,7 +145,7 @@ export class MatchResolver {
             },
         });
 
-        console.log(matches);
+        // console.log(matches);
 
         return {
             total: matches.length,

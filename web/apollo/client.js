@@ -148,7 +148,7 @@ const typesMap = {
 
 const resolvers = {};
 
-const nexusSchemaTypeDefsStr = require('../nexus/schema')["nexus/schema.graphql"].content
+const nexusSchemaTypeDefsStr = require('../../graph/graphql/schema')["graph/graphql/schema.gql"].content
 const typeDefs = gql`${nexusSchemaTypeDefsStr}`
 
 // console.log('typeDefs', typeDefs);
@@ -168,7 +168,7 @@ function createIsomorphLink() {
   return ApolloLink.from([
     withScalars({ schema, typesMap }),
     new HttpLink({
-      uri: '/api',
+      uri: 'http://localhost:3333/graphql',
       // uri: process.env.NEXT_PUBLIC_API_URL,
       credentials: 'same-origin',
     })
