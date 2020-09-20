@@ -1,6 +1,6 @@
 import {useQuery} from "@apollo/client";
 import React from "react";
-import {fade, InputBase, Paper} from "@material-ui/core";
+import {createStyles, fade, InputBase, Paper, Tab, Tabs, Theme, withStyles} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import ToggleButton from "@material-ui/lab/ToggleButton";
@@ -85,6 +85,14 @@ interface Props {
     profileId: number;
 }
 
+const AntTab = withStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            minWidth: 100,
+        },
+    }),
+)((props: any) => <Tab {...props} />);
+
 export default function ProfileMatches({profileId}: Props) {
     const appClasses = useAppStyles();
     const classes = useStyles();
@@ -94,7 +102,7 @@ export default function ProfileMatches({profileId}: Props) {
 
     const matchesResult = useQuery<IMatchesQuery, any>(MatchesQuery, {
         variables: {
-            profileId: parseInt(profileId),
+            profileId: profileId,
             leaderboardId: leaderboardId ? parseInt(leaderboardId) : null,
             search: text,
             map_types: Object.entries(maps).filter(([map_type, name]) => name.toLowerCase().indexOf(text.toLowerCase()) >= 0).map(([map_type, name]) => map_type),
@@ -109,19 +117,32 @@ export default function ProfileMatches({profileId}: Props) {
     // console.log('total', total);
     // console.log('matches', matches);
 
+    const [value, setValue] = React.useState(2);
+
+    const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+        setValue(newValue);
+    };
+
     return (
         <Paper className={appClasses.box}>
-            {/*<Tabs*/}
-            {/*    value={value}*/}
-            {/*    indicatorColor="primary"*/}
-            {/*    textColor="primary"*/}
-            {/*    onChange={handleChange}*/}
-            {/*    aria-label="disabled tabs example"*/}
-            {/*>*/}
-            {/*    <Tab label="Active" />*/}
-            {/*    <Tab label="Disabled" disabled />*/}
-            {/*    <Tab label="Active" />*/}
-            {/*</Tabs>*/}
+            <Tabs
+                className={classes.tab}
+                value={value}
+                indicatorColor="primary"
+                textColor="primary"
+                onChange={handleChange}
+                aria-label="disabled tabs example"
+                variant="fullWidth"
+                // variant="scrollable"
+                // scrollButtons="auto"
+            >
+                <AntTab label="All" />
+                <AntTab label="RM 1v1" />
+                <AntTab label="RM 1v1" />
+                <AntTab label="DM 1v1" />
+                <AntTab label="DM Team" />
+                <AntTab label="Unranked" />
+            </Tabs>
 
 
 
@@ -131,33 +152,33 @@ export default function ProfileMatches({profileId}: Props) {
 
 
 
-            <div className={classes.row2}>
-                <Typography variant="body1" noWrap>
-                    Matches {matchesResult.loading ? 'loading' : 'ready'}
-                </Typography>
-            </div>
+            {/*<div className={classes.row2}>*/}
+            {/*    <Typography variant="body1" noWrap>*/}
+            {/*        Matches {matchesResult.loading ? 'loading' : 'ready'}*/}
+            {/*    </Typography>*/}
+            {/*</div>*/}
 
-            <div className={classes.row3}>
-                <ToggleButtonGroup value={leaderboardId} exclusive onChange={(e, v) => setLeaderboardId(v)} size="small">
-                    <ToggleButton value="3">
-                        <div className={classes.option}>Random Map 1v1</div>
-                    </ToggleButton>
-                    <ToggleButton value="4">
-                        <div className={classes.option}>Random Map Team</div>
-                    </ToggleButton>
-                    <ToggleButton value="1">
-                        <div className={classes.option}>Death Match 1v1</div>
-                    </ToggleButton>
-                    <ToggleButton value="2">
-                        <div className={classes.option}>Death Match Team</div>
-                    </ToggleButton>
-                    <ToggleButton value="0">
-                        <div className={classes.option}>Unranked</div>
-                    </ToggleButton>
-                </ToggleButtonGroup>
-            </div>
+            {/*<div className={classes.row3}>*/}
+            {/*    <ToggleButtonGroup value={leaderboardId} exclusive onChange={(e, v) => setLeaderboardId(v)} size="small">*/}
+            {/*        <ToggleButton value="3">*/}
+            {/*            <div className={classes.option}>Random Map 1v1</div>*/}
+            {/*        </ToggleButton>*/}
+            {/*        <ToggleButton value="4">*/}
+            {/*            <div className={classes.option}>Random Map Team</div>*/}
+            {/*        </ToggleButton>*/}
+            {/*        <ToggleButton value="1">*/}
+            {/*            <div className={classes.option}>Death Match 1v1</div>*/}
+            {/*        </ToggleButton>*/}
+            {/*        <ToggleButton value="2">*/}
+            {/*            <div className={classes.option}>Death Match Team</div>*/}
+            {/*        </ToggleButton>*/}
+            {/*        <ToggleButton value="0">*/}
+            {/*            <div className={classes.option}>Unranked</div>*/}
+            {/*        </ToggleButton>*/}
+            {/*    </ToggleButtonGroup>*/}
+            {/*</div>*/}
 
-            <Paper className={classes.searchRow}>
+            <div className={classes.searchRow}>
                 {/*<div className={classes.searchIcon}>*/}
                 {/*  <SearchIcon/>*/}
                 {/*</div>*/}
@@ -171,7 +192,7 @@ export default function ProfileMatches({profileId}: Props) {
                     }}
                     inputProps={{'aria-label': 'search'}}
                 />
-            </Paper>
+            </div>
 
             <div style={{opacity: matchesResult.loading ? 0.7 : 1}}>
                 <div className={classes.row3}>
@@ -197,6 +218,13 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 11,
     },
 
+    tab: {
+        marginTop: -theme.spacing(3),
+        marginLeft: -theme.spacing(3),
+        marginRight: -theme.spacing(3),
+        // borderBottom: '1px solid #333',
+        boxShadow: '0px 2px 1px -1px rgba(0,0,0,0.1), 0px 1px 1px 0px rgba(0,0,0,0.07), 0px 1px 3px 0px rgba(0,0,0,0.06)',
+    },
     option: {
         padding: theme.spacing(0, 1),
     },
@@ -211,6 +239,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         margin: theme.spacing(0, -3, 2, -3),
         backgroundColor: fade(theme.palette.common.black, 0.00),
+        boxShadow: '0px 2px 1px -1px rgba(0,0,0,0.1), 0px 1px 1px 0px rgba(0,0,0,0.07), 0px 1px 3px 0px rgba(0,0,0,0.06)',
     },
     searchIcon: {
         padding: theme.spacing(0, 2, 0, 2),

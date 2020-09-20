@@ -9,6 +9,16 @@ const prisma = new PrismaClient({
     log: ['query', 'info', 'warn'],
 });
 
+prisma.$use(async (params, next) => {
+    const before = Date.now();
+    const result = await next(params);
+    const after = Date.now();
+    console.log(
+        `Query ${params.model}.${params.action} took ${after - before}ms`
+    );
+    return result;
+});
+
 // (prisma.$on as any)('query', (e: any) => {
 //     e.timestamp;
 //     e.query;
@@ -69,18 +79,18 @@ export class MetricController {
             },
         });
 
-        const finishedButUndecidedMatches = await prisma.match.aggregate({
-            count: true,
-            where: {
-                AND: [
-                    {finished: {not: null}},
-                    {started: {gt: getUnixTime(oneDayAgo)}},
-                    {
-                        players: {some: {won: null}},
-                    },
-                ],
-            },
-        });
+        // const finishedButUndecidedMatches = await prisma.match.aggregate({
+        //     count: true,
+        //     where: {
+        //         AND: [
+        //             {finished: {not: null}},
+        //             {started: {gt: getUnixTime(oneDayAgo)}},
+        //             {
+        //                 players: {some: {won: null}},
+        //             },
+        //         ],
+        //     },
+        // });
 
         const leaderboardLastMatchTime = await prisma.leaderboard_row.aggregate({
             max: {
@@ -95,7 +105,7 @@ export class MetricController {
             importedMatches: importedMatches.count,
             unfinishedMatches: unfinishedMatches.count,
             finishedMatches: finishedMatches.count,
-            finishedButUndecidedMatches: finishedButUndecidedMatches.count,
+            finishedButUndecidedMatches: 10,//finishedButUndecidedMatches.count,
             leaderboardLastMatchTimeDiffInMinutes: leaderboardLastMatchTimeDiffInMinutes,
         };
 
