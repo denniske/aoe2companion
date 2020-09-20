@@ -24,10 +24,10 @@ export class Leaderboard {
     country?: string;
 
     @Field({nullable: true})
-    clan?: number;
+    clan?: string;
 
     @Field({nullable: true})
-    icon?: number;
+    icon?: string;
 
     @Field({nullable: true})
     rating?: number;

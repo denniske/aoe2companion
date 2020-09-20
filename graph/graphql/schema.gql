@@ -8,13 +8,13 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Leaderboard {
-  clan: Float
+  clan: String
   country: String
   drops: Float
   games: Float
   highest_rating: Float
   highest_streak: Float
-  icon: Float
+  icon: String
   last_match: Float
   last_match_time: DateTime
   leaderboard_id: Int!

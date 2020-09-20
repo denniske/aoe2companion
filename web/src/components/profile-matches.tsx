@@ -133,7 +133,7 @@ export default function ProfileMatches({profileId}: Props) {
     };
 
     return (
-        <Paper className={appClasses.box}>
+        <Paper className={appClasses.boxForTable}>
             <div className={classes.searchRow}>
                 {/*<div className={classes.searchIcon}>*/}
                 {/*  <SearchIcon/>*/}
@@ -158,8 +158,6 @@ export default function ProfileMatches({profileId}: Props) {
                 onChange={handleChange}
                 aria-label="disabled tabs example"
                 variant="fullWidth"
-                // variant="scrollable"
-                // scrollButtons="auto"
             >
                 <AntTab label="All" />
                 <AntTab label="RM 1v1" />
@@ -169,29 +167,34 @@ export default function ProfileMatches({profileId}: Props) {
                 <AntTab label="Unranked" />
             </Tabs>
 
-            <SwipeableViews
-                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-                index={value}
-                onChangeIndex={handleChangeIndex}
-            >
-                <div style={{opacity: matchesResult.loading ? 0.7 : 1}}>
-                    <div className={classes.row3}>
+            {/*<SwipeableViews index={value} onChangeIndex={handleChangeIndex} className={classes.maxHeight}>*/}
+            <div className={classes.maxHeight}>
+                <div style={{opacity: matchesResult.loading ? 0.7 : 1}} className={classes.maxHeightInner}>
+                    <div className={classes.rowInfo}>
                         {total} matches
                     </div>
                     <div>
                         {matches?.map(match => <Match key={match.match_id} match={match} profileId={profileId}/>)}
                     </div>
                 </div>
-                <div style={{opacity: matchesResult.loading ? 0.7 : 1}}>
-                    <div className={classes.row3}>
-                        {total} matches
-                    </div>
-                    <div>
-                        dasdas
-                    </div>
-                </div>
-
-            </SwipeableViews>
+            </div>
+                {/*<div style={{opacity: matchesResult.loading ? 0.7 : 1}} className={classes.maxHeightInner}>*/}
+                {/*    <div className={classes.rowInfo}>*/}
+                {/*        {total} matches*/}
+                {/*    </div>*/}
+                {/*    <div>*/}
+                {/*        {matches?.map(match => <Match key={match.match_id} match={match} profileId={profileId}/>)}*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+                {/*<div style={{opacity: matchesResult.loading ? 0.7 : 1}} className={classes.maxHeightInner}>*/}
+                {/*    <div className={classes.rowInfo}>*/}
+                {/*        {total} matches*/}
+                {/*    </div>*/}
+                {/*    <div>*/}
+                {/*        {matches?.map(match => <Match key={match.match_id} match={match} profileId={profileId}/>)}*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+            {/*</SwipeableViews>*/}
         </Paper>
     );
 }
@@ -208,11 +211,26 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 11,
     },
 
+    maxHeight: {
+        height: 700,
+        overflow: 'auto',
+    },
+    maxHeightInner: {
+        padding: theme.spacing(3),
+    },
+
+    rowInfo: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: theme.spacing(2),
+    },
+
     tab: {
         // marginTop: -theme.spacing(3),
-        marginLeft: -theme.spacing(3),
-        marginRight: -theme.spacing(3),
-        marginBottom: theme.spacing(2),
+        // marginLeft: -theme.spacing(3),
+        // marginRight: -theme.spacing(3),
+        // marginBottom: theme.spacing(2),
         // borderBottom: '1px solid #333',
         boxShadow: '0px 2px 1px -1px rgba(0,0,0,0.1), 0px 1px 1px 0px rgba(0,0,0,0.07), 0px 1px 3px 0px rgba(0,0,0,0.06)',
     },
@@ -228,8 +246,8 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: 0,
         display: 'flex',
         alignItems: 'center',
-        margin: theme.spacing(0, -3, 2, -3),
-        marginTop: -theme.spacing(3),
+        // margin: theme.spacing(0, -3, 2, -3),
+        // marginTop: -theme.spacing(3),
         marginBottom: 0,
         backgroundColor: fade(theme.palette.common.black, 0.00),
         boxShadow: '0px 2px 1px -1px rgba(0,0,0,0.1), 0px 1px 1px 0px rgba(0,0,0,0.07), 0px 1px 3px 0px rgba(0,0,0,0.06)',

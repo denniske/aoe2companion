@@ -41,51 +41,61 @@ export default function Match({ match, profileId }: Props) {
 
     return (
         <div className={classes.col2}>
-            <div className={classes.row2b}>
-                {getMapName(match.map_type)}
-                {/*({getString('leaderboard', match.leaderboard_id)})*/}
-            </div>
             {/*<div className={classes.row2b}>*/}
             {/*    {getMapName(match.map_type)}*/}
             {/*</div>*/}
             {/*<div className={classes.row2b} style={{fontSize: 12}}>*/}
             {/*    {getString('leaderboard', match.leaderboard_id)}*/}
             {/*</div>*/}
-            <div className={classes.row2}>
-                {
-                    !match.finished &&
-                    <div>{duration}</div>
-                }
-                {
-                    match.finished &&
-                    <Typography variant="caption">{match.started ? formatAgo(match.started) : 'none'}</Typography>
-                }
-            </div>
-            <div className={classes.row2}>
-                <img src={getMapImage(match.map_type)} className={classes.mapIcon} />
-                <div className={classes.expRow}>
-                    {
-                        teams.map(([team, players], i) =>
-                            <div key={team} className={classes.expRow}>
-                                <div className={classes.teamCol}>
-                                    {
-                                        players.map((player, j) => <Player key={j} player={player}/>)
-                                    }
-                                </div>
-                                {
-                                    i < teams.length-1 &&
-                                    <div className={classes.row}>
-                                        <div className={classes.versus}>
-                                            <div className={classes.versusText}>VS</div>
+
+            <div className={classes.row2Top}>
+                <img src={getMapImage(match.map_type)} className={classes.mapIcon}/>
+                <div className={classes.expCol}>
+                    <div className={classes.row2b}>
+                        {getMapName(match.map_type)}
+                    </div>
+                    <div className={classes.row2b}>
+                        {getString('leaderboard', match.leaderboard_id)}
+                    </div>
+                    <div className={classes.row2b}>
+                        {
+                            !match.finished &&
+                            <div>{duration}</div>
+                        }
+                        {
+                            match.finished &&
+                            <Typography variant="caption">{match.started ? formatAgo(match.started) : 'none'}</Typography>
+                        }
+                    </div>
+                    <div className={classes.row2Margin}>
+                        <div className={classes.expRow}>
+                            {
+                                teams.map(([team, players], i) =>
+                                    <div key={team} className={classes.expRow}>
+                                        <div className={classes.teamCol}>
+                                            {
+                                                players.map((player, j) => <Player key={j} player={player}/>)
+                                            }
                                         </div>
-                                        <div className={classes.versus2}/>
+                                        {
+                                            i < teams.length - 1 &&
+                                            <div className={classes.row}>
+                                                <div className={classes.versus}>
+                                                    <div className={classes.versusText}>VS</div>
+                                                </div>
+                                                <div className={classes.versus2}/>
+                                            </div>
+                                        }
                                     </div>
-                                }
-                            </div>
-                        )
-                    }
+                                )
+                            }
+                        </div>
+                    </div>
+
                 </div>
             </div>
+
+
         </div>
     )
 }
@@ -103,17 +113,31 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
     },
+    row2Top: {
+        display: 'flex',
+        flexDirection: 'row',
+        marginBottom: theme.spacing(1),
+    },
     row2: {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: theme.spacing(1),
     },
+    row2Margin: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: theme.spacing(1),
+        marginTop: theme.spacing(1),
+        // marginLeft: -85,
+    },
     row2b: {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        // marginBottom: theme.spacing(0.5),
+        marginTop: theme.spacing(0.15),
+        marginBottom: theme.spacing(0.15),
     },
     col2: {
         display: 'flex',
@@ -130,6 +154,11 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'row',
         flex: 1,
     },
+    expCol: {
+        display: 'flex',
+        flexDirection: 'column',
+        flex: 1,
+    },
     flagIcon: {
         width: 21,
         height: 15,
@@ -141,8 +170,8 @@ const useStyles = makeStyles((theme) => ({
         marginRight: theme.spacing(1),
     },
     mapIcon: {
-        width: 80,
-        height: 80,
+        width: 70,
+        height: 70,
         marginRight: theme.spacing(2),
     },
     tableContainer: {
