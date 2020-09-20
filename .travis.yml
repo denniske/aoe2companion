@@ -166,7 +166,7 @@ jobs:
     - stage: build standalone apps
       if: tag =~ ^v.+$
       env:
-        - CACHE_NAME=build-android-v4 YARN_CACHE_FOLDER="/home/travis/yarn_cache"
+        - CACHE_NAME=build-android-aab YARN_CACHE_FOLDER="/home/travis/yarn_cache"
       jdk: openjdk8
       cache:
         directories:
@@ -195,6 +195,43 @@ jobs:
             --keystore-path ./expo-project.jks
             --keystore-alias $EXPO_ANDROID_KEYSTORE_ALIAS
             --type app-bundle
+            -o $ARTIFACT_PATH
+      after_success:
+        - aws s3 cp $ARTIFACT_PATH s3://$AWS_BUCKET/`basename $ARTIFACT_PATH`
+
+
+    - stage: build standalone apps
+      if: tag =~ ^v.+$
+      env:
+        - CACHE_NAME=build-android-apk YARN_CACHE_FOLDER="/home/travis/yarn_cache"
+      jdk: openjdk8
+      cache:
+        directories:
+          - $HOME/.turtle
+          - $HOME/yarn_cache
+          - $HOME/.gradle/wrapper
+      before_install:
+        - nvm install $NODE_VERSION
+        - nvm use $NODE_VERSION
+        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
+        - export PATH="$HOME/.yarn/bin:$PATH"
+      install:
+        - pip install --user awscli
+        - yarn global add gulp-cli turtle-cli@$TURTLE_VERSION
+      script:
+        - yarn
+        - export CHANNEL=$(node deploy/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
+        - export ARTIFACT_PATH="/home/travis/expo-project-$TRAVIS_COMMIT.apk"
+        - turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null || travis_terminate 1
+        - echo $EXPO_ANDROID_KEYSTORE_BASE64 > expo-project.jks.base64
+        - base64 --decode expo-project.jks.base64 > expo-project.jks
+        - ls -al
+        - turtle build:android
+            --config app.json
+            --release-channel $CHANNEL
+            --keystore-path ./expo-project.jks
+            --keystore-alias $EXPO_ANDROID_KEYSTORE_ALIAS
+            --type apk
             -o $ARTIFACT_PATH
       after_success:
         - aws s3 cp $ARTIFACT_PATH s3://$AWS_BUCKET/`basename $ARTIFACT_PATH`

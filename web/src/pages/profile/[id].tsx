@@ -28,7 +28,9 @@ import MatchesCompare from "../../components/matches-compare";
 import {View} from "react-native";
 import {TextLoader} from "../../../../app/src/view/components/loader/text-loader";
 import {Skeleton} from "@material-ui/lab";
-import {faArrowUp, faCoffee, faLongArrowAltDown, faLongArrowAltUp} from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowUp, faCaretDown, faCaretUp, faCoffee, faLongArrowAltDown, faLongArrowAltUp
+} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 
@@ -63,33 +65,33 @@ const ProfileQuery = gql`
         last_match_time
         rank
       }
-#      stats {
-#        leaderboard_id
-#        allies {
-#          name
-#          games
-#          wins
-#          country
-#          profile_id
-#        }
-#        opponents {
-#          name
-#          games
-#          wins
-#          country
-#          profile_id
-#        }
-#        civ {
-#          civ
-#          games
-#          wins
-#        }
-#        map_type {
-#          map_type
-#          games
-#          wins
-#        }
-#      }
+      stats {
+        leaderboard_id
+        allies {
+          name
+          games
+          wins
+          country
+          profile_id
+        }
+        opponents {
+          name
+          games
+          wins
+          country
+          profile_id
+        }
+        civ {
+          civ
+          games
+          wins
+        }
+        map_type {
+          map_type
+          games
+          wins
+        }
+      }
       rating_history {
         leaderboard_id
         profile_id
@@ -150,6 +152,10 @@ function ProfilePage() {
     setFilteredAllies(profile?.stats?.[0].allies.filter((x, i) => i > page * 10 && i < (page+1)*10));
     setFilteredOpponents(profile?.stats?.[0].opponents.filter((x, i) => i > page * 10 && i < (page+1)*10));
   }, [page, profile]);
+
+  function getChangeColor(change: number) {
+    return change > 0 ? "green" : 'red';
+  }
 
   return (
       <div className={classes.container}>
@@ -224,18 +230,20 @@ function ProfilePage() {
                       <TableCell align="left">
                         {
                           leaderboard.rating - leaderboard.previous_rating > 0 &&
-                          <FontAwesomeIcon icon={faLongArrowAltUp} className={classes.icon} />
+                          <FontAwesomeIcon icon={faCaretUp} color={getChangeColor(leaderboard.rating - leaderboard.previous_rating)} className={classes.icon} />
                         }
                         {
                           leaderboard.rating - leaderboard.previous_rating < 0 &&
-                          <FontAwesomeIcon icon={faLongArrowAltDown} className={classes.icon} />
+                          <FontAwesomeIcon icon={faCaretDown} color={getChangeColor(leaderboard.rating - leaderboard.previous_rating)} className={classes.icon} />
                         }
-                        {Math.abs(leaderboard.rating - leaderboard.previous_rating)}
+                        <span style={{color: getChangeColor(leaderboard.rating - leaderboard.previous_rating)}}>{Math.abs(leaderboard.rating - leaderboard.previous_rating)}</span>
                       </TableCell>
                       <TableCell align="right">{leaderboard.highest_rating}</TableCell>
                       <TableCell align="right">{leaderboard.games}</TableCell>
                       <TableCell align="right">{leaderboard.wins}</TableCell>
-                      <TableCell align="right">{leaderboard.streak > 0 ? '+'+leaderboard.streak : leaderboard.streak}</TableCell>
+                      <TableCell align="right">
+                        <span style={{color: getChangeColor(leaderboard.streak)}}>{leaderboard.streak > 0 ? '+'+leaderboard.streak : leaderboard.streak}</span>
+                      </TableCell>
                     </TableRow>
                 ))}
               </TableBody>
@@ -252,151 +260,151 @@ function ProfilePage() {
 
         {/*<div className={classes.containerLine}>*/}
 
-        {/*<Paper className={appClasses.boxForTable}>*/}
-        {/*  <TableContainer>*/}
-        {/*    <Table size="medium">*/}
-        {/*      <TableHead>*/}
-        {/*        <TableRow>*/}
-        {/*          <TableCell>Ally</TableCell>*/}
-        {/*          <TableCell align="right">Games</TableCell>*/}
-        {/*          <TableCell align="right">Won</TableCell>*/}
-        {/*        </TableRow>*/}
-        {/*      </TableHead>*/}
-        {/*      <TableBody>*/}
-        {/*        {*/}
-        {/*          !filteredAllies && Array(10).fill(0).map((a, i) =>*/}
-        {/*              <TableRow key={i}>*/}
-        {/*                <TableCell><Skeleton/></TableCell>*/}
-        {/*                <TableCell><Skeleton/></TableCell>*/}
-        {/*                <TableCell><Skeleton/></TableCell>*/}
-        {/*              </TableRow>*/}
-        {/*          )*/}
-        {/*        }*/}
-        {/*        {*/}
-        {/*          filteredAllies?.length > 0 && filteredAllies.map((statsEntry) => (*/}
-        {/*              <TableRow key={statsEntry.name}>*/}
-        {/*                <TableCell component="th" scope="row">*/}
-        {/*                  <div className={classes.row}>*/}
-        {/*                    <img src={getFlagIcon(statsEntry.country)} className={classes.flagIcon}/>*/}
-        {/*                    {statsEntry.name}*/}
-        {/*                  </div>*/}
-        {/*                </TableCell>*/}
-        {/*                <TableCell align="right">{statsEntry.games}</TableCell>*/}
-        {/*                <TableCell*/}
-        {/*                    align="right">{(statsEntry.wins / statsEntry.games * 100).toFixed(0)} %</TableCell>*/}
-        {/*              </TableRow>*/}
-        {/*          ))*/}
-        {/*        }*/}
-        {/*      </TableBody>*/}
-        {/*    </Table>*/}
-        {/*  </TableContainer>*/}
-        {/*</Paper>*/}
+        <Paper className={appClasses.boxForTable}>
+          <TableContainer>
+            <Table size="medium">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Ally</TableCell>
+                  <TableCell align="right">Games</TableCell>
+                  <TableCell align="right">Won</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {
+                  !filteredAllies && Array(10).fill(0).map((a, i) =>
+                      <TableRow key={i}>
+                        <TableCell><Skeleton/></TableCell>
+                        <TableCell><Skeleton/></TableCell>
+                        <TableCell><Skeleton/></TableCell>
+                      </TableRow>
+                  )
+                }
+                {
+                  filteredAllies?.length > 0 && filteredAllies.map((statsEntry) => (
+                      <TableRow key={statsEntry.name}>
+                        <TableCell component="th" scope="row">
+                          <div className={classes.row}>
+                            <img src={getFlagIcon(statsEntry.country)} className={classes.flagIcon}/>
+                            {statsEntry.name}
+                          </div>
+                        </TableCell>
+                        <TableCell align="right">{statsEntry.games}</TableCell>
+                        <TableCell
+                            align="right">{(statsEntry.wins / statsEntry.games * 100).toFixed(0)} %</TableCell>
+                      </TableRow>
+                  ))
+                }
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Paper>
 
-        {/*<Paper className={appClasses.boxForTable}>*/}
-        {/*  <TableContainer>*/}
-        {/*    <Table size="medium">*/}
-        {/*      <TableHead>*/}
-        {/*        <TableRow>*/}
-        {/*          <TableCell>Opponent</TableCell>*/}
-        {/*          <TableCell align="right">Games</TableCell>*/}
-        {/*          <TableCell align="right">Won</TableCell>*/}
-        {/*        </TableRow>*/}
-        {/*      </TableHead>*/}
-        {/*      <TableBody>*/}
-        {/*        {*/}
-        {/*          !filteredOpponents && Array(10).fill(0).map((a, i) =>*/}
-        {/*              <TableRow key={i}>*/}
-        {/*                <TableCell><Skeleton/></TableCell>*/}
-        {/*                <TableCell><Skeleton/></TableCell>*/}
-        {/*                <TableCell><Skeleton/></TableCell>*/}
-        {/*              </TableRow>*/}
-        {/*          )*/}
-        {/*        }*/}
-        {/*        {*/}
-        {/*          filteredOpponents?.map((statsEntry) => (*/}
-        {/*              <TableRow key={statsEntry.name}>*/}
-        {/*                <TableCell component="th" scope="row">*/}
-        {/*                  <div className={classes.row}>*/}
-        {/*                    <Link href='/profile/[id]' as={`/profile/${statsEntry.profile_id}`}>*/}
-        {/*                      <div className={classes.rowLink2}>*/}
-        {/*                        <img src={getFlagIcon(statsEntry.country)} className={classes.flagIcon}/>*/}
-        {/*                        {statsEntry.name}*/}
-        {/*                      </div>*/}
-        {/*                    </Link>*/}
-        {/*                  </div>*/}
-        {/*                </TableCell>*/}
-        {/*                <TableCell align="right">{statsEntry.games}</TableCell>*/}
-        {/*                /!*<TableCell align="right">{statsEntry.wins}</TableCell>*!/*/}
-        {/*                <TableCell align="right">{(statsEntry.wins / statsEntry.games * 100).toFixed(0)} %</TableCell>*/}
-        {/*              </TableRow>*/}
-        {/*          ))*/}
-        {/*        }*/}
-        {/*      </TableBody>*/}
-        {/*    </Table>*/}
-        {/*  </TableContainer>*/}
-        {/*</Paper>*/}
+        <Paper className={appClasses.boxForTable}>
+          <TableContainer>
+            <Table size="medium">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Opponent</TableCell>
+                  <TableCell align="right">Games</TableCell>
+                  <TableCell align="right">Won</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {
+                  !filteredOpponents && Array(10).fill(0).map((a, i) =>
+                      <TableRow key={i}>
+                        <TableCell><Skeleton/></TableCell>
+                        <TableCell><Skeleton/></TableCell>
+                        <TableCell><Skeleton/></TableCell>
+                      </TableRow>
+                  )
+                }
+                {
+                  filteredOpponents?.map((statsEntry) => (
+                      <TableRow key={statsEntry.name}>
+                        <TableCell component="th" scope="row">
+                          <div className={classes.row}>
+                            <Link href='/profile/[id]' as={`/profile/${statsEntry.profile_id}`}>
+                              <div className={classes.rowLink2}>
+                                <img src={getFlagIcon(statsEntry.country)} className={classes.flagIcon}/>
+                                {statsEntry.name}
+                              </div>
+                            </Link>
+                          </div>
+                        </TableCell>
+                        <TableCell align="right">{statsEntry.games}</TableCell>
+                        {/*<TableCell align="right">{statsEntry.wins}</TableCell>*/}
+                        <TableCell align="right">{(statsEntry.wins / statsEntry.games * 100).toFixed(0)} %</TableCell>
+                      </TableRow>
+                  ))
+                }
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Paper>
 
-        {/*  <div className={classes.containerWrap}>*/}
-        {/*    <div className={classes.containerWrap50}>*/}
+          <div className={classes.containerWrap}>
+            <div className={classes.containerWrap50}>
 
-        {/*      <Paper className={appClasses.boxForTable}>*/}
-        {/*        <TableContainer>*/}
-        {/*        <Table size="medium">*/}
-        {/*          <TableHead>*/}
-        {/*            <TableRow>*/}
-        {/*              <TableCell>Civ</TableCell>*/}
-        {/*              <TableCell align="right">Games</TableCell>*/}
-        {/*              <TableCell align="right">Won</TableCell>*/}
-        {/*            </TableRow>*/}
-        {/*          </TableHead>*/}
-        {/*          <TableBody>*/}
-        {/*            {profile?.stats[0].civ.map((statsEntry) => (*/}
-        {/*                <TableRow key={getCivName(statsEntry.civ)}>*/}
-        {/*                  <TableCell component="th" scope="row">*/}
-        {/*                    <div className={classes.row}>*/}
-        {/*                      <img src={getCivIconByIndex(statsEntry.civ)} className={classes.civIcon}/>*/}
-        {/*                      {getCivName(statsEntry.civ)}*/}
-        {/*                    </div>*/}
-        {/*                  </TableCell>*/}
-        {/*                  <TableCell align="right">{statsEntry.games}</TableCell>*/}
-        {/*                  <TableCell align="right">{(statsEntry.wins / statsEntry.games * 100).toFixed(0)} %</TableCell>*/}
-        {/*                </TableRow>*/}
-        {/*            ))}*/}
-        {/*          </TableBody>*/}
-        {/*        </Table>*/}
-        {/*      </TableContainer>*/}
-        {/*      </Paper>*/}
-        {/*    </div>*/}
-        {/*    <div className={classes.containerWrap50b}>*/}
-        {/*      <Paper className={appClasses.boxForTable}>*/}
-        {/*        <TableContainer>*/}
-        {/*        <Table size="medium">*/}
-        {/*          <TableHead>*/}
-        {/*            <TableRow>*/}
-        {/*              <TableCell>Map</TableCell>*/}
-        {/*              <TableCell align="right">Games</TableCell>*/}
-        {/*              <TableCell align="right">Won</TableCell>*/}
-        {/*            </TableRow>*/}
-        {/*          </TableHead>*/}
-        {/*          <TableBody>*/}
-        {/*            {profile?.stats[0].map_type.map((statsEntry) => (*/}
-        {/*                <TableRow key={getMapName(statsEntry.map_type)}>*/}
-        {/*                  <TableCell component="th" scope="row">*/}
-        {/*                    <div className={classes.row}>*/}
-        {/*                      <img src={getMapImage(statsEntry.map_type)} className={classes.mapIcon}/>*/}
-        {/*                      {getMapName(statsEntry.map_type)}*/}
-        {/*                    </div>*/}
-        {/*                  </TableCell>*/}
-        {/*                  <TableCell align="right">{statsEntry.games}</TableCell>*/}
-        {/*                  <TableCell align="right">{(statsEntry.wins / statsEntry.games * 100).toFixed(0)} %</TableCell>*/}
-        {/*                </TableRow>*/}
-        {/*            ))}*/}
-        {/*          </TableBody>*/}
-        {/*        </Table>*/}
-        {/*      </TableContainer>*/}
-        {/*      </Paper>*/}
-        {/*    </div>*/}
-        {/*  </div>*/}
+              <Paper className={appClasses.boxForTable}>
+                <TableContainer>
+                <Table size="medium">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Civ</TableCell>
+                      <TableCell align="right">Games</TableCell>
+                      <TableCell align="right">Won</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {profile?.stats[0].civ.map((statsEntry) => (
+                        <TableRow key={getCivName(statsEntry.civ)}>
+                          <TableCell component="th" scope="row">
+                            <div className={classes.row}>
+                              <img src={getCivIconByIndex(statsEntry.civ)} className={classes.civIcon}/>
+                              {getCivName(statsEntry.civ)}
+                            </div>
+                          </TableCell>
+                          <TableCell align="right">{statsEntry.games}</TableCell>
+                          <TableCell align="right">{(statsEntry.wins / statsEntry.games * 100).toFixed(0)} %</TableCell>
+                        </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              </Paper>
+            </div>
+            <div className={classes.containerWrap50b}>
+              <Paper className={appClasses.boxForTable}>
+                <TableContainer>
+                <Table size="medium">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Map</TableCell>
+                      <TableCell align="right">Games</TableCell>
+                      <TableCell align="right">Won</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {profile?.stats[0].map_type.map((statsEntry) => (
+                        <TableRow key={getMapName(statsEntry.map_type)}>
+                          <TableCell component="th" scope="row">
+                            <div className={classes.row}>
+                              <img src={getMapImage(statsEntry.map_type)} className={classes.mapIcon}/>
+                              {getMapName(statsEntry.map_type)}
+                            </div>
+                          </TableCell>
+                          <TableCell align="right">{statsEntry.games}</TableCell>
+                          <TableCell align="right">{(statsEntry.wins / statsEntry.games * 100).toFixed(0)} %</TableCell>
+                        </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              </Paper>
+            </div>
+          </div>
 
         {/*</div>*/}
 
