@@ -265,7 +265,7 @@ function Layout(props) {
                               alignItems="center">
                             <Grid item>
                                 <Typography variant="body1" noWrap>
-                                    AoE II Companion App len:{myTodoList.length}!
+                                    AoE II Companion App
                                 </Typography>
                                 <Typography variant="subtitle2"  noWrap>
                                     with country leaderboards, push notifications...

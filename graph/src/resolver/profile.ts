@@ -3,8 +3,21 @@ import {PrismaClient} from "@prisma/client";
 import {fromUnixTime} from "date-fns";
 import {Profile} from "../object/profile";
 import {orderBy} from "lodash";
+import {createDB} from "../db";
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient({
+    // log: ['query', 'info', 'warn'],
+});
+
+prisma.$use(async (params, next) => {
+    const before = Date.now();
+    const result = await next(params);
+    const after = Date.now();
+    console.log(
+        `Query ${params.model}.${params.action} took ${after - before}ms`
+    );
+    return result;
+});
 
 async function getLeaderboard(leaderboardId: number, profileId: number) {
     const leaderboard = await prisma.leaderboard_row.findOne({
@@ -18,26 +31,50 @@ async function getLeaderboard(leaderboardId: number, profileId: number) {
 }
 
 async function getRatingHistory(leaderboardId: number, profileId: number) {
-    let players = await prisma.player.findMany({
-        include: {
-            match: { select: { finished: true, started: true } },
+    let historyEntries = await prisma.rating_history.findMany({
+        select: {
+            rating: true,
+            timestamp: true,
+            leaderboard_id: false,
         },
-        where: {profile_id: profileId, match: { leaderboard_id: leaderboardId }},
+        where: {
+            profile_id: profileId,
+            leaderboard_id: leaderboardId,
+        },
+        orderBy: {
+            timestamp: 'desc',
+        },
     });
-    if (players.length === 0) return null;
-    players = orderBy(players, p => p.match.started, 'desc');
+    if (historyEntries.length === 0) return null;
     return {
         leaderboard_id: leaderboardId,
         profile_id: profileId,
-        history: players.map(player => ({
-            rating: player.rating + player.rating_change,
-            num_wins: player.wins,
-            num_losses: player.games - player.wins,
-            streak: player.streak,
-            drops: player.drops,
-            timestamp: player.match.started, // player.match.finished ||
+        history: historyEntries.map(entry => ({
+            rating: entry.rating,
+            timestamp: entry.timestamp,
         }))
     };
+
+    // let players = await prisma.player.findMany({
+    //     include: {
+    //         match: { select: { finished: true, started: true } },
+    //     },
+    //     where: {profile_id: profileId, match: { leaderboard_id: leaderboardId }},
+    // });
+    // if (players.length === 0) return null;
+    // players = orderBy(players, p => p.match.started, 'desc');
+    // return {
+    //     leaderboard_id: leaderboardId,
+    //     profile_id: profileId,
+    //     history: players.map(player => ({
+    //         rating: player.rating + player.rating_change,
+    //         num_wins: player.wins,
+    //         num_losses: player.games - player.wins,
+    //         streak: player.streak,
+    //         drops: player.drops,
+    //         timestamp: player.match.started, // player.match.finished ||
+    //     }))
+    // };
 }
 
 
@@ -100,6 +137,63 @@ async function getStats(leaderboardId: number, profileId: number) {
 
 @Resolver(of => Profile)
 export class ProfileResolver {
+
+    @Query(returns => String)
+    async temp() {
+
+        let historyEntries = await prisma.rating_history.findMany({
+            select: {
+                rating: true,
+                timestamp: true,
+            },
+            where: {
+                profile_id: 251265,
+                leaderboard_id: 3,
+            },
+            orderBy: {
+                timestamp: 'desc',
+            },
+        });
+
+        // const user = await prisma.$queryRaw`
+        //  SELECT *
+        //  FROM rating_history
+        //  WHERE profile_id=251265 AND leaderboard_id=3;
+        // `;
+
+        // return user[0];
+        return 'DONE';
+    }
+
+    @Query(returns => String)
+    async temp2() {
+        const connection = await createDB();
+
+        const start = new Date();
+        const user = await connection.manager.query(`
+         SELECT rating, timestamp
+         FROM rating_history
+         WHERE profile_id=251265 AND leaderboard_id=3
+         ORDER BY timestamp desc;
+        `, []);
+        console.log((new Date().getTime() - start.getTime())+'ms');
+
+        // const start2 = new Date();
+        const gg = JSON.stringify(user);
+        let strLengthInBytes = Buffer.byteLength(gg);
+        console.log('length:', strLengthInBytes/1000, 'kB');
+        // console.log((new Date().getTime() - start2.getTime())+'ms str');
+
+        // console.log(user);
+
+        // return user[0];
+        return 'DONE';
+    }
+
+    @Query(returns => String)
+    async temp3() {
+        return 'DONE';
+    }
 
     @Query(returns => Profile)
     async profile(

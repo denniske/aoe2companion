@@ -161,6 +161,10 @@ const schema = makeExecutableSchema({
 
 // console.log('schema', schema);
 
+const customFetch = (uri, options) => {
+  const { operationName } = JSON.parse(options.body);
+  return fetch(`${uri}/graphql?q=${operationName}`, options);
+};
 
 function createIsomorphLink() {
   const { HttpLink } = require('apollo-link-http')
@@ -171,6 +175,7 @@ function createIsomorphLink() {
       uri: 'http://localhost:3333/graphql',
       // uri: process.env.NEXT_PUBLIC_API_URL,
       credentials: 'same-origin',
+      fetch: customFetch,
     })
   ]);
 }

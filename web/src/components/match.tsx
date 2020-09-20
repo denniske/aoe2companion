@@ -5,7 +5,7 @@ import {useAppStyles} from "./app-styles";
 import {makeStyles} from "@material-ui/core/styles";
 import {getString} from "../helper/strings";
 import Player from "./player";
-import { groupBy } from "lodash";
+import { groupBy, orderBy } from "lodash";
 import {differenceInSeconds} from "date-fns";
 import {formatAgo} from "../helper/util";
 import {Typography} from "@material-ui/core";
@@ -13,6 +13,7 @@ import {Typography} from "@material-ui/core";
 
 interface Props {
     match: IMatch;
+    profileId: number;
 }
 
 const formatDuration = (start: Date, finish: Date) => {
@@ -23,7 +24,7 @@ const formatDuration = (start: Date, finish: Date) => {
     return `${hours.length < 2 ? 0 + hours : hours}:${minutes.length < 2 ? 0 + minutes : minutes} min`;
 };
 
-export default function Match({ match }: Props) {
+export default function Match({ match, profileId }: Props) {
     const appClasses = useAppStyles();
     const classes = useStyles();
 
@@ -32,7 +33,12 @@ export default function Match({ match }: Props) {
         const finished = match.finished || new Date();
         duration = formatDuration(match.started, finished);
     }
-    const teams = Object.entries(groupBy(match.players, p => p.team));
+
+    const teams = orderBy(Object.entries(groupBy(match.players, p => p.team)), ([team, players]) => {
+        // console.log('match', profileId, players.map(p => p.profile_id), players.filter(p => p.profile_id == profileId).length);
+        return players.filter(p => p.profile_id == profileId).length === 0;
+    });
+
     return (
         <div className={classes.col2}>
             <div className={classes.row2b}>

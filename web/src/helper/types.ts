@@ -1,6 +1,7 @@
 
 export interface ILeaderboard {
     leaderboard_id: number;
+    rank: number;
     rating: number;
     games: number;
     drops: number;

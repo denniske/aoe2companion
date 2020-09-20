@@ -12,6 +12,9 @@ import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import {Button, Paper} from "@material-ui/core";
 import {isAfter, subDays, subMonths, subWeeks} from "date-fns";
+import {Skeleton} from "@material-ui/lab";
+import Typography from "@material-ui/core/Typography";
+import {useAppStyles} from "./app-styles";
 
 interface IRatingProps {
     ratingHistories: IRatingHistory[];
@@ -33,6 +36,7 @@ function replaceRobotoWithSystemFont(obj: any) {
 
 export default function Rating({ratingHistories}: IRatingProps) {
     const classes = useStyles();
+    const appClasses = useAppStyles();
     const paperTheme = { dark: false };
 
     const [ratingHistoryDuration, setRatingHistoryDuration] = React.useState('max');
@@ -92,79 +96,116 @@ export default function Rating({ratingHistories}: IRatingProps) {
         }));
     }
 
+    const sampleData = (data: any[]) => {
+        const maxPoints = 100;
+        const filtered = data;
+
+        if (filtered.length > maxPoints) {
+            const k = Math.ceil(filtered.length / maxPoints);
+            return filtered.filter(
+                (d, i) => ((i % k) === 0)
+            );
+        }
+        return filtered;
+    }
+
+    ratingHistories = ratingHistories?.map(r => ({
+        leaderboard_id: r.leaderboard_id,
+        history: sampleData(r.history),
+    }));
+
     return (
             <div className={classes.container}>
 
-                <div className={classes.row3}>
-                    <ToggleButtonGroup value={ratingHistoryDuration} exclusive onChange={(e, v) => setRatingHistoryDuration(v)} size="small">
+
+                <div className={appClasses.flexRow}>
+                    <Typography variant="body1" noWrap>
+                        Rating History
+                    </Typography>
+                    <div className={appClasses.expanded}/>
+                        <ToggleButtonGroup value={ratingHistoryDuration} exclusive onChange={(e, v) => setRatingHistoryDuration(v)} size="small">
+                            {
+                                values.map(value => (
+                                    <ToggleButton key={value} value={value} size={"small"} >
+                                        <div className={classes.option}>{value}</div>
+                                    </ToggleButton>
+                                ))
+                            }
+                        </ToggleButtonGroup>
+                </div>
+                <br/>
+
+                {
+                    !ratingHistories &&
+                    <Skeleton variant="rect" height={345}/>
+                }
+
+                {
+                    ratingHistories &&
+                    <div ref={measureRef}>
+                        <VictoryChart
+                            width={width} height={300}
+                            theme={VictoryTheme.material}
+                            padding={{left: 50, bottom: 30, top: 20, right: 20}}
+                            scale={{ x: "time" }}
+                        >
+                            <VictoryAxis crossAxis tickFormat={formatTick} tickCount={width ? Math.round(width/60) : 100} />
+                            {/*<VictoryAxis crossAxis />*/}
+                            <VictoryAxis dependentAxis crossAxis/>
+                            {
+                                ratingHistories?.map(ratingHistory => (
+                                    <VictoryLine
+                                        name={'line-' + ratingHistory.leaderboard_id}
+                                        key={'line-' + ratingHistory.leaderboard_id}
+                                        data={ratingHistory.history}
+                                        x="timestamp"
+                                        y="rating" style={{
+                                        data: {stroke: getLeaderboardColor(ratingHistory.leaderboard_id, paperTheme.dark)}
+                                    }}
+                                    />
+                                ))
+                            }
+                            {
+                                ratingHistories?.map(ratingHistory => (
+                                    <VictoryScatter
+                                        name={'scatter-' + ratingHistory.leaderboard_id}
+                                        key={'scatter-' + ratingHistory.leaderboard_id}
+                                        data={ratingHistory.history}
+                                        x="timestamp"
+                                        y="rating"
+                                        size={1.5}
+                                        style={{
+                                            data: {fill: getLeaderboardColor(ratingHistory.leaderboard_id, paperTheme.dark)}
+                                        }}
+                                    />
+                                ))
+                            }
+                        </VictoryChart>
+                    </div>
+                }
+
+                {
+                    ratingHistories &&
+                    <div className={classes.legend}>
                         {
-                            values.map(value => (
-                                <ToggleButton key={value} value={value} aria-label="centered" >
-                                    <div className={classes.option}>{value}</div>
-                                </ToggleButton>
-                            ))
-                        }
-                    </ToggleButtonGroup>
-                </div>
-                <div ref={measureRef}>
-                                <VictoryChart
-                                    width={width} height={300}
-                                    theme={VictoryTheme.material}
-                                    padding={{left: 50, bottom: 30, top: 20, right: 20}}
-                                    scale={{ x: "time" }}
+                            (ratingHistories || Array(2).fill(0)).map((ratingHistory, i) => (
+                                <span
+                                    key={'legend-' + i}
+                                    style={{
+                                        paddingLeft: 10,
+                                        paddingRight: 10,
+                                        paddingTop: 5,
+                                        paddingBottom: 5,
+                                        // fontSize: 12,
+                                        color: getLeaderboardTextColor(ratingHistory.leaderboard_id, paperTheme.dark)
+                                    }}
                                 >
-                                    <VictoryAxis crossAxis tickFormat={formatTick} tickCount={width ? Math.round(width/60) : 100} />
-                                    {/*<VictoryAxis crossAxis />*/}
-                                    <VictoryAxis dependentAxis crossAxis/>
-                                    {
-                                        ratingHistories?.map(ratingHistory => (
-                                            <VictoryLine
-                                                name={'line-' + ratingHistory.leaderboard_id}
-                                                key={'line-' + ratingHistory.leaderboard_id}
-                                                data={ratingHistory.history}
-                                                x="timestamp"
-                                                y="rating" style={{
-                                                data: {stroke: getLeaderboardColor(ratingHistory.leaderboard_id, paperTheme.dark)}
-                                            }}
-                                            />
-                                        ))
-                                    }
-                                    {
-                                        ratingHistories?.map(ratingHistory => (
-                                            <VictoryScatter
-                                                name={'scatter-' + ratingHistory.leaderboard_id}
-                                                key={'scatter-' + ratingHistory.leaderboard_id}
-                                                data={ratingHistory.history}
-                                                x="timestamp"
-                                                y="rating"
-                                                size={1.5}
-                                                style={{
-                                                    data: {fill: getLeaderboardColor(ratingHistory.leaderboard_id, paperTheme.dark)}
-                                                }}
-                                            />
-                                        ))
-                                    }
-                                </VictoryChart>
-                </div>
-                <div className={classes.legend}>
-                    {
-                        (ratingHistories || Array(2).fill(0)).map((ratingHistory, i) => (
-                            <span
-                                key={'legend-' + i}
-                                style={{
-                                    paddingLeft: 10,
-                                    paddingRight: 10,
-                                    paddingTop: 5,
-                                    paddingBottom: 5,
-                                    // fontSize: 12,
-                                    color: getLeaderboardTextColor(ratingHistory.leaderboard_id, paperTheme.dark)
-                                }}
-                            >
                                 {formatLeaderboardId(ratingHistory.leaderboard_id)}
                             </span>
-                        ))
-                    }
-                </div>
+                            ))
+                        }
+                    </div>
+                }
             </div>
     )
 }

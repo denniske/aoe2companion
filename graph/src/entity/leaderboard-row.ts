@@ -5,6 +5,7 @@ export class LeaderboardRow {
     @PrimaryColumn()
     leaderboard_id: number;
 
+    @Index()
     @PrimaryColumn()
     profile_id: number;
 

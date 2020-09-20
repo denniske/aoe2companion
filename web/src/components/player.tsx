@@ -9,6 +9,9 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {getPlayerBackgroundColor, getSlotTypeName, SlotType} from "../helper/util";
 import Link from "next/link";
 import ListItem from "@material-ui/core/ListItem";
+import Typography from "@material-ui/core/Typography";
+import {myTodoList} from "@nex/data";
+import {Grid} from "@material-ui/core";
 
 
 interface Props {
@@ -40,9 +43,14 @@ export default function Player({ player }: Props) {
                 </div>
             </div>
             <div className={classes.playerRatingCol}>{player.rating}</div>
-            <div className={classes.playerNameCol}>
-                {player.slot_type != 1 ? getSlotTypeName(player.slot_type as SlotType) : player.name}
-            </div>
+
+
+                <Typography variant="body1" style={{width: 150}} noWrap>
+                    {player.slot_type != 1 ? getSlotTypeName(player.slot_type as SlotType) : player.name}
+                </Typography>
+            {/*<div className={classes.playerNameCol}>*/}
+            {/*    {player.slot_type != 1 ? getSlotTypeName(player.slot_type as SlotType) : player.name}*/}
+            {/*</div>*/}
             </div>
         </Link>
     )

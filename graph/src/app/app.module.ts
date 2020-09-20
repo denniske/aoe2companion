@@ -19,6 +19,7 @@ import {UserResolver} from "../resolver/user";
 import {ProfileResolver} from "../resolver/profile";
 import {RatingHistoryEntryResolver, RatingHistoryResolver} from "../resolver/rating_history";
 import {LeaderboardResolver} from "../resolver/leaderboard";
+import {LoggingPlugin} from "../plugin/logging.plugin";
 
 
 @Module({
@@ -101,6 +102,8 @@ export class SchemaJsonTask implements OnModuleInit {
         ScheduleModule.forRoot(),
         TaskAndControllerModule.forRoot(),
         GraphQLModule.forRoot({
+            // tracing: true,
+            installSubscriptionHandlers: true,
             autoSchemaFile: 'graph/graphql/schema.gql',
             sortSchema: true,
             playground: {
@@ -116,6 +119,7 @@ export class SchemaJsonTask implements OnModuleInit {
     ],
     providers: [
         SchemaJsonTask,
+        // LoggingPlugin,
     ],
 })
 export class AppModule {

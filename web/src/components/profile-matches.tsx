@@ -82,7 +82,7 @@ interface IMatchesQuery {
 }
 
 interface Props {
-    profileId: string;
+    profileId: number;
 }
 
 export default function ProfileMatches({profileId}: Props) {
@@ -111,6 +111,26 @@ export default function ProfileMatches({profileId}: Props) {
 
     return (
         <Paper className={appClasses.box}>
+            {/*<Tabs*/}
+            {/*    value={value}*/}
+            {/*    indicatorColor="primary"*/}
+            {/*    textColor="primary"*/}
+            {/*    onChange={handleChange}*/}
+            {/*    aria-label="disabled tabs example"*/}
+            {/*>*/}
+            {/*    <Tab label="Active" />*/}
+            {/*    <Tab label="Disabled" disabled />*/}
+            {/*    <Tab label="Active" />*/}
+            {/*</Tabs>*/}
+
+
+
+
+
+
+
+
+
             <div className={classes.row2}>
                 <Typography variant="body1" noWrap>
                     Matches {matchesResult.loading ? 'loading' : 'ready'}
@@ -158,7 +178,7 @@ export default function ProfileMatches({profileId}: Props) {
                     {total} matches
                 </div>
                 <div>
-                    {matches?.map(match => <Match key={match.match_id} match={match}/>)}
+                    {matches?.map(match => <Match key={match.match_id} match={match} profileId={profileId}/>)}
                 </div>
             </div>
         </Paper>

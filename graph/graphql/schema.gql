@@ -21,9 +21,9 @@ type Leaderboard {
   losses: Float
   lowest_streak: Float
   name: String!
-  name11111: String!
   previous_rating: Float
   profile_id: Int!
+  rank: Float!
   rating: Float
   steam_id: String
   streak: Float
@@ -31,7 +31,7 @@ type Leaderboard {
 }
 
 type Match {
-  finished: DateTime!
+  finished: DateTime
   leaderboard_id: Int!
   map_type: Int!
   match_id: String!
@@ -74,6 +74,9 @@ type Query {
   match(match_id: String, match_uuid: String): Match!
   matches(count: Int!, leaderboard_id: Int, profile_id: Int, search: String, start: Int!): MatchList!
   profile(profile_id: Int): Profile!
+  temp: String!
+  temp2: String!
+  temp3: String!
   users(search: String!): [User!]!
 }
 

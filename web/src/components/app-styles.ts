@@ -10,6 +10,7 @@ export const useAppStyles = makeStyles((theme) => ({
     flexRow: {
         display: 'flex',
         flexDirection: 'row',
+        alignItems: 'center',
     },
     box: {
         // minHeight: 200,

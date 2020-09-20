@@ -19,13 +19,14 @@ const prisma = new PrismaClient()
 //     @Field(type => String, { nullable: true })
 //     match_uuid?: string;
 // }
+//
+// @Args() { match_id, match_uuid }: MatchArgs
 
 @Resolver(of => Match)
 export class MatchResolver {
 
     @Query(returns => Match)
     async match(
-        // @Args() { match_id, match_uuid }: MatchArgs
         @Args("match_id", {nullable: true}) match_id?: string,
         @Args("match_uuid", {nullable: true}) match_uuid?: string
     ) {
@@ -62,22 +63,6 @@ export class MatchResolver {
         return match;
     }
 
-    @ResolveField()
-    async players(@Parent() match: Match) {
-        return match.players || prisma.match
-            .findOne({
-              where: {
-                  match_id: match.match_id
-              },
-            })
-            .players();
-    }
-
-    @ResolveField()
-    async started(@Parent() match: Match) {
-        return fromUnixTime(match.started as unknown as number);
-    }
-
     @Query(returns => MatchList)
     async matches(
         @Args("start", {type: () => Int }) start: number,
@@ -95,7 +80,7 @@ export class MatchResolver {
         search = `%${search}%`;
 
         let matchIds: any = null;
-        if (leaderboard_id) {
+        if (leaderboard_id != null) {
             matchIds = await prisma.$queryRaw`
             SELECT m.match_id
             FROM player as p
@@ -151,5 +136,26 @@ export class MatchResolver {
             total: matches.length,
             matches,
         };
+    }
+
+    @ResolveField()
+    async players(@Parent() match: Match) {
+        return match.players || prisma.match
+            .findOne({
+                where: {
+                    match_id: match.match_id
+                },
+            })
+            .players();
+    }
+
+    @ResolveField()
+    async started(@Parent() match: Match) {
+        return fromUnixTime(match.started as unknown as number);
+    }
+
+    @ResolveField()
+    async finished(@Parent() match: Match) {
+        return match.finished ? fromUnixTime(match.finished as unknown as number) : null;
     }
 }
