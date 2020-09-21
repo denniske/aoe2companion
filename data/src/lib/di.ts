@@ -1,5 +1,5 @@
 
-export const enum SERVICE_NAME {
+export enum SERVICE_NAME {
     HOST_SERVICE = 'HOST_SERVICE',
     HTTP_SERVICE = 'HTTP_SERVICE',
 }

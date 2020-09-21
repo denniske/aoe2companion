@@ -14,6 +14,8 @@
     "metric": "SERVICE_NAME=metric nx serve graph"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.2.2",
+    "antd": "^4.6.5",
     "ag-grid-community": "^24.0.0",
     "ag-grid-react": "^24.0.0",
     "@apollo/client": "3.0.0",

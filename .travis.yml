@@ -43,7 +43,6 @@ jobs:
       script: chmod +x ./graph/deploy/deploy.sh && ./graph/deploy/deploy.sh
 
 
-
     - stage: publish
       if: tag =~ ^mgz-v.+$
       env:
@@ -84,7 +83,7 @@ jobs:
         - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
         - export PATH="$HOME/.yarn/bin:$PATH"
       script:
-        - yarn
+        - mv package.app.json package.json && yarn
         - export CHANNEL=$(node deploy/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
         - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD --non-interactive
         - sudo sysctl fs.inotify.max_user_instances=524288
@@ -139,7 +138,7 @@ jobs:
         - export PATH=/Users/travis/Library/Python/2.7/bin:$PATH
         - yarn global add turtle-cli@$TURTLE_VERSION
       script:
-        - yarn
+        - mv package.app.json package.json && yarn
         - export CHANNEL=$(node deploy/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
         - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT.ipa"
         - turtle setup:ios --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
@@ -182,7 +181,7 @@ jobs:
         - pip install --user awscli
         - yarn global add gulp-cli turtle-cli@$TURTLE_VERSION
       script:
-        - yarn
+        - mv package.app.json package.json && yarn
         - export CHANNEL=$(node deploy/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
         - export ARTIFACT_PATH="/home/travis/expo-project-$TRAVIS_COMMIT.aab"
         - turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null || travis_terminate 1
@@ -219,7 +218,7 @@ jobs:
         - pip install --user awscli
         - yarn global add gulp-cli turtle-cli@$TURTLE_VERSION
       script:
-        - yarn
+        - mv package.app.json package.json && yarn
         - export CHANNEL=$(node deploy/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
         - export ARTIFACT_PATH="/home/travis/expo-project-$TRAVIS_COMMIT.apk"
         - turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null || travis_terminate 1

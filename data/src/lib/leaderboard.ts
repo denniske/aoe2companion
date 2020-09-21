@@ -1,9 +1,50 @@
-
 import {fromUnixTime} from "date-fns";
 import { getHost } from './host';
 import {fetchJson} from "./fetch-json";
 import {makeQueryString} from "./util";
 
+
+export interface ILeaderboardPlayerRaw {
+    clan: string;
+    country: string;
+    drops: number;
+    games: number;
+    highest_rating: number;
+    highest_streak: number;
+    icon: any;
+    last_match: any;
+    last_match_time: any;
+    losses: number;
+    lowest_streak: number;
+    name: string;
+    previous_rating: number;
+    profile_id: number;
+    rank: number;
+    rating: number;
+    steam_id: string;
+    streak: number;
+    wins: number;
+}
+
+export interface ILeaderboardRaw {
+    count: number;
+    leaderboard: ILeaderboardPlayerRaw[];
+    length: number;
+    leaderboard_id: number;
+    start: number;
+    total: number;
+    updated?: any;
+}
+
+export interface ILeaderboardPlayer extends ILeaderboardPlayerRaw {
+    last_match: Date;
+    last_match_time: Date;
+}
+
+export interface ILeaderboard extends ILeaderboardRaw{
+    leaderboard: ILeaderboardPlayer[];
+    updated?: Date;
+}
 
 function convertTimestampsToDates(leaderboardRaw: ILeaderboardRaw): ILeaderboard {
     return {

@@ -20,6 +20,14 @@ export const useAppStyles = makeStyles((theme) => ({
         marginBottom: theme.spacing(3),
         // marginRight: theme.spacing(3),
     },
+    boxExpanded: {
+        flex: 100,
+        overflow: 'hidden',
+        maxWidth: 800,
+        // padding: theme.spacing(3),
+        marginBottom: theme.spacing(3),
+        // marginRight: theme.spacing(3),
+    },
     boxSmall: {
         maxWidth: 800,
         paddingLeft: theme.spacing(3),

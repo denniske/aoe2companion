@@ -8,7 +8,8 @@ export interface IHostService {
 }
 
 export function getHost(host: Host) {
-    const platform = getService(SERVICE_NAME.HOST_SERVICE);
+    const hostService = getService(SERVICE_NAME.HOST_SERVICE) as IHostService;
+    const platform = hostService.getPlatform();
     switch (host) {
         case "aoe2companion": {
             // if (__DEV__ && !Constants.isDevice) {

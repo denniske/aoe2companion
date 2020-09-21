@@ -21,20 +21,9 @@ function ResponsiveDrawer(props) {
     const theme = useTheme();
 
     return (
-        <div>
-            <Paper className={appClasses.box}>
-                <Typography variant="body1" noWrap>
-                    Leaderboard
-                </Typography>
-                <Typography variant="subtitle2"  noWrap>
-                    RM 1v1
-                </Typography>
-            </Paper>
-
-            <Paper>
-                <Grid/>
-            </Paper>
-        </div>
+        <Paper className={appClasses.boxExpanded}>
+            <Grid/>
+        </Paper>
     );
 }
 

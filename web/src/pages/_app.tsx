@@ -1,14 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
-import { ThemeProvider } from '@material-ui/core/styles';
+import {ThemeProvider} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from "../theme";
 import Layout from "../components/layout";
-import NoSsr from "@material-ui/core/NoSsr";
+import {IHostService, IHttpService, OS, registerService, SERVICE_NAME} from "@nex/data";
 
 import '../styles.css'
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import 'antd/dist/antd.css';
 
+class HostService implements IHostService {
+    getPlatform(): OS {
+        return 'web';
+    }
+}
+
+class HttpService implements IHttpService {
+    async fetchJson(title: string, input: RequestInfo, init?: RequestInit) {
+        if (init) {
+            console.log(input, init);
+        } else {
+            console.log(input);
+        }
+        let response = null;
+        try {
+            response = await fetch(input, init);
+            return await response.json();
+        } catch (e) {
+            console.log(input, 'failed', response?.status);
+        }
+    }
+}
+
+registerService(SERVICE_NAME.HOST_SERVICE, new HostService());
+registerService(SERVICE_NAME.HTTP_SERVICE, new HttpService());
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;

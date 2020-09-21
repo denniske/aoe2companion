@@ -13,11 +13,9 @@ export function sleep(ms: number) {
     });
 }
 
-export const windowWidth = Platform.OS === 'web' ? 450 : Dimensions.get('window').width;
-
 let timeLastDate: Date | null = null;
 export function time(start?: any) {
-    if (!__DEV__) return;
+    // if (!__DEV__) return;
     if (timeLastDate == null || start) {
         console.log('- ' + start);
     } else {

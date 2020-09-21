@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import {AgGridReact} from 'ag-grid-react';
 import {simpleHttpRequest} from "ag-grid-community";
-import {fetchLeaderboard} from "./helper";
 import {Menu, Button} from "antd";
 import {MailOutlined, AppstoreOutlined, SettingOutlined} from '@ant-design/icons';
 import {Select} from 'antd';
+import {fetchLeaderboard} from "@nex/data";
+import {Paper, Tabs} from "@material-ui/core";
 
 const {Option} = Select;
 
@@ -110,45 +111,21 @@ export default class Grid extends Component {
     render() {
         const {current} = this.state;
         return (
-            <div>
-                {/*<Button type="primary">Button</Button>*/}
-
-                <Menu onClick={this.handleClick} selectedKeys={[current]} mode="horizontal">
-                    <Menu.Item key="app" icon={<AppstoreOutlined/>}>
-                        Following
-                    </Menu.Item>
-                    <Menu.Item key="mail" icon={<MailOutlined/>}>
-                        Me
-                    </Menu.Item>
-                    <Menu.Item key="app2" icon={<AppstoreOutlined/>}>
-                        Leaderboard
-                    </Menu.Item>
-                    <Menu.Item key="app3" icon={<AppstoreOutlined/>}>
-                        Civs
-                    </Menu.Item>
-                </Menu>
-
-                <br/>
-                <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                    <Select defaultValue="lucy" bordered={false}><Option value="china"
-                                                                                              label="China">
-                        <div className="demo-option-label-item">
-                            <span role="img" aria-label="China">
-                              🇨🇳
-                            </span>
-                            China (中国)
-                        </div>
-                    </Option>
-                    </Select>
-                </div>
-                <br/>
-                <br/>
+            <div style={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                flexDirection: 'column',
+                flex: 1,
+                height: '100%',
+            }}>
 
                 <div
                     className="ag-theme-alpine"
                     style={{
-                        height: '800px',
-                        width: '700px'
+                        display: 'flex',
+                        flex: 1,
+                        flexDirection: 'column',
+                        height: '100%'
                     }}
                 >
                     <AgGridReact
@@ -159,3 +136,42 @@ export default class Grid extends Component {
         );
     }
 }
+
+
+
+
+
+// {/*<div style={{display: 'flex', justifyContent: 'flex-end'}}>*/}
+// {/*    <Select defaultValue="lucy" bordered={false}><Option value="china"*/}
+// {/*                                                                              label="China">*/}
+// {/*        <div className="demo-option-label-item">*/}
+// {/*            <span role="img" aria-label="China">*/}
+// {/*              🇨🇳*/}
+// {/*            </span>*/}
+// {/*            China (中国)*/}
+// {/*        </div>*/}
+// {/*    </Option>*/}
+// {/*    </Select>*/}
+// {/*</div>*/}
+// {/*<br/>*/}
+// {/*<br/>*/}
+
+
+// {/*<Button type="primary">Button</Button>*/}
+//
+// {/*<Menu onClick={this.handleClick} selectedKeys={[current]} mode="horizontal">*/}
+// {/*    <Menu.Item key="app" icon={<AppstoreOutlined/>}>*/}
+// {/*        Following*/}
+// {/*    </Menu.Item>*/}
+// {/*    <Menu.Item key="mail" icon={<MailOutlined/>}>*/}
+// {/*        Me*/}
+// {/*    </Menu.Item>*/}
+// {/*    <Menu.Item key="app2" icon={<AppstoreOutlined/>}>*/}
+// {/*        Leaderboard*/}
+// {/*    </Menu.Item>*/}
+// {/*    <Menu.Item key="app3" icon={<AppstoreOutlined/>}>*/}
+// {/*        Civs*/}
+// {/*    </Menu.Item>*/}
+// {/*</Menu>*/}
+//
+// {/*<br/>*/}
