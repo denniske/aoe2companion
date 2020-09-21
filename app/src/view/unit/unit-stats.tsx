@@ -33,10 +33,26 @@ interface PathProps {
     formatter?: IFormatter;
 }
 
+interface GetDataParams {
+    unitId?: Unit;
+    buildingId?: Building;
+}
+
+export function getData(params: GetDataParams) {
+    const { unitId, buildingId } = params;
+    if (unitId) {
+        return getUnitData(unitId);
+    }
+    if (buildingId) {
+        return getBuildingData(buildingId);
+    }
+    throw new Error('getData - no unitId or buildingId given');
+}
+
 export function GetValueByPath(props: PathProps) {
     const { style, unitId, buildingId, path, formatter = x => (x || 0).toString() } = props;
     const styles = useTheme(variants);
-    const baseData = unitId ? getUnitData(unitId) : getBuildingData(buildingId!) as IUnitInfo;
+    const baseData = getData({ unitId, buildingId }) as IUnitInfo;
     const eliteData = unitId ? getEliteData(getUnitLineIdForUnit(unitId)) : null;
 
     if (eliteData && path(eliteData) !== path(baseData)) {
@@ -88,13 +104,13 @@ export function GetArmourValue(props: PathProps3) {
     return <GetValueByPath style={style} unitId={unitId} buildingId={buildingId} path={(x: IUnitInfo) => x.Armours.find(a => a.Class === unitClassNumber)?.Amount} formatter={x => '+'+x}/>
 }
 
-export function getAttackBonuses(unitId: Unit) {
-    const data = getUnitData(unitId);
+export function getAttackBonuses(params: GetDataParams) {
+    const data = getData(params);
     return data.Attacks.filter(a => a.Amount > 0 && !attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber)));
 }
 
-export function getArmourClasses(unitId: Unit) {
-    const data = getUnitData(unitId);
+export function getArmourClasses(params: GetDataParams) {
+    const data = getData(params);
     return data.Armours.filter(a => !hiddenArmourClasses.includes(getUnitClassName(a.Class as UnitClassNumber)));
 }
 
@@ -213,7 +229,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                     units.map(u =>
                         <View key={u} style={styles.cellValue}>
                             {
-                                getAttackBonuses(u).length > 0 && getAttackBonuses(u).map(a =>
+                                getAttackBonuses({ unitId: u }).length > 0 && getAttackBonuses({ unitId: u }).map(a =>
                                     <MyText key={a.Class}>
                                         <GetAttackBonusValue unitId={u} unitClassNumber={a.Class}/>
                                         <MyText style={styles.small}> ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
@@ -279,7 +295,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                     units.map(u =>
                         <View key={u} style={styles.cellValue}>
                             {
-                                getArmourClasses(u).length > 0 && getArmourClasses(u).map(a =>
+                                getArmourClasses({ unitId: u }).length > 0 && getArmourClasses({ unitId: u }).map(a =>
                                     <MyText key={a.Class}>
                                         <GetArmourValue unitId={u} unitClassNumber={a.Class}/>
                                         <MyText style={styles.small}> ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>

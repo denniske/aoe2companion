@@ -1,13 +1,17 @@
-import {Image, StyleSheet, View} from "react-native";
+import {Image, StyleSheet, Text, View} from "react-native";
 import {MyText} from "../components/my-text";
-import {getOtherIcon, getUnitIcon, IUnitInfo, Other, sortResources} from "../../helper/units";
+import {
+    getOtherIcon, getUnitClassName, getUnitIcon, IUnitInfo, Other, sortResources, UnitClassNumber
+} from "../../helper/units";
 import React, {useState} from "react";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import {keysOf} from "../../helper/util";
 import Picker from "../components/picker";
 import Space from "../components/space";
 import {Building, getBuildingData, getBuildingIcon, getBuildingName} from "../../helper/buildings";
-import {GetUnitValue} from "../unit/unit-stats";
+import {
+    getArmourClasses, GetArmourValue, getAttackBonuses, GetAttackBonusValue, GetAttackValue, GetUnitValue
+} from "../unit/unit-stats";
 import {buildingSections} from "./building-list";
 
 interface Props {
@@ -108,42 +112,46 @@ export function BuildingStats({ buildingId }: Props) {
                     units.map(u => <GetUnitValue key={u} style={styles.cellValue} buildingId={u} prop="HP"/>)
                 }
             </View>
+
             <View style={styles.statsRow}>
                 <MyText style={styles.cellName}>Attack</MyText>
+            </View>
+            <View style={styles.statsRow}>
+                <MyText style={[styles.cellName, styles.small]}>melee</MyText>
                 {
-                    units.map(u => <GetUnitValue key={u} style={styles.cellValue} buildingId={u} prop="Attack"/>)
+                    units.map(u => <GetAttackValue key={u} style={styles.cellValue} buildingId={u} unitClassNumber={4}/>)
                 }
             </View>
-            {/*<View style={styles.statsRow}>*/}
-            {/*    <MyText style={[styles.cellName, styles.small]}>pierce</MyText>*/}
-            {/*    {*/}
-            {/*        units.map(u => <GetAttackValue key={u} style={styles.cellValue} buildingId={u} unitClassNumber={3}/>)*/}
-            {/*    }*/}
-            {/*</View>*/}
-            {/*<View style={styles.statsRow}>*/}
-            {/*    <MyText style={[styles.cellName, styles.small]}>bonus</MyText>*/}
-            {/*    {*/}
-            {/*        units.map(u =>*/}
-            {/*            <View key={u} style={styles.cellValue}>*/}
-            {/*                {*/}
-            {/*                    getAttackBonuses(u).length > 0 && getAttackBonuses(u).map(a =>*/}
-            {/*                        <MyText key={a.Class}>*/}
-            {/*                            <GetAttackBonusValue buildingId={u} unitClassNumber={a.Class}/>*/}
-            {/*                            <MyText style={styles.small}> ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>*/}
-            {/*                        </MyText>*/}
-            {/*                    )*/}
-            {/*                    || <Text>-</Text>*/}
-            {/*                }*/}
-            {/*            </View>*/}
-            {/*        )*/}
-            {/*    }*/}
-            {/*</View>*/}
-            {/*<View style={styles.statsRow}>*/}
-            {/*    <MyText style={styles.cellName}>Rate of Fire</MyText>*/}
-            {/*    {*/}
-            {/*        units.map(u => <GetUnitValue key={u} style={styles.cellValue} buildingId={u} prop="ReloadTime"/>)*/}
-            {/*    }*/}
-            {/*</View>*/}
+            <View style={styles.statsRow}>
+                <MyText style={[styles.cellName, styles.small]}>pierce</MyText>
+                {
+                    units.map(u => <GetAttackValue key={u} style={styles.cellValue} buildingId={u} unitClassNumber={3}/>)
+                }
+            </View>
+            <View style={styles.statsRow}>
+                <MyText style={[styles.cellName, styles.small]}>bonus</MyText>
+                {
+                    units.map(u =>
+                        <View key={u} style={styles.cellValue}>
+                            {
+                                getAttackBonuses({ buildingId: u }).length > 0 && getAttackBonuses({ buildingId: u }).map(a =>
+                                    <MyText key={a.Class}>
+                                        <GetAttackBonusValue buildingId={u} unitClassNumber={a.Class}/>
+                                        <MyText style={styles.small}> ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
+                                    </MyText>
+                                )
+                                || <Text>-</Text>
+                            }
+                        </View>
+                    )
+                }
+            </View>
+            <View style={styles.statsRow}>
+                <MyText style={styles.cellName}>Rate of Fire</MyText>
+                {
+                    units.map(u => <GetUnitValue key={u} style={styles.cellValue} buildingId={u} prop="ReloadTime"/>)
+                }
+            </View>
             <View style={styles.statsRow}>
                 <MyText style={styles.cellName}>Range</MyText>
                 {
@@ -159,12 +167,12 @@ export function BuildingStats({ buildingId }: Props) {
                     }
                 </View>
             }
-            {/*<View style={styles.statsRow}>*/}
-            {/*    <MyText style={styles.cellName}>Accuracy</MyText>*/}
-            {/*    {*/}
-            {/*        units.map(u => <GetUnitValue key={u} style={styles.cellValue} buildingId={u} prop="AccuracyPercent" formatter={x => x+' %'}/>)*/}
-            {/*    }*/}
-            {/*</View>*/}
+            <View style={styles.statsRow}>
+                <MyText style={styles.cellName}>Accuracy</MyText>
+                {
+                    units.map(u => <GetUnitValue key={u} style={styles.cellValue} buildingId={u} prop="AccuracyPercent" formatter={x => x+' %'}/>)
+                }
+            </View>
             <View style={styles.statsRow}>
                 <MyText style={styles.cellName}>Armour</MyText>
             </View>
@@ -180,24 +188,24 @@ export function BuildingStats({ buildingId }: Props) {
                     units.map(u => <GetUnitValue key={u} style={styles.cellValue} buildingId={u} prop="PierceArmor"/>)
                 }
             </View>
-            {/*<View style={styles.statsRow}>*/}
-            {/*    <MyText style={[styles.cellName, styles.small]}>bonus</MyText>*/}
-            {/*    {*/}
-            {/*        units.map(u =>*/}
-            {/*            <View key={u} style={styles.cellValue}>*/}
-            {/*                {*/}
-            {/*                    getArmourClasses(u).length > 0 && getArmourClasses(u).map(a =>*/}
-            {/*                        <MyText key={a.Class}>*/}
-            {/*                            <GetArmourValue buildingId={u} unitClassNumber={a.Class}/>*/}
-            {/*                            <MyText style={styles.small}> ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>*/}
-            {/*                        </MyText>*/}
-            {/*                    )*/}
-            {/*                    || <Text>-</Text>*/}
-            {/*                }*/}
-            {/*            </View>*/}
-            {/*        )*/}
-            {/*    }*/}
-            {/*</View>*/}
+            <View style={styles.statsRow}>
+                <MyText style={[styles.cellName, styles.small]}>bonus</MyText>
+                {
+                    units.map(u =>
+                        <View key={u} style={styles.cellValue}>
+                            {
+                                getArmourClasses({ buildingId: u }).length > 0 && getArmourClasses({ buildingId: u }).map(a =>
+                                    <MyText key={a.Class}>
+                                        <GetArmourValue buildingId={u} unitClassNumber={a.Class}/>
+                                        <MyText style={styles.small}> ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
+                                    </MyText>
+                                )
+                                || <Text>-</Text>
+                            }
+                        </View>
+                    )
+                }
+            </View>
             <View style={styles.statsRow}>
                 <MyText style={styles.cellName}>Line Of Sight</MyText>
                 {
