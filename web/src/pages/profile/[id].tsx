@@ -32,6 +32,7 @@ import {
   faArrowUp, faCaretDown, faCaretUp, faCoffee, faLongArrowAltDown, faLongArrowAltUp
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { getChangeColor } from 'web/src/components/util';
 
 
 const ProfileQuery = gql`
@@ -152,10 +153,6 @@ function ProfilePage() {
     setFilteredAllies(profile?.stats?.[0].allies.filter((x, i) => i > page * 10 && i < (page+1)*10));
     setFilteredOpponents(profile?.stats?.[0].opponents.filter((x, i) => i > page * 10 && i < (page+1)*10));
   }, [page, profile]);
-
-  function getChangeColor(change: number) {
-    return change > 0 ? "green" : 'red';
-  }
 
   return (
       <div className={classes.container}>

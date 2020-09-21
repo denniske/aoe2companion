@@ -3,7 +3,10 @@ import {ICellRendererParams} from "ag-grid-community";
 import {ICellRendererComp} from "ag-grid-community/dist/lib/rendering/cellRenderers/iCellRenderer";
 import {getFlagIcon} from "../../helper/flags";
 import {makeStyles} from "@material-ui/core/styles";
-import {fade} from "@material-ui/core";
+import {fade, TableCell} from "@material-ui/core";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCaretDown, faCaretUp} from "@fortawesome/free-solid-svg-icons";
+import {getChangeColor} from "../util";
 
 // export default class NameCellRenderer extends Component {
 //     constructor(props) {
@@ -20,7 +23,7 @@ import {fade} from "@material-ui/core";
 //     }
 // }
 
-export default function NameCellRenderer(props) {
+export default function RatingCellRenderer(props) {
     // console.log('props', props);
 
     const classes = useStyles();
@@ -34,8 +37,17 @@ export default function NameCellRenderer(props) {
 
     return (
         <div className={classes.container}>
-            <img src={getFlagIcon(data.country)} className={classes.flagIcon}/>
-            <div className={classes.name}>{data.name}</div>
+            <div style={{width: 100}}>{data.rating}</div>
+            {/*{*/}
+            {/*    data.rating - data.previous_rating > 0 &&*/}
+            {/*    <FontAwesomeIcon icon={faCaretUp} color={getChangeColor(data.rating - data.previous_rating)} className={classes.icon} />*/}
+            {/*}*/}
+            {/*{*/}
+            {/*    data.rating - data.previous_rating < 0 &&*/}
+            {/*    <FontAwesomeIcon icon={faCaretDown} color={getChangeColor(data.rating - data.previous_rating)} className={classes.icon} />*/}
+            {/*}*/}
+            {/*<span style={{color: getChangeColor(data.rating - data.previous_rating)}}>{Math.abs(data.rating - data.previous_rating)}</span>*/}
+
         </div>
     );
 }
@@ -46,15 +58,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'row',
         alignItems: 'center',
     },
-    name: {
-        // width: 250,
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-    },
-    flagIcon: {
-        width: 21,
-        height: 15,
-        marginRight: theme.spacing(1),
+    icon: {
+        marginRight: theme.spacing(0.5),
     },
 }));

@@ -7,6 +7,7 @@ import {Select} from 'antd';
 import {fetchLeaderboard, formatAgo, parseUnixTimestamp} from "@nex/data";
 import {Paper, Tabs} from "@material-ui/core";
 import NameCellRenderer from "./cell-renderer/name.cell-renderer";
+import RatingCellRenderer from "./cell-renderer/rating.cell-renderer";
 
 const {Option} = Select;
 
@@ -40,27 +41,27 @@ export default function Grid(props: any) {
     const defaultGridOptions: GridOptions = {
         datasource: dataSource,
         columnDefs: [
-            {field: 'rank', width: 10, sortable: false, valueFormatter: params => '#'+params.value },
-            {field: 'rating', sortable: false},
-            {field: 'name', minWidth: 150, sortable: false, cellRenderer:'nameRenderer'},
+            {field: 'rank', sortable: false, valueFormatter: params => '#'+(params.value ? params.value : '') },
+            {field: 'rating', sortable: false, cellRenderer:'ratingRenderer'},
+            {field: 'name', minWidth: 220, sortable: false, cellRenderer:'nameRenderer'},
             {field: 'games', sortable: false},
             {field: 'wins', sortable: false},
-            {field: 'streak', sortable: false},
-            {field: 'last_match_time', sortable: false, valueFormatter: params => params.value && formatAgo(parseUnixTimestamp(params.value)) },
+            // {field: 'streak', sortable: false},
+            {field: 'last_match_time', headerName: 'Last match', minWidth: 150, sortable: false, valueFormatter: params => params.value && formatAgo(parseUnixTimestamp(params.value)) },
         ],
         onFirstDataRendered(params) {
             console.log('onFirstDataRendered');
-
             // setTimeout(() => params.api.sizeColumnsToFit(), 4000);
-            // params.api.sizeColumnsToFit();
+            params.api.sizeColumnsToFit();
         },
         frameworkComponents:{
             nameRenderer: NameCellRenderer,
+            ratingRenderer: RatingCellRenderer,
         },
         defaultColDef: {
-            flex: 1,
-            resizable: true,
-            minWidth: 100,
+            // flex: 1,
+            // resizable: true,
+            minWidth: 10,
         },
         suppressMultiSort: true,
         components: {
@@ -106,7 +107,7 @@ export default function Grid(props: any) {
             height: '100%',
         }}>
 
-            <Button onClick={() => gridOptions.api.sizeColumnsToFit()}>SizeToFit</Button>
+            {/*<Button onClick={() => gridOptions.api.sizeColumnsToFit()}>SizeToFit</Button>*/}
 
             <div
                 className="ag-theme-alpine"
