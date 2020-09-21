@@ -40,7 +40,7 @@ export default function Grid(props: any) {
     const defaultGridOptions: GridOptions = {
         datasource: dataSource,
         columnDefs: [
-            {field: 'rank', sortable: false, valueFormatter: params => '#'+params.value },
+            {field: 'rank', width: 10, sortable: false, valueFormatter: params => '#'+params.value },
             {field: 'rating', sortable: false},
             {field: 'name', minWidth: 150, sortable: false, cellRenderer:'nameRenderer'},
             {field: 'games', sortable: false},
@@ -48,6 +48,12 @@ export default function Grid(props: any) {
             {field: 'streak', sortable: false},
             {field: 'last_match_time', sortable: false, valueFormatter: params => params.value && formatAgo(parseUnixTimestamp(params.value)) },
         ],
+        onFirstDataRendered(params) {
+            console.log('onFirstDataRendered');
+
+            // setTimeout(() => params.api.sizeColumnsToFit(), 4000);
+            // params.api.sizeColumnsToFit();
+        },
         frameworkComponents:{
             nameRenderer: NameCellRenderer,
         },
@@ -68,7 +74,7 @@ export default function Grid(props: any) {
         },
         rowBuffer: 0,
         rowSelection: 'multiple',
-        rowDeselection: true,
+        // rowDeselection: true,
         // tell grid we want virtual row model type
         rowModelType: 'infinite',
         // how big each page in our page cache will be, default is 100
@@ -99,6 +105,8 @@ export default function Grid(props: any) {
             flex: 1,
             height: '100%',
         }}>
+
+            <Button onClick={() => gridOptions.api.sizeColumnsToFit()}>SizeToFit</Button>
 
             <div
                 className="ag-theme-alpine"

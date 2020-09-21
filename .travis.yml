@@ -83,7 +83,7 @@ jobs:
         - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
         - export PATH="$HOME/.yarn/bin:$PATH"
       script:
-        - mv package.app.json package.json && yarn
+        - mv package.json package.old.json && mv package.app.json package.json && yarn && mv package.old.json package.json
         - export CHANNEL=$(node deploy/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
         - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD --non-interactive
         - sudo sysctl fs.inotify.max_user_instances=524288

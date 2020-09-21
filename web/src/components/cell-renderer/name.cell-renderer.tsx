@@ -5,12 +5,13 @@ import {getFlagIcon} from "../../helper/flags";
 import {makeStyles} from "@material-ui/core/styles";
 import {fade} from "@material-ui/core";
 
-// export default class NameCellRenderer extends Component implements ICellRendererComp {
+// export default class NameCellRenderer extends Component {
 //     constructor(props) {
 //         super(props);
 //     }
 //
 //     render() {
+//         console.log('render', this.props.value);
 //         return (
 //             <span>
 //         Field: {this.props.colDef.field}, Value: {this.props.value}
@@ -20,13 +21,16 @@ import {fade} from "@material-ui/core";
 // }
 
 export default function NameCellRenderer(props) {
+    // console.log('props', props);
+
     const classes = useStyles();
-    console.log('props', props);
     const { data } = props;
 
     if (!data) {
         return <div/>;
     }
+
+    // console.log('render', data.name);
 
     return (
         <div>
