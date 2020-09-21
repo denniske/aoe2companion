@@ -98,22 +98,22 @@ jobs:
 #    # Sentry Release
 #    ####################################
 
-    - stage: sentry release
-      if: tag =~ ^v.+$
-      env:
-        - CACHE_NAME=sentry-release YARN_CACHE_FOLDER="/home/travis/yarn_cache"
-      cache:
-        directories:
-          - $HOME/yarn_cache
-      before_install:
-        - nvm install $NODE_VERSION
-        - nvm use $NODE_VERSION
-        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
-        - export PATH="$HOME/.yarn/bin:$PATH"
-      script:
-        - yarn global add @sentry/cli
-        - sentry-cli releases new -p aoe2companion $TRAVIS_BRANCH
-        - sentry-cli releases set-commits --auto $TRAVIS_BRANCH
+#    - stage: sentry release
+#      if: tag =~ ^v.+$
+#      env:
+#        - CACHE_NAME=sentry-release YARN_CACHE_FOLDER="/home/travis/yarn_cache"
+#      cache:
+#        directories:
+#          - $HOME/yarn_cache
+#      before_install:
+#        - nvm install $NODE_VERSION
+#        - nvm use $NODE_VERSION
+#        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
+#        - export PATH="$HOME/.yarn/bin:$PATH"
+#      script:
+#        - yarn global add @sentry/cli
+#        - sentry-cli releases new -p aoe2companion $TRAVIS_BRANCH
+#        - sentry-cli releases set-commits --auto $TRAVIS_BRANCH
 
 #    ####################################
 #    # BUILD iOS
