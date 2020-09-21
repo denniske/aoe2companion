@@ -90,6 +90,7 @@ jobs:
         - sudo sysctl fs.inotify.max_user_watches=524288
         - sudo sysctl fs.inotify.max_queued_events=524288
         - sysctl -p
+        - cat package.json
         - npx expo publish --release-channel $CHANNEL
 
 
