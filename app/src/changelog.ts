@@ -10,6 +10,16 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '17.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Android: Fix grey background color in build order guide',
+        },
+        {
+            type: 'feature',
+            title: 'Add "< 5 min" match duration to stats',
+        },
+    ],
     '16.0.1': [
         {
             type: 'feature',

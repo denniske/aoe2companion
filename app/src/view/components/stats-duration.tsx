@@ -15,13 +15,26 @@ interface IRowProps {
 
 function Row({data}: IRowProps) {
     const styles = useTheme(variants);
+    let marginLeft = 0;
+    if (data.duration == '< 5 min') {
+        marginLeft = 0;
+    }
+    if (data.duration == '5 - 30 min') {
+        marginLeft = 12.0;
+    }
+    if (data.duration == '30 - 60 min') {
+        marginLeft = 3.0;
+    }
+    if (data.duration == '> 60 min') {
+        marginLeft = 21.5;
+    }
     return (
             <View style={styles.row}>
                 <View style={styles.cellLeaderboard}>
                     <View style={styles.icon}>
                         <Icon5 name="clock" size={14} />
                     </View>
-                    <MyText style={{marginLeft: data.duration == '30 - 60 min' ? 12.5 : 0}}>{data.duration}</MyText>
+                    <MyText style={{marginLeft}}>{data.duration}</MyText>
                 </View>
                 <MyText style={styles.cellGames}>
                     {data.games}

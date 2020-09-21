@@ -1,6 +1,7 @@
 import {IMatch, validMatch} from "../../helper/data";
 import {sameUser, UserIdBase} from "../../helper/user";
 import {differenceInMinutes} from "date-fns";
+import {getSpeedFactor} from "../../helper/speed";
 
 export interface IParam {
     matches?: IMatch[];
@@ -14,7 +15,8 @@ export interface IRow {
 }
 
 const durations = [
-    '< 30 min',
+    '< 5 min',
+    '5 - 30 min',
     '30 - 60 min',
     '> 60 min',
 ];
@@ -22,11 +24,12 @@ const durations = [
 function matchDuration(match: IMatch, durationIndex: number) {
     if (!match.started || !match.finished) return false;
 
-    const diffInMinutes = differenceInMinutes(match.finished, match.started);
+    const diffInMinutes = differenceInMinutes(match.finished, match.started) * getSpeedFactor(match.speed);
 
-    if (diffInMinutes < 30 && durationIndex === 0) return true;
-    if (diffInMinutes >= 30 && diffInMinutes < 60 && durationIndex === 1) return true;
-    if (diffInMinutes > 60 && durationIndex === 2) return true;
+    if (diffInMinutes < 5 && durationIndex === 0) return true;
+    if (diffInMinutes >= 5 && diffInMinutes < 30 && durationIndex === 1) return true;
+    if (diffInMinutes >= 30 && diffInMinutes < 60 && durationIndex === 2) return true;
+    if (diffInMinutes > 60 && durationIndex === 3) return true;
     return false;
 }
 

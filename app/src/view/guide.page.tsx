@@ -34,7 +34,6 @@ export default function GuidePage() {
                     scalesPageToFit={false}
                     style={{
                         minHeight: 200,
-                        backgroundColor: 'grey',
                         width: width,
                         height: height,
                         borderWidth: 1,

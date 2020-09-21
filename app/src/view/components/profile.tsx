@@ -168,10 +168,6 @@ export default function Profile({data}: IProfileProps) {
                     <View style={styles.row}>
                         <View>
                             <View style={styles.row}>
-                                <View style={styles.row}>
-                                    <Text>Len: {myTodoList.length}</Text>
-                                </View>
-
                                 <ImageLoader style={styles.countryIcon} ready={data} source={getFlagIcon(data?.country)}/>
                                 <TextLoader width={100}>{data?.name}</TextLoader>
                                 {

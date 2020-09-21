@@ -4,6 +4,7 @@ import {makeStyles, useTheme} from '@material-ui/core/styles';
 import {Paper} from "@material-ui/core";
 import {useAppStyles} from "../components/app-styles";
 import {withApollo} from "../../apollo/client";
+import Grid from "../components/grid";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,6 +29,10 @@ function ResponsiveDrawer(props) {
                 <Typography variant="subtitle2"  noWrap>
                     RM 1v1
                 </Typography>
+            </Paper>
+
+            <Paper>
+                <Grid/>
             </Paper>
         </div>
     );
