@@ -2,11 +2,9 @@ import {Controller, Get, OnModuleInit, Request, Response} from '@nestjs/common';
 
 import {differenceInMinutes, getUnixTime} from "date-fns";
 import {getParam, time} from "../util";
-import {Like} from "typeorm";
 import {createDB} from "../db";
-import {LeaderboardRow} from "../entity/leaderboard-row";
 import {getValue} from "../helper";
-import {PrismaClient, leaderboard_rowWhereInput} from "@prisma/client";
+import {PrismaClient} from "@prisma/client";
 
 
 const prisma = new PrismaClient({
@@ -66,10 +64,18 @@ export class FunctionController implements OnModuleInit {
         const leaderboardId = parseInt(getParam(req.query, 'leaderboard_id'));
         const country = getParam(req.query, 'country') || null;
         const steamId = getParam(req.query, 'steam_id') || null;
-        const profileId = getParam(req.query, 'profile_id') || null;
+        const profileId = parseInt(getParam(req.query, 'profile_id')) || null;
         const search = getParam(req.query, 'search') || null;
 
-        // console.log('params:', event.queryStringParameters);
+        console.log({
+            start,
+            count,
+            leaderboardId,
+            country,
+            steamId,
+            profileId,
+            search,
+        });
 
         if (
             start < 1 ||
@@ -89,66 +95,23 @@ export class FunctionController implements OnModuleInit {
         // @ts-ignore
         const leaderboardUpdated = new Date(await getValue('leaderboardUpdated')) || new Date(1970);
 
-        let where: any = {'leaderboard_id': leaderboardId};
-        if (country) where['country'] = country;
-
         time();
-        // console.log('TOTAL', where);
-        // Execute total before single-result restrictions are appended to where clause
-        // const total = await connection.manager.count(LeaderboardRow, {where: where});
+
         const total = cache[`(${leaderboardId},${country})`] || 0;
         console.log(`cache(${leaderboardId},${country})`, total, cacheUpdated);
-
-        if (steamId) where['steam_id'] = steamId;
-        if (profileId) where['profile_id'] = profileId;
-        if (search) where['name'] = Like(`%${search}%`);
-        // if (search) where['name'] = ILike(`%${search}%`);
-
-        // Only for "My Rank" (will return one row)
-        if (country != null && (steamId != null || profileId != null)) {
-            console.log('HAS country + id');
-            const users = await connection
-                .createQueryBuilder()
-                .select('*')
-                .addSelect(subQuery => {
-                    return subQuery
-                        .select('count(user.name)', 'rank')
-                        .from(LeaderboardRow, "user")
-                        .where('user.leaderboard_id = :leaderboardId AND user.country = :country AND user.rating >= outer.rating', {leaderboardId, country});
-                })
-                .from(LeaderboardRow, "outer")
-                .where(where)
-                .getRawMany();
-
-            res.send({
-                updated: getUnixTime(leaderboardUpdated),
-                total: total,
-                leaderboard_id: leaderboardId,
-                start: start,
-                count: count,
-                country: country,
-                leaderboard: users.map(u => ({...u, rank: parseInt(u.rank)})),
-            });
-            time();
-            updateCache();
-            return;
-        }
 
         // Only for "My Rank" (will return one row)
         if (steamId != null || profileId != null) {
             console.log('HAS id');
-            const users = await connection
-                .createQueryBuilder()
-                .select('*')
-                .addSelect(subQuery => {
-                    return subQuery
-                        .select('count(user.name)', 'rank')
-                        .from(LeaderboardRow, "user")
-                        .where('user.leaderboard_id = :leaderboardId AND user.rating >= outer.rating', {leaderboardId});
-                })
-                .from(LeaderboardRow, "outer")
-                .where(where)
-                .getRawMany();
+
+            const users = await prisma.leaderboard_row.findMany({
+                where: {
+                    leaderboard_id: leaderboardId,
+                    ...(country && { country }),
+                    ...(profileId && { profile_id: profileId }),
+                    ...(steamId && { steam_id: steamId }),
+                },
+            });
 
             res.send({
                 updated: getUnixTime(leaderboardUpdated),
@@ -157,14 +120,18 @@ export class FunctionController implements OnModuleInit {
                 start: start,
                 count: count,
                 country: country,
-                leaderboard: users.map(u => ({...u, rank: parseInt(u.rank)})),
+                leaderboard: country ? users.map((u, i) => {
+                    return {...u, rank: u.rank_country};
+                }) : users.map((u, i) => {
+                    return {...u, rank: u.rank}; // start+i
+                }),
             });
             time();
             updateCache();
             return;
         }
 
-        console.log('HAS default', where);
+        console.log('HAS default');
 
         const users = await prisma.leaderboard_row.findMany({
             where: {
