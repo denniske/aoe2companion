@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '18.0.0': [
+        {
+            type: 'minor',
+            title: 'Internal changes',
+        },
+    ],
     '17.0.0': [
         {
             type: 'minor',

@@ -9,7 +9,6 @@ import Search from "./components/search";
 import {sameUser, UserId, UserInfo, UserIdBase, userIdFromBase, UserIdBaseWithName, sameUserNull} from "../helper/user";
 import {setFollowing, useMutate, useSelector} from "../redux/reducer";
 import {useCachedLazyApi} from "../hooks/use-cached-lazy-api";
-import {usePrevious} from "../hooks/use-previous";
 import {Button} from "react-native-paper";
 import {IFetchedUser} from "../service/user";
 import PlayerList, {IPlayerListPlayer} from "./components/player-list";

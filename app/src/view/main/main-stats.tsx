@@ -8,7 +8,7 @@ import React, {useEffect, useState} from "react";
 import {RouteProp, useRoute} from "@react-navigation/native";
 import {RootTabParamList} from "../../../App";
 import {get} from "lodash-es";
-import {usePrevious} from "../../hooks/use-previous";
+import {usePrevious} from "@nex/data";
 import {saveCurrentPrefsToStorage} from "../../service/storage";
 import {MyText} from "../components/my-text";
 import StatsPosition from "../components/stats-position";
