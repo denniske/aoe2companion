@@ -168,7 +168,7 @@ function Layout(props) {
             </List>
             <Divider />
             <List>
-                <ListItem button component={Link as any} href="/" naked>
+                <ListItem button component={Link as any} href="/leaderboard" naked>
                     <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faTrophy} className={classes.icon} /></div></ListItemIcon>
                     <ListItemText primary="Leaderboard" />
                 </ListItem>

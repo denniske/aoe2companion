@@ -66,7 +66,6 @@ export default function Search() {
     return (
 
         <Autocomplete
-            id="asynchronous-demo"
             style={{ width: 350 }}
             open={reallyOpen}
             value={value}

@@ -4,7 +4,7 @@ import {GridApi, GridOptions, RowClickedEvent, simpleHttpRequest} from "ag-grid-
 import {Menu, Button} from "antd";
 import {MailOutlined, AppstoreOutlined, SettingOutlined} from '@ant-design/icons';
 import {Select} from 'antd';
-import {fetchLeaderboard, formatAgo, parseUnixTimestamp, usePrevious} from "@nex/data";
+import {Country, fetchLeaderboard, formatAgo, parseUnixTimestamp, usePrevious} from "@nex/data";
 import {Paper, Tabs} from "@material-ui/core";
 import NameCellRenderer from "./cell-renderer/name.cell-renderer";
 import RatingCellRenderer from "./cell-renderer/rating.cell-renderer";
@@ -14,49 +14,53 @@ const {Option} = Select;
 
 interface Props {
     leaderboardId: number;
+    country: Country | null;
 }
 
 export default function Grid(props: Props) {
     const router = useRouter();
 
-    const { leaderboardId } = props;
+    const { leaderboardId, country } = props;
 
     const previousLeaderboardId = usePrevious(leaderboardId);
-
     const [gridApi, setGridApi] = useState<GridApi>();
 
     useEffect(() => {
         if (!gridApi) return;
 
-        console.log('LEADERBOARD CHANGED', leaderboardId);
-        gridApi.ensureIndexVisible(0);
+        if (gridApi.getInfiniteRowCount() > 0) {
+            gridApi.ensureIndexVisible(0);
+        }
         gridApi.onFilterChanged();
+        gridApi.hideOverlay();
 
-    }, [leaderboardId, previousLeaderboardId]);
+    }, [leaderboardId, country]);
 
     const dataSource = {
         rowCount: null, // behave as infinite scroll
 
         getRows: async function (params) {
             console.log('asking for ' + params.startRow + ' to ' + params.endRow);
-            console.log('leaderboardId', leaderboardId);
-            console.log('context', params.context);
+            // console.log('context', params.context);
 
-            const data = await fetchLeaderboard('aoe2de', params.context.leaderboardId, {
+            const args: any = {
                 start: params.startRow + 1,
                 count: params.endRow - params.startRow,
-            });
+            };
 
-            // At this point in your code, you would call the server, using $http if in AngularJS 1.x.
-            // To make the demo look real, wait for 500ms before returning
-            // take a slice of the total rows
-            var rowsThisPage = data.leaderboard;
-            // if on or after the last page, work out the last row.
-            var lastRow = -1;
-            if (data.length <= params.endRow) {
-                lastRow = data.length;
+            if (params.context.country) {
+                args.country = params.context.country;
             }
-            // call the success callback
+
+            const data = await fetchLeaderboard('aoe2de', params.context.leaderboardId, args);
+
+            if (data.total == 0) {
+                params.context.gridApi?.showNoRowsOverlay();
+            } else {
+                params.context.gridApi?.hideOverlay();
+            }
+
+            const rowsThisPage = data.leaderboard;
             params.successCallback(rowsThisPage, data.total);
         },
     };
@@ -65,6 +69,7 @@ export default function Grid(props: Props) {
         context: {
             lead: leaderboardId,
         },
+        localeText: {noRowsToShow: 'No players listed.'},
         datasource: dataSource,
         columnDefs: [
             {field: 'rank', sortable: false, valueFormatter: params => '#'+(params.value ? params.value : '') },
@@ -102,6 +107,7 @@ export default function Grid(props: Props) {
                 }
             },
         },
+
         rowBuffer: 0,
         // rowSelection: 'multiple',
         // rowDeselection: true,
@@ -153,7 +159,7 @@ export default function Grid(props: Props) {
                 }}
             >
                 <AgGridReact
-                    context={{leaderboardId}}
+                    context={{leaderboardId, country, gridApi}}
                     gridOptions={gridOptions}>
                 </AgGridReact>
             </div>

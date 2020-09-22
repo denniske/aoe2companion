@@ -51,8 +51,14 @@ function CountryIcon(props) {
 //     mutate(setLeaderboardCountry(country));
 // };
 
-export default function CountrySelector() {
+interface Props {
+    onChange: (country: Country | null) => void;
+}
+
+export default function CountrySelector(props: Props) {
     const classes = useStyles();
+
+    const { onChange } = props;
 
     const [open, setOpen] = React.useState(false);
     const [value, setValue] = React.useState<ICountry>(values[0]);
@@ -62,12 +68,14 @@ export default function CountrySelector() {
     return (
 
         <Autocomplete
-            id="asynchronous-demo"
             style={{ width: 250 }}
             open={open}
             defaultValue={values[0]}
 
             // value={value}
+            onChange={(event: any, newValue: ICountry) => {
+                onChange(newValue.value);
+            }}
 
             // onChange={(event: any, newValue: string | null) => {
             //     // setValue(newValue);
