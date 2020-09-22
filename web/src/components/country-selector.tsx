@@ -74,6 +74,7 @@ export default function CountrySelector(props: Props) {
 
             // value={value}
             onChange={(event: any, newValue: ICountry) => {
+                if (!newValue) return;
                 onChange(newValue.value);
             }}
 
@@ -123,6 +124,7 @@ export default function CountrySelector(props: Props) {
 
             clearOnBlur={false}
             blurOnSelect={true}
+            disableClearable={true}
 
             renderInput={(params) => {
                 const val = (params.inputProps as any).value;
