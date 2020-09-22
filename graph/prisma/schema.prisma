@@ -123,6 +123,8 @@ model leaderboard_row {
   country         String?
   clan            String?
   icon            String?
+  rank            Int?
+  rank_country    Int?
   wins            Int?
   drops           Int?
   games           Int?

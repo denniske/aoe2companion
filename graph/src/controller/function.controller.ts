@@ -206,8 +206,10 @@ export class FunctionController implements OnModuleInit {
             start: start,
             count: count,
             country: country,
-            leaderboard: users.map((u, i) => {
-                return {...u, rank: start+i};
+            leaderboard: country ? users.map((u, i) => {
+                return {...u, rank: u.rank_country};
+            }) : users.map((u, i) => {
+                return {...u, rank: u.rank}; // start+i
             }),
         });
         time();

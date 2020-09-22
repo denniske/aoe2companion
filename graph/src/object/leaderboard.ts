@@ -17,8 +17,11 @@ export class Leaderboard {
     @Field()
     name: string;
 
-    @Field()
-    rank: number;
+    @Field({nullable: true})
+    rank?: number;
+
+    @Field({nullable: true})
+    rank_country?: number;
 
     @Field({nullable: true})
     country?: string;

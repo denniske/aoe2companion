@@ -23,7 +23,8 @@ type Leaderboard {
   name: String!
   previous_rating: Float
   profile_id: Int!
-  rank: Float!
+  rank: Float
+  rank_country: Float
   rating: Float
   steam_id: String
   streak: Float
