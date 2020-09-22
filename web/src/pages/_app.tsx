@@ -5,7 +5,7 @@ import {ThemeProvider} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from "../theme";
 import Layout from "../components/layout";
-import {IHostService, IHttpService, OS, registerService, SERVICE_NAME} from "@nex/data";
+import {Environment, IHostService, IHttpService, OS, registerService, SERVICE_NAME} from "@nex/data";
 
 import '../styles.css'
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -15,6 +15,10 @@ import 'antd/dist/antd.css';
 class HostService implements IHostService {
     getPlatform(): OS {
         return 'web';
+    }
+
+    getEnvironment(): Environment {
+        return process.env.NEXT_PUBLIC_ENVIRONMENT as Environment;
     }
 }
 

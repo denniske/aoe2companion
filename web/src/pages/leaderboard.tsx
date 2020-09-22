@@ -81,13 +81,19 @@ function ResponsiveDrawer(props) {
                     <AntTab label="Unranked" />
                 </Tabs>
 
-                <Grid leaderboardId={leaderboardId} country={country} search={search}/>
+                {/*<div className={classes.wrapper}>*/}
+                    <Grid leaderboardId={leaderboardId} country={country} search={search}/>
+                {/*</div>*/}
             </Paper>
         </div>
     );
 }
 
 const useStyles = makeStyles((theme) => ({
+    wrapper: {
+        position: 'relative',
+        flex: 1,
+    },
     searchRow: {
         borderRadius: 0,
         display: 'flex',

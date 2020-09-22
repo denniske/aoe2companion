@@ -6,7 +6,22 @@ import {Like} from "typeorm";
 import {createDB} from "../db";
 import {LeaderboardRow} from "../entity/leaderboard-row";
 import {getValue} from "../helper";
+import {PrismaClient, leaderboard_rowWhereInput} from "@prisma/client";
 
+
+const prisma = new PrismaClient({
+    // log: ['query', 'info', 'warn'],
+});
+
+prisma.$use(async (params, next) => {
+    const before = Date.now();
+    const result = await next(params);
+    const after = Date.now();
+    console.log(
+        `Query ${params.model}.${params.action} took ${after - before}ms`
+    );
+    return result;
+});
 
 const cache: Record<string, number> = {};
 let cacheUpdated: Date = null;
@@ -87,6 +102,7 @@ export class FunctionController implements OnModuleInit {
         if (steamId) where['steam_id'] = steamId;
         if (profileId) where['profile_id'] = profileId;
         if (search) where['name'] = Like(`%${search}%`);
+        // if (search) where['name'] = ILike(`%${search}%`);
 
         // Only for "My Rank" (will return one row)
         if (country != null && (steamId != null || profileId != null)) {
@@ -150,9 +166,38 @@ export class FunctionController implements OnModuleInit {
 
         console.log('HAS default', where);
 
-        // @ts-ignore
-        const users = await connection.manager.find(LeaderboardRow, {where: where, skip: start-1, take: count, order: { 'rating': 'DESC' }});
+
+        let whereLeaderboardRow: leaderboard_rowWhereInput = {
+            'leaderboard_id': leaderboardId
+        };
+        if (country) {
+            whereLeaderboardRow['country'] = country;
+        }
+        if (search) {
+            whereLeaderboardRow['name'] = {
+                contains: search,
+                mode: "insensitive",
+            };
+        }
+
+        const users = await prisma.leaderboard_row.findMany({
+            where: whereLeaderboardRow,
+            skip: start-1,
+            take: count,
+            orderBy: {
+                rating: 'desc',
+            },
+        });
+        // console.log(users);
         time();
+
+        // const users = await connection.createQueryBuilder().from(LeaderboardRow)
+        //     .where("name ILIKE '%viper%'")
+        //     .where("name ILIKE :search", { search: `${search}` })
+        //     .getMany();
+
+        // @ts-ignore
+        // const users = await connection.manager.find(LeaderboardRow, {where: where, skip: start-1, take: count, order: { 'rating': 'DESC' }});
 
         res.send({
             updated: getUnixTime(leaderboardUpdated),

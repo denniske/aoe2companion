@@ -11,7 +11,8 @@
     "docker:run": "docker run -it graph",
     "refetch": "SERVICE_NAME=refetch nx serve graph",
     "import": "SERVICE_NAME=import nx serve graph",
-    "metric": "SERVICE_NAME=metric nx serve graph"
+    "metric": "SERVICE_NAME=metric nx serve graph",
+    "rank": "SERVICE_NAME=rank nx serve graph"
   },
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
@@ -105,7 +106,7 @@
     "sentry-expo": "^2.1.2",
     "source-map-support": "^0.5.10",
     "tslib": "^2.0.0",
-    "typeorm": "^0.2.25",
+    "typeorm": "^0.2.26",
     "typeorm-naming-strategies": "^1.1.0",
     "uuid": "^3.4.0",
     "victory": "^35.0.8",

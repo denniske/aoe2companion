@@ -2,14 +2,17 @@ import {getService, SERVICE_NAME} from "./di";
 
 export type Host = 'aoe2companion' | 'aoe2companion-api' | 'aoe2net';
 export type OS = 'windows' | 'macos' | 'android' | 'ios' | 'web';
+export type Environment = 'development' | 'production';
 
 export interface IHostService {
     getPlatform(): OS;
+    getEnvironment(): Environment;
 }
 
 export function getHost(host: Host) {
     const hostService = getService(SERVICE_NAME.HOST_SERVICE) as IHostService;
     const platform = hostService.getPlatform();
+    const dev = hostService.getEnvironment() == 'development';
     switch (host) {
         case "aoe2companion": {
             // if (__DEV__ && !Constants.isDevice) {
@@ -24,6 +27,9 @@ export function getHost(host: Host) {
             //     const platformHost = Constants.isDevice ? '192.168.178.41' : Platform.select({ios: 'localhost', android: '10.0.2.2'});
             //     return `http://${platformHost}:3000/dev/`;
             // }
+            if (dev) {
+                return 'http://localhost:3333/';
+            }
             return `https://function.aoe2companion.com/`;
         }
         case "aoe2companion-api": {

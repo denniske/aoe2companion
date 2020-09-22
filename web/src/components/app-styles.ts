@@ -21,6 +21,8 @@ export const useAppStyles = makeStyles((theme) => ({
         // marginRight: theme.spacing(3),
     },
     boxExpanded: {
+        display: 'flex',
+        flexDirection: 'column',
         flex: 100,
         overflow: 'hidden',
         maxWidth: 800,

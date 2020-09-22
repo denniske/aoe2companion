@@ -20,6 +20,8 @@ import {ProfileResolver} from "../resolver/profile";
 import {RatingHistoryEntryResolver, RatingHistoryResolver} from "../resolver/rating_history";
 import {LeaderboardResolver} from "../resolver/leaderboard";
 import {LoggingPlugin} from "../plugin/logging.plugin";
+import {environment} from "../environments/environment";
+import {RankTask} from "../task/rank.task";
 
 
 @Module({
@@ -51,6 +53,9 @@ export class TaskAndControllerModule {
             case 'rating-history':
                 providers.push(RatingHistoryTask);
                 break;
+            case 'rank':
+                providers.push(RankTask);
+                break;
             case 'metric':
                 controllers.push(MetricController);
                 break;
@@ -61,6 +66,13 @@ export class TaskAndControllerModule {
                 controllers.push(FunctionController);
                 break;
         }
+
+        console.log('environment', environment.production ? 'prod' : 'dev');
+        if (!environment.production) {
+            controllers.push(ApiController);
+            controllers.push(FunctionController);
+        }
+
         return {
             module: TaskAndControllerModule,
             controllers: controllers,

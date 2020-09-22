@@ -61,6 +61,7 @@ export default function AboutPage() {
             <MyText style={styles.content}>Andreas Teppe</MyText>
             <MyText style={styles.content}>JJ_Ronda</MyText>
             <MyText style={styles.content}>Kloakan</MyText>
+            <MyText style={styles.content}>Mikael Laukkanen</MyText>
             <MyText style={styles.content}>Pikmans030</MyText>
             <MyText style={styles.content}>Ron</MyText>
             <MyText style={styles.content}>Samuel Monarrez</MyText>

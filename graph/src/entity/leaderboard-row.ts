@@ -9,8 +9,11 @@ export class LeaderboardRow {
     @PrimaryColumn()
     profile_id: number;
 
-    // @Column()
-    // rank: number;
+    @Column({ nullable: true })
+    rank?: number;
+
+    @Column({ nullable: true })
+    rank_country?: number;
 
     @Column({ nullable: true })
     steam_id: string;

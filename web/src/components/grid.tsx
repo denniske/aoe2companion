@@ -150,7 +150,7 @@ export default function Grid(props: Props) {
             justifyContent: 'flex-end',
             flexDirection: 'column',
             flex: 1,
-            height: '100%',
+            // height: '100%',
         }}>
 
             {/*<Button onClick={() => gridOptions.api.sizeColumnsToFit()}>SizeToFit</Button>*/}
