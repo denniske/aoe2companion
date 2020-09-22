@@ -52,6 +52,7 @@ export function LeaderboardMenu() {
     const styles = useTheme(variants);
     const mutate = useMutate();
     const country = useSelector(state => state.leaderboardCountry) || null;
+    const authCountry = useSelector(state => state.prefs.country);
 
     const loadingMatchesOrStats = false;
 
@@ -62,8 +63,12 @@ export function LeaderboardMenu() {
         return inList ? getCountryName(x as Country) : x;
     };
     const orderedCountriesDistinct = countriesDistinct.sort((a, b) => formatCountry(a, true).localeCompare(formatCountry(b, true)));
-    const countryList: (string | null)[] = [countryEarth, 'DE', ...orderedCountriesDistinct];
-    const divider = (x: any, i: number) => i < 2;
+    const countryList: (string | null)[] = [
+        countryEarth,
+        ...(authCountry ? [authCountry] : []),
+        ...orderedCountriesDistinct
+    ];
+    const divider = (x: any, i: number) => i < (authCountry ? 2 : 1);
     const icon = (x: any) => {
         if (x == countryEarth) {
             return <IconFA name="globe" size={21} style={{paddingLeft: 2, paddingRight: 12}} color={theme.colors.text} />;

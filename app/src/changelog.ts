@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '18.0.1': [
+        {
+            type: 'minor',
+            title: 'Show your country at second position in leaderboard country selector',
+        },
+    ],
     '18.0.0': [
         {
             type: 'minor',

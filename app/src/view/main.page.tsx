@@ -3,12 +3,12 @@ import {Alert, AsyncStorage, Platform, StyleSheet, TouchableOpacity, View} from 
 import Search from './components/search';
 import {composeUserId, UserId, UserInfo} from '../helper/user';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {setAuth, useMutate, useSelector} from '../redux/reducer';
+import {setAuth, setPrefValue, useMutate, useSelector} from '../redux/reducer';
 import {fetchPlayerMatches} from '../api/player-matches';
 import {useNavigationState} from "@react-navigation/native";
 // import {useCavy} from "cavy";
 import {TabBarLabel} from "./components/tab-bar-label";
-import {saveSettingsToStorage} from "../service/storage";
+import {saveCurrentPrefsToStorage, saveSettingsToStorage} from "../service/storage";
 import {LeaderboardId} from "../helper/leaderboards";
 import {useCachedConservedLazyApi} from "../hooks/use-cached-conserved-lazy-api";
 import {get, set} from "lodash-es";
@@ -83,6 +83,14 @@ export default function MainPage() {
         });
         mutate(setAuth(user));
     };
+
+    // Reset country for use in leaderboard country dropdown
+    useEffect(() => {
+        if (auth == null) {
+            mutate(setPrefValue('country', undefined));
+            saveCurrentPrefsToStorage();
+        }
+    }, [auth]);
 
     if (auth == null) {
         return <Search title="Enter your AoE username to track your games:" selectedUser={onSelect} actionText="Choose" />;

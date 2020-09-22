@@ -14,6 +14,7 @@ export interface IConfig {
 }
 
 export interface IPrefs {
+    country?: Flag;
     leaderboardId?: LeaderboardId;
     changelogLastVersionRead?: string;
     techTreeSize?: string;

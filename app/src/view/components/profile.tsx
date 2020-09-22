@@ -1,13 +1,13 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import { formatAgo } from '../../helper/util';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {getLeaderboardTextColor} from '../../helper/colors';
 import {Flag, getFlagIcon} from '../../helper/flags';
 import {ILeaderboard} from "../../helper/data";
 import {ImageLoader} from "./loader/image-loader";
 import {TextLoader} from "./loader/text-loader";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import {setFollowing, useMutate, useSelector} from "../../redux/reducer";
+import {setFollowing, setPrefValue, useMutate, useSelector} from "../../redux/reducer";
 import {sameUser} from "../../helper/user";
 import {MyText} from "./my-text";
 import {formatLeaderboardId} from "../../helper/leaderboards";
@@ -16,6 +16,7 @@ import IconFA5 from "react-native-vector-icons/FontAwesome5";
 import {toggleFollowing} from "../../service/following";
 import Space from "./space";
 import {myTodoList} from "@nex/data";
+import {saveCurrentPrefsToStorage} from "../../service/storage";
 
 interface ILeaderboardRowProps {
     data: ILeaderboard;
@@ -146,6 +147,7 @@ export default function Profile({data}: IProfileProps) {
     const auth = useSelector(state => state.auth);
     const following = useSelector(state => state.following);
     const followingThisUser = !!following.find(f => data && sameUser(f, data));
+    const authCountry = useSelector(state => state.prefs.country);
 
     const _toggleFollowing = async () => {
         const following = await toggleFollowing(data);
@@ -154,12 +156,13 @@ export default function Profile({data}: IProfileProps) {
         }
     };
 
-    // console.log('styles.container');
-    // console.log(styles.container);
-    // const style1 = StyleSheet.compose(styles.container, null);
-    // console.log(style1);
-    // const style2 = StyleSheet.compose(styles.container, styles.expanded);
-    // console.log(style2);
+    // Set country for use in leaderboard country dropdown
+    useEffect(() => {
+        if (data?.country && data.country != authCountry) {
+            mutate(setPrefValue('country', data.country));
+            saveCurrentPrefsToStorage();
+        }
+    }, [data]);
 
     return (
             <View style={styles.container}>
