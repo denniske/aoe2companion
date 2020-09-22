@@ -15,12 +15,13 @@ const {Option} = Select;
 interface Props {
     leaderboardId: number;
     country: Country | null;
+    search: string;
 }
 
 export default function Grid(props: Props) {
     const router = useRouter();
 
-    const { leaderboardId, country } = props;
+    const { leaderboardId, country, search } = props;
 
     const previousLeaderboardId = usePrevious(leaderboardId);
     const [gridApi, setGridApi] = useState<GridApi>();
@@ -31,10 +32,11 @@ export default function Grid(props: Props) {
         if (gridApi.getInfiniteRowCount() > 0) {
             gridApi.ensureIndexVisible(0);
         }
-        gridApi.onFilterChanged();
+        // gridApi.onFilterChanged();
+        gridApi.purgeInfiniteCache();
         gridApi.hideOverlay();
 
-    }, [leaderboardId, country]);
+    }, [leaderboardId, country, search]);
 
     const dataSource = {
         rowCount: null, // behave as infinite scroll
@@ -51,6 +53,9 @@ export default function Grid(props: Props) {
             if (params.context.country) {
                 args.country = params.context.country;
             }
+            if (params.context.search) {
+                args.search = params.context.search;
+            }
 
             const data = await fetchLeaderboard('aoe2de', params.context.leaderboardId, args);
 
@@ -61,7 +66,7 @@ export default function Grid(props: Props) {
             }
 
             const rowsThisPage = data.leaderboard;
-            params.successCallback(rowsThisPage, data.total);
+            params.successCallback(rowsThisPage, args.search ? rowsThisPage.length : data.total);
         },
     };
 
@@ -69,6 +74,7 @@ export default function Grid(props: Props) {
         context: {
             lead: leaderboardId,
         },
+        // blockLoadDebounceMillis: 1000,
         localeText: {noRowsToShow: 'No players listed.'},
         datasource: dataSource,
         columnDefs: [
@@ -159,7 +165,7 @@ export default function Grid(props: Props) {
                 }}
             >
                 <AgGridReact
-                    context={{leaderboardId, country, gridApi}}
+                    context={{leaderboardId, country, search, gridApi}}
                     gridOptions={gridOptions}>
                 </AgGridReact>
             </div>

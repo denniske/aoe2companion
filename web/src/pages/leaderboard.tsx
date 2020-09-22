@@ -1,7 +1,7 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles, useTheme} from '@material-ui/core/styles';
-import {FormControl, InputLabel, MenuItem, Paper, Select, Tabs, TextField} from "@material-ui/core";
+import {fade, FormControl, InputBase, InputLabel, MenuItem, Paper, Select, Tabs, TextField} from "@material-ui/core";
 import {useAppStyles} from "../components/app-styles";
 import {withApollo} from "../../apollo/client";
 import Grid from "../components/grid";
@@ -39,29 +39,10 @@ function ResponsiveDrawer(props) {
         setCountry(country);
     };
 
+    const [search, setSearch] = React.useState('');
+
     return (
         <div className={classes.container}>
-            {/*<FormControl variant="outlined" size="small" className={classes.formControl}>*/}
-            {/*    /!*<InputLabel id="demo-simple-select-label">Age</InputLabel>*!/*/}
-            {/*    <Select*/}
-            {/*        labelId="demo-simple-select-label"*/}
-            {/*        id="demo-simple-select"*/}
-            {/*        value={age}*/}
-            {/*        onChange={handleChange}*/}
-            {/*    >*/}
-            {/*        <MenuItem value={10}>Ten</MenuItem>   */}
-            {/*        <MenuItem value={30}>Thirty</MenuItem>*/}
-            {/*        <MenuItem value={30}>Thirty</MenuItem>*/}
-            {/*    </Select>*/}
-            {/*</FormControl>*/}
-
-            {/*<Autocomplete*/}
-            {/*    id="combo-box-demo"*/}
-            {/*    options={top100Films}*/}
-            {/*    getOptionLabel={(option) => option.title}*/}
-            {/*    style={{ width: 300 }}*/}
-            {/*    renderInput={(params) => <TextField {...params} label="Combo box" variant="outlined" />}*/}
-            {/*/>*/}
 
             <div className={classes.row}>
                 <div className={classes.selector}>
@@ -70,6 +51,19 @@ function ResponsiveDrawer(props) {
             </div>
 
             <Paper className={appClasses.boxExpanded}>
+
+                <div className={classes.searchRow}>
+                    <InputBase
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        placeholder="Search by name…"
+                        classes={{
+                            root: classes.inputRoot,
+                            input: classes.inputInput,
+                        }}
+                        inputProps={{'aria-label': 'search'}}
+                    />
+                </div>
 
                 <Tabs
                     className={classes.tab}
@@ -87,19 +81,31 @@ function ResponsiveDrawer(props) {
                     <AntTab label="Unranked" />
                 </Tabs>
 
-                <Grid leaderboardId={leaderboardId} country={country}/>
+                <Grid leaderboardId={leaderboardId} country={country} search={search}/>
             </Paper>
         </div>
     );
 }
 
 const useStyles = makeStyles((theme) => ({
+    searchRow: {
+        borderRadius: 0,
+        display: 'flex',
+        alignItems: 'center',
+        marginBottom: 0,
+        backgroundColor: fade(theme.palette.common.black, 0.00),
+        boxShadow: '0px 2px 1px -1px rgba(0,0,0,0.1), 0px 1px 1px 0px rgba(0,0,0,0.07), 0px 1px 3px 0px rgba(0,0,0,0.06)',
+    },
+    inputRoot: {
+        color: 'inherit',
+        flex: 1,
+    },
+    inputInput: {
+        padding: theme.spacing(2, 3, 2, 3),
+        display: 'flex',
+    },
+
     tab: {
-        // marginTop: -theme.spacing(3),
-        // marginLeft: -theme.spacing(3),
-        // marginRight: -theme.spacing(3),
-        // marginBottom: theme.spacing(2),
-        // borderBottom: '1px solid #333',
         boxShadow: '0px 2px 1px -1px rgba(0,0,0,0.1), 0px 1px 1px 0px rgba(0,0,0,0.07), 0px 1px 3px 0px rgba(0,0,0,0.06)',
         marginBottom: 2,
     },
@@ -128,3 +134,37 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default withApollo(ResponsiveDrawer, {ssr:false})
+
+
+
+
+
+
+
+
+
+
+
+
+
+// {/*<FormControl variant="outlined" size="small" className={classes.formControl}>*/}
+// {/*    /!*<InputLabel id="demo-simple-select-label">Age</InputLabel>*!/*/}
+// {/*    <Select*/}
+// {/*        labelId="demo-simple-select-label"*/}
+// {/*        id="demo-simple-select"*/}
+// {/*        value={age}*/}
+// {/*        onChange={handleChange}*/}
+// {/*    >*/}
+// {/*        <MenuItem value={10}>Ten</MenuItem>   */}
+// {/*        <MenuItem value={30}>Thirty</MenuItem>*/}
+// {/*        <MenuItem value={30}>Thirty</MenuItem>*/}
+// {/*    </Select>*/}
+// {/*</FormControl>*/}
+//
+// {/*<Autocomplete*/}
+// {/*    id="combo-box-demo"*/}
+// {/*    options={top100Films}*/}
+// {/*    getOptionLabel={(option) => option.title}*/}
+// {/*    style={{ width: 300 }}*/}
+// {/*    renderInput={(params) => <TextField {...params} label="Combo box" variant="outlined" />}*/}
+// {/*/>*/}
