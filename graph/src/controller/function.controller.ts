@@ -166,38 +166,19 @@ export class FunctionController implements OnModuleInit {
 
         console.log('HAS default', where);
 
-
-        let whereLeaderboardRow: leaderboard_rowWhereInput = {
-            'leaderboard_id': leaderboardId
-        };
-        if (country) {
-            whereLeaderboardRow['country'] = country;
-        }
-        if (search) {
-            whereLeaderboardRow['name'] = {
-                contains: search,
-                mode: "insensitive",
-            };
-        }
-
         const users = await prisma.leaderboard_row.findMany({
-            where: whereLeaderboardRow,
+            where: {
+                leaderboard_id: leaderboardId,
+                ...(country && { country }),
+                ...(search && { name: { contains: search, mode: "insensitive" } }),
+            },
             skip: start-1,
             take: count,
             orderBy: {
                 rating: 'desc',
             },
         });
-        // console.log(users);
         time();
-
-        // const users = await connection.createQueryBuilder().from(LeaderboardRow)
-        //     .where("name ILIKE '%viper%'")
-        //     .where("name ILIKE :search", { search: `${search}` })
-        //     .getMany();
-
-        // @ts-ignore
-        // const users = await connection.manager.find(LeaderboardRow, {where: where, skip: start-1, take: count, order: { 'rating': 'DESC' }});
 
         res.send({
             updated: getUnixTime(leaderboardUpdated),
