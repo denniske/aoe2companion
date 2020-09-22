@@ -70,12 +70,11 @@ export default function Search() {
             style={{ width: 350 }}
             open={reallyOpen}
             value={value}
+            inputValue={inputValue}
 
             onChange={(event: any, newValue: IUser | null) => {
-                setValue(newValue);
-
-                router.push('/profile/'+newValue.profile_id);
-
+                router.push('/profile/[id]', `/profile/${newValue.profile_id}`);
+                setInputValue('');
             }}
 
             onInputChange={(event, newInputValue) => {

@@ -11,6 +11,7 @@ import gql from "graphql-tag";
 import {IMatch} from "../../util/api.types";
 import {maps} from "../helper/maps";
 import SwipeableViews from 'react-swipeable-views';
+import {AntTab} from "./tab/ant-tab";
 
 
 const MatchesQuery = gql`
@@ -85,14 +86,6 @@ interface IMatchesQuery {
 interface Props {
     profileId: number;
 }
-
-const AntTab = withStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            minWidth: 100,
-        },
-    }),
-)((props: any) => <Tab {...props} />);
 
 export default function ProfileMatches({profileId}: Props) {
     const appClasses = useAppStyles();

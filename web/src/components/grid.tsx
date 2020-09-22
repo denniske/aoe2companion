@@ -1,26 +1,48 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {AgGridReact} from 'ag-grid-react';
-import {GridOptions, simpleHttpRequest} from "ag-grid-community";
+import {GridApi, GridOptions, RowClickedEvent, simpleHttpRequest} from "ag-grid-community";
 import {Menu, Button} from "antd";
 import {MailOutlined, AppstoreOutlined, SettingOutlined} from '@ant-design/icons';
 import {Select} from 'antd';
-import {fetchLeaderboard, formatAgo, parseUnixTimestamp} from "@nex/data";
+import {fetchLeaderboard, formatAgo, parseUnixTimestamp, usePrevious} from "@nex/data";
 import {Paper, Tabs} from "@material-ui/core";
 import NameCellRenderer from "./cell-renderer/name.cell-renderer";
 import RatingCellRenderer from "./cell-renderer/rating.cell-renderer";
+import {useRouter} from "next/router";
 
 const {Option} = Select;
 
-export default function Grid(props: any) {
+interface Props {
+    leaderboardId: number;
+}
+
+export default function Grid(props: Props) {
+    const router = useRouter();
+
+    const { leaderboardId } = props;
+
+    const previousLeaderboardId = usePrevious(leaderboardId);
+
+    const [gridApi, setGridApi] = useState<GridApi>();
+
+    useEffect(() => {
+        if (!gridApi) return;
+
+        console.log('LEADERBOARD CHANGED', leaderboardId);
+        gridApi.ensureIndexVisible(0);
+        gridApi.onFilterChanged();
+
+    }, [leaderboardId, previousLeaderboardId]);
 
     const dataSource = {
         rowCount: null, // behave as infinite scroll
 
         getRows: async function (params) {
             console.log('asking for ' + params.startRow + ' to ' + params.endRow);
-            console.log(params);
+            console.log('leaderboardId', leaderboardId);
+            console.log('context', params.context);
 
-            const data = await fetchLeaderboard('aoe2de', 3, {
+            const data = await fetchLeaderboard('aoe2de', params.context.leaderboardId, {
                 start: params.startRow + 1,
                 count: params.endRow - params.startRow,
             });
@@ -38,7 +60,11 @@ export default function Grid(props: any) {
             params.successCallback(rowsThisPage, data.total);
         },
     };
+
     const defaultGridOptions: GridOptions = {
+        context: {
+            lead: leaderboardId,
+        },
         datasource: dataSource,
         columnDefs: [
             {field: 'rank', sortable: false, valueFormatter: params => '#'+(params.value ? params.value : '') },
@@ -49,11 +75,14 @@ export default function Grid(props: any) {
             // {field: 'streak', sortable: false},
             {field: 'last_match_time', headerName: 'Last match', minWidth: 150, sortable: false, valueFormatter: params => params.value && formatAgo(parseUnixTimestamp(params.value)) },
         ],
+        onRowClicked: (event: RowClickedEvent) => {
+            router.push('/profile/[id]', `/profile/${event.data.profile_id}`);
+        },
         onFirstDataRendered(params) {
-            console.log('onFirstDataRendered');
-            // setTimeout(() => params.api.sizeColumnsToFit(), 4000);
+            setGridApi(params.api);
             params.api.sizeColumnsToFit();
         },
+        rowStyle: { cursor: 'pointer' },
         frameworkComponents:{
             nameRenderer: NameCellRenderer,
             ratingRenderer: RatingCellRenderer,
@@ -74,8 +103,10 @@ export default function Grid(props: any) {
             },
         },
         rowBuffer: 0,
-        rowSelection: 'multiple',
+        // rowSelection: 'multiple',
         // rowDeselection: true,
+        suppressCellSelection: true,
+        suppressRowClickSelection: true,
         // tell grid we want virtual row model type
         rowModelType: 'infinite',
         // how big each page in our page cache will be, default is 100
@@ -97,6 +128,9 @@ export default function Grid(props: any) {
     };
 
     const [gridOptions, setGridOptions] = useState(defaultGridOptions);
+    console.log('RENDER AG GRID', leaderboardId);
+
+    // const gridOptions = defaultGridOptions;
 
     return (
         <div style={{
@@ -119,6 +153,7 @@ export default function Grid(props: any) {
                 }}
             >
                 <AgGridReact
+                    context={{leaderboardId}}
                     gridOptions={gridOptions}>
                 </AgGridReact>
             </div>
