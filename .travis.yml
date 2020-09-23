@@ -37,20 +37,20 @@ jobs:
         - chmod u+x ./kubectl
         - sudo mv kubectl /usr/local/bin/
       script:
-#        - export SERVICE_NAME=graphql
-#        - npm i -g nx
-#        - npm i
-#        - nx build graph
-#        - docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT .
-#        - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-#        - docker push denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT
-#
-#        - echo $ID_CI_RSA_BASE64 > id_ci_rsa.base64
-#        - base64 --decode id_ci_rsa.base64 > ~/.ssh/id_rsa
-#        - echo $KNOWN_HOSTS_BASE64 > known_hosts.base64
-#        - base64 --decode known_hosts.base64 > ~/.ssh/known_hosts
-#        - chmod 644 ~/.ssh/known_hosts
-#        - chmod 600 ~/.ssh/id_rsa
+        - export SERVICE_NAME=graphql
+        - npm i -g nx
+        - npm i
+        - nx build graph
+        - docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT .
+        - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+        - docker push denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT
+
+        - echo $ID_CI_RSA_BASE64 > id_ci_rsa.base64
+        - base64 --decode id_ci_rsa.base64 > ~/.ssh/id_rsa
+        - echo $KNOWN_HOSTS_BASE64 > known_hosts.base64
+        - base64 --decode known_hosts.base64 > ~/.ssh/known_hosts
+        - chmod 644 ~/.ssh/known_hosts
+        - chmod 600 ~/.ssh/id_rsa
 
         - export SERVICE_NAME=website
         - docker build -f website/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT .
