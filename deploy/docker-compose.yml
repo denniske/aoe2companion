@@ -10,8 +10,8 @@ services:
     volumes:
       - ssl_data:/etc/resty-auto-ssl
     environment:
-      ALLOWED_DOMAINS: 'preview.aoe2companion.com'
-      SITES: 'preview.aoe2companion.com=graphql:80, website.aoe2companion.com=graphql:80'
+      ALLOWED_DOMAINS: 'preview.aoe2companion.com, graphql.aoe2companion.com'
+      SITES: 'preview.aoe2companion.com=website:80, graphql.aoe2companion.com=graphql:80'
 
   # your application, listening on port specified in `SITES` env variable
   graphql:

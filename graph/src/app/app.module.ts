@@ -31,6 +31,7 @@ export class TaskAndControllerModule {
     static forRoot(): DynamicModule {
         const providers = [];
         const controllers = [];
+        console.log('SERVICE_NAME', process.env.SERVICE_NAME);
         switch (process.env.SERVICE_NAME) {
             case 'import':
                 providers.push(ImportTask);
@@ -99,7 +100,8 @@ export class ResolverModule {
             RatingHistoryEntryResolver,
         ];
 
-        if (process.env.SERVICE_NAME === 'graph') {
+        console.log('SERVICE_NAME', process.env.SERVICE_NAME);
+        if (process.env.SERVICE_NAME === 'graphql') {
             providers.push(...resolvers);
         }
 
