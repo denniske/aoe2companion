@@ -25,6 +25,12 @@ users
 - t90 197930
 
 
+
+https://applepaydemo.apple.com/
+https://www.netlify.com/blog/2020/05/21/learn-to-add-apple-pay-and-google-pay-to-react-websites/
+
+
+
 https://github.com/nrwl/nx-react-native
 
 intellij material ui theme

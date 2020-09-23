@@ -9,7 +9,7 @@ import {
 } from "../../../../data/src/helper/units";
 import {Checkbox} from "react-native-paper";
 import {MyText} from "../components/my-text";
-import {iconSmallHeight, iconSmallWidth} from "../../helper/theme";
+import {iconSmallHeight, iconSmallWidth} from "../../../../data/src/lib/theme";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 
 

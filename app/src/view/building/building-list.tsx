@@ -4,7 +4,7 @@ import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {Building, getBuildingDescription, getBuildingIcon, getBuildingName} from "../../../../data/src/helper/buildings";
 import {MyText} from "../components/my-text";
-import {iconHeight, iconWidth} from "../../helper/theme";
+import {iconHeight, iconWidth} from "../../../../data/src/lib/theme";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import {Searchbar} from "react-native-paper";
 import {FinalDarkMode} from "../../redux/reducer";

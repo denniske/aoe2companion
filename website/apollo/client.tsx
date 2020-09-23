@@ -1,10 +1,10 @@
 import React from 'react'
 import Head from 'next/head'
-import {withScalars} from "apollo-link-scalars";
 import gql from "graphql-tag";
 import {GraphQLScalarType} from "graphql";
 import {makeExecutableSchema} from "@graphql-tools/schema";
 import {ApolloLink, ApolloClient, InMemoryCache, ApolloProvider} from "@apollo/client";
+import {withScalars} from "apollo-link-scalars";
 
 let apolloClient = null
 
@@ -18,7 +18,9 @@ let apolloClient = null
  */
 export function withApollo(PageComponent, { ssr = true } = {}) {
   const WithApollo = ({ apolloClient, apolloState, ...pageProps }) => {
+    // console.log('HHHHHHHHHHHHHHHHH 1');
     const client = apolloClient || initApolloClient(apolloState)
+    // console.log('HHHHHHHHHHHHHHHHH 2');
     return (
       <ApolloProvider client={client}>
         <PageComponent {...pageProps} />
@@ -38,8 +40,11 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
     WithApollo.displayName = `withApollo(${displayName})`
   }
 
+  // console.log('HHHHHHHHHHHHHHHHH 3');
   if (ssr || PageComponent.getInitialProps) {
+    // console.log('HHHHHHHHHHHHHHHHH 4');
     WithApollo.getInitialProps = async ctx => {
+      // console.log('HHHHHHHHHHHHHHHHH 5');
       const { AppTree } = ctx
 
       // Initialize ApolloClient, add it to the ctx object so
@@ -166,7 +171,7 @@ const customFetch = (uri, options) => {
 
 function createIsomorphLink() {
   const { HttpLink } = require('apollo-link-http')
-  console.log('NEXT_PUBLIC_API_URL', process.env.NEXT_PUBLIC_API_URL);
+  // console.log('NEXT_PUBLIC_API_URL', process.env.NEXT_PUBLIC_API_URL);
   return ApolloLink.from([
     withScalars({ schema, typesMap }),
     new HttpLink({

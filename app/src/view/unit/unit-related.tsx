@@ -6,7 +6,7 @@ import {
     getUnitLineIcon, getUnitLineIdForUnit, getUnitLineName, sortUnitCounter, Unit, UnitLine, unitLines
 } from "../../../../data/src/helper/units";
 import {MyText} from "../components/my-text";
-import {iconSmallHeight, iconSmallWidth} from "../../helper/theme";
+import {iconSmallHeight, iconSmallWidth} from "../../../../data/src/lib/theme";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 
 

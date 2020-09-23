@@ -12,7 +12,7 @@ import {TechTree} from "./components/tech-tree";
 import {UnitCompBig} from "./unit/unit-list";
 import {TechCompBig} from "./tech/tech-list";
 import {MyText} from "./components/my-text";
-import {iconHeight, iconWidth} from "../helper/theme";
+import {iconHeight, iconWidth} from "../../../data/src/lib/theme";
 import {ITheme, makeVariants, useTheme} from "../theming";
 import {highlightUnitAndTechs} from "../helper/highlight";
 

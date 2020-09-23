@@ -6,7 +6,7 @@ import {Checkbox, IconButton, Menu, useTheme as usePaperTheme} from 'react-nativ
 import {RootStackParamList, RootStackProp} from '../../../App';
 import {getRootNavigation} from "../../service/navigation";
 import {MyText} from "./my-text";
-import {iconHeight, iconWidth} from "../../helper/theme";
+import {iconHeight, iconWidth} from "../../../../data/src/lib/theme";
 import {setConfig, setInitialState, useMutate, useSelector} from "../../redux/reducer";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";

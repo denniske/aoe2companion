@@ -2,9 +2,8 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles, useTheme} from '@material-ui/core/styles';
 import {Paper} from "@material-ui/core";
-import {Civ, parseCivDescription} from "@nex/data";
+import {Civ, civs, iconHeight, iconWidth, parseCivDescription} from "@nex/data";
 import {useRouter} from "next/router";
-import {iconHeight, iconWidth} from "../../../../app/src/helper/theme";
 import {useAppStyles} from "../../components/app-styles";
 import {withApollo} from "../../../apollo/client";
 
@@ -67,11 +66,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function Civilization() {
+function Civilization({id}: any) {
     const appClasses = useAppStyles();
     const classes = useStyles();
     const theme = useTheme();
-    const civ = useRouter().query.id as Civ;
+    // const civ = useRouter().query.id as Civ;
+    const civ = id as Civ;
 
     const civDescription = parseCivDescription(civ);
 
@@ -104,5 +104,26 @@ function Civilization() {
         </div>
     );
 }
+
+export async function getStaticPaths() {
+    // Get the paths we want to pre-render based on posts
+    const paths = [civs[0]].map((post) => `/civilization/${post}`)
+
+    // We'll pre-render only these paths at build time.
+    // { fallback: false } means other routes should 404.
+    return { paths, fallback: false }
+}
+
+// This also gets called at build time
+export async function getStaticProps({ params }) {
+    // params contains the post `id`.
+    // If the route is like /posts/1, then params.id is 1
+    // const res = await fetch(`https://.../posts/${params.id}`)
+    // const post = await res.json()
+
+    // Pass post data to the page via props
+    return { props: { id: params.id } }
+}
+
 
 export default withApollo(Civilization, {ssr:true})

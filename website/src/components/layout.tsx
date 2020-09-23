@@ -344,5 +344,5 @@ function Layout(props) {
     );
 }
 
-export default Layout
-// export default withApollo(Layout, {ssr:false})
+// export default Layout
+export default withApollo(Layout, {ssr:false})

@@ -18,6 +18,7 @@ import {Skeleton} from "@material-ui/lab";
 import {faCaretDown, faCaretUp} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {getChangeColor} from 'website/src/components/util';
+import {withApollo} from "../../../apollo/client";
 
 
 const ProfileQuery = gql`
@@ -119,7 +120,7 @@ function TabPanel(props) {
 function ProfilePage() {
   const appClasses = useAppStyles();
   const classes = useStyles();
-  const profileId = parseInt(useRouter().query.id as string);
+  const profileId = 289006; //parseInt(useRouter().query.id as string);
 
   const [filteredAllies, setFilteredAllies] = React.useState(null);
   const [filteredOpponents, setFilteredOpponents] = React.useState(null);

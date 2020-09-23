@@ -4,7 +4,7 @@ import {ITheme, makeVariants, useAppTheme, useTheme} from "../theming";
 import {MyText} from "./components/my-text";
 import {Video} from "expo-av";
 import {Unit} from "../../../data/src/helper/units";
-import {iconHeight, iconWidth} from "../helper/theme";
+import {iconHeight, iconWidth} from "../../../data/src/lib/theme";
 import IconFA5 from "react-native-vector-icons/FontAwesome5";
 import {AVPlaybackSource} from "expo-av/build/AV";
 import {Building} from "../../../data/src/helper/buildings";

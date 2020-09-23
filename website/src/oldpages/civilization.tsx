@@ -4,11 +4,10 @@ import {makeStyles, useTheme} from '@material-ui/core/styles';
 import {Paper} from "@material-ui/core";
 import {useAppStyles} from "../components/app-styles";
 import {withApollo} from "../../apollo/client";
-import {civs, getCivTeamBonus} from "@nex/data";
+import {civs, getCivTeamBonus, iconHeight, iconWidth} from "@nex/data";
 import {getCivIconByIndex} from "../helper/civs";
-import {iconHeight, iconWidth} from "../../../app/src/helper/theme";
 // import Link from "next/link";
-import Link from "../components/link";
+import Link, {MyLink} from "../components/link";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -57,7 +56,7 @@ function Civilization() {
 
                 {
                     civs.map((civ, i) =>
-                        <Link key={civ.toString()} href='/civilization/[id]' as={`/civilization/${civ}`} naked>
+                        <MyLink key={civ.toString()} href='/civilization/[id]' as={`/civilization/${civ}`} naked>
                             <div className={classes.civBlock}>
                                 <img src={getCivIconByIndex(i)} className={classes.icon}/>
                                 <div className={classes.civRow}>
@@ -65,7 +64,7 @@ function Civilization() {
                                     <div className={classes.small}>{getCivTeamBonus(civ)}</div>
                                 </div>
                             </div>
-                        </Link>
+                        </MyLink>
                     )
                 }
 

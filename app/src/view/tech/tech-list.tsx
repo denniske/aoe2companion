@@ -4,7 +4,7 @@ import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {getTechDescription, getTechIcon, getTechName, Tech, techs} from "../../../../data/src/helper/techs";
 import {MyText} from "../components/my-text";
-import {iconHeight, iconWidth} from "../../helper/theme";
+import {iconHeight, iconWidth} from "../../../../data/src/lib/theme";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import {Searchbar} from "react-native-paper";
 import {civDict, civs, getCivIcon} from "../../../../data/src/helper/civs";

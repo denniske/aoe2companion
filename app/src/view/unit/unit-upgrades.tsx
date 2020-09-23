@@ -5,7 +5,7 @@ import {
 } from "../../../../data/src/helper/units";
 import React from "react";
 import {ITheme, makeVariants, useTheme} from "../../theming";
-import {iconSmallHeight, iconSmallWidth} from "../../helper/theme";
+import {iconSmallHeight, iconSmallWidth} from "../../../../data/src/lib/theme";
 import {effectNames, getEffectName, getTechIcon, getTechName, Tech, techEffectDict} from "../../../../data/src/helper/techs";
 import {appVariants} from "../../styles";
 import {Civ} from "../../../../data/src/helper/civs";

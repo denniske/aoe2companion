@@ -18,13 +18,14 @@ const NextComposed = React.forwardRef(function NextComposed(props, ref) {
 
 // A styled version of the Next.js Link component:
 // https://nextjs.org/docs/#with-link
-function Link(props) {
+export function MyLink(props) {
   const {
     href,
     activeClassName = 'active',
     className: classNameProps,
     innerRef,
     naked,
+    // children,
     ...other
   } = props;
 
@@ -43,4 +44,4 @@ function Link(props) {
   );
 }
 
-export default React.forwardRef((props, ref) => <Link {...props} innerRef={ref} />);
+export default React.forwardRef((props, ref) => <MyLink {...props} innerRef={ref} />);

@@ -42,7 +42,7 @@ class HttpService implements IHttpService {
 registerService(SERVICE_NAME.HOST_SERVICE, new HostService());
 registerService(SERVICE_NAME.HTTP_SERVICE, new HttpService());
 
-export default function MyApp(props) {
+function MyApp(props) {
   const { Component, pageProps } = props;
 
   React.useEffect(() => {
@@ -53,7 +53,7 @@ export default function MyApp(props) {
     }
   }, []);
 
-  return (
+    return (
     <React.Fragment>
       <Head>
         <title>AoE II Companion</title>
@@ -64,7 +64,9 @@ export default function MyApp(props) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Layout>
+        <
+            // @ts-ignore
+            Layout>
             {/*<NoSsr>*/}
                 <Component {...pageProps} />
             {/*</NoSsr>*/}
@@ -78,3 +80,17 @@ MyApp.propTypes = {
   Component: PropTypes.elementType.isRequired,
   pageProps: PropTypes.object.isRequired,
 };
+
+// MyApp.getInitialProps = async ({ req }) => {
+//     return {  };
+// }
+
+export default MyApp;
+
+// export async function getInitialProps(appContext) {
+//     return {};
+//     // calls page's `getInitialProps` and fills `appProps.pageProps`
+//     // const appProps = await App.getInitialProps(appContext);
+//     //
+//     // return { ...appProps }
+// }

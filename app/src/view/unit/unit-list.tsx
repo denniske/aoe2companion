@@ -10,7 +10,7 @@ import {
     unitLines, units
 } from "../../../../data/src/helper/units";
 import {MyText} from "../components/my-text";
-import {iconHeight, iconWidth} from "../../helper/theme";
+import {iconHeight, iconWidth} from "../../../../data/src/lib/theme";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import {Searchbar} from "react-native-paper";
 import {civDict, civs} from "../../../../data/src/helper/civs";
