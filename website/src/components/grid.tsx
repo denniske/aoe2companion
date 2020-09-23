@@ -1,16 +1,11 @@
-import React, {Component, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {AgGridReact} from 'ag-grid-react';
-import {GridApi, GridOptions, RowClickedEvent, simpleHttpRequest} from "ag-grid-community";
-import {Menu, Button} from "antd";
-import {MailOutlined, AppstoreOutlined, SettingOutlined} from '@ant-design/icons';
-import {Select} from 'antd';
+import {GridApi, GridOptions, RowClickedEvent} from "ag-grid-community";
 import {Country, fetchLeaderboard, formatAgo, parseUnixTimestamp, usePrevious} from "@nex/data";
-import {Paper, Tabs} from "@material-ui/core";
 import NameCellRenderer from "./cell-renderer/name.cell-renderer";
 import RatingCellRenderer from "./cell-renderer/rating.cell-renderer";
 import {useRouter} from "next/router";
 
-const {Option} = Select;
 
 interface Props {
     leaderboardId: number;

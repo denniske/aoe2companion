@@ -43,7 +43,6 @@
     "@react-navigation/stack": "5.4.2",
     "@sendgrid/mail": "^7.2.3",
     "@sentry/node": "^5.20.1",
-    "@types/date-fns": "^2.6.0",
     "@types/react-native-htmlview": "^0.12.2",
     "@types/react-native-vector-icons": "^6.4.5",
     "ag-grid-community": "^24.0.0",
