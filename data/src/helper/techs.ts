@@ -2049,10 +2049,6 @@ export interface ITechInfo {
     ResearchTime: number;
 }
 
-export function getTechIcon(tech: Tech) {
-    return techIcons[tech];
-}
-
 export function getTechData(tech: Tech) {
     const techEntry = techs[tech];
     if (techEntry == null) {

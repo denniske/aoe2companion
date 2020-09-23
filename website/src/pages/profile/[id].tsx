@@ -1,10 +1,6 @@
-import Router, { useRouter } from 'next/router'
-import { withApollo } from '../../../apollo/client'
+import {useRouter} from 'next/router'
 import gql from 'graphql-tag'
-import {
-  Paper, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, AppBar, Tabs, Box, Tab, TablePagination,
-  InputBase, fade
-} from "@material-ui/core";
+import {Box, fade, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import React, {useEffect} from "react";
 import {useAppStyles} from "../../components/app-styles";
@@ -15,25 +11,13 @@ import {IProfile} from "../../helper/types";
 import {formatLeaderboardId} from "../../helper/util";
 import {getCivIconByIndex, getCivName} from "../../helper/civs";
 import {getFlagIcon} from "../../helper/flags";
-import {IMatch} from "../../../util/api.types";
-import Match from "../../components/match";
 import {getMapImage, getMapName} from "../../helper/maps";
 import Link from "next/link";
-import SearchIcon from '@material-ui/icons/Search';
-
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import ProfileMatches from "../../components/profile-matches";
-import MatchesCompare from "../../components/matches-compare";
-import {View} from "react-native";
-import {TextLoader} from "../../../../app/src/view/components/loader/text-loader";
 import {Skeleton} from "@material-ui/lab";
-import {
-  faArrowUp, faCaretDown, faCaretUp, faCoffee, faLongArrowAltDown, faLongArrowAltUp
-} from "@fortawesome/free-solid-svg-icons";
+import {faCaretDown, faCaretUp} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { getChangeColor } from 'website/src/components/util';
-import ListItem from "@material-ui/core/ListItem";
+import {getChangeColor} from 'website/src/components/util';
 
 
 const ProfileQuery = gql`
