@@ -16,7 +16,9 @@ import {fade, makeStyles, useTheme} from '@material-ui/core/styles';
 import {CircularProgress, Grid, InputBase, Paper, TextField} from "@material-ui/core";
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faCoffee, faHandsHelping, faTrophy, faUser} from '@fortawesome/free-solid-svg-icons'
+import {
+    faArchway, faCoffee, faFistRaised, faFlask, faHandsHelping, faLandmark, faTrophy, faUser
+} from '@fortawesome/free-solid-svg-icons'
 
 import Link from "../components/link";
 import {useAppStyles} from "./app-styles";
@@ -171,6 +173,25 @@ function Layout(props) {
                 <ListItem button component={Link as any} href="/leaderboard" naked>
                     <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faTrophy} className={classes.icon} /></div></ListItemIcon>
                     <ListItemText primary="Leaderboard" />
+                </ListItem>
+            </List>
+            <Divider />
+            <List>
+                <ListItem button component={Link as any} href="/civilization" naked>
+                    <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faLandmark} className={classes.icon} /></div></ListItemIcon>
+                    <ListItemText primary="Civilizations" />
+                </ListItem>
+                <ListItem button component={Link as any} href="/building" naked>
+                    <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faArchway} className={classes.icon} /></div></ListItemIcon>
+                    <ListItemText primary="Buildings" />
+                </ListItem>
+                <ListItem button component={Link as any} href="/unit" naked>
+                    <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faFistRaised} className={classes.icon} /></div></ListItemIcon>
+                    <ListItemText primary="Units" />
+                </ListItem>
+                <ListItem button component={Link as any} href="/tech" naked>
+                    <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faFlask} className={classes.icon} /></div></ListItemIcon>
+                    <ListItemText primary="Techs" />
                 </ListItem>
             </List>
             <Divider />

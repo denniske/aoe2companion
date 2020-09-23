@@ -1,14 +1,11 @@
 import React from 'react';
-import {Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, ImageBackground, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {
     Civ, civDict, civs, getCivDescription, getCivHistoryImage, getCivIconByIndex, getCivTeamBonus, parseCivDescription
 } from "../helper/civs";
 import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {RootStackParamList, RootStackProp} from "../../App";
-import {getUnitLineNameForUnit, getUnitName, Unit, units} from "../helper/units";
 import {aoeCivKey} from "../data/data";
-import {getTechName, Tech, techList} from "../helper/techs";
-import {escapeRegExpFn} from "../helper/util";
 import IconHeader from "./components/navigation-header/icon-header";
 import TextHeader from "./components/navigation-header/text-header";
 import {TechTree} from "./components/tech-tree";
@@ -17,7 +14,6 @@ import {TechCompBig} from "./tech/tech-list";
 import {MyText} from "./components/my-text";
 import {iconHeight, iconWidth} from "../helper/theme";
 import {ITheme, makeVariants, useTheme} from "../theming";
-import {appVariants} from "../styles";
 import {highlightUnitAndTechs} from "../helper/highlight";
 
 
