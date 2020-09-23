@@ -9,19 +9,19 @@ COMMIT_SHA1=$TRAVIS_COMMIT
 # We must export it so it's available for envsubst
 export COMMIT_SHA1=$COMMIT_SHA1
 
-export SERVICE_NAME=$(node deploy/service-name-from-tag.js $TRAVIS_BRANCH)
+export SERVICE_NAME=$(node deploy/script/service-name-from-tag.js $TRAVIS_BRANCH)
 echo $SERVICE_NAME
 
 #############################
 # BUILD
 #############################
 
-npm i -g nx
-npm i
-nx build graph
-docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT .
-echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-docker push denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT
+#npm i -g nx
+#npm i
+#nx build graph
+#docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT .
+#echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+#docker push denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT
 
 #############################
 # DEPLOY

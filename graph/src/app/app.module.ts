@@ -83,16 +83,38 @@ export class TaskAndControllerModule {
 }
 
 @Module({
-    providers: [
-        MatchResolver,
-        UserResolver,
-        ProfileResolver,
-        LeaderboardResolver,
-        RatingHistoryResolver,
-        RatingHistoryEntryResolver,
-    ],
+    providers: [],
 })
 export class ResolverModule {
+    static forRoot(): DynamicModule {
+        const providers = [];
+        const controllers = [];
+
+        const resolvers = [
+            MatchResolver,
+            UserResolver,
+            ProfileResolver,
+            LeaderboardResolver,
+            RatingHistoryResolver,
+            RatingHistoryEntryResolver,
+        ];
+
+        if (process.env.SERVICE_NAME === 'graph') {
+            providers.push(...resolvers);
+        }
+
+        console.log('environment', environment.production ? 'prod' : 'dev');
+        if (!environment.production) {
+            providers.push(...resolvers);
+        }
+
+        return {
+            module: ResolverModule,
+            controllers: controllers,
+            providers: providers,
+            exports: providers,
+        };
+    }
 }
 
 
@@ -124,7 +146,7 @@ export class SchemaJsonTask implements OnModuleInit {
                 } as any
             }
         }),
-        ResolverModule,
+        ResolverModule.forRoot(),
     ],
     controllers: [
         // AppController

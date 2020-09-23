@@ -12,7 +12,9 @@
     "refetch": "SERVICE_NAME=refetch nx serve graph",
     "import": "SERVICE_NAME=import nx serve graph",
     "metric": "SERVICE_NAME=metric nx serve graph",
-    "rank": "SERVICE_NAME=rank nx serve graph"
+    "rank": "SERVICE_NAME=rank nx serve graph",
+    "build:website": "next build website",
+    "start:website:prod:80": "next start website -p 80"
   },
   "dependencies": {
     "@ant-design/icons": "^4.2.2",

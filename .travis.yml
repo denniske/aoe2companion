@@ -24,6 +24,45 @@ jobs:
 #        - echo 1
 
 
+    - stage: publish
+#      if: tag =~ ^match-v.+$
+      env:
+        - CACHE_NAME=website
+      before_install:
+        - nvm install $NODE_VERSION
+        - nvm use $NODE_VERSION
+        - sudo apt-get update
+        - sudo apt-get -y install gettext-base
+        - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+        - chmod u+x ./kubectl
+        - sudo mv kubectl /usr/local/bin/
+      script:
+        - export SERVICE_NAME=graph
+        - npm i -g nx
+        - npm i
+        - nx build graph
+        - docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT .
+        - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+        - docker push denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT
+
+        - echo $ID_CI_RSA_BASE64 > id_ci_rsa.base64
+        - base64 --decode id_ci_rsa.base64 > ~/.ssh/id_rsa
+        - echo $KNOWN_HOSTS_BASE64 > known_hosts.base64
+        - base64 --decode known_hosts.base64 > ~/.ssh/known_hosts
+        - chmod 644 ~/.ssh/known_hosts
+        - chmod 600 ~/.ssh/id_rsa
+
+        - export SERVICE_NAME=website
+        - docker build -f website/deploy/Dockerfile -t denniske/aoe2companion-$IMAGE_NAME:$TRAVIS_COMMIT .
+        - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+        - docker push denniske/aoe2companion-$IMAGE_NAME:$TRAVIS_COMMIT
+
+        - cd deploy
+        - bash ./deploy.sh
+        - scp docker-compose.yml root@116.203.245.222:/root
+        - ssh root@116.203.245.222 docker-compose up -d
+
+
     ####################################
     # PUBLISH
     ####################################
@@ -85,7 +124,7 @@ jobs:
       script:
 #        - mv package.json package.old.json && mv package.app.json package.json && yarn && mv package.old.json package.json
         - yarn
-        - export CHANNEL=$(node deploy/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
+        - export CHANNEL=$(node deploy/script/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
         - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD --non-interactive
         - sudo sysctl fs.inotify.max_user_instances=524288
         - sudo sysctl fs.inotify.max_user_watches=524288
@@ -142,7 +181,7 @@ jobs:
       script:
 #        - mv package.app.json package.json && yarn
         - yarn
-        - export CHANNEL=$(node deploy/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
+        - export CHANNEL=$(node deploy/script/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
         - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT.ipa"
         - turtle setup:ios --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
         - echo $EXPO_IOS_DIST_P12_BASE64 > expo-project_dist.p12.base64
@@ -186,7 +225,7 @@ jobs:
       script:
 #        - mv package.app.json package.json && yarn
         - yarn
-        - export CHANNEL=$(node deploy/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
+        - export CHANNEL=$(node deploy/script/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
         - export ARTIFACT_PATH="/home/travis/expo-project-$TRAVIS_COMMIT.aab"
         - turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null || travis_terminate 1
         - echo $EXPO_ANDROID_KEYSTORE_BASE64 > expo-project.jks.base64
@@ -224,7 +263,7 @@ jobs:
       script:
 #        - mv package.app.json package.json && yarn
         - yarn
-        - export CHANNEL=$(node deploy/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
+        - export CHANNEL=$(node deploy/script/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
         - export ARTIFACT_PATH="/home/travis/expo-project-$TRAVIS_COMMIT.apk"
         - turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null || travis_terminate 1
         - echo $EXPO_ANDROID_KEYSTORE_BASE64 > expo-project.jks.base64
@@ -350,7 +389,7 @@ jobs:
 #        - export PATH="$HOME/.yarn/bin:$PATH"
 #      script:
 #        - yarn
-#        - export CHANNEL=prod-$(node deploy/channel-from-tag.js $TRAVIS_TAG) && echo $CHANNEL
+#        - export CHANNEL=prod-$(node deploy/script/channel-from-tag.js $TRAVIS_TAG) && echo $CHANNEL
 #        - echo $CHANNEL
 #        - echo 1-$TRAVIS_BRANCH-
 #        - echo 1-$TRAVIS_TAG-
