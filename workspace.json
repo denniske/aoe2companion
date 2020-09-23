@@ -6,17 +6,17 @@
       "sourceRoot": "data/src",
       "projectType": "library"
     },
-    "web": {
-      "root": "web",
-      "sourceRoot": "web",
+    "website": {
+      "root": "website",
+      "sourceRoot": "website",
       "projectType": "application",
       "schematics": {},
       "architect": {
         "build": {
           "builder": "@nrwl/next:build",
           "options": {
-            "root": "web",
-            "outputPath": "dist/web"
+            "root": "website",
+            "outputPath": "dist/website"
           },
           "configurations": {
             "production": {}
@@ -25,13 +25,13 @@
         "serve": {
           "builder": "@nrwl/next:server",
           "options": {
-            "buildTarget": "web:build",
+            "buildTarget": "website:build",
             "dev": true,
             "port": 4300
           },
           "configurations": {
             "production": {
-              "buildTarget": "web:build:production",
+              "buildTarget": "website:build:production",
               "dev": false
             }
           }
@@ -39,7 +39,7 @@
         "export": {
           "builder": "@nrwl/next:export",
           "options": {
-            "buildTarget": "web:build:production"
+            "buildTarget": "website:build:production"
           }
         }
       }

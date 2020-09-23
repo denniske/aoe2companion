@@ -32,7 +32,7 @@ import {
   faArrowUp, faCaretDown, faCaretUp, faCoffee, faLongArrowAltDown, faLongArrowAltUp
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { getChangeColor } from 'web/src/components/util';
+import { getChangeColor } from 'website/src/components/util';
 import ListItem from "@material-ui/core/ListItem";
 
 
