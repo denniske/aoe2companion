@@ -3,7 +3,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {MyText} from "./my-text";
 import React from "react";
 import {ITheme, makeVariants, useTheme} from "../../theming";
-import {noop} from "../../helper/util";
+import {noop} from "../../../../data/src/helper/util";
 
 interface Props {
     visible: boolean;

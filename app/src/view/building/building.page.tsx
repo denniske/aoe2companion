@@ -2,7 +2,7 @@ import React from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import {RouteProp, useRoute} from "@react-navigation/native";
 import {RootStackParamList} from "../../../App";
-import {getBuildingIcon, getBuildingName, Building, buildings} from "../../helper/buildings";
+import {getBuildingIcon, getBuildingName, Building, buildings} from "../../../../data/src/helper/buildings";
 import IconHeader from "../components/navigation-header/icon-header";
 import TextHeader from "../components/navigation-header/text-header";
 import BuildingDetails from "./building-details";

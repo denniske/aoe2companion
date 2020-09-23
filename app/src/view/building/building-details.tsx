@@ -1,10 +1,10 @@
 import React from 'react';
 import {Image, StyleSheet, View} from 'react-native';
-import {getBuildingData, getBuildingDescription, getBuildingName, Building} from "../../helper/buildings";
+import {getBuildingData, getBuildingDescription, getBuildingName, Building} from "../../../../data/src/helper/buildings";
 import Fandom from "../components/fandom";
-import {getOtherIcon, Other, sortResources} from "../../helper/units";
+import {getOtherIcon, Other, sortResources} from "../../../../data/src/helper/units";
 import {MyText} from "../components/my-text";
-import {keysOf} from "../../helper/util";
+import {keysOf} from "../../../../data/src/helper/util";
 import {useTheme} from "../../theming";
 import {appVariants} from "../../styles";
 import CivAvailability from "../components/civ-availability";

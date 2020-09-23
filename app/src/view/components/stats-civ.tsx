@@ -2,7 +2,7 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useEffect} from 'react';
 import {IMatch, validMatch} from "../../helper/data";
 import {TextLoader} from "./loader/text-loader";
-import {Civ, civs, getCivIcon} from "../../helper/civs";
+import {Civ, civs, getCivIcon} from "../../../../data/src/helper/civs";
 import {orderBy} from "lodash-es";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";

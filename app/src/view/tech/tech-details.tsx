@@ -3,13 +3,13 @@ import {Image, StyleSheet, View} from 'react-native';
 import {
     Effect, effectNames, getEffectName, getTechData, getTechDescription, getTechName, ITechEffect, Tech, techEffectDict,
     techs
-} from "../../helper/techs";
+} from "../../../../data/src/helper/techs";
 import Fandom from "../components/fandom";
 import {
     getOtherIcon, getUnitLineIdForUnit, Other, sortedUnitLines, sortResources, Unit, UnitLine, unitLines
-} from "../../helper/units";
+} from "../../../../data/src/helper/units";
 import {MyText} from "../components/my-text";
-import {keysOf} from "../../helper/util";
+import {keysOf} from "../../../../data/src/helper/util";
 import {useTheme} from "../../theming";
 import {appVariants} from "../../styles";
 import {UnitCompBig} from "../unit/unit-list";

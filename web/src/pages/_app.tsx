@@ -10,7 +10,7 @@ import {Environment, IHostService, IHttpService, OS, registerService, SERVICE_NA
 import '../styles.css'
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
 
 class HostService implements IHostService {
     getPlatform(): OS {

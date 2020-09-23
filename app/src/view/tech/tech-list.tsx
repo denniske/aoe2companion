@@ -2,12 +2,12 @@ import React, {useEffect, useState} from 'react';
 import {Image, Platform, SectionList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
-import {getTechDescription, getTechIcon, getTechName, Tech, techs} from "../../helper/techs";
+import {getTechDescription, getTechIcon, getTechName, Tech, techs} from "../../../../data/src/helper/techs";
 import {MyText} from "../components/my-text";
 import {iconHeight, iconWidth} from "../../helper/theme";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import {Searchbar} from "react-native-paper";
-import {civDict, civs, getCivIcon} from "../../helper/civs";
+import {civDict, civs, getCivIcon} from "../../../../data/src/helper/civs";
 import {FinalDarkMode} from "../../redux/reducer";
 
 

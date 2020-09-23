@@ -2,13 +2,13 @@ import {Image, StyleSheet, Text, View} from "react-native";
 import {MyText} from "../components/my-text";
 import {
     getOtherIcon, getUnitClassName, getUnitIcon, IUnitInfo, Other, sortResources, UnitClassNumber
-} from "../../helper/units";
+} from "../../../../data/src/helper/units";
 import React, {useState} from "react";
 import {ITheme, makeVariants, useTheme} from "../../theming";
-import {keysOf} from "../../helper/util";
+import {keysOf} from "../../../../data/src/helper/util";
 import Picker from "../components/picker";
 import Space from "../components/space";
-import {Building, getBuildingData, getBuildingIcon, getBuildingName} from "../../helper/buildings";
+import {Building, getBuildingData, getBuildingIcon, getBuildingName} from "../../../../data/src/helper/buildings";
 import {
     getArmourClasses, GetArmourValue, getAttackBonuses, GetAttackBonusValue, GetAttackValue, GetUnitValue
 } from "../unit/unit-stats";

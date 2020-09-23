@@ -8,12 +8,12 @@ import {
     getUnitName, IUnitLine,
     Unit, UnitLine,
     unitLines, units
-} from "../../helper/units";
+} from "../../../../data/src/helper/units";
 import {MyText} from "../components/my-text";
 import {iconHeight, iconWidth} from "../../helper/theme";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import {Searchbar} from "react-native-paper";
-import {civDict, civs} from "../../helper/civs";
+import {civDict, civs} from "../../../../data/src/helper/civs";
 import {sortBy} from "lodash-es";
 import {FinalDarkMode} from "../../redux/reducer";
 

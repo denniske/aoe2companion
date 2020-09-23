@@ -1,4 +1,4 @@
-import {makeQueryString, sleep, time} from '../helper/util';
+import {makeQueryString, sleep, time} from '../../../data/src/helper/util';
 import {ILeaderboard, ILeaderboardRaw, IRatingHistoryEntryRaw} from "../helper/data";
 import {fromUnixTime} from "date-fns";
 import { getHost } from './host';

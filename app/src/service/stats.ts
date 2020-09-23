@@ -5,7 +5,7 @@ import {IMatch} from "../helper/data";
 import {UserId, UserIdBase} from "../helper/user";
 import {LeaderboardId} from "../helper/leaderboards";
 import {getStatsPosition} from "./stats/stats-position";
-import {time} from "../helper/util";
+import {time} from "../../../data/src/helper/util";
 import {getStatsDuration} from "./stats/stats-duration";
 
 

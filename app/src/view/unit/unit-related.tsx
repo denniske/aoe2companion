@@ -4,7 +4,7 @@ import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {
     getUnitLineIcon, getUnitLineIdForUnit, getUnitLineName, sortUnitCounter, Unit, UnitLine, unitLines
-} from "../../helper/units";
+} from "../../../../data/src/helper/units";
 import {MyText} from "../components/my-text";
 import {iconSmallHeight, iconSmallWidth} from "../../helper/theme";
 import {ITheme, makeVariants, useTheme} from "../../theming";

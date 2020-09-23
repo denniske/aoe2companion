@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {
     getUnitDescription, getUnitLineIdForUnit, getUnitLineNameForUnit, getUnitName, Unit, unitLines
-} from "../../helper/units";
+} from "../../../../data/src/helper/units";
 import Fandom from "../components/fandom";
 import {MyText} from "../components/my-text";
 import {ITheme, makeVariants, useTheme} from "../../theming";

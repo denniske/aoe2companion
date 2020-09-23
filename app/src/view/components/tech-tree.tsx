@@ -1,19 +1,19 @@
-import {Civ, civDict, civs, getCivHasBuilding, getCivHasTech, getCivHasUnit} from "../../helper/civs";
-import {getTechIcon, Tech} from "../../helper/techs";
-import {getOtherIcon, getUnitIcon, getUnitLineForUnit, Other, Unit} from "../../helper/units";
+import {Civ, civDict, civs, getCivHasBuilding, getCivHasTech, getCivHasUnit} from "../../../../data/src/helper/civs";
+import {getTechIcon, Tech} from "../../../../data/src/helper/techs";
+import {getOtherIcon, getUnitIcon, getUnitLineForUnit, Other, Unit} from "../../../../data/src/helper/units";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {Dimensions, ImageBackground, StyleSheet, TouchableOpacity, View, Platform} from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import React from "react";
-import {aoeCivKey} from "../../data/data";
+import {aoeCivKey} from "../../../../data/src/data/data";
 import {MyText} from "./my-text";
-import {Building, getBuildingIcon} from "../../helper/buildings";
+import {Building, getBuildingIcon} from "../../../../data/src/helper/buildings";
 import {capitalize} from "lodash-es";
 import {setPrefValue, useMutate, useSelector} from "../../redux/reducer";
 import {saveCurrentPrefsToStorage} from "../../service/storage";
 import ButtonPicker from "./button-picker";
-import {windowWidth} from "../../helper/util";
+import {windowWidth} from "../../../../data/src/helper/util";
 
 
 export function TechTree({civ}: {civ: aoeCivKey}) {

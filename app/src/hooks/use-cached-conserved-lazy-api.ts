@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
 import { AppState, useMutate, useSelector } from '../redux/reducer';
-import {sleep} from "../helper/util";
+import {sleep} from "../../../data/src/helper/util";
 
 type UnPromisify<T> = T extends Promise<infer U> ? U:T;
 

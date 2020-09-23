@@ -1,5 +1,5 @@
 import { aoeDataInternal } from './aoe-data';
-import {merge} from "lodash-es";
+import {merge} from "lodash";
 
 export type aoeStringKey = keyof typeof aoeData.strings;
 export type aoeTechDataId = keyof typeof aoeData.data.techs;

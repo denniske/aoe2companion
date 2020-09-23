@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Image, Platform, SectionList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
-import {Building, getBuildingDescription, getBuildingIcon, getBuildingName} from "../../helper/buildings";
+import {Building, getBuildingDescription, getBuildingIcon, getBuildingName} from "../../../../data/src/helper/buildings";
 import {MyText} from "../components/my-text";
 import {iconHeight, iconWidth} from "../../helper/theme";
 import {ITheme, makeVariants, useTheme} from "../../theming";

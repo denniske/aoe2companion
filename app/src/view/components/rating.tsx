@@ -1,6 +1,6 @@
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import { formatDateShort, formatMonth, formatTime, formatYear, windowWidth } from '../../helper/util';
+import { formatDateShort, formatMonth, formatTime, formatYear, windowWidth } from '../../../../data/src/helper/util';
 import {getLeaderboardColor, getLeaderboardTextColor} from '../../helper/colors';
 import {IRatingHistoryRow} from '../../service/rating';
 import {TextLoader} from "./loader/text-loader";

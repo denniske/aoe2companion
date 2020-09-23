@@ -1,4 +1,4 @@
-import {keysOf} from "./util";
+import {keysOf} from "../../../data/src/helper/util";
 import {uniq} from "lodash-es";
 
 const flagList = {

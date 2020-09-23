@@ -2,12 +2,12 @@ import React from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import {RouteProp, useRoute} from "@react-navigation/native";
 import {RootStackParamList} from "../../../App";
-import {getTechIcon, getTechName, Tech, techs} from "../../helper/techs";
+import {getTechIcon, getTechName, Tech, techs} from "../../../../data/src/helper/techs";
 import IconHeader from "../components/navigation-header/icon-header";
 import TextHeader from "../components/navigation-header/text-header";
 import TechDetails from "./tech-details";
 import TechList from "./tech-list";
-import {getCivIcon} from "../../helper/civs";
+import {getCivIcon} from "../../../../data/src/helper/civs";
 
 
 export function TechTitle(props: any) {

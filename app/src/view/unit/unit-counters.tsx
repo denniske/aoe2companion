@@ -6,7 +6,7 @@ import {
     filterUnits,
     getInferiorUnitLines, getUnitLineIcon, getUnitLineIdForUnit, getUnitLineName, sortUnitCounter,
     Unit, UnitLine, unitLines
-} from "../../helper/units";
+} from "../../../../data/src/helper/units";
 import {Checkbox} from "react-native-paper";
 import {MyText} from "../components/my-text";
 import {iconSmallHeight, iconSmallWidth} from "../../helper/theme";

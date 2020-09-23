@@ -2,10 +2,10 @@ import React from 'react';
 import {Image, ImageBackground, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {
     Civ, civDict, civs, getCivDescription, getCivHistoryImage, getCivIconByIndex, getCivTeamBonus, parseCivDescription
-} from "../helper/civs";
+} from "../../../data/src/helper/civs";
 import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {RootStackParamList, RootStackProp} from "../../App";
-import {aoeCivKey} from "../data/data";
+import {aoeCivKey} from "../../../data/src/data/data";
 import IconHeader from "./components/navigation-header/icon-header";
 import TextHeader from "./components/navigation-header/text-header";
 import {TechTree} from "./components/tech-tree";

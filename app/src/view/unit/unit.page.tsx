@@ -4,14 +4,14 @@ import {RouteProp, useRoute} from "@react-navigation/native";
 import {RootStackParamList} from "../../../App";
 import {
     getUnitIcon, getUnitLineForUnit, getUnitLineIcon, getUnitLineName, getUnitName, Unit, UnitLine
-} from "../../helper/units";
-import {aoeCivKey} from "../../data/data";
+} from "../../../../data/src/helper/units";
+import {aoeCivKey} from "../../../../data/src/data/data";
 import IconHeader from "../components/navigation-header/icon-header";
 import TextHeader from "../components/navigation-header/text-header";
 import UnitDetails from "./unit-details";
 import UnitList from "./unit-list";
-import {getTechIcon, getTechName, techs} from "../../helper/techs";
-import {getCivIcon} from "../../helper/civs";
+import {getTechIcon, getTechName, techs} from "../../../../data/src/helper/techs";
+import {getCivIcon} from "../../../../data/src/helper/civs";
 
 
 export function UnitTitle(props: any) {

@@ -1,12 +1,12 @@
-import {Tech} from "../../helper/techs";
+import {Tech} from "../../../../data/src/helper/techs";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
-import {Unit} from "../../helper/units";
-import {Civ, civs, getCivIcon} from "../../helper/civs";
+import {Unit} from "../../../../data/src/helper/units";
+import {Civ, civs, getCivIcon} from "../../../../data/src/helper/civs";
 import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import {MyText} from "./my-text";
 import React from "react";
-import {Building} from "../../helper/buildings";
+import {Building} from "../../../../data/src/helper/buildings";
 import {getAbilityEnabled} from "./tech-tree";
 import Space from "./space";
 

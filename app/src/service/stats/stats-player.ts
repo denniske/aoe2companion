@@ -1,4 +1,4 @@
-import {sleep} from "../../helper/util";
+import {sleep} from "../../../../data/src/helper/util";
 import {composeUserId, sameUser, UserIdBase} from "../../helper/user";
 import {orderBy, uniqBy} from "lodash-es";
 import {IMatch, IPlayer, validMatch} from "../../helper/data";

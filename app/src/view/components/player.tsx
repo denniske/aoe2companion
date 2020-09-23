@@ -3,7 +3,7 @@ import {Image, StyleSheet, TextStyle, TouchableOpacity, View} from 'react-native
 import {getPlayerBackgroundColor} from '../../helper/colors';
 import {useNavigation} from '@react-navigation/native';
 import {userIdFromBase} from '../../helper/user';
-import {civs, getCivIconByIndex} from '../../helper/civs';
+import {civs, getCivIconByIndex} from '../../../../data/src/helper/civs';
 import {getString} from '../../helper/strings';
 import {RootStackProp} from '../../../App';
 import {getSlotTypeName, IPlayer} from "../../helper/data";

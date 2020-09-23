@@ -1,6 +1,6 @@
 import Constants from 'expo-constants';
 import {Platform} from "react-native";
-import {sleep} from "../helper/util";
+import {sleep} from "../../../data/src/helper/util";
 import {checkForUpdateAsync, fetchUpdateAsync, UpdateCheckResult} from "expo-updates";
 import {lt} from "semver";
 

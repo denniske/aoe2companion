@@ -4,15 +4,45 @@ import {makeStyles, useTheme} from '@material-ui/core/styles';
 import {Paper} from "@material-ui/core";
 import {useAppStyles} from "../components/app-styles";
 import {withApollo} from "../../apollo/client";
+import {civs, getCivTeamBonus} from "@nex/data";
+import {getCivIconByIndex} from "../helper/civs";
+import {iconHeight, iconWidth} from "../../../app/src/helper/theme";
+// import Link from "next/link";
+import Link from "../components/link";
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
     },
+    icon: {
+        width: iconWidth,
+        height: iconHeight,
+    },
+    name: {},
+    civBlock: {
+        display: 'flex',
+        flexDirection: 'row',
+        marginTop: 8,
+        marginBottom: 8,
+        // cursor: 'pointer',
+        // backgroundColor: 'yellow',
+    },
+    civRow: {
+        flex: 1,
+        marginLeft: 10,
+        // backgroundColor: 'blue',
+    },
+    civList: {
+        // backgroundColor: 'red',
+    },
+    small: {
+        fontSize: 12,
+        color: '#333',
+    },
 }));
 
 
-function Civilization(props) {
+function Civilization() {
     const appClasses = useAppStyles();
     const classes = useStyles();
     const theme = useTheme();
@@ -21,14 +51,27 @@ function Civilization(props) {
         <div>
             <Paper className={appClasses.box}>
                 <Typography variant="body1" noWrap>
-                    Civilization
+                    Civilizations
                 </Typography>
-                <Typography variant="subtitle2"  noWrap>
-                    RM 1v1
-                </Typography>
+                <br/>
+
+                {
+                    civs.map((civ, i) =>
+                        <Link key={civ.toString()} href='/civilization/[id]' as={`/civilization/${civ}`} naked>
+                            <div className={classes.civBlock}>
+                                <img src={getCivIconByIndex(i)} className={classes.icon}/>
+                                <div className={classes.civRow}>
+                                    <div className={classes.name}>{civ}</div>
+                                    <div className={classes.small}>{getCivTeamBonus(civ)}</div>
+                                </div>
+                            </div>
+                        </Link>
+                    )
+                }
+
             </Paper>
         </div>
     );
 }
 
-export default withApollo(Civilization, {ssr:false})
+export default withApollo(Civilization, {ssr:true})

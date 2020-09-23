@@ -3,14 +3,14 @@ import {MyText} from "../components/my-text";
 import {
     attackClasses, getOtherIcon, getUnitClassName, getUnitData, getUnitIcon, getUnitLineIdForUnit, getUnitName,
     hiddenArmourClasses, IUnitInfo, Other, sortResources, Unit, UnitClassNumber, UnitLine, unitLines
-} from "../../helper/units";
+} from "../../../../data/src/helper/units";
 import React, {useState} from "react";
 import {ITheme, makeVariants, useTheme} from "../../theming";
-import {keysOf} from "../../helper/util";
+import {keysOf} from "../../../../data/src/helper/util";
 import Picker from "../components/picker";
 import {allUnitSections} from "./unit-list";
 import Space from "../components/space";
-import {Building, getBuildingData, IBuildingInfo} from "../../helper/buildings";
+import {Building, getBuildingData, IBuildingInfo} from "../../../../data/src/helper/buildings";
 
 interface Props {
     unitId: Unit;

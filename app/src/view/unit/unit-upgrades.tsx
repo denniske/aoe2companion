@@ -2,16 +2,16 @@ import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import {MyText} from "../components/my-text";
 import {
     getEliteUniqueResearchIcon, getUnitIcon, getUnitName, getUnitUpgradeCost, Unit, UnitLine, unitLines
-} from "../../helper/units";
+} from "../../../../data/src/helper/units";
 import React from "react";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import {iconSmallHeight, iconSmallWidth} from "../../helper/theme";
-import {effectNames, getEffectName, getTechIcon, getTechName, Tech, techEffectDict} from "../../helper/techs";
+import {effectNames, getEffectName, getTechIcon, getTechName, Tech, techEffectDict} from "../../../../data/src/helper/techs";
 import {appVariants} from "../../styles";
-import {Civ} from "../../helper/civs";
+import {Civ} from "../../../../data/src/helper/civs";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
-import {keysOf} from "../../helper/util";
+import {keysOf} from "../../../../data/src/helper/util";
 import Space from "../components/space";
 import {Costs} from "./unit-costs";
 

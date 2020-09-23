@@ -2,10 +2,10 @@ import {Image, StyleSheet, View} from "react-native";
 import {MyText} from "../components/my-text";
 import {
     getOtherIcon, getUnitData, ICostDict, Other, sortResources, Unit, UnitLine, unitLines
-} from "../../helper/units";
+} from "../../../../data/src/helper/units";
 import React from "react";
 import {ITheme, makeVariants, useTheme} from "../../theming";
-import {keysOf} from "../../helper/util";
+import {keysOf} from "../../../../data/src/helper/util";
 import {GetUnitValue} from "./unit-stats";
 
 
