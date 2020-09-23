@@ -33,6 +33,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { getChangeColor } from 'web/src/components/util';
+import ListItem from "@material-ui/core/ListItem";
 
 
 const ProfileQuery = gql`
@@ -150,8 +151,8 @@ function ProfilePage() {
   useEffect(() => {
     // console.log(page);
     // console.log(profile?.stats[0].opponents);
-    setFilteredAllies(profile?.stats?.[0].allies.filter((x, i) => i > page * 10 && i < (page+1)*10));
-    setFilteredOpponents(profile?.stats?.[0].opponents.filter((x, i) => i > page * 10 && i < (page+1)*10));
+    setFilteredAllies(profile?.stats?.[0].allies.filter((x, i) => i >= page * 10 && i < (page+1)*10));
+    setFilteredOpponents(profile?.stats?.[0].opponents.filter((x, i) => i >= page * 10 && i < (page+1)*10));
   }, [page, profile]);
 
   return (
@@ -279,7 +280,7 @@ function ProfilePage() {
                 }
                 {
                   filteredAllies?.length > 0 && filteredAllies.map((statsEntry) => (
-                      <TableRow key={statsEntry.name}>
+                      <TableRow key={statsEntry.name} hover>
                         <TableCell component="th" scope="row">
                           <div className={classes.row}>
                             <img src={getFlagIcon(statsEntry.country)} className={classes.flagIcon}/>
@@ -319,7 +320,7 @@ function ProfilePage() {
                 }
                 {
                   filteredOpponents?.map((statsEntry) => (
-                      <TableRow key={statsEntry.name}>
+                      <TableRow key={statsEntry.name} hover>
                         <TableCell component="th" scope="row">
                           <div className={classes.row}>
                             <Link href='/profile/[id]' as={`/profile/${statsEntry.profile_id}`}>
@@ -356,7 +357,7 @@ function ProfilePage() {
                   </TableHead>
                   <TableBody>
                     {profile?.stats[0].civ.map((statsEntry) => (
-                        <TableRow key={getCivName(statsEntry.civ)}>
+                        <TableRow key={getCivName(statsEntry.civ)} hover>
                           <TableCell component="th" scope="row">
                             <div className={classes.row}>
                               <img src={getCivIconByIndex(statsEntry.civ)} className={classes.civIcon}/>
@@ -385,7 +386,7 @@ function ProfilePage() {
                   </TableHead>
                   <TableBody>
                     {profile?.stats[0].map_type.map((statsEntry) => (
-                        <TableRow key={getMapName(statsEntry.map_type)}>
+                        <TableRow key={getMapName(statsEntry.map_type)} hover>
                           <TableCell component="th" scope="row">
                             <div className={classes.row}>
                               <img src={getMapImage(statsEntry.map_type)} className={classes.mapIcon}/>
