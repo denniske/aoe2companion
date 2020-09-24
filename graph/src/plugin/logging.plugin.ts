@@ -27,6 +27,7 @@ export class LoggingPlugin implements ApolloServerPlugin {
     if (operationName === 'IntrospectionQuery') return;
     return new BasicLoggingListener();
   }
+  [key: string]: any;
 }
 
 class BasicLoggingListener implements GraphQLRequestListener {

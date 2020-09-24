@@ -10,21 +10,26 @@ services:
     volumes:
       - ssl_data:/etc/resty-auto-ssl
     environment:
-      ALLOWED_DOMAINS: 'preview.aoe2companion.com, graphql.aoe2companion.com'
-      SITES: 'preview.aoe2companion.com=website:80, graphql.aoe2companion.com=graphql:80'
+      ALLOWED_DOMAINS: 'aoe2companion.com'
+      SITES: 'preview.aoe2companion.com=website:80;graphql.aoe2companion.com=graphql:80'
 
   # your application, listening on port specified in `SITES` env variable
   graphql:
     image: denniske/aoe2companion-graphql:$COMMIT_SHA1
     restart: on-failure
     environment:
+      PORT: 80
+      SERVICE_NAME: 'graphql'
       DATABASE_URL: '${CONTAINER_DATABASE_URL}'
   website:
     image: denniske/aoe2companion-website:$COMMIT_SHA1
     restart: on-failure
     environment:
-      NEXT_PUBLIC_API_URL: '${CONTAINER_API_URL}'
-      NEXT_PUBLIC_ENVIRONMENT: '${CONTAINER_ENVIRONMENT}'
+      PORT: 80
+      NEXT_PUBLIC_API_URL: 'graphql.aoe2companion.com/graphql'
+      NEXT_PUBLIC_ENVIRONMENT: 'production'
+#      NEXT_PUBLIC_API_URL: '${CONTAINER_API_URL}'
+#      NEXT_PUBLIC_ENVIRONMENT: '${CONTAINER_ENVIRONMENT}'
 
 volumes:
   ssl_data:

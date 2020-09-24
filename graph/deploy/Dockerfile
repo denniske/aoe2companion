@@ -8,7 +8,7 @@ COPY node_modules ./
 
 COPY graph/deploy/package.json ./
 COPY graph/prisma ./
-COPY package-lock.json ./
+COPY yarn.lock ./
 RUN npm install
 
 COPY dist ./dist

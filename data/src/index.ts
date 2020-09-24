@@ -6,7 +6,6 @@ export * from './lib/leaderboard';
 export * from './lib/util';
 export * from './lib/flag';
 export * from './lib/theme';
-export * from './hooks/use-previous';
 export * from './data/data';
 export * from './data/civs';
 export * from './helper/civs';

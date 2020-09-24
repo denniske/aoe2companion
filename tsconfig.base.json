@@ -20,7 +20,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@nex/data": ["data/src/index.ts"]
+      "@nex/data": ["data/src/index.ts"],
+      "@nex/data/hooks": ["data/src/index-hooks.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
