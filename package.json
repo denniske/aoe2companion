@@ -13,6 +13,7 @@
     "import": "SERVICE_NAME=import nx serve graph",
     "metric": "SERVICE_NAME=metric nx serve graph",
     "rank": "SERVICE_NAME=rank nx serve graph",
+    "notify": "SERVICE_NAME=notify nx serve graph",
     "build:website": "next build website",
     "start:website:prod:80": "next start website -p 80"
   },
@@ -33,6 +34,7 @@
     "@nestjs/graphql": "^7.6.0",
     "@nestjs/platform-express": "^7.0.0",
     "@nestjs/schedule": "^0.4.0",
+    "@nestjs/typeorm": "^7.1.4",
     "@nexus/schema": "0.15.0",
     "@prisma/client": "^2.5.1",
     "@react-native-community/async-storage": "~1.11.0",

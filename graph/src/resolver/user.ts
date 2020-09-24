@@ -1,19 +1,14 @@
-import {
-    Args, ArgsType, Field, Mutation, Parent, Query, ResolveField, Resolver, Root
-} from "@nestjs/graphql";
-import {createDB} from "../db";
-import {Match, MatchList} from "../object/match";
-import {upsertMatchesWithPlayers} from "../entity/entity-helper";
-import {PrismaClient} from "@prisma/client";
-import {fetchMatch} from "../helper";
-import {myTodoList} from "@nex/data";
-import {fromUnixTime} from "date-fns";
+import {Args, Query, Resolver} from "@nestjs/graphql";
 import {User} from "../object/user";
+import {PrismaService} from "../service/prisma.service";
 
-const prisma = new PrismaClient()
 
 @Resolver(of => User)
 export class UserResolver {
+
+    constructor(
+        private prisma: PrismaService,
+    ) {}
 
     @Query(returns => [User])
     async users(
@@ -21,7 +16,7 @@ export class UserResolver {
     ) {
         search = `%${search}%`;
 
-        const users = await prisma.$queryRaw`
+        const users = await this.prisma.$queryRaw`
           SELECT profile_id, MIN(name) as name, MIN(country) as country, SUM(games) as games
           FROM leaderboard_row
           WHERE name ILIKE ${search}

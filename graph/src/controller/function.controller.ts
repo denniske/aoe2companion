@@ -1,25 +1,10 @@
 import {Controller, Get, OnModuleInit, Request, Response} from '@nestjs/common';
-
 import {differenceInMinutes, getUnixTime} from "date-fns";
 import {getParam, time} from "../util";
-import {createDB} from "../db";
 import {getValue} from "../helper";
-import {PrismaClient} from "@prisma/client";
+import {Connection} from "typeorm";
+import {PrismaService} from "../service/prisma.service";
 
-
-const prisma = new PrismaClient({
-    // log: ['query', 'info', 'warn'],
-});
-
-prisma.$use(async (params, next) => {
-    const before = Date.now();
-    const result = await next(params);
-    const after = Date.now();
-    console.log(
-        `Query ${params.model}.${params.action} took ${after - before}ms`
-    );
-    return result;
-});
 
 const cache: Record<string, number> = {};
 let cacheUpdated: Date = null;
@@ -29,25 +14,30 @@ interface IRow {
     count: string;
 }
 
-async function updateCache() {
-    if (cacheUpdated && differenceInMinutes(new Date(), cacheUpdated) < 1) return;
-    cacheUpdated = new Date();
-
-    const connection = await createDB();
-    console.log('Update cache...');
-    const rows: IRow[] = await connection.manager.query('SELECT DISTINCT(leaderboard_id) as key, COUNT(*) FROM leaderboard_row GROUP BY leaderboard_id', []);
-    rows.forEach(row => cache[`(${row.key},null)`] = parseInt(row.count));
-    const rows2: IRow[] = await connection.manager.query('SELECT DISTINCT(leaderboard_id, country) as key, COUNT(*) FROM leaderboard_row GROUP BY leaderboard_id, country', []);
-    rows2.forEach(row => cache[row.key] = parseInt(row.count));
-    // console.log('cache', cache);
-    console.log('done');
-}
 
 @Controller()
 export class FunctionController implements OnModuleInit {
 
+    constructor(
+        private connection: Connection,
+        private prisma: PrismaService
+    ) {}
+
     async onModuleInit() {
-        await updateCache();
+        await this.updateCache();
+    }
+
+    async updateCache() {
+        if (cacheUpdated && differenceInMinutes(new Date(), cacheUpdated) < 1) return;
+        cacheUpdated = new Date();
+
+        console.log('Update cache...');
+        const rows: IRow[] = await this.connection.manager.query('SELECT DISTINCT(leaderboard_id) as key, COUNT(*) FROM leaderboard_row GROUP BY leaderboard_id', []);
+        rows.forEach(row => cache[`(${row.key},null)`] = parseInt(row.count));
+        const rows2: IRow[] = await this.connection.manager.query('SELECT DISTINCT(leaderboard_id, country) as key, COUNT(*) FROM leaderboard_row GROUP BY leaderboard_id, country', []);
+        rows2.forEach(row => cache[row.key] = parseInt(row.count));
+        // console.log('cache', cache);
+        console.log('done');
     }
 
     @Get('/api/leaderboard')
@@ -55,7 +45,6 @@ export class FunctionController implements OnModuleInit {
         @Request() req,
         @Response() res,
     ) {
-        const connection = await createDB();
         time(1);
         console.log('params:', req.query);
 
@@ -88,12 +77,12 @@ export class FunctionController implements OnModuleInit {
                     message: 'Invalid or missing params',
                 }, null, 2),
             });
-            updateCache();
+            this.updateCache();
             return;
         }
 
         // @ts-ignore
-        const leaderboardUpdated = new Date(await getValue('leaderboardUpdated')) || new Date(1970);
+        const leaderboardUpdated = new Date(await getValue(this.connection, 'leaderboardUpdated')) || new Date(1970);
 
         time();
 
@@ -104,7 +93,7 @@ export class FunctionController implements OnModuleInit {
         if (steamId != null || profileId != null) {
             console.log('HAS id');
 
-            const users = await prisma.leaderboard_row.findMany({
+            const users = await this.prisma.leaderboard_row.findMany({
                 where: {
                     leaderboard_id: leaderboardId,
                     ...(country && { country }),
@@ -127,13 +116,13 @@ export class FunctionController implements OnModuleInit {
                 }),
             });
             time();
-            updateCache();
+            this.updateCache();
             return;
         }
 
         console.log('HAS default');
 
-        const users = await prisma.leaderboard_row.findMany({
+        const users = await this.prisma.leaderboard_row.findMany({
             where: {
                 leaderboard_id: leaderboardId,
                 ...(country && { country }),
@@ -161,6 +150,6 @@ export class FunctionController implements OnModuleInit {
             }),
         });
         time();
-        updateCache();
+        this.updateCache();
     }
 }

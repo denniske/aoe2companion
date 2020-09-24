@@ -1,13 +1,11 @@
 import fetch from "node-fetch";
 import {uniqBy} from "lodash";
-import {createDB} from "./db";
 import {KeyValue} from "./entity/keyvalue";
 import {IRatingHistoryEntryRaw} from "./entity/entity-helper";
 import {IMatchRaw} from "./util";
+import {Connection} from "typeorm";
 
-export async function setValue(id: string, value: any) {
-    const connection = await createDB();
-
+export async function setValue(connection: Connection, id: string, value: any) {
     const keyValue = new KeyValue();
     keyValue.id = id;
     keyValue.value = JSON.stringify(value);
@@ -21,8 +19,7 @@ export async function setValue(id: string, value: any) {
     await query.execute();
 }
 
-export async function getValue(id: string) {
-    const connection = await createDB();
+export async function getValue(connection: Connection, id: string) {
     const keyValue = await connection.manager.findOne(KeyValue, id);
     return JSON.parse(keyValue?.value ?? null);
 }

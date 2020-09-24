@@ -1,15 +1,14 @@
 import {
     Args, ArgsType, Field, Int, Mutation, Parent, Query, ResolveField, Resolver, Root
 } from "@nestjs/graphql";
-import {createDB} from "../db";
 import {Match, MatchList} from "../object/match";
 import {upsertMatchesWithPlayers} from "../entity/entity-helper";
-import {PrismaClient} from "@prisma/client";
 import {fetchMatch} from "../helper";
 import {myTodoList} from "@nex/data";
 import {fromUnixTime} from "date-fns";
+import {PrismaService} from "../service/prisma.service";
+import {Connection} from "typeorm";
 
-const prisma = new PrismaClient()
 
 // @ArgsType()
 // class MatchArgs {
@@ -25,12 +24,17 @@ const prisma = new PrismaClient()
 @Resolver(of => Match)
 export class MatchResolver {
 
+    constructor(
+        private connection: Connection,
+        private prisma: PrismaService,
+    ) {}
+
     @Query(returns => Match)
     async match(
         @Args("match_id", {nullable: true}) match_id?: string,
         @Args("match_uuid", {nullable: true}) match_uuid?: string
     ) {
-        let match = await prisma.match.findOne({
+        let match = await this.prisma.match.findOne({
             include: {
                 players: true,
             },
@@ -41,15 +45,13 @@ export class MatchResolver {
 
         console.log('myTodoList.length:', myTodoList.length);
 
-        const connection = await createDB();
-
         if (match.finished == null) {
             console.log('REFETCH');
             const refetchedMatch = await fetchMatch('aoe2de', { match_id: match.match_id, uuid: match.match_uuid });
             console.log('REFETCHED', refetchedMatch);
             if (refetchedMatch.finished) {
-                await upsertMatchesWithPlayers(connection, [refetchedMatch]);
-                match = await prisma.match.findOne({
+                await upsertMatchesWithPlayers(this.connection, [refetchedMatch]);
+                match = await this.prisma.match.findOne({
                     include: {
                         players: true,
                     },
@@ -81,7 +83,7 @@ export class MatchResolver {
 
         let matchIds: any = null;
         if (leaderboard_id != null) {
-            matchIds = await prisma.$queryRaw`
+            matchIds = await this.prisma.$queryRaw`
             SELECT m.match_id
             FROM player as p
             JOIN match as m ON m.match_id = p.match_id
@@ -98,7 +100,7 @@ export class MatchResolver {
             LIMIT ${count}
           `;
         } else {
-            matchIds = await prisma.$queryRaw`
+            matchIds = await this.prisma.$queryRaw`
             SELECT m.match_id
             FROM player as p
             JOIN match as m ON m.match_id = p.match_id
@@ -118,7 +120,7 @@ export class MatchResolver {
         // This will not automatically fetch needed match ids
         // const matches = matchIds;
 
-        const matches = await prisma.match.findMany({
+        const matches = await this.prisma.match.findMany({
             include: {
                 players: true,
             },
@@ -140,7 +142,7 @@ export class MatchResolver {
 
     @ResolveField()
     async players(@Parent() match: Match) {
-        return match.players || prisma.match
+        return match.players || this.prisma.match
             .findOne({
                 where: {
                     match_id: match.match_id

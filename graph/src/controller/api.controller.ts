@@ -1,13 +1,16 @@
 import {Body, Controller, Post} from '@nestjs/common';
 import {time} from "../util";
-import {getRepository, In, Not} from "typeorm";
-import {createDB} from "../db";
+import {Connection, getRepository, In, Not} from "typeorm";
 import {Account} from "../entity/account";
 import {Following} from "../entity/following";
 
 
 @Controller()
 export class ApiController {
+
+    constructor(
+        private connection: Connection,
+    ) {}
 
     @Post('/follow')
     async follow(
@@ -16,12 +19,11 @@ export class ApiController {
         @Body('enabled') enabled: boolean,
     ) {
         time(1);
-        const connection = await createDB();
 
         // console.log('/follow');
         // console.log(req.body);
 
-        const query = connection.createQueryBuilder().insert().into(Account).values({id: account_id}).orIgnore();
+        const query = this.connection.createQueryBuilder().insert().into(Account).values({id: account_id}).orIgnore();
         await query.execute();
 
         time();
@@ -47,16 +49,15 @@ export class ApiController {
         @Body('profile_ids') profile_ids: number[],
     ) {
         time(1);
-        const connection = await createDB();
 
         // console.log('/follow');
         // console.log(req.body);
 
-        const query = connection.createQueryBuilder().insert().into(Account).values({id: account_id}).orIgnore();
+        const query = this.connection.createQueryBuilder().insert().into(Account).values({id: account_id}).orIgnore();
         await query.execute();
 
         time();
-        const query2 = connection.createQueryBuilder()
+        const query2 = this.connection.createQueryBuilder()
             .delete()
             .from(Following)
             .where({ account: { id: account_id }, profile_id: In(profile_ids) });
@@ -72,12 +73,11 @@ export class ApiController {
         @Body('push_token') push_token: string,
     ) {
         time(1);
-        const connection = await createDB();
 
         // console.log('/follow');
         // console.log(req.body);
 
-        const query = connection.createQueryBuilder()
+        const query = this.connection.createQueryBuilder()
             .update(Account)
             .set({
                 push_token: null,
@@ -106,7 +106,6 @@ export class ApiController {
         @Body('steam_id') steam_id: string,
     ) {
         time(1);
-        const connection = await createDB();
 
         // console.log('/follow');
         // console.log(req.body);
@@ -132,12 +131,11 @@ export class ApiController {
         @Body('push_enabled') push_enabled: boolean,
     ) {
         time(1);
-        const connection = await createDB();
 
         // console.log('/follow');
         // console.log(req.body);
 
-        const query = connection.createQueryBuilder()
+        const query = this.connection.createQueryBuilder()
             .update(Following)
             .set({
                 enabled: push_enabled,

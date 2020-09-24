@@ -1,35 +1,15 @@
 import {Controller, Get} from '@nestjs/common';
-
 import {differenceInMinutes, fromUnixTime, getUnixTime, subDays, subMinutes} from "date-fns";
-import {PrismaClient} from "@prisma/client";
 import {time} from "../util";
+import {PrismaService} from "../service/prisma.service";
 
-
-const prisma = new PrismaClient({
-    log: ['query', 'info', 'warn'],
-});
-
-prisma.$use(async (params, next) => {
-    const before = Date.now();
-    const result = await next(params);
-    const after = Date.now();
-    console.log(
-        `Query ${params.model}.${params.action} took ${after - before}ms`
-    );
-    return result;
-});
-
-// (prisma.$on as any)('query', (e: any) => {
-//     e.timestamp;
-//     e.query;
-//     e.params;
-//     e.duration;
-//     e.target;
-//     console.log(e);
-// });
 
 @Controller()
 export class MetricController {
+
+    constructor(
+        private prisma: PrismaService
+    ) {}
 
     @Get()
     async get() {
@@ -37,7 +17,7 @@ export class MetricController {
         const fiveMinutesAgo = subMinutes(new Date(), 5);
         console.log('fiveMinutesAgo', fiveMinutesAgo);
 
-        const sentPushNotifications = await prisma.push.aggregate({
+        const sentPushNotifications = await this.prisma.push.aggregate({
             count: true,
             where: {
                 AND: [
@@ -47,7 +27,7 @@ export class MetricController {
             },
         });
 
-        const importedMatches = await prisma.match.aggregate({
+        const importedMatches = await this.prisma.match.aggregate({
             count: true,
             where: {
                 AND: [
@@ -59,7 +39,7 @@ export class MetricController {
         const oneDayAgo = subDays(new Date(), 1);
         console.log('oneDayAgo', oneDayAgo);
 
-        const unfinishedMatches = await prisma.match.aggregate({
+        const unfinishedMatches = await this.prisma.match.aggregate({
             count: true,
             where: {
                 AND: [
@@ -69,7 +49,7 @@ export class MetricController {
             },
         });
 
-        const finishedMatches = await prisma.match.aggregate({
+        const finishedMatches = await this.prisma.match.aggregate({
             count: true,
             where: {
                 AND: [
@@ -79,7 +59,7 @@ export class MetricController {
             },
         });
 
-        // const finishedButUndecidedMatches = await prisma.match.aggregate({
+        // const finishedButUndecidedMatches = await this.prisma.match.aggregate({
         //     count: true,
         //     where: {
         //         AND: [
@@ -92,7 +72,7 @@ export class MetricController {
         //     },
         // });
 
-        const leaderboardLastMatchTime = await prisma.leaderboard_row.aggregate({
+        const leaderboardLastMatchTime = await this.prisma.leaderboard_row.aggregate({
             max: {
                 last_match_time: true,
             },

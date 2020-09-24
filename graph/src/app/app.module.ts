@@ -22,11 +22,57 @@ import {LeaderboardResolver} from "../resolver/leaderboard";
 import {LoggingPlugin} from "../plugin/logging.plugin";
 import {environment} from "../environments/environment";
 import {RankTask} from "../task/rank.task";
-
+import {PrismaService} from "../service/prisma.service";
+import { TypeOrmModule } from '@nestjs/typeorm';
+import {Account} from "../entity/account";
+import {Push} from "../entity/push";
+import {Match} from "../entity/match";
+import {Player} from "../entity/player";
+import {Following} from "../entity/following";
+import {KeyValue} from "../entity/keyvalue";
+import {User} from "../entity/user";
+import {LeaderboardRow} from "../entity/leaderboard-row";
+import {RatingHistory} from "../entity/rating-history";
+import {SnakeNamingStrategy} from "typeorm-naming-strategies";
+import {Repository} from "typeorm";
 
 @Module({
-    providers: [],
+    imports: [
+        TypeOrmModule.forRoot({
+            type: "postgres",
+            url: process.env.DATABASE_URL,
+            entities: [
+                Account,
+                Push,
+                Match,
+                Player,
+                Following,
+                KeyValue,
+                User,
+                LeaderboardRow,
+                RatingHistory,
+            ],
+            // entities: getMetadataArgsStorage().tables.map(tbl => tbl.target),
+            synchronize: process.env.LOCAL === 'true',
+            logging: false && process.env.LOCAL === 'true',//!!process.env.IS_OFFLINE,
+            namingStrategy: new SnakeNamingStrategy(),
+        }),
+    ],
 })
+export class CustomTypeOrmModule {}
+
+@Module({
+    providers: [
+        PrismaService,
+    ],
+    exports: [
+        PrismaService,
+    ],
+})
+export class PrismaModule {
+}
+
+@Module({})
 export class TaskAndControllerModule {
     static forRoot(): DynamicModule {
         const providers = [];
@@ -75,6 +121,10 @@ export class TaskAndControllerModule {
         }
 
         return {
+            imports: [
+                TypeOrmModule.forFeature([Push]),
+                PrismaModule,
+            ],
             module: TaskAndControllerModule,
             controllers: controllers,
             providers: providers,
@@ -83,9 +133,7 @@ export class TaskAndControllerModule {
     }
 }
 
-@Module({
-    providers: [],
-})
+@Module({})
 export class ResolverModule {
     static forRoot(): DynamicModule {
         const providers = [];
@@ -111,6 +159,10 @@ export class ResolverModule {
         }
 
         return {
+            imports: [
+                CustomTypeOrmModule,
+                PrismaModule,
+            ],
             module: ResolverModule,
             controllers: controllers,
             providers: providers,
@@ -131,7 +183,6 @@ export class SchemaJsonTask implements OnModuleInit {
         this.logger.log('Created schema.json');
     }
 }
-
 
 @Module({
     imports: [

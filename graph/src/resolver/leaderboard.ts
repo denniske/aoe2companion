@@ -1,11 +1,7 @@
 import {Parent, ResolveField, Resolver} from "@nestjs/graphql";
-import {PrismaClient} from "@prisma/client";
 import {fromUnixTime} from "date-fns";
 import {Leaderboard} from "../object/leaderboard";
-import {LeaderboardRow} from "../entity/leaderboard-row";
 
-
-const prisma = new PrismaClient()
 
 @Resolver(of => Leaderboard)
 export class LeaderboardResolver {
