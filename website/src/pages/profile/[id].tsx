@@ -120,7 +120,8 @@ function TabPanel(props) {
 function ProfilePage() {
   const appClasses = useAppStyles();
   const classes = useStyles();
-  const profileId = 289006; //parseInt(useRouter().query.id as string);
+  const profileIdStr = useRouter().query.id as string;
+  const profileId = profileIdStr ? parseInt(profileIdStr) : 289006;
 
   const [filteredAllies, setFilteredAllies] = React.useState(null);
   const [filteredOpponents, setFilteredOpponents] = React.useState(null);

@@ -73,4 +73,5 @@ function Civilization() {
     );
 }
 
-export default withApollo(Civilization, {ssr:true})
+export default Civilization
+// export default withApollo(Civilization, {ssr:true})

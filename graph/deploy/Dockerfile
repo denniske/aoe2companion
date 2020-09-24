@@ -9,7 +9,7 @@ COPY node_modules ./
 COPY graph/deploy/package.json ./
 COPY graph/prisma ./
 COPY yarn.lock ./
-RUN npm install
+RUN yarn
 
 COPY dist ./dist
 
