@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {AgGridReact} from 'ag-grid-react';
 import {GridApi, GridOptions, RowClickedEvent} from "ag-grid-community";
-import {Country, fetchLeaderboard, formatAgo, parseUnixTimestamp, usePrevious} from "@nex/data";
+import {Country, fetchLeaderboard, formatAgo, parseUnixTimestamp} from "@nex/data";
 import NameCellRenderer from "./cell-renderer/name.cell-renderer";
 import RatingCellRenderer from "./cell-renderer/rating.cell-renderer";
 import {useRouter} from "next/router";
+import {usePrevious} from "@nex/data/hooks";
 
 
 interface Props {
