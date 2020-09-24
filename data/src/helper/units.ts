@@ -1,7 +1,7 @@
 import {TechEffect} from "./techs";
 import {sortBy} from "lodash";
 import {Civ} from "./civs";
-import {getAllMatches, strRemoveFrom, strRemoveTo, unwrap} from "../lib/util";
+import {getAllMatches, strRemoveFrom, strRemoveTo, unwrap, ValueOf} from "../lib/util";
 import {aoeData, aoeStringKey, aoeUnitDataId} from "../data/data";
 
 
