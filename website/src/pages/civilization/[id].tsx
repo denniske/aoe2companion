@@ -107,7 +107,7 @@ function Civilization({id}: any) {
 
 export async function getStaticPaths() {
     // Get the paths we want to pre-render based on posts
-    const paths = [civs].map((post) => `/civilization/${post}`)
+    const paths = civs.map((post) => `/civilization/${post}`)
 
     // We'll pre-render only these paths at build time.
     // { fallback: false } means other routes should 404.
