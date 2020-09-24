@@ -1,12 +1,12 @@
+import {Tech, techs} from "./techs";
+import {Unit, units} from "./units";
+import {Building, buildings} from "./buildings";
 import {
     civsConfig, defaultDisabledBuildings, defaultDisabledUnits, horseDisabledBuildings, horseDisabledTechs,
     horseDisabledUnits
-} from "..";
-import {Tech, techs} from "./techs";
-import {sanitizeGameDescription, unwrap} from "..";
-import {Unit, UnitLine, units} from "./units";
-import {Building, buildings} from "./buildings";
-import {aoeData, aoeStringKey} from "..";
+} from "../data/civs";
+import {aoeData, aoeStringKey} from "../data/data";
+import {sanitizeGameDescription, unwrap} from "../lib/util";
 
 export const civs = [
     'Aztecs',

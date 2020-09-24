@@ -1,6 +1,6 @@
-import {aoeBuildingDataId, aoeData, aoeStringKey} from "..";
-import {sanitizeGameDescription, strRemoveFrom, strRemoveTo, unwrap} from "..";
 import {ICostDict} from "./units";
+import {aoeBuildingDataId, aoeData, aoeStringKey} from "../data/data";
+import {sanitizeGameDescription, strRemoveFrom, strRemoveTo, unwrap} from "../lib/util";
 
 interface IBuilding {
     dataId: aoeBuildingDataId;

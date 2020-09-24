@@ -1,7 +1,7 @@
-import {aoeData, aoeStringKey, aoeTechDataId} from "..";
 import {Civ} from "./civs";
-import {sanitizeGameDescription, strRemoveTo, unwrap} from "..";
 import {ICostDict, Unit} from "./units";
+import {aoeData, aoeStringKey, aoeTechDataId} from "../data/data";
+import {sanitizeGameDescription, strRemoveTo, unwrap} from "../lib/util";
 
 export type Effect =
     'carryCapacity' |
