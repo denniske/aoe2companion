@@ -12,7 +12,7 @@ RUN yarn
 # Copying source files
 COPY . /usr/src/app
 
-ENV NEXT_PUBLIC_API_URL=graphql.aoe2companion.com/graphql
+ENV NEXT_PUBLIC_API_URL=https://graphql.aoe2companion.com/graphql
 ENV NEXT_PUBLIC_ENVIRONMENT=production
 
 # Building app
