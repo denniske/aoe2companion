@@ -26,7 +26,7 @@ export function createStylesheet<T extends NamedStyles<T>>(styles: T): StyleFrom
         }
     }
 
-    console.log(styles);
+    // console.log(styles);
 
     const mystyles = styles as any;
     return makeStyles(theme => mystyles) as any as StyleFromProp<T>;
