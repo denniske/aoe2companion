@@ -36,7 +36,6 @@ export function civTitle(props: any) {
 export function CivDetails({civ}: {civ: aoeCivKey}) {
     const styles = useTheme(variants);
     const civDescription = parseCivDescription(civ);
-    const civDescription2 = getCivDescription(civ);
 
     const {type, boni, uniqueUnitsTitle, uniqueTechsTitle, teamBonusTitle, teamBonus} = civDescription;
 

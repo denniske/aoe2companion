@@ -1,3 +1,5 @@
+import {Civ} from "@nex/data";
+import {civHistoryList, civIconList} from "../../../app/src/helper/civs";
 
 export const civs = [
     'Aztecs',
@@ -43,4 +45,12 @@ export function getCivName(civ: number) {
 
 export function getCivIconByIndex(civ: number) {
     return '/civilizations/' + getCivName(civ).toLowerCase() + '.png';
+}
+
+export function getCivIcon(civ: Civ) {
+    return '/civilizations/' + civ.toLowerCase() + '.png';
+}
+
+export function getCivHistoryImage(civ: Civ) {
+    return '/history/civs/history_' + civ.toLowerCase() + '.png';
 }

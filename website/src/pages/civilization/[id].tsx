@@ -1,13 +1,20 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import {makeStyles, useTheme} from '@material-ui/core/styles';
+import {useTheme} from '@material-ui/core/styles';
 import {Paper} from "@material-ui/core";
-import {Civ, civs, iconHeight, iconWidth, parseCivDescription} from "@nex/data";
-import {useRouter} from "next/router";
+import {
+    Civ, civDict, civs, getTechDescription, getTechName, getUnitName, iconHeight, iconWidth, parseCivDescription, techs,
+    Unit
+} from "@nex/data";
 import {useAppStyles} from "../../components/app-styles";
-import {withApollo} from "../../../apollo/client";
+import {MyLink} from "../../components/link";
+import {getUnitIcon} from "../../helper/units";
+import {createStylesheet} from "../../helper/styles";
+import {getCivIcon} from "../../helper/civs";
+import {getTechIcon} from "../../helper/techs";
 
-const useStyles = makeStyles((theme) => ({
+
+const useStyles = createStylesheet({
     root: {
         display: 'flex',
     },
@@ -19,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     civBlock: {
         display: 'flex',
         flexDirection: 'row',
-        marginTop: 8,
+        marginTodp: 8,
         marginBottom: 8,
         // cursor: 'pointer',
         // backgroundColor: 'yellow',
@@ -63,14 +70,43 @@ const useStyles = makeStyles((theme) => ({
         // fontSize: 17,
     },
 
-}));
+    rowBig: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 10, // TODO ROLLBACK
+        // backgroundColor: 'blue',
+    },
+    unitIconBig: {
+        width: iconWidth,
+        height: iconHeight,
+        // borderWidth: 1,
+        // borderColor: '#555',
+    },
+    unitIconBigTitle: {
+        flex: 1,
+        paddingLeft: 8,
+        // backgroundColor: 'red',
+    },
+    unitIconBigBanner: {
+        position: 'absolute',
+        width: iconWidth/2.0,
+        height: iconHeight/2.0,
+        left: iconWidth/2.0,
+        bottom: -1,//iconHeight/2.0,
+    },
+    relativeContainer: {
+        position: "relative",
+        width: iconWidth,
+        height: iconHeight,
+    },
+})
 
 
 function Civilization({id}: any) {
     const appClasses = useAppStyles();
     const classes = useStyles();
     const theme = useTheme();
-    // const civ = useRouter().query.id as Civ;
     const civ = id as Civ;
 
     const civDescription = parseCivDescription(civ);
@@ -100,8 +136,80 @@ function Civilization({id}: any) {
                     }
                 </div>
 
+                <div className={classes.box}>
+                    <div className={classes.heading}>Unique Unit</div>
+                    {
+                        civDict[civ].uniqueUnits.map(unit =>
+                            <UnitCompBig key={unit} unit={unit}/>
+                        )
+                    }
+                </div>
+
+                <div className={classes.box}>
+                    <div className={classes.heading}>Unique Tech</div>
+                    {
+                        civDict[civ].uniqueTechs.map(tech =>
+                            <TechCompBig key={tech} tech={tech}/>
+                        )
+                    }
+                </div>
+
+                <div className={classes.box}>
+                    <div className={classes.heading}>{teamBonusTitle.replace(':', '')}</div>
+                    <div className={classes.content}>{teamBonus}</div>
+                </div>
             </Paper>
         </div>
+    );
+}
+
+export function UnitCompBig({unit, subtitle}: {unit: Unit, subtitle?: string}) {
+    const classes = useStyles();
+    return (
+        <MyLink href='/unit/[id]' as={`/unit/${unit}`} naked>
+            <div className={classes.rowBig}>
+                <img src={getUnitIcon(unit)} className={classes.unitIconBig}/>
+                <div className={classes.unitIconBigTitle}>
+                    <div>{getUnitName(unit)}</div>
+                    {
+                        subtitle != null &&
+                        <div className={classes.small}>{subtitle}</div>
+                    }
+                </div>
+            </div>
+        </MyLink>
+    );
+}
+
+function TechIcon({tech: tech} : any) {
+    const classes = useStyles();
+    const techInfo = techs[tech];
+
+    if (techInfo.civ) {
+        return (
+            <div className={classes.relativeContainer}>
+                <img className={classes.unitIconBig} src={getTechIcon(tech)}/>
+                <img className={classes.unitIconBigBanner} src={getCivIcon(techInfo.civ)}/>
+            </div>
+        );
+    }
+
+    return <img className={classes.unitIconBig} src={getTechIcon(tech)}/>;
+}
+
+function TechCompBig({tech: tech, showCivBanner: showCivBanner}: any) {
+    const classes = useStyles();
+
+    return (
+        <MyLink href='/tech/[id]' as={`/tech/${tech}`} naked>
+            <div className={classes.rowBig}>
+                <TechIcon className={classes.unitIconBig} tech={tech}/>
+                <div className={classes.unitIconBigTitle}>
+                    <div>{getTechName(tech)}</div>
+                    <div className={classes.small}>{getTechDescription(tech)}</div>
+                </div>
+            </div>
+        </MyLink>
     );
 }
 
