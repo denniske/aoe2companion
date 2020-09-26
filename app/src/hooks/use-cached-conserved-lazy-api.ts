@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
 import { AppState, useMutate, useSelector } from '../redux/reducer';
-import {sleep} from "../../../data/src/helper/util";
+import {sleep} from "@nex/data";
 
 type UnPromisify<T> = T extends Promise<infer U> ? U:T;
 
@@ -28,7 +28,7 @@ export function useCachedConservedLazyApi<A extends (...args: any) => any>(dep: 
         // So we call an async function to force running asynchronously.
         await sleep(1000);
 
-        const data = await action(...args);
+        const data = await action(...(args as any));
 
         if (!mountedRef.current) {
             console.log('unmounted2');

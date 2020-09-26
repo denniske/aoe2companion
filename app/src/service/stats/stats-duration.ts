@@ -1,7 +1,7 @@
 import {IMatch, validMatch} from "../../helper/data";
 import {sameUser, UserIdBase} from "../../helper/user";
 import {differenceInMinutes} from "date-fns";
-import {getSpeedFactor} from "../../helper/speed";
+import {AoeSpeed, getSpeedFactor} from "../../helper/speed";
 
 export interface IParam {
     matches?: IMatch[];
@@ -24,7 +24,7 @@ const durations = [
 function matchDuration(match: IMatch, durationIndex: number) {
     if (!match.started || !match.finished) return false;
 
-    const diffInMinutes = differenceInMinutes(match.finished, match.started) * getSpeedFactor(match.speed);
+    const diffInMinutes = differenceInMinutes(match.finished, match.started) * getSpeedFactor(match.speed as AoeSpeed);
 
     if (diffInMinutes < 5 && durationIndex === 0) return true;
     if (diffInMinutes >= 5 && diffInMinutes < 30 && durationIndex === 1) return true;

@@ -1,6 +1,6 @@
 import {IMatch, validMatch} from "../../helper/data";
 import {sameUser, UserIdBase} from "../../helper/user";
-import {Civ, civs} from "../../../../data/src/helper/civs";
+import {Civ, civs} from "@nex/data";
 import {orderBy} from "lodash-es";
 
 export interface IParam {

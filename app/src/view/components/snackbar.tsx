@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import {Button, Surface, Theme, Text, withTheme} from "react-native-paper";
 import {useEffect, useState} from "react";
-import {usePrevious} from "@nex/data";
+import {usePrevious} from "@nex/data/hooks";
 
 type Props = React.ComponentProps<typeof Surface> & {
     visible: boolean;

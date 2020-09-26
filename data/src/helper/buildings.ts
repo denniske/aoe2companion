@@ -1,4 +1,4 @@
-import {ICostDict} from "./units";
+import {ICostDict, IUnitClassPair} from "./units";
 import {aoeBuildingDataId, aoeData, aoeStringKey} from "../data/data";
 import {sanitizeGameDescription, strRemoveFrom, strRemoveTo, unwrap} from "../lib/util";
 
@@ -182,11 +182,13 @@ export interface IBuildingInfo {
     LanguageHelpId: number;
     LanguageNameId: number;
     Attack: number;
+    Attacks: ReadonlyArray<IUnitClassPair>;
     GarrisonCapacity: number;
     HP: number;
     LineOfSight: number;
     MeleeArmor: number;
     PierceArmor: number;
+    Armours: ReadonlyArray<IUnitClassPair>;
     Range: number;
     TrainTime: number;
 }

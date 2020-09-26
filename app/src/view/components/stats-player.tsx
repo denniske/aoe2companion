@@ -12,7 +12,7 @@ import {ITheme, makeVariants, useAppTheme, usePaperTheme, useTheme} from "../../
 import {LeaderboardId} from "../../helper/leaderboards";
 import {useLazyApi} from "../../hooks/use-lazy-api";
 import {loadUser} from "../../service/user";
-import { sleep } from '../../../../data/src/helper/util';
+import { sleep } from '@nex/data';
 import {IRow} from "../../service/stats/stats-player";
 import {Button} from "react-native-paper";
 import Space from "./space";

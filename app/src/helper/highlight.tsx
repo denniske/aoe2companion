@@ -2,9 +2,8 @@ import {useTheme} from "../theming";
 import {appVariants} from "../styles";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../App";
-import {getTechName, techList} from "../../../data/src/helper/techs";
-import {getUnitName, hasUnitLine, Unit, units} from "../../../data/src/helper/units";
-import {escapeRegExpFn} from "../../../data/src/helper/util";
+import {escapeRegExpFn, getTechName, techList} from "@nex/data";
+import {getUnitName, hasUnitLine, Unit, units} from "@nex/data";
 import {MyText} from "../view/components/my-text";
 import React from "react";
 

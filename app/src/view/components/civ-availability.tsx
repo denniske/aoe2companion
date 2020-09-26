@@ -1,14 +1,12 @@
-import {Tech} from "../../../../data/src/helper/techs";
+import {Building, Civ, civs, Tech, Unit} from "@nex/data";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
-import {Unit} from "../../../../data/src/helper/units";
-import {Civ, civs, getCivIcon} from "../../../../data/src/helper/civs";
 import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import {MyText} from "./my-text";
 import React from "react";
-import {Building} from "../../../../data/src/helper/buildings";
 import {getAbilityEnabled} from "./tech-tree";
 import Space from "./space";
+import {getCivIcon} from "../../helper/civs";
 
 
 interface CivAvailabilityProps {

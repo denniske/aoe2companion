@@ -1,5 +1,5 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import { formatAgo } from '../../../../data/src/helper/util';
+import { formatAgo } from '@nex/data';
 import React, {useEffect} from 'react';
 import {getLeaderboardTextColor} from '../../helper/colors';
 import {Flag, getFlagIcon} from '../../helper/flags';

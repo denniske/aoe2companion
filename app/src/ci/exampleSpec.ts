@@ -51,9 +51,9 @@ export default function (spec: any) {
             await sleep(waitTime);
             await capture();
 
-            tabNavigation.navigate('MainMatches');
-            await sleep(waitTime);
-            await capture();
+            // tabNavigation.navigate('MainMatches');
+            // await sleep(waitTime);
+            // await capture();
 
             navigation.navigate('Search', {});
             await sleep(1000);

@@ -1,15 +1,16 @@
 import React from 'react';
 import {Image, StyleSheet, View} from 'react-native';
-import {getBuildingData, getBuildingDescription, getBuildingName, Building} from "../../../../data/src/helper/buildings";
+import {getBuildingData, getBuildingDescription, getBuildingName, Building} from "@nex/data";
 import Fandom from "../components/fandom";
-import {getOtherIcon, Other, sortResources} from "../../../../data/src/helper/units";
+import {Other, sortResources} from "@nex/data";
 import {MyText} from "../components/my-text";
-import {keysOf} from "../../../../data/src/helper/util";
+import {keysOf} from "@nex/data";
 import {useTheme} from "../../theming";
 import {appVariants} from "../../styles";
 import CivAvailability from "../components/civ-availability";
 import Space from "../components/space";
 import {BuildingStats} from "./building-stats";
+import {getOtherIcon} from "../../helper/units";
 
 
 export default function BuildingDetails({building}: {building: Building}) {

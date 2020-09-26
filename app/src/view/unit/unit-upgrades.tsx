@@ -1,19 +1,18 @@
 import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import {MyText} from "../components/my-text";
 import {
-    getEliteUniqueResearchIcon, getUnitIcon, getUnitName, getUnitUpgradeCost, Unit, UnitLine, unitLines
-} from "../../../../data/src/helper/units";
+    Civ, effectNames, getEffectName, getTechName, getUnitName, getUnitUpgradeCost, iconSmallHeight, iconSmallWidth,
+    keysOf, Tech, techEffectDict, Unit, UnitLine, unitLines
+} from "@nex/data";
 import React from "react";
 import {ITheme, makeVariants, useTheme} from "../../theming";
-import {iconSmallHeight, iconSmallWidth} from "../../../../data/src/lib/theme";
-import {effectNames, getEffectName, getTechIcon, getTechName, Tech, techEffectDict} from "../../../../data/src/helper/techs";
 import {appVariants} from "../../styles";
-import {Civ} from "../../../../data/src/helper/civs";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
-import {keysOf} from "../../../../data/src/helper/util";
 import Space from "../components/space";
 import {Costs} from "./unit-costs";
+import {getTechIcon} from "../../helper/techs";
+import {getEliteUniqueResearchIcon, getUnitIcon} from "../../helper/units";
 
 interface Props {
     unitLineId: UnitLine;

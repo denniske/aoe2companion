@@ -3,7 +3,7 @@ import {composeUserId, sameUser} from "../helper/user";
 import {loadFollowingFromStorage, saveFollowingToStorage} from "./storage";
 import {follow, unfollow} from "../api/following";
 import store from "../redux/store";
-import {time} from "../../../data/src/helper/util";
+import {time} from "@nex/data";
 
 const maxFollowing = 30;
 

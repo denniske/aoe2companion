@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
 import { AppState, useMutate, useSelector } from '../redux/reducer';
-import {sleep} from "../../../data/src/helper/util";
+import {sleep} from "@nex/data";
 
 type UnPromisify<T> = T extends Promise<infer U> ? U:T;
 
@@ -31,7 +31,7 @@ export function useApi<A extends (...args: any) => any>(options: ILazyApiOptions
         // So we call an async function to force running asynchronously.
         await sleep(0);
 
-        let newData = await action(...args) as UnPromisify<ReturnType<A>>;
+        let newData = await action(...(args as any)) as UnPromisify<ReturnType<A>>;
 
         if (!mountedRef.current) {
             console.log('unmounted2');

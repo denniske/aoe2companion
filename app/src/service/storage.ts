@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native';
-import { sleep } from '../../../data/src/helper/util';
+import { sleep } from '@nex/data';
 import {composeUserId, sameUser} from "../helper/user";
 import {Flag} from "../helper/flags";
 import {IPlayerListPlayer} from "../view/components/player-list";

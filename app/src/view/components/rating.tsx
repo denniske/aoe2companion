@@ -1,6 +1,6 @@
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import { formatDateShort, formatMonth, formatTime, formatYear, windowWidth } from '../../../../data/src/helper/util';
+import { formatDateShort, formatMonth, formatTime, formatYear } from '@nex/data';
 import {getLeaderboardColor, getLeaderboardTextColor} from '../../helper/colors';
 import {IRatingHistoryRow} from '../../service/rating';
 import {TextLoader} from "./loader/text-loader";
@@ -14,6 +14,7 @@ import ButtonPicker from "./button-picker";
 import {saveCurrentPrefsToStorage} from "../../service/storage";
 import {isAfter, subDays, subMonths, subWeeks} from "date-fns";
 import {VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTheme} from "../../helper/victory";
+import {windowWidth} from "../leaderboard.page";
 
 interface IRatingProps {
     ratingHistories: IRatingHistoryRow[];

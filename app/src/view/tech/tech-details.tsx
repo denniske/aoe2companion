@@ -3,19 +3,20 @@ import {Image, StyleSheet, View} from 'react-native';
 import {
     Effect, effectNames, getEffectName, getTechData, getTechDescription, getTechName, ITechEffect, Tech, techEffectDict,
     techs
-} from "../../../../data/src/helper/techs";
+} from "@nex/data";
 import Fandom from "../components/fandom";
 import {
-    getOtherIcon, getUnitLineIdForUnit, Other, sortedUnitLines, sortResources, Unit, UnitLine, unitLines
-} from "../../../../data/src/helper/units";
+    getUnitLineIdForUnit, Other, sortedUnitLines, sortResources, Unit, UnitLine, unitLines
+} from "@nex/data";
 import {MyText} from "../components/my-text";
-import {keysOf} from "../../../../data/src/helper/util";
+import {keysOf} from "@nex/data";
 import {useTheme} from "../../theming";
 import {appVariants} from "../../styles";
 import {UnitCompBig} from "../unit/unit-list";
 import {capitalize} from "lodash-es";
 import CivAvailability from "../components/civ-availability";
 import Space from "../components/space";
+import {getOtherIcon} from "../../helper/units";
 
 
 function hasUpgrade(unitLineId: UnitLine, tech: Tech) {

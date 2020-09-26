@@ -1,20 +1,21 @@
 import React from 'react';
 import {Image, ImageBackground, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {
-    Civ, civDict, civs, getCivDescription, getCivHistoryImage, getCivIconByIndex, getCivTeamBonus, parseCivDescription
-} from "../../../data/src/helper/civs";
+    Civ, civDict, civs, getCivDescription, getCivTeamBonus, parseCivDescription
+} from "@nex/data";
 import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {RootStackParamList, RootStackProp} from "../../App";
-import {aoeCivKey} from "../../../data/src/data/data";
+import {aoeCivKey} from "@nex/data";
 import IconHeader from "./components/navigation-header/icon-header";
 import TextHeader from "./components/navigation-header/text-header";
 import {TechTree} from "./components/tech-tree";
 import {UnitCompBig} from "./unit/unit-list";
 import {TechCompBig} from "./tech/tech-list";
 import {MyText} from "./components/my-text";
-import {iconHeight, iconWidth} from "../../../data/src/lib/theme";
+import {iconHeight, iconWidth} from "@nex/data";
 import {ITheme, makeVariants, useTheme} from "../theming";
 import {highlightUnitAndTechs} from "../helper/highlight";
+import {getCivHistoryImage, getCivIconByIndex} from "../helper/civs";
 
 
 export function CivTitle(props: any) {

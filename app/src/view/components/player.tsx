@@ -3,15 +3,15 @@ import {Image, StyleSheet, TextStyle, TouchableOpacity, View} from 'react-native
 import {getPlayerBackgroundColor} from '../../helper/colors';
 import {useNavigation} from '@react-navigation/native';
 import {userIdFromBase} from '../../helper/user';
-import {civs, getCivIconByIndex} from '../../../../data/src/helper/civs';
+import {civs} from '@nex/data';
 import {getString} from '../../helper/strings';
 import {RootStackProp} from '../../../App';
 import {getSlotTypeName, IPlayer} from "../../helper/data";
 import {TextLoader} from "./loader/text-loader";
 import IconFA5 from 'react-native-vector-icons/FontAwesome5';
 import {MyText} from "./my-text";
-import {useSelector} from "../../redux/reducer";
 import {ITheme, makeVariants, useTheme} from "../../theming";
+import {getCivIconByIndex} from "../../helper/civs";
 
 interface IPlayerProps {
     player: IPlayer;

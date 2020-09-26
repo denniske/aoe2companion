@@ -1,6 +1,6 @@
 import {Image, ImageBackground, StyleSheet, Text, View} from 'react-native';
 import {getString} from '../../helper/strings';
-import {formatAgo} from '../../../../data/src/helper/util';
+import {formatAgo} from '@nex/data';
 import React from 'react';
 import {Player, PlayerSkeleton} from './player';
 import MyListAccordion from './accordion';

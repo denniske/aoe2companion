@@ -2,11 +2,12 @@ import React from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import {RouteProp, useRoute} from "@react-navigation/native";
 import {RootStackParamList} from "../../../App";
-import {getBuildingIcon, getBuildingName, Building, buildings} from "../../../../data/src/helper/buildings";
+import {getBuildingName, Building, buildings} from "@nex/data";
 import IconHeader from "../components/navigation-header/icon-header";
 import TextHeader from "../components/navigation-header/text-header";
 import BuildingDetails from "./building-details";
 import BuildingList from "./building-list";
+import {getBuildingIcon} from "../../helper/buildings";
 
 
 export function BuildingTitle(props: any) {

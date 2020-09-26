@@ -2,16 +2,12 @@ import React from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import {RouteProp, useRoute} from "@react-navigation/native";
 import {RootStackParamList} from "../../../App";
-import {
-    getUnitIcon, getUnitLineForUnit, getUnitLineIcon, getUnitLineName, getUnitName, Unit, UnitLine
-} from "../../../../data/src/helper/units";
-import {aoeCivKey} from "../../../../data/src/data/data";
+import {getUnitLineForUnit, getUnitName, Unit} from "@nex/data";
 import IconHeader from "../components/navigation-header/icon-header";
 import TextHeader from "../components/navigation-header/text-header";
 import UnitDetails from "./unit-details";
 import UnitList from "./unit-list";
-import {getTechIcon, getTechName, techs} from "../../../../data/src/helper/techs";
-import {getCivIcon} from "../../../../data/src/helper/civs";
+import {getUnitIcon} from "../../helper/units";
 
 
 export function UnitTitle(props: any) {

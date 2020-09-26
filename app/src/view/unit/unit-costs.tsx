@@ -1,12 +1,13 @@
 import {Image, StyleSheet, View} from "react-native";
 import {MyText} from "../components/my-text";
 import {
-    getOtherIcon, getUnitData, ICostDict, Other, sortResources, Unit, UnitLine, unitLines
-} from "../../../../data/src/helper/units";
+    getUnitData, ICostDict, Other, sortResources, Unit, UnitLine, unitLines
+} from "@nex/data";
 import React from "react";
 import {ITheme, makeVariants, useTheme} from "../../theming";
-import {keysOf} from "../../../../data/src/helper/util";
+import {keysOf} from "@nex/data";
 import {GetUnitValue} from "./unit-stats";
+import {getOtherIcon} from "../../helper/units";
 
 
 export function Costs({ costDict }: { costDict: ICostDict }) {

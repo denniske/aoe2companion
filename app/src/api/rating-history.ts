@@ -1,4 +1,4 @@
-import { makeQueryString } from '../../../data/src/helper/util';
+import { makeQueryString } from '@nex/data';
 import {IRatingHistoryEntry, IRatingHistoryEntryRaw} from "../helper/data";
 import {fromUnixTime} from "date-fns";
 import {LeaderboardId} from "../helper/leaderboards";

@@ -1,16 +1,17 @@
 import {Image, StyleSheet, Text, TextStyle, View} from "react-native";
 import {MyText} from "../components/my-text";
 import {
-    attackClasses, getOtherIcon, getUnitClassName, getUnitData, getUnitIcon, getUnitLineIdForUnit, getUnitName,
+    attackClasses, getUnitClassName, getUnitData, getUnitLineIdForUnit, getUnitName,
     hiddenArmourClasses, IUnitInfo, Other, sortResources, Unit, UnitClassNumber, UnitLine, unitLines
-} from "../../../../data/src/helper/units";
+} from "@nex/data";
 import React, {useState} from "react";
 import {ITheme, makeVariants, useTheme} from "../../theming";
-import {keysOf} from "../../../../data/src/helper/util";
+import {keysOf} from "@nex/data";
 import Picker from "../components/picker";
 import {allUnitSections} from "./unit-list";
 import Space from "../components/space";
-import {Building, getBuildingData, IBuildingInfo} from "../../../../data/src/helper/buildings";
+import {Building, getBuildingData, IBuildingInfo} from "@nex/data";
+import {getOtherIcon, getUnitIcon} from "../../helper/units";
 
 interface Props {
     unitId: Unit;

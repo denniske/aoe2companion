@@ -2,13 +2,15 @@ import React, {useEffect, useState} from 'react';
 import {Image, Platform, SectionList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
-import {getTechDescription, getTechIcon, getTechName, Tech, techs} from "../../../../data/src/helper/techs";
+import {getTechDescription, getTechName, Tech, techs} from "@nex/data";
 import {MyText} from "../components/my-text";
-import {iconHeight, iconWidth} from "../../../../data/src/lib/theme";
+import {iconHeight, iconWidth} from "@nex/data";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import {Searchbar} from "react-native-paper";
-import {civDict, civs, getCivIcon} from "../../../../data/src/helper/civs";
+import {civDict, civs} from "@nex/data";
 import {FinalDarkMode} from "../../redux/reducer";
+import {getTechIcon} from "../../helper/techs";
+import {getCivIcon} from "../../helper/civs";
 
 
 export function TechComp({tech: tech}: any) {

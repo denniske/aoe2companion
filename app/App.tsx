@@ -36,12 +36,12 @@ import ExampleSpec from './src/ci/exampleSpec';
 import LeaderboardPage, {leaderboardMenu, LeaderboardTitle} from "./src/view/leaderboard.page";
 import GuidePage from "./src/view/guide.page";
 import CivPage, {CivTitle, civTitle} from "./src/view/civ.page";
-import {Civ} from "../data/src/helper/civs";
+import {Civ} from "@nex/data";
 import UnitPage, {UnitTitle, unitTitle} from "./src/view/unit/unit.page";
-import {Unit} from "../data/src/helper/units";
+import {Unit} from "@nex/data";
 import {navigationRef} from "./src/service/navigation";
 import Footer from "./src/view/components/footer";
-import {Tech} from "../data/src/helper/techs";
+import {Tech} from "@nex/data";
 import TechPage, {techTitle, TechTitle} from "./src/view/tech/tech.page";
 import FeedPage, {feedMenu, feedTitle} from "./src/view/feed.page";
 import {MyText} from "./src/view/components/my-text";
@@ -53,7 +53,7 @@ import {AppearanceProvider, useColorScheme} from "react-native-appearance";
 import {NavigationState} from "@react-navigation/routers";
 import ChangelogPage from "./src/view/changelog.page";
 import ChangelogSnackbar from "./src/view/components/snackbar/changelog-snackbar";
-import {Building} from "../data/src/helper/buildings";
+import {Building} from "@nex/data";
 import BuildingPage, {BuildingTitle, buildingTitle} from "./src/view/building/building.page";
 import LivePage from "./src/view/live.page";
 import PushPage from "./src/view/push.page";
@@ -89,8 +89,12 @@ YellowBox.ignoreWarnings(['Remote debugger']);
 
 // HACK: Prevent "Expo pasted from CoreSimulator" notification from spamming continuously
 if (__DEV__) {
-    Clipboard.setString('')
+    Clipboard.setString('');
 }
+
+const h1 = 5;
+
+const h2: number = 5;
 
 const linking: LinkingOptions = {
     prefixes: ['https://aoe2companion.com', 'aoe2companion://'],

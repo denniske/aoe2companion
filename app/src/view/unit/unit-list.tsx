@@ -3,19 +3,15 @@ import {Image, Platform, SectionList, StyleSheet, Text, TouchableOpacity, View} 
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {
-    getRelatedUnitLines,
-    getUnitIcon, getUnitLineForUnit, getUnitLineIcon, getUnitLineIdForUnit, getUnitLineName, getUnitLineNameForUnit,
-    getUnitName, IUnitLine,
-    Unit, UnitLine,
-    unitLines, units
-} from "../../../../data/src/helper/units";
+    civDict, civs, getRelatedUnitLines, getUnitLineForUnit, getUnitLineIdForUnit, getUnitLineName, getUnitName,
+    iconHeight, iconWidth, IUnitLine, Unit, UnitLine, unitLines
+} from "@nex/data";
 import {MyText} from "../components/my-text";
-import {iconHeight, iconWidth} from "../../../../data/src/lib/theme";
 import {ITheme, makeVariants, useTheme} from "../../theming";
 import {Searchbar} from "react-native-paper";
-import {civDict, civs} from "../../../../data/src/helper/civs";
 import {sortBy} from "lodash-es";
 import {FinalDarkMode} from "../../redux/reducer";
+import {getUnitIcon, getUnitLineIcon} from "../../helper/units";
 
 
 function getUnitLineTitle(unitLine: IUnitLine) {

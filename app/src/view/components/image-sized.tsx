@@ -1,6 +1,6 @@
 import {Image, ImageBackground, ImageBackgroundProps, ImageProps, ScrollView, StyleSheet, View} from "react-native";
 import React, {useEffect, useState} from "react";
-import {noop} from "../../../../data/src/helper/util";
+import {noop} from "@nex/data";
 
 export default function ImageSized(props: ImageBackgroundProps) {
     const [size, setSize] = useState({ width: 1, height: 1 });

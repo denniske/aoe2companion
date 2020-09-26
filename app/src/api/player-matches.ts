@@ -1,4 +1,4 @@
-import {makeQueryString, sleep} from '../../../data/src/helper/util';
+import {makeQueryString, sleep} from '@nex/data';
 import {IMatch, IMatchRaw} from "../helper/data";
 import {fromUnixTime} from "date-fns";
 import { getHost } from './host';

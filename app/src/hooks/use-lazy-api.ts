@@ -1,5 +1,5 @@
 import {useEffect, useRef, useState} from 'react';
-import {sleep} from "../../../data/src/helper/util";
+import {sleep} from "@nex/data";
 
 type UnPromisify<T> = T extends Promise<infer U> ? U : T;
 
@@ -26,7 +26,7 @@ export function useLazyApi<A extends (...args: any) => any>(options: ILazyApiOpt
         await sleep(0);
 
         try {
-            let newData = await action(...args) as UnPromisify<ReturnType<A>>;
+            let newData = await action(...(args as any)) as UnPromisify<ReturnType<A>>;
 
             if (append) {
                 if (!options.append) throw new Error('options.append not defined');

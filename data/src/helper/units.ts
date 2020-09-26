@@ -2667,7 +2667,7 @@ interface UnitDict {
     [unit: string]: IUnit;
 }
 
-interface IUnitClassPair {
+export interface IUnitClassPair {
     Amount: number;
     Class: UnitClassNumber,
 }

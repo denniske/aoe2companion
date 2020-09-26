@@ -3,11 +3,11 @@ import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {
-    getUnitLineIcon, getUnitLineIdForUnit, getUnitLineName, sortUnitCounter, Unit, UnitLine, unitLines
-} from "../../../../data/src/helper/units";
+    getUnitLineIdForUnit, getUnitLineName, iconSmallHeight, iconSmallWidth, sortUnitCounter, Unit, UnitLine, unitLines
+} from "@nex/data";
 import {MyText} from "../components/my-text";
-import {iconSmallHeight, iconSmallWidth} from "../../../../data/src/lib/theme";
 import {ITheme, makeVariants, useTheme} from "../../theming";
+import {getUnitLineIcon} from "../../helper/units";
 
 
 function CounterUnit({unitLineId}: { unitLineId: UnitLine }) {

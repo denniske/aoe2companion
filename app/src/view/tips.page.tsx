@@ -3,12 +3,9 @@ import {Image, ImageSourcePropType, Linking, ScrollView, Share, StyleSheet, Touc
 import {ITheme, makeVariants, useAppTheme, useTheme} from "../theming";
 import {MyText} from "./components/my-text";
 import {Video} from "expo-av";
-import {Unit} from "../../../data/src/helper/units";
-import {iconHeight, iconWidth} from "../../../data/src/lib/theme";
+import {Building, iconHeight, iconWidth, Tech, Unit} from "@nex/data";
 import IconFA5 from "react-native-vector-icons/FontAwesome5";
 import {AVPlaybackSource} from "expo-av/build/AV";
-import {Building} from "../../../data/src/helper/buildings";
-import {Tech} from "../../../data/src/helper/techs";
 import {getAbilityIcon} from "./components/tech-tree";
 import ImageSized from "./components/image-sized";
 

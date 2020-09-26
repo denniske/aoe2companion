@@ -1,19 +1,16 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {useEffect} from 'react';
-import {IMatch, validMatch} from "../../helper/data";
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import React from 'react';
+import {IMatch} from "../../helper/data";
 import {TextLoader} from "./loader/text-loader";
-import {Civ, civs, getCivIcon} from "../../../../data/src/helper/civs";
-import {orderBy} from "lodash-es";
+import {Civ} from "@nex/data";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
-import {sameUser, UserIdBase} from "../../helper/user";
+import {UserIdBase} from "../../helper/user";
 import {MyText} from "./my-text";
 import {ITheme, makeVariants, useTheme} from "../../theming";
-import {AoeMap, maps} from "../../helper/maps";
-import {useLazyApi} from "../../hooks/use-lazy-api";
-import {LeaderboardId} from "../../helper/leaderboards";
 import {IRow} from "../../service/stats/stats-civ";
 import Space from "./space";
+import {getCivIcon} from "../../helper/civs";
 
 
 interface IRowProps {

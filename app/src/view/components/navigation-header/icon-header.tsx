@@ -3,7 +3,7 @@ import {
 } from "react-native";
 import React from "react";
 import {MyText} from "../my-text";
-import {iconHeight, iconWidth} from "../../../../../data/src/lib/theme";
+import {iconHeight, iconWidth} from "@nex/data";
 import {ITheme, makeVariants, useTheme} from "../../../theming";
 
 interface IconHeaderProps {

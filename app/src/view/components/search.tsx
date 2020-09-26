@@ -9,7 +9,7 @@ import {getFlagIcon} from '../../helper/flags';
 import {MyText} from "./my-text";
 import RefreshControlThemed from "./refresh-control-themed";
 import {ITheme, makeVariants, useTheme} from "../../theming";
-import {usePrevious} from "@nex/data";
+import {usePrevious} from "@nex/data/hooks";
 
 interface IPlayerProps {
     player: IFetchedUser;

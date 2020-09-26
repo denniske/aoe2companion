@@ -1,6 +1,6 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {getString} from '../../helper/strings';
-import {formatAgo} from '../../../../data/src/helper/util';
+import {formatAgo} from '@nex/data';
 import React from 'react';
 import {LivePlayer} from './live-player';
 import {ILobbyMatchRaw, IMatch} from "../../helper/data";
