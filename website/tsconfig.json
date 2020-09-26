@@ -1,37 +1,23 @@
 {
-  "extend": "../tsconfig.json",
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "watch": false,
-    "outDir": "./dist",
-    "sourceMap": true,
-    "declaration": false,
-    "downlevelIteration": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "strictPropertyInitialization": false,
-    "esModuleInterop": true,
-    "importHelpers": true,
-    "resolveJsonModule": true,
-    "target": "es5",
-    "strict": true,
-    "strictNullChecks": false,
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018"
-    ],
+    "jsx": "preserve",
     "allowJs": true,
-    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "types": [
+      "node"
+    ],
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
+    "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
   },
   "include": [
-    "src/*.ts"
+    "**/*.ts",
+    "**/*.tsx",
+    "next-env.d.ts"
   ],
   "exclude": [
     "node_modules"

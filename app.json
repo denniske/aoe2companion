@@ -9,13 +9,13 @@
       "android"
     ],
     "userInterfaceStyle": "automatic",
-    "version": "16.0.1",
+    "version": "18.0.0",
     "orientation": "portrait",
     "privacy": "public",
     "githubUrl": "https://github.com/denniske/aoe2companion",
-    "icon": "./assets/icon.png",
+    "icon": "./app/assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./app/assets/splash.png",
       "resizeMode": "contain"
     },
     "updates": {
@@ -23,35 +23,35 @@
     },
     "assetBundlePatterns": [
       "node_modules/**",
-      "assets/civilizations/**",
-      "assets/flags/**",
-      "assets/font/**",
-      "assets/legal/**",
-      "assets/maps/**",
-      "assets/strings/**",
-      "assets/buildings/**",
-      "assets/techs/**",
-      "assets/units/**",
-      "assets/tips/icon/**",
-      "assets/tips/poster/**",
-      "assets/*"
+      "app/assets/civilizations/**",
+      "app/assets/flags/**",
+      "app/assets/font/**",
+      "app/assets/legal/**",
+      "app/assets/maps/**",
+      "app/assets/strings/**",
+      "app/assets/buildings/**",
+      "app/assets/techs/**",
+      "app/assets/units/**",
+      "app/assets/tips/icon/**",
+      "app/assets/tips/poster/**",
+      "app/assets/*"
     ],
     "notification": {
-      "icon": "./assets/notification.png"
+      "icon": "./app/assets/notification.png"
     },
     "android": {
       "userInterfaceStyle": "automatic",
       "package": "com.aoe2companion",
-      "versionCode": 160001,
+      "versionCode": 180000,
       "permissions": [],
       "googleServicesFile": "./google-services.json",
       "useNextNotificationsApi": true
     },
     "ios": {
       "userInterfaceStyle": "automatic",
-      "icon": "./assets/icon-no-alpha.png",
+      "icon": "./app/assets/icon-no-alpha.png",
       "bundleIdentifier": "com.aoe2companion",
-      "buildNumber": "16.0.1",
+      "buildNumber": "18.0.0",
       "supportsTablet": false,
       "config": {
         "usesNonExemptEncryption": false

@@ -1,0 +1,32 @@
+{
+  "npmScope": "nex",
+  "affected": {
+    "defaultBase": "master"
+  },
+  "implicitDependencies": {
+    "workspace.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.base.json": "*",
+    "nx.json": "*"
+  },
+  "tasksRunnerOptions": {
+  },
+  "projects": {
+    "data": {
+      "tags": []
+    },
+    "website": {
+      "tags": []
+    },
+    "web2": {
+      "tags": []
+    },
+    "graph": {
+      "tags": []
+    }
+  }
+}
+

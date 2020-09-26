@@ -1,0 +1,797 @@
+{
+    "language": "tr",
+    "age": [
+        {
+            "id": 0,
+            "string": "Normal"
+        },
+        {
+            "id": 2,
+            "string": "Karanlık Çağ"
+        },
+        {
+            "id": 3,
+            "string": "Feodal Çağ"
+        },
+        {
+            "id": 4,
+            "string": "Kale Çağı"
+        },
+        {
+            "id": 5,
+            "string": "İmparatorluk Çağı"
+        },
+        {
+            "id": 6,
+            "string": "İmparatorluk Ötesi Çağ"
+        }
+    ],
+    "civ": [
+        {
+            "id": 0,
+            "string": "Aztekler"
+        },
+        {
+            "id": 1,
+            "string": "Berberiler"
+        },
+        {
+            "id": 2,
+            "string": "Britonlar"
+        },
+        {
+            "id": 3,
+            "string": "Bulgarlar"
+        },
+        {
+            "id": 4,
+            "string": "Birmanlar"
+        },
+        {
+            "id": 5,
+            "string": "Bizanslılar"
+        },
+        {
+            "id": 6,
+            "string": "Keltler"
+        },
+        {
+            "id": 7,
+            "string": "Çinliler"
+        },
+        {
+            "id": 8,
+            "string": "Kumanlar"
+        },
+        {
+            "id": 9,
+            "string": "Etiyopyalılar"
+        },
+        {
+            "id": 10,
+            "string": "Franklar"
+        },
+        {
+            "id": 11,
+            "string": "Gotlar"
+        },
+        {
+            "id": 12,
+            "string": "Hunlar"
+        },
+        {
+            "id": 13,
+            "string": "İnkalar"
+        },
+        {
+            "id": 14,
+            "string": "Hintler"
+        },
+        {
+            "id": 15,
+            "string": "İtalyanlar"
+        },
+        {
+            "id": 16,
+            "string": "Japonlar"
+        },
+        {
+            "id": 17,
+            "string": "Kmerler"
+        },
+        {
+            "id": 18,
+            "string": "Koreliler"
+        },
+        {
+            "id": 19,
+            "string": "Litvanyalılar"
+        },
+        {
+            "id": 20,
+            "string": "Macarlar"
+        },
+        {
+            "id": 21,
+            "string": "Malaylar"
+        },
+        {
+            "id": 22,
+            "string": "Malililer"
+        },
+        {
+            "id": 23,
+            "string": "Mayalar"
+        },
+        {
+            "id": 24,
+            "string": "Moğollar"
+        },
+        {
+            "id": 25,
+            "string": "Persler"
+        },
+        {
+            "id": 26,
+            "string": "Portekizliler"
+        },
+        {
+            "id": 27,
+            "string": "Sarazenler"
+        },
+        {
+            "id": 28,
+            "string": "Slavlar"
+        },
+        {
+            "id": 29,
+            "string": "İspanyollar"
+        },
+        {
+            "id": 30,
+            "string": "Tatarlar"
+        },
+        {
+            "id": 31,
+            "string": "Tötonlar"
+        },
+        {
+            "id": 32,
+            "string": "Türkler"
+        },
+        {
+            "id": 33,
+            "string": "Vietnamlılar"
+        },
+        {
+            "id": 34,
+            "string": "Vikingler"
+        }
+    ],
+    "game_type": [
+        {
+            "id": 0,
+            "string": "Rastgele Harita"
+        },
+        {
+            "id": 1,
+            "string": "Kral Katili"
+        },
+        {
+            "id": 2,
+            "string": "Ölüm Karşılaşması"
+        },
+        {
+            "id": 3,
+            "string": "Senaryo"
+        },
+        {
+            "id": 6,
+            "string": "Tepenin Kralı"
+        },
+        {
+            "id": 7,
+            "string": "Dünya Harikası Yarışı"
+        },
+        {
+            "id": 8,
+            "string": "Dünya Harikası Savunması"
+        },
+        {
+            "id": 9,
+            "string": "Turbo Rastgele Harita"
+        },
+        {
+            "id": 10,
+            "string": "Kadim Eseri Ele Geçir"
+        },
+        {
+            "id": 11,
+            "string": "Ani Ölüm"
+        },
+        {
+            "id": 13,
+            "string": "İmparatorluk Savaşları"
+        }
+    ],
+    "leaderboard": [
+        {
+            "id": 0,
+            "string": "Sirasiz"
+        },
+        {
+            "id": 1,
+            "string": "Ölüm Karşılaşması"
+        },
+        {
+            "id": 2,
+            "string": "Takım Ölüm Karşılaşması"
+        },
+        {
+            "id": 3,
+            "string": "Rastgele Harita"
+        },
+        {
+            "id": 4,
+            "string": "Takım Rastgele Harita"
+        }
+    ],
+    "map_size": [
+        {
+            "id": 0,
+            "string": "Minik (2 oyuncu)"
+        },
+        {
+            "id": 1,
+            "string": "Küçük (3 oyuncu)"
+        },
+        {
+            "id": 2,
+            "string": "Orta (4 oyuncu)"
+        },
+        {
+            "id": 3,
+            "string": "Normal (6 oyuncu)"
+        },
+        {
+            "id": 4,
+            "string": "Büyük (8 oyuncu)"
+        },
+        {
+            "id": 5,
+            "string": "Dev"
+        },
+        {
+            "id": 6,
+            "string": "Muazzam"
+        }
+    ],
+    "map_type": [
+        {
+            "id": 9,
+            "string": "Arabistan"
+        },
+        {
+            "id": 10,
+            "string": "Takımada"
+        },
+        {
+            "id": 11,
+            "string": "Baltık"
+        },
+        {
+            "id": 12,
+            "string": "Kara Orman"
+        },
+        {
+            "id": 13,
+            "string": "Kıyısal"
+        },
+        {
+            "id": 14,
+            "string": "Kıtasal"
+        },
+        {
+            "id": 15,
+            "string": "Krater Gölü"
+        },
+        {
+            "id": 16,
+            "string": "Hisar"
+        },
+        {
+            "id": 17,
+            "string": "Altına Hücum"
+        },
+        {
+            "id": 18,
+            "string": "Yayla"
+        },
+        {
+            "id": 19,
+            "string": "Adalar"
+        },
+        {
+            "id": 20,
+            "string": "Akdeniz"
+        },
+        {
+            "id": 21,
+            "string": "Göç"
+        },
+        {
+            "id": 22,
+            "string": "Nehirler"
+        },
+        {
+            "id": 23,
+            "string": "Takım Adaları"
+        },
+        {
+            "id": 24,
+            "string": "Tümü Rastgele"
+        },
+        {
+            "id": 25,
+            "string": "İskandinavya"
+        },
+        {
+            "id": 26,
+            "string": "Moğolistan"
+        },
+        {
+            "id": 27,
+            "string": "Yucatan"
+        },
+        {
+            "id": 28,
+            "string": "Tuz Bataklığı"
+        },
+        {
+            "id": 29,
+            "string": "Arena"
+        },
+        {
+            "id": 31,
+            "string": "Vaha"
+        },
+        {
+            "id": 32,
+            "string": "Hayalet Göl"
+        },
+        {
+            "id": 33,
+            "string": "Göçebe"
+        },
+        {
+            "id": 49,
+            "string": "İberya"
+        },
+        {
+            "id": 50,
+            "string": "Britanya"
+        },
+        {
+            "id": 51,
+            "string": "Orta Doğu"
+        },
+        {
+            "id": 52,
+            "string": "Teksas"
+        },
+        {
+            "id": 53,
+            "string": "İtalya"
+        },
+        {
+            "id": 54,
+            "string": "Orta Amerika"
+        },
+        {
+            "id": 55,
+            "string": "Fransa"
+        },
+        {
+            "id": 56,
+            "string": "İskandinav Toprakları"
+        },
+        {
+            "id": 57,
+            "string": "Japon Denizi (Doğu Denizi)"
+        },
+        {
+            "id": 58,
+            "string": "Bizans"
+        },
+        {
+            "id": 59,
+            "string": "Özel"
+        },
+        {
+            "id": 60,
+            "string": "Rastgele Kara Haritası"
+        },
+        {
+            "id": 62,
+            "string": "Rastgele Gerçek Dünya Haritası"
+        },
+        {
+            "id": 63,
+            "string": "Bütünüyle Rastgele"
+        },
+        {
+            "id": 65,
+            "string": "Rastgele Özel Harita"
+        },
+        {
+            "id": 66,
+            "string": "Rastgele Özel Harita"
+        },
+        {
+            "id": 67,
+            "string": "Akropolis"
+        },
+        {
+            "id": 68,
+            "string": "Budapeşte"
+        },
+        {
+            "id": 69,
+            "string": "Obruklar"
+        },
+        {
+            "id": 70,
+            "string": "Göller Yöresi"
+        },
+        {
+            "id": 71,
+            "string": "Altın Çukuru"
+        },
+        {
+            "id": 72,
+            "string": "Sığınak"
+        },
+        {
+            "id": 73,
+            "string": "Yüksek Kale"
+        },
+        {
+            "id": 74,
+            "string": "Lombardiya"
+        },
+        {
+            "id": 75,
+            "string": "Bozkır"
+        },
+        {
+            "id": 76,
+            "string": "Vadi"
+        },
+        {
+            "id": 77,
+            "string": "Mega Rastgele"
+        },
+        {
+            "id": 78,
+            "string": "Hamburger"
+        },
+        {
+            "id": 79,
+            "string": "KEEG Rastgele"
+        },
+        {
+            "id": 80,
+            "string": "KEEG Muson"
+        },
+        {
+            "id": 81,
+            "string": "KEEG Piramit İnişi"
+        },
+        {
+            "id": 82,
+            "string": "KEEG Spiral"
+        },
+        {
+            "id": 83,
+            "string": "Kilimanjaro"
+        },
+        {
+            "id": 84,
+            "string": "Dağ Geçidi"
+        },
+        {
+            "id": 85,
+            "string": "Nil Deltası"
+        },
+        {
+            "id": 86,
+            "string": "Serengeti"
+        },
+        {
+            "id": 87,
+            "string": "Sokotra"
+        },
+        {
+            "id": 88,
+            "string": "Amazon"
+        },
+        {
+            "id": 89,
+            "string": "Çin"
+        },
+        {
+            "id": 90,
+            "string": "Afrika Boynuzu"
+        },
+        {
+            "id": 91,
+            "string": "Hindistan"
+        },
+        {
+            "id": 92,
+            "string": "Madagaskar"
+        },
+        {
+            "id": 93,
+            "string": "Batı Afrika"
+        },
+        {
+            "id": 94,
+            "string": "Bohemya"
+        },
+        {
+            "id": 95,
+            "string": "Dünya"
+        },
+        {
+            "id": 96,
+            "string": "Kanyonlar"
+        },
+        {
+            "id": 97,
+            "string": "Düşman Takımada"
+        },
+        {
+            "id": 98,
+            "string": "Düşman Adalar"
+        },
+        {
+            "id": 99,
+            "string": "İlginç"
+        },
+        {
+            "id": 100,
+            "string": "Cephe Hattı"
+        },
+        {
+            "id": 101,
+            "string": "Yakın Çevre"
+        },
+        {
+            "id": 102,
+            "string": "Ana Kara"
+        },
+        {
+            "id": 103,
+            "string": "Açık Ovalar"
+        },
+        {
+            "id": 104,
+            "string": "Deniz Çemberi"
+        },
+        {
+            "id": 105,
+            "string": "Yılan Çukuru"
+        },
+        {
+            "id": 106,
+            "string": "Göz"
+        },
+        {
+            "id": 107,
+            "string": "Avustralya"
+        },
+        {
+            "id": 108,
+            "string": "Hindiçin"
+        },
+        {
+            "id": 109,
+            "string": "Endonezya"
+        },
+        {
+            "id": 110,
+            "string": "Malakka Boğazı"
+        },
+        {
+            "id": 111,
+            "string": "Filipinler"
+        },
+        {
+            "id": 112,
+            "string": "Bataklık Adaları"
+        },
+        {
+            "id": 113,
+            "string": "Mangrov Ağaçlığı"
+        },
+        {
+            "id": 114,
+            "string": "Pasifik Adaları"
+        },
+        {
+            "id": 115,
+            "string": "Kumsal"
+        },
+        {
+            "id": 116,
+            "string": "Su Göçebeleri"
+        },
+        {
+            "id": 117,
+            "string": "Ağaçlık Adalar"
+        },
+        {
+            "id": 118,
+            "string": "Kutsal Hat"
+        },
+        {
+            "id": 119,
+            "string": "Sınır Taşları"
+        },
+        {
+            "id": 120,
+            "string": "Yin Yang"
+        },
+        {
+            "id": 121,
+            "string": "Ağaçlık Yollar"
+        },
+        {
+            "id": 122,
+            "string": "Alp Gölleri"
+        },
+        {
+            "id": 123,
+            "string": "Bataklık"
+        },
+        {
+            "id": 124,
+            "string": "Dağ Sırtı"
+        },
+        {
+            "id": 125,
+            "string": "Dağ Geçitleri"
+        },
+        {
+            "id": 126,
+            "string": "Kurt Tepesi"
+        },
+        {
+            "id": 132,
+            "string": "Antarktika"
+        },
+        {
+            "id": 137,
+            "string": "Özel Harita Havuzu"
+        },
+        {
+            "id": 139,
+            "string": "Golden Swamp"
+        },
+        {
+            "id": 140,
+            "string": "Four Lakes"
+        },
+        {
+            "id": 141,
+            "string": "Land Nomad"
+        }
+    ],
+    "rating_type": [
+        {
+            "id": 0,
+            "string": "Sirasiz"
+        },
+        {
+            "id": 1,
+            "string": "Ölüm Karşılaşması"
+        },
+        {
+            "id": 2,
+            "string": "Rastgele Harita"
+        },
+        {
+            "id": 3,
+            "string": "Takım Ölüm Karşılaşması"
+        },
+        {
+            "id": 4,
+            "string": "Takım Rastgele Harita"
+        }
+    ],
+    "resources": [
+        {
+            "id": 0,
+            "string": "Normal"
+        },
+        {
+            "id": 1,
+            "string": "Düşük"
+        },
+        {
+            "id": 2,
+            "string": "Orta"
+        },
+        {
+            "id": 3,
+            "string": "Yüksek"
+        },
+        {
+            "id": 4,
+            "string": "Çok Yüksek"
+        },
+        {
+            "id": 5,
+            "string": "Sonsuz"
+        },
+        {
+            "id": 6,
+            "string": "Rastgele"
+        }
+    ],
+    "speed": [
+        {
+            "id": 0,
+            "string": "Yavaş"
+        },
+        {
+            "id": 1,
+            "string": "Sıradan"
+        },
+        {
+            "id": 2,
+            "string": "Normal"
+        },
+        {
+            "id": 3,
+            "string": "Hızlı"
+        }
+    ],
+    "victory": [
+        {
+            "id": 1,
+            "string": "Fetih"
+        },
+        {
+            "id": 7,
+            "string": "Süre Kısıtlamalı"
+        },
+        {
+            "id": 8,
+            "string": "Puan"
+        },
+        {
+            "id": 9,
+            "string": "Normal"
+        },
+        {
+            "id": 11,
+            "string": "Sona Kalan"
+        }
+    ],
+    "visibility": [
+        {
+            "id": 0,
+            "string": "Normal"
+        },
+        {
+            "id": 1,
+            "string": "Keşfedilmiş"
+        },
+        {
+            "id": 2,
+            "string": "Tümü Görünür"
+        }
+    ]
+}

@@ -1,0 +1,122 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Leaderboard {
+  clan: String
+  country: String
+  drops: Float
+  games: Float
+  highest_rating: Float
+  highest_streak: Float
+  icon: String
+  last_match: Float
+  last_match_time: DateTime
+  leaderboard_id: Int!
+  losses: Float
+  lowest_streak: Float
+  name: String!
+  previous_rating: Float
+  profile_id: Int!
+  rank: Float
+  rank_country: Float
+  rating: Float
+  steam_id: String
+  streak: Float
+  wins: Float
+}
+
+type Match {
+  finished: DateTime
+  leaderboard_id: Int!
+  map_type: Int!
+  match_id: String!
+  name: String!
+  players: [Player!]!
+  started: DateTime!
+}
+
+type MatchList {
+  matches: [Match!]!
+  total: Int!
+}
+
+type Player {
+  civ: Int
+  color: Int
+  match_id: String!
+  name: String
+  profile_id: Int!
+  rating: Int
+  slot: Int!
+  slot_type: Int!
+  team: Int
+  won: Boolean
+}
+
+type Profile {
+  country: String
+  drops: Int
+  games: Int
+  last_match_time: DateTime!
+  leaderboards: [Leaderboard!]!
+  name: String!
+  profile_id: Int!
+  rating_history: [RatingHistory!]!
+  stats: [Stats!]!
+}
+
+type Query {
+  match(match_id: String, match_uuid: String): Match!
+  matches(count: Int!, leaderboard_id: Int, profile_id: Int, search: String, start: Int!): MatchList!
+  profile(profile_id: Int): Profile!
+  temp: String!
+  temp2: String!
+  temp3: String!
+  users(search: String!): [User!]!
+}
+
+type RatingHistory {
+  history: [RatingHistoryEntry!]!
+  leaderboard_id: Int!
+  profile_id: Int!
+}
+
+type RatingHistoryEntry {
+  drops: Int!
+  num_losses: Int!
+  num_wins: Int!
+  rating: Int!
+  streak: Int!
+  timestamp: DateTime!
+}
+
+type Stats {
+  allies: [StatsEntry!]!
+  civ: [StatsEntry!]!
+  leaderboard_id: Int!
+  map_type: [StatsEntry!]!
+  opponents: [StatsEntry!]!
+}
+
+type StatsEntry {
+  civ: Int
+  country: String
+  games: Int!
+  map_type: Int
+  name: String
+  profile_id: Int
+  wins: Int!
+}
+
+type User {
+  country: String
+  games: Int
+  name: String!
+  profile_id: Int!
+}

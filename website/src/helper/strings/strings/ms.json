@@ -1,0 +1,797 @@
+{
+    "language": "ms",
+    "age": [
+        {
+            "id": 0,
+            "string": "Standard"
+        },
+        {
+            "id": 2,
+            "string": "Zaman Kelam"
+        },
+        {
+            "id": 3,
+            "string": "Zaman Feudal"
+        },
+        {
+            "id": 4,
+            "string": "Zaman Kastil"
+        },
+        {
+            "id": 5,
+            "string": "Zaman Empayar"
+        },
+        {
+            "id": 6,
+            "string": "Zaman Pascaempayar"
+        }
+    ],
+    "civ": [
+        {
+            "id": 0,
+            "string": "Orang Aztec"
+        },
+        {
+            "id": 1,
+            "string": "Orang Berber"
+        },
+        {
+            "id": 2,
+            "string": "Orang British"
+        },
+        {
+            "id": 3,
+            "string": "Orang Bulgaria"
+        },
+        {
+            "id": 4,
+            "string": "Orang Burma"
+        },
+        {
+            "id": 5,
+            "string": "Orang Byzantine"
+        },
+        {
+            "id": 6,
+            "string": "Orang Celt"
+        },
+        {
+            "id": 7,
+            "string": "Orang Cina"
+        },
+        {
+            "id": 8,
+            "string": "Orang Cuman"
+        },
+        {
+            "id": 9,
+            "string": "Orang Etiopia"
+        },
+        {
+            "id": 10,
+            "string": "Orang Frank"
+        },
+        {
+            "id": 11,
+            "string": "Orang Goth"
+        },
+        {
+            "id": 12,
+            "string": "Orang Hun"
+        },
+        {
+            "id": 13,
+            "string": "Orang Inca"
+        },
+        {
+            "id": 14,
+            "string": "Orang India"
+        },
+        {
+            "id": 15,
+            "string": "Orang Itali"
+        },
+        {
+            "id": 16,
+            "string": "Orang Jepun"
+        },
+        {
+            "id": 17,
+            "string": "Orang Khmer"
+        },
+        {
+            "id": 18,
+            "string": "Orang Korea"
+        },
+        {
+            "id": 19,
+            "string": "Orang Lithuania"
+        },
+        {
+            "id": 20,
+            "string": "Orang Magyar"
+        },
+        {
+            "id": 21,
+            "string": "Orang Melayu"
+        },
+        {
+            "id": 22,
+            "string": "Orang Mali"
+        },
+        {
+            "id": 23,
+            "string": "Orang Mayan"
+        },
+        {
+            "id": 24,
+            "string": "Orang Mongol"
+        },
+        {
+            "id": 25,
+            "string": "Orang Parsi"
+        },
+        {
+            "id": 26,
+            "string": "Orang Portugis"
+        },
+        {
+            "id": 27,
+            "string": "Orang Saracen"
+        },
+        {
+            "id": 28,
+            "string": "Orang Slavik"
+        },
+        {
+            "id": 29,
+            "string": "Orang Sepanyol"
+        },
+        {
+            "id": 30,
+            "string": "Orang Tatar"
+        },
+        {
+            "id": 31,
+            "string": "Orang Teuton"
+        },
+        {
+            "id": 32,
+            "string": "Orang Turki"
+        },
+        {
+            "id": 33,
+            "string": "Orang Vietnam"
+        },
+        {
+            "id": 34,
+            "string": "Orang Viking"
+        }
+    ],
+    "game_type": [
+        {
+            "id": 0,
+            "string": "Peta Rawak"
+        },
+        {
+            "id": 1,
+            "string": "Pembunuhan Raja"
+        },
+        {
+            "id": 2,
+            "string": "Perlawanan Mati"
+        },
+        {
+            "id": 3,
+            "string": "Senario"
+        },
+        {
+            "id": 6,
+            "string": "Raja Bukit"
+        },
+        {
+            "id": 7,
+            "string": "Perlumbaan Bina Struktur"
+        },
+        {
+            "id": 8,
+            "string": "Pertahanan Struktur Keajaiban"
+        },
+        {
+            "id": 9,
+            "string": "Peta Rawak Turbo"
+        },
+        {
+            "id": 10,
+            "string": "Tawan Relik"
+        },
+        {
+            "id": 11,
+            "string": "Kalah Mati"
+        },
+        {
+            "id": 13,
+            "string": "Perang Empayar"
+        }
+    ],
+    "leaderboard": [
+        {
+            "id": 0,
+            "string": "TIDAK BERKEDUDUKAN"
+        },
+        {
+            "id": 1,
+            "string": "Perlawanan Mati"
+        },
+        {
+            "id": 2,
+            "string": "Perlawanan Mati Pasukan"
+        },
+        {
+            "id": 3,
+            "string": "Peta Rawak"
+        },
+        {
+            "id": 4,
+            "string": "Peta Rawak Pasukan"
+        }
+    ],
+    "map_size": [
+        {
+            "id": 0,
+            "string": "Sangat Kecil (2 pemain)"
+        },
+        {
+            "id": 1,
+            "string": "Kecil (3 pemain)"
+        },
+        {
+            "id": 2,
+            "string": "Sederhana (4 pemain)"
+        },
+        {
+            "id": 3,
+            "string": "Biasa (6 pemain)"
+        },
+        {
+            "id": 4,
+            "string": "Besar (8 pemain)"
+        },
+        {
+            "id": 5,
+            "string": "Gergasi"
+        },
+        {
+            "id": 6,
+            "string": "Tidak Munasabah"
+        }
+    ],
+    "map_type": [
+        {
+            "id": 9,
+            "string": "Arab"
+        },
+        {
+            "id": 10,
+            "string": "Kepulauan"
+        },
+        {
+            "id": 11,
+            "string": "Baltik"
+        },
+        {
+            "id": 12,
+            "string": "Hutan Hitam"
+        },
+        {
+            "id": 13,
+            "string": "Pesisir"
+        },
+        {
+            "id": 14,
+            "string": "Kebenuaan"
+        },
+        {
+            "id": 15,
+            "string": "Tasik Kawah"
+        },
+        {
+            "id": 16,
+            "string": "Kubu"
+        },
+        {
+            "id": 17,
+            "string": "Kerubut Emas"
+        },
+        {
+            "id": 18,
+            "string": "Tanah Tinggi"
+        },
+        {
+            "id": 19,
+            "string": "Pulau"
+        },
+        {
+            "id": 20,
+            "string": "Mediterranean"
+        },
+        {
+            "id": 21,
+            "string": "Penghijrahan"
+        },
+        {
+            "id": 22,
+            "string": "Sungai"
+        },
+        {
+            "id": 23,
+            "string": "Pulau Berpasukan"
+        },
+        {
+            "id": 24,
+            "string": "Rawak Penuh"
+        },
+        {
+            "id": 25,
+            "string": "Scandinavia"
+        },
+        {
+            "id": 26,
+            "string": "Mongolia"
+        },
+        {
+            "id": 27,
+            "string": "Yucatan"
+        },
+        {
+            "id": 28,
+            "string": "Rawang Garam"
+        },
+        {
+            "id": 29,
+            "string": "Arena"
+        },
+        {
+            "id": 31,
+            "string": "Oasis"
+        },
+        {
+            "id": 32,
+            "string": "Tasik Hantu"
+        },
+        {
+            "id": 33,
+            "string": "Nomad"
+        },
+        {
+            "id": 49,
+            "string": "Iberia"
+        },
+        {
+            "id": 50,
+            "string": "Britain"
+        },
+        {
+            "id": 51,
+            "string": "Timur Tengah"
+        },
+        {
+            "id": 52,
+            "string": "Texas"
+        },
+        {
+            "id": 53,
+            "string": "Itali"
+        },
+        {
+            "id": 54,
+            "string": "Amerika Tengah"
+        },
+        {
+            "id": 55,
+            "string": "Perancis"
+        },
+        {
+            "id": 56,
+            "string": "Tanah Norse"
+        },
+        {
+            "id": 57,
+            "string": "Laut Jepun (Laut Timur)"
+        },
+        {
+            "id": 58,
+            "string": "Byzantium"
+        },
+        {
+            "id": 59,
+            "string": "Tersuai"
+        },
+        {
+            "id": 60,
+            "string": "Peta Tanah Rawak"
+        },
+        {
+            "id": 62,
+            "string": "Peta Dunia Sebenar Rawak"
+        },
+        {
+            "id": 63,
+            "string": "Rawak Buta"
+        },
+        {
+            "id": 65,
+            "string": "Peta Khas Rawak"
+        },
+        {
+            "id": 66,
+            "string": "Peta Khas Rawak"
+        },
+        {
+            "id": 67,
+            "string": "Akropolis"
+        },
+        {
+            "id": 68,
+            "string": "Budapest"
+        },
+        {
+            "id": 69,
+            "string": "Cenote"
+        },
+        {
+            "id": 70,
+            "string": "Bandar Tasik"
+        },
+        {
+            "id": 71,
+            "string": "Lubang Emas"
+        },
+        {
+            "id": 72,
+            "string": "Tempat Persembunyian"
+        },
+        {
+            "id": 73,
+            "string": "Kubu Bukit"
+        },
+        {
+            "id": 74,
+            "string": "Lombardia"
+        },
+        {
+            "id": 75,
+            "string": "Steppe"
+        },
+        {
+            "id": 76,
+            "string": "Lembah"
+        },
+        {
+            "id": 77,
+            "string": "Sangat Rawak"
+        },
+        {
+            "id": 78,
+            "string": "Hamburger"
+        },
+        {
+            "id": 79,
+            "string": "Tawan Relik Rawak"
+        },
+        {
+            "id": 80,
+            "string": "Tawan Relik Monsun"
+        },
+        {
+            "id": 81,
+            "string": "Tawan Relik Turun Piramid"
+        },
+        {
+            "id": 82,
+            "string": "Tawan Relik Lingkaran"
+        },
+        {
+            "id": 83,
+            "string": "Kilimanjaro"
+        },
+        {
+            "id": 84,
+            "string": "Genting Pergunungan"
+        },
+        {
+            "id": 85,
+            "string": "Delta Sungai Nil"
+        },
+        {
+            "id": 86,
+            "string": "Serengeti"
+        },
+        {
+            "id": 87,
+            "string": "Socotra"
+        },
+        {
+            "id": 88,
+            "string": "Amazon"
+        },
+        {
+            "id": 89,
+            "string": "China"
+        },
+        {
+            "id": 90,
+            "string": "Tanduk Afrika"
+        },
+        {
+            "id": 91,
+            "string": "India"
+        },
+        {
+            "id": 92,
+            "string": "Madagascar"
+        },
+        {
+            "id": 93,
+            "string": "Afrika Barat"
+        },
+        {
+            "id": 94,
+            "string": "Bohemia"
+        },
+        {
+            "id": 95,
+            "string": "Bumi"
+        },
+        {
+            "id": 96,
+            "string": "Ngarai"
+        },
+        {
+            "id": 97,
+            "string": "Kepulauan Musuh"
+        },
+        {
+            "id": 98,
+            "string": "Pulau Musuh"
+        },
+        {
+            "id": 99,
+            "string": "Luas Saujana"
+        },
+        {
+            "id": 100,
+            "string": "Barisan Hadapan"
+        },
+        {
+            "id": 101,
+            "string": "Lingkaran Tengah"
+        },
+        {
+            "id": 102,
+            "string": "Tanah Besar"
+        },
+        {
+            "id": 103,
+            "string": "Dataran Lapang"
+        },
+        {
+            "id": 104,
+            "string": "Lingkaran Air"
+        },
+        {
+            "id": 105,
+            "string": "Lubang Ular"
+        },
+        {
+            "id": 106,
+            "string": "Mata"
+        },
+        {
+            "id": 107,
+            "string": "Australia"
+        },
+        {
+            "id": 108,
+            "string": "Indochina"
+        },
+        {
+            "id": 109,
+            "string": "Indonesia"
+        },
+        {
+            "id": 110,
+            "string": "Selat Melaka"
+        },
+        {
+            "id": 111,
+            "string": "Filipina"
+        },
+        {
+            "id": 112,
+            "string": "Pulau Bencah"
+        },
+        {
+            "id": 113,
+            "string": "Hutan Bakau"
+        },
+        {
+            "id": 114,
+            "string": "Kepulauan Pasifik"
+        },
+        {
+            "id": 115,
+            "string": "Tebing pasir"
+        },
+        {
+            "id": 116,
+            "string": "Nomad Air"
+        },
+        {
+            "id": 117,
+            "string": "Pulau Rimba"
+        },
+        {
+            "id": 118,
+            "string": "Barisan Suci"
+        },
+        {
+            "id": 119,
+            "string": "Batu Sempadan"
+        },
+        {
+            "id": 120,
+            "string": "Yin Yang"
+        },
+        {
+            "id": 121,
+            "string": "Laluan Hutan"
+        },
+        {
+            "id": 122,
+            "string": "Tasik Alp"
+        },
+        {
+            "id": 123,
+            "string": "Tanah Bencah"
+        },
+        {
+            "id": 124,
+            "string": "Rabung Gunung"
+        },
+        {
+            "id": 125,
+            "string": "Gaung"
+        },
+        {
+            "id": 126,
+            "string": "Bukit Serigala"
+        },
+        {
+            "id": 132,
+            "string": "Antartika"
+        },
+        {
+            "id": 137,
+            "string": "Himpunan Peta Tersuai"
+        },
+        {
+            "id": 139,
+            "string": "Golden Swamp"
+        },
+        {
+            "id": 140,
+            "string": "Four Lakes"
+        },
+        {
+            "id": 141,
+            "string": "Land Nomad"
+        }
+    ],
+    "rating_type": [
+        {
+            "id": 0,
+            "string": "TIDAK BERKEDUDUKAN"
+        },
+        {
+            "id": 1,
+            "string": "Perlawanan Mati"
+        },
+        {
+            "id": 2,
+            "string": "Peta Rawak"
+        },
+        {
+            "id": 3,
+            "string": "Perlawanan Mati Pasukan"
+        },
+        {
+            "id": 4,
+            "string": "Peta Rawak Pasukan"
+        }
+    ],
+    "resources": [
+        {
+            "id": 0,
+            "string": "Standard"
+        },
+        {
+            "id": 1,
+            "string": "Rendah"
+        },
+        {
+            "id": 2,
+            "string": "Sederhana"
+        },
+        {
+            "id": 3,
+            "string": "Tinggi"
+        },
+        {
+            "id": 4,
+            "string": "Ultra Tinggi"
+        },
+        {
+            "id": 5,
+            "string": "Tak Terhingga"
+        },
+        {
+            "id": 6,
+            "string": "Rawak"
+        }
+    ],
+    "speed": [
+        {
+            "id": 0,
+            "string": "Perlahan"
+        },
+        {
+            "id": 1,
+            "string": "Kasual"
+        },
+        {
+            "id": 2,
+            "string": "Biasa"
+        },
+        {
+            "id": 3,
+            "string": "Cepat"
+        }
+    ],
+    "victory": [
+        {
+            "id": 1,
+            "string": "Penaklukan"
+        },
+        {
+            "id": 7,
+            "string": "Had Masa"
+        },
+        {
+            "id": 8,
+            "string": "Skor"
+        },
+        {
+            "id": 9,
+            "string": "Standard"
+        },
+        {
+            "id": 11,
+            "string": "Pemain Terakhir yang Bertahan"
+        }
+    ],
+    "visibility": [
+        {
+            "id": 0,
+            "string": "Biasa"
+        },
+        {
+            "id": 1,
+            "string": "Diterokai"
+        },
+        {
+            "id": 2,
+            "string": "Semua Kelihatan"
+        }
+    ]
+}
