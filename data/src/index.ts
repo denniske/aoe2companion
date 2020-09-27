@@ -12,3 +12,4 @@ export * from './helper/civs';
 export * from './helper/buildings';
 export * from './helper/techs';
 export * from './helper/units';
+export * from './helper/tree';

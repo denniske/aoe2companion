@@ -246,55 +246,6 @@ export type Civ = typeof CivUnion;
 // type ValueOf<T> = T[keyof T];
 // export type Civ = ValueOf<typeof civs>;
 
-export function getCivHasTech(civ: Civ, tech: Tech) {
-    const entry = techs[tech];
-    const civConfig = civsConfig[civ];
-
-    if ((civConfig as any).disableHorses && horseDisabledTechs.includes(parseInt(entry.dataId))) {
-        return false;
-    }
-
-    return !civConfig.disabled.techs.includes(parseInt(entry.dataId));
-}
-
-export function getCivHasBuilding(civ: Civ, building: Building) {
-    const entry = buildings[building];
-    const civConfig = civsConfig[civ];
-
-    if ((civConfig as any).enabled?.buildings?.includes(parseInt(entry.dataId))) {
-        return true;
-    }
-
-    if (defaultDisabledBuildings.includes(parseInt(entry.dataId))) {
-        return false;
-    }
-
-    if ((civConfig as any).disableHorses && horseDisabledBuildings.includes(parseInt(entry.dataId))) {
-        return false;
-    }
-
-    return !((civConfig.disabled as any).buildings || []).includes(parseInt(entry.dataId));
-}
-
-export function getCivHasUnit(civ: Civ, unit: Unit) {
-    const entry = units[unit];
-    const civConfig = civsConfig[civ];
-
-    if ((civConfig as any).enabled?.units?.includes(parseInt(entry.dataId))) {
-        return true;
-    }
-
-    if (defaultDisabledUnits.includes(parseInt(entry.dataId))) {
-        return false;
-    }
-
-    if ((civConfig as any).disableHorses && horseDisabledUnits.includes(parseInt(entry.dataId))) {
-        return false;
-    }
-
-    return !civConfig.disabled.units.includes(parseInt(entry.dataId));
-}
-
 export function getCivDescription(civ: Civ) {
     const civStringKey = aoeData.civ_helptexts[civ] as aoeStringKey;
     return sanitizeGameDescription(aoeData.strings[civStringKey]);

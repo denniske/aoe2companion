@@ -8,5 +8,5 @@ export function getTechIcon(tech: Tech) {
     if (info.age == 'Imperial') {
         return '/techs/UniqueTechImperial.png';
     }
-    return '/techs/' + getTechName(tech) + '.png';
+    return '/techs/' + tech + '.png';
 }

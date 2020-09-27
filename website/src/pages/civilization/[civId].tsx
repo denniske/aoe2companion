@@ -12,6 +12,7 @@ import {getUnitIcon} from "../../helper/units";
 import {createStylesheet} from "../../helper/styles";
 import {getCivIcon} from "../../helper/civs";
 import {getTechIcon} from "../../helper/techs";
+import {TechTree} from "../../components/tech-tree";
 
 
 const useStyles = createStylesheet({
@@ -103,11 +104,11 @@ const useStyles = createStylesheet({
 })
 
 
-function Civilization({id}: any) {
+function Civilization({civId}: any) {
     const appClasses = useAppStyles();
     const classes = useStyles();
     const theme = useTheme();
-    const civ = id as Civ;
+    const civ = civId as Civ;
 
     const civDescription = parseCivDescription(civ);
 
@@ -157,6 +158,10 @@ function Civilization({id}: any) {
                 <div className={classes.box}>
                     <div className={classes.heading}>{teamBonusTitle.replace(':', '')}</div>
                     <div className={classes.content}>{teamBonus}</div>
+                </div>
+
+                <div className={classes.box}>
+                    <TechTree civ={civ}/>
                 </div>
             </Paper>
         </div>
@@ -215,7 +220,7 @@ function TechCompBig({tech: tech, showCivBanner: showCivBanner}: any) {
 
 export async function getStaticPaths() {
     // Get the paths we want to pre-render based on posts
-    const paths = civs.map((post) => `/civilization/${post}`)
+    const paths = civs.map((civ) => `/civilization/${civ}`)
 
     // We'll pre-render only these paths at build time.
     // { fallback: false } means other routes should 404.
@@ -230,7 +235,7 @@ export async function getStaticProps({ params }) {
     // const post = await res.json()
 
     // Pass post data to the page via props
-    return { props: { id: params.id } }
+    return { props: { civId: params.civId } }
 }
 
 

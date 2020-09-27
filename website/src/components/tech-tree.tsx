@@ -1,26 +1,21 @@
 import {
     AbilityHelperProps, aoeCivKey, Building, Civ, civDict, getAbilityEnabled, getUnitLineForUnit, Other, Tech, Unit
 } from "@nex/data";
-import {useNavigation} from "@react-navigation/native";
-import {RootStackProp} from "../../../App";
-import {ImageBackground, StyleSheet, TouchableOpacity, View} from "react-native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import React from "react";
-import {MyText} from "./my-text";
-import {capitalize} from "lodash-es";
-import {setPrefValue, useMutate, useSelector} from "../../redux/reducer";
-import {saveCurrentPrefsToStorage} from "../../service/storage";
-import ButtonPicker from "./button-picker";
-import {windowWidth} from "../leaderboard.page";
-import {getTechIcon} from "../../helper/techs";
-import {getOtherIcon, getUnitIcon} from "../../helper/units";
-import {getBuildingIcon} from "../../helper/buildings";
+import {createStylesheet} from "../helper/styles";
+import {getTechIcon} from "../helper/techs";
+import {getUnitIcon} from "../helper/units";
+import {getBuildingIcon} from "../helper/buildings";
+import {getOtherIcon} from "../helper/other";
 
 
 export function TechTree({civ}: {civ: aoeCivKey}) {
-    const mutate = useMutate();
-    const techTreeSize = useSelector(state => state.prefs.techTreeSize) || 'full';
-
+    // const mutate = useMutate();
+    // const techTreeSize = useSelector(state => state.prefs.techTreeSize) || 'full';
+    const techTreeSize = 'full';
+    
+    const classes = useStyles();
+    
     const civInfo = civDict[civ];
     const uniqueLine = getUnitLineForUnit(civInfo.uniqueUnits[0]);
 
@@ -29,152 +24,152 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
         'full',
     ];
 
-    const nav = async (str: any) => {
-        mutate(setPrefValue('techTreeSize', str));
-        await saveCurrentPrefsToStorage();
-    };
+    // const nav = async (str: any) => {
+    //     mutate(setPrefValue('techTreeSize', str));
+    //     await saveCurrentPrefsToStorage();
+    // };
 
     return (
-        <View style={styles.container}>
-            <View style={styles.row2}>
-                <MyText style={styles.sectionHeader}>Tech Tree    </MyText>
-                <ButtonPicker value={techTreeSize} values={values} formatter={capitalize} onSelect={nav}/>
-            </View>
+        <div className={classes.container}>
+            <div className={classes.row2}>
+                <div className={classes.sectionHeader}>Tech Tree    </div>
+                {/*<ButtonPicker value={techTreeSize} values={values} formatter={capitalize} onSelect={nav}/>*/}
+            </div>
 
-            {
-                techTreeSize === 'compact' &&
-                <>
-                    <MyText style={styles.spacing}/>
-                    <MyText style={styles.heading}>Blacksmith</MyText>
-                    <View style={styles.row2}>
-                        <Ability2 civ={civ} tech="Forging"/>
-                        <Ability2 civ={civ} tech="ScaleMailArmor"/>
-                        <Ability2 civ={civ} tech="ScaleBardingArmor"/>
-                        <Ability0/>
-                        <Ability2 civ={civ} tech="Fletching"/>
-                        <Ability2 civ={civ} tech="PaddedArcherArmor"/>
-                    </View>
-                    <View style={styles.row2}>
-                        <Ability2 civ={civ} tech="IronCasting"/>
-                        <Ability2 civ={civ} tech="ChainMailArmor"/>
-                        <Ability2 civ={civ} tech="ChainBardingArmor"/>
-                        <Ability2/>
-                        <Ability2 civ={civ} tech="BodkinArrow"/>
-                        <Ability2 civ={civ} tech="LeatherArcherArmor"/>
-                    </View>
-                    <View style={styles.row2}>
-                        <Ability2 civ={civ} tech="BlastFurnace"/>
-                        <Ability2 civ={civ} tech="PlateMailArmor"/>
-                        <Ability2 civ={civ} tech="PlateBardingArmor"/>
-                        <Ability2/>
-                        <Ability2 civ={civ} tech="Bracer"/>
-                        <Ability2 civ={civ} tech="RingArcherArmor"/>
-                    </View>
+            {/*{*/}
+            {/*    techTreeSize === 'compact' &&*/}
+            {/*    <>*/}
+            {/*        <div className={classes.spacing}/>*/}
+            {/*        <div className={classes.heading}>Blacksmith</div>*/}
+            {/*        <div className={classes.row2}>*/}
+            {/*            <Ability2 civ={civ} tech="Forging"/>*/}
+            {/*            <Ability2 civ={civ} tech="ScaleMailArmor"/>*/}
+            {/*            <Ability2 civ={civ} tech="ScaleBardingArmor"/>*/}
+            {/*            <Ability0/>*/}
+            {/*            <Ability2 civ={civ} tech="Fletching"/>*/}
+            {/*            <Ability2 civ={civ} tech="PaddedArcherArmor"/>*/}
+            {/*        </div>*/}
+            {/*        <div className={classes.row2}>*/}
+            {/*            <Ability2 civ={civ} tech="IronCasting"/>*/}
+            {/*            <Ability2 civ={civ} tech="ChainMailArmor"/>*/}
+            {/*            <Ability2 civ={civ} tech="ChainBardingArmor"/>*/}
+            {/*            <Ability2/>*/}
+            {/*            <Ability2 civ={civ} tech="BodkinArrow"/>*/}
+            {/*            <Ability2 civ={civ} tech="LeatherArcherArmor"/>*/}
+            {/*        </div>*/}
+            {/*        <div className={classes.row2}>*/}
+            {/*            <Ability2 civ={civ} tech="BlastFurnace"/>*/}
+            {/*            <Ability2 civ={civ} tech="PlateMailArmor"/>*/}
+            {/*            <Ability2 civ={civ} tech="PlateBardingArmor"/>*/}
+            {/*            <Ability2/>*/}
+            {/*            <Ability2 civ={civ} tech="Bracer"/>*/}
+            {/*            <Ability2 civ={civ} tech="RingArcherArmor"/>*/}
+            {/*        </div>*/}
 
-                    <MyText style={styles.heading}>Other</MyText>
-                    <View style={styles.row2}>
-                        <Ability2 civ={civ} tech="Bloodlines"/>
-                        <Ability2 civ={civ} tech="Husbandry"/>
-                        <Ability2/>
-                        <Ability2/>
-                        <Ability2 civ={civ} tech="ThumbRing"/>
-                        <Ability2 civ={civ} tech="ParthianTactics"/>
-                    </View>
+            {/*        <div className={classes.heading}>Other</div>*/}
+            {/*        <div className={classes.row2}>*/}
+            {/*            <Ability2 civ={civ} tech="Bloodlines"/>*/}
+            {/*            <Ability2 civ={civ} tech="Husbandry"/>*/}
+            {/*            <Ability2/>*/}
+            {/*            <Ability2/>*/}
+            {/*            <Ability2 civ={civ} tech="ThumbRing"/>*/}
+            {/*            <Ability2 civ={civ} tech="ParthianTactics"/>*/}
+            {/*        </div>*/}
 
-                    <MyText style={styles.heading}>Siege</MyText>
-                    <View style={styles.row2}>
-                        <Ability2 civ={civ} unit="BatteringRam"/>
-                        <Ability2 civ={civ} unit="Mangonel"/>
-                        <Ability2 civ={civ} unit="Scorpion"/>
-                        <Ability2/>
-                    </View>
-                    <View style={styles.row2}>
-                        <Ability2 civ={civ} unit="CappedRam"/>
-                        <Ability2 civ={civ} unit="Onager"/>
-                        <Ability2 civ={civ} unit="HeavyScorpion"/>
-                        <Ability2/>
-                    </View>
-                    <View style={styles.row2}>
-                        <Ability2 civ={civ} unit="SiegeRam"/>
-                        <Ability2 civ={civ} unit="SiegeOnager"/>
-                        <Ability2/>
-                        <Ability2 civ={civ} unit="BombardCannon"/>
-                        <Ability2 civ={civ} tech="SiegeEngineers"/>
-                    </View>
+            {/*        <div className={classes.heading}>Siege</div>*/}
+            {/*        <div className={classes.row2}>*/}
+            {/*            <Ability2 civ={civ} unit="BatteringRam"/>*/}
+            {/*            <Ability2 civ={civ} unit="Mangonel"/>*/}
+            {/*            <Ability2 civ={civ} unit="Scorpion"/>*/}
+            {/*            <Ability2/>*/}
+            {/*        </div>*/}
+            {/*        <div className={classes.row2}>*/}
+            {/*            <Ability2 civ={civ} unit="CappedRam"/>*/}
+            {/*            <Ability2 civ={civ} unit="Onager"/>*/}
+            {/*            <Ability2 civ={civ} unit="HeavyScorpion"/>*/}
+            {/*            <Ability2/>*/}
+            {/*        </div>*/}
+            {/*        <div className={classes.row2}>*/}
+            {/*            <Ability2 civ={civ} unit="SiegeRam"/>*/}
+            {/*            <Ability2 civ={civ} unit="SiegeOnager"/>*/}
+            {/*            <Ability2/>*/}
+            {/*            <Ability2 civ={civ} unit="BombardCannon"/>*/}
+            {/*            <Ability2 civ={civ} tech="SiegeEngineers"/>*/}
+            {/*        </div>*/}
 
-                    <MyText style={styles.heading}>Infantry</MyText>
-                    <View style={styles.row2}>
-                        <Ability2 civ={civ} unit="LongSwordsman"/>
-                        <Ability2 civ={civ} unit="Spearman"/>
-                        <Ability2 civ={civ} unit="EagleScout"/>
-                    </View>
-                    <View style={styles.row2}>
-                        <Ability2 civ={civ} unit="TwoHandedSwordsman"/>
-                        <Ability2 civ={civ} unit="Pikeman"/>
-                        <Ability2 civ={civ} unit="EagleWarrior"/>
-                    </View>
-                    <View style={styles.row2}>
-                        <Ability2 civ={civ} unit="Champion"/>
-                        <Ability2 civ={civ} unit="Halberdier"/>
-                        <Ability2 civ={civ} unit="EliteEagleWarrior"/>
-                    </View>
+            {/*        <div className={classes.heading}>Infantry</div>*/}
+            {/*        <div className={classes.row2}>*/}
+            {/*            <Ability2 civ={civ} unit="LongSwordsman"/>*/}
+            {/*            <Ability2 civ={civ} unit="Spearman"/>*/}
+            {/*            <Ability2 civ={civ} unit="EagleScout"/>*/}
+            {/*        </div>*/}
+            {/*        <div className={classes.row2}>*/}
+            {/*            <Ability2 civ={civ} unit="TwoHandedSwordsman"/>*/}
+            {/*            <Ability2 civ={civ} unit="Pikeman"/>*/}
+            {/*            <Ability2 civ={civ} unit="EagleWarrior"/>*/}
+            {/*        </div>*/}
+            {/*        <div className={classes.row2}>*/}
+            {/*            <Ability2 civ={civ} unit="Champion"/>*/}
+            {/*            <Ability2 civ={civ} unit="Halberdier"/>*/}
+            {/*            <Ability2 civ={civ} unit="EliteEagleWarrior"/>*/}
+            {/*        </div>*/}
 
-                    <MyText style={styles.heading}>Cavalry</MyText>
-                    <View style={styles.row2}>
-                        <Ability2 civ={civ} unit="ScoutCavalry"/>
-                        <Ability2 civ={civ} unit="Knight"/>
-                        <Ability2 civ={civ} unit="CamelRider"/>
-                        <Ability2 civ={civ} unit="BattleElephant"/>
-                        <Ability2 civ={civ} unit="SteppeLancer"/>
-                    </View>
-                    <View style={styles.row2}>
-                        <Ability2 civ={civ} unit="LightCavalry"/>
-                        <Ability2 civ={civ} unit="Cavalier"/>
-                        <Ability2 civ={civ} unit="HeavyCamelRider"/>
-                        <Ability2 civ={civ} unit="EliteBattleElephant"/>
-                        <Ability2 civ={civ} unit="EliteSteppeLancer"/>
-                    </View>
-                    <View style={styles.row2}>
-                        <Ability2 civ={civ} unit="Hussar"/>
-                        <Ability2 civ={civ} unit="Paladin"/>
-                        <Ability2 civ={civ} unit="ImperialCamelRider"/>
-                        <Ability2/>
-                        <Ability2/>
-                    </View>
+            {/*        <div className={classes.heading}>Cavalry</div>*/}
+            {/*        <div className={classes.row2}>*/}
+            {/*            <Ability2 civ={civ} unit="ScoutCavalry"/>*/}
+            {/*            <Ability2 civ={civ} unit="Knight"/>*/}
+            {/*            <Ability2 civ={civ} unit="CamelRider"/>*/}
+            {/*            <Ability2 civ={civ} unit="BattleElephant"/>*/}
+            {/*            <Ability2 civ={civ} unit="SteppeLancer"/>*/}
+            {/*        </div>*/}
+            {/*        <div className={classes.row2}>*/}
+            {/*            <Ability2 civ={civ} unit="LightCavalry"/>*/}
+            {/*            <Ability2 civ={civ} unit="Cavalier"/>*/}
+            {/*            <Ability2 civ={civ} unit="HeavyCamelRider"/>*/}
+            {/*            <Ability2 civ={civ} unit="EliteBattleElephant"/>*/}
+            {/*            <Ability2 civ={civ} unit="EliteSteppeLancer"/>*/}
+            {/*        </div>*/}
+            {/*        <div className={classes.row2}>*/}
+            {/*            <Ability2 civ={civ} unit="Hussar"/>*/}
+            {/*            <Ability2 civ={civ} unit="Paladin"/>*/}
+            {/*            <Ability2 civ={civ} unit="ImperialCamelRider"/>*/}
+            {/*            <Ability2/>*/}
+            {/*            <Ability2/>*/}
+            {/*        </div>*/}
 
-                    <MyText style={styles.heading}>Archer</MyText>
-                    <View style={styles.row2}>
-                        <Ability2 civ={civ} unit="Archer"/>
-                        <Ability2 civ={civ} unit="Skirmisher"/>
-                        <Ability2/>
-                        <Ability2/>
-                    </View>
-                    <View style={styles.row2}>
-                        <Ability2 civ={civ} unit="Crossbowman"/>
-                        <Ability2 civ={civ} unit="EliteSkirmisher"/>
-                        <Ability2/>
-                        <Ability2 civ={civ} unit="CavalryArcher"/>
-                    </View>
-                    <View style={styles.row2}>
-                        <Ability2 civ={civ} unit="Arbalester"/>
-                        <Ability2 civ={civ} unit="ImperialSkirmisher"/>
-                        <Ability2/>
-                        <Ability2 civ={civ} unit="HeavyCavalryArcher"/>
-                        <Ability2 civ={civ} unit="HandCannoneer"/>
-                    </View>
-                </>
-            }
+            {/*        <div className={classes.heading}>Archer</div>*/}
+            {/*        <div className={classes.row2}>*/}
+            {/*            <Ability2 civ={civ} unit="Archer"/>*/}
+            {/*            <Ability2 civ={civ} unit="Skirmisher"/>*/}
+            {/*            <Ability2/>*/}
+            {/*            <Ability2/>*/}
+            {/*        </div>*/}
+            {/*        <div className={classes.row2}>*/}
+            {/*            <Ability2 civ={civ} unit="Crossbowman"/>*/}
+            {/*            <Ability2 civ={civ} unit="EliteSkirmisher"/>*/}
+            {/*            <Ability2/>*/}
+            {/*            <Ability2 civ={civ} unit="CavalryArcher"/>*/}
+            {/*        </div>*/}
+            {/*        <div className={classes.row2}>*/}
+            {/*            <Ability2 civ={civ} unit="Arbalester"/>*/}
+            {/*            <Ability2 civ={civ} unit="ImperialSkirmisher"/>*/}
+            {/*            <Ability2/>*/}
+            {/*            <Ability2 civ={civ} unit="HeavyCavalryArcher"/>*/}
+            {/*            <Ability2 civ={civ} unit="HandCannoneer"/>*/}
+            {/*        </div>*/}
+            {/*    </>*/}
+            {/*}*/}
 
 
             {
                 techTreeSize === 'full' &&
                 <>
-                    <MyText style={styles.heading}/>
-                    <View style={styles.row}>
+                    <div className={classes.heading}>&nbsp;</div>
+                    <div className={classes.row}>
                         <Ability2/>
                         <Ability2 civ={civ} building="Blacksmith"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="FeudalAge"/>
                         <Ability2 civ={civ} tech="Forging"/>
                         <Ability2 civ={civ} tech="ScaleMailArmor"/>
@@ -182,8 +177,8 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability0/>
                         <Ability2 civ={civ} tech="Fletching"/>
                         <Ability2 civ={civ} tech="PaddedArcherArmor"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="CastleAge"/>
                         <Ability2 civ={civ} tech="IronCasting"/>
                         <Ability2 civ={civ} tech="ChainMailArmor"/>
@@ -191,8 +186,8 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2/>
                         <Ability2 civ={civ} tech="BodkinArrow"/>
                         <Ability2 civ={civ} tech="LeatherArcherArmor"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="ImperialAge"/>
                         <Ability2 civ={civ} tech="BlastFurnace"/>
                         <Ability2 civ={civ} tech="PlateMailArmor"/>
@@ -200,46 +195,46 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2/>
                         <Ability2 civ={civ} tech="Bracer"/>
                         <Ability2 civ={civ} tech="RingArcherArmor"/>
-                    </View>
+                    </div>
 
 
-                    <MyText style={styles.heading}/>
-                    <View style={styles.row}>
+                    <div className={classes.heading}>&nbsp;</div>
+                    <div className={classes.row}>
                         <Ability2/>
                         <Ability2 civ={civ} building="SiegeWorkshop"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="CastleAge"/>
                         <Ability2 civ={civ} unit="BatteringRam"/>
                         <Ability2 civ={civ} unit="Mangonel"/>
                         <Ability2 civ={civ} unit="Scorpion"/>
                         <Ability2 civ={civ} unit="SiegeTower"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="ImperialAge"/>
                         <Ability2 civ={civ} unit="CappedRam"/>
                         <Ability2 civ={civ} unit="Onager"/>
                         <Ability2 civ={civ} unit="HeavyScorpion"/>
                         <Ability2/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability2/>
                         <Ability2 civ={civ} unit="SiegeRam"/>
                         <Ability2 civ={civ} unit="SiegeOnager"/>
                         <Ability2/>
                         <Ability2 civ={civ} unit="BombardCannon"/>
-                    </View>
+                    </div>
 
-                    <MyText style={styles.heading}/>
-                    <View style={styles.row}>
+                    <div className={classes.heading}>&nbsp;</div>
+                    <div className={classes.row}>
                         <Ability2/>
                         <Ability2 civ={civ} building="Barracks"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="DarkAge"/>
                         <Ability2 civ={civ} unit="Militia"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="FeudalAge"/>
                         <Ability2 civ={civ} unit="ManAtArms"/>
                         <Ability2 civ={civ} unit="Spearman"/>
@@ -247,8 +242,8 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2/>
                         <Ability2/>
                         <Ability2 civ={civ} tech="Supplies"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="CastleAge"/>
                         <Ability2 civ={civ} unit="LongSwordsman"/>
                         <Ability2 civ={civ} unit="Pikeman"/>
@@ -257,25 +252,25 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2/>
                         <Ability2 civ={civ} tech="Squires"/>
                         <Ability2 civ={civ} tech="Arson"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="ImperialAge"/>
                         <Ability2 civ={civ} unit="TwoHandedSwordsman"/>
                         <Ability2 civ={civ} unit="Halberdier"/>
                         <Ability2 civ={civ} unit="EliteEagleWarrior"/>
                         <Ability2 civ={civ} unit="Condottiero"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability2/>
                         <Ability2 civ={civ} unit="Champion"/>
-                    </View>
+                    </div>
 
-                    <MyText style={styles.heading}/>
-                    <View style={styles.row}>
+                    <div className={classes.heading}>&nbsp;</div>
+                    <div className={classes.row}>
                         <Ability2/>
                         <Ability2 civ={civ} building="Stable"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="FeudalAge"/>
                         <Ability2 civ={civ} unit="ScoutCavalry"/>
                         <Ability2/>
@@ -284,8 +279,8 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2/>
                         <Ability2/>
                         <Ability2 civ={civ} tech="Bloodlines"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="CastleAge"/>
                         <Ability2 civ={civ} unit="LightCavalry"/>
                         <Ability2 civ={civ} unit="Knight"/>
@@ -294,37 +289,37 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2 civ={civ} unit="SteppeLancer"/>
                         <Ability2/>
                         <Ability2 civ={civ} tech="Husbandry"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="ImperialAge"/>
                         <Ability2 civ={civ} unit="Hussar"/>
                         <Ability2 civ={civ} unit="Cavalier"/>
                         <Ability2 civ={civ} unit="HeavyCamelRider"/>
                         <Ability2 civ={civ} unit="EliteBattleElephant"/>
                         <Ability2 civ={civ} unit="EliteSteppeLancer"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability2/>
                         <Ability2/>
                         <Ability2 civ={civ} unit="Paladin"/>
                         <Ability2 civ={civ} unit="ImperialCamelRider"/>
                         <Ability2/>
                         <Ability2/>
-                    </View>
+                    </div>
 
-                    <MyText style={styles.heading}/>
-                    <View style={styles.row}>
+                    <div className={classes.heading}>&nbsp;</div>
+                    <div className={classes.row}>
                         <Ability2/>
                         <Ability2 civ={civ} building="ArcheryRange"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="FeudalAge"/>
                         <Ability2 civ={civ} unit="Archer"/>
                         <Ability2 civ={civ} unit="Skirmisher"/>
                         <Ability2/>
                         <Ability2/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="CastleAge"/>
                         <Ability2 civ={civ} unit="Crossbowman"/>
                         <Ability2 civ={civ} unit="EliteSkirmisher"/>
@@ -333,8 +328,8 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2 civ={civ} unit="Slinger"/>
                         <Ability2/>
                         <Ability2 civ={civ} tech="ThumbRing"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="ImperialAge"/>
                         <Ability2 civ={civ} unit="Arbalester"/>
                         <Ability2 civ={civ} unit="ImperialSkirmisher"/>
@@ -343,27 +338,27 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2 civ={civ} unit="HandCannoneer"/>
                         <Ability2/>
                         <Ability2 civ={civ} tech="ParthianTactics"/>
-                    </View>
+                    </div>
 
 
-                    <MyText style={styles.heading}/>
-                    <View style={styles.row}>
+                    <div className={classes.heading}>&nbsp;</div>
+                    <div className={classes.row}>
                         <Ability2/>
                         <Ability2 civ={civ} building="Dock"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="DarkAge"/>
                         <Ability2 civ={civ} unit="FishingShip"/>
                         <Ability2 civ={civ} unit="TransportShip"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="FeudalAge"/>
                         <Ability2 civ={civ} unit="FireGalley"/>
                         <Ability2 civ={civ} unit="TradeCog"/>
                         <Ability2 civ={civ} unit="DemolitionRaft"/>
                         <Ability2 civ={civ} unit="Galley"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="CastleAge"/>
                         <Ability2 civ={civ} unit="FireShip"/>
                         <Ability2 civ={civ} tech="Gillnets"/>
@@ -383,8 +378,8 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                             civInfo.uniqueUnits.includes('TurtleShip') &&
                             <Ability2 civ={civ} unit="TurtleShip"/>
                         }
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="ImperialAge"/>
                         <Ability2 civ={civ} unit="FastFireShip"/>
                         <Ability2 civ={civ} unit="CannonGalleon"/>
@@ -404,25 +399,25 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                             civInfo.uniqueUnits.includes('TurtleShip') &&
                             <Ability2 civ={civ} unit="EliteTurtleShip"/>
                         }
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability2/>
                         <Ability2/>
                         <Ability2 civ={civ} unit="EliteCannonGalleon"/>
-                    </View>
+                    </div>
 
-                    <MyText style={styles.heading}/>
-                    <View style={styles.row}>
+                    <div className={classes.heading}>&nbsp;</div>
+                    <div className={classes.row}>
                         <Ability2/>
                         <Ability2 civ={civ} building="Castle"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="CastleAge"/>
                         <Ability2 civ={civ} unit={uniqueLine?.units[0]}/>
                         <Ability2 civ={civ} unit="Petard"/>
                         <Ability2 civ={civ} tech={civInfo.uniqueTechs[0]}/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="ImperialAge"/>
                         <Ability2 civ={civ} unit={uniqueLine?.units[1]}/>
                         <Ability2 civ={civ} unit="Trebuchet"/>
@@ -430,8 +425,8 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2 civ={civ} tech="Hoardings"/>
                         <Ability2 civ={civ} tech="Sappers"/>
                         <Ability2 civ={civ} tech="Conscription"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability2/>
                         <Ability2/>
                         <Ability2 civ={civ} unit="FlamingCamel"/>
@@ -439,28 +434,28 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2/>
                         <Ability2/>
                         <Ability2 civ={civ} tech="SpiesTreason"/>
-                    </View>
+                    </div>
 
-                    <MyText style={styles.heading}/>
-                    <View style={styles.row}>
+                    <div className={classes.heading}>&nbsp;</div>
+                    <div className={classes.row}>
                         <Ability2/>
                         <Ability2 civ={civ} building="Krepost"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="CastleAge"/>
                         <Ability2 civ={civ} unit="Konnik"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="ImperialAge"/>
                         <Ability2 civ={civ} unit="EliteKonnik"/>
-                    </View>
+                    </div>
 
-                    <MyText style={styles.heading}/>
-                    <View style={styles.row}>
+                    <div className={classes.heading}>&nbsp;</div>
+                    <div className={classes.row}>
                         <Ability2/>
                         <Ability2 civ={civ} building="Monastery"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="CastleAge"/>
                         <Ability2 civ={civ} unit="Monk"/>
                         <Ability2 civ={civ} tech="Redemption"/>
@@ -469,22 +464,22 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2 civ={civ} tech="Heresy"/>
                         <Ability2 civ={civ} tech="Sanctity"/>
                         <Ability2 civ={civ} tech="Fervor"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="ImperialAge"/>
                         <Ability2 civ={civ} unit="Missionary"/>
                         <Ability2 civ={civ} tech="Faith"/>
                         <Ability2 civ={civ} tech="Illumination"/>
                         <Ability2 civ={civ} tech="BlockPrinting"/>
                         <Ability2 civ={civ} tech="Theocracy"/>
-                    </View>
+                    </div>
 
-                    <MyText style={styles.heading}/>
-                    <View style={styles.row}>
+                    <div className={classes.heading}>&nbsp;</div>
+                    <div className={classes.row}>
                         <Ability2/>
                         <Ability2 civ={civ} building="University"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="CastleAge"/>
                         <Ability2 civ={civ} tech="Masonry"/>
                         <Ability2 civ={civ} tech="FortifiedWall"/>
@@ -493,8 +488,8 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2 civ={civ} tech="HeatedShot"/>
                         <Ability2 civ={civ} tech="Ballistics"/>
                         <Ability2 civ={civ} tech="GuardTower"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="ImperialAge"/>
                         <Ability2 civ={civ} tech="Architecture"/>
                         <Ability2 civ={civ} tech="SiegeEngineers"/>
@@ -503,8 +498,8 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2/>
                         <Ability2 civ={civ} tech="Chemistry"/>
                         <Ability2 civ={civ} tech="Keep"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability2/>
                         <Ability2/>
                         <Ability2/>
@@ -513,42 +508,42 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2/>
                         <Ability2/>
                         <Ability2 civ={civ} tech="BombardTower"/>
-                    </View>
+                    </div>
 
-                    <MyText style={styles.heading}/>
-                    <View style={styles.row}>
+                    <div className={classes.heading}>&nbsp;</div>
+                    <div className={classes.row}>
                         <Ability2/>
                         <Ability2 civ={civ} building="Market"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="FeudalAge"/>
                         <Ability2 civ={civ} unit="TradeCart"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="CastleAge"/>
                         <Ability2/>
                         <Ability2 civ={civ} tech="Caravan"/>
                         <Ability2 civ={civ} tech="Coinage"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="ImperialAge"/>
                         <Ability2/>
                         <Ability2/>
                         <Ability2 civ={civ} tech="Banking"/>
                         <Ability2 civ={civ} tech="Guilds"/>
                         <Ability2/>
-                    </View>
+                    </div>
 
-                    <MyText style={styles.heading}/>
-                    <View style={styles.row}>
+                    <div className={classes.heading}>&nbsp;</div>
+                    <div className={classes.row}>
                         <Ability2/>
                         <Ability2 civ={civ} building="Mill"/>
                         <Ability2/>
                         <Ability2 civ={civ} building="LumberCamp"/>
                         <Ability2/>
                         <Ability2 civ={civ} building="MiningCamp"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="FeudalAge"/>
                         <Ability2 civ={civ} tech="HorseCollar"/>
                         <Ability2/>
@@ -556,8 +551,8 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2/>
                         <Ability2 civ={civ} tech="GoldMining"/>
                         <Ability2 civ={civ} tech="StoneMining"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="CastleAge"/>
                         <Ability2 civ={civ} tech="HeavyPlow"/>
                         <Ability2/>
@@ -565,17 +560,17 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2/>
                         <Ability2 civ={civ} tech="GoldShaftMining"/>
                         <Ability2 civ={civ} tech="StoneShaftMining"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="ImperialAge"/>
                         <Ability2 civ={civ} tech="CropRotation"/>
                         <Ability2/>
                         <Ability2 civ={civ} tech="TwoManSaw"/>
-                    </View>
+                    </div>
 
 
-                    <MyText style={styles.heading}/>
-                    <View style={styles.row}>
+                    <div className={classes.heading}>&nbsp;</div>
+                    <div className={classes.row}>
                         <Ability2/>
                         <Ability2 civ={civ} building="TownCenter"/>
                         <Ability2/>
@@ -583,63 +578,63 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2/>
                         <Ability2/>
                         <Ability2 civ={civ} building="House"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="DarkAge"/>
                         <Ability2 civ={civ} unit="Villager"/>
                         <Ability2 civ={civ} tech="Loom"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="FeudalAge"/>
                         <Ability2/>
                         <Ability2/>
                         <Ability2 civ={civ} tech="Wheelbarrow"/>
                         <Ability2 civ={civ} tech="TownWatch"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="CastleAge"/>
                         <Ability2/>
                         <Ability2/>
                         <Ability2 civ={civ} tech="HandCart"/>
                         <Ability2 civ={civ} tech="TownPatrol"/>
-                    </View>
+                    </div>
 
 
-                    <MyText style={styles.heading}/>
-                    <View style={styles.row}>
+                    <div className={classes.heading}>&nbsp;</div>
+                    <div className={classes.row}>
                         <Ability2/>
                         <Ability2 civ={civ} building="Outpost"/>
                         <Ability2/>
                         <Ability2 civ={civ} building="PalisadeWall"/>
                         <Ability2/>
                         <Ability2 civ={civ} building="PalisadeGate"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="FeudalAge"/>
                         <Ability2 civ={civ} building="WatchTower"/>
                         <Ability2/>
                         <Ability2 civ={civ} building="StoneWall"/>
                         <Ability2/>
                         <Ability2 civ={civ} building="Gate"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="CastleAge"/>
                         <Ability2 civ={civ} building="GuardTower"/>
                         <Ability2/>
                         <Ability2 civ={civ} building="FortifiedWall"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="ImperialAge"/>
                         <Ability2 civ={civ} building="Keep"/>
-                    </View>
-                    <View style={styles.row}>
+                    </div>
+                    <div className={classes.row}>
                         <Ability3 age="ImperialAge"/>
                         <Ability2 civ={civ} building="BombardTower"/>
-                    </View>
+                    </div>
                 </>
             }
 
-        </View>
+        </div>
     );
 }
 
@@ -664,30 +659,21 @@ export function getAbilityIcon({tech, unit, building}: AbilityHelperProps) {
     if (building) {
         return getBuildingIcon(building);
     }
-    return false;
+    return '';
 }
 
 function getAbilityNavCallback({tech, unit, building}: AbilityHelperProps) {
-    const navigation = useNavigation<RootStackProp>();
-    if (tech) {
-        return () => navigation.push('Tech', {tech: tech});
-    }
-    if (unit) {
-        return () => navigation.push('Unit', {unit: unit});
-    }
-    if (building) {
-        return () => navigation.push('Building', {building: building});
-    }
     return () => {};
 }
 
 function Ability0() {
+    const classes = useStyles();
     return (
-        <View style={[styles.imageContainer0, {borderColor: 'transparent'}]}/>
+        <div className={classes.imageContainer0}/>
     );
 }
 
-const techTreeWidth = windowWidth - 28;
+const techTreeWidth = 500 - 28;
 const colSize = (techTreeWidth / 8)-4;
 const colSize2 = colSize-6;
 
@@ -697,35 +683,39 @@ function Ability2({civ, tech, unit, building}: AbilityProps) {
     const enabled = getAbilityEnabled({civ, tech, unit, building});
     const color = enabled ? '#555' : '#C00';
     const opacity = enabled ? 1 : 0.4;
+    const classes = useStyles();
     return (
-        <TouchableOpacity style={[styles.imageContainer2, {borderColor: color, opacity: opacity}]} onPress={getAbilityNavCallback({tech, unit, building})}>
-            <ImageBackground source={getAbilityIcon({tech, unit, building})} imageStyle={styles.imageInner2} style={styles.image2}>
-                {
-                    !enabled &&
-                    <Icon name={'close'} size={colSize-4} color="red" />
-                }
-            </ImageBackground>
-        </TouchableOpacity>
+        // <MyLink key={civ.toString()} href='/civilization/[id]' as={`/civilization/${civ}`} naked>
+        <div className={classes.imageContainer2}>
+            <img src={getAbilityIcon({tech, unit, building})} className={classes.image2} />
+            {/*<div source={getAbilityIcon({tech, unit, building})} imageclassName={classes.imageInner2} className={classes.image2}>*/}
+            {/*    {*/}
+            {/*        !enabled &&*/}
+            {/*        <Icon name={'close'} size={colSize-4} color="red" />*/}
+            {/*    }*/}
+            {/*</div>*/}
+        </div>
     );
 }
 
 function Ability3({age}: Ability3Props) {
+    const classes = useStyles();
     return (
-        <TouchableOpacity style={[styles.imageContainer3]}>
-            <ImageBackground source={getOtherIcon(age)} imageStyle={styles.imageInner2} style={styles.image2}/>
-        </TouchableOpacity>
+        <div className={classes.imageContainer3}>
+            <img src={getOtherIcon(age)} className={classes.image2}/>
+        </div>
     );
 }
 
-const styles = StyleSheet.create({
+const useStyles = createStylesheet({
     sectionHeader: {
         fontSize: 15,
-        fontWeight: '500',
+        fontWeight: 500,
     },
-    imageInner2: {
-        resizeMode: "cover",
-        alignSelf: 'flex-end',
-    },
+    // imageInner2: {
+    //     resizeMode: "cover",
+    //     alignSelf: 'flex-end',
+    // },
     imageText: {
         fontSize: 20,
         fontWeight: 'bold',
@@ -735,6 +725,7 @@ const styles = StyleSheet.create({
         textShadowRadius: 3,
     },
     image2: {
+        // width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
         width: colSize2,
@@ -742,24 +733,21 @@ const styles = StyleSheet.create({
         // backgroundColor: 'blue',
     },
     imageContainer0: {
-        borderWidth: 3,
-        borderColor: '#FFF',
+        border: 'solid 3px transparent',
         width: colSize,
         height: colSize,
         margin: 2,
         // backgroundColor: 'blue',
     },
     imageContainer2: {
-        borderWidth: 3,
-        borderColor: '#555',
+        border: 'solid 3px #555',
         width: colSize,
         height: colSize,
         margin: 2,
         backgroundColor: 'black',
     },
     imageContainer3: {
-        borderWidth: 3,
-        borderColor: 'transparent',
+        border: 'solid 3px transparent',
         width: colSize,
         height: colSize,
         margin: 2,
@@ -787,6 +775,7 @@ const styles = StyleSheet.create({
         marginTop: 30,
     },
     row: {
+        display: "flex",
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 2,
@@ -794,6 +783,7 @@ const styles = StyleSheet.create({
         // backgroundColor: 'blue',
     },
     row2: {
+        display: "flex",
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 2,
