@@ -1,5 +1,4 @@
 import {Civ} from "@nex/data";
-import {civHistoryList, civIconList} from "../../../app/src/helper/civs";
 
 export const civs = [
     'Aztecs',
