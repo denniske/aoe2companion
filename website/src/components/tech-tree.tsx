@@ -7,6 +7,8 @@ import {getTechIcon} from "../helper/techs";
 import {getUnitIcon} from "../helper/units";
 import {getBuildingIcon} from "../helper/buildings";
 import {getOtherIcon} from "../helper/other";
+import {faTimes, faTrophy} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 
 export function TechTree({civ}: {civ: aoeCivKey}) {
@@ -686,14 +688,12 @@ function Ability2({civ, tech, unit, building}: AbilityProps) {
     const classes = useStyles();
     return (
         // <MyLink key={civ.toString()} href='/civilization/[id]' as={`/civilization/${civ}`} naked>
-        <div className={classes.imageContainer2}>
+        <div className={classes.imageContainer2} style={{borderColor: color, opacity: opacity}}>
             <img src={getAbilityIcon({tech, unit, building})} className={classes.image2} />
-            {/*<div source={getAbilityIcon({tech, unit, building})} imageclassName={classes.imageInner2} className={classes.image2}>*/}
-            {/*    {*/}
-            {/*        !enabled &&*/}
-            {/*        <Icon name={'close'} size={colSize-4} color="red" />*/}
-            {/*    }*/}
-            {/*</div>*/}
+            {
+                !enabled &&
+                <FontAwesomeIcon icon={faTimes} className={classes.overlayIcon} color="red" size={"2x"} />
+            }
         </div>
     );
 }
@@ -708,6 +708,13 @@ function Ability3({age}: Ability3Props) {
 }
 
 const useStyles = createStylesheet({
+    overlayIcon: {
+        position: "absolute",
+        top: '50%',
+        left: '50%',
+        marginTop: -14,
+        marginLeft: -10,
+    },
     sectionHeader: {
         fontSize: 15,
         fontWeight: 500,
@@ -745,6 +752,7 @@ const useStyles = createStylesheet({
         height: colSize,
         margin: 2,
         backgroundColor: 'black',
+        position: "relative",
     },
     imageContainer3: {
         border: 'solid 3px transparent',
