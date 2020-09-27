@@ -67,6 +67,7 @@
     "expo-av": "~8.2.1",
     "expo-device": "~2.2.1",
     "expo-font": "~8.2.1",
+    "expo-keep-awake": "^8.3.0",
     "expo-notifications": "~0.3.3",
     "expo-permissions": "~9.0.1",
     "expo-status-bar": "^1.0.0",

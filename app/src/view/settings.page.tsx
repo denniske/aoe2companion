@@ -43,6 +43,15 @@ export default function SettingsPage() {
         mutate(setConfig(newConfig));
     };
 
+    const togglePreventScreenLockOnGuidePage = async () => {
+        const newConfig = {
+            ...config,
+            preventScreenLockOnGuidePage: !config.preventScreenLockOnGuidePage,
+        };
+        await saveConfigToStorage(newConfig)
+        mutate(setConfig(newConfig));
+    };
+
     const enablePushNotifications = async (pushNotificationsEnabled: any) => {
         setLoadingPushNotificationEnabled(true);
         try {
@@ -146,6 +155,25 @@ export default function SettingsPage() {
                     >
                         Test
                     </Button>
+                </View>
+            </View>
+
+            <View style={styles.row}>
+                <View style={styles.cellName}>
+                    <MyText>Prevent Screen Lock</MyText>
+                    <MyText style={styles.small}>Prevent screen lock on build order screen</MyText>
+                </View>
+                <View style={styles.cellValueCol}>
+                    <View style={styles.row2}>
+                        <Checkbox.Android
+                            disabled={Platform.OS === 'web'}
+                            status={config.preventScreenLockOnGuidePage ? 'checked' : 'unchecked'}
+                            onPress={togglePreventScreenLockOnGuidePage}
+                        />
+                        <TouchableOpacity onPress={togglePreventScreenLockOnGuidePage} disabled={Platform.OS === 'web'}>
+                            <MyText style={[styles.testLink]}>{config.preventScreenLockOnGuidePage ? 'Active' : 'Inactive'}</MyText>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
         </ScrollView>

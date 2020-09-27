@@ -85,7 +85,7 @@ try {
 
 }
 
-YellowBox.ignoreWarnings(['Remote debugger']);
+YellowBox.ignoreWarnings(['Remote debugger', 'Unable to activate keep awake']);
 
 // HACK: Prevent "Expo pasted from CoreSimulator" notification from spamming continuously
 if (__DEV__) {

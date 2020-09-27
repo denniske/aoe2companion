@@ -11,6 +11,7 @@ import {v4 as uuidv4} from "uuid";
 export interface IConfig {
     darkMode: DarkMode;
     pushNotificationsEnabled: boolean;
+    preventScreenLockOnGuidePage: boolean;
 }
 
 export interface IPrefs {
@@ -56,13 +57,12 @@ export const saveCurrentPrefsToStorage = async () => {
 };
 
 export const loadConfigFromStorage = async () => {
-    const entry = await AsyncStorage.getItem('config');
-    if (entry == null) {
-        return {
-            darkMode: 'system',
-        };
-    }
-    return JSON.parse(entry) as IConfig;
+    const entryJson = await AsyncStorage.getItem('config');
+    const entry = (entryJson ? JSON.parse(entryJson) : {}) as IConfig;
+    entry.darkMode = entry.darkMode ?? 'system';
+    entry.preventScreenLockOnGuidePage = entry.preventScreenLockOnGuidePage ?? true;
+    entry.pushNotificationsEnabled = entry.pushNotificationsEnabled ?? false;
+    return entry;
 };
 
 export const saveConfigToStorage = async (config: IConfig) => {

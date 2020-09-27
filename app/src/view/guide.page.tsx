@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { WebView } from 'react-native-webview';
 import { Platform, View} from 'react-native';
+import {activateKeepAwake, deactivateKeepAwake} from "expo-keep-awake";
+import {useSelector} from "../redux/reducer";
 
 export default function GuidePage() {
     if (Platform.OS === 'web') {
@@ -15,6 +17,15 @@ export default function GuidePage() {
 
     const [width, setWidth] = useState(300);
     const [height, setHeight] = useState(400);
+
+    const config = useSelector(state => state.config);
+
+    useEffect(() => {
+        if (config.preventScreenLockOnGuidePage) {
+            activateKeepAwake();
+        }
+        return () => deactivateKeepAwake();
+    })
 
     return (
         <View

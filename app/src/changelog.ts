@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '19.0.1': [
+        {
+            type: 'feature',
+            title: 'Prevent screen lock on guide page (when activated in settings)',
+        },
+    ],
     '19.0.0': [
         {
             type: 'minor',
