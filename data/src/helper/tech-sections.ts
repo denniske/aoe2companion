@@ -1,4 +1,5 @@
-import {civDict, civs, Tech} from "@nex/data";
+import {Tech} from "./techs";
+import {civDict, civs} from "./civs";
 
 interface ITechSection {
     title: string;

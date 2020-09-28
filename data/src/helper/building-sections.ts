@@ -1,5 +1,5 @@
-import {Building} from "@nex/data";
 import {flatMap} from "lodash";
+import {Building} from "./buildings";
 
 
 export function makeListFromSections(sections: any) {
