@@ -2,43 +2,13 @@ import {Building, Civ, civs, getAbilityEnabled, Tech, Unit} from "@nex/data";
 import React from "react";
 import Space from "./space";
 import {getCivIcon} from "../helper/civs";
-import {createStylesheet} from "../helper/styles";
-import {MyLink} from "./link";
+import {MyText, TouchableOpacity, View, Image, StyleSheet} from "./compat";
 
 
 interface CivAvailabilityProps {
     tech?: Tech;
     unit?: Unit;
     building?: Building;
-}
-
-const StyleSheet = {
-    create: createStylesheet,
-}
-
-function Image(props) {
-    const { children, style, source, fadeDuration, ...rest } = props;
-    return <img className={style} src={source} {...rest}>{children}</img>;
-}
-
-function View(props) {
-    const { children, style, ...rest } = props;
-    return <div className={style} {...rest}>{children}</div>;
-}
-
-function MyText(props) {
-    const { children, style, ...rest } = props;
-    return <div className={style} {...rest}>{children}</div>;
-}
-
-function TouchableOpacity(props) {
-    const { children, style, ...rest } = props;
-
-    return (
-        <MyLink className={style} {...rest}>
-            {children}
-        </MyLink>
-    );
 }
 
 export default function CivAvailability({tech, unit, building}: CivAvailabilityProps) {

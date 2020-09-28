@@ -15,92 +15,6 @@ import CivAvailability from "../../components/civ-availability";
 
 
 const useStyles = createStylesheet((theme) => ({
-    root: {
-        display: 'flex',
-    },
-    icon: {
-        width: iconWidth,
-        height: iconHeight,
-    },
-    name: {},
-    civBlock: {
-        display: 'flex',
-        flexDirection: 'row',
-        marginTodp: 8,
-        marginBottom: 8,
-        // cursor: 'pointer',
-        // backgroundColor: 'yellow',
-    },
-    civRow: {
-        flex: 1,
-        marginLeft: 10,
-        // backgroundColor: 'blue',
-    },
-    civList: {
-        // backgroundColor: 'red',
-    },
-    small: {
-        fontSize: 12,
-        color: '#333',
-    },
-    heading: {
-        marginVertical: 10,
-        lineHeight: '24px',
-        fontWeight: 'bold',
-    },
-
-    box: {
-        // borderTopWidth: 1,
-        // borderTopColor: '#DDD',
-        // borderBottomWidth: 1,
-        // borderBottomColor: '#CCC',
-        // marginTop: 10,
-        // marginHorizontal: -20,
-        // paddingHorizontal: 20,
-    },
-    bonusRow: {
-        // marginLeft: 40,
-        display: 'flex',
-        flexDirection: 'row',
-    },
-    content: {
-        // marginBottom: 5,
-        textAlign: 'left',
-        lineHeight: '24px',
-        // fontSize: 17,
-    },
-
-    rowBig: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 10, // TODO ROLLBACK
-        // backgroundColor: 'blue',
-    },
-    unitIconBig: {
-        width: iconWidth,
-        height: iconHeight,
-        // borderWidth: 1,
-        // borderColor: '#555',
-    },
-    unitIconBigTitle: {
-        flex: 1,
-        paddingLeft: 8,
-        // backgroundColor: 'red',
-    },
-    unitIconBigBanner: {
-        position: 'absolute',
-        width: iconWidth/2.0,
-        height: iconHeight/2.0,
-        left: iconWidth/2.0,
-        bottom: -1,//iconHeight/2.0,
-    },
-    relativeContainer: {
-        position: "relative",
-        width: iconWidth,
-        height: iconHeight,
-    },
-
     resRow: {
         display: 'flex',
         flexDirection: 'row',
@@ -126,11 +40,6 @@ const useStyles = createStylesheet((theme) => ({
 
     description: {
         lineHeight: '20px',
-    },
-    container: {
-        flex: 1,
-        minHeight: '100%',
-        padding: 20,
     },
 }));
 

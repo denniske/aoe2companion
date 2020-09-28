@@ -10,6 +10,8 @@ export * from './data/data';
 export * from './data/civs';
 export * from './helper/civs';
 export * from './helper/buildings';
+export * from './helper/building-sections';
 export * from './helper/techs';
+export * from './helper/tech-sections';
 export * from './helper/units';
 export * from './helper/tree';
