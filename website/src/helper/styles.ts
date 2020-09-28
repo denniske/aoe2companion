@@ -39,6 +39,9 @@ function processStyles(styles: any) {
             styles[className].paddingRight = styles[className]['paddingHorizontal'];
             delete styles[className].paddingVertical;
         }
+        if (props.includes('flexDirection')) {
+            styles[className].display = 'flex';
+        }
     }
     return styles;
 }

@@ -15,6 +15,9 @@ export const useAppStyles = createStylesheet((theme) => ({
     box: {
         // minHeight: 200,
         overflow: 'auto',
+        // display: "flex",
+        // alignItems: "flex-start",
+        // flexDirection: 'column',
         // overflow: 'hidden',
         // overflowY: 'auto',
         maxWidth: 800,
