@@ -74,8 +74,6 @@ export default function BuildingView() {
     //     });
     // }
 
-    console.log('RENDER');
-
     return (
         <Paper className={appClasses.boxForTable}>
             <div className={classes.searchRow}>
@@ -105,7 +103,7 @@ export default function BuildingView() {
                     {
                         list.map(item => {
                             if (item.type == 'section')
-                                return <div className={classes.heading}>{item.title}</div>;
+                                return <div key={item.title} className={classes.heading}>{item.title}</div>;
                             if (item.type == 'item')
                                 return <BuildingCompBig key={item.item} building={item.item} showCivBanner={true}/>;
                         })
