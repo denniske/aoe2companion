@@ -59,7 +59,7 @@ export default function CivAvailability({tech, unit, building}: CivAvailabilityP
                 <Space/>
                 {
                     !availableForAllCivs && civAvailable.map(civ =>
-                        <TouchableOpacity key={civ} style={styles.civCol} href='/civilization/[id]' as={`/civilization/${civ}`} naked>
+                        <TouchableOpacity key={civ} style={styles.civCol} href='/civilization/[civId]' as={`/civilization/${civ}`} naked>
                             <View style={styles.row}>
                                 <Image style={styles.civIcon} fadeDuration={0} source={getCivIcon(civ) as any}/>
                                 <MyText> {civ}</MyText>
@@ -77,7 +77,7 @@ export default function CivAvailability({tech, unit, building}: CivAvailabilityP
                 <Space/>
                 {
                     !availableForAllCivs && civUnavailable.map(civ =>
-                        <TouchableOpacity key={civ} style={styles.civCol} href='/civilization/[id]' as={`/civilization/${civ}`} naked>
+                        <TouchableOpacity key={civ} style={styles.civCol} href='/civilization/[civId]' as={`/civilization/${civ}`} naked>
                             <View style={styles.row}>
                                 <Image style={styles.civIcon} fadeDuration={0} source={getCivIcon(civ) as any}/>
                                 <MyText> {civ}</MyText>

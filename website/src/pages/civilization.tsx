@@ -56,7 +56,7 @@ function Civilization() {
 
                 {
                     civs.map((civ, i) =>
-                        <MyLink key={civ.toString()} href='/civilization/[id]' as={`/civilization/${civ}`} naked>
+                        <MyLink key={civ.toString()} href='/civilization/[civId]' as={`/civilization/${civ}`} naked>
                             <div className={classes.civBlock}>
                                 <img src={getCivIconByIndex(i)} className={classes.icon}/>
                                 <div className={classes.civRow}>

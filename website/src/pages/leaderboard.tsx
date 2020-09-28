@@ -139,7 +139,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default withApollo(ResponsiveDrawer, {ssr:false})
+export default ResponsiveDrawer
+// export default withApollo(ResponsiveDrawer, {ssr:false})
 
 
 
