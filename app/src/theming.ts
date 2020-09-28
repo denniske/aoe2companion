@@ -1,31 +1,7 @@
 import {useTheme as usePaperTheme2} from "react-native-paper";
-import {FinalDarkMode} from "./redux/reducer";
+import {dark, FinalDarkMode, ITheme, light} from '@nex/data';
 
 export const usePaperTheme = usePaperTheme2;
-
-const light: ITheme = {
-    backgroundColor: "white",
-    textColor: "black",
-    textNoteColor: "#333",
-    borderColor: '#AAA',
-    hoverBackgroundColor: '#CCC',
-    lightBackgroundColor: '#AAA',
-    lightBorderColor: '#EEE',
-    skeletonColor: '#EEE',
-    linkColor: '#397AF9',
-};
-
-const dark: ITheme = {
-    backgroundColor: "#121212",
-    textColor: "white",
-    textNoteColor: "#BBB",
-    borderColor: '#101010',
-    hoverBackgroundColor: '#555',
-    lightBackgroundColor: '#333',
-    lightBorderColor: '#101010',
-    skeletonColor: '#111',
-    linkColor: '#0A84FF', // from react navigation dark theme primary
-};
 
 export function makeVariants<S extends (theme: ITheme, mode: FinalDarkMode) => any>(factory: S): IVariantDict<ReturnType<S>> {
     return {
@@ -58,18 +34,6 @@ export function createStylesheet<S extends (theme: ITheme, mode: FinalDarkMode) 
 export function useAppTheme() {
     const paperTheme = usePaperTheme();
     return paperTheme.dark ? dark : light;
-}
-
-export interface ITheme {
-    backgroundColor: string;
-    textColor: string;
-    textNoteColor: string;
-    borderColor: string;
-    hoverBackgroundColor: string;
-    lightBackgroundColor: string;
-    lightBorderColor: string;
-    skeletonColor: string;
-    linkColor: string;
 }
 
 interface IVariantDict<S> {

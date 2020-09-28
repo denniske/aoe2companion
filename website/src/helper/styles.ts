@@ -3,6 +3,13 @@ import {Property} from "csstype";
 import {makeStyles} from "@material-ui/core/styles";
 import {Theme as DefaultTheme} from "@material-ui/core/styles/createMuiTheme";
 
+import {dark, FinalDarkMode, ITheme, light} from '@nex/data';
+import {merge} from 'lodash';
+
+interface IVariantDict<S> {
+    [key: string]: S;
+}
+
 interface StandardCSSProperties extends CSS.Properties<number | string> {}
 
 interface CustomCSSProperties extends CSS.Properties<number | string> {
@@ -46,13 +53,67 @@ function processStyles(styles: any) {
     return styles;
 }
 
-export function createStylesheet<T extends NamedStyles<T>>(styles: (theme: DefaultTheme) => T): StyleFromProp<T> {
+export function createStylesheet<T extends NamedStyles<T>>(styles: (theme: DefaultTheme & ITheme) => T): StyleFromProp<T> {
 
     // console.log(styles);
 
+
+
     const mystyles = styles as any;
-    return makeStyles(theme => processStyles(mystyles(theme))) as any as StyleFromProp<T>;
+    return makeStyles(theme => {
+        const mytheme = theme.palette.type === 'light' ? light : dark;
+        return processStyles(mystyles(merge(theme, mytheme)));
+    }) as any as StyleFromProp<T>;
 }
+
+
+
+
+export function makeVariants<S extends (theme: ITheme, mode: FinalDarkMode) => any>(factory: S): IVariantDict<ReturnType<S>> {
+    return {
+        light: factory(light, 'light'),
+        dark: factory(dark, 'dark'),
+    };
+}
+
+export function useTheme<S>(
+    variants: IVariantDict<S>
+) {
+    const paperTheme = { dark: true}; // usePaperTheme();
+    return variants[paperTheme.dark ? 'dark' : 'light'];
+}
+
+export function createStylesheet2<S extends (theme: ITheme, mode: FinalDarkMode) => any>(factory: S) {
+    return () => {
+        // noinspection UnnecessaryLocalVariableJS
+        const hookResult = useTheme(makeVariants(factory));
+        return hookResult;
+    };
+}
+
+
+
+// export function useAppTheme() {
+//     const paperTheme = usePaperTheme();
+//     return paperTheme.dark ? dark : light;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // export function createStylesheet<T extends NamedStyles<T>>(styles: T): StyleFromProp<T> {
 //

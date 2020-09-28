@@ -2,6 +2,7 @@ import {Civ} from "./civs";
 import {getUnitLineIdForUnit, ICostDict, sortedUnitLines, Unit, UnitLine, unitLines} from "./units";
 import {aoeData, aoeStringKey, aoeTechDataId} from "../data/data";
 import {keysOf, sanitizeGameDescription, strRemoveTo, unwrap} from "../lib/util";
+import {flatMap} from 'lodash';
 
 export type Effect =
     'carryCapacity' |
@@ -2120,7 +2121,7 @@ export function getUpgradeList(tech: Tech, affectedUnitInfo: IAffectedUnit) {
 export function getAffectedUnitInfos(tech: Tech) {
     const affectedUnitLines = sortedUnitLines.filter(unitLineId => hasUpgrade(unitLineId, tech));
 
-    return affectedUnitLines.flatMap(unitLineId => {
+    return flatMap(unitLineId => {
         if (getUpgrades(unitLineId, tech).some(u => u.unit))
             return unitLines[unitLineId].units;
         return [unitLines[unitLineId].units[0]];

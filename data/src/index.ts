@@ -15,3 +15,4 @@ export * from './helper/techs';
 export * from './helper/tech-sections';
 export * from './helper/units';
 export * from './helper/tree';
+export * from './lib/theming';

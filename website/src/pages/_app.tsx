@@ -55,7 +55,7 @@ function MyApp(props) {
     }
   }, []);
 
-    const prefersDarkMode = true;//useMediaQuery('(prefers-color-scheme: dark)');
+    const prefersDarkMode = false;//useMediaQuery('(prefers-color-scheme: dark)');
 
     const theme = React.useMemo(
         () =>

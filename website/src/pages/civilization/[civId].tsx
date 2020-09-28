@@ -42,7 +42,7 @@ const useStyles = createStylesheet((theme) => ({
     },
     small: {
         fontSize: 12,
-        color: '#333',
+        color: theme.textNoteColor,
     },
     heading: {
         marginVertical: 10,
@@ -113,7 +113,7 @@ function Civilization({civId}: any) {
     const civDescription = parseCivDescription(civ);
 
     const {type, boni, uniqueUnitsTitle, uniqueTechsTitle, teamBonusTitle, teamBonus} = civDescription;
-    
+
     return (
         <div>
             <Paper className={appClasses.box}>
