@@ -171,7 +171,7 @@ const customFetch = (uri, options) => {
 
 function createIsomorphLink() {
   const { HttpLink } = require('apollo-link-http')
-  console.log('NEXT_PUBLIC_API_URL', process.env.NEXT_PUBLIC_API_URL);
+  // console.log('NEXT_PUBLIC_API_URL', process.env.NEXT_PUBLIC_API_URL);
   return ApolloLink.from([
     withScalars({ schema, typesMap }),
     new HttpLink({
