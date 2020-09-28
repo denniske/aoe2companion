@@ -6,6 +6,7 @@ import {MyText} from "./my-text";
 import React from "react";
 import Space from "./space";
 import {getCivIcon} from "../../helper/civs";
+import {createStylesheet} from "../../theming";
 
 
 interface CivAvailabilityProps {
@@ -15,6 +16,7 @@ interface CivAvailabilityProps {
 }
 
 export default function CivAvailability({tech, unit, building}: CivAvailabilityProps) {
+    const styles = useStyles();
     const navigation = useNavigation<RootStackProp>();
 
     const civAvailable = civs.filter(civ => getAbilityEnabled({civ, tech, unit, building}));
@@ -68,14 +70,14 @@ export default function CivAvailability({tech, unit, building}: CivAvailabilityP
     );
 }
 
-
-const styles = StyleSheet.create({
+const useStyles = createStylesheet(theme => StyleSheet.create({
     civCol: {
         // backgroundColor: 'blue',
         flexDirection: 'row',
         alignItems: 'center',
         paddingVertical: 3,
     },
+
     civList: {
         marginRight: 5,
         flex: 1,
@@ -94,4 +96,4 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
     },
-});
+}));

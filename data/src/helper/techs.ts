@@ -1,7 +1,7 @@
 import {Civ} from "./civs";
-import {ICostDict, Unit} from "./units";
+import {getUnitLineIdForUnit, ICostDict, sortedUnitLines, Unit, UnitLine, unitLines} from "./units";
 import {aoeData, aoeStringKey, aoeTechDataId} from "../data/data";
-import {sanitizeGameDescription, strRemoveTo, unwrap} from "../lib/util";
+import {keysOf, sanitizeGameDescription, strRemoveTo, unwrap} from "../lib/util";
 
 export type Effect =
     'carryCapacity' |
@@ -2079,3 +2079,57 @@ export function getTechDescription(tech: Tech) {
 
     return description;
 }
+
+
+
+
+export function hasUpgrade(unitLineId: UnitLine, tech: Tech) {
+    return unitLines[unitLineId].upgrades.some(u => techEffectDict[u].tech == tech);
+}
+
+export function getUpgrades(unitLineId: UnitLine, tech: Tech) {
+    return unitLines[unitLineId].upgrades.filter(u => techEffectDict[u].tech == tech).map(u => techEffectDict[u]);
+}
+
+export function hasUpgradeUnit(unitId: Unit, tech: Tech) {
+    return unitLines[getUnitLineIdForUnit(unitId)].upgrades.some(u => techEffectDict[u].tech == tech && (!techEffectDict[u].unit || techEffectDict[u].unit == unitId));
+}
+
+export function getUpgradesUnit(unitId: Unit, tech: Tech) {
+    return unitLines[getUnitLineIdForUnit(unitId)].upgrades.filter(u => techEffectDict[u].tech == tech && (!techEffectDict[u].unit || techEffectDict[u].unit == unitId)).map(u => techEffectDict[u]);
+}
+
+interface IAffectedUnit {
+    unitId: Unit;
+    upgrades: ITechEffect[];
+}
+
+export function getUpgradeList(tech: Tech, affectedUnitInfo: IAffectedUnit) {
+    const techInfo = techs[tech];
+
+    const getEffectText = (u: ITechEffect, effect: Effect) => {
+        return u.effect[effect] + (u.civ && !techInfo.civ ? ' (only '+u.civ+')' : '');
+    };
+
+    return keysOf(effectNames).map(effect => ({
+        name: getEffectName(effect),
+        upgrades: affectedUnitInfo.upgrades.filter(u => effect in u.effect).map(u => getEffectText(u, effect)),
+    })).filter(g => g.upgrades.length > 0);
+}
+
+export function getAffectedUnitInfos(tech: Tech) {
+    const affectedUnitLines = sortedUnitLines.filter(unitLineId => hasUpgrade(unitLineId, tech));
+
+    return affectedUnitLines.flatMap(unitLineId => {
+        if (getUpgrades(unitLineId, tech).some(u => u.unit))
+            return unitLines[unitLineId].units;
+        return [unitLines[unitLineId].units[0]];
+    })
+        .filter(unitId => hasUpgradeUnit(unitId, tech))
+        .map(unitId => ({
+            unitId,
+            upgrades: getUpgradesUnit(unitId, tech),
+        }));
+}
+
+export const techsAffectingAllUnits: Tech[] = ['Faith', 'Heresy', 'Conscription'];

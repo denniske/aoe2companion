@@ -42,7 +42,11 @@ export function useTheme<S>(
 }
 
 export function createStylesheet<S extends (theme: ITheme, mode: FinalDarkMode) => any>(factory: S) {
-    return () => useTheme(makeVariants(factory));
+    return () => {
+        // noinspection UnnecessaryLocalVariableJS
+        const hookResult = useTheme(makeVariants(factory));
+        return hookResult;
+    };
 }
 
 // export function useTheme2<S>(

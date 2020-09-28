@@ -1,16 +1,12 @@
 import React from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 import {
-    Effect, effectNames, getEffectName, getTechData, getTechDescription, getTechName, ITechEffect, Tech, techEffectDict,
-    techs
+    getAffectedUnitInfos, getTechData, getTechDescription, getTechName, getUpgradeList, keysOf, Other, sortResources,
+    Tech, techsAffectingAllUnits
 } from "@nex/data";
 import Fandom from "../components/fandom";
-import {
-    getUnitLineIdForUnit, Other, sortedUnitLines, sortResources, Unit, UnitLine, unitLines
-} from "@nex/data";
 import {MyText} from "../components/my-text";
-import {keysOf} from "@nex/data";
-import {useTheme} from "../../theming";
+import {createStylesheet, useTheme} from "../../theming";
 import {appVariants} from "../../styles";
 import {UnitCompBig} from "../unit/unit-list";
 import {capitalize} from "lodash-es";
@@ -19,60 +15,13 @@ import Space from "../components/space";
 import {getOtherIcon} from "../../helper/units";
 
 
-function hasUpgrade(unitLineId: UnitLine, tech: Tech) {
-    return unitLines[unitLineId].upgrades.some(u => techEffectDict[u].tech == tech);
-}
-
-function getUpgrades(unitLineId: UnitLine, tech: Tech) {
-    return unitLines[unitLineId].upgrades.filter(u => techEffectDict[u].tech == tech).map(u => techEffectDict[u]);
-}
-
-function hasUpgradeUnit(unitId: Unit, tech: Tech) {
-    return unitLines[getUnitLineIdForUnit(unitId)].upgrades.some(u => techEffectDict[u].tech == tech && (!techEffectDict[u].unit || techEffectDict[u].unit == unitId));
-}
-
-function getUpgradesUnit(unitId: Unit, tech: Tech) {
-    return unitLines[getUnitLineIdForUnit(unitId)].upgrades.filter(u => techEffectDict[u].tech == tech && (!techEffectDict[u].unit || techEffectDict[u].unit == unitId)).map(u => techEffectDict[u]);
-}
-
-interface IAffectedUnit {
-    unitId: Unit;
-    upgrades: ITechEffect[];
-}
-
 export default function TechDetails({tech}: {tech: Tech}) {
+    const styles = useStyles();
     const appStyles = useTheme(appVariants);
     const data = getTechData(tech);
 
-    const affectedUnitLines = sortedUnitLines.filter(unitLineId => hasUpgrade(unitLineId, tech));
-
-    const affectedUnitInfos = affectedUnitLines.flatMap(unitLineId => {
-            if (getUpgrades(unitLineId, tech).some(u => u.unit))
-                return unitLines[unitLineId].units;
-            return [unitLines[unitLineId].units[0]];
-        })
-        .filter(unitId => hasUpgradeUnit(unitId, tech))
-        .map(unitId => ({
-            unitId,
-            upgrades: getUpgradesUnit(unitId, tech),
-        }));
-
+    const affectedUnitInfos = getAffectedUnitInfos(tech);
     // console.log(affectedUnitInfos);
-
-    const techInfo = techs[tech];
-
-    const getEffectText = (u: ITechEffect, effect: Effect) => {
-        return u.effect[effect] + (u.civ && !techInfo.civ ? ' (only '+u.civ+')' : '');
-    };
-
-    const getUpgradeList = (affectedUnitInfo: IAffectedUnit) => {
-        return keysOf(effectNames).map(effect => ({
-            name: getEffectName(effect),
-            upgrades: affectedUnitInfo.upgrades.filter(u => effect in u.effect).map(u => getEffectText(u, effect)),
-        })).filter(g => g.upgrades.length > 0);
-    };
-
-    const techsAffectingAllUnits: Tech[] = ['Faith', 'Heresy', 'Conscription'];
 
     return (
         <View style={styles.container}>
@@ -102,7 +51,7 @@ export default function TechDetails({tech}: {tech: Tech}) {
                     {
                         affectedUnitInfos.map(affectedUnit =>
                             <UnitCompBig key={affectedUnit.unitId} unit={affectedUnit.unitId} subtitle={
-                                getUpgradeList(affectedUnit).map(g => g.name + ': ' + capitalize(g.upgrades.join(', '))).join('\n')
+                                getUpgradeList(tech, affectedUnit).map(g => g.name + ': ' + capitalize(g.upgrades.join(', '))).join('\n')
                             }/>
                         )
                     }
@@ -116,7 +65,7 @@ export default function TechDetails({tech}: {tech: Tech}) {
 }
 
 
-const styles = StyleSheet.create({
+const useStyles = createStylesheet((theme) => StyleSheet.create({
     resRow: {
         flexDirection: 'row',
         marginBottom: 5,
@@ -146,4 +95,4 @@ const styles = StyleSheet.create({
         minHeight: '100%',
         padding: 20,
     },
-});
+}));

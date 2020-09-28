@@ -4,15 +4,14 @@ import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {getTechDescription, getTechName, iconHeight, iconWidth, Tech, techs, techSections} from "@nex/data";
 import {MyText} from "../components/my-text";
-import {ITheme, makeVariants, useTheme} from "../../theming";
+import {createStylesheet} from "../../theming";
 import {Searchbar} from "react-native-paper";
-import {FinalDarkMode} from "../../redux/reducer";
 import {getTechIcon} from "../../helper/techs";
 import {getCivIcon} from "../../helper/civs";
 
 
 export function TechComp({tech: tech}: any) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const navigation = useNavigation<RootStackProp>();
     return (
         <TouchableOpacity onPress={() => navigation.push('Tech', {tech: tech})}>
@@ -28,7 +27,7 @@ export function TechComp({tech: tech}: any) {
 }
 
 export function TechIcon({tech: tech} : any) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const techInfo = techs[tech];
 
     if (techInfo.civ) {
@@ -46,7 +45,7 @@ export function TechIcon({tech: tech} : any) {
 }
 
 export function TechCompBig({tech: tech, showCivBanner: showCivBanner}: any) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const navigation = useNavigation<RootStackProp>();
 
     return (
@@ -63,7 +62,7 @@ export function TechCompBig({tech: tech, showCivBanner: showCivBanner}: any) {
 }
 
 export default function TechList() {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const [text, setText] = useState('');
     const [list, setList] = useState(techSections);
 
@@ -111,71 +110,67 @@ export default function TechList() {
 }
 
 
-const getStyles = (theme: ITheme, mode: FinalDarkMode) => {
-    return StyleSheet.create({
-        container: {
-            flex: 1,
-        },
-        list: {
-            padding: 20,
-        },
+const useStyles = createStylesheet((theme, mode) => StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    list: {
+        padding: 20,
+    },
 
-        searchbar: {
-            marginTop: Platform.select({ ios: mode == 'light' ? 5 : 0 }),
-            borderRadius: 0,
-            paddingHorizontal: 10,
-        },
+    searchbar: {
+        marginTop: Platform.select({ ios: mode == 'light' ? 5 : 0 }),
+        borderRadius: 0,
+        paddingHorizontal: 10,
+    },
 
-        row: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginVertical: 2,
-            // backgroundColor: 'blue',
-        },
-        unitIcon: {
-            width: 20,
-            height: 20,
-            marginRight: 5,
-        },
-        unitIconTitle: {
-            flex: 1,
-            // backgroundColor: 'red',
-        },
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 2,
+        // backgroundColor: 'blue',
+    },
+    unitIcon: {
+        width: 20,
+        height: 20,
+        marginRight: 5,
+    },
+    unitIconTitle: {
+        flex: 1,
+        // backgroundColor: 'red',
+    },
 
-        rowBig: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginBottom: 10,
-            // backgroundColor: 'blue',
-        },
-        unitIconBig: {
-            width: iconWidth,
-            height: iconHeight,
-        },
-        unitIconBigBanner: {
-            position: 'absolute',
-            width: iconWidth/2.0,
-            height: iconHeight/2.0,
-            left: iconWidth/2.0,
-            bottom: -1,//iconHeight/2.0,
-        },
-        unitIconBigTitle: {
-            flex: 1,
-            paddingLeft: 8,
-            // backgroundColor: 'red',
-        },
-        small: {
-            fontSize: 12,
-            color: theme.textNoteColor,
-        },
+    rowBig: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 10,
+        // backgroundColor: 'blue',
+    },
+    unitIconBig: {
+        width: iconWidth,
+        height: iconHeight,
+    },
+    unitIconBigBanner: {
+        position: 'absolute',
+        width: iconWidth/2.0,
+        height: iconHeight/2.0,
+        left: iconWidth/2.0,
+        bottom: -1,//iconHeight/2.0,
+    },
+    unitIconBigTitle: {
+        flex: 1,
+        paddingLeft: 8,
+        // backgroundColor: 'red',
+    },
+    small: {
+        fontSize: 12,
+        color: theme.textNoteColor,
+    },
 
-        heading: {
-            paddingVertical: 12,
-            marginBottom: 5,
-            fontWeight: 'bold',
-            // backgroundColor: theme.backgroundColor,
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+    heading: {
+        paddingVertical: 12,
+        marginBottom: 5,
+        fontWeight: 'bold',
+        // backgroundColor: theme.backgroundColor,
+    },
+}));
