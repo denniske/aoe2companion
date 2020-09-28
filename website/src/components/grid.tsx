@@ -136,7 +136,7 @@ export default function Grid(props: Props) {
     };
 
     const [gridOptions, setGridOptions] = useState(defaultGridOptions);
-    console.log('RENDER AG GRID', leaderboardId);
+    // console.log('RENDER AG GRID', leaderboardId);
 
     // const gridOptions = defaultGridOptions;
 
