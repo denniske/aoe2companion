@@ -27,7 +27,7 @@ const dark: ITheme = {
     linkColor: '#0A84FF', // from react navigation dark theme primary
 };
 
-export function makeVariants<S>(factory: (theme: ITheme, mode: FinalDarkMode) => S): IVariantDict<S> {
+export function makeVariants<S extends (theme: ITheme, mode: FinalDarkMode) => any>(factory: S): IVariantDict<ReturnType<S>> {
     return {
         light: factory(light, 'light'),
         dark: factory(dark, 'dark'),
@@ -40,6 +40,16 @@ export function useTheme<S>(
     const paperTheme = usePaperTheme();
     return variants[paperTheme.dark ? 'dark' : 'light'];
 }
+
+export function createStylesheet<S extends (theme: ITheme, mode: FinalDarkMode) => any>(factory: S) {
+    return () => useTheme(makeVariants(factory));
+}
+
+// export function useTheme2<S>(
+//     variants: IVariantDict<S>
+// ) {
+//     return () => useTheme(variants);
+// }
 
 export function useAppTheme() {
     const paperTheme = usePaperTheme();
