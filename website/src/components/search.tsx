@@ -161,6 +161,6 @@ const useStyles = makeStyles((theme) => ({
     },
     gamesCol: {
         textAlign: 'right',
-        color: fade(theme.palette.common.black, 0.60),
+        color: theme.palette.text.secondary,
     },
 }));

@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     },
     small: {
         fontSize: 12,
-        color: '#333',
+        color: theme.palette.text.secondary,
     },
 }));
 

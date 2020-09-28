@@ -48,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
             width: `calc(100% - ${drawerWidth}px)`,
             marginLeft: drawerWidth,
         },
-        backgroundColor: 'white',
     },
     menuButton: {
         marginRight: theme.spacing(2),
@@ -213,7 +212,7 @@ function Layout(props) {
 
     return (
         <div className={classes.root}>
-            <AppBar position="fixed" className={classes.appBar} color="transparent">
+            <AppBar position="fixed" className={classes.appBar} color="inherit">
                 <Toolbar>
                     <IconButton
                         color="inherit"
