@@ -1,10 +1,9 @@
-import {Building, Civ, civs, Tech, Unit} from "@nex/data";
+import {Building, Civ, civs, getAbilityEnabled, Tech, Unit} from "@nex/data";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import {MyText} from "./my-text";
 import React from "react";
-import {getAbilityEnabled} from "./tech-tree";
 import Space from "./space";
 import {getCivIcon} from "../../helper/civs";
 

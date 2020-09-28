@@ -1,6 +1,7 @@
 import {Image, StyleSheet, Text, View} from "react-native";
 import {MyText} from "../components/my-text";
 import {
+    buildingSections,
     getUnitClassName, IUnitInfo, Other, sortResources, UnitClassNumber
 } from "@nex/data";
 import React, {useState} from "react";
@@ -12,7 +13,6 @@ import {Building, getBuildingData, getBuildingName} from "@nex/data";
 import {
     getArmourClasses, GetArmourValue, getAttackBonuses, GetAttackBonusValue, GetAttackValue, GetUnitValue
 } from "../unit/unit-stats";
-import {buildingSections} from "./building-list";
 import {getBuildingIcon} from "../../helper/buildings";
 import {getOtherIcon} from "../../helper/units";
 

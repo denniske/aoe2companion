@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {
+    getAbilityEnabledForAllCivs,
     getUnitDescription, getUnitLineIdForUnit, getUnitLineNameForUnit, getUnitName, Unit, unitLines
 } from "@nex/data";
 import Fandom from "../components/fandom";
@@ -12,7 +13,6 @@ import {UnitUpgrades} from "./unit-upgrades";
 import {UnitCosts} from "./unit-costs";
 import UnitCounters from "./unit-counters";
 import CivAvailability from "../components/civ-availability";
-import {getAbilityEnabledForAllCivs} from "../components/tech-tree";
 import UnitRelated from "./unit-related";
 import Space from "../components/space";
 
