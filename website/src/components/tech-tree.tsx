@@ -707,7 +707,7 @@ function Ability3({age}: Ability3Props) {
     );
 }
 
-const useStyles = createStylesheet({
+const useStyles = createStylesheet((theme) => ({
     overlayIcon: {
         position: "absolute",
         top: '50%',
@@ -798,4 +798,4 @@ const useStyles = createStylesheet({
         marginHorizontal: -2,
         // backgroundColor: 'yellow',
     },
-});
+}));

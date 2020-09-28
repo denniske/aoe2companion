@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Image, Platform, SectionList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
-import {Building, getBuildingDescription, getBuildingName} from "@nex/data";
+import {Building, buildingSections, getBuildingDescription, getBuildingName} from "@nex/data";
 import {MyText} from "../components/my-text";
 import {iconHeight, iconWidth} from "@nex/data";
 import {ITheme, makeVariants, useTheme} from "../../theming";
@@ -44,79 +44,6 @@ export function BuildingCompBig({building: building}: any) {
     );
 }
 
-interface ISection {
-    title: string;
-    data: Building[];
-}
-
-export const buildingSections: ISection[] = [
-    {
-        title: 'Military Production',
-        data: [
-            "Barracks",
-            "ArcheryRange",
-            "Stable",
-            "SiegeWorkshop",
-            "Dock",
-            "Castle",
-            "Krepost",
-        ],
-    },
-    {
-        title: 'Eco',
-        data: [
-            "FishTrap",
-            "Mill",
-            "Farm",
-            "LumberCamp",
-            "MiningCamp",
-            "Feitoria",
-        ],
-    },
-    {
-        title: 'People & Science',
-        data: [
-            "TownCenter",
-            "House",
-            "Blacksmith",
-            "Market",
-            "Monastery",
-            "University",
-        ],
-    },
-    {
-        title: 'Special',
-        data: [
-            "Wonder",
-        ],
-    },
-    {
-        title: 'Towers',
-        data: [
-            "Outpost",
-            "WatchTower",
-            "GuardTower",
-            "Keep",
-            "BombardTower",
-        ],
-    },
-    {
-        title: 'Walls',
-        data: [
-            "PalisadeWall",
-            "StoneWall",
-            "FortifiedWall",
-        ],
-    },
-    {
-        title: 'Gates',
-        data: [
-            "PalisadeGate",
-            "Gate",
-        ],
-    },
-];
-
 export default function BuildingList() {
     const styles = useTheme(variants);
     const [text, setText] = useState('');
@@ -141,7 +68,6 @@ export default function BuildingList() {
     return (
         <View style={styles.container}>
             <Searchbar
-
                 style={styles.searchbar}
                 placeholder="building"
                 onChangeText={text => setText(text)}

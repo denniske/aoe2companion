@@ -23,6 +23,7 @@
     "next": "",
     "next-transpile-modules": "",
     "date-fns": "",
+    "react-window": "",
     "graphql": "",
     "graphql-iso-date": "",
     "graphql-tag": "",
@@ -50,6 +51,7 @@
     "victory": ""
   },
   "devDependencies": {
+    "@types/react-window": "",
     "@babel/core": "",
     "@babel/preset-env": "",
     "@babel/preset-typescript": "",

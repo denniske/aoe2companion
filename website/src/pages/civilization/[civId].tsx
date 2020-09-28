@@ -15,7 +15,7 @@ import {getTechIcon} from "../../helper/techs";
 import {TechTree} from "../../components/tech-tree";
 
 
-const useStyles = createStylesheet({
+const useStyles = createStylesheet((theme) => ({
     root: {
         display: 'flex',
     },
@@ -101,7 +101,7 @@ const useStyles = createStylesheet({
         width: iconWidth,
         height: iconHeight,
     },
-})
+}));
 
 
 function Civilization({civId}: any) {

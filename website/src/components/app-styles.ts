@@ -1,6 +1,6 @@
-import {makeStyles} from "@material-ui/core/styles";
+import {createStylesheet} from "../helper/styles";
 
-export const useAppStyles = makeStyles((theme) => ({
+export const useAppStyles = createStylesheet((theme) => ({
     root: {
         display: 'flex',
     },
@@ -14,8 +14,11 @@ export const useAppStyles = makeStyles((theme) => ({
     },
     box: {
         // minHeight: 200,
-        overflow: 'hidden',
+        overflow: 'auto',
+        // overflow: 'hidden',
+        // overflowY: 'auto',
         maxWidth: 800,
+        overscrollBehavior: "contain",
         padding: theme.spacing(3),
         marginBottom: theme.spacing(3),
         // marginRight: theme.spacing(3),
