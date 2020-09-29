@@ -60,6 +60,7 @@ import PushPage from "./src/view/push.page";
 import SplashPage from "./src/view/splash.page";
 import ErrorSnackbar from "./src/view/components/snackbar/error-snackbar";
 import ErrorPage from "./src/view/error.page";
+import WinratesPage from "./src/view/winrates.page";
 import * as Notifications from "expo-notifications";
 import TipsPage from "./src/view/tips.page";
 import {setSavedNotification} from "./src/helper/notification";
@@ -143,6 +144,9 @@ const linking: LinkingOptions = {
             Tech: {
                 path: 'tech/:tech',
             },
+            Winrates: {
+                path: 'winrates',
+            },
         },
     },
 };
@@ -159,6 +163,7 @@ export type RootStackParamList = {
     Changelog: { changelogLastVersionRead?: string };
     Settings: undefined;
     Main: undefined;
+    Winrates: undefined;
     Feed: { action?: string };
     Leaderboard: undefined;
     Civ: { civ: Civ };
@@ -188,6 +193,16 @@ function LinkTitle(props: any) {
         </TouchableOpacity>
     );
 }
+
+function LinkWinratesTitle(props: any) {
+    const appStyles = useTheme(appVariants);
+    return (
+        <TouchableOpacity onPress={() => Linking.openURL('https://aoestats.io')}>
+            <MyText style={appStyles.link}>aoestats.io</MyText>
+        </TouchableOpacity>
+    );
+}
+
 
 // function cacheImages(images: (string | number)[]) {
 //     return images.map(image => {
@@ -403,6 +418,14 @@ export function InnerApp() {
                     component={PrivacyPage}
                     options={{
                         title: 'Privacy',
+                    }}
+                />
+                <Stack.Screen
+                    name="Winrates"
+                    component={WinratesPage}
+                    options={{
+                        animationEnabled: false,
+                        headerTitle: props => <LinkWinratesTitle {...props} />,
                     }}
                 />
             </Stack.Navigator>
