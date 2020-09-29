@@ -14,5 +14,6 @@ export * from './helper/building-sections';
 export * from './helper/techs';
 export * from './helper/tech-sections';
 export * from './helper/units';
+export * from './helper/unit-sections';
 export * from './helper/tree';
 export * from './lib/theming';

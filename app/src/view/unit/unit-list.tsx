@@ -1,206 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {Image, Platform, SectionList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {useNavigation} from "@react-navigation/native";
-import {RootStackProp} from "../../../App";
-import {
-    civDict, civs, getRelatedUnitLines, getUnitLineForUnit, getUnitLineIdForUnit, getUnitLineName, getUnitName,
-    iconHeight, iconWidth, IUnitLine, Unit, UnitLine, unitLines
-} from "@nex/data";
-import {MyText} from "../components/my-text";
+import {Platform, SectionList, StyleSheet, Text, View} from 'react-native';
+import {allUnitSections, getUnitName} from "@nex/data";
 import {Searchbar} from "react-native-paper";
-import {sortBy} from "lodash-es";
-import {getUnitIcon, getUnitLineIcon} from "../../helper/units";
 import {createStylesheet} from '../../theming-new';
-
-
-function getUnitLineTitle(unitLine: IUnitLine) {
-    return unitLine.units.filter((x, i) => i > 0).map(getUnitName).join(', ');
-}
-
-export function UnitComp({unit}: any) {
-    const styles = useStyles();
-    const navigation = useNavigation<RootStackProp>();
-    return (
-        <TouchableOpacity onPress={() => navigation.push('Unit', {unit: unit})}>
-            <View style={styles.row}>
-                <Image style={styles.unitIcon} source={getUnitLineIcon(unit)}/>
-                <View style={styles.unitIconTitle}>
-                    <MyText>{getUnitLineName(unit)}</MyText>
-                    {
-                        unitLines[unit].units.length > 1 && !unitLines[unit].unique &&
-                        <MyText numberOfLines={1} style={styles.small}>{getUnitLineTitle(unitLines[unit])}</MyText>
-                    }
-                </View>
-            </View>
-        </TouchableOpacity>
-    );
-}
-
-export function UnitCompBig({unit, subtitle}: {unit: Unit, subtitle?: string}) {
-    const styles = useStyles();
-    const navigation = useNavigation<RootStackProp>();
-    return (
-        <TouchableOpacity onPress={() => navigation.push('Unit', {unit: unit})}>
-            <View style={styles.rowBig}>
-                <Image style={styles.unitIconBig} source={getUnitIcon(unit)}/>
-                <View style={styles.unitIconBigTitle}>
-                    <MyText>{getUnitName(unit)}</MyText>
-                    {
-                        subtitle != null &&
-                        <MyText style={styles.small}>{subtitle}</MyText>
-                    }
-                </View>
-            </View>
-        </TouchableOpacity>
-    );
-}
-
-export function UnitCompBigWithCiv({unit}: {unit: Unit}) {
-    const styles = useStyles();
-    const navigation = useNavigation<RootStackProp>();
-    const unitLine = getUnitLineForUnit(unit);
-    return (
-        <TouchableOpacity onPress={() => navigation.push('Unit', {unit: unit})}>
-            <View style={styles.rowBig}>
-                <Image style={styles.unitIconBig} source={getUnitIcon(unit)}/>
-                <View style={styles.unitIconBigTitle}>
-                    <MyText>{getUnitName(unit)}</MyText>
-                    {/*{*/}
-                    {/*    unitLine?.unique && false &&*/}
-                    {/*    <MyText numberOfLines={1} style={styles.small}>{unitLine.civ} unique unit</MyText>*/}
-                    {/*}*/}
-                </View>
-            </View>
-        </TouchableOpacity>
-    );
-}
-
-export function UnitLineCompBig({unitLine}: {unitLine: UnitLine}) {
-    const styles = useStyles();
-    const navigation = useNavigation<RootStackProp>();
-    return (
-        <TouchableOpacity onPress={() => navigation.push('Unit', {unit: unitLine})}>
-            <View style={styles.rowBig}>
-                <Image style={styles.unitIconBig} source={getUnitLineIcon(unitLine)}/>
-                <View style={styles.unitIconBigTitle}>
-                    <MyText>{getUnitLineName(unitLine)}</MyText>
-                    {
-                        unitLines[unitLine].units.length > 1 && !unitLines[unitLine].unique &&
-                        <MyText numberOfLines={1} style={styles.small}>{getUnitLineTitle(unitLines[unitLine])}</MyText>
-                    }
-                </View>
-            </View>
-        </TouchableOpacity>
-    );
-}
-
-interface ISection {
-    title: string;
-    data: (UnitLine | Unit)[];
-}
-
-const unitSections: ISection[] = [
-    {
-        title: 'Infantry',
-        data:
-            [
-                'Militia',
-                'Spearman',
-                'EagleScout',
-                'Condottiero',
-            ],
-    },
-    {
-        title: 'Archer',
-        data:
-            [
-                'Archer',
-                'Skirmisher',
-                'CavalryArcher',
-                'Genitour',
-                'HandCannoneer',
-                'Slinger',
-            ],
-    },
-    {
-        title: 'Cavalry',
-        data:
-            [
-                'ScoutCavalry',
-                'Knight',
-                'CamelRider',
-                'SteppeLancer',
-                'BattleElephant',
-                'XolotlWarrior',
-            ],
-    },
-    {
-        title: 'Siege',
-        data:
-            [
-                'BatteringRam',
-                'Mangonel',
-                'Scorpion',
-                'SiegeTower',
-                'BombardCannon',
-                'Trebuchet',
-                'Petard',
-                'FlamingCamel',
-            ],
-    },
-    {
-        title: 'Trade',
-        data:
-            [
-                'TradeCart',
-                'TradeCog',
-            ],
-    },
-    {
-        title: 'Villager',
-        data:
-            [
-                'Villager',
-            ],
-    },
-    {
-        title: 'Navy',
-        data:
-            [
-                'FishingShip',
-                'TransportShip',
-                'Galley',
-                'FireGalley',
-                'DemolitionRaft',
-                'CannonGalleon',
-                'Caravel',
-                'Longboat',
-                'TurtleShip',
-            ],
-    },
-    {
-        title: 'Monk',
-        data:
-            [
-                // 'Missionary',
-                'Monk',
-            ],
-    },
-    {
-        title: 'Unique',
-        data: sortBy(civs.flatMap(civ => [civDict[civ].uniqueUnits[0], ...getRelatedUnitLines(getUnitLineIdForUnit(civDict[civ].uniqueUnits[0]))])),
-    },
-];
-
-export const allUnitSections = unitSections.map(section => ({
-    ...section,
-    data: section.data.map(u => {
-        if (unitLines[u] && !unitLines[u].unique) {
-            return unitLines[u].units;
-        }
-        return [u];
-    }).flatMap(u => u),
-}));
+import {UnitCompBig} from './unit-comp';
 
 
 export default function UnitList() {
@@ -265,7 +68,6 @@ export default function UnitList() {
     );
 }
 
-
 const useStyles = createStylesheet((theme, mode) => StyleSheet.create({
     container: {
         flex: 1,
@@ -273,51 +75,11 @@ const useStyles = createStylesheet((theme, mode) => StyleSheet.create({
     list: {
         padding: 20,
     },
-
     searchbar: {
         marginTop: Platform.select({ ios: mode == 'light' ? 5 : 0 }),
         borderRadius: 0,
         paddingHorizontal: 10,
     },
-
-    row: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginVertical: 2,
-        // backgroundColor: 'blue',
-    },
-    unitIcon: {
-        width: 20,
-        height: 20,
-        marginRight: 5,
-    },
-    unitIconTitle: {
-        flex: 1,
-        // backgroundColor: 'red',
-    },
-
-    rowBig: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 10, // TODO ROLLBACK
-        // backgroundColor: 'blue',
-    },
-    unitIconBig: {
-        width: iconWidth,
-        height: iconHeight,
-        // borderWidth: 1,
-        // borderColor: '#555',
-    },
-    unitIconBigTitle: {
-        flex: 1,
-        paddingLeft: 8,
-        // backgroundColor: 'red',
-    },
-    small: {
-        fontSize: 12,
-        color: theme.textNoteColor,
-    },
-
     heading: {
         paddingVertical: 12,
         marginBottom: 5,

@@ -1,3 +1,4 @@
+import React from 'react';
 import {createStylesheet} from '../../theming-new';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackProp} from '../../../App';
@@ -5,7 +6,6 @@ import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {getBuildingIcon} from '../../helper/buildings';
 import {MyText} from '../components/my-text';
 import {getBuildingDescription, getBuildingName, iconHeight, iconWidth} from '@nex/data';
-import React from 'react';
 
 
 export function BuildingCompBig({building: building}: any) {
