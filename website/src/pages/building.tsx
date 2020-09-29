@@ -57,7 +57,7 @@ export default function BuildingView() {
                 {
                     list.map(item => {
                         if (item.type == 'section')
-                            return <div key={item.title} className={classes.heading}>{item.title}</div>;
+                            return <div key={'section-'+item.data} className={classes.heading}>{item.data}</div>;
                         if (item.type == 'item')
                             return <BuildingCompBig key={item.data} building={item.data} showCivBanner={true}/>;
                     })

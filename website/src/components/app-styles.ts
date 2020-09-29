@@ -50,4 +50,8 @@ export const useAppStyles = createStylesheet((theme) => ({
         marginBottom: theme.spacing(3),
         // marginRight: theme.spacing(3),
     },
+    small: {
+        fontSize: 12,
+        color: theme.textNoteColor,
+    },
 }));

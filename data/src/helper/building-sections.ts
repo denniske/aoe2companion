@@ -12,7 +12,7 @@ export function makeListFromSections<T>(sections: IGenericSection<T>[]) {
         return [
             {
                 type: 'section',
-                title: section.title,
+                data: section.title,
             },
             ...section.data.map(data => ({
                 type: 'item',
@@ -21,7 +21,6 @@ export function makeListFromSections<T>(sections: IGenericSection<T>[]) {
         ]
     })
 }
-
 
 interface IBuildingSection {
     title: string;

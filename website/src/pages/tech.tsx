@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {getTechName, iconHeight, iconWidth, makeListFromSections, techSections} from "@nex/data";
+import {getTechName, iconHeight, iconWidth, makeListFromSections, Tech, techSections} from "@nex/data";
 import {View} from "../components/compat";
 import {createStylesheet} from '../helper/styles';
 import {Paper} from '@material-ui/core';
@@ -38,7 +38,7 @@ export default function TechView() {
                 {
                     list.map(item => {
                         if (item.type == 'section')
-                            return <View key={item.title} style={styles.heading}>{item.title}</View>;
+                            return <View key={'section-'+item.data} style={styles.heading}>{item.data}</View>;
                         if (item.type == 'item')
                             return <TechCompBig key={item.data} tech={item.data} showCivBanner={true}/>;
                     })
