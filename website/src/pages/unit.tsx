@@ -67,6 +67,5 @@ const useStyles = createStylesheet(theme => ({
         paddingVertical: 12,
         marginBottom: 5,
         fontWeight: 'bold',
-        // backgroundColor: theme.backgroundColor,
     },
 }));
