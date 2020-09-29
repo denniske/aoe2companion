@@ -1,6 +1,7 @@
 import {Image, StyleSheet, Text, TextStyle, View} from "react-native";
 import {MyText} from "../components/my-text";
 import {
+    allUnitSections,
     attackClasses, getUnitClassName, getUnitData, getUnitLineIdForUnit, getUnitName,
     hiddenArmourClasses, IUnitInfo, Other, sortResources, Unit, UnitClassNumber, UnitLine, unitLines
 } from "@nex/data";
@@ -8,7 +9,6 @@ import React, {useState} from "react";
 import {makeVariants, useTheme} from "../../theming";
 import {keysOf} from "@nex/data";
 import Picker from "../components/picker";
-import {allUnitSections} from "./unit-list";
 import Space from "../components/space";
 import {Building, getBuildingData, IBuildingInfo} from "@nex/data";
 import {getOtherIcon, getUnitIcon} from "../../helper/units";

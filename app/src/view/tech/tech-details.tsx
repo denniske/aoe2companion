@@ -8,12 +8,12 @@ import Fandom from "../components/fandom";
 import {MyText} from "../components/my-text";
 import {createStylesheet} from "../../theming-new";
 import {appVariants} from "../../styles";
-import {UnitCompBig} from "../unit/unit-list";
 import {capitalize} from "lodash-es";
 import CivAvailability from "../components/civ-availability";
 import Space from "../components/space";
 import {getOtherIcon} from "../../helper/units";
 import {useTheme} from '../../theming';
+import {UnitCompBig} from '../unit/unit-comp';
 
 
 export default function TechDetails({tech}: {tech: Tech}) {
