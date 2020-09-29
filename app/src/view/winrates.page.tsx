@@ -16,6 +16,11 @@ export default function WinratesPage() {
     const [width, setWidth] = useState(300);
     const [height, setHeight] = useState(400);
 
+    const runFirst = `
+      document.querySelector("div>a.BuyMeACoffe-module--bmc-button--3AWbh").remove();
+      true; // note: this is required, or you'll sometimes get silent failures
+    `;
+
     return (
         <View
             style={{ minHeight: 300, flex: 1, overflow: 'hidden' }}
@@ -29,7 +34,8 @@ export default function WinratesPage() {
                 allowUniversalAccessFromFileURLs
                 mixedContentMode="always"
                 originWhitelist={['*']}
-
+                javaScriptEnabled
+                injectedJavaScript={runFirst}
                 source={{ uri: 'https://aoestats.io/' }}
                 scalesPageToFit={false}
                 style={{
