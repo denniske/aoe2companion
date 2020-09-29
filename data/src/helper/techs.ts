@@ -2121,7 +2121,7 @@ export function getUpgradeList(tech: Tech, affectedUnitInfo: IAffectedUnit) {
 export function getAffectedUnitInfos(tech: Tech) {
     const affectedUnitLines = sortedUnitLines.filter(unitLineId => hasUpgrade(unitLineId, tech));
 
-    return flatMap(unitLineId => {
+    return flatMap(affectedUnitLines, unitLineId => {
         if (getUpgrades(unitLineId, tech).some(u => u.unit))
             return unitLines[unitLineId].units;
         return [unitLines[unitLineId].units[0]];

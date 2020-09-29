@@ -1,13 +1,15 @@
 import React from 'react';
 import {ScrollView, Share, StyleSheet, View} from 'react-native';
-import {ITheme, makeVariants, useAppTheme, useTheme} from "../theming";
+import {useAppTheme} from "../theming";
 import {MyText} from "./components/my-text";
 import {Button} from "react-native-paper";
 import {useSelector} from "../redux/reducer";
 import Space from "./components/space";
+import {createStylesheet} from '../theming-new';
+
 
 export default function ErrorPage() {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const theme = useAppTheme();
     const errors = useSelector(state => state.errors);
 
@@ -48,23 +50,19 @@ export default function ErrorPage() {
     );
 }
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        container: {
-            flex: 1,
-            padding: 20,
-        },
-        content: {
-            // alignItems: 'center',
-        },
-        text: {
-            textAlign: 'center',
-        },
-        note: {
-            color: theme.textNoteColor,
-            textAlign: 'center',
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 20,
+    },
+    content: {
+        // alignItems: 'center',
+    },
+    text: {
+        textAlign: 'center',
+    },
+    note: {
+        color: theme.textNoteColor,
+        textAlign: 'center',
+    },
+}));

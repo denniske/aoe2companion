@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {FlatList, Platform, StyleSheet, View} from 'react-native';
 // import {useCavy} from "cavy";
-import {ITheme, makeVariants, useAppTheme, useTheme} from "../theming";
+import {useAppTheme} from "../theming";
 import {ILobbyMatchRaw} from "../helper/data";
 import {LiveGame} from "./live/live-game";
 import {MyText} from "./components/my-text";
 import IconFA5 from "react-native-vector-icons/FontAwesome5";
 import {Searchbar} from "react-native-paper";
+import {createStylesheet} from '../theming-new';
 
 
 interface IPingMessage {
@@ -41,7 +42,7 @@ interface ILobbiesMessage {
 type Message = IPingMessage | IChatMessage | ILobbiesMessage;
 
 export default function LivePage() {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const theme = useAppTheme();
     const [matches, setMatches] = useState([] as ILobbyMatchRaw[]);
     const [filteredMatches, setFilteredMatches] = useState([] as ILobbyMatchRaw[]);
@@ -169,44 +170,40 @@ export default function LivePage() {
     );
 }
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        searchbar: {
-            borderRadius: 0,
-            paddingHorizontal: 10,
-        },
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    searchbar: {
+        borderRadius: 0,
+        paddingHorizontal: 10,
+    },
 
-        header: {
-            textAlign: 'center',
-            marginBottom: 15,
-        },
+    header: {
+        textAlign: 'center',
+        marginBottom: 15,
+    },
 
-        usageRow: {
-            backgroundColor: theme.backgroundColor,
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-            paddingBottom: 15,
-            paddingTop: Platform.select({ android: 15 }),
-        },
-        usageIcon: {
-            marginRight: 5,
-        },
-        usageText: {
-            color: theme.textNoteColor,
-        },
+    usageRow: {
+        backgroundColor: theme.backgroundColor,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingBottom: 15,
+        paddingTop: Platform.select({ android: 15 }),
+    },
+    usageIcon: {
+        marginRight: 5,
+    },
+    usageText: {
+        color: theme.textNoteColor,
+    },
 
-        list: {
-            padding: 20,
-        },
-        container: {
-            flex: 1,
-            // backgroundColor: '#B89579',
-        },
-        content: {
-            flex: 1,
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+    list: {
+        padding: 20,
+    },
+    container: {
+        flex: 1,
+        // backgroundColor: '#B89579',
+    },
+    content: {
+        flex: 1,
+    },
+}));

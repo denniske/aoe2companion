@@ -1,7 +1,7 @@
-import {LayoutChangeEvent, Platform, StyleSheet, Text, View} from "react-native";
+import {LayoutChangeEvent, Platform, StyleSheet, View} from "react-native";
 import React from "react";
 import {MyText} from "../my-text";
-import {ITheme, makeVariants, useTheme} from "../../../theming";
+import {createStylesheet} from '../../../theming-new';
 
 interface SubtitleHeaderProps {
     text: string;
@@ -10,7 +10,7 @@ interface SubtitleHeaderProps {
 }
 
 export default function SubtitleHeader(props: SubtitleHeaderProps) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const {text, subtitle, onLayout} = props;
     return (
         <View style={styles.container} onLayout={onLayout}>
@@ -20,51 +20,47 @@ export default function SubtitleHeader(props: SubtitleHeaderProps) {
     );
 }
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        container: {
-            // backgroundColor: 'red',
-            alignItems: 'center',
-            width: '100%',
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    container: {
+        // backgroundColor: 'red',
+        alignItems: 'center',
+        width: '100%',
+    },
+    // From react-navigation HeaderTitle.tsx
+    title: Platform.select({
+        ios: {
+            // backgroundColor: 'yellow',
+            fontSize: 17,
+            fontWeight: '600',
         },
-        // From react-navigation HeaderTitle.tsx
-        title: Platform.select({
-            ios: {
-                // backgroundColor: 'yellow',
-                fontSize: 17,
-                fontWeight: '600',
-            },
-            android: {
-                fontSize: 20,
-                fontFamily: 'sans-serif-medium',
-                fontWeight: 'normal',
-            },
-            default: {
-                fontSize: 18,
-                fontWeight: '500',
-            },
-        }),
-        subtitle: Platform.select({
-            ios: {
-                // backgroundColor: 'yellow',
-                fontSize: 13,
-                fontWeight: '600',
-                color: theme.textNoteColor,
-                marginTop: 2,
-            },
-            android: {
-                fontSize: 16,
-                fontFamily: 'sans-serif-medium',
-                fontWeight: 'normal',
-                color: theme.textNoteColor,
-            },
-            default: {
-                fontSize: 14,
-                fontWeight: '500',
-                color: theme.textNoteColor,
-            },
-        })
-    });
-};
-
-const variants = makeVariants(getStyles);
+        android: {
+            fontSize: 20,
+            fontFamily: 'sans-serif-medium',
+            fontWeight: 'normal',
+        },
+        default: {
+            fontSize: 18,
+            fontWeight: '500',
+        },
+    }),
+    subtitle: Platform.select({
+        ios: {
+            // backgroundColor: 'yellow',
+            fontSize: 13,
+            fontWeight: '600',
+            color: theme.textNoteColor,
+            marginTop: 2,
+        },
+        android: {
+            fontSize: 16,
+            fontFamily: 'sans-serif-medium',
+            fontWeight: 'normal',
+            color: theme.textNoteColor,
+        },
+        default: {
+            fontSize: 14,
+            fontWeight: '500',
+            color: theme.textNoteColor,
+        },
+    })
+}));

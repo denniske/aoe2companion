@@ -6,7 +6,7 @@ import {Game} from './components/game';
 import {IMatch, IPlayer} from "../helper/data";
 import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
 import Search from "./components/search";
-import {sameUser, UserId, UserInfo, UserIdBase, userIdFromBase, UserIdBaseWithName, sameUserNull} from "../helper/user";
+import {sameUser, sameUserNull, UserIdBaseWithName, userIdFromBase} from "../helper/user";
 import {setFollowing, useMutate, useSelector} from "../redux/reducer";
 import {useCachedLazyApi} from "../hooks/use-cached-lazy-api";
 import {Button} from "react-native-paper";
@@ -15,13 +15,12 @@ import PlayerList, {IPlayerListPlayer} from "./components/player-list";
 // import {useCavy} from "cavy";
 import {MyText} from "./components/my-text";
 import {isEqual, orderBy, uniq} from "lodash-es";
-import {ITheme, makeVariants, useTheme} from "../theming";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
-import FontAwesomeIcon5 from "react-native-vector-icons/FontAwesome5";
 import RefreshControlThemed from "./components/refresh-control-themed";
 import {toggleFollowing} from "../service/following";
 import {fetchPlayerMatches} from "../api/player-matches";
 import {IFollowingEntry} from "../service/storage";
+import {createStylesheet} from '../theming-new';
 
 
 export function feedTitle(props: any) {
@@ -45,7 +44,7 @@ export function feedMenu(props: any) {
 }
 
 export function FeedMenu() {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const navigation = useNavigation<RootStackProp>();
     return (
         <View style={styles.menu}>
@@ -60,7 +59,7 @@ export function FeedMenu() {
 }
 
 export function FeedList() {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     // const generateTestHook = useCavy();
     const navigation = useNavigation<RootStackProp>();
     // generateTestHook('Navigation')(navigation);
@@ -303,59 +302,55 @@ export default function FeedPage() {
     return <FeedList/>;
 }
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        game: {
-            marginLeft: 7,
-            marginTop: 2,
-        },
-        menu: {
-            // backgroundColor: 'red',
-            flexDirection: 'row',
-            flex: 1,
-            marginRight: 10,
-        },
-        menuButton: {
-            // backgroundColor: 'blue',
-            width: 35,
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: 0,
-            marginHorizontal: 2,
-        },
-        menuIcon: {
-            color: theme.textColor,
-        },
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    game: {
+        marginLeft: 7,
+        marginTop: 2,
+    },
+    menu: {
+        // backgroundColor: 'red',
+        flexDirection: 'row',
+        flex: 1,
+        marginRight: 10,
+    },
+    menuButton: {
+        // backgroundColor: 'blue',
+        width: 35,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 0,
+        marginHorizontal: 2,
+    },
+    menuIcon: {
+        color: theme.textColor,
+    },
 
-        players: {
-            marginBottom: 10,
-        },
-        centered: {
-            // backgroundColor: 'yellow',
-            height: '100%',
-            alignItems: 'center',
-            justifyContent: 'center',
-        },
-        sectionHeader: {
-            marginTop: 20,
-            marginBottom: 20,
-            fontSize: 15,
-            fontWeight: '500',
-            textAlign: 'center',
-        },
-        list: {
-            paddingTop: 20,
-            paddingLeft: 20,
-            paddingRight: 20,
-        },
-        container: {
-            flex: 1,
-            // backgroundColor: '#B89579',
-        },
-        content: {
-            flex: 1,
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+    players: {
+        marginBottom: 10,
+    },
+    centered: {
+        // backgroundColor: 'yellow',
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    sectionHeader: {
+        marginTop: 20,
+        marginBottom: 20,
+        fontSize: 15,
+        fontWeight: '500',
+        textAlign: 'center',
+    },
+    list: {
+        paddingTop: 20,
+        paddingLeft: 20,
+        paddingRight: 20,
+    },
+    container: {
+        flex: 1,
+        // backgroundColor: '#B89579',
+    },
+    content: {
+        flex: 1,
+    },
+}));

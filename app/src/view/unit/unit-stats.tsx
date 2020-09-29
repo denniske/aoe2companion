@@ -5,13 +5,14 @@ import {
     hiddenArmourClasses, IUnitInfo, Other, sortResources, Unit, UnitClassNumber, UnitLine, unitLines
 } from "@nex/data";
 import React, {useState} from "react";
-import {ITheme, makeVariants, useTheme} from "../../theming";
+import {makeVariants, useTheme} from "../../theming";
 import {keysOf} from "@nex/data";
 import Picker from "../components/picker";
 import {allUnitSections} from "./unit-list";
 import Space from "../components/space";
 import {Building, getBuildingData, IBuildingInfo} from "@nex/data";
 import {getOtherIcon, getUnitIcon} from "../../helper/units";
+import {createStylesheet} from '../../theming-new';
 
 interface Props {
     unitId: Unit;
@@ -52,7 +53,7 @@ export function getData(params: GetDataParams) {
 
 export function GetValueByPath(props: PathProps) {
     const { style, unitId, buildingId, path, formatter = x => (x || 0).toString() } = props;
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const baseData = getData({ unitId, buildingId }) as IUnitInfo;
     const eliteData = unitId ? getEliteData(getUnitLineIdForUnit(unitId)) : null;
 
@@ -116,7 +117,7 @@ export function getArmourClasses(params: GetDataParams) {
 }
 
 export function UnitStats({ unitId, unitLineId }: Props) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
 
     const [comparisonUnit, setComparisonUnit] = useState<Unit>();
 
@@ -336,61 +337,57 @@ export function UnitStats({ unitId, unitLineId }: Props) {
 
 const padding = 2;
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        unitIcon: {
-            width: 20,
-            height: 20,
-            marginRight: 5,
-        },
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    unitIcon: {
+        width: 20,
+        height: 20,
+        marginRight: 5,
+    },
 
-        resRow: {
-            flexDirection: 'row',
-            // marginBottom: 5,
-            alignItems: 'center',
-            // backgroundColor: 'blue',
-        },
-        resIcon: {
-            width: 18,
-            height: 18,
-            marginRight: 5,
-        },
-        resDescription: {
-            marginRight: 10,
-        },
+    resRow: {
+        flexDirection: 'row',
+        // marginBottom: 5,
+        alignItems: 'center',
+        // backgroundColor: 'blue',
+    },
+    resIcon: {
+        width: 18,
+        height: 18,
+        marginRight: 5,
+    },
+    resDescription: {
+        marginRight: 10,
+    },
 
-        costsRow: {
-            flexDirection: 'row',
-            // marginBottom: 5,
-        },
+    costsRow: {
+        flexDirection: 'row',
+        // marginBottom: 5,
+    },
 
-        statsContainer: {
-            marginTop: 5,
-            marginHorizontal: -padding,
-        },
-        statsRow: {
-            flexDirection: 'row',
-            justifyContent: 'center',
-        },
-        statsRowHeader: {
-            flexDirection: 'row',
-            justifyContent: 'center',
-            marginBottom: 5,
-        },
-        cellName: {
-            padding: padding,
-            flex: 3,
-            fontWeight: 'bold',
-        },
-        cellValue: {
-            padding: padding,
-            flex: 4,
-        },
-        small: {
-            fontSize: 12,
-            color: theme.textNoteColor,
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+    statsContainer: {
+        marginTop: 5,
+        marginHorizontal: -padding,
+    },
+    statsRow: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+    statsRowHeader: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginBottom: 5,
+    },
+    cellName: {
+        padding: padding,
+        flex: 3,
+        fontWeight: 'bold',
+    },
+    cellValue: {
+        padding: padding,
+        flex: 4,
+    },
+    small: {
+        fontSize: 12,
+        color: theme.textNoteColor,
+    },
+}));

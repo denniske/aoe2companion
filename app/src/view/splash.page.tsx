@@ -1,11 +1,10 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {ITheme, makeVariants, useAppTheme, useTheme} from "../theming";
+import {createStylesheet} from '../theming-new';
 
 
 export default function SplashPage() {
-    const styles = useTheme(variants);
-    const theme = useAppTheme();
+    const styles = useStyles();
 
     return (
         <View style={styles.container}/>
@@ -13,12 +12,8 @@ export default function SplashPage() {
 }
 
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        container: {
-            flex: 1,
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+}));

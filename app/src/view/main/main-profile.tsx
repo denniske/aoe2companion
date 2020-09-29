@@ -1,4 +1,4 @@
-import {ITheme, makeVariants, useTheme} from "../../theming";
+import {makeVariants, useTheme} from "../../theming";
 import {Alert, AsyncStorage, FlatList, StyleSheet, View} from "react-native";
 import {clearMatchesPlayer, clearStatsPlayer, setAuth, useMutate, useSelector} from "../../redux/reducer";
 import {LeaderboardId} from "../../helper/leaderboards";
@@ -18,10 +18,11 @@ import {Button} from "react-native-paper";
 import {useLazyApi} from "../../hooks/use-lazy-api";
 import {useCachedLazyApi} from "../../hooks/use-cached-lazy-api";
 import {parseUserId, sameUserNull} from "../../helper/user";
+import {createStylesheet} from '../../theming-new';
 
 
 export default function MainProfile() {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const mutate = useMutate();
 
     const auth = useSelector(state => state.auth);
@@ -169,52 +170,48 @@ export default function MainProfile() {
     );
 }
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        info: {
-            // textAlign: 'center',
-            marginBottom: 10,
-            marginLeft: 5,
-        },
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    info: {
+        // textAlign: 'center',
+        marginBottom: 10,
+        marginLeft: 5,
+    },
 
-        col: {
-            // width: 54,
-            paddingHorizontal: 7,
-            alignItems: 'center',
-        },
-        h1: {
+    col: {
+        // width: 54,
+        paddingHorizontal: 7,
+        alignItems: 'center',
+    },
+    h1: {
 
-        },
-        h2: {
-            fontSize: 11,
-        },
+    },
+    h2: {
+        fontSize: 11,
+    },
 
-        pickerRow: {
-            // backgroundColor: 'yellow',
-            flexDirection: 'row',
-            // justifyContent: 'center',
-            alignItems: 'center',
-            paddingRight: 20,
-            marginBottom: 20,
-            // marginTop: 20,
-        },
-        sectionHeader: {
-            marginVertical: 25,
-            fontSize: 15,
-            fontWeight: '500',
-            textAlign: 'center',
-        },
-        list: {
-            padding: 20,
-        },
-        container: {
-            flex: 1,
-            // backgroundColor: '#B89579',
-        },
-        content: {
-            flex: 1,
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+    pickerRow: {
+        // backgroundColor: 'yellow',
+        flexDirection: 'row',
+        // justifyContent: 'center',
+        alignItems: 'center',
+        paddingRight: 20,
+        marginBottom: 20,
+        // marginTop: 20,
+    },
+    sectionHeader: {
+        marginVertical: 25,
+        fontSize: 15,
+        fontWeight: '500',
+        textAlign: 'center',
+    },
+    list: {
+        padding: 20,
+    },
+    container: {
+        flex: 1,
+        // backgroundColor: '#B89579',
+    },
+    content: {
+        flex: 1,
+    },
+}));

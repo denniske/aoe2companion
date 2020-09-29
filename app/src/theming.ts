@@ -4,6 +4,7 @@ import {dark, FinalDarkMode, ITheme, light} from '@nex/data';
 export const usePaperTheme = usePaperTheme2;
 
 export function makeVariants<S extends (theme: ITheme, mode: FinalDarkMode) => any>(factory: S): IVariantDict<ReturnType<S>> {
+    console.log('makeVariants factory');
     return {
         light: factory(light, 'light'),
         dark: factory(dark, 'dark'),
@@ -16,20 +17,6 @@ export function useTheme<S>(
     const paperTheme = usePaperTheme();
     return variants[paperTheme.dark ? 'dark' : 'light'];
 }
-
-export function createStylesheet<S extends (theme: ITheme, mode: FinalDarkMode) => any>(factory: S) {
-    return () => {
-        // noinspection UnnecessaryLocalVariableJS
-        const hookResult = useTheme(makeVariants(factory));
-        return hookResult;
-    };
-}
-
-// export function useTheme2<S>(
-//     variants: IVariantDict<S>
-// ) {
-//     return () => useTheme(variants);
-// }
 
 export function useAppTheme() {
     const paperTheme = usePaperTheme();

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {IFetchedUser, loadUser} from '../../service/user';
 import {useLazyApi} from '../../hooks/use-lazy-api';
 import {Button, Searchbar} from 'react-native-paper';
@@ -8,8 +8,8 @@ import {getFlagIcon} from '../../helper/flags';
 // import {useCavy} from "cavy";
 import {MyText} from "./my-text";
 import RefreshControlThemed from "./refresh-control-themed";
-import {ITheme, makeVariants, useTheme} from "../../theming";
 import {usePrevious} from "@nex/data/hooks";
+import {createStylesheet} from '../../theming-new';
 
 interface IPlayerProps {
     player: IFetchedUser;
@@ -19,7 +19,7 @@ interface IPlayerProps {
 }
 
 function Player({player, selectedUser, actionText, action}: IPlayerProps) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
 
     const onSelect = async () => {
         selectedUser!({
@@ -72,7 +72,7 @@ interface ISearchProps {
 }
 
 export default function Search({title, selectedUser, actionText, action}: ISearchProps) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const [text, setText] = useState('');
     const previousText = usePrevious(text);
 
@@ -159,73 +159,69 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
     );
 }
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        centerText: {
-            textAlign: 'center',
-            marginVertical: 20,
-        },
-        note: {
-            lineHeight: 20,
-            color: theme.textNoteColor,
-        },
-        countryIcon: {
-            width: 21,
-            height: 15,
-            marginRight: 5,
-        },
-        searchbar: {
-            marginTop: 15,
-            marginBottom: 15,
-            marginRight: 30,
-            marginLeft: 30,
-        },
-        cellRating: {
-            width: 40,
-        },
-        cellName: {
-            // backgroundColor: 'red',
-            flex: 2.7,
-            flexDirection: 'row',
-            alignItems: 'center',
-        },
-        name: {
-            flex: 1,
-        },
-        cellGames: {
-            flex: 1.2,
-        },
-        cellAction: {
-            flex: 1.5,
-        },
-        cellWon: {
-            width: 110,
-        },
-        list: {
-            marginRight: 30,
-            marginLeft: 30,
-        },
-        headerRow: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginVertical: 6,
-            padding: 3,
-            borderRadius: 5,
-            marginRight: 30,
-            marginLeft: 30,
-        },
-        row: {
-            flex: 1,
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginVertical: 3,
-            padding: 3,
-        },
-        container: {
-            paddingTop: 20,
-            flex: 1,
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    centerText: {
+        textAlign: 'center',
+        marginVertical: 20,
+    },
+    note: {
+        lineHeight: 20,
+        color: theme.textNoteColor,
+    },
+    countryIcon: {
+        width: 21,
+        height: 15,
+        marginRight: 5,
+    },
+    searchbar: {
+        marginTop: 15,
+        marginBottom: 15,
+        marginRight: 30,
+        marginLeft: 30,
+    },
+    cellRating: {
+        width: 40,
+    },
+    cellName: {
+        // backgroundColor: 'red',
+        flex: 2.7,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    name: {
+        flex: 1,
+    },
+    cellGames: {
+        flex: 1.2,
+    },
+    cellAction: {
+        flex: 1.5,
+    },
+    cellWon: {
+        width: 110,
+    },
+    list: {
+        marginRight: 30,
+        marginLeft: 30,
+    },
+    headerRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 6,
+        padding: 3,
+        borderRadius: 5,
+        marginRight: 30,
+        marginLeft: 30,
+    },
+    row: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 3,
+        padding: 3,
+    },
+    container: {
+        paddingTop: 20,
+        flex: 1,
+    },
+}));

@@ -2,9 +2,10 @@ import React from 'react';
 import {Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {RootStackParamList} from '../../App';
 import {RouteProp, useRoute} from '@react-navigation/native';
-import {ITheme, makeVariants, useTheme} from "../theming";
+import {makeVariants, useTheme} from "../theming";
 import FontAwesomeIcon5 from "react-native-vector-icons/FontAwesome5";
 import {MainPageInner} from "./main.page";
+import {createStylesheet} from '../theming-new';
 
 
 export function userMenu(props: any) {
@@ -17,7 +18,7 @@ export function userMenu(props: any) {
 }
 
 export function UserMenu() {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
     const auth = route.params.id;
     const steamProfileUrl = 'https://steamcommunity.com/profiles/' + auth.steam_id;
@@ -41,7 +42,7 @@ export function UserMenu() {
 }
 
 export default function UserPage() {
-    // const styles = useTheme(variants);
+    // const styles = useStyles();
     // const [refetching, setRefetching] = useState(false);
     // const [fetchingMore, setFetchingMore] = useState(false);
     // const [fetchedAll, setFetchedAll] = useState(false);
@@ -245,7 +246,7 @@ export default function UserPage() {
 
 
 // function MainMatches() {
-//     const styles = useTheme(variants);
+//     const styles = useStyles();
 //     const [refetching, setRefetching] = useState(false);
 //     const [fetchingMore, setFetchingMore] = useState(false);
 //     const [fetchedAll, setFetchedAll] = useState(false);
@@ -322,65 +323,60 @@ export default function UserPage() {
 //     );
 // }
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        menu: {
-            // backgroundColor: 'red',
-            flexDirection: 'row',
-            flex: 1,
-            marginRight: 10,
-        },
-        menuButton: {
-            // backgroundColor: 'blue',
-            width: 35,
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: 0,
-            marginHorizontal: 2,
-        },
-        menuIcon: {
-            // opacity: 0.5,
-            // color: theme.textColor,
-            color: theme.textNoteColor,
-        },
-        info: {
-            textAlign: 'center',
-            marginBottom: 10,
-            color: theme.textNoteColor,
-            fontSize: 12,
-        },
-        pickerRow: {
-            // backgroundColor: 'yellow',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingRight: 20,
-            marginBottom: 10
-        },
-        picker: {
-            width: 100,
-            marginLeft: 10,
-        },
-        sectionHeader: {
-            marginVertical: 25,
-            fontSize: 15,
-            fontWeight: '500',
-            textAlign: 'center',
-        },
-        list: {
-            paddingTop: 20,
-            paddingLeft: 20,
-            paddingRight: 20,
-        },
-        container: {
-            flex: 1,
-            // backgroundColor: '#B89579',
-        },
-        content: {
-            flex: 1,
-        },
-
-    });
-};
-
-const variants = makeVariants(getStyles);
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    menu: {
+        // backgroundColor: 'red',
+        flexDirection: 'row',
+        flex: 1,
+        marginRight: 10,
+    },
+    menuButton: {
+        // backgroundColor: 'blue',
+        width: 35,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 0,
+        marginHorizontal: 2,
+    },
+    menuIcon: {
+        // opacity: 0.5,
+        // color: theme.textColor,
+        color: theme.textNoteColor,
+    },
+    info: {
+        textAlign: 'center',
+        marginBottom: 10,
+        color: theme.textNoteColor,
+        fontSize: 12,
+    },
+    pickerRow: {
+        // backgroundColor: 'yellow',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingRight: 20,
+        marginBottom: 10
+    },
+    picker: {
+        width: 100,
+        marginLeft: 10,
+    },
+    sectionHeader: {
+        marginVertical: 25,
+        fontSize: 15,
+        fontWeight: '500',
+        textAlign: 'center',
+    },
+    list: {
+        paddingTop: 20,
+        paddingLeft: 20,
+        paddingRight: 20,
+    },
+    container: {
+        flex: 1,
+        // backgroundColor: '#B89579',
+    },
+    content: {
+        flex: 1,
+    },
+}));

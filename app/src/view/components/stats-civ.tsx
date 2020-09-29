@@ -7,10 +7,11 @@ import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {UserIdBase} from "../../helper/user";
 import {MyText} from "./my-text";
-import {ITheme, makeVariants, useTheme} from "../../theming";
+import {makeVariants, useTheme} from "../../theming";
 import {IRow} from "../../service/stats/stats-civ";
 import Space from "./space";
 import {getCivIcon} from "../../helper/civs";
+import {createStylesheet} from '../../theming-new';
 
 
 interface IRowProps {
@@ -18,7 +19,7 @@ interface IRowProps {
 }
 
 function Row({data}: IRowProps) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const navigation = useNavigation<RootStackProp>();
 
     const gotoCiv = () => {
@@ -56,7 +57,7 @@ interface IData {
 }
 
 export default function StatsCiv(props: IProps) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
 
     const { data, user } = props;
     const { rows } = data || {};
@@ -98,40 +99,36 @@ export default function StatsCiv(props: IProps) {
 
 const padding = 5;
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        cellLeaderboard: {
-            // backgroundColor: 'red',
-            margin: padding,
-            flex: 4,
-            flexDirection: 'row',
-            alignItems: 'center',
-        },
-        cellGames: {
-            margin: padding,
-            flex: 1,
-            textAlign: 'right',
-            fontVariant: ['tabular-nums'],
-        },
-        cellWon: {
-            margin: padding,
-            flex: 1,
-            textAlign: 'right',
-            fontVariant: ['tabular-nums'],
-        },
-        row: {
-            flexDirection: 'row',
-            alignItems: 'center',
-        },
-        container: {
-            // backgroundColor: 'red',
-        },
-        icon: {
-            width: 22,
-            height: 22,
-            marginRight: 5,
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    cellLeaderboard: {
+        // backgroundColor: 'red',
+        margin: padding,
+        flex: 4,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    cellGames: {
+        margin: padding,
+        flex: 1,
+        textAlign: 'right',
+        fontVariant: ['tabular-nums'],
+    },
+    cellWon: {
+        margin: padding,
+        flex: 1,
+        textAlign: 'right',
+        fontVariant: ['tabular-nums'],
+    },
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    container: {
+        // backgroundColor: 'red',
+    },
+    icon: {
+        width: 22,
+        height: 22,
+        marginRight: 5,
+    },
+}));

@@ -1,20 +1,19 @@
-import {Image, Linking, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Linking, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon5 from 'react-native-vector-icons/FontAwesome5';
 import {Divider, Menu} from 'react-native-paper';
 import {getRootNavigation} from "../../service/navigation";
 import {useNavigationStateExternal} from "../../hooks/use-navigation-state-external";
-import {MyText} from "./my-text";
-import {ITheme, makeVariants, useTheme} from "../../theming";
 import * as Notifications from "expo-notifications";
 import {RootStackParamList} from "../../../App";
 import {hasSavedNotification} from "../../helper/notification";
 import Space from "./space";
+import {createStylesheet} from '../../theming-new';
 
 
 export default function Footer() {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const [menu, setMenu] = useState(false);
     const navigationState = useNavigationStateExternal();
     const activeRoute = navigationState?.routes[0];
@@ -152,59 +151,56 @@ export default function Footer() {
     );
 }
 
-const getStyles = (theme: ITheme) =>
-    StyleSheet.create({
-        menu: {
-            // backgroundColor: 'yellow',
-            flexDirection: 'row',
-            alignItems: 'stretch',
-            justifyContent: 'space-evenly',
-            flex: 1,
-        },
-        menuIcon: {
-            alignSelf: 'center'
-        },
-        iconInPopup: {
-            color: theme.textNoteColor,
-        },
-        icon: {
-            color: '#777',
-        },
-        iconActive: {
-            color: theme.textColor,
-            fontWeight: 'bold',
-        },
-        menuButton: {
-            // backgroundColor: 'blue',
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: 0,
-            marginHorizontal: 2,
-        },
-        menuButtonDots: {
-            // backgroundColor: 'blue',
-            flex: 0.7,
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: 0,
-            marginHorizontal: 2,
-        },
-        header: {
-            // backgroundColor: 'blue',
-            flexDirection: 'row',
-            alignItems: 'center',
-            flex: 1,
-        },
-        container: {
-            // backgroundColor: 'blue',
-            borderTopWidth: 1,
-            borderTopColor: theme.borderColor,
-            flexDirection: 'row',
-            height: 48,
-            paddingLeft: 16,
-            paddingRight: 12, // because of three dots icon
-        },
-    });
-
-const variants = makeVariants(getStyles);
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    menu: {
+        // backgroundColor: 'yellow',
+        flexDirection: 'row',
+        alignItems: 'stretch',
+        justifyContent: 'space-evenly',
+        flex: 1,
+    },
+    menuIcon: {
+        alignSelf: 'center'
+    },
+    iconInPopup: {
+        color: theme.textNoteColor,
+    },
+    icon: {
+        color: '#777',
+    },
+    iconActive: {
+        color: theme.textColor,
+        fontWeight: 'bold',
+    },
+    menuButton: {
+        // backgroundColor: 'blue',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 0,
+        marginHorizontal: 2,
+    },
+    menuButtonDots: {
+        // backgroundColor: 'blue',
+        flex: 0.7,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 0,
+        marginHorizontal: 2,
+    },
+    header: {
+        // backgroundColor: 'blue',
+        flexDirection: 'row',
+        alignItems: 'center',
+        flex: 1,
+    },
+    container: {
+        // backgroundColor: 'blue',
+        borderTopWidth: 1,
+        borderTopColor: theme.borderColor,
+        flexDirection: 'row',
+        height: 48,
+        paddingLeft: 16,
+        paddingRight: 12, // because of three dots icon
+    },
+}));

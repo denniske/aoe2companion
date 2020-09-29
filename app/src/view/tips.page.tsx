@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Image, ImageSourcePropType, Linking, ScrollView, Share, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {ITheme, makeVariants, useAppTheme, useTheme} from "../theming";
+import {makeVariants, useAppTheme, useTheme} from "../theming";
 import {MyText} from "./components/my-text";
 import {Video} from "expo-av";
 import {Building, iconHeight, iconWidth, Tech, Unit} from "@nex/data";
@@ -8,6 +8,7 @@ import IconFA5 from "react-native-vector-icons/FontAwesome5";
 import {AVPlaybackSource} from "expo-av/build/AV";
 import {getAbilityIcon} from "./components/tech-tree";
 import ImageSized from "./components/image-sized";
+import {createStylesheet} from '../theming-new';
 
 interface ITip {
     title: string;
@@ -149,7 +150,7 @@ const tips: ITip[] = [
 ];
 
 export default function TipsPage() {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const theme = useAppTheme();
     const [currentTip, setCurrentTip] = useState(tips[0]);
     const [loading, setLoading] = useState(true);
@@ -263,66 +264,62 @@ export default function TipsPage() {
 }
 
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        container: {
-            flex: 1,
-        },
-        content: {
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    content: {
 
-        },
-        showcase: {
-            alignItems: 'center',
-            justifyContent: 'center',
-        },
-        showcaseContainer: {
-            borderTopWidth: 2,
-            borderTopColor: theme.borderColor,
-            borderBottomWidth: 2,
-            borderBottomColor: theme.borderColor,
-        },
-        showcaseInner: {
-            width: '100%',
-            aspectRatio: 16/9,
-        },
-        textContainer: {
-            flex: 1,
-        },
-        action: {
-            paddingHorizontal: 15,
-        },
-        tip: {
-            flex: 1,
-        },
-        unitIconBig: {
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: iconWidth,
-            height: iconHeight,
-            marginLeft: 5,
-            marginRight: 15,
-        },
-        row: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            borderBottomWidth: 1,
-            borderBottomColor: theme.borderColor,
-        },
-        rowInner: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            padding: 10,
-            // paddingLeft: 15,
-        },
-        title: {
-            lineHeight: 18,
-        },
-        description: {
-            color: theme.textNoteColor,
-            lineHeight: 16,
-            fontSize: 12,
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+    },
+    showcase: {
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    showcaseContainer: {
+        borderTopWidth: 2,
+        borderTopColor: theme.borderColor,
+        borderBottomWidth: 2,
+        borderBottomColor: theme.borderColor,
+    },
+    showcaseInner: {
+        width: '100%',
+        aspectRatio: 16/9,
+    },
+    textContainer: {
+        flex: 1,
+    },
+    action: {
+        paddingHorizontal: 15,
+    },
+    tip: {
+        flex: 1,
+    },
+    unitIconBig: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: iconWidth,
+        height: iconHeight,
+        marginLeft: 5,
+        marginRight: 15,
+    },
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderBottomWidth: 1,
+        borderBottomColor: theme.borderColor,
+    },
+    rowInner: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: 10,
+        // paddingLeft: 15,
+    },
+    title: {
+        lineHeight: 18,
+    },
+    description: {
+        color: theme.textNoteColor,
+        lineHeight: 16,
+        fontSize: 12,
+    },
+}));

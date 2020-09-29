@@ -1,11 +1,12 @@
 import {StyleSheet, Text, TextProps, View} from "react-native";
 import React from "react";
-import {ITheme, makeVariants, useTheme} from "../../../theming";
+import {makeVariants, useTheme} from "../../../theming";
+import {createStylesheet} from '../../../theming-new';
 
 type TextLoaderProps = TextProps & { children?: React.ReactNode, ready?: any }
 
 export function ViewLoader(props: TextLoaderProps) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const { children, ...rest } = props;
 
     if (props.children == null || ('ready' in props && !props.ready)) {
@@ -22,17 +23,13 @@ export function ViewLoader(props: TextLoaderProps) {
     )
 }
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        container: {
-            backgroundColor: theme.skeletonColor,
-            borderRadius: 5,
-            flexDirection: 'row',
-        },
-        view: {
-            opacity: 0,
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    container: {
+        backgroundColor: theme.skeletonColor,
+        borderRadius: 5,
+        flexDirection: 'row',
+    },
+    view: {
+        opacity: 0,
+    },
+}));

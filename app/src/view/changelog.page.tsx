@@ -1,15 +1,15 @@
 import React from 'react';
 import {ScrollView, StyleSheet, View, ViewStyle} from 'react-native';
 import {MyText} from "./components/my-text";
-import {ITheme, makeVariants, useTheme} from "../theming";
 import {changelog, IChange} from "../changelog";
 import {RouteProp, useRoute} from "@react-navigation/native";
 import {RootStackParamList} from "../../App";
 import {lt} from "semver";
+import {createStylesheet} from '../theming-new';
 
 
 export default function ChangelogPage() {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const route = useRoute<RouteProp<RootStackParamList, 'Changelog'>>();
     const changelogLastVersionRead = route.params?.changelogLastVersionRead;
 
@@ -65,55 +65,51 @@ export default function ChangelogPage() {
     );
 }
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        textContainer: {
-            flex: 1,
-            marginTop: 2,
-        },
-        row: {
-            flexDirection: 'row',
-        },
-        label: {
-            color: 'white',
-            fontWeight: 'bold',
-            fontSize: 13,
-        },
-        labelContainer: {
-            alignItems: 'center',
-            padding: 3,
-            borderRadius: 10,
-            width: 90,
-            alignSelf: 'flex-start',
-            marginRight: 15,
-        },
-        heading: {
-            marginTop: 10,
-            fontWeight: 'bold',
-            marginBottom: 10,
-        },
-        headingNote: {
-            marginTop: 12,
-            fontWeight: 'bold',
-            marginBottom: 10,
-            fontSize: 12,
-            color: theme.textNoteColor,
-        },
-        title: {
-            fontWeight: '500',
-            marginBottom: 5,
-            lineHeight: 18,
-        },
-        content: {
-            marginBottom: 5,
-            lineHeight: 18,
-        },
-        container: {
-            minHeight: '100%',
-            padding: 20,
-            paddingTop: 0,
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    textContainer: {
+        flex: 1,
+        marginTop: 2,
+    },
+    row: {
+        flexDirection: 'row',
+    },
+    label: {
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: 13,
+    },
+    labelContainer: {
+        alignItems: 'center',
+        padding: 3,
+        borderRadius: 10,
+        width: 90,
+        alignSelf: 'flex-start',
+        marginRight: 15,
+    },
+    heading: {
+        marginTop: 10,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    headingNote: {
+        marginTop: 12,
+        fontWeight: 'bold',
+        marginBottom: 10,
+        fontSize: 12,
+        color: theme.textNoteColor,
+    },
+    title: {
+        fontWeight: '500',
+        marginBottom: 5,
+        lineHeight: 18,
+    },
+    content: {
+        marginBottom: 5,
+        lineHeight: 18,
+    },
+    container: {
+        minHeight: '100%',
+        padding: 20,
+        paddingTop: 0,
+    },
+}));

@@ -6,7 +6,7 @@ import {MyText} from "./my-text";
 import React from "react";
 import Space from "./space";
 import {getCivIcon} from "../../helper/civs";
-import {createStylesheet} from "../../theming";
+import {createStylesheet} from "../../theming-new";
 
 
 interface CivAvailabilityProps {

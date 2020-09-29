@@ -202,11 +202,11 @@ function TechIcon({tech: tech} : any) {
     return <img className={classes.unitIconBig} src={getTechIcon(tech)}/>;
 }
 
-function TechCompBig({tech: tech, showCivBanner: showCivBanner}: any) {
+export function TechCompBig({tech: tech, showCivBanner: showCivBanner}: any) {
     const classes = useStyles();
 
     return (
-        <MyLink href='/tech/[id]' as={`/tech/${tech}`} naked>
+        <MyLink href='/tech/[techId]' as={`/tech/${tech}`} naked>
             <div className={classes.rowBig}>
                 <TechIcon className={classes.unitIconBig} tech={tech}/>
                 <div className={classes.unitIconBigTitle}>

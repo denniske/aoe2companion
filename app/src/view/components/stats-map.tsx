@@ -6,11 +6,12 @@ import {AoeMap, getMapImage, getMapName, maps} from "../../helper/maps";
 import {orderBy} from "lodash-es";
 import {sameUser, UserIdBase} from "../../helper/user";
 import {MyText} from "./my-text";
-import {ITheme, makeVariants, useTheme} from "../../theming";
+import {makeVariants, useTheme} from "../../theming";
 import {useLazyApi} from "../../hooks/use-lazy-api";
 import {LeaderboardId} from "../../helper/leaderboards";
 import {IRow} from "../../service/stats/stats-map";
 import Space from "./space";
+import {createStylesheet} from '../../theming-new';
 
 
 interface IRowProps {
@@ -18,7 +19,7 @@ interface IRowProps {
 }
 
 function Row({data}: IRowProps) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     return (
             <View style={styles.row}>
                 <View style={styles.cellLeaderboard}>
@@ -48,7 +49,7 @@ interface IData {
 }
 
 export default function StatsMap(props: IProps) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
 
     const { data, user } = props;
     const { rows } = data || {};
@@ -95,47 +96,42 @@ export default function StatsMap(props: IProps) {
 
 const padding = 5;
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        info: {
-            textAlign: 'center',
-            marginBottom: 10,
-            color: theme.textNoteColor,
-            fontSize: 12,
-        },
-        cellLeaderboard: {
-            // backgroundColor: 'red',
-            margin: padding,
-            flex: 4,
-            flexDirection: 'row',
-            alignItems: 'center',
-        },
-        cellGames: {
-            margin: padding,
-            flex: 1,
-            textAlign: 'right',
-            fontVariant: ['tabular-nums'],
-        },
-        cellWon: {
-            margin: padding,
-            flex: 1,
-            textAlign: 'right',
-            fontVariant: ['tabular-nums'],
-        },
-        row: {
-            flexDirection: 'row',
-            alignItems: 'center',
-        },
-        container: {
-            // backgroundColor: 'red',
-        },
-        icon: {
-            width: 22,
-            height: 22,
-            marginRight: 5,
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
-
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    info: {
+        textAlign: 'center',
+        marginBottom: 10,
+        color: theme.textNoteColor,
+        fontSize: 12,
+    },
+    cellLeaderboard: {
+        // backgroundColor: 'red',
+        margin: padding,
+        flex: 4,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    cellGames: {
+        margin: padding,
+        flex: 1,
+        textAlign: 'right',
+        fontVariant: ['tabular-nums'],
+    },
+    cellWon: {
+        margin: padding,
+        flex: 1,
+        textAlign: 'right',
+        fontVariant: ['tabular-nums'],
+    },
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    container: {
+        // backgroundColor: 'red',
+    },
+    icon: {
+        width: 22,
+        height: 22,
+        marginRight: 5,
+    },
+}));

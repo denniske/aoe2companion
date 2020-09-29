@@ -1,9 +1,7 @@
-import {
-    Image, ImageProps, ImageSourcePropType, StyleProp, StyleSheet, Text, TextProps, TextStyle, View
-} from "react-native";
+import {Image, ImageProps, StyleSheet, View} from "react-native";
 import React from "react";
 import {MyText} from "../my-text";
-import {ITheme, makeVariants, useTheme} from "../../../theming";
+import {createStylesheet} from '../../../theming-new';
 
 // interface ImageLoaderProps extends ImageProps {
 //     source?: ImageSourcePropType;
@@ -15,7 +13,7 @@ type ImageLoaderProps = Optional<ImageProps, 'source'> & {
 }
 
 export function ImageLoader(props: ImageLoaderProps) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     if (props.source == null || ('ready' in props && !props.ready)) {
         return (
             <View {...props} style={[props.style, styles.container, {height: 'auto'}]}>
@@ -28,17 +26,13 @@ export function ImageLoader(props: ImageLoaderProps) {
     )
 }
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        container: {
-            backgroundColor: theme.skeletonColor,
-            borderRadius: 5,
-            flexDirection: 'row',
-        },
-        text: {
-            color: 'transparent',
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    container: {
+        backgroundColor: theme.skeletonColor,
+        borderRadius: 5,
+        flexDirection: 'row',
+    },
+    text: {
+        color: 'transparent',
+    },
+}));

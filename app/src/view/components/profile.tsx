@@ -1,5 +1,5 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import { formatAgo } from '@nex/data';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {formatAgo} from '@nex/data';
 import React, {useEffect} from 'react';
 import {getLeaderboardTextColor} from '../../helper/colors';
 import {Flag, getFlagIcon} from '../../helper/flags';
@@ -11,12 +11,11 @@ import {setFollowing, setPrefValue, useMutate, useSelector} from "../../redux/re
 import {sameUser} from "../../helper/user";
 import {MyText} from "./my-text";
 import {formatLeaderboardId} from "../../helper/leaderboards";
-import {ITheme, makeVariants, useAppTheme, usePaperTheme, useTheme} from "../../theming";
-import IconFA5 from "react-native-vector-icons/FontAwesome5";
+import {useAppTheme, usePaperTheme} from "../../theming";
 import {toggleFollowing} from "../../service/following";
 import Space from "./space";
-import {myTodoList} from "@nex/data";
 import {saveCurrentPrefsToStorage} from "../../service/storage";
+import {createStylesheet} from '../../theming-new';
 
 interface ILeaderboardRowProps {
     data: ILeaderboard;
@@ -31,7 +30,7 @@ const formatStreak = (streak: number) => {
 
 function LeaderboardRow({data}: ILeaderboardRowProps) {
     const theme = usePaperTheme();
-    const styles = useTheme(variants);
+    const styles = useStyles();
 
     const leaderboardInfo = data.leaderboard[0];
     const color = {color: getLeaderboardTextColor(data.leaderboard_id, theme.dark)};
@@ -65,7 +64,7 @@ function LeaderboardRow({data}: ILeaderboardRowProps) {
 
 function LeaderboardRow1({data}: ILeaderboardRowProps) {
     const theme = usePaperTheme();
-    const styles = useTheme(variants);
+    const styles = useStyles();
 
     const leaderboardInfo = data.leaderboard[0];
     const color = {color: getLeaderboardTextColor(data.leaderboard_id, theme.dark)};
@@ -94,7 +93,7 @@ function LeaderboardRow1({data}: ILeaderboardRowProps) {
 
 function LeaderboardRow2({data}: ILeaderboardRowProps) {
     const theme = usePaperTheme();
-    const styles = useTheme(variants);
+    const styles = useStyles();
 
     const leaderboardInfo = data.leaderboard[0];
     const color = {color: getLeaderboardTextColor(data.leaderboard_id, theme.dark)};
@@ -142,7 +141,7 @@ interface IProfileProps {
 
 export default function Profile({data}: IProfileProps) {
     const theme = useAppTheme();
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const mutate = useMutate();
     const auth = useSelector(state => state.auth);
     const following = useSelector(state => state.following);
@@ -272,105 +271,101 @@ export default function Profile({data}: IProfileProps) {
     )
 }
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        sectionHeader: {
-            marginVertical: 25,
-            fontSize: 15,
-            fontWeight: '500',
-            // textAlign: 'center',
-        },
-        followButton: {
-            // backgroundColor: 'blue',
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: 0,
-            marginHorizontal: 2,
-        },
-        followButtonText: {
-            fontSize: 12,
-            color: theme.textNoteColor,
-            marginTop: 3
-        },
-        followButtonIcon: {
-            color: theme.textNoteColor,
-        },
-        cellLeaderboard: {
-            // backgroundColor: 'red',
-            width: 75,
-            marginRight: 5,
-        },
-        cellRank: {
-            width: 60,
-            marginRight: 5,
-            fontVariant: ['tabular-nums'],
-            display: 'flex',
-        },
-        cellRating: {
-            width: 50,
-            marginRight: 5,
-            fontVariant: ['tabular-nums'],
-        },
-        cellRating2: {
-            width: 60,
-            marginRight: 5,
-            fontVariant: ['tabular-nums'],
-        },
-        cellRatingChange: {
-            flex: 1,
-            marginRight: 5,
-            fontVariant: ['tabular-nums'],
-        },
-        cellGames: {
-            width: 60,
-            marginRight: 5,
-            fontVariant: ['tabular-nums'],
-        },
-        cellWon: {
-            width: 60,
-            marginRight: 5,
-            fontVariant: ['tabular-nums'],
-        },
-        cellStreak: {
-            width: 45,
-            marginRight: 10,
-            textAlign: 'right',
-            fontVariant: ['tabular-nums'],
-        },
-        cellLastMatch: {
-            flex: 1,
-        },
-        row: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            paddingVertical: 2,
-        },
-        leaderboardRow: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            paddingVertical: 3,
-        },
-        scrollContainer: {
-            marginHorizontal: -20,
-        },
-        scrollContent: {
-            flexDirection: 'column',
-            paddingBottom: 10,
-            paddingHorizontal: 20,
-        },
-        container: {
-            // backgroundColor: 'red',
-        },
-        countryIcon: {
-            width: 21,
-            height: 15,
-            marginRight: 5,
-        },
-        expanded: {
-            flex: 1,
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    sectionHeader: {
+        marginVertical: 25,
+        fontSize: 15,
+        fontWeight: '500',
+        // textAlign: 'center',
+    },
+    followButton: {
+        // backgroundColor: 'blue',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 0,
+        marginHorizontal: 2,
+    },
+    followButtonText: {
+        fontSize: 12,
+        color: theme.textNoteColor,
+        marginTop: 3
+    },
+    followButtonIcon: {
+        color: theme.textNoteColor,
+    },
+    cellLeaderboard: {
+        // backgroundColor: 'red',
+        width: 75,
+        marginRight: 5,
+    },
+    cellRank: {
+        width: 60,
+        marginRight: 5,
+        fontVariant: ['tabular-nums'],
+        display: 'flex',
+    },
+    cellRating: {
+        width: 50,
+        marginRight: 5,
+        fontVariant: ['tabular-nums'],
+    },
+    cellRating2: {
+        width: 60,
+        marginRight: 5,
+        fontVariant: ['tabular-nums'],
+    },
+    cellRatingChange: {
+        flex: 1,
+        marginRight: 5,
+        fontVariant: ['tabular-nums'],
+    },
+    cellGames: {
+        width: 60,
+        marginRight: 5,
+        fontVariant: ['tabular-nums'],
+    },
+    cellWon: {
+        width: 60,
+        marginRight: 5,
+        fontVariant: ['tabular-nums'],
+    },
+    cellStreak: {
+        width: 45,
+        marginRight: 10,
+        textAlign: 'right',
+        fontVariant: ['tabular-nums'],
+    },
+    cellLastMatch: {
+        flex: 1,
+    },
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 2,
+    },
+    leaderboardRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 3,
+    },
+    scrollContainer: {
+        marginHorizontal: -20,
+    },
+    scrollContent: {
+        flexDirection: 'column',
+        paddingBottom: 10,
+        paddingHorizontal: 20,
+    },
+    container: {
+        // backgroundColor: 'red',
+    },
+    countryIcon: {
+        width: 21,
+        height: 15,
+        marginRight: 5,
+    },
+    expanded: {
+        flex: 1,
+    },
+}));

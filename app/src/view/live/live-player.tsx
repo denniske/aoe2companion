@@ -6,9 +6,10 @@ import {RootStackProp} from '../../../App';
 import {getSlotTypeName, ILobbyPlayerRaw} from "../../helper/data";
 import IconFA5 from 'react-native-vector-icons/FontAwesome5';
 import {useSelector} from "../../redux/reducer";
-import {ITheme, makeVariants, useAppTheme, useTheme} from "../../theming";
+import {makeVariants, useAppTheme, useTheme} from "../../theming";
 import {MyText} from "../components/my-text";
 import {getFlagIcon} from "../../helper/flags";
+import {createStylesheet} from '../../theming-new';
 
 interface IPlayerProps {
     player: ILobbyPlayerRaw | null;
@@ -16,7 +17,7 @@ interface IPlayerProps {
 
 export function LivePlayer({player}: IPlayerProps) {
     const theme = useAppTheme();
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const auth = useSelector(state => state.auth);
 
     const navigation = useNavigation<RootStackProp>();
@@ -61,53 +62,49 @@ export function LivePlayer({player}: IPlayerProps) {
     );
 }
 
-const getStyles = (theme: ITheme) =>
-    StyleSheet.create({
-        playerGamesCol: {
-            marginLeft: 7,
-            width: 38,
-            textAlign: 'right',
-            fontVariant: ['tabular-nums'],
-        },
-        playerWonCol: {
-            marginLeft: 7,
-            width: 45,
-            textAlign: 'right',
-            fontVariant: ['tabular-nums'],
-        },
-        playerCountryCol: {
-            marginLeft: 7,
-            width: 21,
-            fontVariant: ['tabular-nums'],
-        },
-        playerRatingCol: {
-            marginLeft: 7,
-            width: 35,
-            letterSpacing: -0.5,
-            fontVariant: ['tabular-nums'],
-        },
-        playerNameCol: {
-            marginLeft: 5,
-            flex: 1,
-        },
-        row: {
-            marginLeft: 5,
-            flexDirection: 'row',
-            alignItems: 'center',
-            width: 100,
-            // backgroundColor: 'blue',
-        },
-        countryIcon: {
-            width: 21,
-            height: 15,
-        },
-        player: {
-            flexDirection: 'row',
-            padding: 3,
-            alignItems: 'center',
-            // backgroundColor: 'red',
-        },
-    });
-
-const variants = makeVariants(getStyles);
-
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    playerGamesCol: {
+        marginLeft: 7,
+        width: 38,
+        textAlign: 'right',
+        fontVariant: ['tabular-nums'],
+    },
+    playerWonCol: {
+        marginLeft: 7,
+        width: 45,
+        textAlign: 'right',
+        fontVariant: ['tabular-nums'],
+    },
+    playerCountryCol: {
+        marginLeft: 7,
+        width: 21,
+        fontVariant: ['tabular-nums'],
+    },
+    playerRatingCol: {
+        marginLeft: 7,
+        width: 35,
+        letterSpacing: -0.5,
+        fontVariant: ['tabular-nums'],
+    },
+    playerNameCol: {
+        marginLeft: 5,
+        flex: 1,
+    },
+    row: {
+        marginLeft: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: 100,
+        // backgroundColor: 'blue',
+    },
+    countryIcon: {
+        width: 21,
+        height: 15,
+    },
+    player: {
+        flexDirection: 'row',
+        padding: 3,
+        alignItems: 'center',
+        // backgroundColor: 'red',
+    },
+}));

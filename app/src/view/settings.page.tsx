@@ -5,7 +5,7 @@ import {DarkMode, setConfig, useMutate, useSelector} from "../redux/reducer";
 import {capitalize} from "lodash-es";
 import {saveConfigToStorage} from "../service/storage";
 import Picker from "./components/picker";
-import {ITheme, makeVariants, useTheme} from "../theming";
+import {makeVariants, useTheme} from "../theming";
 import {Button, Checkbox, Switch} from 'react-native-paper';
 import {useNavigation} from "@react-navigation/native";
 import {appVariants} from "../styles";
@@ -15,10 +15,11 @@ import * as Notifications from "expo-notifications";
 import {IosAuthorizationStatus} from "expo-notifications/build/NotificationPermissions.types";
 import * as Permissions from "expo-permissions";
 import ButtonPicker from "./components/button-picker";
+import {createStylesheet} from '../theming-new';
 
 
 export default function SettingsPage() {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const mutate = useMutate();
     const auth = useSelector(state => state.auth);
     const config = useSelector(state => state.config);
@@ -183,59 +184,55 @@ export default function SettingsPage() {
 const paddingHorizontal = 12;
 const paddingVertical = 5;
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        testLink: {
-            // marginLeft: 10,
-        },
-        cellName: {
-            // backgroundColor: 'grey',
-            paddingHorizontal,
-            paddingVertical,
-            flex: 1,
-        },
-        cellValue: {
-            paddingHorizontal,
-            paddingVertical,
-            flex: 1,
-        },
-        cellValueRow: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            paddingHorizontal,
-            paddingVertical,
-            flex: 1,
-        },
-        cellValueCol: {
-            // backgroundColor: 'grey',
-            // flexDirection: 'column',
-            // alignItems: 'center',
-            paddingHorizontal,
-            paddingVertical,
-            flex: 1,
-        },
-        row: {
-            // backgroundColor: 'yellow',
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginBottom: 10,
-        },
-        row2: {
-            // backgroundColor: 'yellow',
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginBottom: 10,
-            marginLeft: -8,
-        },
-        container: {
-            minHeight: '100%',
-            padding: 20,
-        },
-        small: {
-            fontSize: 12,
-            color: theme.textNoteColor,
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    testLink: {
+        // marginLeft: 10,
+    },
+    cellName: {
+        // backgroundColor: 'grey',
+        paddingHorizontal,
+        paddingVertical,
+        flex: 1,
+    },
+    cellValue: {
+        paddingHorizontal,
+        paddingVertical,
+        flex: 1,
+    },
+    cellValueRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal,
+        paddingVertical,
+        flex: 1,
+    },
+    cellValueCol: {
+        // backgroundColor: 'grey',
+        // flexDirection: 'column',
+        // alignItems: 'center',
+        paddingHorizontal,
+        paddingVertical,
+        flex: 1,
+    },
+    row: {
+        // backgroundColor: 'yellow',
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    row2: {
+        // backgroundColor: 'yellow',
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 10,
+        marginLeft: -8,
+    },
+    container: {
+        minHeight: '100%',
+        padding: 20,
+    },
+    small: {
+        fontSize: 12,
+        color: theme.textNoteColor,
+    },
+}));

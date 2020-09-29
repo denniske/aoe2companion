@@ -9,7 +9,7 @@ import {TechTree} from "./components/tech-tree";
 import {UnitCompBig} from "./unit/unit-list";
 import {TechCompBig} from "./tech/tech-list";
 import {MyText} from "./components/my-text";
-import {createStylesheet} from "../theming";
+import {createStylesheet} from "../theming-new";
 import {highlightUnitAndTechs} from "../helper/highlight";
 import {getCivHistoryImage, getCivIconByIndex} from "../helper/civs";
 

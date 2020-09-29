@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Platform, ScrollView, StyleSheet, View} from 'react-native';
-import {ITheme, makeVariants, useAppTheme, useTheme} from "../theming";
+import { makeVariants, useAppTheme, useTheme} from "../theming";
 import {MyText} from "./components/my-text";
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
@@ -11,6 +11,7 @@ import {IosAuthorizationStatus} from "expo-notifications/build/NotificationPermi
 import {maskToken} from "../service/push";
 import {useSelector} from "../redux/reducer";
 import Space from "./components/space";
+import {createStylesheet} from '../theming-new';
 
 interface FirebaseData {
     title?: string;
@@ -46,7 +47,7 @@ async function sendPushNotification(expoPushToken: string) {
 
 
 export default function PushPage() {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const theme = useAppTheme();
     const [messages, setMessages] = useState<string[]>([]);
     const [expoPushToken, setExpoPushToken] = useState<string>();
@@ -181,23 +182,19 @@ export default function PushPage() {
     );
 }
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        container: {
-            flex: 1,
-            padding: 20,
-        },
-        content: {
-            alignItems: 'center',
-        },
-        text: {
-            textAlign: 'center',
-        },
-        note: {
-            color: theme.textNoteColor,
-            textAlign: 'center',
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 20,
+    },
+    content: {
+        alignItems: 'center',
+    },
+    text: {
+        textAlign: 'center',
+    },
+    note: {
+        color: theme.textNoteColor,
+        textAlign: 'center',
+    },
+}));

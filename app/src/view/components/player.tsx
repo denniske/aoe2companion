@@ -10,8 +10,9 @@ import {getSlotTypeName, IPlayer} from "../../helper/data";
 import {TextLoader} from "./loader/text-loader";
 import IconFA5 from 'react-native-vector-icons/FontAwesome5';
 import {MyText} from "./my-text";
-import {ITheme, makeVariants, useTheme} from "../../theming";
 import {getCivIconByIndex} from "../../helper/civs";
+import {createStylesheet} from '../../theming-new';
+
 
 interface IPlayerProps {
     player: IPlayer;
@@ -19,7 +20,7 @@ interface IPlayerProps {
 }
 
 export function PlayerSkeleton() {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     return (
         <View style={styles.player}>
             <TextLoader style={styles.playerWonCol}/>
@@ -40,7 +41,7 @@ export function PlayerSkeleton() {
 }
 
 export function Player({player, highlight}: IPlayerProps) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const navigation = useNavigation<RootStackProp>();
 
     const boxStyle = [styles.square, {backgroundColor: getPlayerBackgroundColor(player.color)}];
@@ -89,107 +90,104 @@ export function Player({player, highlight}: IPlayerProps) {
     );
 }
 
-const getStyles = (theme: ITheme) =>
-    StyleSheet.create({
-        skullIcon: {
-            marginLeft: 2,
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    skullIcon: {
+        marginLeft: 2,
+    },
+    squareText: {
+        color: '#333',
+    },
+    squareCol: {
+        marginLeft: 5,
+        width: 20,
+    },
+    square: {
+        flexGrow: 0,
+        width: 20,
+        height: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: '#333',
+        backgroundColor: 'red',
+        flexDirection: 'row',
+    },
+    playerWonCol: {
+        marginLeft: 3,
+        width: 22,
+    },
+    playerRatingCol: {
+        marginLeft: 7,
+        width: 38,
+        letterSpacing: -0.5,
+        fontVariant: ['tabular-nums'],
+    },
+    playerCol: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginLeft: 2,
+        flex: 1,
+        paddingVertical: 3,
+    },
+    civCol: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginLeft: 5,
+        paddingVertical: 3,
+    },
+    playerNameCol: {
+        marginLeft: 5,
+        flex: 1,
+    },
+    row: {
+        marginLeft: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: 100,
+        // backgroundColor: 'blue',
+    },
+    countryIcon: {
+        width: 20,
+        height: 20,
+    },
+    player: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: 'rgba(0,0,0,0.5)',
+    },
+    modalView: {
+        margin: 0,
+        backgroundColor: "white",
+        borderRadius: 5,
+        padding: 15,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
         },
-        squareText: {
-            color: '#333',
-        },
-        squareCol: {
-            marginLeft: 5,
-            width: 20,
-        },
-        square: {
-            flexGrow: 0,
-            width: 20,
-            height: 20,
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderWidth: 1,
-            borderColor: '#333',
-            backgroundColor: 'red',
-            flexDirection: 'row',
-        },
-        playerWonCol: {
-            marginLeft: 3,
-            width: 22,
-        },
-        playerRatingCol: {
-            marginLeft: 7,
-            width: 38,
-            letterSpacing: -0.5,
-            fontVariant: ['tabular-nums'],
-        },
-        playerCol: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginLeft: 2,
-            flex: 1,
-            paddingVertical: 3,
-        },
-        civCol: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginLeft: 5,
-            paddingVertical: 3,
-        },
-        playerNameCol: {
-            marginLeft: 5,
-            flex: 1,
-        },
-        row: {
-            marginLeft: 5,
-            flexDirection: 'row',
-            alignItems: 'center',
-            width: 100,
-            // backgroundColor: 'blue',
-        },
-        countryIcon: {
-            width: 20,
-            height: 20,
-        },
-        player: {
-            flexDirection: 'row',
-            alignItems: 'center',
-        },
-        centeredView: {
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: 'rgba(0,0,0,0.5)',
-        },
-        modalView: {
-            margin: 0,
-            backgroundColor: "white",
-            borderRadius: 5,
-            padding: 15,
-            alignItems: "center",
-            shadowColor: "#000",
-            shadowOffset: {
-                width: 0,
-                height: 2
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 5
-        },
-        modalText: {
-            paddingVertical: 3,
-            marginBottom: 15,
-            textAlign: "center",
-            color: 'black',
-        },
-        modalHeader: {
-            flexDirection: 'row',
-            // backgroundColor: 'yellow'
-        },
-        modalCloseIcon: {
-            position: 'absolute',
-            right: 15,
-            top: 15,
-        }
-    });
-
-const variants = makeVariants(getStyles);
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
+    },
+    modalText: {
+        paddingVertical: 3,
+        marginBottom: 15,
+        textAlign: "center",
+        color: 'black',
+    },
+    modalHeader: {
+        flexDirection: 'row',
+        // backgroundColor: 'yellow'
+    },
+    modalCloseIcon: {
+        position: 'absolute',
+        right: 15,
+        top: 15,
+    }
+}));

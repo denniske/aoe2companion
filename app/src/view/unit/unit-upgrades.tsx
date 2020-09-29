@@ -5,7 +5,7 @@ import {
     keysOf, Tech, techEffectDict, Unit, UnitLine, unitLines
 } from "@nex/data";
 import React from "react";
-import {ITheme, makeVariants, useTheme} from "../../theming";
+import {useTheme} from "../../theming";
 import {appVariants} from "../../styles";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
@@ -13,6 +13,7 @@ import Space from "../components/space";
 import {Costs} from "./unit-costs";
 import {getTechIcon} from "../../helper/techs";
 import {getEliteUniqueResearchIcon, getUnitIcon} from "../../helper/units";
+import {createStylesheet} from '../../theming-new';
 
 interface Props {
     unitLineId: UnitLine;
@@ -20,7 +21,7 @@ interface Props {
 }
 
 export function UnitUpgrades({ unitLineId, unitId }: Props) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const appStyles = useTheme(appVariants);
 
     const navigation = useNavigation<RootStackProp>();
@@ -122,74 +123,70 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
     );
 }
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        description: {
-            lineHeight: 20,
-        },
-        container: {
-            flex: 1,
-            minHeight: '100%',
-            padding: 20,
-        },
-        row: {
-            flexDirection: 'row',
-            marginBottom: 5,
-            alignItems: 'center',
-            // backgroundColor: 'blue',
-        },
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    description: {
+        lineHeight: 20,
+    },
+    container: {
+        flex: 1,
+        minHeight: '100%',
+        padding: 20,
+    },
+    row: {
+        flexDirection: 'row',
+        marginBottom: 5,
+        alignItems: 'center',
+        // backgroundColor: 'blue',
+    },
 
-        resRow: {
-            flexDirection: 'row',
-            marginBottom: 5,
-            alignItems: 'center',
-            // backgroundColor: 'blue',
-        },
-        resIcon: {
-            width: 22,
-            height: 22,
-            marginRight: 5,
-        },
-        resDescription: {
-            marginRight: 20,
-        },
+    resRow: {
+        flexDirection: 'row',
+        marginBottom: 5,
+        alignItems: 'center',
+        // backgroundColor: 'blue',
+    },
+    resIcon: {
+        width: 22,
+        height: 22,
+        marginRight: 5,
+    },
+    resDescription: {
+        marginRight: 20,
+    },
 
-        costsRow: {
-            flexDirection: 'row',
-            marginBottom: 5,
-        },
+    costsRow: {
+        flexDirection: 'row',
+        marginBottom: 5,
+    },
 
-        checkboxCell: {
-            flex: 1,
-            marginLeft: -6
-        },
-        checkboxDesc: {
-            flex: 11,
-            marginLeft: 4
-        },
-        small: {
-            fontSize: 12,
-            color: theme.textNoteColor,
-        },
-        header1: {
-            marginTop: 10,
-            fontSize: 18,
-            fontWeight: '500',
-        },
-        header2: {
-            fontSize: 15,
-            marginVertical: 5,
-        },
-        unitIcon: {
-            width: iconSmallWidth,
-            height: iconSmallHeight,
-            marginRight: 5,
-        },
-        unitDesc: {
-            lineHeight: 20,
-            flex: 1,
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+    checkboxCell: {
+        flex: 1,
+        marginLeft: -6
+    },
+    checkboxDesc: {
+        flex: 11,
+        marginLeft: 4
+    },
+    small: {
+        fontSize: 12,
+        color: theme.textNoteColor,
+    },
+    header1: {
+        marginTop: 10,
+        fontSize: 18,
+        fontWeight: '500',
+    },
+    header2: {
+        fontSize: 15,
+        marginVertical: 5,
+    },
+    unitIcon: {
+        width: iconSmallWidth,
+        height: iconSmallHeight,
+        marginRight: 5,
+    },
+    unitDesc: {
+        lineHeight: 20,
+        flex: 1,
+    },
+}));

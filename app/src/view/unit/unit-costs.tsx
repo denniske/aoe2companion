@@ -4,14 +4,15 @@ import {
     getUnitData, ICostDict, Other, sortResources, Unit, UnitLine, unitLines
 } from "@nex/data";
 import React from "react";
-import {ITheme, makeVariants, useTheme} from "../../theming";
+import {makeVariants, useTheme} from "../../theming";
 import {keysOf} from "@nex/data";
 import {GetUnitValue} from "./unit-stats";
 import {getOtherIcon} from "../../helper/units";
+import {createStylesheet} from '../../theming-new';
 
 
 export function Costs({ costDict }: { costDict: ICostDict }) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
 
     return (
         <View style={styles.row}>
@@ -33,7 +34,7 @@ interface Props {
 }
 
 export function UnitCosts({ unitId, unitLineId }: Props) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const baseData = getUnitData(unitId);
     return (
         <View style={styles.costsRow}>
@@ -43,38 +44,34 @@ export function UnitCosts({ unitId, unitLineId }: Props) {
     );
 }
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        resRow: {
-            flexDirection: 'row',
-            marginBottom: 5,
-            alignItems: 'center',
-            // backgroundColor: 'blue',
-        },
-        resIcon: {
-            width: 22,
-            height: 22,
-            marginRight: 5,
-        },
-        resDescription: {
-            marginRight: 20,
-        },
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    resRow: {
+        flexDirection: 'row',
+        marginBottom: 5,
+        alignItems: 'center',
+        // backgroundColor: 'blue',
+    },
+    resIcon: {
+        width: 22,
+        height: 22,
+        marginRight: 5,
+    },
+    resDescription: {
+        marginRight: 20,
+    },
 
-        row: {
-            flexDirection: 'row',
-        },
-        costsRow: {
-            flexDirection: 'row',
-            marginBottom: 5,
-        },
-        description: {
-            lineHeight: 20,
-        },
-        small: {
-            fontSize: 12,
-            color: theme.textNoteColor,
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+    row: {
+        flexDirection: 'row',
+    },
+    costsRow: {
+        flexDirection: 'row',
+        marginBottom: 5,
+    },
+    description: {
+        lineHeight: 20,
+    },
+    small: {
+        fontSize: 12,
+        color: theme.textNoteColor,
+    },
+}));

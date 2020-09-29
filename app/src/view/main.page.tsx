@@ -13,11 +13,12 @@ import {LeaderboardId} from "../helper/leaderboards";
 import {useCachedConservedLazyApi} from "../hooks/use-cached-conserved-lazy-api";
 import {get, set} from "lodash-es";
 import {getStats} from "../service/stats";
-import {ITheme, makeVariants, useTheme} from "../theming";
+import {makeVariants, useTheme} from "../theming";
 import IconFA5 from "react-native-vector-icons/FontAwesome5";
 import MainProfile from "./main/main-profile";
 import MainStats from "./main/main-stats";
 import MainMatches from "./main/main-matches";
+import {createStylesheet} from '../theming-new';
 
 
 export function mainMenu() {
@@ -27,7 +28,7 @@ export function mainMenu() {
 }
 
 export function MainMenu() {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const mutate = useMutate();
     const auth = useSelector(state => state.auth!);
 
@@ -100,7 +101,7 @@ export default function MainPage() {
 }
 
 export function MainPageInner({ user }: MainPageInnerProps) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const mutate = useMutate();
 
     console.log('USER PAGE', user);
@@ -140,27 +141,23 @@ export function MainPageInner({ user }: MainPageInnerProps) {
     );
 }
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        menu: {
-            // backgroundColor: 'red',
-            flexDirection: 'row',
-            flex: 1,
-            marginRight: 10,
-        },
-        menuButton: {
-            // backgroundColor: 'blue',
-            width: 35,
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: 0,
-            marginHorizontal: 2,
-        },
-        menuIcon: {
-            opacity: 0.5,
-            color: theme.textColor,
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    menu: {
+        // backgroundColor: 'red',
+        flexDirection: 'row',
+        flex: 1,
+        marginRight: 10,
+    },
+    menuButton: {
+        // backgroundColor: 'blue',
+        width: 35,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 0,
+        marginHorizontal: 2,
+    },
+    menuIcon: {
+        opacity: 0.5,
+        color: theme.textColor,
+    },
+}));

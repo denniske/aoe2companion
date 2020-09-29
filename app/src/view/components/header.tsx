@@ -8,18 +8,19 @@ import {getRootNavigation} from "../../service/navigation";
 import {MyText} from "./my-text";
 import {iconHeight, iconWidth} from "@nex/data";
 import {setConfig, setInitialState, useMutate, useSelector} from "../../redux/reducer";
-import {ITheme, makeVariants, useTheme} from "../../theming";
+import {makeVariants, useTheme} from "../../theming";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import FontAwesomeIcon5 from "react-native-vector-icons/FontAwesome5";
 import {appVariants} from "../../styles";
 import {clearCache} from "../../redux/cache";
 import {IConfig, saveConfigToStorage} from "../../service/storage";
 import { reloadAsync } from 'expo-updates';
+import {createStylesheet} from '../../theming-new';
 
 
 export default function Header() {
     const appStyles = useTheme(appVariants);
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const [checked, setChecked] = useState(false);
     const mutate = useMutate();
     const config = useSelector(state => state.config);
@@ -96,47 +97,44 @@ export default function Header() {
     );
 }
 
-const getStyles = (theme: ITheme) =>
-    StyleSheet.create({
-            menu: {
-                // backgroundColor: 'red',
-                flexDirection: 'row',
-                alignItems: 'center',
-            },
-            menuButton: {
-                // backgroundColor: 'blue',
-                margin: 0,
-                marginHorizontal: 10,
-            },
-            menuButtonDots: {
+const useStyles = createStylesheet(theme => StyleSheet.create({
+        menu: {
+            // backgroundColor: 'red',
+            flexDirection: 'row',
+            alignItems: 'center',
+        },
+        menuButton: {
+            // backgroundColor: 'blue',
+            margin: 0,
+            marginHorizontal: 10,
+        },
+        menuButtonDots: {
 
-                // backgroundColor: 'blue',
-                margin: 0,
-                marginLeft: 0,
-            },
-            header: {
-                // backgroundColor: 'blue',
-                flexDirection: 'row',
-                alignItems: 'center',
-                flex: 1,
-            },
-            icon: {
+            // backgroundColor: 'blue',
+            margin: 0,
+            marginLeft: 0,
+        },
+        header: {
+            // backgroundColor: 'blue',
+            flexDirection: 'row',
+            alignItems: 'center',
+            flex: 1,
+        },
+        icon: {
 
-                marginRight: 5,
-                width: iconWidth,
-                height: iconHeight,
-            },
-            container: {
-                backgroundColor: theme.backgroundColor,
-                flexDirection: 'row',
-                // marginTop: Constants.statusBarHeight,
-                height: 36,
-                paddingTop: Platform.OS === 'ios' ? 0 : 6,
-                paddingBottom: Platform.OS === 'ios' ? 4 : 0,
-                paddingLeft: 16,
-                paddingRight: 12, // because of three dots icon
-            },
-        }
-    );
-
-const variants = makeVariants(getStyles);
+            marginRight: 5,
+            width: iconWidth,
+            height: iconHeight,
+        },
+        container: {
+            backgroundColor: theme.backgroundColor,
+            flexDirection: 'row',
+            // marginTop: Constants.statusBarHeight,
+            height: 36,
+            paddingTop: Platform.OS === 'ios' ? 0 : 6,
+            paddingBottom: Platform.OS === 'ios' ? 4 : 0,
+            paddingLeft: 16,
+            paddingRight: 12, // because of three dots icon
+        },
+    }
+));

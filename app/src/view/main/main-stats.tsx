@@ -1,4 +1,4 @@
-import {ITheme, makeVariants, useTheme} from "../../theming";
+import {makeVariants, useTheme} from "../../theming";
 import {FlatList, StyleSheet, View} from "react-native";
 import {
     clearMatchesPlayer, clearStatsPlayer, setLoadingMatchesOrStats, setPrefValue, useMutate, useSelector
@@ -20,10 +20,11 @@ import {TextLoader} from "../components/loader/text-loader";
 import RefreshControlThemed from "../components/refresh-control-themed";
 import {parseUserId} from "../../helper/user";
 import StatsDuration from "../components/stats-duration";
+import {createStylesheet} from '../../theming-new';
 
 
 export default function MainStats() {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const mutate = useMutate();
     const prefLeaderboardId = useSelector(state => state.prefs.leaderboardId) ?? LeaderboardId.RM1v1;
     const [leaderboardId, setLeaderboardId] = useState(prefLeaderboardId);
@@ -148,49 +149,45 @@ export default function MainStats() {
 }
 
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        info: {
-            // textAlign: 'center',
-            marginBottom: 10,
-            marginLeft: 5,
-        },
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    info: {
+        // textAlign: 'center',
+        marginBottom: 10,
+        marginLeft: 5,
+    },
 
-        col: {
-            paddingHorizontal: 7,
-            alignItems: 'center',
-        },
-        h1: {
+    col: {
+        paddingHorizontal: 7,
+        alignItems: 'center',
+    },
+    h1: {
 
-        },
-        h2: {
-            fontSize: 11,
-        },
+    },
+    h2: {
+        fontSize: 11,
+    },
 
-        pickerRow: {
-            // backgroundColor: 'yellow',
-            flexDirection: 'row',
-            alignItems: 'center',
-            paddingRight: 20,
-            marginBottom: 20,
-        },
-        sectionHeader: {
-            marginVertical: 25,
-            fontSize: 15,
-            fontWeight: '500',
-            textAlign: 'center',
-        },
-        list: {
-            padding: 20,
-        },
-        container: {
-            flex: 1,
-            // backgroundColor: '#B89579',
-        },
-        content: {
-            flex: 1,
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+    pickerRow: {
+        // backgroundColor: 'yellow',
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingRight: 20,
+        marginBottom: 20,
+    },
+    sectionHeader: {
+        marginVertical: 25,
+        fontSize: 15,
+        fontWeight: '500',
+        textAlign: 'center',
+    },
+    list: {
+        padding: 20,
+    },
+    container: {
+        flex: 1,
+        // backgroundColor: '#B89579',
+    },
+    content: {
+        flex: 1,
+    },
+}));

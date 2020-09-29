@@ -7,11 +7,12 @@ import {ILobbyMatchRaw, IMatch} from "../../helper/data";
 import {getMapImage, getMapImageByLocationString, getMapName} from "../../helper/maps";
 import {groupBy} from "lodash-es";
 import {differenceInSeconds} from "date-fns";
-import {ITheme, makeVariants, useTheme} from "../../theming";
+import {makeVariants, useTheme} from "../../theming";
 import {TextLoader} from "../components/loader/text-loader";
 import MyListAccordion from "../components/accordion";
 import {ImageLoader} from "../components/loader/image-loader";
 import {MyText} from "../components/my-text";
+import {createStylesheet} from '../../theming-new';
 
 interface IGameProps {
     data: ILobbyMatchRaw;
@@ -27,7 +28,7 @@ const formatDuration = (start: Date, finish: Date) => {
 };
 
 export function LiveGame({data, expanded = false}: IGameProps) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     if (data == null) {
         return (
             <View>
@@ -91,38 +92,34 @@ export function LiveGame({data, expanded = false}: IGameProps) {
     );
 }
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        accordion: {
-            // backgroundColor: 'yellow',
-            paddingBottom: 20,
-        },
-        header: {
-            // backgroundColor: 'red',
-            flex: 1,
-        },
-        map: {
-            marginRight: 10,
-            width: 50,
-            height: 50,
-        },
-        row: {
-            // backgroundColor: 'purple',
-            flexDirection: 'row',
-        },
-        matchTitle: {
-            fontWeight: 'bold',
-            flex: 1,
-        },
-        matchContent: {
-            flex: 1,
-        },
-        playerList: {
-            flex: 1,
-            paddingTop: 20,
-            // backgroundColor: 'purple'
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    accordion: {
+        // backgroundColor: 'yellow',
+        paddingBottom: 20,
+    },
+    header: {
+        // backgroundColor: 'red',
+        flex: 1,
+    },
+    map: {
+        marginRight: 10,
+        width: 50,
+        height: 50,
+    },
+    row: {
+        // backgroundColor: 'purple',
+        flexDirection: 'row',
+    },
+    matchTitle: {
+        fontWeight: 'bold',
+        flex: 1,
+    },
+    matchContent: {
+        flex: 1,
+    },
+    playerList: {
+        flex: 1,
+        paddingTop: 20,
+        // backgroundColor: 'purple'
+    },
+}));

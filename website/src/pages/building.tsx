@@ -15,7 +15,7 @@ export function BuildingCompBig({building: building}: any) {
     const classes = useStyles();
 
     return (
-        <MyLink className={classes.rowBig} key={building.toString()} href='/building/[buildingId]' as={`/building/${building}`} naked>
+        <MyLink className={classes.rowBig} href='/building/[buildingId]' as={`/building/${building}`} naked>
             {/*<div className={classes.rowBig}>*/}
                 <img className={classes.unitIconBig} src={getBuildingIcon(building)}/>
                 <div className={classes.unitIconBigTitle}>

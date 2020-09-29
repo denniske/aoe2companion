@@ -2,7 +2,12 @@ import {flatMap} from "lodash";
 import {Building} from "./buildings";
 
 
-export function makeListFromSections(sections: any) {
+interface IGenericSection<T> {
+    title: string;
+    data: T[];
+}
+
+export function makeListFromSections<T>(sections: IGenericSection<T>[]) {
     return flatMap(sections, section => {
         return [
             {

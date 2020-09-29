@@ -12,9 +12,10 @@ import {ViewLoader} from "./loader/view-loader";
 import {groupBy} from "lodash-es";
 import {differenceInSeconds} from "date-fns";
 import { MyText } from './my-text';
-import {ITheme, makeVariants, useAppTheme, useTheme} from "../../theming";
+import {makeVariants, useAppTheme, useTheme} from "../../theming";
 import IconFA5 from "react-native-vector-icons/FontAwesome5";
 import {sameUser, sameUserNull, UserIdBase} from "../../helper/user";
+import {createStylesheet} from '../../theming-new';
 
 interface IGameProps {
     data: IMatch;
@@ -33,7 +34,7 @@ const formatDuration = (start: Date, finish: Date) => {
 
 export function Game({data, user, highlightedUsers, expanded = false}: IGameProps) {
     const theme = useAppTheme();
-    const styles = useTheme(variants);
+    const styles = useStyles();
     if (data == null) {
         const playersInTeam1 = Array(3).fill(0);
         const playersInTeam2 = Array(3).fill(0);
@@ -156,66 +157,62 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
     );
 }
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        imageInner: {
-            // backgroundColor: 'blue',
-            resizeMode: "contain",
-        },
-        accordion: {
-            // backgroundColor: 'yellow',
-            paddingBottom: 20,
-        },
-        header: {
-            // backgroundColor: 'red',
-            flex: 1,
-        },
-        map: {
-            marginRight: 10,
-            width: 50,
-            height: 50,
-        },
-        row: {
-            // backgroundColor: 'purple',
-            flexDirection: 'row',
-        },
-        duration: {
-            fontVariant: ['tabular-nums'],
-            color: theme.textNoteColor,
-        },
-        speed: {
-            color: theme.textNoteColor,
-        },
-        timeRow: {
-            flexDirection: 'row',
-            marginLeft: 60,
-            marginBottom: 11,
-            marginTop: -10,
-        },
-        matchTitle: {
-            fontWeight: 'bold',
-            flex: 1,
-        },
-        matchContent: {
-            flex: 1,
-        },
-        playerList: {
-            flex: 1,
-            paddingTop: 20,
-        },
-        versus: {
-            marginLeft: 32,
-            width: 20,
-            marginVertical: 6,
-            justifyContent: 'center',
-            alignItems: 'center',
-            alignSelf: 'flex-start'
-        },
-        versusText: {
-            color: theme.textNoteColor,
-            fontSize: 12,
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    imageInner: {
+        // backgroundColor: 'blue',
+        resizeMode: "contain",
+    },
+    accordion: {
+        // backgroundColor: 'yellow',
+        paddingBottom: 20,
+    },
+    header: {
+        // backgroundColor: 'red',
+        flex: 1,
+    },
+    map: {
+        marginRight: 10,
+        width: 50,
+        height: 50,
+    },
+    row: {
+        // backgroundColor: 'purple',
+        flexDirection: 'row',
+    },
+    duration: {
+        fontVariant: ['tabular-nums'],
+        color: theme.textNoteColor,
+    },
+    speed: {
+        color: theme.textNoteColor,
+    },
+    timeRow: {
+        flexDirection: 'row',
+        marginLeft: 60,
+        marginBottom: 11,
+        marginTop: -10,
+    },
+    matchTitle: {
+        fontWeight: 'bold',
+        flex: 1,
+    },
+    matchContent: {
+        flex: 1,
+    },
+    playerList: {
+        flex: 1,
+        paddingTop: 20,
+    },
+    versus: {
+        marginLeft: 32,
+        width: 20,
+        marginVertical: 6,
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'flex-start'
+    },
+    versusText: {
+        color: theme.textNoteColor,
+        fontSize: 12,
+    },
+}));

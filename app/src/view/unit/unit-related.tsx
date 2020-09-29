@@ -6,12 +6,13 @@ import {
     getUnitLineIdForUnit, getUnitLineName, iconSmallHeight, iconSmallWidth, sortUnitCounter, Unit, UnitLine, unitLines
 } from "@nex/data";
 import {MyText} from "../components/my-text";
-import {ITheme, makeVariants, useTheme} from "../../theming";
+import {makeVariants, useTheme} from "../../theming";
 import {getUnitLineIcon} from "../../helper/units";
+import {createStylesheet} from '../../theming-new';
 
 
 function CounterUnit({unitLineId}: { unitLineId: UnitLine }) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const navigation = useNavigation<RootStackProp>();
     const gotoUnit = (unit: Unit) => navigation.push('Unit', {unit: unit});
     return (
@@ -27,7 +28,7 @@ function CounterUnit({unitLineId}: { unitLineId: UnitLine }) {
 }
 
 export default function UnitRelated({unitId}: { unitId: Unit }) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const unitLineId = getUnitLineIdForUnit(unitId);
     const unitLine = unitLines[unitLineId];
 
@@ -51,53 +52,49 @@ export default function UnitRelated({unitId}: { unitId: Unit }) {
     );
 }
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        description: {
-            lineHeight: 20,
-        },
-        container: {
-            flex: 1,
-            minHeight: '100%',
-            padding: 20,
-        },
-        row: {
-            flexDirection: 'row',
-            marginBottom: 5,
-            alignItems: 'center',
-            // backgroundColor: 'blue',
-        },
-        checkboxCell: {
-            flex: 1,
-            marginLeft: -6
-        },
-        checkboxDesc: {
-            flex: 11,
-            marginLeft: 4
-        },
-        small: {
-            fontSize: 12,
-            color: theme.textNoteColor,
-        },
-        header1: {
-            marginTop: 10,
-            fontSize: 18,
-            fontWeight: '500',
-        },
-        header2: {
-            fontSize: 15,
-            marginVertical: 5,
-        },
-        unitIcon: {
-            width: iconSmallWidth,
-            height: iconSmallHeight,
-            marginRight: 5,
-        },
-        unitDesc: {
-            lineHeight: 20,
-            flex: 1,
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    description: {
+        lineHeight: 20,
+    },
+    container: {
+        flex: 1,
+        minHeight: '100%',
+        padding: 20,
+    },
+    row: {
+        flexDirection: 'row',
+        marginBottom: 5,
+        alignItems: 'center',
+        // backgroundColor: 'blue',
+    },
+    checkboxCell: {
+        flex: 1,
+        marginLeft: -6
+    },
+    checkboxDesc: {
+        flex: 11,
+        marginLeft: 4
+    },
+    small: {
+        fontSize: 12,
+        color: theme.textNoteColor,
+    },
+    header1: {
+        marginTop: 10,
+        fontSize: 18,
+        fontWeight: '500',
+    },
+    header2: {
+        fontSize: 15,
+        marginVertical: 5,
+    },
+    unitIcon: {
+        width: iconSmallWidth,
+        height: iconSmallHeight,
+        marginRight: 5,
+    },
+    unitDesc: {
+        lineHeight: 20,
+        flex: 1,
+    },
+}));

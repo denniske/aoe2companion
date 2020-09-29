@@ -8,7 +8,7 @@ import {composeUserId, sameUser, UserIdBase, userIdFromBase} from "../../helper/
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {MyText} from "./my-text";
-import {ITheme, makeVariants, useAppTheme, usePaperTheme, useTheme} from "../../theming";
+import {makeVariants, useAppTheme, usePaperTheme, useTheme} from "../../theming";
 import {LeaderboardId} from "../../helper/leaderboards";
 import {useLazyApi} from "../../hooks/use-lazy-api";
 import {loadUser} from "../../service/user";
@@ -16,13 +16,14 @@ import { sleep } from '@nex/data';
 import {IRow} from "../../service/stats/stats-player";
 import {Button} from "react-native-paper";
 import Space from "./space";
+import {createStylesheet} from '../../theming-new';
 
 interface IRowProps {
     data: IRow;
 }
 
 function Row({data}: IRowProps) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const navigation = useNavigation<RootStackProp>();
 
     const gotoPlayer = () => {
@@ -67,7 +68,7 @@ interface IData {
 
 
 export default function StatsPlayer(props: IProps) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const [maxRowCountAlly, setMaxRowCountAlly] = useState(12);
     const [maxRowCountOpponent, setMaxRowCountOpponent] = useState(12);
     const theme = useAppTheme();
@@ -184,47 +185,42 @@ export default function StatsPlayer(props: IProps) {
 
 const padding = 5;
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        info: {
-            textAlign: 'center',
-            marginBottom: 10,
-            color: theme.textNoteColor,
-            fontSize: 12,
-        },
-        cellLeaderboard: {
-            // backgroundColor: 'red',
-            margin: padding,
-            flex: 4,
-            flexDirection: 'row',
-            alignItems: 'center',
-        },
-        cellGames: {
-            margin: padding,
-            flex: 1,
-            textAlign: 'right',
-            fontVariant: ['tabular-nums'],
-        },
-        cellWon: {
-            margin: padding,
-            flex: 1,
-            textAlign: 'right',
-            fontVariant: ['tabular-nums'],
-        },
-        row: {
-            flexDirection: 'row',
-            alignItems: 'center',
-        },
-        container: {
-            // backgroundColor: 'red',
-        },
-        countryIcon: {
-            width: 21,
-            height: 15,
-            marginRight: 5,
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
-
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    info: {
+        textAlign: 'center',
+        marginBottom: 10,
+        color: theme.textNoteColor,
+        fontSize: 12,
+    },
+    cellLeaderboard: {
+        // backgroundColor: 'red',
+        margin: padding,
+        flex: 4,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    cellGames: {
+        margin: padding,
+        flex: 1,
+        textAlign: 'right',
+        fontVariant: ['tabular-nums'],
+    },
+    cellWon: {
+        margin: padding,
+        flex: 1,
+        textAlign: 'right',
+        fontVariant: ['tabular-nums'],
+    },
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    container: {
+        // backgroundColor: 'red',
+    },
+    countryIcon: {
+        width: 21,
+        height: 15,
+        marginRight: 5,
+    },
+}));

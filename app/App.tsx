@@ -46,7 +46,7 @@ import TechPage, {techTitle, TechTitle} from "./src/view/tech/tech.page";
 import FeedPage, {feedMenu, feedTitle} from "./src/view/feed.page";
 import {MyText} from "./src/view/components/my-text";
 import UpdateSnackbar from "./src/view/components/snackbar/update-snackbar";
-import {ITheme, makeVariants, useTheme} from "./src/theming";
+import {makeVariants, useTheme} from "./src/theming";
 import SettingsPage from "./src/view/settings.page";
 import {appVariants} from "./src/styles";
 import {AppearanceProvider, useColorScheme} from "react-native-appearance";
@@ -67,6 +67,7 @@ import initSentry from "./src/helper/sentry";
 import * as Device from 'expo-device';
 import { Clipboard } from 'react-native'
 import {LinkingOptions} from "@react-navigation/native/lib/typescript/src/types";
+import {createStylesheet} from './src/theming-new';
 
 
 initSentry();
@@ -202,7 +203,7 @@ function LinkTitle(props: any) {
 // }
 
 export function InnerApp() {
-    const styles = useTheme(variants);
+    const styles = useStyles();
 
     // let [fontsLoaded] = useFonts({
     //     Roboto: Roboto_400Regular,
@@ -578,29 +579,26 @@ export default function App() {
     );
 }
 
-const getStyles = (theme: ITheme) => {
-    const isMobile = ['Android', 'iOS'].includes(Device.osName!);
-    return StyleSheet.create({
-        container: {
-            ...(Platform.OS === 'web' ? {
-                    overflow: 'hidden',
-                    width: 450,
-                    maxWidth: '100%',
-                    maxHeight: 900,
-                    marginHorizontal: 'auto',
-                    marginVertical: 'auto',
-                    borderColor: '#CCC',
-                    borderWidth: isMobile ? 0 : 1,
-                    borderRadius: isMobile ? 0 : 10,
-                } : {}
-            ),
+const isMobile = ['Android', 'iOS'].includes(Device.osName!);
 
-            // backgroundColor: '#397AF9',
-            backgroundColor: theme.backgroundColor,
-            paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-            flex: 1,
-        },
-    });
-};
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    container: {
+        ...(Platform.OS === 'web' ? {
+                overflow: 'hidden',
+                width: 450,
+                maxWidth: '100%',
+                maxHeight: 900,
+                marginHorizontal: 'auto',
+                marginVertical: 'auto',
+                borderColor: '#CCC',
+                borderWidth: isMobile ? 0 : 1,
+                borderRadius: isMobile ? 0 : 10,
+            } : {}
+        ),
 
-const variants = makeVariants(getStyles);
+        // backgroundColor: '#397AF9',
+        backgroundColor: theme.backgroundColor,
+        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+        flex: 1,
+    },
+}));

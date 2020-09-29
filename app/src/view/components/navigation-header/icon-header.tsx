@@ -1,10 +1,8 @@
-import {
-    Image, ImageBackground, ImageSourcePropType, LayoutChangeEvent, Platform, StyleSheet, Text, View
-} from "react-native";
+import {Image, ImageBackground, ImageSourcePropType, LayoutChangeEvent, Platform, StyleSheet, View} from "react-native";
 import React from "react";
 import {MyText} from "../my-text";
 import {iconHeight, iconWidth} from "@nex/data";
-import {ITheme, makeVariants, useTheme} from "../../../theming";
+import {createStylesheet} from '../../../theming-new';
 
 interface IconHeaderProps {
     icon: ImageSourcePropType;
@@ -15,7 +13,7 @@ interface IconHeaderProps {
 }
 
 export default function IconHeader(props: IconHeaderProps) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const {icon, badgeIcon, text, subtitle, onLayout} = props;
     return (
         <View style={styles.container} onLayout={onLayout}>
@@ -39,9 +37,7 @@ export default function IconHeader(props: IconHeaderProps) {
 }
 
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-
+const useStyles = createStylesheet(theme => StyleSheet.create({
     unitIconBigBanner: {
         position: 'absolute',
         width: iconWidth*0.5,
@@ -124,7 +120,4 @@ const getStyles = (theme: ITheme) => {
             color: theme.textNoteColor,
         },
     })
-    });
-};
-
-const variants = makeVariants(getStyles);
+}));

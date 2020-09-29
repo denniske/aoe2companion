@@ -1,10 +1,7 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
     ActivityIndicator, Animated, Dimensions, FlatList, Image, NativeScrollEvent, NativeSyntheticEvent, PanResponder,
-    Platform,
-    StyleSheet,
-    TextStyle,
-    TouchableOpacity, View, ViewStyle
+    Platform, StyleSheet, TextStyle, TouchableOpacity, View, ViewStyle
 } from 'react-native';
 import {useNavigation, useNavigationState} from '@react-navigation/native';
 import {fetchLeaderboard} from "../api/leaderboard";
@@ -20,7 +17,7 @@ import {TextLoader} from "./components/loader/text-loader";
 import {ImageLoader} from "./components/loader/image-loader";
 import {TabBarLabel} from "./components/tab-bar-label";
 import {MyText} from "./components/my-text";
-import {ITheme, makeVariants, usePaperTheme, useTheme} from "../theming";
+import {usePaperTheme} from "../theming";
 import Picker from "./components/picker";
 import {setLeaderboardCountry, useMutate, useSelector} from "../redux/reducer";
 import TextHeader from "./components/navigation-header/text-header";
@@ -28,6 +25,7 @@ import {formatAgo, noop} from "@nex/data";
 import RefreshControlThemed from "./components/refresh-control-themed";
 import {AnimatedValueText} from "./components/animated-value-text";
 import {getValue} from "../helper/util-component";
+import {createStylesheet} from '../theming-new';
 
 type TabParamList = {
     LeaderboardRm1v1: { leaderboardId: number };
@@ -49,7 +47,7 @@ const countryEarth = null;
 
 export function LeaderboardMenu() {
     const theme = usePaperTheme();
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const mutate = useMutate();
     const country = useSelector(state => state.leaderboardCountry) || null;
     const authCountry = useSelector(state => state.prefs.country);
@@ -94,7 +92,7 @@ export function LeaderboardTitle(props: any) {
 }
 
 export default function LeaderboardPage() {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     return (
         <Tab.Navigator lazy={true} swipeEnabled={false}>
             <Tab.Screen name="LeaderboardRm1v1" initialParams={{leaderboardId: 3}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title="RM 1v1"/>}}>
@@ -119,7 +117,7 @@ export default function LeaderboardPage() {
 export const windowWidth = Platform.OS === 'web' ? 450 : Dimensions.get('window').width;
 
 function Leaderboard({leaderboardId}: any) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const auth = useSelector(state => state.auth!);
     const [refetching, setRefetching] = useState(false);
     const leaderboardCountry = useSelector(state => state.leaderboardCountry) || null;
@@ -413,241 +411,236 @@ const HANDLE_RADIUS = 36;
 
 const padding = 8;
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        textContainer: {
-            position: 'absolute',
-            padding: 5,
-            borderRadius: 5,
-            top: 25,
-            right: 85,
-            width: 150,
-        },
-        textBox: {
-            backgroundColor: theme.skeletonColor,
-            position: 'absolute',
-            padding: 5,
-            borderRadius: 5,
-            right: 0,
-        },
-        text: {
-            color: theme.textNoteColor,
-        },
-        handleContainer: {
-            // backgroundColor: 'yellow',
-            position: 'absolute',
-            top: 0,
-            right: 0,
-            bottom: 0,
-        },
-        handle: {
-            padding: 8,
-            backgroundColor: theme.skeletonColor,
-            // backgroundColor: '#1abc9c',
-            width: HANDLE_RADIUS * 2,
-            height: HANDLE_RADIUS * 2,
-            borderRadius: HANDLE_RADIUS,
-        },
-        arrows: {
-            color: theme.textNoteColor,
-            paddingHorizontal: 7,
-            paddingVertical: 14,
-        },
-        list: {
-            paddingVertical: 20,
-        },
-        container2: {
-            flex: 1,
-            // backgroundColor: '#B89579',
-        },
-        content: {
-            flex: 1,
-        },
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    textContainer: {
+        position: 'absolute',
+        padding: 5,
+        borderRadius: 5,
+        top: 25,
+        right: 85,
+        width: 150,
+    },
+    textBox: {
+        backgroundColor: theme.skeletonColor,
+        position: 'absolute',
+        padding: 5,
+        borderRadius: 5,
+        right: 0,
+    },
+    text: {
+        color: theme.textNoteColor,
+    },
+    handleContainer: {
+        // backgroundColor: 'yellow',
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        bottom: 0,
+    },
+    handle: {
+        padding: 8,
+        backgroundColor: theme.skeletonColor,
+        // backgroundColor: '#1abc9c',
+        width: HANDLE_RADIUS * 2,
+        height: HANDLE_RADIUS * 2,
+        borderRadius: HANDLE_RADIUS,
+    },
+    arrows: {
+        color: theme.textNoteColor,
+        paddingHorizontal: 7,
+        paddingVertical: 14,
+    },
+    list: {
+        paddingVertical: 20,
+    },
+    container2: {
+        flex: 1,
+        // backgroundColor: '#B89579',
+    },
+    content: {
+        flex: 1,
+    },
 
-        pickerRow: {
-            // backgroundColor: 'yellow',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingRight: 20,
-        },
+    pickerRow: {
+        // backgroundColor: 'yellow',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingRight: 20,
+    },
 
-        menu: {
-            // backgroundColor: 'red',
-            flexDirection: 'row',
-            alignItems: 'center',
-            flex: 1,
-            marginRight: 10,
-        },
-        menuButton: {
-            // backgroundColor: 'blue',
-            width: 40,
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: 0,
-            marginHorizontal: 2,
-        },
-        menuIcon: {
-            color: theme.textColor,
-        },
+    menu: {
+        // backgroundColor: 'red',
+        flexDirection: 'row',
+        alignItems: 'center',
+        flex: 1,
+        marginRight: 10,
+    },
+    menuButton: {
+        // backgroundColor: 'blue',
+        width: 40,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 0,
+        marginHorizontal: 2,
+    },
+    menuIcon: {
+        color: theme.textColor,
+    },
 
-        measureContainer: {
-            display: 'flex',
-            flexDirection: 'column',
-            flex: 1,
-            overflow: 'visible',
-            // backgroundColor: 'yellow',
-            padding: 5,
-            width: '100%',
-        },
-        activityInfo: {
-            flex: 1,
-            alignItems: 'flex-end'
-        },
-        pageInfo: {
-            flex: 0,
-            textAlign: 'right',
-            marginLeft: 15,
-        },
-        arrowIcon: {
-            marginLeft: 25,
-            // backgroundColor: 'red',
-        },
-        name: {
-            flex: 1,
-        },
-        nameMe: {
-            flex: 1,
-            fontWeight: 'bold',
-        },
-        cellRankMe: {
-            margin: padding,
-            textAlign: 'left',
-            minWidth: 60,
-            // width: 60,
-            fontWeight: 'bold',
-        },
-        cellRank: {
-            margin: padding,
-            textAlign: 'left',
-            width: 60,
-            // backgroundColor: 'yellow',
-        },
-        cellRating: {
-            margin: padding,
-            width: 36,
-            // backgroundColor: 'yellow',
-        },
-        cellRatingMe: {
-            margin: padding,
-            width: 36,
-            fontWeight: 'bold',
-            // backgroundColor: 'yellow',
-        },
-        flexRow: {
-            flexDirection: 'row',
-        },
-        cellName: {
-            margin: padding,
-            flex: 4,
-            flexDirection: 'row',
-            alignItems: 'center',
-        },
-        cellName2: {
-            margin: padding,
-            flex: 4,
-        },
-        cellGames: {
-            margin: padding,
-            width: 90,
-            textAlign: 'right',
-            fontSize: 12,
-            color: theme.textNoteColor,
-        },
-        cellWins: {
-            margin: padding,
-            flex: 1,
-        },
-        footerRow: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            // marginBottom: 3,
-            // padding: 3,
-            // paddingVertical: 5,
-            paddingHorizontal: 5,
-            borderRadius: 5,
-            marginRight: 30,
-            marginLeft: 30,
-            width: '100%',
-            // backgroundColor: 'blue',
-        },
-        headerRow: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginBottom: 3,
-            padding: 3,
-            borderRadius: 5,
-            marginRight: 30,
-            marginLeft: 30,
-            width: '100%',
-            borderBottomWidth: 1,
-            borderBottomColor: theme.borderColor,
-        },
-        row: {
-            // marginRight: 30,
-            // marginLeft: 30,
-            // width: '100%',
-            // flex: 3,
-            height: 40,
-            flex: 1,
-        },
-        innerRow: {
-            // backgroundColor: 'red',
-            flex: 1,
-            width: '100%',
-            flexDirection: 'row',
-            alignItems: 'center',
-            paddingHorizontal: 15,
-            paddingVertical: 12,
-        },
-        innerRowWithBorder: {
-            // backgroundColor: 'green',
-            flex: 1,
-            width: '100%',
-            flexDirection: 'row',
-            alignItems: 'center',
-            paddingHorizontal: 15,
-            paddingVertical: 5,
-            borderBottomWidth: 1,
-            borderBottomColor: theme.lightBorderColor,
-        },
-        countryIcon: {
-            width: 21,
-            height: 15,
-            // paddingBottom: 4,
-            marginRight: 10,
-        },
-        title: {
-            marginBottom: 10,
-            fontSize: 16,
-            fontWeight: 'bold',
-        },
-        centered: {
-            // backgroundColor: 'yellow',
-            height: '100%',
-            alignItems: 'center',
-            justifyContent: 'center',
-        },
+    measureContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        flex: 1,
+        overflow: 'visible',
+        // backgroundColor: 'yellow',
+        padding: 5,
+        width: '100%',
+    },
+    activityInfo: {
+        flex: 1,
+        alignItems: 'flex-end'
+    },
+    pageInfo: {
+        flex: 0,
+        textAlign: 'right',
+        marginLeft: 15,
+    },
+    arrowIcon: {
+        marginLeft: 25,
+        // backgroundColor: 'red',
+    },
+    name: {
+        flex: 1,
+    },
+    nameMe: {
+        flex: 1,
+        fontWeight: 'bold',
+    },
+    cellRankMe: {
+        margin: padding,
+        textAlign: 'left',
+        minWidth: 60,
+        // width: 60,
+        fontWeight: 'bold',
+    },
+    cellRank: {
+        margin: padding,
+        textAlign: 'left',
+        width: 60,
+        // backgroundColor: 'yellow',
+    },
+    cellRating: {
+        margin: padding,
+        width: 36,
+        // backgroundColor: 'yellow',
+    },
+    cellRatingMe: {
+        margin: padding,
+        width: 36,
+        fontWeight: 'bold',
+        // backgroundColor: 'yellow',
+    },
+    flexRow: {
+        flexDirection: 'row',
+    },
+    cellName: {
+        margin: padding,
+        flex: 4,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    cellName2: {
+        margin: padding,
+        flex: 4,
+    },
+    cellGames: {
+        margin: padding,
+        width: 90,
+        textAlign: 'right',
+        fontSize: 12,
+        color: theme.textNoteColor,
+    },
+    cellWins: {
+        margin: padding,
+        flex: 1,
+    },
+    footerRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        // marginBottom: 3,
+        // padding: 3,
+        // paddingVertical: 5,
+        paddingHorizontal: 5,
+        borderRadius: 5,
+        marginRight: 30,
+        marginLeft: 30,
+        width: '100%',
+        // backgroundColor: 'blue',
+    },
+    headerRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 3,
+        padding: 3,
+        borderRadius: 5,
+        marginRight: 30,
+        marginLeft: 30,
+        width: '100%',
+        borderBottomWidth: 1,
+        borderBottomColor: theme.borderColor,
+    },
+    row: {
+        // marginRight: 30,
+        // marginLeft: 30,
+        // width: '100%',
+        // flex: 3,
+        height: 40,
+        flex: 1,
+    },
+    innerRow: {
+        // backgroundColor: 'red',
+        flex: 1,
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 15,
+        paddingVertical: 12,
+    },
+    innerRowWithBorder: {
+        // backgroundColor: 'green',
+        flex: 1,
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 15,
+        paddingVertical: 5,
+        borderBottomWidth: 1,
+        borderBottomColor: theme.lightBorderColor,
+    },
+    countryIcon: {
+        width: 21,
+        height: 15,
+        // paddingBottom: 4,
+        marginRight: 10,
+    },
+    title: {
+        marginBottom: 10,
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    centered: {
+        // backgroundColor: 'yellow',
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 
-        info: {
-            textAlign: 'center',
-            marginBottom: 15,
-            color: theme.textNoteColor,
-            fontSize: 12,
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
-
+    info: {
+        textAlign: 'center',
+        marginBottom: 15,
+        color: theme.textNoteColor,
+        fontSize: 12,
+    },
+}));

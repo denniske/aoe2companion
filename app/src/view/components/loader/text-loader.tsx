@@ -1,7 +1,8 @@
 import {StyleProp, StyleSheet, Text, TextProps, TextStyle, View} from "react-native";
 import React from "react";
 import {MyText} from "../my-text";
-import {ITheme, makeVariants, useTheme} from "../../../theming";
+import {makeVariants, useTheme} from "../../../theming";
+import {createStylesheet} from '../../../theming-new';
 
 type TextLoaderProps = TextProps & {
     children?: React.ReactNode,
@@ -11,7 +12,7 @@ type TextLoaderProps = TextProps & {
 }
 
 export function TextLoader(props: TextLoaderProps) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const { children, ...rest } = props;
 
     const hostStyle: any = { color: 'transparent' };
@@ -41,15 +42,11 @@ export function TextLoader(props: TextLoaderProps) {
     )
 }
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        container: {
-            flexShrink: 1,
-            backgroundColor: theme.skeletonColor,
-            borderRadius: 5,
-            overflow: 'hidden',
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    container: {
+        flexShrink: 1,
+        backgroundColor: theme.skeletonColor,
+        borderRadius: 5,
+        overflow: 'hidden',
+    },
+}));

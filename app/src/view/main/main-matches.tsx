@@ -1,11 +1,11 @@
-import {ITheme, makeVariants, useTheme} from "../../theming";
+import {useTheme} from "../../theming";
 import {FlatList, Platform, StyleSheet, TouchableOpacity, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import {RouteProp, useRoute} from "@react-navigation/native";
 import {RootTabParamList} from "../../../App";
 import {Game} from "../components/game";
 import RefreshControlThemed from "../components/refresh-control-themed";
-import {clearMatchesPlayer, FinalDarkMode, setLoadingMatchesOrStats, useMutate, useSelector} from "../../redux/reducer";
+import {clearMatchesPlayer, setLoadingMatchesOrStats, useMutate, useSelector} from "../../redux/reducer";
 import {Checkbox, Searchbar} from "react-native-paper";
 import {MyText} from "../components/my-text";
 import {appVariants} from "../../styles";
@@ -15,10 +15,11 @@ import {get} from "lodash-es";
 import {IMatch} from "../../helper/data";
 import {getMapName} from "../../helper/maps";
 import {parseUserId, sameUser} from "../../helper/user";
+import {createStylesheet} from '../../theming-new';
 
 
 export default function MainMatches() {
-    const styles = useTheme(variants);
+    const styles = useStyles();
     const appStyles = useTheme(appVariants);
     const [text, setText] = useState('');
     const mutate = useMutate();
@@ -175,69 +176,65 @@ export default function MainMatches() {
 }
 
 
-const getStyles = (theme: ITheme, mode: FinalDarkMode) => {
-    return StyleSheet.create({
-        searchbar: {
-            marginTop: Platform.select({ ios: mode == 'light' ? 0 : 0 }),
-            borderRadius: 0,
-            paddingHorizontal: 10,
-        },
-        header: {
-            textAlign: 'center',
-            marginBottom: 15,
-        },
+const useStyles = createStylesheet((theme, mode) => StyleSheet.create({
+    searchbar: {
+        marginTop: Platform.select({ ios: mode == 'light' ? 0 : 0 }),
+        borderRadius: 0,
+        paddingHorizontal: 10,
+    },
+    header: {
+        textAlign: 'center',
+        marginBottom: 15,
+    },
 
-        info: {
-            // textAlign: 'center',
-            marginBottom: 10,
-            marginLeft: 5,
-            // color: theme.textNoteColor,
-            // fontSize: 12,
-        },
+    info: {
+        // textAlign: 'center',
+        marginBottom: 10,
+        marginLeft: 5,
+        // color: theme.textNoteColor,
+        // fontSize: 12,
+    },
 
-        row: {
-            flexDirection: 'row',
-            paddingHorizontal: 7,
-            alignItems: 'center',
-        },
-        col: {
-            paddingHorizontal: 7,
-            alignItems: 'center',
-        },
-        h1: {
+    row: {
+        flexDirection: 'row',
+        paddingHorizontal: 7,
+        alignItems: 'center',
+    },
+    col: {
+        paddingHorizontal: 7,
+        alignItems: 'center',
+    },
+    h1: {
 
-        },
-        h2: {
-            fontSize: 11,
-        },
+    },
+    h2: {
+        fontSize: 11,
+    },
 
-        pickerRow: {
-            // backgroundColor: 'yellow',
-            flexDirection: 'row',
-            // justifyContent: 'center',
-            alignItems: 'center',
-            paddingLeft: 20,
-            paddingRight: 20,
-            marginBottom: 20,
-            marginTop: 20,
-        },
-        sectionHeader: {
-            marginVertical: 25,
-            fontSize: 15,
-            fontWeight: '500',
-            textAlign: 'center',
-        },
-        list: {
-            padding: 20,
-        },
-        container: {
-            flex: 1,
-            // backgroundColor: '#B89579',
-        },
-        content: {
-            flex: 1,
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+    pickerRow: {
+        // backgroundColor: 'yellow',
+        flexDirection: 'row',
+        // justifyContent: 'center',
+        alignItems: 'center',
+        paddingLeft: 20,
+        paddingRight: 20,
+        marginBottom: 20,
+        marginTop: 20,
+    },
+    sectionHeader: {
+        marginVertical: 25,
+        fontSize: 15,
+        fontWeight: '500',
+        textAlign: 'center',
+    },
+    list: {
+        padding: 20,
+    },
+    container: {
+        flex: 1,
+        // backgroundColor: '#B89579',
+    },
+    content: {
+        flex: 1,
+    },
+}));

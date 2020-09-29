@@ -1,27 +1,25 @@
 import {Image, StyleSheet, Text, View} from "react-native";
 import {MyText} from "../components/my-text";
 import {
-    buildingSections,
-    getUnitClassName, IUnitInfo, Other, sortResources, UnitClassNumber
+    Building, buildingSections, getBuildingData, getBuildingName, getUnitClassName, IUnitInfo, keysOf, Other,
+    sortResources, UnitClassNumber
 } from "@nex/data";
 import React, {useState} from "react";
-import {ITheme, makeVariants, useTheme} from "../../theming";
-import {keysOf} from "@nex/data";
 import Picker from "../components/picker";
 import Space from "../components/space";
-import {Building, getBuildingData, getBuildingName} from "@nex/data";
 import {
     getArmourClasses, GetArmourValue, getAttackBonuses, GetAttackBonusValue, GetAttackValue, GetUnitValue
 } from "../unit/unit-stats";
 import {getBuildingIcon} from "../../helper/buildings";
 import {getOtherIcon} from "../../helper/units";
+import {createStylesheet} from '../../theming-new';
 
 interface Props {
     buildingId: Building;
 }
 
 export function BuildingStats({ buildingId }: Props) {
-    const styles = useTheme(variants);
+    const styles = useStyles();
 
     const [comparisonUnit, setComparisonUnit] = useState<Building>();
 
@@ -230,61 +228,57 @@ export function BuildingStats({ buildingId }: Props) {
 
 const padding = 2;
 
-const getStyles = (theme: ITheme) => {
-    return StyleSheet.create({
-        unitIcon: {
-            width: 20,
-            height: 20,
-            marginRight: 5,
-        },
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    unitIcon: {
+        width: 20,
+        height: 20,
+        marginRight: 5,
+    },
 
-        resRow: {
-            flexDirection: 'row',
-            // marginBottom: 5,
-            alignItems: 'center',
-            // backgroundColor: 'blue',
-        },
-        resIcon: {
-            width: 18,
-            height: 18,
-            marginRight: 5,
-        },
-        resDescription: {
-            marginRight: 10,
-        },
+    resRow: {
+        flexDirection: 'row',
+        // marginBottom: 5,
+        alignItems: 'center',
+        // backgroundColor: 'blue',
+    },
+    resIcon: {
+        width: 18,
+        height: 18,
+        marginRight: 5,
+    },
+    resDescription: {
+        marginRight: 10,
+    },
 
-        costsRow: {
-            flexDirection: 'row',
-            // marginBottom: 5,
-        },
+    costsRow: {
+        flexDirection: 'row',
+        // marginBottom: 5,
+    },
 
-        statsContainer: {
-            marginTop: 5,
-            marginHorizontal: -padding,
-        },
-        statsRow: {
-            flexDirection: 'row',
-            justifyContent: 'center',
-        },
-        statsRowHeader: {
-            flexDirection: 'row',
-            justifyContent: 'center',
-            marginBottom: 5,
-        },
-        cellName: {
-            padding: padding,
-            flex: 3,
-            fontWeight: 'bold',
-        },
-        cellValue: {
-            padding: padding,
-            flex: 4,
-        },
-        small: {
-            fontSize: 12,
-            color: theme.textNoteColor,
-        },
-    });
-};
-
-const variants = makeVariants(getStyles);
+    statsContainer: {
+        marginTop: 5,
+        marginHorizontal: -padding,
+    },
+    statsRow: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+    statsRowHeader: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginBottom: 5,
+    },
+    cellName: {
+        padding: padding,
+        flex: 3,
+        fontWeight: 'bold',
+    },
+    cellValue: {
+        padding: padding,
+        flex: 4,
+    },
+    small: {
+        fontSize: 12,
+        color: theme.textNoteColor,
+    },
+}));
