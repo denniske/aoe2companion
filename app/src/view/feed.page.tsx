@@ -74,14 +74,6 @@ export function FeedList() {
     const auth = useSelector(state => state.auth);
     const following = useSelector(state => state.following);
     const [prevFollowing, setPrevFollowing] = useState<IFollowingEntry[] | null>(null);
-    // const prevFollowing = usePrevious({following});
-
-    // console.log("following", following);
-
-    // const following = [
-    //     {id: "76561197984749679-196240", steam_id: "76561197984749679", profile_id: 196240, name: "TheViper"},
-    //     {id: "76561198044559189-198035", steam_id: "76561198044559189", profile_id: 198035, name: "_DauT_"},
-    // ];
 
     const matches = useCachedLazyApi(
         [],
@@ -96,17 +88,12 @@ export function FeedList() {
         if (!isActiveRoute) return;
 
         if (isEqual(prevFollowing, following)) {
-            // console.log("FEEDLIST", 'same');
-            // console.log("FEEDLIST", prevFollowing);
-            // console.log("FEEDLIST", following);
             return;
         }
 
         if (prevFollowing == null) {
-            // console.log("FEEDLIST", 'init');
             matches.init('aoe2de', 0, 15, following);
         } else {
-            // console.log("FEEDLIST", 'refetch');
             matches.refetch('aoe2de', 0, 15, following);
         }
 
@@ -116,10 +103,6 @@ export function FeedList() {
     useEffect(() => {
         refresh();
     }, [following, isActiveRoute]);
-
-    // useEffect(() => {
-    //     console.log("REACTIVATE");
-    // }, []);
 
     const onRefresh = async () => {
         setRefetching(true);
@@ -136,8 +119,6 @@ export function FeedList() {
     };
 
     const list = [...(matches.data || Array(15).fill(null))];
-
-    // console.log('matches', matches.data);
 
     const _renderFooter = () => {
         if (!fetchingMore) return null;
@@ -196,9 +177,6 @@ export function FeedList() {
                                         if (uniq(filteredPlayers.map(p => p.team)).length === 1) {
                                             relevantUser = filteredPlayers[0];
                                         }
-
-                                        // console.log('match', match.match_id);
-                                        // console.log('relevantUser', relevantUser);
 
                                         return <View>
                                             {
@@ -307,13 +285,11 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         marginTop: 2,
     },
     menu: {
-        // backgroundColor: 'red',
         flexDirection: 'row',
         flex: 1,
         marginRight: 10,
     },
     menuButton: {
-        // backgroundColor: 'blue',
         width: 35,
         justifyContent: 'center',
         alignItems: 'center',
@@ -328,7 +304,6 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         marginBottom: 10,
     },
     centered: {
-        // backgroundColor: 'yellow',
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
@@ -347,7 +322,6 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     },
     container: {
         flex: 1,
-        // backgroundColor: '#B89579',
     },
     content: {
         flex: 1,
