@@ -272,7 +272,6 @@ function FeedAction({user}: {user: IPlayerListPlayer}) {
 
 export function FeedAdd() {
     return <Search
-        title="Enter AoE username you want to follow:"
         action={
             (user: IFetchedUser) => <FeedAction user={user}/>
         }

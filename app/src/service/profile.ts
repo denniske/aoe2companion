@@ -7,7 +7,7 @@ import {parseISO} from "date-fns";
 import request, {gql} from 'graphql-request';
 import {IRatingHistoryRow} from './rating';
 
-export async function loadProfileLegacy(game: string, userId: UserIdBase): Promise<IProfile | null> {
+export async function loadProfileLegacy(game: string, userId: UserIdBase): Promise<any | null> {
     // console.log("loading profile", game, composeUserId(userId));
 
     console.time('=> loadProfile');

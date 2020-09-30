@@ -65,7 +65,7 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
 }
 
 interface ISearchProps {
-    title: string;
+    title?: string;
     selectedUser?: (user: UserInfo) => void;
     actionText?: string;
     action?: (player: IFetchedUser) => React.ReactNode;
@@ -73,7 +73,7 @@ interface ISearchProps {
 
 export default function Search({title, selectedUser, actionText, action}: ISearchProps) {
     const styles = useStyles();
-    const [text, setText] = useState('');
+    const [text, setText] = useState('viper');
     const previousText = usePrevious(text);
 
     const user = useLazyApi({}, loadUser, 'aoe2de', text);
@@ -88,6 +88,7 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
         }
         user.refetch('aoe2de', text.trim());
     };
+
 
     // const generateTestHook = useCavy();
 
@@ -110,15 +111,20 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
         });
     }
     if (text.length < 3) {
-        list.push({
+        list = [{
             type: 'text',
             content: <MyText style={styles.centerText}>Enter at least 3 chars.</MyText>,
-        });
+        }];
     }
+
+    console.log('RENDER', text, list.length);
 
     return (
             <View style={styles.container}>
-                <MyText style={styles.centerText}>{title}</MyText>
+                {
+                    title &&
+                    <MyText style={styles.centerText}>{title}</MyText>
+                }
 
                 <Searchbar
                         // ref={generateTestHook('Search.Input')}

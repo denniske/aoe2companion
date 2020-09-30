@@ -2,6 +2,7 @@ import {fetchLeaderboard, fetchLeaderboardLegacy} from '../api/leaderboard';
 import { groupBy, sortBy, sumBy } from 'lodash-es'
 import {Flag} from "../helper/flags";
 import {ILeaderboardPlayer} from "../helper/data";
+import request, {gql} from 'graphql-request';
 
 export interface IFetchedUser {
     clan: string;
@@ -16,15 +17,15 @@ export interface IFetchedUser {
     entries: ILeaderboardPlayer[];
 }
 
-export const loadUser = async (game: string, search: string) => {
+export async function loadUserLegacy(game: string, search: string) {
     console.log("loading user", game, search);
 
     let leaderboards = await Promise.all([
-        fetchLeaderboardLegacy(game, 0, {count: 50, search: search}),
-        fetchLeaderboardLegacy(game, 1, {count: 50, search: search}),
-        fetchLeaderboardLegacy(game, 2, {count: 50, search: search}),
-        fetchLeaderboardLegacy(game, 3, {count: 50, search: search}),
-        fetchLeaderboardLegacy(game, 4, {count: 50, search: search}),
+        fetchLeaderboardLegacy(game, 0, {count: 1000, search: search}),
+        fetchLeaderboardLegacy(game, 1, {count: 1000, search: search}),
+        fetchLeaderboardLegacy(game, 2, {count: 1000, search: search}),
+        fetchLeaderboardLegacy(game, 3, {count: 1000, search: search}),
+        fetchLeaderboardLegacy(game, 4, {count: 1000, search: search}),
     ]);
 
     // Group by
@@ -57,4 +58,44 @@ export const loadUser = async (game: string, search: string) => {
     // console.log(result);
 
     return result;
-};
+}
+
+export async function loadUser(game: string, search: string) {
+    console.time('=> loadUser');
+
+    const endpoint = 'http://localhost:3333/graphql'
+    const query = gql`
+        query H2($search: String!) {
+            users(search: $search) {
+                profile_id
+                name
+                country
+                games
+            }
+        }
+    `;
+    console.log('query', query);
+
+    const timeLastDate = new Date();
+    const variables = { search };
+    const data = await request(endpoint, query, variables)
+    console.log('gql', new Date().getTime() - timeLastDate.getTime());
+    console.log(data);
+
+    const ratingHistoryRows = data.users;
+
+    console.timeEnd('=> loadUser');
+
+    const masterList = await loadUserLegacy(game, search);
+    console.log("MASTER user", masterList);
+    console.log("RETURNING user", ratingHistoryRows);
+
+    // const missing = ratingHistoryRows.filter(r => masterList.find(m => m.name == r.name) == null);
+    // console.log(missing.map(m => m.name));
+    //
+    // const missing2 = masterList.filter(r => ratingHistoryRows.find(m => m.name == r.name) == null);
+    // console.log(missing2.map(m => m.name));
+
+    // return await loadUserLegacy(game, search);
+    return ratingHistoryRows;
+}

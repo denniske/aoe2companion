@@ -511,10 +511,13 @@ export const countriesDistinct = uniq(keysOf(countryNames)) as Country[];
 export type Flag = keyof typeof flagList;
 export type Country = keyof typeof countryNames;
 
-export function getFlagIcon(flag: Flag) {
+export function getFlagIcon(flag?: Flag) {
     // if (__DEV__) {
     //     return require('../../assets/flags/' + flag + '.png');
     // }
+    if (flag == null) {
+        return flagList['XX'];
+    }
     if (flagList[flag]) {
         return flagList[flag];
     }

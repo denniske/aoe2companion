@@ -136,7 +136,7 @@ export interface IProfile {
 }
 
 interface IProfileProps {
-    data: IProfile | null;
+    data?: IProfile | null;
     ready: boolean;
 }
 
@@ -152,7 +152,7 @@ export default function Profile({data, ready}: IProfileProps) {
     const authCountry = useSelector(state => state.prefs.country);
 
     const _toggleFollowing = async () => {
-        const following = await toggleFollowing(data);
+        const following = await toggleFollowing(data!);
         if (following) {
             mutate(setFollowing(following));
         }
@@ -182,7 +182,7 @@ export default function Profile({data, ready}: IProfileProps) {
                             </View>
                             <View style={styles.row}>
                                 <TextLoader width={180} ready={data}>{data?.games} Games, {data?.drops} Drops
-                                    ({(data?.drops / data?.games * 100).toFixed(2)} %)</TextLoader>
+                                    ({(data?.drops as any / (data?.games as any) * 100).toFixed(2)} %)</TextLoader>
                             </View>
                         </View>
                         <View style={styles.expanded}/>

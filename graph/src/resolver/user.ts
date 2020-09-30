@@ -22,7 +22,7 @@ export class UserResolver {
           WHERE name ILIKE ${search}
           GROUP BY profile_id
           ORDER BY SUM(games) desc
-          LIMIT 20
+          LIMIT 1000
         `;
 
         // console.log('users', users);
