@@ -135,10 +135,10 @@ jobs:
       script:
         - cd mgz
         - ls -al
-        - docker build -f ../deploy/Dockerfile -t $IMAGE_NAME:$TRAVIS_COMMIT .
+        - docker build -f deploy/Dockerfile -t $IMAGE_NAME:$TRAVIS_COMMIT .
         - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
         - docker push $IMAGE_NAME:$TRAVIS_COMMIT
-        - cd ../deploy
+        - cd deploy
         - bash ./deploy.sh
 
 
