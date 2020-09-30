@@ -1,5 +1,5 @@
-import {fetchLeaderboard, fetchLeaderboardLegacy} from '../api/leaderboard';
-import { groupBy, sortBy, sumBy } from 'lodash-es'
+import {fetchLeaderboardLegacy} from '../api/leaderboard';
+import {groupBy, sortBy, sumBy} from 'lodash-es'
 import {Flag} from "../helper/flags";
 import {ILeaderboardPlayer} from "../helper/data";
 import request, {gql} from 'graphql-request';
@@ -60,13 +60,17 @@ export async function loadUserLegacy(game: string, search: string) {
     return result;
 }
 
-export async function loadUser(game: string, search: string) {
+export async function loadUser(game: string, start: number, count: number, search: string) {
     console.time('=> loadUser');
 
     const endpoint = 'http://localhost:3333/graphql'
     const query = gql`
-        query H2($search: String!) {
-            users(search: $search) {
+        query H2($start: Int!, $count: Int!, $search: String!) {
+            users(
+                start: $start,
+                count: $count,
+                search: $search
+            ) {
                 profile_id
                 name
                 country
@@ -74,21 +78,23 @@ export async function loadUser(game: string, search: string) {
             }
         }
     `;
-    console.log('query', query);
 
     const timeLastDate = new Date();
-    const variables = { search };
+    const variables = { start, count, search };
+    console.groupCollapsed('loadUser - users()');
+    console.log(query);
+    console.groupEnd();
+    console.log(variables);
     const data = await request(endpoint, query, variables)
-    console.log('gql', new Date().getTime() - timeLastDate.getTime());
-    console.log(data);
+    // console.log('gql', new Date().getTime() - timeLastDate.getTime());
 
     const ratingHistoryRows = data.users;
 
     console.timeEnd('=> loadUser');
 
-    const masterList = await loadUserLegacy(game, search);
-    console.log("MASTER user", masterList);
-    console.log("RETURNING user", ratingHistoryRows);
+    // const masterList = await loadUserLegacy(game, search);
+    // console.log("MASTER user", masterList);
+    console.log(ratingHistoryRows);
 
     // const missing = ratingHistoryRows.filter(r => masterList.find(m => m.name == r.name) == null);
     // console.log(missing.map(m => m.name));

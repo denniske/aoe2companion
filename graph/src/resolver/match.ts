@@ -99,6 +99,7 @@ export class MatchResolver {
             AND (p.name ILIKE ${search} OR m.name ILIKE ${search})
             GROUP BY m.match_id
             ORDER BY m.started desc
+            OFFSET ${start}
             LIMIT ${count}
           `;
         } else {
@@ -115,6 +116,7 @@ export class MatchResolver {
             AND (p.name ILIKE ${search} OR m.name ILIKE ${search})
             GROUP BY m.match_id
             ORDER BY m.started desc
+            OFFSET ${start}
             LIMIT ${count}
           `;
         }

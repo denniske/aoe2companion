@@ -84,24 +84,20 @@ export async function fetchPlayerMatches(game: string, start: number, count: num
             }
         }
     `;
-    console.log('query', query);
 
     const timeLastDate = new Date();
     const variables = { start, count, profile_ids: params.map(p => p.profile_id) };
+    console.groupCollapsed('fetchPlayerMatches - matches()');
+    console.log(query);
+    console.groupEnd();
+    console.log(variables);
     const data = await request(endpoint, query, variables)
     console.log('gql', new Date().getTime() - timeLastDate.getTime());
-
-
-
-
-
 
     let json = data.matches.matches as IMatchRaw[];
     console.log(json);
     // let json2 = await fetchJson('fetchPlayerMatches', url) as IMatchRaw[];
     // console.log(json2);
-
-
 
     // TODO: Temporary fix: Filter duplicate matches
     json = uniqBy(json, m => m.match_id);

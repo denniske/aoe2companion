@@ -10,6 +10,7 @@ import {MyText} from "./my-text";
 import RefreshControlThemed from "./refresh-control-themed";
 import {usePrevious} from "@nex/data/hooks";
 import {createStylesheet} from '../../theming-new';
+import FlatListLoadingIndicator from './flat-list-loading-indicator';
 
 interface IPlayerProps {
     player: IFetchedUser;
@@ -75,8 +76,10 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
     const styles = useStyles();
     const [text, setText] = useState('viper');
     const previousText = usePrevious(text);
+    const [fetchingMore, setFetchingMore] = useState(false);
+    const [fetchedAll, setFetchedAll] = useState(false);
 
-    const user = useLazyApi({}, loadUser, 'aoe2de', text);
+    const user = useLazyApi({}, loadUser, 'aoe2de', 0, 50, text);
 
     const refresh = () => {
         if (text.length < 3) {
@@ -86,9 +89,9 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
         if (previousText?.trim() === text.trim()) {
             return;
         }
-        user.refetch('aoe2de', text.trim());
+        user.refetch('aoe2de', 0, 50, text.trim());
+        setFetchedAll(false);
     };
-
 
     // const generateTestHook = useCavy();
 
@@ -117,7 +120,26 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
         }];
     }
 
-    console.log('RENDER', text, list.length);
+    // console.log('RENDER', text, list.length);
+
+    const onEndReached = async () => {
+        if (fetchingMore || user.data?.length == 0 || text.length < 3) return;
+        setFetchingMore(true);
+        // console.log('onEndReached', text);
+        // console.log('fetchingMore', fetchingMore);
+        // console.log('user.data', user.data);
+        const usersLength = user.data?.length ?? 0;
+        const newUsersData = await user.refetch('aoe2de', 0, (user.data?.length ?? 0) + 50, text.trim());
+        if (usersLength === newUsersData?.length) {
+            setFetchedAll(true);
+        }
+        setFetchingMore(false);
+    };
+
+    const _renderFooter = () => {
+        if (!fetchingMore) return null;
+        return <FlatListLoadingIndicator />;
+    };
 
     return (
             <View style={styles.container}>
@@ -153,6 +175,9 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
                             }
                             return <Player player={item} selectedUser={selectedUser} actionText={actionText} action={action}/>;
                         }}
+                        ListFooterComponent={_renderFooter}
+                        onEndReached={fetchedAll ? null : onEndReached}
+                        onEndReachedThreshold={0.1}
                         keyExtractor={(item, index) => index.toString()}
                         refreshControl={
                             <RefreshControlThemed
@@ -209,6 +234,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     list: {
         marginRight: 30,
         marginLeft: 30,
+        paddingBottom: 20,
     },
     headerRow: {
         flexDirection: 'row',

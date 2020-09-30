@@ -68,7 +68,6 @@ export function useLazyApi<A extends (...args: any) => any>(options: ILazyApiOpt
     useEffect(() => {
         mountedRef.current = true;
         return () => {
-            console.log('UNMOUNTED');
             mountedRef.current = false;
         };
     }, []);

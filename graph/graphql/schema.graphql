@@ -82,7 +82,7 @@ type Query {
   temp: String!
   temp2: String!
   temp3: String!
-  users(search: String!): [User!]!
+  users(count: Int!, search: String!, start: Int!): [User!]!
 }
 
 type RatingHistory {
