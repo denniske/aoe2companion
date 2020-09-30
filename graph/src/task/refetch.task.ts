@@ -48,6 +48,7 @@ export class RefetchTask implements OnModuleInit {
                 AND: [
                     {maybe_finished: null},
                     {finished: null},
+                    {match_id: '41148038'},
                 ],
             },
             orderBy: {started: 'asc'},
@@ -71,6 +72,7 @@ export class RefetchTask implements OnModuleInit {
             console.log(new Date(), "Fetched match", hoursAgo + 'h ago');
             if (updatedMatch) {
                 if (updatedMatch.finished) {
+                    console.log('WANT', updatedMatch);
                     await upsertMatchesWithPlayers(this.connection, [updatedMatch]);
                     console.log(new Date(), 'SAVED');
                 } else {

@@ -20,9 +20,13 @@ missing data
 - leaderboard 0 missing won (use .rec files?)
 
 users
-- viper 289006
+- viper 196240
 - hera
 - t90 197930
+
+
+paging
+https://medium.com/swlh/how-to-implement-cursor-pagination-like-a-pro-513140b65f32
 
 
 npx expo export --output-dir dist/exported -p https://www.example.com/

@@ -70,7 +70,7 @@ export function createPlayerEntity(matchEntry: IMatchRaw, playerEntry: IPlayerBa
     player.civ = playerEntry.civ;
     player.clan = playerEntry.clan;
     player.color = playerEntry.color;
-    player.country = playerEntry.country;
+    // player.country = playerEntry.country;
     player.drops = playerEntry.drops;
     player.games = playerEntry.games;
     player.name = playerEntry.name;

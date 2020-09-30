@@ -16,6 +16,12 @@ export class Match {
     @Field(type => Int)
     map_type: number;
 
+    @Field(type => Int)
+    speed: number;
+
+    @Field(type => Int)
+    num_players: number;
+
     @Field()
     started: Date;
 

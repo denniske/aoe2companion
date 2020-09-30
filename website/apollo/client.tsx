@@ -151,7 +151,7 @@ const typesMap = {
 
 const resolvers = {};
 
-const nexusSchemaTypeDefsStr = require('../../graph/graphql/schema')["graph/graphql/schema.gql"].content
+const nexusSchemaTypeDefsStr = require('../../graph/graphql/schema')["graph/graphql/schema.graphql"].content
 const typeDefs = gql`${nexusSchemaTypeDefsStr}`
 
 // console.log('typeDefs', typeDefs);

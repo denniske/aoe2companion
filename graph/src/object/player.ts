@@ -9,7 +9,13 @@ export class Player {
     profile_id: number;
 
     @Field({nullable: true})
+    steam_id?: string;
+
+    @Field({nullable: true})
     name?: string;
+
+    @Field({nullable: true})
+    country?: string;
 
     @Field(type => Int, {nullable: true})
     rating?: number;

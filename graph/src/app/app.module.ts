@@ -179,7 +179,7 @@ export class SchemaJsonTask implements OnModuleInit {
     private readonly logger = new Logger(SchemaJsonTask.name);
 
     async onModuleInit() {
-        await fs2json({input: 'graph/graphql/schema.gql', output: 'graph/graphql/schema.json'});
+        await fs2json({input: 'graph/graphql/schema.graphql', output: 'graph/graphql/schema.json'});
         this.logger.log('Created schema.json');
     }
 }
@@ -191,7 +191,7 @@ export class SchemaJsonTask implements OnModuleInit {
         GraphQLModule.forRoot({
             // tracing: true,
             installSubscriptionHandlers: true,
-            autoSchemaFile: 'graph/graphql/schema.gql',
+            autoSchemaFile: 'graph/graphql/schema.graphql',
             sortSchema: true,
             playground: {
                 settings: {

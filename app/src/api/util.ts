@@ -1,5 +1,6 @@
 import store from "../redux/store";
 import {exec, setError} from "../redux/reducer";
+import {time} from '@nex/data';
 
 export async function fetchJson(title: string, input: RequestInfo, init?: RequestInit) {
     if (init) {
@@ -8,10 +9,14 @@ export async function fetchJson(title: string, input: RequestInfo, init?: Reques
         console.log(input);
     }
 
+    const timeLastDate = new Date();
+
     let response = null;
     try {
         response = await fetch(input, init);
-        return await response.json();
+        const json = await response.json();
+        console.log(input, new Date().getTime() - timeLastDate.getTime());
+        return json;
     } catch (e) {
         console.log(input, 'failed', response?.status);
         if (response?.status !== 400)

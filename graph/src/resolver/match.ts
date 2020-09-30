@@ -79,7 +79,8 @@ export class MatchResolver {
 
         if (count > 1000) throw Error('count must be <= 1000');
 
-        search = `%${search}%`;
+        // search = `%${search}%`;
+        search = `%%`;
 
         let matchIds: any = null;
         if (leaderboard_id != null) {
@@ -132,7 +133,7 @@ export class MatchResolver {
             },
         });
 
-        // console.log(matches);
+        console.log(matches[0]);
 
         return {
             total: matches.length,

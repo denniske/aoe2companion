@@ -37,7 +37,9 @@ type Match {
   map_type: Int!
   match_id: String!
   name: String!
+  num_players: Int!
   players: [Player!]!
+  speed: Int!
   started: DateTime!
 }
 
@@ -49,12 +51,14 @@ type MatchList {
 type Player {
   civ: Int
   color: Int
+  country: String
   match_id: String!
   name: String
   profile_id: Int!
   rating: Int
   slot: Int!
   slot_type: Int!
+  steam_id: String
   team: Int
   won: Boolean
 }
