@@ -53,14 +53,15 @@ export async function fetchPlayerMatches(game: string, start: number, count: num
 
 
 
+    // profile_ids: [196240]
 
     const endpoint = 'http://localhost:3333/graphql'
     const query = gql`
-        query H2 {
+        query H2($start: Int!, $count: Int!, $profile_ids: [Int!]) {
             matches(
-                start: 0,
-                count: 1000,
-                profile_id: 196240
+                start: $start,
+                count: $count,
+                profile_ids: $profile_ids
             ) {
                 total
                 matches {
@@ -89,10 +90,11 @@ export async function fetchPlayerMatches(game: string, start: number, count: num
             }
         }
     `;
+    console.log('query', query);
 
     const timeLastDate = new Date();
     // const variables = { updateRunInput: {...run, jobName: JOB_NAME} };
-    const variables = {  };
+    const variables = { start, count, profile_ids: params.map(p => p.profile_id) };
     const data = await request(endpoint, query, variables)
     console.log('gql', new Date().getTime() - timeLastDate.getTime());
 
