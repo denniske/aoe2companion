@@ -73,7 +73,7 @@ export class RefetchTask implements OnModuleInit {
             if (updatedMatch) {
                 if (updatedMatch.finished) {
                     console.log('WANT', updatedMatch);
-                    await upsertMatchesWithPlayers(this.connection, [updatedMatch]);
+                    await upsertMatchesWithPlayers(this.connection, [updatedMatch], false);
                     console.log(new Date(), 'SAVED');
                 } else {
                     await this.prisma.match.update({

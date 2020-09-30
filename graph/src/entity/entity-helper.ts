@@ -62,7 +62,7 @@ export function createMatchEntity(matchEntry: IMatchRaw) {
     return match;
 }
 
-export function createPlayerEntity(matchEntry: IMatchRaw, playerEntry: IPlayerBase) {
+export function createPlayerEntity(matchEntry: IMatchRaw, playerEntry: IPlayerBase, updateCountry: boolean) {
     const player = new Player();
     player.match_id = matchEntry.match_id;
     player.profile_id = playerEntry.profile_id;
@@ -70,7 +70,9 @@ export function createPlayerEntity(matchEntry: IMatchRaw, playerEntry: IPlayerBa
     player.civ = playerEntry.civ;
     player.clan = playerEntry.clan;
     player.color = playerEntry.color;
-    // player.country = playerEntry.country;
+    if (updateCountry) {
+        player.country = playerEntry.country;
+    }
     player.drops = playerEntry.drops;
     player.games = playerEntry.games;
     player.name = playerEntry.name;
@@ -120,7 +122,7 @@ export function createRatingHistoryEntity(leaderboard_id: number, profile_id: nu
     return ratingHistory;
 }
 
-export async function upsertMatchesWithPlayers(connection: Connection, matchEntries: IMatchRaw[]) {
+export async function upsertMatchesWithPlayers(connection: Connection, matchEntries: IMatchRaw[], updateCountry: boolean) {
     for (const chunkRows of chunk(matchEntries, 100)) {
         const playerRows: Player[] = [];
         const matchRows: Match[] = [];
@@ -129,7 +131,7 @@ export async function upsertMatchesWithPlayers(connection: Connection, matchEntr
             const match = createMatchEntity(matchEntry);
 
             const players = matchEntry.players.map(playerEntry => {
-                return createPlayerEntity(matchEntry, {...playerEntry, profile_id: playerEntry.profile_id || 0});
+                return createPlayerEntity(matchEntry, {...playerEntry, profile_id: playerEntry.profile_id || 0}, updateCountry);
             });
 
             matchRows.push(match);
@@ -143,7 +145,7 @@ export async function upsertMatchesWithPlayers(connection: Connection, matchEntr
     }
 }
 
-export async function upsertAIPlayers(connection: Connection, matchEntries: IMatchRaw[]) {
+export async function upsertAIPlayers(connection: Connection, matchEntries: IMatchRaw[], updateCountry: boolean) {
     for (const chunkRows of chunk(matchEntries, 100)) {
         const playerRows: Player[] = [];
 
@@ -151,7 +153,7 @@ export async function upsertAIPlayers(connection: Connection, matchEntries: IMat
             const otherPlayers = matchEntry.players.filter(p => p.profile_id == null);
 
             const players = otherPlayers.map(playerEntry => {
-                return createPlayerEntity(matchEntry, {...playerEntry, profile_id: 0});
+                return createPlayerEntity(matchEntry, {...playerEntry, profile_id: 0}, updateCountry);
             });
 
             playerRows.push(...players);

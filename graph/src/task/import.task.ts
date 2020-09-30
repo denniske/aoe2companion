@@ -69,7 +69,7 @@ export class ImportTask implements OnModuleInit {
 
         const entriesToSave = entries.map(e => ({...e, maybe_finished: -1}));
 
-        await upsertMatchesWithPlayers(this.connection, entriesToSave);
+        await upsertMatchesWithPlayers(this.connection, entriesToSave, true);
 
         await setValue(this.connection, 'matchesFetchedLastStarted', max(entries.map(e => e.started)));
 

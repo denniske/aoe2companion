@@ -50,7 +50,7 @@ export class MatchResolver {
             const refetchedMatch = await fetchMatch('aoe2de', { match_id: match.match_id, uuid: match.match_uuid });
             console.log('REFETCHED', refetchedMatch);
             if (refetchedMatch.finished) {
-                await upsertMatchesWithPlayers(this.connection, [refetchedMatch]);
+                await upsertMatchesWithPlayers(this.connection, [refetchedMatch], false);
                 match = await this.prisma.match.findOne({
                     include: {
                         players: true,

@@ -35,6 +35,7 @@ import {LeaderboardRow} from "../entity/leaderboard-row";
 import {RatingHistory} from "../entity/rating-history";
 import {SnakeNamingStrategy} from "typeorm-naming-strategies";
 import {Repository} from "typeorm";
+import {RefetchRepairTask} from '../task/refetch-repair.task';
 
 @Module({
     imports: [
@@ -87,6 +88,9 @@ export class TaskAndControllerModule {
                 break;
             case 'refetch-again':
                 providers.push(RefetchAgainTask);
+                break;
+            case 'refetch-repair':
+                providers.push(RefetchRepairTask);
                 break;
             case 'ingest':
                 providers.push(IngestTask);
