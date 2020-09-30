@@ -156,6 +156,30 @@ export interface IRatingHistoryEntry extends IRatingHistoryEntryRaw {
 }
 
 
+export interface ILeaderboardInfoRaw {
+    leaderboard_id: LeaderboardId;
+    clan: string;
+    country: Flag;
+    drops: number;
+    games: number;
+    highest_rating: number;
+    highest_streak: number;
+    icon: any;
+    last_match: any;
+    last_match_time: any;
+    losses: number;
+    lowest_streak: number;
+    name: string;
+    previous_rating: number;
+    profile_id: number;
+    rank: number;
+    rating: number;
+    steam_id: string;
+    streak: number;
+    wins: number;
+}
+
+
 export interface ILeaderboardPlayerRaw {
     clan: string;
     country: Flag;

@@ -3,7 +3,7 @@ import {formatAgo} from '@nex/data';
 import React, {useEffect} from 'react';
 import {getLeaderboardTextColor} from '../../helper/colors';
 import {Flag, getFlagIcon} from '../../helper/flags';
-import {ILeaderboard} from "../../helper/data";
+import {ILeaderboard, ILeaderboardInfoRaw} from "../../helper/data";
 import {ImageLoader} from "./loader/image-loader";
 import {TextLoader} from "./loader/text-loader";
 import Icon from "react-native-vector-icons/FontAwesome5";
@@ -18,7 +18,7 @@ import {saveCurrentPrefsToStorage} from "../../service/storage";
 import {createStylesheet} from '../../theming-new';
 
 interface ILeaderboardRowProps {
-    data: ILeaderboard;
+    data: ILeaderboardInfoRaw;
 }
 
 const formatStreak = (streak: number) => {
@@ -32,7 +32,7 @@ function LeaderboardRow({data}: ILeaderboardRowProps) {
     const theme = usePaperTheme();
     const styles = useStyles();
 
-    const leaderboardInfo = data.leaderboard[0];
+    const leaderboardInfo = data;
     const color = {color: getLeaderboardTextColor(data.leaderboard_id, theme.dark)};
 
     return (
@@ -66,7 +66,7 @@ function LeaderboardRow1({data}: ILeaderboardRowProps) {
     const theme = usePaperTheme();
     const styles = useStyles();
 
-    const leaderboardInfo = data.leaderboard[0];
+    const leaderboardInfo = data;
     const color = {color: getLeaderboardTextColor(data.leaderboard_id, theme.dark)};
 
     return (
@@ -95,7 +95,7 @@ function LeaderboardRow2({data}: ILeaderboardRowProps) {
     const theme = usePaperTheme();
     const styles = useStyles();
 
-    const leaderboardInfo = data.leaderboard[0];
+    const leaderboardInfo = data;
     const color = {color: getLeaderboardTextColor(data.leaderboard_id, theme.dark)};
 
     return (
@@ -130,16 +130,19 @@ export interface IProfile {
     name: string;
     profile_id: number;
     steam_id: string;
-    leaderboards: ILeaderboard[];
+    leaderboards: ILeaderboardInfoRaw[];
     games: number;
     drops: number;
 }
 
 interface IProfileProps {
-    data: IProfile;
+    data: IProfile | null;
+    ready: boolean;
 }
 
-export default function Profile({data}: IProfileProps) {
+export default function Profile({data, ready}: IProfileProps) {
+    data = ready ? data : null;
+
     const theme = useAppTheme();
     const styles = useStyles();
     const mutate = useMutate();

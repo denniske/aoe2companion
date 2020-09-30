@@ -47,12 +47,6 @@ export async function fetchPlayerMatches(game: string, start: number, count: num
     const queryString = makeQueryString(args);
     const url = getHost('aoe2net') + `api/player/matches?${queryString}`;
 
-
-
-
-
-
-
     // profile_ids: [196240]
 
     const endpoint = 'http://localhost:3333/graphql'
@@ -93,7 +87,6 @@ export async function fetchPlayerMatches(game: string, start: number, count: num
     console.log('query', query);
 
     const timeLastDate = new Date();
-    // const variables = { updateRunInput: {...run, jobName: JOB_NAME} };
     const variables = { start, count, profile_ids: params.map(p => p.profile_id) };
     const data = await request(endpoint, query, variables)
     console.log('gql', new Date().getTime() - timeLastDate.getTime());

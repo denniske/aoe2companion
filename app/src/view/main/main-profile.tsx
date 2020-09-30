@@ -144,10 +144,10 @@ export default function MainProfile() {
                                 </Button>;
                             case 'profile':
                                 if (profile.data === null) return <View/>;
-                                return <Profile data={profile.data}/>;
+                                return <Profile data={profile.data} ready={profile.data && rating.data}/>;
                             case 'rating':
                                 if (rating.data?.length === 0) return <View/>;
-                                return <Rating ratingHistories={rating.data}/>;
+                                return <Rating ratingHistories={rating.data} ready={profile.data && rating.data}/>;
                             default:
                                 return <Game data={item as any} expanded={index === -1} highlightedUsers={[user]} user={user}/>;
                         }

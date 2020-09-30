@@ -17,7 +17,8 @@ import {VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTheme} fr
 import {windowWidth} from "../leaderboard.page";
 
 interface IRatingProps {
-    ratingHistories: IRatingHistoryRow[];
+    ratingHistories: IRatingHistoryRow[] | null;
+    ready: boolean;
 }
 
 function replaceRobotoWithSystemFont(obj: any) {
@@ -34,7 +35,9 @@ function replaceRobotoWithSystemFont(obj: any) {
     return obj;
 }
 
-export default function Rating({ratingHistories}: IRatingProps) {
+export default function Rating({ratingHistories, ready}: IRatingProps) {
+    ratingHistories = ready ? ratingHistories : null;
+
     const paperTheme = usePaperTheme();
     const appTheme = useAppTheme();
     const mutate = useMutate();
