@@ -14,7 +14,8 @@
     "temp": "ts-node src/temp.ts",
     "temp2": "ts-node src/temp2.ts",
     "temp3": "ts-node src/temp3.ts",
-    "temp4": "ts-node src/temp4.ts"
+    "temp4": "ts-node src/temp4.ts",
+    "executor": "ts-node src/executor.ts"
   },
   "author": "",
   "license": "ISC",

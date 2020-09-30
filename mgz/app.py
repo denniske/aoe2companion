@@ -1,5 +1,5 @@
 import json
-
+import time
 import aoeapi
 from flask import Flask
 app = Flask(__name__)
@@ -28,17 +28,24 @@ def won():
     players = match['players']
     # print(json.dumps(match['players2']))
 
-    for player in players[0:2]:
+    for player in players:
         if not player['url']:
             continue
         try:
+            start = time.time()
             filename = aoeapi.download_rec(player['url'], 'recs')
+            end = time.time()
+            # print('download', end - start, 's')
+        except aoeapi.AoeApiError:
+            # raise RuntimeError("could not download valid rec: %s", match_id)
+            continue
         except RuntimeError:
             raise RuntimeError("could not download valid rec: %s", match_id)
             continue
 
-        print(filename)
+        # print(filename)
 
+        start = time.time()
         with open('recs/' + filename, 'rb') as handle:
             data = handle.read()
 
@@ -48,7 +55,15 @@ def won():
         #     playback = open(rec_path.replace('.aoe2record', '.json'))
         summary = mgz.summary.Summary(handle, None)
 
-        print('---')
+        end = time.time()
+        print('process', end - start, 's')
+
+        # print('--- BREAK')
+
+        # for player2 in summary.get_players():
+        #     print(player2['name'] + ': ' + str(player2['winner']))
+
+        break
 
         # print('get_completed', summary.get_completed())
         # print('get_chat', summary.get_chat())
@@ -75,9 +90,6 @@ def won():
 
         # print(json.dumps(summary))
 
-        # for player2 in summary.get_players():
-        #     print(player2['name'] + ': ' + str(player2['winner']))
-
         # print(summary.get_players())
         # print(json.dumps(summary.get_players()))
 
@@ -85,4 +97,5 @@ def won():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=80)
+    app.run(threaded=False, host='0.0.0.0', port=80, processes=3)
+    # app.run(debug=True, host='0.0.0.0', port=80)
