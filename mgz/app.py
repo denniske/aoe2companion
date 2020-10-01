@@ -1,6 +1,7 @@
 import json
 import time
 import aoeapi
+import os
 from flask import Flask
 app = Flask(__name__)
 from flask import request
@@ -64,6 +65,8 @@ def won():
 
         # for player2 in summary.get_players():
         #     print(player2['name'] + ': ' + str(player2['winner']))
+
+        os.remove(filename)
 
         break
 
