@@ -46,7 +46,7 @@ def won():
             print('error')
             continue
 
-        print(filename)
+        print('recs/' + filename)
 
         start = time.time()
         with open('recs/' + filename, 'rb') as handle:
@@ -66,7 +66,7 @@ def won():
         # for player2 in summary.get_players():
         #     print(player2['name'] + ': ' + str(player2['winner']))
 
-        os.remove(filename)
+        os.remove('recs/' + filename)
 
         break
 
