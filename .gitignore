@@ -29,5 +29,7 @@ assets/tips/video
 tmp
 .env
 
+node_modules
+
 design
 *.aoe2record

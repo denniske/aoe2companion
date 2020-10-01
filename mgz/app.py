@@ -38,12 +38,14 @@ def won():
             # print('download', end - start, 's')
         except aoeapi.AoeApiError:
             # raise RuntimeError("could not download valid rec: %s", match_id)
+            print('error')
             continue
         except RuntimeError:
             raise RuntimeError("could not download valid rec: %s", match_id)
+            print('error')
             continue
 
-        # print(filename)
+        print(filename)
 
         start = time.time()
         with open('recs/' + filename, 'rb') as handle:
@@ -93,7 +95,8 @@ def won():
         # print(summary.get_players())
         # print(json.dumps(summary.get_players()))
 
-    return jsonify(players)
+    return jsonify(match)
+    # return jsonify(players)
 
 
 if __name__ == '__main__':
