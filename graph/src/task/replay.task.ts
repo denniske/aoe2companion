@@ -71,7 +71,7 @@ export class ReplayTask implements OnModuleInit {
         }
 
         if (replayResult.replay == null) {
-            console.log('STATE', replayResult.status);
+            console.log('STATE', replayResult.status, ((match.finished - match.started)/60).toFixed(2) + 'min');
             await this.prisma.match.update({
                 where: {
                     match_id: match.match_id,
@@ -85,13 +85,15 @@ export class ReplayTask implements OnModuleInit {
             return;
         }
 
+        const aoe2netWinnerAllSame = uniq(match.players.map(p => p.won)).length == 1;
+
         let unknownWinner = false;
         let shouldUpdateWinner = true;
-        let canSafelyUpdateWinner = true;
+        let winnerMismatch = false;
         for (const replayPlayer of replayResult.replay.players) {
             const existingWinner = match.players.find(p => p.profile_id == replayPlayer.user_id).won;
             if (existingWinner != null && existingWinner != replayPlayer.winner) {
-                canSafelyUpdateWinner = false;
+                winnerMismatch = true;
             }
             if (existingWinner != null) {
                 shouldUpdateWinner = false;
@@ -115,7 +117,7 @@ export class ReplayTask implements OnModuleInit {
             console.log('STATE', '999 - unknown winner');
             state = 999;
         }
-        else if (!canSafelyUpdateWinner) {
+        else if (winnerMismatch && !aoe2netWinnerAllSame) {
             console.log('STATE', '777 - winner mismatch');
             state = 777;
         }

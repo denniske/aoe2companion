@@ -71,7 +71,7 @@ export class RefetchTask implements OnModuleInit {
             console.log(new Date(), "Fetched match", hoursAgo + 'h ago');
             if (updatedMatch) {
                 if (updatedMatch.finished) {
-                    console.log('WANT', updatedMatch);
+                    // console.log('WANT', updatedMatch);
                     await upsertMatchesWithPlayers(this.connection, [updatedMatch], false);
                     console.log(new Date(), 'SAVED');
                 } else {
