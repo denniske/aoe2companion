@@ -1,4 +1,5 @@
 Flask==1.1.2
 aoeapi==1.0.0
 gunicorn==20.0.4
+psutil==5.7.2
 git+git://github.com/happyleavesaoc/aoc-mgz@master#egg=mgz

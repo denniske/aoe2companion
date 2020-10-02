@@ -9,6 +9,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model key_value {
+  id    String @id
+  value Json
+}
+
 model match {
   match_id           String   @id
   match_uuid         String?

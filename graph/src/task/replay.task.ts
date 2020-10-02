@@ -22,8 +22,9 @@ export class ReplayTask implements OnModuleInit {
     private matches: IMatchFromApi[] = [];
     private pending: string[] = [];
 
-    // private apiUrl = 'http://0.0.0.0:80/replay';
-    private apiUrl = 'http://195.201.24.178:80/replay';
+    private apiUrl = 'http://0.0.0.0:80/replay';
+    // private apiUrl = 'http://195.201.24.178:80/replay';
+    // private apiUrl = 'https://wzhlh6g7h8.execute-api.eu-central-1.amazonaws.com/Prod/hello/';
 
     constructor(
         private connection: Connection,
@@ -34,9 +35,13 @@ export class ReplayTask implements OnModuleInit {
     async onModuleInit() {
         this.runIngest1();
         this.runWorker(workerCount++);
-        this.runWorker(workerCount++);
-        this.runWorker(workerCount++);
-        this.runWorker(workerCount++);
+        // this.runWorker(workerCount++);
+        // this.runWorker(workerCount++);
+        // this.runWorker(workerCount++);
+        // this.runWorker(workerCount++);
+        // this.runWorker(workerCount++);
+        // this.runWorker(workerCount++);
+        // this.runWorker(workerCount++);
 
         try {
             const list = await this.s3.listBuckets().promise();
@@ -60,13 +65,19 @@ export class ReplayTask implements OnModuleInit {
         console.log(formatDayAndTime(fromUnixTime(match.finished)));
         console.log(`WORKER ${workerNum}...`);
 
-        let replayResult: IReplayResult = null;
+        let replayResult: IReplayResult = {
+            status: 404,
+            replay: null,
+        };
         for (const player of match.players.filter(p => p.profile_id)) {
             console.time(`WORKER ${workerNum} - ${match.match_id} ${player.profile_id}`);
 
+            const replayExists = await this.existsReplay(match.match_id, player.profile_id);
+            if (!replayExists) continue;
+
             console.log(`https://aoe.ms/replay/?gameId=${match.match_id}&profileId=${player.profile_id}`);
             replayResult = await this.processReplay(match.match_id, player.profile_id);
-            // console.log('replayResult', replayResult);
+            console.log('replayResult', replayResult);
             // console.log('replayResult', JSON.stringify(replayResult));
 
             if (replayResult.replay) break;
@@ -186,6 +197,17 @@ export class ReplayTask implements OnModuleInit {
         setTimeout(() => this.runWorker(workerNum), 1 * 1000);
     }
 
+    async incrementAwsUsage(timeInMs: number, bandwidthInBytes: number) {
+        // await this.prisma.$queryRaw`UPDATE key_value SET value = (value::int+${timeInMs})::int::text::jsonb WHERE id = 'awsTimeInMs';`;
+        // await this.prisma.$queryRaw`UPDATE key_value SET value = (value::int+${bandwidthInBytes})::int::text::jsonb WHERE id = 'awsBandwidthInBytes';`;
+        await this.prisma.$queryRaw`UPDATE key_value SET value = (value::float+${timeInMs*2/1000})::float::text::jsonb WHERE id = 'awsTimeInSeconds';`;
+        await this.prisma.$queryRaw`UPDATE key_value SET value = (value::float+${bandwidthInBytes/1000000})::float::text::jsonb WHERE id = 'awsBandwidthInMB';`;
+        await this.prisma.$queryRaw`UPDATE key_value SET value = (value::int+1)::int::text::jsonb WHERE id = 'awsInvocations';`;
+    }
+
+    // awsTimeInMs
+    // awsBandwidthInBytes
+
     async processReplay(match_id: string, profile_id: number) {
         let query: any = {
             match_id,
@@ -194,9 +216,25 @@ export class ReplayTask implements OnModuleInit {
         const queryString = makeQueryString(query);
         const url = `${this.apiUrl}?${queryString}`;
         console.log(url);
+
+        let textLength = 0;
+        const start = new Date();
+
         const response = await fetch(url, { timeout: 60 * 1000 });
         try {
-            if (response.status == 404) {
+            // if (response.status == 502) {
+            //     const text = await response.text();
+            //     if (text.includes("Internal server error")) {
+            //         return {
+            //             status: 800, // Probably timeout
+            //             replay: null,
+            //         };
+            //     }
+            // }
+            if (response.status != 200) {
+                try {
+                    console.log('ERROR: ', await response.text());
+                } catch (e) {}
                 return {
                     status: response.status,
                     replay: null,
@@ -204,7 +242,9 @@ export class ReplayTask implements OnModuleInit {
             }
 
             const text = await response.text();
+            textLength = text.length;
             // console.log(text);
+            await this.incrementAwsUsage(new Date().getTime() - start.getTime(), textLength);
             return {
                 status: response.status,
                 replay: JSON.parse(text),
@@ -212,12 +252,22 @@ export class ReplayTask implements OnModuleInit {
             // return await response.json();
         } catch (e) {
             console.log("FAILED", url);
+            await this.incrementAwsUsage(new Date().getTime() - start.getTime(), textLength);
             return {
                 status: -1,
                 replay: null,
             };
             // throw e;
         }
+    }
+
+    async existsReplay(match_id: string, profile_id: number) {
+        const url = `https://aoe.ms/replay/?gameId=${match_id}&profileId=${profile_id}`;
+        const response = await fetch(url, {
+            method: 'HEAD',
+            timeout: 60 * 1000,
+        });
+        return response.status == 200;
     }
 
     async runIngest1() {

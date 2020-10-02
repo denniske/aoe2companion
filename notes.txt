@@ -122,7 +122,11 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash
 nvm install --lts
 
 
+sam build --use-container
+sam deploy
 
+
+. veee/bin/activate
 
 git clone https://github.com/SiegeEngineers/aoc-mgz-db.git
 virtualenv env && source env/bin/activate
@@ -137,6 +141,9 @@ python setup.py install
 python mgzdb reset
 python -m mgzdb add match de 3677645
 
+killall gunicorn
+nohup gunicorn --bind 0.0.0.0:80 app:app --threads 10 &
+tail -f nohup.out
 
 ~/Downloads/pypy3.7-v7.3.2-osx64/bin/pypy -m ensurepip
 ~/Downloads/pypy3.7-v7.3.2-osx64/bin/pypy -mpip install -e .
