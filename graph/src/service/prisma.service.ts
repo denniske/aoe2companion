@@ -6,20 +6,20 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
 
     constructor() {
         super({
-            log: ['query', 'info', 'warn'],
+            // log: ['query', 'info', 'warn'],
         });
     }
 
     async onModuleInit() {
-        this.$use(async (params, next) => {
-            const before = Date.now();
-            const result = await next(params);
-            const after = Date.now();
-            console.log(
-                `Query ${params.model}.${params.action} took ${after - before}ms`
-            );
-            return result;
-        });
+        // this.$use(async (params, next) => {
+        //     const before = Date.now();
+        //     const result = await next(params);
+        //     const after = Date.now();
+        //     console.log(
+        //         `Query ${params.model}.${params.action} took ${after - before}ms`
+        //     );
+        //     return result;
+        // });
 
         // (prisma.$on as any)('query', (e: any) => {
         //     e.timestamp;

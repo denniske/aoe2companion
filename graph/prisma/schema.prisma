@@ -17,6 +17,8 @@ model match {
   opened             Int?
   started            Int?
   finished           Int?
+  replayed           Int?
+  duration           Int?
   notified           Boolean  @default(false)
   leaderboard_id     Int?
   num_slots          Int?
@@ -54,6 +56,7 @@ model match {
   maybe_finished     Int?
   players            player[]
 
+  @@index([replayed], name: "IDX_f71f8842e6600b9a93ea9be10b")
   @@index([finished], name: "IDX_ae68e51ffaf47285b168278edf")
   @@index([maybe_finished], name: "IDX_cccc814b67879f5b8c455befad")
   @@index([started], name: "IDX_e7b6cfca8139b9aa85880aab9e")

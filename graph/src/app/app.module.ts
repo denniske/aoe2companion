@@ -36,6 +36,8 @@ import {RatingHistory} from "../entity/rating-history";
 import {SnakeNamingStrategy} from "typeorm-naming-strategies";
 import {Repository} from "typeorm";
 import {RefetchRepairTask} from '../task/refetch-repair.task';
+import {ReplayTask} from '../task/replay.task';
+import {S3Module} from 'nestjs-s3';
 
 @Module({
     imports: [
@@ -73,6 +75,28 @@ export class CustomTypeOrmModule {}
 export class PrismaModule {
 }
 
+@Module({
+    imports: [
+        S3Module.forRoot({
+            config: {
+                accessKeyId: process.env.S3_ACCESS_KEY_ID,
+                secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+                endpoint: process.env.S3_ENDPOINT,
+                s3ForcePathStyle: true,
+                signatureVersion: 'v4',
+            },
+        }),
+    ],
+    providers: [
+        // PrismaService,
+    ],
+    exports: [
+        // PrismaService,
+    ],
+})
+export class CustomS3Module {
+}
+
 @Module({})
 export class TaskAndControllerModule {
     static forRoot(): DynamicModule {
@@ -91,6 +115,9 @@ export class TaskAndControllerModule {
                 break;
             case 'refetch-repair':
                 providers.push(RefetchRepairTask);
+                break;
+            case 'replay':
+                providers.push(ReplayTask);
                 break;
             case 'ingest':
                 providers.push(IngestTask);
@@ -128,6 +155,7 @@ export class TaskAndControllerModule {
             imports: [
                 TypeOrmModule.forFeature([Push]),
                 PrismaModule,
+                CustomS3Module,
             ],
             module: TaskAndControllerModule,
             controllers: controllers,

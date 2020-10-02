@@ -25,7 +25,9 @@
     "graphql": "",
     "apollo-server-express": "",
     "fs-to-json": "",
-    "@nestjs/typeorm": ""
+    "@nestjs/typeorm": "",
+    "aws-sdk": "",
+    "nestjs-s3": ""
   },
   "devDependencies": {
     "@prisma/cli": ""

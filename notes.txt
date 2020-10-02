@@ -138,7 +138,10 @@ python mgzdb reset
 python -m mgzdb add match de 3677645
 
 
-
+~/Downloads/pypy3.7-v7.3.2-osx64/bin/pypy -m ensurepip
+~/Downloads/pypy3.7-v7.3.2-osx64/bin/pypy -mpip install -e .
+~/Downloads/pypy3.7-v7.3.2-osx64/bin/pypy -mpip install -r requirements.txt
+~/Downloads/pypy3.7-v7.3.2-osx64/bin/pypy main.py > temp.txt
 
 
 https://www.andreagrandi.it/2018/12/19/installing-python-and-virtualenv-on-osx/

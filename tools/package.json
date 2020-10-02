@@ -1,5 +1,5 @@
 {
-  "name": "hello-nodejs-typescript",
+  "name": "aoe2companion-tools",
   "version": "1.0.0",
   "description": "",
   "main": "dist/server.js",

@@ -30,6 +30,13 @@ export class Match implements IMatch {
     @Column({ nullable: true })
     maybe_finished?: number;
 
+    @Column({ nullable: true })
+    duration?: number;
+
+    @Index()
+    @Column({ nullable: true })
+    replayed?: number;
+
     @Column({ default: false })
     notified: boolean;
 

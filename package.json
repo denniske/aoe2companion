@@ -15,6 +15,7 @@
     "metric": "SERVICE_NAME=metric nx serve graph",
     "rank": "SERVICE_NAME=rank nx serve graph",
     "notify": "SERVICE_NAME=notify nx serve graph",
+    "replay": "SERVICE_NAME=replay nx serve graph",
     "build:website": "next build website",
     "start:website:prod:80": "next start website -p 80"
   },
@@ -59,6 +60,7 @@
     "apollo-server-express": "^2.17.0",
     "apollo-server-micro": "2.17.0",
     "array-flat-polyfill": "^1.0.1",
+    "aws-sdk": "^2.765.0",
     "babel-plugin-transform-typescript-metadata": "^0.3.0",
     "cors": "^2.8.5",
     "cors-anywhere": "^0.4.3",
@@ -84,6 +86,7 @@
     "immer": "^7.0.0",
     "lodash": "^4.17.19",
     "lodash-es": "^4.17.15",
+    "nestjs-s3": "^1.0.1",
     "next": "9.5.2",
     "next-transpile-modules": "^4.1.0",
     "nexus-prisma": "^0.12.0",
