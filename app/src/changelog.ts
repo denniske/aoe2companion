@@ -10,16 +10,18 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
-    '19.0.2': [
-        {
-            type: 'bugfix',
-            title: 'Search did not show all users',
-        },
-    ],
     '19.0.1': [
         {
             type: 'feature',
+            title: 'Embed aoestats.io with civ and map winrates',
+        },
+        {
+            type: 'feature',
             title: 'Prevent screen lock on guide page (when activated in settings)',
+        },
+        {
+            type: 'bugfix',
+            title: 'Search did not show all users',
         },
     ],
     '19.0.0': [
