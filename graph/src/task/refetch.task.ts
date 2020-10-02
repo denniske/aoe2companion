@@ -48,7 +48,6 @@ export class RefetchTask implements OnModuleInit {
                 AND: [
                     {maybe_finished: null},
                     {finished: null},
-                    {match_id: '41148038'},
                 ],
             },
             orderBy: {started: 'asc'},
