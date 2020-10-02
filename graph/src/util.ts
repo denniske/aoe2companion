@@ -224,6 +224,5 @@ export function sleep(ms: number) {
 }
 
 export function formatDayAndTime(date: Date) {
-    console.log(date);
     return format(date, 'MMM d HH:mm', {locale: enUS});
 }

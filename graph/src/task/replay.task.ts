@@ -10,6 +10,8 @@ import fetch from 'node-fetch';
 import {IReplayResult} from './replay.type';
 import {uniq} from 'lodash';
 import {InjectS3, S3} from 'nestjs-s3';
+import {formatDayAndTime} from '../util';
+import {fromUnixTime} from "date-fns";
 
 let workerCount = 0;
 
@@ -20,7 +22,8 @@ export class ReplayTask implements OnModuleInit {
     private matches: IMatchFromApi[] = [];
     private pending: string[] = [];
 
-    private apiUrl = 'http://0.0.0.0:80/replay';
+    // private apiUrl = 'http://0.0.0.0:80/replay';
+    private apiUrl = 'http://195.201.24.178:80/replay';
 
     constructor(
         private connection: Connection,
@@ -54,6 +57,7 @@ export class ReplayTask implements OnModuleInit {
         this.pending.push(match.match_id);
 
         console.log();
+        console.log(formatDayAndTime(fromUnixTime(match.finished)));
         console.log(`WORKER ${workerNum}...`);
 
         let replayResult: IReplayResult = null;
@@ -71,7 +75,7 @@ export class ReplayTask implements OnModuleInit {
         }
 
         if (replayResult.replay == null) {
-            console.log('STATE', replayResult.status, ((match.finished - match.started)/60).toFixed(2) + 'min');
+            console.log('STATE', replayResult.status, ((match.finished - match.started)/60).toFixed() + 'min');
             await this.prisma.match.update({
                 where: {
                     match_id: match.match_id,
@@ -253,16 +257,15 @@ export class ReplayTask implements OnModuleInit {
                     finished: {not: null},
                     replayed: null,
                 },
-                take: 10,
+                take: 100,
                 orderBy: {
                     finished: 'desc',
                 },
             }) as any as IMatchFromApi[];
             this.matches = matches.filter(m => !this.pending.includes(m.match_id));
+            console.log(this.matches.map(m => m.match_id));
         }
 
-        console.log(this.matches.map(m => m.match_id));
-
-        setTimeout(() => this.runIngest1(), 30 * 1000);
+        setTimeout(() => this.runIngest1(), 1 * 1000);
     }
 }
