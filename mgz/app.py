@@ -12,53 +12,52 @@ import subprocess
 
 app = Flask(__name__)
 
-import gc
-import tracemalloc
-import psutil
-process = psutil.Process(os.getpid())
-tracemalloc.start()
+# import gc
+# import tracemalloc
+# import psutil
+# process = psutil.Process(os.getpid())
+# tracemalloc.start()
 s = None
-global_var = []
+# global_var = []
 
-def _get_foo():
-    global global_var
-    global_var.append([1, "a", 3, True] * 10000)  # This is our (amplified) memory leak
-    return {'foo': True}
+# def _get_foo():
+#     global global_var
+#     global_var.append([1, "a", 3, True] * 10000)  # This is our (amplified) memory leak
+#     return {'foo': True}
 
-@app.route('/foo')
-def get_foo():
-    gc.collect()  # does not help
-    return _get_foo()
-    # return 'gc collected'
+# @app.route('/foo')
+# def get_foo():
+#     gc.collect()  # does not help
+#     return _get_foo()
+#     return 'gc collected'
 
-@app.route('/warmup')
-def get_warmup():
-    return 'warmup'
-    # return 'gc collected'
-
-@app.route('/gc')
-def get_gc():
-    gc.collect()  # does not help
-    return 'gc collected'
-
-
-@app.route('/memory')
-def print_memory():
-    return {'memory': process.memory_info().rss}
-
-
-@app.route("/snapshot")
-def snap():
-    global s
-    if not s:
-        s = tracemalloc.take_snapshot()
-        return "taken snapshot\n"
-    else:
-        lines = []
-        top_stats = tracemalloc.take_snapshot().compare_to(s, 'lineno')
-        for stat in top_stats[:5]:
-            lines.append(str(stat))
-        return "\n".join(lines)
+# @app.route('/warmup')
+# def get_warmup():
+#     return 'warmup'
+#     # return 'gc collected'
+#
+# @app.route('/gc')
+# def get_gc():
+#     gc.collect()  # does not help
+#     return 'gc collected'
+#
+# @app.route('/memory')
+# def print_memory():
+#     return {'memory': process.memory_info().rss}
+#
+#
+# @app.route("/snapshot")
+# def snap():
+#     global s
+#     if not s:
+#         s = tracemalloc.take_snapshot()
+#         return "taken snapshot\n"
+#     else:
+#         lines = []
+#         top_stats = tracemalloc.take_snapshot().compare_to(s, 'lineno')
+#         for stat in top_stats[:5]:
+#             lines.append(str(stat))
+#         return "\n".join(lines)
 
 @app.route("/replay")
 def replay():
