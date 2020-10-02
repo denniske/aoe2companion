@@ -56,7 +56,9 @@ export default function AboutPage() {
             <MyText style={styles.heading}>Contributors</MyText>
             <MyText style={styles.content}>Enver Arco</MyText>
             <MyText style={styles.content}>FifthSense</MyText>
+            <MyText style={styles.content}>Jeremy Keeler</MyText>
             <MyText style={styles.content}>Johannes Berger</MyText>
+            <MyText style={styles.content}>Subbramanian Lakshmanan</MyText>
 
             <MyText style={styles.heading}>Supporters</MyText>
             <MyText style={styles.content}>Andreas Teppe</MyText>

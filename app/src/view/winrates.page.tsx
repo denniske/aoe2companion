@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { WebView } from 'react-native-webview';
 import { Platform, View } from 'react-native';
 
+
 export default function WinratesPage() {
     if (Platform.OS === 'web') {
         return (
@@ -17,8 +18,13 @@ export default function WinratesPage() {
     const [height, setHeight] = useState(400);
 
     const runFirst = `
-      document.querySelector("div>a.BuyMeACoffe-module--bmc-button--3AWbh").remove();
-      true; // note: this is required, or you'll sometimes get silent failures
+        // note: need to wait until page loaded and use setTimeout to work     
+        window.onload = function() {
+            setTimeout(function() {
+                document.querySelector("div>a.BuyMeACoffe-module--bmc-button--3AWbh").remove();
+            }, 1000);
+        };
+        true; // note: this is required, or you'll sometimes get silent failures
     `;
 
     return (
@@ -32,9 +38,13 @@ export default function WinratesPage() {
         >
             <WebView
                 allowUniversalAccessFromFileURLs
-                mixedContentMode="always"
+                mixedContentMode="compatibility"
                 originWhitelist={['*']}
                 javaScriptEnabled
+                // Needed for injectedJavaScript to work
+                onMessage={(event) => {
+                    console.log('event: ', event)
+                }}
                 injectedJavaScript={runFirst}
                 source={{ uri: 'https://aoestats.io/' }}
                 scalesPageToFit={false}
