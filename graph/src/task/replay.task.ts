@@ -22,8 +22,8 @@ export class ReplayTask implements OnModuleInit {
     private matches: IMatchFromApi[] = [];
     private pending: string[] = [];
 
-    private apiUrl = 'http://0.0.0.0:80/replay';
-    // private apiUrl = 'http://195.201.24.178:80/replay';
+    // private apiUrl = 'http://0.0.0.0:80/replay';
+    private apiUrl = 'http://195.201.24.178:80/replay';
     // private apiUrl = 'https://wzhlh6g7h8.execute-api.eu-central-1.amazonaws.com/Prod/hello/';
 
     constructor(
@@ -35,7 +35,7 @@ export class ReplayTask implements OnModuleInit {
     async onModuleInit() {
         this.runIngest1();
         this.runWorker(workerCount++);
-        // this.runWorker(workerCount++);
+        this.runWorker(workerCount++);
         // this.runWorker(workerCount++);
         // this.runWorker(workerCount++);
         // this.runWorker(workerCount++);
@@ -77,7 +77,7 @@ export class ReplayTask implements OnModuleInit {
 
             console.log(`https://aoe.ms/replay/?gameId=${match.match_id}&profileId=${player.profile_id}`);
             replayResult = await this.processReplay(match.match_id, player.profile_id);
-            console.log('replayResult', replayResult);
+            // console.log('replayResult', replayResult);
             // console.log('replayResult', JSON.stringify(replayResult));
 
             if (replayResult.replay) break;
@@ -153,7 +153,7 @@ export class ReplayTask implements OnModuleInit {
             ACL: 'public-read',
         }).promise();
 
-        console.log(result);
+        // console.log(result);
 
         await this.prisma.match.update({
             where: {
@@ -233,7 +233,7 @@ export class ReplayTask implements OnModuleInit {
             // }
             if (response.status != 200) {
                 try {
-                    console.log('ERROR: ', await response.text());
+                    console.log('ERROR: ', match_id, await response.text());
                 } catch (e) {}
                 return {
                     status: response.status,
@@ -271,7 +271,6 @@ export class ReplayTask implements OnModuleInit {
     }
 
     async runIngest1() {
-        console.log("Running ingest1...");
         console.log("Pending", this.pending);
 
         if (this.matches.length == 0) {
@@ -316,6 +315,6 @@ export class ReplayTask implements OnModuleInit {
             console.log(this.matches.map(m => m.match_id));
         }
 
-        setTimeout(() => this.runIngest1(), 1 * 1000);
+        setTimeout(() => this.runIngest1(), 5 * 1000);
     }
 }

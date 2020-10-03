@@ -17,7 +17,7 @@ app = Flask(__name__)
 # import psutil
 # process = psutil.Process(os.getpid())
 # tracemalloc.start()
-s = None
+# s = None
 # global_var = []
 
 # def _get_foo():
@@ -25,11 +25,9 @@ s = None
 #     global_var.append([1, "a", 3, True] * 10000)  # This is our (amplified) memory leak
 #     return {'foo': True}
 
-# @app.route('/foo')
-# def get_foo():
-#     gc.collect()  # does not help
-#     return _get_foo()
-#     return 'gc collected'
+@app.route('/')
+def get_index():
+    return 'Hello world!'
 
 # @app.route('/warmup')
 # def get_warmup():
@@ -59,15 +57,19 @@ s = None
 #             lines.append(str(stat))
 #         return "\n".join(lines)
 
+@app.errorhandler(Exception)
+def handle_fake_exception_with_header(error):
+    return {'error': str(error)}, 500
+
 @app.route("/replay")
 def replay():
     match_id = request.args.get('match_id')
     profile_id = request.args.get('profile_id')
 
-    cmd = subprocess.run(["/Users/denniskeil/Downloads/pypy3.7-v7.3.2-osx64/bin/pypy", "process.py", match_id, profile_id], capture_output=True)
-    # cmd = subprocess.run(["pypy", "process.py", match_id, profile_id], capture_output=True)
+    # cmd = subprocess.run(["/Users/denniskeil/Downloads/pypy3.7-v7.3.2-osx64/bin/pypy", "process.py", match_id, profile_id], capture_output=True)
+    cmd = subprocess.run(["pypy", "process.py", match_id, profile_id], capture_output=True)
     if cmd.returncode != 0:
-        return jsonify({"error": cmd.stderr.decode() })
+        raise Exception(cmd.stderr.decode())
     return jsonify(json.loads(cmd.stdout.decode()))
 
 if __name__ == '__main__':
