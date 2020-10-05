@@ -12,7 +12,7 @@ import {appVariants} from "../../styles";
 import {LeaderboardId} from "../../helper/leaderboards";
 import TemplatePicker from "../components/template-picker";
 import {get} from "lodash-es";
-import {IMatch} from "../../helper/data";
+import {IMatch} from "@nex/data";
 import {getMapName} from "../../helper/maps";
 import {parseUserId, sameUser} from "../../helper/user";
 import {createStylesheet} from '../../theming-new';

@@ -2,7 +2,7 @@ import {fetchLeaderboardLegacy} from '../api/leaderboard';
 import {sortBy, sumBy} from 'lodash-es'
 import {IProfile} from '../view/components/profile';
 import {minifyUserId, UserIdBase} from '../helper/user';
-import {IRatingHistoryEntry, IRatingHistoryEntryRaw} from '../helper/data';
+import {IRatingHistoryEntry, IRatingHistoryEntryRaw} from '@nex/data';
 import {parseISO} from "date-fns";
 import request, {gql} from 'graphql-request';
 import {IRatingHistoryRow} from './rating';

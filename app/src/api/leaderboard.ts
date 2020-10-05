@@ -1,5 +1,5 @@
 import {makeQueryString, sleep, time} from '@nex/data';
-import {ILeaderboard, ILeaderboardRaw, IRatingHistoryEntryRaw} from "../helper/data";
+import {ILeaderboard, ILeaderboardRaw} from "@nex/data";
 import {fromUnixTime} from "date-fns";
 import { getHost } from './host';
 import {fetchJson} from "./util";

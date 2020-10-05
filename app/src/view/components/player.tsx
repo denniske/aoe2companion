@@ -6,7 +6,7 @@ import {userIdFromBase} from '../../helper/user';
 import {civs} from '@nex/data';
 import {getString} from '../../helper/strings';
 import {RootStackProp} from '../../../App';
-import {getSlotTypeName, IPlayer} from "../../helper/data";
+import {getSlotTypeName, IPlayer} from "@nex/data";
 import {TextLoader} from "./loader/text-loader";
 import IconFA5 from 'react-native-vector-icons/FontAwesome5';
 import {MyText} from "./my-text";

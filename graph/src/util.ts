@@ -2,6 +2,7 @@ import {ParsedQs} from "qs";
 import {Params, ParamsDictionary, PathParams, RequestHandler} from "express-serve-static-core";
 import {format} from "date-fns";
 import {enUS} from "date-fns/locale";
+import {IMatchRaw} from '@nex/data';
 
 export interface UserIdBase {
     steamId?: string;
@@ -84,27 +85,6 @@ export interface ILobbyMatchRaw {
     visibility: string;
 }
 
-
-export interface IPlayerRaw {
-    civ?: number;
-    clan: string;
-    color: number;
-    country: string;
-    drops: number;
-    games: number;
-    name: string;
-    profile_id: number;
-    rating: number;
-    rating_change: any;
-    slot: number;
-    slot_type: number;
-    steam_id: string;
-    streak: any;
-    team: number;
-    wins: any;
-    won: any;
-}
-
 export interface ILastMatchRaw {
     profile_id: number;
     steam_id: string;
@@ -112,52 +92,6 @@ export interface ILastMatchRaw {
     country: string;
     last_match: IMatchRaw;
 }
-
-export interface IMatchRaw {
-    match_id: string;
-    match_uuid: string;
-    lobby_id: any;
-    name: string;
-    opened?: any;
-    started?: any;
-    finished?: any;
-    leaderboard_id: number;
-    num_slots: number;
-    has_password: boolean;
-    server: string;
-    map_type: number;
-    average_rating: any;
-    cheats: boolean;
-    ending_age: number;
-    expansion: any;
-    full_tech_tree: boolean;
-    game_type: any;
-    has_custom_content: any;
-    lock_speed: boolean;
-    lock_teams: boolean;
-    map_size: number;
-    num_players: number;
-    players: IPlayerRaw[];
-    pop: number;
-    ranked: boolean;
-    rating_type: any;
-    resources: any;
-    rms: any;
-    scenario: any;
-    shared_exploration: boolean;
-    speed: number;
-    starting_age: number;
-    team_positions: boolean;
-    team_together: boolean;
-    treaty_length: any;
-    turbo: boolean;
-    version: string;
-    victory: any;
-    victory_time: any;
-    visibility: any;
-    maybe_finished?: number;
-}
-
 
 export interface IPingMessage {
     message: 'ping';

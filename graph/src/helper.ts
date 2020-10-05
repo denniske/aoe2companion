@@ -1,9 +1,9 @@
 import fetch from "node-fetch";
 import {uniqBy} from "lodash";
 import {KeyValue} from "./entity/keyvalue";
-import {IRatingHistoryEntryRaw} from "./entity/entity-helper";
-import {IMatchRaw} from "./util";
 import {Connection} from "typeorm";
+import {getUnixTime} from 'date-fns';
+import {IMatchRaw, IRatingHistoryEntryRaw} from '@nex/data';
 
 export async function setValue(connection: Connection, id: string, value: any) {
     const keyValue = new KeyValue();
@@ -178,6 +178,27 @@ export async function fetchMatch(game: string, params: IFetchMatchParams): Promi
     const queryString = makeQueryString(query);
 
     const url = `http://aoe2.net/api/match?${queryString}`;
+    console.log(url);
+    const response = await fetch(url, { timeout: 60 * 1000 });
+    try {
+        const text = await response.text();
+        // console.log(text);
+        return JSON.parse(text);
+        // return await response.json();
+    } catch (e) {
+        console.log("FAILED", url);
+        throw e;
+    }
+}
+
+interface IOngoingMatches {
+    draw: number,
+    recordsTotal: number;
+    data: IMatchRaw[];
+}
+
+export async function fetchOngoingMatches(): Promise<IOngoingMatches> {
+    const url = `https://aoe2.net/matches/aoe2de/ongoing?_=?${getUnixTime(new Date())}`;
     console.log(url);
     const response = await fetch(url, { timeout: 60 * 1000 });
     try {

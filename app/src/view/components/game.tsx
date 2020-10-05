@@ -4,7 +4,7 @@ import {formatAgo} from '@nex/data';
 import React from 'react';
 import {Player, PlayerSkeleton} from './player';
 import MyListAccordion from './accordion';
-import {IMatch} from "../../helper/data";
+import {IMatch} from "@nex/data";
 import { getMapImage, getMapName } from "../../helper/maps";
 import {TextLoader} from "./loader/text-loader";
 import {ImageLoader} from "./loader/image-loader";

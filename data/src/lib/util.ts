@@ -66,6 +66,12 @@ export function makeQueryString(params: IParams) {
             .join('&');
 }
 
+export function makeQueryStringRaw(params: IParams) {
+    return Object.keys(params)
+            .map(k => encodeURIComponent(k) + '=' + params[k])
+            .join('&');
+}
+
 export function strRemoveTo(str: string, find: string) {
     return str.substring(str.indexOf(find) + find.length);
 }

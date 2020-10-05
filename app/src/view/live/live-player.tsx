@@ -3,13 +3,15 @@ import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {userIdFromBase} from '../../helper/user';
 import {RootStackProp} from '../../../App';
-import {getSlotTypeName, ILobbyPlayerRaw} from "../../helper/data";
+import {getSlotTypeName} from "@nex/data";
 import IconFA5 from 'react-native-vector-icons/FontAwesome5';
 import {useSelector} from "../../redux/reducer";
 import {makeVariants, useAppTheme, useTheme} from "../../theming";
 import {MyText} from "../components/my-text";
 import {getFlagIcon} from "../../helper/flags";
 import {createStylesheet} from '../../theming-new';
+import {ILobbyPlayerRaw} from '../../helper/data';
+
 
 interface IPlayerProps {
     player: ILobbyPlayerRaw | null;

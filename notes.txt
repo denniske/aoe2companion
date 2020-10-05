@@ -25,6 +25,9 @@ users
 - t90 197930
 
 
+ab -n 100 http://www.google.com/
+
+
 paging
 https://medium.com/swlh/how-to-implement-cursor-pagination-like-a-pro-513140b65f32
 
@@ -131,6 +134,11 @@ sam deploy
 git clone https://github.com/SiegeEngineers/aoc-mgz-db.git
 virtualenv env && source env/bin/activate
 virtualenv env && source env/bin/activate && pip3 install -r requirements.txt
+
+
+docker build -t denniske/aoe2companion-mgz:5 . && docker push denniske/aoe2companion-mgz:5
+docker container kill $(docker ps -q) && docker run -p 0.0.0.0:80:80 -d denniske/aoe2companion-mgz:5
+
 
 
 pip3 install -r requirements.txt

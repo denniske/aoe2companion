@@ -6,8 +6,8 @@ import {
 import {useNavigation, useNavigationState} from '@react-navigation/native';
 import {fetchLeaderboard} from "../api/leaderboard";
 import {minifyUserId, sameUserNull, userIdFromBase} from "../helper/user";
-import {countriesDistinct, Country, getCountryName, getFlagIcon} from "../helper/flags";
-import {ILeaderboardPlayer} from "../helper/data";
+import {getFlagIcon} from "../helper/flags";
+import {countriesDistinct, Country, getCountryName, ILeaderboardPlayer} from "@nex/data";
 import {RootStackProp} from "../../App";
 import IconFA from "react-native-vector-icons/FontAwesome";
 import IconFA5 from "react-native-vector-icons/FontAwesome5";

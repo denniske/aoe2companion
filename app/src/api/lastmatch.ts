@@ -1,7 +1,8 @@
-import {IMatch, IMatchRaw, IRatingHistoryEntryRaw} from "../helper/data";
+import {IMatch} from "@nex/data";
 import {fromUnixTime} from "date-fns";
 import {getHost} from "./host";
 import {fetchJson} from "./util";
+import {IMatchRaw} from '@nex/data';
 
 
 function convertTimestampsToDates(json: IMatchRaw): IMatch {

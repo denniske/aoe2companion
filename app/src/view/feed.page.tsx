@@ -3,7 +3,7 @@ import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {RootStackParamList, RootStackProp} from '../../App';
 import {RouteProp, useNavigation, useNavigationState, useRoute} from '@react-navigation/native';
 import {Game} from './components/game';
-import {IMatch, IPlayer} from "../helper/data";
+import {IMatch, IPlayer} from "@nex/data";
 import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
 import Search from "./components/search";
 import {sameUser, sameUserNull, UserIdBaseWithName, userIdFromBase} from "../helper/user";

@@ -2,9 +2,10 @@ import React from 'react';
 import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Button} from 'react-native-paper';
 import {composeUserIdFromParts, UserInfo} from '../../helper/user';
-import {Flag, getFlagIcon} from '../../helper/flags';
+import {getFlagIcon} from '../../helper/flags';
 import {useCavy} from "cavy";
 import {MyText} from "./my-text";
+import {Flag} from '@nex/data';
 
 export interface IPlayerListPlayer {
     country: Flag;

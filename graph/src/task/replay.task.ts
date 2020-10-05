@@ -4,7 +4,7 @@ import {LeaderboardRow} from "../entity/leaderboard-row";
 import {upsertLeaderboardRows} from "../entity/entity-helper";
 import {fetchLeaderboardRecentMatches, makeQueryString, setValue} from "../helper";
 import {Connection} from "typeorm";
-import {IMatch, IMatchBase, IMatchFromApi} from '../entity/entity.type';
+import {IMatchEntity, IMatchBase, IMatchFromApi} from '../entity/entity.type';
 import {PrismaService} from '../service/prisma.service';
 import fetch from 'node-fetch';
 import {IReplayResult} from './replay.type';
@@ -145,7 +145,7 @@ export class ReplayTask implements OnModuleInit {
 
         replayResult.replay.players.forEach(v => delete v.achievements);
 
-        const result = await this.s3.putObject({
+        await this.s3.putObject({
             Bucket: 'aoe2companion',
             ContentType: 'application/json',
             Key: `parsed-match/${match.match_id}.json`,
@@ -153,7 +153,16 @@ export class ReplayTask implements OnModuleInit {
             ACL: 'public-read',
         }).promise();
 
-        // console.log(result);
+        if (replayResult.replay.restored[0]) {
+            console.log('RESTORED');
+            await this.s3.putObject({
+                Bucket: 'aoe2companion',
+                ContentType: 'application/json',
+                Key: `parsed-match-restored/${match.match_id}.json`,
+                Body: JSON.stringify(replayResult.replay),
+                ACL: 'public-read',
+            }).promise();
+        }
 
         await this.prisma.match.update({
             where: {
@@ -233,7 +242,15 @@ export class ReplayTask implements OnModuleInit {
             // }
             if (response.status != 200) {
                 try {
-                    console.log('ERROR: ', match_id, await response.text());
+                    const jsonStr = await response.text();
+                    console.log('ERROR: ', match_id, profile_id, jsonStr);
+                    await this.s3.putObject({
+                        Bucket: 'aoe2companion',
+                        ContentType: 'application/json',
+                        Key: `parsed-match-error/${match_id}.json`,
+                        Body: jsonStr,
+                        ACL: 'public-read',
+                    }).promise();
                 } catch (e) {}
                 return {
                     status: response.status,

@@ -1,4 +1,5 @@
 import {getString, getStringId} from "./strings";
+import {AoeMap} from '@nex/data';
 
 export const maps = {
     9: require('../../assets/maps/rm_arabia.png'),
@@ -107,8 +108,6 @@ export const maps = {
     140: require('../../assets/maps/rm_four-lakes.png'),
     141: require('../../assets/maps/rm_land_nomad.png'),
 };
-
-export type AoeMap = keyof typeof maps;
 
 export function getMapImage(map: AoeMap) {
     if (map == null) {

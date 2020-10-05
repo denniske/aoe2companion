@@ -7,6 +7,9 @@ import {max} from "lodash";
 import {Match} from "../entity/match";
 import {fetchMatches, setValue} from "../helper";
 import {Connection} from "typeorm";
+import {PrismaService} from '../service/prisma.service';
+import {flatMap} from 'lodash';
+import {join} from '@prisma/client/runtime';
 
 
 @Injectable()
@@ -15,6 +18,7 @@ export class ImportTask implements OnModuleInit {
 
     constructor(
         private connection: Connection,
+        private prisma: PrismaService,
     ) {}
 
     async onModuleInit() {
@@ -76,6 +80,35 @@ export class ImportTask implements OnModuleInit {
         if (entriesGreater.length === 0) {
             console.log('DONE', entriesGreater.length);
         }
+
+        // Also mark matches from these player for refetching
+        const profile_ids = flatMap(entriesToSave.map(e => e.players)).map(p => p.profile_id);
+        const rowCount = await this.prisma.$executeRaw`
+            UPDATE match m
+            SET maybe_finished = null
+            WHERE
+                maybe_finished != -5 AND
+                maybe_finished is not null AND
+                m.finished is null AND
+                EXISTS(
+                    SELECT * FROM player p
+                    WHERE p.profile_id IN (${join(profile_ids)}) AND p.match_id=m.match_id
+                );
+          `;
+        console.log(`Also marked ${rowCount}/${entries.length} matches for refetching.`);
+
+
+        // const res = await this.prisma.match.updateMany({
+        //     where: {
+        //         AND: [
+        //             { maybe_finished: { not: -5 } },
+        //             { finished: null },
+        //             { players: { some: { profile_id: { in: flatMap(entriesToSave.map(e => e.players)).map(p => p.profile_id) } } } },
+        //         ],
+        //     },
+        //     data: { maybe_finished: null },
+        // });
+        // console.log(`Also marked ${res.count} matches for refetching.`);
 
         return entriesGreater.length;
     }

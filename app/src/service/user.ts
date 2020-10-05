@@ -1,7 +1,6 @@
 import {fetchLeaderboardLegacy} from '../api/leaderboard';
 import {groupBy, sortBy, sumBy} from 'lodash-es'
-import {Flag} from "../helper/flags";
-import {ILeaderboardPlayer} from "../helper/data";
+import {Flag, ILeaderboardPlayer} from "@nex/data";
 import request, {gql} from 'graphql-request';
 
 export interface IFetchedUser {

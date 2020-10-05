@@ -1,9 +1,5 @@
-import {makeQueryString, sleep} from '@nex/data';
-import {IMatch, IMatchRaw} from "@nex/data";
 import {fromUnixTime, parseISO} from "date-fns";
-import { getHost } from './host';
-import {uniqBy} from "lodash-es";
-import {fetchJson} from "./util";
+import {uniqBy} from "lodash";
 
 
 function convertTimestampsToDates(json: IMatchRaw): IMatch {
@@ -32,6 +28,10 @@ export interface IFetchMatchesParams {
 }
 
 import request, {gql} from "graphql-request";
+import {makeQueryString, makeQueryStringRaw} from '../lib/util';
+import {getHost} from '../lib/host';
+import {IMatch, IMatchRaw} from './api.types';
+import {fetchJson} from '../lib/fetch-json';
 
 
 export async function fetchPlayerMatches(game: string, start: number, count: number, params: IFetchMatchesParams[]): Promise<IMatch[]> {
@@ -87,15 +87,15 @@ export async function fetchPlayerMatches(game: string, start: number, count: num
 
     const timeLastDate = new Date();
     const variables = { start, count, profile_ids: params.map(p => p.profile_id) };
-    console.groupCollapsed('fetchPlayerMatches - matches()');
-    console.log(query);
-    console.groupEnd();
-    console.log(variables);
+    // console.groupCollapsed('fetchPlayerMatches - matches()');
+    // console.log(query);
+    // console.groupEnd();
+    // console.log(variables);
     const data = await request(endpoint, query, variables)
     console.log('gql', new Date().getTime() - timeLastDate.getTime());
 
     let json = data.matches.matches as IMatchRaw[];
-    console.log(json);
+    // console.log(json);
     // let json2 = await fetchJson('fetchPlayerMatches', url) as IMatchRaw[];
     // console.log(json2);
 
@@ -104,4 +104,46 @@ export async function fetchPlayerMatches(game: string, start: number, count: num
 
     return json.map(match => convertTimestampsToDates2(match));
     // return json2.map(match => convertTimestampsToDates(match));
+}
+
+
+
+export async function fetchPlayerMatchesLegacy(game: string, start: number, count: number, params: IFetchMatchesParams[]): Promise<IMatch[]> {
+    if (params.length === 0) {
+        return [];
+    }
+    const args = {
+        game,
+        start,
+        count,
+        profile_ids: params.map(p => p.profile_id),
+    };
+    const queryString = makeQueryStringRaw(args);
+    const url = getHost('aoe2net') + `api/player/matches?${queryString}`;
+    let json = await fetchJson('fetchPlayerMatches', url) as IMatchRaw[];
+
+    // TODO: Temporary fix: Filter duplicate matches
+    json = uniqBy(json, m => m.match_id);
+
+    return json.map(match => convertTimestampsToDates(match));
+}
+
+export async function fetchPlayerMatchesLegacyRaw(game: string, start: number, count: number, params: IFetchMatchesParams[]): Promise<IMatchRaw[]> {
+    if (params.length === 0) {
+        return [];
+    }
+    const args = {
+        game,
+        start,
+        count,
+        profile_ids: params.map(p => p.profile_id),
+    };
+    const queryString = makeQueryStringRaw(args);
+    const url = getHost('aoe2net') + `api/player/matches?${queryString}`;
+    let json = await fetchJson('fetchPlayerMatches', url) as IMatchRaw[];
+
+    // TODO: Temporary fix: Filter duplicate matches
+    json = uniqBy(json, m => m.match_id);
+
+    return json;
 }

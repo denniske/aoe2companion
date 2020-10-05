@@ -1,10 +1,12 @@
 import {Match} from "./match";
 import {Account} from "./account";
 import {Following} from "./following";
+import {IMatch} from '@nex/data';
 
 
 
 export interface IMatchBase {
+    match_id?: string;
     match_uuid?: string;
     lobby_id?: string;
     name?: string;
@@ -45,13 +47,13 @@ export interface IMatchBase {
     victory?: number;
     victory_time?: number;
     visibility?: number;
-    players: IPlayer[];
+    players: IPlayerBase[];
 
     maybe_finished?: number;
 }
 
 
-export interface IMatch extends IMatchBase {
+export interface IMatchEntity extends IMatchBase {
     id: string;
 }
 
@@ -81,7 +83,7 @@ export interface IPlayerBase {
 }
 
 export interface IPlayer extends IPlayerBase {
-    match: Match;
+    match: IMatch;
     match_id: string;
 }
 

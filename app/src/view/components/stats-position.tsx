@@ -1,6 +1,6 @@
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
-import {IMatch} from "../../helper/data";
+import {IMatch} from "@nex/data";
 import {TextLoader} from "./loader/text-loader";
 import {UserIdBase} from "../../helper/user";
 import {MyText} from "./my-text";

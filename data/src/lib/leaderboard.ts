@@ -2,11 +2,12 @@ import {fromUnixTime} from "date-fns";
 import { getHost } from './host';
 import {fetchJson} from "./fetch-json";
 import {makeQueryString} from "./util";
+import {Flag} from './flag';
 
 
 export interface ILeaderboardPlayerRaw {
     clan: string;
-    country: string;
+    country: Flag;
     drops: number;
     games: number;
     highest_rating: number;

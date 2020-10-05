@@ -5,16 +5,8 @@ import {chunk, uniqBy} from "lodash";
 import {Column, Connection, PrimaryColumn} from "typeorm";
 import {LeaderboardRow} from "./leaderboard-row";
 import {RatingHistory} from "./rating-history";
-import {IMatchRaw} from "../util";
+import {IMatchRaw, IRatingHistoryEntryRaw} from '@nex/data';
 
-export interface IRatingHistoryEntryRaw {
-    drops: number;
-    num_losses: number;
-    num_wins: number;
-    rating: number;
-    streak: number;
-    timestamp?: any;
-}
 
 export function createMatchEntity(matchEntry: IMatchRaw) {
     const match = new Match();

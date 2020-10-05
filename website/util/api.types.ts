@@ -57,36 +57,3 @@ export interface IMatch extends IMatchRaw {
   finished?: Date;
 }
 
-export interface IPlayer {
-  civ: number;
-  clan: string;
-  color: number;
-  country: string;
-  drops: number;
-  games: number;
-  name: string;
-  profile_id: number;
-  rating: number;
-  rating_change: any;
-  slot: number;
-  slot_type: number;
-  steam_id: string;
-  streak: any;
-  team: number;
-  wins: any;
-  won: any;
-}
-
-
-export interface IRatingHistoryEntryRaw {
-  drops: number;
-  num_losses: number;
-  num_wins: number;
-  rating: number;
-  streak: number;
-  timestamp?: any;
-}
-
-export interface IRatingHistoryEntry extends IRatingHistoryEntryRaw {
-  timestamp?: Date;
-}

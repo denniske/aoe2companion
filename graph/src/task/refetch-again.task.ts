@@ -11,7 +11,7 @@ export class RefetchAgainTask implements OnModuleInit {
         private prisma: PrismaService,
     ) {}
 
-    async onModuleInit() {}
+    async onModuleInit() { this.runRefetchAgain(); }
 
     // Every 30 minutes
     @Cron('0/30 * * * *')

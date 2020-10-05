@@ -1,6 +1,6 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {IMatch, IPlayer, validMatch} from "../../helper/data";
+import {IMatch, IPlayer, validMatch} from "@nex/data";
 import {TextLoader} from "./loader/text-loader";
 import {orderBy, uniqBy} from "lodash-es";
 import {getFlagIcon} from "../../helper/flags";

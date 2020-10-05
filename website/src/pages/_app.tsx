@@ -21,9 +21,6 @@ class HostService implements IHostService {
     }
 }
 
-
-
-
 class HttpService implements IHttpService {
     async fetchJson(title: string, input: RequestInfo, init?: RequestInit) {
         if (init) {

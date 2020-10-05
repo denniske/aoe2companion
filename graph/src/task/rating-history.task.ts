@@ -2,9 +2,10 @@ import {Injectable, Logger, OnModuleInit} from '@nestjs/common';
 import {getUnixTime} from "date-fns";
 import {min} from "lodash";
 import {fetchRatingHistoryUniqueByTimestamp} from "../helper";
-import {IRatingHistoryEntryRaw, upsertRatingHistory} from "../entity/entity-helper";
+import {upsertRatingHistory} from "../entity/entity-helper";
 import {PrismaService} from "../service/prisma.service";
 import {Connection} from "typeorm";
+import {IRatingHistoryEntryRaw} from '@nex/data';
 
 
 interface ILeaderboardPlayer {
@@ -102,7 +103,7 @@ export class RatingHistoryTask implements OnModuleInit {
         await upsertRatingHistory(this.connection, first.leaderboard_id, first.profile_id, history);
         console.log('Saved history entries');
 
-        // Also set matches from this player to finished
+        // Also mark matches from these player for refetching
         const res = await this.prisma.match.updateMany({
             where: {
                 AND: [

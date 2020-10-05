@@ -1,8 +1,8 @@
 import {Entity, Column, PrimaryColumn, OneToMany, Index} from "typeorm";
-import {IMatch, IPlayer} from "./entity.type";
+import {IMatchEntity, IPlayer} from "./entity.type";
 
 @Entity()
-export class Match implements IMatch {
+export class Match implements IMatchEntity {
     @PrimaryColumn({ name: 'match_id' })
     id: string;
 

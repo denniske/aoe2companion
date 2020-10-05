@@ -1,9 +1,9 @@
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import {formatAgo} from '@nex/data';
+import {Flag, formatAgo} from '@nex/data';
 import React, {useEffect} from 'react';
 import {getLeaderboardTextColor} from '../../helper/colors';
-import {Flag, getFlagIcon} from '../../helper/flags';
-import {ILeaderboard, ILeaderboardInfoRaw} from "../../helper/data";
+import {getFlagIcon} from '../../helper/flags';
+import {ILeaderboard, ILeaderboardInfoRaw} from "@nex/data";
 import {ImageLoader} from "./loader/image-loader";
 import {TextLoader} from "./loader/text-loader";
 import Icon from "react-native-vector-icons/FontAwesome5";

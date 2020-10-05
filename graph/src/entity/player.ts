@@ -1,5 +1,6 @@
 import {Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, ManyToOne, Index} from "typeorm";
-import {IMatch, IPlayer} from "./entity.type";
+import {IMatchEntity, IPlayer} from "./entity.type";
+import {IMatch} from '@nex/data';
 
 @Entity()
 export class Player implements IPlayer {

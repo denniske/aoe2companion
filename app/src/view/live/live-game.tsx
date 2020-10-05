@@ -3,7 +3,6 @@ import {getString} from '../../helper/strings';
 import {formatAgo} from '@nex/data';
 import React from 'react';
 import {LivePlayer} from './live-player';
-import {ILobbyMatchRaw, IMatch} from "../../helper/data";
 import {getMapImage, getMapImageByLocationString, getMapName} from "../../helper/maps";
 import {groupBy} from "lodash-es";
 import {differenceInSeconds} from "date-fns";
@@ -13,6 +12,7 @@ import MyListAccordion from "../components/accordion";
 import {ImageLoader} from "../components/loader/image-loader";
 import {MyText} from "../components/my-text";
 import {createStylesheet} from '../../theming-new';
+import {ILobbyMatchRaw} from '../../helper/data';
 
 interface IGameProps {
     data: ILobbyMatchRaw;

@@ -1,5 +1,5 @@
-import {AoeMap, maps} from "../../helper/maps";
-import {IMatch, validMatch} from "../../helper/data";
+import {maps} from "../../helper/maps";
+import {AoeMap, IMatch, validMatch} from "@nex/data";
 import {sameUser, UserIdBase} from "../../helper/user";
 import {orderBy} from "lodash-es";
 

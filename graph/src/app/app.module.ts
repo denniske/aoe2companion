@@ -38,6 +38,7 @@ import {Repository} from "typeorm";
 import {RefetchRepairTask} from '../task/refetch-repair.task';
 import {ReplayTask} from '../task/replay.task';
 import {S3Module} from 'nestjs-s3';
+import {RefetchMultipleTask} from '../task/refetch-multiple.task';
 
 @Module({
     imports: [
@@ -109,6 +110,12 @@ export class TaskAndControllerModule {
                 break;
             case 'refetch':
                 providers.push(RefetchTask);
+                break;
+            case 'refetch-multiple':
+                providers.push(RefetchAgainTask);
+                providers.push(RefetchTask);
+                // providers.push(ImportTask);
+                // providers.push(RefetchMultipleTask);
                 break;
             case 'refetch-again':
                 providers.push(RefetchAgainTask);

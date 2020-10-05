@@ -1,6 +1,5 @@
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
-import {IMatch} from "../../helper/data";
 import {TextLoader} from "./loader/text-loader";
 import {UserIdBase} from "../../helper/user";
 import {MyText} from "./my-text";
@@ -9,6 +8,7 @@ import Icon5 from 'react-native-vector-icons/FontAwesome5';
 import Space from "./space";
 import {IRow} from "../../service/stats/stats-duration";
 import {createStylesheet} from '../../theming-new';
+import {IMatch} from '@nex/data';
 
 interface IRowProps {
     data: IRow;

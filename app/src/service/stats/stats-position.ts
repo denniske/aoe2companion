@@ -1,4 +1,4 @@
-import {IMatch, validMatch} from "../../helper/data";
+import {IMatch, validMatch} from "@nex/data";
 import {sameUser, UserIdBase} from "../../helper/user";
 import {orderBy} from "lodash-es";
 import {LeaderboardId} from "../../helper/leaderboards";

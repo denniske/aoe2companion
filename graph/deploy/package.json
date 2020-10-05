@@ -27,7 +27,8 @@
     "fs-to-json": "",
     "@nestjs/typeorm": "",
     "aws-sdk": "",
-    "nestjs-s3": ""
+    "nestjs-s3": "",
+    "graphql-request": ""
   },
   "devDependencies": {
     "@prisma/cli": ""

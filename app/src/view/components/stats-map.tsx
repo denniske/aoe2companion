@@ -1,8 +1,8 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect} from 'react';
-import {IMatch, validMatch} from "../../helper/data";
+import {IMatch, validMatch} from "@nex/data";
 import {TextLoader} from "./loader/text-loader";
-import {AoeMap, getMapImage, getMapName, maps} from "../../helper/maps";
+import {getMapImage, getMapName, maps} from "../../helper/maps";
 import {orderBy} from "lodash-es";
 import {sameUser, UserIdBase} from "../../helper/user";
 import {MyText} from "./my-text";

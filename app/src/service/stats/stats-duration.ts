@@ -1,4 +1,4 @@
-import {IMatch, validMatch} from "../../helper/data";
+import {IMatch, validMatch} from "@nex/data";
 import {sameUser, UserIdBase} from "../../helper/user";
 import {differenceInMinutes} from "date-fns";
 import {AoeSpeed, getSpeedFactor} from "../../helper/speed";

@@ -1,0 +1,35 @@
+Traceback (most recent call last):
+File \"/opt/pypy/site-packages/mgz/summary/__init__.py\", line 72, in __init__
+    self._header = mgz.header.parse_stream(self._handle)
+File \"/opt/pypy/site-packages/construct/core.py\", line 171, in parse_stream
+    return self._parse(stream, context2, \"(parsing)\")
+File \"/opt/pypy/site-packages/construct/core.py\", line 867, in _parse
+    subobj = sc._parse(stream, context, path)
+File \"/opt/pypy/site-packages/construct/core.py\", line 295, in _parse
+    return self.subcon._parse(stream, context, path)
+File \"/opt/pypy/site-packages/construct/core.py\", line 867, in _parse
+    subobj = sc._parse(stream, context, path)
+File \"/opt/pypy/site-packages/construct/core.py\", line 295, in _parse
+    return self.subcon._parse(stream, context, path)
+File \"/opt/pypy/site-packages/mgz/util.py\", line 57, in _parse
+    return self.subcon._parse(new_stream, context, path)
+File \"/opt/pypy/site-packages/construct/core.py\", line 357, in _parse
+    return self.subcon.parse(data, context)
+File \"/opt/pypy/site-packages/construct/core.py\", line 158, in parse
+    return self.parse_stream(BytesIO(data), context, **kw)
+File \"/opt/pypy/site-packages/construct/core.py\", line 171, in parse_stream
+    return self._parse(stream, context2, \"(parsing)\")
+File \"/opt/pypy/site-packages/construct/core.py\", line 867, in _parse
+    subobj = sc._parse(stream, context, path)
+File \"/opt/pypy/site-packages/construct/core.py\", line 1036, in _parse
+    raise RangeError(\"unsane min %s and max %s\" % (min, max))
+construct.core.RangeError: unsane min -1 and max -1
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+File \"process.py\", line 42, in <module>
+    summary = mgz.summary.Summary(handle, None)
+File \"/opt/pypy/site-packages/mgz/summary/__init__.py\", line 84, in __init__
+    raise RuntimeError(\"invalid mgz file: {}\".format(e))
+RuntimeError: invalid mgz file: unsane min -1 and max -1
