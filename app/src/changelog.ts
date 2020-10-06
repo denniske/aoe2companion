@@ -17,11 +17,11 @@ export const changelog: IChangelog = {
         },
         {
             type: 'feature',
-            title: 'Prevent screen lock on guide page (when activated in settings)',
+            title: 'Prevent screen lock on build order page (when activated in settings)',
         },
         {
-            type: 'bugfix',
-            title: 'Search did not show all users',
+            type: 'minor',
+            title: 'Improved search',
         },
     ],
     '19.0.0': [

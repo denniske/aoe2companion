@@ -74,7 +74,7 @@ interface ISearchProps {
 
 export default function Search({title, selectedUser, actionText, action}: ISearchProps) {
     const styles = useStyles();
-    const [text, setText] = useState('viper');
+    const [text, setText] = useState('');
     const previousText = usePrevious(text);
     const [fetchingMore, setFetchingMore] = useState(false);
     const [fetchedAll, setFetchedAll] = useState(false);
@@ -82,10 +82,10 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
     const user = useLazyApi({}, loadUser, 'aoe2de', 0, 50, text);
 
     const refresh = () => {
-        // if (text.length < 3) {
-        //     user.reset();
-        //     return;
-        // }
+        if (text.length <= 0) {
+            user.reset();
+            return;
+        }
         if (previousText?.trim() === text.trim()) {
             return;
         }
@@ -123,11 +123,11 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
     // console.log('RENDER', text, list.length);
 
     const onEndReached = async () => {
-        if (fetchingMore || user.data?.length == 0) return;
+        console.log('onEndReached', text);
+        console.log('fetchingMore', fetchingMore);
+        console.log('user.data', user.data?.length);
+        if (fetchingMore || user.data?.length < 50) return;
         setFetchingMore(true);
-        // console.log('onEndReached', text);
-        // console.log('fetchingMore', fetchingMore);
-        // console.log('user.data', user.data);
         const usersLength = user.data?.length ?? 0;
         const newUsersData = await user.refetch('aoe2de', 0, (user.data?.length ?? 0) + 50, text.trim());
         if (usersLength === newUsersData?.length) {

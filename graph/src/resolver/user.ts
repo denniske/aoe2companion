@@ -18,10 +18,13 @@ export class UserResolver {
     ) {
         if (count > 1000) throw Error('count must be <= 1000');
 
-        search = `%${search}%`;
-
         // Order by relevance
         // https://stackoverflow.com/questions/14707799/query-and-sort-by-relevance
+
+        // Use contains when 3 or more chars
+        if (search.length >= 3) {
+            search = `%${search}%`;
+        }
 
         const users = await this.prisma.$queryRaw`
           SELECT profile_id, MIN(name) as name, MIN(country) as country, SUM(games) as games

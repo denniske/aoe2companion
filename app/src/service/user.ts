@@ -93,7 +93,7 @@ export async function loadUser(game: string, start: number, count: number, searc
 
     // const masterList = await loadUserLegacy(game, search);
     // console.log("MASTER user", masterList);
-    console.log(ratingHistoryRows);
+    // console.log(ratingHistoryRows);
 
     // const missing = ratingHistoryRows.filter(r => masterList.find(m => m.name == r.name) == null);
     // console.log(missing.map(m => m.name));
