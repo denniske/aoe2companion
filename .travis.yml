@@ -114,7 +114,7 @@ jobs:
         - export SERVICE_NAME=$(node deploy/script/service-name-from-tag.js $TRAVIS_BRANCH) && echo $SERVICE_NAME
         - yarn global add nx
         - yarn
-        - nx build graph
+        - nx build graph || travis_terminate 1
         - docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT .
         - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
         - docker push denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT
