@@ -2,19 +2,15 @@ import {Injectable, Logger, OnModuleInit} from '@nestjs/common';
 import {fromUnixTime, getUnixTime, subDays, subHours} from "date-fns";
 import {fetchOngoingMatches} from "../helper";
 import {
-    Environment, fetchPlayerMatchesLegacy, fetchPlayerMatchesLegacyRaw, formatDayAndTime, IHostService, IHttpService,
-    IMatch, OS,
-    registerService, SERVICE_NAME
+    Environment, fetchPlayerMatchesLegacyRaw, formatDayAndTime, IHostService, IHttpService, OS, registerService,
+    SERVICE_NAME
 } from "@nex/data";
 import {Connection} from "typeorm";
 import {PrismaService} from "../service/prisma.service";
 import {flatMap} from 'lodash';
 import fetch from "node-fetch";
-import {Match} from '../entity/match';
-import { match } from '@prisma/client';
-import {IMatchBase, IMatchEntity} from '../entity/entity.type';
+import {IMatchBase} from '../entity/entity.type';
 import {upsertMatchesWithPlayers} from '../entity/entity-helper';
-import {sleep} from '../util';
 
 
 class HostService implements IHostService {
