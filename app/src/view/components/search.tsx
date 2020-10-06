@@ -82,10 +82,10 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
     const user = useLazyApi({}, loadUser, 'aoe2de', 0, 50, text);
 
     const refresh = () => {
-        if (text.length < 3) {
-            user.reset();
-            return;
-        }
+        // if (text.length < 3) {
+        //     user.reset();
+        //     return;
+        // }
         if (previousText?.trim() === text.trim()) {
             return;
         }
@@ -113,17 +113,17 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
             ),
         });
     }
-    if (text.length < 3) {
-        list = [{
-            type: 'text',
-            content: <MyText style={styles.centerText}>Enter at least 3 chars.</MyText>,
-        }];
-    }
+    // if (text.length < 3) {
+    //     list = [{
+    //         type: 'text',
+    //         content: <MyText style={styles.centerText}>Enter at least 3 chars.</MyText>,
+    //     }];
+    // }
 
     // console.log('RENDER', text, list.length);
 
     const onEndReached = async () => {
-        if (fetchingMore || user.data?.length == 0 || text.length < 3) return;
+        if (fetchingMore || user.data?.length == 0) return;
         setFetchingMore(true);
         // console.log('onEndReached', text);
         // console.log('fetchingMore', fetchingMore);
