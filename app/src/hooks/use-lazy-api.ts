@@ -14,9 +14,14 @@ export function useLazyApi<A extends (...args: any) => any>(options: ILazyApiOpt
     const [error, setError] = useState(false);
     const [lastParams, setLastParams] = useState(null as any);
     const mountedRef = useRef(true);
+    const requestRef = useRef(0);
 
     const load = async (append: boolean, ...args: Parameters<A>) => {
         if (!mountedRef.current) return null;
+
+        // Save current request ref
+        requestRef.current++;
+        const num = requestRef.current;
 
         setLoading(true);
         setLastParams(args);
@@ -33,7 +38,9 @@ export function useLazyApi<A extends (...args: any) => any>(options: ILazyApiOpt
                 newData = options.append(data, newData, args);
             }
 
-            if (!mountedRef.current) return null;
+            // console.log('num', num, 'numref', requestRef.current);
+            // Ignore result if component unmounted OR a more recent request has been started
+            if (!mountedRef.current || num < requestRef.current) return null;
 
             setData(newData);
             setLoading(false);

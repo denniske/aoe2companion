@@ -107,18 +107,20 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
         }, {
             type: 'text',
             content: (
-                <View style={styles.headerRow}>
-                    <MyText style={styles.note}>A user must have played at least 10 games in a timespan of about 3 months to be found.</MyText>
-                </View>
+                <>
+                    <View style={styles.headerRow}>
+                        <MyText style={styles.note}>A user must have played at least 10 games in a timespan of about 3 months to be found.</MyText>
+                    </View>
+                    <View style={styles.headerRow}>
+                        <MyText style={styles.note}>Searching for less than 3 chars only shows exact matching names.</MyText>
+                    </View>
+                </>
             ),
         });
     }
-    // if (text.length < 3) {
-    //     list = [{
-    //         type: 'text',
-    //         content: <MyText style={styles.centerText}>Enter at least 3 chars.</MyText>,
-    //     }];
-    // }
+    if (text.length === 0) {
+        list = [];
+    }
 
     // console.log('RENDER', text, list.length);
 
