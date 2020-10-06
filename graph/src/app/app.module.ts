@@ -112,10 +112,10 @@ export class TaskAndControllerModule {
                 providers.push(RefetchTask);
                 break;
             case 'refetch-multiple':
-                providers.push(RefetchAgainTask);
-                providers.push(RefetchTask);
+                // providers.push(RefetchAgainTask);
+                // providers.push(RefetchTask);
                 // providers.push(ImportTask);
-                // providers.push(RefetchMultipleTask);
+                providers.push(RefetchMultipleTask);
                 break;
             case 'refetch-again':
                 providers.push(RefetchAgainTask);
@@ -154,8 +154,8 @@ export class TaskAndControllerModule {
 
         console.log('environment', environment.production ? 'prod' : 'dev');
         if (!environment.production) {
-            controllers.push(ApiController);
-            controllers.push(FunctionController);
+            // controllers.push(ApiController);
+            // controllers.push(FunctionController);
         }
 
         return {

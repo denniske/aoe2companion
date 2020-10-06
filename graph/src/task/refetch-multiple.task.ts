@@ -1,8 +1,9 @@
 import {Injectable, Logger, OnModuleInit} from '@nestjs/common';
-import {fromUnixTime, getUnixTime, subDays} from "date-fns";
+import {fromUnixTime, getUnixTime, subDays, subHours} from "date-fns";
 import {fetchOngoingMatches} from "../helper";
 import {
-    Environment, fetchPlayerMatchesLegacy, fetchPlayerMatchesLegacyRaw, IHostService, IHttpService, IMatch, OS,
+    Environment, fetchPlayerMatchesLegacy, fetchPlayerMatchesLegacyRaw, formatDayAndTime, IHostService, IHttpService,
+    IMatch, OS,
     registerService, SERVICE_NAME
 } from "@nex/data";
 import {Connection} from "typeorm";
@@ -71,7 +72,7 @@ export class RefetchMultipleTask implements OnModuleInit {
             const matchesProcessed = await this.refetchMatchesSinceLastTime();
             if (matchesProcessed) {
                 console.log('Waiting 0s');
-                setTimeout(() => this.refetchMatches(), 80 * 1000);
+                setTimeout(() => this.refetchMatches(), 0 * 1000);
             } else {
                 console.log('Waiting 10s');
                 setTimeout(() => this.refetchMatches(), 10 * 1000);
@@ -83,20 +84,22 @@ export class RefetchMultipleTask implements OnModuleInit {
     }
 
     async refetchMatchesSinceLastTime() {
-        // console.log(new Date(), "Fetch ongoing matches");
-        // const ongoingMatchesResult = await fetchOngoingMatches();
-        // const ongoingMatches = ongoingMatchesResult.data;
-        // console.log(new Date(), 'GOT', ongoingMatches.length);
+        console.log(new Date(), "Fetch ongoing matches");
+        const ongoingMatchesResult = await fetchOngoingMatches();
+        const ongoingMatches = ongoingMatchesResult.data;
+        const ongoingMatchIds = ongoingMatches.map(m => m.id);
+        console.log(new Date(), 'GOT', ongoingMatches.length);
 
         const oneDayAgo = subDays(new Date(), 1);
+        const twoHoursAgo = subHours(new Date(), 2);
 
         console.log(new Date(), "Refetch unfinished matches");
         let unfinishedMatches = await this.prisma.match.findMany({
             where: {
                 AND: [
-                    // {maybe_finished: null},
+                    {maybe_finished: -1},
                     {finished: null},
-                    {started: {gt: getUnixTime(oneDayAgo)}},
+                    {started: {gt: getUnixTime(twoHoursAgo)}},
                 ],
             },
             orderBy: {started: 'desc'},
@@ -104,9 +107,13 @@ export class RefetchMultipleTask implements OnModuleInit {
             include: {
                 players: true,
             }
-        })
+        });
 
         console.log(new Date(), 'GOT', unfinishedMatches.length);
+
+        unfinishedMatches = unfinishedMatches.filter(m => !ongoingMatchIds.includes(m.match_id));
+
+        console.log(new Date(), 'REMOVED ONGOING NOW GO', unfinishedMatches.length);
 
         if (unfinishedMatches.length === 0) return false;
 
@@ -137,14 +144,36 @@ export class RefetchMultipleTask implements OnModuleInit {
         console.log(new Date(), 'GOT', matches.length);
 
         const queriedPlayers = unfinishedPlayers.map(p => p.profile_id);
+
+        // const matchLists = queriedPlayers.map(qpId => matches.filter(m => m.players.some(p => p.profile_id == qpId)));
+
+        const matchLists = queriedPlayers.map(qpId => {
+            return matches.filter(m => m.players.some(p => p.profile_id == qpId)).map(m => ({
+                    profile_id: qpId,
+                    match_id: m.match_id,
+                    started: formatDayAndTime(fromUnixTime(m.started)),
+                    finished: m.finished ? formatDayAndTime(fromUnixTime(m.finished)) : null,
+                    // maybe_finished: m.maybe_finished,
+                }));
+        });
+
+        // console.log(matchLists);
+        // console.log(matchLists.map(ml => ml.map(m => ({
+        //     match_id: m.match_id,
+        //     fin: m.finished,
+        //     mfin: m.maybe_finished,
+        // }))));
+
+
+
         const returnedPlayers = flatMap(matches, m => m.players).map(p => p.profile_id);
         const samePlayers = queriedPlayers.filter(qp => returnedPlayers.includes(qp)).length;
-        const sameMatches = unfinishedMatches.filter(qm => matches.map(m => m.match_id).includes(qm.match_id));
+        const sameMatches = matches.filter(qm => unfinishedMatches.map(m => m.match_id).includes(qm.match_id));
         console.log('SAME PLAYERS COUNT', samePlayers);
         console.log('SAME MATCH COUNT', sameMatches.length);
 
-        const finishedMatches = matches.filter(m => m.finished);
-        console.log('Finished matches', finishedMatches.length);
+        const finishedMatches = sameMatches.filter(m => m.finished);
+        console.log('Same and finished matches', finishedMatches.length);
 
         console.log(new Date());
 

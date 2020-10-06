@@ -191,10 +191,14 @@ export async function fetchMatch(game: string, params: IFetchMatchParams): Promi
     }
 }
 
+interface IOngoingMatch extends Omit<IMatchRaw, 'match_id'> {
+    id: string;
+}
+
 interface IOngoingMatches {
     draw: number,
     recordsTotal: number;
-    data: IMatchRaw[];
+    data: IOngoingMatch[];
 }
 
 export async function fetchOngoingMatches(): Promise<IOngoingMatches> {
