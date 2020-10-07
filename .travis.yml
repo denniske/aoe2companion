@@ -99,7 +99,7 @@ jobs:
     ####################################
 
     - stage: publisher
-      if: tag =~ ^(refetch|refetch-again|refetch-repair|refetch-multiple|import|ingest|ingest-fast|notify|proxy|rating-history|metric|api|function|rank|replay)-v.+$
+      if: tag =~ ^(refetch|refetch-again|refetch-repair|refetch-multiple|refetch-late|import|ingest|ingest-fast|notify|proxy|rating-history|metric|api|function|rank|replay)-v.+$
       env:
         - CACHE_NAME=publisher
       before_install:

@@ -86,7 +86,6 @@ export class RefetchMultipleTask implements OnModuleInit {
         const ongoingMatchIds = ongoingMatches.map(m => m.id);
         console.log(new Date(), 'GOT', ongoingMatches.length);
 
-        const oneDayAgo = subDays(new Date(), 1);
         const twoHoursAgo = subHours(new Date(), 2);
 
         console.log(new Date(), "Refetch unfinished matches");

@@ -134,8 +134,8 @@ export async function upsertMatchesWithPlayers(connection: Connection, matchEntr
         });
 
         await connection.transaction(async transactionalEntityManager => {
-            const result = await transactionalEntityManager.save(matchRows);
-            const result2 = await transactionalEntityManager.save(playerRows);
+            await transactionalEntityManager.save(matchRows);
+            await transactionalEntityManager.save(playerRows);
         });
     }
 }

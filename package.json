@@ -10,6 +10,8 @@
     "docker:build": "docker build -f graph/deploy/Dockerfile -t graph .",
     "docker:run": "docker run -it graph",
     "refetch": "SERVICE_NAME=refetch nx serve graph",
+    "refetch-result": "SERVICE_NAME=refetch-result nx serve graph",
+    "refetch-late": "SERVICE_NAME=refetch-late nx serve graph",
     "refetch-multiple": "SERVICE_NAME=refetch-multiple nx serve graph",
     "refetch-repair": "SERVICE_NAME=refetch-repair nx serve graph",
     "import": "SERVICE_NAME=import nx serve graph",

@@ -1,5 +1,5 @@
 import {Injectable, Logger, OnModuleInit} from '@nestjs/common';
-import {differenceInHours, fromUnixTime, getUnixTime, subDays, subHours} from "date-fns";
+import {differenceInHours, fromUnixTime, getUnixTime, subDays, subHours, subMinutes} from "date-fns";
 import {formatDayAndTime} from "../util";
 import {upsertMatchesWithPlayers} from "../entity/entity-helper";
 import {fetchMatch, fetchMatches} from "../helper";
@@ -11,8 +11,8 @@ import {PrismaService} from "../service/prisma.service";
 const FETCH_COUNT = 300;
 
 @Injectable()
-export class RefetchTask implements OnModuleInit {
-    private readonly logger = new Logger(RefetchTask.name);
+export class RefetchResultTask implements OnModuleInit {
+    private readonly logger = new Logger(RefetchResultTask.name);
 
     constructor(
         private connection: Connection,
@@ -20,7 +20,6 @@ export class RefetchTask implements OnModuleInit {
     ) {}
 
     async onModuleInit() {
-        console.log('REFETCH LEN:', myTodoList.length);
         await this.refetchMatches();
     }
 
@@ -43,11 +42,13 @@ export class RefetchTask implements OnModuleInit {
     async refetchMatchesSinceLastTime() {
         console.log(new Date(), "Refetch unfinished matches");
 
+        const twoMinutesAgo = subMinutes(new Date(), 2);
+
         let unfinishedMatches = await this.prisma.match.findMany({
             where: {
                 AND: [
-                    {maybe_finished: null},
-                    {finished: null},
+                    {replayed: -1},
+                    {finished: { lt: getUnixTime(twoMinutesAgo)}},
                 ],
             },
             orderBy: {started: 'asc'},
@@ -88,27 +89,6 @@ export class RefetchTask implements OnModuleInit {
             const updatedButNotFinishedMatches = neededMatches.filter(m => !m.finished);
             console.log(new Date(), 'UPDATED BUT NOT FINISHED', updatedButNotFinishedMatches.length);
 
-            const twelveHoursAgo = subHours(new Date(), 12);
-
-            await this.prisma.match.updateMany({
-                where: {
-                    match_id: {in: updatedButNotFinishedMatches.map(m => m.match_id)},
-                },
-                data: {
-                    maybe_finished: -1,
-                },
-            });
-
-            await this.prisma.match.updateMany({
-                where: {
-                    match_id: {in: updatedButNotFinishedMatches.map(m => m.match_id)},
-                    started: {lt: getUnixTime(twelveHoursAgo)},
-                },
-                data: {
-                    maybe_finished: -5,
-                },
-            });
-
             const updatedAndFinishedMatches = neededMatches.filter(m => m.finished);
             console.log(new Date(), 'UPDATED AND FINISHED', updatedAndFinishedMatches.length);
 
@@ -117,7 +97,7 @@ export class RefetchTask implements OnModuleInit {
             }
 
             if (updatedAndFinishedMatches.length > 0) {
-                await upsertMatchesWithPlayers(this.connection, updatedAndFinishedMatches, false);
+                await this.updateResults(updatedAndFinishedMatches);
                 console.log(new Date(), 'SAVED ALL');
             } else {
                 // Sometimes matches are not returned by /api/matches but only by /api/match?uuid=...
@@ -126,44 +106,40 @@ export class RefetchTask implements OnModuleInit {
                     match_id: firstUnfinishedMatch.match_id
                 });
                 if (firstMatch) {
-                    await upsertMatchesWithPlayers(this.connection, [firstMatch], false);
+                    await this.updateResults([firstMatch]);
                     console.log(new Date(), 'SAVED FIRST');
                 }
             }
 
             unfinishedMatches = unfinishedMatches.filter(m => !updatedMatches.map(m2 => m2.match_id).includes(m.match_id));
         }
-
-
-        // for (const unfinishedMatch of unfinishedMatches) {
-        //     console.log(new Date(), "Fetch match", unfinishedMatch.match_id, formatDayAndTime(fromUnixTime(unfinishedMatch.started)));
-        //     let updatedMatch = await fetchMatch('aoe2de', {
-        //         uuid: unfinishedMatch.match_uuid,
-        //         match_id: unfinishedMatch.match_id
-        //     });
-        //     const hoursAgo = differenceInHours(new Date(), fromUnixTime(unfinishedMatch.started));
-        //     console.log(new Date(), "Fetched match", hoursAgo + 'h ago');
-        //     if (updatedMatch) {
-        //         if (updatedMatch.finished) {
-        //             // console.log('WANT', updatedMatch);
-        //             await upsertMatchesWithPlayers(this.connection, [updatedMatch], false);
-        //             console.log(new Date(), 'SAVED');
-        //         } else {
-        //             await this.prisma.match.update({
-        //                 where: {
-        //                     match_id: unfinishedMatch.match_id,
-        //                 },
-        //                 data: {
-        //                     maybe_finished: hoursAgo >= 24 ? -5 : -1,
-        //                 },
-        //             });
-        //             console.log(new Date(), hoursAgo >= 24 ? 'UNFINISHED FOREVER' : 'UNFINISHED');
-        //         }
-        //     } else {
-        //         console.log(new Date(), 'NOT FOUND');
-        //     }
-        // }
-
         return true;
+    }
+
+    async updateResults(matches: IMatchRaw[]) {
+        for (const match of matches.filter(m => m.players.some(p => p.won != null))) {
+            for (const player of match.players) {
+                await this.prisma.player.update({
+                    where: {
+                        match_id_profile_id_slot: {
+                            match_id: match.match_id,
+                            profile_id: player.profile_id ?? 0,
+                            slot: player.slot,
+                        },
+                    },
+                    data: {
+                        won: player.won,
+                    },
+                });
+            }
+        }
+        await this.prisma.match.updateMany({
+            where: {
+                match_id: { in: matches.map(m => m.match_id) },
+            },
+            data: {
+                replayed: null,
+            },
+        });
     }
 }

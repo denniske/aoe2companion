@@ -39,6 +39,8 @@ import {RefetchRepairTask} from '../task/refetch-repair.task';
 import {ReplayTask} from '../task/replay.task';
 import {S3Module} from 'nestjs-s3';
 import {RefetchMultipleTask} from '../task/refetch-multiple.task';
+import {RefetchResultTask} from '../task/refetch-result.task';
+import {RefetchLateTask} from '../task/refetch-late.task';
 
 @Module({
     imports: [
@@ -117,8 +119,14 @@ export class TaskAndControllerModule {
                 // providers.push(ImportTask);
                 providers.push(RefetchMultipleTask);
                 break;
+            case 'refetch-late':
+                providers.push(RefetchLateTask);
+                break;
             case 'refetch-again':
                 providers.push(RefetchAgainTask);
+                break;
+            case 'refetch-result':
+                providers.push(RefetchResultTask);
                 break;
             case 'refetch-repair':
                 providers.push(RefetchRepairTask);
