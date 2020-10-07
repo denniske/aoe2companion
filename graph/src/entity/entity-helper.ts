@@ -51,6 +51,9 @@ export function createMatchEntity(matchEntry: IMatchRaw) {
     match.victory_time = matchEntry.victory_time;
     match.visibility = matchEntry.visibility;
     match.maybe_finished = matchEntry.maybe_finished;
+
+    match.replayed = matchEntry.players.every(p => p.won == null) ? -1 : null;
+
     return match;
 }
 

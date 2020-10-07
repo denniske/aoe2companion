@@ -112,6 +112,10 @@ export class RefetchTask implements OnModuleInit {
             const updatedAndFinishedMatches = neededMatches.filter(m => m.finished);
             console.log(new Date(), 'UPDATED AND FINISHED', updatedAndFinishedMatches.length);
 
+            for (const m of updatedAndFinishedMatches) {
+                console.log(m.match_id, m.players.some(p => p.won == null) ? 'NO WINNER' : 'COMPLETE');
+            }
+
             if (updatedAndFinishedMatches.length > 0) {
                 await upsertMatchesWithPlayers(this.connection, updatedAndFinishedMatches, false);
                 console.log(new Date(), 'SAVED ALL');
