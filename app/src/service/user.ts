@@ -16,15 +16,15 @@ export interface IFetchedUser {
     entries: ILeaderboardPlayer[];
 }
 
-export async function loadUserLegacy(game: string, search: string) {
+export async function loadUserLegacy(game: string, start: number, count: number, search: string) {
     console.log("loading user", game, search);
 
     let leaderboards = await Promise.all([
-        fetchLeaderboardLegacy(game, 0, {count: 1000, search: search}),
-        fetchLeaderboardLegacy(game, 1, {count: 1000, search: search}),
-        fetchLeaderboardLegacy(game, 2, {count: 1000, search: search}),
-        fetchLeaderboardLegacy(game, 3, {count: 1000, search: search}),
-        fetchLeaderboardLegacy(game, 4, {count: 1000, search: search}),
+        fetchLeaderboardLegacy(game, 0, {start, count, search: search}),
+        fetchLeaderboardLegacy(game, 1, {start, count, search: search}),
+        fetchLeaderboardLegacy(game, 2, {start, count, search: search}),
+        fetchLeaderboardLegacy(game, 3, {start, count, search: search}),
+        fetchLeaderboardLegacy(game, 4, {start, count, search: search}),
     ]);
 
     // Group by
@@ -60,6 +60,8 @@ export async function loadUserLegacy(game: string, search: string) {
 }
 
 export async function loadUser(game: string, start: number, count: number, search: string) {
+    return await loadUserLegacy(game, start, count, search);
+
     console.time('=> loadUser');
 
     const endpoint = 'http://localhost:3333/graphql'

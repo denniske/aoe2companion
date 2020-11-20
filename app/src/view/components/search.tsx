@@ -82,7 +82,7 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
     const user = useLazyApi({}, loadUser, 'aoe2de', 0, 50, text);
 
     const refresh = () => {
-        if (text.length <= 0) {
+        if (text.length < 3) {
             user.reset();
             return;
         }
@@ -118,8 +118,11 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
             ),
         });
     }
-    if (text.length === 0) {
-        list = [];
+    if (text.length < 3) {
+        list = [{
+            type: 'text',
+            content: <MyText style={styles.centerText}>Enter at least 3 chars.</MyText>,
+        }];
     }
 
     // console.log('RENDER', text, list.length);
@@ -128,7 +131,7 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
         console.log('onEndReached', text);
         console.log('fetchingMore', fetchingMore);
         console.log('user.data', user.data?.length);
-        if (fetchingMore || user.data?.length < 50) return;
+        if (text.length < 3 || fetchingMore || user.data?.length < 50) return;
         setFetchingMore(true);
         const usersLength = user.data?.length ?? 0;
         const newUsersData = await user.refetch('aoe2de', 0, (user.data?.length ?? 0) + 50, text.trim());

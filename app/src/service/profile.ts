@@ -62,6 +62,8 @@ function convertTimestampsToDates(json: IRatingHistoryEntryRaw): IRatingHistoryE
 // }
 
 export async function loadProfile(game: string, userId: UserIdBase): Promise<IProfile | null> {
+    return await loadProfileLegacy(game, userId);
+
     // console.log("loading ratings", game, composeUserId(userId));
 
     console.time('=> loadProfile');

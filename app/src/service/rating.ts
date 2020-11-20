@@ -47,6 +47,8 @@ function convertTimestampsToDates(json: IRatingHistoryEntryRaw): IRatingHistoryE
 
 
 export async function loadRatingHistories(game: string, userId: UserIdBase): Promise<IRatingHistoryRow[]> {
+    return await loadRatingHistoriesLegacy(game, userId);
+
     // console.log("loading ratings", game, composeUserId(userId));
 
     console.time('=> loadRatingHistories');

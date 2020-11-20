@@ -16,6 +16,29 @@ function convertTimestampsToDates(json: IMatchRaw): IMatch {
     };
 }
 
+
+export async function fetchPlayerMatchesLegacy(game: string, start: number, count: number, params: IFetchMatchesParams[]): Promise<IMatch[]> {
+    if (params.length === 0) {
+        return [];
+    }
+    const args = {
+        game,
+        start,
+        count,
+        profile_ids: params.map(p => p.profile_id),
+    };
+    const queryString = makeQueryString(args);
+    const url = getHost('aoe2net') + `api/player/matches?${queryString}`;
+    let json = await fetchJson('fetchPlayerMatches', url) as IMatchRaw[];
+
+    // TODO: Temporary fix: Filter duplicate matches
+    json = uniqBy(json, m => m.match_id);
+
+    return json.map(match => convertTimestampsToDates(match));
+}
+
+
+
 function convertTimestampsToDates2(json: IMatchRaw): IMatch {
     return {
         ...json,
@@ -35,6 +58,8 @@ import request, {gql} from "graphql-request";
 
 
 export async function fetchPlayerMatches(game: string, start: number, count: number, params: IFetchMatchesParams[]): Promise<IMatch[]> {
+    return await fetchPlayerMatchesLegacy(game, start, count, params);
+
     if (params.length === 0) {
         return [];
     }
