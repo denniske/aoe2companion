@@ -19,6 +19,11 @@ jobs:
         uses: actions/setup-node@v2.1.2
         with:
           node-version: 12.13.1
+      - uses: secrethub/actions/env-export@v0.1.0
+        env:
+          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_DOCKERHUB_CREDENTIAL }}
+          DOCKERHUB_USERNAME: secrethub://denniske/dockerhub/username
+          DOCKERHUB_PASS: secrethub://denniske/dockerhub/password
       - run: export SERVICE_NAME=$(node deploy/script/service-name-from-tag.js function-v19.0.60) && echo $SERVICE_NAME
       - run: yarn global add nx
       - run: yarn
