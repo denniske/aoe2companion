@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-node@v2.1.2
         with:
           node-version: 12.13.1
-      - uses: secrethub/actions/env-export@v0.1.0
+      - uses: secrethub/actions/env-export@v0.2.1
         env:
           SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_DOCKERHUB_CREDENTIAL }}
           DOCKERHUB_USERNAME: secrethub://denniske/dockerhub/username
