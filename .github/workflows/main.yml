@@ -1,0 +1,30 @@
+# https://hackernoon.com/the-only-sane-way-to-setup-fastlane-on-a-mac-4a14cb8549c8
+
+on: push
+
+#on:
+#  push:
+#    # Pattern matched against refs/tags
+#    tags:
+#      - '*'           # Push events to every tag
+
+name: Build and Publish server
+jobs:
+  build-and-publish-server:
+    name: Build and Publish server Internal
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: 12.13.1
+      - run: export SERVICE_NAME=$(node deploy/script/service-name-from-tag.js function-v19.0.60) && echo $SERVICE_NAME
+      - run: yarn global add nx
+      - run: yarn
+      - run: yarn run generate:prisma
+      - run: nx build graph || travis_terminate 1
+      - run: docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT .
+      - run: echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+      - run: docker push denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT
+      - run: chmod +x ./graph/deploy/deploy.sh && ./graph/deploy/deploy.sh
