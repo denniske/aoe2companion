@@ -23,8 +23,8 @@ jobs:
       - run: yarn global add nx
       - run: yarn
       - run: yarn run generate:prisma
-      - run: nx build graph || travis_terminate 1
-      - run: docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT .
+      - run: nx build graph
+      - run: docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:HSA123 .
       - run: echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-      - run: docker push denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT
+      - run: docker push denniske/aoe2companion-$SERVICE_NAME:HSA123
       - run: chmod +x ./graph/deploy/deploy.sh && ./graph/deploy/deploy.sh
