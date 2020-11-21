@@ -30,6 +30,15 @@ services:
       NEXT_PUBLIC_ENVIRONMENT: 'production'
 #      NEXT_PUBLIC_API_URL: '${CONTAINER_API_URL}'
 #      NEXT_PUBLIC_ENVIRONMENT: '${CONTAINER_ENVIRONMENT}'
+#  api:
+#    image: denniske/aoe2companion-api:$COMMIT_SHA1
+#    restart: on-failure
+#    environment:
+#      PORT: 80
+#      NEXT_PUBLIC_API_URL: 'graphql.aoe2companion.com/graphql'
+#      NEXT_PUBLIC_ENVIRONMENT: 'production'
+#      NEXT_PUBLIC_API_URL: '${CONTAINER_API_URL}'
+#      NEXT_PUBLIC_ENVIRONMENT: '${CONTAINER_ENVIRONMENT}'
 
 volumes:
   ssl_data:

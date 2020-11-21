@@ -114,11 +114,51 @@ jobs:
         - export SERVICE_NAME=$(node deploy/script/service-name-from-tag.js $TRAVIS_BRANCH) && echo $SERVICE_NAME
         - yarn global add nx
         - yarn
+        - yarn run generate:prisma
         - nx build graph || travis_terminate 1
         - docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT .
         - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
         - docker push denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT
         - chmod +x ./graph/deploy/deploy.sh && ./graph/deploy/deploy.sh
+
+#        - echo $ID_CI_RSA_BASE64 > id_ci_rsa.base64
+#        - base64 --decode id_ci_rsa.base64 > ~/.ssh/id_rsa
+#        - echo $KNOWN_HOSTS_BASE64 > known_hosts.base64
+#        - base64 --decode known_hosts.base64 > ~/.ssh/known_hosts
+#        - chmod 644 ~/.ssh/known_hosts
+#        - chmod 600 ~/.ssh/id_rsa
+#
+#        - cd deploy
+#        - bash ./deploy.sh
+#        - scp docker-compose.yml root@116.203.245.222:/root
+#        - ssh root@116.203.245.222 docker-compose up -d
+
+#    - stage: publisher-deploy
+##      if: tag =~ ^match-v.+$
+#      env:
+#        - CACHE_NAME=publisher-deploy
+##      before_install:
+##        - nvm install $NODE_VERSION
+##        - nvm use $NODE_VERSION
+##        - sudo apt-get update
+##        - sudo apt-get -y install gettext-base
+##        - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+##        - chmod u+x ./kubectl
+##        - sudo mv kubectl /usr/local/bin/
+#      script:
+#        - echo $ID_CI_RSA_BASE64 > id_ci_rsa.base64
+#        - base64 --decode id_ci_rsa.base64 > ~/.ssh/id_rsa
+#        - echo $KNOWN_HOSTS_BASE64 > known_hosts.base64
+#        - base64 --decode known_hosts.base64 > ~/.ssh/known_hosts
+#        - chmod 644 ~/.ssh/known_hosts
+#        - chmod 600 ~/.ssh/id_rsa
+#
+#        - cd deploy
+#        - bash ./deploy.sh
+#        - scp docker-compose.yml root@116.203.245.222:/root
+#        - ssh root@116.203.245.222 docker-compose up -d
+
+
 
 
     - stage: publish
