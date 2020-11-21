@@ -24,7 +24,10 @@ jobs:
           SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_DOCKERHUB_CREDENTIAL }}
           DOCKERHUB_USERNAME: secrethub://denniske/dockerhub/username
           DOCKERHUB_PASS: secrethub://denniske/dockerhub/password
-      - run: export SERVICE_NAME=$(node deploy/script/service-name-from-tag.js function-v19.0.60) && echo $SERVICE_NAME
+      - run: export SERVICE_NAME=$(node deploy/script/service-name-from-tag.js function-v19.0.60)
+      - run: echo $SERVICE_NAME
+      - run: echo "SERVICE_NAME=$(node deploy/script/service-name-from-tag.js function-v19.0.60)" >> $GITHUB_ENV
+      - run: echo $SERVICE_NAME
       - run: sudo yarn global add nx
       - run: yarn
       - run: yarn run generate:prisma
