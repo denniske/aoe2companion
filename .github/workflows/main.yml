@@ -10,6 +10,18 @@ on:
 
 name: Build and Publish server
 jobs:
+  prepare:
+    name: Prepare
+    runs-on: ubuntu-latest
+    steps:
+    - uses: secrethub/actions/env-export@v0.2.1
+      env:
+       SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_DOCKERHUB_CREDENTIAL }}
+       DOCKERHUB_USERNAME: secrethub://denniske/dockerhub/username
+       DOCKERHUB_PASS: secrethub://denniske/dockerhub/password
+    - run: |
+        echo "TRAVIS_BRANCH=$(node deploy/script/clean-tag.js $GITHUB_REF)" >> $GITHUB_ENV
+
   build-and-publish-server:
 #    if: |
 #      startsWith(github.ref, 'refs/tags/refetch') ||
@@ -34,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       COMMIT_SHA1: ${{ github.sha }}
-      TRAVIS_BRANCH: ${{ github.ref }}rr
+#      TRAVIS_BRANCH: ${{ github.ref }}rr
     steps:
 #      - run: echo 'general'
 #      - run: echo 'general karl'
@@ -49,13 +61,14 @@ jobs:
 #          COMMIT_SHA1: ${{ github.sha }}
 #          TRAVIS_BRANCH: ${{ github.ref }}rr
 #        run: echo $COMMIT_SHA1
-      - uses: secrethub/actions/env-export@v0.2.1
-        env:
-          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_DOCKERHUB_CREDENTIAL }}
-          DOCKERHUB_USERNAME: secrethub://denniske/dockerhub/username
-          DOCKERHUB_PASS: secrethub://denniske/dockerhub/password
+#      - uses: secrethub/actions/env-export@v0.2.1
+#        env:
+#          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_DOCKERHUB_CREDENTIAL }}
+#          DOCKERHUB_USERNAME: secrethub://denniske/dockerhub/username
+#          DOCKERHUB_PASS: secrethub://denniske/dockerhub/password
       - run: echo $COMMIT_SHA1
       - run: echo $TRAVIS_BRANCH
+      - run: echo $DOCKERHUB_USERNAME
       - run: echo "SERVICE_NAME=$(node deploy/script/service-name-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
       - run: echo $SERVICE_NAME
 #      - run: sudo yarn global add nx
