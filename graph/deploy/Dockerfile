@@ -1,3 +1,4 @@
+# fixed version because of https://github.com/nodejs/node/issues/35582 in function controller
 FROM node:12.18.4
 
 WORKDIR /usr/src/app
