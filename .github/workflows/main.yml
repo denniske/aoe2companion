@@ -9,6 +9,8 @@ on:
       - '*'           # Push events to every tag
 
 name: Build and Publish server
+env:
+  NODE_VERSION: 12.13.1
 jobs:
 
 #  prepare:
@@ -55,16 +57,9 @@ jobs:
 #        if: startsWith(github.ref, 'refs/tags/karl')
       - uses: actions/checkout@v1
       - uses: ./.github/actions/setup
-
-#      - name: Setup Node.js environment
-#        uses: actions/setup-node@v2.1.2
-#        with:
-#          node-version: 12.13.1
-#      - name: Dump GitHub context
-#        env:
-#          COMMIT_SHA1: ${{ github.sha }}
-#          TRAVIS_BRANCH: ${{ github.ref }}rr
-#        run: echo $COMMIT_SHA1
+      - uses: actions/setup-node@v2.1.2
+        with:
+          node-version: $NODE_VERSION
       - uses: secrethub/actions/env-export@v0.2.1
         env:
           SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_DOCKERHUB_CREDENTIAL }}
