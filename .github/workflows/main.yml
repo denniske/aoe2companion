@@ -1,38 +1,53 @@
 # https://hackernoon.com/the-only-sane-way-to-setup-fastlane-on-a-mac-4a14cb8549c8
 
-on: push
+#on: push
 
-#on:
-#  push:
-#    # Pattern matched against refs/tags
-#    tags:
-#      - '*'           # Push events to every tag
+on:
+  push:
+    # Pattern matched against refs/tags
+    tags:
+      - '*'           # Push events to every tag
 
 name: Build and Publish server
 jobs:
   build-and-publish-server:
+#    if: github.ref =~ ^(refetch|refetch-again|refetch-repair|refetch-multiple|refetch-late|refetch-result|import|ingest|ingest-fast|notify|proxy|rating-history|metric|api|function|rank|replay)-v.+$
     name: Build and Publish server Internal
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v2.1.2
-        with:
-          node-version: 12.13.1
-      - uses: secrethub/actions/env-export@v0.2.1
-        env:
-          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_DOCKERHUB_CREDENTIAL }}
-          DOCKERHUB_USERNAME: secrethub://denniske/dockerhub/username
-          DOCKERHUB_PASS: secrethub://denniske/dockerhub/password
-      - run: export SERVICE_NAME=$(node deploy/script/service-name-from-tag.js function-v19.0.60)
-      - run: echo $SERVICE_NAME
-      - run: echo "SERVICE_NAME=$(node deploy/script/service-name-from-tag.js function-v19.0.60)" >> $GITHUB_ENV
-      - run: echo $SERVICE_NAME
-      - run: sudo yarn global add nx
-      - run: yarn
-      - run: yarn run generate:prisma
-      - run: nx build graph
-      - run: docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:HSA123 .
-      - run: echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-      - run: docker push denniske/aoe2companion-$SERVICE_NAME:HSA123
-      - run: chmod +x ./graph/deploy/deploy.sh && ./graph/deploy/deploy.sh
+      - run: echo 'general'
+      - run: echo 'general karl'
+        if: startsWith(github.ref, 'refs/tags/karl')
+#      - uses: actions/checkout@v1
+#      - name: Setup Node.js environment
+#        uses: actions/setup-node@v2.1.2
+#        with:
+#          node-version: 12.13.1
+#      - name: Dump GitHub context
+#        env:
+#          COMMIT_SHA1: ${{ github.sha }}
+#          TRAVIS_BRANCH: ${{ github.ref }}
+#      - uses: secrethub/actions/env-export@v0.2.1
+#        env:
+#          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_DOCKERHUB_CREDENTIAL }}
+#          DOCKERHUB_USERNAME: secrethub://denniske/dockerhub/username
+#          DOCKERHUB_PASS: secrethub://denniske/dockerhub/password
+#      - run: echo $GITHUB_SHA
+#      - run: echo $GITHUB_REF
+#      - run: echo "SERVICE_NAME=$(node deploy/script/service-name-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
+#      - run: echo $SERVICE_NAME
+#      - run: sudo yarn global add nx
+#      - run: yarn
+#      - run: yarn run generate:prisma
+#      - run: nx build graph
+#      - run: docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$COMMIT_SHA1 .
+#      - run: echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+#      - run: docker push denniske/aoe2companion-$SERVICE_NAME:$COMMIT_SHA1
+#      - run: chmod +x ./graph/deploy/deploy.sh && ./graph/deploy/deploy.sh
+
+  cond-build-karl:
+    if: startsWith(github.ref, 'refs/tags/karl')
+    name: Cond Build Karl
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'karl'
