@@ -9,3 +9,11 @@ runs:
       shell: bash
     - run: echo "Nice to meet you!"
       shell: pwsh
+
+    - uses: secrethub/actions/env-export@v0.2.1
+      env:
+       SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_DOCKERHUB_CREDENTIAL }}
+       DOCKERHUB_USERNAME: secrethub://denniske/dockerhub/username
+       DOCKERHUB_PASS: secrethub://denniske/dockerhub/password
+    - run: |
+        echo "TRAVIS_BRANCH=$(node deploy/script/clean-tag.js $GITHUB_REF)" >> $GITHUB_ENV
