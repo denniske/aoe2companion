@@ -66,62 +66,62 @@ export async function loadProfile(game: string, userId: UserIdBase): Promise<IPr
 
     // console.log("loading ratings", game, composeUserId(userId));
 
-    console.time('=> loadProfile');
+    // console.time('=> loadProfile');
 
-    const endpoint = 'http://localhost:3333/graphql'
-    const query = gql`
-        query H2($profile_id: Int!) {
-            profile(
-                profile_id: $profile_id
-            ) {
-                profile_id
-                name
-                country
-                games
-                drops
-                leaderboards {
-                    leaderboard_id
-                    profile_id
-                    steam_id
-                    rank
-                    name
-                    country
-                    clan
-                    icon
-                    rating
-                    highest_rating
-                    previous_rating
-                    games
-                    wins
-                    losses
-                    drops
-                    streak
-                    lowest_streak
-                    highest_streak
-                    last_match
-                    last_match_time
-                }
-            }
-        }
-    `;
-    console.log('query', query);
+    // const endpoint = 'http://localhost:3333/graphql'
+    // const query = gql`
+    //     query H2($profile_id: Int!) {
+    //         profile(
+    //             profile_id: $profile_id
+    //         ) {
+    //             profile_id
+    //             name
+    //             country
+    //             games
+    //             drops
+    //             leaderboards {
+    //                 leaderboard_id
+    //                 profile_id
+    //                 steam_id
+    //                 rank
+    //                 name
+    //                 country
+    //                 clan
+    //                 icon
+    //                 rating
+    //                 highest_rating
+    //                 previous_rating
+    //                 games
+    //                 wins
+    //                 losses
+    //                 drops
+    //                 streak
+    //                 lowest_streak
+    //                 highest_streak
+    //                 last_match
+    //                 last_match_time
+    //             }
+    //         }
+    //     }
+    // `;
+    // console.log('query', query);
+    //
+    // const timeLastDate = new Date();
+    // const variables = { profile_id: userId.profile_id };
+    // const data = await request(endpoint, query, variables)
+    // console.log('gql', new Date().getTime() - timeLastDate.getTime());
+    // console.log(data);
+    //
+    // const ratingHistoryRows = data.profile;
 
-    const timeLastDate = new Date();
-    const variables = { profile_id: userId.profile_id };
-    const data = await request(endpoint, query, variables)
-    console.log('gql', new Date().getTime() - timeLastDate.getTime());
-    console.log(data);
-
-    const ratingHistoryRows = data.profile;
-
-    console.timeEnd('=> loadProfile');
+    // console.timeEnd('=> loadProfile');
 
     // console.log("MASTER profile", await loadProfileLegacy(game, userId));
-    console.log("RETURNING profile", ratingHistoryRows);
+    // console.log("RETURNING profile", ratingHistoryRows);
 
     // clan
     // # icon
     // # steam_id
 
-    return ratingHistoryRows;
+    // return ratingHistoryRows;
 }

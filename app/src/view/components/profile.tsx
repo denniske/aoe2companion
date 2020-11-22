@@ -18,7 +18,7 @@ import {saveCurrentPrefsToStorage} from "../../service/storage";
 import {createStylesheet} from '../../theming-new';
 
 interface ILeaderboardRowProps {
-    data: ILeaderboardInfoRaw;
+    data: ILeaderboard;
 }
 
 const formatStreak = (streak: number) => {
@@ -32,7 +32,8 @@ function LeaderboardRow({data}: ILeaderboardRowProps) {
     const theme = usePaperTheme();
     const styles = useStyles();
 
-    const leaderboardInfo = data;
+    const leaderboardInfo = data.leaderboard[0];
+    // const leaderboardInfo = data;
     const color = {color: getLeaderboardTextColor(data.leaderboard_id, theme.dark)};
 
     return (
@@ -66,7 +67,8 @@ function LeaderboardRow1({data}: ILeaderboardRowProps) {
     const theme = usePaperTheme();
     const styles = useStyles();
 
-    const leaderboardInfo = data;
+    const leaderboardInfo = data.leaderboard[0];
+    // const leaderboardInfo = data;
     const color = {color: getLeaderboardTextColor(data.leaderboard_id, theme.dark)};
 
     return (
@@ -95,7 +97,8 @@ function LeaderboardRow2({data}: ILeaderboardRowProps) {
     const theme = usePaperTheme();
     const styles = useStyles();
 
-    const leaderboardInfo = data;
+    const leaderboardInfo = data.leaderboard[0];
+    // const leaderboardInfo = data;
     const color = {color: getLeaderboardTextColor(data.leaderboard_id, theme.dark)};
 
     return (
@@ -130,7 +133,7 @@ export interface IProfile {
     name: string;
     profile_id: number;
     steam_id: string;
-    leaderboards: ILeaderboardInfoRaw[];
+    leaderboards: ILeaderboard[];
     games: number;
     drops: number;
 }
