@@ -11,24 +11,24 @@ on:
 name: Build and Publish server
 jobs:
   build-and-publish-server:
-#    if: |
-#      startsWith(github.ref, 'refetch') ||
-#      startsWith(github.ref, 'refetch-again') ||
-#      startsWith(github.ref, 'refetch-repair') ||
-#      startsWith(github.ref, 'refetch-multiple') ||
-#      startsWith(github.ref, 'refetch-late') ||
-#      startsWith(github.ref, 'refetch-result') ||
-#      startsWith(github.ref, 'import') ||
-#      startsWith(github.ref, 'ingest') ||
-#      startsWith(github.ref, 'ingest-fast') ||
-#      startsWith(github.ref, 'notify') ||
-#      startsWith(github.ref, 'proxy') ||
-#      startsWith(github.ref, 'rating-history') ||
-#      startsWith(github.ref, 'metric') ||
-#      startsWith(github.ref, 'api') ||
-#      startsWith(github.ref, 'function') ||
-#      startsWith(github.ref, 'rank') ||
-#      startsWith(github.ref, 'replay')
+    if: |
+      startsWith(github.ref, 'refs/tags/refetch') ||
+      startsWith(github.ref, 'refs/tags/refetch-again') ||
+      startsWith(github.ref, 'refs/tags/refetch-repair') ||
+      startsWith(github.ref, 'refs/tags/refetch-multiple') ||
+      startsWith(github.ref, 'refs/tags/refetch-late') ||
+      startsWith(github.ref, 'refs/tags/refetch-result') ||
+      startsWith(github.ref, 'refs/tags/import') ||
+      startsWith(github.ref, 'refs/tags/ingest') ||
+      startsWith(github.ref, 'refs/tags/ingest-fast') ||
+      startsWith(github.ref, 'refs/tags/notify') ||
+      startsWith(github.ref, 'refs/tags/proxy') ||
+      startsWith(github.ref, 'refs/tags/rating-history') ||
+      startsWith(github.ref, 'refs/tags/metric') ||
+      startsWith(github.ref, 'refs/tags/api') ||
+      startsWith(github.ref, 'refs/tags/function') ||
+      startsWith(github.ref, 'refs/tags/rank') ||
+      startsWith(github.ref, 'refs/tags/replay')
     name: Build and Publish server Internal
     runs-on: ubuntu-latest
     steps:
@@ -43,15 +43,15 @@ jobs:
       - name: Dump GitHub context
         env:
           COMMIT_SHA1: ${{ github.sha }}
-          TRAVIS_BRANCH: ${{ github.ref }}
+          TRAVIS_BRANCH: ${{ github.ref.replace(/\/refs\/tags\//, '') }}
         run: echo $COMMIT_SHA1
       - uses: secrethub/actions/env-export@v0.2.1
         env:
           SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_DOCKERHUB_CREDENTIAL }}
           DOCKERHUB_USERNAME: secrethub://denniske/dockerhub/username
           DOCKERHUB_PASS: secrethub://denniske/dockerhub/password
-      - run: echo $GITHUB_SHA
-      - run: echo $GITHUB_REF
+      - run: echo $COMMIT_SHA1
+      - run: echo $TRAVIS_BRANCH
       - run: echo "SERVICE_NAME=$(node deploy/script/service-name-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
       - run: echo $SERVICE_NAME
       - run: sudo yarn global add nx
