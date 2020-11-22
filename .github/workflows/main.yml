@@ -44,6 +44,7 @@ jobs:
         env:
           COMMIT_SHA1: ${{ github.sha }}
           TRAVIS_BRANCH: ${{ github.ref }}
+        run: echo $COMMIT_SHA1
       - uses: secrethub/actions/env-export@v0.2.1
         env:
           SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_DOCKERHUB_CREDENTIAL }}
