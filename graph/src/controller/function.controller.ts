@@ -40,6 +40,14 @@ export class FunctionController implements OnModuleInit {
         console.log('done');
     }
 
+    @Get('/api/write')
+    async write(
+        @Request() req,
+        @Response() res,
+    ) {
+        console.log('params:', req.query);
+    }
+
     @Get('/api/leaderboard')
     async leaderboard(
         @Request() req,
