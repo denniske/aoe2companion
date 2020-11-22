@@ -55,30 +55,33 @@ jobs:
 #      - run: echo 'general'
 #      - run: echo 'general karl'
 #        if: startsWith(github.ref, 'refs/tags/karl')
-      - uses: actions/checkout@v1
-      - uses: ./.github/actions/setup
-      - uses: actions/setup-node@v2.1.2
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Env
+        uses: ./.github/actions/setup
+      - name: Setup Node
+        uses: actions/setup-node@v2.1.2
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - uses: secrethub/actions/env-export@v0.2.1
+      - name: Setup Secrets
+        uses: secrethub/actions/env-export@v0.2.1
         env:
           SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_DOCKERHUB_CREDENTIAL }}
           DOCKERHUB_USERNAME: secrethub://denniske/dockerhub/username
           DOCKERHUB_PASS: secrethub://denniske/dockerhub/password
-      - run: |
-          echo $COMMIT_SHA1
-          echo $TRAVIS_BRANCH
-          echo $DOCKERHUB_USERNAME
-          echo "SERVICE_NAME=$(node deploy/script/service-name-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
-          echo $SERVICE_NAME
-          sudo yarn global add nx
-          yarn
-          yarn run generate:prisma
-          nx build graph
-          docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$COMMIT_SHA1 .
-          echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-          docker push denniske/aoe2companion-$SERVICE_NAME:$COMMIT_SHA1
-          chmod +x ./graph/deploy/deploy.sh && ./graph/deploy/deploy.sh
+      - run: echo $COMMIT_SHA1
+      - run: echo $TRAVIS_BRANCH
+      - run: echo $DOCKERHUB_USERNAME
+      - run: echo "SERVICE_NAME=$(node deploy/script/service-name-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
+      - run: echo $SERVICE_NAME
+      - run: sudo yarn global add nx
+      - run: yarn
+      - run: yarn run generate:prisma
+      - run: nx build graph
+      - run: docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$COMMIT_SHA1 .
+      - run: echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+      - run: docker push denniske/aoe2companion-$SERVICE_NAME:$COMMIT_SHA1
+      - run: chmod +x ./graph/deploy/deploy.sh && ./graph/deploy/deploy.sh
 
 #  cond-build-karl:
 #    if: startsWith(github.ref, 'refs/tags/karl')
