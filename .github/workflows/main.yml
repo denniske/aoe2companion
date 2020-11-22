@@ -11,24 +11,24 @@ on:
 name: Build and Publish server
 jobs:
   build-and-publish-server:
-    if: |
-      startsWith(github.ref, 'refetch') ||
-      startsWith(github.ref, 'refetch-again') ||
-      startsWith(github.ref, 'refetch-repair') ||
-      startsWith(github.ref, 'refetch-multiple') ||
-      startsWith(github.ref, 'refetch-late') ||
-      startsWith(github.ref, 'refetch-result') ||
-      startsWith(github.ref, 'import') ||
-      startsWith(github.ref, 'ingest') ||
-      startsWith(github.ref, 'ingest-fast') ||
-      startsWith(github.ref, 'notify') ||
-      startsWith(github.ref, 'proxy') ||
-      startsWith(github.ref, 'rating-history') ||
-      startsWith(github.ref, 'metric') ||
-      startsWith(github.ref, 'api') ||
-      startsWith(github.ref, 'function') ||
-      startsWith(github.ref, 'rank') ||
-      startsWith(github.ref, 'replay')
+#    if: |
+#      startsWith(github.ref, 'refetch') ||
+#      startsWith(github.ref, 'refetch-again') ||
+#      startsWith(github.ref, 'refetch-repair') ||
+#      startsWith(github.ref, 'refetch-multiple') ||
+#      startsWith(github.ref, 'refetch-late') ||
+#      startsWith(github.ref, 'refetch-result') ||
+#      startsWith(github.ref, 'import') ||
+#      startsWith(github.ref, 'ingest') ||
+#      startsWith(github.ref, 'ingest-fast') ||
+#      startsWith(github.ref, 'notify') ||
+#      startsWith(github.ref, 'proxy') ||
+#      startsWith(github.ref, 'rating-history') ||
+#      startsWith(github.ref, 'metric') ||
+#      startsWith(github.ref, 'api') ||
+#      startsWith(github.ref, 'function') ||
+#      startsWith(github.ref, 'rank') ||
+#      startsWith(github.ref, 'replay')
     name: Build and Publish server Internal
     runs-on: ubuntu-latest
     steps:
