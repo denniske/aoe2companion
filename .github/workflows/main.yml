@@ -44,7 +44,7 @@ jobs:
       - name: Dump GitHub context
         env:
           COMMIT_SHA1: ${{ github.sha }}
-          TRAVIS_BRANCH: ${{ github.ref.replace(/\/refs\/tags\//, '') }}
+          TRAVIS_BRANCH: ${{ github.ref }}rr
         run: echo $COMMIT_SHA1
       - uses: secrethub/actions/env-export@v0.2.1
         env:
