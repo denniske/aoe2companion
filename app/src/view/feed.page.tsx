@@ -100,6 +100,9 @@ export function FeedList() {
         setPrevFollowing(following);
     };
 
+
+    console.log(matches.data);
+
     useEffect(() => {
         refresh();
     }, [following, isActiveRoute]);

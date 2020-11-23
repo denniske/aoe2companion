@@ -18,6 +18,7 @@ jobs:
   include:
 
     - stage: publisher2
+      if: (type != pull_request) AND branch = master AND tag IS blank
       os: osx
       osx_image: xcode9.3
       script:

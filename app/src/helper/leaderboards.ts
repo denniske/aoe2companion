@@ -1,3 +1,4 @@
+import {getString} from './strings';
 
 export enum LeaderboardId {
     Unranked = 0,
@@ -15,3 +16,17 @@ export function formatLeaderboardId(leaderboard_id: LeaderboardId) {
     return abbreviations[leaderboard_id];
 }
 
+export function getLeaderboardOrGameType(leaderboard_id: LeaderboardId, game_type: any) {
+    if (leaderboard_id) {
+        return getString('leaderboard', leaderboard_id);
+    }
+
+    const gameTypeStr = getString('game_type', game_type);
+
+    // Random Map exists for both ranked / quick play
+    if (game_type == 0) {
+        return gameTypeStr + ' (Quick Play)';
+    }
+
+    return gameTypeStr;
+}

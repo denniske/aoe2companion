@@ -981,6 +981,7 @@ export const civsConfig = {
             HERESY,
             SAPPERS,
             PLATE_MAIL_ARMOR,
+            PLATE_BARDING_ARMOR,
             ARCHITECTURE,
             ARROWSLITS,
             TREADMILL_CRANE,

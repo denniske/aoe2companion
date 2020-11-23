@@ -16,6 +16,7 @@ import {makeVariants, useAppTheme, useTheme} from "../../theming";
 import IconFA5 from "react-native-vector-icons/FontAwesome5";
 import {sameUser, sameUserNull, UserIdBase} from "../../helper/user";
 import {createStylesheet} from '../../theming-new';
+import {getLeaderboardOrGameType} from '../../helper/leaderboards';
 
 interface IGameProps {
     data: IMatch;
@@ -112,7 +113,7 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
                             }
                         </MyText>
                         <MyText numberOfLines={1} style={styles.matchContent}>
-                            {getString('leaderboard', data.leaderboard_id)}
+                            {getLeaderboardOrGameType(data.leaderboard_id, data.game_type)}
                         </MyText>
                         {/*<IconFA5 name="clock" size={11.5} style={{paddingTop: 0}}/>*/}
                         <MyText numberOfLines={1} style={styles.matchContent}>

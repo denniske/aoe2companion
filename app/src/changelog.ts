@@ -23,6 +23,10 @@ export const changelog: IChangelog = {
             type: 'minor',
             title: 'Improved search',
         },
+        {
+            type: 'minor',
+            title: 'Implement AoE II DE Update 42848',
+        },
     ],
     '19.0.0': [
         {
