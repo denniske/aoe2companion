@@ -107,6 +107,11 @@ export const maps = {
     139: 'rm_golden-swamp',
     140: 'rm_four-lakes',
     141: 'rm_land_nomad',
+    142: 'br_battle_on_the_ice.png',
+    143: 'br_el_dorado.png',
+    144: 'br_fall_of_axum.png',
+    145: 'br_fall_of_rome.png',
+    146: 'br_the_majapahit_empire.png',
 };
 
 export function getMapImage(map: number) {

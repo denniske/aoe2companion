@@ -107,6 +107,11 @@ export const maps = {
     139: require('../../assets/maps/rm_golden-swamp.png'),
     140: require('../../assets/maps/rm_four-lakes.png'),
     141: require('../../assets/maps/rm_land_nomad.png'),
+    142: require('../../assets/maps/br_battle_on_the_ice.png'),
+    143: require('../../assets/maps/br_el_dorado.png'),
+    144: require('../../assets/maps/br_fall_of_axum.png'),
+    145: require('../../assets/maps/br_fall_of_rome.png'),
+    146: require('../../assets/maps/br_the_majapahit_empire.png'),
 };
 
 export function getMapImage(map: AoeMap) {

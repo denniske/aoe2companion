@@ -105,6 +105,11 @@ const maps = {
     139: '',
     140: '',
     141: '',
+    142: '',
+    143: '',
+    144: '',
+    145: '',
+    146: '',
 };
 
 export type AoeMap = keyof typeof maps;
