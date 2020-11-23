@@ -46,6 +46,9 @@ export class FunctionController implements OnModuleInit {
         @Response() res,
     ) {
         console.log('params:', req.query);
+        res.send({
+            done: true
+        });
     }
 
     @Get('/api/leaderboard')
