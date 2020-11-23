@@ -210,6 +210,10 @@
             "string": "主城保衛戰"
         },
         {
+            "id": 12,
+            "string": "Battle Royale"
+        },
+        {
             "id": 13,
             "string": "帝國戰爭"
         }
@@ -677,15 +681,35 @@
         },
         {
             "id": 139,
-            "string": "Golden Swamp"
+            "string": "金沼澤"
         },
         {
             "id": 140,
-            "string": "Four Lakes"
+            "string": "四座湖泊"
         },
         {
             "id": 141,
-            "string": "Land Nomad"
+            "string": "陸地游牧"
+        },
+        {
+            "id": 142,
+            "string": "BR Battle On Ice"
+        },
+        {
+            "id": 143,
+            "string": "BR El Dorado"
+        },
+        {
+            "id": 144,
+            "string": "BR Fall of Axum"
+        },
+        {
+            "id": 145,
+            "string": "BR Fall of Rome"
+        },
+        {
+            "id": 146,
+            "string": "BR Majapahit Empire"
         }
     ],
     "rating_type": [

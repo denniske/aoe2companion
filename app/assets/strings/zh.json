@@ -210,6 +210,10 @@
             "string": "主城保卫战"
         },
         {
+            "id": 12,
+            "string": "Battle Royale"
+        },
+        {
             "id": 13,
             "string": "帝国战争"
         }
@@ -221,19 +225,19 @@
         },
         {
             "id": 1,
-            "string": "死亡竞赛"
+            "string": "单挑死斗"
         },
         {
             "id": 2,
-            "string": "队伍死亡竞赛"
+            "string": "多人死斗"
         },
         {
             "id": 3,
-            "string": "随机地图"
+            "string": "单挑随机地图"
         },
         {
             "id": 4,
-            "string": "队伍随机地图"
+            "string": "多人随机地图"
         }
     ],
     "map_size": [
@@ -269,7 +273,7 @@
     "map_type": [
         {
             "id": 9,
-            "string": "阿拉伯半岛"
+            "string": "阿拉伯"
         },
         {
             "id": 10,
@@ -317,7 +321,7 @@
         },
         {
             "id": 21,
-            "string": "迁移"
+            "string": "移民"
         },
         {
             "id": 22,
@@ -677,15 +681,35 @@
         },
         {
             "id": 139,
-            "string": "Golden Swamp"
+            "string": "金沼泽"
         },
         {
             "id": 140,
-            "string": "Four Lakes"
+            "string": "四片湖泊"
         },
         {
             "id": 141,
-            "string": "Land Nomad"
+            "string": "陆地游牧"
+        },
+        {
+            "id": 142,
+            "string": "BR Battle On Ice"
+        },
+        {
+            "id": 143,
+            "string": "BR El Dorado"
+        },
+        {
+            "id": 144,
+            "string": "BR Fall of Axum"
+        },
+        {
+            "id": 145,
+            "string": "BR Fall of Rome"
+        },
+        {
+            "id": 146,
+            "string": "BR Majapahit Empire"
         }
     ],
     "rating_type": [
@@ -695,19 +719,19 @@
         },
         {
             "id": 1,
-            "string": "死亡竞赛"
+            "string": "单挑死斗"
         },
         {
             "id": 2,
-            "string": "随机地图"
+            "string": "单挑随机地图"
         },
         {
             "id": 3,
-            "string": "队伍死亡竞赛"
+            "string": "多人死斗"
         },
         {
             "id": 4,
-            "string": "队伍随机地图"
+            "string": "多人随机地图"
         }
     ],
     "resources": [

@@ -210,6 +210,10 @@
             "string": "Mort subite"
         },
         {
+            "id": 12,
+            "string": "Battle Royale"
+        },
+        {
             "id": 13,
             "string": "Guerres dempires"
         }
@@ -405,7 +409,7 @@
         },
         {
             "id": 59,
-            "string": "Personnaliser"
+            "string": "Personnalisé"
         },
         {
             "id": 60,
@@ -677,15 +681,35 @@
         },
         {
             "id": 139,
-            "string": "Golden Swamp"
+            "string": "Marais dor"
         },
         {
             "id": 140,
-            "string": "Four Lakes"
+            "string": "Quatre lacs"
         },
         {
             "id": 141,
-            "string": "Land Nomad"
+            "string": "Nomade terrestre"
+        },
+        {
+            "id": 142,
+            "string": "BR Battle On Ice"
+        },
+        {
+            "id": 143,
+            "string": "BR El Dorado"
+        },
+        {
+            "id": 144,
+            "string": "BR Fall of Axum"
+        },
+        {
+            "id": 145,
+            "string": "BR Fall of Rome"
+        },
+        {
+            "id": 146,
+            "string": "BR Majapahit Empire"
         }
     ],
     "rating_type": [

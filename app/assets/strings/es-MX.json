@@ -37,7 +37,7 @@
         },
         {
             "id": 2,
-            "string": "Ingleses"
+            "string": "Britanos"
         },
         {
             "id": 3,
@@ -210,8 +210,12 @@
             "string": "Muerte súbita"
         },
         {
+            "id": 12,
+            "string": "Battle Royale"
+        },
+        {
             "id": 13,
-            "string": "Imperios en guerra"
+            "string": "Guerras imperiales"
         }
     ],
     "leaderboard": [
@@ -221,7 +225,7 @@
         },
         {
             "id": 1,
-            "string": "Combate total (DM)"
+            "string": "Combate total"
         },
         {
             "id": 2,
@@ -229,7 +233,7 @@
         },
         {
             "id": 3,
-            "string": "Mapa aleatorio (RM)"
+            "string": "Mapa aleatorio"
         },
         {
             "id": 4,
@@ -239,7 +243,7 @@
     "map_size": [
         {
             "id": 0,
-            "string": "Diminuto (2 jug.)"
+            "string": "Pequeñito (2 jug.)"
         },
         {
             "id": 1,
@@ -677,15 +681,35 @@
         },
         {
             "id": 139,
-            "string": "Golden Swamp"
+            "string": "Pantano Dorado"
         },
         {
             "id": 140,
-            "string": "Four Lakes"
+            "string": "Cuatro Lagos"
         },
         {
             "id": 141,
-            "string": "Land Nomad"
+            "string": "Nómada"
+        },
+        {
+            "id": 142,
+            "string": "BR Battle On Ice"
+        },
+        {
+            "id": 143,
+            "string": "BR El Dorado"
+        },
+        {
+            "id": 144,
+            "string": "BR Fall of Axum"
+        },
+        {
+            "id": 145,
+            "string": "BR Fall of Rome"
+        },
+        {
+            "id": 146,
+            "string": "BR Majapahit Empire"
         }
     ],
     "rating_type": [
@@ -695,11 +719,11 @@
         },
         {
             "id": 1,
-            "string": "Combate total (DM)"
+            "string": "Combate total"
         },
         {
             "id": 2,
-            "string": "Mapa aleatorio (RM)"
+            "string": "Mapa aleatorio"
         },
         {
             "id": 3,
@@ -717,23 +741,23 @@
         },
         {
             "id": 1,
-            "string": "Bajo"
+            "string": "Bajos"
         },
         {
             "id": 2,
-            "string": "Mediano"
+            "string": "Medios"
         },
         {
             "id": 3,
-            "string": "Alto"
+            "string": "Altos"
         },
         {
             "id": 4,
-            "string": "Ultra altos"
+            "string": "Ultra alto"
         },
         {
             "id": 5,
-            "string": "Infinitos"
+            "string": "Infinito"
         },
         {
             "id": 6,
@@ -787,11 +811,11 @@
         },
         {
             "id": 1,
-            "string": "Explored"
+            "string": "Explorado"
         },
         {
             "id": 2,
-            "string": "All Visible"
+            "string": "Todo visible"
         }
     ]
 }

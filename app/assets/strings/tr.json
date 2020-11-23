@@ -210,6 +210,10 @@
             "string": "Ani Ölüm"
         },
         {
+            "id": 12,
+            "string": "Battle Royale"
+        },
+        {
             "id": 13,
             "string": "İmparatorluk Savaşları"
         }
@@ -677,15 +681,35 @@
         },
         {
             "id": 139,
-            "string": "Golden Swamp"
+            "string": "Altın Bataklık"
         },
         {
             "id": 140,
-            "string": "Four Lakes"
+            "string": "Dört Göl"
         },
         {
             "id": 141,
-            "string": "Land Nomad"
+            "string": "Kara Göçebesi"
+        },
+        {
+            "id": 142,
+            "string": "BR Battle On Ice"
+        },
+        {
+            "id": 143,
+            "string": "BR El Dorado"
+        },
+        {
+            "id": 144,
+            "string": "BR Fall of Axum"
+        },
+        {
+            "id": 145,
+            "string": "BR Fall of Rome"
+        },
+        {
+            "id": 146,
+            "string": "BR Majapahit Empire"
         }
     ],
     "rating_type": [

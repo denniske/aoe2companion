@@ -210,6 +210,10 @@
             "string": "Sudden Death"
         },
         {
+            "id": 12,
+            "string": "Battle Royale"
+        },
+        {
             "id": 13,
             "string": "Reichskriege"
         }
@@ -217,7 +221,7 @@
     "leaderboard": [
         {
             "id": 0,
-            "string": "Ohne Rangliste"
+            "string": "Ohne rangliste"
         },
         {
             "id": 1,
@@ -677,21 +681,41 @@
         },
         {
             "id": 139,
-            "string": "Golden Swamp"
+            "string": "Goldener Sumpf"
         },
         {
             "id": 140,
-            "string": "Four Lakes"
+            "string": "Vier Seen"
         },
         {
             "id": 141,
-            "string": "Land Nomad"
+            "string": "Landnomade"
+        },
+        {
+            "id": 142,
+            "string": "BR Battle On Ice"
+        },
+        {
+            "id": 143,
+            "string": "BR El Dorado"
+        },
+        {
+            "id": 144,
+            "string": "BR Fall of Axum"
+        },
+        {
+            "id": 145,
+            "string": "BR Fall of Rome"
+        },
+        {
+            "id": 146,
+            "string": "BR Majapahit Empire"
         }
     ],
     "rating_type": [
         {
             "id": 0,
-            "string": "Ohne Rangliste"
+            "string": "Ohne rangliste"
         },
         {
             "id": 1,

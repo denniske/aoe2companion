@@ -23,13 +23,13 @@
         },
         {
             "id": 6,
-            "string": "Postimperiaal tijdperk"
+            "string": "Post-imperiaal tijdperk"
         }
     ],
     "civ": [
         {
             "id": 0,
-            "string": "Aztecs"
+            "string": "Azteken"
         },
         {
             "id": 1,
@@ -37,47 +37,47 @@
         },
         {
             "id": 2,
-            "string": "Britons"
+            "string": "Britten"
         },
         {
             "id": 3,
-            "string": "Bulgarians"
+            "string": "Bulgaren"
         },
         {
             "id": 4,
-            "string": "Burmese"
+            "string": "Birmezen"
         },
         {
             "id": 5,
-            "string": "Byzantines"
+            "string": "Byzantijnen"
         },
         {
             "id": 6,
-            "string": "Celts"
+            "string": "Celten"
         },
         {
             "id": 7,
-            "string": "Chinese"
+            "string": "Chinezen"
         },
         {
             "id": 8,
-            "string": "Cumans"
+            "string": "Koemanen"
         },
         {
             "id": 9,
-            "string": "Ethiopians"
+            "string": "Ethiopiërs"
         },
         {
             "id": 10,
-            "string": "Franks"
+            "string": "Franken"
         },
         {
             "id": 11,
-            "string": "Goths"
+            "string": "Goten"
         },
         {
             "id": 12,
-            "string": "Huns"
+            "string": "Hunnen"
         },
         {
             "id": 13,
@@ -85,15 +85,15 @@
         },
         {
             "id": 14,
-            "string": "Indians"
+            "string": "Indiërs"
         },
         {
             "id": 15,
-            "string": "Italians"
+            "string": "Italianen"
         },
         {
             "id": 16,
-            "string": "Japanese"
+            "string": "Japanners"
         },
         {
             "id": 17,
@@ -101,77 +101,77 @@
         },
         {
             "id": 18,
-            "string": "Koreans"
+            "string": "Koreanen"
         },
         {
             "id": 19,
-            "string": "Lithuanians"
+            "string": "Litouwers"
         },
         {
             "id": 20,
-            "string": "Magyars"
+            "string": "Hongaren"
         },
         {
             "id": 21,
-            "string": "Malay"
+            "string": "Maleiers"
         },
         {
             "id": 22,
-            "string": "Malians"
+            "string": "Malinezen"
         },
         {
             "id": 23,
-            "string": "Mayans"
+            "string": "Mayas"
         },
         {
             "id": 24,
-            "string": "Mongols"
+            "string": "Mongolen"
         },
         {
             "id": 25,
-            "string": "Persians"
+            "string": "Perzen"
         },
         {
             "id": 26,
-            "string": "Portuguese"
+            "string": "Portugezen"
         },
         {
             "id": 27,
-            "string": "Saracens"
+            "string": "Saracenen"
         },
         {
             "id": 28,
-            "string": "Slavs"
+            "string": "Slaven"
         },
         {
             "id": 29,
-            "string": "Spanish"
+            "string": "Spanjaarden"
         },
         {
             "id": 30,
-            "string": "Tatars"
+            "string": "Tataren"
         },
         {
             "id": 31,
-            "string": "Teutons"
+            "string": "Teutonen"
         },
         {
             "id": 32,
-            "string": "Turks"
+            "string": "Turken"
         },
         {
             "id": 33,
-            "string": "Vietnamese"
+            "string": "Vietnamezen"
         },
         {
             "id": 34,
-            "string": "Vikings"
+            "string": "Vikingen"
         }
     ],
     "game_type": [
         {
             "id": 0,
-            "string": "Willekeurige kaart"
+            "string": "Willekeurige Kaart"
         },
         {
             "id": 1,
@@ -179,7 +179,7 @@
         },
         {
             "id": 2,
-            "string": "Strijd tot de dood"
+            "string": "Strijd tot de Dood"
         },
         {
             "id": 3,
@@ -187,7 +187,7 @@
         },
         {
             "id": 6,
-            "string": "Heerser op de heuvel"
+            "string": "Heerser op de Heuvel"
         },
         {
             "id": 7,
@@ -195,45 +195,49 @@
         },
         {
             "id": 8,
-            "string": "Verdedig het wonder"
+            "string": "Verdedig het Wonder"
         },
         {
             "id": 9,
-            "string": "Turbo willekeurig"
+            "string": "Turbo Willekeurig"
         },
         {
             "id": 10,
-            "string": "Verover de relikwie"
+            "string": "Verover de Relikwie"
         },
         {
             "id": 11,
-            "string": "Sudden Death"
+            "string": "Plotselinge Dood"
+        },
+        {
+            "id": 12,
+            "string": "Battle Royale"
         },
         {
             "id": 13,
-            "string": "Empire Wars"
+            "string": "Gevecht der Naties"
         }
     ],
     "leaderboard": [
         {
             "id": 0,
-            "string": "Unranked"
+            "string": "Niet-gerangschikt"
         },
         {
             "id": 1,
-            "string": "Death Match"
+            "string": "Strijd tot de Dood 1v1"
         },
         {
             "id": 2,
-            "string": "Team Death Match"
+            "string": "Team Strijd tot de Dood"
         },
         {
             "id": 3,
-            "string": "Random Map"
+            "string": "Willekeurige Kaart 1v1"
         },
         {
             "id": 4,
-            "string": "Team Random Map"
+            "string": "Team Willekeurige Kaart"
         }
     ],
     "map_size": [
@@ -269,7 +273,7 @@
     "map_type": [
         {
             "id": 9,
-            "string": "Arabie"
+            "string": "Arabië"
         },
         {
             "id": 10,
@@ -325,7 +329,7 @@
         },
         {
             "id": 23,
-            "string": "Teameilanden"
+            "string": "Team Eilanden"
         },
         {
             "id": 24,
@@ -333,11 +337,11 @@
         },
         {
             "id": 25,
-            "string": "Scandinavie"
+            "string": "Scandinavië"
         },
         {
             "id": 26,
-            "string": "Mongolie"
+            "string": "Mongolië"
         },
         {
             "id": 27,
@@ -365,11 +369,11 @@
         },
         {
             "id": 49,
-            "string": "Iberie"
+            "string": "Iberië"
         },
         {
             "id": 50,
-            "string": "Groot-Brittannie"
+            "string": "Groot-Brittannië"
         },
         {
             "id": 51,
@@ -381,7 +385,7 @@
         },
         {
             "id": 53,
-            "string": "Italie"
+            "string": "Italië"
         },
         {
             "id": 54,
@@ -397,7 +401,7 @@
         },
         {
             "id": 57,
-            "string": "Japanse Zee (Oostzee)"
+            "string": "Japanse Zee"
         },
         {
             "id": 58,
@@ -441,7 +445,7 @@
         },
         {
             "id": 70,
-            "string": "Stad der meren"
+            "string": "Stad der Meren"
         },
         {
             "id": 71,
@@ -469,7 +473,7 @@
         },
         {
             "id": 77,
-            "string": "Mega Willekeurig"
+            "string": "Mega willekeurig"
         },
         {
             "id": 78,
@@ -497,11 +501,11 @@
         },
         {
             "id": 84,
-            "string": "Mountain Pass"
+            "string": "Bergpas"
         },
         {
             "id": 85,
-            "string": "Nile Delta"
+            "string": "Nijldelta"
         },
         {
             "id": 86,
@@ -513,7 +517,7 @@
         },
         {
             "id": 88,
-            "string": "Amazon"
+            "string": "Amazone"
         },
         {
             "id": 89,
@@ -521,7 +525,7 @@
         },
         {
             "id": 90,
-            "string": "Horn of Africa"
+            "string": "Hoorn van Afrika"
         },
         {
             "id": 91,
@@ -533,63 +537,63 @@
         },
         {
             "id": 93,
-            "string": "West Africa"
+            "string": "West-Afrika"
         },
         {
             "id": 94,
-            "string": "Bohemia"
+            "string": "Bohemen"
         },
         {
             "id": 95,
-            "string": "Earth"
+            "string": "Aarde"
         },
         {
             "id": 96,
-            "string": "Canyons"
+            "string": "Ravijnen"
         },
         {
             "id": 97,
-            "string": "Enemy Archipelago"
+            "string": "Vijandige Archipel"
         },
         {
             "id": 98,
-            "string": "Enemy Islands"
+            "string": "Vijandige Eilanden"
         },
         {
             "id": 99,
-            "string": "Far Out"
+            "string": "Ver Weg"
         },
         {
             "id": 100,
-            "string": "Front Line"
+            "string": "Frontlinie"
         },
         {
             "id": 101,
-            "string": "Inner Circle"
+            "string": "Binnenste Cirkel"
         },
         {
             "id": 102,
-            "string": "Motherland"
+            "string": "Moederland"
         },
         {
             "id": 103,
-            "string": "Open Plains"
+            "string": "Open Vlakte"
         },
         {
             "id": 104,
-            "string": "Ring of Water"
+            "string": "Ring van Water"
         },
         {
             "id": 105,
-            "string": "Snakepit"
+            "string": "Slangenpit"
         },
         {
             "id": 106,
-            "string": "The Eye"
+            "string": "Het Oog"
         },
         {
             "id": 107,
-            "string": "Australia"
+            "string": "Australië"
         },
         {
             "id": 108,
@@ -597,19 +601,19 @@
         },
         {
             "id": 109,
-            "string": "Indonesia"
+            "string": "Indonesië"
         },
         {
             "id": 110,
-            "string": "Strait of Malacca"
+            "string": "Straat van Malakka"
         },
         {
             "id": 111,
-            "string": "Philippines"
+            "string": "Filippijnen"
         },
         {
             "id": 112,
-            "string": "Bog Islands"
+            "string": "Moeraseiland"
         },
         {
             "id": 113,
@@ -617,27 +621,27 @@
         },
         {
             "id": 114,
-            "string": "Pacific Islands"
+            "string": "Pacifische Eilanden"
         },
         {
             "id": 115,
-            "string": "Sandbank"
+            "string": "Zandbank"
         },
         {
             "id": 116,
-            "string": "Water Nomad"
+            "string": "Water Nomade"
         },
         {
             "id": 117,
-            "string": "Jungle Islands"
+            "string": "Jungle Eilanden"
         },
         {
             "id": 118,
-            "string": "Holy Line"
+            "string": "Heilige Lijn"
         },
         {
             "id": 119,
-            "string": "Border Stones"
+            "string": "Grensstenen"
         },
         {
             "id": 120,
@@ -645,27 +649,27 @@
         },
         {
             "id": 121,
-            "string": "Jungle Lanes"
+            "string": "Jungle Banen"
         },
         {
             "id": 122,
-            "string": "Alpine Lakes"
+            "string": "Alpenmeren"
         },
         {
             "id": 123,
-            "string": "Bogland"
+            "string": "Moerasland"
         },
         {
             "id": 124,
-            "string": "Mountain Ridge"
+            "string": "Bergrand"
         },
         {
             "id": 125,
-            "string": "Ravines"
+            "string": "Ravijnen"
         },
         {
             "id": 126,
-            "string": "Wolf Hill"
+            "string": "Wolf Heuvel"
         },
         {
             "id": 132,
@@ -677,37 +681,57 @@
         },
         {
             "id": 139,
-            "string": "Golden Swamp"
+            "string": "Gouden Moeras"
         },
         {
             "id": 140,
-            "string": "Four Lakes"
+            "string": "Vier Meren"
         },
         {
             "id": 141,
-            "string": "Land Nomad"
+            "string": "Land Nomade"
+        },
+        {
+            "id": 142,
+            "string": "BR Battle On Ice"
+        },
+        {
+            "id": 143,
+            "string": "BR El Dorado"
+        },
+        {
+            "id": 144,
+            "string": "BR Fall of Axum"
+        },
+        {
+            "id": 145,
+            "string": "BR Fall of Rome"
+        },
+        {
+            "id": 146,
+            "string": "BR Majapahit Empire"
         }
     ],
     "rating_type": [
         {
             "id": 0,
-            "string": "Unranked"
+            "string": "Niet-gerangschikt"
         },
         {
             "id": 1,
-            "string": "Death Match"
+            "string": "Strijd tot de Dood 1v1"
         },
         {
             "id": 2,
-            "string": "Random Map"
+            "string": "Willekeurige Kaart 1v1"
         },
         {
             "id": 3,
-            "string": "Team Death Match"
+            "string": "Team Strijd tot de Dood"
         },
         {
             "id": 4,
-            "string": "Team Random Map"
+            "string": "Team Willekeurige Kaart"
         }
     ],
     "resources": [
@@ -729,21 +753,21 @@
         },
         {
             "id": 4,
-            "string": "Ultra High"
+            "string": "Ultra hoog"
         },
         {
             "id": 5,
-            "string": "Infinite"
+            "string": "Oneindig"
         },
         {
             "id": 6,
-            "string": "Random"
+            "string": "Willekeurig"
         }
     ],
     "speed": [
         {
             "id": 0,
-            "string": "Slow"
+            "string": "Langzaam"
         },
         {
             "id": 1,
@@ -751,11 +775,11 @@
         },
         {
             "id": 2,
-            "string": "Normal"
+            "string": "Normaal"
         },
         {
             "id": 3,
-            "string": "Fast"
+            "string": "Snel"
         }
     ],
     "victory": [
@@ -783,15 +807,15 @@
     "visibility": [
         {
             "id": 0,
-            "string": "Normal"
+            "string": "Normaal"
         },
         {
             "id": 1,
-            "string": "Explored"
+            "string": "Ontdekt"
         },
         {
             "id": 2,
-            "string": "All Visible"
+            "string": "Alles zichtbaar"
         }
     ]
 }

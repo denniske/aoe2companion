@@ -210,6 +210,10 @@
             "string": "단판승부"
         },
         {
+            "id": 12,
+            "string": "Battle Royale"
+        },
+        {
             "id": 13,
             "string": "제국 전쟁"
         }
@@ -677,15 +681,35 @@
         },
         {
             "id": 139,
-            "string": "Golden Swamp"
+            "string": "황금빛 늪지"
         },
         {
             "id": 140,
-            "string": "Four Lakes"
+            "string": "네 개의 호수"
         },
         {
             "id": 141,
-            "string": "Land Nomad"
+            "string": "육지 유목민"
+        },
+        {
+            "id": 142,
+            "string": "BR Battle On Ice"
+        },
+        {
+            "id": 143,
+            "string": "BR El Dorado"
+        },
+        {
+            "id": 144,
+            "string": "BR Fall of Axum"
+        },
+        {
+            "id": 145,
+            "string": "BR Fall of Rome"
+        },
+        {
+            "id": 146,
+            "string": "BR Majapahit Empire"
         }
     ],
     "rating_type": [

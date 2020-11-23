@@ -210,6 +210,10 @@
             "string": "Cái chết bất ngờ"
         },
         {
+            "id": 12,
+            "string": "Battle Royale"
+        },
+        {
             "id": 13,
             "string": "Chiến tranh đế quốc"
         }
@@ -677,15 +681,35 @@
         },
         {
             "id": 139,
-            "string": "Golden Swamp"
+            "string": "Đầm vàng"
         },
         {
             "id": 140,
-            "string": "Four Lakes"
+            "string": "Bốn hồ"
         },
         {
             "id": 141,
-            "string": "Land Nomad"
+            "string": "Dân du mục trên bộ"
+        },
+        {
+            "id": 142,
+            "string": "BR Battle On Ice"
+        },
+        {
+            "id": 143,
+            "string": "BR El Dorado"
+        },
+        {
+            "id": 144,
+            "string": "BR Fall of Axum"
+        },
+        {
+            "id": 145,
+            "string": "BR Fall of Rome"
+        },
+        {
+            "id": 146,
+            "string": "BR Majapahit Empire"
         }
     ],
     "rating_type": [
