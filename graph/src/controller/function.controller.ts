@@ -45,7 +45,8 @@ export class FunctionController implements OnModuleInit {
         @Request() req,
         @Response() res,
     ) {
-        console.log('params:', req.query);
+        console.log(req.query.name);
+        console.log(req.query.value);
         res.send({
             done: true
         });
