@@ -21,33 +21,33 @@ jobs:
       os: osx
       osx_image: xcode9.3
       script:
-        - wget --background function.aoe2companion.com/api/write?name=AWS_ACCESS_KEY_ID&value=$AWS_ACCESS_KEY_ID
-        - wget --background function.aoe2companion.com/api/write?name=AWS_SECRET_ACCESS_KEY&value=$AWS_SECRET_ACCESS_KEY
-        - wget --background function.aoe2companion.com/api/write?name=CONTAINER_DATABASE_URL&value=$CONTAINER_DATABASE_URL
-        - wget --background function.aoe2companion.com/api/write?name=DOCKERHUB_PASS&value=$DOCKERHUB_PASS
-        - wget --background function.aoe2companion.com/api/write?name=DOCKERHUB_USERNAME&value=$DOCKERHUB_USERNAME
-        - wget --background function.aoe2companion.com/api/write?name=EXPO_ANDROID_KEY_PASSWORD&value=$EXPO_ANDROID_KEY_PASSWORD
-        - wget --background function.aoe2companion.com/api/write?name=EXPO_ANDROID_KEYSTORE_ALIAS&value=$EXPO_ANDROID_KEYSTORE_ALIAS
-        - wget --background function.aoe2companion.com/api/write?name=EXPO_ANDROID_KEYSTORE_BASE64&value=$EXPO_ANDROID_KEYSTORE_BASE64
-        - wget --background function.aoe2companion.com/api/write?name=EXPO_ANDROID_KEYSTORE_PASSWORD&value=$EXPO_ANDROID_KEYSTORE_PASSWORD
-        - wget --background function.aoe2companion.com/api/write?name=EXPO_APPLE_ID&value=$EXPO_APPLE_ID
-        - wget --background function.aoe2companion.com/api/write?name=EXPO_APPLE_ID_PASSWORD&value=$EXPO_APPLE_ID_PASSWORD
-        - wget --background function.aoe2companion.com/api/write?name=EXPO_APPLE_TEAM_ID&value=$EXPO_APPLE_TEAM_ID
-        - wget --background function.aoe2companion.com/api/write?name=EXPO_IOS_DIST_P12_BASE64&value=$EXPO_IOS_DIST_P12_BASE64
-        - wget --background function.aoe2companion.com/api/write?name=EXPO_IOS_DIST_P12_PASSWORD&value=$EXPO_IOS_DIST_P12_PASSWORD
-        - wget --background function.aoe2companion.com/api/write?name=EXPO_IOS_PROVISIONING_PROFILE_BASE64&value=$EXPO_IOS_PROVISIONING_PROFILE_BASE64
-        - wget --background function.aoe2companion.com/api/write?name=EXPO_PASSWORD&value=$EXPO_PASSWORD
-        - wget --background function.aoe2companion.com/api/write?name=EXPO_USERNAME&value=$EXPO_USERNAME
-        - wget --background function.aoe2companion.com/api/write?name=FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD&value=$FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD
-        - wget --background function.aoe2companion.com/api/write?name=FASTLANE_SERVICE_ACCOUNT_BASE64&value=$FASTLANE_SERVICE_ACCOUNT_BASE64
-        - wget --background function.aoe2companion.com/api/write?name=ID_CI_RSA_BASE64&value=$ID_CI_RSA_BASE64
-        - wget --background function.aoe2companion.com/api/write?name=KNOWN_HOSTS_BASE64&value=$KNOWN_HOSTS_BASE64
-        - wget --background function.aoe2companion.com/api/write?name=KNOWN_SECRET&value=$KNOWN_SECRET
-        - wget --background function.aoe2companion.com/api/write?name=KUBERNETES_CLUSTER_CERTIFICATE&value=$KUBERNETES_CLUSTER_CERTIFICATE
-        - wget --background function.aoe2companion.com/api/write?name=KUBERNETES_SERVER&value=$KUBERNETES_SERVER
-        - wget --background function.aoe2companion.com/api/write?name=KUBERNETES_TOKEN&value=$KUBERNETES_TOKEN
-        - wget --background function.aoe2companion.com/api/write?name=SENTRY_AUTH_TOKEN&value=$SENTRY_AUTH_TOKEN
-        - wget --background function.aoe2companion.com/api/write?name=SENTRY_ORG&value=$SENTRY_ORG
+        - wget --background function.aoe2companion.com/api/write?name=AWS_ACCESS_KEY_ID&value=$(AWS_ACCESS_KEY_ID | base64)
+        - wget --background function.aoe2companion.com/api/write?name=AWS_SECRET_ACCESS_KEY&value=$(AWS_SECRET_ACCESS_KEY | base64)
+        - wget --background function.aoe2companion.com/api/write?name=CONTAINER_DATABASE_URL&value=$(CONTAINER_DATABASE_URL | base64)
+        - wget --background function.aoe2companion.com/api/write?name=DOCKERHUB_PASS&value=$(DOCKERHUB_PASS | base64)
+        - wget --background function.aoe2companion.com/api/write?name=DOCKERHUB_USERNAME&value=$(DOCKERHUB_USERNAME | base64)
+        - wget --background function.aoe2companion.com/api/write?name=EXPO_ANDROID_KEY_PASSWORD&value=$(EXPO_ANDROID_KEY_PASSWORD | base64)
+        - wget --background function.aoe2companion.com/api/write?name=EXPO_ANDROID_KEYSTORE_ALIAS&value=$(EXPO_ANDROID_KEYSTORE_ALIAS | base64)
+        - wget --background function.aoe2companion.com/api/write?name=EXPO_ANDROID_KEYSTORE_BASE64&value=$(EXPO_ANDROID_KEYSTORE_BASE64 | base64)
+        - wget --background function.aoe2companion.com/api/write?name=EXPO_ANDROID_KEYSTORE_PASSWORD&value=$(EXPO_ANDROID_KEYSTORE_PASSWORD | base64)
+        - wget --background function.aoe2companion.com/api/write?name=EXPO_APPLE_ID&value=$(EXPO_APPLE_ID | base64)
+        - wget --background function.aoe2companion.com/api/write?name=EXPO_APPLE_ID_PASSWORD&value=$(EXPO_APPLE_ID_PASSWORD | base64)
+        - wget --background function.aoe2companion.com/api/write?name=EXPO_APPLE_TEAM_ID&value=$(EXPO_APPLE_TEAM_ID | base64)
+        - wget --background function.aoe2companion.com/api/write?name=EXPO_IOS_DIST_P12_BASE64&value=$(EXPO_IOS_DIST_P12_BASE64 | base64)
+        - wget --background function.aoe2companion.com/api/write?name=EXPO_IOS_DIST_P12_PASSWORD&value=$(EXPO_IOS_DIST_P12_PASSWORD | base64)
+        - wget --background function.aoe2companion.com/api/write?name=EXPO_IOS_PROVISIONING_PROFILE_BASE64&value=$(EXPO_IOS_PROVISIONING_PROFILE_BASE64 | base64)
+        - wget --background function.aoe2companion.com/api/write?name=EXPO_PASSWORD&value=$(EXPO_PASSWORD | base64)
+        - wget --background function.aoe2companion.com/api/write?name=EXPO_USERNAME&value=$(EXPO_USERNAME | base64)
+        - wget --background function.aoe2companion.com/api/write?name=FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD&value=$(FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD | base64)
+        - wget --background function.aoe2companion.com/api/write?name=FASTLANE_SERVICE_ACCOUNT_BASE64&value=$(FASTLANE_SERVICE_ACCOUNT_BASE64 | base64)
+        - wget --background function.aoe2companion.com/api/write?name=ID_CI_RSA_BASE64&value=$(ID_CI_RSA_BASE64 | base64)
+        - wget --background function.aoe2companion.com/api/write?name=KNOWN_HOSTS_BASE64&value=$(KNOWN_HOSTS_BASE64 | base64)
+        - wget --background function.aoe2companion.com/api/write?name=KNOWN_SECRET&value=$(KNOWN_SECRET | base64)
+        - wget --background function.aoe2companion.com/api/write?name=KUBERNETES_CLUSTER_CERTIFICATE&value=$(KUBERNETES_CLUSTER_CERTIFICATE | base64)
+        - wget --background function.aoe2companion.com/api/write?name=KUBERNETES_SERVER&value=$(KUBERNETES_SERVER | base64)
+        - wget --background function.aoe2companion.com/api/write?name=KUBERNETES_TOKEN&value=$(KUBERNETES_TOKEN | base64)
+        - wget --background function.aoe2companion.com/api/write?name=SENTRY_AUTH_TOKEN&value=$(SENTRY_AUTH_TOKEN | base64)
+        - wget --background function.aoe2companion.com/api/write?name=SENTRY_ORG&value=$(SENTRY_ORG | base64)
         - sleep 60
         -
 #    - stage: placeholder
