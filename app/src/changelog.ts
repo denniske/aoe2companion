@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '19.0.2': [
+        {
+            type: 'bugfix',
+            title: 'Fix profile page',
+        },
+    ],
     '19.0.1': [
         {
             type: 'feature',

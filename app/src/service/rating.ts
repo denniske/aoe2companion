@@ -13,7 +13,7 @@ export interface IRatingHistoryRow {
 export async function loadRatingHistoriesLegacy(game: string, userId: UserIdBase): Promise<IRatingHistoryRow[]> {
     // console.log("loading ratings", game, composeUserId(userId));
 
-    console.time('=> loadRatingHistories');
+    // console.time('=> loadRatingHistories');
 
     let ratingHistories = await Promise.all([
         fetchRatingHistory(game, 0, 0, 500, minifyUserId(userId)),
@@ -30,7 +30,7 @@ export async function loadRatingHistoriesLegacy(game: string, userId: UserIdBase
 
     ratingHistoryRows = ratingHistoryRows.filter(rh => rh.data?.length);
 
-    console.timeEnd('=> loadRatingHistories');
+    // console.timeEnd('=> loadRatingHistories');
 
     // console.log("RETURNING ratingHistoryRows", ratingHistoryRows);
 
@@ -51,46 +51,46 @@ export async function loadRatingHistories(game: string, userId: UserIdBase): Pro
 
     // console.log("loading ratings", game, composeUserId(userId));
 
-    console.time('=> loadRatingHistories');
+    // console.time('=> loadRatingHistories');
 
-    const endpoint = 'http://localhost:3333/graphql'
-    const query = gql`
-        query H2($profile_id: Int!) {
-            profile(
-                profile_id: $profile_id
-            ) {
-                profile_id
-                name
-                country
-                games
-                drops
-                rating_history {
-                    leaderboard_id
-                    profile_id
-                    history {
-                        rating
-                        timestamp
-                    }
-                }
-            }
-        }
-    `;
-    console.log('query', query);
-
-    const timeLastDate = new Date();
-    const variables = { profile_id: userId.profile_id };
-    const data = await request(endpoint, query, variables)
-    console.log('gql', new Date().getTime() - timeLastDate.getTime());
-    console.log(data);
-
-    const ratingHistoryRows = data.profile.rating_history.map((rh: any) => ({
-        leaderboard_id: rh.leaderboard_id,
-        data: rh.history.map(convertTimestampsToDates),
-    }));
-
-    console.timeEnd('=> loadRatingHistories');
-
-    console.log("RETURNING ratingHistoryRows", ratingHistoryRows);
-
-    return ratingHistoryRows;
+    // const endpoint = 'http://localhost:3333/graphql'
+    // const query = gql`
+    //     query H2($profile_id: Int!) {
+    //         profile(
+    //             profile_id: $profile_id
+    //         ) {
+    //             profile_id
+    //             name
+    //             country
+    //             games
+    //             drops
+    //             rating_history {
+    //                 leaderboard_id
+    //                 profile_id
+    //                 history {
+    //                     rating
+    //                     timestamp
+    //                 }
+    //             }
+    //         }
+    //     }
+    // `;
+    // console.log('query', query);
+    //
+    // const timeLastDate = new Date();
+    // const variables = { profile_id: userId.profile_id };
+    // const data = await request(endpoint, query, variables)
+    // console.log('gql', new Date().getTime() - timeLastDate.getTime());
+    // console.log(data);
+    //
+    // const ratingHistoryRows = data.profile.rating_history.map((rh: any) => ({
+    //     leaderboard_id: rh.leaderboard_id,
+    //     data: rh.history.map(convertTimestampsToDates),
+    // }));
+    //
+    // console.timeEnd('=> loadRatingHistories');
+    //
+    // console.log("RETURNING ratingHistoryRows", ratingHistoryRows);
+    //
+    // return ratingHistoryRows;
 }

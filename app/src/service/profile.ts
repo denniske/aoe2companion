@@ -10,7 +10,7 @@ import {IRatingHistoryRow} from './rating';
 export async function loadProfileLegacy(game: string, userId: UserIdBase): Promise<any | null> {
     // console.log("loading profile", game, composeUserId(userId));
 
-    console.time('=> loadProfile');
+    // console.time('=> loadProfile');
 
     let leaderboards = await Promise.all([
         fetchLeaderboardLegacy(game, 0, {count: 1, ...minifyUserId(userId)}),
@@ -28,7 +28,7 @@ export async function loadProfileLegacy(game: string, userId: UserIdBase): Promi
         return null;
     }
 
-    console.timeEnd('=> loadProfile');
+    // console.timeEnd('=> loadProfile');
 
     return {
         clan: mostRecentLeaderboard.clan,

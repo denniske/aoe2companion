@@ -62,47 +62,47 @@ export async function loadUserLegacy(game: string, start: number, count: number,
 export async function loadUser(game: string, start: number, count: number, search: string) {
     return await loadUserLegacy(game, start, count, search);
 
-    console.time('=> loadUser');
-
-    const endpoint = 'http://localhost:3333/graphql'
-    const query = gql`
-        query H2($start: Int!, $count: Int!, $search: String!) {
-            users(
-                start: $start,
-                count: $count,
-                search: $search
-            ) {
-                profile_id
-                name
-                country
-                games
-            }
-        }
-    `;
-
-    const timeLastDate = new Date();
-    const variables = { start, count, search };
-    console.groupCollapsed('loadUser - users()');
-    console.log(query);
-    console.groupEnd();
-    console.log(variables);
-    const data = await request(endpoint, query, variables)
-    // console.log('gql', new Date().getTime() - timeLastDate.getTime());
-
-    const ratingHistoryRows = data.users;
-
-    console.timeEnd('=> loadUser');
-
-    // const masterList = await loadUserLegacy(game, search);
-    // console.log("MASTER user", masterList);
-    // console.log(ratingHistoryRows);
-
-    // const missing = ratingHistoryRows.filter(r => masterList.find(m => m.name == r.name) == null);
-    // console.log(missing.map(m => m.name));
+    // console.time('=> loadUser');
     //
-    // const missing2 = masterList.filter(r => ratingHistoryRows.find(m => m.name == r.name) == null);
-    // console.log(missing2.map(m => m.name));
-
-    // return await loadUserLegacy(game, search);
-    return ratingHistoryRows;
+    // const endpoint = 'http://localhost:3333/graphql'
+    // const query = gql`
+    //     query H2($start: Int!, $count: Int!, $search: String!) {
+    //         users(
+    //             start: $start,
+    //             count: $count,
+    //             search: $search
+    //         ) {
+    //             profile_id
+    //             name
+    //             country
+    //             games
+    //         }
+    //     }
+    // `;
+    //
+    // const timeLastDate = new Date();
+    // const variables = { start, count, search };
+    // console.groupCollapsed('loadUser - users()');
+    // console.log(query);
+    // console.groupEnd();
+    // console.log(variables);
+    // const data = await request(endpoint, query, variables)
+    // // console.log('gql', new Date().getTime() - timeLastDate.getTime());
+    //
+    // const ratingHistoryRows = data.users;
+    //
+    // console.timeEnd('=> loadUser');
+    //
+    // // const masterList = await loadUserLegacy(game, search);
+    // // console.log("MASTER user", masterList);
+    // // console.log(ratingHistoryRows);
+    //
+    // // const missing = ratingHistoryRows.filter(r => masterList.find(m => m.name == r.name) == null);
+    // // console.log(missing.map(m => m.name));
+    // //
+    // // const missing2 = masterList.filter(r => ratingHistoryRows.find(m => m.name == r.name) == null);
+    // // console.log(missing2.map(m => m.name));
+    //
+    // // return await loadUserLegacy(game, search);
+    // return ratingHistoryRows;
 }
