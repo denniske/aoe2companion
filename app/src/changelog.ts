@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '19.0.3': [
+        {
+            type: 'bugfix',
+            title: 'Fix game type display for Unranked games',
+        },
+    ],
     '19.0.2': [
         {
             type: 'bugfix',
