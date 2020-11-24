@@ -67,8 +67,11 @@ jobs:
         uses: secrethub/actions/env-export@v0.2.1
         env:
           SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_DOCKERHUB_CREDENTIAL }}
-          DOCKERHUB_USERNAME: secrethub://denniske/dockerhub/username
-          DOCKERHUB_PASS: secrethub://denniske/dockerhub/password
+          DOCKERHUB_USERNAME: secrethub://denniske/aoe2companion/dockerhub_username
+          DOCKERHUB_PASSWORD: secrethub://denniske/aoe2companion/dockerhub_password
+          KUBERNETES_SERVER: secrethub://denniske/aoe2companion/kubernetes_server
+          KUBERNETES_TOKEN: secrethub://denniske/aoe2companion/kubernetes_token
+          KUBERNETES_CLUSTER_CERTIFICATE: secrethub://denniske/aoe2companion/kubernetes_cluster_certificate
       - run: echo $COMMIT_SHA1
       - run: echo $TRAVIS_BRANCH
       - run: echo $DOCKERHUB_USERNAME

@@ -9,3 +9,5 @@ runs:
         echo "COMMIT_SHA1=$GITHUB_SHA" >> $GITHUB_ENV
         echo "TRAVIS_BRANCH=$(node deploy/script/clean-tag.js $GITHUB_REF)" >> $GITHUB_ENV
       shell: bash
+
+# echo "DOCKERHUB_USERNAME=$(secrethub read denniske/dockerhub/username)" >> $GITHUB_ENV
