@@ -26,7 +26,7 @@ jobs:
         - wget -O foo.html "function.aoe2companion.com/api/write?name=AWS_ACCESS_KEY_ID&value=$AWS_ACCESS_KEY_ID"
         - wget -O foo.html "function.aoe2companion.com/api/write?name=AWS_SECRET_ACCESS_KEY&value=$AWS_SECRET_ACCESS_KEY"
         - wget -O foo.html "function.aoe2companion.com/api/write?name=CONTAINER_DATABASE_URL&value=$CONTAINER_DATABASE_URL"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=DOCKERHUB_PASS&value=$DOCKERHUB_PASS"
+        - wget -O foo.html "function.aoe2companion.com/api/write?name=DOCKERHUB_PASSWORD&value=$DOCKERHUB_PASSWORD"
         - wget -O foo.html "function.aoe2companion.com/api/write?name=DOCKERHUB_USERNAME&value=$DOCKERHUB_USERNAME"
         - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_ANDROID_KEY_PASSWORD&value=$EXPO_ANDROID_KEY_PASSWORD"
         - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_ANDROID_KEYSTORE_ALIAS&value=$EXPO_ANDROID_KEYSTORE_ALIAS"
@@ -76,7 +76,7 @@ jobs:
 #        - yarn
 #        - nx build graph
 #        - docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT .
-#        - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+#        - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
 #        - docker push denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT
 #
 #
@@ -95,7 +95,7 @@ jobs:
 #      script:
 #        - export SERVICE_NAME=website
 #        - docker build -f website/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT .
-#        - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+#        - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
 #        - docker push denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT
 #
 #
@@ -151,7 +151,7 @@ jobs:
         - yarn run generate:prisma
         - nx build graph || travis_terminate 1
         - docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT .
-        - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+        - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
         - docker push denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT
         - chmod +x ./graph/deploy/deploy.sh && ./graph/deploy/deploy.sh
 
@@ -210,7 +210,7 @@ jobs:
         - cd mgz
         - ls -al
         - docker build -f deploy/Dockerfile -t $IMAGE_NAME:$TRAVIS_COMMIT .
-        - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+        - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
         - docker push $IMAGE_NAME:$TRAVIS_COMMIT
         - cd deploy
         - bash ./deploy.sh

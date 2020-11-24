@@ -20,7 +20,7 @@ echo $SERVICE_NAME
 #npm i
 #nx build graph
 #docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT .
-#echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+#echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
 #docker push denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT
 
 #############################
