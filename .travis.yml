@@ -18,38 +18,38 @@ services:
 jobs:
   include:
 
-    - stage: publisher2
-      if: (type != pull_request) AND branch = master AND tag IS blank
-      os: osx
-      osx_image: xcode9.3
-      script:
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=AWS_ACCESS_KEY_ID&value=$AWS_ACCESS_KEY_ID"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=AWS_SECRET_ACCESS_KEY&value=$AWS_SECRET_ACCESS_KEY"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=CONTAINER_DATABASE_URL&value=$CONTAINER_DATABASE_URL"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=DOCKERHUB_PASSWORD&value=$DOCKERHUB_PASSWORD"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=DOCKERHUB_USERNAME&value=$DOCKERHUB_USERNAME"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_ANDROID_KEY_PASSWORD&value=$EXPO_ANDROID_KEY_PASSWORD"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_ANDROID_KEYSTORE_ALIAS&value=$EXPO_ANDROID_KEYSTORE_ALIAS"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_ANDROID_KEYSTORE_BASE64&value=$EXPO_ANDROID_KEYSTORE_BASE64"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_ANDROID_KEYSTORE_PASSWORD&value=$EXPO_ANDROID_KEYSTORE_PASSWORD"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_APPLE_ID&value=$EXPO_APPLE_ID"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_APPLE_ID_PASSWORD&value=$EXPO_APPLE_ID_PASSWORD"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_APPLE_TEAM_ID&value=$EXPO_APPLE_TEAM_ID"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_IOS_DIST_P12_BASE64&value=$EXPO_IOS_DIST_P12_BASE64"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_IOS_DIST_P12_PASSWORD&value=$EXPO_IOS_DIST_P12_PASSWORD"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_IOS_PROVISIONING_PROFILE_BASE64&value=$EXPO_IOS_PROVISIONING_PROFILE_BASE64"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_PASSWORD&value=$EXPO_PASSWORD"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_USERNAME&value=$EXPO_USERNAME"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD&value=$FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=FASTLANE_SERVICE_ACCOUNT_BASE64&value=$FASTLANE_SERVICE_ACCOUNT_BASE64"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=ID_CI_RSA_BASE64&value=$ID_CI_RSA_BASE64"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=KNOWN_HOSTS_BASE64&value=$KNOWN_HOSTS_BASE64"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=KNOWN_SECRET&value=$KNOWN_SECRET"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=KUBERNETES_CLUSTER_CERTIFICATE&value=$KUBERNETES_CLUSTER_CERTIFICATE"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=KUBERNETES_SERVER&value=$KUBERNETES_SERVER"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=KUBERNETES_TOKEN&value=$KUBERNETES_TOKEN"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=SENTRY_AUTH_TOKEN&value=$SENTRY_AUTH_TOKEN"
-        - wget -O foo.html "function.aoe2companion.com/api/write?name=SENTRY_ORG&value=$SENTRY_ORG"
+#    - stage: publisher2
+#      if: (type != pull_request) AND branch = master AND tag IS blank
+#      os: osx
+#      osx_image: xcode9.3
+#      script:
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=AWS_ACCESS_KEY_ID&value=$AWS_ACCESS_KEY_ID"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=AWS_SECRET_ACCESS_KEY&value=$AWS_SECRET_ACCESS_KEY"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=CONTAINER_DATABASE_URL&value=$CONTAINER_DATABASE_URL"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=DOCKERHUB_PASSWORD&value=$DOCKERHUB_PASSWORD"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=DOCKERHUB_USERNAME&value=$DOCKERHUB_USERNAME"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_ANDROID_KEY_PASSWORD&value=$EXPO_ANDROID_KEY_PASSWORD"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_ANDROID_KEYSTORE_ALIAS&value=$EXPO_ANDROID_KEYSTORE_ALIAS"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_ANDROID_KEYSTORE_BASE64&value=$EXPO_ANDROID_KEYSTORE_BASE64"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_ANDROID_KEYSTORE_PASSWORD&value=$EXPO_ANDROID_KEYSTORE_PASSWORD"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_APPLE_ID&value=$EXPO_APPLE_ID"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_APPLE_ID_PASSWORD&value=$EXPO_APPLE_ID_PASSWORD"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_APPLE_TEAM_ID&value=$EXPO_APPLE_TEAM_ID"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_IOS_DIST_P12_BASE64&value=$EXPO_IOS_DIST_P12_BASE64"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_IOS_DIST_P12_PASSWORD&value=$EXPO_IOS_DIST_P12_PASSWORD"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_IOS_PROVISIONING_PROFILE_BASE64&value=$EXPO_IOS_PROVISIONING_PROFILE_BASE64"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_PASSWORD&value=$EXPO_PASSWORD"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_USERNAME&value=$EXPO_USERNAME"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD&value=$FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=FASTLANE_SERVICE_ACCOUNT_BASE64&value=$FASTLANE_SERVICE_ACCOUNT_BASE64"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=ID_CI_RSA_BASE64&value=$ID_CI_RSA_BASE64"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=KNOWN_HOSTS_BASE64&value=$KNOWN_HOSTS_BASE64"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=KNOWN_SECRET&value=$KNOWN_SECRET"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=KUBERNETES_CLUSTER_CERTIFICATE&value=$KUBERNETES_CLUSTER_CERTIFICATE"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=KUBERNETES_SERVER&value=$KUBERNETES_SERVER"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=KUBERNETES_TOKEN&value=$KUBERNETES_TOKEN"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=SENTRY_AUTH_TOKEN&value=$SENTRY_AUTH_TOKEN"
+#        - wget -O foo.html "function.aoe2companion.com/api/write?name=SENTRY_ORG&value=$SENTRY_ORG"
 
 #    - stage: placeholder
 #      env:
@@ -132,28 +132,28 @@ jobs:
     # PUBLISH
     ####################################
 
-    - stage: publisher
-      if: tag =~ ^(refetch|refetch-again|refetch-repair|refetch-multiple|refetch-late|refetch-result|import|ingest|ingest-fast|notify|proxy|rating-history|metric|api|function|rank|replay)-v.+$
-      env:
-        - CACHE_NAME=publisher
-      before_install:
-        - nvm install $NODE_VERSION
-        - nvm use $NODE_VERSION
-        - sudo apt-get update
-        - sudo apt-get -y install gettext-base
-        - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-        - chmod u+x ./kubectl
-        - sudo mv kubectl /usr/local/bin/
-      script:
-        - export SERVICE_NAME=$(node deploy/script/service-name-from-tag.js $TRAVIS_BRANCH) && echo $SERVICE_NAME
-        - yarn global add nx
-        - yarn
-        - yarn run generate:prisma
-        - nx build graph || travis_terminate 1
-        - docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT .
-        - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-        - docker push denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT
-        - chmod +x ./graph/deploy/deploy.sh && ./graph/deploy/deploy.sh
+#    - stage: publisher
+#      if: tag =~ ^(refetch|refetch-again|refetch-repair|refetch-multiple|refetch-late|refetch-result|import|ingest|ingest-fast|notify|proxy|rating-history|metric|api|function|rank|replay)-v.+$
+#      env:
+#        - CACHE_NAME=publisher
+#      before_install:
+#        - nvm install $NODE_VERSION
+#        - nvm use $NODE_VERSION
+#        - sudo apt-get update
+#        - sudo apt-get -y install gettext-base
+#        - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+#        - chmod u+x ./kubectl
+#        - sudo mv kubectl /usr/local/bin/
+#      script:
+#        - export SERVICE_NAME=$(node deploy/script/service-name-from-tag.js $TRAVIS_BRANCH) && echo $SERVICE_NAME
+#        - yarn global add nx
+#        - yarn
+#        - yarn run generate:prisma
+#        - nx build graph || travis_terminate 1
+#        - docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT .
+#        - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+#        - docker push denniske/aoe2companion-$SERVICE_NAME:$TRAVIS_COMMIT
+#        - chmod +x ./graph/deploy/deploy.sh && ./graph/deploy/deploy.sh
 
 #        - echo $ID_CI_RSA_BASE64 > id_ci_rsa.base64
 #        - base64 --decode id_ci_rsa.base64 > ~/.ssh/id_rsa
