@@ -17,7 +17,7 @@ export function formatLeaderboardId(leaderboard_id: LeaderboardId) {
 }
 
 export function getLeaderboardOrGameType(leaderboard_id: LeaderboardId, game_type: any) {
-    if (leaderboard_id) {
+    if (leaderboard_id != null) {
         return getString('leaderboard', leaderboard_id);
     }
 
