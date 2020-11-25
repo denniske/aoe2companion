@@ -66,35 +66,35 @@ jobs:
           EXPO_ANDROID_KEYSTORE_PASSWORD: secrethub://denniske/aoe2companion/expo_android_keystore_password
           EXPO_ANDROID_KEY_PASSWORD: secrethub://denniske/aoe2companion/expo_android_key_password
 
+#      - run: |
+#          echo kk \
+#          kk
+#      - run: >
+#          echo kk
+#          kk
+
+      - run: npm config set unsafe-perm true
+      - run: yarn global add gulp-cli turtle-cli@$TURTLE_VERSION
+      - run: yarn
+      - run: turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null
       - run: |
-          echo kk \
-          kk
+          echo $EXPO_ANDROID_KEYSTORE_BASE64 > expo-project.jks.base64
+          base64 --decode expo-project.jks.base64 > expo-project.jks
+          ls -al
       - run: >
-          echo kk
-          kk
-#      - run: npm config set unsafe-perm true
-#      - run: |
-#          yarn global add gulp-cli turtle-cli@$TURTLE_VERSION
-#          echo "$(yarn global bin)" >> $GITHUB_PATH
-#      - run: yarn
-#      - run: turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null
-#      - run: |
-#          echo $EXPO_ANDROID_KEYSTORE_BASE64 > expo-project.jks.base64
-#          base64 --decode expo-project.jks.base64 > expo-project.jks
-#          ls -al
-#      - run: turtle build:android
-#               --config app.json
-#               --release-channel $CHANNEL
-#               --keystore-path ./expo-project.jks
-#               --keystore-alias $EXPO_ANDROID_KEYSTORE_ALIAS
-#               --type app-bundle
-#               -o expo-project-$TRAVIS_COMMIT.aab
-#
-#      - name: Upload AAB
-#        uses: actions/upload-artifact@v1
-#        with:
-#          name: AAB
-#          path: expo-project-$TRAVIS_COMMIT.aab
+          turtle build:android
+            --config app.json
+            --release-channel $CHANNEL
+            --keystore-path ./expo-project.jks
+            --keystore-alias $EXPO_ANDROID_KEYSTORE_ALIAS
+            --type app-bundle
+            -o expo-project-$TRAVIS_COMMIT.aab
+
+      - name: Upload AAB
+        uses: actions/upload-artifact@v1
+        with:
+          name: AAB
+          path: expo-project-$TRAVIS_COMMIT.aab
 
 #  build2:
 #    name: Build

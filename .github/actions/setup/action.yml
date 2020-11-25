@@ -14,6 +14,8 @@ runs:
 
         # echo "CHANNEL=$(node deploy/script/channel-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
         echo "CHANNEL=master" >> $GITHUB_ENV
+
+        echo "$(yarn global bin)" >> $GITHUB_PATH
       shell: bash
 
     - run:  echo CHANNEL $CHANNEL
