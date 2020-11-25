@@ -1,4 +1,7 @@
 
-const tag = process.argv[2];
+let tag = process.argv[2];
 
-console.log(tag.replace('refs/tags/', ''));
+tag = tag.replace('refs/heads/', '');
+tag = tag.replace('refs/tags/', '');
+
+console.log(tag);
