@@ -25,7 +25,8 @@ jobs:
           SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
           EXPO_USERNAME: secrethub://denniske/aoe2companion/expo_username
           EXPO_PASSWORD: secrethub://denniske/aoe2companion/expo_password
-      - run: yarn
+#      - run: yarn
+      - run: echo $TRAVIS_BRANCH
       - run: echo "CHANNEL=$(node deploy/script/channel-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
       - run: echo $CHANNEL
       - run: npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD --non-interactive
