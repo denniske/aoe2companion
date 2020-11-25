@@ -65,8 +65,8 @@ jobs:
           EXPO_ANDROID_KEY_PASSWORD: secrethub://denniske/aoe2companion/expo_android_key_password
 
       - run: sudo yarn global add gulp-cli turtle-cli@$TURTLE_VERSION
-      - run: turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null
       - run: yarn
+      - run: turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null
       - run: |
           echo $EXPO_ANDROID_KEYSTORE_BASE64 > expo-project.jks.base64
           base64 --decode expo-project.jks.base64 > expo-project.jks
