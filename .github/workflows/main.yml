@@ -7,7 +7,7 @@ on:
     tags:
       - '*'           # Push events to every tag
 
-name: Build and Publish server
+name: Build and Publish Server
 env:
   NODE_VERSION: 12.13.1
 jobs:
@@ -51,9 +51,6 @@ jobs:
           KUBERNETES_SERVER: secrethub://denniske/aoe2companion/kubernetes_server
           KUBERNETES_TOKEN: secrethub://denniske/aoe2companion/kubernetes_token
           KUBERNETES_CLUSTER_CERTIFICATE: secrethub://denniske/aoe2companion/kubernetes_cluster_certificate
-      - run: echo $COMMIT_SHA1
-      - run: echo $TRAVIS_BRANCH
-      - run: echo $DOCKERHUB_USERNAME
       - run: echo "SERVICE_NAME=$(node deploy/script/service-name-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
       - run: echo $SERVICE_NAME
       - run: sudo yarn global add nx
