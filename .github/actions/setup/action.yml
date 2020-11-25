@@ -14,8 +14,9 @@ runs:
 
         # echo "CHANNEL=$(node deploy/script/channel-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
         echo "CHANNEL=master" >> $GITHUB_ENV
-        echo $CHANNEL
+      shell: bash
 
+    - run:  echo $CHANNEL
       shell: bash
 
 # echo "DOCKERHUB_USERNAME=$(secrethub read denniske/dockerhub/username)" >> $GITHUB_ENV
