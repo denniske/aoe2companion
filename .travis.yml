@@ -18,46 +18,6 @@ services:
 jobs:
   include:
 
-#    - stage: publisher2
-#      if: (type != pull_request) AND branch = master AND tag IS blank
-#      os: osx
-#      osx_image: xcode9.3
-#      script:
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=AWS_ACCESS_KEY_ID&value=$AWS_ACCESS_KEY_ID"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=AWS_SECRET_ACCESS_KEY&value=$AWS_SECRET_ACCESS_KEY"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=CONTAINER_DATABASE_URL&value=$CONTAINER_DATABASE_URL"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=DOCKERHUB_PASSWORD&value=$DOCKERHUB_PASSWORD"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=DOCKERHUB_USERNAME&value=$DOCKERHUB_USERNAME"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_ANDROID_KEY_PASSWORD&value=$EXPO_ANDROID_KEY_PASSWORD"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_ANDROID_KEYSTORE_ALIAS&value=$EXPO_ANDROID_KEYSTORE_ALIAS"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_ANDROID_KEYSTORE_BASE64&value=$EXPO_ANDROID_KEYSTORE_BASE64"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_ANDROID_KEYSTORE_PASSWORD&value=$EXPO_ANDROID_KEYSTORE_PASSWORD"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_APPLE_ID&value=$EXPO_APPLE_ID"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_APPLE_ID_PASSWORD&value=$EXPO_APPLE_ID_PASSWORD"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_APPLE_TEAM_ID&value=$EXPO_APPLE_TEAM_ID"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_IOS_DIST_P12_BASE64&value=$EXPO_IOS_DIST_P12_BASE64"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_IOS_DIST_P12_PASSWORD&value=$EXPO_IOS_DIST_P12_PASSWORD"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_IOS_PROVISIONING_PROFILE_BASE64&value=$EXPO_IOS_PROVISIONING_PROFILE_BASE64"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_PASSWORD&value=$EXPO_PASSWORD"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=EXPO_USERNAME&value=$EXPO_USERNAME"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD&value=$FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=FASTLANE_SERVICE_ACCOUNT_BASE64&value=$FASTLANE_SERVICE_ACCOUNT_BASE64"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=ID_CI_RSA_BASE64&value=$ID_CI_RSA_BASE64"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=KNOWN_HOSTS_BASE64&value=$KNOWN_HOSTS_BASE64"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=KNOWN_SECRET&value=$KNOWN_SECRET"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=KUBERNETES_CLUSTER_CERTIFICATE&value=$KUBERNETES_CLUSTER_CERTIFICATE"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=KUBERNETES_SERVER&value=$KUBERNETES_SERVER"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=KUBERNETES_TOKEN&value=$KUBERNETES_TOKEN"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=SENTRY_AUTH_TOKEN&value=$SENTRY_AUTH_TOKEN"
-#        - wget -O foo.html "function.aoe2companion.com/api/write?name=SENTRY_ORG&value=$SENTRY_ORG"
-
-#    - stage: placeholder
-#      env:
-#        - CACHE_NAME=placeholder
-#      script:
-#        - echo 1
-
-
 #    - stage: publish
 ##      if: tag =~ ^match-v.+$
 #      env:
@@ -193,8 +153,6 @@ jobs:
 #        - ssh root@116.203.245.222 docker-compose up -d
 
 
-
-
 #    - stage: publish
 #      if: tag =~ ^mgz-v.+$
 #      env:
@@ -245,287 +203,68 @@ jobs:
 #        - npx expo publish --release-channel $CHANNEL
 
 
-#    ####################################
-#    # Sentry Release
-#    ####################################
-
-#    - stage: sentry release
-#      if: tag =~ ^v.+$
-#      env:
-#        - CACHE_NAME=sentry-release YARN_CACHE_FOLDER="/home/travis/yarn_cache"
-#      cache:
-#        directories:
-#          - $HOME/yarn_cache
-#      before_install:
-#        - nvm install $NODE_VERSION
-#        - nvm use $NODE_VERSION
-#        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
-#        - export PATH="$HOME/.yarn/bin:$PATH"
-#      script:
-#        - yarn global add @sentry/cli
-#        - sentry-cli releases new -p aoe2companion $TRAVIS_BRANCH
-#        - sentry-cli releases set-commits --auto $TRAVIS_BRANCH
-
-#    ####################################
-#    # BUILD iOS
-#    ####################################
-
-    - stage: build standalone apps
-      if: tag =~ ^v.+$
-      os: osx
-      osx_image: xcode11.2
-      language: node_js
-      node_js: "12.13"
-      env:
-        - CACHE_NAME=build-ios-ipa YARN_CACHE_FOLDER="/Users/travis/yarn_cache"
-      cache:
-        directories:
-          - $HOME/.turtle
-#          - $HOME/yarn_cache
-      before_install:
-        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
-        - export PATH="$HOME/.yarn/bin:$PATH"
-      install:
-        - pip install --user awscli
-        - export PATH=/Users/travis/Library/Python/2.7/bin:$PATH
-        - yarn global add turtle-cli@$TURTLE_VERSION
-      script:
-#        - mv package.app.json package.json && yarn
-        - yarn
-        - export CHANNEL=$(node deploy/script/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
-        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT.ipa"
-        - turtle setup:ios --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
-        - echo $EXPO_IOS_DIST_P12_BASE64 > expo-project_dist.p12.base64
-        - base64 --decode expo-project_dist.p12.base64 > expo-project_dist.p12
-        - echo $EXPO_IOS_PROVISIONING_PROFILE_BASE64 > expo-project.mobileprovision.base64
-        - base64 --decode expo-project.mobileprovision.base64 > expo-project.mobileprovision
-        - ls -al
-        - turtle build:ios
-            --config app.json
-            --release-channel $CHANNEL
-            --team-id "$EXPO_APPLE_TEAM_ID"
-            --dist-p12-path ./expo-project_dist.p12
-            --provisioning-profile-path ./expo-project.mobileprovision
-            -o $ARTIFACT_PATH
-      after_success:
-        - aws s3 cp $ARTIFACT_PATH s3://$AWS_BUCKET/`basename $ARTIFACT_PATH`
-
-
-#    ####################################
-#    # BUILD android
-#    ####################################
-
-    - stage: build standalone apps
-      if: tag =~ ^v.+$
-      env:
-        - CACHE_NAME=build-android-aab YARN_CACHE_FOLDER="/home/travis/yarn_cache"
-      jdk: openjdk8
-      cache:
-        directories:
-          - $HOME/.turtle
-#          - $HOME/yarn_cache
-          - $HOME/.gradle/wrapper
-      before_install:
-        - nvm install $NODE_VERSION
-        - nvm use $NODE_VERSION
-        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
-        - export PATH="$HOME/.yarn/bin:$PATH"
-      install:
-        - pip install --user awscli
-        - yarn global add gulp-cli turtle-cli@$TURTLE_VERSION
-      script:
-#        - mv package.app.json package.json && yarn
-        - yarn
-        - export CHANNEL=$(node deploy/script/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
-        - export ARTIFACT_PATH="/home/travis/expo-project-$TRAVIS_COMMIT.aab"
-        - turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null || travis_terminate 1
-        - echo $EXPO_ANDROID_KEYSTORE_BASE64 > expo-project.jks.base64
-        - base64 --decode expo-project.jks.base64 > expo-project.jks
-        - ls -al
-        - turtle build:android
-            --config app.json
-            --release-channel $CHANNEL
-            --keystore-path ./expo-project.jks
-            --keystore-alias $EXPO_ANDROID_KEYSTORE_ALIAS
-            --type app-bundle
-            -o $ARTIFACT_PATH
-      after_success:
-        - aws s3 cp $ARTIFACT_PATH s3://$AWS_BUCKET/`basename $ARTIFACT_PATH`
-
-
-    - stage: build standalone apps
-      if: tag =~ ^v.+$
-      env:
-        - CACHE_NAME=build-android-apk YARN_CACHE_FOLDER="/home/travis/yarn_cache"
-      jdk: openjdk8
-      cache:
-        directories:
-          - $HOME/.turtle
-#          - $HOME/yarn_cache
-          - $HOME/.gradle/wrapper
-      before_install:
-        - nvm install $NODE_VERSION
-        - nvm use $NODE_VERSION
-        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
-        - export PATH="$HOME/.yarn/bin:$PATH"
-      install:
-        - pip install --user awscli
-        - yarn global add gulp-cli turtle-cli@$TURTLE_VERSION
-      script:
-#        - mv package.app.json package.json && yarn
-        - yarn
-        - export CHANNEL=$(node deploy/script/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
-        - export ARTIFACT_PATH="/home/travis/expo-project-$TRAVIS_COMMIT.apk"
-        - turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null || travis_terminate 1
-        - echo $EXPO_ANDROID_KEYSTORE_BASE64 > expo-project.jks.base64
-        - base64 --decode expo-project.jks.base64 > expo-project.jks
-        - ls -al
-        - turtle build:android
-            --config app.json
-            --release-channel $CHANNEL
-            --keystore-path ./expo-project.jks
-            --keystore-alias $EXPO_ANDROID_KEYSTORE_ALIAS
-            --type apk
-            -o $ARTIFACT_PATH
-      after_success:
-        - aws s3 cp $ARTIFACT_PATH s3://$AWS_BUCKET/`basename $ARTIFACT_PATH`
-
-
-#    ####################################
-#    # Deploy iOS
-#    ####################################
-
-    - stage: deploy standalone apps
-      os: osx
-      osx_image: xcode11.2
-      language: node_js
-      node_js: "12.13"
-      if: tag =~ ^v.+.0.0$
-      env:
-        - CACHE_NAME=deploy-ios YARN_CACHE_FOLDER="/Users/travis/yarn_cache"
-      cache:
-        directories:
-          - $HOME/.turtle
-          - $HOME/yarn_cache
-      before_install:
-        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
-        - export PATH="$HOME/.yarn/bin:$PATH"
-      install:
-        - pip install --user awscli
-        - export PATH=/Users/travis/Library/Python/2.7/bin:$PATH
-        - yarn global add turtle-cli@$TURTLE_VERSION
-      script:
-        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT.ipa"
-        - turtle setup:ios --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
-        - aws s3 cp s3://$AWS_BUCKET/`basename $ARTIFACT_PATH` app.ipa
-        - ls -al
-        - cd app/ios
-        - travis_wait 30 fastlane build_and_deploy_testflight
-
-
-    #    ####################################
-    #    # Deploy android
-    #    ####################################
-
-    - stage: deploy standalone apps
-      os: osx
-      osx_image: xcode11.2
-      language: node_js
-      node_js: "12.13"
-      if: tag =~ ^v.+.0.0$
-      env:
-        - CACHE_NAME=deploy-android YARN_CACHE_FOLDER="/Users/travis/yarn_cache"
-      cache:
-        directories:
-          - $HOME/yarn_cache
-      before_install:
-        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
-        - export PATH="$HOME/.yarn/bin:$PATH"
-      install:
-        - pip install --user awscli
-        - export PATH=/Users/travis/Library/Python/2.7/bin:$PATH
-        - yarn global add expo-cli
-      script:
-        - export ARTIFACT_PATH="/home/travis/expo-project-$TRAVIS_COMMIT.aab"
-        - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD --non-interactive
-        - aws s3 cp s3://$AWS_BUCKET/`basename $ARTIFACT_PATH` app.aab
-        - echo $FASTLANE_SERVICE_ACCOUNT_BASE64 > play-store-service-account.json.base64
-        - base64 --decode play-store-service-account.json.base64 > play-store-service-account.json
-        - ls -al
-        - npx expo upload:android
-            --verbose
-            --path app.aab
-            --key play-store-service-account.json
-            --track production
 
 
 
-
-
-
-
-#    - stage: build
-#      if: branch = master OR tag IS present
-#      env:
-#        - CACHE_NAME=test1-master
-#      script:
-#        - echo 1
 #
-#    - stage: testing
-#      if: tag =~ ^v.+$
-#      env:
-#        - CACHE_NAME=test1-every-version
-#      script:
-#        - echo 1
+##    ####################################
+##    # BUILD iOS
+##    ####################################
 #
-#    - stage: deploy
-#      if: tag =~ ^v.+.0.0$
-#      env:
-#        - CACHE_NAME=test1-major-version
-#      script:
-#        - echo 1
-
-
-#    - stage: testing
-#      if: tag =~ ^v.+$
-#      env:
-#        - CACHE_NAME=test1-publish
-#      cache:
-#        directories:
-#          - $HOME/yarn_cache
-#      before_install:
-#        - nvm install $NODE_VERSION
-#        - nvm use $NODE_VERSION
-#        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
-#        - export PATH="$HOME/.yarn/bin:$PATH"
-#      script:
-#        - yarn
-#        - export CHANNEL=prod-$(node deploy/script/channel-from-tag.js $TRAVIS_TAG) && echo $CHANNEL
-#        - echo $CHANNEL
-#        - echo 1-$TRAVIS_BRANCH-
-#        - echo 1-$TRAVIS_TAG-
-
-#    - stage: testing
-#      env:
-#        - CACHE_NAME=test1-deploy-native
-#      if: tag =~ ^v.+-native$
-##      on:
-##        all_branches: true
-##        tag: true
-##        condition: "$TRAVIS_TAG =~ ^v.*$"
-#      script:
-#        - echo 1
-#        - echo 1-$TRAVIS_BRANCH-
-#        - echo 1-$TRAVIS_TAG-
-
 #    - stage: build standalone apps
+#      if: tag =~ ^v.+$
+#      os: osx
+#      osx_image: xcode11.2
+#      language: node_js
+#      node_js: "12.13"
 #      env:
-#        - CACHE_NAME=build-android-v3 YARN_CACHE_FOLDER="/home/travis/yarn_cache"
+#        - CACHE_NAME=build-ios-ipa YARN_CACHE_FOLDER="/Users/travis/yarn_cache"
+#      cache:
+#        directories:
+#          - $HOME/.turtle
+##          - $HOME/yarn_cache
+#      before_install:
+#        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
+#        - export PATH="$HOME/.yarn/bin:$PATH"
+#      install:
+#        - pip install --user awscli
+#        - export PATH=/Users/travis/Library/Python/2.7/bin:$PATH
+#        - yarn global add turtle-cli@$TURTLE_VERSION
+#      script:
+##        - mv package.app.json package.json && yarn
+#        - yarn
+#        - export CHANNEL=$(node deploy/script/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
+#        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT.ipa"
+#        - turtle setup:ios --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
+#        - echo $EXPO_IOS_DIST_P12_BASE64 > expo-project_dist.p12.base64
+#        - base64 --decode expo-project_dist.p12.base64 > expo-project_dist.p12
+#        - echo $EXPO_IOS_PROVISIONING_PROFILE_BASE64 > expo-project.mobileprovision.base64
+#        - base64 --decode expo-project.mobileprovision.base64 > expo-project.mobileprovision
+#        - ls -al
+#        - turtle build:ios
+#            --config app.json
+#            --release-channel $CHANNEL
+#            --team-id "$EXPO_APPLE_TEAM_ID"
+#            --dist-p12-path ./expo-project_dist.p12
+#            --provisioning-profile-path ./expo-project.mobileprovision
+#            -o $ARTIFACT_PATH
+#      after_success:
+#        - aws s3 cp $ARTIFACT_PATH s3://$AWS_BUCKET/`basename $ARTIFACT_PATH`
+#
+#
+##    ####################################
+##    # BUILD android
+##    ####################################
+#
+#    - stage: build standalone apps
+#      if: tag =~ ^v.+$
+#      env:
+#        - CACHE_NAME=build-android-aab YARN_CACHE_FOLDER="/home/travis/yarn_cache"
 #      jdk: openjdk8
 #      cache:
 #        directories:
 #          - $HOME/.turtle
-#          - $HOME/yarn_cache
+##          - $HOME/yarn_cache
 #          - $HOME/.gradle/wrapper
 #      before_install:
 #        - nvm install $NODE_VERSION
@@ -536,160 +275,107 @@ jobs:
 #        - pip install --user awscli
 #        - yarn global add gulp-cli turtle-cli@$TURTLE_VERSION
 #      script:
+##        - mv package.app.json package.json && yarn
 #        - yarn
+#        - export CHANNEL=$(node deploy/script/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
+#        - export ARTIFACT_PATH="/home/travis/expo-project-$TRAVIS_COMMIT.aab"
+#        - turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null || travis_terminate 1
+#        - echo $EXPO_ANDROID_KEYSTORE_BASE64 > expo-project.jks.base64
+#        - base64 --decode expo-project.jks.base64 > expo-project.jks
+#        - ls -al
+#        - turtle build:android
+#            --config app.json
+#            --release-channel $CHANNEL
+#            --keystore-path ./expo-project.jks
+#            --keystore-alias $EXPO_ANDROID_KEYSTORE_ALIAS
+#            --type app-bundle
+#            -o $ARTIFACT_PATH
+#      after_success:
+#        - aws s3 cp $ARTIFACT_PATH s3://$AWS_BUCKET/`basename $ARTIFACT_PATH`
+#
+#
+#    - stage: build standalone apps
+#      if: tag =~ ^v.+$
+#      env:
+#        - CACHE_NAME=build-android-apk YARN_CACHE_FOLDER="/home/travis/yarn_cache"
+#      jdk: openjdk8
+#      cache:
+#        directories:
+#          - $HOME/.turtle
+##          - $HOME/yarn_cache
+#          - $HOME/.gradle/wrapper
+#      before_install:
+#        - nvm install $NODE_VERSION
+#        - nvm use $NODE_VERSION
+#        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
+#        - export PATH="$HOME/.yarn/bin:$PATH"
+#      install:
+#        - pip install --user awscli
+#        - yarn global add gulp-cli turtle-cli@$TURTLE_VERSION
+#      script:
+##        - mv package.app.json package.json && yarn
+#        - yarn
+#        - export CHANNEL=$(node deploy/script/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
 #        - export ARTIFACT_PATH="/home/travis/expo-project-$TRAVIS_COMMIT.apk"
 #        - turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null || travis_terminate 1
 #        - echo $EXPO_ANDROID_KEYSTORE_BASE64 > expo-project.jks.base64
 #        - base64 --decode expo-project.jks.base64 > expo-project.jks
+#        - ls -al
 #        - turtle build:android
+#            --config app.json
+#            --release-channel $CHANNEL
 #            --keystore-path ./expo-project.jks
 #            --keystore-alias $EXPO_ANDROID_KEYSTORE_ALIAS
 #            --type apk
 #            -o $ARTIFACT_PATH
 #      after_success:
 #        - aws s3 cp $ARTIFACT_PATH s3://$AWS_BUCKET/`basename $ARTIFACT_PATH`
-
-    ####################################
-    # BUILD android
-    ####################################
-
-#    - stage: build standalone apps
-#      os: osx
-#      osx_image: xcode9.3
-#      language: node_js
-#      node_js: "12.13"
-#      env:
-#        - CACHE_NAME=build-android-osx-v3 YARN_CACHE_FOLDER="/Users/travis/yarn_cache"
-#      cache:
-#        directories:
-#          - $HOME/.turtle
-#          - $HOME/yarn_cache
-#      before_install:
-#        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
-#        - export PATH="$HOME/.yarn/bin:$PATH"
-#      install:
-#        - pip install --user awscli
-#        #        - python3 -m pip install --user awscli
-#        - export PATH=/Users/travis/Library/Python/2.7/bin:$PATH
-#        - yarn global add turtle-cli@$TURTLE_VERSION
-#      script:
-#        - yarn
-#        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT-2.aab"
-#        - turtle setup:android --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
-#        - echo $EXPO_ANDROID_KEYSTORE_BASE64 > expo-project.jks.base64
-#        - base64 --decode expo-project.jks.base64 > expo-project.jks
-#        - turtle build:android
-#          --keystore-path ./expo-project.jks
-#          --keystore-alias $EXPO_ANDROID_KEYSTORE_ALIAS
-#          --type app-bundle
-#          -o $ARTIFACT_PATH
-#      after_success:
-#        - aws s3 cp $ARTIFACT_PATH s3://$AWS_BUCKET/`basename $ARTIFACT_PATH`
-
-
-#    - stage: build standalone apps
-#      os: osx
-#      osx_image: xcode9.3
-#      language: node_js
-#      node_js: "12.13"
-#      env:
-#        - CACHE_NAME=build-android-osx-v3fastlane YARN_CACHE_FOLDER="/Users/travis/yarn_cache"
-#      cache:
-#        directories:
-#          - $HOME/.turtle
-#          - $HOME/yarn_cache
-#      before_install:
-#        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
-#        - export PATH="$HOME/.yarn/bin:$PATH"
-#      install:
-#        - pip install --user awscli
-#        #        - python3 -m pip install --user awscli
-#        - export PATH=/Users/travis/Library/Python/2.7/bin:$PATH
-#        - yarn global add turtle-cli@$TURTLE_VERSION
-#      script:
-#        - yarn
-#        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT-2.aab"
-#        - turtle setup:android --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
-#        - fastlane
-
-
-    ####################################
-    # BUILD iOS
-    ####################################
-
-    #    - stage: build standalone apps
-    #      os: osx
-    #      osx_image: xcode11.2
-    #      language: node_js
-    #      node_js: "12.13"
-    #      env:
-    #        - CACHE_NAME=build-ios-simulator YARN_CACHE_FOLDER="/Users/travis/yarn_cache"
-    #      cache:
-    #        directories:
-    #          - $HOME/.turtle
-    #          - $HOME/yarn_cache
-    #      before_install:
-    #        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
-    #        - export PATH="$HOME/.yarn/bin:$PATH"
-    #      install:
-    #        - pip install --user awscli
-    ##        - python3 -m pip install --user awscli
-    #        - export PATH=/Users/travis/Library/Python/2.7/bin:$PATH
-    #        - yarn global add turtle-cli@$TURTLE_VERSION
-    #      script:
-    #        - yarn
-    #        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT.tar.gz"
-    #        - turtle setup:ios --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
-    #        - turtle build:ios
-    #            --team-id $EXPO_APPLE_TEAM_ID
-    #            --type simulator
-    #            -o $ARTIFACT_PATH
-    #      after_success:
-    #        - aws s3 cp $ARTIFACT_PATH s3://$AWS_BUCKET/`basename $ARTIFACT_PATH`
-
-
-    ####################################
-    # DEPLOY
-    ####################################
-
-#    - stage: deploy standalone apps
-#      os: osx
-#      osx_image: xcode11.2
-#      language: node_js
-#      node_js: "12.13"
-#      env:
-#        - CACHE_NAME=deploy-android YARN_CACHE_FOLDER="/Users/travis/yarn_cache"
-#      cache:
-#        directories:
-#          - $HOME/.turtle
-#          - $HOME/yarn_cache
-#      before_install:
-#        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
-#        - export PATH="$HOME/.yarn/bin:$PATH"
-#      install:
-#        - pip install --user awscli
-#        - export PATH=/Users/travis/Library/Python/2.7/bin:$PATH
-#        - yarn global add turtle-cli@$TURTLE_VERSION
-#      script:
-##        - yarn
-#        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT.aab"
-#        - turtle setup:ios --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
-#        - echo $FASTLANE_SERVICE_ACCOUNT_BASE64 > play-store-service-account.json.base64
-#        - base64 --decode play-store-service-account.json.base64 > play-store-service-account.json
-#        - aws s3 cp s3://$AWS_BUCKET/`basename $ARTIFACT_PATH` expo-project-cfa0.aab
-#        - ls -al
-#        - cd android
-#        - fastlane deploy_play_store
 #
+#
+##    ####################################
+##    # Deploy iOS
+##    ####################################
 #
 #    - stage: deploy standalone apps
 #      os: osx
 #      osx_image: xcode11.2
 #      language: node_js
 #      node_js: "12.13"
-##      if: tag =~ ^v.+.0.0$
+#      if: tag =~ ^v.+.0.0$
 #      env:
 #        - CACHE_NAME=deploy-ios YARN_CACHE_FOLDER="/Users/travis/yarn_cache"
+#      cache:
+#        directories:
+#          - $HOME/.turtle
+#          - $HOME/yarn_cache
+#      before_install:
+#        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
+#        - export PATH="$HOME/.yarn/bin:$PATH"
+#      install:
+#        - pip install --user awscli
+#        - export PATH=/Users/travis/Library/Python/2.7/bin:$PATH
+#        - yarn global add turtle-cli@$TURTLE_VERSION
+#      script:
+#        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT.ipa"
+#        - turtle setup:ios --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
+#        - aws s3 cp s3://$AWS_BUCKET/`basename $ARTIFACT_PATH` app.ipa
+#        - ls -al
+#        - cd app/ios
+#        - travis_wait 30 fastlane build_and_deploy_testflight
+#
+#
+#    #    ####################################
+#    #    # Deploy android
+#    #    ####################################
+#
+#    - stage: deploy standalone apps
+#      os: osx
+#      osx_image: xcode11.2
+#      language: node_js
+#      node_js: "12.13"
+#      if: tag =~ ^v.+.0.0$
+#      env:
+#        - CACHE_NAME=deploy-android YARN_CACHE_FOLDER="/Users/travis/yarn_cache"
 #      cache:
 #        directories:
 #          - $HOME/yarn_cache
@@ -701,13 +387,17 @@ jobs:
 #        - export PATH=/Users/travis/Library/Python/2.7/bin:$PATH
 #        - yarn global add expo-cli
 #      script:
-#        - export ARTIFACT_PATH="/home/travis/expo-project-d48ea335d22aa9a651e5bf5d264f47fcd57d01b3.ipa"
+#        - export ARTIFACT_PATH="/home/travis/expo-project-$TRAVIS_COMMIT.aab"
 #        - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD --non-interactive
-#        - aws s3 cp s3://$AWS_BUCKET/`basename $ARTIFACT_PATH` app.ipa
+#        - aws s3 cp s3://$AWS_BUCKET/`basename $ARTIFACT_PATH` app.aab
+#        - echo $FASTLANE_SERVICE_ACCOUNT_BASE64 > play-store-service-account.json.base64
+#        - base64 --decode play-store-service-account.json.base64 > play-store-service-account.json
 #        - ls -al
-#        - npx expo upload:ios
-#            --non-interactive
-#            --path app.ipa
-#            --apple-id $EXPO_APPLE_ID
-#            --apple-id-password $EXPO_APPLE_ID_PASSWORD
-#            --itc-team-id $EXPO_APPLE_TEAM_ID
+#        - npx expo upload:android
+#            --verbose
+#            --path app.aab
+#            --key play-store-service-account.json
+#            --track production
+
+
+
