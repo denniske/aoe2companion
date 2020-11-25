@@ -1,0 +1,38 @@
+# https://hackernoon.com/the-only-sane-way-to-setup-fastlane-on-a-mac-4a14cb8549c8
+
+on: push
+
+name: Build and Publish server
+env:
+  NODE_VERSION: 12.13.1
+jobs:
+
+  prepare:
+    name: Prepare
+    runs-on: ubuntu-latest
+    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v1
+      - uses: nick-invision/persist-action-data@v1
+        with:
+          data: 123
+          variable: SOME_STEP_OUTPUT
+#      - name: Setup Secrets
+#        uses: secrethub/actions/env-export@v0.2.1
+#        env:
+#          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
+#          DOCKERHUB_USERNAME: secrethub://denniske/aoe2companion/dockerhub_username
+#      - run: echo $COMMIT_SHA1
+
+  run:
+    name: Run
+    runs-on: ubuntu-latest
+    needs: [prepare]
+    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v1
+      - uses: nick-invision/persist-action-data@v1
+        with:
+          data: 456
+          retrieve_variables: SOME_STEP_OUTPUT
+      - run: echo $SOME_STEP_OUTPUT

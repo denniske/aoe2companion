@@ -195,54 +195,54 @@ jobs:
 
 
 
-    - stage: publish
-      if: tag =~ ^mgz-v.+$
-      env:
-        - CACHE_NAME=mgz
-        - IMAGE_NAME=denniske/aoe2companion-mgz
-      before_install:
-        - sudo apt-get update
-        - sudo apt-get -y install gettext-base
-        - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-        - chmod u+x ./kubectl
-        - sudo mv kubectl /usr/local/bin/
-      script:
-        - cd mgz
-        - ls -al
-        - docker build -f deploy/Dockerfile -t $IMAGE_NAME:$TRAVIS_COMMIT .
-        - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-        - docker push $IMAGE_NAME:$TRAVIS_COMMIT
-        - cd deploy
-        - bash ./deploy.sh
+#    - stage: publish
+#      if: tag =~ ^mgz-v.+$
+#      env:
+#        - CACHE_NAME=mgz
+#        - IMAGE_NAME=denniske/aoe2companion-mgz
+#      before_install:
+#        - sudo apt-get update
+#        - sudo apt-get -y install gettext-base
+#        - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+#        - chmod u+x ./kubectl
+#        - sudo mv kubectl /usr/local/bin/
+#      script:
+#        - cd mgz
+#        - ls -al
+#        - docker build -f deploy/Dockerfile -t $IMAGE_NAME:$TRAVIS_COMMIT .
+#        - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+#        - docker push $IMAGE_NAME:$TRAVIS_COMMIT
+#        - cd deploy
+#        - bash ./deploy.sh
 
 
     ####################################
     # PUBLISH
     ####################################
 
-    - stage: publish
-      if: (type != pull_request) AND ((branch = master AND tag IS blank) OR tag =~ ^v.+$)
-      env:
-        - CACHE_NAME=publish YARN_CACHE_FOLDER="/home/travis/yarn_cache"
-#      cache:
-#        directories:
-#          - $HOME/yarn_cache
-      before_install:
-        - nvm install $NODE_VERSION
-        - nvm use $NODE_VERSION
-        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
-        - export PATH="$HOME/.yarn/bin:$PATH"
-      script:
-#        - mv package.json package.old.json && mv package.app.json package.json && yarn && mv package.old.json package.json
-        - yarn
-        - export CHANNEL=$(node deploy/script/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
-        - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD --non-interactive
-        - sudo sysctl fs.inotify.max_user_instances=524288
-        - sudo sysctl fs.inotify.max_user_watches=524288
-        - sudo sysctl fs.inotify.max_queued_events=524288
-        - sysctl -p
-        - cat package.json
-        - npx expo publish --release-channel $CHANNEL
+#    - stage: publish
+#      if: (type != pull_request) AND ((branch = master AND tag IS blank) OR tag =~ ^v.+$)
+#      env:
+#        - CACHE_NAME=publish YARN_CACHE_FOLDER="/home/travis/yarn_cache"
+##      cache:
+##        directories:
+##          - $HOME/yarn_cache
+#      before_install:
+#        - nvm install $NODE_VERSION
+#        - nvm use $NODE_VERSION
+#        - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
+#        - export PATH="$HOME/.yarn/bin:$PATH"
+#      script:
+##        - mv package.json package.old.json && mv package.app.json package.json && yarn && mv package.old.json package.json
+#        - yarn
+#        - export CHANNEL=$(node deploy/script/channel-from-tag.js $TRAVIS_BRANCH) && echo $CHANNEL
+#        - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD --non-interactive
+#        - sudo sysctl fs.inotify.max_user_instances=524288
+#        - sudo sysctl fs.inotify.max_user_watches=524288
+#        - sudo sysctl fs.inotify.max_queued_events=524288
+#        - sysctl -p
+#        - cat package.json
+#        - npx expo publish --release-channel $CHANNEL
 
 
 #    ####################################
