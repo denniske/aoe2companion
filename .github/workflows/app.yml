@@ -66,8 +66,9 @@ jobs:
           EXPO_ANDROID_KEYSTORE_PASSWORD: secrethub://denniske/aoe2companion/expo_android_keystore_password
           EXPO_ANDROID_KEY_PASSWORD: secrethub://denniske/aoe2companion/expo_android_key_password
 
-      - run: echo kk \
-        kk
+      - run: |
+          echo kk \
+          kk
       - run: >
           echo kk
           kk
