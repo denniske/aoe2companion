@@ -117,6 +117,23 @@ jobs:
 #          EXPO_IOS_PROVISIONING_PROFILE_BASE64: secrethub://denniske/aoe2companion/expo_ios_provisioning_profile_base64
 
       - run: brew install secrethub/tools/secrethub-cli
+      - run: brew install secrethub/tools/secrethub-cli
+
+#      - run: secrethub read denniske/aoe2companion/expo_username
+#      - run: secrethub read denniske/aoe2companion/expo_password
+#      - run: secrethub read denniske/aoe2companion/expo_apple_team_id
+#      - run: secrethub read denniske/aoe2companion/expo_ios_dist_p12_password
+#      - run: secrethub read denniske/aoe2companion/expo_ios_dist_p12_base64
+#      - run: secrethub read denniske/aoe2companion/expo_ios_provisioning_profile_base64
+
+      - run: echo "EXPO_USERNAME=$(secrethub read denniske/aoe2companion/expo_username)" >> $GITHUB_ENV
+      - run: echo "EXPO_PASSWORD=$(secrethub read denniske/aoe2companion/expo_password)" >> $GITHUB_ENV
+      - run: echo "EXPO_APPLE_TEAM_ID=$(secrethub read denniske/aoe2companion/expo_apple_team_id)" >> $GITHUB_ENV
+      - run: echo "EXPO_IOS_DIST_P12_PASSWORD=$(secrethub read denniske/aoe2companion/expo_ios_dist_p12_password)" >> $GITHUB_ENV
+      - run: echo "EXPO_IOS_DIST_P12_BASE64=$(secrethub read denniske/aoe2companion/expo_ios_dist_p12_base64)" >> $GITHUB_ENV
+      - run: echo "EXPO_IOS_PROVISIONING_PROFILE_BASE64=$(secrethub read denniske/aoe2companion/expo_ios_provisioning_profile_base64)" >> $GITHUB_ENV
+
+
       - run: |
           secrethub read denniske/aoe2companion/expo_username
           echo "EXPO_USERNAME=$(secrethub read denniske/aoe2companion/expo_username)" >> $GITHUB_ENV
