@@ -117,7 +117,8 @@ jobs:
 #          EXPO_IOS_PROVISIONING_PROFILE_BASE64: secrethub://denniske/aoe2companion/expo_ios_provisioning_profile_base64
 
       - run: brew install secrethub/tools/secrethub-cli
-      - run: brew install secrethub/tools/secrethub-cli
+
+#      - run: brew install secrethub/tools/secrethub-cli
 
 #      - run: secrethub read denniske/aoe2companion/expo_username
 #      - run: secrethub read denniske/aoe2companion/expo_password
@@ -126,43 +127,41 @@ jobs:
 #      - run: secrethub read denniske/aoe2companion/expo_ios_dist_p12_base64
 #      - run: secrethub read denniske/aoe2companion/expo_ios_provisioning_profile_base64
 
-      - run: echo "EXPO_USERNAME=$(secrethub read denniske/aoe2companion/expo_username)" >> $GITHUB_ENV
-      - run: echo "EXPO_PASSWORD=$(secrethub read denniske/aoe2companion/expo_password)" >> $GITHUB_ENV
-      - run: echo "EXPO_APPLE_TEAM_ID=$(secrethub read denniske/aoe2companion/expo_apple_team_id)" >> $GITHUB_ENV
-      - run: echo "EXPO_IOS_DIST_P12_PASSWORD=$(secrethub read denniske/aoe2companion/expo_ios_dist_p12_password)" >> $GITHUB_ENV
-      - run: echo "EXPO_IOS_DIST_P12_BASE64=$(secrethub read denniske/aoe2companion/expo_ios_dist_p12_base64)" >> $GITHUB_ENV
-      - run: echo "EXPO_IOS_PROVISIONING_PROFILE_BASE64=$(secrethub read denniske/aoe2companion/expo_ios_provisioning_profile_base64)" >> $GITHUB_ENV
-
+#      - run: echo "EXPO_USERNAME=$(secrethub read denniske/aoe2companion/expo_username)" >> $GITHUB_ENV
+#      - run: echo "EXPO_PASSWORD=$(secrethub read denniske/aoe2companion/expo_password)" >> $GITHUB_ENV
+#      - run: echo "EXPO_APPLE_TEAM_ID=$(secrethub read denniske/aoe2companion/expo_apple_team_id)" >> $GITHUB_ENV
+#      - run: echo "EXPO_IOS_DIST_P12_PASSWORD=$(secrethub read denniske/aoe2companion/expo_ios_dist_p12_password)" >> $GITHUB_ENV
+#      - run: echo "EXPO_IOS_DIST_P12_BASE64=$(secrethub read denniske/aoe2companion/expo_ios_dist_p12_base64)" >> $GITHUB_ENV
+#      - run: echo "EXPO_IOS_PROVISIONING_PROFILE_BASE64=$(secrethub read denniske/aoe2companion/expo_ios_prov_profile_base64)" >> $GITHUB_ENV
 
       - run: |
-          secrethub read denniske/aoe2companion/expo_username
           echo "EXPO_USERNAME=$(secrethub read denniske/aoe2companion/expo_username)" >> $GITHUB_ENV
           echo "EXPO_PASSWORD=$(secrethub read denniske/aoe2companion/expo_password)" >> $GITHUB_ENV
           echo "EXPO_APPLE_TEAM_ID=$(secrethub read denniske/aoe2companion/expo_apple_team_id)" >> $GITHUB_ENV
           echo "EXPO_IOS_DIST_P12_PASSWORD=$(secrethub read denniske/aoe2companion/expo_ios_dist_p12_password)" >> $GITHUB_ENV
           echo "EXPO_IOS_DIST_P12_BASE64=$(secrethub read denniske/aoe2companion/expo_ios_dist_p12_base64)" >> $GITHUB_ENV
-          echo "EXPO_IOS_PROVISIONING_PROFILE_BASE64=$(secrethub read denniske/aoe2companion/expo_ios_provisioning_profile_base64)" >> $GITHUB_ENV
+          echo "EXPO_IOS_PROVISIONING_PROFILE_BASE64=$(secrethub read denniske/aoe2companion/expo_ios_prov_profile_base64)" >> $GITHUB_ENV
 
-#      - run: yarn global add gulp-cli turtle-cli@$TURTLE_VERSION
-#      - run: yarn
-#      - run: turtle setup:ios --sdk-version $EXPO_SDK_VERSION > /dev/null
-#      - run: echo $EXPO_IOS_DIST_P12_BASE64 | base64 --decode > expo-project_dist.p12
-#      - run: echo $EXPO_IOS_PROVISIONING_PROFILE_BASE64 | base64 --decode > expo-project.mobileprovision
-#      - run: "
-#          turtle build:ios
-#            --config app.json
-#            --release-channel $CHANNEL
-#            --team-id \"$EXPO_APPLE_TEAM_ID\"
-#            --dist-p12-path ./expo-project_dist.p12
-#            --provisioning-profile-path ./expo-project.mobileprovision
-#            -o expo-project-$TRAVIS_COMMIT.ipa
-#        "
-#
-#      - name: Upload Artifact
-#        uses: actions/upload-artifact@v1
-#        with:
-#          name: expo-project-${{ env.TRAVIS_COMMIT }}.ipa
-#          path: expo-project-${{ env.TRAVIS_COMMIT }}.ipa
+      - run: yarn global add gulp-cli turtle-cli@$TURTLE_VERSION
+      - run: yarn
+      - run: turtle setup:ios --sdk-version $EXPO_SDK_VERSION > /dev/null
+      - run: echo $EXPO_IOS_DIST_P12_BASE64 | base64 --decode > expo-project_dist.p12
+      - run: echo $EXPO_IOS_PROVISIONING_PROFILE_BASE64 | base64 --decode > expo-project.mobileprovision
+      - run: "
+          turtle build:ios
+            --config app.json
+            --release-channel $CHANNEL
+            --team-id \"$EXPO_APPLE_TEAM_ID\"
+            --dist-p12-path ./expo-project_dist.p12
+            --provisioning-profile-path ./expo-project.mobileprovision
+            -o expo-project-$TRAVIS_COMMIT.ipa
+        "
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: expo-project-${{ env.TRAVIS_COMMIT }}.ipa
+          path: expo-project-${{ env.TRAVIS_COMMIT }}.ipa
 
 #        - echo $EXPO_IOS_DIST_P12_BASE64 > expo-project_dist.p12.base64
 #        - base64 --decode expo-project_dist.p12.base64 > expo-project_dist.p12
