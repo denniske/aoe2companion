@@ -40,61 +40,61 @@ jobs:
 #      - run: yarn
 #      - run: npx expo publish --release-channel $CHANNEL
 
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-#    needs: [publish]
-#    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0')
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-
-      - name: Setup Env
-        uses: ./.github/actions/setup
-      - name: Setup Node
-        uses: actions/setup-node@v2.1.2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-      - name: Setup Secrets
-        uses: secrethub/actions/env-export@v0.2.1
-        env:
-          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
-          EXPO_USERNAME: secrethub://denniske/aoe2companion/expo_username
-          EXPO_PASSWORD: secrethub://denniske/aoe2companion/expo_password
-          EXPO_ANDROID_KEYSTORE_BASE64: secrethub://denniske/aoe2companion/expo_android_keystore_base64
-          EXPO_ANDROID_KEYSTORE_ALIAS: secrethub://denniske/aoe2companion/expo_android_keystore_alias
-          EXPO_ANDROID_KEYSTORE_PASSWORD: secrethub://denniske/aoe2companion/expo_android_keystore_password
-          EXPO_ANDROID_KEY_PASSWORD: secrethub://denniske/aoe2companion/expo_android_key_password
-
+#  build:
+#    name: Build
+#    runs-on: ubuntu-latest
+##    needs: [publish]
+##    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0')
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v1
+#
+#      - name: Setup Env
+#        uses: ./.github/actions/setup
+#      - name: Setup Node
+#        uses: actions/setup-node@v2.1.2
+#        with:
+#          node-version: ${{ env.NODE_VERSION }}
+#      - name: Setup Secrets
+#        uses: secrethub/actions/env-export@v0.2.1
+#        env:
+#          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
+#          EXPO_USERNAME: secrethub://denniske/aoe2companion/expo_username
+#          EXPO_PASSWORD: secrethub://denniske/aoe2companion/expo_password
+#          EXPO_ANDROID_KEYSTORE_BASE64: secrethub://denniske/aoe2companion/expo_android_keystore_base64
+#          EXPO_ANDROID_KEYSTORE_ALIAS: secrethub://denniske/aoe2companion/expo_android_keystore_alias
+#          EXPO_ANDROID_KEYSTORE_PASSWORD: secrethub://denniske/aoe2companion/expo_android_keystore_password
+#          EXPO_ANDROID_KEY_PASSWORD: secrethub://denniske/aoe2companion/expo_android_key_password
+#
+##      - run: |
+##          echo kk \
+##          kk
+##      - run: >
+##          echo kk
+##          kk
+#
+#      - run: npm config set unsafe-perm true
+#      - run: yarn global add gulp-cli turtle-cli@$TURTLE_VERSION
+#      - run: yarn
+#      - run: turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null
 #      - run: |
-#          echo kk \
-#          kk
+#          echo $EXPO_ANDROID_KEYSTORE_BASE64 > expo-project.jks.base64
+#          base64 --decode expo-project.jks.base64 > expo-project.jks
+#          ls -al
 #      - run: >
-#          echo kk
-#          kk
-
-      - run: npm config set unsafe-perm true
-      - run: yarn global add gulp-cli turtle-cli@$TURTLE_VERSION
-      - run: yarn
-      - run: turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null
-      - run: |
-          echo $EXPO_ANDROID_KEYSTORE_BASE64 > expo-project.jks.base64
-          base64 --decode expo-project.jks.base64 > expo-project.jks
-          ls -al
-      - run: >
-          turtle build:android \
-            --config app.json \
-            --release-channel $CHANNEL \
-            --keystore-path ./expo-project.jks \
-            --keystore-alias $EXPO_ANDROID_KEYSTORE_ALIAS \
-            --type app-bundle \
-            -o expo-project-$TRAVIS_COMMIT.aab
-
-      - name: Upload AAB
-        uses: actions/upload-artifact@v1
-        with:
-          name: AAB
-          path: expo-project-$TRAVIS_COMMIT.aab
+#          turtle build:android \
+#            --config app.json \
+#            --release-channel $CHANNEL \
+#            --keystore-path ./expo-project.jks \
+#            --keystore-alias $EXPO_ANDROID_KEYSTORE_ALIAS \
+#            --type app-bundle \
+#            -o expo-project-$TRAVIS_COMMIT.aab
+#
+#      - name: Upload AAB
+#        uses: actions/upload-artifact@v1
+#        with:
+#          name: AAB
+#          path: expo-project-$TRAVIS_COMMIT.aab
 
 
   build2:
@@ -138,14 +138,14 @@ jobs:
           echo $EXPO_ANDROID_KEYSTORE_BASE64 > expo-project.jks.base64
           base64 --decode expo-project.jks.base64 > expo-project.jks
           ls -al
-      - run: |
+      - run: >
           turtle build:android \
-            --config app.json \
-            --release-channel $CHANNEL \
-            --keystore-path ./expo-project.jks \
-            --keystore-alias $EXPO_ANDROID_KEYSTORE_ALIAS \
-            --type app-bundle \
-            -o expo-project-$TRAVIS_COMMIT.aab
+          --config app.json \
+          --release-channel $CHANNEL \
+          --keystore-path ./expo-project.jks \
+          --keystore-alias $EXPO_ANDROID_KEYSTORE_ALIAS \
+          --type app-bundle \
+          -o expo-project-$TRAVIS_COMMIT.aab
 
       - name: Upload AAB
         uses: actions/upload-artifact@v1
