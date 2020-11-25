@@ -3,13 +3,18 @@
 on: push
 
 name: App
+
 env:
   NODE_VERSION: 12.13.1
+  EXPO_SDK_VERSION: 38.0.0
+  TURTLE_VERSION: 0.17.1
+
 jobs:
 
   publish:
     name: Publish
     runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0')
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -25,12 +30,16 @@ jobs:
           SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
           EXPO_USERNAME: secrethub://denniske/aoe2companion/expo_username
           EXPO_PASSWORD: secrethub://denniske/aoe2companion/expo_password
-#      - run: yarn
-#      - run: echo $TRAVIS_BRANCH
-#      - run: echo "CHANNEL=$(node deploy/script/channel-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
-#      - run: echo $CHANNEL
-#      - run: npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD --non-interactive
-#      - run: npx expo publish --release-channel $CHANNEL
+
+      - uses: expo/expo-github-action@v5
+        with:
+          expo-version: 3.x
+          expo-username: ${{ env.EXPO_USERNAME }}
+          expo-password: ${{ env.EXPO_PASSWORD }}
+  #      - run: npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD --non-interactive
+
+      - run: yarn
+      - run: npx expo publish --release-channel $CHANNEL
 
   build:
     name: Build
@@ -41,11 +50,48 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    needs: [build]
-    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0.0')
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
+      - name: Setup Env
+        uses: ./.github/actions/setup
+      - name: Setup Node
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Setup Secrets
+        uses: secrethub/actions/env-export@v0.2.1
+        env:
+          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
+          EXPO_ANDROID_KEYSTORE_BASE64: secrethub://denniske/aoe2companion/expo_android_keystore_base64
+          EXPO_ANDROID_KEYSTORE_ALIAS: secrethub://denniske/aoe2companion/expo_android_keystore_alias
+          EXPO_ANDROID_KEYSTORE_PASSWORD: secrethub://denniske/aoe2companion/expo_android_keystore_password
+          EXPO_ANDROID_KEY_PASSWORD: secrethub://denniske/aoe2companion/expo_android_key_password
+
+      - run: yarn global add gulp-cli turtle-cli@$TURTLE_VERSION
+      - run: yarn
+      - run: turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null
+      - run: |
+          echo $EXPO_ANDROID_KEYSTORE_BASE64 > expo-project.jks.base64
+          base64 --decode expo-project.jks.base64 > expo-project.jks
+          ls -al
+      - run: |
+          turtle build:android
+            --config app.json
+            --release-channel $CHANNEL
+            --keystore-path ./expo-project.jks
+            --keystore-alias $EXPO_ANDROID_KEYSTORE_ALIAS
+            --type app-bundle
+            -o expo-project-$TRAVIS_COMMIT.aab
+
+      - name: Upload AAB
+        uses: actions/upload-artifact@v1
+        with:
+          name: AAB
+          path: expo-project-$TRAVIS_COMMIT.aab
+
+#  deploy:
+#    name: Deploy
+#    runs-on: ubuntu-latest
+#    needs: [build]
+#    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0.0')
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v1
