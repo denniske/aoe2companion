@@ -68,7 +68,8 @@ jobs:
 
       - run: echo kk \
         kk
-      - run: echo kk
+      - run: >
+          echo kk
           kk
 #      - run: npm config set unsafe-perm true
 #      - run: |
