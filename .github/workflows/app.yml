@@ -2,7 +2,7 @@
 
 on: push
 
-name: Build and Publish App
+name: App
 env:
   NODE_VERSION: 12.13.1
 jobs:

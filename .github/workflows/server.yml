@@ -1,37 +1,33 @@
-# https://hackernoon.com/the-only-sane-way-to-setup-fastlane-on-a-mac-4a14cb8549c8
-
-#on: push
 
 on:
   push:
     tags:
-      - '*'           # Push events to every tag
+      - 'refetch-v*'
+      - 'refetch-v*'
+      - 'refetch-again-v*'
+      - 'refetch-repair-v*'
+      - 'refetch-multiple-v*'
+      - 'refetch-late-v*'
+      - 'refetch-result-v*'
+      - 'import-v*'
+      - 'ingest-v*'
+      - 'ingest-fast-v*'
+      - 'notify-v*'
+      - 'proxy-v*'
+      - 'rating-history-v*'
+      - 'metric-v*'
+      - 'api-v*'
+      - 'function-v*'
+      - 'rank-v*'
+      - 'replay-v*'
 
-name: Build and Publish Server
+name: Server
 env:
   NODE_VERSION: 12.13.1
 jobs:
 
   build-and-publish-server:
-    if: |
-      startsWith(github.ref, 'refs/tags/refetch') ||
-      startsWith(github.ref, 'refs/tags/refetch-again') ||
-      startsWith(github.ref, 'refs/tags/refetch-repair') ||
-      startsWith(github.ref, 'refs/tags/refetch-multiple') ||
-      startsWith(github.ref, 'refs/tags/refetch-late') ||
-      startsWith(github.ref, 'refs/tags/refetch-result') ||
-      startsWith(github.ref, 'refs/tags/import') ||
-      startsWith(github.ref, 'refs/tags/ingest') ||
-      startsWith(github.ref, 'refs/tags/ingest-fast') ||
-      startsWith(github.ref, 'refs/tags/notify') ||
-      startsWith(github.ref, 'refs/tags/proxy') ||
-      startsWith(github.ref, 'refs/tags/rating-history') ||
-      startsWith(github.ref, 'refs/tags/metric') ||
-      startsWith(github.ref, 'refs/tags/api') ||
-      startsWith(github.ref, 'refs/tags/function') ||
-      startsWith(github.ref, 'refs/tags/rank') ||
-      startsWith(github.ref, 'refs/tags/replay')
-    name: Build and Publish server Internal
+    name: Build and Publish Server
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
