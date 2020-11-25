@@ -76,7 +76,7 @@ jobs:
           echo $EXPO_ANDROID_KEYSTORE_BASE64 > expo-project.jks.base64
           base64 --decode expo-project.jks.base64 > expo-project.jks
           ls -al
-      - run: |
+      - run: >-
           turtle build:android
             --config app.json
             --release-channel $CHANNEL
