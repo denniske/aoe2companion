@@ -59,6 +59,8 @@ jobs:
         uses: secrethub/actions/env-export@v0.2.1
         env:
           SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
+          EXPO_USERNAME: secrethub://denniske/aoe2companion/expo_username
+          EXPO_PASSWORD: secrethub://denniske/aoe2companion/expo_password
           EXPO_ANDROID_KEYSTORE_BASE64: secrethub://denniske/aoe2companion/expo_android_keystore_base64
           EXPO_ANDROID_KEYSTORE_ALIAS: secrethub://denniske/aoe2companion/expo_android_keystore_alias
           EXPO_ANDROID_KEYSTORE_PASSWORD: secrethub://denniske/aoe2companion/expo_android_keystore_password
