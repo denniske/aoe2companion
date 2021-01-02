@@ -70,6 +70,7 @@ export default function AboutPage() {
             <MyText style={styles.content}>Noorulhuda Paleja</MyText>
             <MyText style={styles.content}>Pikmans030</MyText>
             <MyText style={styles.content}>pseudovictor</MyText>
+            <MyText style={styles.content}>Riccardo Pilotti</MyText>
             <MyText style={styles.content}>Ron</MyText>
             <MyText style={styles.content}>Samuel Monarrez</MyText>
             <MyText style={styles.content}>Sihing Mo</MyText>
