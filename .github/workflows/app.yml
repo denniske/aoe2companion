@@ -51,7 +51,6 @@ jobs:
 #    steps:
 #      - name: Checkout
 #        uses: actions/checkout@v1
-#
 #      - name: Setup Env
 #        uses: ./.github/actions/setup
 #      - name: Setup Node
@@ -98,7 +97,6 @@ jobs:
 #    steps:
 #      - name: Checkout
 #        uses: actions/checkout@v1
-#
 #      - name: Setup Env
 #        uses: ./.github/actions/setup
 #      - name: Setup Node
@@ -139,15 +137,14 @@ jobs:
 
 
 
-  deploy-ios:
-    name: Deploy iOS
+  deploy-android:
+    name: Deploy Android
     runs-on: macos-latest
-#    needs: [build-ios]
+    #    needs: [build-android]
     if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0.0')
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-
       - name: Setup Env
         uses: ./.github/actions/setup
       - name: Setup Node
@@ -160,39 +157,67 @@ jobs:
       - run: |
           echo "AWS_ACCESS_KEY_ID=$(secrethub read denniske/aoe2companion/aws_access_key_id)" >> $GITHUB_ENV
           echo "AWS_SECRET_ACCESS_KEY=$(secrethub read denniske/aoe2companion/aws_secret_access_key)" >> $GITHUB_ENV
-          echo "EXPO_APPLE_ID=$(secrethub read denniske/aoe2companion/expo_apple_id)" >> $GITHUB_ENV
-          echo "EXPO_APPLE_ID_PASSWORD=$(secrethub read denniske/aoe2companion/expo_apple_id_password)" >> $GITHUB_ENV
-          echo "EXPO_APPLE_TEAM_ID=$(secrethub read denniske/aoe2companion/expo_apple_team_id)" >> $GITHUB_ENV
-          echo "EXPO_APPLE_AUTH_KEY_P8_BASE64=$(secrethub read denniske/aoe2companion/expo_apple_auth_key_p8_base64)" >> $GITHUB_ENV
+          echo "EXPO_USERNAME=$(secrethub read denniske/aoe2companion/expo_username)" >> $GITHUB_ENV
+          echo "EXPO_PASSWORD=$(secrethub read denniske/aoe2companion/expo_password)" >> $GITHUB_ENV
+          echo "FASTLANE_SERVICE_ACCOUNT_BASE64=$(secrethub read denniske/aoe2companion/fastlane_service_account_base64)" >> $GITHUB_ENV
 
-      - run: aws s3 cp s3://build.aoe2companion.com/expo-project-1ae1668b05de8b5acdb95b0645e5f1e342d7d250.ipa app.ipa
+      - uses: expo/expo-github-action@v5
+        with:
+          expo-version: ${{ env.EXPO_CLI_VERSION }}
+          expo-username: ${{ env.EXPO_USERNAME }}
+          expo-password: ${{ env.EXPO_PASSWORD }}
 
-      - run: echo $EXPO_APPLE_AUTH_KEY_P8_BASE64 | base64 --decode > auth_key.p8
+      - run: aws s3 cp s3://build.aoe2companion.com/expo-project-1ae1668b05de8b5acdb95b0645e5f1e342d7d250.aab app.aab
 
-      - run: yarn global add turtle-cli@$TURTLE_VERSION
-      - run: turtle setup:ios --sdk-version $EXPO_SDK_VERSION
+      - run: echo $FASTLANE_SERVICE_ACCOUNT_BASE64 | base64 --decode > play-store-service-account.json
+
       - run: ls -al
 
-      - run: |
-          cd app/ios
-          fastlane build_and_deploy_testflight
+      - run: "
+          npx expo upload:android
+            --verbose
+            --path app.aab
+            --key play-store-service-account.json
+            --track production
+        "
 
 
-
-# Deployment
-#        - export ARTIFACT_PATH="/Users/travis/expo-project-$TRAVIS_COMMIT.ipa"
-#        - turtle setup:ios --sdk-version $EXPO_SDK_VERSION || travis_terminate 1
-#        - aws s3 cp s3://$AWS_BUCKET/`basename $ARTIFACT_PATH` app.ipa
-#        - ls -al
-#        - cd app/ios
-#        - travis_wait 30 fastlane build_and_deploy_testflight
-
-
-
-
-
-
-
+#  deploy-ios:
+#    name: Deploy iOS
+#    runs-on: macos-latest
+##    needs: [build-ios]
+#    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0.0')
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v1
+#      - name: Setup Env
+#        uses: ./.github/actions/setup
+#      - name: Setup Node
+#        uses: actions/setup-node@v2.1.2
+#        with:
+#          node-version: ${{ env.NODE_VERSION }}
+#
+#      - run: brew install secrethub/tools/secrethub-cli
+#
+#      - run: |
+#          echo "AWS_ACCESS_KEY_ID=$(secrethub read denniske/aoe2companion/aws_access_key_id)" >> $GITHUB_ENV
+#          echo "AWS_SECRET_ACCESS_KEY=$(secrethub read denniske/aoe2companion/aws_secret_access_key)" >> $GITHUB_ENV
+#          echo "EXPO_APPLE_ID=$(secrethub read denniske/aoe2companion/expo_apple_id)" >> $GITHUB_ENV
+#          echo "EXPO_APPLE_ID_PASSWORD=$(secrethub read denniske/aoe2companion/expo_apple_id_password)" >> $GITHUB_ENV
+#          echo "EXPO_APPLE_TEAM_ID=$(secrethub read denniske/aoe2companion/expo_apple_team_id)" >> $GITHUB_ENV
+#          echo "EXPO_APPLE_AUTH_KEY_P8_BASE64=$(secrethub read denniske/aoe2companion/expo_apple_auth_key_p8_base64)" >> $GITHUB_ENV
+#
+#      - run: aws s3 cp s3://build.aoe2companion.com/expo-project-1ae1668b05de8b5acdb95b0645e5f1e342d7d250.ipa app.ipa
+#
+#      - run: echo $EXPO_APPLE_AUTH_KEY_P8_BASE64 | base64 --decode > auth_key.p8
+#
+#      - run: yarn global add turtle-cli@$TURTLE_VERSION
+#      - run: turtle setup:ios --sdk-version $EXPO_SDK_VERSION
+#      - run: ls -al
+#
+#      - run: |
+#          cd app/ios
+#          fastlane build_and_deploy_testflight
 
 
 
@@ -210,7 +235,6 @@ jobs:
 #    steps:
 #      - name: Checkout
 #        uses: actions/checkout@v1
-#
 #      - name: Setup Env
 #        uses: ./.github/actions/setup
 #      - name: Setup Node
@@ -313,7 +337,6 @@ jobs:
 #    steps:
 #      - name: Checkout
 #        uses: actions/checkout@v1
-#
 #      - name: Setup Env
 #        uses: ./.github/actions/setup
 #      - name: Setup Node
