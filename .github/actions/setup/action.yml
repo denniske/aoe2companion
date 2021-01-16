@@ -26,4 +26,5 @@ runs:
     - run:  echo CHANNEL $CHANNEL
       shell: bash
 
+
 # echo "DOCKERHUB_USERNAME=$(secrethub read denniske/dockerhub/username)" >> $GITHUB_ENV
