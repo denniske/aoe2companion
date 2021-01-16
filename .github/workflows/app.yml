@@ -148,10 +148,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - run: pwd
-      - run: cd app/ios
-      - run: pwd
-
       - name: Setup Env
         uses: ./.github/actions/setup
       - name: Setup Node
@@ -176,9 +172,10 @@ jobs:
       - run: yarn global add turtle-cli@$TURTLE_VERSION
       - run: turtle setup:ios --sdk-version $EXPO_SDK_VERSION
       - run: ls -al
-      - run: cd app/ios
-      - run: pwd
-      - run: fastlane build_and_deploy_testflight
+
+      - run: |
+          cd app/ios
+          fastlane build_and_deploy_testflight
 
 
 
