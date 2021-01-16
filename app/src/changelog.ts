@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '20.0.0': [
+        {
+            type: 'minor',
+            title: 'Internal changes',
+        },
+    ],
     '19.0.3': [
         {
             type: 'bugfix',
