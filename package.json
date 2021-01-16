@@ -159,7 +159,7 @@
     "babel-loader": "^8.1.0",
     "babel-preset-expo": "^8.2.3",
     "cavy": "^4.0.0",
-    "expo-cli": "^3.27.4",
+    "expo-cli": "4.0.17",
     "react-native-debugger-open": "^0.3.24",
     "semver": "^7.3.2",
     "ts-node": "^8.10.2",
