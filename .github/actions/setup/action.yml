@@ -20,6 +20,9 @@ runs:
         echo "$(yarn global bin)" >> $GITHUB_PATH
       shell: bash
 
+    - run:  echo TRAVIS_BRANCH $TRAVIS_BRANCH
+      shell: bash
+
     - run:  echo CHANNEL $CHANNEL
       shell: bash
 
