@@ -18,12 +18,18 @@ export default function WinratesPage() {
     const [height, setHeight] = useState(400);
 
     const runFirst = `
-        // note: need to wait until page loaded and use setTimeout to work     
+        // android: use timeout
+        setTimeout(function() {
+            document.querySelector("div>a.BuyMeACoffe-module--bmc-button--3AWbh").remove();
+        }, 1000);
+    
+        // ios: need to wait until page loaded and use setTimeout to work     
         window.onload = function() {
             setTimeout(function() {
                 document.querySelector("div>a.BuyMeACoffe-module--bmc-button--3AWbh").remove();
             }, 1000);
         };
+        
         true; // note: this is required, or you'll sometimes get silent failures
     `;
 
