@@ -33,3 +33,6 @@ node_modules
 
 design
 *.aoe2record
+
+__pycache__
+
