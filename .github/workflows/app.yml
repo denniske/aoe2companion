@@ -176,6 +176,7 @@ jobs:
       - run: "
           npx expo upload:android
             --verbose
+            --type aab
             --path app.aab
             --key play-store-service-account.json
             --track production
