@@ -7,15 +7,15 @@ runs:
         echo "COMMIT_SHA1=$GITHUB_SHA" >> $GITHUB_ENV
         echo "TRAVIS_COMMIT=$GITHUB_SHA" >> $GITHUB_ENV
         echo "TRAVIS_BRANCH=$(node deploy/script/clean-tag.js $GITHUB_REF)" >> $GITHUB_ENV
-        echo " I WROTE TRAVIS_BRANCH=$TRAVIS_BRANCH"
+      shell: bash
 
+    - run: |
         cd deploy
         yarn
         cd ..
 
-        echo "CHANNEL=$(node deploy/script/channel-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
-        echo " I WROTE CHANNEL=$(node deploy/script/channel-from-tag.js $TRAVIS_BRANCH)"
         # echo "CHANNEL=master" >> $GITHUB_ENV
+        echo "CHANNEL=$(node deploy/script/channel-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
 
         echo "$(yarn global bin)" >> $GITHUB_PATH
       shell: bash
@@ -25,6 +25,5 @@ runs:
 
     - run:  echo CHANNEL $CHANNEL
       shell: bash
-
 
 # echo "DOCKERHUB_USERNAME=$(secrethub read denniske/dockerhub/username)" >> $GITHUB_ENV
