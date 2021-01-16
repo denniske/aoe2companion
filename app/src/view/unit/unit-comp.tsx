@@ -20,7 +20,7 @@ export function UnitCompBig({unit, subtitle}: {unit: Unit, subtitle?: string}) {
     return (
         <TouchableOpacity onPress={() => navigation.push('Unit', {unit: unit})}>
             <View style={styles.rowBig}>
-                <Image style={styles.unitIconBig} source={getUnitIcon(unit)}/>
+                <Image fadeDuration={0} style={styles.unitIconBig} source={getUnitIcon(unit)}/>
                 <View style={styles.unitIconBigTitle}>
                     <MyText>{getUnitName(unit)}</MyText>
                     {
@@ -40,7 +40,7 @@ export function UnitCompBigWithCiv({unit}: {unit: Unit}) {
     return (
         <TouchableOpacity onPress={() => navigation.push('Unit', {unit: unit})}>
             <View style={styles.rowBig}>
-                <Image style={styles.unitIconBig} source={getUnitIcon(unit)}/>
+                <Image fadeDuration={0} style={styles.unitIconBig} source={getUnitIcon(unit)}/>
                 <View style={styles.unitIconBigTitle}>
                     <MyText>{getUnitName(unit)}</MyText>
                     {/*{*/}
@@ -59,7 +59,7 @@ export function UnitLineCompBig({unitLine}: {unitLine: UnitLine}) {
     return (
         <TouchableOpacity onPress={() => navigation.push('Unit', {unit: unitLine})}>
             <View style={styles.rowBig}>
-                <Image style={styles.unitIconBig} source={getUnitLineIcon(unitLine)}/>
+                <Image fadeDuration={0} style={styles.unitIconBig} source={getUnitLineIcon(unitLine)}/>
                 <View style={styles.unitIconBigTitle}>
                     <MyText>{getUnitLineName(unitLine)}</MyText>
                     {

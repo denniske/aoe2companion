@@ -53,7 +53,7 @@ export default function UnitList() {
                     // if (civ) {
                     //     return (
                     //         <View style={styles.row}>
-                    //             {/*<Image source={getCivIcon(civ)} style={styles.unitIcon}/>*/}
+                    //             {/*<Image fadeDuration={0} source={getCivIcon(civ)} style={styles.unitIcon}/>*/}
                     //             <Text style={styles.heading}>{title}</Text>
                     //         </View>
                     //     );

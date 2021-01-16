@@ -64,7 +64,7 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                       {
                           group.upgrades.map(upgrade =>
                               <View style={styles.row} key={upgrade.name}>
-                                  <Image style={styles.unitIcon} source={getTechIcon(upgrade.tech)}/>
+                                  <Image fadeDuration={0} style={styles.unitIcon} source={getTechIcon(upgrade.tech)}/>
                                   <MyText style={styles.unitDesc}>
                                       <MyText style={appStyles.link} onPress={() => gotoTech(upgrade.tech!)}>{getTechName(upgrade.tech)}</MyText>
                                       <MyText size="footnote">
@@ -94,7 +94,7 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                   </View>
                   <TouchableOpacity onPress={() => gotoUnit(upgradedFrom)}>
                       <View style={styles.row}>
-                          <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(upgradedFrom)}/>
+                          <Image fadeDuration={0} style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(upgradedFrom)}/>
                           <MyText style={styles.unitDesc}>{getUnitName(upgradedFrom)}</MyText>
                       </View>
                   </TouchableOpacity>
@@ -109,7 +109,7 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                   </View>
                   <TouchableOpacity disabled={unitLine.unique} onPress={() => gotoUnit(upgradedTo)}>
                       <View style={styles.row}>
-                          <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(upgradedTo)}/>
+                          <Image fadeDuration={0} style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(upgradedTo)}/>
                           <MyText style={styles.unitDesc}>{getUnitName(upgradedTo)}</MyText>
                           {
                               upgradeCost &&

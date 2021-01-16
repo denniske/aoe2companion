@@ -37,7 +37,7 @@ function Row({data}: IRowProps) {
             <View style={styles.row}>
                 <TouchableOpacity style={styles.cellLeaderboard} onPress={gotoPlayer}>
                     <View style={styles.row}>
-                        <Image style={styles.countryIcon} source={getFlagIcon(data.player.country)}/>
+                        <Image fadeDuration={0} style={styles.countryIcon} source={getFlagIcon(data.player.country)}/>
                         <MyText>{data.player.name}</MyText>
                     </View>
                 </TouchableOpacity>

@@ -699,7 +699,7 @@ function Ability2({civ, tech, unit, building}: AbilityProps) {
     const opacity = enabled ? 1 : 0.4;
     return (
         <TouchableOpacity style={[styles.imageContainer2, {borderColor: color, opacity: opacity}]} onPress={getAbilityNavCallback({tech, unit, building})}>
-            <ImageBackground source={getAbilityIcon({tech, unit, building})} imageStyle={styles.imageInner2} style={styles.image2}>
+            <ImageBackground fadeDuration={0} source={getAbilityIcon({tech, unit, building})} imageStyle={styles.imageInner2} style={styles.image2}>
                 {
                     !enabled &&
                     <Icon name={'close'} size={colSize-4} color="red" />
@@ -712,7 +712,7 @@ function Ability2({civ, tech, unit, building}: AbilityProps) {
 function Ability3({age}: Ability3Props) {
     return (
         <TouchableOpacity style={[styles.imageContainer3]}>
-            <ImageBackground source={getOtherIcon(age)} imageStyle={styles.imageInner2} style={styles.image2}/>
+            <ImageBackground fadeDuration={0} source={getOtherIcon(age)} imageStyle={styles.imageInner2} style={styles.image2}/>
         </TouchableOpacity>
     );
 }

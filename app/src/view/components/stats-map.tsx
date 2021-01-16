@@ -23,7 +23,7 @@ function Row({data}: IRowProps) {
     return (
             <View style={styles.row}>
                 <View style={styles.cellLeaderboard}>
-                    <Image style={styles.icon} source={getMapImage(data.map)}/>
+                    <Image fadeDuration={0} style={styles.icon} source={getMapImage(data.map)}/>
                     <MyText>{getMapName(data.map)}</MyText>
                 </View>
                 <MyText style={styles.cellGames}>

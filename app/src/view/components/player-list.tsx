@@ -42,7 +42,7 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
             >
                 <View style={styles.row}>
                     <View style={styles.cellName}>
-                        <Image style={styles.countryIcon} source={getFlagIcon(player.country)}/>
+                        <Image fadeDuration={0} style={styles.countryIcon} source={getFlagIcon(player.country)}/>
                         <MyText style={styles.name} numberOfLines={1}>{player.name}</MyText>
                     </View>
                     <MyText style={styles.cellGames}>{player.games}</MyText>

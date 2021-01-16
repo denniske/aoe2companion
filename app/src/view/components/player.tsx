@@ -82,7 +82,7 @@ export function Player({player, highlight}: IPlayerProps) {
 
             <TouchableOpacity style={styles.civCol} onPress={() => navigation.push('Civ', {civ: civs[player.civ]})}>
                 <View style={styles.row}>
-                    <Image style={styles.countryIcon} fadeDuration={0} source={getCivIconByIndex(player.civ) as any}/>
+                    <Image fadeDuration={0} style={styles.countryIcon} source={getCivIconByIndex(player.civ) as any}/>
                     <MyText> {getString('civ', player.civ)}</MyText>
                 </View>
             </TouchableOpacity>

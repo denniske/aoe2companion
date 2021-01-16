@@ -87,7 +87,9 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
             expandable={true}
             left={props => (
                 <View style={styles.row}>
-                    <ImageBackground source={getMapImage(data.map_type)}
+
+                    <ImageBackground fadeDuration={0}
+                                     source={getMapImage(data.map_type)}
                                      imageStyle={styles.imageInner}
                                      style={styles.map}>
                         {
@@ -96,7 +98,7 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
                         }
                         {
                             user == null &&
-                            <Image source={require('../../../assets/other/SkullCrown.png')} style={{marginLeft: -6,marginTop:-4, width: 17, height: 17}} />
+                            <Image fadeDuration={0} source={require('../../../assets/other/SkullCrown.png')} style={{marginLeft: -6,marginTop:-4, width: 17, height: 17}} />
                         }
                         {
                             data.players.some(p => sameUserNull(p, user) && p.won === false && p.team != -1) &&

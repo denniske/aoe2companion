@@ -56,7 +56,7 @@ export default function Header() {
     return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Image style={styles.icon} source={require('../../../assets/icon.png')}/>
+                    <Image fadeDuration={0} style={styles.icon} source={require('../../../assets/icon.png')}/>
                     <MyText>AoE II Companion</MyText>
 
                     {/*<Checkbox.Android*/}

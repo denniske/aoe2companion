@@ -20,7 +20,7 @@ function CounterUnit({unitLineId}: { unitLineId: UnitLine }) {
     return (
         <TouchableOpacity onPress={() => gotoUnit(unitLineId)}>
             <View style={styles.row}>
-                <Image style={styles.unitIcon} source={getUnitLineIcon(unitLineId)}/>
+                <Image fadeDuration={0} style={styles.unitIcon} source={getUnitLineIcon(unitLineId)}/>
                 <MyText style={styles.unitDesc}>
                     {getUnitLineName(unitLineId)}
                 </MyText>

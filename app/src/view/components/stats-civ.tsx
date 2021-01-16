@@ -30,7 +30,7 @@ function Row({data}: IRowProps) {
             <View style={styles.row}>
                 <TouchableOpacity style={styles.cellLeaderboard} onPress={gotoCiv}>
                     <View style={styles.row}>
-                        <Image style={styles.icon} source={getCivIcon(data.civ)}/>
+                        <Image fadeDuration={0} style={styles.icon} source={getCivIcon(data.civ)}/>
                         <MyText>{data.civ}</MyText>
                     </View>
                 </TouchableOpacity>

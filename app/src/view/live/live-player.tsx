@@ -50,7 +50,7 @@ export function LivePlayer({player}: IPlayerProps) {
                 <View style={styles.playerCountryCol}>
                     {
                         player.countryCode &&
-                        <Image style={styles.countryIcon} source={getFlagIcon(player.countryCode)}/>
+                        <Image fadeDuration={0} style={styles.countryIcon} source={getFlagIcon(player.countryCode)}/>
                     }
                 </View>
                 <MyText style={styles.playerRatingCol}>{player.rating}</MyText>

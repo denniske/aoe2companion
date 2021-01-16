@@ -239,7 +239,7 @@ export default function TipsPage() {
                                     }
                                     {
                                         !tip.icon &&
-                                        <Image style={styles.unitIconBig} source={tip.imageIcon ? tip.imageIcon : getAbilityIcon(tip)}/>
+                                        <Image fadeDuration={0} style={styles.unitIconBig} source={tip.imageIcon ? tip.imageIcon : getAbilityIcon(tip)}/>
                                     }
                                     <View style={styles.textContainer}>
                                         <MyText style={[styles.title, {fontWeight: currentTip.title == tip.title ? 'bold' : 'normal'}]}>{tip.title}</MyText>

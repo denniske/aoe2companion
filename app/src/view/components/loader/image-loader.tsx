@@ -22,7 +22,7 @@ export function ImageLoader(props: ImageLoaderProps) {
         );
     }
     return (
-        <Image {...(props as ImageProps)}/>
+        <Image fadeDuration={0} {...(props as ImageProps)}/>
     )
 }
 

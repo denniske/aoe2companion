@@ -23,7 +23,7 @@ export default function IconHeader(props: IconHeaderProps) {
                              style={styles.image}>
                 {
                     badgeIcon &&
-                    <Image style={styles.unitIconBigBanner} source={badgeIcon}/>
+                    <Image fadeDuration={0} style={styles.unitIconBigBanner} source={badgeIcon}/>
                 }
                 <MyText style={subtitle ? styles.titleSmall : styles.title} numberOfLines={1}>{text}</MyText>
                 {

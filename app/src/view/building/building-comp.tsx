@@ -15,7 +15,7 @@ export function BuildingCompBig({building: building}: any) {
     return (
         <TouchableOpacity onPress={() => navigation.push('Building', {building: building})}>
             <View style={styles.rowBig}>
-                <Image style={styles.unitIconBig} source={getBuildingIcon(building)}/>
+                <Image fadeDuration={0} style={styles.unitIconBig} source={getBuildingIcon(building)}/>
                 <View style={styles.unitIconBigTitle}>
                     <MyText>{getBuildingName(building)}</MyText>
                     <MyText numberOfLines={1} style={styles.base.small}>{getBuildingDescription(building)}</MyText>

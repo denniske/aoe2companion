@@ -94,7 +94,7 @@ export function CivList() {
                     civs.map((civ, i) =>
                         <TouchableOpacity key={civ} onPress={() => navigation.push('Civ', {civ})}>
                                 <View style={styles.civBlock}>
-                                    <Image style={styles.icon} source={getCivIconByIndex(i)}/>
+                                    <Image fadeDuration={0} style={styles.icon} source={getCivIconByIndex(i)}/>
                                     <View style={styles.civRow}>
                                         <MyText style={styles.name}>{civ}</MyText>
                                         <MyText style={styles.small} numberOfLines={1}>{getCivTeamBonus(civ)}</MyText>
