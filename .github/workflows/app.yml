@@ -147,6 +147,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
+      - run: brew install secrethub/tools/secrethub-cli
+      
       - run: |
           echo "AWS_ACCESS_KEY_ID=$(secrethub read denniske/aoe2companion/aws_access_key_id)" >> $GITHUB_ENV
           echo "AWS_SECRET_ACCESS_KEY=$(secrethub read denniske/aoe2companion/aws_secret_access_key)" >> $GITHUB_ENV
