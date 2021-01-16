@@ -100,8 +100,7 @@ export function FeedList() {
         setPrevFollowing(following);
     };
 
-
-    console.log(matches.data);
+    // console.log(matches.data);
 
     useEffect(() => {
         refresh();

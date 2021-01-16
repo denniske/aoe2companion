@@ -17,8 +17,8 @@ export default function Footer() {
     const [menu, setMenu] = useState(false);
     const navigationState = useNavigationStateExternal();
     const activeRoute = navigationState?.routes[0];
-    const notificationListener = useRef<any>();
-    const responseListener = useRef<any>();
+    // const notificationListener = useRef<any>();
+    // const responseListener = useRef<any>();
     // const initialRouteHandle = useRef<any>();
 
     const nav = async (route: keyof RootStackParamList) => {
@@ -40,53 +40,64 @@ export default function Footer() {
         return isActiveRoute ? styles.iconActive : styles.iconInPopup;
     };
 
-    const checkForSavedNotification = (elapsedMs: number = 0) => {
-        // console.log('checkForSavedNotification')
-        if (hasSavedNotification()) {
-            // console.log('checkForSavedNotification', 'hasSavedNotification')
-            nav('Feed');
-            return;
-        }
-        if (elapsedMs > 1000) {
-            // console.log('checkForSavedNotification', 'timeout')
-            return;
-        }
-        setTimeout(() => checkForSavedNotification(elapsedMs+100), 100);
-    };
-
+    const lastNotificationResponse = Notifications.useLastNotificationResponse();
     useEffect(() => {
-        // initialRouteHandle.current = setTimeout(() => {
-        //     nav('Main');
-        // }, 10);
-
-        try {
-            // Notification is received while the app is foregrounded
-            notificationListener.current = Notifications.addNotificationReceivedListener(notification2 => {
-                console.log('notificationListener', notification2);
-            });
-
-            // A user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
-            responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-                console.log('responseListener', response.notification);
-                // clearTimeout(initialRouteHandle.current);
-                nav('Feed');
-            });
-
-            checkForSavedNotification();
-        } catch(e) {
-            console.log(e);
+        if (lastNotificationResponse && lastNotificationResponse.actionIdentifier === Notifications.DEFAULT_ACTION_IDENTIFIER) {
+            console.log('responseListener (FOOTER)', lastNotificationResponse.notification);
+            // clearTimeout(initialRouteHandle.current);
+            nav('Feed');
         }
+    }, [lastNotificationResponse]);
 
-        return () => {
-            try {
-                // clearTimeout(initialRouteHandle.current);
-                Notifications.removeNotificationSubscription(notificationListener.current);
-                Notifications.removeNotificationSubscription(responseListener.current);
-            } catch(e) {
-                console.log(e);
-            }
-        };
-    }, []);
+
+
+    // const checkForSavedNotification = (elapsedMs: number = 0) => {
+    //     // console.log('checkForSavedNotification')
+    //     if (hasSavedNotification()) {
+    //         // console.log('checkForSavedNotification', 'hasSavedNotification')
+    //         nav('Feed');
+    //         return;
+    //     }
+    //     if (elapsedMs > 1000) {
+    //         // console.log('checkForSavedNotification', 'timeout')
+    //         return;
+    //     }
+    //     setTimeout(() => checkForSavedNotification(elapsedMs+100), 100);
+    // };
+
+    // useEffect(() => {
+    //     // initialRouteHandle.current = setTimeout(() => {
+    //     //     nav('Main');
+    //     // }, 10);
+    //
+    //     try {
+    //         // Notification is received while the app is foregrounded
+    //         notificationListener.current = Notifications.addNotificationReceivedListener(notification2 => {
+    //             console.log('notificationListener', notification2);
+    //         });
+    //
+    //         // A user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
+    //         responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+    //             console.log('responseListener', response.notification);
+    //             // clearTimeout(initialRouteHandle.current);
+    //             nav('Feed');
+    //         });
+    //
+    //         checkForSavedNotification();
+    //     } catch(e) {
+    //         console.log(e);
+    //     }
+    //
+    //     return () => {
+    //         try {
+    //             // clearTimeout(initialRouteHandle.current);
+    //             Notifications.removeNotificationSubscription(notificationListener.current);
+    //             Notifications.removeNotificationSubscription(responseListener.current);
+    //         } catch(e) {
+    //             console.log(e);
+    //         }
+    //     };
+    // }, []);
 
     // setTimeout(() => setMenu(true), 100);
 

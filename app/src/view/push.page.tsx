@@ -53,10 +53,11 @@ export default function PushPage() {
     const [expoPushToken, setExpoPushToken] = useState<string>();
     const [notification, setNotification] = useState<Notifications.Notification>();
     const notificationListener = useRef<any>();
-    const responseListener = useRef<any>();
+    const lastNotificationResponse = Notifications.useLastNotificationResponse();
     const account = useSelector(state => state.account);
 
     const log = (...message: any) => {
+        console.log('push', ...message);
         setMessages(messages => [...messages, message.join(' ')]);
     };
 
@@ -109,14 +110,8 @@ export default function PushPage() {
         try {
             // This listener is fired whenever a notification is received while the app is foregrounded
             notificationListener.current = Notifications.addNotificationReceivedListener(notification2 => {
-                log('notificationListener', notification2);
+                log('notificationListener (PUSH)', notification2);
                 setNotification(notification2);
-            });
-
-            // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
-            responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-                log('responseListener', response.notification);
-                setNotification(response.notification);
             });
         } catch(e) {
             log(e);
@@ -124,15 +119,20 @@ export default function PushPage() {
 
         return () => {
             try {
-                log('remove', notificationListener.current);
                 Notifications.removeNotificationSubscription(notificationListener.current);
-                log('remove2', responseListener);
-                Notifications.removeNotificationSubscription(responseListener.current);
             } catch(e) {
                 log(e);
             }
         };
     }, []);
+
+    // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
+    useEffect(() => {
+        if (lastNotificationResponse && lastNotificationResponse.actionIdentifier === Notifications.DEFAULT_ACTION_IDENTIFIER) {
+            log('responseListener (PUSH)', lastNotificationResponse.notification);
+            setNotification(lastNotificationResponse.notification);
+        }
+    }, [lastNotificationResponse]);
 
     return (
         <ScrollView

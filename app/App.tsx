@@ -7,7 +7,7 @@ import React, {useEffect} from 'react';
 import MainPage, {mainMenu} from './src/view/main.page';
 import {
     AsyncStorage, BackHandler,
-    Linking, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View, YellowBox
+    Linking, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View
 } from 'react-native';
 import Search from './src/view/components/search';
 import {createStackNavigator, StackNavigationProp, TransitionPresets} from '@react-navigation/stack';
@@ -28,9 +28,9 @@ import {
 import {useSelector} from './src/redux/reducer';
 import SearchPage from './src/view/search.page';
 import PrivacyPage from './src/view/privacy.page';
-import {AppLoading} from "expo";
+import AppLoading from 'expo-app-loading';
 import Icon5 from 'react-native-vector-icons/FontAwesome5';
-import { Notifications as LegacyNotifications } from 'expo';
+// import { Notifications as LegacyNotifications } from 'expo';
 // import {Tester, TestHookStore} from "cavy";
 import ExampleSpec from './src/ci/exampleSpec';
 import LeaderboardPage, {leaderboardMenu, LeaderboardTitle} from "./src/view/leaderboard.page";
@@ -66,10 +66,9 @@ import TipsPage from "./src/view/tips.page";
 import {setSavedNotification} from "./src/helper/notification";
 import initSentry from "./src/helper/sentry";
 import * as Device from 'expo-device';
-import { Clipboard } from 'react-native'
 import {LinkingOptions} from "@react-navigation/native/lib/typescript/src/types";
 import {createStylesheet} from './src/theming-new';
-
+import { LogBox } from "react-native";
 
 initSentry();
 
@@ -87,16 +86,19 @@ try {
 
 }
 
-YellowBox.ignoreWarnings(['Remote debugger', 'Unable to activate keep awake']);
+LogBox.ignoreLogs([
+    'Your project is accessing the following APIs from a deprecated global rather than a module import: Constants (expo- constants).',
+    'Remote debugger',
+    'Unable to activate keep awake',
+]);
 
 // HACK: Prevent "Expo pasted from CoreSimulator" notification from spamming continuously
-if (__DEV__) {
-    Clipboard.setString('');
-}
+// if (__DEV__) {
+//     Clipboard.setString('');
+// }
 
-const h1 = 5;
-
-const h2: number = 5;
+// const h1 = 5;
+// const h2: number = 5;
 
 const linking: LinkingOptions = {
     prefixes: ['https://aoe2companion.com', 'aoe2companion://'],
@@ -546,44 +548,44 @@ export function AppWrapper() {
 }
 
 
-let notificationListenerAndroid: any = null;
-let notificationListenerIOS: any = null;
+// let notificationListenerAndroid: any = null;
+// let notificationListenerIOS: any = null;
 
 // Workaround notification not received when app is killed | Android
-try {
-    if (Platform.OS === 'android') {
-        notificationListenerAndroid = Notifications.addNotificationResponseReceivedListener(({notification}) => {
-            setSavedNotification(notification);
-        });
-    }
-} catch(e) {
-    console.log(e);
-}
+// try {
+//     if (Platform.OS === 'android') {
+//         notificationListenerAndroid = Notifications.addNotificationResponseReceivedListener(({notification}) => {
+//             setSavedNotification(notification);
+//         });
+//     }
+// } catch(e) {
+//     console.log(e);
+// }
 
 export default function App() {
     // Workaround notification not received when app is killed | iOS
-    useEffect(() => {
-        try {
-            if (Platform.OS === 'ios') {
-                notificationListenerIOS = LegacyNotifications.addListener(({data}) => {
-                    setSavedNotification({
-                        request: {content: {data: {body: data}}},
-                    });
-                });
-            }
-        } catch (e) {
-            console.log(e);
-        }
-
-        return () => {
-            try {
-                notificationListenerAndroid?.remove();
-                notificationListenerIOS?.remove();
-            } catch (e) {
-                console.log(e);
-            }
-        };
-    }, []);
+    // useEffect(() => {
+    //     try {
+    //         if (Platform.OS === 'ios') {
+    //             notificationListenerIOS = LegacyNotifications.addListener(({data} : any) => {
+    //                 setSavedNotification({
+    //                     request: {content: {data: {body: data}}},
+    //                 });
+    //             });
+    //         }
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    //
+    //     return () => {
+    //         try {
+    //             notificationListenerAndroid?.remove();
+    //             notificationListenerIOS?.remove();
+    //         } catch (e) {
+    //             console.log(e);
+    //         }
+    //     };
+    // }, []);
 
     // Prevent closing of app when back button is tapped.
     // View navigation using back button is still possible.

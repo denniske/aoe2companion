@@ -1,7 +1,6 @@
 import React from 'react';
-import { Linking, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Constants from 'expo-constants';
-import { useLinkTo, useNavigation } from '@react-navigation/native';
+import { StyleSheet, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import { RootStackParamList, RootStackProp } from '../../App';
 import {MyText} from "./components/my-text";
