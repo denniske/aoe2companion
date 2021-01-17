@@ -1,5 +1,5 @@
 import {
-    Image, ImageStyle, Platform, StatusBar, StyleSheet, Text, TextStyle, TouchableOpacity, View, ViewStyle
+    Image, ImageStyle, Linking, Platform, StatusBar, StyleSheet, Text, TextStyle, TouchableOpacity, View, ViewStyle
 } from 'react-native';
 import React, {useState} from 'react';
 import {Checkbox, IconButton, Menu, useTheme as usePaperTheme} from 'react-native-paper';
@@ -69,6 +69,18 @@ export default function Header() {
                     {/*<MyText>Light Mode</MyText>*/}
 
                     <View style={appStyles.expanded}/>
+
+                    {/*{*/}
+                    {/*    Platform.OS === 'web' &&*/}
+                    {/*    <MyText>Download App</MyText>*/}
+                    {/*}*/}
+
+                    {
+                        !__DEV__ && Platform.OS === 'web' &&
+                        <TouchableOpacity onPress={() => window.open('https://aoe2companion.com', '_blank')}>
+                            <MyText style={appStyles.link}>aoe2companion.com</MyText>
+                        </TouchableOpacity>
+                    }
 
                     {
                         __DEV__ &&
