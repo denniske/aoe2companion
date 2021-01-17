@@ -6,7 +6,7 @@ import {DefaultTheme as NavigationDefaultTheme, DarkTheme as NavigationDarkTheme
 import React, {useEffect} from 'react';
 import MainPage, {mainMenu} from './src/view/main.page';
 import {
-    AsyncStorage, BackHandler,
+    BackHandler,
     Linking, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View
 } from 'react-native';
 import Search from './src/view/components/search';
@@ -86,11 +86,13 @@ try {
 
 }
 
-LogBox.ignoreLogs([
-    'Your project is accessing the following APIs from a deprecated global rather than a module import: Constants (expo- constants).',
-    'Remote debugger',
-    'Unable to activate keep awake',
-]);
+if (Platform.OS !== 'web') {
+    LogBox.ignoreLogs([
+        'Your project is accessing the following APIs from a deprecated global rather than a module import: Constants (expo- constants).',
+        'Remote debugger',
+        'Unable to activate keep awake',
+    ]);
+}
 
 // HACK: Prevent "Expo pasted from CoreSimulator" notification from spamming continuously
 // if (__DEV__) {

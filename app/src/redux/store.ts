@@ -1,7 +1,7 @@
 import { createStore } from 'redux'
 import notesReducer from './reducer'
 import {getcache, setcache} from "./statecache";
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const store = createStore(notesReducer, getcache())
 

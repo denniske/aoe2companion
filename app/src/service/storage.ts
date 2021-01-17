@@ -1,9 +1,9 @@
-import { AsyncStorage } from 'react-native';
 import {DarkMode} from "../redux/reducer";
 import {LeaderboardId} from "../helper/leaderboards";
 import store from "../redux/store";
 import {v4 as uuidv4} from "uuid";
 import {Flag} from '@nex/data';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface IConfig {
     darkMode: DarkMode;

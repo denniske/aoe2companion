@@ -1,5 +1,5 @@
 import {captureImage} from "./capture";
-import {AsyncStorage} from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StackNavigationProp} from "@react-navigation/stack";
 import {RootStackParamList, RootTabParamList} from "../../App";
 import {MaterialTopTabNavigationProp} from "@react-navigation/material-top-tabs";

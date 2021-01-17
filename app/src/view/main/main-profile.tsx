@@ -1,10 +1,8 @@
-import {makeVariants, useTheme} from "../../theming";
-import {Alert, AsyncStorage, FlatList, StyleSheet, View} from "react-native";
-import {clearMatchesPlayer, clearStatsPlayer, setAuth, useMutate, useSelector} from "../../redux/reducer";
-import {LeaderboardId} from "../../helper/leaderboards";
-import React, {useEffect, useState} from "react";
+import {FlatList, StyleSheet, View} from "react-native";
+import {useMutate, useSelector} from "../../redux/reducer";
+import React, {useState} from "react";
 import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
-import {RootStackParamList, RootStackProp, RootTabParamList} from "../../../App";
+import {RootTabParamList} from "../../../App";
 import {useApi} from "../../hooks/use-api";
 import {loadRatingHistories} from "../../service/rating";
 import {loadProfile} from "../../service/profile";
@@ -12,11 +10,8 @@ import {MyText} from "../components/my-text";
 import Profile from "../components/profile";
 import Rating from "../components/rating";
 import RefreshControlThemed from "../components/refresh-control-themed";
-import {fetchPlayerMatches} from "../../api/player-matches";
 import {Game} from "../components/game";
 import {Button} from "react-native-paper";
-import {useLazyApi} from "../../hooks/use-lazy-api";
-import {useCachedLazyApi} from "../../hooks/use-cached-lazy-api";
 import {parseUserId, sameUserNull} from "../../helper/user";
 import {createStylesheet} from '../../theming-new';
 

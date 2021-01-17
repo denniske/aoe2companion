@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
-import {Alert, AsyncStorage, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Alert, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Search from './components/search';
 import {composeUserId, UserId, UserInfo} from '../helper/user';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
