@@ -54,7 +54,7 @@ export async function fetchPlayerMatches(game: string, start: number, count: num
     profile_ids: params.map(p => p.profile_id),
   };
   const queryString = makeQueryString(args);
-  const url = 'https://powerful-gorge-32054.herokuapp.com/http://aoe2.net/' + `api/player/matches?${queryString}`;
+  const url = 'https://aoe2.net/' + `api/player/matches?${queryString}`;
   let json = await fetchJson('fetchPlayerMatches', url) as IMatchRaw[];
 
   // json = json.filter(m => m.leaderboard_id === 0);

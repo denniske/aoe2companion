@@ -28,7 +28,7 @@ export function getHost(host: Host) {
         }
         case "aoe2net": {
             if (Platform.OS === 'web') {
-                return 'https://powerful-gorge-32054.herokuapp.com/http://aoe2.net/';
+                return 'https://aoe2.net/';
             }
             return `http://aoe2.net/`;
         }
