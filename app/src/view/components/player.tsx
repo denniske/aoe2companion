@@ -56,7 +56,7 @@ export function Player({player, highlight}: IPlayerProps) {
 
     return (
         <View style={styles.player}>
-            <TouchableOpacity style={styles.playerCol} onPress={gotoPlayer}>
+            <TouchableOpacity style={styles.playerCol} disabled={player.slot_type != 1} onPress={gotoPlayer}>
                 <View style={styles.playerWonCol}>
                     {
                         player.won === true && player.team != -1 &&

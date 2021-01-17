@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '20.0.1': [
+        {
+            type: 'bugfix',
+            title: 'AI player does not link to profile screen',
+        },
+    ],
     '20.0.0': [
         {
             type: 'minor',
