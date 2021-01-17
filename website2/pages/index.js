@@ -6,6 +6,7 @@ import MailchimpSubscribe from "../components/newsletter/mailchimp-subscribe";
 const url = "//aoe2companion.us10.list-manage.com/subscribe/post?u=584a93842ae0fd3ecd1a888c0&id=16dd24f1d7";
 
 
+
 export default function Home() {
     return (
         <Layout>
