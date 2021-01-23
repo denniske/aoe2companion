@@ -9,7 +9,7 @@
 
 This is the repository for the [AoE II Companion](https://aoe2companion.com/) app using the data from [aoe2.net](https://aoe2.net).
 
-[![GitHub workflow](https://img.shields.io/github/workflow/status/denniske/aoe2companion/App.svg)](https://GitHub.com/denniske/aoe2companion/tags/)
+[![GitHub workflow](https://img.shields.io/github/workflow/status/denniske/aoe2companion/App.svg)](https://github.com/denniske/aoe2companion/actions?query=workflow%3AApp)
 [![GitHub release](https://img.shields.io/github/tag/denniske/aoe2companion.svg)](https://GitHub.com/denniske/aoe2companion/tags/)
 
 </div>
