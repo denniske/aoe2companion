@@ -91,8 +91,8 @@ const unitSections: IUnitSection[] = [
         title: 'Monk',
         data:
             [
-                // 'Missionary',
                 'Monk',
+                'Missionary',
             ],
     },
     {

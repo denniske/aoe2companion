@@ -4,6 +4,7 @@ import {allUnitSections, getUnitName} from "@nex/data";
 import {Searchbar} from "react-native-paper";
 import {createStylesheet} from '../../theming-new';
 import {UnitCompBig} from './unit-comp';
+import {MyText} from '../components/my-text';
 
 
 export default function UnitList() {
@@ -59,7 +60,7 @@ export default function UnitList() {
                     //     );
                     // }
                     return (
-                        <Text style={styles.heading}>{title}</Text>
+                        <MyText style={styles.heading}>{title}</MyText>
                     );
                 }}
                 keyExtractor={(item, index) => index.toString()}

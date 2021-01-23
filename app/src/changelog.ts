@@ -13,6 +13,14 @@ export const changelog: IChangelog = {
     '20.0.1': [
         {
             type: 'bugfix',
+            title: 'Fix unit list heading color in dark mode',
+        },
+        {
+            type: 'bugfix',
+            title: 'Add Missionary to unit list',
+        },
+        {
+            type: 'bugfix',
             title: 'AI player does not link to profile screen',
         },
     ],
