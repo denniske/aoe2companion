@@ -11,6 +11,7 @@ This is the repository for the [AoE II Companion](https://aoe2companion.com/) ap
 
 [![GitHub workflow](https://img.shields.io/github/workflow/status/denniske/aoe2companion/App.svg)](https://github.com/denniske/aoe2companion/actions?query=workflow%3AApp)
 [![GitHub release](https://img.shields.io/github/tag/denniske/aoe2companion.svg)](https://GitHub.com/denniske/aoe2companion/tags/)
+[![Discord server](https://img.shields.io/discord/727175083977736262.svg)](https://discord.gg/gCunWKx)
 
 </div>
 
