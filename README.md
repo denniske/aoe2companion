@@ -9,7 +9,7 @@
 
 This is the repository for the [AoE II Companion](https://aoe2companion.com/) app using the data from [aoe2.net](https://aoe2.net).
 
-[![Build Status](https://travis-ci.org/denniske/aoe2companion.svg?branch=master)](https://travis-ci.org/denniske/aoe2companion)
+[![GitHub workflow](https://img.shields.io/github/workflow/status/denniske/aoe2companion/App.svg)](https://GitHub.com/denniske/aoe2companion/tags/)
 [![GitHub release](https://img.shields.io/github/tag/denniske/aoe2companion.svg)](https://GitHub.com/denniske/aoe2companion/tags/)
 
 </div>
