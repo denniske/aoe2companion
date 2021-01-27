@@ -121,7 +121,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
                 }
                 {
                     !container &&
-                    <View style={{minWidth: 100}}>
+                    <View style={{minWidth: 200}}>
                         {values!.map(renderItem)}
                     </View>
                 }

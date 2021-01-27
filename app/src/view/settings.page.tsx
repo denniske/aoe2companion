@@ -16,6 +16,9 @@ import {IosAuthorizationStatus} from "expo-notifications/build/NotificationPermi
 import * as Permissions from "expo-permissions";
 import ButtonPicker from "./components/button-picker";
 import {createStylesheet} from '../theming-new';
+import {getLanguageFromSystemLocale2, getTranslation} from '../helper/translate';
+import {setlanguage} from '../redux/statecache';
+import * as Localization from 'expo-localization';
 
 
 export default function SettingsPage() {
@@ -110,23 +113,61 @@ export default function SettingsPage() {
 
     const togglePushNotifications = () => enablePushNotifications(!config.pushNotificationsEnabled);
 
+    const languageMap: Record<string, string> = {
+        'system': 'System (' + Localization.locale + ')',
+        'ms': 'Bahasa Melayu',
+        'de': 'Deutsch',
+        'en': 'English',
+        'es': 'Español',
+        'es-mx': 'Español (Mexico)',
+        'fr': 'Français',
+        'it': 'Italiano',
+        'pt': 'Português-Brasil',
+        'ru': 'Pусский',
+        'vi': 'Tiếng Việ',
+        'tr': 'Türkçe',
+        'hi': 'हिन्दी',
+        'ja': '日本語',
+        'ko': '한국어',
+        'zh-hans': '简体中文',
+        'zh-hant': '繁體字',
+    };
+
+    const formatLanguage = (x: (string | null), inList?: boolean) => {
+        return x != null ? languageMap[x] : 'empty';
+    };
+    const languageList: (string | null)[] = Object.keys(languageMap);
+    const divider = (x: any, i: number) => i === 0;
+    const onLanguageSelected = async (language: string | null) => {
+
+        const resultingLanguage = language == 'system' ? getLanguageFromSystemLocale2(Localization.locale) : language;
+        setlanguage(resultingLanguage);
+
+        const newConfig = {
+            ...config,
+            language: language!.toLowerCase(),
+        };
+        await saveConfigToStorage(newConfig)
+        mutate(setConfig(newConfig));
+    };
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
 
             <View style={styles.row}>
                 <View style={styles.cellName}>
-                    <MyText>Dark Mode</MyText>
-                    <MyText style={styles.small}>(except build order guides)</MyText>
+                    <MyText>{getTranslation('settings.darkmode')}</MyText>
+                    <MyText style={styles.small}>{getTranslation('settings.darkmode.note')}</MyText>
                 </View>
                 <View style={styles.cellValue}>
-                    <ButtonPicker value={config.darkMode} values={values} formatter={capitalize} onSelect={setDarkMode}/>
+                    <ButtonPicker value={config.darkMode} values={values} formatter={x => getTranslation(`settings.darkmode.${x}`)} onSelect={setDarkMode}/>
                 </View>
             </View>
 
             <View style={styles.row}>
                 <View style={styles.cellName}>
-                    <MyText>Push Notifications</MyText>
-                    <MyText style={styles.small}>Receive push notifications when players you are following start a game.</MyText>
+                    <MyText>{getTranslation('settings.pushnotifications')}</MyText>
+                    <MyText style={styles.small}>{getTranslation('settings.pushnotifications.note')}</MyText>
                 </View>
                 <View style={styles.cellValueCol}>
                     {/*<Switch*/}
@@ -143,7 +184,7 @@ export default function SettingsPage() {
                             onPress={togglePushNotifications}
                         />
                         <TouchableOpacity onPress={togglePushNotifications} disabled={Platform.OS === 'web'}>
-                            <MyText style={[styles.testLink]}>{config.pushNotificationsEnabled ? 'Active' : 'Inactive'}</MyText>
+                            <MyText style={[styles.testLink]}>{config.pushNotificationsEnabled ? getTranslation('checkbox.active') : getTranslation('checkbox.inactive')}</MyText>
                         </TouchableOpacity>
                     </View>
                     <Button
@@ -161,8 +202,8 @@ export default function SettingsPage() {
 
             <View style={styles.row}>
                 <View style={styles.cellName}>
-                    <MyText>Prevent Screen Lock</MyText>
-                    <MyText style={styles.small}>Prevent screen lock on build order screen</MyText>
+                    <MyText>{getTranslation('settings.preventscreenlock')}</MyText>
+                    <MyText style={styles.small}>{getTranslation('settings.preventscreenlock.note')}</MyText>
                 </View>
                 <View style={styles.cellValueCol}>
                     <View style={styles.row2}>
@@ -172,11 +213,21 @@ export default function SettingsPage() {
                             onPress={togglePreventScreenLockOnGuidePage}
                         />
                         <TouchableOpacity onPress={togglePreventScreenLockOnGuidePage} disabled={Platform.OS === 'web'}>
-                            <MyText style={[styles.testLink]}>{config.preventScreenLockOnGuidePage ? 'Active' : 'Inactive'}</MyText>
+                            <MyText style={[styles.testLink]}>{config.preventScreenLockOnGuidePage ? getTranslation('checkbox.active') : getTranslation('checkbox.inactive')}</MyText>
                         </TouchableOpacity>
                     </View>
                 </View>
             </View>
+
+            {/*<View style={styles.row}>*/}
+            {/*    <View style={styles.cellName}>*/}
+            {/*        <MyText>{getTranslation('settings.language')}</MyText>*/}
+            {/*        <MyText style={styles.small}>{getTranslation('settings.language.note')}</MyText>*/}
+            {/*    </View>*/}
+            {/*    <View style={styles.cellValueCol}>*/}
+            {/*        <Picker itemHeight={40} textMinWidth={150} divider={divider} value={config.language || 'en'} values={languageList} formatter={formatLanguage} onSelect={onLanguageSelected}/>*/}
+            {/*    </View>*/}
+            {/*</View>*/}
         </ScrollView>
     );
 }

@@ -24,6 +24,7 @@
     "assetBundlePatterns": [
       "node_modules/**",
       "app/assets/civilizations/**",
+      "app/assets/data/**",
       "app/assets/flags/**",
       "app/assets/font/**",
       "app/assets/legal/**",
@@ -34,6 +35,7 @@
       "app/assets/units/**",
       "app/assets/tips/icon/**",
       "app/assets/tips/poster/**",
+      "app/assets/translations/**",
       "app/assets/*"
     ],
     "notification": {

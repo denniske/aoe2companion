@@ -12,6 +12,7 @@ import {LeaderboardId} from "../../helper/leaderboards";
 import {IRow} from "../../service/stats/stats-map";
 import Space from "./space";
 import {createStylesheet} from '../../theming-new';
+import {getTranslation} from '../../helper/translate';
 
 
 interface IRowProps {
@@ -63,7 +64,7 @@ export default function StatsMap(props: IProps) {
                 <Space/>
                 <View>
                     <View style={styles.row}>
-                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>Map</MyText>
+                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>{getTranslation('main.stats.heading.map')}</MyText>
                         <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>
                         <MyText numberOfLines={1} style={styles.cellWon}>Won*</MyText>
                     </View>

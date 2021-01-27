@@ -9,6 +9,7 @@ import TechDetails from "./tech-details";
 import TechList from "./tech-list";
 import {getTechIcon} from "../../helper/techs";
 import {getCivIcon} from "../../helper/civs";
+import {getTranslation} from '../../helper/translate';
 
 
 export function TechTitle(props: any) {
@@ -32,12 +33,12 @@ export function TechTitle(props: any) {
             onLayout={props.titleProps.onLayout}
         />;
     }
-    return <TextHeader text={'Techs'} onLayout={props.titleProps.onLayout}/>;
+    return <TextHeader text={getTranslation('tech.title')} onLayout={props.titleProps.onLayout}/>;
 }
 
 export function techTitle(props: any) {
     const tech = props.route?.params?.tech;
-    return tech ? getTechName(tech) : 'Techs';
+    return tech ? getTechName(tech) : getTranslation('tech.title');
 }
 
 export default function TechPage() {

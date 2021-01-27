@@ -1,4 +1,13 @@
 
+translations
+- use getTranslation everywhere
+- lineHeight for zh / ru?
+
+country name translations from:
+https://github.com/onomojo/i18n-country-translations/tree/master/rails/locale/iso_639-1
+
+https://forums.expo.io/t/how-to-lazy-load-json/28961
+
 web ui
 - core ui admin template
 - ant design pro

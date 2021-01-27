@@ -9,29 +9,34 @@ import {TechTree} from "./components/tech-tree";
 import {MyText} from "./components/my-text";
 import {createStylesheet} from "../theming-new";
 import {highlightUnitAndTechs} from "../helper/highlight";
-import {getCivHistoryImage, getCivIconByIndex} from "../helper/civs";
+import {getCivHistoryImage, getCivIconByIndex, getCivNameById} from "../helper/civs";
 import {UnitCompBig} from './unit/unit-comp';
 import {TechCompBig} from './tech/tech-comp';
+import {getTranslation} from '../helper/translate';
 
 
 export function CivTitle(props: any) {
     if (props.route?.params?.civ) {
         return <IconHeader
             icon={getCivIconByIndex(civs.indexOf(props.route?.params?.civ))}
-            text={props.route.params?.civ}
+            text={getCivNameById(props.route.params?.civ)}
             onLayout={props.titleProps.onLayout}
         />;
     }
-    return <TextHeader text={'Civs'} onLayout={props.titleProps.onLayout}/>;
+    return <TextHeader text={getTranslation('civs.title')} onLayout={props.titleProps.onLayout}/>;
 }
 
 export function civTitle(props: any) {
-    return props.route?.params?.civ || 'Civs';
+    return props.route?.params?.civ || getTranslation('civs.title');
 }
 
 export function CivDetails({civ}: {civ: aoeCivKey}) {
     const styles = useStyles();
     const civDescription = parseCivDescription(civ);
+
+    if (civDescription == null) {
+        return <View/>;
+    }
 
     const {type, boni, uniqueUnitsTitle, uniqueTechsTitle, teamBonusTitle, teamBonus} = civDescription;
 
@@ -52,7 +57,7 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
             </View>
 
             <View style={styles.box}>
-                <MyText style={styles.heading}>Unique Unit</MyText>
+                <MyText style={styles.heading}>{uniqueUnitsTitle.replace(':', '')}</MyText>
                 {
                     civDict[civ].uniqueUnits.map(unit =>
                         <UnitCompBig key={unit} unit={unit}/>
@@ -61,7 +66,7 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
             </View>
 
             <View style={styles.box}>
-                <MyText style={styles.heading}>Unique Tech</MyText>
+                <MyText style={styles.heading}>{uniqueTechsTitle.replace(':', '')}</MyText>
                 {
                     civDict[civ].uniqueTechs.map(tech =>
                         <TechCompBig key={tech} tech={tech}/>
@@ -96,8 +101,8 @@ export function CivList() {
                                 <View style={styles.civBlock}>
                                     <Image fadeDuration={0} style={styles.icon} source={getCivIconByIndex(i)}/>
                                     <View style={styles.civRow}>
-                                        <MyText style={styles.name}>{civ}</MyText>
-                                        <MyText style={styles.small} numberOfLines={1}>{getCivTeamBonus(civ)}</MyText>
+                                        <MyText style={styles.name}>{getCivNameById(civ)}</MyText>
+                                        <MyText style={styles.small} numberOfLines={1}>{getCivTeamBonus(civ) ?? ''}</MyText>
                                     </View>
                                 </View>
                         </TouchableOpacity>
@@ -177,7 +182,9 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         width: iconWidth,
         height: iconHeight,
     },
-    name: {},
+    name: {
+        lineHeight: 17,
+    },
     civBlock: {
         flexDirection: 'row',
         marginVertical: 5,

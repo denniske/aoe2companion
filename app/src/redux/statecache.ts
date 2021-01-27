@@ -2,15 +2,6 @@
 let mycache: any = undefined;
 
 
-
-
-
-
-
-
-
-
-
 export function setcache(value: any) {
     mycache = value;
     console.log('setcache');
@@ -24,4 +15,20 @@ export function getcache() {
 }
 
 
+
+
+let mylanguage: any = 'en';
+
+
+export function setlanguage(value: any) {
+    mylanguage = value;
+    // console.log('setlanguage');
+    // console.log('setlanguage', value);
+}
+
+export function getlanguage() {
+    // console.log('getlanguage', mylanguage);
+    // console.log('getlanguage');
+    return mylanguage;
+}
 

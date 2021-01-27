@@ -1,8 +1,9 @@
 import {Civ} from "./civs";
 import {getUnitLineIdForUnit, ICostDict, sortedUnitLines, Unit, UnitLine, unitLines} from "./units";
-import {aoeData, aoeStringKey, aoeTechDataId} from "../data/data";
+import {aoeData, aoeTechDataId} from "../data/data";
 import {keysOf, sanitizeGameDescription, strRemoveTo, unwrap} from "../lib/util";
 import {flatMap} from 'lodash';
+import {getAoeString} from '../../../app/src/helper/translate-data';
 
 export type Effect =
     'carryCapacity' |
@@ -2064,12 +2065,12 @@ export function getTechData(tech: Tech) {
 
 export function getTechName(tech: Tech) {
     const data = getTechData(tech);
-    return aoeData.strings[data.LanguageNameId.toString() as aoeStringKey];
+    return getAoeString(data.LanguageNameId.toString());
 }
 
 export function getTechDescription(tech: Tech) {
     const data = getTechData(tech);
-    let description = sanitizeGameDescription(aoeData.strings[data.LanguageHelpId.toString() as aoeStringKey]);
+    let description = sanitizeGameDescription(getAoeString(data.LanguageHelpId.toString()));
 
     description = strRemoveTo(description, '\n');
 

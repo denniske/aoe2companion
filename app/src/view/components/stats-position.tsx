@@ -8,6 +8,7 @@ import Icon5 from 'react-native-vector-icons/FontAwesome5';
 import {AoePosition, IRow} from "../../service/stats/stats-position";
 import {LeaderboardId} from "../../helper/leaderboards";
 import {createStylesheet} from '../../theming-new';
+import {getTranslation} from '../../helper/translate';
 
 interface IRowProps {
     data: any;
@@ -67,7 +68,7 @@ export default function StatsPosition(props: IProps) {
             <View style={styles.container}>
                 <View>
                     <View style={styles.row}>
-                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>Position</MyText>
+                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>{getTranslation('main.stats.heading.position')}</MyText>
                         <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>
                         <MyText numberOfLines={1} style={styles.cellWon}>Won*</MyText>
                     </View>

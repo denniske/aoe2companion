@@ -5,6 +5,7 @@ import {MyText} from "../components/my-text";
 import {createStylesheet} from "../../theming-new";
 import {Searchbar} from "react-native-paper";
 import {TechCompBig} from './tech-comp';
+import {getTranslation} from '../../helper/translate';
 
 
 export default function TechList() {
@@ -31,9 +32,8 @@ export default function TechList() {
     return (
         <View style={styles.container}>
             <Searchbar
-
                 style={styles.searchbar}
-                placeholder="tech"
+                placeholder={getTranslation('tech.search.placeholder')}
                 onChangeText={text => setText(text)}
                 value={text}
             />

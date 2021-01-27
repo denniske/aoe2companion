@@ -1,14 +1,12 @@
-import { aoeDataInternal } from './aoe-data';
-import { aoeLocalesEnStrings } from './locales/en/strings';
+import {aoeDataInternal} from './aoe-data';
 import {merge} from "lodash";
 
-export type aoeStringKey = keyof typeof aoeLocalesEnStrings;
 export type aoeTechDataId = keyof typeof aoeData.data.techs;
 export type aoeUnitDataId = keyof typeof aoeData.data.units;
 export type aoeBuildingDataId = keyof typeof aoeData.data.buildings;
 export type aoeCivKey = keyof typeof aoeData.civ_helptexts;
 
-export const aoeData = merge(aoeDataInternal, { strings: aoeLocalesEnStrings }, {
+export const aoeData = merge(aoeDataInternal, {
     "data": {
         "units": {
             // Fix line of sight for light cavalry and hussar

@@ -1,4 +1,4 @@
-export const aoeLocalesEnStrings = {
+{
     "4201": "Dark Age",
     "4202": "Feudal Age",
     "4203": "Castle Age",
@@ -728,4 +728,4 @@ export const aoeLocalesEnStrings = {
     "300083": "Unit",
     "300084": "Building",
     "300085": "Technology"
-} as const;
+}

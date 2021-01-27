@@ -17,6 +17,7 @@ import {IRow} from "../../service/stats/stats-player";
 import {Button} from "react-native-paper";
 import Space from "./space";
 import {createStylesheet} from '../../theming-new';
+import {getTranslation} from '../../helper/translate';
 
 interface IRowProps {
     data: IRow;
@@ -98,7 +99,7 @@ export default function StatsPlayer(props: IProps) {
                     {
                         hasAlly &&
                         <View style={styles.row}>
-                            <MyText numberOfLines={1} style={styles.cellLeaderboard}>Ally</MyText>
+                            <MyText numberOfLines={1} style={styles.cellLeaderboard}>{getTranslation('main.stats.heading.ally')}</MyText>
                             <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>
                             <MyText numberOfLines={1} style={styles.cellWon}>Won*</MyText>
                         </View>
@@ -141,7 +142,7 @@ export default function StatsPlayer(props: IProps) {
                     }
 
                     <View style={styles.row}>
-                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>Opponent</MyText>
+                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>{getTranslation('main.stats.heading.opponent')}</MyText>
                         <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>
                         <MyText numberOfLines={1} style={styles.cellWon}>Won*</MyText>
                     </View>

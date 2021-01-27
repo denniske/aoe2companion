@@ -1,4 +1,5 @@
 import {Civ, civs} from "@nex/data";
+import {getString} from './strings';
 
 
 export const civIconList = [
@@ -76,6 +77,10 @@ export const civHistoryList = [
     require('../../../app/assets/history/civs/history_vietnamese.png'),
     require('../../../app/assets/history/civs/history_vikings.png'),
 ];
+
+export function getCivNameById(civ: Civ) {
+    return getString('civ', civs.indexOf(civ)) as string;
+}
 
 export function getCivIconByIndex(civ: number) {
     return civIconList[civ];

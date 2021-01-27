@@ -6,8 +6,8 @@ import {
 import {useNavigation, useNavigationState} from '@react-navigation/native';
 import {fetchLeaderboard} from "../api/leaderboard";
 import {minifyUserId, sameUserNull, userIdFromBase} from "../helper/user";
-import {getFlagIcon} from "../helper/flags";
-import {countriesDistinct, Country, getCountryName, ILeaderboardPlayer} from "@nex/data";
+import {getCountryName, getFlagIcon} from "../helper/flags";
+import {countriesDistinct, Country, ILeaderboardPlayer} from "@nex/data";
 import {RootStackProp} from "../../App";
 import IconFA from "react-native-vector-icons/FontAwesome";
 import IconFA5 from "react-native-vector-icons/FontAwesome5";
@@ -26,6 +26,7 @@ import RefreshControlThemed from "./components/refresh-control-themed";
 import {AnimatedValueText} from "./components/animated-value-text";
 import {getValue} from "../helper/util-component";
 import {createStylesheet} from '../theming-new';
+import {getTranslation} from '../helper/translate';
 
 type TabParamList = {
     LeaderboardRm1v1: { leaderboardId: number };
@@ -56,7 +57,7 @@ export function LeaderboardMenu() {
 
     const formatCountry = (x: (string | null), inList?: boolean) => {
         if (x == countryEarth) {
-            return 'Earth';
+            return getTranslation('country.earth');
         }
         return inList ? getCountryName(x as Country) : x;
     };
@@ -88,7 +89,7 @@ export function LeaderboardMenu() {
 }
 
 export function LeaderboardTitle(props: any) {
-    return <TextHeader text={'Leaderboard'} onLayout={props.titleProps.onLayout}/>;
+    return <TextHeader text={getTranslation('leaderboard.title')} onLayout={props.titleProps.onLayout}/>;
 }
 
 export default function LeaderboardPage() {
@@ -213,7 +214,7 @@ function Leaderboard({leaderboardId}: any) {
                     </View>
                     {
                         windowWidth >= 360 &&
-                        <TextLoader style={styles.cellGames}>{player?.games} games</TextLoader>
+                        <TextLoader style={styles.cellGames}>{getTranslation('leaderboard.games', { games: player?.games })}</TextLoader>
                     }
                 </View>
             </TouchableOpacity>

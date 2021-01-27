@@ -7,11 +7,11 @@ import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {UserIdBase} from "../../helper/user";
 import {MyText} from "./my-text";
-import {makeVariants, useTheme} from "../../theming";
 import {IRow} from "../../service/stats/stats-civ";
 import Space from "./space";
 import {getCivIcon} from "../../helper/civs";
 import {createStylesheet} from '../../theming-new';
+import {getTranslation} from '../../helper/translate';
 
 
 interface IRowProps {
@@ -71,7 +71,7 @@ export default function StatsCiv(props: IProps) {
                 <Space/>
                 <View>
                     <View style={styles.row}>
-                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>Civ</MyText>
+                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>{getTranslation('main.stats.heading.civ')}</MyText>
                         <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>
                         <MyText numberOfLines={1} style={styles.cellWon}>Won*</MyText>
                     </View>

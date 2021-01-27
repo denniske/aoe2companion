@@ -8,6 +8,7 @@ import TextHeader from "../components/navigation-header/text-header";
 import BuildingDetails from "./building-details";
 import BuildingList from "./building-list";
 import {getBuildingIcon} from "../../helper/buildings";
+import {getTranslation} from '../../helper/translate';
 
 
 export function BuildingTitle(props: any) {
@@ -19,12 +20,12 @@ export function BuildingTitle(props: any) {
             onLayout={props.titleProps.onLayout}
         />;
     }
-    return <TextHeader text={'Buildings'} onLayout={props.titleProps.onLayout}/>;
+    return <TextHeader text={getTranslation('building.title')} onLayout={props.titleProps.onLayout}/>;
 }
 
 export function buildingTitle(props: any) {
     const building = props.route?.params?.building;
-    return building ? getBuildingName(building) : 'Buildings';
+    return building ? getBuildingName(building) : getTranslation('building.title');
 }
 
 export default function BuildingPage() {

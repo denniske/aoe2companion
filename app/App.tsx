@@ -69,6 +69,10 @@ import * as Device from 'expo-device';
 import {LinkingOptions} from "@react-navigation/native/lib/typescript/src/types";
 import {createStylesheet} from './src/theming-new';
 import { LogBox } from "react-native";
+import {getLanguageFromSystemLocale2, getTranslation} from './src/helper/translate';
+import {loadAoeStringsAsync} from './src/helper/translate-data';
+import * as Localization from 'expo-localization';
+import {setlanguage} from './src/redux/statecache';
 
 initSentry();
 
@@ -88,6 +92,7 @@ try {
 
 if (Platform.OS !== 'web') {
     LogBox.ignoreLogs([
+        'Native splash screen is already hidden. Call this method before rendering any view.',
         'Your project is accessing the following APIs from a deprecated global rather than a module import: Constants (expo- constants).',
         'Remote debugger',
         'Unable to activate keep awake',
@@ -280,7 +285,7 @@ export function InnerApp() {
                     name="Main"
                     component={MainPage}
                     options={{
-                        title: 'Me',
+                        title: getTranslation('main.title'),
                         headerRight: mainMenu(),
                     }}
                 />
@@ -288,7 +293,7 @@ export function InnerApp() {
                     name="Leaderboard"
                     component={LeaderboardPage}
                     options={props => ({
-                        title: 'Leaderboard',
+                        title: getTranslation('leaderboard.title'),
                         headerRight: leaderboardMenu(props),
                         headerTitle: titleProps => <LeaderboardTitle {...props} titleProps={titleProps} />,
                     })}
@@ -415,7 +420,7 @@ export function InnerApp() {
                     name="Settings"
                     component={SettingsPage}
                     options={{
-                        title: 'Settings',
+                        title: getTranslation('settings.title'),
                     }}
                 />
                 <Stack.Screen
@@ -496,7 +501,6 @@ const customDarkNavigationTheme = {
 };
 
 
-
 export function AppWrapper() {
     // AsyncStorage.removeItem('prefs');
     // AsyncStorage.removeItem('settings');
@@ -520,9 +524,24 @@ export function AppWrapper() {
     const _prefs = useApi({}, [prefs], state => state.prefs, (state, value) => state.prefs = value, () => loadPrefsFromStorage());
     const _config = useApi({}, [config], state => state.config, (state, value) => state.config = value, () => loadConfigFromStorage());
 
+    useEffect(() => {
+        if (config == null) return;
+
+        // console.log('Localization.locale', Localization.locale);
+        // console.log('Localization.locales', Localization.locales);
+
+        const language = config.language == 'system' ? getLanguageFromSystemLocale2(Localization.locale) : config.language;
+        // console.log('Loading AoeStrings for ' + language + ' (config.language: ' + config.language + ')');
+        setlanguage(language);
+        loadAoeStringsAsync(language);
+    }, [config]);
+
     if (auth === undefined || following === undefined || config === undefined || prefs === undefined) {
+        // console.log('LOADING');
         return <AppLoading/>;
     }
+
+    // console.log('LOADED');
 
     const finalDarkMode = darkMode === "system" && (colorScheme === 'light' || colorScheme === 'dark') ? colorScheme : darkMode;
 

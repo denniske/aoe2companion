@@ -732,6 +732,26 @@
         {
             "id": 4,
             "string": "Mappa casuale a squadre"
+        },
+        {
+            "id": 5,
+            "string": "1v1 Random Map Quick Play"
+        },
+        {
+            "id": 6,
+            "string": "Team Random Map Quick Play"
+        },
+        {
+            "id": 7,
+            "string": "1v1 Empire Wars Quick Play"
+        },
+        {
+            "id": 8,
+            "string": "Team Empire Wars Quick Play"
+        },
+        {
+            "id": 9,
+            "string": "Battle Royale Quick Play"
         }
     ],
     "resources": [

@@ -3,12 +3,12 @@ import React from 'react';
 import {TextLoader} from "./loader/text-loader";
 import {UserIdBase} from "../../helper/user";
 import {MyText} from "./my-text";
-import {useTheme} from "../../theming";
 import Icon5 from 'react-native-vector-icons/FontAwesome5';
 import Space from "./space";
 import {IRow} from "../../service/stats/stats-duration";
 import {createStylesheet} from '../../theming-new';
 import {IMatch} from '@nex/data';
+import {getTranslation} from '../../helper/translate';
 
 interface IRowProps {
     data: IRow;
@@ -74,7 +74,7 @@ export default function StatsDuration(props: IProps) {
                 <Space/>
                 <View>
                     <View style={styles.row}>
-                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>Duration</MyText>
+                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>{getTranslation('main.stats.heading.duration')}</MyText>
                         <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>
                         <MyText numberOfLines={1} style={styles.cellWon}>Won*</MyText>
                     </View>

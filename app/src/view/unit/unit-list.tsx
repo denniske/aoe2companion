@@ -5,6 +5,7 @@ import {Searchbar} from "react-native-paper";
 import {createStylesheet} from '../../theming-new';
 import {UnitCompBig} from './unit-comp';
 import {MyText} from '../components/my-text';
+import {getTranslation} from '../../helper/translate';
 
 
 export default function UnitList() {
@@ -35,7 +36,7 @@ export default function UnitList() {
         <View style={styles.container}>
             <Searchbar
                 style={styles.searchbar}
-                placeholder="unit"
+                placeholder={getTranslation('unit.search.placeholder')}
                 onChangeText={text => setText(text)}
                 value={text}
             />

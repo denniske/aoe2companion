@@ -1,5 +1,31 @@
 import {format, formatDistanceToNowStrict, fromUnixTime} from "date-fns";
-import { enUS, de } from "date-fns/locale";
+import {enUS, de, es, zhCN, ms, fr, it, pt, ru, vi, tr, hi, ja, ko, zhTW} from "date-fns/locale";
+import {getlanguage} from '../../../app/src/redux/statecache';
+
+
+const localeMapping = {
+    'ms': ms,
+    'fr': fr,
+    'es-mx': es,
+    'it': it,
+    'pt': pt,
+    'ru': ru,
+    'vi': vi,
+    'tr': tr,
+    'de': de,
+    'en': enUS,
+    'es': es,
+    'hi': hi,
+    'ja': ja,
+    'ko': ko,
+    'zh-hans': zhCN,
+    'zh-hant': zhTW,
+};
+
+function getLocale() {
+    return localeMapping[getlanguage()];
+}
+
 
 export type ValueOf<T> = T[keyof T];
 
@@ -29,31 +55,31 @@ export function parseUnixTimestamp(timestamp: number) {
 }
 
 export function formatYear(date: Date) {
-    return format(date, 'yyyy', {locale: enUS});
+    return format(date, 'yyyy', {locale: getLocale()});
 }
 
 export function formatMonth(date: Date) {
-    return format(date, 'MMM', {locale: enUS});
+    return format(date, 'MMM', {locale: getLocale()});
 }
 
 export function formatDateShort(date: Date) {
-    return format(date, 'MMM d', {locale: enUS});
+    return format(date, 'MMM d', {locale: getLocale()});
 }
 
 export function formatDayAndTime(date: Date) {
-    return format(date, 'MMM d HH:mm', {locale: enUS});
+    return format(date, 'MMM d HH:mm', {locale: getLocale()});
 }
 
 export function formatTime(date: Date) {
-    return format(date, 'HH:mm', {locale: enUS});
+    return format(date, 'HH:mm', {locale: getLocale()});
 }
 
 export function formatDate(date: Date) {
-    return format(date, 'dd MM yyyy', {locale: enUS});
+    return format(date, 'dd MM yyyy', {locale: getLocale()});
 }
 
 export function formatAgo(date: Date) {
-    return formatDistanceToNowStrict(date, {locale: enUS, addSuffix: true});
+    return formatDistanceToNowStrict(date, {locale: getLocale(), addSuffix: true});
 }
 
 interface IParams {

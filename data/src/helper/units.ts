@@ -2,7 +2,8 @@ import {TechEffect} from "./techs";
 import {sortBy} from "lodash";
 import {Civ} from "./civs";
 import {getAllMatches, strRemoveFrom, strRemoveTo, unwrap, ValueOf} from "../lib/util";
-import {aoeData, aoeStringKey, aoeUnitDataId} from "../data/data";
+import {aoeData, aoeUnitDataId} from "../data/data";
+import {getAoeString} from '../../../app/src/helper/translate-data';
 
 
 export interface IUnitLine {
@@ -181,9 +182,9 @@ export const unitLines: IUnitLineDict = {
         counteredBy: [
             'Spearman',
             'Archer',
-            'Monk', 
-            'CamelRider', 
-            'ScoutCavalry', 
+            'Monk',
+            'CamelRider',
+            'ScoutCavalry',
             'ShotelWarrior',
             'GenoeseCrossbowman',
             'Arambai'
@@ -302,7 +303,7 @@ export const unitLines: IUnitLineDict = {
           'DemolitionRaft',
           'Longboat',
           'Caravel',
-          'Monk',  
+          'Monk',
           'BombardCannon'
         ],
         upgrades: [
@@ -515,7 +516,7 @@ export const unitLines: IUnitLineDict = {
         unique: true,
         civ: 'Khmer',
         counteredBy: [
-            'Spearman', 
+            'Spearman',
             'CamelRider',
             'Mangonel',
             'BombardCannon',
@@ -1732,7 +1733,7 @@ export const unitLines: IUnitLineDict = {
             'Mameluke',
             'Cataphract',
             'SteppeLancer'
-        ], 
+        ],
         upgrades: [
             'Fletching',
             'BodkinArrow',
@@ -1974,7 +1975,7 @@ export const unitLines: IUnitLineDict = {
         counteredBy: [
             'Skirmisher',
             'Knight',
-            'Scorpion', 
+            'Scorpion',
             'EagleScout',
             'Huskarl',
             'Boyar',
@@ -2789,7 +2790,7 @@ export function getUnitLineName(unitLine: UnitLine) {
 
 export function getUnitName(unit: Unit) {
     const data = getUnitData(unit);
-    return aoeData.strings[data.LanguageNameId.toString() as aoeStringKey].replace(' (Male)', '');
+    return getAoeString(data.LanguageNameId.toString()).replace(' (Male)', '');
 }
 
 export function getUnitData(unit: Unit) {
@@ -2803,7 +2804,7 @@ export function getUnitData(unit: Unit) {
 
 export function getUnitDescription(unit: Unit) {
     const data = getUnitData(unit);
-    let description = aoeData.strings[data.LanguageHelpId.toString() as aoeStringKey] as string;
+    let description = getAoeString(data.LanguageHelpId.toString()) as string;
 
     description = strRemoveTo(description, '<br>\n');
     description = strRemoveFrom(description, '<i> Upgrades:');
@@ -2815,7 +2816,7 @@ export function getUnitDescription(unit: Unit) {
 
 export function getUnitDescriptionRaw(unit: Unit) {
     const data = getUnitData(unit);
-    return aoeData.strings[data.LanguageHelpId.toString() as aoeStringKey] as string;
+    return getAoeString(data.LanguageHelpId.toString()) as string;
 }
 
 type ResourceAbbr = 'W' | 'F' | 'G' | 'S';

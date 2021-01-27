@@ -1,6 +1,7 @@
 import {ICostDict, IUnitClassPair} from "./units";
-import {aoeBuildingDataId, aoeData, aoeStringKey} from "../data/data";
+import {aoeBuildingDataId, aoeData} from "../data/data";
 import {sanitizeGameDescription, strRemoveFrom, strRemoveTo, unwrap} from "../lib/util";
+import {getAoeString} from '../../../app/src/helper/translate-data';
 
 interface IBuilding {
     dataId: aoeBuildingDataId;
@@ -205,12 +206,12 @@ export function getBuildingData(building: Building) {
 
 export function getBuildingName(building: Building) {
     const data = getBuildingData(building);
-    return aoeData.strings[data.LanguageNameId.toString() as aoeStringKey];
+    return getAoeString(data.LanguageNameId.toString());
 }
 
 export function getBuildingDescription(building: Building) {
     const data = getBuildingData(building);
-    let description = sanitizeGameDescription(aoeData.strings[data.LanguageHelpId.toString() as aoeStringKey]);
+    let description = sanitizeGameDescription(getAoeString(data.LanguageHelpId.toString()));
 
     description = strRemoveTo(description, '\n');
     if (description.indexOf('Upgrades:') >= 0)

@@ -20,6 +20,7 @@ import MainProfile from "./main/main-profile";
 import MainStats from "./main/main-stats";
 import MainMatches from "./main/main-matches";
 import {createStylesheet} from '../theming-new';
+import {getTranslation} from '../helper/translate';
 
 
 export function mainMenu() {
@@ -135,9 +136,9 @@ export function MainPageInner({ user }: MainPageInnerProps) {
     const initialParams = { user: composeUserId(user) };
     return (
             <Tab.Navigator lazy={true} swipeEnabled={true}>
-                <Tab.Screen name="MainProfile" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="Profile"/>}} component={MainProfile} initialParams={initialParams}/>
-                <Tab.Screen name="MainStats" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="Stats"/>}} component={MainStats} initialParams={initialParams}/>
-                <Tab.Screen name="MainMatches" options={{tabBarLabel: (x) => <TabBarLabel {...x} title="Matches"/>}} component={MainMatches} initialParams={initialParams}/>
+                <Tab.Screen name="MainProfile" options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.profile')}/>}} component={MainProfile} initialParams={initialParams}/>
+                <Tab.Screen name="MainStats" options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.stats')}/>}} component={MainStats} initialParams={initialParams}/>
+                <Tab.Screen name="MainMatches" options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.matches')}/>}} component={MainMatches} initialParams={initialParams}/>
             </Tab.Navigator>
     );
 }

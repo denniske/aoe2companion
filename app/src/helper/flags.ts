@@ -1,5 +1,5 @@
-import {Country, Flag, keysOf} from "@nex/data";
-import {uniq} from "lodash-es";
+import {Country, Flag} from "@nex/data";
+import {getTranslation} from './translate';
 
 const flagList = {
     'AD': require('../../assets/flags/AD.png'),
@@ -266,4 +266,8 @@ export function getFlagIcon(flag?: Flag) {
         return flagList[flag];
     }
     return flagList['XX'];
+}
+
+export function getCountryName(country: Country) {
+    return getTranslation(`country.${country.toLowerCase()}` as any);
 }

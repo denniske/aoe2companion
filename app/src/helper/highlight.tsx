@@ -6,6 +6,8 @@ import {escapeRegExpFn, getTechName, techList} from "@nex/data";
 import {getUnitName, hasUnitLine, Unit, units} from "@nex/data";
 import {MyText} from "../view/components/my-text";
 import React from "react";
+import {memoize} from 'lodash-es';
+import {getlanguage} from '../redux/statecache';
 
 // export function highlightUnitAndCivs(str: string) {
 //     const appStyles = useTheme(appVariants);
@@ -45,10 +47,7 @@ import React from "react";
 
 
 
-export function highlightUnitAndTechs(str: string) {
-    const appStyles = useTheme(appVariants);
-    const navigation = useNavigation<RootStackProp>();
-
+function createLists() {
     const techReplaceList = techList.map(t => ({ name: t.name, text: getTechName(t.name)}));
     const unitReplaceList = Object.keys(units).filter(t => hasUnitLine(t as Unit)).map(t => ({ name: t, text: getUnitName(t as Unit)}));
     const reverseTechMap = Object.assign({}, ...techReplaceList.map((x) => ({[x.text.toLowerCase()]: x})));
@@ -57,6 +56,18 @@ export function highlightUnitAndTechs(str: string) {
     const allReplaceList = [...techReplaceList, ...unitReplaceList];
 
     const regex = new RegExp('('+allReplaceList.map(m => '\\b'+escapeRegExpFn(m.text)+'s?\\b').join("|")+')', 'i');
+
+    return { regex, reverseTechMap, reverseUnitMap };
+}
+
+// Memoize per language
+const memoizedCreateLists = memoize((language: string) => createLists());
+
+export function highlightUnitAndTechs(str: string) {
+    const appStyles = useTheme(appVariants);
+    const navigation = useNavigation<RootStackProp>();
+
+    const { regex, reverseTechMap, reverseUnitMap } = memoizedCreateLists(getlanguage());
 
     const parts = str.split(regex);
     // console.log('parts', parts);

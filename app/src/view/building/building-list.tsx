@@ -5,6 +5,7 @@ import {MyText} from "../components/my-text";
 import {createStylesheet} from "../../theming-new";
 import {Searchbar} from "react-native-paper";
 import {BuildingCompBig} from './building-comp';
+import {getTranslation} from '../../helper/translate';
 
 
 export default function BuildingList() {
@@ -32,7 +33,7 @@ export default function BuildingList() {
         <View style={styles.container}>
             <Searchbar
                 style={styles.searchbar}
-                placeholder="building"
+                placeholder={getTranslation('building.search.placeholder')}
                 onChangeText={text => setText(text)}
                 value={text}
             />

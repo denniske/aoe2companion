@@ -9,6 +9,7 @@ export interface IConfig {
     darkMode: DarkMode;
     pushNotificationsEnabled: boolean;
     preventScreenLockOnGuidePage: boolean;
+    language: string;
 }
 
 export interface IPrefs {
@@ -56,6 +57,7 @@ export const saveCurrentPrefsToStorage = async () => {
 export const loadConfigFromStorage = async () => {
     const entryJson = await AsyncStorage.getItem('config');
     const entry = (entryJson ? JSON.parse(entryJson) : {}) as IConfig;
+    entry.language = entry.language ?? 'en';
     entry.darkMode = entry.darkMode ?? 'system';
     entry.preventScreenLockOnGuidePage = entry.preventScreenLockOnGuidePage ?? true;
     entry.pushNotificationsEnabled = entry.pushNotificationsEnabled ?? false;

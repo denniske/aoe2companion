@@ -7,9 +7,9 @@ import {getRootNavigation} from "../../service/navigation";
 import {useNavigationStateExternal} from "../../hooks/use-navigation-state-external";
 import * as Notifications from "expo-notifications";
 import {RootStackParamList} from "../../../App";
-import {hasSavedNotification} from "../../helper/notification";
 import Space from "./space";
 import {createStylesheet} from '../../theming-new';
+import {getTranslation} from '../../helper/translate';
 
 
 export default function Footer() {
@@ -138,26 +138,26 @@ export default function Footer() {
                                 <View><Space/></View>
                             }
                     >
-                        <Menu.Item icon={useIcon('hands-helping')} titleStyle={iconPopupStyle('')} onPress={() => { Linking.openURL('https://discord.com/invite/gCunWKx'); setMenu(false); }} title="Help" />
+                        <Menu.Item icon={useIcon('hands-helping')} titleStyle={iconPopupStyle('')} onPress={() => { Linking.openURL('https://discord.com/invite/gCunWKx'); setMenu(false); }} title={getTranslation('footer.help')} />
                         {
                            Platform.OS !== 'ios' &&
-                           <Menu.Item icon={useIcon('coffee')} titleStyle={iconPopupStyle('')} onPress={() => { Linking.openURL('https://www.buymeacoffee.com/denniskeil'); setMenu(false); }} title="Buy me a coffee" />
+                           <Menu.Item icon={useIcon('coffee')} titleStyle={iconPopupStyle('')} onPress={() => { Linking.openURL('https://www.buymeacoffee.com/denniskeil'); setMenu(false); }} title={getTranslation('footer.buymeacoffee')} />
                         }
                         <Divider />
-                        <Menu.Item icon={useIcon('question-circle', 'About')} titleStyle={iconPopupStyle('About')} onPress={() => { nav('About'); setMenu(false); }} title="About" />
-                        <Menu.Item icon={useIcon('exchange-alt', 'Changelog')} titleStyle={iconPopupStyle('Changelog')} onPress={() => { nav('Changelog'); setMenu(false); }} title="Changelog" />
+                        <Menu.Item icon={useIcon('question-circle', 'About')} titleStyle={iconPopupStyle('About')} onPress={() => { nav('About'); setMenu(false); }} title={getTranslation('footer.about')} />
+                        <Menu.Item icon={useIcon('exchange-alt', 'Changelog')} titleStyle={iconPopupStyle('Changelog')} onPress={() => { nav('Changelog'); setMenu(false); }} title={getTranslation('footer.changelog')} />
                         <Divider />
-                        <Menu.Item icon={useIcon('cog', 'Settings')} titleStyle={iconPopupStyle('Settings')} onPress={() => { nav('Settings'); setMenu(false); }} title="Settings" />
+                        <Menu.Item icon={useIcon('cog', 'Settings')} titleStyle={iconPopupStyle('Settings')} onPress={() => { nav('Settings'); setMenu(false); }} title={getTranslation('footer.settings')} />
                         <Divider />
-                        <Menu.Item icon={useIcon('lightbulb', 'Tips')} titleStyle={iconPopupStyle('Tips')} onPress={() => { nav('Tips'); setMenu(false); }} title="Tips & Tricks" />
+                        <Menu.Item icon={useIcon('lightbulb', 'Tips')} titleStyle={iconPopupStyle('Tips')} onPress={() => { nav('Tips'); setMenu(false); }} title={getTranslation('footer.tips')} />
                         <Divider />
-                        <Menu.Item icon={useIcon('play', 'Live')} titleStyle={iconPopupStyle('Live')} onPress={() => { nav('Live'); setMenu(false); }} title="Lobbies" />
+                        <Menu.Item icon={useIcon('play', 'Live')} titleStyle={iconPopupStyle('Live')} onPress={() => { nav('Live'); setMenu(false); }} title={getTranslation('footer.lobbies')} />
                         <Divider />
-                        <Menu.Item icon={useIcon('archway', 'Building')} titleStyle={iconPopupStyle('Building')} onPress={() => { nav('Building'); setMenu(false); }} title="Buildings" />
-                        <Menu.Item icon={useIcon('flask', 'Tech')} titleStyle={iconPopupStyle('Tech')} onPress={() => { nav('Tech'); setMenu(false); }} title="Techs" />
-                        <Menu.Item icon={useIcon('fist-raised', 'Unit')} titleStyle={iconPopupStyle('Unit')} onPress={() => { nav('Unit'); setMenu(false); }} title="Units" />
+                        <Menu.Item icon={useIcon('archway', 'Building')} titleStyle={iconPopupStyle('Building')} onPress={() => { nav('Building'); setMenu(false); }} title={getTranslation('footer.buildings')} />
+                        <Menu.Item icon={useIcon('flask', 'Tech')} titleStyle={iconPopupStyle('Tech')} onPress={() => { nav('Tech'); setMenu(false); }} title={getTranslation('footer.techs')} />
+                        <Menu.Item icon={useIcon('fist-raised', 'Unit')} titleStyle={iconPopupStyle('Unit')} onPress={() => { nav('Unit'); setMenu(false); }} title={getTranslation('footer.units')} />
                         <Divider />
-                        <Menu.Item icon={useIcon('trophy', 'Winrates')} titleStyle={iconPopupStyle('About')} onPress={() => { nav('Winrates'); setMenu(false); }} title="Winrates" />
+                        <Menu.Item icon={useIcon('trophy', 'Winrates')} titleStyle={iconPopupStyle('About')} onPress={() => { nav('Winrates'); setMenu(false); }} title={getTranslation('footer.winrates')} />
                     </Menu>
                 </View>
             </View>

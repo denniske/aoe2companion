@@ -8,6 +8,7 @@ import TextHeader from "../components/navigation-header/text-header";
 import UnitDetails from "./unit-details";
 import UnitList from "./unit-list";
 import {getUnitIcon} from "../../helper/units";
+import {getTranslation} from '../../helper/translate';
 
 
 export function UnitTitle(props: any) {
@@ -29,11 +30,11 @@ export function UnitTitle(props: any) {
             onLayout={props.titleProps.onLayout}
         />;
     }
-    return <TextHeader text={'Units'} onLayout={props.titleProps.onLayout}/>;
+    return <TextHeader text={getTranslation('unit.title')} onLayout={props.titleProps.onLayout}/>;
 }
 
 export function unitTitle(props: any) {
-    return props.route?.params?.unit ? getUnitName(props.route.params?.unit) : 'Units';
+    return props.route?.params?.unit ? getUnitName(props.route.params?.unit) : getTranslation('unit.title');
 }
 
 export default function UnitPage() {

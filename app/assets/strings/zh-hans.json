@@ -1,213 +1,213 @@
 {
-    "language": "es-MX",
+    "language": "zh",
     "age": [
         {
             "id": 0,
-            "string": "Estándar"
+            "string": "标准"
         },
         {
             "id": 2,
-            "string": "Alta Edad Media"
+            "string": "黑暗时代"
         },
         {
             "id": 3,
-            "string": "Edad Feudal"
+            "string": "封建时代"
         },
         {
             "id": 4,
-            "string": "Edad de los Castillos"
+            "string": "城堡时代"
         },
         {
             "id": 5,
-            "string": "Edad Imperial"
+            "string": "帝王时代"
         },
         {
             "id": 6,
-            "string": "Edad Post-Imperial"
+            "string": "后帝王时代"
         }
     ],
     "civ": [
         {
             "id": 0,
-            "string": "Aztecas"
+            "string": "阿兹特克"
         },
         {
             "id": 1,
-            "string": "Bereberes"
+            "string": "柏柏尔"
         },
         {
             "id": 2,
-            "string": "Britanos"
+            "string": "不列颠"
         },
         {
             "id": 3,
-            "string": "Búlgaros"
+            "string": "保加利亚"
         },
         {
             "id": 4,
-            "string": "Birmanos"
+            "string": "缅甸"
         },
         {
             "id": 5,
-            "string": "Bizantinos"
+            "string": "拜占庭"
         },
         {
             "id": 6,
-            "string": "Celtas"
+            "string": "凯尔特"
         },
         {
             "id": 7,
-            "string": "Chinos"
+            "string": "中国"
         },
         {
             "id": 8,
-            "string": "Cumanos"
+            "string": "库曼"
         },
         {
             "id": 9,
-            "string": "Etíopes"
+            "string": "埃塞俄比亚"
         },
         {
             "id": 10,
-            "string": "Francos"
+            "string": "法兰克"
         },
         {
             "id": 11,
-            "string": "Godos"
+            "string": "哥特"
         },
         {
             "id": 12,
-            "string": "Hunos"
+            "string": "匈奴"
         },
         {
             "id": 13,
-            "string": "Incas"
+            "string": "印加"
         },
         {
             "id": 14,
-            "string": "Indios"
+            "string": "印度"
         },
         {
             "id": 15,
-            "string": "Italianos"
+            "string": "意大利"
         },
         {
             "id": 16,
-            "string": "Japoneses"
+            "string": "日本"
         },
         {
             "id": 17,
-            "string": "Jemeres"
+            "string": "高棉"
         },
         {
             "id": 18,
-            "string": "Coreanos"
+            "string": "高丽"
         },
         {
             "id": 19,
-            "string": "Lituanos"
+            "string": "立陶宛"
         },
         {
             "id": 20,
-            "string": "Magiares"
+            "string": "马扎尔"
         },
         {
             "id": 21,
-            "string": "Malayos"
+            "string": "马来"
         },
         {
             "id": 22,
-            "string": "Malíes"
+            "string": "马里"
         },
         {
             "id": 23,
-            "string": "Mayas"
+            "string": "玛雅"
         },
         {
             "id": 24,
-            "string": "Mongoles"
+            "string": "蒙古"
         },
         {
             "id": 25,
-            "string": "Persas"
+            "string": "波斯"
         },
         {
             "id": 26,
-            "string": "Portugueses"
+            "string": "葡萄牙"
         },
         {
             "id": 27,
-            "string": "Sarracenos"
+            "string": "萨拉森"
         },
         {
             "id": 28,
-            "string": "Eslavos"
+            "string": "斯拉夫"
         },
         {
             "id": 29,
-            "string": "Españoles"
+            "string": "西班牙"
         },
         {
             "id": 30,
-            "string": "Tártaros"
+            "string": "鞑靼"
         },
         {
             "id": 31,
-            "string": "Teutones"
+            "string": "条顿"
         },
         {
             "id": 32,
-            "string": "Turcos"
+            "string": "土耳其"
         },
         {
             "id": 33,
-            "string": "Vietnamitas"
+            "string": "越南"
         },
         {
             "id": 34,
-            "string": "Vikingos"
+            "string": "维京"
         }
     ],
     "game_type": [
         {
             "id": 0,
-            "string": "Mapa aleatorio"
+            "string": "随机地图"
         },
         {
             "id": 1,
-            "string": "Regicida"
+            "string": "弑君模式"
         },
         {
             "id": 2,
-            "string": "Combate total"
+            "string": "死亡竞赛"
         },
         {
             "id": 3,
-            "string": "Escenario"
+            "string": "场景"
         },
         {
             "id": 6,
-            "string": "Rey de la colina"
+            "string": "占山为王"
         },
         {
             "id": 7,
-            "string": "Carrera de las Maravillas"
+            "string": "世界奇观竞赛"
         },
         {
             "id": 8,
-            "string": "Defender la Maravilla"
+            "string": "保护世界奇观"
         },
         {
             "id": 9,
-            "string": "Mapa aleatorio turbo"
+            "string": "加速随机地图"
         },
         {
             "id": 10,
-            "string": "Capturar la reliquia"
+            "string": "争夺圣物"
         },
         {
             "id": 11,
-            "string": "Muerte súbita"
+            "string": "主城保卫战"
         },
         {
             "id": 12,
@@ -215,481 +215,481 @@
         },
         {
             "id": 13,
-            "string": "Guerras imperiales"
+            "string": "帝国战争"
         }
     ],
     "leaderboard": [
         {
             "id": 0,
-            "string": "No puntuada"
+            "string": "未排名"
         },
         {
             "id": 1,
-            "string": "Combate total"
+            "string": "单挑死斗"
         },
         {
             "id": 2,
-            "string": "DM en equipo"
+            "string": "多人死斗"
         },
         {
             "id": 3,
-            "string": "Mapa aleatorio"
+            "string": "单挑随机地图"
         },
         {
             "id": 4,
-            "string": "RM en equipo"
+            "string": "多人随机地图"
         }
     ],
     "map_size": [
         {
             "id": 0,
-            "string": "Pequeñito (2 jug.)"
+            "string": "微型 (2 个玩家)"
         },
         {
             "id": 1,
-            "string": "Pequeño (3 jug.)"
+            "string": "小型 (3 个玩家)"
         },
         {
             "id": 2,
-            "string": "Medio (4 jug.)"
+            "string": "中型 (4 个玩家)"
         },
         {
             "id": 3,
-            "string": "Normal (6 jug.)"
+            "string": "正常 (6 个玩家)"
         },
         {
             "id": 4,
-            "string": "Grande (8 jug.)"
+            "string": "大型 (8 个玩家)"
         },
         {
             "id": 5,
-            "string": "Gigantesco"
+            "string": "巨型"
         },
         {
             "id": 6,
-            "string": "Descomunal"
+            "string": "超大"
         }
     ],
     "map_type": [
         {
             "id": 9,
-            "string": "Arabia"
+            "string": "阿拉伯"
         },
         {
             "id": 10,
-            "string": "Archipiélago"
+            "string": "群岛"
         },
         {
             "id": 11,
-            "string": "Báltico"
+            "string": "波罗的海"
         },
         {
             "id": 12,
-            "string": "Selva negra"
+            "string": "黑森林"
         },
         {
             "id": 13,
-            "string": "Costa"
+            "string": "沿海"
         },
         {
             "id": 14,
-            "string": "Continental"
+            "string": "大陆"
         },
         {
             "id": 15,
-            "string": "Lago de cráter"
+            "string": "火山湖"
         },
         {
             "id": 16,
-            "string": "Fortaleza"
+            "string": "堡垒"
         },
         {
             "id": 17,
-            "string": "Fiebre del oro"
+            "string": "淘金潮"
         },
         {
             "id": 18,
-            "string": "Montañas"
+            "string": "高地"
         },
         {
             "id": 19,
-            "string": "Islas"
+            "string": "岛屿"
         },
         {
             "id": 20,
-            "string": "Mediterráneo"
+            "string": "地中海"
         },
         {
             "id": 21,
-            "string": "Migración"
+            "string": "移民"
         },
         {
             "id": 22,
-            "string": "Ríos"
+            "string": "河流"
         },
         {
             "id": 23,
-            "string": "Islas de equipo"
+            "string": "团队岛屿"
         },
         {
             "id": 24,
-            "string": "Aleatorio total"
+            "string": "完全随机地图"
         },
         {
             "id": 25,
-            "string": "Escandinavia"
+            "string": "斯堪的纳维亚"
         },
         {
             "id": 26,
-            "string": "Mongolia"
+            "string": "蒙古"
         },
         {
             "id": 27,
-            "string": "Yucatán"
+            "string": "尤卡坦"
         },
         {
             "id": 28,
-            "string": "Marisma"
+            "string": "盐碱沼泽"
         },
         {
             "id": 29,
-            "string": "Arena"
+            "string": "竞技场"
         },
         {
             "id": 31,
-            "string": "Oasis"
+            "string": "绿洲"
         },
         {
             "id": 32,
-            "string": "Lago fantasma"
+            "string": "幽灵湖"
         },
         {
             "id": 33,
-            "string": "Nómada"
+            "string": "游牧"
         },
         {
             "id": 49,
-            "string": "Iberia"
+            "string": "伊比利亚"
         },
         {
             "id": 50,
-            "string": "Inglaterra"
+            "string": "不列颠"
         },
         {
             "id": 51,
-            "string": "Oriente Medio"
+            "string": "中东"
         },
         {
             "id": 52,
-            "string": "Texas"
+            "string": "德克萨斯"
         },
         {
             "id": 53,
-            "string": "Italia"
+            "string": "意大利半岛"
         },
         {
             "id": 54,
-            "string": "América Central"
+            "string": "中美洲"
         },
         {
             "id": 55,
-            "string": "Francia"
+            "string": "法兰西"
         },
         {
             "id": 56,
-            "string": "Tierras Nórdicas"
+            "string": "北欧"
         },
         {
             "id": 57,
-            "string": "Mar del Japón"
+            "string": "日本海 (东海)"
         },
         {
             "id": 58,
-            "string": "Bizancio"
+            "string": "拜占庭"
         },
         {
             "id": 59,
-            "string": "Personalizado"
+            "string": "定制"
         },
         {
             "id": 60,
-            "string": "Mapa de tierra aleatorio"
+            "string": "随机陆地地图"
         },
         {
             "id": 62,
-            "string": "Mapa del mundo real aleatorio"
+            "string": "真实世界地图"
         },
         {
             "id": 63,
-            "string": "Aleatorio a ciegas"
+            "string": "绝对随机地图"
         },
         {
             "id": 65,
-            "string": "Mapa especial aleatorio"
+            "string": "随机特殊地图"
         },
         {
             "id": 66,
-            "string": "Mapa especial aleatorio"
+            "string": "随机特殊地图"
         },
         {
             "id": 67,
-            "string": "Acrópolis"
+            "string": "雅典卫城"
         },
         {
             "id": 68,
-            "string": "Budapest"
+            "string": "布达佩斯"
         },
         {
             "id": 69,
-            "string": "Cenotes"
+            "string": "岩坑池地"
         },
         {
             "id": 70,
-            "string": "La Ciudad de los Lagos"
+            "string": "百湖之城"
         },
         {
             "id": 71,
-            "string": "Cuenca del oro"
+            "string": "金矿谷"
         },
         {
             "id": 72,
-            "string": "Guaridas"
+            "string": "藏身之处"
         },
         {
             "id": 73,
-            "string": "Castros"
+            "string": "山寨"
         },
         {
             "id": 74,
-            "string": "Lombardía"
+            "string": "伦巴第"
         },
         {
             "id": 75,
-            "string": "Estepa"
+            "string": "干草原"
         },
         {
             "id": 76,
-            "string": "Valle"
+            "string": "峡谷"
         },
         {
             "id": 77,
-            "string": "Mega-Aleatorio"
+            "string": "超级随机"
         },
         {
             "id": 78,
-            "string": "Hamburger"
+            "string": "汉堡包"
         },
         {
             "id": 79,
-            "string": "ClR Aleatorio"
+            "string": "争夺圣物随机地图"
         },
         {
             "id": 80,
-            "string": "ClR Región monzónica"
+            "string": "争夺圣物雨季沼泽"
         },
         {
             "id": 81,
-            "string": "ClR Pirámide abajo"
+            "string": "争夺圣物决战金字塔之巅"
         },
         {
             "id": 82,
-            "string": "ClR Espiral"
+            "string": "争夺圣物漩涡迷航"
         },
         {
             "id": 83,
-            "string": "Kilimanjaro"
+            "string": "乞力马扎罗山"
         },
         {
             "id": 84,
-            "string": "Pasaje montañoso"
+            "string": "雪山地"
         },
         {
             "id": 85,
-            "string": "Delta del Nilo"
+            "string": "尼罗河三角洲"
         },
         {
             "id": 86,
-            "string": "Serengueti"
+            "string": "塞伦盖蒂平原"
         },
         {
             "id": 87,
-            "string": "Socotra"
+            "string": "索科特拉岛"
         },
         {
             "id": 88,
-            "string": "Amazonia"
+            "string": "亚马逊流域"
         },
         {
             "id": 89,
-            "string": "China"
+            "string": "华夏"
         },
         {
             "id": 90,
-            "string": "Cuerno de África"
+            "string": "非洲之角"
         },
         {
             "id": 91,
-            "string": "India"
+            "string": "印度"
         },
         {
             "id": 92,
-            "string": "Madagascar"
+            "string": "马达加斯加岛"
         },
         {
             "id": 93,
-            "string": "África Occidental"
+            "string": "西非"
         },
         {
             "id": 94,
-            "string": "Bohemia"
+            "string": "波希米亚"
         },
         {
             "id": 95,
-            "string": "La Tierra"
+            "string": "世界"
         },
         {
             "id": 96,
-            "string": "Cañones"
+            "string": "大峡谷"
         },
         {
             "id": 97,
-            "string": "Archirrivales de archipiélago"
+            "string": "敌对群岛"
         },
         {
             "id": 98,
-            "string": "Rivales intraisleños"
+            "string": "敌对大岛"
         },
         {
             "id": 99,
-            "string": "Apartados"
+            "string": "塞外"
         },
         {
             "id": 100,
-            "string": "Frente de batalla"
+            "string": "前线"
         },
         {
             "id": 101,
-            "string": "Círculo interno"
+            "string": "内圈"
         },
         {
             "id": 102,
-            "string": "Cuna de la humanidad"
+            "string": "故土"
         },
         {
             "id": 103,
-            "string": "Planicie"
+            "string": "开阔草原"
         },
         {
             "id": 104,
-            "string": "Anillo de agua"
+            "string": "水环"
         },
         {
             "id": 105,
-            "string": "Pozo de serpientes"
+            "string": "羊肠小道"
         },
         {
             "id": 106,
-            "string": "El ojo"
+            "string": "眼睛"
         },
         {
             "id": 107,
-            "string": "Australia"
+            "string": "澳洲"
         },
         {
             "id": 108,
-            "string": "Indochina"
+            "string": "中南半岛"
         },
         {
             "id": 109,
-            "string": "Indonesia"
+            "string": "印度尼西亚"
         },
         {
             "id": 110,
-            "string": "Estrecho de Malaca"
+            "string": "马六甲海峡"
         },
         {
             "id": 111,
-            "string": "Filipinas"
+            "string": "菲律宾"
         },
         {
             "id": 112,
-            "string": "Islas pantanosas"
+            "string": "沼泽地"
         },
         {
             "id": 113,
-            "string": "Manglar"
+            "string": "红树林"
         },
         {
             "id": 114,
-            "string": "Islas del Pacífico"
+            "string": "太平洋岛屿"
         },
         {
             "id": 115,
-            "string": "Istmo de arena"
+            "string": "沙坝"
         },
         {
             "id": 116,
-            "string": "Nómadas marítimos"
+            "string": "水上游牧"
         },
         {
             "id": 117,
-            "string": "Islas silvanas"
+            "string": "丛林岛屿"
         },
         {
             "id": 118,
-            "string": "Franja sagrada"
+            "string": "圣界"
         },
         {
             "id": 119,
-            "string": "Fronteras de piedra"
+            "string": "石界"
         },
         {
             "id": 120,
-            "string": "Yin-yang"
+            "string": "阴阳"
         },
         {
             "id": 121,
-            "string": "Rutas selváticas"
+            "string": "丛林小道"
         },
         {
             "id": 122,
-            "string": "Lagos alpinos"
+            "string": "高山湖泊"
         },
         {
             "id": 123,
-            "string": "Ciénaga"
+            "string": "沼泽"
         },
         {
             "id": 124,
-            "string": "Crestas montañosas"
+            "string": "山脊"
         },
         {
             "id": 125,
-            "string": "Cañadas"
+            "string": "山涧"
         },
         {
             "id": 126,
-            "string": "Colina del lobo"
+            "string": "狼山"
         },
         {
             "id": 132,
-            "string": "Antártida"
+            "string": "南极"
         },
         {
             "id": 137,
-            "string": "Mapas personalizados"
+            "string": "自定义地图池"
         },
         {
             "id": 139,
-            "string": "Pantano Dorado"
+            "string": "金沼泽"
         },
         {
             "id": 140,
-            "string": "Cuatro Lagos"
+            "string": "四片湖泊"
         },
         {
             "id": 141,
-            "string": "Nómada"
+            "string": "陆地游牧"
         },
         {
             "id": 142,
@@ -715,107 +715,127 @@
     "rating_type": [
         {
             "id": 0,
-            "string": "No puntuada"
+            "string": "未排名"
         },
         {
             "id": 1,
-            "string": "Combate total"
+            "string": "单挑死斗"
         },
         {
             "id": 2,
-            "string": "Mapa aleatorio"
+            "string": "单挑随机地图"
         },
         {
             "id": 3,
-            "string": "DM en equipo"
+            "string": "多人死斗"
         },
         {
             "id": 4,
-            "string": "RM en equipo"
+            "string": "多人随机地图"
+        },
+        {
+            "id": 5,
+            "string": "1v1 Random Map Quick Play"
+        },
+        {
+            "id": 6,
+            "string": "Team Random Map Quick Play"
+        },
+        {
+            "id": 7,
+            "string": "1v1 Empire Wars Quick Play"
+        },
+        {
+            "id": 8,
+            "string": "Team Empire Wars Quick Play"
+        },
+        {
+            "id": 9,
+            "string": "Battle Royale Quick Play"
         }
     ],
     "resources": [
         {
             "id": 0,
-            "string": "Estándar"
+            "string": "标准"
         },
         {
             "id": 1,
-            "string": "Bajos"
+            "string": "低"
         },
         {
             "id": 2,
-            "string": "Medios"
+            "string": "中"
         },
         {
             "id": 3,
-            "string": "Altos"
+            "string": "高"
         },
         {
             "id": 4,
-            "string": "Ultra alto"
+            "string": "超高"
         },
         {
             "id": 5,
-            "string": "Infinito"
+            "string": "无限"
         },
         {
             "id": 6,
-            "string": "Aleatorio"
+            "string": "随机"
         }
     ],
     "speed": [
         {
             "id": 0,
-            "string": "Lenta"
+            "string": "慢"
         },
         {
             "id": 1,
-            "string": "Casual"
+            "string": "随意"
         },
         {
             "id": 2,
-            "string": "Normal"
+            "string": "正常"
         },
         {
             "id": 3,
-            "string": "Rápida"
+            "string": "快"
         }
     ],
     "victory": [
         {
             "id": 1,
-            "string": "Conquista"
+            "string": "征服"
         },
         {
             "id": 7,
-            "string": "Límite de tiempo"
+            "string": "时限"
         },
         {
             "id": 8,
-            "string": "Puntuación"
+            "string": "得分"
         },
         {
             "id": 9,
-            "string": "Estándar"
+            "string": "标准"
         },
         {
             "id": 11,
-            "string": "Último hombre en pie"
+            "string": "最后的存活者"
         }
     ],
     "visibility": [
         {
             "id": 0,
-            "string": "Normal"
+            "string": "正常"
         },
         {
             "id": 1,
-            "string": "Explorado"
+            "string": "已探索"
         },
         {
             "id": 2,
-            "string": "Todo visible"
+            "string": "全部可视"
         }
     ]
 }

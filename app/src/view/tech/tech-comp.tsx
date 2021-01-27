@@ -34,7 +34,7 @@ export function TechCompBig({tech: tech, showCivBanner: showCivBanner}: any) {
             <View style={styles.rowBig}>
                 <TechIcon style={styles.unitIconBig} tech={tech}/>
                 <View style={styles.unitIconBigTitle}>
-                    <MyText>{getTechName(tech)}</MyText>
+                    <MyText style={styles.name}>{getTechName(tech)}</MyText>
                     <MyText numberOfLines={1} style={styles.base.small}>{getTechDescription(tech)}</MyText>
                 </View>
             </View>
@@ -44,6 +44,9 @@ export function TechCompBig({tech: tech, showCivBanner: showCivBanner}: any) {
 
 
 const useStyles = createStylesheet((theme, mode) => StyleSheet.create({
+    name: {
+        lineHeight: 17,
+    },
     rowBig: {
         flexDirection: 'row',
         alignItems: 'center',

@@ -15,6 +15,7 @@ import {windowWidth} from "../leaderboard.page";
 import {getTechIcon} from "../../helper/techs";
 import {getOtherIcon, getUnitIcon} from "../../helper/units";
 import {getBuildingIcon} from "../../helper/buildings";
+import {getTranslation} from '../../helper/translate';
 
 
 export function TechTree({civ}: {civ: aoeCivKey}) {
@@ -37,15 +38,15 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
     return (
         <View style={styles.container}>
             <View style={styles.row2}>
-                <MyText style={styles.sectionHeader}>Tech Tree    </MyText>
-                <ButtonPicker value={techTreeSize} values={values} formatter={capitalize} onSelect={nav}/>
+                <MyText style={styles.sectionHeader}>{getTranslation('techtree.title')}    </MyText>
+                <ButtonPicker value={techTreeSize} values={values} formatter={x => getTranslation(`techtree.type.${x}`)} onSelect={nav}/>
             </View>
 
             {
                 techTreeSize === 'compact' &&
                 <>
                     <MyText style={styles.spacing}/>
-                    <MyText style={styles.heading}>Blacksmith</MyText>
+                    <MyText style={styles.heading}>{getTranslation('techtree.heading.blacksmith')}</MyText>
                     <View style={styles.row2}>
                         <Ability2 civ={civ} tech="Forging"/>
                         <Ability2 civ={civ} tech="ScaleMailArmor"/>
@@ -71,7 +72,7 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2 civ={civ} tech="RingArcherArmor"/>
                     </View>
 
-                    <MyText style={styles.heading}>Other</MyText>
+                    <MyText style={styles.heading}>{getTranslation('techtree.heading.other')}</MyText>
                     <View style={styles.row2}>
                         <Ability2 civ={civ} tech="Bloodlines"/>
                         <Ability2 civ={civ} tech="Husbandry"/>
@@ -81,7 +82,7 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2 civ={civ} tech="ParthianTactics"/>
                     </View>
 
-                    <MyText style={styles.heading}>Siege</MyText>
+                    <MyText style={styles.heading}>{getTranslation('techtree.heading.siege')}</MyText>
                     <View style={styles.row2}>
                         <Ability2 civ={civ} unit="BatteringRam"/>
                         <Ability2 civ={civ} unit="Mangonel"/>
@@ -102,7 +103,7 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2 civ={civ} tech="SiegeEngineers"/>
                     </View>
 
-                    <MyText style={styles.heading}>Infantry</MyText>
+                    <MyText style={styles.heading}>{getTranslation('techtree.heading.infantry')}</MyText>
                     <View style={styles.row2}>
                         <Ability2 civ={civ} unit="LongSwordsman"/>
                         <Ability2 civ={civ} unit="Spearman"/>
@@ -119,7 +120,7 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2 civ={civ} unit="EliteEagleWarrior"/>
                     </View>
 
-                    <MyText style={styles.heading}>Cavalry</MyText>
+                    <MyText style={styles.heading}>{getTranslation('techtree.heading.cavalry')}</MyText>
                     <View style={styles.row2}>
                         <Ability2 civ={civ} unit="ScoutCavalry"/>
                         <Ability2 civ={civ} unit="Knight"/>
@@ -142,7 +143,7 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2/>
                     </View>
 
-                    <MyText style={styles.heading}>Archer</MyText>
+                    <MyText style={styles.heading}>{getTranslation('techtree.heading.archer')}</MyText>
                     <View style={styles.row2}>
                         <Ability2 civ={civ} unit="Archer"/>
                         <Ability2 civ={civ} unit="Skirmisher"/>

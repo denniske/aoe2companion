@@ -5,8 +5,9 @@ import {
     civsConfig, defaultDisabledBuildings, defaultDisabledUnits, horseDisabledBuildings, horseDisabledTechs,
     horseDisabledUnits
 } from "../data/civs";
-import {aoeData, aoeStringKey} from "../data/data";
+import {aoeData} from "../data/data";
 import {sanitizeGameDescription, unwrap} from "../lib/util";
+import {getAoeString} from '../../../app/src/helper/translate-data';
 
 export const civs = [
     'Aztecs',
@@ -247,8 +248,8 @@ export type Civ = typeof CivUnion;
 // export type Civ = ValueOf<typeof civs>;
 
 export function getCivDescription(civ: Civ) {
-    const civStringKey = aoeData.civ_helptexts[civ] as aoeStringKey;
-    return sanitizeGameDescription(aoeData.strings[civStringKey]);
+    const civStringKey = aoeData.civ_helptexts[civ];
+    return sanitizeGameDescription(getAoeString(civStringKey));
 }
 
 export function parseCivDescription(civ: Civ) {
@@ -259,6 +260,8 @@ export function parseCivDescription(civ: Civ) {
 
     const parts = description.split('\n\n');
     // console.log(parts);
+
+    if (parts.length < 5) return null;
 
     const type = parts[0];
 
@@ -282,5 +285,5 @@ export function parseCivDescription(civ: Civ) {
 }
 
 export function getCivTeamBonus(civ: Civ) {
-    return parseCivDescription(civ).teamBonus;
+    return parseCivDescription(civ)?.teamBonus;
 }
