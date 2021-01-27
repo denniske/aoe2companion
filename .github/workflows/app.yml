@@ -18,7 +18,6 @@ jobs:
   test-artifact:
     name: Test Artifact
     runs-on: macos-latest
-    needs: [build-android]
     steps:
       - name: Checkout
         uses: actions/checkout@v1
