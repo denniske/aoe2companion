@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '21.0.1': [
+        {
+            type: 'bugfix',
+            title: 'Fix civ names in match list',
+        },
+    ],
     '21.0.0': [
         {
             type: 'minor',

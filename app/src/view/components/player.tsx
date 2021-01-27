@@ -10,7 +10,7 @@ import {getSlotTypeName, IPlayer} from "@nex/data";
 import {TextLoader} from "./loader/text-loader";
 import IconFA5 from 'react-native-vector-icons/FontAwesome5';
 import {MyText} from "./my-text";
-import {getCivIconByIndex} from "../../helper/civs";
+import {getCivIconByIndex, getCivNameById} from "../../helper/civs";
 import {createStylesheet} from '../../theming-new';
 
 
@@ -83,7 +83,7 @@ export function Player({player, highlight}: IPlayerProps) {
             <TouchableOpacity style={styles.civCol} onPress={() => navigation.push('Civ', {civ: civs[player.civ]})}>
                 <View style={styles.row}>
                     <Image fadeDuration={0} style={styles.countryIcon} source={getCivIconByIndex(player.civ) as any}/>
-                    <MyText> {getString('civ', player.civ)}</MyText>
+                    <MyText> {getCivNameById(civs[player.civ])}</MyText>
                 </View>
             </TouchableOpacity>
         </View>
