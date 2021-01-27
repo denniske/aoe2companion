@@ -101,12 +101,12 @@ const techIcons: TechIconDict = {
     'Pavise': require('../../../app/assets/techs/UniqueTechCastle.png'),
     'Yasama': require('../../../app/assets/techs/UniqueTechCastle.png'),
     'TuskSwords': require('../../../app/assets/techs/UniqueTechCastle.png'),
-    'Panokseon': require('../../../app/assets/techs/UniqueTechCastle.png'),
+    'Eupseong': require('../../../app/assets/techs/UniqueTechCastle.png'),
     'HillForts': require('../../../app/assets/techs/UniqueTechCastle.png'),
     'CorvinianArmy': require('../../../app/assets/techs/UniqueTechCastle.png'),
     'Thalassocracy': require('../../../app/assets/techs/UniqueTechCastle.png'),
     'Tigui': require('../../../app/assets/techs/UniqueTechCastle.png'),
-    'ObsidianArrows': require('../../../app/assets/techs/UniqueTechCastle.png'),
+    'HulcheJavelineers': require('../../../app/assets/techs/UniqueTechCastle.png'),
     'Nomads': require('../../../app/assets/techs/UniqueTechCastle.png'),
     'Kamandaran': require('../../../app/assets/techs/UniqueTechCastle.png'),
     'Carrack': require('../../../app/assets/techs/UniqueTechCastle.png'),
@@ -118,6 +118,8 @@ const techIcons: TechIconDict = {
     'Sipahi': require('../../../app/assets/techs/UniqueTechCastle.png'),
     'Chatras': require('../../../app/assets/techs/UniqueTechCastle.png'),
     'Chieftains': require('../../../app/assets/techs/UniqueTechCastle.png'),
+    'BurgundianVineyards': require('../../../app/assets/techs/UniqueTechCastle.png'),
+    'FirstCrusade': require('../../../app/assets/techs/UniqueTechCastle.png'),
 
     'GarlandWars': require('../../../app/assets/techs/UniqueTechImperial.png'),
     'MaghrebiCamels': require('../../../app/assets/techs/UniqueTechImperial.png'),
@@ -154,6 +156,8 @@ const techIcons: TechIconDict = {
     'Artillery': require('../../../app/assets/techs/UniqueTechImperial.png'),
     'PaperMoney': require('../../../app/assets/techs/UniqueTechImperial.png'),
     'Berserkergang': require('../../../app/assets/techs/UniqueTechImperial.png'),
+    'FlemishRevolution': require('../../../app/assets/techs/UniqueTechImperial.png'),
+    'Scutage': require('../../../app/assets/techs/UniqueTechImperial.png'),
 };
 
 export function getTechIcon(tech: Tech) {

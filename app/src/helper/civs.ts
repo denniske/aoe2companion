@@ -1,5 +1,5 @@
-import {Civ, civs} from "@nex/data";
-import {getString} from './strings';
+import {aoeData, Civ, civs, sanitizeGameDescription} from "@nex/data";
+import {getAoeString} from './translate-data';
 
 
 export const civIconList = [
@@ -7,6 +7,7 @@ export const civIconList = [
     require('../../../app/assets/civilizations/berber.png'),
     require('../../../app/assets/civilizations/britons.png'),
     require('../../../app/assets/civilizations/bulgarians.png'),
+    require('../../../app/assets/civilizations/burgundians.png'),
     require('../../../app/assets/civilizations/burmese.png'),
     require('../../../app/assets/civilizations/byzantines.png'),
     require('../../../app/assets/civilizations/celts.png'),
@@ -31,6 +32,7 @@ export const civIconList = [
     require('../../../app/assets/civilizations/persians.png'),
     require('../../../app/assets/civilizations/portuguese.png'),
     require('../../../app/assets/civilizations/saracens.png'),
+    require('../../../app/assets/civilizations/sicilians.png'),
     require('../../../app/assets/civilizations/slavs.png'),
     require('../../../app/assets/civilizations/spanish.png'),
     require('../../../app/assets/civilizations/tatars.png'),
@@ -45,6 +47,7 @@ export const civHistoryList = [
     require('../../../app/assets/history/civs/history_berbers.png'),
     require('../../../app/assets/history/civs/history_britons.png'),
     require('../../../app/assets/history/civs/history_bulgarians.png'),
+    require('../../../app/assets/history/civs/history_burgundians.png'),
     require('../../../app/assets/history/civs/history_burmese.png'),
     require('../../../app/assets/history/civs/history_byzantines.png'),
     require('../../../app/assets/history/civs/history_celts.png'),
@@ -69,6 +72,7 @@ export const civHistoryList = [
     require('../../../app/assets/history/civs/history_persians.png'),
     require('../../../app/assets/history/civs/history_portuguese.png'),
     require('../../../app/assets/history/civs/history_saracens.png'),
+    require('../../../app/assets/history/civs/history_sicilians.png'),
     require('../../../app/assets/history/civs/history_slavs.png'),
     require('../../../app/assets/history/civs/history_spanish.png'),
     require('../../../app/assets/history/civs/history_tatars.png'),
@@ -79,7 +83,8 @@ export const civHistoryList = [
 ];
 
 export function getCivNameById(civ: Civ) {
-    return getString('civ', civs.indexOf(civ)) as string;
+    const civStringKey = aoeData.civ_names[civ];
+    return sanitizeGameDescription(getAoeString(civStringKey));
 }
 
 export function getCivIconByIndex(civ: number) {

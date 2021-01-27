@@ -7,7 +7,6 @@ import {ImageBackground, StyleSheet, TouchableOpacity, View} from "react-native"
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import React from "react";
 import {MyText} from "./my-text";
-import {capitalize} from "lodash-es";
 import {setPrefValue, useMutate, useSelector} from "../../redux/reducer";
 import {saveCurrentPrefsToStorage} from "../../service/storage";
 import ButtonPicker from "./button-picker";
@@ -446,6 +445,14 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                     <View style={styles.row}>
                         <Ability2/>
                         <Ability2 civ={civ} building="Krepost"/>
+                        <Ability2/>
+                        <Ability2 civ={civ} building="Donjon"/>
+                    </View>
+                    <View style={styles.row}>
+                        <Ability3 age="FeudalAge"/>
+                        <Ability2/>
+                        <Ability2/>
+                        <Ability2 civ={civ} unit="Serjeant"/>
                     </View>
                     <View style={styles.row}>
                         <Ability3 age="CastleAge"/>
@@ -454,6 +461,8 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                     <View style={styles.row}>
                         <Ability3 age="ImperialAge"/>
                         <Ability2 civ={civ} unit="EliteKonnik"/>
+                        <Ability2/>
+                        <Ability2 civ={civ} unit="EliteSerjeant"/>
                     </View>
 
                     <MyText style={styles.heading}/>
@@ -603,6 +612,10 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                         <Ability2/>
                         <Ability2 civ={civ} tech="HandCart"/>
                         <Ability2 civ={civ} tech="TownPatrol"/>
+                    </View>
+                    <View style={styles.row}>
+                        <Ability3 age="ImperialAge"/>
+                        <Ability2 civ={civ} unit="FlemishMilitia"/>
                     </View>
 
 

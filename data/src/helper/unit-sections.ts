@@ -17,6 +17,7 @@ const unitSections: IUnitSection[] = [
                 'Spearman',
                 'EagleScout',
                 'Condottiero',
+                'FlemishMilitia',
             ],
     },
     {

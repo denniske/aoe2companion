@@ -38,6 +38,7 @@ export const buildingSections: IBuildingSection[] = [
             "Dock",
             "Castle",
             "Krepost",
+            "Donjon",
         ],
     },
     {

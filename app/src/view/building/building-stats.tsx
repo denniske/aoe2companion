@@ -134,10 +134,10 @@ export function BuildingStats({ buildingId }: Props) {
                     units.map(u =>
                         <View key={u} style={styles.cellValue}>
                             {
-                                getAttackBonuses({ buildingId: u }).length > 0 && getAttackBonuses({ buildingId: u }).map(a =>
-                                    <MyText key={a.Class}>
-                                        <GetAttackBonusValue buildingId={u} unitClassNumber={a.Class}/>
-                                        <MyText style={styles.small}> ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
+                                getAttackBonuses({ buildingId: u }).length > 0 && getAttackBonuses({ buildingId: u }).map(bonusClass =>
+                                    <MyText key={bonusClass}>
+                                        <GetAttackBonusValue buildingId={u} unitClassNumber={bonusClass}/>
+                                        <MyText style={styles.small}> ({getUnitClassName(bonusClass as UnitClassNumber).toLowerCase()})</MyText>
                                     </MyText>
                                 )
                                 || <Text>-</Text>

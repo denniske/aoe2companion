@@ -1,10 +1,5 @@
 import {Tech, techs} from "./techs";
 import {Unit, units} from "./units";
-import {Building, buildings} from "./buildings";
-import {
-    civsConfig, defaultDisabledBuildings, defaultDisabledUnits, horseDisabledBuildings, horseDisabledTechs,
-    horseDisabledUnits
-} from "../data/civs";
 import {aoeData} from "../data/data";
 import {sanitizeGameDescription, unwrap} from "../lib/util";
 import {getAoeString} from '../../../app/src/helper/translate-data';
@@ -14,6 +9,7 @@ export const civs = [
     'Berbers',
     'Britons',
     'Bulgarians',
+    'Burgundians',
     'Burmese',
     'Byzantines',
     'Celts',
@@ -38,6 +34,7 @@ export const civs = [
     'Persians',
     'Portuguese',
     'Saracens',
+    'Sicilians',
     'Slavs',
     'Spanish',
     'Tatars',
@@ -73,6 +70,11 @@ export const civList: ICivEntry[] = [
         name: 'Bulgarians',
         uniqueUnits: ['Konnik'],
         uniqueTechs: ['Stirrups', 'Bagains'],
+    },
+    {
+        name: 'Burgundians',
+        uniqueUnits: ['Coustillier', 'FlemishMilitia'],
+        uniqueTechs: ['BurgundianVineyards', 'FlemishRevolution'],
     },
     {
         name: 'Burmese',
@@ -147,7 +149,7 @@ export const civList: ICivEntry[] = [
     {
         name: 'Koreans',
         uniqueUnits: ['WarWagon', 'TurtleShip'],
-        uniqueTechs: ['Panokseon', 'Shinkichon'],
+        uniqueTechs: ['Eupseong', 'Shinkichon'],
     },
     {
         name: 'Lithuanians',
@@ -172,7 +174,7 @@ export const civList: ICivEntry[] = [
     {
         name: 'Mayans',
         uniqueUnits: ['PlumedArcher'],
-        uniqueTechs: ['ObsidianArrows', 'ElDorado'],
+        uniqueTechs: ['HulcheJavelineers', 'ElDorado'],
     },
     {
         name: 'Mongols',
@@ -193,6 +195,11 @@ export const civList: ICivEntry[] = [
         name: 'Saracens',
         uniqueUnits: ['Mameluke'],
         uniqueTechs: ['Madrasah', 'Zealotry'],
+    },
+    {
+        name: 'Sicilians',
+        uniqueUnits: ['Serjeant'],
+        uniqueTechs: ['FirstCrusade', 'Scutage'],
     },
     {
         name: 'Slavs',

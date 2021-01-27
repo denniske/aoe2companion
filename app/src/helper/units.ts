@@ -23,6 +23,9 @@ interface UnitIconDict {
 }
 
 const unitIcons: UnitIconDict = {
+    'Coustillier': require('../../../app/assets/units/Coustillier.png'),
+    'Serjeant': require('../../../app/assets/units/Serjeant.png'),
+    'FlemishMilitia': require('../../../app/assets/units/FlemishMilitia.png'),
     'Sheep': require('../../../app/assets/units/Sheep.png'),
     'Boar': require('../../../app/assets/units/Boar.png'),
     'Kamayuk': require('../../../app/assets/units/Kamayuk.png'),

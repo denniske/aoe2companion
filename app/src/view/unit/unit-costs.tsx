@@ -1,6 +1,7 @@
 import {Image, StyleSheet, View} from "react-native";
 import {MyText} from "../components/my-text";
 import {
+    getBuildingName,
     getUnitData, ICostDict, Other, sortResources, Unit, UnitLine, unitLines
 } from "@nex/data";
 import React from "react";
@@ -39,7 +40,15 @@ export function UnitCosts({ unitId, unitLineId }: Props) {
     return (
         <View style={styles.costsRow}>
             <Costs costDict={baseData.Cost}/>
-            <MyText style={styles.description}>Trained in <GetUnitValue unitId={unitId} prop="TrainTime" formatter={(x: number) => x+'s'}/></MyText>
+            <MyText style={styles.description}>
+                <MyText>Trained in <GetUnitValue unitId={unitId} prop="TrainTime" formatter={(x: number) => x+'s'}/></MyText>
+                {
+                    unitLineId == 'Serjeant' &&
+                    <>
+                        <MyText> ({getBuildingName('Castle')}), 20s ({getBuildingName('Donjon')})</MyText>
+                    </>
+                }
+            </MyText>
         </View>
     );
 }
@@ -64,11 +73,13 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         flexDirection: 'row',
     },
     costsRow: {
+        // backgroundColor: 'blue',
         flexDirection: 'row',
         marginBottom: 5,
     },
     description: {
         lineHeight: 20,
+        flex: 1,
     },
     small: {
         fontSize: 12,

@@ -343,8 +343,8 @@ const techEffectDictInternal = {
             armor: '+1/+1',
         },
     },
-    'Panokseon': {
-        tech: 'Panokseon',
+    'Eupseong': {
+        tech: 'Eupseong',
         civ: 'Koreans',
         effect: {
             speed: '+15%',
@@ -624,7 +624,7 @@ const techEffectDictInternal = {
         tech: 'Zealotry',
         civ: 'Saracens',
         effect: {
-            hitPoints: '+30',
+            hitPoints: '+20',
         },
     },
     'Farimba': {
@@ -741,7 +741,7 @@ const techEffectDictInternal = {
         tech: 'SilkArmor',
         civ: 'Tatars',
         effect: {
-            armor: '+1 pierce armor',
+            armor: '+1/+1',
         },
     },
     'Husbandry': {
@@ -773,11 +773,11 @@ const techEffectDictInternal = {
             armor: '+2 pierce armor',
         },
     },
-    'ObsidianArrows': {
-        tech: 'ObsidianArrows',
+    'HulcheJavelineers': {
+        tech: 'HulcheJavelineers',
         civ: 'Mayans',
         effect: {
-            attack: 'gives +6 attack against standard buildings and fortifications',
+            attack: 'gives a second projectile',
         },
     },
     'Yeomen': {
@@ -1054,6 +1054,30 @@ export const techEffectDict = addNameToTechEffectDict(techEffectDictInternal as 
 // var d = techEffectDict['Artillery']
 
 export const techList: ITech[] = [
+    {
+        "dataId": "754",
+        "name": "BurgundianVineyards",
+        "civ": "Burgundians",
+        "age": 'Castle',
+    },
+    {
+        "dataId": "755",
+        "name": "FlemishRevolution",
+        "civ": "Burgundians",
+        "age": 'Imperial',
+    },
+    {
+        "dataId": "756",
+        "name": "FirstCrusade",
+        "civ": "Sicilians",
+        "age": 'Castle',
+    },
+    {
+        "dataId": "757",
+        "name": "Scutage",
+        "civ": "Sicilians",
+        "age": 'Imperial',
+    },
     {
         "dataId": "101",
         "name": "FeudalAge",
@@ -1347,7 +1371,7 @@ export const techList: ITech[] = [
     },
     {
         "dataId": "486",
-        "name": "Panokseon",
+        "name": "Eupseong",
         "civ": "Koreans",
         "age": 'Castle',
     },
@@ -1661,7 +1685,7 @@ export const techList: ITech[] = [
     },
     {
         "dataId": "485",
-        "name": "ObsidianArrows",
+        "name": "HulcheJavelineers",
         "civ": "Mayans",
         "age": 'Castle',
     },
@@ -1889,6 +1913,10 @@ type TechEffectNameDict = {
 };
 
 const techIds = [
+    'BurgundianVineyards',
+    'FlemishRevolution',
+    'FirstCrusade',
+    'Scutage',
     'FeudalAge',
     'CastleAge',
     'ImperialAge',
@@ -1984,12 +2012,12 @@ const techIds = [
     'Pavise',
     'Yasama',
     'TuskSwords',
-    'Panokseon',
+    'Eupseong',
     'HillForts',
     'CorvinianArmy',
     'Thalassocracy',
     'Tigui',
-    'ObsidianArrows',
+    'HulcheJavelineers',
     'Nomads',
     'Kamandaran',
     'Carrack',

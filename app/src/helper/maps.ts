@@ -112,6 +112,11 @@ export const maps = {
     144: require('../../assets/maps/br_fall_of_axum.png'),
     145: require('../../assets/maps/br_fall_of_rome.png'),
     146: require('../../assets/maps/br_the_majapahit_empire.png'),
+    147: require('../../assets/maps/rm_amazon_tunnels.png'),
+    148: require('../../assets/maps/rm_coastal_forest.png'),
+    149: require('../../assets/maps/rm_african_clearing.png'),
+    150: require('../../assets/maps/rm_atacama.png'),
+    151: require('../../assets/maps/rm_seize_the_mountain.png'),
 };
 
 export function getMapImage(map: AoeMap) {

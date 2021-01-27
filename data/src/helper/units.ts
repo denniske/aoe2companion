@@ -24,6 +24,9 @@ interface IUnitLineDict {
 }
 
 export const unitLineIds = [
+    'Coustillier',
+    'Serjeant',
+    'FlemishMilitia',
     'TradeCart',
     'TradeCog',
     'FishingShip',
@@ -101,6 +104,24 @@ export const unitLineIds = [
 ] as const;
 
 export const unitLines: IUnitLineDict = {
+    'Coustillier': {
+        units: ['Coustillier', 'EliteCoustillier'],
+        unique: true,
+        upgrades: [
+        ],
+    },
+    'Serjeant': {
+        units: ['Serjeant', 'EliteSerjeant'],
+        unique: true,
+        upgrades: [
+        ],
+    },
+    'FlemishMilitia': {
+        units: ['FlemishMilitia'],
+        unique: true,
+        upgrades: [
+        ],
+    },
     'TradeCart': {
         units: ['TradeCart'],
         upgrades: [
@@ -462,7 +483,6 @@ export const unitLines: IUnitLineDict = {
         upgrades: [
             'Careening',
             'DryDock',
-            'Panokseon',
             'Faith',
             'Shipwright',
         ],
@@ -2073,6 +2093,7 @@ export const unitLines: IUnitLineDict = {
             'Faith',
             'Heresy',
             'Conscription',
+            'HulcheJavelineers',
         ],
     },
     'Archer': {
@@ -2092,7 +2113,6 @@ export const unitLines: IUnitLineDict = {
             'BodkinArrow',
             'Bracer',
             'Chemistry',
-            'ObsidianArrows',
             'Yeomen',
             'ThumbRing-18',
             'Ballistics',
@@ -2206,6 +2226,21 @@ export const unitLines: IUnitLineDict = {
 };
 
 const unitsInternal = {
+    'Coustillier': {
+        dataId: '1655',
+    },
+    'EliteCoustillier': {
+        dataId: '1657',
+    },
+    'Serjeant': {
+        dataId: '1658',
+    },
+    'EliteSerjeant': {
+        dataId: '1659',
+    },
+    'FlemishMilitia': {
+        dataId: '1663',
+    },
     'Sheep': {
         dataId: '128', // Placeholder data id. Sheep does not exist in data.
     },

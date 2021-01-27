@@ -1,7 +1,25 @@
 
+de update
+x aoe2techtree
+- fetch aoe2net localizations
+x HulcheJavelineers skirmisher from wiki
+x unit page attack bonus elite missing
+
+
+
 translations
 - use getTranslation everywhere
 - lineHeight for zh / ru?
+- order civ by name
+- fandom link
+
+improvements
+- history images high res?
+- Panokseon rename on aoe2techtree
+- unit page serjeant castle age upgrades
+- changelog linking
+- town center?
+
 
 country name translations from:
 https://github.com/onomojo/i18n-country-translations/tree/master/rails/locale/iso_639-1

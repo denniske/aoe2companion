@@ -54,6 +54,7 @@ const OUTPOST = 598;
 const PALISADE_GATE = 790;
 const FEITORIA = 1021;
 const KREPOST = 1251;
+const DONJON = 1665;
 const ARCHER = 4;
 const HAND_CANNONEER = 5;
 const ELITE_SKIRMISHER = 6;
@@ -201,6 +202,13 @@ const FLAMING_CAMEL = 1263;
 const STEPPE_LANCER = 1370;
 const ELITE_STEPPE_LANCER = 1372;
 const XOLOTL_WARRIOR = 1570;
+const COUSTILLIER = 1655;
+const ELITE_COUSTILLIER = 1657;
+const SERJEANT = 1658;
+const ELITE_SERJEANT = 1659;
+const DSERJEANT = 1660;
+const ELITE_DSERJEANT = 1661;
+const FLEMISHPIKEMAN = 1663;
 const YEOMEN = 3;
 const EL_DORADO = 4;
 const FUROR_CELTICA = 5;
@@ -346,6 +354,10 @@ const CUMAN_MERCENARIES = 690;
 const HILL_FORTS = 691;
 const TOWER_SHIELDS = 692;
 const SUPPLIES = 716;
+const BURGUNDIAN_VINEYARDS = 754;
+const FLEMISH_REVOLUTION = 755;
+const FIRST_CRUSADE = 756;
+const SCUTAGE = 757;
 
 export const horseDisabledBuildings = [STABLE];
 export const horseDisabledUnits = [SCOUT_CAVALRY, LIGHT_CAVALRY, HUSSAR, KNIGHT, PALADIN, CAMEL_RIDER,
@@ -379,9 +391,14 @@ export const defaultDisabledUnits = [
    KONNIK,
    ELITE_KONNIK,
    MISSIONARY,
+   DSERJEANT,
+   ELITE_DSERJEANT,
+   SERJEANT,
+   ELITE_SERJEANT,
+   FLEMISHPIKEMAN,
 ];
 
-export const defaultDisabledBuildings = [KREPOST, FEITORIA];
+export const defaultDisabledBuildings = [KREPOST, FEITORIA, DONJON];
 
 export const civsConfig = {
    Aztecs: {
@@ -555,6 +572,46 @@ export const civsConfig = {
          ELITE_KONNIK,
          STIRRUPS,
          BAGAINS
+      ]
+   },
+   Burgundians: {
+      disabled: {
+         buildings: [],
+         techs: [
+            THUMB_RING,
+            PARTHIAN_TACTICS,
+            SUPPLIES,
+            BLOODLINES,
+            RING_ARCHER_ARMOR,
+            DRY_DOCK,
+            SHIPWRIGHT,
+            SIEGE_ENGINEERS,
+            HEATED_SHOT,
+            THEOCRACY,
+            HERESY,
+         ],
+         units: [
+            ARBALESTER,
+            HEAVY_CAV_ARCHER,
+            CAMEL_RIDER,
+            HEAVY_CAMEL_RIDER,
+            SIEGE_RAM,
+            SIEGE_ONAGER,
+            HEAVY_SCORPION,
+            HEAVY_DEMO_SHIP,
+         ]
+      },
+      enabled: {
+         buildings: [],
+         units: [
+            FLEMISHPIKEMAN,
+         ]
+      },
+      unique: [
+         COUSTILLIER,
+         ELITE_COUSTILLIER,
+         BURGUNDIAN_VINEYARDS,
+         FLEMISH_REVOLUTION,
       ]
    },
    Burmese: {
@@ -805,6 +862,7 @@ export const civsConfig = {
             HEATED_SHOT,
             KEEP_TECH,
             BOMBARD_TOWER_TECH,
+            TREADMILL_CRANE,
             STONE_SHAFT_MINING,
             TWO_MAN_SAW,
             GUILDS
@@ -1095,6 +1153,7 @@ export const civsConfig = {
             SHIPWRIGHT,
             PLATE_MAIL_ARMOR,
             ARROWSLITS,
+            TREADMILL_CRANE,
             TWO_MAN_SAW,
             GUILDS,
             SUPPLIES,
@@ -1142,7 +1201,6 @@ export const civsConfig = {
             CAMEL_RIDER,
             HEAVY_CAMEL_RIDER,
             PALADIN,
-            ELITE_CANNON_GALLEON,
             DEMOLITION_RAFT,
             DEMOLITION_SHIP,
             HEAVY_DEMO_SHIP,
@@ -1507,6 +1565,59 @@ export const civsConfig = {
          ZEALOTRY
       ]
    },
+   Sicilians: {
+      disabled: {
+         buildings: [
+            FORTIFIED_WALL,
+            WATCH_TOWER,
+            GUARD_TOWER,
+            KEEP,
+            BOMBARD_TOWER,
+         ],
+         techs: [
+            THUMB_RING,
+            PARTHIAN_TACTICS,
+            RING_ARCHER_ARMOR,
+            ARCHITECTURE,
+            FORTIFIED_WALL_TECH,
+            BOMBARD_TOWER_TECH,
+            GUARD_TOWER_TECH,
+            KEEP_TECH,
+            REDEMPTION,
+            ATONEMENT,
+            BLOCK_PRINTING,
+            THEOCRACY,
+            HERESY,
+            TWO_MAN_SAW,
+         ],
+         units: [
+            HAND_CANNONEER,
+            HEAVY_CAV_ARCHER,
+            HUSSAR,
+            PALADIN,
+            CAMEL_RIDER,
+            HEAVY_CAMEL_RIDER,
+            SIEGE_ONAGER,
+            BOMBARD_CANNON,
+            ELITE_CANNON_GALLEON,
+         ]
+      },
+      enabled: {
+         buildings: [
+            DONJON,
+         ],
+         units: [
+            DSERJEANT,
+            ELITE_DSERJEANT,
+         ]
+      },
+      unique: [
+         SERJEANT,
+         ELITE_SERJEANT,
+         FIRST_CRUSADE,
+         SCUTAGE,
+      ]
+   },
    Slavs: {
       disabled: {
          buildings: [
@@ -1524,6 +1635,7 @@ export const civsConfig = {
             ARCHITECTURE,
             ARROWSLITS,
             HEATED_SHOT,
+            TREADMILL_CRANE,
             STONE_SHAFT_MINING,
             GUILDS
          ],

@@ -10,6 +10,7 @@ export const aoeDataInternal = {
         "Berbers": "120176",
         "Britons": "120150",
         "Bulgarians": "120181",
+        "Burgundians": "120185",
         "Burmese": "120179",
         "Byzantines": "120156",
         "Celts": "120162",
@@ -34,6 +35,7 @@ export const aoeDataInternal = {
         "Persians": "120157",
         "Portuguese": "120173",
         "Saracens": "120158",
+        "Sicilians": "120186",
         "Slavs": "120172",
         "Spanish": "120163",
         "Tatars": "120182",
@@ -47,6 +49,7 @@ export const aoeDataInternal = {
         "Berbers": "10297",
         "Britons": "10271",
         "Bulgarians": "10302",
+        "Burgundians": "10306",
         "Burmese": "10300",
         "Byzantines": "10277",
         "Celts": "10283",
@@ -71,6 +74,7 @@ export const aoeDataInternal = {
         "Persians": "10278",
         "Portuguese": "10294",
         "Saracens": "10279",
+        "Sicilians": "10307",
         "Slavs": "10293",
         "Spanish": "10284",
         "Tatars": "10303",
@@ -421,7 +425,7 @@ export const aoeDataInternal = {
                     "Wood": 2
                 },
                 "GarrisonCapacity": 0,
-                "HP": 250,
+                "HP": 150,
                 "ID": 72,
                 "LanguageHelpId": 26202,
                 "LanguageNameId": 5202,
@@ -1464,6 +1468,50 @@ export const aoeDataInternal = {
                 "TrainTime": 15,
                 "internal_name": "WCTWX"
             },
+            "621": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 7,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 0,
+                "Attacks": [],
+                "Cost": {
+                    "Stone": 100,
+                    "Wood": 275
+                },
+                "GarrisonCapacity": 0,
+                "HP": 2400,
+                "ID": 621,
+                "LanguageHelpId": 26164,
+                "LanguageNameId": 5164,
+                "LineOfSight": 8,
+                "MeleeArmor": 0,
+                "MinRange": 0,
+                "PierceArmor": 7,
+                "Range": 6,
+                "ReloadTime": 2,
+                "TrainTime": 150,
+                "internal_name": "RTWC1X"
+            },
             "790": {
                 "AccuracyPercent": 100,
                 "Armours": [
@@ -1498,7 +1546,7 @@ export const aoeDataInternal = {
                     "Wood": 30
                 },
                 "GarrisonCapacity": 0,
-                "HP": 400,
+                "HP": 240,
                 "ID": 790,
                 "LanguageHelpId": 26186,
                 "LanguageNameId": 5186,
@@ -1626,6 +1674,79 @@ export const aoeDataInternal = {
                 "ReloadTime": 2,
                 "TrainTime": 150,
                 "internal_name": "KREPOST"
+            },
+            "1665": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 1,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 7,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 13
+                    },
+                    {
+                        "Amount": 1,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 5,
+                "Attacks": [
+                    {
+                        "Amount": 2,
+                        "Class": 27
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 7,
+                        "Class": 16
+                    },
+                    {
+                        "Amount": 5,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 1,
+                        "Class": 30
+                    },
+                    {
+                        "Amount": 7,
+                        "Class": 34
+                    }
+                ],
+                "Cost": {
+                    "Stone": 200,
+                    "Wood": 75
+                },
+                "GarrisonCapacity": 10,
+                "HP": 1000,
+                "ID": 1665,
+                "LanguageHelpId": 26544,
+                "LanguageNameId": 5544,
+                "LineOfSight": 10,
+                "MeleeArmor": 1,
+                "MinRange": 1,
+                "PierceArmor": 7,
+                "Range": 8,
+                "ReloadTime": 2,
+                "TrainTime": 90,
+                "internal_name": "DONJON"
             }
         },
         "techs": {
@@ -1696,8 +1817,8 @@ export const aoeDataInternal = {
             },
             "9": {
                 "Cost": {
-                    "Food": 750,
-                    "Gold": 700
+                    "Food": 500,
+                    "Gold": 450
                 },
                 "ID": 9,
                 "LanguageHelpId": 28424,
@@ -3223,6 +3344,50 @@ export const aoeDataInternal = {
                 "LanguageNameId": 7403,
                 "ResearchTime": 35,
                 "internal_name": "Tracking"
+            },
+            "754": {
+                "Cost": {
+                    "Food": 400,
+                    "Gold": 300
+                },
+                "ID": 754,
+                "LanguageHelpId": 28342,
+                "LanguageNameId": 7342,
+                "ResearchTime": 45,
+                "internal_name": "Burgundian Vineyards"
+            },
+            "755": {
+                "Cost": {
+                    "Food": 800,
+                    "Gold": 450
+                },
+                "ID": 755,
+                "LanguageHelpId": 28343,
+                "LanguageNameId": 7343,
+                "ResearchTime": 10,
+                "internal_name": "Flemish Revolution"
+            },
+            "756": {
+                "Cost": {
+                    "Food": 300,
+                    "Gold": 600
+                },
+                "ID": 756,
+                "LanguageHelpId": 28344,
+                "LanguageNameId": 7344,
+                "ResearchTime": 60,
+                "internal_name": "First Crusade"
+            },
+            "757": {
+                "Cost": {
+                    "Food": 500,
+                    "Gold": 400
+                },
+                "ID": 757,
+                "LanguageHelpId": 28345,
+                "LanguageNameId": 7345,
+                "ResearchTime": 45,
+                "internal_name": "Scutage"
             }
         },
         "units": {
@@ -3247,6 +3412,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 4,
+                "AttackDelaySeconds": 0.35,
                 "Attacks": [
                     {
                         "Amount": 3,
@@ -3314,6 +3480,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 17,
+                "AttackDelaySeconds": 0.35,
                 "Attacks": [
                     {
                         "Amount": 1,
@@ -3377,6 +3544,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 3,
+                "AttackDelaySeconds": 0.5066666666666667,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -3444,6 +3612,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 2,
+                "AttackDelaySeconds": 0.5066666666666667,
                 "Attacks": [
                     {
                         "Amount": 3,
@@ -3511,6 +3680,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 6,
+                "AttackDelaySeconds": 0.5,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -3582,6 +3752,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 6,
+                "AttackDelaySeconds": 0.49833333333333335,
                 "Attacks": [
                     {
                         "Amount": 1,
@@ -3645,6 +3816,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 0,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [],
                 "Cost": {
                     "Wood": 75
@@ -3686,6 +3858,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 0,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [],
                 "Cost": {
                     "Gold": 50,
@@ -3728,6 +3901,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 7,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 7,
@@ -3791,6 +3965,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 5,
+                "AttackDelaySeconds": 0.35,
                 "Attacks": [
                     {
                         "Amount": 3,
@@ -3858,6 +4033,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 12,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 4,
@@ -3917,6 +4093,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 2,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 125,
@@ -3976,6 +4153,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 40,
+                "AttackDelaySeconds": 0.21,
                 "Attacks": [
                     {
                         "Amount": 200,
@@ -4043,6 +4221,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 10,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 10,
@@ -4110,6 +4289,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 6,
+                "AttackDelaySeconds": 0.8944444444444445,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -4173,6 +4353,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 9,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 9,
@@ -4244,6 +4425,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 10,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -4307,6 +4489,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 200,
+                "AttackDelaySeconds": 0.8800000000000001,
                 "Attacks": [
                     {
                         "Amount": 250,
@@ -4366,6 +4549,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 17,
+                "AttackDelaySeconds": 0.4,
                 "Attacks": [
                     {
                         "Amount": 0,
@@ -4425,6 +4609,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 8,
+                "AttackDelaySeconds": 0.22166666666666665,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -4492,6 +4677,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 4,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 0,
@@ -4555,6 +4741,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 6,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -4618,6 +4805,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 9,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 6,
@@ -4677,6 +4865,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 3,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 3,
@@ -4739,6 +4928,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 3,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 1,
@@ -4818,6 +5008,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 0,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [],
                 "Cost": {
                     "Gold": 100
@@ -4855,6 +5046,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 0,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [],
                 "Cost": {
                     "Gold": 50,
@@ -4901,6 +5093,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 4,
+                "AttackDelaySeconds": 0.795872,
                 "Attacks": [
                     {
                         "Amount": 1,
@@ -4968,6 +5161,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 9,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 9,
@@ -5047,6 +5241,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 8,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -5114,6 +5309,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 15,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 7,
@@ -5177,6 +5373,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 7,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 7,
@@ -5240,6 +5437,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 12,
+                "AttackDelaySeconds": 0.21,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -5303,6 +5501,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 40,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 35,
@@ -5362,6 +5561,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 7,
+                "AttackDelaySeconds": 0.9955555555555556,
                 "Attacks": [
                     {
                         "Amount": 1,
@@ -5433,6 +5633,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 8,
+                "AttackDelaySeconds": 0.4,
                 "Attacks": [
                     {
                         "Amount": 0,
@@ -5492,6 +5693,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 12,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 12,
@@ -5555,6 +5757,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 8,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -5614,6 +5817,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 6,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 6,
@@ -5685,6 +5889,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 7,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 7,
@@ -5764,6 +5969,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 4,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 1,
@@ -5847,6 +6053,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 6,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 1,
@@ -5930,6 +6137,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 35,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 200,
@@ -6005,6 +6213,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 3,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 150,
@@ -6056,6 +6265,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 25,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 100,
@@ -6119,6 +6329,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 7,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 12,
@@ -6177,6 +6388,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 8,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 8,
@@ -6240,6 +6452,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 3,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 6,
@@ -6298,6 +6511,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 12,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 8,
@@ -6369,6 +6583,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 7,
+                "AttackDelaySeconds": 0.8816666666666666,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -6428,6 +6643,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 6,
+                "AttackDelaySeconds": 0.3422222222222222,
                 "Attacks": [
                     {
                         "Amount": 3,
@@ -6491,6 +6707,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 110,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 220,
@@ -6542,6 +6759,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 140,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 280,
@@ -6593,6 +6811,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 2,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -6664,6 +6883,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 7,
+                "AttackDelaySeconds": 0.5,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -6727,6 +6947,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 8,
+                "AttackDelaySeconds": 0.8177777777777778,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -6786,6 +7007,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 3,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 3,
@@ -6857,6 +7079,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 8,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 8,
@@ -6924,6 +7147,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 13,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 3,
@@ -6983,6 +7207,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 6,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 6,
@@ -7046,6 +7271,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 16,
+                "AttackDelaySeconds": 0.20800000000000002,
                 "Attacks": [
                     {
                         "Amount": 4,
@@ -7109,6 +7335,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 0,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [],
                 "Cost": {
                     "Wood": 125
@@ -7150,6 +7377,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 7,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 10,
@@ -7212,6 +7440,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 4,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 200,
@@ -7267,6 +7496,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 50,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 45,
@@ -7326,6 +7556,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 12,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 12,
@@ -7397,6 +7628,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 17,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 4,
@@ -7456,6 +7688,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 12,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 3,
@@ -7527,6 +7760,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 10,
+                "AttackDelaySeconds": 0.2,
                 "Attacks": [
                     {
                         "Amount": 0,
@@ -7598,6 +7832,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 22,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 0,
@@ -7661,6 +7896,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 20,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 10,
@@ -7724,6 +7960,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 8,
+                "AttackDelaySeconds": 0.22166666666666665,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -7795,6 +8032,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 12,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 3,
@@ -7866,6 +8104,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 8,
+                "AttackDelaySeconds": 0.49833333333333335,
                 "Attacks": [
                     {
                         "Amount": 1,
@@ -7929,6 +8168,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 13,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 8,
@@ -7992,6 +8232,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 14,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 14,
@@ -8051,6 +8292,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 75,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 60,
@@ -8110,6 +8352,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 45,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 275,
@@ -8185,6 +8428,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 9,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -8252,6 +8496,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 14,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 3,
@@ -8319,6 +8564,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 10,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -8390,6 +8636,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 12,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -8461,6 +8708,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 4,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 8,
@@ -8540,6 +8788,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 9,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 10,
@@ -8619,6 +8868,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 7,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 8,
@@ -8698,6 +8948,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 8,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 10,
@@ -8773,6 +9024,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 11,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 10,
@@ -8848,6 +9100,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 5,
+                "AttackDelaySeconds": 0.5,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -8919,6 +9172,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 5,
+                "AttackDelaySeconds": 0.5,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -9002,6 +9256,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 16,
+                "AttackDelaySeconds": 0.40444444444444444,
                 "Attacks": [
                     {
                         "Amount": 0,
@@ -9073,6 +9328,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 18,
+                "AttackDelaySeconds": 0.40444444444444444,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -9136,6 +9392,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 0,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [],
                 "Cost": {
                     "Gold": 100
@@ -9189,6 +9446,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 9,
+                "AttackDelaySeconds": 0.9955555555555555,
                 "Attacks": [
                     {
                         "Amount": 5,
@@ -9252,6 +9510,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 9,
+                "AttackDelaySeconds": 0.9955555555555555,
                 "Attacks": [
                     {
                         "Amount": 5,
@@ -9315,6 +9574,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 50,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 50,
@@ -9374,6 +9634,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 50,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 50,
@@ -9425,6 +9686,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 6,
+                "AttackDelaySeconds": 0.5,
                 "Attacks": [
                     {
                         "Amount": 6,
@@ -9456,7 +9718,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Cost": {
-                    "Gold": 45,
+                    "Gold": 40,
                     "Wood": 45
                 },
                 "FrameDelay": 15,
@@ -9500,6 +9762,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 6,
+                "AttackDelaySeconds": 0.5,
                 "Attacks": [
                     {
                         "Amount": 6,
@@ -9531,7 +9794,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Cost": {
-                    "Gold": 45,
+                    "Gold": 40,
                     "Wood": 45
                 },
                 "FrameDelay": 15,
@@ -9575,6 +9838,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 9,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 9,
@@ -9642,6 +9906,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 10,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 10,
@@ -9721,6 +9986,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 6,
+                "AttackDelaySeconds": 0.394,
                 "Attacks": [
                     {
                         "Amount": 3,
@@ -9796,6 +10062,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 7,
+                "AttackDelaySeconds": 0.394,
                 "Attacks": [
                     {
                         "Amount": 4,
@@ -9859,6 +10126,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 12,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 12,
@@ -9922,6 +10190,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 14,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 14,
@@ -9985,6 +10254,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 7,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 7,
@@ -10052,6 +10322,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 8,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 8,
@@ -10127,6 +10398,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 10,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -10198,6 +10470,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 16,
+                "AttackDelaySeconds": 0.6,
                 "Attacks": [
                     {
                         "Amount": 0,
@@ -10261,6 +10534,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 20,
+                "AttackDelaySeconds": 0.6,
                 "Attacks": [
                     {
                         "Amount": 0,
@@ -10320,6 +10594,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 6,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 8,
@@ -10387,6 +10662,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 8,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 9,
@@ -10462,6 +10738,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 7,
+                "AttackDelaySeconds": 0.625,
                 "Attacks": [
                     {
                         "Amount": 0,
@@ -10545,6 +10822,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 8,
+                "AttackDelaySeconds": 0.625,
                 "Attacks": [
                     {
                         "Amount": 0,
@@ -10628,6 +10906,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 3,
+                "AttackDelaySeconds": 0.5,
                 "Attacks": [
                     {
                         "Amount": 0,
@@ -10707,6 +10986,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 4,
+                "AttackDelaySeconds": 0.5,
                 "Attacks": [
                     {
                         "Amount": 0,
@@ -10778,6 +11058,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 10,
+                "AttackDelaySeconds": 1.0,
                 "Attacks": [
                     {
                         "Amount": 1,
@@ -10841,6 +11122,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 13,
+                "AttackDelaySeconds": 1.0,
                 "Attacks": [
                     {
                         "Amount": 1,
@@ -10904,6 +11186,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 16,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -10963,6 +11246,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 18,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -11018,6 +11302,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 1,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 1,
@@ -11085,6 +11370,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 90,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 180,
@@ -11140,6 +11426,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 0,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [],
                 "Cost": {
                     "Gold": 160,
@@ -11194,6 +11481,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 8,
+                "AttackDelaySeconds": 0.394,
                 "Attacks": [
                     {
                         "Amount": 3,
@@ -11281,6 +11569,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 9,
+                "AttackDelaySeconds": 0.394,
                 "Attacks": [
                     {
                         "Amount": 4,
@@ -11360,6 +11649,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 6,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -11419,6 +11709,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 7,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -11485,14 +11776,15 @@ export const aoeDataInternal = {
                         "Class": 31
                     }
                 ],
-                "Attack": 17,
+                "Attack": 12,
+                "AttackDelaySeconds": 0.6,
                 "Attacks": [
                     {
                         "Amount": 0,
                         "Class": 11
                     },
                     {
-                        "Amount": 17,
+                        "Amount": 12,
                         "Class": 3
                     },
                     {
@@ -11527,7 +11819,7 @@ export const aoeDataInternal = {
                 "MinRange": 0,
                 "PierceArmor": 1,
                 "Range": 5,
-                "ReloadTime": 2.2,
+                "ReloadTime": 2,
                 "Speed": 1.3,
                 "TrainTime": 21,
                 "internal_name": "ARAMBAI"
@@ -11564,14 +11856,15 @@ export const aoeDataInternal = {
                         "Class": 31
                     }
                 ],
-                "Attack": 19,
+                "Attack": 15,
+                "AttackDelaySeconds": 0.6,
                 "Attacks": [
                     {
                         "Amount": 0,
                         "Class": 11
                     },
                     {
-                        "Amount": 19,
+                        "Amount": 15,
                         "Class": 3
                     },
                     {
@@ -11606,7 +11899,7 @@ export const aoeDataInternal = {
                 "MinRange": 0,
                 "PierceArmor": 2,
                 "Range": 5,
-                "ReloadTime": 2.2,
+                "ReloadTime": 2,
                 "Speed": 1.3,
                 "TrainTime": 21,
                 "internal_name": "EARAMBAI"
@@ -11636,6 +11929,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 6,
+                "AttackDelaySeconds": 0.6900000000000001,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -11703,6 +11997,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 7,
+                "AttackDelaySeconds": 0.6900000000000001,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -11770,6 +12065,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 12,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 4,
@@ -11833,6 +12129,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 14,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 7,
@@ -11892,6 +12189,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 4,
+                "AttackDelaySeconds": 0.5066666666666667,
                 "Attacks": [
                     {
                         "Amount": 3,
@@ -11963,6 +12261,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 9,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 9,
@@ -11982,7 +12281,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Cost": {
-                    "Food": 50,
+                    "Food": 60,
                     "Gold": 40
                 },
                 "FrameDelay": 0,
@@ -12026,6 +12325,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 11,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 11,
@@ -12045,7 +12345,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Cost": {
-                    "Food": 50,
+                    "Food": 60,
                     "Gold": 40
                 },
                 "FrameDelay": 0,
@@ -12097,6 +12397,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 4,
+                "AttackDelaySeconds": 0.49,
                 "Attacks": [
                     {
                         "Amount": 1,
@@ -12164,6 +12465,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 5,
+                "AttackDelaySeconds": 0.49,
                 "Attacks": [
                     {
                         "Amount": 1,
@@ -12223,6 +12525,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 12,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 0,
@@ -12286,6 +12589,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 14,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 0,
@@ -12349,6 +12653,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 12,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 0,
@@ -12379,9 +12684,9 @@ export const aoeDataInternal = {
                 "GarrisonCapacity": 0,
                 "HP": 45,
                 "ID": 1252,
-                "LanguageHelpId": 26659,
-                "LanguageNameId": 5659,
-                "LineOfSight": 5,
+                "LanguageHelpId": 42057,
+                "LanguageNameId": 21057,
+                "LineOfSight": 3,
                 "MeleeArmor": 0,
                 "MinRange": 0,
                 "PierceArmor": 0,
@@ -12416,6 +12721,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 13,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 0,
@@ -12446,9 +12752,9 @@ export const aoeDataInternal = {
                 "GarrisonCapacity": 0,
                 "HP": 50,
                 "ID": 1253,
-                "LanguageHelpId": 26662,
-                "LanguageNameId": 5662,
-                "LineOfSight": 5,
+                "LanguageHelpId": 42058,
+                "LanguageNameId": 21058,
+                "LineOfSight": 3,
                 "MeleeArmor": 0,
                 "MinRange": 0,
                 "PierceArmor": 1,
@@ -12483,6 +12789,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 12,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 12,
@@ -12546,6 +12853,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 14,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 14,
@@ -12609,6 +12917,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 20,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 100,
@@ -12676,6 +12985,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 9,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 9,
@@ -12735,6 +13045,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 11,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 11,
@@ -12794,6 +13105,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 10,
+                "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
                         "Amount": 10,
@@ -12831,6 +13143,449 @@ export const aoeDataInternal = {
                 "Speed": 1.35,
                 "TrainTime": 30,
                 "internal_name": "AZTRAIDER"
+            },
+            "1655": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 2,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 8
+                    },
+                    {
+                        "Amount": 2,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 8,
+                "AttackDelaySeconds": 0.0,
+                "Attacks": [
+                    {
+                        "Amount": 0,
+                        "Class": 15
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 8,
+                        "Class": 4
+                    }
+                ],
+                "Cost": {
+                    "Food": 55,
+                    "Gold": 55
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 115,
+                "ID": 1655,
+                "LanguageHelpId": 26534,
+                "LanguageNameId": 5534,
+                "LineOfSight": 5,
+                "MeleeArmor": 2,
+                "MinRange": 0,
+                "PierceArmor": 2,
+                "Range": 0,
+                "ReloadTime": 1.9,
+                "Speed": 1.35,
+                "TrainTime": 15,
+                "internal_name": "COUSTILLIER"
+            },
+            "1657": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 2,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 8
+                    },
+                    {
+                        "Amount": 2,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 11,
+                "AttackDelaySeconds": 0.0,
+                "Attacks": [
+                    {
+                        "Amount": 0,
+                        "Class": 15
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 11,
+                        "Class": 4
+                    }
+                ],
+                "Cost": {
+                    "Food": 55,
+                    "Gold": 55
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 145,
+                "ID": 1657,
+                "LanguageHelpId": 26536,
+                "LanguageNameId": 5536,
+                "LineOfSight": 5,
+                "MeleeArmor": 2,
+                "MinRange": 0,
+                "PierceArmor": 2,
+                "Range": 0,
+                "ReloadTime": 1.9,
+                "Speed": 1.35,
+                "TrainTime": 14,
+                "internal_name": "ECOUSTILLIER"
+            },
+            "1658": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 1
+                    },
+                    {
+                        "Amount": 1,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 2,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 5,
+                "AttackDelaySeconds": 0.0,
+                "Attacks": [
+                    {
+                        "Amount": 2,
+                        "Class": 29
+                    },
+                    {
+                        "Amount": 2,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 5,
+                        "Class": 4
+                    }
+                ],
+                "Cost": {
+                    "Food": 60,
+                    "Gold": 35
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 45,
+                "ID": 1658,
+                "LanguageHelpId": 26538,
+                "LanguageNameId": 5538,
+                "LineOfSight": 3,
+                "MeleeArmor": 1,
+                "MinRange": 0,
+                "PierceArmor": 2,
+                "Range": 0,
+                "ReloadTime": 2,
+                "Speed": 0.9,
+                "TrainTime": 12,
+                "internal_name": "SERJEANT"
+            },
+            "1659": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 1
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 11,
+                "AttackDelaySeconds": 0.0,
+                "Attacks": [
+                    {
+                        "Amount": 3,
+                        "Class": 29
+                    },
+                    {
+                        "Amount": 3,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 11,
+                        "Class": 4
+                    }
+                ],
+                "Cost": {
+                    "Food": 60,
+                    "Gold": 35
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 75,
+                "ID": 1659,
+                "LanguageHelpId": 26540,
+                "LanguageNameId": 5540,
+                "LineOfSight": 5,
+                "MeleeArmor": 4,
+                "MinRange": 0,
+                "PierceArmor": 4,
+                "Range": 0,
+                "ReloadTime": 2,
+                "Speed": 0.9,
+                "TrainTime": 12,
+                "internal_name": "ESERJEANT"
+            },
+            "1660": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 1
+                    },
+                    {
+                        "Amount": 1,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 2,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 5,
+                "AttackDelaySeconds": 0.0,
+                "Attacks": [
+                    {
+                        "Amount": 2,
+                        "Class": 29
+                    },
+                    {
+                        "Amount": 2,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 5,
+                        "Class": 4
+                    }
+                ],
+                "Cost": {
+                    "Food": 60,
+                    "Gold": 35
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 45,
+                "ID": 1660,
+                "LanguageHelpId": 26538,
+                "LanguageNameId": 5538,
+                "LineOfSight": 3,
+                "MeleeArmor": 1,
+                "MinRange": 0,
+                "PierceArmor": 2,
+                "Range": 0,
+                "ReloadTime": 2,
+                "Speed": 0.9,
+                "TrainTime": 20,
+                "internal_name": "DSERJEANT"
+            },
+            "1661": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 1
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 11,
+                "AttackDelaySeconds": 0.0,
+                "Attacks": [
+                    {
+                        "Amount": 3,
+                        "Class": 29
+                    },
+                    {
+                        "Amount": 3,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 11,
+                        "Class": 4
+                    }
+                ],
+                "Cost": {
+                    "Food": 60,
+                    "Gold": 35
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 75,
+                "ID": 1661,
+                "LanguageHelpId": 26540,
+                "LanguageNameId": 5540,
+                "LineOfSight": 5,
+                "MeleeArmor": 4,
+                "MinRange": 0,
+                "PierceArmor": 4,
+                "Range": 0,
+                "ReloadTime": 2,
+                "Speed": 0.9,
+                "TrainTime": 20,
+                "internal_name": "EDSERJEANT"
+            },
+            "1663": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 1
+                    },
+                    {
+                        "Amount": 1,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 1,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 12,
+                "AttackDelaySeconds": 0.0,
+                "Attacks": [
+                    {
+                        "Amount": 2,
+                        "Class": 29
+                    },
+                    {
+                        "Amount": 2,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 12,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 12,
+                        "Class": 8
+                    },
+                    {
+                        "Amount": 8,
+                        "Class": 16
+                    },
+                    {
+                        "Amount": 8,
+                        "Class": 30
+                    },
+                    {
+                        "Amount": 8,
+                        "Class": 5
+                    }
+                ],
+                "Cost": {
+                    "Food": 50
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 75,
+                "ID": 1663,
+                "LanguageHelpId": 26542,
+                "LanguageNameId": 5542,
+                "LineOfSight": 5,
+                "MeleeArmor": 1,
+                "MinRange": 0,
+                "PierceArmor": 1,
+                "Range": 0,
+                "ReloadTime": 2,
+                "Speed": 0.9,
+                "TrainTime": 21,
+                "internal_name": "FLEMISHPIKEMAN"
             }
         }
     },

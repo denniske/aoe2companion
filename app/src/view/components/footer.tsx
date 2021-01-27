@@ -157,7 +157,7 @@ export default function Footer() {
                         <Menu.Item icon={useIcon('flask', 'Tech')} titleStyle={iconPopupStyle('Tech')} onPress={() => { nav('Tech'); setMenu(false); }} title={getTranslation('footer.techs')} />
                         <Menu.Item icon={useIcon('fist-raised', 'Unit')} titleStyle={iconPopupStyle('Unit')} onPress={() => { nav('Unit'); setMenu(false); }} title={getTranslation('footer.units')} />
                         <Divider />
-                        <Menu.Item icon={useIcon('trophy', 'Winrates')} titleStyle={iconPopupStyle('About')} onPress={() => { nav('Winrates'); setMenu(false); }} title={getTranslation('footer.winrates')} />
+                        <Menu.Item icon={useIcon('trophy', 'Winrates')} titleStyle={iconPopupStyle('Winrates')} onPress={() => { nav('Winrates'); setMenu(false); }} title={getTranslation('footer.winrates')} />
                     </Menu>
                 </View>
             </View>

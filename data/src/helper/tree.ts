@@ -76,6 +76,10 @@ export function getCivHasUnit(civ: Civ, unit: Unit) {
         return true;
     }
 
+    if ((civConfig as any).unique?.includes(parseInt(entry.dataId))) {
+        return true;
+    }
+
     if (defaultDisabledUnits.includes(parseInt(entry.dataId))) {
         return false;
     }

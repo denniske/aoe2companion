@@ -13,6 +13,7 @@ import Space from "../components/space";
 import {Building, getBuildingData, IBuildingInfo} from "@nex/data";
 import {getOtherIcon, getUnitIcon} from "../../helper/units";
 import {createStylesheet} from '../../theming-new';
+import {uniq} from "lodash";
 
 interface Props {
     unitId: Unit;
@@ -66,7 +67,7 @@ export function GetValueByPath(props: PathProps) {
         );
     } else {
         return (
-            <MyText  style={style}>{formatter(path(baseData))}</MyText>
+            <MyText style={style}>{formatter(path(baseData))}</MyText>
         );
     }
 }
@@ -108,7 +109,12 @@ export function GetArmourValue(props: PathProps3) {
 
 export function getAttackBonuses(params: GetDataParams) {
     const data = getData(params);
-    return data.Attacks.filter(a => a.Amount > 0 && !attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber)));
+    const eliteData = params.unitId ? getEliteData(getUnitLineIdForUnit(params.unitId)) : null;
+
+    const attackBonuses = data.Attacks.filter(a => a.Amount > 0 && !attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber))).map(a => a.Class);
+    const attackBonusesElite = eliteData?.Attacks.filter(a => a.Amount > 0 && !attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber))).map(a => a.Class) ?? [];
+
+    return uniq([...attackBonuses, ...attackBonusesElite]);
 }
 
 export function getArmourClasses(params: GetDataParams) {
@@ -231,10 +237,10 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                     units.map(u =>
                         <View key={u} style={styles.cellValue}>
                             {
-                                getAttackBonuses({ unitId: u }).length > 0 && getAttackBonuses({ unitId: u }).map(a =>
-                                    <MyText key={a.Class}>
-                                        <GetAttackBonusValue unitId={u} unitClassNumber={a.Class}/>
-                                        <MyText style={styles.small}> ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
+                                getAttackBonuses({ unitId: u }).length > 0 && getAttackBonuses({ unitId: u }).map(bonusClass =>
+                                    <MyText key={bonusClass}>
+                                        <GetAttackBonusValue unitId={u} unitClassNumber={bonusClass}/>
+                                        <MyText style={styles.small}> ({getUnitClassName(bonusClass as UnitClassNumber).toLowerCase()})</MyText>
                                     </MyText>
                                 )
                                 || <Text>-</Text>

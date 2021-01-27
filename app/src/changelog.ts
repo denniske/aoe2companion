@@ -10,6 +10,20 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '21.0.0': [
+        {
+            type: 'minor',
+            title: 'Implement AoE II DE Update 44725',
+        },
+        {
+            type: 'minor',
+            title: 'Prepare app for localization',
+        },
+        {
+            type: 'bugfix',
+            title: 'Some fixes for unit stats',
+        },
+    ],
     '20.0.1': [
         {
             type: 'bugfix',
