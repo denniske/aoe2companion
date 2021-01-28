@@ -134,6 +134,8 @@ export class FunctionController implements OnModuleInit {
 
         console.log('HAS default');
 
+        const sortCol = country ? 'rank_country' : 'rank';
+
         const users = await this.prisma.leaderboard_row.findMany({
             where: {
                 leaderboard_id: leaderboardId,
@@ -143,7 +145,7 @@ export class FunctionController implements OnModuleInit {
             skip: start-1,
             take: count,
             orderBy: {
-                rating: 'desc',
+                [sortCol]: 'asc',
             },
         });
         time();
