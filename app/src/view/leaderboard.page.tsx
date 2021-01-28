@@ -214,7 +214,7 @@ function Leaderboard({leaderboardId}: any) {
                     </View>
                     {
                         windowWidth >= 360 &&
-                        <TextLoader style={styles.cellGames}>{getTranslation('leaderboard.games', { games: player?.games })}</TextLoader>
+                        <TextLoader ready={player?.games} style={styles.cellGames}>{getTranslation('leaderboard.games', { games: player?.games })}</TextLoader>
                     }
                 </View>
             </TouchableOpacity>
