@@ -21,6 +21,9 @@ improvements
 - town center?
 
 
+npx expo build:ios --type simulator --release-channel temp
+
+
 country name translations from:
 https://github.com/onomojo/i18n-country-translations/tree/master/rails/locale/iso_639-1
 
