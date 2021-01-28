@@ -1,8 +1,4 @@
-import {Match} from "./match";
-import {Account} from "./account";
-import {Following} from "./following";
 import {IMatch} from '@nex/data';
-
 
 
 export interface IMatchBase {

@@ -3,7 +3,7 @@ import {getUnitLineIdForUnit, ICostDict, sortedUnitLines, Unit, UnitLine, unitLi
 import {aoeData, aoeTechDataId} from "../data/data";
 import {keysOf, sanitizeGameDescription, strRemoveTo, unwrap} from "../lib/util";
 import {flatMap} from 'lodash';
-import {getAoeString} from '../../../app/src/helper/translate-data';
+import {getAoeString} from '../lib/aoe-data';
 
 export type Effect =
     'carryCapacity' |

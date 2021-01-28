@@ -2,7 +2,7 @@ import {Tech, techs} from "./techs";
 import {Unit, units} from "./units";
 import {aoeData} from "../data/data";
 import {sanitizeGameDescription, unwrap} from "../lib/util";
-import {getAoeString} from '../../../app/src/helper/translate-data';
+import {getAoeString} from '../lib/aoe-data';
 
 export const civs = [
     'Aztecs',

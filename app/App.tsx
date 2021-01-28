@@ -36,7 +36,7 @@ import ExampleSpec from './src/ci/exampleSpec';
 import LeaderboardPage, {leaderboardMenu, LeaderboardTitle} from "./src/view/leaderboard.page";
 import GuidePage from "./src/view/guide.page";
 import CivPage, {CivTitle, civTitle} from "./src/view/civ.page";
-import {Civ} from "@nex/data";
+import {Civ, registerService, SERVICE_NAME} from "@nex/data";
 import UnitPage, {UnitTitle, unitTitle} from "./src/view/unit/unit.page";
 import {Unit} from "@nex/data";
 import {navigationRef} from "./src/service/navigation";
@@ -70,9 +70,10 @@ import {LinkingOptions} from "@react-navigation/native/lib/typescript/src/types"
 import {createStylesheet} from './src/theming-new';
 import { LogBox } from "react-native";
 import {getLanguageFromSystemLocale2, getTranslation} from './src/helper/translate';
-import {loadAoeStringsAsync} from './src/helper/translate-data';
+import {getInternalAoeString, loadAoeStringsAsync} from './src/helper/translate-data';
 import * as Localization from 'expo-localization';
 import {setlanguage} from './src/redux/statecache';
+import {IAoeDataService} from '../data/src/lib/aoe-data';
 
 initSentry();
 
@@ -98,6 +99,14 @@ if (Platform.OS !== 'web') {
         'Unable to activate keep awake',
     ]);
 }
+
+class AoeDataService implements IAoeDataService {
+    getAoeString(str: string): string {
+        return getInternalAoeString(str);
+    }
+}
+
+registerService(SERVICE_NAME.AOE_DATA_SERVICE, new AoeDataService(), true);
 
 // HACK: Prevent "Expo pasted from CoreSimulator" notification from spamming continuously
 // if (__DEV__) {

@@ -3,7 +3,7 @@ import {sortBy} from "lodash";
 import {Civ} from "./civs";
 import {getAllMatches, strRemoveFrom, strRemoveTo, unwrap, ValueOf} from "../lib/util";
 import {aoeData, aoeUnitDataId} from "../data/data";
-import {getAoeString} from '../../../app/src/helper/translate-data';
+import {getAoeString} from '../lib/aoe-data';
 
 
 export interface IUnitLine {

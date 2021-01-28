@@ -1,5 +1,5 @@
 import {aoeData, Civ, civs, sanitizeGameDescription} from "@nex/data";
-import {getAoeString} from './translate-data';
+import {getAoeString} from '../../../data/src/lib/aoe-data';
 
 
 export const civIconList = [

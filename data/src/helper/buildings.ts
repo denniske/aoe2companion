@@ -1,7 +1,7 @@
 import {ICostDict, IUnitClassPair} from "./units";
 import {aoeBuildingDataId, aoeData} from "../data/data";
 import {sanitizeGameDescription, strRemoveFrom, strRemoveTo, unwrap} from "../lib/util";
-import {getAoeString} from '../../../app/src/helper/translate-data';
+import {getAoeString} from '../lib/aoe-data';
 
 interface IBuilding {
     dataId: aoeBuildingDataId;
