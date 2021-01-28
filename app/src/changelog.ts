@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '21.0.3': [
+        {
+            type: 'bugfix',
+            title: 'Fix leaderboard page',
+        },
+    ],
     '21.0.2': [
         {
             type: 'bugfix',

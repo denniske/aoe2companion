@@ -9,8 +9,8 @@ export function getTranslation(str: keyof typeof local00, params?: Record<string
     const translations = strings[getlanguage()];
     let translated = (translations && str in translations) ? translations[str] : strings['en'][str];
 
-    if (params) {
-        for (var key in params) {
+    if (translated && params) {
+        for (const key in params) {
             translated = translated.replaceAll(`{${key}}`, params[key]);
         }
     }
