@@ -11,7 +11,7 @@ export function getTranslation(str: keyof typeof local00, params?: Record<string
 
     if (translated && params) {
         for (const key in params) {
-            translated = translated.replaceAll(`{${key}}`, params[key]);
+            translated = translated.replace(new RegExp(`\{${key}\}`, 'gi'), params[key]);
         }
     }
 
