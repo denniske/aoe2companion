@@ -710,7 +710,27 @@
         {
             "id": 146,
             "string": "BR Majapahit Empire"
-        }
+        },
+        {
+            "id": 147,
+            "string": "Amazon Tunnel"
+        },
+        {
+            "id": 148,
+            "string": "Coastal Forest"
+        },
+        {
+            "id": 149,
+            "string": "African Clearing"
+        },
+        {
+            "id": 150,
+            "string": "Atacama"
+        },
+        {
+            "id": 151,
+            "string": "Seize The Mountain"
+        },
     ],
     "rating_type": [
         {
