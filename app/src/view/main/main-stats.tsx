@@ -1,4 +1,3 @@
-import {makeVariants, useTheme} from "../../theming";
 import {FlatList, StyleSheet, View} from "react-native";
 import {
     clearMatchesPlayer, clearStatsPlayer, setLoadingMatchesOrStats, setPrefValue, useMutate, useSelector

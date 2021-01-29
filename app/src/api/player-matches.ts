@@ -34,6 +34,15 @@ export async function fetchPlayerMatchesLegacy(game: string, start: number, coun
     // TODO: Temporary fix: Filter duplicate matches
     json = uniqBy(json, m => m.match_id);
 
+    // TODO: Fix for new civ order after Lords of the West
+    const releaseDate = 1611680400; // 01/26/2021 @ 5:00pm (UTC)
+    json.filter(match => match.started < releaseDate).forEach(match => {
+       match.players.forEach(player => {
+           if (player.civ >= 4) player.civ++;
+           if (player.civ >= 29) player.civ++;
+       })
+    });
+
     return json.map(match => convertTimestampsToDates(match));
 }
 

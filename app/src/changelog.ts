@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '21.0.5': [
+        {
+            type: 'bugfix',
+            title: 'Fix civ stats',
+        },
+    ],
     '21.0.4': [
         {
             type: 'bugfix',
