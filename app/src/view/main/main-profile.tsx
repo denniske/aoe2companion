@@ -14,6 +14,7 @@ import {Game} from "../components/game";
 import {Button} from "react-native-paper";
 import {parseUserId, sameUserNull} from "../../helper/user";
 import {createStylesheet} from '../../theming-new';
+import {getTranslation} from '../../helper/translate';
 
 
 export default function MainProfile() {
@@ -110,10 +111,10 @@ export default function MainProfile() {
                         switch (item) {
                             case 'rating-header':
                                 if (rating.data?.length === 0) return <View/>;
-                                return <MyText style={styles.sectionHeader}>Rating History</MyText>;
+                                return <MyText style={styles.sectionHeader}>{getTranslation('main.profile.ratinghistory.heading')}</MyText>;
                             case 'matches5-header':
                                 if (rating.data?.length === 0) return <View/>;
-                                return <MyText style={styles.sectionHeader}>Recent matches</MyText>;
+                                return <MyText style={styles.sectionHeader}>{getTranslation('main.profile.recentmatches.heading')}</MyText>;
                             case 'matches5-footer':
                                 return <Button
                                     onPress={() => nav('MainMatches')}

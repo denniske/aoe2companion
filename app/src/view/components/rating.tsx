@@ -15,6 +15,7 @@ import {saveCurrentPrefsToStorage} from "../../service/storage";
 import {isAfter, subDays, subMonths, subWeeks} from "date-fns";
 import {VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTheme} from "../../helper/victory";
 import {windowWidth} from "../leaderboard.page";
+import {getTranslation} from '../../helper/translate';
 
 interface IRatingProps {
     ratingHistories: IRatingHistoryRow[] | null;
@@ -50,6 +51,7 @@ export default function Rating({ratingHistories, ready}: IRatingProps) {
         '1w',
         '1d',
     ];
+    const formatDuration = (duration: string) => getTranslation(`main.profile.ratinghistory.time.${duration}`);
 
     const nav = async (str: any) => {
         mutate(setPrefValue('ratingHistoryDuration', str));
@@ -114,7 +116,7 @@ export default function Rating({ratingHistories, ready}: IRatingProps) {
     return (
             <View style={styles.container}>
                 <View style={styles.durationRow}>
-                    <ButtonPicker value={ratingHistoryDuration} values={values} formatter={capitalize} onSelect={nav}/>
+                    <ButtonPicker value={ratingHistoryDuration} values={values} formatter={formatDuration} onSelect={nav}/>
                 </View>
 
                 <ViewLoader ready={ratingHistories}>

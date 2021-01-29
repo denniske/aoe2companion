@@ -15,10 +15,10 @@ export interface IRow {
 }
 
 const durations = [
-    '< 5 min',
-    '5 - 30 min',
-    '30 - 60 min',
-    '> 60 min',
+    'lessThan5Minutes',
+    'lessThan30Minutes',
+    'lessThan60Minutes',
+    'greaterThan60Minutes',
 ];
 
 function matchDuration(match: IMatch, durationIndex: number) {

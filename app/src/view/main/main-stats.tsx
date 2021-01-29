@@ -21,6 +21,7 @@ import RefreshControlThemed from "../components/refresh-control-themed";
 import {parseUserId} from "../../helper/user";
 import StatsDuration from "../components/stats-duration";
 import {createStylesheet} from '../../theming-new';
+import {getTranslation} from '../../helper/translate';
 
 
 export default function MainStats() {
@@ -113,7 +114,9 @@ export default function MainStats() {
                                         <TemplatePicker value={leaderboardId} values={values} template={renderLeaderboard} onSelect={onLeaderboardSelected}/>
                                     </View>
                                     <TextLoader ready={hasStats} style={styles.info}>
-                                        {statsPlayer?.matchCount > 0 ? `The last ${statsPlayer?.matchCount} matches:` : 'No matches yet.'}
+                                        {statsPlayer?.matchCount > 0 ?
+                                            getTranslation('main.stats.thelastmatches', { matches: statsPlayer?.matchCount }) :
+                                            getTranslation('main.stats.nomatches')}
                                     </TextLoader>
                                 </View>;
                             case 'stats-duration':

@@ -12,12 +12,73 @@
   "main.stats.heading.opponent": "Gegner",
   "main.stats.heading.civ": "Zivilisation",
   "main.stats.heading.map": "Karte",
+  "main.stats.heading.games": "Games",
+  "main.stats.heading.won": "Won",
   "main.showmore": "Mehr anzeigen",
+
+  "main.stats.thelastmatches": "Die letzten {matches} matches:",
+  "main.stats.nomatches": "Bisher keine matches.",
+
+  "main.stats.duration.lessThan5Minutes": "< 5 min",
+  "main.stats.duration.lessThan30Minutes": "5 - 30 min",
+  "main.stats.duration.lessThan60Minutes": "30 - 60 min",
+  "main.stats.duration.greaterThan60Minutes": "> 60 min",
+
+  "main.profile.heading.board": "Board",
+  "main.profile.heading.rank": "Rank",
+  "main.profile.heading.rating": "Rating",
+  "main.profile.heading.max": "max",
+  "main.profile.heading.change": "change",
+  "main.profile.heading.games": "Games",
+  "main.profile.heading.won": "Won",
+  "main.profile.heading.streak": "Streak",
+
+  "main.profile.games": "{games} games",
+  "main.profile.drops": "{drops} drops",
+
+  "main.profile.ratinghistory.heading": "Elo Verlauf",
+  "main.profile.ratinghistory.time.max": "Max",
+  "main.profile.ratinghistory.time.3m": "3m",
+  "main.profile.ratinghistory.time.1m": "1m",
+  "main.profile.ratinghistory.time.1w": "1w",
+  "main.profile.ratinghistory.time.1d": "1d",
+
+  "main.profile.recentmatches.heading": "Letzten Spiele",
+
+  "main.profile.follow": "Follow",
+  "main.profile.unfollow": "Unfollow",
+
+  "main.matches.search.placeholder": "name, map, player",
+  "main.matches.withme": "w/ me",
+  "main.matches.matches": "{matches} matches",
 
   "civs.title": "Zivilisationen",
 
   "building.title": "Gebäude",
   "building.search.placeholder": "name",
+
+  "changelog.title": "Changelog",
+
+  "about.title": "About",
+
+  "lobbies.title": "Lobbies",
+  "lobbies.search.placeholder": "name, map, player",
+  "lobbies.datausagewarning": "Nur im WiFi nutzen. Datenverbrauch: {usage} MB",
+
+  "pushnotifications.title": "Push Benachrichtigungen",
+
+  "errors.title": "Fehler",
+
+  "search.title": "Suche",
+  "search.nouserfound": "Kein Spieler gefunden.",
+  "search.condition.1": "Ein Spieler muss mindestens 10 Spiele in den letzten 3 Monaten haben, um gefunden zu werden.",
+  "search.minlength": "Gib mindestens 3 Zeichen ein.",
+  "search.placeholder": "username",
+  "search.show": "Anzeigen",
+  "search.heading.name": "Name",
+  "search.heading.games": "Games",
+
+  "privacy.title": "Datenschutz",
 
   "unit.title": "Einheiten",
   "unit.search.placeholder": "name",
@@ -48,8 +109,24 @@
   "settings.language": "Sprache",
   "settings.language.note": "(außer Build Order Guides)",
 
+  "feed.follow.title": "Spieler folgen",
+  "feed.follow.error": "Folgen/Entfolgen fehlgeschlagen.",
+  "feed.follow.follow": "Folgen",
+  "feed.follow.unfollow": "Entfolgen",
+
+  "feed.manage.title": "Folgen Verwalten",
+  "feed.following.title": "Abonnements",
+  "feed.following.info.1": "Folge Spielern um ihre Spieleaktivität zu sehen.",
+  "feed.following.info.2": "Klicke den + Button, um einem Spieler zu folgen.",
+  "feed.following.you": "Du",
+  "feed.following.and": "und",
+  "feed.following.played": "spielen",
+  "feed.following.playingnow": "spielen gerade",
+
+  "match.versus": "VS",
+
   "footer.help": "Hilfe",
-  "footer.buymeacoffee": "Buy me a coffee",
+  "footer.buymeacoffee": "Kauf mir einen Kaffee",
   "footer.about": "Über",
   "footer.changelog": "Changelog",
   "footer.settings": "Einstellungen",

@@ -17,6 +17,7 @@ import IconFA5 from "react-native-vector-icons/FontAwesome5";
 import {sameUser, sameUserNull, UserIdBase} from "../../helper/user";
 import {createStylesheet} from '../../theming-new';
 import {getLeaderboardOrGameType} from '../../helper/leaderboards';
+import {getTranslation} from '../../helper/translate';
 
 interface IGameProps {
     data: IMatch;
@@ -149,7 +150,7 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
                             {
                                 i < teams.length-1 &&
                                 <View style={styles.versus}>
-                                    <MyText style={styles.versusText}>VS</MyText>
+                                    <MyText style={styles.versusText}>{getTranslation('match.versus')}</MyText>
                                 </View>
                             }
                         </View>

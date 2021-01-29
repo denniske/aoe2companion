@@ -8,6 +8,7 @@ import IconFA5 from "react-native-vector-icons/FontAwesome5";
 import {Searchbar} from "react-native-paper";
 import {createStylesheet} from '../theming-new';
 import {ILobbyMatchRaw} from '../helper/data';
+import {getTranslation} from '../helper/translate';
 
 
 interface IPingMessage {
@@ -144,11 +145,11 @@ export default function LivePage() {
             <View style={styles.content}>
                 <View style={styles.usageRow}>
                     <IconFA5 style={styles.usageIcon} name="exclamation-triangle" size={14} color={theme.textNoteColor} />
-                    <MyText style={styles.usageText}>Only use with WiFi. Data usage: {(usage / 1000000).toFixed(1)} MB</MyText>
+                    <MyText style={styles.usageText}>{getTranslation('lobbies.datausagewarning', { usage: (usage / 1000000).toFixed(1)})}</MyText>
                 </View>
                 <Searchbar
                     style={styles.searchbar}
-                    placeholder="name, map, player"
+                    placeholder={getTranslation('lobbies.search.placeholder')}
                     onChangeText={text => setText(text)}
                     value={text}
                 />

@@ -11,6 +11,7 @@ import RefreshControlThemed from "./refresh-control-themed";
 import {usePrevious} from "@nex/data/hooks";
 import {createStylesheet} from '../../theming-new';
 import FlatListLoadingIndicator from './flat-list-loading-indicator';
+import {getTranslation} from '../../helper/translate';
 
 interface IPlayerProps {
     player: IFetchedUser;
@@ -103,17 +104,17 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
     if (user.touched && (user.data == null || user.data.length === 0)) {
         list.push({
             type: 'text',
-            content: <MyText style={styles.centerText}>No user found.</MyText>,
+            content: <MyText style={styles.centerText}>{getTranslation('search.nouserfound')}</MyText>,
         }, {
             type: 'text',
             content: (
                 <>
                     <View style={styles.headerRow}>
-                        <MyText style={styles.note}>A user must have played at least 10 games in a timespan of about 3 months to be found.</MyText>
+                        <MyText style={styles.note}>{getTranslation('search.condition.1')}</MyText>
                     </View>
-                    <View style={styles.headerRow}>
-                        <MyText style={styles.note}>Searching for less than 3 chars only shows exact matching names.</MyText>
-                    </View>
+                    {/*<View style={styles.headerRow}>*/}
+                    {/*    <MyText style={styles.note}>{getTranslation('search.condition.2')}</MyText>*/}
+                    {/*</View>*/}
                 </>
             ),
         });
@@ -121,7 +122,7 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
     if (text.length < 3) {
         list = [{
             type: 'text',
-            content: <MyText style={styles.centerText}>Enter at least 3 chars.</MyText>,
+            content: <MyText style={styles.centerText}>{getTranslation('search.minlength')}</MyText>,
         }];
     }
 
@@ -156,7 +157,7 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
                 <Searchbar
                         // ref={generateTestHook('Search.Input')}
                         style={styles.searchbar}
-                        placeholder="username"
+                        placeholder={getTranslation('search.placeholder')}
                         onChangeText={text => setText(text)}
                         value={text}
                 />
@@ -164,8 +165,8 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
                 {
                     user.data && user.data.length > 0 && text.length >= 3 &&
                     <View style={styles.headerRow}>
-                        <MyText style={styles.cellName}>Name</MyText>
-                        <MyText style={styles.cellGames}>Games</MyText>
+                        <MyText style={styles.cellName}>{getTranslation('search.heading.name')}</MyText>
+                        <MyText style={styles.cellGames}>{getTranslation('search.heading.games')}</MyText>
                         <MyText style={styles.cellAction}/>
                     </View>
                 }

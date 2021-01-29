@@ -100,8 +100,8 @@ export default function StatsPlayer(props: IProps) {
                         hasAlly &&
                         <View style={styles.row}>
                             <MyText numberOfLines={1} style={styles.cellLeaderboard}>{getTranslation('main.stats.heading.ally')}</MyText>
-                            <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>
-                            <MyText numberOfLines={1} style={styles.cellWon}>Won*</MyText>
+                            <MyText numberOfLines={1} style={styles.cellGames}>{getTranslation('main.stats.heading.games')}</MyText>
+                            <MyText numberOfLines={1} style={styles.cellWon}>{getTranslation('main.stats.heading.won')}*</MyText>
                         </View>
                     }
 

@@ -18,7 +18,7 @@ const localeMapping = {
     'hi': hi,
     'ja': ja,
     'ko': ko,
-    'zh-hans': zhCN,
+    'zh-hans': zhCN.match,
     'zh-hant': zhTW,
 };
 

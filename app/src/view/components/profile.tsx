@@ -16,6 +16,7 @@ import {toggleFollowing} from "../../service/following";
 import Space from "./space";
 import {saveCurrentPrefsToStorage} from "../../service/storage";
 import {createStylesheet} from '../../theming-new';
+import {getTranslation} from '../../helper/translate';
 
 interface ILeaderboardRowProps {
     data: ILeaderboard;
@@ -184,8 +185,11 @@ export default function Profile({data, ready}: IProfileProps) {
                                 }
                             </View>
                             <View style={styles.row}>
-                                <TextLoader width={180} ready={data}>{data?.games} Games, {data?.drops} Drops
-                                    ({(data?.drops as any / (data?.games as any) * 100).toFixed(2)} %)</TextLoader>
+                                <TextLoader width={180} ready={data}>
+                                    {getTranslation('main.profile.games', { games: data?.games })},
+                                    {' '}{getTranslation('main.profile.drops', { drops: data?.drops })}
+                                    {' '}({(data?.drops as any / (data?.games as any) * 100).toFixed(2)} %)
+                                </TextLoader>
                             </View>
                         </View>
                         <View style={styles.expanded}/>
@@ -195,7 +199,7 @@ export default function Profile({data, ready}: IProfileProps) {
                                 <View style={styles.followButton}>
                                     <Icon solid={followingThisUser} name="heart" size={22} style={styles.followButtonIcon}/>
                                     <MyText style={styles.followButtonText}>
-                                        {followingThisUser ? 'Unfollow' : 'Follow'}
+                                        {followingThisUser ? getTranslation('main.profile.unfollow') : getTranslation('main.profile.follow')}
                                     </MyText>
                                 </View>
                             </TouchableOpacity>
@@ -223,11 +227,11 @@ export default function Profile({data, ready}: IProfileProps) {
                     {/*</ScrollView>*/}
 
                     <View style={styles.leaderboardRow}>
-                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>Board</MyText>
-                        <MyText numberOfLines={1} style={styles.cellRank}>Rank</MyText>
-                        <MyText numberOfLines={1} style={styles.cellRating}>Rating</MyText>
-                        <MyText numberOfLines={1} style={styles.cellRating2}>max</MyText>
-                        <MyText numberOfLines={1} style={styles.cellRatingChange}>change</MyText>
+                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>{getTranslation('main.profile.heading.board')}</MyText>
+                        <MyText numberOfLines={1} style={styles.cellRank}>{getTranslation('main.profile.heading.rank')}</MyText>
+                        <MyText numberOfLines={1} style={styles.cellRating}>{getTranslation('main.profile.heading.rating')}</MyText>
+                        <MyText numberOfLines={1} style={styles.cellRating2}>{getTranslation('main.profile.heading.max')}</MyText>
+                        <MyText numberOfLines={1} style={styles.cellRatingChange}>{getTranslation('main.profile.heading.change')}</MyText>
                     </View>
                     {
                         data?.leaderboards.map(leaderboard =>
@@ -248,11 +252,11 @@ export default function Profile({data, ready}: IProfileProps) {
                     }
                     <Space/>
                     <View style={styles.leaderboardRow}>
-                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>Board</MyText>
-                        <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>
+                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>{getTranslation('main.profile.heading.board')}</MyText>
+                        <MyText numberOfLines={1} style={styles.cellGames}>{getTranslation('main.profile.heading.games')}</MyText>
                         {/*<MyText numberOfLines={1} style={styles.cellWon}><IconFA5 name="crown" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
-                        <MyText numberOfLines={1} style={styles.cellWon}>Won</MyText>
-                        <MyText numberOfLines={1} style={styles.cellStreak}>Streak</MyText>
+                        <MyText numberOfLines={1} style={styles.cellWon}>{getTranslation('main.profile.heading.won')}</MyText>
+                        <MyText numberOfLines={1} style={styles.cellStreak}>{getTranslation('main.profile.heading.streak')}</MyText>
                         {/*<MyText numberOfLines={1} style={styles.cellStreak}>max</MyText>*/}
                         {/*<MyText numberOfLines={1} style={styles.cellWon}><IconFA5 name="clock" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
                     </View>

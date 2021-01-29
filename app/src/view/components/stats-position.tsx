@@ -69,8 +69,8 @@ export default function StatsPosition(props: IProps) {
                 <View>
                     <View style={styles.row}>
                         <MyText numberOfLines={1} style={styles.cellLeaderboard}>{getTranslation('main.stats.heading.position')}</MyText>
-                        <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>
-                        <MyText numberOfLines={1} style={styles.cellWon}>Won*</MyText>
+                        <MyText numberOfLines={1} style={styles.cellGames}>{getTranslation('main.stats.heading.games')}</MyText>
+                        <MyText numberOfLines={1} style={styles.cellWon}>{getTranslation('main.stats.heading.won')}*</MyText>
                     </View>
 
                     {

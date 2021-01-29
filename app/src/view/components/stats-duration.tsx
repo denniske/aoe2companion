@@ -17,16 +17,16 @@ interface IRowProps {
 function Row({data}: IRowProps) {
     const styles = useStyles();
     let marginLeft = 0;
-    if (data.duration == '< 5 min') {
+    if (data.duration == 'lessThan5Minutes') {
         marginLeft = 0;
     }
-    if (data.duration == '5 - 30 min') {
+    if (data.duration == 'lessThan30Minutes') {
         marginLeft = 12.0;
     }
-    if (data.duration == '30 - 60 min') {
+    if (data.duration == 'lessThan60Minutes') {
         marginLeft = 3.0;
     }
-    if (data.duration == '> 60 min') {
+    if (data.duration == 'greaterThan60Minutes') {
         marginLeft = 21.5;
     }
     return (
@@ -35,7 +35,7 @@ function Row({data}: IRowProps) {
                     <View style={styles.icon}>
                         <Icon5 name="clock" size={14} />
                     </View>
-                    <MyText style={{marginLeft}}>{data.duration}</MyText>
+                    <MyText style={{marginLeft}}>{getTranslation(`main.stats.duration.${data.duration}`)}</MyText>
                 </View>
                 <MyText style={styles.cellGames}>
                     {data.games}
@@ -75,8 +75,8 @@ export default function StatsDuration(props: IProps) {
                 <View>
                     <View style={styles.row}>
                         <MyText numberOfLines={1} style={styles.cellLeaderboard}>{getTranslation('main.stats.heading.duration')}</MyText>
-                        <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>
-                        <MyText numberOfLines={1} style={styles.cellWon}>Won*</MyText>
+                        <MyText numberOfLines={1} style={styles.cellGames}>{getTranslation('main.stats.heading.games')}</MyText>
+                        <MyText numberOfLines={1} style={styles.cellWon}>{getTranslation('main.stats.heading.won')}*</MyText>
                     </View>
 
                     {

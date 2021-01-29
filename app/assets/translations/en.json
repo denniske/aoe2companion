@@ -12,12 +12,73 @@
   "main.stats.heading.opponent": "Opponent",
   "main.stats.heading.civ": "Civ",
   "main.stats.heading.map": "Map",
+  "main.stats.heading.games": "Games",
+  "main.stats.heading.won": "Won",
   "main.showmore": "Show more",
+
+  "main.stats.thelastmatches": "The last {matches} matches:",
+  "main.stats.nomatches": "No matches yet.",
+
+  "main.stats.duration.lessThan5Minutes": "< 5 min",
+  "main.stats.duration.lessThan30Minutes": "5 - 30 min",
+  "main.stats.duration.lessThan60Minutes": "30 - 60 min",
+  "main.stats.duration.greaterThan60Minutes": "> 60 min",
+
+  "main.profile.heading.board": "Board",
+  "main.profile.heading.rank": "Rank",
+  "main.profile.heading.rating": "Rating",
+  "main.profile.heading.max": "max",
+  "main.profile.heading.change": "change",
+  "main.profile.heading.games": "Games",
+  "main.profile.heading.won": "Won",
+  "main.profile.heading.streak": "Streak",
+
+  "main.profile.games": "{games} games",
+  "main.profile.drops": "{drops} drops",
+
+  "main.profile.ratinghistory.heading": "Rating History",
+  "main.profile.ratinghistory.time.max": "Max",
+  "main.profile.ratinghistory.time.3m": "3m",
+  "main.profile.ratinghistory.time.1m": "1m",
+  "main.profile.ratinghistory.time.1w": "1w",
+  "main.profile.ratinghistory.time.1d": "1d",
+
+  "main.profile.recentmatches.heading": "Recent matches",
+
+  "main.profile.follow": "Follow",
+  "main.profile.unfollow": "Unfollow",
+
+  "main.matches.search.placeholder": "name, map, player",
+  "main.matches.withme": "w/ me",
+  "main.matches.matches": "{matches} matches",
 
   "civs.title": "Civs",
 
   "building.title": "Buildings",
   "building.search.placeholder": "name",
+
+  "changelog.title": "Changelog",
+
+  "about.title": "About",
+
+  "lobbies.title": "Lobbies",
+  "lobbies.search.placeholder": "name, map, player",
+  "lobbies.datausagewarning": "Only use with WiFi. Data usage: {usage} MB",
+
+  "pushnotifications.title": "Push Notifications",
+
+  "errors.title": "Errors",
+
+  "search.title": "Search",
+  "search.nouserfound": "No user found.",
+  "search.condition.1": "A user must have played at least 10 games in a timespan of about 3 months to be found.",
+  "search.minlength": "Enter at least 3 chars.",
+  "search.placeholder": "username",
+  "search.show": "Show",
+  "search.heading.name": "Name",
+  "search.heading.games": "Games",
+
+  "privacy.title": "Privacy",
 
   "unit.title": "Units",
   "unit.search.placeholder": "name",
@@ -47,6 +108,22 @@
   "settings.preventscreenlock.note": "Prevent screen lock on build order screen",
   "settings.language": "Language",
   "settings.language.note": "(except build order guides)",
+
+  "feed.follow.title": "Follow Player",
+  "feed.follow.error": "Follow/Unfollow failed.",
+  "feed.follow.follow": "Follow",
+  "feed.follow.unfollow": "Unfollow",
+
+  "feed.manage.title": "Manage Follows",
+  "feed.following.title": "Following",
+  "feed.following.info.1": "Follow players to see their match history.",
+  "feed.following.info.2": "Click the + button to follow a player.",
+  "feed.following.you": "You",
+  "feed.following.and": "and",
+  "feed.following.played": "played",
+  "feed.following.playingnow": "playing now",
+
+  "match.versus": "VS",
 
   "footer.help": "Help",
   "footer.buymeacoffee": "Buy me a coffee",

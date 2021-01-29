@@ -3,6 +3,7 @@ import { UserInfo } from '../helper/user';
 import Search from './components/search';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackProp } from '../../App';
+import {getTranslation} from '../helper/translate';
 
 
 export default function SearchPage() {
@@ -15,5 +16,5 @@ export default function SearchPage() {
         });
     };
 
-    return <Search selectedUser={onSelect} actionText="Show" />;
+    return <Search selectedUser={onSelect} actionText={getTranslation('search.show')} />;
 }

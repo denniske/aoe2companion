@@ -318,7 +318,7 @@ export function InnerApp() {
                     name="Changelog"
                     component={ChangelogPage}
                     options={{
-                        title: 'Changelog',
+                        title: getTranslation('changelog.title'),
                     }}
                 />
                 <Stack.Screen
@@ -332,28 +332,28 @@ export function InnerApp() {
                     name="About"
                     component={AboutPage}
                     options={{
-                        title: 'About',
+                        title: getTranslation('about.title'),
                     }}
                 />
                 <Stack.Screen
                     name="Live"
                     component={LivePage}
                     options={{
-                        title: 'Lobbies',
+                        title: getTranslation('lobbies.title'),
                     }}
                 />
                 <Stack.Screen
                     name="Push"
                     component={PushPage}
                     options={{
-                        title: 'Push Notifications',
+                        title: getTranslation('pushnotifications.title'),
                     }}
                 />
                 <Stack.Screen
                     name="Error"
                     component={ErrorPage}
                     options={{
-                        title: 'Errors',
+                        title: getTranslation('errors.title'),
                     }}
                 />
                 <Stack.Screen
@@ -422,7 +422,7 @@ export function InnerApp() {
                     name="Search"
                     component={SearchPage}
                     options={{
-                        title: 'Search',
+                        title: getTranslation('search.title'),
                     }}
                 />
                 <Stack.Screen
@@ -436,7 +436,7 @@ export function InnerApp() {
                     name="Privacy"
                     component={PrivacyPage}
                     options={{
-                        title: 'Privacy',
+                        title: getTranslation('privacy.title'),
                     }}
                 />
                 <Stack.Screen

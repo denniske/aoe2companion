@@ -21,16 +21,17 @@ import {toggleFollowing} from "../service/following";
 import {fetchPlayerMatches} from "../api/player-matches";
 import {IFollowingEntry} from "../service/storage";
 import {createStylesheet} from '../theming-new';
+import {getTranslation} from '../helper/translate';
 
 
 export function feedTitle(props: any) {
     switch (props.route?.params?.action) {
         case 'add':
-            return 'Follow Player';
+            return getTranslation('feed.follow.title');
         case 'config':
-            return 'Manage Follows';
+            return getTranslation('feed.manage.title');
         default:
-            return 'Following';
+            return getTranslation('feed.following.title');
     }
 }
 
@@ -100,6 +101,7 @@ export function FeedList() {
         setPrevFollowing(following);
     };
 
+    console.log('matches', matches);
     // console.log(matches.data);
 
     useEffect(() => {
@@ -141,7 +143,7 @@ export function FeedList() {
     };
 
     const formatPlayer = (player: UserIdBaseWithName, i: number) => {
-        return sameUserNull(player, auth) ? (i == 0 ? 'You' : 'you') : player.name;
+        return sameUserNull(player, auth) ? (i == 0 ? getTranslation('feed.following.you') : getTranslation('feed.following.you').toLowerCase()) : player.name;
     };
 
     if (following?.length === 0 || list.length === 0) {
@@ -149,8 +151,8 @@ export function FeedList() {
             <View style={styles.container}>
                 <View style={styles.content}>
                     <View style={styles.centered}>
-                        <MyText style={styles.sectionHeader}>Follow players to see their match history.</MyText>
-                        <MyText style={styles.sectionHeader}>Click the + button to follow a player.</MyText>
+                        <MyText style={styles.sectionHeader}>{getTranslation('feed.following.info.1')}</MyText>
+                        <MyText style={styles.sectionHeader}>{getTranslation('feed.following.info.2')}</MyText>
                     </View>
                 </View>
             </View>
@@ -187,10 +189,10 @@ export function FeedList() {
                                                         <MyText key={i}>
                                                             <MyText onPress={() => gotoPlayer(p)}>{formatPlayer(p, i)}</MyText>
                                                             { i < len-2 && <MyText>, </MyText> }
-                                                            { i == len-2 && <MyText> and </MyText> }
+                                                            { i == len-2 && <MyText> {getTranslation('feed.following.and')} </MyText> }
                                                         </MyText>
                                                     )}
-                                                    <MyText> {match.finished ? 'played' : 'playing now'}</MyText>
+                                                    <MyText> {match.finished ? getTranslation('feed.following.played') : getTranslation('feed.following.playingnow')}</MyText>
                                                 </MyText>
                                             }
                                             <View style={styles.game}>
@@ -229,7 +231,7 @@ function FeedAction({user}: {user: IPlayerListPlayer}) {
                 mutate(setFollowing(following));
             }
         } catch(e) {
-            alert('Follow/Unfollow failed.\n\n' + e);
+            alert(getTranslation('feed.follow.error') + '\n\n' + e);
         }
         setLoading(false);
     };
@@ -245,7 +247,7 @@ function FeedAction({user}: {user: IPlayerListPlayer}) {
             uppercase={false}
             dark={true}
         >
-            {followingThisUser ? 'Unfollow' : 'Follow'}
+            {followingThisUser ? getTranslation('feed.follow.unfollow') : getTranslation('feed.follow.follow')}
         </Button>
     );
 }

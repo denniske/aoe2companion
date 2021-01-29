@@ -219,15 +219,15 @@ export default function SettingsPage() {
                 </View>
             </View>
 
-            {/*<View style={styles.row}>*/}
-            {/*    <View style={styles.cellName}>*/}
-            {/*        <MyText>{getTranslation('settings.language')}</MyText>*/}
-            {/*        <MyText style={styles.small}>{getTranslation('settings.language.note')}</MyText>*/}
-            {/*    </View>*/}
-            {/*    <View style={styles.cellValueCol}>*/}
-            {/*        <Picker itemHeight={40} textMinWidth={150} divider={divider} value={config.language || 'en'} values={languageList} formatter={formatLanguage} onSelect={onLanguageSelected}/>*/}
-            {/*    </View>*/}
-            {/*</View>*/}
+            <View style={styles.row}>
+                <View style={styles.cellName}>
+                    <MyText>{getTranslation('settings.language')}</MyText>
+                    <MyText style={styles.small}>{getTranslation('settings.language.note')}</MyText>
+                </View>
+                <View style={styles.cellValueCol}>
+                    <Picker itemHeight={40} textMinWidth={150} divider={divider} value={config.language || 'en'} values={languageList} formatter={formatLanguage} onSelect={onLanguageSelected}/>
+                </View>
+            </View>
         </ScrollView>
     );
 }

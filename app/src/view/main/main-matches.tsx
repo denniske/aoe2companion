@@ -16,6 +16,7 @@ import {IMatch} from "@nex/data";
 import {getMapName} from "../../helper/maps";
 import {parseUserId, sameUser} from "../../helper/user";
 import {createStylesheet} from '../../theming-new';
+import {getTranslation} from '../../helper/translate';
 
 
 export default function MainMatches() {
@@ -134,14 +135,14 @@ export default function MainMatches() {
                                 onPress={toggleWithMe}
                             />
                             <TouchableOpacity onPress={toggleWithMe}>
-                                <MyText>w/ me</MyText>
+                                <MyText>{getTranslation('main.matches.withme')}</MyText>
                             </TouchableOpacity>
                         </View>
                     }
                 </View>
                 <Searchbar
                     style={styles.searchbar}
-                    placeholder="name, map, player"
+                    placeholder={getTranslation('main.matches.search.placeholder')}
                     onChangeText={text => setText(text)}
                     value={text}
                 />
@@ -153,7 +154,7 @@ export default function MainMatches() {
                     renderItem={({item, index}) => {
                         switch (item) {
                             case 'header':
-                                return <MyText style={styles.header}>{filteredMatches?.length} matches</MyText>
+                                return <MyText style={styles.header}>{getTranslation('main.matches.matches', { matches: filteredMatches?.length })}</MyText>
                             default:
                                 return <Game data={item as any} expanded={index === -1} highlightedUsers={[user]} user={user}/>;
                         }
