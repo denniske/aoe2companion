@@ -9,12 +9,14 @@ import {IRow} from "../../service/stats/stats-duration";
 import {createStylesheet} from '../../theming-new';
 import {IMatch} from '@nex/data';
 import {getTranslation} from '../../helper/translate';
+import {useAppTheme} from '../../theming';
 
 interface IRowProps {
     data: IRow;
 }
 
 function Row({data}: IRowProps) {
+    const theme = useAppTheme();
     const styles = useStyles();
     let marginLeft = 0;
     if (data.duration == 'lessThan5Minutes') {
@@ -33,7 +35,7 @@ function Row({data}: IRowProps) {
             <View style={styles.row}>
                 <View style={styles.cellLeaderboard}>
                     <View style={styles.icon}>
-                        <Icon5 name="clock" size={14} />
+                        <Icon5 name="clock" size={14} color={theme.textNoteColor}/>
                     </View>
                     <MyText style={{marginLeft}}>{getTranslation(`main.stats.duration.${data.duration}`)}</MyText>
                 </View>

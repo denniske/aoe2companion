@@ -12,6 +12,7 @@ import {maskToken} from "../service/push";
 import {useSelector} from "../redux/reducer";
 import Space from "./components/space";
 import {createStylesheet} from '../theming-new';
+import {getTranslation} from '../helper/translate';
 
 interface FirebaseData {
     title?: string;
@@ -138,15 +139,15 @@ export default function PushPage() {
         <ScrollView
             style={styles.container}
             contentContainerStyle={styles.content}>
-            <MyText>{account ? 'Account' : ''}</MyText>
-            <MyText>{account ? account.id : 'Could not retrieve account.'}</MyText>
+            <MyText>{account ? getTranslation('push.heading.account') : ''}</MyText>
+            <MyText>{account ? account.id : getTranslation('push.error.noaccount')}</MyText>
             <Space/>
-            <MyText>{expoPushToken ? maskToken(expoPushToken) : 'Could not retrieve push token.'}</MyText>
+            <MyText>{expoPushToken ? maskToken(expoPushToken) : getTranslation('push.error.nopushtoken')}</MyText>
             {
                 notification &&
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                     <Space/>
-                    <MyText>Last received notification:</MyText>
+                    <MyText>{getTranslation('push.heading.notification')}:</MyText>
                     <Space/>
                     <MyText>Date: {notification.date} </MyText>
                     <MyText>Title: {notification.request.content.title} </MyText>
@@ -164,14 +165,14 @@ export default function PushPage() {
                             await sendPushNotification(expoPushToken);
                         }}
                     >
-                        Send Test Notification
+                        {getTranslation('push.action.sendtestnotification')}
                     </Button>
                     <Space/>
-                    <MyText style={styles.note}>Test notification may take a minute to reach your phone.</MyText>
+                    <MyText style={styles.note}>{getTranslation('push.action.sendtestnotification.note')}</MyText>
                 </>
             }
             <Space/>
-            <MyText>Troubleshoot info:</MyText>
+            <MyText>{getTranslation('push.heading.troubleshoot')}:</MyText>
             <Space/>
             {
                 messages.map((message, i) =>

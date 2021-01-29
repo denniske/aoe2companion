@@ -10,6 +10,7 @@ import {useTheme} from "../theming";
 import {appVariants} from "../styles";
 import Space from "./components/space";
 import {createStylesheet} from '../theming-new';
+import {getTranslation} from '../helper/translate';
 
 
 export default function AboutPage() {
@@ -49,18 +50,18 @@ export default function AboutPage() {
         <ScrollView contentContainerStyle={styles.container}>
             <MyText style={styles.title}>AoE II Companion</MyText>
 
-            <MyText style={styles.heading}>Created by</MyText>
+            <MyText style={styles.heading}>{getTranslation('about.heading.createdby')}</MyText>
             <MyText style={styles.content}>Dennis Keil</MyText>
             <MyText style={styles.content}>Niklas Ohlrogge</MyText>
 
-            <MyText style={styles.heading}>Contributors</MyText>
+            <MyText style={styles.heading}>{getTranslation('about.heading.contributors')}</MyText>
             <MyText style={styles.content}>Enver Arco</MyText>
             <MyText style={styles.content}>FifthSense</MyText>
             <MyText style={styles.content}>Jeremy Keeler</MyText>
             <MyText style={styles.content}>Johannes Berger</MyText>
             <MyText style={styles.content}>Subbramanian Lakshmanan</MyText>
 
-            <MyText style={styles.heading}>Supporters</MyText>
+            <MyText style={styles.heading}>{getTranslation('about.heading.supporters')}</MyText>
             <MyText style={styles.content}>Andreas Teppe</MyText>
             <MyText style={styles.content}>ddk_deepak</MyText>
             <MyText style={styles.content}>Fabian Riebe</MyText>
@@ -82,9 +83,9 @@ export default function AboutPage() {
             <MyText style={styles.content}>Ultima Gaina</MyText>
             <MyText style={styles.content}>Zachary Bird</MyText>
             <MyText style={styles.content}>@qotile</MyText>
-            <MyText style={styles.content2}>+ anonymous supporters</MyText>
+            <MyText style={styles.content2}>+ {getTranslation('about.anonymoussupporters')}</MyText>
 
-            <MyText style={styles.heading}>Version</MyText>
+            <MyText style={styles.heading}>{getTranslation('about.heading.supporters')}</MyText>
             <TouchableOpacity onPress={incrementErrorPageClickCount}>
                 <MyText style={styles.content}>
                     {Constants.manifest.releaseChannel || 'dev'}-{Constants.manifest.version}n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}
@@ -95,25 +96,25 @@ export default function AboutPage() {
                 state === '' &&
                 <View>
                     <Space/>
-                    <Button onPress={checkForUpdate} mode="contained" dark={true}>Check for update</Button>
+                    <Button onPress={checkForUpdate} mode="contained" dark={true}>{getTranslation('about.update.checkforupdate')}</Button>
                 </View>
             }
             {
                 state === 'checkingForUpdate' &&
                 <View>
                     <Space/>
-                    <MyText style={styles.content}>Checking for update...</MyText>
+                    <MyText style={styles.content}>{getTranslation('about.update.checkingforupdate')}</MyText>
                 </View>
             }
             {
                 state === 'upToDate' &&
                 <View>
                     <Space/>
-                    <MyText style={styles.content}>Your app is up to date</MyText>
+                    <MyText style={styles.content}>{getTranslation('about.update.uptodate')}</MyText>
                 </View>
             }
 
-            <MyText style={styles.heading}>Source</MyText>
+            <MyText style={styles.heading}>{getTranslation('about.heading.source')}</MyText>
 
             <View style={styles.row}>
                 <MyText style={styles.content}>Stats from </MyText>

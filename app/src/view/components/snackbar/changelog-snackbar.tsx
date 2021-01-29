@@ -6,6 +6,7 @@ import {lt} from "semver";
 import Constants from "expo-constants";
 import {getRootNavigation} from "../../../service/navigation";
 import {saveCurrentPrefsToStorage} from '../../../service/storage';
+import {getTranslation} from '../../../helper/translate';
 
 
 export default function ChangelogSnackbar() {
@@ -33,10 +34,10 @@ export default function ChangelogSnackbar() {
         saveCurrentPrefsToStorage();
     };
 
-    let message = 'App has been updated.';
+    let message = getTranslation('changelogsnackbar.appupdated');
     let actions: any = [
                 {
-                    label: 'Show Changes',
+                    label: getTranslation('changelogsnackbar.showchanges'),
                     onPress: openChangelog,
                 },
                 {

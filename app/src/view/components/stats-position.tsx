@@ -9,6 +9,7 @@ import {AoePosition, IRow} from "../../service/stats/stats-position";
 import {LeaderboardId} from "../../helper/leaderboards";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
+import {useAppTheme} from '../../theming';
 
 interface IRowProps {
     data: any;
@@ -19,12 +20,13 @@ function getPositionName(position: AoePosition) {
 }
 
 function Row({data}: IRowProps) {
+    const theme = useAppTheme();
     const styles = useStyles();
     return (
             <View style={styles.row}>
                 <View style={styles.cellLeaderboard}>
                     <View style={styles.icon}>
-                        <Icon5 name={data.position == 'flank' ? 'fist-raised' : 'first-aid'} size={14} />
+                        <Icon5 name={data.position == 'flank' ? 'fist-raised' : 'first-aid'} size={14} color={theme.textNoteColor} />
                     </View>
                     <MyText>{getPositionName(data.position)}</MyText>
                 </View>

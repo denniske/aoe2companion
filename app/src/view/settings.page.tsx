@@ -195,7 +195,7 @@ export default function SettingsPage() {
                         dark={true}
                         disabled={Platform.OS === 'web'}
                     >
-                        Test
+                        {getTranslation('settings.pushnotifications.action.test')}
                     </Button>
                 </View>
             </View>

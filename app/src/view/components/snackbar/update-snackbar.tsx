@@ -9,6 +9,7 @@ import {reloadAsync} from "expo-updates";
 import {doCheckForStoreUpdate, doCheckForUpdateAsync, doFetchUpdateAsync} from "../../../service/update";
 import {lt} from "semver";
 import Constants from "expo-constants";
+import {getTranslation} from '../../../helper/translate';
 
 
 export default function UpdateSnackbar() {
@@ -67,7 +68,7 @@ export default function UpdateSnackbar() {
     let actions: any = [];
     switch (updateState) {
         case 'expoUpdateAvailable':
-            message = `Update v${updateManifest?.version} available!`;
+            message = getTranslation('updatesnackbar.update.updateavailable', { version: `v${updateManifest?.version}` });
             actions = [
                 {
                     label: 'Load',
@@ -80,11 +81,11 @@ export default function UpdateSnackbar() {
             ];
             break;
         case 'storeUpdateAvailable':
-            const store = Platform.select({ios: 'App Store', android: 'Play Store'});
-            message = `Update v${updateStoreManifest.version} in ${store}!`;
+            const store = getTranslation(`updatesnackbar.store.${Platform.OS}`);
+            message = getTranslation('updatesnackbar.update.updateavailable', { version: `v${updateManifest?.version}`, store });
             actions = [
                 {
-                    label: 'Open',
+                    label: getTranslation('updatesnackbar.action.open'),
                     onPress: openStore,
                 },
                 {
@@ -94,14 +95,14 @@ export default function UpdateSnackbar() {
             ];
             break;
         case 'downloading':
-            message = 'Downloading update';
+            message = getTranslation('updatesnackbar.update.downloadingupdate');
             actions = [];
             break;
         case 'downloaded':
-            message = 'Update downloaded!';
+            message = getTranslation('updatesnackbar.update.updatedownloaded');
             actions = [
                 {
-                    label: 'Restart',
+                    label: getTranslation('updatesnackbar.action.restart'),
                     onPress: restart,
                 },
                 {
