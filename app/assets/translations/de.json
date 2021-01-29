@@ -120,8 +120,12 @@
   "feed.following.info.2": "Klicke den + Button, um einem Spieler zu folgen.",
   "feed.following.you": "Du",
   "feed.following.and": "und",
-  "feed.following.played": "spielen",
-  "feed.following.playingnow": "spielen gerade",
+  "feed.following.played": "hat gespielt",
+  "feed.following.playingnow": "spielt gerade",
+  "feed.following.2played": "haben gespielt",
+  "feed.following.2playingnow": "spielen gerade",
+  "feed.following.yplayed": "hast gespielt",
+  "feed.following.yplayingnow": "spielst gerade",
 
   "match.versus": "VS",
 

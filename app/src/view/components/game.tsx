@@ -197,7 +197,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         marginTop: -10,
     },
     matchTitle: {
-        fontWeight: 'bold',
+        fontWeight: '700',
         flex: 1,
     },
     matchContent: {

@@ -150,7 +150,11 @@
   "feed.following.you": "You",
   "feed.following.and": "and",
   "feed.following.played": "played",
-  "feed.following.playingnow": "playing now",
+  "feed.following.playingnow": "is playing",
+  "feed.following.2played": "played",
+  "feed.following.2playingnow": "are playing",
+  "feed.following.yplayed": "played",
+  "feed.following.yplayingnow": "playing now",
 
   "match.versus": "VS",
 

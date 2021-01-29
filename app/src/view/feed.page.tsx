@@ -177,6 +177,26 @@ export function FeedList() {
                                         const filteredPlayers = filterAndSortPlayers(match.players);
                                         const len = filteredPlayers.length;
 
+                                        let samePlayers = false;
+                                        if (index > 0) {
+                                            const previousMatch = list[index-1];
+                                            const previousFilteredPlayers = filterAndSortPlayers(previousMatch.players);
+
+                                            // console.log('match', index, match.match_id);
+                                            // console.log('previousMatchFilteredPlayers.length', previousFilteredPlayers.length);
+                                            // console.log('filteredPlayers.length', filteredPlayers.length);
+                                            // console.log('uniq', uniq([...filteredPlayers, ...previousFilteredPlayers].map(p => p.profile_id)));
+
+                                            const overlapPlayers = uniq([...filteredPlayers, ...previousFilteredPlayers].map(p => p.profile_id));
+
+                                            if (!!match.finished == !!previousMatch.finished &&
+                                                previousFilteredPlayers.length == filteredPlayers.length &&
+                                                overlapPlayers.length == filteredPlayers.length
+                                            ) {
+                                                samePlayers = true;
+                                            }
+                                        }
+
                                         let relevantUser = undefined;
                                         if (uniq(filteredPlayers.map(p => p.team)).length === 1) {
                                             relevantUser = filteredPlayers[0];
@@ -184,15 +204,27 @@ export function FeedList() {
 
                                         return <View>
                                             {
+                                                !samePlayers &&
                                                 <MyText style={styles.players}>
                                                     {filteredPlayers.map((p, i) =>
                                                         <MyText key={i}>
-                                                            <MyText onPress={() => gotoPlayer(p)}>{formatPlayer(p, i)}</MyText>
+                                                            <MyText style={styles.player} onPress={() => gotoPlayer(p)}>{formatPlayer(p, i)}</MyText>
                                                             { i < len-2 && <MyText>, </MyText> }
                                                             { i == len-2 && <MyText> {getTranslation('feed.following.and')} </MyText> }
                                                         </MyText>
                                                     )}
-                                                    <MyText> {match.finished ? getTranslation('feed.following.played') : getTranslation('feed.following.playingnow')}</MyText>
+                                                    {
+                                                        sameUserNull(filteredPlayers[0], auth) &&
+                                                        <MyText> {match.finished ? getTranslation('feed.following.yplayed') : getTranslation('feed.following.yplayingnow')}</MyText>
+                                                    }
+                                                    {
+                                                        !sameUserNull(filteredPlayers[0], auth) && filteredPlayers.length == 1 &&
+                                                        <MyText> {match.finished ? getTranslation('feed.following.played') : getTranslation('feed.following.playingnow')}</MyText>
+                                                    }
+                                                    {
+                                                        !sameUserNull(filteredPlayers[0], auth) && filteredPlayers.length > 1 &&
+                                                        <MyText> {match.finished ? getTranslation('feed.following.2played') : getTranslation('feed.following.2playingnow')}</MyText>
+                                                    }
                                                 </MyText>
                                             }
                                             <View style={styles.game}>
@@ -305,7 +337,10 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     },
 
     players: {
-        marginBottom: 10,
+        marginBottom: 14,
+    },
+    player: {
+        fontWeight: 'bold',
     },
     centered: {
         height: '100%',
