@@ -45,126 +45,134 @@
         },
         {
             "id": 4,
-            "string": "बर्मी"
+            "string": "Burgundians"
         },
         {
             "id": 5,
-            "string": "यूनानी (बीजान्टिन)"
+            "string": "बर्मी"
         },
         {
             "id": 6,
-            "string": "केल्ट वासी"
+            "string": "यूनानी (बीजान्टिन)"
         },
         {
             "id": 7,
-            "string": "चीनी"
+            "string": "केल्ट वासी"
         },
         {
             "id": 8,
-            "string": "कुमान"
+            "string": "चीनी"
         },
         {
             "id": 9,
-            "string": "इथोपियन"
+            "string": "कुमान"
         },
         {
             "id": 10,
-            "string": "फ्रैंक"
+            "string": "इथोपियन"
         },
         {
             "id": 11,
-            "string": "गोथ"
+            "string": "फ्रैंक"
         },
         {
             "id": 12,
-            "string": "हूण"
+            "string": "गोथ"
         },
         {
             "id": 13,
-            "string": "इंका निवासी"
+            "string": "हूण"
         },
         {
             "id": 14,
-            "string": "भारतीय"
+            "string": "इंका निवासी"
         },
         {
             "id": 15,
-            "string": "इटालियन"
+            "string": "भारतीय"
         },
         {
             "id": 16,
-            "string": "जापानी"
+            "string": "इटालियन"
         },
         {
             "id": 17,
-            "string": "खमेर"
+            "string": "जापानी"
         },
         {
             "id": 18,
-            "string": "कोरियाई"
+            "string": "खमेर"
         },
         {
             "id": 19,
-            "string": "लिथुआनियाई"
+            "string": "कोरियाई"
         },
         {
             "id": 20,
-            "string": "हंगरीवासी"
+            "string": "लिथुआनियाई"
         },
         {
             "id": 21,
-            "string": "मलय"
+            "string": "हंगरीवासी"
         },
         {
             "id": 22,
-            "string": "माली निवासी"
+            "string": "मलय"
         },
         {
             "id": 23,
-            "string": "मायन"
+            "string": "माली निवासी"
         },
         {
             "id": 24,
-            "string": "मंगोल"
+            "string": "मायन"
         },
         {
             "id": 25,
-            "string": "पारसी"
+            "string": "मंगोल"
         },
         {
             "id": 26,
-            "string": "पुर्तगाली"
+            "string": "पारसी"
         },
         {
             "id": 27,
-            "string": "सेरेसेन्ज़"
+            "string": "पुर्तगाली"
         },
         {
             "id": 28,
-            "string": "स्लाव्स"
+            "string": "सेरेसेन्ज़"
         },
         {
             "id": 29,
-            "string": "स्पेनिश"
+            "string": "Sicilians"
         },
         {
             "id": 30,
-            "string": "तातार"
+            "string": "स्लाव्स"
         },
         {
             "id": 31,
-            "string": "ट्यूटन (एक जर्मन जाति)"
+            "string": "स्पेनिश"
         },
         {
             "id": 32,
-            "string": "तुर्क"
+            "string": "तातार"
         },
         {
             "id": 33,
-            "string": "वियतनामी"
+            "string": "ट्यूटन (एक जर्मन जाति)"
         },
         {
             "id": 34,
+            "string": "तुर्क"
+        },
+        {
+            "id": 35,
+            "string": "वियतनामी"
+        },
+        {
+            "id": 36,
             "string": "वाइकिंग"
         }
     ],
@@ -710,6 +718,26 @@
         {
             "id": 146,
             "string": "BR Majapahit Empire"
+        },
+        {
+            "id": 147,
+            "string": "Amazon Tunnel"
+        },
+        {
+            "id": 148,
+            "string": "Coastal Forest"
+        },
+        {
+            "id": 149,
+            "string": "African Clearing"
+        },
+        {
+            "id": 150,
+            "string": "Atacama"
+        },
+        {
+            "id": 151,
+            "string": "Seize the Mountain"
         }
     ],
     "rating_type": [

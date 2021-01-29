@@ -45,126 +45,134 @@
         },
         {
             "id": 4,
-            "string": "Miến Điện"
+            "string": "Burgundians"
         },
         {
             "id": 5,
-            "string": "Đông La Mã"
+            "string": "Miến Điện"
         },
         {
             "id": 6,
-            "string": "Celt"
+            "string": "Đông La Mã"
         },
         {
             "id": 7,
-            "string": "Trung Quốc"
+            "string": "Celt"
         },
         {
             "id": 8,
-            "string": "Cuman"
+            "string": "Trung Quốc"
         },
         {
             "id": 9,
-            "string": "Ethiopia"
+            "string": "Cuman"
         },
         {
             "id": 10,
-            "string": "Frank"
+            "string": "Ethiopia"
         },
         {
             "id": 11,
-            "string": "Goth"
+            "string": "Frank"
         },
         {
             "id": 12,
-            "string": "Hung"
+            "string": "Goth"
         },
         {
             "id": 13,
-            "string": "Inca"
+            "string": "Hung"
         },
         {
             "id": 14,
-            "string": "Ấn Độ"
+            "string": "Inca"
         },
         {
             "id": 15,
-            "string": "Italy"
+            "string": "Ấn Độ"
         },
         {
             "id": 16,
-            "string": "Nhật Bản"
+            "string": "Italy"
         },
         {
             "id": 17,
-            "string": "Khmer"
+            "string": "Nhật Bản"
         },
         {
             "id": 18,
-            "string": "Triều Tiên"
+            "string": "Khmer"
         },
         {
             "id": 19,
-            "string": "Litva"
+            "string": "Triều Tiên"
         },
         {
             "id": 20,
-            "string": "Magyar"
+            "string": "Litva"
         },
         {
             "id": 21,
-            "string": "Mã Lai"
+            "string": "Magyar"
         },
         {
             "id": 22,
-            "string": "Mali"
+            "string": "Mã Lai"
         },
         {
             "id": 23,
-            "string": "Maya"
+            "string": "Mali"
         },
         {
             "id": 24,
-            "string": "Mông Cổ"
+            "string": "Maya"
         },
         {
             "id": 25,
-            "string": "Ba Tư"
+            "string": "Mông Cổ"
         },
         {
             "id": 26,
-            "string": "Bồ Đào Nha"
+            "string": "Ba Tư"
         },
         {
             "id": 27,
-            "string": "Saracen"
+            "string": "Bồ Đào Nha"
         },
         {
             "id": 28,
-            "string": "Slav"
+            "string": "Saracen"
         },
         {
             "id": 29,
-            "string": "Tây Ban Nha"
+            "string": "Sicilians"
         },
         {
             "id": 30,
-            "string": "Tatar"
+            "string": "Slav"
         },
         {
             "id": 31,
-            "string": "Teuton"
+            "string": "Tây Ban Nha"
         },
         {
             "id": 32,
-            "string": "Đột Quyết"
+            "string": "Tatar"
         },
         {
             "id": 33,
-            "string": "Đại Việt"
+            "string": "Teuton"
         },
         {
             "id": 34,
+            "string": "Đột Quyết"
+        },
+        {
+            "id": 35,
+            "string": "Đại Việt"
+        },
+        {
+            "id": 36,
             "string": "Viking"
         }
     ],
@@ -710,6 +718,26 @@
         {
             "id": 146,
             "string": "BR Majapahit Empire"
+        },
+        {
+            "id": 147,
+            "string": "Amazon Tunnel"
+        },
+        {
+            "id": 148,
+            "string": "Coastal Forest"
+        },
+        {
+            "id": 149,
+            "string": "African Clearing"
+        },
+        {
+            "id": 150,
+            "string": "Atacama"
+        },
+        {
+            "id": 151,
+            "string": "Seize the Mountain"
         }
     ],
     "rating_type": [

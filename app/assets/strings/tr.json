@@ -45,126 +45,134 @@
         },
         {
             "id": 4,
-            "string": "Birmanlar"
+            "string": "Burgundians"
         },
         {
             "id": 5,
-            "string": "Bizanslılar"
+            "string": "Birmanlar"
         },
         {
             "id": 6,
-            "string": "Keltler"
+            "string": "Bizanslılar"
         },
         {
             "id": 7,
-            "string": "Çinliler"
+            "string": "Keltler"
         },
         {
             "id": 8,
-            "string": "Kumanlar"
+            "string": "Çinliler"
         },
         {
             "id": 9,
-            "string": "Etiyopyalılar"
+            "string": "Kumanlar"
         },
         {
             "id": 10,
-            "string": "Franklar"
+            "string": "Etiyopyalılar"
         },
         {
             "id": 11,
-            "string": "Gotlar"
+            "string": "Franklar"
         },
         {
             "id": 12,
-            "string": "Hunlar"
+            "string": "Gotlar"
         },
         {
             "id": 13,
-            "string": "İnkalar"
+            "string": "Hunlar"
         },
         {
             "id": 14,
-            "string": "Hintler"
+            "string": "İnkalar"
         },
         {
             "id": 15,
-            "string": "İtalyanlar"
+            "string": "Hintler"
         },
         {
             "id": 16,
-            "string": "Japonlar"
+            "string": "İtalyanlar"
         },
         {
             "id": 17,
-            "string": "Kmerler"
+            "string": "Japonlar"
         },
         {
             "id": 18,
-            "string": "Koreliler"
+            "string": "Kmerler"
         },
         {
             "id": 19,
-            "string": "Litvanyalılar"
+            "string": "Koreliler"
         },
         {
             "id": 20,
-            "string": "Macarlar"
+            "string": "Litvanyalılar"
         },
         {
             "id": 21,
-            "string": "Malaylar"
+            "string": "Macarlar"
         },
         {
             "id": 22,
-            "string": "Malililer"
+            "string": "Malaylar"
         },
         {
             "id": 23,
-            "string": "Mayalar"
+            "string": "Malililer"
         },
         {
             "id": 24,
-            "string": "Moğollar"
+            "string": "Mayalar"
         },
         {
             "id": 25,
-            "string": "Persler"
+            "string": "Moğollar"
         },
         {
             "id": 26,
-            "string": "Portekizliler"
+            "string": "Persler"
         },
         {
             "id": 27,
-            "string": "Sarazenler"
+            "string": "Portekizliler"
         },
         {
             "id": 28,
-            "string": "Slavlar"
+            "string": "Sarazenler"
         },
         {
             "id": 29,
-            "string": "İspanyollar"
+            "string": "Sicilians"
         },
         {
             "id": 30,
-            "string": "Tatarlar"
+            "string": "Slavlar"
         },
         {
             "id": 31,
-            "string": "Tötonlar"
+            "string": "İspanyollar"
         },
         {
             "id": 32,
-            "string": "Türkler"
+            "string": "Tatarlar"
         },
         {
             "id": 33,
-            "string": "Vietnamlılar"
+            "string": "Tötonlar"
         },
         {
             "id": 34,
+            "string": "Türkler"
+        },
+        {
+            "id": 35,
+            "string": "Vietnamlılar"
+        },
+        {
+            "id": 36,
             "string": "Vikingler"
         }
     ],
@@ -710,6 +718,26 @@
         {
             "id": 146,
             "string": "BR Majapahit Empire"
+        },
+        {
+            "id": 147,
+            "string": "Amazon Tunnel"
+        },
+        {
+            "id": 148,
+            "string": "Coastal Forest"
+        },
+        {
+            "id": 149,
+            "string": "African Clearing"
+        },
+        {
+            "id": 150,
+            "string": "Atacama"
+        },
+        {
+            "id": 151,
+            "string": "Seize the Mountain"
         }
     ],
     "rating_type": [

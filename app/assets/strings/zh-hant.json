@@ -45,126 +45,134 @@
         },
         {
             "id": 4,
-            "string": "緬甸人"
+            "string": "Burgundians"
         },
         {
             "id": 5,
-            "string": "拜占庭人"
+            "string": "緬甸人"
         },
         {
             "id": 6,
-            "string": "塞爾特人"
+            "string": "拜占庭人"
         },
         {
             "id": 7,
-            "string": "中國人"
+            "string": "塞爾特人"
         },
         {
             "id": 8,
-            "string": "庫曼人"
+            "string": "中國人"
         },
         {
             "id": 9,
-            "string": "衣索比亞人"
+            "string": "庫曼人"
         },
         {
             "id": 10,
-            "string": "法蘭克人"
+            "string": "衣索比亞人"
         },
         {
             "id": 11,
-            "string": "哥德人"
+            "string": "法蘭克人"
         },
         {
             "id": 12,
-            "string": "匈人"
+            "string": "哥德人"
         },
         {
             "id": 13,
-            "string": "印加人"
+            "string": "匈人"
         },
         {
             "id": 14,
-            "string": "印度人"
+            "string": "印加人"
         },
         {
             "id": 15,
-            "string": "義大利人"
+            "string": "印度人"
         },
         {
             "id": 16,
-            "string": "日本人"
+            "string": "義大利人"
         },
         {
             "id": 17,
-            "string": "高棉人"
+            "string": "日本人"
         },
         {
             "id": 18,
-            "string": "朝鮮人"
+            "string": "高棉人"
         },
         {
             "id": 19,
-            "string": "立陶宛人"
+            "string": "朝鮮人"
         },
         {
             "id": 20,
-            "string": "馬札爾人"
+            "string": "立陶宛人"
         },
         {
             "id": 21,
-            "string": "馬來人"
+            "string": "馬札爾人"
         },
         {
             "id": 22,
-            "string": "馬利人"
+            "string": "馬來人"
         },
         {
             "id": 23,
-            "string": "馬雅人"
+            "string": "馬利人"
         },
         {
             "id": 24,
-            "string": "蒙古人"
+            "string": "馬雅人"
         },
         {
             "id": 25,
-            "string": "波斯人"
+            "string": "蒙古人"
         },
         {
             "id": 26,
-            "string": "葡萄牙人"
+            "string": "波斯人"
         },
         {
             "id": 27,
-            "string": "薩拉森人"
+            "string": "葡萄牙人"
         },
         {
             "id": 28,
-            "string": "斯拉夫人"
+            "string": "薩拉森人"
         },
         {
             "id": 29,
-            "string": "西班牙人"
+            "string": "Sicilians"
         },
         {
             "id": 30,
-            "string": "韃靼人"
+            "string": "斯拉夫人"
         },
         {
             "id": 31,
-            "string": "條頓人"
+            "string": "西班牙人"
         },
         {
             "id": 32,
-            "string": "土耳其人"
+            "string": "韃靼人"
         },
         {
             "id": 33,
-            "string": "越南人"
+            "string": "條頓人"
         },
         {
             "id": 34,
+            "string": "土耳其人"
+        },
+        {
+            "id": 35,
+            "string": "越南人"
+        },
+        {
+            "id": 36,
             "string": "維京人"
         }
     ],
@@ -710,6 +718,26 @@
         {
             "id": 146,
             "string": "BR Majapahit Empire"
+        },
+        {
+            "id": 147,
+            "string": "Amazon Tunnel"
+        },
+        {
+            "id": 148,
+            "string": "Coastal Forest"
+        },
+        {
+            "id": 149,
+            "string": "African Clearing"
+        },
+        {
+            "id": 150,
+            "string": "Atacama"
+        },
+        {
+            "id": 151,
+            "string": "Seize the Mountain"
         }
     ],
     "rating_type": [

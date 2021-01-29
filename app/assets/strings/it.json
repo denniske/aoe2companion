@@ -45,126 +45,134 @@
         },
         {
             "id": 4,
-            "string": "Birmani"
+            "string": "Burgundians"
         },
         {
             "id": 5,
-            "string": "Bizantini"
+            "string": "Birmani"
         },
         {
             "id": 6,
-            "string": "Celti"
+            "string": "Bizantini"
         },
         {
             "id": 7,
-            "string": "Cinesi"
+            "string": "Celti"
         },
         {
             "id": 8,
-            "string": "Cumani"
+            "string": "Cinesi"
         },
         {
             "id": 9,
-            "string": "Etiopi"
+            "string": "Cumani"
         },
         {
             "id": 10,
-            "string": "Franchi"
+            "string": "Etiopi"
         },
         {
             "id": 11,
-            "string": "Goti"
+            "string": "Franchi"
         },
         {
             "id": 12,
-            "string": "Unni"
+            "string": "Goti"
         },
         {
             "id": 13,
-            "string": "Inca"
+            "string": "Unni"
         },
         {
             "id": 14,
-            "string": "Indiani"
+            "string": "Inca"
         },
         {
             "id": 15,
-            "string": "Italiani"
+            "string": "Indiani"
         },
         {
             "id": 16,
-            "string": "Giapponesi"
+            "string": "Italiani"
         },
         {
             "id": 17,
-            "string": "Khmer"
+            "string": "Giapponesi"
         },
         {
             "id": 18,
-            "string": "Coreani"
+            "string": "Khmer"
         },
         {
             "id": 19,
-            "string": "Lituani"
+            "string": "Coreani"
         },
         {
             "id": 20,
-            "string": "Magiari"
+            "string": "Lituani"
         },
         {
             "id": 21,
-            "string": "Malesi"
+            "string": "Magiari"
         },
         {
             "id": 22,
-            "string": "Maliani"
+            "string": "Malesi"
         },
         {
             "id": 23,
-            "string": "Maya"
+            "string": "Maliani"
         },
         {
             "id": 24,
-            "string": "Mongoli"
+            "string": "Maya"
         },
         {
             "id": 25,
-            "string": "Persiani"
+            "string": "Mongoli"
         },
         {
             "id": 26,
-            "string": "Portoghesi"
+            "string": "Persiani"
         },
         {
             "id": 27,
-            "string": "Saraceni"
+            "string": "Portoghesi"
         },
         {
             "id": 28,
-            "string": "Slavi"
+            "string": "Saraceni"
         },
         {
             "id": 29,
-            "string": "Spagnoli"
+            "string": "Sicilians"
         },
         {
             "id": 30,
-            "string": "Tartari"
+            "string": "Slavi"
         },
         {
             "id": 31,
-            "string": "Teutoni"
+            "string": "Spagnoli"
         },
         {
             "id": 32,
-            "string": "Turchi"
+            "string": "Tartari"
         },
         {
             "id": 33,
-            "string": "Vietnamiti"
+            "string": "Teutoni"
         },
         {
             "id": 34,
+            "string": "Turchi"
+        },
+        {
+            "id": 35,
+            "string": "Vietnamiti"
+        },
+        {
+            "id": 36,
             "string": "Vichinghi"
         }
     ],
@@ -710,6 +718,26 @@
         {
             "id": 146,
             "string": "BR Majapahit Empire"
+        },
+        {
+            "id": 147,
+            "string": "Amazon Tunnel"
+        },
+        {
+            "id": 148,
+            "string": "Coastal Forest"
+        },
+        {
+            "id": 149,
+            "string": "African Clearing"
+        },
+        {
+            "id": 150,
+            "string": "Atacama"
+        },
+        {
+            "id": 151,
+            "string": "Seize the Mountain"
         }
     ],
     "rating_type": [

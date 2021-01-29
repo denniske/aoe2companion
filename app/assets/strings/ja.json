@@ -45,126 +45,134 @@
         },
         {
             "id": 4,
-            "string": "ビルマ"
+            "string": "Burgundians"
         },
         {
             "id": 5,
-            "string": "ビザンティン"
+            "string": "ビルマ"
         },
         {
             "id": 6,
-            "string": "ケルト"
+            "string": "ビザンティン"
         },
         {
             "id": 7,
-            "string": "中国"
+            "string": "ケルト"
         },
         {
             "id": 8,
-            "string": "クマン"
+            "string": "中国"
         },
         {
             "id": 9,
-            "string": "エチオピア"
+            "string": "クマン"
         },
         {
             "id": 10,
-            "string": "フランク"
+            "string": "エチオピア"
         },
         {
             "id": 11,
-            "string": "ゴート"
+            "string": "フランク"
         },
         {
             "id": 12,
-            "string": "フン"
+            "string": "ゴート"
         },
         {
             "id": 13,
-            "string": "インカ"
+            "string": "フン"
         },
         {
             "id": 14,
-            "string": "インド"
+            "string": "インカ"
         },
         {
             "id": 15,
-            "string": "イタリア"
+            "string": "インド"
         },
         {
             "id": 16,
-            "string": "日本"
+            "string": "イタリア"
         },
         {
             "id": 17,
-            "string": "クメール"
+            "string": "日本"
         },
         {
             "id": 18,
-            "string": "朝鮮"
+            "string": "クメール"
         },
         {
             "id": 19,
-            "string": "リトアニア"
+            "string": "朝鮮"
         },
         {
             "id": 20,
-            "string": "マジャール"
+            "string": "リトアニア"
         },
         {
             "id": 21,
-            "string": "マレー"
+            "string": "マジャール"
         },
         {
             "id": 22,
-            "string": "マリ"
+            "string": "マレー"
         },
         {
             "id": 23,
-            "string": "マヤ"
+            "string": "マリ"
         },
         {
             "id": 24,
-            "string": "モンゴル"
+            "string": "マヤ"
         },
         {
             "id": 25,
-            "string": "ペルシア"
+            "string": "モンゴル"
         },
         {
             "id": 26,
-            "string": "ポルトガル"
+            "string": "ペルシア"
         },
         {
             "id": 27,
-            "string": "サラセン"
+            "string": "ポルトガル"
         },
         {
             "id": 28,
-            "string": "スラヴ"
+            "string": "サラセン"
         },
         {
             "id": 29,
-            "string": "スペイン"
+            "string": "Sicilians"
         },
         {
             "id": 30,
-            "string": "タタール"
+            "string": "スラヴ"
         },
         {
             "id": 31,
-            "string": "チュートン"
+            "string": "スペイン"
         },
         {
             "id": 32,
-            "string": "オスマン帝国"
+            "string": "タタール"
         },
         {
             "id": 33,
-            "string": "ベトナム"
+            "string": "チュートン"
         },
         {
             "id": 34,
+            "string": "オスマン帝国"
+        },
+        {
+            "id": 35,
+            "string": "ベトナム"
+        },
+        {
+            "id": 36,
             "string": "バイキング"
         }
     ],
@@ -710,6 +718,26 @@
         {
             "id": 146,
             "string": "BR Majapahit Empire"
+        },
+        {
+            "id": 147,
+            "string": "Amazon Tunnel"
+        },
+        {
+            "id": 148,
+            "string": "Coastal Forest"
+        },
+        {
+            "id": 149,
+            "string": "African Clearing"
+        },
+        {
+            "id": 150,
+            "string": "Atacama"
+        },
+        {
+            "id": 151,
+            "string": "Seize the Mountain"
         }
     ],
     "rating_type": [

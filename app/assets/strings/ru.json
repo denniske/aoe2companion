@@ -45,126 +45,134 @@
         },
         {
             "id": 4,
-            "string": "Бирманцы"
+            "string": "Burgundians"
         },
         {
             "id": 5,
-            "string": "Византийцы"
+            "string": "Бирманцы"
         },
         {
             "id": 6,
-            "string": "Кельты"
+            "string": "Византийцы"
         },
         {
             "id": 7,
-            "string": "Китайцы"
+            "string": "Кельты"
         },
         {
             "id": 8,
-            "string": "Половцы"
+            "string": "Китайцы"
         },
         {
             "id": 9,
-            "string": "Эфиопы"
+            "string": "Половцы"
         },
         {
             "id": 10,
-            "string": "Франки"
+            "string": "Эфиопы"
         },
         {
             "id": 11,
-            "string": "Готы"
+            "string": "Франки"
         },
         {
             "id": 12,
-            "string": "Гунны"
+            "string": "Готы"
         },
         {
             "id": 13,
-            "string": "Инки"
+            "string": "Гунны"
         },
         {
             "id": 14,
-            "string": "Индийцы"
+            "string": "Инки"
         },
         {
             "id": 15,
-            "string": "Итальянцы"
+            "string": "Индийцы"
         },
         {
             "id": 16,
-            "string": "Японцы"
+            "string": "Итальянцы"
         },
         {
             "id": 17,
-            "string": "Кхмеры"
+            "string": "Японцы"
         },
         {
             "id": 18,
-            "string": "Корейцы"
+            "string": "Кхмеры"
         },
         {
             "id": 19,
-            "string": "Литовцы"
+            "string": "Корейцы"
         },
         {
             "id": 20,
-            "string": "Венгры"
+            "string": "Литовцы"
         },
         {
             "id": 21,
-            "string": "Малайцы"
+            "string": "Венгры"
         },
         {
             "id": 22,
-            "string": "Малийцы"
+            "string": "Малайцы"
         },
         {
             "id": 23,
-            "string": "Майя"
+            "string": "Малийцы"
         },
         {
             "id": 24,
-            "string": "Монголы"
+            "string": "Майя"
         },
         {
             "id": 25,
-            "string": "Персы"
+            "string": "Монголы"
         },
         {
             "id": 26,
-            "string": "Португальцы"
+            "string": "Персы"
         },
         {
             "id": 27,
-            "string": "Сарацины"
+            "string": "Португальцы"
         },
         {
             "id": 28,
-            "string": "Славяне"
+            "string": "Сарацины"
         },
         {
             "id": 29,
-            "string": "Испанцы"
+            "string": "Sicilians"
         },
         {
             "id": 30,
-            "string": "Татары"
+            "string": "Славяне"
         },
         {
             "id": 31,
-            "string": "Тевтоны"
+            "string": "Испанцы"
         },
         {
             "id": 32,
-            "string": "Турки"
+            "string": "Татары"
         },
         {
             "id": 33,
-            "string": "Вьетнамцы"
+            "string": "Тевтоны"
         },
         {
             "id": 34,
+            "string": "Турки"
+        },
+        {
+            "id": 35,
+            "string": "Вьетнамцы"
+        },
+        {
+            "id": 36,
             "string": "Викинги"
         }
     ],
@@ -710,6 +718,26 @@
         {
             "id": 146,
             "string": "BR Majapahit Empire"
+        },
+        {
+            "id": 147,
+            "string": "Amazon Tunnel"
+        },
+        {
+            "id": 148,
+            "string": "Coastal Forest"
+        },
+        {
+            "id": 149,
+            "string": "African Clearing"
+        },
+        {
+            "id": 150,
+            "string": "Atacama"
+        },
+        {
+            "id": 151,
+            "string": "Seize the Mountain"
         }
     ],
     "rating_type": [

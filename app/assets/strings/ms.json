@@ -45,126 +45,134 @@
         },
         {
             "id": 4,
-            "string": "Orang Burma"
+            "string": "Burgundians"
         },
         {
             "id": 5,
-            "string": "Orang Byzantine"
+            "string": "Orang Burma"
         },
         {
             "id": 6,
-            "string": "Orang Celt"
+            "string": "Orang Byzantine"
         },
         {
             "id": 7,
-            "string": "Orang Cina"
+            "string": "Orang Celt"
         },
         {
             "id": 8,
-            "string": "Orang Cuman"
+            "string": "Orang Cina"
         },
         {
             "id": 9,
-            "string": "Orang Etiopia"
+            "string": "Orang Cuman"
         },
         {
             "id": 10,
-            "string": "Orang Frank"
+            "string": "Orang Etiopia"
         },
         {
             "id": 11,
-            "string": "Orang Goth"
+            "string": "Orang Frank"
         },
         {
             "id": 12,
-            "string": "Orang Hun"
+            "string": "Orang Goth"
         },
         {
             "id": 13,
-            "string": "Orang Inca"
+            "string": "Orang Hun"
         },
         {
             "id": 14,
-            "string": "Orang India"
+            "string": "Orang Inca"
         },
         {
             "id": 15,
-            "string": "Orang Itali"
+            "string": "Orang India"
         },
         {
             "id": 16,
-            "string": "Orang Jepun"
+            "string": "Orang Itali"
         },
         {
             "id": 17,
-            "string": "Orang Khmer"
+            "string": "Orang Jepun"
         },
         {
             "id": 18,
-            "string": "Orang Korea"
+            "string": "Orang Khmer"
         },
         {
             "id": 19,
-            "string": "Orang Lithuania"
+            "string": "Orang Korea"
         },
         {
             "id": 20,
-            "string": "Orang Magyar"
+            "string": "Orang Lithuania"
         },
         {
             "id": 21,
-            "string": "Orang Melayu"
+            "string": "Orang Magyar"
         },
         {
             "id": 22,
-            "string": "Orang Mali"
+            "string": "Orang Melayu"
         },
         {
             "id": 23,
-            "string": "Orang Mayan"
+            "string": "Orang Mali"
         },
         {
             "id": 24,
-            "string": "Orang Mongol"
+            "string": "Orang Mayan"
         },
         {
             "id": 25,
-            "string": "Orang Parsi"
+            "string": "Orang Mongol"
         },
         {
             "id": 26,
-            "string": "Orang Portugis"
+            "string": "Orang Parsi"
         },
         {
             "id": 27,
-            "string": "Orang Saracen"
+            "string": "Orang Portugis"
         },
         {
             "id": 28,
-            "string": "Orang Slavik"
+            "string": "Orang Saracen"
         },
         {
             "id": 29,
-            "string": "Orang Sepanyol"
+            "string": "Sicilians"
         },
         {
             "id": 30,
-            "string": "Orang Tatar"
+            "string": "Orang Slavik"
         },
         {
             "id": 31,
-            "string": "Orang Teuton"
+            "string": "Orang Sepanyol"
         },
         {
             "id": 32,
-            "string": "Orang Turki"
+            "string": "Orang Tatar"
         },
         {
             "id": 33,
-            "string": "Orang Vietnam"
+            "string": "Orang Teuton"
         },
         {
             "id": 34,
+            "string": "Orang Turki"
+        },
+        {
+            "id": 35,
+            "string": "Orang Vietnam"
+        },
+        {
+            "id": 36,
             "string": "Orang Viking"
         }
     ],
@@ -710,6 +718,26 @@
         {
             "id": 146,
             "string": "BR Majapahit Empire"
+        },
+        {
+            "id": 147,
+            "string": "Amazon Tunnel"
+        },
+        {
+            "id": 148,
+            "string": "Coastal Forest"
+        },
+        {
+            "id": 149,
+            "string": "African Clearing"
+        },
+        {
+            "id": 150,
+            "string": "Atacama"
+        },
+        {
+            "id": 151,
+            "string": "Seize the Mountain"
         }
     ],
     "rating_type": [

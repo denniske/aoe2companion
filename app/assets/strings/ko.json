@@ -45,126 +45,134 @@
         },
         {
             "id": 4,
-            "string": "버마인"
+            "string": "Burgundians"
         },
         {
             "id": 5,
-            "string": "비잔티움족"
+            "string": "버마인"
         },
         {
             "id": 6,
-            "string": "켈트족"
+            "string": "비잔티움족"
         },
         {
             "id": 7,
-            "string": "중국인"
+            "string": "켈트족"
         },
         {
             "id": 8,
-            "string": "쿠만인"
+            "string": "중국인"
         },
         {
             "id": 9,
-            "string": "에티오피아인"
+            "string": "쿠만인"
         },
         {
             "id": 10,
-            "string": "프랑크족"
+            "string": "에티오피아인"
         },
         {
             "id": 11,
-            "string": "고트족"
+            "string": "프랑크족"
         },
         {
             "id": 12,
-            "string": "훈족"
+            "string": "고트족"
         },
         {
             "id": 13,
-            "string": "잉카족"
+            "string": "훈족"
         },
         {
             "id": 14,
-            "string": "인도인"
+            "string": "잉카족"
         },
         {
             "id": 15,
-            "string": "이탈리아인"
+            "string": "인도인"
         },
         {
             "id": 16,
-            "string": "일본인"
+            "string": "이탈리아인"
         },
         {
             "id": 17,
-            "string": "크메르인"
+            "string": "일본인"
         },
         {
             "id": 18,
-            "string": "한국인"
+            "string": "크메르인"
         },
         {
             "id": 19,
-            "string": "리투아니아인"
+            "string": "한국인"
         },
         {
             "id": 20,
-            "string": "마자르족"
+            "string": "리투아니아인"
         },
         {
             "id": 21,
-            "string": "말레이인"
+            "string": "마자르족"
         },
         {
             "id": 22,
-            "string": "말리인"
+            "string": "말레이인"
         },
         {
             "id": 23,
-            "string": "마야"
+            "string": "말리인"
         },
         {
             "id": 24,
-            "string": "몽골인"
+            "string": "마야"
         },
         {
             "id": 25,
-            "string": "페르시아인"
+            "string": "몽골인"
         },
         {
             "id": 26,
-            "string": "포르투갈인"
+            "string": "페르시아인"
         },
         {
             "id": 27,
-            "string": "사라센족"
+            "string": "포르투갈인"
         },
         {
             "id": 28,
-            "string": "슬라브족"
+            "string": "사라센족"
         },
         {
             "id": 29,
-            "string": "스페인인"
+            "string": "Sicilians"
         },
         {
             "id": 30,
-            "string": "타타르"
+            "string": "슬라브족"
         },
         {
             "id": 31,
-            "string": "튜턴족"
+            "string": "스페인인"
         },
         {
             "id": 32,
-            "string": "튀르크족"
+            "string": "타타르"
         },
         {
             "id": 33,
-            "string": "베트남인"
+            "string": "튜턴족"
         },
         {
             "id": 34,
+            "string": "튀르크족"
+        },
+        {
+            "id": 35,
+            "string": "베트남인"
+        },
+        {
+            "id": 36,
             "string": "바이킹족"
         }
     ],
@@ -710,6 +718,26 @@
         {
             "id": 146,
             "string": "BR Majapahit Empire"
+        },
+        {
+            "id": 147,
+            "string": "Amazon Tunnel"
+        },
+        {
+            "id": 148,
+            "string": "Coastal Forest"
+        },
+        {
+            "id": 149,
+            "string": "African Clearing"
+        },
+        {
+            "id": 150,
+            "string": "Atacama"
+        },
+        {
+            "id": 151,
+            "string": "Seize the Mountain"
         }
     ],
     "rating_type": [
