@@ -34,7 +34,7 @@ import Icon5 from 'react-native-vector-icons/FontAwesome5';
 // import {Tester, TestHookStore} from "cavy";
 import ExampleSpec from './src/ci/exampleSpec';
 import LeaderboardPage, {leaderboardMenu, LeaderboardTitle} from "./src/view/leaderboard.page";
-import GuidePage from "./src/view/guide.page";
+import GuidePage, {GuideTitle} from "./src/view/guide.page";
 import CivPage, {CivTitle, civTitle} from "./src/view/civ.page";
 import {Civ, registerService, SERVICE_NAME} from "@nex/data";
 import UnitPage, {UnitTitle, unitTitle} from "./src/view/unit/unit.page";
@@ -60,7 +60,7 @@ import PushPage from "./src/view/push.page";
 import SplashPage from "./src/view/splash.page";
 import ErrorSnackbar from "./src/view/components/snackbar/error-snackbar";
 import ErrorPage from "./src/view/error.page";
-import WinratesPage from "./src/view/winrates.page";
+import WinratesPage, {WinratesTitle} from "./src/view/winrates.page";
 import * as Notifications from "expo-notifications";
 import TipsPage from "./src/view/tips.page";
 import {setSavedNotification} from "./src/helper/notification";
@@ -203,25 +203,6 @@ export type RootTabParamList = {
 export type RootStackProp = StackNavigationProp<RootStackParamList, 'Main'>;
 
 const Stack = createStackNavigator<RootStackParamList>();
-
-function LinkTitle(props: any) {
-    const appStyles = useTheme(appVariants);
-    return (
-        <TouchableOpacity onPress={() => Linking.openURL('https://buildorderguide.com')}>
-            <MyText style={appStyles.link}>buildorderguide.com</MyText>
-        </TouchableOpacity>
-    );
-}
-
-function LinkWinratesTitle(props: any) {
-    const appStyles = useTheme(appVariants);
-    return (
-        <TouchableOpacity onPress={() => Linking.openURL('https://aoestats.io')}>
-            <MyText style={appStyles.link}>aoestats.io</MyText>
-        </TouchableOpacity>
-    );
-}
-
 
 // function cacheImages(images: (string | number)[]) {
 //     return images.map(image => {
@@ -406,7 +387,7 @@ export function InnerApp() {
                     component={GuidePage}
                     options={{
                         animationEnabled: false,
-                        headerTitle: props => <LinkTitle {...props} />,
+                        headerTitle: props => <GuideTitle {...props} />,
                     }}
                 />
                 <Stack.Screen
@@ -444,7 +425,7 @@ export function InnerApp() {
                     component={WinratesPage}
                     options={{
                         animationEnabled: false,
-                        headerTitle: props => <LinkWinratesTitle {...props} />,
+                        headerTitle: props => <WinratesTitle {...props} />,
                     }}
                 />
             </Stack.Navigator>

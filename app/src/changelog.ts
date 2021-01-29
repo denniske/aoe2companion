@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    '21.0.6': [
+        {
+            type: 'minor',
+            title: 'Add back button and hardware back press to build order guides',
+        },
+    ],
     '21.0.5': [
         {
             type: 'bugfix',

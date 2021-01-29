@@ -1,8 +1,38 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
 import { WebView } from 'react-native-webview';
-import { Platform, View} from 'react-native';
+import {BackHandler, Linking, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {activateKeepAwake, deactivateKeepAwake} from "expo-keep-awake";
 import {useSelector} from "../redux/reducer";
+import {useTheme} from '../theming';
+import {appVariants} from '../styles';
+import {MyText} from './components/my-text';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {createStylesheet} from '../theming-new';
+import {useNavigation} from '@react-navigation/native';
+
+
+export function GuideTitle(props: any) {
+    const styles = useStyles();
+    const appStyles = useTheme(appVariants);
+    return (
+        <TouchableOpacity onPress={() => Linking.openURL('https://buildorderguide.com')}>
+            <MyText style={appStyles.link}>buildorderguide.com</MyText>
+        </TouchableOpacity>
+    );
+}
+
+export function GuideActions(props: any) {
+    const styles = useStyles();
+    const appStyles = useTheme(appVariants);
+    return (
+        <TouchableOpacity style={styles.action} onPress={props.onHomePressed}>
+            {
+                props.canGoBack &&
+                <Icon name="arrow-circle-left" size={20} style={styles.icon} />
+            }
+        </TouchableOpacity>
+    );
+}
 
 export default function GuidePage() {
     if (Platform.OS === 'web') {
@@ -15,17 +45,38 @@ export default function GuidePage() {
         );
     }
 
+    const config = useSelector(state => state.config);
     const [width, setWidth] = useState(300);
     const [height, setHeight] = useState(400);
+    const [canGoBack, setCanGoBack] = useState(false);
+    const webViewRef = useRef<WebView>();
+    // const [url, setUrl] = useState('https://buildorderguide.com');
 
-    const config = useSelector(state => state.config);
+    const navigation = useNavigation();
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => <GuideActions onHomePressed={() => webViewRef.current!.goBack()} canGoBack={canGoBack} />, // setUrl(`https://buildorderguide.com?t=${Date.now()}`)
+        });
+    }, [navigation, canGoBack]);
 
     useEffect(() => {
         if (config.preventScreenLockOnGuidePage) {
             activateKeepAwake();
         }
         return () => deactivateKeepAwake();
-    })
+    });
+
+    const onHardwareBackPressed = useCallback(() => {
+        if (canGoBack) {
+            webViewRef.current!.goBack();
+        }
+        return true;
+    }, [canGoBack]);
+
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', onHardwareBackPressed);
+        return () => BackHandler.removeEventListener('hardwareBackPress', onHardwareBackPressed);
+    }, []);
 
     return (
         <View
@@ -41,7 +92,11 @@ export default function GuidePage() {
                     mixedContentMode = "always"
                     originWhitelist = {['*']}
 
-                    source={{uri: 'https://buildorderguide.com/#/'}}
+                    ref={webViewRef as any}
+
+                    onNavigationStateChange={(navState) => setCanGoBack(navState.canGoBack)}
+
+                    source={{uri: 'https://buildorderguide.com'}}
                     scalesPageToFit={false}
                     style={{
                         minHeight: 200,
@@ -58,3 +113,14 @@ export default function GuidePage() {
         </View>
     );
 }
+
+const useStyles = createStylesheet(theme => StyleSheet.create({
+    action: {
+        paddingLeft: 5,
+        paddingRight: 5,
+        marginRight: 17,
+    },
+    icon: {
+        color: '#777',
+    },
+}));

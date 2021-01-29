@@ -121,7 +121,6 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
             marginHorizontal: 10,
         },
         menuButtonDots: {
-
             // backgroundColor: 'blue',
             margin: 0,
             marginLeft: 0,
@@ -133,7 +132,6 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
             flex: 1,
         },
         icon: {
-
             marginRight: 5,
             width: iconWidth,
             height: iconHeight,

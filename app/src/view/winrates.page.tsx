@@ -1,7 +1,19 @@
 import React, { useState } from 'react';
 import { WebView } from 'react-native-webview';
-import { Platform, View } from 'react-native';
+import {Linking, Platform, TouchableOpacity, View} from 'react-native';
+import {useTheme} from '../theming';
+import {appVariants} from '../styles';
+import {MyText} from './components/my-text';
 
+
+export function WinratesTitle(props: any) {
+    const appStyles = useTheme(appVariants);
+    return (
+        <TouchableOpacity onPress={() => Linking.openURL('https://aoestats.io')}>
+            <MyText style={appStyles.link}>aoestats.io</MyText>
+        </TouchableOpacity>
+    );
+}
 
 export default function WinratesPage() {
     if (Platform.OS === 'web') {
