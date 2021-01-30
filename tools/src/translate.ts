@@ -8,21 +8,21 @@ const text = 'Hi I am Dennis';
 const text2 = 'Bye I am Dennis';
 
 const translationClient = new TranslationServiceClient();
-async function translateText(strings: string[]) {
+async function translateText(strings: string[], targetLanguageCode: string) {
     const request = {
         parent: `projects/${projectId}/locations/${location}`,
         contents: strings,
         mimeType: 'text/plain', // mime types: text/plain, text/html
         sourceLanguageCode: 'en',
-        targetLanguageCode: 'de',
+        targetLanguageCode,
     };
 
     try {
         const [response] = await translationClient.translateText(request);
 
-        for (const translation of response.translations) {
-            console.log(`Translation: ${translation.translatedText}`);
-        }
+        // for (const translation of response.translations) {
+        //     console.log(`Translation: ${translation.translatedText}`);
+        // }
 
         return response.translations.map((t: any) => t.translatedText);
     } catch (error) {
@@ -61,10 +61,7 @@ function preprocess(source: string) {
 
 function postprocess(source: string, translated: string) {
     const matches = getAllMatches(/{.+}/g, source);
-    console.log('matches', matches);
-
     return translated.replace(/{(\d+)}/, (m, num) => {
-        console.log(translated, m, num);
         return matches[num][0];
     });
 }
@@ -79,19 +76,16 @@ async function translateLanguage(language: string) {
     const targetKeys = Object.keys(target);
 
     const missingTranslations = enPairs.filter(p => !targetKeys.includes(p[0]));
-    console.log('missingTranslations', missingTranslations);
-
-    // const preprocessed = missingTranslations.map(p => preprocess(p[1]));
-    // console.log('preprocessed', preprocessed);
+    // console.log('missingTranslations', missingTranslations);
 
     const unusedTranslations = targetPairs.filter(p => !enKeys.includes(p[0]));
-    console.log('unusedTranslations', unusedTranslations);
+    // console.log('unusedTranslations', unusedTranslations);
 
-    const translated = await translateText(missingTranslations.map(p => preprocess(p[1])));
-    console.log('translated', translated);
+    const translated = missingTranslations.length == 0 ? [] : await translateText(missingTranslations.map(p => preprocess(p[1])), language);
+    // console.log('translated', translated);
 
     const translationDict = missingTranslations.map((p, i) => [p[0], postprocess(p[1], translated[i])]);
-    console.log('translationDict', translationDict);
+    // console.log('translationDict', translationDict);
 
     const getValue = (key: string) => {
         const translatedPair = translationDict.find(p => p[0] === key);
@@ -130,11 +124,21 @@ async function translateLanguage(language: string) {
         doc += `  "${unusedTranslation[0]}": "${getValue(unusedTranslation[0])}",\n`;
     }
 
-    doc = doc.replace(/,\n$/, '\n');
+    doc = doc.replace(/,\s*$/, '\n');
 
     doc = '{' + doc + '}';
 
     fs.writeFileSync(`../app/assets/translations/${language}.json`, doc);
 }
 
-translateLanguage('de');
+
+async function translateAllLanguages() {
+    const languages = ['ms', 'fr', 'es-mx', 'it', 'pt', 'ru', 'vi', 'tr', 'de', 'es', 'hi', 'ja', 'ko', 'zh-hans', 'zh-hant'];
+    for (const language of languages) {
+        console.log("Translating " + language);
+        await translateLanguage(language);
+    }
+}
+
+translateAllLanguages();
+// translateLanguage('de');
