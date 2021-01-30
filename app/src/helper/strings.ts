@@ -25,7 +25,7 @@ interface IStringCollection {
 }
 
 export function getString(category: keyof IStrings, id: number) {
-    return '###';
+    // return '###';
     // console.log('getString', getlanguage(), category);
     return strings[getlanguage()][category].find(i => i.id === id)?.string;
 }
