@@ -13,6 +13,10 @@ export const changelog: IChangelog = {
     '21.0.6': [
         {
             type: 'minor',
+            title: 'Group matches in "following" by players',
+        },
+        {
+            type: 'minor',
             title: 'Add back button and hardware back press to build order guides',
         },
     ],
