@@ -269,9 +269,20 @@ export class ReplayTask implements OnModuleInit {
             textLength = text.length;
             // console.log(text);
             await this.incrementAwsUsage(new Date().getTime() - start.getTime(), textLength);
+            const replay = JSON.parse(text);
+
+            if (replay.error) {
+                console.log('ERROR: ', match_id, profile_id, replay.error);
+                await this.incrementAwsUsage(new Date().getTime() - start.getTime(), textLength);
+                return {
+                    status: -1,
+                    replay: null,
+                };
+            }
+
             return {
                 status: response.status,
-                replay: JSON.parse(text),
+                replay,
             };
             // return await response.json();
         } catch (e) {
