@@ -163,12 +163,6 @@ sam build --use-container
 sam deploy
 
 
-. veee/bin/activate
-
-git clone https://github.com/SiegeEngineers/aoc-mgz-db.git
-virtualenv env && source env/bin/activate
-virtualenv env && source env/bin/activate && pip3 install -r requirements.txt
-
 
 docker build -t denniske/aoe2companion-mgz:5 . && docker push denniske/aoe2companion-mgz:5
 docker container kill $(docker ps -q) && docker run -p 0.0.0.0:80:80 -d denniske/aoe2companion-mgz:5
@@ -183,9 +177,6 @@ python setup.py install
 python mgzdb reset
 python -m mgzdb add match de 3677645
 
-killall gunicorn
-nohup gunicorn --bind 0.0.0.0:80 app:app --threads 10 &
-tail -f nohup.out
 
 
 
@@ -196,10 +187,25 @@ rm pypy3.7-v7.3.3-linux64.tar.bz2
 ln -s /root/pypy-latest-linux64/bin/pypy /usr/local/bin
 pypy -m ensurepip
 apt update
-apt install git
+apt install git gcc python3-dev gunicorn -y
 git clone https://github.com/denniske/aoe2companion.git
 cd aoe2companion/mgz
-pypy -mpip install -r requirements.txt
+
+pypy -m pip install -r requirements.txt
+
+#pypy -m pip install virtualenv
+#pypy -m virtualenv env
+
+nano ~/.bashrc
+export PATH="/root/pypy-latest-linux64/bin:$PATH"
+source ~/.bashrc
+
+gunicorn --bind 0.0.0.0:80 app:app --threads 6
+
+
+killall gunicorn
+nohup gunicorn --bind 0.0.0.0:80 app:app --threads 6 &
+tail -f nohup.out
 
 
 ~/Downloads/pypy-latest-osx64/bin/pypy -m ensurepip
@@ -209,6 +215,13 @@ pypy -mpip install -r requirements.txt
 ~/Downloads/pypy3.7-v7.3.2-osx64/bin/pypy -mpip install -e .
 ~/Downloads/pypy3.7-v7.3.2-osx64/bin/pypy -mpip install -r requirements.txt
 ~/Downloads/pypy3.7-v7.3.2-osx64/bin/pypy main.py > temp.txt
+
+
+. veee/bin/activate
+
+git clone https://github.com/SiegeEngineers/aoc-mgz-db.git
+virtualenv env && source env/bin/activate
+virtualenv env && source env/bin/activate && pip3 install -r requirements.txt
 
 
 https://www.andreagrandi.it/2018/12/19/installing-python-and-virtualenv-on-osx/

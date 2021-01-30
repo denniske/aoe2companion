@@ -11,7 +11,7 @@ import {IReplayResult} from './replay.type';
 import {uniq} from 'lodash';
 import {InjectS3, S3} from 'nestjs-s3';
 import {formatDayAndTime} from '../util';
-import {fromUnixTime} from "date-fns";
+import {fromUnixTime, getUnixTime, subMinutes} from "date-fns";
 
 let workerCount = 0;
 
@@ -22,7 +22,8 @@ export class ReplayTask implements OnModuleInit {
     private matches: IMatchFromApi[] = [];
     private pending: string[] = [];
 
-    private apiUrl = 'http://0.0.0.0:80/replay';
+    // private apiUrl = 'http://0.0.0.0:80/replay';
+    private apiUrl = 'http://95.217.215.149:80/replay';
     // private apiUrl = 'http://195.201.24.178:80/replay';
     // private apiUrl = 'https://wzhlh6g7h8.execute-api.eu-central-1.amazonaws.com/Prod/hello/';
 
@@ -297,47 +298,50 @@ export class ReplayTask implements OnModuleInit {
     async runIngest1() {
         console.log("Pending", this.pending);
 
+        const oneHourAgo = subMinutes(new Date(), 60);
+
         if (this.matches.length == 0) {
-            const matches = await this.prisma.match.findMany({
-                include: {
-                    players: true,
-                },
-                where: {
-                    match_id: { in: [
-                            // '66632822',
-                            '66617219',
-                            // '29902725',
-                            // '41419018',
-                            // '41318074',
-                            // '41454851',
-                            // '41455231',
-                            // '41455124',
-                            // '41454557',
-                            // '41454399',
-                            // '41454006',
-                            // '41454251',
-                            // '41453591',
-                            // '41453026',
-                        ] },
-                },
-                take: 10,
-                orderBy: {
-                    finished: 'desc',
-                },
-            }) as any as IMatchFromApi[];
             // const matches = await this.prisma.match.findMany({
             //     include: {
             //         players: true,
             //     },
             //     where: {
-            //         finished: {not: null},
-            //         replayed: null,
+            //         match_id: { in: [
+            //                 // '66632822',
+            //                 '66617219',
+            //                 // '29902725',
+            //                 // '41419018',
+            //                 // '41318074',
+            //                 // '41454851',
+            //                 // '41455231',
+            //                 // '41455124',
+            //                 // '41454557',
+            //                 // '41454399',
+            //                 // '41454006',
+            //                 // '41454251',
+            //                 // '41453591',
+            //                 // '41453026',
+            //             ] },
             //     },
-            //     take: 100,
+            //     take: 10,
             //     orderBy: {
             //         finished: 'desc',
             //     },
             // }) as any as IMatchFromApi[];
+            const matches = await this.prisma.match.findMany({
+                include: {
+                    players: true,
+                },
+                where: {
+                    // finished: {not: null},
+                    started: {lt: getUnixTime(oneHourAgo)},
+                    replayed: null,
+                },
+                take: 100,
+                orderBy: {
+                    started: 'desc',
+                },
+            }) as any as IMatchFromApi[];
             this.matches = matches.filter(m => !this.pending.includes(m.match_id));
             console.log(this.matches.map(m => m.match_id));
         }

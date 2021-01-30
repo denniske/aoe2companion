@@ -52,7 +52,8 @@ export function createMatchEntity(matchEntry: IMatchRaw) {
     match.visibility = matchEntry.visibility;
     match.maybe_finished = matchEntry.maybe_finished;
 
-    match.replayed = matchEntry.players.every(p => p.won == null) ? -1 : null;
+    // Every match should be processed by replay.task
+    match.replayed = null;// matchEntry.players.every(p => p.won == null) ? -1 : null;
 
     return match;
 }
