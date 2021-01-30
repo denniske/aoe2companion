@@ -22,8 +22,8 @@ export class ReplayTask implements OnModuleInit {
     private matches: IMatchFromApi[] = [];
     private pending: string[] = [];
 
-    // private apiUrl = 'http://0.0.0.0:80/replay';
-    private apiUrl = 'http://195.201.24.178:80/replay';
+    private apiUrl = 'http://0.0.0.0:80/replay';
+    // private apiUrl = 'http://195.201.24.178:80/replay';
     // private apiUrl = 'https://wzhlh6g7h8.execute-api.eu-central-1.amazonaws.com/Prod/hello/';
 
     constructor(
@@ -35,7 +35,7 @@ export class ReplayTask implements OnModuleInit {
     async onModuleInit() {
         this.runIngest1();
         this.runWorker(workerCount++);
-        this.runWorker(workerCount++);
+        // this.runWorker(workerCount++);
         // this.runWorker(workerCount++);
         // this.runWorker(workerCount++);
         // this.runWorker(workerCount++);
@@ -43,12 +43,12 @@ export class ReplayTask implements OnModuleInit {
         // this.runWorker(workerCount++);
         // this.runWorker(workerCount++);
 
-        try {
-            const list = await this.s3.listBuckets().promise();
-            console.log(list.Buckets);
-        } catch (e) {
-            console.log(e);
-        }
+        // try {
+        //     const list = await this.s3.listBuckets().promise();
+        //     console.log('buckets', list.Buckets);
+        // } catch (e) {
+        //     console.log(e);
+        // }
     }
 
     async runWorker(workerNum: number) {
@@ -59,10 +59,13 @@ export class ReplayTask implements OnModuleInit {
             return;
         }
 
+        console.log(match);
+
         this.pending.push(match.match_id);
 
         console.log();
-        console.log(formatDayAndTime(fromUnixTime(match.finished)));
+        console.log(formatDayAndTime(fromUnixTime(match.started)));
+        // console.log(formatDayAndTime(fromUnixTime(match.finished)));
         console.log(`WORKER ${workerNum}...`);
 
         let replayResult: IReplayResult = {
@@ -105,6 +108,9 @@ export class ReplayTask implements OnModuleInit {
         let unknownWinner = false;
         let shouldUpdateWinner = true;
         let winnerMismatch = false;
+
+        console.log('replayResult', replayResult);
+
         for (const replayPlayer of replayResult.replay.players) {
             const existingWinner = match.players.find(p => p.profile_id == replayPlayer.user_id).won;
             if (existingWinner != null && existingWinner != replayPlayer.winner) {
@@ -145,24 +151,24 @@ export class ReplayTask implements OnModuleInit {
 
         replayResult.replay.players.forEach(v => delete v.achievements);
 
-        await this.s3.putObject({
-            Bucket: 'aoe2companion',
-            ContentType: 'application/json',
-            Key: `parsed-match/${match.match_id}.json`,
-            Body: JSON.stringify(replayResult.replay),
-            ACL: 'public-read',
-        }).promise();
-
-        if (replayResult.replay.restored[0]) {
-            console.log('RESTORED');
-            await this.s3.putObject({
-                Bucket: 'aoe2companion',
-                ContentType: 'application/json',
-                Key: `parsed-match-restored/${match.match_id}.json`,
-                Body: JSON.stringify(replayResult.replay),
-                ACL: 'public-read',
-            }).promise();
-        }
+        // await this.s3.putObject({
+        //     Bucket: 'aoe2companion',
+        //     ContentType: 'application/json',
+        //     Key: `parsed-match/${match.match_id}.json`,
+        //     Body: JSON.stringify(replayResult.replay),
+        //     ACL: 'public-read',
+        // }).promise();
+        //
+        // if (replayResult.replay.restored[0]) {
+        //     console.log('RESTORED');
+        //     await this.s3.putObject({
+        //         Bucket: 'aoe2companion',
+        //         ContentType: 'application/json',
+        //         Key: `parsed-match-restored/${match.match_id}.json`,
+        //         Body: JSON.stringify(replayResult.replay),
+        //         ACL: 'public-read',
+        //     }).promise();
+        // }
 
         await this.prisma.match.update({
             where: {
@@ -244,13 +250,13 @@ export class ReplayTask implements OnModuleInit {
                 try {
                     const jsonStr = await response.text();
                     console.log('ERROR: ', match_id, profile_id, jsonStr);
-                    await this.s3.putObject({
-                        Bucket: 'aoe2companion',
-                        ContentType: 'application/json',
-                        Key: `parsed-match-error/${match_id}.json`,
-                        Body: jsonStr,
-                        ACL: 'public-read',
-                    }).promise();
+                    // await this.s3.putObject({
+                    //     Bucket: 'aoe2companion',
+                    //     ContentType: 'application/json',
+                    //     Key: `parsed-match-error/${match_id}.json`,
+                    //     Body: jsonStr,
+                    //     ACL: 'public-read',
+                    // }).promise();
                 } catch (e) {}
                 return {
                     status: response.status,
@@ -280,6 +286,7 @@ export class ReplayTask implements OnModuleInit {
 
     async existsReplay(match_id: string, profile_id: number) {
         const url = `https://aoe.ms/replay/?gameId=${match_id}&profileId=${profile_id}`;
+        console.log(url);
         const response = await fetch(url, {
             method: 'HEAD',
             timeout: 60 * 1000,
@@ -291,43 +298,46 @@ export class ReplayTask implements OnModuleInit {
         console.log("Pending", this.pending);
 
         if (this.matches.length == 0) {
-            // const matches = await this.prisma.match.findMany({
-            //     include: {
-            //         players: true,
-            //     },
-            //     where: {
-            //         match_id: { in: [
-            //                 '41419018',
-            //                 // '41318074',
-            //                 // '41454851',
-            //                 // '41455231',
-            //                 // '41455124',
-            //                 // '41454557',
-            //                 // '41454399',
-            //                 // '41454006',
-            //                 // '41454251',
-            //                 // '41453591',
-            //                 // '41453026',
-            //             ] },
-            //     },
-            //     take: 10,
-            //     orderBy: {
-            //         finished: 'desc',
-            //     },
-            // }) as any as IMatchFromApi[];
             const matches = await this.prisma.match.findMany({
                 include: {
                     players: true,
                 },
                 where: {
-                    finished: {not: null},
-                    replayed: null,
+                    match_id: { in: [
+                            // '66632822',
+                            '66617219',
+                            // '29902725',
+                            // '41419018',
+                            // '41318074',
+                            // '41454851',
+                            // '41455231',
+                            // '41455124',
+                            // '41454557',
+                            // '41454399',
+                            // '41454006',
+                            // '41454251',
+                            // '41453591',
+                            // '41453026',
+                        ] },
                 },
-                take: 100,
+                take: 10,
                 orderBy: {
                     finished: 'desc',
                 },
             }) as any as IMatchFromApi[];
+            // const matches = await this.prisma.match.findMany({
+            //     include: {
+            //         players: true,
+            //     },
+            //     where: {
+            //         finished: {not: null},
+            //         replayed: null,
+            //     },
+            //     take: 100,
+            //     orderBy: {
+            //         finished: 'desc',
+            //     },
+            // }) as any as IMatchFromApi[];
             this.matches = matches.filter(m => !this.pending.includes(m.match_id));
             console.log(this.matches.map(m => m.match_id));
         }

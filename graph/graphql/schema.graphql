@@ -33,7 +33,7 @@ type Leaderboard {
 
 type Match {
   finished: DateTime
-  leaderboard_id: Int!
+  leaderboard_id: Int
   map_type: Int!
   match_id: String!
   name: String!

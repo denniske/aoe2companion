@@ -105,6 +105,7 @@ export interface IMatch extends Omit<IMatchRaw, 'finished' | 'opened' | 'started
     started?: Date;
     opened?: Date;
     finished?: Date;
+    source?: 'aoe2net' | 'aoe2companion';
 }
 
 export enum LeaderboardId {

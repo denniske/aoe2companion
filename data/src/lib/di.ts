@@ -1,3 +1,4 @@
+import {ITranslationService} from './aoe-data';
 
 export enum SERVICE_NAME {
     HOST_SERVICE = 'HOST_SERVICE',
@@ -24,3 +25,13 @@ export function registerService(name: SERVICE_NAME, service: any, overwrite: boo
 }
 
 
+class DummyTranslationService implements ITranslationService {
+    getUiTranslation(str: string): string {
+        return '???';
+    }
+    getAoeString(str: string): string {
+        return '???';
+    }
+}
+
+registerService(SERVICE_NAME.TRANSLATION_SERVICE, new DummyTranslationService(), true);

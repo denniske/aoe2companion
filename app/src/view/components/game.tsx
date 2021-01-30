@@ -139,7 +139,9 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
                     <IconFA5 name="clock" size={11.5} color={theme.textNoteColor}/>
                     <MyText style={styles.duration}> {duration}   </MyText>
                     <IconFA5 name="running" size={11.5} color={theme.textNoteColor}/>
-                    <MyText style={styles.speed}> {getString('speed', data.speed)}</MyText>
+                    <MyText style={styles.speed}> {getString('speed', data.speed)}   </MyText>
+                    <IconFA5 name="database" size={11.5} color={theme.textNoteColor}/>
+                    <MyText style={styles.speed}> {data.source}</MyText>
                 </View>
                 {
                     teams.map(([team, players], i) =>

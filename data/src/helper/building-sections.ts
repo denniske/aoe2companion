@@ -1,6 +1,6 @@
 import {flatMap} from "lodash";
 import {Building} from "./buildings";
-import {getTranslation} from '../../../app/src/helper/translate';
+import {getUiTranslation} from '../lib/aoe-data';
 
 
 interface IGenericSection<T> {
@@ -30,7 +30,7 @@ interface IBuildingSection {
 
 export const buildingSections: IBuildingSection[] = [
     {
-        title: getTranslation('building.section.military'),
+        title: getUiTranslation('building.section.military'),
         data: [
             "Barracks",
             "ArcheryRange",
@@ -43,7 +43,7 @@ export const buildingSections: IBuildingSection[] = [
         ],
     },
     {
-        title: getTranslation('building.section.economy'),
+        title: getUiTranslation('building.section.economy'),
         data: [
             "FishTrap",
             "Mill",
@@ -54,7 +54,7 @@ export const buildingSections: IBuildingSection[] = [
         ],
     },
     {
-        title: getTranslation('building.section.peopleandscience'),
+        title: getUiTranslation('building.section.peopleandscience'),
         data: [
             "TownCenter",
             "House",
@@ -65,13 +65,13 @@ export const buildingSections: IBuildingSection[] = [
         ],
     },
     {
-        title: getTranslation('building.section.special'),
+        title: getUiTranslation('building.section.special'),
         data: [
             "Wonder",
         ],
     },
     {
-        title: getTranslation('building.section.towers'),
+        title: getUiTranslation('building.section.towers'),
         data: [
             "Outpost",
             "WatchTower",
@@ -81,7 +81,7 @@ export const buildingSections: IBuildingSection[] = [
         ],
     },
     {
-        title: getTranslation('building.section.walls'),
+        title: getUiTranslation('building.section.walls'),
         data: [
             "PalisadeWall",
             "StoneWall",
@@ -89,7 +89,7 @@ export const buildingSections: IBuildingSection[] = [
         ],
     },
     {
-        title: getTranslation('building.section.gates'),
+        title: getUiTranslation('building.section.gates'),
         data: [
             "PalisadeGate",
             "Gate",

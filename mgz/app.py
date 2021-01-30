@@ -64,7 +64,9 @@ def replay():
     match_id = request.args.get('match_id')
     profile_id = request.args.get('profile_id')
 
-    cmd = subprocess.run(["/Users/denniskeil/Downloads/pypy3.7-v7.3.2-osx64/bin/pypy", "process.py", match_id, profile_id], capture_output=True)
+    cmd = subprocess.run(["pypy", "src/process.py", match_id, profile_id], capture_output=True)
+    # cmd = subprocess.run(["/Users/denniskeil/Downloads/pypy-latest-osx64/bin/pypy", "src/process.py", match_id, profile_id], capture_output=True)
+    # cmd = subprocess.run(["/Users/denniskeil/Downloads/pypy3.7-v7.3.2-osx64/bin/pypy", "process.py", match_id, profile_id], capture_output=True)
     # cmd = subprocess.run(["pypy", "process.py", match_id, profile_id], capture_output=True)
     if cmd.returncode != 0:
         return jsonify({"error": cmd.stderr.decode() })

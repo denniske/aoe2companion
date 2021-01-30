@@ -66,76 +66,117 @@ export interface IFetchMatchesParams {
 import request, {gql} from "graphql-request";
 
 
-export async function fetchPlayerMatches(game: string, start: number, count: number, params: IFetchMatchesParams[]): Promise<IMatch[]> {
-    return await fetchPlayerMatchesLegacy(game, start, count, params);
+export async function fetchPlayerMatchesNew(game: string, start: number, count: number, params: IFetchMatchesParams[]): Promise<IMatch[]> {
+    try {
+        if (params.length === 0) {
+            return [];
+        }
+        const args = {
+            game,
+            start,
+            count,
+            profile_ids: params.map(p => p.profile_id),
+        };
+        const queryString = makeQueryString(args);
+        const url = getHost('aoe2net') + `api/player/matches?${queryString}`;
 
-    if (params.length === 0) {
-        return [];
-    }
-    const args = {
-        game,
-        start,
-        count,
-        profile_ids: params.map(p => p.profile_id),
-    };
-    const queryString = makeQueryString(args);
-    const url = getHost('aoe2net') + `api/player/matches?${queryString}`;
+        // profile_ids: [196240]
 
-    // profile_ids: [196240]
-
-    const endpoint = 'http://localhost:3333/graphql'
-    const query = gql`
-        query H2($start: Int!, $count: Int!, $profile_ids: [Int!]) {
-            matches(
-                start: $start,
-                count: $count,
-                profile_ids: $profile_ids
-            ) {
-                total
-                matches {
-                    match_id
-                    leaderboard_id
-                    name
-                    map_type
-                    speed
-                    num_players
-                    started
-                    finished
-                    players {
-                        profile_id
-                        steam_id
+        const endpoint = 'http://localhost:3333/graphql'
+        const query = gql`
+            query H2($start: Int!, $count: Int!, $profile_ids: [Int!]) {
+                matches(
+                    start: $start,
+                    count: $count,
+                    profile_ids: $profile_ids
+                ) {
+                    total
+                    matches {
+                        match_id
+                        leaderboard_id
                         name
-                        country
-                        rating
-                        civ
-                        slot
-                        slot_type
-                        color
-                        won
-                        team
+                        map_type
+                        speed
+                        num_players
+                        started
+                        finished
+                        players {
+                            profile_id
+                            steam_id
+                            name
+                            country
+                            rating
+                            civ
+                            slot
+                            slot_type
+                            color
+                            won
+                            team
+                        }
                     }
                 }
             }
+        `;
+
+        const timeLastDate = new Date();
+        const variables = {start, count, profile_ids: params.map(p => p.profile_id)};
+        console.groupCollapsed('fetchPlayerMatches - matches()');
+        console.log(query);
+        console.groupEnd();
+        console.log(variables);
+        const data = await request(endpoint, query, variables)
+        console.log('gql', new Date().getTime() - timeLastDate.getTime());
+
+        let json = data.matches.matches as IMatchRaw[];
+        // console.log(json);
+        // let json2 = await fetchJson('fetchPlayerMatches', url) as IMatchRaw[];
+        // console.log(json2);
+
+        // TODO: Temporary fix: Filter duplicate matches
+        json = uniqBy(json, m => m.match_id);
+
+        // TODO: Fix for new civ order after Lords of the West
+        const releaseDate = 1611680400; // 01/26/2021 @ 5:00pm (UTC)
+        json.filter(match => match.started < releaseDate).forEach(match => {
+            match.players.forEach(player => {
+                if (player.civ >= 4) player.civ++;
+                if (player.civ >= 29) player.civ++;
+            })
+        });
+
+        return json.map(match => convertTimestampsToDates2(match));
+    } catch (e) {
+        console.log('ERROR', e);
+    }
+    return [];
+}
+
+export async function fetchPlayerMatches(game: string, start: number, count: number, params: IFetchMatchesParams[]): Promise<IMatch[]> {
+    const [newResult, legacyResult] = await Promise.all([
+        fetchPlayerMatchesNew(game, start, count, params),
+        fetchPlayerMatchesLegacy(game, start, count, params),
+    ]);
+
+    console.log('newResult', newResult);
+    console.log('legacyResult', legacyResult);
+
+    legacyResult.forEach(legacyMatch => {
+        legacyMatch.source = 'aoe2net';
+
+        if (legacyMatch.players[0].civ == null || legacyMatch.players[0].won == null) {
+            const newMatch = newResult.find(m => m.match_id == legacyMatch.match_id);
+            if (newMatch) {
+                legacyMatch.players.forEach(legacyPlayer => {
+                    const newPlayer = newMatch.players.find(p => p.slot === legacyPlayer.slot);
+                    if (newPlayer) {
+                        legacyPlayer.civ = newPlayer.civ;
+                        legacyPlayer.won = newPlayer.won;
+                    }
+                });
+                legacyMatch.source = 'aoe2companion';
+            }
         }
-    `;
+    })
 
-    const timeLastDate = new Date();
-    const variables = { start, count, profile_ids: params.map(p => p.profile_id) };
-    console.groupCollapsed('fetchPlayerMatches - matches()');
-    console.log(query);
-    console.groupEnd();
-    console.log(variables);
-    const data = await request(endpoint, query, variables)
-    console.log('gql', new Date().getTime() - timeLastDate.getTime());
-
-    let json = data.matches.matches as IMatchRaw[];
-    console.log(json);
-    // let json2 = await fetchJson('fetchPlayerMatches', url) as IMatchRaw[];
-    // console.log(json2);
-
-    // TODO: Temporary fix: Filter duplicate matches
-    json = uniqBy(json, m => m.match_id);
-
-    return json.map(match => convertTimestampsToDates2(match));
-    // return json2.map(match => convertTimestampsToDates(match));
+    return legacyResult;
 }

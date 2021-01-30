@@ -1,7 +1,7 @@
 import {flatMap, sortBy} from 'lodash';
 import {civDict, civs} from './civs';
 import {getRelatedUnitLines, getUnitLineIdForUnit, Unit, UnitLine, unitLines} from './units';
-import {getTranslation} from '../../../app/src/helper/translate';
+import {getUiTranslation} from '../lib/aoe-data';
 
 
 interface IUnitSection {
@@ -11,7 +11,7 @@ interface IUnitSection {
 
 const unitSections: IUnitSection[] = [
     {
-        title: getTranslation('unit.section.infantry'),
+        title: getUiTranslation('unit.section.infantry'),
         data:
             [
                 'Militia',
@@ -22,7 +22,7 @@ const unitSections: IUnitSection[] = [
             ],
     },
     {
-        title: getTranslation('unit.section.archer'),
+        title: getUiTranslation('unit.section.archer'),
         data:
             [
                 'Archer',
@@ -34,7 +34,7 @@ const unitSections: IUnitSection[] = [
             ],
     },
     {
-        title: getTranslation('unit.section.cavalry'),
+        title: getUiTranslation('unit.section.cavalry'),
         data:
             [
                 'ScoutCavalry',
@@ -46,7 +46,7 @@ const unitSections: IUnitSection[] = [
             ],
     },
     {
-        title: getTranslation('unit.section.siege'),
+        title: getUiTranslation('unit.section.siege'),
         data:
             [
                 'BatteringRam',
@@ -60,7 +60,7 @@ const unitSections: IUnitSection[] = [
             ],
     },
     {
-        title: getTranslation('unit.section.trade'),
+        title: getUiTranslation('unit.section.trade'),
         data:
             [
                 'TradeCart',
@@ -68,14 +68,14 @@ const unitSections: IUnitSection[] = [
             ],
     },
     {
-        title: getTranslation('unit.section.villager'),
+        title: getUiTranslation('unit.section.villager'),
         data:
             [
                 'Villager',
             ],
     },
     {
-        title: getTranslation('unit.section.navy'),
+        title: getUiTranslation('unit.section.navy'),
         data:
             [
                 'FishingShip',
@@ -90,7 +90,7 @@ const unitSections: IUnitSection[] = [
             ],
     },
     {
-        title: getTranslation('unit.section.monk'),
+        title: getUiTranslation('unit.section.monk'),
         data:
             [
                 'Monk',
@@ -98,7 +98,7 @@ const unitSections: IUnitSection[] = [
             ],
     },
     {
-        title: getTranslation('unit.section.unique'),
+        title: getUiTranslation('unit.section.unique'),
         data: sortBy(flatMap(civs, civ => [civDict[civ].uniqueUnits[0], ...getRelatedUnitLines(getUnitLineIdForUnit(civDict[civ].uniqueUnits[0]))])),
     },
 ];

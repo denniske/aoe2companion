@@ -10,8 +10,8 @@ export class Match {
     @Field()
     name: string;
 
-    @Field(type => Int)
-    leaderboard_id: number;
+    @Field(type => Int, {nullable: true})
+    leaderboard_id?: number;
 
     @Field(type => Int)
     map_type: number;
