@@ -16,7 +16,7 @@ interface IRowProps {
 }
 
 function getPositionName(position: AoePosition) {
-    return position === 'flank' ? 'Flank' : 'Pocket';
+    return position === 'flank' ? getTranslation('enum.position.flank') : getTranslation('enum.position.pocket');
 }
 
 function Row({data}: IRowProps) {

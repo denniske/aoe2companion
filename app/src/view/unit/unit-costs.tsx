@@ -10,6 +10,7 @@ import {keysOf} from "@nex/data";
 import {GetUnitValue} from "./unit-stats";
 import {getOtherIcon} from "../../helper/units";
 import {createStylesheet} from '../../theming-new';
+import {getTranslation} from '../../helper/translate';
 
 
 export function Costs({ costDict }: { costDict: ICostDict }) {
@@ -41,7 +42,7 @@ export function UnitCosts({ unitId, unitLineId }: Props) {
         <View style={styles.costsRow}>
             <Costs costDict={baseData.Cost}/>
             <MyText style={styles.description}>
-                <MyText>Trained in <GetUnitValue unitId={unitId} prop="TrainTime" formatter={(x: number) => x+'s'}/></MyText>
+                <MyText>{getTranslation('unit.stats.heading.trainedin')} <GetUnitValue unitId={unitId} prop="TrainTime" formatter={(x: number) => x+'s'}/></MyText>
                 {
                     unitLineId == 'Serjeant' &&
                     <>

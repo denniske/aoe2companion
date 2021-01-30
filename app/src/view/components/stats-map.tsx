@@ -77,7 +77,7 @@ export default function StatsMap(props: IProps) {
                     <Space/>
                     {
                         rows &&
-                        <MyText style={styles.info}>*based on matches with known result</MyText>
+                        <MyText style={styles.info}>*{getTranslation('main.stats.footer.note')}</MyText>
                     }
 
                     {

@@ -6,6 +6,7 @@ import {getFlagIcon} from '../../helper/flags';
 import {useCavy} from "cavy";
 import {MyText} from "./my-text";
 import {Flag} from '@nex/data';
+import {getTranslation} from '../../helper/translate';
 
 export interface IPlayerListPlayer {
     country: Flag;
@@ -84,8 +85,8 @@ export default function PlayerList({list, selectedUser, actionText, action}: ISe
                 {
                     list && list.length > 0 &&
                     <View style={styles.headerRow}>
-                        <MyText style={styles.cellName}>Name</MyText>
-                        <MyText style={styles.cellGames}>Games</MyText>
+                        <MyText style={styles.cellName}>{getTranslation('playerlist.heading.name')}</MyText>
+                        <MyText style={styles.cellGames}>{getTranslation('playerlist.heading.games')}</MyText>
                         <MyText style={styles.cellAction}/>
                     </View>
                 }

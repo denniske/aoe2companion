@@ -3,7 +3,8 @@ import {sortBy} from "lodash";
 import {Civ} from "./civs";
 import {getAllMatches, strRemoveFrom, strRemoveTo, unwrap, ValueOf} from "../lib/util";
 import {aoeData, aoeUnitDataId} from "../data/data";
-import {getAoeString} from '../lib/aoe-data';
+import {getAoeString, getUiTranslation} from '../lib/aoe-data';
+import {slotTypes} from '../api/api.types';
 
 
 export interface IUnitLine {
@@ -2735,43 +2736,43 @@ export interface IUnitInfo {
 }
 
 const unitClasses = {
-    0: "Unused",
-    1: "Infantry",
-    2: "Turtle Ships",
-    3: "Pierce",
-    4: "Melee",
-    5: "War Elephants",
-    6: "Unused",
-    7: "Unused",
-    8: "Cavalry",
-    9: "Unused",
-    10: "Unused",
-    11: "All Buildings", // except Port
-    12: "Unused",
-    13: "Stone Defense",
-    14: "FE Predator Animals",
-    15: "Archers",
-    16: "Ships & Camels & Saboteurs",
-    17: "Rams",
-    18: "Trees",
-    19: "Unique Units", // except Turtle Ship
-    20: "Siege Weapons",
-    21: "Standard Buildings",
-    22: "Walls & Gates",
-    23: "Gunpowder Units",
-    24: "Boars",
-    25: "Monks",
-    26: "Castle",
-    27: "Spearmen",
-    28: "Cavalry Archers",
-    29: "Eagle Warriors",
-    30: "Camels",
-    31: "Anti-Leitis",
-    32: "Condottieros",
-    33: "Organ Gun Damage",
-    34: "Fishing Ships",
-    35: "Mamelukes",
-    36: "Heroes and Kings",
+    0: "unused",
+    1: "infantry",
+    2: "turtleships",
+    3: "pierce",
+    4: "melee",
+    5: "warelephants",
+    6: "unused",
+    7: "unused",
+    8: "cavalry",
+    9: "unused",
+    10: "unused",
+    11: "allbuildings", // except Port
+    12: "unused",
+    13: "stonedefense",
+    14: "fepredatoranimals",
+    15: "archers",
+    16: "shipsandcamelsandsaboteurs",
+    17: "rams",
+    18: "trees",
+    19: "uniqueunits", // except Turtle Ship
+    20: "siegeweapons",
+    21: "standardbuildings",
+    22: "wallsandgates",
+    23: "gunpowderunits",
+    24: "boars",
+    25: "monks",
+    26: "castle",
+    27: "spearmen",
+    28: "cavalryarchers",
+    29: "eaglewarriors",
+    30: "camels",
+    31: "antileitis",
+    32: "condottieros",
+    33: "organgundamage",
+    34: "fishingships",
+    35: "mamelukes",
+    36: "heroesandkings",
 } as const;
 
 export const attackClasses = [
@@ -2793,8 +2794,9 @@ export const hiddenArmourClasses = [
 export type UnitClassNumber = keyof typeof unitClasses;
 export type UnitClass = ValueOf<typeof unitClasses>;
 
-export function getUnitClassName(unitClassNumber: UnitClassNumber): UnitClass {
-    return unitClasses[unitClassNumber];
+export function getUnitClassName(unitClassNumber: UnitClassNumber) {
+    return getUiTranslation(`enum.unitclass.${unitClasses[unitClassNumber]}`);
+    // return unitClasses[unitClassNumber];
 }
 
 export const otherNames = [

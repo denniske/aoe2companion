@@ -40,10 +40,10 @@ export function MainMenu() {
                 doDeleteUser();
             }
         } else {
-            Alert.alert("Delete Me?", "Do you want to reset me page?",
+            Alert.alert(getTranslation('main.profile.reset.title'), getTranslation('main.profile.reset.note'),
                 [
-                    {text: "Cancel", style: "cancel"},
-                    {text: "Reset", onPress: doDeleteUser,}
+                    {text: getTranslation('main.profile.reset.action.cancel'), style: "cancel"},
+                    {text: getTranslation('main.profile.reset.action.reset'), onPress: doDeleteUser,}
                 ],
                 {cancelable: false}
             );

@@ -11,6 +11,7 @@ import CivAvailability from "../components/civ-availability";
 import Space from "../components/space";
 import {BuildingStats} from "./building-stats";
 import {getOtherIcon} from "../../helper/units";
+import {getTranslation} from '../../helper/translate';
 
 
 export default function BuildingDetails({building}: {building: Building}) {
@@ -27,7 +28,7 @@ export default function BuildingDetails({building}: {building: Building}) {
                         </View>
                     )
                 }
-                <MyText style={styles.description}>Built in {data.TrainTime}s</MyText>
+                <MyText style={styles.description}>{getTranslation('unit.stats.heading.builtin')} {data.TrainTime}s</MyText>
             </View>
 
             <MyText style={styles.description}>{getBuildingDescription(building)}</MyText>

@@ -14,6 +14,7 @@ import {Costs} from "./unit-costs";
 import {getTechIcon} from "../../helper/techs";
 import {getEliteUniqueResearchIcon, getUnitIcon} from "../../helper/units";
 import {createStylesheet} from '../../theming-new';
+import {getTranslation} from '../../helper/translate';
 
 interface Props {
     unitLineId: UnitLine;
@@ -51,7 +52,7 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
       <View>
           <View style={styles.row}>
               <MyText style={styles.header1}>
-                  Upgrades
+                  {getTranslation('unit.heading.upgrades')}
               </MyText>
           </View>
 
@@ -90,7 +91,7 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
               <View>
                   <Space/>
                   <View style={styles.row}>
-                      <MyText style={styles.header2}>Upgraded From</MyText>
+                      <MyText style={styles.header2}>{getTranslation('unit.heading.upgradedfrom')}</MyText>
                   </View>
                   <TouchableOpacity onPress={() => gotoUnit(upgradedFrom)}>
                       <View style={styles.row}>
@@ -105,7 +106,7 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
               <View>
                   <Space/>
                   <View style={styles.row}>
-                      <MyText style={styles.header2}>Upgraded To</MyText>
+                      <MyText style={styles.header2}>{getTranslation('unit.heading.upgradedto')}</MyText>
                   </View>
                   <TouchableOpacity disabled={unitLine.unique} onPress={() => gotoUnit(upgradedTo)}>
                       <View style={styles.row}>

@@ -1,17 +1,21 @@
-import * as local00 from '../../assets/translations/en.json'
+import * as local001 from '../../assets/translations/en.json'
 import {getlanguage} from '../redux/statecache';
 
 interface IStringCollection {
     [key: string]: Record<string, string>;
 }
 
-export function getTranslation(str: keyof typeof local00, params?: Record<string, any>) {
+export function getTranslation(str: keyof typeof local001, params?: Record<string, any>) {
+
     const translations = strings[getlanguage()];
+
     let translated = (translations && str in translations) ? translations[str] : strings['en'][str];
+
+    return translated ? '###' : '#?.' + str;
 
     if (translated && params) {
         for (const key in params) {
-            translated = translated.replace(new RegExp(`\{${key}\}`, 'gi'), params[key]);
+            translated = translated.replace(new RegExp(`\{${key}\}`, 'gi'), params![key]);
         }
     }
 

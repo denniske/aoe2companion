@@ -1,5 +1,6 @@
 import {flatMap} from "lodash";
 import {Building} from "./buildings";
+import {getTranslation} from '../../../app/src/helper/translate';
 
 
 interface IGenericSection<T> {
@@ -29,7 +30,7 @@ interface IBuildingSection {
 
 export const buildingSections: IBuildingSection[] = [
     {
-        title: 'Military Production',
+        title: getTranslation('building.section.military'),
         data: [
             "Barracks",
             "ArcheryRange",
@@ -42,7 +43,7 @@ export const buildingSections: IBuildingSection[] = [
         ],
     },
     {
-        title: 'Eco',
+        title: getTranslation('building.section.economy'),
         data: [
             "FishTrap",
             "Mill",
@@ -53,7 +54,7 @@ export const buildingSections: IBuildingSection[] = [
         ],
     },
     {
-        title: 'People & Science',
+        title: getTranslation('building.section.peopleandscience'),
         data: [
             "TownCenter",
             "House",
@@ -64,13 +65,13 @@ export const buildingSections: IBuildingSection[] = [
         ],
     },
     {
-        title: 'Special',
+        title: getTranslation('building.section.special'),
         data: [
             "Wonder",
         ],
     },
     {
-        title: 'Towers',
+        title: getTranslation('building.section.towers'),
         data: [
             "Outpost",
             "WatchTower",
@@ -80,7 +81,7 @@ export const buildingSections: IBuildingSection[] = [
         ],
     },
     {
-        title: 'Walls',
+        title: getTranslation('building.section.walls'),
         data: [
             "PalisadeWall",
             "StoneWall",
@@ -88,7 +89,7 @@ export const buildingSections: IBuildingSection[] = [
         ],
     },
     {
-        title: 'Gates',
+        title: getTranslation('building.section.gates'),
         data: [
             "PalisadeGate",
             "Gate",

@@ -181,7 +181,7 @@ export default function Profile({data, ready}: IProfileProps) {
                                 <TextLoader width={100}>{data?.name}</TextLoader>
                                 {
                                     data?.clan &&
-                                    <MyText> (Clan{':'} {data?.clan})</MyText>
+                                    <MyText> ({getTranslation('main.profile.clan')}: {data?.clan})</MyText>
                                 }
                             </View>
                             <View style={styles.row}>

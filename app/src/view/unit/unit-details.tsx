@@ -16,6 +16,7 @@ import CivAvailability from "../components/civ-availability";
 import UnitRelated from "./unit-related";
 import Space from "../components/space";
 import {createStylesheet} from '../../theming-new';
+import {getTranslation} from '../../helper/translate';
 
 
 export default function UnitDetails({unitName}: {unitName: Unit}) {
@@ -50,7 +51,7 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
 
                     <View style={styles.row}>
                         <MyText style={styles.header1}>
-                            Availability
+                            {getTranslation('unit.heading.availability')}
                         </MyText>
                     </View>
                     <Space/>

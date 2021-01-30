@@ -1,5 +1,6 @@
 import {AoeMap} from '../helper/maps';
 import {Flag} from '../lib/flag';
+import {getUiTranslation} from '../lib/aoe-data';
 
 export const slotTypes = {
     1: 'Player',
@@ -11,7 +12,8 @@ export const slotTypes = {
 export type SlotType = keyof typeof slotTypes;
 
 export function getSlotTypeName(slotType: SlotType) {
-    return slotTypes[slotType] || slotType;
+    return slotTypes[slotType] ? getUiTranslation(`enum.leaderboardid.${slotTypes[slotType]}`) : slotType;
+    // return slotTypes[slotType] || slotType;
 }
 
 export interface IPlayerRaw {

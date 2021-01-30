@@ -5,8 +5,9 @@ import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import {MyText} from "./my-text";
 import React from "react";
 import Space from "./space";
-import {getCivIcon} from "../../helper/civs";
+import {getCivIcon, getCivNameById} from "../../helper/civs";
 import {createStylesheet} from "../../theming-new";
+import {getTranslation} from '../../helper/translate';
 
 
 interface CivAvailabilityProps {
@@ -31,32 +32,32 @@ export default function CivAvailability({tech, unit, building}: CivAvailabilityP
     return (
         <View style={styles.civListRow}>
             <View style={styles.civList}>
-                <MyText>Available</MyText>
+                <MyText>{getTranslation('unit.availability.available')}</MyText>
                 <Space/>
                 {
                     !availableForAllCivs && civAvailable.map(civ =>
                         <TouchableOpacity key={civ} style={styles.civCol} onPress={() => navigation.push('Civ', {civ})}>
                             <View style={styles.row}>
                                 <Image fadeDuration={0} style={styles.civIcon} source={getCivIcon(civ) as any}/>
-                                <MyText> {civ}</MyText>
+                                <MyText> {getCivNameById(civ)}</MyText>
                             </View>
                         </TouchableOpacity>
                     )
                 }
                 {
                     availableForAllCivs &&
-                    <MyText>All civilizations</MyText>
+                    <MyText>{getTranslation('unit.availability.allcivs')}</MyText>
                 }
             </View>
             <View style={styles.civList}>
-                <MyText>Unavailable</MyText>
+                <MyText>{getTranslation('unit.availability.unavailable')}</MyText>
                 <Space/>
                 {
                     !availableForAllCivs && civUnavailable.map(civ =>
                         <TouchableOpacity key={civ} style={styles.civCol} onPress={() => navigation.push('Civ', {civ})}>
                             <View style={styles.row}>
                                 <Image fadeDuration={0} style={styles.civIcon} source={getCivIcon(civ) as any}/>
-                                <MyText> {civ}</MyText>
+                                <MyText> {getCivNameById(civ)}</MyText>
                             </View>
                         </TouchableOpacity>
                     )

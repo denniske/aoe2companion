@@ -61,6 +61,7 @@ export async function loadAoeStringsAsync(language: string) {
 }
 
 export function getInternalAoeString(str: string) {
+    return '###';
     if (strings[getlanguage()] && str in strings[getlanguage()]) {
         return strings[getlanguage()][str];
     }

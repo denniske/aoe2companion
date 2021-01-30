@@ -72,8 +72,8 @@ export default function StatsCiv(props: IProps) {
                 <View>
                     <View style={styles.row}>
                         <MyText numberOfLines={1} style={styles.cellLeaderboard}>{getTranslation('main.stats.heading.civ')}</MyText>
-                        <MyText numberOfLines={1} style={styles.cellGames}>Games</MyText>
-                        <MyText numberOfLines={1} style={styles.cellWon}>Won*</MyText>
+                        <MyText numberOfLines={1} style={styles.cellGames}>{getTranslation('main.stats.heading.games')}</MyText>
+                        <MyText numberOfLines={1} style={styles.cellWon}>{getTranslation('main.stats.heading.won')}*</MyText>
                     </View>
 
                     {

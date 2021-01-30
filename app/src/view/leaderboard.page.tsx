@@ -96,19 +96,19 @@ export default function LeaderboardPage() {
     const styles = useStyles();
     return (
         <Tab.Navigator lazy={true} swipeEnabled={false}>
-            <Tab.Screen name="LeaderboardRm1v1" initialParams={{leaderboardId: 3}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title="RM 1v1"/>}}>
+            <Tab.Screen name="LeaderboardRm1v1" initialParams={{leaderboardId: 3}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rm1v1')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
-            <Tab.Screen name="LeaderboardRmTeam" initialParams={{leaderboardId: 4}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title="RM Team"/>}}>
+            <Tab.Screen name="LeaderboardRmTeam" initialParams={{leaderboardId: 4}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rmteam')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
-            <Tab.Screen name="LeaderboardDm1v1" initialParams={{leaderboardId: 1}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title="DM 1v1"/>}}>
+            <Tab.Screen name="LeaderboardDm1v1" initialParams={{leaderboardId: 1}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.dm1v1')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
-            <Tab.Screen name="LeaderboardDmTeam" initialParams={{leaderboardId: 2}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title="DM Team"/>}}>
+            <Tab.Screen name="LeaderboardDmTeam" initialParams={{leaderboardId: 2}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.dmteam')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
-            <Tab.Screen name="LeaderboardUnranked" initialParams={{leaderboardId: 0}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title="Unr."/>}}>
+            <Tab.Screen name="LeaderboardUnranked" initialParams={{leaderboardId: 0}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.unranked')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
         </Tab.Navigator>
@@ -222,11 +222,13 @@ function Leaderboard({leaderboardId}: any) {
     };
 
     const _renderHeader = () => {
+        const players = getTranslation('leaderboard.players', { players: matches.data?.total });
+        const updated = getTranslation('leaderboard.updated', { updated: formatAgo(matches.data.updated) });
         return (
             <>
                 <View style={{height: headerInfoHeight}}>
                     <MyText style={styles.info}>
-                        {matches.data?.total} players{matches.data?.updated ? ' (updated ' + formatAgo(matches.data.updated) + ')' : ''}
+                        {players}{matches.data?.updated ? ' (' + updated + ')' : ''}
                     </MyText>
                 </View>
                 {myRank.data?.leaderboard.length > 0 && _renderRow(myRank.data.leaderboard[0], 0, true)}
@@ -352,13 +354,13 @@ function Leaderboard({leaderboardId}: any) {
                 {
                     matches.error &&
                     <View style={styles.centered}>
-                        <MyText>Error occured when fetching data.</MyText>
+                        <MyText>{getTranslation('leaderboard.error')}</MyText>
                     </View>
                 }
                 {
                     matches.data?.total === 0 &&
                     <View style={styles.centered}>
-                        <MyText>No players listed.</MyText>
+                        <MyText>{getTranslation('leaderboard.noplayerfound')}</MyText>
                     </View>
                 }
                 {

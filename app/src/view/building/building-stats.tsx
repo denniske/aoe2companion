@@ -13,6 +13,7 @@ import {
 import {getBuildingIcon} from "../../helper/buildings";
 import {getOtherIcon} from "../../helper/units";
 import {createStylesheet} from '../../theming-new';
+import {getTranslation} from '../../helper/translate';
 
 interface Props {
     buildingId: Building;
@@ -30,7 +31,7 @@ export function BuildingStats({ buildingId }: Props) {
 
     const formaUnit = (x: (string | null), inList?: boolean) => {
         if (x == unitNone) {
-            return 'Compare';
+            return getTranslation('unit.stats.action.compare');
         }
         return getBuildingName(x as Building);
     };
@@ -71,7 +72,7 @@ export function BuildingStats({ buildingId }: Props) {
             {
                 comparisonUnit &&
                 <View style={styles.costsRow}>
-                    <MyText style={styles.cellName}>Costs</MyText>
+                    <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.costs')}</MyText>
                     <View style={[styles.cellValue, {flexDirection: 'row'}]}>
                         {
                             sortResources(keysOf(baseData.Cost)).map(res =>
@@ -100,36 +101,36 @@ export function BuildingStats({ buildingId }: Props) {
             {
                 comparisonUnit &&
                 <View style={styles.statsRow}>
-                    <MyText style={styles.cellName}>Built in</MyText>
+                    <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.builtin')}</MyText>
                     {
                         units.map(u => <GetUnitValue key={u} style={styles.cellValue} buildingId={u} prop="TrainTime" formatter={x => x + 's'}/>)
                     }
                 </View>
             }
             <View style={styles.statsRow}>
-                <MyText style={styles.cellName}>Hit Points</MyText>
+                <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.hitpoints')}</MyText>
                 {
                     units.map(u => <GetUnitValue key={u} style={styles.cellValue} buildingId={u} prop="HP"/>)
                 }
             </View>
 
             <View style={styles.statsRow}>
-                <MyText style={styles.cellName}>Attack</MyText>
+                <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.attack')}</MyText>
             </View>
             <View style={styles.statsRow}>
-                <MyText style={[styles.cellName, styles.small]}>melee</MyText>
+                <MyText style={[styles.cellName, styles.small]}>{getTranslation('unit.stats.heading.melee')}</MyText>
                 {
                     units.map(u => <GetAttackValue key={u} style={styles.cellValue} buildingId={u} unitClassNumber={4}/>)
                 }
             </View>
             <View style={styles.statsRow}>
-                <MyText style={[styles.cellName, styles.small]}>pierce</MyText>
+                <MyText style={[styles.cellName, styles.small]}>{getTranslation('unit.stats.heading.pierce')}</MyText>
                 {
                     units.map(u => <GetAttackValue key={u} style={styles.cellValue} buildingId={u} unitClassNumber={3}/>)
                 }
             </View>
             <View style={styles.statsRow}>
-                <MyText style={[styles.cellName, styles.small]}>bonus</MyText>
+                <MyText style={[styles.cellName, styles.small]}>{getTranslation('unit.stats.heading.bonus')}</MyText>
                 {
                     units.map(u =>
                         <View key={u} style={styles.cellValue}>
@@ -147,13 +148,13 @@ export function BuildingStats({ buildingId }: Props) {
                 }
             </View>
             <View style={styles.statsRow}>
-                <MyText style={styles.cellName}>Rate of Fire</MyText>
+                <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.rateoffire')}</MyText>
                 {
                     units.map(u => <GetUnitValue key={u} style={styles.cellValue} buildingId={u} prop="ReloadTime"/>)
                 }
             </View>
             <View style={styles.statsRow}>
-                <MyText style={styles.cellName}>Range</MyText>
+                <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.range')}</MyText>
                 {
                     units.map(u => <GetUnitValue key={u} style={styles.cellValue} buildingId={u} prop="Range"/>)
                 }
@@ -161,35 +162,35 @@ export function BuildingStats({ buildingId }: Props) {
             {
                 baseData.MinRange > 0 &&
                 <View style={styles.statsRow}>
-                    <MyText style={styles.cellName}>Minimum Range</MyText>
+                    <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.minimumrange')}</MyText>
                     {
                         units.map(u => <GetUnitValue key={u} style={styles.cellValue} buildingId={u} prop="MinRange"/>)
                     }
                 </View>
             }
             <View style={styles.statsRow}>
-                <MyText style={styles.cellName}>Accuracy</MyText>
+                <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.accuracy')}</MyText>
                 {
                     units.map(u => <GetUnitValue key={u} style={styles.cellValue} buildingId={u} prop="AccuracyPercent" formatter={x => x+' %'}/>)
                 }
             </View>
             <View style={styles.statsRow}>
-                <MyText style={styles.cellName}>Armour</MyText>
+                <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.armour')}</MyText>
             </View>
             <View style={styles.statsRow}>
-                <MyText style={[styles.cellName, styles.small]}>melee</MyText>
+                <MyText style={[styles.cellName, styles.small]}>{getTranslation('unit.stats.heading.melee')}</MyText>
                 {
                     units.map(u => <GetUnitValue key={u} style={styles.cellValue} buildingId={u} prop="MeleeArmor"/>)
                 }
             </View>
             <View style={styles.statsRow}>
-                <MyText style={[styles.cellName, styles.small]}>pierce</MyText>
+                <MyText style={[styles.cellName, styles.small]}>{getTranslation('unit.stats.heading.pierce')}</MyText>
                 {
                     units.map(u => <GetUnitValue key={u} style={styles.cellValue} buildingId={u} prop="PierceArmor"/>)
                 }
             </View>
             <View style={styles.statsRow}>
-                <MyText style={[styles.cellName, styles.small]}>bonus</MyText>
+                <MyText style={[styles.cellName, styles.small]}>{getTranslation('unit.stats.heading.bonus')}</MyText>
                 {
                     units.map(u =>
                         <View key={u} style={styles.cellValue}>
@@ -207,7 +208,7 @@ export function BuildingStats({ buildingId }: Props) {
                 }
             </View>
             <View style={styles.statsRow}>
-                <MyText style={styles.cellName}>Line Of Sight</MyText>
+                <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.lineofsight')}</MyText>
                 {
                     units.map(u => <GetUnitValue key={u} style={styles.cellValue} buildingId={u} prop="LineOfSight"/>)
                 }
@@ -215,7 +216,7 @@ export function BuildingStats({ buildingId }: Props) {
             {
                 baseData.GarrisonCapacity > 0 &&
                 <View style={styles.statsRow}>
-                    <MyText style={styles.cellName}>Garrison Capacity</MyText>
+                    <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.garrisoncapacity')}</MyText>
                     {
                         units.map(u => <GetUnitValue key={u} style={styles.cellValue} buildingId={u} prop="GarrisonCapacity"/>)
                     }

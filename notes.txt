@@ -1,4 +1,6 @@
 
+.map(a => a.toLocaleLowerCase().replaceAll(' ', '').replaceAll('&', 'and'))
+
 de update
 x aoe2techtree
 - fetch aoe2net localizations

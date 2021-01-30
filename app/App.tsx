@@ -73,7 +73,7 @@ import {getLanguageFromSystemLocale2, getTranslation} from './src/helper/transla
 import {getInternalAoeString, loadAoeStringsAsync} from './src/helper/translate-data';
 import * as Localization from 'expo-localization';
 import {setlanguage} from './src/redux/statecache';
-import {IAoeDataService} from '../data/src/lib/aoe-data';
+import {ITranslationService} from '../data/src/lib/aoe-data';
 
 initSentry();
 
@@ -100,13 +100,16 @@ if (Platform.OS !== 'web') {
     ]);
 }
 
-class AoeDataService implements IAoeDataService {
+class AoeDataService implements ITranslationService {
+    getUiTranslation(str: string): string {
+        return getTranslation(str as any);
+    }
     getAoeString(str: string): string {
         return getInternalAoeString(str);
     }
 }
 
-registerService(SERVICE_NAME.AOE_DATA_SERVICE, new AoeDataService(), true);
+registerService(SERVICE_NAME.TRANSLATION_SERVICE, new AoeDataService(), true);
 
 // HACK: Prevent "Expo pasted from CoreSimulator" notification from spamming continuously
 // if (__DEV__) {
@@ -306,7 +309,7 @@ export function InnerApp() {
                     name="Tips"
                     component={TipsPage}
                     options={{
-                        title: 'Tips & Tricks',
+                        title: getTranslation('tips.title'),
                     }}
                 />
                 <Stack.Screen
