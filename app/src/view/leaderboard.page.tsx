@@ -223,7 +223,7 @@ function Leaderboard({leaderboardId}: any) {
 
     const _renderHeader = () => {
         const players = getTranslation('leaderboard.players', { players: matches.data?.total });
-        const updated = getTranslation('leaderboard.updated', { updated: formatAgo(matches.data.updated) });
+        const updated = matches.data?.updated ? getTranslation('leaderboard.updated', { updated: formatAgo(matches.data.updated) }) : '';
         return (
             <>
                 <View style={{height: headerInfoHeight}}>

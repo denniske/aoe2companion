@@ -14,3 +14,5 @@ npm-debug.*
 
 dist
 #screenshots
+
+*.service-account.json

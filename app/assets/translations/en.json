@@ -3,6 +3,8 @@
   "leaderboard.games": "{games} games",
   "leaderboard.noplayerfound": "No players listed.",
   "leaderboard.error": "Error occured when fetching data.",
+  "leaderboard.players": "{players} players",
+  "leaderboard.updated": "updated {updated}",
 
   "main.title": "Me",
   "main.heading.profile": "Profile",

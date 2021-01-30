@@ -6,7 +6,6 @@ interface IStringCollection {
 }
 
 export function getTranslation(str: keyof typeof local001, params?: Record<string, any>) {
-
     const translations = strings[getlanguage()];
 
     let translated = (translations && str in translations) ? translations[str] : strings['en'][str];
