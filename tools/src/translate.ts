@@ -134,7 +134,7 @@ async function translateLanguage(language: string) {
 
     doc = '{' + doc + '}';
 
-    fs.writeFileSync(`../app/assets/translations/${language}-done.json`, doc);
+    fs.writeFileSync(`../app/assets/translations/${language}.json`, doc);
 }
 
 translateLanguage('de');
