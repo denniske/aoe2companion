@@ -24,6 +24,7 @@ model match {
   finished           Int?
   replayed           Int?
   duration           Int?
+  duration_minutes   Float?
   notified           Boolean  @default(false)
   leaderboard_id     Int?
   num_slots          Int?

@@ -36,11 +36,11 @@ export class ReplayTask implements OnModuleInit {
     async onModuleInit() {
         this.runIngest1();
         this.runWorker(workerCount++);
-        // this.runWorker(workerCount++);
-        // this.runWorker(workerCount++);
-        // this.runWorker(workerCount++);
-        // this.runWorker(workerCount++);
-        // this.runWorker(workerCount++);
+        this.runWorker(workerCount++);
+        this.runWorker(workerCount++);
+        this.runWorker(workerCount++);
+        this.runWorker(workerCount++);
+        this.runWorker(workerCount++);
         // this.runWorker(workerCount++);
         // this.runWorker(workerCount++);
 
@@ -60,7 +60,7 @@ export class ReplayTask implements OnModuleInit {
             return;
         }
 
-        console.log(match);
+        // console.log(match);
 
         this.pending.push(match.match_id);
 
@@ -110,10 +110,12 @@ export class ReplayTask implements OnModuleInit {
         let shouldUpdateWinner = true;
         let winnerMismatch = false;
 
-        console.log('replayResult', replayResult);
+        // console.log('replayResult', replayResult);
+        // console.log('players', replayResult.replay.players);
 
         for (const replayPlayer of replayResult.replay.players) {
-            const existingWinner = match.players.find(p => p.profile_id == replayPlayer.user_id).won;
+            // const existingWinner = match.players.find(p => p.profile_id == replayPlayer.user_id).won;
+            const existingWinner = match.players.find(p => p.slot == replayPlayer.number).won;
             if (existingWinner != null && existingWinner != replayPlayer.winner) {
                 winnerMismatch = true;
             }
@@ -177,7 +179,9 @@ export class ReplayTask implements OnModuleInit {
             },
             data: {
                 duration,
+                duration_minutes: Math.round((duration/1000/60) * 100) / 100,
                 replayed: state,
+                finished: match.finished ?? match.started + Math.round(duration / 1000),
             },
         });
 
@@ -193,7 +197,8 @@ export class ReplayTask implements OnModuleInit {
             }
 
             for (const replayPlayer of replayResult.replay.players) {
-                const existingPlayer = match.players.find(p => p.profile_id == replayPlayer.user_id);
+                // const existingPlayer = match.players.find(p => p.profile_id == replayPlayer.user_id);
+                const existingPlayer = match.players.find(p => p.slot == replayPlayer.number);
                 await this.prisma.player.update({
                     where: {
                         match_id_profile_id_slot: {
@@ -319,7 +324,8 @@ export class ReplayTask implements OnModuleInit {
             //     where: {
             //         match_id: { in: [
             //                 // '66632822',
-            //                 '66617219',
+            //                 // '66617219',
+            //                 '66710639',
             //                 // '29902725',
             //                 // '41419018',
             //                 // '41318074',

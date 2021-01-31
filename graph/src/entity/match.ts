@@ -33,6 +33,9 @@ export class Match implements IMatchEntity {
     @Column({ nullable: true })
     duration?: number;
 
+    @Column({ nullable: true, type: 'float' })
+    durationMinutes?: number;
+
     @Index()
     @Column({ nullable: true })
     replayed?: number;
