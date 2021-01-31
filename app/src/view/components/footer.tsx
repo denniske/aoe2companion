@@ -21,11 +21,11 @@ export default function Footer() {
     // const responseListener = useRef<any>();
     // const initialRouteHandle = useRef<any>();
 
-    const nav = async (route: keyof RootStackParamList) => {
+    const nav = async (route: keyof RootStackParamList, params: any) => {
         const navigation = getRootNavigation();
         navigation.reset({
             index: 0,
-            routes: [{name: route}]
+            routes: [{name: route, params}]
         });
     };
 
@@ -45,7 +45,7 @@ export default function Footer() {
         if (lastNotificationResponse && lastNotificationResponse.actionIdentifier === Notifications.DEFAULT_ACTION_IDENTIFIER) {
             console.log('responseListener (FOOTER)', lastNotificationResponse.notification);
             // clearTimeout(initialRouteHandle.current);
-            nav('Feed');
+            nav('Feed', { match_id: lastNotificationResponse.notification.request.content.data.match_id });
         }
     }, [lastNotificationResponse]);
 

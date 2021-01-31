@@ -63,8 +63,15 @@ export interface IFetchMatchesParams {
     profile_id?: number;
 }
 
-import request, {gql} from "graphql-request";
+import request, {gql, GraphQLClient} from "graphql-request";
 
+function myfetch(input: any, init?: any) {
+    try {
+        return fetch(input, init);
+    } catch (e) {
+        throw e;
+    }
+}
 
 export async function fetchPlayerMatchesNew(game: string, start: number, count: number, params: IFetchMatchesParams[]): Promise<IMatch[]> {
     try {
@@ -124,6 +131,7 @@ export async function fetchPlayerMatchesNew(game: string, start: number, count: 
         console.log(query);
         console.groupEnd();
         console.log(variables);
+        // const graphQLClient = new GraphQLClient(endpoint, { fetch: myfetch })
         const data = await request(endpoint, query, variables)
         console.log('gql', new Date().getTime() - timeLastDate.getTime());
 
@@ -147,6 +155,7 @@ export async function fetchPlayerMatchesNew(game: string, start: number, count: 
         return json.map(match => convertTimestampsToDates2(match));
     } catch (e) {
         console.log('ERROR', e);
+        throw e;
     }
     return [];
 }
@@ -160,23 +169,74 @@ export async function fetchPlayerMatches(game: string, start: number, count: num
     console.log('newResult', newResult);
     console.log('legacyResult', legacyResult);
 
+    // Compare winners
+
+    // legacyResult.filter((l, i) => i >= 0 && i < 15).forEach(legacyMatch => {
+    //     let same = true;
+    //     const newMatch = newResult.find(m => m.match_id == legacyMatch.match_id);
+    //     const diff = {} as any;
+    //     if (newMatch) {
+    //         legacyMatch.players.forEach(legacyPlayer => {
+    //             const newPlayer = newMatch.players.find(p => p.slot === legacyPlayer.slot);
+    //             if (newPlayer) {
+    //                 if (legacyPlayer.won !== newPlayer.won) {
+    //                     same = false;
+    //                 }
+    //                 diff[legacyPlayer.name] = legacyPlayer.won + ' - ' + newPlayer.won;
+    //             }
+    //         });
+    //     }
+    //     if (newMatch && same) {
+    //         console.log('same    ', getMapName(legacyMatch.map_type), '-', legacyMatch.match_id);
+    //         return;
+    //     }
+    //     if (newMatch && legacyMatch.players.filter(p => p.won == null).length == legacyMatch.players.length) {
+    //         console.log('fixed', getMapName(legacyMatch.map_type), '-', legacyMatch.match_id);
+    //         return;
+    //     } if (newMatch && !same) {
+    //         console.log('mismatch', getMapName(legacyMatch.map_type), '-', legacyMatch.match_id);
+    //         console.log(diff);
+    //         return;
+    //     }
+    //     if (!newMatch) {
+    //         console.log('nomatch', getMapName(legacyMatch.map_type), '-', legacyMatch.match_id);
+    //         return;
+    //     }
+    // })
+
     legacyResult.forEach(legacyMatch => {
         legacyMatch.source = 'aoe2net';
 
-        if (legacyMatch.players[0].civ == null || legacyMatch.players[0].won == null) {
+        // Any civ missing
+        if (legacyMatch.players.filter(p => p.civ == null).length > 0) {
             const newMatch = newResult.find(m => m.match_id == legacyMatch.match_id);
             if (newMatch) {
                 legacyMatch.players.forEach(legacyPlayer => {
                     const newPlayer = newMatch.players.find(p => p.slot === legacyPlayer.slot);
                     if (newPlayer) {
                         legacyPlayer.civ = newPlayer.civ;
+                    }
+                });
+                legacyMatch.source += ' civ';
+            }
+        }
+        // All won missing
+        if (legacyMatch.players.filter(p => p.won == null).length == legacyMatch.players.length) {
+            const newMatch = newResult.find(m => m.match_id == legacyMatch.match_id);
+            if (newMatch) {
+                legacyMatch.players.forEach(legacyPlayer => {
+                    const newPlayer = newMatch.players.find(p => p.slot === legacyPlayer.slot);
+                    if (newPlayer) {
                         legacyPlayer.won = newPlayer.won;
                     }
                 });
-                legacyMatch.source = 'aoe2companion';
+                legacyMatch.source += ' won';
             }
         }
     })
+    //
+    // console.log('match_ids', JSON.stringify(legacyResult.map(m => m.match_id)).replace(/"/g, '\''));
 
+    // return newResult;
     return legacyResult;
 }

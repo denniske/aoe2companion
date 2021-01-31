@@ -151,6 +151,14 @@ export default function SettingsPage() {
         mutate(setConfig(newConfig));
     };
 
+    // const nav = async (route: keyof RootStackParamList, params: any) => {
+    //     const navigation = getRootNavigation();
+    //     navigation.reset({
+    //         index: 0,
+    //         routes: [{name: route, params}]
+    //     });
+    // };
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
 
@@ -188,6 +196,7 @@ export default function SettingsPage() {
                         </TouchableOpacity>
                     </View>
                     <Button
+                        // onPress={() => nav('Feed', { match_id: '66986466' })}
                         onPress={() => navigation.navigate('Push')}
                         mode="contained"
                         compact

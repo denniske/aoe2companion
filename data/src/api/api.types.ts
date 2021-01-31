@@ -3,16 +3,16 @@ import {Flag} from '../lib/flag';
 import {getUiTranslation} from '../lib/aoe-data';
 
 export const slotTypes = {
-    1: 'Player',
-    3: 'AI',
-    4: 'Closed',
-    5: 'Open',
+    1: 'player',
+    3: 'ai',
+    4: 'closed',
+    5: 'open',
 } as const;
 
 export type SlotType = keyof typeof slotTypes;
 
 export function getSlotTypeName(slotType: SlotType) {
-    return slotTypes[slotType] ? getUiTranslation(`enum.leaderboardid.${slotTypes[slotType]}`) : slotType;
+    return slotTypes[slotType] ? getUiTranslation(`enum.slottype.${slotTypes[slotType]}`) : slotType;
     // return slotTypes[slotType] || slotType;
 }
 

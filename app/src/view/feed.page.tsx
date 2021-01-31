@@ -64,6 +64,8 @@ export function FeedList() {
     // const generateTestHook = useCavy();
     const navigation = useNavigation<RootStackProp>();
     // generateTestHook('Navigation')(navigation);
+    const route = useRoute<RouteProp<RootStackParamList, 'Feed'>>();
+    const matchId = route.params?.match_id;
 
     const [refetching, setRefetching] = useState(false);
     const [fetchingMore, setFetchingMore] = useState(false);
@@ -228,7 +230,7 @@ export function FeedList() {
                                                 </MyText>
                                             }
                                             <View style={styles.game}>
-                                                <Game data={item as IMatch} highlightedUsers={filteredPlayers} user={relevantUser}/>
+                                                <Game expanded={item.match_id === matchId} data={item as IMatch} highlightedUsers={filteredPlayers} user={relevantUser}/>
                                             </View>
                                         </View>;
                                 }

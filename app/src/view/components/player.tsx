@@ -17,6 +17,7 @@ import {createStylesheet} from '../../theming-new';
 interface IPlayerProps {
     player: IPlayer;
     highlight?: boolean;
+    freeForALl?: boolean;
 }
 
 export function PlayerSkeleton() {
@@ -40,7 +41,7 @@ export function PlayerSkeleton() {
     );
 }
 
-export function Player({player, highlight}: IPlayerProps) {
+export function Player({player, highlight, freeForALl}: IPlayerProps) {
     const styles = useStyles();
     const navigation = useNavigation<RootStackProp>();
 
@@ -59,11 +60,11 @@ export function Player({player, highlight}: IPlayerProps) {
             <TouchableOpacity style={styles.playerCol} disabled={player.slot_type != 1} onPress={gotoPlayer}>
                 <View style={styles.playerWonCol}>
                     {
-                        player.won === true && player.team != -1 &&
+                        player.won === true && (freeForALl || player.team != -1) &&
                         <IconFA5 name="crown" size={14} color="goldenrod" />
                     }
                     {
-                        player.won === false && player.team != -1 &&
+                        player.won === false && (freeForALl || player.team != -1) &&
                         <IconFA5 name="skull" size={14} style={styles.skullIcon} color="grey" />
                     }
                 </View>

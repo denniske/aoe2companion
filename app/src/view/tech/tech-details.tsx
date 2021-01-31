@@ -14,6 +14,7 @@ import Space from "../components/space";
 import {getOtherIcon} from "../../helper/units";
 import {useTheme} from '../../theming';
 import {UnitCompBig} from '../unit/unit-comp';
+import {getTranslation} from '../../helper/translate';
 
 
 export default function TechDetails({tech}: {tech: Tech}) {
@@ -35,7 +36,7 @@ export default function TechDetails({tech}: {tech: Tech}) {
                         </View>
                     )
                 }
-                <MyText style={styles.description}>Researched in {data.ResearchTime}s</MyText>
+                <MyText style={styles.description}>{getTranslation('unit.stats.heading.researchedin', { time: data.ResearchTime+'s' })}</MyText>
             </View>
 
             <MyText style={styles.description}>{getTechDescription(tech)}</MyText>

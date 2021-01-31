@@ -192,6 +192,7 @@
   "unit.stats.heading.costs": "Costs",
   "unit.stats.heading.builtin": "Built in",
   "unit.stats.heading.trainedin": "Trained in",
+  "unit.stats.heading.researchedin": "Researched in {time}",
   "unit.stats.heading.hitpoints": "Hit Points",
   "unit.stats.heading.attack": "Attack",
   "unit.stats.heading.melee": "melee",

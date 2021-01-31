@@ -177,7 +177,34 @@ python setup.py install
 python mgzdb reset
 python -m mgzdb add match de 3677645
 
+mgz-parser
+66987287 relic win => all winners same
+65251233 all null
+65235171
+64668419
+64027056
+63510355
 
+66784934 2v2v2v2 team 3&4 marked as won although only team 3 won
+
+-   -1
+-   -1
+?    2
+1    1
+2    2
+
+
+
+Arabia 66922089
+
+seaton                ?
+yutong 1825 - 1822    loose
+lucifer 1532 - 1532   ?
+sss   1765 -  1763    loose
+
+Do recorded games vanish?
+33113299 3146184 31.01.2021 was there
+https://aoe.ms/replay/?gameId=33113299&profileId=8155
 
 
 wget https://downloads.python.org/pypy/pypy3.7-v7.3.3-linux64.tar.bz2

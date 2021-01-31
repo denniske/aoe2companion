@@ -72,7 +72,7 @@ export class NotifyTask implements OnModuleInit {
                 const names = formatNames(followings.map(following => players.find(p => p.profile_id == following.profile_id).name));
                 const verb = followings.length > 1 ? 'are' : 'is';
 
-                await this.sendPushNotification(token, match.name + ' - ' + match.id, names + ' ' + verb + ' playing.');
+                await this.sendPushNotification(token, match.name + ' - ' + match.id, names + ' ' + verb + ' playing.', { match_id: match.id });
             }
         }
 
@@ -87,13 +87,13 @@ export class NotifyTask implements OnModuleInit {
             .execute();
     }
 
-    async sendPushNotification(expoPushToken: string, title: string, body: string) {
+    async sendPushNotification(expoPushToken: string, title: string, body: string, data: any) {
         const message = {
             to: expoPushToken,
             sound: 'default',
             title,
             body,
-            data: { data: 'goes here' },
+            data,
         };
 
         console.log('PUSH');

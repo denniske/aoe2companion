@@ -73,7 +73,16 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
         );
     }
 
-    const teams = Object.entries(groupBy(data.players, p => p.team));
+    const freeForALl = data.players.filter(p => p.team === -1).length >= data.players.length-1;
+
+    let teamIndex = 5;
+    const teams = Object.entries(groupBy(data.players, p => {
+        if (freeForALl) return -1;
+        if (p.team != -1) return p.team;
+        return teamIndex++;
+    }));
+
+    // const teams = Object.entries(groupBy(data.players, p => p.team));
 
     let duration: string = '';
     if (data.started) {
@@ -94,7 +103,7 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
                                      imageStyle={styles.imageInner}
                                      style={styles.map}>
                         {
-                            data.players.some(p => sameUserNull(p, user) && p.won === true && p.team != -1) &&
+                            data.players.some(p => sameUserNull(p, user) && p.won === true && (freeForALl || p.team != -1)) &&
                             <IconFA5 name="crown" size={14} style={{marginLeft: -7,marginTop:-4}} color="goldenrod" />
                         }
                         {
@@ -102,7 +111,7 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
                             <Image fadeDuration={0} source={require('../../../assets/other/SkullCrown.png')} style={{marginLeft: -6,marginTop:-4, width: 17, height: 17}} />
                         }
                         {
-                            data.players.some(p => sameUserNull(p, user) && p.won === false && p.team != -1) &&
+                            data.players.some(p => sameUserNull(p, user) && p.won === false && (freeForALl || p.team != -1)) &&
                             <IconFA5 name="skull" size={14} style={{marginLeft: -6,marginTop:-4}} color="grey" />
                         }
                     </ImageBackground>
@@ -118,9 +127,7 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
                         <MyText numberOfLines={1} style={styles.matchContent}>
                             {getLeaderboardOrGameType(data.leaderboard_id, data.game_type)}
                         </MyText>
-                        {/*<IconFA5 name="clock" size={11.5} style={{paddingTop: 0}}/>*/}
                         <MyText numberOfLines={1} style={styles.matchContent}>
-                            {/*<MyText style={{fontVariant: ['tabular-nums'] }}> {duration}</MyText>*/}
                             {
                                 !data.finished &&
                                 <MyText>{duration}</MyText>
@@ -147,7 +154,7 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
                     teams.map(([team, players], i) =>
                         <View key={team}>
                             {
-                                players.map((player, j) => <Player key={j} highlight={highlightedUsers?.some(hu => sameUser(hu, player))} player={player}/>)
+                                players.map((player, j) => <Player key={j} highlight={highlightedUsers?.some(hu => sameUser(hu, player))} player={player} freeForALl={freeForALl}/>)
                             }
                             {
                                 i < teams.length-1 &&
