@@ -12,8 +12,24 @@ export interface IChangelog {
 export const changelog: IChangelog = {
     '21.0.6': [
         {
+            type: 'feature',
+            title: 'Added more localization (go to settings to change language)',
+        },
+        {
+            type: 'feature',
+            title: 'Try to fix civs and match outcome via secondary data source',
+        },
+        {
             type: 'minor',
-            title: 'Group matches in "following" by players',
+            title: 'Group match activity by players',
+        },
+        {
+            type: 'minor',
+            title: 'Show match name for unranked matches',
+        },
+        {
+            type: 'minor',
+            title: 'Opening push notification will expand match info',
         },
         {
             type: 'minor',
