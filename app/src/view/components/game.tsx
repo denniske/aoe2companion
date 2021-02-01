@@ -147,8 +147,13 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
                     <MyText style={styles.duration}> {duration}   </MyText>
                     <IconFA5 name="running" size={11.5} color={theme.textNoteColor}/>
                     <MyText style={styles.speed}> {getString('speed', data.speed)}   </MyText>
-                    <IconFA5 name="database" size={11.5} color={theme.textNoteColor}/>
-                    <MyText style={styles.speed}> {data.source}</MyText>
+                    {
+                        !data.ranked &&
+                        <>
+                            {/*<IconFA5 name="database" size={11.5} color={theme.textNoteColor}/>*/}
+                            <MyText style={styles.name} numberOfLines={1}> {data.name}</MyText>
+                        </>
+                    }
                 </View>
                 {
                     teams.map(([team, players], i) =>
@@ -197,6 +202,10 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         color: theme.textNoteColor,
     },
     speed: {
+        color: theme.textNoteColor,
+    },
+    name: {
+        flex: 1,
         color: theme.textNoteColor,
     },
     timeRow: {
