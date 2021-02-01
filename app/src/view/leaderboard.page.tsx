@@ -228,7 +228,7 @@ function Leaderboard({leaderboardId}: any) {
             <>
                 <View style={{height: headerInfoHeight}}>
                     <MyText style={styles.info}>
-                        {players}{matches.data?.updated ? ' (' + updated + ')' : ''}
+                        {matches.data?.total ? players : ''}{matches.data?.updated ? ' (' + updated + ')' : ''}
                     </MyText>
                 </View>
                 {myRank.data?.leaderboard.length > 0 && _renderRow(myRank.data.leaderboard[0], 0, true)}

@@ -13,6 +13,8 @@ import {useSelector} from "../redux/reducer";
 import Space from "./components/space";
 import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';
+import {RootStackParamList} from '../../App';
+import {getRootNavigation} from '../service/navigation';
 
 interface FirebaseData {
     title?: string;
@@ -135,6 +137,14 @@ export default function PushPage() {
         }
     }, [lastNotificationResponse]);
 
+    const nav = async (route: keyof RootStackParamList, params: any) => {
+        const navigation = getRootNavigation();
+        navigation.reset({
+            index: 0,
+            routes: [{name: route, params}]
+        });
+    };
+
     return (
         <ScrollView
             style={styles.container}
@@ -169,6 +179,19 @@ export default function PushPage() {
                     </Button>
                     <Space/>
                     <MyText style={styles.note}>{getTranslation('push.action.sendtestnotification.note')}</MyText>
+                </>
+            }
+            {
+                __DEV__ &&
+                <>
+                    <Button
+                        mode="outlined"
+                        onPress={async () => {
+                            nav('Feed', { match_id: 'xxx' });
+                        }}
+                    >
+                        {getTranslation('push.action.sendtestnotification')}
+                    </Button>
                 </>
             }
             <Space/>

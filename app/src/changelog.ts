@@ -10,12 +10,16 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
-    // '21.0.7': [
-    //     {
-    //         type: 'feature',
-    //         title: 'Added more localization (go to settings to change language)',
-    //     },
-    // ],
+    '21.0.7': [
+        {
+            type: 'feature',
+            title: 'Added more localization (go to settings to change language)',
+        },
+        {
+            type: 'minor',
+            title: 'Refresh match list when notification was tapped',
+        },
+    ],
     '21.0.6': [
         {
             type: 'feature',

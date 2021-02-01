@@ -71,12 +71,13 @@ export function FeedList() {
     const [fetchingMore, setFetchingMore] = useState(false);
 
     const state = useNavigationState(state => state);
-    const activeRoute = state.routes[state.index];
-    const isActiveRoute = activeRoute.name === 'Feed' && activeRoute.params == null;
+    const activeRoute = state.routes[state.index] as RouteProp<RootStackParamList, 'Feed'>;
+    const isActiveRoute = activeRoute.name === 'Feed' && activeRoute.params?.action == null;
 
     const auth = useSelector(state => state.auth);
     const following = useSelector(state => state.following);
     const [prevFollowing, setPrevFollowing] = useState<IFollowingEntry[] | null>(null);
+    const [prevMatchId, setPrevMatchId] = useState<string>();
 
     const matches = useCachedLazyApi(
         [],
@@ -90,17 +91,19 @@ export function FeedList() {
     const refresh = () => {
         if (!isActiveRoute) return;
 
-        if (isEqual(prevFollowing, following)) {
-            return;
-        }
+        if (isEqual(prevFollowing, following) && isEqual(prevMatchId, matchId)) return;
 
-        if (prevFollowing == null) {
+        // Do not load from cache when notification was tapped
+        if (prevFollowing == null && isEqual(prevMatchId, matchId)) {
+            // console.log('INIT');
             matches.init('aoe2de', 0, 15, following);
         } else {
+            // console.log('REFETCH');
             matches.refetch('aoe2de', 0, 15, following);
         }
 
         setPrevFollowing(following);
+        setPrevMatchId(matchId);
     };
 
     console.log('matches', matches);

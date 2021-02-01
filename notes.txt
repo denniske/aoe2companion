@@ -315,13 +315,13 @@ cat ~/.zsh_history | grep mogrify
 mogrify -format jpg *.png
 mogrify -crop 1242x2208+0+0 -path ./cropped *.jpg
 
-git tag server-v13.0.0 && git push --tags
+git tag server-v21.0.0 && git push --tags
 
-git tag function-v19.0.51 && git push --tags
+git tag function-v21.0.0 && git push --tags
 
-git tag v12.0.0 && git push --tags
-git tag -d v12.0.0 && git push --delete origin v12.0.0
-git tag -d v17.0.0 && git push --delete origin v17.0.0 && git tag v17.0.0 && git push --tags
+git tag v21.0.0 && git push --tags
+git tag -d v21.0.0 && git push --delete origin v21.0.0
+git tag -d v21.0.0 && git push --delete origin v21.0.0 && git tag v21.0.0 && git push --tags
 
 defaults read -g com.apple.keyboard.fnState
 defaults write -g com.apple.keyboard.fnState true
