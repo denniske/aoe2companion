@@ -148,7 +148,14 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
                     <IconFA5 name="running" size={11.5} color={theme.textNoteColor}/>
                     <MyText style={styles.speed}> {getString('speed', data.speed)}   </MyText>
                     {
-                        !data.ranked &&
+                        __DEV__ &&
+                        <>
+                            <IconFA5 name="database" size={11.5} color={theme.textNoteColor}/>
+                            <MyText style={styles.speed}> {data.source}</MyText>
+                        </>
+                    }
+                    {
+                        !__DEV__ && data.name !== 'AUTOMATCH' &&
                         <>
                             {/*<IconFA5 name="database" size={11.5} color={theme.textNoteColor}/>*/}
                             <MyText style={styles.name} numberOfLines={1}> {data.name}</MyText>

@@ -155,13 +155,12 @@ export async function fetchPlayerMatchesNew(game: string, start: number, count: 
         return json.map(match => convertTimestampsToDates2(match));
     } catch (e) {
         console.log('ERROR', e);
-        throw e;
     }
     return [];
 }
 
 export async function fetchPlayerMatches(game: string, start: number, count: number, params: IFetchMatchesParams[]): Promise<IMatch[]> {
-    const [newResult, legacyResult] = await Promise.all([
+    let [newResult, legacyResult] = await Promise.all([
         fetchPlayerMatchesNew(game, start, count, params),
         fetchPlayerMatchesLegacy(game, start, count, params),
     ]);
@@ -203,6 +202,9 @@ export async function fetchPlayerMatches(game: string, start: number, count: num
     //         return;
     //     }
     // })
+
+    // console.log(legacyResult.filter(m => m.game_type === 12));
+    // legacyResult = legacyResult.filter(m => m.game_type === 12);
 
     legacyResult.forEach(legacyMatch => {
         legacyMatch.source = 'aoe2net';
