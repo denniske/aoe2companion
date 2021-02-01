@@ -18,7 +18,8 @@ export default function IconHeader(props: IconHeaderProps) {
     return (
         <View style={styles.container} onLayout={onLayout}>
 
-            <ImageBackground source={icon}
+            <ImageBackground fadeDuration={0}
+                             source={icon}
                              imageStyle={styles.imageInner}
                              style={styles.image}>
                 {
