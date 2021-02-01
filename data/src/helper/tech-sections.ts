@@ -1,15 +1,16 @@
 import {Tech} from "./techs";
-import {civDict, civs} from "./civs";
-import {getBuildingName} from './buildings';
+import {Civ, civDict, civs} from "./civs";
+import {Building} from './buildings';
 
 interface ITechSection {
-    title: string;
+    building?: Building;
+    civ?: Civ;
     data: Tech[];
 }
 
 export const techSections: ITechSection[] = [
     {
-        title: getBuildingName('TownCenter'),
+        building: 'TownCenter',
         data: [
             "Loom",
             "Wheelbarrow",
@@ -22,7 +23,7 @@ export const techSections: ITechSection[] = [
         ],
     },
     {
-        title: getBuildingName('Mill'),
+        building: 'Mill',
         data: [
             "HorseCollar",
             "HeavyPlow",
@@ -30,7 +31,7 @@ export const techSections: ITechSection[] = [
         ],
     },
     {
-        title: getBuildingName('LumberCamp'),
+        building: 'LumberCamp',
         data: [
             "DoubleBitAxe",
             "BowSaw",
@@ -38,7 +39,7 @@ export const techSections: ITechSection[] = [
         ],
     },
     {
-        title: getBuildingName('MiningCamp'),
+        building: 'MiningCamp',
         data: [
             "StoneMining",
             "GoldMining",
@@ -47,7 +48,7 @@ export const techSections: ITechSection[] = [
         ],
     },
     {
-        title: getBuildingName('Market'),
+        building: 'Market',
         data: [
             "Caravan",
             "Coinage",
@@ -56,7 +57,7 @@ export const techSections: ITechSection[] = [
         ],
     },
     {
-        title: getBuildingName('Monastery'),
+        building: 'Monastery',
         data: [
             "Sanctity",
             "Redemption",
@@ -71,7 +72,7 @@ export const techSections: ITechSection[] = [
         ],
     },
     {
-        title: getBuildingName('Dock'),
+        building: 'Dock',
         data: [
             "Gillnets",
             "Shipwright",
@@ -80,7 +81,7 @@ export const techSections: ITechSection[] = [
         ],
     },
     {
-        title: getBuildingName('University'),
+        building: 'University',
         data: [
             "Masonry",
             "Architecture",
@@ -94,7 +95,7 @@ export const techSections: ITechSection[] = [
         ],
     },
     {
-        title: getBuildingName('Blacksmith'),
+        building: 'Blacksmith',
         data: [
             "Forging",
             "IronCasting",
@@ -118,21 +119,21 @@ export const techSections: ITechSection[] = [
         ],
     },
     {
-        title: getBuildingName('Stable'),
+        building: 'Stable',
         data: [
             "Bloodlines",
             "Husbandry",
         ],
     },
     {
-        title: getBuildingName('ArcheryRange'),
+        building: 'ArcheryRange',
         data: [
             "ThumbRing",
             "ParthianTactics",
         ],
     },
     {
-        title: getBuildingName('Barracks'),
+        building: 'Barracks',
         data: [
             "Tracking",
             "Supplies",
@@ -141,7 +142,7 @@ export const techSections: ITechSection[] = [
         ],
     },
     {
-        title: getBuildingName('Castle'),
+        building: 'Castle',
         data: [
             "Hoardings",
             "Sappers",
@@ -150,7 +151,7 @@ export const techSections: ITechSection[] = [
         ],
     },
     ...civs.map(civ => ({
-        title: civ,
+        civ: civ,
         data: civDict[civ].uniqueTechs,
     })),
 ];

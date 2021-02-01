@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Platform, SectionList, StyleSheet, View} from 'react-native';
-import {getTechName, techSections} from "@nex/data";
+import {getBuildingName, getTechName, techSections} from "@nex/data";
 import {MyText} from "../components/my-text";
 import {createStylesheet} from "../../theming-new";
 import {Searchbar} from "react-native-paper";
 import {TechCompBig} from './tech-comp';
 import {getTranslation} from '../../helper/translate';
+import {getCivNameById} from '../../helper/civs';
 
 
 export default function TechList() {
@@ -45,9 +46,8 @@ export default function TechList() {
                 renderItem={({item}) => {
                     return <TechCompBig key={item} tech={item} showCivBanner={true}/>
                 }}
-                renderSectionHeader={({ section: { title } }) => (
-                    // <View/>
-                    <MyText style={styles.heading}>{title}</MyText>
+                renderSectionHeader={({ section: { building, civ } }) => (
+                    <MyText style={styles.heading}>{building ? getBuildingName(building) : getCivNameById(civ!)}</MyText>
                 )}
                 keyExtractor={(item, index) => index.toString()}
             />

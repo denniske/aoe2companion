@@ -2691,6 +2691,307 @@ const unitsInternal = {
     },
 };
 
+export const unitUpgradeCosts ={
+    "Coustillier":{
+        "Food":1000,
+        "Gold":800
+    },
+    "Serjeant":{
+        "Food":1100,
+        "Gold":800
+    },
+    "CannonGalleon":{
+        "Wood":525,
+        "Gold":500
+    },
+    "DemolitionRaft":{
+        "Food":230,
+        "Gold":100
+    },
+    "DemolitionShip":{
+        "Wood":200,
+        "Gold":300
+    },
+    "FireGalley":{
+        "Food":230,
+        "Gold":100
+    },
+    "FireShip":{
+        "Wood":280,
+        "Gold":250
+    },
+    "Galley":{
+        "Food":230,
+        "Gold":100
+    },
+    "WarGalley":{
+        "Food":400,
+        "Wood":315
+    },
+    "Arambai":{
+        "Food":1100,
+        "Gold":675
+    },
+    "OrganGun":{
+        "Food":1200,
+        "Gold":500
+    },
+    "Caravel":{
+        "Food":750,
+        "Gold":475
+    },
+    "Conquistador":{
+        "Food":1200,
+        "Gold":600
+    },
+    "TurtleShip":{
+        "Food":1000,
+        "Gold":800
+    },
+    "Longboat":{
+        "Food":750,
+        "Gold":475
+    },
+    "Janissary":{
+        "Food":850,
+        "Gold":750
+    },
+    "BallistaElephant":{
+        "Food":1000,
+        "Gold":500
+    },
+    "Mangonel":{
+        "Food":800,
+        "Gold":500
+    },
+    "Onager":{
+        "Food":1450,
+        "Gold":1000
+    },
+    "BatteringRam":{
+        "Food":300
+    },
+    "CappedRam":{
+        "Food":1000
+    },
+    "Scorpion":{
+        "Food":1000,
+        "Wood":1100
+    },
+    "KarambitWarrior":{
+        "Food":900,
+        "Gold":600
+    },
+    "Gbeto":{
+        "Food":900,
+        "Gold":600
+    },
+    "ShotelWarrior":{
+        "Food":1200,
+        "Gold":550
+    },
+    "JaguarWarrior":{
+        "Food":1000,
+        "Gold":500
+    },
+    "Berserk":{
+        "Food":1300,
+        "Gold":550
+    },
+    "TeutonicKnight":{
+        "Food":1200,
+        "Gold":600
+    },
+    "Samurai":{
+        "Food":950,
+        "Gold":875
+    },
+    "Huskarl":{
+        "Food":1200,
+        "Gold":550
+    },
+    "ThrowingAxeman":{
+        "Food":1000,
+        "Gold":750
+    },
+    "WoadRaider":{
+        "Food":1000,
+        "Gold":800
+    },
+    "EagleScout":{
+        "Food":200,
+        "Gold":200
+    },
+    "EagleWarrior":{
+        "Food":800,
+        "Gold":500
+    },
+    "Spearman":{
+        "Food":215,
+        "Gold":90
+    },
+    "Pikeman":{
+        "Food":300,
+        "Gold":600
+    },
+    "Militia":{
+        "Food":100,
+        "Gold":40
+    },
+    "ManAtArms":{
+        "Food":200,
+        "Gold":65
+    },
+    "LongSwordsman":{
+        "Food":300,
+        "Gold":100
+    },
+    "TwoHandedSwordsman":{
+        "Food":750,
+        "Gold":350
+    },
+    "Keshik":{
+        "Food":700,
+        "Gold":900
+    },
+    "Leitis":{
+        "Food":750,
+        "Gold":750
+    },
+    "Konnik":{
+        "Food":1000,
+        "Gold":750
+    },
+    "KonnikDismounted":{
+        "Food":1000,
+        "Gold":750
+    },
+    "Boyar":{
+        "Food":1000,
+        "Gold":600
+    },
+    "MagyarHuszar":{
+        "Food":800,
+        "Gold":600
+    },
+    "Tarkan":{
+        "Food":1000,
+        "Gold":500
+    },
+    "Mameluke":{
+        "Food":600,
+        "Gold":500
+    },
+    "WarElephant":{
+        "Food":1600,
+        "Gold":1200
+    },
+    "Cataphract":{
+        "Food":1200,
+        "Gold":800
+    },
+    "SteppeLancer":{
+        "Food":900,
+        "Gold":550
+    },
+    "BattleElephant":{
+        "Food":1200,
+        "Gold":900
+    },
+    "CamelRider":{
+        "Food":325,
+        "Gold":360
+    },
+    "HeavyCamelRider":{
+        "Food":1200,
+        "Gold":600
+    },
+    "Knight":{
+        "Food":300,
+        "Gold":300
+    },
+    "Cavalier":{
+        "Food":1300,
+        "Gold":750
+    },
+    "ScoutCavalry":{
+        "Food":150,
+        "Gold":50
+    },
+    "LightCavalry":{
+        "Food":500,
+        "Gold":600
+    },
+    "Kipchak":{
+        "Food":1100,
+        "Wood":1000
+    },
+    "RattanArcher":{
+        "Food":1000,
+        "Gold":750
+    },
+    "Genitour":{
+        "Food":500,
+        "Wood":450
+    },
+    "CamelArcher":{
+        "Wood":1000,
+        "Gold":500
+    },
+    "GenoeseCrossbowman":{
+        "Food":1000,
+        "Gold":800
+    },
+    "ElephantArcher":{
+        "Food":1000,
+        "Gold":800
+    },
+    "WarWagon":{
+        "Wood":1000,
+        "Gold":800
+    },
+    "Mangudai":{
+        "Food":1100,
+        "Gold":675
+    },
+    "ChuKoNu":{
+        "Food":760,
+        "Gold":760
+    },
+    "Longbowman":{
+        "Food":850,
+        "Gold":850
+    },
+    "CavalryArcher":{
+        "Food":900,
+        "Gold":500
+    },
+    "Skirmisher":{
+        "Wood":230,
+        "Gold":130
+    },
+    "EliteSkirmisher":{
+        "Wood":300,
+        "Gold":450
+    },
+    "Archer":{
+        "Food":125,
+        "Gold":75
+    },
+    "Crossbowman":{
+        "Food":350,
+        "Gold":300
+    },
+    "PlumedArcher":{
+        "Food":700,
+        "Wood":1000
+    },
+    "Kamayuk":{
+        "Food":900,
+        "Gold":500
+    }
+};
+
 const UnitLineUnion = unwrap(unitLineIds);
 export type UnitLine = typeof UnitLineUnion;
 
@@ -2796,7 +3097,6 @@ export type UnitClass = ValueOf<typeof unitClasses>;
 
 export function getUnitClassName(unitClassNumber: UnitClassNumber) {
     return getUiTranslation(`enum.unitclass.${unitClasses[unitClassNumber]}`);
-    // return unitClasses[unitClassNumber];
 }
 
 export const otherNames = [
@@ -2843,53 +3143,62 @@ export function getUnitDescription(unit: Unit) {
     const data = getUnitData(unit);
     let description = getAoeString(data.LanguageHelpId.toString()) as string;
 
+    // console.log('description', description);
+
     description = strRemoveTo(description, '<br>\n');
-    description = strRemoveFrom(description, '<i> Upgrades:');
+    description = strRemoveFrom(description, '<i>'); // <i>Upgrades:
 
     description = description.trim();
 
     return description;
 }
 
-export function getUnitDescriptionRaw(unit: Unit) {
-    const data = getUnitData(unit);
-    return getAoeString(data.LanguageHelpId.toString()) as string;
-}
-
-type ResourceAbbr = 'W' | 'F' | 'G' | 'S';
-
 export function getUnitUpgradeCost(unit: Unit): ICostDict | null {
-    const description = getUnitDescriptionRaw(unit);
-    // console.log(description);
-
-    const regex = /to ([^\d]+) ([^()]+) \(([^)]+)\);/gm;
-    const upgradedTo = regex.exec(description);
-
-    // console.log(upgradedTo);
-    if (upgradedTo == null) return null;
-
-    const [_, unitName, costStr, buildingName] = upgradedTo;
-
-    // console.log(costStr);
-
-    const resourceAbbrDict = {
-        'W': 'Wood' as Other,
-        'F': 'Food' as Other,
-        'G': 'Gold' as Other,
-        'S': 'Stone' as Other,
-    };
-
-    const dict = {} as ICostDict;
-
-    const regex2 = /([\d]+)([WFGS])/gm;
-    getAllMatches(regex2, costStr).map(([_, amount, resource]) => dict[resourceAbbrDict[resource as ResourceAbbr]] = parseInt(amount));
-    // console.log(costList);
-    // console.log(dict);
-
-    return dict;
+    return unitUpgradeCosts[unit];
 }
 
-//  to Heavy Scorpion 1000F, 1100W (Siege Workshop);
+// export function getUnitDescriptionRaw(unit: Unit) {
+//     const data = getUnitData(unit);
+//     return getAoeString(data.LanguageHelpId.toString()) as string;
+// }
+//
+// type ResourceAbbr = 'W' | 'F' | 'G' | 'S';
+
+// export function parseUnitUpgradeCostFromEnAoeData(unit: Unit): ICostDict | null {
+//     const description = getUnitDescriptionRaw(unit);
+//
+//     const regex = /to ([^\d]+) ([^()]+) \(([^)]+)\);/gm;
+//     const upgradedTo = regex.exec(description);
+//
+//     // console.log(upgradedTo);
+//     if (upgradedTo == null) return null;
+//
+//     const [_, unitName, costStr, buildingName] = upgradedTo;
+//
+//     const resourceAbbrDict = {
+//         'W': 'Wood' as Other,
+//         'F': 'Food' as Other,
+//         'G': 'Gold' as Other,
+//         'S': 'Stone' as Other,
+//     };
+//
+//     const dict = {} as ICostDict;
+//
+//     const regex2 = /([\d]+)([WFGS])/gm;
+//     getAllMatches(regex2, costStr).map(([_, amount, resource]) => dict[resourceAbbrDict[resource as ResourceAbbr]] = parseInt(amount));
+//     // console.log(costList);
+//     // console.log(dict);
+//
+//     if (dict['Wood'] == null && dict['Food'] == null && dict['Gold'] == null && dict['Stone'] == null) return null;
+//
+//     return dict;
+// }
+
+// const unitUpgradeCosts = merge({}, ...keysOf(units).filter(unit => getUnitUpgradeCost(unit as Unit) != null).map(unit => ({
+//     [unit]: getUnitUpgradeCost(unit as Unit),
+// })));
+//
+// console.log('unitUpgradeCosts', JSON.stringify(unitUpgradeCosts));
 
 export const unitList = unitLineIds.map(ul => ({
     name: ul,

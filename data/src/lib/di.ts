@@ -27,9 +27,11 @@ export function registerService(name: SERVICE_NAME, service: any, overwrite: boo
 
 class DummyTranslationService implements ITranslationService {
     getUiTranslation(str: string): string {
+        console.log('DUMMY getUiTranslation', str);
         return '???';
     }
     getAoeString(str: string): string {
+        console.trace('DUMMY getAoeString', str);
         return '???';
     }
 }

@@ -1,6 +1,5 @@
 import {flatMap} from "lodash";
 import {Building} from "./buildings";
-import {getUiTranslation} from '../lib/aoe-data';
 
 
 interface IGenericSection<T> {
@@ -30,7 +29,7 @@ interface IBuildingSection {
 
 export const buildingSections: IBuildingSection[] = [
     {
-        title: getUiTranslation('building.section.military'),
+        title: 'building.section.military',
         data: [
             "Barracks",
             "ArcheryRange",
@@ -43,7 +42,7 @@ export const buildingSections: IBuildingSection[] = [
         ],
     },
     {
-        title: getUiTranslation('building.section.economy'),
+        title: 'building.section.economy',
         data: [
             "FishTrap",
             "Mill",
@@ -54,7 +53,7 @@ export const buildingSections: IBuildingSection[] = [
         ],
     },
     {
-        title: getUiTranslation('building.section.peopleandscience'),
+        title: 'building.section.peopleandscience',
         data: [
             "TownCenter",
             "House",
@@ -65,13 +64,13 @@ export const buildingSections: IBuildingSection[] = [
         ],
     },
     {
-        title: getUiTranslation('building.section.special'),
+        title: 'building.section.special',
         data: [
             "Wonder",
         ],
     },
     {
-        title: getUiTranslation('building.section.towers'),
+        title: 'building.section.towers',
         data: [
             "Outpost",
             "WatchTower",
@@ -81,7 +80,7 @@ export const buildingSections: IBuildingSection[] = [
         ],
     },
     {
-        title: getUiTranslation('building.section.walls'),
+        title: 'building.section.walls',
         data: [
             "PalisadeWall",
             "StoneWall",
@@ -89,7 +88,7 @@ export const buildingSections: IBuildingSection[] = [
         ],
     },
     {
-        title: getUiTranslation('building.section.gates'),
+        title: 'building.section.gates',
         data: [
             "PalisadeGate",
             "Gate",

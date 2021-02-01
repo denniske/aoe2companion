@@ -2,7 +2,8 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {
     getAbilityEnabledForAllCivs,
-    getUnitDescription, getUnitLineIdForUnit, getUnitLineNameForUnit, getUnitName, Unit, unitLines
+    getUnitDescription, getUnitLineIdForUnit, getUnitLineNameForUnit, getUnitName, Unit,
+    unitLines
 } from "@nex/data";
 import Fandom from "../components/fandom";
 import {MyText} from "../components/my-text";

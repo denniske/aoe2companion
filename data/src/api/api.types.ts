@@ -13,7 +13,6 @@ export type SlotType = keyof typeof slotTypes;
 
 export function getSlotTypeName(slotType: SlotType) {
     return slotTypes[slotType] ? getUiTranslation(`enum.slottype.${slotTypes[slotType]}`) : slotType;
-    // return slotTypes[slotType] || slotType;
 }
 
 export interface IPlayerRaw {

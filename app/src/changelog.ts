@@ -10,11 +10,13 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    // '21.0.7': [
+    //     {
+    //         type: 'feature',
+    //         title: 'Added more localization (go to settings to change language)',
+    //     },
+    // ],
     '21.0.6': [
-        {
-            type: 'feature',
-            title: 'Added more localization (go to settings to change language)',
-        },
         {
             type: 'feature',
             title: 'Try to fix civs and match outcome via secondary data source',

@@ -20,6 +20,7 @@ on:
       - 'function-v*'
       - 'rank-v*'
       - 'replay-v*'
+      - 'graphql-v*'
 
 name: Server
 env:
@@ -57,3 +58,16 @@ jobs:
       - run: echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
       - run: docker push denniske/aoe2companion-$SERVICE_NAME:$COMMIT_SHA1
       - run: chmod +x ./graph/deploy/deploy.sh && ./graph/deploy/deploy.sh
+
+
+#     - echo $ID_CI_RSA_BASE64 > id_ci_rsa.base64
+#     - base64 --decode id_ci_rsa.base64 > ~/.ssh/id_rsa
+#     - echo $KNOWN_HOSTS_BASE64 > known_hosts.base64
+#     - base64 --decode known_hosts.base64 > ~/.ssh/known_hosts
+#     - chmod 644 ~/.ssh/known_hosts
+#     - chmod 600 ~/.ssh/id_rsa
+#
+#     - cd deploy
+#     - bash ./deploy.sh
+#     - scp docker-compose.yml root@116.203.245.222:/root
+#     - ssh root@116.203.245.222 docker-compose up -d

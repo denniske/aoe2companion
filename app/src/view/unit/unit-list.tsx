@@ -61,7 +61,7 @@ export default function UnitList() {
                     //     );
                     // }
                     return (
-                        <MyText style={styles.heading}>{title}</MyText>
+                        <MyText style={styles.heading}>{getTranslation(title)}</MyText>
                     );
                 }}
                 keyExtractor={(item, index) => index.toString()}

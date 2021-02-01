@@ -45,9 +45,15 @@ export function UnitCosts({ unitId, unitLineId }: Props) {
                 <MyText>{getTranslation('unit.stats.heading.trainedin')} <GetUnitValue unitId={unitId} prop="TrainTime" formatter={(x: number) => x+'s'}/></MyText>
                 {
                     unitLineId == 'Serjeant' &&
-                    <>
-                        <MyText> ({getBuildingName('Castle')}), 20s ({getBuildingName('Donjon')})</MyText>
-                    </>
+                    <MyText> ({getBuildingName('Castle')}), 20s ({getBuildingName('Donjon')})</MyText>
+                }
+                {
+                    unitLineId == 'Tarkan' &&
+                    <MyText> ({getBuildingName('Castle')}), 21s ({getBuildingName('Stable')})</MyText>
+                }
+                {
+                    unitLineId == 'Huskarl' &&
+                    <MyText> ({getBuildingName('Castle')}), 13s ({getBuildingName('Barracks')})</MyText>
                 }
             </MyText>
         </View>

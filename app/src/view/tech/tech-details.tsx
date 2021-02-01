@@ -36,7 +36,7 @@ export default function TechDetails({tech}: {tech: Tech}) {
                         </View>
                     )
                 }
-                <MyText style={styles.description}>{getTranslation('unit.stats.heading.researchedin', { time: data.ResearchTime+'s' })}</MyText>
+                <MyText style={styles.description}>{getTranslation('unit.stats.heading.researchedin')} {data.ResearchTime}s</MyText>
             </View>
 
             <MyText style={styles.description}>{getTechDescription(tech)}</MyText>
