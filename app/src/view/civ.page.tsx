@@ -121,7 +121,7 @@ export default function CivPage() {
 
     if (civ) {
         return (
-            <ImageBackground imageStyle={styles.imageInner} source={getCivHistoryImage(civ)} style={styles.image}>
+            <ImageBackground imageStyle={styles.imageInner}  source={getCivHistoryImage(civ)} style={styles.image}>
                 <ScrollView>
                     <CivDetails civ={civ}/>
                 </ScrollView>
@@ -132,8 +132,9 @@ export default function CivPage() {
     return <CivList/>
 }
 
-const useStyles = createStylesheet(theme => StyleSheet.create({
+const useStyles = createStylesheet((theme, darkMode) => StyleSheet.create({
     imageInner: {
+        tintColor: darkMode === 'dark' ? 'white' : 'black',
         opacity: 0.1,
         resizeMode: "cover",
         alignSelf: 'flex-end',
