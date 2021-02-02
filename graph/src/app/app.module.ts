@@ -84,7 +84,7 @@ export class PrismaModule {
             config: {
                 accessKeyId: process.env.S3_ACCESS_KEY_ID,
                 secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-                endpoint: process.env.S3_ENDPOINT,
+                // endpoint: process.env.S3_ENDPOINT,
                 s3ForcePathStyle: true,
                 signatureVersion: 'v4',
             },
