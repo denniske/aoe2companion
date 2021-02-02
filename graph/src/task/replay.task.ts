@@ -78,12 +78,13 @@ export class ReplayTask implements OnModuleInit {
                         },
                     });
                     for (const player of updatedMatch.players) {
+                        const existingPlayer = match.players.find(p => p.slot == player.slot);
                         await this.prisma.player.update({
                             where: {
                                 match_id_profile_id_slot: {
                                     match_id: match.match_id,
-                                    profile_id: player.profile_id || 0,
-                                    slot: player.slot,
+                                    profile_id: existingPlayer.profile_id,
+                                    slot: existingPlayer.slot,
                                 },
                             },
                             data: {
