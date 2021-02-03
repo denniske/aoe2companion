@@ -18,6 +18,7 @@ export default function Home() {
                     <h1><span className="main-title">AoE II Companion</span></h1>
                     <h3>Track your games now.</h3>
 
+
                     <div className="phone-container phone-container-mobile">
                         <AspectRatio ratio="360/718" style={{maxWidth: '60vw', margin: '20px auto'}}>
                             <div className="frame"/>
@@ -35,15 +36,28 @@ export default function Home() {
                         </a>
                     </div>
 
+                    <br/>
+                    <br/>
+                    <p>Community:</p>
+                    <a href="https://github.com/denniske/aoe2companion" target="_blank">
+                        <img src="https://img.shields.io/badge/github-aoe2companion-brightgreen"/>
+                    </a>
+                    &nbsp;&nbsp;
+                    <a href="https://discord.gg/gCunWKx" target="_blank">
+                        <img src="https://img.shields.io/discord/727175083977736262.svg"/>
+                    </a>
+                    <br/>
+                    <br/>
+
                     <div className="flex-container align-center">
-                        <div className="github-section">
-                            <a target="_blank" href="https://github.com/denniske/aoe2companion" className="github"></a>
-                            <a target="_blank" href="https://github.com/denniske/aoe2companion" className="text-link">Visit this project on Github</a>
-                        </div>
-                        <div className="github-section">
-                            <a target="_blank" href="https://discord.gg/gCunWKx" className="discord"></a>
-                            <a target="_blank" href="https://discord.gg/gCunWKx" className="text-link">Visit this project on Discord</a>
-                        </div>
+                        {/*<div className="github-section">*/}
+                        {/*    <a target="_blank" href="https://github.com/denniske/aoe2companion" className="github"></a>*/}
+                        {/*    <a target="_blank" href="https://github.com/denniske/aoe2companion" className="text-link">Visit this project on Github</a>*/}
+                        {/*</div>*/}
+                        {/*<div className="github-section">*/}
+                        {/*    <a target="_blank" href="https://discord.gg/gCunWKx" className="discord"></a>*/}
+                        {/*    <a target="_blank" href="https://discord.gg/gCunWKx" className="text-link">Visit this project on Discord</a>*/}
+                        {/*</div>*/}
 
                         <div className="newsletter">
                             <p>Weekly updates about new content and features:</p>
