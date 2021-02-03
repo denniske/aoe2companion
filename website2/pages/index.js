@@ -40,11 +40,15 @@ export default function Home() {
                     <br/>
                     <p>Community:</p>
                     <a href="https://github.com/denniske/aoe2companion" target="_blank">
-                        <img src="https://img.shields.io/badge/github-aoe2companion-brightgreen"/>
+                        <img src="https://img.shields.io/badge/github-aoe2companion-brightgreen?label=Github&logo=github"/>
                     </a>
                     &nbsp;&nbsp;
                     <a href="https://discord.gg/gCunWKx" target="_blank">
-                        <img src="https://img.shields.io/discord/727175083977736262.svg"/>
+                        <img src="https://img.shields.io/discord/727175083977736262.svg?label=Discord&logo=discord&logoColor=ffffff&labelColor=7289DA&color=2c2f33"/>
+                    </a>
+                    <div style={{height:'10px'}}></div>
+                    <a href="https://www.buymeacoffee.com/denniskeil" target="_blank">
+                        <img src="https://img.shields.io/static/v1?label=Buy%20me%20a%20coffee&logo=buy-me-a-coffee&message=30%20supporters&logoColor=000000&labelColor=FFDD00&color=2c2f33"/>
                     </a>
                     <br/>
                     <br/>
