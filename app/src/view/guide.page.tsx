@@ -8,7 +8,7 @@ import {appVariants} from '../styles';
 import {MyText} from './components/my-text';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {createStylesheet} from '../theming-new';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 
 
 export function GuideTitle(props: any) {
@@ -66,17 +66,29 @@ export default function GuidePage() {
         return () => deactivateKeepAwake();
     });
 
-    const onHardwareBackPressed = useCallback(() => {
-        if (canGoBack) {
-            webViewRef.current!.goBack();
-        }
-        return true;
-    }, [canGoBack]);
+    useFocusEffect(useCallback(() => {
+        const onHardwareBackPressed = () => {
+            if (canGoBack) {
+                webViewRef.current!.goBack();
+            }
+            return true;
+        };
 
-    useEffect(() => {
         BackHandler.addEventListener('hardwareBackPress', onHardwareBackPressed);
         return () => BackHandler.removeEventListener('hardwareBackPress', onHardwareBackPressed);
-    }, []);
+    }, [canGoBack]));
+
+    // const onHardwareBackPressed = useCallback(() => {
+    //     if (canGoBack) {
+    //         webViewRef.current!.goBack();
+    //     }
+    //     return true;
+    // }, [canGoBack]);
+    //
+    // useFocusEffect(() => {
+    //     BackHandler.addEventListener('hardwareBackPress', onHardwareBackPressed);
+    //     return () => BackHandler.removeEventListener('hardwareBackPress', onHardwareBackPressed);
+    // });
 
     return (
         <View
