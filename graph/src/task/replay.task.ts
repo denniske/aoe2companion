@@ -7,7 +7,7 @@ import fetch from 'node-fetch';
 import {IReplayResult} from './replay.type';
 import {uniq} from 'lodash';
 import {InjectS3, S3} from 'nestjs-s3';
-import {formatDayAndTime} from '../util';
+import {formatDayAndTime, sleep} from '../util';
 import {fromUnixTime, getUnixTime, subMinutes} from "date-fns";
 
 let workerCount = 0;
@@ -34,24 +34,10 @@ export class ReplayTask implements OnModuleInit {
     async onModuleInit() {
         this.runIngest1();
 
-
-        // await this.s3.putObject({
-        //     Bucket: 'build.aoe2companion.com',
-        //     ContentType: 'application/json',
-        //     Key: `123.json`,
-        //     Body: JSON.stringify({a: 1}),
-        //     // ACL: 'public-read',
-        // }).promise();
-
-        this.runWorker(workerCount++);
-        this.runWorker(workerCount++);
-        this.runWorker(workerCount++);
-        this.runWorker(workerCount++);
-        this.runWorker(workerCount++);
-        this.runWorker(workerCount++);
-
-        // this.runWorker(workerCount++);
-        // this.runWorker(workerCount++);
+        for (let i = 0; i < 10; i++) {
+            this.runWorker(workerCount++);
+            await sleep(500);
+        }
 
         // try {
         //     const list = await this.s3.listBuckets().promise();
