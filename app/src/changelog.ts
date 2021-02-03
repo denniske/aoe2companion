@@ -10,14 +10,24 @@ export interface IChangelog {
 }
 
 export const changelog: IChangelog = {
+    // '21.0.100': [
+    //     {
+    //         type: 'feature',
+    //         title: 'Added more localization (go to settings to change language)',
+    //     },
+    // ],
     '21.0.7': [
-        {
-            type: 'feature',
-            title: 'Added more localization (go to settings to change language)',
-        },
         {
             type: 'minor',
             title: 'Refresh match list when notification was tapped',
+        },
+        {
+            type: 'bugfix',
+            title: 'Tech tree: Spanish should not have arbalester',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix flemish militia training time',
         },
     ],
     '21.0.6': [

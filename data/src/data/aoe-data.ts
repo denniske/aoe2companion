@@ -13512,7 +13512,7 @@ export const aoeDataInternal = {
                 "TrainTime": 20,
                 "internal_name": "EDSERJEANT"
             },
-            "1663": {
+            "1699": {
                 "AccuracyPercent": 100,
                 "Armours": [
                     {
@@ -13574,7 +13574,7 @@ export const aoeDataInternal = {
                 "FrameDelay": 0,
                 "GarrisonCapacity": 0,
                 "HP": 75,
-                "ID": 1663,
+                "ID": 1699,
                 "LanguageHelpId": 26542,
                 "LanguageNameId": 5542,
                 "LineOfSight": 5,
@@ -13584,8 +13584,8 @@ export const aoeDataInternal = {
                 "Range": 0,
                 "ReloadTime": 2,
                 "Speed": 0.9,
-                "TrainTime": 21,
-                "internal_name": "FLEMISHPIKEMAN"
+                "TrainTime": 14,
+                "internal_name": "FLEMISHPIKEMAN2"
             }
         }
     },

@@ -2240,7 +2240,7 @@ const unitsInternal = {
         dataId: '1659',
     },
     'FlemishMilitia': {
-        dataId: '1663',
+        dataId: '1699',
     },
     'Sheep': {
         dataId: '128', // Placeholder data id. Sheep does not exist in data.

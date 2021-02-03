@@ -5,7 +5,7 @@ import {
 } from "../data/civs";
 import {Unit, units} from "./units";
 import {Tech, techs} from "./techs";
-import {Civ, civs} from "./civs";
+import {Civ, civDict, civs} from "./civs";
 
 
 export interface AbilityProps2 {
@@ -42,11 +42,23 @@ export function getCivHasTech(civ: Civ, tech: Tech) {
     const entry = techs[tech];
     const civConfig = civsConfig[civ];
 
+    if ((civConfig as any).enabled?.techs?.includes(parseInt(entry.dataId))) {
+        return true;
+    }
+
+    if ((civConfig as any).disabled?.techs?.includes(parseInt(entry.dataId))) {
+        return false;
+    }
+
+    if (civDict[civ].uniqueTechs.includes(tech)) {
+        return true;
+    }
+
     if ((civConfig as any).disableHorses && horseDisabledTechs.includes(parseInt(entry.dataId))) {
         return false;
     }
 
-    return !civConfig.disabled.techs.includes(parseInt(entry.dataId));
+    return true;
 }
 
 export function getCivHasBuilding(civ: Civ, building: Building) {
@@ -57,6 +69,10 @@ export function getCivHasBuilding(civ: Civ, building: Building) {
         return true;
     }
 
+    if ((civConfig as any).disabled?.buildings?.includes(parseInt(entry.dataId))) {
+        return false;
+    }
+
     if (defaultDisabledBuildings.includes(parseInt(entry.dataId))) {
         return false;
     }
@@ -65,7 +81,7 @@ export function getCivHasBuilding(civ: Civ, building: Building) {
         return false;
     }
 
-    return !((civConfig.disabled as any).buildings || []).includes(parseInt(entry.dataId));
+    return true;
 }
 
 export function getCivHasUnit(civ: Civ, unit: Unit) {
@@ -76,7 +92,11 @@ export function getCivHasUnit(civ: Civ, unit: Unit) {
         return true;
     }
 
-    if ((civConfig as any).unique?.includes(parseInt(entry.dataId))) {
+    if ((civConfig as any).disabled?.units?.includes(parseInt(entry.dataId))) {
+        return false;
+    }
+
+    if (civDict[civ].uniqueUnits.includes(unit)) {
         return true;
     }
 
@@ -88,5 +108,5 @@ export function getCivHasUnit(civ: Civ, unit: Unit) {
         return false;
     }
 
-    return !civConfig.disabled.units.includes(parseInt(entry.dataId));
+    return true;
 }
