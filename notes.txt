@@ -194,6 +194,9 @@ mgz-parser
 2    2
 
 
+https://exp.host/@denniske1001/aoe2companion/index.exp?release-channel=prod-v21&sdkVersion=40.0.0
+https://expo.io/@denniske1001/projects/aoe2companion?release-channel=prod-v21
+
 
 Arabia 66922089
 
