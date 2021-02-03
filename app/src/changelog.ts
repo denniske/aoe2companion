@@ -16,6 +16,12 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
+    '21.0.8': [
+        {
+            type: 'minor',
+            title: 'Added upgrades and counters for Lords of the West units',
+        },
+    ],
     '21.0.7': [
         {
             type: 'minor',
