@@ -232,6 +232,7 @@ gunicorn --bind 0.0.0.0:80 app:app --threads 6
 
 killall gunicorn
 nohup gunicorn --bind 0.0.0.0:80 app:app --threads 6 &
+nohup gunicorn --bind 0.0.0.0:80 app:app --threads 10 &
 tail -f nohup.out
 
 
