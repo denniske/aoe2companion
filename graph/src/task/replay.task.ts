@@ -107,7 +107,12 @@ export class ReplayTask implements OnModuleInit {
         // console.log(formatDayAndTime(fromUnixTime(match.finished)));
         console.log(`WORKER ${workerNum}...`);
 
-        await this.fetchFromAoe2Net(match);
+        try {
+            await this.fetchFromAoe2Net(match);
+        } catch(e) {
+            setTimeout(() => this.runWorker(workerNum), 60 * 1000);
+            return;
+        }
 
         // Only replay ranked matches
         if (![1, 2, 3, 4].includes(match.leaderboard_id)) {
