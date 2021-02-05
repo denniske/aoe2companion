@@ -9,7 +9,7 @@ import { getMapImage, getMapName } from "../../helper/maps";
 import {TextLoader} from "./loader/text-loader";
 import {ImageLoader} from "./loader/image-loader";
 import {ViewLoader} from "./loader/view-loader";
-import {groupBy} from "lodash-es";
+import {groupBy, min, minBy, sortBy} from "lodash-es";
 import {differenceInSeconds} from "date-fns";
 import { MyText } from './my-text';
 import {makeVariants, useAppTheme, useTheme} from "../../theming";
@@ -163,10 +163,10 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
                     }
                 </View>
                 {
-                    teams.map(([team, players], i) =>
+                    sortBy(teams, ([team, players], i) => min(players.map(p => p.color))).map(([team, players], i) =>
                         <View key={team}>
                             {
-                                players.map((player, j) => <Player key={j} highlight={highlightedUsers?.some(hu => sameUser(hu, player))} player={player} freeForALl={freeForALl}/>)
+                                sortBy(players, p => p.color).map((player, j) => <Player key={j} highlight={highlightedUsers?.some(hu => sameUser(hu, player))} player={player} freeForALl={freeForALl}/>)
                             }
                             {
                                 i < teams.length-1 &&

@@ -21,6 +21,10 @@ export const changelog: IChangelog = {
             type: 'minor',
             title: 'Added upgrades and counters for Lords of the West units',
         },
+        {
+            type: 'minor',
+            title: 'Sort players by team and color in match details',
+        },
     ],
     '21.0.7': [
         {
