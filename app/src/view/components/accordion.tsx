@@ -26,9 +26,13 @@ export default function MyListAccordion(props: Props) {
         children,
         style,
         expandable,
+        onPress,
     } = props;
 
-    const handlePress = () => setExpanded(!expanded);
+    const handlePress = () => {
+        setExpanded(!expanded);
+        onPress?.();
+    };
 
     return (
             <View style={style}>

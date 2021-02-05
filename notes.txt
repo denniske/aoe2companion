@@ -1,5 +1,9 @@
 
-.map(a => a.toLocaleLowerCase().replaceAll(' ', '').replaceAll('&', 'and'))
+ideas
+- 1v1 opponent stats
+- number of follows
+
+
 
 de update
 x aoe2techtree
