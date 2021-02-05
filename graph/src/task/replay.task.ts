@@ -36,7 +36,7 @@ export class ReplayTask implements OnModuleInit {
 
         for (let i = 0; i < 10; i++) {
             this.runWorker(workerCount++);
-            await sleep(500);
+            await sleep(2500);
         }
 
         // try {
