@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
-import {Image, ImageSourcePropType, Linking, ScrollView, Share, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+    Image, ImageSourcePropType, Linking, Platform, ScrollView, Share, StyleSheet, TouchableOpacity, View
+} from 'react-native';
 import {makeVariants, useAppTheme, useTheme} from "../theming";
 import {MyText} from "./components/my-text";
 import {Video} from "expo-av";
@@ -150,6 +152,34 @@ const tips: ITip[] = [
     },
 ];
 
+// function WebAspectView(props: any) {
+//     const [layout, setLayout] = React.useState(null);
+//
+//     if (Platform.OS !== 'web') return props.children;
+//
+//     const { aspectRatio = 1, ...inputStyle } =
+//     StyleSheet.flatten(props.style) || {};
+//     const style = [inputStyle, { aspectRatio }];
+//
+//     if (layout) {
+//         const { width = 0, height = 0 } = layout;
+//         console.log('WIDTH', width);
+//         if (width === 0) {
+//             style.push({ width: height * aspectRatio, height });
+//         } else {
+//             style.push({ width, height: width / aspectRatio });
+//         }
+//     }
+//
+//     return (
+//         <View
+//             {...props}
+//             style={style}
+//             onLayout={({ nativeEvent: { layout } }) => setLayout(layout)}
+//         />
+//     );
+// }
+
 export default function TipsPage() {
     const styles = useStyles();
     const theme = useAppTheme();
@@ -202,21 +232,21 @@ export default function TipsPage() {
             }
             {
                 currentTip.video &&
-                    <Video
-                        source={currentTip.video}
-                        posterSource={currentTip.videoPoster}
-                        usePoster={true}
-                        // source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
-                        isMuted={true}
-                        resizeMode="cover"
-                        shouldPlay={true}
-                        // shouldPlay={false}
-                        positionMillis={videoPosition}
-                        isLooping
-                        onLoad={() => setLoading(false)}
-                        onLoadStart={() => setLoading(true)}
-                        style={[styles.showcase, { width: '100%', aspectRatio: 16/9, opacity: loading ? 0.5 : 1 }]}
-                    />
+                <Video
+                    source={currentTip.video}
+                    posterSource={currentTip.videoPoster}
+                    usePoster={true}
+                    // source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
+                    isMuted={true}
+                    resizeMode="cover"
+                    shouldPlay={true}
+                    // shouldPlay={false}
+                    positionMillis={videoPosition}
+                    isLooping
+                    onLoad={() => setLoading(false)}
+                    onLoadStart={() => setLoading(true)}
+                    style={[styles.showcase, { width: '100%', aspectRatio: 16/9, opacity: loading ? 0.5 : 1, height: Platform.OS === 'web' ? 252 : undefined }]}
+                />
             }
             {
                 currentTip.image &&

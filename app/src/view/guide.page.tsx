@@ -38,7 +38,7 @@ export default function GuidePage() {
     if (Platform.OS === 'web') {
         return (
                 <iframe
-                        style={{border: 'none'}}
+                        style={{border: 'none', background: 'white'}}
                         height="100%"
                         src="https://buildorderguide.com/#/">
                 </iframe>

@@ -1,6 +1,7 @@
 import {Asset} from 'expo-asset';
 import {readAsStringAsync} from 'expo-file-system';
 import {getlanguage} from '../redux/statecache';
+import {Platform} from 'react-native';
 
 export const stringsSource: Record<string, string> = {
     // 'ms': '../../assets/data/ms/strings.json.lazy',
@@ -52,9 +53,16 @@ export function addAoeStrings(language: string, data: Record<string, string>) {
 export async function loadAoeStringsAsync(language: string) {
     try {
         const [{localUri}] = await Asset.loadAsync(stringsSource[language]);
-        let json = await readAsStringAsync(localUri!);
-        let parsed = JSON.parse(json);
-        addAoeStrings(language, parsed);
+
+        if (Platform.OS === 'web') {
+            let response = await fetch(localUri!);
+            let parsed = await response.json();
+            addAoeStrings(language, parsed);
+        } else {
+            let json = await readAsStringAsync(localUri!);
+            let parsed = JSON.parse(json);
+            addAoeStrings(language, parsed);
+        }
     } catch (e) {
         console.log('ERRORED', e.toString());
     }
