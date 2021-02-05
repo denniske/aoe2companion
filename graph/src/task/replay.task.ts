@@ -108,8 +108,11 @@ export class ReplayTask implements OnModuleInit {
         console.log(`WORKER ${workerNum}...`);
 
         try {
-            await this.fetchFromAoe2Net(match);
-        } catch(e) {
+            const hasAtLeastOneWinnerAndDefeatedPlayer = match.players.some(p => p.won === true) && match.players.some(p => p.won === false);
+            if (!hasAtLeastOneWinnerAndDefeatedPlayer) {
+                await this.fetchFromAoe2Net(match);
+            }
+        } catch (e) {
             setTimeout(() => this.runWorker(workerNum), 60 * 1000);
             return;
         }
