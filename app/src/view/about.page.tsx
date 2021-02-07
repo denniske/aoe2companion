@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Linking, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Linking, Platform, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Constants from 'expo-constants';
 import {useLinkTo, useNavigation} from '@react-navigation/native';
 import {Button} from "react-native-paper";
@@ -46,6 +46,26 @@ export default function AboutPage() {
         // }
     };
 
+    const open59SecondsInStore = async () => {
+        if (Platform.OS === 'web') {
+            window.open('https://59seconds.app', '_blank');
+            return;
+        }
+        const storeUrl = Platform.select({
+            android: 'https://play.google.com/store/apps/details?id=app.fiftynineseconds.game',
+            ios: 'itms-apps://apps.apple.com/app/id1489505410',
+        });
+        const url = Platform.select({
+            android: 'https://play.google.com/store/apps/details?id=app.fiftynineseconds.game',
+            ios: 'https://apps.apple.com/app/id1489505410',
+        });
+        if (await Linking.canOpenURL(storeUrl!)) {
+            await Linking.openURL(storeUrl!);
+            return;
+        }
+        await Linking.openURL(url!);
+    };
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <MyText style={styles.title}>AoE II Companion</MyText>
@@ -85,7 +105,7 @@ export default function AboutPage() {
             <MyText style={styles.content}>@qotile</MyText>
             <MyText style={styles.content2}>+ {getTranslation('about.anonymoussupporters')}</MyText>
 
-            <MyText style={styles.heading}>{getTranslation('about.heading.supporters')}</MyText>
+            <MyText style={styles.heading}>{getTranslation('about.heading.version')}</MyText>
             <TouchableOpacity onPress={incrementErrorPageClickCount}>
                 <MyText style={styles.content}>
                     {Constants.manifest.releaseChannel || 'dev'}-{Constants.manifest.version}n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}
@@ -147,6 +167,14 @@ export default function AboutPage() {
                     <MyText style={appStyles.link}>FlagKit</MyText>
                 </TouchableOpacity>
             </View>
+
+            {/*<p>Checkout my other apps: <a href="https://59seconds.app" target="_blank">59seconds - online charade</a></p>*/}
+
+            <MyText style={styles.heading}>Checkout my other apps</MyText>
+
+            <TouchableOpacity onPress={open59SecondsInStore}>
+                <MyText style={appStyles.link}>59seconds - online charade</MyText>
+            </TouchableOpacity>
 
             <MyText style={styles.heading}>Legal</MyText>
             <Space/>
