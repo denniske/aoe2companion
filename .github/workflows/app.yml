@@ -104,6 +104,7 @@ jobs:
           SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
           EXPO_USERNAME: secrethub://denniske/aoe2companion/expo_username
           EXPO_PASSWORD: secrethub://denniske/aoe2companion/expo_password
+          SENTRY_AUTH_TOKEN: secrethub://denniske/aoe2companion/sentry_auth_token
 
       - uses: expo/expo-github-action@v5
         with:
