@@ -16,6 +16,7 @@ export interface IPrefs {
     country?: Flag;
     leaderboardId?: LeaderboardId;
     changelogLastVersionRead?: string;
+    birthdayRead?: boolean;
     techTreeSize?: string;
     ratingHistoryDuration?: string;
 }

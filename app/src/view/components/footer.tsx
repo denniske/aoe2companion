@@ -1,4 +1,4 @@
-import {Linking, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Alert, Linking, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon5 from 'react-native-vector-icons/FontAwesome5';
@@ -10,6 +10,9 @@ import {RootStackParamList} from "../../../App";
 import Space from "./space";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
+import {setPrefValue, useMutate, useSelector} from '../../redux/reducer';
+import {saveCurrentPrefsToStorage} from '../../service/storage';
+import {isBirthday, moProfileId} from '@nex/data';
 
 
 export default function Footer() {
@@ -17,9 +20,9 @@ export default function Footer() {
     const [menu, setMenu] = useState(false);
     const navigationState = useNavigationStateExternal();
     const activeRoute = navigationState?.routes[0];
-    // const notificationListener = useRef<any>();
-    // const responseListener = useRef<any>();
-    // const initialRouteHandle = useRef<any>();
+    const auth = useSelector(state => state.auth);
+    const birthdayRead = useSelector(state => state.prefs.birthdayRead);
+    const mutate = useMutate();
 
     const nav = async (route: keyof RootStackParamList, params: any) => {
         const navigation = getRootNavigation();
@@ -35,6 +38,12 @@ export default function Footer() {
         return isActiveRoute ? styles.iconActive : styles.icon;
     };
 
+    const iconStyle2 = (...routes: string[]) => {
+        // console.log('currentRoute', activeRoute?.name);
+        const isActiveRoute = routes.includes(activeRoute?.name);
+        return isActiveRoute ? styles.iconActive2 : styles.icon2;
+    };
+
     const iconPopupStyle = (...routes: string[]) => {
         const isActiveRoute = routes.includes(activeRoute?.name);
         return isActiveRoute ? styles.iconActive : styles.iconInPopup;
@@ -44,12 +53,36 @@ export default function Footer() {
     useEffect(() => {
         if (lastNotificationResponse && lastNotificationResponse.actionIdentifier === Notifications.DEFAULT_ACTION_IDENTIFIER) {
             console.log('responseListener (FOOTER)', lastNotificationResponse.notification);
-            // clearTimeout(initialRouteHandle.current);
             nav('Feed', { match_id: lastNotificationResponse.notification.request.content.data.match_id });
         }
     }, [lastNotificationResponse]);
 
+    const secondAlert = () => {
+        Alert.alert('🎉  Happy Birthday  🎉', '\n...und alles Gute wünscht dir\n\nDennis',
+            [
+                {text: 'Danke', style: "cancel", onPress: () => {
+                    mutate(setPrefValue('birthdayRead', true));
+                    saveCurrentPrefsToStorage();
+                }},
+            ],
+            {cancelable: false}
+        );
+    };
 
+    const firstAlert = () => {
+        Alert.alert('Ein Brief für Mo!', '',
+            [
+                {text: 'Öffnen', style: "cancel", onPress: secondAlert},
+            ],
+            {cancelable: false}
+        );
+    };
+
+    useEffect(() => {
+        if (auth?.profile_id === moProfileId && isBirthday() && !birthdayRead) {
+            firstAlert();
+        }
+    }, []);
 
     // const checkForSavedNotification = (elapsedMs: number = 0) => {
     //     // console.log('checkForSavedNotification')
@@ -108,27 +141,58 @@ export default function Footer() {
     return (
             <View style={styles.container}>
                 <View style={styles.menu}>
-                    <TouchableOpacity style={styles.menuButton} onPress={() => nav('Search')}>
-                        <Icon name="search" size={iconSize} style={iconStyle('Search')} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuButton} onPress={() => nav('Feed')}>
-                        <Icon name="heart" size={iconSize} style={iconStyle('Feed')} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuButton} onPress={() => nav('Main')}>
-                        <Icon name="user" size={iconSize} style={iconStyle('Main')} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuButton} onPress={() => nav('Leaderboard')}>
-                        <Icon name="trophy" size={iconSize} style={iconStyle('Leaderboard')} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuButton} onPress={() => nav('Civ')}>
-                        <Icon5 name="landmark" size={iconSize} style={iconStyle('Civ')} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuButton} onPress={() => nav('Guide')}>
-                        <Icon name="graduation-cap" size={iconSize} style={iconStyle('Guide')} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuButtonDots} onPress={() => setMenu(true)}>
-                        <Icon name="ellipsis-v" size={iconSize} style={iconStyle('Tech', 'Unit', 'Building', 'About', 'Settings', 'Changelog')} />
-                    </TouchableOpacity>
+                    {
+                        auth?.profile_id === moProfileId && isBirthday() &&
+                        <>
+                            <TouchableOpacity style={styles.menuButton} onPress={() => nav('Search')}>
+                                <Icon5 name="glass-cheers" size={iconSize} style={iconStyle2('Search')} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.menuButton} onPress={() => nav('Feed')}>
+                                <Icon5 name="gift" size={iconSize} style={iconStyle2('Feed')} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.menuButton} onPress={() => nav('Main')}>
+                                <Icon5 name="birthday-cake" size={iconSize} style={iconStyle2('Main')} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.menuButton} onPress={() => nav('Leaderboard')}>
+                                <Icon5 name="glass-cheers" size={iconSize} style={iconStyle2('Leaderboard')} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.menuButton} onPress={() => nav('Civ')}>
+                                <Icon5 name="gift" size={iconSize} style={iconStyle2('Civ')} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.menuButton} onPress={() => nav('Guide')}>
+                                <Icon5 name="birthday-cake" size={iconSize} style={iconStyle2('Guide')} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.menuButtonDots} onPress={() => setMenu(true)}>
+                                <Icon name="ellipsis-v" size={iconSize} style={iconStyle2('Tech', 'Unit', 'Building', 'About', 'Settings', 'Changelog')} />
+                            </TouchableOpacity>
+                        </>
+                    }
+                    {
+                        !(auth?.profile_id === moProfileId && isBirthday()) &&
+                        <>
+                            <TouchableOpacity style={styles.menuButton} onPress={() => nav('Search')}>
+                                <Icon name="search" size={iconSize} style={iconStyle('Search')} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.menuButton} onPress={() => nav('Feed')}>
+                                <Icon name="heart" size={iconSize} style={iconStyle('Feed')} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.menuButton} onPress={() => nav('Main')}>
+                                <Icon name="user" size={iconSize} style={iconStyle('Main')} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.menuButton} onPress={() => nav('Leaderboard')}>
+                                <Icon name="trophy" size={iconSize} style={iconStyle('Leaderboard')} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.menuButton} onPress={() => nav('Civ')}>
+                                <Icon5 name="landmark" size={iconSize} style={iconStyle('Civ')} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.menuButton} onPress={() => nav('Guide')}>
+                                <Icon name="graduation-cap" size={iconSize} style={iconStyle('Guide')} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.menuButtonDots} onPress={() => setMenu(true)}>
+                                <Icon name="ellipsis-v" size={iconSize} style={iconStyle('Tech', 'Unit', 'Building', 'About', 'Settings', 'Changelog')} />
+                            </TouchableOpacity>
+                        </>
+                    }
                     <Menu
                         contentStyle={{marginBottom: 50}}
                         theme={{animation: {scale: 0}}}
@@ -183,6 +247,13 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     },
     iconActive: {
         color: theme.textColor,
+        fontWeight: 'bold',
+    },
+    icon2: {
+        color: '#050',
+    },
+    iconActive2: {
+        color: '#0A0',
         fontWeight: 'bold',
     },
     menuButton: {

@@ -6,12 +6,15 @@ import {RouteProp, useRoute} from "@react-navigation/native";
 import {RootStackParamList} from "../../App";
 import {lt} from "semver";
 import {createStylesheet} from '../theming-new';
+import {useSelector} from '../redux/reducer';
+import {moProfileId} from '@nex/data';
 
 
 export default function ChangelogPage() {
     const styles = useStyles();
     const route = useRoute<RouteProp<RootStackParamList, 'Changelog'>>();
     const changelogLastVersionRead = route.params?.changelogLastVersionRead;
+    const auth = useSelector(state => state.auth);
 
     const labelStyle = (change: IChange): ViewStyle => {
         const colors = {
@@ -42,6 +45,20 @@ export default function ChangelogPage() {
                                 <MyText style={styles.headingNote}> (new)</MyText>
                             }
                         </View>
+
+                        {
+                            version === '21.0.8' && auth?.profile_id === moProfileId &&
+                            <View style={styles.row}>
+                                <View style={[styles.labelContainer, labelStyle({type: 'feature', title: ''})]}>
+                                    <MyText style={styles.label}>feature</MyText>
+                                </View>
+                                <View style={styles.textContainer}>
+                                    <MyText style={styles.title}>Prepare for Sihing Mo's birthday</MyText>
+                                    <MyText style={styles.content}> </MyText>
+                                </View>
+                            </View>
+                        }
+
                         {
                             changes.map(change =>
                                 <View key={change.title} style={styles.row}>

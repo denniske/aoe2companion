@@ -3,7 +3,7 @@ import {Image, StyleSheet, TextStyle, TouchableOpacity, View} from 'react-native
 import {getPlayerBackgroundColor} from '../../helper/colors';
 import {useNavigation} from '@react-navigation/native';
 import {userIdFromBase} from '../../helper/user';
-import {civs} from '@nex/data';
+import {civs, isBirthday, moProfileId} from '@nex/data';
 import {getString} from '../../helper/strings';
 import {RootStackProp} from '../../../App';
 import {getSlotTypeName, IPlayer} from "@nex/data";
@@ -76,6 +76,12 @@ export function Player({player, highlight, freeForALl}: IPlayerProps) {
                 </View>
 
                 <MyText style={styles.playerRatingCol}>{player.rating}</MyText>
+                {
+                    player.profile_id === moProfileId && isBirthday() &&
+                    <MyText style={[styles.playerNameColBirthday]} numberOfLines={1}>
+                        🥳
+                    </MyText>
+                }
                 <MyText style={[styles.playerNameCol, playerNameStyle]} numberOfLines={1}>
                     {player.slot_type != 1 ? getSlotTypeName(player.slot_type) : player.name}
                 </MyText>
@@ -139,6 +145,10 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     playerNameCol: {
         marginLeft: 5,
         flex: 1,
+    },
+    playerNameColBirthday: {
+        marginLeft: 5,
+        flex: 0,
     },
     row: {
         marginLeft: 5,

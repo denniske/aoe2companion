@@ -2,6 +2,17 @@ import {format, formatDistanceToNowStrict, fromUnixTime} from "date-fns";
 import {enUS, de, es, zhCN, ms, fr, it, pt, ru, vi, tr, hi, ja, ko, zhTW} from "date-fns/locale";
 import {getlanguage} from '../../../app/src/redux/statecache';
 
+// const moMonth = 1;
+// const moDate = 7;
+// export const moProfileId = 223576;
+
+const moMonth = 1;
+const moDate = 19;
+export const moProfileId = 223576;
+
+export function isBirthday() {
+    return new Date().getDate() === moDate && new Date().getMonth() === moMonth;
+}
 
 const localeMapping = {
     'ms': ms,
