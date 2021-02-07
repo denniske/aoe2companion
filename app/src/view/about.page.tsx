@@ -168,16 +168,15 @@ export default function AboutPage() {
                 </TouchableOpacity>
             </View>
 
-            {/*<p>Checkout my other apps: <a href="https://59seconds.app" target="_blank">59seconds - online charade</a></p>*/}
-
             <MyText style={styles.heading}>Checkout my other apps</MyText>
 
-            <TouchableOpacity onPress={open59SecondsInStore}>
-                <MyText style={appStyles.link}>59seconds - online charade</MyText>
-            </TouchableOpacity>
+            <View style={styles.row}>
+                <TouchableOpacity onPress={open59SecondsInStore}>
+                    <MyText style={appStyles.link}>59seconds - online charade</MyText>
+                </TouchableOpacity>
+            </View>
 
             <MyText style={styles.heading}>Legal</MyText>
-            <Space/>
             <View style={styles.row}>
                 <TouchableOpacity onPress={() => linkTo('/privacy')}>
                     <MyText style={appStyles.link}>Privacy Policy</MyText>
