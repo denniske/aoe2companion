@@ -16,6 +16,12 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
+    '22.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix localization for Simplified Chinese (简体中文)',
+        },
+    ],
     '21.0.8': [
         {
             type: 'minor',

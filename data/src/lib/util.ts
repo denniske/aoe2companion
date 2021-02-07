@@ -29,11 +29,13 @@ const localeMapping = {
     'hi': hi,
     'ja': ja,
     'ko': ko,
-    'zh-hans': zhCN.match,
+    'zh-hans': zhCN,
     'zh-hant': zhTW,
 };
 
 function getLocale() {
+    console.log('getLocale', getlanguage());
+    // return localeMapping['en'];
     return localeMapping[getlanguage()];
 }
 
