@@ -63,9 +63,13 @@ export default function Home() {
                         {/*    <a target="_blank" href="https://discord.gg/gCunWKx" className="text-link">Visit this project on Discord</a>*/}
                         {/*</div>*/}
 
+                        {/*<div className="newsletter">*/}
+                        {/*    <p>Weekly updates about new content and features:</p>*/}
+                        {/*    <MailchimpSubscribe url={url}/>*/}
+                        {/*</div>*/}
+
                         <div className="newsletter">
-                            <p>Weekly updates about new content and features:</p>
-                            <MailchimpSubscribe url={url}/>
+                            <p>Checkout my other apps: <a href="https://59seconds.app" target="_blank">59seconds - online charade</a></p>
                         </div>
 
                         <div className="legal">
