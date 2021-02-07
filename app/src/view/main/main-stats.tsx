@@ -123,7 +123,7 @@ export default function MainStats() {
                             case 'stats-position':
                                 return <StatsPosition data={statsPosition} user={user} leaderboardId={leaderboardId}/>;
                             case 'stats-civ':
-                                return <StatsCiv data={statsCiv} user={user}/>;
+                                return <StatsCiv data={statsCiv} user={user} leaderboardId={leaderboardId}/>;
                             case 'stats-map':
                                 return <StatsMap data={statsMap} user={user}/>;
                             case 'stats-player':

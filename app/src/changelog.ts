@@ -23,6 +23,10 @@ export const changelog: IChangelog = {
         },
         {
             type: 'minor',
+            title: 'Add "Against Civ" stats for RM 1v1 & DM 1v1 leaderboards',
+        },
+        {
+            type: 'minor',
             title: 'Sort players by team and color in match details',
         },
     ],

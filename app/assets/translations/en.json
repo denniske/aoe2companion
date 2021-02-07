@@ -15,6 +15,7 @@
   "main.stats.heading.ally": "Ally",
   "main.stats.heading.opponent": "Opponent",
   "main.stats.heading.civ": "Civ",
+  "main.stats.heading.againstciv": "Against Civ",
   "main.stats.heading.map": "Map",
   "main.stats.heading.games": "Games",
   "main.stats.heading.won": "Won",

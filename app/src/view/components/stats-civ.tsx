@@ -12,6 +12,7 @@ import Space from "./space";
 import {getCivIcon} from "../../helper/civs";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
+import {LeaderboardId} from '../../helper/leaderboards';
 
 
 interface IRowProps {
@@ -47,51 +48,83 @@ function Row({data}: IRowProps) {
 
 interface IProps {
     user: UserIdBase;
+    leaderboardId: LeaderboardId;
     data: IData;
 }
 
 interface IData {
-    rows: IRow[] | null;
+    rowsWithCiv: IRow[] | null;
+    rowsAgainstCiv: IRow[] | null;
     matches?: IMatch[] | null;
     user: UserIdBase;
+    leaderboardId: LeaderboardId;
 }
 
 export default function StatsCiv(props: IProps) {
     const styles = useStyles();
 
     const { data, user } = props;
-    const { rows } = data || {};
+    let { rowsWithCiv, rowsAgainstCiv, leaderboardId } = data || { leaderboardId: props.leaderboardId };
 
-    if (rows?.length === 0) {
+    const hasAgainstCiv = [LeaderboardId.RM1v1, LeaderboardId.DM1v1].includes(leaderboardId);
+
+    if (rowsWithCiv?.length === 0) {
         return <View/>;
     }
 
     return (
             <View style={styles.container}>
                 <Space/>
-                <View>
+                <View style={styles.row}>
+                    <MyText numberOfLines={1} style={styles.cellLeaderboard}>{getTranslation('main.stats.heading.civ')}</MyText>
+                    <MyText numberOfLines={1} style={styles.cellGames}>{getTranslation('main.stats.heading.games')}</MyText>
+                    <MyText numberOfLines={1} style={styles.cellWon}>{getTranslation('main.stats.heading.won')}*</MyText>
+                </View>
+
+                {
+                    rowsWithCiv && rowsWithCiv.map(leaderboard =>
+                            <Row key={leaderboard.civ.toString()} data={leaderboard}/>
+                    )
+                }
+
+                {
+                    !rowsWithCiv && Array(8).fill(0).map((a, i) =>
+                        <View key={i} style={styles.row}>
+                            <TextLoader style={styles.cellLeaderboard}/>
+                            <TextLoader style={styles.cellGames}/>
+                            <TextLoader style={styles.cellWon}/>
+                        </View>
+                    )
+                }
+
+                {
+                    hasAgainstCiv &&
+                    <Space/>
+                }
+                {
+                    hasAgainstCiv &&
                     <View style={styles.row}>
-                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>{getTranslation('main.stats.heading.civ')}</MyText>
+                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>{getTranslation('main.stats.heading.againstciv')}</MyText>
                         <MyText numberOfLines={1} style={styles.cellGames}>{getTranslation('main.stats.heading.games')}</MyText>
                         <MyText numberOfLines={1} style={styles.cellWon}>{getTranslation('main.stats.heading.won')}*</MyText>
                     </View>
+                }
 
-                    {
-                        rows && rows.map(leaderboard =>
-                                <Row key={leaderboard.civ.toString()} data={leaderboard}/>
-                        )
-                    }
+                {
+                    hasAgainstCiv && rowsAgainstCiv && rowsAgainstCiv.map(leaderboard =>
+                            <Row key={leaderboard.civ.toString()} data={leaderboard}/>
+                    )
+                }
 
-                    {
-                        !rows && Array(8).fill(0).map((a, i) =>
-                            <View key={i} style={styles.row}>
-                                <TextLoader style={styles.cellLeaderboard}/>
-                                <TextLoader style={styles.cellGames}/>
-                                <TextLoader style={styles.cellWon}/>
-                            </View>
-                        )
-                    }
-                </View>
+                {
+                    hasAgainstCiv && !rowsAgainstCiv && Array(8).fill(0).map((a, i) =>
+                        <View key={i} style={styles.row}>
+                            <TextLoader style={styles.cellLeaderboard}/>
+                            <TextLoader style={styles.cellGames}/>
+                            <TextLoader style={styles.cellWon}/>
+                        </View>
+                    )
+                }
             </View>
     )
 }

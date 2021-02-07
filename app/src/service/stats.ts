@@ -28,7 +28,7 @@ export async function getStats({matches, user, leaderboardId}: IParam) {
     time();
     const statsPosition = await getStatsPosition({matches: filteredMatches, user, leaderboardId});
     time();
-    const statsCiv = await getStatsCiv({matches: filteredMatches, user});
+    const statsCiv = await getStatsCiv({matches: filteredMatches, user, leaderboardId});
     time();
     const statsMap = await getStatsMap({matches: filteredMatches, user});
     time();
