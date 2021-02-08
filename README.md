@@ -12,7 +12,7 @@ This is the repository for the [AoE II Companion](https://aoe2companion.com/) ap
 [![GitHub workflow](https://img.shields.io/github/workflow/status/denniske/aoe2companion/App.svg)](https://github.com/denniske/aoe2companion/actions?query=workflow%3AApp)
 [![Expo version](https://img.shields.io/badge/dynamic/json?label=version&query=expo.version&url=https://raw.githubusercontent.com/denniske/aoe2companion/master/app.json)](https://github.com/denniske/aoe2companion/actions?query=workflow%3AApp)
 [![Discord server](https://img.shields.io/discord/727175083977736262.svg?label=Discord&logo=discord&logoColor=ffffff&labelColor=7289DA&color=2c2f33)](https://discord.gg/gCunWKx)
-[![Discord server](https://img.shields.io/static/v1?label=Buy%20me%20a%20coffee&logo=buy-me-a-coffee&message=30%20supporters&logoColor=000000&labelColor=FFDD00&color=2c2f33)](https://www.buymeacoffee.com/denniskeil)
+[![Discord server](https://img.shields.io/static/v1?label=Buy%20me%20a%20coffee&logo=buy-me-a-coffee&message=31%20supporters&logoColor=000000&labelColor=FFDD00&color=2c2f33)](https://www.buymeacoffee.com/denniskeil)
 
 </div>
 
