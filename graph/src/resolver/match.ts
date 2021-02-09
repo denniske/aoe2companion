@@ -83,21 +83,16 @@ export class MatchResolver {
         // search = `%${search}%`;
         search = `%%`;
 
-        let matchIds: any = null;
+        let matchIds: any;
         if (leaderboard_id != null) {
             matchIds = await this.prisma.$queryRaw`
             SELECT m.match_id
             FROM player as p
             JOIN match as m ON m.match_id = p.match_id
             WHERE m.leaderboard_id=${leaderboard_id}
-            AND m.match_id IN (
-                  SELECT m.match_id
-                  FROM player as p
-                  JOIN match as m ON m.match_id = p.match_id
-                  WHERE profile_id IN (${join(profile_ids)})
-               )
-            AND (p.name ILIKE ${search} OR m.name ILIKE ${search})
-            GROUP BY m.match_id
+              AND profile_id IN (${join(profile_ids)})
+              AND (p.name ILIKE ${search} OR m.name ILIKE ${search})
+            GROUP BY m.match_id, m.started
             ORDER BY m.started desc
             OFFSET ${start}
             LIMIT ${count}
@@ -107,14 +102,9 @@ export class MatchResolver {
             SELECT m.match_id
             FROM player as p
             JOIN match as m ON m.match_id = p.match_id
-            AND m.match_id IN (
-                  SELECT m.match_id
-                  FROM player as p
-                  JOIN match as m ON m.match_id = p.match_id
-                  WHERE profile_id IN (${join(profile_ids)})
-               )
-            AND (p.name ILIKE ${search} OR m.name ILIKE ${search})
-            GROUP BY m.match_id
+            WHERE profile_id IN (${join(profile_ids)})
+              AND (p.name ILIKE ${search} OR m.name ILIKE ${search})
+            GROUP BY m.match_id, m.started
             ORDER BY m.started desc
             OFFSET ${start}
             LIMIT ${count}
