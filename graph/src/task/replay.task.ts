@@ -144,7 +144,13 @@ export class ReplayTask implements OnModuleInit {
             if (!replayExists) continue;
 
             console.log(`https://aoe.ms/replay/?gameId=${match.match_id}&profileId=${player.profile_id}`);
-            replayResult = await this.processReplay(match.match_id, player.profile_id);
+
+            try {
+                replayResult = await this.processReplay(match.match_id, player.profile_id);
+            } catch (e) {
+                setTimeout(() => this.runWorker(workerNum), 60 * 1000);
+                return;
+            }
             // console.log('replayResult', replayResult);
             // console.log('replayResult', JSON.stringify(replayResult));
 
@@ -282,9 +288,9 @@ export class ReplayTask implements OnModuleInit {
     async incrementAwsUsage(timeInMs: number, bandwidthInBytes: number) {
         // await this.prisma.$queryRaw`UPDATE key_value SET value = (value::int+${timeInMs})::int::text::jsonb WHERE id = 'awsTimeInMs';`;
         // await this.prisma.$queryRaw`UPDATE key_value SET value = (value::int+${bandwidthInBytes})::int::text::jsonb WHERE id = 'awsBandwidthInBytes';`;
-        await this.prisma.$queryRaw`UPDATE key_value SET value = (value::float+${timeInMs * 2 / 1000})::float::text::jsonb WHERE id = 'awsTimeInSeconds';`;
-        await this.prisma.$queryRaw`UPDATE key_value SET value = (value::float+${bandwidthInBytes / 1000000})::float::text::jsonb WHERE id = 'awsBandwidthInMB';`;
-        await this.prisma.$queryRaw`UPDATE key_value SET value = (value::int+1)::int::text::jsonb WHERE id = 'awsInvocations';`;
+        // await this.prisma.$queryRaw`UPDATE key_value SET value = (value::float+${timeInMs * 2 / 1000})::float::text::jsonb WHERE id = 'awsTimeInSeconds';`;
+        // await this.prisma.$queryRaw`UPDATE key_value SET value = (value::float+${bandwidthInBytes / 1000000})::float::text::jsonb WHERE id = 'awsBandwidthInMB';`;
+        // await this.prisma.$queryRaw`UPDATE key_value SET value = (value::int+1)::int::text::jsonb WHERE id = 'awsInvocations';`;
     }
 
     // awsTimeInMs
