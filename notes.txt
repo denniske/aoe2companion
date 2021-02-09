@@ -323,6 +323,15 @@ cat ~/.zsh_history | grep mogrify
 mogrify -format jpg *.png
 mogrify -crop 1242x2208+0+0 -path ./cropped *.jpg
 
+
+
+cat /var/log/postgresql/postgresql-12-main.log
+
+SELECT pg_stat_statements_reset();
+
+
+
+
 git tag server-v21.0.0 && git push --tags
 
 git tag function-v21.0.0 && git push --tags
