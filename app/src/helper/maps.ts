@@ -120,7 +120,7 @@ export const maps = {
 };
 
 export function getMapImage(map: AoeMap) {
-    if (map == null) {
+    if (map == null || !(map in maps)) {
         return require('../../assets/maps/cm_generic.png');
     }
     return maps[map];
