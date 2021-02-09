@@ -82,20 +82,20 @@ export class ImportTask implements OnModuleInit {
         }
 
         // Also mark matches from these player for refetching
-        const profile_ids = flatMap(entriesToSave.map(e => e.players)).map(p => p.profile_id);
-        const rowCount = await this.prisma.$executeRaw`
-            UPDATE match m
-            SET maybe_finished = null
-            WHERE
-                maybe_finished != -5 AND
-                maybe_finished is not null AND
-                m.finished is null AND
-                EXISTS(
-                    SELECT * FROM player p
-                    WHERE p.profile_id IN (${join(profile_ids)}) AND p.match_id=m.match_id
-                );
-          `;
-        console.log(`Also marked ${rowCount}/${entries.length} matches for refetching.`);
+        // const profile_ids = flatMap(entriesToSave.map(e => e.players)).map(p => p.profile_id);
+        // const rowCount = await this.prisma.$executeRaw`
+        //     UPDATE match m
+        //     SET maybe_finished = null
+        //     WHERE
+        //         maybe_finished != -5 AND
+        //         maybe_finished is not null AND
+        //         m.finished is null AND
+        //         EXISTS(
+        //             SELECT * FROM player p
+        //             WHERE p.profile_id IN (${join(profile_ids)}) AND p.match_id=m.match_id
+        //         );
+        //   `;
+        // console.log(`Also marked ${rowCount}/${entries.length} matches for refetching.`);
 
 
         // const res = await this.prisma.match.updateMany({
