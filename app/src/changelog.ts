@@ -16,6 +16,12 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
+    '22.0.1': [
+        {
+            type: 'bugfix',
+            title: 'Fix some remaining wrong civs for stats and match list',
+        },
+    ],
     '22.0.0': [
         {
             type: 'bugfix',

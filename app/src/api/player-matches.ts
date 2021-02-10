@@ -1,6 +1,6 @@
 import {makeQueryString, sleep} from '@nex/data';
 import {IMatch, IMatchRaw} from "@nex/data";
-import {fromUnixTime, parseISO} from "date-fns";
+import {fromUnixTime, getUnixTime, parseISO} from "date-fns";
 import { getHost } from './host';
 import {uniqBy} from "lodash-es";
 import {fetchJson} from "./util";
@@ -143,7 +143,7 @@ export async function fetchPlayerMatchesNew(game: string, start: number, count: 
 
         // TODO: Fix for new civ order after Lords of the West
         const releaseDate = 1611680400; // 01/26/2021 @ 5:00pm (UTC)
-        json.filter(match => match.started < releaseDate).forEach(match => {
+        json.filter(match => getUnixTime(parseISO(match.started)) < releaseDate).forEach(match => {
             match.players.forEach(player => {
                 if (player.civ >= 4) player.civ++;
                 if (player.civ >= 29) player.civ++;
@@ -233,8 +233,8 @@ export async function fetchPlayerMatches(game: string, start: number, count: num
                 legacyMatch.source += ' won';
             }
         }
-    })
-    //
+    });
+
     // console.log('match_ids', JSON.stringify(legacyResult.map(m => m.match_id)).replace(/"/g, '\''));
 
     // return newResult;
