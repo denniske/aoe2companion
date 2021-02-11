@@ -74,6 +74,7 @@ import {getInternalAoeString, loadAoeStringsAsync} from './src/helper/translate-
 import * as Localization from 'expo-localization';
 import {setlanguage} from './src/redux/statecache';
 import {ITranslationService} from '../data/src/lib/aoe-data';
+import {initializeElectron} from "./src/helper/electron";
 
 initSentry();
 
@@ -254,7 +255,7 @@ export function InnerApp() {
     // }
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.container} nativeID="container">
 
             <Portal>
                 {
@@ -600,6 +601,12 @@ export default function App() {
     //         }
     //     };
     // }, []);
+
+    useEffect(() => {
+        if (Platform.OS === 'web') {
+            initializeElectron();
+        }
+    }, []);
 
     // Prevent closing of app when back button is tapped.
     // View navigation using back button is still possible.
