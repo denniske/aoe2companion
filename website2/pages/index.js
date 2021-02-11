@@ -48,7 +48,7 @@ export default function Home() {
                     </a>
                     <div style={{height:'10px'}}></div>
                     <a href="https://www.buymeacoffee.com/denniskeil" target="_blank">
-                        <img src="https://img.shields.io/static/v1?label=Buy%20me%20a%20coffee&logo=buy-me-a-coffee&message=31%20supporters&logoColor=000000&labelColor=FFDD00&color=2c2f33"/>
+                        <img src="https://img.shields.io/static/v1?label=Buy%20me%20a%20coffee&logo=buy-me-a-coffee&message=32%20supporters&logoColor=000000&labelColor=FFDD00&color=2c2f33"/>
                     </a>
                     <br/>
                     <br/>
