@@ -121,6 +121,14 @@ aoe2companion-dev-ingest
 
 
 
+$cert = New-SelfSignedCertificate -DnsName aoe2companion.com -Type CodeSigning -CertStoreLocation Cert:\CurrentUser\My
+$CertPassword = ConvertTo-SecureString -String "..." -Force -AsPlainText
+Export-PfxCertificate -Cert "cert:\CurrentUser\My\$($cert.Thumbprint)" -FilePath selfsigncert.pfx -Password $CertPassword
+
+Thumbprint AB32AF37C94F82F33133CCEC6AA0337F43F0B3CA
+
+
+
 // aoe2companion-graphql
 // aoe2companion-mgz
 aoe2companion-import
