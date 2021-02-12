@@ -549,45 +549,7 @@ export function AppWrapper() {
 }
 
 
-// let notificationListenerAndroid: any = null;
-// let notificationListenerIOS: any = null;
-
-// Workaround notification not received when app is killed | Android
-// try {
-//     if (Platform.OS === 'android') {
-//         notificationListenerAndroid = Notifications.addNotificationResponseReceivedListener(({notification}) => {
-//             setSavedNotification(notification);
-//         });
-//     }
-// } catch(e) {
-//     console.log(e);
-// }
-
 export default function App() {
-    // Workaround notification not received when app is killed | iOS
-    // useEffect(() => {
-    //     try {
-    //         if (Platform.OS === 'ios') {
-    //             notificationListenerIOS = LegacyNotifications.addListener(({data} : any) => {
-    //                 setSavedNotification({
-    //                     request: {content: {data: {body: data}}},
-    //                 });
-    //             });
-    //         }
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    //
-    //     return () => {
-    //         try {
-    //             notificationListenerAndroid?.remove();
-    //             notificationListenerIOS?.remove();
-    //         } catch (e) {
-    //             console.log(e);
-    //         }
-    //     };
-    // }, []);
-
     useEffect(() => {
         if (Platform.OS === 'web') {
             initializeElectron();
