@@ -7,7 +7,6 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import {setAuth, setPrefValue, useMutate, useSelector} from '../redux/reducer';
 import {fetchPlayerMatches} from '../api/player-matches';
 import {useNavigation, useNavigationState} from "@react-navigation/native";
-// import {useCavy} from "cavy";
 import {TabBarLabel} from "./components/tab-bar-label";
 import {saveCurrentPrefsToStorage, saveSettingsToStorage} from "../service/storage";
 import {LeaderboardId} from "../helper/leaderboards";

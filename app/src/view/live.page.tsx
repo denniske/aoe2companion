@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {FlatList, Platform, StyleSheet, View} from 'react-native';
-// import {useCavy} from "cavy";
 import {useAppTheme} from "../theming";
 import {LiveGame} from "./live/live-game";
 import {MyText} from "./components/my-text";

@@ -12,7 +12,6 @@ import {useCachedLazyApi} from "../hooks/use-cached-lazy-api";
 import {Button} from "react-native-paper";
 import {IFetchedUser} from "../service/user";
 import PlayerList, {IPlayerListPlayer} from "./components/player-list";
-// import {useCavy} from "cavy";
 import {MyText} from "./components/my-text";
 import {isEqual, orderBy, uniq} from "lodash-es";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
@@ -61,9 +60,7 @@ export function FeedMenu() {
 
 export function FeedList() {
     const styles = useStyles();
-    // const generateTestHook = useCavy();
     const navigation = useNavigation<RootStackProp>();
-    // generateTestHook('Navigation')(navigation);
     const route = useRoute<RouteProp<RootStackParamList, 'Feed'>>();
     const matchId = route.params?.match_id;
 
