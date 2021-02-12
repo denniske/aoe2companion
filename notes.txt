@@ -346,7 +346,7 @@ git tag server-v21.0.0 && git push --tags
 
 git tag function-v21.0.0 && git push --tags
 
-git tag v21.0.0 && git push --tags
+git tag v22.0.0 && git push --tags
 git tag -d v21.0.0 && git push --delete origin v21.0.0
 git tag -d v21.0.0 && git push --delete origin v21.0.0 && git tag v21.0.0 && git push --tags
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, StyleSheet, View, ViewStyle} from 'react-native';
+import {Linking, ScrollView, StyleSheet, View, ViewStyle} from 'react-native';
 import {MyText} from "./components/my-text";
 import {changelog, IChange} from "../changelog";
 import {RouteProp, useRoute} from "@react-navigation/native";
@@ -8,9 +8,12 @@ import {lt} from "semver";
 import {createStylesheet} from '../theming-new';
 import {useSelector} from '../redux/reducer';
 import {moProfileId} from '@nex/data';
+import {useTheme} from '../theming';
+import {appVariants} from '../styles';
 
 
 export default function ChangelogPage() {
+    const appStyles = useTheme(appVariants);
     const styles = useStyles();
     const route = useRoute<RouteProp<RootStackParamList, 'Changelog'>>();
     const changelogLastVersionRead = route.params?.changelogLastVersionRead;
@@ -31,6 +34,22 @@ export default function ChangelogPage() {
         return {
             backgroundColor: 'orange',
         };
+    };
+
+    const formatTitle = (title: string) => {
+        const parts = title.split(/(\[.+]\(.+\))/);
+
+        const texts = [];
+        for (let i = 0; i < parts.length; i++) {
+            if (i % 2 == 0) {
+                texts.push(<MyText key={i}>{parts[i]}</MyText>);
+            } else {
+                const match = parts[i].match(/\[(.+)]\((.+)\)/);
+                const [all, text, url] = match || [];
+                texts.push(<MyText key={i} style={appStyles.link} onPress={() => Linking.openURL(url)}>{text}</MyText>);
+            }
+        }
+        return texts;
     };
 
     return (
@@ -66,7 +85,7 @@ export default function ChangelogPage() {
                                         <MyText style={styles.label}>{change.type}</MyText>
                                     </View>
                                     <View style={styles.textContainer}>
-                                        <MyText style={styles.title}>{change.title}</MyText>
+                                        <MyText style={styles.title}>{formatTitle(change.title)}</MyText>
                                         <MyText style={styles.content}>{change.content}</MyText>
                                     </View>
                                 </View>

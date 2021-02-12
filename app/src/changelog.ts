@@ -19,7 +19,7 @@ export const changelog: IChangelog = {
     '22.0.2': [
         {
             type: 'minor',
-            title: 'Implement AoE II DE Hotfix 45185',
+            title: 'Implement [AoE II DE Hotfix 45185](https://www.ageofempires.com/news/aoe2de-hotfix-45185/)',
         },
     ],
     '22.0.1': [
@@ -111,7 +111,7 @@ export const changelog: IChangelog = {
     '21.0.0': [
         {
             type: 'minor',
-            title: 'Implement AoE II DE Update 44725',
+            title: 'Implement [AoE II DE Update 44725](https://www.ageofempires.com/news/aoeiide-update-44725/)',
         },
         {
             type: 'minor',
@@ -169,7 +169,7 @@ export const changelog: IChangelog = {
         },
         {
             type: 'minor',
-            title: 'Implement AoE II DE Update 42848',
+            title: 'Implement [AoE II DE Update 42848](https://www.ageofempires.com/news/aoe2de-update-42848/)',
         },
     ],
     '19.0.0': [
@@ -531,7 +531,7 @@ export const changelog: IChangelog = {
     '12.0.9': [
         {
             type: 'minor',
-            title: 'Implement AoE II DE Update 39284',
+            title: 'Implement [AoE II DE Update 39284](https://www.ageofempires.com/news/aoe2de-update-39284/)',
         },
         {
             type: 'minor',
