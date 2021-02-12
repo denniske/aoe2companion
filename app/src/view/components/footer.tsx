@@ -49,7 +49,8 @@ export default function Footer() {
         return isActiveRoute ? styles.iconActive : styles.iconInPopup;
     };
 
-    const lastNotificationResponse = Notifications.useLastNotificationResponse();
+    // Workaround need for cavy to not throw "React state update" exception
+    const lastNotificationResponse = __DEV__ ? null : Notifications.useLastNotificationResponse();
     useEffect(() => {
         if (lastNotificationResponse && lastNotificationResponse.actionIdentifier === Notifications.DEFAULT_ACTION_IDENTIFIER) {
             console.log('responseListener (FOOTER)', lastNotificationResponse.notification);

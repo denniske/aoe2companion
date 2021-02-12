@@ -5,13 +5,13 @@ import {useLazyApi} from '../../hooks/use-lazy-api';
 import {Button, Searchbar} from 'react-native-paper';
 import {composeUserIdFromParts, UserInfo} from '../../helper/user';
 import {getFlagIcon} from '../../helper/flags';
-// import {useCavy} from "cavy";
 import {MyText} from "./my-text";
 import RefreshControlThemed from "./refresh-control-themed";
 import {usePrevious} from "@nex/data/hooks";
 import {createStylesheet} from '../../theming-new';
 import FlatListLoadingIndicator from './flat-list-loading-indicator';
 import {getTranslation} from '../../helper/translate';
+import { useCavy } from '../testing/tester';
 
 interface IPlayerProps {
     player: IFetchedUser;
@@ -21,6 +21,7 @@ interface IPlayerProps {
 }
 
 function Player({player, selectedUser, actionText, action}: IPlayerProps) {
+    const generateTestHook = useCavy();
     const styles = useStyles();
 
     const onSelect = async () => {
@@ -32,10 +33,11 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
         });
     };
 
-    // console.log(player.country, player.name, composeUserIdFromParts(player.steam_id, player.profile_id));
-
     return (
-            <TouchableOpacity>
+            <TouchableOpacity
+                ref={ref => generateTestHook('Search.Player.' + composeUserIdFromParts(player.steam_id, player.profile_id))({ props: { onPress: onSelect }})}
+                onPress={onSelect}
+            >
                 <View style={styles.row}>
                     <View style={styles.cellName}>
                         <Image fadeDuration={0} style={styles.countryIcon} source={getFlagIcon(player.country)}/>
@@ -94,7 +96,7 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
         setFetchedAll(false);
     };
 
-    // const generateTestHook = useCavy();
+    const generateTestHook = useCavy();
 
     useEffect(() => {
         refresh();
@@ -155,10 +157,10 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
                 }
 
                 <Searchbar
-                        // ref={generateTestHook('Search.Input')}
+                        ref={ref => generateTestHook('Search.Input')({ props: { onChangeText: setText } })}
                         style={styles.searchbar}
                         placeholder={getTranslation('search.placeholder')}
-                        onChangeText={text => setText(text)}
+                        onChangeText={setText}
                         value={text}
                 />
 

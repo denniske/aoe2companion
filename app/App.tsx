@@ -31,8 +31,6 @@ import PrivacyPage from './src/view/privacy.page';
 import AppLoading from 'expo-app-loading';
 import Icon5 from 'react-native-vector-icons/FontAwesome5';
 // import { Notifications as LegacyNotifications } from 'expo';
-// import {Tester, TestHookStore} from "cavy";
-import ExampleSpec from './src/ci/exampleSpec';
 import LeaderboardPage, {leaderboardMenu, LeaderboardTitle} from "./src/view/leaderboard.page";
 import GuidePage, {GuideTitle} from "./src/view/guide.page";
 import CivPage, {CivTitle, civTitle} from "./src/view/civ.page";

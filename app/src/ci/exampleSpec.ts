@@ -13,8 +13,8 @@ function sleep(ms: number) {
 let imageNumber = 0;
 
 async function capture() {
-    // console.log('CAPTURE');
-    // await captureImage('screen-' + imageNumber++);
+    console.log('CAPTURE');
+    await captureImage('screen-' + imageNumber++);
 }
 
 const waitTime = 6000;
@@ -25,14 +25,17 @@ export default function (spec: any) {
 
         spec.it('all', async function () {
             await AsyncStorage.removeItem('settings');
-            await AsyncStorage.setItem('following', '[{"id":"76561197984749679-196240","steam_id":"76561197984749679","profile_id":196240,"name":"TheViper","games":1187,"country":"DE"},{"id":"76561198275970890-196310","steam_id":"76561198275970890","profile_id":196310,"name":"F1Re","games":1309,"country":"BR"},{"id":"76561198044559189-198035","steam_id":"76561198044559189","profile_id":198035,"name":"_DauT_","games":1378,"country":"RS"},{"id":"76561198449406083-199325","steam_id":"76561198449406083","profile_id":199325,"name":"[aM] Hera","games":1827,"country":"CA"},{"id":"76561197996386232-251265","steam_id":"76561197996386232","profile_id":251265,"name":"[aM] MbL40C","games":1809,"country":"NO"}]');
+            await AsyncStorage.setItem('following', '[{"id":"76561197984749679-196240","steam_id":"76561197984749679","profile_id":196240,"name":"GL.TheViper","games":2243,"country":"NO"},{"id":"76561198011417995-254415","steam_id":"76561198011417995","profile_id":254415,"name":"Modri","games":1168,"country":"SI"},{"id":"76561198083128303-2413974","steam_id":"76561198083128303","profile_id":2413974,"name":"Roggy","games":2298,"country":"TR"}]');
+            // console.log(await AsyncStorage.getItem('following'));
 
             await sleep(1000);
 
             const navigation = await spec.findComponent('Navigation') as StackNavigationProp<RootStackParamList, "Main">;
             const tabNavigation = await spec.findComponent('Navigation') as MaterialTopTabNavigationProp<RootTabParamList, "MainProfile">;
 
-            // navigation.reset({index: 0, routes: [{name: 'Feed'}]});
+            // console.log('CAVY found navigation', navigation);
+
+            navigation.reset({index: 0, routes: [{name: 'Feed'}]});
             await sleep(waitTime*2);
             await capture();
             await sleep(1000);
@@ -41,7 +44,7 @@ export default function (spec: any) {
             await sleep(1000);
 
             await spec.exists('Search.Input');
-            await spec.fillIn('Search.Input', 'baal');
+            await spec.fillIn('Search.Input', 'aoe2companion');
             await sleep(waitTime);
             await capture();
             await sleep(1000);
@@ -51,9 +54,13 @@ export default function (spec: any) {
             await sleep(waitTime);
             await capture();
 
-            // tabNavigation.navigate('MainMatches');
-            // await sleep(waitTime);
-            // await capture();
+            tabNavigation.navigate('MainStats');
+            await sleep(waitTime*2);
+            await capture();
+
+            tabNavigation.navigate('MainMatches');
+            await sleep(waitTime);
+            await capture();
 
             navigation.navigate('Search', {});
             await sleep(1000);

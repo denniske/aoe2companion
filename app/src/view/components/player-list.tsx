@@ -3,10 +3,10 @@ import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-n
 import {Button} from 'react-native-paper';
 import {composeUserIdFromParts, UserInfo} from '../../helper/user';
 import {getFlagIcon} from '../../helper/flags';
-import {useCavy} from "cavy";
 import {MyText} from "./my-text";
 import {Flag} from '@nex/data';
 import {getTranslation} from '../../helper/translate';
+import {useCavy} from '../testing/tester';
 
 export interface IPlayerListPlayer {
     country: Flag;
@@ -24,7 +24,7 @@ interface IPlayerProps {
 }
 
 function Player({player, selectedUser, actionText, action}: IPlayerProps) {
-    // const generateTestHook = useCavy();
+    const generateTestHook = useCavy();
 
     const onSelect = async () => {
         selectedUser!({
@@ -35,11 +35,10 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
         });
     };
 
-    // console.log(player.country, player.name, composeUserIdFromParts(player.steam_id, player.profile_id));
-
     return (
             <TouchableOpacity
-                // ref={generateTestHook('Search.Player.' + composeUserIdFromParts(player.steam_id, player.profile_id))}
+                ref={ref => generateTestHook('Search.Player.' + composeUserIdFromParts(player.steam_id, player.profile_id))({ props: { onPress: onSelect }})}
+                onPress={onSelect}
             >
                 <View style={styles.row}>
                     <View style={styles.cellName}>

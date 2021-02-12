@@ -6,7 +6,7 @@ import {composeUserId, UserId, UserInfo} from '../helper/user';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {setAuth, setPrefValue, useMutate, useSelector} from '../redux/reducer';
 import {fetchPlayerMatches} from '../api/player-matches';
-import {useNavigationState} from "@react-navigation/native";
+import {useNavigation, useNavigationState} from "@react-navigation/native";
 // import {useCavy} from "cavy";
 import {TabBarLabel} from "./components/tab-bar-label";
 import {saveCurrentPrefsToStorage, saveSettingsToStorage} from "../service/storage";
@@ -21,6 +21,7 @@ import MainStats from "./main/main-stats";
 import MainMatches from "./main/main-matches";
 import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';
+import {useCavy} from './testing/tester';
 
 
 export function mainMenu() {
@@ -78,6 +79,10 @@ export default function MainPage() {
     const mutate = useMutate();
     const auth = useSelector(state => state.auth);
 
+    const generateTestHook = useCavy();
+    const navigation = useNavigation();
+    generateTestHook('Navigation')(navigation);
+
     const onSelect = async (user: UserInfo) => {
         await saveSettingsToStorage({
             id: composeUserId(user),
@@ -107,10 +112,6 @@ export function MainPageInner({ user }: MainPageInnerProps) {
     const mutate = useMutate();
 
     console.log('USER PAGE', user);
-
-    // const generateTestHook = useCavy();
-    // const navigation = useNavigation();
-    // generateTestHook('Navigation')(navigation);
 
     const loadingMatchesOrStatsTrigger = useSelector(state => state.loadingMatchesOrStats);
     const leaderboardId = useSelector(state => state.prefs.leaderboardId) ?? LeaderboardId.RM1v1;
