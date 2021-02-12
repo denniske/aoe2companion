@@ -75,6 +75,7 @@ import * as Localization from 'expo-localization';
 import {setlanguage} from './src/redux/statecache';
 import {ITranslationService} from '../data/src/lib/aoe-data';
 import {initializeElectron} from "./src/helper/electron";
+import {ConditionalTester} from "./src/view/testing/tester";
 
 initSentry();
 
@@ -438,19 +439,6 @@ export function InnerApp() {
     );
 }
 
-// const testHookStore: TestHookStore | null = null;
-// const testHookStore = new TestHookStore();
-
-// function ConditionalTester({children}: any) {
-//     if (testHookStore && __DEV__) {
-//         return (
-//             <Tester clearAsyncStorage={false} waitTime={1000} specs={[ExampleSpec]} store={testHookStore}>
-//                 {children}
-//             </Tester>
-//         );
-//     }
-//     return children;
-// }
 
 // const customPaperTheme = {
 //     ...PaperDarkTheme,
@@ -544,7 +532,7 @@ export function AppWrapper() {
                              theme={finalDarkMode === 'light' ? customNavigationTheme : customDarkNavigationTheme}
                              linking={linking}
         >
-            {/*<ConditionalTester>*/}
+            <ConditionalTester>
                 <PaperProvider
                     theme={finalDarkMode === 'light' ? customPaperTheme : customDarkPaperTheme}
                     settings={{
@@ -557,7 +545,7 @@ export function AppWrapper() {
                     {/*<StatusBar barStyle="light-content" backgroundColor="transparent" />*/}
                     <InnerApp/>
                 </PaperProvider>
-            {/*</ConditionalTester>*/}
+            </ConditionalTester>
         </NavigationContainer>
     );
 }
