@@ -16,6 +16,12 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
+    '22.0.2': [
+        {
+            type: 'minor',
+            title: 'Implement AoE II DE Hotfix 45185',
+        },
+    ],
     '22.0.1': [
         {
             type: 'bugfix',

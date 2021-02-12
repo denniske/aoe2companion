@@ -89,7 +89,7 @@ async function loadStrings() {
     }
 }
 
-loadStrings();
+// loadStrings();
 
 async function loadStringsAoE2TechTreeForLanguage(language: keyof typeof aoe2techtreeLanguageMap) {
     const dirPath = path.resolve(__dirname, '..', '..', 'app', 'assets', 'data', aoe2techtreeLanguageMap[language]);
