@@ -502,9 +502,9 @@ export function AppWrapper() {
     const _prefs = useApi({}, [prefs], state => state.prefs, (state, value) => state.prefs = value, () => loadPrefsFromStorage());
     const _config = useApi({}, [config], state => state.config, (state, value) => state.config = value, () => loadConfigFromStorage());
 
-    useEffect(() => {
-        initPusher();
-    }, []);
+    // useEffect(() => {
+    //     initPusher();
+    // }, []);
 
     useEffect(() => {
         if (config == null) return;
