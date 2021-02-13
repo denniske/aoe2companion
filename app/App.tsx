@@ -9,7 +9,6 @@ import {
     BackHandler,
     Linking, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View
 } from 'react-native';
-import Search from './src/view/components/search';
 import {createStackNavigator, StackNavigationProp, TransitionPresets} from '@react-navigation/stack';
 import Header from './src/view/components/header';
 import {composeUserId, parseUserId, UserId} from './src/helper/user';
@@ -30,7 +29,6 @@ import SearchPage from './src/view/search.page';
 import PrivacyPage from './src/view/privacy.page';
 import AppLoading from 'expo-app-loading';
 import Icon5 from 'react-native-vector-icons/FontAwesome5';
-// import { Notifications as LegacyNotifications } from 'expo';
 import LeaderboardPage, {leaderboardMenu, LeaderboardTitle} from "./src/view/leaderboard.page";
 import GuidePage, {GuideTitle} from "./src/view/guide.page";
 import CivPage, {CivTitle, civTitle} from "./src/view/civ.page";
@@ -61,7 +59,6 @@ import ErrorPage from "./src/view/error.page";
 import WinratesPage, {WinratesTitle} from "./src/view/winrates.page";
 import * as Notifications from "expo-notifications";
 import TipsPage from "./src/view/tips.page";
-import {setSavedNotification} from "./src/helper/notification";
 import initSentry from "./src/helper/sentry";
 import * as Device from 'expo-device';
 import {LinkingOptions} from "@react-navigation/native/lib/typescript/src/types";
@@ -74,6 +71,7 @@ import {setlanguage} from './src/redux/statecache';
 import {ITranslationService} from '../data/src/lib/aoe-data';
 import {initializeElectron} from "./src/helper/electron";
 import {ConditionalTester} from "./src/view/testing/tester";
+import {initPusher} from './src/helper/pusher';
 
 initSentry();
 
@@ -503,6 +501,10 @@ export function AppWrapper() {
     const _following = useApi({}, [following], state => state.following, (state, value) => state.following = value, () => loadFollowingFromStorage());
     const _prefs = useApi({}, [prefs], state => state.prefs, (state, value) => state.prefs = value, () => loadPrefsFromStorage());
     const _config = useApi({}, [config], state => state.config, (state, value) => state.config = value, () => loadConfigFromStorage());
+
+    useEffect(() => {
+        initPusher();
+    }, []);
 
     useEffect(() => {
         if (config == null) return;
