@@ -17,6 +17,9 @@ export function initPusher() {
 
     beamsClient.start()
         .then(() => beamsClient.addDeviceInterest('hello'))
+        .then(() => {
+            console.log('beamsClient.getDeviceId: ', beamsClient.getDeviceId());
+        })
         .then(() => console.log('Successfully registered and subscribed!'))
         .catch(console.error);
 }
