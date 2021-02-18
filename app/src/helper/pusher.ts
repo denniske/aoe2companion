@@ -1,2 +1,2 @@
 
-export function initPusher() { }
+export async function initPusher() { return ''; }

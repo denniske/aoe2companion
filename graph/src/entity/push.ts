@@ -15,6 +15,9 @@ export class Push {
     push_token?: string;
 
     @Column({ nullable: true })
+    push_token_web?: string;
+
+    @Column({ nullable: true })
     status?: string;
 
     @CreateDateColumn({ type: 'timestamp', default: () => `timezone('utc', now())`, readonly: true })

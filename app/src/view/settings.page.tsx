@@ -10,7 +10,9 @@ import {Button, Checkbox, Switch} from 'react-native-paper';
 import {useNavigation} from "@react-navigation/native";
 import {appVariants} from "../styles";
 import {getToken} from "../service/push";
-import {follow, setAccountProfile, setAccountPushToken, setNotificationConfig} from "../api/following";
+import {
+    follow, setAccountProfile, setAccountPushToken, setAccountPushTokenWeb, setNotificationConfig
+} from "../api/following";
 import * as Notifications from "expo-notifications";
 import {IosAuthorizationStatus} from "expo-notifications/build/NotificationPermissions.types";
 import * as Permissions from "expo-permissions";
@@ -19,6 +21,8 @@ import {createStylesheet} from '../theming-new';
 import {getLanguageFromSystemLocale2, getTranslation} from '../helper/translate';
 import {setlanguage} from '../redux/statecache';
 import * as Localization from 'expo-localization';
+import {deactivatePusher} from '../helper/pusher.web';
+import {initPusher} from '../helper/pusher';
 
 
 export default function SettingsPage() {
@@ -56,7 +60,7 @@ export default function SettingsPage() {
         mutate(setConfig(newConfig));
     };
 
-    const enablePushNotifications = async (pushNotificationsEnabled: any) => {
+    const enablePushNotificationsMobile = async (pushNotificationsEnabled: any) => {
         setLoadingPushNotificationEnabled(true);
         try {
             if (pushNotificationsEnabled) {
@@ -111,7 +115,41 @@ export default function SettingsPage() {
         setLoadingPushNotificationEnabled(false);
     };
 
-    const togglePushNotifications = () => enablePushNotifications(!config.pushNotificationsEnabled);
+    const enablePushNotificationsWeb = async (pushNotificationsEnabled: any) => {
+        setLoadingPushNotificationEnabled(true);
+        try {
+            if (pushNotificationsEnabled) {
+                const token = await initPusher();
+
+                await setAccountPushTokenWeb(accountId, token);
+                if (auth && auth.profile_id) {
+                    await setAccountProfile(accountId, auth.profile_id, auth.steam_id);
+                }
+                await follow(accountId, following.map(p => p.profile_id), true);
+            } else {
+                await deactivatePusher();
+            }
+
+            await setNotificationConfig(accountId, pushNotificationsEnabled);
+
+            const newConfig = {
+                ...config,
+                pushNotificationsEnabled,
+            };
+            await saveConfigToStorage(newConfig)
+            mutate(setConfig(newConfig));
+        } catch (e) {
+            alert('Changing Push Notification setting failed.\n\n' + e);
+        }
+        setLoadingPushNotificationEnabled(false);
+    };
+
+    const togglePushNotifications = () => {
+        if (Platform.OS === 'web') {
+            return enablePushNotificationsWeb(!config.pushNotificationsEnabled);
+        }
+        return enablePushNotificationsMobile(!config.pushNotificationsEnabled);
+    };
 
     const languageMap: Record<string, string> = {
         'system': 'System (' + Localization.locale + ')',
@@ -151,14 +189,6 @@ export default function SettingsPage() {
         mutate(setConfig(newConfig));
     };
 
-    // const nav = async (route: keyof RootStackParamList, params: any) => {
-    //     const navigation = getRootNavigation();
-    //     navigation.reset({
-    //         index: 0,
-    //         routes: [{name: route, params}]
-    //     });
-    // };
-
     return (
         <ScrollView contentContainerStyle={styles.container}>
 
@@ -178,16 +208,9 @@ export default function SettingsPage() {
                     <MyText style={styles.small}>{getTranslation('settings.pushnotifications.note')}</MyText>
                 </View>
                 <View style={styles.cellValueCol}>
-                    {/*<Switch*/}
-                    {/*    disabled={loadingPushNotificationEnabled}*/}
-                    {/*    value={config.pushNotificationsEnabled}*/}
-                    {/*    onValueChange={() => {*/}
-                    {/*        enablePushNotifications(!config.pushNotificationsEnabled);*/}
-                    {/*    }}*/}
-                    {/*/>*/}
                     <View style={styles.row2}>
                         <Checkbox.Android
-                            disabled={loadingPushNotificationEnabled || Platform.OS === 'web'}
+                            disabled={loadingPushNotificationEnabled}
                             status={config.pushNotificationsEnabled ? 'checked' : 'unchecked'}
                             onPress={togglePushNotifications}
                         />
@@ -196,37 +219,37 @@ export default function SettingsPage() {
                         </TouchableOpacity>
                     </View>
                     <Button
-                        // onPress={() => nav('Feed', { match_id: '66986466' })}
                         onPress={() => navigation.navigate('Push')}
                         mode="contained"
                         compact
                         uppercase={false}
                         dark={true}
-                        disabled={Platform.OS === 'web'}
                     >
                         {getTranslation('settings.pushnotifications.action.test')}
                     </Button>
                 </View>
             </View>
 
-            <View style={styles.row}>
-                <View style={styles.cellName}>
-                    <MyText>{getTranslation('settings.preventscreenlock')}</MyText>
-                    <MyText style={styles.small}>{getTranslation('settings.preventscreenlock.note')}</MyText>
-                </View>
-                <View style={styles.cellValueCol}>
-                    <View style={styles.row2}>
-                        <Checkbox.Android
-                            disabled={Platform.OS === 'web'}
-                            status={config.preventScreenLockOnGuidePage ? 'checked' : 'unchecked'}
-                            onPress={togglePreventScreenLockOnGuidePage}
-                        />
-                        <TouchableOpacity onPress={togglePreventScreenLockOnGuidePage} disabled={Platform.OS === 'web'}>
-                            <MyText style={[styles.testLink]}>{config.preventScreenLockOnGuidePage ? getTranslation('checkbox.active') : getTranslation('checkbox.inactive')}</MyText>
-                        </TouchableOpacity>
+            {
+                Platform.OS === 'web' &&
+                <View style={styles.row}>
+                    <View style={styles.cellName}>
+                        <MyText>{getTranslation('settings.preventscreenlock')}</MyText>
+                        <MyText style={styles.small}>{getTranslation('settings.preventscreenlock.note')}</MyText>
+                    </View>
+                    <View style={styles.cellValueCol}>
+                        <View style={styles.row2}>
+                            <Checkbox.Android
+                                status={config.preventScreenLockOnGuidePage ? 'checked' : 'unchecked'}
+                                onPress={togglePreventScreenLockOnGuidePage}
+                            />
+                            <TouchableOpacity onPress={togglePreventScreenLockOnGuidePage} disabled={Platform.OS === 'web'}>
+                                <MyText style={[styles.testLink]}>{config.preventScreenLockOnGuidePage ? getTranslation('checkbox.active') : getTranslation('checkbox.inactive')}</MyText>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
-            </View>
+            }
 
             <View style={styles.row}>
                 <View style={styles.cellName}>

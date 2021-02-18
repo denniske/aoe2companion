@@ -1,10 +1,6 @@
 import AspectRatio from 'react-aspect-ratio';
 import Layout from "../components/layout";
 import React from "react";
-import MailchimpSubscribe from "../components/newsletter/mailchimp-subscribe";
-
-const url = "//aoe2companion.us10.list-manage.com/subscribe/post?u=584a93842ae0fd3ecd1a888c0&id=16dd24f1d7";
-
 
 
 export default function Home() {
@@ -12,12 +8,8 @@ export default function Home() {
         <Layout>
             <div className="showcase">
                 <div>
-
-                    {/*<h1>The best way to connect with your friends is with <span className="main-title">AoE II Companion</span></h1>*/}
-
                     <h1><span className="main-title">AoE II Companion</span></h1>
                     <h3>Track your games now.</h3>
-
 
                     <div className="phone-container phone-container-mobile">
                         <AspectRatio ratio="360/718" style={{maxWidth: '60vw', margin: '20px auto'}}>

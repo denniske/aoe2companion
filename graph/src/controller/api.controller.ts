@@ -3,14 +3,23 @@ import {time} from "../util";
 import {Connection, getRepository, In, Not} from "typeorm";
 import {Account} from "../entity/account";
 import {Following} from "../entity/following";
+import PushNotifications from '@pusher/push-notifications-server';
 
 
 @Controller()
 export class ApiController {
+    private beamsClient: PushNotifications;
 
     constructor(
         private connection: Connection,
     ) {}
+
+    async onModuleInit() {
+        this.beamsClient = new PushNotifications({
+            instanceId: 'f5f0895e-446c-4fb7-9c88-cee14814718d',
+            secretKey: process.env.PUSHER_SECRET_KEY,
+        });
+    }
 
     @Post('/follow')
     async follow(
@@ -74,19 +83,13 @@ export class ApiController {
     ) {
         time(1);
 
-        // console.log('/follow');
-        // console.log(req.body);
-
         const query = this.connection.createQueryBuilder()
             .update(Account)
-            .set({
-                push_token: null,
-            })
+            .set({ push_token: null })
             .where({ push_token: push_token, id: Not(account_id) });
         await query.execute();
 
         const accountRepo = getRepository(Account);
-
         const accountEntry = new Account();
         accountEntry.id = account_id;
         accountEntry.push_token = push_token;
@@ -97,6 +100,55 @@ export class ApiController {
 
         time();
         return { success: true };
+    }
+
+    @Post('/account/push_token_web')
+    async accountPushTokenWeb(
+        @Body('account_id') account_id: string,
+        @Body('push_token_web') push_token_web: string,
+    ) {
+        time(1);
+
+        const query = this.connection.createQueryBuilder()
+            .update(Account)
+            .set({ push_token_web: null })
+            .where({ push_token_web: push_token_web, id: Not(account_id) });
+        await query.execute();
+
+        const accountRepo = getRepository(Account);
+        const accountEntry = new Account();
+        accountEntry.id = account_id;
+        accountEntry.push_token_web = push_token_web;
+
+        console.log(accountEntry);
+
+        await accountRepo.save(accountEntry);
+
+        time();
+        return { success: true };
+    }
+
+    @Post('/notification/send_test_web')
+    async sendTestPushNotificationWeb(
+        @Body('push_token_web') push_token_web: string,
+    ) {
+        try {
+            const webPushResponse = await this.beamsClient.publishToInterests([`device-${push_token_web}`], {
+                web: {
+                    notification: {
+                        title: 'Test Notification',
+                        body: 'This is a test!',
+                        deep_link: `https://app.aoe2companion.com/feed`,
+                    },
+                    data: { data: 'goes here' },
+                }
+            });
+            console.log(webPushResponse);
+            return { success: true };
+        } catch (e) {
+            console.error(e);
+            return { error: e.toString() };
+        }
     }
 
     @Post('/account/profile')

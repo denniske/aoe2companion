@@ -162,7 +162,7 @@ export class TaskAndControllerModule {
 
         console.log('environment', environment.production ? 'prod' : 'dev');
         if (!environment.production) {
-            // controllers.push(ApiController);
+            controllers.push(ApiController);
             // controllers.push(FunctionController);
         }
 

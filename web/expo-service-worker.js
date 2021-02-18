@@ -2,18 +2,59 @@
 
 importScripts("https://js.pusher.com/beams/service-worker.js");
 
-console.log('Expo service worker');
 
-// PusherPushNotifications.onNotificationReceived = ({
-//                                                     payload,
-//                                                     pushEvent,
-//                                                     handleNotification,
-//                                                   }) => {
-//   console.log('Got notification');
-//   console.log(payload);
-//   payload.notification.title = 'A new title!';
-//   pushEvent.waitUntil(handleNotification(payload))
-// }
+PusherPushNotifications.onNotificationReceived = ({
+                                                    payload,
+                                                    pushEvent,
+                                                    handleNotification,
+                                                  }) => {
+  console.log('Got notification');
+  console.log(payload);
+  // payload.notification.title = 'A new title!';
+  // pushEvent.waitUntil(handleNotification(payload))
+
+  pushEvent.waitUntil(
+    (async () => {
+      const allClients = await self.clients.matchAll({
+        includeUncontrolled: true,
+      });
+
+      let appClient;
+      const path = '/';
+
+      // If we already have a window open, use it.
+      for (const client of allClients) {
+        const url = new URL(client.url);
+
+        console.log('Client', url);
+
+        if (url.pathname === path) {
+          client.focus();
+          appClient = client;
+          break;
+        }
+      }
+
+      // If there is no existing window, open a new one.
+      if (!appClient) {
+          appClient = allClients[0];
+        // appClient = await self.clients.openWindow(path);
+      }
+
+      // Message the client:
+      // `origin` will always be `'selected'` in this case.
+      // https://docs.expo.io/versions/latest/sdk/notifications/#notification
+      appClient.postMessage({
+        origin: 'selected',
+        data: payload.notification.data,
+        remote: !payload.notification,
+      });
+    })()
+  );
+}
+
+console.log('Expo service worker', PusherPushNotifications);
+
 
 // /**
 //  * Store notification icon string in service worker.

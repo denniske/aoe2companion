@@ -57,6 +57,41 @@ export async function setAccountPushToken(account_id: string, push_token: string
     })
 }
 
+export async function setAccountPushTokenWeb(account_id: string, push_token_web: string): Promise<any> {
+    const url = getHost('aoe2companion-api') + `account/push_token_web`;
+
+    const data = {
+        account_id,
+        push_token_web,
+    };
+
+    return await fetchJson('setAccountPushTokenWeb', url, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+    })
+}
+
+export async function sendTestPushNotificationWeb(push_token_web: string): Promise<any> {
+    const url = getHost('aoe2companion-api') + `notification/send_test_web`;
+
+    const data = {
+        push_token_web,
+    };
+
+    return await fetchJson('sendTestPushNotificationWeb', url, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+    })
+}
+
 export async function setAccountProfile(account_id: string, profile_id: number, steam_id?: string): Promise<any> {
     const url = getHost('aoe2companion-api') + `account/profile`;
 

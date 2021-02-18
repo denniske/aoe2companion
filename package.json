@@ -20,6 +20,7 @@
     "rank": "SERVICE_NAME=rank nx serve graph",
     "notify": "SERVICE_NAME=notify nx serve graph",
     "replay": "SERVICE_NAME=replay nx serve graph",
+    "api": "SERVICE_NAME=api nx serve graph",
     "graph": "nx serve graph",
     "build:website": "next build website",
     "start:website:prod:80": "next start website -p 80"
@@ -44,6 +45,7 @@
     "@nestjs/typeorm": "^7.1.4",
     "@nexus/schema": "0.15.0",
     "@prisma/client": "^2.5.1",
+    "@pusher/push-notifications-server": "^1.2.1",
     "@pusher/push-notifications-web": "^1.1.0",
     "@react-native-async-storage/async-storage": "^1.13.2",
     "@react-native-community/masked-view": "0.1.10",

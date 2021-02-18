@@ -28,7 +28,8 @@
     "@nestjs/typeorm": "",
     "aws-sdk": "",
     "nestjs-s3": "",
-    "graphql-request": ""
+    "graphql-request": "",
+    "@pusher/push-notifications-server": ""
   },
   "devDependencies": {
     "@prisma/cli": "^2.5.1"

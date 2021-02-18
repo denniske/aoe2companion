@@ -15,6 +15,8 @@ import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';
 import {RootStackParamList} from '../../App';
 import {getRootNavigation} from '../service/navigation';
+import {sendTestPushNotificationWeb} from '../api/following';
+import {initPusher} from '../helper/pusher';
 
 interface FirebaseData {
     title?: string;
@@ -27,12 +29,12 @@ interface FirebaseData {
 }
 
 // Can use this function below, OR use Expo's Push Notification Tool-> https://expo.io/dashboard/notifications
-async function sendPushNotification(expoPushToken: string) {
+async function sendTestPushNotification(expoPushToken: string) {
     const message = {
         to: expoPushToken,
         sound: 'default',
-        title: 'Original Title',
-        body: 'And here is the body!',
+        title: 'Test Notification',
+        body: 'This is a test!',
         data: { data: 'goes here' },
     };
 
@@ -51,9 +53,8 @@ async function sendPushNotification(expoPushToken: string) {
 
 export default function PushPage() {
     const styles = useStyles();
-    const theme = useAppTheme();
     const [messages, setMessages] = useState<string[]>([]);
-    const [expoPushToken, setExpoPushToken] = useState<string>();
+    const [pushToken, setPushToken] = useState<string>();
     const [notification, setNotification] = useState<Notifications.Notification>();
     const notificationListener = useRef<any>();
     const lastNotificationResponse = Notifications.useLastNotificationResponse();
@@ -101,11 +102,19 @@ export default function PushPage() {
         return token;
     }
 
+    const registerForPushNotificationsWebAsync = async () => {
+        return await initPusher();
+    }
+
     useEffect(() => {
         log('registerForPushNotificationsAsync');
 
         if (Constants.isDevice) {
-            registerForPushNotificationsAsync().then(token => setExpoPushToken(token)).catch(e => log(e, e.message));
+            if (Platform.OS === 'web') {
+                registerForPushNotificationsWebAsync().then(token => setPushToken(token)).catch(e => log(e, e.message));
+            } else {
+                registerForPushNotificationsAsync().then(token => setPushToken(token)).catch(e => log(e, e.message));
+            }
         } else {
             log('Must use physical device for Push Notifications');
         }
@@ -152,7 +161,7 @@ export default function PushPage() {
             <MyText>{account ? getTranslation('push.heading.account') : ''}</MyText>
             <MyText>{account ? account.id : getTranslation('push.error.noaccount')}</MyText>
             <Space/>
-            <MyText>{expoPushToken ? maskToken(expoPushToken) : getTranslation('push.error.nopushtoken')}</MyText>
+            <MyText>{pushToken ? maskToken(pushToken) : getTranslation('push.error.nopushtoken')}</MyText>
             {
                 notification &&
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -167,12 +176,16 @@ export default function PushPage() {
             }
             <Space/>
             {
-                expoPushToken &&
+                pushToken &&
                 <>
                     <Button
                         mode="outlined"
                         onPress={async () => {
-                            await sendPushNotification(expoPushToken);
+                            if (Platform.OS === 'web') {
+                                await sendTestPushNotificationWeb(pushToken);
+                            } else {
+                                await sendTestPushNotification(pushToken);
+                            }
                         }}
                     >
                         {getTranslation('push.action.sendtestnotification')}
@@ -182,7 +195,7 @@ export default function PushPage() {
                 </>
             }
             {
-                __DEV__ &&
+                __DEV__ && Platform.OS !== 'web' &&
                 <>
                     <Button
                         mode="outlined"

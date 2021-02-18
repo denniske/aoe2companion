@@ -8,6 +8,7 @@ import {Match} from "../entity/match";
 import {Push} from "../entity/push";
 import {Following} from "../entity/following";
 import {InjectRepository} from "@nestjs/typeorm";
+import PushNotifications from '@pusher/push-notifications-server';
 
 
 interface IExpoPushResponse {
@@ -25,6 +26,7 @@ function formatNames(names: string[]) {
 @Injectable()
 export class NotifyTask implements OnModuleInit {
     private readonly logger = new Logger(NotifyTask.name);
+    private beamsClient: PushNotifications;
 
     constructor(
         private connection: Connection,
@@ -35,6 +37,12 @@ export class NotifyTask implements OnModuleInit {
     async onModuleInit() {
         // const followings = await this.connection.manager.find(Following);
         // console.log('followings.length', followings.length);
+
+        this.beamsClient = new PushNotifications({
+            instanceId: 'f5f0895e-446c-4fb7-9c88-cee14814718d',
+            secretKey: process.env.PUSHER_SECRET_KEY,
+        });
+
         await this.notifyAll();
     }
 
@@ -65,6 +73,7 @@ export class NotifyTask implements OnModuleInit {
         if (players.length === 0) return;
 
         const followings = await this.connection.manager.find(Following, {where: { profile_id: In(players.map(p => p.profile_id)), enabled: true }, relations: ["account"]});
+
         const tokens = Object.entries(groupBy(followings, p => p.account.push_token));
         if (tokens.length > 0) {
             console.log('tokens', tokens.length);
@@ -76,9 +85,16 @@ export class NotifyTask implements OnModuleInit {
             }
         }
 
-        // match.notified = true;
-        // const matchRepo = getRepository(Match); // you can also get it via getConnection().getRepository() or getManager().getRepository()
-        // await matchRepo.save(match);
+        const tokensWeb = Object.entries(groupBy(followings, p => p.account.push_token_web));
+        if (tokensWeb.length > 0) {
+            console.log('tokensWeb', tokensWeb.length);
+            for (const [tokenWeb, followings] of tokensWeb) {
+                const names = formatNames(followings.map(following => players.find(p => p.profile_id == following.profile_id).name));
+                const verb = followings.length > 1 ? 'are' : 'is';
+
+                await this.sendPushNotificationWeb(tokenWeb, match.name + ' - ' + match.id, names + ' ' + verb + ' playing.', { match_id: match.id });
+            }
+        }
 
         await this.connection.createQueryBuilder()
             .update(Match)
@@ -88,6 +104,8 @@ export class NotifyTask implements OnModuleInit {
     }
 
     async sendPushNotification(expoPushToken: string, title: string, body: string, data: any) {
+        if (expoPushToken == null || expoPushToken == 'null') return;
+
         const message = {
             to: expoPushToken,
             sound: 'default',
@@ -114,5 +132,41 @@ export class NotifyTask implements OnModuleInit {
         const status = expoPushResponse.data.status == 'ok' ? 'ok' : expoPushResponse.data.details?.error;
 
         await this.pushRepository.save({ title: message.title, body: message.body, push_token: expoPushToken, status });
+    }
+
+    async sendPushNotificationWeb(pushTokenWeb: string, title: string, body: string, data: any) {
+        if (pushTokenWeb == null || pushTokenWeb == 'null') return;
+
+        const message = {
+            to: pushTokenWeb,
+            sound: 'default',
+            title,
+            body,
+            data,
+        };
+
+        console.log('PUSH WEB');
+        console.log(message);
+
+        let status = '?';
+        try {
+            const webPushResponse = await this.beamsClient.publishToInterests([`device-${pushTokenWeb}`], {
+                web: {
+                    notification: {
+                        title,
+                        body,
+                        deep_link: `https://app.aoe2companion.com/feed?match_id=${data.match_id}`,
+                    },
+                    data,
+                }
+            });
+            console.log(webPushResponse);
+            status = 'ok';
+        } catch (e) {
+            console.error(e);
+            status = e.toString();
+        }
+
+        await this.pushRepository.save({ title: message.title, body: message.body, push_token_web: pushTokenWeb, status });
     }
 }
