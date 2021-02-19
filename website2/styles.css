@@ -29,7 +29,7 @@ h1, h3 {
 }
 
 .phone-container {
-    width: 400px;
+    width: 100%;
 }
 
 .phone-container-desktop {
@@ -45,6 +45,10 @@ h1, h3 {
 }
 
 /* MOBILE */
+
+.app-button-spacer {
+    width: 10px;
+}
 
 .app-button {
     height: 50px;
@@ -68,6 +72,10 @@ h1, h3 {
 /* LARGE */
 
 @media (min-width: 992px) {
+
+    .app-button-spacer {
+        width: 34px;
+    }
 
     .app-button {
         height: 60px;
