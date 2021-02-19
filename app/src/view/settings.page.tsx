@@ -11,7 +11,8 @@ import {useNavigation} from "@react-navigation/native";
 import {appVariants} from "../styles";
 import {getToken} from "../service/push";
 import {
-    follow, setAccountProfile, setAccountPushToken, setAccountPushTokenWeb, setNotificationConfig
+    follow, setAccountProfile, setAccountPushToken, setAccountPushTokenElectron, setAccountPushTokenWeb,
+    setNotificationConfig
 } from "../api/following";
 import * as Notifications from "expo-notifications";
 import {IosAuthorizationStatus} from "expo-notifications/build/NotificationPermissions.types";
@@ -23,6 +24,7 @@ import {setlanguage} from '../redux/statecache';
 import * as Localization from 'expo-localization';
 import {deactivatePusher} from '../helper/pusher.web';
 import {initPusher} from '../helper/pusher';
+import {getElectronPushToken, isElectron} from '../helper/electron';
 
 
 export default function SettingsPage() {
@@ -144,9 +146,40 @@ export default function SettingsPage() {
         setLoadingPushNotificationEnabled(false);
     };
 
+    const enablePushNotificationsElectron = async (pushNotificationsEnabled: any) => {
+        setLoadingPushNotificationEnabled(true);
+        try {
+            if (pushNotificationsEnabled) {
+                const token = await getElectronPushToken();
+
+                await setAccountPushTokenElectron(accountId, token);
+                if (auth && auth.profile_id) {
+                    await setAccountProfile(accountId, auth.profile_id, auth.steam_id);
+                }
+                await follow(accountId, following.map(p => p.profile_id), true);
+            }
+
+            await setNotificationConfig(accountId, pushNotificationsEnabled);
+
+            const newConfig = {
+                ...config,
+                pushNotificationsEnabled,
+            };
+            await saveConfigToStorage(newConfig)
+            mutate(setConfig(newConfig));
+        } catch (e) {
+            alert('Changing Push Notification setting failed.\n\n' + e);
+        }
+        setLoadingPushNotificationEnabled(false);
+    };
+
     const togglePushNotifications = () => {
         if (Platform.OS === 'web') {
-            return enablePushNotificationsWeb(!config.pushNotificationsEnabled);
+            if (isElectron()) {
+                return enablePushNotificationsElectron(!config.pushNotificationsEnabled);
+            } else {
+                return enablePushNotificationsWeb(!config.pushNotificationsEnabled);
+            }
         }
         return enablePushNotificationsMobile(!config.pushNotificationsEnabled);
     };

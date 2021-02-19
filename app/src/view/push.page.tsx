@@ -15,8 +15,9 @@ import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';
 import {RootStackParamList} from '../../App';
 import {getRootNavigation} from '../service/navigation';
-import {sendTestPushNotificationWeb} from '../api/following';
+import {sendTestPushNotificationElectron, sendTestPushNotificationWeb} from '../api/following';
 import {initPusher} from '../helper/pusher';
+import {getElectronPushToken, isElectron} from '../helper/electron';
 
 interface FirebaseData {
     title?: string;
@@ -106,12 +107,20 @@ export default function PushPage() {
         return await initPusher();
     }
 
+    const registerForPushNotificationsElectronAsync = async () => {
+        return await getElectronPushToken();
+    }
+
     useEffect(() => {
         log('registerForPushNotificationsAsync');
 
         if (Constants.isDevice) {
             if (Platform.OS === 'web') {
-                registerForPushNotificationsWebAsync().then(token => setPushToken(token)).catch(e => log(e, e.message));
+                if (isElectron()) {
+                    registerForPushNotificationsElectronAsync().then(token => setPushToken(token)).catch(e => log(e, e.message));
+                } else {
+                    registerForPushNotificationsWebAsync().then(token => setPushToken(token)).catch(e => log(e, e.message));
+                }
             } else {
                 registerForPushNotificationsAsync().then(token => setPushToken(token)).catch(e => log(e, e.message));
             }
@@ -182,7 +191,11 @@ export default function PushPage() {
                         mode="outlined"
                         onPress={async () => {
                             if (Platform.OS === 'web') {
-                                await sendTestPushNotificationWeb(pushToken);
+                                if (isElectron()) {
+                                    await sendTestPushNotificationElectron(pushToken);
+                                } else {
+                                    await sendTestPushNotificationWeb(pushToken);
+                                }
                             } else {
                                 await sendTestPushNotification(pushToken);
                             }

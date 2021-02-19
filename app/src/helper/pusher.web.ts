@@ -1,11 +1,29 @@
 import * as PusherPushNotifications from "@pusher/push-notifications-web"
+import {useLayoutEffect, useState} from 'react';
 
 
 let myserviceWorkerRegistration: any = null;
 
-window.navigator.serviceWorker.addEventListener("message", (evt) => {
-    console.log('APP GOT CALLED BY SW', evt);
-});
+// window.navigator.serviceWorker.addEventListener("message", (evt) => {
+//     console.log('APP GOT CALLED BY SW', evt);
+// });
+
+export function useLastNotificationResponseWeb() {
+    const [lastNotificationResponse, setLastNotificationResponse] = useState<any | null | undefined>(undefined);
+
+    const notificationCallback = (event: any) => {
+        setLastNotificationResponse(event.data);
+    };
+
+    useLayoutEffect(() => {
+        window.navigator.serviceWorker.addEventListener('message', notificationCallback);
+        return () => {
+            window.navigator.serviceWorker.removeEventListener('message', notificationCallback);
+        };
+    }, []);
+
+    return lastNotificationResponse;
+}
 
 window.navigator.serviceWorker.ready.then(serviceWorkerRegistration => {
     return myserviceWorkerRegistration = serviceWorkerRegistration;

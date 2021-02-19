@@ -137,6 +137,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
             height: iconHeight,
         },
         container: {
+            "-webkit-app-region": "drag",
             backgroundColor: theme.backgroundColor,
             flexDirection: 'row',
             // marginTop: Constants.statusBarHeight,

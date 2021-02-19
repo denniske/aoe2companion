@@ -69,9 +69,7 @@ import {getInternalAoeString, loadAoeStringsAsync} from './src/helper/translate-
 import * as Localization from 'expo-localization';
 import {setlanguage} from './src/redux/statecache';
 import {ITranslationService} from '../data/src/lib/aoe-data';
-import {initializeElectron} from "./src/helper/electron";
 import {ConditionalTester} from "./src/view/testing/tester";
-import {initPusher} from './src/helper/pusher';
 
 initSentry();
 
@@ -552,12 +550,6 @@ export function AppWrapper() {
 
 
 export default function App() {
-    useEffect(() => {
-        if (Platform.OS === 'web') {
-            initializeElectron();
-        }
-    }, []);
-
     // Prevent closing of app when back button is tapped.
     // View navigation using back button is still possible.
     useEffect(() => {

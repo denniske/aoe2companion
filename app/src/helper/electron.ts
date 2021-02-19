@@ -1,21 +1,39 @@
+import {useLayoutEffect, useState} from 'react';
 
-export function initializeElectron() {
-    if (eval('typeof require') !== 'undefined') {
-        const win = eval(`require('electron').remote.getCurrentWindow()`);
-        win.setIgnoreMouseEvents(false);
-
-        setTimeout(() => {
-            const el = document.getElementById('container');
-            el!.addEventListener('mouseenter', () => {
-                console.log('mouseenter');
-                win.setIgnoreMouseEvents(false)
-            });
-            el!.addEventListener('mouseleave', () => {
-                console.log('mouseleave');
-                win.setIgnoreMouseEvents(true, { forward: true })
-            });
-        }, 500);
-    }
+export function isElectron() {
+    return eval('typeof require !== "undefined" && typeof require("electron") === "object"');
 }
 
-// win.setIgnoreMouseEvents(true, { forward: true });
+export function getElectron() {
+    return eval(`require('electron')`);
+}
+
+export function getElectronPushToken() {
+    return new Promise<string>((resolve, reject) => {
+        const ipcRenderer = getElectron().ipcRenderer;
+
+        ipcRenderer.once('get-electrolytic-token-response', (event: any, arg: string) => {
+            resolve(arg);
+        });
+
+        ipcRenderer.send('get-electrolytic-token');
+    });
+}
+
+export function useLastNotificationResponseElectron() {
+    const [lastNotificationResponse, setLastNotificationResponse] = useState<any | null | undefined>(undefined);
+
+    const notificationCallback = (event: any, arg: any) => {
+        setLastNotificationResponse(arg);
+    };
+
+    useLayoutEffect(() => {
+        const ipcRenderer = getElectron().ipcRenderer;
+        ipcRenderer.on('electrolytic-notification', notificationCallback);
+        return () => {
+            ipcRenderer.removeListener('electrolytic-notification', notificationCallback);
+        };
+    }, []);
+
+    return lastNotificationResponse;
+}

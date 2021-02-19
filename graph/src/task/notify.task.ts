@@ -81,7 +81,11 @@ export class NotifyTask implements OnModuleInit {
                 const names = formatNames(followings.map(following => players.find(p => p.profile_id == following.profile_id).name));
                 const verb = followings.length > 1 ? 'are' : 'is';
 
-                await this.sendPushNotification(token, match.name + ' - ' + match.id, names + ' ' + verb + ' playing.', { match_id: match.id });
+                try {
+                    await this.sendPushNotification(token, match.name + ' - ' + match.id, names + ' ' + verb + ' playing.', { match_id: match.id });
+                } catch (e) {
+                    console.error(e);
+                }
             }
         }
 
@@ -92,7 +96,26 @@ export class NotifyTask implements OnModuleInit {
                 const names = formatNames(followings.map(following => players.find(p => p.profile_id == following.profile_id).name));
                 const verb = followings.length > 1 ? 'are' : 'is';
 
-                await this.sendPushNotificationWeb(tokenWeb, match.name + ' - ' + match.id, names + ' ' + verb + ' playing.', { match_id: match.id });
+                try {
+                    await this.sendPushNotificationWeb(tokenWeb, match.name + ' - ' + match.id, names + ' ' + verb + ' playing.', { match_id: match.id });
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+        }
+
+        const tokensElectron = Object.entries(groupBy(followings, p => p.account.push_token_electron));
+        if (tokensElectron.length > 0) {
+            console.log('tokensElectron', tokensElectron.length);
+            for (const [tokenElectron, followings] of tokensElectron) {
+                const names = formatNames(followings.map(following => players.find(p => p.profile_id == following.profile_id).name));
+                const verb = followings.length > 1 ? 'are' : 'is';
+
+                try {
+                    await this.sendPushNotificationElectron(tokenElectron, match.name + ' - ' + match.id, names + ' ' + verb + ' playing.', { match_id: match.id });
+                } catch (e) {
+                    console.error(e);
+                }
             }
         }
 
@@ -168,5 +191,39 @@ export class NotifyTask implements OnModuleInit {
         }
 
         await this.pushRepository.save({ title: message.title, body: message.body, push_token_web: pushTokenWeb, status });
+    }
+
+    async sendPushNotificationElectron(pushTokenElectron: string, title: string, body: string, data: any) {
+        if (pushTokenElectron == null || pushTokenElectron == 'null') return;
+
+        const message = {
+            appKey: 'IpANYN0DRa84xPpmvQ9Z',
+            appSecret: process.env.ELECTROLYTIC_APP_SECRET,
+            target: [pushTokenElectron],
+            payload: {
+                title,
+                body,
+                data,
+            },
+        };
+
+        console.log('PUSH ELECTRON');
+        console.log(message);
+
+        const result = await fetch('https://api.electrolytic.app/push/send', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Accept-encoding': 'gzip, deflate',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(message),
+        });
+        const electronPushResponse = await result.json();
+        console.log(electronPushResponse);
+
+        const status = electronPushResponse.status == 'accepted' ? 'ok' : 'error';
+
+        await this.pushRepository.save({ title: message.payload.title, body: message.payload.body, push_token: pushTokenElectron, status });
     }
 }

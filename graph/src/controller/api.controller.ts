@@ -4,6 +4,7 @@ import {Connection, getRepository, In, Not} from "typeorm";
 import {Account} from "../entity/account";
 import {Following} from "../entity/following";
 import PushNotifications from '@pusher/push-notifications-server';
+import fetch from 'node-fetch';
 
 
 @Controller()
@@ -128,6 +129,32 @@ export class ApiController {
         return { success: true };
     }
 
+    @Post('/account/push_token_electron')
+    async accountPushTokenElectron(
+        @Body('account_id') account_id: string,
+        @Body('push_token_electron') push_token_electron: string,
+    ) {
+        time(1);
+
+        const query = this.connection.createQueryBuilder()
+            .update(Account)
+            .set({ push_token_electron: null })
+            .where({ push_token_electron: push_token_electron, id: Not(account_id) });
+        await query.execute();
+
+        const accountRepo = getRepository(Account);
+        const accountEntry = new Account();
+        accountEntry.id = account_id;
+        accountEntry.push_token_electron = push_token_electron;
+
+        console.log(accountEntry);
+
+        await accountRepo.save(accountEntry);
+
+        time();
+        return { success: true };
+    }
+
     @Post('/notification/send_test_web')
     async sendTestPushNotificationWeb(
         @Body('push_token_web') push_token_web: string,
@@ -145,6 +172,45 @@ export class ApiController {
             });
             console.log(webPushResponse);
             return { success: true };
+        } catch (e) {
+            console.error(e);
+            return { error: e.toString() };
+        }
+    }
+
+    @Post('/notification/send_test_electron')
+    async sendTestPushNotificationElectron(
+        @Body('push_token_electron') push_token_electron: string,
+    ) {
+        try {
+            const message = {
+                appKey: 'IpANYN0DRa84xPpmvQ9Z',
+                appSecret: process.env.ELECTROLYTIC_APP_SECRET,
+                target: [push_token_electron],
+                payload: {
+                    title: 'Test Notification',
+                    body: 'This is a test!',
+                    data: { data: 'goes here' },
+                },
+            };
+
+            console.log('PUSH ELECTRON');
+            console.log(message);
+
+            const result = await fetch('https://api.electrolytic.app/push/send', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Accept-encoding': 'gzip, deflate',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(message),
+            });
+
+            const electronPushResponse = await result.json();
+            console.log(electronPushResponse);
+
+            return { success: electronPushResponse.status == 'accepted' };
         } catch (e) {
             console.error(e);
             return { error: e.toString() };

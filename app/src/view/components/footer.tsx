@@ -13,6 +13,8 @@ import {getTranslation} from '../../helper/translate';
 import {setPrefValue, useMutate, useSelector} from '../../redux/reducer';
 import {saveCurrentPrefsToStorage} from '../../service/storage';
 import {isBirthday, moProfileId} from '@nex/data';
+import {isElectron, useLastNotificationResponseElectron} from '../../helper/electron';
+import {useLastNotificationResponseWeb} from '../../helper/pusher';
 
 
 export default function Footer() {
@@ -50,13 +52,35 @@ export default function Footer() {
     };
 
     // Workaround need for cavy to not throw "React state update" exception
-    const lastNotificationResponse = __DEV__ ? null : Notifications.useLastNotificationResponse();
-    useEffect(() => {
-        if (lastNotificationResponse && lastNotificationResponse.actionIdentifier === Notifications.DEFAULT_ACTION_IDENTIFIER) {
-            console.log('responseListener (FOOTER)', lastNotificationResponse.notification);
-            nav('Feed', { match_id: lastNotificationResponse.notification.request.content.data.match_id });
-        }
-    }, [lastNotificationResponse]);
+    if (!__DEV__) {
+        const response = Notifications.useLastNotificationResponse();
+        useEffect(() => {
+            if (response && response.actionIdentifier === Notifications.DEFAULT_ACTION_IDENTIFIER) {
+                console.log('response (FOOTER)', response);
+                nav('Feed', { match_id: response.notification.request.content.data.match_id });
+            }
+        }, [response]);
+    }
+
+    if (Platform.OS === 'web' && isElectron()) {
+        const response = useLastNotificationResponseElectron();
+        useEffect(() => {
+            if (response) {
+                console.log('response (FOOTER)', response);
+                nav('Feed', { match_id: response.data.match_id });
+            }
+        }, [response]);
+    }
+
+    if (Platform.OS === 'web' && !isElectron()) {
+        const response = useLastNotificationResponseWeb();
+        useEffect(() => {
+            if (response) {
+                console.log('response (FOOTER)', response);
+                nav('Feed', { match_id: response.data.match_id });
+            }
+        }, [response]);
+    }
 
     const secondAlert = () => {
         Alert.alert('🎉  Happy Birthday  🎉', '\n...und alles Gute wünscht dir\n\nDennis',
@@ -88,6 +112,11 @@ export default function Footer() {
     const iconSize = 22;
 
     const useIcon = (name: string, page?: string) => (props: any) => <Icon5 name={name} {...props} style={[styles.menuIcon, iconPopupStyle(page || '')]} size={iconSize} solid />;
+
+    // const myprops: any = {
+    //     onMouseEnter: () => console.log('ENTERED'),
+    //     onMouseLeave: () => console.log('LEFT'),
+    // };
 
     return (
             <View style={styles.container}>

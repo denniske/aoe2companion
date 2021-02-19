@@ -75,6 +75,24 @@ export async function setAccountPushTokenWeb(account_id: string, push_token_web:
     })
 }
 
+export async function setAccountPushTokenElectron(account_id: string, push_token_electron: string): Promise<any> {
+    const url = getHost('aoe2companion-api') + `account/push_token_electron`;
+
+    const data = {
+        account_id,
+        push_token_electron,
+    };
+
+    return await fetchJson('setAccountPushTokenElectron', url, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+    })
+}
+
 export async function sendTestPushNotificationWeb(push_token_web: string): Promise<any> {
     const url = getHost('aoe2companion-api') + `notification/send_test_web`;
 
@@ -83,6 +101,23 @@ export async function sendTestPushNotificationWeb(push_token_web: string): Promi
     };
 
     return await fetchJson('sendTestPushNotificationWeb', url, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+    })
+}
+
+export async function sendTestPushNotificationElectron(push_token_electron: string): Promise<any> {
+    const url = getHost('aoe2companion-api') + `notification/send_test_electron`;
+
+    const data = {
+        push_token_electron: push_token_electron,
+    };
+
+    return await fetchJson('sendTestPushNotificationElectron', url, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
