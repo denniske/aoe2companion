@@ -35,7 +35,7 @@ export default function Home() {
                         <img src="https://img.shields.io/static/v1?label=Web&logo=google-chrome&message=Open&logoColor=FFFFFF&color=brightgreen"/>
                     </a>
                     <div style={{height: '10px'}}/>
-                    <a href="https://app.aoe2companion.com" target="_blank">
+                    <a href="https://github.com/denniske/aoe2companion/releases/download/v22.0.2/aoe2companion.22.0.2.exe" target="_blank">
                         <img src="https://img.shields.io/static/v1?label=Windows&logo=windows&message=Download&logoColor=FFFFFF&color=brightgreen"/>
                     </a>
 
