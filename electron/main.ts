@@ -42,7 +42,7 @@ ipcMain.on('get-electrolytic-token', (event, arg) => {
 });
 
 
-const debug = true;
+const debug = true && serve;
 const width = 450 + (debug ? 557 : 0);
 
 function createWindow(): BrowserWindow {
@@ -78,7 +78,8 @@ function createWindow(): BrowserWindow {
     // win.loadURL('http://localhost:4200');
     // win.loadURL('https://app.aoe2companion.com');
     // win.loadURL('http://192.168.178.10:19006');
-    win.loadURL('http://localhost:19006');
+    // win.loadURL('http://localhost:19006');
+    win.loadURL(serve ? 'http://localhost:19006' : 'https://app.aoe2companion.com');
     // win.setIgnoreMouseEvents(true);
 
     // const el = win.getBrowserView().webContents. document.getElementsByTagName('body')[0];
