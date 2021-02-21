@@ -172,15 +172,21 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
                     <MyText style={styles.duration}> {duration}   </MyText>
                     <IconFA5 name="running" size={11.5} color={theme.textNoteColor}/>
                     <MyText style={styles.speed}> {getString('speed', data.speed)}   </MyText>
+                    {/*{*/}
+                    {/*    __DEV__ &&*/}
+                    {/*    <>*/}
+                    {/*        <IconFA5 name="database" size={11.5} color={theme.textNoteColor}/>*/}
+                    {/*        <MyText style={styles.speed}> {data.source}</MyText>*/}
+                    {/*    </>*/}
+                    {/*}*/}
+                    {/*{*/}
+                    {/*    !__DEV__ && data.name !== 'AUTOMATCH' &&*/}
+                    {/*    <>*/}
+                    {/*        <MyText style={styles.name} numberOfLines={1}> {data.name}</MyText>*/}
+                    {/*    </>*/}
+                    {/*} */}
                     {
-                        __DEV__ &&
-                        <>
-                            <IconFA5 name="database" size={11.5} color={theme.textNoteColor}/>
-                            <MyText style={styles.speed}> {data.source}</MyText>
-                        </>
-                    }
-                    {
-                        !__DEV__ && data.name !== 'AUTOMATCH' &&
+                        data.name !== 'AUTOMATCH' &&
                         <>
                             <MyText style={styles.name} numberOfLines={1}> {data.name}</MyText>
                         </>
