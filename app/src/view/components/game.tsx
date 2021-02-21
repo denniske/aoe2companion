@@ -97,9 +97,6 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
         hasRecDict, data
     );
 
-    console.log('expanded', expanded);
-    console.log('canDownloadRecDict', canDownloadRecDict);
-
     useEffect(() => {
         if (!expanded) return;
         if (Platform.OS !== 'web') return;

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {FlatList, Linking, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {RootStackParamList, RootStackProp} from '../../App';
 import {RouteProp, useNavigation, useNavigationState, useRoute} from '@react-navigation/native';
 import {Game} from './components/game';
@@ -161,6 +161,11 @@ export function FeedList() {
         );
     }
 
+    const spectate = async (match_id: string) => {
+        const url = `aoe2de://1/${match_id}`;
+        await Linking.openURL(url);
+    };
+
     return (
             <View style={styles.container}>
                 <View style={styles.content}>
@@ -226,6 +231,10 @@ export function FeedList() {
                                                     {
                                                         !sameUserNull(filteredPlayers[0], auth) && filteredPlayers.length > 1 &&
                                                         <MyText> {match.finished ? getTranslation('feed.following.2played') : getTranslation('feed.following.2playingnow')}</MyText>
+                                                    }
+                                                    {
+                                                        Platform.OS === 'web' && !match.finished &&
+                                                        <MyText style={styles.player} onPress={() => spectate(match.match_id)}> (Spectate)</MyText>
                                                     }
                                                 </MyText>
                                             }
