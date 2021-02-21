@@ -22,6 +22,9 @@ export class Match {
     @Field(type => Int)
     num_players: number;
 
+    @Field(type => Int, {nullable: true})
+    replayed?: number;
+
     @Field()
     started: Date;
 

@@ -1,7 +1,7 @@
-import {Image, ImageBackground, StyleSheet, Text, View} from 'react-native';
+import {Image, ImageBackground, Platform, StyleSheet, Text, View} from 'react-native';
 import {getString} from '../../helper/strings';
-import {formatAgo} from '@nex/data';
-import React from 'react';
+import {formatAgo, IPlayer} from '@nex/data';
+import React, {useEffect} from 'react';
 import {Player, PlayerSkeleton} from './player';
 import MyListAccordion from './accordion';
 import {IMatch} from "@nex/data";
@@ -18,6 +18,8 @@ import {sameUser, sameUserNull, UserIdBase} from "../../helper/user";
 import {createStylesheet} from '../../theming-new';
 import {getLeaderboardOrGameType} from '../../helper/leaderboards';
 import {getTranslation} from '../../helper/translate';
+import {hasRecDict} from '../../api/recording';
+import {useLazyApi} from '../../hooks/use-lazy-api';
 
 interface IGameProps {
     data: IMatch;
@@ -90,9 +92,35 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
         duration = formatDuration(data.started, finished);
     }
 
+    const canDownloadRecDict = useLazyApi(
+        {},
+        hasRecDict, data
+    );
+
+    console.log('expanded', expanded);
+    console.log('canDownloadRecDict', canDownloadRecDict);
+
+    useEffect(() => {
+        if (!expanded) return;
+        if (Platform.OS !== 'web') return;
+        if (canDownloadRecDict.loading || canDownloadRecDict.touched || canDownloadRecDict.error) return;
+        canDownloadRecDict.reload();
+    }, [expanded])
+
+    const checkRecAvailability = () => {
+        if (Platform.OS !== 'web') return;
+        if (canDownloadRecDict.loading || canDownloadRecDict.touched || canDownloadRecDict.error) return;
+        canDownloadRecDict.reload();
+    };
+
+    const canDownloadRec = (player: IPlayer) => {
+        return canDownloadRecDict.data?.includes(player.profile_id);
+    };
+
     return (
         <MyListAccordion
             style={styles.accordion}
+            onPress={checkRecAvailability}
             expanded={expanded}
             expandable={true}
             left={props => (
@@ -130,7 +158,7 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
                         <MyText numberOfLines={1} style={styles.matchContent}>
                             {
                                 !data.finished &&
-                                <MyText>{duration}</MyText>
+                                <MyText>{duration}{expanded}</MyText>
                             }
                             {
                                 data.finished &&
@@ -157,7 +185,6 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
                     {
                         !__DEV__ && data.name !== 'AUTOMATCH' &&
                         <>
-                            {/*<IconFA5 name="database" size={11.5} color={theme.textNoteColor}/>*/}
                             <MyText style={styles.name} numberOfLines={1}> {data.name}</MyText>
                         </>
                     }
@@ -166,7 +193,7 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
                     sortBy(teams, ([team, players], i) => min(players.map(p => p.color))).map(([team, players], i) =>
                         <View key={team}>
                             {
-                                sortBy(players, p => p.color).map((player, j) => <Player key={j} highlight={highlightedUsers?.some(hu => sameUser(hu, player))} player={player} freeForALl={freeForALl}/>)
+                                sortBy(players, p => p.color).map((player, j) => <Player key={j} highlight={highlightedUsers?.some(hu => sameUser(hu, player))} match={data} player={player} freeForALl={freeForALl} canDownloadRec={canDownloadRec(player)}/>)
                             }
                             {
                                 i < teams.length-1 &&

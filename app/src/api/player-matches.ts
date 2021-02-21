@@ -207,6 +207,14 @@ export async function fetchPlayerMatches(game: string, start: number, count: num
     legacyResult.forEach(legacyMatch => {
         legacyMatch.source = 'aoe2net';
 
+        // Set replayed
+        // if (Platform.OS === 'web') {
+        //     const newMatch = newResult.find(m => m.match_id == legacyMatch.match_id);
+        //     if (newMatch) {
+        //         legacyMatch.replayed = newMatch.replayed;
+        //     }
+        // }
+
         // Any civ missing
         if (legacyMatch.players.filter(p => p.civ == null).length > 0) {
             const newMatch = newResult.find(m => m.match_id == legacyMatch.match_id);

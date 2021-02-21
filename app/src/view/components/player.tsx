@@ -1,9 +1,9 @@
-import React from 'react';
-import {Image, StyleSheet, TextStyle, TouchableOpacity, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Alert, Image, Linking, Platform, StyleSheet, TextStyle, TouchableOpacity, View} from 'react-native';
 import {getPlayerBackgroundColor} from '../../helper/colors';
 import {useNavigation} from '@react-navigation/native';
 import {userIdFromBase} from '../../helper/user';
-import {civs, isBirthday, moProfileId} from '@nex/data';
+import {civs, IMatch, isBirthday, moProfileId, noop} from '@nex/data';
 import {getString} from '../../helper/strings';
 import {RootStackProp} from '../../../App';
 import {getSlotTypeName, IPlayer} from "@nex/data";
@@ -12,12 +12,16 @@ import IconFA5 from 'react-native-vector-icons/FontAwesome5';
 import {MyText} from "./my-text";
 import {getCivIconByIndex, getCivNameById} from "../../helper/civs";
 import {createStylesheet} from '../../theming-new';
+import {hasRec} from '../../api/recording';
+import {Snackbar} from 'react-native-paper';
 
 
 interface IPlayerProps {
+    match: IMatch;
     player: IPlayer;
     highlight?: boolean;
     freeForALl?: boolean;
+    canDownloadRec?: boolean;
 }
 
 export function PlayerSkeleton() {
@@ -41,9 +45,10 @@ export function PlayerSkeleton() {
     );
 }
 
-export function Player({player, highlight, freeForALl}: IPlayerProps) {
+export function Player({match, player, highlight, freeForALl, canDownloadRec}: IPlayerProps) {
     const styles = useStyles();
     const navigation = useNavigation<RootStackProp>();
+    // const [canDownloadRec, setCanDownloadRec] = useState(true);
 
     const boxStyle = [styles.square, {backgroundColor: getPlayerBackgroundColor(player.color)}];
     const playerNameStyle = [{textDecorationLine: highlight ? 'underline' : 'none'}] as TextStyle;
@@ -54,6 +59,42 @@ export function Player({player, highlight, freeForALl}: IPlayerProps) {
             name: player.name,
         });
     };
+
+    // console.log(match);
+    // console.log(player);
+
+    const downloadRec = async () => {
+        // if (!await hasRec(match.match_id, player.profile_id)) {
+        //     setVisible(true);
+        //     setCanDownloadRec(false);
+        //     return;
+        // }
+        const url = `https://aoe.ms/replay/?gameId=${match.match_id}&profileId=${player.profile_id}`;
+        await Linking.openURL(url);
+    };
+
+    // const checkRecAvailable = async () => {
+    //     setCanDownloadRec(await hasRec(match.match_id, player.profile_id));
+    // };
+
+    // useEffect(() => {
+    //
+    //     if (Platform.OS !== 'web' ||
+    //     match.replayed === 404 ||
+    //     player.slot_type != 1) {
+    //         setCanDownloadRec(false);
+    //         return;
+    //     }
+    //
+    //     if (Platform.OS !== 'web') return;
+    //     if (match.replayed === 404) return;
+    //     if (player.slot_type != 1) return;
+    //     checkRecAvailable();
+    // }, [])
+
+    // const [visible, setVisible] = React.useState(false);
+    // const onToggleSnackBar = () => setVisible(!visible);
+    // const onDismissSnackBar = () => setVisible(false);
 
     return (
         <View style={styles.player}>
@@ -87,10 +128,28 @@ export function Player({player, highlight, freeForALl}: IPlayerProps) {
                 </MyText>
             </TouchableOpacity>
 
+            {
+                // Platform.OS === 'web' &&
+                canDownloadRec &&
+                <TouchableOpacity style={styles.playerRecCol} onPress={downloadRec}>
+                    {/*<MyText>{match.replayed}</MyText>*/}
+                    <IconFA5 name="cloud-download-alt" size={14} color="grey" />
+                    {/*<IconFA5 name="download" size={14} color="grey" />*/}
+                </TouchableOpacity>
+            }
+
+            {/*<Snackbar*/}
+            {/*    visible={visible}*/}
+            {/*    duration={4000}*/}
+            {/*    onDismiss={onDismissSnackBar}*/}
+            {/*>*/}
+            {/*    No recording found.*/}
+            {/*</Snackbar>*/}
+
             <TouchableOpacity style={styles.civCol} onPress={() => navigation.push('Civ', {civ: civs[player.civ]})}>
                 <View style={styles.row}>
                     <Image fadeDuration={0} style={styles.countryIcon} source={getCivIconByIndex(player.civ) as any}/>
-                    <MyText> {getCivNameById(civs[player.civ])}</MyText>
+                    <MyText>{getCivNameById(civs[player.civ])}</MyText>
                 </View>
             </TouchableOpacity>
         </View>
@@ -122,6 +181,10 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     playerWonCol: {
         marginLeft: 3,
         width: 22,
+    },
+    playerRecCol: {
+        marginLeft: 4,
+        width: 16,
     },
     playerRatingCol: {
         marginLeft: 7,
@@ -160,6 +223,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     countryIcon: {
         width: 20,
         height: 20,
+        marginRight: 4,
     },
     player: {
         flexDirection: 'row',

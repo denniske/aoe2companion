@@ -22,7 +22,7 @@ import {createStylesheet} from '../theming-new';
 import {getLanguageFromSystemLocale2, getTranslation} from '../helper/translate';
 import {setlanguage} from '../redux/statecache';
 import * as Localization from 'expo-localization';
-import {deactivatePusher} from '../helper/pusher.web';
+import {deactivatePusher} from '../helper/pusher';
 import {initPusher} from '../helper/pusher';
 import {getElectronPushToken, isElectron} from '../helper/electron';
 

@@ -39,6 +39,7 @@ type Match {
   name: String!
   num_players: Int!
   players: [Player!]!
+  replayed: Int
   speed: Int!
   started: DateTime!
 }

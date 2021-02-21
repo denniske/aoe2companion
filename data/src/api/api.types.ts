@@ -101,6 +101,7 @@ export interface IMatchRaw {
 }
 
 export interface IMatch extends Omit<IMatchRaw, 'finished' | 'opened' | 'started'> {
+    replayed?: number;
     started?: Date;
     opened?: Date;
     finished?: Date;
