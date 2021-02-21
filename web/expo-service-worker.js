@@ -1,5 +1,10 @@
 /* eslint-env serviceworker */
 
+self.addEventListener('install', function(event) {
+    // noinspection JSIgnoredPromiseFromCall
+    self.skipWaiting();
+});
+
 importScripts("https://js.pusher.com/beams/service-worker.js");
 
 
