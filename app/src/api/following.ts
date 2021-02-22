@@ -163,3 +163,49 @@ export async function setNotificationConfig(account_id: string, push_enabled: bo
         body: JSON.stringify(data),
     })
 }
+
+// export interface ITwitchChannel {
+//     broadcaster_language: string;
+//     broadcaster_login: string;
+//     display_name: string;
+//     game_id: string;
+//     id: string;
+//     is_live: boolean;
+//     tag_ids: string[];
+//     thumbnail_url: string;
+//     title: string;
+//     started_at: Date;
+// }
+
+export interface ITwitchChannel {
+    id: string;
+    user_id: string;
+    user_login: string;
+    user_name: string;
+    game_id: string;
+    game_name: string;
+    type: string;
+    title: string;
+    viewer_count: number;
+    started_at: Date;
+    language: string;
+    thumbnail_url: string;
+    tag_ids: string[];
+}
+
+export async function twitchLive(channel: string): Promise<ITwitchChannel> {
+    // return new Promise((resolve) => resolve({
+    //   type: 'live',
+    //   viewer_count: 320,
+    // } as any));
+
+    const url = getHost('aoe2companion-api') + `twitch/live?channel=${channel}`;
+    console.log(url);
+    return await fetchJson('twitchLive', url, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    });
+}

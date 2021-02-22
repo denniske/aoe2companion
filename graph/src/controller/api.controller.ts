@@ -1,4 +1,4 @@
-import {Body, Controller, Post} from '@nestjs/common';
+import {Body, Controller, Get, Post, Query} from '@nestjs/common';
 import {time} from "../util";
 import {Connection, getRepository, In, Not} from "typeorm";
 import {Account} from "../entity/account";
@@ -263,5 +263,88 @@ export class ApiController {
 
         time();
         return { success: true };
+    }
+
+    twitchAppToken: string;
+    twitchAppTokenExpiresAt: number;
+
+    @Get('/twitch/live')
+    async twitchLive(
+        @Query('channel') channel: string,
+    ) {
+        time(1);
+
+        if (!/\w+/.test(channel)) {
+            return { error: 'Invalid channel' };
+        }
+
+        // console.log('twitchAppToken', this.twitchAppToken);
+
+        // Check token for validity
+        // if (this.twitchAppToken) {
+        //     const tokenUrl = `https://id.twitch.tv/oauth2/validate`;
+        //     const tokenResponse = await fetch(tokenUrl, {
+        //         method: 'GET',
+        //         headers: {
+        //             'Accept': 'application/json',
+        //             'Content-Type': 'application/json',
+        //             'Authorization': `Bearer ${this.twitchAppToken}`,
+        //         },
+        //     });
+        //     const tokenJson = await tokenResponse.json();
+        //     console.log(tokenJson);
+        //
+        //     if (tokenJson.expires_in == null || tokenJson.expires_in < 100) {
+        //         this.twitchAppToken = null;
+        //     }
+        // }
+
+        // Get token if we have no token or token expires in less than 100s
+        if (!this.twitchAppToken || this.twitchAppTokenExpiresAt < (new Date().getTime() + 100 * 1000)) {
+            const tokenUrl = `https://id.twitch.tv/oauth2/token`;
+            const tokenResponse = await fetch(tokenUrl, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    'client_id': process.env.TWITCH_CLIENT_ID,
+                    'client_secret': process.env.TWITCH_CLIENT_SECRET,
+                    'grant_type': 'client_credentials',
+                }),
+            });
+            const tokenJson = await tokenResponse.json();
+            console.log(tokenJson);
+
+            this.twitchAppToken = tokenJson.access_token;
+            this.twitchAppTokenExpiresAt = new Date().getTime() + tokenJson.expires_in * 1000;
+        }
+
+        // const url = `https://api.twitch.tv/helix/search/channels?query=${channel}`;
+        // const response = await fetch(url, {
+        //     method: 'GET',
+        //     headers: {
+        //         'client-id': process.env.TWITCH_CLIENT_ID,
+        //         'Authorization': `Bearer ${this.twitchAppToken}`,
+        //     },
+        // });
+        // const json = await response.json();
+        // console.log(json);
+        // return json.data.find(c => c.broadcaster_login === channel);
+
+        const url = `https://api.twitch.tv/helix/streams?user_login=${channel}`;
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'client-id': process.env.TWITCH_CLIENT_ID,
+                'Authorization': `Bearer ${this.twitchAppToken}`,
+            },
+        });
+        const json = await response.json();
+        console.log(json);
+
+        time();
+        return json.data.find(c => c.user_login === channel) ?? {};
     }
 }

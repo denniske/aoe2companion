@@ -1,9 +1,9 @@
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import {Flag, formatAgo} from '@nex/data';
+import {Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Flag, formatAgo, getTwitchChannel, IPlayer} from '@nex/data';
 import React, {useEffect} from 'react';
 import {getLeaderboardTextColor} from '../../helper/colors';
 import {getFlagIcon} from '../../helper/flags';
-import {ILeaderboard, ILeaderboardInfoRaw} from "@nex/data";
+import {ILeaderboard, getVerifiedPlayer} from "@nex/data";
 import {ImageLoader} from "./loader/image-loader";
 import {TextLoader} from "./loader/text-loader";
 import Icon from "react-native-vector-icons/FontAwesome5";
@@ -17,6 +17,8 @@ import Space from "./space";
 import {saveCurrentPrefsToStorage} from "../../service/storage";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
+import {useLazyApi} from '../../hooks/use-lazy-api';
+import {twitchLive} from '../../api/following';
 
 interface ILeaderboardRowProps {
     data: ILeaderboard;
@@ -144,6 +146,102 @@ interface IProfileProps {
     ready: boolean;
 }
 
+export function ProfileLive({data} : {data: IPlayer}) {
+    const styles = useStyles();
+
+    const verifiedPlayer = data ? getVerifiedPlayer(data?.profile_id!) : null;
+
+    const playerTwitchLive = useLazyApi(
+        {},
+        twitchLive, verifiedPlayer ? getTwitchChannel(verifiedPlayer) : ''
+    );
+
+    useEffect(() => {
+        if (verifiedPlayer && getTwitchChannel(verifiedPlayer)) {
+            playerTwitchLive.reload();
+        }
+    }, [verifiedPlayer]);
+
+    console.log(playerTwitchLive.data);
+
+    if (!verifiedPlayer?.['twitch']) {
+        return <MyText>p</MyText>;
+    }
+    // return <TouchableOpacity><MyText>{playerTwitchLive.data.viewer_count}</MyText></TouchableOpacity>;
+
+    // return <BigSmallText></BigSmallText>
+
+    return (
+            <MyText style={styles.row2} onPress={() => Linking.openURL(verifiedPlayer?.twitch)}>
+                {/*<Icon solid name="twitch" size={14} style={styles.twitchIcon} />*/}
+                {/*<MyText>{getTwitchChannel(verifiedPlayer)}</MyText>*/}
+                {/*<View style={{backgroundColor: 'blue', height: 10, width: 10,}}/>*/}
+
+                {/*<Icon solid name="circle" size={10} style={styles.liveIconInline} />*/}
+                {/*<MyText>Offline</MyText>*/}
+
+                {
+                    playerTwitchLive.data?.type === 'live' &&
+                    <>
+                        {/*<Icon solid name="circle" size={10} style={styles.liveIconInline} />*/}
+                        <MyText style={{color: '#e91a16'}}> ● </MyText>
+                        {/*<MyText style={{fontSize: 12, marginBottom: 5, textAlignVertical: 'center', lineHeight: 20}}>●MM</MyText>*/}
+                        {/*<MyText style={{ backgroundColor: 'green'}}>●•MM</MyText>*/}
+                        <MyText>{playerTwitchLive.data.viewer_count} </MyText>
+                        <Icon solid name="twitch" size={14} style={styles.twitchIcon} />
+                        <MyText> </MyText>
+                    </>
+                }
+                {/*{*/}
+                {/*    playerTwitchLive.data?.type !== 'live' &&*/}
+                {/*    <>*/}
+                {/*        /!*<Icon solid name="circle" size={10} style={styles.liveIcon2} />*!/*/}
+                {/*        <MyText>Offline</MyText>*/}
+                {/*    </>*/}
+                {/*}*/}
+                {/*<Icon solid name="circle" size={10} style={styles.liveIcon} />*/}
+                {/*<MyText> ({playerTwitchLive.data?.is_live ? 'Live' : 'Offline'}) </MyText>*/}
+                {/*<MyText onPress={() => Linking.openURL(verifiedPlayer?.twitch)}>View on twitch</MyText>*/}
+            </MyText>
+    )
+}
+
+// function BigSmallText(props: any) {
+//     let bigFontSize = 40;
+//     return (
+//         <MyText
+//             style={{
+//                 fontSize: bigFontSize,
+//                 lineHeight: bigFontSize,
+//             }}>
+//             A very long sentence that spans multiple lines
+//             <View
+//                 style={{
+//                     flexDirection: 'row',
+//                     alignItems: 'center',
+//                     height: bigFontSize,
+//                 }}>
+//                 <MyText
+//                     style={{
+//                         fontSize: 14,
+//                         paddingLeft: 10,
+//                     }}>
+//                     SMALL T
+//                 </MyText>
+//                 <MyText
+//                     style={{
+//                         fontSize: 6,
+//                         paddingLeft: 10,
+//                     }}>
+//                     TINY TEXT
+//                 </MyText>
+//             </View>
+//         </MyText>
+//     );
+// }
+
+// ● ●°∘•onPress={() => Linking.openURL(verifiedPlayer?.twitch)}
+
 export default function Profile({data, ready}: IProfileProps) {
     data = ready ? data : null;
 
@@ -170,15 +268,37 @@ export default function Profile({data, ready}: IProfileProps) {
         }
     }, [data]);
 
+    const verifiedPlayer = data ? getVerifiedPlayer(data?.profile_id!) : null;
+
+    const playerTwitchLive = useLazyApi(
+        {},
+        twitchLive, verifiedPlayer ? getTwitchChannel(verifiedPlayer) : ''
+    );
+
+    useEffect(() => {
+        if (verifiedPlayer && getTwitchChannel(verifiedPlayer)) {
+            playerTwitchLive.reload();
+        }
+    }, [verifiedPlayer]);
+
+    console.log(playerTwitchLive.data);
+
     return (
             <View style={styles.container}>
                 <View>
 
                     <View style={styles.row}>
-                        <View>
+                        <View style={styles.col}>
                             <View style={styles.row}>
                                 <ImageLoader style={styles.countryIcon} ready={data} source={getFlagIcon(data?.country)}/>
                                 <TextLoader width={100}>{data?.name}</TextLoader>
+
+                                {
+                                    verifiedPlayer &&
+                                    <Icon solid name="check-circle" size={14} style={styles.verifiedIcon} />
+                                }
+
+
                                 {
                                     data?.clan &&
                                     <MyText> ({getTranslation('main.profile.clan')}: {data?.clan})</MyText>
@@ -205,6 +325,33 @@ export default function Profile({data, ready}: IProfileProps) {
                             </TouchableOpacity>
                         }
                     </View>
+
+                    <MyText> </MyText>
+                    {
+                        verifiedPlayer?.['twitch'] != null &&
+                        <TouchableOpacity onPress={() => Linking.openURL(verifiedPlayer?.twitch)} style={styles.row2}>
+                            <Icon solid name="twitch" size={14} style={styles.twitchIcon} />
+                            <MyText>{getTwitchChannel(verifiedPlayer)}</MyText>
+                            {
+                                playerTwitchLive.data?.type === 'live' &&
+                                <>
+                                    <Icon solid name="circle" size={10} style={styles.liveIcon} />
+                                    <MyText>{playerTwitchLive.data.viewer_count}</MyText>
+                                    <MyText style={styles.liveTitle} numberOfLines={1}>{playerTwitchLive.data.title}</MyText>
+                                </>
+                            }
+                            {
+                                playerTwitchLive.data?.type !== 'live' &&
+                                <>
+                                    <Icon solid name="circle" size={10} style={styles.liveIcon2} />
+                                    <MyText>Offline</MyText>
+                                </>
+                            }
+                            {/*<Icon solid name="circle" size={10} style={styles.liveIcon} />*/}
+                            {/*<MyText> ({playerTwitchLive.data?.is_live ? 'Live' : 'Offline'}) </MyText>*/}
+                            {/*<MyText onPress={() => Linking.openURL(verifiedPlayer?.twitch)}>View on twitch</MyText>*/}
+                        </TouchableOpacity>
+                    }
 
                     {/*<MyText style={styles.sectionHeader}>Rating</MyText>*/}
                     <Space/>
@@ -304,6 +451,38 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     followButtonIcon: {
         color: theme.textNoteColor,
     },
+
+    verifiedIcon: {
+        marginLeft: 5,
+        color: theme.linkColor,
+    },
+    liveTitle: {
+        marginLeft: 10,
+        color: theme.textNoteColor,
+        flex: 1,
+    },
+    liveIcon: {
+        marginLeft: 10,
+        marginRight: 5,
+        color: '#e91a16',
+    },
+    liveIconInline: {
+        marginLeft: 5,
+        marginRight: 5,
+        paddingLeft: 5,
+        paddingRight: 5,
+        color: '#e91a16',
+    },
+    liveIcon2: {
+        marginLeft: 5,
+        marginRight: 5,
+        color: 'grey',
+    },
+    twitchIcon: {
+        marginRight: 5,
+        color: '#6441a5',
+    },
+
     cellLeaderboard: {
         // backgroundColor: 'red',
         width: 75,
@@ -354,6 +533,14 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         alignItems: 'center',
         paddingVertical: 2,
     },
+
+    row2: {
+        // backgroundColor: 'green',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+
     leaderboardRow: {
         flexDirection: 'row',
         alignItems: 'center',

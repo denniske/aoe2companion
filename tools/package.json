@@ -17,7 +17,8 @@
     "temp3": "ts-node src/temp3.ts",
     "temp4": "ts-node src/temp4.ts",
     "executor": "ts-node src/executor.ts",
-    "translate": "ts-node src/translate.ts"
+    "translate": "ts-node src/translate.ts",
+    "reference": "ts-node src/reference.ts"
   },
   "author": "",
   "license": "ISC",
@@ -40,6 +41,7 @@
     "node-fetch": "^2.6.0",
     "png-file-stream": "^1.2.1",
     "sharp": "^0.27.1",
-    "tinify": "^1.6.0-beta.2"
+    "tinify": "^1.6.0-beta.2",
+    "yaml": "^1.10.0"
   }
 }

@@ -21,6 +21,7 @@ import {fetchPlayerMatches} from "../api/player-matches";
 import {IFollowingEntry} from "../service/storage";
 import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';
+import {ProfileLive} from './components/profile';
 
 
 export function feedTitle(props: any) {
@@ -214,8 +215,15 @@ export function FeedList() {
                                                 !samePlayers &&
                                                 <MyText style={styles.players}>
                                                     {filteredPlayers.map((p, i) =>
-                                                        <MyText key={i}>
+                                                        <MyText key={i} style={styles.players2}>
                                                             <MyText style={styles.player} onPress={() => gotoPlayer(p)}>{formatPlayer(p, i)}</MyText>
+
+                                                            {
+                                                                !match.finished &&
+                                                                // match.match_id == '72116505' &&
+                                                                <ProfileLive data={p}/>
+                                                            }
+
                                                             { i < len-2 && <MyText>, </MyText> }
                                                             { i == len-2 && <MyText> {getTranslation('feed.following.and')} </MyText> }
                                                         </MyText>
@@ -348,7 +356,18 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     },
 
     players: {
-        marginBottom: 14,
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        marginBottom: 12,
+        lineHeight: 24,
+    },
+    players2: {
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignItems: 'center',
     },
     player: {
         fontWeight: 'bold',
