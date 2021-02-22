@@ -345,6 +345,6 @@ export class ApiController {
         console.log(json);
 
         time();
-        return json.data.find(c => c.user_login === channel) ?? {};
+        return json.data.find(c => c.user_login.toLowerCase() === channel.toLowerCase() || c.user_name.toLowerCase() === channel.toLowerCase()) ?? {};
     }
 }

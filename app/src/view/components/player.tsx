@@ -3,7 +3,7 @@ import {Image, Linking, Platform, StyleSheet, TextStyle, TouchableOpacity, View}
 import {getPlayerBackgroundColor} from '../../helper/colors';
 import {useNavigation} from '@react-navigation/native';
 import {userIdFromBase} from '../../helper/user';
-import {civs, IMatch, isBirthday, moProfileId, noop} from '@nex/data';
+import {civs, IMatch, isBirthday, isVerifiedPlayer, moProfileId, noop} from '@nex/data';
 import {RootStackProp} from '../../../App';
 import {getSlotTypeName, IPlayer} from "@nex/data";
 import {TextLoader} from "./loader/text-loader";
@@ -11,6 +11,7 @@ import IconFA5 from 'react-native-vector-icons/FontAwesome5';
 import {MyText} from "./my-text";
 import {getCivIconByIndex, getCivNameById} from "../../helper/civs";
 import {createStylesheet} from '../../theming-new';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 
 interface IPlayerProps {
@@ -88,8 +89,14 @@ export function Player({match, player, highlight, freeForALl, canDownloadRec}: I
                         🥳
                     </MyText>
                 }
-                <MyText style={[styles.playerNameCol, playerNameStyle]} numberOfLines={1}>
-                    {player.slot_type != 1 ? getSlotTypeName(player.slot_type) : player.name}
+                <MyText style={styles.playerNameCol} numberOfLines={1}>
+                    <MyText style={playerNameStyle}>
+                        {player.slot_type != 1 ? getSlotTypeName(player.slot_type) : player.name}
+                    </MyText>
+                    {
+                        player.slot_type === 1 && isVerifiedPlayer(player.profile_id) &&
+                        <> <Icon solid name="check-circle" size={14} style={styles.verifiedIcon} /></>
+                    }
                 </MyText>
             </TouchableOpacity>
 
@@ -111,6 +118,10 @@ export function Player({match, player, highlight, freeForALl, canDownloadRec}: I
 }
 
 const useStyles = createStylesheet(theme => StyleSheet.create({
+    verifiedIcon: {
+        marginLeft: 5,
+        color: theme.linkColor,
+    },
     skullIcon: {
         marginLeft: 2,
     },

@@ -789,7 +789,7 @@ export const aoeReferenceData = {
             "esportsearnings": 12245,
             "aoeelo": 30,
             "liquipedia": "JoaDn_105",
-            "twitch": "https://www.twitch.tv/JoaDn_105/",
+            "twitch": "https://www.twitch.tv/JorDan_AoE/",
             "youtube": "https://www.youtube.com/channel/UCimCFIisAqXW9udVhN_LpwQ",
             "discord": "https://discord.gg/TWpUYVh",
             "platforms": {

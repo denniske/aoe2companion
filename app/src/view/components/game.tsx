@@ -39,6 +39,20 @@ const formatDuration = (start: Date, finish: Date) => {
 export function Game({data, user, highlightedUsers, expanded = false}: IGameProps) {
     const theme = useAppTheme();
     const styles = useStyles();
+
+    const canDownloadRecDict = useLazyApi(
+        {},
+        hasRecDict, data
+    );
+
+    useEffect(() => {
+        if (!data) return;
+        if (!expanded) return;
+        if (Platform.OS !== 'web') return;
+        if (canDownloadRecDict.loading || canDownloadRecDict.touched || canDownloadRecDict.error) return;
+        canDownloadRecDict.reload();
+    }, [data, expanded])
+
     if (data == null) {
         const playersInTeam1 = Array(3).fill(0);
         const playersInTeam2 = Array(3).fill(0);
@@ -91,18 +105,6 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
         const finished = data.finished || new Date();
         duration = formatDuration(data.started, finished);
     }
-
-    const canDownloadRecDict = useLazyApi(
-        {},
-        hasRecDict, data
-    );
-
-    useEffect(() => {
-        if (!expanded) return;
-        if (Platform.OS !== 'web') return;
-        if (canDownloadRecDict.loading || canDownloadRecDict.touched || canDownloadRecDict.error) return;
-        canDownloadRecDict.reload();
-    }, [expanded])
 
     const checkRecAvailability = () => {
         if (Platform.OS !== 'web') return;

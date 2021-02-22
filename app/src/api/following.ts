@@ -164,18 +164,6 @@ export async function setNotificationConfig(account_id: string, push_enabled: bo
     })
 }
 
-// export interface ITwitchChannel {
-//     broadcaster_language: string;
-//     broadcaster_login: string;
-//     display_name: string;
-//     game_id: string;
-//     id: string;
-//     is_live: boolean;
-//     tag_ids: string[];
-//     thumbnail_url: string;
-//     title: string;
-//     started_at: Date;
-// }
 
 export interface ITwitchChannel {
     id: string;
@@ -202,6 +190,48 @@ export async function twitchLive(channel: string): Promise<ITwitchChannel> {
     const url = getHost('aoe2companion-api') + `twitch/live?channel=${channel}`;
     console.log(url);
     return await fetchJson('twitchLive', url, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    });
+}
+
+
+interface Channel {
+    id: string;
+    name: string;
+    position: number;
+}
+
+interface Game {
+    name: string;
+}
+
+interface Member {
+    id: string;
+    username: string;
+    discriminator: string;
+    avatar?: any;
+    status: string;
+    avatar_url: string;
+    game: Game;
+}
+
+export interface IDiscordInfo {
+    id: string;
+    name: string;
+    instant_invite?: any;
+    channels: Channel[];
+    members: Member[];
+    presence_count: number;
+}
+
+export async function discordOnline(serverId: string): Promise<IDiscordInfo> {
+    const url = `https://discord.com/api/v6/guilds/${serverId}/widget.json`;
+    console.log(url);
+    return await fetchJson('discordOnline', url, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',

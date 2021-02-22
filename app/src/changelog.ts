@@ -16,6 +16,24 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
+    '22.0.3': [
+        {
+            type: 'feature',
+            title: 'Add verified badge for players listed in [aoc-reference-data](https://github.com/SiegeEngineers/aoc-reference-data/blob/master/data/players.yaml)',
+        },
+        {
+            type: 'feature',
+            title: 'Add social links for verified players',
+        },
+        {
+            type: 'minor',
+            title: 'Add spectate button in feed and download rec button in match details (only web)',
+        },
+        {
+            type: 'minor',
+            title: 'Enable push notifications for web version',
+        },
+    ],
     '22.0.2': [
         {
             type: 'minor',

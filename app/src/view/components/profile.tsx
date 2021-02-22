@@ -1,5 +1,5 @@
 import {Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {Flag, formatAgo, getTwitchChannel, IPlayer} from '@nex/data';
+import {Flag, formatAgo, getDiscordInvitationId, getTwitchChannel, IPlayer} from '@nex/data';
 import React, {useEffect} from 'react';
 import {getLeaderboardTextColor} from '../../helper/colors';
 import {getFlagIcon} from '../../helper/flags';
@@ -19,6 +19,9 @@ import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
 import {useLazyApi} from '../../hooks/use-lazy-api';
 import {twitchLive} from '../../api/following';
+import DiscordBadge from './badge/discord-badge';
+import YoutubeBadge from './badge/youtube-badge';
+import TwitchBadge from './badge/twitch-badge';
 
 interface ILeaderboardRowProps {
     data: ILeaderboard;
@@ -208,24 +211,12 @@ export default function Profile({data, ready}: IProfileProps) {
 
     const verifiedPlayer = data ? getVerifiedPlayer(data?.profile_id!) : null;
 
-    const playerTwitchLive = useLazyApi(
-        {},
-        twitchLive, verifiedPlayer ? getTwitchChannel(verifiedPlayer) : ''
-    );
-
-    useEffect(() => {
-        if (verifiedPlayer && getTwitchChannel(verifiedPlayer)) {
-            playerTwitchLive.reload();
-        }
-    }, [verifiedPlayer]);
-
-    console.log(playerTwitchLive.data);
-
     return (
             <View style={styles.container}>
                 <View>
 
                     <View style={styles.row}>
+                        {/*<ImageLoader style={styles.profileIcon} ready={data} source={{ uri: 'https://github.com/SiegeEngineers/aoc-reference-data/raw/master/data/photos/players/theviper.jpg'}}/>*/}
                         <View>
                             <View style={styles.row}>
                                 <ImageLoader style={styles.countryIcon} ready={data} source={getFlagIcon(data?.country)}/>
@@ -261,32 +252,78 @@ export default function Profile({data, ready}: IProfileProps) {
                         }
                     </View>
 
-                    <MyText> </MyText>
-                    {
-                        verifiedPlayer?.['twitch'] != null &&
-                        <TouchableOpacity onPress={() => Linking.openURL(verifiedPlayer?.twitch)} style={styles.row}>
-                            <Icon solid name="twitch" size={14} style={styles.twitchIcon} />
-                            <MyText>{getTwitchChannel(verifiedPlayer)}</MyText>
-                            {
-                                playerTwitchLive.data?.type === 'live' &&
-                                <>
-                                    <Icon solid name="circle" size={10} style={styles.liveIcon} />
-                                    <MyText>{playerTwitchLive.data.viewer_count}</MyText>
-                                    <MyText style={styles.liveTitle} numberOfLines={1}>{playerTwitchLive.data.title}</MyText>
-                                </>
-                            }
-                            {
-                                playerTwitchLive.data?.type !== 'live' &&
-                                <>
-                                    <Icon solid name="circle" size={10} style={styles.liveIconOff} />
-                                    <MyText>Offline</MyText>
-                                </>
-                            }
-                        </TouchableOpacity>
-                    }
+                    <Space/>
+
+                    {/*{*/}
+                    {/*    verifiedPlayer?.['twitch'] != null &&*/}
+                    {/*    <TouchableOpacity onPress={() => Linking.openURL(verifiedPlayer?.twitch)} style={styles.row}>*/}
+                    {/*        <Icon solid name="twitch" size={14} style={styles.twitchIcon} />*/}
+                    {/*        <MyText>{getTwitchChannel(verifiedPlayer)}</MyText>*/}
+                    {/*        {*/}
+                    {/*            playerTwitchLive.data?.type === 'live' &&*/}
+                    {/*            <>*/}
+                    {/*                <Icon solid name="circle" size={10} style={styles.liveIcon} />*/}
+                    {/*                <MyText>{playerTwitchLive.data.viewer_count}</MyText>*/}
+                    {/*                <MyText style={styles.liveTitle} numberOfLines={1}>{playerTwitchLive.data.title}</MyText>*/}
+                    {/*            </>*/}
+                    {/*        }*/}
+                    {/*        {*/}
+                    {/*            playerTwitchLive.data?.type !== 'live' &&*/}
+                    {/*            <>*/}
+                    {/*                <Icon solid name="circle" size={10} style={styles.liveIconOff} />*/}
+                    {/*                <MyText>Offline</MyText>*/}
+                    {/*            </>*/}
+                    {/*        }*/}
+                    {/*    </TouchableOpacity>*/}
+                    {/*}*/}
+
+                    {/*<TouchableOpacity onPress={() => Linking.openURL(verifiedPlayer?.twitch)} style={styles.row}>*/}
+                    {/*    <Icon solid name="youtube" size={14} style={styles.youtubeIcon} />*/}
+                    {/*    <MyText> watch</MyText>*/}
+                    {/*</TouchableOpacity>*/}
+
+                    {/*<TouchableOpacity onPress={() => Linking.openURL(verifiedPlayer?.twitch)} style={styles.row}>*/}
+                    {/*    <Icon solid name="discord" size={14} style={styles.discordIcon} />*/}
+                    {/*    <MyText> chat</MyText>*/}
+                    {/*</TouchableOpacity>*/}
 
                     {/*<MyText style={styles.sectionHeader}>Rating</MyText>*/}
+
+                    {/*<SvgUri*/}
+                    {/*    width="100%"*/}
+                    {/*    uri="http://thenewcode.com/assets/images/thumbnails/homer-simpson.svg"*/}
+                    {/*/>*/}
+
+                    {/*<Image source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/0/0a/Canon_wordmark.svg', height: 20, width: 100 }} style={{ height: 20, width: 100 }} />*/}
+                    {/*<Image source={{ uri: 'https://img.shields.io/discord/727175083977736262.svg?label=Discord&logo=discord&logoColor=ffffff&labelColor=7289DA&color=2c2f33', height: 20 }} />*/}
+
+                    <View style={styles.row}>
+                        {
+                            verifiedPlayer?.discord &&
+                            <View style={styles.badge}>
+                                <DiscordBadge serverId={verifiedPlayer?.discordServerId} invitationId={getDiscordInvitationId(verifiedPlayer)}/>
+                            </View>
+                        }
+                        {
+                            verifiedPlayer?.youtube &&
+                            <View style={styles.badge}>
+                                <YoutubeBadge/>
+                            </View>
+                        }
+                        {
+                            verifiedPlayer?.twitch != null &&
+                            <View style={styles.badge}>
+                                <TwitchBadge channel={getTwitchChannel(verifiedPlayer)} />
+                            </View>
+                        }
+                    </View>
+
                     <Space/>
+
+                    {/*<SvgUri uri="https://img.shields.io/discord/727175083977736262.svg?label=Discord&logo=discord&logoColor=ffffff&labelColor=7289DA&color=2c2f33" />*/}
+                    {/*<Space/>*/}
+                    {/*<Image source={{uri:"https://raster.shields.io/discord/727175083977736262.svg?label=Discord&logo=discord&logoColor=ffffff&labelColor=7289DA&color=2c2f33", height: 20, width: 160}} />*/}
+                    {/*<Space/>*/}
 
                     {/*<ScrollView contentContainerStyle={styles.scrollContent} style={styles.scrollContainer} horizontal={true} persistentScrollbar={true}>*/}
                     {/*    <View style={styles.leaderboardRow}>*/}
@@ -406,6 +443,17 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         marginRight: 5,
         color: '#6441a5',
     },
+    discordIcon: {
+        marginRight: 5,
+        color: '#7289DA',
+    },
+    youtubeIcon: {
+        marginRight: 5,
+        color: '#FF0000',
+    },
+    badge: {
+        marginRight: 10,
+    },
     cellLeaderboard: {
         // backgroundColor: 'red',
         width: 75,
@@ -455,6 +503,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingVertical: 2,
+        // backgroundColor: 'pink',
     },
     leaderboardRow: {
         flexDirection: 'row',
@@ -476,6 +525,14 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         width: 21,
         height: 15,
         marginRight: 5,
+    },
+    profileIcon: {
+        width: 35,
+        height: 35,
+        marginRight: 7,
+        marginTop: -2,
+        borderWidth: 1,
+        borderColor: theme.textNoteColor,
     },
     expanded: {
         flex: 1,

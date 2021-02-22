@@ -12,6 +12,8 @@ import {createStylesheet} from '../../theming-new';
 import FlatListLoadingIndicator from './flat-list-loading-indicator';
 import {getTranslation} from '../../helper/translate';
 import { useCavy } from '../testing/tester';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import {isVerifiedPlayer} from '@nex/data';
 
 interface IPlayerProps {
     player: IFetchedUser;
@@ -41,7 +43,13 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
                 <View style={styles.row}>
                     <View style={styles.cellName}>
                         <Image fadeDuration={0} style={styles.countryIcon} source={getFlagIcon(player.country)}/>
-                        <MyText style={styles.name} numberOfLines={1}>{player.name}</MyText>
+                        <MyText style={styles.name} numberOfLines={1}>
+                            {player.name}
+                            {
+                                isVerifiedPlayer(player.profile_id) &&
+                                <> <Icon solid name="check-circle" size={14} style={styles.verifiedIcon} /></>
+                            }
+                        </MyText>
                     </View>
                     <MyText style={styles.cellGames}>{player.games}</MyText>
                     <View style={styles.cellAction}>
@@ -199,6 +207,10 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
 }
 
 const useStyles = createStylesheet(theme => StyleSheet.create({
+    verifiedIcon: {
+        marginLeft: 5,
+        color: theme.linkColor,
+    },
     centerText: {
         textAlign: 'center',
         marginVertical: 20,
@@ -226,6 +238,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         flex: 2.7,
         flexDirection: 'row',
         alignItems: 'center',
+        paddingRight: 5,
     },
     name: {
         flex: 1,
