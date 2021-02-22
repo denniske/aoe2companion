@@ -84,12 +84,16 @@ export default function AboutPage() {
             <MyText style={styles.heading}>{getTranslation('about.heading.supporters')}</MyText>
             <MyText style={styles.content}>Andreas Teppe</MyText>
             <MyText style={styles.content}>ddk_deepak</MyText>
+            <MyText style={styles.content}>Dr. Bounty</MyText>
             <MyText style={styles.content}>Dumb Ian</MyText>
+            <MyText style={styles.content}>edvorg</MyText>
             <MyText style={styles.content}>eltrevador</MyText>
             <MyText style={styles.content}>Fabian Riebe</MyText>
             <MyText style={styles.content}>|GZ| tAMe</MyText>
             <MyText style={styles.content}>JJ_Ronda</MyText>
             <MyText style={styles.content}>Kloakan</MyText>
+            <MyText style={styles.content}>Markus</MyText>
+            <MyText style={styles.content}>Maxifruité</MyText>
             <MyText style={styles.content}>Mikael Laukkanen</MyText>
             <MyText style={styles.content}>Noorulhuda Paleja</MyText>
             <MyText style={styles.content}>Pikmans030</MyText>
@@ -149,6 +153,13 @@ export default function AboutPage() {
                 <MyText style={styles.content}>Game data from </MyText>
                 <TouchableOpacity onPress={() => Linking.openURL('https://github.com/SiegeEngineers/aoe2techtree')}>
                     <MyText style={appStyles.link}>aoe2techtree</MyText>
+                </TouchableOpacity>
+            </View>
+
+            <View style={styles.row}>
+                <MyText style={styles.content}>Player info from </MyText>
+                <TouchableOpacity onPress={() => Linking.openURL('https://github.com/SiegeEngineers/aoc-reference-data')}>
+                    <MyText style={appStyles.link}>aoc-reference-data</MyText>
                 </TouchableOpacity>
             </View>
 
