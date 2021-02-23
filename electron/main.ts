@@ -11,12 +11,12 @@ let electrolyticToken = null;
 
 const electrolytic = Electrolytic({
   appKey: 'IpANYN0DRa84xPpmvQ9Z',
-})
+});
 
-electrolytic.on('token', (token) => {
+electrolytic.on('token', token => {
   electrolyticToken = token;
   console.log('user token', token);
-})
+});
 
 function showNotification (payload) {
   const notification = new Notification(payload);
@@ -38,9 +38,16 @@ electrolytic.on('config', (updatedConfig) => {
 });
 
 ipcMain.on('get-electrolytic-token', (event, arg) => {
-  event.sender.send('get-electrolytic-token-response', electrolyticToken);
+  const sendTokenToApp = token => {
+    event.sender.send('get-electrolytic-token-response', token);
+    electrolytic.off('token', sendTokenToApp);
+  };
+  if (electrolyticToken) {
+    sendTokenToApp(electrolyticToken);
+  } else {
+    electrolytic.on('token', sendTokenToApp);
+  }
 });
-
 
 const debug = true && serve;
 const width = 450 + (debug ? 557 : 0);

@@ -15,6 +15,8 @@ import {composeUserId, parseUserId, UserId} from './src/helper/user';
 import UserPage, {userMenu} from './src/view/user.page';
 import {useApi} from './src/hooks/use-api';
 import {
+    IAccount,
+    IConfig,
     loadAccountFromStorage,
     loadConfigFromStorage, loadFollowingFromStorage, loadPrefsFromStorage, loadSettingsFromStorage
 } from './src/service/storage';
@@ -70,6 +72,8 @@ import * as Localization from 'expo-localization';
 import {setlanguage} from './src/redux/statecache';
 import {ITranslationService} from '../data/src/lib/aoe-data';
 import {ConditionalTester} from "./src/view/testing/tester";
+import {getElectronPushToken, isElectron} from './src/helper/electron';
+import {setAccountPushTokenElectron} from './src/api/following';
 
 initSentry();
 
@@ -476,6 +480,25 @@ const customDarkNavigationTheme = {
     },
 };
 
+let updatedPushTokenForElectron = false;
+
+async function updatePushTokenForElectron(config: IConfig, account: IAccount) {
+    if (Platform.OS !== 'web') return;
+    if (!isElectron()) return;
+    if (updatedPushTokenForElectron) return;
+
+    console.log('getElectronPushToken');
+    const token = await getElectronPushToken();
+
+    try {
+        console.log('Updating push token for electron', account.id, token);
+        await setAccountPushTokenElectron(account.id, token);
+    } catch (e) {
+        console.error(e);
+    }
+
+    updatedPushTokenForElectron = true;
+}
 
 export function AppWrapper() {
     // AsyncStorage.removeItem('prefs');
@@ -500,9 +523,11 @@ export function AppWrapper() {
     const _prefs = useApi({}, [prefs], state => state.prefs, (state, value) => state.prefs = value, () => loadPrefsFromStorage());
     const _config = useApi({}, [config], state => state.config, (state, value) => state.config = value, () => loadConfigFromStorage());
 
-    // useEffect(() => {
-    //     initPusher();
-    // }, []);
+    useEffect(() => {
+        if (config == null) return;
+        if (account == null) return;
+        updatePushTokenForElectron(config, account);
+    }, [config, account]);
 
     useEffect(() => {
         if (config == null) return;
