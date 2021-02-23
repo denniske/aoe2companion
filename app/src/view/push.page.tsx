@@ -213,7 +213,7 @@ export default function PushPage() {
                     <Button
                         mode="outlined"
                         onPress={async () => {
-                            nav('Feed', { match_id: 'xxx' });
+                            nav('Feed', { match_id: 'xxx' + new Date().getTime() });
                         }}
                     >
                         {getTranslation('push.action.sendtestnotification')}

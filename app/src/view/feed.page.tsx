@@ -86,6 +86,14 @@ export function FeedList() {
         fetchPlayerMatches, 'aoe2de', 0, 15, following
     );
 
+    const refetch = async () => {
+        console.log('REFETCH');
+        setRefetching(true);
+        await matches.refetch('aoe2de', 0, 15, following);
+        console.log('REFETCH DONE');
+        setRefetching(false);
+    };
+
     const refresh = () => {
         if (!isActiveRoute) return;
 
@@ -96,8 +104,7 @@ export function FeedList() {
             // console.log('INIT');
             matches.init('aoe2de', 0, 15, following);
         } else {
-            // console.log('REFETCH');
-            matches.refetch('aoe2de', 0, 15, following);
+            refetch();
         }
 
         setPrevFollowing(following);
