@@ -11,8 +11,11 @@ import {SvgUri} from 'react-native-svg';
 interface Props {
     label: string;
     labelColor: string;
+    labelTextColor?: string;
     content?: string;
     contentColor?: string;
+    contentTextColor?: string;
+    logoPng?: any;
     logoSvg?: string;
     logoIcon?: string;
     logoColor: string;
@@ -23,7 +26,7 @@ interface Props {
 export default function Badge(props: Props) {
     const styles = useStyles();
 
-    const {label, content, labelColor, contentColor = 'white', logoSvg, logoIcon, logoColor, dot} = props;
+    const {label, content, labelColor, labelTextColor = 'white', contentColor = 'white', contentTextColor = 'white', logoPng, logoSvg, logoIcon, logoColor, dot} = props;
 
     return (
         <View style={styles.container}>
@@ -31,6 +34,10 @@ export default function Badge(props: Props) {
                 style={styles.label}
                 colors={[labelColor, shadeColor(labelColor, -20)]}
             >
+                {
+                    logoPng &&
+                    <Image style={styles.logo} source={logoPng} />
+                }
                 {
                     logoSvg && Platform.OS === 'web' &&
                     <Image style={styles.logo} source={{uri: logoSvg, width: 14, height: 14}} />
@@ -43,7 +50,7 @@ export default function Badge(props: Props) {
                     logoIcon &&
                     <Icon5 style={styles.logo} name={logoIcon} color={logoColor} />
                 }
-                <MyText style={styles.labelText}>{label}</MyText>
+                <MyText style={[styles.labelText, { color: labelTextColor }]}>{label}</MyText>
             </LinearGradient>
             {
                 content &&
@@ -54,9 +61,8 @@ export default function Badge(props: Props) {
                     {
                         dot &&
                         <MyText style={{color: '#e91a16', fontSize: 10}}> ● </MyText>
-                        // <Icon5 solid name="circle" size={8} style={styles.liveIcon} />
                     }
-                    <MyText style={styles.contentText}>{content}</MyText>
+                    <MyText style={[styles.contentText, { color: contentTextColor }]}>{content}</MyText>
                 </LinearGradient>
             }
         </View>
@@ -77,15 +83,15 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         alignSelf: 'flex-start',
     },
     labelText: {
-        color: 'white',
         fontSize: 11,
     },
     contentText: {
-        color: 'white',
         fontSize: 11,
     },
     logo: {
         marginRight: 4,
+        width: 14,
+        height: 14,
         ...(Platform.OS === 'web' ? {filter: 'brightness(0) invert()'} : {}),
     },
     label: {

@@ -129,3 +129,12 @@ export function getYoutubeChannel(verifiedPlayer: IReferencePlayer) {
         ?.replace('youtube.com/channel/', '')
         ?.replace('/', '');
 }
+
+export function getDoyouChannel(verifiedPlayer: IReferencePlayer) {
+    return verifiedPlayer.douyu
+        ?.replace('http://', '')
+        ?.replace('https://', '')
+        ?.replace('www.', '')
+        ?.replace('douyu.com', '')
+        ?.replace('/', '');
+}

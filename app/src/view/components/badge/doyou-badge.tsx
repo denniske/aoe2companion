@@ -8,7 +8,7 @@ interface Props {
     channel: string;
 }
 
-export default function YoutubeBadge(props: Props) {
+export default function DouyuBadge(props: Props) {
     const { channel } = props;
 
     const open = (url: string) => {
@@ -16,11 +16,12 @@ export default function YoutubeBadge(props: Props) {
     };
 
     return (
-        <TouchableOpacity onPress={() => open(`https://www.youtube.com/channel/${channel}`)}>
+        <TouchableOpacity onPress={() => open(`https://www.douyu.com/${channel}`)}>
             <Badge
-                label="Youtube"
-                labelColor="#FF0000"
-                logoIcon="youtube"
+                label="Douyu"
+                labelColor="#FFFFFF"
+                labelTextColor="#000000"
+                logoPng={require('../../../../assets/icon/douyu.png')}
                 logoColor="white" />
         </TouchableOpacity>
     );
