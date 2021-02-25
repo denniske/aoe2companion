@@ -106,6 +106,7 @@ export default function AboutPage() {
             <MyText style={styles.content}>S1nglecut</MyText>
             <MyText style={styles.content}>Sebastian Janus</MyText>
             <MyText style={styles.content}>Stormtrooper</MyText>
+            <MyText style={styles.content}>Tom B</MyText>
             <MyText style={styles.content}>Ultima Gaina</MyText>
             <MyText style={styles.content}>Zachary Bird</MyText>
             <MyText style={styles.content}>@qotile</MyText>

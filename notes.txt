@@ -178,6 +178,10 @@ sam deploy
 
 
 
+
+
+
+
 docker build -t denniske/aoe2companion-mgz:5 . && docker push denniske/aoe2companion-mgz:5
 docker container kill $(docker ps -q) && docker run -p 0.0.0.0:80:80 -d denniske/aoe2companion-mgz:5
 
