@@ -16,6 +16,16 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
+    '22.0.4': [
+        {
+            type: 'feature',
+            title: 'Increased followed players limit to 75',
+        },
+        {
+            type: 'minor',
+            title: 'Show loading indicator while refetching feed',
+        },
+    ],
     '22.0.3': [
         {
             type: 'feature',

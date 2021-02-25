@@ -5,7 +5,7 @@ import {follow, unfollow} from "../api/following";
 import store from "../redux/store";
 import {time} from "@nex/data";
 
-const maxFollowing = 30;
+const maxFollowing = 75;
 
 export const toggleFollowing = async (user: IPlayerListPlayer) => {
     time(1);
@@ -18,7 +18,7 @@ export const toggleFollowing = async (user: IPlayerListPlayer) => {
         await unfollow(account_id, [user.profile_id]);
     } else {
         if (following.length >= maxFollowing) {
-            alert(`You can follow a maxmium of ${maxFollowing} users. Unfollow a user first to follow a new one.`);
+            alert(`You can follow a maximum of ${maxFollowing} users. Unfollow a user first to follow a new one.`);
             return;
         }
         await follow(account_id, [user.profile_id], pushNotificationsEnabled);
