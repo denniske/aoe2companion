@@ -91,31 +91,36 @@ export class ReplayTask implements OnModuleInit {
     }
 
     async runWorker(workerNum: number) {
+        let error = false;
         const match = this.matches.shift();
-
-        if (match == null) {
-            setTimeout(() => this.runWorker(workerNum), 1 * 1000);
-            return;
+        if (match != null) {
+            this.pending.push(match.match_id);
+            try {
+                await this.doWork(workerNum, match);
+            } catch (e) {
+                error = true;
+            }
+            this.pending.splice(this.pending.indexOf(match.match_id), 1);
         }
+        setTimeout(() => this.runWorker(workerNum), error ? 60 * 1000 : 1000);
+    }
 
-        // console.log(match);
-
-        this.pending.push(match.match_id);
-
+    async doWork(workerNum: number, match: IMatchFromApi) {
         console.log();
         console.log(formatDayAndTime(fromUnixTime(match.started)));
         // console.log(formatDayAndTime(fromUnixTime(match.finished)));
         console.log(`WORKER ${workerNum}...`);
 
-        try {
+        // try {
             const hasAtLeastOneWinnerAndDefeatedPlayer = match.players.some(p => p.won === true) && match.players.some(p => p.won === false);
             if (!hasAtLeastOneWinnerAndDefeatedPlayer) {
                 await this.fetchFromAoe2Net(match);
             }
-        } catch (e) {
-            setTimeout(() => this.runWorker(workerNum), 60 * 1000);
-            return;
-        }
+        // } catch (e) {
+        //     this.pending.splice(this.pending.indexOf(match.match_id), 1);
+        //     setTimeout(() => this.runWorker(workerNum), 60 * 1000);
+        //     return;
+        // }
 
         // Only replay ranked matches
         if (![1, 2, 3, 4].includes(match.leaderboard_id)) {
@@ -128,8 +133,6 @@ export class ReplayTask implements OnModuleInit {
                     replayed: 2000,
                 },
             });
-            this.pending.splice(this.pending.indexOf(match.match_id), 1);
-            setTimeout(() => this.runWorker(workerNum), 1 * 1000);
             return;
         }
 
@@ -143,14 +146,12 @@ export class ReplayTask implements OnModuleInit {
             const replayExists = await this.existsReplay(match.match_id, player.profile_id);
             if (!replayExists) continue;
 
-            console.log(`https://aoe.ms/replay/?gameId=${match.match_id}&profileId=${player.profile_id}`);
-
-            try {
+            // try {
                 replayResult = await this.processReplay(match.match_id, player.profile_id);
-            } catch (e) {
-                setTimeout(() => this.runWorker(workerNum), 60 * 1000);
-                return;
-            }
+            // } catch (e) {
+            //     setTimeout(() => this.runWorker(workerNum), 60 * 1000);
+            //     return;
+            // }
             // console.log('replayResult', replayResult);
             // console.log('replayResult', JSON.stringify(replayResult));
 
@@ -169,8 +170,6 @@ export class ReplayTask implements OnModuleInit {
                     replayed: replayResult.status,
                 },
             });
-            this.pending.splice(this.pending.indexOf(match.match_id), 1);
-            setTimeout(() => this.runWorker(workerNum), 1 * 1000);
             return;
         }
 
@@ -253,15 +252,15 @@ export class ReplayTask implements OnModuleInit {
         });
 
         if (state == 1) {
-            if (match.players.filter(p => p.profile_id == 0).length > 0) {
-                console.log('==> WITH PC', match.match_id);
-                console.log('==> WITH PC', match.match_id);
-                console.log('==> WITH PC', match.match_id);
-                console.log('==> WITH PC', match.match_id);
-                console.log('==> WITH PC', match.match_id);
-                console.log('==> WITH PC', match.match_id);
-                console.log('==> WITH PC', match.match_id);
-            }
+            // if (match.players.filter(p => p.profile_id == 0).length > 0) {
+            //     console.log('==> WITH PC', match.match_id);
+            //     console.log('==> WITH PC', match.match_id);
+            //     console.log('==> WITH PC', match.match_id);
+            //     console.log('==> WITH PC', match.match_id);
+            //     console.log('==> WITH PC', match.match_id);
+            //     console.log('==> WITH PC', match.match_id);
+            //     console.log('==> WITH PC', match.match_id);
+            // }
 
             for (const replayPlayer of replayResult.replay.players) {
                 // const existingPlayer = match.players.find(p => p.profile_id == replayPlayer.user_id);
@@ -280,9 +279,6 @@ export class ReplayTask implements OnModuleInit {
                 });
             }
         }
-
-        this.pending.splice(this.pending.indexOf(match.match_id), 1);
-        setTimeout(() => this.runWorker(workerNum), 1 * 1000);
     }
 
     async incrementAwsUsage(timeInMs: number, bandwidthInBytes: number) {
@@ -341,12 +337,12 @@ export class ReplayTask implements OnModuleInit {
             const text = await response.text();
             textLength = text.length;
             // console.log(text);
-            await this.incrementAwsUsage(new Date().getTime() - start.getTime(), textLength);
+            // await this.incrementAwsUsage(new Date().getTime() - start.getTime(), textLength);
             const replay = JSON.parse(text);
 
             if (replay.error) {
                 console.log('ERROR: ', match_id, profile_id, replay.error);
-                await this.incrementAwsUsage(new Date().getTime() - start.getTime(), textLength);
+                // await this.incrementAwsUsage(new Date().getTime() - start.getTime(), textLength);
                 return {
                     status: -1,
                     replay: null,
@@ -360,7 +356,7 @@ export class ReplayTask implements OnModuleInit {
             // return await response.json();
         } catch (e) {
             console.log("FAILED", url);
-            await this.incrementAwsUsage(new Date().getTime() - start.getTime(), textLength);
+            // await this.incrementAwsUsage(new Date().getTime() - start.getTime(), textLength);
             return {
                 status: -1,
                 replay: null,
@@ -371,7 +367,7 @@ export class ReplayTask implements OnModuleInit {
 
     async existsReplay(match_id: string, profile_id: number) {
         const url = `https://aoe.ms/replay/?gameId=${match_id}&profileId=${profile_id}`;
-        console.log(url);
+        console.log('HEAD', url);
         const response = await fetch(url, {
             method: 'HEAD',
             timeout: 60 * 1000,
@@ -380,11 +376,11 @@ export class ReplayTask implements OnModuleInit {
     }
 
     async runIngest1() {
-        console.log("Pending", this.pending);
-
         const oneHourAgo = subMinutes(new Date(), 60);
 
         if (this.matches.length == 0) {
+            console.log("Pending", this.pending);
+
             // const matches = await this.prisma.match.findMany({
             //     include: {
             //         players: true,

@@ -177,7 +177,7 @@ export async function fetchMatch(game: string, params: IFetchMatchParams): Promi
     };
     const queryString = makeQueryString(query);
 
-    const url = `http://aoe2.net/api/match?${queryString}`;
+    const url = `https://aoe2.net/api/match?${queryString}`;
     console.log(url);
     const response = await fetch(url, { timeout: 60 * 1000 });
     try {
