@@ -208,15 +208,16 @@ export default function PushPage() {
                 </>
             }
             {
-                __DEV__ && Platform.OS !== 'web' &&
+                __DEV__ &&
                 <>
+                    <Space/>
                     <Button
                         mode="outlined"
                         onPress={async () => {
                             nav('Feed', { match_id: 'xxx' + new Date().getTime() });
                         }}
                     >
-                        {getTranslation('push.action.sendtestnotification')}
+                        {getTranslation('push.action.sendtestnotification')} Direct
                     </Button>
                 </>
             }

@@ -177,6 +177,10 @@ export function FeedList() {
     return (
             <View style={styles.container}>
                 <View style={styles.content}>
+                    {
+                        Platform.OS === 'web' && refetching &&
+                        <FlatListLoadingIndicator/>
+                    }
                     <FlatList
                             contentContainerStyle={styles.list}
                             data={list}

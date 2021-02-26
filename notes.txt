@@ -2,6 +2,12 @@
 vipers game 64282000 which maps was this (130)?
 
 
+web
+- pull to refresh flatlist
+  https://github.com/necolas/react-native-web/issues/1027
+x f5 reload same page
+x notification click
+
 ideas
 x 1v1 opponent stats
 - number of follows

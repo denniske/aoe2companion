@@ -43,6 +43,12 @@ export function setError(error: IError | null) {
   };
 }
 
+export function addLoadedLanguage(language: string) {
+  return (state: AppState) => {
+    state.loadedLanguages = [...(state.loadedLanguages?.filter(l => l !== language) || []), language];
+  };
+}
+
 export function setPrefValue<T extends keyof IPrefs>(key: T, value: IPrefs[T]) {
   return (state: AppState) => {
     state.prefs[key] = value;
@@ -183,6 +189,8 @@ export interface AppState {
   leaderboardCountry?: string | null;
 
   leaderboard: ILeaderboardDict;
+
+  loadedLanguages: string[];
 
   updateState: string;
   updateAvailable: boolean;

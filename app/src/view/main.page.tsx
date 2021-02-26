@@ -115,7 +115,15 @@ export function MainPageInner({ user }: MainPageInnerProps) {
     const loadingMatchesOrStatsTrigger = useSelector(state => state.loadingMatchesOrStats);
     const leaderboardId = useSelector(state => state.prefs.leaderboardId) ?? LeaderboardId.RM1v1;
 
-    const currentTabIndex = useNavigationState(state => state.routes[state.index].state?.index ?? 0);
+    const currentTabIndex = useNavigationState(state => {
+        const mainState = state.routes[state.index].state;
+
+        // Direct navigation to child tab via web browser
+        if (mainState && mainState.index == null && mainState.routes.length === 1) {
+            return ['MainProfile', 'MainStats', 'MainMatches'].indexOf(mainState.routes[0].name);
+        }
+        return mainState?.index ?? 0;
+    });
 
     let allMatches = useCachedConservedLazyApi(
         [currentTabIndex, loadingMatchesOrStatsTrigger],

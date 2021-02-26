@@ -26,7 +26,7 @@ import {Provider as ReduxProvider} from 'react-redux';
 import {
     DefaultTheme as PaperDefaultTheme, DarkTheme as PaperDarkTheme, Provider as PaperProvider, Portal
 } from 'react-native-paper';
-import {useSelector} from './src/redux/reducer';
+import {addLoadedLanguage, useMutate, useSelector} from './src/redux/reducer';
 import SearchPage from './src/view/search.page';
 import PrivacyPage from './src/view/privacy.page';
 import AppLoading from 'expo-app-loading';
@@ -132,12 +132,49 @@ const linking: LinkingOptions = {
                 stringify: {
                     id: composeUserId,
                 },
+                screens: {
+                    MainProfile: {
+                        path: 'profile',
+                    },
+                    MainStats: {
+                        path: 'stats',
+                    },
+                    MainMatches: {
+                        path: 'matches',
+                    },
+                }
+            },
+            Settings: {
+                path: 'settings',
+            },
+            Push: {
+                path: 'push',
             },
             Search: {
                 path: 'search',
             },
+            Guide: {
+                path: 'guide',
+            },
+            Live: {
+                path: 'live',
+            },
+            Tips: {
+                path: 'tips',
+            },
             Main: {
                 path: 'main',
+                screens: {
+                    MainProfile: {
+                        path: 'profile',
+                    },
+                    MainStats: {
+                        path: 'stats',
+                    },
+                    MainMatches: {
+                        path: 'matches',
+                    },
+                }
             },
             Feed: {
                 path: 'feed',
@@ -158,13 +195,13 @@ const linking: LinkingOptions = {
                 path: 'leaderboard',
             },
             Civ: {
-                path: 'civ/:civ',
+                path: 'civ/:civ?',
             },
             Unit: {
-                path: 'unit/:unit',
+                path: 'unit/:unit?',
             },
             Tech: {
-                path: 'tech/:tech',
+                path: 'tech/:tech?',
             },
             Winrates: {
                 path: 'winrates',
@@ -508,6 +545,9 @@ export function AppWrapper() {
 
     console.log(' ');
 
+    const mutate = useMutate();
+
+    const loadedLanguages = useSelector(state => state.loadedLanguages);
     const account = useSelector(state => state.account);
     const auth = useSelector(state => state.auth);
     const following = useSelector(state => state.following);
@@ -538,14 +578,15 @@ export function AppWrapper() {
         const language = config.language == 'system' ? getLanguageFromSystemLocale2(Localization.locale) : config.language;
         // console.log('Loading AoeStrings for ' + language + ' (config.language: ' + config.language + ')');
         setlanguage(language);
-        loadAoeStringsAsync(language);
+        loadAoeStringsAsync(language).then(() => mutate(addLoadedLanguage(language)));
     }, [config]);
 
-    if (auth === undefined || following === undefined || config === undefined || prefs === undefined) {
+    if (auth === undefined || following === undefined || config === undefined || prefs === undefined || !loadedLanguages) {
         // console.log('LOADING');
         return <AppLoading/>;
     }
 
+    // console.log('loadedLanguages', loadedLanguages, loadedLanguages?.length < 1);
     // console.log('LOADED');
 
     const finalDarkMode = darkMode === "system" && (colorScheme === 'light' || colorScheme === 'dark') ? colorScheme : darkMode;
