@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {createStackNavigator, StackNavigationProp, TransitionPresets} from '@react-navigation/stack';
 import Header from './src/view/components/header';
-import {composeUserId, parseUserId, UserId} from './src/helper/user';
+import {composeUserId, parseUserId, sameUserNull, UserId} from './src/helper/user';
 import UserPage, {userMenu} from './src/view/user.page';
 import {useApi} from './src/hooks/use-api';
 import {
@@ -235,9 +235,9 @@ export type RootStackParamList = {
 };
 
 export type RootTabParamList = {
-    MainProfile: { user: string };
-    MainStats: { user: string };
-    MainMatches: { user: string };
+    MainProfile: { };
+    MainStats: { };
+    MainMatches: { };
 };
 
 export type RootStackProp = StackNavigationProp<RootStackParamList, 'Main'>;
@@ -258,6 +258,8 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 export function InnerApp() {
     const styles = useStyles();
+
+    const auth = useSelector(state => state.auth);
 
     // let [fontsLoaded] = useFonts({
     //     Roboto: Roboto_400Regular,
@@ -311,13 +313,22 @@ export function InnerApp() {
                 headerStatusBarHeight: 0,
                 animationEnabled: false,
             }}>
+                {/*<Stack.Screen*/}
+                {/*    name="Main"*/}
+                {/*    component={MainPage}*/}
+                {/*    options={{*/}
+                {/*        title: getTranslation('main.title'),*/}
+                {/*        headerRight: mainMenu(),*/}
+                {/*    }}*/}
+                {/*/>*/}
                 <Stack.Screen
-                    name="Main"
-                    component={MainPage}
-                    options={{
-                        title: getTranslation('main.title'),
-                        headerRight: mainMenu(),
-                    }}
+                    name="User"
+                    component={UserPage}
+                    options={props => ({
+                        animationEnabled: !!props.route?.params,
+                        title: sameUserNull(auth, props.route.params?.id) || props.route.params == null ? 'Me' : props.route.params.name,
+                        headerRight: userMenu(props),
+                    })}
                 />
                 <Stack.Screen
                     name="Leaderboard"
@@ -429,15 +440,6 @@ export function InnerApp() {
                         animationEnabled: false,
                         headerTitle: props => <GuideTitle {...props} />,
                     }}
-                />
-                <Stack.Screen
-                    name="User"
-                    component={UserPage}
-                    options={props => ({
-                        animationEnabled: true,
-                        title: props.route.params.name,
-                        headerRight: userMenu(props),
-                    })}
                 />
                 <Stack.Screen
                     name="Search"

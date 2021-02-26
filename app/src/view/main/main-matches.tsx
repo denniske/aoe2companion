@@ -17,9 +17,21 @@ import {getMapName} from "../../helper/maps";
 import {parseUserId, sameUser} from "../../helper/user";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
+import {useNavigationStateExternal} from '../../hooks/use-navigation-state-external';
+import {getRoutes} from '../../service/navigation';
 
 
 export default function MainMatches() {
+    const navigationState = useNavigationStateExternal();
+    const routes = getRoutes(navigationState);
+
+    if (routes == null || routes.length === 0 || routes[0].params == null) return <View/>;
+
+    const user = routes[0].params.id;
+    return <MainMatchesInternal user={user}/>;
+}
+
+function MainMatchesInternal({user}: { user: any}) {
     const styles = useStyles();
     const appStyles = useTheme(appVariants);
     const [text, setText] = useState('');
@@ -29,9 +41,6 @@ export default function MainMatches() {
     const [withMe, setWithMe] = useState(false);
 
     const auth = useSelector(state => state.auth);
-
-    const route = useRoute<RouteProp<RootTabParamList, 'MainProfile'>>();
-    const user = parseUserId(route.params.user);
 
     const matches = useSelector(state => get(state.user, [user.id, 'matches']));
 
@@ -189,11 +198,8 @@ const useStyles = createStylesheet((theme, mode) => StyleSheet.create({
     },
 
     info: {
-        // textAlign: 'center',
         marginBottom: 10,
         marginLeft: 5,
-        // color: theme.textNoteColor,
-        // fontSize: 12,
     },
 
     row: {
@@ -221,12 +227,6 @@ const useStyles = createStylesheet((theme, mode) => StyleSheet.create({
         paddingRight: 20,
         marginBottom: 20,
         marginTop: 20,
-    },
-    sectionHeader: {
-        marginVertical: 25,
-        fontSize: 15,
-        fontWeight: '500',
-        textAlign: 'center',
     },
     list: {
         padding: 20,

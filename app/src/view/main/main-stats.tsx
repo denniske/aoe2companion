@@ -4,7 +4,7 @@ import {
 } from "../../redux/reducer";
 import {LeaderboardId} from "../../helper/leaderboards";
 import React, {useEffect, useState} from "react";
-import {RouteProp, useRoute} from "@react-navigation/native";
+import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {RootTabParamList} from "../../../App";
 import {get} from "lodash-es";
 import {usePrevious} from "@nex/data/hooks";
@@ -21,16 +21,34 @@ import {parseUserId} from "../../helper/user";
 import StatsDuration from "../components/stats-duration";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
+import {useNavigationStateExternal} from '../../hooks/use-navigation-state-external';
+import {getRoutes} from '../../service/navigation';
 
 
 export default function MainStats() {
+    const navigationState = useNavigationStateExternal();
+    const routes = getRoutes(navigationState);
+
+    if (routes == null || routes.length === 0 || routes[0].params == null) return <View/>;
+
+    const user = routes[0].params.id;
+    return <MainStatsInternal user={user}/>;
+}
+
+function MainStatsInternal({user}: { user: any}) {
     const styles = useStyles();
     const mutate = useMutate();
     const prefLeaderboardId = useSelector(state => state.prefs.leaderboardId) ?? LeaderboardId.RM1v1;
     const [leaderboardId, setLeaderboardId] = useState(prefLeaderboardId);
 
-    const route = useRoute<RouteProp<RootTabParamList, 'MainProfile'>>();
-    const user = parseUserId(route.params.user);
+    const navigation = useNavigation();
+    const userProfile = useSelector(state => state.user[user.id]?.profile);
+    useEffect(() => {
+        if (!userProfile) return;
+        navigation.setOptions({
+            title: userProfile?.name + ' - AoE II Companion',
+        });
+    }, [userProfile]);
 
     const currentCachedData = useSelector(state => get(state.statsPlayer, [user.id, leaderboardId]));
     const previousCachedData = usePrevious(currentCachedData);
@@ -153,7 +171,6 @@ export default function MainStats() {
 
 const useStyles = createStylesheet(theme => StyleSheet.create({
     info: {
-        // textAlign: 'center',
         marginBottom: 10,
         marginLeft: 5,
     },
@@ -175,12 +192,6 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         alignItems: 'center',
         paddingRight: 20,
         marginBottom: 20,
-    },
-    sectionHeader: {
-        marginVertical: 25,
-        fontSize: 15,
-        fontWeight: '500',
-        textAlign: 'center',
     },
     list: {
         padding: 20,

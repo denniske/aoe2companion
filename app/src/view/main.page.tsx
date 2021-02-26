@@ -74,44 +74,60 @@ interface MainPageInnerProps {
     user: UserId;
 }
 
-export default function MainPage() {
-    const mutate = useMutate();
-    const auth = useSelector(state => state.auth);
-
-    const generateTestHook = useCavy();
-    const navigation = useNavigation();
-    generateTestHook('Navigation')(navigation);
-
-    const onSelect = async (user: UserInfo) => {
-        await saveSettingsToStorage({
-            id: composeUserId(user),
-            steam_id: user.steam_id,
-            profile_id: user.profile_id,
-        });
-        mutate(setAuth(user));
-    };
-
-    // Reset country for use in leaderboard country dropdown
-    useEffect(() => {
-        if (auth == null) {
-            mutate(setPrefValue('country', undefined));
-            saveCurrentPrefsToStorage();
-        }
-    }, [auth]);
-
-    if (auth == null) {
-        return <Search title="Enter your AoE username to track your games:" selectedUser={onSelect} actionText="Choose" />;
-    }
-
-    return <MainPageInner user={auth}/>
-}
+// export default function MainPage() {
+//     const mutate = useMutate();
+//     const auth = useSelector(state => state.auth);
+//
+//     const generateTestHook = useCavy();
+//     const navigation = useNavigation<RootStackProp>();
+//     generateTestHook('Navigation')(navigation);
+//
+//     const onSelect = async (user: UserInfo) => {
+//         await saveSettingsToStorage({
+//             id: composeUserId(user),
+//             steam_id: user.steam_id,
+//             profile_id: user.profile_id,
+//         });
+//         mutate(setAuth(user));
+//     };
+//
+//
+//     const nav = async (route: keyof RootStackParamList, params: any) => {
+//         // const navigation = getRootNavigation();
+//         navigation.reset({
+//             index: 0,
+//             routes: [{name: route, params}],
+//             stale: true,
+//         });
+//     };
+//
+//     // Reset country for use in leaderboard country dropdown
+//     useEffect(() => {
+//         if (auth == null) {
+//             mutate(setPrefValue('country', undefined));
+//             saveCurrentPrefsToStorage();
+//         }
+//     }, [auth]);
+//
+//     useEffect(() => {
+//         if (auth != null) {
+//             nav('User', {
+//                 id: userIdFromBase(auth),
+//                 name: 'Walter White',
+//             });
+//         }
+//     }, [auth]);
+//
+//     if (auth == null) {
+//         return <Search title="Enter your AoE username to track your games:" selectedUser={onSelect} actionText="Choose" />;
+//     }
+//
+//     return <View><MyText>Redirecting to user page...</MyText></View>
+//
+//     // return <MainPageInner user={auth}/>
+// }
 
 export function MainPageInner({ user }: MainPageInnerProps) {
-    const styles = useStyles();
-    const mutate = useMutate();
-
-    console.log('USER PAGE', user);
-
     const loadingMatchesOrStatsTrigger = useSelector(state => state.loadingMatchesOrStats);
     const leaderboardId = useSelector(state => state.prefs.leaderboardId) ?? LeaderboardId.RM1v1;
 
@@ -141,12 +157,11 @@ export function MainPageInner({ user }: MainPageInnerProps) {
         getStats, {matches: allMatches.data, user: user, leaderboardId}
     );
 
-    const initialParams = { user: composeUserId(user) };
     return (
             <Tab.Navigator lazy={true} swipeEnabled={true}>
-                <Tab.Screen name="MainProfile" options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.profile')}/>}} component={MainProfile} initialParams={initialParams}/>
-                <Tab.Screen name="MainStats" options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.stats')}/>}} component={MainStats} initialParams={initialParams}/>
-                <Tab.Screen name="MainMatches" options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.matches')}/>}} component={MainMatches} initialParams={initialParams}/>
+                <Tab.Screen name="MainProfile" options={{title: 'AoE II Companion', tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.profile')}/>}} component={MainProfile} />
+                <Tab.Screen name="MainStats" options={{title: 'AoE II Companion', tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.stats')}/>}} component={MainStats} />
+                <Tab.Screen name="MainMatches" options={{title: 'AoE II Companion', tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.matches')}/>}} component={MainMatches} />
             </Tab.Navigator>
     );
 }

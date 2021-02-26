@@ -17,6 +17,12 @@ function findState(state: any, routeName: string): any {
     return findState(activeRoute.state, routeName);
 }
 
+export function getRoutes(state: any): any {
+    if (state == null) return [];
+    const activeRoute = state.routes[state.index];
+    return [activeRoute, ...getRoutes(activeRoute.state)];
+}
+
 function getActiveRouteName(state: any): any {
     if (state == null) return null;
     const activeRoute = state.routes[state.index];

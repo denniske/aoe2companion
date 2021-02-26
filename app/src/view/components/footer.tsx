@@ -130,8 +130,8 @@ export default function Footer() {
                             <TouchableOpacity style={styles.menuButton} onPress={() => nav('Feed')}>
                                 <Icon5 name="gift" size={iconSize} style={iconStyle2('Feed')} />
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.menuButton} onPress={() => nav('Main')}>
-                                <Icon5 name="birthday-cake" size={iconSize} style={iconStyle2('Main')} />
+                            <TouchableOpacity style={styles.menuButton} onPress={() => nav('User')}>
+                                <Icon5 name="birthday-cake" size={iconSize} style={iconStyle2('User')} />
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.menuButton} onPress={() => nav('Leaderboard')}>
                                 <Icon5 name="glass-cheers" size={iconSize} style={iconStyle2('Leaderboard')} />
@@ -156,8 +156,8 @@ export default function Footer() {
                             <TouchableOpacity style={styles.menuButton} onPress={() => nav('Feed')}>
                                 <Icon name="heart" size={iconSize} style={iconStyle('Feed')} />
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.menuButton} onPress={() => nav('Main')}>
-                                <Icon name="user" size={iconSize} style={iconStyle('Main')} />
+                            <TouchableOpacity style={styles.menuButton} onPress={() => nav('User')}>
+                                <Icon name="user" size={iconSize} style={iconStyle('User')} />
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.menuButton} onPress={() => nav('Leaderboard')}>
                                 <Icon name="trophy" size={iconSize} style={iconStyle('Leaderboard')} />

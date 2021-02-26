@@ -1,7 +1,7 @@
 import {FlatList, StyleSheet, View} from "react-native";
-import {useMutate, useSelector} from "../../redux/reducer";
-import React, {useState} from "react";
-import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
+import {useSelector} from "../../redux/reducer";
+import React, {useEffect, useState} from "react";
+import {useNavigation} from "@react-navigation/native";
 import {RootTabParamList} from "../../../App";
 import {useApi} from "../../hooks/use-api";
 import {loadRatingHistories} from "../../service/rating";
@@ -12,19 +12,51 @@ import Rating from "../components/rating";
 import RefreshControlThemed from "../components/refresh-control-themed";
 import {Game} from "../components/game";
 import {Button} from "react-native-paper";
-import {parseUserId, sameUserNull} from "../../helper/user";
+import {sameUserNull} from "../../helper/user";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
+import {getRoutes} from '../../service/navigation';
+import {useNavigationStateExternal} from '../../hooks/use-navigation-state-external';
 
 
 export default function MainProfile() {
-    const styles = useStyles();
-    const mutate = useMutate();
+    // const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
+    // const user = route.params.id;
+    // console.log('MainProfile', route);
 
+    // const user = {
+    //     id: '76561198400058723-2858362',
+    //     steam_id: '76561198400058723',
+    //     profile_id: 2858362,
+    // };
+
+    // const route = useRoute<RouteProp<RootTabParamList, 'MainProfile'>>() as any;
+    // const user = parseUserId(route.params.user);
+
+    const navigationState = useNavigationStateExternal();
+    const routes = getRoutes(navigationState);
+    // console.log('STATE', navigationState);
+    // console.log('STATE ROUTES', routes);
+
+    if (routes == null || routes.length === 0 || routes[0].params == null) return <View/>;
+
+    const user = routes[0].params.id;
+
+    return <MainProfileInternal user={user}/>;
+}
+
+function MainProfileInternal({user}: { user: any}) {
+    const styles = useStyles();
     const auth = useSelector(state => state.auth);
 
-    const route = useRoute<RouteProp<RootTabParamList, 'MainProfile'>>();
-    const user = parseUserId(route.params.user);
+    const navigation = useNavigation();
+    const userProfile = useSelector(state => state.user[user.id]?.profile);
+    useEffect(() => {
+        if (!userProfile) return;
+        navigation.setOptions({
+            title: userProfile?.name + ' - AoE II Companion',
+        });
+    }, [userProfile]);
 
     const rating = useApi(
         {},
@@ -93,8 +125,6 @@ export default function MainProfile() {
     // });
 
     const [refreshing, setRefreshing] = useState(false);
-
-    const navigation = useNavigation();
 
     const nav = async (route: keyof RootTabParamList) => {
         navigation.navigate(route);
@@ -168,13 +198,11 @@ export default function MainProfile() {
 
 const useStyles = createStylesheet(theme => StyleSheet.create({
     info: {
-        // textAlign: 'center',
         marginBottom: 10,
         marginLeft: 5,
     },
 
     col: {
-        // width: 54,
         paddingHorizontal: 7,
         alignItems: 'center',
     },
