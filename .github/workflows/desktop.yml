@@ -15,9 +15,9 @@ jobs:
   windows:
     name: Windows
     runs-on: windows-latest
-#    defaults:
-#      run:
-#        shell: bash
+    defaults:
+      run:
+        shell: bash
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -29,19 +29,26 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - run: |
-          C:/msys64/usr/bin/wget.exe https://github.com/secrethub/secrethub-cli/releases/download/v0.41.2/secrethub-v0.41.2-windows-amd64.zip
-
-      - run: |
-          7z x secrethub-v0.41.2-windows-amd64.zip
-
-      - run: |
-          ls -al
-          ls -al secrethub-v0.41.2-windows-amd64
-          echo "$(pwd)/secrethub-v0.41.2-windows-amd64" >> $GITHUB_PATH
+          iwr https://get.secrethub.io/windows | iex
+          secrethub --version
+          where.exe secrethub
+          (get-item (where.exe secrethub)).DirectoryName | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+        shell: powershell
 
 #      - run: |
-#          echo "ELECTRON_WINDOWS_CERT_BASE64=$(secrethub read denniske/aoe2companion/electron_windows_cert_base64)" >> $GITHUB_ENV
+#          C:/msys64/usr/bin/wget.exe https://github.com/secrethub/secrethub-cli/releases/download/v0.41.2/secrethub-v0.41.2-windows-amd64.zip
 #
+#      - run: |
+#          7z x secrethub-v0.41.2-windows-amd64.zip
+#
+#      - run: |
+#          ls -al
+#          ls -al secrethub-v0.41.2-windows-amd64
+#          echo "$(pwd)/secrethub-v0.41.2-windows-amd64" >> $GITHUB_PATH
+
+      - run: |
+          echo "ELECTRON_WINDOWS_CERT_BASE64=$(secrethub read denniske/aoe2companion/electron_windows_cert_base64)" >> $GITHUB_ENV
+
 #      - run: echo "VERSION=$(node deploy/script/version-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
 #      - run: echo $VERSION
 #
