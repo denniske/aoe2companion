@@ -50,3 +50,4 @@ package-lock.json
 Thumbs.db
 
 *.pfx
+*.p12

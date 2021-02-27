@@ -25,14 +25,17 @@
       "portable"
     ],
     "certificateFile" : "certificate.pfx",
-    "signAndEditExecutable": true
+    "signAndEditExecutable": true,
+    "forceCodeSigning": true
   },
   "forceCodeSigning": true,
   "mac": {
     "icon": "dist/assets/icons",
     "target": [
       "dmg"
-    ]
+    ],
+    "cscLink": "certificate.p12",
+    "forceCodeSigning": true
   },
   "linux": {
     "icon": "dist/assets/icons",

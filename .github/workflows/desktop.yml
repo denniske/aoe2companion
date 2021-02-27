@@ -1,0 +1,78 @@
+
+on:
+  push:
+    tags:
+      - 'desktop-v*'
+
+name: Desktop
+env:
+  NODE_VERSION: 12.13.1
+jobs:
+
+  windows:
+    name: Windows
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Env
+        uses: ./.github/actions/setup
+      - name: Setup Node
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Setup Secrets
+        uses: secrethub/actions/env-export@v0.2.1
+        env:
+          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
+          ELECTRON_WINDOWS_CERT_BASE64: secrethub://denniske/aoe2companion/electron_windows_cert_base64
+
+      - run: echo "VERSION=$(node deploy/script/version-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
+      - run: echo $VERSION
+
+      - run: |
+          cd electron
+          echo $ELECTRON_WINDOWS_CERT_BASE64 | base64 --decode > certificate.pfx
+          yarn run electron:build -- -c.extraMetadata.version=$VERSION
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: release/aoe2companion-$VERSION.exe
+          tag: ${{ github.ref }}
+          overwrite: true
+
+  macos:
+    name: MacOS
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Env
+        uses: ./.github/actions/setup
+      - name: Setup Node
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Setup Secrets
+        uses: secrethub/actions/env-export@v0.2.1
+        env:
+          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
+          ELECTRON_APPLE_CERT_BASE64: secrethub://denniske/aoe2companion/electron_apple_cert_base64
+
+      - run: echo "VERSION=$(node deploy/script/version-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
+      - run: echo $VERSION
+
+      - run: |
+          cd electron
+          echo $ELECTRON_APPLE_CERT_BASE64 | base64 --decode > certificate.p12
+          yarn run electron:build -- -c.extraMetadata.version=$VERSION
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: release/aoe2companion-$VERSION.dmg
+          tag: ${{ github.ref }}
+          overwrite: true
