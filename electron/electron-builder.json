@@ -26,7 +26,8 @@
     ],
     "certificateFile" : "certificate.pfx",
     "signAndEditExecutable": true,
-    "forceCodeSigning": true
+    "forceCodeSigning": true,
+    "artifactName": "${productName}-${version}.${ext}"
   },
   "forceCodeSigning": true,
   "mac": {
@@ -35,7 +36,8 @@
       "dmg"
     ],
     "cscLink": "certificate.p12",
-    "forceCodeSigning": true
+    "forceCodeSigning": true,
+    "artifactName": "${productName}-${version}.${ext}"
   },
   "linux": {
     "icon": "dist/assets/icons",
