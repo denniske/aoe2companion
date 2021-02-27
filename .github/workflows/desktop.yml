@@ -30,21 +30,8 @@ jobs:
 
       - run: |
           iwr https://get.secrethub.io/windows | iex
-#          secrethub --version
-#          where.exe secrethub
           (get-item (where.exe secrethub)).DirectoryName | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
         shell: powershell
-
-#      - run: |
-#          C:/msys64/usr/bin/wget.exe https://github.com/secrethub/secrethub-cli/releases/download/v0.41.2/secrethub-v0.41.2-windows-amd64.zip
-#
-#      - run: |
-#          7z x secrethub-v0.41.2-windows-amd64.zip
-#
-#      - run: |
-#          ls -al
-#          ls -al secrethub-v0.41.2-windows-amd64
-#          echo "$(pwd)/secrethub-v0.41.2-windows-amd64" >> $GITHUB_PATH
 
       - run: |
           echo "ELECTRON_WINDOWS_CERT_BASE64=$(secrethub read denniske/aoe2companion/electron_windows_cert_base64)" >> $GITHUB_ENV
