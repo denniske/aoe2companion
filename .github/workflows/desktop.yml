@@ -21,11 +21,12 @@ jobs:
         uses: actions/setup-node@v2.1.2
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Setup Secrets
-        uses: secrethub/actions/env-export@v0.2.1
-        env:
-          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
-          ELECTRON_WINDOWS_CERT_BASE64: secrethub://denniske/aoe2companion/electron_windows_cert_base64
+
+      - run: iwrhttps://get.secrethub.io/windows|iex
+        shell: powershell
+
+      - run: |
+          echo "ELECTRON_APPLE_CERT_BASE64=$(secrethub read denniske/aoe2companion/electron_apple_cert_base64)" >> $GITHUB_ENV
 
       - run: echo "VERSION=$(node deploy/script/version-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
       - run: echo $VERSION
@@ -55,11 +56,11 @@ jobs:
         uses: actions/setup-node@v2.1.2
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Setup Secrets
-        uses: secrethub/actions/env-export@v0.2.1
-        env:
-          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
-          ELECTRON_APPLE_CERT_BASE64: secrethub://denniske/aoe2companion/electron_apple_cert_base64
+
+      - run: brew install secrethub/tools/secrethub-cli
+
+      - run: |
+          echo "ELECTRON_APPLE_CERT_BASE64=$(secrethub read denniske/aoe2companion/electron_apple_cert_base64)" >> $GITHUB_ENV
 
       - run: echo "VERSION=$(node deploy/script/version-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
       - run: echo $VERSION
