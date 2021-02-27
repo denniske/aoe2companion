@@ -12,6 +12,9 @@ jobs:
   windows:
     name: Windows
     runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -27,12 +30,12 @@ jobs:
 
       - run: |
           echo "ELECTRON_APPLE_CERT_BASE64=$(secrethub read denniske/aoe2companion/electron_apple_cert_base64)" >> $GITHUB_ENV
-        shell: cmd
 
       - run: echo "VERSION=$(node deploy/script/version-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
       - run: echo $VERSION
 
-      - run: |
+      - name: Build
+        run: |
           cd electron
           echo $ELECTRON_WINDOWS_CERT_BASE64 | base64 --decode > certificate.pfx
           yarn
@@ -68,7 +71,8 @@ jobs:
       - run: echo "VERSION=$(node deploy/script/version-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
       - run: echo $VERSION
 
-      - run: |
+      - name: Build
+        run: |
           cd electron
           echo $ELECTRON_APPLE_CERT_BASE64 | base64 --decode > certificate.p12
           yarn
