@@ -29,9 +29,6 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - run: |
-          wget https://github.com/secrethub/secrethub-cli/releases/download/v0.41.2/secrethub-v0.41.2-windows-amd64.zip
-
-      - run: |
           C:\msys64\usr\bin\wget.exe https://github.com/secrethub/secrethub-cli/releases/download/v0.41.2/secrethub-v0.41.2-windows-amd64.zip
 
       - run: |
@@ -60,7 +57,7 @@ jobs:
 #        uses: svenstaro/upload-release-action@v2
 #        with:
 #          repo_token: ${{ secrets.GITHUB_TOKEN }}
-#          file: release/aoe2companion-$VERSION.exe
+#          file: electron/release/aoe2companion-$VERSION.exe
 #          tag: ${{ github.ref }}
 #          overwrite: true
 
@@ -97,6 +94,6 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: release/aoe2companion-$VERSION.dmg
+          file: electron/release/aoe2companion-$VERSION.dmg
           tag: ${{ github.ref }}
           overwrite: true
