@@ -23,8 +23,10 @@ on:
       - 'graphql-v*'
 
 name: Server
+
 env:
   NODE_VERSION: 12.13.1
+
 jobs:
 
   build-and-publish-server:

@@ -5,8 +5,11 @@ on:
       - 'desktop-v*'
 
 name: Desktop
+
 env:
   NODE_VERSION: 12.13.1
+  SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
+
 jobs:
 
   windows:
@@ -25,30 +28,41 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - run: iwr https://get.secrethub.io/windows | iex
-        shell: powershell
+      - run: |
+          wget https://github.com/secrethub/secrethub-cli/releases/download/v0.41.2/secrethub-v0.41.2-windows-amd64.zip
 
       - run: |
-          echo "ELECTRON_WINDOWS_CERT_BASE64=$(secrethub read denniske/aoe2companion/electron_windows_cert_base64)" >> $GITHUB_ENV
+          C:\msys64\usr\bin\wget.exe https://github.com/secrethub/secrethub-cli/releases/download/v0.41.2/secrethub-v0.41.2-windows-amd64.zip
 
-      - run: echo "VERSION=$(node deploy/script/version-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
-      - run: echo $VERSION
+      - run: |
+          7z x secrethub-v0.41.2-windows-amd64.zip
 
-      - name: Build
-        run: |
-          cd electron
-          echo $ELECTRON_WINDOWS_CERT_BASE64 | base64 --decode > certificate.pfx
-          yarn
-          yarn run build:prod
-          yarn run electron:build -c.extraMetadata.version=$VERSION
+      - run: |
+          ls -al
+          ls -al secrethub-v0.41.2-windows-amd64
+          echo "$(pwd)/secrethub-v0.41.2-windows-amd64" >> $GITHUB_PATH
 
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: release/aoe2companion-$VERSION.exe
-          tag: ${{ github.ref }}
-          overwrite: true
+#      - run: |
+#          echo "ELECTRON_WINDOWS_CERT_BASE64=$(secrethub read denniske/aoe2companion/electron_windows_cert_base64)" >> $GITHUB_ENV
+#
+#      - run: echo "VERSION=$(node deploy/script/version-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
+#      - run: echo $VERSION
+#
+#      - name: Build
+#        run: |
+#          cd electron
+#          echo $ELECTRON_WINDOWS_CERT_BASE64 | base64 --decode > certificate.pfx
+#          yarn
+#          yarn run build:prod
+#          yarn run electron:build -c.extraMetadata.version=$VERSION
+#
+#      - name: Upload binaries to release
+#        uses: svenstaro/upload-release-action@v2
+#        with:
+#          repo_token: ${{ secrets.GITHUB_TOKEN }}
+#          file: release/aoe2companion-$VERSION.exe
+#          tag: ${{ github.ref }}
+#          overwrite: true
 
   macos:
     name: MacOS
