@@ -22,7 +22,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - run: iwrhttps://get.secrethub.io/windows|iex
+      - run: iwr https://get.secrethub.io/windows | iex
         shell: powershell
 
       - run: |
@@ -34,7 +34,8 @@ jobs:
       - run: |
           cd electron
           echo $ELECTRON_WINDOWS_CERT_BASE64 | base64 --decode > certificate.pfx
-          yarn run electron:build -- -c.extraMetadata.version=$VERSION
+          yarn
+          yarn run electron:build -c.extraMetadata.version=$VERSION
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
@@ -68,7 +69,8 @@ jobs:
       - run: |
           cd electron
           echo $ELECTRON_APPLE_CERT_BASE64 | base64 --decode > certificate.p12
-          yarn run electron:build -- -c.extraMetadata.version=$VERSION
+          yarn
+          yarn run electron:build -c.extraMetadata.version=$VERSION
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2

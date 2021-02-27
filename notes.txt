@@ -278,9 +278,13 @@ virtualenv env && source env/bin/activate
 virtualenv env && source env/bin/activate && pip3 install -r requirements.txt
 
 
+git tag -d desktop-v22.0.4+0 && git push --delete origin desktop-v22.0.4+0 && git tag desktop-v22.0.4+0 && git push --tags
+
 https://www.andreagrandi.it/2018/12/19/installing-python-and-virtualenv-on-osx/
 
 base64 aoe2companion_dist.p12
+base64 apple-certificate.p12 | secrethub write denniske/aoe2companion/electron_apple_cert_base64
+
 
 /Library/Developer/CoreSimulator/Profiles/Runtimes
 
