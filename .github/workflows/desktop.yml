@@ -34,7 +34,7 @@ jobs:
         shell: powershell
 
       - run: |
-          echo "CSC_LINK=$(secrethub read denniske/aoe2companion/electron_windows_cert_base64)" >> $GITHUB_ENV
+          echo "ELECTRON_WINDOWS_CERT_BASE64=$(secrethub read denniske/aoe2companion/electron_windows_cert_base64)" >> $GITHUB_ENV
           echo "CSC_KEY_PASSWORD=$(secrethub read denniske/aoe2companion/electron_windows_cert_password)" >> $GITHUB_ENV
 
       - run: echo "VERSION=$(node deploy/script/version-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
@@ -43,6 +43,7 @@ jobs:
       - name: Build
         run: |
           cd electron
+          echo $ELECTRON_WINDOWS_CERT_BASE64 | base64 --decode > certificate.pfx
           yarn
           yarn run build:prod
           yarn run electron:build -c.extraMetadata.version=$VERSION
@@ -71,7 +72,7 @@ jobs:
       - run: brew install secrethub/tools/secrethub-cli
 
       - run: |
-          echo "CSC_LINK=$(secrethub read denniske/aoe2companion/electron_apple_cert_base64)" >> $GITHUB_ENV
+          echo "ELECTRON_APPLE_CERT_BASE64=$(secrethub read denniske/aoe2companion/electron_apple_cert_base64)" >> $GITHUB_ENV
 
       - run: echo "VERSION=$(node deploy/script/version-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
       - run: echo $VERSION
@@ -79,6 +80,7 @@ jobs:
       - name: Build
         run: |
           cd electron
+          echo $ELECTRON_APPLE_CERT_BASE64 | base64 --decode > certificate.p12
           yarn --frozen-lockfile
           yarn run build:prod
           yarn run electron:build -c.extraMetadata.version=$VERSION
