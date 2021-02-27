@@ -27,6 +27,7 @@ jobs:
 
       - run: |
           echo "ELECTRON_APPLE_CERT_BASE64=$(secrethub read denniske/aoe2companion/electron_apple_cert_base64)" >> $GITHUB_ENV
+        shell: cmd
 
       - run: echo "VERSION=$(node deploy/script/version-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
       - run: echo $VERSION
@@ -35,6 +36,7 @@ jobs:
           cd electron
           echo $ELECTRON_WINDOWS_CERT_BASE64 | base64 --decode > certificate.pfx
           yarn
+          yarn run build:prod
           yarn run electron:build -c.extraMetadata.version=$VERSION
 
       - name: Upload binaries to release
@@ -70,6 +72,7 @@ jobs:
           cd electron
           echo $ELECTRON_APPLE_CERT_BASE64 | base64 --decode > certificate.p12
           yarn
+          yarn run build:prod
           yarn run electron:build -c.extraMetadata.version=$VERSION
 
       - name: Upload binaries to release
