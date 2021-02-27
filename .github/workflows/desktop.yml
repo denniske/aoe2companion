@@ -94,6 +94,6 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: electron/release/aoe2companion-$VERSION.dmg
+          file: electron/release/aoe2companion-${{ env.VERSION }}.dmg
           tag: ${{ github.ref }}
           overwrite: true
