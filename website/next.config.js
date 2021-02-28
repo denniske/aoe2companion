@@ -4,5 +4,6 @@
 const withTM = require('next-transpile-modules')(['../data']); // pass the modules you would like to see transpiled
 
 module.exports = withTM({
-    target: 'server',
+    target: 'serverless',
+    // target: 'server',
 });
