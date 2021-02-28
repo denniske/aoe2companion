@@ -1,5 +1,4 @@
-import {getlanguage} from '../redux/statecache';
-
+import {getLanguage} from '../../../data/src/lib/aoe-data';
 
 interface IStringItem {
     id: number;
@@ -27,11 +26,11 @@ interface IStringCollection {
 export function getString(category: keyof IStrings, id: number) {
     // return '###';
     // console.log('getString', getlanguage(), category);
-    return strings[getlanguage()][category].find(i => i.id === id)?.string;
+    return strings[getLanguage()][category].find(i => i.id === id)?.string;
 }
 
 export function getStringId(category: keyof IStrings, str: string) {
-    return strings[getlanguage()][category].find(i => i.string === str)?.id;
+    return strings[getLanguage()][category].find(i => i.string === str)?.id;
 }
 
 const strings: IStringCollection = {

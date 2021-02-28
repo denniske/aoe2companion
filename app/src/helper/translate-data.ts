@@ -1,7 +1,7 @@
 import {Asset} from 'expo-asset';
 import {readAsStringAsync} from 'expo-file-system';
-import {getlanguage} from '../redux/statecache';
 import {Platform} from 'react-native';
+import {getLanguage} from '../../../data/src/lib/aoe-data';
 
 export const stringsSource: Record<string, string> = {
     // 'ms': '../../assets/data/ms/strings.json.lazy',
@@ -70,8 +70,8 @@ export async function loadAoeStringsAsync(language: string) {
 
 export function getInternalAoeString(str: string) {
     // return '###';
-    if (strings[getlanguage()] && str in strings[getlanguage()]) {
-        return strings[getlanguage()][str];
+    if (strings[getLanguage()] && str in strings[getLanguage()]) {
+        return strings[getLanguage()][str];
     }
     if (strings['en'] && str in strings['en']) {
         return strings['en'][str];

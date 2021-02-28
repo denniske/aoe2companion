@@ -20,13 +20,13 @@ export function getcache() {
 let mylanguage: any = 'en';
 
 
-export function setlanguage(value: any) {
+export function setInternalLanguage(value: any) {
     mylanguage = value;
     // console.log('setlanguage');
     // console.log('setlanguage', value);
 }
 
-export function getlanguage() {
+export function getInternalLanguage() {
     // console.log('getlanguage', mylanguage);
     // console.log('getlanguage');
     return mylanguage;

@@ -20,7 +20,7 @@ import {
     faArchway, faCoffee, faFistRaised, faFlask, faHandsHelping, faLandmark, faTrophy, faUser
 } from '@fortawesome/free-solid-svg-icons'
 
-import Link from "../components/link";
+// import Link from "../components/link";
 import {useAppStyles} from "./app-styles";
 import Link2 from '@material-ui/core/Link';
 import {useRouter} from "next/router";
@@ -30,12 +30,14 @@ import Search from "./search";
 import ProfilePage from "../pages/profile/[id]";
 import {withApollo} from "../../apollo/client";
 import {myTodoList} from "@nex/data";
+import Link from "next/link";
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
+        justifyContent: 'center',
     },
     drawer: {
         [theme.breakpoints.up('sm')]: {
@@ -132,6 +134,20 @@ const useStyles = makeStyles((theme) => ({
             width: '20ch',
         },
     },
+
+    mainMenu: {
+        display: 'flex',
+        flexDirection: 'row',
+        marginTop: theme.spacing(6),
+        marginBottom: theme.spacing(6),
+    },
+    mainMenuItem: {
+        paddingLeft: theme.spacing(4),
+        paddingRight: theme.spacing(4),
+    },
+
+
+
 }));
 
 // https://adamwathan.me/2019/10/17/persistent-layout-patterns-in-nextjs/
@@ -212,133 +228,160 @@ function Layout(props) {
 
     return (
         <div className={classes.root}>
-            <AppBar position="fixed" className={classes.appBar} color="inherit">
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={handleDrawerToggle}
-                        className={classes.menuButton}
-                    >
-                        <MenuIcon />
-                    </IconButton>
 
-                    <Search />
+            {/*<AppBar position="fixed" className={classes.appBar} color="inherit">*/}
+            {/*    <Toolbar>*/}
+            {/*        <IconButton*/}
+            {/*            color="inherit"*/}
+            {/*            aria-label="open drawer"*/}
+            {/*            edge="start"*/}
+            {/*            onClick={handleDrawerToggle}*/}
+            {/*            className={classes.menuButton}*/}
+            {/*        >*/}
+            {/*            <MenuIcon />*/}
+            {/*        </IconButton>*/}
 
-                    {/*<div className={classes.search}>*/}
-                    {/*    <div className={classes.searchIcon}>*/}
-                    {/*        <SearchIcon />*/}
-                    {/*    </div>*/}
-                    {/*    <InputBase*/}
-                    {/*        placeholder="Search…"*/}
-                    {/*        classes={{*/}
-                    {/*            root: classes.inputRoot,*/}
-                    {/*            input: classes.inputInput,*/}
-                    {/*        }}*/}
-                    {/*        inputProps={{ 'aria-label': 'search' }}*/}
-                    {/*    />*/}
-                    {/*</div>*/}
+            {/*        <Search />*/}
 
-                    {/*<Typography variant="h6" noWrap>*/}
-                    {/*    Responsive drawer*/}
-                    {/*</Typography>*/}
-                </Toolbar>
-            </AppBar>
-            <nav className={classes.drawer} aria-label="mailbox folders">
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-                <Hidden smUp implementation="css">
-                    <Drawer
-                        variant="temporary"
-                        anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-                        open={mobileOpen}
-                        onClose={handleDrawerToggle}
-                        classes={{
-                            paper: classes.drawerPaper,
-                        }}
-                        ModalProps={{
-                            keepMounted: true, // Better open performance on mobile.
-                        }}
-                    >
-                        {drawer}
-                    </Drawer>
-                </Hidden>
-                <Hidden xsDown implementation="css">
-                    <Drawer
-                        classes={{
-                            paper: classes.drawerPaper,
-                        }}
-                        variant="permanent"
-                        open
-                    >
-                        {drawer}
-                    </Drawer>
-                </Hidden>
-            </nav>
-            <main className={classes.content}>
-                <div className={classes.toolbar} />
+            {/*        /!*<div className={classes.search}>*!/*/}
+            {/*        /!*    <div className={classes.searchIcon}>*!/*/}
+            {/*        /!*        <SearchIcon />*!/*/}
+            {/*        /!*    </div>*!/*/}
+            {/*        /!*    <InputBase*!/*/}
+            {/*        /!*        placeholder="Search…"*!/*/}
+            {/*        /!*        classes={{*!/*/}
+            {/*        /!*            root: classes.inputRoot,*!/*/}
+            {/*        /!*            input: classes.inputInput,*!/*/}
+            {/*        /!*        }}*!/*/}
+            {/*        /!*        inputProps={{ 'aria-label': 'search' }}*!/*/}
+            {/*        /!*    />*!/*/}
+            {/*        /!*</div>*!/*/}
 
-                {
-                    router.pathname != '/app' &&
-                    <Paper className={appClasses.boxSmall}>
-                        <Grid container justify="space-between"
-                              alignItems="center">
-                            <Grid item>
-                                <Typography variant="body1" noWrap>
-                                    AoE II Companion App
-                                </Typography>
-                                <Typography variant="subtitle2"  noWrap>
-                                    with country leaderboards, push notifications...
-                                </Typography>
-                            </Grid>
-                            {/*<Grid className={appClasses.expanded}/>*/}
-                            <Grid>
-                                <a href="https://play.google.com/store/apps/details?id=com.aoe2companion">
-                                    <img src="/app-button-play-store.png" className="app-button app-button-play-store" />
-                                </a>
-                                &nbsp;&nbsp;&nbsp;
-                                <a href="https://apps.apple.com/app/id1518463195">
-                                    <img src="/app-button-app-store.png" className="app-button app-button-app-store" />
-                                </a>
-                            </Grid>
-                        </Grid>
+            {/*        /!*<Typography variant="h6" noWrap>*!/*/}
+            {/*        /!*    Responsive drawer*!/*/}
+            {/*        /!*</Typography>*!/*/}
+            {/*    </Toolbar>*/}
+            {/*</AppBar>*/}
 
-                        {/*<div className={appClasses.flexRow}>*/}
-                        {/*    <div>*/}
-                        {/*        <Typography variant="body1" noWrap>*/}
-                        {/*            AoE II Companion App*/}
-                        {/*        </Typography>*/}
-                        {/*        <Typography variant="subtitle2"  noWrap>*/}
-                        {/*            with country leaderboards, push notifications...*/}
-                        {/*        </Typography>*/}
-                        {/*    </div>*/}
-                        {/*    <div className={appClasses.expanded}/>*/}
-                        {/*    <div className="flex-container flex-row justify-content-center">*/}
-                        {/*        <a href="https://play.google.com/store/apps/details?id=com.aoe2companion">*/}
-                        {/*            <img src="/app-button-play-store.png" className="app-button app-button-play-store" />*/}
-                        {/*        </a>*/}
-                        {/*        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/}
-                        {/*        <a href="https://apps.apple.com/app/id1518463195">*/}
-                        {/*            <img src="/app-button-app-store.png" className="app-button app-button-app-store" />*/}
-                        {/*        </a>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
-                    </Paper>
-                }
+            {/*<nav className={classes.drawer} aria-label="mailbox folders">*/}
+            {/*    /!* The implementation can be swapped with js to avoid SEO duplication of links. *!/*/}
+            {/*    <Hidden smUp implementation="css">*/}
+            {/*        <Drawer*/}
+            {/*            variant="temporary"*/}
+            {/*            anchor={theme.direction === 'rtl' ? 'right' : 'left'}*/}
+            {/*            open={mobileOpen}*/}
+            {/*            onClose={handleDrawerToggle}*/}
+            {/*            classes={{*/}
+            {/*                paper: classes.drawerPaper,*/}
+            {/*            }}*/}
+            {/*            ModalProps={{*/}
+            {/*                keepMounted: true, // Better open performance on mobile.*/}
+            {/*            }}*/}
+            {/*        >*/}
+            {/*            {drawer}*/}
+            {/*        </Drawer>*/}
+            {/*    </Hidden>*/}
+            {/*    <Hidden xsDown implementation="css">*/}
+            {/*        <Drawer*/}
+            {/*            classes={{*/}
+            {/*                paper: classes.drawerPaper,*/}
+            {/*            }}*/}
+            {/*            variant="permanent"*/}
+            {/*            open*/}
+            {/*        >*/}
+            {/*            {drawer}*/}
+            {/*        </Drawer>*/}
+            {/*    </Hidden>*/}
+            {/*</nav>*/}
+
+
+            {/*<main className={classes.content}>*/}
+            {/*    <div className={classes.toolbar} />*/}
+
+            {/*    {*/}
+            {/*        router.pathname != '/app' &&*/}
+            {/*        <Paper className={appClasses.boxSmall}>*/}
+            {/*            <Grid container justify="space-between"*/}
+            {/*                  alignItems="center">*/}
+            {/*                <Grid item>*/}
+            {/*                    <Typography variant="body1" noWrap>*/}
+            {/*                        AoE II Companion App*/}
+            {/*                    </Typography>*/}
+            {/*                    <Typography variant="subtitle2"  noWrap>*/}
+            {/*                        with country leaderboards, push notifications...*/}
+            {/*                    </Typography>*/}
+            {/*                </Grid>*/}
+            {/*                /!*<Grid className={appClasses.expanded}/>*!/*/}
+            {/*                <Grid>*/}
+            {/*                    <a href="https://play.google.com/store/apps/details?id=com.aoe2companion">*/}
+            {/*                        <img src="/app-button-play-store.png" className="app-button app-button-play-store" />*/}
+            {/*                    </a>*/}
+            {/*                    &nbsp;&nbsp;&nbsp;*/}
+            {/*                    <a href="https://apps.apple.com/app/id1518463195">*/}
+            {/*                        <img src="/app-button-app-store.png" className="app-button app-button-app-store" />*/}
+            {/*                    </a>*/}
+            {/*                </Grid>*/}
+            {/*            </Grid>*/}
+
+            {/*            /!*<div className={appClasses.flexRow}>*!/*/}
+            {/*            /!*    <div>*!/*/}
+            {/*            /!*        <Typography variant="body1" noWrap>*!/*/}
+            {/*            /!*            AoE II Companion App*!/*/}
+            {/*            /!*        </Typography>*!/*/}
+            {/*            /!*        <Typography variant="subtitle2"  noWrap>*!/*/}
+            {/*            /!*            with country leaderboards, push notifications...*!/*/}
+            {/*            /!*        </Typography>*!/*/}
+            {/*            /!*    </div>*!/*/}
+            {/*            /!*    <div className={appClasses.expanded}/>*!/*/}
+            {/*            /!*    <div className="flex-container flex-row justify-content-center">*!/*/}
+            {/*            /!*        <a href="https://play.google.com/store/apps/details?id=com.aoe2companion">*!/*/}
+            {/*            /!*            <img src="/app-button-play-store.png" className="app-button app-button-play-store" />*!/*/}
+            {/*            /!*        </a>*!/*/}
+            {/*            /!*        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*!/*/}
+            {/*            /!*        <a href="https://apps.apple.com/app/id1518463195">*!/*/}
+            {/*            /!*            <img src="/app-button-app-store.png" className="app-button app-button-app-store" />*!/*/}
+            {/*            /!*        </a>*!/*/}
+            {/*            /!*    </div>*!/*/}
+            {/*            /!*</div>*!/*/}
+            {/*        </Paper>*/}
+            {/*    }*/}
+
+            <div className="container3">
+
+                <div className={classes.mainMenu}>
+                    <div className={classes.mainMenuItem}>
+                        <Link href='/' as={`/`}>
+                            App
+                        </Link>
+                    </div>
+                    <div className={classes.mainMenuItem}>
+                        <Link href='/ongoing' as={`/ongoing`}>
+                            Top 100 Ongoing
+                        </Link>
+                    </div>
+                    <div className={classes.mainMenuItem}>
+                        <Link href='/leaderboard' as={`/leaderboard`}>
+                            Leaderboard
+                        </Link>
+                    </div>
+                </div>
 
                 {children}
+            </div>
 
-                <div className={appClasses.expanded}/>
+                {/*<div className={appClasses.expanded}/>*/}
 
-                <div className={classes.toolbar2}>
-                    This site is not affiliated with or endorsed by Microsoft Corporation. Age of Empires II: HD and Age of Empires II: Definitive Edition are trademarks or registered trademarks of Microsoft Corporation in the U.S. and other countries.
-                    <br/>
-                    <br/>
-                    <Link2 href="/privacy" onClick={preventDefault} color="inherit">
-                        Privacy Policy
-                    </Link2>
-                </div>
-            </main>
+                {/*<div className={classes.toolbar2}>*/}
+                {/*    This site is not affiliated with or endorsed by Microsoft Corporation. Age of Empires II: HD and Age of Empires II: Definitive Edition are trademarks or registered trademarks of Microsoft Corporation in the U.S. and other countries.*/}
+                {/*    <br/>*/}
+                {/*    <br/>*/}
+                {/*    <Link2 href="/privacy" onClick={preventDefault} color="inherit">*/}
+                {/*        Privacy Policy*/}
+                {/*    </Link2>*/}
+                {/*</div>*/}
+            {/*</main>*/}
+
+
         </div>
     );
 }

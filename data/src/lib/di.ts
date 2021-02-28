@@ -34,6 +34,9 @@ class DummyTranslationService implements ITranslationService {
         // console.trace('DUMMY getAoeString', str);
         return '???';
     }
+    getLanguage(): string {
+        return 'en';
+    }
 }
 
 registerService(SERVICE_NAME.TRANSLATION_SERVICE, new DummyTranslationService(), true);

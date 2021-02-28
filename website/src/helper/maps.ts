@@ -107,11 +107,16 @@ export const maps = {
     139: 'rm_golden-swamp',
     140: 'rm_four-lakes',
     141: 'rm_land_nomad',
-    142: 'br_battle_on_the_ice.png',
-    143: 'br_el_dorado.png',
-    144: 'br_fall_of_axum.png',
-    145: 'br_fall_of_rome.png',
-    146: 'br_the_majapahit_empire.png',
+    142: 'br_battle_on_the_ice',
+    143: 'br_el_dorado',
+    144: 'br_fall_of_axum',
+    145: 'br_fall_of_rome',
+    146: 'br_the_majapahit_empire',
+    147: 'rm_amazon_tunnels',
+    148: 'rm_coastal_forest',
+    149: 'rm_african_clearing',
+    150: 'rm_atacama',
+    151: 'rm_seize_the_mountain',
 };
 
 export function getMapImage(map: number) {

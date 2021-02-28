@@ -4,7 +4,7 @@ import 'array-flat-polyfill'
 import 'react-native-gesture-handler';
 import {DefaultTheme as NavigationDefaultTheme, DarkTheme as NavigationDarkTheme, NavigationContainer, useNavigation} from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import MainPage, {mainMenu} from './src/view/main.page';
+import {mainMenu} from './src/view/main.page';
 import {
     BackHandler,
     Linking, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View
@@ -69,7 +69,7 @@ import { LogBox } from "react-native";
 import {getLanguageFromSystemLocale2, getTranslation} from './src/helper/translate';
 import {getInternalAoeString, loadAoeStringsAsync} from './src/helper/translate-data';
 import * as Localization from 'expo-localization';
-import {setlanguage} from './src/redux/statecache';
+import {getInternalLanguage, setInternalLanguage} from './src/redux/statecache';
 import {ITranslationService} from '../data/src/lib/aoe-data';
 import {ConditionalTester} from "./src/view/testing/tester";
 import {getElectronPushToken, isElectron} from './src/helper/electron';
@@ -106,6 +106,9 @@ class AoeDataService implements ITranslationService {
     }
     getAoeString(str: string): string {
         return getInternalAoeString(str);
+    }
+    getLanguage(): string {
+        return getInternalLanguage();
     }
 }
 
@@ -579,7 +582,7 @@ export function AppWrapper() {
 
         const language = config.language == 'system' ? getLanguageFromSystemLocale2(Localization.locale) : config.language;
         // console.log('Loading AoeStrings for ' + language + ' (config.language: ' + config.language + ')');
-        setlanguage(language);
+        setInternalLanguage(language);
         loadAoeStringsAsync(language).then(() => mutate(addLoadedLanguage(language)));
     }, [config]);
 

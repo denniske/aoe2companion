@@ -7,6 +7,7 @@ import Layout from "../components/layout";
 import {Environment, IHostService, IHttpService, OS, registerService, SERVICE_NAME} from "@nex/data";
 
 import '../styles.css'
+import 'react-aspect-ratio/aspect-ratio.css'
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 // import 'antd/dist/antd.css';

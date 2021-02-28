@@ -45,126 +45,134 @@ export default {
         },
         {
             "id": 4,
-            "string": "Burmese"
+            "string": "Burgundians"
         },
         {
             "id": 5,
-            "string": "Byzantines"
+            "string": "Burmese"
         },
         {
             "id": 6,
-            "string": "Celts"
+            "string": "Byzantines"
         },
         {
             "id": 7,
-            "string": "Chinese"
+            "string": "Celts"
         },
         {
             "id": 8,
-            "string": "Cumans"
+            "string": "Chinese"
         },
         {
             "id": 9,
-            "string": "Ethiopians"
+            "string": "Cumans"
         },
         {
             "id": 10,
-            "string": "Franks"
+            "string": "Ethiopians"
         },
         {
             "id": 11,
-            "string": "Goths"
+            "string": "Franks"
         },
         {
             "id": 12,
-            "string": "Huns"
+            "string": "Goths"
         },
         {
             "id": 13,
-            "string": "Incas"
+            "string": "Huns"
         },
         {
             "id": 14,
-            "string": "Indians"
+            "string": "Incas"
         },
         {
             "id": 15,
-            "string": "Italians"
+            "string": "Indians"
         },
         {
             "id": 16,
-            "string": "Japanese"
+            "string": "Italians"
         },
         {
             "id": 17,
-            "string": "Khmer"
+            "string": "Japanese"
         },
         {
             "id": 18,
-            "string": "Koreans"
+            "string": "Khmer"
         },
         {
             "id": 19,
-            "string": "Lithuanians"
+            "string": "Koreans"
         },
         {
             "id": 20,
-            "string": "Magyars"
+            "string": "Lithuanians"
         },
         {
             "id": 21,
-            "string": "Malay"
+            "string": "Magyars"
         },
         {
             "id": 22,
-            "string": "Malians"
+            "string": "Malay"
         },
         {
             "id": 23,
-            "string": "Mayans"
+            "string": "Malians"
         },
         {
             "id": 24,
-            "string": "Mongols"
+            "string": "Mayans"
         },
         {
             "id": 25,
-            "string": "Persians"
+            "string": "Mongols"
         },
         {
             "id": 26,
-            "string": "Portuguese"
+            "string": "Persians"
         },
         {
             "id": 27,
-            "string": "Saracens"
+            "string": "Portuguese"
         },
         {
             "id": 28,
-            "string": "Slavs"
+            "string": "Saracens"
         },
         {
             "id": 29,
-            "string": "Spanish"
+            "string": "Sicilians"
         },
         {
             "id": 30,
-            "string": "Tatars"
+            "string": "Slavs"
         },
         {
             "id": 31,
-            "string": "Teutons"
+            "string": "Spanish"
         },
         {
             "id": 32,
-            "string": "Turks"
+            "string": "Tatars"
         },
         {
             "id": 33,
-            "string": "Vietnamese"
+            "string": "Teutons"
         },
         {
             "id": 34,
+            "string": "Turks"
+        },
+        {
+            "id": 35,
+            "string": "Vietnamese"
+        },
+        {
+            "id": 36,
             "string": "Vikings"
         }
     ],
@@ -208,6 +216,10 @@ export default {
         {
             "id": 11,
             "string": "Sudden Death"
+        },
+        {
+            "id": 12,
+            "string": "Battle Royale"
         },
         {
             "id": 13,
@@ -686,6 +698,46 @@ export default {
         {
             "id": 141,
             "string": "Land Nomad"
+        },
+        {
+            "id": 142,
+            "string": "BR Battle On Ice"
+        },
+        {
+            "id": 143,
+            "string": "BR El Dorado"
+        },
+        {
+            "id": 144,
+            "string": "BR Fall of Axum"
+        },
+        {
+            "id": 145,
+            "string": "BR Fall of Rome"
+        },
+        {
+            "id": 146,
+            "string": "BR Majapahit Empire"
+        },
+        {
+            "id": 147,
+            "string": "Amazon Tunnel"
+        },
+        {
+            "id": 148,
+            "string": "Coastal Forest"
+        },
+        {
+            "id": 149,
+            "string": "African Clearing"
+        },
+        {
+            "id": 150,
+            "string": "Atacama"
+        },
+        {
+            "id": 151,
+            "string": "Seize the Mountain"
         }
     ],
     "rating_type": [
@@ -708,6 +760,26 @@ export default {
         {
             "id": 4,
             "string": "Team Random Map"
+        },
+        {
+            "id": 5,
+            "string": "1v1 Random Map Quick Play"
+        },
+        {
+            "id": 6,
+            "string": "Team Random Map Quick Play"
+        },
+        {
+            "id": 7,
+            "string": "1v1 Empire Wars Quick Play"
+        },
+        {
+            "id": 8,
+            "string": "Team Empire Wars Quick Play"
+        },
+        {
+            "id": 9,
+            "string": "Battle Royale Quick Play"
         }
     ],
     "resources": [

@@ -7,7 +7,7 @@ import {getUnitName, hasUnitLine, Unit, units} from "@nex/data";
 import {MyText} from "../view/components/my-text";
 import React from "react";
 import {memoize} from 'lodash-es';
-import {getlanguage} from '../redux/statecache';
+import {getLanguage} from '../../../data/src/lib/aoe-data';
 
 // export function highlightUnitAndCivs(str: string) {
 //     const appStyles = useTheme(appVariants);
@@ -67,7 +67,7 @@ export function highlightUnitAndTechs(str: string) {
     const appStyles = useTheme(appVariants);
     const navigation = useNavigation<RootStackProp>();
 
-    const { regex, reverseTechMap, reverseUnitMap } = memoizedCreateLists(getlanguage());
+    const { regex, reverseTechMap, reverseUnitMap } = memoizedCreateLists(getLanguage());
 
     const parts = str.split(regex);
     // console.log('parts', parts);

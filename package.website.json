@@ -31,6 +31,7 @@
     "ag-grid-community": "",
     "ag-grid-react": "",
     "apollo-boost": "",
+    "react-aspect-ratio": "",
     "apollo-link-http": "",
     "apollo-link-scalars": "",
     "apollo-link-schema": "",
