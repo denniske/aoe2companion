@@ -112,6 +112,10 @@ function Civilization({civId}: any) {
 
     const civDescription = parseCivDescription(civ);
 
+    if (civDescription == null) {
+        return <div>Empty</div>;
+    }
+
     const {type, boni, uniqueUnitsTitle, uniqueTechsTitle, teamBonusTitle, teamBonus} = civDescription;
 
     return (

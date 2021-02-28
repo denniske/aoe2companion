@@ -1,6 +1,6 @@
 import {format, formatDistanceToNowStrict, fromUnixTime} from "date-fns";
 import {enUS, de, es, zhCN, ms, fr, it, pt, ru, vi, tr, hi, ja, ko, zhTW} from "date-fns/locale";
-import {getlanguage} from '../../../app/src/redux/statecache';
+// import {getlanguage} from '../../../app/src/redux/statecache';
 
 // const moMonth = 1;
 // const moDate = 7;
@@ -36,7 +36,8 @@ const localeMapping = {
 function getLocale() {
     // console.log('getLocale', getlanguage());
     // return localeMapping['en'];
-    return localeMapping[getlanguage()];
+    return localeMapping['en'];
+    // return localeMapping[getlanguage()];
 }
 
 

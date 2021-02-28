@@ -1,9 +1,11 @@
 import {flatMap} from "lodash";
-import {Building} from "./buildings";
+import {Building, getBuildingName} from "./buildings";
+import {Civ} from './civs';
 
 
 interface IGenericSection<T> {
-    title: string;
+    building?: Building;
+    civ?: Civ;
     data: T[];
 }
 
@@ -12,7 +14,7 @@ export function makeListFromSections<T>(sections: IGenericSection<T>[]) {
         return [
             {
                 type: 'section',
-                data: section.title,
+                data: section.building ? getBuildingName(section.building) : section.civ!,
             },
             ...section.data.map(data => ({
                 type: 'item',

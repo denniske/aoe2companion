@@ -31,7 +31,7 @@ class DummyTranslationService implements ITranslationService {
         return '???';
     }
     getAoeString(str: string): string {
-        console.trace('DUMMY getAoeString', str);
+        // console.trace('DUMMY getAoeString', str);
         return '???';
     }
 }
