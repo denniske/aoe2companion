@@ -160,8 +160,8 @@ export class TaskAndControllerModule {
                 break;
         }
 
-        console.log('environment', environment.production ? 'prod' : 'dev');
-        if (!environment.production) {
+        console.log('environment', process.env.ENVIRONMENT);
+        if (process.env.ENVIRONMENT === 'development') {
             controllers.push(ApiController);
             // controllers.push(FunctionController);
         }
@@ -200,8 +200,8 @@ export class ResolverModule {
             providers.push(...resolvers);
         }
 
-        console.log('environment', environment.production ? 'prod' : 'dev');
-        if (!environment.production) {
+        console.log('environment', process.env.ENVIRONMENT);
+        if (process.env.ENVIRONMENT === 'development') {
             providers.push(...resolvers);
         }
 
