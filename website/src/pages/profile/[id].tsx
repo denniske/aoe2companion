@@ -8,7 +8,6 @@ import {useQuery} from "@apollo/client";
 import Rating from "../../components/rating";
 import {makeStyles} from "@material-ui/core/styles";
 import {IProfile} from "../../helper/types";
-import {formatLeaderboardId} from "../../helper/util";
 import {getCivIconByIndex, getCivName} from "../../helper/civs";
 import {getFlagIcon} from "../../helper/flags";
 import {getMapImage, getMapName} from "../../helper/maps";
@@ -19,6 +18,7 @@ import {faCaretDown, faCaretUp} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {getChangeColor} from 'website/src/components/util';
 import {withApollo} from "../../../apollo/client";
+import {formatLeaderboardId} from '@nex/data';
 
 
 const ProfileQuery = gql`

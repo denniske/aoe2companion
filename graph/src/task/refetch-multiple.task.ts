@@ -187,6 +187,6 @@ export class RefetchMultipleTask implements OnModuleInit {
         // // return result;
         //
         // return sameMatches.map(m => m.match_id);
-        return false;
+        return [];
     }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import {VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTheme} from "victory";
 import {
-    formatDateShort, formatLeaderboardId, formatMonth, formatTime, formatYear, getLeaderboardColor,
+    formatDateShort, formatMonth, formatTime, formatYear, getLeaderboardColor,
     getLeaderboardTextColor,
     parseUnixTimestamp
 } from "../helper/util";
@@ -15,6 +15,7 @@ import {isAfter, subDays, subMonths, subWeeks} from "date-fns";
 import {Skeleton} from "@material-ui/lab";
 import Typography from "@material-ui/core/Typography";
 import {useAppStyles} from "./app-styles";
+import {formatLeaderboardId} from '@nex/data';
 
 interface IRatingProps {
     ratingHistories: IRatingHistory[];

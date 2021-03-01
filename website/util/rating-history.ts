@@ -1,6 +1,7 @@
 import {fromUnixTime} from "date-fns";
 import {fetchJson, makeQueryString} from "./player-matches";
-import {IRatingHistoryEntry, IRatingHistoryEntryRaw, LeaderboardId} from "./api.types";
+import {IRatingHistoryEntry, IRatingHistoryEntryRaw} from "./api.types";
+import {LeaderboardId} from '@nex/data';
 
 function convertTimestampsToDates(json: IRatingHistoryEntryRaw): IRatingHistoryEntry {
   return {
