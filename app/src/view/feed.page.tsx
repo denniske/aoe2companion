@@ -216,8 +216,11 @@ export function FeedList() {
                                             }
                                         }
 
+                                        const allFilteredPlayersSameResult = filteredPlayers.every(p => p.won === true)
+                                                                          || filteredPlayers.every(p => p.won === false);
+
                                         let relevantUser = undefined;
-                                        if (uniq(filteredPlayers.map(p => p.team)).length === 1) {
+                                        if (allFilteredPlayersSameResult) {
                                             relevantUser = filteredPlayers[0];
                                         }
 

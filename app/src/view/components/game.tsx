@@ -36,6 +36,11 @@ const formatDuration = (start: Date, finish: Date) => {
     return `${hours.length < 2 ? hours : hours}:${minutes.length < 2 ? 0 + minutes : minutes} h`;
 };
 
+
+function matchIsFreeForAll(match: IMatch) {
+    return match.players.filter(p => p.team === -1).length >= match.players.length-1;
+}
+
 export function Game({data, user, highlightedUsers, expanded = false}: IGameProps) {
     const theme = useAppTheme();
     const styles = useStyles();
@@ -89,7 +94,7 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
         );
     }
 
-    const freeForALl = data.players.filter(p => p.team === -1).length >= data.players.length-1;
+    const freeForALl = matchIsFreeForAll(data);
 
     let teamIndex = 5;
     const teams = Object.entries(groupBy(data.players, p => {
@@ -134,7 +139,7 @@ export function Game({data, user, highlightedUsers, expanded = false}: IGameProp
                             <IconFA5 name="crown" size={14} style={{marginLeft: -7,marginTop:-4}} color="goldenrod" />
                         }
                         {
-                            user == null &&
+                            user == null && (data.players.some(p => p.won != null)) &&
                             <Image fadeDuration={0} source={require('../../../assets/other/SkullCrown.png')} style={{marginLeft: -6,marginTop:-4, width: 17, height: 17}} />
                         }
                         {
