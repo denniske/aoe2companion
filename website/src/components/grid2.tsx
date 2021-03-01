@@ -91,8 +91,8 @@ export default function Grid2(props: Props) {
             const leaderboard = await fetchLeaderboard('aoe2de', params.context.leaderboardId, args);
 
             const matchesArray = await promiseAllSequential(
-                // [0, 1, 2, 3, 4].map(i => {
-                [0, 1].map(i => {
+                [0, 1, 2, 3, 4].map(i => {
+                // [0, 1].map(i => {
                     console.log(i);
                         return () => fetchPlayerMatchesNew('aoe2de', 0, 30, leaderboard.leaderboard.filter((x, j) => j > i * 20 && j < (i+1) * 20).map(l => ({profile_id: l.profile_id})));
                     }
