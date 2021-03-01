@@ -1,6 +1,6 @@
 import {getService, SERVICE_NAME} from "./di";
 
-export type Host = 'aoe2companion' | 'aoe2companion-api' | 'aoe2net';
+export type Host = 'aoe2companion' | 'aoe2companion-api' | 'aoe2companion-graphql' | 'aoe2net';
 export type OS = 'windows' | 'macos' | 'android' | 'ios' | 'web';
 export type Environment = 'development' | 'production';
 
@@ -41,6 +41,16 @@ export function getHost(host: Host) {
                 return 'http://localhost:3333/';
             }
             return `https://api.aoe2companion.com/`;
+        }
+        case "aoe2companion-graphql": {
+            // if (__DEV__ && Constants.isDevice) {
+            //     const platformHost = '192.168.178.41';
+            //     return `http://${platformHost}:3003/`;
+            // }
+            if (dev) {
+                return 'http://localhost:3333/graphql';
+            }
+            return `https://graphql.aoe2companion.com/graphql`;
         }
         case "aoe2net": {
             if (platform === 'web') {

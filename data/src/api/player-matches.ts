@@ -143,8 +143,7 @@ export async function fetchPlayerMatchesNew(game: string, start: number, count: 
         };
         const queryString = makeQueryString(args);
 
-        const endpoint = 'http://localhost:3333/graphql'
-        // const endpoint = 'https://graphql.aoe2companion.com/graphql'
+        const endpoint = getHost('aoe2companion-graphql');
         const query = gql`
             query H2($start: Int!, $count: Int!, $profile_ids: [Int!]) {
                 matches(
