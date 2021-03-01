@@ -16,7 +16,7 @@ import {makeVariants, useAppTheme, useTheme} from "../../theming";
 import IconFA5 from "react-native-vector-icons/FontAwesome5";
 import {sameUser, sameUserNull, UserIdBase} from "../../helper/user";
 import {createStylesheet} from '../../theming-new';
-import {getLeaderboardOrGameType} from '../../helper/leaderboards';
+import {getLeaderboardOrGameType} from '@nex/data';
 import {getTranslation} from '../../helper/translate';
 import {hasRecDict} from '../../api/recording';
 import {useLazyApi} from '../../hooks/use-lazy-api';

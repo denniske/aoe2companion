@@ -136,7 +136,8 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
-        width: 800,
+        width: 1400,
+        maxWidth: '90vw',
     },
 }));
 

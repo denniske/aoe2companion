@@ -1,8 +1,7 @@
 import {fetchRatingHistory} from '../api/rating-history';
 import {minifyUserId, UserIdBase} from '../helper/user';
 import {IRatingHistoryEntry, IRatingHistoryEntryRaw} from "@nex/data";
-import {LeaderboardId} from "../helper/leaderboards";
-import request, {gql} from 'graphql-request';
+import {LeaderboardId} from "@nex/data";
 import {parseISO} from "date-fns";
 
 export interface IRatingHistoryRow {

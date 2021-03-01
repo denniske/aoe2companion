@@ -12,7 +12,7 @@ import Space from "./space";
 import {getCivIcon} from "../../helper/civs";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
-import {LeaderboardId} from '../../helper/leaderboards';
+import {LeaderboardId} from '@nex/data';
 
 
 interface IRowProps {

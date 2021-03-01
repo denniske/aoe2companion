@@ -5,6 +5,10 @@ import {Account} from "../entity/account";
 import {Following} from "../entity/following";
 import PushNotifications from '@pusher/push-notifications-server';
 import fetch from 'node-fetch';
+import {fetchMatch} from '../helper';
+import {upsertMatchesWithPlayers} from '../entity/entity-helper';
+import {PrismaService} from '../service/prisma.service';
+import {getUnixTime} from 'date-fns';
 
 
 @Controller()
@@ -13,6 +17,7 @@ export class ApiController {
 
     constructor(
         private connection: Connection,
+        private prisma: PrismaService,
     ) {}
 
     async onModuleInit() {
@@ -260,6 +265,46 @@ export class ApiController {
             })
             .where({ account: { id: account_id } });
         await query.execute();
+
+        time();
+        return { success: true };
+    }
+
+    @Post('/match/refetch')
+    async triggerMatchRefetch(
+        @Body('match_uuid') match_uuid: string,
+        @Body('match_id') match_id: string,
+    ) {
+        time(1);
+
+        let updatedMatch = await fetchMatch('aoe2de', {
+            uuid: match_uuid,
+            match_id: match_id
+        });
+
+        if (updatedMatch.finished) {
+            await upsertMatchesWithPlayers(this.connection, [updatedMatch], false);
+        }
+
+        time();
+        return { success: true };
+    }
+
+    @Post('/match/checked')
+    async setMatchChecked(
+        @Body('match_uuid') match_uuid: string,
+        @Body('match_id') match_id: string,
+    ) {
+        time(1);
+
+        await this.prisma.match.update({
+            data: {
+                checked: getUnixTime(new Date()),
+            },
+            where: {
+                match_id,
+            },
+        });
 
         time();
         return { success: true };

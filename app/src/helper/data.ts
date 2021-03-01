@@ -1,4 +1,4 @@
-import {LeaderboardId} from "./leaderboards";
+import {LeaderboardId} from "@nex/data";
 import {Flag, IMatch, IMatchRaw, SlotType} from '@nex/data';
 
 

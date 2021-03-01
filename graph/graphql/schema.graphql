@@ -32,6 +32,7 @@ type Leaderboard {
 }
 
 type Match {
+  checked: DateTime
   finished: DateTime
   leaderboard_id: Int
   map_type: Int!

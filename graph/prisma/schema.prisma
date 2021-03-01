@@ -60,6 +60,7 @@ model match {
   victory_time       Int?
   visibility         Int?
   maybe_finished     Int?
+  checked            Int?
   players            player[]
 
   @@index([replayed], name: "IDX_f71f8842e6600b9a93ea9be10b")

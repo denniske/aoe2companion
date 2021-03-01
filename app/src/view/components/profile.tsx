@@ -12,7 +12,7 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import {setFollowing, setPrefValue, useMutate, useSelector} from "../../redux/reducer";
 import {sameUser} from "../../helper/user";
 import {MyText} from "./my-text";
-import {formatLeaderboardId} from "../../helper/leaderboards";
+import {formatLeaderboardId} from "@nex/data";
 import {useAppTheme, usePaperTheme} from "../../theming";
 import {toggleFollowing} from "../../service/following";
 import Space from "./space";

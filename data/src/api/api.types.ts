@@ -1,6 +1,7 @@
 import {AoeMap} from '../helper/maps';
 import {Flag} from '../lib/flag';
 import {getUiTranslation} from '../lib/aoe-data';
+import {LeaderboardId} from '../helper/leaderboards';
 
 export const slotTypes = {
     1: 'player',
@@ -61,6 +62,7 @@ export interface IMatchRaw {
     ending_age: number;
     expansion: any;
     finished?: any;
+    checked?: any;
     full_tech_tree: boolean;
     game_type: any;
     has_custom_content: any;
@@ -100,20 +102,13 @@ export interface IMatchRaw {
     maybe_finished?: number;
 }
 
-export interface IMatch extends Omit<IMatchRaw, 'finished' | 'opened' | 'started'> {
+export interface IMatch extends Omit<IMatchRaw, 'finished' | 'opened' | 'started' | 'checked'> {
     replayed?: number;
     started?: Date;
     opened?: Date;
     finished?: Date;
+    checked?: Date;
     source?: 'aoe2net' | 'aoe2companion';
-}
-
-export enum LeaderboardId {
-    Unranked = 0,
-    DM1v1 = 1,
-    DMTeam = 2,
-    RM1v1 = 3,
-    RMTeam = 4,
 }
 
 export interface IRatingHistoryEntryRaw {

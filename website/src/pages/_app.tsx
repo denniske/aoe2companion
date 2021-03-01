@@ -4,12 +4,15 @@ import Head from 'next/head';
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Layout from "../components/layout";
-import {Environment, IHostService, IHttpService, OS, registerService, SERVICE_NAME} from "@nex/data";
+import {
+    Environment, IHostService, IHttpService, IStrings, ITranslationService, OS, registerService, SERVICE_NAME
+} from "@nex/data";
 
 import '../styles.css'
 import 'react-aspect-ratio/aspect-ratio.css'
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import { getString } from '../helper/strings';
 // import 'antd/dist/antd.css';
 
 class HostService implements IHostService {
@@ -39,6 +42,22 @@ class HttpService implements IHttpService {
     }
 }
 
+class AoeDataService implements ITranslationService {
+    getUiTranslation(str: string): string {
+        return '???'; //getTranslation(str as any);
+    }
+    getAoeString(str: string): string {
+        return '???'; //getInternalAoeString(str);
+    }
+    getString(category: keyof IStrings, id: number) {
+        return getString(category, id);
+    }
+    getLanguage(): string {
+        return '???'; //getInternalLanguage();
+    }
+}
+
+registerService(SERVICE_NAME.TRANSLATION_SERVICE, new AoeDataService(), true);
 registerService(SERVICE_NAME.HOST_SERVICE, new HostService());
 registerService(SERVICE_NAME.HTTP_SERVICE, new HttpService());
 

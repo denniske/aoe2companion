@@ -5,7 +5,7 @@ import {getLeaderboardColor, getLeaderboardTextColor} from '../../helper/colors'
 import {IRatingHistoryRow} from '../../service/rating';
 import {TextLoader} from "./loader/text-loader";
 import {ViewLoader} from "./loader/view-loader";
-import {formatLeaderboardId} from "../../helper/leaderboards";
+import {formatLeaderboardId} from "@nex/data";
 import {capitalize, merge} from "lodash-es";
 import {useAppTheme, usePaperTheme} from "../../theming";
 import {setPrefValue, useMutate, useSelector} from "../../redux/reducer";
@@ -51,7 +51,7 @@ export default function Rating({ratingHistories, ready}: IRatingProps) {
         '1w',
         '1d',
     ];
-    const formatDuration = (duration: string) => getTranslation(`main.profile.ratinghistory.time.${duration}`);
+    const formatDuration = (duration: string) => getTranslation(`main.profile.ratinghistory.time.${duration}` as any);
 
     const nav = async (str: any) => {
         mutate(setPrefValue('ratingHistoryDuration', str));

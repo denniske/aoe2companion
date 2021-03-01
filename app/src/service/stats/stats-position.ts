@@ -1,7 +1,7 @@
 import {IMatch, validMatch} from "@nex/data";
 import {sameUser, UserIdBase} from "../../helper/user";
 import {orderBy} from "lodash-es";
-import {LeaderboardId} from "../../helper/leaderboards";
+import {LeaderboardId} from "@nex/data";
 
 
 export interface IParam {

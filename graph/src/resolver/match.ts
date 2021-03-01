@@ -128,6 +128,20 @@ export class MatchResolver {
 
         // console.log(matches[0]);
 
+        // const timeLastDate2 = new Date();
+        // const ongoing = await this.prisma.ongoing.findMany({
+        //     where: {
+        //         match_id: {in: matchIds.map(x => x.match_id)}
+        //     },
+        // });
+        // console.log('gql', new Date().getTime() - timeLastDate2.getTime());
+        //
+        // const timeLastDate3 = new Date();
+        // ongoing.forEach(o => {
+        //     matches.find(m => m.match_id === o.match_id).checked = o.checked;
+        // });
+        // console.log('gql', new Date().getTime() - timeLastDate3.getTime());
+
         return {
             total: matches.length,
             matches,
@@ -153,5 +167,10 @@ export class MatchResolver {
     @ResolveField()
     async finished(@Parent() match: Match) {
         return match.finished ? fromUnixTime(match.finished as unknown as number) : null;
+    }
+
+    @ResolveField()
+    async checked(@Parent() match: Match) {
+        return match.checked ? fromUnixTime(match.checked as unknown as number) : null;
     }
 }

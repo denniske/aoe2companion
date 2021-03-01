@@ -1,7 +1,7 @@
 import {composeUserId, sameUser, UserIdBase} from "../../helper/user";
 import {orderBy, uniqBy} from "lodash-es";
 import {IMatch, IPlayer, validMatch} from "@nex/data";
-import {LeaderboardId} from "../../helper/leaderboards";
+import {LeaderboardId} from "@nex/data";
 
 
 export interface IRow {

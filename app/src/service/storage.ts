@@ -1,5 +1,5 @@
 import {DarkMode} from "../redux/reducer";
-import {LeaderboardId} from "../helper/leaderboards";
+import {LeaderboardId} from "@nex/data";
 import store from "../redux/store";
 import {v4 as uuidv4} from "uuid";
 import {Flag} from '@nex/data';

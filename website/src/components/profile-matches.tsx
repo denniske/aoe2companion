@@ -15,11 +15,11 @@ import {AntTab} from "./tab/ant-tab";
 
 
 const MatchesQuery = gql`
-    query MatchesQuery($profileId: Int!, $leaderboardId: Int, $search: String) {
+    query MatchesQuery($profileIds: [Int!], $leaderboardId: Int, $search: String) {
         matches(
             start: 0,
             count: 5,
-            profile_id: $profileId,
+            profile_ids: $profileIds,
             leaderboard_id: $leaderboardId
             search: $search
         ) {
@@ -97,7 +97,7 @@ export default function ProfileMatches({profileId}: Props) {
 
     const matchesResult = useQuery<IMatchesQuery, any>(MatchesQuery, {
         variables: {
-            profileId: profileId,
+            profileIds: [profileId],
             leaderboardId: leaderboardId,
             search: text,
             map_types: Object.entries(maps).filter(([map_type, name]) => name.toLowerCase().indexOf(text.toLowerCase()) >= 0).map(([map_type, name]) => map_type),

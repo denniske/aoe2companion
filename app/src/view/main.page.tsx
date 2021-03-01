@@ -9,7 +9,7 @@ import {fetchPlayerMatches} from '../api/player-matches';
 import {useNavigation, useNavigationState} from "@react-navigation/native";
 import {TabBarLabel} from "./components/tab-bar-label";
 import {saveCurrentPrefsToStorage, saveSettingsToStorage} from "../service/storage";
-import {LeaderboardId} from "../helper/leaderboards";
+import {LeaderboardId} from "@nex/data";
 import {useCachedConservedLazyApi} from "../hooks/use-cached-conserved-lazy-api";
 import {get, set} from "lodash-es";
 import {getStats} from "../service/stats";

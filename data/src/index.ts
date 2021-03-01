@@ -1,3 +1,4 @@
+export * from './lib/aoe-data';
 export * from './lib/data';
 export * from './lib/di';
 export * from './lib/host';
@@ -12,6 +13,7 @@ export * from './helper/maps';
 export * from './helper/civs';
 export * from './helper/buildings';
 export * from './helper/building-sections';
+export * from './helper/leaderboards';
 export * from './helper/reference';
 export * from './helper/techs';
 export * from './helper/tech-sections';

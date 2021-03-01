@@ -9,7 +9,7 @@ import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {MyText} from "./my-text";
 import {makeVariants, useAppTheme, usePaperTheme, useTheme} from "../../theming";
-import {LeaderboardId} from "../../helper/leaderboards";
+import {LeaderboardId} from "@nex/data";
 import {useLazyApi} from "../../hooks/use-lazy-api";
 import {loadUser} from "../../service/user";
 import { sleep } from '@nex/data';

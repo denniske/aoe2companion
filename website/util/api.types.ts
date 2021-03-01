@@ -40,6 +40,7 @@ export interface IMatchRaw {
   ending_age: number;
   expansion: any;
   finished?: any;
+  checked?: any;
   full_tech_tree: boolean;
   game_type: any;
   has_custom_content: any;
@@ -78,17 +79,9 @@ export interface IMatchRaw {
   visibility: any;
 }
 
-export enum LeaderboardId {
-  Unranked = 0,
-  DM1v1 = 1,
-  DMTeam = 2,
-  RM1v1 = 3,
-  RMTeam = 4,
-}
-
 export interface IMatch extends IMatchRaw {
   started?: Date;
   opened?: Date;
   finished?: Date;
+  checked?: Date;
 }
-

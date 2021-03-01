@@ -40,6 +40,9 @@ export class Match implements IMatchEntity {
     @Column({ nullable: true })
     replayed?: number;
 
+    @Column({ nullable: true })
+    checked?: number;
+
     @Column({ default: false })
     notified: boolean;
 

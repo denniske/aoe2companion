@@ -9,6 +9,7 @@ export interface IMatchBase {
     opened?: number;
     started?: number;
     finished?: number;
+    checked?: number;
     notified: boolean;
     leaderboard_id?: number;
     num_slots?: number;

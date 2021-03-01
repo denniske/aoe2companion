@@ -9,7 +9,7 @@ import {clearMatchesPlayer, setLoadingMatchesOrStats, useMutate, useSelector} fr
 import {Checkbox, Searchbar} from "react-native-paper";
 import {MyText} from "../components/my-text";
 import {appVariants} from "../../styles";
-import {LeaderboardId} from "../../helper/leaderboards";
+import {LeaderboardId} from "@nex/data";
 import TemplatePicker from "../components/template-picker";
 import {get} from "lodash-es";
 import {IMatch} from "@nex/data";

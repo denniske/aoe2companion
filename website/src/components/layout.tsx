@@ -351,17 +351,17 @@ function Layout(props) {
                 <div className={classes.mainMenu}>
                     <div className={classes.mainMenuItem}>
                         <Link href='/' as={`/`}>
-                            App
+                            <a>App</a>
                         </Link>
                     </div>
                     <div className={classes.mainMenuItem}>
                         <Link href='/ongoing' as={`/ongoing`}>
-                            Top 100 Ongoing
+                            <a>Top 100 Ongoing</a>
                         </Link>
                     </div>
                     <div className={classes.mainMenuItem}>
                         <Link href='/leaderboard' as={`/leaderboard`}>
-                            Leaderboard
+                            <a>Leaderboard</a>
                         </Link>
                     </div>
                 </div>

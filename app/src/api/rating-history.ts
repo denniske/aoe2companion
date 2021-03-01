@@ -1,7 +1,7 @@
 import { makeQueryString } from '@nex/data';
 import {IRatingHistoryEntry, IRatingHistoryEntryRaw} from "@nex/data";
 import {fromUnixTime} from "date-fns";
-import {LeaderboardId} from "../helper/leaderboards";
+import {LeaderboardId} from "@nex/data";
 import {getHost} from "./host";
 import {fetchJson} from "./util";
 

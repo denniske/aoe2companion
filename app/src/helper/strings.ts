@@ -1,29 +1,7 @@
-import {getLanguage} from '../../../data/src/lib/aoe-data';
+import {getLanguage, IStringCollection, IStrings} from '@nex/data';
 
-interface IStringItem {
-    id: number;
-    string: string;
-}
 
-interface IStrings {
-    age: IStringItem[];
-    civ: IStringItem[];
-    game_type: IStringItem[];
-    leaderboard: IStringItem[];
-    map_size: IStringItem[];
-    map_type: IStringItem[];
-    rating_type: IStringItem[];
-    resources: IStringItem[];
-    speed: IStringItem[];
-    victory: IStringItem[];
-    visibility: IStringItem[];
-}
-
-interface IStringCollection {
-    [key: string]: IStrings;
-}
-
-export function getString(category: keyof IStrings, id: number) {
+export function getInternalString(category: keyof IStrings, id: number): string | undefined {
     // return '###';
     // console.log('getString', getlanguage(), category);
     return strings[getLanguage()][category].find(i => i.id === id)?.string;

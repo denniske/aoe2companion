@@ -1,5 +1,5 @@
-import {getString} from './strings';
-import {getTranslation} from './translate';
+import {getString, getUiTranslation} from '../lib/aoe-data';
+
 
 export enum LeaderboardId {
     Unranked = 0,
@@ -14,7 +14,7 @@ export const leaderboardList: LeaderboardId[] = [3, 4, 1, 2, 0];
 const abbreviations = ['unranked', 'dm1v1', 'dmteam', 'rm1v1', 'rmteam'];
 
 export function formatLeaderboardId(leaderboard_id: LeaderboardId) {
-    return getTranslation(`enum.leaderboardid.${abbreviations[leaderboard_id]}`);
+    return getUiTranslation(`enum.leaderboardid.${abbreviations[leaderboard_id]}`);
 }
 
 export function getLeaderboardOrGameType(leaderboard_id: LeaderboardId, game_type: any) {

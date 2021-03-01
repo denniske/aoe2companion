@@ -1,4 +1,4 @@
-import {ITranslationService} from './aoe-data';
+import {IStrings, ITranslationService} from './aoe-data';
 
 export enum SERVICE_NAME {
     HOST_SERVICE = 'HOST_SERVICE',
@@ -36,6 +36,9 @@ class DummyTranslationService implements ITranslationService {
     }
     getLanguage(): string {
         return 'en';
+    }
+    getString(category: keyof IStrings, id: number): string | undefined {
+        return '???';
     }
 }
 

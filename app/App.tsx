@@ -34,7 +34,7 @@ import Icon5 from 'react-native-vector-icons/FontAwesome5';
 import LeaderboardPage, {leaderboardMenu, LeaderboardTitle} from "./src/view/leaderboard.page";
 import GuidePage, {GuideTitle} from "./src/view/guide.page";
 import CivPage, {CivTitle, civTitle} from "./src/view/civ.page";
-import {Civ, registerService, SERVICE_NAME} from "@nex/data";
+import {Civ, IStrings, registerService, SERVICE_NAME} from "@nex/data";
 import UnitPage, {UnitTitle, unitTitle} from "./src/view/unit/unit.page";
 import {Unit} from "@nex/data";
 import {navigationRef} from "./src/service/navigation";
@@ -70,10 +70,11 @@ import {getLanguageFromSystemLocale2, getTranslation} from './src/helper/transla
 import {getInternalAoeString, loadAoeStringsAsync} from './src/helper/translate-data';
 import * as Localization from 'expo-localization';
 import {getInternalLanguage, setInternalLanguage} from './src/redux/statecache';
-import {ITranslationService} from '../data/src/lib/aoe-data';
+import {ITranslationService} from '@nex/data';
 import {ConditionalTester} from "./src/view/testing/tester";
 import {getElectronPushToken, isElectron} from './src/helper/electron';
 import {setAccountPushTokenElectron} from './src/api/following';
+import {getInternalString} from './src/helper/strings';
 
 initSentry();
 
@@ -106,6 +107,9 @@ class AoeDataService implements ITranslationService {
     }
     getAoeString(str: string): string {
         return getInternalAoeString(str);
+    }
+    getString(category: keyof IStrings, id: number) {
+        return getInternalString(category, id);
     }
     getLanguage(): string {
         return getInternalLanguage();

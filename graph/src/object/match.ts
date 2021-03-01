@@ -31,6 +31,9 @@ export class Match {
     @Field({nullable: true})
     finished?: Date;
 
+    @Field({nullable: true})
+    checked?: Date;
+
     @Field(type => [Player])
     players: Player[];
 }

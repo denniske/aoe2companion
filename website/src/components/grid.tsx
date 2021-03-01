@@ -67,9 +67,9 @@ export default function Grid(props: Props) {
     };
 
     const defaultGridOptions: GridOptions = {
-        context: {
-            lead: leaderboardId,
-        },
+        // context: {
+        //     lead: leaderboardId,
+        // },
         // blockLoadDebounceMillis: 1000,
         localeText: {noRowsToShow: 'No players listed.'},
         datasource: dataSource,

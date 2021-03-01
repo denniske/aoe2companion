@@ -6,7 +6,7 @@ import {UserIdBase} from "../../helper/user";
 import {MyText} from "./my-text";
 import Icon5 from 'react-native-vector-icons/FontAwesome5';
 import {AoePosition, IRow} from "../../service/stats/stats-position";
-import {LeaderboardId} from "../../helper/leaderboards";
+import {LeaderboardId} from "@nex/data";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
 import {useAppTheme} from '../../theming';

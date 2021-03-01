@@ -2,7 +2,7 @@ import {FlatList, StyleSheet, View} from "react-native";
 import {
     clearMatchesPlayer, clearStatsPlayer, setLoadingMatchesOrStats, setPrefValue, useMutate, useSelector
 } from "../../redux/reducer";
-import {LeaderboardId} from "../../helper/leaderboards";
+import {LeaderboardId} from "@nex/data";
 import React, {useEffect, useState} from "react";
 import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {RootTabParamList} from "../../../App";

@@ -3,7 +3,7 @@ import {getStatsCiv} from "./stats/stats-civ";
 import {getStatsPlayer} from "./stats/stats-player";
 import {IMatch} from "@nex/data";
 import {UserId, UserIdBase} from "../helper/user";
-import {LeaderboardId} from "../helper/leaderboards";
+import {LeaderboardId} from "@nex/data";
 import {getStatsPosition} from "./stats/stats-position";
 import {time} from "@nex/data";
 import {getStatsDuration} from "./stats/stats-duration";

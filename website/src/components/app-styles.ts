@@ -31,7 +31,7 @@ export const useAppStyles = createStylesheet((theme) => ({
         flexDirection: 'column',
         flex: 100,
         overflow: 'hidden',
-        maxWidth: 800,
+        // maxWidth: 1400,
         // padding: theme.spacing(3),
         marginBottom: theme.spacing(3),
         // marginRight: theme.spacing(3),

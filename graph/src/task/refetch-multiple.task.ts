@@ -2,7 +2,7 @@ import {Injectable, Logger, OnModuleInit} from '@nestjs/common';
 import {fromUnixTime, getUnixTime, subDays, subHours} from "date-fns";
 import {fetchOngoingMatches} from "../helper";
 import {
-    Environment, fetchPlayerMatchesLegacyRaw, formatDayAndTime, IHostService, IHttpService, OS, registerService,
+    Environment, formatDayAndTime, IHostService, IHttpService, OS, registerService,
     SERVICE_NAME
 } from "@nex/data";
 import {Connection} from "typeorm";
@@ -133,59 +133,60 @@ export class RefetchMultipleTask implements OnModuleInit {
     }
 
     async refetchMatchesFromServer(unfinishedMatches: IMatchBase[], offset: number = 0, alreadyProcessedMatchIds: string[] = []) {
-        const unfinishedPlayers = unfinishedMatches.map(m => m.players.filter(p => p.profile_id)[0]);
-        const params = unfinishedPlayers.map(p => ({ profile_id: p.profile_id }));
-        const matches = await fetchPlayerMatchesLegacyRaw('aoe2de', 0, FETCH_COUNT, params);
-        console.log(new Date(), 'GOT', matches.length);
-
-        const queriedPlayers = unfinishedPlayers.map(p => p.profile_id);
-
-        // const matchLists = queriedPlayers.map(qpId => matches.filter(m => m.players.some(p => p.profile_id == qpId)));
-
-        const matchLists = queriedPlayers.map(qpId => {
-            return matches.filter(m => m.players.some(p => p.profile_id == qpId)).map(m => ({
-                    profile_id: qpId,
-                    match_id: m.match_id,
-                    started: formatDayAndTime(fromUnixTime(m.started)),
-                    finished: m.finished ? formatDayAndTime(fromUnixTime(m.finished)) : null,
-                    // maybe_finished: m.maybe_finished,
-                }));
-        });
-
-        // console.log(matchLists);
-        // console.log(matchLists.map(ml => ml.map(m => ({
-        //     match_id: m.match_id,
-        //     fin: m.finished,
-        //     mfin: m.maybe_finished,
-        // }))));
-
-
-
-        const returnedPlayers = flatMap(matches, m => m.players).map(p => p.profile_id);
-        const samePlayers = queriedPlayers.filter(qp => returnedPlayers.includes(qp)).length;
-        const sameMatches = matches.filter(qm => unfinishedMatches.map(m => m.match_id).includes(qm.match_id));
-        console.log('SAME PLAYERS COUNT', samePlayers);
-        console.log('SAME MATCH COUNT', sameMatches.length);
-
-        const finishedMatches = sameMatches.filter(m => m.finished);
-        console.log('Same and finished matches', finishedMatches.length);
-
-        console.log(new Date());
-
-        for (const m of finishedMatches) {
-            console.log(fromUnixTime(m.finished), m.match_id, ((new Date().getTime() - fromUnixTime(m.finished).getTime())/1000).toFixed(2), 's late');
-        }
-
-        await upsertMatchesWithPlayers(this.connection, finishedMatches, false);
-
-        // const result = [...alreadyProcessedMatchIds, ...sameMatches.map(m => m.match_id)];
+        // const unfinishedPlayers = unfinishedMatches.map(m => m.players.filter(p => p.profile_id)[0]);
+        // const params = unfinishedPlayers.map(p => ({ profile_id: p.profile_id }));
+        // const matches = await fetchPlayerMatchesLegacyRaw('aoe2de', 0, FETCH_COUNT, params);
+        // console.log(new Date(), 'GOT', matches.length);
         //
-        // if (sameMatches.length < 100) {
-        //     return this.refetchMatchesFromServer(unfinishedMatches, offset+1, result)
+        // const queriedPlayers = unfinishedPlayers.map(p => p.profile_id);
+        //
+        // // const matchLists = queriedPlayers.map(qpId => matches.filter(m => m.players.some(p => p.profile_id == qpId)));
+        //
+        // const matchLists = queriedPlayers.map(qpId => {
+        //     return matches.filter(m => m.players.some(p => p.profile_id == qpId)).map(m => ({
+        //             profile_id: qpId,
+        //             match_id: m.match_id,
+        //             started: formatDayAndTime(fromUnixTime(m.started)),
+        //             finished: m.finished ? formatDayAndTime(fromUnixTime(m.finished)) : null,
+        //             // maybe_finished: m.maybe_finished,
+        //         }));
+        // });
+        //
+        // // console.log(matchLists);
+        // // console.log(matchLists.map(ml => ml.map(m => ({
+        // //     match_id: m.match_id,
+        // //     fin: m.finished,
+        // //     mfin: m.maybe_finished,
+        // // }))));
+        //
+        //
+        //
+        // const returnedPlayers = flatMap(matches, m => m.players).map(p => p.profile_id);
+        // const samePlayers = queriedPlayers.filter(qp => returnedPlayers.includes(qp)).length;
+        // const sameMatches = matches.filter(qm => unfinishedMatches.map(m => m.match_id).includes(qm.match_id));
+        // console.log('SAME PLAYERS COUNT', samePlayers);
+        // console.log('SAME MATCH COUNT', sameMatches.length);
+        //
+        // const finishedMatches = sameMatches.filter(m => m.finished);
+        // console.log('Same and finished matches', finishedMatches.length);
+        //
+        // console.log(new Date());
+        //
+        // for (const m of finishedMatches) {
+        //     console.log(fromUnixTime(m.finished), m.match_id, ((new Date().getTime() - fromUnixTime(m.finished).getTime())/1000).toFixed(2), 's late');
         // }
         //
-        // return result;
-
-        return sameMatches.map(m => m.match_id);
+        // await upsertMatchesWithPlayers(this.connection, finishedMatches, false);
+        //
+        // // const result = [...alreadyProcessedMatchIds, ...sameMatches.map(m => m.match_id)];
+        // //
+        // // if (sameMatches.length < 100) {
+        // //     return this.refetchMatchesFromServer(unfinishedMatches, offset+1, result)
+        // // }
+        // //
+        // // return result;
+        //
+        // return sameMatches.map(m => m.match_id);
+        return false;
     }
 }
