@@ -151,7 +151,7 @@
   "push.error.noaccount": "アカウントを取得できませんでした。",
   "push.error.nopushtoken": "プッシュトークンを取得できませんでした。",
   "push.heading.account": "アカウント",
-  "push.heading.notification:": "最後に受信した通知",
+  "push.heading.notification": "最後に受信した通知",
   "push.heading.troubleshoot": "トラブルシューティング情報",
   "push.action.sendtestnotification": "テスト通知を送信する",
   "push.action.sendtestnotification.note": "テスト通知が携帯電話に届くまでに1分かかる場合があります。",

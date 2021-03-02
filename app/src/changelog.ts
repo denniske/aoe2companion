@@ -16,7 +16,7 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
-    '23.0.0': [
+    '22.0.5': [
         {
             type: 'minor',
             title: 'Fix victory/defeat icon on following page',

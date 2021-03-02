@@ -1,14 +1,14 @@
 import {useEffect, useRef, useState} from 'react';
 import {getRootNavigation} from "../service/navigation";
-import {NavigationState} from "react-native-tab-view";
+import {NavigationState} from '@react-navigation/native';
 
 
 export function useNavigationStateExternal() {
     const mountedRef = useRef(true);
-    const [state, setState] = useState<NavigationState<any> | null>(null);
+    const [state, setState] = useState<NavigationState | null>(null);
 
     const onNavigationStateChanged = (ev: any) => {
-        const state = ev.data.state as NavigationState<any>;
+        const state = ev.data.state as NavigationState;
         if (state != null) {
             setState(state);
         }

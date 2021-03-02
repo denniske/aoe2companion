@@ -2807,7 +2807,7 @@ const unitsInternal = {
     },
 };
 
-export const unitUpgradeCosts ={
+export const unitUpgradeCosts = {
     "Coustillier":{
         "Food":1000,
         "Gold":800
@@ -3270,7 +3270,7 @@ export function getUnitDescription(unit: Unit) {
 }
 
 export function getUnitUpgradeCost(unit: Unit): ICostDict | null {
-    return unitUpgradeCosts[unit];
+    return unitUpgradeCosts[unit as keyof typeof unitUpgradeCosts];
 }
 
 // export function getUnitDescriptionRaw(unit: Unit) {

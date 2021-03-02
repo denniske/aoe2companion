@@ -151,7 +151,7 @@
   "push.error.noaccount": "Hesap alınamadı.",
   "push.error.nopushtoken": "Push jetonu alınamadı.",
   "push.heading.account": "Hesap",
-  "push.heading.notification:": "Son alınan bildirim",
+  "push.heading.notification": "Son alınan bildirim",
   "push.heading.troubleshoot": "Sorun giderme bilgileri",
   "push.action.sendtestnotification": "Test Bildirimi Gönder",
   "push.action.sendtestnotification.note": "Test bildiriminin telefonunuza ulaşması bir dakika sürebilir.",

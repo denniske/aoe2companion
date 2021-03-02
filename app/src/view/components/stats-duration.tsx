@@ -37,7 +37,7 @@ function Row({data}: IRowProps) {
                     <View style={styles.icon}>
                         <Icon5 name="clock" size={14} color={theme.textNoteColor}/>
                     </View>
-                    <MyText style={{marginLeft}}>{getTranslation(`main.stats.duration.${data.duration}`)}</MyText>
+                    <MyText style={{marginLeft}}>{getTranslation(`main.stats.duration.${data.duration}` as any)}</MyText>
                 </View>
                 <MyText style={styles.cellGames}>
                     {data.games}

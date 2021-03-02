@@ -151,7 +151,7 @@
   "push.error.noaccount": "Tidak dapat mengambil akaun.",
   "push.error.nopushtoken": "Tidak dapat mengambil token tolak.",
   "push.heading.account": "Akaun",
-  "push.heading.notification:": "Pemberitahuan terakhir diterima",
+  "push.heading.notification": "Pemberitahuan terakhir diterima",
   "push.heading.troubleshoot": "Selesaikan masalah",
   "push.action.sendtestnotification": "Hantar Pemberitahuan Ujian",
   "push.action.sendtestnotification.note": "Pemberitahuan ujian mungkin memerlukan satu minit untuk mencapai telefon anda.",

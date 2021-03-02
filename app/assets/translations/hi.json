@@ -151,7 +151,7 @@
   "push.error.noaccount": "खाता पुनर्प्राप्त नहीं किया जा सका।",
   "push.error.nopushtoken": "पुश टोकन पुनः प्राप्त नहीं कर सका।",
   "push.heading.account": "लेखा",
-  "push.heading.notification:": "अंतिम सूचना मिली",
+  "push.heading.notification": "अंतिम सूचना मिली",
   "push.heading.troubleshoot": "समस्या निवारण",
   "push.action.sendtestnotification": "टेस्ट अधिसूचना भेजें",
   "push.action.sendtestnotification.note": "आपके फोन तक पहुंचने में टेस्ट नोटिफिकेशन में एक मिनट का समय लग सकता है।",

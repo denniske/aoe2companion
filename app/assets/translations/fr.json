@@ -151,7 +151,7 @@
   "push.error.noaccount": "Impossible de récupérer le compte.",
   "push.error.nopushtoken": "Impossible de récupérer le jeton push.",
   "push.heading.account": "Compte",
-  "push.heading.notification:": "Dernière notification reçue",
+  "push.heading.notification": "Dernière notification reçue",
   "push.heading.troubleshoot": "Dépanner les informations",
   "push.action.sendtestnotification": "Envoyer une notification de test",
   "push.action.sendtestnotification.note": "La notification de test peut prendre une minute pour atteindre votre téléphone.",

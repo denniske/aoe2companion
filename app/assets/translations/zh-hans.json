@@ -151,7 +151,7 @@
   "push.error.noaccount": "无法检索帐户。",
   "push.error.nopushtoken": "无法检索推送令牌。",
   "push.heading.account": "帐户",
-  "push.heading.notification:": "最后收到的通知",
+  "push.heading.notification": "最后收到的通知",
   "push.heading.troubleshoot": "疑难排解资讯",
   "push.action.sendtestnotification": "发送测试通知",
   "push.action.sendtestnotification.note": "测试通知可能需要一分钟才能到达您的手机。",

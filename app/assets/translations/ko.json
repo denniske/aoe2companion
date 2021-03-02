@@ -151,7 +151,7 @@
   "push.error.noaccount": "계정을 검색 할 수 없습니다.",
   "push.error.nopushtoken": "푸시 토큰을 검색 할 수 없습니다.",
   "push.heading.account": "계정",
-  "push.heading.notification:": "마지막으로받은 알림",
+  "push.heading.notification": "마지막으로받은 알림",
   "push.heading.troubleshoot": "정보 문제 해결",
   "push.action.sendtestnotification": "테스트 알림 보내기",
   "push.action.sendtestnotification.note": "테스트 알림이 휴대 전화에 도달하는 데 1 분 정도 걸릴 수 있습니다.",

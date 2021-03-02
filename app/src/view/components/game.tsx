@@ -1,6 +1,5 @@
 import {Image, ImageBackground, Platform, StyleSheet, Text, View} from 'react-native';
-import {getString} from '../../helper/strings';
-import {formatAgo, IPlayer} from '@nex/data';
+import {formatAgo, getString, IPlayer} from '@nex/data';
 import React, {useEffect} from 'react';
 import {Player, PlayerSkeleton} from './player';
 import MyListAccordion from './accordion';

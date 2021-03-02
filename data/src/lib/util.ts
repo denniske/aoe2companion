@@ -37,7 +37,7 @@ function getLocale() {
     // console.log('getLocale', getlanguage());
     // return localeMapping['en'];
     // return localeMapping['en'];
-    return localeMapping[getLanguage()];
+    return localeMapping[getLanguage() as keyof typeof localeMapping];
 }
 
 

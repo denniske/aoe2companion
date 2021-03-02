@@ -151,7 +151,7 @@
   "push.error.noaccount": "Не удалось получить аккаунт.",
   "push.error.nopushtoken": "Не удалось получить токен push.",
   "push.heading.account": "учетная запись",
-  "push.heading.notification:": "Последнее полученное уведомление",
+  "push.heading.notification": "Последнее полученное уведомление",
   "push.heading.troubleshoot": "Информация об устранении неполадок",
   "push.action.sendtestnotification": "Отправить тестовое уведомление",
   "push.action.sendtestnotification.note": "Получение тестового уведомления на телефон может занять минуту.",

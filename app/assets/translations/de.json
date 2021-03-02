@@ -151,7 +151,7 @@
   "push.error.noaccount": "Konto konnte nicht abgerufen werden.",
   "push.error.nopushtoken": "Push-Token konnte nicht abgerufen werden.",
   "push.heading.account": "Konto",
-  "push.heading.notification:": "Zuletzt erhaltene Benachrichtigung",
+  "push.heading.notification": "Zuletzt erhaltene Benachrichtigung",
   "push.heading.troubleshoot": "Informationen zur Fehlerbehebung",
   "push.action.sendtestnotification": "Testbenachrichtigung senden",
   "push.action.sendtestnotification.note": "Die Testbenachrichtigung kann eine Minute dauern, bis Sie Ihr Telefon erreichen.",

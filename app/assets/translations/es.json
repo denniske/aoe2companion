@@ -151,7 +151,7 @@
   "push.error.noaccount": "No se pudo recuperar la cuenta.",
   "push.error.nopushtoken": "No se pudo recuperar el token de inserción.",
   "push.heading.account": "Cuenta",
-  "push.heading.notification:": "Última notificación recibida",
+  "push.heading.notification": "Última notificación recibida",
   "push.heading.troubleshoot": "Solucionar problemas de información",
   "push.action.sendtestnotification": "Enviar notificación de prueba",
   "push.action.sendtestnotification.note": "La notificación de prueba puede tardar un minuto en llegar a su teléfono.",

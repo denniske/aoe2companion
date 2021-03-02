@@ -152,7 +152,7 @@
   "push.error.noaccount": "Could not retrieve account.",
   "push.error.nopushtoken": "Could not retrieve push token.",
   "push.heading.account": "Account",
-  "push.heading.notification:": "Last received notification",
+  "push.heading.notification": "Last received notification",
   "push.heading.troubleshoot": "Troubleshoot info",
   "push.action.sendtestnotification": "Send Test Notification",
   "push.action.sendtestnotification.note": "Test notification may take a minute to reach your phone.",

@@ -151,7 +151,7 @@
   "push.error.noaccount": "Impossibile recuperare l'account.",
   "push.error.nopushtoken": "Impossibile recuperare il token di push.",
   "push.heading.account": "account",
-  "push.heading.notification:": "Ultima notifica ricevuta",
+  "push.heading.notification": "Ultima notifica ricevuta",
   "push.heading.troubleshoot": "Risolvere i problemi relativi alle informazioni",
   "push.action.sendtestnotification": "Invia notifica di prova",
   "push.action.sendtestnotification.note": "La notifica di prova potrebbe richiedere un minuto per raggiungere il tuo telefono.",

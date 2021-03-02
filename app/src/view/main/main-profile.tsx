@@ -1,7 +1,7 @@
 import {FlatList, StyleSheet, View} from "react-native";
 import {useSelector} from "../../redux/reducer";
 import React, {useEffect, useState} from "react";
-import {useNavigation} from "@react-navigation/native";
+import {useNavigation, useRoute} from "@react-navigation/native";
 import {RootTabParamList} from "../../../App";
 import {useApi} from "../../hooks/use-api";
 import {loadRatingHistories} from "../../service/rating";
@@ -15,7 +15,7 @@ import {Button} from "react-native-paper";
 import {sameUserNull} from "../../helper/user";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
-import {getRoutes} from '../../service/navigation';
+import {getPathToRoute} from '../../service/navigation';
 import {useNavigationStateExternal} from '../../hooks/use-navigation-state-external';
 
 
@@ -33,10 +33,12 @@ export default function MainProfile() {
     // const route = useRoute<RouteProp<RootTabParamList, 'MainProfile'>>() as any;
     // const user = parseUserId(route.params.user);
 
+    const route = useRoute();
     const navigationState = useNavigationStateExternal();
-    const routes = getRoutes(navigationState);
+    const routes = getPathToRoute(navigationState, route.key);
     // console.log('STATE', navigationState);
-    // console.log('STATE ROUTES', routes);
+    // console.log('STATE PATH', routes);
+    // console.log('route', route);
 
     if (routes == null || routes.length === 0 || routes[0].params == null) return <View/>;
 

@@ -18,12 +18,13 @@ import {parseUserId, sameUser} from "../../helper/user";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
 import {useNavigationStateExternal} from '../../hooks/use-navigation-state-external';
-import {getRoutes} from '../../service/navigation';
+import {getPathToRoute, getRoutes} from '../../service/navigation';
 
 
 export default function MainMatches() {
+    const route = useRoute();
     const navigationState = useNavigationStateExternal();
-    const routes = getRoutes(navigationState);
+    const routes = getPathToRoute(navigationState, route.key);
 
     if (routes == null || routes.length === 0 || routes[0].params == null) return <View/>;
 

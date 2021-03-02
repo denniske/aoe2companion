@@ -151,7 +151,7 @@
   "push.error.noaccount": "Không thể truy xuất tài khoản.",
   "push.error.nopushtoken": "Không thể truy xuất mã thông báo đẩy.",
   "push.heading.account": "Tài khoản",
-  "push.heading.notification:": "Thông báo nhận được lần cuối",
+  "push.heading.notification": "Thông báo nhận được lần cuối",
   "push.heading.troubleshoot": "Thông tin khắc phục sự cố",
   "push.action.sendtestnotification": "Gửi thông báo kiểm tra",
   "push.action.sendtestnotification.note": "Có thể mất một phút để thông báo kiểm tra đến điện thoại của bạn.",

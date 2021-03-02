@@ -1,5 +1,5 @@
-import {getString, getStringId} from "./strings";
-import {AoeMap} from '@nex/data';
+import {AoeMap, getString} from '@nex/data';
+import {getStringId} from './strings';
 
 export const maps = {
     9: require('../../assets/maps/rm_arabia.png'),

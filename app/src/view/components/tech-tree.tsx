@@ -38,7 +38,7 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
         <View style={styles.container}>
             <View style={styles.row2}>
                 <MyText style={styles.sectionHeader}>{getTranslation('techtree.title')}    </MyText>
-                <ButtonPicker value={techTreeSize} values={values} formatter={x => getTranslation(`techtree.type.${x}`)} onSelect={nav}/>
+                <ButtonPicker value={techTreeSize} values={values} formatter={x => getTranslation(`techtree.type.${x}` as any)} onSelect={nav}/>
             </View>
 
             {

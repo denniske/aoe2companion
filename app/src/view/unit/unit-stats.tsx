@@ -95,9 +95,9 @@ interface PathProps3 {
 
 function signed(num: number) {
     if (num > 0) {
-        return '+' + num;
+        return '+' + num.toString();
     }
-    return num;
+    return num.toString();
 }
 
 export function GetAttackValue(props: PathProps3) {

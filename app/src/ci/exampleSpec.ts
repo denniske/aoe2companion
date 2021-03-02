@@ -54,11 +54,11 @@ export default function (spec: any) {
             await sleep(waitTime);
             await capture();
 
-            tabNavigation.navigate('MainStats');
+            tabNavigation.navigate('MainStats' as any);
             await sleep(waitTime*2);
             await capture();
 
-            tabNavigation.navigate('MainMatches');
+            tabNavigation.navigate('MainMatches' as any);
             await sleep(waitTime);
             await capture();
 

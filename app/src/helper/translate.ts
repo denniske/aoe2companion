@@ -1,5 +1,4 @@
 import * as local001 from '../../assets/translations/en.json'
-import {getlanguage} from '../redux/statecache';
 
 interface IStringCollection {
     [key: string]: Record<string, string>;

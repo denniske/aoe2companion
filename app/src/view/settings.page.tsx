@@ -231,7 +231,7 @@ export default function SettingsPage() {
                     <MyText style={styles.small}>{getTranslation('settings.darkmode.note')}</MyText>
                 </View>
                 <View style={styles.cellValue}>
-                    <ButtonPicker value={config.darkMode} values={values} formatter={x => getTranslation(`settings.darkmode.${x}`)} onSelect={setDarkMode}/>
+                    <ButtonPicker value={config.darkMode} values={values} formatter={x => getTranslation(`settings.darkmode.${x}` as any)} onSelect={setDarkMode}/>
                 </View>
             </View>
 

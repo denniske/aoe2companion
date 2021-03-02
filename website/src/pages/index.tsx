@@ -1,10 +1,28 @@
 import AspectRatio from 'react-aspect-ratio';
 import React from "react";
+import {fetchJson} from '@nex/data';
 
 
 // import './index.module.css';
 
 export default function Home() {
+
+    const downloadWindowsApp = async (event) => {
+        try {
+            const releases = await fetchJson('downloadWindowsApp', 'https://api.github.com/repos/denniske/aoe2companion/releases');
+            const release = releases?.find(r => r.tag_name.startsWith('desktop-v'));
+            const asset = release?.assets?.find(a => a.name.endsWith('.exe'));
+            if (asset) {
+                window.open(asset.browser_download_url);
+            } else {
+                window.open('https://github.com/denniske/aoe2companion/releases');
+            }
+        } catch (e) {
+            window.open('https://github.com/denniske/aoe2companion/releases');
+        }
+        event.preventDefault();
+    };
+
     return (
         <div className="container2">
         <div className="showcase">
@@ -36,7 +54,7 @@ export default function Home() {
                     <img src="https://img.shields.io/static/v1?label=Web&logo=google-chrome&message=Open&logoColor=FFFFFF&color=brightgreen"/>
                 </a>
                 <div style={{height: '10px'}}/>
-                <a href="https://github.com/denniske/aoe2companion/releases/download/v22.0.2/aoe2companion.22.0.2.exe" target="_blank">
+                <a onClick={downloadWindowsApp} href="#">
                     <img src="https://img.shields.io/static/v1?label=Windows&logo=windows&message=Download&logoColor=FFFFFF&color=brightgreen"/>
                 </a>
 

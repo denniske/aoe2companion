@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
     Animated, SafeAreaView, StyleProp, StyleSheet, ViewStyle, View, ActivityIndicator, Platform, StatusBar
 } from 'react-native';
-import {Button, Surface, Theme, Text, withTheme} from "react-native-paper";
+import {Button, Surface, Text, withTheme} from "react-native-paper";
 import {useEffect, useState} from "react";
 import {usePrevious} from "@nex/data/hooks";
 
@@ -18,7 +18,7 @@ type Props = React.ComponentProps<typeof Surface> & {
     wrapperStyle?: StyleProp<ViewStyle>;
     style?: StyleProp<ViewStyle>;
     ref?: React.RefObject<View>;
-    theme: Theme;
+    theme: ReactNativePaper.Theme;
     working?: boolean;
 };
 

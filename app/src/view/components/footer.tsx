@@ -26,7 +26,7 @@ export default function Footer() {
     const birthdayRead = useSelector(state => state.prefs.birthdayRead);
     const mutate = useMutate();
 
-    const nav = async (route: keyof RootStackParamList, params: any) => {
+    const nav = async (route: keyof RootStackParamList, params?: any) => {
         const navigation = getRootNavigation();
         navigation.reset({
             index: 0,
@@ -36,18 +36,18 @@ export default function Footer() {
 
     const iconStyle = (...routes: string[]) => {
         // console.log('currentRoute', activeRoute?.name);
-        const isActiveRoute = routes.includes(activeRoute?.name);
+        const isActiveRoute = routes.includes(activeRoute?.name!);
         return isActiveRoute ? styles.iconActive : styles.icon;
     };
 
     const iconStyle2 = (...routes: string[]) => {
         // console.log('currentRoute', activeRoute?.name);
-        const isActiveRoute = routes.includes(activeRoute?.name);
+        const isActiveRoute = routes.includes(activeRoute?.name!);
         return isActiveRoute ? styles.iconActive2 : styles.icon2;
     };
 
     const iconPopupStyle = (...routes: string[]) => {
-        const isActiveRoute = routes.includes(activeRoute?.name);
+        const isActiveRoute = routes.includes(activeRoute?.name!);
         return isActiveRoute ? styles.iconActive : styles.iconInPopup;
     };
 
