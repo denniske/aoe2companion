@@ -1,7 +1,7 @@
 import {useTheme} from "../../theming";
 import {FlatList, Platform, StyleSheet, TouchableOpacity, View} from "react-native";
 import React, {useEffect, useState} from "react";
-import {RouteProp, useRoute} from "@react-navigation/native";
+import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {RootTabParamList} from "../../../App";
 import {Game} from "../components/game";
 import RefreshControlThemed from "../components/refresh-control-themed";
@@ -18,13 +18,16 @@ import {parseUserId, sameUser} from "../../helper/user";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
 import {useNavigationStateExternal} from '../../hooks/use-navigation-state-external';
-import {getPathToRoute, getRoutes} from '../../service/navigation';
+import {getPathToRoute, getRoutes, getRoutesFromCurrentActiveStack} from '../../service/navigation';
 
 
 export default function MainMatches() {
     const route = useRoute();
     const navigationState = useNavigationStateExternal();
-    const routes = getPathToRoute(navigationState, route.key);
+    let routes = getPathToRoute(navigationState, route.key);
+    if (routes.length === 0) {
+        routes = getRoutesFromCurrentActiveStack(navigationState);
+    }
 
     if (routes == null || routes.length === 0 || routes[0].params == null) return <View/>;
 
@@ -40,6 +43,15 @@ function MainMatchesInternal({user}: { user: any}) {
     const [leaderboardId, setLeaderboardId] = useState<LeaderboardId>();
     const [filteredMatches, setFilteredMatches] = useState<IMatch[]>();
     const [withMe, setWithMe] = useState(false);
+
+    const navigation = useNavigation();
+    const userProfile = useSelector(state => state.user[user.id]?.profile);
+    useEffect(() => {
+        if (!userProfile) return;
+        navigation.setOptions({
+            title: userProfile?.name + ' - AoE II Companion',
+        });
+    }, [userProfile]);
 
     const auth = useSelector(state => state.auth);
 

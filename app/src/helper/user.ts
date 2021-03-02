@@ -17,12 +17,20 @@ export interface UserIdBaseWithName extends UserIdBase {
 }
 
 export function parseUserId(str: string): UserId {
-    const parts = str.split('-');
-    return {
-        id: str,
-        steam_id: (parts[0] === 'null' || parts[0] === 'undefined') ? undefined : parts[0],
-        profile_id: (parts[1] === 'null' || parts[1] === 'undefined') ? undefined : parseInt(parts[1]),
+    let parts = str.split('-');
+    if (parts.length != 2) {
+        // Long ids are steam ids
+        if (str.length >= 12) {
+            parts = ['null', str];
+        } else {
+            parts = [str, 'null'];
+        }
+    }
+    const parsedUserBase = {
+        profile_id: (parts[0] === 'null' || parts[0] === 'undefined') ? undefined : parseInt(parts[0]),
+        steam_id: (parts[1] === 'null' || parts[1] === 'undefined') ? undefined : parts[1],
     };
+    return userIdFromBase(parsedUserBase);
 }
 
 export function userIdFromBase(base: UserIdBase): UserId {
@@ -34,7 +42,10 @@ export function userIdFromBase(base: UserIdBase): UserId {
 }
 
 export function composeUserId(id: UserIdBase): string {
-    return id.steam_id + '-' + id.profile_id;
+    if (id.steam_id) {
+        return id.profile_id + '-' + id.steam_id;
+    }
+    return `${id.profile_id}`;
 }
 
 export function minifyUserId(id: UserIdBase): UserIdBase {
@@ -49,7 +60,10 @@ export function minifyUserId(id: UserIdBase): UserIdBase {
 }
 
 export function composeUserIdFromParts(steam_id?: string, profile_id?: number): string {
-    return steam_id + '-' + profile_id;
+    if (steam_id) {
+        return profile_id + '-' + steam_id;
+    }
+    return `${profile_id}`;
 }
 
 export function userIdEmpty(userId: UserIdBase) {

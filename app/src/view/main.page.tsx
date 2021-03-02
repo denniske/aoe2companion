@@ -141,6 +141,8 @@ export function MainPageInner({ user }: MainPageInnerProps) {
         return mainState?.index ?? 0;
     });
 
+    console.log('CACHED API ACCESS', user.id);
+
     let allMatches = useCachedConservedLazyApi(
         [currentTabIndex, loadingMatchesOrStatsTrigger],
         () => currentTabIndex > 0,

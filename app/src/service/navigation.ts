@@ -46,11 +46,11 @@ export function getPathToRouteInternal(route: MyRoute, routeKey: string): any {
     return [];
 }
 
-// export function getRoutesFromCurrentActiveStack(state: any): any {
-//     if (state == null) return [];
-//     const activeRoute = state.routes[state.index];
-//     return [activeRoute, ...getRoutes(activeRoute.state)];
-// }
+export function getRoutesFromCurrentActiveStack(state: any): any {
+    if (state == null || state.index == null) return [];
+    const activeRoute = state.routes[state.index];
+    return [activeRoute, ...getRoutesFromCurrentActiveStack(activeRoute.state)];
+}
 
 export function getRoutes(state: any): any {
     if (state == null) return [];

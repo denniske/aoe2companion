@@ -22,13 +22,16 @@ import StatsDuration from "../components/stats-duration";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
 import {useNavigationStateExternal} from '../../hooks/use-navigation-state-external';
-import {getPathToRoute, getRoutes} from '../../service/navigation';
+import {getPathToRoute, getRoutes, getRoutesFromCurrentActiveStack} from '../../service/navigation';
 
 
 export default function MainStats() {
     const route = useRoute();
     const navigationState = useNavigationStateExternal();
-    const routes = getPathToRoute(navigationState, route.key);
+    let routes = getPathToRoute(navigationState, route.key);
+    if (routes.length === 0) {
+        routes = getRoutesFromCurrentActiveStack(navigationState);
+    }
 
     if (routes == null || routes.length === 0 || routes[0].params == null) return <View/>;
 

@@ -131,7 +131,7 @@ const linking: LinkingOptions = {
     config: {
         screens: {
             User: {
-                path: 'user/:id/:name',
+                path: 'user/:id/:name?',
                 parse: {
                     id: parseUserId,
                     name: String,

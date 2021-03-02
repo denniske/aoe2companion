@@ -15,7 +15,7 @@ import {Button} from "react-native-paper";
 import {sameUserNull} from "../../helper/user";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
-import {getPathToRoute} from '../../service/navigation';
+import {getPathToRoute, getRoutesFromCurrentActiveStack} from '../../service/navigation';
 import {useNavigationStateExternal} from '../../hooks/use-navigation-state-external';
 
 
@@ -35,10 +35,20 @@ export default function MainProfile() {
 
     const route = useRoute();
     const navigationState = useNavigationStateExternal();
-    const routes = getPathToRoute(navigationState, route.key);
+    let routes = getPathToRoute(navigationState, route.key);
     // console.log('STATE', navigationState);
     // console.log('STATE PATH', routes);
     // console.log('route', route);
+
+    if (routes.length === 0) {
+        routes = getRoutesFromCurrentActiveStack(navigationState);
+        // console.log('STATE PATH FALLBACK', routes);
+    }
+
+    // const navigation = useNavigation();
+    // const parent = navigation.dangerouslyGetParent();
+    // console.log('parent.state', parent?.dangerouslyGetState());
+    // console.log('parent', parent);
 
     if (routes == null || routes.length === 0 || routes[0].params == null) return <View/>;
 

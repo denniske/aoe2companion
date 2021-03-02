@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Alert, Linking, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {RootStackParamList} from '../../App';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import FontAwesomeIcon5 from "react-native-vector-icons/FontAwesome5";
@@ -7,10 +7,15 @@ import {MainPageInner} from "./main.page";
 import {createStylesheet} from '../theming-new';
 import {setAuth, setPrefValue, useMutate, useSelector} from '../redux/reducer';
 import {useCavy} from './testing/tester';
-import {composeUserId, userIdFromBase, UserInfo} from '../helper/user';
+import {composeUserId, sameUserNull, userIdFromBase, UserInfo} from '../helper/user';
 import {saveCurrentPrefsToStorage, saveSettingsToStorage} from '../service/storage';
 import Search from './components/search';
 import {loadProfile} from '../service/profile';
+import {MyText} from './components/my-text';
+import {getTranslation} from '../helper/translate';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import IconFA5 from 'react-native-vector-icons/FontAwesome5';
+import {useApi} from '../hooks/use-api';
 
 
 export function userMenu(props: any) {
@@ -25,21 +30,52 @@ export function userMenu(props: any) {
 export function UserMenu() {
     const styles = useStyles();
     const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
-    const auth = route.params.id;
-    const steamProfileUrl = 'https://steamcommunity.com/profiles/' + auth.steam_id;
-    const xboxProfileUrl = 'https://www.ageofempires.com/stats/?game=age2&profileId=' + auth.profile_id;
+    const user = route.params.id;
+    const auth = useSelector(state => state.auth!);
+    const steamProfileUrl = 'https://steamcommunity.com/profiles/' + user.steam_id;
+    const xboxProfileUrl = 'https://www.ageofempires.com/stats/?game=age2&profileId=' + user.profile_id;
+
+    const mutate = useMutate();
+
+    const deleteUser = () => {
+        if (Platform.OS === 'web') {
+            if (confirm("Do you want to reset me page?")){
+                doDeleteUser();
+            }
+        } else {
+            Alert.alert(getTranslation('main.profile.reset.title'), getTranslation('main.profile.reset.note'),
+                [
+                    {text: getTranslation('main.profile.reset.action.cancel'), style: "cancel"},
+                    {text: getTranslation('main.profile.reset.action.reset'), onPress: doDeleteUser,}
+                ],
+                {cancelable: false}
+            );
+        }
+    };
+
+    const doDeleteUser = async () => {
+        await AsyncStorage.removeItem('settings');
+        mutate(setAuth(null))
+    };
+
     return (
         <View style={styles.menu}>
             {
-                auth.profile_id &&
+                user.profile_id &&
                 <TouchableOpacity style={styles.menuButton} onPress={() => Linking.openURL(xboxProfileUrl)}>
                     <FontAwesomeIcon5 style={styles.menuIcon} name="xbox" size={20} />
                 </TouchableOpacity>
             }
             {
-                auth.steam_id &&
+                user.steam_id &&
                 <TouchableOpacity style={styles.menuButton}  onPress={() => Linking.openURL(steamProfileUrl)}>
                     <FontAwesomeIcon5 style={styles.menuIcon} name="steam" size={20} />
+                </TouchableOpacity>
+            }
+            {
+                sameUserNull(user, auth) &&
+                <TouchableOpacity style={styles.menuButton} onPress={deleteUser}>
+                    <IconFA5 style={styles.menuIcon} name="user-times" size={16} />
                 </TouchableOpacity>
             }
         </View>
@@ -49,11 +85,14 @@ export function UserMenu() {
 export default function UserPage() {
     const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
     const user = route.params?.id;
+    const styles = useStyles();
 
     console.log('UserPage', route.params);
 
     const mutate = useMutate();
     const auth = useSelector(state => state.auth);
+    const profile = useSelector(state => state.user[user?.id]?.profile);
+    const [hasSteamId, setHasSteamId] = useState(true);
 
     const generateTestHook = useCavy();
     const navigation = useNavigation();
@@ -76,19 +115,76 @@ export default function UserPage() {
         }
     }, [auth]);
 
-    const navigateToUser = async () => {
-        const profile = await loadProfile('aoe2de', auth!);
+    // When user is not set but we have auth
+
+    const navigateToAuthUser = async () => {
+        console.log('==> NAVIGATE');
         navigation.navigate('User', {
             id: userIdFromBase(auth!),
-            name: profile?.name,
+            // name: profile?.name,
+        });
+        console.log('==> NAVIGATED');
+    };
+
+    useEffect(() => {
+        if (auth != null && user == null) {
+            navigateToAuthUser();
+        }
+    }, [auth]);
+
+    // When name is not set yet
+
+    useEffect(() => {
+        if (profile != null) {
+            navigation.setParams({
+                id: userIdFromBase(profile),
+                name: profile.name
+            });
+        }
+    }, [profile]);
+
+    // When visiting user page with only profile_id / steam_id
+
+    const completeUserIdInfo = async () => {
+        console.log('completeUserIdInfo');
+        const loadedProfile = profile ?? await loadProfile('aoe2de', user!);
+        if (loadedProfile) {
+            const loadedProfileId = composeUserId(loadedProfile);
+
+            mutate(state => {
+                if (state.user[loadedProfileId] == null) {
+                    state.user[loadedProfileId] = {};
+                }
+                state.user[loadedProfileId].profile = loadedProfile;
+            });
+        }
+
+        if (!loadedProfile?.steam_id) {
+            setHasSteamId(false);
+        }
+        navigation.setParams({
+            id: userIdFromBase(loadedProfile!),
+            name: loadedProfile?.name,
         });
     }
 
     useEffect(() => {
-        if (auth != null && user == null) {
-            navigateToUser();
+        if (user != null && user.profile_id == null) {
+            completeUserIdInfo();
         }
-    }, [auth]);
+        if (user != null && user.steam_id == null && hasSteamId) {
+            completeUserIdInfo();
+        }
+    }, [user, hasSteamId]);
+
+    if (user) {
+        if (user.profile_id == null) {
+            return <View style={styles.container}><MyText>Loading profile by Steam ID...</MyText></View>;
+        }
+        if (user.steam_id == null && hasSteamId) {
+            return <View style={styles.container}><MyText>Loading profile by profile ID...</MyText></View>;
+        }
+    }
 
     if (user) {
         return <MainPageInner user={user}/>;
@@ -102,6 +198,9 @@ export default function UserPage() {
 }
 
 const useStyles = createStylesheet(theme => StyleSheet.create({
+    container: {
+        padding: 20,
+    },
     menu: {
         // backgroundColor: 'red',
         flexDirection: 'row',

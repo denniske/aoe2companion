@@ -285,7 +285,7 @@ virtualenv env && source env/bin/activate
 virtualenv env && source env/bin/activate && pip3 install -r requirements.txt
 
 
-git tag -d desktop-v22.0.4+0 && git push --delete origin desktop-v22.0.4+0 && git tag desktop-v22.0.4+0 && git push --tags
+git tag -d v22.0.5 && git push --delete origin v22.0.5 && git tag v22.0.5 && git push --tags
 
 https://www.andreagrandi.it/2018/12/19/installing-python-and-virtualenv-on-osx/
 
