@@ -84,7 +84,7 @@ export class MatchResolver {
         // search = `%${search}%`;
         search = `%%`;
 
-        const twelveHoursAgo = getUnixTime(subHours(new Date(), 12));
+        const sixHoursAgo = getUnixTime(subHours(new Date(), 6));
 
         let matchIds: any;
         if (leaderboard_id != null) {
@@ -92,7 +92,7 @@ export class MatchResolver {
             SELECT m.match_id
             FROM player as p
             JOIN match as m ON m.match_id = p.match_id
-            WHERE (${!ongoing} OR (m.started > ${twelveHoursAgo} AND m.finished is null))
+            WHERE (${!ongoing} OR (m.started > ${sixHoursAgo} AND m.finished is null))
               AND m.leaderboard_id=${leaderboard_id}
               AND profile_id IN (${join(profile_ids)})
               AND (p.name ILIKE ${search} OR m.name ILIKE ${search})
@@ -106,7 +106,7 @@ export class MatchResolver {
             SELECT m.match_id
             FROM player as p
             JOIN match as m ON m.match_id = p.match_id
-            WHERE (${!ongoing} OR (m.started > ${twelveHoursAgo} AND m.finished is null))
+            WHERE (${!ongoing} OR (m.started > ${sixHoursAgo} AND m.finished is null))
               AND profile_id IN (${join(profile_ids)})
               AND (p.name ILIKE ${search} OR m.name ILIKE ${search})
             GROUP BY m.match_id, m.started
