@@ -88,7 +88,7 @@ jobs:
   publish:
     name: Publish
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0')
+#    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0')
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -117,9 +117,9 @@ jobs:
 
   build-android:
     name: Build Android
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     needs: [publish]
-    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0')
+#    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0')
     steps:
       - name: Checkout
         uses: actions/checkout@v1
