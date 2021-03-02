@@ -130,7 +130,7 @@ function myfetch(input: any, init?: any) {
     }
 }
 
-export async function fetchPlayerMatchesNew(game: string, start: number, count: number, params: IFetchMatchesParams[]): Promise<IMatch[]> {
+export async function fetchPlayerMatchesNew(game: string, start: number, count: number, params: IFetchMatchesParams[], ongoing: boolean = false): Promise<IMatch[]> {
     try {
         if (params.length === 0) {
             return [];
@@ -139,16 +139,18 @@ export async function fetchPlayerMatchesNew(game: string, start: number, count: 
             game,
             start,
             count,
+            ongoing,
             profile_ids: params.map(p => p.profile_id),
         };
         const queryString = makeQueryString(args);
 
         const endpoint = getHost('aoe2companion-graphql');
         const query = gql`
-            query H2($start: Int!, $count: Int!, $profile_ids: [Int!]) {
+            query H2($start: Int!, $count: Int!, $ongoing: Boolean!, $profile_ids: [Int!]) {
                 matches(
                     start: $start,
                     count: $count,
+                    ongoing: $ongoing,
                     profile_ids: $profile_ids
                 ) {
                     total
@@ -181,7 +183,7 @@ export async function fetchPlayerMatchesNew(game: string, start: number, count: 
         `;
 
         const timeLastDate = new Date();
-        const variables = {start, count, profile_ids: params.map(p => p.profile_id)};
+        const variables = {start, count, profile_ids: params.map(p => p.profile_id), ongoing};
         console.groupCollapsed('fetchPlayerMatches - matches()');
         console.log(query);
         console.groupEnd();

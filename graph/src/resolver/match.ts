@@ -5,7 +5,7 @@ import {Match, MatchList} from "../object/match";
 import {upsertMatchesWithPlayers} from "../entity/entity-helper";
 import {fetchMatch} from "../helper";
 import {myTodoList} from "@nex/data";
-import {fromUnixTime} from "date-fns";
+import {fromUnixTime, getUnixTime, subHours} from "date-fns";
 import {PrismaService} from "../service/prisma.service";
 import {Connection} from "typeorm";
 import {join} from '@prisma/client/runtime';
@@ -73,6 +73,7 @@ export class MatchResolver {
         @Args("profile_ids", {type: () => [Int], nullable: true}) profile_ids?: number[],
         @Args("leaderboard_id", {type: () => Int, nullable: true}) leaderboard_id?: number,
         @Args("search", {nullable: true}) search?: string,
+        @Args("ongoing", { defaultValue: false }) ongoing?: boolean,
     ) {
         // await sleep(200);
 
@@ -83,13 +84,16 @@ export class MatchResolver {
         // search = `%${search}%`;
         search = `%%`;
 
+        const twelveHoursAgo = getUnixTime(subHours(new Date(), 12));
+
         let matchIds: any;
         if (leaderboard_id != null) {
             matchIds = await this.prisma.$queryRaw`
             SELECT m.match_id
             FROM player as p
             JOIN match as m ON m.match_id = p.match_id
-            WHERE m.leaderboard_id=${leaderboard_id}
+            WHERE (${!ongoing} OR (m.started > ${twelveHoursAgo} AND m.finished is null))
+              AND m.leaderboard_id=${leaderboard_id}
               AND profile_id IN (${join(profile_ids)})
               AND (p.name ILIKE ${search} OR m.name ILIKE ${search})
             GROUP BY m.match_id, m.started
@@ -102,7 +106,8 @@ export class MatchResolver {
             SELECT m.match_id
             FROM player as p
             JOIN match as m ON m.match_id = p.match_id
-            WHERE profile_id IN (${join(profile_ids)})
+            WHERE (${!ongoing} OR (m.started > ${twelveHoursAgo} AND m.finished is null))
+              AND profile_id IN (${join(profile_ids)})
               AND (p.name ILIKE ${search} OR m.name ILIKE ${search})
             GROUP BY m.match_id, m.started
             ORDER BY m.started desc

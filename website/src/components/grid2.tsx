@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {AgGridReact} from 'ag-grid-react';
 import {
     ColumnApi, GridApi, GridOptions, ModelUpdatedEvent, RowClickedEvent, RowDataUpdatedEvent
@@ -15,9 +15,11 @@ import {usePrevious} from "@nex/data/hooks";
 import {getMapName} from '../helper/maps';
 import {getLeaderboardOrGameType} from '@nex/data';
 import {differenceInSeconds} from 'date-fns';
-import { Button } from '@material-ui/core';
+import {Button, useTheme} from '@material-ui/core';
 import {flatten} from 'lodash';
 import {IMatch} from '../../util/api.types';
+import LoadingBar from 'react-top-loading-bar';
+import SpectateCellRenderer from './cell-renderer/spectate.cell-renderer';
 
 
 interface Props {
@@ -44,6 +46,8 @@ const promiseAllSequential = (functions) => (
 
 export default function Grid2(props: Props) {
     const router = useRouter();
+    const ref = useRef(null);
+    const theme = useTheme();
 
     const { leaderboardId, country, search } = props;
 
@@ -82,6 +86,8 @@ export default function Grid2(props: Props) {
             //     args.search = params.context.search;
             // }
 
+            ref.current.continuousStart();
+
             console.log('params.context', params.context);
 
             const args: any = {
@@ -90,15 +96,19 @@ export default function Grid2(props: Props) {
             };
             const leaderboard = await fetchLeaderboard('aoe2de', params.context.leaderboardId, args);
 
-            const matchesArray = await promiseAllSequential(
-                [0, 1, 2, 3, 4].map(i => {
-                // [0, 1].map(i => {
-                    console.log(i);
-                        return () => fetchPlayerMatchesNew('aoe2de', 0, 30, leaderboard.leaderboard.filter((x, j) => j > i * 20 && j < (i+1) * 20).map(l => ({profile_id: l.profile_id})));
-                    }
-                )
-            );
-            const matches = flatten(matchesArray) as IMatch[];
+            // const matchesArray = await promiseAllSequential(
+            //     [0, 1, 2, 3, 4].map(i => {
+            //     // [0, 1].map(i => {
+            //         console.log(i);
+            //             return () => fetchPlayerMatchesNew('aoe2de', 0, 30, leaderboard.leaderboard.filter((x, j) => j > i * 20 && j < (i+1) * 20).map(l => ({profile_id: l.profile_id})));
+            //         }
+            //     )
+            // );
+            // const matches = flatten(matchesArray) as IMatch[];
+
+            // const matches = await fetchPlayerMatches('aoe2de', 0, 100, leaderboard.leaderboard.filter((x, i) => i < 100).map(l => ({profile_id: l.profile_id})));
+
+            const matches = await fetchPlayerMatchesNew('aoe2de', 0, 100, leaderboard.leaderboard.map(l => ({profile_id: l.profile_id})), true);
 
             for (const m of matches.filter(m => !m.finished)) {
                 if (m.checked == null || m.checked.getTime() < new Date().getTime() - 60 * 1000) {
@@ -116,8 +126,6 @@ export default function Grid2(props: Props) {
                 }
             }
 
-            // const matches = await fetchPlayerMatches('aoe2de', 0, 100, leaderboard.leaderboard.filter((x, i) => i < 100).map(l => ({profile_id: l.profile_id})));
-
             const rows = leaderboard.leaderboard.map(l => {
                 const match = matches.find(m => !m.finished && m.players.some(p => p.profile_id === l.profile_id));
 
@@ -132,12 +140,16 @@ export default function Grid2(props: Props) {
                     rating: l.rating,
                     country: l.country,
                     name: l.name,
+                    profile_id: l.profile_id,
+                    match_id: match?.match_id,
                     title: match?.name,
                     map: getMapName(match?.map_type),
                     leaderboard: match && getLeaderboardOrGameType(match?.leaderboard_id, match?.game_type),
                     duration: duration,
                 });
-            });
+            }).filter(r => r.title);
+
+
 
             console.log('rows', rows);
 
@@ -149,8 +161,10 @@ export default function Grid2(props: Props) {
 
             // params.context.gridColumnApi.autoSizeAllColumns();
 
+            ref.current.complete();
+
             const rowsThisPage = rows;
-            params.successCallback(rowsThisPage, 100);
+            params.successCallback(rowsThisPage, rows.length);
         },
     };
 
@@ -163,14 +177,17 @@ export default function Grid2(props: Props) {
         datasource: dataSource,
         columnDefs: [
             {field: 'rank', width: 100, sortable: false, valueFormatter: params => '#'+(params.value ? params.value : '') },
-            {field: 'rating', width: 100, sortable: false, cellRenderer:'ratingRenderer'},
-            {field: 'name', minWidth: 220, sortable: false, cellRenderer:'nameRenderer'},
+            {field: 'rating', width: 100, sortable: false, cellRenderer: 'ratingRenderer'},
+            {field: 'name', minWidth: 220, sortable: false, cellRenderer: 'nameRenderer'},
             {field: 'title', minWidth: 220, sortable: false},
             {field: 'map', sortable: false},
             {field: 'leaderboard', sortable: false},
             {field: 'duration', width: 100, sortable: false},
+            {field: 'match_id', headerName: ' ', minWidth: 100, sortable: false, cellRenderer: 'spectateRenderer'},
         ],
         onRowClicked: (event: RowClickedEvent) => {
+            console.log('onRowClicked', event);
+            if (event.event.defaultPrevented) return;
             router.push('/profile/[id]', `/profile/${event.data.profile_id}`);
         },
         onFirstDataRendered(params) {
@@ -185,6 +202,7 @@ export default function Grid2(props: Props) {
         frameworkComponents:{
             nameRenderer: NameCellRenderer,
             ratingRenderer: RatingCellRenderer,
+            spectateRenderer: SpectateCellRenderer,
         },
         defaultColDef: {
             // flex: 1,
@@ -236,6 +254,7 @@ export default function Grid2(props: Props) {
             flexDirection: 'column',
             flex: 1,
         }}>
+            <LoadingBar color={theme.palette.primary.main} ref={ref} />
             {/*<Button onClick={() => gridOptions.api.sizeColumnsToFit()}>SizeToFit</Button>*/}
             {/*<Button onClick={() => gridOptions.columnApi.autoSizeAllColumns()}>AutoSize</Button>*/}
 

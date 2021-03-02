@@ -79,7 +79,7 @@ type Profile {
 
 type Query {
   match(match_id: String, match_uuid: String): Match!
-  matches(count: Int!, leaderboard_id: Int, profile_ids: [Int!], search: String, start: Int!): MatchList!
+  matches(count: Int!, leaderboard_id: Int, ongoing: Boolean = false, profile_ids: [Int!], search: String, start: Int!): MatchList!
   profile(profile_id: Int): Profile!
   temp: String!
   temp2: String!

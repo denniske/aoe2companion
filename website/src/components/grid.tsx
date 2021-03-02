@@ -6,6 +6,7 @@ import NameCellRenderer from "./cell-renderer/name.cell-renderer";
 import RatingCellRenderer from "./cell-renderer/rating.cell-renderer";
 import {useRouter} from "next/router";
 import {usePrevious} from "@nex/data/hooks";
+import SpectateCellRenderer from './cell-renderer/spectate.cell-renderer';
 
 
 interface Props {
@@ -93,6 +94,7 @@ export default function Grid(props: Props) {
         frameworkComponents:{
             nameRenderer: NameCellRenderer,
             ratingRenderer: RatingCellRenderer,
+            spectateRenderer: SpectateCellRenderer,
         },
         defaultColDef: {
             // flex: 1,
