@@ -94,10 +94,10 @@ interface PathProps3 {
 }
 
 function signed(num: number) {
-    if (num > 0) {
-        return '+' + num.toString();
+    if (num == null) {
+        return '';
     }
-    return num.toString();
+    return num > 0 ? '+' + num.toString() : num.toString();
 }
 
 export function GetAttackValue(props: PathProps3) {
@@ -107,12 +107,12 @@ export function GetAttackValue(props: PathProps3) {
 
 export function GetAttackBonusValue(props: PathProps3) {
     const { style, unitId, buildingId, unitClassNumber } = props;
-    return <GetValueByPath style={style} unitId={unitId} buildingId={buildingId} path={(x: IUnitInfo) => x.Attacks.find(a => a.Class === unitClassNumber)?.Amount} formatter={x => signed(x)}/>
+    return <GetValueByPath style={style} unitId={unitId} buildingId={buildingId} path={(x: IUnitInfo) => x.Attacks.find(a => a.Class === unitClassNumber)?.Amount} formatter={x => signed(x || 0)}/>
 }
 
 export function GetArmourValue(props: PathProps3) {
     const { style, unitId, buildingId, unitClassNumber } = props;
-    return <GetValueByPath style={style} unitId={unitId} buildingId={buildingId} path={(x: IUnitInfo) => x.Armours.find(a => a.Class === unitClassNumber)?.Amount} formatter={x => signed(x)}/>
+    return <GetValueByPath style={style} unitId={unitId} buildingId={buildingId} path={(x: IUnitInfo) => x.Armours.find(a => a.Class === unitClassNumber)?.Amount} formatter={x => signed(x || 0)}/>
 }
 
 export function getAttackBonuses(params: GetDataParams) {
