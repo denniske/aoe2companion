@@ -1,8 +1,9 @@
 import {Tech, techs} from "./techs";
 import {Unit, units} from "./units";
 import {aoeData} from "../data/data";
-import {sanitizeGameDescription, unwrap} from "../lib/util";
+import {removeAccentsAndCase, sanitizeGameDescription, unwrap} from "../lib/util";
 import {getAoeString} from '../lib/aoe-data';
+import {orderBy} from 'lodash';
 
 export const civs = [
     'Aztecs',
@@ -247,12 +248,14 @@ export const civDict: ICivDict = Object.assign({}, ...civList.map((x) => ({[x.na
 const CivUnion = unwrap(civs);
 export type Civ = typeof CivUnion;
 
-// const CivUnion2 = unwrap2(civDict, c => c.name);
-// export type Civ2 = typeof CivUnion2;
+export function orderCivs(civs: Readonly<Civ[]>) {
+    return orderBy(civs, c => removeAccentsAndCase(getCivNameById(c)), 'asc');
+}
 
-// type RRRR = keyof typeof civs;
-// type ValueOf<T> = T[keyof T];
-// export type Civ = ValueOf<typeof civs>;
+export function getCivNameById(civ: Civ) {
+    const civStringKey = aoeData.civ_names[civ];
+    return sanitizeGameDescription(getAoeString(civStringKey));
+}
 
 export function getCivDescription(civ: Civ) {
     const civStringKey = aoeData.civ_helptexts[civ];

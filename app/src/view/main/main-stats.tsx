@@ -38,7 +38,9 @@ export default function MainStats() {
     const user = routes[0].params.id;
 
     if (user == null) {
-        console.log('ROUTES', routes);
+        try {
+            console.log('ROUTES', JSON.stringify(routes));
+        } catch (e) { }
         // return <View/>;
     }
 

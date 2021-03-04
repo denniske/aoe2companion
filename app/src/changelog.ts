@@ -16,9 +16,15 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
-    '22.0.6': [
+    '22.0.7': [
         {
             type: 'minor',
+            title: 'Sort civs alphabetically for non english languages',
+        },
+    ],
+    '22.0.6': [
+        {
+            type: 'bugfix',
             title: 'Fix unit page for some units (Mameluke etc.)',
         },
     ],

@@ -1,6 +1,9 @@
 import React from 'react';
 import {Image, ImageBackground, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {aoeCivKey, Civ, civDict, civs, getCivTeamBonus, iconHeight, iconWidth, parseCivDescription} from "@nex/data";
+import {
+    aoeCivKey, Civ, civDict, civs, getCivNameById, getCivTeamBonus, orderCivs, iconHeight, iconWidth,
+    parseCivDescription
+} from "@nex/data";
 import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {RootStackParamList, RootStackProp} from "../../App";
 import IconHeader from "./components/navigation-header/icon-header";
@@ -9,7 +12,7 @@ import {TechTree} from "./components/tech-tree";
 import {MyText} from "./components/my-text";
 import {createStylesheet} from "../theming-new";
 import {highlightUnitAndTechs} from "../helper/highlight";
-import {getCivHistoryImage, getCivIconByIndex, getCivNameById} from "../helper/civs";
+import {getCivHistoryImage, getCivIconByIndex} from "../helper/civs";
 import {UnitCompBig} from './unit/unit-comp';
 import {TechCompBig} from './tech/tech-comp';
 import {getTranslation} from '../helper/translate';
@@ -96,7 +99,7 @@ export function CivList() {
         <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.civList}>
                 {
-                    civs.map((civ, i) =>
+                    orderCivs(civs).map((civ, i) =>
                         <TouchableOpacity key={civ} onPress={() => navigation.push('Civ', {civ})}>
                                 <View style={styles.civBlock}>
                                     <Image fadeDuration={0} style={styles.icon} source={getCivIconByIndex(i)}/>

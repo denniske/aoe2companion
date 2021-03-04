@@ -1,11 +1,11 @@
-import {Building, Civ, civs, getAbilityEnabled, Tech, Unit} from "@nex/data";
+import {Building, Civ, civs, getAbilityEnabled, getCivNameById, orderCivs, Tech, Unit} from "@nex/data";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import {MyText} from "./my-text";
 import React from "react";
 import Space from "./space";
-import {getCivIcon, getCivNameById} from "../../helper/civs";
+import {getCivIcon} from "../../helper/civs";
 import {createStylesheet} from "../../theming-new";
 import {getTranslation} from '../../helper/translate';
 
@@ -35,7 +35,7 @@ export default function CivAvailability({tech, unit, building}: CivAvailabilityP
                 <MyText>{getTranslation('unit.availability.available')}</MyText>
                 <Space/>
                 {
-                    !availableForAllCivs && civAvailable.map(civ =>
+                    !availableForAllCivs && orderCivs(civAvailable).map(civ =>
                         <TouchableOpacity key={civ} style={styles.civCol} onPress={() => navigation.push('Civ', {civ})}>
                             <View style={styles.row}>
                                 <Image fadeDuration={0} style={styles.civIcon} source={getCivIcon(civ) as any}/>
@@ -53,7 +53,7 @@ export default function CivAvailability({tech, unit, building}: CivAvailabilityP
                 <MyText>{getTranslation('unit.availability.unavailable')}</MyText>
                 <Space/>
                 {
-                    !availableForAllCivs && civUnavailable.map(civ =>
+                    !availableForAllCivs && orderCivs(civUnavailable).map(civ =>
                         <TouchableOpacity key={civ} style={styles.civCol} onPress={() => navigation.push('Civ', {civ})}>
                             <View style={styles.row}>
                                 <Image fadeDuration={0} style={styles.civIcon} source={getCivIcon(civ) as any}/>

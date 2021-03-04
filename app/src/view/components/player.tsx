@@ -5,11 +5,11 @@ import {useNavigation} from '@react-navigation/native';
 import {userIdFromBase} from '../../helper/user';
 import {civs, IMatch, isBirthday, isVerifiedPlayer, moProfileId, noop} from '@nex/data';
 import {RootStackProp} from '../../../App';
-import {getSlotTypeName, IPlayer} from "@nex/data";
+import {getSlotTypeName, getCivNameById, IPlayer} from "@nex/data";
 import {TextLoader} from "./loader/text-loader";
 import IconFA5 from 'react-native-vector-icons/FontAwesome5';
 import {MyText} from "./my-text";
-import {getCivIconByIndex, getCivNameById} from "../../helper/civs";
+import {getCivIconByIndex} from "../../helper/civs";
 import {createStylesheet} from '../../theming-new';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 

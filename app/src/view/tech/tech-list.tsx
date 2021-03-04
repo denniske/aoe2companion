@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {Platform, SectionList, StyleSheet, View} from 'react-native';
-import {getBuildingName, getTechName, techSections} from "@nex/data";
+import {getBuildingName, getTechName, getCivNameById, techSections} from "@nex/data";
 import {MyText} from "../components/my-text";
 import {createStylesheet} from "../../theming-new";
 import {Searchbar} from "react-native-paper";
 import {TechCompBig} from './tech-comp';
 import {getTranslation} from '../../helper/translate';
-import {getCivNameById} from '../../helper/civs';
 
 
 export default function TechList() {

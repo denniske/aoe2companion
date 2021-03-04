@@ -1,5 +1,4 @@
-import {aoeData, Civ, civs, sanitizeGameDescription} from "@nex/data";
-import {getAoeString} from '../../../data/src/lib/aoe-data';
+import {Civ, civs} from "@nex/data";
 
 
 export const civIconList = [
@@ -81,11 +80,6 @@ export const civHistoryList = [
     require('../../../app/assets/history/civs/history_vietnamese.png'),
     require('../../../app/assets/history/civs/history_vikings.png'),
 ];
-
-export function getCivNameById(civ: Civ) {
-    const civStringKey = aoeData.civ_names[civ];
-    return sanitizeGameDescription(getAoeString(civStringKey));
-}
 
 export function getCivIconByIndex(civ: number) {
     return civIconList[civ];
