@@ -54,6 +54,11 @@ export default function MainProfile() {
 
     const user = routes[0].params.id;
 
+    if (user == null) {
+        console.log('ROUTES', routes);
+        // return <View/>;
+    }
+
     return <MainProfileInternal user={user}/>;
 }
 

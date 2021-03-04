@@ -93,6 +93,7 @@ export default function AboutPage() {
             <MyText style={styles.content}>|GZ| tAMe</MyText>
             <MyText style={styles.content}>JJ_Ronda</MyText>
             <MyText style={styles.content}>Kloakan</MyText>
+            <MyText style={styles.content}>Lukas</MyText>
             <MyText style={styles.content}>Markus</MyText>
             <MyText style={styles.content}>Maxifruité</MyText>
             <MyText style={styles.content}>Mikael Laukkanen</MyText>

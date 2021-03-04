@@ -32,6 +32,12 @@ export default function MainMatches() {
     if (routes == null || routes.length === 0 || routes[0].params == null) return <View/>;
 
     const user = routes[0].params.id;
+
+    if (user == null) {
+        console.log('ROUTES', routes);
+        // return <View/>;
+    }
+
     return <MainMatchesInternal user={user}/>;
 }
 

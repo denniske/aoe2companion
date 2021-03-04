@@ -16,6 +16,7 @@ import {getTranslation} from '../helper/translate';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import IconFA5 from 'react-native-vector-icons/FontAwesome5';
 import {useApi} from '../hooks/use-api';
+import {getRootNavigation} from '../service/navigation';
 
 
 export function userMenu(props: any) {
@@ -55,7 +56,12 @@ export function UserMenu() {
 
     const doDeleteUser = async () => {
         await AsyncStorage.removeItem('settings');
-        mutate(setAuth(null))
+        mutate(setAuth(null));
+        const navigation = getRootNavigation();
+        navigation.reset({
+            index: 0,
+            routes: [{name: 'User'}],
+        });
     };
 
     return (
