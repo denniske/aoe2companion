@@ -168,10 +168,13 @@ export default function UserPage() {
         if (!loadedProfile?.steam_id) {
             setHasSteamId(false);
         }
-        navigation.setParams({
-            id: userIdFromBase(loadedProfile!),
-            name: loadedProfile?.name,
-        });
+
+        if (loadedProfile) {
+            navigation.setParams({
+                id: userIdFromBase(loadedProfile!),
+                name: loadedProfile?.name,
+            });
+        }
     }
 
     useEffect(() => {

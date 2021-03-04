@@ -1,9 +1,4 @@
 
-graphql error
-http://aoe2.net/api/player/matches?game=aoe2de&start=0&count=1000&profile_ids=575345
-nullable map_type
-
-
 vipers game 64282000 which maps was this (130)?
 
 https://www.aoezone.net/threads/age-of-empires-ii-de-game-lobby-notifier.169836/

@@ -188,7 +188,7 @@ function MainProfileInternal({user}: { user: any}) {
                                     View All
                                 </Button>;
                             case 'profile':
-                                if (profile.data === null) return <View/>;
+                                if (profile.data === null) return <View style={styles.container}><MyText>No leaderboard data yet.</MyText></View>;;
                                 return <Profile data={profile.data} ready={profile.data != null && rating.data != null}/>;
                             case 'rating':
                                 if (rating.data?.length === 0) return <View/>;
