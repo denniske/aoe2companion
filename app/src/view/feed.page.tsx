@@ -3,7 +3,7 @@ import {FlatList, Linking, Platform, StyleSheet, TouchableOpacity, View} from 'r
 import {RootStackParamList, RootStackProp} from '../../App';
 import {RouteProp, useNavigation, useNavigationState, useRoute} from '@react-navigation/native';
 import {Game} from './components/game';
-import {IMatch, IPlayer} from "@nex/data";
+import {fetchPlayerMatches, IMatch, IPlayer} from "@nex/data";
 import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
 import Search from "./components/search";
 import {sameUser, sameUserNull, UserIdBaseWithName, userIdFromBase} from "../helper/user";
@@ -17,7 +17,6 @@ import {isEqual, orderBy, uniq} from "lodash-es";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import RefreshControlThemed from "./components/refresh-control-themed";
 import {toggleFollowing} from "../service/following";
-import {fetchPlayerMatches} from "../api/player-matches";
 import {IFollowingEntry} from "../service/storage";
 import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';

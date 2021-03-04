@@ -34,7 +34,7 @@ import Icon5 from 'react-native-vector-icons/FontAwesome5';
 import LeaderboardPage, {leaderboardMenu, LeaderboardTitle} from "./src/view/leaderboard.page";
 import GuidePage, {GuideTitle} from "./src/view/guide.page";
 import CivPage, {CivTitle, civTitle} from "./src/view/civ.page";
-import {Civ, IStrings, registerService, SERVICE_NAME} from "@nex/data";
+import {Civ, Environment, IHostService, IHttpService, IStrings, OS, registerService, SERVICE_NAME} from "@nex/data";
 import UnitPage, {UnitTitle, unitTitle} from "./src/view/unit/unit.page";
 import {Unit} from "@nex/data";
 import {navigationRef} from "./src/service/navigation";
@@ -75,6 +75,7 @@ import {ConditionalTester} from "./src/view/testing/tester";
 import {getElectronPushToken, isElectron} from './src/helper/electron';
 import {setAccountPushTokenElectron} from './src/api/following';
 import {getInternalString} from './src/helper/strings';
+import { fetchJson } from './src/api/util';
 
 initSentry();
 
@@ -101,6 +102,12 @@ if (Platform.OS !== 'web') {
     ]);
 }
 
+class HttpService implements IHttpService {
+    async fetchJson(title: string, input: RequestInfo, init?: RequestInit) {
+        return fetchJson(title, input, init);
+    }
+}
+
 class AoeDataService implements ITranslationService {
     getUiTranslation(str: string): string {
         return getTranslation(str as any);
@@ -116,7 +123,19 @@ class AoeDataService implements ITranslationService {
     }
 }
 
+class HostService implements IHostService {
+    getPlatform(): OS {
+        return Platform.OS;
+    }
+
+    getEnvironment(): Environment {
+        return __DEV__ ? 'development' : 'production';
+    }
+}
+
 registerService(SERVICE_NAME.TRANSLATION_SERVICE, new AoeDataService(), true);
+registerService(SERVICE_NAME.HOST_SERVICE, new HostService(), true);
+registerService(SERVICE_NAME.HTTP_SERVICE, new HttpService(), true);
 
 // HACK: Prevent "Expo pasted from CoreSimulator" notification from spamming continuously
 // if (__DEV__) {
