@@ -1,4 +1,4 @@
-import {FlatList, StyleSheet, View} from "react-native";
+import {FlatList, Linking, StyleSheet, View} from "react-native";
 import {
     clearMatchesPlayer, clearStatsPlayer, setLoadingMatchesOrStats, setPrefValue, useMutate, useSelector
 } from "../../redux/reducer";
@@ -23,9 +23,13 @@ import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
 import {useNavigationStateExternal} from '../../hooks/use-navigation-state-external';
 import {getPathToRoute, getRoutes, getRoutesFromCurrentActiveStack} from '../../service/navigation';
+import {useTheme} from '../../theming';
+import {appVariants} from '../../styles';
 
 
 export default function MainStats() {
+    const styles = useStyles();
+    const appStyles = useTheme(appVariants);
     const route = useRoute();
     const navigationState = useNavigationStateExternal();
     let routes = getPathToRoute(navigationState, route.key);
@@ -38,10 +42,13 @@ export default function MainStats() {
     const user = routes[0].params.id;
 
     if (user == null) {
-        try {
-            console.log('ROUTES', JSON.stringify(routes));
-        } catch (e) { }
-        // return <View/>;
+        return (
+            <View style={styles.list}>
+                <MyText>
+                    If you see this screen instead of a user profile, report a bug in the <MyText style={appStyles.link} onPress={() => Linking.openURL('https://discord.com/invite/gCunWKx')}>discord</MyText>.
+                </MyText>
+            </View>
+        );
     }
 
     return <MainStatsInternal user={user}/>;

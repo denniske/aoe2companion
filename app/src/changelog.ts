@@ -16,6 +16,12 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
+    '22.0.8': [
+        {
+            type: 'bugfix',
+            title: 'Fixed a rare bug when displaying user profiles after clicking on push notification',
+        },
+    ],
     '22.0.7': [
         {
             type: 'minor',

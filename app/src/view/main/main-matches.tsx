@@ -1,5 +1,5 @@
 import {useTheme} from "../../theming";
-import {FlatList, Platform, StyleSheet, TouchableOpacity, View} from "react-native";
+import {FlatList, Linking, Platform, StyleSheet, TouchableOpacity, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {RootTabParamList} from "../../../App";
@@ -22,6 +22,8 @@ import {getPathToRoute, getRoutes, getRoutesFromCurrentActiveStack} from '../../
 
 
 export default function MainMatches() {
+    const styles = useStyles();
+    const appStyles = useTheme(appVariants);
     const route = useRoute();
     const navigationState = useNavigationStateExternal();
     let routes = getPathToRoute(navigationState, route.key);
@@ -34,10 +36,13 @@ export default function MainMatches() {
     const user = routes[0].params.id;
 
     if (user == null) {
-        try {
-            console.log('ROUTES', JSON.stringify(routes));
-        } catch (e) { }
-        // return <View/>;
+        return (
+            <View style={styles.list}>
+                <MyText>
+                    If you see this screen instead of a user profile, report a bug in the <MyText style={appStyles.link} onPress={() => Linking.openURL('https://discord.com/invite/gCunWKx')}>discord</MyText>.
+                </MyText>
+            </View>
+        );
     }
 
     return <MainMatchesInternal user={user}/>;

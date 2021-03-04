@@ -1,4 +1,4 @@
-import {FlatList, StyleSheet, View} from "react-native";
+import {FlatList, Linking, StyleSheet, View} from "react-native";
 import {useSelector} from "../../redux/reducer";
 import React, {useEffect, useState} from "react";
 import {useNavigation, useRoute} from "@react-navigation/native";
@@ -17,6 +17,8 @@ import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
 import {getPathToRoute, getRoutesFromCurrentActiveStack} from '../../service/navigation';
 import {useNavigationStateExternal} from '../../hooks/use-navigation-state-external';
+import {useTheme} from '../../theming';
+import {appVariants} from '../../styles';
 
 
 export default function MainProfile() {
@@ -32,6 +34,9 @@ export default function MainProfile() {
 
     // const route = useRoute<RouteProp<RootTabParamList, 'MainProfile'>>() as any;
     // const user = parseUserId(route.params.user);
+
+    const styles = useStyles();
+    const appStyles = useTheme(appVariants);
 
     const route = useRoute();
     const navigationState = useNavigationStateExternal();
@@ -55,10 +60,16 @@ export default function MainProfile() {
     const user = routes[0].params.id;
 
     if (user == null) {
-        try {
-            console.log('ROUTES', JSON.stringify(routes));
-        } catch (e) { }
-        // return <View/>;
+        // This happens sometimes when clicking notification
+        // Routes will contain "Feed" with match_id
+        // console.log('ROUTES', JSON.stringify(routes));
+        return (
+            <View style={styles.list}>
+                <MyText>
+                    If you see this screen instead of a user profile, report a bug in the <MyText style={appStyles.link} onPress={() => Linking.openURL('https://discord.com/invite/gCunWKx')}>discord</MyText>.
+                </MyText>
+            </View>
+        );
     }
 
     return <MainProfileInternal user={user}/>;
