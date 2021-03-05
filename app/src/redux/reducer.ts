@@ -98,6 +98,14 @@ export function setUpdateStoreManifest(updateStoreManifest: any | null) {
   };
 }
 
+export function setUpdateElectronManifest(updateElectronManifest: any | null) {
+  return (state: AppState) => {
+    state.updateElectronManifest = updateElectronManifest;
+    state.updateAvailable = true;
+    state.updateState = 'electronUpdateAvailable';
+  };
+}
+
 export function setUpdateAvailable(updateAvailable: boolean) {
   return (state: AppState) => {
     state.updateAvailable = updateAvailable;
@@ -196,6 +204,7 @@ export interface AppState {
   updateAvailable: boolean;
   updateManifest?: Manifest | null;
   updateStoreManifest?: any | null;
+  updateElectronManifest?: any | null;
 }
 
 const initialState: Partial<AppState> = {

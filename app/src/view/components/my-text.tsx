@@ -5,7 +5,7 @@ import {usePaperTheme} from "../../theming";
 // Body 17
 
 
-interface MyTextProps extends TextProps {
+export interface MyTextProps extends TextProps {
     size?: MyFontSize;
     children?: React.ReactNode;
 }

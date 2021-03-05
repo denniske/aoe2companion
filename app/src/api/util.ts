@@ -4,7 +4,8 @@ import {time} from '@nex/data';
 
 export async function fetchJson(title: string, input: RequestInfo, init?: RequestInit) {
     if (init) {
-        console.log(input, init);
+        console.log(input);
+        // console.log(input, init);
     } else {
         console.log(input);
     }

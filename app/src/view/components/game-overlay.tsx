@@ -10,7 +10,8 @@ import {ImageLoader} from "./loader/image-loader";
 import {ViewLoader} from "./loader/view-loader";
 import {groupBy, min, minBy, sortBy} from "lodash-es";
 import {differenceInSeconds} from "date-fns";
-import { MyText } from './my-text';
+import {MyText} from './my-text';
+import {BorderText} from './border-text';
 import {makeVariants, useAppTheme, useTheme} from "../../theming";
 import IconFA5 from "react-native-vector-icons/FontAwesome5";
 import {sameUser, sameUserNull, UserIdBase} from "../../helper/user";
@@ -40,7 +41,7 @@ function matchIsFreeForAll(match: IMatch) {
     return match.players.filter(p => p.team === -1).length >= match.players.length-1;
 }
 
-export function Game({match, user, highlightedUsers, expanded = false}: IGameProps) {
+export function GameOverlay({match, user, highlightedUsers, expanded = false}: IGameProps) {
     const theme = useAppTheme();
     const styles = useStyles();
 
@@ -129,75 +130,75 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
             left={props => (
                 <View style={styles.row}>
 
-                    <ImageBackground fadeDuration={0}
-                                     source={getMapImage(match.map_type)}
-                                     imageStyle={styles.imageInner}
-                                     style={styles.map}>
-                        {
-                            match.players.some(p => sameUserNull(p, user) && p.won === true && (freeForALl || p.team != -1)) &&
-                            <IconFA5 name="crown" size={14} style={{marginLeft: -7,marginTop:-4}} color="goldenrod" />
-                        }
-                        {
-                            user == null && (match.players.some(p => p.won != null)) &&
-                            <Image fadeDuration={0} source={require('../../../assets/other/SkullCrown.png')} style={{marginLeft: -6,marginTop:-4, width: 17, height: 17}} />
-                        }
-                        {
-                            match.players.some(p => sameUserNull(p, user) && p.won === false && (freeForALl || p.team != -1)) &&
-                            <IconFA5 name="skull" size={14} style={{marginLeft: -6,marginTop:-4}} color="grey" />
-                        }
-                    </ImageBackground>
+                    {/*<ImageBackground fadeDuration={0}*/}
+                    {/*                 source={getMapImage(match.map_type)}*/}
+                    {/*                 imageStyle={styles.imageInner}*/}
+                    {/*                 style={styles.map}>*/}
+                    {/*    {*/}
+                    {/*        match.players.some(p => sameUserNull(p, user) && p.won === true && (freeForALl || p.team != -1)) &&*/}
+                    {/*        <IconFA5 name="crown" size={14} style={{marginLeft: -7,marginTop:-4}} color="goldenrod" />*/}
+                    {/*    }*/}
+                    {/*    {*/}
+                    {/*        user == null &&*/}
+                    {/*        <Image fadeDuration={0} source={require('../../../assets/other/SkullCrown.png')} style={{marginLeft: -6,marginTop:-4, width: 17, height: 17}} />*/}
+                    {/*    }*/}
+                    {/*    {*/}
+                    {/*        match.players.some(p => sameUserNull(p, user) && p.won === false && (freeForALl || p.team != -1)) &&*/}
+                    {/*        <IconFA5 name="skull" size={14} style={{marginLeft: -6,marginTop:-4}} color="grey" />*/}
+                    {/*    }*/}
+                    {/*</ImageBackground>*/}
 
                     <View style={styles.header}>
-                        <MyText numberOfLines={1} style={styles.matchTitle}>
+                        <BorderText numberOfLines={1} style={styles.matchTitle}>
                             {getMapName(match.map_type)} - {match.match_id}
                             {
                                 match.server &&
-                                <MyText> - {match.server}</MyText>
+                                <MyText style={styles.matchTitle}> - {match.server}</MyText>
                             }
-                        </MyText>
-                        <MyText numberOfLines={1} style={styles.matchContent}>
+                        </BorderText>
+                        <BorderText numberOfLines={1} style={styles.matchContent}>
                             {getLeaderboardOrGameType(match.leaderboard_id, match.game_type)}
-                        </MyText>
-                        <MyText numberOfLines={1} style={styles.matchContent}>
-                            {
-                                !match.finished &&
-                                <MyText>{duration}{expanded}</MyText>
-                            }
-                            {
-                                match.finished &&
-                                <MyText>{match.started ? formatAgo(match.started) : 'none'}</MyText>
-                            }
-                        </MyText>
+                        </BorderText>
+                        {/*<MyText numberOfLines={1} style={styles.matchContent}>*/}
+                        {/*    {*/}
+                        {/*        !match.finished &&*/}
+                        {/*        <MyText>{duration}{expanded}</MyText>*/}
+                        {/*    }*/}
+                        {/*    {*/}
+                        {/*        match.finished &&*/}
+                        {/*        <MyText>{match.started ? formatAgo(match.started) : 'none'}</MyText>*/}
+                        {/*    }*/}
+                        {/*</MyText>*/}
                     </View>
                 </View>
             )}
         >
             <View style={styles.playerList}>
-                <View style={[styles.timeRow, {alignItems: 'center'}]}>
-                    <IconFA5 name="clock" size={11.5} color={theme.textNoteColor}/>
-                    <MyText style={styles.duration}> {duration}   </MyText>
-                    <IconFA5 name="running" size={11.5} color={theme.textNoteColor}/>
-                    <MyText style={styles.speed}> {getString('speed', match.speed)}   </MyText>
-                    {/*{*/}
-                    {/*    __DEV__ &&*/}
-                    {/*    <>*/}
-                    {/*        <IconFA5 name="database" size={11.5} color={theme.textNoteColor}/>*/}
-                    {/*        <MyText style={styles.speed}> {match.source}</MyText>*/}
-                    {/*    </>*/}
-                    {/*}*/}
-                    {/*{*/}
-                    {/*    !__DEV__ && match.name !== 'AUTOMATCH' &&*/}
-                    {/*    <>*/}
-                    {/*        <MyText style={styles.name} numberOfLines={1}> {match.name}</MyText>*/}
-                    {/*    </>*/}
-                    {/*} */}
-                    {
-                        match.name !== 'AUTOMATCH' &&
-                        <>
-                            <MyText style={styles.name} numberOfLines={1}> {match.name}</MyText>
-                        </>
-                    }
-                </View>
+                {/*<View style={[styles.timeRow, {alignItems: 'center'}]}>*/}
+                {/*    <IconFA5 name="clock" size={11.5} color={theme.textNoteColor}/>*/}
+                {/*    <MyText style={styles.duration}> {duration}   </MyText>*/}
+                {/*    <IconFA5 name="running" size={11.5} color={theme.textNoteColor}/>*/}
+                {/*    <MyText style={styles.speed}> {getString('speed', match.speed)}   </MyText>*/}
+                {/*    /!*{*!/*/}
+                {/*    /!*    __DEV__ &&*!/*/}
+                {/*    /!*    <>*!/*/}
+                {/*    /!*        <IconFA5 name="matchbase" size={11.5} color={theme.textNoteColor}/>*!/*/}
+                {/*    /!*        <MyText style={styles.speed}> {match.source}</MyText>*!/*/}
+                {/*    /!*    </>*!/*/}
+                {/*    /!*}*!/*/}
+                {/*    /!*{*!/*/}
+                {/*    /!*    !__DEV__ && match.name !== 'AUTOMATCH' &&*!/*/}
+                {/*    /!*    <>*!/*/}
+                {/*    /!*        <MyText style={styles.name} numberOfLines={1}> {match.name}</MyText>*!/*/}
+                {/*    /!*    </>*!/*/}
+                {/*    /!*} *!/*/}
+                {/*    {*/}
+                {/*        match.name !== 'AUTOMATCH' &&*/}
+                {/*        <>*/}
+                {/*            <MyText style={styles.name} numberOfLines={1}> {match.name}</MyText>*/}
+                {/*        </>*/}
+                {/*    }*/}
+                {/*</View>*/}
                 {
                     sortBy(teams, ([team, players], i) => min(players.map(p => p.color))).map(([team, players], i) =>
                         <View key={team}>
@@ -228,6 +229,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         paddingBottom: 20,
     },
     header: {
+        marginLeft: 42,
         // backgroundColor: 'red',
         flex: 1,
     },
@@ -258,10 +260,13 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         marginTop: -10,
     },
     matchTitle: {
+        fontSize: 18,
         fontWeight: '700',
         flex: 1,
     },
     matchContent: {
+        fontSize: 16,
+        fontWeight: '700',
         flex: 1,
     },
     playerList: {
@@ -269,6 +274,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         paddingTop: 20,
     },
     versus: {
+        opacity: 0,
         marginLeft: 32,
         width: 20,
         marginVertical: 6,

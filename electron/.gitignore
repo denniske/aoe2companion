@@ -1,5 +1,7 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+*.exe
+
 # compiled output
 /dist
 /tmp
@@ -7,6 +9,8 @@
 /app-builds
 /release
 main.js
+util/**/*.js
+view/**/*.js
 src/**/*.js
 !src/karma.conf.js
 *.js.map

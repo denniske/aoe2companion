@@ -1,5 +1,6 @@
 import {Other, Unit, UnitLine, unitLines} from "@nex/data";
 import {ImageSourcePropType} from "react-native";
+import {getUnitIconColored} from "./units-colored";
 
 
 const otherIcons = {
@@ -146,7 +147,21 @@ export function getEliteUniqueResearchIcon() {
     return require('../../../app/assets/units/EliteUniqueResearch.png');
 }
 
-export function getUnitIcon(unit: Unit) {
+const playerColors = [
+    'blue',
+    'red',
+    'green',
+    'yellow',
+    'teal',
+    'purple',
+    'grey',
+    'orange',
+];
+
+export function getUnitIcon(unit: Unit, color?: number) {
     if (unitIcons[unit] == null) return require('../../../app/assets/units/EliteUniqueResearch.png');
+    if (color != null && color !== 1) {
+        return getUnitIconColored(unit, color);
+    }
     return unitIcons[unit];
 }

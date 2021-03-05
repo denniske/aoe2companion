@@ -189,7 +189,7 @@ export function FeedList() {
                                         const match = item as IMatch;
 
                                         if (match == null) {
-                                            return <Game data={item as IMatch}/>;
+                                            return <Game match={item as IMatch}/>;
                                         }
 
                                         const filteredPlayers = filterAndSortPlayers(match.players);
@@ -260,7 +260,7 @@ export function FeedList() {
                                                 </MyText>
                                             }
                                             <View style={styles.game}>
-                                                <Game expanded={item.match_id === matchId} data={item as IMatch} highlightedUsers={filteredPlayers} user={relevantUser}/>
+                                                <Game expanded={item.match_id === matchId} match={item as IMatch} highlightedUsers={filteredPlayers} user={relevantUser}/>
                                             </View>
                                         </View>;
                                 }

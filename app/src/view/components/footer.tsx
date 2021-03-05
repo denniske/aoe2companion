@@ -62,7 +62,7 @@ export default function Footer() {
         }, [response]);
     }
 
-    if (Platform.OS === 'web' && isElectron()) {
+    if (isElectron()) {
         const response = useLastNotificationResponseElectron();
         useEffect(() => {
             if (response) {
@@ -260,6 +260,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     },
     container: {
         // backgroundColor: 'blue',
+        backgroundColor: theme.backgroundColor,
         borderTopWidth: 1,
         borderTopColor: theme.borderColor,
         flexDirection: 'row',

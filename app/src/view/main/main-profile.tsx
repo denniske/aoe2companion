@@ -205,7 +205,7 @@ function MainProfileInternal({user}: { user: any}) {
                                 if (rating.data?.length === 0) return <View/>;
                                 return <Rating ratingHistories={rating.data} ready={profile.data != null && rating.data != null}/>;
                             default:
-                                return <Game data={item as any} expanded={index === -1} highlightedUsers={[user]} user={user}/>;
+                                return <Game match={item as any} expanded={index === -1} highlightedUsers={[user]} user={user}/>;
                         }
 
                     }}

@@ -7,7 +7,7 @@ import {MainPageInner} from "./main.page";
 import {createStylesheet} from '../theming-new';
 import {setAuth, setPrefValue, useMutate, useSelector} from '../redux/reducer';
 import {useCavy} from './testing/tester';
-import {composeUserId, sameUserNull, userIdFromBase, UserInfo} from '../helper/user';
+import {composeUserId, sameUserNull, UserId, userIdFromBase, UserInfo} from '../helper/user';
 import {saveCurrentPrefsToStorage, saveSettingsToStorage} from '../service/storage';
 import Search from './components/search';
 import {loadProfile} from '../service/profile';
@@ -88,17 +88,21 @@ export function UserMenu() {
     );
 }
 
+function isValidUserInfo(userInfo: any) {
+    return userInfo && (userInfo.steam_id || userInfo.profile_id);
+}
+
 export default function UserPage() {
     const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
-    const user = route.params?.id;
+    const user: UserId = isValidUserInfo(route.params?.id) ? route.params?.id : undefined as unknown as UserId;
     const styles = useStyles();
-
-    console.log('UserPage', route.params);
 
     const mutate = useMutate();
     const auth = useSelector(state => state.auth);
     const profile = useSelector(state => state.user[user?.id]?.profile);
     const [hasSteamId, setHasSteamId] = useState(true);
+
+    console.log('UserPage', route.params, auth);
 
     const generateTestHook = useCavy();
     const navigation = useNavigation();

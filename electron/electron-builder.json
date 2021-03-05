@@ -3,31 +3,39 @@
   "directories": {
     "output": "release/"
   },
-    "files": [
-        "**/*",
-        "!**/*.ts",
-        "!*.code-workspace",
-        "!LICENSE.md",
-        "!package.json",
-        "!package-lock.json",
-        "!src/",
-        "!e2e/",
-        "!hooks/",
-        "!angular.json",
-        "!_config.yml",
-        "!karma.conf.js",
-        "!tsconfig.json",
-        "!tslint.json"
-    ],
+  "files": [
+    "**/*",
+    "!**/*.ts",
+    "!*.code-workspace",
+    "!LICENSE.md",
+    "!package.json",
+    "!package-lock.json",
+    "!src/",
+    "!e2e/",
+    "!hooks/",
+    "!angular.json",
+    "!_config.yml",
+    "!karma.conf.js",
+    "!tsconfig.json",
+    "!tslint.json"
+  ],
+  "publish": {
+    "provider": "github",
+    "releaseType": "release",
+    "vPrefixedTagName": true,
+    "publisherName": ["aoe2companion.com", "DigiCert Timestamp 2021"]
+  },
   "win": {
     "icon": "build/icon.ico",
     "target": [
-      "portable"
+      "nsis"
     ],
-    "certificateFile" : "certificate.pfx",
-    "signAndEditExecutable": true,
+    "certificateFile": "certificate.pfx",
+    "signAndEditExecutable": false,
     "forceCodeSigning": true,
-    "artifactName": "${productName}-${version}.${ext}"
+    "verifyUpdateCodeSignature": false,
+    "artifactName": "${productName}-${version}.${ext}",
+    "publisherName": ["aoe2companion.com", "DigiCert Timestamp 2021"]
   },
   "forceCodeSigning": true,
   "mac": {

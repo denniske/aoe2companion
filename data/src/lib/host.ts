@@ -47,9 +47,9 @@ export function getHost(host: Host) {
             //     const platformHost = '192.168.178.41';
             //     return `http://${platformHost}:3003/`;
             // }
-            if (dev) {
-                return 'http://localhost:3333/graphql';
-            }
+            // if (dev) {
+            //     return 'http://localhost:3333/graphql';
+            // }
             return `https://graphql.aoe2companion.com/graphql`;
         }
         case "aoe2net": {

@@ -1,16 +1,17 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Linking, Platform, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Constants from 'expo-constants';
 import {useLinkTo, useNavigation} from '@react-navigation/native';
 import {Button} from "react-native-paper";
 import {MyText} from "./components/my-text";
-import {setUpdateManifest, setUpdateStoreManifest, useMutate} from "../redux/reducer";
+import {setUpdateElectronManifest, setUpdateManifest, setUpdateStoreManifest, useMutate} from "../redux/reducer";
 import {doCheckForStoreUpdate, doCheckForUpdateAsync} from "../service/update";
 import {useTheme} from "../theming";
 import {appVariants} from "../styles";
 import Space from "./components/space";
 import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';
+import {doCheckForUpdateElectronAsync, getElectronVersion, isElectron} from "../helper/electron";
 
 
 export default function AboutPage() {
@@ -18,9 +19,21 @@ export default function AboutPage() {
     const appStyles = useTheme(appVariants);
     const linkTo = useLinkTo();
     const [state, setState] = useState('');
+    const [electronVersion, setElectronVersion] = useState('');
     const [errorPageClickCount, setErrorPageClickCount] = useState(0);
     const mutate = useMutate();
     const navigation = useNavigation();
+
+    const checkForUpdateElectron = async () => {
+        setState('checkingForUpdate');
+        const update = await doCheckForUpdateElectronAsync();
+        if (update) {
+            mutate(setUpdateElectronManifest(update));
+            setState('checked');
+            return;
+        }
+        setState('upToDate');
+    };
 
     const checkForUpdate = async () => {
         setState('checkingForUpdate');
@@ -65,6 +78,16 @@ export default function AboutPage() {
         }
         await Linking.openURL(url!);
     };
+
+    const init = async () => {
+        if (isElectron()) {
+            setElectronVersion(await getElectronVersion());
+        }
+    };
+
+    useEffect(() => {
+        init();
+    });
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
@@ -116,16 +139,21 @@ export default function AboutPage() {
 
             <MyText style={styles.heading}>{getTranslation('about.heading.version')}</MyText>
             <TouchableOpacity onPress={incrementErrorPageClickCount}>
-                <MyText style={styles.content}>
-                    {Constants.manifest.releaseChannel || 'dev'}-{Constants.manifest.version}n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}
-                </MyText>
+                {
+                    isElectron() &&
+                    <MyText style={styles.content}>{Constants.manifest.releaseChannel || 'dev'}-{Constants.manifest.version}n{electronVersion}</MyText>
+                }
+                {
+                    !isElectron() &&
+                    <MyText style={styles.content}>{Constants.manifest.releaseChannel || 'dev'}-{Constants.manifest.version}n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}</MyText>
+                }
             </TouchableOpacity>
 
             {
-                state === '' &&
+                (Platform.OS !== 'web' || isElectron()) && state === '' &&
                 <View>
                     <Space/>
-                    <Button onPress={checkForUpdate} mode="contained" dark={true}>{getTranslation('about.update.checkforupdate')}</Button>
+                    <Button onPress={isElectron() ? checkForUpdateElectron : checkForUpdate} mode="contained" dark={true}>{getTranslation('about.update.checkforupdate')}</Button>
                 </View>
             }
             {

@@ -19,6 +19,10 @@
   "files": [
     "main.ts"
   ],
+  "include": [
+    "util/*.ts",
+    "view/*.ts",
+  ],
   "exclude": [
     "node_modules",
     "**/*.spec.ts"

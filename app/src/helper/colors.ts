@@ -1,4 +1,15 @@
 
+const playerColorsBright = [
+    '#6EA6EB',
+    '#FF6464',
+    '#00FF00',
+    '#FFFF00',
+    '#00FFE1',
+    '#DA62D2',
+    '#989898',
+    '#FFB415',
+];
+
 const playerColors = [
     '#405BFF',
     '#FF0000',
@@ -9,6 +20,10 @@ const playerColors = [
     '#797979',
     '#FF9600',
 ];
+
+export function getPlayerBackgroundColorBright(playerPosition: number) {
+    return playerColorsBright[playerPosition - 1];
+}
 
 export function getPlayerBackgroundColor(playerPosition: number) {
     return playerColors[playerPosition - 1];

@@ -53,42 +53,42 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: electron/release/aoe2companion-${{ env.VERSION }}.exe
-          tag: ${{ github.ref }}
+          tag: v${{ env.VERSION }}
           overwrite: true
 
-  macos:
-    name: MacOS
-    runs-on: macos-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Setup Env
-        uses: ./.github/actions/setup
-      - name: Setup Node
-        uses: actions/setup-node@v2.1.2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - run: brew install secrethub/tools/secrethub-cli
-
-      - run: |
-          echo "ELECTRON_APPLE_CERT_BASE64=$(secrethub read denniske/aoe2companion/electron_apple_cert_base64)" >> $GITHUB_ENV
-
-      - run: echo "VERSION=$(node deploy/script/version-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
-      - run: echo $VERSION
-
-      - name: Build
-        run: |
-          cd electron
-          echo $ELECTRON_APPLE_CERT_BASE64 | base64 --decode > certificate.p12
-          yarn --frozen-lockfile --network-timeout 100000
-          yarn run build:prod
-          yarn run electron:build -c.extraMetadata.version=$VERSION
-
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: electron/release/aoe2companion-${{ env.VERSION }}.dmg
-          tag: ${{ github.ref }}
-          overwrite: true
+#  macos:
+#    name: MacOS
+#    runs-on: macos-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v1
+#      - name: Setup Env
+#        uses: ./.github/actions/setup
+#      - name: Setup Node
+#        uses: actions/setup-node@v2.1.2
+#        with:
+#          node-version: ${{ env.NODE_VERSION }}
+#
+#      - run: brew install secrethub/tools/secrethub-cli
+#
+#      - run: |
+#          echo "ELECTRON_APPLE_CERT_BASE64=$(secrethub read denniske/aoe2companion/electron_apple_cert_base64)" >> $GITHUB_ENV
+#
+#      - run: echo "VERSION=$(node deploy/script/version-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
+#      - run: echo $VERSION
+#
+#      - name: Build
+#        run: |
+#          cd electron
+#          echo $ELECTRON_APPLE_CERT_BASE64 | base64 --decode > certificate.p12
+#          yarn --frozen-lockfile --network-timeout 100000
+#          yarn run build:prod
+#          yarn run electron:build -c.extraMetadata.version=$VERSION
+#
+#      - name: Upload binaries to release
+#        uses: svenstaro/upload-release-action@v2
+#        with:
+#          repo_token: ${{ secrets.GITHUB_TOKEN }}
+#          file: electron/release/aoe2companion-${{ env.VERSION }}.dmg
+#          tag: ${{ github.ref }}
+#          overwrite: true

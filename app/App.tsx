@@ -2,7 +2,7 @@
 import 'array-flat-polyfill'
 
 import 'react-native-gesture-handler';
-import {DefaultTheme as NavigationDefaultTheme, DarkTheme as NavigationDarkTheme, NavigationContainer, useNavigation} from '@react-navigation/native';
+import { DefaultTheme as NavigationDefaultTheme, DarkTheme as NavigationDarkTheme, NavigationContainer} from '@react-navigation/native';
 import React, {useEffect} from 'react';
 import {mainMenu} from './src/view/main.page';
 import {
@@ -74,8 +74,13 @@ import {ITranslationService} from '@nex/data';
 import {ConditionalTester} from "./src/view/testing/tester";
 import {getElectronPushToken, isElectron} from './src/helper/electron';
 import {setAccountPushTokenElectron} from './src/api/following';
+import OverlayPage from "./src/view/overlay.page";
+import IntroPage from "./src/view/intro.page";
+import {Roboto_400Regular, Roboto_700Bold} from "@expo-google-fonts/roboto";
+import {useFonts} from "expo-font";
 import {getInternalString} from './src/helper/strings';
 import { fetchJson } from './src/api/util';
+import UpdateElectronSnackbar from "./src/view/components/snackbar/update-electron-snackbar";
 
 initSentry();
 
@@ -232,11 +237,19 @@ const linking: LinkingOptions = {
             Winrates: {
                 path: 'winrates',
             },
+            Overlay: {
+                path: 'overlay',
+            },
+            Intro: {
+                path: 'intro',
+            },
         },
     },
 };
 
 export type RootStackParamList = {
+    Intro: undefined;
+    Overlay: undefined;
     Error: undefined;
     Splash: undefined;
     Tips: undefined;
@@ -284,18 +297,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 export function InnerApp() {
     const styles = useStyles();
-
     const auth = useSelector(state => state.auth);
-
-    // let [fontsLoaded] = useFonts({
-    //     Roboto: Roboto_400Regular,
-    // });
-
-    // console.log("==> APP PAGE me.loading =", me.loading, ', data =', me.data); //, ', fontsLoaded =', fontsLoaded);
-
-    // if (!fontsLoaded) {
-    //     return <AppLoading />;
-    // }
 
     // const [ready, setReady] = useState(false);
     // const loadAssets = async () => {
@@ -322,6 +324,10 @@ export function InnerApp() {
         <SafeAreaView style={styles.container} nativeID="container">
 
             <Portal>
+                {
+                    isElectron() &&
+                    <UpdateElectronSnackbar/>
+                }
                 {
                     Platform.OS !== 'web' &&
                     <UpdateSnackbar/>
@@ -355,6 +361,28 @@ export function InnerApp() {
                         title: sameUserNull(auth, props.route.params?.id) || props.route.params == null ? 'Me' : props.route.params.name,
                         headerRight: userMenu(props),
                     })}
+                />
+                <Stack.Screen
+                    name="Intro"
+                    component={IntroPage}
+                    options={{
+                        title: 'Intro',
+                        headerShown: false,
+                        cardShadowEnabled: false,
+                        cardOverlayEnabled: false,
+                        cardStyle: { backgroundColor: 'rgba(0,0,0,0)'}
+                    }}
+                />
+                <Stack.Screen
+                    name="Overlay"
+                    component={OverlayPage}
+                    options={{
+                        title: 'Overlay',
+                        headerShown: false,
+                        cardShadowEnabled: false,
+                        cardOverlayEnabled: false,
+                        cardStyle: { backgroundColor: 'rgba(0,0,0,0)'}
+                    }}
                 />
                 <Stack.Screen
                     name="Leaderboard"
@@ -502,6 +530,36 @@ export function InnerApp() {
     );
 }
 
+export function InnerAppForIntro() {
+    const styles = useStyles();
+
+    let [fontsLoaded] = useFonts({
+        Roboto: Roboto_700Bold,
+    });
+
+    return (
+        <SafeAreaView style={styles.containerIntro} nativeID="container">
+            <Stack.Navigator screenOptions={{
+                ...TransitionPresets.SlideFromRightIOS,
+                headerStatusBarHeight: 0,
+                animationEnabled: false,
+            }}>
+                <Stack.Screen
+                    name="Intro"
+                    component={IntroPage}
+                    options={{
+                        title: 'Intro',
+                        headerShown: false,
+                        cardShadowEnabled: false,
+                        cardOverlayEnabled: false,
+                        cardStyle: { backgroundColor: 'rgba(0,0,0,0)'}
+                    }}
+                />
+            </Stack.Navigator>
+        </SafeAreaView>
+    );
+}
+
 
 // const customPaperTheme = {
 //     ...PaperDarkTheme,
@@ -534,6 +592,7 @@ const customNavigationTheme = {
     colors: {
         ...NavigationDefaultTheme.colors,
         background: 'white'
+        // background: 'rgba(0,0,0,0)'
     },
 };
 
@@ -542,13 +601,13 @@ const customDarkNavigationTheme = {
     colors: {
         ...NavigationDarkTheme.colors,
         background: 'rgb(1,1,1)',
+        // background: 'rgba(0,0,0,0)'
     },
 };
 
 let updatedPushTokenForElectron = false;
 
 async function updatePushTokenForElectron(config: IConfig, account: IAccount) {
-    if (Platform.OS !== 'web') return;
     if (!isElectron()) return;
     if (updatedPushTokenForElectron) return;
 
@@ -619,6 +678,8 @@ export function AppWrapper() {
 
     const finalDarkMode = darkMode === "system" && (colorScheme === 'light' || colorScheme === 'dark') ? colorScheme : darkMode;
 
+    const appType = (isElectron() && global.location.pathname === '/intro') ? 'intro' : 'app';
+
     return (
         <NavigationContainer ref={navigationRef}
                              theme={finalDarkMode === 'light' ? customNavigationTheme : customDarkNavigationTheme}
@@ -635,7 +696,14 @@ export function AppWrapper() {
                     {/*<StatusBar barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'} backgroundColor="transparent" translucent={true} />*/}
                     {/*<StatusBar barStyle="dark-content" backgroundColor="white" />*/}
                     {/*<StatusBar barStyle="light-content" backgroundColor="transparent" />*/}
-                    <InnerApp/>
+                    {
+                        appType == 'intro' &&
+                        <InnerAppForIntro/>
+                    }
+                    {
+                        appType == 'app' &&
+                        <InnerApp/>
+                    }
                 </PaperProvider>
             </ConditionalTester>
         </NavigationContainer>
@@ -677,9 +745,36 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
                 borderRadius: isMobile ? 0 : 10,
             } : {}
         ),
-
         // backgroundColor: '#397AF9',
         backgroundColor: theme.backgroundColor,
+        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+        flex: 1,
+    },
+    containerIntro: {
+        ...(Platform.OS === 'web' ?
+            {
+                overflow: 'hidden',
+                width: '100%',
+                maxWidth: 1800,
+                marginHorizontal: 'auto',
+                marginVertical: 'auto',
+                borderRadius: isMobile ? 0 : 10,
+            }
+            // Overlay
+            // {
+            //     overflow: 'hidden',
+            //     width: 450,
+            //     maxWidth: '100%',
+            //     maxHeight: 900,
+            //     marginHorizontal: 'auto',
+            //     marginVertical: 'auto',
+            //     // borderColor: '#CCC',
+            //     // borderWidth: isMobile ? 0 : 1,
+            //     borderRadius: isMobile ? 0 : 10,
+            // }
+            : {}
+        ),
+        // backgroundColor: 'transparent',
         paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
         flex: 1,
     },

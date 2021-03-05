@@ -1,4 +1,9 @@
 
+font
+- serif
+  - georgia
+
+
 vipers game 64282000 which maps was this (130)?
 
 https://www.aoezone.net/threads/age-of-empires-ii-de-game-lobby-notifier.169836/
@@ -19,6 +24,17 @@ ideas
 x 1v1 opponent stats
 - number of follows
 
+overlay
+- winrate
+- winrate for map
+- vs games, allied games
+- win/loose rate
+
+- centered top view
+
+- 1v1 rating
+
+https://www.aoezone.net/threads/finally-overlays-polskafan-de.172372/
 
 de update
 x aoe2techtree
@@ -151,22 +167,12 @@ aoe2companion-proxy
 aoe2companion-api
 
 
+mgz mgx format
+https://web.archive.org/web/20090215065209/http://members.at.infoseek.co.jp/aocai/mgx_format.html
 
-
-
-
-
-
-api performance
-- https://www.bookstack.cn/read/TypeORM/caching.md
-- do not use jsonb
-- indices?
-- do use separate connection for ingest
-- use vercel for api
 
 add content
 - error when data cannot be loaded (implemented in leaderboard already)
-- zoom rating history
 - leaderboard rating distribution
 - lobbies online players per mode
 - infer match results from rating change
@@ -175,9 +181,6 @@ add content
 - metabase
 
 - rating history # of games
-
-- match duration
-- stats match duration
 
 
 apt update
@@ -188,9 +191,6 @@ nvm install --lts
 
 sam build --use-container
 sam deploy
-
-
-
 
 
 
@@ -365,7 +365,7 @@ git tag server-v21.0.0 && git push --tags
 git tag function-v21.0.0 && git push --tags
 
 git tag v22.0.0 && git push --tags
-git tag -d v21.0.0 && git push --delete origin v21.0.0
+git tag -d v23.0.0 && git push --delete origin v23.0.0
 git tag -d v21.0.0 && git push --delete origin v21.0.0 && git tag v21.0.0 && git push --tags
 
 git tag -d api-v25.0.0 && git push --delete origin api-v25.0.0 && git tag api-v25.0.0 && git push --tags

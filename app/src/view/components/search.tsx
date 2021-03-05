@@ -139,9 +139,9 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
     // console.log('RENDER', text, list.length);
 
     const onEndReached = async () => {
-        console.log('onEndReached', text);
-        console.log('fetchingMore', fetchingMore);
-        console.log('user.data', user.data?.length);
+        // console.log('onEndReached', text);
+        // console.log('fetchingMore', fetchingMore);
+        // console.log('user.data', user.data?.length);
         if (text.length < 3 || fetchingMore || user.data?.length < 50) return;
         setFetchingMore(true);
         const usersLength = user.data?.length ?? 0;

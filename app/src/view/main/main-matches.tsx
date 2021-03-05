@@ -191,7 +191,7 @@ function MainMatchesInternal({user}: { user: any}) {
                             case 'header':
                                 return <MyText style={styles.header}>{getTranslation('main.matches.matches', { matches: filteredMatches?.length })}</MyText>
                             default:
-                                return <Game data={item as any} expanded={index === -1} highlightedUsers={[user]} user={user}/>;
+                                return <Game match={item as any} expanded={index === -1} highlightedUsers={[user]} user={user}/>;
                         }
                     }}
                     keyExtractor={(item, index) => index.toString()}

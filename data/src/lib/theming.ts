@@ -17,6 +17,7 @@ export const dark: ITheme = {
     backgroundColor: "#121212",
     textColor: "white",
     textNoteColor: "#BBB",
+    // textNoteColor: "white",
     borderColor: '#101010',
     hoverBackgroundColor: '#555',
     lightBackgroundColor: '#333',
