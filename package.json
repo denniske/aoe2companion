@@ -20,6 +20,7 @@
     "rank": "SERVICE_NAME=rank nx serve graph",
     "notify": "SERVICE_NAME=notify nx serve graph",
     "replay": "SERVICE_NAME=replay nx serve graph",
+    "function": "SERVICE_NAME=function nx serve graph",
     "api": "SERVICE_NAME=api nx serve graph",
     "graph": "nx serve graph",
     "website": "next dev website",

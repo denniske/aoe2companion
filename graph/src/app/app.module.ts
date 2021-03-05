@@ -186,6 +186,23 @@ export class ResolverModule {
         const providers = [];
         const controllers = [];
 
+        const imports: any[] = [
+            CustomTypeOrmModule,
+            PrismaModule,
+        ];
+
+        const graphqlModule = GraphQLModule.forRoot({
+            // tracing: true,
+            installSubscriptionHandlers: true,
+            autoSchemaFile: 'graph/graphql/schema.graphql',
+            sortSchema: true,
+            playground: {
+                settings: {
+                    'schema.polling.enable': false,
+                } as any
+            }
+        });
+
         const resolvers = [
             MatchResolver,
             UserResolver,
@@ -197,19 +214,18 @@ export class ResolverModule {
 
         console.log('SERVICE_NAME', process.env.SERVICE_NAME);
         if (process.env.SERVICE_NAME === 'graphql') {
+            imports.push(graphqlModule);
             providers.push(...resolvers);
         }
 
         console.log('environment', process.env.ENVIRONMENT);
         if (process.env.ENVIRONMENT === 'development') {
+            imports.push(graphqlModule);
             providers.push(...resolvers);
         }
 
         return {
-            imports: [
-                CustomTypeOrmModule,
-                PrismaModule,
-            ],
+            imports: imports,
             module: ResolverModule,
             controllers: controllers,
             providers: providers,
@@ -235,17 +251,6 @@ export class SchemaJsonTask implements OnModuleInit {
     imports: [
         ScheduleModule.forRoot(),
         TaskAndControllerModule.forRoot(),
-        GraphQLModule.forRoot({
-            // tracing: true,
-            installSubscriptionHandlers: true,
-            autoSchemaFile: 'graph/graphql/schema.graphql',
-            sortSchema: true,
-            playground: {
-                settings: {
-                    'schema.polling.enable': false,
-                } as any
-            }
-        }),
         ResolverModule.forRoot(),
     ],
     controllers: [
