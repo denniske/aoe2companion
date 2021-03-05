@@ -116,7 +116,7 @@ function Snackbar(props: Props) {
             >
                 {
                     working &&
-                    <ActivityIndicator style={styles.indicator} animating size="small"/>
+                    <ActivityIndicator style={styles.indicator} animating size="small" color="#999"/>
                 }
                 <View style={[
                     styles.content,

@@ -4,7 +4,7 @@ import React from "react";
 export default function FlatListLoadingIndicator() {
     return (
         <View style={styles.loadMoreIndicator}>
-            <ActivityIndicator animating size="large"/>
+            <ActivityIndicator animating size="large" color="#999" />
         </View>
     );
 }

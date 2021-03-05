@@ -53,6 +53,7 @@ export function LeaderboardMenu() {
     const country = useSelector(state => state.leaderboardCountry) || null;
     const authCountry = useSelector(state => state.prefs.country);
 
+    // Todo: Implement or remove
     const loadingMatchesOrStats = false;
 
     const formatCountry = (x: (string | null), inList?: boolean) => {
@@ -81,7 +82,7 @@ export function LeaderboardMenu() {
     return (
         <View style={styles.menu}>
             <View style={styles.pickerRow}>
-                <ActivityIndicator animating={loadingMatchesOrStats} size="small"/>
+                <ActivityIndicator animating={loadingMatchesOrStats} size="small" color="#999"/>
                 <Picker itemHeight={40} textMinWidth={150} container="flatlist" divider={divider} icon={icon} disabled={loadingMatchesOrStats} value={country} values={countryList} formatter={formatCountry} onSelect={onCountrySelected}/>
             </View>
         </View>
@@ -147,7 +148,7 @@ function Leaderboard({leaderboardId}: any) {
         {
             append: (data, newData, args) => {
                 const [game, leaderboard_id, params] = args;
-                // console.log('APPEND', data, newData, params);
+                console.log('APPEND', data, newData, params);
                 newData.leaderboard.forEach((value, index) => data.leaderboard[index+params.start!-1] = value);
                 console.log('APPENDED', params);
                 return data;

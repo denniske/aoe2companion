@@ -16,6 +16,12 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
+    '22.0.9': [
+        {
+            type: 'bugfix',
+            title: 'Fixed activity indicators on android',
+        },
+    ],
     '22.0.8': [
         {
             type: 'bugfix',
