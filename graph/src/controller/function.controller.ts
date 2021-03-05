@@ -6,7 +6,7 @@ import {Connection} from "typeorm";
 import {PrismaService} from "../service/prisma.service";
 
 
-const cache: Record<string, number> = {};
+let cache: Record<string, number> = {};
 let cacheUpdated: Date = null;
 
 interface IRow {
@@ -33,8 +33,9 @@ export class FunctionController implements OnModuleInit {
 
         console.log('Update cache...');
         const rows: IRow[] = await this.connection.manager.query('SELECT DISTINCT(leaderboard_id) as key, COUNT(*) FROM leaderboard_row GROUP BY leaderboard_id', []);
-        rows.forEach(row => cache[`(${row.key},null)`] = parseInt(row.count));
         const rows2: IRow[] = await this.connection.manager.query('SELECT DISTINCT(leaderboard_id, country) as key, COUNT(*) FROM leaderboard_row GROUP BY leaderboard_id, country', []);
+        cache = {};
+        rows.forEach(row => cache[`(${row.key},null)`] = parseInt(row.count));
         rows2.forEach(row => cache[row.key] = parseInt(row.count));
         // console.log('cache', cache);
         console.log('done');
