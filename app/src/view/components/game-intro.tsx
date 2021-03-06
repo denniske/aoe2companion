@@ -16,9 +16,32 @@ interface IGameProps {
     match: IMatch;
 }
 
+// async function getLeaderboardArray(leaderboard_id: number, profile_ids: number[]) {
+//     return await Promise.all(profile_ids.map(profile_id => fetchLeaderboard('aoe2de', leaderboard_id, { profile_id, count: 1 })));
+// }
+
+// Object.assign({}, ...buildingList.map((x) => ({[x.name]: x})));
+
+export function getGameIntroTeams(match: IMatch) {
+    let teamIndex = 5;
+    return Object.entries(groupBy(match.players, p => {
+        if (p.team != -1) return p.team;
+        return teamIndex++;
+    }));
+}
+
 export function GameIntro({match}: IGameProps) {
     const theme = useAppTheme();
     const styles = useStyles();
+
+    // const leaderboardDict = useLazyApi(
+    //     {},
+    //     getLeaderboardArray, match.leaderboard_id, match.players.filter(p => p.profile_id).map(p => p.profile_id)
+    // );
+    //
+    // useEffect(() => {
+    //     leaderboardDict.reload();
+    // }, []);
 
     if (match == null) {
         const playersInTeam1 = Array(3).fill(0);
@@ -49,14 +72,7 @@ export function GameIntro({match}: IGameProps) {
         );
     }
 
-    const freeForALl = match.players.filter(p => p.team === -1).length >= match.players.length-1;
-
-    let teamIndex = 5;
-    const teams = Object.entries(groupBy(match.players, p => {
-        if (freeForALl) return -1;
-        if (p.team != -1) return p.team;
-        return teamIndex++;
-    }));
+    const teams = getGameIntroTeams(match);
 
     return (<View>
                 {/*<View style={styles.row}>*/}
@@ -78,7 +94,7 @@ export function GameIntro({match}: IGameProps) {
                         sortBy(teams, ([team, players], i) => min(players.map(p => p.color))).map(([team, players], i) =>
                             <View key={team}>
                                 {
-                                    sortBy(players, p => p.color).map((player, j) => <PlayerIntro key={j} match={match} player={player} freeForALl={freeForALl} order={i % 2} />)
+                                    sortBy(players, p => p.color).map((player, j) => <PlayerIntro key={j} match={match} player={player} order={teams.length == 2 ? i % 2 : 1} />)
                                 }
                                 {
                                     i < teams.length-1 &&
@@ -146,6 +162,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     },
     playerList: {
         flex: 1,
+        // flexWrap: 'wrap',
         // paddingTop: 20,
         flexDirection: 'row',
         justifyContent: 'center',

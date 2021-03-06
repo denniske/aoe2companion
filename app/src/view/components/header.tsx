@@ -1,21 +1,19 @@
-import {
-    Image, ImageStyle, Linking, Platform, StatusBar, StyleSheet, Text, TextStyle, TouchableOpacity, View, ViewStyle
-} from 'react-native';
+import {Image, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import React, {useState} from 'react';
-import {Checkbox, IconButton, Menu, useTheme as usePaperTheme} from 'react-native-paper';
-import {RootStackParamList, RootStackProp} from '../../../App';
+import {RootStackParamList} from '../../../App';
 import {getRootNavigation} from "../../service/navigation";
 import {MyText} from "./my-text";
 import {iconHeight, iconWidth} from "@nex/data";
 import {setConfig, setInitialState, useMutate, useSelector} from "../../redux/reducer";
-import {makeVariants, useTheme} from "../../theming";
+import {useTheme} from "../../theming";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import FontAwesomeIcon5 from "react-native-vector-icons/FontAwesome5";
 import {appVariants} from "../../styles";
 import {clearCache} from "../../redux/cache";
 import {IConfig, saveConfigToStorage} from "../../service/storage";
-import { reloadAsync } from 'expo-updates';
+import {reloadAsync} from 'expo-updates';
 import {createStylesheet} from '../../theming-new';
+import {closeAppWindowAsync, isElectron} from "../../helper/electron";
 
 
 export default function Header() {
@@ -104,6 +102,13 @@ export default function Header() {
                             <FontAwesomeIcon5 style={styles.menuButton} name="power-off" color="#666" size={18} />
                         </TouchableOpacity>
                     }
+
+                    {
+                        isElectron() &&
+                        <TouchableOpacity onPress={closeAppWindowAsync}>
+                            <FontAwesomeIcon5 style={styles.menuButton} name="times" color="#666" size={18} />
+                        </TouchableOpacity>
+                    }
                 </View>
             </View>
     );
@@ -116,6 +121,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
             alignItems: 'center',
         },
         menuButton: {
+            ...(Platform.OS === 'web' ? {"-webkit-app-region": "no-drag"} : {}),
             // backgroundColor: 'blue',
             margin: 0,
             marginHorizontal: 10,

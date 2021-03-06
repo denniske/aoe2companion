@@ -1,69 +1,52 @@
-import React, {useEffect, useState} from 'react';
-import {Image, Linking, Platform, StyleSheet, TextStyle, TouchableOpacity, View} from 'react-native';
+import React from 'react';
+import {Dimensions, Image, StyleSheet, TextStyle, View} from 'react-native';
 import {getPlayerBackgroundColorBright} from '../../helper/colors';
-import {useNavigation} from '@react-navigation/native';
-import {userIdFromBase} from '../../helper/user';
-import {
-    civDict,
-    civList,
-    civs,
-    getCivNameById,
-    IMatch,
-    isBirthday,
-    isVerifiedPlayer,
-    moProfileId,
-    noop
-} from '@nex/data';
-import {RootStackProp} from '../../../App';
-import {getSlotTypeName, IPlayer} from "@nex/data";
-import {TextLoader} from "./loader/text-loader";
+import {civList, getCivNameById, getSlotTypeName, IMatch, IPlayer} from '@nex/data';
 import {MyText} from "./my-text";
 import {createStylesheet} from '../../theming-new';
 import {getUnitIcon} from "../../helper/units";
+import {getGameIntroTeams} from "./game-intro";
 
 
 interface IPlayerProps {
     match: IMatch;
     player: IPlayer;
     highlight?: boolean;
-    freeForALl?: boolean;
-    canDownloadRec?: boolean;
     order: number;
-}
-
-export function PlayerSkeleton() {
-    const styles = useStyles();
-    return (
-        <View style={styles.player}>
-            <TextLoader style={styles.playerWonCol}/>
-
-            <TextLoader style={styles.squareCol}>
-            </TextLoader>
-
-            <TextLoader style={styles.playerRatingCol}/>
-
-            <TextLoader style={styles.playerNameCol}/>
-
-            <View style={styles.row}>
-                {/*<ImageLoader style={styles.countryIcon}/>*/}
-                <TextLoader style={{flex: 1}}/>
-            </View>
-        </View>
-    );
 }
 
 export function PlayerIntro({match, player, highlight, order}: IPlayerProps) {
     const styles = useStyles();
-    const navigation = useNavigation<RootStackProp>();
 
+    // const leaderboard = useLazyApi(
+    //     {},
+    //     fetchLeaderboard, 'aoe2de', match.leaderboard_id, { profile_id: player.profile_id, count: 1 }
+    // );
+    // useEffect(() => {
+    //     leaderboard.reload();
+    // }, []);
     // console.log('player', player);
+
+    const teams = getGameIntroTeams(match);
+    const fullWidth = Dimensions.get('window').width;
+    const availableWidth = fullWidth - 40 - (teams.length-1)*20;
+    const width = Math.max(0, Math.min(240, availableWidth / teams.length));
 
     const newCivStyle = [styles.newCiv, {backgroundColor: getPlayerBackgroundColorBright(player.color)}];
     const boxStyle = [styles.square, {backgroundColor: getPlayerBackgroundColorBright(player.color)}];
     const playerNameStyle = [{ fontSize: 18, fontWeight: 'bold', color: 'white', textDecorationLine: highlight ? 'underline' : 'none'}] as TextStyle;
-    const containerStyle = [{ borderColor: getPlayerBackgroundColorBright(player.color)}];
+    const containerStyle = [{ borderColor: getPlayerBackgroundColorBright(player.color), width }];
 
-    const winRate = player.wins / player.games * 100;
+    const winRate = (player.wins / player.games * 100).toFixed(0);
+    const rating = player.rating;
+    const wins = player.wins;
+    const defeats = player.games-player.wins;
+
+    // const leaderboardInfo = leaderboard.data?.leaderboard?.[0];
+    // const rating = leaderboardInfo ? leaderboardInfo.rating : ' ';
+    // const winRate = leaderboardInfo ? (leaderboardInfo.wins / leaderboardInfo.games * 100).toFixed(0) : ' ';
+    // const wins = leaderboardInfo ? leaderboardInfo.wins : ' ';
+    // const defeats = leaderboardInfo ? leaderboardInfo.games-leaderboardInfo.wins : ' ';
 
     return (
         <View style={[styles.player, containerStyle]}>
@@ -87,22 +70,36 @@ export function PlayerIntro({match, player, highlight, order}: IPlayerProps) {
                 order == 0 &&
                 <Image fadeDuration={0} style={[styles.unitIcon, { transform: [{rotateY: '180deg'}] }]} source={getUnitIcon(civList[player.civ].uniqueUnits[0], player.color) as any}/>
             }
+            {
+                order == 0 &&
+                <View style={styles.spacerLeft}/>
+            }
             <View style={styles.data}>
-
                 <MyText style={styles.playerNameCol} numberOfLines={1}>
                     {player.slot_type != 1 ? getSlotTypeName(player.slot_type) : player.name}
                 </MyText>
 
-                <MyText style={styles.playerNameCol}>{player.rating}</MyText>
-                <MyText style={styles.playerNameCol}>{winRate.toFixed(0)}% - {player.wins}W {player.games-player.wins}L</MyText>
+                <MyText style={styles.playerNameCol}>{player.slot_type != 1 ? ' ' : rating}</MyText>
+
+                {
+                    player.slot_type === 1 &&
+                    <MyText style={styles.playerNameCol}>{winRate}% - {wins}W {defeats}L</MyText>
+                }
+                {
+                    player.slot_type !== 1 &&
+                    <MyText style={styles.playerNameCol}> </MyText>
+                }
 
                 {/*<BorderText style={styles.playerNameCol}>R | {player.rating}</BorderText>*/}
                 {/*<BorderText style={styles.playerNameCol}>{winRate.toFixed(0)}% | {player.wins}W {player.games-player.wins}L</BorderText>*/}
-
             </View>
             {
                 order == 1 &&
-                <Image fadeDuration={0} style={styles.unitIcon} source={getUnitIcon(civList[player.civ].uniqueUnits[0], player.color) as any}/>
+                <View style={styles.spacerRight}/>
+            }
+            {
+                order == 1 &&
+                <Image fadeDuration={0} style={[styles.unitIcon, { right: 0 }]} source={getUnitIcon(civList[player.civ].uniqueUnits[0], player.color) as any}/>
             }
             {
                 order == 1 &&
@@ -176,7 +173,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         width: 20,
         flex: 1,
         height: '100%',
-        background: 'yellow',
+        // backgroundColor: 'yellow',
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
     },
@@ -247,6 +244,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         // backgroundColor: 'blue',
     },
     unitIcon: {
+        position: 'absolute',
         // zIndex: 10,
         // marginRight: 30,
         width: 65,
@@ -265,16 +263,22 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         backgroundColor: '#444',
         borderWidth: 3,
         borderColor: '#000',
-        marginHorizontal: 20,
+        marginHorizontal: 10,
         marginVertical: 2,
-        minWidth: 180,
+        // minWidth: 180,
+    },
+    spacerLeft: {
+        width: 65,
+    },
+    spacerRight: {
+        width: 30,
     },
     data: {
         flexDirection: 'column',
         alignItems: 'flex-start',
         // backgroundColor: 'yellow',
-        width: 200,
         padding: 10,
+        flex: 1,
     },
     centeredView: {
         flex: 1,

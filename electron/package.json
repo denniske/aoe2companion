@@ -35,9 +35,12 @@
   },
   "dependencies": {
     "electrolytic": "^0.1.0",
+    "electron-active-window": "^0.0.5",
     "electron-fetch": "^1.7.3",
+    "electron-store": "^7.0.2",
     "electron-updater-no-verify": "^4.3.7",
     "env-cmd": "^10.1.0",
+    "ps-list": "^7.2.0",
     "request": "^2.88.2",
     "semver": "^7.3.4"
   },

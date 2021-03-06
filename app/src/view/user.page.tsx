@@ -8,7 +8,7 @@ import {createStylesheet} from '../theming-new';
 import {setAuth, setPrefValue, useMutate, useSelector} from '../redux/reducer';
 import {useCavy} from './testing/tester';
 import {composeUserId, sameUserNull, UserId, userIdFromBase, UserInfo} from '../helper/user';
-import {saveCurrentPrefsToStorage, saveSettingsToStorage} from '../service/storage';
+import {clearSettingsInStorage, saveCurrentPrefsToStorage, saveSettingsToStorage} from '../service/storage';
 import Search from './components/search';
 import {loadProfile} from '../service/profile';
 import {MyText} from './components/my-text';
@@ -17,6 +17,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import IconFA5 from 'react-native-vector-icons/FontAwesome5';
 import {useApi} from '../hooks/use-api';
 import {getRootNavigation} from '../service/navigation';
+import {setAccountProfile} from "../api/following";
 
 
 export function userMenu(props: any) {
@@ -35,6 +36,7 @@ export function UserMenu() {
     const auth = useSelector(state => state.auth!);
     const steamProfileUrl = 'https://steamcommunity.com/profiles/' + user.steam_id;
     const xboxProfileUrl = 'https://www.ageofempires.com/stats/?game=age2&profileId=' + user.profile_id;
+    const account = useSelector(state => state.account);
 
     const mutate = useMutate();
 
@@ -55,13 +57,14 @@ export function UserMenu() {
     };
 
     const doDeleteUser = async () => {
-        await AsyncStorage.removeItem('settings');
+        await clearSettingsInStorage();
         mutate(setAuth(null));
         const navigation = getRootNavigation();
         navigation.reset({
             index: 0,
             routes: [{name: 'User'}],
         });
+        setAccountProfile(account.id, { profile_id: null, steam_id: null });
     };
 
     return (
@@ -99,6 +102,7 @@ export default function UserPage() {
 
     const mutate = useMutate();
     const auth = useSelector(state => state.auth);
+    const account = useSelector(state => state.account);
     const profile = useSelector(state => state.user[user?.id]?.profile);
     const [hasSteamId, setHasSteamId] = useState(true);
 
@@ -115,6 +119,7 @@ export default function UserPage() {
             profile_id: user.profile_id,
         });
         mutate(setAuth(user));
+        setAccountProfile(account.id, { profile_id: user.profile_id!, steam_id: user.steam_id });
     };
 
     // Reset country for use in leaderboard country dropdown

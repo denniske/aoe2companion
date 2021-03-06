@@ -225,8 +225,9 @@ export class ApiController {
     @Post('/account/profile')
     async accountProfile(
         @Body('account_id') account_id: string,
-        @Body('profile_ids') profile_id: number,
-        @Body('steam_id') steam_id: string,
+        @Body('profile_id') profile_id?: number,
+        @Body('steam_id') steam_id?: string,
+        @Body('overlay') overlay?: boolean,
     ) {
         time(1);
 
@@ -235,10 +236,18 @@ export class ApiController {
 
         const accountRepo = getRepository(Account);
 
-        const accountEntry = new Account();
+        const accountEntry = {} as Partial<Account>;
         accountEntry.id = account_id;
-        accountEntry.profile_id = profile_id;
-        accountEntry.steam_id = steam_id;
+
+        if (profile_id !== undefined) {
+            accountEntry.profile_id = profile_id;
+        }
+        if (steam_id !== undefined) {
+            accountEntry.steam_id = steam_id;
+        }
+        if (overlay !== undefined) {
+            accountEntry.overlay = overlay;
+        }
 
         console.log(accountEntry);
 

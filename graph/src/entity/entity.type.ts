@@ -96,5 +96,6 @@ export interface IAccount {
     push_token?: string;
     push_token_web?: string;
     push_token_electron?: string;
+    overlay?: boolean;
     followings?: IFollowing[];
 }

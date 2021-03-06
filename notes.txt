@@ -3,6 +3,10 @@ font
 - serif
   - georgia
 
+- global.location on ios/android ok?
+
+Use dataloader for GraphQL
+- https://spin.atomicobject.com/2017/05/15/optimize-graphql-queries/
 
 vipers game 64282000 which maps was this (130)?
 
@@ -370,7 +374,7 @@ git tag -d v21.0.0 && git push --delete origin v21.0.0 && git tag v21.0.0 && git
 
 git tag -d api-v25.0.0 && git push --delete origin api-v25.0.0 && git tag api-v25.0.0 && git push --tags
 
-git tag -d v22.0.5 && git push --delete origin v22.0.5 && git tag v22.0.5 && git push --tags
+git tag -d notify-v22.0.8 && git push --delete origin notify-v22.0.8 && git tag notify-v22.0.8 && git push --tags
 
 
 defaults read -g com.apple.keyboard.fnState

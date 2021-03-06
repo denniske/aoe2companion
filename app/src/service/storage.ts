@@ -4,10 +4,14 @@ import store from "../redux/store";
 import {v4 as uuidv4} from "uuid";
 import {Flag} from '@nex/data';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {isElectron, sendConfig, sendSettings} from "../helper/electron";
 
 export interface IConfig {
+    hotkeyShowHideEnabled: boolean;
+    hotkeySearchEnabled: boolean;
     darkMode: DarkMode;
     pushNotificationsEnabled: boolean;
+    overlayEnabled: boolean;
     preventScreenLockOnGuidePage: boolean;
     language: string;
 }
@@ -55,28 +59,6 @@ export const saveCurrentPrefsToStorage = async () => {
     await AsyncStorage.setItem('prefs', JSON.stringify(prefs));
 };
 
-export const loadConfigFromStorage = async () => {
-    const entryJson = await AsyncStorage.getItem('config');
-    const entry = (entryJson ? JSON.parse(entryJson) : {}) as IConfig;
-    entry.language = entry.language ?? 'en';
-    entry.darkMode = entry.darkMode ?? 'system';
-    entry.preventScreenLockOnGuidePage = entry.preventScreenLockOnGuidePage ?? true;
-    entry.pushNotificationsEnabled = entry.pushNotificationsEnabled ?? false;
-    return entry;
-};
-
-export const saveConfigToStorage = async (config: IConfig) => {
-    await AsyncStorage.setItem('config', JSON.stringify(config));
-};
-
-export const loadSettingsFromStorage = async () => {
-    const entry = await AsyncStorage.getItem('settings');
-    if (entry == null) {
-        return null;
-    }
-    return JSON.parse(entry) as ISettings;
-};
-
 export const saveAccountToStorage = async (account: IAccount) => {
     await AsyncStorage.setItem('account', JSON.stringify(account));
 };
@@ -93,10 +75,43 @@ export const loadAccountFromStorage = async () => {
     return JSON.parse(entry) as IAccount;
 };
 
-export const saveSettingsToStorage = async (settings: ISettings) => {
-    await AsyncStorage.setItem('settings', JSON.stringify(settings));
+export const loadConfigFromStorage = async () => {
+    const entryJson = await AsyncStorage.getItem('config');
+    const entry = (entryJson ? JSON.parse(entryJson) : {}) as IConfig;
+    entry.language = entry.language ?? 'en';
+    entry.darkMode = entry.darkMode ?? 'system';
+    entry.preventScreenLockOnGuidePage = entry.preventScreenLockOnGuidePage ?? true;
+    entry.pushNotificationsEnabled = entry.pushNotificationsEnabled ?? false;
+    entry.hotkeyShowHideEnabled = entry.hotkeyShowHideEnabled ?? true;
+    entry.hotkeySearchEnabled = entry.hotkeySearchEnabled ?? true;
+    await sendConfigToElectron(entry);
+    return entry;
 };
 
+export const saveConfigToStorage = async (config: IConfig) => {
+    await AsyncStorage.setItem('config', JSON.stringify(config));
+    await sendConfigToElectron(config);
+};
+
+export const clearSettingsInStorage = async () => {
+    await AsyncStorage.removeItem('settings');
+    await sendSettingsToElectron(null);
+};
+
+export const saveSettingsToStorage = async (settings: ISettings) => {
+    await AsyncStorage.setItem('settings', JSON.stringify(settings));
+    await sendSettingsToElectron(settings);
+};
+
+export const loadSettingsFromStorage = async () => {
+    const entry = await AsyncStorage.getItem('settings');
+    if (entry == null) {
+        return null;
+    }
+    const settings = JSON.parse(entry) as ISettings;
+    await sendSettingsToElectron(settings);
+    return settings;
+};
 
 export const loadFollowingFromStorage = async () => {
     const entry = await AsyncStorage.getItem('following');
@@ -109,3 +124,15 @@ export const loadFollowingFromStorage = async () => {
 export const saveFollowingToStorage = async (following: IFollowingEntry[]) => {
     await AsyncStorage.setItem('following', JSON.stringify(following));
 };
+
+const sendConfigToElectron = async (config: IConfig) => {
+    if (isElectron()) {
+        await sendConfig(config);
+    }
+}
+
+const sendSettingsToElectron = async (settings: ISettings | null) => {
+    if (isElectron()) {
+        await sendSettings(settings);
+    }
+}

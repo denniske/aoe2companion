@@ -37,4 +37,10 @@ export class Player {
 
     @Field({nullable: true})
     won?: boolean;
+
+    @Field(type => Int, {nullable: true})
+    wins?: number;
+
+    @Field(type => Int, {nullable: true})
+    games?: number;
 }

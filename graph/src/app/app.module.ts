@@ -34,13 +34,13 @@ import {User} from "../entity/user";
 import {LeaderboardRow} from "../entity/leaderboard-row";
 import {RatingHistory} from "../entity/rating-history";
 import {SnakeNamingStrategy} from "typeorm-naming-strategies";
-import {Repository} from "typeorm";
 import {RefetchRepairTask} from '../task/refetch-repair.task';
 import {ReplayTask} from '../task/replay.task';
 import {S3Module} from 'nestjs-s3';
 import {RefetchMultipleTask} from '../task/refetch-multiple.task';
 import {RefetchResultTask} from '../task/refetch-result.task';
 import {RefetchLateTask} from '../task/refetch-late.task';
+import {PlayerResolver} from "../resolver/player";
 
 @Module({
     imports: [
@@ -204,6 +204,7 @@ export class ResolverModule {
         });
 
         const resolvers = [
+            PlayerResolver,
             MatchResolver,
             UserResolver,
             ProfileResolver,

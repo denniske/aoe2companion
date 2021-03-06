@@ -81,6 +81,7 @@ import {useFonts} from "expo-font";
 import {getInternalString} from './src/helper/strings';
 import { fetchJson } from './src/api/util';
 import UpdateElectronSnackbar from "./src/view/components/snackbar/update-electron-snackbar";
+import OverlaySettingsPage from "./src/view/overlay.settings.page";
 
 initSentry();
 
@@ -241,14 +242,17 @@ const linking: LinkingOptions = {
                 path: 'overlay',
             },
             Intro: {
-                path: 'intro',
+                path: 'intro/:match_id',
+            },
+            OverlaySettings: {
+                path: 'settings/overlay',
             },
         },
     },
 };
 
 export type RootStackParamList = {
-    Intro: undefined;
+    Intro: { match_id: string };
     Overlay: undefined;
     Error: undefined;
     Splash: undefined;
@@ -271,6 +275,7 @@ export type RootStackParamList = {
     Guide: undefined;
     User: { id: UserId, name: string };
     Search: { name?: string };
+    OverlaySettings: { };
 };
 
 export type RootTabParamList = {
@@ -345,14 +350,6 @@ export function InnerApp() {
                 headerStatusBarHeight: 0,
                 animationEnabled: false,
             }}>
-                {/*<Stack.Screen*/}
-                {/*    name="Main"*/}
-                {/*    component={MainPage}*/}
-                {/*    options={{*/}
-                {/*        title: getTranslation('main.title'),*/}
-                {/*        headerRight: mainMenu(),*/}
-                {/*    }}*/}
-                {/*/>*/}
                 <Stack.Screen
                     name="User"
                     component={UserPage}
@@ -362,6 +359,22 @@ export function InnerApp() {
                         headerRight: userMenu(props),
                     })}
                 />
+
+                <Stack.Screen
+                    name="Settings"
+                    component={SettingsPage}
+                    options={{
+                        title: getTranslation('settings.title'),
+                    }}
+                />
+                <Stack.Screen
+                    name="OverlaySettings"
+                    component={OverlaySettingsPage}
+                    options={{
+                        title: getTranslation('overlaysettings.title'),
+                    }}
+                />
+
                 <Stack.Screen
                     name="Intro"
                     component={IntroPage}
@@ -500,13 +513,6 @@ export function InnerApp() {
                     component={SearchPage}
                     options={{
                         title: getTranslation('search.title'),
-                    }}
-                />
-                <Stack.Screen
-                    name="Settings"
-                    component={SettingsPage}
-                    options={{
-                        title: getTranslation('settings.title'),
                     }}
                 />
                 <Stack.Screen
@@ -678,7 +684,9 @@ export function AppWrapper() {
 
     const finalDarkMode = darkMode === "system" && (colorScheme === 'light' || colorScheme === 'dark') ? colorScheme : darkMode;
 
-    const appType = (isElectron() && global.location.pathname === '/intro') ? 'intro' : 'app';
+    const appType = (Platform.OS === 'web' && global.location.pathname.startsWith('/intro')) ? 'intro' : 'app';
+
+    console.log('global.location', JSON.stringify(global.location));
 
     return (
         <NavigationContainer ref={navigationRef}
@@ -755,7 +763,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
             {
                 overflow: 'hidden',
                 width: '100%',
-                maxWidth: 1800,
+                // maxWidth: 1800,
                 marginHorizontal: 'auto',
                 marginVertical: 'auto',
                 borderRadius: isMobile ? 0 : 10,

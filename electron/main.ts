@@ -1,10 +1,11 @@
-import {app, BrowserWindow, Tray} from 'electron';
+import {app, BrowserWindow, ipcMain, Tray} from 'electron';
 import {initUpdate} from "./util/update";
 import {initElectrolytic} from "./util/electrolytic";
 import {createAppWindow} from "./view/app.window";
 import {createTray} from "./view/tray";
-import {registerGlobalShortcut, unregisterGlobalShortcuts} from "./util/shortcut";
+import {initShortcut, unregisterGlobalShortcuts} from "./util/shortcut";
 import {createOverlayWindow} from "./view/overlay.window";
+import {initProcess} from "./util/process";
 
 
 let appWindow: BrowserWindow = null;
@@ -42,9 +43,9 @@ export function createOrShowAppWindow() {
   return appWindow;
 }
 
-export function createOrShowOverlayWindow() {
+export function createOrShowOverlayWindow(match_id: string) {
   if (overlayWindow == null) {
-    overlayWindow = createOverlayWindow();
+    overlayWindow = createOverlayWindow(match_id);
     overlayWindow.on('closed', () => overlayWindow = null);
   } else {
     overlayWindow.show();
@@ -69,12 +70,20 @@ try {
 
     app.whenReady().then(() => {
       initUpdate();
+      initProcess();
       initElectrolytic();
-      registerGlobalShortcut();
+      initShortcut();
       tray = createTray();
       if (startedViaAutostart) return;
-      // createOrShowAppWindow();
-      createOrShowOverlayWindow();
+      createOrShowAppWindow();
+      // createOrShowOverlayWindow('74869116'); // 8 tg viper
+      // createOrShowOverlayWindow('75049202'); // 8 free for all
+      // createOrShowOverlayWindow('75046190'); // vs AI
+      // createOrShowOverlayWindow('72704893');
+    });
+
+    ipcMain.handle('close-app-window', () => {
+      appWindow.close();
     });
 
     app.on('will-quit', () => {
@@ -87,10 +96,6 @@ try {
       args: [
         '--autostart',
       ],
-    });
-
-
-    app.on('ready', () => {
     });
 
     app.on('activate', () => {

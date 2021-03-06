@@ -7,7 +7,7 @@ export function createAppWindow(): BrowserWindow {
 
     const win = new BrowserWindow({
         x: size.width - width - 30,
-        y: 60, //100,
+        y: 100,
         frame: false,
         transparent: true,
         resizable: false,
@@ -22,13 +22,14 @@ export function createAppWindow(): BrowserWindow {
     });
 
     win.on('close', function (event) {
+        console.log('tryclose');
         if (isForceQuitting()) return;
         event.preventDefault();
         win.minimize();
         win.setSkipTaskbar(true);
     });
 
-    // win.setAlwaysOnTop(true, 'pop-up-menu');
+    win.setAlwaysOnTop(true, 'pop-up-menu');
 
     if (serve) {
         if (showDevTools) {
@@ -37,8 +38,7 @@ export function createAppWindow(): BrowserWindow {
         require('electron-reload')(__dirname, {
             electron: require(`${__dirname}/../node_modules/electron`)
         });
-        // win.loadURL('https://app.aoe2companion.com');
-        win.loadURL(serve ? 'http://localhost:19006' : 'https://app.aoe2companion.com');
+        win.loadURL('http://localhost:19006');
     } else {
         win.loadURL('https://app.aoe2companion.com');
     }

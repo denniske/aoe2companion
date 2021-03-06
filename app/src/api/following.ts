@@ -1,5 +1,5 @@
-import {getHost} from './host';
 import {fetchJson} from "./util";
+import {getHost} from "@nex/data";
 
 
 export async function follow(account_id: string, profile_ids: number[], enabled: boolean): Promise<any> {
@@ -127,13 +127,18 @@ export async function sendTestPushNotificationElectron(push_token_electron: stri
     })
 }
 
-export async function setAccountProfile(account_id: string, profile_id: number, steam_id?: string): Promise<any> {
+export interface IAccountProfile {
+    profile_id?: number | null;
+    steam_id?: string | null;
+    overlay?: boolean;
+}
+
+export async function setAccountProfile(account_id: string, profile: IAccountProfile): Promise<any> {
     const url = getHost('aoe2companion-api') + `account/profile`;
 
     const data = {
         account_id,
-        profile_id,
-        steam_id,
+        ...profile
     };
 
     return await fetchJson('setAccountProfile', url, {

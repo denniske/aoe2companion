@@ -35,6 +35,23 @@ export class MatchResolver {
         @Args("match_id", {nullable: true}) match_id?: string,
         @Args("match_uuid", {nullable: true}) match_uuid?: string
     ) {
+        const match = await this.prisma.match.findOne({
+            include: {
+                players: true,
+            },
+            where: {
+                match_id: match_id
+            },
+        });
+
+        return match;
+    }
+
+    @Query(returns => Match)
+    async matchWithCheck(
+        @Args("match_id", {nullable: true}) match_id?: string,
+        @Args("match_uuid", {nullable: true}) match_uuid?: string
+    ) {
         let match = await this.prisma.match.findOne({
             include: {
                 players: true,
@@ -155,13 +172,19 @@ export class MatchResolver {
 
     @ResolveField()
     async players(@Parent() match: Match) {
-        return match.players || this.prisma.match
+        const players = match.players || await this.prisma.match
             .findOne({
                 where: {
                     match_id: match.match_id
                 },
             })
             .players();
+
+        // Hack: Augment player with leaderboard info to get games/wins in player resolver.
+        return players.map(p => ({
+            ...p,
+            leaderboardId: match.leaderboard_id,
+        }));
     }
 
     @ResolveField()

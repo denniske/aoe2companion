@@ -9,6 +9,22 @@ export function getElectron() {
     return eval(`require('electron')`);
 }
 
+export function closeOverlayWindow() {
+    return eval(`require('electron').remote.getCurrentWindow().destroy()`);
+}
+
+// export function closeAppWindow() {
+//     return eval(`require('electron').remote.getCurrentWindow().close()`);
+// }
+
+export async function closeOverlayWindowAsync() {
+    return getElectron().ipcRenderer.invoke('close-overlay-window');
+}
+
+export async function closeAppWindowAsync() {
+    return getElectron().ipcRenderer.invoke('close-app-window');
+}
+
 export async function getElectronVersion() {
     return getElectron().ipcRenderer.invoke('get-electron-version');
 }
@@ -26,7 +42,19 @@ export async function installUpdateElectronAsync() {
     return getElectron().ipcRenderer.invoke('install-electron-update');
 }
 
-export function getElectronPushToken() {
+export async function isAoeRunningAsync() {
+    return getElectron().ipcRenderer.invoke('is-aoe-running');
+}
+
+export async function sendConfig(config: any) {
+    return getElectron().ipcRenderer.invoke('send-config', config);
+}
+
+export async function sendSettings(config: any) {
+    return getElectron().ipcRenderer.invoke('send-settings', config);
+}
+
+export async function getElectronPushToken() {
     return getElectron().ipcRenderer.invoke('get-electrolytic-token');
 }
 

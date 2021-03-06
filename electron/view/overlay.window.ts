@@ -1,8 +1,8 @@
-import {app, BrowserWindow, screen, ipcMain, globalShortcut, Tray, Menu} from 'electron';
+import {BrowserWindow, screen} from 'electron';
 import {serve, showDevTools} from "../main";
 
 
-export function createOverlayWindow(): BrowserWindow {
+export function createOverlayWindow(match_id: string): BrowserWindow {
     const size = screen.getPrimaryDisplay().workAreaSize;
 
     const win = new BrowserWindow({
@@ -21,18 +21,12 @@ export function createOverlayWindow(): BrowserWindow {
         },
     });
 
-    // win.on('close', function (event) {
-    //     if (forceQuitting) return;
-    //     console.log('close preventDefault');
-    //     event.preventDefault();
-    //     win.minimize();
-    //     win.setSkipTaskbar(true);
-    // });
-
-    // win.setAlwaysOnTop(true, 'pop-up-menu');
+    win.setAlwaysOnTop(true, 'pop-up-menu');
     if (!showDevTools) {
         win.setIgnoreMouseEvents(true);
     }
+
+    const path = `intro/${match_id}`;
 
     if (serve) {
         if (showDevTools) {
@@ -41,9 +35,9 @@ export function createOverlayWindow(): BrowserWindow {
         require('electron-reload')(__dirname, {
             electron: require(`${__dirname}/../node_modules/electron`)
         });
-        win.loadURL(serve ? 'http://localhost:19006/intro' : 'https://app.aoe2companion.com/intro');
+        win.loadURL(`http://localhost:19006/${path}`);
     } else {
-        win.loadURL('https://app.aoe2companion.com/intro');
+        win.loadURL(`https://app.aoe2companion.com/${path}`);
     }
 
     return win;
