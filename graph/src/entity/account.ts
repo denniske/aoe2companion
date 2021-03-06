@@ -21,6 +21,9 @@ export class Account implements IAccount {
     @Column({ nullable: true })
     push_token_electron?: string;
 
+    @Column({ default: false })
+    overlay?: boolean;
+
     @OneToMany('Following', 'account', { cascade: true })
     followings?: IFollowing[];
 }

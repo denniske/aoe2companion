@@ -9,6 +9,7 @@ import {Push} from "../entity/push";
 import {Following} from "../entity/following";
 import {InjectRepository} from "@nestjs/typeorm";
 import PushNotifications from '@pusher/push-notifications-server';
+import {Account} from "../entity/account";
 
 
 interface IExpoPushResponse {
@@ -67,10 +68,15 @@ export class NotifyTask implements OnModuleInit {
     }
 
     async notify(match: Match) {
-        console.log('NOTIFY', match.name, '-> ', match.id);
+        console.log('NOTIFY', match.name, '->', match.id);
         const players = match.players.filter(p => p.profile_id);
 
         if (players.length === 0) return;
+
+        const data = {
+            match_id: match.id,
+            player_ids: match.players.map(p => p.profile_id),
+        };
 
         const followings = await this.connection.manager.find(Following, {where: { profile_id: In(players.map(p => p.profile_id)), enabled: true }, relations: ["account"]});
 
@@ -82,7 +88,7 @@ export class NotifyTask implements OnModuleInit {
                 const verb = followings.length > 1 ? 'are' : 'is';
 
                 try {
-                    await this.sendPushNotification(token, match.name + ' - ' + match.id, names + ' ' + verb + ' playing.', { match_id: match.id });
+                    await this.sendPushNotification(token, match.name + ' - ' + match.id, names + ' ' + verb + ' playing.', data);
                 } catch (e) {
                     console.error(e);
                 }
@@ -97,7 +103,7 @@ export class NotifyTask implements OnModuleInit {
                 const verb = followings.length > 1 ? 'are' : 'is';
 
                 try {
-                    await this.sendPushNotificationWeb(tokenWeb, match.name + ' - ' + match.id, names + ' ' + verb + ' playing.', { match_id: match.id });
+                    await this.sendPushNotificationWeb(tokenWeb, match.name + ' - ' + match.id, names + ' ' + verb + ' playing.', data);
                 } catch (e) {
                     console.error(e);
                 }
@@ -112,10 +118,23 @@ export class NotifyTask implements OnModuleInit {
                 const verb = followings.length > 1 ? 'are' : 'is';
 
                 try {
-                    await this.sendPushNotificationElectron(tokenElectron, match.name + ' - ' + match.id, names + ' ' + verb + ' playing.', { match_id: match.id });
+                    await this.sendPushNotificationElectron(tokenElectron, match.name + ' - ' + match.id, names + ' ' + verb + ' playing.', data);
                 } catch (e) {
                     console.error(e);
                 }
+            }
+        }
+
+        const tokensElectronSent = tokensElectron.map(([tokenElectron, followings]) => tokenElectron);
+
+        const accounts = await this.connection.manager.find(Account, {where: { profile_id: In(players.map(p => p.profile_id)), overlay: true }});
+
+        for (const account of accounts) {
+            if (tokensElectronSent.includes(account.push_token_electron)) continue;
+            try {
+                await this.sendPushNotificationElectron(account.push_token_electron, match.name + ' - ' + match.id, 'You are playing.', data);
+            } catch (e) {
+                console.error(e);
             }
         }
 
