@@ -46,8 +46,8 @@ jobs:
           echo $ELECTRON_WINDOWS_CERT_BASE64 | base64 --decode > certificate.pfx
           yarn
           yarn run build:prod
-          npm run electron:serve-tsc
-          npx env-cmd "electron-builder build -c.extraMetadata.version=$VERSION"
+          yarn run electron:serve-tsc
+          yarn run electron:build:ci -c.extraMetadata.version=$VERSION
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2

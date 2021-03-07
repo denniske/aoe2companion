@@ -26,6 +26,7 @@
     "electron:servef": "npm run electron:serve-tsc && npx electron . --serve",
     "electron:local": "npm run build:prod && npx electron .",
     "electron:build": "npm run electron:serve-tsc && env-cmd electron-builder build",
+    "electron:build:ci": "electron-builder build",
     "electron:publish": "npm run electron:serve-tsc && env-cmd electron-builder build --publish always",
     "test": "ng test --watch=false",
     "test:watch": "ng test",
