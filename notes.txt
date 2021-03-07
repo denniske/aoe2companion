@@ -1,4 +1,6 @@
 
+npm run electron:build && release\aoe2companion-22.0.8+0
+
 font
 - serif
   - georgia

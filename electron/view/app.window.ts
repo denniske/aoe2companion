@@ -1,8 +1,8 @@
 import {app, BrowserWindow, screen} from 'electron';
-import {isForceQuitting, serve, showDevTools, width} from "../main";
+import {isForceQuitting, serving, showDevTools, width} from "../main";
 
 
-export function createAppWindow(): BrowserWindow {
+export async function createAppWindow() {
     const size = screen.getPrimaryDisplay().workAreaSize;
 
     const win = new BrowserWindow({
@@ -15,7 +15,7 @@ export function createAppWindow(): BrowserWindow {
         height: 900,
         webPreferences: {
             nodeIntegration: true,
-            allowRunningInsecureContent: serve,
+            allowRunningInsecureContent: serving,
             contextIsolation: false,
             enableRemoteModule: true,
         },
@@ -31,16 +31,27 @@ export function createAppWindow(): BrowserWindow {
 
     win.setAlwaysOnTop(true, 'pop-up-menu');
 
-    if (serve) {
+    if (serving) {
         if (showDevTools) {
             win.webContents.openDevTools();
         }
         require('electron-reload')(__dirname, {
             electron: require(`${__dirname}/../node_modules/electron`)
         });
-        win.loadURL('http://localhost:19006');
+
+        // await win.loadURL(`app://-`);
+        await win.loadURL('http://localhost:19006');
     } else {
-        win.loadURL('https://app.aoe2companion.com');
+        await win.loadURL(`app://-`);
+
+        // const urlStr = url.format({
+        //     pathname: path.join(__dirname, '../../web-build/index.html'),
+        //     protocol: 'file:',
+        //     slashes: true,
+        // });
+        // win.loadURL(urlStr);
+
+        // win.loadURL('https://app.aoe2companion.com');
     }
 
     return win;

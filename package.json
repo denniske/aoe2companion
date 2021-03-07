@@ -4,6 +4,7 @@
     "start": "expo start -c",
     "eject": "expo eject",
     "build:web": "expo build:web",
+    "build:web:electron": "expo build:web && cp web-build electron/dist",
     "strings": "npm run strings --prefix tools",
     "flags": "ts-node tools/flags.ts",
     "generate": "npm -s run generate:prisma",

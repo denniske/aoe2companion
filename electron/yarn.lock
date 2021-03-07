@@ -1060,6 +1060,11 @@ electron-reload@1.5.0:
   dependencies:
     chokidar "^3.0.2"
 
+electron-serve@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/electron-serve/-/electron-serve-1.1.0.tgz#507f56c8512c501880d3a9bec792fa92512af378"
+  integrity sha512-tQJBCbXKoKCfkBC143QCqnEtT1s8dNE2V+b/82NF6lxnGO/2Q3a3GSLHtKl3iEDQgdzTf9pH7p418xq2rXbz1Q==
+
 electron-store@^7.0.2:
   version "7.0.2"
   resolved "https://registry.yarnpkg.com/electron-store/-/electron-store-7.0.2.tgz#e45a54d092ea43e2a953619ed4473893d448dfdf"
@@ -2723,6 +2728,11 @@ single-line-log@^1.1.2:
   integrity sha1-wvg/Jzo+GhbtsJlWYdoO1e8DM2Q=
   dependencies:
     string-width "^1.0.1"
+
+slash@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
+  integrity sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==
 
 source-map-support@^0.5.19:
   version "0.5.19"

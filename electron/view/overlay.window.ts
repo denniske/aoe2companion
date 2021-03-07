@@ -1,8 +1,8 @@
 import {BrowserWindow, screen} from 'electron';
-import {serve, showDevTools} from "../main";
+import {serving, showDevTools} from "../main";
 
 
-export function createOverlayWindow(match_id: string): BrowserWindow {
+export async function createOverlayWindow(match_id: string) {
     const size = screen.getPrimaryDisplay().workAreaSize;
 
     const win = new BrowserWindow({
@@ -15,7 +15,7 @@ export function createOverlayWindow(match_id: string): BrowserWindow {
         height: size.height,
         webPreferences: {
             nodeIntegration: true,
-            allowRunningInsecureContent: serve,
+            allowRunningInsecureContent: serving,
             contextIsolation: false,
             enableRemoteModule: true,
         },
@@ -28,16 +28,28 @@ export function createOverlayWindow(match_id: string): BrowserWindow {
 
     const path = `intro/${match_id}`;
 
-    if (serve) {
+    if (serving) {
         if (showDevTools) {
             win.webContents.openDevTools();
         }
         require('electron-reload')(__dirname, {
             electron: require(`${__dirname}/../node_modules/electron`)
         });
-        win.loadURL(`http://localhost:19006/${path}`);
+
+        // await win.loadURL(`app://-/${path}`);
+        await win.loadURL(`http://localhost:19006/${path}`);
     } else {
-        win.loadURL(`https://app.aoe2companion.com/${path}`);
+        await win.loadURL(`app://-/${path}`);
+
+        // const urlStr = url.format({
+        //     pathname: path.join(__dirname, '../../web-build/index.html'),
+        //     protocol: 'file:',
+        //     slashes: true,
+        //     query: `?page=intro&match_id=${match_id}`,
+        // });
+        // win.loadURL(urlStr);
+
+        // win.loadURL(`https://app.aoe2companion.com/${path}`);
     }
 
     return win;

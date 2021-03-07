@@ -26,10 +26,10 @@ electrolytic.on('token', token => {
     console.log('user token', token);
 });
 
-function showNotification (payload: IPushNotificationPayload) {
+async function showNotification (payload: IPushNotificationPayload) {
     const notification = new Notification(payload);
-    notification.once('click', (event) => {
-        createOrShowAppWindow().webContents.send('electrolytic-notification', payload);
+    notification.once('click', async (event) => {
+        (await createOrShowAppWindow()).webContents.send('electrolytic-notification', payload);
     });
     notification.show();
 
@@ -43,16 +43,16 @@ function showNotification (payload: IPushNotificationPayload) {
     const authUserInMatch = payload.data.player_ids?.includes(settings.profile_id);
 
     if (config?.overlayEnabled && authUserInMatch) {
-        createOrShowOverlayWindow(payload.data.match_id);
+        await createOrShowOverlayWindow(payload.data.match_id);
     }
     if (payload.title === 'Test Notification') {
-        createOrShowOverlayWindow('72704893');
+        await createOrShowOverlayWindow('72704893');
     }
 }
 
-electrolytic.on('push', (payload) => {
+electrolytic.on('push', async (payload) => {
     console.log('got push notification', payload);
-    showNotification(payload);
+    await showNotification(payload);
 })
 
 electrolytic.on('config', (updatedConfig) => {

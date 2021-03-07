@@ -6,7 +6,10 @@ import {createTray} from "./view/tray";
 import {initShortcut, unregisterGlobalShortcuts} from "./util/shortcut";
 import {createOverlayWindow} from "./view/overlay.window";
 import {initProcess} from "./util/process";
+const serve = require('electron-serve');
 import * as Sentry from "@sentry/electron";
+import * as path from 'path';
+
 
 let appWindow: BrowserWindow = null;
 let overlayWindow: BrowserWindow = null;
@@ -15,8 +18,8 @@ let tray: Tray;
 let forceQuitting = false;
 
 const args = process.argv.slice(1);
-export const serve = args.some(val => val === '--serve');
-export const showDevTools = false && serve;
+export const serving = args.some(val => val === '--serve');
+export const showDevTools = true && serving;
 export const width = 450 + (showDevTools ? 557 : 0);
 const startedViaAutostart = process.argv.includes('--autostart');
 
@@ -39,9 +42,9 @@ export function isForceQuitting() {
   return forceQuitting;
 }
 
-export function createOrShowAppWindow() {
+export async function createOrShowAppWindow() {
   if (appWindow == null) {
-    appWindow = createAppWindow();
+    appWindow = await createAppWindow();
     appWindow.on('closed', () => appWindow = null);
   } else {
     appWindow.show();
@@ -49,9 +52,9 @@ export function createOrShowAppWindow() {
   return appWindow;
 }
 
-export function createOrShowOverlayWindow(match_id: string) {
+export async function createOrShowOverlayWindow(match_id: string) {
   if (overlayWindow == null) {
-    overlayWindow = createOverlayWindow(match_id);
+    overlayWindow = await createOverlayWindow(match_id);
     overlayWindow.on('closed', () => overlayWindow = null);
   } else {
     overlayWindow.show();
@@ -70,22 +73,24 @@ try {
   if (!gotTheLock) {
     app.quit()
   } else {
-    app.on('second-instance', (event, commandLine, workingDirectory) => {
-      createOrShowAppWindow();
+    app.on('second-instance', async (event, commandLine, workingDirectory) => {
+      await createOrShowAppWindow();
     });
 
-    app.whenReady().then(() => {
+    serve({directory: path.join(__dirname, 'dist/')});
+
+    app.whenReady().then(async () => {
       initUpdate();
       initProcess();
       initElectrolytic();
       initShortcut();
       tray = createTray();
       if (startedViaAutostart) return;
-      createOrShowAppWindow();
-      // createOrShowOverlayWindow('74869116'); // 8 tg viper
-      // createOrShowOverlayWindow('75049202'); // 8 free for all
-      // createOrShowOverlayWindow('75046190'); // vs AI
-      // createOrShowOverlayWindow('72704893');
+      await createOrShowAppWindow();
+      // await createOrShowOverlayWindow('74869116'); // 8 tg viper
+      // await createOrShowOverlayWindow('75049202'); // 8 free for all
+      // await createOrShowOverlayWindow('75046190'); // vs AI
+      // await createOrShowOverlayWindow('72704893');
     });
 
     ipcMain.handle('close-app-window', () => {
@@ -104,9 +109,9 @@ try {
       ],
     });
 
-    app.on('activate', () => {
+    app.on('activate', async () => {
       // On OS X it's common to re-create a window in the app when the dock icon is clicked and there are no other windows open.
-      createOrShowAppWindow();
+      await createOrShowAppWindow();
     });
   }
 } catch (e) {
