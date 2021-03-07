@@ -23,7 +23,7 @@ export const showDevTools = true && serving;
 export const width = 450 + (showDevTools ? 557 : 0);
 const startedViaAutostart = process.argv.includes('--autostart');
 
-if (!serve) {
+if (!serving) {
   Sentry.init({ dsn: "https://2ec5da86c7a344e6af4a11fc8ca2f510@o431543.ingest.sentry.io/5665269" });
 }
 
