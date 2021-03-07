@@ -74,8 +74,6 @@ jobs:
 
       - name: Build
         run: |
-#          yarn
-#          yarn run build:web:electron
           ls -al
           cd electron
           ls -al
