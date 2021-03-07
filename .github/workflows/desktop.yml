@@ -42,6 +42,8 @@ jobs:
 
       - name: Build
         run: |
+          yarn
+          yarn run build:web:electron
           cd electron
           echo $ELECTRON_WINDOWS_CERT_BASE64 | base64 --decode > certificate.pfx
           yarn

@@ -1,4 +1,10 @@
 
+
+git tag v22.0.0 && git push --tags
+git tag -d v23.0.0 && git push --delete origin v23.0.0
+git tag -d desktop-v22.0.8+2 && git push --delete origin desktop-v22.0.8+2 && git tag desktop-v22.0.8+2 && git push --tags
+
+
 npm run electron:build && release\aoe2companion-22.0.8+0
 
 font
@@ -362,21 +368,6 @@ mogrify -crop 1242x2208+0+0 -path ./cropped *.jpg
 cat /var/log/postgresql/postgresql-12-main.log
 
 SELECT pg_stat_statements_reset();
-
-
-
-
-git tag server-v21.0.0 && git push --tags
-
-git tag function-v21.0.0 && git push --tags
-
-git tag v22.0.0 && git push --tags
-git tag -d v23.0.0 && git push --delete origin v23.0.0
-git tag -d v21.0.0 && git push --delete origin v21.0.0 && git tag v21.0.0 && git push --tags
-
-git tag -d api-v25.0.0 && git push --delete origin api-v25.0.0 && git tag api-v25.0.0 && git push --tags
-
-git tag -d desktop-v22.0.8+0 && git push --delete origin desktop-v22.0.8+0 && git tag desktop-v22.0.8+0 && git push --tags
 
 
 defaults read -g com.apple.keyboard.fnState
