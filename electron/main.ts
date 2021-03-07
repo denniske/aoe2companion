@@ -45,9 +45,12 @@ export function isForceQuitting() {
 export async function createOrShowAppWindow() {
   if (appWindow == null) {
     appWindow = await createAppWindow();
-    appWindow.on('closed', () => appWindow = null);
+    appWindow.on('closed', () => {
+      console.log('appWindow.closed');
+      return appWindow = null;
+    });
   } else {
-    appWindow.show();
+    appWindow?.show();
   }
   return appWindow;
 }
@@ -74,6 +77,7 @@ try {
     app.quit()
   } else {
     app.on('second-instance', async (event, commandLine, workingDirectory) => {
+      console.log('second-instance');
       await createOrShowAppWindow();
     });
 
@@ -86,6 +90,7 @@ try {
       initShortcut();
       tray = createTray();
       if (startedViaAutostart) return;
+      console.log('createOrShowAppWindow');
       await createOrShowAppWindow();
       // await createOrShowOverlayWindow('74869116'); // 8 tg viper
       // await createOrShowOverlayWindow('75049202'); // 8 free for all
@@ -94,7 +99,8 @@ try {
     });
 
     ipcMain.handle('close-app-window', () => {
-      appWindow.close();
+      console.log('close-app-window');
+      appWindow?.close();
     });
 
     app.on('will-quit', () => {
@@ -110,6 +116,7 @@ try {
     });
 
     app.on('activate', async () => {
+      console.log('activate');
       // On OS X it's common to re-create a window in the app when the dock icon is clicked and there are no other windows open.
       await createOrShowAppWindow();
     });
