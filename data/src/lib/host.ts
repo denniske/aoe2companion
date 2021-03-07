@@ -27,9 +27,9 @@ export function getHost(host: Host) {
             //     const platformHost = Constants.isDevice ? '192.168.178.41' : Platform.select({ios: 'localhost', android: '10.0.2.2'});
             //     return `http://${platformHost}:3000/dev/`;
             // }
-            if (dev) {
-                return 'http://localhost:3333/';
-            }
+            // if (dev) {
+            //     return 'http://localhost:3333/';
+            // }
             return `https://function.aoe2companion.com/`;
         }
         case "aoe2companion-api": {
@@ -37,9 +37,9 @@ export function getHost(host: Host) {
             //     const platformHost = '192.168.178.41';
             //     return `http://${platformHost}:3003/`;
             // }
-            if (dev) {
-                return 'http://localhost:3333/';
-            }
+            // if (dev) {
+            //     return 'http://localhost:3333/';
+            // }
             return `https://api.aoe2companion.com/`;
         }
         case "aoe2companion-graphql": {
@@ -47,9 +47,9 @@ export function getHost(host: Host) {
             //     const platformHost = '192.168.178.41';
             //     return `http://${platformHost}:3003/`;
             // }
-            if (dev) {
-                return 'http://localhost:3333/graphql';
-            }
+            // if (dev) {
+            //     return 'http://localhost:3333/graphql';
+            // }
             return `https://graphql.aoe2companion.com/graphql`;
         }
         case "aoe2net": {

@@ -5,13 +5,15 @@ import {serving, showDevTools} from "../main";
 export async function createOverlayWindow(match_id: string) {
     const size = screen.getPrimaryDisplay().workAreaSize;
 
+    console.log('size.width', size.width);
+
     const win = new BrowserWindow({
         x: 0,
         y: 0,
         frame: false,
         transparent: true,
         resizable: false,
-        width: size.width,
+        width: size.width-1, // Hack: Window was not transparent when full width
         height: size.height,
         webPreferences: {
             nodeIntegration: true,
