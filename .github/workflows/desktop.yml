@@ -75,11 +75,7 @@ jobs:
 
       - name: Build
         run: |
-          ls -al
           cd electron
-          ls -al
-          cd dist
-          ls -al
           echo $ELECTRON_WINDOWS_CERT_BASE64 | base64 --decode > certificate.pfx
           yarn
           yarn run electron:serve-tsc
