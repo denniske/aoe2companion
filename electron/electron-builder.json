@@ -31,7 +31,7 @@
       "nsis"
     ],
     "certificateFile": "certificate.pfx",
-    "signAndEditExecutable": false,
+    "signAndEditExecutable": true,
     "forceCodeSigning": true,
     "verifyUpdateCodeSignature": false,
     "artifactName": "${productName}-${version}.${ext}",
