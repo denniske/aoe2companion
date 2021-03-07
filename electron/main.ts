@@ -8,23 +8,24 @@ import {createOverlayWindow} from "./view/overlay.window";
 import {initProcess} from "./util/process";
 import * as Sentry from "@sentry/electron";
 
-Sentry.init({ dsn: "https://2ec5da86c7a344e6af4a11fc8ca2f510@o431543.ingest.sentry.io/5665269" });
-
-let myUndefinedFunction = undefined as any;
-myUndefinedFunction();
-
 let appWindow: BrowserWindow = null;
 let overlayWindow: BrowserWindow = null;
 
 let tray: Tray;
 let forceQuitting = false;
 
-const startedViaAutostart = process.argv.includes('--autostart');
-
 const args = process.argv.slice(1);
 export const serve = args.some(val => val === '--serve');
 export const showDevTools = false && serve;
 export const width = 450 + (showDevTools ? 557 : 0);
+const startedViaAutostart = process.argv.includes('--autostart');
+
+if (!serve) {
+  Sentry.init({ dsn: "https://2ec5da86c7a344e6af4a11fc8ca2f510@o431543.ingest.sentry.io/5665269" });
+}
+
+// let myUndefinedFunction2 = undefined as any;
+// myUndefinedFunction2();
 
 export function getAppWindow() {
   return appWindow;
