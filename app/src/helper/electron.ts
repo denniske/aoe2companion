@@ -30,7 +30,7 @@ export async function getElectronVersion() {
 }
 
 export async function doCheckForUpdateElectronAsync() {
-    if (__DEV__) return null;
+    // if (__DEV__) return null;
     return getElectron().ipcRenderer.invoke('check-for-electron-update');
 }
 

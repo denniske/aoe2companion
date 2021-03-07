@@ -1,6 +1,6 @@
 import fetch from "electron-fetch";
 import {IRelease} from "./github.type";
-import {lt} from "semver";
+import {compareBuild, lt, parse} from "semver";
 import {downloadFile} from "./download-helper";
 import {sleep} from "./util";
 import {spawnDetached} from "./process";
@@ -35,7 +35,7 @@ let updateInstallTrigger = false;
 export async function checkForUpdate() {
     const response = await fetch('https://api.github.com/repos/denniske/aoe2companion/releases');
     const releases = await response.json() as IRelease[];
-    const release = releases?.find(r => r.tag_name.startsWith('v'));
+    const release = releases?.find(r => r.tag_name.startsWith('desktop-v'));
     const asset = release?.assets?.find(a => a.name.endsWith('.exe'));
 
     console.log('Remote Asset', asset.name);
@@ -45,8 +45,12 @@ export async function checkForUpdate() {
 
     console.log('Local Version', localVersion);
     console.log('Remote Version', remoteVersion);
+    // console.log('lt', parse('22.0.8+0').);
+    // console.log('lt', lt('22.0.8-0', '22.0.8-10'));
+    // console.log('lt', compareBuild('22.0.8', '22.0.8+1'));
 
-    if (lt(localVersion, remoteVersion)) {
+    const lessThan = -1;
+    if (compareBuild(localVersion, remoteVersion) == lessThan) {
         return {
             version: remoteVersion,
         };

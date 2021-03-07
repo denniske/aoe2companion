@@ -6,7 +6,12 @@ import {createTray} from "./view/tray";
 import {initShortcut, unregisterGlobalShortcuts} from "./util/shortcut";
 import {createOverlayWindow} from "./view/overlay.window";
 import {initProcess} from "./util/process";
+import * as Sentry from "@sentry/electron";
 
+Sentry.init({ dsn: "https://2ec5da86c7a344e6af4a11fc8ca2f510@o431543.ingest.sentry.io/5665269" });
+
+let myUndefinedFunction = undefined as any;
+myUndefinedFunction();
 
 let appWindow: BrowserWindow = null;
 let overlayWindow: BrowserWindow = null;
