@@ -80,9 +80,9 @@ try {
     serve({directory: path.join(__dirname, 'dist/')});
 
     app.whenReady().then(async () => {
+      initElectrolytic();
       initUpdate();
       initProcess();
-      initElectrolytic();
       initShortcut();
       tray = createTray();
       if (startedViaAutostart) return;
