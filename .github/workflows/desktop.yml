@@ -45,7 +45,6 @@ jobs:
           cd electron
           echo $ELECTRON_WINDOWS_CERT_BASE64 | base64 --decode > certificate.pfx
           yarn
-          yarn run build:prod
           yarn run electron:serve-tsc
           yarn run electron:build:ci --publish never -c.extraMetadata.version=$VERSION
 
