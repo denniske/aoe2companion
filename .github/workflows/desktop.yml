@@ -12,9 +12,36 @@ env:
 
 jobs:
 
+  web-build:
+    name: Web-Build
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Env
+        uses: ./.github/actions/setup
+      - name: Setup Node
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Build
+        run: |
+          yarn
+          yarn run build:web
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: web-build
+          path: web-build
+
+
+
   windows:
     name: Windows
     runs-on: windows-latest
+    needs: [web-build]
     defaults:
       run:
         shell: bash
@@ -40,11 +67,20 @@ jobs:
       - run: echo "VERSION=$(node deploy/script/version-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
       - run: echo $VERSION
 
+      - name: Download Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: electron/dist
+
       - name: Build
         run: |
-          yarn
-          yarn run build:web:electron
+#          yarn
+#          yarn run build:web:electron
+          ls -al
           cd electron
+          ls -al
+          cd dist
+          ls -al
           echo $ELECTRON_WINDOWS_CERT_BASE64 | base64 --decode > certificate.pfx
           yarn
           yarn run electron:serve-tsc
