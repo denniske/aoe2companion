@@ -15,7 +15,7 @@ export function initShortcut() {
 export async function checkShortcuts() {
     const config = store.get('config') as IStoredConfig;
     const aoeRunning = await isAoeWindowFocused();
-    const hotkeyShowHideEnabled = aoeRunning && config.hotkeyShowHideEnabled;
+    const hotkeyShowHideEnabled = aoeRunning && config?.hotkeyShowHideEnabled;
     if (hotkeyShowHideEnabled != globalShortcut.isRegistered(acceleratorShowHide)) {
 
         console.log(hotkeyShowHideEnabled, '!=', globalShortcut.isRegistered(acceleratorShowHide));
@@ -28,7 +28,7 @@ export async function checkShortcuts() {
             globalShortcut.unregister(acceleratorShowHide);
         }
     }
-    const hotkeySearchEnabled = aoeRunning && config.hotkeySearchEnabled;
+    const hotkeySearchEnabled = aoeRunning && config?.hotkeySearchEnabled;
     if (hotkeySearchEnabled != globalShortcut.isRegistered(acceleratorSearch)) {
         if (hotkeySearchEnabled) {
             globalShortcut.register(acceleratorSearch, executeSearch);
@@ -40,7 +40,6 @@ export async function checkShortcuts() {
 
 async function executeShowHide() {
     console.log(acceleratorShowHide, 'is pressed');
-    // if (!await isAoeProcessRunning()) return;
     const appWindow = getAppWindow();
     if (appWindow.isMinimized()) {
         appWindow.show();
@@ -53,7 +52,6 @@ async function executeShowHide() {
 
 async function executeSearch() {
     console.log(acceleratorSearch, 'is pressed');
-    // if (!await isAoeProcessRunning()) return;
     const appWindow = getAppWindow();
     if (appWindow.isMinimized()) {
         appWindow.show();
