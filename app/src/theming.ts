@@ -22,6 +22,11 @@ export function useAppTheme() {
     return paperTheme.dark ? dark : light;
 }
 
+export function useAppThemeInverted() {
+    const paperTheme = usePaperTheme();
+    return paperTheme.dark ? light : dark;
+}
+
 interface IVariantDict<S> {
     [key: string]: S;
 }

@@ -44,7 +44,7 @@ import TechPage, {techTitle, TechTitle} from "./src/view/tech/tech.page";
 import FeedPage, {feedMenu, feedTitle} from "./src/view/feed.page";
 import {MyText} from "./src/view/components/my-text";
 import UpdateSnackbar from "./src/view/components/snackbar/update-snackbar";
-import {makeVariants, useTheme} from "./src/theming";
+import {makeVariants, useAppTheme, useAppThemeInverted, useTheme} from "./src/theming";
 import SettingsPage from "./src/view/settings.page";
 import {appVariants} from "./src/styles";
 import {AppearanceProvider, useColorScheme} from "react-native-appearance";
@@ -302,7 +302,29 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 export function InnerApp() {
     const styles = useStyles();
+    const theme = useAppThemeInverted();
     const auth = useSelector(state => state.auth);
+
+    useEffect(() => {
+        if (Platform.OS !== 'web') return;
+
+        const existingStyle = document.getElementById('scrollbar-style');
+        if (existingStyle) {
+            existingStyle.remove();
+        }
+
+        const style = document.createElement('style');
+        style.id = 'scrollbar-style'
+        style.type = 'text/css';
+
+        style.innerHTML = `
+                ::-webkit-scrollbar { height: auto; }
+                ::-webkit-scrollbar-button { height: 0; }
+                ::-webkit-scrollbar-thumb { background-color: ${theme.textNoteColor};}
+                ::-webkit-scrollbar-corner { background-color: transparent;}}
+                ::-webkit-resizer { background-color: transparent;}`;
+        document.getElementsByTagName('head')[0].appendChild(style);
+    }, [theme]);
 
     // const [ready, setReady] = useState(false);
     // const loadAssets = async () => {
@@ -767,6 +789,8 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
                 marginHorizontal: 'auto',
                 marginVertical: 'auto',
                 borderRadius: isMobile ? 0 : 10,
+
+
             }
             // Overlay
             // {
