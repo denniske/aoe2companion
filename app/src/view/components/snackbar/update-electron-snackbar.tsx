@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useEffect} from 'react';
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet, ViewStyle} from 'react-native';
 import Snackbar from "../snackbar";
 import {
     setUpdateAvailable,
@@ -87,6 +87,7 @@ export default function UpdateElectronSnackbar() {
 
     return (
         <Snackbar
+            style={styles.bar}
             visible={updateAvailable}
             onDismiss={close}
             actions={actions}
@@ -98,5 +99,7 @@ export default function UpdateElectronSnackbar() {
 }
 
 const styles = StyleSheet.create({
-
+    bar: {
+        ...(Platform.OS === 'web' ? {"-webkit-app-region": "no-drag"} : {}),
+    } as ViewStyle,
 });
