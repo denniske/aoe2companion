@@ -1,19 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import {Image, Linking, Platform, StyleSheet, TextStyle, TouchableOpacity, View} from 'react-native';
+import React from 'react';
+import {Linking, StyleSheet, TextStyle, TouchableOpacity, View} from 'react-native';
 import {getPlayerBackgroundColor} from '../../helper/colors';
 import {useNavigation} from '@react-navigation/native';
 import {userIdFromBase} from '../../helper/user';
-import {civDict, civList, civs, IMatch, isBirthday, isVerifiedPlayer, moProfileId, noop} from '@nex/data';
+import {
+    civs, getCivNameById, getSlotTypeName, IMatch, IPlayer, isBirthday, isVerifiedPlayer, moProfileId
+} from '@nex/data';
 import {RootStackProp} from '../../../App';
-import {getSlotTypeName, getCivNameById, IPlayer} from "@nex/data";
 import {TextLoader} from "./loader/text-loader";
-import IconFA5 from 'react-native-vector-icons/FontAwesome5';
-import {MyText, MyTextProps} from "./my-text";
-import {getCivIconByIndex} from "../../helper/civs";
-import {createStylesheet} from '../../theming-new';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {getUnitIcon, getUnitLineIcon} from "../../helper/units";
-import { BorderText } from './border-text';
+import {MyText} from "./my-text";
+import {createStylesheet} from '../../theming-new';
+import {BorderText} from './border-text';
 
 
 interface IPlayerProps {

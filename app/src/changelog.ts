@@ -16,7 +16,13 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
-    '25.0.0': [
+    '26.0.1': [
+        {
+            type: 'bugfix',
+            title: 'Fix civ icons in civ list for non-english languages',
+        },
+    ],
+    '26.0.0': [
         {
             type: 'bugfix',
             title: 'Fixed app crash on startup',

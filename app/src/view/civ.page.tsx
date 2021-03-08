@@ -12,7 +12,7 @@ import {TechTree} from "./components/tech-tree";
 import {MyText} from "./components/my-text";
 import {createStylesheet} from "../theming-new";
 import {HighlightUnitAndTechs} from "../helper/highlight";
-import {getCivHistoryImage, getCivIconByIndex} from "../helper/civs";
+import {getCivHistoryImage, getCivIcon} from "../helper/civs";
 import {UnitCompBig} from './unit/unit-comp';
 import {TechCompBig} from './tech/tech-comp';
 import {getTranslation} from '../helper/translate';
@@ -21,7 +21,7 @@ import {getTranslation} from '../helper/translate';
 export function CivTitle(props: any) {
     if (props.route?.params?.civ) {
         return <IconHeader
-            icon={getCivIconByIndex(civs.indexOf(props.route?.params?.civ))}
+            icon={getCivIcon(props.route?.params?.civ)}
             text={getCivNameById(props.route.params?.civ)}
             onLayout={props.titleProps.onLayout}
         />;
@@ -102,7 +102,7 @@ export function CivList() {
                     orderCivs(civs).map((civ, i) =>
                         <TouchableOpacity key={civ} onPress={() => navigation.push('Civ', {civ})}>
                                 <View style={styles.civBlock}>
-                                    <Image fadeDuration={0} style={styles.icon} source={getCivIconByIndex(i)}/>
+                                    <Image fadeDuration={0} style={styles.icon} source={getCivIcon(civ)}/>
                                     <View style={styles.civRow}>
                                         <MyText style={styles.name}>{getCivNameById(civ)}</MyText>
                                         <MyText style={styles.small} numberOfLines={1}>{getCivTeamBonus(civ) ?? ''}</MyText>
