@@ -11,7 +11,7 @@ import TextHeader from "./components/navigation-header/text-header";
 import {TechTree} from "./components/tech-tree";
 import {MyText} from "./components/my-text";
 import {createStylesheet} from "../theming-new";
-import {highlightUnitAndTechs} from "../helper/highlight";
+import {HighlightUnitAndTechs} from "../helper/highlight";
 import {getCivHistoryImage, getCivIconByIndex} from "../helper/civs";
 import {UnitCompBig} from './unit/unit-comp';
 import {TechCompBig} from './tech/tech-comp';
@@ -53,7 +53,7 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
                     boni.map((bonus, i) =>
                         <View key={i} style={styles.bonusRow}>
                             <MyText style={styles.content}>• </MyText>
-                            <MyText style={styles.content}>{highlightUnitAndTechs(bonus)}</MyText>
+                            <MyText style={styles.content}><HighlightUnitAndTechs str={bonus}/></MyText>
                         </View>
                     )
                 }
@@ -79,7 +79,7 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
 
             <View style={styles.box}>
                 <MyText style={styles.heading}>{teamBonusTitle.replace(':', '')}</MyText>
-                <MyText style={styles.content}>{highlightUnitAndTechs(teamBonus)}</MyText>
+                <MyText style={styles.content}><HighlightUnitAndTechs str={teamBonus}/></MyText>
             </View>
 
             {/*<MyText style={styles.content}>{civDescription2}</MyText>*/}

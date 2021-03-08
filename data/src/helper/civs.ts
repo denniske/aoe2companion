@@ -45,7 +45,7 @@ export const civs = [
     'Vikings',
 ] as const;
 
-interface ICivEntry {
+export interface ICivEntry {
     name: Civ;
     uniqueUnits: Unit[];
     uniqueTechs: Tech[];

@@ -63,7 +63,12 @@ function createLists() {
 // Memoize per language
 const memoizedCreateLists = memoize((language: string) => createLists());
 
-export function highlightUnitAndTechs(str: string) {
+interface IProps {
+    str: string;
+}
+
+export function HighlightUnitAndTechs(props: IProps) {
+    const { str } = props;
     const appStyles = useTheme(appVariants);
     const navigation = useNavigation<RootStackProp>();
 
@@ -89,5 +94,5 @@ export function highlightUnitAndTechs(str: string) {
             }
         }
     }
-    return texts;
+    return <MyText>{texts}</MyText>;
 }

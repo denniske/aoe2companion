@@ -16,10 +16,18 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
-    '22.0.9': [
+    '25.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fixed app crash on startup',
+        },
         {
             type: 'bugfix',
             title: 'Fixed activity indicators on android',
+        },
+        {
+            type: 'minor',
+            title: 'Improved loading time of civ page',
         },
     ],
     '22.0.8': [
