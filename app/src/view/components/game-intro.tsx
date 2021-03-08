@@ -1,11 +1,11 @@
 import {StyleSheet, View} from 'react-native';
-import {IMatch} from '@nex/data';
+import {getMatchTeams, IMatch} from '@nex/data';
 import React from 'react';
 import {PlayerSkeleton} from './player';
 import {TextLoader} from "./loader/text-loader";
 import {ImageLoader} from "./loader/image-loader";
 import {ViewLoader} from "./loader/view-loader";
-import {groupBy, min, sortBy} from "lodash-es";
+import {min, sortBy} from "lodash-es";
 import {MyText} from './my-text';
 import {useAppTheme} from "../../theming";
 import {createStylesheet} from '../../theming-new';
@@ -21,14 +21,6 @@ interface IGameProps {
 // }
 
 // Object.assign({}, ...buildingList.map((x) => ({[x.name]: x})));
-
-export function getGameIntroTeams(match: IMatch) {
-    let teamIndex = 5;
-    return Object.entries(groupBy(match.players, p => {
-        if (p.team != -1) return p.team;
-        return teamIndex++;
-    }));
-}
 
 export function GameIntro({match}: IGameProps) {
     const theme = useAppTheme();
@@ -72,7 +64,7 @@ export function GameIntro({match}: IGameProps) {
         );
     }
 
-    const teams = getGameIntroTeams(match);
+    const teams = getMatchTeams(match);
 
     return (<View>
                 {/*<View style={styles.row}>*/}

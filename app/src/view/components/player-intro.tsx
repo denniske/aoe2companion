@@ -1,11 +1,10 @@
 import React from 'react';
 import {Dimensions, Image, StyleSheet, TextStyle, View} from 'react-native';
-import {getPlayerBackgroundColorBright} from '../../helper/colors';
-import {civList, getCivNameById, getSlotTypeName, IMatch, IPlayer} from '@nex/data';
+import {civList, getCivNameById, getMatchTeams, getSlotTypeName, IMatch, IPlayer} from '@nex/data';
 import {MyText} from "./my-text";
 import {createStylesheet} from '../../theming-new';
 import {getUnitIcon} from "../../helper/units";
-import {getGameIntroTeams} from "./game-intro";
+import {getPlayerBackgroundColorBright} from '../../helper/colors';
 
 
 interface IPlayerProps {
@@ -27,7 +26,7 @@ export function PlayerIntro({match, player, highlight, order}: IPlayerProps) {
     // }, []);
     // console.log('player', player);
 
-    const teams = getGameIntroTeams(match);
+    const teams = getMatchTeams(match);
     const fullWidth = Dimensions.get('window').width;
     const availableWidth = fullWidth - 40 - (teams.length-1)*20;
     const width = Math.max(0, Math.min(240, availableWidth / teams.length));

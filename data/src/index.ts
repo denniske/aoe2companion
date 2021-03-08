@@ -9,6 +9,7 @@ export * from './lib/flag';
 export * from './lib/theme';
 export * from './data/data';
 export * from './data/civs';
+export * from './helper/match';
 export * from './helper/maps';
 export * from './helper/civs';
 export * from './helper/buildings';

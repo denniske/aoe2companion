@@ -1,5 +1,5 @@
 import {Image, ImageBackground, Platform, StyleSheet, Text, View} from 'react-native';
-import {formatAgo, getString, IPlayer} from '@nex/data';
+import {formatAgo, getMatchTeamsWithFreeForAll, getString, IPlayer, isMatchFreeForAll} from '@nex/data';
 import React, {useEffect} from 'react';
 import {Player, PlayerSkeleton} from './player';
 import MyListAccordion from './accordion';
@@ -36,9 +36,6 @@ const formatDuration = (start: Date, finish: Date) => {
 };
 
 
-function matchIsFreeForAll(match: IMatch) {
-    return match.players.filter(p => p.team === -1).length >= match.players.length-1;
-}
 
 export function Game({match, user, highlightedUsers, expanded = false}: IGameProps) {
     const theme = useAppTheme();
@@ -93,14 +90,8 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
         );
     }
 
-    const freeForALl = matchIsFreeForAll(match);
-
-    let teamIndex = 5;
-    const teams = Object.entries(groupBy(match.players, p => {
-        if (freeForALl) return -1;
-        if (p.team != -1) return p.team;
-        return teamIndex++;
-    }));
+    const freeForALl = isMatchFreeForAll(match);
+    const teams = getMatchTeamsWithFreeForAll(match);
 
     // const teams = Object.entries(groupBy(match.players, p => p.team));
 
