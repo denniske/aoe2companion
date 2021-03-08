@@ -258,6 +258,7 @@ jobs:
             --path app.aab
             --key play-store-service-account.json
             --track production
+            --release-status draft
         "
 
   deploy-ios:
