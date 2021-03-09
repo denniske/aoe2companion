@@ -1,4 +1,4 @@
-import {Image, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Image, Platform, StyleSheet, TouchableOpacity, View, ViewStyle} from 'react-native';
 import React, {useState} from 'react';
 import {RootStackParamList} from '../../../App';
 import {getRootNavigation} from "../../service/navigation";
@@ -75,7 +75,7 @@ export default function Header() {
 
                     {
                         !__DEV__ && Platform.OS === 'web' &&
-                        <TouchableOpacity onPress={() => window.open('https://aoe2companion.com', '_blank')}>
+                        <TouchableOpacity style={styles.websiteLink} onPress={() => window.open('https://aoe2companion.com', '_blank')}>
                             <MyText style={appStyles.link}>aoe2companion.com</MyText>
                         </TouchableOpacity>
                     }
@@ -115,6 +115,9 @@ export default function Header() {
 }
 
 const useStyles = createStylesheet(theme => StyleSheet.create({
+        websiteLink: {
+            ...(Platform.OS === 'web' ? {"-webkit-app-region": "no-drag"} : {}),
+        } as ViewStyle,
         menu: {
             // backgroundColor: 'red',
             flexDirection: 'row',

@@ -316,7 +316,6 @@ export function InnerApp() {
         const style = document.createElement('style');
         style.id = 'scrollbar-style'
         style.type = 'text/css';
-
         style.innerHTML = `
                 ::-webkit-scrollbar { height: auto; }
                 ::-webkit-scrollbar-button { height: 0; }
@@ -761,7 +760,7 @@ export default function App() {
 
 const isMobile = ['Android', 'iOS'].includes(Device.osName!);
 
-const useStyles = createStylesheet(theme => StyleSheet.create({
+const useStyles = createStylesheet((theme, darkMode) => StyleSheet.create({
     container: {
         ...(Platform.OS === 'web' ? {
                 overflow: 'hidden',
@@ -770,7 +769,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
                 maxHeight: 900,
                 marginHorizontal: 'auto',
                 marginVertical: 'auto',
-                borderColor: '#CCC',
+                borderColor: darkMode === 'dark' ? '#444' :  '#CCC',
                 borderWidth: isMobile ? 0 : 1,
                 borderRadius: isMobile ? 0 : 10,
             } : {}
@@ -785,12 +784,8 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
             {
                 overflow: 'hidden',
                 width: '100%',
-                // maxWidth: 1800,
-                marginHorizontal: 'auto',
-                marginVertical: 'auto',
-                borderRadius: isMobile ? 0 : 10,
-
-
+                // marginHorizontal: 'auto',
+                // marginVertical: 'auto',
             }
             // Overlay
             // {
@@ -807,7 +802,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
             : {}
         ),
         // backgroundColor: 'transparent',
-        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+        // paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
         flex: 1,
     },
 }));
