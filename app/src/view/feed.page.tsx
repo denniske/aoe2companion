@@ -181,7 +181,7 @@ export function FeedList() {
         console.log('lastNotificationReceivedElectron', lastNotificationReceivedElectron);
         console.log('isActiveRoute', isActiveRoute);
         if (!isActiveRoute) return;
-        if (!lastNotificationReceivedElectron.data?.match_id) return;
+        if (!lastNotificationReceivedElectron?.data?.match_id) return;
         onRefresh();
     }, [lastNotificationReceivedElectron]);
 
