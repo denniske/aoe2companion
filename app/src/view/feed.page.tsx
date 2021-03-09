@@ -119,6 +119,21 @@ export function FeedList() {
         refresh();
     }, [following, isActiveRoute]);
 
+    const lastNotificationReceivedElectron = useLastNotificationReceivedElectron();
+
+    useEffect(() => {
+        console.log('lastNotificationReceivedElectron', lastNotificationReceivedElectron);
+        console.log('isActiveRoute', isActiveRoute);
+        if (!isActiveRoute) return;
+        if (!lastNotificationReceivedElectron?.data?.match_id) return;
+        onRefresh();
+    }, [lastNotificationReceivedElectron]);
+
+    useWebRefresh(() => {
+        if (!isActiveRoute) return;
+        onRefresh();
+    }, [isActiveRoute]);
+
     const onRefresh = async () => {
         setRefetching(true);
         await Promise.all([matches.reload()]);
@@ -174,21 +189,6 @@ export function FeedList() {
         const url = `aoe2de://1/${match_id}`;
         await Linking.openURL(url);
     };
-
-    const lastNotificationReceivedElectron = useLastNotificationReceivedElectron();
-
-    useEffect(() => {
-        console.log('lastNotificationReceivedElectron', lastNotificationReceivedElectron);
-        console.log('isActiveRoute', isActiveRoute);
-        if (!isActiveRoute) return;
-        if (!lastNotificationReceivedElectron?.data?.match_id) return;
-        onRefresh();
-    }, [lastNotificationReceivedElectron]);
-
-    useWebRefresh(() => {
-        if (!isActiveRoute) return;
-        onRefresh();
-    }, [isActiveRoute]);
 
     return (
             <View style={styles.container}>
