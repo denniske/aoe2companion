@@ -22,6 +22,7 @@ import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';
 import {ProfileLive} from './components/profile';
 import {useWebRefresh} from "../hooks/use-web-refresh";
+import {useLastNotificationReceivedElectron} from "../helper/electron";
 
 
 export function feedTitle(props: any) {
@@ -173,6 +174,16 @@ export function FeedList() {
         const url = `aoe2de://1/${match_id}`;
         await Linking.openURL(url);
     };
+
+    const lastNotificationReceivedElectron = useLastNotificationReceivedElectron();
+
+    useEffect(() => {
+        console.log('lastNotificationReceivedElectron', lastNotificationReceivedElectron);
+        console.log('isActiveRoute', isActiveRoute);
+        if (!isActiveRoute) return;
+        if (!lastNotificationReceivedElectron.data?.match_id) return;
+        onRefresh();
+    }, [lastNotificationReceivedElectron]);
 
     useWebRefresh(() => {
         if (!isActiveRoute) return;

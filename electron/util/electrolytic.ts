@@ -1,6 +1,6 @@
 import {ipcMain, Notification} from 'electron';
 import * as Electrolytic from 'electrolytic';
-import {createOrShowAppWindow, createOrShowOverlayWindow} from "../main";
+import {createOrShowAppWindow, createOrShowOverlayWindow, getAppWindow} from "../main";
 import {IStoredConfig, IStoredSettings, store} from "./store";
 import {checkShortcuts} from "./shortcut";
 
@@ -39,6 +39,8 @@ async function showNotification (payload: IPushNotificationPayload) {
     console.log('settings', settings);
 
     console.log('payload', payload);
+
+    getAppWindow()?.webContents.send('electrolytic-notification-received', payload);
 
     const authUserInMatch = payload.data.player_ids?.includes(settings.profile_id);
 

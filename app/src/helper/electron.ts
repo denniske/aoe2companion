@@ -58,6 +58,7 @@ export async function getElectronPushToken() {
     return getElectron().ipcRenderer.invoke('get-electrolytic-token');
 }
 
+// When user clicked on notification
 export function useLastNotificationResponseElectron() {
     const [lastNotificationResponse, setLastNotificationResponse] = useState<any | null | undefined>(undefined);
 
@@ -74,4 +75,23 @@ export function useLastNotificationResponseElectron() {
     }, []);
 
     return lastNotificationResponse;
+}
+
+// When notification is received by electrolytic
+export function useLastNotificationReceivedElectron() {
+    const [lastNotificationReceived, setLastNotificationReceived] = useState<any | null | undefined>(undefined);
+
+    const notificationCallback = (event: any, arg: any) => {
+        setLastNotificationReceived(arg);
+    };
+
+    useLayoutEffect(() => {
+        const ipcRenderer = getElectron().ipcRenderer;
+        ipcRenderer.on('electrolytic-notification-received', notificationCallback);
+        return () => {
+            ipcRenderer.removeListener('electrolytic-notification-received', notificationCallback);
+        };
+    }, []);
+
+    return lastNotificationReceived;
 }
