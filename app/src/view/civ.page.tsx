@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, ImageBackground, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {FlatList, Image, ImageBackground, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {
     aoeCivKey, Civ, civDict, civs, getCivNameById, getCivTeamBonus, orderCivs, iconHeight, iconWidth,
     parseCivDescription
@@ -16,6 +16,7 @@ import {getCivHistoryImage, getCivIcon} from "../helper/civs";
 import {UnitCompBig} from './unit/unit-comp';
 import {TechCompBig} from './tech/tech-comp';
 import {getTranslation} from '../helper/translate';
+import {changelog} from '../changelog';
 
 
 export function CivTitle(props: any) {
@@ -95,25 +96,47 @@ export function CivList() {
     const styles = useStyles();
     const navigation = useNavigation<RootStackProp>();
 
-    return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <View style={styles.civList}>
-                {
-                    orderCivs(civs).map((civ, i) =>
-                        <TouchableOpacity key={civ} onPress={() => navigation.push('Civ', {civ})}>
-                                <View style={styles.civBlock}>
-                                    <Image fadeDuration={0} style={styles.icon} source={getCivIcon(civ)}/>
-                                    <View style={styles.civRow}>
-                                        <MyText style={styles.name}>{getCivNameById(civ)}</MyText>
-                                        <MyText style={styles.small} numberOfLines={1}>{getCivTeamBonus(civ) ?? ''}</MyText>
-                                    </View>
-                                </View>
-                        </TouchableOpacity>
-                    )
-                }
+    const renderItem = (civ: Civ) => (
+        <TouchableOpacity key={civ} onPress={() => navigation.push('Civ', {civ})}>
+            <View style={styles.civBlock}>
+                <Image fadeDuration={0} style={styles.icon} source={getCivIcon(civ)}/>
+                <View style={styles.civRow}>
+                    <MyText style={styles.name}>{getCivNameById(civ)}</MyText>
+                    <MyText style={styles.small} numberOfLines={1}>{getCivTeamBonus(civ) ?? ''}</MyText>
+                </View>
             </View>
-        </ScrollView>
+        </TouchableOpacity>
     );
+
+    return (
+        <FlatList
+            contentContainerStyle={styles.container}
+            keyboardShouldPersistTaps={'always'}
+            data={orderCivs(civs)}
+            renderItem={({item, index}) => renderItem(item)}
+            keyExtractor={(item, index) => index.toString()}
+        />
+    );
+
+    // return (
+    //     <ScrollView contentContainerStyle={styles.container}>
+    //         <View style={styles.civList}>
+    //             {
+    //                 orderCivs(civs).map((civ, i) =>
+    //                     <TouchableOpacity key={civ} onPress={() => navigation.push('Civ', {civ})}>
+    //                         <View style={styles.civBlock}>
+    //                             <Image fadeDuration={0} style={styles.icon} source={getCivIcon(civ)}/>
+    //                             <View style={styles.civRow}>
+    //                                 <MyText style={styles.name}>{getCivNameById(civ)}</MyText>
+    //                                 <MyText style={styles.small} numberOfLines={1}>{getCivTeamBonus(civ) ?? ''}</MyText>
+    //                             </View>
+    //                         </View>
+    //                     </TouchableOpacity>
+    //                 )
+    //             }
+    //         </View>
+    //     </ScrollView>
+    // );
 }
 
 export default function CivPage() {

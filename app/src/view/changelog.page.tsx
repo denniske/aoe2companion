@@ -1,5 +1,5 @@
 import React from 'react';
-import {Linking, ScrollView, StyleSheet, View, ViewStyle} from 'react-native';
+import {FlatList, Linking, StyleSheet, View, ViewStyle} from 'react-native';
 import {MyText} from "./components/my-text";
 import {changelog, IChange} from "../changelog";
 import {RouteProp, useRoute} from "@react-navigation/native";
@@ -11,6 +11,11 @@ import {moProfileId} from '@nex/data';
 import {useTheme} from '../theming';
 import {appVariants} from '../styles';
 
+
+interface IChangelogEntry {
+    version: string;
+    changes: IChange[];
+}
 
 export default function ChangelogPage() {
     const appStyles = useTheme(appVariants);
@@ -52,52 +57,53 @@ export default function ChangelogPage() {
         return texts;
     };
 
-    return (
-        <ScrollView contentContainerStyle={styles.container}>
+    const renderItem = ({version, changes}: IChangelogEntry) => (
+        <View key={version}>
+            <View style={styles.row}>
+                <MyText style={styles.heading}>Version {version}</MyText>
+                {
+                    changelogLastVersionRead && lt(changelogLastVersionRead, version) &&
+                    <MyText style={styles.headingNote}> (new)</MyText>
+                }
+            </View>
+
             {
-                Object.entries(changelog).map(([version, changes]) =>
-                    <View key={version}>
-                        <View style={styles.row}>
-                            <MyText style={styles.heading}>Version {version}</MyText>
-                            {
-                                changelogLastVersionRead && lt(changelogLastVersionRead, version) &&
-                                <MyText style={styles.headingNote}> (new)</MyText>
-                            }
+                version === '21.0.8' && auth?.profile_id === moProfileId &&
+                <View style={styles.row}>
+                    <View style={[styles.labelContainer, labelStyle({type: 'feature', title: ''})]}>
+                        <MyText style={styles.label}>feature</MyText>
+                    </View>
+                    <View style={styles.textContainer}>
+                        <MyText style={styles.title}>Prepare for Sihing Mo's birthday</MyText>
+                        <MyText style={styles.content}> </MyText>
+                    </View>
+                </View>
+            }
+
+            {
+                changes.map(change =>
+                    <View key={change.title} style={styles.row}>
+                        <View style={[styles.labelContainer, labelStyle(change)]}>
+                            <MyText style={styles.label}>{change.type}</MyText>
                         </View>
-
-                        {
-                            version === '21.0.8' && auth?.profile_id === moProfileId &&
-                            <View style={styles.row}>
-                                <View style={[styles.labelContainer, labelStyle({type: 'feature', title: ''})]}>
-                                    <MyText style={styles.label}>feature</MyText>
-                                </View>
-                                <View style={styles.textContainer}>
-                                    <MyText style={styles.title}>Prepare for Sihing Mo's birthday</MyText>
-                                    <MyText style={styles.content}> </MyText>
-                                </View>
-                            </View>
-                        }
-
-                        {
-                            changes.map(change =>
-                                <View key={change.title} style={styles.row}>
-                                    <View style={[styles.labelContainer, labelStyle(change)]}>
-                                        <MyText style={styles.label}>{change.type}</MyText>
-                                    </View>
-                                    <View style={styles.textContainer}>
-                                        <MyText style={styles.title}>{formatTitle(change.title)}</MyText>
-                                        <MyText style={styles.content}>{change.content}</MyText>
-                                    </View>
-                                </View>
-                            )
-                        }
+                        <View style={styles.textContainer}>
+                            <MyText style={styles.title}>{formatTitle(change.title)}</MyText>
+                            <MyText style={styles.content}>{change.content}</MyText>
+                        </View>
                     </View>
                 )
             }
+        </View>
+    );
 
-            {/*<ImageSized source={require('../../assets/changelog/leader.png')} style={{width: '50%'}} />*/}
-            {/*<ImageSized source={{uri: 'https://media.giphy.com/media/xUOxf34uHq8VolxF7y/giphy.gif'}} style={{width: 300, height: 300}} />*/}
-        </ScrollView>
+    return (
+        <FlatList
+            contentContainerStyle={styles.container}
+            keyboardShouldPersistTaps={'always'}
+            data={Object.entries(changelog).map(([version, changes]) => ({ version, changes }))}
+            renderItem={({item, index}) => renderItem(item)}
+            keyExtractor={(item, index) => index.toString()}
+        />
     );
 }
 
@@ -146,6 +152,6 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     container: {
         minHeight: '100%',
         padding: 20,
-        paddingTop: 0,
+        paddingTop: 10,
     },
 }));

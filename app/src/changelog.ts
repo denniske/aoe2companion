@@ -19,7 +19,11 @@ export const changelog: IChangelog = {
     '26.0.1': [
         {
             type: 'bugfix',
-            title: 'Fix civ icons in civ list for non-english languages',
+            title: 'Fixed civ icons in civ list for non-english languages',
+        },
+        {
+            type: 'minor',
+            title: 'Improved loading time of changelog page and civ list',
         },
     ],
     '26.0.0': [
