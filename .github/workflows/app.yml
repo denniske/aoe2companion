@@ -17,7 +17,7 @@ jobs:
   publish:
     name: Publish
     runs-on: ubuntu-18.04
-    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0')
+#    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0')
     steps:
       - name: Checkout
         uses: actions/checkout@v1
