@@ -4,7 +4,6 @@ import {NavigationState} from '@react-navigation/native';
 
 
 export function useNavigationStateExternal() {
-    const mountedRef = useRef(true);
     const [state, setState] = useState<NavigationState | null>(null);
 
     const onNavigationStateChanged = (ev: any) => {
@@ -15,7 +14,6 @@ export function useNavigationStateExternal() {
     };
 
     useEffect(() => {
-        mountedRef.current = true;
         let nav = getRootNavigation();
 
         const timeoutHandler = setTimeout( () => {
@@ -27,7 +25,6 @@ export function useNavigationStateExternal() {
         return () => {
             clearTimeout(timeoutHandler);
             nav.removeListener('state', onNavigationStateChanged);
-            mountedRef.current = false;
         };
     }, []);
 

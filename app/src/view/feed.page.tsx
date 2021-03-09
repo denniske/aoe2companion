@@ -21,6 +21,7 @@ import {IFollowingEntry} from "../service/storage";
 import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';
 import {ProfileLive} from './components/profile';
+import {useWebRefresh} from "../hooks/use-web-refresh";
 
 
 export function feedTitle(props: any) {
@@ -172,6 +173,11 @@ export function FeedList() {
         const url = `aoe2de://1/${match_id}`;
         await Linking.openURL(url);
     };
+
+    useWebRefresh(() => {
+        if (!isActiveRoute) return;
+        onRefresh();
+    }, [isActiveRoute]);
 
     return (
             <View style={styles.container}>
