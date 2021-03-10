@@ -20,22 +20,22 @@ export function getTranslation(str: keyof typeof local001, params?: Record<strin
 }
 
 const strings: IStringCollection = {
-    'ms': require('../../assets/translations/ms.json'),
-    'fr': require('../../assets/translations/fr.json'),
-    'es-mx': require('../../assets/translations/es-mx.json'),
-    'it': require('../../assets/translations/it.json'),
-    'pt': require('../../assets/translations/pt.json'),
-    'ru': require('../../assets/translations/ru.json'),
-    'vi': require('../../assets/translations/vi.json'),
-    'tr': require('../../assets/translations/tr.json'),
-    'de': require('../../assets/translations/de.json'),
+    // 'ms': require('../../assets/translations/ms.json'),
+    // 'fr': require('../../assets/translations/fr.json'),
+    // 'es-mx': require('../../assets/translations/es-mx.json'),
+    // 'it': require('../../assets/translations/it.json'),
+    // 'pt': require('../../assets/translations/pt.json'),
+    // 'ru': require('../../assets/translations/ru.json'),
+    // 'vi': require('../../assets/translations/vi.json'),
+    // 'tr': require('../../assets/translations/tr.json'),
+    // 'de': require('../../assets/translations/de.json'),
     'en': require('../../assets/translations/en.json'),
-    'es': require('../../assets/translations/es.json'),
-    'hi': require('../../assets/translations/hi.json'),
-    'ja': require('../../assets/translations/ja.json'),
-    'ko': require('../../assets/translations/ko.json'),
-    'zh-hans': require('../../assets/translations/zh-hans.json'),
-    'zh-hant': require('../../assets/translations/zh-hant.json'),
+    // 'es': require('../../assets/translations/es.json'),
+    // 'hi': require('../../assets/translations/hi.json'),
+    // 'ja': require('../../assets/translations/ja.json'),
+    // 'ko': require('../../assets/translations/ko.json'),
+    // 'zh-hans': require('../../assets/translations/zh-hans.json'),
+    // 'zh-hant': require('../../assets/translations/zh-hant.json'),
 };
 
 export const supportedMainLocales = [

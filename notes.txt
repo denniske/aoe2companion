@@ -5,6 +5,8 @@ git tag -d v23.0.0 && git push --delete origin v23.0.0
 git tag -d desktop-v26.0.0+0 && git push --delete origin desktop-v26.0.0+0 && git tag desktop-v26.0.0+0 && git push --tags
 
 
+- link to specific game
+
 - app testing with detox
   https://www.google.com/search?q=detox+expo&rlz=1C5CHFA_enDE884DE884&oq=detox+expo&aqs=chrome..69i57j0i19l3j0i10i19i22i30j0i19i22i30l5.1496j0j7&sourceid=chrome&ie=UTF-8
 - yarn 2

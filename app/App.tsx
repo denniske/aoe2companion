@@ -78,7 +78,7 @@ import OverlayPage from "./src/view/overlay.page";
 import IntroPage from "./src/view/intro.page";
 import {Roboto_400Regular, Roboto_700Bold} from "@expo-google-fonts/roboto";
 import {useFonts} from "expo-font";
-import {getInternalString} from './src/helper/strings';
+import {getInternalString, loadStringsAsync} from './src/helper/strings';
 import { fetchJson } from './src/api/util';
 import UpdateElectronSnackbar from "./src/view/components/snackbar/update-electron-snackbar";
 import OverlaySettingsPage from "./src/view/overlay.settings.page";
@@ -686,13 +686,13 @@ export function AppWrapper() {
     useEffect(() => {
         if (config == null) return;
 
-        // console.log('Localization.locale', Localization.locale);
-        // console.log('Localization.locales', Localization.locales);
+        console.log('LOCAL ==> Localization.locale', Localization.locale);
+        console.log('LOCAL ==> Localization.locales', Localization.locales);
 
         const language = config.language == 'system' ? getLanguageFromSystemLocale2(Localization.locale) : config.language;
-        // console.log('Loading AoeStrings for ' + language + ' (config.language: ' + config.language + ')');
+        console.log('LOCAL ==> Loading AoeStrings for ' + language + ' (config.language: ' + config.language + ')');
         setInternalLanguage(language);
-        loadAoeStringsAsync(language).then(() => mutate(addLoadedLanguage(language)));
+        Promise.all([loadAoeStringsAsync(language), loadStringsAsync(language)]).then(() => mutate(addLoadedLanguage(language)));
     }, [config]);
 
     if (auth === undefined || following === undefined || config === undefined || prefs === undefined || !loadedLanguages) {

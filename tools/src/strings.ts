@@ -71,7 +71,7 @@ const aoe2techtreeLanguageMap = {
 };
 
 async function loadStringsForLanguage(language: keyof typeof aoe2netLanguageMap) {
-    const filePath = path.resolve(__dirname, '..', '..', 'app', 'assets', 'strings', aoe2netLanguageMap[language] + '.json');
+    const filePath = path.resolve(__dirname, '..', '..', 'app', 'assets', 'strings', aoe2netLanguageMap[language] + '.json.lazy');
     const response = await axios({
         method: 'GET',
         url: `http://aoe2.net/api/strings?game=aoe2de&language=${language}`,
@@ -89,7 +89,7 @@ async function loadStrings() {
     }
 }
 
-// loadStrings();
+loadStrings();
 
 async function loadStringsAoE2TechTreeForLanguage(language: keyof typeof aoe2techtreeLanguageMap) {
     const dirPath = path.resolve(__dirname, '..', '..', 'app', 'assets', 'data', aoe2techtreeLanguageMap[language]);
@@ -115,4 +115,4 @@ async function loadStringsAoE2TechTree() {
     }
 }
 
-loadStringsAoE2TechTree();
+// loadStringsAoE2TechTree();

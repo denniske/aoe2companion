@@ -1,25 +1,9 @@
 import {Asset} from 'expo-asset';
 import {readAsStringAsync} from 'expo-file-system';
 import {Platform} from 'react-native';
-import {getLanguage} from '../../../data/src/lib/aoe-data';
+import {getLanguage} from '@nex/data';
 
-export const stringsSource: Record<string, string> = {
-    // 'ms': '../../assets/data/ms/strings.json.lazy',
-    // 'fr': '../../assets/data/fr/strings.json.lazy',
-    // 'es-mx': '../../assets/data/es-mx/strings.json.lazy',
-    // 'it': '../../assets/data/it/strings.json.lazy',
-    // 'pt': '../../assets/data/pt/strings.json.lazy',
-    // 'ru': '../../assets/data/ru/strings.json.lazy',
-    // 'vi': '../../assets/data/vi/strings.json.lazy',
-    // 'tr': '../../assets/data/tr/strings.json.lazy',
-    // 'de': '../../assets/data/de/strings.json.lazy',
-    // 'en': '../../assets/data/en/strings.json.lazy',
-    // 'es': '../../assets/data/es/strings.json.lazy',
-    // 'hi': '../../assets/data/hi/strings.json.lazy',
-    // 'ja': '../../assets/data/ja/strings.json.lazy',
-    // 'ko': '../../assets/data/ko/strings.json.lazy',
-    // 'zh-hans': '../../assets/data/zh-hans/strings.json.lazy',
-    // 'zh-hant': '../../assets/data/zh-hant/strings.json.lazy',
+const stringsSource: Record<string, string> = {
     'ms': require('../../assets/data/ms/strings.json.lazy'),
     'fr': require('../../assets/data/fr/strings.json.lazy'),
     'es-mx': require('../../assets/data/es-mx/strings.json.lazy'),
