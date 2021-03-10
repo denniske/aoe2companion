@@ -1,5 +1,5 @@
 import {globalShortcut} from "electron";
-import {getAppWindow} from "../main";
+import {createOrShowAppWindow, getAppWindow} from "../main";
 import {isAoeWindowFocused} from "./process";
 import {IStoredConfig, store} from "./store";
 
@@ -41,6 +41,10 @@ export async function checkShortcuts() {
 async function executeShowHide() {
     console.log(acceleratorShowHide, 'is pressed');
     const appWindow = getAppWindow();
+    if (appWindow == null) {
+        await createOrShowAppWindow();
+        return;
+    }
     if (appWindow.isMinimized()) {
         appWindow.show();
         appWindow.setSkipTaskbar(false);
@@ -53,6 +57,10 @@ async function executeShowHide() {
 async function executeSearch() {
     console.log(acceleratorSearch, 'is pressed');
     const appWindow = getAppWindow();
+    if (appWindow == null) {
+        await createOrShowAppWindow();
+        return;
+    }
     if (appWindow.isMinimized()) {
         appWindow.show();
         appWindow.setSkipTaskbar(false);
