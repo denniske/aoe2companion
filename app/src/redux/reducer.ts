@@ -6,7 +6,7 @@ import { IRatingHistoryRow } from '../service/rating';
 import {ILeaderboard, IMatch} from "@nex/data";
 import {IAccount, IConfig, IFollowingEntry, IPrefs} from "../service/storage";
 import {Manifest} from "expo-updates/build/Updates.types";
-import {set} from "lodash-es";
+import {set} from 'lodash';
 
 
 export const EXEC = 'EXEC'

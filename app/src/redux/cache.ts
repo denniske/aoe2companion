@@ -1,4 +1,4 @@
-import {get, set} from "lodash-es";
+import {get, set} from 'lodash';
 
 let cache = {
 

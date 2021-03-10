@@ -1,5 +1,5 @@
 import {fromUnixTime, getUnixTime, parseISO} from "date-fns";
-import {uniqBy} from "lodash";
+import {uniqBy} from 'lodash';
 import request, {gql} from "graphql-request";
 import {makeQueryString} from '../lib/util';
 import {getHost} from '../lib/host';

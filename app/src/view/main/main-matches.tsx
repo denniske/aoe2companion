@@ -11,7 +11,7 @@ import {MyText} from "../components/my-text";
 import {appVariants} from "../../styles";
 import {LeaderboardId} from "@nex/data";
 import TemplatePicker from "../components/template-picker";
-import {get} from "lodash-es";
+import {get} from 'lodash';
 import {IMatch} from "@nex/data";
 import {getMapName} from "../../helper/maps";
 import {parseUserId, sameUser} from "../../helper/user";

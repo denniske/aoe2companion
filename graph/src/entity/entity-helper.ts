@@ -1,7 +1,7 @@
 import {Match} from "./match";
 import {IMatchFromApi, IPlayer, IPlayerBase} from "./entity.type";
 import {Player} from "./player";
-import {chunk, uniqBy} from "lodash";
+import {chunk, uniqBy} from 'lodash';
 import {Column, Connection, PrimaryColumn} from "typeorm";
 import {LeaderboardRow} from "./leaderboard-row";
 import {RatingHistory} from "./rating-history";

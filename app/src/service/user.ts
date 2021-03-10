@@ -1,5 +1,5 @@
 import {fetchLeaderboardLegacy} from '../api/leaderboard';
-import {groupBy, sortBy, sumBy} from 'lodash-es'
+import {groupBy, sortBy, sumBy} from 'lodash';
 import {Flag, ILeaderboardPlayer} from "@nex/data";
 import request, {gql} from 'graphql-request';
 

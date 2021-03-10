@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import {uniqBy} from "lodash";
+import {uniqBy} from 'lodash';
 import {KeyValue} from "./entity/keyvalue";
 import {Connection} from "typeorm";
 import {getUnixTime} from 'date-fns';

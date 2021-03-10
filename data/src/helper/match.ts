@@ -1,5 +1,5 @@
 import {IMatch} from '../api/api.types';
-import {groupBy} from 'lodash-es';
+import {groupBy} from 'lodash';
 
 export function getMatchTeams(match: IMatch) {
     let teamIndex = 5;

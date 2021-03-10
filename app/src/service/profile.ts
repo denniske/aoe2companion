@@ -1,5 +1,5 @@
 import {fetchLeaderboardLegacy} from '../api/leaderboard';
-import {sortBy, sumBy} from 'lodash-es'
+import {sortBy, sumBy} from 'lodash';
 import {IProfile} from '../view/components/profile';
 import {minifyUserId, UserIdBase} from '../helper/user';
 import {IRatingHistoryEntry, IRatingHistoryEntryRaw} from '@nex/data';

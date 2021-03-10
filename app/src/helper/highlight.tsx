@@ -6,7 +6,7 @@ import {escapeRegExpFn, getTechName, techList} from "@nex/data";
 import {getUnitName, hasUnitLine, Unit, units} from "@nex/data";
 import {MyText} from "../view/components/my-text";
 import React from "react";
-import {memoize} from 'lodash-es';
+import {memoize} from 'lodash';
 import {getLanguage} from '../../../data/src/lib/aoe-data';
 
 // export function highlightUnitAndCivs(str: string) {

@@ -2,8 +2,8 @@ import {Civ} from "./civs";
 import {getUnitLineIdForUnit, ICostDict, sortedUnitLines, Unit, UnitLine, unitLines} from "./units";
 import {aoeData, aoeTechDataId} from "../data/data";
 import {keysOf, sanitizeGameDescription, strRemoveTo, unwrap} from "../lib/util";
-import {flatMap} from 'lodash';
 import {getAoeString} from '../lib/aoe-data';
+import {flatMap} from 'lodash';
 
 export type Effect =
     'carryCapacity' |

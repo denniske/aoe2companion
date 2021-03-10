@@ -5,7 +5,7 @@ import {PlayerSkeleton} from './player';
 import {TextLoader} from "./loader/text-loader";
 import {ImageLoader} from "./loader/image-loader";
 import {ViewLoader} from "./loader/view-loader";
-import {min, sortBy} from "lodash-es";
+import {min, sortBy} from 'lodash';
 import {MyText} from './my-text';
 import {useAppTheme} from "../../theming";
 import {createStylesheet} from '../../theming-new';

@@ -6,7 +6,7 @@ import {IRatingHistoryRow} from '../../service/rating';
 import {TextLoader} from "./loader/text-loader";
 import {ViewLoader} from "./loader/view-loader";
 import {formatLeaderboardId} from "@nex/data";
-import {capitalize, merge} from "lodash-es";
+import {capitalize, merge} from 'lodash';
 import {useAppTheme, usePaperTheme} from "../../theming";
 import {setPrefValue, useMutate, useSelector} from "../../redux/reducer";
 import {MyText} from "./my-text";

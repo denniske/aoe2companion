@@ -5,7 +5,7 @@ import {useAppStyles} from "./app-styles";
 import {makeStyles} from "@material-ui/core/styles";
 import {getString} from "../helper/strings";
 import Player from "./player";
-import { groupBy, orderBy } from "lodash";
+import { groupBy, orderBy } from 'lodash';
 import {differenceInSeconds} from "date-fns";
 import {formatAgo} from "../helper/util";
 import {Typography} from "@material-ui/core";

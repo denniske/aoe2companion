@@ -13,7 +13,7 @@ import Space from "../components/space";
 import {Building, getBuildingData, IBuildingInfo} from "@nex/data";
 import {getOtherIcon, getUnitIcon} from "../../helper/units";
 import {createStylesheet} from '../../theming-new';
-import {uniq} from "lodash";
+import {uniq} from 'lodash';
 import {getTranslation} from '../../helper/translate';
 
 interface Props {

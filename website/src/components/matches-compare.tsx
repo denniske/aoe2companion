@@ -6,7 +6,7 @@ import {useAppStyles} from "./app-styles";
 import {makeStyles} from "@material-ui/core/styles";
 import {IMatch} from "../../util/api.types";
 import {formatDayAndTime, parseUnixTimestamp} from "../helper/util";
-import {orderBy} from "lodash";
+import {orderBy} from 'lodash';
 
 
 interface IMatchList {

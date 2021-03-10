@@ -8,7 +8,7 @@ import Fandom from "../components/fandom";
 import {MyText} from "../components/my-text";
 import {createStylesheet} from "../../theming-new";
 import {appVariants} from "../../styles";
-import {capitalize} from "lodash-es";
+import {capitalize} from 'lodash';
 import CivAvailability from "../components/civ-availability";
 import Space from "../components/space";
 import {getOtherIcon} from "../../helper/units";

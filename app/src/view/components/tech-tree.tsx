@@ -16,7 +16,7 @@ import {getTechIcon} from "../../helper/techs";
 import {getOtherIcon, getUnitIcon} from "../../helper/units";
 import {getBuildingIcon} from "../../helper/buildings";
 import {getTranslation} from '../../helper/translate';
-import {isEmpty} from 'lodash-es';
+import {isEmpty} from 'lodash';
 import {Delayed} from './delayed';
 
 

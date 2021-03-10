@@ -1,6 +1,6 @@
 import {Injectable, Logger, OnModuleInit} from '@nestjs/common';
 import {getUnixTime} from "date-fns";
-import {min} from "lodash";
+import {min} from 'lodash';
 import {fetchRatingHistoryUniqueByTimestamp} from "../helper";
 import {upsertRatingHistory} from "../entity/entity-helper";
 import {PrismaService} from "../service/prisma.service";

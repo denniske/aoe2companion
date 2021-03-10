@@ -3,7 +3,7 @@ import {getUnixTime} from "date-fns";
 import {getSentry} from "../db";
 import fetch from "node-fetch";
 import {Connection, In, MoreThan, Repository} from "typeorm";
-import {groupBy} from "lodash";
+import {groupBy} from 'lodash';
 import {Match} from "../entity/match";
 import {Push} from "../entity/push";
 import {Following} from "../entity/following";

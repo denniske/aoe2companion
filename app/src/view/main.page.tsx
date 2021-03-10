@@ -10,7 +10,7 @@ import {TabBarLabel} from "./components/tab-bar-label";
 import {saveCurrentPrefsToStorage, saveSettingsToStorage} from "../service/storage";
 import {fetchPlayerMatches, LeaderboardId} from "@nex/data";
 import {useCachedConservedLazyApi} from "../hooks/use-cached-conserved-lazy-api";
-import {get, set} from "lodash-es";
+import {get, set} from 'lodash';
 import {getStats} from "../service/stats";
 import {makeVariants, useTheme} from "../theming";
 import IconFA5 from "react-native-vector-icons/FontAwesome5";

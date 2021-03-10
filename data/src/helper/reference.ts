@@ -1,5 +1,5 @@
 import {aoeReferenceData} from '../data/aoe-reference-data';
-import {flatMap, merge} from "lodash";
+import {flatMap, merge} from 'lodash';
 
 export interface IReferencePlayer {
     name: string;

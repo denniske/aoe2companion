@@ -3,7 +3,7 @@ import {formatAgo, getString} from '@nex/data';
 import React from 'react';
 import {LivePlayer} from './live-player';
 import {getMapImage, getMapImageByLocationString, getMapName} from "../../helper/maps";
-import {groupBy} from "lodash-es";
+import {groupBy} from 'lodash';
 import {differenceInSeconds} from "date-fns";
 import {makeVariants, useTheme} from "../../theming";
 import {TextLoader} from "../components/loader/text-loader";

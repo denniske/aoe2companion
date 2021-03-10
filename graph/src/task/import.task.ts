@@ -3,7 +3,7 @@ import {fromUnixTime} from "date-fns";
 import {formatDayAndTime} from "../util";
 import {upsertMatchesWithPlayers} from "../entity/entity-helper";
 import {myTodoList} from "@nex/data";
-import {max} from "lodash";
+import {max} from 'lodash';
 import {Match} from "../entity/match";
 import {fetchMatches, setValue} from "../helper";
 import {Connection} from "typeorm";

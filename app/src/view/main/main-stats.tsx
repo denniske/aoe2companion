@@ -6,7 +6,7 @@ import {LeaderboardId} from "@nex/data";
 import React, {useEffect, useState} from "react";
 import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {RootTabParamList} from "../../../App";
-import {get} from "lodash-es";
+import {get} from 'lodash';
 import {usePrevious} from "@nex/data/hooks";
 import {saveCurrentPrefsToStorage} from "../../service/storage";
 import {MyText} from "../components/my-text";

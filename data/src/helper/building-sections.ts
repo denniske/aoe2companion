@@ -1,4 +1,4 @@
-import {flatMap} from "lodash";
+import {flatMap} from 'lodash';
 import {Building, getBuildingName} from "./buildings";
 import {Civ} from './civs';
 

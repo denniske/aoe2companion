@@ -13,7 +13,7 @@ import {Button} from "react-native-paper";
 import {IFetchedUser} from "../service/user";
 import PlayerList, {IPlayerListPlayer} from "./components/player-list";
 import {MyText} from "./components/my-text";
-import {isEqual, orderBy, uniq} from "lodash-es";
+import {isEqual, orderBy, uniq} from 'lodash';
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import RefreshControlThemed from "./components/refresh-control-themed";
 import {toggleFollowing} from "../service/following";
