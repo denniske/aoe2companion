@@ -27,7 +27,10 @@
     "website": "next dev website",
     "build:website": "next build website",
     "start:website:prod:80": "next start website -p 80",
-    "bundle:app": "npx expo publish -c --release-channel assets --config app.json -q"
+    "bundle:app:p": "npx expo publish -c --release-channel assets --config app.json -q",
+    "bundle:export": "rm -rf dist/exported && npx expo export --output-dir dist/exported -p https://www.example.com/ -s",
+    "bundle:analyze": "source-map-explorer dist/exported/bundles/ios-*.js dist/exported/bundles/ios-*.map",
+    "bundle:app": "npm run bundle:export; npm run bundle:analyze"
   },
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
@@ -178,8 +181,10 @@
     "cavy": "^4.0.0",
     "expo-cli": "4.1.6",
     "prisma": "2.18.0",
+    "react-native-bundle-visualizer": "^2.2.1",
     "react-native-debugger-open": "^0.3.24",
     "semver": "^7.3.2",
+    "source-map-explorer": "^2.5.2",
     "ts-node": "9.1.1",
     "typescript": "4.0.7",
     "webpack-bundle-analyzer": "^4.4.0"

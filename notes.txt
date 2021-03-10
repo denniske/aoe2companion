@@ -16,6 +16,24 @@ git tag -d desktop-v26.0.0+0 && git push --delete origin desktop-v26.0.0+0 && gi
 
 npm run electron:build && release\aoe2companion-22.0.8+0
 
+
+bundle size
+
+Bundle                     Size
+┌ index.ios.js          5.71 MB
+├ index.android.js      5.71 MB
+├ index.ios.js.map      17.2 MB
+└ index.android.js.map  17.2 MB
+
+when removing victory native:
+
+Bundle                     Size
+┌ index.ios.js          4.83 MB
+├ index.android.js      4.84 MB
+├ index.ios.js.map        14 MB
+└ index.android.js.map    14 MB
+
+
 font
 - serif
   - georgia
@@ -392,8 +410,6 @@ sudo defaults delete /Library/Preferences/com.apple.keyboardtype
 
 - Tech Tree UI
 - C:\Users\Dennis\Games\Age of Empires 2 DE\76561197995781128\mods\subscribed\1062_Improved Tech Tree UI Mod\widgetui\textures\ingame\emblems
-
-npx expo publish -c --release-channel assets --config app.json
 
 wget -i temp.txt
 for file in *; do mv "$file" "$file.png"; done
