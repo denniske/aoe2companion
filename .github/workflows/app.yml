@@ -70,10 +70,10 @@ jobs:
           EXPO_ANDROID_KEY_PASSWORD: secrethub://denniske/aoe2companion/expo_android_key_password
 
       - run: yarn add gulp-cli turtle-cli@$TURTLE_VERSION
-      - run: turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null
+      - run: npx turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null
       - run: echo $EXPO_ANDROID_KEYSTORE_BASE64 | base64 --decode > expo-project.jks
       - run: "
-          turtle build:android
+          npx turtle build:android
             --config app.json
             --release-channel $CHANNEL
             --keystore-path ./expo-project.jks
@@ -114,10 +114,10 @@ jobs:
           EXPO_ANDROID_KEY_PASSWORD: secrethub://denniske/aoe2companion/expo_android_key_password
 
       - run: yarn add gulp-cli turtle-cli@$TURTLE_VERSION
-      - run: turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null
+      - run: npx turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null
       - run: echo $EXPO_ANDROID_KEYSTORE_BASE64 | base64 --decode > expo-project.jks
       - run: "
-          turtle build:android
+          npx turtle build:android
             --config app.json
             --release-channel $CHANNEL
             --keystore-path ./expo-project.jks
@@ -159,11 +159,11 @@ jobs:
           echo "EXPO_IOS_PROVISIONING_PROFILE_BASE64=$(secrethub read denniske/aoe2companion/expo_ios_prov_profile_base64)" >> $GITHUB_ENV
 
       - run: yarn add gulp-cli turtle-cli@$TURTLE_VERSION
-      - run: turtle setup:ios --sdk-version $EXPO_SDK_VERSION > /dev/null
+      - run: npx turtle setup:ios --sdk-version $EXPO_SDK_VERSION > /dev/null
       - run: echo $EXPO_IOS_DIST_P12_BASE64 | base64 --decode > expo-project_dist.p12
       - run: echo $EXPO_IOS_PROVISIONING_PROFILE_BASE64 | base64 --decode > expo-project.mobileprovision
       - run: "
-          turtle build:ios
+          npx turtle build:ios
             --config app.json
             --release-channel $CHANNEL
             --team-id \"$EXPO_APPLE_TEAM_ID\"
