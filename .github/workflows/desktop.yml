@@ -1,8 +1,8 @@
 
 on:
   push:
-#    tags:
-#      - 'desktop-v*'
+    tags:
+      - 'desktop-v*'
 
 name: Desktop
 
