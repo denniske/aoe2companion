@@ -6,5 +6,9 @@ if (tag === 'master') {
     console.log('master');
     process.exit();
 }
+if (tag === 'yarn2') {
+    console.log('yarn2');
+    process.exit();
+}
 
 console.log('prod-v' + semver.major(tag));
