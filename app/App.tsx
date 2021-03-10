@@ -762,7 +762,7 @@ const isMobile = ['Android', 'iOS'].includes(Device.osName!);
 
 const useStyles = createStylesheet((theme, darkMode) => StyleSheet.create({
     container: {
-        ...(Platform.OS === 'web' ? {
+        ...(Platform.OS === 'web' && !isElectron() ? {
                 overflow: 'hidden',
                 width: 450,
                 maxWidth: '100%',
@@ -774,7 +774,17 @@ const useStyles = createStylesheet((theme, darkMode) => StyleSheet.create({
                 borderRadius: isMobile ? 0 : 10,
             } : {}
         ),
-        // backgroundColor: '#397AF9',
+        ...(Platform.OS === 'web' && isElectron() ? {
+                overflow: 'hidden',
+                width: '100%',
+                height: '100%',
+                marginHorizontal: 'auto',
+                marginVertical: 'auto',
+                borderColor: darkMode === 'dark' ? '#444' :  '#CCC',
+                borderWidth: isMobile ? 0 : 1,
+                borderRadius: isMobile ? 0 : 10,
+            } : {}
+        ),
         backgroundColor: theme.backgroundColor,
         paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
         flex: 1,
@@ -784,25 +794,22 @@ const useStyles = createStylesheet((theme, darkMode) => StyleSheet.create({
             {
                 overflow: 'hidden',
                 width: '100%',
-                // marginHorizontal: 'auto',
-                // marginVertical: 'auto',
             }
-            // Overlay
-            // {
-            //     overflow: 'hidden',
-            //     width: 450,
-            //     maxWidth: '100%',
-            //     maxHeight: 900,
-            //     marginHorizontal: 'auto',
-            //     marginVertical: 'auto',
-            //     // borderColor: '#CCC',
-            //     // borderWidth: isMobile ? 0 : 1,
-            //     borderRadius: isMobile ? 0 : 10,
-            // }
             : {}
         ),
-        // backgroundColor: 'transparent',
-        // paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
         flex: 1,
     },
 }));
+
+// Alternative Overlay
+// {
+//     overflow: 'hidden',
+//     width: 450,
+//     maxWidth: '100%',
+//     maxHeight: 900,
+//     marginHorizontal: 'auto',
+//     marginVertical: 'auto',
+//     // borderColor: '#CCC',
+//     // borderWidth: isMobile ? 0 : 1,
+//     borderRadius: isMobile ? 0 : 10,
+// }

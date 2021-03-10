@@ -10,9 +10,12 @@ export async function createAppWindow() {
         y: 100,
         frame: false,
         transparent: true,
-        resizable: false,
+        resizable: true,
         width: width,
+        minWidth: width,
+        maxWidth: width,
         height: 900,
+        minHeight: 400,
         webPreferences: {
             nodeIntegration: true,
             allowRunningInsecureContent: serving,
