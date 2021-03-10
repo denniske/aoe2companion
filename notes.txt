@@ -17,6 +17,10 @@ git tag -d desktop-v26.0.0+0 && git push --delete origin desktop-v26.0.0+0 && gi
 npm run electron:build && release\aoe2companion-22.0.8+0
 
 
+unit production number of vills
+https://grishrl.github.io/
+
+
 bundle size
 
 Bundle                     Size
