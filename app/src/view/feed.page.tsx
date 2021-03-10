@@ -22,7 +22,7 @@ import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';
 import {ProfileLive} from './components/profile';
 import {useWebRefresh} from "../hooks/use-web-refresh";
-import {useLastNotificationReceivedElectron} from "../helper/electron";
+import {isElectron, useLastNotificationReceivedElectron} from "../helper/electron";
 
 
 export function feedTitle(props: any) {
@@ -119,15 +119,17 @@ export function FeedList() {
         refresh();
     }, [following, isActiveRoute]);
 
-    const lastNotificationReceivedElectron = useLastNotificationReceivedElectron();
+    if (isElectron()) {
+        const lastNotificationReceivedElectron = useLastNotificationReceivedElectron();
 
-    useEffect(() => {
-        console.log('lastNotificationReceivedElectron', lastNotificationReceivedElectron);
-        console.log('isActiveRoute', isActiveRoute);
-        if (!isActiveRoute) return;
-        if (!lastNotificationReceivedElectron?.data?.match_id) return;
-        onRefresh();
-    }, [lastNotificationReceivedElectron]);
+        useEffect(() => {
+            console.log('lastNotificationReceivedElectron', lastNotificationReceivedElectron);
+            console.log('isActiveRoute', isActiveRoute);
+            if (!isActiveRoute) return;
+            if (!lastNotificationReceivedElectron?.data?.match_id) return;
+            onRefresh();
+        }, [lastNotificationReceivedElectron]);
+    }
 
     useWebRefresh(() => {
         if (!isActiveRoute) return;
