@@ -1,5 +1,6 @@
 import { Unit } from '@nex/data';
 import {ImageSourcePropType} from "react-native";
+import {getUnitIcon} from "./units";
 
 type UnitIconDict = Record<number, Record<string, ImageSourcePropType>>;
 
@@ -805,5 +806,8 @@ const unitIconsColored: UnitIconDict = {
 };
 
 export function getUnitIconColored(unit: Unit, color: number) {
+    if (color === 1) {
+        return getUnitIcon(unit);
+    }
     return unitIconsColored[color][unit];
 }
