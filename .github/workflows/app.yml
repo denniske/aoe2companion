@@ -266,8 +266,8 @@ jobs:
 
       - run: echo $EXPO_APPLE_AUTH_KEY_P8_BASE64 | base64 --decode > auth_key.p8
 
-      - run: yarn global add turtle-cli@$TURTLE_VERSION
-      - run: turtle setup:ios --sdk-version $EXPO_SDK_VERSION
+      - run: yarn add turtle-cli@$TURTLE_VERSION
+      - run: npx turtle setup:ios --sdk-version $EXPO_SDK_VERSION
       - run: ls -al
 
       - run: |
