@@ -11,7 +11,7 @@ runs:
 
     - run: |
         cd deploy
-        yarn
+        npm i
         cd ..
 
         # echo "CHANNEL=master" >> $GITHUB_ENV
