@@ -52,7 +52,7 @@ jobs:
           KUBERNETES_CLUSTER_CERTIFICATE: secrethub://denniske/aoe2companion/kubernetes_cluster_certificate
       - run: echo "SERVICE_NAME=$(node deploy/script/service-name-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
       - run: echo $SERVICE_NAME
-      - run: yarn add nx
+      - run: yarn add nx@10.2.0
       - run: yarn run generate:prisma
       - run: npx nx build graph
       - run: docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$COMMIT_SHA1 .
