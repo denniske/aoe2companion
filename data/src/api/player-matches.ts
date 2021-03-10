@@ -5,7 +5,6 @@ import {makeQueryString} from '../lib/util';
 import {getHost} from '../lib/host';
 import {IMatch, IMatchRaw} from './api.types';
 import {fetchJson} from '../lib/fetch-json';
-import fetch from 'node-fetch';
 
 
 function convertTimestampsToDates(json: IMatchRaw): IMatch {
@@ -184,13 +183,13 @@ export interface IFetchMatchesParams {
 }
 
 
-function myfetch(input: any, init?: any) {
-    try {
-        return fetch(input, init);
-    } catch (e) {
-        throw e;
-    }
-}
+// function myfetch(input: any, init?: any) {
+//     try {
+//         return fetch(input, init);
+//     } catch (e) {
+//         throw e;
+//     }
+// }
 
 export async function fetchPlayerMatchesNew(game: string, start: number, count: number, params: IFetchMatchesParams[], ongoing: boolean = false): Promise<IMatch[]> {
     try {
