@@ -11,6 +11,7 @@ COPY graph/deploy/package.json ./
 COPY graph/prisma ./
 COPY yarn.lock ./
 RUN yarn
+RUN yarn run generate:prisma
 
 COPY dist ./dist
 

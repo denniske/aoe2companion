@@ -3030,6 +3030,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.12.1":
+  version: 7.13.10
+  resolution: "@babel/runtime@npm:7.13.10"
+  dependencies:
+    regenerator-runtime: ^0.13.4
+  checksum: 22014226b96a8c8e8d4e8bcdb011f317d1b32881aef424a669dc6ceaee14993d3609172967853cbf9c25c724c25145d45885b6c9df56ba241c12820776607f1f
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.0.0, @babel/template@npm:^7.10.4, @babel/template@npm:^7.7.4, @babel/template@npm:^7.8.6":
   version: 7.10.4
   resolution: "@babel/template@npm:7.10.4"
@@ -6146,27 +6155,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/cli@npm:^2.5.1":
-  version: 2.7.1
-  resolution: "@prisma/cli@npm:2.7.1"
-  bin:
-    prisma: build/index.js
-    prisma2: build/index.js
-  checksum: 55c1836863e91198106792421b5ab1f1746acb6f2f6f5b25254fc479c88afa26e54d9db58b569114033722f7c6b712457511c5c191013e65552b2b4427eb7390
+"@prisma/client@npm:2.18.0":
+  version: 2.18.0
+  resolution: "@prisma/client@npm:2.18.0"
+  dependencies:
+    "@prisma/engines-version": 2.18.0-34.da6fafb57b24e0b61ca20960c64e2d41f9e8cff1
+  peerDependencies:
+    prisma: "*"
+  peerDependenciesMeta:
+    prisma:
+      optional: true
+  checksum: f8be594da9e69ebc4e33dc61f4017af26dba2a68bd93bad01930b157a924507bff4baf0ad44cc7960270fef20fab5d90f7fd48b4b15eba135d4712ac1ff735b9
   languageName: node
   linkType: hard
 
-"@prisma/client@npm:^2.5.1":
-  version: 2.7.1
-  resolution: "@prisma/client@npm:2.7.1"
-  dependencies:
-    pkg-up: ^3.1.0
-  peerDependencies:
-    "@prisma/cli": "*"
-  peerDependenciesMeta:
-    "@prisma/cli":
-      optional: true
-  checksum: cf84d81da3a29bc74cd60ee8b7151c1fd5bce84faa28e4052bebf885a8ba4722ebeb7259317d42285ffe31f24b3add856fcfd6e89419d2bd078ad712f00d2928
+"@prisma/engines-version@npm:2.18.0-34.da6fafb57b24e0b61ca20960c64e2d41f9e8cff1":
+  version: 2.18.0-34.da6fafb57b24e0b61ca20960c64e2d41f9e8cff1
+  resolution: "@prisma/engines-version@npm:2.18.0-34.da6fafb57b24e0b61ca20960c64e2d41f9e8cff1"
+  checksum: f8b31a3558564ebde056ca347b24011db4bc0a828cf463a09fa4c886047b83779f729faee3335c4d15d92b30196af5fd9dfa2b612c53609704256809191ad6b7
+  languageName: node
+  linkType: hard
+
+"@prisma/engines@npm:2.18.0-34.da6fafb57b24e0b61ca20960c64e2d41f9e8cff1":
+  version: 2.18.0-34.da6fafb57b24e0b61ca20960c64e2d41f9e8cff1
+  resolution: "@prisma/engines@npm:2.18.0-34.da6fafb57b24e0b61ca20960c64e2d41f9e8cff1"
+  checksum: 945844b5cf8d6c9cfd9fa6b07c055f8786e74829151fd208902cc92033adeda0d37061130c8a5925ddffdaf7e980b66d235d05ae6458ec0b70b98ed7d4f24e4f
   languageName: node
   linkType: hard
 
@@ -7574,15 +7587,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-redux@npm:^7.1.9":
-  version: 7.1.9
-  resolution: "@types/react-redux@npm:7.1.9"
+"@types/react-redux@npm:7.1.11":
+  version: 7.1.11
+  resolution: "@types/react-redux@npm:7.1.11"
   dependencies:
     "@types/hoist-non-react-statics": ^3.3.0
     "@types/react": "*"
     hoist-non-react-statics: ^3.3.0
     redux: ^4.0.0
-  checksum: 061c4ef6af67f05e55d4304429d689a62f98a27e6b7ddebe25bd4d90229b6ae7508cd6d87aecc4c98ac9dccd1c09c8d6bd75ab395d71692f44d0fa0152c2f703
+  checksum: 981e91bc043132b3c94f3ac072be4f11f49e6a407d9c7a95ccb1dcb3432da9978d68d314eb0398090f60bb86aa6b237809427f6a7076885b1655f32e6a8c2ea8
   languageName: node
   linkType: hard
 
@@ -7614,7 +7627,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:~16.9.35":
+"@types/react@npm:16.9.56":
   version: 16.9.56
   resolution: "@types/react@npm:16.9.56"
   dependencies:
@@ -22585,7 +22598,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"pkg-up@npm:3.1.0, pkg-up@npm:^3.1.0":
+"pkg-up@npm:3.1.0":
   version: 3.1.0
   resolution: "pkg-up@npm:3.1.0"
   dependencies:
@@ -23404,6 +23417,18 @@ fsevents@~2.1.2:
   version: 1.1.0
   resolution: "pretty-time@npm:1.1.0"
   checksum: 1467cfb88f0478c277dd4b47419d536f92e417ce17da927390145f9e69ba3ac5c36e54b2a5244538c64e3ed8d299c604117c3018b3a15772c5d030030adbdef6
+  languageName: node
+  linkType: hard
+
+"prisma@npm:2.18.0":
+  version: 2.18.0
+  resolution: "prisma@npm:2.18.0"
+  dependencies:
+    "@prisma/engines": 2.18.0-34.da6fafb57b24e0b61ca20960c64e2d41f9e8cff1
+  bin:
+    prisma: build/index.js
+    prisma2: build/index.js
+  checksum: f46397044d9e61734914ae6d13bd09d1159ad531e2b29de61b04ea1a18adc38ea57cb634687c288e9d3a42e14c842e6b1fc01424ef265d5d4cd4e52cfff83fc3
   languageName: node
   linkType: hard
 
@@ -24377,17 +24402,16 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"react-dom@npm:16.13.1":
-  version: 16.13.1
-  resolution: "react-dom@npm:16.13.1"
+"react-dom@npm:17.0.1":
+  version: 17.0.1
+  resolution: "react-dom@npm:17.0.1"
   dependencies:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
-    prop-types: ^15.6.2
-    scheduler: ^0.19.1
+    scheduler: ^0.20.1
   peerDependencies:
-    react: ^16.13.1
-  checksum: fb5c3ad41360c6a8674f33916aa895d05e79d063d31a6963074220c1cda9e07e880799d01670b4ebd570b4d3457584f13cc898b5033a05641e8e801f5611607e
+    react: 17.0.1
+  checksum: 6a70028fbe3c95e0056c5e8ce065b4a9b8d4ff3bffde9b016454072bde5e4b012af7668ca45b7235ace428267d5be5237b68ea87ce8c296e54e81a8d678a4355
   languageName: node
   linkType: hard
 
@@ -24418,7 +24442,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"react-is@npm:16.13.1, react-is@npm:^16.12.0, react-is@npm:^16.13.0, react-is@npm:^16.7.0, react-is@npm:^16.8.0, react-is@npm:^16.8.1, react-is@npm:^16.8.4, react-is@npm:^16.8.6, react-is@npm:^16.9.0":
+"react-is@npm:16.13.1, react-is@npm:^16.12.0, react-is@npm:^16.13.0, react-is@npm:^16.13.1, react-is@npm:^16.7.0, react-is@npm:^16.8.0, react-is@npm:^16.8.1, react-is@npm:^16.8.4, react-is@npm:^16.8.6":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: 11bcf1267a314a522615f626f3ce3727a3a24cdbf61c4d452add3550a7875326669631326cfb1ba3e92b6f72244c32ffecf93ad21c0cad8455d3e169d0e3f060
@@ -24674,25 +24698,24 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"react-redux@npm:7.1.3":
-  version: 7.1.3
-  resolution: "react-redux@npm:7.1.3"
+"react-redux@npm:7.2.2":
+  version: 7.2.2
+  resolution: "react-redux@npm:7.2.2"
   dependencies:
-    "@babel/runtime": ^7.5.5
-    hoist-non-react-statics: ^3.3.0
-    invariant: ^2.2.4
+    "@babel/runtime": ^7.12.1
+    hoist-non-react-statics: ^3.3.2
     loose-envify: ^1.4.0
     prop-types: ^15.7.2
-    react-is: ^16.9.0
+    react-is: ^16.13.1
   peerDependencies:
-    react: ^16.8.3
+    react: ^16.8.3 || ^17
     redux: ^2.0.0 || ^3.0.0 || ^4.0.0-0
   peerDependenciesMeta:
     react-dom:
       optional: true
     react-native:
       optional: true
-  checksum: 38deaf7d61b49872ad7a22cad4881c1683b48939b4e281ef7e09d0d939d741546a6c90cba01ba884bb218985e90e77e689e05ddadab87b4eb185f2a7237eacf9
+  checksum: 7892258f8e51415833b8e9a4dabde73a1f03fa30e91c3ef3eb2c258491482540a652a3bdaabf157c152a079633b142d5273dd4df392dff4baafa2fe3349f8af0
   languageName: node
   linkType: hard
 
@@ -24793,14 +24816,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"react@npm:16.13.1":
-  version: 16.13.1
-  resolution: "react@npm:16.13.1"
+"react@npm:17.0.1":
+  version: 17.0.1
+  resolution: "react@npm:17.0.1"
   dependencies:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
-    prop-types: ^15.6.2
-  checksum: 13dcc9ba8a7521ecc3d7e69998dbc5703ae9515308d06a94a474ad34b42f1fc109372265e924a8c9b11d20fa1828407c290b8f61617c36734c4ca907ae7e5f45
+  checksum: a76d86ec973eb4b25a46071ac7f974adfd66ed89ad1db63043be1d976ec25417520a210e6d724b0ad937422b706afcf9962cedda9e92125992a8c0e8a95f2051
   languageName: node
   linkType: hard
 
@@ -25812,16 +25834,17 @@ resolve@~1.7.1:
     "@nestjs/schedule": ^0.4.0
     "@nestjs/typeorm": ^7.1.4
     "@nexus/schema": 0.15.0
+    "@nrwl/cli": 11.4.0
     "@nrwl/express": 11.4.0
     "@nrwl/jest": 11.4.0
     "@nrwl/nest": 11.4.0
     "@nrwl/next": 11.4.0
     "@nrwl/node": 11.4.0
     "@nrwl/react": 11.4.0
+    "@nrwl/tao": 11.4.0
     "@nrwl/web": 11.4.0
     "@nrwl/workspace": 11.4.0
-    "@prisma/cli": ^2.5.1
-    "@prisma/client": ^2.5.1
+    "@prisma/client": 2.18.0
     "@pusher/push-notifications-server": ^1.2.1
     "@pusher/push-notifications-web": ^1.1.0
     "@react-native-async-storage/async-storage": ^1.13.2
@@ -25841,11 +25864,11 @@ resolve@~1.7.1:
     "@types/node-cron": ^2.0.3
     "@types/node-fetch": ^2.5.7
     "@types/pg": ^7.14.4
-    "@types/react": ~16.9.35
+    "@types/react": 16.9.56
     "@types/react-native": 0.63.0
     "@types/react-native-htmlview": ^0.12.2
     "@types/react-native-vector-icons": ^6.4.5
-    "@types/react-redux": ^7.1.9
+    "@types/react-redux": 7.1.11
     "@types/react-window": ^1.8.2
     "@types/semver": ^7.3.1
     "@types/uuid": ^3.4.9
@@ -25901,9 +25924,10 @@ resolve@~1.7.1:
     nexus-prisma: ^0.12.0
     node-fetch: ^2.6.0
     pg: ^8.3.0
-    react: 16.13.1
+    prisma: 2.18.0
+    react: 17.0.1
     react-aspect-ratio: ^1.0.42
-    react-dom: 16.13.1
+    react-dom: 17.0.1
     react-markdown: 4.3.1
     react-native: "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz"
     react-native-appearance: ~0.3.3
@@ -25919,7 +25943,7 @@ resolve@~1.7.1:
     react-native-view-shot: 3.1.2
     react-native-web: ~0.13.12
     react-native-webview: 11.0.0
-    react-redux: 7.1.3
+    react-redux: 7.2.2
     react-swipeable-views: ^0.14.0-alpha.0
     react-top-loading-bar: ^2.0.1
     react-window: ^1.8.5
@@ -26191,13 +26215,23 @@ resolve@~1.7.1:
   languageName: node
   linkType: hard
 
-"scheduler@npm:0.19.1, scheduler@npm:^0.19.1":
+"scheduler@npm:0.19.1":
   version: 0.19.1
   resolution: "scheduler@npm:0.19.1"
   dependencies:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
   checksum: 804f990b9f370cca6d42b65f3cba2cc2bfed4973ee5623bed1ea36a6627842db8c891e2e5ac003f06f9ee892d1d3396921e27fa077346caf0213af05776e8dee
+  languageName: node
+  linkType: hard
+
+"scheduler@npm:^0.20.1":
+  version: 0.20.1
+  resolution: "scheduler@npm:0.20.1"
+  dependencies:
+    loose-envify: ^1.1.0
+    object-assign: ^4.1.1
+  checksum: 377b4ad0d8313c4548bac7374bc38409e9d142799979ce396787efa04d1bcabf2591540f243f2131e3df8e56e7f5b29c5415248523e88ecb60f13a32db2e076f
   languageName: node
   linkType: hard
 

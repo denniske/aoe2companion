@@ -10,5 +10,15 @@
 /tools
 /web2
 /website2
+
+.git
+/electron
+/web
+/website
+/web-build
+
+**/env
+**/node_modules
+
 node_modules
 !node_modules/.prisma
