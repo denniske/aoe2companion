@@ -26,7 +26,8 @@
     "graph": "nx serve graph",
     "website": "next dev website",
     "build:website": "next build website",
-    "start:website:prod:80": "next start website -p 80"
+    "start:website:prod:80": "next start website -p 80",
+    "bundle:app": "npx expo publish -c --release-channel assets --config app.json -q"
   },
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
