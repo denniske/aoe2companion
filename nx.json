@@ -10,10 +10,10 @@
       "devDependencies": "*"
     },
     "tsconfig.base.json": "*",
-    "nx.json": "*"
+    "nx.json": "*",
+    ".eslintrc.json": "*"
   },
-  "tasksRunnerOptions": {
-  },
+  "tasksRunnerOptions": {},
   "projects": {
     "data": {
       "tags": []
@@ -29,4 +29,3 @@
     }
   }
 }
-

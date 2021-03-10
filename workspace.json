@@ -20,7 +20,10 @@
           },
           "configurations": {
             "production": {}
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@nrwl/next:server",
@@ -58,7 +61,10 @@
           },
           "configurations": {
             "production": {}
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@nrwl/next:server",
@@ -94,7 +100,9 @@
             "outputPath": "dist/graph",
             "main": "graph/src/main.ts",
             "tsConfig": "graph/tsconfig.app.json",
-            "assets": ["graph/src/assets"]
+            "assets": [
+              "graph/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -108,7 +116,10 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@nrwl/node:execute",
