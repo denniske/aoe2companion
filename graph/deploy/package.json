@@ -1,7 +1,7 @@
 {
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "generate:prisma": "prisma generate --schema graph/prisma/schema.prisma"
+    "generate:prisma": "prisma generate --schema schema.prisma"
   },
   "dependencies": {
     "@nestjs/common": "",
