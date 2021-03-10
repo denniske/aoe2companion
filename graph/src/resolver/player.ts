@@ -14,7 +14,7 @@ export class PlayerResolver {
 
     async getLeaderboard(leaderboardId: number, profileId: number) {
         console.log('DB FETCH LEADERBOARD ROW', leaderboardId, profileId);
-        const leaderboard = await this.prisma.leaderboard_row.findOne({
+        const leaderboard = await this.prisma.leaderboard_row.findUnique({
             where: {leaderboard_id_profile_id: {leaderboard_id: leaderboardId, profile_id: profileId}},
         });
         if (leaderboard == null) return null;

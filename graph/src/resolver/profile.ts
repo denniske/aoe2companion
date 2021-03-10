@@ -130,7 +130,7 @@ export class ProfileResolver {
     }
 
     async getLeaderboard(leaderboardId: number, profileId: number) {
-        const leaderboard = await this.prisma.leaderboard_row.findOne({
+        const leaderboard = await this.prisma.leaderboard_row.findUnique({
             where: {leaderboard_id_profile_id: {leaderboard_id: leaderboardId, profile_id: profileId}},
         });
         if (leaderboard == null) return null;

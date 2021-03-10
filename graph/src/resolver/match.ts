@@ -35,7 +35,7 @@ export class MatchResolver {
         @Args("match_id", {nullable: true}) match_id?: string,
         @Args("match_uuid", {nullable: true}) match_uuid?: string
     ) {
-        const match = await this.prisma.match.findOne({
+        const match = await this.prisma.match.findUnique({
             include: {
                 players: true,
             },
@@ -52,7 +52,7 @@ export class MatchResolver {
         @Args("match_id", {nullable: true}) match_id?: string,
         @Args("match_uuid", {nullable: true}) match_uuid?: string
     ) {
-        let match = await this.prisma.match.findOne({
+        let match = await this.prisma.match.findUnique({
             include: {
                 players: true,
             },
@@ -69,7 +69,7 @@ export class MatchResolver {
             console.log('REFETCHED', refetchedMatch);
             if (refetchedMatch.finished) {
                 await upsertMatchesWithPlayers(this.connection, [refetchedMatch], false);
-                match = await this.prisma.match.findOne({
+                match = await this.prisma.match.findUnique({
                     include: {
                         players: true,
                     },
@@ -173,7 +173,7 @@ export class MatchResolver {
     @ResolveField()
     async players(@Parent() match: Match) {
         const players = match.players || await this.prisma.match
-            .findOne({
+            .findUnique({
                 where: {
                     match_id: match.match_id
                 },

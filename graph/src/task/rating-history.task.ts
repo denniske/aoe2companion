@@ -80,7 +80,7 @@ export class RatingHistoryTask implements OnModuleInit {
             //     timestamp: minTimestamp,
             // });
 
-            const historyEntryInDb = await this.prisma.rating_history.findOne({
+            const historyEntryInDb = await this.prisma.rating_history.findUnique({
                 where: {
                     leaderboard_id_profile_id_timestamp: {
                         leaderboard_id: first.leaderboard_id,
