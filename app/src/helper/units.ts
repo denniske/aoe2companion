@@ -158,10 +158,7 @@ const playerColors = [
     'orange',
 ];
 
-export function getUnitIcon(unit: Unit, color?: number) {
+export function getUnitIcon(unit: Unit) {
     if (unitIcons[unit] == null) return require('../../../app/assets/units/EliteUniqueResearch.png');
-    if (color != null && color !== 1) {
-        return getUnitIconColored(unit, color);
-    }
     return unitIcons[unit];
 }

@@ -3,8 +3,8 @@ import {Dimensions, Image, StyleSheet, TextStyle, View} from 'react-native';
 import {civList, getCivNameById, getMatchTeams, getSlotTypeName, IMatch, IPlayer} from '@nex/data';
 import {MyText} from "./my-text";
 import {createStylesheet} from '../../theming-new';
-import {getUnitIcon} from "../../helper/units";
 import {getPlayerBackgroundColorBright} from '../../helper/colors';
+import {getUnitIconColored} from '../../helper/units-colored';
 
 
 interface IPlayerProps {
@@ -67,7 +67,7 @@ export function PlayerIntro({match, player, highlight, order}: IPlayerProps) {
             }
             {
                 order == 0 &&
-                <Image fadeDuration={0} style={[styles.unitIcon, { transform: [{rotateY: '180deg'}] }]} source={getUnitIcon(civList[player.civ].uniqueUnits[0], player.color) as any}/>
+                <Image fadeDuration={0} style={[styles.unitIcon, { transform: [{rotateY: '180deg'}] }]} source={getUnitIconColored(civList[player.civ].uniqueUnits[0], player.color) as any}/>
             }
             {
                 order == 0 &&
@@ -98,7 +98,7 @@ export function PlayerIntro({match, player, highlight, order}: IPlayerProps) {
             }
             {
                 order == 1 &&
-                <Image fadeDuration={0} style={[styles.unitIcon, { right: 0 }]} source={getUnitIcon(civList[player.civ].uniqueUnits[0], player.color) as any}/>
+                <Image fadeDuration={0} style={[styles.unitIcon, { right: 0 }]} source={getUnitIconColored(civList[player.civ].uniqueUnits[0], player.color) as any}/>
             }
             {
                 order == 1 &&
