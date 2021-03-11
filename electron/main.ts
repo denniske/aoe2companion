@@ -93,8 +93,8 @@ try {
       tray = createTray();
       if (startedViaAutostart) return;
       console.log('createOrShowAppWindow');
-      // await createOrShowAppWindow();
-      await createOrShowOverlayWindow('74869116'); // 8 tg viper
+      await createOrShowAppWindow();
+      // await createOrShowOverlayWindow('74869116'); // 8 tg viper
       // await createOrShowOverlayWindow('75049202'); // 8 free for all
       // await createOrShowOverlayWindow('75046190'); // vs AI
       // await createOrShowOverlayWindow('72704893');
