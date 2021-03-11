@@ -81,13 +81,13 @@ jobs:
           yarn run electron:serve-tsc
           yarn run electron:build:ci --publish never -c.extraMetadata.version=$VERSION
 
-#      - name: Upload binaries to release
-#        uses: svenstaro/upload-release-action@v2
-#        with:
-#          repo_token: ${{ secrets.GITHUB_TOKEN }}
-#          file: electron/release/aoe2companion-${{ env.VERSION }}.exe
-#          tag: ${{ github.ref }}
-#          overwrite: true
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: electron/release/aoe2companion-${{ env.VERSION }}.exe
+          tag: ${{ github.ref }}
+          overwrite: true
 
 #  macos:
 #    name: MacOS
