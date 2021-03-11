@@ -10,6 +10,7 @@ import {useSelector} from '../redux/reducer';
 import {moProfileId} from '@nex/data';
 import {useTheme} from '../theming';
 import {appVariants} from '../styles';
+import {isElectron} from "../helper/electron";
 
 
 interface IChangelogEntry {
@@ -96,11 +97,14 @@ export default function ChangelogPage() {
         </View>
     );
 
+    const changelogEntries = Object.entries(changelog).map(([version, changes]) => ({ version, changes }));
+    const filteredChangelogEntries = isElectron() ? changelogEntries : changelogEntries.filter(e => !e.version.includes('+'));
+
     return (
         <FlatList
             contentContainerStyle={styles.container}
             keyboardShouldPersistTaps={'always'}
-            data={Object.entries(changelog).map(([version, changes]) => ({ version, changes }))}
+            data={filteredChangelogEntries}
             renderItem={({item, index}) => renderItem(item)}
             keyExtractor={(item, index) => index.toString()}
         />

@@ -359,7 +359,7 @@ export function InnerApp() {
                     <UpdateSnackbar/>
                 }
                 {
-                    Platform.OS !== 'web' &&
+                    (Platform.OS !== 'web' || isElectron()) &&
                     <ChangelogSnackbar/>
                 }
                 <ErrorSnackbar/>
@@ -371,15 +371,6 @@ export function InnerApp() {
                 headerStatusBarHeight: 0,
                 animationEnabled: false,
             }}>
-
-                <Stack.Screen
-                    name="Settings"
-                    component={SettingsPage}
-                    options={{
-                        title: getTranslation('settings.title'),
-                    }}
-                />
-
                 <Stack.Screen
                     name="User"
                     component={UserPage}
@@ -388,6 +379,22 @@ export function InnerApp() {
                         title: sameUserNull(auth, props.route.params?.id) || props.route.params == null ? 'Me' : props.route.params.name,
                         headerRight: userMenu(props),
                     })}
+                />
+
+                <Stack.Screen
+                    name="Changelog"
+                    component={ChangelogPage}
+                    options={{
+                        title: getTranslation('changelog.title'),
+                    }}
+                />
+
+                <Stack.Screen
+                    name="Settings"
+                    component={SettingsPage}
+                    options={{
+                        title: getTranslation('settings.title'),
+                    }}
                 />
 
                 <Stack.Screen
@@ -435,13 +442,6 @@ export function InnerApp() {
                     component={SplashPage}
                     options={{
                         title: '',
-                    }}
-                />
-                <Stack.Screen
-                    name="Changelog"
-                    component={ChangelogPage}
-                    options={{
-                        title: getTranslation('changelog.title'),
                     }}
                 />
                 <Stack.Screen

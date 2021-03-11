@@ -16,6 +16,16 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
+    '26.0.1+0': [
+        {
+            type: 'feature',
+            title: 'Made main window resizable (only height)',
+        },
+        {
+            type: 'feature',
+            title: 'Made overlay opacity/offset/duration configurable',
+        },
+    ],
     '26.0.1': [
         {
             type: 'bugfix',
@@ -24,6 +34,12 @@ export const changelog: IChangelog = {
         {
             type: 'minor',
             title: 'Improved loading time of changelog page and civ list',
+        },
+    ],
+    '26.0.0+0': [
+        {
+            type: 'feature',
+            title: 'First stable desktop release',
         },
     ],
     '26.0.0': [

@@ -53,21 +53,21 @@ export default function SettingsPage() {
     }, [config]);
 
     const setOverlayOpacity = async (event: any) => {
-        const opacity = clamp(parseInt(event.target.value), 0, 100);
+        const opacity = clamp(parseInt(event.target.value), 1, 100);
         const newConfig = merge({}, config, { overlay: { opacity } });
         await saveConfigToStorage(newConfig);
         mutate(setConfig(newConfig));
     };
 
     const setOverlayOffset = async (event: any) => {
-        const offset = clamp(parseInt(event.target.value), 0, 100);
+        const offset = clamp(parseInt(event.target.value), 0, 90);
         const newConfig = merge({}, config, { overlay: { offset } });
         await saveConfigToStorage(newConfig);
         mutate(setConfig(newConfig));
     };
 
     const setOverlayDuration = async (event: any) => {
-        const duration = clamp(parseInt(event.target.value), 0, 100);
+        const duration = clamp(parseInt(event.target.value), 5, 1000);
         const newConfig = merge({}, config, { overlay: { duration } });
         await saveConfigToStorage(newConfig);
         mutate(setConfig(newConfig));
