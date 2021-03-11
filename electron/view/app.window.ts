@@ -1,5 +1,6 @@
 import {app, BrowserWindow, screen} from 'electron';
 import {isForceQuitting, serving, showDevTools, width} from "../main";
+import {prefs, savePrefs} from "../util/prefs";
 
 
 export async function createAppWindow() {
@@ -14,7 +15,7 @@ export async function createAppWindow() {
         width: width,
         minWidth: width,
         maxWidth: width,
-        height: 900,
+        height: prefs.app.windowHeight,
         minHeight: 400,
         webPreferences: {
             nodeIntegration: true,
@@ -24,8 +25,14 @@ export async function createAppWindow() {
         },
     });
 
+    win.on('resize', function (ev) {
+        const [width, height] = win.getSize();
+        prefs.app.windowHeight = height;
+    });
+
     win.on('close', function (event) {
         console.log('tryclose');
+        savePrefs();
         if (isForceQuitting()) return;
         event.preventDefault();
         win.minimize();

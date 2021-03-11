@@ -13,9 +13,16 @@ export interface IStoredSettings {
     profile_id?: number;
 }
 
+export interface IStoredPrefs {
+    app: {
+        windowHeight: number;
+    };
+}
+
 export interface IStoredData {
     config: IStoredConfig;
     settings: IStoredSettings;
+    prefs: IStoredPrefs;
 }
 
 export const store = new Store();

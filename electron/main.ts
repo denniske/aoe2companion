@@ -9,6 +9,7 @@ import {initProcess} from "./util/process";
 const serve = require('electron-serve');
 import * as Sentry from "@sentry/electron";
 import * as path from 'path';
+import {initPrefs} from "./util/prefs";
 
 
 let appWindow: BrowserWindow = null;
@@ -84,6 +85,7 @@ try {
     serve({directory: path.join(__dirname, 'dist/')});
 
     app.whenReady().then(async () => {
+      initPrefs();
       initElectrolytic();
       initUpdate();
       initProcess();
