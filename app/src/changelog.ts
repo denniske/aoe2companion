@@ -16,6 +16,12 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
+    '26.0.1+2': [
+        {
+            type: 'bugfix',
+            title: 'Fix transparency issue with overlay',
+        },
+    ],
     '26.0.1+0': [
         {
             type: 'feature',
