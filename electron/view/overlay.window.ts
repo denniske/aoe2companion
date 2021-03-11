@@ -22,7 +22,7 @@ export async function createOverlayWindow(match_id: string) {
             contextIsolation: false,
             enableRemoteModule: true,
         },
-        fullscreen: true,
+        // fullscreen: true,
     });
 
     win.setAlwaysOnTop(true, 'pop-up-menu');

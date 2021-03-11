@@ -20,7 +20,7 @@ let forceQuitting = false;
 
 const args = process.argv.slice(1);
 export const serving = args.some(val => val === '--serve');
-export const showDevTools = true && serving;
+export const showDevTools = false && serving;
 export const width = 450 + (showDevTools ? 657 : 0);
 const startedViaAutostart = process.argv.includes('--autostart');
 
@@ -93,8 +93,8 @@ try {
       tray = createTray();
       if (startedViaAutostart) return;
       console.log('createOrShowAppWindow');
-      await createOrShowAppWindow();
-      // await createOrShowOverlayWindow('74869116'); // 8 tg viper
+      // await createOrShowAppWindow();
+      await createOrShowOverlayWindow('74869116'); // 8 tg viper
       // await createOrShowOverlayWindow('75049202'); // 8 free for all
       // await createOrShowOverlayWindow('75046190'); // vs AI
       // await createOrShowOverlayWindow('72704893');
