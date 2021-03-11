@@ -708,9 +708,9 @@ export function AppWrapper() {
 
     const finalDarkMode = darkMode === "system" && (colorScheme === 'light' || colorScheme === 'dark') ? colorScheme : darkMode;
 
-    const appType = (Platform.OS === 'web' && global.location.pathname.startsWith('/intro')) ? 'intro' : 'app';
+    const appType = (Platform.OS === 'web' && (global as any).location.pathname.startsWith('/intro')) ? 'intro' : 'app';
 
-    console.log('global.location', JSON.stringify(global.location));
+    console.log('global.location', JSON.stringify((global as any).location));
 
     return (
         <NavigationContainer ref={navigationRef}
