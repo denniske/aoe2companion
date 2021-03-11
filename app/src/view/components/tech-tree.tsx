@@ -88,7 +88,7 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                 <View style={styles.compactTechTree}>
                     {
                         compactTechTree.map((row, i) =>
-                            <Delayed delay={i*30}><TechTreeRow civ={civ} row={row}/></Delayed>
+                            <Delayed key={i} delay={i*30}><TechTreeRow civ={civ} row={row}/></Delayed>
                         )
                     }
                 </View>
@@ -98,7 +98,7 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
                 <View style={styles.fullTechTree}>
                     {
                         fullTechTree.map((row, i) =>
-                            <Delayed delay={i*30}><TechTreeRow civ={civ} row={row}/></Delayed>
+                            <Delayed key={i} delay={i*30}><TechTreeRow civ={civ} row={row}/></Delayed>
                         )
                     }
                 </View>
