@@ -30,6 +30,10 @@ export function isBirthday() {
     return new Date().getDate() === moDate && new Date().getMonth() === moMonth;
 }
 
+export function clamp(value, a, b) {
+    return Math.max(Math.min(value, b), a);
+}
+
 const localeMapping = {
     'ms': ms,
     'fr': fr,

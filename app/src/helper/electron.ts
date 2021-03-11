@@ -17,6 +17,10 @@ export function closeOverlayWindow() {
 //     return eval(`require('electron').remote.getCurrentWindow().close()`);
 // }
 
+export async function showOverlayWindowAsync() {
+    return getElectron().ipcRenderer.invoke('show-overlay-window');
+}
+
 export async function closeOverlayWindowAsync() {
     return getElectron().ipcRenderer.invoke('close-overlay-window');
 }
@@ -30,7 +34,7 @@ export async function getElectronVersion() {
 }
 
 export async function doCheckForUpdateElectronAsync() {
-    // if (__DEV__) return null;
+    if (__DEV__) return null;
     return getElectron().ipcRenderer.invoke('check-for-electron-update');
 }
 

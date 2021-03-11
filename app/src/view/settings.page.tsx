@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Platform, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {MyText} from "./components/my-text";
 import {DarkMode, setConfig, useMutate, useSelector} from "../redux/reducer";
 import {saveConfigToStorage} from "../service/storage";
 import Picker from "./components/picker";
 import {useTheme} from "../theming";
-import {Button, Checkbox} from 'react-native-paper';
+import {Button, Checkbox, TextInput} from 'react-native-paper';
 import {useNavigation} from "@react-navigation/native";
 import {appVariants} from "../styles";
 import {getToken} from "../service/push";
@@ -27,6 +27,9 @@ import {setInternalLanguage} from '../redux/statecache';
 import * as Localization from 'expo-localization';
 import {deactivatePusher, initPusher} from '../helper/pusher';
 import {getElectronPushToken, isElectron} from '../helper/electron';
+import Space from "./components/space";
+import {merge} from 'lodash';
+import {clamp} from "@nex/data";
 
 
 export default function SettingsPage() {
@@ -39,6 +42,36 @@ export default function SettingsPage() {
     const appStyles = useTheme(appVariants);
     const following = useSelector(state => state.following);
     const [loadingPushNotificationEnabled, setLoadingPushNotificationEnabled] = useState(false);
+    const [overlayOpacityStr, setOverlayOpacityStr] = useState('');
+    const [overlayOffsetStr, setOverlayOffsetStr] = useState('');
+    const [overlayDurationStr, setOverlayDurationStr] = useState('');
+
+    useEffect(() => {
+        setOverlayOpacityStr(`${config.overlay.opacity}`);
+        setOverlayOffsetStr(`${config.overlay.offset}`);
+        setOverlayDurationStr(`${config.overlay.duration}`);
+    }, [config]);
+
+    const setOverlayOpacity = async (event: any) => {
+        const opacity = clamp(parseInt(event.target.value), 0, 100);
+        const newConfig = merge({}, config, { overlay: { opacity } });
+        await saveConfigToStorage(newConfig);
+        mutate(setConfig(newConfig));
+    };
+
+    const setOverlayOffset = async (event: any) => {
+        const offset = clamp(parseInt(event.target.value), 0, 100);
+        const newConfig = merge({}, config, { overlay: { offset } });
+        await saveConfigToStorage(newConfig);
+        mutate(setConfig(newConfig));
+    };
+
+    const setOverlayDuration = async (event: any) => {
+        const duration = clamp(parseInt(event.target.value), 0, 100);
+        const newConfig = merge({}, config, { overlay: { duration } });
+        await saveConfigToStorage(newConfig);
+        mutate(setConfig(newConfig));
+    };
 
     const values: DarkMode[] = [
         'light',
@@ -51,7 +84,7 @@ export default function SettingsPage() {
             ...config,
             darkMode: darkMode.toLowerCase(),
         };
-        await saveConfigToStorage(newConfig)
+        await saveConfigToStorage(newConfig);
         mutate(setConfig(newConfig));
     };
 
@@ -351,6 +384,39 @@ export default function SettingsPage() {
                         >
                             {getTranslation('settings.overlay.action.test')}
                         </Button>
+                        <Space/>
+                        <TextInput
+                            textAlign="right"
+                            style={{textAlign: 'right'}}
+                            right={<TextInput.Affix text={' %'}/>}
+                            dense={true}
+                            label="Opacity"
+                            value={overlayOpacityStr}
+                            onChangeText={setOverlayOpacityStr}
+                            onBlur={setOverlayOpacity}
+                        />
+                        <Space/>
+                        <TextInput
+                            textAlign="right"
+                            style={{textAlign: 'right'}}
+                            right={<TextInput.Affix text={' %'}/>}
+                            dense={true}
+                            label="Offset Top"
+                            value={overlayOffsetStr}
+                            onChangeText={setOverlayOffsetStr}
+                            onBlur={setOverlayOffset}
+                        />
+                        <Space/>
+                        <TextInput
+                            textAlign="right"
+                            style={{textAlign: 'right'}}
+                            right={<TextInput.Affix text={' s'}/>}
+                            dense={true}
+                            label="Duration"
+                            value={overlayDurationStr}
+                            onChangeText={setOverlayDurationStr}
+                            onBlur={setOverlayDuration}
+                        />
                     </View>
                 </View>
             }
@@ -410,6 +476,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         paddingHorizontal,
         paddingVertical,
         flex: 1,
+        alignSelf: 'flex-start',
     },
     cellValue: {
         paddingHorizontal,

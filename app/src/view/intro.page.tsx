@@ -8,6 +8,7 @@ import {GameIntro} from "./components/game-intro";
 import {RouteProp, useRoute} from "@react-navigation/native";
 import {RootStackParamList} from "../../App";
 import {closeOverlayWindow, isElectron} from "../helper/electron";
+import {useSelector} from "../redux/reducer";
 
 
 export default function IntroPage() {
@@ -15,6 +16,8 @@ export default function IntroPage() {
 
     const route = useRoute<RouteProp<RootStackParamList, 'Intro'>>();
     const match_id = route.params?.match_id;
+
+    const overlayConfig = useSelector(state => state.config.overlay);
 
     const match = useLazyApi(
         {},
@@ -29,7 +32,7 @@ export default function IntroPage() {
     const positionAnim = useRef(new Animated.Value(0)).current;
 
     const fadeTime = 2000;
-    const showTime = 60000;
+    const showTime = overlayConfig.duration * 1000;
 
     useEffect(() => {
         Animated.timing(
@@ -60,24 +63,23 @@ export default function IntroPage() {
                     useNativeDriver: true,
                 }
             ).start();
-            Animated.timing(
-                positionAnim,
-                {
-                    toValue: 2,
-                    duration: fadeTime,
-                    useNativeDriver: true,
-                }
-            ).start();
             setTimeout(closeOverlayWindow, fadeTime);
         }, showTime);
     }, [fadeAnim]);
 
-    const position = {
+    const fadeInOpacity = {
+        opacity: fadeAnim.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0, overlayConfig.opacity/100],
+        }),
+    };
+
+    const fadeInTransform = {
         transform: [
             {
                 translateY: positionAnim.interpolate({
                     inputRange: [0, 1],
-                    outputRange: [20, 0],
+                    outputRange: [40, 0],
                 }),
             },
         ]
@@ -92,46 +94,45 @@ export default function IntroPage() {
     // console.log(JSON.parse(JSON.stringify(match.data)));
 
     return (
-        <Animated.View
-            style={[styles.container, {
-                opacity: fadeAnim,
-                ...position,
-            }]}
-        >
-            <View style={styles.wrapper}>
-
-            {/*<View style={styles.titleWrapper}>*/}
-            {/*    <BorderText style={styles.title}>AoE II Companion</BorderText>*/}
-            {/*</View>*/}
-
-            <GameIntro
-                match={match.data}
-            />
-            </View>
-        </Animated.View>
+        <View style={styles.container}>
+            <Animated.View style={[
+                styles.wrapper,
+                fadeInTransform,
+                fadeInOpacity,
+                { top: overlayConfig.offset + '%' },
+            ]}>
+                {/*<View style={styles.titleWrapper}>*/}
+                {/*    <BorderText style={styles.title}>AoE II Companion</BorderText>*/}
+                {/*</View>*/}
+                <GameIntro match={match.data}/>
+            </Animated.View>
+        </View>
     );
 }
 
 const useStyles = createStylesheet(theme => StyleSheet.create({
     container: {
-        minHeight: '100%',
+        width: '100%',
+        height: '100%',
         alignItems: 'center',
-        paddingTop: 100,
+        position: 'relative',
+        // backgroundColor: 'rgba(255,255,0,0.1)',
     },
     wrapper: {
-        // backgroundColor: 'rgba(0,0,0,0.1)',
+        position: "absolute",
         overflow: 'hidden',
         width: '100%',
+        // backgroundColor: 'red',
     },
-    title: {
-        fontSize: 18,
-        fontWeight: '700',
-        marginTop: 20,
-        marginBottom: 20,
-    },
-    titleWrapper: {
-        // backgroundColor: 'yellow',
-        flexDirection: 'row',
-        justifyContent: 'center',
-    },
+    // title: {
+    //     fontSize: 18,
+    //     fontWeight: '700',
+    //     marginTop: 20,
+    //     marginBottom: 20,
+    // },
+    // titleWrapper: {
+    //     // backgroundColor: 'yellow',
+    //     flexDirection: 'row',
+    //     justifyContent: 'center',
+    // },
 }));

@@ -3,9 +3,10 @@ import {serving, showDevTools} from "../main";
 
 
 export async function createOverlayWindow(match_id: string) {
-    const size = screen.getPrimaryDisplay().workAreaSize;
+    const size = screen.getPrimaryDisplay().size;
 
     console.log('size.width', size.width);
+    console.log('size.height', size.height);
 
     const win = new BrowserWindow({
         x: 0,
@@ -21,6 +22,7 @@ export async function createOverlayWindow(match_id: string) {
             contextIsolation: false,
             enableRemoteModule: true,
         },
+        fullscreen: true,
     });
 
     win.setAlwaysOnTop(true, 'pop-up-menu');

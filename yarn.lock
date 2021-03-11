@@ -24823,9 +24823,9 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"react-native-paper@npm:^4.7.0":
-  version: 4.7.0
-  resolution: "react-native-paper@npm:4.7.0"
+"react-native-paper@npm:^4.7.2":
+  version: 4.7.2
+  resolution: "react-native-paper@npm:4.7.2"
   dependencies:
     "@callstack/react-theme-provider": ^3.0.5
     color: ^3.1.2
@@ -24834,7 +24834,7 @@ fsevents@~2.1.2:
     react: "*"
     react-native: "*"
     react-native-vector-icons: "*"
-  checksum: 56c9f2f20f5c35878ab9dd6da8e47bece5e778a14b5db54f27c08bd8f770e5e919bfe8dfaea241af4b18af7baddcb93832c222a0ce16cef2cc3f2ce70068c437
+  checksum: df9e12e84dc00b63d7ce7ce25c68cfc5e3b1b04349df50255776e905afb7e963732213c3e5bd65c4db65804e3726d76a6994fa39a64b16c755daa26754cf402e
   languageName: node
   linkType: hard
 
@@ -26239,7 +26239,7 @@ resolve@~1.7.1:
     react-native-bundle-visualizer: ^2.2.1
     react-native-debugger-open: ^0.3.24
     react-native-gesture-handler: ~1.8.0
-    react-native-paper: ^4.7.0
+    react-native-paper: ^4.7.2
     react-native-reanimated: ~1.13.0
     react-native-safe-area-context: 3.1.9
     react-native-screens: ~2.15.0

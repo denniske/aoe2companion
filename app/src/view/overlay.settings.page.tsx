@@ -6,7 +6,7 @@ import {useSelector} from "../redux/reducer";
 import Space from "./components/space";
 import {createStylesheet} from '../theming-new';
 import {sendTestPushNotificationElectron} from '../api/following';
-import {getElectronPushToken, isAoeRunningAsync} from '../helper/electron';
+import {closeOverlayWindowAsync, getElectronPushToken, isAoeRunningAsync, showOverlayWindowAsync} from '../helper/electron';
 import {sleep} from '@nex/data';
 
 
@@ -17,13 +17,21 @@ export default function OverlaySettingsPage() {
     const [pushToken, setPushToken] = useState<string>();
     const config = useSelector(state => state.config);
 
-    const showTestOverlay = async () => {
+    const sendTestNotificaitonForOverlay = async () => {
         if (!pushToken) {
             setOverlayStatus('Error: Could not retrieve push token.');
             return;
         }
         await sendTestPushNotificationElectron(pushToken);
         setOverlayStatus('Sent overlay test notification.');
+    };
+
+    const showTestOverlay = async () => {
+        showOverlayWindowAsync();
+    };
+
+    const closeTestOverlay = async () => {
+        closeOverlayWindowAsync();
     };
 
     const checkAoeRunning = async () => {
@@ -53,9 +61,16 @@ export default function OverlaySettingsPage() {
             <Space/>
             <Space/>
 
+            {/*<Space/>*/}
+            {/*<Button style={styles.button} mode="outlined" onPress={showTestOverlay}>*/}
+            {/*    {'Show Overlay'}*/}
+            {/*</Button>*/}
+            {/*<Space/>*/}
+            {/*<Space/>*/}
+
             <MyText>You can send a test notification. If the windows notification pops up, the overlay should show. You don't need to click on the notification.</MyText>
             <Space/>
-            <Button style={styles.button} mode="outlined" onPress={showTestOverlay} disabled={!pushToken}>
+            <Button style={styles.button} mode="outlined" onPress={sendTestNotificaitonForOverlay} disabled={!pushToken}>
                 Send test notification for overlay
             </Button>
             <MyText>{overlayStatus}</MyText>

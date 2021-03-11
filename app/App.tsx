@@ -371,6 +371,15 @@ export function InnerApp() {
                 headerStatusBarHeight: 0,
                 animationEnabled: false,
             }}>
+
+                <Stack.Screen
+                    name="Settings"
+                    component={SettingsPage}
+                    options={{
+                        title: getTranslation('settings.title'),
+                    }}
+                />
+
                 <Stack.Screen
                     name="User"
                     component={UserPage}
@@ -382,13 +391,6 @@ export function InnerApp() {
                 />
 
                 <Stack.Screen
-                    name="Settings"
-                    component={SettingsPage}
-                    options={{
-                        title: getTranslation('settings.title'),
-                    }}
-                />
-                <Stack.Screen
                     name="OverlaySettings"
                     component={OverlaySettingsPage}
                     options={{
@@ -396,28 +398,29 @@ export function InnerApp() {
                     }}
                 />
 
-                <Stack.Screen
-                    name="Intro"
-                    component={IntroPage}
-                    options={{
-                        title: 'Intro',
-                        headerShown: false,
-                        cardShadowEnabled: false,
-                        cardOverlayEnabled: false,
-                        cardStyle: { backgroundColor: 'rgba(0,0,0,0)'}
-                    }}
-                />
-                <Stack.Screen
-                    name="Overlay"
-                    component={OverlayPage}
-                    options={{
-                        title: 'Overlay',
-                        headerShown: false,
-                        cardShadowEnabled: false,
-                        cardOverlayEnabled: false,
-                        cardStyle: { backgroundColor: 'rgba(0,0,0,0)'}
-                    }}
-                />
+                {/*<Stack.Screen*/}
+                {/*    name="Intro"*/}
+                {/*    component={IntroPage}*/}
+                {/*    options={{*/}
+                {/*        title: 'Intro',*/}
+                {/*        headerShown: false,*/}
+                {/*        cardShadowEnabled: false,*/}
+                {/*        cardOverlayEnabled: false,*/}
+                {/*        cardStyle: { backgroundColor: 'rgba(0,0,0,0)'}*/}
+                {/*    }}*/}
+                {/*/>*/}
+                {/*<Stack.Screen*/}
+                {/*    name="Overlay"*/}
+                {/*    component={OverlayPage}*/}
+                {/*    options={{*/}
+                {/*        title: 'Overlay',*/}
+                {/*        headerShown: false,*/}
+                {/*        cardShadowEnabled: false,*/}
+                {/*        cardOverlayEnabled: false,*/}
+                {/*        cardStyle: { backgroundColor: 'rgba(0,0,0,0)'}*/}
+                {/*    }}*/}
+                {/*/>*/}
+
                 <Stack.Screen
                     name="Leaderboard"
                     component={LeaderboardPage}
@@ -565,7 +568,7 @@ export function InnerAppForIntro() {
     });
 
     return (
-        <SafeAreaView style={styles.containerIntro} nativeID="container">
+        <View style={styles.containerIntro} nativeID="container">
             <Stack.Navigator screenOptions={{
                 ...TransitionPresets.SlideFromRightIOS,
                 headerStatusBarHeight: 0,
@@ -579,11 +582,11 @@ export function InnerAppForIntro() {
                         headerShown: false,
                         cardShadowEnabled: false,
                         cardOverlayEnabled: false,
-                        cardStyle: { backgroundColor: 'rgba(0,0,0,0)'}
+                        cardStyle: { backgroundColor: 'rgba(0,0,0,0)' }
                     }}
                 />
             </Stack.Navigator>
-        </SafeAreaView>
+        </View>
     );
 }
 
@@ -794,10 +797,10 @@ const useStyles = createStylesheet((theme, darkMode) => StyleSheet.create({
             {
                 overflow: 'hidden',
                 width: '100%',
+                height: '100%',
             }
             : {}
         ),
-        flex: 1,
     },
 }));
 

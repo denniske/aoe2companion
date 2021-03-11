@@ -5,6 +5,7 @@ import {v4 as uuidv4} from "uuid";
 import {Flag} from '@nex/data';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {isElectron, sendConfig, sendSettings} from "../helper/electron";
+import { merge } from 'lodash';
 
 export interface IConfig {
     hotkeyShowHideEnabled: boolean;
@@ -12,6 +13,11 @@ export interface IConfig {
     darkMode: DarkMode;
     pushNotificationsEnabled: boolean;
     overlayEnabled: boolean;
+    overlay: {
+        opacity: number;
+        offset: number;
+        duration: number;
+    }
     preventScreenLockOnGuidePage: boolean;
     language: string;
 }
@@ -84,6 +90,11 @@ export const loadConfigFromStorage = async () => {
     entry.pushNotificationsEnabled = entry.pushNotificationsEnabled ?? false;
     entry.hotkeyShowHideEnabled = entry.hotkeyShowHideEnabled ?? true;
     entry.hotkeySearchEnabled = entry.hotkeySearchEnabled ?? true;
+    entry.overlay = merge({
+        opacity: 80,
+        offset: 7,
+        duration: 60,
+    }, entry.overlay);
     await sendConfigToElectron(entry);
     return entry;
 };
