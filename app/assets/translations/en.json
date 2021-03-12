@@ -208,6 +208,10 @@
   "unit.stats.heading.speed": "Speed",
   "unit.stats.heading.lineofsight": "Line Of Sight",
   "unit.stats.heading.garrisoncapacity": "Garrison Capacity",
+  "unit.stats.heading.maxcharge": "max",
+  "unit.stats.heading.rechargerate": "recharge rate",
+  "unit.stats.heading.rechargeduration": "duration",
+  "unit.stats.heading.charge": "Charge Attack",
 
   "tips.title": "Tips & Tricks",
   "tips.item.heading.gatheringefficiently": "Gathering efficiently",

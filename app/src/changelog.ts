@@ -16,6 +16,12 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
+    '26.0.2': [
+        {
+            type: 'minor',
+            title: 'Added charge attack stats for Coustillier',
+        },
+    ],
     '26.0.1+2': [
         {
             type: 'bugfix',

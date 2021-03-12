@@ -3142,11 +3142,14 @@ export interface IUnitInfo {
     LanguageHelpId: number;
     LanguageNameId: number;
     LineOfSight: number;
+    MaxCharge: number;
     MeleeArmor: number;
     MinRange: number;
     PierceArmor: number;
     Armours: ReadonlyArray<IUnitClassPair>;
     Range: number;
+    RechargeDuration: number;
+    RechargeRate: number;
     ReloadTime: number;
     Speed: number;
     TrainTime: number;

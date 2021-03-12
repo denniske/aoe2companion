@@ -257,6 +257,39 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                     )
                 }
             </View>
+            {
+                baseData.MaxCharge > 0 &&
+                <View style={styles.statsRow}>
+                    <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.charge')}</MyText>
+                </View>
+            }
+            {
+                baseData.MaxCharge > 0 &&
+                <View style={styles.statsRow}>
+                    <MyText style={[styles.cellName, styles.small]}>{getTranslation('unit.stats.heading.maxcharge')}</MyText>
+                    {
+                        units.map(u => <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="MaxCharge"/>)
+                    }
+                </View>
+            }
+            {
+                baseData.RechargeRate > 0 &&
+                <View style={styles.statsRow}>
+                    <MyText style={[styles.cellName, styles.small]}>{getTranslation('unit.stats.heading.rechargerate')}</MyText>
+                    {
+                        units.map(u => <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="RechargeRate"/>)
+                    }
+                </View>
+            }
+            {
+                baseData.RechargeDuration > 0 &&
+                <View style={styles.statsRow}>
+                    <MyText style={[styles.cellName, styles.small]}>{getTranslation('unit.stats.heading.rechargeduration')}</MyText>
+                    {
+                        units.map(u => <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="RechargeDuration" formatter={x => x ? x+' s' : ''}/>)
+                    }
+                </View>
+            }
             <View style={styles.statsRow}>
                 <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.rateoffire')}</MyText>
                 {
