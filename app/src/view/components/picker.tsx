@@ -1,4 +1,4 @@
-    import {Divider, Menu} from "react-native-paper";
+import {Divider, Menu} from "react-native-paper";
 import {
     Dimensions, FlatList, FlatListProps, SectionList, SectionListData, StyleProp, StyleSheet, Text, TouchableOpacity,
     View,
@@ -14,6 +14,7 @@ interface IPickerProps<T> {
     values?: T[];
     sections?: SectionListData<T>[];
     formatter: (value: T, inList?: boolean) => string;
+    sectionFormatter?: (value: string) => string;
     icon?: (value: T, inList?: boolean) => React.ReactNode;
     divider?: (value: T, index: number) => boolean;
     cell?: (props: {}) => React.ReactNode;
@@ -38,12 +39,12 @@ function defaultCell(props: any) {
     );
 }
 
-export default function Picker<T>(props: IPickerProps<T>) {
+export default function  Picker<T>(props: IPickerProps<T>) {
     const theme = usePaperTheme();
     const [menu, setMenu] = useState(false);
 
     const { value, values, sections, onSelect, style, disabled,
-            formatter = (x) => x, icon = x => undefined, cell = defaultCell, divider = x => false, container,
+            formatter = (x) => x, sectionFormatter = (x) => x, icon = x => undefined, cell = defaultCell, divider = x => false, container,
             textMinWidth = 0, itemHeight
     } = props;
 
@@ -65,7 +66,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
         <View key={title} style={{ height: itemHeight }}>
             <View style={styles.menuItem}>
                 <View style={styles.row}>
-                    <MyText numberOfLines={1} style={[styles.text, { minWidth: textMinWidth, color: color }]}>{title}</MyText>
+                    <MyText numberOfLines={1} style={[styles.text, { minWidth: textMinWidth, color: color }]}>{sectionFormatter(title)}</MyText>
                 </View>
             </View>
         </View>

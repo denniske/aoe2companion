@@ -140,7 +140,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
 
     const unitNone = null;
 
-    const formaUnit = (x: (string | null), inList?: boolean) => {
+    const formatUnit = (x: (string | null), inList?: boolean) => {
         if (x == unitNone) {
             return getTranslation('unit.stats.action.compare');
         }
@@ -176,7 +176,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                     </>
                 }
                 <View style={styles.cellValue}>
-                    <Picker itemHeight={40} textMinWidth={150} container="sectionlist" icon={icon} value={comparisonUnit} sections={allUnitSections} formatter={formaUnit} onSelect={onComparisonUnitSelected}/>
+                    <Picker itemHeight={40} textMinWidth={150} container="sectionlist" icon={icon} value={comparisonUnit} sections={allUnitSections} sectionFormatter={getTranslation} formatter={formatUnit} onSelect={onComparisonUnitSelected}/>
                 </View>
             </View>
 

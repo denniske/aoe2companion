@@ -21,6 +21,10 @@ export const changelog: IChangelog = {
             type: 'minor',
             title: 'Added charge attack stats for Coustillier',
         },
+        {
+            type: 'bugfix',
+            title: 'Fixed units stats compare section headers',
+        },
     ],
     '26.0.1+2': [
         {
