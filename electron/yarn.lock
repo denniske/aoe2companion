@@ -327,17 +327,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:12.12.6":
-  version: 12.12.6
-  resolution: "@types/node@npm:12.12.6"
-  checksum: c33c3822c3c80b1156cb4790cee16ef6855b2f93898967d21063c4c84a0ecf69a6d3d89a21fccea345ca2c53ab7b86672c9879995452d77327d313406cdb3352
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^12.0.12":
-  version: 12.20.1
-  resolution: "@types/node@npm:12.20.1"
-  checksum: b812bc6ab5e676ad2c860019f1e983d23d208158f10983026da345643cc6fe59f289ff306d9f838ca46e2520d82fbd068b31ccc235f43b2090bf77f1402816f3
+"@types/node@npm:14.14.34, @types/node@npm:^14.6.2":
+  version: 14.14.34
+  resolution: "@types/node@npm:14.14.34"
+  checksum: 74db0d80ad997c3ca2597abe1c63c85e87c32e06b4e8c8392a24a11ad00a4567b293a72bbdf49ace201150b420a943609181771cab034cef10fe65272d452718
   languageName: node
   linkType: hard
 
@@ -520,10 +513,10 @@ __metadata:
     "@sentry/cli": ^1.63.1
     "@sentry/electron": ^2.4.0
     "@sentry/wizard": ^1.2.2
-    "@types/node": 12.12.6
+    "@types/node": 14.14.34
     cross-env: 7.0.2
     electrolytic: ^0.1.0
-    electron: 11.3.0
+    electron: 12.0.1
     electron-active-window: ^0.0.5
     electron-builder: ^22.10.5
     electron-download: ^4.1.1
@@ -1687,16 +1680,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"electron@npm:11.3.0":
-  version: 11.3.0
-  resolution: "electron@npm:11.3.0"
+"electron@npm:12.0.1":
+  version: 12.0.1
+  resolution: "electron@npm:12.0.1"
   dependencies:
     "@electron/get": ^1.0.1
-    "@types/node": ^12.0.12
+    "@types/node": ^14.6.2
     extract-zip: ^1.0.3
   bin:
     electron: cli.js
-  checksum: 8c46be2f5969d796ca0cde3d9f9cb8e21ea05edee0840676a97f2ddaa80e0d1a493ebb658383dd35ba26aaea6f036851f2a7627cd58db6444f4e4cb2ac249067
+  checksum: a85512d03a660f0054b22eee99bb936ef643cdfa522aeab57d691056d86bf5e344ba33bdccd5c6c79f3bfedeca93f4f5dd1b36b3fb1c4f4d64ca8a1a88ce79c0
   languageName: node
   linkType: hard
 

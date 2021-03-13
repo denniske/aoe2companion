@@ -7588,16 +7588,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash-es@npm:^4.17.3":
-  version: 4.17.3
-  resolution: "@types/lodash-es@npm:4.17.3"
-  dependencies:
-    "@types/lodash": "*"
-  checksum: d277a0d79dc3093ed683fd5314301d1df083f10921c14f7ec0604270450858239e604498c33cb5378fda9db56f2af2a014d3e42f7d1df5dc391662c8feb9f377
-  languageName: node
-  linkType: hard
-
-"@types/lodash@npm:*, @types/lodash@npm:^4.14.157, @types/lodash@npm:^4.14.92":
+"@types/lodash@npm:^4.14.157, @types/lodash@npm:^4.14.92":
   version: 4.14.161
   resolution: "@types/lodash@npm:4.14.161"
   checksum: c3657517dab1a23059d86ae379c4e7538212f05ba9c3e108ab694167f086118a5b44ed04bcb6e5cd0a89778c29909668302a755df576e3597df16fda8b603443
@@ -7669,10 +7660,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:12.12.38":
-  version: 12.12.38
-  resolution: "@types/node@npm:12.12.38"
-  checksum: 542c14823ec21683952a095304ce5aceb01da5f28af95adec0141293ab4f964bf5f7d6d69dd2635b18c9d4af07aee6c40a0ac7cbd25d96a009aa09ec86f4b460
+"@types/node@npm:14.14.34":
+  version: 14.14.34
+  resolution: "@types/node@npm:14.14.34"
+  checksum: 74db0d80ad997c3ca2597abe1c63c85e87c32e06b4e8c8392a24a11ad00a4567b293a72bbdf49ace201150b420a943609181771cab034cef10fe65272d452718
   languageName: node
   linkType: hard
 
@@ -19270,13 +19261,6 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"lodash-es@npm:^4.17.15":
-  version: 4.17.15
-  resolution: "lodash-es@npm:4.17.15"
-  checksum: ee2871b76deefd1754527e659a8c8b688f2e427e67b30709296878e18ad9cb54b4f0fc16a7161298156b4e0ebc2a37dfe501a3ea8725f195763f9de8a7ba6da6
-  languageName: node
-  linkType: hard
-
 "lodash._reinterpolate@npm:^3.0.0":
   version: 3.0.0
   resolution: "lodash._reinterpolate@npm:3.0.0"
@@ -26164,8 +26148,7 @@ resolve@~1.7.1:
     "@types/express": ^4.16.0
     "@types/graphql": 14.5.0
     "@types/lodash": ^4.14.157
-    "@types/lodash-es": ^4.17.3
-    "@types/node": 12.12.38
+    "@types/node": 14.14.34
     "@types/node-cron": ^2.0.3
     "@types/node-fetch": ^2.5.7
     "@types/pg": ^7.14.4
@@ -26222,7 +26205,6 @@ resolve@~1.7.1:
     graphql-tools: ^6.2.3
     immer: ^7.0.0
     lodash: ^4.17.19
-    lodash-es: ^4.17.15
     nestjs-s3: ^1.0.1
     next: 10.0.1
     next-transpile-modules: ^4.1.0
