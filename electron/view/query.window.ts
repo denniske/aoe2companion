@@ -61,7 +61,7 @@ export async function createQueryWindow() {
         win.setSkipTaskbar(true);
     });
 
-    // win.setAlwaysOnTop(true, 'pop-up-menu');
+    win.setAlwaysOnTop(true, 'pop-up-menu');
 
     const path = `query`;
 

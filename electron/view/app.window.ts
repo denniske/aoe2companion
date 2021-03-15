@@ -40,7 +40,7 @@ export async function createAppWindow(path: string = '') {
         // win.setSkipTaskbar(true);
     });
 
-    // win.setAlwaysOnTop(true, 'pop-up-menu');
+    win.setAlwaysOnTop(true, 'pop-up-menu');
 
     if (serving) {
         if (showDevTools) {
