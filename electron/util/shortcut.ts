@@ -14,7 +14,7 @@ export function initShortcut() {
 
 export async function checkShortcuts() {
     const config = store.get('config') as IStoredConfig;
-    const aoeRunning = true; //await isAoeWindowFocused();
+    const aoeRunning = await isAoeWindowFocused();
     const hotkeyShowHideEnabled = aoeRunning && config?.hotkeyShowHideEnabled;
     if (hotkeyShowHideEnabled != globalShortcut.isRegistered(acceleratorShowHide)) {
         console.log(hotkeyShowHideEnabled, '!=', globalShortcut.isRegistered(acceleratorShowHide));
