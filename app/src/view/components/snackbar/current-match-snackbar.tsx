@@ -30,10 +30,10 @@ export default function CurrentMatchSnackbar() {
         setVisible(false);
     };
 
-    useEffect(() => {
-        mutate(setIngame(fakeMatch as any, fakeMatch.players.find(p => p.profile_id === moProfileId) as any));
-        nav('Unit', { unit: 'ScoutCavalry' });
-    }, []);
+    // useEffect(() => {
+    //     mutate(setIngame(fakeMatch as any, fakeMatch.players.find(p => p.profile_id === moProfileId) as any));
+    //     nav('Unit', { unit: 'ScoutCavalry' });
+    // }, []);
 
     if (!match) return <View/>;
 

@@ -35,7 +35,7 @@ export async function getElectronVersion() {
 }
 
 export async function doCheckForUpdateElectronAsync() {
-    // if (__DEV__) return null;
+    if (__DEV__) return null;
     return getElectron().ipcRenderer.invoke('check-for-electron-update');
 }
 
@@ -63,8 +63,8 @@ export async function getElectronPushToken() {
     return getElectron().ipcRenderer.invoke('get-electrolytic-token');
 }
 
-export async function queryItemCanceledAsync(item: IQueryRow) {
-    return getElectron().ipcRenderer.invoke('query-item-canceled', item);
+export async function queryItemCanceledAsync() {
+    return getElectron().ipcRenderer.invoke('query-item-canceled');
 }
 
 export async function queryItemSelectedAsync(item: IQueryRow) {

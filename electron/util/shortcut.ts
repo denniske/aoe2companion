@@ -5,7 +5,7 @@ import {createOrShowAppWindow, createOrShowQueryWindow, getAppWindow, getQueryWi
 
 
 const acceleratorShowHide = 'F1';
-const acceleratorSearch = 'CommandOrControl+P';
+const acceleratorSearch = 'CommandOrControl+F';
 
 export function initShortcut() {
     setInterval(checkShortcuts, 500);

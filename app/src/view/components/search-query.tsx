@@ -33,7 +33,7 @@ import {getTechIcon} from "../../helper/techs";
 import {getBuildingIcon} from "../../helper/buildings";
 import {Highlight} from "../../helper/highlight";
 import {getCivIcon} from "../../helper/civs";
-import {queryItemHoveredAsync, queryItemSelectedAsync} from "../../helper/electron";
+import {queryItemCanceledAsync, queryItemHoveredAsync, queryItemSelectedAsync} from "../../helper/electron";
 
 interface IPlayerProps {
     player: IFetchedUser;
@@ -218,14 +218,16 @@ export default function SearchQuery({title, selectedUser, actionText, action}: I
     const pressed = (e: any) => {
         console.log(e.code);
         if (e.code == 'Escape') {
-            queryItemSelectedAsync(items[selectedIndex]);
+            queryItemCanceledAsync();
             setText('');
             e.preventDefault();
         }
         if (e.code == 'Enter') {
             // alert(items[selectedIndex+1].unit);
-            queryItemSelectedAsync(items[selectedIndex]);
-            setText('');
+            if (selectedIndex > -1 && selectedIndex < items.length) {
+                queryItemSelectedAsync(items[selectedIndex]);
+                setText('');
+            }
             e.preventDefault();
         }
         if (e.code == 'ArrowDown' || e.code == 'ArrowUp') {

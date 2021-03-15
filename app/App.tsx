@@ -396,14 +396,6 @@ export function InnerApp() {
             }}>
 
                 <Stack.Screen
-                    name="Match"
-                    component={MatchPage}
-                    options={{
-                        title: getTranslation('match.title'),
-                    }}
-                />
-
-                <Stack.Screen
                     name="User"
                     component={UserPage}
                     options={props => ({
@@ -411,6 +403,14 @@ export function InnerApp() {
                         title: sameUserNull(auth, props.route.params?.id) || props.route.params == null ? 'Me' : props.route.params.name,
                         headerRight: userMenu(props),
                     })}
+                />
+
+                <Stack.Screen
+                    name="Match"
+                    component={MatchPage}
+                    options={{
+                        title: getTranslation('match.title'),
+                    }}
                 />
 
                 <Stack.Screen
