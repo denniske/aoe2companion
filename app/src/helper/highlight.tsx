@@ -96,3 +96,42 @@ export function HighlightUnitAndTechs(props: IProps) {
     }
     return <MyText>{texts}</MyText>;
 }
+
+
+
+interface IProps2 {
+    str: string;
+    highlight: string;
+}
+
+export function Highlight(props: IProps2) {
+    const { str, highlight } = props;
+    const appStyles = useTheme(appVariants);
+    const navigation = useNavigation<RootStackProp>();
+
+    // const regex = new RegExp('(\\b'+escapeRegExpFn(highlight)+'s?\\b)', 'i');
+    const regex = new RegExp('('+escapeRegExpFn(highlight)+')', 'i');
+    const parts = str.split(regex);
+    // console.log('parts', regex);
+    // console.log('parts', parts);
+    // console.log('map', map);
+
+    const texts = [];
+    for (let i = 0; i < parts.length; i++) {
+        if (i % 2 == 0) {
+            texts.push(<MyText key={i}>{parts[i]}</MyText>);
+        } else {
+            texts.push(<MyText key={i} style={{fontWeight: 'bold'}}>{parts[i]}</MyText>);
+            // console.log('part', parts[i]);
+            // const matchingTech = reverseTechMap[parts[i].toLowerCase()]?.name;
+            // if (matchingTech) {
+            //     texts.push(<MyText key={i} style={appStyles.link} onPress={() => navigation.push('Tech', {tech: matchingTech})}>{parts[i]}</MyText>);
+            // }
+            // const matchingUnit = reverseUnitMap[parts[i].toLowerCase()]?.name;
+            // if (matchingUnit) {
+            //     texts.push(<MyText key={i} style={appStyles.link} onPress={() => navigation.push('Unit', {unit: matchingUnit})}>{parts[i]}</MyText>);
+            // }
+        }
+    }
+    return <MyText>{texts}</MyText>;
+}

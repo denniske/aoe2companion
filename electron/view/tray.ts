@@ -1,6 +1,6 @@
 import {app, Tray, Menu} from 'electron';
-import {createOrShowAppWindow, forceQuit} from "../main";
 import * as path from 'path';
+import {createOrShowAppWindow, forceQuit} from "./windows";
 
 
 export function createTray() {

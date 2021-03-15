@@ -1,22 +1,43 @@
-import {BrowserWindow, screen} from 'electron';
+import {BrowserWindow, ipcMain, screen} from 'electron';
 import {serving, showDevTools, width} from "../main";
 import {prefs, savePrefs} from "../util/prefs";
-import {isForceQuitting} from "./windows";
+import {sleep} from '../util/util';
+import {createOrShowAppWindow, getQueryWindow, isForceQuitting} from "./windows";
 
 
-export async function createAppWindow(path: string = '') {
+export function initQuery() {
+    ipcMain.handle('query-item-canceled', async (event, item) => {
+        getQueryWindow().close();
+    });
+    ipcMain.handle('query-item-selected', async (event, item) => {
+        getQueryWindow().close();
+        const appWindow = await createOrShowAppWindow();
+        await sleep(100);
+        appWindow.webContents.send('navigate', item);
+    });
+    ipcMain.handle('query-item-hovered', async (event, item) => {
+        const appWindow = await createOrShowAppWindow();
+        await sleep(100);
+        appWindow.webContents.send('navigate', item);
+        getQueryWindow().focus();
+    });
+}
+
+export async function createQueryWindow() {
     const size = screen.getPrimaryDisplay().workAreaSize;
 
+    const myWidth = width + 200;
+
     const win = new BrowserWindow({
-        x: size.width - width - 30,
-        y: 100,
+        x: size.width / 2 - myWidth / 2,
+        y: 520,
         frame: false,
         transparent: true,
         resizable: true,
-        width: width,
-        minWidth: width,
-        maxWidth: width,
-        height: prefs.app.windowHeight,
+        width: myWidth,
+        // minWidth: width,
+        // maxWidth: width,
+        height: 800, //prefs.app.windowHeight,
         minHeight: 400,
         webPreferences: {
             nodeIntegration: true,
@@ -32,15 +53,17 @@ export async function createAppWindow(path: string = '') {
     });
 
     win.on('close', function (event) {
-        console.log('tryclose force = ', isForceQuitting());
+        console.log('tryclose');
         savePrefs();
-        // if (isForceQuitting()) return;
-        // event.preventDefault();
-        // win.minimize();
-        // win.setSkipTaskbar(true);
+        if (isForceQuitting()) return;
+        event.preventDefault();
+        win.minimize();
+        win.setSkipTaskbar(true);
     });
 
     // win.setAlwaysOnTop(true, 'pop-up-menu');
+
+    const path = `query`;
 
     if (serving) {
         if (showDevTools) {

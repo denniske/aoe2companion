@@ -1,7 +1,15 @@
 import React from 'react';
 import {FlatList, Image, ImageBackground, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {
-    aoeCivKey, Civ, civDict, civs, getCivNameById, getCivTeamBonus, orderCivs, iconHeight, iconWidth,
+    aoeCivKey,
+    Civ,
+    civDict,
+    civs,
+    getCivNameById,
+    getCivTeamBonus,
+    iconHeight,
+    iconWidth,
+    orderCivs,
     parseCivDescription
 } from "@nex/data";
 import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
@@ -16,7 +24,6 @@ import {getCivHistoryImage, getCivIcon} from "../helper/civs";
 import {UnitCompBig} from './unit/unit-comp';
 import {TechCompBig} from './tech/tech-comp';
 import {getTranslation} from '../helper/translate';
-import {changelog} from '../changelog';
 
 
 export function CivTitle(props: any) {
@@ -89,6 +96,27 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
                 <TechTree civ={civ}/>
             </View>
         </View>
+    );
+}
+
+interface ICivCompProps {
+    civ: Civ;
+}
+
+export function CivCompBig({civ}: ICivCompProps) {
+    const styles = useStyles();
+    const navigation = useNavigation<RootStackProp>();
+
+    return (
+        <TouchableOpacity key={civ} onPress={() => navigation.push('Civ', {civ})}>
+            <View style={styles.civBlock}>
+                <Image fadeDuration={0} style={styles.icon} source={getCivIcon(civ)}/>
+                <View style={styles.civRow}>
+                    <MyText style={styles.name}>{getCivNameById(civ)}</MyText>
+                    <MyText style={styles.small} numberOfLines={1}>{getCivTeamBonus(civ) ?? ''}</MyText>
+                </View>
+            </View>
+        </TouchableOpacity>
     );
 }
 

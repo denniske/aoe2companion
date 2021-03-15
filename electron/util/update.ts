@@ -5,7 +5,8 @@ import {downloadFile} from "./download-helper";
 import {sleep} from "./util";
 import {spawnDetached} from "./process";
 import {app, ipcMain} from 'electron';
-import {forceQuit} from "../main";
+import * as path from "path";
+import {forceQuit} from "../view/windows";
 
 export function initUpdate() {
     ipcMain.handle('check-for-electron-update', async (event, arg) => {
@@ -29,7 +30,7 @@ function getVersionFromAssetName(assetName: string) {
     return match[1];
 }
 
-let updateName = '';
+let updatePath = '';
 let updateInstallTrigger = false;
 
 async function getLatestRelease() {
@@ -61,13 +62,18 @@ export async function checkForUpdate() {
 }
 
 export async function downloadUpdate() {
-    const { release, asset } = await getLatestRelease();
 
-    console.log('Remote Asset', asset.name);
+    updateInstallTrigger = true;
+    forceQuit();
 
-    await downloadFile(asset.browser_download_url, asset.name);
-    await sleep(1000);
-    updateName = asset.name;
+    // const { asset } = await getLatestRelease();
+    //
+    // console.log('Remote Asset', asset.name);
+    //
+    // const filePath = path.join(app.getPath('temp'), asset.name);
+    // await downloadFile(asset.browser_download_url, filePath);
+    // await sleep(1000);
+    // updatePath = filePath;
 }
 
 export function triggerInstallUpdate() {
@@ -76,10 +82,10 @@ export function triggerInstallUpdate() {
 }
 
 export function maybeInstallUpdate() {
-    if (updateName && updateInstallTrigger) {
+    if (updatePath && updateInstallTrigger) {
         console.log('Installing update...');
         const parameters = ['/S', '--force-run'];
-        spawnDetached(updateName, parameters);
+        spawnDetached(updatePath, parameters);
     }
 }
 

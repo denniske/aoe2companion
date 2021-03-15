@@ -2,9 +2,12 @@
 import 'array-flat-polyfill'
 
 import 'react-native-gesture-handler';
-import { DefaultTheme as NavigationDefaultTheme, DarkTheme as NavigationDarkTheme, NavigationContainer} from '@react-navigation/native';
+import {
+    DefaultTheme as NavigationDefaultTheme,
+    DarkTheme as NavigationDarkTheme,
+    NavigationContainer
+} from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import {mainMenu} from './src/view/main.page';
 import {
     BackHandler,
     Linking, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View
@@ -82,6 +85,10 @@ import {getInternalString, loadStringsAsync} from './src/helper/strings';
 import { fetchJson } from './src/api/util';
 import UpdateElectronSnackbar from "./src/view/components/snackbar/update-electron-snackbar";
 import OverlaySettingsPage from "./src/view/overlay.settings.page";
+import QueryPage from "./src/view/query.page";
+import CurrentMatchSnackbar from "./src/view/components/snackbar/current-match-snackbar";
+import MatchPage from "./src/view/match.page";
+import BuildPage from "./src/view/build.page";
 
 initSentry();
 
@@ -241,8 +248,17 @@ const linking: LinkingOptions = {
             Overlay: {
                 path: 'overlay',
             },
+            Query: {
+                path: 'query',
+            },
+            Match: {
+                path: 'match/:match_id',
+            },
             Intro: {
                 path: 'intro/:match_id',
+            },
+            Build: {
+                path: 'build',
             },
             OverlaySettings: {
                 path: 'settings/overlay',
@@ -252,6 +268,9 @@ const linking: LinkingOptions = {
 };
 
 export type RootStackParamList = {
+    Query: undefined;
+    Build: undefined;
+    Match: { match_id: string };
     Intro: { match_id: string };
     Overlay: undefined;
     Error: undefined;
@@ -352,6 +371,10 @@ export function InnerApp() {
             <Portal>
                 {
                     isElectron() &&
+                    <CurrentMatchSnackbar/>
+                }
+                {
+                    isElectron() &&
                     <UpdateElectronSnackbar/>
                 }
                 {
@@ -371,6 +394,15 @@ export function InnerApp() {
                 headerStatusBarHeight: 0,
                 animationEnabled: false,
             }}>
+
+                <Stack.Screen
+                    name="Match"
+                    component={MatchPage}
+                    options={{
+                        title: getTranslation('match.title'),
+                    }}
+                />
+
                 <Stack.Screen
                     name="User"
                     component={UserPage}
@@ -388,7 +420,6 @@ export function InnerApp() {
                         title: getTranslation('changelog.title'),
                     }}
                 />
-
                 <Stack.Screen
                     name="Settings"
                     component={SettingsPage}
@@ -396,7 +427,6 @@ export function InnerApp() {
                         title: getTranslation('settings.title'),
                     }}
                 />
-
                 <Stack.Screen
                     name="OverlaySettings"
                     component={OverlaySettingsPage}
@@ -405,17 +435,6 @@ export function InnerApp() {
                     }}
                 />
 
-                {/*<Stack.Screen*/}
-                {/*    name="Intro"*/}
-                {/*    component={IntroPage}*/}
-                {/*    options={{*/}
-                {/*        title: 'Intro',*/}
-                {/*        headerShown: false,*/}
-                {/*        cardShadowEnabled: false,*/}
-                {/*        cardOverlayEnabled: false,*/}
-                {/*        cardStyle: { backgroundColor: 'rgba(0,0,0,0)'}*/}
-                {/*    }}*/}
-                {/*/>*/}
                 {/*<Stack.Screen*/}
                 {/*    name="Overlay"*/}
                 {/*    component={OverlayPage}*/}
@@ -590,6 +609,85 @@ export function InnerAppForIntro() {
     );
 }
 
+export function InnerAppForBuild() {
+    const styles = useStyles();
+
+    let [fontsLoaded] = useFonts({
+        Roboto: Roboto_700Bold,
+    });
+
+    return (
+        <View style={styles.containerBuild} nativeID="container">
+            <Stack.Navigator screenOptions={{
+                ...TransitionPresets.SlideFromRightIOS,
+                headerStatusBarHeight: 0,
+                animationEnabled: false,
+            }}>
+                <Stack.Screen
+                    name="Build"
+                    component={BuildPage}
+                    options={{
+                        title: 'Build',
+                        headerShown: false,
+                        cardShadowEnabled: false,
+                        cardOverlayEnabled: false,
+                        cardStyle: { backgroundColor: 'rgba(0,0,0,0)' }
+                    }}
+                />
+            </Stack.Navigator>
+        </View>
+    );
+}
+
+export function InnerAppForQuery() {
+    const styles = useStyles();
+
+    let [fontsLoaded] = useFonts({
+        Roboto: Roboto_700Bold,
+    });
+
+    useEffect(() => {
+        if (Platform.OS !== 'web') return;
+
+        const existingStyle = document.getElementById('scrollbar-style');
+        if (existingStyle) {
+            existingStyle.remove();
+        }
+
+        const style = document.createElement('style');
+        style.id = 'scrollbar-style'
+        style.type = 'text/css';
+        style.innerHTML = `
+                input {outline: none}
+                `;
+        document.getElementsByTagName('head')[0].appendChild(style);
+    }, []);
+
+    return (
+        <View style={[styles.appQuery]}>
+            <View style={[styles.containerQuery]} nativeID="container">
+                <Stack.Navigator screenOptions={{
+                    ...TransitionPresets.SlideFromRightIOS,
+                    headerStatusBarHeight: 0,
+                    animationEnabled: false,
+                }}>
+                    <Stack.Screen
+                        name="Query"
+                        component={QueryPage}
+                        options={{
+                            title: 'Query',
+                            headerShown: false,
+                            cardShadowEnabled: false,
+                            cardOverlayEnabled: false,
+                            cardStyle: { backgroundColor: 'rgba(0,0,0,0)' }
+                        }}
+                    />
+                </Stack.Navigator>
+            </View>
+        </View>
+    );
+}
+
 
 // const customPaperTheme = {
 //     ...PaperDarkTheme,
@@ -654,6 +752,24 @@ async function updatePushTokenForElectron(config: IConfig, account: IAccount) {
     updatedPushTokenForElectron = true;
 }
 
+type AppType = 'intro' | 'query' | 'build' | 'app';
+
+function getAppType(): AppType {
+    if (Platform.OS === 'web') {
+        if ((global as any).location.pathname.startsWith('/intro')) {
+            return 'intro';
+        }
+        if ((global as any).location.pathname.startsWith('/query')) {
+            return 'query';
+        }
+        if ((global as any).location.pathname.startsWith('/build')) {
+            return 'build';
+        }
+    }
+    return 'app';
+}
+
+
 export function AppWrapper() {
     // AsyncStorage.removeItem('prefs');
     // AsyncStorage.removeItem('settings');
@@ -708,7 +824,7 @@ export function AppWrapper() {
 
     const finalDarkMode = darkMode === "system" && (colorScheme === 'light' || colorScheme === 'dark') ? colorScheme : darkMode;
 
-    const appType = (Platform.OS === 'web' && (global as any).location.pathname.startsWith('/intro')) ? 'intro' : 'app';
+    const appType = getAppType();
 
     console.log('global.location', JSON.stringify((global as any).location));
 
@@ -728,6 +844,14 @@ export function AppWrapper() {
                     {/*<StatusBar barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'} backgroundColor="transparent" translucent={true} />*/}
                     {/*<StatusBar barStyle="dark-content" backgroundColor="white" />*/}
                     {/*<StatusBar barStyle="light-content" backgroundColor="transparent" />*/}
+                    {
+                        appType == 'query' &&
+                        <InnerAppForQuery/>
+                    }
+                    {
+                        appType == 'build' &&
+                        <InnerAppForBuild/>
+                    }
                     {
                         appType == 'intro' &&
                         <InnerAppForIntro/>
@@ -790,6 +914,39 @@ const useStyles = createStylesheet((theme, darkMode) => StyleSheet.create({
         ),
         backgroundColor: theme.backgroundColor,
         paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+        flex: 1,
+    },
+    appQuery: {
+        overflow: 'hidden',
+        width: '100%',
+        height: '100%',
+        paddingHorizontal: 5,
+        paddingVertical: 5,
+        flex: 1,
+        // backgroundColor: 'yellow',
+    },
+    containerQuery: {
+        overflow: 'hidden',
+        width: '100%',
+        // height: '100%',
+        // borderColor: darkMode === 'dark' ? '#444' :  '#CCC',
+        // borderWidth: isMobile ? 0 : 1,
+        // borderRadius: isMobile ? 0 : 10,
+        // backgroundColor: theme.backgroundColor,
+        // backgroundColor: 'blue',
+        paddingTop: 0,
+        flex: 1,
+    },
+    containerBuild: {
+        overflow: 'hidden',
+        width: '100%',
+        // height: '100%',
+        // borderColor: darkMode === 'dark' ? '#444' :  '#CCC',
+        // borderWidth: isMobile ? 0 : 1,
+        // borderRadius: isMobile ? 0 : 10,
+        // backgroundColor: theme.backgroundColor,
+        // backgroundColor: 'blue',
+        paddingTop: 0,
         flex: 1,
     },
     containerIntro: {

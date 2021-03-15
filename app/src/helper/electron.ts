@@ -1,5 +1,6 @@
 import {useLayoutEffect, useState} from 'react';
 import {Platform} from "react-native";
+import {IQueryRow} from "../view/components/search-query";
 
 export function isElectron() {
     return Platform.OS === 'web' && eval('typeof require !== "undefined" && typeof require("electron") === "object"');
@@ -34,7 +35,7 @@ export async function getElectronVersion() {
 }
 
 export async function doCheckForUpdateElectronAsync() {
-    if (__DEV__) return null;
+    // if (__DEV__) return null;
     return getElectron().ipcRenderer.invoke('check-for-electron-update');
 }
 
@@ -61,6 +62,22 @@ export async function sendSettings(config: any) {
 export async function getElectronPushToken() {
     return getElectron().ipcRenderer.invoke('get-electrolytic-token');
 }
+
+export async function queryItemCanceledAsync(item: IQueryRow) {
+    return getElectron().ipcRenderer.invoke('query-item-canceled', item);
+}
+
+export async function queryItemSelectedAsync(item: IQueryRow) {
+    return getElectron().ipcRenderer.invoke('query-item-selected', item);
+}
+
+export async function queryItemHoveredAsync(item: IQueryRow) {
+    return getElectron().ipcRenderer.invoke('query-item-hovered', item);
+}
+
+// getElectron().ipcRenderer.on('navigate', () => {
+//     console.log('GOT IT');
+// });
 
 // When user clicked on notification
 export function useLastNotificationResponseElectron() {

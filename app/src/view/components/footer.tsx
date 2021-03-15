@@ -1,5 +1,5 @@
 import {Alert, Linking, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon5 from 'react-native-vector-icons/FontAwesome5';
 import {Divider, Menu} from 'react-native-paper';
@@ -10,11 +10,17 @@ import {RootStackParamList} from "../../../App";
 import Space from "./space";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
-import {setPrefValue, useMutate, useSelector} from '../../redux/reducer';
+import {setIngame, setPrefValue, useMutate, useSelector} from '../../redux/reducer';
 import {saveCurrentPrefsToStorage} from '../../service/storage';
-import {isBirthday, moProfileId} from '@nex/data';
-import {isElectron, useLastNotificationResponseElectron} from '../../helper/electron';
+import {fetchMatchWithFallback, isBirthday, moProfileId} from '@nex/data';
+import {
+    getElectron,
+    isElectron,
+    useLastNotificationReceivedElectron,
+    useLastNotificationResponseElectron
+} from '../../helper/electron';
 import {useLastNotificationResponseWeb} from '../../helper/pusher';
+import {IQueryRow} from "./search-query";
 
 
 export default function Footer() {
@@ -33,6 +39,32 @@ export default function Footer() {
             routes: [{name: route, params}]
         });
     };
+
+    const nav2 = (event: any, item: IQueryRow) => {
+        const navigation = getRootNavigation();
+        console.log(item);
+        const { unit, building, tech, civ } = item;
+        if (civ) {
+            return navigation.navigate('Civ', { civ });
+        }
+        if (unit) {
+            return navigation.navigate('Unit', { unit });
+        }
+        if (building) {
+            return navigation.navigate('Building', { building });
+        }
+        if (tech) {
+            return navigation.navigate('Tech', { tech });
+        }
+    };
+
+    useLayoutEffect(() => {
+        const ipcRenderer = getElectron().ipcRenderer;
+        ipcRenderer.on('navigate', nav2);
+        return () => {
+            ipcRenderer.removeListener('navigate', nav2);
+        };
+    }, []);
 
     const iconStyle = (...routes: string[]) => {
         // console.log('currentRoute', activeRoute?.name);
@@ -70,6 +102,18 @@ export default function Footer() {
                 nav('Feed', { match_id: response.data.match_id });
             }
         }, [response]);
+    }
+
+    if (isElectron()) {
+        const receivedNotification = useLastNotificationReceivedElectron();
+        useEffect(() => {
+            if (receivedNotification) {
+                console.log('received (FOOTER)', receivedNotification);
+                fetchMatchWithFallback('aoe2de', { match_id: receivedNotification.data.match_id }).then(match => {
+                    mutate(setIngame(match, match.players.find(p => p.profile_id === auth?.profile_id)!));
+                });
+            }
+        }, [receivedNotification]);
     }
 
     if (Platform.OS === 'web' && !isElectron()) {

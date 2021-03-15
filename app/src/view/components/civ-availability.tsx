@@ -23,7 +23,8 @@ export default function CivAvailability({tech, unit, building}: CivAvailabilityP
     const civAvailable = civs.filter(civ => getAbilityEnabled({civ, tech, unit, building}));
     const civUnavailable = civs.filter(civ => !getAbilityEnabled({civ, tech, unit, building}));
 
-    const availableForAllCivs = civUnavailable.length === 0;
+    const availableForAllCivs = civAvailable.length === civs.length;
+    const availableForOneCivs = civAvailable.length === 1;
 
     if (availableForAllCivs) {
         return <View/>;
@@ -35,7 +36,7 @@ export default function CivAvailability({tech, unit, building}: CivAvailabilityP
                 <MyText>{getTranslation('unit.availability.available')}</MyText>
                 <Space/>
                 {
-                    !availableForAllCivs && orderCivs(civAvailable).map(civ =>
+                    orderCivs(civAvailable).map(civ =>
                         <TouchableOpacity key={civ} style={styles.civCol} onPress={() => navigation.push('Civ', {civ})}>
                             <View style={styles.row}>
                                 <Image fadeDuration={0} style={styles.civIcon} source={getCivIcon(civ) as any}/>
@@ -43,17 +44,13 @@ export default function CivAvailability({tech, unit, building}: CivAvailabilityP
                             </View>
                         </TouchableOpacity>
                     )
-                }
-                {
-                    availableForAllCivs &&
-                    <MyText>{getTranslation('unit.availability.allcivs')}</MyText>
                 }
             </View>
             <View style={styles.civList}>
                 <MyText>{getTranslation('unit.availability.unavailable')}</MyText>
                 <Space/>
                 {
-                    !availableForAllCivs && orderCivs(civUnavailable).map(civ =>
+                    !availableForOneCivs && orderCivs(civUnavailable).map(civ =>
                         <TouchableOpacity key={civ} style={styles.civCol} onPress={() => navigation.push('Civ', {civ})}>
                             <View style={styles.row}>
                                 <Image fadeDuration={0} style={styles.civIcon} source={getCivIcon(civ) as any}/>
@@ -63,8 +60,8 @@ export default function CivAvailability({tech, unit, building}: CivAvailabilityP
                     )
                 }
                 {
-                    availableForAllCivs &&
-                    <MyText>-</MyText>
+                    availableForOneCivs &&
+                    <MyText>All other civs</MyText>
                 }
             </View>
         </View>
@@ -86,7 +83,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     row: {
         flexDirection: 'row',
         alignItems: 'center',
-        width: 100,
+        width: 110,
         // backgroundColor: 'blue',
     },
     civListRow: {

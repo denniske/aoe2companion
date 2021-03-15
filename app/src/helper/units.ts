@@ -12,6 +12,7 @@ const otherIcons = {
     'Food': require('../../../app/assets/other/Food.png'),
     'Gold': require('../../../app/assets/other/Gold.png'),
     'Stone': require('../../../app/assets/other/Stone.png'),
+    'BerryBush': require('../../../app/assets/other/BerryBush.png'),
 };
 
 

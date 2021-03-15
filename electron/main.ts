@@ -1,27 +1,25 @@
-import {app, BrowserWindow, ipcMain, Tray} from 'electron';
+import {app, ipcMain, Tray} from 'electron';
 import {initUpdate} from "./util/update";
 import {initElectrolytic} from "./util/electrolytic";
-import {createAppWindow} from "./view/app.window";
 import {createTray} from "./view/tray";
 import {initShortcut, unregisterGlobalShortcuts} from "./util/shortcut";
-import {createOverlayWindow} from "./view/overlay.window";
 import {initProcess} from "./util/process";
-const serve = require('electron-serve');
 import * as Sentry from "@sentry/electron";
 import * as path from 'path';
 import {initPrefs} from "./util/prefs";
+import {initQuery} from "./view/query.window";
+import {createOrShowAppWindow, createOrShowBuildWindow, getAppWindow} from "./view/windows";
+import {initBuild} from "./view/build.window";
 
+const serve = require('electron-serve');
 
-let appWindow: BrowserWindow = null;
-let overlayWindow: BrowserWindow = null;
 
 let tray: Tray;
-let forceQuitting = false;
 
 const args = process.argv.slice(1);
 export const serving = args.some(val => val === '--serve');
-export const showDevTools = false && serving;
-export const width = 450 + (showDevTools ? 657 : 0);
+export const showDevTools = true && serving;
+export const width = 450 + (showDevTools ? 757 : 0);
 const startedViaAutostart = process.argv.includes('--autostart');
 
 if (!serving) {
@@ -31,45 +29,6 @@ if (!serving) {
 // let myUndefinedFunction2 = undefined as any;
 // myUndefinedFunction2();
 
-export function getAppWindow() {
-  return appWindow;
-}
-
-export function getOverlayWindow() {
-  return overlayWindow;
-}
-
-export function isForceQuitting() {
-  return forceQuitting;
-}
-
-export async function createOrShowAppWindow() {
-  if (appWindow == null) {
-    appWindow = await createAppWindow();
-    appWindow.on('closed', () => {
-      console.log('appWindow.closed');
-      return appWindow = null;
-    });
-  } else {
-    appWindow?.show();
-  }
-  return appWindow;
-}
-
-export async function createOrShowOverlayWindow(match_id: string) {
-  if (overlayWindow == null) {
-    overlayWindow = await createOverlayWindow(match_id);
-    overlayWindow.on('closed', () => overlayWindow = null);
-  } else {
-    overlayWindow.show();
-  }
-  return overlayWindow;
-}
-
-export function forceQuit() {
-  forceQuitting = true;
-  app.quit();
-}
 
 try {
   const gotTheLock = app.requestSingleInstanceLock();
@@ -90,10 +49,14 @@ try {
       initUpdate();
       initProcess();
       initShortcut();
+      initQuery();
+      initBuild();
       tray = createTray();
       if (startedViaAutostart) return;
       console.log('createOrShowAppWindow');
+      // await createOrShowQueryWindow();
       await createOrShowAppWindow();
+      // await createOrShowBuildWindow();
       // await createOrShowOverlayWindow('74869116'); // 8 tg viper
       // await createOrShowOverlayWindow('75049202'); // 8 free for all
       // await createOrShowOverlayWindow('75046190'); // vs AI
@@ -101,11 +64,12 @@ try {
     });
 
     ipcMain.handle('close-app-window', () => {
-      console.log('close-app-window');
-      appWindow?.close();
+      console.log('close-app-window', getAppWindow() != null);
+      getAppWindow()?.destroy();
     });
 
     app.on('will-quit', () => {
+      console.log('app will-quit');
       unregisterGlobalShortcuts();
     });
 

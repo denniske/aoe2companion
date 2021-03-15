@@ -1,8 +1,21 @@
 import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import {MyText} from "../components/my-text";
 import {
-    Civ, effectNames, getEffectName, getTechName, getUnitName, getUnitUpgradeCost, iconSmallHeight, iconSmallWidth,
-    keysOf, Tech, techEffectDict, Unit, UnitLine, unitLines
+    Civ, civs,
+    effectNames,
+    getCivHasTech,
+    getEffectName,
+    getTechName,
+    getUnitName,
+    getUnitUpgradeCost,
+    iconSmallHeight,
+    iconSmallWidth,
+    keysOf,
+    Tech,
+    techEffectDict,
+    Unit,
+    UnitLine,
+    unitLines
 } from "@nex/data";
 import React from "react";
 import {useTheme} from "../../theming";
@@ -15,6 +28,7 @@ import {getTechIcon} from "../../helper/techs";
 import {getEliteUniqueResearchIcon, getUnitIcon} from "../../helper/units";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
+import {useSelector} from "../../redux/reducer";
 
 interface Props {
     unitLineId: UnitLine;
@@ -48,6 +62,16 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
     const gotoUnit = (unit: Unit) => navigation.push('Unit', {unit: unit});
     const gotoTech = (tech: Tech) => navigation.push('Tech', {tech: tech});
 
+    const { match, player } = useSelector(state => state.ingame ?? {});
+
+    // console.log('player', player);
+
+    const hasTech = (tech: Tech) => {
+        if (!player) return true;
+        console.log('hasTech', tech, civs[player.civ], getCivHasTech(civs[player.civ], tech));
+        return getCivHasTech(civs[player.civ], tech);
+    };
+
     return (
       <View>
           <View style={styles.row}>
@@ -64,7 +88,7 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                       </View>
                       {
                           group.upgrades.map(upgrade =>
-                              <View style={styles.row} key={upgrade.name}>
+                              <View style={[styles.row, { opacity: hasTech(upgrade.tech) ? 1 : 0.5 }]} key={upgrade.name}>
                                   <Image fadeDuration={0} style={styles.unitIcon} source={getTechIcon(upgrade.tech)}/>
                                   <MyText style={styles.unitDesc}>
                                       <MyText style={appStyles.link} onPress={() => gotoTech(upgrade.tech!)}>{getTechName(upgrade.tech)}</MyText>

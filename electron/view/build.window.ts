@@ -4,19 +4,27 @@ import {prefs, savePrefs} from "../util/prefs";
 import {isForceQuitting} from "./windows";
 
 
-export async function createAppWindow(path: string = '') {
+export function initBuild() {
+    // ipcMain.handle('query-item-canceled', async (event, item) => {
+    //     getQueryWindow().close();
+    // });
+}
+
+export async function createBuildWindow() {
     const size = screen.getPrimaryDisplay().workAreaSize;
 
+    const myWidth = width + 200;
+
     const win = new BrowserWindow({
-        x: size.width - width - 30,
-        y: 100,
+        x: size.width / 2 - myWidth / 2,
+        y: 520,
         frame: false,
         transparent: true,
         resizable: true,
-        width: width,
-        minWidth: width,
-        maxWidth: width,
-        height: prefs.app.windowHeight,
+        width: myWidth,
+        // minWidth: width,
+        // maxWidth: width,
+        height: 800, //prefs.app.windowHeight,
         minHeight: 400,
         webPreferences: {
             nodeIntegration: true,
@@ -32,15 +40,17 @@ export async function createAppWindow(path: string = '') {
     });
 
     win.on('close', function (event) {
-        console.log('tryclose force = ', isForceQuitting());
+        console.log('tryclose');
         savePrefs();
-        // if (isForceQuitting()) return;
-        // event.preventDefault();
-        // win.minimize();
-        // win.setSkipTaskbar(true);
+        if (isForceQuitting()) return;
+        event.preventDefault();
+        win.minimize();
+        win.setSkipTaskbar(true);
     });
 
     // win.setAlwaysOnTop(true, 'pop-up-menu');
+
+    const path = `build`;
 
     if (serving) {
         if (showDevTools) {

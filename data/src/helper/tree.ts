@@ -58,6 +58,10 @@ export function getCivHasTech(civ: Civ, tech: Tech) {
         return false;
     }
 
+    if (techs[tech].civ != null) {
+        return techs[tech].civ === civ;
+    }
+
     return true;
 }
 

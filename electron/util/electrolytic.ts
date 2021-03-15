@@ -1,8 +1,8 @@
 import {ipcMain, Notification} from 'electron';
 import * as Electrolytic from 'electrolytic';
-import {createOrShowAppWindow, createOrShowOverlayWindow, getAppWindow} from "../main";
 import {IStoredConfig, IStoredSettings, store} from "./store";
 import {checkShortcuts} from "./shortcut";
+import {createOrShowAppWindow, createOrShowOverlayWindow, getAppWindow} from "../view/windows";
 
 
 interface IPushNotificationPayload {
@@ -51,6 +51,15 @@ async function showNotification (payload: IPushNotificationPayload) {
         await createOrShowOverlayWindow('72704893');
     }
 }
+
+// setTimeout(() => {
+//     const payload = {
+//         title: 'test pls do not join - 76541140',
+//         data: { player_ids: [ 209525, 0 ], match_id: '76541140' },
+//         body: 'aoe2companion.com is playing.'
+//     };
+//     showNotification(payload);
+// }, 15000);
 
 electrolytic.on('push', async (payload) => {
     console.log('got push notification', payload);

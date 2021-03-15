@@ -1,11 +1,11 @@
 import {globalShortcut} from "electron";
-import {createOrShowAppWindow, getAppWindow} from "../main";
 import {isAoeWindowFocused} from "./process";
 import {IStoredConfig, store} from "./store";
+import {createOrShowAppWindow, createOrShowQueryWindow, getAppWindow, getQueryWindow} from "../view/windows";
 
 
 const acceleratorShowHide = 'F1';
-const acceleratorSearch = 'CommandOrControl+F';
+const acceleratorSearch = 'CommandOrControl+P';
 
 export function initShortcut() {
     setInterval(checkShortcuts, 500);
@@ -14,12 +14,10 @@ export function initShortcut() {
 
 export async function checkShortcuts() {
     const config = store.get('config') as IStoredConfig;
-    const aoeRunning = await isAoeWindowFocused();
+    const aoeRunning = true; //await isAoeWindowFocused();
     const hotkeyShowHideEnabled = aoeRunning && config?.hotkeyShowHideEnabled;
     if (hotkeyShowHideEnabled != globalShortcut.isRegistered(acceleratorShowHide)) {
-
         console.log(hotkeyShowHideEnabled, '!=', globalShortcut.isRegistered(acceleratorShowHide));
-
         if (hotkeyShowHideEnabled) {
             console.log('Registered', acceleratorShowHide);
             globalShortcut.register(acceleratorShowHide, executeShowHide);
@@ -56,17 +54,17 @@ async function executeShowHide() {
 
 async function executeSearch() {
     console.log(acceleratorSearch, 'is pressed');
-    const appWindow = getAppWindow();
-    if (appWindow == null) {
-        await createOrShowAppWindow();
+    const queryWindow = getQueryWindow();
+    if (queryWindow == null) {
+        await createOrShowQueryWindow();
         return;
     }
-    if (appWindow.isMinimized()) {
-        appWindow.show();
-        appWindow.setSkipTaskbar(false);
+    if (queryWindow.isMinimized()) {
+        queryWindow.show();
+        queryWindow.setSkipTaskbar(false);
     } else {
-        appWindow.minimize();
-        appWindow.setSkipTaskbar(true);
+        queryWindow.minimize();
+        queryWindow.setSkipTaskbar(true);
     }
 }
 

@@ -3,7 +3,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector as useReduxSelector } fr
 import {UserId} from '../helper/user';
 import { IProfile } from '../view/components/profile';
 import { IRatingHistoryRow } from '../service/rating';
-import {ILeaderboard, IMatch} from "@nex/data";
+import {ILeaderboard, IMatch, IPlayer} from "@nex/data";
 import {IAccount, IConfig, IFollowingEntry, IPrefs} from "../service/storage";
 import {Manifest} from "expo-updates/build/Updates.types";
 import {set} from 'lodash';
@@ -136,6 +136,14 @@ export function clearMatchesPlayer(user: UserId) {
   };
 }
 
+export function setIngame(match: IMatch, player: IPlayer) {
+  return (state: AppState) => {
+    state.ingame = {
+      match,
+      player,
+    };
+  };
+}
 
 interface IAction {
   type: string;
@@ -199,6 +207,11 @@ export interface AppState {
   leaderboard: ILeaderboardDict;
 
   loadedLanguages: string[];
+
+  ingame: {
+    match: IMatch;
+    player: IPlayer;
+  };
 
   updateState: string;
   updateAvailable: boolean;

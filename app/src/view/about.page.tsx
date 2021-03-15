@@ -134,6 +134,7 @@ export default function AboutPage() {
             <MyText style={styles.content}>Tom B</MyText>
             <MyText style={styles.content}>Ultima Gaina</MyText>
             <MyText style={styles.content}>Zachary Bird</MyText>
+            <MyText style={styles.content}>@hend0s</MyText>
             <MyText style={styles.content}>@qotile</MyText>
             <MyText style={styles.content2}>+ {getTranslation('about.anonymoussupporters')}</MyText>
 

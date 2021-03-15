@@ -440,26 +440,26 @@ export default function SettingsPage() {
                     </View>
                 </View>
             }
-            {/*{*/}
-            {/*    isElectron() &&*/}
-            {/*    <View style={styles.row}>*/}
-            {/*        <View style={styles.cellName}>*/}
-            {/*            <MyText>{getTranslation('settings.hotkeySearch')}</MyText>*/}
-            {/*            <MyText style={styles.small}>{getTranslation('settings.hotkeySearch.note')}</MyText>*/}
-            {/*        </View>*/}
-            {/*        <View style={styles.cellValueCol}>*/}
-            {/*            <View style={styles.row2}>*/}
-            {/*                <Checkbox.Android*/}
-            {/*                    status={config.hotkeySearchEnabled ? 'checked' : 'unchecked'}*/}
-            {/*                    onPress={toggleHotkeySearch}*/}
-            {/*                />*/}
-            {/*                <TouchableOpacity onPress={toggleHotkeySearch}>*/}
-            {/*                    <MyText style={[styles.testLink]}>{config.hotkeySearchEnabled ? getTranslation('checkbox.active') : getTranslation('checkbox.inactive')}</MyText>*/}
-            {/*                </TouchableOpacity>*/}
-            {/*            </View>*/}
-            {/*        </View>*/}
-            {/*    </View>*/}
-            {/*}*/}
+            {
+                isElectron() &&
+                <View style={styles.row}>
+                    <View style={styles.cellName}>
+                        <MyText>{getTranslation('settings.hotkeySearch')}</MyText>
+                        <MyText style={styles.small}>{getTranslation('settings.hotkeySearch.note')}</MyText>
+                    </View>
+                    <View style={styles.cellValueCol}>
+                        <View style={styles.row2}>
+                            <Checkbox.Android
+                                status={config.hotkeySearchEnabled ? 'checked' : 'unchecked'}
+                                onPress={toggleHotkeySearch}
+                            />
+                            <TouchableOpacity onPress={toggleHotkeySearch}>
+                                <MyText style={[styles.testLink]}>{config.hotkeySearchEnabled ? getTranslation('checkbox.active') : getTranslation('checkbox.inactive')}</MyText>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            }
         </ScrollView>
     );
 }

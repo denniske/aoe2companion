@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import {FlatList, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {IFetchedUser, loadUser} from '../../service/user';
 import {useLazyApi} from '../../hooks/use-lazy-api';
@@ -14,6 +14,7 @@ import {getTranslation} from '../../helper/translate';
 import { useCavy } from '../testing/tester';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {isVerifiedPlayer} from '@nex/data';
+import {useTimeout} from "../../../../data/src/hooks/use-timeout";
 
 interface IPlayerProps {
     player: IFetchedUser;
@@ -83,7 +84,7 @@ interface ISearchProps {
     action?: (player: IFetchedUser) => React.ReactNode;
 }
 
-export default function Search({title, selectedUser, actionText, action}: ISearchProps) {
+export default function SearchQuery({title, selectedUser, actionText, action}: ISearchProps) {
     const styles = useStyles();
     const [text, setText] = useState('');
     const previousText = usePrevious(text);
@@ -106,9 +107,30 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
 
     const generateTestHook = useCavy();
 
+    const searchBarRef = useRef<any>();
+
     useEffect(() => {
         refresh();
     }, [text]);
+
+
+    // const [abc, setAbc] = useState(false);
+    //
+    // useTimeout(() => {
+    //     // setAbc(true);
+    //     // document.getElementById('search')!.focus();
+    //     // console.log('ref', searchBarRef);
+    //     // searchBarRef.current.focus.bind(window)();
+    // }, 1000);
+    //
+    // useEffect(() => {
+    //     if (searchBarRef.current == null) return;
+    //     if (!abc) return;
+    //     // document.getElementById('search')!.focus();
+    //     // console.log('ref', searchBarRef);
+    //     // searchBarRef.current.focus();
+    //     searchBarRef.current.focus.bind(window)();
+    // }, [abc]);
 
     let list: any[] = user.data ? [...user.data]:[];
     if (user.touched && (user.data == null || user.data.length === 0)) {
@@ -165,7 +187,9 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
                 }
 
                 <Searchbar
+                        // nativeID="search"
                         autoFocus={true}
+                        // ref={searchBarRef}
                         ref={ref => generateTestHook('Search.Input')({ props: { onChangeText: setText } })}
                         style={styles.searchbar}
                         placeholder={getTranslation('search.placeholder')}
