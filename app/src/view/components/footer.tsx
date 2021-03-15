@@ -58,13 +58,15 @@ export default function Footer() {
         }
     };
 
-    useLayoutEffect(() => {
-        const ipcRenderer = getElectron().ipcRenderer;
-        ipcRenderer.on('navigate', nav2);
-        return () => {
-            ipcRenderer.removeListener('navigate', nav2);
-        };
-    }, []);
+    if (isElectron()) {
+        useLayoutEffect(() => {
+            const ipcRenderer = getElectron().ipcRenderer;
+            ipcRenderer.on('navigate', nav2);
+            return () => {
+                ipcRenderer.removeListener('navigate', nav2);
+            };
+        }, []);
+    }
 
     const iconStyle = (...routes: string[]) => {
         // console.log('currentRoute', activeRoute?.name);

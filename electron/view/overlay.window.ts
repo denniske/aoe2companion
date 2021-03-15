@@ -14,7 +14,7 @@ export async function createOverlayWindow(match_id: string) {
         frame: false,
         transparent: true,
         resizable: false,
-        width: size.width-1, // Hack: Window was not transparent when full width
+        width: size.width-10, // Hack: Window was not transparent when full width
         height: size.height,
         webPreferences: {
             nodeIntegration: true,

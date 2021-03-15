@@ -8,7 +8,7 @@ import * as Sentry from "@sentry/electron";
 import * as path from 'path';
 import {initPrefs} from "./util/prefs";
 import {initQuery} from "./view/query.window";
-import {createOrShowAppWindow, createOrShowBuildWindow, getAppWindow} from "./view/windows";
+import {createOrShowAppWindow, createOrShowBuildWindow, createOrShowOverlayWindow, getAppWindow} from "./view/windows";
 import {initBuild} from "./view/build.window";
 
 const serve = require('electron-serve');
@@ -18,7 +18,7 @@ let tray: Tray;
 
 const args = process.argv.slice(1);
 export const serving = args.some(val => val === '--serve');
-export const showDevTools = true && serving;
+export const showDevTools = false && serving;
 export const width = 450 + (showDevTools ? 757 : 0);
 const startedViaAutostart = process.argv.includes('--autostart');
 
@@ -55,11 +55,11 @@ try {
       if (startedViaAutostart) return;
       console.log('createOrShowAppWindow');
       // await createOrShowQueryWindow();
-      await createOrShowAppWindow();
+      // await createOrShowAppWindow();
       // await createOrShowBuildWindow();
       // await createOrShowOverlayWindow('74869116'); // 8 tg viper
       // await createOrShowOverlayWindow('75049202'); // 8 free for all
-      // await createOrShowOverlayWindow('75046190'); // vs AI
+      await createOrShowOverlayWindow('75046190'); // vs AI
       // await createOrShowOverlayWindow('72704893');
     });
 
