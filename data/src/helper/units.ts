@@ -3227,6 +3227,7 @@ export const otherNames = [
     'Food',
     'Gold',
     'Stone',
+    'BerryBush',
 ] as const;
 
 const OtherUnion = unwrap(otherNames);

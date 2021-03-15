@@ -62,18 +62,14 @@ export async function checkForUpdate() {
 }
 
 export async function downloadUpdate() {
+    const { asset } = await getLatestRelease();
 
-    updateInstallTrigger = true;
-    forceQuit();
+    console.log('Remote Asset', asset.name);
 
-    // const { asset } = await getLatestRelease();
-    //
-    // console.log('Remote Asset', asset.name);
-    //
-    // const filePath = path.join(app.getPath('temp'), asset.name);
-    // await downloadFile(asset.browser_download_url, filePath);
-    // await sleep(1000);
-    // updatePath = filePath;
+    const filePath = path.join(app.getPath('temp'), asset.name);
+    await downloadFile(asset.browser_download_url, filePath);
+    await sleep(1000);
+    updatePath = filePath;
 }
 
 export function triggerInstallUpdate() {

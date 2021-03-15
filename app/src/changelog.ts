@@ -16,6 +16,16 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
+    '26.0.2+0': [
+        {
+            type: 'feature',
+            title: 'Added hotkey Control+F for quick search units, etc.',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fixed transparency issue for overlay again',
+        },
+    ],
     '26.0.2': [
         {
             type: 'minor',

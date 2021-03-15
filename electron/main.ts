@@ -55,11 +55,11 @@ try {
       if (startedViaAutostart) return;
       console.log('createOrShowAppWindow');
       // await createOrShowQueryWindow();
-      // await createOrShowAppWindow();
+      await createOrShowAppWindow();
       // await createOrShowBuildWindow();
       // await createOrShowOverlayWindow('74869116'); // 8 tg viper
       // await createOrShowOverlayWindow('75049202'); // 8 free for all
-      await createOrShowOverlayWindow('75046190'); // vs AI
+      // await createOrShowOverlayWindow('75046190'); // vs AI
       // await createOrShowOverlayWindow('72704893');
     });
 
