@@ -19,6 +19,7 @@ import {getPathToRoute, getRoutesFromCurrentActiveStack} from '../../service/nav
 import {useNavigationStateExternal} from '../../hooks/use-navigation-state-external';
 import {useTheme} from '../../theming';
 import {appVariants} from '../../styles';
+import {openLink} from "../../helper/url";
 
 
 export default function MainProfile() {
@@ -66,7 +67,7 @@ export default function MainProfile() {
         return (
             <View style={styles.list}>
                 <MyText>
-                    If you see this screen instead of a user profile, report a bug in the <MyText style={appStyles.link} onPress={() => Linking.openURL('https://discord.com/invite/gCunWKx')}>discord</MyText>.
+                    If you see this screen instead of a user profile, report a bug in the <MyText style={appStyles.link} onPress={() => openLink('https://discord.com/invite/gCunWKx')}>discord</MyText>.
                 </MyText>
             </View>
         );

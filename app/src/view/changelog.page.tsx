@@ -11,6 +11,7 @@ import {moProfileId} from '@nex/data';
 import {useTheme} from '../theming';
 import {appVariants} from '../styles';
 import {isElectron} from "../helper/electron";
+import {openLink} from "../helper/url";
 
 
 interface IChangelogEntry {
@@ -52,7 +53,7 @@ export default function ChangelogPage() {
             } else {
                 const match = parts[i].match(/\[(.+)]\((.+)\)/);
                 const [all, text, url] = match || [];
-                texts.push(<MyText key={i} style={appStyles.link} onPress={() => Linking.openURL(url)}>{text}</MyText>);
+                texts.push(<MyText key={i} style={appStyles.link} onPress={() => openLink(url)}>{text}</MyText>);
             }
         }
         return texts;

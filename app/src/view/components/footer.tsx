@@ -21,6 +21,7 @@ import {
 } from '../../helper/electron';
 import {useLastNotificationResponseWeb} from '../../helper/pusher';
 import {IQueryRow} from "./search-query";
+import {openLink} from "../../helper/url";
 
 
 export default function Footer() {
@@ -228,10 +229,10 @@ export default function Footer() {
                                 <View><Space/></View>
                             }
                     >
-                        <Menu.Item icon={useIcon('hands-helping')} titleStyle={iconPopupStyle('')} onPress={() => { Linking.openURL('https://discord.com/invite/gCunWKx'); setMenu(false); }} title={getTranslation('footer.help')} />
+                        <Menu.Item icon={useIcon('hands-helping')} titleStyle={iconPopupStyle('')} onPress={() => { openLink('https://discord.com/invite/gCunWKx'); setMenu(false); }} title={getTranslation('footer.help')} />
                         {/*{*/}
                         {/*   Platform.OS !== 'ios' &&*/}
-                           <Menu.Item icon={useIcon('coffee')} titleStyle={iconPopupStyle('')} onPress={() => { Linking.openURL('https://www.buymeacoffee.com/denniskeil'); setMenu(false); }} title={getTranslation('footer.buymeacoffee')} />
+                           <Menu.Item icon={useIcon('coffee')} titleStyle={iconPopupStyle('')} onPress={() => { openLink('https://www.buymeacoffee.com/denniskeil'); setMenu(false); }} title={getTranslation('footer.buymeacoffee')} />
                         {/*}*/}
                         <Divider />
                         <Menu.Item icon={useIcon('question-circle', 'About')} titleStyle={iconPopupStyle('About')} onPress={() => { nav('About'); setMenu(false); }} title={getTranslation('footer.about')} />

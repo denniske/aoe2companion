@@ -25,6 +25,7 @@ import DiscordBadge from './badge/discord-badge';
 import YoutubeBadge from './badge/youtube-badge';
 import TwitchBadge from './badge/twitch-badge';
 import DouyuBadge from './badge/doyou-badge';
+import {openLink} from "../../helper/url";
 
 interface ILeaderboardRowProps {
     data: ILeaderboard;
@@ -172,7 +173,7 @@ export function ProfileLive({data} : {data: IPlayer}) {
     }
 
     return (
-            <MyText style={styles.row} onPress={() => Linking.openURL(verifiedPlayer?.twitch)}>
+            <MyText style={styles.row} onPress={() => openLink(verifiedPlayer?.twitch)}>
                 {
                     playerTwitchLive.data?.type === 'live' &&
                     <>

@@ -4,6 +4,7 @@ import {createStylesheet} from '../../../theming-new';
 import Badge from './badge';
 import {useLazyApi} from '../../../hooks/use-lazy-api';
 import {twitchLive} from '../../../api/following';
+import {openLink} from "../../../helper/url";
 
 
 interface Props {
@@ -29,12 +30,8 @@ export default function TwitchBadge(props: Props) {
         content = `${playerTwitchLive.data?.viewer_count} watching`;
     }
 
-    const open = (url: string) => {
-        return Platform.OS === 'web' ? window.open(url, '_blank') : Linking.openURL(url);
-    };
-
     return (
-        <TouchableOpacity onPress={() => open(`https://www.twitch.tv/${channel}`)}>
+        <TouchableOpacity onPress={() => openLink(`https://www.twitch.tv/${channel}`)}>
             <Badge
                 label="Twitch"
                 labelColor="#6441a5"

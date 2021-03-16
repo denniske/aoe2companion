@@ -4,12 +4,13 @@ import {Linking, Platform, TouchableOpacity, View} from 'react-native';
 import {useTheme} from '../theming';
 import {appVariants} from '../styles';
 import {MyText} from './components/my-text';
+import {openLink} from "../helper/url";
 
 
 export function WinratesTitle(props: any) {
     const appStyles = useTheme(appVariants);
     return (
-        <TouchableOpacity onPress={() => Linking.openURL('https://aoestats.io')}>
+        <TouchableOpacity onPress={() => openLink('https://aoestats.io')}>
             <MyText style={appStyles.link}>aoestats.io</MyText>
         </TouchableOpacity>
     );

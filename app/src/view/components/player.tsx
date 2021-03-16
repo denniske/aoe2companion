@@ -12,6 +12,7 @@ import {MyText} from "./my-text";
 import {getCivIconByIndex} from "../../helper/civs";
 import {createStylesheet} from '../../theming-new';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import {openLink} from "../../helper/url";
 
 
 interface IPlayerProps {
@@ -59,7 +60,7 @@ export function Player({match, player, highlight, freeForALl, canDownloadRec}: I
 
     const downloadRec = async () => {
         const url = `https://aoe.ms/replay/?gameId=${match.match_id}&profileId=${player.profile_id}`;
-        await Linking.openURL(url);
+        await openLink(url);
     };
 
     return (

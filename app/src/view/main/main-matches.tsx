@@ -19,6 +19,7 @@ import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
 import {useNavigationStateExternal} from '../../hooks/use-navigation-state-external';
 import {getPathToRoute, getRoutes, getRoutesFromCurrentActiveStack} from '../../service/navigation';
+import {openLink} from "../../helper/url";
 
 
 export default function MainMatches() {
@@ -39,7 +40,7 @@ export default function MainMatches() {
         return (
             <View style={styles.list}>
                 <MyText>
-                    If you see this screen instead of a user profile, report a bug in the <MyText style={appStyles.link} onPress={() => Linking.openURL('https://discord.com/invite/gCunWKx')}>discord</MyText>.
+                    If you see this screen instead of a user profile, report a bug in the <MyText style={appStyles.link} onPress={() => openLink('https://discord.com/invite/gCunWKx')}>discord</MyText>.
                 </MyText>
             </View>
         );
@@ -176,6 +177,7 @@ function MainMatchesInternal({user}: { user: any}) {
                     }
                 </View>
                 <Searchbar
+                    textAlign="left"
                     style={styles.searchbar}
                     placeholder={getTranslation('main.matches.search.placeholder')}
                     onChangeText={text => setText(text)}

@@ -12,6 +12,7 @@ import Space from "./components/space";
 import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';
 import {doCheckForUpdateElectronAsync, getElectronVersion, isElectron} from "../helper/electron";
+import {openLink} from "../helper/url";
 
 
 export default function AboutPage() {
@@ -176,39 +177,39 @@ export default function AboutPage() {
 
             <View style={styles.row}>
                 <MyText style={styles.content}>Stats from </MyText>
-                <TouchableOpacity onPress={() => Linking.openURL('https://aoe2.net')}>
+                <TouchableOpacity onPress={() => openLink('https://aoe2.net')}>
                     <MyText style={appStyles.link}>aoe2.net</MyText>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.row}>
                 <MyText style={styles.content}>Game data from </MyText>
-                <TouchableOpacity onPress={() => Linking.openURL('https://github.com/SiegeEngineers/aoe2techtree')}>
+                <TouchableOpacity onPress={() => openLink('https://github.com/SiegeEngineers/aoe2techtree')}>
                     <MyText style={appStyles.link}>aoe2techtree</MyText>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.row}>
                 <MyText style={styles.content}>Player info from </MyText>
-                <TouchableOpacity onPress={() => Linking.openURL('https://github.com/SiegeEngineers/aoc-reference-data')}>
+                <TouchableOpacity onPress={() => openLink('https://github.com/SiegeEngineers/aoc-reference-data')}>
                     <MyText style={appStyles.link}>aoc-reference-data</MyText>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.row}>
                 <MyText style={styles.content}>Game data from </MyText>
-                <TouchableOpacity onPress={() => Linking.openURL('https://ageofempires.fandom.com/wiki/Age_of_Empires_II:Portal')}>
+                <TouchableOpacity onPress={() => openLink('https://ageofempires.fandom.com/wiki/Age_of_Empires_II:Portal')}>
                     <MyText style={appStyles.link}>Age of Empires II Wiki</MyText>
                 </TouchableOpacity>
                 <MyText style={styles.content}> at </MyText>
-                <TouchableOpacity onPress={() => Linking.openURL('https://www.fandom.com/')}>
+                <TouchableOpacity onPress={() => openLink('https://www.fandom.com/')}>
                     <MyText style={appStyles.link}>Fandom</MyText>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.row}>
                 <MyText style={styles.content}>Flag Icons from </MyText>
-                <TouchableOpacity onPress={() => Linking.openURL('https://github.com/madebybowtie/FlagKit')}>
+                <TouchableOpacity onPress={() => openLink('https://github.com/madebybowtie/FlagKit')}>
                     <MyText style={appStyles.link}>FlagKit</MyText>
                 </TouchableOpacity>
             </View>
@@ -235,7 +236,7 @@ export default function AboutPage() {
 
             <MyText style={styles.textJustify}>
                 This app was created under Microsoft's "
-                <MyText style={[styles.textJustify, appStyles.link]} onPress={() => {Linking.openURL('https://www.xbox.com/en-us/developers/rules')}}>
+                <MyText style={[styles.textJustify, appStyles.link]} onPress={() => {openLink('https://www.xbox.com/en-us/developers/rules')}}>
                 Game Content Usage Rules
                 </MyText>
                 " using assets from Age of Empires II.

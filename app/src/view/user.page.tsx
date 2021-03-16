@@ -18,6 +18,7 @@ import IconFA5 from 'react-native-vector-icons/FontAwesome5';
 import {useApi} from '../hooks/use-api';
 import {getRootNavigation} from '../service/navigation';
 import {setAccountProfile} from "../api/following";
+import {openLink} from "../helper/url";
 
 
 export function userMenu(props: any) {
@@ -71,13 +72,13 @@ export function UserMenu() {
         <View style={styles.menu}>
             {
                 user.profile_id &&
-                <TouchableOpacity style={styles.menuButton} onPress={() => Linking.openURL(xboxProfileUrl)}>
+                <TouchableOpacity style={styles.menuButton} onPress={() => openLink(xboxProfileUrl)}>
                     <FontAwesomeIcon5 style={styles.menuIcon} name="xbox" size={20} />
                 </TouchableOpacity>
             }
             {
                 user.steam_id &&
-                <TouchableOpacity style={styles.menuButton}  onPress={() => Linking.openURL(steamProfileUrl)}>
+                <TouchableOpacity style={styles.menuButton}  onPress={() => openLink(steamProfileUrl)}>
                     <FontAwesomeIcon5 style={styles.menuIcon} name="steam" size={20} />
                 </TouchableOpacity>
             }

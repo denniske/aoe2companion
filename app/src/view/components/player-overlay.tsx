@@ -50,17 +50,11 @@ export function PlayerOverlay({match, player, highlight, freeForALl, canDownload
     const boxStyle = [styles.square, {backgroundColor: getPlayerBackgroundColor(player.color)}];
     const playerNameStyle = [{ fontSize: 18, fontWeight: 'bold', color: getPlayerBackgroundColor(player.color), textDecorationLine: highlight ? 'underline' : 'none'}] as TextStyle;
 
-
     const gotoPlayer = () => {
         navigation.push('User', {
             id: userIdFromBase(player),
             name: player.name,
         });
-    };
-
-    const downloadRec = async () => {
-        const url = `https://aoe.ms/replay/?gameId=${match.match_id}&profileId=${player.profile_id}`;
-        await Linking.openURL(url);
     };
 
     return (

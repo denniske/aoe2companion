@@ -4,6 +4,7 @@ import {createStylesheet} from '../../../theming-new';
 import Badge from './badge';
 import {useLazyApi} from '../../../hooks/use-lazy-api';
 import {discordOnline} from '../../../api/following';
+import {openLink} from "../../../helper/url";
 
 
 interface Props {
@@ -30,12 +31,8 @@ export default function DiscordBadge(props: Props) {
         content = `${info.data?.presence_count} online`;
     }
 
-    const open = (url: string) => {
-        return Platform.OS === 'web' ? window.open(url, '_blank') : Linking.openURL(url);
-    };
-
     return (
-        <TouchableOpacity onPress={() => open(`https://discord.gg/${invitationId}`)}>
+        <TouchableOpacity onPress={() => openLink(`https://discord.gg/${invitationId}`)}>
             <Badge
                 label="Discord"
                 labelColor="#6B85CD"

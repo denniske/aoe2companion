@@ -12,6 +12,7 @@ import {getAbilityIcon} from "./components/tech-tree";
 import ImageSized from "./components/image-sized";
 import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';
+import {openLink} from "../helper/url";
 
 interface ITip {
     title: string;
@@ -212,7 +213,7 @@ export default function TipsPage() {
     };
 
     const onOpen = async (tip: any) => {
-        await Linking.openURL(tip.url);
+        await openLink(tip.url);
     };
 
     const setTip = (tip: ITip) => {

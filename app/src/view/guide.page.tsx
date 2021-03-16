@@ -9,13 +9,14 @@ import {MyText} from './components/my-text';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {createStylesheet} from '../theming-new';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {openLink} from "../helper/url";
 
 
 export function GuideTitle(props: any) {
     const styles = useStyles();
     const appStyles = useTheme(appVariants);
     return (
-        <TouchableOpacity onPress={() => Linking.openURL('https://buildorderguide.com')}>
+        <TouchableOpacity onPress={() => openLink('https://buildorderguide.com')}>
             <MyText style={appStyles.link}>buildorderguide.com</MyText>
         </TouchableOpacity>
     );

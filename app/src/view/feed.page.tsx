@@ -23,6 +23,7 @@ import {getTranslation} from '../helper/translate';
 import {ProfileLive} from './components/profile';
 import {useWebRefresh} from "../hooks/use-web-refresh";
 import {isElectron, useLastNotificationReceivedElectron} from "../helper/electron";
+import {openLink} from "../helper/url";
 
 
 export function feedTitle(props: any) {
@@ -189,7 +190,7 @@ export function FeedList() {
 
     const spectate = async (match_id: string) => {
         const url = `aoe2de://1/${match_id}`;
-        await Linking.openURL(url);
+        await openLink(url);
     };
 
     return (
