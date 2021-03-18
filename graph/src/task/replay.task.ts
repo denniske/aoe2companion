@@ -20,7 +20,8 @@ export class ReplayTask implements OnModuleInit {
     private pending: string[] = [];
 
     // private apiUrl = 'http://0.0.0.0:80/replay';
-    private apiUrl = 'http://95.217.215.149:80/replay';
+    private apiUrl = 'http://mgz.aoe2companion.com/replay';
+    // private apiUrl = 'http://95.217.215.149:80/replay';
     // private apiUrl = 'http://195.201.24.178:80/replay';
     // private apiUrl = 'https://wzhlh6g7h8.execute-api.eu-central-1.amazonaws.com/Prod/hello/';
 

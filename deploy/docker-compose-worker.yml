@@ -1,5 +1,5 @@
 # docker-compose.yml
-version: '2'
+version: '2.2'
 services:
   nginx:
     image: valian/docker-nginx-auto-ssl
@@ -24,14 +24,15 @@ services:
         status.aoe2companion.com=status:80;
         metric.aoe2companion.com=metric:80;
         proxy.aoe2companion.com=proxy:80;
+        mgz.aoe2companion.com=mgz:80;
 
-  #  mgz:
-  #    image: denniske/aoe2companion-mgz-pypy:d31fd9041fc2b9230d1a1223ba28bd6c2bd17ff5
-  #    restart: on-failure
-  #    ports:
-  #      - 80:80
-  #    environment:
-  #      PORT: 80
+  mgz:
+    image: denniske/aoe2companion-mgz-pypy:d31fd9041fc2b9230d1a1223ba28bd6c2bd17ff5
+    restart: on-failure
+    ports:
+      - 80:80
+    environment:
+      PORT: 80
 
 #  api:
 #    image: denniske/aoe2companion-api:abcd
@@ -44,6 +45,8 @@ services:
   base:
     image: node
     restart: on-failure
+    mem_limit: 200m
+    cpus: "1.0"
     environment:
       PORT: 80
       DATABASE_URL: $DATABASE_URL
