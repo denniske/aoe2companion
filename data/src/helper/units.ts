@@ -3477,3 +3477,12 @@ export function filterUnits(unitLineIds: UnitLine[], filter: { unique?: boolean 
         return true;
     });
 }
+
+// const diffUnits = Object.values(unitsInternal).filter(unit => {
+//     const data = aoeData.data.units[unit.dataId];
+//     const armoursMelee = data.Armours.find(a => a.Class === 4)?.Amount;
+//     const armoursPierce = data.Armours.find(a => a.Class === 3)?.Amount;
+//     console.log(unit.dataId, armoursMelee, data.MeleeArmor, armoursPierce, data.PierceArmor);
+//     return armoursMelee != data.MeleeArmor || armoursPierce != data.PierceArmor;
+// });
+// console.log(diffUnits);

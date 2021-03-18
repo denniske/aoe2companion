@@ -1,0 +1,19 @@
+# docker-compose.yml
+version: '2'
+services:
+
+#  mgz:
+#    image: denniske/aoe2companion-mgz-pypy:d31fd9041fc2b9230d1a1223ba28bd6c2bd17ff5
+#    restart: on-failure
+#    ports:
+#      - 80:80
+#    environment:
+#      PORT: 80
+
+  $SERVICE_NAME:
+    image: denniske/aoe2companion-$SERVICE_NAME:$COMMIT_SHA1
+    environment:
+      SERVICE_NAME: $SERVICE_NAME
+    extends:
+      file: docker-compose.yml
+      service: base

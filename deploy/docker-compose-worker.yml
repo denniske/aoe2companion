@@ -1,0 +1,49 @@
+# docker-compose.yml
+version: '2'
+services:
+  nginx:
+    image: valian/docker-nginx-auto-ssl
+    restart: on-failure
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ssl_data:/etc/resty-auto-ssl
+    environment:
+      ALLOWED_DOMAINS: 'aoe2companion.com'
+      SITES: >
+        api.aoe2companion.com=api:80;
+        notify.aoe2companion.com=notify:80;
+        graphql.aoe2companion.com=graphql:80;
+
+  #  mgz:
+  #    image: denniske/aoe2companion-mgz-pypy:d31fd9041fc2b9230d1a1223ba28bd6c2bd17ff5
+  #    restart: on-failure
+  #    ports:
+  #      - 80:80
+  #    environment:
+  #      PORT: 80
+
+#  api:
+#    image: denniske/aoe2companion-api:abcd
+#    environment:
+#      SERVICE_NAME: 'api'
+#    extends:
+#      service:
+#        base
+
+  base:
+    image: node
+    restart: on-failure
+    environment:
+      PORT: 80
+      DATABASE_URL: $DATABASE_URL
+      ELECTROLYTIC_APP_SECRET: $ELECTROLYTIC_APP_SECRET
+      PUSHER_SECRET_KEY: $PUSHER_SECRET_KEY
+      S3_ACCESS_KEY_ID: $S3_ACCESS_KEY_ID
+      S3_SECRET_ACCESS_KEY: $S3_SECRET_ACCESS_KEY
+      TWITCH_CLIENT_ID: $TWITCH_CLIENT_ID
+      TWITCH_CLIENT_SECRET: $TWITCH_CLIENT_SECRET
+
+volumes:
+  ssl_data:
