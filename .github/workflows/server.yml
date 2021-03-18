@@ -71,6 +71,7 @@ jobs:
 #      - run: chmod +x ./graph/deploy/deploy.sh && ./graph/deploy/deploy.sh
 
       - run: |
+          mkdir ~/.ssh
           echo $ID_CI_RSA_BASE64 > id_ci_rsa.base64
           base64 --decode id_ci_rsa.base64 > ~/.ssh/id_rsa
           echo $KNOWN_HOSTS_BASE64 > known_hosts.base64
