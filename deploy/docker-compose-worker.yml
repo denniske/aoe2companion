@@ -30,8 +30,8 @@ services:
   mgz:
     image: denniske/aoe2companion-mgz-pypy:d31fd9041fc2b9230d1a1223ba28bd6c2bd17ff5
     restart: on-failure
-    ports:
-      - 80:80
+    mem_limit: 2000m
+    cpus: "6.0"
     environment:
       PORT: 80
 
