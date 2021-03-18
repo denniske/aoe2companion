@@ -14,7 +14,16 @@ services:
       SITES: >
         api.aoe2companion.com=api:80;
         notify.aoe2companion.com=notify:80;
+        replay.aoe2companion.com=replay:80;
         graphql.aoe2companion.com=graphql:80;
+        import.aoe2companion.com=import:80;
+        function.aoe2companion.com=function:80;
+        rank.aoe2companion.com=rank:80;
+        ingest-fast.aoe2companion.com=ingest-fast:80;
+        ingest.aoe2companion.com=ingest:80;
+        status.aoe2companion.com=status:80;
+        metric.aoe2companion.com=metric:80;
+        proxy.aoe2companion.com=proxy:80;
 
   #  mgz:
   #    image: denniske/aoe2companion-mgz-pypy:d31fd9041fc2b9230d1a1223ba28bd6c2bd17ff5

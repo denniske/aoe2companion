@@ -11,4 +11,4 @@ done
 #MANIFESTS="${MANIFESTS} -p $PROJECT_NAME"
 #echo $MANIFESTS
 
-docker-compose $MANIFESTS up --remove-orphans
+docker-compose $MANIFESTS up -d --remove-orphans

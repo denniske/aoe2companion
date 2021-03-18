@@ -59,16 +59,15 @@ jobs:
           S3_SECRET_ACCESS_KEY: secrethub://denniske/aoe2companion/aws_secret_access_key
           TWITCH_CLIENT_ID: secrethub://denniske/aoe2companion/twitch_client_id
           TWITCH_CLIENT_SECRET: secrethub://denniske/aoe2companion/twitch_client_secret
+
       - run: echo "SERVICE_NAME=$(node deploy/script/service-name-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
       - run: echo $SERVICE_NAME
-#      - run: yarn add nx@10.2.0
-#      - run: yarn run generate:prisma
-#      - run: npx nx build graph
-#      - run: docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$COMMIT_SHA1 .
-#      - run: echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-#      - run: docker push denniske/aoe2companion-$SERVICE_NAME:$COMMIT_SHA1
-
-#      - run: chmod +x ./graph/deploy/deploy.sh && ./graph/deploy/deploy.sh
+      - run: yarn add nx@10.2.0
+      - run: yarn run generate:prisma
+      - run: npx nx build graph
+      - run: docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$COMMIT_SHA1 .
+      - run: echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+      - run: docker push denniske/aoe2companion-$SERVICE_NAME:$COMMIT_SHA1
 
       - run: |
           mkdir ~/.ssh
@@ -78,6 +77,7 @@ jobs:
           base64 --decode known_hosts.base64 > ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
           chmod 600 ~/.ssh/id_rsa
+
           cd deploy
 
           envsubst <./docker-compose-single.yml >./docker-compose-single.yml.out && mv ./docker-compose-single.yml.out ./docker-compose-single.yml
@@ -88,7 +88,8 @@ jobs:
           scp -o StrictHostKeyChecking=no run.sh root@95.217.215.149:/root/run.sh
           ssh -o StrictHostKeyChecking=no root@95.217.215.149 sh run.sh
 
-#          ssh root@95.217.215.149 docker-compose up -d --remove-orphans
+
+#     - run: chmod +x ./graph/deploy/deploy.sh && ./graph/deploy/deploy.sh
 
 #     - echo $ID_CI_RSA_BASE64 > id_ci_rsa.base64
 #     - base64 --decode id_ci_rsa.base64 > ~/.ssh/id_rsa
@@ -101,3 +102,4 @@ jobs:
 #     - bash ./deploy.sh
 #     - scp docker-compose.yml root@95.217.215.149:/root
 #     - ssh root@95.217.215.149 docker-compose up -d
+#     - ssh root@95.217.215.149 docker-compose up -d --remove-orphans
