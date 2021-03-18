@@ -5,7 +5,9 @@ git tag -d v23.0.0 && git push --delete origin v23.0.0
 git tag -d api-v26.0.20 && git push --delete origin api-v26.0.20 && git tag api-v26.0.20 && git push --tags
 
 
-docker-compose up --remove-orphans
+docker-compose up -d --remove-orphans
+ssh root@95.217.215.149 docker logs root_replay_1 -f
+
 
 - update
 - on close save pref in will-quit

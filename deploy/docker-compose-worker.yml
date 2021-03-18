@@ -46,7 +46,7 @@ services:
   base:
     image: node
     restart: on-failure
-    mem_limit: 200m
+    mem_limit: 500m
     cpus: "1.0"
     environment:
       PORT: 80
