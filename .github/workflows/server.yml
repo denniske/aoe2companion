@@ -83,11 +83,10 @@ jobs:
           envsubst <./docker-compose-single.yml >./docker-compose-single.yml.out && mv ./docker-compose-single.yml.out ./docker-compose-single.yml
           envsubst <./docker-compose-worker.yml >./docker-compose-worker.yml.out && mv ./docker-compose-worker.yml.out ./docker-compose-worker.yml
 
-          scp docker-compose-worker.yml root@95.217.215.149:/root/docker-compose.yml
-          scp docker-compose-single.yml root@95.217.215.149:/root/service-$SERVICE_NAME.yml
-          scp run.sh root@95.217.215.149:/root/run.sh
-          ssh root@95.217.215.149 sh run.sh
-
+          scp -o StrictHostKeyChecking=no docker-compose-worker.yml root@95.217.215.149:/root/docker-compose.yml
+          scp -o StrictHostKeyChecking=no docker-compose-single.yml root@95.217.215.149:/root/service-$SERVICE_NAME.yml
+          scp -o StrictHostKeyChecking=no run.sh root@95.217.215.149:/root/run.sh
+          ssh -o StrictHostKeyChecking=no root@95.217.215.149 sh run.sh
 
 #          ssh root@95.217.215.149 docker-compose up -d --remove-orphans
 
