@@ -1,5 +1,5 @@
 # docker-compose.yml
-version: '2'
+version: '2.2'
 services:
   nginx:
     image: valian/docker-nginx-auto-ssl
