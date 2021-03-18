@@ -12,6 +12,8 @@ services:
     environment:
       ALLOWED_DOMAINS: 'aoe2companion.com'
       SITES: >
+        mgz.aoe2companion.com=mgz:80;
+      ALL_SITES: >
         api.aoe2companion.com=api:80;
         notify.aoe2companion.com=notify:80;
         replay.aoe2companion.com=replay:80;
@@ -24,7 +26,6 @@ services:
         status.aoe2companion.com=status:80;
         metric.aoe2companion.com=metric:80;
         proxy.aoe2companion.com=proxy:80;
-        mgz.aoe2companion.com=mgz:80;
 
   mgz:
     image: denniske/aoe2companion-mgz-pypy:d31fd9041fc2b9230d1a1223ba28bd6c2bd17ff5
