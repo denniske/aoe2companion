@@ -16,6 +16,12 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
+    '26.0.2+1': [
+        {
+            type: 'minor',
+            title: 'Added quick search for build orders (Control+F, Tab)',
+        },
+    ],
     '26.0.2+0': [
         {
             type: 'feature',

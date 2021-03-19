@@ -193,7 +193,7 @@ const linking: LinkingOptions = {
                 path: 'search',
             },
             Guide: {
-                path: 'guide',
+                path: 'guide/:id?',
             },
             Live: {
                 path: 'live',
@@ -291,7 +291,7 @@ export type RootStackParamList = {
     Unit: { unit: Unit };
     Building: { building: Building };
     Tech: { tech: Tech };
-    Guide: undefined;
+    Guide: { build?: number };
     User: { id: UserId, name: string };
     Search: { name?: string };
     OverlaySettings: { };

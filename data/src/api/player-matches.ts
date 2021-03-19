@@ -151,10 +151,10 @@ export async function fetchPlayerMatchesLegacy(game: string, start: number, coun
     const url = getHost('aoe2net') + `api/player/matches?${queryString}`;
     let json = await fetchJson('fetchPlayerMatches', url) as IMatchRaw[];
 
-    // TODO: Temporary fix: Filter duplicate matches
+    // HACK: Filter duplicate matches
     json = uniqBy(json, m => m.match_id);
 
-    // TODO: Fix for new civ order after Lords of the West
+    // HACK: Fix new civ order after Lords of the West
     const releaseDate = 1611680400; // 01/26/2021 @ 5:00pm (UTC)
     json.filter(match => match.started < releaseDate).forEach(match => {
         match.players.forEach(player => {
@@ -249,10 +249,10 @@ export async function fetchPlayerMatchesNew(game: string, start: number, count: 
         // let json2 = await fetchJson('fetchPlayerMatches', url) as IMatchRaw[];
         // console.log(json2);
 
-        // TODO: Temporary fix: Filter duplicate matches
+        // HACK: Filter duplicate matches
         json = uniqBy(json, m => m.match_id);
 
-        // TODO: Fix for new civ order after Lords of the West
+        // HACK: Fix new civ order after Lords of the West
         const releaseDate = 1611680400; // 01/26/2021 @ 5:00pm (UTC)
         json.filter(match => getUnixTime(parseISO(match.started)) < releaseDate).forEach(match => {
             match.players.forEach(player => {

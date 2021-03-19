@@ -44,7 +44,7 @@ export default function Footer() {
     const nav2 = (event: any, item: IQueryRow) => {
         const navigation = getRootNavigation();
         console.log(item);
-        const { unit, building, tech, civ } = item;
+        const { unit, building, tech, civ, build } = item;
         if (civ) {
             return navigation.navigate('Civ', { civ });
         }
@@ -56,6 +56,9 @@ export default function Footer() {
         }
         if (tech) {
             return navigation.navigate('Tech', { tech });
+        }
+        if (build) {
+            return navigation.navigate('Guide', { build });
         }
     };
 

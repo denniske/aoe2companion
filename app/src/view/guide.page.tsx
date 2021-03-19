@@ -8,8 +8,9 @@ import {appVariants} from '../styles';
 import {MyText} from './components/my-text';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {createStylesheet} from '../theming-new';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {RouteProp, useFocusEffect, useNavigation, useRoute} from '@react-navigation/native';
 import {openLink} from "../helper/url";
+import {RootStackParamList} from "../../App";
 
 
 export function GuideTitle(props: any) {
@@ -36,12 +37,18 @@ export function GuideActions(props: any) {
 }
 
 export default function GuidePage() {
+    const route = useRoute<RouteProp<RootStackParamList, 'Guide'>>();
+
     if (Platform.OS === 'web') {
+        const baseUrl = `https://buildorderguide.com/?time=${new Date().getTime()}#`;
+        const url = route.params?.build ? `${baseUrl}/build/${route.params.build}/0` : baseUrl;
         return (
                 <iframe
+                        id="guide-iframe"
                         style={{border: 'none', background: 'white'}}
                         height="100%"
-                        src="https://buildorderguide.com/#/">
+                        src={url}
+                >
                 </iframe>
         );
     }

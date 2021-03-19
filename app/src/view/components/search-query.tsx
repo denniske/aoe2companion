@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, Image, StyleSheet, TouchableOpacity, View, ViewStyle} from 'react-native';
+import {FlatList, Image, ImageSourcePropType, StyleSheet, TouchableOpacity, View, ViewStyle} from 'react-native';
 import {IFetchedUser} from '../../service/user';
 import {Button, Searchbar, shadow} from 'react-native-paper';
 import {composeUserIdFromParts, UserInfo} from '../../helper/user';
@@ -34,6 +34,10 @@ import {getBuildingIcon} from "../../helper/buildings";
 import {Highlight} from "../../helper/highlight";
 import {getCivIcon} from "../../helper/civs";
 import {queryItemCanceledAsync, queryItemHoveredAsync, queryItemSelectedAsync} from "../../helper/electron";
+import {fakeBuilds} from "../../../../data/src/helper/builds";
+import {useAppTheme} from "../../theming";
+import {IConfig, saveConfigToStorage} from "../../service/storage";
+import {setConfig, useMutate, useSelector} from "../../redux/reducer";
 
 interface IPlayerProps {
     player: IFetchedUser;
@@ -106,11 +110,15 @@ interface ISearchProps {
 export interface IQueryRow {
     key: string;
     title: string;
+    subtitle?: string;
     highlight?: string;
     unit?: Unit;
     building?: Building;
     tech?: Tech;
     civ?: Civ;
+    image?: string;
+    build?: number;
+    callback?: () => void;
 }
 
 interface ItemProps {
@@ -118,9 +126,10 @@ interface ItemProps {
     tech?: Tech;
     unit?: Unit;
     building?: Building;
+    image?: string;
 }
 
-export function getItemIcon({civ, tech, unit, building}: ItemProps) {
+export function getItemIcon({civ, tech, unit, building, image}: ItemProps): ImageSourcePropType {
     if (civ) {
         console.log('civ', civ);
         return getCivIcon(civ);
@@ -134,54 +143,35 @@ export function getItemIcon({civ, tech, unit, building}: ItemProps) {
     if (building) {
         return getBuildingIcon(building);
     }
-    return false;
-}
-
-function getNavCallback({civ, tech, unit, building}: ItemProps) {
-    const navigation = useNavigation<RootStackProp>();
-    if (civ) {
-        return () => navigation.push('Civ', {civ: civ});
+    if (image) {
+        return {uri: image};
     }
-    if (tech) {
-        return () => navigation.push('Tech', {tech: tech});
-    }
-    if (unit) {
-        return () => navigation.push('Unit', {unit: unit});
-    }
-    if (building) {
-        return () => navigation.push('Building', {building: building});
-    }
-    return () => {};
+    return {};
 }
 
 export function SearchItem(props: IQueryRow) {
-    const { key, title, unit, building, tech, civ, highlight } = props;
+    const { key, title, subtitle, unit, building, tech, civ, highlight, callback } = props;
     const styles = useStyles();
-    const navigation = useNavigation<RootStackProp>();
     return (
-        <TouchableOpacity onPress={getNavCallback(props)}>
+        <TouchableOpacity onPress={callback}>
             <View style={styles.itemRow}>
                 <Image fadeDuration={0} style={styles.itemIcon} source={getItemIcon(props)}/>
                 <View style={styles.itemIconTitle}>
                     <MyText><Highlight str={title} highlight={highlight!}/></MyText>
-                    {/*{*/}
-                    {/*    subtitle != null &&*/}
-                    {/*    <MyText style={styles.base.small}>{subtitle}</MyText>*/}
-                    {/*}*/}
+                    {
+                        subtitle != null &&
+                        <MyText style={styles.base.small}>{subtitle}</MyText>
+                    }
                 </View>
             </View>
         </TouchableOpacity>
     );
 }
 
-export default function SearchQuery({title, selectedUser, actionText, action}: ISearchProps) {
-    const styles = useStyles();
-    const [text, setText] = useState('');
-    const [selectedItem, setSelectedItem] = useState<IQueryRow>();
-    const [selectedIndex, setSelectedIndex] = useState<number>(-1);
-    const [items, setItems] = useState<IQueryRow[]>([]);
+type Source = 'units' | 'buildOrders';
 
-    const refresh = () => {
+function getSourceItems(source: Source): IQueryRow[] {
+    if (source === "units") {
         const allUnits = allUnitSections.flatMap(s => s.data).map(u => ({
             key: getUnitName(u).toLowerCase(),
             title: getUnitName(u),
@@ -202,21 +192,85 @@ export default function SearchQuery({title, selectedUser, actionText, action}: I
             title: getCivNameById(u),
             civ: u,
         }));
+        return [...allUnits, ...allBuildings, ...allTechs, ...allCivs];
+    }
+    if (source === "buildOrders") {
+        return fakeBuilds.map(build => ({
+            key: build.title.toLowerCase() + ' ' + build.attributes.map(x => x.toLowerCase()).join(' ') + ' ' + build.civilization.toLowerCase(),
+            title: build.title,
+            subtitle: build.civilization.toLowerCase() + ' ' + build.attributes.map(x => x.toLowerCase()).join(' '),
+            image: build.imageURL,
+            build: build.id,
+        }));
+    }
+    return [];
+}
 
-        const allItems = [...allUnits, ...allBuildings, ...allTechs, ...allCivs];
+export default function SearchQuery({title, selectedUser, actionText, action}: ISearchProps) {
+    const styles = useStyles();
+    const theme = useAppTheme();
+    const [text, setText] = useState('');
+    const [selectedItem, setSelectedItem] = useState<IQueryRow>();
+    const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+    const [source, setSource] = useState<Source>('units');
+    const [items, setItems] = useState<IQueryRow[]>([]);
+    const config = useSelector(state => state.config);
+    const mutate = useMutate();
 
-        const filteredItems = allItems.filter(item => item.key.includes(text.toLowerCase())).filter((x,i) => i < 10);
+    console.log(theme);
 
-        setItems(filteredItems);
+    const refresh = () => {
+        const allItems = getSourceItems(source);
+        const parts = text.toLowerCase().split(' ');
+        const filteredItems = allItems.filter(item => parts.every(part => item.key.includes(part)));
+        setItems(filteredItems.filter((x,i) => i < 10));
     };
+
+    const toggleDarkMode = async () => {
+        const newConfig: IConfig = {
+            ...config,
+            darkMode: config.darkMode === 'light' ? 'dark' : 'light',
+        };
+        await saveConfigToStorage(newConfig)
+        mutate(setConfig(newConfig));
+    };
+
+    // const refresh = () => {
+    //     const allItems = fakeBuilds.map(build => ({
+    //         key: build.title.toLowerCase() + ' ' + build.attributes.map(x => x.toLowerCase()).join(' ') + ' ' + build.civilization.toLowerCase(),
+    //         title: build.title,
+    //         subtitle: build.civilization.toLowerCase() + ' ' + build.attributes.map(x => x.toLowerCase()).join(' '),
+    //         image: build.imageURL,
+    //     }));
+    //
+    //     console.log(allItems.map(k => k.key));
+    //
+    //     const parts = text.toLowerCase().split(' ');
+    //     const filteredItems = allItems.filter(item => parts.every(part => item.key.includes(part)));
+    //
+    //     setItems(filteredItems.filter((x,i) => i < 10));
+    // };
 
     useEffect(() => {
         refresh();
         setSelectedIndex(0);
-    }, [text]);
+    }, [text, source]);
+
+    const selected = (index: number) => {
+        queryItemSelectedAsync(items[index]);
+        setText('');
+    };
 
     const pressed = (e: any) => {
         console.log(e.code);
+        if (e.code == 'Tab') {
+            setSource(source === 'units' ? 'buildOrders' : 'units');
+            e.preventDefault();
+        }
+        if (e.code == 'F2') {
+            toggleDarkMode();
+            e.preventDefault();
+        }
         if (e.code == 'Escape') {
             queryItemCanceledAsync();
             setText('');
@@ -225,8 +279,7 @@ export default function SearchQuery({title, selectedUser, actionText, action}: I
         if (e.code == 'Enter') {
             // alert(items[selectedIndex+1].unit);
             if (selectedIndex > -1 && selectedIndex < items.length) {
-                queryItemSelectedAsync(items[selectedIndex]);
-                setText('');
+                selected(selectedIndex);
             }
             e.preventDefault();
         }
@@ -266,26 +319,19 @@ export default function SearchQuery({title, selectedUser, actionText, action}: I
     // };
 
     const renderItem = ({item, index}: {item: IQueryRow, index: number}) => {
-        // if (unitLines[item] && text.length === 0) {
-        //     return <UnitLineCompBig key={item} unitLine={item}/>
-        // }
-
-        console.log('render', selectedItem);
-        console.log('render2', text);
+        // console.log('render', selectedItem);
+        // console.log('render2', text);
         return (
             <View style={{
                 // backgroundColor: 'yellow'
-                // borderRadius: 5,
                 paddingHorizontal: 10,
                 paddingTop: 10,
-                backgroundColor: selectedIndex === index ? '#CCC' : 'transparent'
-                // backgroundColor: selectedItem?.key === item.key ? '#CCC' : 'transparent'
+                backgroundColor: selectedIndex === index ? theme.hoverBackgroundColor : 'transparent'
             }}>
-                <SearchItem key={`${index}`} highlight={text} title={item.title} civ={item.civ} tech={item.tech} building={item.building} unit={item.unit}/>
+                <SearchItem key={`${index}`} callback={() => selected(index)} highlight={text} title={item.title} civ={item.civ} tech={item.tech} building={item.building} unit={item.unit} image={item.image} subtitle={item.subtitle}/>
             </View>
         );
     };
-
 
     return (
             <View style={[styles.container, shadow(4) as ViewStyle]}>
@@ -294,17 +340,22 @@ export default function SearchQuery({title, selectedUser, actionText, action}: I
                     <MyText style={styles.centerText}>{title}</MyText>
                 }
 
+                <View style={styles.tabInfo}>
+                    <MyText>TAB</MyText>
+                </View>
+
                 <Searchbar
                         textAlign="left"
                         autoFocus={true}
                         onKeyPress={pressed}
                         style={styles.searchbar}
+                        placeholder={source === 'units' ? 'unit, building, tech, civ' : 'build order (name, civ, map)'}
                         onChangeText={setText}
                         value={text}
                 />
 
                 <FlatList
-                    extraData={{selectedItem, selectedIndex, text}}
+                    extraData={{selectedItem, selectedIndex, text, source}}
                     keyboardShouldPersistTaps={'always'}
                     contentContainerStyle={styles.list}
                     data={items}
@@ -343,6 +394,17 @@ export default function SearchQuery({title, selectedUser, actionText, action}: I
 }
 
 const useStyles = createStylesheet((theme, darkMode) => StyleSheet.create({
+    tabInfo: {
+        position: 'absolute',
+        right: 43,
+        top: 9,
+        color: theme.textColor,
+        backgroundColor: theme.hoverBackgroundColor,
+        zIndex: 100,
+        paddingVertical: 5,
+        paddingHorizontal: 8,
+        borderRadius: 3,
+    },
     itemRow: {
         flexDirection: 'row',
         alignItems: 'center',
