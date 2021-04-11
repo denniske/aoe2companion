@@ -9,6 +9,10 @@ services:
       - 443:443
     volumes:
       - ssl_data:/etc/resty-auto-ssl
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
     environment:
       ALLOWED_DOMAINS: 'aoe2companion.com'
       SITES: >
@@ -32,6 +36,10 @@ services:
     restart: on-failure
     mem_limit: 2000m
     cpus: "6.0"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
     environment:
       PORT: 80
 
@@ -48,6 +56,10 @@ services:
     restart: on-failure
     mem_limit: 500m
     cpus: "1.0"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
     environment:
       PORT: 80
       DATABASE_URL: $DATABASE_URL
