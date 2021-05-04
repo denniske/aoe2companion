@@ -16,6 +16,12 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
+    '26.0.3': [
+        {
+            type: 'minor',
+            title: 'Implement [AoE II DE Update 47820](https://www.ageofempires.com/news/aoe2de-update-47820/)',
+        },
+    ],
     '26.0.2+1': [
         {
             type: 'minor',

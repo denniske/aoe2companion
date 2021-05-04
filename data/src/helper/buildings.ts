@@ -58,7 +58,7 @@ export const buildingList: IBuilding[] = [
         "name": "FortifiedWall",
     },
     {
-        "dataId": "78",
+        "dataId": "487",
         "name": "Gate",
     },
     {
@@ -102,7 +102,7 @@ export const buildingList: IBuilding[] = [
         "name": "Outpost",
     },
     {
-        "dataId": "790",
+        "dataId": "792",
         "name": "PalisadeGate",
     },
     {
@@ -206,6 +206,9 @@ export function getBuildingData(building: Building) {
         throw Error(`getBuildingName ${building} - no dataId`);
     }
     const dataId = buildingEntry.dataId;
+    if (aoeData.data.buildings[dataId] == null) {
+        throw Error(`getUnitData ${building} - no data`);
+    }
     return aoeData.data.buildings[dataId] as IBuildingInfo;
 }
 

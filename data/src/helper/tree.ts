@@ -6,6 +6,7 @@ import {
 import {Unit, units} from "./units";
 import {Tech, techs} from "./techs";
 import {Civ, civDict, civs} from "./civs";
+import {aoeData} from '../data/data';
 
 
 export interface AbilityProps2 {
@@ -40,6 +41,21 @@ export function getAbilityEnabledForAllCivs(props: AbilityHelperProps) {
 
 export function getCivHasTech(civ: Civ, tech: Tech) {
     const entry = techs[tech];
+
+    const newVal = aoeData.techtrees[civ].techs.includes(parseInt(entry.dataId) as any)
+        || aoeData.techtrees[civ].unique.castleAgeUniqueTech === parseInt(entry.dataId) as any
+        || aoeData.techtrees[civ].unique.imperialAgeUniqueTech === parseInt(entry.dataId) as any;
+
+    // const legacyVal = getCivHasTechLegacy(civ, tech);
+    // if (legacyVal !== newVal) {
+    //     console.log(`AVAILABILITY CHANGE FOR TECH ${tech} FROM ${legacyVal} to ${newVal}`);
+    // }
+
+    return newVal;
+}
+
+function getCivHasTechLegacy(civ: Civ, tech: Tech) {
+    const entry = techs[tech];
     const civConfig = civsConfig[civ];
 
     if ((civConfig as any).enabled?.techs?.includes(parseInt(entry.dataId))) {
@@ -67,6 +83,19 @@ export function getCivHasTech(civ: Civ, tech: Tech) {
 
 export function getCivHasBuilding(civ: Civ, building: Building) {
     const entry = buildings[building];
+
+    const newVal = aoeData.techtrees[civ].buildings.includes(parseInt(entry.dataId) as any);
+
+    // const legacyVal = getCivHasBuildingLegacy(civ, building);
+    // if (legacyVal !== newVal) {
+    //     console.log(`AVAILABILITY CHANGE FOR BUILDING ${building} FROM ${legacyVal} to ${newVal}`);
+    // }
+
+    return newVal;
+}
+
+function getCivHasBuildingLegacy(civ: Civ, building: Building) {
+    const entry = buildings[building];
     const civConfig = civsConfig[civ];
 
     if ((civConfig as any).enabled?.buildings?.includes(parseInt(entry.dataId))) {
@@ -89,6 +118,21 @@ export function getCivHasBuilding(civ: Civ, building: Building) {
 }
 
 export function getCivHasUnit(civ: Civ, unit: Unit) {
+    const entry = units[unit];
+
+    const newVal = aoeData.techtrees[civ].units.includes(parseInt(entry.dataId) as any)
+        || aoeData.techtrees[civ].unique.castleAgeUniqueUnit === parseInt(entry.dataId) as any
+        || aoeData.techtrees[civ].unique.imperialAgeUniqueUnit === parseInt(entry.dataId) as any;
+
+    // const legacyVal = getCivHasUnitLegacy(civ, unit);
+    // if (legacyVal !== newVal) {
+    //     console.log(`AVAILABILITY CHANGE FOR UNIT ${unit} FROM ${legacyVal} to ${newVal}`);
+    // }
+
+    return newVal;
+}
+
+function getCivHasUnitLegacy(civ: Civ, unit: Unit) {
     const entry = units[unit];
     const civConfig = civsConfig[civ];
 

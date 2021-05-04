@@ -2476,7 +2476,7 @@ const unitsInternal = {
         dataId: '440',
     },
     'Trebuchet': {
-        dataId: '42',
+        dataId: '331',
     },
     'BombardCannon': {
         dataId: '36',
@@ -2491,7 +2491,7 @@ const unitsInternal = {
         dataId: '588',
     },
     'BatteringRam': {
-        dataId: '35',
+        dataId: '1258',
     },
     'CappedRam': {
         dataId: '422',
@@ -3256,6 +3256,9 @@ export function getUnitData(unit: Unit) {
         throw Error(`getUnitData ${unit} - no dataId`);
     }
     const dataId = units[unit].dataId;
+    if (aoeData.data.units[dataId] == null) {
+        throw Error(`getUnitData ${unit} - no data`);
+    }
     return aoeData.data.units[dataId] as IUnitInfo;
 }
 

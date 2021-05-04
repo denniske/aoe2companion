@@ -28,27 +28,27 @@ function TechTreeRow({civ, row}: {civ: aoeCivKey, row: ITechTreeRow}) {
                 <MyText style={styles.heading}>{getTranslation(row.title as any)}</MyText>
             }
             {
-                row.items?.map(item =>
+                row.items?.map((item, i) =>
                     <>
                         {
                             isEmpty(item) &&
-                            <Ability0/>
+                            <Ability0 key={i} />
                         }
                         {
                             item.age &&
-                            <Ability3 age={item.age}/>
+                            <Ability3 key={i} age={item.age}/>
                         }
                         {
                             item.unit &&
-                            <Ability2 civ={civ} unit={item.unit as any}/>
+                            <Ability2 key={i} civ={civ} unit={item.unit as any}/>
                         }
                         {
                             item.tech &&
-                            <Ability2 civ={civ} tech={item.tech as any}/>
+                            <Ability2 key={i} civ={civ} tech={item.tech as any}/>
                         }
                         {
                             item.building &&
-                            <Ability2 civ={civ} building={item.building as any}/>
+                            <Ability2 key={i} civ={civ} building={item.building as any}/>
                         }
                     </>
                 )
