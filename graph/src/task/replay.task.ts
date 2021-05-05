@@ -8,7 +8,7 @@ import {IReplayResult} from './replay.type';
 import {uniq} from 'lodash';
 import {InjectS3, S3} from 'nestjs-s3';
 import {formatDayAndTime, sleep} from '../util';
-import {fromUnixTime, getUnixTime, subMinutes} from "date-fns";
+import {fromUnixTime, getUnixTime, subMinutes, subMonths} from "date-fns";
 
 let workerCount = 0;
 
@@ -378,6 +378,7 @@ export class ReplayTask implements OnModuleInit {
 
     async runIngest1() {
         const oneHourAgo = subMinutes(new Date(), 60);
+        const oneMonthAgo = subMonths(new Date(), 1);
 
         if (this.matches.length == 0) {
             console.log("Pending", this.pending);
@@ -406,8 +407,11 @@ export class ReplayTask implements OnModuleInit {
                 },
                 where: {
                     // finished: {not: null},
-                    started: {lt: getUnixTime(oneHourAgo)},
-                    replayed: null,
+                    AND: [
+                        { started: { lt: getUnixTime(oneHourAgo) } },
+                        { started: { gt: getUnixTime(oneMonthAgo) } },
+                        { replayed: null },
+                    ],
                 },
                 take: 100,
                 orderBy: {
