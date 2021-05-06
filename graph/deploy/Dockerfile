@@ -14,6 +14,7 @@ RUN yarn
 RUN yarn run generate:prisma
 
 COPY dist ./dist
+COPY graph/graphql ./graph/graphql
 
 #RUN ls -al
 
