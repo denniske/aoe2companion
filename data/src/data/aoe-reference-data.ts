@@ -24,7 +24,8 @@ export const aoeReferenceData = {
                     "2644601",
                     "4422938"
                 ]
-            }
+            },
+            "team": "Aftermath"
         },
         {
             "name": "BacT",
@@ -48,7 +49,8 @@ export const aoeReferenceData = {
                     "2875412",
                     "1862911"
                 ]
-            }
+            },
+            "team": "Infinity Legends"
         },
         {
             "name": "Vivi",
@@ -74,9 +76,11 @@ export const aoeReferenceData = {
                     "3109523",
                     "1688652",
                     "3077860",
-                    "2007655"
+                    "2007655",
+                    "5602224"
                 ]
-            }
+            },
+            "team": "White Wolf Palace"
         },
         {
             "name": "Yo",
@@ -103,7 +107,8 @@ export const aoeReferenceData = {
                 "ibp": [
                     "yo"
                 ]
-            }
+            },
+            "team": "White Wolf Palace"
         },
         {
             "name": "Xiaofan",
@@ -119,7 +124,8 @@ export const aoeReferenceData = {
                 "de": [
                     "563078"
                 ]
-            }
+            },
+            "liquipedia": "Xiaofan"
         },
         {
             "name": "St4rk",
@@ -140,7 +146,8 @@ export const aoeReferenceData = {
                     "986504",
                     "3884287"
                 ]
-            }
+            },
+            "team": "Team Savages"
         },
         {
             "name": "LaaaaaN",
@@ -160,7 +167,9 @@ export const aoeReferenceData = {
                     "1819193",
                     "2602752"
                 ]
-            }
+            },
+            "team": "Heresy",
+            "twitch": "https://www.twitch.tv/lan_aoe"
         },
         {
             "name": "dogao",
@@ -182,7 +191,9 @@ export const aoeReferenceData = {
                     "1486575",
                     "1830104"
                 ]
-            }
+            },
+            "youtube": "http://www.youtube.com/channel/UC1X4jNWubqPI9g6bomo9q3g",
+            "team": "Heresy"
         },
         {
             "name": "TaToH",
@@ -206,9 +217,11 @@ export const aoeReferenceData = {
                     "197388",
                     "968255",
                     "1819863",
-                    "3033716"
+                    "3033716",
+                    "5317568"
                 ]
-            }
+            },
+            "team": "GamerLegion"
         },
         {
             "name": "Vinch",
@@ -227,7 +240,8 @@ export const aoeReferenceData = {
                     "271202",
                     "2886954"
                 ]
-            }
+            },
+            "team": "SalzZ"
         },
         {
             "name": "Modri",
@@ -245,7 +259,9 @@ export const aoeReferenceData = {
                     "1364587",
                     "1457840"
                 ]
-            }
+            },
+            "liquipedia": "Modri",
+            "twitch": "https://www.twitch.tv/modri_"
         },
         {
             "name": "Kotex",
@@ -275,7 +291,8 @@ export const aoeReferenceData = {
                     "666976",
                     "4014461"
                 ]
-            }
+            },
+            "twitch": "https://www.twitch.tv/b4rles"
         },
         {
             "name": "Yellow",
@@ -297,7 +314,9 @@ export const aoeReferenceData = {
                 "de": [
                     "419803"
                 ]
-            }
+            },
+            "youtube": "http://www.youtube.com/channel/UCjIqdH3_66fmTIjFDtBM_pg",
+            "team": "Vietnam Legends"
         },
         {
             "name": "Chart",
@@ -313,7 +332,10 @@ export const aoeReferenceData = {
                     "217905",
                     "728551"
                 ]
-            }
+            },
+            "liquipedia": "chart",
+            "twitch": "https://www.twitch.tv/chartaoc",
+            "team": "DarkSidE"
         },
         {
             "name": "Valas",
@@ -352,7 +374,9 @@ export const aoeReferenceData = {
                 "gamepark": [
                     "straydog"
                 ]
-            }
+            },
+            "liquipedia": "StrayDog",
+            "team": "White Wolf Palace"
         },
         {
             "name": "F1Re",
@@ -370,7 +394,9 @@ export const aoeReferenceData = {
                     "196310",
                     "1819094"
                 ]
-            }
+            },
+            "youtube": "http://www.youtube.com/channel/UCe5PZxogLEsu5VacKmOiR5g",
+            "team": "Killing Generation of Brazil"
         },
         {
             "name": "ACCM",
@@ -390,7 +416,9 @@ export const aoeReferenceData = {
                     "3202763",
                     "1844119"
                 ]
-            }
+            },
+            "youtube": "http://www.youtube.com/channel/UClFrW56x-ZtFIE2J_Qn2Ftg",
+            "team": "Vietnam Legends"
         },
         {
             "name": "Tim",
@@ -418,7 +446,8 @@ export const aoeReferenceData = {
                 "zone": [
                     "tim"
                 ]
-            }
+            },
+            "team": "White Wolf Palace"
         },
         {
             "name": "CooL",
@@ -434,7 +463,8 @@ export const aoeReferenceData = {
                 "zone": [
                     "cool"
                 ]
-            }
+            },
+            "liquipedia": "CooL"
         },
         {
             "name": "Liereyy",
@@ -454,7 +484,8 @@ export const aoeReferenceData = {
                     "506898",
                     "1829588"
                 ]
-            }
+            },
+            "team": "Tempo Storm"
         },
         {
             "name": "Cloud",
@@ -476,7 +507,9 @@ export const aoeReferenceData = {
                 "ibp": [
                     "cloud"
                 ]
-            }
+            },
+            "twitch": "https://www.twitch.tv/gktcloud",
+            "team": "KYO All Fallen"
         },
         {
             "name": "Paladin",
@@ -499,7 +532,8 @@ export const aoeReferenceData = {
                 "ibp": [
                     "paladin"
                 ]
-            }
+            },
+            "team": "White Wolf Palace"
         },
         {
             "name": "DauT",
@@ -529,7 +563,8 @@ export const aoeReferenceData = {
                 "gamepark": [
                     "daut"
                 ]
-            }
+            },
+            "team": "GamerLegion"
         },
         {
             "name": "Hera",
@@ -552,14 +587,15 @@ export const aoeReferenceData = {
                     "1847121",
                     "3209724"
                 ]
-            }
+            },
+            "team": "Tempo Storm"
         },
         {
             "name": "Nili",
             "country": "de",
             "aoeelo": 11,
             "esportsearnings": 41832,
-            "liquipedia": "Nili_AoE",
+            "liquipedia": "Nili",
             "twitch": "https://www.twitch.tv/nili_aoe",
             "youtube": "https://www.youtube.com/channel/UCXeY7zz-1LsyZdnpFbffdqA/videos",
             "discord": "https://discordapp.com/invite/pQG8txM",
@@ -577,7 +613,8 @@ export const aoeReferenceData = {
                 "gamepark": [
                     "nili"
                 ]
-            }
+            },
+            "team": "GamerLegion"
         },
         {
             "name": "Belgium",
@@ -595,7 +632,8 @@ export const aoeReferenceData = {
                 "de": [
                     "213305"
                 ]
-            }
+            },
+            "team": "Infinity Legends"
         },
         {
             "name": "Zuppi",
@@ -612,7 +650,8 @@ export const aoeReferenceData = {
                 "de": [
                     "575722"
                 ]
-            }
+            },
+            "team": "Suomi"
         },
         {
             "name": "DracKeN",
@@ -634,7 +673,10 @@ export const aoeReferenceData = {
                 "de": [
                     "357795"
                 ]
-            }
+            },
+            "liquipedia": "DracKeN",
+            "youtube": "http://www.youtube.com/channel/UC3FySA4jBTHUXUT2YIzzU3A",
+            "team": "Clown Legion"
         },
         {
             "name": "TheViper",
@@ -669,14 +711,15 @@ export const aoeReferenceData = {
                 "zone": [
                     "viper"
                 ]
-            }
+            },
+            "team": "GamerLegion"
         },
         {
             "name": "Slam",
             "country": "ca",
             "esportsearnings": 12253,
             "aoeelo": 32,
-            "liquipedia": "Slam",
+            "liquipedia": "slam",
             "twitch": "https://www.twitch.tv/slamjam_/",
             "youtube": "https://www.youtube.com/channel/UC15K06FB4EO98AMBYqraQ3w",
             "platforms": {
@@ -690,7 +733,8 @@ export const aoeReferenceData = {
                 "de": [
                     "614315"
                 ]
-            }
+            },
+            "team": "GamerLegion"
         },
         {
             "name": "Daniel",
@@ -705,7 +749,8 @@ export const aoeReferenceData = {
                 "de": [
                     "265517"
                 ]
-            }
+            },
+            "team": "White Wolf Palace"
         },
         {
             "name": "Yinghua",
@@ -756,7 +801,8 @@ export const aoeReferenceData = {
                 "de": [
                     "226575"
                 ]
-            }
+            },
+            "team": "White Wolf Palace"
         },
         {
             "name": "Nicov",
@@ -781,14 +827,15 @@ export const aoeReferenceData = {
                     "1827959",
                     "2609359"
                 ]
-            }
+            },
+            "team": "Aftermath"
         },
         {
             "name": "JorDan",
             "country": "de",
             "esportsearnings": 12245,
             "aoeelo": 30,
-            "liquipedia": "JoaDn_105",
+            "liquipedia": "JorDan_AoE",
             "twitch": "https://www.twitch.tv/JorDan_AoE/",
             "youtube": "https://www.youtube.com/channel/UCimCFIisAqXW9udVhN_LpwQ",
             "discord": "https://discord.gg/TWpUYVh",
@@ -805,7 +852,8 @@ export const aoeReferenceData = {
                 "de": [
                     "2858362"
                 ]
-            }
+            },
+            "team": "GamerLegion"
         },
         {
             "name": "Melkor",
@@ -817,7 +865,10 @@ export const aoeReferenceData = {
                     "123394463",
                     "124158935"
                 ]
-            }
+            },
+            "liquipedia": "Melkor",
+            "youtube": "http://www.youtube.com/channel/UCawtaF3Ty12hHzQRYvNta7w/videos",
+            "team": "Heresy"
         },
         {
             "name": "TheMax",
@@ -836,7 +887,8 @@ export const aoeReferenceData = {
                     "572017",
                     "1832996"
                 ]
-            }
+            },
+            "team": "Suomi"
         },
         {
             "name": "Villese",
@@ -854,7 +906,9 @@ export const aoeReferenceData = {
                     "208611",
                     "1829715"
                 ]
-            }
+            },
+            "twitch": "https://www.twitch.tv/villese",
+            "team": "Suomi"
         },
         {
             "name": "RiuT",
@@ -879,7 +933,8 @@ export const aoeReferenceData = {
                 "de": [
                     "673196"
                 ]
-            }
+            },
+            "team": "Infinity Legends"
         },
         {
             "name": "Miguel",
@@ -900,7 +955,8 @@ export const aoeReferenceData = {
                 "de": [
                     "2090225"
                 ]
-            }
+            },
+            "team": "Heresy"
         },
         {
             "name": "Twigg",
@@ -915,7 +971,9 @@ export const aoeReferenceData = {
                 "de": [
                     "2621722"
                 ]
-            }
+            },
+            "liquipedia": "Twigg",
+            "team": "DarkSidE"
         },
         {
             "name": "JonSlow",
@@ -938,7 +996,9 @@ export const aoeReferenceData = {
                 "de": [
                     "208269"
                 ]
-            }
+            },
+            "liquipedia": "JonSlow",
+            "team": "Clown Legion"
         },
         {
             "name": "Sitaux",
@@ -958,9 +1018,13 @@ export const aoeReferenceData = {
                     "1311198",
                     "212721",
                     "1630401",
-                    "4351237"
+                    "4351237",
+                    "1630401",
+                    "5230833"
                 ]
-            }
+            },
+            "youtube": "http://www.youtube.com/channel/UCyRoER5J4CNYnpvxMy8zmvA",
+            "team": "Heresy"
         },
         {
             "name": "Rubenstock",
@@ -975,7 +1039,9 @@ export const aoeReferenceData = {
                 "de": [
                     "431744"
                 ]
-            }
+            },
+            "twitch": "https://www.twitch.tv/rubenstock",
+            "team": "Suomi"
         },
         {
             "name": "Hoang",
@@ -995,7 +1061,8 @@ export const aoeReferenceData = {
                     "2097181",
                     "3241077"
                 ]
-            }
+            },
+            "team": "DarkSidE"
         },
         {
             "name": "AngelinaJolie",
@@ -1029,7 +1096,8 @@ export const aoeReferenceData = {
                     "965185",
                     "3496121"
                 ]
-            }
+            },
+            "team": "Rulers of Rome"
         },
         {
             "name": "Kasva",
@@ -1048,9 +1116,11 @@ export const aoeReferenceData = {
                 ],
                 "de": [
                     "1224481",
-                    "2759481"
+                    "2759481",
+                    "4795863"
                 ]
-            }
+            },
+            "team": "1907 Fenerbahçe Esports"
         },
         {
             "name": "Jibatong",
@@ -1073,7 +1143,8 @@ export const aoeReferenceData = {
                 "de": [
                     "227857"
                 ]
-            }
+            },
+            "team": "Fei Mei San Dao"
         },
         {
             "name": "Noisick",
@@ -1089,7 +1160,9 @@ export const aoeReferenceData = {
                     "2709266",
                     "3557942"
                 ]
-            }
+            },
+            "liquipedia": "Noisick",
+            "team": "Chilean Masters"
         },
         {
             "name": "Inc",
@@ -1107,7 +1180,8 @@ export const aoeReferenceData = {
                 "zone": [
                     "inc"
                 ]
-            }
+            },
+            "liquipedia": "Inc"
         },
         {
             "name": "Fedex",
@@ -1147,7 +1221,9 @@ export const aoeReferenceData = {
                     "879956",
                     "3558975"
                 ]
-            }
+            },
+            "liquipedia": "Dziamdziak",
+            "team": "PL"
         },
         {
             "name": "Ppoc",
@@ -1223,7 +1299,8 @@ export const aoeReferenceData = {
                 "zone": [
                     "koven"
                 ]
-            }
+            },
+            "team": "TyRant"
         },
         {
             "name": "Halen",
@@ -1249,7 +1326,8 @@ export const aoeReferenceData = {
                 "zone": [
                     "champion"
                 ]
-            }
+            },
+            "liquipedia": "RD_ChampioN"
         },
         {
             "name": "Chris",
@@ -1279,7 +1357,8 @@ export const aoeReferenceData = {
                     "3230529",
                     "3552644"
                 ]
-            }
+            },
+            "team": "Infinity Legends"
         },
         {
             "name": "The_Sheriff",
@@ -1306,7 +1385,8 @@ export const aoeReferenceData = {
                 "gamepark": [
                     "2scared"
                 ]
-            }
+            },
+            "liquipedia": "2scareD"
         },
         {
             "name": "B1ade",
@@ -1319,7 +1399,8 @@ export const aoeReferenceData = {
                 "zone": [
                     "blade"
                 ]
-            }
+            },
+            "liquipedia": "B1ade"
         },
         {
             "name": "Spring",
@@ -1359,7 +1440,8 @@ export const aoeReferenceData = {
                 "zone": [
                     "windy"
                 ]
-            }
+            },
+            "liquipedia": "Windy"
         },
         {
             "name": "Iori",
@@ -1372,7 +1454,8 @@ export const aoeReferenceData = {
                 "de": [
                     "2772600"
                 ]
-            }
+            },
+            "liquipedia": "IORI"
         },
         {
             "name": "Joe",
@@ -1402,7 +1485,8 @@ export const aoeReferenceData = {
                 "de": [
                     "1997593"
                 ]
-            }
+            },
+            "liquipedia": "Ruso"
         },
         {
             "name": "Alive",
@@ -1425,7 +1509,9 @@ export const aoeReferenceData = {
                 "zone": [
                     "alive"
                 ]
-            }
+            },
+            "liquipedia": "Alive",
+            "team": "Killing Generation of Brazil"
         },
         {
             "name": "Ding",
@@ -1461,7 +1547,8 @@ export const aoeReferenceData = {
                 "gamepark": [
                     "vile"
                 ]
-            }
+            },
+            "liquipedia": "Vile"
         },
         {
             "name": "Kmkm",
@@ -1501,7 +1588,9 @@ export const aoeReferenceData = {
                     "123134558",
                     "124340942"
                 ]
-            }
+            },
+            "liquipedia": "Lojza",
+            "team": "Nadya's Boys"
         },
         {
             "name": "Mentalist",
@@ -1514,7 +1603,9 @@ export const aoeReferenceData = {
                     "124195578",
                     "125091165"
                 ]
-            }
+            },
+            "liquipedia": "Mentalist",
+            "team": "Nadya's Boys"
         },
         {
             "name": "Goku",
@@ -1530,9 +1621,11 @@ export const aoeReferenceData = {
                     "123529024"
                 ],
                 "de": [
-                    "1893397"
+                    "1893397",
+                    "5638708"
                 ]
-            }
+            },
+            "team": "Team Savages"
         },
         {
             "name": "Pike",
@@ -1551,7 +1644,8 @@ export const aoeReferenceData = {
                     "229063",
                     "3457608"
                 ]
-            }
+            },
+            "team": "Suomi"
         },
         {
             "name": "Vodka",
@@ -1570,7 +1664,9 @@ export const aoeReferenceData = {
                     "2428811",
                     "4497383"
                 ]
-            }
+            },
+            "twitch": "https://www.twitch.tv/vodka_l_",
+            "team": "Rulers of Rome"
         },
         {
             "name": "Spaden",
@@ -1584,7 +1680,10 @@ export const aoeReferenceData = {
                 "de": [
                     "248441"
                 ]
-            }
+            },
+            "liquipedia": "Spaden",
+            "team": "Nadya's Boys",
+            "twitch": "https://www.twitch.tv/spadenaoc"
         },
         {
             "name": "Monoz",
@@ -1622,7 +1721,9 @@ export const aoeReferenceData = {
                 "de": [
                     "2783258"
                 ]
-            }
+            },
+            "liquipedia": "Whoop",
+            "team": "White Wolf Palace"
         },
         {
             "name": "Kief",
@@ -1651,7 +1752,10 @@ export const aoeReferenceData = {
                     "123189353",
                     "123741316"
                 ]
-            }
+            },
+            "liquipedia": "Edie",
+            "twitch": "https://www.twitch.tv/poz_edie",
+            "team": "Heresy"
         },
         {
             "name": "SongSong",
@@ -1674,7 +1778,9 @@ export const aoeReferenceData = {
                     "2733015",
                     "3956300"
                 ]
-            }
+            },
+            "liquipedia": "SongSong",
+            "team": "DarkSidE"
         },
         {
             "name": "CooL",
@@ -1684,7 +1790,8 @@ export const aoeReferenceData = {
                 "voobly": [
                     "123194620"
                 ]
-            }
+            },
+            "liquipedia": "CooL"
         },
         {
             "name": "Air_Abu",
@@ -1742,7 +1849,9 @@ export const aoeReferenceData = {
                     "1755520",
                     "1754629"
                 ]
-            }
+            },
+            "liquipedia": "classicpro",
+            "team": "SalzZ"
         },
         {
             "name": "Ralber",
@@ -1762,7 +1871,8 @@ export const aoeReferenceData = {
                 "de": [
                     "2535067"
                 ]
-            }
+            },
+            "liquipedia": "Ralber"
         },
         {
             "name": "DreaIVIS",
@@ -1779,7 +1889,9 @@ export const aoeReferenceData = {
                 "zone": [
                     "dreams"
                 ]
-            }
+            },
+            "liquipedia": "DreaIVIS",
+            "twitch": "https://www.twitch.tv/aoewithdreaivis"
         },
         {
             "name": "Capoch",
@@ -1804,7 +1916,10 @@ export const aoeReferenceData = {
                 "gamepark": [
                     "capoch"
                 ]
-            }
+            },
+            "liquipedia": "Capoch",
+            "youtube": "http://www.youtube.com/capoch",
+            "team": "Infinity Legends"
         },
         {
             "name": "Rami",
@@ -1870,7 +1985,8 @@ export const aoeReferenceData = {
                 "ibp": [
                     "geoffrey"
                 ]
-            }
+            },
+            "liquipedia": "Geoffrey"
         },
         {
             "name": "Bieber",
@@ -1902,9 +2018,11 @@ export const aoeReferenceData = {
                     "feage"
                 ],
                 "de": [
-                    "300649"
+                    "300649",
+                    "4956328"
                 ]
-            }
+            },
+            "liquipedia": "FeAge"
         },
         {
             "name": "Noto",
@@ -1936,13 +2054,15 @@ export const aoeReferenceData = {
                 "de": [
                     "582058"
                 ]
-            }
+            },
+            "team": "Aftermath",
+            "youtube": "http://www.youtube.com/channel/UCOtdNcfA05JODTx1cBlniyg"
         },
         {
             "name": "Ra",
             "country": "ca",
             "esportsearnings": 14735,
-            "twitch": "https://www.twitch.tv/sezualhealing/",
+            "twitch": "https://www.twitch.tv/ra_aoe/",
             "platforms": {
                 "voobly": [
                     "47262",
@@ -1951,7 +2071,8 @@ export const aoeReferenceData = {
                 "de": [
                     "1098178"
                 ]
-            }
+            },
+            "liquipedia": "Ra"
         },
         {
             "name": "Miss_Xue",
@@ -2000,12 +2121,15 @@ export const aoeReferenceData = {
                 "de": [
                     "208493"
                 ]
-            }
+            },
+            "liquipedia": "Feanor",
+            "twitch": "https://www.twitch.tv/heresy_feanor",
+            "team": "Heresy"
         },
         {
             "name": "Hasan",
             "country": "ba",
-            "twitch": "https://www.twitch.tv/nastyhas",
+            "twitch": "https://www.twitch.tv/raidenaoe",
             "platforms": {
                 "voobly": [
                     "123222710",
@@ -2016,9 +2140,12 @@ export const aoeReferenceData = {
                     "125321142"
                 ],
                 "de": [
-                    "971296"
+                    "971296",
+                    "5126520"
                 ]
-            }
+            },
+            "liquipedia": "Hasan",
+            "team": "Immortals"
         },
         {
             "name": "Juan",
@@ -2076,7 +2203,10 @@ export const aoeReferenceData = {
                     "208080",
                     "703045"
                 ]
-            }
+            },
+            "liquipedia": "Jupe",
+            "team": "Suomi",
+            "youtube": "http://www.youtube.com/channel/UCVMPwOgvRe7pIpGurY6FngA"
         },
         {
             "name": "Dobbs",
@@ -2107,7 +2237,9 @@ export const aoeReferenceData = {
                 "de": [
                     "213355"
                 ]
-            }
+            },
+            "twitch": "https://www.twitch.tv/kamigawa_",
+            "team": "Rulers of Rome"
         },
         {
             "name": "CL",
@@ -2130,7 +2262,9 @@ export const aoeReferenceData = {
                     "3235648",
                     "2411454"
                 ]
-            }
+            },
+            "liquipedia": "CL",
+            "team": "White Wolf Palace"
         },
         {
             "name": "Kongensgade",
@@ -2190,7 +2324,8 @@ export const aoeReferenceData = {
                 "zone": [
                     "mimmox"
                 ]
-            }
+            },
+            "liquipedia": "Mimmox"
         },
         {
             "name": "Bvirus",
@@ -2244,7 +2379,8 @@ export const aoeReferenceData = {
                 "voobly": [
                     "56555"
                 ]
-            }
+            },
+            "liquipedia": "BT4"
         },
         {
             "name": "PeEl",
@@ -2257,7 +2393,8 @@ export const aoeReferenceData = {
                 "voobly": [
                     "15886"
                 ]
-            }
+            },
+            "liquipedia": "PeEl"
         },
         {
             "name": "Rukie",
@@ -2267,7 +2404,8 @@ export const aoeReferenceData = {
                 "zone": [
                     "rukie"
                 ]
-            }
+            },
+            "liquipedia": "RuKie"
         },
         {
             "name": "DriNkY",
@@ -2313,11 +2451,14 @@ export const aoeReferenceData = {
         },
         {
             "name": "Moczymorda",
-            "country": "pl",
+            "country": "mt",
             "esportsearnings": 66451,
             "platforms": {
                 "zone": [
                     "moczymorda"
+                ],
+                "de": [
+                    "5424138"
                 ]
             }
         },
@@ -2347,7 +2488,9 @@ export const aoeReferenceData = {
                 "de": [
                     "3384231"
                 ]
-            }
+            },
+            "liquipedia": "Poisn",
+            "team": "Berserkers"
         },
         {
             "name": "Playboy",
@@ -2374,7 +2517,8 @@ export const aoeReferenceData = {
                 "zone": [
                     "feeling"
                 ]
-            }
+            },
+            "liquipedia": "feeling"
         },
         {
             "name": "Cloudy",
@@ -2495,7 +2639,9 @@ export const aoeReferenceData = {
                 "voobly": [
                     "123839438"
                 ]
-            }
+            },
+            "liquipedia": "GoldenEnd",
+            "team": "Rulers of Rome"
         },
         {
             "name": "Elfanor",
@@ -2529,7 +2675,8 @@ export const aoeReferenceData = {
                     "907464",
                     "3524242"
                 ]
-            }
+            },
+            "liquipedia": "Cyclops"
         },
         {
             "name": "Janik",
@@ -2542,7 +2689,8 @@ export const aoeReferenceData = {
                 "de": [
                     "1134223"
                 ]
-            }
+            },
+            "liquipedia": "Janik"
         },
         {
             "name": "Seoul",
@@ -2562,7 +2710,8 @@ export const aoeReferenceData = {
                 "voobly": [
                     "125045236"
                 ]
-            }
+            },
+            "liquipedia": "Running"
         },
         {
             "name": "Obadiah",
@@ -2572,9 +2721,11 @@ export const aoeReferenceData = {
                 "de": [
                     "225365",
                     "1515905",
-                    "3435966"
+                    "3435966",
+                    "4959296"
                 ]
-            }
+            },
+            "liquipedia": "Obadiah"
         },
         {
             "name": "DemonSheep",
@@ -2585,7 +2736,8 @@ export const aoeReferenceData = {
                 "de": [
                     "226697"
                 ]
-            }
+            },
+            "liquipedia": "DemonSheep"
         },
         {
             "name": "Stefan",
@@ -2598,7 +2750,9 @@ export const aoeReferenceData = {
                     "1221228",
                     "1597337"
                 ]
-            }
+            },
+            "liquipedia": "Stefan",
+            "team": "PetGunPet"
         },
         {
             "name": "Sora Kuma",
@@ -2624,7 +2778,9 @@ export const aoeReferenceData = {
                     "223206",
                     "3308789"
                 ]
-            }
+            },
+            "liquipedia": "Komtan",
+            "twitch": "https://www.twitch.tv/komtano_o"
         },
         {
             "name": "Scotty",
@@ -2642,7 +2798,8 @@ export const aoeReferenceData = {
             "name": "Metal",
             "country": "us",
             "aoeelo": 70,
-            "platforms": []
+            "platforms": [],
+            "liquipedia": "Metal"
         },
         {
             "name": "LB10",
@@ -2655,13 +2812,24 @@ export const aoeReferenceData = {
                 "voobly": [
                     "123926453"
                 ]
-            }
+            },
+            "liquipedia": "LB10",
+            "twitch": "https://www.twitch.tv/lb10_",
+            "team": "New Chapter"
         },
         {
             "name": "Rodrigus",
             "country": "ar",
             "aoeelo": 449,
-            "platforms": []
+            "platforms": {
+                "de": [
+                    "2495166",
+                    "1143001"
+                ],
+                "voobly": [
+                    "5469"
+                ]
+            }
         },
         {
             "name": "Skittle",
@@ -2678,7 +2846,10 @@ export const aoeReferenceData = {
                 "igz": [
                     "123225139"
                 ]
-            }
+            },
+            "liquipedia": "Skittle",
+            "twitch": "https://www.twitch.tv/lb10_",
+            "team": "New Chapter"
         },
         {
             "name": "Jidba",
@@ -2693,13 +2864,15 @@ export const aoeReferenceData = {
                 "voobly": [
                     "978"
                 ]
-            }
+            },
+            "liquipedia": "Jidba"
         },
         {
             "name": "IamKen",
             "country": "cn",
             "esportsearnings": 2174,
-            "platforms": []
+            "platforms": [],
+            "liquipedia": "IamKen"
         },
         {
             "name": "Bender",
@@ -2712,7 +2885,8 @@ export const aoeReferenceData = {
                 "zone": [
                     "bender"
                 ]
-            }
+            },
+            "liquipedia": "Bender"
         },
         {
             "name": "Nv",
@@ -2757,7 +2931,8 @@ export const aoeReferenceData = {
                 "gamepark": [
                     "buddha"
                 ]
-            }
+            },
+            "liquipedia": "Buddha"
         },
         {
             "name": "El KhaLeN",
@@ -2792,7 +2967,8 @@ export const aoeReferenceData = {
                 "voobly": [
                     "123188321"
                 ]
-            }
+            },
+            "team": "QuEnDi"
         },
         {
             "name": "WraTh",
@@ -2805,7 +2981,8 @@ export const aoeReferenceData = {
                 "gamepark": [
                     "wrath"
                 ]
-            }
+            },
+            "liquipedia": "WraTh"
         },
         {
             "name": "Jinx",
@@ -2825,7 +3002,8 @@ export const aoeReferenceData = {
                 "zone": [
                     "muse"
                 ]
-            }
+            },
+            "liquipedia": "MuSe"
         },
         {
             "name": "Crexis",
@@ -2855,7 +3033,8 @@ export const aoeReferenceData = {
             "country": "dk",
             "esportsearnings": 42050,
             "liquipedia": "High",
-            "platforms": []
+            "platforms": [],
+            "team": "DevilZ"
         },
         {
             "name": "HimT",
@@ -2893,7 +3072,8 @@ export const aoeReferenceData = {
                 "zone": [
                     "rayan"
                 ]
-            }
+            },
+            "liquipedia": "RaYaN"
         },
         {
             "name": "Jaksal",
@@ -2911,7 +3091,8 @@ export const aoeReferenceData = {
             "name": "Praxes",
             "country": "us",
             "esportsearnings": 15951,
-            "platforms": []
+            "platforms": [],
+            "liquipedia": "Praxes"
         },
         {
             "name": "Disciple",
@@ -2930,25 +3111,34 @@ export const aoeReferenceData = {
                 "voobly": [
                     "170776"
                 ]
-            }
+            },
+            "liquipedia": "Ugnis"
         },
         {
             "name": "NoBoDy",
             "country": "kz",
             "esportsearnings": 66167,
-            "platforms": []
+            "platforms": [],
+            "liquipedia": "Nobody",
+            "twitch": "https://www.twitch.tv/nobodyaoe",
+            "youtube": "http://www.youtube.com/channel/UC3ieLuJmS77c4xrkezv0WNw"
         },
         {
             "name": "Sobek",
             "country": "cl",
             "platforms": {
                 "de": [
-                    "290617"
+                    "290617",
+                    "2598137"
                 ],
                 "voobly": [
                     "124317014"
                 ]
-            }
+            },
+            "liquipedia": "Sobek",
+            "twitch": "https://www.twitch.tv/twitch.tv/sobek_aoe",
+            "youtube": "http://www.youtube.com/channel/UCVH-sSxnCZtqJJmbtggTCxQ/feed",
+            "team": "Imperial Clan"
         },
         {
             "name": "Hallis",
@@ -2962,7 +3152,10 @@ export const aoeReferenceData = {
                     "123851827",
                     "123649340"
                 ]
-            }
+            },
+            "liquipedia": "Hallis",
+            "team": "Rulers of Rome",
+            "youtube": "http://www.youtube.com/hallisyodaddy"
         },
         {
             "name": "FletcheR",
@@ -2972,7 +3165,8 @@ export const aoeReferenceData = {
                 "zone": [
                     "fletcher"
                 ]
-            }
+            },
+            "liquipedia": "FletcheR"
         },
         {
             "name": "Kumruke",
@@ -3006,7 +3200,8 @@ export const aoeReferenceData = {
                     "123188558",
                     "123140760"
                 ]
-            }
+            },
+            "liquipedia": "Goodboy"
         },
         {
             "name": "Kyo",
@@ -3027,7 +3222,9 @@ export const aoeReferenceData = {
                 "de": [
                     "247224"
                 ]
-            }
+            },
+            "liquipedia": "Survivalist",
+            "twitch": "https://www.twitch.tv/survivalistaoe2de"
         },
         {
             "name": "YYQ",
@@ -3097,7 +3294,9 @@ export const aoeReferenceData = {
                 "de": [
                     "222528"
                 ]
-            }
+            },
+            "liquipedia": "Repard",
+            "twitch": "https://www.twitch.tv/repard"
         },
         {
             "name": "TheCode",
@@ -3125,7 +3324,10 @@ export const aoeReferenceData = {
                 "de": [
                     "211235"
                 ]
-            }
+            },
+            "liquipedia": "Daywalker",
+            "twitch": "https://www.twitch.tv/sunodaywalker",
+            "team": "SuNo"
         },
         {
             "name": "l2aGe",
@@ -3152,7 +3354,10 @@ export const aoeReferenceData = {
                     "2135484",
                     "3088115"
                 ]
-            }
+            },
+            "liquipedia": "BruH",
+            "youtube": "http://www.youtube.com/channel/UC0ohO1gLZWjX1DUG6oTSGZw",
+            "team": "The BrotherHood Kappa"
         },
         {
             "name": "ashleylynn",
@@ -3169,7 +3374,8 @@ export const aoeReferenceData = {
                     "1602128",
                     "4020280"
                 ]
-            }
+            },
+            "liquipedia": "Ashleylynn"
         },
         {
             "name": "T90",
@@ -3198,7 +3404,8 @@ export const aoeReferenceData = {
                     "1390516",
                     "2386652"
                 ]
-            }
+            },
+            "liquipedia": "Rex"
         },
         {
             "name": "Gluttony",
@@ -3218,7 +3425,10 @@ export const aoeReferenceData = {
                     "1428813",
                     "210388"
                 ]
-            }
+            },
+            "liquipedia": "Rise",
+            "team": "Rulers of Rome",
+            "twitch": "https://www.twitch.tv/riseaoe2"
         },
         {
             "name": "Dark",
@@ -3232,7 +3442,9 @@ export const aoeReferenceData = {
                     "1407942",
                     "3108145"
                 ]
-            }
+            },
+            "liquipedia": "Dark",
+            "team": "SalzZ"
         },
         {
             "name": "Mahya",
@@ -3256,7 +3468,9 @@ export const aoeReferenceData = {
                     "211351",
                     "1435093"
                 ]
-            }
+            },
+            "liquipedia": "Bad Koala",
+            "team": "White Wolf Palace"
         },
         {
             "name": "seyaren",
@@ -3278,7 +3492,9 @@ export const aoeReferenceData = {
                 "de": [
                     "2503651"
                 ]
-            }
+            },
+            "liquipedia": "BadBoy",
+            "team": "Vietnam Legends"
         },
         {
             "name": "RecoN",
@@ -3351,7 +3567,8 @@ export const aoeReferenceData = {
                     "452924",
                     "2754047"
                 ]
-            }
+            },
+            "liquipedia": "JackK"
         },
         {
             "name": "PaTiN",
@@ -3431,7 +3648,8 @@ export const aoeReferenceData = {
             "platforms": {
                 "de": [
                     "3144451",
-                    "1966276"
+                    "1966276",
+                    "3208276"
                 ]
             }
         },
@@ -3459,7 +3677,9 @@ export const aoeReferenceData = {
                 "voobly": [
                     "123145914"
                 ]
-            }
+            },
+            "liquipedia": "Babaorum",
+            "twitch": "https://www.twitch.tv/babaorum_aoe"
         },
         {
             "name": "Tatakae",
@@ -3484,7 +3704,9 @@ export const aoeReferenceData = {
                 "voobly": [
                     "124516604"
                 ]
-            }
+            },
+            "liquipedia": "Darknoob",
+            "team": "Clown Legion"
         },
         {
             "name": "DarkDevil",
@@ -3556,7 +3778,9 @@ export const aoeReferenceData = {
                 "voobly": [
                     "124655527"
                 ]
-            }
+            },
+            "liquipedia": "Uzzi",
+            "team": "LGe"
         },
         {
             "name": "The Bloodless",
@@ -3578,7 +3802,10 @@ export const aoeReferenceData = {
                 "voobly": [
                     "123911641"
                 ]
-            }
+            },
+            "liquipedia": "Wisepii",
+            "twitch": "https://www.twitch.tv/wisepii",
+            "team": "DarkSidE"
         },
         {
             "name": "Chocobo",
@@ -3593,7 +3820,8 @@ export const aoeReferenceData = {
                     "123166866",
                     "123243709"
                 ]
-            }
+            },
+            "liquipedia": "Chocobo"
         },
         {
             "name": "Scogo",
@@ -3607,7 +3835,9 @@ export const aoeReferenceData = {
                 "voobly": [
                     "124536623"
                 ]
-            }
+            },
+            "liquipedia": "Scogo",
+            "twitch": "https://www.twitch.tv/scogo"
         },
         {
             "name": "z40305125",
@@ -3683,9 +3913,13 @@ export const aoeReferenceData = {
                 ],
                 "de": [
                     "2309468",
-                    "2718358"
+                    "2718358",
+                    "5303040",
+                    "3422495"
                 ]
-            }
+            },
+            "liquipedia": "Whocl",
+            "twitch": "https://www.twitch.tv/whocl_aoe"
         },
         {
             "name": "Rodrigus",
@@ -3716,7 +3950,8 @@ export const aoeReferenceData = {
             "platforms": {
                 "de": [
                     "2920057",
-                    "3317764"
+                    "3317764",
+                    "4974647"
                 ]
             }
         },
@@ -3731,7 +3966,11 @@ export const aoeReferenceData = {
                 "voobly": [
                     "123204531"
                 ]
-            }
+            },
+            "liquipedia": "WaRRioR",
+            "twitch": "https://www.twitch.tv/salzz_warrior",
+            "team": "SalzZ",
+            "youtube": "http://www.youtube.com/channel/UCGWx5EtnIi_uOpL2_AuNJrg?view_as=subscriber"
         },
         {
             "name": "klavskis",
@@ -3743,7 +3982,8 @@ export const aoeReferenceData = {
                 "voobly": [
                     "123205226"
                 ]
-            }
+            },
+            "liquipedia": "Klavskis"
         },
         {
             "name": "Mango",
@@ -3824,7 +4064,13 @@ export const aoeReferenceData = {
                     "4516379",
                     "4560893",
                     "4863157",
-                    "5023709"
+                    "5023709",
+                    "4823219",
+                    "4953408",
+                    "2354416",
+                    "5326887",
+                    "5273347",
+                    "5326887"
                 ]
             }
         },
@@ -3857,7 +4103,8 @@ export const aoeReferenceData = {
             "discord": "https://discord.gg/Vhm4gS4fyx",
             "platforms": {
                 "de": [
-                    "4304303"
+                    "4304303",
+                    "4345753"
                 ],
                 "voobly": [
                     "123220280"
@@ -3890,191 +4137,128 @@ export const aoeReferenceData = {
                     "123714392",
                     "60956"
                 ]
+            },
+            "liquipedia": "Biry",
+            "twitch": "https://www.twitch.tv/biryarg",
+            "youtube": "http://www.youtube.com/channel/UC1tGtpMFHF88liDp0kYKtEQ",
+            "team": "DarkSidE"
+        },
+        {
+            "name": "Win_wu_kong",
+            "aka": [
+                "fangxiaoqi"
+            ],
+            "country": "cn",
+            "platforms": {
+                "de": [
+                    "551488"
+                ],
+                "voobly": [
+                    "123226583"
+                ]
             }
+        },
+        {
+            "name": "Valeria Huesca",
+            "country": "mx",
+            "twitch": "https://www.twitch.tv/valeriahuesca",
+            "discord": "https://discord.gg/z7Pvx7g",
+            "platforms": {
+                "de": [
+                    "410691"
+                ]
+            },
+            "youtube": "https://www.youtube.com/channel/UCDAwFPixAVPrUogkwhN0iAg",
+            "team": "DarkSidE"
+        },
+        {
+            "name": "BlinG",
+            "aka": [
+                "SamayanKay"
+            ],
+            "country": "gb",
+            "esportsearnings": 1846,
+            "aoeelo": 178,
+            "liquipedia": "BlinG",
+            "platforms": {
+                "voobly": [
+                    "963"
+                ],
+                "de": [
+                    "570519"
+                ]
+            }
+        },
+        {
+            "name": "Good_Game",
+            "country": "ru",
+            "esportsearnings": 86209,
+            "aoeelo": 872,
+            "liquipedia": "Good_Game",
+            "platforms": {
+                "de": [
+                    "1165138"
+                ]
+            },
+            "team": "SalzZ"
         }
     ],
     "teams": [
         {
-            "name": "Aftermath",
-            "abbreviation": "aM",
-            "players": [
-                "Hearttt",
-                "MbL",
-                "Nicov"
-            ]
-        },
-        {
-            "name": "Infinity Legends",
-            "abbreviation": "iL",
-            "players": [
-                "BacT",
-                "Capoch",
-                "Chris",
-                "RiuT"
-            ]
-        },
-        {
-            "name": "Team Savages",
+            "name": "SuNo",
             "abbreviation": null,
             "players": [
-                "F1Re",
-                "Goku",
-                "St4rk"
+                "Daywalker"
             ]
         },
         {
-            "name": "Heresy",
+            "name": "Killing Generation of Brazil",
             "abbreviation": null,
             "players": [
-                "dogao",
-                "Edie",
-                "Feanor",
-                "Kasva",
-                "LaaaaaN",
-                "Melkor",
-                "Miguel",
-                "Sitaux"
+                "Goku"
+            ]
+        },
+        {
+            "name": "The Immortals",
+            "abbreviation": null,
+            "players": [
+                "Hasan"
             ]
         },
         {
             "name": "GamerLegion",
             "abbreviation": "GL",
             "players": [
-                "DauT",
-                "JorDan",
-                "Nili",
-                "Slam",
-                "Tatoh",
-                "TheViper"
-            ]
-        },
-        {
-            "name": "SalzZ",
-            "abbreviation": "SalzZ",
-            "players": [
-                "classicpro",
-                "Dark",
-                "Vinch",
-                "WaRRioR"
-            ]
-        },
-        {
-            "name": "Slavic Supremacy",
-            "abbreviation": null,
-            "players": [
-                "Barles"
-            ]
-        },
-        {
-            "name": "Vietnam Legends",
-            "abbreviation": "VNS",
-            "players": [
-                "ACCM",
-                "BadBoy",
-                "CooL",
-                "Yellow"
-            ]
-        },
-        {
-            "name": "AreS",
-            "abbreviation": null,
-            "players": [
-                "Ming",
-                "StrayDog",
-                "Whoop",
-                "Xiaoxiong"
-            ]
-        },
-        {
-            "name": "Tempo Storm",
-            "abbreviation": "Tempo",
-            "players": [
-                "Hera",
-                "Liereyy"
+                "Nili"
             ]
         },
         {
             "name": "Suomi",
             "abbreviation": null,
             "players": [
-                "Jupe",
-                "Pike",
-                "Rubenstock",
-                "TheMax",
-                "Villese",
-                "Zuppi"
+                "Pike"
             ]
         },
         {
             "name": "PetGunPet",
             "abbreviation": "PGP",
             "players": [
-                "AngelinaJolie",
-                "Belgium",
-                "Daniel",
-                "Shed",
                 "Stefan"
             ]
         },
         {
-            "name": "Rulers of Rome",
-            "abbreviation": "RoR",
-            "players": [
-                "Ganji",
-                "GoldenEnd",
-                "JonSlow",
-                "Kamigawa",
-                "Kellar",
-                "Luca",
-                "nanimaren",
-                "Pete Martell",
-                "Rise",
-                "Shades",
-                "Sobek",
-                "Sommos",
-                "Vodka"
-            ]
-        },
-        {
-            "name": "DS",
+            "name": "White Wolf Palace",
             "abbreviation": null,
             "players": [
-                "BL4CK",
-                "Carbo",
-                "Ralber",
-                "TaoPaiPai"
-            ]
-        },
-        {
-            "name": "QuEnDi",
-            "abbreviation": null,
-            "players": [
-                "Clemensor",
-                "cortical_",
-                "ffavorite_1",
-                "l2aGe",
-                "L3af",
-                "PaladiNz",
-                "True",
-                "uNLeAsHeD__",
-                "_zaryab_"
-            ]
-        },
-        {
-            "name": "Brazookas",
-            "abbreviation": "bK",
-            "players": [
-                "BruH"
+                "StrayDog",
+                "Whoop"
             ]
         },
         {
             "name": "Fei Mei San Dao",
             "abbreviation": null,
             "players": [
-                "Bad Koala",
-                "Jibatong",
-                "Tim",
-                "Vivi"
+                "Jibatong"
             ]
         }
     ]
