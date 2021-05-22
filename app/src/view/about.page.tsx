@@ -122,6 +122,7 @@ export default function AboutPage() {
             <MyText style={styles.content}>Markus</MyText>
             <MyText style={styles.content}>Maxifruité</MyText>
             <MyText style={styles.content}>Mikael Laukkanen</MyText>
+            <MyText style={styles.content}>Mrandreagalassi</MyText>
             <MyText style={styles.content}>Noorulhuda Paleja</MyText>
             <MyText style={styles.content}>Pikmans030</MyText>
             <MyText style={styles.content}>pseudovictor</MyText>
