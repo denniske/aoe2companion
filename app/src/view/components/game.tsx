@@ -19,6 +19,7 @@ import {getLeaderboardOrGameType} from '@nex/data';
 import {getTranslation} from '../../helper/translate';
 import {hasRecDict} from '../../api/recording';
 import {useLazyApi} from '../../hooks/use-lazy-api';
+import {AoeSpeed, getSpeedFactor} from '../../helper/speed';
 
 interface IGameProps {
     match: IMatch;
@@ -27,15 +28,12 @@ interface IGameProps {
     highlightedUsers?: UserIdBase[];
 }
 
-const formatDuration = (start: Date, finish: Date) => {
-    const diffTime = differenceInSeconds(finish, start);
-    if (!diffTime) return '00:00'; // divide by 0 protection
-    const minutes = Math.abs(Math.floor(diffTime / 60) % 60).toString();
-    const hours = Math.abs(Math.floor(diffTime / 60 / 60)).toString();
+const formatDuration = (durationInSeconds: number) => {
+    if (!durationInSeconds) return '00:00'; // divide by 0 protection
+    const minutes = Math.abs(Math.floor(durationInSeconds / 60) % 60).toString();
+    const hours = Math.abs(Math.floor(durationInSeconds / 60 / 60)).toString();
     return `${hours.length < 2 ? hours : hours}:${minutes.length < 2 ? 0 + minutes : minutes} h`;
 };
-
-
 
 export function Game({match, user, highlightedUsers, expanded = false}: IGameProps) {
     const theme = useAppTheme();
@@ -98,7 +96,7 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
     let duration: string = '';
     if (match.started) {
         const finished = match.finished || new Date();
-        duration = formatDuration(match.started, finished);
+        duration = formatDuration(differenceInSeconds(finished, match.started) * getSpeedFactor(match.speed as AoeSpeed));
     }
 
     const checkRecAvailability = () => {

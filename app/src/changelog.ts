@@ -16,6 +16,12 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
+    '26.0.4': [
+        {
+            type: 'minor',
+            title: 'Show ingame duration instead real time duration in match info',
+        },
+    ],
     '26.0.3': [
         {
             type: 'minor',
