@@ -117,6 +117,11 @@ export const maps = {
     149: require('../../assets/maps/rm_african_clearing.png'),
     150: require('../../assets/maps/rm_atacama.png'),
     151: require('../../assets/maps/rm_seize_the_mountain.png'),
+    152: require('../../assets/maps/rm_crater.png'),
+    153: require('../../assets/maps/rm_crossroads.png'),
+    154: require('../../assets/maps/rm_michi.png'),
+    155: require('../../assets/maps/rm_team_moats.png'),
+    156: require('../../assets/maps/rm_volcanic_island.png'),
 };
 
 export function getMapImage(map: AoeMap) {
