@@ -477,3 +477,11 @@ Here I've changed "console.error" to "console.log" at line 628, this way I recei
   “^$\UF702” = (moveWordLeftAndModifySelection:); // ctrl-shift-left
   “^$\UF703” = (moveWordRightAndModifySelection:); // ctrl-shift-right
 }
+
+keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore com.aoe2companion2.apk alias_name
+adb install com.aoe2companionv2.apk
+
+adb -d shell "run-as com.aoe2companion cat /data/data/com.aoe2companion/databases/updates.db-shm" > updates.db-shm
+run-as com.aoe2companion ls -alh databases
+run-as com.aoe2companion du -s databases
