@@ -16,6 +16,12 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
+    '26.0.4+0': [
+        {
+            type: 'minor',
+            title: 'Refresh profile/stats/matches by pressing F5',
+        },
+    ],
     '26.0.4': [
         {
             type: 'minor',
