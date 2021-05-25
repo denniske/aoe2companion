@@ -1,11 +1,17 @@
 import {useTheme} from "../../theming";
 import {FlatList, Linking, Platform, StyleSheet, TouchableOpacity, View} from "react-native";
 import React, {useEffect, useState} from "react";
-import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
-import {RootTabParamList} from "../../../App";
+import {RouteProp, useNavigation, useNavigationState, useRoute} from "@react-navigation/native";
+import {RootStackParamList, RootTabParamList} from "../../../App";
 import {Game} from "../components/game";
 import RefreshControlThemed from "../components/refresh-control-themed";
-import {clearMatchesPlayer, setLoadingMatchesOrStats, useMutate, useSelector} from "../../redux/reducer";
+import {
+    clearMatchesPlayer,
+    clearStatsPlayer,
+    setLoadingMatchesOrStats,
+    useMutate,
+    useSelector
+} from "../../redux/reducer";
 import {Checkbox, Searchbar} from "react-native-paper";
 import {MyText} from "../components/my-text";
 import {appVariants} from "../../styles";
@@ -20,6 +26,8 @@ import {getTranslation} from '../../helper/translate';
 import {useNavigationStateExternal} from '../../hooks/use-navigation-state-external';
 import {getPathToRoute, getRoutes, getRoutesFromCurrentActiveStack} from '../../service/navigation';
 import {openLink} from "../../helper/url";
+import {useWebRefresh} from "../../hooks/use-web-refresh";
+import FlatListLoadingIndicator from "../components/flat-list-loading-indicator";
 
 
 export default function MainMatches() {
@@ -149,13 +157,29 @@ function MainMatchesInternal({user}: { user: any}) {
         </View>;
     };
 
-    const [refreshing, setRefreshing] = useState(false);
+    const [refetching, setRefetching] = useState(false);
 
     useEffect(() => {
         if (matches) {
-            setRefreshing(false);
+            setRefetching(false);
         }
     }, [matches])
+
+    const route = useRoute();
+    const state = useNavigationState(state => state);
+    const activeRoute = state.routes[state.index] as RouteProp<RootStackParamList, 'Main'>;
+    const isActiveRoute = route?.key === activeRoute?.key;
+
+    useWebRefresh(() => {
+        if (!isActiveRoute) return;
+        onRefresh();
+    }, [isActiveRoute]);
+
+    const onRefresh = async () => {
+        setRefetching(true);
+        await mutate(clearMatchesPlayer(user));
+        await mutate(setLoadingMatchesOrStats());
+    };
 
     return (
         <View style={styles.container}>
@@ -183,6 +207,10 @@ function MainMatchesInternal({user}: { user: any}) {
                     onChangeText={text => setText(text)}
                     value={text}
                 />
+                {
+                    Platform.OS === 'web' && refetching &&
+                    <FlatListLoadingIndicator/>
+                }
                 <FlatList
                     contentContainerStyle={styles.list}
                     initialNumToRender={10}
@@ -199,12 +227,8 @@ function MainMatchesInternal({user}: { user: any}) {
                     keyExtractor={(item, index) => index.toString()}
                     refreshControl={
                         <RefreshControlThemed
-                            onRefresh={async () => {
-                                setRefreshing(true);
-                                await mutate(clearMatchesPlayer(user));
-                                await mutate(setLoadingMatchesOrStats());
-                            }}
-                            refreshing={refreshing}
+                            onRefresh={onRefresh}
+                            refreshing={refetching}
                         />
                     }
                 />

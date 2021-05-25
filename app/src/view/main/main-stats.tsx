@@ -1,11 +1,11 @@
-import {FlatList, Linking, StyleSheet, View} from "react-native";
+import {FlatList, Linking, Platform, StyleSheet, View} from "react-native";
 import {
     clearMatchesPlayer, clearStatsPlayer, setLoadingMatchesOrStats, setPrefValue, useMutate, useSelector
 } from "../../redux/reducer";
 import {LeaderboardId} from "@nex/data";
 import React, {useEffect, useState} from "react";
-import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
-import {RootTabParamList} from "../../../App";
+import {RouteProp, useNavigation, useNavigationState, useRoute} from "@react-navigation/native";
+import {RootStackParamList, RootTabParamList} from "../../../App";
 import {get} from 'lodash';
 import {usePrevious} from "@nex/data/hooks";
 import {saveCurrentPrefsToStorage} from "../../service/storage";
@@ -26,6 +26,8 @@ import {getPathToRoute, getRoutes, getRoutesFromCurrentActiveStack} from '../../
 import {useTheme} from '../../theming';
 import {appVariants} from '../../styles';
 import {openLink} from "../../helper/url";
+import FlatListLoadingIndicator from "../components/flat-list-loading-indicator";
+import {useWebRefresh} from "../../hooks/use-web-refresh";
 
 
 export default function MainStats() {
@@ -129,17 +131,38 @@ function MainStatsInternal({user}: { user: any}) {
         </View>;
     };
 
-    const [refreshing, setRefreshing] = useState(false);
+    const [refetching, setRefetching] = useState(false);
 
     useEffect(() => {
         if (currentCachedData) {
-            setRefreshing(false);
+            setRefetching(false);
         }
     }, [currentCachedData])
+
+    const route = useRoute();
+    const state = useNavigationState(state => state);
+    const activeRoute = state.routes[state.index] as RouteProp<RootStackParamList, 'Main'>;
+    const isActiveRoute = route?.key === activeRoute?.key;
+
+    useWebRefresh(() => {
+        if (!isActiveRoute) return;
+        onRefresh();
+    }, [isActiveRoute]);
+
+    const onRefresh = async () => {
+        setRefetching(true);
+        await mutate(clearStatsPlayer(user));
+        await mutate(clearMatchesPlayer(user));
+        await mutate(setLoadingMatchesOrStats());
+    };
 
     return (
         <View style={styles.container}>
             <View style={styles.content}>
+                {
+                    Platform.OS === 'web' && refetching &&
+                    <FlatListLoadingIndicator/>
+                }
                 <FlatList
                     contentContainerStyle={styles.list}
                     data={list}
@@ -173,13 +196,8 @@ function MainStatsInternal({user}: { user: any}) {
                     keyExtractor={(item, index) => index.toString()}
                     refreshControl={
                         <RefreshControlThemed
-                            onRefresh={async () => {
-                                setRefreshing(true);
-                                await mutate(clearStatsPlayer(user));
-                                await mutate(clearMatchesPlayer(user));
-                                await mutate(setLoadingMatchesOrStats());
-                            }}
-                            refreshing={refreshing}
+                            onRefresh={onRefresh}
+                            refreshing={refetching}
                         />
                     }
                 />

@@ -1,25 +1,21 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Alert, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
-import Search from './components/search';
-import {composeUserId, UserId, UserInfo} from '../helper/user';
+import {UserId} from '../helper/user';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {setAuth, setPrefValue, useMutate, useSelector} from '../redux/reducer';
-import {useNavigation, useNavigationState} from "@react-navigation/native";
+import {setAuth, useMutate, useSelector} from '../redux/reducer';
+import {useNavigationState} from "@react-navigation/native";
 import {TabBarLabel} from "./components/tab-bar-label";
-import {saveCurrentPrefsToStorage, saveSettingsToStorage} from "../service/storage";
 import {fetchPlayerMatches, LeaderboardId} from "@nex/data";
 import {useCachedConservedLazyApi} from "../hooks/use-cached-conserved-lazy-api";
 import {get, set} from 'lodash';
 import {getStats} from "../service/stats";
-import {makeVariants, useTheme} from "../theming";
 import IconFA5 from "react-native-vector-icons/FontAwesome5";
 import MainProfile from "./main/main-profile";
 import MainStats from "./main/main-stats";
 import MainMatches from "./main/main-matches";
 import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';
-import {useCavy} from './testing/tester';
 
 
 export function mainMenu() {

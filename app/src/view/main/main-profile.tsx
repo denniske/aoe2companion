@@ -1,8 +1,8 @@
-import {FlatList, Linking, StyleSheet, View} from "react-native";
+import {FlatList, Linking, Platform, StyleSheet, View} from "react-native";
 import {useSelector} from "../../redux/reducer";
 import React, {useEffect, useState} from "react";
-import {useNavigation, useRoute} from "@react-navigation/native";
-import {RootTabParamList} from "../../../App";
+import {RouteProp, useNavigation, useNavigationState, useRoute} from "@react-navigation/native";
+import {RootStackParamList, RootTabParamList} from "../../../App";
 import {useApi} from "../../hooks/use-api";
 import {loadRatingHistories} from "../../service/rating";
 import {loadProfile} from "../../service/profile";
@@ -20,6 +20,8 @@ import {useNavigationStateExternal} from '../../hooks/use-navigation-state-exter
 import {useTheme} from '../../theming';
 import {appVariants} from '../../styles';
 import {openLink} from "../../helper/url";
+import {useWebRefresh} from "../../hooks/use-web-refresh";
+import FlatListLoadingIndicator from "../components/flat-list-loading-indicator";
 
 
 export default function MainProfile() {
@@ -115,6 +117,23 @@ function MainProfileInternal({user}: { user: any}) {
         loadProfile, 'aoe2de', user
     );
 
+    const route = useRoute();
+    const state = useNavigationState(state => state);
+    const activeRoute = state.routes[state.index] as RouteProp<RootStackParamList, 'Main'>;
+    const isActiveRoute = route?.key === activeRoute?.key;
+
+    useWebRefresh(() => {
+        if (!isActiveRoute) return;
+        onRefresh();
+    }, [isActiveRoute]);
+
+    const onRefresh = async () => {
+        console.log('REFRESHING MAIN PROFILE', userProfile?.name);
+        setRefetching(true);
+        await Promise.all([rating.reload(), profile.reload()]);
+        setRefetching(false);
+    };
+
     // const matches = useApi(
     //     {},
     //     [],
@@ -155,7 +174,7 @@ function MainProfileInternal({user}: { user: any}) {
     //     }
     // });
 
-    const [refreshing, setRefreshing] = useState(false);
+    const [refetching, setRefetching] = useState(false);
 
     const nav = async (route: keyof RootTabParamList) => {
         navigation.navigate(route);
@@ -164,6 +183,10 @@ function MainProfileInternal({user}: { user: any}) {
     return (
         <View style={styles.container}>
             <View style={styles.content}>
+                {
+                    Platform.OS === 'web' && refetching &&
+                    <FlatListLoadingIndicator/>
+                }
                 <FlatList
                     // scrollEnabled={false}
                     contentContainerStyle={styles.list}
@@ -213,12 +236,8 @@ function MainProfileInternal({user}: { user: any}) {
                     keyExtractor={(item, index) => index.toString()}
                     refreshControl={
                         <RefreshControlThemed
-                            onRefresh={async () => {
-                                setRefreshing(true);
-                                await Promise.all([rating.reload(), profile.reload()]);
-                                setRefreshing(false);
-                            }}
-                            refreshing={refreshing}
+                            onRefresh={onRefresh}
+                            refreshing={refetching}
                         />
                     }
                 />
