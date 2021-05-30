@@ -114,6 +114,7 @@ export default function AboutPage() {
             <MyText style={styles.content}>edvorg</MyText>
             <MyText style={styles.content}>eltrevador</MyText>
             <MyText style={styles.content}>Fabian Riebe</MyText>
+            <MyText style={styles.content}>Gareth Deacon'</MyText>
             <MyText style={styles.content}>|GZ| tAMe</MyText>
             <MyText style={styles.content}>JJ_Ronda</MyText>
             <MyText style={styles.content}>Kloakan</MyText>
