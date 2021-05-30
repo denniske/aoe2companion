@@ -16,6 +16,12 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
+    '26.0.5': [
+        {
+            type: 'minor',
+            title: 'Add new maps',
+        },
+    ],
     '26.0.4+0': [
         {
             type: 'minor',
