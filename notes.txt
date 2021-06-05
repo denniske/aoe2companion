@@ -345,6 +345,7 @@ https://www.andreagrandi.it/2018/12/19/installing-python-and-virtualenv-on-osx/
 base64 aoe2companion_dist.p12
 base64 apple-certificate.p12 | secrethub write denniske/aoe2companion/electron_apple_cert_base64
 
+secrethub service init --description=github-actions-abc --permission=read denniske/aoe2companion
 
 /Library/Developer/CoreSimulator/Profiles/Runtimes
 
