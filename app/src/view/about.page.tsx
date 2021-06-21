@@ -142,6 +142,7 @@ export default function AboutPage() {
             <MyText style={styles.content}>Zachary Bird</MyText>
             <MyText style={styles.content}>@hend0s</MyText>
             <MyText style={styles.content}>@qotile</MyText>
+            <MyText style={styles.content}>@wired14</MyText>
             <MyText style={styles.content2}>+ {getTranslation('about.anonymoussupporters')}</MyText>
 
             <MyText style={styles.heading}>{getTranslation('about.heading.version')}</MyText>
