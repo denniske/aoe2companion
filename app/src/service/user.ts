@@ -16,16 +16,43 @@ export interface IFetchedUser {
     entries: ILeaderboardPlayer[];
 }
 
+function onlyDigits(str: string) {
+    return /\d+/.test(str);
+}
+
+async function fetchLeaderboardLegacyForSteamId(game: string, leaderboard_id: number, steam_id: string) {
+    const leaderboard = await fetchLeaderboardLegacy(game, leaderboard_id, {start: 1, count: 1, steam_id});
+    // aoe2.net returns random results when the steam_id is not found, so we need to filter it locally
+    leaderboard.leaderboard = leaderboard.leaderboard.filter(p => p.steam_id?.includes(steam_id));
+    return leaderboard;
+}
+
+async function fetchLeaderboardLegacyForProfileId(game: string, leaderboard_id: number, profile_id: number) {
+    return await fetchLeaderboardLegacy(game, leaderboard_id, {start: 1, count: 1, profile_id});
+}
+
 export async function loadUserLegacy(game: string, start: number, count: number, search: string) {
     console.log("loading user", game, search);
 
     let leaderboards = await Promise.all([
+        ...(onlyDigits(search) && search.length > 12 ? [fetchLeaderboardLegacyForSteamId(game, 0, search)] : []),
+        ...(onlyDigits(search) && search.length > 12 ? [fetchLeaderboardLegacyForSteamId(game, 1, search)] : []),
+        ...(onlyDigits(search) && search.length > 12 ? [fetchLeaderboardLegacyForSteamId(game, 2, search)] : []),
+        ...(onlyDigits(search) && search.length > 12 ? [fetchLeaderboardLegacyForSteamId(game, 3, search)] : []),
+        ...(onlyDigits(search) && search.length > 12 ? [fetchLeaderboardLegacyForSteamId(game, 4, search)] : []),
+        ...(onlyDigits(search) && search.length < 10 ? [fetchLeaderboardLegacyForProfileId(game, 0, parseInt(search))] : []),
+        ...(onlyDigits(search) && search.length < 10 ? [fetchLeaderboardLegacyForProfileId(game, 1, parseInt(search))] : []),
+        ...(onlyDigits(search) && search.length < 10 ? [fetchLeaderboardLegacyForProfileId(game, 2, parseInt(search))] : []),
+        ...(onlyDigits(search) && search.length < 10 ? [fetchLeaderboardLegacyForProfileId(game, 3, parseInt(search))] : []),
+        ...(onlyDigits(search) && search.length < 10 ? [fetchLeaderboardLegacyForProfileId(game, 4, parseInt(search))] : []),
         fetchLeaderboardLegacy(game, 0, {start, count, search: search}),
         fetchLeaderboardLegacy(game, 1, {start, count, search: search}),
         fetchLeaderboardLegacy(game, 2, {start, count, search: search}),
         fetchLeaderboardLegacy(game, 3, {start, count, search: search}),
         fetchLeaderboardLegacy(game, 4, {start, count, search: search}),
     ]);
+
+    // console.log(leaderboards);
 
     // Group by
     const leaderboardEntries = leaderboards.flatMap(l => l.leaderboard);

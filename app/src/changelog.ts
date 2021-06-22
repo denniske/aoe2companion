@@ -16,6 +16,12 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
+    '26.0.6': [
+        {
+            type: 'minor',
+            title: 'Added user search by steam id and profile id',
+        },
+    ],
     '26.0.5': [
         {
             type: 'minor',
