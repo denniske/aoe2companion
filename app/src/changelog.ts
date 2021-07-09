@@ -16,6 +16,16 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
+    '26.0.7': [
+        {
+            type: 'minor',
+            title: 'Implement [AoE II DE Update 50292](https://www.ageofempires.com/news/aoe2de-update-50292/) partially (maps, leaderboards). Balance changes come in future update.',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix search for players with digits in name',
+        },
+    ],
     '26.0.6': [
         {
             type: 'minor',

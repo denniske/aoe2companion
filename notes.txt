@@ -1,6 +1,6 @@
 
-- quick play leaderboard id format
-- search aoe2
+x quick play leaderboard id format
+x search aoe2
 - leaderboard country
 
 git tag v22.0.0 && git push --tags

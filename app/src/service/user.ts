@@ -17,7 +17,7 @@ export interface IFetchedUser {
 }
 
 function onlyDigits(str: string) {
-    return /\d+/.test(str);
+    return /^\d+$/.test(str);
 }
 
 async function fetchLeaderboardLegacyForSteamId(game: string, leaderboard_id: number, steam_id: string) {

@@ -124,7 +124,7 @@ export class ReplayTask implements OnModuleInit {
         // }
 
         // Only replay ranked matches
-        if (![1, 2, 3, 4].includes(match.leaderboard_id)) {
+        if (![1, 2, 3, 4, 13, 14].includes(match.leaderboard_id)) {
             console.log('STATE', 2000, ((match.finished - match.started) / 60).toFixed() + 'min');
             await this.prisma.match.update({
                 where: {

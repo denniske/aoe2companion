@@ -21,8 +21,8 @@ export class IngestFastTask implements OnModuleInit {
     async runIngest1() {
         console.log("Running ingest1...");
 
-        await this.fetchLeaderboardData(1, 100);
-        await this.fetchLeaderboardData(2, 100);
+        await this.fetchLeaderboardData(13, 100);
+        await this.fetchLeaderboardData(14, 100);
 
         await this.fetchLeaderboardData(3, 100);
         await this.fetchLeaderboardData(4, 100);

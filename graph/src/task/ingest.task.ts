@@ -23,8 +23,8 @@ export class IngestTask implements OnModuleInit {
         console.log("Running ingest...");
 
         await this.fetchLeaderboardData(0);
-        await this.fetchLeaderboardData(1);
-        await this.fetchLeaderboardData(2);
+        await this.fetchLeaderboardData(13);
+        await this.fetchLeaderboardData(14);
         await this.fetchLeaderboardData(3);
         await this.fetchLeaderboardData(4);
 
