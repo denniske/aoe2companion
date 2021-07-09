@@ -84,12 +84,16 @@
   "enum.leaderboardid.dmteam": "DM Team",
   "enum.leaderboardid.rm1v1": "RM 1v1",
   "enum.leaderboardid.rmteam": "RM Team",
+  "enum.leaderboardid.ew1v1": "EW 1v1",
+  "enum.leaderboardid.ewteam": "EW Team",
 
   "leaderboard.heading.unranked": "UNR.",
   "leaderboard.heading.dm1v1": "DM 1V1",
   "leaderboard.heading.dmteam": "DM TEAM",
   "leaderboard.heading.rm1v1": "RM 1V1",
   "leaderboard.heading.rmteam": "RM TEAM",
+  "leaderboard.heading.ew1v1": "EW 1V1",
+  "leaderboard.heading.ewteam": "EW TEAM",
 
   "enum.position.flank": "Flank",
   "enum.position.pocket": "Pocket",

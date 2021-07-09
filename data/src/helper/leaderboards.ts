@@ -9,9 +9,15 @@ export enum LeaderboardId {
     RMTeam = 4,
 }
 
-export const leaderboardList: LeaderboardId[] = [3, 4, 1, 2, 0];
-
-const abbreviations = ['unranked', 'dm1v1', 'dmteam', 'rm1v1', 'rmteam'];
+const abbreviations = {
+    0: 'unranked',
+    1: 'dm1v1',
+    2: 'dmteam',
+    3: 'rm1v1',
+    4: 'rmteam',
+    13: 'ew1v1',
+    14: 'ewteam',
+};
 
 export function formatLeaderboardId(leaderboard_id: LeaderboardId) {
     return getUiTranslation(`enum.leaderboardid.${abbreviations[leaderboard_id]}`);

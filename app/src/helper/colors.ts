@@ -30,21 +30,25 @@ export function getPlayerBackgroundColor(playerPosition: number) {
 }
 
 
-const leaderboardColors = [
-    '#757476',
-    '#D65154',
-    '#E19659',
-    '#6188C1',
-    '#8970AE',
-];
+const leaderboardColors: Record<number, string> = {
+    0: '#757476',
+    1: '#D65154',
+    2: '#E19659',
+    3: '#6188C1',
+    4: '#8970AE',
+    13: '#D65154',
+    14: '#E19659',
+};
 
-const darkLeaderboardColors = [
-    '#8e8e8e',
-    '#D65154',
-    '#E19659',
-    '#6188C1',
-    '#8970AE',
-];
+const darkLeaderboardColors: Record<number, string> = {
+    0: '#8e8e8e',
+    1: '#D65154',
+    2: '#E19659',
+    3: '#6188C1',
+    4: '#8970AE',
+    13: '#D65154',
+    14: '#E19659',
+};
 
 export function getLeaderboardColor(leaderboard_id: number, darkMode: boolean) {
     const colors = darkMode ? darkLeaderboardColors : leaderboardColors;
@@ -53,21 +57,25 @@ export function getLeaderboardColor(leaderboard_id: number, darkMode: boolean) {
 
 // Darker / More saturated colors for text
 
-const leaderboardTextColors = [
-    '#525152',
-    '#c52026',
-    '#ff943d',
-    '#5084d3',
-    '#8560be',
-];
+const leaderboardTextColors: Record<number, string> = {
+    0: '#525152',
+    1: '#c52026',
+    2: '#ff943d',
+    3: '#5084d3',
+    4: '#8560be',
+    13: '#c52026',
+    14: '#ff943d',
+};
 
-const darkLeaderboardTextColors = [
-    '#8e8e8e',
-    '#c52026',
-    '#ff943d',
-    '#5084d3',
-    '#8560be',
-];
+const darkLeaderboardTextColors: Record<number, string> = {
+    0: '#8e8e8e',
+    1: '#c52026',
+    2: '#ff943d',
+    3: '#5084d3',
+    4: '#8560be',
+    13: '#c52026',
+    14: '#ff943d',
+};
 
 export function getLeaderboardTextColor(leaderboard_id: number, darkMode: boolean) {
     const colors = darkMode ? darkLeaderboardTextColors : leaderboardTextColors;

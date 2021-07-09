@@ -14,16 +14,18 @@ export async function loadRatingHistoriesLegacy(game: string, userId: UserIdBase
 
     // console.time('=> loadRatingHistories');
 
+    let leaderboardIds = [0, 13, 14, 3, 4];
+
     let ratingHistories = await Promise.all([
         fetchRatingHistory(game, 0, 0, 500, minifyUserId(userId)),
-        fetchRatingHistory(game, 1, 0, 500, minifyUserId(userId)),
-        fetchRatingHistory(game, 2, 0, 500, minifyUserId(userId)),
+        fetchRatingHistory(game, 13, 0, 500, minifyUserId(userId)),
+        fetchRatingHistory(game, 14, 0, 500, minifyUserId(userId)),
         fetchRatingHistory(game, 3, 0, 500, minifyUserId(userId)),
         fetchRatingHistory(game, 4, 0, 500, minifyUserId(userId)),
     ]);
 
     let ratingHistoryRows = ratingHistories.map((rh, i) => ({
-        leaderboard_id: i as LeaderboardId,
+        leaderboard_id: leaderboardIds[i] as LeaderboardId,
         data: rh,
     }));
 

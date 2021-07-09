@@ -28,6 +28,7 @@ import {getPathToRoute, getRoutes, getRoutesFromCurrentActiveStack} from '../../
 import {openLink} from "../../helper/url";
 import {useWebRefresh} from "../../hooks/use-web-refresh";
 import FlatListLoadingIndicator from "../components/flat-list-loading-indicator";
+import {getCivName} from '../../../../website/src/helper/civs';
 
 
 export default function MainMatches() {
@@ -94,7 +95,8 @@ function MainMatchesInternal({user}: { user: any}) {
                 return parts.every(part => {
                     return m.name.toLowerCase().indexOf(part) >= 0 ||
                         (getMapName(m.map_type) || '').toLowerCase().indexOf(part) >= 0 ||
-                        m.players.some(p => p.name?.toLowerCase().indexOf(part) >= 0);
+                        m.players.some(p => p.name?.toLowerCase().indexOf(part) >= 0) ||
+                        m.players.some(p => p.civ != null && getCivName(p.civ).toLowerCase().indexOf(part) >= 0);
                 });
             });
         }
@@ -122,8 +124,8 @@ function MainMatchesInternal({user}: { user: any}) {
     const values: number[] = [
         3,
         4,
-        1,
-        2,
+        13,
+        14,
         0,
     ];
 
@@ -146,6 +148,14 @@ function MainMatchesInternal({user}: { user: any}) {
         },
         2: {
             title: 'DM',
+            subtitle: 'Team',
+        },
+        13: {
+            title: 'EW',
+            subtitle: '1v1',
+        },
+        14: {
+            title: 'EW',
             subtitle: 'Team',
         },
     };

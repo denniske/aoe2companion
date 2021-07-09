@@ -82,7 +82,7 @@ export class FunctionController implements OnModuleInit {
         if (
             start < 1 ||
             count > 10000 ||
-            ![0, 1, 2, 3, 4].includes(leaderboardId)
+            ![0, 1, 2, 3, 4, 13, 14].includes(leaderboardId)
         ) {
             res.send({
                 statusCode: 400,

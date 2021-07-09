@@ -14,8 +14,8 @@ export async function loadProfileLegacy(game: string, userId: UserIdBase): Promi
 
     let leaderboards = await Promise.all([
         fetchLeaderboardLegacy(game, 0, {count: 1, ...minifyUserId(userId)}),
-        fetchLeaderboardLegacy(game, 1, {count: 1, ...minifyUserId(userId)}),
-        fetchLeaderboardLegacy(game, 2, {count: 1, ...minifyUserId(userId)}),
+        fetchLeaderboardLegacy(game, 13, {count: 1, ...minifyUserId(userId)}),
+        fetchLeaderboardLegacy(game, 14, {count: 1, ...minifyUserId(userId)}),
         fetchLeaderboardLegacy(game, 3, {count: 1, ...minifyUserId(userId)}),
         fetchLeaderboardLegacy(game, 4, {count: 1, ...minifyUserId(userId)}),
     ]);

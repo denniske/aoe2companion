@@ -122,6 +122,17 @@ export const maps = {
     154: require('../../assets/maps/rm_michi.png'),
     155: require('../../assets/maps/rm_team_moats.png'),
     156: require('../../assets/maps/rm_volcanic_island.png'),
+    157: require('../../assets/maps/rm_acclivity.png'),
+    158: require('../../assets/maps/rm_eruption.png'),
+    159: require('../../assets/maps/rm_frigid_lake.png'),
+    160: require('../../assets/maps/rm_greenland.png'),
+    161: require('../../assets/maps/rm_lowland.png'),
+    162: require('../../assets/maps/rm_marketplace.png'),
+    163: require('../../assets/maps/rm_meadow.png'),
+    164: require('../../assets/maps/rm_mountain-ridge.png'),
+    165: require('../../assets/maps/rm_northern_isles.png'),
+    166: require('../../assets/maps/rm_ring_fortress.png'),
+    167: require('../../assets/maps/rm_runestones.png'),
 };
 
 export function getMapImage(map: AoeMap) {

@@ -31,8 +31,8 @@ import {getTranslation} from '../helper/translate';
 type TabParamList = {
     LeaderboardRm1v1: { leaderboardId: number };
     LeaderboardRmTeam: { leaderboardId: number };
-    LeaderboardDm1v1: { leaderboardId: number };
-    LeaderboardDmTeam: { leaderboardId: number };
+    LeaderboardEw1v1: { leaderboardId: number };
+    LeaderboardEwTeam: { leaderboardId: number };
     LeaderboardUnranked: { leaderboardId: number };
 };
 
@@ -103,10 +103,10 @@ export default function LeaderboardPage() {
             <Tab.Screen name="LeaderboardRmTeam" initialParams={{leaderboardId: 4}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rmteam')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
-            <Tab.Screen name="LeaderboardDm1v1" initialParams={{leaderboardId: 1}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.dm1v1')}/>}}>
+            <Tab.Screen name="LeaderboardEw1v1" initialParams={{leaderboardId: 13}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.ew1v1')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
-            <Tab.Screen name="LeaderboardDmTeam" initialParams={{leaderboardId: 2}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.dmteam')}/>}}>
+            <Tab.Screen name="LeaderboardEwTeam" initialParams={{leaderboardId: 14}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.ewteam')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
             <Tab.Screen name="LeaderboardUnranked" initialParams={{leaderboardId: 0}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.unranked')}/>}}>

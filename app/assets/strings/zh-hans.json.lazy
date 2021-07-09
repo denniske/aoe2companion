@@ -224,6 +224,10 @@
         {
             "id": 13,
             "string": "帝国战争"
+        },
+        {
+            "id": 15,
+            "string": "Co-Op Campaign"
         }
     ],
     "leaderboard": [
@@ -246,6 +250,14 @@
         {
             "id": 4,
             "string": "多人随机地图"
+        },
+        {
+            "id": 13,
+            "string": "1v1 Empire Wars"
+        },
+        {
+            "id": 14,
+            "string": "Team Empire Wars"
         }
     ],
     "map_size": [
@@ -684,7 +696,23 @@
             "string": "南极"
         },
         {
-            "id": 137,
+            "id": 133,
+            "string": "Aral Sea"
+        },
+        {
+            "id": 134,
+            "string": "Black Sea"
+        },
+        {
+            "id": 135,
+            "string": "Caucasus"
+        },
+        {
+            "id": 136137,
+            "string": "Unknown #136137"
+        },
+        {
+            "id": 138,
             "string": "自定义地图池"
         },
         {
@@ -758,6 +786,50 @@
         {
             "id": 156,
             "string": "Volcanic Island"
+        },
+        {
+            "id": 157,
+            "string": "Acclivity"
+        },
+        {
+            "id": 158,
+            "string": "Eruption"
+        },
+        {
+            "id": 159,
+            "string": "Frigid Lake"
+        },
+        {
+            "id": 160,
+            "string": "Greenland"
+        },
+        {
+            "id": 161,
+            "string": "Lowland"
+        },
+        {
+            "id": 162,
+            "string": "Marketplace"
+        },
+        {
+            "id": 163,
+            "string": "Meadow"
+        },
+        {
+            "id": 164,
+            "string": "Mountain Range"
+        },
+        {
+            "id": 165,
+            "string": "Northern Isles"
+        },
+        {
+            "id": 166,
+            "string": "Ring Fortress"
+        },
+        {
+            "id": 167,
+            "string": "Runestones"
         }
     ],
     "rating_type": [
@@ -800,6 +872,14 @@
         {
             "id": 9,
             "string": "Battle Royale Quick Play"
+        },
+        {
+            "id": 13,
+            "string": "1v1 Empire Wars"
+        },
+        {
+            "id": 14,
+            "string": "Team Empire Wars"
         }
     ],
     "resources": [

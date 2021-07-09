@@ -96,8 +96,8 @@ function MainStatsInternal({user}: { user: any}) {
     const values: number[] = [
         3,
         4,
-        1,
-        2,
+        13,
+        14,
         0,
     ];
 
@@ -120,6 +120,14 @@ function MainStatsInternal({user}: { user: any}) {
         },
         2: {
             title: 'DM',
+            subtitle: 'Team',
+        },
+        13: {
+            title: 'EW',
+            subtitle: '1v1',
+        },
+        14: {
+            title: 'EW',
             subtitle: 'Team',
         },
     };
