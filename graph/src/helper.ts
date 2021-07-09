@@ -216,7 +216,15 @@ export async function fetchOngoingMatches(): Promise<IOngoingMatches> {
     }
 }
 
-const leaderboardUrls = ['unranked', 'dm-1v1', 'dm-team', 'rm-1v1', 'rm-team',];
+const leaderboardUrls = {
+    0: 'unranked',
+    1: 'dm-1v1',
+    2: 'dm-team',
+    3: 'rm-1v1',
+    4: 'rm-team',
+    13: 'ew-1v1',
+    14: 'ew-team',
+};
 
 export interface ILeaderboardListRaw {
     recordsFiltered: number;
