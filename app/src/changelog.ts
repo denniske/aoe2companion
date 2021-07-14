@@ -16,6 +16,12 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
+    '26.0.8': [
+        {
+            type: 'bugfix',
+            title: 'Fix affected units of the Italian castle age tech Pavise',
+        },
+    ],
     '26.0.7': [
         {
             type: 'minor',
