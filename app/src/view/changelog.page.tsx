@@ -44,7 +44,7 @@ export default function ChangelogPage() {
     };
 
     const formatTitle = (title: string) => {
-        const parts = title.split(/(\[.+]\(.+\))/);
+        const parts = title.split(/(\[.+]\([^)]+\))/);
 
         const texts = [];
         for (let i = 0; i < parts.length; i++) {

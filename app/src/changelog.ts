@@ -9,6 +9,8 @@ export interface IChangelog {
     [version: string]: IChange[];
 }
 
+// https://www.aoe2insights.com/match/99919072/analysis/
+
 export const changelog: IChangelog = {
     // '21.0.100': [
     //     {
@@ -18,14 +20,18 @@ export const changelog: IChangelog = {
     // ],
     '26.0.8': [
         {
+            type: 'minor',
+            title: 'Implemented remaining parts from [AoE II DE Update 50292](https://www.ageofempires.com/news/aoe2de-update-50292/) (balance changes)',
+        },
+        {
             type: 'bugfix',
-            title: 'Fix affected units of the Italian castle age tech Pavise',
+            title: 'Fix affected unit list of the Italian castle age tech Pavise',
         },
     ],
     '26.0.7': [
         {
             type: 'minor',
-            title: 'Implement [AoE II DE Update 50292](https://www.ageofempires.com/news/aoe2de-update-50292/) partially (maps, leaderboards). Balance changes come in future update.',
+            title: 'Implemented [AoE II DE Update 50292](https://www.ageofempires.com/news/aoe2de-update-50292/) partially (maps, leaderboards)',
         },
         {
             type: 'bugfix',
