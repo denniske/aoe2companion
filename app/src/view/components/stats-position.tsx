@@ -60,7 +60,7 @@ export default function StatsPosition(props: IProps) {
     const { data, user } = props;
     const { rows, leaderboardId } = data || { leaderboardId: props.leaderboardId };
 
-    const hasPosition = [LeaderboardId.DMTeam, LeaderboardId.RMTeam].includes(leaderboardId);
+    const hasPosition = [LeaderboardId.EWTeam, LeaderboardId.RMTeam].includes(leaderboardId);
 
     if (rows?.length === 0 || !hasPosition) {
         return <View/>;

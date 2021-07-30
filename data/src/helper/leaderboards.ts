@@ -7,6 +7,8 @@ export enum LeaderboardId {
     DMTeam = 2,
     RM1v1 = 3,
     RMTeam = 4,
+    EW1v1 = 13,
+    EWTeam = 14,
 }
 
 const abbreviations = {

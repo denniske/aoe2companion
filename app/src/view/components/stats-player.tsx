@@ -77,7 +77,7 @@ export default function StatsPlayer(props: IProps) {
     const { data, user } = props;
     let { rowsAlly, rowsOpponent, matches, leaderboardId } = data || { leaderboardId: props.leaderboardId };
 
-    const hasAlly = [LeaderboardId.DMTeam, LeaderboardId.RMTeam, LeaderboardId.Unranked].includes(leaderboardId);
+    const hasAlly = [LeaderboardId.EWTeam, LeaderboardId.RMTeam, LeaderboardId.Unranked].includes(leaderboardId);
 
     if (rowsOpponent?.length === 0) {
         return <View/>;

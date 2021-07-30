@@ -46,7 +46,7 @@ function matchPosition(match: IMatch, user: UserIdBase, position: AoePosition) {
 export async function getStatsPosition({matches, user, leaderboardId}: IParam) {
     let rows: IRow[] | null = null;
 
-    const hasPosition = [LeaderboardId.DMTeam, LeaderboardId.RMTeam].includes(leaderboardId);
+    const hasPosition = [LeaderboardId.EWTeam, LeaderboardId.RMTeam].includes(leaderboardId);
 
     if (matches && hasPosition) {
         const positionList: AoePosition[] = ['flank', 'pocket'];
