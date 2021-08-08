@@ -29,7 +29,7 @@ services:
         proxy.aoe2companion.com=proxy:80;
 
   mgz:
-    image: denniske/aoe2companion-mgz-pypy:d31fd9041fc2b9230d1a1223ba28bd6c2bd17ff5
+    image: denniske/aoe2companion-mgz-pypy:6
     restart: on-failure
     mem_limit: 2000m
     cpus: "6.0"

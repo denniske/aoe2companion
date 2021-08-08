@@ -38,13 +38,16 @@ except RuntimeError:
 with open('recs/' + filename, 'rb') as handle:
     data = handle.read()
 
-handle = io.BytesIO(data)
-summary = mgz.summary.Summary(handle, None)
+try:
+    handle = io.BytesIO(data)
+    summary = mgz.summary.Summary(handle, None)
+except:
+    raise
+finally:
+    os.remove('recs/' + filename)
 
 # end = time.time()
 # print('process', end - start, 's')
-
-os.remove('recs/' + filename)
 
 map = summary.get_map()
 del map['tiles']

@@ -254,9 +254,14 @@ sam deploy
 
 
 
-docker build -t denniske/aoe2companion-mgz:5 . && docker push denniske/aoe2companion-mgz:5
-docker container kill $(docker ps -q) && docker run -p 0.0.0.0:80:80 -d denniske/aoe2companion-mgz:5
+docker build -t denniske/aoe2companion-mgz-pypy:6 . && docker push denniske/aoe2companion-mgz-pypy:6
+docker container kill $(docker ps -q) && docker run -p 0.0.0.0:80:80 -d denniske/aoe2companion-mgz-pypy:6
 
+
+cd /var/lib/docker/overlay2/cb275f85f57636b78ccac70ad5e401045e95d785127d6b9abdd8a701d9c37834/merged/app/src/recs
+rm *.aoe2record
+docker system prune --all
+service docker restart
 
 
 pip3 install -r requirements.txt
