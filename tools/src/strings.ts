@@ -18,6 +18,7 @@ function keysOf<T>(arr: T): Array<keyof T> {
 // es-mx   // mx <--         // es-MX
 // it      // it             // it
 // pt      // br <--         // pt
+// pl      // pl             // pl
 // ru      // ru             // ru
 // vi      // vi             // vi
 // tr      // tr             // tr
@@ -37,6 +38,7 @@ const aoe2netLanguageMap = {
     'es-MX': 'es-mx',
     'it': 'it',
     'pt': 'pt',
+    'pl': 'pl',
     'ru': 'ru',
     'vi': 'vi',
     'tr': 'tr',
@@ -57,6 +59,7 @@ const aoe2techtreeLanguageMap = {
     'mx': 'es-mx',
     'it': 'it',
     'br': 'pt',
+    'pl': 'pl',
     'ru': 'ru',
     'vi': 'vi',
     'tr': 'tr',

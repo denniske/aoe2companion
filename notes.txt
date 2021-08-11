@@ -3,6 +3,12 @@ x quick play leaderboard id format
 x search aoe2
 x leaderboard country
 
+
+223576,76561198001031686,Sihing Mo
+336655,76561198116899512,Baratticus
+209525,76561197995781128,aoe2companion.com
+
+
 git tag v22.0.0 && git push --tags
 git tag -d v23.0.0 && git push --delete origin v23.0.0
 git tag -d api-v26.0.20 && git push --delete origin api-v26.0.20 && git tag api-v26.0.20 && git push --tags
