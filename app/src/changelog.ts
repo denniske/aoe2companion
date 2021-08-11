@@ -18,6 +18,12 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
+    '26.0.10': [
+        {
+            type: 'minor',
+            title: 'Implemented [AoE II DE Update 51737](https://www.ageofempires.com/news/aoeiide-update-51737/)',
+        },
+    ],
     '26.0.9': [
         {
             type: 'bugfix',
