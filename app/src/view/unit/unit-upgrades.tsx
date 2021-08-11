@@ -46,9 +46,19 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
     const unitLineUpgrades = unitLine.upgrades.map(u => techEffectDict[u]).filter(u => !u.unit || u.unit == unitId);
 
     const unitIndex = unitLine.units.indexOf(unitId);
-    const upgradedFrom = unitIndex > 0 ? unitLine.units[unitIndex-1] : null;
-    const upgradedTo = unitIndex < unitLine.units.length-1 ? unitLine.units[unitIndex+1] : null;
-    const upgradeCost = getUnitUpgradeCost(unitId);
+
+    let upgradedFrom = unitIndex > 0 ? unitLine.units[unitIndex-1] : null;
+    if (unitId === 'WingedHussar') {
+        upgradedFrom = 'LightCavalry' as Unit;
+    }
+
+    let upgradedToList = unitIndex < unitLine.units.length-1 ? [unitLine.units[unitIndex+1]] : [];
+    if (unitId === 'LightCavalry') {
+        upgradedToList = ['Hussar', 'WingedHussar'];
+    }
+    if (unitId === 'Hussar') {
+        upgradedToList = [];
+    }
 
     let groups = keysOf(effectNames).map(effect => ({
         name: getEffectName(effect),
@@ -117,7 +127,7 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                   <View style={styles.row}>
                       <MyText style={styles.header2}>{getTranslation('unit.heading.upgradedfrom')}</MyText>
                   </View>
-                  <TouchableOpacity onPress={() => gotoUnit(upgradedFrom)}>
+                  <TouchableOpacity onPress={() => gotoUnit(upgradedFrom!)}>
                       <View style={styles.row}>
                           <Image fadeDuration={0} style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(upgradedFrom)}/>
                           <MyText style={styles.unitDesc}>{getUnitName(upgradedFrom)}</MyText>
@@ -126,22 +136,26 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
               </View>
           }
           {
-              upgradedTo &&
+              upgradedToList.length > 0 &&
               <View>
                   <Space/>
                   <View style={styles.row}>
                       <MyText style={styles.header2}>{getTranslation('unit.heading.upgradedto')}</MyText>
                   </View>
-                  <TouchableOpacity disabled={unitLine.unique} onPress={() => gotoUnit(upgradedTo)}>
-                      <View style={styles.row}>
-                          <Image fadeDuration={0} style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(upgradedTo)}/>
-                          <MyText style={styles.unitDesc}>{getUnitName(upgradedTo)}</MyText>
-                          {
-                              upgradeCost &&
-                              <Costs costDict={upgradeCost}/>
-                          }
-                      </View>
-                  </TouchableOpacity>
+                  {
+                      upgradedToList.map(upgradedTo =>
+                              <TouchableOpacity disabled={unitLine.unique} onPress={() => gotoUnit(upgradedTo)}>
+                                  <View style={styles.row}>
+                                      <Image fadeDuration={0} style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(upgradedTo)}/>
+                                      <MyText style={styles.unitDesc}>{getUnitName(upgradedTo)}</MyText>
+                                      {
+                                          getUnitUpgradeCost(unitId, upgradedTo) &&
+                                          <Costs costDict={getUnitUpgradeCost(unitId, upgradedTo)!}/>
+                                      }
+                                  </View>
+                              </TouchableOpacity>
+                      )
+                  }
               </View>
           }
       </View>

@@ -120,7 +120,11 @@ const techIcons: TechIconDict = {
     'Chieftains': require('../../../app/assets/techs/UniqueTechCastle.png'),
     'BurgundianVineyards': require('../../../app/assets/techs/UniqueTechCastle.png'),
     'FirstCrusade': require('../../../app/assets/techs/UniqueTechCastle.png'),
+    'WagenburgTactics': require('../../../app/assets/techs/UniqueTechCastle.png'),
+    'SzlachtaPrivileges': require('../../../app/assets/techs/UniqueTechCastle.png'),
 
+    'LechiticLegacy': require('../../../app/assets/techs/UniqueTechImperial.png'),
+    'HussiteReforms': require('../../../app/assets/techs/UniqueTechImperial.png'),
     'GarlandWars': require('../../../app/assets/techs/UniqueTechImperial.png'),
     'MaghrebiCamels': require('../../../app/assets/techs/UniqueTechImperial.png'),
     'Warwolf': require('../../../app/assets/techs/UniqueTechImperial.png'),

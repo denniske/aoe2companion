@@ -8,6 +8,7 @@ import {orderBy} from 'lodash';
 export const civs = [
     'Aztecs',
     'Berbers',
+    'Bohemians',
     'Britons',
     'Bulgarians',
     'Burgundians',
@@ -33,6 +34,7 @@ export const civs = [
     'Mayans',
     'Mongols',
     'Persians',
+    'Poles',
     'Portuguese',
     'Saracens',
     'Sicilians',
@@ -61,6 +63,11 @@ export const civList: ICivEntry[] = [
         name: 'Berbers',
         uniqueUnits: ['CamelArcher', 'Genitour'],
         uniqueTechs: ['Kasbah', 'MaghrebiCamels'],
+    },
+    {
+        name: 'Bohemians',
+        uniqueUnits: ['HussiteWagon', 'Houfnice'],
+        uniqueTechs: ['WagenburgTactics', 'HussiteReforms'],
     },
     {
         name: 'Britons',
@@ -188,6 +195,11 @@ export const civList: ICivEntry[] = [
         uniqueTechs: ['Kamandaran', 'Mahouts'],
     },
     {
+        name: 'Poles',
+        uniqueUnits: ['Obuch', 'WingedHussar'],
+        uniqueTechs: ['SzlachtaPrivileges', 'LechiticLegacy'],
+    },
+    {
         name: 'Portuguese',
         uniqueUnits: ['OrganGun', 'Caravel'],
         uniqueTechs: ['Carrack', 'Arquebus'],
@@ -250,6 +262,10 @@ export type Civ = typeof CivUnion;
 
 export function orderCivs(civs: Readonly<Civ[]>) {
     return orderBy(civs, c => removeAccentsAndCase(getCivNameById(c)), 'asc');
+}
+
+export function getCivName(civ: number) {
+    return civs[civ];
 }
 
 export function getCivNameById(civ: Civ) {

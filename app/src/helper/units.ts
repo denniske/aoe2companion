@@ -25,6 +25,10 @@ interface UnitIconDict {
 }
 
 const unitIcons: UnitIconDict = {
+    'Obuch': require('../../../app/assets/units/Obuch.png'),
+    'HussiteWagon': require('../../../app/assets/units/HussiteWagon.png'),
+    'Houfnice': require('../../../app/assets/units/Houfnice.png'),
+    'WingedHussar': require('../../../app/assets/units/WingedHussar.png'),
     'Coustillier': require('../../../app/assets/units/Coustillier.png'),
     'Serjeant': require('../../../app/assets/units/Serjeant.png'),
     'FlemishMilitia': require('../../../app/assets/units/FlemishMilitia.png'),

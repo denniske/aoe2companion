@@ -84,6 +84,15 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {unit: 'BombardCannon'},
             ],
         },
+        {
+            items: [
+                {},
+                {},
+                {},
+                {},
+                {unit: 'Houfnice'},
+            ],
+        },
 
         {
             title: ''
@@ -185,7 +194,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {},
-                {},
+                {unit: 'WingedHussar'},
                 {unit: 'Paladin'},
                 {unit: 'ImperialCamelRider'},
                 {},
@@ -491,6 +500,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
             items: [
                 {},
                 {building: 'Mill'},
+                {building: 'Folwark'},
                 {},
                 {building: 'LumberCamp'},
                 {},
@@ -501,6 +511,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
             items: [
                 {age: 'FeudalAge'},
                 {tech: 'HorseCollar'},
+                {},
                 {},
                 {tech: 'DoubleBitAxe'},
                 {},
@@ -513,6 +524,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {age: 'CastleAge'},
                 {tech: 'HeavyPlow'},
                 {},
+                {},
                 {tech: 'BowSaw'},
                 {},
                 {tech: 'GoldShaftMining'},
@@ -523,6 +535,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
             items: [
                 {age: 'ImperialAge'},
                 {tech: 'CropRotation'},
+                {},
                 {},
                 {tech: 'TwoManSaw'},
             ],

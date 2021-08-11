@@ -146,6 +146,7 @@ export async function fetchPlayerMatchesLegacy(game: string, start: number, coun
         start,
         count,
         profile_ids: params.map(p => p.profile_id),
+        // profile_ids: [params.map(p => p.profile_id), 209525],
     };
     const queryString = makeQueryString(args);
     const url = getHost('aoe2net') + `api/player/matches?${queryString}`;
@@ -155,11 +156,20 @@ export async function fetchPlayerMatchesLegacy(game: string, start: number, coun
     json = uniqBy(json, m => m.match_id);
 
     // HACK: Fix new civ order after Lords of the West
-    const releaseDate = 1611680400; // 01/26/2021 @ 5:00pm (UTC)
-    json.filter(match => match.started < releaseDate).forEach(match => {
+    const releaseDateLoW = 1611680400; // 01/26/2021 @ 5:00pm (UTC)
+    json.filter(match => getUnixTime(parseISO(match.started)) < releaseDateLoW).forEach(match => {
         match.players.forEach(player => {
             if (player.civ >= 4) player.civ++;
             if (player.civ >= 29) player.civ++;
+        })
+    });
+
+    // HACK: Fix new civ order after Dawn of the Dukes
+    const releaseDateDoD = 1628611200; // 10/08/2021 @ 5:00pm (UTC)
+    json.filter(match => getUnixTime(parseISO(match.started)) < releaseDateDoD).forEach(match => {
+        match.players.forEach(player => {
+            if (player.civ >= 3) player.civ++;
+            if (player.civ >= 28) player.civ++;
         })
     });
 
@@ -253,11 +263,20 @@ export async function fetchPlayerMatchesNew(game: string, start: number, count: 
         json = uniqBy(json, m => m.match_id);
 
         // HACK: Fix new civ order after Lords of the West
-        const releaseDate = 1611680400; // 01/26/2021 @ 5:00pm (UTC)
-        json.filter(match => getUnixTime(parseISO(match.started)) < releaseDate).forEach(match => {
+        const releaseDateLoW = 1611680400; // 01/26/2021 @ 5:00pm (UTC)
+        json.filter(match => getUnixTime(parseISO(match.started)) < releaseDateLoW).forEach(match => {
             match.players.forEach(player => {
                 if (player.civ >= 4) player.civ++;
                 if (player.civ >= 29) player.civ++;
+            })
+        });
+
+        // HACK: Fix new civ order after Dawn of the Dukes
+        const releaseDateDoD = 1628611200; // 10/08/2021 @ 5:00pm (UTC)
+        json.filter(match => getUnixTime(parseISO(match.started)) < releaseDateDoD).forEach(match => {
+            match.players.forEach(player => {
+                if (player.civ >= 3) player.civ++;
+                if (player.civ >= 28) player.civ++;
             })
         });
 

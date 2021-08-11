@@ -4,6 +4,7 @@ import {Civ, civs} from "@nex/data";
 export const civIconList = [
     require('../../../app/assets/civilizations/aztecs.png'),
     require('../../../app/assets/civilizations/berber.png'),
+    require('../../../app/assets/civilizations/bohemians.png'),
     require('../../../app/assets/civilizations/britons.png'),
     require('../../../app/assets/civilizations/bulgarians.png'),
     require('../../../app/assets/civilizations/burgundians.png'),
@@ -29,6 +30,7 @@ export const civIconList = [
     require('../../../app/assets/civilizations/mayans.png'),
     require('../../../app/assets/civilizations/mongols.png'),
     require('../../../app/assets/civilizations/persians.png'),
+    require('../../../app/assets/civilizations/poles.png'),
     require('../../../app/assets/civilizations/portuguese.png'),
     require('../../../app/assets/civilizations/saracens.png'),
     require('../../../app/assets/civilizations/sicilians.png'),
@@ -44,6 +46,7 @@ export const civIconList = [
 export const civHistoryList = [
     require('../../../app/assets/history/civs/history_aztecs.png'),
     require('../../../app/assets/history/civs/history_berbers.png'),
+    require('../../../app/assets/history/civs/history_bohemians.png'),
     require('../../../app/assets/history/civs/history_britons.png'),
     require('../../../app/assets/history/civs/history_bulgarians.png'),
     require('../../../app/assets/history/civs/history_burgundians.png'),
@@ -69,6 +72,7 @@ export const civHistoryList = [
     require('../../../app/assets/history/civs/history_mayans.png'),
     require('../../../app/assets/history/civs/history_mongols.png'),
     require('../../../app/assets/history/civs/history_persians.png'),
+    require('../../../app/assets/history/civs/history_poles.png'),
     require('../../../app/assets/history/civs/history_portuguese.png'),
     require('../../../app/assets/history/civs/history_saracens.png'),
     require('../../../app/assets/history/civs/history_sicilians.png'),

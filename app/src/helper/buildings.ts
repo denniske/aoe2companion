@@ -13,6 +13,7 @@ const buildingIcons = {
     'Feitoria': require('../../../app/assets/buildings/Feitoria.png'),
     'FishTrap': require('../../../app/assets/buildings/FishTrap.png'),
     'FortifiedWall': require('../../../app/assets/buildings/FortifiedWall.png'),
+    'Folwark': require('../../../app/assets/buildings/Folwark.png'),
     'Gate': require('../../../app/assets/buildings/Gate.png'),
     'GuardTower': require('../../../app/assets/buildings/GuardTower.png'),
     'House': require('../../../app/assets/buildings/House.png'),

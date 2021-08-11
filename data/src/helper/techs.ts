@@ -56,6 +56,30 @@ type ITechEffectDict2 = {
 
 // : ITechEffectDict2
 const techEffectDictInternal = {
+    'WagenburgTactics': {
+        tech: 'WagenburgTactics',
+        effect: {
+            speed: '+15%',
+        },
+    },
+    'HussiteReforms': {
+        tech: 'HussiteReforms',
+        effect: {
+            other: 'gold cost replaced with food',
+        },
+    },
+    'SzlachtaPrivileges': {
+        tech: 'SzlachtaPrivileges',
+        effect: {
+            other: 'gold cost -60%',
+        },
+    },
+    'LechiticLegacy': {
+        tech: 'LechiticLegacy',
+        effect: {
+            attack: 'gives 33% trample damage',
+        },
+    },
     'FeudalAge-ScoutCavalry': {
         tech: 'FeudalAge',
         unit: 'ScoutCavalry',
@@ -1055,6 +1079,31 @@ export const techEffectDict = addNameToTechEffectDict(techEffectDictInternal as 
 
 export const techList: ITech[] = [
     {
+        "dataId": "784",
+        "name": "WagenburgTactics",
+        "civ": "Bohemians",
+        "age": 'Castle',
+    },
+    {
+        "dataId": "785",
+        "name": "HussiteReforms",
+        "civ": "Bohemians",
+        "age": 'Imperial',
+    },
+    {
+        "dataId": "782",
+        "name": "SzlachtaPrivileges",
+        "civ": "Poles",
+        "age": 'Castle',
+    },
+    {
+        "dataId": "783",
+        "name": "LechiticLegacy",
+        "civ": "Poles",
+        "age": 'Imperial',
+    },
+
+    {
         "dataId": "754",
         "name": "BurgundianVineyards",
         "civ": "Burgundians",
@@ -2029,7 +2078,11 @@ const techIds = [
     'Sipahi',
     'Chatras',
     'Chieftains',
+    'WagenburgTactics',
+    'SzlachtaPrivileges',
 
+    'LechiticLegacy',
+    'HussiteReforms',
     'GarlandWars',
     'MaghrebiCamels',
     'Warwolf',

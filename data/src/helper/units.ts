@@ -25,6 +25,8 @@ interface IUnitLineDict {
 }
 
 export const unitLineIds = [
+    'Obuch',
+    'HussiteWagon',
     'Coustillier',
     'Serjeant',
     'FlemishMilitia',
@@ -105,6 +107,41 @@ export const unitLineIds = [
 ] as const;
 
 export const unitLines: IUnitLineDict = {
+    'Obuch': {
+        units: ['Obuch', 'EliteObuch'],
+        unique: true,
+        counteredBy: [
+            'Samurai',
+            'HandCannoneer',
+        ],
+        upgrades: [
+            'Forging',
+            'IronCasting',
+            'BlastFurnace',
+            'Arson',
+            'ScaleMailArmor',
+            'ChainMailArmor',
+            'PlateMailArmor',
+            'Squires',
+            'Tracking',
+            'Faith',
+            'Conscription',
+        ],
+    },
+    'HussiteWagon': {
+        units: ['HussiteWagon', 'EliteHussiteWagon'],
+        unique: true,
+        counteredBy: [
+            'Mangonel',
+            'BombardCannon',
+        ],
+        upgrades: [
+            'SiegeEngineers-20-1',
+            'WagenburgTactics',
+            'Faith',
+            'Heresy',
+        ],
+    },
     'Coustillier': {
         units: ['Coustillier', 'EliteCoustillier'],
         unique: true,
@@ -323,6 +360,7 @@ export const unitLines: IUnitLineDict = {
             'Theocracy-5',
             'Orthodoxy',
             'Inquisition',
+            'HussiteReforms',
             'Madrasah',
         ],
     },
@@ -403,6 +441,7 @@ export const unitLines: IUnitLineDict = {
             'Faith',
             'Heresy',
             'Shipwright',
+            'WagenburgTactics',
         ],
     },
     'Arambai': {
@@ -708,7 +747,7 @@ export const unitLines: IUnitLineDict = {
         ],
     },
     'BombardCannon': {
-        units: ['BombardCannon'],
+        units: ['BombardCannon', 'Houfnice'],
         counteredBy: [
             'ScoutCavalry',
             'Knight',
@@ -737,6 +776,7 @@ export const unitLines: IUnitLineDict = {
             'Ironclad',
             'Faith',
             'Heresy',
+            'WagenburgTactics',
         ],
     },
     'Mangonel': {
@@ -856,6 +896,7 @@ export const unitLines: IUnitLineDict = {
             'Faith',
             'Heresy',
             'Conscription',
+            'WagenburgTactics',
         ],
     },
     'KarambitWarrior': {
@@ -1071,7 +1112,8 @@ export const unitLines: IUnitLineDict = {
             'Janissary',
             'OrganGun',
             'Conquistador',
-            'Leitis'
+            'Leitis',
+            'Obuch',
         ],
         upgrades: [
             'Forging',
@@ -1455,7 +1497,8 @@ export const unitLines: IUnitLineDict = {
           'Kamayuk',
           'WarElephant',
           'Mameluke',
-          'Leitis'
+          'Leitis',
+          'Obuch',
         ],
         upgrades: [
             'Bloodlines',
@@ -1710,8 +1753,7 @@ export const unitLines: IUnitLineDict = {
             'ThrowingAxeman',
             'Mameluke',
             'WarElephant',
-            'Boyar'
-
+            'Boyar',
         ],
         upgrades: [
             'Bloodlines',
@@ -1729,6 +1771,7 @@ export const unitLines: IUnitLineDict = {
             'Heresy',
             'Conscription',
             'Chivalry',
+            'SzlachtaPrivileges',
         ],
     },
     'XolotlWarrior': {
@@ -1756,7 +1799,7 @@ export const unitLines: IUnitLineDict = {
         ],
     },
     'ScoutCavalry': {
-        units: ['ScoutCavalry', 'LightCavalry', 'Hussar'],
+        units: ['ScoutCavalry', 'LightCavalry', 'Hussar', 'WingedHussar'],
         counteredBy: [
             'Militia',
             'Spearman',
@@ -1801,6 +1844,7 @@ export const unitLines: IUnitLineDict = {
             'Conscription',
             'Chivalry',
             'SteppeHusbandry',
+            'LechiticLegacy',
         ],
     },
     'Kipchak': {
@@ -2342,6 +2386,24 @@ export const unitLines: IUnitLineDict = {
 };
 
 const unitsInternal = {
+    'WingedHussar': {
+        dataId: '1707',
+    },
+    'Houfnice': {
+        dataId: '1709',
+    },
+    'Obuch': {
+        dataId: '1701',
+    },
+    'EliteObuch': {
+        dataId: '1703',
+    },
+    'HussiteWagon': {
+        dataId: '1704',
+    },
+    'EliteHussiteWagon': {
+        dataId: '1706',
+    },
     'Coustillier': {
         dataId: '1655',
     },
@@ -2807,6 +2869,18 @@ const unitsInternal = {
 };
 
 export const unitUpgradeCosts = {
+    "HussiteWagon":{
+        "Wood":800,
+        "Gold":600
+    },
+    "Obuch":{
+        "Food":800,
+        "Gold":600
+    },
+    "BombardCannon":{
+        "Food":950,
+        "Gold":750
+    },
     "Coustillier":{
         "Food":1000,
         "Gold":800
@@ -3033,9 +3107,13 @@ export const unitUpgradeCosts = {
         "Food":150,
         "Gold":50
     },
-    "LightCavalry":{
+    "LightCavalry-Hussar":{
         "Food":500,
         "Gold":600
+    },
+    "LightCavalry-WingedHussar":{
+        "Food":600,
+        "Gold":800
     },
     "Kipchak":{
         "Food":1100,
@@ -3275,8 +3353,8 @@ export function getUnitDescription(unit: Unit) {
     return description;
 }
 
-export function getUnitUpgradeCost(unit: Unit): ICostDict | null {
-    return unitUpgradeCosts[unit as keyof typeof unitUpgradeCosts];
+export function getUnitUpgradeCost(unitFrom: Unit, unitTo: Unit): ICostDict | null {
+    return unitUpgradeCosts[unitFrom as keyof typeof unitUpgradeCosts] ?? unitUpgradeCosts[`${unitFrom}-${unitTo}`];
 }
 
 // export function getUnitDescriptionRaw(unit: Unit) {
@@ -3434,6 +3512,7 @@ export const sortedUnitLines: UnitLine[] = [
     'Gbeto',
     'Genitour',
     'GenoeseCrossbowman',
+    'HussiteWagon',
     'Huskarl',
     'JaguarWarrior',
     'Janissary',
@@ -3448,6 +3527,7 @@ export const sortedUnitLines: UnitLine[] = [
     'MagyarHuszar',
     'Mameluke',
     'Mangudai',
+    'Obuch',
     'OrganGun',
     'PlumedArcher',
     'RattanArcher',

@@ -3,6 +3,9 @@ x quick play leaderboard id format
 x search aoe2
 x leaderboard country
 
+x recheck tech effects of bohemians / poles
+x unit upgrade costs (lightcav -> hussar / wingedhussar)
+- units colored
 
 223576,76561198001031686,Sihing Mo
 336655,76561198116899512,Baratticus

@@ -48,6 +48,7 @@ export const buildingSections: IBuildingSection[] = [
         data: [
             "FishTrap",
             "Mill",
+            "Folwark",
             "Farm",
             "LumberCamp",
             "MiningCamp",

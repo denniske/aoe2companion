@@ -15,7 +15,7 @@ import {
 import {Checkbox, Searchbar} from "react-native-paper";
 import {MyText} from "../components/my-text";
 import {appVariants} from "../../styles";
-import {LeaderboardId} from "@nex/data";
+import {getCivName, LeaderboardId} from "@nex/data";
 import TemplatePicker from "../components/template-picker";
 import {get} from 'lodash';
 import {IMatch} from "@nex/data";
@@ -28,7 +28,6 @@ import {getPathToRoute, getRoutes, getRoutesFromCurrentActiveStack} from '../../
 import {openLink} from "../../helper/url";
 import {useWebRefresh} from "../../hooks/use-web-refresh";
 import FlatListLoadingIndicator from "../components/flat-list-loading-indicator";
-import {getCivName} from '../../../../website/src/helper/civs';
 
 
 export default function MainMatches() {

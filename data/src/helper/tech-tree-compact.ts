@@ -67,7 +67,8 @@ export function getCompactTechTree(): ITechTreeRow[] {
                 {unit: 'CappedRam'},
                 {unit: 'Onager'},
                 {unit: 'HeavyScorpion'},
-                {},
+                {unit: 'BombardCannon'},
+                {tech: 'SiegeEngineers'},
             ],
         },
         {
@@ -75,8 +76,7 @@ export function getCompactTechTree(): ITechTreeRow[] {
                 {unit: 'SiegeRam'},
                 {unit: 'SiegeOnager'},
                 {},
-                {unit: 'BombardCannon'},
-                {tech: 'SiegeEngineers'},
+                {unit: 'Houfnice'},
             ],
         },
 
@@ -133,6 +133,11 @@ export function getCompactTechTree(): ITechTreeRow[] {
                 {unit: 'ImperialCamelRider'},
                 {},
                 {},
+            ],
+        },
+        {
+            items: [
+                {unit: 'WingedHussar'},
             ],
         },
 

@@ -7,7 +7,7 @@ import {readAsStringAsync} from 'expo-file-system';
 export function getInternalString(category: keyof IStrings, id: number): string | undefined {
     // return '###';
     // console.log('getString', getlanguage(), category);
-    return strings[getLanguage()][category].find(i => i.id === id)?.string;
+    return strings[getLanguage()]?.[category]?.find(i => i.id === id)?.string;
 }
 
 export function getStringId(category: keyof IStrings, str: string) {
