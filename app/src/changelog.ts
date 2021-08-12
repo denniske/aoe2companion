@@ -18,6 +18,16 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
+    '26.0.11': [
+        {
+            type: 'bugfix',
+            title: 'Fix bohemian unique unit pages',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix civ mapping according to aoe2.net changes',
+        },
+    ],
     '26.0.10': [
         {
             type: 'minor',

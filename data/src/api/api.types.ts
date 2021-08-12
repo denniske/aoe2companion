@@ -18,6 +18,7 @@ export function getSlotTypeName(slotType: SlotType) {
 
 export interface IPlayerRaw {
     civ: number;
+    civ_alpha: number;
     clan: string;
     color: number;
     country: Flag;

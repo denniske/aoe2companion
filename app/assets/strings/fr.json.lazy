@@ -29,151 +29,159 @@
     "civ": [
         {
             "id": 0,
-            "string": "Aztèques"
+            "string": null
         },
         {
             "id": 1,
-            "string": "Berbères"
-        },
-        {
-            "id": 2,
             "string": "Britanniques"
         },
         {
-            "id": 3,
-            "string": "Bulgares"
-        },
-        {
-            "id": 4,
-            "string": "Burgundians"
-        },
-        {
-            "id": 5,
-            "string": "Birmans"
-        },
-        {
-            "id": 6,
-            "string": "Byzantins"
-        },
-        {
-            "id": 7,
-            "string": "Celtes"
-        },
-        {
-            "id": 8,
-            "string": "Chinois"
-        },
-        {
-            "id": 9,
-            "string": "Coumans"
-        },
-        {
-            "id": 10,
-            "string": "Éthiopiens"
-        },
-        {
-            "id": 11,
+            "id": 2,
             "string": "Francs"
         },
         {
-            "id": 12,
+            "id": 3,
             "string": "Goths"
         },
         {
-            "id": 13,
-            "string": "Huns"
-        },
-        {
-            "id": 14,
-            "string": "Incas"
-        },
-        {
-            "id": 15,
-            "string": "Indiens"
-        },
-        {
-            "id": 16,
-            "string": "Italiens"
-        },
-        {
-            "id": 17,
-            "string": "Japonais"
-        },
-        {
-            "id": 18,
-            "string": "Khmers"
-        },
-        {
-            "id": 19,
-            "string": "Coréens"
-        },
-        {
-            "id": 20,
-            "string": "Lituaniens"
-        },
-        {
-            "id": 21,
-            "string": "Hongrois"
-        },
-        {
-            "id": 22,
-            "string": "Malais"
-        },
-        {
-            "id": 23,
-            "string": "Maliens"
-        },
-        {
-            "id": 24,
-            "string": "Mayas"
-        },
-        {
-            "id": 25,
-            "string": "Mongols"
-        },
-        {
-            "id": 26,
-            "string": "Perses"
-        },
-        {
-            "id": 27,
-            "string": "Portugais"
-        },
-        {
-            "id": 28,
-            "string": "Sarrasins"
-        },
-        {
-            "id": 29,
-            "string": "Sicilians"
-        },
-        {
-            "id": 30,
-            "string": "Slaves"
-        },
-        {
-            "id": 31,
-            "string": "Espagnols"
-        },
-        {
-            "id": 32,
-            "string": "Tatars"
-        },
-        {
-            "id": 33,
+            "id": 4,
             "string": "Teutons"
         },
         {
-            "id": 34,
+            "id": 5,
+            "string": "Japonais"
+        },
+        {
+            "id": 6,
+            "string": "Chinois"
+        },
+        {
+            "id": 7,
+            "string": "Byzantins"
+        },
+        {
+            "id": 8,
+            "string": "Perses"
+        },
+        {
+            "id": 9,
+            "string": "Sarrasins"
+        },
+        {
+            "id": 10,
             "string": "Turcs"
         },
         {
-            "id": 35,
+            "id": 11,
+            "string": "Vikings"
+        },
+        {
+            "id": 12,
+            "string": "Mongols"
+        },
+        {
+            "id": 13,
+            "string": "Celtes"
+        },
+        {
+            "id": 14,
+            "string": "Espagnols"
+        },
+        {
+            "id": 15,
+            "string": "Aztèques"
+        },
+        {
+            "id": 16,
+            "string": "Mayas"
+        },
+        {
+            "id": 17,
+            "string": "Huns"
+        },
+        {
+            "id": 18,
+            "string": "Coréens"
+        },
+        {
+            "id": 19,
+            "string": "Italiens"
+        },
+        {
+            "id": 20,
+            "string": "Indiens"
+        },
+        {
+            "id": 21,
+            "string": "Incas"
+        },
+        {
+            "id": 22,
+            "string": "Hongrois"
+        },
+        {
+            "id": 23,
+            "string": "Slaves"
+        },
+        {
+            "id": 24,
+            "string": "Portugais"
+        },
+        {
+            "id": 25,
+            "string": "Éthiopiens"
+        },
+        {
+            "id": 26,
+            "string": "Maliens"
+        },
+        {
+            "id": 27,
+            "string": "Berbères"
+        },
+        {
+            "id": 28,
+            "string": "Khmers"
+        },
+        {
+            "id": 29,
+            "string": "Malais"
+        },
+        {
+            "id": 30,
+            "string": "Birmans"
+        },
+        {
+            "id": 31,
             "string": "Vietnamiens"
         },
         {
+            "id": 32,
+            "string": "Bulgares"
+        },
+        {
+            "id": 33,
+            "string": "Tatars"
+        },
+        {
+            "id": 34,
+            "string": "Coumans"
+        },
+        {
+            "id": 35,
+            "string": "Lituaniens"
+        },
+        {
             "id": 36,
-            "string": "Vikings"
+            "string": "Burgundians"
+        },
+        {
+            "id": 37,
+            "string": "Sicilians"
+        },
+        {
+            "id": 38,
+            "string": "Poles"
         }
     ],
     "game_type": [

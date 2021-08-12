@@ -29,151 +29,159 @@
     "civ": [
         {
             "id": 0,
-            "string": "阿兹特克"
+            "string": null
         },
         {
             "id": 1,
-            "string": "柏柏尔"
-        },
-        {
-            "id": 2,
             "string": "不列颠"
         },
         {
-            "id": 3,
-            "string": "保加利亚"
-        },
-        {
-            "id": 4,
-            "string": "Burgundians"
-        },
-        {
-            "id": 5,
-            "string": "缅甸"
-        },
-        {
-            "id": 6,
-            "string": "拜占庭"
-        },
-        {
-            "id": 7,
-            "string": "凯尔特"
-        },
-        {
-            "id": 8,
-            "string": "中国"
-        },
-        {
-            "id": 9,
-            "string": "库曼"
-        },
-        {
-            "id": 10,
-            "string": "埃塞俄比亚"
-        },
-        {
-            "id": 11,
+            "id": 2,
             "string": "法兰克"
         },
         {
-            "id": 12,
+            "id": 3,
             "string": "哥特"
         },
         {
-            "id": 13,
-            "string": "匈奴"
-        },
-        {
-            "id": 14,
-            "string": "印加"
-        },
-        {
-            "id": 15,
-            "string": "印度"
-        },
-        {
-            "id": 16,
-            "string": "意大利"
-        },
-        {
-            "id": 17,
-            "string": "日本"
-        },
-        {
-            "id": 18,
-            "string": "高棉"
-        },
-        {
-            "id": 19,
-            "string": "高丽"
-        },
-        {
-            "id": 20,
-            "string": "立陶宛"
-        },
-        {
-            "id": 21,
-            "string": "马扎尔"
-        },
-        {
-            "id": 22,
-            "string": "马来"
-        },
-        {
-            "id": 23,
-            "string": "马里"
-        },
-        {
-            "id": 24,
-            "string": "玛雅"
-        },
-        {
-            "id": 25,
-            "string": "蒙古"
-        },
-        {
-            "id": 26,
-            "string": "波斯"
-        },
-        {
-            "id": 27,
-            "string": "葡萄牙"
-        },
-        {
-            "id": 28,
-            "string": "萨拉森"
-        },
-        {
-            "id": 29,
-            "string": "Sicilians"
-        },
-        {
-            "id": 30,
-            "string": "斯拉夫"
-        },
-        {
-            "id": 31,
-            "string": "西班牙"
-        },
-        {
-            "id": 32,
-            "string": "鞑靼"
-        },
-        {
-            "id": 33,
+            "id": 4,
             "string": "条顿"
         },
         {
-            "id": 34,
+            "id": 5,
+            "string": "日本"
+        },
+        {
+            "id": 6,
+            "string": "中国"
+        },
+        {
+            "id": 7,
+            "string": "拜占庭"
+        },
+        {
+            "id": 8,
+            "string": "波斯"
+        },
+        {
+            "id": 9,
+            "string": "萨拉森"
+        },
+        {
+            "id": 10,
             "string": "土耳其"
         },
         {
-            "id": 35,
+            "id": 11,
+            "string": "维京"
+        },
+        {
+            "id": 12,
+            "string": "蒙古"
+        },
+        {
+            "id": 13,
+            "string": "凯尔特"
+        },
+        {
+            "id": 14,
+            "string": "西班牙"
+        },
+        {
+            "id": 15,
+            "string": "阿兹特克"
+        },
+        {
+            "id": 16,
+            "string": "玛雅"
+        },
+        {
+            "id": 17,
+            "string": "匈奴"
+        },
+        {
+            "id": 18,
+            "string": "高丽"
+        },
+        {
+            "id": 19,
+            "string": "意大利"
+        },
+        {
+            "id": 20,
+            "string": "印度"
+        },
+        {
+            "id": 21,
+            "string": "印加"
+        },
+        {
+            "id": 22,
+            "string": "马扎尔"
+        },
+        {
+            "id": 23,
+            "string": "斯拉夫"
+        },
+        {
+            "id": 24,
+            "string": "葡萄牙"
+        },
+        {
+            "id": 25,
+            "string": "埃塞俄比亚"
+        },
+        {
+            "id": 26,
+            "string": "马里"
+        },
+        {
+            "id": 27,
+            "string": "柏柏尔"
+        },
+        {
+            "id": 28,
+            "string": "高棉"
+        },
+        {
+            "id": 29,
+            "string": "马来"
+        },
+        {
+            "id": 30,
+            "string": "缅甸"
+        },
+        {
+            "id": 31,
             "string": "越南"
         },
         {
+            "id": 32,
+            "string": "保加利亚"
+        },
+        {
+            "id": 33,
+            "string": "鞑靼"
+        },
+        {
+            "id": 34,
+            "string": "库曼"
+        },
+        {
+            "id": 35,
+            "string": "立陶宛"
+        },
+        {
             "id": 36,
-            "string": "维京"
+            "string": "Burgundians"
+        },
+        {
+            "id": 37,
+            "string": "Sicilians"
+        },
+        {
+            "id": 38,
+            "string": "Poles"
         }
     ],
     "game_type": [

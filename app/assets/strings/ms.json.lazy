@@ -29,151 +29,159 @@
     "civ": [
         {
             "id": 0,
-            "string": "Orang Aztec"
+            "string": null
         },
         {
             "id": 1,
-            "string": "Orang Berber"
-        },
-        {
-            "id": 2,
             "string": "Orang British"
         },
         {
-            "id": 3,
-            "string": "Orang Bulgaria"
-        },
-        {
-            "id": 4,
-            "string": "Burgundians"
-        },
-        {
-            "id": 5,
-            "string": "Orang Burma"
-        },
-        {
-            "id": 6,
-            "string": "Orang Byzantine"
-        },
-        {
-            "id": 7,
-            "string": "Orang Celt"
-        },
-        {
-            "id": 8,
-            "string": "Orang Cina"
-        },
-        {
-            "id": 9,
-            "string": "Orang Cuman"
-        },
-        {
-            "id": 10,
-            "string": "Orang Etiopia"
-        },
-        {
-            "id": 11,
+            "id": 2,
             "string": "Orang Frank"
         },
         {
-            "id": 12,
+            "id": 3,
             "string": "Orang Goth"
         },
         {
-            "id": 13,
-            "string": "Orang Hun"
-        },
-        {
-            "id": 14,
-            "string": "Orang Inca"
-        },
-        {
-            "id": 15,
-            "string": "Orang India"
-        },
-        {
-            "id": 16,
-            "string": "Orang Itali"
-        },
-        {
-            "id": 17,
-            "string": "Orang Jepun"
-        },
-        {
-            "id": 18,
-            "string": "Orang Khmer"
-        },
-        {
-            "id": 19,
-            "string": "Orang Korea"
-        },
-        {
-            "id": 20,
-            "string": "Orang Lithuania"
-        },
-        {
-            "id": 21,
-            "string": "Orang Magyar"
-        },
-        {
-            "id": 22,
-            "string": "Orang Melayu"
-        },
-        {
-            "id": 23,
-            "string": "Orang Mali"
-        },
-        {
-            "id": 24,
-            "string": "Orang Mayan"
-        },
-        {
-            "id": 25,
-            "string": "Orang Mongol"
-        },
-        {
-            "id": 26,
-            "string": "Orang Parsi"
-        },
-        {
-            "id": 27,
-            "string": "Orang Portugis"
-        },
-        {
-            "id": 28,
-            "string": "Orang Saracen"
-        },
-        {
-            "id": 29,
-            "string": "Sicilians"
-        },
-        {
-            "id": 30,
-            "string": "Orang Slavik"
-        },
-        {
-            "id": 31,
-            "string": "Orang Sepanyol"
-        },
-        {
-            "id": 32,
-            "string": "Orang Tatar"
-        },
-        {
-            "id": 33,
+            "id": 4,
             "string": "Orang Teuton"
         },
         {
-            "id": 34,
+            "id": 5,
+            "string": "Orang Jepun"
+        },
+        {
+            "id": 6,
+            "string": "Orang Cina"
+        },
+        {
+            "id": 7,
+            "string": "Orang Byzantine"
+        },
+        {
+            "id": 8,
+            "string": "Orang Parsi"
+        },
+        {
+            "id": 9,
+            "string": "Orang Saracen"
+        },
+        {
+            "id": 10,
             "string": "Orang Turki"
         },
         {
-            "id": 35,
+            "id": 11,
+            "string": "Orang Viking"
+        },
+        {
+            "id": 12,
+            "string": "Orang Mongol"
+        },
+        {
+            "id": 13,
+            "string": "Orang Celt"
+        },
+        {
+            "id": 14,
+            "string": "Orang Sepanyol"
+        },
+        {
+            "id": 15,
+            "string": "Orang Aztec"
+        },
+        {
+            "id": 16,
+            "string": "Orang Mayan"
+        },
+        {
+            "id": 17,
+            "string": "Orang Hun"
+        },
+        {
+            "id": 18,
+            "string": "Orang Korea"
+        },
+        {
+            "id": 19,
+            "string": "Orang Itali"
+        },
+        {
+            "id": 20,
+            "string": "Orang India"
+        },
+        {
+            "id": 21,
+            "string": "Orang Inca"
+        },
+        {
+            "id": 22,
+            "string": "Orang Magyar"
+        },
+        {
+            "id": 23,
+            "string": "Orang Slavik"
+        },
+        {
+            "id": 24,
+            "string": "Orang Portugis"
+        },
+        {
+            "id": 25,
+            "string": "Orang Etiopia"
+        },
+        {
+            "id": 26,
+            "string": "Orang Mali"
+        },
+        {
+            "id": 27,
+            "string": "Orang Berber"
+        },
+        {
+            "id": 28,
+            "string": "Orang Khmer"
+        },
+        {
+            "id": 29,
+            "string": "Orang Melayu"
+        },
+        {
+            "id": 30,
+            "string": "Orang Burma"
+        },
+        {
+            "id": 31,
             "string": "Orang Vietnam"
         },
         {
+            "id": 32,
+            "string": "Orang Bulgaria"
+        },
+        {
+            "id": 33,
+            "string": "Orang Tatar"
+        },
+        {
+            "id": 34,
+            "string": "Orang Cuman"
+        },
+        {
+            "id": 35,
+            "string": "Orang Lithuania"
+        },
+        {
             "id": 36,
-            "string": "Orang Viking"
+            "string": "Burgundians"
+        },
+        {
+            "id": 37,
+            "string": "Sicilians"
+        },
+        {
+            "id": 38,
+            "string": "Poles"
         }
     ],
     "game_type": [

@@ -29,151 +29,159 @@
     "civ": [
         {
             "id": 0,
-            "string": "Aztec"
+            "string": null
         },
         {
             "id": 1,
-            "string": "Berber"
-        },
-        {
-            "id": 2,
             "string": "Briton"
         },
         {
-            "id": 3,
-            "string": "Bulgaria"
-        },
-        {
-            "id": 4,
-            "string": "Burgundians"
-        },
-        {
-            "id": 5,
-            "string": "Miến Điện"
-        },
-        {
-            "id": 6,
-            "string": "Đông La Mã"
-        },
-        {
-            "id": 7,
-            "string": "Celt"
-        },
-        {
-            "id": 8,
-            "string": "Trung Quốc"
-        },
-        {
-            "id": 9,
-            "string": "Cuman"
-        },
-        {
-            "id": 10,
-            "string": "Ethiopia"
-        },
-        {
-            "id": 11,
+            "id": 2,
             "string": "Frank"
         },
         {
-            "id": 12,
+            "id": 3,
             "string": "Goth"
         },
         {
-            "id": 13,
-            "string": "Hung"
-        },
-        {
-            "id": 14,
-            "string": "Inca"
-        },
-        {
-            "id": 15,
-            "string": "Ấn Độ"
-        },
-        {
-            "id": 16,
-            "string": "Italy"
-        },
-        {
-            "id": 17,
-            "string": "Nhật Bản"
-        },
-        {
-            "id": 18,
-            "string": "Khmer"
-        },
-        {
-            "id": 19,
-            "string": "Triều Tiên"
-        },
-        {
-            "id": 20,
-            "string": "Litva"
-        },
-        {
-            "id": 21,
-            "string": "Magyar"
-        },
-        {
-            "id": 22,
-            "string": "Mã Lai"
-        },
-        {
-            "id": 23,
-            "string": "Mali"
-        },
-        {
-            "id": 24,
-            "string": "Maya"
-        },
-        {
-            "id": 25,
-            "string": "Mông Cổ"
-        },
-        {
-            "id": 26,
-            "string": "Ba Tư"
-        },
-        {
-            "id": 27,
-            "string": "Bồ Đào Nha"
-        },
-        {
-            "id": 28,
-            "string": "Saracen"
-        },
-        {
-            "id": 29,
-            "string": "Sicilians"
-        },
-        {
-            "id": 30,
-            "string": "Slav"
-        },
-        {
-            "id": 31,
-            "string": "Tây Ban Nha"
-        },
-        {
-            "id": 32,
-            "string": "Tatar"
-        },
-        {
-            "id": 33,
+            "id": 4,
             "string": "Teuton"
         },
         {
-            "id": 34,
+            "id": 5,
+            "string": "Nhật Bản"
+        },
+        {
+            "id": 6,
+            "string": "Trung Quốc"
+        },
+        {
+            "id": 7,
+            "string": "Đông La Mã"
+        },
+        {
+            "id": 8,
+            "string": "Ba Tư"
+        },
+        {
+            "id": 9,
+            "string": "Saracen"
+        },
+        {
+            "id": 10,
             "string": "Đột Quyết"
         },
         {
-            "id": 35,
+            "id": 11,
+            "string": "Viking"
+        },
+        {
+            "id": 12,
+            "string": "Mông Cổ"
+        },
+        {
+            "id": 13,
+            "string": "Celt"
+        },
+        {
+            "id": 14,
+            "string": "Tây Ban Nha"
+        },
+        {
+            "id": 15,
+            "string": "Aztec"
+        },
+        {
+            "id": 16,
+            "string": "Maya"
+        },
+        {
+            "id": 17,
+            "string": "Hung"
+        },
+        {
+            "id": 18,
+            "string": "Triều Tiên"
+        },
+        {
+            "id": 19,
+            "string": "Italy"
+        },
+        {
+            "id": 20,
+            "string": "Ấn Độ"
+        },
+        {
+            "id": 21,
+            "string": "Inca"
+        },
+        {
+            "id": 22,
+            "string": "Magyar"
+        },
+        {
+            "id": 23,
+            "string": "Slav"
+        },
+        {
+            "id": 24,
+            "string": "Bồ Đào Nha"
+        },
+        {
+            "id": 25,
+            "string": "Ethiopia"
+        },
+        {
+            "id": 26,
+            "string": "Mali"
+        },
+        {
+            "id": 27,
+            "string": "Berber"
+        },
+        {
+            "id": 28,
+            "string": "Khmer"
+        },
+        {
+            "id": 29,
+            "string": "Mã Lai"
+        },
+        {
+            "id": 30,
+            "string": "Miến Điện"
+        },
+        {
+            "id": 31,
             "string": "Đại Việt"
         },
         {
+            "id": 32,
+            "string": "Bulgaria"
+        },
+        {
+            "id": 33,
+            "string": "Tatar"
+        },
+        {
+            "id": 34,
+            "string": "Cuman"
+        },
+        {
+            "id": 35,
+            "string": "Litva"
+        },
+        {
             "id": 36,
-            "string": "Viking"
+            "string": "Burgundians"
+        },
+        {
+            "id": 37,
+            "string": "Sicilians"
+        },
+        {
+            "id": 38,
+            "string": "Poles"
         }
     ],
     "game_type": [

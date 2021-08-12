@@ -79,6 +79,7 @@
   "enum.unitclass.fishingships": "Fishing Ships",
   "enum.unitclass.mamelukes": "Mamelukes",
   "enum.unitclass.heroesandkings": "Heroes and Kings",
+  "enum.unitclass.hussitewagon": "Hussite Wagon",
   "enum.leaderboardid.unranked": "Unranked",
   "enum.leaderboardid.dm1v1": "DM 1v1",
   "enum.leaderboardid.dmteam": "DM Team",

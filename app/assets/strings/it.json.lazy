@@ -29,151 +29,159 @@
     "civ": [
         {
             "id": 0,
-            "string": "Aztechi"
+            "string": null
         },
         {
             "id": 1,
-            "string": "Berberi"
-        },
-        {
-            "id": 2,
             "string": "Britanni"
         },
         {
-            "id": 3,
-            "string": "Bulgari"
-        },
-        {
-            "id": 4,
-            "string": "Burgundians"
-        },
-        {
-            "id": 5,
-            "string": "Birmani"
-        },
-        {
-            "id": 6,
-            "string": "Bizantini"
-        },
-        {
-            "id": 7,
-            "string": "Celti"
-        },
-        {
-            "id": 8,
-            "string": "Cinesi"
-        },
-        {
-            "id": 9,
-            "string": "Cumani"
-        },
-        {
-            "id": 10,
-            "string": "Etiopi"
-        },
-        {
-            "id": 11,
+            "id": 2,
             "string": "Franchi"
         },
         {
-            "id": 12,
+            "id": 3,
             "string": "Goti"
         },
         {
-            "id": 13,
-            "string": "Unni"
-        },
-        {
-            "id": 14,
-            "string": "Inca"
-        },
-        {
-            "id": 15,
-            "string": "Indiani"
-        },
-        {
-            "id": 16,
-            "string": "Italiani"
-        },
-        {
-            "id": 17,
-            "string": "Giapponesi"
-        },
-        {
-            "id": 18,
-            "string": "Khmer"
-        },
-        {
-            "id": 19,
-            "string": "Coreani"
-        },
-        {
-            "id": 20,
-            "string": "Lituani"
-        },
-        {
-            "id": 21,
-            "string": "Magiari"
-        },
-        {
-            "id": 22,
-            "string": "Malesi"
-        },
-        {
-            "id": 23,
-            "string": "Maliani"
-        },
-        {
-            "id": 24,
-            "string": "Maya"
-        },
-        {
-            "id": 25,
-            "string": "Mongoli"
-        },
-        {
-            "id": 26,
-            "string": "Persiani"
-        },
-        {
-            "id": 27,
-            "string": "Portoghesi"
-        },
-        {
-            "id": 28,
-            "string": "Saraceni"
-        },
-        {
-            "id": 29,
-            "string": "Sicilians"
-        },
-        {
-            "id": 30,
-            "string": "Slavi"
-        },
-        {
-            "id": 31,
-            "string": "Spagnoli"
-        },
-        {
-            "id": 32,
-            "string": "Tartari"
-        },
-        {
-            "id": 33,
+            "id": 4,
             "string": "Teutoni"
         },
         {
-            "id": 34,
+            "id": 5,
+            "string": "Giapponesi"
+        },
+        {
+            "id": 6,
+            "string": "Cinesi"
+        },
+        {
+            "id": 7,
+            "string": "Bizantini"
+        },
+        {
+            "id": 8,
+            "string": "Persiani"
+        },
+        {
+            "id": 9,
+            "string": "Saraceni"
+        },
+        {
+            "id": 10,
             "string": "Turchi"
         },
         {
-            "id": 35,
+            "id": 11,
+            "string": "Vichinghi"
+        },
+        {
+            "id": 12,
+            "string": "Mongoli"
+        },
+        {
+            "id": 13,
+            "string": "Celti"
+        },
+        {
+            "id": 14,
+            "string": "Spagnoli"
+        },
+        {
+            "id": 15,
+            "string": "Aztechi"
+        },
+        {
+            "id": 16,
+            "string": "Maya"
+        },
+        {
+            "id": 17,
+            "string": "Unni"
+        },
+        {
+            "id": 18,
+            "string": "Coreani"
+        },
+        {
+            "id": 19,
+            "string": "Italiani"
+        },
+        {
+            "id": 20,
+            "string": "Indiani"
+        },
+        {
+            "id": 21,
+            "string": "Inca"
+        },
+        {
+            "id": 22,
+            "string": "Magiari"
+        },
+        {
+            "id": 23,
+            "string": "Slavi"
+        },
+        {
+            "id": 24,
+            "string": "Portoghesi"
+        },
+        {
+            "id": 25,
+            "string": "Etiopi"
+        },
+        {
+            "id": 26,
+            "string": "Maliani"
+        },
+        {
+            "id": 27,
+            "string": "Berberi"
+        },
+        {
+            "id": 28,
+            "string": "Khmer"
+        },
+        {
+            "id": 29,
+            "string": "Malesi"
+        },
+        {
+            "id": 30,
+            "string": "Birmani"
+        },
+        {
+            "id": 31,
             "string": "Vietnamiti"
         },
         {
+            "id": 32,
+            "string": "Bulgari"
+        },
+        {
+            "id": 33,
+            "string": "Tartari"
+        },
+        {
+            "id": 34,
+            "string": "Cumani"
+        },
+        {
+            "id": 35,
+            "string": "Lituani"
+        },
+        {
             "id": 36,
-            "string": "Vichinghi"
+            "string": "Burgundians"
+        },
+        {
+            "id": 37,
+            "string": "Sicilians"
+        },
+        {
+            "id": 38,
+            "string": "Poles"
         }
     ],
     "game_type": [

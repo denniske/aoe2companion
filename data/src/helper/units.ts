@@ -3270,6 +3270,7 @@ const unitClasses = {
     34: "fishingships",
     35: "mamelukes",
     36: "heroesandkings",
+    37: "hussitewagon",
 } as const;
 
 export const attackClasses = [

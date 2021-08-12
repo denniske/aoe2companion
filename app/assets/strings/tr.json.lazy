@@ -29,151 +29,159 @@
     "civ": [
         {
             "id": 0,
-            "string": "Aztekler"
+            "string": null
         },
         {
             "id": 1,
-            "string": "Berberiler"
-        },
-        {
-            "id": 2,
             "string": "Britonlar"
         },
         {
-            "id": 3,
-            "string": "Bulgarlar"
-        },
-        {
-            "id": 4,
-            "string": "Burgundians"
-        },
-        {
-            "id": 5,
-            "string": "Birmanlar"
-        },
-        {
-            "id": 6,
-            "string": "Bizanslılar"
-        },
-        {
-            "id": 7,
-            "string": "Keltler"
-        },
-        {
-            "id": 8,
-            "string": "Çinliler"
-        },
-        {
-            "id": 9,
-            "string": "Kumanlar"
-        },
-        {
-            "id": 10,
-            "string": "Etiyopyalılar"
-        },
-        {
-            "id": 11,
+            "id": 2,
             "string": "Franklar"
         },
         {
-            "id": 12,
+            "id": 3,
             "string": "Gotlar"
         },
         {
-            "id": 13,
-            "string": "Hunlar"
-        },
-        {
-            "id": 14,
-            "string": "İnkalar"
-        },
-        {
-            "id": 15,
-            "string": "Hintler"
-        },
-        {
-            "id": 16,
-            "string": "İtalyanlar"
-        },
-        {
-            "id": 17,
-            "string": "Japonlar"
-        },
-        {
-            "id": 18,
-            "string": "Kmerler"
-        },
-        {
-            "id": 19,
-            "string": "Koreliler"
-        },
-        {
-            "id": 20,
-            "string": "Litvanyalılar"
-        },
-        {
-            "id": 21,
-            "string": "Macarlar"
-        },
-        {
-            "id": 22,
-            "string": "Malaylar"
-        },
-        {
-            "id": 23,
-            "string": "Malililer"
-        },
-        {
-            "id": 24,
-            "string": "Mayalar"
-        },
-        {
-            "id": 25,
-            "string": "Moğollar"
-        },
-        {
-            "id": 26,
-            "string": "Persler"
-        },
-        {
-            "id": 27,
-            "string": "Portekizliler"
-        },
-        {
-            "id": 28,
-            "string": "Sarazenler"
-        },
-        {
-            "id": 29,
-            "string": "Sicilians"
-        },
-        {
-            "id": 30,
-            "string": "Slavlar"
-        },
-        {
-            "id": 31,
-            "string": "İspanyollar"
-        },
-        {
-            "id": 32,
-            "string": "Tatarlar"
-        },
-        {
-            "id": 33,
+            "id": 4,
             "string": "Tötonlar"
         },
         {
-            "id": 34,
+            "id": 5,
+            "string": "Japonlar"
+        },
+        {
+            "id": 6,
+            "string": "Çinliler"
+        },
+        {
+            "id": 7,
+            "string": "Bizanslılar"
+        },
+        {
+            "id": 8,
+            "string": "Persler"
+        },
+        {
+            "id": 9,
+            "string": "Sarazenler"
+        },
+        {
+            "id": 10,
             "string": "Türkler"
         },
         {
-            "id": 35,
+            "id": 11,
+            "string": "Vikingler"
+        },
+        {
+            "id": 12,
+            "string": "Moğollar"
+        },
+        {
+            "id": 13,
+            "string": "Keltler"
+        },
+        {
+            "id": 14,
+            "string": "İspanyollar"
+        },
+        {
+            "id": 15,
+            "string": "Aztekler"
+        },
+        {
+            "id": 16,
+            "string": "Mayalar"
+        },
+        {
+            "id": 17,
+            "string": "Hunlar"
+        },
+        {
+            "id": 18,
+            "string": "Koreliler"
+        },
+        {
+            "id": 19,
+            "string": "İtalyanlar"
+        },
+        {
+            "id": 20,
+            "string": "Hintler"
+        },
+        {
+            "id": 21,
+            "string": "İnkalar"
+        },
+        {
+            "id": 22,
+            "string": "Macarlar"
+        },
+        {
+            "id": 23,
+            "string": "Slavlar"
+        },
+        {
+            "id": 24,
+            "string": "Portekizliler"
+        },
+        {
+            "id": 25,
+            "string": "Etiyopyalılar"
+        },
+        {
+            "id": 26,
+            "string": "Malililer"
+        },
+        {
+            "id": 27,
+            "string": "Berberiler"
+        },
+        {
+            "id": 28,
+            "string": "Kmerler"
+        },
+        {
+            "id": 29,
+            "string": "Malaylar"
+        },
+        {
+            "id": 30,
+            "string": "Birmanlar"
+        },
+        {
+            "id": 31,
             "string": "Vietnamlılar"
         },
         {
+            "id": 32,
+            "string": "Bulgarlar"
+        },
+        {
+            "id": 33,
+            "string": "Tatarlar"
+        },
+        {
+            "id": 34,
+            "string": "Kumanlar"
+        },
+        {
+            "id": 35,
+            "string": "Litvanyalılar"
+        },
+        {
             "id": 36,
-            "string": "Vikingler"
+            "string": "Burgundians"
+        },
+        {
+            "id": 37,
+            "string": "Sicilians"
+        },
+        {
+            "id": 38,
+            "string": "Poles"
         }
     ],
     "game_type": [
