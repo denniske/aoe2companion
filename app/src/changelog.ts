@@ -18,6 +18,12 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
+    '26.0.13': [
+        {
+            type: 'bugfix',
+            title: 'Fix civ mapping again (britons were sometimes shown as bohemians)',
+        },
+    ],
     '26.0.12': [
         {
             type: 'bugfix',

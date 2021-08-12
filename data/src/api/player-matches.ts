@@ -188,7 +188,7 @@ export async function fetchPlayerMatchesLegacy(game: string, start: number, coun
     const releaseDateDoD = 1628611200; // 10/08/2021 @ 5:00pm (UTC)
     json.filter(match => match.started < releaseDateDoD).forEach(match => {
         match.players.forEach(player => {
-            if (player.civ >= 3) player.civ++;
+            if (player.civ >= 2) player.civ++;
             if (player.civ >= 28) player.civ++;
         })
     });
@@ -298,7 +298,7 @@ export async function fetchPlayerMatchesNew(game: string, start: number, count: 
         const releaseDateDoD = 1628611200; // 10/08/2021 @ 5:00pm (UTC)
         json.filter(match => getUnixTime(parseISO(match.started)) < releaseDateDoD).forEach(match => {
             match.players.forEach(player => {
-                if (player.civ >= 3) player.civ++;
+                if (player.civ >= 2) player.civ++;
                 if (player.civ >= 28) player.civ++;
             })
         });
