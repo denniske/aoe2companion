@@ -8,7 +8,6 @@ export * from './lib/util';
 export * from './lib/flag';
 export * from './lib/theme';
 export * from './data/data';
-export * from './data/civs';
 export * from './helper/tech-tree.type';
 export * from './helper/tech-tree-compact';
 export * from './helper/tech-tree-full';
