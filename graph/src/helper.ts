@@ -157,8 +157,16 @@ export async function fetchMatches(game: string, start: number, count: number, s
     try {
         const text = await response.text();
         // console.log(text);
-        return JSON.parse(text);
-        // return await response.json();
+        const json = JSON.parse(text);
+
+        // Map new aoe2net civs to game civs
+        json.forEach(match => {
+            match.players.forEach(player => {
+                player.civ = player.civ_alpha;
+            })
+        });
+
+        return json;
     } catch (e) {
         console.log("FAILED", url);
         throw e;
@@ -183,8 +191,14 @@ export async function fetchMatch(game: string, params: IFetchMatchParams): Promi
     try {
         const text = await response.text();
         // console.log(text);
-        return JSON.parse(text);
-        // return await response.json();
+        const json = JSON.parse(text);
+
+        // Map new aoe2net civs to game civs
+        json.players.forEach(player => {
+            player.civ = player.civ_alpha;
+        })
+
+        return json;
     } catch (e) {
         console.log("FAILED", url);
         throw e;
