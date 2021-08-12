@@ -161,7 +161,7 @@ const techIcons: TechIconDict = {
     'PaperMoney': require('../../../app/assets/techs/UniqueTechImperial.png'),
     'Berserkergang': require('../../../app/assets/techs/UniqueTechImperial.png'),
     'FlemishRevolution': require('../../../app/assets/techs/UniqueTechImperial.png'),
-    'Scutage': require('../../../app/assets/techs/UniqueTechImperial.png'),
+    'Hauberk': require('../../../app/assets/techs/UniqueTechImperial.png'),
 };
 
 export function getTechIcon(tech: Tech) {

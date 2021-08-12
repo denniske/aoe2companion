@@ -212,7 +212,7 @@ export const civList: ICivEntry[] = [
     {
         name: 'Sicilians',
         uniqueUnits: ['Serjeant'],
-        uniqueTechs: ['FirstCrusade', 'Scutage'],
+        uniqueTechs: ['FirstCrusade', 'Hauberk'],
     },
     {
         name: 'Slavs',

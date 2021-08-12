@@ -641,7 +641,14 @@ const techEffectDictInternal = {
         tech: 'Howdah',
         civ: 'Burmese',
         effect: {
-            armor: '+1/+1',
+            armor: '+1/+2',
+        },
+    },
+    'Hauberk': {
+        tech: 'Hauberk',
+        civ: 'Sicilians',
+        effect: {
+            armor: '+1/+2',
         },
     },
     'Zealotry': {
@@ -1123,7 +1130,7 @@ export const techList: ITech[] = [
     },
     {
         "dataId": "757",
-        "name": "Scutage",
+        "name": "Hauberk",
         "civ": "Sicilians",
         "age": 'Imperial',
     },
@@ -1965,7 +1972,7 @@ const techIds = [
     'BurgundianVineyards',
     'FlemishRevolution',
     'FirstCrusade',
-    'Scutage',
+    'Hauberk',
     'FeudalAge',
     'CastleAge',
     'ImperialAge',

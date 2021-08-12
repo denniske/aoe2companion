@@ -18,6 +18,12 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
+    '26.0.12': [
+        {
+            type: 'bugfix',
+            title: 'Add sicilians unique tech hauberk. Fix effect of Howdah tech.',
+        },
+    ],
     '26.0.11': [
         {
             type: 'bugfix',

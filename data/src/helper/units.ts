@@ -1772,6 +1772,7 @@ export const unitLines: IUnitLineDict = {
             'Conscription',
             'Chivalry',
             'SzlachtaPrivileges',
+            'Hauberk',
         ],
     },
     'XolotlWarrior': {
