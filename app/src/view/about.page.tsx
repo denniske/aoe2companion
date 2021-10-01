@@ -123,6 +123,7 @@ export default function AboutPage() {
             <MyText style={styles.content}>Kloakan</MyText>
             <MyText style={styles.content}>kobukguille</MyText>
             <MyText style={styles.content}>leo</MyText>
+            <MyText style={styles.content}>LiterallyPicasso</MyText>
             <MyText style={styles.content}>Lukas</MyText>
             <MyText style={styles.content}>Markus</MyText>
             <MyText style={styles.content}>Maxifruité</MyText>
