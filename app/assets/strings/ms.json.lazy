@@ -28,10 +28,6 @@
     ],
     "civ": [
         {
-            "id": 0,
-            "string": null
-        },
-        {
             "id": 1,
             "string": "Orang British"
         },
@@ -182,6 +178,10 @@
         {
             "id": 38,
             "string": "Poles"
+        },
+        {
+            "id": 39,
+            "string": "Bohemians"
         }
     ],
     "game_type": [
@@ -716,8 +716,12 @@
             "string": "Caucasus"
         },
         {
-            "id": 136137,
-            "string": "Unknown #136137"
+            "id": 136,
+            "string": "Caucasus"
+        },
+        {
+            "id": 137,
+            "string": "Himpunan Peta Tersuai"
         },
         {
             "id": 138,

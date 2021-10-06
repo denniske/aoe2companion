@@ -18,6 +18,12 @@ export const changelog: IChangelog = {
     //         title: 'Added more localization (go to settings to change language)',
     //     },
     // ],
+    '26.0.14': [
+        {
+            type: 'minor',
+            title: 'Implemented [AoE II DE Update 54480](https://www.ageofempires.com/news/aoeii-de-update-54480/)',
+        },
+    ],
     '26.0.13': [
         {
             type: 'bugfix',

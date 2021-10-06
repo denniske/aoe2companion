@@ -617,7 +617,7 @@ export const aoeDataInternal = {
                 "Cost": {
                     "Wood": 175
                 },
-                "GarrisonCapacity": 0,
+                "GarrisonCapacity": 10,
                 "HP": 1800,
                 "ID": 84,
                 "LanguageHelpId": 26161,
@@ -1595,7 +1595,7 @@ export const aoeDataInternal = {
                     "Stone": 250
                 },
                 "GarrisonCapacity": 0,
-                "HP": 5200,
+                "HP": 2700,
                 "ID": 1021,
                 "LanguageHelpId": 26159,
                 "LanguageNameId": 5159,
@@ -1636,7 +1636,7 @@ export const aoeDataInternal = {
                         "Class": 31
                     }
                 ],
-                "Attack": 9,
+                "Attack": 10,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -1647,7 +1647,7 @@ export const aoeDataInternal = {
                         "Class": 16
                     },
                     {
-                        "Amount": 9,
+                        "Amount": 10,
                         "Class": 3
                     },
                     {
@@ -1806,6 +1806,7 @@ export const aoeDataInternal = {
                 "ID": 3,
                 "LanguageHelpId": 28419,
                 "LanguageNameId": 7419,
+                "Repeatable": true,
                 "ResearchTime": 60,
                 "internal_name": "British Yeoman"
             },
@@ -1817,6 +1818,7 @@ export const aoeDataInternal = {
                 "ID": 4,
                 "LanguageHelpId": 28420,
                 "LanguageNameId": 7420,
+                "Repeatable": true,
                 "ResearchTime": 70,
                 "internal_name": "Mayan El Dorado"
             },
@@ -1828,6 +1830,7 @@ export const aoeDataInternal = {
                 "ID": 5,
                 "LanguageHelpId": 28421,
                 "LanguageNameId": 7421,
+                "Repeatable": true,
                 "ResearchTime": 50,
                 "internal_name": "Celtic Furor Celtica"
             },
@@ -1839,6 +1842,7 @@ export const aoeDataInternal = {
                 "ID": 6,
                 "LanguageHelpId": 28422,
                 "LanguageNameId": 7422,
+                "Repeatable": true,
                 "ResearchTime": 60,
                 "internal_name": "Mongol Siege Drill"
             },
@@ -1850,6 +1854,7 @@ export const aoeDataInternal = {
                 "ID": 7,
                 "LanguageHelpId": 28423,
                 "LanguageNameId": 7423,
+                "Repeatable": true,
                 "ResearchTime": 50,
                 "internal_name": "Persian Mahouts"
             },
@@ -1860,6 +1865,7 @@ export const aoeDataInternal = {
                 "ID": 8,
                 "LanguageHelpId": 28008,
                 "LanguageNameId": 7008,
+                "Repeatable": false,
                 "ResearchTime": 25,
                 "internal_name": "Town Watch"
             },
@@ -1871,6 +1877,7 @@ export const aoeDataInternal = {
                 "ID": 9,
                 "LanguageHelpId": 28424,
                 "LanguageNameId": 7424,
+                "Repeatable": true,
                 "ResearchTime": 50,
                 "internal_name": "Saracen Zealotry"
             },
@@ -1882,6 +1889,7 @@ export const aoeDataInternal = {
                 "ID": 10,
                 "LanguageHelpId": 28425,
                 "LanguageNameId": 7425,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Turkish Artillery"
             },
@@ -1893,6 +1901,7 @@ export const aoeDataInternal = {
                 "ID": 11,
                 "LanguageHelpId": 28426,
                 "LanguageNameId": 7426,
+                "Repeatable": true,
                 "ResearchTime": 60,
                 "internal_name": "Teuton Crenellations"
             },
@@ -1904,6 +1913,7 @@ export const aoeDataInternal = {
                 "ID": 12,
                 "LanguageHelpId": 28012,
                 "LanguageNameId": 7012,
+                "Repeatable": true,
                 "ResearchTime": 70,
                 "internal_name": "Crop rotation"
             },
@@ -1915,6 +1925,7 @@ export const aoeDataInternal = {
                 "ID": 13,
                 "LanguageHelpId": 28013,
                 "LanguageNameId": 7013,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Heavy plow"
             },
@@ -1926,6 +1937,7 @@ export const aoeDataInternal = {
                 "ID": 14,
                 "LanguageHelpId": 28014,
                 "LanguageNameId": 7014,
+                "Repeatable": true,
                 "ResearchTime": 20,
                 "internal_name": "Horse collar"
             },
@@ -1937,6 +1949,7 @@ export const aoeDataInternal = {
                 "ID": 15,
                 "LanguageHelpId": 28015,
                 "LanguageNameId": 7015,
+                "Repeatable": false,
                 "ResearchTime": 50,
                 "internal_name": "Guilds"
             },
@@ -1948,6 +1961,7 @@ export const aoeDataInternal = {
                 "ID": 16,
                 "LanguageHelpId": 28427,
                 "LanguageNameId": 7427,
+                "Repeatable": false,
                 "ResearchTime": 40,
                 "internal_name": "Gothic Anarchy"
             },
@@ -1959,6 +1973,7 @@ export const aoeDataInternal = {
                 "ID": 17,
                 "LanguageHelpId": 28017,
                 "LanguageNameId": 7017,
+                "Repeatable": false,
                 "ResearchTime": 70,
                 "internal_name": "Banking"
             },
@@ -1970,6 +1985,7 @@ export const aoeDataInternal = {
                 "ID": 19,
                 "LanguageHelpId": 28019,
                 "LanguageNameId": 7019,
+                "Repeatable": true,
                 "ResearchTime": 1,
                 "internal_name": "Cartography"
             },
@@ -1981,6 +1997,7 @@ export const aoeDataInternal = {
                 "ID": 21,
                 "LanguageHelpId": 28428,
                 "LanguageNameId": 7428,
+                "Repeatable": true,
                 "ResearchTime": 60,
                 "internal_name": "Hun Atheism"
             },
@@ -1991,6 +2008,7 @@ export const aoeDataInternal = {
                 "ID": 22,
                 "LanguageHelpId": 28022,
                 "LanguageNameId": 7022,
+                "Repeatable": true,
                 "ResearchTime": 25,
                 "internal_name": "Loom"
             },
@@ -2002,6 +2020,7 @@ export const aoeDataInternal = {
                 "ID": 23,
                 "LanguageHelpId": 28023,
                 "LanguageNameId": 7023,
+                "Repeatable": false,
                 "ResearchTime": 70,
                 "internal_name": "Coinage"
             },
@@ -2013,6 +2032,7 @@ export const aoeDataInternal = {
                 "ID": 24,
                 "LanguageHelpId": 28429,
                 "LanguageNameId": 7429,
+                "Repeatable": true,
                 "ResearchTime": 60,
                 "internal_name": "Aztec Garland Wars"
             },
@@ -2023,6 +2043,7 @@ export const aoeDataInternal = {
                 "ID": 39,
                 "LanguageHelpId": 28039,
                 "LanguageNameId": 7039,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Husbandry"
             },
@@ -2034,6 +2055,7 @@ export const aoeDataInternal = {
                 "ID": 45,
                 "LanguageHelpId": 28045,
                 "LanguageNameId": 7045,
+                "Repeatable": true,
                 "ResearchTime": 60,
                 "internal_name": "Faith"
             },
@@ -2045,6 +2067,7 @@ export const aoeDataInternal = {
                 "ID": 47,
                 "LanguageHelpId": 28047,
                 "LanguageNameId": 7047,
+                "Repeatable": true,
                 "ResearchTime": 100,
                 "internal_name": "Chemistry"
             },
@@ -2056,6 +2079,7 @@ export const aoeDataInternal = {
                 "ID": 48,
                 "LanguageHelpId": 28410,
                 "LanguageNameId": 7410,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Caravan"
             },
@@ -2067,6 +2091,7 @@ export const aoeDataInternal = {
                 "ID": 49,
                 "LanguageHelpId": 28431,
                 "LanguageNameId": 7431,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Viking Berserkergang"
             },
@@ -2078,6 +2103,7 @@ export const aoeDataInternal = {
                 "ID": 50,
                 "LanguageHelpId": 28050,
                 "LanguageNameId": 7050,
+                "Repeatable": true,
                 "ResearchTime": 50,
                 "internal_name": "Masonry"
             },
@@ -2089,6 +2115,7 @@ export const aoeDataInternal = {
                 "ID": 51,
                 "LanguageHelpId": 28051,
                 "LanguageNameId": 7051,
+                "Repeatable": true,
                 "ResearchTime": 70,
                 "internal_name": "Architecture"
             },
@@ -2100,6 +2127,7 @@ export const aoeDataInternal = {
                 "ID": 52,
                 "LanguageHelpId": 28432,
                 "LanguageNameId": 7432,
+                "Repeatable": true,
                 "ResearchTime": 60,
                 "internal_name": "Chinese Rocketry"
             },
@@ -2111,6 +2139,7 @@ export const aoeDataInternal = {
                 "ID": 54,
                 "LanguageHelpId": 28054,
                 "LanguageNameId": 7054,
+                "Repeatable": true,
                 "ResearchTime": 50,
                 "internal_name": "Stone cutting"
             },
@@ -2122,6 +2151,7 @@ export const aoeDataInternal = {
                 "ID": 55,
                 "LanguageHelpId": 28055,
                 "LanguageNameId": 7055,
+                "Repeatable": true,
                 "ResearchTime": 30,
                 "internal_name": "Gold Mining"
             },
@@ -2133,6 +2163,7 @@ export const aoeDataInternal = {
                 "ID": 59,
                 "LanguageHelpId": 28059,
                 "LanguageNameId": 7059,
+                "Repeatable": true,
                 "ResearchTime": 60,
                 "internal_name": "Japanese Kataparuto"
             },
@@ -2144,6 +2175,7 @@ export const aoeDataInternal = {
                 "ID": 61,
                 "LanguageHelpId": 28318,
                 "LanguageNameId": 7318,
+                "Repeatable": true,
                 "ResearchTime": 50,
                 "internal_name": "Byzantine Logistica"
             },
@@ -2155,6 +2187,7 @@ export const aoeDataInternal = {
                 "ID": 63,
                 "LanguageHelpId": 28063,
                 "LanguageNameId": 7063,
+                "Repeatable": true,
                 "ResearchTime": 75,
                 "internal_name": "Keep"
             },
@@ -2166,6 +2199,7 @@ export const aoeDataInternal = {
                 "ID": 64,
                 "LanguageHelpId": 28320,
                 "LanguageNameId": 7320,
+                "Repeatable": false,
                 "ResearchTime": 60,
                 "internal_name": "Bombard Tower"
             },
@@ -2177,6 +2211,7 @@ export const aoeDataInternal = {
                 "ID": 65,
                 "LanguageHelpId": 28314,
                 "LanguageNameId": 7314,
+                "Repeatable": true,
                 "ResearchTime": 45,
                 "internal_name": "Gillnets"
             },
@@ -2187,6 +2222,7 @@ export const aoeDataInternal = {
                 "ID": 67,
                 "LanguageHelpId": 28067,
                 "LanguageNameId": 7067,
+                "Repeatable": true,
                 "ResearchTime": 50,
                 "internal_name": "Forging"
             },
@@ -2198,6 +2234,7 @@ export const aoeDataInternal = {
                 "ID": 68,
                 "LanguageHelpId": 28068,
                 "LanguageNameId": 7068,
+                "Repeatable": true,
                 "ResearchTime": 75,
                 "internal_name": "Iron casting"
             },
@@ -2208,6 +2245,7 @@ export const aoeDataInternal = {
                 "ID": 74,
                 "LanguageHelpId": 28074,
                 "LanguageNameId": 7074,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Scale Mail Armor"
             },
@@ -2219,6 +2257,7 @@ export const aoeDataInternal = {
                 "ID": 75,
                 "LanguageHelpId": 28075,
                 "LanguageNameId": 7075,
+                "Repeatable": true,
                 "ResearchTime": 100,
                 "internal_name": "Blast Furnace"
             },
@@ -2230,6 +2269,7 @@ export const aoeDataInternal = {
                 "ID": 76,
                 "LanguageHelpId": 28076,
                 "LanguageNameId": 7076,
+                "Repeatable": true,
                 "ResearchTime": 55,
                 "internal_name": "Chain Mail Armor"
             },
@@ -2241,6 +2281,7 @@ export const aoeDataInternal = {
                 "ID": 77,
                 "LanguageHelpId": 28077,
                 "LanguageNameId": 7077,
+                "Repeatable": true,
                 "ResearchTime": 70,
                 "internal_name": "Plate Mail Armor"
             },
@@ -2252,6 +2293,7 @@ export const aoeDataInternal = {
                 "ID": 80,
                 "LanguageHelpId": 28080,
                 "LanguageNameId": 7080,
+                "Repeatable": true,
                 "ResearchTime": 75,
                 "internal_name": "Plate Barding Armor"
             },
@@ -2262,6 +2304,7 @@ export const aoeDataInternal = {
                 "ID": 81,
                 "LanguageHelpId": 28081,
                 "LanguageNameId": 7081,
+                "Repeatable": true,
                 "ResearchTime": 45,
                 "internal_name": "Scale Barding Armor"
             },
@@ -2273,6 +2316,7 @@ export const aoeDataInternal = {
                 "ID": 82,
                 "LanguageHelpId": 28082,
                 "LanguageNameId": 7082,
+                "Repeatable": true,
                 "ResearchTime": 60,
                 "internal_name": "Chain Barding Armor"
             },
@@ -2284,6 +2328,7 @@ export const aoeDataInternal = {
                 "ID": 83,
                 "LanguageHelpId": 28324,
                 "LanguageNameId": 7324,
+                "Repeatable": true,
                 "ResearchTime": 60,
                 "internal_name": "Frankish Bearded Axe"
             },
@@ -2292,6 +2337,7 @@ export const aoeDataInternal = {
                 "ID": 90,
                 "LanguageHelpId": 28090,
                 "LanguageNameId": 7090,
+                "Repeatable": true,
                 "ResearchTime": 0,
                 "internal_name": "Tracking"
             },
@@ -2303,6 +2349,7 @@ export const aoeDataInternal = {
                 "ID": 93,
                 "LanguageHelpId": 28093,
                 "LanguageNameId": 7093,
+                "Repeatable": false,
                 "ResearchTime": 60,
                 "internal_name": "Ballistics"
             },
@@ -2313,6 +2360,7 @@ export const aoeDataInternal = {
                 "ID": 101,
                 "LanguageHelpId": 28101,
                 "LanguageNameId": 7101,
+                "Repeatable": false,
                 "ResearchTime": 130,
                 "internal_name": "Middle Age"
             },
@@ -2324,6 +2372,7 @@ export const aoeDataInternal = {
                 "ID": 102,
                 "LanguageHelpId": 28102,
                 "LanguageNameId": 7102,
+                "Repeatable": false,
                 "ResearchTime": 160,
                 "internal_name": "Feudal Age"
             },
@@ -2335,6 +2384,7 @@ export const aoeDataInternal = {
                 "ID": 103,
                 "LanguageHelpId": 28103,
                 "LanguageNameId": 7103,
+                "Repeatable": false,
                 "ResearchTime": 190,
                 "internal_name": "Imperial Age"
             },
@@ -2346,6 +2396,7 @@ export const aoeDataInternal = {
                 "ID": 140,
                 "LanguageHelpId": 28186,
                 "LanguageNameId": 7186,
+                "Repeatable": true,
                 "ResearchTime": 30,
                 "internal_name": "Guard Tower"
             },
@@ -2357,6 +2408,7 @@ export const aoeDataInternal = {
                 "ID": 182,
                 "LanguageHelpId": 28180,
                 "LanguageNameId": 7180,
+                "Repeatable": true,
                 "ResearchTime": 75,
                 "internal_name": "Gold Shaft Mining"
             },
@@ -2368,6 +2420,7 @@ export const aoeDataInternal = {
                 "ID": 194,
                 "LanguageHelpId": 28163,
                 "LanguageNameId": 7163,
+                "Repeatable": true,
                 "ResearchTime": 50,
                 "internal_name": "Fortified Wall"
             },
@@ -2379,6 +2432,7 @@ export const aoeDataInternal = {
                 "ID": 199,
                 "LanguageHelpId": 28172,
                 "LanguageNameId": 7172,
+                "Repeatable": true,
                 "ResearchTime": 30,
                 "internal_name": "Fletching"
             },
@@ -2390,6 +2444,7 @@ export const aoeDataInternal = {
                 "ID": 200,
                 "LanguageHelpId": 28150,
                 "LanguageNameId": 7150,
+                "Repeatable": true,
                 "ResearchTime": 35,
                 "internal_name": "Bodkin Arrow"
             },
@@ -2401,6 +2456,7 @@ export const aoeDataInternal = {
                 "ID": 201,
                 "LanguageHelpId": 28151,
                 "LanguageNameId": 7151,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Bracer"
             },
@@ -2412,6 +2468,7 @@ export const aoeDataInternal = {
                 "ID": 202,
                 "LanguageHelpId": 28189,
                 "LanguageNameId": 7189,
+                "Repeatable": true,
                 "ResearchTime": 25,
                 "internal_name": "Double Bit Axe"
             },
@@ -2423,6 +2480,7 @@ export const aoeDataInternal = {
                 "ID": 203,
                 "LanguageHelpId": 28190,
                 "LanguageNameId": 7190,
+                "Repeatable": true,
                 "ResearchTime": 50,
                 "internal_name": "Bow Saw"
             },
@@ -2433,6 +2491,7 @@ export const aoeDataInternal = {
                 "ID": 211,
                 "LanguageHelpId": 28208,
                 "LanguageNameId": 7208,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Padded Archer Armor"
             },
@@ -2444,6 +2503,7 @@ export const aoeDataInternal = {
                 "ID": 212,
                 "LanguageHelpId": 28209,
                 "LanguageNameId": 7209,
+                "Repeatable": true,
                 "ResearchTime": 55,
                 "internal_name": "Leather Archer Armor"
             },
@@ -2455,6 +2515,7 @@ export const aoeDataInternal = {
                 "ID": 213,
                 "LanguageHelpId": 28211,
                 "LanguageNameId": 7211,
+                "Repeatable": true,
                 "ResearchTime": 75,
                 "internal_name": "Wheel Barrow"
             },
@@ -2465,6 +2526,7 @@ export const aoeDataInternal = {
                 "ID": 215,
                 "LanguageHelpId": 28210,
                 "LanguageNameId": 7210,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Squires"
             },
@@ -2476,6 +2538,7 @@ export const aoeDataInternal = {
                 "ID": 219,
                 "LanguageHelpId": 28216,
                 "LanguageNameId": 7216,
+                "Repeatable": true,
                 "ResearchTime": 70,
                 "internal_name": "Ring Archer Armor"
             },
@@ -2487,6 +2550,7 @@ export const aoeDataInternal = {
                 "ID": 221,
                 "LanguageHelpId": 28231,
                 "LanguageNameId": 7231,
+                "Repeatable": true,
                 "ResearchTime": 100,
                 "internal_name": "Two Man Saw"
             },
@@ -2498,6 +2562,7 @@ export const aoeDataInternal = {
                 "ID": 230,
                 "LanguageHelpId": 28222,
                 "LanguageNameId": 7222,
+                "Repeatable": true,
                 "ResearchTime": 55,
                 "internal_name": "Block Printing"
             },
@@ -2509,6 +2574,7 @@ export const aoeDataInternal = {
                 "ID": 231,
                 "LanguageHelpId": 28221,
                 "LanguageNameId": 7221,
+                "Repeatable": true,
                 "ResearchTime": 60,
                 "internal_name": "Sanctity"
             },
@@ -2520,6 +2586,7 @@ export const aoeDataInternal = {
                 "ID": 233,
                 "LanguageHelpId": 28220,
                 "LanguageNameId": 7220,
+                "Repeatable": true,
                 "ResearchTime": 65,
                 "internal_name": "Illumination"
             },
@@ -2531,6 +2598,7 @@ export const aoeDataInternal = {
                 "ID": 249,
                 "LanguageHelpId": 28246,
                 "LanguageNameId": 7246,
+                "Repeatable": true,
                 "ResearchTime": 55,
                 "internal_name": "Hand Cart"
             },
@@ -2542,6 +2610,7 @@ export const aoeDataInternal = {
                 "ID": 252,
                 "LanguageHelpId": 28249,
                 "LanguageNameId": 7249,
+                "Repeatable": true,
                 "ResearchTime": 50,
                 "internal_name": "Fervor"
             },
@@ -2553,6 +2622,7 @@ export const aoeDataInternal = {
                 "ID": 278,
                 "LanguageHelpId": 28276,
                 "LanguageNameId": 7276,
+                "Repeatable": true,
                 "ResearchTime": 30,
                 "internal_name": "Stone Mining"
             },
@@ -2564,6 +2634,7 @@ export const aoeDataInternal = {
                 "ID": 279,
                 "LanguageHelpId": 28277,
                 "LanguageNameId": 7277,
+                "Repeatable": true,
                 "ResearchTime": 75,
                 "internal_name": "Stone Shaft Mining"
             },
@@ -2575,6 +2646,7 @@ export const aoeDataInternal = {
                 "ID": 280,
                 "LanguageHelpId": 28282,
                 "LanguageNameId": 7282,
+                "Repeatable": false,
                 "ResearchTime": 40,
                 "internal_name": "Town Patrol"
             },
@@ -2586,6 +2658,7 @@ export const aoeDataInternal = {
                 "ID": 315,
                 "LanguageHelpId": 28319,
                 "LanguageNameId": 7319,
+                "Repeatable": true,
                 "ResearchTime": 60,
                 "internal_name": "Conscription"
             },
@@ -2597,6 +2670,7 @@ export const aoeDataInternal = {
                 "ID": 316,
                 "LanguageHelpId": 28315,
                 "LanguageNameId": 7315,
+                "Repeatable": false,
                 "ResearchTime": 50,
                 "internal_name": "Redemption"
             },
@@ -2608,6 +2682,7 @@ export const aoeDataInternal = {
                 "ID": 319,
                 "LanguageHelpId": 28316,
                 "LanguageNameId": 7316,
+                "Repeatable": false,
                 "ResearchTime": 40,
                 "internal_name": "Atonement"
             },
@@ -2619,6 +2694,7 @@ export const aoeDataInternal = {
                 "ID": 321,
                 "LanguageHelpId": 28322,
                 "LanguageNameId": 7322,
+                "Repeatable": true,
                 "ResearchTime": 10,
                 "internal_name": "Sappers"
             },
@@ -2630,6 +2706,7 @@ export const aoeDataInternal = {
                 "ID": 322,
                 "LanguageHelpId": 28321,
                 "LanguageNameId": 7321,
+                "Repeatable": false,
                 "ResearchTime": 60,
                 "internal_name": "Murder Holes"
             },
@@ -2641,6 +2718,7 @@ export const aoeDataInternal = {
                 "ID": 373,
                 "LanguageHelpId": 28377,
                 "LanguageNameId": 7377,
+                "Repeatable": true,
                 "ResearchTime": 60,
                 "internal_name": "Shipwright"
             },
@@ -2652,6 +2730,7 @@ export const aoeDataInternal = {
                 "ID": 374,
                 "LanguageHelpId": 28372,
                 "LanguageNameId": 7372,
+                "Repeatable": true,
                 "ResearchTime": 50,
                 "internal_name": "Careening"
             },
@@ -2663,6 +2742,7 @@ export const aoeDataInternal = {
                 "ID": 375,
                 "LanguageHelpId": 28373,
                 "LanguageNameId": 7373,
+                "Repeatable": true,
                 "ResearchTime": 60,
                 "internal_name": "Dry Dock"
             },
@@ -2674,6 +2754,7 @@ export const aoeDataInternal = {
                 "ID": 377,
                 "LanguageHelpId": 28378,
                 "LanguageNameId": 7378,
+                "Repeatable": true,
                 "ResearchTime": 45,
                 "internal_name": "Siege Engineers"
             },
@@ -2685,6 +2766,7 @@ export const aoeDataInternal = {
                 "ID": 379,
                 "LanguageHelpId": 28376,
                 "LanguageNameId": 7376,
+                "Repeatable": true,
                 "ResearchTime": 75,
                 "internal_name": "Hoardings"
             },
@@ -2696,6 +2778,7 @@ export const aoeDataInternal = {
                 "ID": 380,
                 "LanguageHelpId": 28374,
                 "LanguageNameId": 7374,
+                "Repeatable": true,
                 "ResearchTime": 30,
                 "internal_name": "Heated Shot"
             },
@@ -2706,6 +2789,7 @@ export const aoeDataInternal = {
                 "ID": 408,
                 "LanguageHelpId": 28408,
                 "LanguageNameId": 7408,
+                "Repeatable": false,
                 "ResearchTime": 1,
                 "internal_name": "Spy Technology"
             },
@@ -2717,6 +2801,7 @@ export const aoeDataInternal = {
                 "ID": 435,
                 "LanguageHelpId": 28409,
                 "LanguageNameId": 7409,
+                "Repeatable": true,
                 "ResearchTime": 50,
                 "internal_name": "Bloodlines"
             },
@@ -2728,6 +2813,7 @@ export const aoeDataInternal = {
                 "ID": 436,
                 "LanguageHelpId": 28415,
                 "LanguageNameId": 7415,
+                "Repeatable": true,
                 "ResearchTime": 65,
                 "internal_name": "Parthian Tactics"
             },
@@ -2739,6 +2825,7 @@ export const aoeDataInternal = {
                 "ID": 437,
                 "LanguageHelpId": 28411,
                 "LanguageNameId": 7411,
+                "Repeatable": true,
                 "ResearchTime": 45,
                 "internal_name": "Thumb Ring"
             },
@@ -2750,6 +2837,7 @@ export const aoeDataInternal = {
                 "ID": 438,
                 "LanguageHelpId": 28416,
                 "LanguageNameId": 7416,
+                "Repeatable": false,
                 "ResearchTime": 75,
                 "internal_name": "Theocracy"
             },
@@ -2761,6 +2849,7 @@ export const aoeDataInternal = {
                 "ID": 439,
                 "LanguageHelpId": 28412,
                 "LanguageNameId": 7412,
+                "Repeatable": false,
                 "ResearchTime": 60,
                 "internal_name": "Heresy"
             },
@@ -2772,6 +2861,7 @@ export const aoeDataInternal = {
                 "ID": 440,
                 "LanguageHelpId": 28325,
                 "LanguageNameId": 7325,
+                "Repeatable": true,
                 "ResearchTime": 60,
                 "internal_name": "Spanish Supremacy"
             },
@@ -2783,6 +2873,7 @@ export const aoeDataInternal = {
                 "ID": 441,
                 "LanguageHelpId": 28435,
                 "LanguageNameId": 7435,
+                "Repeatable": true,
                 "ResearchTime": 35,
                 "internal_name": "Herbal Medicine"
             },
@@ -2794,6 +2885,7 @@ export const aoeDataInternal = {
                 "ID": 445,
                 "LanguageHelpId": 28438,
                 "LanguageNameId": 7438,
+                "Repeatable": true,
                 "ResearchTime": 60,
                 "internal_name": "Korean catapults"
             },
@@ -2805,6 +2897,7 @@ export const aoeDataInternal = {
                 "ID": 457,
                 "LanguageHelpId": 28439,
                 "LanguageNameId": 7439,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Gothic Perfusion"
             },
@@ -2816,6 +2909,7 @@ export const aoeDataInternal = {
                 "ID": 460,
                 "LanguageHelpId": 28326,
                 "LanguageNameId": 7326,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Aztec Sacrifice"
             },
@@ -2827,6 +2921,7 @@ export const aoeDataInternal = {
                 "ID": 461,
                 "LanguageHelpId": 28327,
                 "LanguageNameId": 7327,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Britons City Rights"
             },
@@ -2838,6 +2933,7 @@ export const aoeDataInternal = {
                 "ID": 462,
                 "LanguageHelpId": 28368,
                 "LanguageNameId": 7368,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Chinese Great Wall"
             },
@@ -2849,6 +2945,7 @@ export const aoeDataInternal = {
                 "ID": 463,
                 "LanguageHelpId": 28312,
                 "LanguageNameId": 7312,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Viking Chieftains"
             },
@@ -2860,6 +2957,7 @@ export const aoeDataInternal = {
                 "ID": 464,
                 "LanguageHelpId": 28313,
                 "LanguageNameId": 7313,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Byzantines Greek Fire"
             },
@@ -2871,6 +2969,7 @@ export const aoeDataInternal = {
                 "ID": 482,
                 "LanguageHelpId": 28369,
                 "LanguageNameId": 7369,
+                "Repeatable": true,
                 "ResearchTime": 30,
                 "internal_name": "Stronghold"
             },
@@ -2882,6 +2981,7 @@ export const aoeDataInternal = {
                 "ID": 483,
                 "LanguageHelpId": 28370,
                 "LanguageNameId": 7370,
+                "Repeatable": false,
                 "ResearchTime": 40,
                 "internal_name": "Huns UT"
             },
@@ -2893,6 +2993,7 @@ export const aoeDataInternal = {
                 "ID": 484,
                 "LanguageHelpId": 28371,
                 "LanguageNameId": 7371,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Japanese UT"
             },
@@ -2904,6 +3005,7 @@ export const aoeDataInternal = {
                 "ID": 485,
                 "LanguageHelpId": 28379,
                 "LanguageNameId": 7379,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Mayans UT"
             },
@@ -2915,6 +3017,7 @@ export const aoeDataInternal = {
                 "ID": 486,
                 "LanguageHelpId": 28380,
                 "LanguageNameId": 7380,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Koreans UT"
             },
@@ -2926,6 +3029,7 @@ export const aoeDataInternal = {
                 "ID": 487,
                 "LanguageHelpId": 28280,
                 "LanguageNameId": 7280,
+                "Repeatable": false,
                 "ResearchTime": 40,
                 "internal_name": "Mongols UT"
             },
@@ -2937,6 +3041,7 @@ export const aoeDataInternal = {
                 "ID": 488,
                 "LanguageHelpId": 28281,
                 "LanguageNameId": 7281,
+                "Repeatable": false,
                 "ResearchTime": 40,
                 "internal_name": "Persians UT"
             },
@@ -2948,6 +3053,7 @@ export const aoeDataInternal = {
                 "ID": 489,
                 "LanguageHelpId": 28283,
                 "LanguageNameId": 7283,
+                "Repeatable": true,
                 "ResearchTime": 60,
                 "internal_name": "Teutons UT"
             },
@@ -2959,6 +3065,7 @@ export const aoeDataInternal = {
                 "ID": 490,
                 "LanguageHelpId": 28284,
                 "LanguageNameId": 7284,
+                "Repeatable": false,
                 "ResearchTime": 30,
                 "internal_name": "Saracens UT"
             },
@@ -2970,6 +3077,7 @@ export const aoeDataInternal = {
                 "ID": 491,
                 "LanguageHelpId": 28285,
                 "LanguageNameId": 7285,
+                "Repeatable": true,
                 "ResearchTime": 60,
                 "internal_name": "Sipahi"
             },
@@ -2981,6 +3089,7 @@ export const aoeDataInternal = {
                 "ID": 492,
                 "LanguageHelpId": 28286,
                 "LanguageNameId": 7286,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Spanish UT"
             },
@@ -2992,6 +3101,7 @@ export const aoeDataInternal = {
                 "ID": 493,
                 "LanguageHelpId": 28287,
                 "LanguageNameId": 7287,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Franks UT"
             },
@@ -3003,6 +3113,7 @@ export const aoeDataInternal = {
                 "ID": 494,
                 "LanguageHelpId": 28272,
                 "LanguageNameId": 7272,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Pavise"
             },
@@ -3014,6 +3125,7 @@ export const aoeDataInternal = {
                 "ID": 499,
                 "LanguageHelpId": 28273,
                 "LanguageNameId": 7273,
+                "Repeatable": true,
                 "ResearchTime": 60,
                 "internal_name": "Silk Route"
             },
@@ -3025,6 +3137,7 @@ export const aoeDataInternal = {
                 "ID": 506,
                 "LanguageHelpId": 28270,
                 "LanguageNameId": 7270,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Indians UT"
             },
@@ -3036,6 +3149,7 @@ export const aoeDataInternal = {
                 "ID": 507,
                 "LanguageHelpId": 28271,
                 "LanguageNameId": 7271,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Indians UT2"
             },
@@ -3047,6 +3161,7 @@ export const aoeDataInternal = {
                 "ID": 512,
                 "LanguageHelpId": 28268,
                 "LanguageNameId": 7268,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Slavs UT"
             },
@@ -3058,6 +3173,7 @@ export const aoeDataInternal = {
                 "ID": 513,
                 "LanguageHelpId": 28269,
                 "LanguageNameId": 7269,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Slavs UT"
             },
@@ -3069,6 +3185,7 @@ export const aoeDataInternal = {
                 "ID": 514,
                 "LanguageHelpId": 28275,
                 "LanguageNameId": 7275,
+                "Repeatable": false,
                 "ResearchTime": 40,
                 "internal_name": "Magyars UT"
             },
@@ -3080,6 +3197,7 @@ export const aoeDataInternal = {
                 "ID": 515,
                 "LanguageHelpId": 28274,
                 "LanguageNameId": 7274,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Indians UT"
             },
@@ -3091,6 +3209,7 @@ export const aoeDataInternal = {
                 "ID": 516,
                 "LanguageHelpId": 28266,
                 "LanguageNameId": 7266,
+                "Repeatable": false,
                 "ResearchTime": 40,
                 "internal_name": "Incas UT"
             },
@@ -3102,6 +3221,7 @@ export const aoeDataInternal = {
                 "ID": 517,
                 "LanguageHelpId": 28267,
                 "LanguageNameId": 7267,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Indians UT"
             },
@@ -3113,6 +3233,7 @@ export const aoeDataInternal = {
                 "ID": 572,
                 "LanguageHelpId": 28250,
                 "LanguageNameId": 7250,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Portuguese UT"
             },
@@ -3124,6 +3245,7 @@ export const aoeDataInternal = {
                 "ID": 573,
                 "LanguageHelpId": 28251,
                 "LanguageNameId": 7251,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Portuguese UT"
             },
@@ -3135,6 +3257,7 @@ export const aoeDataInternal = {
                 "ID": 574,
                 "LanguageHelpId": 28252,
                 "LanguageNameId": 7252,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Ethiopian UT"
             },
@@ -3146,6 +3269,7 @@ export const aoeDataInternal = {
                 "ID": 575,
                 "LanguageHelpId": 28253,
                 "LanguageNameId": 7253,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Ethiopian UT"
             },
@@ -3157,6 +3281,7 @@ export const aoeDataInternal = {
                 "ID": 576,
                 "LanguageHelpId": 28254,
                 "LanguageNameId": 7254,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Malian UT"
             },
@@ -3168,6 +3293,7 @@ export const aoeDataInternal = {
                 "ID": 577,
                 "LanguageHelpId": 28255,
                 "LanguageNameId": 7255,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Malian UT"
             },
@@ -3179,6 +3305,7 @@ export const aoeDataInternal = {
                 "ID": 578,
                 "LanguageHelpId": 28256,
                 "LanguageNameId": 7256,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Berber UT"
             },
@@ -3190,6 +3317,7 @@ export const aoeDataInternal = {
                 "ID": 579,
                 "LanguageHelpId": 28257,
                 "LanguageNameId": 7257,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Berber UT"
             },
@@ -3201,6 +3329,7 @@ export const aoeDataInternal = {
                 "ID": 602,
                 "LanguageHelpId": 28258,
                 "LanguageNameId": 7258,
+                "Repeatable": true,
                 "ResearchTime": 25,
                 "internal_name": "Arson"
             },
@@ -3212,6 +3341,7 @@ export const aoeDataInternal = {
                 "ID": 608,
                 "LanguageHelpId": 28278,
                 "LanguageNameId": 7278,
+                "Repeatable": true,
                 "ResearchTime": 25,
                 "internal_name": "Arrowslits"
             },
@@ -3223,6 +3353,7 @@ export const aoeDataInternal = {
                 "ID": 622,
                 "LanguageHelpId": 28291,
                 "LanguageNameId": 7291,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Khmer UT"
             },
@@ -3234,6 +3365,7 @@ export const aoeDataInternal = {
                 "ID": 623,
                 "LanguageHelpId": 28292,
                 "LanguageNameId": 7292,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Khmer UT"
             },
@@ -3245,6 +3377,7 @@ export const aoeDataInternal = {
                 "ID": 624,
                 "LanguageHelpId": 28293,
                 "LanguageNameId": 7293,
+                "Repeatable": false,
                 "ResearchTime": 40,
                 "internal_name": "Malay UT"
             },
@@ -3256,6 +3389,7 @@ export const aoeDataInternal = {
                 "ID": 625,
                 "LanguageHelpId": 28294,
                 "LanguageNameId": 7294,
+                "Repeatable": false,
                 "ResearchTime": 40,
                 "internal_name": "Malay UT"
             },
@@ -3267,6 +3401,7 @@ export const aoeDataInternal = {
                 "ID": 626,
                 "LanguageHelpId": 28295,
                 "LanguageNameId": 7295,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Burmese UT"
             },
@@ -3278,6 +3413,7 @@ export const aoeDataInternal = {
                 "ID": 627,
                 "LanguageHelpId": 28296,
                 "LanguageNameId": 7296,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Burmese UT"
             },
@@ -3289,6 +3425,7 @@ export const aoeDataInternal = {
                 "ID": 628,
                 "LanguageHelpId": 28297,
                 "LanguageNameId": 7297,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Vietnamese UT"
             },
@@ -3300,6 +3437,7 @@ export const aoeDataInternal = {
                 "ID": 629,
                 "LanguageHelpId": 28298,
                 "LanguageNameId": 7298,
+                "Repeatable": true,
                 "ResearchTime": 60,
                 "internal_name": "Vietnamese UT"
             },
@@ -3311,6 +3449,7 @@ export const aoeDataInternal = {
                 "ID": 685,
                 "LanguageHelpId": 28307,
                 "LanguageNameId": 7307,
+                "Repeatable": true,
                 "ResearchTime": 35,
                 "internal_name": "Khmer UT"
             },
@@ -3322,6 +3461,7 @@ export const aoeDataInternal = {
                 "ID": 686,
                 "LanguageHelpId": 28308,
                 "LanguageNameId": 7308,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Khmer UT"
             },
@@ -3333,6 +3473,7 @@ export const aoeDataInternal = {
                 "ID": 687,
                 "LanguageHelpId": 28309,
                 "LanguageNameId": 7309,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Malay UT"
             },
@@ -3344,6 +3485,7 @@ export const aoeDataInternal = {
                 "ID": 688,
                 "LanguageHelpId": 28310,
                 "LanguageNameId": 7310,
+                "Repeatable": false,
                 "ResearchTime": 50,
                 "internal_name": "Malay UT"
             },
@@ -3355,6 +3497,7 @@ export const aoeDataInternal = {
                 "ID": 689,
                 "LanguageHelpId": 28311,
                 "LanguageNameId": 7311,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Burmese UT"
             },
@@ -3366,6 +3509,7 @@ export const aoeDataInternal = {
                 "ID": 690,
                 "LanguageHelpId": 28398,
                 "LanguageNameId": 7398,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Burmese UT"
             },
@@ -3377,6 +3521,7 @@ export const aoeDataInternal = {
                 "ID": 691,
                 "LanguageHelpId": 28399,
                 "LanguageNameId": 7399,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Vietnamese UT"
             },
@@ -3388,17 +3533,19 @@ export const aoeDataInternal = {
                 "ID": 692,
                 "LanguageHelpId": 28400,
                 "LanguageNameId": 7400,
+                "Repeatable": true,
                 "ResearchTime": 40,
                 "internal_name": "Vietnamese UT"
             },
             "716": {
                 "Cost": {
-                    "Food": 150,
-                    "Gold": 100
+                    "Food": 75,
+                    "Gold": 75
                 },
                 "ID": 716,
                 "LanguageHelpId": 28403,
                 "LanguageNameId": 7403,
+                "Repeatable": false,
                 "ResearchTime": 35,
                 "internal_name": "Tracking"
             },
@@ -3410,6 +3557,7 @@ export const aoeDataInternal = {
                 "ID": 754,
                 "LanguageHelpId": 28342,
                 "LanguageNameId": 7342,
+                "Repeatable": true,
                 "ResearchTime": 45,
                 "internal_name": "Burgundian Vineyards"
             },
@@ -3421,6 +3569,7 @@ export const aoeDataInternal = {
                 "ID": 755,
                 "LanguageHelpId": 28343,
                 "LanguageNameId": 7343,
+                "Repeatable": true,
                 "ResearchTime": 10,
                 "internal_name": "Flemish Revolution"
             },
@@ -3432,6 +3581,7 @@ export const aoeDataInternal = {
                 "ID": 756,
                 "LanguageHelpId": 28344,
                 "LanguageNameId": 7344,
+                "Repeatable": true,
                 "ResearchTime": 60,
                 "internal_name": "First Crusade"
             },
@@ -3443,6 +3593,7 @@ export const aoeDataInternal = {
                 "ID": 757,
                 "LanguageHelpId": 28345,
                 "LanguageNameId": 7345,
+                "Repeatable": true,
                 "ResearchTime": 45,
                 "internal_name": "Hauberk"
             },
@@ -3454,6 +3605,7 @@ export const aoeDataInternal = {
                 "ID": 782,
                 "LanguageHelpId": 28348,
                 "LanguageNameId": 7348,
+                "Repeatable": true,
                 "ResearchTime": 45,
                 "internal_name": "Szlachta Privileges"
             },
@@ -3465,6 +3617,7 @@ export const aoeDataInternal = {
                 "ID": 783,
                 "LanguageHelpId": 28349,
                 "LanguageNameId": 7349,
+                "Repeatable": true,
                 "ResearchTime": 60,
                 "internal_name": "Lechitic Legacy"
             },
@@ -3476,6 +3629,7 @@ export const aoeDataInternal = {
                 "ID": 784,
                 "LanguageHelpId": 28350,
                 "LanguageNameId": 7350,
+                "Repeatable": true,
                 "ResearchTime": 45,
                 "internal_name": "Wagenburg Tactics"
             },
@@ -3487,6 +3641,7 @@ export const aoeDataInternal = {
                 "ID": 785,
                 "LanguageHelpId": 28351,
                 "LanguageNameId": 7351,
+                "Repeatable": false,
                 "ResearchTime": 45,
                 "internal_name": "Hussite Reforms"
             }
@@ -4879,7 +5034,7 @@ export const aoeDataInternal = {
                         "Class": 1
                     },
                     {
-                        "Amount": 0,
+                        "Amount": 1,
                         "Class": 4
                     },
                     {
@@ -4927,7 +5082,7 @@ export const aoeDataInternal = {
                 "LanguageNameId": 5081,
                 "LineOfSight": 4,
                 "MaxCharge": 0,
-                "MeleeArmor": 0,
+                "MeleeArmor": 1,
                 "MinRange": 0,
                 "PierceArmor": 1,
                 "Range": 0,
@@ -6704,7 +6859,7 @@ export const aoeDataInternal = {
                         "Class": 1
                     },
                     {
-                        "Amount": 0,
+                        "Amount": 1,
                         "Class": 4
                     },
                     {
@@ -6752,7 +6907,7 @@ export const aoeDataInternal = {
                 "LanguageNameId": 5411,
                 "LineOfSight": 5,
                 "MaxCharge": 0,
-                "MeleeArmor": 0,
+                "MeleeArmor": 1,
                 "MinRange": 0,
                 "PierceArmor": 1,
                 "Range": 0,

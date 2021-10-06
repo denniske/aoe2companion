@@ -28,10 +28,6 @@
     ],
     "civ": [
         {
-            "id": 0,
-            "string": null
-        },
-        {
             "id": 1,
             "string": "Britons"
         },
@@ -720,8 +716,12 @@
             "string": "Caucasus"
         },
         {
-            "id": 136137,
-            "string": "Unknown #136137"
+            "id": 136,
+            "string": "Caucasus"
+        },
+        {
+            "id": 137,
+            "string": "Custom Map Pool"
         },
         {
             "id": 138,
@@ -842,6 +842,34 @@
         {
             "id": 167,
             "string": "Runestones"
+        },
+        {
+            "id": 168,
+            "string": "Aftermath"
+        },
+        {
+            "id": 169,
+            "string": "Enclosed"
+        },
+        {
+            "id": 170,
+            "string": "Haboob"
+        },
+        {
+            "id": 171,
+            "string": "Kawasan"
+        },
+        {
+            "id": 172,
+            "string": "Land Madness"
+        },
+        {
+            "id": 173,
+            "string": "Sacred Springs"
+        },
+        {
+            "id": 174,
+            "string": "Wade"
         }
     ],
     "rating_type": [

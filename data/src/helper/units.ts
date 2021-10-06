@@ -3029,7 +3029,7 @@ export const unitUpgradeCosts = {
         "Gold":40
     },
     "ManAtArms":{
-        "Food":200,
+        "Food":150,
         "Gold":65
     },
     "LongSwordsman":{

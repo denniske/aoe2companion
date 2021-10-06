@@ -133,6 +133,13 @@ export const maps = {
     165: require('../../assets/maps/rm_northern_isles.png'),
     166: require('../../assets/maps/rm_ring_fortress.png'),
     167: require('../../assets/maps/rm_runestones.png'),
+    168: require('../../assets/maps/rm_aftermath.png'),
+    169: require('../../assets/maps/rm_enclosed.png'),
+    170: require('../../assets/maps/rm_haboob.png'),
+    171: require('../../assets/maps/rm_kawasan.png'),
+    172: require('../../assets/maps/rm_land_madness.png'),
+    173: require('../../assets/maps/rm_sacred_springs.png'),
+    174: require('../../assets/maps/rm_wade.png'),
 };
 
 export function getMapImage(map: AoeMap) {
