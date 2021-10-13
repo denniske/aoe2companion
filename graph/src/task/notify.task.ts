@@ -167,6 +167,7 @@ export class NotifyTask implements OnModuleInit {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(message),
+            timeout: 60 * 1000,
         });
         const expoPushResponse = await result.json() as IExpoPushResponse;
         console.log(expoPushResponse);
@@ -237,6 +238,7 @@ export class NotifyTask implements OnModuleInit {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(message),
+            timeout: 60 * 1000,
         });
         const electronPushResponse = await result.json();
         console.log(electronPushResponse);

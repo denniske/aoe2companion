@@ -210,6 +210,7 @@ export class ApiController {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(message),
+                timeout: 60 * 1000,
             });
 
             const electronPushResponse = await result.json();
