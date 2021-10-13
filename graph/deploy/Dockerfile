@@ -1,5 +1,5 @@
 # fixed version because of https://github.com/nodejs/node/issues/35582 in function controller
-FROM node:12.20.0
+FROM node:14.17.6
 
 WORKDIR /usr/src/app
 
