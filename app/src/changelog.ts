@@ -12,12 +12,12 @@ export interface IChangelog {
 // https://www.aoe2insights.com/match/99919072/analysis/
 
 export const changelog: IChangelog = {
-    // '21.0.100': [
-    //     {
-    //         type: 'feature',
-    //         title: 'Added more localization (go to settings to change language)',
-    //     },
-    // ],
+    '26.0.15': [
+        {
+            type: 'minor',
+            title: 'Implemented [AoE II DE Update 56005](https://www.ageofempires.com/news/aoeii_de_update_56005/)',
+        },
+    ],
     '26.0.14': [
         {
             type: 'minor',

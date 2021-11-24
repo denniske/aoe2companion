@@ -842,6 +842,34 @@
         {
             "id": 167,
             "string": "Runestones"
+        },
+        {
+            "id": 168,
+            "string": "Aftermath"
+        },
+        {
+            "id": 169,
+            "string": "Enclosed"
+        },
+        {
+            "id": 170,
+            "string": "Haboob"
+        },
+        {
+            "id": 171,
+            "string": "Kawasan"
+        },
+        {
+            "id": 172,
+            "string": "Land Madness"
+        },
+        {
+            "id": 173,
+            "string": "Sacred Springs"
+        },
+        {
+            "id": 174,
+            "string": "Wade"
         }
     ],
     "rating_type": [

@@ -5,6 +5,7 @@ import {getAllMatches, strRemoveFrom, strRemoveTo, unwrap, ValueOf} from "../lib
 import {aoeData, aoeUnitDataId} from "../data/data";
 import {getAoeString, getUiTranslation} from '../lib/aoe-data';
 import {slotTypes} from '../api/api.types';
+import {shallowEqual} from 'react-redux';
 
 
 export interface IUnitLine {
@@ -3356,8 +3357,29 @@ export function getUnitDescription(unit: Unit) {
 }
 
 export function getUnitUpgradeCost(unitFrom: Unit, unitTo: Unit): ICostDict | null {
-    return unitUpgradeCosts[unitFrom as keyof typeof unitUpgradeCosts] ?? unitUpgradeCosts[`${unitFrom}-${unitTo}`];
+    if (unitTo === 'EliteKonnikDismounted') unitTo = 'EliteKonnik';
+    const data = getUnitData(unitTo as any);
+    const upgradeInfo = aoeData.data.unit_upgrades[data.ID];
+    return upgradeInfo?.Cost;
 }
+
+// const old = unitUpgradeCosts[unitFrom as keyof typeof unitUpgradeCosts] ?? unitUpgradeCosts[`${unitFrom}-${unitTo}`];
+// const new2 = newData?.Cost;
+// console.log(old, new2);
+// if (!shallowEqual(old, new2)) {
+//     console.log('DIFFERENT', old, new2);
+// }
+// if (!newData) {
+//     console.log('NOT FOUND');
+// }
+
+// console.log(shallowEqual(old, new2));
+
+// for (const key of Object.keys(unitUpgradeCosts)) {
+//     console.log(key, unitUpgradeCosts[key]);
+//     const data = getUnitData(key as any);
+//     console.log('=>', data.ID, aoeData.data.unit_upgrades[data.ID]);
+// }
 
 // export function getUnitDescriptionRaw(unit: Unit) {
 //     const data = getUnitData(unit);
@@ -3570,3 +3592,15 @@ export function filterUnits(unitLineIds: UnitLine[], filter: { unique?: boolean 
 //     return armoursMelee != data.MeleeArmor || armoursPierce != data.PierceArmor;
 // });
 // console.log(diffUnits);
+
+// for (const unitId of Object.keys(units)) {
+//     console.log(unitId);
+//     const unitLine = getUnitLineForUnit(unitId as Unit);
+//     if (!unitLine) continue;
+//     const unitIndex = unitLine.units.indexOf(unitId as Unit);
+//     let upgradedToList = unitIndex < unitLine.units.length-1 ? [unitLine.units[unitIndex+1]] : [];
+//     for (const upgradedTo of upgradedToList) {
+//         console.log('->', upgradedTo);
+//         getUnitUpgradeCost(unitId as Unit, upgradedTo);
+//     }
+// }

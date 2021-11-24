@@ -144,7 +144,7 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                   </View>
                   {
                       upgradedToList.map(upgradedTo =>
-                              <TouchableOpacity disabled={unitLine.unique} onPress={() => gotoUnit(upgradedTo)}>
+                              <TouchableOpacity key={upgradedTo} disabled={unitLine.unique} onPress={() => gotoUnit(upgradedTo)}>
                                   <View style={styles.row}>
                                       <Image fadeDuration={0} style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(upgradedTo)}/>
                                       <MyText style={styles.unitDesc}>{getUnitName(upgradedTo)}</MyText>

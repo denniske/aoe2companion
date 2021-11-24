@@ -316,7 +316,7 @@ export const aoeDataInternal = {
                         "Class": 11
                     },
                     {
-                        "Amount": 0,
+                        "Amount": -2,
                         "Class": 4
                     },
                     {
@@ -339,7 +339,7 @@ export const aoeDataInternal = {
                 "LanguageHelpId": 26344,
                 "LanguageNameId": 5344,
                 "LineOfSight": 2,
-                "MeleeArmor": 0,
+                "MeleeArmor": -2,
                 "MinRange": 0,
                 "PierceArmor": 7,
                 "Range": 0,
@@ -427,7 +427,7 @@ export const aoeDataInternal = {
                 "Attack": 0,
                 "Attacks": [],
                 "Cost": {
-                    "Wood": 2
+                    "Wood": 3
                 },
                 "GarrisonCapacity": 0,
                 "HP": 150,
@@ -3581,7 +3581,7 @@ export const aoeDataInternal = {
                 "ID": 756,
                 "LanguageHelpId": 28344,
                 "LanguageNameId": 7344,
-                "Repeatable": true,
+                "Repeatable": false,
                 "ResearchTime": 60,
                 "internal_name": "First Crusade"
             },
@@ -3644,6 +3644,756 @@ export const aoeDataInternal = {
                 "Repeatable": false,
                 "ResearchTime": 45,
                 "internal_name": "Hussite Reforms"
+            }
+        },
+        "unit_upgrades": {
+            "6": {
+                "Cost": {
+                    "Gold": 130,
+                    "Wood": 230
+                },
+                "ID": 851,
+                "ResearchTime": 50,
+                "internal_name": "Elite Skirmisher"
+            },
+            "21": {
+                "Cost": {
+                    "Food": 230,
+                    "Gold": 100
+                },
+                "ID": 851,
+                "ResearchTime": 50,
+                "internal_name": "War Galley"
+            },
+            "24": {
+                "Cost": {
+                    "Food": 125,
+                    "Gold": 75
+                },
+                "ID": 851,
+                "ResearchTime": 35,
+                "internal_name": "Crossbow"
+            },
+            "75": {
+                "Cost": {
+                    "Food": 100,
+                    "Gold": 40
+                },
+                "ID": 851,
+                "ResearchTime": 40,
+                "internal_name": "Man-At-Arms"
+            },
+            "77": {
+                "Cost": {
+                    "Food": 150,
+                    "Gold": 65
+                },
+                "ID": 851,
+                "ResearchTime": 45,
+                "internal_name": "Long Swordsman"
+            },
+            "207": {
+                "Cost": {
+                    "Food": 1200,
+                    "Gold": 600
+                },
+                "ID": 851,
+                "ResearchTime": 125,
+                "internal_name": "Heavy Camel"
+            },
+            "283": {
+                "Cost": {
+                    "Food": 300,
+                    "Gold": 300
+                },
+                "ID": 851,
+                "ResearchTime": 100,
+                "internal_name": "Cavalier"
+            },
+            "330": {
+                "Cost": {
+                    "Food": 325,
+                    "Gold": 360
+                },
+                "ID": 851,
+                "ResearchTime": 105,
+                "internal_name": "Heavy Camel"
+            },
+            "358": {
+                "Cost": {
+                    "Food": 215,
+                    "Gold": 90
+                },
+                "ID": 851,
+                "ResearchTime": 45,
+                "internal_name": "Pikeman"
+            },
+            "359": {
+                "Cost": {
+                    "Food": 300,
+                    "Gold": 600
+                },
+                "ID": 851,
+                "ResearchTime": 50,
+                "internal_name": "Halberdier"
+            },
+            "420": {
+                "Cost": {},
+                "ID": 851,
+                "ResearchTime": 0,
+                "internal_name": "Cannon Galleon"
+            },
+            "422": {
+                "Cost": {
+                    "Food": 300
+                },
+                "ID": 851,
+                "ResearchTime": 50,
+                "internal_name": "Capped Ram"
+            },
+            "441": {
+                "Cost": {
+                    "Food": 500,
+                    "Gold": 600
+                },
+                "ID": 851,
+                "ResearchTime": 50,
+                "internal_name": "Hussar"
+            },
+            "442": {
+                "Cost": {
+                    "Food": 400,
+                    "Wood": 315
+                },
+                "ID": 851,
+                "ResearchTime": 65,
+                "internal_name": "Galleon"
+            },
+            "473": {
+                "Cost": {
+                    "Food": 300,
+                    "Gold": 100
+                },
+                "ID": 851,
+                "ResearchTime": 75,
+                "internal_name": "Two-Handed Swordsman"
+            },
+            "474": {
+                "Cost": {
+                    "Food": 900,
+                    "Gold": 500
+                },
+                "ID": 851,
+                "ResearchTime": 50,
+                "internal_name": "Heavy Cavalry Archer"
+            },
+            "492": {
+                "Cost": {
+                    "Food": 350,
+                    "Gold": 300
+                },
+                "ID": 851,
+                "ResearchTime": 50,
+                "internal_name": "Arbalest"
+            },
+            "527": {
+                "Cost": {
+                    "Food": 230,
+                    "Gold": 100
+                },
+                "ID": 851,
+                "ResearchTime": 60,
+                "internal_name": "Hun Atheism"
+            },
+            "528": {
+                "Cost": {
+                    "Gold": 300,
+                    "Wood": 200
+                },
+                "ID": 851,
+                "ResearchTime": 50,
+                "internal_name": "Heavy Demolition"
+            },
+            "529": {
+                "Cost": {
+                    "Food": 230,
+                    "Gold": 100
+                },
+                "ID": 851,
+                "ResearchTime": 60,
+                "internal_name": "Hun Atheism"
+            },
+            "530": {
+                "Cost": {
+                    "Food": 850,
+                    "Gold": 850
+                },
+                "ID": 851,
+                "ResearchTime": 60,
+                "internal_name": "Elite Longbow"
+            },
+            "531": {
+                "Cost": {
+                    "Food": 1000,
+                    "Gold": 750
+                },
+                "ID": 851,
+                "ResearchTime": 45,
+                "internal_name": "Elite Throwing Axemen"
+            },
+            "532": {
+                "Cost": {
+                    "Gold": 250,
+                    "Wood": 280
+                },
+                "ID": 851,
+                "ResearchTime": 50,
+                "internal_name": "Fast Fire Ship"
+            },
+            "533": {
+                "Cost": {
+                    "Food": 750,
+                    "Gold": 475
+                },
+                "ID": 851,
+                "ResearchTime": 60,
+                "internal_name": "Unique Heroic Viking LBT"
+            },
+            "534": {
+                "Cost": {
+                    "Food": 1000,
+                    "Gold": 800
+                },
+                "ID": 851,
+                "ResearchTime": 45,
+                "internal_name": "Elite Woad Raider"
+            },
+            "542": {
+                "Cost": {
+                    "Food": 1000,
+                    "Wood": 1100
+                },
+                "ID": 851,
+                "ResearchTime": 50,
+                "internal_name": "Heavy Scorpion"
+            },
+            "546": {
+                "Cost": {
+                    "Food": 150,
+                    "Gold": 50
+                },
+                "ID": 851,
+                "ResearchTime": 45,
+                "internal_name": "Light Cavalry"
+            },
+            "548": {
+                "Cost": {
+                    "Food": 1000
+                },
+                "ID": 851,
+                "ResearchTime": 75,
+                "internal_name": "Siege Ram"
+            },
+            "550": {
+                "Cost": {
+                    "Food": 800,
+                    "Gold": 500
+                },
+                "ID": 851,
+                "ResearchTime": 75,
+                "internal_name": "Onager"
+            },
+            "553": {
+                "Cost": {
+                    "Food": 1200,
+                    "Gold": 800
+                },
+                "ID": 851,
+                "ResearchTime": 50,
+                "internal_name": "Elite Cataphract"
+            },
+            "554": {
+                "Cost": {
+                    "Food": 950,
+                    "Gold": 500
+                },
+                "ID": 851,
+                "ResearchTime": 50,
+                "internal_name": "Elite Teutonic Knight"
+            },
+            "555": {
+                "Cost": {
+                    "Food": 1200,
+                    "Gold": 550
+                },
+                "ID": 851,
+                "ResearchTime": 40,
+                "internal_name": "Elite Huskarl"
+            },
+            "556": {
+                "Cost": {
+                    "Food": 600,
+                    "Gold": 500
+                },
+                "ID": 851,
+                "ResearchTime": 50,
+                "internal_name": "Elite Mameluke"
+            },
+            "557": {
+                "Cost": {
+                    "Food": 850,
+                    "Gold": 750
+                },
+                "ID": 851,
+                "ResearchTime": 55,
+                "internal_name": "Elite Jannisary"
+            },
+            "558": {
+                "Cost": {
+                    "Food": 1600,
+                    "Gold": 1200
+                },
+                "ID": 851,
+                "ResearchTime": 75,
+                "internal_name": "Elite War Elephant"
+            },
+            "559": {
+                "Cost": {
+                    "Food": 950,
+                    "Gold": 950
+                },
+                "ID": 851,
+                "ResearchTime": 50,
+                "internal_name": "Elite Chu Ko Nu"
+            },
+            "560": {
+                "Cost": {
+                    "Food": 750,
+                    "Gold": 650
+                },
+                "ID": 851,
+                "ResearchTime": 60,
+                "internal_name": "Elite Samurai"
+            },
+            "561": {
+                "Cost": {
+                    "Food": 1100,
+                    "Gold": 675
+                },
+                "ID": 851,
+                "ResearchTime": 50,
+                "internal_name": "Elite Mangudai"
+            },
+            "567": {
+                "Cost": {
+                    "Food": 750,
+                    "Gold": 350
+                },
+                "ID": 851,
+                "ResearchTime": 100,
+                "internal_name": "Champion"
+            },
+            "569": {
+                "Cost": {
+                    "Food": 1300,
+                    "Gold": 750
+                },
+                "ID": 851,
+                "ResearchTime": 170,
+                "internal_name": "Paladin"
+            },
+            "588": {
+                "Cost": {
+                    "Food": 1450,
+                    "Gold": 1000
+                },
+                "ID": 851,
+                "ResearchTime": 150,
+                "internal_name": "Siege Onager"
+            },
+            "691": {
+                "Cost": {
+                    "Gold": 500,
+                    "Wood": 525
+                },
+                "ID": 851,
+                "ResearchTime": 30,
+                "internal_name": "Elite Cannon Galley"
+            },
+            "694": {
+                "Cost": {
+                    "Food": 1075,
+                    "Gold": 475
+                },
+                "ID": 851,
+                "ResearchTime": 45,
+                "internal_name": "Elite Berserk"
+            },
+            "726": {
+                "Cost": {
+                    "Food": 1000,
+                    "Gold": 500
+                },
+                "ID": 851,
+                "ResearchTime": 45,
+                "internal_name": "Elite Jaguar Man"
+            },
+            "752": {
+                "Cost": {
+                    "Food": 800,
+                    "Gold": 500
+                },
+                "ID": 851,
+                "ResearchTime": 50,
+                "internal_name": "Elite Eagle Warrior"
+            },
+            "753": {
+                "Cost": {
+                    "Food": 200,
+                    "Gold": 200
+                },
+                "ID": 851,
+                "ResearchTime": 50,
+                "internal_name": "Heavy Eagle Warrior"
+            },
+            "757": {
+                "Cost": {
+                    "Food": 1000,
+                    "Gold": 500
+                },
+                "ID": 851,
+                "ResearchTime": 45,
+                "internal_name": "Elite Tarkan"
+            },
+            "761": {
+                "Cost": {
+                    "Food": 1200,
+                    "Gold": 550
+                },
+                "ID": 851,
+                "ResearchTime": 40,
+                "internal_name": "Elite Huskarl"
+            },
+            "765": {
+                "Cost": {
+                    "Food": 700,
+                    "Wood": 1000
+                },
+                "ID": 851,
+                "ResearchTime": 45,
+                "internal_name": "Elite Plumed Archer"
+            },
+            "773": {
+                "Cost": {
+                    "Food": 1200,
+                    "Gold": 600
+                },
+                "ID": 851,
+                "ResearchTime": 60,
+                "internal_name": "Elite Conquistador"
+            },
+            "829": {
+                "Cost": {
+                    "Gold": 800,
+                    "Wood": 1000
+                },
+                "ID": 851,
+                "ResearchTime": 75,
+                "internal_name": "Elite War Wagon"
+            },
+            "832": {
+                "Cost": {
+                    "Food": 1000,
+                    "Gold": 800
+                },
+                "ID": 851,
+                "ResearchTime": 65,
+                "internal_name": "Elite Turtle Ship"
+            },
+            "868": {
+                "Cost": {
+                    "Food": 900,
+                    "Gold": 750
+                },
+                "ID": 851,
+                "ResearchTime": 60,
+                "internal_name": "Elite Genoese Bow"
+            },
+            "871": {
+                "Cost": {
+                    "Food": 800,
+                    "Gold": 600
+                },
+                "ID": 851,
+                "ResearchTime": 60,
+                "internal_name": "Elite Magyar Huszar"
+            },
+            "875": {
+                "Cost": {
+                    "Food": 1000,
+                    "Gold": 800
+                },
+                "ID": 851,
+                "ResearchTime": 60,
+                "internal_name": "Elite Elephant Archer"
+            },
+            "878": {
+                "Cost": {
+                    "Food": 1000,
+                    "Gold": 600
+                },
+                "ID": 851,
+                "ResearchTime": 60,
+                "internal_name": "Elite Siege Tower"
+            },
+            "881": {
+                "Cost": {
+                    "Food": 900,
+                    "Gold": 500
+                },
+                "ID": 851,
+                "ResearchTime": 45,
+                "internal_name": "Elite Kamayuk"
+            },
+            "887": {
+                "Cost": {
+                    "Food": 1000,
+                    "Gold": 500
+                },
+                "ID": 851,
+                "ResearchTime": 45,
+                "internal_name": "Elite Tarkan"
+            },
+            "1003": {
+                "Cost": {
+                    "Food": 1200,
+                    "Gold": 500
+                },
+                "ID": 851,
+                "ResearchTime": 45,
+                "internal_name": "Elite Organ Gun"
+            },
+            "1006": {
+                "Cost": {
+                    "Food": 750,
+                    "Gold": 475
+                },
+                "ID": 851,
+                "ResearchTime": 60,
+                "internal_name": "Elite Caravel"
+            },
+            "1009": {
+                "Cost": {
+                    "Gold": 500,
+                    "Wood": 1000
+                },
+                "ID": 851,
+                "ResearchTime": 45,
+                "internal_name": "Elite Camel Archer"
+            },
+            "1012": {
+                "Cost": {
+                    "Food": 500,
+                    "Wood": 450
+                },
+                "ID": 851,
+                "ResearchTime": 60,
+                "internal_name": "Elite Genitour"
+            },
+            "1015": {
+                "Cost": {
+                    "Food": 900,
+                    "Gold": 600
+                },
+                "ID": 851,
+                "ResearchTime": 45,
+                "internal_name": "Elite Mali Unit"
+            },
+            "1018": {
+                "Cost": {
+                    "Food": 900,
+                    "Gold": 450
+                },
+                "ID": 851,
+                "ResearchTime": 45,
+                "internal_name": "Elite Ethiopia Unit"
+            },
+            "1122": {
+                "Cost": {
+                    "Food": 1000,
+                    "Gold": 500
+                },
+                "ID": 851,
+                "ResearchTime": 70,
+                "internal_name": "Elite Ballista Elephant"
+            },
+            "1125": {
+                "Cost": {
+                    "Food": 900,
+                    "Gold": 600
+                },
+                "ID": 851,
+                "ResearchTime": 40,
+                "internal_name": "Elite Karambit Warrior"
+            },
+            "1128": {
+                "Cost": {
+                    "Food": 1100,
+                    "Gold": 675
+                },
+                "ID": 851,
+                "ResearchTime": 65,
+                "internal_name": "Elite Arambai"
+            },
+            "1131": {
+                "Cost": {
+                    "Food": 1000,
+                    "Gold": 750
+                },
+                "ID": 851,
+                "ResearchTime": 45,
+                "internal_name": "Elite Rattan Archer"
+            },
+            "1132": {
+                "Cost": {},
+                "ID": 851,
+                "ResearchTime": 0,
+                "internal_name": "Battle Elephant (make avail)"
+            },
+            "1134": {
+                "Cost": {
+                    "Food": 1200,
+                    "Gold": 900
+                },
+                "ID": 851,
+                "ResearchTime": 100,
+                "internal_name": "Elite Battle Elephant"
+            },
+            "1155": {
+                "Cost": {
+                    "Gold": 450,
+                    "Wood": 300
+                },
+                "ID": 851,
+                "ResearchTime": 50,
+                "internal_name": "Imperial Skirmisher"
+            },
+            "1227": {
+                "Cost": {
+                    "Food": 1000,
+                    "Gold": 750
+                },
+                "ID": 851,
+                "ResearchTime": 70,
+                "internal_name": "Elite Konnik"
+            },
+            "1230": {
+                "Cost": {
+                    "Food": 700,
+                    "Gold": 900
+                },
+                "ID": 851,
+                "ResearchTime": 40,
+                "internal_name": "Elite Keshik"
+            },
+            "1233": {
+                "Cost": {
+                    "Food": 1100,
+                    "Wood": 1000
+                },
+                "ID": 851,
+                "ResearchTime": 65,
+                "internal_name": "Elite Kipchak"
+            },
+            "1236": {
+                "Cost": {
+                    "Food": 750,
+                    "Gold": 750
+                },
+                "ID": 851,
+                "ResearchTime": 45,
+                "internal_name": "Elite Leitis"
+            },
+            "1255": {
+                "Cost": {
+                    "Food": 1000,
+                    "Gold": 750
+                },
+                "ID": 851,
+                "ResearchTime": 70,
+                "internal_name": "Elite Konnik"
+            },
+            "1372": {
+                "Cost": {
+                    "Food": 900,
+                    "Gold": 550
+                },
+                "ID": 851,
+                "ResearchTime": 55,
+                "internal_name": "Elite Steppe Lancer"
+            },
+            "1657": {
+                "Cost": {
+                    "Food": 1000,
+                    "Gold": 800
+                },
+                "ID": 851,
+                "ResearchTime": 45,
+                "internal_name": "Elite Coustillier"
+            },
+            "1659": {
+                "Cost": {
+                    "Food": 1100,
+                    "Gold": 800
+                },
+                "ID": 851,
+                "ResearchTime": 45,
+                "internal_name": "Elite Serjeant"
+            },
+            "1661": {
+                "Cost": {
+                    "Food": 1100,
+                    "Gold": 800
+                },
+                "ID": 851,
+                "ResearchTime": 45,
+                "internal_name": "Elite Serjeant"
+            },
+            "1703": {
+                "Cost": {
+                    "Food": 800,
+                    "Gold": 600
+                },
+                "ID": 851,
+                "ResearchTime": 45,
+                "internal_name": "Elite Obuch"
+            },
+            "1706": {
+                "Cost": {
+                    "Gold": 600,
+                    "Wood": 800
+                },
+                "ID": 851,
+                "ResearchTime": 45,
+                "internal_name": "Elite Hussite Wagon"
+            },
+            "1707": {
+                "Cost": {
+                    "Food": 600,
+                    "Gold": 800
+                },
+                "ID": 851,
+                "ResearchTime": 60,
+                "internal_name": "Winged Hussar"
+            },
+            "1709": {
+                "Cost": {
+                    "Food": 950,
+                    "Gold": 750
+                },
+                "ID": 851,
+                "ResearchTime": 140,
+                "internal_name": "Houfnice"
             }
         },
         "units": {
@@ -4292,7 +5042,7 @@ export const aoeDataInternal = {
                         "Class": 1
                     },
                     {
-                        "Amount": 5,
+                        "Amount": 7,
                         "Class": 4
                     },
                     {
@@ -4308,7 +5058,7 @@ export const aoeDataInternal = {
                         "Class": 31
                     }
                 ],
-                "Attack": 12,
+                "Attack": 14,
                 "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
@@ -4320,7 +5070,7 @@ export const aoeDataInternal = {
                         "Class": 21
                     },
                     {
-                        "Amount": 12,
+                        "Amount": 14,
                         "Class": 4
                     }
                 ],
@@ -4336,7 +5086,7 @@ export const aoeDataInternal = {
                 "LanguageNameId": 5112,
                 "LineOfSight": 3,
                 "MaxCharge": 0,
-                "MeleeArmor": 5,
+                "MeleeArmor": 7,
                 "MinRange": 0,
                 "PierceArmor": 2,
                 "Range": 0,
@@ -5497,7 +6247,7 @@ export const aoeDataInternal = {
                         "Class": 31
                     }
                 ],
-                "Attack": 8,
+                "Attack": 10,
                 "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
@@ -5509,7 +6259,7 @@ export const aoeDataInternal = {
                         "Class": 21
                     },
                     {
-                        "Amount": 8,
+                        "Amount": 10,
                         "Class": 4
                     },
                     {
@@ -5581,6 +6331,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 7,
                         "Class": 13
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     },
                     {
                         "Amount": 0,
@@ -6033,7 +6787,7 @@ export const aoeDataInternal = {
                         "Class": 31
                     }
                 ],
-                "Attack": 8,
+                "Attack": 10,
                 "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
@@ -6045,7 +6799,7 @@ export const aoeDataInternal = {
                         "Class": 21
                     },
                     {
-                        "Amount": 8,
+                        "Amount": 10,
                         "Class": 4
                     },
                     {
@@ -6059,7 +6813,7 @@ export const aoeDataInternal = {
                 },
                 "FrameDelay": 0,
                 "GarrisonCapacity": 0,
-                "HP": 60,
+                "HP": 70,
                 "ID": 291,
                 "LanguageHelpId": 26110,
                 "LanguageNameId": 5110,
@@ -8325,6 +9079,10 @@ export const aoeDataInternal = {
                     },
                     {
                         "Amount": 0,
+                        "Class": 15
+                    },
+                    {
+                        "Amount": 0,
                         "Class": 21
                     }
                 ],
@@ -8844,7 +9602,7 @@ export const aoeDataInternal = {
                         "Class": 1
                     },
                     {
-                        "Amount": 0,
+                        "Amount": 1,
                         "Class": 4
                     },
                     {
@@ -8860,7 +9618,7 @@ export const aoeDataInternal = {
                         "Class": 31
                     }
                 ],
-                "Attack": 9,
+                "Attack": 12,
                 "AttackDelaySeconds": 0.0,
                 "Attacks": [
                     {
@@ -8872,7 +9630,7 @@ export const aoeDataInternal = {
                         "Class": 21
                     },
                     {
-                        "Amount": 9,
+                        "Amount": 12,
                         "Class": 4
                     },
                     {
@@ -8896,7 +9654,7 @@ export const aoeDataInternal = {
                 "LanguageNameId": 5574,
                 "LineOfSight": 3,
                 "MaxCharge": 0,
-                "MeleeArmor": 0,
+                "MeleeArmor": 1,
                 "MinRange": 0,
                 "PierceArmor": 1,
                 "Range": 0,
@@ -8973,7 +9731,7 @@ export const aoeDataInternal = {
                 "RechargeRate": 0,
                 "ReloadTime": 2,
                 "Speed": 1.05,
-                "TrainTime": 14,
+                "TrainTime": 12,
                 "internal_name": "UVBRK"
             },
             "725": {
@@ -9034,7 +9792,7 @@ export const aoeDataInternal = {
                 },
                 "FrameDelay": 0,
                 "GarrisonCapacity": 0,
-                "HP": 50,
+                "HP": 65,
                 "ID": 725,
                 "LanguageHelpId": 26667,
                 "LanguageNameId": 5667,
@@ -10722,7 +11480,7 @@ export const aoeDataInternal = {
                         "Class": 1
                     },
                     {
-                        "Amount": 0,
+                        "Amount": 1,
                         "Class": 4
                     },
                     {
@@ -10768,13 +11526,13 @@ export const aoeDataInternal = {
                 },
                 "FrameDelay": 0,
                 "GarrisonCapacity": 0,
-                "HP": 60,
+                "HP": 70,
                 "ID": 879,
                 "LanguageHelpId": 26686,
                 "LanguageNameId": 5686,
                 "LineOfSight": 4,
                 "MaxCharge": 0,
-                "MeleeArmor": 0,
+                "MeleeArmor": 1,
                 "MinRange": 0,
                 "PierceArmor": 0,
                 "Range": 1,
@@ -11590,7 +12348,7 @@ export const aoeDataInternal = {
                 },
                 "FrameDelay": 30,
                 "GarrisonCapacity": 0,
-                "HP": 30,
+                "HP": 35,
                 "ID": 1013,
                 "LanguageHelpId": 26140,
                 "LanguageNameId": 5140,
@@ -11718,7 +12476,7 @@ export const aoeDataInternal = {
                 },
                 "FrameDelay": 0,
                 "GarrisonCapacity": 0,
-                "HP": 40,
+                "HP": 45,
                 "ID": 1016,
                 "LanguageHelpId": 26143,
                 "LanguageNameId": 5143,
@@ -12618,6 +13376,10 @@ export const aoeDataInternal = {
                     },
                     {
                         "Amount": 0,
+                        "Class": 15
+                    },
+                    {
+                        "Amount": 0,
                         "Class": 21
                     }
                 ],
@@ -12681,6 +13443,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 7,
                         "Class": 13
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     },
                     {
                         "Amount": 0,
@@ -14428,7 +15194,7 @@ export const aoeDataInternal = {
                 "RechargeRate": 0,
                 "ReloadTime": 2,
                 "Speed": 0.9,
-                "TrainTime": 9,
+                "TrainTime": 12,
                 "internal_name": "OBUCH"
             },
             "1703": {
@@ -14490,7 +15256,7 @@ export const aoeDataInternal = {
                 "RechargeRate": 0,
                 "ReloadTime": 2,
                 "Speed": 0.9,
-                "TrainTime": 9,
+                "TrainTime": 12,
                 "internal_name": "EOBUCH"
             },
             "1704": {
@@ -14559,7 +15325,7 @@ export const aoeDataInternal = {
                 "Range": 6,
                 "RechargeRate": 0,
                 "ReloadTime": 3.45,
-                "Speed": 0.85,
+                "Speed": 0.8,
                 "TrainTime": 21,
                 "internal_name": "HUSSITEWAGON"
             },
@@ -14629,7 +15395,7 @@ export const aoeDataInternal = {
                 "Range": 6,
                 "RechargeRate": 0,
                 "ReloadTime": 3.45,
-                "Speed": 0.85,
+                "Speed": 0.8,
                 "TrainTime": 21,
                 "internal_name": "EHUSSITEWAGON"
             },
@@ -19097,6 +19863,7 @@ export const aoeDataInternal = {
                 321,
                 322,
                 374,
+                377,
                 379,
                 408,
                 435,
@@ -20647,7 +21414,6 @@ export const aoeDataInternal = {
                 379,
                 380,
                 408,
-                437,
                 439,
                 602,
                 608,

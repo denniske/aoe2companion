@@ -6,7 +6,7 @@ import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {ImageBackground, StyleSheet, TouchableOpacity, View} from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import React from "react";
+import React, {Fragment} from "react";
 import {MyText} from "./my-text";
 import {setPrefValue, useMutate, useSelector} from "../../redux/reducer";
 import {saveCurrentPrefsToStorage} from "../../service/storage";
@@ -29,28 +29,28 @@ function TechTreeRow({civ, row}: {civ: aoeCivKey, row: ITechTreeRow}) {
             }
             {
                 row.items?.map((item, i) =>
-                    <>
+                    <Fragment key={i}>
                         {
                             isEmpty(item) &&
-                            <Ability0 key={i} />
+                            <Ability0 />
                         }
                         {
                             item.age &&
-                            <Ability3 key={i} age={item.age}/>
+                            <Ability3 age={item.age}/>
                         }
                         {
                             item.unit &&
-                            <Ability2 key={i} civ={civ} unit={item.unit as any}/>
+                            <Ability2 civ={civ} unit={item.unit as any}/>
                         }
                         {
                             item.tech &&
-                            <Ability2 key={i} civ={civ} tech={item.tech as any}/>
+                            <Ability2 civ={civ} tech={item.tech as any}/>
                         }
                         {
                             item.building &&
-                            <Ability2 key={i} civ={civ} building={item.building as any}/>
+                            <Ability2 civ={civ} building={item.building as any}/>
                         }
-                    </>
+                    </Fragment>
                 )
             }
         </View>
