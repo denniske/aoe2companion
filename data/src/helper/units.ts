@@ -462,7 +462,6 @@ export const unitLines: IUnitLineDict = {
         ],
         upgrades: [
             'Bloodlines',
-            'ManipurCavalry',
             'Ballistics',
             'PaddedArcherArmor',
             'Husbandry',

@@ -12,6 +12,12 @@ export interface IChangelog {
 // https://www.aoe2insights.com/match/99919072/analysis/
 
 export const changelog: IChangelog = {
+    '26.0.16': [
+        {
+            type: 'bugfix',
+            title: 'Remove Manipur Cavalry from Arambai',
+        },
+    ],
     '26.0.15': [
         {
             type: 'minor',
