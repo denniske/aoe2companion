@@ -2,11 +2,10 @@ import {getLanguage, IStringCollection, IStrings} from '@nex/data';
 import {Asset} from 'expo-asset';
 import {Platform} from 'react-native';
 import {readAsStringAsync} from 'expo-file-system';
+import {getInternalStrings} from '../redux/statecache';
 
 
 export function getInternalString(category: keyof IStrings, id: number): string | undefined {
-    // return '###';
-    // console.log('getString', getlanguage(), category);
     return strings[getLanguage()]?.[category]?.find(i => i.id === id)?.string;
 }
 
@@ -33,13 +32,7 @@ const stringsSource: Record<string, string> = {
     'zh-hant': require('../../assets/strings/zh-hant.json.lazy'),
 };
 
-let strings: IStringCollection = {
-    // 'en': require('../../assets/strings/en.json'),
-};
-
-// interface IStringCollection {
-//     [key: string]: Record<string, string>;
-// }
+let strings: IStringCollection = getInternalStrings();
 
 export function addStrings(language: string, data: IStrings) {
     strings[language] = data;

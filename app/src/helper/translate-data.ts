@@ -2,6 +2,7 @@ import {Asset} from 'expo-asset';
 import {readAsStringAsync} from 'expo-file-system';
 import {Platform} from 'react-native';
 import {getLanguage} from '@nex/data';
+import {getInternalAoeStrings} from '../redux/statecache';
 
 const stringsSource: Record<string, string> = {
     'ms': require('../../assets/data/ms/strings.json.lazy'),
@@ -22,9 +23,7 @@ const stringsSource: Record<string, string> = {
     'zh-hant': require('../../assets/data/zh-hant/strings.json.lazy'),
 };
 
-let strings: IStringCollection = {
-    // 'en': aoeLocalesEnStrings,
-};
+let strings: IStringCollection = getInternalAoeStrings();
 
 interface IStringCollection {
     [key: string]: Record<string, string>;
