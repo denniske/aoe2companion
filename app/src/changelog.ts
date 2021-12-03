@@ -11,7 +11,18 @@ export interface IChangelog {
 
 // https://www.aoe2insights.com/match/99919072/analysis/
 
+// {
+//     type: 'feature',
+//         title: 'Fetch verified player list once a day',
+// },
+
 export const changelog: IChangelog = {
+    '26.0.17': [
+        {
+            type: 'bugfix',
+            title: 'Fix Manipur Cavalry and Chatras description',
+        },
+    ],
     '26.0.16': [
         {
             type: 'bugfix',
