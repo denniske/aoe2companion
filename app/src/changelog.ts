@@ -11,12 +11,13 @@ export interface IChangelog {
 
 // https://www.aoe2insights.com/match/99919072/analysis/
 
-// {
-//     type: 'feature',
-//         title: 'Fetch verified player list once a day',
-// },
-
 export const changelog: IChangelog = {
+    '26.0.19': [
+        {
+            type: 'bugfix',
+            title: 'Minor unit/tech fixes',
+        },
+    ],
     '26.0.18': [
         {
             type: 'feature',

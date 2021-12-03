@@ -56,28 +56,46 @@ type ITechEffectDict2 = {
 
 // : ITechEffectDict2
 const techEffectDictInternal = {
+    'BurgundianVineyards': {
+        tech: 'BurgundianVineyards',
+        civ: 'Burgundians',
+        effect: {
+            other: 'generate gold while farming',
+        },
+    },
+    'FlemishRevolution': {
+        tech: 'FlemishRevolution',
+        civ: 'Burgundians',
+        effect: {
+            other: 'turns them into Flemish Militia',
+        },
+    },
     'WagenburgTactics': {
         tech: 'WagenburgTactics',
+        civ: 'Bohemians',
         effect: {
             speed: '+15%',
         },
     },
     'HussiteReforms': {
         tech: 'HussiteReforms',
+        civ: 'Bohemians',
         effect: {
             other: 'gold cost replaced with food',
         },
     },
     'SzlachtaPrivileges': {
         tech: 'SzlachtaPrivileges',
+        civ: 'Poles',
         effect: {
             other: 'gold cost -60%',
         },
     },
     'LechiticLegacy': {
         tech: 'LechiticLegacy',
+        civ: 'Poles',
         effect: {
-            attack: 'gives 33% trample damage',
+            attack: '33% blast damage in 0.5 tile radius',
         },
     },
     'FeudalAge-ScoutCavalry': {
