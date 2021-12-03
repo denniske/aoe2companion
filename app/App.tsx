@@ -37,7 +37,9 @@ import Icon5 from 'react-native-vector-icons/FontAwesome5';
 import LeaderboardPage, {leaderboardMenu, LeaderboardTitle} from "./src/view/leaderboard.page";
 import GuidePage, {GuideTitle} from "./src/view/guide.page";
 import CivPage, {CivTitle, civTitle} from "./src/view/civ.page";
-import {Civ, Environment, IHostService, IHttpService, IStrings, OS, registerService, SERVICE_NAME} from "@nex/data";
+import {
+    Civ, Environment, IHostService, IHttpService, IStrings, OS, registerService, SERVICE_NAME
+} from "@nex/data";
 import UnitPage, {UnitTitle, unitTitle} from "./src/view/unit/unit.page";
 import {Unit} from "@nex/data";
 import {navigationRef} from "./src/service/navigation";
@@ -89,6 +91,7 @@ import QueryPage from "./src/view/query.page";
 import CurrentMatchSnackbar from "./src/view/components/snackbar/current-match-snackbar";
 import MatchPage from "./src/view/match.page";
 import BuildPage from "./src/view/build.page";
+import {fetchAoeReferenceData} from './src/helper/reference';
 
 initSentry();
 
@@ -812,6 +815,7 @@ export function AppWrapper() {
         console.log('LOCAL ==> Loading AoeStrings for ' + language + ' (config.language: ' + config.language + ')');
         setInternalLanguage(language);
         Promise.all([loadAoeStringsAsync(language), loadStringsAsync(language)]).then(() => mutate(addLoadedLanguage(language)));
+        fetchAoeReferenceData();
     }, [config]);
 
     if (auth === undefined || following === undefined || config === undefined || prefs === undefined || !loadedLanguages) {

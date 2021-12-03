@@ -17,6 +17,12 @@ export interface IChangelog {
 // },
 
 export const changelog: IChangelog = {
+    '26.0.18': [
+        {
+            type: 'feature',
+            title: 'Fetch up-to-date verified player list',
+        },
+    ],
     '26.0.17': [
         {
             type: 'bugfix',
