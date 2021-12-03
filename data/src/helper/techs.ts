@@ -627,7 +627,7 @@ const techEffectDictInternal = {
         tech: 'Chatras',
         civ: 'Vietnamese',
         effect: {
-            hitPoints: '+50',
+            hitPoints: '+100',
         },
     },
     'TuskSwords': {
@@ -669,7 +669,7 @@ const techEffectDictInternal = {
         tech: 'ManipurCavalry',
         civ: 'Burmese',
         effect: {
-            attack: '+3 attack against buildings and standard buildings',
+            attack: '+5 attack against archers',
         },
     },
     'Stirrups': {
