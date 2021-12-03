@@ -1,6 +1,7 @@
 import {Image, StyleSheet, Text, TextStyle, View} from "react-native";
 import {MyText} from "../components/my-text";
 import {
+    Age,
     allUnitSections,
     attackClasses, getUnitClassName, getUnitData, getUnitLineIdForUnit, getUnitName,
     hiddenArmourClasses, IUnitInfo, Other, sortResources, Unit, UnitClassNumber, UnitLine, unitLines
@@ -33,7 +34,7 @@ interface PathProps {
     style?: TextStyle;
     unitId?: Unit;
     buildingId?: Building;
-    path: (x: IUnitInfo) => any;
+    path: (x: Partial<IUnitInfo>) => any;
     formatter?: IFormatter;
 }
 
@@ -53,17 +54,138 @@ export function getData(params: GetDataParams) {
     throw new Error('getData - no unitId or buildingId given');
 }
 
+export function getUpgradeByAgeData(params: GetDataParams) {
+    const { unitId, buildingId } = params;
+    if (unitId) {
+        return upgrades[unitId];
+    }
+    if (buildingId) {
+        return upgrades[buildingId];
+    }
+    throw new Error('getUpgradeByAgeData - no unitId or buildingId given');
+}
+
+type PartialRecord<K extends keyof any, T> =  Partial<Record<K, T>>;
+
+const upgrades: PartialRecord<Unit | Building, PartialRecord<Age, Partial<IUnitInfo>>> = {
+    'Serjeant': {
+        'Castle': {
+            "HP": 20,
+            "Attacks": [
+                {
+                    "Amount": 3,
+                    "Class": 4
+                },
+            ],
+            "MeleeArmor": 1,
+            "PierceArmor": 1,
+        },
+    },
+    'EagleScout': {
+        'Castle': {
+            "Attacks": [
+                {
+                    "Amount": 3,
+                    "Class": 4
+                },
+            ],
+        },
+    },
+    'ScoutCavalry': {
+        'Feudal': {
+            "LineOfSight": 2,
+            "Attacks": [
+                {
+                    "Amount": 2,
+                    "Class": 4
+                },
+            ],
+            "Speed": 0.35,
+        },
+        'Castle': {
+            "LineOfSight": 4,
+        },
+        'Imperial': {
+            "LineOfSight": 6,
+        },
+    },
+    'House': {
+        'Feudal': {
+            "HP": 200,
+            "MeleeArmor": 1,
+            "PierceArmor": 1,
+        },
+        'Castle': {
+            "HP": 350,
+            "MeleeArmor": 3,
+            "PierceArmor": 2,
+        },
+        'Imperial': {
+            "HP": 350,
+            "MeleeArmor": 5,
+            "PierceArmor": 3,
+        },
+    },
+    'PalisadeWall': {
+        'Feudal': {
+            "HP": 100,
+        },
+    },
+};
+
 export function GetValueByPath(props: PathProps) {
     const { style, unitId, buildingId, path, formatter = x => (x || 0).toString() } = props;
     const styles = useStyles();
     const baseData = getData({ unitId, buildingId }) as IUnitInfo;
+    const upgradeByAgeData = getUpgradeByAgeData({ unitId, buildingId });
     const eliteData = unitId ? getEliteData(getUnitLineIdForUnit(unitId)) : null;
 
-    if (eliteData && path(eliteData) !== path(baseData)) {
+    const ageList = ['Feudal', 'Castle', 'Imperial'] as Age[];
+
+    const hasAgeUpgrade = (age: Age) => upgradeByAgeData?.[age] && path(upgradeByAgeData?.[age]!);
+    const hasAnyAgeUpgrade = hasAgeUpgrade('Feudal') || hasAgeUpgrade('Castle') || hasAgeUpgrade('Imperial');
+
+    if (eliteData && path(eliteData) !== path(baseData) && hasAnyAgeUpgrade) {
+        return (
+            <MyText style={style}>
+                <MyText>{formatter(path(baseData))} </MyText>
+
+                {
+                    ageList.map(age =>
+                        hasAgeUpgrade(age) && <MyText key={age}>
+                            <MyText>{"\n"}</MyText>
+                            <MyText>{formatter(path(baseData)+path(upgradeByAgeData![age]!))} </MyText>
+                            <MyText style={styles.small}>({age} age)</MyText>
+                        </MyText>
+                    )
+                }
+
+                <MyText>{"\n"}</MyText>
+                <MyText>{formatter(path(eliteData))} </MyText>
+                <MyText style={styles.small}>({getTranslation('unit.stats.elite')})</MyText>
+            </MyText>
+        );
+    } else if (eliteData && path(eliteData) !== path(baseData)) {
         return (
             <MyText style={style}>
                 <MyText>{formatter(path(baseData))}, {formatter(path(eliteData))} </MyText>
                 <MyText style={styles.small}>({getTranslation('unit.stats.elite')})</MyText>
+            </MyText>
+        );
+    } else if (hasAnyAgeUpgrade) {
+        return (
+            <MyText style={style}>
+                <MyText>{formatter(path(baseData))} </MyText>
+
+                {
+                    ageList.map(age =>
+                            hasAgeUpgrade(age) && <MyText key={age}>
+                                <MyText>{"\n"}</MyText>
+                                <MyText>{formatter(path(baseData)+path(upgradeByAgeData![age]!))} </MyText>
+                                <MyText style={styles.small}>({age} age)</MyText>
+                            </MyText>
+                    )
+                }
             </MyText>
         );
     } else {
@@ -102,17 +224,17 @@ function signed(num: number) {
 
 export function GetAttackValue(props: PathProps3) {
     const { style, unitId, buildingId, unitClassNumber } = props;
-    return <GetValueByPath style={style} unitId={unitId} buildingId={buildingId} path={(x: IUnitInfo) => x.Attacks.find(a => a.Class === unitClassNumber)?.Amount}/>;
+    return <GetValueByPath style={style} unitId={unitId} buildingId={buildingId} path={(x: IUnitInfo) => x.Attacks?.find(a => a.Class === unitClassNumber)?.Amount}/>;
 }
 
 export function GetAttackBonusValue(props: PathProps3) {
     const { style, unitId, buildingId, unitClassNumber } = props;
-    return <GetValueByPath style={style} unitId={unitId} buildingId={buildingId} path={(x: IUnitInfo) => x.Attacks.find(a => a.Class === unitClassNumber)?.Amount} formatter={x => signed(x || 0)}/>
+    return <GetValueByPath style={style} unitId={unitId} buildingId={buildingId} path={(x: IUnitInfo) => x.Attacks?.find(a => a.Class === unitClassNumber)?.Amount} formatter={x => signed(x || 0)}/>
 }
 
 export function GetArmourValue(props: PathProps3) {
     const { style, unitId, buildingId, unitClassNumber } = props;
-    return <GetValueByPath style={style} unitId={unitId} buildingId={buildingId} path={(x: IUnitInfo) => x.Armours.find(a => a.Class === unitClassNumber)?.Amount} formatter={x => signed(x || 0)}/>
+    return <GetValueByPath style={style} unitId={unitId} buildingId={buildingId} path={(x: IUnitInfo) => x.Armours?.find(a => a.Class === unitClassNumber)?.Amount} formatter={x => signed(x || 0)}/>
 }
 
 export function getAttackBonuses(params: GetDataParams) {
@@ -359,7 +481,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
             <View style={styles.statsRow}>
                 <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.speed')}</MyText>
                 {
-                    units.map(u => <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="Speed"/>)
+                    units.map(u => <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="Speed" formatter={x => x.toFixed(2)}/>)
                 }
             </View>
             <View style={styles.statsRow}>
@@ -436,5 +558,6 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     small: {
         fontSize: 12,
         color: theme.textNoteColor,
+        textTransform: 'lowercase',
     },
 }));

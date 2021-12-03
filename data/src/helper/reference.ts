@@ -61,43 +61,51 @@ export function isVerifiedPlayer(profileId: number) {
 }
 
 export function getVerifiedPlayer(profileId: number) {
-    const verifiedPlayer = aoeReferenceDataTyped.players.find(p => p.platforms.de?.includes(profileId.toString()));
+    const verifiedPlayer = aoeReferenceDataTyped.players?.find(p => p.platforms?.de?.includes(profileId.toString()));
     // console.log(profileId, verifiedPlayer);
     return verifiedPlayer;
 }
 
 export function getTwitchChannel(verifiedPlayer: IReferencePlayer) {
-    return verifiedPlayer.twitch
-        ?.replace('http://', '')
-        ?.replace('https://', '')
-        ?.replace('www.', '')
-        ?.replace('twitch.tv/', '')
-        ?.replace('/', '');
+    try {
+        return verifiedPlayer?.twitch?.[0]
+            ?.replace('http://', '')
+            ?.replace('https://', '')
+            ?.replace('www.', '')
+            ?.replace('twitch.tv/', '')
+            ?.replace('/', '');
+    } catch (err) {}
 }
 
 export function getDiscordInvitationId(verifiedPlayer: IReferencePlayer) {
-    return verifiedPlayer.discord
-        ?.replace('http://', '')
-        ?.replace('https://', '')
-        ?.replace('www.', '')
-        ?.replace('discord.gg/', '')
-        ?.replace('/', '');
+    try {
+        return verifiedPlayer?.discord?.[0]
+            ?.replace('http://', '')
+            ?.replace('https://', '')
+            ?.replace('www.', '')
+            ?.replace('discord.gg/', '')
+            ?.replace('/', '');
+    } catch (err) {}
 }
 
 export function getYoutubeChannel(verifiedPlayer: IReferencePlayer) {
-    return verifiedPlayer.youtube
-        ?.replace('http://', '')
-        ?.replace('https://', '')
-        ?.replace('www.', '')
-        ?.replace('youtube.com/channel/', '')
-        ?.replace('/', '');
+    try {
+        return verifiedPlayer?.youtube?.[0]
+            ?.replace('http://', '')
+            ?.replace('https://', '')
+            ?.replace('www.', '')
+            ?.replace('youtube.com/channel/', '')
+            ?.replace('/', '');
+    } catch (err) {}
 }
 
 export function getDoyouChannel(verifiedPlayer: IReferencePlayer) {
-    return verifiedPlayer.douyu
-        ?.replace('http://', '')
-        ?.replace('https://', '')
-        ?.replace('www.', '')
-        ?.replace('douyu.com', '')
-        ?.replace('/', '');
+    try {
+        return verifiedPlayer?.douyu?.[0]
+            ?.replace('http://', '')
+            ?.replace('https://', '')
+            ?.replace('www.', '')
+            ?.replace('douyu.com', '')
+            ?.replace('/', '');
+    } catch (err) {}
 }

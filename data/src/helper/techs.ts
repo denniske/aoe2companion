@@ -98,36 +98,36 @@ const techEffectDictInternal = {
             attack: '33% blast damage in 0.5 tile radius',
         },
     },
-    'FeudalAge-ScoutCavalry': {
-        tech: 'FeudalAge',
-        unit: 'ScoutCavalry',
-        effect: {
-            attack: '+2',
-            speed: '+0.35',
-            sight: '+2',
-        },
-    },
-    'CastleAge-ScoutCavalry': {
-        tech: 'CastleAge',
-        unit: 'ScoutCavalry',
-        effect: {
-            sight: '+2',
-        },
-    },
-    'ImperialAge-ScoutCavalry': {
-        tech: 'ImperialAge',
-        unit: 'ScoutCavalry',
-        effect: {
-            sight: '+2',
-        },
-    },
-    'ImperialAge-LightCavalry': {
-        tech: 'ImperialAge',
-        unit: 'LightCavalry',
-        effect: {
-            sight: '+2',
-        },
-    },
+    // 'FeudalAge-ScoutCavalry': {
+    //     tech: 'FeudalAge',
+    //     unit: 'ScoutCavalry',
+    //     effect: {
+    //         attack: '+2',
+    //         speed: '+0.35',
+    //         sight: '+2',
+    //     },
+    // },
+    // 'CastleAge-ScoutCavalry': {
+    //     tech: 'CastleAge',
+    //     unit: 'ScoutCavalry',
+    //     effect: {
+    //         sight: '+2',
+    //     },
+    // },
+    // 'ImperialAge-ScoutCavalry': {
+    //     tech: 'ImperialAge',
+    //     unit: 'ScoutCavalry',
+    //     effect: {
+    //         sight: '+2',
+    //     },
+    // },
+    // 'ImperialAge-LightCavalry': {
+    //     tech: 'ImperialAge',
+    //     unit: 'LightCavalry',
+    //     effect: {
+    //         sight: '+2',
+    //     },
+    // },
     'Wheelbarrow': {
         tech: 'Wheelbarrow',
         effect: {

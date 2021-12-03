@@ -1826,10 +1826,10 @@ export const unitLines: IUnitLineDict = {
             'Cataphract'
         ],
         upgrades: [
-            'FeudalAge-ScoutCavalry',
-            'CastleAge-ScoutCavalry',
-            'ImperialAge-ScoutCavalry',
-            'ImperialAge-LightCavalry',
+            // 'FeudalAge-ScoutCavalry',
+            // 'CastleAge-ScoutCavalry',
+            // 'ImperialAge-ScoutCavalry',
+            // 'ImperialAge-LightCavalry',
             'Bloodlines',
             'Forging',
             'IronCasting',
@@ -1953,6 +1953,7 @@ export const unitLines: IUnitLineDict = {
             'Faith',
             'Heresy',
             'Conscription',
+            'HulcheJavelineers',
         ],
     },
     'CamelArcher': {
@@ -2163,6 +2164,7 @@ export const unitLines: IUnitLineDict = {
             'Fletching',
             'BodkinArrow',
             'Bracer',
+            'Yeomen',
             'Chemistry',
             'Ballistics',
             'PaddedArcherArmor',

@@ -14,8 +14,16 @@ export interface IChangelog {
 export const changelog: IChangelog = {
     '26.0.19': [
         {
+            type: 'minor',
+            title: 'Add age upgrades to unit/building details',
+        },
+        {
             type: 'bugfix',
             title: 'Minor unit/tech fixes',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix crash when viewing verified player profile',
         },
     ],
     '26.0.18': [
