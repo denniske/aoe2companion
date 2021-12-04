@@ -24,3 +24,7 @@ dist
 #screenshots
 
 *.service-account.json
+
+full.json
+full.json.xz
+.yarn/cache
