@@ -12,7 +12,7 @@ import {keysOf} from "@nex/data";
 import Picker from "../components/picker";
 import Space from "../components/space";
 import {Building, getBuildingData, IBuildingInfo} from "@nex/data";
-import {getOtherIcon, getUnitIcon} from "../../helper/units";
+import {getAgeIcon, getOtherIcon, getUnitIcon} from "../../helper/units";
 import {createStylesheet} from '../../theming-new';
 import {uniq} from 'lodash';
 import {getTranslation} from '../../helper/translate';
@@ -396,6 +396,7 @@ export function GetValueByPath(props: PathProps) {
                         hasAgeUpgrade(age) && <MyText key={age}>
                             <MyText>{"\n"}</MyText>
                             <MyText>{formatter(path(baseData)+path(upgradeByAgeData![age]!))} </MyText>
+
                             <MyText style={styles.small}>({age} age)</MyText>
                         </MyText>
                     )
@@ -423,7 +424,7 @@ export function GetValueByPath(props: PathProps) {
                             hasAgeUpgrade(age) && <MyText key={age}>
                                 <MyText>{"\n"}</MyText>
                                 <MyText>{formatter(path(baseData)+path(upgradeByAgeData![age]!))} </MyText>
-                                <MyText style={styles.small}>({age} age)</MyText>
+                            <MyText style={styles.small}>({age} age)</MyText>
                             </MyText>
                     )
                 }
@@ -436,6 +437,20 @@ export function GetValueByPath(props: PathProps) {
     }
 }
 
+// <View style={style}>
+//     <View style={styles.resRow}>
+//         <MyText>{formatter(path(baseData))} </MyText>
+//     </View>
+//     {
+//         ageList.map(age => hasAgeUpgrade(age) &&
+//             <View key={age} style={styles.resRow}>
+//                 <MyText>{formatter(path(baseData)+path(upgradeByAgeData![age]!))} </MyText>
+//                 <Image fadeDuration={0} style={styles.resIcon} source={getAgeIcon(age)}/>
+//             </View>
+//         )
+//     }
+// </View>
+
 interface PathProps2 {
     style?: TextStyle;
     unitId?: Unit;
@@ -446,7 +461,7 @@ interface PathProps2 {
 
 export function GetUnitValue(props: PathProps2) {
     const { style, unitId, buildingId, prop, formatter = (x: any) => x } = props;
-    return <GetValueByPath style={style} unitId={unitId} buildingId={buildingId} path={ (x: IUnitInfo) => x[prop]} formatter={formatter}/>;
+    return <GetValueByPath style={style} unitId={unitId} buildingId={buildingId} path={ (x: Partial<IUnitInfo>) => x[prop]} formatter={formatter}/>;
 }
 
 interface PathProps3 {
@@ -465,17 +480,17 @@ function signed(num: number) {
 
 export function GetAttackValue(props: PathProps3) {
     const { style, unitId, buildingId, unitClassNumber } = props;
-    return <GetValueByPath style={style} unitId={unitId} buildingId={buildingId} path={(x: IUnitInfo) => x.Attacks?.find(a => a.Class === unitClassNumber)?.Amount}/>;
+    return <GetValueByPath style={style} unitId={unitId} buildingId={buildingId} path={(x: Partial<IUnitInfo>) => x.Attacks?.find(a => a.Class === unitClassNumber)?.Amount}/>;
 }
 
 export function GetAttackBonusValue(props: PathProps3) {
     const { style, unitId, buildingId, unitClassNumber } = props;
-    return <GetValueByPath style={style} unitId={unitId} buildingId={buildingId} path={(x: IUnitInfo) => x.Attacks?.find(a => a.Class === unitClassNumber)?.Amount} formatter={x => signed(x || 0)}/>
+    return <GetValueByPath style={style} unitId={unitId} buildingId={buildingId} path={(x: Partial<IUnitInfo>) => x.Attacks?.find(a => a.Class === unitClassNumber)?.Amount} formatter={x => signed(x || 0)}/>
 }
 
 export function GetArmourValue(props: PathProps3) {
     const { style, unitId, buildingId, unitClassNumber } = props;
-    return <GetValueByPath style={style} unitId={unitId} buildingId={buildingId} path={(x: IUnitInfo) => x.Armours?.find(a => a.Class === unitClassNumber)?.Amount} formatter={x => signed(x || 0)}/>
+    return <GetValueByPath style={style} unitId={unitId} buildingId={buildingId} path={(x: Partial<IUnitInfo>) => x.Armours?.find(a => a.Class === unitClassNumber)?.Amount} formatter={x => signed(x || 0)}/>
 }
 
 export function getAttackBonuses(params: GetDataParams) {
@@ -539,7 +554,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                     </>
                 }
                 <View style={styles.cellValue}>
-                    <Picker itemHeight={40} textMinWidth={150} container="sectionlist" icon={icon} value={comparisonUnit} sections={allUnitSections} sectionFormatter={getTranslation} formatter={formatUnit} onSelect={onComparisonUnitSelected}/>
+                    <Picker itemHeight={40} textMinWidth={150} container="sectionlist" icon={icon} value={comparisonUnit} sections={allUnitSections} sectionFormatter={str => getTranslation(str as any)} formatter={formatUnit} onSelect={onComparisonUnitSelected}/>
                 </View>
             </View>
 

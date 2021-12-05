@@ -12,6 +12,12 @@ export interface IChangelog {
 // https://www.aoe2insights.com/match/99919072/analysis/
 
 export const changelog: IChangelog = {
+    '26.0.20': [
+        {
+            type: 'minor',
+            title: 'Add more age upgrades to unit/building details',
+        },
+    ],
     '26.0.19': [
         {
             type: 'minor',

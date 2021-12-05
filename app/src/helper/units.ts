@@ -1,4 +1,4 @@
-import {Other, Unit, UnitLine, unitLines} from "@nex/data";
+import {Age, Other, Unit, UnitLine, unitLines} from "@nex/data";
 import {ImageSourcePropType} from "react-native";
 import {getUnitIconColored} from "./units-colored";
 
@@ -18,6 +18,18 @@ const otherIcons = {
 
 export function getOtherIcon(other: Other) {
     return otherIcons[other];
+}
+
+const ageIcons = {
+    'Dark': require('../../../app/assets/other/DarkAge.png'),
+    'Feudal': require('../../../app/assets/other/FeudalAgeFull.png'),
+    'Castle': require('../../../app/assets/other/CastleAge.png'),
+    'Imperial': require('../../../app/assets/other/ImperialAge.png'),
+};
+
+
+export function getAgeIcon(age: Age) {
+    return ageIcons[age];
 }
 
 interface UnitIconDict {
