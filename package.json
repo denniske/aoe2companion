@@ -177,7 +177,7 @@
     "babel-loader": "^8.1.0",
     "babel-preset-expo": "8.3.0",
     "cavy": "^4.0.0",
-    "expo-cli": "4.1.6",
+    "expo-cli": "^4.13.0",
     "prisma": "2.18.0",
     "react-native-bundle-visualizer": "^2.2.1",
     "react-native-debugger-open": "^0.3.24",
