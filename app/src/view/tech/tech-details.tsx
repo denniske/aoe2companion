@@ -1,8 +1,10 @@
 import React from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 import {
-    getAffectedUnitInfos, getTechData, getTechDescription, getTechName, getUpgradeList, keysOf, Other, sortResources,
-    Tech, techsAffectingAllUnits
+    getAffectedUnitInfos, getTechData, getTechDescription, getTechName, getUpgradeList, getUpgradeFormatted, keysOf,
+    Other,
+    sortResources,
+    Tech, techsAffectingAllUnits, Unit, units, getAgeFromAgeTech, buildings, Building
 } from "@nex/data";
 import Fandom from "../components/fandom";
 import {MyText} from "../components/my-text";
@@ -15,6 +17,8 @@ import {getOtherIcon} from "../../helper/units";
 import {useTheme} from '../../theming';
 import {UnitCompBig} from '../unit/unit-comp';
 import {getTranslation} from '../../helper/translate';
+import {ageUpgrades} from '@nex/data';
+import {BuildingCompBig} from '../building/building-comp';
 
 
 export default function TechDetails({tech}: {tech: Tech}) {
@@ -24,6 +28,18 @@ export default function TechDetails({tech}: {tech: Tech}) {
 
     const affectedUnitInfos = getAffectedUnitInfos(tech);
     // console.log(affectedUnitInfos);
+
+    let affectedUnits: any[] = [];
+    let affectedBuildings: any[] = [];
+    if (['FeudalAge', 'CastleAge', 'ImperialAge'].includes(tech)) {
+        const age = getAgeFromAgeTech(tech)!;
+        affectedUnits = Object.entries(ageUpgrades)
+            .filter(([unit, ageUpgrade]) => units[unit] && ageUpgrade![age])
+            .map(([unit, ageUpgrade]) => getUpgradeFormatted(unit as Unit, age));
+        affectedBuildings = Object.entries(ageUpgrades)
+            .filter(([unit, ageUpgrade]) => buildings[unit] && ageUpgrade![age])
+            .map(([unit, ageUpgrade]) => getUpgradeFormatted(unit as Building, age));
+    }
 
     return (
         <View style={styles.container}>
@@ -54,6 +70,38 @@ export default function TechDetails({tech}: {tech: Tech}) {
                         affectedUnitInfos.map(affectedUnit =>
                             <UnitCompBig key={affectedUnit.unitId} unit={affectedUnit.unitId} subtitle={
                                 getUpgradeList(tech, affectedUnit).map(g => g.name + ': ' + capitalize(g.upgrades.join(', '))).join('\n')
+                            }/>
+                        )
+                    }
+                </View>
+            }
+
+            {
+                affectedUnits.length > 0 &&
+                <View>
+                    <Space/>
+                    <MyText>Affected Units</MyText>
+                    <Space/>
+                    {
+                        affectedUnits.map(affectedUnit =>
+                            <UnitCompBig key={affectedUnit.unitId} unit={affectedUnit.unitId} subtitle={
+                                affectedUnit.props.map((g: any) => g.name + ': +' + capitalize(g.effect)).join('\n')
+                            }/>
+                        )
+                    }
+                </View>
+            }
+
+            {
+                affectedBuildings.length > 0 &&
+                <View>
+                    <Space/>
+                    <MyText>Affected Buildings</MyText>
+                    <Space/>
+                    {
+                        affectedBuildings.map(affectedBuilding =>
+                            <BuildingCompBig key={affectedBuilding.unitId} building={affectedBuilding.unitId} subtitle={
+                                affectedBuilding.props.map((g: any) => g.name + ': +' + capitalize(g.effect)).join('\n')
                             }/>
                         )
                     }

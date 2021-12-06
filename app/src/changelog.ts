@@ -12,6 +12,12 @@ export interface IChangelog {
 // https://www.aoe2insights.com/match/99919072/analysis/
 
 export const changelog: IChangelog = {
+    '26.0.21': [
+        {
+            type: 'minor',
+            title: 'List affected units/buildings of age upgrades in tech details',
+        },
+    ],
     '26.0.20': [
         {
             type: 'minor',

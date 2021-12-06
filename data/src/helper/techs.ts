@@ -27,6 +27,14 @@ type IEffect = {
 
 export type Age = 'Dark' | 'Feudal' | 'Castle' | 'Imperial';
 
+export function getAgeFromAgeTech(ageTech: Tech) {
+    // if (ageTech === 'DarkAge') return 'Dark';
+    if (ageTech === 'FeudalAge') return 'Feudal';
+    if (ageTech === 'CastleAge') return 'Castle';
+    if (ageTech === 'ImperialAge') return 'Imperial';
+    return null;
+}
+
 interface ITech {
     dataId: aoeTechDataId;
     name: Tech;

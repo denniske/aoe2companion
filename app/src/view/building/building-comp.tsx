@@ -5,10 +5,10 @@ import {RootStackProp} from '../../../App';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {getBuildingIcon} from '../../helper/buildings';
 import {MyText} from '../components/my-text';
-import {getBuildingDescription, getBuildingName, iconHeight, iconWidth} from '@nex/data';
+import {Building, getBuildingDescription, getBuildingName, iconHeight, iconWidth} from '@nex/data';
 
 
-export function BuildingCompBig({building: building}: any) {
+export function BuildingCompBig({building, subtitle}: {building: Building, subtitle?: string}) {
     const styles = useStyles();
     const navigation = useNavigation<RootStackProp>();
 
@@ -18,7 +18,14 @@ export function BuildingCompBig({building: building}: any) {
                 <Image fadeDuration={0} style={styles.unitIconBig} source={getBuildingIcon(building)}/>
                 <View style={styles.unitIconBigTitle}>
                     <MyText>{getBuildingName(building)}</MyText>
-                    <MyText numberOfLines={1} style={styles.base.small}>{getBuildingDescription(building)}</MyText>
+                    {
+                        subtitle &&
+                        <MyText style={styles.base.small}>{subtitle}</MyText>
+                    }
+                    {
+                        !subtitle &&
+                        <MyText numberOfLines={1} style={styles.base.small}>{getBuildingDescription(building)}</MyText>
+                    }
                 </View>
             </View>
         </TouchableOpacity>

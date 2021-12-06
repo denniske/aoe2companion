@@ -1,7 +1,7 @@
 import {Image, StyleSheet, Text, TextStyle, View} from "react-native";
 import {MyText} from "../components/my-text";
 import {
-    Age,
+    Age, ageUpgrades,
     allUnitSections,
     attackClasses, getUnitClassName, getUnitData, getUnitLineIdForUnit, getUnitName,
     hiddenArmourClasses, IUnitInfo, Other, sortResources, Unit, UnitClassNumber, UnitLine, unitLines
@@ -57,322 +57,14 @@ export function getData(params: GetDataParams) {
 export function getUpgradeByAgeData(params: GetDataParams) {
     const { unitId, buildingId } = params;
     if (unitId) {
-        return upgrades[unitId];
+        return ageUpgrades[unitId];
     }
     if (buildingId) {
-        return upgrades[buildingId];
+        return ageUpgrades[buildingId];
     }
     throw new Error('getUpgradeByAgeData - no unitId or buildingId given');
 }
 
-type PartialRecord<K extends keyof any, T> =  Partial<Record<K, T>>;
-
-// Defines increase of attribute per unit at a specific age
-const upgrades: PartialRecord<Unit | Building, PartialRecord<Age, Partial<IUnitInfo>>> = {
-    'Serjeant': {
-        'Castle': {
-            "HP": 20,
-            "Attacks": [
-                {
-                    "Amount": 3,
-                    "Class": 4
-                },
-            ],
-            "MeleeArmor": 1,
-            "PierceArmor": 1,
-        },
-    },
-    'EagleScout': {
-        'Castle': {
-            "Attacks": [
-                {
-                    "Amount": 3,
-                    "Class": 4
-                },
-            ],
-        },
-    },
-    'ScoutCavalry': {
-        'Feudal': {
-            "LineOfSight": 2,
-            "Attacks": [
-                {
-                    "Amount": 2,
-                    "Class": 4
-                },
-            ],
-            "Speed": 0.35,
-        },
-        'Castle': {
-            "LineOfSight": 4,
-        },
-        'Imperial': {
-            "LineOfSight": 6,
-        },
-    },
-    'LightCavalry': {
-        'Imperial': {
-            "LineOfSight": 2,
-        },
-    },
-    'Outpost': {
-        'Feudal': {
-            "LineOfSight": 2,
-        },
-        'Castle': {
-            "LineOfSight": 4,
-        },
-        'Imperial': {
-            "LineOfSight": 6,
-        },
-    },
-    'House': {
-        'Feudal': {
-            "HP": 200,
-            "MeleeArmor": 1,
-            "PierceArmor": 1,
-        },
-        'Castle': {
-            "HP": 350,
-            "MeleeArmor": 3,
-            "PierceArmor": 2,
-        },
-        'Imperial': {
-            "HP": 350,
-            "MeleeArmor": 5,
-            "PierceArmor": 3,
-        },
-    },
-    'Blacksmith': {
-        'Feudal': {
-            "MeleeArmor": 1,
-            "PierceArmor": 1,
-        },
-        'Castle': {
-            "HP": 300,
-            "MeleeArmor": 2,
-            "PierceArmor": 2,
-        },
-        'Imperial': {
-            "HP": 300,
-            "MeleeArmor": 3,
-            "PierceArmor": 3,
-        },
-    },
-    'Mill': {
-        'Feudal': {
-            "HP": 200,
-            "MeleeArmor": 1,
-            "PierceArmor": 1,
-        },
-        'Castle': {
-            "HP": 400,
-            "MeleeArmor": 2,
-            "PierceArmor": 2,
-        },
-        'Imperial': {
-            "HP": 400,
-            "MeleeArmor": 3,
-            "PierceArmor": 3,
-        },
-    },
-    'Folwark': {
-        'Feudal': {
-            "HP": 200,
-            "MeleeArmor": 1,
-            "PierceArmor": 1,
-        },
-        'Castle': {
-            "HP": 400,
-            "MeleeArmor": 2,
-            "PierceArmor": 2,
-        },
-        'Imperial': {
-            "HP": 400,
-            "MeleeArmor": 3,
-            "PierceArmor": 3,
-        },
-    },
-    'LumberCamp': {
-        'Feudal': {
-            "HP": 200,
-            "MeleeArmor": 1,
-            "PierceArmor": 1,
-        },
-        'Castle': {
-            "HP": 400,
-            "MeleeArmor": 2,
-            "PierceArmor": 2,
-        },
-        'Imperial': {
-            "HP": 400,
-            "MeleeArmor": 3,
-            "PierceArmor": 3,
-        },
-    },
-    'MiningCamp': {
-        'Feudal': {
-            "HP": 200,
-            "MeleeArmor": 1,
-            "PierceArmor": 1,
-        },
-        'Castle': {
-            "HP": 400,
-            "MeleeArmor": 2,
-            "PierceArmor": 2,
-        },
-        'Imperial': {
-            "HP": 400,
-            "MeleeArmor": 3,
-            "PierceArmor": 3,
-        },
-    },
-    'Barracks': {
-        'Feudal': {
-            "HP": 300,
-            "MeleeArmor": 1,
-            "PierceArmor": 1,
-        },
-        'Castle': {
-            "HP": 600,
-            "MeleeArmor": 2,
-            "PierceArmor": 2,
-        },
-        'Imperial': {
-            "HP": 900,
-            "MeleeArmor": 3,
-            "PierceArmor": 3,
-        },
-    },
-    'ArcheryRange': {
-        'Castle': {
-            "HP": 300,
-            "MeleeArmor": 1,
-            "PierceArmor": 1,
-        },
-        'Imperial': {
-            "HP": 600,
-            "MeleeArmor": 2,
-            "PierceArmor": 2,
-        },
-    },
-    'Stable': {
-        'Castle': {
-            "HP": 300,
-            "MeleeArmor": 1,
-            "PierceArmor": 1,
-        },
-        'Imperial': {
-            "HP": 600,
-            "MeleeArmor": 2,
-            "PierceArmor": 2,
-        },
-    },
-    'Market': {
-        'Castle': {
-            "HP": 300,
-            "MeleeArmor": 1,
-            "PierceArmor": 1,
-        },
-        'Imperial': {
-            "MeleeArmor": 2,
-            "PierceArmor": 2,
-        },
-    },
-    'Monastery': {
-        'Castle': {
-            "MeleeArmor": 2,
-            "PierceArmor": 2,
-        },
-        'Imperial': {
-            "MeleeArmor": 3,
-            "PierceArmor": 3,
-        },
-    },
-    'Dock': {
-        'Feudal': {
-            "MeleeArmor": 1,
-            "PierceArmor": 1,
-        },
-        'Castle': {
-            "MeleeArmor": 2,
-            "PierceArmor": 2,
-        },
-        'Imperial': {
-            "MeleeArmor": 3,
-            "PierceArmor": 3,
-        },
-    },
-    'PalisadeWall': {
-        'Feudal': {
-            "HP": 100,
-        },
-    },
-    'PalisadeGate': {
-        'Feudal': {
-            "HP": 160,
-        },
-    },
-    'WatchTower': {
-        'Castle': {
-            "HP": 320,
-        },
-    },
-    'Gate': {
-        'Castle': {
-            "HP": 1375,
-        },
-    },
-    'StoneWall': {
-        'Castle': {
-            "HP": 900,
-        },
-    },
-    'Donjon': {
-        'Castle': {
-            "HP": 500,
-            "MeleeArmor": 1,
-            "PierceArmor": 1,
-        },
-        'Imperial': {
-            "HP": 1250,
-            "MeleeArmor": 2,
-            "PierceArmor": 2,
-        },
-    },
-    'SiegeWorkshop': {
-        'Castle': {
-            "HP": 300,
-            "MeleeArmor": 1,
-            "PierceArmor": 1,
-        },
-        'Imperial': {
-            "HP": 600,
-            "MeleeArmor": 2,
-            "PierceArmor": 2,
-        },
-    },
-    'University': {
-        'Imperial': {
-            "MeleeArmor": 1,
-            "PierceArmor": 1,
-        },
-    },
-    'TownCenter': {
-        'Feudal': {
-            "MeleeArmor": 1,
-            "PierceArmor": 1,
-        },
-        'Castle': {
-            "MeleeArmor": 2,
-            "PierceArmor": 2,
-        },
-        'Imperial': {
-            "MeleeArmor": 3,
-            "PierceArmor": 3,
-        },
-    },
-};
 
 export function GetValueByPath(props: PathProps) {
     const { style, unitId, buildingId, path, formatter = x => (x || 0).toString() } = props;
@@ -386,6 +78,16 @@ export function GetValueByPath(props: PathProps) {
     const hasAgeUpgrade = (age: Age) => upgradeByAgeData?.[age] && path(upgradeByAgeData?.[age]!);
     const hasAnyAgeUpgrade = hasAgeUpgrade('Feudal') || hasAgeUpgrade('Castle') || hasAgeUpgrade('Imperial');
 
+    const getUpgradeOverAges = (age: Age) => {
+        let value = 0;
+        for (const currentAge of ageList) {
+            if (hasAgeUpgrade(currentAge)) {
+                value += path(upgradeByAgeData![currentAge]!);
+            }
+            if (currentAge === age) return value;
+        }
+    };
+
     if (eliteData && path(eliteData) !== path(baseData) && hasAnyAgeUpgrade) {
         return (
             <MyText style={style}>
@@ -395,8 +97,7 @@ export function GetValueByPath(props: PathProps) {
                     ageList.map(age =>
                         hasAgeUpgrade(age) && <MyText key={age}>
                             <MyText>{"\n"}</MyText>
-                            <MyText>{formatter(path(baseData)+path(upgradeByAgeData![age]!))} </MyText>
-
+                            <MyText>{formatter(path(baseData)+getUpgradeOverAges(age))} </MyText>
                             <MyText style={styles.small}>({age} age)</MyText>
                         </MyText>
                     )
@@ -423,8 +124,8 @@ export function GetValueByPath(props: PathProps) {
                     ageList.map(age =>
                             hasAgeUpgrade(age) && <MyText key={age}>
                                 <MyText>{"\n"}</MyText>
-                                <MyText>{formatter(path(baseData)+path(upgradeByAgeData![age]!))} </MyText>
-                            <MyText style={styles.small}>({age} age)</MyText>
+                                <MyText>{formatter(path(baseData)+getUpgradeOverAges(age))} </MyText>
+                                <MyText style={styles.small}>({age} age)</MyText>
                             </MyText>
                     )
                 }

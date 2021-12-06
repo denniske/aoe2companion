@@ -19,6 +19,7 @@ export * from './helper/building-sections';
 export * from './helper/leaderboards';
 export * from './helper/reference';
 export * from './helper/techs';
+export * from './helper/techs-from-ages';
 export * from './helper/tech-sections';
 export * from './helper/units';
 export * from './helper/unit-sections';
