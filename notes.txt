@@ -7,6 +7,15 @@ https://medium.com/@jonathan.payet/expo-in-app-purchase-for-managed-app-cdcd643d
 https://docs.expo.dev/build-reference/local-builds/
 
 
+Aoe 4
+
+https://aoe2recs.com/dashboard/
+https://github.com/SiegeEngineers/spectator-dashboard-ui
+
+https://aoeiv.net/
+
+
+
 x quick play leaderboard id format
 x search aoe2
 x leaderboard country
