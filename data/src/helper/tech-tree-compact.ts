@@ -115,6 +115,7 @@ export function getCompactTechTree(): ITechTreeRow[] {
                 {unit: 'CamelRider'},
                 {unit: 'BattleElephant'},
                 {unit: 'SteppeLancer'},
+                {unit: 'XolotlWarrior'},
             ],
         },
         {

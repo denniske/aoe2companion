@@ -12,6 +12,12 @@ export interface IChangelog {
 // https://www.aoe2insights.com/match/99919072/analysis/
 
 export const changelog: IChangelog = {
+    '26.0.22': [
+        {
+            type: 'minor',
+            title: 'Add Xolotl Warrior to tech tree',
+        },
+    ],
     '26.0.21': [
         {
             type: 'minor',

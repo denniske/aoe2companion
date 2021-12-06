@@ -177,7 +177,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {unit: 'CamelRider'},
                 {unit: 'BattleElephant'},
                 {unit: 'SteppeLancer'},
-                {},
+                {unit: 'XolotlWarrior'},
                 {tech: 'Husbandry'},
             ],
         },
