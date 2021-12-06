@@ -1,4 +1,12 @@
 
+EAS
+
+https://forums.expo.dev/t/has-anyone-successfully-adopted-iap-with-eas-build-for-their-managed-app/54047/24
+https://medium.com/@jonathan.payet/expo-in-app-purchase-for-managed-app-cdcd643de28d
+
+https://docs.expo.dev/build-reference/local-builds/
+
+
 x quick play leaderboard id format
 x search aoe2
 x leaderboard country
