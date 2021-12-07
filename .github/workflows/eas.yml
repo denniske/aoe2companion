@@ -32,6 +32,7 @@ jobs:
         uses: secrethub/actions/env-export@v0.2.1
         env:
           SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
+          EXPO_TOKEN: secrethub://denniske/aoe2companion/expo_token
           EXPO_USERNAME: secrethub://denniske/aoe2companion/expo_username
           EXPO_PASSWORD: secrethub://denniske/aoe2companion/expo_password
           EXPO_ANDROID_KEYSTORE_BASE64: secrethub://denniske/aoe2companion/expo_android_keystore_base64
@@ -71,6 +72,7 @@ jobs:
       - run: brew install secrethub/tools/secrethub-cli
 
       - run: |
+          echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
           echo "EXPO_USERNAME=$(secrethub read denniske/aoe2companion/expo_username)" >> $GITHUB_ENV
           echo "EXPO_PASSWORD=$(secrethub read denniske/aoe2companion/expo_password)" >> $GITHUB_ENV
           echo "EXPO_APPLE_TEAM_ID=$(secrethub read denniske/aoe2companion/expo_apple_team_id)" >> $GITHUB_ENV
