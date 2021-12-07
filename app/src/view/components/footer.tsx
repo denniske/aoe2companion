@@ -232,10 +232,10 @@ export default function Footer() {
                             }
                     >
                         <Menu.Item icon={useIcon('hands-helping')} titleStyle={iconPopupStyle('')} onPress={() => { openLink('https://discord.com/invite/gCunWKx'); setMenu(false); }} title={getTranslation('footer.help')} />
-                        {/*{*/}
-                        {/*   Platform.OS !== 'ios' &&*/}
+                        {
+                           Platform.OS !== 'ios' &&
                            <Menu.Item icon={useIcon('coffee')} titleStyle={iconPopupStyle('')} onPress={() => { openLink('https://www.buymeacoffee.com/denniskeil'); setMenu(false); }} title={getTranslation('footer.buymeacoffee')} />
-                        {/*}*/}
+                        }
                         <Divider />
                         <Menu.Item icon={useIcon('question-circle', 'About')} titleStyle={iconPopupStyle('About')} onPress={() => { nav('About'); setMenu(false); }} title={getTranslation('footer.about')} />
                         <Menu.Item icon={useIcon('exchange-alt', 'Changelog')} titleStyle={iconPopupStyle('Changelog')} onPress={() => { nav('Changelog'); setMenu(false); }} title={getTranslation('footer.changelog')} />
