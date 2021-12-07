@@ -24058,19 +24058,22 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"react-native-vector-icons@npm:^6.6.0":
-  version: 6.7.0
-  resolution: "react-native-vector-icons@npm:6.7.0"
+"react-native-vector-icons@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "react-native-vector-icons@npm:9.0.0"
   dependencies:
-    lodash: ^4.17.15
+    lodash.frompairs: ^4.0.1
+    lodash.isequal: ^4.5.0
+    lodash.isstring: ^4.0.1
+    lodash.omit: ^4.5.0
+    lodash.pick: ^4.4.0
+    lodash.template: ^4.5.0
     prop-types: ^15.7.2
-    yargs: ^15.0.2
-  peerDependencies:
-    "@react-native-community/toolbar-android": ^0.1.0-rc.1
+    yargs: ^16.1.1
   bin:
     fa5-upgrade: bin/fa5-upgrade.sh
     generate-icon: bin/generate-icon.js
-  checksum: d2f1d3861d1aa736f9c3070935de8abaf425d04b93382befc2f8777c5ce399841c61db293f134c601c77bcbaa6452301056abb213bd458eb0b6d3722177c69b4
+  checksum: b00dd94840903187cc4562e86ed827b72d031258d6801fffde4ffef0722ee2828846dda9f8614bf67ff86e0dc621a7f19c9b4be611a07d2f563f1beff6708a62
   languageName: node
   linkType: hard
 
@@ -25381,7 +25384,7 @@ resolve@~1.7.1:
     react-native-screens: ~3.8.0
     react-native-svg: 12.1.1
     react-native-tab-view: ^2.14.4
-    react-native-vector-icons: ^6.6.0
+    react-native-vector-icons: ^9.0.0
     react-native-view-shot: 3.1.2
     react-native-web: 0.17.1
     react-native-webview: 11.13.0
@@ -30524,7 +30527,7 @@ typescript@4.0.7:
   languageName: node
   linkType: hard
 
-"yargs@npm:15.4.1, yargs@npm:^15.0.2, yargs@npm:^15.1.0, yargs@npm:^15.3.1":
+"yargs@npm:15.4.1, yargs@npm:^15.1.0, yargs@npm:^15.3.1":
   version: 15.4.1
   resolution: "yargs@npm:15.4.1"
   dependencies:
@@ -30561,7 +30564,7 @@ typescript@4.0.7:
   languageName: node
   linkType: hard
 
-"yargs@npm:^16.0.0, yargs@npm:^16.2.0":
+"yargs@npm:^16.0.0, yargs@npm:^16.1.1, yargs@npm:^16.2.0":
   version: 16.2.0
   resolution: "yargs@npm:16.2.0"
   dependencies:

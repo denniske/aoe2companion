@@ -5,7 +5,7 @@ import {
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
 import {ImageBackground, StyleSheet, TouchableOpacity, View} from "react-native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import {MaterialCommunityIcons} from "@expo/vector-icons";
 import React, {Fragment} from "react";
 import {MyText} from "./my-text";
 import {setPrefValue, useMutate, useSelector} from "../../redux/reducer";
@@ -166,7 +166,7 @@ function Ability2({civ, tech, unit, building}: AbilityProps) {
             <ImageBackground fadeDuration={0} source={getAbilityIcon({tech, unit, building})} imageStyle={styles.imageInner2} style={styles.image2}>
                 {
                     !enabled &&
-                    <Icon name={'close'} size={colSize-4} color="red" />
+                    <MaterialCommunityIcons name={'close'} size={colSize-4} color="red" />
                 }
             </ImageBackground>
         </TouchableOpacity>

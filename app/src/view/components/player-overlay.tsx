@@ -8,7 +8,7 @@ import {
 } from '@nex/data';
 import {RootStackProp} from '../../../App';
 import {TextLoader} from "./loader/text-loader";
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import {FontAwesome5} from "@expo/vector-icons";
 import {MyText} from "./my-text";
 import {createStylesheet} from '../../theming-new';
 import {BorderText} from './border-text';
@@ -90,7 +90,7 @@ export function PlayerOverlay({match, player, highlight, freeForALl, canDownload
                     </BorderText>
                     {
                         player.slot_type === 1 && isVerifiedPlayer(player.profile_id) &&
-                        <> <Icon solid name="check-circle" size={14} style={styles.verifiedIcon} /></>
+                        <> <FontAwesome5 solid name="check-circle" size={14} style={styles.verifiedIcon} /></>
                     }
                 </MyText>
             </TouchableOpacity>

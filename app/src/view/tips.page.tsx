@@ -6,7 +6,7 @@ import {makeVariants, useAppTheme, useTheme} from "../theming";
 import {MyText} from "./components/my-text";
 import {Video} from "expo-av";
 import {Building, iconHeight, iconWidth, Tech, Unit} from "@nex/data";
-import IconFA5 from "react-native-vector-icons/FontAwesome5";
+import {FontAwesome5} from "@expo/vector-icons";
 import {AVPlaybackSource} from "expo-av/build/AV";
 import {getAbilityIcon} from "./components/tech-tree";
 import ImageSized from "./components/image-sized";
@@ -266,7 +266,7 @@ export default function TipsPage() {
                                     {
                                         tip.icon &&
                                         <View style={styles.unitIconBig}>
-                                            <IconFA5  name="video" size={14} color={theme.textNoteColor} />
+                                            <FontAwesome5 name="video" size={14} color={theme.textNoteColor} />
                                         </View>
                                     }
                                     {
@@ -284,7 +284,7 @@ export default function TipsPage() {
                                 <TouchableOpacity style={styles.action} onPress={() => onOpen(tip)}>
                                     {/*<IconFA5 name="share-square" size={14} color={theme.textNoteColor} />*/}
                                     {/*<IconFA5 name="external-link-alt" size={14} color={theme.textNoteColor} />*/}
-                                    <IconFA5 name="external-link-square-alt" size={14} color={theme.textNoteColor} />
+                                    <FontAwesome5 name="external-link-square-alt" size={14} color={theme.textNoteColor} />
                                 </TouchableOpacity>
                             }
                         </View>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import {FontAwesome} from "@expo/vector-icons";
 import { RootStackParamList, RootStackProp } from '../../App';
 import {MyText} from "./components/my-text";
 import Space from "./components/space";
@@ -26,14 +26,14 @@ export default function WelcomePage() {
 
                 {/*<TouchableOpacity style={styles.feature} onPress={() => nav('Search')}>*/}
                 <View style={styles.feature}>
-                    <FontAwesomeIcon style={styles.featureIcon} name="search" size={18} />
+                    <FontAwesome style={styles.featureIcon} name="search" size={18} />
                     <MyText>Search for users</MyText>
                 </View>
 
                 <Space/>
                 {/*<TouchableOpacity style={styles.feature} onPress={() => nav('Main')}>*/}
                 <View style={styles.feature}>
-                    <FontAwesomeIcon style={styles.featureIcon} name="user" size={18} />
+                    <FontAwesome style={styles.featureIcon} name="user" size={18} />
                     <MyText>Track your matches</MyText>
                 </View>
 

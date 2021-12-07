@@ -3,7 +3,7 @@ import {FlatList, Platform, StyleSheet, View} from 'react-native';
 import {useAppTheme} from "../theming";
 import {LiveGame} from "./live/live-game";
 import {MyText} from "./components/my-text";
-import IconFA5 from "react-native-vector-icons/FontAwesome5";
+import {FontAwesome5} from "@expo/vector-icons";
 import {Searchbar} from "react-native-paper";
 import {createStylesheet} from '../theming-new';
 import {ILobbyMatchRaw} from '../helper/data';
@@ -143,7 +143,7 @@ export default function LivePage() {
         <View style={styles.container}>
             <View style={styles.content}>
                 <View style={styles.usageRow}>
-                    <IconFA5 style={styles.usageIcon} name="exclamation-triangle" size={14} color={theme.textNoteColor} />
+                    <FontAwesome5 style={styles.usageIcon} name="exclamation-triangle" size={14} color={theme.textNoteColor} />
                     <MyText style={styles.usageText}>{getTranslation('lobbies.datausagewarning', { usage: (usage / 1000000).toFixed(1)})}</MyText>
                 </View>
                 <Searchbar

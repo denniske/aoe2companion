@@ -4,7 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import {userIdFromBase} from '../../helper/user';
 import {RootStackProp} from '../../../App';
 import {getSlotTypeName} from "@nex/data";
-import IconFA5 from 'react-native-vector-icons/FontAwesome5';
+import {FontAwesome5} from "@expo/vector-icons";
 import {useSelector} from "../../redux/reducer";
 import {makeVariants, useAppTheme, useTheme} from "../../theming";
 import {MyText} from "../components/my-text";
@@ -38,9 +38,9 @@ export function LivePlayer({player}: IPlayerProps) {
                 <View style={styles.playerCountryCol}/>
                 <MyText style={styles.playerRatingCol}/>
                 <MyText style={styles.playerNameCol} numberOfLines={1}/>
-                <MyText style={styles.playerGamesCol}><IconFA5 name="fist-raised" size={14} style={{}} color={theme.textNoteColor} /></MyText>
-                <MyText style={styles.playerWonCol}><IconFA5 name="crown" size={14} style={{}} color={theme.textNoteColor} /></MyText>
-                <MyText style={styles.playerWonCol}><IconFA5 name="plug" size={14} style={{}} color={theme.textNoteColor} /></MyText>
+                <MyText style={styles.playerGamesCol}><FontAwesome5 name="fist-raised" size={14} style={{}} color={theme.textNoteColor} /></MyText>
+                <MyText style={styles.playerWonCol}><FontAwesome5 name="crown" size={14} style={{}} color={theme.textNoteColor} /></MyText>
+                <MyText style={styles.playerWonCol}><FontAwesome5 name="plug" size={14} style={{}} color={theme.textNoteColor} /></MyText>
             </View>
         );
     }

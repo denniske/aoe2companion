@@ -3,7 +3,7 @@ import React from 'react';
 import {TextLoader} from "./loader/text-loader";
 import {UserIdBase} from "../../helper/user";
 import {MyText} from "./my-text";
-import Icon5 from 'react-native-vector-icons/FontAwesome5';
+import {FontAwesome5} from "@expo/vector-icons";
 import Space from "./space";
 import {IRow} from "../../service/stats/stats-duration";
 import {createStylesheet} from '../../theming-new';
@@ -35,7 +35,7 @@ function Row({data}: IRowProps) {
             <View style={styles.row}>
                 <View style={styles.cellLeaderboard}>
                     <View style={styles.icon}>
-                        <Icon5 name="clock" size={14} color={theme.textNoteColor}/>
+                        <FontAwesome5 name="clock" size={14} color={theme.textNoteColor}/>
                     </View>
                     <MyText style={{marginLeft}}>{getTranslation(`main.stats.duration.${data.duration}` as any)}</MyText>
                 </View>

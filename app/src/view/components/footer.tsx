@@ -1,7 +1,6 @@
 import {Alert, Linking, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import Icon5 from 'react-native-vector-icons/FontAwesome5';
+import {FontAwesome5} from "@expo/vector-icons";
 import {Divider, Menu} from 'react-native-paper';
 import {getRootNavigation} from "../../service/navigation";
 import {useNavigationStateExternal} from "../../hooks/use-navigation-state-external";
@@ -161,7 +160,7 @@ export default function Footer() {
 
     const iconSize = 22;
 
-    const useIcon = (name: string, page?: string) => (props: any) => <Icon5 name={name} {...props} style={[styles.menuIcon, iconPopupStyle(page || '')]} size={iconSize} solid />;
+    const useIcon = (name: string, page?: string) => (props: any) => <FontAwesome5 name={name} {...props} style={[styles.menuIcon, iconPopupStyle(page || '')]} size={iconSize} solid />;
 
     // const myprops: any = {
     //     onMouseEnter: () => console.log('ENTERED'),
@@ -175,25 +174,25 @@ export default function Footer() {
                         auth?.profile_id === moProfileId && isBirthday() &&
                         <>
                             <TouchableOpacity style={styles.menuButton} onPress={() => nav('Search')}>
-                                <Icon5 name="glass-cheers" size={iconSize} style={iconStyle2('Search')} />
+                                <FontAwesome5 name="glass-cheers" size={iconSize} style={iconStyle2('Search')} />
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.menuButton} onPress={() => nav('Feed')}>
-                                <Icon5 name="gift" size={iconSize} style={iconStyle2('Feed')} />
+                                <FontAwesome5 name="gift" size={iconSize} style={iconStyle2('Feed')} />
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.menuButton} onPress={() => nav('User')}>
-                                <Icon5 name="birthday-cake" size={iconSize} style={iconStyle2('User')} />
+                                <FontAwesome5 name="birthday-cake" size={iconSize} style={iconStyle2('User')} />
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.menuButton} onPress={() => nav('Leaderboard')}>
-                                <Icon5 name="glass-cheers" size={iconSize} style={iconStyle2('Leaderboard')} />
+                                <FontAwesome5 name="glass-cheers" size={iconSize} style={iconStyle2('Leaderboard')} />
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.menuButton} onPress={() => nav('Civ')}>
-                                <Icon5 name="gift" size={iconSize} style={iconStyle2('Civ')} />
+                                <FontAwesome5 name="gift" size={iconSize} style={iconStyle2('Civ')} />
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.menuButton} onPress={() => nav('Guide')}>
-                                <Icon5 name="birthday-cake" size={iconSize} style={iconStyle2('Guide')} />
+                                <FontAwesome5 name="birthday-cake" size={iconSize} style={iconStyle2('Guide')} />
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.menuButtonDots} onPress={() => setMenu(true)}>
-                                <Icon name="ellipsis-v" size={iconSize} style={iconStyle2('Tech', 'Unit', 'Building', 'About', 'Settings', 'Changelog')} />
+                                <FontAwesome5 name="ellipsis-v" size={iconSize} style={iconStyle2('Tech', 'Unit', 'Building', 'About', 'Settings', 'Changelog')} />
                             </TouchableOpacity>
                         </>
                     }
@@ -201,25 +200,25 @@ export default function Footer() {
                         !(auth?.profile_id === moProfileId && isBirthday()) &&
                         <>
                             <TouchableOpacity style={styles.menuButton} onPress={() => nav('Search')}>
-                                <Icon name="search" size={iconSize} style={iconStyle('Search')} />
+                                <FontAwesome5 name="search" size={iconSize} style={iconStyle('Search')} />
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.menuButton} onPress={() => nav('Feed')}>
-                                <Icon name="heart" size={iconSize} style={iconStyle('Feed')} />
+                                <FontAwesome5 name="heart" size={iconSize} style={iconStyle('Feed')} />
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.menuButton} onPress={() => nav('User')}>
-                                <Icon name="user" size={iconSize} style={iconStyle('User')} />
+                                <FontAwesome5 name="user" size={iconSize} style={iconStyle('User')} />
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.menuButton} onPress={() => nav('Leaderboard')}>
-                                <Icon name="trophy" size={iconSize} style={iconStyle('Leaderboard')} />
+                                <FontAwesome5 name="trophy" size={iconSize} style={iconStyle('Leaderboard')} />
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.menuButton} onPress={() => nav('Civ')}>
-                                <Icon5 name="landmark" size={iconSize} style={iconStyle('Civ')} />
+                                <FontAwesome5 name="landmark" size={iconSize} style={iconStyle('Civ')} />
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.menuButton} onPress={() => nav('Guide')}>
-                                <Icon name="graduation-cap" size={iconSize} style={iconStyle('Guide')} />
+                                <FontAwesome5 name="graduation-cap" size={iconSize} style={iconStyle('Guide')} />
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.menuButtonDots} onPress={() => setMenu(true)}>
-                                <Icon name="ellipsis-v" size={iconSize} style={iconStyle('Tech', 'Unit', 'Building', 'About', 'Settings', 'Changelog')} />
+                                <FontAwesome5 name="ellipsis-v" size={iconSize} style={iconStyle('Tech', 'Unit', 'Building', 'About', 'Settings', 'Changelog')} />
                             </TouchableOpacity>
                         </>
                     }

@@ -2,9 +2,8 @@ import * as React from 'react';
 import { useState } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle, } from 'react-native';
 import { TouchableRipple } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useAppTheme, usePaperTheme} from "../../theming";
-import {MyText} from "./my-text";
+import {FontAwesome} from '@expo/vector-icons';
 
 
 type Props = {
@@ -48,7 +47,7 @@ export default function MyListAccordion(props: Props) {
                             {left ? left({}):null}
                         </View>
                         <View style={styles.item}>
-                            <Icon name={expanded ? 'chevron-up':'chevron-down'} color={expandable ? paperTheme.colors.text : theme.skeletonColor} style={{opacity: expandable ? 1 : 1}} size={30}/>
+                            <FontAwesome name={expanded ? 'chevron-up':'chevron-down'} color={expandable ? paperTheme.colors.text : theme.skeletonColor} style={{opacity: expandable ? 1 : 1}} size={30}/>
                         </View>
                     </View>
                 </TouchableRipple>

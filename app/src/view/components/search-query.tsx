@@ -7,7 +7,7 @@ import {getFlagIcon} from '../../helper/flags';
 import {MyText} from "./my-text";
 import {createStylesheet} from '../../theming-new';
 import {useCavy} from '../testing/tester';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import {FontAwesome5} from "@expo/vector-icons";
 import {
     allUnitSections,
     Building,

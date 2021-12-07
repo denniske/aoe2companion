@@ -6,7 +6,7 @@ import {useSelector} from "../redux/reducer";
 import {useTheme} from '../theming';
 import {appVariants} from '../styles';
 import {MyText} from './components/my-text';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {FontAwesome} from "@expo/vector-icons";
 import {createStylesheet} from '../theming-new';
 import {RouteProp, useFocusEffect, useNavigation, useRoute} from '@react-navigation/native';
 import {openLink} from "../helper/url";
@@ -30,7 +30,7 @@ export function GuideActions(props: any) {
         <TouchableOpacity style={styles.action} onPress={props.onHomePressed}>
             {
                 props.canGoBack &&
-                <Icon name="arrow-circle-left" size={20} style={styles.icon} />
+                <FontAwesome name="arrow-circle-left" size={20} style={styles.icon} />
             }
         </TouchableOpacity>
     );

@@ -7,11 +7,10 @@ import {civs, IMatch, isBirthday, isVerifiedPlayer, moProfileId, noop} from '@ne
 import {RootStackProp} from '../../../App';
 import {getSlotTypeName, getCivNameById, IPlayer} from "@nex/data";
 import {TextLoader} from "./loader/text-loader";
-import IconFA5 from 'react-native-vector-icons/FontAwesome5';
+import {FontAwesome5} from "@expo/vector-icons";
 import {MyText} from "./my-text";
 import {getCivIconByIndex} from "../../helper/civs";
 import {createStylesheet} from '../../theming-new';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import {openLink} from "../../helper/url";
 
 
@@ -69,11 +68,11 @@ export function Player({match, player, highlight, freeForALl, canDownloadRec}: I
                 <View style={styles.playerWonCol}>
                     {
                         player.won === true && (freeForALl || player.team != -1) &&
-                        <IconFA5 name="crown" size={14} color="goldenrod" />
+                        <FontAwesome5 name="crown" size={14} color="goldenrod" />
                     }
                     {
                         player.won === false && (freeForALl || player.team != -1) &&
-                        <IconFA5 name="skull" size={14} style={styles.skullIcon} color="grey" />
+                        <FontAwesome5 name="skull" size={14} style={styles.skullIcon} color="grey" />
                     }
                 </View>
 
@@ -96,7 +95,7 @@ export function Player({match, player, highlight, freeForALl, canDownloadRec}: I
                     </MyText>
                     {
                         player.slot_type === 1 && isVerifiedPlayer(player.profile_id) &&
-                        <> <Icon solid name="check-circle" size={14} style={styles.verifiedIcon} /></>
+                        <> <FontAwesome5 solid name="check-circle" size={14} style={styles.verifiedIcon} /></>
                     }
                 </MyText>
             </TouchableOpacity>
@@ -104,7 +103,7 @@ export function Player({match, player, highlight, freeForALl, canDownloadRec}: I
             {
                 canDownloadRec &&
                 <TouchableOpacity style={styles.playerRecCol} onPress={downloadRec}>
-                    <IconFA5 name="cloud-download-alt" size={14} color="grey" />
+                    <FontAwesome5 name="cloud-download-alt" size={14} color="grey" />
                 </TouchableOpacity>
             }
 

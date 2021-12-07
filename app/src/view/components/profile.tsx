@@ -8,7 +8,7 @@ import {getFlagIcon} from '../../helper/flags';
 import {ILeaderboard, getVerifiedPlayer} from "@nex/data";
 import {ImageLoader} from "./loader/image-loader";
 import {TextLoader} from "./loader/text-loader";
-import Icon from "react-native-vector-icons/FontAwesome5";
+import {FontAwesome5} from "@expo/vector-icons";
 import {setFollowing, setPrefValue, useMutate, useSelector} from "../../redux/reducer";
 import {sameUser} from "../../helper/user";
 import {MyText} from "./my-text";
@@ -179,7 +179,7 @@ export function ProfileLive({data} : {data: IPlayer}) {
                     <>
                         <MyText style={{color: '#e91a16'}}> ● </MyText>
                         <MyText>{playerTwitchLive.data.viewer_count} </MyText>
-                        <Icon solid name="twitch" size={14} style={styles.twitchIcon} />
+                        <FontAwesome5 solid name="twitch" size={14} style={styles.twitchIcon} />
                         <MyText> </MyText>
                     </>
                 }
@@ -227,7 +227,7 @@ export default function Profile({data, ready}: IProfileProps) {
                                 <TextLoader width={100}>{data?.name}</TextLoader>
                                 {
                                     verifiedPlayer &&
-                                    <Icon solid name="check-circle" size={14} style={styles.verifiedIcon} />
+                                    <FontAwesome5 solid name="check-circle" size={14} style={styles.verifiedIcon} />
                                 }
                                 {
                                     data?.clan &&
@@ -247,7 +247,7 @@ export default function Profile({data, ready}: IProfileProps) {
                             data && (auth == null || !sameUser(auth, data)) &&
                             <TouchableOpacity onPress={_toggleFollowing}>
                                 <View style={styles.followButton}>
-                                    <Icon solid={followingThisUser} name="heart" size={22} style={styles.followButtonIcon}/>
+                                    <FontAwesome5 solid={followingThisUser} name="heart" size={22} style={styles.followButtonIcon}/>
                                     <MyText style={styles.followButtonText}>
                                         {followingThisUser ? getTranslation('main.profile.unfollow') : getTranslation('main.profile.follow')}
                                     </MyText>
@@ -292,10 +292,10 @@ export default function Profile({data, ready}: IProfileProps) {
                     {/*        <MyText numberOfLines={1} style={styles.cellLeaderboard}/>*/}
                     {/*        <MyText numberOfLines={1} style={styles.cellRank}>Rank</MyText>*/}
                     {/*        <MyText numberOfLines={1} style={styles.cellRating}>Rating</MyText>*/}
-                    {/*        <MyText numberOfLines={1} style={styles.cellGames}><IconFA5 name="fist-raised" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
-                    {/*        <MyText numberOfLines={1} style={styles.cellWon}><IconFA5 name="crown" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
+                    {/*        <MyText numberOfLines={1} style={styles.cellGames}><FontAwesome5FA5 name="fist-raised" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
+                    {/*        <MyText numberOfLines={1} style={styles.cellWon}><FontAwesome5FA5 name="crown" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
                     {/*        <MyText numberOfLines={1} style={styles.cellStreak}> </MyText>*/}
-                    {/*        <MyText numberOfLines={1} style={styles.cellWon}><IconFA5 name="clock" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
+                    {/*        <MyText numberOfLines={1} style={styles.cellWon}><FontAwesome5FA5 name="clock" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
                     {/*    </View>*/}
                     {/*    {*/}
                     {/*        data?.leaderboards.map(leaderboard =>*/}
@@ -332,11 +332,11 @@ export default function Profile({data, ready}: IProfileProps) {
                     <View style={styles.leaderboardRow}>
                         <MyText numberOfLines={1} style={styles.cellLeaderboard}>{getTranslation('main.profile.heading.board')}</MyText>
                         <MyText numberOfLines={1} style={styles.cellGames}>{getTranslation('main.profile.heading.games')}</MyText>
-                        {/*<MyText numberOfLines={1} style={styles.cellWon}><IconFA5 name="crown" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
+                        {/*<MyText numberOfLines={1} style={styles.cellWon}><FontAwesome5FA5 name="crown" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
                         <MyText numberOfLines={1} style={styles.cellWon}>{getTranslation('main.profile.heading.won')}</MyText>
                         <MyText numberOfLines={1} style={styles.cellStreak}>{getTranslation('main.profile.heading.streak')}</MyText>
                         {/*<MyText numberOfLines={1} style={styles.cellStreak}>max</MyText>*/}
-                        {/*<MyText numberOfLines={1} style={styles.cellWon}><IconFA5 name="clock" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
+                        {/*<MyText numberOfLines={1} style={styles.cellWon}><FontAwesome5FA5 name="clock" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
                     </View>
                     {
                         data?.leaderboards.map(leaderboard =>

@@ -1,5 +1,5 @@
 import {Modal, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, View} from "react-native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {MyText} from "./my-text";
 import React from "react";
 import {noop} from "@nex/data";
@@ -25,7 +25,7 @@ export default function SimpleModal(props: Props) {
                     <TouchableWithoutFeedback onPress={noop}>
                         <View style={styles.modalView}>
                             <TouchableOpacity style={styles.modalCloseIcon} onPress={onClose}>
-                                <Icon name={'close'} size={24}/>
+                                <MaterialCommunityIcons name={'close'} size={24}/>
                             </TouchableOpacity>
                             <MyText style={styles.modalText} numberOfLines={1}>{title}</MyText>
                             {children}

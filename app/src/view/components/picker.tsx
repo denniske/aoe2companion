@@ -5,7 +5,7 @@ import {
     ViewStyle
 } from "react-native";
 import {MyText} from "./my-text";
-import Icon from "react-native-vector-icons/FontAwesome";
+import {FontAwesome} from "@expo/vector-icons";
 import React, {useState} from "react";
 import {usePaperTheme} from "../../theming";
 
@@ -90,7 +90,7 @@ export default function  Picker<T>(props: IPickerProps<T>) {
                     <TouchableOpacity style={[styles.anchor]} onPress={() => setMenu(true)} disabled={disabled}>
                         <View style={styles.row}>
                             {cell({value, formatter: (x: any, i: any) => formatter(x, false), color, icon})}
-                            <Icon style={styles.handle} name="chevron-down" color={color} size={12} />
+                            <FontAwesome style={styles.handle} name="chevron-down" color={color} size={12} />
                         </View>
                     </TouchableOpacity>
                 }

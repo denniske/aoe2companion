@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {Alert, Linking, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {RootStackParamList} from '../../App';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import FontAwesomeIcon5 from "react-native-vector-icons/FontAwesome5";
 import {MainPageInner} from "./main.page";
 import {createStylesheet} from '../theming-new';
 import {setAuth, setPrefValue, useMutate, useSelector} from '../redux/reducer';
@@ -14,7 +13,7 @@ import {loadProfile} from '../service/profile';
 import {MyText} from './components/my-text';
 import {getTranslation} from '../helper/translate';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import IconFA5 from 'react-native-vector-icons/FontAwesome5';
+import {FontAwesome5} from "@expo/vector-icons";
 import {useApi} from '../hooks/use-api';
 import {getRootNavigation} from '../service/navigation';
 import {setAccountProfile} from "../api/following";
@@ -73,19 +72,19 @@ export function UserMenu() {
             {
                 user.profile_id &&
                 <TouchableOpacity style={styles.menuButton} onPress={() => openLink(xboxProfileUrl)}>
-                    <FontAwesomeIcon5 style={styles.menuIcon} name="xbox" size={20} />
+                    <FontAwesome5 style={styles.menuIcon} name="xbox" size={20} />
                 </TouchableOpacity>
             }
             {
                 user.steam_id &&
                 <TouchableOpacity style={styles.menuButton}  onPress={() => openLink(steamProfileUrl)}>
-                    <FontAwesomeIcon5 style={styles.menuIcon} name="steam" size={20} />
+                    <FontAwesome5 style={styles.menuIcon} name="steam" size={20} />
                 </TouchableOpacity>
             }
             {
                 sameUserNull(user, auth) &&
                 <TouchableOpacity style={styles.menuButton} onPress={deleteUser}>
-                    <IconFA5 style={styles.menuIcon} name="user-times" size={16} />
+                    <FontAwesome5 style={styles.menuIcon} name="user-times" size={16} />
                 </TouchableOpacity>
             }
         </View>

@@ -10,7 +10,7 @@ import {fetchPlayerMatches, LeaderboardId} from "@nex/data";
 import {useCachedConservedLazyApi} from "../hooks/use-cached-conserved-lazy-api";
 import {get, set} from 'lodash';
 import {getStats} from "../service/stats";
-import IconFA5 from "react-native-vector-icons/FontAwesome5";
+import {FontAwesome5} from "@expo/vector-icons";
 import MainProfile from "./main/main-profile";
 import MainStats from "./main/main-stats";
 import MainMatches from "./main/main-matches";
@@ -57,7 +57,7 @@ export function MainMenu() {
     return (
         <View style={styles.menu}>
             <TouchableOpacity style={styles.menuButton} onPress={deleteUser}>
-                <IconFA5 style={styles.menuIcon} name="user-times" size={16} />
+                <FontAwesome5 style={styles.menuIcon} name="user-times" size={16} />
             </TouchableOpacity>
         </View>
     );

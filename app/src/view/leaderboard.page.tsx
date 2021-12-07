@@ -9,8 +9,8 @@ import {minifyUserId, sameUserNull, userIdFromBase} from "../helper/user";
 import {getCountryName, getFlagIcon} from "../helper/flags";
 import {countriesDistinct, Country, ILeaderboardPlayer} from "@nex/data";
 import {RootStackProp} from "../../App";
-import IconFA from "react-native-vector-icons/FontAwesome";
-import IconFA5 from "react-native-vector-icons/FontAwesome5";
+import {FontAwesome} from "@expo/vector-icons";
+import {FontAwesome5} from "@expo/vector-icons";
 import {useLazyApi} from "../hooks/use-lazy-api";
 import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
 import {TextLoader} from "./components/loader/text-loader";
@@ -71,7 +71,7 @@ export function LeaderboardMenu() {
     const divider = (x: any, i: number) => i < (authCountry ? 2 : 1);
     const icon = (x: any) => {
         if (x == countryEarth) {
-            return <IconFA name="globe" size={21} style={{paddingLeft: 2, paddingRight: 12}} color={theme.colors.text} />;
+            return <FontAwesome name="globe" size={21} style={{paddingLeft: 2, paddingRight: 12}} color={theme.colors.text} />;
         }
         return <Image fadeDuration={0} style={styles.countryIcon} source={getFlagIcon(x)}/>;
     };
@@ -396,7 +396,7 @@ function Leaderboard({leaderboardId}: any) {
                 <Animated.View
                     {...panResponder.panHandlers}
                     style={[{top: position.y, right: -HANDLE_RADIUS, opacity: handleVisible ? 1 : 0}, styles.handle]}>
-                    <IconFA5 name="arrows-alt-v" size={26} style={styles.arrows}/>
+                    <FontAwesome5 name="arrows-alt-v" size={26} style={styles.arrows}/>
                     {
                         baseMoving &&
                         <View style={styles.textContainer}>

@@ -12,7 +12,7 @@ import {groupBy, min, minBy, sortBy} from 'lodash';
 import {differenceInSeconds} from "date-fns";
 import { MyText } from './my-text';
 import {makeVariants, useAppTheme, useTheme} from "../../theming";
-import IconFA5 from "react-native-vector-icons/FontAwesome5";
+import {FontAwesome5} from "@expo/vector-icons";
 import {sameUser, sameUserNull, UserIdBase} from "../../helper/user";
 import {createStylesheet} from '../../theming-new';
 import {getLeaderboardOrGameType} from '@nex/data';
@@ -124,7 +124,7 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
                                      style={styles.map}>
                         {
                             match.players.some(p => sameUserNull(p, user) && p.won === true && (freeForALl || p.team != -1)) &&
-                            <IconFA5 name="crown" size={14} style={{marginLeft: -7,marginTop:-4}} color="goldenrod" />
+                            <FontAwesome5 name="crown" size={14} style={{marginLeft: -7,marginTop:-4}} color="goldenrod" />
                         }
                         {
                             user == null && (match.players.some(p => p.won != null)) &&
@@ -132,7 +132,7 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
                         }
                         {
                             match.players.some(p => sameUserNull(p, user) && p.won === false && (freeForALl || p.team != -1)) &&
-                            <IconFA5 name="skull" size={14} style={{marginLeft: -6,marginTop:-4}} color="grey" />
+                            <FontAwesome5 name="skull" size={14} style={{marginLeft: -6,marginTop:-4}} color="grey" />
                         }
                     </ImageBackground>
 
@@ -163,14 +163,14 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
         >
             <View style={styles.playerList}>
                 <View style={[styles.timeRow, {alignItems: 'center'}]}>
-                    <IconFA5 name="clock" size={11.5} color={theme.textNoteColor}/>
+                    <FontAwesome5 name="clock" size={11.5} color={theme.textNoteColor}/>
                     <MyText style={styles.duration}> {duration}   </MyText>
-                    <IconFA5 name="running" size={11.5} color={theme.textNoteColor}/>
+                    <FontAwesome5 name="running" size={11.5} color={theme.textNoteColor}/>
                     <MyText style={styles.speed}> {getString('speed', match.speed)}   </MyText>
                     {/*{*/}
                     {/*    __DEV__ &&*/}
                     {/*    <>*/}
-                    {/*        <IconFA5 name="database" size={11.5} color={theme.textNoteColor}/>*/}
+                    {/*        <FontAwesome5 name="database" size={11.5} color={theme.textNoteColor}/>*/}
                     {/*        <MyText style={styles.speed}> {match.source}</MyText>*/}
                     {/*    </>*/}
                     {/*}*/}

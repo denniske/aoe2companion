@@ -12,7 +12,7 @@ import {createStylesheet} from '../../theming-new';
 import FlatListLoadingIndicator from './flat-list-loading-indicator';
 import {getTranslation} from '../../helper/translate';
 import { useCavy } from '../testing/tester';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import {FontAwesome5} from "@expo/vector-icons";
 import {isVerifiedPlayer} from '@nex/data';
 
 interface IPlayerProps {

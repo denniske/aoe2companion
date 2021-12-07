@@ -13,7 +13,6 @@ import {differenceInSeconds} from "date-fns";
 import {MyText} from './my-text';
 import {BorderText} from './border-text';
 import {makeVariants, useAppTheme, useTheme} from "../../theming";
-import IconFA5 from "react-native-vector-icons/FontAwesome5";
 import {sameUser, sameUserNull, UserIdBase} from "../../helper/user";
 import {createStylesheet} from '../../theming-new';
 import {getLeaderboardOrGameType} from '@nex/data';

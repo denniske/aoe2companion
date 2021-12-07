@@ -7,7 +7,7 @@ import {
     DarkTheme as NavigationDarkTheme,
     NavigationContainer
 } from '@react-navigation/native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     BackHandler,
     Linking, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View
@@ -33,7 +33,7 @@ import {addLoadedLanguage, useMutate, useSelector} from './src/redux/reducer';
 import SearchPage from './src/view/search.page';
 import PrivacyPage from './src/view/privacy.page';
 import AppLoading from 'expo-app-loading';
-import Icon5 from 'react-native-vector-icons/FontAwesome5';
+import {FontAwesome, FontAwesome5, MaterialCommunityIcons} from "@expo/vector-icons";
 import LeaderboardPage, {leaderboardMenu, LeaderboardTitle} from "./src/view/leaderboard.page";
 import GuidePage, {GuideTitle} from "./src/view/guide.page";
 import CivPage, {CivTitle, civTitle} from "./src/view/civ.page";
@@ -81,8 +81,7 @@ import {getElectronPushToken, isElectron} from './src/helper/electron';
 import {setAccountPushTokenElectron} from './src/api/following';
 import OverlayPage from "./src/view/overlay.page";
 import IntroPage from "./src/view/intro.page";
-import {Roboto_400Regular, Roboto_700Bold} from "@expo-google-fonts/roboto";
-import {useFonts} from "expo-font";
+import {Roboto_400Regular, Roboto_700Bold, useFonts} from "@expo-google-fonts/roboto";
 import {getInternalString, loadStringsAsync} from './src/helper/strings';
 import { fetchJson } from './src/api/util';
 import UpdateElectronSnackbar from "./src/view/components/snackbar/update-electron-snackbar";
@@ -773,6 +772,10 @@ function getAppType(): AppType {
 }
 
 
+// function cacheFonts(fonts: any) {
+//     return fonts.map((font: any) => Font.loadAsync(font));
+// }
+
 export function AppWrapper() {
     // AsyncStorage.removeItem('prefs');
     // AsyncStorage.removeItem('settings');
@@ -783,6 +786,7 @@ export function AppWrapper() {
 
     const mutate = useMutate();
 
+    const [loadedFonts, setLoadedFonts] = useState(true);
     const loadedLanguages = useSelector(state => state.loadedLanguages);
     const account = useSelector(state => state.account);
     const auth = useSelector(state => state.auth);
@@ -818,9 +822,14 @@ export function AppWrapper() {
         fetchAoeReferenceData();
     }, [config]);
 
-    if (auth === undefined || following === undefined || config === undefined || prefs === undefined || !loadedLanguages) {
+    // useEffect(() => {
+    //     const fontAssets = cacheFonts([MaterialCommunityIcons.font, FontAwesome.font, FontAwesome5.font]);
+    //     Promise.all(fontAssets).then(() => setLoadedFonts(true));
+    // }, []);
+
+    if (!loadedFonts || auth === undefined || following === undefined || config === undefined || prefs === undefined || !loadedLanguages) {
         // console.log('LOADING');
-        return <AppLoading/>;
+        return <AppLoading />;
     }
 
     // console.log('loadedLanguages', loadedLanguages, loadedLanguages?.length < 1);
@@ -841,7 +850,7 @@ export function AppWrapper() {
                 <PaperProvider
                     theme={finalDarkMode === 'light' ? customPaperTheme : customDarkPaperTheme}
                     settings={{
-                        icon: props => <Icon5 {...props} />,
+                        icon: props => <FontAwesome5 {...props} />,
                     }}
                 >
                     <StatusBar barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'} backgroundColor="transparent" translucent={true} />

@@ -14,7 +14,7 @@ import {IFetchedUser} from "../service/user";
 import PlayerList, {IPlayerListPlayer} from "./components/player-list";
 import {MyText} from "./components/my-text";
 import {isEqual, orderBy, uniq} from 'lodash';
-import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
+import {FontAwesome} from "@expo/vector-icons";
 import RefreshControlThemed from "./components/refresh-control-themed";
 import {toggleFollowing} from "../service/following";
 import {IFollowingEntry} from "../service/storage";
@@ -52,10 +52,10 @@ export function FeedMenu() {
     return (
         <View style={styles.menu}>
             <TouchableOpacity style={styles.menuButton} onPress={() => navigation.push('Feed', { action: 'add' })}>
-                <FontAwesomeIcon style={styles.menuIcon} name="plus" size={20} />
+                <FontAwesome style={styles.menuIcon} name="plus" size={20} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.menuButton}  onPress={() => navigation.push('Feed', { action: 'config' })}>
-                <FontAwesomeIcon style={styles.menuIcon} name="cog" size={20} />
+                <FontAwesome style={styles.menuIcon} name="cog" size={20} />
             </TouchableOpacity>
         </View>
     );

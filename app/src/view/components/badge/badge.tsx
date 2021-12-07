@@ -4,7 +4,7 @@ import React from "react";
 import {shadeColor} from "@nex/data";
 import {createStylesheet} from '../../../theming-new';
 import {LinearGradient} from 'expo-linear-gradient';
-import Icon5 from 'react-native-vector-icons/FontAwesome5';
+import {FontAwesome5} from "@expo/vector-icons";
 import {SvgUri} from 'react-native-svg';
 
 
@@ -48,7 +48,7 @@ export default function Badge(props: Props) {
                 }
                 {
                     logoIcon &&
-                    <Icon5 style={styles.logo} name={logoIcon} color={logoColor} />
+                    <FontAwesome5 style={styles.logo} name={logoIcon} color={logoColor} />
                 }
                 <MyText style={[styles.labelText, { color: labelTextColor }]}>{label}</MyText>
             </LinearGradient>

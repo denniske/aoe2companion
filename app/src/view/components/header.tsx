@@ -6,8 +6,8 @@ import {MyText} from "./my-text";
 import {iconHeight, iconWidth} from "@nex/data";
 import {setConfig, setInitialState, useMutate, useSelector} from "../../redux/reducer";
 import {useTheme} from "../../theming";
-import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
-import FontAwesomeIcon5 from "react-native-vector-icons/FontAwesome5";
+import {FontAwesome} from "@expo/vector-icons";
+import {FontAwesome5} from "@expo/vector-icons";
 import {appVariants} from "../../styles";
 import {clearCache} from "../../redux/cache";
 import {IConfig, saveConfigToStorage} from "../../service/storage";
@@ -87,26 +87,26 @@ export default function Header() {
                     {
                         __DEV__ &&
                         <TouchableOpacity onPress={toggleDarkMode}>
-                            <FontAwesomeIcon5 style={styles.menuButton} name="lightbulb" color="#666" size={18} />
+                            <FontAwesome5 style={styles.menuButton} name="lightbulb" color="#666" size={18} />
                         </TouchableOpacity>
                     }
                     {
                         __DEV__ &&
                         <TouchableOpacity onPress={resetState}>
-                            <FontAwesomeIcon style={styles.menuButton} name="refresh" color="#666" size={18} />
+                            <FontAwesome style={styles.menuButton} name="refresh" color="#666" size={18} />
                         </TouchableOpacity>
                     }
                     {
                         __DEV__ &&
                         <TouchableOpacity onPress={restart}>
-                            <FontAwesomeIcon5 style={styles.menuButton} name="power-off" color="#666" size={18} />
+                            <FontAwesome5 style={styles.menuButton} name="power-off" color="#666" size={18} />
                         </TouchableOpacity>
                     }
 
                     {
                         isElectron() &&
                         <TouchableOpacity onPress={closeAppWindowAsync}>
-                            <FontAwesomeIcon5 style={styles.menuButton} name="times" color="#666" size={18} />
+                            <FontAwesome5 style={styles.menuButton} name="times" color="#666" size={18} />
                         </TouchableOpacity>
                     }
                 </View>
