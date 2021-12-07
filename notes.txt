@@ -1,4 +1,6 @@
 
+git clone --depth 1 file://C:\Users\Dennis\Projects\aoe2companion
+
 yarn set version berry
 
 EAS
