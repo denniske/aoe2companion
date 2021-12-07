@@ -12,6 +12,12 @@ export interface IChangelog {
 // https://www.aoe2insights.com/match/99919072/analysis/
 
 export const changelog: IChangelog = {
+    '27.0.0': [
+        {
+            type: 'minor',
+            title: 'Internal Framework Update (Expo SDK 43)',
+        },
+    ],
     '26.0.22': [
         {
             type: 'minor',
