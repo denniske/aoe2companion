@@ -1,5 +1,6 @@
 
 git clone --depth 1 file://C:\Users\Dennis\Projects\aoe2companion
+npx eas build --profile development --platform android --local
 
 yarn set version berry
 
