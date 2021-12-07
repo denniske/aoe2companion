@@ -71,7 +71,7 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
                             {player.name}
                             {
                                 isVerifiedPlayer(player.profile_id) &&
-                                <> <Icon solid name="check-circle" size={14} style={styles.verifiedIcon} /></>
+                                <> <FontAwesome5 solid name="check-circle" size={14} style={styles.verifiedIcon} /></>
                             }
                         </MyText>
                     </View>

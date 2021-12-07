@@ -1,4 +1,6 @@
 
+yarn set version berry
+
 EAS
 
 https://forums.expo.dev/t/has-anyone-successfully-adopted-iap-with-eas-build-for-their-managed-app/54047/24

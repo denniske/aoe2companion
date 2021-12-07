@@ -52,7 +52,7 @@ import UpdateSnackbar from "./src/view/components/snackbar/update-snackbar";
 import {makeVariants, useAppTheme, useAppThemeInverted, useTheme} from "./src/theming";
 import SettingsPage from "./src/view/settings.page";
 import {appVariants} from "./src/styles";
-import {AppearanceProvider, useColorScheme} from "react-native-appearance";
+// import {AppearanceProvider, useColorScheme} from "react-native-appearance";
 import {NavigationState} from "@react-navigation/routers";
 import ChangelogPage from "./src/view/changelog.page";
 import ChangelogSnackbar from "./src/view/components/snackbar/changelog-snackbar";
@@ -771,11 +771,6 @@ function getAppType(): AppType {
     return 'app';
 }
 
-
-// function cacheFonts(fonts: any) {
-//     return fonts.map((font: any) => Font.loadAsync(font));
-// }
-
 export function AppWrapper() {
     // AsyncStorage.removeItem('prefs');
     // AsyncStorage.removeItem('settings');
@@ -786,7 +781,6 @@ export function AppWrapper() {
 
     const mutate = useMutate();
 
-    const [loadedFonts, setLoadedFonts] = useState(true);
     const loadedLanguages = useSelector(state => state.loadedLanguages);
     const account = useSelector(state => state.account);
     const auth = useSelector(state => state.auth);
@@ -794,7 +788,7 @@ export function AppWrapper() {
     const prefs = useSelector(state => state.prefs);
     const config = useSelector(state => state.config);
     const darkMode = useSelector(state => state.config?.darkMode);
-    const colorScheme = useColorScheme();
+    // const colorScheme = useColorScheme();
 
     // Trigger loading of auth and following
     const _account = useApi({}, [account], state => state.account, (state, value) => state.account = value, () => loadAccountFromStorage());
@@ -822,12 +816,7 @@ export function AppWrapper() {
         fetchAoeReferenceData();
     }, [config]);
 
-    // useEffect(() => {
-    //     const fontAssets = cacheFonts([MaterialCommunityIcons.font, FontAwesome.font, FontAwesome5.font]);
-    //     Promise.all(fontAssets).then(() => setLoadedFonts(true));
-    // }, []);
-
-    if (!loadedFonts || auth === undefined || following === undefined || config === undefined || prefs === undefined || !loadedLanguages) {
+    if (auth === undefined || following === undefined || config === undefined || prefs === undefined || !loadedLanguages) {
         // console.log('LOADING');
         return <AppLoading />;
     }
@@ -835,7 +824,7 @@ export function AppWrapper() {
     // console.log('loadedLanguages', loadedLanguages, loadedLanguages?.length < 1);
     // console.log('LOADED');
 
-    const finalDarkMode = darkMode === "system" && (colorScheme === 'light' || colorScheme === 'dark') ? colorScheme : darkMode;
+    const finalDarkMode = "light"; //darkMode === "system" && (colorScheme === 'light' || colorScheme === 'dark') ? colorScheme : darkMode;
 
     const appType = getAppType();
 
@@ -890,11 +879,11 @@ export default function App() {
     }, []);
 
     return (
-        <AppearanceProvider>
+        // <AppearanceProvider>
           <ReduxProvider store={store}>
                 <AppWrapper/>
             </ReduxProvider>
-        </AppearanceProvider>
+        // </AppearanceProvider>
     );
 }
 
