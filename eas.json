@@ -33,6 +33,20 @@
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "android": {
+        "track": "internal",
+        "releaseStatus": "draft",
+        "serviceAccountKeyPath": "play-store-service-account.json"
+      },
+      "ios": {
+        "ascAppId": "1518463195",
+        "appleTeamId": "HAFGZBHF9M",
+        "sku": "com.aoe2companion",
+        "ascApiKeyPath": "auth_key.p8",
+        "ascApiKeyIssuerId": "fb7451c8-c140-408a-be1d-375ba4e5045c",
+        "ascApiKeyId": "VJ4G795F6S"
+      }
+    }
   }
 }
