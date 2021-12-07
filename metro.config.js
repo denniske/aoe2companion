@@ -1,6 +1,6 @@
 const { getDefaultConfig } = require("metro-config");
 
-const blacklist = require('metro-config/src/defaults/blacklist');
+const exclusionList = require('metro-config/src/defaults/exclusionList');
 
 console.log("Applying metro.config.js");
 
@@ -11,7 +11,7 @@ module.exports = (async () => {
 
     return {
         resolver: {
-            blacklistRE: blacklist([/^tools\/.*/, /^website2\/.*/]),
+            blacklistRE: exclusionList([/^tools\/.*/, /^website2\/.*/]),
             assetExts: [...assetExts, 'lazy'],
         }
     };
