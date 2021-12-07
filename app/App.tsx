@@ -10,7 +10,7 @@ import {
 import React, {useEffect, useState} from 'react';
 import {
     BackHandler,
-    Linking, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View
+    Linking, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, useColorScheme, View
 } from 'react-native';
 import {createStackNavigator, StackNavigationProp, TransitionPresets} from '@react-navigation/stack';
 import Header from './src/view/components/header';
@@ -33,7 +33,7 @@ import {addLoadedLanguage, useMutate, useSelector} from './src/redux/reducer';
 import SearchPage from './src/view/search.page';
 import PrivacyPage from './src/view/privacy.page';
 import AppLoading from 'expo-app-loading';
-import {FontAwesome, FontAwesome5, MaterialCommunityIcons} from "@expo/vector-icons";
+import {FontAwesome5} from "@expo/vector-icons";
 import LeaderboardPage, {leaderboardMenu, LeaderboardTitle} from "./src/view/leaderboard.page";
 import GuidePage, {GuideTitle} from "./src/view/guide.page";
 import CivPage, {CivTitle, civTitle} from "./src/view/civ.page";
@@ -47,13 +47,9 @@ import Footer from "./src/view/components/footer";
 import {Tech} from "@nex/data";
 import TechPage, {techTitle, TechTitle} from "./src/view/tech/tech.page";
 import FeedPage, {feedMenu, feedTitle} from "./src/view/feed.page";
-import {MyText} from "./src/view/components/my-text";
 import UpdateSnackbar from "./src/view/components/snackbar/update-snackbar";
-import {makeVariants, useAppTheme, useAppThemeInverted, useTheme} from "./src/theming";
+import { useAppThemeInverted} from "./src/theming";
 import SettingsPage from "./src/view/settings.page";
-import {appVariants} from "./src/styles";
-// import {AppearanceProvider, useColorScheme} from "react-native-appearance";
-import {NavigationState} from "@react-navigation/routers";
 import ChangelogPage from "./src/view/changelog.page";
 import ChangelogSnackbar from "./src/view/components/snackbar/changelog-snackbar";
 import {Building} from "@nex/data";
@@ -151,14 +147,6 @@ class HostService implements IHostService {
 registerService(SERVICE_NAME.TRANSLATION_SERVICE, new AoeDataService(), true);
 registerService(SERVICE_NAME.HOST_SERVICE, new HostService(), true);
 registerService(SERVICE_NAME.HTTP_SERVICE, new HttpService(), true);
-
-// HACK: Prevent "Expo pasted from CoreSimulator" notification from spamming continuously
-// if (__DEV__) {
-//     Clipboard.setString('');
-// }
-
-// const h1 = 5;
-// const h2: number = 5;
 
 const linking: LinkingOptions = {
     prefixes: ['https://aoe2companion.com', 'aoe2companion://'],
@@ -788,7 +776,7 @@ export function AppWrapper() {
     const prefs = useSelector(state => state.prefs);
     const config = useSelector(state => state.config);
     const darkMode = useSelector(state => state.config?.darkMode);
-    // const colorScheme = useColorScheme();
+    const colorScheme = useColorScheme();
 
     // Trigger loading of auth and following
     const _account = useApi({}, [account], state => state.account, (state, value) => state.account = value, () => loadAccountFromStorage());
@@ -824,7 +812,7 @@ export function AppWrapper() {
     // console.log('loadedLanguages', loadedLanguages, loadedLanguages?.length < 1);
     // console.log('LOADED');
 
-    const finalDarkMode = "light"; //darkMode === "system" && (colorScheme === 'light' || colorScheme === 'dark') ? colorScheme : darkMode;
+    const finalDarkMode = darkMode === 'system' && (colorScheme === 'light' || colorScheme === 'dark') ? colorScheme : darkMode;
 
     const appType = getAppType();
 
@@ -879,11 +867,9 @@ export default function App() {
     }, []);
 
     return (
-        // <AppearanceProvider>
-          <ReduxProvider store={store}>
-                <AppWrapper/>
-            </ReduxProvider>
-        // </AppearanceProvider>
+        <ReduxProvider store={store}>
+            <AppWrapper/>
+        </ReduxProvider>
     );
 }
 
