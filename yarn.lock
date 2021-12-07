@@ -13510,7 +13510,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-modules-core@npm:~0.4.4, expo-modules-core@npm:~0.4.7, expo-modules-core@npm:~0.4.8":
+"expo-modules-core@npm:~0.4.2, expo-modules-core@npm:~0.4.4, expo-modules-core@npm:~0.4.7, expo-modules-core@npm:~0.4.8":
   version: 0.4.8
   resolution: "expo-modules-core@npm:0.4.8"
   dependencies:
@@ -13604,16 +13604,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-system-ui@npm:^1.0.0":
-  version: 1.1.0
-  resolution: "expo-system-ui@npm:1.1.0"
+"expo-system-ui@npm:~1.0.0":
+  version: 1.0.0
+  resolution: "expo-system-ui@npm:1.0.0"
   dependencies:
     "@expo/config-plugins": ^4.0.2
     "@react-native/normalize-color": ^2.0.0
     debug: ^4.3.2
-  peerDependencies:
-    expo: "*"
-  checksum: 778d546ef50cd8889bae81746ef030bf056692e66458b7cb770099e7ca0caa7655826181e2415384e5eae6f867dfd5977acb119c7ae7c3bdb7d43a125ff3301f
+    expo-modules-core: ~0.4.2
+  checksum: 59e6833ab7871ad412f4c3fa16c6702f2e73337786f5f6ec16bf3466eaef67707b885d4af591ed7362b5b5176ad04dc36fec5eb66e2ee86df366a5bf51d8ec70
   languageName: node
   linkType: hard
 
@@ -25302,7 +25301,7 @@ __metadata:
     expo-notifications: ~0.13.3
     expo-permissions: ~13.0.3
     expo-status-bar: ~1.1.0
-    expo-system-ui: ^1.0.0
+    expo-system-ui: ~1.0.0
     expo-updates: ~0.10.15
     express: 4.17.1
     fs-to-json: ^0.2.0
