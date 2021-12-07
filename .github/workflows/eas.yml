@@ -1,0 +1,92 @@
+# https://hackernoon.com/the-only-sane-way-to-setup-fastlane-on-a-mac-4a14cb8549c8
+
+on: push
+
+name: Eas
+
+env:
+  HOMEBREW_NO_AUTO_UPDATE: 1
+  NODE_VERSION: 12.18.0
+  EXPO_SDK_VERSION: 43.0.2
+  EXPO_CLI_VERSION: 4.13.0
+  TURTLE_VERSION: 0.23.5
+  SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
+
+jobs:
+
+  build-android:
+    name: Build Android
+    runs-on: ubuntu-18.04
+    needs: [publish]
+#    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Env
+        uses: ./.github/actions/setup
+      - name: Setup Node
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Setup Secrets
+        uses: secrethub/actions/env-export@v0.2.1
+        env:
+          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
+          EXPO_USERNAME: secrethub://denniske/aoe2companion/expo_username
+          EXPO_PASSWORD: secrethub://denniske/aoe2companion/expo_password
+          EXPO_ANDROID_KEYSTORE_BASE64: secrethub://denniske/aoe2companion/expo_android_keystore_base64
+          EXPO_ANDROID_KEYSTORE_ALIAS: secrethub://denniske/aoe2companion/expo_android_keystore_alias
+          EXPO_ANDROID_KEYSTORE_PASSWORD: secrethub://denniske/aoe2companion/expo_android_keystore_password
+          EXPO_ANDROID_KEY_PASSWORD: secrethub://denniske/aoe2companion/expo_android_key_password
+
+#      - run: yarn add gulp-cli turtle-cli@$TURTLE_VERSION
+#      - run: npx turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null
+#      - run: echo $EXPO_ANDROID_KEYSTORE_BASE64 | base64 --decode > expo-project.jks
+      - run: "
+          npx eas build --profile internal --platform android --local --non-interactive
+        "
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: expo-project-${{ env.TRAVIS_COMMIT }}.aab
+          path: expo-project-${{ env.TRAVIS_COMMIT }}.aab
+
+  build-ios:
+    name: Build iOS
+    runs-on: macos-latest
+    needs: [publish]
+    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Env
+        uses: ./.github/actions/setup
+      - name: Setup Node
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - run: brew install secrethub/tools/secrethub-cli
+
+      - run: |
+          echo "EXPO_USERNAME=$(secrethub read denniske/aoe2companion/expo_username)" >> $GITHUB_ENV
+          echo "EXPO_PASSWORD=$(secrethub read denniske/aoe2companion/expo_password)" >> $GITHUB_ENV
+          echo "EXPO_APPLE_TEAM_ID=$(secrethub read denniske/aoe2companion/expo_apple_team_id)" >> $GITHUB_ENV
+          echo "EXPO_IOS_DIST_P12_PASSWORD=$(secrethub read denniske/aoe2companion/expo_ios_dist_p12_password)" >> $GITHUB_ENV
+          echo "EXPO_IOS_DIST_P12_BASE64=$(secrethub read denniske/aoe2companion/expo_ios_dist_p12_base64)" >> $GITHUB_ENV
+          echo "EXPO_IOS_PROVISIONING_PROFILE_BASE64=$(secrethub read denniske/aoe2companion/expo_ios_prov_profile_base64)" >> $GITHUB_ENV
+
+#      - run: yarn add gulp-cli turtle-cli@$TURTLE_VERSION
+#      - run: npx turtle setup:ios --sdk-version $EXPO_SDK_VERSION > /dev/null
+#      - run: echo $EXPO_IOS_DIST_P12_BASE64 | base64 --decode > expo-project_dist.p12
+#      - run: echo $EXPO_IOS_PROVISIONING_PROFILE_BASE64 | base64 --decode > expo-project.mobileprovision
+      - run: "
+          npx eas build --profile internal --platform ios --local --non-interactive
+        "
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: expo-project-${{ env.TRAVIS_COMMIT }}.ipa
+          path: expo-project-${{ env.TRAVIS_COMMIT }}.ipa
