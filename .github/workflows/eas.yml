@@ -14,8 +14,38 @@ env:
 
 jobs:
 
-  build-android:
-    name: Build Android
+  publish:
+    name: Publish
+    runs-on: ubuntu-18.04
+#    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Env
+        uses: ./.github/actions/setup
+      - name: Setup Node
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Setup Secrets
+        uses: secrethub/actions/env-export@v0.2.1
+        env:
+          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
+          EXPO_USERNAME: secrethub://denniske/aoe2companion/expo_username
+          EXPO_PASSWORD: secrethub://denniske/aoe2companion/expo_password
+          SENTRY_AUTH_TOKEN: secrethub://denniske/aoe2companion/sentry_auth_token
+
+      - uses: expo/expo-github-action@v5
+        with:
+          expo-version: ${{ env.EXPO_CLI_VERSION }}
+          expo-username: ${{ env.EXPO_USERNAME }}
+          expo-password: ${{ env.EXPO_PASSWORD }}
+      - run: yarn
+      - run: npx expo publish --release-channel $CHANNEL
+
+
+  build-android-internal:
+    name: Build Android Internal
     runs-on: ubuntu-18.04
 #    needs: [publish]
 #    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0')
@@ -33,29 +63,77 @@ jobs:
         env:
           SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
           EXPO_TOKEN: secrethub://denniske/aoe2companion/expo_token
-          EXPO_USERNAME: secrethub://denniske/aoe2companion/expo_username
-          EXPO_PASSWORD: secrethub://denniske/aoe2companion/expo_password
-          EXPO_ANDROID_KEYSTORE_BASE64: secrethub://denniske/aoe2companion/expo_android_keystore_base64
-          EXPO_ANDROID_KEYSTORE_ALIAS: secrethub://denniske/aoe2companion/expo_android_keystore_alias
-          EXPO_ANDROID_KEYSTORE_PASSWORD: secrethub://denniske/aoe2companion/expo_android_keystore_password
-          EXPO_ANDROID_KEY_PASSWORD: secrethub://denniske/aoe2companion/expo_android_key_password
+#          EXPO_USERNAME: secrethub://denniske/aoe2companion/expo_username
+#          EXPO_PASSWORD: secrethub://denniske/aoe2companion/expo_password
+#          EXPO_ANDROID_KEYSTORE_BASE64: secrethub://denniske/aoe2companion/expo_android_keystore_base64
+#          EXPO_ANDROID_KEYSTORE_ALIAS: secrethub://denniske/aoe2companion/expo_android_keystore_alias
+#          EXPO_ANDROID_KEYSTORE_PASSWORD: secrethub://denniske/aoe2companion/expo_android_keystore_password
+#          EXPO_ANDROID_KEY_PASSWORD: secrethub://denniske/aoe2companion/expo_android_key_password
 
 #      - run: yarn add gulp-cli turtle-cli@$TURTLE_VERSION
 #      - run: npx turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null
 #      - run: echo $EXPO_ANDROID_KEYSTORE_BASE64 | base64 --decode > expo-project.jks
+
+      - run: |
+          echo "EAS_LOCAL_BUILD_ARTIFACTS_DIR=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
+
       - run: yarn
-      - run: "
-          npx eas build --profile internal --platform android --local --non-interactive
-        "
+      - run: npx eas build --profile internal --platform android --local --non-interactive
+      - run: mv build-*.apk aoe2companion-internal-${{ env.TRAVIS_COMMIT }}.apk
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: expo-project-${{ env.TRAVIS_COMMIT }}.aab
-          path: expo-project-${{ env.TRAVIS_COMMIT }}.aab
+          name: aoe2companion-internal-${{ env.TRAVIS_COMMIT }}.apk
+          path: aoe2companion-internal-${{ env.TRAVIS_COMMIT }}.apk
 
-  build-ios:
-    name: Build iOS
+
+  build-android-production:
+    name: Build Android Production
+    runs-on: ubuntu-18.04
+#    needs: [publish]
+#    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Env
+        uses: ./.github/actions/setup
+      - name: Setup Node
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Setup Secrets
+        uses: secrethub/actions/env-export@v0.2.1
+        env:
+          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
+          EXPO_TOKEN: secrethub://denniske/aoe2companion/expo_token
+#          EXPO_USERNAME: secrethub://denniske/aoe2companion/expo_username
+#          EXPO_PASSWORD: secrethub://denniske/aoe2companion/expo_password
+#          EXPO_ANDROID_KEYSTORE_BASE64: secrethub://denniske/aoe2companion/expo_android_keystore_base64
+#          EXPO_ANDROID_KEYSTORE_ALIAS: secrethub://denniske/aoe2companion/expo_android_keystore_alias
+#          EXPO_ANDROID_KEYSTORE_PASSWORD: secrethub://denniske/aoe2companion/expo_android_keystore_password
+#          EXPO_ANDROID_KEY_PASSWORD: secrethub://denniske/aoe2companion/expo_android_key_password
+
+#      - run: yarn add gulp-cli turtle-cli@$TURTLE_VERSION
+#      - run: npx turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null
+#      - run: echo $EXPO_ANDROID_KEYSTORE_BASE64 | base64 --decode > expo-project.jks
+
+      - run: |
+          echo "EAS_LOCAL_BUILD_ARTIFACTS_DIR=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
+
+      - run: yarn
+      - run: npx eas build --profile production --platform android --local --non-interactive
+      - run: mv build-*.apk aoe2companion-production-${{ env.TRAVIS_COMMIT }}.apk
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: aoe2companion-production-${{ env.TRAVIS_COMMIT }}.apk
+          path: aoe2companion-production-${{ env.TRAVIS_COMMIT }}.apk
+
+
+  build-ios-production:
+    name: Build iOS Production
     runs-on: macos-latest
 #    needs: [publish]
 #    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0')
@@ -73,24 +151,19 @@ jobs:
 
       - run: |
           echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
-          echo "EXPO_USERNAME=$(secrethub read denniske/aoe2companion/expo_username)" >> $GITHUB_ENV
-          echo "EXPO_PASSWORD=$(secrethub read denniske/aoe2companion/expo_password)" >> $GITHUB_ENV
-          echo "EXPO_APPLE_TEAM_ID=$(secrethub read denniske/aoe2companion/expo_apple_team_id)" >> $GITHUB_ENV
-          echo "EXPO_IOS_DIST_P12_PASSWORD=$(secrethub read denniske/aoe2companion/expo_ios_dist_p12_password)" >> $GITHUB_ENV
-          echo "EXPO_IOS_DIST_P12_BASE64=$(secrethub read denniske/aoe2companion/expo_ios_dist_p12_base64)" >> $GITHUB_ENV
-          echo "EXPO_IOS_PROVISIONING_PROFILE_BASE64=$(secrethub read denniske/aoe2companion/expo_ios_prov_profile_base64)" >> $GITHUB_ENV
+#          echo "EXPO_USERNAME=$(secrethub read denniske/aoe2companion/expo_username)" >> $GITHUB_ENV
+#          echo "EXPO_PASSWORD=$(secrethub read denniske/aoe2companion/expo_password)" >> $GITHUB_ENV
+#          echo "EXPO_APPLE_TEAM_ID=$(secrethub read denniske/aoe2companion/expo_apple_team_id)" >> $GITHUB_ENV
+#          echo "EXPO_IOS_DIST_P12_PASSWORD=$(secrethub read denniske/aoe2companion/expo_ios_dist_p12_password)" >> $GITHUB_ENV
+#          echo "EXPO_IOS_DIST_P12_BASE64=$(secrethub read denniske/aoe2companion/expo_ios_dist_p12_base64)" >> $GITHUB_ENV
+#          echo "EXPO_IOS_PROVISIONING_PROFILE_BASE64=$(secrethub read denniske/aoe2companion/expo_ios_prov_profile_base64)" >> $GITHUB_ENV
 
-#      - run: yarn add gulp-cli turtle-cli@$TURTLE_VERSION
-#      - run: npx turtle setup:ios --sdk-version $EXPO_SDK_VERSION > /dev/null
-#      - run: echo $EXPO_IOS_DIST_P12_BASE64 | base64 --decode > expo-project_dist.p12
-#      - run: echo $EXPO_IOS_PROVISIONING_PROFILE_BASE64 | base64 --decode > expo-project.mobileprovision
       - run: yarn
-      - run: "
-          npx eas build --profile internal --platform ios --local --non-interactive
-        "
+      - run: npx eas build --profile production --platform ios --local --non-interactive
+      - run: mv build-*.ipa aoe2companion-production-${{ env.TRAVIS_COMMIT }}.ipa
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: expo-project-${{ env.TRAVIS_COMMIT }}.ipa
-          path: expo-project-${{ env.TRAVIS_COMMIT }}.ipa
+          name: aoe2companion-production-${{ env.TRAVIS_COMMIT }}.ipa
+          path: aoe2companion-production-${{ env.TRAVIS_COMMIT }}.ipa

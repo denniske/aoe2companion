@@ -1,4 +1,10 @@
 
+Running builds on your own infrastructure
+https://docs.expo.dev/build-reference/local-builds/
+
+Build schema for eas.json
+https://docs.expo.dev/build-reference/eas-json/
+
 git clone --depth 1 file://C:\Users\Dennis\Projects\aoe2companion
 git clone --depth 1 file:///Users/dennis/Projects/aoe2companion
 npx eas build --profile development --platform android --local

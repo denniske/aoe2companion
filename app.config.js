@@ -1,4 +1,4 @@
-{
+export default {
   "expo": {
     "name": "AoE II Companion",
     "description": "Track your AoE II Definitive Edition games. This app fetches information about your games from aoe2.net so you are always up-to-date.",
@@ -10,7 +10,7 @@
       "web"
     ],
     "userInterfaceStyle": "automatic",
-    "runtimeVersion": "28",
+    "runtimeVersion": process.env.RUNTIME_VERSION,
     "version": "28.0.0",
     "orientation": "portrait",
     "privacy": "public",
@@ -76,4 +76,4 @@
       ]
     }
   }
-}
+};
