@@ -107,7 +107,7 @@
     "immer": "^7.0.0",
     "lodash": "^4.17.19",
     "nestjs-s3": "^1.0.1",
-    "next": "10.0.1",
+    "next": "^12.0.7",
     "next-transpile-modules": "^4.1.0",
     "nexus-prisma": "^0.12.0",
     "node-fetch": "^2.6.0",
