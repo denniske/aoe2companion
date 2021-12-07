@@ -42,6 +42,7 @@ jobs:
 #      - run: yarn add gulp-cli turtle-cli@$TURTLE_VERSION
 #      - run: npx turtle setup:android --sdk-version $EXPO_SDK_VERSION > /dev/null
 #      - run: echo $EXPO_ANDROID_KEYSTORE_BASE64 | base64 --decode > expo-project.jks
+      - run: yarn
       - run: "
           npx eas build --profile internal --platform android --local --non-interactive
         "
@@ -81,6 +82,7 @@ jobs:
 #      - run: npx turtle setup:ios --sdk-version $EXPO_SDK_VERSION > /dev/null
 #      - run: echo $EXPO_IOS_DIST_P12_BASE64 | base64 --decode > expo-project_dist.p12
 #      - run: echo $EXPO_IOS_PROVISIONING_PROFILE_BASE64 | base64 --decode > expo-project.mobileprovision
+      - run: yarn
       - run: "
           npx eas build --profile internal --platform ios --local --non-interactive
         "
