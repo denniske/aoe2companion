@@ -14,34 +14,34 @@ env:
 
 jobs:
 
-  publish:
-    name: Publish
-    runs-on: ubuntu-18.04
-    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0')
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Setup Env
-        uses: ./.github/actions/setup
-      - name: Setup Node
-        uses: actions/setup-node@v2.1.2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-      - name: Setup Secrets
-        uses: secrethub/actions/env-export@v0.2.1
-        env:
-          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
-          EXPO_USERNAME: secrethub://denniske/aoe2companion/expo_username
-          EXPO_PASSWORD: secrethub://denniske/aoe2companion/expo_password
-          SENTRY_AUTH_TOKEN: secrethub://denniske/aoe2companion/sentry_auth_token
-
-      - uses: expo/expo-github-action@v5
-        with:
-          expo-version: ${{ env.EXPO_CLI_VERSION }}
-          expo-username: ${{ env.EXPO_USERNAME }}
-          expo-password: ${{ env.EXPO_PASSWORD }}
-      - run: yarn
-      - run: npx expo publish
+#  publish:
+#    name: Publish
+#    runs-on: ubuntu-18.04
+#    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0')
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v1
+#      - name: Setup Env
+#        uses: ./.github/actions/setup
+#      - name: Setup Node
+#        uses: actions/setup-node@v2.1.2
+#        with:
+#          node-version: ${{ env.NODE_VERSION }}
+#      - name: Setup Secrets
+#        uses: secrethub/actions/env-export@v0.2.1
+#        env:
+#          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
+#          EXPO_USERNAME: secrethub://denniske/aoe2companion/expo_username
+#          EXPO_PASSWORD: secrethub://denniske/aoe2companion/expo_password
+#          SENTRY_AUTH_TOKEN: secrethub://denniske/aoe2companion/sentry_auth_token
+#
+#      - uses: expo/expo-github-action@v5
+#        with:
+#          expo-version: ${{ env.EXPO_CLI_VERSION }}
+#          expo-username: ${{ env.EXPO_USERNAME }}
+#          expo-password: ${{ env.EXPO_PASSWORD }}
+#      - run: yarn
+#      - run: npx expo publish
 
 
   build-android-internal:
@@ -63,7 +63,8 @@ jobs:
           SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
           EXPO_TOKEN: secrethub://denniske/aoe2companion/expo_token
 
-      - run: yarn
+      - run: yarn add eas-cli -g
+      - run: eas build --profile internal --platform android --local --non-interactive
       - run: npx eas build --profile internal --platform android --local --non-interactive
       - run: mv build-*.apk aoe2companion-internal-$TRAVIS_COMMIT.apk
 
@@ -73,186 +74,186 @@ jobs:
           name: aoe2companion-internal-${{ env.TRAVIS_COMMIT }}.apk
           path: aoe2companion-internal-${{ env.TRAVIS_COMMIT }}.apk
 
-  build-android-development:
-    name: Build Android Development
-    runs-on: ubuntu-18.04
-    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0')
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Setup Env
-        uses: ./.github/actions/setup
-      - name: Setup Node
-        uses: actions/setup-node@v2.1.2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-      - name: Setup Secrets
-        uses: secrethub/actions/env-export@v0.2.1
-        env:
-          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
-          EXPO_TOKEN: secrethub://denniske/aoe2companion/expo_token
-
-      - run: yarn
-      - run: npx eas build --profile development --platform android --local --non-interactive
-      - run: mv build-*.apk aoe2companion-development-$TRAVIS_COMMIT.apk
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: aoe2companion-development-${{ env.TRAVIS_COMMIT }}.apk
-          path: aoe2companion-development-${{ env.TRAVIS_COMMIT }}.apk
-
-
-  build-android-production:
-    name: Build Android Production
-    runs-on: ubuntu-18.04
-    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0')
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Setup Env
-        uses: ./.github/actions/setup
-      - name: Setup Node
-        uses: actions/setup-node@v2.1.2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-      - name: Setup Secrets
-        uses: secrethub/actions/env-export@v0.2.1
-        env:
-          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
-          EXPO_TOKEN: secrethub://denniske/aoe2companion/expo_token
-
-      - run: yarn
-      - run: npx eas build --profile production --platform android --local --non-interactive
-      - run: mv build-*.aab aoe2companion-production-$TRAVIS_COMMIT.aab
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: aoe2companion-production-${{ env.TRAVIS_COMMIT }}.aab
-          path: aoe2companion-production-${{ env.TRAVIS_COMMIT }}.aab
-
-
-  build-ios-production:
-    name: Build iOS Production
-    runs-on: macos-latest
-    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0')
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Setup Env
-        uses: ./.github/actions/setup
-      - name: Setup Node
-        uses: actions/setup-node@v2.1.2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - run: brew install secrethub/tools/secrethub-cli
-      - run: |
-          echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
-
-      - run: yarn
-      - run: npx eas build --profile production --platform ios --local --non-interactive
-      - run: mv build-*.ipa aoe2companion-production-$TRAVIS_COMMIT.ipa
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: aoe2companion-production-${{ env.TRAVIS_COMMIT }}.ipa
-          path: aoe2companion-production-${{ env.TRAVIS_COMMIT }}.ipa
-
-  build-ios-development:
-    name: Build iOS Development
-    runs-on: macos-latest
-    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0')
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Setup Env
-        uses: ./.github/actions/setup
-      - name: Setup Node
-        uses: actions/setup-node@v2.1.2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - run: brew install secrethub/tools/secrethub-cli
-      - run: |
-          echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
-
-      - run: yarn
-      - run: npx eas build --profile development-simulator --platform ios --local --non-interactive
-      - run: mv build-*.ipa aoe2companion-development-$TRAVIS_COMMIT.ipa
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: aoe2companion-development-${{ env.TRAVIS_COMMIT }}.ipa
-          path: aoe2companion-development-${{ env.TRAVIS_COMMIT }}.ipa
-
-
-
-  deploy-android-production:
-    name: Deploy Android Production
-    runs-on: ubuntu-18.04
-    needs: [build-android-production]
-    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0.0')
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Setup Env
-        uses: ./.github/actions/setup
-      - name: Setup Node
-        uses: actions/setup-node@v2.1.2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - run: brew install secrethub/tools/secrethub-cli
-      - run: |
-          echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
-          echo "FASTLANE_SERVICE_ACCOUNT_BASE64=$(secrethub read denniske/aoe2companion/fastlane_service_account_base64)" >> $GITHUB_ENV
-
-      - name: Download Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: aoe2companion-production-${{ env.TRAVIS_COMMIT }}.aab
-
-      - run: echo $FASTLANE_SERVICE_ACCOUNT_BASE64 | base64 --decode > play-store-service-account.json
-
-      - run: yarn
-      - run: npx eas submit -p android --non-interactive --path aoe2companion-production-$TRAVIS_COMMIT.aab
-
-
-
-
-  deploy-ios-production:
-    name: Deploy iOS Production
-    runs-on: ubuntu-18.04
-    needs: [build-ios-production]
-    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0.0')
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Setup Env
-        uses: ./.github/actions/setup
-      - name: Setup Node
-        uses: actions/setup-node@v2.1.2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - run: brew install secrethub/tools/secrethub-cli
-      - run: |
-          echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
-          echo "EXPO_APPLE_ID=$(secrethub read denniske/aoe2companion/expo_apple_id)" >> $GITHUB_ENV
-          echo "EXPO_APPLE_AUTH_KEY_P8_BASE64=$(secrethub read denniske/aoe2companion/expo_apple_auth_key_p8_base64)" >> $GITHUB_ENV
-
-      - name: Download Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: aoe2companion-production-${{ env.TRAVIS_COMMIT }}.ipa
-
-      - run: echo $EXPO_APPLE_AUTH_KEY_P8_BASE64 | base64 --decode > auth_key.p8
-
-      - run: yarn
-      - run: npx eas submit -p ios --non-interactive --path aoe2companion-production-$TRAVIS_COMMIT.ipa
+#  build-android-development:
+#    name: Build Android Development
+#    runs-on: ubuntu-18.04
+#    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0')
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v1
+#      - name: Setup Env
+#        uses: ./.github/actions/setup
+#      - name: Setup Node
+#        uses: actions/setup-node@v2.1.2
+#        with:
+#          node-version: ${{ env.NODE_VERSION }}
+#      - name: Setup Secrets
+#        uses: secrethub/actions/env-export@v0.2.1
+#        env:
+#          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
+#          EXPO_TOKEN: secrethub://denniske/aoe2companion/expo_token
+#
+#      - run: yarn
+#      - run: npx eas build --profile development --platform android --local --non-interactive
+#      - run: mv build-*.apk aoe2companion-development-$TRAVIS_COMMIT.apk
+#
+#      - name: Upload Artifact
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: aoe2companion-development-${{ env.TRAVIS_COMMIT }}.apk
+#          path: aoe2companion-development-${{ env.TRAVIS_COMMIT }}.apk
+#
+#
+#  build-android-production:
+#    name: Build Android Production
+#    runs-on: ubuntu-18.04
+#    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0')
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v1
+#      - name: Setup Env
+#        uses: ./.github/actions/setup
+#      - name: Setup Node
+#        uses: actions/setup-node@v2.1.2
+#        with:
+#          node-version: ${{ env.NODE_VERSION }}
+#      - name: Setup Secrets
+#        uses: secrethub/actions/env-export@v0.2.1
+#        env:
+#          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
+#          EXPO_TOKEN: secrethub://denniske/aoe2companion/expo_token
+#
+#      - run: yarn
+#      - run: npx eas build --profile production --platform android --local --non-interactive
+#      - run: mv build-*.aab aoe2companion-production-$TRAVIS_COMMIT.aab
+#
+#      - name: Upload Artifact
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: aoe2companion-production-${{ env.TRAVIS_COMMIT }}.aab
+#          path: aoe2companion-production-${{ env.TRAVIS_COMMIT }}.aab
+#
+#
+#  build-ios-production:
+#    name: Build iOS Production
+#    runs-on: macos-latest
+#    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0')
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v1
+#      - name: Setup Env
+#        uses: ./.github/actions/setup
+#      - name: Setup Node
+#        uses: actions/setup-node@v2.1.2
+#        with:
+#          node-version: ${{ env.NODE_VERSION }}
+#
+#      - run: brew install secrethub/tools/secrethub-cli
+#      - run: |
+#          echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
+#
+#      - run: yarn
+#      - run: npx eas build --profile production --platform ios --local --non-interactive
+#      - run: mv build-*.ipa aoe2companion-production-$TRAVIS_COMMIT.ipa
+#
+#      - name: Upload Artifact
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: aoe2companion-production-${{ env.TRAVIS_COMMIT }}.ipa
+#          path: aoe2companion-production-${{ env.TRAVIS_COMMIT }}.ipa
+#
+#  build-ios-development:
+#    name: Build iOS Development
+#    runs-on: macos-latest
+#    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0')
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v1
+#      - name: Setup Env
+#        uses: ./.github/actions/setup
+#      - name: Setup Node
+#        uses: actions/setup-node@v2.1.2
+#        with:
+#          node-version: ${{ env.NODE_VERSION }}
+#
+#      - run: brew install secrethub/tools/secrethub-cli
+#      - run: |
+#          echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
+#
+#      - run: yarn
+#      - run: npx eas build --profile development-simulator --platform ios --local --non-interactive
+#      - run: mv build-*.ipa aoe2companion-development-$TRAVIS_COMMIT.ipa
+#
+#      - name: Upload Artifact
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: aoe2companion-development-${{ env.TRAVIS_COMMIT }}.ipa
+#          path: aoe2companion-development-${{ env.TRAVIS_COMMIT }}.ipa
+#
+#
+#
+#  deploy-android-production:
+#    name: Deploy Android Production
+#    runs-on: ubuntu-18.04
+#    needs: [build-android-production]
+#    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0.0')
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v1
+#      - name: Setup Env
+#        uses: ./.github/actions/setup
+#      - name: Setup Node
+#        uses: actions/setup-node@v2.1.2
+#        with:
+#          node-version: ${{ env.NODE_VERSION }}
+#
+#      - run: brew install secrethub/tools/secrethub-cli
+#      - run: |
+#          echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
+#          echo "FASTLANE_SERVICE_ACCOUNT_BASE64=$(secrethub read denniske/aoe2companion/fastlane_service_account_base64)" >> $GITHUB_ENV
+#
+#      - name: Download Artifact
+#        uses: actions/download-artifact@v2
+#        with:
+#          name: aoe2companion-production-${{ env.TRAVIS_COMMIT }}.aab
+#
+#      - run: echo $FASTLANE_SERVICE_ACCOUNT_BASE64 | base64 --decode > play-store-service-account.json
+#
+#      - run: yarn
+#      - run: npx eas submit -p android --non-interactive --path aoe2companion-production-$TRAVIS_COMMIT.aab
+#
+#
+#
+#
+#  deploy-ios-production:
+#    name: Deploy iOS Production
+#    runs-on: ubuntu-18.04
+#    needs: [build-ios-production]
+#    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, '.0.0')
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v1
+#      - name: Setup Env
+#        uses: ./.github/actions/setup
+#      - name: Setup Node
+#        uses: actions/setup-node@v2.1.2
+#        with:
+#          node-version: ${{ env.NODE_VERSION }}
+#
+#      - run: brew install secrethub/tools/secrethub-cli
+#      - run: |
+#          echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
+#          echo "EXPO_APPLE_ID=$(secrethub read denniske/aoe2companion/expo_apple_id)" >> $GITHUB_ENV
+#          echo "EXPO_APPLE_AUTH_KEY_P8_BASE64=$(secrethub read denniske/aoe2companion/expo_apple_auth_key_p8_base64)" >> $GITHUB_ENV
+#
+#      - name: Download Artifact
+#        uses: actions/download-artifact@v2
+#        with:
+#          name: aoe2companion-production-${{ env.TRAVIS_COMMIT }}.ipa
+#
+#      - run: echo $EXPO_APPLE_AUTH_KEY_P8_BASE64 | base64 --decode > auth_key.p8
+#
+#      - run: yarn
+#      - run: npx eas submit -p ios --non-interactive --path aoe2companion-production-$TRAVIS_COMMIT.ipa
 
 
