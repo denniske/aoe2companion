@@ -95,7 +95,7 @@ jobs:
 
       - run: yarn
       - run: npx eas build --profile production --platform android --local --non-interactive
-      - run: mv build-*.apk aoe2companion-production-$TRAVIS_COMMIT.aab
+      - run: mv build-*.aab aoe2companion-production-$TRAVIS_COMMIT.aab
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2

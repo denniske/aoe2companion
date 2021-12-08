@@ -12,7 +12,7 @@ export interface IChangelog {
 // https://www.aoe2insights.com/match/99919072/analysis/
 
 export const changelog: IChangelog = {
-    '29.0.0': [
+    '30.0.0': [
         {
             type: 'minor',
             title: 'Internal Framework Update (Expo Eas)',
