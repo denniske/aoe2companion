@@ -10,6 +10,7 @@ export default {
       "web"
     ],
     "userInterfaceStyle": "automatic",
+    "jsEngine": "hermes",
     "runtimeVersion": process.env.RUNTIME_VERSION,
     "version": "30.0.0",
     "orientation": "portrait",
