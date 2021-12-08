@@ -41,9 +41,14 @@ export default {
       "app/assets/translations/**",
       "app/assets/*"
     ],
-    "notification": {
-      "icon": "./app/assets/notification.png"
-    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./app/assets/notification.png"
+        }
+      ]
+    ],
     "android": {
       "userInterfaceStyle": "automatic",
       "package": "com.aoe2companion",

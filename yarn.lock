@@ -13540,15 +13540,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-permissions@npm:~13.0.3":
-  version: 13.0.3
-  resolution: "expo-permissions@npm:13.0.3"
-  dependencies:
-    expo-modules-core: ~0.4.4
-  checksum: 61766b97fa0347c80f215752cf35c65dc595f6e4460dca01db4c86d0796ca9849a625a3f2a428ee9ea5e1bdf41be7b3881ee892402ecb31479b772f1f0c03936
-  languageName: node
-  linkType: hard
-
 "expo-pwa@npm:0.0.102":
   version: 0.0.102
   resolution: "expo-pwa@npm:0.0.102"
@@ -25299,7 +25290,6 @@ __metadata:
     expo-linear-gradient: ~10.0.3
     expo-localization: ~11.0.0
     expo-notifications: ~0.13.3
-    expo-permissions: ~13.0.3
     expo-status-bar: ~1.1.0
     expo-system-ui: ~1.0.0
     expo-updates: ~0.10.15

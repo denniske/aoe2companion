@@ -1,13 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Platform, ScrollView, StyleSheet, View} from 'react-native';
-import { makeVariants, useAppTheme, useTheme} from "../theming";
 import {MyText} from "./components/my-text";
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
-import * as Permissions from 'expo-permissions';
 import {Button} from "react-native-paper";
 import {AndroidNotificationPriority} from "expo-notifications";
-import {IosAuthorizationStatus} from "expo-notifications/build/NotificationPermissions.types";
 import {maskToken} from "../service/push";
 import {useSelector} from "../redux/reducer";
 import Space from "./components/space";
@@ -69,17 +66,28 @@ export default function PushPage() {
     const registerForPushNotificationsAsync = async () => {
         let token;
         if (Constants.isDevice) {
-            const settings = await Notifications.getPermissionsAsync();
-            let newStatus = settings.granted || settings.ios?.status === IosAuthorizationStatus.PROVISIONAL;
-            log('newPermission', newStatus);
-            const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-            log('existingPermission', existingStatus);
+            // const settings = await Notifications.getPermissionsAsync();
+            // let newStatus = settings.granted || settings.ios?.status === IosAuthorizationStatus.PROVISIONAL;
+            // log('newPermission', newStatus);
+            // const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+            // log('existingPermission', existingStatus);
+            // let finalStatus = existingStatus;
+            // if (existingStatus !== 'granted') {
+            //     const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+            //     finalStatus = status;
+            // }
+            // log('finalPermission', finalStatus);
+            // if (finalStatus !== 'granted') {
+            //     log('Failed to get push token for push notification!');
+            //     return;
+            // }
+
+            const { status: existingStatus } = await Notifications.getPermissionsAsync();
             let finalStatus = existingStatus;
             if (existingStatus !== 'granted') {
-                const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+                const { status } = await Notifications.requestPermissionsAsync();
                 finalStatus = status;
             }
-            log('finalPermission', finalStatus);
             if (finalStatus !== 'granted') {
                 log('Failed to get push token for push notification!');
                 return;
@@ -87,7 +95,7 @@ export default function PushPage() {
 
             // throw "Deliberate Error!";
 
-            token = (await Notifications.getExpoPushTokenAsync()).data;
+            token = (await Notifications.getExpoPushTokenAsync({ experienceId: '@denniske1001/aoe2companion' })).data;
             log(maskToken(token));
 
             if (Platform.OS === 'android') {

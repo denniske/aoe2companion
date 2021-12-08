@@ -19,7 +19,6 @@ import {
 } from "../api/following";
 import * as Notifications from "expo-notifications";
 import {IosAuthorizationStatus} from "expo-notifications/build/NotificationPermissions.types";
-import * as Permissions from "expo-permissions";
 import ButtonPicker from "./components/button-picker";
 import {createStylesheet} from '../theming-new';
 import {getLanguageFromSystemLocale2, getTranslation} from '../helper/translate';
@@ -101,17 +100,28 @@ export default function SettingsPage() {
         setLoadingPushNotificationEnabled(true);
         try {
             if (pushNotificationsEnabled) {
-                const settings = await Notifications.getPermissionsAsync();
-                let newStatus = settings.granted || settings.ios?.status === IosAuthorizationStatus.PROVISIONAL;
-                console.log('newPermission', newStatus);
-                const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-                console.log('existingPermission', existingStatus);
+                // const settings = await Notifications.getPermissionsAsync();
+                // let newStatus = settings.granted || settings.ios?.status === IosAuthorizationStatus.PROVISIONAL;
+                // console.log('newPermission', newStatus);
+                // const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+                // console.log('existingPermission', existingStatus);
+                // let finalStatus = existingStatus;
+                // if (existingStatus !== 'granted') {
+                //     const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+                //     finalStatus = status;
+                // }
+                // console.log('finalPermission', finalStatus);
+                // if (finalStatus !== 'granted') {
+                //     console.log('Failed to get push token for push notification!');
+                //     return;
+                // }
+
+                const { status: existingStatus } = await Notifications.getPermissionsAsync();
                 let finalStatus = existingStatus;
                 if (existingStatus !== 'granted') {
-                    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+                    const { status } = await Notifications.requestPermissionsAsync();
                     finalStatus = status;
                 }
-                console.log('finalPermission', finalStatus);
                 if (finalStatus !== 'granted') {
                     console.log('Failed to get push token for push notification!');
                     return;
