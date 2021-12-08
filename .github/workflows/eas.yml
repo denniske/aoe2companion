@@ -180,13 +180,13 @@ jobs:
 
       - run: yarn
       - run: npx eas build --profile development-simulator --platform ios --local --non-interactive
-      - run: mv build-*.ipa aoe2companion-development-$TRAVIS_COMMIT.ipa
+      - run: mv build-*.tar.gz aoe2companion-development-$TRAVIS_COMMIT.tar.gz
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: aoe2companion-development-${{ env.TRAVIS_COMMIT }}.ipa
-          path: aoe2companion-development-${{ env.TRAVIS_COMMIT }}.ipa
+          name: aoe2companion-development-${{ env.TRAVIS_COMMIT }}.tar.gz
+          path: aoe2companion-development-${{ env.TRAVIS_COMMIT }}.tar.gz
 
 
 
