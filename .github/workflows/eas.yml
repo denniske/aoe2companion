@@ -63,8 +63,7 @@ jobs:
           SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
           EXPO_TOKEN: secrethub://denniske/aoe2companion/expo_token
 
-      - run: yarn add global eas-cli
-      - run: eas build --profile internal --platform android --local --non-interactive
+      - run: yarn
       - run: npx eas build --profile internal --platform android --local --non-interactive
       - run: mv build-*.apk aoe2companion-internal-$TRAVIS_COMMIT.apk
 
