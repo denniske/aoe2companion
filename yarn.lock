@@ -23967,6 +23967,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-purchases@npm:^4.5.0":
+  version: 4.5.0
+  resolution: "react-native-purchases@npm:4.5.0"
+  peerDependencies:
+    react: ">= 16.6.3"
+    react-native: ">= 0.58.2"
+  checksum: eb27e25c8d4d33431f2746f60a28bd5325bbbce3bb9458ea1dfa2d20aaedb489f65f822e7eba881d7312747ada79866ac4bea59cf979783c747bf64cd2a61b10
+  languageName: node
+  linkType: hard
+
 "react-native-reanimated@npm:~2.2.0":
   version: 2.2.4
   resolution: "react-native-reanimated@npm:2.2.4"
@@ -25318,6 +25328,7 @@ __metadata:
     react-native-debugger-open: ^0.3.24
     react-native-gesture-handler: ~1.10.2
     react-native-paper: ^4.7.2
+    react-native-purchases: ^4.5.0
     react-native-reanimated: ~2.2.0
     react-native-safe-area-context: 3.3.2
     react-native-screens: ^3.10.0
