@@ -162,12 +162,14 @@ export default function UserPage() {
     const getOfferings = async () => {
         try {
             const offerings = await Purchases.getOfferings();
+            const products = await Purchases.getProducts(['coffee']);
             if (offerings.current !== null) {
                 setOfferingCount(100);
                 // Display current offering with offerings.current
             }
             setOfferingCount(50);
             console.log('offerings', offerings);
+            console.log('products', products);
         } catch (e) {
             setOfferingCount(-100);
             console.log('offerings error', e);
@@ -177,8 +179,8 @@ export default function UserPage() {
     useEffect(() => {
         console.log('Purchases configure start');
         Purchases.setDebugLogsEnabled(true);
-        Purchases.setup("dlGgduxtfsJSGpzCeRdKRAmxUqYBufAH");
-        console.log('Purchases configure end');
+        Purchases.setup("goog_zplywHQQpwVFHSSxskZzKlRuwZO");
+        console.log('Purchases configure end2');
         getOfferings();
     }, []);
 
