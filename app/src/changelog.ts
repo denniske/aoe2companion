@@ -12,13 +12,13 @@ export interface IChangelog {
 // https://www.aoe2insights.com/match/99919072/analysis/
 
 export const changelog: IChangelog = {
-    '30.0.0': [
+    '35.0.0': [
         {
             type: 'minor',
             title: 'Internal Framework Update (Expo Eas)',
         },
     ],
-    '27.0.0': [
+    '28.0.0': [
         {
             type: 'minor',
             title: 'Internal Framework Update (Expo SDK 43)',

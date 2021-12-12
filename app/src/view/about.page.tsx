@@ -21,7 +21,7 @@ export default function AboutPage() {
     const linkTo = useLinkTo();
     const [state, setState] = useState('');
     const [electronVersion, setElectronVersion] = useState('');
-    const [errorPageClickCount, setErrorPageClickCount] = useState(0);
+    const [versionClickCount, setVersionClickCount] = useState(0);
     const mutate = useMutate();
     const navigation = useNavigation();
 
@@ -40,7 +40,7 @@ export default function AboutPage() {
         setState('checkingForUpdate');
         const update = await doCheckForUpdateAsync();
         if (update.isAvailable) {
-            mutate(setUpdateManifest(update.manifest));
+            mutate(setUpdateManifest(update.manifest!));
             setState('checked');
             return;
         }
@@ -53,10 +53,11 @@ export default function AboutPage() {
         setState('upToDate');
     };
 
-    const incrementErrorPageClickCount = () => {
-        // setErrorPageClickCount(errorPageClickCount + 1);
+    const incrementVersionClickCount = () => {
+        // setVersionClickCount(errorPageClickCount + 1);
         // if (errorPageClickCount > 5) {
-        navigation.navigate('Error');
+        navigation.navigate('Purchase');
+        // navigation.navigate('Error');
         // }
     };
 
@@ -152,14 +153,14 @@ export default function AboutPage() {
             <MyText style={styles.content2}>+ {getTranslation('about.anonymoussupporters')}</MyText>
 
             <MyText style={styles.heading}>{getTranslation('about.heading.version')}</MyText>
-            <TouchableOpacity onPress={incrementErrorPageClickCount}>
+            <TouchableOpacity onPress={incrementVersionClickCount}>
                 {
                     isElectron() &&
-                    <MyText style={styles.content}>{Constants.manifest.releaseChannel || 'dev'}-{Constants.manifest.version}n{electronVersion}</MyText>
+                    <MyText style={styles.content}>{Constants.manifest?.releaseChannel || 'dev'}-{Constants.manifest?.version}n{electronVersion}</MyText>
                 }
                 {
                     !isElectron() &&
-                    <MyText style={styles.content}>{Constants.manifest.releaseChannel || 'dev'}-{Constants.manifest.version}n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}</MyText>
+                    <MyText style={styles.content}>{Constants.manifest?.releaseChannel || 'dev'}-{Constants.manifest?.version}n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}</MyText>
                 }
             </TouchableOpacity>
 

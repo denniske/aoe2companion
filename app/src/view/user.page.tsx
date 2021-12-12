@@ -105,7 +105,6 @@ export default function UserPage() {
     const account = useSelector(state => state.account);
     const profile = useSelector(state => state.user[user?.id]?.profile);
     const [hasSteamId, setHasSteamId] = useState(true);
-    const [offeringCount, setOfferingCount] = useState(0);
 
     console.log('UserPage', route.params, auth);
 
@@ -159,31 +158,6 @@ export default function UserPage() {
         }
     }, [profile]);
 
-    const getOfferings = async () => {
-        try {
-            const offerings = await Purchases.getOfferings();
-            const products = await Purchases.getProducts(['coffee']);
-            if (offerings.current !== null) {
-                setOfferingCount(100);
-                // Display current offering with offerings.current
-            }
-            setOfferingCount(50);
-            console.log('offerings', offerings);
-            console.log('products', products);
-        } catch (e) {
-            setOfferingCount(-100);
-            console.log('offerings error', e);
-        }
-    };
-
-    useEffect(() => {
-        console.log('Purchases configure start');
-        Purchases.setDebugLogsEnabled(true);
-        Purchases.setup("goog_zplywHQQpwVFHSSxskZzKlRuwZO");
-        console.log('Purchases configure end2');
-        getOfferings();
-    }, []);
-
     // When visiting user page with only profile_id / steam_id
 
     const completeUserIdInfo = async () => {
@@ -235,10 +209,7 @@ export default function UserPage() {
     }
 
     if (auth == null) {
-        return <View style={styles.wrapper}>
-            <MyText>Offerings { offeringCount }</MyText>
-            <Search title="Enter your AoE username to track your games:" selectedUser={onSelect} actionText="Choose" />
-        </View>;
+        return <Search title="Enter your AoE username to track your games:" selectedUser={onSelect} actionText="Choose" />;
     }
 
     return <MainPageInner user={auth}/>;
@@ -264,9 +235,5 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     },
     menuIcon: {
         color: theme.textNoteColor,
-    },
-    wrapper: {
-        flexDirection: 'column',
-        flex: 1,
     },
 }));
