@@ -115,7 +115,7 @@ function DonationMembership() {
     const [coffeeProduct, setCoffeeProduct] = useState<PurchasesProduct>();
     const [totalPrice, setTotalPrice] = useState('');
     const [error, setError] = useState();
-    const [activeSubscriptions, setActiveSubscriptions] = useState<string[]>([]);
+    const purchaserInfo = useSelector(state => state.donation?.purchaserInfo) as PurchaserInfo;
 
     const join = async (product: PurchasesProduct) => {
         try {
@@ -127,8 +127,6 @@ function DonationMembership() {
     };
 
     const init = async () => {
-        const info = await Purchases.getPurchaserInfo();
-        setActiveSubscriptions(info.activeSubscriptions);
         // setActiveSubscriptions(['supporter']);
         setCoffeeProduct(await getSupporterProduct());
     };
@@ -146,7 +144,9 @@ function DonationMembership() {
     const cancelSubPlayStoreLink = 'https://support.google.com/googleplay/answer/7018481?co=GENIE.Platform%3DAndroid&oco=1';
     const cancelSubLink = Platform.OS === 'android' ? cancelSubPlayStoreLink : cancelSubAppStoreLink;
 
-    if (activeSubscriptions.length > 0) {
+    const activeSubscriptions = purchaserInfo?.activeSubscriptions;
+
+    if (activeSubscriptions?.length > 0) {
         return (
             <View style={styles.container}>
                 <MyText style={styles.membershipHeader}>Active Membership</MyText>
@@ -255,7 +255,7 @@ function DonationLink() {
     const styles = useStyles();
     const appStyles = useTheme(appVariants);
 
-    if (false && Platform.OS === 'ios') {
+    if (Platform.OS === 'ios') {
         return <View/>;
     }
 
