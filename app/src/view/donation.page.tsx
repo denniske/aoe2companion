@@ -31,16 +31,16 @@ export default function DonationPage(props: any) {
     return <DonationInner {...props} />;
 }
 
-function DonationInner(props: any) {
+function DonationInner() {
     const mutate = useMutate();
     const route = useRoute<RouteProp<RootStackParamList, 'Donation'>>();
     const styles = useStyles();
-    // const [offerings, setOfferings] = useState({});
     const [products, setProducts] = useState({});
     const purchaserInfo = useSelector(state => state.donation?.purchaserInfo) as PurchaserInfo;
 
     const init = async () => {
         try {
+            Purchases.setup(Platform.OS === 'android' ? 'goog_zplywHQQpwVFHSSxskZzKlRuwZO' : 'appl_kOclOwIXEyXVRYYmCPGyRtMxXsH');
             const info = await Purchases.getPurchaserInfo();
             const products = await Promise.all([
                 Purchases.getProducts(['supporter'], PURCHASE_TYPE.SUBS),
@@ -49,22 +49,13 @@ function DonationInner(props: any) {
             mutate(setPurchaserInfo(info));
             setProducts(products);
             console.log('products', products);
-            // const offerings = await Purchases.getOfferings();
-            // setOfferings(offerings);
-            // console.log('offerings', offerings);
         } catch (e) {
-            setProducts({ text: 'Offerings error: ' + e });
-            console.log('offerings error', e);
-            // setOfferings({ text: 'Offerings error: ' + e });
+            setProducts({ text: 'Error: ' + e });
+            console.log('error', e);
         }
     };
 
     useEffect(() => {
-        // console.log('Purchases configure start');
-        // Purchases.setDebugLogsEnabled(true);
-        // Purchases.setup('goog_zplywHQQpwVFHSSxskZzKlRuwZO');
-        Purchases.setup(Platform.OS === 'android' ? 'goog_zplywHQQpwVFHSSxskZzKlRuwZO' : 'appl_kOclOwIXEyXVRYYmCPGyRtMxXsH');
-        // console.log('Purchases configure end2');
         init();
     }, []);
 
@@ -96,13 +87,13 @@ function DonationInner(props: any) {
                 <MyText style={styles.action}>Thanks for your support 😊</MyText>
             }
 
-            {/*{*/}
-            {/*    purchaserInfo != null &&*/}
+            {
+                purchaserInfo != null &&
                 <Tab.Navigator lazy={true} swipeEnabled={true} initialRouteName={hasActiveSubscription ? 'DonationMembership' : 'DonationSupport'}>
                     <Tab.Screen name="DonationMembership" options={{title: '', tabBarLabel: (x) => <TabBarLabel {...x} title="Membership"/>}} component={DonationMembership} />
                     <Tab.Screen name="DonationSupport" options={{title: '', tabBarLabel: (x) => <TabBarLabel {...x} title="Support"/>}} component={DonationSupport} />
                 </Tab.Navigator>
-            {/*}*/}
+            }
 
             <Space/>
 
@@ -123,11 +114,16 @@ function DonationMembership() {
     const appStyles = useTheme(appVariants);
     const [coffeeProduct, setCoffeeProduct] = useState<PurchasesProduct>();
     const [totalPrice, setTotalPrice] = useState('');
+    const [error, setError] = useState();
     const [activeSubscriptions, setActiveSubscriptions] = useState<string[]>([]);
 
     const join = async (product: PurchasesProduct) => {
-        const result = await Purchases.purchaseProduct(product.identifier);
-        mutate(setPurchaserInfo(result.purchaserInfo));
+        try {
+            const result = await Purchases.purchaseProduct(product.identifier);
+            mutate(setPurchaserInfo(result.purchaserInfo));
+        } catch(e) {
+            setError(e);
+        }
     };
 
     const init = async () => {
@@ -178,6 +174,13 @@ function DonationMembership() {
             <Button style={styles.button} labelStyle={styles.buttonText} mode="contained" onPress={() => join(coffeeProduct!)}>Join</Button>
 
             <DonationLink/>
+
+            {
+                error &&
+                <View>
+                    <MyText>{JSON.stringify(error, null, 4)}</MyText>
+                </View>
+            }
         </View>
     );
 }
@@ -188,10 +191,15 @@ function DonationSupport() {
     const [coffeeQuantity, setCoffeeQuantity] = useState(1);
     const [coffeeProducts, setCoffeeProductss] = useState<PurchasesProduct[]>();
     const [totalPrice, setTotalPrice] = useState('');
+    const [error, setError] = useState();
 
     const buyCoffee = async (product: PurchasesProduct) => {
-        const result = await Purchases.purchaseProduct(product.identifier);
-        mutate(setPurchaserInfo(result.purchaserInfo));
+        try {
+            const result = await Purchases.purchaseProduct(product.identifier);
+            mutate(setPurchaserInfo(result.purchaserInfo));
+        } catch(e) {
+            setError(e);
+        }
     };
 
     const getProducts = async () => {
@@ -219,7 +227,6 @@ function DonationSupport() {
             style={styles.container}
             contentContainerStyle={styles.content}>
 
-
             <MyText style={styles.action}>Buy <MyText style={styles.actionName}>Dennis Keil</MyText> a coffee</MyText>
 
             <View style={styles.coffeeRow}>
@@ -233,6 +240,13 @@ function DonationSupport() {
             <Button style={styles.button} labelStyle={styles.buttonText} mode="contained" onPress={() => buyCoffee(coffeeProducts![[1, 3, 5].indexOf(coffeeQuantity)])}>Support {totalPrice}</Button>
 
             <DonationLink/>
+
+            {
+                error &&
+                <View>
+                    <MyText>{JSON.stringify(error, null, 4)}</MyText>
+                </View>
+            }
         </ScrollView>
     );
 }
