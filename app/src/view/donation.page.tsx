@@ -195,7 +195,7 @@ function DonationSupport() {
 
     const buyCoffee = async (product: PurchasesProduct) => {
         try {
-            const result = await Purchases.purchaseProduct(product.identifier);
+            const result = await Purchases.purchaseProduct(product.identifier, null, PURCHASE_TYPE.INAPP);
             mutate(setPurchaserInfo(result.purchaserInfo));
         } catch(e) {
             setError(e);
