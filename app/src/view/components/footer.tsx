@@ -232,6 +232,7 @@ export default function Footer() {
                             }
                     >
                         <Menu.Item icon={useIcon('hands-helping')} titleStyle={iconPopupStyle('')} onPress={() => { openLink('https://discord.com/invite/gCunWKx'); setMenu(false); }} title={getTranslation('footer.help')} />
+                        {/*<Menu.Item icon={useIcon('coffee')} titleStyle={iconPopupStyle('')} onPress={() => { nav('Donation'); setMenu(false); }} title={getTranslation('footer.buymeacoffee')} />*/}
                         {
                            Platform.OS !== 'ios' &&
                            <Menu.Item icon={useIcon('coffee')} titleStyle={iconPopupStyle('')} onPress={() => { openLink('https://www.buymeacoffee.com/denniskeil'); setMenu(false); }} title={getTranslation('footer.buymeacoffee')} />

@@ -82,6 +82,12 @@ export function setFollowing(following: IFollowingEntry[]) {
   };
 }
 
+export function setPurchaserInfo(purchaserInfo: any | null) {
+  return (state: AppState) => {
+    state.donation.purchaserInfo = purchaserInfo;
+  };
+}
+
 export function setUpdateManifest(updateManifest: Manifest | null) {
   return (state: AppState) => {
     state.updateManifest = updateManifest;
@@ -184,12 +190,17 @@ export interface IError {
   error: Error;
 }
 
+export interface IDonation {
+  purchaserInfo?: any;
+}
+
 export type DarkMode = 'light' | 'dark' | 'system';
 
 export interface AppState {
   account: IAccount;
   auth?: UserId | null;
   user: IUserDict;
+  donation: IDonation;
   statsPlayer: any;
   loadingMatchesOrStats: Date;
 
@@ -224,6 +235,7 @@ const initialState: Partial<AppState> = {
   config: undefined,
   followedMatches: undefined,
   user: {},
+  donation: {},
   leaderboard: {},
   auth: undefined,
   statsPlayer: undefined,

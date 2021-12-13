@@ -87,7 +87,7 @@ import CurrentMatchSnackbar from "./src/view/components/snackbar/current-match-s
 import MatchPage from "./src/view/match.page";
 import BuildPage from "./src/view/build.page";
 import {fetchAoeReferenceData} from './src/helper/reference';
-import PurchasePage from './src/view/purchase.page';
+import DonationPage from './src/view/donation.page';
 
 initSentry();
 
@@ -265,7 +265,7 @@ export type RootStackParamList = {
     Intro: { match_id: string };
     Overlay: undefined;
     Error: undefined;
-    Purchase: undefined;
+    Donation: { debug?: boolean };
     Splash: undefined;
     Tips: undefined;
     Push: undefined;
@@ -491,10 +491,10 @@ export function InnerApp() {
                     }}
                 />
                 <Stack.Screen
-                    name="Purchase"
-                    component={PurchasePage}
+                    name="Donation"
+                    component={DonationPage}
                     options={{
-                        title: getTranslation('errors.title'),
+                        title: '',
                     }}
                 />
                 <Stack.Screen

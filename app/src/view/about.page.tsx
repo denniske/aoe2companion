@@ -56,7 +56,7 @@ export default function AboutPage() {
     const incrementVersionClickCount = () => {
         // setVersionClickCount(errorPageClickCount + 1);
         // if (errorPageClickCount > 5) {
-        navigation.navigate('Purchase');
+        navigation.navigate('Donation', { debug: true });
         // navigation.navigate('Error');
         // }
     };

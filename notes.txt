@@ -11,6 +11,11 @@ npx eas build --profile development --platform android --local
 
 yarn set version berry
 
+In App Purchase
+
+x Retrieve Purchases
+- Play Console Pricing?
+
 EAS
 
 https://forums.expo.dev/t/has-anyone-successfully-adopted-iap-with-eas-build-for-their-managed-app/54047/24
