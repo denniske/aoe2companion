@@ -9,6 +9,7 @@ module.exports = function(api) {
           alias: {
             "@nex/data/hooks": ["./data/src/index-hooks.ts"],
             "@nex/data": ["./data/src/index.ts"],
+            "@nex/dataset": [process.env.APP === 'aoe2' ? "./dataset2/src/index.ts" : "./dataset4/src/index.ts"],
           }
         }
       ]

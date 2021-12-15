@@ -21,7 +21,8 @@
     "baseUrl": ".",
     "paths": {
       "@nex/data/hooks": ["data/src/index-hooks.ts"],
-      "@nex/data": ["data/src/index.ts"]
+      "@nex/data": ["data/src/index.ts"],
+      "@nex/dataset": ["dataset2/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "tools"]

@@ -6,6 +6,7 @@ import {getAoeString} from '../lib/aoe-data';
 import {orderBy} from 'lodash';
 import {getService, SERVICE_NAME} from "../lib/di";
 import {ICivService} from "../lib/host";
+import {civsData} from "@nex/dataset";
 
 // export const civs = [
 //     'Aztecs',
@@ -49,14 +50,16 @@ import {ICivService} from "../lib/host";
 //     'Vikings',
 // ] as const;
 
-export const civs = (()=>{
-    try {
-        return (getService(SERVICE_NAME.CIV_SERVICE) as ICivService).getCivs();
-    } catch (e) {
-        console.log(e);
-        return ['Aztecs'];
-    }
-})(); // as const;
+export const civs = civsData;
+
+// export const civs = (()=>{
+//     try {
+//         return (getService(SERVICE_NAME.CIV_SERVICE) as ICivService).getCivs();
+//     } catch (e) {
+//         console.log(e);
+//         return ['Aztecs'];
+//     }
+// })(); // as const;
 
 console.log('CIVS BEGINNING', civs);
 
