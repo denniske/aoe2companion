@@ -4,6 +4,7 @@ export enum SERVICE_NAME {
     HOST_SERVICE = 'HOST_SERVICE',
     HTTP_SERVICE = 'HTTP_SERVICE',
     TRANSLATION_SERVICE = 'TRANSLATION_SERVICE',
+    CIV_SERVICE = 'CIV_SERVICE',
 }
 
 interface IServiceDict {
@@ -15,6 +16,7 @@ const services: IServiceDict = {
 };
 
 export function getService(name: SERVICE_NAME) {
+    console.log('getService services', services);
     if (!(name in services)) throw Error('Service ' + name + ' not found.');
     return services[name];
 }

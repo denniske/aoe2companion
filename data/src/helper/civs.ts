@@ -1,51 +1,65 @@
-import {Tech, techs} from "./techs";
-import {Unit, units} from "./units";
+import {Tech} from "./techs";
+import {Unit} from "./units";
 import {aoeData} from "../data/data";
 import {removeAccentsAndCase, sanitizeGameDescription, unwrap} from "../lib/util";
 import {getAoeString} from '../lib/aoe-data';
 import {orderBy} from 'lodash';
+import {getService, SERVICE_NAME} from "../lib/di";
+import {ICivService} from "../lib/host";
 
-export const civs = [
-    'Aztecs',
-    'Berbers',
-    'Bohemians',
-    'Britons',
-    'Bulgarians',
-    'Burgundians',
-    'Burmese',
-    'Byzantines',
-    'Celts',
-    'Chinese',
-    'Cumans',
-    'Ethiopians',
-    'Franks',
-    'Goths',
-    'Huns',
-    'Incas',
-    'Indians',
-    'Italians',
-    'Japanese',
-    'Khmer',
-    'Koreans',
-    'Lithuanians',
-    'Magyars',
-    'Malay',
-    'Malians',
-    'Mayans',
-    'Mongols',
-    'Persians',
-    'Poles',
-    'Portuguese',
-    'Saracens',
-    'Sicilians',
-    'Slavs',
-    'Spanish',
-    'Tatars',
-    'Teutons',
-    'Turks',
-    'Vietnamese',
-    'Vikings',
-] as const;
+// export const civs = [
+//     'Aztecs',
+//     'Berbers',
+//     'Bohemians',
+//     'Britons',
+//     'Bulgarians',
+//     'Burgundians',
+//     'Burmese',
+//     'Byzantines',
+//     'Celts',
+//     'Chinese',
+//     'Cumans',
+//     'Ethiopians',
+//     'Franks',
+//     'Goths',
+//     'Huns',
+//     'Incas',
+//     'Indians',
+//     'Italians',
+//     'Japanese',
+//     'Khmer',
+//     'Koreans',
+//     'Lithuanians',
+//     'Magyars',
+//     'Malay',
+//     'Malians',
+//     'Mayans',
+//     'Mongols',
+//     'Persians',
+//     'Poles',
+//     'Portuguese',
+//     'Saracens',
+//     'Sicilians',
+//     'Slavs',
+//     'Spanish',
+//     'Tatars',
+//     'Teutons',
+//     'Turks',
+//     'Vietnamese',
+//     'Vikings',
+// ] as const;
+
+export const civs = (()=>{
+    try {
+        return (getService(SERVICE_NAME.CIV_SERVICE) as ICivService).getCivs();
+    } catch (e) {
+        console.log(e);
+        return ['Aztecs'];
+    }
+})(); // as const;
+
+console.log('CIVS BEGINNING', civs);
+
 
 export interface ICivEntry {
     name: Civ;

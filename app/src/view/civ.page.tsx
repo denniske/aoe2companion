@@ -136,6 +136,8 @@ export function CivList() {
         </TouchableOpacity>
     );
 
+    console.log('CIVS IN LIST', civs);
+
     return (
         <FlatList
             contentContainerStyle={styles.container}

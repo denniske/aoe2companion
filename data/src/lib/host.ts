@@ -9,6 +9,10 @@ export interface IHostService {
     getEnvironment(): Environment;
 }
 
+export interface ICivService {
+    getCivs(): any;
+}
+
 export function getHost(host: Host) {
     const hostService = getService(SERVICE_NAME.HOST_SERVICE) as IHostService;
     const platform = hostService.getPlatform();
