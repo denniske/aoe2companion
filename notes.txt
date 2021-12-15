@@ -1,4 +1,30 @@
 
+
+  "main": "app/App.tsx",
+
+
+Aoe 4
+
+House of Wisdom
+https://aktaboot.github.io/index.html
+
+https://aoe2recs.com/dashboard/
+
+https://github.com/SiegeEngineers/spectator-dashboard-ui
+
+https://aoeiv.net/
+
+Turnspender's Aoe4 Data Sheet - Patch 9369 (2021/12/09-)
+https://docs.google.com/spreadsheets/d/1oIkBHSYGMyxx-yRL_cmhnx7nV_afCMSyjaXX0mL_4Kk/htmlview?usp=sharing&pru=AAABfd04Et4*wqbygY5A4Pbi7l0OfmP9eQ#
+
+
+
+
+Typescript config files for expo
+https://docs.expo.dev/guides/typescript/
+
+
+
 Running builds on your own infrastructure
 https://docs.expo.dev/build-reference/local-builds/
 
@@ -7,7 +33,12 @@ https://docs.expo.dev/build-reference/eas-json/
 
 git clone --depth 1 file://C:\Users\Dennis\Projects\aoe2companion
 git clone --depth 1 file:///Users/dennis/Projects/aoe2companion
-npx eas build --profile development --platform android --local
+npx eas build --profile development --platform android --no-wait
+npx eas build --profile development4 --platform android --no-wait
+
+
+git clone --depth 1 file://C:\Users\Dennis\Projects\aoe2companion && cd aoe2companion && yarn && npx eas build --profile development4 --platform android --no-wait
+
 
 yarn set version berry
 
@@ -22,16 +53,6 @@ https://forums.expo.dev/t/has-anyone-successfully-adopted-iap-with-eas-build-for
 https://medium.com/@jonathan.payet/expo-in-app-purchase-for-managed-app-cdcd643de28d
 
 https://docs.expo.dev/build-reference/local-builds/
-
-
-Aoe 4
-
-https://aoe2recs.com/dashboard/
-https://github.com/SiegeEngineers/spectator-dashboard-ui
-
-https://aoeiv.net/
-
-
 
 x quick play leaderboard id format
 x search aoe2

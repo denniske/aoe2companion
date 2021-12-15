@@ -88,6 +88,7 @@ import MatchPage from "./src/view/match.page";
 import BuildPage from "./src/view/build.page";
 import {fetchAoeReferenceData} from './src/helper/reference';
 import DonationPage from './src/view/donation.page';
+import {registerRootComponent} from "expo";
 
 initSentry();
 
@@ -881,6 +882,8 @@ export default function App() {
         </ReduxProvider>
     );
 }
+
+registerRootComponent(App);
 
 const isMobile = ['Android', 'iOS'].includes(Device.osName!);
 

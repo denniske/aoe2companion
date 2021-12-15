@@ -3,6 +3,14 @@
     "version": ">= 0.39.0"
   },
   "build": {
+    "development4": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": {
+        "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
+        "APP": "aoe4"
+      }
+    },
     "development": {
       "developmentClient": true,
       "distribution": "internal",
