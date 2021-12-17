@@ -3,6 +3,7 @@ import { getHost } from './host';
 import {fetchJson} from "./fetch-json";
 import {makeQueryString} from "./util";
 import {Flag} from './flag';
+import {appConfig} from "@nex/dataset";
 
 
 export interface ILeaderboardPlayerRaw {
@@ -70,7 +71,7 @@ export interface IFetchLeaderboardParams {
 async function fetchLeaderboardInternal(baseUrl: string, game: string, leaderboard_id: number, params: IFetchLeaderboardParams) {
     // time('fetchLeaderboard');
     const queryString = makeQueryString({
-        game,
+        game: appConfig.game,
         leaderboard_id,
         ...params,
     });

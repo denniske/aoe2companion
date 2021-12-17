@@ -2,6 +2,7 @@ import {getHost, makeQueryString, sleep, time} from '@nex/data';
 import {ILeaderboard, ILeaderboardRaw} from "@nex/data";
 import {fromUnixTime} from "date-fns";
 import {fetchJson} from "./util";
+import {appConfig} from "@nex/dataset";
 
 
 function convertTimestampsToDates(leaderboardRaw: ILeaderboardRaw): ILeaderboard {
@@ -27,7 +28,7 @@ export interface IFetchLeaderboardParams {
 async function fetchLeaderboardInternal(baseUrl: string, game: string, leaderboard_id: number, params: IFetchLeaderboardParams) {
     // time('fetchLeaderboard');
     const queryString = makeQueryString({
-        game,
+        game: appConfig.game,
         leaderboard_id,
         ...params,
     });
@@ -42,14 +43,14 @@ async function fetchLeaderboardInternal(baseUrl: string, game: string, leaderboa
 
 export async function fetchLeaderboard(game: string, leaderboard_id: number, params: IFetchLeaderboardParams) {
     // await sleep(4000);
-    try {
-        return await fetchLeaderboardInternal(getHost('aoe2companion'), game, leaderboard_id, params);
-    } catch (e) {
+    // try {
+    //     return await fetchLeaderboardInternal(getHost('aoe2companion'), game, leaderboard_id, params);
+    // } catch (e) {
         if (params.country == null) {
             return await fetchLeaderboardInternal(getHost('aoe2net'), game, leaderboard_id, params);
         }
-        throw e;
-    }
+        // throw e;
+    // }
 }
 
 export async function fetchLeaderboardLegacy(game: string, leaderboard_id: number, params: IFetchLeaderboardParams) {

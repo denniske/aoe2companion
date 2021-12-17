@@ -1,3 +1,4 @@
+import {playerColorsData} from "../../../dataset2/src/data/colors.data";
 
 const playerColorsBright = [
     '#6EA6EB',
@@ -10,16 +11,7 @@ const playerColorsBright = [
     '#FFB415',
 ];
 
-const playerColors = [
-    '#405BFF',
-    '#FF0000',
-    '#00FF00',
-    '#FFFF00',
-    '#00FFFF',
-    '#FF57B3',
-    '#797979',
-    '#FF9600',
-];
+const playerColors = playerColorsData;
 
 export function getPlayerBackgroundColorBright(playerPosition: number) {
     return playerColorsBright[playerPosition - 1];
@@ -38,6 +30,10 @@ const leaderboardColors: Record<number, string> = {
     4: '#8970AE',
     13: '#D65154',
     14: '#E19659',
+    17: '#6188C1',
+    18: '#8970AE',
+    19: '#D65154',
+    20: '#E19659',
 };
 
 const darkLeaderboardColors: Record<number, string> = {
@@ -48,6 +44,10 @@ const darkLeaderboardColors: Record<number, string> = {
     4: '#8970AE',
     13: '#D65154',
     14: '#E19659',
+    17: '#6188C1',
+    18: '#8970AE',
+    19: '#D65154',
+    20: '#E19659',
 };
 
 export function getLeaderboardColor(leaderboard_id: number, darkMode: boolean) {
@@ -65,6 +65,10 @@ const leaderboardTextColors: Record<number, string> = {
     4: '#8560be',
     13: '#c52026',
     14: '#ff943d',
+    17: '#5084d3',
+    18: '#8560be',
+    19: '#c52026',
+    20: '#ff943d',
 };
 
 const darkLeaderboardTextColors: Record<number, string> = {
@@ -75,6 +79,10 @@ const darkLeaderboardTextColors: Record<number, string> = {
     4: '#8560be',
     13: '#c52026',
     14: '#ff943d',
+    17: '#5084d3',
+    18: '#8560be',
+    19: '#c52026',
+    20: '#ff943d',
 };
 
 export function getLeaderboardTextColor(leaderboard_id: number, darkMode: boolean) {

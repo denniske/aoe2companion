@@ -3,6 +3,7 @@ import {IRatingHistoryEntry, IRatingHistoryEntryRaw} from "@nex/data";
 import {fromUnixTime} from "date-fns";
 import {LeaderboardId} from "@nex/data";
 import {fetchJson} from "./util";
+import {appConfig} from "@nex/dataset";
 
 
 function convertTimestampsToDates(json: IRatingHistoryEntryRaw): IRatingHistoryEntry {
@@ -20,7 +21,7 @@ export interface IFetchRatingHistoryParams {
 
 export async function fetchRatingHistory(game: string, leaderboard_id: LeaderboardId, start: number, count: number, params: IFetchRatingHistoryParams) {
     const queryString = makeQueryString({
-        game,
+        game: appConfig.game,
         leaderboard_id,
         start,
         count,

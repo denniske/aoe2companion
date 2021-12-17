@@ -2,6 +2,8 @@ import {fetchLeaderboardLegacy} from '../api/leaderboard';
 import {groupBy, sortBy, sumBy} from 'lodash';
 import {Flag, ILeaderboardPlayer} from "@nex/data";
 import request, {gql} from 'graphql-request';
+import {appConfig} from "@nex/dataset";
+import {minifyUserId} from "../helper/user";
 
 export interface IFetchedUser {
     clan: string;
@@ -34,23 +36,36 @@ async function fetchLeaderboardLegacyForProfileId(game: string, leaderboard_id: 
 export async function loadUserLegacy(game: string, start: number, count: number, search: string) {
     console.log("loading user", game, search);
 
-    let leaderboards = await Promise.all([
-        ...(onlyDigits(search) && search.length > 12 ? [fetchLeaderboardLegacyForSteamId(game, 0, search)] : []),
-        ...(onlyDigits(search) && search.length > 12 ? [fetchLeaderboardLegacyForSteamId(game, 1, search)] : []),
-        ...(onlyDigits(search) && search.length > 12 ? [fetchLeaderboardLegacyForSteamId(game, 2, search)] : []),
-        ...(onlyDigits(search) && search.length > 12 ? [fetchLeaderboardLegacyForSteamId(game, 3, search)] : []),
-        ...(onlyDigits(search) && search.length > 12 ? [fetchLeaderboardLegacyForSteamId(game, 4, search)] : []),
-        ...(onlyDigits(search) && search.length < 10 ? [fetchLeaderboardLegacyForProfileId(game, 0, parseInt(search))] : []),
-        ...(onlyDigits(search) && search.length < 10 ? [fetchLeaderboardLegacyForProfileId(game, 1, parseInt(search))] : []),
-        ...(onlyDigits(search) && search.length < 10 ? [fetchLeaderboardLegacyForProfileId(game, 2, parseInt(search))] : []),
-        ...(onlyDigits(search) && search.length < 10 ? [fetchLeaderboardLegacyForProfileId(game, 3, parseInt(search))] : []),
-        ...(onlyDigits(search) && search.length < 10 ? [fetchLeaderboardLegacyForProfileId(game, 4, parseInt(search))] : []),
-        fetchLeaderboardLegacy(game, 0, {start, count, search: search}),
-        fetchLeaderboardLegacy(game, 1, {start, count, search: search}),
-        fetchLeaderboardLegacy(game, 2, {start, count, search: search}),
-        fetchLeaderboardLegacy(game, 3, {start, count, search: search}),
-        fetchLeaderboardLegacy(game, 4, {start, count, search: search}),
-    ]);
+    let leaderboards = await Promise.all(
+
+        [
+        ...(onlyDigits(search) && search.length > 12 ?
+            appConfig.leaderboards.map(leaderbard => fetchLeaderboardLegacyForSteamId(game, leaderbard.id, search)) : []
+        ),
+        ...(onlyDigits(search) && search.length < 10 ?
+            appConfig.leaderboards.map(leaderbard => fetchLeaderboardLegacyForProfileId(game, leaderbard.id, parseInt(search))) : []
+        ),
+            ...appConfig.leaderboards.map(leaderbard => fetchLeaderboardLegacy(game, leaderbard.id, {start, count, search: search}))
+        ]
+
+    //     [
+    //     ...(onlyDigits(search) && search.length > 12 ? [fetchLeaderboardLegacyForSteamId(game, 0, search)] : []),
+    //     ...(onlyDigits(search) && search.length > 12 ? [fetchLeaderboardLegacyForSteamId(game, 1, search)] : []),
+    //     ...(onlyDigits(search) && search.length > 12 ? [fetchLeaderboardLegacyForSteamId(game, 2, search)] : []),
+    //     ...(onlyDigits(search) && search.length > 12 ? [fetchLeaderboardLegacyForSteamId(game, 3, search)] : []),
+    //     ...(onlyDigits(search) && search.length > 12 ? [fetchLeaderboardLegacyForSteamId(game, 4, search)] : []),
+    //     ...(onlyDigits(search) && search.length < 10 ? [fetchLeaderboardLegacyForProfileId(game, 0, parseInt(search))] : []),
+    //     ...(onlyDigits(search) && search.length < 10 ? [fetchLeaderboardLegacyForProfileId(game, 1, parseInt(search))] : []),
+    //     ...(onlyDigits(search) && search.length < 10 ? [fetchLeaderboardLegacyForProfileId(game, 2, parseInt(search))] : []),
+    //     ...(onlyDigits(search) && search.length < 10 ? [fetchLeaderboardLegacyForProfileId(game, 3, parseInt(search))] : []),
+    //     ...(onlyDigits(search) && search.length < 10 ? [fetchLeaderboardLegacyForProfileId(game, 4, parseInt(search))] : []),
+    //     fetchLeaderboardLegacy(game, 0, {start, count, search: search}),
+    //     fetchLeaderboardLegacy(game, 1, {start, count, search: search}),
+    //     fetchLeaderboardLegacy(game, 2, {start, count, search: search}),
+    //     fetchLeaderboardLegacy(game, 3, {start, count, search: search}),
+    //     fetchLeaderboardLegacy(game, 4, {start, count, search: search}),
+    // ]
+);
 
     // console.log(leaderboards);
 

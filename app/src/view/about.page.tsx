@@ -13,6 +13,7 @@ import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';
 import {doCheckForUpdateElectronAsync, getElectronVersion, isElectron} from "../helper/electron";
 import {openLink} from "../helper/url";
+import {appConfig} from "@nex/dataset";
 
 
 export default function AboutPage() {
@@ -61,6 +62,26 @@ export default function AboutPage() {
         // }
     };
 
+    const openAoe2CompanionInStore = async () => {
+        if (Platform.OS === 'web') {
+            window.open('https://aoe2companion.com', '_blank');
+            return;
+        }
+        const storeUrl = Platform.select({
+            android: 'https://play.google.com/store/apps/details?id=com.aoe2companion',
+            ios: 'itms-apps://apps.apple.com/app/id1518463195',
+        });
+        const url = Platform.select({
+            android: 'https://play.google.com/store/apps/details?id=com.aoe2companion',
+            ios: 'https://apps.apple.com/app/id1518463195',
+        });
+        if (await Linking.canOpenURL(storeUrl!)) {
+            await Linking.openURL(storeUrl!);
+            return;
+        }
+        await Linking.openURL(url!);
+    };
+
     const open59SecondsInStore = async () => {
         if (Platform.OS === 'web') {
             window.open('https://59seconds.app', '_blank');
@@ -93,7 +114,7 @@ export default function AboutPage() {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <MyText style={styles.title}>AoE II Companion</MyText>
+            <MyText style={styles.title}>{Constants.manifest?.name}</MyText>
 
             <MyText style={styles.heading}>{getTranslation('about.heading.createdby')}</MyText>
             <MyText style={styles.content}>Dennis Keil</MyText>
@@ -188,48 +209,93 @@ export default function AboutPage() {
 
             <MyText style={styles.heading}>{getTranslation('about.heading.source')}</MyText>
 
-            <View style={styles.row}>
-                <MyText style={styles.content}>Stats from </MyText>
-                <TouchableOpacity onPress={() => openLink('https://aoe2.net')}>
-                    <MyText style={appStyles.link}>aoe2.net</MyText>
-                </TouchableOpacity>
-            </View>
+            {
+                appConfig.game === 'aoe2de' &&
+                <>
+                    <View style={styles.row}>
+                        <MyText style={styles.content}>Stats from </MyText>
+                        <TouchableOpacity onPress={() => openLink('https://aoe2.net')}>
+                            <MyText style={appStyles.link}>aoe2.net</MyText>
+                        </TouchableOpacity>
+                    </View>
 
-            <View style={styles.row}>
-                <MyText style={styles.content}>Game data from </MyText>
-                <TouchableOpacity onPress={() => openLink('https://github.com/SiegeEngineers/aoe2techtree')}>
-                    <MyText style={appStyles.link}>aoe2techtree</MyText>
-                </TouchableOpacity>
-            </View>
+                    <View style={styles.row}>
+                        <MyText style={styles.content}>Game data from </MyText>
+                        <TouchableOpacity onPress={() => openLink('https://github.com/SiegeEngineers/aoe2techtree')}>
+                            <MyText style={appStyles.link}>aoe2techtree</MyText>
+                        </TouchableOpacity>
+                    </View>
 
-            <View style={styles.row}>
-                <MyText style={styles.content}>Player info from </MyText>
-                <TouchableOpacity onPress={() => openLink('https://github.com/SiegeEngineers/aoc-reference-data')}>
-                    <MyText style={appStyles.link}>aoc-reference-data</MyText>
-                </TouchableOpacity>
-            </View>
+                    <View style={styles.row}>
+                        <MyText style={styles.content}>Player info from </MyText>
+                        <TouchableOpacity onPress={() => openLink('https://github.com/SiegeEngineers/aoc-reference-data')}>
+                            <MyText style={appStyles.link}>aoc-reference-data</MyText>
+                        </TouchableOpacity>
+                    </View>
 
-            <View style={styles.row}>
-                <MyText style={styles.content}>Game data from </MyText>
-                <TouchableOpacity onPress={() => openLink('https://ageofempires.fandom.com/wiki/Age_of_Empires_II:Portal')}>
-                    <MyText style={appStyles.link}>Age of Empires II Wiki</MyText>
-                </TouchableOpacity>
-                <MyText style={styles.content}> at </MyText>
-                <TouchableOpacity onPress={() => openLink('https://www.fandom.com/')}>
-                    <MyText style={appStyles.link}>Fandom</MyText>
-                </TouchableOpacity>
-            </View>
+                    <View style={styles.row}>
+                        <MyText style={styles.content}>Game data from </MyText>
+                        <TouchableOpacity onPress={() => openLink('https://ageofempires.fandom.com/wiki/Age_of_Empires_II:Portal')}>
+                            <MyText style={appStyles.link}>Age of Empires II Wiki</MyText>
+                        </TouchableOpacity>
+                        <MyText style={styles.content}> at </MyText>
+                        <TouchableOpacity onPress={() => openLink('https://www.fandom.com/')}>
+                            <MyText style={appStyles.link}>Fandom</MyText>
+                        </TouchableOpacity>
+                    </View>
 
-            <View style={styles.row}>
-                <MyText style={styles.content}>Flag Icons from </MyText>
-                <TouchableOpacity onPress={() => openLink('https://github.com/madebybowtie/FlagKit')}>
-                    <MyText style={appStyles.link}>FlagKit</MyText>
-                </TouchableOpacity>
-            </View>
+                    <View style={styles.row}>
+                        <MyText style={styles.content}>Flag Icons from </MyText>
+                        <TouchableOpacity onPress={() => openLink('https://github.com/madebybowtie/FlagKit')}>
+                            <MyText style={appStyles.link}>FlagKit</MyText>
+                        </TouchableOpacity>
+                    </View>
+                </>
+            }
+            {
+                appConfig.game === 'aoe4' &&
+                <>
+                    <View style={styles.row}>
+                        <MyText style={styles.content}>Stats from </MyText>
+                        <TouchableOpacity onPress={() => openLink('https://aoeiv.net')}>
+                            <MyText style={appStyles.link}>aoeiv.net</MyText>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={styles.row}>
+                        <MyText style={styles.content}>Game data from </MyText>
+                        <TouchableOpacity onPress={() => openLink('https://ageofempires.fandom.com/wiki/Age_of_Empires_IV:Portal')}>
+                            <MyText style={appStyles.link}>Age of Empires IV Wiki</MyText>
+                        </TouchableOpacity>
+                        <MyText style={styles.content}> at </MyText>
+                        <TouchableOpacity onPress={() => openLink('https://www.fandom.com/')}>
+                            <MyText style={appStyles.link}>Fandom</MyText>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={styles.row}>
+                        <MyText style={styles.content}>Flag Icons from </MyText>
+                        <TouchableOpacity onPress={() => openLink('https://github.com/madebybowtie/FlagKit')}>
+                            <MyText style={appStyles.link}>FlagKit</MyText>
+                        </TouchableOpacity>
+                    </View>
+                </>
+            }
 
             <MyText style={styles.heading}>Checkout my other apps</MyText>
 
+            {
+                appConfig.game === 'aoe4' &&
+                <View style={styles.row}>
+                    <MyText style={styles.content}> </MyText>
+                    <TouchableOpacity onPress={openAoe2CompanionInStore}>
+                        <MyText style={appStyles.link}>AoE II Companion</MyText>
+                    </TouchableOpacity>
+                </View>
+            }
+
             <View style={styles.row}>
+                <MyText style={styles.content}> </MyText>
                 <TouchableOpacity onPress={open59SecondsInStore}>
                     <MyText style={appStyles.link}>59seconds - online charade</MyText>
                 </TouchableOpacity>
@@ -247,16 +313,36 @@ export default function AboutPage() {
             <Space/>
             <Space/>
 
-            <MyText style={styles.textJustify}>
-                This app was created under Microsoft's "
-                <MyText style={[styles.textJustify, appStyles.link]} onPress={() => {openLink('https://www.xbox.com/en-us/developers/rules')}}>
-                Game Content Usage Rules
+            {
+                appConfig.game === 'aoe2de' &&
+                <MyText style={styles.textJustify}>
+                    This app was created under Microsoft's "
+                    <MyText style={[styles.textJustify, appStyles.link]} onPress={() => {
+                        openLink('https://www.xbox.com/en-us/developers/rules')
+                    }}>
+                        Game Content Usage Rules
+                    </MyText>
+                    " using assets from Age of Empires II.
+                    This app is not affiliated with or endorsed by Microsoft Corporation. Age
+                    of Empires II: HD and Age of Empires II: Definitive Edition are trademarks or
+                    registered trademarks of Microsoft Corporation in the U.S. and other countries.
                 </MyText>
-                " using assets from Age of Empires II.
-                This app is not affiliated with or endorsed by Microsoft Corporation. Age
-                of Empires II: HD and Age of Empires II: Definitive Edition are trademarks or
-                registered trademarks of Microsoft Corporation in the U.S. and other countries.
-            </MyText>
+            }
+            {
+                appConfig.game === 'aoe4' &&
+                <MyText style={styles.textJustify}>
+                    This app was created under Microsoft's "
+                    <MyText style={[styles.textJustify, appStyles.link]} onPress={() => {
+                        openLink('https://www.xbox.com/en-us/developers/rules')
+                    }}>
+                        Game Content Usage Rules
+                    </MyText>
+                    " using assets from Age of Empires IV.
+                    This app is not affiliated with or endorsed by Microsoft Corporation. Age
+                    of Empires IV is a trademark or
+                    registered trademark of Microsoft Corporation in the U.S. and other countries.
+                </MyText>
+            }
 
         </ScrollView>
     );

@@ -16,7 +16,7 @@ const services: IServiceDict = {
 };
 
 export function getService(name: SERVICE_NAME) {
-    console.log('getService services', services);
+    // console.log('getService services', services);
     if (!(name in services)) throw Error('Service ' + name + ' not found.');
     return services[name];
 }

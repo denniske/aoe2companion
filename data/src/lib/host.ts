@@ -1,4 +1,5 @@
 import {getService, SERVICE_NAME} from "./di";
+import {appConfig} from "@nex/dataset";
 
 export type Host = 'aoe2companion' | 'aoe2companion-api' | 'aoe2companion-graphql' | 'aoe2net';
 export type OS = 'windows' | 'macos' | 'android' | 'ios' | 'web';
@@ -34,7 +35,7 @@ export function getHost(host: Host) {
             // if (dev) {
             //     return 'http://localhost:3333/';
             // }
-            return `https://function.aoe2companion.com/`;
+            return `https://function.${appConfig.hostAoeCompanion}/`;
         }
         case "aoe2companion-api": {
             // if (__DEV__ && Constants.isDevice) {
@@ -44,7 +45,7 @@ export function getHost(host: Host) {
             // if (dev) {
             //     return 'http://localhost:3333/';
             // }
-            return `https://api.aoe2companion.com/`;
+            return `https://api.${appConfig.hostAoeCompanion}/`;
         }
         case "aoe2companion-graphql": {
             // if (__DEV__ && Constants.isDevice) {
@@ -54,13 +55,14 @@ export function getHost(host: Host) {
             // if (dev) {
             //     return 'http://localhost:3333/graphql';
             // }
-            return `https://graphql.aoe2companion.com/graphql`;
+            return `https://graphql.${appConfig.hostAoeCompanion}/graphql`;
         }
         case "aoe2net": {
+            console.log('appConfig', appConfig);
             if (platform === 'web') {
-                return 'https://aoe2.net/';
+                return `https://${appConfig.hostAoeNet}/`;
             }
-            return `http://aoe2.net/`;
+            return `http://${appConfig.hostAoeNet}/`;
         }
     }
 }

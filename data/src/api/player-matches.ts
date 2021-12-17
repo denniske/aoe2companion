@@ -5,6 +5,7 @@ import {makeQueryString} from '../lib/util';
 import {getHost} from '../lib/host';
 import {IMatch, IMatchRaw} from './api.types';
 import {fetchJson} from '../lib/fetch-json';
+import {appConfig} from "@nex/dataset";
 
 
 function convertTimestampsToDates(json: IMatchRaw): IMatch {
@@ -24,7 +25,7 @@ export interface IFetchMatchParams {
 
 export async function fetchMatch(game: string, params: IFetchMatchParams): Promise<IMatchRaw> {
     let query: any = {
-        game,
+        game: appConfig.game,
         ...params,
     };
     const queryString = makeQueryString(query);
@@ -155,7 +156,7 @@ export async function fetchPlayerMatchesLegacy(game: string, start: number, coun
         return [];
     }
     const args = {
-        game,
+        game: appConfig.game,
         start,
         count,
         profile_ids: params.map(p => p.profile_id),
@@ -168,30 +169,47 @@ export async function fetchPlayerMatchesLegacy(game: string, start: number, coun
     // HACK: Filter duplicate matches
     json = uniqBy(json, m => m.match_id);
 
+    console.log('ASDPASPDPASPD', appConfig.game);
     // Map new aoe2net civs to game civs
-    json.forEach(match => {
-        match.players.forEach(player => {
-            player.civ = player.civ_alpha;
-        })
-    });
+    if (appConfig.game === 'aoe2de') {
+        json.forEach(match => {
+            match.players.forEach(player => {
+                player.civ = player.civ_alpha;
+            })
+        });
+    }
+
+    if (appConfig.game === 'aoe4') {
+        json.forEach(match => {
+            if (match.leaderboard_id == null) {
+                if (match.num_players == 2) match.leaderboard_id = 17;
+                if (match.num_players == 4) match.leaderboard_id = 18;
+                if (match.num_players == 6) match.leaderboard_id = 19;
+                if (match.num_players == 8) match.leaderboard_id = 20;
+            }
+            match.players.forEach(player => {
+                player.color = player.color || player.slot;
+            })
+        });
+    }
 
     // HACK: Fix new civ order after Lords of the West
-    const releaseDateLoW = 1611680400; // 01/26/2021 @ 5:00pm (UTC)
-    json.filter(match => match.started < releaseDateLoW).forEach(match => {
-        match.players.forEach(player => {
-            if (player.civ >= 4) player.civ++;
-            if (player.civ >= 29) player.civ++;
-        })
-    });
-
-    // HACK: Fix new civ order after Dawn of the Dukes
-    const releaseDateDoD = 1628611200; // 10/08/2021 @ 5:00pm (UTC)
-    json.filter(match => match.started < releaseDateDoD).forEach(match => {
-        match.players.forEach(player => {
-            if (player.civ >= 2) player.civ++;
-            if (player.civ >= 28) player.civ++;
-        })
-    });
+    // const releaseDateLoW = 1611680400; // 01/26/2021 @ 5:00pm (UTC)
+    // json.filter(match => match.started < releaseDateLoW).forEach(match => {
+    //     match.players.forEach(player => {
+    //         if (player.civ >= 4) player.civ++;
+    //         if (player.civ >= 29) player.civ++;
+    //     })
+    // });
+    //
+    // // HACK: Fix new civ order after Dawn of the Dukes
+    // const releaseDateDoD = 1628611200; // 10/08/2021 @ 5:00pm (UTC)
+    // json.filter(match => match.started < releaseDateDoD).forEach(match => {
+    //     match.players.forEach(player => {
+    //         if (player.civ >= 2) player.civ++;
+    //         if (player.civ >= 28) player.civ++;
+    //     })
+    // });
 
     return json.map(match => convertTimestampsToDates(match));
 }
@@ -318,6 +336,7 @@ export async function fetchPlayerMatches(game: string, start: number, count: num
 
     console.log('newResult', newResult);
     console.log('legacyResult', legacyResult);
+    // console.log('legacyResult0', legacyResult[0]);
 
     // Compare winners
 

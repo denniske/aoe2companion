@@ -6,19 +6,16 @@ import {IRatingHistoryEntry, IRatingHistoryEntryRaw} from '@nex/data';
 import {parseISO} from "date-fns";
 import request, {gql} from 'graphql-request';
 import {IRatingHistoryRow} from './rating';
+import {appConfig} from "@nex/dataset";
 
 export async function loadProfileLegacy(game: string, userId: UserIdBase): Promise<any | null> {
     // console.log("loading profile", game, composeUserId(userId));
 
     // console.time('=> loadProfile');
 
-    let leaderboards = await Promise.all([
-        fetchLeaderboardLegacy(game, 0, {count: 1, ...minifyUserId(userId)}),
-        fetchLeaderboardLegacy(game, 13, {count: 1, ...minifyUserId(userId)}),
-        fetchLeaderboardLegacy(game, 14, {count: 1, ...minifyUserId(userId)}),
-        fetchLeaderboardLegacy(game, 3, {count: 1, ...minifyUserId(userId)}),
-        fetchLeaderboardLegacy(game, 4, {count: 1, ...minifyUserId(userId)}),
-    ]);
+    let leaderboards = await Promise.all(
+        appConfig.leaderboards.map(leaderbard => fetchLeaderboardLegacy(game, leaderbard.id, {count: 1, ...minifyUserId(userId)}))
+    );
 
     const leaderboardInfos = leaderboards.flatMap(l => l.leaderboard);
     const sortedLeaderboardInfos = sortBy(leaderboardInfos, l => l.last_match);

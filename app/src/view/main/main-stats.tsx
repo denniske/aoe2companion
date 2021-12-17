@@ -2,7 +2,7 @@ import {FlatList, Linking, Platform, StyleSheet, View} from "react-native";
 import {
     clearMatchesPlayer, clearStatsPlayer, setLoadingMatchesOrStats, setPrefValue, useMutate, useSelector
 } from "../../redux/reducer";
-import {LeaderboardId} from "@nex/data";
+import {keysOf, LeaderboardId} from "@nex/data";
 import React, {useEffect, useState} from "react";
 import {RouteProp, useNavigation, useNavigationState, useRoute} from "@react-navigation/native";
 import {RootStackParamList, RootTabParamList} from "../../../App";
@@ -28,6 +28,7 @@ import {appVariants} from '../../styles';
 import {openLink} from "../../helper/url";
 import FlatListLoadingIndicator from "../components/flat-list-loading-indicator";
 import {useWebRefresh} from "../../hooks/use-web-refresh";
+import {leaderboardIdsData, leaderboardMappingData} from "@nex/dataset";
 
 
 export default function MainStats() {
@@ -60,7 +61,7 @@ export default function MainStats() {
 function MainStatsInternal({user}: { user: any}) {
     const styles = useStyles();
     const mutate = useMutate();
-    const prefLeaderboardId = useSelector(state => state.prefs.leaderboardId) ?? LeaderboardId.RM1v1;
+    const prefLeaderboardId = useSelector(state => state.prefs.leaderboardId) ?? leaderboardIdsData[0];
     const [leaderboardId, setLeaderboardId] = useState(prefLeaderboardId);
 
     const navigation = useNavigation();
@@ -93,44 +94,8 @@ function MainStatsInternal({user}: { user: any}) {
         setLeaderboardId(leaderboardId);
     };
 
-    const values: number[] = [
-        3,
-        4,
-        13,
-        14,
-        0,
-    ];
-
-    const valueMapping: any = {
-        0: {
-            title: 'UNR',
-            subtitle: 'Unranked',
-        },
-        3: {
-            title: 'RM',
-            subtitle: '1v1',
-        },
-        4: {
-            title: 'RM',
-            subtitle: 'Team',
-        },
-        1: {
-            title: 'DM',
-            subtitle: '1v1',
-        },
-        2: {
-            title: 'DM',
-            subtitle: 'Team',
-        },
-        13: {
-            title: 'EW',
-            subtitle: '1v1',
-        },
-        14: {
-            title: 'EW',
-            subtitle: 'Team',
-        },
-    };
+    const valueMapping: any = leaderboardMappingData;
+    const values: any[] = leaderboardIdsData;
 
     const renderLeaderboard = (value: LeaderboardId, selected: boolean) => {
         return <View style={styles.col}>

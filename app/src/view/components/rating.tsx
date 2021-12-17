@@ -39,6 +39,8 @@ function replaceRobotoWithSystemFont(obj: any) {
 export default function Rating({ratingHistories, ready}: IRatingProps) {
     ratingHistories = ready ? ratingHistories : null;
 
+    console.log('ratingHistories', ratingHistories);
+
     const paperTheme = usePaperTheme();
     const appTheme = useAppTheme();
     const mutate = useMutate();

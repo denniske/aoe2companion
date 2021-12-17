@@ -2,7 +2,7 @@ import {Tech} from "./techs";
 import {Unit} from "./units";
 import {aoeData} from "../data/data";
 import {removeAccentsAndCase, sanitizeGameDescription, unwrap} from "../lib/util";
-import {getAoeString} from '../lib/aoe-data';
+import {getAoeString, getString} from '../lib/aoe-data';
 import {orderBy} from 'lodash';
 import {getService, SERVICE_NAME} from "../lib/di";
 import {ICivService} from "../lib/host";
@@ -286,8 +286,9 @@ export function getCivName(civ: number) {
 }
 
 export function getCivNameById(civ: Civ) {
-    const civStringKey = aoeData.civ_names[civ];
-    return sanitizeGameDescription(getAoeString(civStringKey));
+    return getString('civ', civs.indexOf(civ));
+    // const civStringKey = aoeData.civ_names[civ];
+    // return 'byid-'+sanitizeGameDescription(getAoeString(civStringKey));
 }
 
 export function getCivDescription(civ: Civ) {

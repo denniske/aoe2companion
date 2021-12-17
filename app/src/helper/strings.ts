@@ -3,9 +3,11 @@ import {Asset} from 'expo-asset';
 import {Platform} from 'react-native';
 import {readAsStringAsync} from 'expo-file-system';
 import {getInternalStrings} from '../redux/statecache';
+import {stringsSourceData} from "@nex/dataset";
 
 
 export function getInternalString(category: keyof IStrings, id: number): string | undefined {
+    // console.log('get string', strings[getLanguage()], category, id);
     return strings[getLanguage()]?.[category]?.find(i => i.id === id)?.string;
 }
 
@@ -13,24 +15,7 @@ export function getStringId(category: keyof IStrings, str: string) {
     return strings[getLanguage()][category].find(i => i.string === str)?.id;
 }
 
-const stringsSource: Record<string, string> = {
-    'ms': require('../../assets/strings/ms.json.lazy'),
-    'fr': require('../../assets/strings/fr.json.lazy'),
-    'es-mx': require('../../assets/strings/es-mx.json.lazy'),
-    'it': require('../../assets/strings/it.json.lazy'),
-    'pt': require('../../assets/strings/pt.json.lazy'),
-    'ru': require('../../assets/strings/ru.json.lazy'),
-    'vi': require('../../assets/strings/vi.json.lazy'),
-    'tr': require('../../assets/strings/tr.json.lazy'),
-    'de': require('../../assets/strings/de.json.lazy'),
-    'en': require('../../assets/strings/en.json.lazy'),
-    'es': require('../../assets/strings/es.json.lazy'),
-    'hi': require('../../assets/strings/hi.json.lazy'),
-    'ja': require('../../assets/strings/ja.json.lazy'),
-    'ko': require('../../assets/strings/ko.json.lazy'),
-    'zh-hans': require('../../assets/strings/zh-hans.json.lazy'),
-    'zh-hant': require('../../assets/strings/zh-hant.json.lazy'),
-};
+const stringsSource = stringsSourceData;
 
 let strings: IStringCollection = getInternalStrings();
 

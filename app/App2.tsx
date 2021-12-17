@@ -391,6 +391,15 @@ export function InnerApp() {
             }}>
 
                 <Stack.Screen
+                    name="Feed"
+                    component={FeedPage}
+                    options={props => ({
+                        animationEnabled: !!props.route?.params?.action,
+                        title: feedTitle(props),
+                        headerRight: feedMenu(props),
+                    })}
+                />
+                <Stack.Screen
                     name="User"
                     component={UserPage}
                     options={props => ({
@@ -499,15 +508,6 @@ export function InnerApp() {
                     options={{
                         title: '',
                     }}
-                />
-                <Stack.Screen
-                    name="Feed"
-                    component={FeedPage}
-                    options={props => ({
-                        animationEnabled: !!props.route?.params?.action,
-                        title: feedTitle(props),
-                        headerRight: feedMenu(props),
-                    })}
                 />
                 <Stack.Screen
                     name="Tech"

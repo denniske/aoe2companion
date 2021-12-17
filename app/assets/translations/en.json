@@ -87,6 +87,11 @@
   "enum.leaderboardid.rmteam": "RM Team",
   "enum.leaderboardid.ew1v1": "EW 1v1",
   "enum.leaderboardid.ewteam": "EW Team",
+  "enum.leaderboardid.custom": "Custom",
+  "enum.leaderboardid.1v1": "1v1",
+  "enum.leaderboardid.2v2": "2v2",
+  "enum.leaderboardid.3v3": "3v3",
+  "enum.leaderboardid.4v4": "4v4",
 
   "leaderboard.heading.unranked": "UNR.",
   "leaderboard.heading.dm1v1": "DM 1V1",

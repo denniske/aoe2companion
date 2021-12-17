@@ -14,6 +14,7 @@ import {IConfig, saveConfigToStorage} from "../../service/storage";
 import {reloadAsync} from 'expo-updates';
 import {createStylesheet} from '../../theming-new';
 import {closeAppWindowAsync, isElectron} from "../../helper/electron";
+import Constants from "expo-constants";
 
 
 export default function Header() {
@@ -55,7 +56,7 @@ export default function Header() {
             <View style={styles.container}>
                 <View style={styles.header}>
                     <Image fadeDuration={0} style={styles.icon} source={require('../../../assets/icon.png')}/>
-                    <MyText>AoE II Companion</MyText>
+                    <MyText>{Constants.manifest?.name}</MyText>
 
                     {/*<Checkbox.Android*/}
                     {/*    status={checked ? 'checked' : 'unchecked'}*/}

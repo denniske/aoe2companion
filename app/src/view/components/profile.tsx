@@ -108,7 +108,6 @@ function LeaderboardRow2({data}: ILeaderboardRowProps) {
     const styles = useStyles();
 
     const leaderboardInfo = data.leaderboard[0];
-    // const leaderboardInfo = data;
     const color = {color: getLeaderboardTextColor(data.leaderboard_id, theme.dark)};
 
     return (
@@ -214,6 +213,8 @@ export default function Profile({data, ready}: IProfileProps) {
     }, [data]);
 
     const verifiedPlayer = data ? getVerifiedPlayer(data?.profile_id!) : null;
+
+    console.log('DATA===>', data);
 
     return (
             <View style={styles.container}>
