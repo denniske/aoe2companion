@@ -49,8 +49,13 @@ export class ImportOngoingTask implements OnModuleInit {
 
         const newMatches =  ongoingMatches.data.filter(d => d.started >= matchesFetchedLastStarted);
 
-        const entriesToSave = newMatches.map(({ id, ...rest }) => ({
-                ...rest,
+        const entriesToSave = newMatches.map(({ id, players, ...match }) => ({
+                ...match,
+                players: players.map(({ profileId, slotType, ...player}) => ({
+                    ...player,
+                    profile_id: profileId,
+                    slot_type: slotType,
+                })),
                 match_id: id,
                 maybe_finished: -1
             })
