@@ -26,7 +26,7 @@ WORKDIR /usr/src/app
 #COPY node_modules/.prisma ./node_modules/.prisma
 
 COPY package.json ./
-RUN npx ts-node subset.ts apply server
+RUN npx node subset.js apply server
 COPY graph/prisma ./
 COPY yarn.lock ./
 RUN yarn
