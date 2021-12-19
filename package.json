@@ -191,6 +191,40 @@
     "webpack-bundle-analyzer": "^4.4.0"
   },
   "subsets": {
+    "server": {
+      "include": [
+        "@nestjs/common",
+        "@nestjs/core",
+        "@nestjs/graphql",
+        "@nestjs/platform-express",
+        "@nestjs/schedule",
+        "@nestjs/typeorm",
+        "@prisma/client",
+        "@pusher/push-notifications-server",
+        "@sendgrid/mail",
+        "@sentry/node",
+        "apollo-server-express",
+        "aws-sdk",
+        "cors-anywhere",
+        "date-fns",
+        "dotenv",
+        "fs-to-json",
+        "graphql",
+        "graphql-request",
+        "graphql-tools",
+        "lodash",
+        "nestjs-s3",
+        "node-fetch",
+        "pg",
+        "reflect-metadata",
+        "rxjs",
+        "tslib",
+        "typeorm",
+        "typeorm-naming-strategies",
+        "uuid",
+        "prisma"
+      ]
+    },
     "app": {
       "include": [
         "@expo-google-fonts/roboto",
