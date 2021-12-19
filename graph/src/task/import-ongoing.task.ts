@@ -51,7 +51,7 @@ export class ImportOngoingTask implements OnModuleInit {
 
         const entriesToSave = newMatches.map(({ id, players, ...match }) => ({
                 ...match,
-                players: players.map(({ profileId, slotType, ...player}) => ({
+                players: (players as any).map(({ profileId, slotType, ...player}) => ({
                     ...player,
                     profile_id: profileId,
                     slot_type: slotType,
