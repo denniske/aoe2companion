@@ -1,9 +1,9 @@
 import {Image, ImageBackground, Platform, StyleSheet, Text, View} from 'react-native';
-import {formatAgo, getMatchTeamsWithFreeForAll, getString, IPlayer, isMatchFreeForAll} from '@nex/data';
+import {formatAgo, getMatchTeamsWithFreeForAll, getString, isMatchFreeForAll} from '@nex/data';
 import React, {useEffect} from 'react';
 import {Player, PlayerSkeleton} from './player';
 import MyListAccordion from './accordion';
-import {IMatch} from "@nex/data";
+import {IMatch, IPlayer} from "@nex/data/api";
 import { getMapImage, getMapName } from "../../helper/maps";
 import {TextLoader} from "./loader/text-loader";
 import {ImageLoader} from "./loader/image-loader";

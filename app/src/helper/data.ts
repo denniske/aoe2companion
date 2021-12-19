@@ -1,5 +1,5 @@
-import {LeaderboardId} from "@nex/data";
-import {Flag, IMatch, IMatchRaw, SlotType} from '@nex/data';
+import {Flag, LeaderboardId} from "@nex/data";
+import {IMatch, SlotType} from "@nex/data/api";
 
 
 
@@ -123,7 +123,7 @@ function shrinkMatches(matches: IMatch[]) {
     return matches.map(m => ({
         name: m.name,
         map_type: m.map_type,
-        players: m.players.map(p => ({
+        players: m.players.map((p: any) => ({
             name: p.name,
         })),
     }));

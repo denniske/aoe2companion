@@ -1,7 +1,10 @@
 import {Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {
-    Flag, formatAgo, getDiscordInvitationId, getDoyouChannel, getTwitchChannel, getYoutubeChannel, IPlayer
+    Flag, formatAgo, getDiscordInvitationId, getDoyouChannel, getTwitchChannel, getYoutubeChannel
 } from '@nex/data';
+import {
+    IPlayer
+} from '@nex/data/api';
 import React, {useEffect} from 'react';
 import {getLeaderboardTextColor} from '../../helper/colors';
 import {getFlagIcon} from '../../helper/flags';

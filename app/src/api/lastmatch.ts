@@ -2,7 +2,7 @@ import {IMatch} from "@nex/data";
 import {fromUnixTime} from "date-fns";
 import {getHost} from "./host";
 import {fetchJson} from "./util";
-import {IMatchRaw} from '@nex/data';
+import {IMatchRaw} from '@nex/data/api';
 
 
 function convertTimestampsToDates(json: IMatchRaw): IMatch {

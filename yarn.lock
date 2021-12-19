@@ -6590,10 +6590,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:14.14.34":
-  version: 14.14.34
-  resolution: "@types/node@npm:14.14.34"
-  checksum: 06e49670700f9f8c9115232898c20bcb45abff9bac2a344cb046534c85cd19d91a4e86aa23fd022ac2b5d1ab3a68c5e220b96185cf7ae7d8e948736b217a5945
+"@types/node@npm:16.11.14":
+  version: 16.11.14
+  resolution: "@types/node@npm:16.11.14"
+  checksum: 0bd4333fb4e56532db7f5174732268b18089913ddbb0e97957228e64f9fe3babf9923c77ce6f07d3d354445cfbb8d31b95c1f8be3c0f7426308bd8b93d3aaa02
   languageName: node
   linkType: hard
 
@@ -25253,7 +25253,7 @@ __metadata:
     "@types/express": ^4.16.0
     "@types/graphql": 14.5.0
     "@types/lodash": ^4.14.157
-    "@types/node": 14.14.34
+    "@types/node": 16.11.14
     "@types/node-cron": ^2.0.3
     "@types/node-fetch": ^2.5.7
     "@types/pg": ^7.14.4

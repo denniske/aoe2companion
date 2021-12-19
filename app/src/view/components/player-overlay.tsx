@@ -4,8 +4,11 @@ import {getPlayerBackgroundColor} from '../../helper/colors';
 import {useNavigation} from '@react-navigation/native';
 import {userIdFromBase} from '../../helper/user';
 import {
-    civs, getCivNameById, getSlotTypeName, IMatch, IPlayer, isBirthday, isVerifiedPlayer, moProfileId
+    civs, getCivNameById, isBirthday, isVerifiedPlayer, moProfileId
 } from '@nex/data';
+import {
+    getSlotTypeName, IMatch, IPlayer
+} from '@nex/data/api';
 import {RootStackProp} from '../../../App';
 import {TextLoader} from "./loader/text-loader";
 import {FontAwesome5} from "@expo/vector-icons";
