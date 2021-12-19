@@ -43,14 +43,14 @@ async function fetchLeaderboardInternal(baseUrl: string, game: string, leaderboa
 
 export async function fetchLeaderboard(game: string, leaderboard_id: number, params: IFetchLeaderboardParams) {
     // await sleep(4000);
-    // try {
-    //     return await fetchLeaderboardInternal(getHost('aoe2companion'), game, leaderboard_id, params);
-    // } catch (e) {
+    try {
+        return await fetchLeaderboardInternal(getHost('aoe2companion'), game, leaderboard_id, params);
+    } catch (e) {
         if (params.country == null) {
             return await fetchLeaderboardInternal(getHost('aoe2net'), game, leaderboard_id, params);
         }
-        // throw e;
-    // }
+        throw e;
+    }
 }
 
 export async function fetchLeaderboardLegacy(game: string, leaderboard_id: number, params: IFetchLeaderboardParams) {

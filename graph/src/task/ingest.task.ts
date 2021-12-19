@@ -7,6 +7,8 @@ import {fetchLeaderboard, ILeaderboardPlayerRaw, setValue} from "../helper";
 import {Connection} from "typeorm";
 
 
+const appConfigGame = process.env.SERVICE_NAME.includes('aoe2de') ? 'aoe2de' : 'aoe4';
+
 @Injectable()
 export class IngestTask implements OnModuleInit {
     private readonly logger = new Logger(IngestTask.name);
@@ -22,14 +24,14 @@ export class IngestTask implements OnModuleInit {
     async runIngest() {
         console.log("Running ingest...");
 
-        if (process.env.APP === 'aoe2de') {
+        if (appConfigGame === 'aoe2de') {
             await this.fetchLeaderboardData(0);
             await this.fetchLeaderboardData(13);
             await this.fetchLeaderboardData(14);
             await this.fetchLeaderboardData(3);
             await this.fetchLeaderboardData(4);
         }
-        if (process.env.APP === 'aoe4') {
+        if (appConfigGame === 'aoe4') {
             await this.fetchLeaderboardData(0);
             await this.fetchLeaderboardData(17);
             await this.fetchLeaderboardData(18);
