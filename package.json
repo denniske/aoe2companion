@@ -23,6 +23,7 @@
     "notify": "cross-env SERVICE_NAME=notify nx serve graph",
     "replay": "cross-env SERVICE_NAME=replay nx serve graph",
     "function": "cross-env SERVICE_NAME=function nx serve graph",
+    "ingest": "cross-env SERVICE_NAME=ingest nx serve graph",
     "api": "cross-env SERVICE_NAME=api nx serve graph",
     "graph": "nx serve graph",
     "website": "next dev website",

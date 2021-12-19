@@ -5,7 +5,7 @@ import {fetchRatingHistoryUniqueByTimestamp} from "../helper";
 import {upsertRatingHistory} from "../entity/entity-helper";
 import {PrismaService} from "../service/prisma.service";
 import {Connection} from "typeorm";
-import {IRatingHistoryEntryRaw} from '@nex/data';
+import {IRatingHistoryEntryRaw} from '@nex/data/api';
 
 
 interface ILeaderboardPlayer {

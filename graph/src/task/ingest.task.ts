@@ -22,11 +22,20 @@ export class IngestTask implements OnModuleInit {
     async runIngest() {
         console.log("Running ingest...");
 
-        await this.fetchLeaderboardData(0);
-        await this.fetchLeaderboardData(13);
-        await this.fetchLeaderboardData(14);
-        await this.fetchLeaderboardData(3);
-        await this.fetchLeaderboardData(4);
+        if (process.env.APP === 'aoe2de') {
+            await this.fetchLeaderboardData(0);
+            await this.fetchLeaderboardData(13);
+            await this.fetchLeaderboardData(14);
+            await this.fetchLeaderboardData(3);
+            await this.fetchLeaderboardData(4);
+        }
+        if (process.env.APP === 'aoe4') {
+            await this.fetchLeaderboardData(0);
+            await this.fetchLeaderboardData(17);
+            await this.fetchLeaderboardData(18);
+            await this.fetchLeaderboardData(19);
+            await this.fetchLeaderboardData(20);
+        }
 
         await setValue(this.connection, 'leaderboardUpdated', new Date());
     }

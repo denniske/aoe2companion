@@ -3,7 +3,10 @@ import {uniqBy} from 'lodash';
 import {KeyValue} from "./entity/keyvalue";
 import {Connection} from "typeorm";
 import {getUnixTime} from 'date-fns';
-import {IMatchRaw, IRatingHistoryEntryRaw} from '@nex/data';
+import {IMatchRaw, IRatingHistoryEntryRaw} from '@nex/data/api';
+
+const appConfigGame = process.env.APP;
+const host = process.env.APP === 'aoe2de' ? 'aoe2.net' : 'aoeiv.net';
 
 export async function setValue(connection: Connection, id: string, value: any) {
     const keyValue = new KeyValue();
@@ -107,13 +110,14 @@ export interface IFetchRatingHistoryParams {
 
 export async function fetchRatingHistoryUniqueByTimestamp(game: string, leaderboard_id: number, start: number, count: number, params: IFetchRatingHistoryParams) {
     const queryString = makeQueryString({
-        game,
+        game: appConfigGame,
         leaderboard_id,
         start,
         count,
         ...params,
     });
-    const url = `http://aoe2.net/api/player/ratinghistory?${queryString}`;
+    const url = `http://${host}/api/player/ratinghistory?${queryString}`;
+    console.log('URL', url);
     const response = await fetch(url);
     try {
         return uniqBy(await response.json() as IRatingHistoryEntryRaw[], h => h.timestamp);
@@ -125,12 +129,13 @@ export async function fetchRatingHistoryUniqueByTimestamp(game: string, leaderbo
 
 export async function fetchLeaderboard(game: string, leaderboard_id: number, params: IFetchLeaderboardParams) {
     const queryString = makeQueryString({
-        game,
+        game: appConfigGame,
         leaderboard_id,
         ...params,
     });
 
-    const url = `http://aoe2.net/api/leaderboard?${queryString}`;
+    const url = `http://${host}/api/leaderboard?${queryString}`;
+    console.log(url);
     const response = await fetch(url);
     try {
         return await response.json();
@@ -142,7 +147,7 @@ export async function fetchLeaderboard(game: string, leaderboard_id: number, par
 
 export async function fetchMatches(game: string, start: number, count: number, since?: number): Promise<IMatchRaw[]> {
     let query: any = {
-        game,
+        game: appConfigGame,
         start,
         count,
     };
@@ -151,7 +156,7 @@ export async function fetchMatches(game: string, start: number, count: number, s
     }
     const queryString = makeQueryString(query);
 
-    const url = `http://aoe2.net/api/matches?${queryString}`;
+    const url = `http://${host}/api/matches?${queryString}`;
     console.log(url);
     const response = await fetch(url, { timeout: 60 * 1000 });
     try {
@@ -180,12 +185,12 @@ export interface IFetchMatchParams {
 
 export async function fetchMatch(game: string, params: IFetchMatchParams): Promise<IMatchRaw> {
     let query: any = {
-        game,
+        game: appConfigGame,
         ...params,
     };
     const queryString = makeQueryString(query);
 
-    const url = `https://aoe2.net/api/match?${queryString}`;
+    const url = `https://${host}/api/match?${queryString}`;
     console.log(url);
     const response = await fetch(url, { timeout: 60 * 1000 });
     try {
@@ -216,7 +221,7 @@ interface IOngoingMatches {
 }
 
 export async function fetchOngoingMatches(): Promise<IOngoingMatches> {
-    const url = `https://aoe2.net/matches/aoe2de/ongoing?_=?${getUnixTime(new Date())}`;
+    const url = `https://${host}/matches/aoe2de/ongoing?_=?${getUnixTime(new Date())}`;
     console.log(url);
     const response = await fetch(url, { timeout: 60 * 1000 });
     try {
@@ -277,7 +282,7 @@ export async function fetchLeaderboardRecentMatches(leaderboardId: number, count
     };
     const queryString = makeQueryString(query);
 
-    const url = `https://aoe2.net/leaderboard/aoe2de/${leaderboardUrls[leaderboardId]}?${queryString}`;
+    const url = `https://${host}/leaderboard/aoe2de/${leaderboardUrls[leaderboardId]}?${queryString}`;
     console.log(url);
     const response = await fetch(url, { timeout: 60 * 1000 });
     try {
@@ -300,7 +305,7 @@ export async function fetchLeaderboardRecentMatchesLegacy(leaderboardId: number,
     };
     const queryString = makeQueryString(query);
 
-    const url = `https://aoe2.net/leaderboard/aoe2de/${leaderboardUrls[leaderboardId]}?${queryString}`;
+    const url = `https://${host}/leaderboard/aoe2de/${leaderboardUrls[leaderboardId]}?${queryString}`;
     console.log(url);
     const response = await fetch(url, { timeout: 60 * 1000 });
     try {

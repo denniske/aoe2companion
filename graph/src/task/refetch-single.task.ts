@@ -3,7 +3,7 @@ import {differenceInHours, fromUnixTime} from "date-fns";
 import {formatDayAndTime} from "../util";
 import {upsertMatchesWithPlayers} from "../entity/entity-helper";
 import {fetchMatch} from "../helper";
-import {myTodoList} from "@nex/data";
+import {myTodoList} from "@nex/data/api";
 import {Connection} from "typeorm";
 import {PrismaService} from "../service/prisma.service";
 
