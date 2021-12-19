@@ -26,8 +26,9 @@ WORKDIR /usr/src/app
 #COPY node_modules/.prisma ./node_modules/.prisma
 
 COPY package.json ./
-RUN npx node subset.js apply server
-COPY graph/prisma ./
+COPY subset.mjs ./
+RUN npx node subset.mjs apply server
+COPY graph/prisma ./graph/prisma
 COPY yarn.lock ./
 RUN yarn
 RUN yarn run generate:prisma
@@ -37,6 +38,7 @@ COPY graph/graphql ./graph/graphql
 
 #RUN ls -al
 
+ENV PORT=80
 EXPOSE 80
 
 CMD ["node", "dist/graph/main.js"]
