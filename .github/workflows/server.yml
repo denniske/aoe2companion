@@ -81,10 +81,10 @@ jobs:
 
           cd deploy
 
-          export $BASE=base
+          export BASE=base
           if [[ $SERVICE_NAME == aoe4-* ]] ;
           then
-            export $BASE=base4
+            export BASE=base4
           fi
 
           envsubst <./docker-compose-single.yml >./docker-compose-single.yml.out && mv ./docker-compose-single.yml.out ./docker-compose-single.yml
