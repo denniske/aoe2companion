@@ -17,9 +17,9 @@ export default {
     "orientation": "portrait",
     "privacy": "public",
     "githubUrl": "https://github.com/denniske/aoe2companion",
-    "icon": "./app/assets/icon.png",
+    "icon": "./app4/assets/icon.png",
     "splash": {
-      "image": "./app/assets/splash.png",
+      "image": "./app4/assets/splash.png",
       "resizeMode": "contain"
     },
     "updates": {
@@ -27,26 +27,26 @@ export default {
     },
     "assetBundlePatterns": [
       "node_modules/**",
-      "app/assets/civilizations/**",
-      "app/assets/data/**",
-      "app/assets/flags/**",
-      "app/assets/font/**",
-      "app/assets/legal/**",
-      "app/assets/maps/**",
-      "app/assets/strings/**",
-      "app/assets/buildings/**",
-      "app/assets/techs/**",
-      "app/assets/units/**",
-      "app/assets/tips/icon/**",
-      "app/assets/tips/poster/**",
-      "app/assets/translations/**",
-      "app/assets/*"
+      "app4/assets/civilizations/**",
+      "app4/assets/data/**",
+      "app4/assets/flags/**",
+      "app4/assets/font/**",
+      "app4/assets/legal/**",
+      "app4/assets/maps/**",
+      "app4/assets/strings/**",
+      "app4/assets/buildings/**",
+      "app4/assets/techs/**",
+      "app4/assets/units/**",
+      "app4/assets/tips/icon/**",
+      "app4/assets/tips/poster/**",
+      "app4/assets/translations/**",
+      "app4/assets/*"
     ],
     "plugins": [
       [
         "expo-notifications",
         {
-          "icon": "./app/assets/notification.png"
+          "icon": "./app4/assets/notification.png"
         }
       ]
     ],
@@ -60,7 +60,7 @@ export default {
     },
     "ios": {
       "userInterfaceStyle": "automatic",
-      "icon": "./app/assets/icon-no-alpha.png",
+      "icon": "./app4/assets/icon-no-alpha.png",
       "bundleIdentifier": "com.aoe4companion",
       "buildNumber": "35.0.3",
       "supportsTablet": false,
