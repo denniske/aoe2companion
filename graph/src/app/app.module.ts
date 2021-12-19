@@ -41,6 +41,7 @@ import {RefetchMultipleTask} from '../task/refetch-multiple.task';
 import {RefetchResultTask} from '../task/refetch-result.task';
 import {RefetchLateTask} from '../task/refetch-late.task';
 import {PlayerResolver} from "../resolver/player";
+import {ImportOngoingTask} from "../task/import-ongoing.task";
 
 @Module({
     imports: [
@@ -109,6 +110,9 @@ export class TaskAndControllerModule {
         switch (process.env.SERVICE_NAME) {
             case 'import':
                 providers.push(ImportTask);
+                break;
+            case 'import-ongoing':
+                providers.push(ImportOngoingTask);
                 break;
             case 'refetch':
                 providers.push(RefetchTask);

@@ -5,8 +5,11 @@ import {Connection} from "typeorm";
 import {getUnixTime} from 'date-fns';
 import {IMatchRaw, IRatingHistoryEntryRaw} from '@nex/data/api';
 
-const appConfigGame = process.env.APP;
-const host = process.env.APP === 'aoe2de' ? 'aoe2.net' : 'aoeiv.net';
+// const appConfigGame = process.env.APP;
+// const host = process.env.APP === 'aoe2de' ? 'aoe2.net' : 'aoeiv.net';
+
+const appConfigGame = process.env.SERVICE_NAME.includes('aoe2de') ? 'aoe2de' : 'aoe4';
+const host = process.env.SERVICE_NAME.includes('aoe2de') ? 'aoe2.net' : 'aoeiv.net';
 
 export async function setValue(connection: Connection, id: string, value: any) {
     const keyValue = new KeyValue();
@@ -221,7 +224,7 @@ interface IOngoingMatches {
 }
 
 export async function fetchOngoingMatches(): Promise<IOngoingMatches> {
-    const url = `https://${host}/matches/aoe2de/ongoing?_=?${getUnixTime(new Date())}`;
+    const url = `https://${host}/matches/${appConfigGame}/ongoing?_=?${getUnixTime(new Date())}`;
     console.log(url);
     const response = await fetch(url, { timeout: 60 * 1000 });
     try {

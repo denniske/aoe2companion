@@ -2,25 +2,25 @@
 on:
   push:
     tags:
-      - 'refetch-v*'
-      - 'refetch-v*'
-      - 'refetch-again-v*'
-      - 'refetch-repair-v*'
-      - 'refetch-multiple-v*'
-      - 'refetch-late-v*'
-      - 'refetch-result-v*'
-      - 'import-v*'
-      - 'ingest-v*'
-      - 'ingest-fast-v*'
-      - 'notify-v*'
-      - 'proxy-v*'
-      - 'rating-history-v*'
-      - 'metric-v*'
-      - 'api-v*'
-      - 'function-v*'
-      - 'rank-v*'
-      - 'replay-v*'
-      - 'graphql-v*'
+      - '*refetch-v*'
+      - '*refetch-v*'
+      - '*refetch-again-v*'
+      - '*refetch-repair-v*'
+      - '*refetch-multiple-v*'
+      - '*refetch-late-v*'
+      - '*refetch-result-v*'
+      - '*import-v*'
+      - '*ingest-v*'
+      - '*ingest-fast-v*'
+      - '*notify-v*'
+      - '*proxy-v*'
+      - '*rating-history-v*'
+      - '*metric-v*'
+      - '*api-v*'
+      - '*function-v*'
+      - '*rank-v*'
+      - '*replay-v*'
+      - '*graphql-v*'
 
 name: Server
 
@@ -53,6 +53,7 @@ jobs:
           ID_CI_RSA_BASE64: secrethub://denniske/aoe2companion/id_ci_rsa_base64
           KNOWN_HOSTS_BASE64: secrethub://denniske/aoe2companion/known_hosts_base64
           DATABASE_URL: secrethub://denniske/aoe2companion/database_url
+          DATABASE_URL_AOE4: secrethub://denniske/aoe2companion/database_url_aoe4
           ELECTROLYTIC_APP_SECRET: secrethub://denniske/aoe2companion/electrolytic_app_secret
           PUSHER_SECRET_KEY: secrethub://denniske/aoe2companion/pusher_secret_key
           S3_ACCESS_KEY_ID: secrethub://denniske/aoe2companion/aws_access_key_id
@@ -80,6 +81,12 @@ jobs:
 
           cd deploy
 
+          export $BASE=base
+          if [[ $SERVICE_NAME == aoe4-* ]] ;
+          then
+            export $BASE=base4
+          fi
+
           envsubst <./docker-compose-single.yml >./docker-compose-single.yml.out && mv ./docker-compose-single.yml.out ./docker-compose-single.yml
           envsubst <./docker-compose-worker.yml >./docker-compose-worker.yml.out && mv ./docker-compose-worker.yml.out ./docker-compose-worker.yml
 
@@ -88,18 +95,4 @@ jobs:
           scp -o StrictHostKeyChecking=no run.sh root@95.217.215.149:/root/run.sh
           ssh -o StrictHostKeyChecking=no root@95.217.215.149 sh run.sh
 
-
-#     - run: chmod +x ./graph/deploy/deploy.sh && ./graph/deploy/deploy.sh
-
-#     - echo $ID_CI_RSA_BASE64 > id_ci_rsa.base64
-#     - base64 --decode id_ci_rsa.base64 > ~/.ssh/id_rsa
-#     - echo $KNOWN_HOSTS_BASE64 > known_hosts.base64
-#     - base64 --decode known_hosts.base64 > ~/.ssh/known_hosts
-#     - chmod 644 ~/.ssh/known_hosts
-#     - chmod 600 ~/.ssh/id_rsa
-#
-#     - cd deploy
-#     - bash ./deploy.sh
-#     - scp docker-compose.yml root@95.217.215.149:/root
-#     - ssh root@95.217.215.149 docker-compose up -d
-#     - ssh root@95.217.215.149 docker-compose up -d --remove-orphans
+#          export DATABASE_URL=${DATABASE_URL/aoe/aoe4}

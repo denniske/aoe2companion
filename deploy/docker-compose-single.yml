@@ -16,4 +16,4 @@ services:
       SERVICE_NAME: $SERVICE_NAME
     extends:
       file: docker-compose.yml
-      service: base
+      service: $BASE
