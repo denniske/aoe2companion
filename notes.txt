@@ -17,7 +17,8 @@ https://aoeiv.net/
 Turnspender's Aoe4 Data Sheet - Patch 9369 (2021/12/09-)
 https://docs.google.com/spreadsheets/d/1oIkBHSYGMyxx-yRL_cmhnx7nV_afCMSyjaXX0mL_4Kk/htmlview?usp=sharing&pru=AAABfd04Et4*wqbygY5A4Pbi7l0OfmP9eQ#
 
-
+coh2 api list
+https://pastebin.com/raw/8CNjUJA8
 
 
 Typescript config files for expo
