@@ -18,7 +18,7 @@ export class MetricController {
         console.log('fiveMinutesAgo', fiveMinutesAgo);
 
         const sentPushNotifications = await this.prisma.push.aggregate({
-            count: true,
+            _count: true,
             where: {
                 AND: [
                     {created_at: {gt: fiveMinutesAgo}},
@@ -28,7 +28,7 @@ export class MetricController {
         });
 
         const importedMatches = await this.prisma.match.aggregate({
-            count: true,
+            _count: true,
             where: {
                 AND: [
                     {started: {gt: getUnixTime(fiveMinutesAgo)}},
@@ -40,7 +40,7 @@ export class MetricController {
         console.log('oneDayAgo', oneDayAgo);
 
         const unfinishedMatches = await this.prisma.match.aggregate({
-            count: true,
+            _count: true,
             where: {
                 AND: [
                     {finished: null},
@@ -50,7 +50,7 @@ export class MetricController {
         });
 
         const finishedMatches = await this.prisma.match.aggregate({
-            count: true,
+            _count: true,
             where: {
                 AND: [
                     {finished: {not: null}},
@@ -60,7 +60,7 @@ export class MetricController {
         });
 
         // const finishedButUndecidedMatches = await this.prisma.match.aggregate({
-        //     count: true,
+        //     _count: true,
         //     where: {
         //         AND: [
         //             {finished: {not: null}},
@@ -73,18 +73,18 @@ export class MetricController {
         // });
 
         const leaderboardLastMatchTime = await this.prisma.leaderboard_row.aggregate({
-            max: {
+            _max: {
                 last_match_time: true,
             },
         });
 
-        const leaderboardLastMatchTimeDiffInMinutes = differenceInMinutes(new Date(), fromUnixTime(leaderboardLastMatchTime.max.last_match_time));
+        const leaderboardLastMatchTimeDiffInMinutes = differenceInMinutes(new Date(), fromUnixTime(leaderboardLastMatchTime._max.last_match_time));
 
         const result = {
-            sentPushNotifications: sentPushNotifications.count,
-            importedMatches: importedMatches.count,
-            unfinishedMatches: unfinishedMatches.count,
-            finishedMatches: finishedMatches.count,
+            sentPushNotifications: sentPushNotifications._count,
+            importedMatches: importedMatches._count,
+            unfinishedMatches: unfinishedMatches._count,
+            finishedMatches: finishedMatches._count,
             finishedButUndecidedMatches: 10,//finishedButUndecidedMatches.count,
             leaderboardLastMatchTimeDiffInMinutes: leaderboardLastMatchTimeDiffInMinutes,
         };
