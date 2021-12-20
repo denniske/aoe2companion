@@ -40,6 +40,7 @@ npx eas build --profile development4 --platform android --no-wait
 
 git clone --depth 1 file://C:\Users\Dennis\Projects\aoe2companion && cd aoe2companion && yarn && npx eas build --profile development4 --platform android --no-wait
 
+git clone --depth 1 file:///Users/dennis/Projects/aoe2companion && cd aoe2companion && yarn && npx eas build --profile development-simulator4 --platform ios --no-wait
 
 yarn set version berry
 
