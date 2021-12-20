@@ -15,7 +15,8 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "YARN_ENABLE_IMMUTABLE_INSTALLS": "false"
+        "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
+        "APP": "aoe2"
       }
     },
     "development-simulator": {
@@ -25,7 +26,8 @@
         "simulator": true
       },
       "env": {
-        "YARN_ENABLE_IMMUTABLE_INSTALLS": "false"
+        "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
+        "APP": "aoe2"
       }
     },
     "development-simulator4": {
@@ -42,12 +44,14 @@
     "internal": {
       "distribution": "internal",
       "env": {
-        "YARN_ENABLE_IMMUTABLE_INSTALLS": "false"
+        "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
+        "APP": "aoe2"
       }
     },
     "production": {
       "env": {
-        "YARN_ENABLE_IMMUTABLE_INSTALLS": "false"
+        "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
+        "APP": "aoe2"
       }
     }
   },
