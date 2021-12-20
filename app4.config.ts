@@ -4,7 +4,6 @@ export default {
     "description": "Track your AoE IV Definitive Edition games. This app fetches information about your games from aoeiv.net so you are always up-to-date.",
     "slug": "aoe4companion",
     "scheme": "aoe4companion",
-    "entryPoint": "app4/App.tsx",
     "platforms": [
       "ios",
       "android",
