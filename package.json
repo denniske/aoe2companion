@@ -180,7 +180,7 @@
     "babel-loader": "^8.1.0",
     "babel-preset-expo": "8.3.0",
     "cavy": "^4.0.0",
-    "eas-cli": "^0.39.0",
+    "eas-cli": "^0.41.1",
     "expo-cli": "^4.13.0",
     "prisma": "3.6.0",
     "react-native-bundle-visualizer": "^2.2.1",
