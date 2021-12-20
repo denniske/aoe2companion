@@ -15,6 +15,7 @@ import {reloadAsync} from 'expo-updates';
 import {createStylesheet} from '../../theming-new';
 import {closeAppWindowAsync, isElectron} from "../../helper/electron";
 import Constants from "expo-constants";
+import {appIconData} from "@nex/dataset";
 
 
 export default function Header() {
@@ -55,7 +56,7 @@ export default function Header() {
     return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Image fadeDuration={0} style={styles.icon} source={require('../../../assets/icon.png')}/>
+                    <Image fadeDuration={0} style={styles.icon} source={appIconData}/>
                     <MyText>{Constants.manifest?.name}</MyText>
 
                     {/*<Checkbox.Android*/}

@@ -21,3 +21,5 @@ export const appConfig = {
         },
     ]
 };
+
+export const appIconData = require('../../../app/assets/icon.png');
