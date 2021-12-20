@@ -217,7 +217,7 @@ export default function Profile({data, ready}: IProfileProps) {
 
     const verifiedPlayer = data ? getVerifiedPlayer(data?.profile_id!) : null;
 
-    console.log('DATA===>', data);
+    // console.log('DATA===>', data);
 
     return (
             <View style={styles.container}>

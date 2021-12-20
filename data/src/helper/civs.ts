@@ -6,7 +6,7 @@ import {getAoeString, getString} from '../lib/aoe-data';
 import {orderBy} from 'lodash';
 import {getService, SERVICE_NAME} from "../lib/di";
 import {ICivService} from "../lib/host";
-import {civsData} from "@nex/dataset";
+import {civsAoeNetData, civsData} from "@nex/dataset";
 
 // export const civs = [
 //     'Aztecs',
@@ -51,6 +51,7 @@ import {civsData} from "@nex/dataset";
 // ] as const;
 
 export const civs = civsData;
+export const civsAoeNet = civsAoeNetData;
 
 // export const civs = (()=>{
 //     try {
@@ -286,7 +287,8 @@ export function getCivName(civ: number) {
 }
 
 export function getCivNameById(civ: Civ) {
-    return getString('civ', civs.indexOf(civ));
+    // console.log('getcivname', civ, civsAoeNet.indexOf(civ));
+    return getString('civ', civsAoeNet.indexOf(civ));
     // const civStringKey = aoeData.civ_names[civ];
     // return 'byid-'+sanitizeGameDescription(getAoeString(civStringKey));
 }

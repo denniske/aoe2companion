@@ -114,7 +114,7 @@ export function FeedList() {
         setPrevMatchId(matchId);
     };
 
-    console.log('matches', matches);
+    // console.log('matches', matches);
     // console.log(matches.data);
 
     useEffect(() => {

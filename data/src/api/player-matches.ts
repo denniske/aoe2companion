@@ -169,7 +169,6 @@ export async function fetchPlayerMatchesLegacy(game: string, start: number, coun
     // HACK: Filter duplicate matches
     json = uniqBy(json, m => m.match_id);
 
-    console.log('ASDPASPDPASPD', appConfig.game);
     // Map new aoe2net civs to game civs
     if (appConfig.game === 'aoe2de') {
         json.forEach(match => {
@@ -240,91 +239,91 @@ export interface IFetchMatchesParams {
 // }
 
 export async function fetchPlayerMatchesNew(game: string, start: number, count: number, params: IFetchMatchesParams[], ongoing: boolean = false): Promise<IMatch[]> {
-    try {
-        if (params.length === 0) {
-            return [];
-        }
-        const endpoint = getHost('aoe2companion-graphql');
-        const query = gql`
-            query H2($start: Int!, $count: Int!, $ongoing: Boolean!, $profile_ids: [Int!]) {
-                matches(
-                    start: $start,
-                    count: $count,
-                    ongoing: $ongoing,
-                    profile_ids: $profile_ids
-                ) {
-                    total
-                    matches {
-                        match_id
-                        leaderboard_id
-                        name
-                        map_type
-                        speed
-                        num_players
-                        started
-                        finished
-                        checked
-                        players {
-                            profile_id
-                            steam_id
-                            name
-                            country
-                            rating
-                            civ
-                            slot
-                            slot_type
-                            color
-                            won
-                            team
-                        }
-                    }
-                }
-            }
-        `;
-
-        const timeLastDate = new Date();
-        const variables = {start, count, profile_ids: params.map(p => p.profile_id), ongoing};
-        console.groupCollapsed('fetchPlayerMatches - matches()');
-        console.log(query);
-        console.groupEnd();
-        console.log(variables);
-        // const graphQLClient = new GraphQLClient(endpoint, { fetch: myfetch })
-        const data = await request(endpoint, query, variables)
-        console.log('gql', new Date().getTime() - timeLastDate.getTime());
-
-        let json = data.matches.matches as IMatchRaw[];
-        // console.log(json);
-        // let json2 = await fetchJson('fetchPlayerMatches', url) as IMatchRaw[];
-        // console.log(json2);
-
-        // HACK: Filter duplicate matches
-        json = uniqBy(json, m => m.match_id);
-
-        // Todo: Fix this according to new aoe2net civs
-        // Todo: Not so important at the moment since the civ info from new api is not used.
-
-        // HACK: Fix new civ order after Lords of the West
-        const releaseDateLoW = 1611680400; // 01/26/2021 @ 5:00pm (UTC)
-        json.filter(match => getUnixTime(parseISO(match.started)) < releaseDateLoW).forEach(match => {
-            match.players.forEach(player => {
-                if (player.civ >= 4) player.civ++;
-                if (player.civ >= 29) player.civ++;
-            })
-        });
-
-        // HACK: Fix new civ order after Dawn of the Dukes
-        const releaseDateDoD = 1628611200; // 10/08/2021 @ 5:00pm (UTC)
-        json.filter(match => getUnixTime(parseISO(match.started)) < releaseDateDoD).forEach(match => {
-            match.players.forEach(player => {
-                if (player.civ >= 2) player.civ++;
-                if (player.civ >= 28) player.civ++;
-            })
-        });
-
-        return json.map(match => convertTimestampsToDates2(match));
-    } catch (e) {
-        console.log('ERROR', e);
-    }
+    // try {
+    //     if (params.length === 0) {
+    //         return [];
+    //     }
+    //     const endpoint = getHost('aoe2companion-graphql');
+    //     const query = gql`
+    //         query H2($start: Int!, $count: Int!, $ongoing: Boolean!, $profile_ids: [Int!]) {
+    //             matches(
+    //                 start: $start,
+    //                 count: $count,
+    //                 ongoing: $ongoing,
+    //                 profile_ids: $profile_ids
+    //             ) {
+    //                 total
+    //                 matches {
+    //                     match_id
+    //                     leaderboard_id
+    //                     name
+    //                     map_type
+    //                     speed
+    //                     num_players
+    //                     started
+    //                     finished
+    //                     checked
+    //                     players {
+    //                         profile_id
+    //                         steam_id
+    //                         name
+    //                         country
+    //                         rating
+    //                         civ
+    //                         slot
+    //                         slot_type
+    //                         color
+    //                         won
+    //                         team
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     `;
+    //
+    //     const timeLastDate = new Date();
+    //     const variables = {start, count, profile_ids: params.map(p => p.profile_id), ongoing};
+    //     // console.groupCollapsed('fetchPlayerMatches - matches()');
+    //     // console.log(query);
+    //     // console.groupEnd();
+    //     // console.log(variables);
+    //     // const graphQLClient = new GraphQLClient(endpoint, { fetch: myfetch })
+    //     const data = await request(endpoint, query, variables)
+    //     // console.log('gql', new Date().getTime() - timeLastDate.getTime());
+    //
+    //     let json = data.matches.matches as IMatchRaw[];
+    //     // console.log(json);
+    //     // let json2 = await fetchJson('fetchPlayerMatches', url) as IMatchRaw[];
+    //     // console.log(json2);
+    //
+    //     // HACK: Filter duplicate matches
+    //     json = uniqBy(json, m => m.match_id);
+    //
+    //     // Todo: Fix this according to new aoe2net civs
+    //     // Todo: Not so important at the moment since the civ info from new api is not used.
+    //
+    //     // HACK: Fix new civ order after Lords of the West
+    //     const releaseDateLoW = 1611680400; // 01/26/2021 @ 5:00pm (UTC)
+    //     json.filter(match => getUnixTime(parseISO(match.started)) < releaseDateLoW).forEach(match => {
+    //         match.players.forEach(player => {
+    //             if (player.civ >= 4) player.civ++;
+    //             if (player.civ >= 29) player.civ++;
+    //         })
+    //     });
+    //
+    //     // HACK: Fix new civ order after Dawn of the Dukes
+    //     const releaseDateDoD = 1628611200; // 10/08/2021 @ 5:00pm (UTC)
+    //     json.filter(match => getUnixTime(parseISO(match.started)) < releaseDateDoD).forEach(match => {
+    //         match.players.forEach(player => {
+    //             if (player.civ >= 2) player.civ++;
+    //             if (player.civ >= 28) player.civ++;
+    //         })
+    //     });
+    //
+    //     return json.map(match => convertTimestampsToDates2(match));
+    // } catch (e) {
+    //     console.log('ERROR', e);
+    // }
     return [];
 }
 
@@ -334,8 +333,8 @@ export async function fetchPlayerMatches(game: string, start: number, count: num
         fetchPlayerMatchesLegacy(game, start, count, params),
     ]);
 
-    console.log('newResult', newResult);
-    console.log('legacyResult', legacyResult);
+    // console.log('newResult', newResult);
+    // console.log('legacyResult', legacyResult);
     // console.log('legacyResult0', legacyResult[0]);
 
     // Compare winners

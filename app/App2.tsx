@@ -36,7 +36,7 @@ import AppLoading from 'expo-app-loading';
 import {FontAwesome5} from "@expo/vector-icons";
 import LeaderboardPage, {leaderboardMenu, LeaderboardTitle} from "./src/view/leaderboard.page";
 import GuidePage, {GuideTitle} from "./src/view/guide.page";
-import CivPage, {CivTitle, civTitle} from "./src/view/civ.page";
+import {CivPage, CivTitle, civTitle} from "@nex/app/view";
 import {
     Civ, Environment, IHostService, IHttpService, IStrings, OS, registerService, SERVICE_NAME
 } from "@nex/data";

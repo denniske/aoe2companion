@@ -20,7 +20,7 @@ export function formatLeaderboardId(leaderboard_id: LeaderboardId) {
 }
 
 export function getLeaderboardOrGameType(leaderboard_id: LeaderboardId, game_type: any) {
-    console.log('getLeaderboardOrGameType', leaderboard_id, game_type);
+    // console.log('getLeaderboardOrGameType', leaderboard_id, game_type);
     if (leaderboard_id != null) {
         return getString('leaderboard', leaderboard_id);
     }

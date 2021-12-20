@@ -1,37 +1,8 @@
-export const civsData = [
-    'AbbasidDynasty',
-    'Chinese',
-    'DelhiSultanate',
-    'English',
-    'French',
-    'HolyRomanEmpire',
-    'Mongols',
-    'Rus',
-] as const;
+import axios from "axios"
+import * as fs from "fs"
+import * as path from "path"
 
-export const civsAoeNetData = [
-    'AbbasidDynasty',
-    'Chinese',
-    'DelhiSultanate',
-    'English',
-    'French',
-    'HolyRomanEmpire',
-    'Mongols',
-    'Rus',
-];
-
-export const civIconListData = [
-    require('../../../app4/assets/civilizations/abbasid-dynasty.png'),
-    require('../../../app4/assets/civilizations/chinese.png'),
-    require('../../../app4/assets/civilizations/delhi-sultanate.png'),
-    require('../../../app4/assets/civilizations/english.png'),
-    require('../../../app4/assets/civilizations/french.png'),
-    require('../../../app4/assets/civilizations/holy-roman-empire.png'),
-    require('../../../app4/assets/civilizations/mongols.png'),
-    require('../../../app4/assets/civilizations/rus.png'),
-];
-
-export const civDescriptionData = {
+const civDescriptionData = {
     'English': [
         '11155020',
         '11217954',
@@ -242,3 +213,32 @@ export const civDescriptionData = {
         '11183562',
     ],
 }
+
+const stringKeys = Object.values(civDescriptionData).flat();
+
+function sleep(ms: number) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
+}
+
+async function loadStringsData4() {
+    const keyValueTranslationsStr = fs.readFileSync('C:\\Users\\Dennis\\Projects\\unpacked\\locale-english\\en\\cardinal.en.ucs', 'utf16le');
+
+    const keyValueTranslations: Record<string, string> = {};
+    for (const line of keyValueTranslationsStr.split('\r\n')) {
+        const [key, value] = line.split('\t');
+        // console.log(stringKeys.includes(key), '['+key+']', '=>', value);
+        if (stringKeys.includes(key)) {
+            keyValueTranslations[key] = value;
+        }
+    }
+
+    console.log(stringKeys);
+    console.log(keyValueTranslations);
+
+    const filePath = path.resolve(__dirname, '..', '..', 'app4', 'assets', 'data', 'en', 'strings.json.lazy');
+    fs.writeFileSync(filePath, JSON.stringify(keyValueTranslations, null, 4));
+}
+
+loadStringsData4();
