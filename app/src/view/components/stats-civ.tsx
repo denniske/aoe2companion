@@ -1,6 +1,6 @@
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {IMatch} from "@nex/data";
+import {IMatch} from "@nex/data/api";
 import {TextLoader} from "./loader/text-loader";
 import {Civ} from "@nex/data";
 import {useNavigation} from "@react-navigation/native";

@@ -100,6 +100,11 @@
   "leaderboard.heading.rmteam": "RM TEAM",
   "leaderboard.heading.ew1v1": "EW 1V1",
   "leaderboard.heading.ewteam": "EW TEAM",
+  "leaderboard.heading.custom": "Custom",
+  "leaderboard.heading.1v1": "1v1",
+  "leaderboard.heading.2v2": "2v2",
+  "leaderboard.heading.3v3": "3v3",
+  "leaderboard.heading.4v4": "4v4",
 
   "enum.position.flank": "Flank",
   "enum.position.pocket": "Pocket",

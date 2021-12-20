@@ -1,5 +1,6 @@
 import {maps} from "../../helper/maps";
-import {AoeMap, IMatch, validMatch} from "@nex/data";
+import {AoeMap} from "@nex/data";
+import {IMatch, validMatch} from "@nex/data/api";
 import {sameUser, UserIdBase} from "../../helper/user";
 import {orderBy} from 'lodash';
 

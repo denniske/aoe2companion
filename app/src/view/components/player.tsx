@@ -3,9 +3,9 @@ import {Image, Linking, Platform, StyleSheet, TextStyle, TouchableOpacity, View}
 import {getPlayerBackgroundColor} from '../../helper/colors';
 import {useNavigation} from '@react-navigation/native';
 import {userIdFromBase} from '../../helper/user';
-import {civs, IMatch, isBirthday, isVerifiedPlayer, moProfileId, noop} from '@nex/data';
+import {civs, getCivNameById, isBirthday, isVerifiedPlayer, moProfileId, noop} from '@nex/data';
 import {RootStackProp} from '../../../App';
-import {getSlotTypeName, getCivNameById, IPlayer} from "@nex/data";
+import {getSlotTypeName, IPlayer, IMatch} from "@nex/data/api";
 import {TextLoader} from "./loader/text-loader";
 import {FontAwesome5} from "@expo/vector-icons";
 import {MyText} from "./my-text";

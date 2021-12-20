@@ -18,7 +18,7 @@ import {appVariants} from "../../styles";
 import {getCivName, keysOf, LeaderboardId} from "@nex/data";
 import TemplatePicker from "../components/template-picker";
 import {get} from 'lodash';
-import {IMatch} from "@nex/data";
+import {IMatch} from "@nex/data/api";
 import {getMapName} from "../../helper/maps";
 import {parseUserId, sameUser} from "../../helper/user";
 import {createStylesheet} from '../../theming-new';

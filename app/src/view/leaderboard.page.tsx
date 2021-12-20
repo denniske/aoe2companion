@@ -120,19 +120,19 @@ export default function LeaderboardPage() {
 
     return (
         <Tab.Navigator lazy={true} swipeEnabled={false}>
-            <Tab.Screen name="LeaderboardRm1v1" initialParams={{leaderboardId: 17}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rm1v1')}/>}}>
+            <Tab.Screen name="LeaderboardRm1v1" initialParams={{leaderboardId: 17}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.1v1')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
-            <Tab.Screen name="LeaderboardRmTeam" initialParams={{leaderboardId: 18}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rmteam')}/>}}>
+            <Tab.Screen name="LeaderboardRmTeam" initialParams={{leaderboardId: 18}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.2v2')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
-            <Tab.Screen name="LeaderboardEw1v1" initialParams={{leaderboardId: 19}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.ew1v1')}/>}}>
+            <Tab.Screen name="LeaderboardEw1v1" initialParams={{leaderboardId: 19}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.3v3')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
-            <Tab.Screen name="LeaderboardEwTeam" initialParams={{leaderboardId: 20}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.ewteam')}/>}}>
+            <Tab.Screen name="LeaderboardEwTeam" initialParams={{leaderboardId: 20}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.4v4')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
-            <Tab.Screen name="LeaderboardUnranked" initialParams={{leaderboardId: 0}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.unranked')}/>}}>
+            <Tab.Screen name="LeaderboardUnranked" initialParams={{leaderboardId: 0}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.custom')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
         </Tab.Navigator>

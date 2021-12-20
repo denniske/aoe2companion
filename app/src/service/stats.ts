@@ -1,7 +1,7 @@
 import {getStatsMap} from "./stats/stats-map";
 import {getStatsCiv} from "./stats/stats-civ";
 import {getStatsPlayer} from "./stats/stats-player";
-import {IMatch} from "@nex/data";
+import {IMatch} from "@nex/data/api";
 import {UserId, UserIdBase} from "../helper/user";
 import {LeaderboardId} from "@nex/data";
 import {getStatsPosition} from "./stats/stats-position";

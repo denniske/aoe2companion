@@ -1,5 +1,6 @@
 import {StyleSheet, View} from 'react-native';
-import {getMatchTeams, IMatch} from '@nex/data';
+import {getMatchTeams} from '@nex/data';
+import {IMatch} from '@nex/data/api';
 import React from 'react';
 import {PlayerSkeleton} from './player';
 import {TextLoader} from "./loader/text-loader";

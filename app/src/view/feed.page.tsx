@@ -3,7 +3,8 @@ import {FlatList, Linking, Platform, StyleSheet, TouchableOpacity, View} from 'r
 import {RootStackParamList, RootStackProp} from '../../App';
 import {RouteProp, useNavigation, useNavigationState, useRoute} from '@react-navigation/native';
 import {Game} from './components/game';
-import {fetchPlayerMatches, IMatch, IPlayer} from "@nex/data";
+import {fetchPlayerMatches} from "@nex/data";
+import {IMatch, IPlayer} from "@nex/data/api";
 import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
 import Search from "./components/search";
 import {sameUser, sameUserNull, UserIdBaseWithName, userIdFromBase} from "../helper/user";

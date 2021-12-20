@@ -33,10 +33,10 @@ export default {
       "app/assets/flags/**",
       "app/assets/font/**",
       "app/assets/legal/**",
+      "app/assets/translations/**",
       "app4/assets/civilizations/**",
       "app4/assets/maps/**",
       "app4/assets/strings/**",
-      "app4/assets/translations/**",
       "app4/assets/*"
     ],
     "plugins": [
