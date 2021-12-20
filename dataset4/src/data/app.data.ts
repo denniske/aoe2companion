@@ -1,7 +1,7 @@
 
 export const appConfig = {
     game: 'aoe4',
-    hostAoeCompanion: 'aoe2companion.com',
+    hostAoeCompanion: 'aoe4companion.com',
     hostAoeNet: 'aoeiv.net',
     leaderboards: [
         {
