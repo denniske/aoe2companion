@@ -10,6 +10,9 @@ export default {
       "android",
       "web"
     ],
+    "extra": {
+      "website": "aoe2companion.com"
+    },
     "userInterfaceStyle": "automatic",
     "jsEngine": "hermes",
     "runtimeVersion": process.env.RUNTIME_VERSION,

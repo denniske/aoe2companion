@@ -89,6 +89,7 @@ import BuildPage from "./src/view/build.page";
 import {fetchAoeReferenceData} from './src/helper/reference';
 import DonationPage from './src/view/donation.page';
 import {registerRootComponent} from "expo";
+import Constants from 'expo-constants';
 
 initSentry();
 
@@ -152,8 +153,11 @@ registerService(SERVICE_NAME.TRANSLATION_SERVICE, new AoeDataService(), true);
 registerService(SERVICE_NAME.HOST_SERVICE, new HostService(), true);
 registerService(SERVICE_NAME.HTTP_SERVICE, new HttpService(), true);
 
+const scheme = Constants.manifest?.scheme;
+const website = Constants.manifest?.extra?.website;
+
 const linking: LinkingOptions = {
-    prefixes: ['https://aoe2companion.com', 'aoe2companion://'],
+    prefixes: [`https://${website}`, `${scheme}://`],
     config: {
         screens: {
             User: {

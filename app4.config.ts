@@ -10,6 +10,9 @@ export default {
       "android",
       "web"
     ],
+    "extra": {
+      "website": "aoe4companion.com"
+    },
     "userInterfaceStyle": "automatic",
     "jsEngine": "hermes",
     "runtimeVersion": process.env.RUNTIME_VERSION,
@@ -27,18 +30,12 @@ export default {
     },
     "assetBundlePatterns": [
       "node_modules/**",
+      "app/assets/flags/**",
+      "app/assets/font/**",
+      "app/assets/legal/**",
       "app4/assets/civilizations/**",
-      "app4/assets/data/**",
-      "app4/assets/flags/**",
-      "app4/assets/font/**",
-      "app4/assets/legal/**",
       "app4/assets/maps/**",
       "app4/assets/strings/**",
-      "app4/assets/buildings/**",
-      "app4/assets/techs/**",
-      "app4/assets/units/**",
-      "app4/assets/tips/icon/**",
-      "app4/assets/tips/poster/**",
       "app4/assets/translations/**",
       "app4/assets/*"
     ],
