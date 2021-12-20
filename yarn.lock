@@ -2627,9 +2627,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/eas-json@npm:^0.39.0":
-  version: 0.39.0
-  resolution: "@expo/eas-json@npm:0.39.0"
+"@expo/eas-json@npm:^0.41.0":
+  version: 0.41.0
+  resolution: "@expo/eas-json@npm:0.41.0"
   dependencies:
     "@expo/eas-build-job": 0.2.61
     "@expo/json-file": 8.2.33
@@ -2638,8 +2638,9 @@ __metadata:
     fs-extra: 10.0.0
     joi: 17.4.2
     log-symbols: 4.1.0
+    semver: 7.3.5
     tslib: 2.3.1
-  checksum: d297bb3edcbc6cbcc2341a93fdb4072086448b92839a9a91cd6f118854cc416afc130c0a085cdb943d679333bff70c0fe99b1bf89f59c2064e9ad8c27bf7b42c
+  checksum: 77a3812747fdeed80f0b1f07cbc231acd33aa674bdbff55027bbdc14d3a755d0586f0211b9e1b7c280f1f9710656bc62da9e28c2364c96d3d75f62e7858dab16
   languageName: node
   linkType: hard
 
@@ -12483,15 +12484,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eas-cli@npm:^0.39.0":
-  version: 0.39.0
-  resolution: "eas-cli@npm:0.39.0"
+"eas-cli@npm:^0.41.1":
+  version: 0.41.1
+  resolution: "eas-cli@npm:0.41.1"
   dependencies:
     "@expo/apple-utils": 0.0.0-alpha.26
     "@expo/config": 6.0.11
     "@expo/config-plugins": 4.0.11
     "@expo/eas-build-job": 0.2.61
-    "@expo/eas-json": ^0.39.0
+    "@expo/eas-json": ^0.41.0
     "@expo/json-file": 8.2.34
     "@expo/pkcs12": 0.0.6
     "@expo/plist": 0.0.16
@@ -12550,7 +12551,7 @@ __metadata:
     wrap-ansi: 7.0.0
   bin:
     eas: bin/run
-  checksum: dcc0ae7e6f0f229dbf9dd36ffbbcd0ae5d69d4cdf6aed54ffd3e3733d1a0616b8e8c95c89c74f7efac94a6455ba7fa6ef95dc51743a7647a111b402eed36b490
+  checksum: d9a13dab93ba362e4b99776b2daf2a21da6e1c749a91d4260e4c086413cd7541628e68635309b600687439630e3c29e739abbe3e757814a6c2b1b88c28df54ec
   languageName: node
   linkType: hard
 
@@ -25272,7 +25273,7 @@ __metadata:
     date-fns: ^2.14.0
     document-register-element: 1.13.1
     dotenv: ^8.2.0
-    eas-cli: ^0.39.0
+    eas-cli: ^0.41.1
     expo: ^43.0.2
     expo-app-loading: ~1.2.1
     expo-av: ~10.1.3
