@@ -1,9 +1,13 @@
 
-
-  "main": "app/App.tsx",
-
-
 Aoe 4
+
+codexmodalpage
+- CivTraitsTemplate
+mainmenupagelearnpane
+
+https://ageofempires.fandom.com/wiki/Abbasid_Dynasty#cite_note-Abbasid_Dynasty-1
+https://www.ageofempires.com/games/age-of-empires-iv/civilizations/abbasid-dynasty//
+
 
 House of Wisdom
 https://aktaboot.github.io/index.html
