@@ -25,3 +25,4 @@ jobs:
           repository: denniske/aoe2companion-mirror
           github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN_AOE2COMPANION_MIRROR }}
           branch: ${{ github.ref }}
+
