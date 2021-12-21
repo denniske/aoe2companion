@@ -1,6 +1,10 @@
 
 Aoe 4
 
+screenshots
+experienceId
+
+
 codexmodalpage
 - CivTraitsTemplate
 mainmenupagelearnpane

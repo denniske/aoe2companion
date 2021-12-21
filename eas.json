@@ -3,15 +3,7 @@
     "version": ">= 0.39.0"
   },
   "build": {
-    "development4": {
-      "developmentClient": true,
-      "distribution": "internal",
-      "env": {
-        "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
-        "APP": "aoe4"
-      }
-    },
-    "development": {
+    "development-aoe2": {
       "developmentClient": true,
       "distribution": "internal",
       "env": {
@@ -19,7 +11,15 @@
         "APP": "aoe2"
       }
     },
-    "development-simulator": {
+    "development-aoe4": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": {
+        "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
+        "APP": "aoe4"
+      }
+    },
+    "development-simulator-aoe2": {
       "developmentClient": true,
       "distribution": "internal",
       "ios": {
@@ -30,7 +30,7 @@
         "APP": "aoe2"
       }
     },
-    "development-simulator4": {
+    "development-simulator-aoe4": {
       "developmentClient": true,
       "distribution": "internal",
       "ios": {
@@ -41,22 +41,35 @@
         "APP": "aoe4"
       }
     },
-    "internal": {
+    "internal-aoe2": {
       "distribution": "internal",
       "env": {
         "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
         "APP": "aoe2"
       }
     },
-    "production": {
+    "internal-aoe4": {
+      "distribution": "internal",
+      "env": {
+        "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
+        "APP": "aoe4"
+      }
+    },
+    "production-aoe2": {
       "env": {
         "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
         "APP": "aoe2"
+      }
+    },
+    "production-aoe4": {
+      "env": {
+        "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
+        "APP": "aoe4"
       }
     }
   },
   "submit": {
-    "production": {
+    "production-aoe2": {
       "android": {
         "track": "internal",
         "releaseStatus": "draft",
@@ -66,6 +79,21 @@
         "ascAppId": "1518463195",
         "appleTeamId": "HAFGZBHF9M",
         "sku": "com.aoe2companion",
+        "ascApiKeyPath": "auth_key.p8",
+        "ascApiKeyIssuerId": "fb7451c8-c140-408a-be1d-375ba4e5045c",
+        "ascApiKeyId": "VJ4G795F6S"
+      }
+    },
+    "production-aoe4": {
+      "android": {
+        "track": "internal",
+        "releaseStatus": "draft",
+        "serviceAccountKeyPath": "play-store-service-account.json"
+      },
+      "ios": {
+        "ascAppId": "1601333682",
+        "appleTeamId": "HAFGZBHF9M",
+        "sku": "com.aoe4companion",
         "ascApiKeyPath": "auth_key.p8",
         "ascApiKeyIssuerId": "fb7451c8-c140-408a-be1d-375ba4e5045c",
         "ascApiKeyId": "VJ4G795F6S"
