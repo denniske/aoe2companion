@@ -11,6 +11,23 @@ export interface IChangelog {
 
 // https://www.aoe2insights.com/match/99919072/analysis/
 
+export const changelog4: IChangelog = {
+    '2.0.0': [
+        {
+            type: 'feature',
+            title: 'Follow players',
+        },
+        {
+            type: 'feature',
+            title: 'Leaderboard',
+        },
+        {
+            type: 'feature',
+            title: 'Civilization Overview',
+        },
+    ],
+};
+
 export const changelog: IChangelog = {
     '35.0.0': [
         {

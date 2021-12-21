@@ -1,7 +1,7 @@
 import React from 'react';
 import {FlatList, Linking, StyleSheet, View, ViewStyle} from 'react-native';
 import {MyText} from "./components/my-text";
-import {changelog, IChange} from "../changelog";
+import {changelog, changelog4, IChange} from "../changelog";
 import {RouteProp, useRoute} from "@react-navigation/native";
 import {RootStackParamList} from "../../App";
 import {lt} from "semver";
@@ -12,6 +12,7 @@ import {useTheme} from '../theming';
 import {appVariants} from '../styles';
 import {isElectron} from "../helper/electron";
 import {openLink} from "../helper/url";
+import {appConfig} from "@nex/dataset";
 
 
 interface IChangelogEntry {
@@ -98,7 +99,7 @@ export default function ChangelogPage() {
         </View>
     );
 
-    const changelogEntries = Object.entries(changelog).map(([version, changes]) => ({ version, changes }));
+    const changelogEntries = Object.entries(appConfig.game === 'aoe2de' ? changelog : changelog4).map(([version, changes]) => ({ version, changes }));
     const filteredChangelogEntries = isElectron() ? changelogEntries : changelogEntries.filter(e => !e.version.includes('+'));
 
     return (
