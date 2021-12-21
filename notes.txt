@@ -6,6 +6,8 @@ experienceId
 website+privacy
 email
 
+Scrubbing the history of .yarn
+https://github.com/solidjs/solid-playground/issues/13
 
 codexmodalpage
 - CivTraitsTemplate
