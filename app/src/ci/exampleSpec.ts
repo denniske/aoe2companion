@@ -1,8 +1,8 @@
 import {captureImage} from "./capture";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StackNavigationProp} from "@react-navigation/stack";
-import {RootStackParamList, RootTabParamList} from "../../App";
 import {MaterialTopTabNavigationProp} from "@react-navigation/material-top-tabs";
+import {RootStackParamList, RootTabParamList} from '../../App2';
 
 function sleep(ms: number) {
     return new Promise((resolve) => {
@@ -35,22 +35,26 @@ export default function (spec: any) {
 
             // console.log('CAVY found navigation', navigation);
 
+            return;
+
             navigation.reset({index: 0, routes: [{name: 'Feed'}]});
             await sleep(waitTime*2);
             await capture();
             await sleep(1000);
 
-            navigation.reset({index: 0, routes: [{name: 'Main'}]});
+            // // navigation.reset({index: 0, routes: [{name: 'Main'}]});
+            await spec.exists('Footer.Main');
+            await spec.press('Footer.Main');
             await sleep(1000);
 
             await spec.exists('Search.Input');
-            await spec.fillIn('Search.Input', 'aoe2companion');
+            await spec.fillIn('Search.Input', 'hera');
             await sleep(waitTime);
             await capture();
             await sleep(1000);
 
-            await spec.exists('Search.Player.76561197995781128-209525');
-            await spec.press('Search.Player.76561197995781128-209525');
+            await spec.exists('Search.Player.199325-76561198449406083');
+            await spec.press('Search.Player.199325-76561198449406083');
             await sleep(waitTime);
             await capture();
 
@@ -62,42 +66,43 @@ export default function (spec: any) {
             await sleep(waitTime);
             await capture();
 
-            navigation.navigate('Search', {});
-            await sleep(1000);
-
-            await spec.exists('Search.Input');
-            await spec.fillIn('Search.Input', 'baratticus');
-            await sleep(waitTime);
-
-            await spec.exists('Search.Player.76561198116899512-336655');
-            await spec.press('Search.Player.76561198116899512-336655');
-            await sleep(waitTime);
-            await capture();
+            // navigation.navigate('Search', {});
+            // await sleep(1000);
+            //
+            // await spec.exists('Search.Input');
+            // await spec.fillIn('Search.Input', 'baratticus');
+            // await sleep(waitTime);
+            //
+            // await spec.exists('Search.Player.76561198116899512-336655');
+            // await spec.press('Search.Player.76561198116899512-336655');
+            // await sleep(waitTime);
+            // await capture();
 
             navigation.reset({index: 0, routes: [{name: 'Leaderboard'}]});
             await sleep(1000);
             await sleep(waitTime);
             await capture();
 
-            navigation.reset({index: 0, routes: [{name: 'Guide'}]});
-            await sleep(1000);
-            await sleep(waitTime);
-            await capture();
+            // navigation.reset({index: 0, routes: [{name: 'Guide'}]});
+            // await sleep(1000);
+            // await sleep(waitTime);
+            // await capture();
 
             navigation.reset({index: 0, routes: [{name: 'Civ'}]})
             await sleep(1000);
             await sleep(waitTime);
             await capture();
 
-            navigation.reset({index: 0, routes: [{name: 'Civ'}, {name: 'Civ', params: {civ: 'Aztecs'}}]})
+            navigation.reset({index: 0, routes: [{name: 'Civ'}, {name: 'Civ', params: {civ: 'Chinese'}}]})
+            // navigation.reset({index: 0, routes: [{name: 'Civ'}, {name: 'Civ', params: {civ: 'Aztecs'}}]})
             await sleep(1000);
             await sleep(waitTime);
             await capture();
 
-            navigation.reset({index: 0, routes: [{name: 'Unit'}, {name: 'Unit', params: {unit: 'Arambai'}}]})
-            await sleep(1000);
-            await sleep(waitTime);
-            await capture();
+            // navigation.reset({index: 0, routes: [{name: 'Unit'}, {name: 'Unit', params: {unit: 'Arambai'}}]})
+            // await sleep(1000);
+            // await sleep(waitTime);
+            // await capture();
         });
     });
 }

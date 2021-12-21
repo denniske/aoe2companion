@@ -22,6 +22,7 @@ import {useLastNotificationResponseWeb} from '../../helper/pusher';
 import {IQueryRow} from "./search-query";
 import {openLink} from "../../helper/url";
 import {appConfig} from "@nex/dataset";
+import {useCavy} from '../testing/tester';
 
 
 export default function Footer() {
@@ -32,6 +33,7 @@ export default function Footer() {
     const auth = useSelector(state => state.auth);
     const birthdayRead = useSelector(state => state.prefs.birthdayRead);
     const mutate = useMutate();
+    const generateTestHook = useCavy();
 
     const nav = async (route: keyof RootStackParamList, params?: any) => {
         const navigation = getRootNavigation();
@@ -206,7 +208,10 @@ export default function Footer() {
                             <TouchableOpacity style={styles.menuButton} onPress={() => nav('Feed')}>
                                 <FontAwesome name="heart" size={iconSize} style={iconStyle('Feed')} />
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.menuButton} onPress={() => nav('User')}>
+                            <TouchableOpacity
+                                style={styles.menuButton} onPress={() => nav('User')}
+                                ref={ref => generateTestHook('Footer.Main')({ props: { onPress: () => nav('User') }})}
+                            >
                                 <FontAwesome name="user" size={iconSize} style={iconStyle('User')} />
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.menuButton} onPress={() => nav('Leaderboard')}>

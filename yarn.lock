@@ -6275,7 +6275,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/cavy@npm:^3.2.0":
+"@types/cavy@npm:^3.2.2":
   version: 3.2.2
   resolution: "@types/cavy@npm:3.2.2"
   dependencies:
@@ -10071,7 +10071,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cavy@npm:^4.0.0":
+"cavy@npm:^4.0.2":
   version: 4.0.2
   resolution: "cavy@npm:4.0.2"
   dependencies:
@@ -25235,7 +25235,7 @@ __metadata:
     "@sendgrid/mail": ^7.2.3
     "@sentry/node": ^5.20.1
     "@sentry/types": ^5.20.1
-    "@types/cavy": ^3.2.0
+    "@types/cavy": ^3.2.2
     "@types/express": ^4.16.0
     "@types/graphql": 14.5.0
     "@types/lodash": ^4.14.157
@@ -25266,7 +25266,7 @@ __metadata:
     babel-loader: ^8.1.0
     babel-plugin-transform-typescript-metadata: ^0.3.0
     babel-preset-expo: 8.3.0
-    cavy: ^4.0.0
+    cavy: ^4.0.2
     cors: ^2.8.5
     cors-anywhere: ^0.4.3
     cross-env: ^7.0.3

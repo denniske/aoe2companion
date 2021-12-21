@@ -395,21 +395,22 @@ export function InnerApp() {
             }}>
 
                 <Stack.Screen
-                    name="Feed"
-                    component={FeedPage}
-                    options={props => ({
-                        animationEnabled: !!props.route?.params?.action,
-                        title: feedTitle(props),
-                        headerRight: feedMenu(props),
-                    })}
-                />
-                <Stack.Screen
                     name="User"
                     component={UserPage}
                     options={props => ({
                         animationEnabled: !!props.route?.params,
                         title: sameUserNull(auth, props.route.params?.id) || props.route.params == null ? 'Me' : props.route.params.name,
                         headerRight: userMenu(props),
+                    })}
+                />
+
+                <Stack.Screen
+                    name="Feed"
+                    component={FeedPage}
+                    options={props => ({
+                        animationEnabled: !!props.route?.params?.action,
+                        title: feedTitle(props),
+                        headerRight: feedMenu(props),
                     })}
                 />
 

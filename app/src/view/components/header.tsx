@@ -18,13 +18,25 @@ import Constants from "expo-constants";
 import {appIconData} from "@nex/dataset";
 
 
+import {sleep} from "@nex/data";
+// import {captureImage} from '../../ci/capture';
+// let imageNumber = 10;
+
 export default function Header() {
     const appStyles = useTheme(appVariants);
     const styles = useStyles();
-    const [checked, setChecked] = useState(false);
+    const [capturing, setCapturing] = useState(false);
     const mutate = useMutate();
     const config = useSelector(state => state.config);
     const state = useSelector(state => state);
+
+    const capture = async () => {
+        // console.log('CAPTURE');
+        // setCapturing(true);
+        // await sleep(500);
+        // await captureImage('screen-' + imageNumber++);
+        // setCapturing(false);
+    };
 
     const nav = async (route: keyof RootStackParamList) => {
         const navigation = getRootNavigation();
@@ -59,21 +71,7 @@ export default function Header() {
                     <Image fadeDuration={0} style={styles.icon} source={appIconData}/>
                     <MyText>{Constants.manifest?.name}</MyText>
 
-                    {/*<Checkbox.Android*/}
-                    {/*    status={checked ? 'checked' : 'unchecked'}*/}
-                    {/*    onPress={() => {*/}
-                    {/*        mutate(setDarkMode(checked ? 'dark' : 'light'));*/}
-                    {/*        setChecked(!checked);*/}
-                    {/*    }}*/}
-                    {/*/>*/}
-                    {/*<MyText>Light Mode</MyText>*/}
-
                     <View style={appStyles.expanded}/>
-
-                    {/*{*/}
-                    {/*    Platform.OS === 'web' &&*/}
-                    {/*    <MyText>Download App</MyText>*/}
-                    {/*}*/}
 
                     {
                         !__DEV__ && Platform.OS === 'web' &&
@@ -83,23 +81,29 @@ export default function Header() {
                     }
 
                     {
-                        __DEV__ &&
+                        __DEV__ && !capturing &&
                         <MyText>{(JSON.stringify(state).length / 1000).toFixed()} KB</MyText>
                     }
                     {
-                        __DEV__ &&
+                        __DEV__ && !capturing &&
                         <TouchableOpacity onPress={toggleDarkMode}>
                             <FontAwesome5 style={styles.menuButton} name="lightbulb" color="#666" size={18} />
                         </TouchableOpacity>
                     }
                     {
-                        __DEV__ &&
+                        __DEV__ && !capturing &&
+                        <TouchableOpacity onPress={capture}>
+                            <FontAwesome style={styles.menuButton} name="camera" color="#666" size={18} />
+                        </TouchableOpacity>
+                    }
+                    {
+                        __DEV__ && !capturing &&
                         <TouchableOpacity onPress={resetState}>
                             <FontAwesome style={styles.menuButton} name="refresh" color="#666" size={18} />
                         </TouchableOpacity>
                     }
                     {
-                        __DEV__ &&
+                        __DEV__ && !capturing &&
                         <TouchableOpacity onPress={restart}>
                             <FontAwesome5 style={styles.menuButton} name="power-off" color="#666" size={18} />
                         </TouchableOpacity>

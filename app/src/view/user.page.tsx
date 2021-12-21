@@ -19,6 +19,7 @@ import {getRootNavigation} from '../service/navigation';
 import {setAccountProfile} from "../api/following";
 import {openLink} from "../helper/url";
 import Purchases from 'react-native-purchases';
+import {RootStackProp} from '../../App2';
 
 export function userMenu(props: any) {
     return () => {
@@ -109,7 +110,7 @@ export default function UserPage() {
     console.log('UserPage', route.params, auth);
 
     const generateTestHook = useCavy();
-    const navigation = useNavigation();
+    const navigation = useNavigation<RootStackProp>();
     generateTestHook('Navigation')(navigation);
 
     const onSelect = async (user: UserInfo) => {
