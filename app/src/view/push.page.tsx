@@ -95,7 +95,7 @@ export default function PushPage() {
 
             // throw "Deliberate Error!";
 
-            token = (await Notifications.getExpoPushTokenAsync({ experienceId: '@denniske1001/aoe2companion' })).data;
+            token = (await Notifications.getExpoPushTokenAsync({ experienceId: Constants.manifest?.extra?.experienceId })).data;
             log(maskToken(token));
 
             if (Platform.OS === 'android') {

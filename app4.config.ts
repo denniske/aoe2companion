@@ -10,7 +10,8 @@ export default {
       "web"
     ],
     "extra": {
-      "website": "aoe4companion.com"
+      "website": "aoe4companion.com",
+      "experienceId": "@denniske1001/aoe4companion"
     },
     "userInterfaceStyle": "automatic",
     "jsEngine": "hermes",
