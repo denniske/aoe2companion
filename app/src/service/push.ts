@@ -13,7 +13,7 @@ export function maskToken(token: string) {
 export async function getToken() {
     if (!Constants.isDevice) return null;
     try {
-        return (await Notifications.getExpoPushTokenAsync({ experienceId: '@denniske1001/aoe2companion' })).data;
+        return (await Notifications.getExpoPushTokenAsync({ experienceId: Constants.manifest?.extra?.experienceId })).data;
     } catch (e) {
         return null;
     }
