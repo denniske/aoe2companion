@@ -24,6 +24,7 @@ import {getCivHistoryImage, getCivIcon} from "../helper/civs";
 import {UnitCompBig} from './unit/unit-comp';
 import {TechCompBig} from './tech/tech-comp';
 import {getTranslation} from '../helper/translate';
+import {appConfig} from "@nex/dataset";
 
 
 export function CivTitle(props: any) {
@@ -90,8 +91,6 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
                 <MyText style={styles.content}><HighlightUnitAndTechs str={teamBonus}/></MyText>
             </View>
 
-            {/*<MyText style={styles.content}>{civDescription2}</MyText>*/}
-
             <View style={styles.box}>
                 <TechTree civ={civ}/>
             </View>
@@ -145,29 +144,9 @@ export function CivList() {
             keyExtractor={(item, index) => index.toString()}
         />
     );
-
-    // return (
-    //     <ScrollView contentContainerStyle={styles.container}>
-    //         <View style={styles.civList}>
-    //             {
-    //                 orderCivs(civs).map((civ, i) =>
-    //                     <TouchableOpacity key={civ} onPress={() => navigation.push('Civ', {civ})}>
-    //                         <View style={styles.civBlock}>
-    //                             <Image fadeDuration={0} style={styles.icon} source={getCivIcon(civ)}/>
-    //                             <View style={styles.civRow}>
-    //                                 <MyText style={styles.name}>{getCivNameById(civ)}</MyText>
-    //                                 <MyText style={styles.small} numberOfLines={1}>{getCivTeamBonus(civ) ?? ''}</MyText>
-    //                             </View>
-    //                         </View>
-    //                     </TouchableOpacity>
-    //                 )
-    //             }
-    //         </View>
-    //     </ScrollView>
-    // );
 }
 
-export default function CivPage() {
+export function CivPage() {
     const styles = useStyles();
 
     const route = useRoute<RouteProp<RootStackParamList, 'Civ'>>();
@@ -198,8 +177,6 @@ const useStyles = createStylesheet((theme, darkMode) => StyleSheet.create({
     },
     image: {
         flex: 1,
-        // resizeMode: "contain",
-        // backgroundColor: 'blue',
     },
     title: {
         marginTop: 20,
@@ -211,27 +188,16 @@ const useStyles = createStylesheet((theme, darkMode) => StyleSheet.create({
         lineHeight: 20,
         fontWeight: 'bold',
     },
-
     box: {
-        // borderTopWidth: 1,
-        // borderTopColor: '#DDD',
-        // borderBottomWidth: 1,
-        // borderBottomColor: '#CCC',
-        // marginTop: 10,
-        // marginHorizontal: -20,
-        // paddingHorizontal: 20,
-    },
 
+    },
     content: {
-        // marginBottom: 5,
         textAlign: 'left',
         lineHeight: 22,
-        // fontSize: 17,
     },
     detailsContainer: {
         flex: 1,
         padding: 20,
-        // backgroundColor: 'yellow',
     },
     icon: {
         width: iconWidth,
@@ -251,7 +217,7 @@ const useStyles = createStylesheet((theme, darkMode) => StyleSheet.create({
         // backgroundColor: 'blue',
     },
     civList: {
-        // backgroundColor: 'red',
+
     },
     container: {
         padding: 20,
@@ -268,7 +234,6 @@ const useStyles = createStylesheet((theme, darkMode) => StyleSheet.create({
         color: theme.textNoteColor,
     },
     bonusRow: {
-        // marginLeft: 40,
         flexDirection: 'row',
     },
 }));

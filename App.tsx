@@ -1,4 +1,6 @@
-import App from "./app/App";
+import React from 'react';
+import App2 from './app/App2';
 
-
-export default App
+export default function App() {
+    return <App2/>
+}

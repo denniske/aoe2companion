@@ -3,15 +3,16 @@ import {Image, Linking, Platform, StyleSheet, TextStyle, TouchableOpacity, View}
 import {getPlayerBackgroundColor} from '../../helper/colors';
 import {useNavigation} from '@react-navigation/native';
 import {userIdFromBase} from '../../helper/user';
-import {civs, IMatch, isBirthday, isVerifiedPlayer, moProfileId, noop} from '@nex/data';
+import {civs, getCivNameById, isBirthday, isVerifiedPlayer, moProfileId, noop} from '@nex/data';
 import {RootStackProp} from '../../../App';
-import {getSlotTypeName, getCivNameById, IPlayer} from "@nex/data";
+import {getSlotTypeName, IPlayer, IMatch} from "@nex/data/api";
 import {TextLoader} from "./loader/text-loader";
 import {FontAwesome5} from "@expo/vector-icons";
 import {MyText} from "./my-text";
 import {getCivIconByIndex} from "../../helper/civs";
 import {createStylesheet} from '../../theming-new';
 import {openLink} from "../../helper/url";
+import {appConfig} from "@nex/dataset";
 
 
 interface IPlayerProps {
@@ -110,7 +111,7 @@ export function Player({match, player, highlight, freeForALl, canDownloadRec}: I
             <TouchableOpacity style={styles.civCol} onPress={() => navigation.push('Civ', {civ: civs[player.civ]})}>
                 <View style={styles.row}>
                     <Image fadeDuration={0} style={styles.countryIcon} source={getCivIconByIndex(player.civ) as any}/>
-                    <MyText>{getCivNameById(civs[player.civ])}</MyText>
+                    <MyText numberOfLines={1} style={styles.text}>{getCivNameById(civs[player.civ])}</MyText>
                 </View>
             </TouchableOpacity>
         </View>
@@ -127,6 +128,12 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     },
     squareText: {
         color: '#333',
+        // backgroundColor: 'yellow',
+        lineHeight: 18,
+    },
+    text: {
+        flex: 1,
+        lineHeight: 18,
     },
     squareCol: {
         marginLeft: 5,
@@ -156,6 +163,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         width: 38,
         letterSpacing: -0.5,
         fontVariant: ['tabular-nums'],
+        lineHeight: 18,
     },
     playerCol: {
         flexDirection: 'row',
@@ -173,6 +181,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     playerNameCol: {
         marginLeft: 5,
         flex: 1,
+        lineHeight: 18,
     },
     playerNameColBirthday: {
         marginLeft: 5,
@@ -185,10 +194,15 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         width: 100,
         // backgroundColor: 'blue',
     },
-    countryIcon: {
+    countryIcon: appConfig.game === 'aoe2de' ? {
         width: 20,
         height: 20,
         marginRight: 4,
+    } : {
+        width: 36,
+        height: 20,
+        marginRight: 8,
+        marginTop: 1,
     },
     player: {
         flexDirection: 'row',

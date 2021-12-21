@@ -3,7 +3,7 @@ import {Cron} from "@nestjs/schedule";
 import {PrismaService} from "../service/prisma.service";
 import {fromUnixTime, getUnixTime, subHours} from "date-fns";
 import {Connection} from 'typeorm';
-import {IMatchRaw, myTodoList} from '@nex/data';
+import {IMatchRaw, myTodoList} from '@nex/data/api';
 import {formatDayAndTime} from '../util';
 import {fetchMatch, fetchMatches} from '../helper';
 import {upsertMatchesWithPlayers} from '../entity/entity-helper';

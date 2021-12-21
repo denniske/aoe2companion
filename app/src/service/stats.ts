@@ -1,7 +1,7 @@
 import {getStatsMap} from "./stats/stats-map";
 import {getStatsCiv} from "./stats/stats-civ";
 import {getStatsPlayer} from "./stats/stats-player";
-import {IMatch} from "@nex/data";
+import {IMatch} from "@nex/data/api";
 import {UserId, UserIdBase} from "../helper/user";
 import {LeaderboardId} from "@nex/data";
 import {getStatsPosition} from "./stats/stats-position";
@@ -20,8 +20,16 @@ export async function getStats({matches, user, leaderboardId}: IParam) {
 
     time('getStats' + matches?.length);
 
-    const filteredMatches = matches?.filter((m: any) => m.leaderboard_id === leaderboardId);
+    console.log(matches[0]);
+    console.log(matches[1]);
+    console.log(matches[3]);
+    console.log(matches[4]);
+    console.log(matches[5]);
+    console.log(matches[6]);
 
+    const filteredMatches = matches?.filter((m: any) => m.leaderboard_id == leaderboardId);
+
+    time('getStats filteredMatches' + filteredMatches?.length);
     time();
 
     const statsDuration = await getStatsDuration({matches: filteredMatches, user});

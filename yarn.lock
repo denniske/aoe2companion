@@ -2627,9 +2627,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/eas-json@npm:^0.39.0":
-  version: 0.39.0
-  resolution: "@expo/eas-json@npm:0.39.0"
+"@expo/eas-json@npm:^0.41.0":
+  version: 0.41.0
+  resolution: "@expo/eas-json@npm:0.41.0"
   dependencies:
     "@expo/eas-build-job": 0.2.61
     "@expo/json-file": 8.2.33
@@ -2638,8 +2638,9 @@ __metadata:
     fs-extra: 10.0.0
     joi: 17.4.2
     log-symbols: 4.1.0
+    semver: 7.3.5
     tslib: 2.3.1
-  checksum: d297bb3edcbc6cbcc2341a93fdb4072086448b92839a9a91cd6f118854cc416afc130c0a085cdb943d679333bff70c0fe99b1bf89f59c2064e9ad8c27bf7b42c
+  checksum: 77a3812747fdeed80f0b1f07cbc231acd33aa674bdbff55027bbdc14d3a755d0586f0211b9e1b7c280f1f9710656bc62da9e28c2364c96d3d75f62e7858dab16
   languageName: node
   linkType: hard
 
@@ -5215,31 +5216,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/client@npm:2.18.0":
-  version: 2.18.0
-  resolution: "@prisma/client@npm:2.18.0"
+"@prisma/client@npm:3.6.0":
+  version: 3.6.0
+  resolution: "@prisma/client@npm:3.6.0"
   dependencies:
-    "@prisma/engines-version": 2.18.0-34.da6fafb57b24e0b61ca20960c64e2d41f9e8cff1
+    "@prisma/engines-version": 3.6.0-24.dc520b92b1ebb2d28dc3161f9f82e875bd35d727
   peerDependencies:
     prisma: "*"
   peerDependenciesMeta:
     prisma:
       optional: true
-  checksum: 4332cb630b4405bbed3366cd16955971129a480cbd0ca8193825e419102b246b994fcbc283878e5975b6cf90b9a8675adb62dda7688ebbd523e0bcfc1be6b0e9
+  checksum: 83835117d60d100cf0933f60933603f5b85833414ad4dae9ea6b18f99190030317de459bbb573e928f764b476733676722fd90637292defae887dd974a2914a1
   languageName: node
   linkType: hard
 
-"@prisma/engines-version@npm:2.18.0-34.da6fafb57b24e0b61ca20960c64e2d41f9e8cff1":
-  version: 2.18.0-34.da6fafb57b24e0b61ca20960c64e2d41f9e8cff1
-  resolution: "@prisma/engines-version@npm:2.18.0-34.da6fafb57b24e0b61ca20960c64e2d41f9e8cff1"
-  checksum: a6962bde9b363defb50922fd159716249434c86984614bcc0a1bfa601c69107c166d01b8921f49406088701598a06ae0b4046df625d3b1d4bb69f9fc242d6ebd
+"@prisma/engines-version@npm:3.6.0-24.dc520b92b1ebb2d28dc3161f9f82e875bd35d727":
+  version: 3.6.0-24.dc520b92b1ebb2d28dc3161f9f82e875bd35d727
+  resolution: "@prisma/engines-version@npm:3.6.0-24.dc520b92b1ebb2d28dc3161f9f82e875bd35d727"
+  checksum: 40adea282d62b7d8d03696f3f9f1c6da271671955f5305d3750d07f80eff7bcfad89430e97215183d027895487c4ab36373fc8f59df1a537eb2ab18458168993
   languageName: node
   linkType: hard
 
-"@prisma/engines@npm:2.18.0-34.da6fafb57b24e0b61ca20960c64e2d41f9e8cff1":
-  version: 2.18.0-34.da6fafb57b24e0b61ca20960c64e2d41f9e8cff1
-  resolution: "@prisma/engines@npm:2.18.0-34.da6fafb57b24e0b61ca20960c64e2d41f9e8cff1"
-  checksum: 37fb4a309c47907abe6229c8f3a3c70e70585b0e148b71f6f6fc232af59596a382298f5291b376c2261f950a97c38a44353a2f57482fe83f5d90697c25abc0ef
+"@prisma/engines@npm:3.6.0-24.dc520b92b1ebb2d28dc3161f9f82e875bd35d727":
+  version: 3.6.0-24.dc520b92b1ebb2d28dc3161f9f82e875bd35d727
+  resolution: "@prisma/engines@npm:3.6.0-24.dc520b92b1ebb2d28dc3161f9f82e875bd35d727"
+  checksum: 3eb1e40dbd6ca8e8bd727048393b9fd993b415bcc1efca2f6bac5b0a60da8e73c2dd35602c4083b29fc31fd17a2cc9ba0522afe1b6499a68663ecdf5f833cdb3
   languageName: node
   linkType: hard
 
@@ -6590,10 +6591,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:14.14.34":
-  version: 14.14.34
-  resolution: "@types/node@npm:14.14.34"
-  checksum: 06e49670700f9f8c9115232898c20bcb45abff9bac2a344cb046534c85cd19d91a4e86aa23fd022ac2b5d1ab3a68c5e220b96185cf7ae7d8e948736b217a5945
+"@types/node@npm:16.11.14":
+  version: 16.11.14
+  resolution: "@types/node@npm:16.11.14"
+  checksum: 0bd4333fb4e56532db7f5174732268b18089913ddbb0e97957228e64f9fe3babf9923c77ce6f07d3d354445cfbb8d31b95c1f8be3c0f7426308bd8b93d3aaa02
   languageName: node
   linkType: hard
 
@@ -12483,15 +12484,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eas-cli@npm:^0.39.0":
-  version: 0.39.0
-  resolution: "eas-cli@npm:0.39.0"
+"eas-cli@npm:^0.41.1":
+  version: 0.41.1
+  resolution: "eas-cli@npm:0.41.1"
   dependencies:
     "@expo/apple-utils": 0.0.0-alpha.26
     "@expo/config": 6.0.11
     "@expo/config-plugins": 4.0.11
     "@expo/eas-build-job": 0.2.61
-    "@expo/eas-json": ^0.39.0
+    "@expo/eas-json": ^0.41.0
     "@expo/json-file": 8.2.34
     "@expo/pkcs12": 0.0.6
     "@expo/plist": 0.0.16
@@ -12550,7 +12551,7 @@ __metadata:
     wrap-ansi: 7.0.0
   bin:
     eas: bin/run
-  checksum: dcc0ae7e6f0f229dbf9dd36ffbbcd0ae5d69d4cdf6aed54ffd3e3733d1a0616b8e8c95c89c74f7efac94a6455ba7fa6ef95dc51743a7647a111b402eed36b490
+  checksum: d9a13dab93ba362e4b99776b2daf2a21da6e1c749a91d4260e4c086413cd7541628e68635309b600687439630e3c29e739abbe3e757814a6c2b1b88c28df54ec
   languageName: node
   linkType: hard
 
@@ -20073,21 +20074,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nexus-prisma@npm:^0.12.0":
-  version: 0.12.0
-  resolution: "nexus-prisma@npm:0.12.0"
-  dependencies:
-    camelcase: ^5.3.1
-    fs-extra: ^8.1.0
-    pluralize: ^8.0.0
-  peerDependencies:
-    "@nexus/schema": ^0.13.1
-    "@prisma/client": 2.0.0-beta.1
-    graphql: ^14.5.0
-  checksum: 3620441ac9b84abeee5b578a07d64e14ef185fcf20b64b82f5ad9e17fd33c77143e5f192ca78cd09c2a3eef436d7d968bb1007d3b8e124a98e5351524df8b8fc
-  languageName: node
-  linkType: hard
-
 "nice-try@npm:^1.0.4":
   version: 1.0.5
   resolution: "nice-try@npm:1.0.5"
@@ -21782,7 +21768,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pluralize@npm:8.0.0, pluralize@npm:^8.0.0":
+"pluralize@npm:8.0.0":
   version: 8.0.0
   resolution: "pluralize@npm:8.0.0"
   checksum: 08931d4a6a4a5561a7f94f67a31c17e6632cb21e459ab3ff4f6f629d9a822984cf8afef2311d2005fbea5d7ef26016ebb090db008e2d8bce39d0a9a9d218736e
@@ -22767,15 +22753,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prisma@npm:2.18.0":
-  version: 2.18.0
-  resolution: "prisma@npm:2.18.0"
+"prisma@npm:3.6.0":
+  version: 3.6.0
+  resolution: "prisma@npm:3.6.0"
   dependencies:
-    "@prisma/engines": 2.18.0-34.da6fafb57b24e0b61ca20960c64e2d41f9e8cff1
+    "@prisma/engines": 3.6.0-24.dc520b92b1ebb2d28dc3161f9f82e875bd35d727
   bin:
     prisma: build/index.js
     prisma2: build/index.js
-  checksum: a3cc32ede0f1678b0c5e62760035cd6e8f8139ca05eae90d99a95e12faf3a4515384e7932d5fdbe12c18b363e60628be2ca320ea84ebaecc6eae0817f3a06916
+  checksum: 365718b1e0ed8491aedb79bda39c500e8fddae0d62f57ed0ab3786c6709bd79d43b61c3603847b165b5a3de1e983b64388902a9ed55d4d5cb5878d67af23da8b
   languageName: node
   linkType: hard
 
@@ -25238,7 +25224,7 @@ __metadata:
     "@nrwl/tao": 11.4.0
     "@nrwl/web": 11.4.0
     "@nrwl/workspace": 11.4.0
-    "@prisma/client": 2.18.0
+    "@prisma/client": 3.6.0
     "@pusher/push-notifications-server": ^1.2.1
     "@pusher/push-notifications-web": ^1.1.0
     "@react-native-async-storage/async-storage": ~1.15.0
@@ -25253,7 +25239,7 @@ __metadata:
     "@types/express": ^4.16.0
     "@types/graphql": 14.5.0
     "@types/lodash": ^4.14.157
-    "@types/node": 14.14.34
+    "@types/node": 16.11.14
     "@types/node-cron": ^2.0.3
     "@types/node-fetch": ^2.5.7
     "@types/pg": ^7.14.4
@@ -25287,7 +25273,7 @@ __metadata:
     date-fns: ^2.14.0
     document-register-element: 1.13.1
     dotenv: ^8.2.0
-    eas-cli: ^0.39.0
+    eas-cli: ^0.41.1
     expo: ^43.0.2
     expo-app-loading: ~1.2.1
     expo-av: ~10.1.3
@@ -25315,10 +25301,9 @@ __metadata:
     nestjs-s3: ^1.0.1
     next: ^12.0.7
     next-transpile-modules: ^4.1.0
-    nexus-prisma: ^0.12.0
     node-fetch: ^2.6.0
     pg: ^8.3.0
-    prisma: 2.18.0
+    prisma: 3.6.0
     react: 17.0.1
     react-aspect-ratio: ^1.0.42
     react-dom: 17.0.1

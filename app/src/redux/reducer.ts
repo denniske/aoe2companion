@@ -3,7 +3,8 @@ import { TypedUseSelectorHook, useDispatch, useSelector as useReduxSelector } fr
 import {UserId} from '../helper/user';
 import { IProfile } from '../view/components/profile';
 import { IRatingHistoryRow } from '../service/rating';
-import {ILeaderboard, IMatch, IPlayer} from "@nex/data";
+import {ILeaderboard} from "@nex/data";
+import {IMatch, IPlayer} from "@nex/data/api";
 import {IAccount, IConfig, IFollowingEntry, IPrefs} from "../service/storage";
 import {Manifest} from "expo-updates/build/Updates.types";
 import {set} from 'lodash';

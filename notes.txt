@@ -1,4 +1,41 @@
 
+Aoe 4
+
+screenshots
+experienceId
+website+privacy
+email
+
+
+codexmodalpage
+- CivTraitsTemplate
+mainmenupagelearnpane
+
+https://ageofempires.fandom.com/wiki/Abbasid_Dynasty#cite_note-Abbasid_Dynasty-1
+https://www.ageofempires.com/games/age-of-empires-iv/civilizations/abbasid-dynasty//
+
+
+House of Wisdom
+https://aktaboot.github.io/index.html
+
+https://aoe2recs.com/dashboard/
+
+https://github.com/SiegeEngineers/spectator-dashboard-ui
+
+https://aoeiv.net/
+
+Turnspender's Aoe4 Data Sheet - Patch 9369 (2021/12/09-)
+https://docs.google.com/spreadsheets/d/1oIkBHSYGMyxx-yRL_cmhnx7nV_afCMSyjaXX0mL_4Kk/htmlview?usp=sharing&pru=AAABfd04Et4*wqbygY5A4Pbi7l0OfmP9eQ#
+
+coh2 api list
+https://pastebin.com/raw/8CNjUJA8
+
+
+Typescript config files for expo
+https://docs.expo.dev/guides/typescript/
+
+
+
 Running builds on your own infrastructure
 https://docs.expo.dev/build-reference/local-builds/
 
@@ -7,7 +44,13 @@ https://docs.expo.dev/build-reference/eas-json/
 
 git clone --depth 1 file://C:\Users\Dennis\Projects\aoe2companion
 git clone --depth 1 file:///Users/dennis/Projects/aoe2companion
-npx eas build --profile development --platform android --local
+npx eas build --profile development --platform android --no-wait
+npx eas build --profile development4 --platform android --no-wait
+
+
+git clone --depth 1 file://C:\Users\Dennis\Projects\aoe2companion && cd aoe2companion && yarn && npx eas build --profile development4 --platform android --no-wait
+
+git clone --depth 1 file:///Users/dennis/Projects/aoe2companion && cd aoe2companion && yarn && npx eas build --profile development-simulator4 --platform ios --no-wait
 
 yarn set version berry
 
@@ -31,6 +74,12 @@ https://github.com/SiegeEngineers/spectator-dashboard-ui
 
 https://aoeiv.net/
 
+https://aoe4-info.vercel.app/
+
+https://github.com/y4qub/coh2ladders
+https://coh2stats.com/leaderboards
+
+https://github.com/codereversing/aoe4_socketspy
 
 
 x quick play leaderboard id format

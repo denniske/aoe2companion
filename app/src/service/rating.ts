@@ -3,6 +3,8 @@ import {minifyUserId, UserIdBase} from '../helper/user';
 import {IRatingHistoryEntry, IRatingHistoryEntryRaw} from "@nex/data";
 import {LeaderboardId} from "@nex/data";
 import {parseISO} from "date-fns";
+import {appConfig} from "@nex/dataset";
+import {fetchLeaderboardLegacy} from "../api/leaderboard";
 
 export interface IRatingHistoryRow {
     leaderboard_id: LeaderboardId;
@@ -14,18 +16,12 @@ export async function loadRatingHistoriesLegacy(game: string, userId: UserIdBase
 
     // console.time('=> loadRatingHistories');
 
-    let leaderboardIds = [0, 13, 14, 3, 4];
-
-    let ratingHistories = await Promise.all([
-        fetchRatingHistory(game, 0, 0, 500, minifyUserId(userId)),
-        fetchRatingHistory(game, 13, 0, 500, minifyUserId(userId)),
-        fetchRatingHistory(game, 14, 0, 500, minifyUserId(userId)),
-        fetchRatingHistory(game, 3, 0, 500, minifyUserId(userId)),
-        fetchRatingHistory(game, 4, 0, 500, minifyUserId(userId)),
-    ]);
+    let ratingHistories = await Promise.all(
+        appConfig.leaderboards.map(leaderbard => fetchRatingHistory(game, leaderbard.id, 0, 500, minifyUserId(userId)))
+    );
 
     let ratingHistoryRows = ratingHistories.map((rh, i) => ({
-        leaderboard_id: leaderboardIds[i] as LeaderboardId,
+        leaderboard_id: appConfig.leaderboards[i].id as LeaderboardId,
         data: rh,
     }));
 

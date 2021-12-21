@@ -11,6 +11,7 @@
     "watch-node": "nodemon dist/server.js",
     "watch-ts": "tsc -w",
     "strings": "ts-node src/strings.ts",
+    "strings-data": "ts-node src/strings-data.ts",
     "shots": "ts-node src/shots.ts",
     "temp": "ts-node src/temp.ts",
     "temp2": "ts-node src/temp2.ts",

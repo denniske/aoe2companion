@@ -5,7 +5,7 @@ import {chunk, uniqBy} from 'lodash';
 import {Column, Connection, PrimaryColumn} from "typeorm";
 import {LeaderboardRow} from "./leaderboard-row";
 import {RatingHistory} from "./rating-history";
-import {IMatchRaw, IRatingHistoryEntryRaw} from '@nex/data';
+import {IMatchRaw, IRatingHistoryEntryRaw} from '@nex/data/api';
 
 
 export function createMatchEntity(matchEntry: IMatchRaw) {

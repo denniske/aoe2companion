@@ -96,10 +96,10 @@ const unitSections: IUnitSection[] = [
                 'Missionary',
             ],
     },
-    {
-        title: 'unit.section.unique',
-        data: sortBy(flatMap(civs, civ => [civDict[civ].uniqueUnits[0], ...getRelatedUnitLines(getUnitLineIdForUnit(civDict[civ].uniqueUnits[0]))])),
-    },
+    // {
+    //     title: 'unit.section.unique',
+    //     data: sortBy(flatMap(civs, civ => [civDict[civ].uniqueUnits[0], ...getRelatedUnitLines(getUnitLineIdForUnit(civDict[civ].uniqueUnits[0]))])),
+    // },
 ];
 
 export const allUnitSections = unitSections.map(section => ({

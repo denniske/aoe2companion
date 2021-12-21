@@ -1,4 +1,4 @@
-import {IMatch, validMatch} from "@nex/data";
+import {IMatch, validMatch} from "@nex/data/api";
 import {sameUser, UserIdBase} from "../../helper/user";
 import {orderBy} from 'lodash';
 import {LeaderboardId} from "@nex/data";

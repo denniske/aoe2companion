@@ -15,10 +15,10 @@ import {
 import {Checkbox, Searchbar} from "react-native-paper";
 import {MyText} from "../components/my-text";
 import {appVariants} from "../../styles";
-import {getCivName, LeaderboardId} from "@nex/data";
+import {getCivName, keysOf, LeaderboardId} from "@nex/data";
 import TemplatePicker from "../components/template-picker";
 import {get} from 'lodash';
-import {IMatch} from "@nex/data";
+import {IMatch} from "@nex/data/api";
 import {getMapName} from "../../helper/maps";
 import {parseUserId, sameUser} from "../../helper/user";
 import {createStylesheet} from '../../theming-new';
@@ -28,6 +28,7 @@ import {getPathToRoute, getRoutes, getRoutesFromCurrentActiveStack} from '../../
 import {openLink} from "../../helper/url";
 import {useWebRefresh} from "../../hooks/use-web-refresh";
 import FlatListLoadingIndicator from "../components/flat-list-loading-indicator";
+import {leaderboardIdsData, leaderboardMappingData} from "@nex/dataset";
 
 
 export default function MainMatches() {
@@ -120,44 +121,8 @@ function MainMatchesInternal({user}: { user: any}) {
         }
     };
 
-    const values: number[] = [
-        3,
-        4,
-        13,
-        14,
-        0,
-    ];
-
-    const valueMapping: any = {
-        0: {
-            title: 'UNR',
-            subtitle: 'Unranked',
-        },
-        3: {
-            title: 'RM',
-            subtitle: '1v1',
-        },
-        4: {
-            title: 'RM',
-            subtitle: 'Team',
-        },
-        1: {
-            title: 'DM',
-            subtitle: '1v1',
-        },
-        2: {
-            title: 'DM',
-            subtitle: 'Team',
-        },
-        13: {
-            title: 'EW',
-            subtitle: '1v1',
-        },
-        14: {
-            title: 'EW',
-            subtitle: 'Team',
-        },
-    };
+    const valueMapping: any = leaderboardMappingData;
+    const values: any[] = leaderboardIdsData;
 
     const renderLeaderboard = (value: LeaderboardId, selected: boolean) => {
         return <View style={styles.col}>

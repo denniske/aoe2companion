@@ -1,4 +1,5 @@
 import {getString, getUiTranslation} from '../lib/aoe-data';
+import {abbreviationsData} from "@nex/dataset";
 
 
 export enum LeaderboardId {
@@ -11,21 +12,15 @@ export enum LeaderboardId {
     EWTeam = 14,
 }
 
-const abbreviations = {
-    0: 'unranked',
-    1: 'dm1v1',
-    2: 'dmteam',
-    3: 'rm1v1',
-    4: 'rmteam',
-    13: 'ew1v1',
-    14: 'ewteam',
-};
+const abbreviations = abbreviationsData;
 
 export function formatLeaderboardId(leaderboard_id: LeaderboardId) {
+    console.log('getUiTranslation', `enum.leaderboardid.${abbreviations[leaderboard_id]}`, leaderboard_id);
     return getUiTranslation(`enum.leaderboardid.${abbreviations[leaderboard_id]}`);
 }
 
 export function getLeaderboardOrGameType(leaderboard_id: LeaderboardId, game_type: any) {
+    // console.log('getLeaderboardOrGameType', leaderboard_id, game_type);
     if (leaderboard_id != null) {
         return getString('leaderboard', leaderboard_id);
     }

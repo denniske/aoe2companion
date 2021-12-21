@@ -23,7 +23,7 @@ import {LoggingPlugin} from "../plugin/logging.plugin";
 import {environment} from "../environments/environment";
 import {RankTask} from "../task/rank.task";
 import {PrismaService} from "../service/prisma.service";
-import { TypeOrmModule } from '@nestjs/typeorm';
+import {TypeOrmModule} from '@nestjs/typeorm';
 import {Account} from "../entity/account";
 import {Push} from "../entity/push";
 import {Match} from "../entity/match";
@@ -41,6 +41,7 @@ import {RefetchMultipleTask} from '../task/refetch-multiple.task';
 import {RefetchResultTask} from '../task/refetch-result.task';
 import {RefetchLateTask} from '../task/refetch-late.task';
 import {PlayerResolver} from "../resolver/player";
+import {ImportOngoingTask} from "../task/import-ongoing.task";
 
 @Module({
     imports: [
@@ -65,7 +66,8 @@ import {PlayerResolver} from "../resolver/player";
         }),
     ],
 })
-export class CustomTypeOrmModule {}
+export class CustomTypeOrmModule {
+}
 
 @Module({
     providers: [
@@ -106,58 +108,59 @@ export class TaskAndControllerModule {
         const providers = [];
         const controllers = [];
         console.log('SERVICE_NAME', process.env.SERVICE_NAME);
-        switch (process.env.SERVICE_NAME) {
-            case 'import':
-                providers.push(ImportTask);
-                break;
-            case 'refetch':
-                providers.push(RefetchTask);
-                break;
-            case 'refetch-multiple':
-                // providers.push(RefetchAgainTask);
-                // providers.push(RefetchTask);
-                // providers.push(ImportTask);
-                providers.push(RefetchMultipleTask);
-                break;
-            case 'refetch-late':
-                providers.push(RefetchLateTask);
-                break;
-            case 'refetch-again':
-                providers.push(RefetchAgainTask);
-                break;
-            case 'refetch-result':
-                providers.push(RefetchResultTask);
-                break;
-            case 'refetch-repair':
-                providers.push(RefetchRepairTask);
-                break;
-            case 'replay':
-                providers.push(ReplayTask);
-                break;
-            case 'ingest':
-                providers.push(IngestTask);
-                break;
-            case 'ingest-fast':
-                providers.push(IngestFastTask);
-                break;
-            case 'notify':
-                providers.push(NotifyTask);
-                break;
-            case 'rating-history':
-                providers.push(RatingHistoryTask);
-                break;
-            case 'rank':
-                providers.push(RankTask);
-                break;
-            case 'metric':
-                controllers.push(MetricController);
-                break;
-            case 'api':
-                controllers.push(ApiController);
-                break;
-            case 'function':
-                controllers.push(FunctionController);
-                break;
+        if (process.env.SERVICE_NAME.endsWith('import')) {
+            providers.push(ImportTask);
+        }
+        if (process.env.SERVICE_NAME.endsWith('import-ongoing')) {
+            providers.push(ImportOngoingTask);
+        }
+        if (process.env.SERVICE_NAME.endsWith('refetch')) {
+            providers.push(RefetchTask);
+        }
+        if (process.env.SERVICE_NAME.endsWith('refetch-multiple')) {
+            // providers.push(RefetchAgainTask);
+            // providers.push(RefetchTask);
+            // providers.push(ImportTask);
+            providers.push(RefetchMultipleTask);
+        }
+        if (process.env.SERVICE_NAME.endsWith('refetch-late')) {
+            providers.push(RefetchLateTask);
+        }
+        if (process.env.SERVICE_NAME.endsWith('refetch-again')) {
+            providers.push(RefetchAgainTask);
+        }
+        if (process.env.SERVICE_NAME.endsWith('refetch-result')) {
+            providers.push(RefetchResultTask);
+        }
+        if (process.env.SERVICE_NAME.endsWith('refetch-repair')) {
+            providers.push(RefetchRepairTask);
+        }
+        if (process.env.SERVICE_NAME.endsWith('replay')) {
+            providers.push(ReplayTask);
+        }
+        if (process.env.SERVICE_NAME.endsWith('ingest')) {
+            providers.push(IngestTask);
+        }
+        if (process.env.SERVICE_NAME.endsWith('ingest-fast')) {
+            providers.push(IngestFastTask);
+        }
+        if (process.env.SERVICE_NAME.endsWith('notify')) {
+            providers.push(NotifyTask);
+        }
+        if (process.env.SERVICE_NAME.endsWith('rating-history')) {
+            providers.push(RatingHistoryTask);
+        }
+        if (process.env.SERVICE_NAME.endsWith('rank')) {
+            providers.push(RankTask);
+        }
+        if (process.env.SERVICE_NAME.endsWith('metric')) {
+            controllers.push(MetricController);
+        }
+        if (process.env.SERVICE_NAME.endsWith('api')) {
+            controllers.push(ApiController);
+        }
+        if (process.env.SERVICE_NAME.endsWith('function')) {
+            controllers.push(FunctionController);
         }
 
         console.log('environment', process.env.ENVIRONMENT);
@@ -214,7 +217,7 @@ export class ResolverModule {
         ];
 
         console.log('SERVICE_NAME', process.env.SERVICE_NAME);
-        if (process.env.SERVICE_NAME === 'graphql') {
+        if (process.env.SERVICE_NAME.endsWith('graphql')) {
             imports.push(graphqlModule);
             providers.push(...resolvers);
         }

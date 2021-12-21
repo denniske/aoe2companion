@@ -1,4 +1,4 @@
-import {IMatch} from '@nex/data';
+import {IMatch} from '@nex/data/api';
 
 
 export interface IMatchBase {

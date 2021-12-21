@@ -90,19 +90,19 @@ export class ProfileResolver {
     @ResolveField()
     async games(@Parent() profile: Profile) {
         const aggregation = await this.prisma.leaderboard_row.aggregate({
-            sum: { games: true },
+            _sum: { games: true },
             where: { profile_id: profile.profile_id },
         });
-        return aggregation.sum.games;
+        return aggregation._sum.games;
     }
 
     @ResolveField()
     async drops(@Parent() profile: Profile) {
         const aggregation = await this.prisma.leaderboard_row.aggregate({
-            sum: { drops: true },
+            _sum: { drops: true },
             where: { profile_id: profile.profile_id },
         });
-        return aggregation.sum.drops;
+        return aggregation._sum.drops;
     }
 
     @ResolveField()

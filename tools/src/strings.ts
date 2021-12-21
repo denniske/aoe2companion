@@ -92,7 +92,28 @@ async function loadStrings() {
     }
 }
 
-loadStrings();
+// loadStrings();
+
+async function loadStringsForLanguage4(language: keyof typeof aoe2netLanguageMap) {
+    const filePath = path.resolve(__dirname, '..', '..', 'app4', 'assets', 'strings', aoe2netLanguageMap[language] + '.json.lazy');
+    const response = await axios({
+        method: 'GET',
+        url: `http://aoeiv.net/api/strings?game=aoe4&language=${language}`,
+    });
+
+    const json = response.data;
+    fs.writeFileSync(filePath, JSON.stringify(json, null, 4));
+}
+
+async function loadStrings4() {
+    for (const language of keysOf(aoe2netLanguageMap)) {
+        console.log("Loading strings for " + language);
+        await loadStringsForLanguage4(language);
+        await sleep(500);
+    }
+}
+
+loadStrings4();
 
 async function loadStringsAoE2TechTreeForLanguage(language: keyof typeof aoe2techtreeLanguageMap) {
     const dirPath = path.resolve(__dirname, '..', '..', 'app', 'assets', 'data', aoe2techtreeLanguageMap[language]);
@@ -118,4 +139,4 @@ async function loadStringsAoE2TechTree() {
     }
 }
 
-loadStringsAoE2TechTree();
+// loadStringsAoE2TechTree();

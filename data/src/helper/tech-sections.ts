@@ -150,8 +150,8 @@ export const techSections: ITechSection[] = [
             "SpiesTreason",
         ],
     },
-    ...civs.map(civ => ({
-        civ: civ,
-        data: civDict[civ].uniqueTechs,
-    })),
+    // ...civs.map(civ => ({
+    //     civ: civ,
+    //     data: civDict[civ].uniqueTechs,
+    // })),
 ];

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Dimensions, Image, StyleSheet, TextStyle, View} from 'react-native';
-import {civList, getCivNameById, getMatchTeams, getSlotTypeName, IMatch, IPlayer} from '@nex/data';
+import {civList, getCivNameById, getMatchTeams} from '@nex/data';
+import {getSlotTypeName, IMatch, IPlayer} from '@nex/data/api';
 import {MyText} from "./my-text";
 import {createStylesheet} from '../../theming-new';
 import {getPlayerBackgroundColorBright} from '../../helper/colors';

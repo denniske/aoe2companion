@@ -1,5 +1,5 @@
 import {Injectable, Logger} from '@nestjs/common';
-import {myTodoList, sleep} from "@nex/data";
+import {myTodoList} from "@nex/data/api";
 import {Cron} from "@nestjs/schedule";
 
 @Injectable()

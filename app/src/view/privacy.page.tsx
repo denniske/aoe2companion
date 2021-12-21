@@ -2,9 +2,10 @@ import React from 'react';
 import { privacyHtmlEn } from '../../assets/legal/privacy-policy-html-en';
 
 import { WebView } from 'react-native-webview';
+import Constants from 'expo-constants';
 
 export default function PrivacyPage() {
-    const htmlContent = privacyHtmlEn;
+    const htmlContent = privacyHtmlEn.replace('{APP}', Constants.manifest?.scheme || '');
     return (
             <WebView
                     source={{html: htmlContent}}

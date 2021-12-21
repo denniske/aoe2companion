@@ -1,9 +1,9 @@
 import {Image, ImageBackground, Platform, StyleSheet, Text, View} from 'react-native';
-import {formatAgo, getMatchTeamsWithFreeForAll, getString, IPlayer, isMatchFreeForAll} from '@nex/data';
+import {formatAgo, getMatchTeamsWithFreeForAll, getString, isMatchFreeForAll} from '@nex/data';
 import React, {useEffect} from 'react';
 import {Player, PlayerSkeleton} from './player';
 import MyListAccordion from './accordion';
-import {IMatch} from "@nex/data";
+import {IMatch, IPlayer} from "@nex/data/api";
 import { getMapImage, getMapName } from "../../helper/maps";
 import {TextLoader} from "./loader/text-loader";
 import {ImageLoader} from "./loader/image-loader";
@@ -20,6 +20,7 @@ import {getTranslation} from '../../helper/translate';
 import {hasRecDict} from '../../api/recording';
 import {useLazyApi} from '../../hooks/use-lazy-api';
 import {AoeSpeed, getSpeedFactor} from '../../helper/speed';
+import {appConfig} from "@nex/dataset";
 
 interface IGameProps {
     match: IMatch;
@@ -98,9 +99,11 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
         const finished = match.finished || new Date();
         duration = formatDuration(differenceInSeconds(finished, match.started) * getSpeedFactor(match.speed as AoeSpeed));
     }
+    if (appConfig.game !== 'aoe2de') duration = '';
 
     const checkRecAvailability = () => {
         if (Platform.OS !== 'web') return;
+        if (appConfig.game !== 'aoe2de') return;
         if (canDownloadRecDict.loading || canDownloadRecDict.touched || canDownloadRecDict.error) return;
         canDownloadRecDict.reload();
     };
@@ -108,6 +111,8 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
     const canDownloadRec = (player: IPlayer) => {
         return canDownloadRecDict.data?.includes(player.profile_id);
     };
+
+    // console.log('MATCH', match);
 
     return (
         <MyListAccordion
@@ -149,11 +154,11 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
                         </MyText>
                         <MyText numberOfLines={1} style={styles.matchContent}>
                             {
-                                !match.finished &&
+                                match.finished === null &&
                                 <MyText>{duration}{expanded}</MyText>
                             }
                             {
-                                match.finished &&
+                                (match.finished || match.finished === undefined) &&
                                 <MyText>{match.started ? formatAgo(match.started) : 'none'}</MyText>
                             }
                         </MyText>
@@ -162,31 +167,34 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
             )}
         >
             <View style={styles.playerList}>
-                <View style={[styles.timeRow, {alignItems: 'center'}]}>
-                    <FontAwesome5 name="clock" size={11.5} color={theme.textNoteColor}/>
-                    <MyText style={styles.duration}> {duration}   </MyText>
-                    <FontAwesome5 name="running" size={11.5} color={theme.textNoteColor}/>
-                    <MyText style={styles.speed}> {getString('speed', match.speed)}   </MyText>
-                    {/*{*/}
-                    {/*    __DEV__ &&*/}
-                    {/*    <>*/}
-                    {/*        <FontAwesome5 name="database" size={11.5} color={theme.textNoteColor}/>*/}
-                    {/*        <MyText style={styles.speed}> {match.source}</MyText>*/}
-                    {/*    </>*/}
-                    {/*}*/}
-                    {/*{*/}
-                    {/*    !__DEV__ && match.name !== 'AUTOMATCH' &&*/}
-                    {/*    <>*/}
-                    {/*        <MyText style={styles.name} numberOfLines={1}> {match.name}</MyText>*/}
-                    {/*    </>*/}
-                    {/*} */}
-                    {
-                        match.name !== 'AUTOMATCH' &&
-                        <>
-                            <MyText style={styles.name} numberOfLines={1}> {match.name}</MyText>
-                        </>
-                    }
-                </View>
+                {
+                    appConfig.game === 'aoe2de' &&
+                    <View style={[styles.timeRow, {alignItems: 'center'}]}>
+                        <FontAwesome5 name="clock" size={11.5} color={theme.textNoteColor}/>
+                        <MyText style={styles.duration}> {duration}   </MyText>
+                        <FontAwesome5 name="running" size={11.5} color={theme.textNoteColor}/>
+                        <MyText style={styles.speed}> {getString('speed', match.speed)}   </MyText>
+                        {/*{*/}
+                        {/*    __DEV__ &&*/}
+                        {/*    <>*/}
+                        {/*        <FontAwesome5 name="database" size={11.5} color={theme.textNoteColor}/>*/}
+                        {/*        <MyText style={styles.speed}> {match.source}</MyText>*/}
+                        {/*    </>*/}
+                        {/*}*/}
+                        {/*{*/}
+                        {/*    !__DEV__ && match.name !== 'AUTOMATCH' &&*/}
+                        {/*    <>*/}
+                        {/*        <MyText style={styles.name} numberOfLines={1}> {match.name}</MyText>*/}
+                        {/*    </>*/}
+                        {/*} */}
+                        {
+                            match.name !== 'AUTOMATCH' &&
+                            <>
+                                <MyText style={styles.name} numberOfLines={1}> {match.name}</MyText>
+                            </>
+                        }
+                    </View>
+                }
                 {
                     sortBy(teams, ([team, players], i) => min(players.map(p => p.color))).map(([team, players], i) =>
                         <View key={team}>
@@ -208,9 +216,14 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
 }
 
 const useStyles = createStylesheet(theme => StyleSheet.create({
-    imageInner: {
+    imageInner: appConfig.game === 'aoe2de' ? {
         // backgroundColor: 'blue',
         resizeMode: "contain",
+    } : {
+        resizeMode: "contain",
+        // borderColor: '#3A506A',
+        borderColor: '#C19049',
+        borderWidth: 1.2,
     },
     accordion: {
         // backgroundColor: 'yellow',
@@ -220,10 +233,16 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         // backgroundColor: 'red',
         flex: 1,
     },
-    map: {
+    map: appConfig.game === 'aoe2de' ? {
         marginRight: 10,
         width: 50,
         height: 50,
+    } : {
+        marginRight: 10,
+        width: 50,
+        height: 50,
+        // transform: [{ scale: 0.9 }, { translateX: -7 }, { translateY: 6 }, { rotate: "-45deg" }],
+        transform: [{ scale: 1.06 }, { translateX: -5 }, { translateY: 4 }],
     },
     row: {
         // backgroundColor: 'purple',

@@ -1,11 +1,19 @@
 import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 
+// const databaseUrl = process.env.SERVICE_NAME.includes('aoe2de') ?
+//     process.env.DATABASE_URL : process.env.DATABASE_URL.replace('/aoe', '/aoe4');
+
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
 
     constructor() {
         super({
+            // datasources: {
+            //     db: {
+            //         url: databaseUrl,
+            //     },
+            // },
             // log: ['query', 'info', 'warn'],
         });
     }

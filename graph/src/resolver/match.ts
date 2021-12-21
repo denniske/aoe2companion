@@ -4,7 +4,7 @@ import {
 import {Match, MatchList} from "../object/match";
 import {upsertMatchesWithPlayers} from "../entity/entity-helper";
 import {fetchMatch} from "../helper";
-import {myTodoList} from "@nex/data";
+import {myTodoList} from "@nex/data/api";
 import {fromUnixTime, getUnixTime, subHours} from "date-fns";
 import {PrismaService} from "../service/prisma.service";
 import {Connection} from "typeorm";

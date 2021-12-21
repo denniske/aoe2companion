@@ -1,0 +1,18 @@
+export const stringsSourceData: Record<string, string> = {
+    'ms': require('../../../app4/assets/strings/ms.json.lazy'),
+    'fr': require('../../../app4/assets/strings/fr.json.lazy'),
+    'es-mx': require('../../../app4/assets/strings/es-mx.json.lazy'),
+    'it': require('../../../app4/assets/strings/it.json.lazy'),
+    'pt': require('../../../app4/assets/strings/pt.json.lazy'),
+    'ru': require('../../../app4/assets/strings/ru.json.lazy'),
+    'vi': require('../../../app4/assets/strings/vi.json.lazy'),
+    'tr': require('../../../app4/assets/strings/tr.json.lazy'),
+    'de': require('../../../app4/assets/strings/de.json.lazy'),
+    'en': require('../../../app4/assets/strings/en.json.lazy'),
+    'es': require('../../../app4/assets/strings/es.json.lazy'),
+    'hi': require('../../../app4/assets/strings/hi.json.lazy'),
+    'ja': require('../../../app4/assets/strings/ja.json.lazy'),
+    'ko': require('../../../app4/assets/strings/ko.json.lazy'),
+    'zh-hans': require('../../../app4/assets/strings/zh-hans.json.lazy'),
+    'zh-hant': require('../../../app4/assets/strings/zh-hant.json.lazy'),
+};

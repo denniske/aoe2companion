@@ -7,7 +7,7 @@ import {FontAwesome5} from "@expo/vector-icons";
 import Space from "./space";
 import {IRow} from "../../service/stats/stats-duration";
 import {createStylesheet} from '../../theming-new';
-import {IMatch} from '@nex/data';
+import {IMatch} from '@nex/data/api';
 import {getTranslation} from '../../helper/translate';
 import {useAppTheme} from '../../theming';
 

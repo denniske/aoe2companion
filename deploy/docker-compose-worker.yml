@@ -14,8 +14,8 @@ services:
       options:
         max-size: "50m"
     environment:
-      ALLOWED_DOMAINS: 'aoe2companion.com'
-      SITES: 'mgz.aoe2companion.com=mgz:80;api.aoe2companion.com=api:80;function.aoe2companion.com=function:80;'
+      ALLOWED_DOMAINS: 'aoe(2|4)companion.com'
+      SITES: 'mgz.aoe2companion.com=mgz:80;api.aoe2companion.com=api:80;function.aoe2companion.com=function:80;api.aoe4companion.com=aoe4-api:80;function.aoe4companion.com=aoe4-function:80;'
       ALL_SITES: >
         notify.aoe2companion.com=notify:80;
         replay.aoe2companion.com=replay:80;
@@ -61,6 +61,26 @@ services:
       ENVIRONMENT: production
       PORT: 80
       DATABASE_URL: $DATABASE_URL
+      ELECTROLYTIC_APP_SECRET: $ELECTROLYTIC_APP_SECRET
+      PUSHER_SECRET_KEY: $PUSHER_SECRET_KEY
+      S3_ACCESS_KEY_ID: $S3_ACCESS_KEY_ID
+      S3_SECRET_ACCESS_KEY: $S3_SECRET_ACCESS_KEY
+      TWITCH_CLIENT_ID: $TWITCH_CLIENT_ID
+      TWITCH_CLIENT_SECRET: $TWITCH_CLIENT_SECRET
+
+  base4:
+    image: node
+    restart: on-failure
+    mem_limit: 500m
+    cpus: "1.0"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+    environment:
+      ENVIRONMENT: production
+      PORT: 80
+      DATABASE_URL: $DATABASE_URL_AOE4
       ELECTROLYTIC_APP_SECRET: $ELECTROLYTIC_APP_SECRET
       PUSHER_SECRET_KEY: $PUSHER_SECRET_KEY
       S3_ACCESS_KEY_ID: $S3_ACCESS_KEY_ID

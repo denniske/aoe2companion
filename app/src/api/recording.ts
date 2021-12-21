@@ -1,6 +1,6 @@
 import {fetchJson} from "./util";
 import {IRecording} from './recording.type';
-import {IMatch} from '@nex/data';
+import {IMatch} from '@nex/data/api';
 
 
 export async function fetchRecording(matchId: string) {

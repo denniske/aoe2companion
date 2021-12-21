@@ -1,51 +1,69 @@
-import {Tech, techs} from "./techs";
-import {Unit, units} from "./units";
+import {Tech} from "./techs";
+import {Unit} from "./units";
 import {aoeData} from "../data/data";
 import {removeAccentsAndCase, sanitizeGameDescription, unwrap} from "../lib/util";
-import {getAoeString} from '../lib/aoe-data';
+import {getAoeString, getString} from '../lib/aoe-data';
 import {orderBy} from 'lodash';
+import {getService, SERVICE_NAME} from "../lib/di";
+import {ICivService} from "../lib/host";
+import {civsAoeNetData, civsData} from "@nex/dataset";
 
-export const civs = [
-    'Aztecs',
-    'Berbers',
-    'Bohemians',
-    'Britons',
-    'Bulgarians',
-    'Burgundians',
-    'Burmese',
-    'Byzantines',
-    'Celts',
-    'Chinese',
-    'Cumans',
-    'Ethiopians',
-    'Franks',
-    'Goths',
-    'Huns',
-    'Incas',
-    'Indians',
-    'Italians',
-    'Japanese',
-    'Khmer',
-    'Koreans',
-    'Lithuanians',
-    'Magyars',
-    'Malay',
-    'Malians',
-    'Mayans',
-    'Mongols',
-    'Persians',
-    'Poles',
-    'Portuguese',
-    'Saracens',
-    'Sicilians',
-    'Slavs',
-    'Spanish',
-    'Tatars',
-    'Teutons',
-    'Turks',
-    'Vietnamese',
-    'Vikings',
-] as const;
+// export const civs = [
+//     'Aztecs',
+//     'Berbers',
+//     'Bohemians',
+//     'Britons',
+//     'Bulgarians',
+//     'Burgundians',
+//     'Burmese',
+//     'Byzantines',
+//     'Celts',
+//     'Chinese',
+//     'Cumans',
+//     'Ethiopians',
+//     'Franks',
+//     'Goths',
+//     'Huns',
+//     'Incas',
+//     'Indians',
+//     'Italians',
+//     'Japanese',
+//     'Khmer',
+//     'Koreans',
+//     'Lithuanians',
+//     'Magyars',
+//     'Malay',
+//     'Malians',
+//     'Mayans',
+//     'Mongols',
+//     'Persians',
+//     'Poles',
+//     'Portuguese',
+//     'Saracens',
+//     'Sicilians',
+//     'Slavs',
+//     'Spanish',
+//     'Tatars',
+//     'Teutons',
+//     'Turks',
+//     'Vietnamese',
+//     'Vikings',
+// ] as const;
+
+export const civs = civsData;
+export const civsAoeNet = civsAoeNetData;
+
+// export const civs = (()=>{
+//     try {
+//         return (getService(SERVICE_NAME.CIV_SERVICE) as ICivService).getCivs();
+//     } catch (e) {
+//         console.log(e);
+//         return ['Aztecs'];
+//     }
+// })(); // as const;
+
+console.log('CIVS BEGINNING', civs);
+
 
 export interface ICivEntry {
     name: Civ;
@@ -269,8 +287,10 @@ export function getCivName(civ: number) {
 }
 
 export function getCivNameById(civ: Civ) {
-    const civStringKey = aoeData.civ_names[civ];
-    return sanitizeGameDescription(getAoeString(civStringKey));
+    // console.log('getcivname', civ, civsAoeNet.indexOf(civ));
+    return getString('civ', civsAoeNet.indexOf(civ));
+    // const civStringKey = aoeData.civ_names[civ];
+    // return 'byid-'+sanitizeGameDescription(getAoeString(civStringKey));
 }
 
 export function getCivDescription(civ: Civ) {

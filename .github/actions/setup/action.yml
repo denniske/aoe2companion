@@ -15,6 +15,7 @@ runs:
         cd ..
 
         # echo "CHANNEL=master" >> $GITHUB_ENV
+        echo "AOE=$(node deploy/script/aoe-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
         echo "CHANNEL=$(node deploy/script/channel-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
         echo "RUNTIME_VERSION=$(node deploy/script/runtime-version-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
 

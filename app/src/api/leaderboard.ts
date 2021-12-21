@@ -2,6 +2,7 @@ import {getHost, makeQueryString, sleep, time} from '@nex/data';
 import {ILeaderboard, ILeaderboardRaw} from "@nex/data";
 import {fromUnixTime} from "date-fns";
 import {fetchJson} from "./util";
+import {appConfig} from "@nex/dataset";
 
 
 function convertTimestampsToDates(leaderboardRaw: ILeaderboardRaw): ILeaderboard {
@@ -27,14 +28,14 @@ export interface IFetchLeaderboardParams {
 async function fetchLeaderboardInternal(baseUrl: string, game: string, leaderboard_id: number, params: IFetchLeaderboardParams) {
     // time('fetchLeaderboard');
     const queryString = makeQueryString({
-        game,
+        game: appConfig.game,
         leaderboard_id,
         ...params,
     });
     const url = baseUrl + `api/leaderboard?${queryString}`;
     const json = await fetchJson('fetchLeaderboard', url);
 
-    console.log('fetchLeaderboard', json);
+    // console.log('fetchLeaderboard', json);
 
     // time();
     return convertTimestampsToDates(json);

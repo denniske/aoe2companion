@@ -2,7 +2,7 @@ import {ParsedQs} from "qs";
 import {Params, ParamsDictionary, PathParams, RequestHandler} from "express-serve-static-core";
 import {format} from "date-fns";
 import {enUS} from "date-fns/locale";
-import {IMatchRaw} from '@nex/data';
+import {IMatchRaw} from '@nex/data/api';
 
 export interface UserIdBase {
     steamId?: string;

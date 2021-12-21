@@ -2,11 +2,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import {useTheme} from '@material-ui/core/styles';
 import {Paper} from "@material-ui/core";
-import {
-    Building, buildingList,
-    Civ, civs, getBuildingData, getBuildingDescription, iconHeight, iconWidth, keysOf, Other, parseCivDescription,
-    sortResources
-} from "@nex/data";
+import {Building, buildingList, getBuildingData, getBuildingDescription, keysOf, Other, sortResources} from "@nex/data";
 import {useAppStyles} from "../../components/app-styles";
 import {createStylesheet} from "../../helper/styles";
 import {getOtherIcon} from "../../helper/other";
