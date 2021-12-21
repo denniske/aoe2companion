@@ -3,6 +3,8 @@ Aoe 4
 
 screenshots
 experienceId
+website+privacy
+email
 
 
 codexmodalpage
