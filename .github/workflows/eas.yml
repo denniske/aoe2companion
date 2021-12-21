@@ -63,7 +63,7 @@ jobs:
           EXPO_TOKEN: secrethub://denniske/aoe2companion/expo_token
 
       - run: yarn
-      - run: npx eas build --profile internal --platform android --local --non-interactive
+      - run: npx eas build --profile internal-${AOE} --platform android --local --non-interactive
       - run: mv build-*.apk ${AOE}companion-internal-$TRAVIS_COMMIT.apk
 
       - name: Upload Artifact
@@ -92,7 +92,7 @@ jobs:
           EXPO_TOKEN: secrethub://denniske/aoe2companion/expo_token
 
       - run: yarn
-      - run: npx eas build --profile development --platform android --local --non-interactive
+      - run: npx eas build --profile development-${AOE} --platform android --local --non-interactive
       - run: mv build-*.apk ${AOE}companion-development-$TRAVIS_COMMIT.apk
 
       - name: Upload Artifact
@@ -122,7 +122,7 @@ jobs:
           EXPO_TOKEN: secrethub://denniske/aoe2companion/expo_token
 
       - run: yarn
-      - run: npx eas build --profile production --platform android --local --non-interactive
+      - run: npx eas build --profile production-${AOE} --platform android --local --non-interactive
       - run: mv build-*.aab ${AOE}companion-production-$TRAVIS_COMMIT.aab
 
       - name: Upload Artifact
@@ -151,7 +151,7 @@ jobs:
           echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
 
       - run: yarn
-      - run: npx eas build --profile production --platform ios --local --non-interactive
+      - run: npx eas build --profile production-${AOE} --platform ios --local --non-interactive
       - run: mv build-*.ipa ${AOE}companion-production-$TRAVIS_COMMIT.ipa
 
       - name: Upload Artifact
@@ -179,7 +179,7 @@ jobs:
           echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
 
       - run: yarn
-      - run: npx eas build --profile development-simulator --platform ios --local --non-interactive
+      - run: npx eas build --profile development-simulator-${AOE} --platform ios --local --non-interactive
       - run: mv build-*.tar.gz ${AOE}companion-development-$TRAVIS_COMMIT.tar.gz
 
       - name: Upload Artifact
@@ -218,7 +218,7 @@ jobs:
       - run: echo $FASTLANE_SERVICE_ACCOUNT_BASE64 | base64 --decode > play-store-service-account.json
 
       - run: yarn
-      - run: npx eas submit -p android --non-interactive --path ${AOE}companion-production-$TRAVIS_COMMIT.aab
+      - run: npx eas submit --profile production-${AOE} -p android --non-interactive --path ${AOE}companion-production-$TRAVIS_COMMIT.aab
 
 
 
@@ -252,6 +252,6 @@ jobs:
       - run: echo $EXPO_APPLE_AUTH_KEY_P8_BASE64 | base64 --decode > auth_key.p8
 
       - run: yarn
-      - run: npx eas submit -p ios --non-interactive --path ${AOE}companion-production-$TRAVIS_COMMIT.ipa
+      - run: npx eas submit --profile production-${AOE} -p ios --non-interactive --path ${AOE}companion-production-$TRAVIS_COMMIT.ipa
 
 
