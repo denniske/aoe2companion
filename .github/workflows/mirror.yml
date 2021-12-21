@@ -23,5 +23,5 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           repository: denniske/aoe2companion-mirror
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN_MIRROR }}
           branch: ${{ github.ref }}
