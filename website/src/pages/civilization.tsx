@@ -47,27 +47,27 @@ function Civilization() {
 
     return (
         <div>
-            <Paper className={appClasses.box}>
-                <Typography variant="body1" noWrap>
-                    Civilizations
-                </Typography>
-                <br/>
+            {/*<Paper className={appClasses.box}>*/}
+            {/*    <Typography variant="body1" noWrap>*/}
+            {/*        Civilizations*/}
+            {/*    </Typography>*/}
+            {/*    <br/>*/}
 
-                {
-                    civs.map((civ, i) =>
-                        <MyLink key={civ.toString()} href='/civilization/[civId]' as={`/civilization/${civ}`} naked>
-                            <div className={classes.civBlock}>
-                                <img src={getCivIconByIndex(i)} className={classes.icon}/>
-                                <div className={classes.civRow}>
-                                    <div className={classes.name}>{civ}</div>
-                                    <div className={classes.small}>{getCivTeamBonus(civ)}</div>
-                                </div>
-                            </div>
-                        </MyLink>
-                    )
-                }
+            {/*    {*/}
+            {/*        civs.map((civ, i) =>*/}
+            {/*            <MyLink key={civ.toString()} href='/civilization/[civId]' as={`/civilization/${civ}`} naked>*/}
+            {/*                <div className={classes.civBlock}>*/}
+            {/*                    <img src={getCivIconByIndex(i)} className={classes.icon}/>*/}
+            {/*                    <div className={classes.civRow}>*/}
+            {/*                        <div className={classes.name}>{civ}</div>*/}
+            {/*                        <div className={classes.small}>{getCivTeamBonus(civ)}</div>*/}
+            {/*                    </div>*/}
+            {/*                </div>*/}
+            {/*            </MyLink>*/}
+            {/*        )*/}
+            {/*    }*/}
 
-            </Paper>
+            {/*</Paper>*/}
         </div>
     );
 }
