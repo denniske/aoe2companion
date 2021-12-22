@@ -1,14 +1,15 @@
 import AspectRatio from 'react-aspect-ratio';
 import React from "react";
 import {fetchJson} from '@nex/data';
+import {appConfig} from "@nex/dataset";
 
 
 export default function Home() {
-    const appSlug = process.env.NEXT_PUBLIC_APP_SLUG;
-    const appName = process.env.NEXT_PUBLIC_APP_NAME;
-    const appIdAndroid = process.env.NEXT_PUBLIC_APP_ID_ANDROID;
-    const appIdIOS = process.env.NEXT_PUBLIC_APP_ID_IOS;
-    const game = process.env.NEXT_PUBLIC_GAME;
+    const appSlug = appConfig.app.slug;
+    const appName = appConfig.app.name;
+    const appIdAndroid = appConfig.app.android.bundleId;
+    const appIdIOS = appConfig.app.ios.bundleId;
+    const game = appConfig.gameTitle;
 
     const downloadWindowsApp = async (event) => {
         try {

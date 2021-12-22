@@ -73,7 +73,7 @@ function ResponsiveDrawer(props) {
                 >
                     {
                         leaderboardIdsData.map(id => (
-                            <AntTab label={leaderboardMappingData[id].subtitle} />
+                            <AntTab key={id} label={leaderboardMappingData[id].subtitle} />
                         ))
                     }
                 </Tabs>

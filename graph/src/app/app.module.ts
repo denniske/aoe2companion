@@ -108,58 +108,58 @@ export class TaskAndControllerModule {
         const providers = [];
         const controllers = [];
         console.log('SERVICE_NAME', process.env.SERVICE_NAME);
-        if (process.env.SERVICE_NAME.endsWith('import')) {
+        if (process.env.SERVICE_NAME?.endsWith('import')) {
             providers.push(ImportTask);
         }
-        if (process.env.SERVICE_NAME.endsWith('import-ongoing')) {
+        if (process.env.SERVICE_NAME?.endsWith('import-ongoing')) {
             providers.push(ImportOngoingTask);
         }
-        if (process.env.SERVICE_NAME.endsWith('refetch')) {
+        if (process.env.SERVICE_NAME?.endsWith('refetch')) {
             providers.push(RefetchTask);
         }
-        if (process.env.SERVICE_NAME.endsWith('refetch-multiple')) {
+        if (process.env.SERVICE_NAME?.endsWith('refetch-multiple')) {
             // providers.push(RefetchAgainTask);
             // providers.push(RefetchTask);
             // providers.push(ImportTask);
             providers.push(RefetchMultipleTask);
         }
-        if (process.env.SERVICE_NAME.endsWith('refetch-late')) {
+        if (process.env.SERVICE_NAME?.endsWith('refetch-late')) {
             providers.push(RefetchLateTask);
         }
-        if (process.env.SERVICE_NAME.endsWith('refetch-again')) {
+        if (process.env.SERVICE_NAME?.endsWith('refetch-again')) {
             providers.push(RefetchAgainTask);
         }
-        if (process.env.SERVICE_NAME.endsWith('refetch-result')) {
+        if (process.env.SERVICE_NAME?.endsWith('refetch-result')) {
             providers.push(RefetchResultTask);
         }
-        if (process.env.SERVICE_NAME.endsWith('refetch-repair')) {
+        if (process.env.SERVICE_NAME?.endsWith('refetch-repair')) {
             providers.push(RefetchRepairTask);
         }
-        if (process.env.SERVICE_NAME.endsWith('replay')) {
+        if (process.env.SERVICE_NAME?.endsWith('replay')) {
             providers.push(ReplayTask);
         }
-        if (process.env.SERVICE_NAME.endsWith('ingest')) {
+        if (process.env.SERVICE_NAME?.endsWith('ingest')) {
             providers.push(IngestTask);
         }
-        if (process.env.SERVICE_NAME.endsWith('ingest-fast')) {
+        if (process.env.SERVICE_NAME?.endsWith('ingest-fast')) {
             providers.push(IngestFastTask);
         }
-        if (process.env.SERVICE_NAME.endsWith('notify')) {
+        if (process.env.SERVICE_NAME?.endsWith('notify')) {
             providers.push(NotifyTask);
         }
-        if (process.env.SERVICE_NAME.endsWith('rating-history')) {
+        if (process.env.SERVICE_NAME?.endsWith('rating-history')) {
             providers.push(RatingHistoryTask);
         }
-        if (process.env.SERVICE_NAME.endsWith('rank')) {
+        if (process.env.SERVICE_NAME?.endsWith('rank')) {
             providers.push(RankTask);
         }
-        if (process.env.SERVICE_NAME.endsWith('metric')) {
+        if (process.env.SERVICE_NAME?.endsWith('metric')) {
             controllers.push(MetricController);
         }
-        if (process.env.SERVICE_NAME.endsWith('api')) {
+        if (process.env.SERVICE_NAME?.endsWith('api')) {
             controllers.push(ApiController);
         }
-        if (process.env.SERVICE_NAME.endsWith('function')) {
+        if (process.env.SERVICE_NAME?.endsWith('function')) {
             controllers.push(FunctionController);
         }
 
@@ -217,7 +217,7 @@ export class ResolverModule {
         ];
 
         console.log('SERVICE_NAME', process.env.SERVICE_NAME);
-        if (process.env.SERVICE_NAME.endsWith('graphql')) {
+        if (process.env.SERVICE_NAME?.endsWith('graphql')) {
             imports.push(graphqlModule);
             providers.push(...resolvers);
         }

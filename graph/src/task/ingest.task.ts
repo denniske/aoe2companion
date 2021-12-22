@@ -7,7 +7,7 @@ import {fetchLeaderboard, ILeaderboardPlayerRaw, setValue} from "../helper";
 import {Connection} from "typeorm";
 
 
-const appConfigGame = process.env.SERVICE_NAME.includes('aoe2de') ? 'aoe2de' : 'aoe4';
+const appConfigGame = process.env.SERVICE_NAME?.includes('aoe4') ? 'aoe4' : 'aoe2de';
 
 @Injectable()
 export class IngestTask implements OnModuleInit {

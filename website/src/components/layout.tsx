@@ -31,6 +31,7 @@ import ProfilePage from "../pages/profile/[id]";
 import {withApollo} from "../../apollo/client";
 import {myTodoList} from "@nex/data";
 import Link from "next/link";
+import {appConfig} from "@nex/dataset";
 
 const drawerWidth = 240;
 
@@ -159,7 +160,8 @@ function Layout(props) {
     const theme = useTheme();
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
-    const appSlug = process.env.NEXT_PUBLIC_APP_SLUG;
+    const appSlug = appConfig.app.slug;
+    // console.log('layout appConfig.app.slug', appConfig.app.slug);
 
     const router = useRouter();
 

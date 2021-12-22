@@ -20,7 +20,7 @@ async function bootstrap() {
   });
 }
 
-if (process.env.SERVICE_NAME.endsWith('proxy')) {
+if (process.env.SERVICE_NAME?.endsWith('proxy')) {
   startProxy();
 } else {
   bootstrap();
