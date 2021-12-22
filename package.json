@@ -28,7 +28,7 @@
     "api": "cross-env SERVICE_NAME=api nx serve graph",
     "graph": "nx serve graph",
     "website": "cross-env IS_NEXT=true APP=aoe2 next dev website",
-    "build:website": "cross-env IS_NEXT=true APP=aoe2 next build website",
+    "build:website": "ls -al && ls -al data && cross-env IS_NEXT=true APP=aoe2 next build website",
     "start:website:prod:80": "cross-env IS_NEXT=true APP=aoe2 next start website -p 80",
     "website4": "cross-env IS_NEXT=true APP=aoe4 next dev website",
     "build:website4": "cross-env IS_NEXT=true APP=aoe4 next build website",
