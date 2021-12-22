@@ -51,23 +51,28 @@ export default function Home() {
                         </a>
                     </div>
 
-                    <br/>
-                    <br/>
-                    <p>Also available:</p>
-                    <a href={`https://app.${appSlug}.com`} target="_blank">
-                        <img src="https://img.shields.io/static/v1?label=Web&logo=google-chrome&message=Open&logoColor=FFFFFF&color=brightgreen"/>
-                    </a>
-                    <div style={{height: '10px'}}/>
-                    <a onClick={downloadWindowsApp} href="#">
-                        <img src="https://img.shields.io/static/v1?label=Windows&logo=windows&message=Download&logoColor=FFFFFF&color=brightgreen"/>
-                    </a>
+                    {
+                        appSlug === 'aoe2companion' &&
+                        <>
+                            <br/>
+                            <br/>
+                            <p>Also available:</p>
+                            <a href={`https://app.${appSlug}.com`} target="_blank">
+                                <img src="https://img.shields.io/static/v1?label=Web&logo=google-chrome&message=Open&logoColor=FFFFFF&color=brightgreen"/>
+                            </a>
+                            <div style={{height: '10px'}}/>
+                            <a onClick={downloadWindowsApp} href="#">
+                                <img src="https://img.shields.io/static/v1?label=Windows&logo=windows&message=Download&logoColor=FFFFFF&color=brightgreen"/>
+                            </a>
+                        </>
+                    }
 
                     <br/>
                     <br/>
                     <br/>
                     <p>Community:</p>
-                    <a href={`https://github.com/denniske/${appSlug}`} target="_blank">
-                        <img src={`https://img.shields.io/badge/github-${appSlug}-brightgreen?label=Github&logo=github`}/>
+                    <a href={`https://github.com/denniske/aoe2companion`} target="_blank">
+                        <img src={`https://img.shields.io/badge/github-aoe2companion-brightgreen?label=Github&logo=github`}/>
                     </a>
                     &nbsp;&nbsp;
                     <a href="https://discord.gg/gCunWKx" target="_blank">
@@ -96,7 +101,7 @@ export default function Home() {
 
                 <div className="phone-container phone-container-desktop">
                     <AspectRatio ratio="360/718" style={{maxWidth: '400px'}}>
-                        <div className="frame"/>
+                        <div className="frame" style={{backgroundImage: `url('ios-shot-${appSlug}.png')`}}/>
                     </AspectRatio>
                 </div>
             </div>

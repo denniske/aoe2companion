@@ -121,9 +121,9 @@
 }
 
 .frame {
-    background-image: url("../../public/ios-shot.png");
-    background-size: contain;
-    background-repeat: no-repeat;
+    /*background-image: url("../../public/ios-shot.png");*/
+    /*background-size: contain;*/
+    /*background-repeat: no-repeat;*/
 }
 
 .flex-container {

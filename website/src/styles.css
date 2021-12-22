@@ -207,7 +207,7 @@ h1, h3 {
 }
 
 .frame {
-    background-image: url("../public/ios-shot.png");
+    /*background-image: url("../public/ios-shot.png");*/
     background-size: contain;
     background-repeat: no-repeat;
 }

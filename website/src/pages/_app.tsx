@@ -13,6 +13,7 @@ import 'react-aspect-ratio/aspect-ratio.css'
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import { getString } from '../helper/strings';
+import {appConfig} from "@nex/dataset";
 // import 'antd/dist/antd.css';
 
 class HostService implements IHostService {
@@ -84,11 +85,12 @@ function MyApp(props) {
         [prefersDarkMode],
     );
 
+    const appName = appConfig.app.name;
 
     return (
     <React.Fragment>
       <Head>
-        <title>AoE II Companion</title>
+        <title>{appName}</title>
         <link rel="icon" type="image/png" href="/favicon-16x16.png?v=200706014637" sizes="16x16"/>
         <link rel="icon" type="image/png" href="/favicon-32x32.png?v=200706014637" sizes="32x32"/>
         <link rel="icon" type="image/png" href="/favicon-96x96.png?v=200706014637" sizes="96x96"/>

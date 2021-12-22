@@ -4,6 +4,7 @@ import React from "react";
 import {useAppStyles} from "../components/app-styles";
 import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
+import {appConfig} from "@nex/dataset";
 
 const useStyles = makeStyles((theme) => ({
     shot: {
@@ -15,10 +16,11 @@ const useStyles = makeStyles((theme) => ({
 export default function Privacy() {
     const classes = useStyles();
     const appClasses = useAppStyles();
+    const appName = appConfig.app.name;
     return (
         <div>
             <Head>
-                <title>AoE II Companion App</title>
+                <title>{appName}</title>
             </Head>
 
             <Paper className={appClasses.box}>
