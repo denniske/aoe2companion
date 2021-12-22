@@ -55,6 +55,9 @@ export default {
     ],
     "android": {
       "userInterfaceStyle": "automatic",
+      "adaptiveIcon": {
+        "foregroundImage": "./app/assets/icon-adaptive.png"
+      },
       "package": "com.aoe2companion",
       "versionCode": 350003,
       "permissions": [],
@@ -63,7 +66,7 @@ export default {
     },
     "ios": {
       "userInterfaceStyle": "automatic",
-      "icon": "./app/assets/icon-no-alpha.png",
+      "icon": "./app/assets/icon-adaptive-no-alpha.png",
       "bundleIdentifier": "com.aoe2companion",
       "buildNumber": "35.0.3",
       "supportsTablet": false,
