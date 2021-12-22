@@ -1,7 +1,6 @@
 
 console.log('TRANSPILE');
 
-// , 'lodash-es'
 const withTM = require('next-transpile-modules')(['data']); // pass the modules you would like to see transpiled
 
 module.exports = withTM({
@@ -10,6 +9,6 @@ module.exports = withTM({
 });
 
 // module.exports = {
-//     target: 'serverless',
+//     // target: 'serverless',
 //     // target: 'server',
 // };
