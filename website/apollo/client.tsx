@@ -176,7 +176,7 @@ function createIsomorphLink() {
     withScalars({ schema, typesMap }),
     new HttpLink({
       // uri: 'http://localhost:3333/graphql',
-      uri: process.env.NEXT_PUBLIC_API_URL,
+      // uri: process.env.NEXT_PUBLIC_API_URL,
       credentials: 'same-origin',
       fetch: customFetch,
     })

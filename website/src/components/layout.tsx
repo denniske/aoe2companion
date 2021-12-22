@@ -32,6 +32,8 @@ import {withApollo} from "../../apollo/client";
 import {myTodoList} from "@nex/data";
 import Link from "next/link";
 import {appConfig} from "@nex/dataset";
+import {useApollo} from "../../apollo/client2";
+import {ApolloProvider} from "@apollo/client";
 
 const drawerWidth = 240;
 
@@ -154,7 +156,7 @@ const useStyles = makeStyles((theme) => ({
 // https://adamwathan.me/2019/10/17/persistent-layout-patterns-in-nextjs/
 
 function Layout(props) {
-    const {children} = props;
+    const {children, pageProps} = props;
     const classes = useStyles();
     const appClasses = useAppStyles();
     const theme = useTheme();
@@ -163,74 +165,77 @@ function Layout(props) {
     const appSlug = appConfig.app.slug;
     // console.log('layout appConfig.app.slug', appConfig.app.slug);
 
-    const router = useRouter();
+    const apolloClient = useApollo(pageProps);
 
-    const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
-    };
-
-    const preventDefault = (event) => event.preventDefault();
-
-    const drawer = (
-        <div>
-            <div className={classes.toolbar + ' ' + classes.toolbarPadding}>
-                <img src="/icon.png" alt="my image" className={classes.mainIcon} />
-                <Typography variant="body1" className={classes.mainText} noWrap>
-                    AoE II Companion
-                </Typography>
-            </div>
-            <Divider />
-            <List>
-                {/*<ListItem button component={Link as any} href='/profile/[id]' as={`/profile/886872`} naked>*/}
-                <ListItem button component={Link as any} href='/profile/[id]' as={`/profile/251265`} naked>
-                    <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faUser} className={classes.icon} /></div></ListItemIcon>
-                    <ListItemText primary="Me" />
-                </ListItem>
-            </List>
-            <Divider />
-            <List>
-                <ListItem button component={Link as any} href="/leaderboard" naked>
-                    <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faTrophy} className={classes.icon} /></div></ListItemIcon>
-                    <ListItemText primary="Leaderboard" />
-                </ListItem>
-            </List>
-            <Divider />
-            <List>
-                <ListItem button component={Link as any} href="/civilization" naked>
-                    <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faLandmark} className={classes.icon} /></div></ListItemIcon>
-                    <ListItemText primary="Civilizations" />
-                </ListItem>
-                <ListItem button component={Link as any} href="/building" naked>
-                    <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faArchway} className={classes.icon} /></div></ListItemIcon>
-                    <ListItemText primary="Buildings" />
-                </ListItem>
-                <ListItem button component={Link as any} href="/unit" naked>
-                    <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faFistRaised} className={classes.icon} /></div></ListItemIcon>
-                    <ListItemText primary="Units" />
-                </ListItem>
-                <ListItem button component={Link as any} href="/tech" naked>
-                    <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faFlask} className={classes.icon} /></div></ListItemIcon>
-                    <ListItemText primary="Techs" />
-                </ListItem>
-            </List>
-            <Divider />
-            <List>
-                <ListItem button component={Link as any} href="https://www.buymeacoffee.com/denniskeil" naked target="_blank">
-                    <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faCoffee} className={classes.icon} /></div></ListItemIcon>
-                    <ListItemText primary="Buy me a coffee" />
-                </ListItem>
-            </List>
-            <List>
-                <ListItem button component={Link as any} href="https://discord.com/invite/gCunWKx" naked target="_blank">
-                    <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faHandsHelping} className={classes.icon} /></div></ListItemIcon>
-                    <ListItemText primary="Help" />
-                </ListItem>
-            </List>
-        </div>
-    );
+    // const router = useRouter();
+    //
+    // const handleDrawerToggle = () => {
+    //     setMobileOpen(!mobileOpen);
+    // };
+    //
+    // const preventDefault = (event) => event.preventDefault();
+    //
+    // const drawer = (
+    //     <div>
+    //         <div className={classes.toolbar + ' ' + classes.toolbarPadding}>
+    //             <img src="/icon.png" alt="my image" className={classes.mainIcon} />
+    //             <Typography variant="body1" className={classes.mainText} noWrap>
+    //                 AoE II Companion
+    //             </Typography>
+    //         </div>
+    //         <Divider />
+    //         <List>
+    //             {/*<ListItem button component={Link as any} href='/profile/[id]' as={`/profile/886872`} naked>*/}
+    //             <ListItem button component={Link as any} href='/profile/[id]' as={`/profile/251265`} naked>
+    //                 <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faUser} className={classes.icon} /></div></ListItemIcon>
+    //                 <ListItemText primary="Me" />
+    //             </ListItem>
+    //         </List>
+    //         <Divider />
+    //         <List>
+    //             <ListItem button component={Link as any} href="/leaderboard" naked>
+    //                 <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faTrophy} className={classes.icon} /></div></ListItemIcon>
+    //                 <ListItemText primary="Leaderboard" />
+    //             </ListItem>
+    //         </List>
+    //         <Divider />
+    //         <List>
+    //             <ListItem button component={Link as any} href="/civilization" naked>
+    //                 <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faLandmark} className={classes.icon} /></div></ListItemIcon>
+    //                 <ListItemText primary="Civilizations" />
+    //             </ListItem>
+    //             <ListItem button component={Link as any} href="/building" naked>
+    //                 <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faArchway} className={classes.icon} /></div></ListItemIcon>
+    //                 <ListItemText primary="Buildings" />
+    //             </ListItem>
+    //             <ListItem button component={Link as any} href="/unit" naked>
+    //                 <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faFistRaised} className={classes.icon} /></div></ListItemIcon>
+    //                 <ListItemText primary="Units" />
+    //             </ListItem>
+    //             <ListItem button component={Link as any} href="/tech" naked>
+    //                 <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faFlask} className={classes.icon} /></div></ListItemIcon>
+    //                 <ListItemText primary="Techs" />
+    //             </ListItem>
+    //         </List>
+    //         <Divider />
+    //         <List>
+    //             <ListItem button component={Link as any} href="https://www.buymeacoffee.com/denniskeil" naked target="_blank">
+    //                 <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faCoffee} className={classes.icon} /></div></ListItemIcon>
+    //                 <ListItemText primary="Buy me a coffee" />
+    //             </ListItem>
+    //         </List>
+    //         <List>
+    //             <ListItem button component={Link as any} href="https://discord.com/invite/gCunWKx" naked target="_blank">
+    //                 <ListItemIcon><div className={classes.iconContainer}><FontAwesomeIcon icon={faHandsHelping} className={classes.icon} /></div></ListItemIcon>
+    //                 <ListItemText primary="Help" />
+    //             </ListItem>
+    //         </List>
+    //     </div>
+    // );
 
 
     return (
+        <ApolloProvider client={apolloClient}>
         <div className={classes.root}>
 
             {/*<AppBar position="fixed" className={classes.appBar} color="inherit">*/}
@@ -390,8 +395,9 @@ function Layout(props) {
 
 
         </div>
+        </ApolloProvider>
     );
 }
 
-// export default Layout
-export default withApollo(Layout, {ssr:false})
+export default Layout
+// export default withApollo(Layout, {ssr:false})

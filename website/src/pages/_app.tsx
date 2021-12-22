@@ -44,7 +44,7 @@ class HttpService implements IHttpService {
 
 class AoeDataService implements ITranslationService {
     getUiTranslation(str: string): string {
-        return '???'; //getTranslation(str as any);
+        return str; //'???'; //getTranslation(str as any);
     }
     getAoeString(str: string): string {
         return '???'; //getInternalAoeString(str);
@@ -98,7 +98,7 @@ function MyApp(props) {
         <CssBaseline />
         <
             // @ts-ignore
-            Layout>
+            Layout pageProps={pageProps}>
             {/*<NoSsr>*/}
                 <Component {...pageProps} />
             {/*</NoSsr>*/}
