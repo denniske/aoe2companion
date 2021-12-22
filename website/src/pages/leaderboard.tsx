@@ -3,7 +3,6 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles, useTheme} from '@material-ui/core/styles';
 import {alpha, FormControl, InputBase, InputLabel, MenuItem, Paper, Select, Tabs, TextField} from "@material-ui/core";
 import {useAppStyles} from "../components/app-styles";
-import {withApollo} from "../../apollo/client";
 import Grid from "../components/grid";
 import CountrySelector from "../components/country-selector";
 import {Autocomplete} from "@material-ui/lab";

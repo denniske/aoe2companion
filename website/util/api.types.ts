@@ -1,4 +1,5 @@
-import {Flag, SlotType} from '@nex/data';
+import {Flag} from '@nex/data';
+import {SlotType} from '@nex/data/api';
 
 
 export interface IRatingHistoryEntryRaw {

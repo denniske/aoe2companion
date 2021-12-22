@@ -3,7 +3,6 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles, useTheme} from '@material-ui/core/styles';
 import {Paper} from "@material-ui/core";
 import {useAppStyles} from "../components/app-styles";
-import {withApollo} from "../../apollo/client";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,4 +32,4 @@ function ResponsiveDrawer(props) {
     );
 }
 
-export default withApollo(ResponsiveDrawer, {ssr:false})
+export default ResponsiveDrawer

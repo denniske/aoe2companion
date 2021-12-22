@@ -17,7 +17,6 @@ import {Skeleton} from "@material-ui/lab";
 import {faCaretDown, faCaretUp} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {getChangeColor} from 'website/src/components/util';
-import {withApollo} from "../../../apollo/client";
 import {formatLeaderboardId} from '@nex/data';
 
 

@@ -1,35 +1,8 @@
-import React, {useEffect} from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import React from 'react';
 import {alpha, makeStyles, useTheme} from '@material-ui/core/styles';
-import {CircularProgress, Grid, InputBase, Paper, TextField} from "@material-ui/core";
-
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {
-    faArchway, faCoffee, faFistRaised, faFlask, faHandsHelping, faLandmark, faTrophy, faUser
-} from '@fortawesome/free-solid-svg-icons'
 
 // import Link from "../components/link";
 import {useAppStyles} from "./app-styles";
-import Link2 from '@material-ui/core/Link';
-import {useRouter} from "next/router";
-import clsx from "clsx";
-import {Autocomplete} from "@material-ui/lab";
-import Search from "./search";
-import ProfilePage from "../pages/profile/[id]";
-import {withApollo} from "../../apollo/client";
-import {myTodoList} from "@nex/data";
 import Link from "next/link";
 import {appConfig} from "@nex/dataset";
 import {useApollo} from "../../apollo/client2";
