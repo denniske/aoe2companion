@@ -2,6 +2,7 @@ import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core/styles';
 import theme from "../theme";
+import {appConfig} from "@nex/dataset";
 
 export default class MyDocument extends Document {
   render() {
@@ -14,9 +15,9 @@ export default class MyDocument extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
-          <link rel="icon" type="image/png" href="/favicon-16x16.png?v=200706014637" sizes="16x16"/>
-          <link rel="icon" type="image/png" href="/favicon-32x32.png?v=200706014637" sizes="32x32"/>
-          <link rel="icon" type="image/png" href="/favicon-96x96.png?v=200706014637" sizes="96x96"/>
+          <link rel="icon" type="image/png" href={`/favicon-${appConfig.app.slug}-16x16.png?v=200706014637`} sizes="16x16"/>
+          <link rel="icon" type="image/png" href={`/favicon-${appConfig.app.slug}-32x32.png?v=200706014637`} sizes="32x32"/>
+          <link rel="icon" type="image/png" href={`/favicon-${appConfig.app.slug}-96x96.png?v=200706014637`} sizes="96x96"/>
         </Head>
         <body>
           <Main />
