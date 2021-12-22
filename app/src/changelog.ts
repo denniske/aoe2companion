@@ -12,7 +12,7 @@ export interface IChangelog {
 // https://www.aoe2insights.com/match/99919072/analysis/
 
 export const changelog4: IChangelog = {
-    '2.0.0': [
+    '3.0.0': [
         {
             type: 'feature',
             title: 'Follow players',
@@ -29,7 +29,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '35.0.0': [
+    '36.0.0': [
         {
             type: 'minor',
             title: 'Internal Framework Update (Expo Eas)',
