@@ -3,7 +3,7 @@ import {ICellRendererParams} from "ag-grid-community";
 import {ICellRendererComp} from "ag-grid-community/dist/lib/rendering/cellRenderers/iCellRenderer";
 import {getFlagIcon} from "../../helper/flags";
 import {makeStyles} from "@material-ui/core/styles";
-import {Button, fade} from "@material-ui/core";
+import {Button} from "@material-ui/core";
 import {Linking} from 'react-native';
 
 // export default class NameCellRenderer extends Component {

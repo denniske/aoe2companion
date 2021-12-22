@@ -3,7 +3,6 @@ import {ICellRendererParams} from "ag-grid-community";
 import {ICellRendererComp} from "ag-grid-community/dist/lib/rendering/cellRenderers/iCellRenderer";
 import {getFlagIcon} from "../../helper/flags";
 import {makeStyles} from "@material-ui/core/styles";
-import {fade} from "@material-ui/core";
 
 // export default class NameCellRenderer extends Component {
 //     constructor(props) {

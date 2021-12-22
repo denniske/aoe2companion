@@ -1,7 +1,7 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles, useTheme} from '@material-ui/core/styles';
-import {fade, FormControl, InputBase, InputLabel, MenuItem, Paper, Select, Tabs, TextField} from "@material-ui/core";
+import {alpha, FormControl, InputBase, InputLabel, MenuItem, Paper, Select, Tabs, TextField} from "@material-ui/core";
 import {useAppStyles} from "../components/app-styles";
 import {withApollo} from "../../apollo/client";
 import Grid from "../components/grid";
@@ -10,6 +10,8 @@ import {Autocomplete} from "@material-ui/lab";
 import Match from "../components/match";
 import {AntTab} from "../components/tab/ant-tab";
 import {Country} from "@nex/data";
+import {appConfig} from "@nex/dataset";
+import {leaderboardIdsData, leaderboardMappingData} from "@nex/dataset";
 
 // https://joshwcomeau.com/react/the-perils-of-rehydration/
 // https://adamwathan.me/2019/10/17/persistent-layout-patterns-in-nextjs/
@@ -19,20 +21,13 @@ function ResponsiveDrawer(props) {
     const classes = useStyles();
     const theme = useTheme();
 
-    // const [age, setAge] = React.useState('');
-    //
-    // const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    //     setAge(event.target.value as string);
-    // };
-
     const [value, setValue] = React.useState(0);
-    const [leaderboardId, setLeaderboardId] = React.useState(3);
+    const [leaderboardId, setLeaderboardId] = React.useState(leaderboardIdsData[0]);
     const [country, setCountry] = React.useState<Country | null>();
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-        const mapping = [3, 4, 1, 2, 0];
         setValue(newValue);
-        setLeaderboardId(mapping[newValue]);
+        setLeaderboardId(leaderboardIdsData[newValue]);
     };
 
     const handleCountryChange = (country: Country | null) => {
@@ -40,6 +35,8 @@ function ResponsiveDrawer(props) {
     };
 
     const [search, setSearch] = React.useState('');
+
+    console.log(appConfig, 1);
 
     return (
         <div className={classes.container}>
@@ -74,11 +71,11 @@ function ResponsiveDrawer(props) {
                     aria-label="disabled tabs example"
                     variant="fullWidth"
                 >
-                    <AntTab label="RM 1v1" />
-                    <AntTab label="RM Team" />
-                    <AntTab label="DM 1v1" />
-                    <AntTab label="DM Team" />
-                    <AntTab label="Unranked" />
+                    {
+                        leaderboardIdsData.map(id => (
+                            <AntTab label={leaderboardMappingData[id].subtitle} />
+                        ))
+                    }
                 </Tabs>
 
                 {/*<div className={classes.wrapper}>*/}
@@ -99,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         marginBottom: 0,
-        backgroundColor: fade(theme.palette.common.black, 0.00),
+        backgroundColor: alpha(theme.palette.common.black, 0.00),
         boxShadow: '0px 2px 1px -1px rgba(0,0,0,0.1), 0px 1px 1px 0px rgba(0,0,0,0.07), 0px 1px 3px 0px rgba(0,0,0,0.06)',
     },
     inputRoot: {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
-import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
+import {createTheme, ThemeProvider} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Layout from "../components/layout";
 import {
@@ -76,7 +76,7 @@ function MyApp(props) {
 
     const theme = React.useMemo(
         () =>
-            createMuiTheme({
+            createTheme({
                 palette: {
                     type: prefersDarkMode ? 'dark' : 'light',
                 },

@@ -1,6 +1,6 @@
 import {useRouter} from 'next/router'
 import gql from 'graphql-tag'
-import {Box, fade, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@material-ui/core";
+import {Box, alpha, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import React, {useEffect} from "react";
 import {useAppStyles} from "../../components/app-styles";
@@ -426,7 +426,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     margin: theme.spacing(0, -3, 2, -3),
-    backgroundColor: fade(theme.palette.common.black, 0.00),
+    backgroundColor: alpha(theme.palette.common.black, 0.00),
   },
   searchIcon: {
     padding: theme.spacing(0, 2, 0, 2),

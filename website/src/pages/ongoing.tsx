@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {makeStyles, useTheme} from '@material-ui/core/styles';
-import {fade, Paper, Tabs} from "@material-ui/core";
+import {alpha, Paper, Tabs} from "@material-ui/core";
 import {useAppStyles} from "../components/app-styles";
 import {AntTab} from "../components/tab/ant-tab";
 import {useLazyApi} from '../hooks/use-lazy-api';
@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         marginBottom: 0,
-        backgroundColor: fade(theme.palette.common.black, 0.00),
+        backgroundColor: alpha(theme.palette.common.black, 0.00),
         boxShadow: '0px 2px 1px -1px rgba(0,0,0,0.1), 0px 1px 1px 0px rgba(0,0,0,0.07), 0px 1px 3px 0px rgba(0,0,0,0.06)',
     },
     inputRoot: {

@@ -1,7 +1,7 @@
 import * as CSS from 'csstype';
 import {Property} from "csstype";
 import {makeStyles} from "@material-ui/core/styles";
-import {Theme as DefaultTheme} from "@material-ui/core/styles/createMuiTheme";
+import {Theme as DefaultTheme} from "@material-ui/core/styles/createTheme";
 import {dark, FinalDarkMode, ITheme, light} from '@nex/data';
 import {merge} from 'lodash';
 

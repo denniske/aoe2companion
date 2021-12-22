@@ -1,4 +1,4 @@
-import {fade, InputBase, Paper} from "@material-ui/core";
+import {alpha, InputBase, Paper} from "@material-ui/core";
 import React, {useState} from "react";
 import {createStylesheet} from "../helper/styles";
 import {iconHeight, iconWidth} from "@nex/data";
@@ -36,7 +36,7 @@ const useStyles = createStylesheet((theme) => ({
         // margin: theme.spacing(0, -3, 2, -3),
         // marginTop: -theme.spacing(3),
         marginBottom: 0,
-        backgroundColor: fade(theme.palette.common.black, 0.00),
+        backgroundColor: alpha(theme.palette.common.black, 0.00),
         boxShadow: '0px 2px 1px -1px rgba(0,0,0,0.1), 0px 1px 1px 0px rgba(0,0,0,0.07), 0px 1px 3px 0px rgba(0,0,0,0.06)',
     },
     searchIcon: {

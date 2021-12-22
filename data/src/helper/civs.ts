@@ -62,7 +62,7 @@ export const civsAoeNet = civsAoeNetData;
 //     }
 // })(); // as const;
 
-console.log('CIVS BEGINNING', civs);
+// console.log('CIVS BEGINNING', civs);
 
 
 export interface ICivEntry {

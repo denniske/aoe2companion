@@ -1,5 +1,5 @@
 import {Autocomplete} from "@material-ui/lab";
-import {fade, Grid, Paper, TextField} from "@material-ui/core";
+import {Grid, Paper, TextField} from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import React, {useEffect} from "react";
 import Toolbar from "@material-ui/core/Toolbar";

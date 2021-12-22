@@ -1,5 +1,5 @@
 import {Autocomplete} from "@material-ui/lab";
-import {fade, Grid, TextField} from "@material-ui/core";
+import {alpha, Grid, TextField} from "@material-ui/core";
 import React from "react";
 import {getFlagIcon} from "../helper/flags";
 import {makeStyles} from "@material-ui/core/styles";
@@ -178,6 +178,6 @@ const useStyles = makeStyles((theme) => ({
     },
     gamesCol: {
         textAlign: 'right',
-        color: fade(theme.palette.common.black, 0.60),
+        color: alpha(theme.palette.common.black, 0.60),
     },
 }));

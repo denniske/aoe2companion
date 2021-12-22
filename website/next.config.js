@@ -1,9 +1,15 @@
 
-// console.log('TRANSPILE');
+console.log('TRANSPILE');
 
-const withTM = require('next-transpile-modules')(['../data', 'lodash-es']); // pass the modules you would like to see transpiled
+// , 'lodash-es'
+const withTM = require('next-transpile-modules')(['../data']); // pass the modules you would like to see transpiled
 
 module.exports = withTM({
-    target: 'serverless',
+    // target: 'serverless',
     // target: 'server',
 });
+
+// module.exports = {
+//     target: 'serverless',
+//     // target: 'server',
+// };

@@ -12,7 +12,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import {fade, makeStyles, useTheme} from '@material-ui/core/styles';
+import {alpha, makeStyles, useTheme} from '@material-ui/core/styles';
 import {CircularProgress, Grid, InputBase, Paper, TextField} from "@material-ui/core";
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -100,9 +100,9 @@ const useStyles = makeStyles((theme) => ({
     search: {
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
-        backgroundColor: fade(theme.palette.common.white, 0.15),
+        backgroundColor: alpha(theme.palette.common.white, 0.15),
         '&:hover': {
-            backgroundColor: fade(theme.palette.common.white, 0.25),
+            backgroundColor: alpha(theme.palette.common.white, 0.25),
         },
         marginRight: theme.spacing(2),
         marginLeft: 0,
@@ -158,6 +158,8 @@ function Layout(props) {
     const appClasses = useAppStyles();
     const theme = useTheme();
     const [mobileOpen, setMobileOpen] = React.useState(false);
+
+    const appSlug = process.env.NEXT_PUBLIC_APP_SLUG;
 
     const router = useRouter();
 
@@ -354,11 +356,14 @@ function Layout(props) {
                             <a>App</a>
                         </Link>
                     </div>
-                    <div className={classes.mainMenuItem}>
-                        <Link href='/ongoing' as={`/ongoing`}>
-                            <a>Top 100 Ongoing</a>
-                        </Link>
-                    </div>
+                    {
+                        appSlug === 'aoe2companion' &&
+                        <div className={classes.mainMenuItem}>
+                            <Link href='/ongoing' as={`/ongoing`}>
+                                <a>Top 100 Ongoing</a>
+                            </Link>
+                        </div>
+                    }
                     <div className={classes.mainMenuItem}>
                         <Link href='/leaderboard' as={`/leaderboard`}>
                             <a>Leaderboard</a>

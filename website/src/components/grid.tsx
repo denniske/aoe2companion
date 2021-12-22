@@ -7,6 +7,7 @@ import RatingCellRenderer from "./cell-renderer/rating.cell-renderer";
 import {useRouter} from "next/router";
 import {usePrevious} from "@nex/data/hooks";
 import SpectateCellRenderer from './cell-renderer/spectate.cell-renderer';
+import {appConfig} from "@nex/dataset";
 
 
 interface Props {
@@ -84,6 +85,7 @@ export default function Grid(props: Props) {
             {field: 'last_match_time', headerName: 'Last match', minWidth: 150, sortable: false, valueFormatter: params => params.value && formatAgo(parseUnixTimestamp(params.value)) },
         ],
         onRowClicked: (event: RowClickedEvent) => {
+            if (appConfig.game !== 'aoe2de') return;
             router.push('/profile/[id]', `/profile/${event.data.profile_id}`);
         },
         onFirstDataRendered(params) {

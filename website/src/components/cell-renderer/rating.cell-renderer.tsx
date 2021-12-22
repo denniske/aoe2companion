@@ -3,7 +3,6 @@ import {ICellRendererParams} from "ag-grid-community";
 import {ICellRendererComp} from "ag-grid-community/dist/lib/rendering/cellRenderers/iCellRenderer";
 import {getFlagIcon} from "../../helper/flags";
 import {makeStyles} from "@material-ui/core/styles";
-import {fade, TableCell} from "@material-ui/core";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCaretDown, faCaretUp} from "@fortawesome/free-solid-svg-icons";
 import {getChangeColor} from "../util";

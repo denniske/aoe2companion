@@ -12709,6 +12709,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"enhanced-resolve@npm:^5.7.0":
+  version: 5.8.3
+  resolution: "enhanced-resolve@npm:5.8.3"
+  dependencies:
+    graceful-fs: ^4.2.4
+    tapable: ^2.2.0
+  checksum: d79fbe531106448b768bb0673fb623ec0202d7ee70373ab7d4f4745d5dfe0806f38c9db7e7da8c941288fe475ab3d538db3791fce522056eeea40ca398c9e287
+  languageName: node
+  linkType: hard
+
 "entities@npm:^2.0.0":
   version: 2.2.0
   resolution: "entities@npm:2.2.0"
@@ -19958,13 +19968,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-transpile-modules@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "next-transpile-modules@npm:4.1.0"
+"next-transpile-modules@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "next-transpile-modules@npm:9.0.0"
   dependencies:
-    micromatch: ^4.0.2
-    slash: ^3.0.0
-  checksum: 146e060bc8277dcaafbe295e878de73fc4834d0300c0682c233d547011a4029f7f2512ad34d3fbeaa7b5141fce396e30255c160d7510b5b130a051bc994b4adc
+    enhanced-resolve: ^5.7.0
+    escalade: ^3.1.1
+  checksum: 9a5d86d80cedc2404b2b1d5bd4994f2f7bf60e5e20f24e8cc5cfec34da1418b4a439916f37a95ca336bcf6d81094c3647354ac6a0c6737b3df59e62b6380507d
   languageName: node
   linkType: hard
 
@@ -25300,7 +25310,7 @@ __metadata:
     lodash: ^4.17.19
     nestjs-s3: ^1.0.1
     next: ^12.0.7
-    next-transpile-modules: ^4.1.0
+    next-transpile-modules: ^9.0.0
     node-fetch: ^2.6.0
     pg: ^8.3.0
     prisma: 3.6.0
@@ -27197,6 +27207,13 @@ __metadata:
   version: 1.1.3
   resolution: "tapable@npm:1.1.3"
   checksum: 53ff4e7c3900051c38cc4faab428ebfd7e6ad0841af5a7ac6d5f3045c5b50e88497bfa8295b4b3fbcadd94993c9e358868b78b9fb249a76cb8b018ac8dccafd7
+  languageName: node
+  linkType: hard
+
+"tapable@npm:^2.2.0":
+  version: 2.2.1
+  resolution: "tapable@npm:2.2.1"
+  checksum: 3b7a1b4d86fa940aad46d9e73d1e8739335efd4c48322cb37d073eb6f80f5281889bf0320c6d8ffcfa1a0dd5bfdbd0f9d037e252ef972aca595330538aac4d51
   languageName: node
   linkType: hard
 

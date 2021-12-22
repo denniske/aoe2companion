@@ -1,6 +1,6 @@
 import {useQuery} from "@apollo/client";
 import React from "react";
-import {createStyles, fade, InputBase, Paper, Tab, Tabs, Theme, useTheme, withStyles} from "@material-ui/core";
+import {createStyles, alpha, InputBase, Paper, Tab, Tabs, Theme, useTheme, withStyles} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import ToggleButton from "@material-ui/lab/ToggleButton";
@@ -242,7 +242,7 @@ const useStyles = makeStyles((theme) => ({
         // margin: theme.spacing(0, -3, 2, -3),
         // marginTop: -theme.spacing(3),
         marginBottom: 0,
-        backgroundColor: fade(theme.palette.common.black, 0.00),
+        backgroundColor: alpha(theme.palette.common.black, 0.00),
         boxShadow: '0px 2px 1px -1px rgba(0,0,0,0.1), 0px 1px 1px 0px rgba(0,0,0,0.07), 0px 1px 3px 0px rgba(0,0,0,0.06)',
     },
     searchIcon: {
