@@ -29,6 +29,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '36.0.1': [
+        {
+            type: 'bugfix',
+            title: 'Fix mountain range map image',
+        },
+    ],
     '36.0.0': [
         {
             type: 'minor',

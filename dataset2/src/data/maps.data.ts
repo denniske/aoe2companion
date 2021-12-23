@@ -127,7 +127,7 @@ export const mapsData = {
     161: require('../../../app/assets/maps/rm_lowland.png'),
     162: require('../../../app/assets/maps/rm_marketplace.png'),
     163: require('../../../app/assets/maps/rm_meadow.png'),
-    164: require('../../../app/assets/maps/rm_mountain-ridge.png'),
+    164: require('../../../app/assets/maps/rm_mountain_range.png'),
     165: require('../../../app/assets/maps/rm_northern_isles.png'),
     166: require('../../../app/assets/maps/rm_ring_fortress.png'),
     167: require('../../../app/assets/maps/rm_runestones.png'),
