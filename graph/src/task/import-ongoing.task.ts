@@ -25,14 +25,14 @@ export class ImportOngoingTask implements OnModuleInit {
             const count = await this.fetchOngoing();
             if (count < 100) {
                 console.log('Waiting 30s');
-                setTimeout(() => this.fetchOngoing(), 30 * 1000);
+                setTimeout(() => this.importOngoingMatches(), 30 * 1000);
             } else {
                 console.log('Waiting 0s');
-                setTimeout(() => this.fetchOngoing(), 0 * 1000);
+                setTimeout(() => this.importOngoingMatches(), 0 * 1000);
             }
         } catch (e) {
             console.error(e);
-            setTimeout(() => this.fetchOngoing(), 60 * 1000);
+            setTimeout(() => this.importOngoingMatches(), 60 * 1000);
         }
     }
 
