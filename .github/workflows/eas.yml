@@ -40,7 +40,8 @@ jobs:
           expo-username: ${{ env.EXPO_USERNAME }}
           expo-password: ${{ env.EXPO_PASSWORD }}
       - run: yarn
-      - run: npx expo publish
+      - run: echo "APP=$(node deploy/script/aoe-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
+      - run: npx expo publish --release-channel $CHANNEL
 
 
   build-android-internal:

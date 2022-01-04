@@ -123,7 +123,7 @@ export const civDescriptionData = {
 
         // influence
         '11197916',
-        '11155060',
+        '11217463',
 
         // civ bonus
         '11197913',
@@ -154,7 +154,7 @@ export const civDescriptionData = {
 
         // influence
         '11197916',
-        '11197948',
+        '11155060',
 
         // unique units
         '11149963',

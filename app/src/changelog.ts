@@ -12,6 +12,12 @@ export interface IChangelog {
 // https://www.aoe2insights.com/match/99919072/analysis/
 
 export const changelog4: IChangelog = {
+    '3.0.1': [
+        {
+            type: 'bugfix',
+            title: 'Fix Holy Roman Empire influence description',
+        },
+    ],
     '3.0.0': [
         {
             type: 'feature',
