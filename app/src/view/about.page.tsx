@@ -14,7 +14,6 @@ import {getTranslation} from '../helper/translate';
 import {doCheckForUpdateElectronAsync, getElectronVersion, isElectron} from "../helper/electron";
 import {openLink} from "../helper/url";
 import {appConfig} from "@nex/dataset";
-import {releaseChannel} from "expo-updates";
 
 
 export default function AboutPage() {
@@ -185,10 +184,6 @@ export default function AboutPage() {
                 {
                     !isElectron() &&
                     <MyText style={styles.content}>{Constants.manifest?.releaseChannel || 'dev'}-{Constants.manifest?.version}n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}</MyText>
-                }
-                {
-                    !isElectron() &&
-                    <MyText style={styles.content}>Update channel {releaseChannel || 'dev'}</MyText>
                 }
             </TouchableOpacity>
 

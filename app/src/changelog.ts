@@ -12,13 +12,7 @@ export interface IChangelog {
 // https://www.aoe2insights.com/match/99919072/analysis/
 
 export const changelog4: IChangelog = {
-    '4.0.1': [
-        {
-            type: 'bugfix',
-            title: 'Fix in-app updates',
-        },
-    ],
-    '4.0.0': [
+    '5.0.0': [
         {
             type: 'bugfix',
             title: 'Fix Holy Roman Empire influence description',
