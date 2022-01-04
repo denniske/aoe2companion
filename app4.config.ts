@@ -16,7 +16,7 @@ export default {
     "userInterfaceStyle": "automatic",
     "jsEngine": "hermes",
     "runtimeVersion": process.env.RUNTIME_VERSION,
-    "version": "3.0.1",
+    "version": "4.0.0",
     "orientation": "portrait",
     "privacy": "public",
     "githubUrl": "https://github.com/denniske/aoe2companion",
@@ -50,7 +50,7 @@ export default {
     "android": {
       "userInterfaceStyle": "automatic",
       "package": "com.aoe4companion",
-      "versionCode": 30001,
+      "versionCode": 40000,
       "permissions": [],
       "googleServicesFile": "./google-services4.json",
       "useNextNotificationsApi": true
@@ -59,7 +59,7 @@ export default {
       "userInterfaceStyle": "automatic",
       "icon": "./app4/assets/icon-no-alpha.png",
       "bundleIdentifier": "com.aoe4companion",
-      "buildNumber": "3.0.1",
+      "buildNumber": "4.0.0",
       "supportsTablet": false,
       "config": {
         "usesNonExemptEncryption": false
