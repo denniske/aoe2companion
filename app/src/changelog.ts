@@ -35,6 +35,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '37.0.0': [
+        {
+            type: 'minor',
+            title: 'Internal Framework Update',
+        },
+    ],
     '36.0.1': [
         {
             type: 'bugfix',
