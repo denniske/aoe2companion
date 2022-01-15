@@ -165,6 +165,7 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
                 }
 
                 <Searchbar
+                        autoCorrect={false}
                         autoFocus={true}
                         ref={ref => generateTestHook('Search.Input')({ props: { onChangeText: setText } })}
                         style={styles.searchbar}

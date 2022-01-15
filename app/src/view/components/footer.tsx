@@ -23,6 +23,7 @@ import {IQueryRow} from "./search-query";
 import {openLink} from "../../helper/url";
 import {appConfig} from "@nex/dataset";
 import {useCavy} from '../testing/tester';
+import Constants from "expo-constants";
 
 
 export default function Footer() {
@@ -170,6 +171,8 @@ export default function Footer() {
     //     onMouseLeave: () => console.log('LEFT'),
     // };
 
+    const isMajorRelease = Constants.manifest?.version?.includes('.0.0');
+
     return (
             <View style={styles.container}>
                 <View style={styles.menu}>
@@ -247,7 +250,7 @@ export default function Footer() {
                             <Menu.Item icon={useIcon('hands-helping')} titleStyle={iconPopupStyle('')} onPress={() => { openLink('https://discord.com/invite/gCunWKx'); setMenu(false); }} title={getTranslation('footer.help')} />
                             {/*<Menu.Item icon={useIcon('coffee')} titleStyle={iconPopupStyle('')} onPress={() => { nav('Donation'); setMenu(false); }} title={getTranslation('footer.buymeacoffee')} />*/}
                             {
-                               Platform.OS !== 'ios' &&
+                               !(Platform.OS === 'ios' && isMajorRelease) &&
                                <Menu.Item icon={useIcon('coffee')} titleStyle={iconPopupStyle('')} onPress={() => { openLink('https://www.buymeacoffee.com/denniskeil'); setMenu(false); }} title={getTranslation('footer.buymeacoffee')} />
                             }
                             <Divider />
