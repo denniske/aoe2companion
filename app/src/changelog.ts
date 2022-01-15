@@ -35,6 +35,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '38.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix civs for games before Dawn of the Dukes release',
+        },
+    ],
     '37.0.0': [
         {
             type: 'minor',

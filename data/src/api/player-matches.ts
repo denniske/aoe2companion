@@ -192,23 +192,25 @@ export async function fetchPlayerMatchesLegacy(game: string, start: number, coun
         });
     }
 
-    // HACK: Fix new civ order after Lords of the West
-    // const releaseDateLoW = 1611680400; // 01/26/2021 @ 5:00pm (UTC)
-    // json.filter(match => match.started < releaseDateLoW).forEach(match => {
-    //     match.players.forEach(player => {
-    //         if (player.civ >= 4) player.civ++;
-    //         if (player.civ >= 29) player.civ++;
-    //     })
-    // });
-    //
-    // // HACK: Fix new civ order after Dawn of the Dukes
-    // const releaseDateDoD = 1628611200; // 10/08/2021 @ 5:00pm (UTC)
-    // json.filter(match => match.started < releaseDateDoD).forEach(match => {
-    //     match.players.forEach(player => {
-    //         if (player.civ >= 2) player.civ++;
-    //         if (player.civ >= 28) player.civ++;
-    //     })
-    // });
+    if (appConfig.game === 'aoe2de') {
+        // HACK: Fix new civ order after Lords of the West
+        const releaseDateLoW = 1611680400; // 01/26/2021 @ 5:00pm (UTC)
+        json.filter(match => match.started < releaseDateLoW).forEach(match => {
+            match.players.forEach(player => {
+                if (player.civ >= 4) player.civ++;
+                if (player.civ >= 29) player.civ++;
+            })
+        });
+
+        // HACK: Fix new civ order after Dawn of the Dukes
+        const releaseDateDoD = 1628611200; // 10/08/2021 @ 5:00pm (UTC)
+        json.filter(match => match.started < releaseDateDoD).forEach(match => {
+            match.players.forEach(player => {
+                if (player.civ >= 2) player.civ++;
+                if (player.civ >= 28) player.civ++;
+            })
+        });
+    }
 
     return json.map(match => convertTimestampsToDates(match));
 }
