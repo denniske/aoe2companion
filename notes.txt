@@ -102,7 +102,7 @@ x unit upgrade costs (lightcav -> hussar / wingedhussar)
 
 
 git tag v38.0.0 && git push --tags
-git tag -d v23.0.0 && git push --delete origin v23.0.0
+git tag -d v38.0.0 && git push --delete origin v38.0.0
 git tag -d api-v26.0.20 && git push --delete origin api-v26.0.20 && git tag api-v26.0.20 && git push --tags
 
 git tag -d v26.0.5 && git push --delete origin v26.0.5 && git tag v26.0.5 && git push --tags
