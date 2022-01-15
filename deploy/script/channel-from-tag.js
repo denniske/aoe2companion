@@ -11,7 +11,7 @@ if (tag === 'yarn2') {
     process.exit();
 }
 
-const regex = /.+-(v.+)/gm;
+const regex = /(v.+)/gm;
 const match = regex.exec(tag);
 
 console.log('prod-v' + semver.major(match[1]));
