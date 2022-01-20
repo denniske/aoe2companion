@@ -3,6 +3,8 @@ https://github.com/transparencies/unique-unit-masks
 
 Aoe 4
 
+C:\Users\Dennis\Downloads\depotdownloader-2.4.5\DepotDownloader -dir "C:\Users\Dennis\Downloads\depotdownloader-2.4.5\out" -username XXX -password "XXX" -app 1466860 -filelist "C:\Users\Dennis\Downloads\depotdownloader-2.4.5\in\filelist.txt" -all-languages
+
 C:\Users\Dennis\Downloads\AOEMods.Essence-0.6.0\AOEMods.Essence-0.6.0\AOEMods.Essence.CLI.exe sga-unpack "C:\Program Files (x86)\Steam\steamapps\common\Age of Empires IV\cardinal\archives\LocaleEnglish.sga" C:\Users\Dennis\Projects\unpacked\locale-english
 cd tools
 npm run strings-data
