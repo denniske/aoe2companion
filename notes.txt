@@ -3,6 +3,10 @@ https://github.com/transparencies/unique-unit-masks
 
 Aoe 4
 
+C:\Users\Dennis\Downloads\AOEMods.Essence-0.6.0\AOEMods.Essence-0.6.0\AOEMods.Essence.CLI.exe sga-unpack "C:\Program Files (x86)\Steam\steamapps\common\Age of Empires IV\cardinal\archives\LocaleEnglish.sga" C:\Users\Dennis\Projects\unpacked\locale-english
+cd tools
+npm run strings-data
+
 feedaction in search also on click?
 
 screenshots
