@@ -1,6 +1,6 @@
-import {Dimensions, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
-import { formatDateShort, formatMonth, formatTime, formatYear } from '@nex/data';
+import {Dimensions, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useState} from 'react';
+import {formatDateShort, formatMonth, formatTime, formatYear, LeaderboardId} from '@nex/data';
 import {getLeaderboardColor, getLeaderboardTextColor} from '../../helper/colors';
 import {IRatingHistoryRow} from '../../service/rating';
 import {TextLoader} from "./loader/text-loader";
@@ -44,6 +44,7 @@ export default function Rating({ratingHistories, ready}: IRatingProps) {
     const paperTheme = usePaperTheme();
     const appTheme = useAppTheme();
     const mutate = useMutate();
+    const [hiddenLeaderboardIds, setHiddenLeaderboardIds] = useState<LeaderboardId[]>([]);
 
     const ratingHistoryDuration = useSelector(state => state.prefs.ratingHistoryDuration) || 'max';
     const values: string[] = [
@@ -58,6 +59,14 @@ export default function Rating({ratingHistories, ready}: IRatingProps) {
     const nav = async (str: any) => {
         mutate(setPrefValue('ratingHistoryDuration', str));
         await saveCurrentPrefsToStorage();
+    };
+
+    const toggleLeaderboard = (leaderboardId: LeaderboardId) => {
+        if (hiddenLeaderboardIds.includes(leaderboardId)) {
+            setHiddenLeaderboardIds(hiddenLeaderboardIds.filter(id => id != leaderboardId));
+        } else {
+            setHiddenLeaderboardIds([...hiddenLeaderboardIds, leaderboardId]);
+        }
     };
 
     let themeWithSystemFont = replaceRobotoWithSystemFont({...VictoryTheme.material});
@@ -132,7 +141,7 @@ export default function Rating({ratingHistories, ready}: IRatingProps) {
                         <VictoryAxis crossAxis tickFormat={formatTick} fixLabelOverlap={true} />
                         <VictoryAxis dependentAxis crossAxis />
                         {
-                            ratingHistories?.map(ratingHistory => (
+                            ratingHistories?.filter(rh => !hiddenLeaderboardIds.includes(rh.leaderboard_id)).map(ratingHistory => (
                                 <VictoryLine
                                     name={'line-' + ratingHistory.leaderboard_id}
                                     key={'line-' + ratingHistory.leaderboard_id}
@@ -145,7 +154,7 @@ export default function Rating({ratingHistories, ready}: IRatingProps) {
                             ))
                         }
                         {
-                            ratingHistories?.map(ratingHistory => (
+                            ratingHistories?.filter(rh => !hiddenLeaderboardIds.includes(rh.leaderboard_id)).map(ratingHistory => (
                                 <VictoryScatter
                                     name={'scatter-' + ratingHistory.leaderboard_id}
                                     key={'scatter-' + ratingHistory.leaderboard_id}
@@ -164,18 +173,21 @@ export default function Rating({ratingHistories, ready}: IRatingProps) {
                 <View style={styles.legend}>
                     {
                         (ratingHistories || Array(2).fill(0)).map((ratingHistory, i) => (
-                            <TextLoader
-                                width={100}
-                                key={'legend-' + i}
-                                style={{
-                                    paddingHorizontal: 10,
-                                    paddingVertical: 5,
-                                    fontSize: 12,
-                                    color: getLeaderboardTextColor(ratingHistory.leaderboard_id, paperTheme.dark)
-                                }}
-                            >
-                                {formatLeaderboardId(ratingHistory.leaderboard_id)}
-                            </TextLoader>
+                            <TouchableOpacity key={'legend-' + i} onPress={() => toggleLeaderboard(ratingHistory.leaderboard_id)}>
+                                <TextLoader
+                                    width={100}
+                                    key={'legend-' + i}
+                                    style={{
+                                        opacity: hiddenLeaderboardIds.includes(ratingHistory.leaderboard_id) ? 0.5 : 1,
+                                        paddingHorizontal: 10,
+                                        paddingVertical: 5,
+                                        fontSize: 12,
+                                        color: getLeaderboardTextColor(ratingHistory.leaderboard_id, paperTheme.dark)
+                                    }}
+                                >
+                                    {formatLeaderboardId(ratingHistory.leaderboard_id)}
+                                </TextLoader>
+                            </TouchableOpacity>
                         ))
                     }
                 </View>

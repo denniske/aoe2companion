@@ -35,6 +35,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '38.0.1': [
+        {
+            type: 'minor',
+            title: 'Click on rating history legend in profile toggles visiblity of the graph',
+        },
+    ],
     '38.0.0': [
         {
             type: 'bugfix',

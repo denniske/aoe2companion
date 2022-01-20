@@ -15,7 +15,7 @@ export enum LeaderboardId {
 const abbreviations = abbreviationsData;
 
 export function formatLeaderboardId(leaderboard_id: LeaderboardId) {
-    console.log('getUiTranslation', `enum.leaderboardid.${abbreviations[leaderboard_id]}`, leaderboard_id);
+    // console.log('getUiTranslation', `enum.leaderboardid.${abbreviations[leaderboard_id]}`, leaderboard_id);
     return getUiTranslation(`enum.leaderboardid.${abbreviations[leaderboard_id]}`);
 }
 
