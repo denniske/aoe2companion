@@ -35,10 +35,14 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '38.0.1': [
+    '39.0.0': [
         {
             type: 'minor',
             title: 'Click on rating history legend in profile toggles visiblity of the graph',
+        },
+        {
+            type: 'bugfix',
+            title: 'Add unique units to units list',
         },
     ],
     '38.0.0': [

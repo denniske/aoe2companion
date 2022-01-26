@@ -1,6 +1,7 @@
 import {flatMap, sortBy} from 'lodash';
 import {civDict, civs} from './civs';
 import {getRelatedUnitLines, getUnitLineIdForUnit, Unit, UnitLine, unitLines} from './units';
+import {appConfig} from "@nex/dataset";
 
 
 interface IUnitSection {
@@ -96,10 +97,12 @@ const unitSections: IUnitSection[] = [
                 'Missionary',
             ],
     },
-    // {
-    //     title: 'unit.section.unique',
-    //     data: sortBy(flatMap(civs, civ => [civDict[civ].uniqueUnits[0], ...getRelatedUnitLines(getUnitLineIdForUnit(civDict[civ].uniqueUnits[0]))])),
-    // },
+    ...(appConfig.game === 'aoe2de' ? [
+        {
+            title: 'unit.section.unique',
+            data: sortBy(flatMap(civs, civ => [civDict[civ].uniqueUnits[0], ...getRelatedUnitLines(getUnitLineIdForUnit(civDict[civ].uniqueUnits[0]))])),
+        },
+    ] : [])
 ];
 
 export const allUnitSections = unitSections.map(section => ({
