@@ -35,6 +35,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '39.0.1': [
+        {
+            type: 'bugfix',
+            title: 'Fix expanding match in Lobbies view',
+        },
+    ],
     '39.0.0': [
         {
             type: 'minor',

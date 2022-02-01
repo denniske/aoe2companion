@@ -2,8 +2,6 @@ import React from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {userIdFromBase} from '../../helper/user';
-import {RootStackProp} from '../../../App';
-import {getSlotTypeName} from "@nex/data";
 import {FontAwesome5} from "@expo/vector-icons";
 import {useSelector} from "../../redux/reducer";
 import {makeVariants, useAppTheme, useTheme} from "../../theming";
@@ -11,6 +9,8 @@ import {MyText} from "../components/my-text";
 import {getFlagIcon} from "../../helper/flags";
 import {createStylesheet} from '../../theming-new';
 import {ILobbyPlayerRaw} from '../../helper/data';
+import {RootStackProp} from '../../../App2';
+import {getSlotTypeName} from '@nex/data/api';
 
 
 interface IPlayerProps {
