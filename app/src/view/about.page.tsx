@@ -156,6 +156,7 @@ export default function AboutPage() {
             <MyText style={styles.content}>moleMTL</MyText>
             <MyText style={styles.content}>Mrandreagalassi</MyText>
             <MyText style={styles.content}>Noorulhuda Paleja</MyText>
+            <MyText style={styles.content}>Pedro Bessone Bessone Tepedino</MyText>
             <MyText style={styles.content}>Pikmans030</MyText>
             <MyText style={styles.content}>pseudovictor</MyText>
             <MyText style={styles.content}>Radu</MyText>
@@ -170,6 +171,7 @@ export default function AboutPage() {
             <MyText style={styles.content}>Ultima Gaina</MyText>
             <MyText style={styles.content}>Zachary Bird</MyText>
             <MyText style={styles.content}>@compumaster</MyText>
+            <MyText style={styles.content}>@cooljoe</MyText>
             <MyText style={styles.content}>@hend0s</MyText>
             <MyText style={styles.content}>@qotile</MyText>
             <MyText style={styles.content}>@wired14</MyText>
