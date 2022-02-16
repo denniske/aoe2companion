@@ -25347,7 +25347,6 @@ __metadata:
     ts-node: 9.1.1
     tslib: ^2.0.0
     typeorm: ^0.2.26
-    typeorm-naming-strategies: ^1.1.0
     typescript: ~4.3.5
     uuid: ^3.4.0
     victory: ^35.0.8
@@ -27979,15 +27978,6 @@ __metadata:
   version: 0.0.6
   resolution: "typedarray@npm:0.0.6"
   checksum: 33b39f3d0e8463985eeaeeacc3cb2e28bc3dfaf2a5ed219628c0b629d5d7b810b0eb2165f9f607c34871d5daa92ba1dc69f49051cf7d578b4cbd26c340b9d1b1
-  languageName: node
-  linkType: hard
-
-"typeorm-naming-strategies@npm:^1.1.0":
-  version: 1.3.0
-  resolution: "typeorm-naming-strategies@npm:1.3.0"
-  peerDependencies:
-    typeorm: ^0.2.0
-  checksum: ce63c61bf4af17884089707ed96a4efd5812d321b9af1b128d4025249d2daeb42d9a5a9111c43614d6a31311948f37be8b11ab86c5b470b64ba4cd467716660b
   languageName: node
   linkType: hard
 

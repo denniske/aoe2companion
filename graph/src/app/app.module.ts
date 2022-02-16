@@ -33,7 +33,6 @@ import {KeyValue} from "../entity/keyvalue";
 import {User} from "../entity/user";
 import {LeaderboardRow} from "../entity/leaderboard-row";
 import {RatingHistory} from "../entity/rating-history";
-import {SnakeNamingStrategy} from "typeorm-naming-strategies";
 import {RefetchRepairTask} from '../task/refetch-repair.task';
 import {ReplayTask} from '../task/replay.task';
 import {S3Module} from 'nestjs-s3';
@@ -43,6 +42,7 @@ import {RefetchLateTask} from '../task/refetch-late.task';
 import {PlayerResolver} from "../resolver/player";
 import {ImportOngoingTask} from "../task/import-ongoing.task";
 import {RestController} from "../controller/rest.controller";
+import {SnakeNamingStrategy} from "../plugin/snake-naming.strategy";
 
 @Module({
     imports: [

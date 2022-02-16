@@ -145,7 +145,6 @@
     "source-map-support": "^0.5.10",
     "tslib": "^2.0.0",
     "typeorm": "^0.2.26",
-    "typeorm-naming-strategies": "^1.1.0",
     "uuid": "^3.4.0",
     "victory": "^35.0.8",
     "victory-native": "^35.0.1"
@@ -225,7 +224,6 @@
         "rxjs",
         "tslib",
         "typeorm",
-        "typeorm-naming-strategies",
         "uuid",
         "prisma"
       ]
