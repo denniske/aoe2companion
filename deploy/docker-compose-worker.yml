@@ -15,7 +15,7 @@ services:
         max-size: "50m"
     environment:
       ALLOWED_DOMAINS: 'aoe(2|4)companion.com'
-      SITES: 'mgz.aoe2companion.com=mgz:80;api.aoe2companion.com=api:80;function.aoe2companion.com=function:80;api.aoe4companion.com=aoe4-api:80;function.aoe4companion.com=aoe4-function:80;'
+      SITES: 'mgz.aoe2companion.com=mgz:80;api.aoe2companion.com=api:80;function.aoe2companion.com=function:80;rest.aoe2companion.com=rest:80;api.aoe4companion.com=aoe4-api:80;function.aoe4companion.com=aoe4-function:80;'
       ALL_SITES: >
         notify.aoe2companion.com=notify:80;
         replay.aoe2companion.com=replay:80;
