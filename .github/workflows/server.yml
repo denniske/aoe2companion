@@ -19,6 +19,7 @@ on:
       - '*metric-v*'
       - '*api-v*'
       - '*function-v*'
+      - '*rest-v*'
       - '*rank-v*'
       - '*replay-v*'
       - '*graphql-v*'

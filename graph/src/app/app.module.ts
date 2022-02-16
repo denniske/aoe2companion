@@ -42,6 +42,7 @@ import {RefetchResultTask} from '../task/refetch-result.task';
 import {RefetchLateTask} from '../task/refetch-late.task';
 import {PlayerResolver} from "../resolver/player";
 import {ImportOngoingTask} from "../task/import-ongoing.task";
+import {RestController} from "../controller/rest.controller";
 
 @Module({
     imports: [
@@ -161,6 +162,9 @@ export class TaskAndControllerModule {
         }
         if (process.env.SERVICE_NAME?.endsWith('function')) {
             controllers.push(FunctionController);
+        }
+        if (process.env.SERVICE_NAME?.endsWith('rest')) {
+            controllers.push(RestController);
         }
 
         console.log('environment', process.env.ENVIRONMENT);
