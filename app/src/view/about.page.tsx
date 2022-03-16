@@ -129,6 +129,7 @@ export default function AboutPage() {
 
             <MyText style={styles.heading}>{getTranslation('about.heading.supporters')}</MyText>
             <MyText style={styles.content}>Andreas Teppe</MyText>
+            <MyText style={styles.content}>axør</MyText>
             <MyText style={styles.content}>BananaBenito</MyText>
             <MyText style={styles.content}>Darkwest</MyText>
             <MyText style={styles.content}>ddk_deepak</MyText>
