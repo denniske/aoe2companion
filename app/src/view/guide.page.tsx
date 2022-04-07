@@ -26,15 +26,12 @@ export function GuideTitle(props: any) {
     );
 }
 
-export function GuideHeaderBack(props: any) {
+export function GuideHeaderHome(props: any) {
     const styles = useStyles();
     return (
         <View style={styles.menu}>
             <TouchableOpacity style={styles.actionLeft} onPress={props.onHomePressed}>
-                {
-                    props.canGoBack &&
-                    <FontAwesome5 name="arrow-circle-left" size={18} style={styles.icon} />
-                }
+                <FontAwesome5 name="home" size={18} style={styles.icon} />
             </TouchableOpacity>
         </View>
     );
@@ -102,9 +99,20 @@ export function GuideHeaderBookmark(props: IGuideHeaderBookmarkProps) {
 
     return (
         <View style={styles.menu}>
-            <TouchableOpacity style={styles.actionRight}>
-                <Picker anchor={() => <FontAwesome5 solid="true" name="gratipay" size={18} style={styles.icon} />} itemHeight={40} textMinWidth={150} value={'never'} icon={icon} values={favoriteList} formatter={formatFavorite} onSelect={onFavoriteSelected}/>
-            </TouchableOpacity>
+            <Picker
+                style={styles.actionRight}
+                anchor={() => (
+                    <FontAwesome5 solid="true" name="gratipay" size={18} style={styles.icon} />
+                )}
+                anchorStyle={styles.actionRightAnchor}
+                itemHeight={40}
+                textMinWidth={150}
+                value={'never'}
+                icon={icon}
+                values={favoriteList}
+                formatter={formatFavorite}
+                onSelect={onFavoriteSelected}
+            />
         </View>
     );
 }
@@ -148,10 +156,10 @@ export default function GuidePage() {
                 const redirectTo = 'window.location = "' + newURL + '"';
                 webViewRef.current!.injectJavaScript(redirectTo);
             }} />,
-            headerLeft: () => <GuideHeaderBack onHomePressed={() => {
-                const redirectTo = 'history.back()';
+            headerLeft: () => <GuideHeaderHome onHomePressed={() => {
+                const redirectTo = 'window.location = "' + baseUrl + '"';
                 webViewRef.current!.injectJavaScript(redirectTo);
-            }} canGoBack={canGoBack} />,
+            }} />,
         });
     }, [navigation, canGoBack, url, guides.data]);
 
@@ -230,16 +238,22 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         flexDirection: 'row',
         flex: 1,
         marginHorizontal: 8,
+        // backgroundColor: 'yellow',
     },
     actionLeft: {
+        // backgroundColor: 'purple',
         width: 35,
         justifyContent: 'center',
         alignItems: 'center',
     },
     actionRight: {
+        // backgroundColor: 'purple',
         width: 35,
-        justifyContent: 'center',
+    },
+    actionRightAnchor: {
+        height: '100%',
         alignItems: 'center',
+        justifyContent: 'center',
     },
     icon: {
         color: theme.textColor,

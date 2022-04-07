@@ -21,6 +21,7 @@ interface IPickerProps<T> {
     anchor?: (props: {}) => React.ReactNode;
     onSelect: (value: T) => void;
     style?: StyleProp<ViewStyle>;
+    anchorStyle?: StyleProp<ViewStyle>;
     disabled?: boolean;
     container?: 'flatlist' | 'sectionlist';
     textMinWidth?: number;
@@ -46,7 +47,7 @@ export default function  Picker<T>(props: IPickerProps<T>) {
 
     const { value, values, sections, onSelect, style, disabled,
             formatter = (x) => x, sectionFormatter = (x) => x, icon = x => undefined, cell = defaultCell, divider = x => false, container,
-            textMinWidth = 0, itemHeight, anchor
+            textMinWidth = 0, itemHeight, anchor, anchorStyle
     } = props;
 
     const color = disabled ? theme.colors.disabled : theme.colors.text;
@@ -88,7 +89,7 @@ export default function  Picker<T>(props: IPickerProps<T>) {
                 visible={menu}
                 onDismiss={() => setMenu(false)}
                 anchor={
-                    <TouchableOpacity style={[styles.anchor]} onPress={() => setMenu(true)} disabled={disabled}>
+                    <TouchableOpacity style={[styles.anchor, anchorStyle]} onPress={() => setMenu(true)} disabled={disabled}>
                         { anchor && anchor({}) }
                         {
                             !anchor &&
@@ -150,7 +151,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     anchor: {
-        // backgroundColor: 'yellow',
+        // backgroundColor: 'pink',
         flexDirection: 'row',
     },
     row: {
