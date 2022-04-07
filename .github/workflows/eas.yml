@@ -147,15 +147,14 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Setup Secrets
-        uses: secrethub/actions/env-export@v0.2.1
-        env:
-          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
-          EXPO_TOKEN: secrethub://denniske/aoe2companion/expo_token
-
-      - run: brew install secrethub/tools/secrethub-cli
       - run: |
+          wget https://github.com/secrethub/secrethub-cli/releases/download/v0.44.0/secrethub-v0.44.0-darwin-amd64.tar.gz
+          mkdir -p /usr/local/secrethub
+          tar -C /usr/local/secrethub -xzf secrethub-vx.x.x-os-architecture.tar.gz
+          ln -s /usr/local/secrethub/bin/secrethub /usr/local/bin/secrethub
           echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
+
+      - run: echo $EXPO_TOKEN
 
 #      - run: yarn
 #      - run: npx eas build --profile production-${AOE} --platform ios --local --non-interactive
