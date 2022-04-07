@@ -149,9 +149,9 @@ jobs:
 
       - run: |
           wget https://github.com/secrethub/secrethub-cli/releases/download/v0.44.0/secrethub-v0.44.0-darwin-amd64.tar.gz
-          mkdir -p /usr/local/secrethub
-          tar -C /usr/local/secrethub -xzf secrethub-vx.x.x-os-architecture.tar.gz
-          ln -s /usr/local/secrethub/bin/secrethub /usr/local/bin/secrethub
+          sudo mkdir -p /usr/local/secrethub
+          sudo tar -C /usr/local/secrethub -xzf secrethub-vx.x.x-os-architecture.tar.gz
+          sudo ln -s /usr/local/secrethub/bin/secrethub /usr/local/bin/secrethub
           echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
 
       - run: echo $EXPO_TOKEN
