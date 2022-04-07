@@ -103,7 +103,7 @@ export function GuideHeaderBookmark(props: IGuideHeaderBookmarkProps) {
     return (
         <View style={styles.menu}>
             <TouchableOpacity style={styles.actionRight}>
-                <Picker anchor={() => <FontAwesome5 solid="true" name="gratipay" size={18} />} itemHeight={40} textMinWidth={150} value={'never'} icon={icon} values={favoriteList} formatter={formatFavorite} onSelect={onFavoriteSelected}/>
+                <Picker anchor={() => <FontAwesome5 solid="true" name="gratipay" size={18} style={styles.icon} />} itemHeight={40} textMinWidth={150} value={'never'} icon={icon} values={favoriteList} formatter={formatFavorite} onSelect={onFavoriteSelected}/>
             </TouchableOpacity>
         </View>
     );
@@ -242,7 +242,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         alignItems: 'center',
     },
     icon: {
-        color: '#777',
+        color: theme.textColor,
     },
     guideIcon: {
         width: 21,

@@ -35,7 +35,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '39.0.4': [
+    '39.0.5': [
         {
             type: 'feature',
             title: 'Mark your favorite build order guides',
