@@ -23,6 +23,7 @@ export interface IConfig {
 }
 
 export interface IPrefs {
+    guideFavorites: string[];
     country?: Flag;
     leaderboardId?: LeaderboardId;
     changelogLastVersionRead?: string;

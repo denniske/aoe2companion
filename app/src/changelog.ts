@@ -35,6 +35,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '39.0.2': [
+        {
+            type: 'feature',
+            title: 'Mark your favorite build order guides',
+        },
+    ],
     '39.0.1': [
         {
             type: 'bugfix',

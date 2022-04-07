@@ -556,6 +556,7 @@ export function InnerApp() {
                     options={{
                         animationEnabled: false,
                         headerTitle: props => <GuideTitle {...props} />,
+                        headerTitleAlign: 'center',
                     }}
                 />
                 <Stack.Screen

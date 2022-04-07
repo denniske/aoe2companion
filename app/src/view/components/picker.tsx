@@ -18,6 +18,7 @@ interface IPickerProps<T> {
     icon?: (value: T, inList?: boolean) => React.ReactNode;
     divider?: (value: T, index: number) => boolean;
     cell?: (props: {}) => React.ReactNode;
+    anchor?: (props: {}) => React.ReactNode;
     onSelect: (value: T) => void;
     style?: StyleProp<ViewStyle>;
     disabled?: boolean;
@@ -45,7 +46,7 @@ export default function  Picker<T>(props: IPickerProps<T>) {
 
     const { value, values, sections, onSelect, style, disabled,
             formatter = (x) => x, sectionFormatter = (x) => x, icon = x => undefined, cell = defaultCell, divider = x => false, container,
-            textMinWidth = 0, itemHeight
+            textMinWidth = 0, itemHeight, anchor
     } = props;
 
     const color = disabled ? theme.colors.disabled : theme.colors.text;
@@ -88,16 +89,20 @@ export default function  Picker<T>(props: IPickerProps<T>) {
                 onDismiss={() => setMenu(false)}
                 anchor={
                     <TouchableOpacity style={[styles.anchor]} onPress={() => setMenu(true)} disabled={disabled}>
-                        <View style={styles.row}>
-                            {cell({value, formatter: (x: any, i: any) => formatter(x, false), color, icon})}
-                            <FontAwesome style={styles.handle} name="chevron-down" color={color} size={12} />
-                        </View>
+                        { anchor && anchor({}) }
+                        {
+                            !anchor &&
+                            <View style={styles.row}>
+                                {cell({value, formatter: (x: any, i: any) => formatter(x, false), color, icon})}
+                                <FontAwesome style={styles.handle} name="chevron-down" color={color} size={12} />
+                            </View>
+                        }
                     </TouchableOpacity>
                 }
             >
                 {
                     container === 'flatlist' &&
-                    <View style={{height: Dimensions.get('window').height-250, minWidth: 200}}>
+                    <View style={{height: Dimensions.get('window').height-250, minWidth: 210}}>
                         <FlatList
                             {...flatListProps}
                             keyboardShouldPersistTaps={'always'}
@@ -109,7 +114,7 @@ export default function  Picker<T>(props: IPickerProps<T>) {
                 }
                 {
                     container === 'sectionlist' &&
-                    <View style={{height: Dimensions.get('window').height-450, minWidth: 200}}>
+                    <View style={{height: Dimensions.get('window').height-450, minWidth: 210}}>
                         <SectionList
                             stickySectionHeadersEnabled={false}
                             keyboardShouldPersistTaps={'always'}
@@ -122,7 +127,7 @@ export default function  Picker<T>(props: IPickerProps<T>) {
                 }
                 {
                     !container &&
-                    <View style={{minWidth: 200}}>
+                    <View style={{minWidth: 210}}>
                         {values!.map(renderItem)}
                     </View>
                 }
