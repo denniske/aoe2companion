@@ -10,7 +10,7 @@ import {FontAwesome5} from "@expo/vector-icons";
 import {createStylesheet} from '../theming-new';
 import {RouteProp, useFocusEffect, useNavigation, useRoute} from '@react-navigation/native';
 import {openLink} from "../helper/url";
-import {RootStackParamList} from "../../App";
+import {RootStackParamList} from "../../App2";
 import {saveCurrentPrefsToStorage} from "../service/storage";
 import Picker from "./components/picker";
 import {useLazyApi} from "../hooks/use-lazy-api";
