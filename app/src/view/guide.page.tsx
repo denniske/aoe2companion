@@ -100,7 +100,7 @@ export function GuideHeaderBookmark(props: IGuideHeaderBookmarkProps) {
     return (
         <View style={styles.menu}>
             <Picker
-                style={styles.actionRight}
+                style={styles.actionRightPicker}
                 anchor={() => (
                     <FontAwesome5 solid="true" name="gratipay" size={18} style={styles.icon} />
                 )}
@@ -247,10 +247,15 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         alignItems: 'center',
     },
     actionRight: {
-        // backgroundColor: 'purple',
+        width: 35,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    actionRightPicker: {
         width: 35,
     },
     actionRightAnchor: {
+        width: '100%',
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
