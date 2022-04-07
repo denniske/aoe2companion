@@ -137,8 +137,15 @@ export default function GuidePage() {
     const navigation = useNavigation();
     useLayoutEffect(() => {
         navigation.setOptions({
-            headerRight: () => <GuideHeaderBookmark url={url} guides={guides.data} onBookmarkPressed={(guideId: string) => setUrl(`${baseUrl}/build/${guideId}/0`)} />, // setUrl(`https://buildorderguide.com?t=${Date.now()}`)
-            headerLeft: () => <GuideHeaderBack onHomePressed={() => webViewRef.current!.goBack()} canGoBack={canGoBack} />, // setUrl(`https://buildorderguide.com?t=${Date.now()}`)
+            headerRight: () => <GuideHeaderBookmark url={url} guides={guides.data} onBookmarkPressed={(guideId: string) => {
+                const newURL = `${baseUrl}/build/${guideId}/0`;
+                const redirectTo = 'window.location = "' + newURL + '"';
+                webViewRef.current!.injectJavaScript(redirectTo);
+            }} />,
+            headerLeft: () => <GuideHeaderBack onHomePressed={() => {
+                const redirectTo = 'history.back()';
+                webViewRef.current!.injectJavaScript(redirectTo);
+            }} canGoBack={canGoBack} />,
         });
     }, [navigation, canGoBack, url, guides.data]);
 
@@ -194,7 +201,7 @@ export default function GuidePage() {
                         setCanGoBack(navState.canGoBack);
                     }}
 
-                    source={{uri: url}}
+                    source={{uri: 'https://buildorderguide.com'}}
                     scalesPageToFit={false}
                     style={{
                         minHeight: 200,
@@ -217,7 +224,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         paddingLeft: 5,
         paddingRight: 5,
         marginRight: 17,
-        marginLeft: (Platform.OS === 'ios' ? 0 : 11),
+        marginLeft: 11,
     },
     actionRight: {
         paddingLeft: 5,
