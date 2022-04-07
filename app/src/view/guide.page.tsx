@@ -29,12 +29,14 @@ export function GuideTitle(props: any) {
 export function GuideHeaderBack(props: any) {
     const styles = useStyles();
     return (
-        <TouchableOpacity style={styles.actionLeft} onPress={props.onHomePressed}>
-            {
-                props.canGoBack &&
-                <FontAwesome5 name="arrow-circle-left" size={18} style={styles.icon} />
-            }
-        </TouchableOpacity>
+        <View style={styles.menu}>
+            <TouchableOpacity style={styles.actionLeft} onPress={props.onHomePressed}>
+                {
+                    props.canGoBack &&
+                    <FontAwesome5 name="arrow-circle-left" size={18} style={styles.icon} />
+                }
+            </TouchableOpacity>
+        </View>
     );
 }
 
@@ -63,12 +65,14 @@ export function GuideHeaderBookmark(props: IGuideHeaderBookmarkProps) {
     if (match) {
         const bookmarkSolid = !guideId || favorites.includes(guideId);
         return (
-            <TouchableOpacity style={styles.actionRight} onPress={toggleFavorite}>
-                {
-                    // <MyText>{guideId}</MyText>
-                    <FontAwesome5 solid={bookmarkSolid} name="star" size={18} style={styles.icon} />
-                }
-            </TouchableOpacity>
+            <View style={styles.menu}>
+                <TouchableOpacity style={styles.actionRight} onPress={toggleFavorite}>
+                    {
+                        // <MyText>{guideId}</MyText>
+                        <FontAwesome5 solid={bookmarkSolid} name="star" size={18} style={styles.icon} />
+                    }
+                </TouchableOpacity>
+            </View>
         );
     }
 
@@ -97,9 +101,11 @@ export function GuideHeaderBookmark(props: IGuideHeaderBookmarkProps) {
     };
 
     return (
-        <TouchableOpacity style={styles.actionRight}>
-            <Picker anchor={() => <FontAwesome5 solid="true" name="gratipay" size={18} />} itemHeight={40} textMinWidth={150} value={'never'} icon={icon} values={favoriteList} formatter={formatFavorite} onSelect={onFavoriteSelected}/>
-        </TouchableOpacity>
+        <View style={styles.menu}>
+            <TouchableOpacity style={styles.actionRight}>
+                <Picker anchor={() => <FontAwesome5 solid="true" name="gratipay" size={18} />} itemHeight={40} textMinWidth={150} value={'never'} icon={icon} values={favoriteList} formatter={formatFavorite} onSelect={onFavoriteSelected}/>
+            </TouchableOpacity>
+        </View>
     );
 }
 
@@ -220,16 +226,20 @@ export default function GuidePage() {
 }
 
 const useStyles = createStylesheet(theme => StyleSheet.create({
+    menu: {
+        flexDirection: 'row',
+        flex: 1,
+        marginHorizontal: 8,
+    },
     actionLeft: {
-        paddingLeft: 5,
-        paddingRight: 5,
-        marginRight: 17,
-        marginLeft: 11,
+        width: 35,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     actionRight: {
-        paddingLeft: 5,
-        paddingRight: 5,
-        marginRight: 17,
+        width: 35,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     icon: {
         color: '#777',
