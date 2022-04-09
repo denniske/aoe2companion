@@ -38,7 +38,7 @@ COPY graph/graphql ./graph/graphql
 
 #RUN ls -al
 
-ENV PORT=80
-EXPOSE 80
+#ENV PORT=80
+#EXPOSE 80
 
 CMD ["node", "dist/graph/main.js"]
