@@ -90,7 +90,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku config:set --no-restart --global TWITCH_CLIENT_ID=$TWITCH_CLIENT_ID
           ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku config:set --no-restart --global TWITCH_CLIENT_SECRET=$TWITCH_CLIENT_SECRET
           
-          ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku config:set --no-restart node-js-app SERVICE_NAME=$SERVICE_NAME
+          ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku config:set --no-restart $SERVICE_NAME SERVICE_NAME=$SERVICE_NAME
 
           ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku apps:create $SERVICE_NAME
           ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku domains:set $SERVICE_NAME $SUBDOMAIN
