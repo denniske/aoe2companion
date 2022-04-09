@@ -67,12 +67,12 @@ jobs:
       - run: echo $SUBDOMAIN
       - run: echo "SERVICE_NAME=$(node deploy/script/service-name-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
       - run: echo $SERVICE_NAME
-#      - run: yarn add nx@10.2.0
-#      - run: yarn run generate:prisma
-#      - run: npx nx build graph
-#      - run: docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$COMMIT_SHA1 .
-#      - run: echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-#      - run: docker push denniske/aoe2companion-$SERVICE_NAME:$COMMIT_SHA1
+      - run: yarn add nx@10.2.0
+      - run: yarn run generate:prisma
+      - run: npx nx build graph
+      - run: docker build -f graph/deploy/Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$COMMIT_SHA1 .
+      - run: echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+      - run: docker push denniske/aoe2companion-$SERVICE_NAME:$COMMIT_SHA1
 
       - run: |
           mkdir ~/.ssh
@@ -94,7 +94,6 @@ jobs:
           ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku config:set --no-restart $SERVICE_NAME SERVICE_NAME=$SERVICE_NAME
           ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku domains:set $SERVICE_NAME $SUBDOMAIN
           ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku git:from-image $SERVICE_NAME denniske/aoe2companion-$SERVICE_NAME:$COMMIT_SHA1
-
 
 #          dokku config:set --no-restart --encoded node-js-app KEY="$(base64 ~/.ssh/id_rsa)"
 
