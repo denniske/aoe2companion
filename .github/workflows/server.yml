@@ -96,6 +96,7 @@ jobs:
             && true
           
           ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku apps:create $SERVICE_NAME || true
+          ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku checks:disable $SERVICE_NAME SERVICE_NAME=$SERVICE_NAME
           ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku config:set --no-restart $SERVICE_NAME SERVICE_NAME=$SERVICE_NAME
           ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku config:set --no-restart $SERVICE_NAME DATABASE_URL=$DATABASE_URL
           ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku domains:set $SERVICE_NAME $SUBDOMAIN.${AOE}companion.com
