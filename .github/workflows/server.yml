@@ -101,6 +101,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku domains:set $SERVICE_NAME $SUBDOMAIN.${AOE}companion.com
           ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku letsencrypt:enable $SERVICE_NAME
           ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku letsencrypt:cron-job --add $SERVICE_NAME
+          ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku resource:limit --cpu 1 --memory 500 $SERVICE_NAME
           ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku git:from-image $SERVICE_NAME denniske/aoe2companion-$SERVICE_NAME:$COMMIT_SHA1
 
 #          dokku config:set --no-restart --encoded node-js-app KEY="$(base64 ~/.ssh/id_rsa)"
