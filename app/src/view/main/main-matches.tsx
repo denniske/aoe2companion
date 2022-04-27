@@ -214,7 +214,6 @@ function MainMatchesInternal({user}: { user: any}) {
 
 const useStyles = createStylesheet((theme, mode) => StyleSheet.create({
     searchbar: {
-        marginTop: Platform.select({ ios: mode == 'light' ? 0 : 0 }),
         borderRadius: 0,
         paddingHorizontal: 10,
     },

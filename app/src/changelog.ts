@@ -35,6 +35,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '39.0.7': [
+        {
+            type: 'minor',
+            title: 'Add unique techs to tech list again',
+        },
+    ],
     '39.0.6': [
         {
             type: 'feature',

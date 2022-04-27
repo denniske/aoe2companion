@@ -1,6 +1,7 @@
 import {Tech} from "./techs";
 import {Civ, civDict, civs} from "./civs";
 import {Building} from './buildings';
+import {appConfig} from '@nex/dataset';
 
 interface ITechSection {
     building?: Building;
@@ -150,8 +151,10 @@ export const techSections: ITechSection[] = [
             "SpiesTreason",
         ],
     },
-    // ...civs.map(civ => ({
-    //     civ: civ,
-    //     data: civDict[civ].uniqueTechs,
-    // })),
+    ...(appConfig.game === 'aoe2de' ? [
+        ...civs.map(civ => ({
+            civ: civ,
+            data: civDict[civ].uniqueTechs,
+        })),
+    ] : [])
 ];

@@ -63,7 +63,6 @@ const useStyles = createStylesheet((theme, mode) => StyleSheet.create({
         padding: 20,
     },
     searchbar: {
-        marginTop: Platform.select({ ios: mode == 'light' ? 5 : 0 }),
         borderRadius: 0,
         paddingHorizontal: 10,
     },
