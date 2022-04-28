@@ -2089,8 +2089,6 @@ export const unitLines: IUnitLineDict = {
     },
     'ElephantArcher': {
         units: ['ElephantArcher', 'EliteElephantArcher'],
-        unique: true,
-        civ: 'Indians',
         counteredBy: [
             'Spearman',
             'FlemishMilitia',

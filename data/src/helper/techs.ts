@@ -1166,50 +1166,50 @@ export const techList: ITech[] = [
     {
         "dataId": "454",
         "name": "Counterweights",
-        "civ": "Indians",
-        "age": 'Castle',
+        "civ": "Saracens",
+        "age": 'Imperial',
     },
     {
         "dataId": "835",
         "name": "Kshatriyas",
-        "civ": "Indians",
+        "civ": "Gurjaras",
         "age": 'Castle',
     },
     {
         "dataId": "836",
         "name": "FrontierGuards",
-        "civ": "Indians",
-        "age": 'Castle',
+        "civ": "Gurjaras",
+        "age": 'Imperial',
     },
     {
         "dataId": "831",
         "name": "MedicalCorps",
-        "civ": "Indians",
+        "civ": "Dravidians",
         "age": 'Castle',
     },
     {
         "dataId": "832",
         "name": "WootzSteel",
-        "civ": "Indians",
-        "age": 'Castle',
+        "civ": "Dravidians",
+        "age": 'Imperial',
     },
     {
         "dataId": "833",
         "name": "Paiks",
-        "civ": "Indians",
+        "civ": "Bengalis",
         "age": 'Castle',
     },
     {
         "dataId": "834",
         "name": "Mahayana",
-        "civ": "Indians",
-        "age": 'Castle',
+        "civ": "Bengalis",
+        "age": 'Imperial',
     },
 
     {
         "dataId": "506",
         "name": "GrandTrunkRoad",
-        "civ": "Indians",
+        "civ": "Hindustanis",
         "age": 'Castle',
     },
 
@@ -1633,7 +1633,7 @@ export const techList: ITech[] = [
     {
         "dataId": "507",
         "name": "Shatagni",
-        "civ": "Indians",
+        "civ": "Hindustanis",
         "age": 'Imperial',
     },
     {

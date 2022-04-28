@@ -1,4 +1,11 @@
 export const unitLineIdsData = [
+    'Ghulam',
+    'ShrivamshaRider',
+    'ChakramThrower',
+    'Thirisadai',
+    'UrumiSwordsman',
+    'ArmoredElephant',
+    'Ratha',
     'Obuch',
     'HussiteWagon',
     'Coustillier',
