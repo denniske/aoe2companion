@@ -92,7 +92,7 @@ async function loadStrings() {
     }
 }
 
-// loadStrings();
+loadStrings();
 
 async function loadStringsForLanguage4(language: keyof typeof aoe2netLanguageMap) {
     const filePath = path.resolve(__dirname, '..', '..', 'app4', 'assets', 'strings', aoe2netLanguageMap[language] + '.json.lazy');
@@ -139,4 +139,4 @@ async function loadStringsAoE2TechTree() {
     }
 }
 
-// loadStringsAoE2TechTree();
+loadStringsAoE2TechTree();

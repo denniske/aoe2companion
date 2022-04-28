@@ -7,6 +7,7 @@ const buildingIcons = {
     'Blacksmith': require('../../../app/assets/buildings/Blacksmith.png'),
     'BombardTower': require('../../../app/assets/buildings/BombardTower.png'),
     'Castle': require('../../../app/assets/buildings/Castle.png'),
+    'Caravanserai': require('../../../app/assets/buildings/Caravanserai.png'),
     'Dock': require('../../../app/assets/buildings/Dock.png'),
     'Donjon': require('../../../app/assets/buildings/Donjon.png'),
     'Farm': require('../../../app/assets/buildings/Farm.png'),

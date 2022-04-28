@@ -29,6 +29,25 @@ interface IUnitLineDict {
 export const unitLineIds = unitLineIdsData;
 
 export const unitLines: IUnitLineDict = {
+    'Ghulam': {
+        units: ['Ghulam', 'EliteGhulam'],
+        unique: true,
+        counteredBy: [
+        ],
+        upgrades: [
+            'Forging',
+            'IronCasting',
+            'BlastFurnace',
+            'Arson',
+            'ScaleMailArmor',
+            'ChainMailArmor',
+            'Squires',
+            'Tracking',
+            'Faith',
+            'Conscription',
+            'Kasbah',
+        ],
+    },
     'ShrivamshaRider': {
         units: ['ShrivamshaRider', 'EliteShrivamshaRider'],
         unique: true,
@@ -2445,41 +2464,47 @@ export const unitLines: IUnitLineDict = {
 };
 
 const unitsInternal = {
+    'Ghulam': {
+        dataId: '1747',
+    },
+    'EliteGhulam': {
+        dataId: '1749',
+    },
     'CamelScout': {
-        dataId: '1707',
+        dataId: '1755',
     },
     'ShrivamshaRider': {
-        dataId: '1707',
+        dataId: '1751',
     },
     'EliteShrivamshaRider': {
-        dataId: '1707',
+        dataId: '1753',
     },
     'ChakramThrower': {
-        dataId: '1707',
+        dataId: '1741',
     },
     'EliteChakramThrower': {
-        dataId: '1707',
+        dataId: '1743',
     },
     'Thirisadai': {
-        dataId: '1707',
+        dataId: '1750',
     },
     'UrumiSwordsman': {
-        dataId: '1707',
+        dataId: '1735',
     },
     'EliteUrumiSwordsman': {
-        dataId: '1707',
+        dataId: '1737',
     },
     'ArmoredElephant': {
-        dataId: '1707',
+        dataId: '1744',
     },
     'SiegeElephant': {
-        dataId: '1707',
+        dataId: '1746',
     },
     'Ratha': {
-        dataId: '1707',
+        dataId: '1759',
     },
     'EliteRatha': {
-        dataId: '1707',
+        dataId: '1761',
     },
 
     'WingedHussar': {

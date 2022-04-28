@@ -97,7 +97,6 @@ const techIcons: TechIconDict = {
     'Anarchy': require('../../../app/assets/techs/UniqueTechCastle.png'),
     'Marauders': require('../../../app/assets/techs/UniqueTechCastle.png'),
     'AndeanSling': require('../../../app/assets/techs/UniqueTechCastle.png'),
-    'GrandTrunkRoad': require('../../../app/assets/techs/UniqueTechCastle.png'),
     'Pavise': require('../../../app/assets/techs/UniqueTechCastle.png'),
     'Yasama': require('../../../app/assets/techs/UniqueTechCastle.png'),
     'TuskSwords': require('../../../app/assets/techs/UniqueTechCastle.png'),
@@ -122,6 +121,10 @@ const techIcons: TechIconDict = {
     'FirstCrusade': require('../../../app/assets/techs/UniqueTechCastle.png'),
     'WagenburgTactics': require('../../../app/assets/techs/UniqueTechCastle.png'),
     'SzlachtaPrivileges': require('../../../app/assets/techs/UniqueTechCastle.png'),
+    'GrandTrunkRoad': require('../../../app/assets/techs/UniqueTechCastle.png'),
+    'Kshatriyas': require('../../../app/assets/techs/UniqueTechCastle.png'),
+    'MedicalCorps': require('../../../app/assets/techs/UniqueTechCastle.png'),
+    'Paiks': require('../../../app/assets/techs/UniqueTechCastle.png'),
 
     'LechiticLegacy': require('../../../app/assets/techs/UniqueTechImperial.png'),
     'HussiteReforms': require('../../../app/assets/techs/UniqueTechImperial.png'),
@@ -162,6 +165,9 @@ const techIcons: TechIconDict = {
     'Berserkergang': require('../../../app/assets/techs/UniqueTechImperial.png'),
     'FlemishRevolution': require('../../../app/assets/techs/UniqueTechImperial.png'),
     'Hauberk': require('../../../app/assets/techs/UniqueTechImperial.png'),
+    'FrontierGuards': require('../../../app/assets/techs/UniqueTechImperial.png'),
+    'WootzSteel': require('../../../app/assets/techs/UniqueTechImperial.png'),
+    'Mahayana': require('../../../app/assets/techs/UniqueTechImperial.png'),
 };
 
 export function getTechIcon(tech: Tech) {

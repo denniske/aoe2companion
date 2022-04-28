@@ -1164,19 +1164,63 @@ export const techEffectDict = addNameToTechEffectDict(techEffectDictInternal as 
 
 export const techList: ITech[] = [
     {
+        "dataId": "454",
+        "name": "Counterweights",
+        "civ": "Indians",
+        "age": 'Castle',
+    },
+    {
+        "dataId": "835",
+        "name": "Kshatriyas",
+        "civ": "Indians",
+        "age": 'Castle',
+    },
+    {
+        "dataId": "836",
+        "name": "FrontierGuards",
+        "civ": "Indians",
+        "age": 'Castle',
+    },
+    {
+        "dataId": "831",
+        "name": "MedicalCorps",
+        "civ": "Indians",
+        "age": 'Castle',
+    },
+    {
+        "dataId": "832",
+        "name": "WootzSteel",
+        "civ": "Indians",
+        "age": 'Castle',
+    },
+    {
+        "dataId": "833",
+        "name": "Paiks",
+        "civ": "Indians",
+        "age": 'Castle',
+    },
+    {
+        "dataId": "834",
+        "name": "Mahayana",
+        "civ": "Indians",
+        "age": 'Castle',
+    },
+
+    {
         "dataId": "506",
         "name": "GrandTrunkRoad",
         "civ": "Indians",
         "age": 'Castle',
     },
+
     {
-        "dataId": "512",
+        "dataId": "455",
         "name": "Detinets",
         "civ": "Slavs",
         "age": 'Castle',
     },
     {
-        "dataId": "512",
+        "dataId": "454",
         "name": "Counterweights",
         "civ": "Slavs",
         "age": 'Castle',

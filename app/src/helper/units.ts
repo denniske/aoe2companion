@@ -37,7 +37,20 @@ interface UnitIconDict {
 }
 
 const unitIcons: UnitIconDict = {
-    'Ratha': require('../../../app/assets/units/Obuch.png'),
+    'Ghulam': require('../../../app/assets/units/Ghulam.png'),
+    'EliteGhulam': require('../../../app/assets/units/EliteGhulam.png'),
+    'CamelScout': require('../../../app/assets/units/CamelScout.png'),
+    'ShrivamshaRider': require('../../../app/assets/units/ShrivamshaRider.png'),
+    'EliteShrivamshaRider': require('../../../app/assets/units/EliteShrivamshaRider.png'),
+    'ChakramThrower': require('../../../app/assets/units/ChakramThrower.png'),
+    'EliteChakramThrower': require('../../../app/assets/units/EliteChakramThrower.png'),
+    'Thirisadai': require('../../../app/assets/units/Thirisadai.png'),
+    'UrumiSwordsman': require('../../../app/assets/units/UrumiSwordsman.png'),
+    'EliteUrumiSwordsman': require('../../../app/assets/units/EliteUrumiSwordsman.png'),
+    'ArmoredElephant': require('../../../app/assets/units/ArmoredElephant.png'),
+    'SiegeElephant': require('../../../app/assets/units/SiegeElephant.png'),
+    'Ratha': require('../../../app/assets/units/Ratha.png'),
+    'EliteRatha': require('../../../app/assets/units/EliteRatha.png'),
 
     'Obuch': require('../../../app/assets/units/Obuch.png'),
     'HussiteWagon': require('../../../app/assets/units/HussiteWagon.png'),
