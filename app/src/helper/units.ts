@@ -37,6 +37,8 @@ interface UnitIconDict {
 }
 
 const unitIcons: UnitIconDict = {
+    'Ratha': require('../../../app/assets/units/Obuch.png'),
+
     'Obuch': require('../../../app/assets/units/Obuch.png'),
     'HussiteWagon': require('../../../app/assets/units/HussiteWagon.png'),
     'Houfnice': require('../../../app/assets/units/Houfnice.png'),

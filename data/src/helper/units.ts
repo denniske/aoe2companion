@@ -29,6 +29,130 @@ interface IUnitLineDict {
 export const unitLineIds = unitLineIdsData;
 
 export const unitLines: IUnitLineDict = {
+    'ShrivamshaRider': {
+        units: ['ShrivamshaRider', 'EliteShrivamshaRider'],
+        unique: true,
+        counteredBy: [
+        ],
+        upgrades: [
+            'Bloodlines',
+            'Forging',
+            'IronCasting',
+            'ScaleBardingArmor',
+            'ChainBardingArmor',
+            'PlateBardingArmor',
+            'Husbandry',
+            'Heresy',
+            'Conscription',
+            'Kshatriyas',
+        ],
+    },
+    'ChakramThrower': {
+        units: ['ChakramThrower', 'EliteChakramThrower'],
+        unique: true,
+        counteredBy: [
+        ],
+        upgrades: [
+            'Forging',
+            'IronCasting',
+            'BlastFurnace',
+            'ScaleMailArmor',
+            'ChainMailArmor',
+            'PlateMailArmor',
+            'Tracking',
+            'Heresy',
+            'Conscription',
+            'Kasbah',
+            'Kshatriyas',
+        ],
+    },
+    'Thirisadai': {
+        units: ['Thirisadai'],
+        unique: true,
+        counteredBy: [
+        ],
+        upgrades: [
+            'Fletching',
+            'BodkinArrow',
+            'Bracer',
+            'Chemistry',
+            'Ballistics',
+            'Careening',
+            'DryDock',
+            'Faith',
+            'Shipwright',
+        ],
+    },
+    'UrumiSwordsman': {
+        units: ['UrumiSwordsman', 'EliteUrumiSwordsman'],
+        unique: true,
+        counteredBy: [
+        ],
+        upgrades: [
+            'Forging',
+            'IronCasting',
+            'BlastFurnace',
+            'Arson',
+            'WootzSteel',
+            'ScaleMailArmor',
+            'ChainMailArmor',
+            'PlateMailArmor',
+            'Squires',
+            'Tracking',
+            'Faith',
+            'Conscription',
+            'Kasbah',
+        ],
+    },
+    'ArmoredElephant': {
+        units: ['ArmoredElephant', 'SiegeElephant'],
+        unique: true,
+        counteredBy: [
+        ],
+        upgrades: [
+            'Bloodlines',
+            'Forging',
+            'IronCasting',
+            'BlastFurnace',
+            'WootzSteel',
+            'Paiks',
+            'ScaleBardingArmor',
+            'ChainBardingArmor',
+            'PlateBardingArmor',
+            'Husbandry',
+            'Faith',
+            'Heresy', // only gurjanas
+            'Kshatriyas',
+            'MedicalCorps',
+        ],
+    },
+    'Ratha': {
+        units: ['Ratha', 'EliteRatha'],
+        unique: true,
+        counteredBy: [
+        ],
+        upgrades: [
+            'Bloodlines',
+            'Forging',
+            'IronCasting',
+            'BlastFurnace',
+            'Fletching',
+            'BodkinArrow',
+            'Bracer',
+            'Chemistry',
+            'ParthianTactics-2',
+            'Paiks',
+            'Ballistics',
+            'PaddedArcherArmor',
+            'LeatherArcherArmor',
+            'RingArcherArmor',
+            'Husbandry',
+            'Faith',
+            'Conscription',
+            'Kasbah',
+        ],
+    },
+
     'Obuch': {
         units: ['Obuch', 'EliteObuch'],
         unique: true,
@@ -150,7 +274,7 @@ export const unitLines: IUnitLineDict = {
     'TradeCart': {
         units: ['TradeCart'],
         upgrades: [
-            'Sultans',
+            'GrandTrunkRoad',
             'Caravan',
             'Faith',
             'Heresy',
@@ -160,7 +284,7 @@ export const unitLines: IUnitLineDict = {
     'TradeCog': {
         units: ['TradeCog'],
         upgrades: [
-            'Sultans',
+            'GrandTrunkRoad',
             'Careening',
             'Carrack',
             'DryDock',
@@ -207,7 +331,7 @@ export const unitLines: IUnitLineDict = {
             'StoneShaftMining',
             'GoldMining',
             'GoldShaftMining',
-            'Sultans-GatheringSpeed',
+            'GrandTrunkRoad-GatheringSpeed',
             'Loom',
             'Sappers',
             'Forging-Villager',
@@ -222,6 +346,8 @@ export const unitLines: IUnitLineDict = {
             'TreadmillCrane',
             'FlemishRevolution',
             'BurgundianVineyards',
+            'Mahayana',
+            'PaperMoney',
         ],
     },
     'Missionary': {
@@ -282,10 +408,8 @@ export const unitLines: IUnitLineDict = {
             'BlockPrinting-5',
             'Theocracy',
             'Theocracy-5',
-            'Orthodoxy',
             'Inquisition',
             'HussiteReforms',
-            'Madrasah',
         ],
     },
     'DemolitionRaft': {
@@ -658,6 +782,7 @@ export const unitLines: IUnitLineDict = {
             'BattleElephant'
         ],
         upgrades: [
+            'Counterweights',
             'SiegeEngineers-20-1',
             'Chemistry',
             'Warwolf',
@@ -727,6 +852,7 @@ export const unitLines: IUnitLineDict = {
         ],
         upgrades: [
             'FurorCeltica',
+            'Counterweights',
             'SiegeEngineers-20-1',
             'Chemistry',
             'TorsionEngines',
@@ -1623,6 +1749,8 @@ export const unitLines: IUnitLineDict = {
             'IronCasting',
             'BlastFurnace',
             'ManipurCavalry',
+            'WootzSteel',
+            'Paiks',
             'TuskSwords',
             'ScaleBardingArmor',
             'ChainBardingArmor',
@@ -1632,10 +1760,11 @@ export const unitLines: IUnitLineDict = {
             'Faith',
             'Heresy',
             'Conscription',
+            'MedicalCorps',
         ],
     },
     'CamelRider': {
-        units: ['CamelRider', 'HeavyCamelRider', 'ImperialCamelRider'],
+        units: ['CamelScout', 'CamelRider', 'HeavyCamelRider', 'ImperialCamelRider'],
         counteredBy: [
             'Militia',
             'Spearman',
@@ -1659,6 +1788,8 @@ export const unitLines: IUnitLineDict = {
             'Faith',
             'Heresy',
             'Conscription',
+            'FrontierGuards',
+            'Kshatriyas',
             'MaghrebiCamels',
         ],
     },
@@ -1961,6 +2092,7 @@ export const unitLines: IUnitLineDict = {
             'Bracer',
             'Chemistry',
             'ThumbRing-18-No',
+            'Paiks',
             'Ballistics',
             'PaddedArcherArmor',
             'LeatherArcherArmor',
@@ -1969,6 +2101,7 @@ export const unitLines: IUnitLineDict = {
             'Husbandry',
             'Faith',
             'Conscription',
+            'FrontierGuards',
         ],
     },
     'WarWagon': {
@@ -2312,6 +2445,43 @@ export const unitLines: IUnitLineDict = {
 };
 
 const unitsInternal = {
+    'CamelScout': {
+        dataId: '1707',
+    },
+    'ShrivamshaRider': {
+        dataId: '1707',
+    },
+    'EliteShrivamshaRider': {
+        dataId: '1707',
+    },
+    'ChakramThrower': {
+        dataId: '1707',
+    },
+    'EliteChakramThrower': {
+        dataId: '1707',
+    },
+    'Thirisadai': {
+        dataId: '1707',
+    },
+    'UrumiSwordsman': {
+        dataId: '1707',
+    },
+    'EliteUrumiSwordsman': {
+        dataId: '1707',
+    },
+    'ArmoredElephant': {
+        dataId: '1707',
+    },
+    'SiegeElephant': {
+        dataId: '1707',
+    },
+    'Ratha': {
+        dataId: '1707',
+    },
+    'EliteRatha': {
+        dataId: '1707',
+    },
+
     'WingedHussar': {
         dataId: '1707',
     },

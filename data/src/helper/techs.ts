@@ -64,6 +64,72 @@ type ITechEffectDict2 = {
 
 // : ITechEffectDict2
 const techEffectDictInternal = {
+
+    // 'Detinets': {
+    //     tech: 'Detinets',
+    //     civ: 'Slavs',
+    //     effect: {
+    //         other: 'replaces 40% of stone cost with wood',
+    //     },
+    // },
+
+    'PaperMoney': {
+        tech: 'PaperMoney',
+        civ: 'Vietnamese',
+        effect: {
+            other: 'Lumberjacks slowly generate gold in addition to wood.',
+        },
+    },
+    'Counterweights': {
+        tech: 'Counterweights',
+        civ: 'Saracens',
+        effect: {
+            attack: '+15%',
+        },
+    },
+    'Kshatriyas': {
+        tech: 'Kshatriyas',
+        civ: 'Gurjaras',
+        effect: {
+            other: 'food cost -25%',
+        },
+    },
+    'FrontierGuards': {
+        tech: 'FrontierGuards',
+        civ: 'Gurjaras',
+        effect: {
+            armor: '+4/+0',
+        },
+    },
+    'MedicalCorps': {
+        tech: 'MedicalCorps',
+        civ: 'Dravidians',
+        effect: {
+            other: 'regenerate 20 HP per minute',
+        },
+    },
+    'WootzSteel': {
+        tech: 'WootzSteel',
+        civ: 'Dravidians',
+        effect: {
+            attack: 'attack ignores armor',
+        },
+    },
+    'Paiks': {
+        tech: 'Paiks',
+        civ: 'Bengalis',
+        effect: {
+            firingRate:  '+20%',
+        },
+    },
+    'Mahayana': {
+        tech: 'Mahayana',
+        civ: 'Bengalis',
+        effect: {
+            other: 'take -10% population space',
+        },
+    },
+
     'BurgundianVineyards': {
         tech: 'BurgundianVineyards',
         civ: 'Burgundians',
@@ -245,15 +311,15 @@ const techEffectDictInternal = {
             other: '-50% cost',
         },
     },
-    'Sultans-GatheringSpeed': {
-        tech: 'Sultans',
+    'GrandTrunkRoad-GatheringSpeed': {
+        tech: 'GrandTrunkRoad',
         civ: 'Indians',
         effect: {
             gatheringSpeed: 'gold +10%',
         },
     },
-    'Sultans': {
-        tech: 'Sultans',
+    'GrandTrunkRoad': {
+        tech: 'GrandTrunkRoad',
         civ: 'Indians',
         effect: {
             other: '+10% gold generation',
@@ -357,25 +423,11 @@ const techEffectDictInternal = {
             other: 'only one Monk rests after conversion',
         },
     },
-    'Orthodoxy': {
-        tech: 'Orthodoxy',
-        civ: 'Slavs',
-        effect: {
-            armor: '+3/+3',
-        },
-    },
     'Inquisition': {
         tech: 'Inquisition',
         civ: 'Spanish',
         effect: {
             other: 'monks convert faster',
-        },
-    },
-    'Madrasah': {
-        tech: 'Madrasah',
-        civ: 'Saracens',
-        effect: {
-            other: 'monks return gold when they die',
         },
     },
 
@@ -667,7 +719,7 @@ const techEffectDictInternal = {
         tech: 'Howdah',
         civ: 'Burmese',
         effect: {
-            armor: '+1/+2',
+            armor: '+1/+1',
         },
     },
     'Hauberk': {
@@ -1112,6 +1164,25 @@ export const techEffectDict = addNameToTechEffectDict(techEffectDictInternal as 
 
 export const techList: ITech[] = [
     {
+        "dataId": "506",
+        "name": "GrandTrunkRoad",
+        "civ": "Indians",
+        "age": 'Castle',
+    },
+    {
+        "dataId": "512",
+        "name": "Detinets",
+        "civ": "Slavs",
+        "age": 'Castle',
+    },
+    {
+        "dataId": "512",
+        "name": "Counterweights",
+        "civ": "Slavs",
+        "age": 'Castle',
+    },
+
+    {
         "dataId": "784",
         "name": "WagenburgTactics",
         "civ": "Bohemians",
@@ -1384,12 +1455,6 @@ export const techList: ITech[] = [
         "age": 'Imperial',
     },
     {
-        "dataId": "506",
-        "name": "Sultans",
-        "civ": "Indians",
-        "age": 'Castle',
-    },
-    {
         "dataId": "231",
         "name": "Sanctity",
     },
@@ -1422,21 +1487,9 @@ export const techList: ITech[] = [
         "name": "Theocracy",
     },
     {
-        "dataId": "512",
-        "name": "Orthodoxy",
-        "civ": "Slavs",
-        "age": 'Castle',
-    },
-    {
         "dataId": "492",
         "name": "Inquisition",
         "civ": "Spanish",
-        "age": 'Castle',
-    },
-    {
-        "dataId": "490",
-        "name": "Madrasah",
-        "civ": "Saracens",
         "age": 'Castle',
     },
     {
@@ -1995,6 +2048,14 @@ type TechEffectNameDict = {
 };
 
 const techIds = [
+    'Counterweights',
+    'Kshatriyas',
+    'FrontierGuards',
+    'MedicalCorps',
+    'WootzSteel',
+    'Paiks',
+    'Mahayana',
+
     'BurgundianVineyards',
     'FlemishRevolution',
     'FirstCrusade',
@@ -2090,7 +2151,7 @@ const techIds = [
     'Anarchy',
     'Marauders',
     'AndeanSling',
-    'Sultans',
+    'GrandTrunkRoad',
     'Pavise',
     'Yasama',
     'TuskSwords',
@@ -2103,8 +2164,7 @@ const techIds = [
     'Nomads',
     'Kamandaran',
     'Carrack',
-    'Madrasah',
-    'Orthodoxy',
+    'Detinets',
     'Inquisition',
     'SilkArmor',
     'Ironclad',

@@ -78,6 +78,16 @@ export const civList: ICivEntry[] = [
         uniqueTechs: ['Atlatl', 'GarlandWars'],
     },
     {
+        name: 'Bengalis',
+        uniqueUnits: ['Ratha'],
+        uniqueTechs: ['Paiks', 'Mahayana'],
+    },
+    {
+        name: 'Dravidians',
+        uniqueUnits: ['UrumiSwordsman', 'Thirisadai'],
+        uniqueTechs: ['MedicalCorps', 'WootzSteel'],
+    },
+    {
         name: 'Berbers',
         uniqueUnits: ['CamelArcher', 'Genitour'],
         uniqueTechs: ['Kasbah', 'MaghrebiCamels'],
@@ -155,7 +165,7 @@ export const civList: ICivEntry[] = [
     {
         name: 'Indians',
         uniqueUnits: ['ElephantArcher', 'ImperialCamelRider'],
-        uniqueTechs: ['Sultans', 'Shatagni'],
+        uniqueTechs: ['GrandTrunkRoad', 'Shatagni'],
     },
     {
         name: 'Italians',
@@ -225,7 +235,7 @@ export const civList: ICivEntry[] = [
     {
         name: 'Saracens',
         uniqueUnits: ['Mameluke'],
-        uniqueTechs: ['Madrasah', 'Zealotry'],
+        uniqueTechs: ['Zealotry', 'Counterweights'],
     },
     {
         name: 'Sicilians',
@@ -235,7 +245,7 @@ export const civList: ICivEntry[] = [
     {
         name: 'Slavs',
         uniqueUnits: ['Boyar'],
-        uniqueTechs: ['Orthodoxy', 'Druzhina'],
+        uniqueTechs: ['Detinets', 'Druzhina'],
     },
     {
         name: 'Spanish',

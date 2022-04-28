@@ -1,5 +1,6 @@
 export const civsData = [
     'Aztecs',
+    'Bengalis',
     'Berbers',
     'Bohemians',
     'Britons',
@@ -10,9 +11,12 @@ export const civsData = [
     'Celts',
     'Chinese',
     'Cumans',
+    'Dravidians',
     'Ethiopians',
     'Franks',
     'Goths',
+    'Gurjaras',
+    'Hindustanis',
     'Huns',
     'Incas',
     'Indians',
@@ -61,7 +65,7 @@ export const civsAoeNetData = [
     'Huns',
     'Koreans',
     'Italians',
-    'Indians',
+    'Hindustanis',
     'Incas',
     'Magyars',
     'Slavs',
@@ -81,6 +85,10 @@ export const civsAoeNetData = [
     'Sicilians',
     'Poles',
     'Bohemians',
+    'Dravidians',
+    'Bengalis',
+    'Gurjaras',
+    'Indians',
 ];
 
 export const civIconListData = [
