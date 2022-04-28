@@ -60,6 +60,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {age: 'CastleAge'},
+                {unit: 'ArmoredElephant'},
                 {unit: 'BatteringRam'},
                 {unit: 'Mangonel'},
                 {unit: 'Scorpion'},
@@ -69,6 +70,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {age: 'ImperialAge'},
+                {unit: 'SiegeElephant'},
                 {unit: 'CappedRam'},
                 {unit: 'Onager'},
                 {unit: 'HeavyScorpion'},
@@ -78,6 +80,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {},
+                {},
                 {unit: 'SiegeRam'},
                 {unit: 'SiegeOnager'},
                 {},
@@ -86,6 +89,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         },
         {
             items: [
+                {},
                 {},
                 {},
                 {},
@@ -226,6 +230,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {unit: 'Crossbowman'},
                 {unit: 'EliteSkirmisher'},
                 {unit: 'CavalryArcher'},
+                {unit: 'ElephantArcher'},
                 {unit: 'Genitour'},
                 {unit: 'Slinger'},
                 {},
@@ -238,6 +243,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {unit: 'Arbalester'},
                 {unit: 'ImperialSkirmisher'},
                 {unit: 'HeavyCavalryArcher'},
+                {unit: 'EliteElephantArcher'},
                 {unit: 'EliteGenitour'},
                 {unit: 'HandCannoneer'},
                 {},
@@ -297,6 +303,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 ...(civInfo.uniqueUnits.includes('Caravel') ? [{unit: 'EliteCaravel' as Unit}] : []),
                 ...(civInfo.uniqueUnits.includes('Longboat') ? [{unit: 'EliteLongboat' as Unit}] : []),
                 ...(civInfo.uniqueUnits.includes('TurtleShip') ? [{unit: 'EliteTurtleShip' as Unit}] : []),
+                ...(civInfo.uniqueUnits.includes('Thirisadai') ? [{unit: 'Thirisadai' as Unit}] : []),
             ],
         },
         {

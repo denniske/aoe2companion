@@ -56,14 +56,17 @@ export function getCompactTechTree(): ITechTreeRow[] {
         },
         {
             items: [
+                {unit: 'ArmoredElephant'},
                 {unit: 'BatteringRam'},
                 {unit: 'Mangonel'},
                 {unit: 'Scorpion'},
                 {},
+                {tech: 'Ballistics'},
             ],
         },
         {
             items: [
+                {unit: 'SiegeElephant'},
                 {unit: 'CappedRam'},
                 {unit: 'Onager'},
                 {unit: 'HeavyScorpion'},
@@ -73,6 +76,7 @@ export function getCompactTechTree(): ITechTreeRow[] {
         },
         {
             items: [
+                {},
                 {unit: 'SiegeRam'},
                 {unit: 'SiegeOnager'},
                 {},
@@ -157,17 +161,20 @@ export function getCompactTechTree(): ITechTreeRow[] {
             items: [
                 {unit: 'Crossbowman'},
                 {unit: 'EliteSkirmisher'},
-                {},
+                {unit: 'ElephantArcher'},
                 {unit: 'CavalryArcher'},
+                {},
+                {unit: 'Genitour'},
             ],
         },
         {
             items: [
                 {unit: 'Arbalester'},
                 {unit: 'ImperialSkirmisher'},
-                {},
+                {unit: 'EliteElephantArcher'},
                 {unit: 'HeavyCavalryArcher'},
                 {unit: 'HandCannoneer'},
+                {unit: 'EliteGenitour'},
             ],
         },
     ];
