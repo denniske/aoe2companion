@@ -35,6 +35,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '39.0.8': [
+        {
+            type: 'minor',
+            title: 'Implemented [AoE II DE Update 61321](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-61321/) (Dynasties of India)',
+        },
+    ],
     '39.0.7': [
         {
             type: 'minor',

@@ -19,7 +19,7 @@ export const civsData = [
     'Hindustanis',
     'Huns',
     'Incas',
-    'Indians',
+    // 'Indians',
     'Italians',
     'Japanese',
     'Khmer',

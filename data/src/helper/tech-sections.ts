@@ -151,10 +151,18 @@ export const techSections: ITechSection[] = [
             "SpiesTreason",
         ],
     },
-    ...(appConfig.game === 'aoe2de' ? [
-        ...civs.map(civ => ({
-            civ: civ,
-            data: civDict[civ].uniqueTechs,
-        })),
-    ] : [])
+    // ...(appConfig.game === 'aoe2de' ? [
+    //     ...civs.map(civ => ({
+    //         civ: civ,
+    //         data: civDict[civ].uniqueTechs,
+    //     })),
+    // ] : [])
 ];
+
+civs.map(civ => {
+    console.log(civ, civDict[civ]?.uniqueTechs);
+    return ({
+        civ: civ,
+        // data: civDict[civ].uniqueTechs,
+    });
+})

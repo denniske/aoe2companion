@@ -105,6 +105,7 @@ x unit upgrade costs (lightcav -> hussar / wingedhussar)
 209525,76561197995781128,aoe2companion.com
 
 ratha kasbah with berber allies
+unique building for civ page
 
 git tag v38.0.0 && git push --tags
 git tag -d v38.0.0 && git push --delete origin v38.0.0

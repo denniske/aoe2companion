@@ -88,6 +88,11 @@ export const civList: ICivEntry[] = [
         uniqueTechs: ['MedicalCorps', 'WootzSteel'],
     },
     {
+        name: 'Gurjaras',
+        uniqueUnits: ['ChakramThrower', 'ShrivamshaRider', 'CamelScout'],
+        uniqueTechs: ['Kshatriyas', 'FrontierGuards'],
+    },
+    {
         name: 'Berbers',
         uniqueUnits: ['CamelArcher', 'Genitour'],
         uniqueTechs: ['Kasbah', 'MaghrebiCamels'],
@@ -163,8 +168,8 @@ export const civList: ICivEntry[] = [
         uniqueTechs: ['AndeanSling', 'FabricShields'],
     },
     {
-        name: 'Indians',
-        uniqueUnits: ['ElephantArcher', 'ImperialCamelRider'],
+        name: 'Hindustanis',
+        uniqueUnits: ['Ghulam', 'ImperialCamelRider'],
         uniqueTechs: ['GrandTrunkRoad', 'Shatagni'],
     },
     {
