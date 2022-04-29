@@ -128,6 +128,7 @@ export default function AboutPage() {
             <MyText style={styles.content}>Subbramanian Lakshmanan</MyText>
 
             <MyText style={styles.heading}>{getTranslation('about.heading.supporters')}</MyText>
+            <MyText style={styles.content}>Amberk</MyText>
             <MyText style={styles.content}>Andreas Teppe</MyText>
             <MyText style={styles.content}>axør</MyText>
             <MyText style={styles.content}>BananaBenito</MyText>
@@ -173,6 +174,7 @@ export default function AboutPage() {
             <MyText style={styles.content}>Zachary Bird</MyText>
             <MyText style={styles.content}>@compumaster</MyText>
             <MyText style={styles.content}>@cooljoe</MyText>
+            <MyText style={styles.content}>@gloorfindel</MyText>
             <MyText style={styles.content}>@hend0s</MyText>
             <MyText style={styles.content}>@qotile</MyText>
             <MyText style={styles.content}>@wired14</MyText>
