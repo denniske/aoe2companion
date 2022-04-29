@@ -139,7 +139,7 @@ export function CivList() {
         <FlatList
             contentContainerStyle={styles.container}
             keyboardShouldPersistTaps={'always'}
-            data={orderCivs(civs)}
+            data={orderCivs(civs.filter(c => c != 'Indians'))}
             renderItem={({item, index}) => renderItem(item)}
             keyExtractor={(item, index) => index.toString()}
         />

@@ -20,8 +20,8 @@ export default function CivAvailability({tech, unit, building}: CivAvailabilityP
     const styles = useStyles();
     const navigation = useNavigation<RootStackProp>();
 
-    const civAvailable = civs.filter(civ => getAbilityEnabled({civ, tech, unit, building}));
-    const civUnavailable = civs.filter(civ => !getAbilityEnabled({civ, tech, unit, building}));
+    const civAvailable = civs.filter(c => c != 'Indians').filter(civ => getAbilityEnabled({civ, tech, unit, building}));
+    const civUnavailable = civs.filter(c => c != 'Indians').filter(civ => !getAbilityEnabled({civ, tech, unit, building}));
 
     const availableForAllCivs = civAvailable.length === civs.length;
     const availableForOneCivs = civAvailable.length === 1;

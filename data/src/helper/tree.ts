@@ -32,7 +32,7 @@ export function getAbilityEnabled({civ, tech, unit, building}: AbilityProps2) {
 }
 
 export function getAbilityEnabledForAllCivs(props: AbilityHelperProps) {
-    return civs.every(civ => getAbilityEnabled({civ, ...props}));
+    return civs.filter(c => c != 'Indians').every(civ => getAbilityEnabled({civ, ...props}));
 }
 
 export function getCivHasTech(civ: Civ, tech: Tech) {

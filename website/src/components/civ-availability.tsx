@@ -13,8 +13,8 @@ interface CivAvailabilityProps {
 
 export default function CivAvailability({tech, unit, building}: CivAvailabilityProps) {
     const styles = useStyles();
-    const civAvailable = civs.filter(civ => getAbilityEnabled({civ, tech, unit, building}));
-    const civUnavailable = civs.filter(civ => !getAbilityEnabled({civ, tech, unit, building}));
+    const civAvailable = civs.filter(c => c != 'Indians').filter(civ => getAbilityEnabled({civ, tech, unit, building}));
+    const civUnavailable = civs.filter(c => c != 'Indians').filter(civ => !getAbilityEnabled({civ, tech, unit, building}));
 
     const availableForAllCivs = civUnavailable.length === 0;
 

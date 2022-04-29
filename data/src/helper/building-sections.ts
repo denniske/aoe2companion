@@ -52,7 +52,6 @@ export const buildingSections: IBuildingSection[] = [
             "Farm",
             "LumberCamp",
             "MiningCamp",
-            "Feitoria",
         ],
     },
     {
@@ -70,6 +69,8 @@ export const buildingSections: IBuildingSection[] = [
         title: 'building.section.special',
         data: [
             "Wonder",
+            "Feitoria",
+            "Caravanserai",
         ],
     },
     {
