@@ -641,5 +641,18 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         },
 
 
+        {
+            title: ''
+        },
+        {
+            items: [
+                {},
+                {building: 'Wonder'},
+                {},
+                {building: 'Feitoria'},
+                {},
+                {building: 'Caravanserai'},
+            ],
+        },
     ];
 }
