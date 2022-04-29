@@ -1,5 +1,5 @@
 import {flatMap, sortBy} from 'lodash';
-import {civDict, civs} from './civs';
+import {Civ, civDict, civs} from './civs';
 import {getRelatedUnitLines, getUnitLineIdForUnit, Unit, UnitLine, unitLines} from './units';
 import {appConfig} from "@nex/dataset";
 
@@ -87,6 +87,7 @@ const unitSections: IUnitSection[] = [
                 'Caravel',
                 'Longboat',
                 'TurtleShip',
+                'Thirisadai',
             ],
     },
     {
@@ -100,10 +101,39 @@ const unitSections: IUnitSection[] = [
     ...(appConfig.game === 'aoe2de' ? [
         {
             title: 'unit.section.unique',
-            data: sortBy(flatMap(civs.filter(c => c != 'Indians'), civ => [civDict[civ].uniqueUnits[0], ...getRelatedUnitLines(getUnitLineIdForUnit(civDict[civ].uniqueUnits[0]))])),
+            data: sortBy(flatMap(civs.filter(c => c != 'Indians'), civ => getUniqueUnitsForSection(civ))),
         },
     ] : [])
 ];
+
+function getUniqueUnitsForSection(civ: Civ) {
+    const excluded = [
+        'Thirisadai',
+        'CamelScout',
+        'Genitour',
+        'FlemishMilitia',
+        'Slinger',
+        'ImperialCamelRider',
+        'Condottiero',
+        'TurtleShip',
+        'WingedHussar',
+        'Caravel',
+        'Missionary',
+        'FlamingCamel',
+        'Longboat',
+    ];
+
+    const allUnits = [];
+    const units = civDict[civ].uniqueUnits.filter(unit => !excluded.includes(unit));
+
+    for (const unit of units) {
+        allUnits.push(unit);
+        const relatedUnits = getRelatedUnitLines(getUnitLineIdForUnit(unit));
+        allUnits.push(...relatedUnits);
+    }
+
+    return allUnits;
+}
 
 export const allUnitSections = unitSections.map(section => ({
     ...section,
