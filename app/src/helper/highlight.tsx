@@ -1,8 +1,8 @@
 import {useTheme} from "../theming";
 import {appVariants} from "../styles";
 import {useNavigation} from "@react-navigation/native";
-import {RootStackProp} from "../../App";
-import {escapeRegExpFn, getTechName, techList} from "@nex/data";
+import {RootStackProp} from "../../App2";
+import {buildingList, escapeRegExpFn, getBuildingName, getTechName, techList} from "@nex/data";
 import {getUnitName, hasUnitLine, Unit, units} from "@nex/data";
 import {MyText} from "../view/components/my-text";
 import React from "react";
@@ -50,14 +50,16 @@ import {getLanguage} from '../../../data/src/lib/aoe-data';
 function createLists() {
     const techReplaceList = techList.map(t => ({ name: t.name, text: getTechName(t.name)}));
     const unitReplaceList = Object.keys(units).filter(t => hasUnitLine(t as Unit)).map(t => ({ name: t, text: getUnitName(t as Unit)}));
+    const buildingReplaceList = buildingList.map(b => ({ name: b.name, text: getBuildingName(b.name)}));
     const reverseTechMap = Object.assign({}, ...techReplaceList.map((x) => ({[x.text.toLowerCase()]: x})));
     const reverseUnitMap = Object.assign({}, ...unitReplaceList.map((x) => ({[x.text.toLowerCase()]: x, [x.text.toLowerCase()+'s']: x})));
+    const reverseBuildingMap = Object.assign({}, ...buildingReplaceList.map((x) => ({[x.text.toLowerCase()]: x, [x.text.toLowerCase()+'s']: x})));
 
-    const allReplaceList = [...techReplaceList, ...unitReplaceList];
+    const allReplaceList = [...techReplaceList, ...unitReplaceList, ...buildingReplaceList];
 
     const regex = new RegExp('('+allReplaceList.map(m => '\\b'+escapeRegExpFn(m.text)+'s?\\b').join("|")+')', 'i');
 
-    return { regex, reverseTechMap, reverseUnitMap };
+    return { regex, reverseTechMap, reverseUnitMap, reverseBuildingMap };
 }
 
 // Memoize per language
@@ -72,7 +74,7 @@ export function HighlightUnitAndTechs(props: IProps) {
     const appStyles = useTheme(appVariants);
     const navigation = useNavigation<RootStackProp>();
 
-    const { regex, reverseTechMap, reverseUnitMap } = memoizedCreateLists(getLanguage());
+    const { regex, reverseTechMap, reverseUnitMap, reverseBuildingMap } = memoizedCreateLists(getLanguage());
 
     const parts = str.split(regex);
     // console.log('parts', parts);
@@ -91,6 +93,10 @@ export function HighlightUnitAndTechs(props: IProps) {
             const matchingUnit = reverseUnitMap[parts[i].toLowerCase()]?.name;
             if (matchingUnit) {
                 texts.push(<MyText key={i} style={appStyles.link} onPress={() => navigation.push('Unit', {unit: matchingUnit})}>{parts[i]}</MyText>);
+            }
+            const matchingBuilding = reverseBuildingMap[parts[i].toLowerCase()]?.name;
+            if (matchingBuilding) {
+                texts.push(<MyText key={i} style={appStyles.link} onPress={() => navigation.push('Building', {building: matchingBuilding})}>{parts[i]}</MyText>);
             }
         }
     }
