@@ -16,10 +16,9 @@ export const civsData = [
     'Franks',
     'Goths',
     'Gurjaras',
-    'Hindustanis',
     'Huns',
     'Incas',
-    // 'Indians',
+    'Hindustanis',
     'Italians',
     'Japanese',
     'Khmer',
@@ -42,6 +41,7 @@ export const civsData = [
     'Turks',
     'Vietnamese',
     'Vikings',
+    'Indians',
 ] as const;
 
 export const civsAoeNetData = [
@@ -109,10 +109,9 @@ export const civIconListData = [
     require('../../../app/assets/civilizations/franks.png'),
     require('../../../app/assets/civilizations/goths.png'),
     require('../../../app/assets/civilizations/gurjaras.png'),
-    require('../../../app/assets/civilizations/hindustanis.png'),
     require('../../../app/assets/civilizations/huns.png'),
     require('../../../app/assets/civilizations/inca.png'),
-    // require('../../../app/assets/civilizations/indians.png'),
+    require('../../../app/assets/civilizations/hindustanis.png'),
     require('../../../app/assets/civilizations/italians.png'),
     require('../../../app/assets/civilizations/japanese.png'),
     require('../../../app/assets/civilizations/khmer.png'),
@@ -135,4 +134,5 @@ export const civIconListData = [
     require('../../../app/assets/civilizations/turks.png'),
     require('../../../app/assets/civilizations/vietnamese.png'),
     require('../../../app/assets/civilizations/vikings.png'),
+    require('../../../app/assets/civilizations/indians.png'),
 ];

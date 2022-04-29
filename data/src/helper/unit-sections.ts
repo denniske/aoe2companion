@@ -100,7 +100,7 @@ const unitSections: IUnitSection[] = [
     ...(appConfig.game === 'aoe2de' ? [
         {
             title: 'unit.section.unique',
-            data: sortBy(flatMap(civs, civ => [civDict[civ].uniqueUnits[0], ...getRelatedUnitLines(getUnitLineIdForUnit(civDict[civ].uniqueUnits[0]))])),
+            data: sortBy(flatMap(civs.filter(c => c != 'Indians'), civ => [civDict[civ].uniqueUnits[0], ...getRelatedUnitLines(getUnitLineIdForUnit(civDict[civ].uniqueUnits[0]))])),
         },
     ] : [])
 ];

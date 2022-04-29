@@ -22,10 +22,9 @@ export const civHistoryList = [
     require('../../../app/assets/history/civs/history_franks.png'),
     require('../../../app/assets/history/civs/history_goths.png'),
     require('../../../app/assets/history/civs/history_gurjaras.png'),
-    require('../../../app/assets/history/civs/history_hindustani.png'),
     require('../../../app/assets/history/civs/history_huns.png'),
     require('../../../app/assets/history/civs/history_incas.png'),
-    // require('../../../app/assets/history/civs/history_indians.png'),
+    require('../../../app/assets/history/civs/history_hindustani.png'),
     require('../../../app/assets/history/civs/history_italians.png'),
     require('../../../app/assets/history/civs/history_japanese.png'),
     require('../../../app/assets/history/civs/history_khmer.png'),
@@ -48,6 +47,7 @@ export const civHistoryList = [
     require('../../../app/assets/history/civs/history_turks.png'),
     require('../../../app/assets/history/civs/history_vietnamese.png'),
     require('../../../app/assets/history/civs/history_vikings.png'),
+    require('../../../app/assets/history/civs/history_indians.png'),
 ];
 
 export function getCivIconByIndex(civ: number) {

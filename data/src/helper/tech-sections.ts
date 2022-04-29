@@ -152,17 +152,9 @@ export const techSections: ITechSection[] = [
         ],
     },
     ...(appConfig.game === 'aoe2de' ? [
-        ...civs.map(civ => ({
+        ...civs.filter(c => c != 'Indians').map(civ => ({
             civ: civ,
             data: civDict[civ].uniqueTechs,
         })),
     ] : [])
 ];
-
-// civs.map(civ => {
-//     console.log(civ, civDict[civ]?.uniqueTechs);
-//     return ({
-//         civ: civ,
-//         // data: civDict[civ].uniqueTechs,
-//     });
-// })
