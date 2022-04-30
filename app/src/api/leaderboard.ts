@@ -5,13 +5,20 @@ import {fetchJson} from "./util";
 import {appConfig} from "@nex/dataset";
 
 
+function mapEventLeaderboardIdToLeaderboardId(leaderboard_id: any) {
+    if (leaderboard_id === 1) return 1001;
+    return -1;
+}
+
 function convertTimestampsToDates(leaderboardRaw: ILeaderboardRaw): ILeaderboard {
     return {
         ...leaderboardRaw,
+        leaderboard_id: leaderboardRaw.leaderboard_id ?? mapEventLeaderboardIdToLeaderboardId(leaderboardRaw.event_leaderboard_id),
         updated: leaderboardRaw.updated ? fromUnixTime(leaderboardRaw.updated) : undefined,
-        leaderboard: leaderboardRaw.leaderboard.map(playerRaw => ({
-            ...playerRaw,
-            last_match: fromUnixTime(playerRaw.last_match),
+        leaderboard: leaderboardRaw.leaderboard.map(leaderboardPlayerRaw => ({
+            ...leaderboardPlayerRaw,
+            leaderboard_id: leaderboardRaw.leaderboard_id ?? mapEventLeaderboardIdToLeaderboardId(leaderboardRaw.event_leaderboard_id),
+            last_match: fromUnixTime(leaderboardPlayerRaw.last_match),
         })),
     };
 }
@@ -25,13 +32,23 @@ export interface IFetchLeaderboardParams {
     country?: string;
 }
 
+function mapLeaderboardIdToEventLeaderboardId(leaderboard_id: any) {
+    if (leaderboard_id === 1001) return 1;
+    return -1;
+}
+
 async function fetchLeaderboardInternal(baseUrl: string, game: string, leaderboard_id: number, params: IFetchLeaderboardParams) {
     // time('fetchLeaderboard');
-    const queryString = makeQueryString({
+    const query: any = {
         game: appConfig.game,
-        leaderboard_id,
         ...params,
-    });
+    };
+    if (leaderboard_id > 1000) {
+        query.event_leaderboard_id = mapLeaderboardIdToEventLeaderboardId(leaderboard_id);
+    } else {
+        query.leaderboard_id = leaderboard_id;
+    }
+    const queryString = makeQueryString(query);
     const url = baseUrl + `api/leaderboard?${queryString}`;
     const json = await fetchJson('fetchLeaderboard', url);
 

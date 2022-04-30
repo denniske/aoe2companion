@@ -19,14 +19,24 @@ export interface IFetchRatingHistoryParams {
     profile_id?: number;
 }
 
+function mapLeaderboardIdToEventLeaderboardId(leaderboard_id: any) {
+    if (leaderboard_id === 1001) return 1;
+    return -1;
+}
+
 export async function fetchRatingHistory(game: string, leaderboard_id: LeaderboardId, start: number, count: number, params: IFetchRatingHistoryParams) {
-    const queryString = makeQueryString({
+    const query: any = {
         game: appConfig.game,
-        leaderboard_id,
         start,
         count,
         ...params,
-    });
+    };
+    if (leaderboard_id > 1000) {
+        query.event_leaderboard_id = mapLeaderboardIdToEventLeaderboardId(leaderboard_id);
+    } else {
+        query.leaderboard_id = leaderboard_id;
+    }
+    const queryString = makeQueryString(query);
     const url = getHost('aoe2net') + `api/player/ratinghistory?${queryString}`;
     const json = await fetchJson('fetchRatingHistory', url) as IRatingHistoryEntryRaw[];
     return json.map(match => convertTimestampsToDates(match));

@@ -32,7 +32,8 @@ export interface ILeaderboardRaw {
     count: number;
     leaderboard: ILeaderboardPlayerRaw[];
     length: number;
-    leaderboard_id: number;
+    leaderboard_id?: number;
+    event_leaderboard_id?: number;
     start: number;
     total: number;
     updated?: any;

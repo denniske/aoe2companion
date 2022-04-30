@@ -41,40 +41,6 @@ const formatStreak = (streak: number) => {
   return streak;
 };
 
-function LeaderboardRow({data}: ILeaderboardRowProps) {
-    const theme = usePaperTheme();
-    const styles = useStyles();
-
-    const leaderboardInfo = data.leaderboard[0];
-    // const leaderboardInfo = data;
-    const color = {color: getLeaderboardTextColor(data.leaderboard_id, theme.dark)};
-
-    return (
-            <View style={styles.leaderboardRow}>
-                <MyText style={StyleSheet.flatten([styles.cellLeaderboard, color])}>
-                    {formatLeaderboardId(data.leaderboard_id)}
-                </MyText>
-                <MyText style={StyleSheet.flatten([styles.cellRank, color])}>
-                    #{leaderboardInfo.rank}
-                </MyText>
-                <MyText style={StyleSheet.flatten([styles.cellRating, color])}>
-                    {leaderboardInfo.rating}
-                </MyText>
-                <MyText style={StyleSheet.flatten([styles.cellGames, color])}>
-                    {leaderboardInfo.games}
-                </MyText>
-                <MyText style={StyleSheet.flatten([styles.cellWon, color])} numberOfLines={1}>
-                    {(leaderboardInfo?.wins / leaderboardInfo?.games * 100).toFixed(2)}%
-                </MyText>
-                <MyText style={StyleSheet.flatten([styles.cellStreak, color])} numberOfLines={1}>
-                    {formatStreak(leaderboardInfo?.streak)}
-                </MyText>
-                <MyText style={StyleSheet.flatten([styles.cellLastMatch, color])} numberOfLines={1}>
-                    {formatAgo(leaderboardInfo.last_match)}
-                </MyText>
-            </View>
-    )
-}
 
 function LeaderboardRow1({data}: ILeaderboardRowProps) {
     const theme = usePaperTheme();

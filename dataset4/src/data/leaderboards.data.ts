@@ -5,6 +5,7 @@ export const abbreviationsData = {
     18: '2v2',
     19: '3v3',
     20: '4v4',
+    1001: 'e1v1',
 };
 
 export const leaderboardMappingData: any = {

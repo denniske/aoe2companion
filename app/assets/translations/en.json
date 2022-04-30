@@ -92,6 +92,7 @@
   "enum.leaderboardid.2v2": "2v2",
   "enum.leaderboardid.3v3": "3v3",
   "enum.leaderboardid.4v4": "4v4",
+  "enum.leaderboardid.e1v1": "RM 1v1",
 
   "leaderboard.heading.unranked": "UNR.",
   "leaderboard.heading.dm1v1": "DM 1V1",
