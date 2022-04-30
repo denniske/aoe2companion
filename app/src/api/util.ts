@@ -1,6 +1,6 @@
 import store from "../redux/store";
 import {exec, setError} from "../redux/reducer";
-import {time} from '@nex/data';
+import {sleep, time} from '@nex/data';
 
 export async function fetchJson(title: string, input: RequestInfo, init?: RequestInit) {
     if (init) {
@@ -22,7 +22,8 @@ export async function fetchJson(title: string, input: RequestInfo, init?: Reques
         console.log(input, 'failed', response?.status);
         if (response?.status !== 400)
         {
-            await fetchJson2(title, input, init);
+            await sleep(Math.random() * 100);
+            return await fetchJson2(title, input, init);
         } else {
             store.dispatch(exec(setError({
                 error: e,
