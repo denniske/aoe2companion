@@ -315,7 +315,8 @@ aoe2companion-dev-ingest
 
 $cert = New-SelfSignedCertificate -DnsName aoe2companion.com -Type CodeSigning -CertStoreLocation Cert:\CurrentUser\My
 $CertPassword = ConvertTo-SecureString -String "..." -Force -AsPlainText
-Export-PfxCertificate -Cert "cert:\CurrentUser\My\$($cert.Thumbprint)" -FilePath selfsigncert.pfx -Password $CertPassword
+Export-PfxCertificate -Cert "cert:\CurrentUser\My\$($cert.Thumbprint)" -FilePath certificate.pfx -Password $CertPassword
+base64 certificate.pfx -w 0 | secrethub write denniske/aoe2companion/electron_windows_cert_base64
 
 Thumbprint AB32AF37C94F82F33133CCEC6AA0337F43F0B3CA
 
