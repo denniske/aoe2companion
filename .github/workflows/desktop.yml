@@ -7,7 +7,7 @@ on:
 name: Desktop
 
 env:
-  NODE_VERSION: 12.13.1
+  NODE_VERSION: 16.13.0
   SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
 
 jobs:
