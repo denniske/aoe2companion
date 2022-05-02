@@ -4,8 +4,7 @@ import {
 } from "@nex/data";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
-import {ImageBackground, StyleSheet, TouchableOpacity, View} from "react-native";
-import {MaterialCommunityIcons} from "@expo/vector-icons";
+import {Image, ImageBackground, StyleSheet, TouchableOpacity, View} from "react-native";
 import React, {Fragment} from "react";
 import {MyText} from "./my-text";
 import {setPrefValue, useMutate, useSelector} from "../../redux/reducer";
@@ -40,15 +39,15 @@ function TechTreeRow({civ, row}: {civ: aoeCivKey, row: ITechTreeRow}) {
                         }
                         {
                             item.unit &&
-                            <Ability2 civ={civ} unit={item.unit as any}/>
+                            <Ability2 civ={civ} unit={item.unit as any} unique={item.unique}/>
                         }
                         {
                             item.tech &&
-                            <Ability2 civ={civ} tech={item.tech as any}/>
+                            <Ability2 civ={civ} tech={item.tech as any} unique={item.unique}/>
                         }
                         {
                             item.building &&
-                            <Ability2 civ={civ} building={item.building as any}/>
+                            <Ability2 civ={civ} building={item.building as any} unique={item.unique}/>
                         }
                     </Fragment>
                 )
@@ -74,7 +73,7 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
         await saveCurrentPrefsToStorage();
     };
 
-    const compactTechTree = getCompactTechTree();
+    const compactTechTree = getCompactTechTree(civInfo);
     const fullTechTree = getFullTechTree(civInfo, uniqueLine);
 
     return (
@@ -116,6 +115,7 @@ interface AbilityProps {
     tech?: Tech;
     unit?: Unit;
     building?: Building;
+    unique?: boolean;
 }
 
 export function getAbilityIcon({tech, unit, building}: AbilityHelperProps) {
@@ -155,18 +155,27 @@ const techTreeWidth = windowWidth - 28;
 const colSize = (techTreeWidth / 8)-4;
 const colSize2 = colSize-6;
 
-function Ability2({civ, tech, unit, building}: AbilityProps) {
+function Ability2({civ, tech, unit, building, unique}: AbilityProps) {
     if (!civ) return Ability0();
     if (!tech && !unit && !building) return Ability0();
     const enabled = getAbilityEnabled({civ, tech, unit, building});
-    const color = enabled ? '#555' : '#C00';
+    let borderColor = '#555';
     const opacity = enabled ? 1 : 0.4;
+    if (tech) {
+        borderColor = '#397A39';
+    }
+    if (unit) {
+        borderColor = unique ? '#8C2682' : '#0075A1';
+    }
+    if (building) {
+        borderColor = '#AA460F';
+    }
     return (
-        <TouchableOpacity style={[styles.imageContainer2, {borderColor: color, opacity: opacity}]} onPress={getAbilityNavCallback({tech, unit, building})}>
+        <TouchableOpacity style={[styles.imageContainer2, {borderColor, opacity}]} onPress={getAbilityNavCallback({tech, unit, building})}>
             <ImageBackground fadeDuration={0} source={getAbilityIcon({tech, unit, building})} imageStyle={styles.imageInner2} style={styles.image2}>
                 {
                     !enabled &&
-                    <MaterialCommunityIcons name={'close'} size={colSize-4} color="red" />
+                    <Image source={getOtherIcon('Cross' as any)} style={styles.cross}/>
                 }
             </ImageBackground>
         </TouchableOpacity>
@@ -221,6 +230,10 @@ const styles = StyleSheet.create({
         height: colSize,
         margin: 2,
         backgroundColor: 'black',
+    },
+    cross: {
+        width: 28,
+        height: 28,
     },
     imageContainer3: {
         // backgroundColor: 'yellow',

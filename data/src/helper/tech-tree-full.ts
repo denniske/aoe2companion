@@ -94,7 +94,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {},
                 {},
                 {},
-                {unit: 'Houfnice'},
+                {unit: 'Houfnice', unique: true},
             ],
         },
 
@@ -142,7 +142,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {unit: 'TwoHandedSwordsman'},
                 {unit: 'Halberdier'},
                 {unit: 'EliteEagleWarrior'},
-                {unit: 'Condottiero'},
+                {unit: 'Condottiero', unique: true},
             ],
         },
         {
@@ -166,8 +166,9 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {age: 'FeudalAge'},
                 {unit: 'ScoutCavalry'},
                 {},
-                {},
-                {},
+                ...(civInfo.name === 'Gurjaras' ? [{}] : []),
+                {unit: 'CamelScout', unique: true},
+                ...(civInfo.name !== 'Gurjaras' ? [{}] : []),
                 {},
                 {},
                 {tech: 'Bloodlines'},
@@ -177,11 +178,13 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
             items: [
                 {age: 'CastleAge'},
                 {unit: 'LightCavalry'},
+                ...(civInfo.name === 'Gurjaras' ? [{unit: 'ShrivamshaRider' as Unit, unique: true}] : []),
                 {unit: 'Knight'},
                 {unit: 'CamelRider'},
                 {unit: 'BattleElephant'},
                 {unit: 'SteppeLancer'},
-                {unit: 'XolotlWarrior'},
+                ...(['Aztecs', 'Mayans', 'Incas'].includes(civInfo.name) ? [{unit: 'XolotlWarrior' as Unit, unique: true}] : []),
+                ...(!['Aztecs', 'Mayans', 'Incas'].includes(civInfo.name) && civInfo.name !== 'Gurjaras' ? [{}] : []),
                 {tech: 'Husbandry'},
             ],
         },
@@ -189,6 +192,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
             items: [
                 {age: 'ImperialAge'},
                 {unit: 'Hussar'},
+                ...(civInfo.name === 'Gurjaras' ? [{unit: 'EliteShrivamshaRider' as Unit, unique: true}] : []),
                 {unit: 'Cavalier'},
                 {unit: 'HeavyCamelRider'},
                 {unit: 'EliteBattleElephant'},
@@ -198,9 +202,10 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {},
-                {unit: 'WingedHussar'},
+                {unit: 'WingedHussar', unique: true},
+                ...(civInfo.name === 'Gurjaras' ? [{}] : []),
                 {unit: 'Paladin'},
-                {unit: 'ImperialCamelRider'},
+                {unit: 'ImperialCamelRider', unique: true},
                 {},
                 {},
             ],
@@ -231,9 +236,8 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {unit: 'EliteSkirmisher'},
                 {unit: 'CavalryArcher'},
                 {unit: 'ElephantArcher'},
-                {unit: 'Genitour'},
-                {unit: 'Slinger'},
-                {},
+                {unit: 'Genitour', unique: true},
+                {unit: 'Slinger', unique: true},
                 {tech: 'ThumbRing'},
             ],
         },
@@ -241,12 +245,11 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
             items: [
                 {age: 'ImperialAge'},
                 {unit: 'Arbalester'},
-                {unit: 'ImperialSkirmisher'},
+                {unit: 'ImperialSkirmisher', unique: true},
                 {unit: 'HeavyCavalryArcher'},
                 {unit: 'EliteElephantArcher'},
-                {unit: 'EliteGenitour'},
+                {unit: 'EliteGenitour', unique: true},
                 {unit: 'HandCannoneer'},
-                {},
                 {tech: 'ParthianTactics'},
             ],
         },
@@ -286,9 +289,9 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {unit: 'WarGalley'},
                 {tech: 'Careening'},
                 {},
-                ...(civInfo.uniqueUnits.includes('Caravel') ? [{unit: 'Caravel' as Unit}] : []),
-                ...(civInfo.uniqueUnits.includes('Longboat') ? [{unit: 'Longboat' as Unit}] : []),
-                ...(civInfo.uniqueUnits.includes('TurtleShip') ? [{unit: 'TurtleShip' as Unit}] : []),
+                ...(civInfo.uniqueUnits.includes('Caravel') ? [{unit: 'Caravel' as Unit, unique: true}] : []),
+                ...(civInfo.uniqueUnits.includes('Longboat') ? [{unit: 'Longboat' as Unit, unique: true}] : []),
+                ...(civInfo.uniqueUnits.includes('TurtleShip') ? [{unit: 'TurtleShip' as Unit, unique: true}] : []),
             ],
         },
         {
@@ -300,10 +303,10 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {unit: 'Galleon'},
                 {tech: 'DryDock'},
                 {tech: 'Shipwright'},
-                ...(civInfo.uniqueUnits.includes('Caravel') ? [{unit: 'EliteCaravel' as Unit}] : []),
-                ...(civInfo.uniqueUnits.includes('Longboat') ? [{unit: 'EliteLongboat' as Unit}] : []),
-                ...(civInfo.uniqueUnits.includes('TurtleShip') ? [{unit: 'EliteTurtleShip' as Unit}] : []),
-                ...(civInfo.uniqueUnits.includes('Thirisadai') ? [{unit: 'Thirisadai' as Unit}] : []),
+                ...(civInfo.uniqueUnits.includes('Caravel') ? [{unit: 'EliteCaravel' as Unit, unique: true}] : []),
+                ...(civInfo.uniqueUnits.includes('Longboat') ? [{unit: 'EliteLongboat' as Unit, unique: true}] : []),
+                ...(civInfo.uniqueUnits.includes('TurtleShip') ? [{unit: 'EliteTurtleShip' as Unit, unique: true}] : []),
+                ...(civInfo.uniqueUnits.includes('Thirisadai') ? [{unit: 'Thirisadai' as Unit, unique: true}] : []),
             ],
         },
         {
@@ -326,7 +329,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {age: 'CastleAge'},
-                {unit: uniqueLine?.units[0]},
+                {unit: uniqueLine?.units[0], unique: true},
                 {unit: 'Petard'},
                 {tech: civInfo.uniqueTechs[0]},
             ],
@@ -334,7 +337,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {age: 'ImperialAge'},
-                {unit: uniqueLine?.units[1]},
+                {unit: uniqueLine?.units[1], unique: true},
                 {unit: 'Trebuchet'},
                 {tech: civInfo.uniqueTechs[1]},
                 {tech: 'Hoardings'},
@@ -346,7 +349,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
             items: [
                 {},
                 {},
-                {unit: 'FlamingCamel'},
+                {unit: 'FlamingCamel', unique: true},
                 {},
                 {},
                 {},
@@ -370,21 +373,21 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {age: 'FeudalAge'},
                 {},
                 {},
-                {unit: 'Serjeant'},
+                {unit: 'Serjeant', unique: true},
             ],
         },
         {
             items: [
                 {age: 'CastleAge'},
-                {unit: 'Konnik'},
+                {unit: 'Konnik', unique: true},
             ],
         },
         {
             items: [
                 {age: 'ImperialAge'},
-                {unit: 'EliteKonnik'},
+                {unit: 'EliteKonnik', unique: true},
                 {},
-                {unit: 'EliteSerjeant'},
+                {unit: 'EliteSerjeant', unique: true},
             ],
         },
 
@@ -412,7 +415,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {age: 'ImperialAge'},
-                {unit: 'Missionary'},
+                {unit: 'Missionary', unique: true},
                 {tech: 'Faith'},
                 {tech: 'Illumination'},
                 {tech: 'BlockPrinting'},
@@ -591,7 +594,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {age: 'ImperialAge'},
-                {unit: 'FlemishMilitia'},
+                {unit: 'FlemishMilitia', unique: true},
             ],
         },
 

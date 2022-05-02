@@ -7,6 +7,7 @@ require('dotenv').config();
 
 // https://yaml-to-json.vercel.app/api/convert?url=https://raw.githubusercontent.com/SiegeEngineers/aoc-reference-data/master/data/players.yaml
 
+// Note: Done directly in app now
 async function loadReferenceData() {
     const filePath = path.resolve(__dirname, '..', '..', 'data', 'src', 'data', 'aoe-reference-data.ts');
 

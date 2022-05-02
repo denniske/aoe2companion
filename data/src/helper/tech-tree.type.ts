@@ -10,5 +10,6 @@ export interface ITechTreeRow {
         unit?: Unit,
         building?: Building;
         tech?: Tech;
+        unique?: boolean;
     }[];
 }

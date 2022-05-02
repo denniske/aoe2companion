@@ -88,7 +88,7 @@ export function GetValueByPath(props: PathProps) {
         }
     };
 
-    if (eliteData && path(eliteData) !== path(baseData) && hasAnyAgeUpgrade) {
+    if (eliteData && formatter(path(eliteData)) !== formatter(path(baseData)) && hasAnyAgeUpgrade) {
         return (
             <MyText style={style}>
                 <MyText>{formatter(path(baseData))} </MyText>
@@ -108,7 +108,7 @@ export function GetValueByPath(props: PathProps) {
                 <MyText style={styles.small}>({getTranslation('unit.stats.elite')})</MyText>
             </MyText>
         );
-    } else if (eliteData && path(eliteData) !== path(baseData)) {
+    } else if (eliteData && formatter(path(eliteData)) !== formatter(path(baseData))) {
         return (
             <MyText style={style}>
                 <MyText>{formatter(path(baseData))}, {formatter(path(eliteData))} </MyText>
@@ -207,6 +207,15 @@ export function getAttackBonuses(params: GetDataParams) {
 export function getArmourClasses(params: GetDataParams) {
     const data = getData(params);
     return data.Armours.filter(a => !hiddenArmourClasses.includes(getUnitClassName(a.Class as UnitClassNumber)));
+}
+
+function formatChargeType(chargeType: number) {
+    const chargeTypeMap: any = {
+        1: 'attack',
+        3: 'areaattack',
+        4: 'projectiledodging',
+    }
+    return getTranslation(`unit.stats.heading.chargetype.${chargeTypeMap[chargeType]}` as any);
 }
 
 export function UnitStats({ unitId, unitLineId }: Props) {
@@ -345,6 +354,15 @@ export function UnitStats({ unitId, unitLineId }: Props) {
             {
                 baseData.MaxCharge > 0 &&
                 <View style={styles.statsRow}>
+                    <MyText style={[styles.cellName, styles.small]}>{getTranslation('unit.stats.heading.chargetype')}</MyText>
+                    {
+                        units.map(u => <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="ChargeType" formatter={formatChargeType}/>)
+                    }
+                </View>
+            }
+            {
+                baseData.MaxCharge > 0 &&
+                <View style={styles.statsRow}>
                     <MyText style={[styles.cellName, styles.small]}>{getTranslation('unit.stats.heading.maxcharge')}</MyText>
                     {
                         units.map(u => <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="MaxCharge"/>)
@@ -356,7 +374,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                 <View style={styles.statsRow}>
                     <MyText style={[styles.cellName, styles.small]}>{getTranslation('unit.stats.heading.rechargerate')}</MyText>
                     {
-                        units.map(u => <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="RechargeRate"/>)
+                        units.map(u => <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="RechargeRate" formatter={x => x ? x.toFixed(2)+' s' : ''}/>)
                     }
                 </View>
             }
@@ -365,7 +383,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                 <View style={styles.statsRow}>
                     <MyText style={[styles.cellName, styles.small]}>{getTranslation('unit.stats.heading.rechargeduration')}</MyText>
                     {
-                        units.map(u => <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="RechargeDuration" formatter={x => x ? x+' s' : ''}/>)
+                        units.map(u => <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="RechargeDuration" formatter={x => x ? x.toFixed(2)+' s' : ''}/>)
                     }
                 </View>
             }

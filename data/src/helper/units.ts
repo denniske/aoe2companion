@@ -3335,6 +3335,8 @@ export interface IUnitInfo {
     GarrisonCapacity: number;
     HP: number;
     ID: number;
+    ChargeEvent: number;
+    ChargeType: number;
     LanguageHelpId: number;
     LanguageNameId: number;
     LineOfSight: number;

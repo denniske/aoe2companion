@@ -41,6 +41,20 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '39.0.9': [
+        {
+            type: 'feature',
+            title: 'Colorized tech tree',
+        },
+        {
+            type: 'bugfix',
+            title: 'Some tech tree fixes',
+        },
+        {
+            type: 'bugfix',
+            title: 'Unit stats rounding + charge type',
+        },
+    ],
     '39.0.8': [
         {
             type: 'minor',

@@ -1,6 +1,8 @@
 import {ITechTreeRow} from './tech-tree.type';
+import {ICivEntry} from "./civs";
+import {Unit} from "./units";
 
-export function getCompactTechTree(): ITechTreeRow[] {
+export function getCompactTechTree(civInfo: ICivEntry): ITechTreeRow[] {
     return [
         {
             title: 'techtree.heading.blacksmith'
@@ -80,7 +82,7 @@ export function getCompactTechTree(): ITechTreeRow[] {
                 {unit: 'SiegeRam'},
                 {unit: 'SiegeOnager'},
                 {},
-                {unit: 'Houfnice'},
+                {unit: 'Houfnice', unique: true},
             ],
         },
 
@@ -106,6 +108,7 @@ export function getCompactTechTree(): ITechTreeRow[] {
                 {unit: 'Champion'},
                 {unit: 'Halberdier'},
                 {unit: 'EliteEagleWarrior'},
+                {unit: 'Condottiero', unique: true},
             ],
         },
 
@@ -115,6 +118,7 @@ export function getCompactTechTree(): ITechTreeRow[] {
         {
             items: [
                 {unit: 'ScoutCavalry'},
+                ...(civInfo.name === 'Gurjaras' ? [{unit: 'ShrivamshaRider' as Unit, unique: true}] : []),
                 {unit: 'Knight'},
                 {unit: 'CamelRider'},
                 {unit: 'BattleElephant'},
@@ -125,6 +129,7 @@ export function getCompactTechTree(): ITechTreeRow[] {
         {
             items: [
                 {unit: 'LightCavalry'},
+                ...(civInfo.name === 'Gurjaras' ? [{unit: 'EliteShrivamshaRider' as Unit, unique: true}] : []),
                 {unit: 'Cavalier'},
                 {unit: 'HeavyCamelRider'},
                 {unit: 'EliteBattleElephant'},
@@ -134,8 +139,9 @@ export function getCompactTechTree(): ITechTreeRow[] {
         {
             items: [
                 {unit: 'Hussar'},
+                ...(civInfo.name === 'Gurjaras' ? [{}] : []),
                 {unit: 'Paladin'},
-                {unit: 'ImperialCamelRider'},
+                {unit: 'ImperialCamelRider', unique: true},
                 {},
                 {},
             ],
@@ -164,17 +170,17 @@ export function getCompactTechTree(): ITechTreeRow[] {
                 {unit: 'ElephantArcher'},
                 {unit: 'CavalryArcher'},
                 {},
-                {unit: 'Genitour'},
+                {unit: 'Genitour', unique: true},
             ],
         },
         {
             items: [
                 {unit: 'Arbalester'},
-                {unit: 'ImperialSkirmisher'},
+                {unit: 'ImperialSkirmisher', unique: true},
                 {unit: 'EliteElephantArcher'},
                 {unit: 'HeavyCavalryArcher'},
                 {unit: 'HandCannoneer'},
-                {unit: 'EliteGenitour'},
+                {unit: 'EliteGenitour', unique: true},
             ],
         },
     ];

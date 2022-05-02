@@ -92,7 +92,6 @@ async function loadStrings() {
     }
 }
 
-loadStrings();
 
 async function loadStringsForLanguage4(language: keyof typeof aoe2netLanguageMap) {
     const filePath = path.resolve(__dirname, '..', '..', 'app4', 'assets', 'strings', aoe2netLanguageMap[language] + '.json.lazy');
@@ -113,7 +112,6 @@ async function loadStrings4() {
     }
 }
 
-// loadStrings4();
 
 async function loadStringsAoE2TechTreeForLanguage(language: keyof typeof aoe2techtreeLanguageMap) {
     const dirPath = path.resolve(__dirname, '..', '..', 'app', 'assets', 'data', aoe2techtreeLanguageMap[language]);
@@ -139,4 +137,23 @@ async function loadStringsAoE2TechTree() {
     }
 }
 
-loadStringsAoE2TechTree();
+async function loadDataAoE2TechTree() {
+    const dirPath = path.resolve(__dirname, '..', '..', 'data', 'src', 'data');
+    const filePath = path.resolve(__dirname, '..', '..', 'data', 'src', 'data', 'aoe-data.ts');
+    const response = await axios({
+        method: 'GET',
+        url: `https://raw.githubusercontent.com/SiegeEngineers/aoe2techtree/master/data/data.json`,
+    });
+
+    if (!fs.existsSync(dirPath)){
+        fs.mkdirSync(dirPath);
+    }
+
+    const json = response.data;
+    fs.writeFileSync(filePath, `export const aoeDataInternal = ${JSON.stringify(json, null, 4)} as const;`);
+}
+
+// loadStrings();
+// loadStrings4();
+// loadStringsAoE2TechTree();
+loadDataAoE2TechTree();
