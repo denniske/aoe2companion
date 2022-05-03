@@ -18,7 +18,6 @@ import {useApi} from '../hooks/use-api';
 import {getRootNavigation} from '../service/navigation';
 import {setAccountProfile} from "../api/following";
 import {openLink} from "../helper/url";
-import Purchases from 'react-native-purchases';
 import {RootStackProp} from '../../App2';
 
 export function userMenu(props: any) {
