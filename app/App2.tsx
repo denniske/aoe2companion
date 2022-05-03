@@ -90,6 +90,7 @@ import {fetchAoeReferenceData} from './src/helper/reference';
 import DonationPage from './src/view/donation.page';
 import {registerRootComponent} from "expo";
 import Constants from 'expo-constants';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 initSentry();
 
@@ -851,6 +852,7 @@ export function AppWrapper() {
                         icon: props => <FontAwesome5 {...props} />,
                     }}
                 >
+                    <GestureHandlerRootView style={{ flex: 1 }}>
                     <StatusBar barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'} backgroundColor="transparent" translucent={true} />
                     {/*<StatusBar barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'} backgroundColor="transparent" translucent={true} />*/}
                     {/*<StatusBar barStyle="dark-content" backgroundColor="white" />*/}
@@ -871,6 +873,7 @@ export function AppWrapper() {
                         appType == 'app' &&
                         <InnerApp/>
                     }
+                    </GestureHandlerRootView>
                 </PaperProvider>
             </ConditionalTester>
         </NavigationContainer>

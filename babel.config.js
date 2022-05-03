@@ -19,7 +19,8 @@ module.exports = function(api) {
             "@nex/app/view": [process.env.APP === 'aoe2' ? "./app/src/index-view.ts" : "./app4/src/index-view.ts"],
           }
         }
-      ]
+      ],
+      'react-native-reanimated/plugin'
     ]
   };
 };

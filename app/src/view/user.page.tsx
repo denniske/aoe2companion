@@ -70,7 +70,7 @@ export function UserMenu() {
     return (
         <View style={styles.menu}>
             {
-                user.profile_id &&
+                !!user.profile_id &&
                 <TouchableOpacity style={styles.menuButton} onPress={() => openLink(xboxProfileUrl)}>
                     <FontAwesome5 style={styles.menuIcon} name="xbox" size={20} />
                 </TouchableOpacity>
