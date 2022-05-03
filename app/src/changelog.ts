@@ -14,7 +14,7 @@ export interface IChangelog {
 // https://www.ageofempires.com/news/age-of-empires-iv-season-one-update-release-notes/
 
 export const changelog4: IChangelog = {
-    '5.0.2': [
+    '5.0.3': [
         {
             type: 'feature',
             title: 'Use aoe4world.com api instead aoeiv.net api',
