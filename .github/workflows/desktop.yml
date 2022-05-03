@@ -27,7 +27,7 @@ jobs:
 
       - name: Build
         run: |
-          echo AOE $AOE
+          echo "APP=$(node deploy/script/aoe-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
           yarn
           yarn run build:web
 
