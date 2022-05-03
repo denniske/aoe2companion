@@ -77,7 +77,7 @@ export function UserMenu() {
                 </TouchableOpacity>
             }
             {
-                user.steam_id &&
+                !!user.steam_id &&
                 <TouchableOpacity style={styles.menuButton}  onPress={() => openLink(steamProfileUrl)}>
                     <FontAwesome5 style={styles.menuIcon} name="steam" size={20} />
                 </TouchableOpacity>
