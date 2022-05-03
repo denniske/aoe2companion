@@ -19,8 +19,8 @@ export interface IMatchCache {
 export async function tidyMatchCache() {
     const index = await loadMatchCacheIndexFromStorage();
     console.log('tidyMatchCache', sumBy(index.entries, e => e.size) / 1000 / 1000);
-    // 1 MB
-    while (sumBy(index.entries, e => e.size) / 1000 / 1000 > 1) {
+    // 40 MB
+    while (sumBy(index.entries, e => e.size) / 1000 / 1000 > 40) {
         const oldestEntry = minBy(index.entries, e => e.date);
         await AsyncStorage.removeItem(`matchcache-${oldestEntry!.id}`);
         pull(index.entries, oldestEntry);
