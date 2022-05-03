@@ -25,6 +25,9 @@ runs:
     - run:  echo TRAVIS_BRANCH $TRAVIS_BRANCH
       shell: bash
 
+    - run:  echo AOE $AOE
+      shell: bash
+
     - run:  echo CHANNEL $CHANNEL
       shell: bash
 

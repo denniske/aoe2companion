@@ -27,6 +27,7 @@ jobs:
 
       - name: Build
         run: |
+          echo AOE $AOE
           yarn
           yarn run build:web
 
