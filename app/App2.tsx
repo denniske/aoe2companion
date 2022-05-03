@@ -78,7 +78,7 @@ import {setAccountPushTokenElectron} from './src/api/following';
 import OverlayPage from "./src/view/overlay.page";
 import IntroPage from "./src/view/intro.page";
 import {Roboto_400Regular, Roboto_700Bold, useFonts} from "@expo-google-fonts/roboto";
-import {getInternalString, loadStringsAsync} from './src/helper/strings';
+import {getAllInternalStrings, getInternalString, loadStringsAsync} from './src/helper/strings';
 import { fetchJson } from './src/api/util';
 import UpdateElectronSnackbar from "./src/view/components/snackbar/update-electron-snackbar";
 import OverlaySettingsPage from "./src/view/overlay.settings.page";
@@ -131,6 +131,9 @@ class AoeDataService implements ITranslationService {
     }
     getString(category: keyof IStrings, id: number) {
         return getInternalString(category, id);
+    }
+    getAllStrings(category: keyof IStrings) {
+        return getAllInternalStrings(category);
     }
     getLanguage(): string {
         return getInternalLanguage();

@@ -3,7 +3,7 @@ import {FlatList, Linking, Platform, StyleSheet, TouchableOpacity, View} from 'r
 import {RootStackParamList, RootStackProp} from '../../App';
 import {RouteProp, useNavigation, useNavigationState, useRoute} from '@react-navigation/native';
 import {Game} from './components/game';
-import {fetchPlayerMatches} from "@nex/data";
+import {fetchPlayerMatchesMultiple} from "@nex/data";
 import {IMatch, IPlayer} from "@nex/data/api";
 import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
 import Search from "./components/search";
@@ -86,7 +86,7 @@ export function FeedList() {
         (state, value) => {
             state.followedMatches = value;
         },
-        fetchPlayerMatches, 'aoe2de', 0, 15, following
+        fetchPlayerMatchesMultiple, 'aoe2de', 0, 15, following
     );
 
     const refetch = async () => {

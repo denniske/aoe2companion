@@ -1,11 +1,14 @@
-import {fromUnixTime, getUnixTime, parseISO} from "date-fns";
-import {uniqBy} from 'lodash';
+import {addSeconds, fromUnixTime, getUnixTime, parseISO} from "date-fns";
+import {flatMap, uniqBy} from 'lodash';
 import request, {gql} from "graphql-request";
 import {makeQueryString} from '../lib/util';
 import {getHost} from '../lib/host';
-import {IMatch, IMatchRaw} from './api.types';
+import {IMatch, IMatchRaw, IPlayer, SlotType} from './api.types';
 import {fetchJson} from '../lib/fetch-json';
 import {appConfig} from "@nex/dataset";
+import {Aoe4WorldGame, IAoe4WorldPlayerMatches} from "./api4.types";
+import {getAllStrings, getString} from "../lib/aoe-data";
+import {loadMatchCacheEntry, saveMatchCacheEntry, tidyMatchCache} from "../../../app/src/service/match-cache";
 
 
 function convertTimestampsToDates(json: IMatchRaw): IMatch {
@@ -151,6 +154,154 @@ export async function setMatchChecked(match_uuid: string, match_id: string): Pro
 //     return civMapping[civ];
 // }
 
+const aoe4WorldCivMap = {
+    'abbasid_dynasty': 0,
+    'chinese': 1,
+    'delhi_sultanate': 2,
+    'english': 3,
+    'french': 4,
+    'holy_roman_empire': 5,
+    'mongols': 6,
+    'rus': 7,
+};
+
+const aoe4WorldLeaderboardMap = {
+    'custom': 0,
+    'qm_1v1': 17,
+    'qm_2v2': 18,
+    'qm_3v3': 19,
+    'qm_4v4': 20,
+    'rm_1v1': 1001,
+};
+
+function aoe4worldMatchToAoe2NetMatch(match4: Aoe4WorldGame) {
+    const players = flatMap(match4.teams, (team, i) => {
+        return team.map(p => ({
+            team: i,
+            won: p.player.result === 'win',
+            civ: aoe4WorldCivMap[p.player.civilization],
+            profile_id: p.player.profile_id,
+            name: p.player.name,
+            rating: p.player.rating,
+            rating_change: p.player.rating_diff,
+            slot_type: 1,
+        }))
+    });
+    return {
+        match_id: match4.game_id.toString(),
+        server: match4.server,
+        started: parseISO(match4.started_at),
+        finished: addSeconds(parseISO(match4.started_at), match4.duration),
+        map_type: getAllStrings('map_type')?.find(s => s.string == match4.map)?.id as any,
+        leaderboard_id: aoe4WorldLeaderboardMap[match4.kind],
+        players,
+        num_players: players.length,
+
+        average_rating: undefined,
+        cheats: false,
+        ending_age: 0,
+        expansion: undefined,
+        full_tech_tree: false,
+        game_type: undefined,
+        has_custom_content: undefined,
+        has_password: false,
+        lobby_id: undefined,
+        lock_speed: false,
+        lock_teams: false,
+        map_size: 0,
+        match_uuid: "",
+        name: "",
+        num_slots: 0,
+        pop: 0,
+        ranked: false,
+        rating_type: undefined,
+        rating_type_id: undefined,
+        resources: undefined,
+        rms: undefined,
+        scenario: undefined,
+        shared_exploration: false,
+        speed: 0,
+        starting_age: 0,
+        team_positions: false,
+        team_together: false,
+        treaty_length: undefined,
+        turbo: false,
+        version: "",
+        victory: undefined,
+        victory_time: undefined,
+        visibility: undefined
+    } as IMatch;
+}
+
+
+
+export async function fetchPlayerMatchesLegacy4(game: string, start: number, count: number, params: IFetchMatchesParams[]): Promise<IMatch[]> {
+    const profileId = params[0].profile_id;
+    let newMatches = [];
+    await tidyMatchCache();
+    let cachedMatches = await loadMatchCacheEntry(profileId);
+    let since = cachedMatches.length > 0 ? cachedMatches[0].started_at : new Date(2000, 0, 1);
+    let args: any = {
+        since,
+    };
+    const queryString = makeQueryString(args);
+    const url = getHost('aoe4world') + `players/${profileId}/games?${queryString}`;
+    let json = await fetchJson('fetchPlayerMatchesLegacy4Single', url) as IAoe4WorldPlayerMatches;
+    newMatches.push(...json.games);
+
+    const pages = Math.ceil(json.total_count / json.per_page);
+    for (let page = 2; page <= Math.min(20, pages); page++) {
+        args = {
+            since,
+            page,
+        };
+        const queryString = makeQueryString(args);
+        const url = getHost('aoe4world') + `players/${profileId}/games?${queryString}`;
+        let json = await fetchJson('fetchPlayerMatchesLegacy4Single', url) as IMatchRaw[];
+        newMatches.push(...json.games);
+    }
+
+    const matches = [...newMatches, ...cachedMatches];
+
+    await saveMatchCacheEntry(profileId, matches);
+
+    return matches.map(aoe4worldMatchToAoe2NetMatch);
+}
+
+export async function fetchPlayerMatchesLegacyMultiple4(game: string, start: number, count: number, params: IFetchMatchesParams[]): Promise<IMatch[]> {
+    if (params.length === 0) {
+        return [];
+    }
+
+    let newMatches = [];
+
+    let args: any = {
+        profile_ids: params.map(p => p.profile_id),
+    };
+    const queryString = makeQueryString(args);
+    const url = getHost('aoe4world') + `games?${queryString}`;
+    let json = await fetchJson('fetchPlayerMatchesLegacy4Single', url) as IAoe4WorldPlayerMatches;
+    newMatches.push(...json.games);
+
+    console.log('count', count);
+
+    const pages = Math.ceil(count / json.per_page);
+    for (let page = 2; page <= pages; page++) {
+        args = {
+            page,
+            profile_ids: params.map(p => p.profile_id),
+        };
+        const queryString = makeQueryString(args);
+        const url = getHost('aoe4world') + `games?${queryString}`;
+        let json = await fetchJson('fetchPlayerMatchesLegacy4Single', url) as IAoe4WorldPlayerMatches;
+        newMatches.push(...json.games);
+        if (json.games.length < json.per_page) break;
+    }
+
+    const matches = [...newMatches];
+    return matches.map(aoe4worldMatchToAoe2NetMatch);
+}
+
 export async function fetchPlayerMatchesLegacy(game: string, start: number, count: number, params: IFetchMatchesParams[]): Promise<IMatch[]> {
     if (params.length === 0) {
         return [];
@@ -185,6 +336,9 @@ export async function fetchPlayerMatchesLegacy(game: string, start: number, coun
                 if (match.num_players == 4) match.leaderboard_id = 18;
                 if (match.num_players == 6) match.leaderboard_id = 19;
                 if (match.num_players == 8) match.leaderboard_id = 20;
+            }
+            if (match.leaderboard_id == 17 && match.rating_type_id == 32) {
+                match.leaderboard_id = 1001;
             }
             match.players.forEach(player => {
                 player.color = player.color || player.slot;
@@ -340,11 +494,19 @@ export async function fetchPlayerMatchesNew(game: string, start: number, count: 
     return [];
 }
 
+export async function fetchPlayerMatchesMultiple(game: string, start: number, count: number, params: IFetchMatchesParams[]): Promise<IMatch[]> {
+    if (appConfig.game == 'aoe4') return await fetchPlayerMatchesLegacyMultiple4(game, start, count, params);
+    return await fetchPlayerMatchesLegacy(game, start, count, params);
+}
+
 export async function fetchPlayerMatches(game: string, start: number, count: number, params: IFetchMatchesParams[]): Promise<IMatch[]> {
-    let [newResult, legacyResult] = await Promise.all([
-        fetchPlayerMatchesNew(game, start, count, params),
-        fetchPlayerMatchesLegacy(game, start, count, params),
-    ]);
+    if (appConfig.game == 'aoe4') return await fetchPlayerMatchesLegacy4(game, start, count, params);
+    return await fetchPlayerMatchesLegacy(game, start, count, params);
+
+    // let [newResult, legacyResult] = await Promise.all([
+    //     fetchPlayerMatchesNew(game, start, count, params),
+    //     fetchPlayerMatchesLegacy(game, start, count, params),
+    // ]);
 
     // console.log('newResult', newResult);
     // console.log('legacyResult', legacyResult);
@@ -388,51 +550,51 @@ export async function fetchPlayerMatches(game: string, start: number, count: num
     // console.log(legacyResult.filter(m => m.game_type === 12));
     // legacyResult = legacyResult.filter(m => m.game_type === 12);
 
-    legacyResult.forEach(legacyMatch => {
-        legacyMatch.source = 'aoe2net';
-
-        // Set replayed
-        // if (Platform.OS === 'web') {
-        //     const newMatch = newResult.find(m => m.match_id == legacyMatch.match_id);
-        //     if (newMatch) {
-        //         legacyMatch.replayed = newMatch.replayed;
-        //     }
-        // }
-
-        // Cannot do this at the moment because civs in DB do not match aoe2net civs anymore since 11.08.2021
-        // Any civ missing
-        // if (legacyMatch.players.filter(p => p.civ == null).length > 0) {
-        //     const newMatch = newResult.find(m => m.match_id == legacyMatch.match_id);
-        //     if (newMatch) {
-        //         legacyMatch.players.forEach(legacyPlayer => {
-        //             const newPlayer = newMatch.players.find(p => p.slot === legacyPlayer.slot);
-        //             if (newPlayer) {
-        //                 legacyPlayer.civ = newPlayer.civ;
-        //             }
-        //         });
-        //         legacyMatch.source += ' civ';
-        //     }
-        // }
-
-        // All won missing
-        if (legacyMatch.players.filter(p => p.won == null).length == legacyMatch.players.length) {
-            const newMatch = newResult.find(m => m.match_id == legacyMatch.match_id);
-            if (newMatch) {
-                legacyMatch.players.forEach(legacyPlayer => {
-                    const newPlayer = newMatch.players.find(p => p.slot === legacyPlayer.slot);
-                    if (newPlayer) {
-                        legacyPlayer.won = newPlayer.won;
-                    }
-                });
-                legacyMatch.source += ' won';
-            }
-        }
-    });
-
-    // console.log('match_ids', JSON.stringify(legacyResult.map(m => m.match_id)).replace(/"/g, '\''));
-
-    // return newResult;
-    return legacyResult;
+    // legacyResult.forEach(legacyMatch => {
+    //     legacyMatch.source = 'aoe2net';
+    //
+    //     // Set replayed
+    //     // if (Platform.OS === 'web') {
+    //     //     const newMatch = newResult.find(m => m.match_id == legacyMatch.match_id);
+    //     //     if (newMatch) {
+    //     //         legacyMatch.replayed = newMatch.replayed;
+    //     //     }
+    //     // }
+    //
+    //     // Cannot do this at the moment because civs in DB do not match aoe2net civs anymore since 11.08.2021
+    //     // Any civ missing
+    //     // if (legacyMatch.players.filter(p => p.civ == null).length > 0) {
+    //     //     const newMatch = newResult.find(m => m.match_id == legacyMatch.match_id);
+    //     //     if (newMatch) {
+    //     //         legacyMatch.players.forEach(legacyPlayer => {
+    //     //             const newPlayer = newMatch.players.find(p => p.slot === legacyPlayer.slot);
+    //     //             if (newPlayer) {
+    //     //                 legacyPlayer.civ = newPlayer.civ;
+    //     //             }
+    //     //         });
+    //     //         legacyMatch.source += ' civ';
+    //     //     }
+    //     // }
+    //
+    //     // All won missing
+    //     if (legacyMatch.players.filter(p => p.won == null).length == legacyMatch.players.length) {
+    //         const newMatch = newResult.find(m => m.match_id == legacyMatch.match_id);
+    //         if (newMatch) {
+    //             legacyMatch.players.forEach(legacyPlayer => {
+    //                 const newPlayer = newMatch.players.find(p => p.slot === legacyPlayer.slot);
+    //                 if (newPlayer) {
+    //                     legacyPlayer.won = newPlayer.won;
+    //                 }
+    //             });
+    //             legacyMatch.source += ' won';
+    //         }
+    //     }
+    // });
+    //
+    // // console.log('match_ids', JSON.stringify(legacyResult.map(m => m.match_id)).replace(/"/g, '\''));
+    //
+    // // return newResult;
+    // return legacyResult;
 }
 
 

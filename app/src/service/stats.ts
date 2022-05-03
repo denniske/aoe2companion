@@ -20,12 +20,12 @@ export async function getStats({matches, user, leaderboardId}: IParam) {
 
     time('getStats' + matches?.length);
 
-    console.log(matches[0]);
-    console.log(matches[1]);
-    console.log(matches[3]);
-    console.log(matches[4]);
-    console.log(matches[5]);
-    console.log(matches[6]);
+    // console.log(matches[0]);
+    // console.log(matches[1]);
+    // console.log(matches[3]);
+    // console.log(matches[4]);
+    // console.log(matches[5]);
+    // console.log(matches[6]);
 
     const filteredMatches = matches?.filter((m: any) => m.leaderboard_id == leaderboardId);
 

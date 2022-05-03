@@ -36,28 +36,7 @@
         }
     ],
     "game_type": [],
-    "leaderboard": [
-        {
-            "id": 0,
-            "string": "Custom"
-        },
-        {
-            "id": 17,
-            "string": "Quick Match 1v1"
-        },
-        {
-            "id": 18,
-            "string": "Quick Match 2v2"
-        },
-        {
-            "id": 19,
-            "string": "Quick Match 3v3"
-        },
-        {
-            "id": 20,
-            "string": "Quick Match 4v4"
-        }
-    ],
+    "leaderboard": [],
     "map_size": [],
     "map_type": [
         {
@@ -127,6 +106,10 @@
         {
             "id": 16,
             "string": "Boulder Bay"
+        },
+        {
+            "id": 17,
+            "string": "Mega Random"
         }
     ],
     "rating_type": [],

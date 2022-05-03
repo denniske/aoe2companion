@@ -1,9 +1,10 @@
 import {fetchLeaderboardLegacy} from '../api/leaderboard';
 import {groupBy, sortBy, sumBy} from 'lodash';
-import {Flag, ILeaderboardPlayer} from "@nex/data";
+import {fetchJson, Flag, getHost, ILeaderboardPlayer, makeQueryString} from "@nex/data";
 import request, {gql} from 'graphql-request';
 import {appConfig} from "@nex/dataset";
 import {minifyUserId} from "../helper/user";
+import {Aoe4WorldFoundPlayer, Aoe4WorldFoundPlayers, IAoe4WorldPlayerMatches} from "../../../data/src/api/api4.types";
 
 export interface IFetchedUser {
     clan: string;
@@ -33,7 +34,57 @@ async function fetchLeaderboardLegacyForProfileId(game: string, leaderboard_id: 
     return await fetchLeaderboardLegacy(game, leaderboard_id, {start: 1, count: 1, profile_id});
 }
 
+function aoe4WorldUserToFetchedUser(user4: Aoe4WorldFoundPlayer) {
+    const newUser: IFetchedUser = {
+        clan: '',
+        country: '' as any,
+        icon: '',
+        name: user4.name,
+        last_match: user4.last_game_at,
+        profile_id: user4.profile_id,
+        steam_id: user4.steam_id,
+        games: sumBy(Object.values(user4.leaderboards), l => l.games_count),
+        drops: 0,
+        entries: [],
+    }
+    return newUser;
+}
+
+export async function loadUserLegacy4(game: string, start: number, count: number, search: string) {
+    let newMatches = [];
+
+    let args: any = {
+        query: search,
+    };
+    const queryString = makeQueryString(args);
+    const url = getHost('aoe4world') + `players/search?${queryString}`;
+    let json = await fetchJson('loadUserLegacy4', url) as Aoe4WorldFoundPlayers;
+    newMatches.push(...json.players);
+
+    console.log('count', count);
+
+    const pages = Math.ceil(count / json.per_page);
+    for (let page = 2; page <= pages; page++) {
+        args = {
+            page,
+            query: search,
+        };
+        const queryString = makeQueryString(args);
+        const url = getHost('aoe4world') + `players/search?${queryString}`;
+        let json = await fetchJson('loadUserLegacy4', url) as Aoe4WorldFoundPlayers;
+        newMatches.push(...json.players);
+        if (json.players.length < json.per_page) break;
+    }
+
+    const matches = [...newMatches];
+
+    console.log(matches);
+
+    return matches.map(aoe4WorldUserToFetchedUser);
+}
+
 export async function loadUserLegacy(game: string, start: number, count: number, search: string) {
+    if (appConfig.game == 'aoe4') return await loadUserLegacy4(game, start, count, search);
     console.log("loading user", game, search);
 
     let leaderboards = await Promise.all(
@@ -96,7 +147,7 @@ export async function loadUserLegacy(game: string, start: number, count: number,
     }
 
     // console.log(leaderboards);
-    // console.log(result);
+    // console.log('result', result);
 
     return result;
 }

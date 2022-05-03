@@ -62,10 +62,10 @@ function LeaderboardRow1({data}: ILeaderboardRowProps) {
                     {leaderboardInfo.rating}
                 </MyText>
                 <MyText style={StyleSheet.flatten([styles.cellRating2, color])}>
-                    {leaderboardInfo.highest_rating == leaderboardInfo.rating ? '←' : leaderboardInfo.highest_rating}
+                    {leaderboardInfo.highest_rating == leaderboardInfo.rating ? '←' : leaderboardInfo.highest_rating || '-'}
                 </MyText>
                 <MyText style={StyleSheet.flatten([styles.cellRatingChange, color])}>
-                    {formatStreak(leaderboardInfo.rating-leaderboardInfo.previous_rating)}
+                    {leaderboardInfo.previous_rating ? formatStreak(leaderboardInfo.rating-leaderboardInfo.previous_rating) : '-'}
                 </MyText>
             </View>
     )
@@ -166,6 +166,8 @@ export default function Profile({data, ready}: IProfileProps) {
     const followingThisUser = !!following.find(f => data && sameUser(f, data));
     const authCountry = useSelector(state => state.prefs.country);
 
+    // console.log('==> data', data);
+
     const _toggleFollowing = async () => {
         const following = await toggleFollowing(data!);
         if (following) {
@@ -200,7 +202,7 @@ export default function Profile({data, ready}: IProfileProps) {
                                     <FontAwesome5 solid name="check-circle" size={14} style={styles.verifiedIcon} />
                                 }
                                 {
-                                    data?.clan &&
+                                    data?.clan != null &&
                                     <MyText> ({getTranslation('main.profile.clan')}: {data?.clan})</MyText>
                                 }
                             </View>

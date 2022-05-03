@@ -1,4 +1,4 @@
-import {getLanguage, IStringCollection, IStrings} from '@nex/data';
+import {getLanguage, IStringCollection, IStringItem, IStrings} from '@nex/data';
 import {Asset} from 'expo-asset';
 import {Platform} from 'react-native';
 import {readAsStringAsync} from 'expo-file-system';
@@ -9,6 +9,10 @@ import {stringsSourceData} from "@nex/dataset";
 export function getInternalString(category: keyof IStrings, id: number): string | undefined {
     // console.log('get string', strings[getLanguage()], category, id);
     return strings[getLanguage()]?.[category]?.find(i => i.id === id)?.string;
+}
+
+export function getAllInternalStrings(category: keyof IStrings): IStringItem[] {
+    return strings[getLanguage()]?.[category];
 }
 
 export function getStringId(category: keyof IStrings, str: string) {

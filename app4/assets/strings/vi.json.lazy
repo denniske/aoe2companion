@@ -106,6 +106,10 @@
         {
             "id": 16,
             "string": "Boulder Bay"
+        },
+        {
+            "id": 17,
+            "string": "Mega Random"
         }
     ],
     "rating_type": [],

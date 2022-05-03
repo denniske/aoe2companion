@@ -80,6 +80,10 @@ export function LeaderboardMenu() {
         mutate(setLeaderboardCountry(country));
     };
 
+    if (appConfig.game == 'aoe4') {
+        return <View></View>;
+    }
+
     return (
         <View style={styles.menu}>
             <View style={styles.pickerRow}>
@@ -120,19 +124,19 @@ export default function LeaderboardPage() {
 
     return (
         <Tab.Navigator lazy={true} swipeEnabled={false}>
-            <Tab.Screen name="LeaderboardRm1v1" initialParams={{leaderboardId: 17}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.1v1')}/>}}>
+            <Tab.Screen name="LeaderboardRm1v1" initialParams={{leaderboardId: 1001}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rm1v1')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
-            <Tab.Screen name="LeaderboardRmTeam" initialParams={{leaderboardId: 18}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.2v2')}/>}}>
+            <Tab.Screen name="LeaderboardRmTeam" initialParams={{leaderboardId: 17}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.1v1')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
-            <Tab.Screen name="LeaderboardEw1v1" initialParams={{leaderboardId: 19}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.3v3')}/>}}>
+            <Tab.Screen name="LeaderboardEw1v1" initialParams={{leaderboardId: 18}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.2v2')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
-            <Tab.Screen name="LeaderboardEwTeam" initialParams={{leaderboardId: 20}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.4v4')}/>}}>
+            <Tab.Screen name="LeaderboardEwTeam" initialParams={{leaderboardId: 19}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.3v3')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
-            <Tab.Screen name="LeaderboardUnranked" initialParams={{leaderboardId: 0}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.custom')}/>}}>
+            <Tab.Screen name="LeaderboardUnranked" initialParams={{leaderboardId: 20}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.4v4')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
         </Tab.Navigator>
@@ -140,6 +144,8 @@ export default function LeaderboardPage() {
 }
 
 export const windowWidth = Platform.OS === 'web' ? 450 : Dimensions.get('window').width;
+
+const pageSize = 50;
 
 function Leaderboard({leaderboardId}: any) {
     const styles = useStyles();
@@ -177,7 +183,7 @@ function Leaderboard({leaderboardId}: any) {
                 return data;
             },
         },
-        fetchLeaderboard, 'aoe2de', leaderboardId, getParams(1, 100)
+        fetchLeaderboard, 'aoe2de', leaderboardId, getParams(1, pageSize)
     );
 
     const onRefresh = async () => {
@@ -260,14 +266,13 @@ function Leaderboard({leaderboardId}: any) {
         )
     };
 
-    const pageSize = 100;
 
     const fetchPage = async (page: number) => {
         if (fetchingPage !== undefined) return;
         if (matches.loading) return;
         console.log('FETCHPAGE', page);
         setFetchingPage(page);
-        await matches.refetchAppend('aoe2de', leaderboardId, getParams(page * pageSize + 1, 100));
+        await matches.refetchAppend('aoe2de', leaderboardId, getParams(page * pageSize + 1, pageSize));
         setFetchingPage(undefined);
     };
 

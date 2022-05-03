@@ -1,7 +1,7 @@
 import {getService, SERVICE_NAME} from "./di";
 import {appConfig} from "@nex/dataset";
 
-export type Host = 'aoe2companion' | 'aoe2companion-api' | 'aoe2companion-graphql' | 'aoe2net';
+export type Host = 'aoe4world' | 'aoe2companion' | 'aoe2companion-api' | 'aoe2companion-graphql' | 'aoe2net';
 export type OS = 'windows' | 'macos' | 'android' | 'ios' | 'web';
 export type Environment = 'development' | 'production';
 
@@ -19,6 +19,9 @@ export function getHost(host: Host) {
     const platform = hostService.getPlatform();
     const dev = hostService.getEnvironment() == 'development';
     switch (host) {
+        case "aoe4world": {
+            return `https://aoe4world.com/api/v0/`;
+        }
         case "aoe2companion": {
             // if (__DEV__ && !Constants.isDevice) {
             //     const platformHost = Platform.select({ios: 'localhost', android: '10.0.2.2'});

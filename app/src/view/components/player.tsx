@@ -4,7 +4,7 @@ import {getPlayerBackgroundColor} from '../../helper/colors';
 import {useNavigation} from '@react-navigation/native';
 import {userIdFromBase} from '../../helper/user';
 import {civs, getCivNameById, isBirthday, isVerifiedPlayer, moProfileId, noop} from '@nex/data';
-import {RootStackProp} from '../../../App';
+import {RootStackProp} from '../../../App2';
 import {getSlotTypeName, IPlayer, IMatch} from "@nex/data/api";
 import {TextLoader} from "./loader/text-loader";
 import {FontAwesome5} from "@expo/vector-icons";
@@ -77,13 +77,17 @@ export function Player({match, player, highlight, freeForALl, canDownloadRec}: I
                     }
                 </View>
 
-                <View style={styles.squareCol}>
-                    <View style={boxStyle}>
-                        <MyText style={styles.squareText}>{player.color}</MyText>
+                {
+                    appConfig.game === 'aoe2de' &&
+                    <View style={styles.squareCol}>
+                        <View style={boxStyle}>
+                            <MyText style={styles.squareText}>{player.color}</MyText>
+                        </View>
                     </View>
-                </View>
+                }
 
                 <MyText style={styles.playerRatingCol}>{player.rating}</MyText>
+
                 {
                     player.profile_id === moProfileId && isBirthday() &&
                     <MyText style={[styles.playerNameColBirthday]} numberOfLines={1}>
@@ -109,7 +113,7 @@ export function Player({match, player, highlight, freeForALl, canDownloadRec}: I
             }
 
             <TouchableOpacity style={styles.civCol} onPress={() => navigation.push('Civ', {civ: civs[player.civ]})}>
-                <View style={styles.row}>
+                <View style={appConfig.game === 'aoe2de' ? styles.row : styles.row4}>
                     <Image fadeDuration={0} style={styles.countryIcon} source={getCivIconByIndex(player.civ) as any}/>
                     <MyText numberOfLines={1} style={styles.text}>{getCivNameById(civs[player.civ])}</MyText>
                 </View>
@@ -192,6 +196,13 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         width: 100,
+        // backgroundColor: 'blue',
+    },
+    row4: {
+        marginLeft: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: 150,
         // backgroundColor: 'blue',
     },
     countryIcon: appConfig.game === 'aoe2de' ? {

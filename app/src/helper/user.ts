@@ -49,11 +49,11 @@ export function composeUserId(id: UserIdBase): string {
 }
 
 export function minifyUserId(id: UserIdBase): UserIdBase {
-    if (id.steam_id) {
-        return {
-            steam_id: id.steam_id,
-        };
-    }
+    // if (id.steam_id) {
+    //     return {
+    //         steam_id: id.steam_id,
+    //     };
+    // }
     return {
         profile_id: id.profile_id,
     };

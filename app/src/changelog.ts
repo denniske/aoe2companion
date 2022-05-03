@@ -11,7 +11,23 @@ export interface IChangelog {
 
 // https://www.aoe2insights.com/match/99919072/analysis/
 
+// https://www.ageofempires.com/news/age-of-empires-iv-season-one-update-release-notes/
+
 export const changelog4: IChangelog = {
+    '5.0.2': [
+        {
+            type: 'feature',
+            title: 'Use aoe4world.com api instead aoeiv.net api',
+        },
+        {
+            type: 'feature',
+            title: 'Implemented [AoE IV Season One Update](https://www.ageofempires.com/news/age-of-empires-iv-season-one-update-release-notes/)',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix stats page',
+        },
+    ],
     '5.0.1': [
         {
             type: 'bugfix',

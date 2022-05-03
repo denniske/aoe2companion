@@ -1,5 +1,5 @@
 import {getString, getUiTranslation} from '../lib/aoe-data';
-import {abbreviationsData} from "@nex/dataset";
+import {abbreviationsData, appConfig} from "@nex/dataset";
 
 
 export enum LeaderboardId {
@@ -23,6 +23,19 @@ export function formatLeaderboardId(leaderboard_id: LeaderboardId) {
 export function getLeaderboardOrGameType(leaderboard_id: LeaderboardId, game_type: any) {
     // console.log('getLeaderboardOrGameType', leaderboard_id, game_type);
     if (leaderboard_id != null) {
+
+        if (appConfig.game == 'aoe4') {
+            const mapping = {
+                0: 'Custom',
+                17: 'QM 1v1',
+                18: 'QM 2v2',
+                19: 'QM 3v3',
+                20: 'QM 4v4',
+                1001: 'RM 1v1',
+            };
+            return mapping[leaderboard_id];
+        }
+
         return getString('leaderboard', leaderboard_id);
     }
 

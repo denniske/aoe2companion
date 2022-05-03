@@ -27,8 +27,9 @@ import * as Localization from 'expo-localization';
 import {deactivatePusher, initPusher} from '../helper/pusher';
 import {getElectronPushToken, isElectron} from '../helper/electron';
 import Space from "./components/space";
-import {merge} from 'lodash';
+import {isEmpty, merge} from 'lodash';
 import {clamp} from "@nex/data";
+import {clearMatchCache, getMatchCacheSize} from "../service/match-cache";
 
 
 export default function SettingsPage() {
@@ -44,6 +45,7 @@ export default function SettingsPage() {
     const [overlayOpacityStr, setOverlayOpacityStr] = useState('');
     const [overlayOffsetStr, setOverlayOffsetStr] = useState('');
     const [overlayDurationStr, setOverlayDurationStr] = useState('');
+    const [matchCacheSize, setMatchCacheSize] = useState(0);
 
     useEffect(() => {
         setOverlayOpacityStr(`${config.overlay.opacity}`);
@@ -257,6 +259,17 @@ export default function SettingsPage() {
         mutate(setConfig(newConfig));
     };
 
+    useEffect(() => {
+        (async () => {
+            setMatchCacheSize(await getMatchCacheSize());
+        })();
+    }, []);
+
+    const clearCache = async () => {
+        await clearMatchCache();
+        setMatchCacheSize(await getMatchCacheSize());
+    };
+
     const languageMap: Record<string, string> = {
         'system': 'System (' + Localization.locale + ')',
         'ms': 'Bahasa Melayu',
@@ -364,6 +377,25 @@ export default function SettingsPage() {
                 </View>
                 <View style={styles.cellValueCol}>
                     <Picker itemHeight={40} textMinWidth={150} divider={divider} value={config.language || 'en'} values={languageList} formatter={formatLanguage} onSelect={onLanguageSelected}/>
+                </View>
+            </View>
+
+            <View style={styles.row}>
+                <View style={styles.cellName}>
+                    <MyText>{getTranslation('settings.cache')}</MyText>
+                    <MyText style={styles.small}>{getTranslation('settings.cache.note')}</MyText>
+                </View>
+                <View style={styles.cellValueCol}>
+                    <Button
+                        onPress={() => clearCache()}
+                        mode="contained"
+                        compact
+                        uppercase={false}
+                        dark={true}
+                        disabled={matchCacheSize === 0}
+                    >
+                        {getTranslation('settings.cache.clear')} {(matchCacheSize / 1000 / 1000).toFixed(1)} MB
+                    </Button>
                 </View>
             </View>
 

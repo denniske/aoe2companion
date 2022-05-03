@@ -154,6 +154,6 @@ async function loadDataAoE2TechTree() {
 }
 
 // loadStrings();
-// loadStrings4();
+loadStrings4();
 // loadStringsAoE2TechTree();
-loadDataAoE2TechTree();
+// loadDataAoE2TechTree();

@@ -84,6 +84,7 @@ export interface IMatchRaw {
     pop: number;
     ranked: boolean;
     rating_type: any;
+    rating_type_id: any;
     resources: any;
     rms: any;
     scenario: any;

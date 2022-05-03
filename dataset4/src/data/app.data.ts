@@ -5,9 +5,9 @@ export const appConfig = {
     hostAoeCompanion: 'aoe4companion.com',
     hostAoeNet: 'aoeiv.net',
     leaderboards: [
-        {
-            id: 0,
-        },
+        // {
+        //     id: 0,
+        // },
         {
             id: 1001,
         },
