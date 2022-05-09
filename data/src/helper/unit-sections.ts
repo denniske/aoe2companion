@@ -49,6 +49,7 @@ const unitSections: IUnitSection[] = [
         title: 'unit.section.siege',
         data:
             [
+                'ArmoredElephant',
                 'BatteringRam',
                 'Mangonel',
                 'Scorpion',

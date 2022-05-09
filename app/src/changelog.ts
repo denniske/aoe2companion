@@ -63,6 +63,16 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '39.0.10': [
+        {
+            type: 'minor',
+            title: 'Show ageofstatistics.com instead aoestats.io on winrates page',
+        },
+        {
+            type: 'bugfix',
+            title: 'Add armored/siege elephant to unit list',
+        },
+    ],
     '39.0.9': [
         {
             type: 'feature',

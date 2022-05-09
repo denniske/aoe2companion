@@ -10,8 +10,8 @@ import {openLink} from "../helper/url";
 export function WinratesTitle(props: any) {
     const appStyles = useTheme(appVariants);
     return (
-        <TouchableOpacity onPress={() => openLink('https://aoestats.io')}>
-            <MyText style={appStyles.link}>aoestats.io</MyText>
+        <TouchableOpacity onPress={() => openLink('https://www.ageofstatistics.com/statistics/winrates?game=aoe2&period=p03_v01&filter=rm_solo_all')}>
+            <MyText style={appStyles.link}>ageofstatistics.com</MyText>
         </TouchableOpacity>
     );
 }
@@ -22,7 +22,7 @@ export default function WinratesPage() {
             <iframe
                 style={{ border: 'none' }}
                 height="100%"
-                src="https://aoestats.io/">
+                src="https://www.ageofstatistics.com/statistics/winrates?game=aoe2&period=p03_v01&filter=rm_solo_all">
             </iframe>
         );
     }

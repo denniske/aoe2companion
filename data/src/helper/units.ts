@@ -125,7 +125,6 @@ export const unitLines: IUnitLineDict = {
     },
     'ArmoredElephant': {
         units: ['ArmoredElephant', 'SiegeElephant'],
-        unique: true,
         counteredBy: [
         ],
         upgrades: [
