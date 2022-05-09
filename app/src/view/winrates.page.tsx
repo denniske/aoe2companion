@@ -65,7 +65,7 @@ export default function WinratesPage() {
                     console.log('event: ', event)
                 }}
                 injectedJavaScript={runFirst}
-                source={{ uri: 'https://aoestats.io/' }}
+                source={{ uri: 'https://www.ageofstatistics.com/statistics/winrates?game=aoe2&period=p03_v01&filter=rm_solo_all' }}
                 scalesPageToFit={false}
                 style={{
                     minHeight: 200,
