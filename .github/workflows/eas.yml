@@ -53,6 +53,10 @@ jobs:
         uses: actions/checkout@v1
       - name: Setup Env
         uses: ./.github/actions/setup
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
       - name: Setup Node
         uses: actions/setup-node@v2.1.2
         with:
@@ -82,6 +86,10 @@ jobs:
         uses: actions/checkout@v1
       - name: Setup Env
         uses: ./.github/actions/setup
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
       - name: Setup Node
         uses: actions/setup-node@v2.1.2
         with:
@@ -112,6 +120,10 @@ jobs:
         uses: actions/checkout@v1
       - name: Setup Env
         uses: ./.github/actions/setup
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
       - name: Setup Node
         uses: actions/setup-node@v2.1.2
         with:
@@ -133,69 +145,69 @@ jobs:
           path: ${{ env.AOE }}companion-production-${{ env.TRAVIS_COMMIT }}.aab
 
 
-  build-ios-production:
-    name: Build iOS Production
-    runs-on: macos-latest
-#    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Setup Env
-        uses: ./.github/actions/setup
-      - name: Setup Node
-        uses: actions/setup-node@v2.1.2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - run: |
-          wget https://github.com/secrethub/secrethub-cli/releases/download/v0.44.0/secrethub-v0.44.0-darwin-amd64.tar.gz
-          sudo mkdir -p /usr/local/secrethub
-          sudo tar -C /usr/local/secrethub -xzf secrethub-v0.44.0-darwin-amd64.tar.gz
-          sudo ln -s /usr/local/secrethub/bin/secrethub /usr/local/bin/secrethub
-      - run: |
-          echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
-
-      - run: yarn
-      - run: npx eas build --profile production-${AOE} --platform ios --local --non-interactive
-      - run: mv build-*.ipa ${AOE}companion-production-$TRAVIS_COMMIT.ipa
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ env.AOE }}companion-production-${{ env.TRAVIS_COMMIT }}.ipa
-          path: ${{ env.AOE }}companion-production-${{ env.TRAVIS_COMMIT }}.ipa
-
-  build-ios-development:
-    name: Build iOS Development
-    runs-on: macos-latest
-#    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Setup Env
-        uses: ./.github/actions/setup
-      - name: Setup Node
-        uses: actions/setup-node@v2.1.2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - run: |
-          wget https://github.com/secrethub/secrethub-cli/releases/download/v0.44.0/secrethub-v0.44.0-darwin-amd64.tar.gz
-          sudo mkdir -p /usr/local/secrethub
-          sudo tar -C /usr/local/secrethub -xzf secrethub-v0.44.0-darwin-amd64.tar.gz
-          sudo ln -s /usr/local/secrethub/bin/secrethub /usr/local/bin/secrethub
-      - run: |
-          echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
-
-      - run: yarn
-      - run: npx eas build --profile development-simulator-${AOE} --platform ios --local --non-interactive
-      - run: mv build-*.tar.gz ${AOE}companion-development-$TRAVIS_COMMIT.tar.gz
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ env.AOE }}companion-development-${{ env.TRAVIS_COMMIT }}.tar.gz
-          path: ${{ env.AOE }}companion-development-${{ env.TRAVIS_COMMIT }}.tar.gz
+#  build-ios-production:
+#    name: Build iOS Production
+#    runs-on: macos-latest
+##    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v1
+#      - name: Setup Env
+#        uses: ./.github/actions/setup
+#      - name: Setup Node
+#        uses: actions/setup-node@v2.1.2
+#        with:
+#          node-version: ${{ env.NODE_VERSION }}
+#
+#      - run: |
+#          wget https://github.com/secrethub/secrethub-cli/releases/download/v0.44.0/secrethub-v0.44.0-darwin-amd64.tar.gz
+#          sudo mkdir -p /usr/local/secrethub
+#          sudo tar -C /usr/local/secrethub -xzf secrethub-v0.44.0-darwin-amd64.tar.gz
+#          sudo ln -s /usr/local/secrethub/bin/secrethub /usr/local/bin/secrethub
+#      - run: |
+#          echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
+#
+#      - run: yarn
+#      - run: npx eas build --profile production-${AOE} --platform ios --local --non-interactive
+#      - run: mv build-*.ipa ${AOE}companion-production-$TRAVIS_COMMIT.ipa
+#
+#      - name: Upload Artifact
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: ${{ env.AOE }}companion-production-${{ env.TRAVIS_COMMIT }}.ipa
+#          path: ${{ env.AOE }}companion-production-${{ env.TRAVIS_COMMIT }}.ipa
+#
+#  build-ios-development:
+#    name: Build iOS Development
+#    runs-on: macos-latest
+##    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v1
+#      - name: Setup Env
+#        uses: ./.github/actions/setup
+#      - name: Setup Node
+#        uses: actions/setup-node@v2.1.2
+#        with:
+#          node-version: ${{ env.NODE_VERSION }}
+#
+#      - run: |
+#          wget https://github.com/secrethub/secrethub-cli/releases/download/v0.44.0/secrethub-v0.44.0-darwin-amd64.tar.gz
+#          sudo mkdir -p /usr/local/secrethub
+#          sudo tar -C /usr/local/secrethub -xzf secrethub-v0.44.0-darwin-amd64.tar.gz
+#          sudo ln -s /usr/local/secrethub/bin/secrethub /usr/local/bin/secrethub
+#      - run: |
+#          echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
+#
+#      - run: yarn
+#      - run: npx eas build --profile development-simulator-${AOE} --platform ios --local --non-interactive
+#      - run: mv build-*.tar.gz ${AOE}companion-development-$TRAVIS_COMMIT.tar.gz
+#
+#      - name: Upload Artifact
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: ${{ env.AOE }}companion-development-${{ env.TRAVIS_COMMIT }}.tar.gz
+#          path: ${{ env.AOE }}companion-development-${{ env.TRAVIS_COMMIT }}.tar.gz
 
 
 
