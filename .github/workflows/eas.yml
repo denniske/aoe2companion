@@ -13,35 +13,35 @@ env:
 
 jobs:
 
-  publish:
-    name: Publish
-    runs-on: ubuntu-18.04
-    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Setup Env
-        uses: ./.github/actions/setup
-      - name: Setup Node
-        uses: actions/setup-node@v2.1.2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-      - name: Setup Secrets
-        uses: secrethub/actions/env-export@v0.2.1
-        env:
-          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
-          EXPO_USERNAME: secrethub://denniske/aoe2companion/expo_username
-          EXPO_PASSWORD: secrethub://denniske/aoe2companion/expo_password
-          SENTRY_AUTH_TOKEN: secrethub://denniske/aoe2companion/sentry_auth_token
-
-      - uses: expo/expo-github-action@v5
-        with:
-          expo-version: ${{ env.EXPO_CLI_VERSION }}
-          expo-username: ${{ env.EXPO_USERNAME }}
-          expo-password: ${{ env.EXPO_PASSWORD }}
-      - run: yarn
-      - run: echo "APP=$(node deploy/script/aoe-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
-      - run: npx expo publish --release-channel $CHANNEL
+#  publish:
+#    name: Publish
+#    runs-on: ubuntu-18.04
+#    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v1
+#      - name: Setup Env
+#        uses: ./.github/actions/setup
+#      - name: Setup Node
+#        uses: actions/setup-node@v2.1.2
+#        with:
+#          node-version: ${{ env.NODE_VERSION }}
+#      - name: Setup Secrets
+#        uses: secrethub/actions/env-export@v0.2.1
+#        env:
+#          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
+#          EXPO_USERNAME: secrethub://denniske/aoe2companion/expo_username
+#          EXPO_PASSWORD: secrethub://denniske/aoe2companion/expo_password
+#          SENTRY_AUTH_TOKEN: secrethub://denniske/aoe2companion/sentry_auth_token
+#
+#      - uses: expo/expo-github-action@v5
+#        with:
+#          expo-version: ${{ env.EXPO_CLI_VERSION }}
+#          expo-username: ${{ env.EXPO_USERNAME }}
+#          expo-password: ${{ env.EXPO_PASSWORD }}
+#      - run: yarn
+#      - run: echo "APP=$(node deploy/script/aoe-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
+#      - run: npx expo publish --release-channel $CHANNEL
 
 
   build-android-internal:
