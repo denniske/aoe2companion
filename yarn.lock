@@ -3062,9 +3062,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/eas-json@npm:0.53.0":
-  version: 0.53.0
-  resolution: "@expo/eas-json@npm:0.53.0"
+"@expo/eas-json@npm:0.53.1":
+  version: 0.53.1
+  resolution: "@expo/eas-json@npm:0.53.1"
   dependencies:
     "@expo/eas-build-job": 0.2.72
     "@expo/json-file": 8.2.36
@@ -3075,7 +3075,7 @@ __metadata:
     log-symbols: 4.1.0
     semver: 7.3.7
     tslib: 2.4.0
-  checksum: f7978545a0b91823321a54df66f17ef8a288c729261ea05540f65a2b9a487c4f90f7e675d322b1f771c5def2745f6b00550583ffa6c9339f1bd30023269cd8db
+  checksum: f1f13b6d268bb8e7ae585670c0dd9bd93cc57cde549f20b8dc5aaef1aa689109e4db5c0b95a035391dcb0f843eb2cf48ef8c48624deab0f137bc1884de97fa2c
   languageName: node
   linkType: hard
 
@@ -7591,7 +7591,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:6.12.6, ajv@npm:^6.1.0, ajv@npm:^6.10.2, ajv@npm:^6.12.3, ajv@npm:^6.12.4, ajv@npm:^6.12.5":
+"ajv@npm:6.12.6, ajv@npm:^6.1.0, ajv@npm:^6.10.2, ajv@npm:^6.12.3, ajv@npm:^6.12.4, ajv@npm:^6.12.5, ajv@npm:^6.12.6":
   version: 6.12.6
   resolution: "ajv@npm:6.12.6"
   dependencies:
@@ -12515,9 +12515,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eas-cli@npm:^0.53.0":
-  version: 0.53.0
-  resolution: "eas-cli@npm:0.53.0"
+"eas-cli@npm:^0.53.1":
+  version: 0.53.1
+  resolution: "eas-cli@npm:0.53.1"
   dependencies:
     "@expo/apple-utils": 0.0.0-alpha.33
     "@expo/code-signing-certificates": 0.0.2
@@ -12525,7 +12525,7 @@ __metadata:
     "@expo/config-plugins": 4.1.4
     "@expo/config-types": 45.0.0
     "@expo/eas-build-job": 0.2.72
-    "@expo/eas-json": 0.53.0
+    "@expo/eas-json": 0.53.1
     "@expo/json-file": 8.2.36
     "@expo/multipart-body-parser": 1.1.0
     "@expo/pkcs12": 0.0.8
@@ -12541,6 +12541,7 @@ __metadata:
     "@oclif/core": 1.9.0
     "@urql/core": 2.4.4
     "@urql/exchange-retry": 0.3.3
+    ajv: ^6.12.6
     chalk: 4.1.2
     cli-progress: 3.11.0
     cli-table3: 0.6.2
@@ -12586,7 +12587,7 @@ __metadata:
     wrap-ansi: 7.0.0
   bin:
     eas: bin/run
-  checksum: ad7aaaa37a99e5a86c06fdb7ffb8bec09a7391d54e9dfa0c522483515e4cccb4af1db064d48e3e00b7920eaef7777efefde3169639d7af283b14b55480823c10
+  checksum: b987a44e92473d6d580e6387a47b665dfd715a7c6c0db3edaeb5763521dae1c6cf28c031aa13f12b069f96482e394544d7134cf38b2ffa512591a340aa46b143
   languageName: node
   linkType: hard
 
@@ -25241,7 +25242,7 @@ __metadata:
     date-fns: ^2.14.0
     document-register-element: 1.13.1
     dotenv: ^8.2.0
-    eas-cli: ^0.53.0
+    eas-cli: ^0.53.1
     expo: ^45.0.0
     expo-av: ~11.2.3
     expo-cli: ^5.4.9
