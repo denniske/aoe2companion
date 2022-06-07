@@ -199,76 +199,76 @@ jobs:
 
 
 
-  deploy-android-production:
-    name: Deploy Android Production
-    runs-on: ubuntu-18.04
-    needs: [build-android-production]
-    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0.0')
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Setup Env
-        uses: ./.github/actions/setup
-      - name: Setup Node
-        uses: actions/setup-node@v2.1.2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - run: |
-          wget https://github.com/secrethub/secrethub-cli/releases/download/v0.44.0/secrethub-v0.44.0-darwin-amd64.tar.gz
-          sudo mkdir -p /usr/local/secrethub
-          sudo tar -C /usr/local/secrethub -xzf secrethub-v0.44.0-darwin-amd64.tar.gz
-          sudo ln -s /usr/local/secrethub/bin/secrethub /usr/local/bin/secrethub
-      - run: |
-          echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
-          echo "FASTLANE_SERVICE_ACCOUNT_BASE64=$(secrethub read denniske/aoe2companion/fastlane_service_account_base64)" >> $GITHUB_ENV
-
-      - name: Download Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: ${{ env.AOE }}companion-production-${{ env.TRAVIS_COMMIT }}.aab
-
-      - run: echo $FASTLANE_SERVICE_ACCOUNT_BASE64 | base64 --decode > play-store-service-account.json
-
-      - run: yarn
-      - run: npx eas submit --profile production-${AOE} -p android --non-interactive --path ${AOE}companion-production-$TRAVIS_COMMIT.aab
-
-
-
-
-  deploy-ios-production:
-    name: Deploy iOS Production
-    runs-on: ubuntu-18.04
-    needs: [build-ios-production]
-    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0.0')
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Setup Env
-        uses: ./.github/actions/setup
-      - name: Setup Node
-        uses: actions/setup-node@v2.1.2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - run: |
-          wget https://github.com/secrethub/secrethub-cli/releases/download/v0.44.0/secrethub-v0.44.0-darwin-amd64.tar.gz
-          sudo mkdir -p /usr/local/secrethub
-          sudo tar -C /usr/local/secrethub -xzf secrethub-v0.44.0-darwin-amd64.tar.gz
-          sudo ln -s /usr/local/secrethub/bin/secrethub /usr/local/bin/secrethub
-      - run: |
-          echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
-          echo "EXPO_APPLE_ID=$(secrethub read denniske/aoe2companion/expo_apple_id)" >> $GITHUB_ENV
-          echo "EXPO_APPLE_AUTH_KEY_P8_BASE64=$(secrethub read denniske/aoe2companion/expo_apple_auth_key_p8_base64)" >> $GITHUB_ENV
-
-      - name: Download Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: ${{ env.AOE }}companion-production-${{ env.TRAVIS_COMMIT }}.ipa
-
-      - run: echo $EXPO_APPLE_AUTH_KEY_P8_BASE64 | base64 --decode > auth_key.p8
-
-      - run: yarn
-      - run: npx eas submit --profile production-${AOE} -p ios --non-interactive --path ${AOE}companion-production-$TRAVIS_COMMIT.ipa
+#  deploy-android-production:
+#    name: Deploy Android Production
+#    runs-on: ubuntu-18.04
+#    needs: [build-android-production]
+#    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0.0')
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v1
+#      - name: Setup Env
+#        uses: ./.github/actions/setup
+#      - name: Setup Node
+#        uses: actions/setup-node@v2.1.2
+#        with:
+#          node-version: ${{ env.NODE_VERSION }}
+#
+#      - run: |
+#          wget https://github.com/secrethub/secrethub-cli/releases/download/v0.44.0/secrethub-v0.44.0-darwin-amd64.tar.gz
+#          sudo mkdir -p /usr/local/secrethub
+#          sudo tar -C /usr/local/secrethub -xzf secrethub-v0.44.0-darwin-amd64.tar.gz
+#          sudo ln -s /usr/local/secrethub/bin/secrethub /usr/local/bin/secrethub
+#      - run: |
+#          echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
+#          echo "FASTLANE_SERVICE_ACCOUNT_BASE64=$(secrethub read denniske/aoe2companion/fastlane_service_account_base64)" >> $GITHUB_ENV
+#
+#      - name: Download Artifact
+#        uses: actions/download-artifact@v2
+#        with:
+#          name: ${{ env.AOE }}companion-production-${{ env.TRAVIS_COMMIT }}.aab
+#
+#      - run: echo $FASTLANE_SERVICE_ACCOUNT_BASE64 | base64 --decode > play-store-service-account.json
+#
+#      - run: yarn
+#      - run: npx eas submit --profile production-${AOE} -p android --non-interactive --path ${AOE}companion-production-$TRAVIS_COMMIT.aab
+#
+#
+#
+#
+#  deploy-ios-production:
+#    name: Deploy iOS Production
+#    runs-on: ubuntu-18.04
+#    needs: [build-ios-production]
+#    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0.0')
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v1
+#      - name: Setup Env
+#        uses: ./.github/actions/setup
+#      - name: Setup Node
+#        uses: actions/setup-node@v2.1.2
+#        with:
+#          node-version: ${{ env.NODE_VERSION }}
+#
+#      - run: |
+#          wget https://github.com/secrethub/secrethub-cli/releases/download/v0.44.0/secrethub-v0.44.0-darwin-amd64.tar.gz
+#          sudo mkdir -p /usr/local/secrethub
+#          sudo tar -C /usr/local/secrethub -xzf secrethub-v0.44.0-darwin-amd64.tar.gz
+#          sudo ln -s /usr/local/secrethub/bin/secrethub /usr/local/bin/secrethub
+#      - run: |
+#          echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
+#          echo "EXPO_APPLE_ID=$(secrethub read denniske/aoe2companion/expo_apple_id)" >> $GITHUB_ENV
+#          echo "EXPO_APPLE_AUTH_KEY_P8_BASE64=$(secrethub read denniske/aoe2companion/expo_apple_auth_key_p8_base64)" >> $GITHUB_ENV
+#
+#      - name: Download Artifact
+#        uses: actions/download-artifact@v2
+#        with:
+#          name: ${{ env.AOE }}companion-production-${{ env.TRAVIS_COMMIT }}.ipa
+#
+#      - run: echo $EXPO_APPLE_AUTH_KEY_P8_BASE64 | base64 --decode > auth_key.p8
+#
+#      - run: yarn
+#      - run: npx eas submit --profile production-${AOE} -p ios --non-interactive --path ${AOE}companion-production-$TRAVIS_COMMIT.ipa
 
 
