@@ -7,7 +7,7 @@ import {
     DarkTheme as NavigationDarkTheme,
     NavigationContainer
 } from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
     BackHandler,
     Linking, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, useColorScheme, View
@@ -32,7 +32,6 @@ import {
 import {addLoadedLanguage, useMutate, useSelector} from './src/redux/reducer';
 import SearchPage from './src/view/search.page';
 import PrivacyPage from './src/view/privacy.page';
-import AppLoading from 'expo-app-loading';
 import {FontAwesome5} from "@expo/vector-icons";
 import LeaderboardPage, {leaderboardMenu, LeaderboardTitle} from "./src/view/leaderboard.page";
 import GuidePage, {GuideTitle} from "./src/view/guide.page";
@@ -91,6 +90,7 @@ import DonationPage from './src/view/donation.page';
 import {registerRootComponent} from "expo";
 import Constants from 'expo-constants';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import * as SplashScreen from 'expo-splash-screen';
 
 initSentry();
 
@@ -791,6 +791,7 @@ export function AppWrapper() {
 
     const mutate = useMutate();
 
+    const [appIsReady, setAppIsReady] = useState(false);
     const loadedLanguages = useSelector(state => state.loadedLanguages);
     const account = useSelector(state => state.account);
     const auth = useSelector(state => state.auth);
@@ -826,9 +827,26 @@ export function AppWrapper() {
         fetchAoeReferenceData();
     }, [config]);
 
-    if (auth === undefined || following === undefined || config === undefined || prefs === undefined || !loadedLanguages) {
-        // console.log('LOADING');
-        return <AppLoading />;
+    useEffect(() => {
+        SplashScreen.preventAutoHideAsync();
+    }, []);
+
+    useEffect(() => {
+        if (auth === undefined || following === undefined || config === undefined || prefs === undefined || !loadedLanguages) {
+            return;
+        }
+        setAppIsReady(true);
+    }, [auth, following, config, prefs, loadedLanguages]);
+
+    const onLayoutRootView = useCallback(async () => {
+        console.log('onLayoutRootView', appIsReady);
+        if (appIsReady) {
+            await SplashScreen.hideAsync();
+        }
+    }, [appIsReady]);
+
+    if (!appIsReady) {
+        return null;
     }
 
     // console.log('loadedLanguages', loadedLanguages, loadedLanguages?.length < 1);
@@ -857,22 +875,24 @@ export function AppWrapper() {
                     {/*<StatusBar barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'} backgroundColor="transparent" translucent={true} />*/}
                     {/*<StatusBar barStyle="dark-content" backgroundColor="white" />*/}
                     {/*<StatusBar barStyle="light-content" backgroundColor="transparent" />*/}
-                    {
-                        appType == 'query' &&
-                        <InnerAppForQuery/>
-                    }
-                    {
-                        appType == 'build' &&
-                        <InnerAppForBuild/>
-                    }
-                    {
-                        appType == 'intro' &&
-                        <InnerAppForIntro/>
-                    }
-                    {
-                        appType == 'app' &&
-                        <InnerApp/>
-                    }
+                    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+                        {
+                            appType == 'query' &&
+                            <InnerAppForQuery/>
+                        }
+                        {
+                            appType == 'build' &&
+                            <InnerAppForBuild/>
+                        }
+                        {
+                            appType == 'intro' &&
+                            <InnerAppForIntro/>
+                        }
+                        {
+                            appType == 'app' &&
+                            <InnerApp/>
+                        }
+                    </View>
                     </GestureHandlerRootView>
                 </PaperProvider>
             </ConditionalTester>
