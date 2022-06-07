@@ -47,7 +47,7 @@ jobs:
   build-android-internal:
     name: Build Android Internal
     runs-on: ubuntu-18.04
-    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
+#    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -76,7 +76,7 @@ jobs:
   build-android-development:
     name: Build Android Development
     runs-on: ubuntu-18.04
-    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
+#    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -106,7 +106,7 @@ jobs:
   build-android-production:
     name: Build Android Production
     runs-on: ubuntu-18.04
-    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
+#    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -136,7 +136,7 @@ jobs:
   build-ios-production:
     name: Build iOS Production
     runs-on: macos-latest
-    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
+#    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -168,7 +168,7 @@ jobs:
   build-ios-development:
     name: Build iOS Development
     runs-on: macos-latest
-    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
+#    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
     steps:
       - name: Checkout
         uses: actions/checkout@v1
