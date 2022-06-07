@@ -11,7 +11,7 @@ export interface IReferencePlayer {
     discord: string;
     discordServerId: string;
     platforms: {
-        de?: string[],
+        rl?: string[],
     };
     aka: string[];
     douyu: string;
@@ -42,7 +42,7 @@ export function setAoeReferenceData(data: any) {
                     "discord": "https://discord.gg/gCunWKx",
                     "discordServerId": "727175083977736262",
                     "platforms": {
-                        "de": [
+                        "rl": [
                             "209525"
                         ]
                     }
@@ -50,7 +50,8 @@ export function setAoeReferenceData(data: any) {
             ]
         }
     ) as unknown as IReferenceData;
-    verifiedProfileIds = flatMap(aoeReferenceDataTyped.players, p => p.platforms.de);
+    verifiedProfileIds = flatMap(aoeReferenceDataTyped.players, p => p.platforms.rl);
+    // console.log('verifiedProfileIds', verifiedProfileIds);
 }
 
 let aoeReferenceDataTyped = {} as unknown as IReferenceData;
@@ -61,7 +62,7 @@ export function isVerifiedPlayer(profileId: number) {
 }
 
 export function getVerifiedPlayer(profileId: number) {
-    const verifiedPlayer = aoeReferenceDataTyped.players?.find(p => p.platforms?.de?.includes(profileId.toString()));
+    const verifiedPlayer = aoeReferenceDataTyped.players?.find(p => p.platforms?.rl?.includes(profileId.toString()));
     // console.log(profileId, verifiedPlayer);
     return verifiedPlayer;
 }

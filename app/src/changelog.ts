@@ -63,7 +63,13 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '39.0.10': [
+    '39.0.12': [
+        {
+            type: 'bugfix',
+            title: 'Fix verified players badge',
+        },
+    ],
+    '39.0.11': [
         {
             type: 'minor',
             title: 'Show ageofstatistics.com instead aoestats.io on winrates page',
