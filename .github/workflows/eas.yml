@@ -13,74 +13,74 @@ env:
 
 jobs:
 
-#  publish:
-#    name: Publish
-#    runs-on: ubuntu-18.04
-#    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v1
-#      - name: Setup Env
-#        uses: ./.github/actions/setup
-#      - name: Setup Node
-#        uses: actions/setup-node@v2.1.2
-#        with:
-#          node-version: ${{ env.NODE_VERSION }}
-#      - name: Setup Secrets
-#        uses: secrethub/actions/env-export@v0.2.1
-#        env:
-#          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
-#          EXPO_USERNAME: secrethub://denniske/aoe2companion/expo_username
-#          EXPO_PASSWORD: secrethub://denniske/aoe2companion/expo_password
-#          SENTRY_AUTH_TOKEN: secrethub://denniske/aoe2companion/sentry_auth_token
-#
-#      - uses: expo/expo-github-action@v5
-#        with:
-#          expo-version: ${{ env.EXPO_CLI_VERSION }}
-#          expo-username: ${{ env.EXPO_USERNAME }}
-#          expo-password: ${{ env.EXPO_PASSWORD }}
-#      - run: yarn
-#      - run: echo "APP=$(node deploy/script/aoe-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
-#      - run: npx expo publish --release-channel $CHANNEL
+  publish:
+    name: Publish
+    runs-on: ubuntu-18.04
+    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Env
+        uses: ./.github/actions/setup
+      - name: Setup Node
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Setup Secrets
+        uses: secrethub/actions/env-export@v0.2.1
+        env:
+          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
+          EXPO_USERNAME: secrethub://denniske/aoe2companion/expo_username
+          EXPO_PASSWORD: secrethub://denniske/aoe2companion/expo_password
+          SENTRY_AUTH_TOKEN: secrethub://denniske/aoe2companion/sentry_auth_token
+
+      - uses: expo/expo-github-action@v5
+        with:
+          expo-version: ${{ env.EXPO_CLI_VERSION }}
+          expo-username: ${{ env.EXPO_USERNAME }}
+          expo-password: ${{ env.EXPO_PASSWORD }}
+      - run: yarn
+      - run: echo "APP=$(node deploy/script/aoe-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
+      - run: npx expo publish --release-channel $CHANNEL
 
 
-#  build-android-internal:
-#    name: Build Android Internal
-#    runs-on: ubuntu-18.04
-##    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v1
-#      - name: Setup Env
-#        uses: ./.github/actions/setup
-#      - name: Set up JDK 11
-#        uses: actions/setup-java@v1
-#        with:
-#          java-version: 11
-#      - name: Setup Node
-#        uses: actions/setup-node@v2.1.2
-#        with:
-#          node-version: ${{ env.NODE_VERSION }}
-#      - name: Setup Secrets
-#        uses: secrethub/actions/env-export@v0.2.1
-#        env:
-#          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
-#          EXPO_TOKEN: secrethub://denniske/aoe2companion/expo_token
-#
-#      - run: yarn
-#      - run: npx eas build --profile internal-${AOE} --platform android --local --non-interactive
-#      - run: mv build-*.apk ${AOE}companion-internal-$TRAVIS_COMMIT.apk
-#
-#      - name: Upload Artifact
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: ${{ env.AOE }}companion-internal-${{ env.TRAVIS_COMMIT }}.apk
-#          path: ${{ env.AOE }}companion-internal-${{ env.TRAVIS_COMMIT }}.apk
+  build-android-internal:
+    name: Build Android Internal
+    runs-on: ubuntu-18.04
+    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Env
+        uses: ./.github/actions/setup
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Setup Node
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Setup Secrets
+        uses: secrethub/actions/env-export@v0.2.1
+        env:
+          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
+          EXPO_TOKEN: secrethub://denniske/aoe2companion/expo_token
+
+      - run: yarn
+      - run: npx eas build --profile internal-${AOE} --platform android --local --non-interactive
+      - run: mv build-*.apk ${AOE}companion-internal-$TRAVIS_COMMIT.apk
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.AOE }}companion-internal-${{ env.TRAVIS_COMMIT }}.apk
+          path: ${{ env.AOE }}companion-internal-${{ env.TRAVIS_COMMIT }}.apk
 
   build-android-development:
     name: Build Android Development
     runs-on: ubuntu-18.04
-#    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
+    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -111,76 +111,76 @@ jobs:
           path: ${{ env.AOE }}companion-development-${{ env.TRAVIS_COMMIT }}.apk
 
 
-#  build-android-production:
-#    name: Build Android Production
-#    runs-on: ubuntu-18.04
-##    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v1
-#      - name: Setup Env
-#        uses: ./.github/actions/setup
-#      - name: Set up JDK 11
-#        uses: actions/setup-java@v1
-#        with:
-#          java-version: 11
-#      - name: Setup Node
-#        uses: actions/setup-node@v2.1.2
-#        with:
-#          node-version: ${{ env.NODE_VERSION }}
-#      - name: Setup Secrets
-#        uses: secrethub/actions/env-export@v0.2.1
-#        env:
-#          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
-#          EXPO_TOKEN: secrethub://denniske/aoe2companion/expo_token
-#
-#      - run: yarn
-#      - run: npx eas build --profile production-${AOE} --platform android --local --non-interactive
-#      - run: mv build-*.aab ${AOE}companion-production-$TRAVIS_COMMIT.aab
-#
-#      - name: Upload Artifact
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: ${{ env.AOE }}companion-production-${{ env.TRAVIS_COMMIT }}.aab
-#          path: ${{ env.AOE }}companion-production-${{ env.TRAVIS_COMMIT }}.aab
+  build-android-production:
+    name: Build Android Production
+    runs-on: ubuntu-18.04
+    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Env
+        uses: ./.github/actions/setup
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Setup Node
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Setup Secrets
+        uses: secrethub/actions/env-export@v0.2.1
+        env:
+          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
+          EXPO_TOKEN: secrethub://denniske/aoe2companion/expo_token
+
+      - run: yarn
+      - run: npx eas build --profile production-${AOE} --platform android --local --non-interactive
+      - run: mv build-*.aab ${AOE}companion-production-$TRAVIS_COMMIT.aab
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.AOE }}companion-production-${{ env.TRAVIS_COMMIT }}.aab
+          path: ${{ env.AOE }}companion-production-${{ env.TRAVIS_COMMIT }}.aab
 
 
-#  build-ios-production:
-#    name: Build iOS Production
-#    runs-on: macos-12
-##    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v1
-#      - name: Setup Env
-#        uses: ./.github/actions/setup
-#      - name: Setup Node
-#        uses: actions/setup-node@v2.1.2
-#        with:
-#          node-version: ${{ env.NODE_VERSION }}
-#
-#      - run: |
-#          wget https://github.com/secrethub/secrethub-cli/releases/download/v0.44.0/secrethub-v0.44.0-darwin-amd64.tar.gz
-#          sudo mkdir -p /usr/local/secrethub
-#          sudo tar -C /usr/local/secrethub -xzf secrethub-v0.44.0-darwin-amd64.tar.gz
-#          sudo ln -s /usr/local/secrethub/bin/secrethub /usr/local/bin/secrethub
-#      - run: |
-#          echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
-#
-#      - run: yarn
-#      - run: npx eas build --profile production-${AOE} --platform ios --local --non-interactive
-#      - run: mv build-*.ipa ${AOE}companion-production-$TRAVIS_COMMIT.ipa
-#
-#      - name: Upload Artifact
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: ${{ env.AOE }}companion-production-${{ env.TRAVIS_COMMIT }}.ipa
-#          path: ${{ env.AOE }}companion-production-${{ env.TRAVIS_COMMIT }}.ipa
-#
+  build-ios-production:
+    name: Build iOS Production
+    runs-on: macos-12
+    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Env
+        uses: ./.github/actions/setup
+      - name: Setup Node
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - run: |
+          wget https://github.com/secrethub/secrethub-cli/releases/download/v0.44.0/secrethub-v0.44.0-darwin-amd64.tar.gz
+          sudo mkdir -p /usr/local/secrethub
+          sudo tar -C /usr/local/secrethub -xzf secrethub-v0.44.0-darwin-amd64.tar.gz
+          sudo ln -s /usr/local/secrethub/bin/secrethub /usr/local/bin/secrethub
+      - run: |
+          echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
+
+      - run: yarn
+      - run: npx eas build --profile production-${AOE} --platform ios --local --non-interactive
+      - run: mv build-*.ipa ${AOE}companion-production-$TRAVIS_COMMIT.ipa
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.AOE }}companion-production-${{ env.TRAVIS_COMMIT }}.ipa
+          path: ${{ env.AOE }}companion-production-${{ env.TRAVIS_COMMIT }}.ipa
+
   build-ios-development:
     name: Build iOS Development
     runs-on: macos-12
-#    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
+    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -211,76 +211,76 @@ jobs:
 
 
 
-#  deploy-android-production:
-#    name: Deploy Android Production
-#    runs-on: ubuntu-18.04
-#    needs: [build-android-production]
-#    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0.0')
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v1
-#      - name: Setup Env
-#        uses: ./.github/actions/setup
-#      - name: Setup Node
-#        uses: actions/setup-node@v2.1.2
-#        with:
-#          node-version: ${{ env.NODE_VERSION }}
-#
-#      - run: |
-#          wget https://github.com/secrethub/secrethub-cli/releases/download/v0.44.0/secrethub-v0.44.0-darwin-amd64.tar.gz
-#          sudo mkdir -p /usr/local/secrethub
-#          sudo tar -C /usr/local/secrethub -xzf secrethub-v0.44.0-darwin-amd64.tar.gz
-#          sudo ln -s /usr/local/secrethub/bin/secrethub /usr/local/bin/secrethub
-#      - run: |
-#          echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
-#          echo "FASTLANE_SERVICE_ACCOUNT_BASE64=$(secrethub read denniske/aoe2companion/fastlane_service_account_base64)" >> $GITHUB_ENV
-#
-#      - name: Download Artifact
-#        uses: actions/download-artifact@v2
-#        with:
-#          name: ${{ env.AOE }}companion-production-${{ env.TRAVIS_COMMIT }}.aab
-#
-#      - run: echo $FASTLANE_SERVICE_ACCOUNT_BASE64 | base64 --decode > play-store-service-account.json
-#
-#      - run: yarn
-#      - run: npx eas submit --profile production-${AOE} -p android --non-interactive --path ${AOE}companion-production-$TRAVIS_COMMIT.aab
-#
-#
-#
-#
-#  deploy-ios-production:
-#    name: Deploy iOS Production
-#    runs-on: ubuntu-18.04
-#    needs: [build-ios-production]
-#    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0.0')
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v1
-#      - name: Setup Env
-#        uses: ./.github/actions/setup
-#      - name: Setup Node
-#        uses: actions/setup-node@v2.1.2
-#        with:
-#          node-version: ${{ env.NODE_VERSION }}
-#
-#      - run: |
-#          wget https://github.com/secrethub/secrethub-cli/releases/download/v0.44.0/secrethub-v0.44.0-darwin-amd64.tar.gz
-#          sudo mkdir -p /usr/local/secrethub
-#          sudo tar -C /usr/local/secrethub -xzf secrethub-v0.44.0-darwin-amd64.tar.gz
-#          sudo ln -s /usr/local/secrethub/bin/secrethub /usr/local/bin/secrethub
-#      - run: |
-#          echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
-#          echo "EXPO_APPLE_ID=$(secrethub read denniske/aoe2companion/expo_apple_id)" >> $GITHUB_ENV
-#          echo "EXPO_APPLE_AUTH_KEY_P8_BASE64=$(secrethub read denniske/aoe2companion/expo_apple_auth_key_p8_base64)" >> $GITHUB_ENV
-#
-#      - name: Download Artifact
-#        uses: actions/download-artifact@v2
-#        with:
-#          name: ${{ env.AOE }}companion-production-${{ env.TRAVIS_COMMIT }}.ipa
-#
-#      - run: echo $EXPO_APPLE_AUTH_KEY_P8_BASE64 | base64 --decode > auth_key.p8
-#
-#      - run: yarn
-#      - run: npx eas submit --profile production-${AOE} -p ios --non-interactive --path ${AOE}companion-production-$TRAVIS_COMMIT.ipa
+  deploy-android-production:
+    name: Deploy Android Production
+    runs-on: ubuntu-18.04
+    needs: [build-android-production]
+    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0.0')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Env
+        uses: ./.github/actions/setup
+      - name: Setup Node
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - run: |
+          wget https://github.com/secrethub/secrethub-cli/releases/download/v0.44.0/secrethub-v0.44.0-darwin-amd64.tar.gz
+          sudo mkdir -p /usr/local/secrethub
+          sudo tar -C /usr/local/secrethub -xzf secrethub-v0.44.0-darwin-amd64.tar.gz
+          sudo ln -s /usr/local/secrethub/bin/secrethub /usr/local/bin/secrethub
+      - run: |
+          echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
+          echo "FASTLANE_SERVICE_ACCOUNT_BASE64=$(secrethub read denniske/aoe2companion/fastlane_service_account_base64)" >> $GITHUB_ENV
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ env.AOE }}companion-production-${{ env.TRAVIS_COMMIT }}.aab
+
+      - run: echo $FASTLANE_SERVICE_ACCOUNT_BASE64 | base64 --decode > play-store-service-account.json
+
+      - run: yarn
+      - run: npx eas submit --profile production-${AOE} -p android --non-interactive --path ${AOE}companion-production-$TRAVIS_COMMIT.aab
+
+
+
+
+  deploy-ios-production:
+    name: Deploy iOS Production
+    runs-on: ubuntu-18.04
+    needs: [build-ios-production]
+    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0.0')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Env
+        uses: ./.github/actions/setup
+      - name: Setup Node
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - run: |
+          wget https://github.com/secrethub/secrethub-cli/releases/download/v0.44.0/secrethub-v0.44.0-darwin-amd64.tar.gz
+          sudo mkdir -p /usr/local/secrethub
+          sudo tar -C /usr/local/secrethub -xzf secrethub-v0.44.0-darwin-amd64.tar.gz
+          sudo ln -s /usr/local/secrethub/bin/secrethub /usr/local/bin/secrethub
+      - run: |
+          echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
+          echo "EXPO_APPLE_ID=$(secrethub read denniske/aoe2companion/expo_apple_id)" >> $GITHUB_ENV
+          echo "EXPO_APPLE_AUTH_KEY_P8_BASE64=$(secrethub read denniske/aoe2companion/expo_apple_auth_key_p8_base64)" >> $GITHUB_ENV
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ env.AOE }}companion-production-${{ env.TRAVIS_COMMIT }}.ipa
+
+      - run: echo $EXPO_APPLE_AUTH_KEY_P8_BASE64 | base64 --decode > auth_key.p8
+
+      - run: yarn
+      - run: npx eas submit --profile production-${AOE} -p ios --non-interactive --path ${AOE}companion-production-$TRAVIS_COMMIT.ipa
 
 

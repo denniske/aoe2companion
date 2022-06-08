@@ -63,6 +63,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '40.0.0': [
+        {
+            type: 'minor',
+            title: 'Internal Framework Update (SDK 45)',
+        },
+    ],
     '39.0.12': [
         {
             type: 'bugfix',

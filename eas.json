@@ -56,7 +56,7 @@
       }
     },
     "production-aoe2": {
-      "releaseChannel": "prod-v39",
+      "releaseChannel": "prod-v40",
       "env": {
         "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
         "APP": "aoe2"
