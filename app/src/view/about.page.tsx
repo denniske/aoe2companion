@@ -154,6 +154,7 @@ export default function AboutPage() {
             <MyText style={styles.content}>Markus</MyText>
             <MyText style={styles.content}>Maxifruité</MyText>
             <MyText style={styles.content}>Maximilian Moschner</MyText>
+            <MyText style={styles.content}>maxkorpinen</MyText>
             <MyText style={styles.content}>Mikael Laukkanen</MyText>
             <MyText style={styles.content}>moleMTL</MyText>
             <MyText style={styles.content}>Mrandreagalassi</MyText>
@@ -168,6 +169,7 @@ export default function AboutPage() {
             <MyText style={styles.content}>Sihing Mo</MyText>
             <MyText style={styles.content}>S1nglecut</MyText>
             <MyText style={styles.content}>Sebastian Janus</MyText>
+            <MyText style={styles.content}>Sebastiaan Van Hoorebeke</MyText>
             <MyText style={styles.content}>Stormtrooper</MyText>
             <MyText style={styles.content}>Tom B</MyText>
             <MyText style={styles.content}>Ultima Gaina</MyText>
