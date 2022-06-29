@@ -115,6 +115,11 @@ x unit upgrade costs (lightcav -> hussar / wingedhussar)
 ratha kasbah with berber allies
 unique building for civ page
 
+- fish trap, harbour in building list and tech tree
+- unit / elite unit in unit list
+- other observations
+- stirrups firing rate vs. speed
+
 git tag v38.0.0 && git push --tags
 git tag -d v38.0.0 && git push --delete origin v38.0.0
 git tag -d api-v26.0.20 && git push --delete origin api-v26.0.20 && git tag api-v26.0.20 && git push --tags
