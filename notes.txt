@@ -57,6 +57,10 @@ git clone --depth 1 file:///Users/dennis/Projects/aoe2companion
 npx eas build --profile development --platform android --no-wait
 npx eas build --profile development4 --platform android --no-wait
 
+npx eas build --profile development-simulator-aoe2 --platform android --no-wait
+npx eas build --profile development-simulator-aoe2 --platform ios --no-wait
+
+watchman watch-del-all && watchman shutdown-server
 
 React 17 JSX transform now enabled by default: this means that you don’t need to write import React from 'react'; at the top of every source file that uses JSX. Learn more about the transform and how you can disable it, if you prefer.
 
