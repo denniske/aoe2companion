@@ -23,7 +23,7 @@ jobs:
 #      - run: brew install --cask 1password/tap/1password-cli
 
       - run: wget "https://cache.agilebits.com/dist/1P/op2/pkg/v2.4.1/op_linux_amd64_v2.4.1.zip" -O op.zip && unzip -d op op.zip && sudo mv op/op /usr/local/bin && rm -r op.zip op
-      - run: echo "OP_PASSWORD=${{ secrets.ONE_PASSWORD_SECRET_KEY }}" >> $GITHUB_ENV
+      - run: echo "OP_SECRET_KEY=${{ secrets.ONE_PASSWORD_SECRET_KEY }}" >> $GITHUB_ENV
       - run: printf ${{ secrets.ONE_PASSWORD_PASSWORD }} | op account add --address ${{ secrets.ONE_PASSWORD_ADDRESS }} --email ${{ secrets.ONE_PASSWORD_EMAIL }} --signin
       - run: op --version
 
