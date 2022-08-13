@@ -36,6 +36,10 @@ export const aoeData = merge(aoeDataInternal, {
                         "Amount": 10,
                         "Class": 4
                     },
+                    {
+                        "Amount": 5,
+                        "Class": 3
+                    },
                 ]
             },
             "1761": {
@@ -43,6 +47,10 @@ export const aoeData = merge(aoeDataInternal, {
                     {
                         "Amount": 12,
                         "Class": 4
+                    },
+                    {
+                        "Amount": 6,
+                        "Class": 3
                     },
                 ]
             },
