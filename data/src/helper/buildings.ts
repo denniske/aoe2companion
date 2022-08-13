@@ -14,6 +14,10 @@ interface IBuildingDict {
 
 export const buildingList: IBuilding[] = [
     {
+        "dataId": "1189",
+        "name": "Harbor",
+    },
+    {
         "dataId": "1754",
         "name": "Caravanserai",
     },
@@ -170,6 +174,7 @@ const buildingIds = [
     'FortifiedWall',
     'Gate',
     'GuardTower',
+    'Harbor',
     'House',
     'Keep',
     'Krepost',

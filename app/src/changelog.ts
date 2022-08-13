@@ -74,6 +74,10 @@ export const changelog: IChangelog = {
         },
         {
             type: 'minor',
+            title: 'Add harbor to building list and tech tree',
+        },
+        {
+            type: 'minor',
             title: 'Fix double bombard tower in korean civ bonus',
         },
     ],
