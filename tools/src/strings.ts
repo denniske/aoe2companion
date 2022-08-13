@@ -153,7 +153,7 @@ async function loadDataAoE2TechTree() {
     fs.writeFileSync(filePath, `export const aoeDataInternal = ${JSON.stringify(json, null, 4)} as const;`);
 }
 
-// loadStrings();
+loadStrings();
 loadStrings4();
-// loadStringsAoE2TechTree();
+loadStringsAoE2TechTree();
 // loadDataAoE2TechTree();
