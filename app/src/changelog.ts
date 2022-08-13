@@ -68,6 +68,10 @@ export const changelog: IChangelog = {
             type: 'minor',
             title: 'Add attack bonus for castle age for eagle scout',
         },
+        {
+            type: 'minor',
+            title: 'Fix double bombard tower in korean civ bonus',
+        },
     ],
     '41.0.0': [
         {
