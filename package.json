@@ -38,7 +38,9 @@
     "bundle:app:p": "npx expo publish -c --release-channel assets --config app.json -q",
     "bundle:export": "rm -rf dist/exported && npx expo export --output-dir dist/exported -p https://www.example.com/ -s",
     "bundle:analyze": "source-map-explorer dist/exported/bundles/ios-*.js dist/exported/bundles/ios-*.map",
-    "bundle:app": "npm run bundle:export; npm run bundle:analyze"
+    "bundle:app": "npm run bundle:export; npm run bundle:analyze",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
   },
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
@@ -90,7 +92,7 @@
     "date-fns": "^2.14.0",
     "document-register-element": "1.13.1",
     "dotenv": "^8.2.0",
-    "expo": "^46.0.0",
+    "expo": "~46.0.6",
     "expo-av": "~12.0.4",
     "expo-dev-client": "~1.1.1",
     "expo-device": "~4.3.0",
@@ -296,5 +298,7 @@
       ]
     }
   },
-  "private": true
+  "private": true,
+  "name": "aoe2companion",
+  "version": "1.0.0"
 }
