@@ -69,44 +69,39 @@ export function BuildingStats({ buildingId }: Props) {
                 </View>
             </View>
 
-            {
-                comparisonUnit &&
-                <View style={styles.costsRow}>
-                    <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.costs')}</MyText>
+            <View style={styles.costsRow}>
+                <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.costs')}</MyText>
+                <View style={[styles.cellValue, {flexDirection: 'row'}]}>
+                    {
+                        sortResources(keysOf(baseData.Cost)).map(res =>
+                            <View key={res} style={styles.resRow}>
+                                <Image fadeDuration={0} style={styles.resIcon} source={getOtherIcon(res as Other)}/>
+                                <MyText style={styles.resDescription}>{baseData.Cost[res]}</MyText>
+                            </View>
+                        )
+                    }
+                </View>
+                {
+                    comparisonUnit &&
                     <View style={[styles.cellValue, {flexDirection: 'row'}]}>
                         {
-                            sortResources(keysOf(baseData.Cost)).map(res =>
+                            sortResources(keysOf(baseData2!.Cost)).map(res =>
                                 <View key={res} style={styles.resRow}>
                                     <Image fadeDuration={0} style={styles.resIcon} source={getOtherIcon(res as Other)}/>
-                                    <MyText style={styles.resDescription}>{baseData.Cost[res]}</MyText>
+                                    <MyText style={styles.resDescription}>{baseData2!.Cost[res]}</MyText>
                                 </View>
                             )
                         }
                     </View>
-                    {
-                        comparisonUnit &&
-                        <View style={[styles.cellValue, {flexDirection: 'row'}]}>
-                            {
-                                sortResources(keysOf(baseData2!.Cost)).map(res =>
-                                    <View key={res} style={styles.resRow}>
-                                        <Image fadeDuration={0} style={styles.resIcon} source={getOtherIcon(res as Other)}/>
-                                        <MyText style={styles.resDescription}>{baseData2!.Cost[res]}</MyText>
-                                    </View>
-                                )
-                            }
-                        </View>
-                    }
-                </View>
-            }
-            {
-                comparisonUnit &&
-                <View style={styles.statsRow}>
-                    <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.builtin')}</MyText>
-                    {
-                        units.map(u => <GetUnitValue key={u} style={styles.cellValue} buildingId={u} prop="TrainTime" formatter={x => x + 's'}/>)
-                    }
-                </View>
-            }
+                }
+            </View>
+            <View style={styles.statsRow}>
+                <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.builtin')}</MyText>
+                {
+                    units.map(u => <GetUnitValue key={u} style={styles.cellValue} buildingId={u} prop="TrainTime" formatter={x => x + 's'}/>)
+                }
+            </View>
+
             <View style={styles.statsRow}>
                 <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.hitpoints')}</MyText>
                 {
@@ -275,7 +270,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         fontWeight: 'bold',
     },
     cellValue: {
-        padding: padding,
+        lineHeight: 24,
         flex: 4,
     },
     small: {

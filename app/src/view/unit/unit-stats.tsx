@@ -135,7 +135,7 @@ export function GetValueByPath(props: PathProps) {
                                     <MyText>{"\n"}</MyText>
                                 }
                                 <MyText>{formatter(path(baseData)+getUpgradeOverAges(age))} </MyText>
-                                <Image fadeDuration={0} style={styles.resIcon2} source={getAgeIcon(age)}/>
+                                <Image fadeDuration={0} style={styles.ageIcon} source={getAgeIcon(age)}/>
                                 {/*<MyText>{" "}</MyText>*/}
                             </MyText>
                     )
@@ -533,15 +533,9 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         height: 18,
         marginRight: 5,
     },
-    resIcon2: {
+    ageIcon: {
         width: 18,
         height: 18,
-      //  marginVertical: 0,
-     //   paddingVertical: 0,
-     //   textAlignVertical: 'bottom',
-    //    position: 'relative',
-      //  top: 20,
-   //     marginRight: 25,
     },
     resDescription: {
         marginRight: 10,
@@ -572,11 +566,8 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         lineHeight: 22,
     },
     cellValue: {
-        //fontWeight: 'bold',
         lineHeight: 24,
-        padding: 0, //padding,
         flex: 4,
-        textAlignVertical: 'bottom'
     },
     small: {
         fontSize: 12,

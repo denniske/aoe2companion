@@ -19,17 +19,17 @@ export default function BuildingDetails({building}: {building: Building}) {
     const data = getBuildingData(building);
     return (
         <View style={styles.container}>
-            <View style={styles.costsRow}>
-                {
-                    sortResources(keysOf(data.Cost)).map(res =>
-                        <View key={res} style={styles.resRow}>
-                            <Image fadeDuration={0} style={styles.resIcon} source={getOtherIcon(res as Other)}/>
-                            <MyText style={styles.resDescription}>{data.Cost[res]}</MyText>
-                        </View>
-                    )
-                }
-                <MyText style={styles.description}>{getTranslation('unit.stats.heading.builtin')} {data.TrainTime}s</MyText>
-            </View>
+            {/*<View style={styles.costsRow}>*/}
+            {/*    {*/}
+            {/*        sortResources(keysOf(data.Cost)).map(res =>*/}
+            {/*            <View key={res} style={styles.resRow}>*/}
+            {/*                <Image fadeDuration={0} style={styles.resIcon} source={getOtherIcon(res as Other)}/>*/}
+            {/*                <MyText style={styles.resDescription}>{data.Cost[res]}</MyText>*/}
+            {/*            </View>*/}
+            {/*        )*/}
+            {/*    }*/}
+            {/*    <MyText style={styles.description}>{getTranslation('unit.stats.heading.builtin')} {data.TrainTime}s</MyText>*/}
+            {/*</View>*/}
 
             <MyText style={styles.description}>{getBuildingDescription(building)}</MyText>
             <Space/>
