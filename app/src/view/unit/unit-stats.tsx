@@ -3,7 +3,7 @@ import {MyText} from "../components/my-text";
 import {
     Age, ageUpgrades,
     allUnitSections,
-    attackClasses, getUnitClassName, getUnitData, getUnitLineIdForUnit, getUnitName,
+    attackClasses, getBuildingName, getUnitClassName, getUnitData, getUnitLineIdForUnit, getUnitName,
     hiddenArmourClasses, IUnitInfo, Other, sortResources, Unit, UnitClassNumber, UnitLine, unitLines
 } from "@nex/data";
 import React, {useState} from "react";
@@ -285,44 +285,61 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                 </View>
             </View>
 
-            {
-                comparisonUnit || true &&
-                <View style={styles.costsRow}>
-                    <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.costs')}</MyText>
+            <View style={styles.costsRow}>
+                <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.costs')}</MyText>
+                <View style={[styles.cellValue, {flexDirection: 'row'}]}>
+                    {
+                        sortResources(keysOf(baseData.Cost)).map(res =>
+                            <View key={res} style={styles.resRow}>
+                                <Image fadeDuration={0} style={styles.resIcon} source={getOtherIcon(res as Other)}/>
+                                <MyText style={styles.resDescription}>{baseData.Cost[res]}</MyText>
+                            </View>
+                        )
+                    }
+                </View>
+                {
+                    comparisonUnit &&
                     <View style={[styles.cellValue, {flexDirection: 'row'}]}>
                         {
-                            sortResources(keysOf(baseData.Cost)).map(res =>
+                            sortResources(keysOf(baseData2!.Cost)).map(res =>
                                 <View key={res} style={styles.resRow}>
                                     <Image fadeDuration={0} style={styles.resIcon} source={getOtherIcon(res as Other)}/>
-                                    <MyText style={styles.resDescription}>{baseData.Cost[res]}</MyText>
+                                    <MyText style={styles.resDescription}>{baseData2!.Cost[res]}</MyText>
                                 </View>
                             )
                         }
                     </View>
-                    {
-                        comparisonUnit &&
-                        <View style={[styles.cellValue, {flexDirection: 'row'}]}>
+                }
+            </View>
+            <View style={styles.statsRow}>
+                <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.trainedin')}</MyText>
+                {
+                    units.map(u =>
+                        <MyText style={styles.cellValue}>
+                            <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="TrainTime" formatter={x => x + 's'}/>
                             {
-                                sortResources(keysOf(baseData2!.Cost)).map(res =>
-                                    <View key={res} style={styles.resRow}>
-                                        <Image fadeDuration={0} style={styles.resIcon} source={getOtherIcon(res as Other)}/>
-                                        <MyText style={styles.resDescription}>{baseData2!.Cost[res]}</MyText>
-                                    </View>
-                                )
+                                getUnitLineIdForUnit(u) == 'Serjeant' &&
+                                <MyText>
+                                    <MyText style={styles.small}> ({getBuildingName('Castle')})</MyText>, 20s <MyText style={styles.small}>({getBuildingName('Stable')})</MyText>
+                                </MyText>
                             }
-                        </View>
-                    }
-                </View>
-            }
-            {
-                comparisonUnit || true &&
-                <View style={styles.statsRow}>
-                    <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.trainedin')}</MyText>
-                    {
-                        units.map(u => <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="TrainTime" formatter={x => x + 's'}/>)
-                    }
-                </View>
-            }
+                            {
+                                getUnitLineIdForUnit(u) == 'Tarkan' &&
+                                <MyText>
+                                    <MyText style={styles.small}> ({getBuildingName('Castle')})</MyText>, 21s <MyText style={styles.small}>({getBuildingName('Stable')})</MyText>
+                                </MyText>
+                            }
+                            {
+                                getUnitLineIdForUnit(u) == 'Huskarl' &&
+                                <MyText>
+                                    <MyText style={styles.small}> ({getBuildingName('Castle')})</MyText>, 13s <MyText style={styles.small}>({getBuildingName('Barracks')})</MyText>
+                                </MyText>
+                            }
+                        </MyText>
+                    )
+                }
+            </View>
+
             <View style={styles.statsRow}>
                 <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.hitpoints')}</MyText>
                 {
