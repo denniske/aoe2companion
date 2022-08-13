@@ -132,6 +132,7 @@ export default function AboutPage() {
             <MyText style={styles.content}>Andreas Teppe</MyText>
             <MyText style={styles.content}>axør</MyText>
             <MyText style={styles.content}>BananaBenito</MyText>
+            <MyText style={styles.content}>Colin</MyText>
             <MyText style={styles.content}>Darkwest</MyText>
             <MyText style={styles.content}>ddk_deepak</MyText>
             <MyText style={styles.content}>Dr. Bounty</MyText>
@@ -139,6 +140,7 @@ export default function AboutPage() {
             <MyText style={styles.content}>edvorg</MyText>
             <MyText style={styles.content}>eltrevador</MyText>
             <MyText style={styles.content}>Fabian Riebe</MyText>
+            <MyText style={styles.content}>Freddy Rayes</MyText>
             <MyText style={styles.content}>Gareth Deacon'</MyText>
             <MyText style={styles.content}>|GZ| tAMe</MyText>
             <MyText style={styles.content}>Hans</MyText>
