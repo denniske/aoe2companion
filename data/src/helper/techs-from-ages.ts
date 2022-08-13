@@ -22,6 +22,7 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
     },
     'EagleScout': {
         'Castle': {
+            "TrainTime": -25,
             "Attacks": [
                 {
                     "Amount": 3,
@@ -42,11 +43,7 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
                 {
                     "Amount": 1,
                     "Class": 34
-                }
-//                {
-//                    "Amount": 9,
-//                    "Class": 25
-//                },
+                },
             ],
         },
     },

@@ -131,6 +131,7 @@ export function GetValueByPath(props: PathProps) {
                             <MyText key={age}>
                                 {
                                     (path(baseData) > 0 || i > 0) &&
+                                    // <MyText>, </MyText>
                                     <MyText>{"\n"}</MyText>
                                 }
                                 <MyText>{formatter(path(baseData)+getUpgradeOverAges(age))} </MyText>
@@ -285,7 +286,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
             </View>
 
             {
-                comparisonUnit &&
+                comparisonUnit || true &&
                 <View style={styles.costsRow}>
                     <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.costs')}</MyText>
                     <View style={[styles.cellValue, {flexDirection: 'row'}]}>
@@ -314,7 +315,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                 </View>
             }
             {
-                comparisonUnit &&
+                comparisonUnit || true &&
                 <View style={styles.statsRow}>
                     <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.trainedin')}</MyText>
                     {

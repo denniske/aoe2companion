@@ -65,7 +65,11 @@ export const changelog4: IChangelog = {
 export const changelog: IChangelog = {
     '41.0.1': [
         {
-            type: 'minor',
+            type: 'bugfix',
+            title: 'Add melee attack for ratha',
+        },
+        {
+            type: 'bugfix',
             title: 'Add attack bonus for castle age for eagle scout',
         },
         {
