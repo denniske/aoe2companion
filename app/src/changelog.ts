@@ -63,6 +63,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '41.0.1': [
+        {
+            type: 'minor',
+            title: 'Add attack bonus for castle age for eagle scout',
+        },
+    ],
     '41.0.0': [
         {
             type: 'minor',

@@ -27,6 +27,26 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
                     "Amount": 3,
                     "Class": 4
                 },
+                {
+                    "Amount": 2,
+                    "Class": 8
+                },
+                {
+                    "Amount": 1,
+                    "Class": 16
+                },
+                {
+                    "Amount": 1,
+                    "Class": 30
+                },
+                {
+                    "Amount": 1,
+                    "Class": 34
+                }
+//                {
+//                    "Amount": 9,
+//                    "Class": 25
+//                },
             ],
         },
     },

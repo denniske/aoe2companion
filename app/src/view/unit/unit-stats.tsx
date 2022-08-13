@@ -91,6 +91,7 @@ export function GetValueByPath(props: PathProps) {
     if (eliteData && formatter(path(eliteData)) !== formatter(path(baseData)) && hasAnyAgeUpgrade) {
         return (
             <MyText style={style}>
+                {/*<MyText>{" "}</MyText>*/}
                 <MyText>{formatter(path(baseData))} </MyText>
 
                 {
@@ -111,6 +112,7 @@ export function GetValueByPath(props: PathProps) {
     } else if (eliteData && formatter(path(eliteData)) !== formatter(path(baseData))) {
         return (
             <MyText style={style}>
+                {/*<MyText>{" "}</MyText>*/}
                 <MyText>{formatter(path(baseData))}, {formatter(path(eliteData))} </MyText>
                 <MyText style={styles.small}>({getTranslation('unit.stats.elite')})</MyText>
             </MyText>
@@ -118,14 +120,22 @@ export function GetValueByPath(props: PathProps) {
     } else if (hasAnyAgeUpgrade) {
         return (
             <MyText style={style}>
-                <MyText>{formatter(path(baseData))} </MyText>
+                {/*<MyText>{" "}</MyText>*/}
+                {
+                    path(baseData) > 0 &&
+                    <MyText>{formatter(path(baseData))} </MyText>
+                }
 
                 {
-                    ageList.map(age =>
-                            hasAgeUpgrade(age) && <MyText key={age}>
-                                <MyText>{"\n"}</MyText>
+                    ageList.filter(age => hasAgeUpgrade(age)).map((age, i) =>
+                            <MyText key={age}>
+                                {
+                                    (path(baseData) > 0 || i > 0) &&
+                                    <MyText>{"\n"}</MyText>
+                                }
                                 <MyText>{formatter(path(baseData)+getUpgradeOverAges(age))} </MyText>
-                                <MyText style={styles.small}>({age} age)</MyText>
+                                <Image fadeDuration={0} style={styles.resIcon2} source={getAgeIcon(age)}/>
+                                {/*<MyText>{" "}</MyText>*/}
                             </MyText>
                     )
                 }
@@ -133,7 +143,10 @@ export function GetValueByPath(props: PathProps) {
         );
     } else {
         return (
-            <MyText style={style}>{formatter(path(baseData))}</MyText>
+            <MyText style={style}>
+                {/*<MyText>{" "}</MyText>*/}
+                {formatter(path(baseData))}
+            </MyText>
         );
     }
 }
@@ -201,7 +214,10 @@ export function getAttackBonuses(params: GetDataParams) {
     const attackBonuses = data.Attacks.filter(a => a.Amount > 0 && !attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber))).map(a => a.Class);
     const attackBonusesElite = eliteData?.Attacks.filter(a => a.Amount > 0 && !attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber))).map(a => a.Class) ?? [];
 
-    return uniq([...attackBonuses, ...attackBonusesElite]);
+    const upgradeByAgeData = getUpgradeByAgeData(params);
+    const ageUpgradeAttackBonuses = (age: Age) => upgradeByAgeData?.[age]?.Attacks?.filter(a => a.Amount > 0 && !attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber))).map(a => a.Class) || [];
+
+    return uniq([...attackBonuses, ...attackBonusesElite, ...ageUpgradeAttackBonuses('Feudal'), ...ageUpgradeAttackBonuses('Castle'), ...ageUpgradeAttackBonuses('Imperial')]);
 }
 
 export function getArmourClasses(params: GetDataParams) {
@@ -335,7 +351,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                             {
                                 getAttackBonuses({ unitId: u }).length > 0 && getAttackBonuses({ unitId: u }).map(bonusClass =>
                                     <MyText key={bonusClass}>
-                                        <GetAttackBonusValue unitId={u} unitClassNumber={bonusClass}/>
+                                        <GetAttackBonusValue style={styles.cellValue}  unitId={u} unitClassNumber={bonusClass}/>
                                         <MyText style={styles.small}> ({getUnitClassName(bonusClass as UnitClassNumber).toLowerCase()})</MyText>
                                     </MyText>
                                 )
@@ -499,6 +515,16 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         height: 18,
         marginRight: 5,
     },
+    resIcon2: {
+        width: 18,
+        height: 18,
+      //  marginVertical: 0,
+     //   paddingVertical: 0,
+     //   textAlignVertical: 'bottom',
+    //    position: 'relative',
+      //  top: 20,
+   //     marginRight: 25,
+    },
     resDescription: {
         marginRight: 10,
     },
@@ -527,8 +553,11 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         fontWeight: 'bold',
     },
     cellValue: {
-        padding: padding,
+        //fontWeight: 'bold',
+        lineHeight: 24,
+        padding: 0, //padding,
         flex: 4,
+        textAlignVertical: 'bottom'
     },
     small: {
         fontSize: 12,
