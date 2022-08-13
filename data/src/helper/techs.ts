@@ -754,7 +754,7 @@ const techEffectDictInternal = {
         tech: 'Stirrups',
         civ: 'Bulgarians',
         effect: {
-            firingRate: '+25% attack speed',
+            firingRate: '+33% attack speed',
         },
     },
     'ScaleBardingArmor': {

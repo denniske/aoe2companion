@@ -65,6 +65,10 @@ export const changelog4: IChangelog = {
 export const changelog: IChangelog = {
     '41.0.1': [
         {
+            type: 'minor',
+            title: 'Add harbor to building list and tech tree',
+        },
+        {
             type: 'bugfix',
             title: 'Add melee attack for ratha',
         },
@@ -73,12 +77,12 @@ export const changelog: IChangelog = {
             title: 'Add attack bonus for castle age for eagle scout',
         },
         {
-            type: 'minor',
-            title: 'Add harbor to building list and tech tree',
+            type: 'bugfix',
+            title: 'Fix double bombard tower in korean civ bonus',
         },
         {
-            type: 'minor',
-            title: 'Fix double bombard tower in korean civ bonus',
+            type: 'bugfix',
+            title: 'Fix attack speed for stirrups',
         },
     ],
     '41.0.0': [
