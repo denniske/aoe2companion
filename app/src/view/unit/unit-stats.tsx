@@ -551,6 +551,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         padding: padding,
         flex: 3,
         fontWeight: 'bold',
+        lineHeight: 22,
     },
     cellValue: {
         //fontWeight: 'bold',
