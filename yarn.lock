@@ -3112,10 +3112,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/config-types@npm:46.0.1":
-  version: 46.0.1
-  resolution: "@expo/config-types@npm:46.0.1"
-  checksum: 2f5b1b03d4636893f406fb934ef76e9ed0b71161bc27f2c53e94223525655111b60ed83e803065f666cca88d2d11e38f604b5513efd641805a9bde4a852b06cb
+"@expo/config-types@npm:46.0.2, @expo/config-types@npm:^46.0.0, @expo/config-types@npm:^46.0.1":
+  version: 46.0.2
+  resolution: "@expo/config-types@npm:46.0.2"
+  checksum: ea7b3c64e875dfe65209e5f099b3ef4ddc464f308aff50ba08c26c1dfc3d3c177203190b29b5d7dd334932d74f765690c44829d637d7a71a72078214c69a07ab
   languageName: node
   linkType: hard
 
@@ -3130,13 +3130,6 @@ __metadata:
   version: 45.0.0
   resolution: "@expo/config-types@npm:45.0.0"
   checksum: 9b4866540654da61af0985ebfc975b3cb690625acf7742443a7e56263bf134b261e22719720982223407f8957d08a3646178c79f482861218882f0956d804021
-  languageName: node
-  linkType: hard
-
-"@expo/config-types@npm:^46.0.0, @expo/config-types@npm:^46.0.1":
-  version: 46.0.2
-  resolution: "@expo/config-types@npm:46.0.2"
-  checksum: ea7b3c64e875dfe65209e5f099b3ef4ddc464f308aff50ba08c26c1dfc3d3c177203190b29b5d7dd334932d74f765690c44829d637d7a71a72078214c69a07ab
   languageName: node
   linkType: hard
 
@@ -3217,7 +3210,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/config@npm:~7.0.1":
+"@expo/config@npm:7.0.1, @expo/config@npm:~7.0.1":
   version: 7.0.1
   resolution: "@expo/config@npm:7.0.1"
   dependencies:
@@ -3328,9 +3321,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/eas-json@npm:0.59.0":
-  version: 0.59.0
-  resolution: "@expo/eas-json@npm:0.59.0"
+"@expo/eas-json@npm:0.60.0":
+  version: 0.60.0
+  resolution: "@expo/eas-json@npm:0.60.0"
   dependencies:
     "@expo/eas-build-job": 0.2.85
     "@expo/json-file": 8.2.36
@@ -3341,7 +3334,7 @@ __metadata:
     log-symbols: 4.1.0
     semver: 7.3.7
     tslib: 2.4.0
-  checksum: c99aa9db41d61572d4b99b66a2b01e00d62dcf7c01568a23999b4983f155d95205f7430d1bfa8a0f50542daf0054a7fad797686d660205950b25951cd213646e
+  checksum: f25d159ca7ff21bde995bbfb636c2878c6ad75072522a9c4e02e1f5c06ae4fc986d5307128a27ed8ba1a8fc05e8af2955597766ab2e160c34f59a1f08f32d382
   languageName: node
   linkType: hard
 
@@ -8188,7 +8181,7 @@ __metadata:
     date-fns: ^2.14.0
     document-register-element: 1.13.1
     dotenv: ^8.2.0
-    eas-cli: ^0.59.0
+    eas-cli: ^0.60.0
     expo: ~46.0.6
     expo-av: ~12.0.4
     expo-cli: ^6.0.2
@@ -12911,17 +12904,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eas-cli@npm:^0.59.0":
-  version: 0.59.0
-  resolution: "eas-cli@npm:0.59.0"
+"eas-cli@npm:^0.60.0":
+  version: 0.60.0
+  resolution: "eas-cli@npm:0.60.0"
   dependencies:
     "@expo/apple-utils": 0.0.0-alpha.33
     "@expo/code-signing-certificates": 0.0.2
-    "@expo/config": 7.0.0
-    "@expo/config-plugins": 5.0.0
-    "@expo/config-types": 46.0.1
+    "@expo/config": 7.0.1
+    "@expo/config-plugins": 5.0.1
+    "@expo/config-types": 46.0.2
     "@expo/eas-build-job": 0.2.85
-    "@expo/eas-json": 0.59.0
+    "@expo/eas-json": 0.60.0
     "@expo/json-file": 8.2.36
     "@expo/multipart-body-parser": 1.1.0
     "@expo/pkcs12": 0.0.8
@@ -12929,7 +12922,7 @@ __metadata:
     "@expo/plugin-autocomplete": 1.4.0
     "@expo/plugin-help": 5.2.0
     "@expo/plugin-warn-if-update-available": 2.3.0
-    "@expo/prebuild-config": 5.0.2
+    "@expo/prebuild-config": 5.0.3
     "@expo/results": 1.0.0
     "@expo/rudder-sdk-node": 1.1.1
     "@expo/spawn-async": 1.7.0
@@ -12984,7 +12977,7 @@ __metadata:
     wrap-ansi: 7.0.0
   bin:
     eas: bin/run
-  checksum: 4e3f612402ae4a8f37165601be06e281ef887e7beeaa6b68e4225c2208f2b3c35683dabb54b2f5959d2b0fac35be09dc97006942230b2a3cb4cf11236730264b
+  checksum: d8817ab635de802e1de60a45c95bdb8cc21272b7f5eb4717dfb96e66359243efb56e7fedd29a37cfec1db712b8a3f45c6bca5bc892123cdf9169fe40fb875c79
   languageName: node
   linkType: hard
 
