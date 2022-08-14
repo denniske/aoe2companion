@@ -355,7 +355,7 @@ export default function AboutPage() {
                     " using assets from Age of Empires IV.
                     This app is not affiliated with or endorsed by Microsoft Corporation. Age
                     of Empires IV is a trademark or
-                    registered trademark of Microsoft Corporation in the U.S. and other countries.
+                    registered trademark of Microsoft Corporation in the U.S. and other countries. 1
                 </MyText>
             }
 
