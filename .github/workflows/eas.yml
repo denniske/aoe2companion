@@ -43,18 +43,12 @@ jobs:
         uses: secrethub/actions/env-export@v0.2.1
         env:
           SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
-          EXPO_USERNAME: secrethub://denniske/aoe2companion/expo_username
-          EXPO_PASSWORD: secrethub://denniske/aoe2companion/expo_password
           SENTRY_AUTH_TOKEN: secrethub://denniske/aoe2companion/sentry_auth_token
+          EXPO_TOKEN: secrethub://denniske/aoe2companion/expo_token
 
-      - uses: expo/expo-github-action@v5
-        with:
-          expo-version: ${{ env.EXPO_CLI_VERSION }}
-          expo-username: ${{ env.EXPO_USERNAME }}
-          expo-password: ${{ env.EXPO_PASSWORD }}
       - run: yarn
       - run: echo "APP=$(node deploy/script/aoe-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
-      - run: npx expo publish --release-channel $CHANNEL
+      - run: npx eas update --branch production --message "Updating the app"
 
 
   build-android-internal:

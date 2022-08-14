@@ -63,7 +63,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '41.0.1': [
+    '42.0.0': [
         {
             type: 'minor',
             title: 'Add harbor to building list and tech tree',

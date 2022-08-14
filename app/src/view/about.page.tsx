@@ -193,9 +193,12 @@ export default function AboutPage() {
                 }
                 {
                     !isElectron() &&
-                    <MyText style={styles.content}>{Constants.manifest?.releaseChannel || 'dev'}-{Constants.manifest?.version}n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}</MyText>
+                    <MyText style={styles.content}>{Constants.manifest?.runtimeVersion || 'dev'}-{Constants.manifest?.releaseChannel || 'dev'}-{Constants.manifest?.version}</MyText>
                 }
+                {/*<MyText style={styles.content}>n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}</MyText>*/}
             </TouchableOpacity>
+
+            <MyText style={styles.content}>{(Constants.manifest2?.metadata as any)?.updateGroup || 'dev'}</MyText>
 
             {
                 (Platform.OS !== 'web' || isElectron()) && state === '' &&

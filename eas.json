@@ -56,14 +56,14 @@
       }
     },
     "production-aoe2": {
-      "releaseChannel": "prod-v41",
+      "channel": "production",
       "env": {
         "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
         "APP": "aoe2"
       }
     },
     "production-aoe4": {
-      "releaseChannel": "prod-v5",
+      "channel": "production",
       "env": {
         "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
         "APP": "aoe4"
