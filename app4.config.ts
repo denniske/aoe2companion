@@ -26,7 +26,8 @@ export default {
       "resizeMode": "contain"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/d8d79ec3-2477-4026-8c8a-456f79fc2f20"
     },
     "assetBundlePatterns": [
       "node_modules/**",
