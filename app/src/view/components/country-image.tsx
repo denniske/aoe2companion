@@ -17,7 +17,7 @@ export function CountryImage(props: Props) {
     const styles = useStyles();
     const { style, country, ...rest } = props;
 
-    console.log('getFlagIndex(country)', getFlagIndex(country));
+    // console.log('getFlagIndex(country)', getFlagIndex(country));
 
     return (
         <View style={[styles.wrapper, style]}>

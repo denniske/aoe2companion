@@ -30,6 +30,7 @@ export async function doFetchUpdateAsync() {
 }
 
 export async function doCheckForStoreUpdate() {
+    if (Constants.manifest == null) return null;
     switch (Platform.OS) {
         case 'android': {
             const updateUrl = `https://play.google.com/store/apps/details?id=${packageName}&hl=en`;
