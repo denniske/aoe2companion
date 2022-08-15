@@ -21,6 +21,7 @@ export default function UpdateSnackbar() {
     const mutate = useMutate();
 
     const init = async () => {
+        if (Constants.manifest == null) return;
         if (updateManifest !== undefined) return;
         const update = await doCheckForUpdateAsync();
         if (update.isAvailable) {

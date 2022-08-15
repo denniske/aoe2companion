@@ -112,8 +112,12 @@ export default function AboutPage() {
         init();
     });
 
+    // console.log('Constants.manifest2', JSON.stringify(Constants.manifest2, null, 2));
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
+            {/*<MyText style={styles.title}>{Constants.manifest2?.extra?.expoClient?.name}</MyText>*/}
+
             <MyText style={styles.title}>{Constants.manifest?.name}</MyText>
 
             <MyText style={styles.heading}>{getTranslation('about.heading.createdby')}</MyText>
