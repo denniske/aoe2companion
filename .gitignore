@@ -6,6 +6,13 @@
 !.yarn/sdks
 !.yarn/versions
 
+/android
+/ios
+/index.js
+
+flags-1x
+flags-2x
+flags-3x
 
 node_modules/**/*
 .expo/*

@@ -3,7 +3,7 @@ import {MyText} from "../components/my-text";
 import {
     Age, ageUpgrades,
     allUnitSections,
-    attackClasses, getUnitClassName, getUnitData, getUnitLineIdForUnit, getUnitName,
+    attackClasses, getBuildingName, getUnitClassName, getUnitData, getUnitLineIdForUnit, getUnitName,
     hiddenArmourClasses, IUnitInfo, Other, sortResources, Unit, UnitClassNumber, UnitLine, unitLines
 } from "@nex/data";
 import React, {useState} from "react";
@@ -91,6 +91,7 @@ export function GetValueByPath(props: PathProps) {
     if (eliteData && formatter(path(eliteData)) !== formatter(path(baseData)) && hasAnyAgeUpgrade) {
         return (
             <MyText style={style}>
+                {/*<MyText>{" "}</MyText>*/}
                 <MyText>{formatter(path(baseData))} </MyText>
 
                 {
@@ -111,6 +112,7 @@ export function GetValueByPath(props: PathProps) {
     } else if (eliteData && formatter(path(eliteData)) !== formatter(path(baseData))) {
         return (
             <MyText style={style}>
+                {/*<MyText>{" "}</MyText>*/}
                 <MyText>{formatter(path(baseData))}, {formatter(path(eliteData))} </MyText>
                 <MyText style={styles.small}>({getTranslation('unit.stats.elite')})</MyText>
             </MyText>
@@ -118,14 +120,23 @@ export function GetValueByPath(props: PathProps) {
     } else if (hasAnyAgeUpgrade) {
         return (
             <MyText style={style}>
-                <MyText>{formatter(path(baseData))} </MyText>
+                {/*<MyText>{" "}</MyText>*/}
+                {
+                    path(baseData) > 0 &&
+                    <MyText>{formatter(path(baseData))} </MyText>
+                }
 
                 {
-                    ageList.map(age =>
-                            hasAgeUpgrade(age) && <MyText key={age}>
-                                <MyText>{"\n"}</MyText>
+                    ageList.filter(age => hasAgeUpgrade(age)).map((age, i) =>
+                            <MyText key={age}>
+                                {
+                                    (path(baseData) > 0 || i > 0) &&
+                                    // <MyText>, </MyText>
+                                    <MyText>{"\n"}</MyText>
+                                }
                                 <MyText>{formatter(path(baseData)+getUpgradeOverAges(age))} </MyText>
-                                <MyText style={styles.small}>({age} age)</MyText>
+                                <Image fadeDuration={0} style={styles.ageIcon} source={getAgeIcon(age)}/>
+                                {/*<MyText>{" "}</MyText>*/}
                             </MyText>
                     )
                 }
@@ -133,7 +144,10 @@ export function GetValueByPath(props: PathProps) {
         );
     } else {
         return (
-            <MyText style={style}>{formatter(path(baseData))}</MyText>
+            <MyText style={style}>
+                {/*<MyText>{" "}</MyText>*/}
+                {formatter(path(baseData))}
+            </MyText>
         );
     }
 }
@@ -201,7 +215,10 @@ export function getAttackBonuses(params: GetDataParams) {
     const attackBonuses = data.Attacks.filter(a => a.Amount > 0 && !attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber))).map(a => a.Class);
     const attackBonusesElite = eliteData?.Attacks.filter(a => a.Amount > 0 && !attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber))).map(a => a.Class) ?? [];
 
-    return uniq([...attackBonuses, ...attackBonusesElite]);
+    const upgradeByAgeData = getUpgradeByAgeData(params);
+    const ageUpgradeAttackBonuses = (age: Age) => upgradeByAgeData?.[age]?.Attacks?.filter(a => a.Amount > 0 && !attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber))).map(a => a.Class) || [];
+
+    return uniq([...attackBonuses, ...attackBonusesElite, ...ageUpgradeAttackBonuses('Feudal'), ...ageUpgradeAttackBonuses('Castle'), ...ageUpgradeAttackBonuses('Imperial')]);
 }
 
 export function getArmourClasses(params: GetDataParams) {
@@ -268,44 +285,61 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                 </View>
             </View>
 
-            {
-                comparisonUnit &&
-                <View style={styles.costsRow}>
-                    <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.costs')}</MyText>
+            <View style={styles.costsRow}>
+                <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.costs')}</MyText>
+                <View style={[styles.cellValue, {flexDirection: 'row'}]}>
+                    {
+                        sortResources(keysOf(baseData.Cost)).map(res =>
+                            <View key={res} style={styles.resRow}>
+                                <Image fadeDuration={0} style={styles.resIcon} source={getOtherIcon(res as Other)}/>
+                                <MyText style={styles.resDescription}>{baseData.Cost[res]}</MyText>
+                            </View>
+                        )
+                    }
+                </View>
+                {
+                    comparisonUnit &&
                     <View style={[styles.cellValue, {flexDirection: 'row'}]}>
                         {
-                            sortResources(keysOf(baseData.Cost)).map(res =>
+                            sortResources(keysOf(baseData2!.Cost)).map(res =>
                                 <View key={res} style={styles.resRow}>
                                     <Image fadeDuration={0} style={styles.resIcon} source={getOtherIcon(res as Other)}/>
-                                    <MyText style={styles.resDescription}>{baseData.Cost[res]}</MyText>
+                                    <MyText style={styles.resDescription}>{baseData2!.Cost[res]}</MyText>
                                 </View>
                             )
                         }
                     </View>
-                    {
-                        comparisonUnit &&
-                        <View style={[styles.cellValue, {flexDirection: 'row'}]}>
+                }
+            </View>
+            <View style={styles.statsRow}>
+                <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.trainedin')}</MyText>
+                {
+                    units.map(u =>
+                        <MyText style={styles.cellValue}>
+                            <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="TrainTime" formatter={x => x + 's'}/>
                             {
-                                sortResources(keysOf(baseData2!.Cost)).map(res =>
-                                    <View key={res} style={styles.resRow}>
-                                        <Image fadeDuration={0} style={styles.resIcon} source={getOtherIcon(res as Other)}/>
-                                        <MyText style={styles.resDescription}>{baseData2!.Cost[res]}</MyText>
-                                    </View>
-                                )
+                                getUnitLineIdForUnit(u) == 'Serjeant' &&
+                                <MyText>
+                                    <MyText style={styles.small}> ({getBuildingName('Castle')})</MyText>, 20s <MyText style={styles.small}>({getBuildingName('Stable')})</MyText>
+                                </MyText>
                             }
-                        </View>
-                    }
-                </View>
-            }
-            {
-                comparisonUnit &&
-                <View style={styles.statsRow}>
-                    <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.trainedin')}</MyText>
-                    {
-                        units.map(u => <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="TrainTime" formatter={x => x + 's'}/>)
-                    }
-                </View>
-            }
+                            {
+                                getUnitLineIdForUnit(u) == 'Tarkan' &&
+                                <MyText>
+                                    <MyText style={styles.small}> ({getBuildingName('Castle')})</MyText>, 21s <MyText style={styles.small}>({getBuildingName('Stable')})</MyText>
+                                </MyText>
+                            }
+                            {
+                                getUnitLineIdForUnit(u) == 'Huskarl' &&
+                                <MyText>
+                                    <MyText style={styles.small}> ({getBuildingName('Castle')})</MyText>, 13s <MyText style={styles.small}>({getBuildingName('Barracks')})</MyText>
+                                </MyText>
+                            }
+                        </MyText>
+                    )
+                }
+            </View>
+
             <View style={styles.statsRow}>
                 <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.hitpoints')}</MyText>
                 {
@@ -335,7 +369,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                             {
                                 getAttackBonuses({ unitId: u }).length > 0 && getAttackBonuses({ unitId: u }).map(bonusClass =>
                                     <MyText key={bonusClass}>
-                                        <GetAttackBonusValue unitId={u} unitClassNumber={bonusClass}/>
+                                        <GetAttackBonusValue style={styles.cellValue}  unitId={u} unitClassNumber={bonusClass}/>
                                         <MyText style={styles.small}> ({getUnitClassName(bonusClass as UnitClassNumber).toLowerCase()})</MyText>
                                     </MyText>
                                 )
@@ -499,6 +533,10 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         height: 18,
         marginRight: 5,
     },
+    ageIcon: {
+        width: 18,
+        height: 18,
+    },
     resDescription: {
         marginRight: 10,
     },
@@ -525,9 +563,10 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         padding: padding,
         flex: 3,
         fontWeight: 'bold',
+        lineHeight: 22,
     },
     cellValue: {
-        padding: padding,
+        lineHeight: 24,
         flex: 4,
     },
     small: {

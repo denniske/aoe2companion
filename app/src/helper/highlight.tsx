@@ -89,10 +89,12 @@ export function HighlightUnitAndTechs(props: IProps) {
             const matchingTech = reverseTechMap[parts[i].toLowerCase()]?.name;
             if (matchingTech) {
                 texts.push(<MyText key={i} style={appStyles.link} onPress={() => navigation.push('Tech', {tech: matchingTech})}>{parts[i]}</MyText>);
+                continue;
             }
             const matchingUnit = reverseUnitMap[parts[i].toLowerCase()]?.name;
             if (matchingUnit) {
                 texts.push(<MyText key={i} style={appStyles.link} onPress={() => navigation.push('Unit', {unit: matchingUnit})}>{parts[i]}</MyText>);
+                continue;
             }
             const matchingBuilding = reverseBuildingMap[parts[i].toLowerCase()]?.name;
             if (matchingBuilding) {

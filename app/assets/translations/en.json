@@ -21,7 +21,7 @@
   "main.stats.heading.won": "Won",
   "main.stats.showmore": "Show more",
   "main.stats.thelastmatches": "The last {matches} matches:",
-  "main.stats.nomatches": "No matches yet.",
+  "main.stats.nomatches": "No matches yet for ",
   "main.stats.footer.note": "based on matches with known result",
   "main.stats.duration.lessThan5Minutes": "< 5 min",
   "main.stats.duration.lessThan30Minutes": "5 - 30 min",

@@ -96,7 +96,7 @@ function MainMatchesInternal({user}: { user: any}) {
                     return m.name.toLowerCase().indexOf(part) >= 0 ||
                         (getMapName(m.map_type) || '').toLowerCase().indexOf(part) >= 0 ||
                         m.players.some(p => p.name?.toLowerCase().indexOf(part) >= 0) ||
-                        m.players.some(p => p.civ != null && getCivName(p.civ).toLowerCase().indexOf(part) >= 0);
+                        m.players.some(p => p.civ != null && getCivName(p.civ)?.toLowerCase()?.indexOf(part) >= 0);
                 });
             });
         }

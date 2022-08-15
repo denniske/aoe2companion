@@ -112,8 +112,12 @@ export default function AboutPage() {
         init();
     });
 
+    // console.log('Constants.manifest2', JSON.stringify(Constants.manifest2, null, 2));
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
+            {/*<MyText style={styles.title}>{Constants.manifest2?.extra?.expoClient?.name}</MyText>*/}
+
             <MyText style={styles.title}>{Constants.manifest?.name}</MyText>
 
             <MyText style={styles.heading}>{getTranslation('about.heading.createdby')}</MyText>
@@ -132,6 +136,7 @@ export default function AboutPage() {
             <MyText style={styles.content}>Andreas Teppe</MyText>
             <MyText style={styles.content}>axør</MyText>
             <MyText style={styles.content}>BananaBenito</MyText>
+            <MyText style={styles.content}>Colin</MyText>
             <MyText style={styles.content}>Darkwest</MyText>
             <MyText style={styles.content}>ddk_deepak</MyText>
             <MyText style={styles.content}>Dr. Bounty</MyText>
@@ -139,8 +144,10 @@ export default function AboutPage() {
             <MyText style={styles.content}>edvorg</MyText>
             <MyText style={styles.content}>eltrevador</MyText>
             <MyText style={styles.content}>Fabian Riebe</MyText>
+            <MyText style={styles.content}>Freddy Rayes</MyText>
             <MyText style={styles.content}>Gareth Deacon'</MyText>
             <MyText style={styles.content}>|GZ| tAMe</MyText>
+            <MyText style={styles.content}>Hans</MyText>
             <MyText style={styles.content}>Jannis V</MyText>
             <MyText style={styles.content}>Jonas</MyText>
             <MyText style={styles.content}>JJ_Ronda</MyText>
@@ -190,9 +197,12 @@ export default function AboutPage() {
                 }
                 {
                     !isElectron() &&
-                    <MyText style={styles.content}>{Constants.manifest?.releaseChannel || 'dev'}-{Constants.manifest?.version}n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}</MyText>
+                    <MyText style={styles.content}>{Constants.manifest?.runtimeVersion || 'dev'}-{Constants.manifest?.releaseChannel || 'dev'}-{Constants.manifest?.version}</MyText>
                 }
+                {/*<MyText style={styles.content}>n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}</MyText>*/}
             </TouchableOpacity>
+
+            <MyText style={styles.content}>{(Constants.manifest2?.metadata as any)?.updateGroup || 'dev'}</MyText>
 
             {
                 (Platform.OS !== 'web' || isElectron()) && state === '' &&
@@ -349,7 +359,7 @@ export default function AboutPage() {
                     " using assets from Age of Empires IV.
                     This app is not affiliated with or endorsed by Microsoft Corporation. Age
                     of Empires IV is a trademark or
-                    registered trademark of Microsoft Corporation in the U.S. and other countries.
+                    registered trademark of Microsoft Corporation in the U.S. and other countries. 1
                 </MyText>
             }
 

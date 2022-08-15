@@ -16,7 +16,7 @@ export default {
     "userInterfaceStyle": "automatic",
     "jsEngine": "hermes",
     "runtimeVersion": process.env.RUNTIME_VERSION,
-    "version": "5.0.4", // update also in eas.json!
+    "version": "5.0.4",
     "orientation": "portrait",
     "privacy": "public",
     "githubUrl": "https://github.com/denniske/aoe2companion",
@@ -26,7 +26,8 @@ export default {
       "resizeMode": "contain"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/d8d79ec3-2477-4026-8c8a-456f79fc2f20"
     },
     "assetBundlePatterns": [
       "node_modules/**",

@@ -28,6 +28,7 @@ const unitSections: IUnitSection[] = [
                 'Archer',
                 'Skirmisher',
                 'CavalryArcher',
+                'ElephantArcher',
                 'Genitour',
                 'HandCannoneer',
                 'Slinger',
@@ -42,6 +43,7 @@ const unitSections: IUnitSection[] = [
                 'CamelRider',
                 'SteppeLancer',
                 'BattleElephant',
+                'ShrivamshaRider',
                 'XolotlWarrior',
             ],
     },
@@ -114,6 +116,7 @@ function getUniqueUnitsForSection(civ: Civ) {
         'Genitour',
         'FlemishMilitia',
         'Slinger',
+        'ShrivamshaRider',
         'ImperialCamelRider',
         'Condottiero',
         'TurtleShip',
@@ -139,7 +142,7 @@ function getUniqueUnitsForSection(civ: Civ) {
 export const allUnitSections = unitSections.map(section => ({
     ...section,
     data: flatMap(section.data.map(u => {
-        if (unitLines[u] && !unitLines[u].unique) {
+        if (unitLines[u] && !unitLines[u].unique && u !== 'ElephantArcher') {
             return unitLines[u].units;
         }
         return [u];

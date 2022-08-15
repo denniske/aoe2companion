@@ -16,7 +16,7 @@ export default {
     "userInterfaceStyle": "automatic",
     "jsEngine": "hermes",
     "runtimeVersion": process.env.RUNTIME_VERSION,
-    "version": "40.0.0", // update also in eas.json!
+    "version": "43.0.0",
     "orientation": "portrait",
     "privacy": "public",
     "githubUrl": "https://github.com/denniske/aoe2companion",
@@ -26,7 +26,8 @@ export default {
       "resizeMode": "contain"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/668efd6d-8482-4ad8-8235-e1e94b7d508e"
     },
     "assetBundlePatterns": [
       "node_modules/**",
@@ -59,7 +60,7 @@ export default {
         "foregroundImage": "./app/assets/icon-adaptive.png"
       },
       "package": "com.aoe2companion",
-      "versionCode": 400000,
+      "versionCode": 430000,
       "permissions": [],
       "googleServicesFile": "./google-services2.json",
       "useNextNotificationsApi": true
@@ -68,7 +69,7 @@ export default {
       "userInterfaceStyle": "automatic",
       "icon": "./app/assets/icon-adaptive-no-alpha.png",
       "bundleIdentifier": "com.aoe2companion",
-      "buildNumber": "40.0.0",
+      "buildNumber": "43.0.0",
       "supportsTablet": false,
       "config": {
         "usesNonExemptEncryption": false

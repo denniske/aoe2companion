@@ -17,6 +17,7 @@ const buildingIcons = {
     'Folwark': require('../../../app/assets/buildings/Folwark.png'),
     'Gate': require('../../../app/assets/buildings/Gate.png'),
     'GuardTower': require('../../../app/assets/buildings/GuardTower.png'),
+    'Harbor': require('../../../app/assets/buildings/Harbor.png'),
     'House': require('../../../app/assets/buildings/House.png'),
     'Keep': require('../../../app/assets/buildings/Keep.png'),
     'Krepost': require('../../../app/assets/buildings/Krepost.png'),

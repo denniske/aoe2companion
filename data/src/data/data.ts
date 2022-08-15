@@ -29,6 +29,31 @@ export const aoeData = merge(aoeDataInternal, {
                     "Gold": 70
                 },
             },
+            // Add melee attack to ranged ratha
+            "1759": {
+                "Attacks": [
+                    {
+                        "Amount": 10,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 5,
+                        "Class": 3
+                    },
+                ]
+            },
+            "1761": {
+                "Attacks": [
+                    {
+                        "Amount": 12,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 6,
+                        "Class": 3
+                    },
+                ]
+            },
         }
     }
 });

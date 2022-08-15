@@ -4,7 +4,6 @@ import {IFetchedUser, loadUser} from '../../service/user';
 import {useLazyApi} from '../../hooks/use-lazy-api';
 import {Button, Searchbar} from 'react-native-paper';
 import {composeUserIdFromParts, UserInfo} from '../../helper/user';
-import {getFlagIcon} from '../../helper/flags';
 import {MyText} from "./my-text";
 import RefreshControlThemed from "./refresh-control-themed";
 import {usePrevious} from "@nex/data/hooks";
@@ -15,6 +14,7 @@ import { useCavy } from '../testing/tester';
 import {FontAwesome5} from "@expo/vector-icons";
 import {isVerifiedPlayer} from '@nex/data';
 import {useTimeout} from "../../../../data/src/hooks/use-timeout";
+import {CountryImage} from './country-image';
 
 interface IPlayerProps {
     player: IFetchedUser;
@@ -43,7 +43,7 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
             >
                 <View style={styles.row}>
                     <View style={styles.cellName}>
-                        <Image fadeDuration={0} style={styles.countryIcon} source={getFlagIcon(player.country)}/>
+                        <CountryImage fadeDuration={0} style={styles.countryIcon} country={player.country} />
                         <MyText style={styles.name} numberOfLines={1}>
                             {player.name}
                             {

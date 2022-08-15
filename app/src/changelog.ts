@@ -63,6 +63,44 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '43.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix crash when searching in match list',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix update available message when update is available in play store / app store (by PaitoAnderson)',
+        },
+    ],
+    '42.0.0': [
+        {
+            type: 'minor',
+            title: 'Add harbor to building list and tech tree',
+        },
+        {
+            type: 'bugfix',
+            title: 'Add melee attack for ratha',
+        },
+        {
+            type: 'bugfix',
+            title: 'Add attack bonus for castle age for eagle scout',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix double bombard tower in korean civ bonus',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix attack speed for stirrups',
+        },
+    ],
+    '41.0.0': [
+        {
+            type: 'minor',
+            title: 'Internal Framework Update (SDK 46)',
+        },
+    ],
     '40.0.0': [
         {
             type: 'minor',

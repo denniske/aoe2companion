@@ -33,7 +33,7 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
 
     return (
         <View style={styles.container}>
-            <UnitCosts unitLineId={unitLineId} unitId={unitName}/>
+            {/*<UnitCosts unitLineId={unitLineId} unitId={unitName}/>*/}
 
             <MyText style={styles.description}>{getUnitDescription(unitName)}</MyText>
             <Space/>

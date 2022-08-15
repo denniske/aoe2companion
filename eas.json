@@ -1,6 +1,6 @@
 {
   "cli": {
-    "version": ">= 0.39.0"
+    "version": ">= 0.59.0"
   },
   "build": {
     "development-aoe2": {
@@ -56,14 +56,14 @@
       }
     },
     "production-aoe2": {
-      "releaseChannel": "prod-v40",
+      "channel": "production",
       "env": {
         "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
         "APP": "aoe2"
       }
     },
     "production-aoe4": {
-      "releaseChannel": "prod-v5",
+      "channel": "production",
       "env": {
         "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
         "APP": "aoe4"

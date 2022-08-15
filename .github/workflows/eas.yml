@@ -7,11 +7,24 @@ name: Eas
 env:
   HOMEBREW_NO_AUTO_UPDATE: 1
   NODE_VERSION: 16.13.2
-  EXPO_SDK_VERSION: 45.0.0
-  EXPO_CLI_VERSION: 5.4.9
+  EXPO_SDK_VERSION: 46.0.0
+  EXPO_CLI_VERSION: 6.0.2
   SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
 
 jobs:
+
+#  onepassword:
+#    name: One Password
+#    runs-on: ubuntu-18.04
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v1
+#      - run: wget "https://cache.agilebits.com/dist/1P/op2/pkg/v2.4.1/op_linux_amd64_v2.4.1.zip" -O op.zip && unzip -d op op.zip && sudo mv op/op /usr/local/bin && rm -r op.zip op
+#      - run: echo "OP_DEVICE=gpz56tma3262vu3z2thwwm57ga" >> $GITHUB_ENV
+#      - run: echo "OP_SECRET_KEY=${{ secrets.ONE_PASSWORD_SECRET_KEY }}" >> $GITHUB_ENV
+#      - run: printf ${{ secrets.ONE_PASSWORD_PASSWORD }} | op account add --address ${{ secrets.ONE_PASSWORD_ADDRESS }} --email ${{ secrets.ONE_PASSWORD_EMAIL }} --signin
+#      - run: op --version
+##      - run: brew install --cask 1password/tap/1password-cli
 
   publish:
     name: Publish
@@ -30,18 +43,12 @@ jobs:
         uses: secrethub/actions/env-export@v0.2.1
         env:
           SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
-          EXPO_USERNAME: secrethub://denniske/aoe2companion/expo_username
-          EXPO_PASSWORD: secrethub://denniske/aoe2companion/expo_password
           SENTRY_AUTH_TOKEN: secrethub://denniske/aoe2companion/sentry_auth_token
+          EXPO_TOKEN: secrethub://denniske/aoe2companion/expo_token
 
-      - uses: expo/expo-github-action@v5
-        with:
-          expo-version: ${{ env.EXPO_CLI_VERSION }}
-          expo-username: ${{ env.EXPO_USERNAME }}
-          expo-password: ${{ env.EXPO_PASSWORD }}
       - run: yarn
       - run: echo "APP=$(node deploy/script/aoe-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
-      - run: npx expo publish --release-channel $CHANNEL
+      - run: npx eas update --branch production --message "Updating the app"
 
 
   build-android-internal:
@@ -226,14 +233,12 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - run: |
-          wget https://github.com/secrethub/secrethub-cli/releases/download/v0.44.0/secrethub-v0.44.0-darwin-amd64.tar.gz
-          sudo mkdir -p /usr/local/secrethub
-          sudo tar -C /usr/local/secrethub -xzf secrethub-v0.44.0-darwin-amd64.tar.gz
-          sudo ln -s /usr/local/secrethub/bin/secrethub /usr/local/bin/secrethub
-      - run: |
-          echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
-          echo "FASTLANE_SERVICE_ACCOUNT_BASE64=$(secrethub read denniske/aoe2companion/fastlane_service_account_base64)" >> $GITHUB_ENV
+      - name: Setup Secrets
+        uses: secrethub/actions/env-export@v0.2.1
+        env:
+          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
+          EXPO_TOKEN: secrethub://denniske/aoe2companion/expo_token
+          FASTLANE_SERVICE_ACCOUNT_BASE64: secrethub://denniske/aoe2companion/fastlane_service_account_base64
 
       - name: Download Artifact
         uses: actions/download-artifact@v2
@@ -263,15 +268,13 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - run: |
-          wget https://github.com/secrethub/secrethub-cli/releases/download/v0.44.0/secrethub-v0.44.0-darwin-amd64.tar.gz
-          sudo mkdir -p /usr/local/secrethub
-          sudo tar -C /usr/local/secrethub -xzf secrethub-v0.44.0-darwin-amd64.tar.gz
-          sudo ln -s /usr/local/secrethub/bin/secrethub /usr/local/bin/secrethub
-      - run: |
-          echo "EXPO_TOKEN=$(secrethub read denniske/aoe2companion/expo_token)" >> $GITHUB_ENV
-          echo "EXPO_APPLE_ID=$(secrethub read denniske/aoe2companion/expo_apple_id)" >> $GITHUB_ENV
-          echo "EXPO_APPLE_AUTH_KEY_P8_BASE64=$(secrethub read denniske/aoe2companion/expo_apple_auth_key_p8_base64)" >> $GITHUB_ENV
+      - name: Setup Secrets
+        uses: secrethub/actions/env-export@v0.2.1
+        env:
+          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
+          EXPO_TOKEN: secrethub://denniske/aoe2companion/expo_token
+          EXPO_APPLE_ID: secrethub://denniske/aoe2companion/expo_apple_id
+          EXPO_APPLE_AUTH_KEY_P8_BASE64: secrethub://denniske/aoe2companion/expo_apple_auth_key_p8_base64
 
       - name: Download Artifact
         uses: actions/download-artifact@v2

@@ -6,11 +6,11 @@ import {FontAwesome5} from "@expo/vector-icons";
 import {useSelector} from "../../redux/reducer";
 import {makeVariants, useAppTheme, useTheme} from "../../theming";
 import {MyText} from "../components/my-text";
-import {getFlagIcon} from "../../helper/flags";
 import {createStylesheet} from '../../theming-new';
 import {ILobbyPlayerRaw} from '../../helper/data';
 import {RootStackProp} from '../../../App2';
 import {getSlotTypeName} from '@nex/data/api';
+import {CountryImage} from '../components/country-image';
 
 
 interface IPlayerProps {
@@ -50,7 +50,7 @@ export function LivePlayer({player}: IPlayerProps) {
                 <View style={styles.playerCountryCol}>
                     {
                         player.countryCode &&
-                        <Image fadeDuration={0} style={styles.countryIcon} source={getFlagIcon(player.countryCode)}/>
+                        <CountryImage fadeDuration={0} style={styles.countryIcon} country={player.countryCode} />
                     }
                 </View>
                 <MyText style={styles.playerRatingCol}>{player.rating}</MyText>

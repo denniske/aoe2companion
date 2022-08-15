@@ -104,6 +104,8 @@ function MainStatsInternal({user}: { user: any}) {
         </View>;
     };
 
+    const leaderboardTitle = valueMapping?.[leaderboardId]?.title + ' ' + valueMapping?.[leaderboardId]?.subtitle;
+
     const [refetching, setRefetching] = useState(false);
 
     useEffect(() => {
@@ -149,7 +151,7 @@ function MainStatsInternal({user}: { user: any}) {
                                     <TextLoader ready={hasStats} style={styles.info}>
                                         {statsPlayer?.matchCount > 0 ?
                                             getTranslation('main.stats.thelastmatches', { matches: statsPlayer?.matchCount }) :
-                                            getTranslation('main.stats.nomatches')}
+                                            getTranslation('main.stats.nomatches') + leaderboardTitle}
                                     </TextLoader>
                                 </View>;
                             case 'stats-duration':

@@ -1,0 +1,73 @@
+
+
+
+op item create --category password --title aws_access_key_id --vault aoe2companion password=$(secrethub read denniske/aoe2companion/aws_access_key_id)
+op item create --category password --title aws_secret_access_key --vault aoe2companion password=$(secrethub read denniske/aoe2companion/aws_secret_access_key)
+op item create --category password --title container_database_url --vault aoe2companion password=$(secrethub read denniske/aoe2companion/container_database_url)
+op item create --category password --title database_url --vault aoe2companion password=$(secrethub read denniske/aoe2companion/database_url)
+op item create --category password --title database_url_aoe4 --vault aoe2companion password=$(secrethub read denniske/aoe2companion/database_url_aoe4)
+op item create --category password --title dockerhub_password --vault aoe2companion password=$(secrethub read denniske/aoe2companion/dockerhub_password)
+op item create --category password --title dockerhub_username --vault aoe2companion password=$(secrethub read denniske/aoe2companion/dockerhub_username)
+op item create --category password --title electrolytic_app_secret --vault aoe2companion password=$(secrethub read denniske/aoe2companion/electrolytic_app_secret)
+op item create --category password --title electron_apple_cert_base64 --vault aoe2companion password=$(secrethub read denniske/aoe2companion/electron_apple_cert_base64)
+op item create --category password --title electron_windows_cert_base64 --vault aoe2companion password=$(secrethub read denniske/aoe2companion/electron_windows_cert_base64)
+op item create --category password --title electron_windows_cert_password --vault aoe2companion password=$(secrethub read denniske/aoe2companion/electron_windows_cert_password)
+op item create --category password --title expo_android_key_password --vault aoe2companion password=$(secrethub read denniske/aoe2companion/expo_android_key_password)
+op item create --category password --title expo_android_keystore_alias --vault aoe2companion password=$(secrethub read denniske/aoe2companion/expo_android_keystore_alias)
+op item create --category password --title expo_android_keystore_base64 --vault aoe2companion password=$(secrethub read denniske/aoe2companion/expo_android_keystore_base64)
+op item create --category password --title expo_android_keystore_password --vault aoe2companion password=$(secrethub read denniske/aoe2companion/expo_android_keystore_password)
+op item create --category password --title expo_apple_auth_key_p8_base64 --vault aoe2companion password=$(secrethub read denniske/aoe2companion/expo_apple_auth_key_p8_base64)
+op item create --category password --title expo_apple_id --vault aoe2companion password=$(secrethub read denniske/aoe2companion/expo_apple_id)
+op item create --category password --title expo_apple_id_password --vault aoe2companion password=$(secrethub read denniske/aoe2companion/expo_apple_id_password)
+op item create --category password --title expo_apple_team_id --vault aoe2companion password=$(secrethub read denniske/aoe2companion/expo_apple_team_id)
+op item create --category password --title expo_ios_dist_p12_base64 --vault aoe2companion password=$(secrethub read denniske/aoe2companion/expo_ios_dist_p12_base64)
+op item create --category password --title expo_ios_dist_p12_password --vault aoe2companion password=$(secrethub read denniske/aoe2companion/expo_ios_dist_p12_password)
+op item create --category password --title expo_ios_prov_profile_base64 --vault aoe2companion password=$(secrethub read denniske/aoe2companion/expo_ios_prov_profile_base64)
+op item create --category password --title expo_password --vault aoe2companion password=$(secrethub read denniske/aoe2companion/expo_password)
+op item create --category password --title expo_token --vault aoe2companion password=$(secrethub read denniske/aoe2companion/expo_token)
+op item create --category password --title expo_username --vault aoe2companion password=$(secrethub read denniske/aoe2companion/expo_username)
+op item create --category password --title fastlane_service_account_base64 --vault aoe2companion password=$(secrethub read denniske/aoe2companion/fastlane_service_account_base64)
+op item create --category password --title id_ci_rsa_base64 --vault aoe2companion password=$(secrethub read denniske/aoe2companion/id_ci_rsa_base64)
+op item create --category password --title known_hosts_base64 --vault aoe2companion password=$(secrethub read denniske/aoe2companion/known_hosts_base64)
+op item create --category password --title known_secret --vault aoe2companion password=$(secrethub read denniske/aoe2companion/known_secret)
+op item create --category password --title kubernetes_cluster_certificate --vault aoe2companion password=$(secrethub read denniske/aoe2companion/kubernetes_cluster_certificate)
+op item create --category password --title kubernetes_server --vault aoe2companion password=$(secrethub read denniske/aoe2companion/kubernetes_server)
+op item create --category password --title kubernetes_token --vault aoe2companion password=$(secrethub read denniske/aoe2companion/kubernetes_token)
+op item create --category password --title pusher_secret_key --vault aoe2companion password=$(secrethub read denniske/aoe2companion/pusher_secret_key)
+op item create --category password --title sentry_auth_token --vault aoe2companion password=$(secrethub read denniske/aoe2companion/sentry_auth_token)
+op item create --category password --title sentry_org --vault aoe2companion password=$(secrethub read denniske/aoe2companion/sentry_org)
+op item create --category password --title twitch_client_id --vault aoe2companion password=$(secrethub read denniske/aoe2companion/twitch_client_id)
+op item create --category password --title twitch_client_secret --vault aoe2companion password=$(secrethub read denniske/aoe2companion/twitch_client_secret)
+
+
+
+
+electron_apple_cert_base64
+electron_windows_cert_base64
+expo_android_keystore_base64
+expo_apple_auth_key_p8_base64
+expo_ios_dist_p12_base64
+expo_ios_prov_profile_base64
+fastlane_service_account_base64
+id_ci_rsa_base64
+known_hosts_base64
+
+
+
+op read op://aoe2companion/electron_apple_cert_base64/password | base64 --decode > electron_apple_cert.p12 && op document create "electron_apple_cert.p12" --vault aoe2companion
+op read op://aoe2companion/electron_windows_cert_base64/password | base64 --decode > electron_windows_cert.pfx && op document create "electron_windows_cert.pfx" --vault aoe2companion
+op read op://aoe2companion/expo_android_keystore_base64/password | base64 --decode > expo_android_keystore.jks && op document create "expo_android_keystore.jks" --vault aoe2companion
+op read op://aoe2companion/expo_apple_auth_key_p8_base64/password | base64 --decode > expo_apple_auth_key.p8 && op document create "expo_apple_auth_key.p8" --vault aoe2companion
+op read op://aoe2companion/expo_ios_dist_p12_base64/password | base64 --decode > expo_ios_dist.p12 && op document create "expo_ios_dist.p12" --vault aoe2companion
+op read op://aoe2companion/expo_ios_prov_profile_base64/password | base64 --decode > expo_ios_prov_profile.mobileprovision && op document create "expo_ios_prov_profile.mobileprovision" --vault aoe2companion
+op read op://aoe2companion/fastlane_service_account_base64/password | base64 --decode > fastlane_service_account.json && op document create "fastlane_service_account.json" --vault aoe2companion
+op read op://aoe2companion/id_ci_rsa_base64/password | base64 --decode > id_ci_rsa && op document create "id_ci_rsa" --vault aoe2companion
+op read op://aoe2companion/known_hosts_base64/password | base64 --decode > known_hosts && op document create "known_hosts" --vault aoe2companion
+
+
+op read op://aoe2companion/known_hosts_base64/password | base64 --decode > known_hosts.txt && op document create "known_hosts.txt" --vault aoe2companion
+
+
+op item create --category password --title dockerhub_username --vault aoe2companion password=ABC'
+
+
