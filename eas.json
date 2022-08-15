@@ -4,6 +4,7 @@
   },
   "build": {
     "development-aoe2": {
+      "channel": "production",
       "developmentClient": true,
       "distribution": "internal",
       "env": {
@@ -12,6 +13,7 @@
       }
     },
     "development-aoe4": {
+      "channel": "production",
       "developmentClient": true,
       "distribution": "internal",
       "env": {
@@ -20,6 +22,7 @@
       }
     },
     "development-simulator-aoe2": {
+      "channel": "production",
       "developmentClient": true,
       "distribution": "internal",
       "ios": {
@@ -31,6 +34,7 @@
       }
     },
     "development-simulator-aoe4": {
+      "channel": "production",
       "developmentClient": true,
       "distribution": "internal",
       "ios": {
@@ -42,6 +46,7 @@
       }
     },
     "internal-aoe2": {
+      "channel": "production",
       "distribution": "internal",
       "env": {
         "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
@@ -49,6 +54,7 @@
       }
     },
     "internal-aoe4": {
+      "channel": "production",
       "distribution": "internal",
       "env": {
         "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
