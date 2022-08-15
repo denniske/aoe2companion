@@ -129,6 +129,8 @@ git tag -d v42.0.0 && git push --delete origin v42.0.0 && git tag v42.0.0 && git
 docker-compose up -d --remove-orphans
 ssh root@95.217.215.149 docker logs root_replay_1 -f
 
+flags to base64
+for i in *.png ; do echo "$i: data:image/png;base64,$(base64 < $i)" ; done > datas.txt
 
 - update
 - on close save pref in will-quit
