@@ -7,6 +7,7 @@ import {
 } from '@nex/data/api';
 import React, {useEffect} from 'react';
 import {getLeaderboardTextColor} from '../../helper/colors';
+import {getFlagIcon} from '../../helper/flags';
 import {ILeaderboard, getVerifiedPlayer} from "@nex/data";
 import {ImageLoader} from "./loader/image-loader";
 import {TextLoader} from "./loader/text-loader";
@@ -28,7 +29,6 @@ import YoutubeBadge from './badge/youtube-badge';
 import TwitchBadge from './badge/twitch-badge';
 import DouyuBadge from './badge/doyou-badge';
 import {openLink} from "../../helper/url";
-import {CountryImageLoader} from './country-image';
 
 interface ILeaderboardRowProps {
     data: ILeaderboard;
@@ -195,8 +195,7 @@ export default function Profile({data, ready}: IProfileProps) {
                         {/*<ImageLoader style={styles.profileIcon} ready={data} source={{ uri: 'https://github.com/SiegeEngineers/aoc-reference-data/raw/master/data/photos/players/theviper.jpg'}}/>*/}
                         <View>
                             <View style={styles.row}>
-                                <CountryImageLoader style={styles.countryIcon} country={data?.country} ready={data} />
-
+                                <ImageLoader style={styles.countryIcon} ready={data} source={getFlagIcon(data?.country)}/>
                                 <TextLoader width={100}>{data?.name}</TextLoader>
                                 {
                                     verifiedPlayer &&

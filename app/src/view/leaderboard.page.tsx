@@ -6,7 +6,7 @@ import {
 import {useNavigation, useNavigationState} from '@react-navigation/native';
 import {fetchLeaderboard} from "../api/leaderboard";
 import {minifyUserId, sameUserNull, userIdFromBase} from "../helper/user";
-import {getCountryName} from "../helper/flags";
+import {getCountryName, getFlagIcon} from "../helper/flags";
 import {countriesDistinct, Country, ILeaderboardPlayer} from "@nex/data";
 import {RootStackProp} from "../../App";
 import {FontAwesome} from "@expo/vector-icons";
@@ -28,7 +28,6 @@ import {getValue} from "../helper/util-component";
 import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';
 import {appConfig} from "@nex/dataset";
-import {CountryImage, CountryImageLoader} from './components/country-image';
 
 type TabParamList = {
     LeaderboardRm1v1: { leaderboardId: number };
@@ -75,7 +74,7 @@ export function LeaderboardMenu() {
         if (x == countryEarth) {
             return <FontAwesome name="globe" size={21} style={{paddingLeft: 2, paddingRight: 12}} color={theme.colors.text} />;
         }
-        return <CountryImage fadeDuration={0} style={styles.countryIcon} country={x} />;
+        return <Image fadeDuration={0} style={styles.countryIcon} source={getFlagIcon(x)}/>;
     };
     const onCountrySelected = (country: string | null) => {
         mutate(setLeaderboardCountry(country));
@@ -240,7 +239,7 @@ function Leaderboard({leaderboardId}: any) {
                     <TextLoader numberOfLines={1} style={[styles.cellRank, weightStyle, rankWidthStyle]}>#{player?.rank || i+1}</TextLoader>
                     <TextLoader style={isMe ? styles.cellRatingMe : styles.cellRating}>{player?.rating}</TextLoader>
                     <View style={styles.cellName}>
-                        <CountryImageLoader style={styles.countryIcon} country={player?.country} ready={player} />
+                        <ImageLoader style={styles.countryIcon} ready={player} source={getFlagIcon(player?.country)}/>
                         <TextLoader style={isMe ? styles.nameMe : styles.name} numberOfLines={1}>{player?.name}</TextLoader>
                     </View>
                     {

@@ -38,7 +38,6 @@ import {fakeBuilds} from "../../../../data/src/helper/builds";
 import {useAppTheme} from "../../theming";
 import {IConfig, saveConfigToStorage} from "../../service/storage";
 import {setConfig, useMutate, useSelector} from "../../redux/reducer";
-import {CountryImage} from './country-image';
 
 interface IPlayerProps {
     player: IFetchedUser;
@@ -67,7 +66,7 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
             >
                 <View style={styles.row}>
                     <View style={styles.cellName}>
-                        <CountryImage fadeDuration={0} style={styles.countryIcon} country={player.country} />
+                        <Image fadeDuration={0} style={styles.countryIcon} source={getFlagIcon(player.country)}/>
                         <MyText style={styles.name} numberOfLines={1}>
                             {player.name}
                             {
