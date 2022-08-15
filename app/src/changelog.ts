@@ -63,7 +63,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '43.0.0': [
+    '42.0.1': [
         {
             type: 'bugfix',
             title: 'Fix crash when searching in match list',
