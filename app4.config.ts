@@ -31,7 +31,6 @@ export default {
     },
     "assetBundlePatterns": [
       "node_modules/**",
-      "app/assets/flags/**",
       "app/assets/font/**",
       "app/assets/legal/**",
       "app/assets/translations/**",

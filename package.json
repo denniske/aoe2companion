@@ -8,7 +8,6 @@
     "build:web": "expo build:web",
     "build:web:electron": "expo build:web && cp web-build electron/dist",
     "strings": "npm run strings --prefix tools",
-    "flags": "ts-node tools/flags.ts",
     "generate": "npm -s run generate:prisma",
     "generate:prisma": "prisma generate --schema graph/prisma/schema.prisma",
     "docker:prepare": "nx build graph",

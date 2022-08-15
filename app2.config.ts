@@ -33,7 +33,6 @@ export default {
       "node_modules/**",
       "app/assets/civilizations/**",
       "app/assets/data/**",
-      "app/assets/flags/**",
       "app/assets/font/**",
       "app/assets/legal/**",
       "app/assets/maps/**",
