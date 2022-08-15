@@ -82,7 +82,7 @@ export default function UpdateSnackbar() {
             break;
         case 'storeUpdateAvailable':
             const store = getTranslation(`updatesnackbar.store.${Platform.OS}` as any);
-            message = getTranslation('updatesnackbar.update.updateavailable', { version: `v${updateStoreManifest.version}`, store });
+            message = getTranslation('updatesnackbar.update.updateavailableinstore', { version: `v${updateStoreManifest.version}`, store });
             actions = [
                 {
                     label: getTranslation('updatesnackbar.action.open'),
