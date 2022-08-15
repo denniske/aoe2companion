@@ -3,7 +3,6 @@ import React, {useEffect, useState} from 'react';
 import {IMatch} from "@nex/data/api";
 import {TextLoader} from "./loader/text-loader";
 import {orderBy, uniqBy} from 'lodash';
-import {getFlagIcon} from "../../helper/flags";
 import {composeUserId, sameUser, UserIdBase, userIdFromBase} from "../../helper/user";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
@@ -18,6 +17,7 @@ import {Button} from "react-native-paper";
 import Space from "./space";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
+import {CountryImage} from './country-image';
 
 interface IRowProps {
     data: IRow;
@@ -38,7 +38,7 @@ function Row({data}: IRowProps) {
             <View style={styles.row}>
                 <TouchableOpacity style={styles.cellLeaderboard} onPress={gotoPlayer}>
                     <View style={styles.row}>
-                        <Image fadeDuration={0} style={styles.countryIcon} source={getFlagIcon(data.player.country)}/>
+                        <CountryImage fadeDuration={0} style={styles.countryIcon} country={data.player.country} />
                         <MyText>{data.player.name}</MyText>
                     </View>
                 </TouchableOpacity>
