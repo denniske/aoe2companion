@@ -21,6 +21,7 @@ export default function AboutPage() {
     const appStyles = useTheme(appVariants);
     const linkTo = useLinkTo();
     const [state, setState] = useState('');
+    const [error, setError] = useState('');
     const [electronVersion, setElectronVersion] = useState('');
     const [versionClickCount, setVersionClickCount] = useState(0);
     const mutate = useMutate();
@@ -38,20 +39,25 @@ export default function AboutPage() {
     };
 
     const checkForUpdate = async () => {
-        setState('checkingForUpdate');
-        const update = await doCheckForUpdateAsync();
-        if (update.isAvailable) {
-            mutate(setUpdateManifest(update.manifest!));
-            setState('checked');
-            return;
+        try {
+            setState('checkingForUpdate');
+            const update = await doCheckForUpdateAsync();
+            setError(JSON.stringify(update, null, 2));
+            if (update.isAvailable) {
+                mutate(setUpdateManifest(update.manifest!));
+                setState('checked');
+                return;
+            }
+            const storeUpdate = await doCheckForStoreUpdate();
+            if (storeUpdate) {
+                mutate(setUpdateStoreManifest(storeUpdate));
+                setState('checked');
+                return;
+            }
+            setState('upToDate');
+        } catch (e: any) {
+            setError(e.toString());
         }
-        const storeUpdate = await doCheckForStoreUpdate();
-        if (storeUpdate) {
-            mutate(setUpdateStoreManifest(storeUpdate));
-            setState('checked');
-            return;
-        }
-        setState('upToDate');
     };
 
     const incrementVersionClickCount = () => {
@@ -112,13 +118,13 @@ export default function AboutPage() {
         init();
     });
 
-    // console.log('Constants.manifest2', JSON.stringify(Constants.manifest2, null, 2));
+    console.log('Constants.manifest2', JSON.stringify(Constants.manifest2, null, 2));
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
             {/*<MyText style={styles.title}>{Constants.manifest2?.extra?.expoClient?.name}</MyText>*/}
 
-            <MyText style={styles.title}>{Constants.manifest?.name}</MyText>
+            <MyText style={styles.title}>{Constants.manifest?.name} 42.0.3</MyText>
 
             <MyText style={styles.heading}>{getTranslation('about.heading.createdby')}</MyText>
             <MyText style={styles.content}>Dennis Keil</MyText>
@@ -226,6 +232,7 @@ export default function AboutPage() {
                 </View>
             }
 
+            <MyText style={styles.heading}>{error}</MyText>
             <MyText style={styles.heading}>{getTranslation('about.heading.source')}</MyText>
 
             {

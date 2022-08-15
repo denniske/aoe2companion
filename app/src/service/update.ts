@@ -7,18 +7,18 @@ import {lt} from "semver";
 const packageName = Constants.manifest?.android?.package;
 
 export async function doCheckForUpdateAsync() {
-    if (__DEV__) {
-        await sleep(1000);
-        return {
-            isAvailable: false,
-        } as UpdateCheckResult;
-        // return {
-        //     isAvailable: true,
-        //     manifest: {
-        //         version: '20.0.0',
-        //     },
-        // } as UpdateCheckResult;
-    }
+    // if (__DEV__) {
+    //     await sleep(1000);
+    //     return {
+    //         isAvailable: false,
+    //     } as UpdateCheckResult;
+    //     // return {
+    //     //     isAvailable: true,
+    //     //     manifest: {
+    //     //         version: '20.0.0',
+    //     //     },
+    //     // } as UpdateCheckResult;
+    // }
     return await checkForUpdateAsync();
 }
 

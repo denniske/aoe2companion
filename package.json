@@ -1,6 +1,7 @@
 {
   "scripts": {
     "start": "cross-env APP=aoe2 expo start -c --dev-client",
+    "start:prod": "cross-env APP=aoe2 expo start -c --no-dev --dev-client",
     "prebuild": "cross-env APP=aoe2 expo prebuild",
     "start4": "cross-env APP=aoe4 expo start -c --dev-client",
     "start4:go": "cross-env APP=aoe4 expo start -c",
