@@ -68,6 +68,10 @@ export const changelog: IChangelog = {
             type: 'bugfix',
             title: 'Fix crash when searching in match list',
         },
+        {
+            type: 'bugfix',
+            title: 'Fix update available message when update is available in play store / app store (by PaitoAnderson)',
+        },
     ],
     '42.0.0': [
         {
