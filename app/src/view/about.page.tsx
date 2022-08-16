@@ -22,6 +22,8 @@ export default function AboutPage() {
     const linkTo = useLinkTo();
     const [state, setState] = useState('');
     const [error, setError] = useState('');
+    const [error2, setError2] = useState('');
+    const [error3, setError3] = useState('');
     const [electronVersion, setElectronVersion] = useState('');
     const [versionClickCount, setVersionClickCount] = useState(0);
     const mutate = useMutate();
@@ -116,6 +118,13 @@ export default function AboutPage() {
 
     useEffect(() => {
         init();
+
+        try {
+            setError2(JSON.stringify(Constants.manifest, null, 4));
+        } catch (e) {}
+        try {
+            setError3(JSON.stringify(Constants.manifest2, null, 4));
+        } catch (e) {}
     });
 
     console.log('Constants.manifest2', JSON.stringify(Constants.manifest2, null, 2));
@@ -124,7 +133,7 @@ export default function AboutPage() {
         <ScrollView contentContainerStyle={styles.container}>
             {/*<MyText style={styles.title}>{Constants.manifest2?.extra?.expoClient?.name}</MyText>*/}
 
-            <MyText style={styles.title}>{Constants.manifest?.name} 42.0.3</MyText>
+            <MyText style={styles.title}>{Constants.manifest?.name || Constants.manifest2?.extra?.expoClient?.name} 42.0.4</MyText>
 
             <MyText style={styles.heading}>{getTranslation('about.heading.createdby')}</MyText>
             <MyText style={styles.content}>Dennis Keil</MyText>
@@ -232,7 +241,15 @@ export default function AboutPage() {
                 </View>
             }
 
-            <MyText style={styles.heading}>{error}</MyText>
+            <MyText style={styles.heading}>Debug Info 1</MyText>
+            <MyText style={styles.content}>{error}</MyText>
+
+            <MyText style={styles.heading}>Debug Info 2</MyText>
+            <MyText style={styles.content}>{error2}</MyText>
+
+            <MyText style={styles.heading}>Debug Info 3</MyText>
+            <MyText style={styles.content}>{error3}</MyText>
+
             <MyText style={styles.heading}>{getTranslation('about.heading.source')}</MyText>
 
             {
