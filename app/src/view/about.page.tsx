@@ -44,7 +44,7 @@ export default function AboutPage() {
         try {
             setState('checkingForUpdate');
             const update = await doCheckForUpdateAsync();
-            setError(JSON.stringify(update, null, 2));
+            setError(JSON.stringify(update, null, 4));
             if (update.isAvailable) {
                 mutate(setUpdateManifest(update.manifest!));
                 setState('checked');
