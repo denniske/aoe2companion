@@ -126,6 +126,7 @@ git tag -d api-v26.0.20 && git push --delete origin api-v26.0.20 && git tag api-
 
 git tag -d v42.0.0 && git push --delete origin v42.0.0 && git tag v42.0.0 && git push --tags
 
+cp ./node_modules/hermes-engine/linux64-bin/hermesc ./node_modules/react-native/sdks/hermesc/linux64-bin/hermesc
 git tag v42.0.19 && git push --tags && npx eas update --branch production --message "Update v42.0.19"
 
 docker-compose up -d --remove-orphans
