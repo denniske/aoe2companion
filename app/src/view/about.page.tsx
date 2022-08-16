@@ -24,10 +24,6 @@ export default function AboutPage() {
     const linkTo = useLinkTo();
     const [state, setState] = useState('');
     const [error, setError] = useState('');
-    const [error2, setError2] = useState('');
-    const [error3, setError3] = useState('');
-    const [error4, setError4] = useState('');
-    const [error5, setError5] = useState('');
     const [debugManifest, setDebugManifest] = useState('');
     const [debugManifest2, setDebugManifest2] = useState('');
     const [electronVersion, setElectronVersion] = useState('');
@@ -142,27 +138,6 @@ export default function AboutPage() {
 
     useEffect(() => {
         init();
-
-        try {
-            setError2(JSON.stringify(Constants.manifest, null, 4));
-        } catch (e) {}
-        // try {
-        //     setError3(JSON.stringify(Constants.manifest2, null, 4));
-        // } catch (e) {}
-        try {
-            setError3(JSON.stringify(Object.keys(Constants.manifest2 || {}), null, 4));
-        } catch (e) {}
-        try {
-            setError4(JSON.stringify((Constants.manifest2?.metadata as any)?.runtimeVersion || { empty: true }, null, 4));
-        } catch (e) {}
-        try {
-            delete manifest?.assets;
-            setError5(JSON.stringify(manifest || { empty: true }, null, 4));
-        } catch (e) {}
-        // try {
-        //     // production-default-42
-        //     setError5(`${channel}-${releaseChannel}-${runtimeVersion}`);
-        // } catch (e) {}
     });
 
     console.log('Constants.manifest2', JSON.stringify(Constants.manifest2, null, 2));
@@ -290,21 +265,6 @@ export default function AboutPage() {
                     <MyText style={styles.content}>{getTranslation('about.update.uptodate')}</MyText>
                 </View>
             }
-
-            <MyText style={styles.heading}>Debug Info 1</MyText>
-            <MyText style={styles.content}>{error}</MyText>
-
-            <MyText style={styles.heading}>Debug Info 2</MyText>
-            <MyText style={styles.content}>{error2}</MyText>
-
-            <MyText style={styles.heading}>Debug Info 3</MyText>
-            <MyText style={styles.content}>{error3}</MyText>
-
-            <MyText style={styles.heading}>Debug Info 4</MyText>
-            <MyText style={styles.content}>{error4}</MyText>
-
-            <MyText style={styles.heading}>Debug Info 5</MyText>
-            <MyText style={styles.content}>{error5}</MyText>
 
             {
                 <>
