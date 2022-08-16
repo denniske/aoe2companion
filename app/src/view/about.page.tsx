@@ -14,6 +14,8 @@ import {getTranslation} from '../helper/translate';
 import {doCheckForUpdateElectronAsync, getElectronVersion, isElectron} from "../helper/electron";
 import {openLink} from "../helper/url";
 import {appConfig} from "@nex/dataset";
+import {channel, manifest, releaseChannel, updateId} from 'expo-updates';
+import {runtimeVersion} from 'expo-updates/src/Updates';
 
 
 export default function AboutPage() {
@@ -24,6 +26,10 @@ export default function AboutPage() {
     const [error, setError] = useState('');
     const [error2, setError2] = useState('');
     const [error3, setError3] = useState('');
+    const [error4, setError4] = useState('');
+    const [error5, setError5] = useState('');
+    const [debugManifest, setDebugManifest] = useState('');
+    const [debugManifest2, setDebugManifest2] = useState('');
     const [electronVersion, setElectronVersion] = useState('');
     const [versionClickCount, setVersionClickCount] = useState(0);
     const mutate = useMutate();
@@ -44,7 +50,15 @@ export default function AboutPage() {
         try {
             setState('checkingForUpdate');
             const update = await doCheckForUpdateAsync();
-            setError(JSON.stringify(update, null, 4));
+
+            try {
+                delete update?.manifest?.assets;
+                setError(JSON.stringify(update, null, 4));
+                // setError(JSON.stringify(Object.keys(update?.manifest || {}), null, 4));
+            } catch (e) {
+
+            }
+
             if (update.isAvailable) {
                 mutate(setUpdateManifest(update.manifest!));
                 setState('checked');
@@ -65,9 +79,19 @@ export default function AboutPage() {
     const incrementVersionClickCount = () => {
         // setVersionClickCount(errorPageClickCount + 1);
         // if (errorPageClickCount > 5) {
-        navigation.navigate('Donation', { debug: true });
+        // navigation.navigate('Donation', { debug: true });
         // navigation.navigate('Error');
         // }
+
+        try {
+            delete Constants.manifest?.assets;
+            setDebugManifest(JSON.stringify(Constants.manifest || { empty: true }, null, 4));
+        } catch (e) {}
+
+        try {
+            delete manifest?.assets;
+            setDebugManifest2(JSON.stringify(manifest || { empty: true }, null, 4));
+        } catch (e) {}
     };
 
     const openAoe2CompanionInStore = async () => {
@@ -122,18 +146,32 @@ export default function AboutPage() {
         try {
             setError2(JSON.stringify(Constants.manifest, null, 4));
         } catch (e) {}
+        // try {
+        //     setError3(JSON.stringify(Constants.manifest2, null, 4));
+        // } catch (e) {}
         try {
-            setError3(JSON.stringify(Constants.manifest2, null, 4));
+            setError3(JSON.stringify(Object.keys(Constants.manifest2 || {}), null, 4));
         } catch (e) {}
+        try {
+            setError4(JSON.stringify((Constants.manifest2?.metadata as any)?.runtimeVersion || { empty: true }, null, 4));
+        } catch (e) {}
+        try {
+            delete manifest?.assets;
+            setError5(JSON.stringify(manifest || { empty: true }, null, 4));
+        } catch (e) {}
+        // try {
+        //     // production-default-42
+        //     setError5(`${channel}-${releaseChannel}-${runtimeVersion}`);
+        // } catch (e) {}
     });
 
     console.log('Constants.manifest2', JSON.stringify(Constants.manifest2, null, 2));
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            {/*<MyText style={styles.title}>{Constants.manifest2?.extra?.expoClient?.name}</MyText>*/}
-
-            <MyText style={styles.title}>{Constants.manifest?.name || Constants.manifest2?.extra?.expoClient?.name} 42.0.4</MyText>
+            <MyText style={styles.title}>
+                {Constants.manifest?.name || Constants.manifest2?.extra?.expoClient?.name}
+            </MyText>
 
             <MyText style={styles.heading}>{getTranslation('about.heading.createdby')}</MyText>
             <MyText style={styles.content}>Dennis Keil</MyText>
@@ -212,12 +250,24 @@ export default function AboutPage() {
                 }
                 {
                     !isElectron() &&
-                    <MyText style={styles.content}>{Constants.manifest?.runtimeVersion || 'dev'}-{Constants.manifest?.releaseChannel || 'dev'}-{Constants.manifest?.version}</MyText>
+                    <MyText style={styles.content}>
+                        {Constants.manifest?.releaseChannel || channel || 'dev'}
+                        {' '}
+                        {Constants.manifest?.version || Constants.manifest2?.extra?.expoClient?.version}
+                        {' '}
+                        ({Constants.manifest?.runtimeVersion || runtimeVersion || 'dev'})
+                    </MyText>
                 }
                 {/*<MyText style={styles.content}>n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}</MyText>*/}
             </TouchableOpacity>
 
-            <MyText style={styles.content}>{(Constants.manifest2?.metadata as any)?.updateGroup || 'dev'}</MyText>
+            {
+                updateId &&
+                <MyText style={styles.content}>{updateId}</MyText>
+            }
+
+            {/*<MyText style={styles.content}>{(Constants.manifest2?.metadata as any)?.branchName || 'dev'}</MyText>*/}
+            {/*<MyText style={styles.content}>{(Constants.manifest2?.metadata as any)?.updateGroup || 'dev'}</MyText>*/}
 
             {
                 (Platform.OS !== 'web' || isElectron()) && state === '' &&
@@ -249,6 +299,25 @@ export default function AboutPage() {
 
             <MyText style={styles.heading}>Debug Info 3</MyText>
             <MyText style={styles.content}>{error3}</MyText>
+
+            <MyText style={styles.heading}>Debug Info 4</MyText>
+            <MyText style={styles.content}>{error4}</MyText>
+
+            <MyText style={styles.heading}>Debug Info 5</MyText>
+            <MyText style={styles.content}>{error5}</MyText>
+
+            {
+                <>
+                    <MyText style={styles.heading}>Debug Manifest</MyText>
+                    <MyText style={styles.content}>{debugManifest}</MyText>
+                </>
+            }
+            {
+                <>
+                    <MyText style={styles.heading}>Debug Manifest2</MyText>
+                    <MyText style={styles.content}>{debugManifest2}</MyText>
+                </>
+            }
 
             <MyText style={styles.heading}>{getTranslation('about.heading.source')}</MyText>
 

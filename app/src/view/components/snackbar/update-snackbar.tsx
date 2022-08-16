@@ -25,7 +25,7 @@ export default function UpdateSnackbar() {
         if (updateManifest !== undefined) return;
         const update = await doCheckForUpdateAsync();
         if (update.isAvailable) {
-            mutate(setUpdateManifest(update.manifest));
+            mutate(setUpdateManifest(update.manifest!));
             return;
         }
         const storeUpdate = await doCheckForStoreUpdate();
@@ -69,7 +69,7 @@ export default function UpdateSnackbar() {
     let actions: any = [];
     switch (updateState) {
         case 'expoUpdateAvailable':
-            message = getTranslation('updatesnackbar.update.updateavailable', { version: `v${updateManifest?.version}` });
+            message = getTranslation('updatesnackbar.update.updateavailable', { version: `v${updateManifest?.extra?.expoClient?.version}` });
             actions = [
                 {
                     label: 'Load',
