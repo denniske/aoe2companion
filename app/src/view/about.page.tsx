@@ -47,13 +47,13 @@ export default function AboutPage() {
             setState('checkingForUpdate');
             const update = await doCheckForUpdateAsync();
 
-            try {
-                delete update?.manifest?.assets;
-                setError(JSON.stringify(update, null, 4));
-                // setError(JSON.stringify(Object.keys(update?.manifest || {}), null, 4));
-            } catch (e) {
-
-            }
+            // try {
+            //     delete update?.manifest?.assets;
+            //     setError(JSON.stringify(update, null, 4));
+            //     // setError(JSON.stringify(Object.keys(update?.manifest || {}), null, 4));
+            // } catch (e) {
+            //
+            // }
 
             if (update.isAvailable) {
                 mutate(setUpdateManifest(update.manifest!));
@@ -140,7 +140,7 @@ export default function AboutPage() {
         init();
     });
 
-    console.log('Constants.manifest2', JSON.stringify(Constants.manifest2, null, 2));
+    // console.log('Constants.manifest2', JSON.stringify(Constants.manifest2, null, 2));
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
@@ -267,12 +267,14 @@ export default function AboutPage() {
             }
 
             {
+                debugManifest &&
                 <>
                     <MyText style={styles.heading}>Debug Manifest</MyText>
                     <MyText style={styles.content}>{debugManifest}</MyText>
                 </>
             }
             {
+                debugManifest2 &&
                 <>
                     <MyText style={styles.heading}>Debug Manifest2</MyText>
                     <MyText style={styles.content}>{debugManifest2}</MyText>

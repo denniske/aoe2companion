@@ -48,7 +48,10 @@ jobs:
 
       - run: yarn
       - run: echo "APP=$(node deploy/script/aoe-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
-      - run: npx eas update --branch production --message "Updating the app"
+      - run: echo "VERSION=$(node deploy/script/version-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
+      - run: echo $VERSION
+      - run: cp ./node_modules/hermes-engine/linux64-bin/hermesc ./node_modules/react-native/sdks/hermesc/linux64-bin/hermesc
+      - run: npx eas update --branch production --message "Update v$VERSION"
 
 
   build-android-internal:
