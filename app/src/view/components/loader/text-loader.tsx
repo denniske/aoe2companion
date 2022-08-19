@@ -35,10 +35,16 @@ export function TextLoader(props: TextLoaderProps) {
     //     );
     // }
 
-    const { ready, ...restProps } = props;
+    const { ready, style, textStyle, ...restProps } = props;
+
+    if (textStyle) {
+        return (
+            <MyText style={[style, textStyle]} {...restProps}/>
+        )
+    }
 
     return (
-        <MyText {...restProps}/>
+        <MyText style={style} {...restProps}/>
     )
 }
 

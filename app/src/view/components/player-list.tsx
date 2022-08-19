@@ -2,11 +2,11 @@ import React from 'react';
 import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Button} from 'react-native-paper';
 import {composeUserIdFromParts, UserInfo} from '../../helper/user';
-import {getFlagIcon} from '../../helper/flags';
 import {MyText} from "./my-text";
 import {Flag} from '@nex/data';
 import {getTranslation} from '../../helper/translate';
 import {useCavy} from '../testing/tester';
+import {CountryImage} from './country-image';
 
 export interface IPlayerListPlayer {
     country: Flag;
@@ -42,7 +42,7 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
             >
                 <View style={styles.row}>
                     <View style={styles.cellName}>
-                        <Image fadeDuration={0} style={styles.countryIcon} source={getFlagIcon(player.country)}/>
+                        <CountryImage country={player.country} />
                         <MyText style={styles.name} numberOfLines={1}>{player.name}</MyText>
                     </View>
                     <MyText style={styles.cellGames}>{player.games}</MyText>
