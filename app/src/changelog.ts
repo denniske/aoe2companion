@@ -63,6 +63,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '42.0.20': [
+        {
+            type: 'minor',
+            title: 'Use emoji flags',
+        },
+    ],
     '42.0.1': [
         {
             type: 'bugfix',
