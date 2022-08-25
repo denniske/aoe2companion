@@ -203,7 +203,7 @@ export default function Profile({data, ready}: IProfileProps) {
                                     <FontAwesome5 solid name="check-circle" size={14} style={styles.verifiedIcon} />
                                 }
                                 {
-                                    data?.clan != null &&
+                                    !!data?.clan &&
                                     <MyText> ({getTranslation('main.profile.clan')}: {data?.clan})</MyText>
                                 }
                             </View>

@@ -16,6 +16,8 @@ import MainStats from "./main/main-stats";
 import MainMatches from "./main/main-matches";
 import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';
+import Constants from 'expo-constants';
+import {leaderboardIdsData} from '@nex/dataset';
 
 
 export function mainMenu() {
@@ -124,7 +126,7 @@ interface MainPageInnerProps {
 
 export function MainPageInner({ user }: MainPageInnerProps) {
     const loadingMatchesOrStatsTrigger = useSelector(state => state.loadingMatchesOrStats);
-    const leaderboardId = useSelector(state => state.prefs.leaderboardId) ?? LeaderboardId.RM1v1;
+    const leaderboardId = useSelector(state => state.prefs.leaderboardId) ?? leaderboardIdsData[0];
 
     const currentTabIndex = useNavigationState(state => {
         const mainState = state.routes[state.index].state;
@@ -154,11 +156,13 @@ export function MainPageInner({ user }: MainPageInnerProps) {
         getStats, {matches: allMatches.data, user: user, leaderboardId}
     );
 
+    const appName = Constants.manifest?.name || Constants.manifest2?.extra?.expoClient?.name;
+
     return (
             <Tab.Navigator lazy={true} swipeEnabled={true}>
-                <Tab.Screen name="MainProfile" options={{title: 'AoE II Companion', tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.profile')}/>}} component={MainProfile} />
-                <Tab.Screen name="MainStats" options={{title: 'AoE II Companion', tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.stats')}/>}} component={MainStats} />
-                <Tab.Screen name="MainMatches" options={{title: 'AoE II Companion', tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.matches')}/>}} component={MainMatches} />
+                <Tab.Screen name="MainProfile" options={{title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.profile')}/>}} component={MainProfile} />
+                <Tab.Screen name="MainStats" options={{title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.stats')}/>}} component={MainStats} />
+                <Tab.Screen name="MainMatches" options={{title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.matches')}/>}} component={MainMatches} />
             </Tab.Navigator>
     );
 }

@@ -29,6 +29,7 @@ import {openLink} from "../../helper/url";
 import FlatListLoadingIndicator from "../components/flat-list-loading-indicator";
 import {useWebRefresh} from "../../hooks/use-web-refresh";
 import {leaderboardIdsData, leaderboardMappingData} from "@nex/dataset";
+import Constants from 'expo-constants';
 
 
 export default function MainStats() {
@@ -69,7 +70,7 @@ function MainStatsInternal({user}: { user: any}) {
     useEffect(() => {
         if (!userProfile) return;
         navigation.setOptions({
-            title: userProfile?.name + ' - AoE II Companion',
+            title: userProfile?.name + ' - ' + (Constants.manifest?.name || Constants.manifest2?.extra?.expoClient?.name),
         });
     }, [userProfile]);
 

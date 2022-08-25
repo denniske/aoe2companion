@@ -21,7 +21,7 @@ export function CountryImage(props: Props) {
             transform: [{ scale: 1.3 }],
             marginLeft: 3,
             marginRight: 4+3,
-        }}>{country ? flagEmojiDict[country] : '??'}</MyText>
+        }}>{country ? flagEmojiDict[country] : '🏳'}</MyText>
     );
 }
 
@@ -34,6 +34,6 @@ export function CountryImageLoader(props: LoaderProps) {
         }} textStyle={{
             marginLeft: 3,
             transform: [{ scale: 1.3 }],
-        }}>{flagEmojiDict[country]}</TextLoader>
+        }}>{country ? flagEmojiDict[country] : '🏳'}</TextLoader>
     );
 }

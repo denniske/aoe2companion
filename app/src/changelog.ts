@@ -14,6 +14,20 @@ export interface IChangelog {
 // https://www.ageofempires.com/news/age-of-empires-iv-season-one-update-release-notes/
 
 export const changelog4: IChangelog = {
+    '6.0.0': [
+        {
+            type: 'minor',
+            title: 'Use emoji flags',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix profile page not loading',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix stats page not loading',
+        },
+    ],
     '5.0.4': [
         {
             type: 'bugfix',
