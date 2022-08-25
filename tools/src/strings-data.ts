@@ -1,6 +1,11 @@
 import axios from "axios"
 import * as fs from "fs"
 import * as path from "path"
+import {execSync} from "child_process";
+
+function keysOf<T>(arr: T): Array<keyof T> {
+    return Object.keys(arr) as Array<keyof T>;
+}
 
 const civDescriptionData = {
     'English': [
@@ -222,8 +227,47 @@ function sleep(ms: number) {
     });
 }
 
-async function loadStringsData4() {
-    const keyValueTranslationsStr = fs.readFileSync('C:\\Users\\Dennis\\Projects\\unpacked\\locale-english\\en\\cardinal.en.ucs', 'utf16le');
+const mapping = {
+    'en': 'English',
+    'fr': 'French',
+} as any;
+
+
+// aoe4 game -> app
+const aoe4GameLanguageMap = {
+    'ms': 'ms',
+    'fr': 'fr',
+    'es-419': 'es-mx',
+    'it': 'it',
+    'pt-br': 'pt',
+    // 'pl': 'pl',            // MISSING
+    'ru': 'ru',
+    'vi': 'vi',
+    'tr': 'tr',
+    'de': 'de',
+    'en': 'en',
+    'es': 'es',
+    'hi': 'hi',
+    'ja': 'ja',
+    'ko': 'ko',
+    'zh-hans': 'zh-hans',
+    'zh-hant': 'zh-hant',
+};
+
+
+async function extractStrings4() {
+    fs.readdirSync('C:\\Users\\Dennis\\Downloads\\depotdownloader-2.4.7\\out\\cardinal\\archives\\').forEach(file => {
+        console.log(file);
+        execSync(`C:\\Users\\Dennis\\Downloads\\AOEMods.Essence-0.6.0\\AOEMods.Essence-0.6.0\\AOEMods.Essence.CLI.exe sga-unpack "C:\\Users\\Dennis\\Downloads\\depotdownloader-2.4.7\\out\\cardinal\\archives\\${file}" "C:\\Users\\Dennis\\Downloads\\depotdownloader-2.4.7\\out-locale"`)
+    });
+
+    for (const file of keysOf(aoe4GameLanguageMap)) {
+        await loadStringsData4(file, aoe4GameLanguageMap[file]);
+    }
+}
+
+async function loadStringsData4(file: string, language: string) {
+    const keyValueTranslationsStr = fs.readFileSync(`C:\\Users\\Dennis\\Downloads\\depotdownloader-2.4.7\\out-locale\\${file}\\cardinal.${file}.ucs`, 'utf16le');
 
     const keyValueTranslations: Record<string, string> = {};
     for (const line of keyValueTranslationsStr.split('\r\n')) {
@@ -237,8 +281,10 @@ async function loadStringsData4() {
     console.log(stringKeys);
     console.log(keyValueTranslations);
 
-    const filePath = path.resolve(__dirname, '..', '..', 'app4', 'assets', 'data', 'en', 'strings.json.lazy');
+    const filePath = path.resolve(__dirname, '..', '..', 'app4', 'assets', 'data', language, 'strings.json.lazy');
+    fs.mkdirSync(path.dirname(filePath), { recursive: true });
+    // await sleep(100);
     fs.writeFileSync(filePath, JSON.stringify(keyValueTranslations, null, 4));
 }
 
-loadStringsData4();
+extractStrings4();
