@@ -10,6 +10,14 @@ C:\Users\Dennis\Downloads\AOEMods.Essence-0.6.0\AOEMods.Essence-0.6.0\AOEMods.Es
 cd tools
 npm run strings-data
 
+maps
+C:\Users\Dennis\Downloads\AOEMods.Essence-0.6.0\AOEMods.Essence-0.6.0\AOEMods.Essence.CLI.exe sga-unpack "C:\Program Files (x86)\Steam\steamapps\common\A
+ge of Empires IV\cardinal\archives\UIArt.sga" C:\Users\Dennis\Projects\unpacked\new-uiart
+
+C:\Users\Dennis\Downloads\AOEMods.Essence-0.6.0\AOEMods.Essence-0.6.0\AOEMods.Essence.CLI.exe rrtex-decode "C:\Users\Dennis\Downloads\depotdownloader-2.4
+.7\out-map" "C:\Users\Dennis\Downloads\depotdownloader-2.4.7\out-ui2" -v
+
+
 feedaction in search also on click?
 
 screenshots
