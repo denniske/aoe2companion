@@ -11,6 +11,14 @@ import {MyText} from "../../../app/src/view/components/my-text";
 import {appConfig} from "@nex/dataset";
 import {createStylesheet} from "../../../app/src/theming-new";
 import {getCivInfo, getCivStrategies} from "../../../data4/src";
+import {civDataAbbasidDynasty} from '../data/abbasiddynasty';
+import {civDataChinese} from '../data/chinese';
+import {civDataDelhiSultanate} from '../data/delhisultanate';
+import {civDataHolyRomanEmpire} from '../data/holyromanempire';
+import {civDataFrench} from '../data/french';
+import {civDataMongols} from '../data/mongols';
+import {civDataRus} from '../data/rus';
+import {civDataEnglish} from '../data/english';
 
 
 export function CivTitle(props: any) {
@@ -28,30 +36,46 @@ export function civTitle(props: any) {
     return props.route?.params?.civ || getTranslation('civs.title');
 }
 
+const aoe4CivInfo = {
+    'AbbasidDynasty': civDataAbbasidDynasty,
+    'Chinese': civDataChinese,
+    'DelhiSultanate': civDataDelhiSultanate,
+    'English': civDataEnglish,
+    'French': civDataFrench,
+    'HolyRomanEmpire': civDataHolyRomanEmpire,
+    'Mongols': civDataMongols,
+    'Rus': civDataRus,
+};
+
+interface ICivInfoItem {
+    title: string;
+    description?: string;
+    list?: string[];
+}
+
 export function CivDetails({civ}: {civ: aoeCivKey}) {
     const styles = useStyles();
 
-    const [timeRange, strategies, description, ...infos] = getCivInfo(civ);
-
-    const infoList = [];
-    for (let i = 0; i < infos.length; i+=2) {
-        infoList.push({
-            title: infos[i],
-            text: infos[i+1],
-        });
-    }
+    const civData = aoe4CivInfo[civ];
 
     return (
         <View style={styles.detailsContainer}>
-            <MyText style={styles.infoTimeRange}>{timeRange}</MyText>
-            <MyText style={styles.infoStrategy}>{strategies}</MyText>
-            <MyText style={styles.contentDescription}>{description}</MyText>
+            <MyText style={styles.contentDescription}>{civData.description}</MyText>
 
             {
-                infoList.map(({title, text}) => (
-                    <Fragment key={title}>
-                        <MyText style={styles.infoTitle}>{title}</MyText>
-                        <MyText style={styles.content}>{text.replaceAll('\\r\\n', '\n')}</MyText>
+                civData.overview.map((item: ICivInfoItem) => (
+                    <Fragment key={item.title}>
+                        <MyText style={styles.infoTitle}>{item.title}</MyText>
+                        {
+                            item.description != null &&
+                            <MyText style={styles.content}>{item.description}</MyText>
+                        }
+                        {
+                            item.list != null &&
+                            item.list.map(str => (
+                                <MyText style={styles.content}>• {str}</MyText>
+                            ))
+                        }
                     </Fragment>
                 ))
             }
@@ -93,10 +117,13 @@ export function CivPage() {
 
     const route = useRoute<RouteProp<RootStackParamList, 'Civ'>>();
     const civ = route.params?.civ as aoeCivKey;
+    const civData = aoe4CivInfo[civ];
 
+    // https://www.ageofempires.com/games/age-of-empires-iv/#game-civilizations
+    // https://www.ageofempires.com/wp-content/uploads/2021/06/bg-age4-civ-chi-splash-right-mobile.jpg
     if (civ) {
         return (
-            // <ImageBackground imageStyle={styles.imageInner}  source={getCivHistoryImage(civ)} style={styles.image}>
+            // <ImageBackground imageStyle={styles.imageInner}  source={{uri: civData.backdrop}} style={styles.image}>
                 <ScrollView>
                     <CivDetails civ={civ}/>
                 </ScrollView>
@@ -109,9 +136,9 @@ export function CivPage() {
 
 const useStyles = createStylesheet((theme, darkMode) => StyleSheet.create({
     imageInner: {
-        tintColor: darkMode === 'dark' ? 'white' : 'black',
-        opacity: 0.1,
-        resizeMode: "cover",
+        // tintColor: darkMode === 'dark' ? 'white' : '#999',
+        // opacity: 0.1,
+        resizeMode: "contain",
         alignSelf: 'flex-end',
         bottom: -50,
         top: undefined,

@@ -153,7 +153,45 @@ async function loadDataAoE2TechTree() {
     fs.writeFileSync(filePath, `export const aoeDataInternal = ${JSON.stringify(json, null, 4)} as const;`);
 }
 
-loadStrings();
-loadStrings4();
-loadStringsAoE2TechTree();
+// aoe4civ -> aoe4explorerdataabbrev
+const aoe4CivAbbrevi = {
+    'AbbasidDynasty': 'ab',
+    'Chinese': 'ch',
+    'DelhiSultanate': 'de',
+    'English': 'en',
+    'French': 'fr',
+    'HolyRomanEmpire': 'hr',
+    'Mongols': 'mo',
+    'Rus': 'ru',
+};
+
+async function loadStringsAoe4Explorer() {
+    for (const civ of keysOf(aoe4CivAbbrevi)) {
+        console.log("Loading civ " + civ + ' from explorer repo');
+        await loadStringAoe4Explorer(civ, aoe4CivAbbrevi[civ]);
+        await sleep(100);
+    }
+}
+
+async function loadStringAoe4Explorer(civ: string, explorerAbbreviation: string) {
+    const dirPath = path.resolve(__dirname, '..', '..', 'app4', 'src', 'data');
+    const filePath = path.resolve(__dirname, '..', '..', 'app4', 'src', 'data', `${civ.toLowerCase()}.ts`);
+    const response = await axios({
+        method: 'GET',
+        url: `https://raw.githubusercontent.com/aoe4world/explorer/main/src/data/${explorerAbbreviation}.json`,
+    });
+
+    if (!fs.existsSync(dirPath)){
+        fs.mkdirSync(dirPath);
+    }
+
+    const json = response.data;
+    fs.writeFileSync(filePath, `export const civData${civ} = ${JSON.stringify(json, null, 4)} as const;`);
+}
+
+// loadStrings();
+// loadStrings4();
+loadStringsAoe4Explorer();
+// loadStringsAoE2TechTree();
+
 // loadDataAoE2TechTree();
