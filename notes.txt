@@ -18,6 +18,10 @@ C:\Users\Dennis\Downloads\AOEMods.Essence-0.6.0\AOEMods.Essence-0.6.0\AOEMods.Es
 .7\out-map" "C:\Users\Dennis\Downloads\depotdownloader-2.4.7\out-ui2" -v
 
 
+app store reviews
+- search in civs page
+
+
 feedaction in search also on click?
 
 screenshots

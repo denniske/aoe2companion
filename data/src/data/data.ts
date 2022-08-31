@@ -9,11 +9,14 @@ export type aoeCivKey = keyof typeof aoeData.civ_helptexts;
 export const aoeData = merge(aoeDataInternal, {
     "data": {
         "units": {
-            // Fix line of sight for light cavalry and hussar
+            // Fix line of sight for light cavalry and hussar and winged hussar
             "546": {
                 "LineOfSight": 8,
             },
             "441": {
+                "LineOfSight": 10,
+            },
+            "1707": {
                 "LineOfSight": 10,
             },
             // Fix cost for dismounted konnik

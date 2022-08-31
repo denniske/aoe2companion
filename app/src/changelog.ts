@@ -77,6 +77,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '42.0.21': [
+        {
+            type: 'bugfix',
+            title: 'Fix winged hussar line of sight',
+        },
+    ],
     '42.0.20': [
         {
             type: 'minor',
