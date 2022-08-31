@@ -79,6 +79,10 @@ export const changelog4: IChangelog = {
 export const changelog: IChangelog = {
     '42.0.21': [
         {
+            type: 'minor',
+            title: 'Add search to civ list',
+        },
+        {
             type: 'bugfix',
             title: 'Fix winged hussar line of sight',
         },

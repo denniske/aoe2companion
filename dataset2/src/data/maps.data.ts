@@ -140,4 +140,4 @@ export const mapsData = {
     174: require('../../../app/assets/maps/rm_wade.png'),
 };
 
-export const mapsFallbackData = require('../../../assets/maps/cm_generic.png');
+export const mapsFallbackData = require('../../../app/assets/maps/cm_generic.png');

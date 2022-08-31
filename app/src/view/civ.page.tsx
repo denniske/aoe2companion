@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, Image, ImageBackground, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {
     aoeCivKey,
@@ -25,6 +25,7 @@ import {UnitCompBig} from './unit/unit-comp';
 import {TechCompBig} from './tech/tech-comp';
 import {getTranslation} from '../helper/translate';
 import {appConfig} from "@nex/dataset";
+import {Searchbar} from 'react-native-paper';
 
 
 export function CivTitle(props: any) {
@@ -119,9 +120,29 @@ export function CivCompBig({civ}: ICivCompProps) {
     );
 }
 
+type Mutable<Type> = {
+    -readonly [Key in keyof Type]: Type[Key];
+};
+
+function makeMutable<T>(a: T) {
+    return a as Mutable<T>;
+}
+
 export function CivList() {
     const styles = useStyles();
     const navigation = useNavigation<RootStackProp>();
+    const [text, setText] = useState('');
+    const [list, setList] = useState(makeMutable(civs) as Civ[]);
+
+    const refresh = () => {
+        setList(
+            civs.filter(civ => getCivNameById(civ)?.toLowerCase().includes(text.toLowerCase()))
+        );
+    };
+
+    useEffect(() => {
+        refresh();
+    }, [text]);
 
     const renderItem = (civ: Civ) => (
         <TouchableOpacity key={civ} onPress={() => navigation.push('Civ', {civ})}>
@@ -136,13 +157,24 @@ export function CivList() {
     );
 
     return (
-        <FlatList
-            contentContainerStyle={styles.container}
-            keyboardShouldPersistTaps={'always'}
-            data={orderCivs(civs.filter(c => c != 'Indians'))}
-            renderItem={({item, index}) => renderItem(item)}
-            keyExtractor={(item, index) => index.toString()}
-        />
+        <View style={styles.wrapper}>
+            {
+                appConfig.game === 'aoe2de' &&
+                <Searchbar
+                    style={styles.searchbar}
+                    placeholder={getTranslation('unit.search.placeholder')}
+                    onChangeText={text => setText(text)}
+                    value={text}
+                />
+            }
+            <FlatList
+                contentContainerStyle={styles.container}
+                keyboardShouldPersistTaps={'always'}
+                data={orderCivs(list.filter(c => c != 'Indians'))}
+                renderItem={({item, index}) => renderItem(item)}
+                keyExtractor={(item, index) => index.toString()}
+            />
+        </View>
     );
 }
 
@@ -208,7 +240,7 @@ const useStyles = createStylesheet((theme, darkMode) => StyleSheet.create({
     },
     civBlock: {
         flexDirection: 'row',
-        marginVertical: 5,
+        marginVertical: 6,
         // backgroundColor: 'yellow',
     },
     civRow: {
@@ -218,6 +250,13 @@ const useStyles = createStylesheet((theme, darkMode) => StyleSheet.create({
     },
     civList: {
 
+    },
+    wrapper: {
+        flex: 1,
+    },
+    searchbar: {
+        borderRadius: 0,
+        paddingHorizontal: 10,
     },
     container: {
         padding: 20,
