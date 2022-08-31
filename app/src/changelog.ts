@@ -77,6 +77,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '42.0.22': [
+        {
+            type: 'bugfix',
+            title: 'Fix serjant creation building names',
+        },
+    ],
     '42.0.21': [
         {
             type: 'minor',

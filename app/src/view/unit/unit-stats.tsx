@@ -320,7 +320,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                             {
                                 getUnitLineIdForUnit(u) == 'Serjeant' &&
                                 <MyText>
-                                    <MyText style={styles.small}> ({getBuildingName('Castle')})</MyText>, 20s <MyText style={styles.small}>({getBuildingName('Stable')})</MyText>
+                                    <MyText style={styles.small}> ({getBuildingName('Castle')})</MyText>, 20s <MyText style={styles.small}>({getBuildingName('Donjon')})</MyText>
                                 </MyText>
                             }
                             {
