@@ -1,6 +1,9 @@
 
 https://github.com/transparencies/unique-unit-masks
 
+Aoe 2 Maps
+C:\Program Files (x86)\Steam\steamapps\common\AoE2DE\resources\_common\wpfg\resources\mapicons
+
 Aoe 4
 
 echo 'regex:Locale.*' > C:\Users\Dennis\Downloads\depotdownloader-2.4.7\DepotDownloader\in\filelist.txt
