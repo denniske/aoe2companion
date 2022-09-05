@@ -138,6 +138,8 @@ export const mapsData = {
     172: require('../../../app/assets/maps/rm_land_madness.png'),
     173: require('../../../app/assets/maps/rm_sacred_springs.png'),
     174: require('../../../app/assets/maps/rm_wade.png'),
+    175: require('../../../app/assets/maps/rm_morass.png'),
+    176: require('../../../app/assets/maps/rm_shoals.png'),
 };
 
 export const mapsFallbackData = require('../../../app/assets/maps/cm_generic.png');

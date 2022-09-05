@@ -189,7 +189,7 @@ async function loadStringAoe4Explorer(civ: string, explorerAbbreviation: string)
     fs.writeFileSync(filePath, `export const civData${civ} = ${JSON.stringify(json, null, 4)} as const;`);
 }
 
-// loadStrings();
+ loadStrings();
 // loadStrings4();
 // loadStringsAoe4Explorer();
 // loadStringsAoE2TechTree();

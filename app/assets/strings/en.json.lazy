@@ -886,6 +886,14 @@
         {
             "id": 174,
             "string": "Wade"
+        },
+        {
+            "id": 175,
+            "string": "Morass"
+        },
+        {
+            "id": 176,
+            "string": "Shoals"
         }
     ],
     "rating_type": [
