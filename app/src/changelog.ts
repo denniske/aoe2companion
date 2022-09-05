@@ -77,6 +77,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '43.0.0': [
+        {
+            type: 'minor',
+            title: 'Implemented [AoE II DE Update 66692](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-66692/)',
+        },
+    ],
     '42.0.22': [
         {
             type: 'bugfix',
