@@ -62,6 +62,9 @@ export function getHost(host: Host) {
         }
         case "aoe2net": {
             console.log('appConfig', appConfig);
+            if (dev) {
+                return 'http://localhost:3334/';
+            }
             if (platform === 'web') {
                 return `https://${appConfig.hostAoeNet}/`;
             }

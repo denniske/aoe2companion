@@ -27,7 +27,8 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
     const styles = useStyles();
 
     const onSelect = async () => {
-        selectedUser!({
+        if (selectedUser == null) return;
+        selectedUser({
             id: composeUserIdFromParts(player.steam_id, player.profile_id),
             steam_id: player.steam_id,
             profile_id: player.profile_id,
@@ -90,7 +91,7 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
     const [fetchingMore, setFetchingMore] = useState(false);
     const [fetchedAll, setFetchedAll] = useState(false);
 
-    const user = useLazyApi({}, loadUser, 'aoe2de', 0, 50, text);
+    const user = useLazyApi({}, loadUser, 'aoe2de', 1, 50, text);
 
     const refresh = () => {
         if (text.length < 3) {
@@ -100,7 +101,7 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
         if (previousText?.trim() === text.trim()) {
             return;
         }
-        user.refetch('aoe2de', 0, 50, text.trim());
+        user.refetch('aoe2de', 1, 50, text.trim());
         setFetchedAll(false);
     };
 
@@ -145,7 +146,7 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
         if (text.length < 3 || fetchingMore || user.data?.length < 50) return;
         setFetchingMore(true);
         const usersLength = user.data?.length ?? 0;
-        const newUsersData = await user.refetch('aoe2de', 0, (user.data?.length ?? 0) + 50, text.trim());
+        const newUsersData = await user.refetch('aoe2de', 1, (user.data?.length ?? 0) + 50, text.trim());
         if (usersLength === newUsersData?.length) {
             setFetchedAll(true);
         }

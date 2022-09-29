@@ -77,6 +77,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '44.0.0': [
+        {
+            type: 'feature',
+            title: 'Use new match backend instead of aoe2.net',
+        },
+    ],
     '43.0.0': [
         {
             type: 'minor',

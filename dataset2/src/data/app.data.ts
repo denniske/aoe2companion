@@ -3,7 +3,7 @@ export const appConfig = {
     game: 'aoe2de',
     gameTitle: 'Age of Empires II: Definitive Edition',
     hostAoeCompanion: 'aoe2companion.com',
-    hostAoeNet: 'aoe2.net',
+    hostAoeNet: 'legacy.aoe2companion.com',
     leaderboards: [
         {
             id: 0,
