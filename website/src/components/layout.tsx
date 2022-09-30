@@ -337,18 +337,21 @@ function Layout(props) {
                         </Link>
                     </div>
                     {
-                        appSlug === 'aoe2companion' &&
+                        appSlug === 'aoe4companion' &&
                         <div className={classes.mainMenuItem}>
                             <Link href='/ongoing' as={`/ongoing`}>
                                 <a>Top 100 Ongoing</a>
                             </Link>
                         </div>
                     }
-                    <div className={classes.mainMenuItem}>
-                        <Link href='/leaderboard' as={`/leaderboard`}>
-                            <a>Leaderboard</a>
-                        </Link>
-                    </div>
+                    {
+                        appSlug === 'aoe4companion' &&
+                        <div className={classes.mainMenuItem}>
+                            <Link href='/leaderboard' as={`/leaderboard`}>
+                                <a>Leaderboard</a>
+                            </Link>
+                        </div>
+                    }
                 </div>
 
                 {children}

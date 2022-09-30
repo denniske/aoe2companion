@@ -9,7 +9,8 @@ import {IMatchRaw, IRatingHistoryEntryRaw} from '@nex/data/api';
 // const host = process.env.APP === 'aoe2de' ? 'aoe2.net' : 'aoeiv.net';
 
 const appConfigGame = process.env.SERVICE_NAME?.includes('aoe4') ? 'aoe4' : 'aoe2de';
-const host = process.env.SERVICE_NAME?.includes('aoe4') ? 'aoeiv.net' : 'aoe2.net';
+// const host = process.env.SERVICE_NAME?.includes('aoe4') ? 'aoeiv.net' : 'legacy.aoe2companion.com';
+const host = process.env.SERVICE_NAME?.includes('aoe4') ? 'aoeiv.net' : 'localhost:3334';
 
 export async function setValue(connection: Connection, id: string, value: any) {
     const keyValue = new KeyValue();

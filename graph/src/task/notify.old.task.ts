@@ -3,15 +3,13 @@ import {getUnixTime} from "date-fns";
 import {getSentry} from "../db";
 import fetch from "node-fetch";
 import {Connection, In, MoreThan, Repository} from "typeorm";
-import {groupBy, max} from 'lodash';
+import {groupBy} from 'lodash';
 import {Match} from "../entity/match";
 import {Push} from "../entity/push";
 import {Following} from "../entity/following";
 import {InjectRepository} from "@nestjs/typeorm";
 import PushNotifications from '@pusher/push-notifications-server';
 import {Account} from "../entity/account";
-import {fetchMatches} from "../helper";
-import {IMatchRaw} from "@nex/data/api";
 
 
 interface IExpoPushResponse {
@@ -31,8 +29,6 @@ export class NotifyTask implements OnModuleInit {
     private readonly logger = new Logger(NotifyTask.name);
     private beamsClient: PushNotifications;
 
-    lastFetched: number;
-
     constructor(
         private connection: Connection,
         @InjectRepository(Push)
@@ -40,28 +36,28 @@ export class NotifyTask implements OnModuleInit {
     ) {}
 
     async onModuleInit() {
+        // const followings = await this.connection.manager.find(Following);
+        // console.log('followings.length', followings.length);
+
         this.beamsClient = new PushNotifications({
             instanceId: 'f5f0895e-446c-4fb7-9c88-cee14814718d',
             secretKey: process.env.PUSHER_SECRET_KEY,
         });
 
-        this.lastFetched = getUnixTime(new Date());
         await this.notifyAll();
     }
 
     async notifyAll() {
         try {
-            let matches = await fetchMatches('aoe2de', 0, 1000, this.lastFetched);
-            console.log(new Date(), 'GOT', matches.length);
+            const oneMinuteAgo = getUnixTime(new Date()) - 60*5;
+
+            // const matches = await connection.manager.find(Match, {where: { id: '33322038'}, relations: ["players"]});
+            const matches = await this.connection.manager.find(Match, {where: { notified: false, started: MoreThan(oneMinuteAgo) }, relations: ["players"]});
+            console.log(matches.length);
 
             for (const match of matches) {
                 await this.notify(match);
             }
-
-            if (matches.length > 0) {
-                this.lastFetched = max(matches.map(m => m.started)) + 1;
-            }
-
             setTimeout(() => this.notifyAll(), 5000);
         } catch (e) {
             console.error(e);
@@ -71,14 +67,14 @@ export class NotifyTask implements OnModuleInit {
         }
     }
 
-    async notify(match: IMatchRaw) {
-        console.log('NOTIFY', match.name, '->', match.match_id);
+    async notify(match: Match) {
+        console.log('NOTIFY', match.name, '->', match.id);
         const players = match.players.filter(p => p.profile_id);
 
         if (players.length === 0) return;
 
         const data = {
-            match_id: match.match_id,
+            match_id: match.id,
             player_ids: match.players.map(p => p.profile_id),
         };
 
@@ -92,7 +88,7 @@ export class NotifyTask implements OnModuleInit {
                 const verb = followings.length > 1 ? 'are' : 'is';
 
                 try {
-                    await this.sendPushNotification(token, match.name + ' - ' + match.match_id, names + ' ' + verb + ' playing.', data);
+                    await this.sendPushNotification(token, match.name + ' - ' + match.id, names + ' ' + verb + ' playing.', data);
                 } catch (e) {
                     console.error(e);
                 }
@@ -107,7 +103,7 @@ export class NotifyTask implements OnModuleInit {
                 const verb = followings.length > 1 ? 'are' : 'is';
 
                 try {
-                    await this.sendPushNotificationWeb(tokenWeb, match.name + ' - ' + match.match_id, names + ' ' + verb + ' playing.', data);
+                    await this.sendPushNotificationWeb(tokenWeb, match.name + ' - ' + match.id, names + ' ' + verb + ' playing.', data);
                 } catch (e) {
                     console.error(e);
                 }
@@ -122,7 +118,7 @@ export class NotifyTask implements OnModuleInit {
                 const verb = followings.length > 1 ? 'are' : 'is';
 
                 try {
-                    await this.sendPushNotificationElectron(tokenElectron, match.name + ' - ' + match.match_id, names + ' ' + verb + ' playing.', data);
+                    await this.sendPushNotificationElectron(tokenElectron, match.name + ' - ' + match.id, names + ' ' + verb + ' playing.', data);
                 } catch (e) {
                     console.error(e);
                 }
@@ -136,17 +132,17 @@ export class NotifyTask implements OnModuleInit {
         for (const account of accounts) {
             if (tokensElectronSent.includes(account.push_token_electron)) continue;
             try {
-                await this.sendPushNotificationElectron(account.push_token_electron, match.name + ' - ' + match.match_id, 'You are playing.', data);
+                await this.sendPushNotificationElectron(account.push_token_electron, match.name + ' - ' + match.id, 'You are playing.', data);
             } catch (e) {
                 console.error(e);
             }
         }
 
-        // await this.connection.createQueryBuilder()
-        //     .update(Match)
-        //     .set({ notified: true })
-        //     .where("id = :id", { id: match.match_id })
-        //     .execute();
+        await this.connection.createQueryBuilder()
+            .update(Match)
+            .set({ notified: true })
+            .where("id = :id", { id: match.id })
+            .execute();
     }
 
     async sendPushNotification(expoPushToken: string, title: string, body: string, data: any) {
