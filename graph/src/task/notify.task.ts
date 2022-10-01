@@ -35,7 +35,7 @@ async function createClient(url: string) {
         const socket = new WebSocketImpl(url, GRAPHQL_TRANSPORT_WS_PROTOCOL);
         const client: GraphQLWebSocketClientCustom = new GraphQLWebSocketClientCustom((socket as unknown) as WebSocket, {
             onAcknowledged: async (_p) => {
-                // console.log('onAcknowledged');
+                console.log('ACKNOWLEDGED');
                 resolve(client);
             },
             onClose: () => {
@@ -71,32 +71,49 @@ export class NotifyTask implements OnModuleInit {
     async notifyAll() {
         try {
             console.log('LISTENING');
-            const ctx = { url: `ws://localhost:3334/graphql` }
-            // const ctx = { url: `wss://graph.aoe2companion.com/graphql` }
-            const client = await createClient(ctx.url)
-            // console.log('client', client);
+
+            // const url = `ws://localhost:3334/graphql`;
+            const url = `wss://graph.aoe2companion.com/graphql`;
+
+            const client = await createClient(url)
             const result = await new Promise<string>((resolve, reject) => {
                 const allGreatings = 'test';
                 client.subscribe<{ matchStartedSub: any }>(
                     gql`subscription matchStartedSub {
                         matchStartedSub {
+                            finished,
+                            leaderboard_id,
+                            location,
                             match_id,
+                            name,
+                            players {
+                                civ,
+                                color,
+                                match_id,
+                                profile_id,
+                                slot,
+                                team,
+                                won,
+                            }
+                            replayed,
+                            speed,
                             started,
                         }
                     }`,
                     {
                         next: ({ matchStartedSub }) => {
                             console.log(matchStartedSub);
-                            return 'Test';
+                            this.notify(matchStartedSub);
                         },
                         complete: () => { resolve(allGreatings) },
-                        error: () => { reject() }
+                        error: (e) => { reject(e) }
                     })
             })
             client.close();
             console.log('Connection complete. Reconnecting in 10s', result);
             setTimeout(() => this.notifyAll(), 10 * 1000);
         } catch (e) {
+            console.log(e);
             console.log('Connection Error. Reconnecting in 10s');
             getSentry().captureException(e);
             // sendAlert('notify', e)

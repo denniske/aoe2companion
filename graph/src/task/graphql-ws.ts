@@ -100,6 +100,7 @@ export class GraphQLWebSocketClientCustom {
 
         socket.onclose = (e) => {
             console.log('===============> SOCKET ONCLOSE <===============');
+            console.error(e);
             Object.values(this.socketState.subscriptions).forEach((subscription) => {
                 subscription.subscriber.error('socket closed' as any);
             });
