@@ -1,4 +1,5 @@
 {
+
   "npmScope": "nex",
   "affected": {
     "defaultBase": "master"
@@ -12,20 +13,38 @@
     "tsconfig.base.json": "*",
     "nx.json": "*",
     ".eslintrc.json": "*"
+  },"tasksRunnerOptions": {
+  "default": {
+    "runner": "nx/tasks-runners/default",
+    "options": {
+      "cacheableOperations": ["build", "lint", "test", "e2e"]
+    }
+  }
+},
+  "cli": {
+    "defaultCollection": "@nrwl/react"
   },
-  "tasksRunnerOptions": {},
-  "projects": {
-    "data": {
-      "tags": []
+  "defaultProject": "todos",
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "style": "css",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "css"
+      },
+      "library": {
+        "style": "css",
+        "linter": "eslint"
+      }
     },
-    "website": {
-      "tags": []
-    },
-    "web2": {
-      "tags": []
-    },
-    "graph": {
-      "tags": []
+    "@nrwl/next": {
+      "application": {
+        "style": "css",
+        "linter": "eslint"
+      }
     }
   }
 }

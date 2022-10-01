@@ -6,43 +6,44 @@
       "sourceRoot": "data/src",
       "projectType": "library"
     },
-    "website": {
-      "root": "website",
-      "sourceRoot": "website",
+    "graph": {
+      "root": "graph",
+      "sourceRoot": "graph/src",
       "projectType": "application",
+      "prefix": "graph",
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@nrwl/next:build",
+          "builder": "@nrwl/node:webpack",
           "options": {
-            "root": "website",
-            "outputPath": "dist/website"
+            "outputPath": "dist/graph",
+            "main": "graph/src/main.ts",
+            "tsConfig": "graph/tsconfig.app.json",
+            "assets": [
+              "graph/src/assets"
+            ]
           },
           "configurations": {
-            "production": {}
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "graph/src/environments/environment.ts",
+                  "with": "graph/src/environments/environment.prod.ts"
+                }
+              ]
+            }
           },
           "outputs": [
             "{options.outputPath}"
           ]
         },
         "serve": {
-          "builder": "@nrwl/next:server",
+          "builder": "@nrwl/node:node",
           "options": {
-            "buildTarget": "website:build",
-            "dev": true,
-            "port": 4300
-          },
-          "configurations": {
-            "production": {
-              "buildTarget": "website:build:production",
-              "dev": false
-            }
-          }
-        },
-        "export": {
-          "builder": "@nrwl/next:export",
-          "options": {
-            "buildTarget": "website:build:production"
+            "buildTarget": "graph:build"
           }
         }
       }
@@ -87,73 +88,46 @@
         }
       }
     },
-    "graph": {
-      "root": "graph",
-      "sourceRoot": "graph/src",
+    "website": {
+      "root": "website",
+      "sourceRoot": "website",
       "projectType": "application",
-      "prefix": "graph",
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@nrwl/node:build",
+          "builder": "@nrwl/next:build",
           "options": {
-            "outputPath": "dist/graph",
-            "main": "graph/src/main.ts",
-            "tsConfig": "graph/tsconfig.app.json",
-            "assets": [
-              "graph/src/assets"
-            ]
+            "root": "website",
+            "outputPath": "dist/website"
           },
           "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "graph/src/environments/environment.ts",
-                  "with": "graph/src/environments/environment.prod.ts"
-                }
-              ]
-            }
+            "production": {}
           },
           "outputs": [
             "{options.outputPath}"
           ]
         },
         "serve": {
-          "builder": "@nrwl/node:execute",
+          "builder": "@nrwl/next:server",
           "options": {
-            "buildTarget": "graph:build"
+            "buildTarget": "website:build",
+            "dev": true,
+            "port": 4300
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "website:build:production",
+              "dev": false
+            }
+          }
+        },
+        "export": {
+          "builder": "@nrwl/next:export",
+          "options": {
+            "buildTarget": "website:build:production"
           }
         }
       }
     }
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/react"
-  },
-  "schematics": {
-    "@nrwl/react": {
-      "application": {
-        "style": "css",
-        "linter": "eslint",
-        "babel": true
-      },
-      "component": {
-        "style": "css"
-      },
-      "library": {
-        "style": "css",
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/next": {
-      "application": {
-        "style": "css",
-        "linter": "eslint"
-      }
-    }
-  },
-  "defaultProject": "todos"
+  }
 }

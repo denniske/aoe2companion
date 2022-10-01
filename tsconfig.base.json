@@ -4,7 +4,6 @@
     "jsx": "react-native",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-
     "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
@@ -14,18 +13,38 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2017", "dom", "dom.iterable"],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2017",
+      "dom",
+      "dom.iterable"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@nex/data/hooks": ["data/src/index-hooks.ts"],
-      "@nex/data/api": ["data/src/index-api.ts"],
-      "@nex/app/view": ["app/src/index-view.ts"],
-      "@nex/data": ["data/src/index.ts"],
-      "@nex/dataset": ["dataset2/src/index.ts"]
+      "@nex/app/view": [
+        "app/src/index-view.ts"
+      ],
+      "@nex/data": [
+        "data/src/index.ts"
+      ],
+      "@nex/data/api": [
+        "data/src/index-api.ts"
+      ],
+      "@nex/data/hooks": [
+        "data/src/index-hooks.ts"
+      ],
+      "@nex/dataset": [
+        "dataset2/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp", "tools"]
+  "exclude": [
+    "node_modules",
+    "tmp",
+    "tools"
+  ]
 }
