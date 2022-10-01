@@ -26,7 +26,7 @@ Sentry.init({
         console.log('fatal', error);
     },
     beforeSend(event: Event, hint?: EventHint): PromiseLike<Event | null> | Event | null {
-        console.log('beforeSend');
+        // console.log('beforeSend');
         return event;
     }
 });

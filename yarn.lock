@@ -8201,7 +8201,7 @@ __metadata:
     fs-to-json: ^0.2.0
     graphql: ^15.3.0
     graphql-iso-date: ^3.6.1
-    graphql-request: ^3.4.0
+    graphql-request: ^5.0.0
     graphql-tag: 2.11.0
     graphql-tools: ^6.2.3
     immer: ^7.0.0
@@ -11568,7 +11568,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-fetch@npm:3.1.4, cross-fetch@npm:^3.0.4, cross-fetch@npm:^3.0.6":
+"cross-fetch@npm:3.1.4, cross-fetch@npm:^3.0.4":
   version: 3.1.4
   resolution: "cross-fetch@npm:3.1.4"
   dependencies:
@@ -15492,16 +15492,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql-request@npm:^3.4.0":
-  version: 3.7.0
-  resolution: "graphql-request@npm:3.7.0"
+"graphql-request@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "graphql-request@npm:5.0.0"
   dependencies:
-    cross-fetch: ^3.0.6
+    "@graphql-typed-document-node/core": ^3.1.1
+    cross-fetch: ^3.1.5
     extract-files: ^9.0.0
     form-data: ^3.0.0
   peerDependencies:
     graphql: 14 - 16
-  checksum: db3800cc4ee884cd1514d7d5eafafb9ed27694278fdddd7402345754a7d25e7d713246c72aa510b439b6df2633b74f2cf74fb36864a22a857d5fb2de1cf0b4d8
+  checksum: 2e8900d10cded401b253a05650719321123e3b0ad5bc57523288892e0226dccf43668ec937753420084f649fb4e3f998f2547c884b746a3e91fa0a43f93e62d4
   languageName: node
   linkType: hard
 

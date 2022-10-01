@@ -3,7 +3,7 @@ import {getUnixTime} from "date-fns";
 import {getSentry} from "../db";
 import fetch from "node-fetch";
 import {Connection, In, MoreThan, Repository} from "typeorm";
-import {groupBy, max} from 'lodash';
+import {groupBy, max, reject} from 'lodash';
 import {Match} from "../entity/match";
 import {Push} from "../entity/push";
 import {Following} from "../entity/following";
@@ -12,7 +12,11 @@ import PushNotifications from '@pusher/push-notifications-server';
 import {Account} from "../entity/account";
 import {fetchMatches} from "../helper";
 import {IMatchRaw} from "@nex/data/api";
+import {gql, GraphQLWebSocketClient} from "graphql-request";
 
+import { GRAPHQL_TRANSPORT_WS_PROTOCOL } from 'graphql-ws';
+import WebSocketImpl from 'ws';
+import {GraphQLWebSocketClientCustom} from "./graphql-ws";
 
 interface IExpoPushResponse {
     data: {
@@ -24,6 +28,21 @@ interface IExpoPushResponse {
 
 function formatNames(names: string[]) {
     return names.reduce((a, b, i) => a + (i === names.length-1 ? ' and ' : ', ') + b);
+}
+
+async function createClient(url: string) {
+    return new Promise<GraphQLWebSocketClientCustom>((resolve, reject) => {
+        const socket = new WebSocketImpl(url, GRAPHQL_TRANSPORT_WS_PROTOCOL);
+        const client: GraphQLWebSocketClientCustom = new GraphQLWebSocketClientCustom((socket as unknown) as WebSocket, {
+            onAcknowledged: async (_p) => {
+                // console.log('onAcknowledged');
+                resolve(client);
+            },
+            onClose: () => {
+                reject();
+            },
+        })
+    })
 }
 
 @Injectable()
@@ -51,24 +70,59 @@ export class NotifyTask implements OnModuleInit {
 
     async notifyAll() {
         try {
-            let matches = await fetchMatches('aoe2de', 0, 1000, this.lastFetched);
-            console.log(new Date(), 'GOT', matches.length);
-
-            for (const match of matches) {
-                await this.notify(match);
-            }
-
-            if (matches.length > 0) {
-                this.lastFetched = max(matches.map(m => m.started)) + 1;
-            }
-
-            setTimeout(() => this.notifyAll(), 5000);
+            console.log('LISTENING');
+            const ctx = { url: `ws://localhost:3334/graphql` }
+            // const ctx = { url: `wss://graph.aoe2companion.com/graphql` }
+            const client = await createClient(ctx.url)
+            // console.log('client', client);
+            const result = await new Promise<string>((resolve, reject) => {
+                const allGreatings = 'test';
+                client.subscribe<{ matchStartedSub: any }>(
+                    gql`subscription matchStartedSub {
+                        matchStartedSub {
+                            match_id,
+                            started,
+                        }
+                    }`,
+                    {
+                        next: ({ matchStartedSub }) => {
+                            console.log(matchStartedSub);
+                            return 'Test';
+                        },
+                        complete: () => { resolve(allGreatings) },
+                        error: () => { reject() }
+                    })
+            })
+            client.close();
+            console.log('Connection complete. Reconnecting in 10s', result);
+            setTimeout(() => this.notifyAll(), 10 * 1000);
         } catch (e) {
-            console.error(e);
+            console.log('Connection Error. Reconnecting in 10s');
             getSentry().captureException(e);
             // sendAlert('notify', e)
-            setTimeout(() => this.notifyAll(), 60 * 1000);
+            setTimeout(() => this.notifyAll(), 10 * 1000);
         }
+
+        // try {
+        //
+        //     let matches = await fetchMatches('aoe2de', 0, 1000, this.lastFetched);
+        //     console.log(new Date(), 'GOT', matches.length);
+        //
+        //     for (const match of matches) {
+        //         await this.notify(match);
+        //     }
+        //
+        //     if (matches.length > 0) {
+        //         this.lastFetched = max(matches.map(m => m.started)) + 1;
+        //     }
+        //
+        //     setTimeout(() => this.notifyAll(), 5000);
+        // } catch (e) {
+        //     console.error(e);
+        //     getSentry().captureException(e);
+        //     // sendAlert('notify', e)
+        //     setTimeout(() => this.notifyAll(), 60 * 1000);
+        // }
     }
 
     async notify(match: IMatchRaw) {
