@@ -9711,6 +9711,7 @@ __metadata:
     uuid: ^3.4.0
     victory: ^35.0.8
     victory-native: ^35.0.1
+    webpack: 4.43.0
     webpack-bundle-analyzer: ^4.4.0
   languageName: unknown
   linkType: soft
