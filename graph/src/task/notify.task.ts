@@ -11,7 +11,7 @@ import {InjectRepository} from "@nestjs/typeorm";
 import PushNotifications from '@pusher/push-notifications-server';
 import {Account} from "../entity/account";
 import {fetchMatches} from "../helper";
-import {IMatchRaw} from "@nex/data/api";
+import {IMatchRaw, IMatchRawGraphQl} from "@nex/data/api";
 import {gql, GraphQLWebSocketClient} from "graphql-request";
 
 import { GRAPHQL_TRANSPORT_WS_PROTOCOL } from 'graphql-ws';
@@ -91,6 +91,9 @@ export class NotifyTask implements OnModuleInit {
                                 color,
                                 match_id,
                                 profile_id,
+                                profile {
+                                    name,
+                                },
                                 slot,
                                 team,
                                 won,
@@ -142,7 +145,7 @@ export class NotifyTask implements OnModuleInit {
         // }
     }
 
-    async notify(match: IMatchRaw) {
+    async notify(match: IMatchRawGraphQl) {
         console.log('NOTIFY', match.name, '->', match.match_id);
         const players = match.players.filter(p => p.profile_id);
 
@@ -159,7 +162,7 @@ export class NotifyTask implements OnModuleInit {
         if (tokens.length > 0) {
             console.log('tokens', tokens.length);
             for (const [token, followings] of tokens) {
-                const names = formatNames(followings.map(following => players.find(p => p.profile_id == following.profile_id).name));
+                const names = formatNames(followings.map(following => players.find(p => p.profile_id == following.profile_id).profile.name));
                 const verb = followings.length > 1 ? 'are' : 'is';
 
                 try {
@@ -174,7 +177,7 @@ export class NotifyTask implements OnModuleInit {
         if (tokensWeb.length > 0) {
             console.log('tokensWeb', tokensWeb.length);
             for (const [tokenWeb, followings] of tokensWeb) {
-                const names = formatNames(followings.map(following => players.find(p => p.profile_id == following.profile_id).name));
+                const names = formatNames(followings.map(following => players.find(p => p.profile_id == following.profile_id).profile.name));
                 const verb = followings.length > 1 ? 'are' : 'is';
 
                 try {
@@ -189,7 +192,7 @@ export class NotifyTask implements OnModuleInit {
         if (tokensElectron.length > 0) {
             console.log('tokensElectron', tokensElectron.length);
             for (const [tokenElectron, followings] of tokensElectron) {
-                const names = formatNames(followings.map(following => players.find(p => p.profile_id == following.profile_id).name));
+                const names = formatNames(followings.map(following => players.find(p => p.profile_id == following.profile_id).profile.name));
                 const verb = followings.length > 1 ? 'are' : 'is';
 
                 try {

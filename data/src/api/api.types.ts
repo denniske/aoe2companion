@@ -37,6 +37,14 @@ export interface IPlayerRaw {
     won: any;
 }
 
+export interface IPlayerRawGraphQl extends IPlayerRaw {
+    profile: IProfileRawGraphQl;
+}
+
+export interface IProfileRawGraphQl {
+    name: string;
+}
+
 export interface IPlayer {
     civ: number;
     clan: string;
@@ -103,6 +111,12 @@ export interface IMatchRaw {
     visibility: any;
     maybe_finished?: number;
 }
+
+
+export interface IMatchRawGraphQl extends IMatchRaw {
+    players: IPlayerRawGraphQl[];
+}
+
 
 export interface IMatch extends Omit<IMatchRaw, 'finished' | 'opened' | 'started' | 'checked'> {
     replayed?: number;
