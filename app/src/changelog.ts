@@ -82,6 +82,10 @@ export const changelog: IChangelog = {
             type: 'bugfix',
             title: 'Fix civ mapping for new backend',
         },
+        {
+            type: 'bugfix',
+            title: 'Fix country leaderboard',
+        },
     ],
     '44.0.0': [
         {
