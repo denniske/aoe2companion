@@ -77,6 +77,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '45.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix civ mapping for new backend',
+        },
+    ],
     '44.0.0': [
         {
             type: 'feature',

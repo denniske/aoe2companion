@@ -24,7 +24,11 @@ export function useNavigationStateExternal() {
 
         return () => {
             clearTimeout(timeoutHandler);
-            nav.removeListener('state', onNavigationStateChanged);
+            // Since using this function in the profile/user page this breaks
+            // active page in footer after visiting profile/user page
+            // So we do not remove the listener
+            // Try to remove this when react navigation 6 is out for expo
+            // nav.removeListener('state', onNavigationStateChanged);
         };
     }, []);
 

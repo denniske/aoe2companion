@@ -318,16 +318,16 @@ export async function fetchPlayerMatchesLegacy(game: string, start: number, coun
     let json = await fetchJson('fetchPlayerMatches', url) as IMatchRaw[];
 
     // HACK: Filter duplicate matches
-    json = uniqBy(json, m => m.match_id);
+    // json = uniqBy(json, m => m.match_id);
 
     // Map new aoe2net civs to game civs
-    if (appConfig.game === 'aoe2de') {
-        json.forEach(match => {
-            match.players.forEach(player => {
-                player.civ = player.civ_alpha;
-            })
-        });
-    }
+    // if (appConfig.game === 'aoe2de') {
+    //     json.forEach(match => {
+    //         match.players.forEach(player => {
+    //             player.civ = player.civ_alpha;
+    //         })
+    //     });
+    // }
 
     if (appConfig.game === 'aoe4') {
         json.forEach(match => {
@@ -346,36 +346,38 @@ export async function fetchPlayerMatchesLegacy(game: string, start: number, coun
         });
     }
 
-    if (appConfig.game === 'aoe2de') {
-        // HACK: Fix new civ order after Lords of the West
-        const releaseDateLoW = 1611680400; // 26.01.2021 @ 5:00pm (UTC)
-        json.filter(match => match.started < releaseDateLoW).forEach(match => {
-            match.players.forEach(player => {
-                if (player.civ >= 4) player.civ++;
-                if (player.civ >= 29) player.civ++;
-            })
-        });
+    // if (appConfig.game === 'aoe2de') {
+    //     // HACK: Fix new civ order after Lords of the West
+    //     const releaseDateLoW = 1611680400; // 26.01.2021 @ 5:00pm (UTC)
+    //     json.filter(match => match.started < releaseDateLoW).forEach(match => {
+    //         match.players.forEach(player => {
+    //             if (player.civ >= 4) player.civ++;
+    //             if (player.civ >= 29) player.civ++;
+    //         })
+    //     });
+    //
+    //     // HACK: Fix new civ order after Dawn of the Dukes
+    //     const releaseDateDoD = 1628611200; // 10.08.2021 @ 5:00pm (UTC)
+    //     json.filter(match => match.started < releaseDateDoD).forEach(match => {
+    //         match.players.forEach(player => {
+    //             if (player.civ >= 2) player.civ++;
+    //             if (player.civ >= 28) player.civ++;
+    //         })
+    //     });
+    //
+    //     // HACK: Fix new civ order after Dynasties of India
+    //     const releaseDateDoI = 1651158000; // 28.04.2022 @ 5:00pm (UTC)
+    //     json.filter(match => match.started < releaseDateDoI).forEach(match => {
+    //         match.players.forEach(player => {
+    //             if (player.civ >= 1) player.civ++;
+    //             if (player.civ >= 12) player.civ++;
+    //             if (player.civ >= 16) player.civ++;
+    //             if (player.civ == 19) player.civ = 42;
+    //         })
+    //     });
+    // }
 
-        // HACK: Fix new civ order after Dawn of the Dukes
-        const releaseDateDoD = 1628611200; // 10.08.2021 @ 5:00pm (UTC)
-        json.filter(match => match.started < releaseDateDoD).forEach(match => {
-            match.players.forEach(player => {
-                if (player.civ >= 2) player.civ++;
-                if (player.civ >= 28) player.civ++;
-            })
-        });
-
-        // HACK: Fix new civ order after Dynasties of India
-        const releaseDateDoI = 1651158000; // 28.04.2022 @ 5:00pm (UTC)
-        json.filter(match => match.started < releaseDateDoI).forEach(match => {
-            match.players.forEach(player => {
-                if (player.civ >= 1) player.civ++;
-                if (player.civ >= 12) player.civ++;
-                if (player.civ >= 16) player.civ++;
-                if (player.civ == 19) player.civ = 42;
-            })
-        });
-    }
+    // console.log(json.map(match => convertTimestampsToDates(match)));
 
     return json.map(match => convertTimestampsToDates(match));
 }

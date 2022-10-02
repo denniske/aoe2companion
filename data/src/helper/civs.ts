@@ -298,7 +298,8 @@ export function orderCivs(civs: Readonly<Civ[]>) {
 }
 
 export function getCivName(civ: number) {
-    return civs[civ];
+    // console.log('getCivName', civ);
+    return getString('civ', civ);
 }
 
 export function getCivNameById(civ: Civ) {

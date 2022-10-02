@@ -3,7 +3,7 @@ import {Image, Linking, Platform, StyleSheet, TextStyle, TouchableOpacity, View}
 import {getPlayerBackgroundColor} from '../../helper/colors';
 import {useNavigation} from '@react-navigation/native';
 import {userIdFromBase} from '../../helper/user';
-import {civs, getCivNameById, isBirthday, isVerifiedPlayer, moProfileId, noop} from '@nex/data';
+import {civs, getCivName, getCivNameById, isBirthday, isVerifiedPlayer, moProfileId, noop} from '@nex/data';
 import {RootStackProp} from '../../../App2';
 import {getSlotTypeName, IPlayer, IMatch} from "@nex/data/api";
 import {TextLoader} from "./loader/text-loader";
@@ -115,7 +115,7 @@ export function Player({match, player, highlight, freeForALl, canDownloadRec}: I
             <TouchableOpacity style={styles.civCol} onPress={() => navigation.push('Civ', {civ: civs[player.civ]})}>
                 <View style={appConfig.game === 'aoe2de' ? styles.row : styles.row4}>
                     <Image fadeDuration={0} style={styles.countryIcon} source={getCivIconByIndex(player.civ) as any}/>
-                    <MyText numberOfLines={1} style={styles.text}>{getCivNameById(civs[player.civ])}</MyText>
+                    <MyText numberOfLines={1} style={styles.text}>{getCivName(player.civ)}</MyText>
                 </View>
             </TouchableOpacity>
         </View>

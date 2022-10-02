@@ -15,7 +15,7 @@ import {
 import {Checkbox, Searchbar} from "react-native-paper";
 import {MyText} from "../components/my-text";
 import {appVariants} from "../../styles";
-import {getCivName, keysOf, LeaderboardId} from "@nex/data";
+import {getCivName, LeaderboardId} from "@nex/data";
 import TemplatePicker from "../components/template-picker";
 import {get} from 'lodash';
 import {IMatch} from "@nex/data/api";
@@ -97,7 +97,7 @@ function MainMatchesInternal({user}: { user: any}) {
                     return m.name.toLowerCase().indexOf(part) >= 0 ||
                         (getMapName(m.map_type) || '').toLowerCase().indexOf(part) >= 0 ||
                         m.players.some(p => p.name?.toLowerCase().indexOf(part) >= 0) ||
-                        m.players.some(p => p.civ != null && getCivName(p.civ)?.toLowerCase()?.indexOf(part) >= 0);
+                        m.players.some(p => p.civ != null && getCivName(p.civ) && getCivName(p.civ)!.toLowerCase()?.indexOf(part) >= 0);
                 });
             });
         }
