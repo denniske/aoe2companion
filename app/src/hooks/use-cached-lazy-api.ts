@@ -41,6 +41,8 @@ export function useCachedLazyApi<A extends (...args: any) => any>(dep: any, sele
         });
 
         setLoading(false);
+
+        return data;
     };
 
     const reload = async () => {
@@ -48,7 +50,7 @@ export function useCachedLazyApi<A extends (...args: any) => any>(dep: any, sele
     }
 
     const refetch = async (...args: Parameters<A>) => {
-        await load(...args);
+        return await load(...args);
     }
 
     const init = async (...args: Parameters<A>) => {

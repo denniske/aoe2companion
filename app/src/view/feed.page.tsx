@@ -70,6 +70,7 @@ export function FeedList() {
 
     const [refetching, setRefetching] = useState(false);
     const [fetchingMore, setFetchingMore] = useState(false);
+    const [fetchedAll, setFetchedAll] = useState(false);
 
     const state = useNavigationState(state => state);
     const activeRoute = state.routes[state.index] as RouteProp<RootStackParamList, 'Feed'>;
@@ -95,6 +96,7 @@ export function FeedList() {
         await matches.refetch('aoe2de', 0, 15, following);
         console.log('REFETCH DONE');
         setRefetching(false);
+        setFetchedAll(false);
     };
 
     const refresh = () => {
@@ -106,6 +108,7 @@ export function FeedList() {
         if (prevFollowing == null && isEqual(prevMatchId, matchId)) {
             // console.log('INIT');
             matches.init('aoe2de', 0, 15, following);
+            setFetchedAll(false);
         } else {
             refetch();
         }
@@ -148,7 +151,11 @@ export function FeedList() {
         if (fetchingMore || !matches.data) return;
         setFetchingMore(true);
         // console.log("FEEDLIST", 'onEndReached');
-        await matches.refetch('aoe2de', 0, (matches.data?.length ?? 0) + 15, following);
+        const matchesLength = matches.data?.length ?? 0;
+        const newMatchesData = await matches.refetch('aoe2de', 0, (matches.data?.length ?? 0) + 15, following);
+        if (matchesLength === newMatchesData?.length) {
+            setFetchedAll(true);
+        }
         setFetchingMore(false);
     };
 
@@ -287,7 +294,7 @@ export function FeedList() {
                                 }
                             }}
                             ListFooterComponent={_renderFooter}
-                            onEndReached={onEndReached}
+                            onEndReached={fetchedAll ? null : onEndReached}
                             onEndReachedThreshold={0.1}
                             keyExtractor={(item, index) => index.toString()}
                             refreshControl={
