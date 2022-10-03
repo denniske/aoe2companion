@@ -115,24 +115,15 @@ async function fetchLeaderboardInternal4(leaderboard_id: number, params: IFetchL
 async function fetchLeaderboardInternal(baseUrl: string, game: string, leaderboard_id: number, params: IFetchLeaderboardParams) {
     if (appConfig.game == 'aoe4') return fetchLeaderboardInternal4(leaderboard_id, params);
 
-    // time('fetchLeaderboard');
     const query: any = {
         game: appConfig.game,
         leaderboard_id,
         ...params,
     };
-    // if (leaderboard_id > 1000) {
-    //     query.event_leaderboard_id = mapLeaderboardIdToEventLeaderboardId(leaderboard_id);
-    // } else {
-    //     query.leaderboard_id = leaderboard_id;
-    // }
     const queryString = makeQueryString(query);
     const url = baseUrl + `api/leaderboard?${queryString}`;
     const json = await fetchJson('fetchLeaderboard', url);
 
-    // console.log('fetchLeaderboard', json);
-
-    // time();
     return convertTimestampsToDates(json);
 }
 

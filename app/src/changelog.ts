@@ -77,6 +77,16 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '46.0.0': [
+        {
+            type: 'minor',
+            title: 'Search can now also find new players that are not yet in the leaderboards',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix search for players by steam id',
+        },
+    ],
     '45.0.0': [
         {
             type: 'bugfix',

@@ -5,6 +5,7 @@ import request, {gql} from 'graphql-request';
 import {appConfig} from "@nex/dataset";
 import {minifyUserId} from "../helper/user";
 import {Aoe4WorldFoundPlayer, Aoe4WorldFoundPlayers, IAoe4WorldPlayerMatches} from "../../../data/src/api/api4.types";
+import {fetchProfile} from "../api/profile";
 
 export interface IFetchedUser {
     clan: string;
@@ -87,69 +88,17 @@ export async function loadUserLegacy(game: string, start: number, count: number,
     if (appConfig.game == 'aoe4') return await loadUserLegacy4(game, start, count, search);
     console.log("loading user", game, search);
 
-    let leaderboards = await Promise.all(
+    let profilesList = await Promise.all([
+        ...(onlyDigits(search) && search.length > 12 ? [fetchProfile({start: 1, count: 1, steam_id: search})] : []),
+        ...(onlyDigits(search) && search.length < 10 ? [fetchProfile({start: 1, count: 1, profile_id: parseInt(search)})] : []),
+        fetchProfile({start, count, search: search}),
+    ]);
 
-        [
-        ...(onlyDigits(search) && search.length > 12 ?
-            appConfig.leaderboards.map(leaderbard => fetchLeaderboardLegacyForSteamId(game, leaderbard.id, search)) : []
-        ),
-        ...(onlyDigits(search) && search.length < 10 ?
-            appConfig.leaderboards.map(leaderbard => fetchLeaderboardLegacyForProfileId(game, leaderbard.id, parseInt(search))) : []
-        ),
-            ...appConfig.leaderboards.map(leaderbard => fetchLeaderboardLegacy(game, leaderbard.id, {start, count, search: search}))
-        ]
+    const profiles = profilesList.flatMap(l => l.profiles);
 
-    //     [
-    //     ...(onlyDigits(search) && search.length > 12 ? [fetchLeaderboardLegacyForSteamId(game, 0, search)] : []),
-    //     ...(onlyDigits(search) && search.length > 12 ? [fetchLeaderboardLegacyForSteamId(game, 1, search)] : []),
-    //     ...(onlyDigits(search) && search.length > 12 ? [fetchLeaderboardLegacyForSteamId(game, 2, search)] : []),
-    //     ...(onlyDigits(search) && search.length > 12 ? [fetchLeaderboardLegacyForSteamId(game, 3, search)] : []),
-    //     ...(onlyDigits(search) && search.length > 12 ? [fetchLeaderboardLegacyForSteamId(game, 4, search)] : []),
-    //     ...(onlyDigits(search) && search.length < 10 ? [fetchLeaderboardLegacyForProfileId(game, 0, parseInt(search))] : []),
-    //     ...(onlyDigits(search) && search.length < 10 ? [fetchLeaderboardLegacyForProfileId(game, 1, parseInt(search))] : []),
-    //     ...(onlyDigits(search) && search.length < 10 ? [fetchLeaderboardLegacyForProfileId(game, 2, parseInt(search))] : []),
-    //     ...(onlyDigits(search) && search.length < 10 ? [fetchLeaderboardLegacyForProfileId(game, 3, parseInt(search))] : []),
-    //     ...(onlyDigits(search) && search.length < 10 ? [fetchLeaderboardLegacyForProfileId(game, 4, parseInt(search))] : []),
-    //     fetchLeaderboardLegacy(game, 0, {start, count, search: search}),
-    //     fetchLeaderboardLegacy(game, 1, {start, count, search: search}),
-    //     fetchLeaderboardLegacy(game, 2, {start, count, search: search}),
-    //     fetchLeaderboardLegacy(game, 3, {start, count, search: search}),
-    //     fetchLeaderboardLegacy(game, 4, {start, count, search: search}),
-    // ]
-);
+    // console.log(profiles);
 
-    // console.log(leaderboards);
-
-    // Group by
-    const leaderboardEntries = leaderboards.flatMap(l => l.leaderboard);
-
-    const users = groupBy(leaderboardEntries, l => l.steam_id + '-' + l.profile_id);
-
-    const result = [];
-
-    for (const userId in users) {
-        const entries = users[userId];
-        const sortedEntries = sortBy(entries, e => e.last_match);
-        const mostRecentEntry = sortedEntries[0];
-
-        result.push({
-            clan: mostRecentEntry.clan,
-            country: mostRecentEntry.country,
-            icon: mostRecentEntry.icon,
-            name: mostRecentEntry.name,
-            last_match: mostRecentEntry.last_match,
-            profile_id: mostRecentEntry.profile_id,
-            steam_id: mostRecentEntry.steam_id,
-            games: sumBy(entries, e => e.games),
-            drops: sumBy(entries, e => e.drops),
-            entries,
-        } as IFetchedUser);
-    }
-
-    // console.log(leaderboards);
-    // console.log('result', result);
-
-    return result;
+    return profiles;
 }
 
 export async function loadUser(game: string, start: number, count: number, search: string) {

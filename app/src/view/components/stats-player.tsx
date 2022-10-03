@@ -10,7 +10,6 @@ import {MyText} from "./my-text";
 import {makeVariants, useAppTheme, usePaperTheme, useTheme} from "../../theming";
 import {LeaderboardId} from "@nex/data";
 import {useLazyApi} from "../../hooks/use-lazy-api";
-import {loadUser} from "../../service/user";
 import { sleep } from '@nex/data';
 import {IRow} from "../../service/stats/stats-player";
 import {Button} from "react-native-paper";
