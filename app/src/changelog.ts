@@ -77,6 +77,16 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '47.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix civ icons',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix civ stats',
+        },
+    ],
     '46.0.0': [
         {
             type: 'minor',

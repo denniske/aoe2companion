@@ -1,6 +1,6 @@
 import {IMatch, validMatch} from "@nex/data/api";
 import {sameUser, UserIdBase} from "../../helper/user";
-import {Civ, civs} from "@nex/data";
+import {Civ, civsAoeNet} from "@nex/data";
 import {orderBy} from 'lodash';
 import {LeaderboardId} from '@nex/data';
 
@@ -20,15 +20,15 @@ export async function getStatsCiv({matches, user, leaderboardId}: IParam) {
     let rowsWithCiv: IRow[] | null = null;
     let rowsAgainstCiv: IRow[] | null = null;
     if (matches) {
-        rowsWithCiv = civs.map(civ => {
+        rowsWithCiv = civsAoeNet.map(civ => {
             const gamesWithCiv = matches.filter(m => m.players.filter(p =>
-                p.civ === civs.indexOf(civ) &&
+                p.civ === civsAoeNet.indexOf(civ) &&
                 sameUser(p, user)
             ).length > 0);
             const validGamesWithCiv = gamesWithCiv.filter(validMatch);
             const validGamesWithCivWon = validGamesWithCiv.filter(m => m.players.filter(p => p.won && sameUser(p, user)).length > 0);
             return ({
-                civ: civ,
+                civ: civ as Civ,
                 games: gamesWithCiv.length,
                 won: validGamesWithCivWon.length / validGamesWithCiv.length * 100,
             });
@@ -37,15 +37,15 @@ export async function getStatsCiv({matches, user, leaderboardId}: IParam) {
         rowsWithCiv = orderBy(rowsWithCiv, r => r.games, 'desc');
         // rows = orderBy(rows, [r => r.won], ['desc']);
 
-        rowsAgainstCiv = civs.map(civ => {
+        rowsAgainstCiv = civsAoeNet.map(civ => {
             const gamesWithCiv = matches.filter(m => m.players.filter(p =>
-                p.civ === civs.indexOf(civ) &&
+                p.civ === civsAoeNet.indexOf(civ) &&
                 !sameUser(p, user)
             ).length > 0);
             const validGamesWithCiv = gamesWithCiv.filter(validMatch);
             const validGamesWithCivWon = validGamesWithCiv.filter(m => m.players.filter(p => p.won && sameUser(p, user)).length > 0);
             return ({
-                civ: civ,
+                civ: civ as Civ,
                 games: gamesWithCiv.length,
                 won: validGamesWithCivWon.length / validGamesWithCiv.length * 100,
             });

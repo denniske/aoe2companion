@@ -1,4 +1,4 @@
-import {Civ, civs} from "@nex/data";
+import {Civ, civs, civsAoeNet} from "@nex/data";
 import {civIconListData} from "@nex/dataset";
 
 
@@ -51,11 +51,11 @@ export const civHistoryList = [
 ];
 
 export function getCivIconByIndex(civ: number) {
-    return civIconList[civ];
+    return civIconList[civsAoeNet[civ] as Civ];
 }
 
 export function getCivIcon(civ: Civ) {
-    return civIconList[civs.indexOf(civ as any)];
+    return civIconList[civ];
 }
 
 export function getCivHistoryImage(civ: Civ) {
