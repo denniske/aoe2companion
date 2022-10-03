@@ -3,5 +3,6 @@
   "routes": [
     { "handle": "filesystem" },
     { "src": "/.*", "dest": "/index.html" }
-  ]
+  ],
+  "ignoreCommand": "[ \"$VERCEL_ENV\" != no_auto_deploy ]"
 }
