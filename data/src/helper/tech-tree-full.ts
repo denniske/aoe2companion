@@ -47,8 +47,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
             ],
         },
 
-
-        {
+        ...(civInfo.name !== 'Cumans' ? [{
             title: ''
         },
         {
@@ -96,7 +95,67 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {},
                 {unit: 'Houfnice', unique: true},
             ],
+        }]
+:
+        [{
+            title: ''
         },
+        {
+            items: [
+                {},
+                {building: 'SiegeWorkshop'},
+            ],
+        },
+        {
+            items: [
+                {age: 'FeudalAge'},
+                {},
+                {unit: 'BatteringRam'},
+                {},
+                {},
+                {},
+            ],
+        },
+        {
+            items: [
+                {age: 'CastleAge'},
+                {unit: 'ArmoredElephant'},
+                {unit: 'CappedRam'},
+                {unit: 'Mangonel'},
+                {unit: 'Scorpion'},
+                {unit: 'SiegeTower'},
+            ],
+        },
+        {
+            items: [
+                {age: 'ImperialAge'},
+                {unit: 'SiegeElephant'},
+                {unit: 'SiegeRam'},
+                {unit: 'Onager'},
+                {unit: 'HeavyScorpion'},
+                {},
+            ],
+        },
+        {
+            items: [
+                {},
+                {},
+                {},
+                {unit: 'SiegeOnager'},
+                {},
+                {unit: 'BombardCannon'},
+            ],
+        },
+        {
+            items: [
+                {},
+                {},
+                {},
+                {},
+                {},
+                {unit: 'Houfnice', unique: true},
+            ],
+        }]),
 
         {
             title: ''

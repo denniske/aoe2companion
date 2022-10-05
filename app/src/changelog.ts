@@ -77,6 +77,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '48.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix cuman tech tree for siege workshop',
+        },
+    ],
     '47.0.0': [
         {
             type: 'bugfix',
