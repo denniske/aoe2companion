@@ -44,12 +44,18 @@ export function PlayerSkeleton() {
     );
 }
 
+function signed(number: number) {
+    if (number == null) return '';
+    return number > 0 ? '↑' + number : '↓' + Math.abs(number);
+}
+
 export function Player({match, player, highlight, freeForALl, canDownloadRec}: IPlayerProps) {
     const styles = useStyles();
     const navigation = useNavigation<RootStackProp>();
 
     const boxStyle = [styles.square, {backgroundColor: getPlayerBackgroundColor(player.color)}];
     const playerNameStyle = [{textDecorationLine: highlight ? 'underline' : 'none'}] as TextStyle;
+    const playerRatingDiffStyle = [{color: player.rating_diff > 0 ? '#22c55e' : '#ef4444'}] as TextStyle;
 
     const gotoPlayer = () => {
         navigation.push('User', {
@@ -105,11 +111,22 @@ export function Player({match, player, highlight, freeForALl, canDownloadRec}: I
                 </MyText>
             </TouchableOpacity>
 
+            <MyText style={[styles.playerRatingCol, playerRatingDiffStyle]}>{signed(player.rating_diff)}</MyText>
+
             {
-                canDownloadRec &&
-                <TouchableOpacity style={styles.playerRecCol} onPress={downloadRec}>
-                    <FontAwesome5 name="cloud-download-alt" size={14} color="grey" />
-                </TouchableOpacity>
+                Platform.OS === 'web' && appConfig.game === 'aoe2de' &&
+                <>
+                    {
+                        canDownloadRec &&
+                        <TouchableOpacity style={styles.playerRecCol} onPress={downloadRec}>
+                            <FontAwesome5 name="cloud-download-alt" size={14} color="grey" />
+                        </TouchableOpacity>
+                    }
+                    {
+                        !canDownloadRec &&
+                        <View style={styles.playerRecCol}></View>
+                    }
+                </>
             }
 
             <TouchableOpacity style={styles.civCol} onPress={() => navigation.push('Civ', {civ: civs[player.civ]})}>

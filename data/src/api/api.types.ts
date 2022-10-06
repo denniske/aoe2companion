@@ -55,7 +55,7 @@ export interface IPlayer {
     name: string;
     profile_id: number;
     rating: number;
-    rating_change: any;
+    rating_diff: any;
     slot: number;
     slot_type: SlotType;
     steam_id: string;
