@@ -287,13 +287,6 @@ export default function AboutPage() {
                 appConfig.game === 'aoe2de' &&
                 <>
                     <View style={styles.row}>
-                        <MyText style={styles.content}>Stats from </MyText>
-                        <TouchableOpacity onPress={() => openLink('https://aoe2.net')}>
-                            <MyText style={appStyles.link}>aoe2.net</MyText>
-                        </TouchableOpacity>
-                    </View>
-
-                    <View style={styles.row}>
                         <MyText style={styles.content}>Game data from </MyText>
                         <TouchableOpacity onPress={() => openLink('https://github.com/SiegeEngineers/aoe2techtree')}>
                             <MyText style={appStyles.link}>aoe2techtree</MyText>

@@ -7,7 +7,7 @@
 
 # AoE II Companion
 
-This is the repository for the [AoE II Companion](https://aoe2companion.com/) app using the data from [aoe2.net](https://aoe2.net).
+This is the repository for the [AoE II Companion](https://aoe2companion.com/) app.
 
 [![GitHub workflow](https://img.shields.io/github/workflow/status/denniske/aoe2companion/App.svg)](https://github.com/denniske/aoe2companion/actions?query=workflow%3AApp)
 [![Expo version](https://img.shields.io/badge/dynamic/json?label=version&query=expo.version&url=https://raw.githubusercontent.com/denniske/aoe2companion/master/app.json)](https://github.com/denniske/aoe2companion/actions?query=workflow%3AApp)
@@ -67,7 +67,7 @@ Overview of all techs.
 
 ### Sources
 
-I want to thank the authors of the following open source projects and wikis: [aoe2.net](https://aoe2.net), [aoe2techtree](https://github.com/SiegeEngineers/aoe2techtree), [Age of Empires II Wiki](https://ageofempires.fandom.com/wiki/Age_of_Empires_II:Portal), [FlagKit](https://github.com/madebybowtie/FlagKit). The app was created under Microsoft's "[Game Content Usage Rules](https://www.xbox.com/en-us/developers/rules)" using assets from Age of Empires II.
+I want to thank the authors of the following open source projects and wikis: [aoe2techtree](https://github.com/SiegeEngineers/aoe2techtree), [Age of Empires II Wiki](https://ageofempires.fandom.com/wiki/Age_of_Empires_II:Portal), [FlagKit](https://github.com/madebybowtie/FlagKit). The app was created under Microsoft's "[Game Content Usage Rules](https://www.xbox.com/en-us/developers/rules)" using assets from Age of Empires II.
 
 
 ## Updates

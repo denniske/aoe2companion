@@ -1,7 +1,7 @@
 export default {
   "expo": {
     "name": "AoE II Companion",
-    "description": "Track your AoE II Definitive Edition games. This app fetches information about your games from aoe2.net so you are always up-to-date.",
+    "description": "Track your AoE II Definitive Edition games. This app fetches information about your games so you are always up-to-date.",
     "slug": "aoe2companion",
     "scheme": "aoe2companion",
     "platforms": [

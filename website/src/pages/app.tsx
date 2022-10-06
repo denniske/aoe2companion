@@ -131,7 +131,6 @@ export default function Privacy() {
                     <h3>Sources
                     </h3>
                     <p>I want to thank the authors of the following open source projects and wikis: <a
-                        href="https://aoe2.net" rel="nofollow">aoe2.net</a>, <a
                         href="https://github.com/SiegeEngineers/aoe2techtree">aoe2techtree</a>, <a
                         href="https://ageofempires.fandom.com/wiki/Age_of_Empires_II:Portal" rel="nofollow">Age of
                         Empires II Wiki</a>, <a href="https://github.com/madebybowtie/FlagKit">FlagKit</a>. The app was
