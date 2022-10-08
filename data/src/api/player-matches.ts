@@ -257,7 +257,7 @@ export async function fetchPlayerMatchesLegacy4(game: string, start: number, cou
         };
         const queryString = makeQueryString(args);
         const url = getHost('aoe4world') + `players/${profileId}/games?${queryString}`;
-        let json = await fetchJson('fetchPlayerMatchesLegacy4Single', url) as IMatchRaw[];
+        let json = await fetchJson('fetchPlayerMatchesLegacy4Single', url) as IAoe4WorldPlayerMatches;
         newMatches.push(...json.games);
     }
 

@@ -95,7 +95,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {},
                 {unit: 'Houfnice', unique: true},
             ],
-        }]
+        }] as any
 :
         [{
             title: ''
