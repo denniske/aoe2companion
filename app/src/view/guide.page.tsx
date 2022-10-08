@@ -121,9 +121,10 @@ export default function GuidePage() {
     const route = useRoute<RouteProp<RootStackParamList, 'Guide'>>();
 
     const baseUrl = `https://buildorderguide.com/?time=${new Date().getTime()}#`;
+    // const baseUrl = `http://localhost:3000/?time=${new Date().getTime()}#`;
 
     if (Platform.OS === 'web') {
-        const url = route.params?.build ? `${baseUrl}/build/${route.params.build}/0` : baseUrl;
+        const url = route.params?.build ? `${baseUrl}/build/${route.params.build}` : baseUrl;
         return (
                 <iframe
                         id="guide-iframe"

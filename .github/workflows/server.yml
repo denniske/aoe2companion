@@ -62,6 +62,8 @@ jobs:
           S3_SECRET_ACCESS_KEY: secrethub://denniske/aoe2companion/aws_secret_access_key
           TWITCH_CLIENT_ID: secrethub://denniske/aoe2companion/twitch_client_id
           TWITCH_CLIENT_SECRET: secrethub://denniske/aoe2companion/twitch_client_secret
+          STATUS_URL: secrethub://denniske/aoe2companion/status_url
+          STATUS_API_KEY: secrethub://denniske/aoe2companion/status_api_key
 
       - run: echo "SUBDOMAIN=$(node deploy/script/subdomain-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
       - run: echo $SUBDOMAIN
@@ -93,6 +95,8 @@ jobs:
             S3_SECRET_ACCESS_KEY=$S3_SECRET_ACCESS_KEY \
             TWITCH_CLIENT_ID=$TWITCH_CLIENT_ID \
             TWITCH_CLIENT_SECRET=$TWITCH_CLIENT_SECRET \
+            STATUS_URL=$STATUS_URL \
+            STATUS_API_KEY=$STATUS_API_KEY \
             && true
           
           ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku apps:create $SERVICE_NAME || true

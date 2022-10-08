@@ -77,6 +77,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '49.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix civ linking to another civ page in match history',
+        },
+    ],
     '48.0.0': [
         {
             type: 'feature',

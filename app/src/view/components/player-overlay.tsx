@@ -4,7 +4,7 @@ import {getPlayerBackgroundColor} from '../../helper/colors';
 import {useNavigation} from '@react-navigation/native';
 import {userIdFromBase} from '../../helper/user';
 import {
-    civs, getCivName, getCivNameById, isBirthday, isVerifiedPlayer, moProfileId
+    civs, civsAoeNet, getCivName, getCivNameById, isBirthday, isVerifiedPlayer, moProfileId
 } from '@nex/data';
 import {
     getSlotTypeName, IMatch, IPlayer
@@ -105,7 +105,7 @@ export function PlayerOverlay({match, player, highlight, freeForALl, canDownload
             {/*    </TouchableOpacity>*/}
             {/*}*/}
 
-            <TouchableOpacity style={styles.civCol} onPress={() => navigation.push('Civ', {civ: civs[player.civ]})}>
+            <TouchableOpacity style={styles.civCol} onPress={() => navigation.push('Civ', {civ: civsAoeNet[player.civ]})}>
                 <View style={styles.row}>
                     {/*<Image fadeDuration={0} style={styles.unitIcon} source={getUnitIcon(civList[player.civ].uniqueUnits[0]) as any}/>*/}
                     {/*<Image fadeDuration={0} style={styles.countryIcon} source={getCivIconByIndex(player.civ) as any}/>*/}

@@ -67,7 +67,9 @@ Overview of all techs.
 
 ### Sources
 
-I want to thank the authors of the following open source projects and wikis: [aoe2techtree](https://github.com/SiegeEngineers/aoe2techtree), [Age of Empires II Wiki](https://ageofempires.fandom.com/wiki/Age_of_Empires_II:Portal), [FlagKit](https://github.com/madebybowtie/FlagKit). The app was created under Microsoft's "[Game Content Usage Rules](https://www.xbox.com/en-us/developers/rules)" using assets from Age of Empires II.
+I want to thank the authors of the following open source projects and wikis: [Age of Empires II Wiki](https://ageofempires.fandom.com/wiki/Age_of_Empires_II:Portal), [aoe2techtree](https://github.com/SiegeEngineers/aoe2techtree), [aoc-mgz](https://github.com/happyleavesaoc/aoc-mgz), [buildorderguide](https://github.com/triplejberger/buildorderguide).
+
+The app was created under Microsoft's "[Game Content Usage Rules](https://www.xbox.com/en-us/developers/rules)" using assets from Age of Empires II.
 
 
 ## Updates

@@ -17,6 +17,7 @@ import {gql, GraphQLWebSocketClient} from "graphql-request";
 import { GRAPHQL_TRANSPORT_WS_PROTOCOL } from 'graphql-ws';
 import WebSocketImpl from 'ws';
 import {GraphQLWebSocketClientCustom} from "./graphql-ws";
+import {sendMetric} from "../metric-api";
 
 interface IExpoPushResponse {
     data: {
@@ -51,6 +52,7 @@ export class NotifyTask implements OnModuleInit {
     private beamsClient: PushNotifications;
 
     lastFetched: number;
+    metricNotificationsSent: number;
 
     constructor(
         private connection: Connection,
@@ -66,6 +68,14 @@ export class NotifyTask implements OnModuleInit {
 
         this.lastFetched = getUnixTime(new Date());
         await this.notifyAll();
+
+        setInterval(() => this.sendMetrics(), 60 * 1000);
+        // await this.sendMetrics();
+    }
+
+    async sendMetrics() {
+        sendMetric('notifications_sent', this.metricNotificationsSent);
+        this.metricNotificationsSent = 0;
     }
 
     async notifyAll() {
@@ -182,6 +192,7 @@ export class NotifyTask implements OnModuleInit {
 
                 try {
                     await this.sendPushNotificationWeb(tokenWeb, match.name + ' - ' + match.match_id, names + ' ' + verb + ' playing.', data);
+                    this.metricNotificationsSent++;
                 } catch (e) {
                     console.error(e);
                 }
@@ -197,6 +208,7 @@ export class NotifyTask implements OnModuleInit {
 
                 try {
                     await this.sendPushNotificationElectron(tokenElectron, match.name + ' - ' + match.match_id, names + ' ' + verb + ' playing.', data);
+                    this.metricNotificationsSent++;
                 } catch (e) {
                     console.error(e);
                 }
@@ -211,6 +223,7 @@ export class NotifyTask implements OnModuleInit {
             if (tokensElectronSent.includes(account.push_token_electron)) continue;
             try {
                 await this.sendPushNotificationElectron(account.push_token_electron, match.name + ' - ' + match.match_id, 'You are playing.', data);
+                this.metricNotificationsSent++;
             } catch (e) {
                 console.error(e);
             }

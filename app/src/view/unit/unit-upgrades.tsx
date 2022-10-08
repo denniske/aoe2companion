@@ -1,7 +1,7 @@
 import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import {MyText} from "../components/my-text";
 import {
-    Civ, civs,
+    Civ, civs, civsAoeNet,
     effectNames,
     getCivHasTech,
     getEffectName,
@@ -78,8 +78,8 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
 
     const hasTech = (tech: Tech) => {
         if (!player) return true;
-        console.log('hasTech', tech, civs[player.civ], getCivHasTech(civs[player.civ], tech));
-        return getCivHasTech(civs[player.civ], tech);
+        console.log('hasTech', tech, civsAoeNet[player.civ], getCivHasTech(civsAoeNet[player.civ], tech));
+        return getCivHasTech(civsAoeNet[player.civ], tech);
     };
 
     return (

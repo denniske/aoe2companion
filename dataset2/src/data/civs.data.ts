@@ -1,3 +1,5 @@
+import {Civ} from "@nex/data";
+
 export const civsData = [
     'Aztecs',
     'Bengalis',
@@ -145,7 +147,7 @@ export const civsAoeNetData = [
     '',
     '',
     'Indians',
-];
+] as Civ[];
 
 export const civIconListData = {
     'Aztecs': require('../../../app/assets/civilizations/aztecs.png'),
