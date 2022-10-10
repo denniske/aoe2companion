@@ -12,9 +12,10 @@ import {ImageLoader} from "../components/loader/image-loader";
 import {MyText} from "../components/my-text";
 import {createStylesheet} from '../../theming-new';
 import {ILobbyMatchRaw} from '../../helper/data';
+import {ILobbiesMatch, IMatchesMatch} from "../../api/new/api.types";
 
 interface IGameProps {
-    data: ILobbyMatchRaw;
+    data: ILobbiesMatch;
     expanded?: boolean;
 }
 
@@ -58,20 +59,20 @@ export function LiveGame({data, expanded = false}: IGameProps) {
             expandable={true}
             left={props => (
                 <View style={styles.row}>
-                    <Image fadeDuration={0} style={styles.map} source={getMapImageByLocationString(data.location)}/>
+                    <Image fadeDuration={0} style={styles.map} source={{uri: data.mapImageUrl}}/>
                     <View style={styles.header}>
                         <MyText numberOfLines={1} style={styles.matchTitle}>
-                            {data.location} - {data.name}
+                            {data.mapName} - {data.name}
                         </MyText>
                         <MyText numberOfLines={1} style={styles.matchContent}>
-                            {getString('leaderboard', data.ratingType)}
+                            {data.gameModeName}
                             {
                                 data.server &&
                                 <MyText> - {data.server}</MyText>
                             }
                         </MyText>
                         <MyText numberOfLines={1} style={styles.matchContent}>
-                            {data.status}
+                            {data.blockedSlotCount}/{data.totalSlotCount}
                             {
                                 data.averageRating &&
                                 <MyText> (~{data.averageRating})</MyText>

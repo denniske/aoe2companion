@@ -11,10 +11,11 @@ import {ILobbyPlayerRaw} from '../../helper/data';
 import {RootStackProp} from '../../../App2';
 import {getSlotTypeName} from '@nex/data/api';
 import {CountryImage} from '../components/country-image';
+import {IMatchesMatchPlayer} from "../../api/new/api.types";
 
 
 interface IPlayerProps {
-    player: ILobbyPlayerRaw | null;
+    player: IMatchesMatchPlayer | null;
 }
 
 export function LivePlayer({player}: IPlayerProps) {
@@ -27,15 +28,15 @@ export function LivePlayer({player}: IPlayerProps) {
     const gotoPlayer = () => {
         if (player == null) return;
         navigation.push('User', {
-            id: userIdFromBase({profile_id: player.profileId, steam_id: player.steamId}),
-            name: player.name,
+            id: userIdFromBase({profile_id: player.profileId}),
+            name: player.name as string,
         });
     };
 
     if (player == null) {
         return (
             <View style={styles.player}>
-                <View style={styles.playerCountryCol}/>
+                {/*<View style={styles.playerCountryCol}/>*/}
                 <MyText style={styles.playerRatingCol}/>
                 <MyText style={styles.playerNameCol} numberOfLines={1}/>
                 <MyText style={styles.playerGamesCol}><FontAwesome5 name="fist-raised" size={14} style={{}} color={theme.textNoteColor} /></MyText>
@@ -47,19 +48,19 @@ export function LivePlayer({player}: IPlayerProps) {
 
     return (
             <TouchableOpacity style={styles.player} onPress={gotoPlayer}>
-                <View style={styles.playerCountryCol}>
-                    {
-                        player.countryCode &&
-                        <CountryImage country={player.countryCode} />
-                    }
-                </View>
+                {/*<View style={styles.playerCountryCol}>*/}
+                {/*    {*/}
+                {/*        player.countryCode &&*/}
+                {/*        <CountryImage country={player.countryCode} />*/}
+                {/*    }*/}
+                {/*</View>*/}
                 <MyText style={styles.playerRatingCol}>{player.rating}</MyText>
                 <MyText style={styles.playerNameCol} numberOfLines={1}>
-                    {player.slotType != 1 ? getSlotTypeName(player.slotType) : player.name}
+                    {player.name}
                 </MyText>
                 <MyText style={styles.playerGamesCol}>{player.games && player.games + ''}</MyText>
-                <MyText style={styles.playerWonCol}>{player.games && (player?.wins / player?.games * 100).toFixed(0) + ' %'}</MyText>
-                <MyText style={styles.playerWonCol}>{player.games && (player?.drops / player?.games * 100).toFixed(0) + ' %'}</MyText>
+                <MyText style={styles.playerWonCol}>{player.games && player.wins && (player.wins / player.games * 100).toFixed(0) + ' %'}</MyText>
+                <MyText style={styles.playerWonCol}>{player.games && player.drops && (player.drops / player.games * 100).toFixed(0) + ' %'}</MyText>
             </TouchableOpacity>
     );
 }

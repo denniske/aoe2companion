@@ -58,7 +58,7 @@ export function getHost(host: Host) {
             // if (dev) {
             //     return 'http://localhost:3333/graphql';
             // }
-            return `https://graphql.${appConfig.hostAoeCompanion}/graphql`;
+            return `https://graph.${appConfig.hostAoeCompanion}/graphql`;
         }
         case "aoe2net": {
             console.log('appConfig', appConfig);

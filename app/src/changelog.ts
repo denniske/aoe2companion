@@ -80,6 +80,10 @@ export const changelog: IChangelog = {
     '49.0.0': [
         {
             type: 'bugfix',
+            title: 'Fix lobbies page',
+        },
+        {
+            type: 'bugfix',
             title: 'Fix civ linking to another civ page in match history',
         },
     ],

@@ -10,134 +10,119 @@ import {ILobbyMatchRaw} from '../helper/data';
 import {getTranslation} from '../helper/translate';
 
 
-interface IPingMessage {
-    message: 'ping';
-    data: number;
+import {gql} from "graphql-request";
+import { GRAPHQL_TRANSPORT_WS_PROTOCOL } from 'graphql-ws';
+import {applyPatch} from "fast-json-patch";
+import {camelizeKeys} from "humps";
+import { ILobbiesMatch } from '../api/new/api.types';
+import { GraphQLWebSocketClientCustom } from '../api/new/graphql-ws';
+import {getHost} from "@nex/data";
+
+async function createClient(url: string) {
+    return new Promise<GraphQLWebSocketClientCustom>((resolve, reject) => {
+        const socket = new WebSocket(url, GRAPHQL_TRANSPORT_WS_PROTOCOL);
+        const client: GraphQLWebSocketClientCustom = new GraphQLWebSocketClientCustom((socket as unknown) as WebSocket, {
+            onAcknowledged: async (_p) => {
+                console.log('ACKNOWLEDGED');
+                resolve(client);
+            },
+            onClose: () => {
+                reject();
+            },
+        })
+    })
 }
 
-interface IChatMessageData {
-    avatar: string;
-    avatarfull: string;
-    avatarmedium: string;
-    color: any;
-    deleted: boolean;
-    message: string;
-    personaname: string;
-    profileurl: string;
-    steam_id: string;
-    ts: number;
-    uuid: string;
-}
 
-interface IChatMessage {
-    message: 'chat';
-    data: IChatMessageData;
+async function doListen(onChange: (data: any) => void, onReset: () => void) {
+    try {
+        console.log('LISTENING');
+        const baseUrl = getHost('aoe2companion-graphql');
+        const url = baseUrl.replace('http', 'ws');
+        const client = await createClient(url)
+        const result = await new Promise<string>((resolve, reject) => {
+            client.subscribe<{ lobbiesUpdatedSub: any }>(
+                gql`subscription lobbiesUpdatedSub {
+                    lobbiesUpdatedSub
+                }`,
+                {
+                    next: ({ lobbiesUpdatedSub }) => onChange(JSON.parse(lobbiesUpdatedSub)),
+                    complete: () => { resolve(null) },
+                    error: (e) => { reject(e) }
+                })
+        })
+        client.close();
+        console.log('Connection complete. Reconnecting in 10s', result);
+        onReset();
+        setTimeout(() => doListen(onChange, onReset), 10 * 1000);
+    } catch (e) {
+        console.log(e);
+        console.log('Connection Error. Reconnecting in 10s');
+        onReset();
+        setTimeout(() => doListen(onChange, onReset), 10 * 1000);
+    }
 }
-
-interface ILobbiesMessage {
-    message: 'lobbies';
-    data: ILobbyMatchRaw[];
-}
-
-type Message = IPingMessage | IChatMessage | ILobbiesMessage;
 
 export default function LivePage() {
     const styles = useStyles();
     const theme = useAppTheme();
     const [matches, setMatches] = useState([] as ILobbyMatchRaw[]);
-    const [filteredMatches, setFilteredMatches] = useState([] as ILobbyMatchRaw[]);
+    // const [filteredMatches, setFilteredMatches] = useState([] as ILobbyMatchRaw[]);
     const [usage, setUsage] = useState(0);
-    const [text, setText] = useState('');
+    const [search, setSearch] = useState('');
 
-    useEffect(() => {
-        const parts = text.toLowerCase().split(' ');
-        const filtered = matches.filter(m => {
-            return parts.every(part => {
-                return m.name.toLowerCase().indexOf(part) >= 0 ||
-                       m.location.toLowerCase().indexOf(part) >= 0 ||
-                       m.players.some(p => p.name?.toLowerCase().indexOf(part) >= 0);
-            });
-        });
 
-        // const players = matches.flatMap(m => m.players).filter(p => p.games == null);
-        // const players = matches.flatMap(m => m.players).filter(p => !p.profileId && p.steamId);
-        // const players = matches.flatMap(m => m.players).filter(p => p.profileId == '209525');
-        // console.log('players', players);
+    const [lobbiesDict, setLobbiesDict] = useState<any>({});
+    const [data, setData] = useState<ILobbiesMatch[]>([]);
+    const [filteredData, setFilteredData] = useState<ILobbiesMatch[]>([]);
+    const [expandedDict, setExpandedDict] = useState<{ [key: string]: boolean }>({});
 
-        setFilteredMatches(filtered);
-    }, [text, matches]);
-
-    const onUpdate = (updates: any) => {
-
-        // console.log(updates);
-
-        setMatches(matches => {
-            const newMatches = [...matches];
-
-            for (const update of updates) {
-                const existingMatchIndex = newMatches.findIndex(m => m.id === update.id);
-                if (existingMatchIndex >= 0) {
-                    if (update.active) { // && update.numSlots > 1) {
-                        newMatches.splice(existingMatchIndex, 1, update);
-                    } else {
-                        newMatches.splice(existingMatchIndex, 1);
-                    }
-                } else {
-                    if (update.active) { // && update.numSlots > 1) {
-                        newMatches.push(update);
-                    }
-                }
-            }
-            return newMatches;
-        });
+    const toggleExpanded = (matchId: number) => {
+        expandedDict[matchId] = !expandedDict[matchId];
+        setExpandedDict({...expandedDict});
     };
 
     useEffect(() => {
-        const ws = new WebSocket('wss://aoe2.net/ws');
-
-        ws.onopen = () => {
-            // ws.send(JSON.stringify({"message":"subscribe","subscribe":[0]})); // subscribe chat
-            ws.send(JSON.stringify({"message":"subscribe","subscribe":[813780]})); // subscribe de lobbies
-        };
-
-        ws.onmessage = (e) => {
-            setUsage(usage => {
-                return usage + e.data.length;
-            });
-
-            const message = JSON.parse(e.data) as Message;
-
-            if (message.message === "ping") {
-                // console.log('SEND', JSON.stringify(message));
-                ws.send(JSON.stringify(message));
-                return;
-            }
-
-            if (message.message === 'chat') {
-                return;
-            }
-
-            if (message.message === 'lobbies') {
-                const updates = message.data;
-                onUpdate(updates);
-            }
-        };
-
-        ws.onerror = (e) => {
-            console.log('error', (e as any).message);
-        };
-
-        ws.onclose = (e) => {
-            console.log('close', e.code, e.reason);
-        };
-
-        return () => {
-          console.log('closing by app');
-          ws.close();
-        };
+        doListen(
+            (patch) => {
+                try {
+                    setUsage(usage => {
+                        return usage + JSON.stringify(patch).length;
+                    });
+                    // console.log('lobbiesDict', lobbiesDict);
+                    // console.log('patch', patch);
+                    const newDoc = applyPatch(lobbiesDict, patch);
+                    setLobbiesDict(camelizeKeys(newDoc.newDocument));
+                } catch (e) {
+                    console.log(e);
+                }
+            },
+            () => {
+                setData([]);
+            },
+        );
     }, []);
 
-    const list = ['header', ...(filteredMatches || Array(15).fill(null))];
+    useEffect(() => {
+        setData(Object.values(lobbiesDict) as ILobbiesMatch[]);
+    }, [lobbiesDict]);
+
+    useEffect(() => {
+        const parts = search.toLowerCase().split(' ');
+        const filtered = data.filter((match) => {
+            if (search === '') return true;
+            return parts.every(part => {
+                return match.name.toLowerCase().includes(part.toLowerCase()) ||
+                    match.mapName.toLowerCase().includes(part.toLowerCase()) ||
+                    match.gameModeName.toLowerCase().includes(part.toLowerCase()) ||
+                    match.server.toLowerCase().includes(part.toLowerCase()) ||
+                    match.players.some((player) => player.name?.toLowerCase().includes(part.toLowerCase()));
+            });
+        });
+        setFilteredData(filtered);
+    }, [data, search]);
+
+    const list = ['header', ...(filteredData || Array(15).fill(null))];
 
     return (
         <View style={styles.container}>
@@ -149,8 +134,8 @@ export default function LivePage() {
                 <Searchbar
                     style={styles.searchbar}
                     placeholder={getTranslation('lobbies.search.placeholder')}
-                    onChangeText={text => setText(text)}
-                    value={text}
+                    onChangeText={text => setSearch(text)}
+                    value={search}
                 />
                 <FlatList
                     contentContainerStyle={styles.list}
@@ -158,7 +143,7 @@ export default function LivePage() {
                     renderItem={({item, index}) => {
                         switch (item) {
                             case 'header':
-                                return <MyText style={styles.header}>{filteredMatches?.length} lobbies</MyText>
+                                return <MyText style={styles.header}>{filteredData?.length} lobbies</MyText>
                             default:
                                 return <LiveGame data={item as any} expanded={index === -1}/>;
                         }

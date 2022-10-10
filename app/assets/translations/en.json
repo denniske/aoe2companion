@@ -161,7 +161,7 @@
   "updatesnackbar.action.restart": "Restart",
 
   "lobbies.title": "Lobbies",
-  "lobbies.search.placeholder": "name, map, player",
+  "lobbies.search.placeholder": "name, map, game mode, server, player",
   "lobbies.datausagewarning": "Only use with WiFi. Data usage: {usage} MB",
 
   "push.title": "Push Notifications",
