@@ -290,6 +290,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/code-frame@npm:7.18.6, @babel/code-frame@npm:^7.18.6":
+  version: 7.18.6
+  resolution: "@babel/code-frame@npm:7.18.6"
+  dependencies:
+    "@babel/highlight": ^7.18.6
+  checksum: 195e2be3172d7684bf95cff69ae3b7a15a9841ea9d27d3c843662d50cdd7d6470fd9c8e64be84d031117e4a4083486effba39f9aef6bbb2c89f7f21bcfba33ba
+  languageName: node
+  linkType: hard
+
 "@babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.0.0-beta.44, @babel/code-frame@npm:^7.12.13, @babel/code-frame@npm:^7.16.0, @babel/code-frame@npm:^7.5.5, @babel/code-frame@npm:^7.8.3":
   version: 7.16.0
   resolution: "@babel/code-frame@npm:7.16.0"
@@ -305,15 +314,6 @@ __metadata:
   dependencies:
     "@babel/highlight": ^7.16.7
   checksum: db2f7faa31bc2c9cf63197b481b30ea57147a5fc1a6fab60e5d6c02cdfbf6de8e17b5121f99917b3dabb5eeb572da078312e70697415940383efc140d4e0808b
-  languageName: node
-  linkType: hard
-
-"@babel/code-frame@npm:^7.18.6":
-  version: 7.18.6
-  resolution: "@babel/code-frame@npm:7.18.6"
-  dependencies:
-    "@babel/highlight": ^7.18.6
-  checksum: 195e2be3172d7684bf95cff69ae3b7a15a9841ea9d27d3c843662d50cdd7d6470fd9c8e64be84d031117e4a4083486effba39f9aef6bbb2c89f7f21bcfba33ba
   languageName: node
   linkType: hard
 
@@ -3808,12 +3808,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/apple-utils@npm:0.0.0-alpha.33":
-  version: 0.0.0-alpha.33
-  resolution: "@expo/apple-utils@npm:0.0.0-alpha.33"
+"@expo/apple-utils@npm:0.0.0-alpha.34":
+  version: 0.0.0-alpha.34
+  resolution: "@expo/apple-utils@npm:0.0.0-alpha.34"
   bin:
     apple-utils: bin.js
-  checksum: 9118c8b9737597ef5990dacde7e32c82cd2d53b8ccb89649e6eed4052238f4cde92cabe320ebee55509e2f6f70e529f3f1ba03c8152fb990daab6239e69855e0
+  checksum: 65ac39a8f52fbab24c3ee5322208bb45cd31d370f0d6a205a32faec8809c91e3ed3cdcb505c8107779f6449aff1395caf2cc0de91a4dc7ba53061d51cada649a
   languageName: node
   linkType: hard
 
@@ -4150,30 +4150,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/eas-build-job@npm:0.2.85":
-  version: 0.2.85
-  resolution: "@expo/eas-build-job@npm:0.2.85"
+"@expo/eas-build-job@npm:0.2.94":
+  version: 0.2.94
+  resolution: "@expo/eas-build-job@npm:0.2.94"
   dependencies:
     joi: ^17.4.2
     semver: ^7.3.5
-  checksum: 2c773cdee6efc05dceb56229eedb64fbe78d3564b20bcdea5dbd10025b72179435c266c9e7b8bfa87c390dc62e6b7d69a6f3c05068e864b0bdecfbd3102feab2
+  checksum: 59a555963e011f3a440ff36ebafd0aabcf5ae6894b56743230afb012f58fcb626859550ffb08f5d6c33fb95606b796aaffd9b7b8f431edb96a47793318725d36
   languageName: node
   linkType: hard
 
-"@expo/eas-json@npm:0.60.0":
-  version: 0.60.0
-  resolution: "@expo/eas-json@npm:0.60.0"
+"@expo/eas-json@npm:2.2.0":
+  version: 2.2.0
+  resolution: "@expo/eas-json@npm:2.2.0"
   dependencies:
-    "@expo/eas-build-job": 0.2.85
-    "@expo/json-file": 8.2.36
+    "@babel/code-frame": 7.18.6
+    "@expo/eas-build-job": 0.2.94
     chalk: 4.1.2
     env-string: 1.0.1
     fs-extra: 10.1.0
+    golden-fleece: 1.0.9
     joi: 17.6.0
     log-symbols: 4.1.0
     semver: 7.3.7
     tslib: 2.4.0
-  checksum: f25d159ca7ff21bde995bbfb636c2878c6ad75072522a9c4e02e1f5c06ae4fc986d5307128a27ed8ba1a8fc05e8af2955597766ab2e160c34f59a1f08f32d382
+  checksum: ad41a15455c7a50029a7b5c997080056980619978fdf67a6eb3a633d390acd18a9b15d833735b0ba1d10aef9b7fc88ed3f8c1d692a50ae5e70f267af5bd41c46
   languageName: node
   linkType: hard
 
@@ -4386,12 +4387,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/plugin-help@npm:5.2.0":
-  version: 5.2.0
-  resolution: "@expo/plugin-help@npm:5.2.0"
+"@expo/plugin-help@npm:5.3.0":
+  version: 5.3.0
+  resolution: "@expo/plugin-help@npm:5.3.0"
   dependencies:
     "@oclif/core": ^1.9.0
-  checksum: b32886d0841800f2109d860a5e334c3766b0e645b0779ac3c8a2933353d84c3da13b896ddd490cc0563ee54362a76c815598a0b168f1c560c3c9fc49f3db34c5
+  checksum: 05540d38ede7840e6f034a5cd0b8eb2d473ce98040afbbfce25dc9eb581dbaa3bcaa1be1cb5256fe4632691b275a1bbb6739dfd2c11a315aab45210e380db9ea
   languageName: node
   linkType: hard
 
@@ -9651,7 +9652,7 @@ __metadata:
     date-fns: ^2.14.0
     document-register-element: 1.13.1
     dotenv: 10.0.0
-    eas-cli: ^0.60.0
+    eas-cli: ^2.3.0
     eslint-config-next: 11.0.1
     expo: ~46.0.6
     expo-av: ~12.0.4
@@ -11145,7 +11146,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"better-opn@npm:^3.0.1, better-opn@npm:~3.0.2":
+"better-opn@npm:3.0.2, better-opn@npm:^3.0.1, better-opn@npm:~3.0.2":
   version: 3.0.2
   resolution: "better-opn@npm:3.0.2"
   dependencies:
@@ -14542,23 +14543,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eas-cli@npm:^0.60.0":
-  version: 0.60.0
-  resolution: "eas-cli@npm:0.60.0"
+"eas-cli@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "eas-cli@npm:2.3.0"
   dependencies:
-    "@expo/apple-utils": 0.0.0-alpha.33
+    "@expo/apple-utils": 0.0.0-alpha.34
     "@expo/code-signing-certificates": 0.0.2
     "@expo/config": 7.0.1
     "@expo/config-plugins": 5.0.1
     "@expo/config-types": 46.0.2
-    "@expo/eas-build-job": 0.2.85
-    "@expo/eas-json": 0.60.0
+    "@expo/eas-build-job": 0.2.94
+    "@expo/eas-json": 2.2.0
     "@expo/json-file": 8.2.36
     "@expo/multipart-body-parser": 1.1.0
+    "@expo/package-manager": 0.0.56
     "@expo/pkcs12": 0.0.8
     "@expo/plist": 0.0.18
     "@expo/plugin-autocomplete": 1.4.0
-    "@expo/plugin-help": 5.2.0
+    "@expo/plugin-help": 5.3.0
     "@expo/plugin-warn-if-update-available": 2.3.0
     "@expo/prebuild-config": 5.0.3
     "@expo/results": 1.0.0
@@ -14569,6 +14571,7 @@ __metadata:
     "@urql/core": 2.6.1
     "@urql/exchange-retry": 0.3.3
     ajv: ^6.12.6
+    better-opn: 3.0.2
     chalk: 4.1.2
     cli-progress: 3.11.2
     cli-table3: 0.6.2
@@ -14600,12 +14603,12 @@ __metadata:
     ora: 5.1.0
     pkg-dir: 4.2.0
     promise-limit: 2.7.0
+    promise-retry: 2.0.1
     prompts: 2.4.2
     qrcode-terminal: 0.12.0
     resolve-from: 5.0.0
     semver: 7.3.7
     slash: 3.0.0
-    strip-ansi: 6.0.0
     tar: 6.1.11
     terminal-link: 2.1.1
     tslib: 2.4.0
@@ -14615,7 +14618,7 @@ __metadata:
     wrap-ansi: 7.0.0
   bin:
     eas: bin/run
-  checksum: d8817ab635de802e1de60a45c95bdb8cc21272b7f5eb4717dfb96e66359243efb56e7fedd29a37cfec1db712b8a3f45c6bca5bc892123cdf9169fe40fb875c79
+  checksum: a85b7cce012e47f117819e648183ad5a7d327f47399fb059b2d600338f6366c8a04fda53f27ebf2c91256ec9727898331dfe6d2758ae5d7d2620ab904cd5e0be
   languageName: node
   linkType: hard
 
@@ -17265,6 +17268,13 @@ __metadata:
     pify: ^2.0.0
     pinkie-promise: ^2.0.0
   checksum: 18109d6b9d55643d2b98b59c3cfae7073ccfe39829632f353d516cc124d836c2ddebe48a23f04af63d66a621b6d86dd4cbd7e6af906f2458a7fe510ffc4bd424
+  languageName: node
+  linkType: hard
+
+"golden-fleece@npm:1.0.9":
+  version: 1.0.9
+  resolution: "golden-fleece@npm:1.0.9"
+  checksum: 7f4c3245dfc0272a39d528909911053767d028a9f3dd5b5d13744797a41664d9ada001bbdbab8b67ef323b79cd609d46364db7eacff11d8bdc8b902f00ea5acf
   languageName: node
   linkType: hard
 
@@ -25636,7 +25646,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"promise-retry@npm:^2.0.1":
+"promise-retry@npm:2.0.1, promise-retry@npm:^2.0.1":
   version: 2.0.1
   resolution: "promise-retry@npm:2.0.1"
   dependencies:

@@ -1,6 +1,6 @@
 {
   "cli": {
-    "version": ">= 0.59.0"
+    "version": ">= 2.3.0"
   },
   "build": {
     "development-aoe2": {
