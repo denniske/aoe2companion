@@ -11,8 +11,10 @@ export default {
     ],
     "extra": {
       "website": "aoe4companion.com",
-      "projectId": "d8d79ec3-2477-4026-8c8a-456f79fc2f20",
-      "experienceId": "@denniske1001/aoe4companion"
+      "experienceId": "@denniske1001/aoe4companion",
+      "eas": {
+        "projectId": "d8d79ec3-2477-4026-8c8a-456f79fc2f20",
+      }
     },
     "userInterfaceStyle": "automatic",
     "jsEngine": "hermes",
