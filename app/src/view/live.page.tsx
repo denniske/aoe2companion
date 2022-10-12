@@ -172,7 +172,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingBottom: 15,
-        paddingTop: Platform.select({ android: 15 }),
+        paddingTop: 15,
     },
     usageIcon: {
         marginRight: 5,
