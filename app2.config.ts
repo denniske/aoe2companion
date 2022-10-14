@@ -29,7 +29,7 @@ export default {
     "splash": {
       "image": "./app/assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ff0000",
+      "backgroundColor": "#000000",
       "dark": {
         "image": "./app/assets/splash.png",
         "resizeMode": "contain",
@@ -78,7 +78,7 @@ export default {
       "splash": {
         "image": "./app/assets/splash.png",
         "resizeMode": "contain",
-        "backgroundColor": "#ff0000",
+        "backgroundColor": "#000000",
         "dark": {
           "image": "./app/assets/splash.png",
           "resizeMode": "contain",
@@ -101,7 +101,7 @@ export default {
       "splash": {
         "image": "./app/assets/splash.png",
         "resizeMode": "contain",
-        "backgroundColor": "#ff0000",
+        "backgroundColor": "#000000",
         "dark": {
           "image": "./app/assets/splash.png",
           "resizeMode": "contain",
