@@ -36,7 +36,7 @@ jobs:
 #      - name: Setup Env
 #        uses: ./.github/actions/setup
 #      - name: Setup Node
-#        uses: actions/setup-node@v2.1.2
+#        uses: actions/setup-node@v3
 #        with:
 #          node-version: ${{ env.NODE_VERSION }}
 #      - name: Setup Secrets
@@ -68,7 +68,7 @@ jobs:
         with:
           java-version: 11
       - name: Setup Node
-        uses: actions/setup-node@v2.1.2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Setup Secrets
@@ -82,7 +82,7 @@ jobs:
       - run: mv build-*.apk ${AOE}companion-internal-$TRAVIS_COMMIT.apk
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ env.AOE }}companion-internal-${{ env.TRAVIS_COMMIT }}.apk
           path: ${{ env.AOE }}companion-internal-${{ env.TRAVIS_COMMIT }}.apk
@@ -101,7 +101,7 @@ jobs:
         with:
           java-version: 11
       - name: Setup Node
-        uses: actions/setup-node@v2.1.2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Setup Secrets
@@ -115,7 +115,7 @@ jobs:
       - run: mv build-*.apk ${AOE}companion-development-$TRAVIS_COMMIT.apk
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ env.AOE }}companion-development-${{ env.TRAVIS_COMMIT }}.apk
           path: ${{ env.AOE }}companion-development-${{ env.TRAVIS_COMMIT }}.apk
@@ -135,7 +135,7 @@ jobs:
         with:
           java-version: 11
       - name: Setup Node
-        uses: actions/setup-node@v2.1.2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Setup Secrets
@@ -149,7 +149,7 @@ jobs:
       - run: mv build-*.aab ${AOE}companion-production-$TRAVIS_COMMIT.aab
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ env.AOE }}companion-production-${{ env.TRAVIS_COMMIT }}.aab
           path: ${{ env.AOE }}companion-production-${{ env.TRAVIS_COMMIT }}.aab
@@ -165,7 +165,7 @@ jobs:
       - name: Setup Env
         uses: ./.github/actions/setup
       - name: Setup Node
-        uses: actions/setup-node@v2.1.2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
 
@@ -182,7 +182,7 @@ jobs:
       - run: mv build-*.ipa ${AOE}companion-production-$TRAVIS_COMMIT.ipa
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ env.AOE }}companion-production-${{ env.TRAVIS_COMMIT }}.ipa
           path: ${{ env.AOE }}companion-production-${{ env.TRAVIS_COMMIT }}.ipa
@@ -197,7 +197,7 @@ jobs:
       - name: Setup Env
         uses: ./.github/actions/setup
       - name: Setup Node
-        uses: actions/setup-node@v2.1.2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
 
@@ -214,7 +214,7 @@ jobs:
       - run: mv build-*.tar.gz ${AOE}companion-development-$TRAVIS_COMMIT.tar.gz
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ env.AOE }}companion-development-${{ env.TRAVIS_COMMIT }}.tar.gz
           path: ${{ env.AOE }}companion-development-${{ env.TRAVIS_COMMIT }}.tar.gz
@@ -232,7 +232,7 @@ jobs:
       - name: Setup Env
         uses: ./.github/actions/setup
       - name: Setup Node
-        uses: actions/setup-node@v2.1.2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
 
@@ -267,7 +267,7 @@ jobs:
       - name: Setup Env
         uses: ./.github/actions/setup
       - name: Setup Node
-        uses: actions/setup-node@v2.1.2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
 

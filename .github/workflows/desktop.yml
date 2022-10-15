@@ -21,7 +21,7 @@ jobs:
       - name: Setup Env
         uses: ./.github/actions/setup
       - name: Setup Node
-        uses: actions/setup-node@v2.1.2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
 
@@ -33,7 +33,7 @@ jobs:
           yarn expo export:web 
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: web-build
           path: web-build
@@ -53,7 +53,7 @@ jobs:
       - name: Setup Env
         uses: ./.github/actions/setup
       - name: Setup Node
-        uses: actions/setup-node@v2.1.2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
 
@@ -100,7 +100,7 @@ jobs:
 #      - name: Setup Env
 #        uses: ./.github/actions/setup
 #      - name: Setup Node
-#        uses: actions/setup-node@v2.1.2
+#        uses: actions/setup-node@v3
 #        with:
 #          node-version: ${{ env.NODE_VERSION }}
 #
