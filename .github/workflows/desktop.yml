@@ -30,7 +30,7 @@ jobs:
       - name: Build
         run: |
           yarn
-          yarn run build:web
+          yarn expo export:web 
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
