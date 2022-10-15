@@ -155,8 +155,23 @@ export class NotifyTask implements OnModuleInit {
         // }
     }
 
+    notifiedMatchIds: string[] = [];
+
     async notify(match: IMatchRawGraphQl) {
+        if (this.notifiedMatchIds.includes(match.match_id)) {
+            console.log('NOTIFY Already notified', match.name, '->', match.match_id);
+            if (this.notifiedMatchIds.length > 100) {
+                for (let i = 0; i < 50; i++) {
+                    this.notifiedMatchIds.shift();
+                }
+            }
+            return;
+        }
+
         console.log('NOTIFY', match.name, '->', match.match_id);
+
+        this.notifiedMatchIds.push(match.match_id);
+
         const players = match.players.filter(p => p.profile_id);
 
         if (players.length === 0) return;
