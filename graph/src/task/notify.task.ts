@@ -115,7 +115,7 @@ export class NotifyTask implements OnModuleInit {
                     }`,
                     {
                         next: ({ matchStartedSub }) => {
-                            console.log(matchStartedSub);
+                            // console.log(matchStartedSub);
                             this.notify(matchStartedSub);
                         },
                         complete: () => { resolve(allGreatings) },
