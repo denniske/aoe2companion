@@ -2,22 +2,17 @@ import {Injectable, Logger, OnModuleInit} from '@nestjs/common';
 import {getUnixTime} from "date-fns";
 import {getSentry} from "../db";
 import fetch from "node-fetch";
-import {Connection, In, MoreThan, Repository} from "typeorm";
-import {groupBy, max, reject} from 'lodash';
-import {Match} from "../entity/match";
+import {Connection, In, Repository} from "typeorm";
+import {groupBy} from 'lodash';
 import {Push} from "../entity/push";
 import {Following} from "../entity/following";
 import {InjectRepository} from "@nestjs/typeorm";
 import PushNotifications from '@pusher/push-notifications-server';
 import {Account} from "../entity/account";
-import {fetchMatches} from "../helper";
-import {IMatchRaw, IMatchRawGraphQl} from "@nex/data/api";
-import {gql, GraphQLWebSocketClient} from "graphql-request";
-
-import { GRAPHQL_TRANSPORT_WS_PROTOCOL } from 'graphql-ws';
-import WebSocketImpl from 'ws';
-import {GraphQLWebSocketClientCustom} from "./graphql-ws";
+import {IMatchRawGraphQl} from "@nex/data/api";
+import {gql} from "graphql-request";
 import {sendMetric} from "../metric-api";
+import {ICloseEvent, w3cwebsocket} from "websocket";
 
 interface IExpoPushResponse {
     data: {
@@ -28,22 +23,39 @@ interface IExpoPushResponse {
 }
 
 function formatNames(names: string[]) {
-    return names.reduce((a, b, i) => a + (i === names.length-1 ? ' and ' : ', ') + b);
+    return names.reduce((a, b, i) => a + (i === names.length - 1 ? ' and ' : ', ') + b);
 }
 
-async function createClient(url: string) {
-    return new Promise<GraphQLWebSocketClientCustom>((resolve, reject) => {
-        const socket = new WebSocketImpl(url, GRAPHQL_TRANSPORT_WS_PROTOCOL);
-        const client: GraphQLWebSocketClientCustom = new GraphQLWebSocketClientCustom((socket as unknown) as WebSocket, {
-            onAcknowledged: async (_p) => {
-                console.log('ACKNOWLEDGED');
-                resolve(client);
-            },
-            onClose: () => {
-                reject();
-            },
-        })
-    })
+export function initConnection(onConnected: () => void, onMatchesStarted: (_matchesStarted: any) => void, onError: () => void): Promise<void> {
+    return new Promise(resolve => {
+        console.log('ENVIRONMENT', process.env.NEXT_PUBLIC_ENVIRONMENT);
+
+        const client = new w3cwebsocket(`wss://aoe2backend-socket.deno.dev/listen/match-started`);
+
+        client.onopen = () => {
+            console.log('WebSocket client connected');
+            onConnected();
+            resolve();
+        };
+
+        client.onmessage = (messageEvent) => {
+            // console.log('messageEvent', messageEvent);
+            const message = JSON.parse(messageEvent.data as string);
+            if (message.type != 'pong') {
+                onMatchesStarted(message);
+            }
+        };
+
+        client.onerror = (error) => {
+            console.log('WebSocket client error', error);
+        };
+
+        client.onclose = (event: ICloseEvent) => {
+            console.log('WebSocket client closed', event);
+            onError();
+            // throw new Error('WebSocket client closed');
+        };
+    });
 }
 
 @Injectable()
@@ -58,7 +70,8 @@ export class NotifyTask implements OnModuleInit {
         private connection: Connection,
         @InjectRepository(Push)
         private pushRepository: Repository<Push>,
-    ) {}
+    ) {
+    }
 
     async onModuleInit() {
         this.beamsClient = new PushNotifications({
@@ -82,49 +95,21 @@ export class NotifyTask implements OnModuleInit {
         try {
             console.log('LISTENING');
 
-            // const url = `ws://localhost:3334/graphql`;
-            const url = `wss://graph.aoe2companion.com/graphql`;
-
-            const client = await createClient(url)
-            const result = await new Promise<string>((resolve, reject) => {
-                const allGreatings = 'test';
-                client.subscribe<{ matchStartedSub: any }>(
-                    gql`subscription matchStartedSub {
-                        matchStartedSub {
-                            finished,
-                            leaderboard_id,
-                            location,
-                            match_id,
-                            name,
-                            players {
-                                civ,
-                                color,
-                                match_id,
-                                profile_id,
-                                profile {
-                                    name,
-                                },
-                                slot,
-                                team,
-                                won,
-                            }
-                            replayed,
-                            speed,
-                            started,
-                        }
-                    }`,
-                    {
-                        next: ({ matchStartedSub }) => {
-                            // console.log(matchStartedSub);
-                            this.notify(matchStartedSub);
-                        },
-                        complete: () => { resolve(allGreatings) },
-                        error: (e) => { reject(e) }
-                    })
-            })
-            client.close();
-            console.log('Connection complete. Reconnecting in 10s', result);
-            setTimeout(() => this.notifyAll(), 10 * 1000);
+            await initConnection(
+                () => {
+                    console.log('CONNECTED');
+                },
+                async (matchesStarted) => {
+                    for (const matchStarted of matchesStarted) {
+                        await this.notify(matchStarted);
+                    }
+                },
+                () => {
+                    console.log('DISCONNECTED');
+                    console.log('Reconnecting in 10s');
+                    setTimeout(() => this.notifyAll(), 10 * 1000);
+                },
+            );
         } catch (e) {
             console.log(e);
             console.log('Connection Error. Reconnecting in 10s');
@@ -181,7 +166,12 @@ export class NotifyTask implements OnModuleInit {
             player_ids: match.players.map(p => p.profile_id),
         };
 
-        const followings = await this.connection.manager.find(Following, {where: { profile_id: In(players.map(p => p.profile_id)), enabled: true }, relations: ["account"]});
+        const followings = await this.connection.manager.find(Following, {
+            where: {
+                profile_id: In(players.map(p => p.profile_id)),
+                enabled: true
+            }, relations: ["account"]
+        });
 
         const tokens = Object.entries(groupBy(followings, p => p.account.push_token));
         if (tokens.length > 0) {
@@ -232,7 +222,12 @@ export class NotifyTask implements OnModuleInit {
 
         const tokensElectronSent = tokensElectron.map(([tokenElectron, followings]) => tokenElectron);
 
-        const accounts = await this.connection.manager.find(Account, {where: { profile_id: In(players.map(p => p.profile_id)), overlay: true }});
+        const accounts = await this.connection.manager.find(Account, {
+            where: {
+                profile_id: In(players.map(p => p.profile_id)),
+                overlay: true
+            }
+        });
 
         for (const account of accounts) {
             if (tokensElectronSent.includes(account.push_token_electron)) continue;
@@ -280,7 +275,7 @@ export class NotifyTask implements OnModuleInit {
 
         const status = expoPushResponse.data.status == 'ok' ? 'ok' : expoPushResponse.data.details?.error;
 
-        await this.pushRepository.save({ title: message.title, body: message.body, push_token: expoPushToken, status });
+        await this.pushRepository.save({title: message.title, body: message.body, push_token: expoPushToken, status});
     }
 
     async sendPushNotificationWeb(pushTokenWeb: string, title: string, body: string, data: any) {
@@ -316,7 +311,12 @@ export class NotifyTask implements OnModuleInit {
             status = e.toString();
         }
 
-        await this.pushRepository.save({ title: message.title, body: message.body, push_token_web: pushTokenWeb, status });
+        await this.pushRepository.save({
+            title: message.title,
+            body: message.body,
+            push_token_web: pushTokenWeb,
+            status
+        });
     }
 
     async sendPushNotificationElectron(pushTokenElectron: string, title: string, body: string, data: any) {
@@ -351,6 +351,11 @@ export class NotifyTask implements OnModuleInit {
 
         const status = electronPushResponse.status == 'accepted' ? 'ok' : 'error';
 
-        await this.pushRepository.save({ title: message.payload.title, body: message.payload.body, push_token: pushTokenElectron, status });
+        await this.pushRepository.save({
+            title: message.payload.title,
+            body: message.payload.body,
+            push_token: pushTokenElectron,
+            status
+        });
     }
 }
