@@ -1,111 +1,173 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, Platform, StyleSheet, View} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 import {useAppTheme} from "../theming";
 import {LiveGame} from "./live/live-game";
 import {MyText} from "./components/my-text";
 import {FontAwesome5} from "@expo/vector-icons";
 import {Searchbar} from "react-native-paper";
 import {createStylesheet} from '../theming-new';
-import {ILobbyMatchRaw} from '../helper/data';
 import {getTranslation} from '../helper/translate';
+import {ILobbiesMatch} from '../api/new/api.types';
+import {ICloseEvent, w3cwebsocket} from "websocket";
+import produce from "immer"
 
-
-import {gql} from "graphql-request";
-import { GRAPHQL_TRANSPORT_WS_PROTOCOL } from 'graphql-ws';
-import {applyPatch} from "fast-json-patch";
-import {camelizeKeys} from "humps";
-import { ILobbiesMatch } from '../api/new/api.types';
-import { GraphQLWebSocketClientCustom } from '../api/new/graphql-ws';
-import {getHost} from "@nex/data";
-
-async function createClient(url: string) {
-    return new Promise<GraphQLWebSocketClientCustom>((resolve, reject) => {
-        const socket = new WebSocket(url, GRAPHQL_TRANSPORT_WS_PROTOCOL);
-        const client: GraphQLWebSocketClientCustom = new GraphQLWebSocketClientCustom((socket as unknown) as WebSocket, {
-            onAcknowledged: async (_p) => {
-                console.log('ACKNOWLEDGED');
-                resolve(client);
-            },
-            onClose: () => {
-                reject();
-            },
-        })
-    })
+export interface IMatchesMatchPlayer2 {
+    matchId: number
+    profileId: number
+    name?: string
+    rating?: number
+    ratingDiff?: number
+    games?: number
+    wins?: number
+    losses?: number
+    drops?: number
+    civ: number
+    civName: string
+    civImageUrl: string
+    color: number
+    colorHex: string
+    slot: number
+    team?: number
+    won?: boolean
 }
 
+interface IConnectionHandler {
+    onOpen?: () => void;
+    onLobbies?: (_lobbies: any[]) => void;
+    onClose?: (event: ICloseEvent) => void;
+}
 
-async function doListen(onChange: (data: any) => void, onReset: () => void) {
-    try {
-        console.log('LISTENING');
-        const baseUrl = getHost('aoe2companion-graphql');
-        const url = baseUrl.replace('http', 'ws');
-        const client = await createClient(url)
-        const result = await new Promise<string>((resolve, reject) => {
-            client.subscribe<{ lobbiesUpdatedSub: any }>(
-                gql`subscription lobbiesUpdatedSub {
-                    lobbiesUpdatedSub
-                }`,
-                {
-                    next: ({ lobbiesUpdatedSub }) => onChange(JSON.parse(lobbiesUpdatedSub)),
-                    complete: () => { resolve(null) },
-                    error: (e) => { reject(e) }
-                })
-        })
-        client.close();
-        console.log('Connection complete. Reconnecting in 10s', result);
-        onReset();
-        setTimeout(() => doListen(onChange, onReset), 10 * 1000);
-    } catch (e) {
-        console.log(e);
-        console.log('Connection Error. Reconnecting in 10s');
-        onReset();
-        setTimeout(() => doListen(onChange, onReset), 10 * 1000);
-    }
+function initConnection(handler: IConnectionHandler): Promise<void> {
+    return new Promise(resolve => {
+        const client = new w3cwebsocket(`wss://aoe2backend-socket.deno.dev/listen/lobbies`);
+
+        client.onopen = () => {
+            console.log('WebSocket client connected');
+            handler.onOpen?.();
+            resolve();
+        };
+
+        client.onmessage = (messageEvent) => {
+            const message = JSON.parse(messageEvent.data as string);
+            if (message.type != 'pong') {
+                handler.onLobbies?.(message);
+            }
+        };
+
+        client.onerror = (error) => {
+            console.log('WebSocket client error', error);
+        };
+
+        client.onclose = (event: ICloseEvent) => {
+            console.log('WebSocket client closed', event);
+            handler.onClose?.(event);
+        };
+    });
+}
+
+interface ILobbyAddedEvent {
+    type: 'lobbyAdded';
+    data: ILobbiesMatch;
+}
+
+interface ILobbyUpdatedEvent {
+    type: 'lobbyUpdated';
+    data: ILobbiesMatch;
+}
+
+interface ILobbyRemovedEvent {
+    type: 'lobbyRemoved';
+    data: { matchId: number; };
+}
+
+interface ISlotAddedEvent {
+    type: 'slotAdded';
+    data: IMatchesMatchPlayer2;
+}
+
+interface ISlotUpdatedEvent {
+    type: 'slotUpdated';
+    data: IMatchesMatchPlayer2;
+}
+
+interface ISlotRemovedEvent {
+    type: 'slotRemoved';
+    data: { matchId: number; slot: number; };
+}
+
+type ILobbyEvent = ILobbyAddedEvent | ILobbyUpdatedEvent | ILobbyRemovedEvent | ISlotAddedEvent | ISlotUpdatedEvent | ISlotRemovedEvent;
+
+export function initLobbySubscription(handler: IConnectionHandler): Promise<void> {
+    let _lobbies: any[] = [];
+
+    return initConnection({
+        onOpen: handler.onOpen,
+        onClose: handler.onClose,
+        onLobbies: (events: ILobbyEvent[]) => {
+            _lobbies = produce(_lobbies, lobbies => {
+                for (const event of events) {
+                    const lobby = lobbies.find(lobby => lobby.matchId == event.data.matchId);
+
+                    switch (event.type) {
+                        case 'lobbyAdded':
+                            lobbies.push(event.data);
+                            break;
+                        case 'lobbyUpdated':
+                            Object.assign(lobby, event.data);
+                            break;
+                        case 'lobbyRemoved':
+                            lobbies.splice(lobbies.indexOf(lobby), 1);
+                            break;
+                        case 'slotAdded':
+                            lobby.players = lobby.players || [];
+                            lobby.players[event.data.slot] = event.data;
+                            break;
+                        case 'slotUpdated':
+                            Object.assign(lobby.players[event.data.slot], event.data);
+                            break;
+                        case 'slotRemoved':
+                            delete lobby.players[event.data.slot];
+                            break;
+                    }
+                }
+            })
+            handler.onLobbies?.(_lobbies);
+        }});
 }
 
 export default function LivePage() {
     const styles = useStyles();
     const theme = useAppTheme();
-    const [matches, setMatches] = useState([] as ILobbyMatchRaw[]);
-    // const [filteredMatches, setFilteredMatches] = useState([] as ILobbyMatchRaw[]);
     const [usage, setUsage] = useState(0);
     const [search, setSearch] = useState('');
 
-
-    const [lobbiesDict, setLobbiesDict] = useState<any>({});
     const [data, setData] = useState<ILobbiesMatch[]>([]);
     const [filteredData, setFilteredData] = useState<ILobbiesMatch[]>([]);
-    const [expandedDict, setExpandedDict] = useState<{ [key: string]: boolean }>({});
+    // const [expandedDict, setExpandedDict] = useState<{ [key: string]: boolean }>({});
+    const [connected, setConnected] = useState(false);
 
-    const toggleExpanded = (matchId: number) => {
-        expandedDict[matchId] = !expandedDict[matchId];
-        setExpandedDict({...expandedDict});
+    // const toggleExpanded = (matchId: number) => {
+    //     expandedDict[matchId] = !expandedDict[matchId];
+    //     setExpandedDict({...expandedDict});
+    // };
+
+    const connect = async () => {
+        await initLobbySubscription({
+            onOpen: () => {
+                setConnected(true);
+            },
+            onClose: () => {
+                setConnected(false);
+            },
+            onLobbies: (_lobbies: any[]) => {
+                setData(_lobbies);
+            }
+        });
     };
 
     useEffect(() => {
-        doListen(
-            (patch) => {
-                try {
-                    setUsage(usage => {
-                        return usage + JSON.stringify(patch).length;
-                    });
-                    // console.log('lobbiesDict', lobbiesDict);
-                    // console.log('patch', patch);
-                    const newDoc = applyPatch(lobbiesDict, patch);
-                    setLobbiesDict(camelizeKeys(newDoc.newDocument));
-                } catch (e) {
-                    console.log(e);
-                }
-            },
-            () => {
-                setData([]);
-            },
-        );
+        connect();
     }, []);
-
-    useEffect(() => {
-        setData(Object.values(lobbiesDict) as ILobbiesMatch[]);
-    }, [lobbiesDict]);
 
     useEffect(() => {
         const parts = search.toLowerCase().split(' ');

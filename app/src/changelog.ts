@@ -77,6 +77,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '51.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix lobbies page again',
+        },
+    ],
     '50.0.0': [
         {
             type: 'bugfix',

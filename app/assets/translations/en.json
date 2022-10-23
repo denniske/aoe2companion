@@ -162,7 +162,8 @@
 
   "lobbies.title": "Lobbies",
   "lobbies.search.placeholder": "name, map, game mode, server, player",
-  "lobbies.datausagewarning": "Only use with WiFi. Data usage: {usage} MB",
+  "lobbies.datausagewarning": "Only use with WiFi.",
+  "lobbies.datausagewarning2": "Only use with WiFi. Data usage: {usage} MB",
 
   "push.title": "Push Notifications",
   "push.error.noaccount": "Could not retrieve account.",
