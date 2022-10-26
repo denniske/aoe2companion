@@ -26,32 +26,34 @@ jobs:
 #      - run: op --version
 ##      - run: brew install --cask 1password/tap/1password-cli
 
-#  publish:
-#    name: Publish
-#    runs-on: ubuntu-18.04
-#    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && (contains(github.ref, '.0') && !contains(github.ref, '.0.0'))
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v1
-#      - name: Setup Env
-#        uses: ./.github/actions/setup
-#      - name: Setup Node
-#        uses: actions/setup-node@v3
-#        with:
-#          node-version: ${{ env.NODE_VERSION }}
-#      - name: Setup Secrets
-#        uses: secrethub/actions/env-export@v0.2.1
-#        env:
-#          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
-#          SENTRY_AUTH_TOKEN: secrethub://denniske/aoe2companion/sentry_auth_token
-#          EXPO_TOKEN: secrethub://denniske/aoe2companion/expo_token
-#
-#      - run: yarn
-#      - run: echo "APP=$(node deploy/script/aoe-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
-#      - run: echo "VERSION=$(node deploy/script/version-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
-#      - run: echo $VERSION
+  publish:
+    name: Publish
+    runs-on: ubuntu-18.04
+    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && (contains(github.ref, '.0') && !contains(github.ref, '.0.0'))
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Env
+        uses: ./.github/actions/setup
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Setup Secrets
+        uses: secrethub/actions/env-export@v0.2.1
+        env:
+          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
+          SENTRY_AUTH_TOKEN: secrethub://denniske/aoe2companion/sentry_auth_token
+          EXPO_TOKEN: secrethub://denniske/aoe2companion/expo_token
+
+      - run: yarn
+      - run: echo "APP=$(node deploy/script/aoe-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
+      - run: echo "VERSION=$(node deploy/script/version-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
+      - run: echo $VERSION
 #      - run: cp ./node_modules/hermes-engine/linux64-bin/hermesc ./node_modules/react-native/sdks/hermesc/linux64-bin/hermesc
-#      - run: npx eas update --branch production --message "Update v$VERSION"
+      - run: ls -al ./node_modules/hermes-engine/linux64-bin/hermesc
+      - run: ls -al ./node_modules/react-native/sdks/hermesc/linux64-bin/hermesc
+      - run: npx eas update --branch production --message "Update v$VERSION"
 
 
   build-android-internal:

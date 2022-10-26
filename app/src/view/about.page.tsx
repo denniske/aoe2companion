@@ -23,7 +23,8 @@ export default function AboutPage() {
     const appStyles = useTheme(appVariants);
     const linkTo = useLinkTo();
     const [state, setState] = useState('');
-    const [error, setError] = useState('');
+    const [errorUpdate, setErrorUpdate] = useState('');
+    const [errorStoreUpdate, setErrorStoreUpdate] = useState('');
     const [debugUpdate, setDebugUpdate] = useState('');
     const [debugStoreUpdate, setDebugStoreUpdate] = useState('');
     const [debugManifest, setDebugManifest] = useState('');
@@ -44,9 +45,12 @@ export default function AboutPage() {
     };
 
     const checkForUpdate = async () => {
-        try {
-            setState('checkingForUpdate');
+        setState('checkingForUpdate');
 
+        setErrorUpdate('');
+        setErrorStoreUpdate('');
+
+        try {
             const update = await doCheckForUpdateAsync();
             setDebugUpdate(JSON.stringify(update));
 
@@ -55,6 +59,12 @@ export default function AboutPage() {
                 setState('checked');
                 return;
             }
+        } catch (e: any) {
+            setState('');
+            setErrorUpdate(e.toString());
+        }
+
+        try {
             const storeUpdate = await doCheckForStoreUpdate();
             setDebugStoreUpdate(JSON.stringify(storeUpdate));
 
@@ -63,10 +73,15 @@ export default function AboutPage() {
                 setState('checked');
                 return;
             }
-            setState('upToDate');
         } catch (e: any) {
             setState('');
-            setError(e.toString());
+            setErrorStoreUpdate(e.toString());
+        }
+
+        if (errorUpdate || errorStoreUpdate) {
+            setState('');
+        } else {
+            setState('upToDate');
         }
     };
 
@@ -260,10 +275,17 @@ export default function AboutPage() {
             }
 
             {
-                error &&
+                errorUpdate &&
                 <>
-                    <MyText style={styles.heading}>Error</MyText>
-                    <MyText style={styles.content}>{error}</MyText>
+                    <MyText style={styles.heading}>Error Update</MyText>
+                    <MyText style={styles.content}>{errorUpdate}</MyText>
+                </>
+            }
+            {
+                errorStoreUpdate &&
+                <>
+                    <MyText style={styles.heading}>Error Store Update</MyText>
+                    <MyText style={styles.content}>{errorStoreUpdate}</MyText>
                 </>
             }
             {
