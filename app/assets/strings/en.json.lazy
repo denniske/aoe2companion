@@ -196,6 +196,18 @@
             "string": "Gurjaras"
         },
         {
+            "id": 43,
+            "string": "Random"
+        },
+        {
+            "id": 44,
+            "string": "Mirror"
+        },
+        {
+            "id": 45,
+            "string": "Full Random"
+        },
+        {
             "id": 99,
             "string": "Indians"
         }
