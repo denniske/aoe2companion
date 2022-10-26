@@ -73,11 +73,15 @@ npx eas build --profile development --platform android --no-wait
 npx eas build --profile development4 --platform android --no-wait
 
 npx eas build --profile development-simulator-aoe2 --platform android --no-wait
+
+npx eas build --profile development-aoe2 --platform ios --no-wait
 npx eas build --profile development-simulator-aoe2 --platform ios --no-wait
 
 export APP=aoe2 && export AOE=aoe2
 export APP=aoe4 && export AOE=aoe4
 npx eas build --profile development-simulator-${AOE} --platform ios --local
+
+export APP=aoe2 && export AOE=aoe2 && npx eas build --profile development-${AOE} --platform ios --local && npx eas build --profile development-simulator-${AOE} --platform ios --local
 
 watchman watch-del-all && watchman shutdown-server
 

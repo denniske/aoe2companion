@@ -39,13 +39,12 @@ export async function doCheckForStoreUpdate() {
             const match = result.match(/Current Version.+?>([\d.]+)<\/span>/);
             if (match) {
                 const version = match[1].trim();
-                if (lt(Constants.manifest.version!, version)) {
-                    return {
-                        version,
-                        storeUrl: updateUrl,
-                        url: updateUrl,
-                    };
-                }
+                return {
+                    isAvailable: lt(Constants.manifest.version!, version),
+                    version,
+                    storeUrl: updateUrl,
+                    url: updateUrl,
+                };
             }
             return null;
         }
@@ -58,13 +57,12 @@ export async function doCheckForStoreUpdate() {
                 const appId = result.results[0].trackId;
                 const storeUrl = `itms-apps://apps.apple.com/app/id${appId}`;
                 const url = `https://apps.apple.com/app/id${appId}`;
-                if (lt(Constants.manifest.version!, version)) {
-                    return {
-                        version,
-                        storeUrl,
-                        url,
-                    };
-                }
+                return {
+                    isAvailable: lt(Constants.manifest.version!, version),
+                    version,
+                    storeUrl,
+                    url,
+                };
             }
             return null;
         }

@@ -24,6 +24,7 @@ web-report/
 
 *.aab
 *.ipa
+*.tar.gz
 *.afdesign
 *.psd
 *.afphoto

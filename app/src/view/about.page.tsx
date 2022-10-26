@@ -24,8 +24,9 @@ export default function AboutPage() {
     const linkTo = useLinkTo();
     const [state, setState] = useState('');
     const [error, setError] = useState('');
+    const [debugUpdate, setDebugUpdate] = useState('');
+    const [debugStoreUpdate, setDebugStoreUpdate] = useState('');
     const [debugManifest, setDebugManifest] = useState('');
-    const [debugManifest2, setDebugManifest2] = useState('');
     const [electronVersion, setElectronVersion] = useState('');
     const [versionClickCount, setVersionClickCount] = useState(0);
     const mutate = useMutate();
@@ -45,15 +46,9 @@ export default function AboutPage() {
     const checkForUpdate = async () => {
         try {
             setState('checkingForUpdate');
-            const update = await doCheckForUpdateAsync();
 
-            // try {
-            //     delete update?.manifest?.assets;
-            //     setError(JSON.stringify(update, null, 4));
-            //     // setError(JSON.stringify(Object.keys(update?.manifest || {}), null, 4));
-            // } catch (e) {
-            //
-            // }
+            const update = await doCheckForUpdateAsync();
+            setDebugUpdate(JSON.stringify(update));
 
             if (update.isAvailable) {
                 mutate(setUpdateManifest(update.manifest!));
@@ -61,13 +56,16 @@ export default function AboutPage() {
                 return;
             }
             const storeUpdate = await doCheckForStoreUpdate();
-            if (storeUpdate) {
+            setDebugStoreUpdate(JSON.stringify(storeUpdate));
+
+            if (storeUpdate?.isAvailable) {
                 mutate(setUpdateStoreManifest(storeUpdate));
                 setState('checked');
                 return;
             }
             setState('upToDate');
         } catch (e: any) {
+            setState('');
             setError(e.toString());
         }
     };
@@ -82,11 +80,6 @@ export default function AboutPage() {
         try {
             delete Constants.manifest?.assets;
             setDebugManifest(JSON.stringify(Constants.manifest || { empty: true }, null, 4));
-        } catch (e) {}
-
-        try {
-            delete manifest?.assets;
-            setDebugManifest2(JSON.stringify(manifest || { empty: true }, null, 4));
         } catch (e) {}
     };
 
@@ -267,17 +260,32 @@ export default function AboutPage() {
             }
 
             {
+                error &&
+                <>
+                    <MyText style={styles.heading}>Error</MyText>
+                    <MyText style={styles.content}>{error}</MyText>
+                </>
+            }
+            {
+                debugUpdate &&
+                <>
+                    <MyText style={styles.heading}>Debug Update</MyText>
+                    <MyText style={styles.content}>{debugUpdate}</MyText>
+                </>
+            }
+            {
+                debugStoreUpdate &&
+                <>
+                    <MyText style={styles.heading}>Debug Store Update</MyText>
+                    <MyText style={styles.content}>{debugStoreUpdate}</MyText>
+                </>
+            }
+
+            {
                 debugManifest &&
                 <>
                     <MyText style={styles.heading}>Debug Manifest</MyText>
                     <MyText style={styles.content}>{debugManifest}</MyText>
-                </>
-            }
-            {
-                debugManifest2 &&
-                <>
-                    <MyText style={styles.heading}>Debug Manifest2</MyText>
-                    <MyText style={styles.content}>{debugManifest2}</MyText>
                 </>
             }
 
