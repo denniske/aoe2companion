@@ -53,7 +53,7 @@ jobs:
 #      - run: cp ./node_modules/hermes-engine/linux64-bin/hermesc ./node_modules/react-native/sdks/hermesc/linux64-bin/hermesc
       - run: ls -al ./node_modules/hermes-engine/linux64-bin/hermesc
       - run: ls -al ./node_modules/react-native/sdks/hermesc/linux64-bin/hermesc
-      - run: npx eas update --branch production --message "Update v$VERSION"
+      - run: npx eas update --branch production --message "Update $VERSION"
 
 
   build-android-internal:
