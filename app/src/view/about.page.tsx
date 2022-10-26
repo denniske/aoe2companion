@@ -56,7 +56,7 @@ export default function AboutPage() {
 
             if (update.isAvailable) {
                 mutate(setUpdateManifest(update.manifest!));
-                setState('checked');
+                setState('');
                 return;
             }
         } catch (e: any) {
@@ -70,7 +70,7 @@ export default function AboutPage() {
 
             if (storeUpdate?.isAvailable) {
                 mutate(setUpdateStoreManifest(storeUpdate));
-                setState('checked');
+                setState('');
                 return;
             }
         } catch (e: any) {

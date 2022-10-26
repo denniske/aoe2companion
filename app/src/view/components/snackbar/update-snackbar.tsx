@@ -17,25 +17,26 @@ export default function UpdateSnackbar() {
     const updateStoreManifest = useSelector(state => state.updateStoreManifest);
     const updateAvailable = useSelector(state => state.updateAvailable);
     const updateState = useSelector(state => state.updateState);
-    const changelogLastVersionRead = useSelector(state => state.prefs.changelogLastVersionRead);
     const mutate = useMutate();
 
     const init = async () => {
         if (Constants.manifest == null) return;
         if (updateManifest !== undefined) return;
-        const update = await doCheckForUpdateAsync();
-        if (update.isAvailable) {
-            mutate(setUpdateManifest(update.manifest!));
-            return;
-        }
+
+        try {
+            const update = await doCheckForUpdateAsync();
+            if (update.isAvailable) {
+                mutate(setUpdateManifest(update.manifest!));
+                return;
+            }
+        } catch (e) { }
+
         const storeUpdate = await doCheckForStoreUpdate();
         if (storeUpdate) {
             mutate(setUpdateStoreManifest(storeUpdate));
             return;
         }
-        if (changelogLastVersionRead == null || lt(changelogLastVersionRead, Constants.manifest.version!)) {
 
-        }
         close();
     };
 
