@@ -16,7 +16,7 @@ export default function ErrorSnackbar() {
         mutate(setError(null));
     };
 
-    let message = `${error.title}`;
+    let message = `${error.title}. ${error.extra?.url}. ${error.error}. ${error.extra?.status}`;
 
     // if (__DEV__) {
     //     message += `\n\n${error.actionDetails}`;
