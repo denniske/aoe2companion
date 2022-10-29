@@ -63,14 +63,14 @@ export function getHost(host: Host) {
         case "aoe2net": {
             console.log('appConfig', appConfig);
             // if (dev) {
-            //     return 'https://aoe2backend-legacy-worker.denniske.workers.dev/';
+            //     // return 'https://aoe2backend-legacy-worker.denniske.workers.dev/';
             //     // return 'http://aoe2backend-legacy.deno.dev/';
-            //     // return 'http://localhost:3000/';
+            //     return 'http://localhost:3334/';
             // }
             if (platform === 'web') {
                 return `https://${appConfig.hostAoeNet}/`;
             }
-            return `http://${appConfig.hostAoeNet}/`;
+            return `https://${appConfig.hostAoeNet}/`;
         }
     }
 }
