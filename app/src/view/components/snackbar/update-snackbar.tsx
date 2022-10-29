@@ -32,7 +32,7 @@ export default function UpdateSnackbar() {
         } catch (e) { }
 
         const storeUpdate = await doCheckForStoreUpdate();
-        if (storeUpdate) {
+        if (storeUpdate?.isAvailable) {
             mutate(setUpdateStoreManifest(storeUpdate));
             return;
         }
