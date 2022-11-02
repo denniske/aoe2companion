@@ -77,7 +77,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '53.0.0': [
+    '54.0.0': [
         {
             type: 'minor',
             title: 'More detailed error message when network request fails',

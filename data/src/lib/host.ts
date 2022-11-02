@@ -70,7 +70,7 @@ export function getHost(host: Host) {
             if (platform === 'web') {
                 return `https://${appConfig.hostAoeNet}/`;
             }
-            return `https://${appConfig.hostAoeNet}/`;
+            return `http://${appConfig.hostAoeNet}/`;
         }
     }
 }
