@@ -86,6 +86,10 @@ export const changelog: IChangelog = {
             type: 'bugfix',
             title: 'Fix over the air update',
         },
+        {
+            type: 'bugfix',
+            title: 'Fix lobbies page crash',
+        },
     ],
     '51.0.0': [
         {
