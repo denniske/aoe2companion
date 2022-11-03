@@ -36,6 +36,8 @@ export async function loadRatingHistoriesLegacy4(userId: UserIdBase): Promise<IR
     const url = `https://aoe4world.com/api/v0/players/${userId.profile_id}`;
     const json = await fetchJson('loadProfileLegacy4', url) as Aoe4WorldProfile;
 
+    if (json.modes == null) return [];
+
     const ratingHistoryRows: IRatingHistoryRow[] = Object.entries(json.modes).map(([modeKey, mode]) => ({
             data: Object.entries(mode.rating_history).map(([timestamp, entry]) => ({
                 timestamp: fromUnixTime(timestamp),

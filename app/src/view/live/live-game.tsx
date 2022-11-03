@@ -50,7 +50,7 @@ export function LiveGame({data, expanded = false}: IGameProps) {
         );
     }
 
-    const players = data.players;
+    const players = data.players || [];
 
     return (
         <MyListAccordion

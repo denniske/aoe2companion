@@ -39,7 +39,7 @@ interface IConnectionHandler {
 
 function initConnection(handler: IConnectionHandler): Promise<void> {
     return new Promise(resolve => {
-        const client = new w3cwebsocket(`wss://aoe2backend-socket.deno.dev/listen/lobbies`);
+        const client = new w3cwebsocket(`wss://socket.aoe2companion.com/listen?handler=lobbies`);
 
         client.onopen = () => {
             console.log('WebSocket client connected');
@@ -47,7 +47,12 @@ function initConnection(handler: IConnectionHandler): Promise<void> {
             resolve();
         };
 
+        let lastMessage = '';
+
         client.onmessage = (messageEvent) => {
+            if (lastMessage === messageEvent.data) return;
+            lastMessage = messageEvent.data as string;
+
             const message = JSON.parse(messageEvent.data as string);
             if (message.type != 'pong') {
                 handler.onLobbies?.(message);
