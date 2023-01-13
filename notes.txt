@@ -148,6 +148,7 @@ git tag -d v38.0.0 && git push --delete origin v38.0.0
 git tag -d api-v26.0.20 && git push --delete origin api-v26.0.20 && git tag api-v26.0.20 && git push --tags
 git tag -d desktop-v49.0.0+0 && git push --delete origin desktop-v49.0.0+0 && git tag desktop-v49.0.0+0 && git push --tags
 git tag -d notify-v49.0.2 && git push --delete origin notify-v49.0.2 && git tag notify-v49.0.2 && git push --tags
+git tag -d aoe4-v7.0.0 && git push --delete origin aoe4-v7.0.0 && git tag aoe4-v7.0.0 && git push --tags
 
 git tag -d v42.0.0 && git push --delete origin v42.0.0 && git tag v42.0.0 && git push --tags
 
