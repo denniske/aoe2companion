@@ -34,6 +34,9 @@ const leaderboardColors: Record<number, string> = {
     18: '#8970AE',
     19: '#D65154',
     20: '#E19659',
+    1001: '#328f18',
+    1002: '#328f18',
+    1003: '#86d06d',
 };
 
 const darkLeaderboardColors: Record<number, string> = {
@@ -48,6 +51,9 @@ const darkLeaderboardColors: Record<number, string> = {
     18: '#8970AE',
     19: '#D65154',
     20: '#E19659',
+    1001: '#328f18',
+    1002: '#328f18',
+    1003: '#86d06d',
 };
 
 export function getLeaderboardColor(leaderboard_id: number, darkMode: boolean) {
@@ -69,6 +75,9 @@ const leaderboardTextColors: Record<number, string> = {
     18: '#8560be',
     19: '#c52026',
     20: '#ff943d',
+    1001: '#328f18',
+    1002: '#328f18',
+    1003: '#86d06d',
 };
 
 const darkLeaderboardTextColors: Record<number, string> = {
@@ -83,9 +92,13 @@ const darkLeaderboardTextColors: Record<number, string> = {
     18: '#8560be',
     19: '#c52026',
     20: '#ff943d',
+    1001: '#328f18',
+    1002: '#328f18',
+    1003: '#86d06d',
 };
 
 export function getLeaderboardTextColor(leaderboard_id: number, darkMode: boolean) {
+    console.log('getLeaderboardTextColor', leaderboard_id, darkMode);
     const colors = darkMode ? darkLeaderboardTextColors : leaderboardTextColors;
     return colors[leaderboard_id];
 }
