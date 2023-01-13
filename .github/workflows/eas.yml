@@ -13,18 +13,19 @@ env:
 
 jobs:
 
-#  onepassword:
-#    name: One Password
-#    runs-on: ubuntu-18.04
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v1
-#      - run: wget "https://cache.agilebits.com/dist/1P/op2/pkg/v2.4.1/op_linux_amd64_v2.4.1.zip" -O op.zip && unzip -d op op.zip && sudo mv op/op /usr/local/bin && rm -r op.zip op
-#      - run: echo "OP_DEVICE=gpz56tma3262vu3z2thwwm57ga" >> $GITHUB_ENV
-#      - run: echo "OP_SECRET_KEY=${{ secrets.ONE_PASSWORD_SECRET_KEY }}" >> $GITHUB_ENV
-#      - run: printf ${{ secrets.ONE_PASSWORD_PASSWORD }} | op account add --address ${{ secrets.ONE_PASSWORD_ADDRESS }} --email ${{ secrets.ONE_PASSWORD_EMAIL }} --signin
-#      - run: op --version
-##      - run: brew install --cask 1password/tap/1password-cli
+  onepassword:
+    name: One Password
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - run: wget "https://cache.agilebits.com/dist/1P/op2/pkg/v2.4.1/op_linux_amd64_v2.4.1.zip" -O op.zip && unzip -d op op.zip && sudo mv op/op /usr/local/bin && rm -r op.zip op
+      - run: echo "OP_DEVICE=gpz56tma3262vu3z2thwwm57ga" >> $GITHUB_ENV
+      - run: echo "OP_SECRET_KEY=${{ secrets.ONE_PASSWORD_SECRET_KEY }}" >> $GITHUB_ENV
+      - run: printf ${{ secrets.ONE_PASSWORD_PASSWORD }} | op account add --address ${{ secrets.ONE_PASSWORD_ADDRESS }} --email ${{ secrets.ONE_PASSWORD_EMAIL }} --signin
+      - run: op --version
+      - run: op read op://aoe2companion/expo_token/password
+#      - run: brew install --cask 1password/tap/1password-cli
 
 #  publish:
 #    name: Publish
@@ -56,50 +57,50 @@ jobs:
 #      - run: npx eas update --branch production --message "Update $VERSION"
 
 
-  build-android-internal:
-    name: Build Android Internal
-    runs-on: ubuntu-18.04
-    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Setup Env
-        uses: ./.github/actions/setup
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - name: Setup Secrets
-        run: |
-          wget "https://cache.agilebits.com/dist/1P/op2/pkg/v2.4.1/op_linux_amd64_v2.4.1.zip" -O op.zip && unzip -d op op.zip && sudo mv op/op /usr/local/bin && rm -r op.zip op
-          echo "OP_DEVICE=gpz56tma3262vu3z2thwwm57ga" >> $GITHUB_ENV
-          echo "OP_SECRET_KEY=${{ secrets.ONE_PASSWORD_SECRET_KEY }}" >> $GITHUB_ENV
-
-      - name: Set Secrets
-        run: |
-          printf ${{ secrets.ONE_PASSWORD_PASSWORD }} | op account add --address ${{ secrets.ONE_PASSWORD_ADDRESS }} --email ${{ secrets.ONE_PASSWORD_EMAIL }} --signin
-          echo "EXPO_TOKEN=$(op read op://aoe2companion/expo_token/password)" >> $GITHUB_ENV
-
+#  build-android-internal:
+#    name: Build Android Internal
+#    runs-on: ubuntu-18.04
+#    if: (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/aoe4-v')) && contains(github.ref, '.0')
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v1
+#      - name: Setup Env
+#        uses: ./.github/actions/setup
+#      - name: Set up JDK 11
+#        uses: actions/setup-java@v1
+#        with:
+#          java-version: 11
+#      - name: Setup Node
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: ${{ env.NODE_VERSION }}
+#
 #      - name: Setup Secrets
-#        uses: secrethub/actions/env-export@v0.2.1
-#        env:
-#          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
-#          EXPO_TOKEN: secrethub://denniske/aoe2companion/expo_token
-
-      - run: yarn
-      - run: npx eas build --profile internal-${AOE} --platform android --local --non-interactive
-      - run: mv build-*.apk ${AOE}companion-internal-$TRAVIS_COMMIT.apk
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ env.AOE }}companion-internal-${{ env.TRAVIS_COMMIT }}.apk
-          path: ${{ env.AOE }}companion-internal-${{ env.TRAVIS_COMMIT }}.apk
+#        run: |
+#          wget "https://cache.agilebits.com/dist/1P/op2/pkg/v2.4.1/op_linux_amd64_v2.4.1.zip" -O op.zip && unzip -d op op.zip && sudo mv op/op /usr/local/bin && rm -r op.zip op
+#          echo "OP_DEVICE=gpz56tma3262vu3z2thwwm57ga" >> $GITHUB_ENV
+#          echo "OP_SECRET_KEY=${{ secrets.ONE_PASSWORD_SECRET_KEY }}" >> $GITHUB_ENV
+#
+#      - name: Set Secrets
+#        run: |
+#          printf ${{ secrets.ONE_PASSWORD_PASSWORD }} | op account add --address ${{ secrets.ONE_PASSWORD_ADDRESS }} --email ${{ secrets.ONE_PASSWORD_EMAIL }} --signin
+#          echo "EXPO_TOKEN=$(op read op://aoe2companion/expo_token/password)" >> $GITHUB_ENV
+#
+##      - name: Setup Secrets
+##        uses: secrethub/actions/env-export@v0.2.1
+##        env:
+##          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
+##          EXPO_TOKEN: secrethub://denniske/aoe2companion/expo_token
+#
+#      - run: yarn
+#      - run: npx eas build --profile internal-${AOE} --platform android --local --non-interactive
+#      - run: mv build-*.apk ${AOE}companion-internal-$TRAVIS_COMMIT.apk
+#
+#      - name: Upload Artifact
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: ${{ env.AOE }}companion-internal-${{ env.TRAVIS_COMMIT }}.apk
+#          path: ${{ env.AOE }}companion-internal-${{ env.TRAVIS_COMMIT }}.apk
 
 #  build-android-development:
 #    name: Build Android Development
