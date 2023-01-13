@@ -79,8 +79,10 @@ jobs:
           wget "https://cache.agilebits.com/dist/1P/op2/pkg/v2.4.1/op_linux_amd64_v2.4.1.zip" -O op.zip && unzip -d op op.zip && sudo mv op/op /usr/local/bin && rm -r op.zip op
           echo "OP_DEVICE=gpz56tma3262vu3z2thwwm57ga" >> $GITHUB_ENV
           echo "OP_SECRET_KEY=${{ secrets.ONE_PASSWORD_SECRET_KEY }}" >> $GITHUB_ENV
+
+      - name: Set Secrets
+        run: |
           printf ${{ secrets.ONE_PASSWORD_PASSWORD }} | op account add --address ${{ secrets.ONE_PASSWORD_ADDRESS }} --email ${{ secrets.ONE_PASSWORD_EMAIL }} --signin
-          op --version
           echo "EXPO_TOKEN=$(op read op://aoe2companion/expo_token/password)" >> $GITHUB_ENV
 
 #      - name: Setup Secrets
