@@ -31,6 +31,7 @@ import {appConfig} from "@nex/dataset";
 import {CountryImage, CountryImageLoader} from './components/country-image';
 
 type TabParamList = {
+    LeaderboardRmSolo: { leaderboardId: number };
     LeaderboardRm1v1: { leaderboardId: number };
     LeaderboardRmTeam: { leaderboardId: number };
     LeaderboardEw1v1: { leaderboardId: number };
@@ -125,7 +126,10 @@ export default function LeaderboardPage() {
 
     return (
         <Tab.Navigator lazy={true} swipeEnabled={false}>
-            <Tab.Screen name="LeaderboardRm1v1" initialParams={{leaderboardId: 1001}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rm1v1')}/>}}>
+            <Tab.Screen name="LeaderboardRmSolo" initialParams={{leaderboardId: 1002}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rmsolo')}/>}}>
+                {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
+            </Tab.Screen>
+            <Tab.Screen name="LeaderboardRm1v1" initialParams={{leaderboardId: 1003}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rmteam')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
             <Tab.Screen name="LeaderboardRmTeam" initialParams={{leaderboardId: 17}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.1v1')}/>}}>

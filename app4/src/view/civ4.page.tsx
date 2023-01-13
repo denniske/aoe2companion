@@ -19,6 +19,8 @@ import {civDataFrench} from '../data/french';
 import {civDataMongols} from '../data/mongols';
 import {civDataRus} from '../data/rus';
 import {civDataEnglish} from '../data/english';
+import {civDataOttomans} from "../data/ottomans";
+import {civDataMalians} from "../data/malians";
 
 
 export function CivTitle(props: any) {
@@ -43,7 +45,9 @@ const aoe4CivInfo = {
     'English': civDataEnglish,
     'French': civDataFrench,
     'HolyRomanEmpire': civDataHolyRomanEmpire,
+    'Malians': civDataMalians,
     'Mongols': civDataMongols,
+    'Ottomans': civDataOttomans,
     'Rus': civDataRus,
 };
 
@@ -94,7 +98,7 @@ export function CivList() {
                 <View style={styles.civRow}>
                     <MyText style={styles.name}>{getCivNameById(civ)}</MyText>
                     <MyText style={styles.small} numberOfLines={1}>
-                        {getCivStrategies(civ) ?? ''}
+                        {getCivStrategies(aoe4CivInfo, civ) ?? ''}
                     </MyText>
                 </View>
             </View>

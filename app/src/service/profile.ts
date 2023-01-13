@@ -18,6 +18,8 @@ const aoe4WorldLeaderboardMap = {
     'qm_3v3': 19,
     'qm_4v4': 20,
     'rm_1v1': 1001,
+    'rm_solo': 1002,
+    'rm_team': 1003,
 };
 
 export async function loadProfileLegacy4(userId: UserIdBase): Promise<any | null> {
@@ -26,6 +28,9 @@ export async function loadProfileLegacy4(userId: UserIdBase): Promise<any | null
 
     if (json?.modes == null) {
         return null;
+    } else {
+        // rm_1v1 is is just an outdated alias to the new rm_solo.
+        delete json.modes.rm_1v1;
     }
 
     const h: IProfile = {

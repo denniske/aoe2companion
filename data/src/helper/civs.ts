@@ -294,7 +294,7 @@ const CivUnion = unwrap(civs);
 export type Civ = typeof CivUnion;
 
 export function orderCivs(civs: Readonly<Civ[]>) {
-    return orderBy(civs, c => removeAccentsAndCase(getCivNameById(c)), 'asc');
+    return orderBy(civs, c => removeAccentsAndCase(getCivNameById(c) || 'none'), 'asc');
 }
 
 export function getCivName(civ: number) {
@@ -303,7 +303,7 @@ export function getCivName(civ: number) {
 }
 
 export function getCivNameById(civ: Civ) {
-    // console.log('getcivname', civ, civsAoeNet.indexOf(civ));
+    console.log('getcivname', civ, civsAoeNet.indexOf(civ));
     return getString('civ', civsAoeNet.indexOf(civ));
     // const civStringKey = aoeData.civ_names[civ];
     // return 'byid-'+sanitizeGameDescription(getAoeString(civStringKey));

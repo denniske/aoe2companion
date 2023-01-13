@@ -47,6 +47,8 @@ const aoe4WorldLeaderboardMapReverse = {
     19: 'qm_3v3',
     20: 'qm_4v4',
     1001: 'rm_1v1',
+    1002: 'rm_solo',
+    1003: 'rm_team',
 };
 
 const aoe4WorldLeaderboardMap = {
@@ -56,6 +58,8 @@ const aoe4WorldLeaderboardMap = {
     'qm_3v3': 19,
     'qm_4v4': 20,
     'rm_1v1': 1001,
+    'rm_solo': 1002,
+    'rm_team': 1003,
 };
 
 function aoe4worldLeaderboardToAoe2NetLeaderboard(leaderboard4: Aoe4WorldLeaderboard) {

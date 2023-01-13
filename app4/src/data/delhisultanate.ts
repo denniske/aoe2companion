@@ -1,41 +1,48 @@
 export const civDataDelhiSultanate = {
     "name": "Delhi Sultanate",
-    "classes": "Military, Research, Defense",
     "description": "The Delhi Sultanate stays many steps ahead of their enemies with great networks of scholars. Fully realized, they field the intimidating War Elephant and trample those in their path.",
-    "backdrop": "https://www.ageofempires.com/wp-content/uploads/2021/06/bg-age4-civ-del-splash-right-desk.png",
+    "classes": "Elephants, Research, Religion",
     "overview": [
-        {
-            "title": "Scholarly Culture",
-            "description": "Research all technology for free. Research can be stopped and resumed but it progresses at a much slower rate without the help of religious Scholars."
-        },
-        {
-            "title": "Frontier Fortifications",
-            "description": "Establish fortified settlements using military units that can build Palisades. Keeps gain access to a free weapon emplacement once constructed."
-        },
-        {
-            "title": "Garden Bounty",
-            "description": "Cultivate Berry Bushes into Orchards by building Mills near them. Orchards yield a higher amount of Food."
-        },
-        {
-            "title": "Influence",
-            "description": "Buildings constructed within the influence of a Mosque benefit from faster research speed, based on how many Scholars are garrisoned."
-        },
-        {
-            "title": "Unique Units",
-            "list": [
-                "Scholar: When garrisoned inside of a Mosque, Scholars speed up technology research time.",
-                "War Elephant: High health and damage unit with a strong siege attack."
-            ]
-        },
         {
             "title": "Civilization Bonuses",
             "list": [
-                "Gather from Berry Bushes 25% faster but cannot gather from Boar.",
-                "Scholar available in the Dark Age (I).",
-                "All technology is free but completes at a much slower rate. Scholars accelerate research speed.",
-                "Infantry units able to construct defenses.",
-                "Fishing Ships equipped with an Archer."
+                "Mosque, Scholar and religious technologies available in the Dark Age (I).",
+                "Infantry units are able to construct Palisade Walls.",
+                "All technology is free but completes at a much slower rate — garrison Scholars in Mosques to increase research speed.",
+                "Technologies being researched can be paused and resumed.",
+                "Mills constructed near Berry Bushes create Orchards, increasing Food capacity by +100.",
+                "Gather from Berry Bushes +30% faster but cannot gather from Boar.",
+                "Berry carry capacity increased +3.",
+                "Fishing Ships can defend themselves with a ranged attack."
             ]
+        },
+        {
+            "title": "Scholarly Culture",
+            "description": "Train Scholars from Mosques in the Dark Age (I). Research and unlock religious technologies earlier than other civilizations."
+        },
+        {
+            "title": "Scholastic Achievements",
+            "description": "Save on the cost of technologies and research all technology free but progresses at a much slower rate — technologies can be paused and resumed."
+        },
+        {
+            "title": "Frontier Fortifications",
+            "description": "Establish fortified settlements using infantry units that can build Palisade Walls. Construct the Compound of the Defender Landmark to extend this ability to Stone Walls."
+        },
+        {
+            "title": "Defensive Deckhands",
+            "description": "Fishing Ships can defend themselves with a ranged attack."
+        },
+        {
+            "title": "Garden Bounty",
+            "description": "Cultivate Berry Bushes into Orchards by building Mills near them, increasing Food capacity by +100.\nVillagers gather Berry Bushes 30% faster but cannot gather from Boar.\nVillagers carry +3 Food from Berry Bushes."
+        },
+        {
+            "title": "Influence",
+            "description": "Scholars garrisoned in a Mosque or Madrasa will increase the research speed of buildings within their influence, based on how many Scholars are garrisoned globally."
+        },
+        {
+            "title": "Unique Units",
+            "description": "Scholar: Religious unit capable of healing in the Dark Age (I).\nWar Elephant: Heavy melee cavalry mounted with a Spearman that has high health and damage with a strong siege attack.\nTower Elephant: Ranged cavalry mounted with two Archers that can fire while moving."
         }
     ]
 } as const;

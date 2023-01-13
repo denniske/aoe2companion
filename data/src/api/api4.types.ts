@@ -21,6 +21,7 @@ export interface Aoe4WorldGame {
     duration: number;
     map: string;
     kind: string;
+    leaderboard: string;
     server: string;
     patch: number;
     average_rating: number;

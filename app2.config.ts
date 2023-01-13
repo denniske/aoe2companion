@@ -1,3 +1,15 @@
+// Experimental dark splash screen: https://expo.canny.io/feature-requests/p/dark-mode-splash-screen
+const splash = {
+  "image": "./app/assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000000",
+      "dark": {
+    "image": "./app/assets/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#121212",
+  },
+};
+
 export default {
   "expo": {
     "name": "AoE II Companion",
@@ -24,19 +36,7 @@ export default {
     "privacy": "public",
     "githubUrl": "https://github.com/denniske/aoe2companion",
     "icon": "./app/assets/icon.png",
-
-    // Experimental dark splash screen: https://expo.canny.io/feature-requests/p/dark-mode-splash-screen
-    "splash": {
-      "image": "./app/assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#000000",
-      "dark": {
-        "image": "./app/assets/splash.png",
-        "resizeMode": "contain",
-        "backgroundColor": "#121212",
-      },
-    },
-
+    "splash": splash,
     "updates": {
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/668efd6d-8482-4ad8-8235-e1e94b7d508e"
@@ -75,16 +75,7 @@ export default {
       "permissions": [],
       "googleServicesFile": "./google-services2.json",
       "useNextNotificationsApi": true,
-      "splash": {
-        "image": "./app/assets/splash.png",
-        "resizeMode": "contain",
-        "backgroundColor": "#000000",
-        "dark": {
-          "image": "./app/assets/splash.png",
-          "resizeMode": "contain",
-          "backgroundColor": "#121212",
-        },
-      },
+      "splash": splash,
     },
     "ios": {
       "userInterfaceStyle": "automatic",
@@ -98,16 +89,7 @@ export default {
       "infoPlist": {
         "LSApplicationQueriesSchemes": ["itms-apps"]
       },
-      "splash": {
-        "image": "./app/assets/splash.png",
-        "resizeMode": "contain",
-        "backgroundColor": "#000000",
-        "dark": {
-          "image": "./app/assets/splash.png",
-          "resizeMode": "contain",
-          "backgroundColor": "#121212",
-        },
-      },
+      "splash": splash,
     },
     "hooks": {
       "postPublish": [

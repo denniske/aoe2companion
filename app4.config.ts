@@ -1,3 +1,15 @@
+// Experimental dark splash screen: https://expo.canny.io/feature-requests/p/dark-mode-splash-screen
+const splash = {
+  "image": "./app/assets/splash.png",
+  "resizeMode": "contain",
+  "backgroundColor": "#000000",
+  "dark": {
+    "image": "./app/assets/splash.png",
+    "resizeMode": "contain",
+    "backgroundColor": "#121212",
+  },
+};
+
 export default {
   "expo": {
     "name": "AoE IV Companion",
@@ -19,15 +31,12 @@ export default {
     "userInterfaceStyle": "automatic",
     "jsEngine": "hermes",
     "runtimeVersion": process.env.RUNTIME_VERSION,
-    "version": "6.0.0",
+    "version": "7.0.0",
     "orientation": "portrait",
     "privacy": "public",
     "githubUrl": "https://github.com/denniske/aoe2companion",
     "icon": "./app4/assets/icon.png",
-    "splash": {
-      "image": "./app4/assets/splash.png",
-      "resizeMode": "contain"
-    },
+    "splash": splash,
     "updates": {
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/d8d79ec3-2477-4026-8c8a-456f79fc2f20"
@@ -53,23 +62,25 @@ export default {
     "android": {
       "userInterfaceStyle": "automatic",
       "package": "com.aoe4companion",
-      "versionCode": 60000,
+      "versionCode": 70000,
       "permissions": [],
       "googleServicesFile": "./google-services4.json",
-      "useNextNotificationsApi": true
+      "useNextNotificationsApi": true,
+      "splash": splash,
     },
     "ios": {
       "userInterfaceStyle": "automatic",
       "icon": "./app4/assets/icon-no-alpha.png",
       "bundleIdentifier": "com.aoe4companion",
-      "buildNumber": "6.0.0",
+      "buildNumber": "7.0.0",
       "supportsTablet": false,
       "config": {
         "usesNonExemptEncryption": false
       },
       "infoPlist": {
         "LSApplicationQueriesSchemes": ["itms-apps"]
-      }
+      },
+      "splash": splash,
     },
     "hooks": {
       "postPublish": [

@@ -163,6 +163,8 @@ const aoe4WorldCivMap = {
     'holy_roman_empire': 5,
     'mongols': 6,
     'rus': 7,
+    'malians': 8,
+    'ottomans': 9,
 };
 
 const aoe4WorldLeaderboardMap = {
@@ -172,6 +174,8 @@ const aoe4WorldLeaderboardMap = {
     'qm_3v3': 19,
     'qm_4v4': 20,
     'rm_1v1': 1001,
+    'rm_solo': 1002,
+    'rm_team': 1003,
 };
 
 function aoe4worldMatchToAoe2NetMatch(match4: Aoe4WorldGame) {
@@ -193,7 +197,7 @@ function aoe4worldMatchToAoe2NetMatch(match4: Aoe4WorldGame) {
         started: parseISO(match4.started_at),
         finished: addSeconds(parseISO(match4.started_at), match4.duration),
         map_type: getAllStrings('map_type')?.find(s => s.string == match4.map)?.id as any,
-        leaderboard_id: aoe4WorldLeaderboardMap[match4.kind],
+        leaderboard_id: aoe4WorldLeaderboardMap[match4.leaderboard],
         players,
         num_players: players.length,
 

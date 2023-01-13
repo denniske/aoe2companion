@@ -155,14 +155,16 @@ async function loadDataAoE2TechTree() {
 
 // aoe4civ -> aoe4explorerdataabbrev
 const aoe4CivAbbrevi = {
-    'AbbasidDynasty': 'ab',
-    'Chinese': 'ch',
-    'DelhiSultanate': 'de',
-    'English': 'en',
-    'French': 'fr',
-    'HolyRomanEmpire': 'hr',
-    'Mongols': 'mo',
-    'Rus': 'ru',
+    'AbbasidDynasty': 'abbasid',
+    'Chinese': 'chinese',
+    'DelhiSultanate': 'delhi',
+    'English': 'english',
+    'French': 'french',
+    'HolyRomanEmpire': 'hre',
+    'Malians': 'malians',
+    'Mongols': 'mongols',
+    'Ottomans': 'ottomans',
+    'Rus': 'rus',
 };
 
 async function loadStringsAoe4Explorer() {
@@ -178,7 +180,7 @@ async function loadStringAoe4Explorer(civ: string, explorerAbbreviation: string)
     const filePath = path.resolve(__dirname, '..', '..', 'app4', 'src', 'data', `${civ.toLowerCase()}.ts`);
     const response = await axios({
         method: 'GET',
-        url: `https://raw.githubusercontent.com/aoe4world/explorer/main/src/data/${explorerAbbreviation}.json`,
+        url: `https://raw.githubusercontent.com/aoe4world/data/main/civilizations/${explorerAbbreviation}.json`,
     });
 
     if (!fs.existsSync(dirPath)){
@@ -189,9 +191,9 @@ async function loadStringAoe4Explorer(civ: string, explorerAbbreviation: string)
     fs.writeFileSync(filePath, `export const civData${civ} = ${JSON.stringify(json, null, 4)} as const;`);
 }
 
- loadStrings();
+ // loadStrings();
 // loadStrings4();
-// loadStringsAoe4Explorer();
+loadStringsAoe4Explorer();
 // loadStringsAoE2TechTree();
 
 // loadDataAoE2TechTree();

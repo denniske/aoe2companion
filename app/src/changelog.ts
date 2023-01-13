@@ -14,6 +14,16 @@ export interface IChangelog {
 // https://www.ageofempires.com/news/age-of-empires-iv-season-one-update-release-notes/
 
 export const changelog4: IChangelog = {
+    '7.0.0': [
+        {
+            type: 'minor',
+            title: 'Add malians / ottomans',
+        },
+        {
+            type: 'minor',
+            title: 'Add RM Solo / Team leaderboards',
+        },
+    ],
     '6.0.0': [
         {
             type: 'minor',

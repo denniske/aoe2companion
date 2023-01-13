@@ -6,12 +6,18 @@ export const abbreviationsData = {
     19: '3v3',
     20: '4v4',
     1001: 'e1v1',
+    1002: 'esolo',
+    1003: 'eteam',
 };
 
 export const leaderboardMappingData: any = {
-    1001: {
+    1002: {
         title: 'RM',
-        subtitle: '1v1',
+        subtitle: 'Solo',
+    },
+    1003: {
+        title: 'RM',
+        subtitle: 'Team',
     },
     17: {
         title: 'QM',
@@ -35,6 +41,6 @@ export const leaderboardMappingData: any = {
     // },
 };
 
-export const leaderboardIdsData = [1001, 17, 18, 19, 20];
+export const leaderboardIdsData = [1002, 1003, 17, 18, 19, 20];
 // export const leaderboardIdsData = [1001, 17, 18, 19, 20, 0];
 // export const leaderboardIdsData = Object.keys(leaderboardMappingData) as any as number[];

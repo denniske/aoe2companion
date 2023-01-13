@@ -51,10 +51,12 @@ export const civHistoryList = [
 ];
 
 export function getCivIconByIndex(civ: number) {
+    console.log('getCivIconByIndex', civ);
     return civIconList[civsAoeNet[civ] as Civ];
 }
 
 export function getCivIcon(civ: Civ) {
+    console.log('getCivIcon', civ);
     return civIconList[civ];
 }
 

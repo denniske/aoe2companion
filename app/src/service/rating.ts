@@ -23,6 +23,8 @@ const aoe4WorldLeaderboardMap = {
     'qm_3v3': 19,
     'qm_4v4': 20,
     'rm_1v1': 1001,
+    'rm_solo': 1002,
+    'rm_team': 1003,
 };
 
 // "rating": 2096,
@@ -36,7 +38,12 @@ export async function loadRatingHistoriesLegacy4(userId: UserIdBase): Promise<IR
     const url = `https://aoe4world.com/api/v0/players/${userId.profile_id}`;
     const json = await fetchJson('loadProfileLegacy4', url) as Aoe4WorldProfile;
 
-    if (json.modes == null) return [];
+    if (json?.modes == null) {
+        return [];
+    } else {
+        // rm_1v1 is is just an outdated alias to the new rm_solo.
+        delete json.modes.rm_1v1;
+    }
 
     const ratingHistoryRows: IRatingHistoryRow[] = Object.entries(json.modes).map(([modeKey, mode]) => ({
             data: Object.entries(mode.rating_history).map(([timestamp, entry]) => ({

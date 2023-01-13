@@ -33,6 +33,14 @@
         {
             "id": 7,
             "string": "Rus"
+        },
+        {
+            "id": 8,
+            "string": "Malians"
+        },
+        {
+            "id": 9,
+            "string": "Ottomans"
         }
     ],
     "game_type": [],

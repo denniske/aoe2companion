@@ -1,4 +1,7 @@
 
+eval $(op signin)
+op read op://aoe2companion/.../password
+
 https://github.com/transparencies/unique-unit-masks
 
 Aoe 2 Maps

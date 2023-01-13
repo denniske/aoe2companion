@@ -32,6 +32,8 @@ export function getLeaderboardOrGameType(leaderboard_id: LeaderboardId, game_typ
                 19: 'QM 3v3',
                 20: 'QM 4v4',
                 1001: 'RM 1v1',
+                1002: 'RM Solo',
+                1003: 'RM Team',
             };
             return mapping[leaderboard_id];
         }
