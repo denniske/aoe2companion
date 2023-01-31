@@ -110,6 +110,46 @@
         {
             "id": 17,
             "string": "Mega Random"
+        },
+        {
+            "id": 18,
+            "string": "Forest Ponds"
+        },
+        {
+            "id": 19,
+            "string": "Hideout"
+        },
+        {
+            "id": 20,
+            "string": "Mountain Clearing"
+        },
+        {
+            "id": 21,
+            "string": "Wetlands"
+        },
+        {
+            "id": 22,
+            "string": "Prairie"
+        },
+        {
+            "id": 23,
+            "string": "Waterholes"
+        },
+        {
+            "id": 24,
+            "string": "Mediterranean"
+        },
+        {
+            "id": 25,
+            "string": "Oasis"
+        },
+        {
+            "id": 26,
+            "string": "The Pit"
+        },
+        {
+            "id": 27,
+            "string": "Rolling Rivers"
         }
     ],
     "rating_type": [],

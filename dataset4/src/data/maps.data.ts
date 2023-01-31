@@ -18,6 +18,16 @@ export const mapsData = {
     15: require('../../../app4/assets/maps/nagari_icon.png'),
     16: require('../../../app4/assets/maps/boulder_bay_icon.png'),
     17: require('../../../app4/assets/maps/megarandom_icon.png'),
+    18: require('../../../app4/assets/maps/forest_ponds_icon.png'),
+    19: require('../../../app4/assets/maps/hideout_icon.png'),
+    20: require('../../../app4/assets/maps/mountain_clearing_icon.png'),
+    21: require('../../../app4/assets/maps/wetlands_icon.png'),
+    22: require('../../../app4/assets/maps/prairie_icon.png'),
+    23: require('../../../app4/assets/maps/waterholes_icon.png'),
+    24: require('../../../app4/assets/maps/mediterranean_icon.png'),
+    25: require('../../../app4/assets/maps/oasis_icon.png'),
+    26: require('../../../app4/assets/maps/the_pit_icon.png'),
+    27: require('../../../app4/assets/maps/rolling_rivers_icon.png'),
 };
 
 export const mapsFallbackData = require('../../../app4/assets/maps/no_thumbnail.png');

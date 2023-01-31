@@ -196,7 +196,7 @@ function aoe4worldMatchToAoe2NetMatch(match4: Aoe4WorldGame) {
         server: match4.server,
         started: parseISO(match4.started_at),
         finished: addSeconds(parseISO(match4.started_at), match4.duration),
-        map_type: getAllStrings('map_type')?.find(s => s.string == match4.map)?.id as any,
+        map_type: getAllStrings('map_type')?.find(s => s.string.replace(/\s+/g, '') == match4.map.replace(/\s+/g, ''))?.id as any ?? (console.log('map_type not found', match4.map)),
         leaderboard_id: aoe4WorldLeaderboardMap[match4.leaderboard],
         players,
         num_players: players.length,
