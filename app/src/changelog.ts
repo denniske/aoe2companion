@@ -14,6 +14,12 @@ export interface IChangelog {
 // https://www.ageofempires.com/news/age-of-empires-iv-season-one-update-release-notes/
 
 export const changelog4: IChangelog = {
+    '9.0.0': [
+        {
+            type: 'minor',
+            title: 'Added some maps',
+        },
+    ],
     '8.0.0': [
         {
             type: 'minor',
