@@ -824,17 +824,10 @@ const techEffectDictInternal = {
             hitPoints: '+20',
         },
     },
-    'ParthianTactics-2': {
+    'ParthianTactics': {
         tech: 'ParthianTactics',
         effect: {
             attack: '+2 attack against Spearmen',
-            armor: '+1/+2',
-        },
-    },
-    'ParthianTactics-4': {
-        tech: 'ParthianTactics',
-        effect: {
-            attack: '+4 attack against Spearmen',
             armor: '+1/+2',
         },
     },

@@ -62,7 +62,7 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
                 {
                     boni.map((bonus, i) =>
                         <View key={i} style={styles.bonusRow}>
-                            <MyText style={styles.content}>• </MyText>
+                            <MyText style={styles.bullet}>• </MyText>
                             <MyText style={styles.content}><HighlightUnitAndTechs str={bonus}/></MyText>
                         </View>
                     )
@@ -226,6 +226,11 @@ const useStyles = createStylesheet((theme, darkMode) => StyleSheet.create({
     content: {
         textAlign: 'left',
         lineHeight: 22,
+    },
+    bullet: {
+        textAlign: 'left',
+        lineHeight: 22,
+        flexShrink: 0,
     },
     detailsContainer: {
         flex: 1,

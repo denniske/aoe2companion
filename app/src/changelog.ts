@@ -93,6 +93,16 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '55.0.0': [
+        {
+            type: 'minor',
+            title: 'Implemented [AoE II DE Update 78174](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-78174/)',
+        },
+        {
+            type: 'minor',
+            title: 'Implemented [AoE II DE Update 73855](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-73855/)',
+        },
+    ],
     '54.0.0': [
         {
             type: 'minor',

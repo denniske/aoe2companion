@@ -125,6 +125,7 @@ function getUniqueUnitsForSection(civ: Civ) {
         'Missionary',
         'FlamingCamel',
         'Longboat',
+        'Houfnice',
     ];
 
     const allUnits = [];
