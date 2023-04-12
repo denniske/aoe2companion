@@ -140,6 +140,9 @@ async function loadStringsAoE2TechTree() {
 async function loadDataAoE2TechTree() {
     const dirPath = path.resolve(__dirname, '..', '..', 'data', 'src', 'data');
     const filePath = path.resolve(__dirname, '..', '..', 'data', 'src', 'data', 'aoe-data.ts');
+
+    console.log("Loading data from aoe2techtree");
+
     const response = await axios({
         method: 'GET',
         url: `https://raw.githubusercontent.com/SiegeEngineers/aoe2techtree/master/data/data.json`,
@@ -194,5 +197,5 @@ async function loadStringAoe4Explorer(civ: string, explorerAbbreviation: string)
  // loadStrings();
 // loadStrings4();
 //  loadStringsAoe4Explorer();
-//loadStringsAoE2TechTree();
+loadStringsAoE2TechTree();
 loadDataAoE2TechTree();
