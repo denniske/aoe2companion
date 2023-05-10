@@ -430,6 +430,13 @@ const techEffectDictInternal = {
             other: 'monks convert faster',
         },
     },
+    'Inquisition-1': {
+        tech: 'Inquisition',
+        civ: 'Spanish',
+        effect: {
+            range: '+1',
+        },
+    },
 
     'GreekFire': {
         tech: 'GreekFire',
@@ -594,14 +601,14 @@ const techEffectDictInternal = {
         tech: 'RoyalHeirs',
         civ: 'Ethiopians',
         effect: {
-            creationSpeed: '+100%',
+            other: '-3 damage from mounted units',
         },
     },
-    'Berserkergang': {
-        tech: 'Berserkergang',
+    'Bogsveigar': {
+        tech: 'Bogsveigar',
         civ: 'Vikings',
         effect: {
-            other: 'increases regeneration speed',
+            attack: '+1',
         },
     },
     'Anarchy': {
@@ -658,6 +665,7 @@ const techEffectDictInternal = {
         civ: 'Vikings',
         effect: {
             attack: 'gives +5 attack against cavalry and +4 against camels',
+            other: 'generates gold when killing Villagers, trade units, and Monks',
         },
     },
     'Perfusion': {
@@ -956,6 +964,13 @@ const techEffectDictInternal = {
             range: 'eliminates the minimum range',
         },
     },
+    'AndeanSling-1': {
+        tech: 'AndeanSling',
+        civ: 'Incas',
+        effect: {
+            attack: '+1',
+        },
+    },
 
     'PaddedArcherArmor': {
         tech: 'PaddedArcherArmor',
@@ -1048,6 +1063,12 @@ const techEffectDictInternal = {
         tech: 'Arson',
         effect: {
             attack: '+2 attack against standard buildings',
+        },
+    },
+    'Gambesons': {
+        tech: 'Gambesons',
+        effect: {
+            armor: '0/+1',
         },
     },
     'ScaleMailArmor': {
@@ -1149,13 +1170,13 @@ function addNameToTechEffectDict(dict: ITechEffectDict): ITechEffectDict {
     return dict;
 }
 
-// export const techEffectDict = techEffectDictInternal as ITechEffectDict;
 export const techEffectDict = addNameToTechEffectDict(techEffectDictInternal as any) as ITechEffectDict;
 
-// var d = techEffectDictInternal['Artillery'].
-// var d = techEffectDict['Artillery']
-
 export const techList: ITech[] = [
+    {
+        "dataId": "875",
+        "name": "Gambesons",
+    },
     {
         "dataId": "454",
         "name": "Counterweights",
@@ -1643,7 +1664,7 @@ export const techList: ITech[] = [
     },
     {
         "dataId": "49",
-        "name": "Berserkergang",
+        "name": "Bogsveigar",
         "civ": "Vikings",
         "age": 'Imperial',
     },
@@ -2085,6 +2106,7 @@ type TechEffectNameDict = {
 };
 
 const techIds = [
+    'Gambesons',
     'Counterweights',
     'Kshatriyas',
     'FrontierGuards',
@@ -2247,7 +2269,7 @@ const techIds = [
     'Crenellations',
     'Artillery',
     'PaperMoney',
-    'Berserkergang',
+    'Bogsveigar',
 ] as const;
 
 const TechUnion = unwrap(techIds);

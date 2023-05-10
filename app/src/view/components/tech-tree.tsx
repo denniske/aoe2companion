@@ -39,15 +39,15 @@ function TechTreeRow({civ, row}: {civ: aoeCivKey, row: ITechTreeRow}) {
                         }
                         {
                             item.unit &&
-                            <Ability2 civ={civ} unit={item.unit as any} unique={item.unique}/>
+                            <Ability2 civ={civ} unit={item.unit as any} unique={item.unique} dependsOn={item.dependsOn}/>
                         }
                         {
                             item.tech &&
-                            <Ability2 civ={civ} tech={item.tech as any} unique={item.unique}/>
+                            <Ability2 civ={civ} tech={item.tech as any} unique={item.unique} dependsOn={item.dependsOn}/>
                         }
                         {
                             item.building &&
-                            <Ability2 civ={civ} building={item.building as any} unique={item.unique}/>
+                            <Ability2 civ={civ} building={item.building as any} unique={item.unique} dependsOn={item.dependsOn}/>
                         }
                     </Fragment>
                 )
@@ -116,6 +116,7 @@ interface AbilityProps {
     unit?: Unit;
     building?: Building;
     unique?: boolean;
+    dependsOn?: any;
 }
 
 export function getAbilityIcon({tech, unit, building}: AbilityHelperProps) {
@@ -155,10 +156,10 @@ const techTreeWidth = windowWidth - 28;
 const colSize = (techTreeWidth / 8)-4;
 const colSize2 = colSize-6;
 
-function Ability2({civ, tech, unit, building, unique}: AbilityProps) {
+function Ability2({civ, tech, unit, building, unique, dependsOn}: AbilityProps) {
     if (!civ) return Ability0();
     if (!tech && !unit && !building) return Ability0();
-    const enabled = getAbilityEnabled({civ, tech, unit, building});
+    const enabled = getAbilityEnabled({civ, tech, unit, building, dependsOn});
     let borderColor = '#555';
     const opacity = enabled ? 1 : 0.4;
     if (tech) {

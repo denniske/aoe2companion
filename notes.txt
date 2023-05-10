@@ -1,4 +1,9 @@
 
+- Spies/Treason cost
+- Flemish Revolution cost
+
+- return of rome
+
 eval $(op signin)
 op read op://aoe2companion/.../password
 

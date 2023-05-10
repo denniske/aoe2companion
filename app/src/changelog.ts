@@ -93,6 +93,16 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '56.0.0': [
+        {
+            type: 'minor',
+            title: 'Implemented [AoE II DE Hotfix 82587](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-hotfix-82587/)',
+        },
+        {
+            type: 'minor',
+            title: 'Implemented [AoE II DE Update 81058](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-81058/)',
+        },
+    ],
     '55.0.0': [
         {
             type: 'minor',

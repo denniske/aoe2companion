@@ -393,6 +393,7 @@ export const unitLines: IUnitLineDict = {
             'Illumination',
             'Theocracy',
             'Inquisition',
+            'Inquisition-1',
             'Faith',
             'Heresy',
         ],
@@ -428,6 +429,7 @@ export const unitLines: IUnitLineDict = {
             'Theocracy-5',
             'Inquisition',
             'HussiteReforms',
+            'Mahayana',
         ],
     },
     'DemolitionRaft': {
@@ -683,6 +685,7 @@ export const unitLines: IUnitLineDict = {
             'DryDock',
             'Faith',
             'Heresy',
+            'Bogsveigar',
         ],
     },
     'Janissary': {
@@ -1159,7 +1162,6 @@ export const unitLines: IUnitLineDict = {
             'Faith',
             'Heresy',
             'Conscription',
-            'Berserkergang',
         ],
     },
     'TeutonicKnight': {
@@ -1810,6 +1812,7 @@ export const unitLines: IUnitLineDict = {
             'FrontierGuards',
             'Kshatriyas',
             'MaghrebiCamels',
+            'RoyalHeirs',
         ],
     },
     'Knight': {
@@ -2013,6 +2016,7 @@ export const unitLines: IUnitLineDict = {
             'Bracer',
             'Chemistry',
             'Atlatl',
+            'RecurveBow',
             'AndeanSling',
             'ThumbRing-No',
             'Ballistics',
@@ -2020,6 +2024,7 @@ export const unitLines: IUnitLineDict = {
             'LeatherArcherArmor',
             'RingArcherArmor',
             'SilkArmor',
+            'TowerShields',
             'Husbandry',
             'Faith',
             'Heresy',
@@ -2358,6 +2363,7 @@ export const unitLines: IUnitLineDict = {
             'Heresy',
             'Kamandaran',
             'Conscription',
+            'Bogsveigar',
         ],
     },
     'PlumedArcher': {
@@ -2415,6 +2421,7 @@ export const unitLines: IUnitLineDict = {
             'BodkinArrow',
             'Bracer',
             'Chemistry',
+            'AndeanSling-1',
             'AndeanSling',
             'ThumbRing-18',
             'Ballistics',
@@ -3392,6 +3399,8 @@ const unitClasses = {
     35: "mamelukes",
     36: "heroesandkings",
     37: "hussitewagon",
+    38: 'skirmishers',
+    39: 'cavalryresistance',
 } as const;
 
 export const attackClasses = [

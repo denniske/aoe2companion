@@ -10,6 +10,7 @@ export interface AbilityProps2 {
     tech?: Tech;
     unit?: Unit;
     building?: Building;
+    dependsOn?: any;
 }
 
 export interface AbilityHelperProps {
@@ -18,7 +19,10 @@ export interface AbilityHelperProps {
     building?: Building;
 }
 
-export function getAbilityEnabled({civ, tech, unit, building}: AbilityProps2) {
+export function getAbilityEnabled({civ, tech, unit, building, dependsOn}: AbilityProps2) {
+    if (dependsOn && !getAbilityEnabled({...dependsOn, civ})) {
+        return false;
+    }
     if (tech) {
         return getCivHasTech(civ, tech);
     }

@@ -179,7 +179,6 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {unit: 'Spearman'},
                 {unit: 'EagleScout'},
                 {},
-                {},
                 {tech: 'Supplies'},
             ],
         },
@@ -190,7 +189,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {unit: 'Pikeman'},
                 {unit: 'EagleWarrior'},
                 {},
-                {},
+                {tech: 'Gambesons'},
                 {tech: 'Squires'},
                 {tech: 'Arson'},
             ],
@@ -433,12 +432,16 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {},
                 {},
                 {unit: 'Serjeant', unique: true},
+                {unit: 'Spearman', dependsOn: {building: 'Donjon'}},
             ],
         },
         {
             items: [
                 {age: 'CastleAge'},
                 {unit: 'Konnik', unique: true},
+                {},
+                {},
+                {unit: 'Pikeman', dependsOn: {building: 'Donjon'}},
             ],
         },
         {
@@ -447,6 +450,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {unit: 'EliteKonnik', unique: true},
                 {},
                 {unit: 'EliteSerjeant', unique: true},
+                {unit: 'Halberdier', dependsOn: {building: 'Donjon'}},
             ],
         },
 
