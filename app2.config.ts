@@ -63,7 +63,9 @@ export default {
         {
           "icon": "./app/assets/notification.png"
         }
-      ]
+      ],
+      "expo-localization",
+      "sentry-expo"
     ],
     "android": {
       "userInterfaceStyle": "automatic",
@@ -74,7 +76,6 @@ export default {
       "versionCode": 560000,
       "permissions": [],
       "googleServicesFile": "./google-services2.json",
-      "useNextNotificationsApi": true,
       "splash": splash,
     },
     "ios": {
