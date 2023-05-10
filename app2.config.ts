@@ -63,9 +63,7 @@ export default {
         {
           "icon": "./app/assets/notification.png"
         }
-      ],
-      "expo-localization",
-      "sentry-expo"
+      ]
     ],
     "android": {
       "userInterfaceStyle": "automatic",
