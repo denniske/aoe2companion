@@ -74,6 +74,7 @@ export interface IMatchRaw {
     checked?: any;
     full_tech_tree: boolean;
     game_type: any;
+    game_variant: any;
     has_custom_content: any;
     has_password: boolean;
     leaderboard_id: number;

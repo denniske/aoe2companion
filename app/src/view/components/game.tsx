@@ -143,6 +143,7 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
 
                     <View style={styles.header}>
                         <MyText numberOfLines={1} style={styles.matchTitle}>
+                            {match.game_variant === 1 && 'RoR - '}
                             {getMapName(match.map_type)} - {match.match_id}
                             {
                                 match.server &&

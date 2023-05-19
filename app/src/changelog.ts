@@ -93,6 +93,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '57.0.0': [
+        {
+            type: 'minor',
+            title: 'Implemented [AoE II DE Update 83607](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-83607/)',
+        },
+    ],
     '56.0.0': [
         {
             type: 'minor',

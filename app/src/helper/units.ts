@@ -38,6 +38,9 @@ interface UnitIconDict {
 }
 
 const unitIcons: UnitIconDict = {
+    'Centurion': require('../../assets/units/Centurion.png'),
+    'Legionary': require('../../assets/units/Legionary.png'),
+    'Dromon': require('../../assets/units/Dromon.png'),
     'Ghulam': require('../../assets/units/Ghulam.png'),
     'CamelScout': require('../../assets/units/CamelScout.png'),
     'ShrivamshaRider': require('../../assets/units/ShrivamshaRider.png'),

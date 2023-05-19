@@ -238,6 +238,11 @@ export const civList: ICivEntry[] = [
         uniqueTechs: ['Carrack', 'Arquebus'],
     },
     {
+        name: 'Romans',
+        uniqueUnits: ['Centurion', 'Legionary'],
+        uniqueTechs: ['Ballistas', 'Comitatenses'],
+    },
+    {
         name: 'Saracens',
         uniqueUnits: ['Mameluke'],
         uniqueTechs: ['Zealotry', 'Counterweights'],

@@ -17,6 +17,7 @@
     "temp2": "ts-node src/temp2.ts",
     "temp3": "ts-node src/temp3.ts",
     "temp4": "ts-node src/temp4.ts",
+    "temp5": "ts-node src/temp5.ts",
     "executor": "ts-node src/executor.ts",
     "translate": "ts-node src/translate.ts",
     "reference": "ts-node src/reference.ts",
@@ -34,6 +35,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.16.3",
     "image-data-uri": "^2.0.1",
+    "lodash": "^4.17.19",
     "node-fetch": "^2.6.0",
     "png-file-stream": "^1.2.1",
     "sharp": "^0.29.3",
@@ -41,6 +43,7 @@
     "yaml": "^1.10.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.157",
     "@types/node-fetch": "^2.5.7",
     "@types/sharp": "^0.29.4",
     "nodemon": "^1.18.3",
