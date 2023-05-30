@@ -11,18 +11,20 @@ export const civsData = [
     'Ottomans',
 ] as const;
 
-export const civsAoeNetData = [
-    'AbbasidDynasty',
-    'Chinese',
-    'DelhiSultanate',
-    'English',
-    'French',
-    'HolyRomanEmpire',
-    'Mongols',
-    'Rus',
-    'Malians',
-    'Ottomans',
-];
+export const civsAoeNetData = civsData;
+
+// export const civsAoeNetData = [
+//     'AbbasidDynasty',
+//     'Chinese',
+//     'DelhiSultanate',
+//     'English',
+//     'French',
+//     'HolyRomanEmpire',
+//     'Mongols',
+//     'Rus',
+//     'Malians',
+//     'Ottomans',
+// ];
 
 export const civIconListData = {
     'AbbasidDynasty': require('../../../app4/assets/civilizations/abbasid-dynasty.png'),

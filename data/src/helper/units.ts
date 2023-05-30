@@ -479,6 +479,7 @@ export const unitLines: IUnitLineDict = {
             'Fletching',
             'BodkinArrow',
             'Bracer',
+            'Ballistas',
             'Chemistry',
             'Ballistics',
             'Careening',
@@ -941,6 +942,7 @@ export const unitLines: IUnitLineDict = {
             'Rocketry-4',
             'TorsionEngines',
             'DoubleCrossbow',
+            'Ballistas',
             'Ironclad',
             'Drill',
             'Faith',
@@ -1434,6 +1436,77 @@ export const unitLines: IUnitLineDict = {
             'Perfusion',
             'Supplies',
             'ForcedLevy',
+            'Comitatenses',
+        ],
+    },
+    'Legionary': {
+        units: ['Legionary'],
+        counteredBy: [
+            'Archer',
+            'HandCannoneer',
+            'CavalryArcher',
+            'Scorpion',
+            'TeutonicKnight',
+            'JaguarWarrior',
+            'Slinger',
+            'ChuKoNu',
+            'Janissary',
+            'OrganGun',
+            'Cataphract',
+            'Boyar',
+            'Conquistador',
+            'WarWagon',
+            'BallistaElephant',
+            'Genitour',
+            'Kipchak',
+            'Mangudai'
+        ],
+        upgrades: [
+            'Forging',
+            'IronCasting',
+            'BlastFurnace',
+            'Arson',
+            'ScaleMailArmor',
+            'ChainMailArmor',
+            'Squires',
+            'Tracking',
+            'Faith',
+            'Conscription',
+            'Comitatenses',
+            'Centurion',
+        ],
+    },
+    'Centurion': {
+        units: ['Centurion', 'EliteCenturion'],
+        counteredBy: [
+        ],
+        upgrades: [
+            'Bloodlines',
+            'Forging',
+            'IronCasting',
+            'BlastFurnace',
+            'Comitatenses',
+            'ScaleBardingArmor',
+            'ChainBardingArmor',
+            'PlateBardingArmor',
+            'Husbandry',
+            'Faith',
+            'Conscription',
+            'Kasbah',
+        ],
+    },
+    'Dromon': {
+        units: ['Dromon'],
+        counteredBy: [
+        ],
+        upgrades: [
+            'SiegeEngineers-20-1',
+            'Chemistry',
+            'Careening',
+            'DryDock',
+            'Faith',
+            'Heresy',
+            'Shipwright',
         ],
     },
     'Keshik': {
@@ -1838,6 +1911,7 @@ export const unitLines: IUnitLineDict = {
             'BlastFurnace',
             'Farimba',
             'ManipurCavalry',
+            'Comitatenses',
             'Stirrups',
             'ScaleBardingArmor',
             'ChainBardingArmor',
@@ -2469,6 +2543,18 @@ export const unitLines: IUnitLineDict = {
 };
 
 const unitsInternal = {
+    'Dromon': {
+        dataId: '1795',
+    },
+    'Centurion': {
+        dataId: '1790',
+    },
+    'EliteCenturion': {
+        dataId: '1792',
+    },
+    'Legionary': {
+        dataId: '1793',
+    },
     'Ghulam': {
         dataId: '1747',
     },
@@ -3611,6 +3697,7 @@ export const sortedUnitLines: UnitLine[] = [
     'Villager',
 
     'Militia',
+    'Legionary',
     'Spearman',
     'EagleScout',
 
@@ -3633,6 +3720,7 @@ export const sortedUnitLines: UnitLine[] = [
     'TradeCog',
     'TransportShip',
     'Galley',
+    'Dromon',
     'FireGalley',
     'DemolitionRaft',
     'CannonGalleon',
@@ -3655,6 +3743,7 @@ export const sortedUnitLines: UnitLine[] = [
     'CamelArcher',
     'Caravel',
     'Cataphract',
+    'Centurion',
     'ChuKoNu',
     'Condottiero',
     'Conquistador',

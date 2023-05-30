@@ -85,4 +85,7 @@ export const unitLineIdsData = [
     'PlumedArcher',
     'Slinger',
     'Kamayuk',
+    'Legionary',
+    'Centurion',
+    'Dromon',
 ] as const;

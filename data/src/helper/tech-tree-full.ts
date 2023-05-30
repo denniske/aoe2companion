@@ -197,7 +197,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {age: 'ImperialAge'},
-                {unit: 'TwoHandedSwordsman'},
+                ...(civInfo.name !== 'Romans' ? [{unit: 'TwoHandedSwordsman' as Unit}] : [{unit: 'Legionary' as Unit, unique: true}]),
                 {unit: 'Halberdier'},
                 {unit: 'EliteEagleWarrior'},
                 {unit: 'Condottiero', unique: true},
@@ -206,7 +206,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {},
-                {unit: 'Champion'},
+                ...(civInfo.name !== 'Romans' ? [{unit: 'Champion' as Unit}] : [{}]),
             ],
         },
 
@@ -374,6 +374,18 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {unit: 'EliteCannonGalleon'},
             ],
         },
+
+
+        {
+            title: ''
+        },
+        {
+            items: [
+                {age: 'ImperialAge'},
+                {unit: 'Dromon'},
+            ],
+        },
+
 
         {
             title: ''

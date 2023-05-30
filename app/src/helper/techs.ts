@@ -85,6 +85,7 @@ const techIcons: TechIconDict = {
     'TreadmillCrane': require('../../../app/assets/techs/TreadmillCrane.png'),
 
     'Atlatl': require('../../../app/assets/techs/UniqueTechCastle.png'),
+    'Ballistas': require('../../../app/assets/techs/UniqueTechCastle.png'),
     'Kasbah': require('../../../app/assets/techs/UniqueTechCastle.png'),
     'Yeomen': require('../../../app/assets/techs/UniqueTechCastle.png'),
     'Stirrups': require('../../../app/assets/techs/UniqueTechCastle.png'),
@@ -127,6 +128,7 @@ const techIcons: TechIconDict = {
     'MedicalCorps': require('../../../app/assets/techs/UniqueTechCastle.png'),
     'Paiks': require('../../../app/assets/techs/UniqueTechCastle.png'),
 
+    'Comitatenses': require('../../../app/assets/techs/UniqueTechImperial.png'),
     'LechiticLegacy': require('../../../app/assets/techs/UniqueTechImperial.png'),
     'HussiteReforms': require('../../../app/assets/techs/UniqueTechImperial.png'),
     'GarlandWars': require('../../../app/assets/techs/UniqueTechImperial.png'),

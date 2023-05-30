@@ -129,15 +129,12 @@ export function Player({match, player, highlight, freeForALl, canDownloadRec}: I
                 </>
             }
 
-            {
-                match.game_variant !== 1 &&
-                <TouchableOpacity style={styles.civCol} onPress={() => navigation.push('Civ', {civ: civsAoeNet[player.civ]})}>
-                    <View style={appConfig.game === 'aoe2de' ? styles.row : styles.row4}>
-                        <Image fadeDuration={0} style={styles.countryIcon} source={getCivIconByIndex(player.civ) as any}/>
-                        <MyText numberOfLines={1} style={styles.text}>{getCivName(player.civ)}</MyText>
-                    </View>
-                </TouchableOpacity>
-            }
+            <TouchableOpacity style={styles.civCol} onPress={() => player.civ < 10000 && navigation.push('Civ', {civ: civsAoeNet[player.civ]})}>
+                <View style={appConfig.game === 'aoe2de' ? styles.row : styles.row4}>
+                    <Image fadeDuration={0} style={styles.countryIcon} source={getCivIconByIndex(player.civ) as any}/>
+                    <MyText numberOfLines={1} style={styles.text}>{getCivName(player.civ)}</MyText>
+                </View>
+            </TouchableOpacity>
         </View>
     );
 }

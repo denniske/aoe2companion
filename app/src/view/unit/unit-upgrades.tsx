@@ -51,6 +51,10 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
     if (unitId === 'WingedHussar') {
         upgradedFrom = 'LightCavalry' as Unit;
     }
+    if (unitId === 'Legionary') {
+        upgradedFrom = 'LongSwordsman' as Unit;
+    }
+
 
     let upgradedToList = unitIndex < unitLine.units.length-1 ? [unitLine.units[unitIndex+1]] : [];
     if (unitId === 'LightCavalry') {
@@ -58,6 +62,9 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
     }
     if (unitId === 'Hussar') {
         upgradedToList = [];
+    }
+    if (unitId === 'LongSwordsman') {
+        upgradedToList = ['TwoHandedSwordsman', 'Legionary'];
     }
 
     let groups = keysOf(effectNames).map(effect => ({

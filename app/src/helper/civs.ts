@@ -50,8 +50,31 @@ export const civHistoryList = [
     require('../../../app/assets/history/civs/history_indians.png'),
 ];
 
+export const civImageRoRList = [
+    require('../../../app/assets/civilizations/egyptian.png'),
+    require('../../../app/assets/civilizations/greek.png'),
+    require('../../../app/assets/civilizations/babylonian.png'),
+    require('../../../app/assets/civilizations/assyrian.png'),
+    require('../../../app/assets/civilizations/minoan.png'),
+    require('../../../app/assets/civilizations/hittite.png'),
+    require('../../../app/assets/civilizations/phoenician.png'),
+    require('../../../app/assets/civilizations/sumerian.png'),
+    require('../../../app/assets/civilizations/persian.png'),
+    require('../../../app/assets/civilizations/shang.png'),
+    require('../../../app/assets/civilizations/yamato.png'),
+    require('../../../app/assets/civilizations/choson.png'),
+    require('../../../app/assets/civilizations/romans.png'),
+    require('../../../app/assets/civilizations/carthaginian.png'),
+    require('../../../app/assets/civilizations/palmyran.png'),
+    require('../../../app/assets/civilizations/macedonian.png'),
+    require('../../../app/assets/civilizations/lacviet.png'),
+];
+
 export function getCivIconByIndex(civ: number) {
-    console.log('getCivIconByIndex', civ);
+    console.log('getCivIconByIndex', civ, civsAoeNet[civ]);
+    if (civ >= 10000) {
+        return civImageRoRList[civ - 10000];
+    }
     return civIconList[civsAoeNet[civ] as Civ];
 }
 

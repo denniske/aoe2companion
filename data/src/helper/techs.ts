@@ -73,6 +73,27 @@ const techEffectDictInternal = {
     //     },
     // },
 
+    'Centurion': {
+        unit: 'Centurion',
+        effect: {
+            other:  '+10% (+15%) movement speed and +25% (+33%) attack speed within 10 (12) tiles radius of a (Elite) Centurion',
+        },
+    },
+    'Comitatenses': {
+        tech: 'Comitatenses',
+        civ: 'Romans',
+        effect: {
+            attack:  '+5 charge attack',
+            creationSpeed:  '+50%',
+        },
+    },
+    'Ballistas': {
+        tech: 'Ballistas',
+        civ: 'Romans',
+        effect: {
+            firingRate:  '+33%',
+        },
+    },
     'PaperMoney': {
         tech: 'PaperMoney',
         civ: 'Vietnamese',
@@ -1174,6 +1195,18 @@ export const techEffectDict = addNameToTechEffectDict(techEffectDictInternal as 
 
 export const techList: ITech[] = [
     {
+        "dataId": "883",
+        "name": "Ballistas",
+        "civ": "Romans",
+        "age": 'Castle',
+    },
+    {
+        "dataId": "884",
+        "name": "Comitatenses",
+        "civ": "Romans",
+        "age": 'Imperial',
+    },
+    {
         "dataId": "875",
         "name": "Gambesons",
     },
@@ -2106,6 +2139,8 @@ type TechEffectNameDict = {
 };
 
 const techIds = [
+    'Ballistas',
+    'Comitatenses',
     'Gambesons',
     'Counterweights',
     'Kshatriyas',

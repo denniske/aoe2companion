@@ -1,11 +1,15 @@
 
+x return of rome
+x localization for newly found maps 34-48 and 127-131
+
 - Spies/Treason cost
 - Flemish Revolution cost
 - Flemish Militia barracks?
 
-- return of rome
-- localization for newly found maps 34-48 and 127-131
-
+- slot_type column was removed and is just set to 1
+- centurion effect on militia in unit page
+- counter for dromon centurion legionary
+- wootz steel in unit ugrades list
 
 eval $(op signin)
 op read op://aoe2companion/.../password

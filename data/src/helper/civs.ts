@@ -6,7 +6,7 @@ import {getAoeString, getString} from '../lib/aoe-data';
 import {orderBy} from 'lodash';
 import {getService, SERVICE_NAME} from "../lib/di";
 import {ICivService} from "../lib/host";
-import {civsAoeNetData, civsData} from "@nex/dataset";
+import {appConfig, civsAoeNetData, civsData} from "@nex/dataset";
 
 // export const civs = [
 //     'Aztecs',
@@ -302,14 +302,46 @@ export function orderCivs(civs: Readonly<Civ[]>) {
     return orderBy(civs, c => removeAccentsAndCase(getCivNameById(c) || 'none'), 'asc');
 }
 
+const rorCivNameDict = {
+    0: "Egyptians",
+    1: "Greeks",
+    2: "Babylonians",
+    3: "Assyrians",
+    4: "Minoans",
+    5: "Hittites",
+    6: "Phoenicians",
+    7: "Sumerians",
+    8: "Persians",
+    9: "Shang",
+    10: "Yamato",
+    11: "Choson",
+    12: "Romans",
+    13: "Carthaginians",
+    14: "Palmyrans",
+    15: "Macedonians",
+    16: "LacViet",
+};
+
 export function getCivName(civ: number) {
     // console.log('getCivName', civ);
+    if (appConfig.game === 'aoe2de') {
+        if (civ >= 10000) {
+            return rorCivNameDict[civ - 10000];
+        }
+        const civNameKey = aoeData.civ_names[civs[civ]];
+        // console.log(civs[civ], civNameKey, getAoeString(civNameKey));
+        return getAoeString(civNameKey);
+    }
     return getString('civ', civ);
 }
 
 export function getCivNameById(civ: Civ) {
-    console.log('getcivname', civ, civsAoeNet.indexOf(civ));
-    return getString('civ', civsAoeNet.indexOf(civ));
+    // console.log('getcivname', civ, civs.indexOf(civ));
+    if (appConfig.game === 'aoe2de') {
+        const civNameKey = aoeData.civ_names[civ];
+        return getAoeString(civNameKey);
+    }
+    return getString('civ', civs.indexOf(civ));
     // const civStringKey = aoeData.civ_names[civ];
     // return 'byid-'+sanitizeGameDescription(getAoeString(civStringKey));
 }

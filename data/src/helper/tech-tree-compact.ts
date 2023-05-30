@@ -98,14 +98,14 @@ export function getCompactTechTree(civInfo: ICivEntry): ITechTreeRow[] {
         },
         {
             items: [
-                {unit: 'TwoHandedSwordsman'},
+                ...(civInfo.name !== 'Romans' ? [{unit: 'TwoHandedSwordsman' as Unit}] : [{unit: 'Legionary' as Unit, unique: true}]),
                 {unit: 'Pikeman'},
                 {unit: 'EagleWarrior'},
             ],
         },
         {
             items: [
-                {unit: 'Champion'},
+                ...(civInfo.name !== 'Romans' ? [{unit: 'Champion' as Unit}] : [{}]),
                 {unit: 'Halberdier'},
                 {unit: 'EliteEagleWarrior'},
                 {unit: 'Condottiero', unique: true},
