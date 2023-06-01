@@ -212,8 +212,8 @@ export function getAttackBonuses(params: GetDataParams) {
     const data = getData(params);
     const eliteData = params.unitId ? getEliteData(getUnitLineIdForUnit(params.unitId)) : null;
 
-    const attackBonuses = data.Attacks.filter(a => a.Amount > 0 && !attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber))).map(a => a.Class);
-    const attackBonusesElite = eliteData?.Attacks.filter(a => a.Amount > 0 && !attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber))).map(a => a.Class) ?? [];
+    const attackBonuses = data.Attacks.filter(a => a.Amount !== 0 && !attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber))).map(a => a.Class);
+    const attackBonusesElite = eliteData?.Attacks.filter(a => a.Amount !== 0 && !attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber))).map(a => a.Class) ?? [];
 
     const upgradeByAgeData = getUpgradeByAgeData(params);
     const ageUpgradeAttackBonuses = (age: Age) => upgradeByAgeData?.[age]?.Attacks?.filter(a => a.Amount > 0 && !attackClasses.includes(getUnitClassName(a.Class as UnitClassNumber))).map(a => a.Class) || [];
