@@ -201,6 +201,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {unit: 'Halberdier'},
                 {unit: 'EliteEagleWarrior'},
                 {unit: 'Condottiero', unique: true},
+                {unit: 'FlemishMilitia', unique: true},
             ],
         },
         {
@@ -664,12 +665,6 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {},
                 {tech: 'HandCart'},
                 {tech: 'TownPatrol'},
-            ],
-        },
-        {
-            items: [
-                {age: 'ImperialAge'},
-                {unit: 'FlemishMilitia', unique: true},
             ],
         },
 

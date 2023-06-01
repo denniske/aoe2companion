@@ -4,6 +4,7 @@
   "description": "",
   "main": "dist/server.js",
   "scripts": {
+    "host": "gunicorn --bind 0.0.0.0:6000 app:app",
     "host:2": "concurrently -r --kill-others 'gunicorn --bind 0.0.0.0:80 app:app' 'gunicorn --bind 0.0.0.0:81 app:app'",
     "host:16": "concurrently -r --kill-others 'gunicorn --bind 0.0.0.0:80 app:app' 'gunicorn --bind 0.0.0.0:81 app:app' 'gunicorn --bind 0.0.0.0:82 app:app' 'gunicorn --bind 0.0.0.0:83 app:app' 'gunicorn --bind 0.0.0.0:84 app:app' 'gunicorn --bind 0.0.0.0:85 app:app' 'gunicorn --bind 0.0.0.0:86 app:app' 'gunicorn --bind 0.0.0.0:87 app:app' 'gunicorn --bind 0.0.0.0:88 app:app' 'gunicorn --bind 0.0.0.0:89 app:app' 'gunicorn --bind 0.0.0.0:90 app:app' 'gunicorn --bind 0.0.0.0:91 app:app' 'gunicorn --bind 0.0.0.0:92 app:app' 'gunicorn --bind 0.0.0.0:93 app:app' 'gunicorn --bind 0.0.0.0:94 app:app' 'gunicorn --bind 0.0.0.0:95 app:app'"
   },

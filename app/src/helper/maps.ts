@@ -8,6 +8,9 @@ export const mapsFallback = mapsFallbackData;
 export function getMapImage(map: AoeMap) {
 
     if (appConfig.game === 'aoe2de') {
+        if (map as any === -2) {
+            return mapsFallback;
+        }
         const mapRoR = allMapsDe.find(m => m.mapIdRoR === map);
         if (mapRoR) {
             map = mapRoR.mapId as any;
@@ -34,6 +37,9 @@ export function getMapImageByLocationString(map: string) {
 export function getMapName(map: AoeMap) {
 
     if (appConfig.game === 'aoe2de') {
+        if (map as any === -2) {
+            return 'Unknown';
+        }
         const mapRoR = allMapsDe.find(m => m.mapIdRoR === map);
         if (mapRoR) {
             map = mapRoR.mapId as any;
