@@ -18905,6 +18905,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 32
                     }
                 ],
                 "ChargeEvent": 0,
@@ -18947,10 +18951,6 @@ export const aoeDataInternal = {
                     {
                         "Amount": 6,
                         "Class": 3
-                    },
-                    {
-                        "Amount": 0,
-                        "Class": 19
                     },
                     {
                         "Amount": 0,
@@ -19009,7 +19009,8 @@ export const aoeDataInternal = {
         "Technology": "300085",
         "Technology Tree": "9799",
         "Unique Unit": "300082",
-        "Unit": "300083"
+        "Unit": "300083",
+        "mode": "1"
     },
     "techtrees": {
         "Aztecs": {
@@ -21410,7 +21411,6 @@ export const aoeDataInternal = {
                 331,
                 358,
                 359,
-                420,
                 422,
                 440,
                 441,
