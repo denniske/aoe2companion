@@ -109,6 +109,7 @@ export function getCompactTechTree(civInfo: ICivEntry): ITechTreeRow[] {
                 {unit: 'Halberdier'},
                 {unit: 'EliteEagleWarrior'},
                 {unit: 'Condottiero', unique: true},
+                {unit: 'FlemishMilitia', unique: true},
             ],
         },
 
