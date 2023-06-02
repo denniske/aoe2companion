@@ -93,7 +93,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '58.0.0': [
+    '59.0.0': [
         {
             type: 'bugfix',
             title: 'Flemish Militia moved to Barracks in tech tree',
