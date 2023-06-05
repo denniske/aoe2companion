@@ -1,4 +1,7 @@
 
+- slow query matches with rating
+  https://legacy.aoe2companion.com/api/player/matches?game=aoe2de&start=0&count=1000&profile_ids=483559
+
 x return of rome
 x localization for newly found maps 34-48 and 127-131
 
