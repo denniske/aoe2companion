@@ -104,6 +104,9 @@ export APP=aoe2 && export AOE=aoe2 && npx eas build --profile development-${AOE}
 
 export APP=aoe2 && export AOE=aoe2 && npx eas build --profile production-${AOE} --platform ios --auto-submit --no-wait
 
+Both
+export APP=aoe2 && export AOE=aoe2 && npx eas build --profile production-${AOE} --platform all --auto-submit --no-wait
+
 
 watchman watch-del-all && watchman shutdown-server
 
