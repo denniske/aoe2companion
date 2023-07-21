@@ -145,7 +145,7 @@ export function MainPageInner({ user }: MainPageInnerProps) {
         () => currentTabIndex > 0,
         state => get(state, ['user', user.id, 'matches']),
         (state, value) => set(state, ['user', user.id, 'matches'], value),
-        fetchPlayerMatches, 'aoe2de', 0, 1000, [user]
+        fetchPlayerMatches, 'aoe2de', 0, 500, [user]
     );
 
     useCachedConservedLazyApi(

@@ -608,7 +608,7 @@ const techEffectDictInternal = {
         tech: 'Shatagni',
         civ: 'Indians',
         effect: {
-            range: '+1',
+            range: '+2',
         },
     },
     'Arquebus': {

@@ -93,6 +93,16 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '62.0.0': [
+        {
+            type: 'minor',
+            title: 'Limit last matches / stats to 500 to improve performance',
+        },
+        {
+            type: 'bugfix',
+            title: 'Shatagni gives +2 range to hand cannoneers',
+        },
+    ],
     '61.0.0': [
         {
             type: 'minor',
