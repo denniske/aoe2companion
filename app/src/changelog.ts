@@ -14,6 +14,12 @@ export interface IChangelog {
 // https://www.ageofempires.com/news/age-of-empires-iv-season-one-update-release-notes/
 
 export const changelog4: IChangelog = {
+    '10.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix profile page not loading for some players',
+        },
+    ],
     '9.0.0': [
         {
             type: 'minor',
