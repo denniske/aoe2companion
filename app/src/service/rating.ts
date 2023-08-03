@@ -46,7 +46,7 @@ export async function loadRatingHistoriesLegacy4(userId: UserIdBase): Promise<IR
     }
 
     const ratingHistoryRows: IRatingHistoryRow[] = Object.entries(json.modes).map(([modeKey, mode]) => ({
-            data: Object.entries(mode.rating_history).map(([timestamp, entry]) => ({
+            data: Object.entries(mode.rating_history || {}).map(([timestamp, entry]) => ({
                 timestamp: fromUnixTime(timestamp),
                 rating: entry.rating,
             })),
