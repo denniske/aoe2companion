@@ -30,13 +30,17 @@ const leaderboardColors: Record<number, string> = {
     4: '#8970AE',
     13: '#D65154',
     14: '#E19659',
-    17: '#6188C1',
-    18: '#8970AE',
-    19: '#D65154',
-    20: '#E19659',
+    17: '#385c93',
+    18: '#5f4e79',
+    19: '#95383a',
+    20: '#9d693e',
     1001: '#328f18',
     1002: '#328f18',
     1003: '#86d06d',
+    1010: '#5084d3',
+    1011: '#8560be',
+    1012: '#c52026',
+    1013: '#ff943d',
 };
 
 const darkLeaderboardColors: Record<number, string> = {
@@ -71,13 +75,17 @@ const leaderboardTextColors: Record<number, string> = {
     4: '#8560be',
     13: '#c52026',
     14: '#ff943d',
-    17: '#5084d3',
-    18: '#8560be',
-    19: '#c52026',
-    20: '#ff943d',
+    17: '#385c93',
+    18: '#5f4e79',
+    19: '#95383a',
+    20: '#9d693e',
     1001: '#328f18',
     1002: '#328f18',
     1003: '#86d06d',
+    1010: '#5084d3',
+    1011: '#8560be',
+    1012: '#c52026',
+    1013: '#ff943d',
 };
 
 const darkLeaderboardTextColors: Record<number, string> = {

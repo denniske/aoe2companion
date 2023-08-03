@@ -25,6 +25,10 @@ const aoe4WorldLeaderboardMap = {
     'rm_1v1': 1001,
     'rm_solo': 1002,
     'rm_team': 1003,
+    'rm_1v1_elo': 1010,
+    'rm_2v2_elo': 1011,
+    'rm_3v3_elo': 1012,
+    'rm_4v4_elo': 1013,
 };
 
 // "rating": 2096,
@@ -45,7 +49,9 @@ export async function loadRatingHistoriesLegacy4(userId: UserIdBase): Promise<IR
         delete json.modes.rm_1v1;
     }
 
-    const ratingHistoryRows: IRatingHistoryRow[] = Object.entries(json.modes).map(([modeKey, mode]) => ({
+    const ratingHistoryRows: IRatingHistoryRow[] = Object.entries(json.modes)
+        .filter(([modeKey, mode]) => mode.games_count > 0)
+        .map(([modeKey, mode]) => ({
             data: Object.entries(mode.rating_history || {}).map(([timestamp, entry]) => ({
                 timestamp: fromUnixTime(timestamp),
                 rating: entry.rating,

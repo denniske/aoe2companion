@@ -8,6 +8,10 @@ export const abbreviationsData = {
     1001: 'e1v1',
     1002: 'esolo',
     1003: 'eteam',
+    1010: 'rm1v1elo',
+    1011: 'rm2v2elo',
+    1012: 'rm3v3elo',
+    1013: 'rm4v4elo',
 };
 
 export const leaderboardMappingData: any = {

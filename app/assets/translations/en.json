@@ -99,6 +99,10 @@
   "enum.leaderboardid.e1v1": "RM 1v1",
   "enum.leaderboardid.esolo": "RM Solo",
   "enum.leaderboardid.eteam": "RM Team",
+  "enum.leaderboardid.rm1v1elo": "RM 1v1",
+  "enum.leaderboardid.rm2v2elo": "RM 2v2",
+  "enum.leaderboardid.rm3v3elo": "RM 3v3",
+  "enum.leaderboardid.rm4v4elo": "RM 4v4",
 
   "leaderboard.heading.unranked": "UNR.",
   "leaderboard.heading.dm1v1": "DM 1V1",

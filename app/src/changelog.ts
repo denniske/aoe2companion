@@ -14,6 +14,12 @@ export interface IChangelog {
 // https://www.ageofempires.com/news/age-of-empires-iv-season-one-update-release-notes/
 
 export const changelog4: IChangelog = {
+    '11.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix leaderboard names/colors',
+        },
+    ],
     '10.0.0': [
         {
             type: 'bugfix',

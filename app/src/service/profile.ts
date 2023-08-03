@@ -20,6 +20,10 @@ const aoe4WorldLeaderboardMap = {
     'rm_1v1': 1001,
     'rm_solo': 1002,
     'rm_team': 1003,
+    'rm_1v1_elo': 1010,
+    'rm_2v2_elo': 1011,
+    'rm_3v3_elo': 1012,
+    'rm_4v4_elo': 1013,
 };
 
 export async function loadProfileLegacy4(userId: UserIdBase): Promise<any | null> {
@@ -42,7 +46,9 @@ export async function loadProfileLegacy4(userId: UserIdBase): Promise<any | null
         steam_id: json.steam_id,
         games: sumBy(Object.values(json.modes), m => m.games_count),
         drops: sumBy(Object.values(json.modes), m => m.drops_count),
-        leaderboards: Object.entries(json.modes).map(([modeKey, mode]) => ({
+        leaderboards: Object.entries(json.modes)
+            .filter(([modeKey, mode]) => mode.games_count > 0)
+            .map(([modeKey, mode]) => ({
             leaderboard: [{
                 profile_id: json.profile_id,
                 steam_id: json.steam_id,

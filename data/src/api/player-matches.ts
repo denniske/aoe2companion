@@ -169,10 +169,10 @@ const aoe4WorldCivMap = {
 
 const aoe4WorldLeaderboardMap = {
     'custom': 0,
-    'qm_1v1': 17,
-    'qm_2v2': 18,
-    'qm_3v3': 19,
-    'qm_4v4': 20,
+    'rm_1v1_elo': 17,
+    'rm_2v2_elo': 18,
+    'rm_3v3_elo': 19,
+    'rm_4v4_elo': 20,
     'rm_1v1': 1001,
     'rm_solo': 1002,
     'rm_team': 1003,

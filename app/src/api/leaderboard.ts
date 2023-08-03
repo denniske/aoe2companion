@@ -49,6 +49,10 @@ const aoe4WorldLeaderboardMapReverse = {
     1001: 'rm_1v1',
     1002: 'rm_solo',
     1003: 'rm_team',
+    1010: 'rm_1v1_elo',
+    1011: 'rm_2v2_elo',
+    1012: 'rm_3v3_elo',
+    1013: 'rm_4v4_elo',
 };
 
 const aoe4WorldLeaderboardMap = {
@@ -60,6 +64,10 @@ const aoe4WorldLeaderboardMap = {
     'rm_1v1': 1001,
     'rm_solo': 1002,
     'rm_team': 1003,
+    'rm_1v1_elo': 1010,
+    'rm_2v2_elo': 1011,
+    'rm_3v3_elo': 1012,
+    'rm_4v4_elo': 1013,
 };
 
 function aoe4worldLeaderboardToAoe2NetLeaderboard(leaderboard4: Aoe4WorldLeaderboard) {
