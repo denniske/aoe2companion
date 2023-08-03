@@ -68,7 +68,7 @@
       "channel": "production",
       "distribution": "internal",
       "ios": {
-        "resourceClass": "m-large"
+        "resourceClass": "m-medium"
       },
       "env": {
         "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
@@ -78,7 +78,7 @@
     "production-aoe2": {
       "channel": "production",
       "ios": {
-        "resourceClass": "m-large"
+        "resourceClass": "m-medium"
       },
       "env": {
         "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
@@ -88,7 +88,7 @@
     "production-aoe4": {
       "channel": "production",
       "ios": {
-        "resourceClass": "m-large"
+        "resourceClass": "m-medium"
       },
       "env": {
         "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
