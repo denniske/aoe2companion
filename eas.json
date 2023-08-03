@@ -114,7 +114,7 @@
     },
     "production-aoe4": {
       "android": {
-        "track": "internal",
+        "track": "production",
         "releaseStatus": "draft",
         "serviceAccountKeyPath": "play-store-service-account.json"
       },
