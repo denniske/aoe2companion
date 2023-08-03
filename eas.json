@@ -20,7 +20,7 @@
       "developmentClient": true,
       "distribution": "internal",
       "ios": {
-        "resourceClass": "m-medium"
+        "resourceClass": "m-large"
       },
       "env": {
         "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
@@ -32,7 +32,7 @@
       "developmentClient": true,
       "distribution": "internal",
       "ios": {
-        "resourceClass": "m-medium",
+        "resourceClass": "m-large",
         "simulator": true
       },
       "env": {
@@ -45,7 +45,7 @@
       "developmentClient": true,
       "distribution": "internal",
       "ios": {
-        "resourceClass": "m-medium",
+        "resourceClass": "m-large",
         "simulator": true
       },
       "env": {
@@ -57,7 +57,7 @@
       "channel": "production",
       "distribution": "internal",
       "ios": {
-        "resourceClass": "m-medium"
+        "resourceClass": "m-large"
       },
       "env": {
         "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
@@ -68,7 +68,7 @@
       "channel": "production",
       "distribution": "internal",
       "ios": {
-        "resourceClass": "m-medium"
+        "resourceClass": "m-large"
       },
       "env": {
         "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
@@ -78,7 +78,7 @@
     "production-aoe2": {
       "channel": "production",
       "ios": {
-        "resourceClass": "m-medium"
+        "resourceClass": "m-large"
       },
       "env": {
         "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
@@ -88,7 +88,7 @@
     "production-aoe4": {
       "channel": "production",
       "ios": {
-        "resourceClass": "m-medium"
+        "resourceClass": "m-large"
       },
       "env": {
         "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
