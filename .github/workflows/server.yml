@@ -27,7 +27,7 @@ on:
 name: Server
 
 env:
-  NODE_VERSION: 16.13.1
+  NODE_VERSION: 18.17.0
 
 jobs:
 
