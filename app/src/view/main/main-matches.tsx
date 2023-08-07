@@ -95,7 +95,7 @@ function MainMatchesInternal({user}: { user: any}) {
             filtered = filtered.filter(m => {
                 return parts.every(part => {
                     return m.name.toLowerCase().indexOf(part) >= 0 ||
-                        (getMapName(m.map_type) || '').toLowerCase().indexOf(part) >= 0 ||
+                        (getMapName(m.map_type, m.ugc, m.rms, m.game_type, m.scenario) || '').toLowerCase().indexOf(part) >= 0 ||
                         m.players.some(p => p.name?.toLowerCase().indexOf(part) >= 0) ||
                         m.players.some(p => p.civ != null && getCivName(p.civ) && getCivName(p.civ)!.toLowerCase()?.indexOf(part) >= 0);
                 });

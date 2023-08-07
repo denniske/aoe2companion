@@ -45,7 +45,7 @@ export function PlayerSkeleton() {
 }
 
 function signed(number: number) {
-    if (number == null) return '';
+    if (number == null || number === 0) return '';
     return number > 0 ? '↑' + number : '↓' + Math.abs(number);
 }
 

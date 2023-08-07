@@ -34,9 +34,17 @@ export function getMapImageByLocationString(map: string) {
     return maps[stringId as AoeMap];
 }
 
-export function getMapName(map: AoeMap) {
+export function getMapName(map: AoeMap, ugc: boolean, rms: string, game_mode: any, scenario: string) {
 
     if (appConfig.game === 'aoe2de') {
+        if (game_mode === 3) {
+            // return 'Scenario: ' + scenario.replace('.aoe2scenario', '');
+            return scenario.replace('.aoe2scenario', '') + ' (Scenario)';
+        }
+        if (ugc && map as any === -2) {
+            // return 'Custom: ' + rms.replace('.rms', '');
+            return rms.replace('.rms', '') + ' (Custom)';
+        }
         if (map as any === -2) {
             return 'Unknown';
         }
@@ -463,325 +471,325 @@ const allMapsDe = [
     },
     {
         "mapId": 83,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301100,
         "enum": "rm_kilimanjaro",
         "file": "rm_kilimanjaro"
     },
     {
         "mapId": 84,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301101,
         "enum": "rm_mountain-pass",
         "file": "rm_mountain-pass"
     },
     {
         "mapId": 85,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301102,
         "enum": "rm_nile-delta",
         "file": "rm_nile-delta"
     },
     {
         "mapId": 86,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301103,
         "enum": "rm_serengeti",
         "file": "rm_serengeti"
     },
     {
         "mapId": 87,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301104,
         "enum": "rm_socotra",
         "file": "rm_socotra"
     },
     {
         "mapId": 88,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301105,
         "enum": "rwm_amazon",
         "file": "rwm_amazon"
     },
     {
         "mapId": 89,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301106,
         "enum": "rwm_china",
         "file": "rwm_china"
     },
     {
         "mapId": 90,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301107,
         "enum": "rwm_horn_of_africa",
         "file": "rwm_horn_of_africa"
     },
     {
         "mapId": 91,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301108,
         "enum": "rwm_india",
         "file": "rwm_india"
     },
     {
         "mapId": 92,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301109,
         "enum": "rwm_madagascar",
         "file": "rwm_madagascar"
     },
     {
         "mapId": 93,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301110,
         "enum": "rwm_west_africa",
         "file": "rwm_west_africa"
     },
     {
         "mapId": 94,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301111,
         "enum": "rwm_bohemia",
         "file": "rwm_bohemia"
     },
     {
         "mapId": 95,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301112,
         "enum": "rwm_earth",
         "file": "rwm_earth"
     },
     {
         "mapId": 96,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301113,
         "enum": "sm_canyons",
         "file": "sm_canyons"
     },
     {
         "mapId": 97,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301114,
         "enum": "sm_enemy-archipelago",
         "file": "sm_enemy-archipelago"
     },
     {
         "mapId": 98,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301115,
         "enum": "sm_enemy-islands",
         "file": "sm_enemy-islands"
     },
     {
         "mapId": 99,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301116,
         "enum": "sm_far-out",
         "file": "sm_far-out"
     },
     {
         "mapId": 100,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301117,
         "enum": "sm_front-line",
         "file": "sm_front-line"
     },
     {
         "mapId": 101,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301118,
         "enum": "sm_inner-circle",
         "file": "sm_inner-circle"
     },
     {
         "mapId": 102,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301119,
         "enum": "sm_motherland",
         "file": "sm_motherland"
     },
     {
         "mapId": 103,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301120,
         "enum": "sm_open-plains",
         "file": "sm_open-plains"
     },
     {
         "mapId": 104,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301121,
         "enum": "sm_ring-of-water",
         "file": "sm_ring-of-water"
     },
     {
         "mapId": 105,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301122,
         "enum": "sm_snake-pit",
         "file": "sm_snake-pit"
     },
     {
         "mapId": 106,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301123,
         "enum": "sm_the-eye",
         "file": "sm_the-eye"
     },
     {
         "mapId": 107,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301124,
         "enum": "rwm_australia",
         "file": "rwm_australia"
     },
     {
         "mapId": 108,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301125,
         "enum": "rwm_indochina",
         "file": "rwm_indochina"
     },
     {
         "mapId": 109,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301126,
         "enum": "rwm_indonesia",
         "file": "rwm_indonesia"
     },
     {
         "mapId": 110,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301127,
         "enum": "rwm_strait_of_malacca",
         "file": "rwm_strait_of_malacca"
     },
     {
         "mapId": 111,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301128,
         "enum": "rwm_phillipines",
         "file": "rwm_phillipines"
     },
     {
         "mapId": 112,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301129,
         "enum": "rm_bog-islands",
         "file": "rm_bog-islands"
     },
     {
         "mapId": 113,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301130,
         "enum": "rm_mangrove-jungle",
         "file": "rm_mangrove-jungle"
     },
     {
         "mapId": 114,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301131,
         "enum": "rm_pacific-islands",
         "file": "rm_pacific-islands"
     },
     {
         "mapId": 115,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301132,
         "enum": "rm_sandbank",
         "file": "rm_sandbank"
     },
     {
         "mapId": 116,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301133,
         "enum": "rm_water-nomad",
         "file": "rm_water-nomad"
     },
     {
         "mapId": 117,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301134,
         "enum": "sm_jungle-islands",
         "file": "sm_jungle-islands"
     },
     {
         "mapId": 118,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301135,
         "enum": "sm_holy-line",
         "file": "sm_holy-line"
     },
     {
         "mapId": 119,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301136,
         "enum": "sm_border-stones",
         "file": "sm_border-stones"
     },
     {
         "mapId": 120,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301137,
         "enum": "sm_yin-yang",
         "file": "sm_yin-yang"
     },
     {
         "mapId": 121,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301138,
         "enum": "sm_jungle-lanes",
         "file": "sm_jungle-lanes"
     },
     {
         "mapId": 122,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301139,
         "enum": "rm_alpine-lakes",
         "file": "rm_alpine-lakes"
     },
     {
         "mapId": 123,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301141,
         "enum": "rm_bogland",
         "file": "rm_bogland"
     },
     {
         "mapId": 124,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301142,
         "enum": "rm_mountain-ridge",
         "file": "rm_mountain-ridge"
     },
     {
         "mapId": 125,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301143,
         "enum": "rm_ravines",
         "file": "rm_ravines"
     },
     {
         "mapId": 126,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301144,
         "enum": "rm_wolf-hill",
         "file": "rm_wolf-hill"
     },
     {
         "mapId": 127,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301150,
         "enum": "sm_swirling-river",
         "file": "sm_swirling-river"
     },
     {
         "mapId": 128,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301151,
         "enum": "sm_twin-forests",
         "file": "sm_twin-forests"
     },
     {
         "mapId": 129,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301152,
         "enum": "sm_journey-south",
         "file": "sm_journey-south"
     },
     {
         "mapId": 130,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301153,
         "enum": "sm_snake-forest",
         "file": "sm_snake-forest"
     },
     {
         "mapId": 131,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301154,
         "enum": "sm_sprawling-stream",
         "file": "sm_sprawling-stream"
     },
     {
         "mapId": 132,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301145,
         "enum": "rwm_antarctica",
         "file": "rwm_antarctica"
     },
     {
         "mapId": 133,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301146,
         "enum": "rwm_aral_sea",
         "file": "rwm_aral_sea"
     },
     {
         "mapId": 134,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301147,
         "enum": "rwm_black_sea",
         "file": "rwm_black_sea"
     },
     {
         "mapId": 135,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301148,
         "enum": "rwm_caucasus",
         "file": "rwm_caucasus"
     },
     {
         "mapId": 136,
-        "mapIdRoR": -2,
+        "mapIdRoR": 301153,
         "enum": "rwm_caucasus",
         "file": "rwm_caucasus"
     },

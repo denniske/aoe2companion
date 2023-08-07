@@ -73,6 +73,7 @@ export interface IMatchRaw {
     finished?: any;
     checked?: any;
     full_tech_tree: boolean;
+    game_mode: number;
     game_type: any;
     game_variant: any;
     has_custom_content: any;
@@ -95,8 +96,9 @@ export interface IMatchRaw {
     rating_type: any;
     rating_type_id: any;
     resources: any;
-    rms: any;
-    scenario: any;
+    rms: string;
+    scenario: string;
+    ugc: boolean;
     server: string;
     shared_exploration: boolean;
     speed: number;

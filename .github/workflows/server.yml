@@ -43,27 +43,34 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
+
       - name: Setup Secrets
-        uses: secrethub/actions/env-export@v0.2.1
-        env:
-          SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
-          DOCKERHUB_USERNAME: secrethub://denniske/aoe2companion/dockerhub_username
-          DOCKERHUB_PASSWORD: secrethub://denniske/aoe2companion/dockerhub_password
-          KUBERNETES_SERVER: secrethub://denniske/aoe2companion/kubernetes_server
-          KUBERNETES_TOKEN: secrethub://denniske/aoe2companion/kubernetes_token
-          KUBERNETES_CLUSTER_CERTIFICATE: secrethub://denniske/aoe2companion/kubernetes_cluster_certificate
-          ID_CI_RSA_BASE64: secrethub://denniske/aoe2companion/id_ci_rsa_base64
-          KNOWN_HOSTS_BASE64: secrethub://denniske/aoe2companion/known_hosts_base64
-          DATABASE_URL: secrethub://denniske/aoe2companion/database_url
-          DATABASE_URL_AOE4: secrethub://denniske/aoe2companion/database_url_aoe4
-          ELECTROLYTIC_APP_SECRET: secrethub://denniske/aoe2companion/electrolytic_app_secret
-          PUSHER_SECRET_KEY: secrethub://denniske/aoe2companion/pusher_secret_key
-          S3_ACCESS_KEY_ID: secrethub://denniske/aoe2companion/aws_access_key_id
-          S3_SECRET_ACCESS_KEY: secrethub://denniske/aoe2companion/aws_secret_access_key
-          TWITCH_CLIENT_ID: secrethub://denniske/aoe2companion/twitch_client_id
-          TWITCH_CLIENT_SECRET: secrethub://denniske/aoe2companion/twitch_client_secret
-          STATUS_URL: secrethub://denniske/aoe2companion/status_url
-          STATUS_API_KEY: secrethub://denniske/aoe2companion/status_api_key
+        run: |
+          wget "https://cache.agilebits.com/dist/1P/op2/pkg/v2.4.1/op_linux_amd64_v2.4.1.zip" -O op.zip && unzip -d op op.zip && sudo mv op/op /usr/local/bin && rm -r op.zip op
+          echo "OP_DEVICE=gpz56tma3262vu3z2thwwm57ga" >> $GITHUB_ENV
+          echo "OP_SECRET_KEY=${{ secrets.ONE_PASSWORD_SECRET_KEY }}" >> $GITHUB_ENV
+      - name: Set Secrets
+        run: |
+          eval $(printf ${{ secrets.ONE_PASSWORD_PASSWORD }} | op account add --address ${{ secrets.ONE_PASSWORD_ADDRESS }} --email ${{ secrets.ONE_PASSWORD_EMAIL }} --signin)
+          echo "EXPO_TOKEN=$(op read op://aoe2companion/expo_token/password)" >> $GITHUB_ENV
+          echo "DOCKERHUB_USERNAME=$(op read op://aoe2companion/dockerhub_username/password)" >> $GITHUB_ENV
+          echo "DOCKERHUB_PASSWORD=$(op read op://aoe2companion/dockerhub_password/password)" >> $GITHUB_ENV
+          echo "ID_CI_RSA_BASE64=$(op read op://aoe2companion/id_ci_rsa_base64/password)" >> $GITHUB_ENV
+          echo "KNOWN_HOSTS_BASE64=$(op read op://aoe2companion/known_hosts_base64/password)" >> $GITHUB_ENV
+          echo "DATABASE_URL=$(op read op://aoe2companion/database_url/password)" >> $GITHUB_ENV
+          echo "DATABASE_URL_AOE4=$(op read op://aoe2companion/database_url_aoe4/password)" >> $GITHUB_ENV
+          echo "ELECTROLYTIC_APP_SECRET=$(op read op://aoe2companion/electrolytic_app_secret/password)" >> $GITHUB_ENV
+          echo "PUSHER_SECRET_KEY=$(op read op://aoe2companion/pusher_secret_key/password)" >> $GITHUB_ENV
+          echo "S3_ACCESS_KEY_ID=$(op read op://aoe2companion/aws_access_key_id/password)" >> $GITHUB_ENV
+          echo "S3_SECRET_ACCESS_KEY=$(op read op://aoe2companion/aws_secret_access_key/password)" >> $GITHUB_ENV
+          echo "TWITCH_CLIENT_ID=$(op read op://aoe2companion/twitch_client_id/password)" >> $GITHUB_ENV
+          echo "TWITCH_CLIENT_SECRET=$(op read op://aoe2companion/twitch_client_secret/password)" >> $GITHUB_ENV
+          echo "STATUS_URL=$(op read op://aoe2companion/status_url/password)" >> $GITHUB_ENV
+          echo "STATUS_API_KEY=$(op read op://aoe2companion/status_api_key/password)" >> $GITHUB_ENV
+
+#          echo "KUBERNETES_SERVER=$(op read op://aoe2companion/kubernetes_server/password)" >> $GITHUB_ENV
+#          echo "KUBERNETES_TOKEN=$(op read op://aoe2companion/kubernetes_token/password)" >> $GITHUB_ENV
+#          echo "KUBERNETES_CLUSTER_CERTIFICATE=$(op read op://aoe2companion/kubernetes_cluster_certificate/password)" >> $GITHUB_ENV
 
       - run: echo "SUBDOMAIN=$(node deploy/script/subdomain-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
       - run: echo $SUBDOMAIN

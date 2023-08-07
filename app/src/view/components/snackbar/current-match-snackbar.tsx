@@ -37,7 +37,7 @@ export default function CurrentMatchSnackbar() {
 
     if (!match) return <View/>;
 
-    const message = `${getMapName(match.map_type as any)} (${match.started ? formatAgo(match.started) : ''})`;
+    const message = `${getMapName(match.map_type as any, match.ugc, match.rms, match.game_type, match.scenario)} (${match.started ? formatAgo(match.started) : ''})`;
     const actions = [
         {
             label: 'View',

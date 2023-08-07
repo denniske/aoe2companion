@@ -148,7 +148,7 @@ export function GameOverlay({match, user, highlightedUsers, expanded = false}: I
 
                     <View style={styles.header}>
                         <BorderText numberOfLines={1} style={styles.matchTitle}>
-                            {getMapName(match.map_type)} - {match.match_id}
+                            {getMapName(match.map_type, match.ugc, match.rms, match.game_type, match.scenario)} - {match.match_id}
                             {
                                 match.server &&
                                 <MyText style={styles.matchTitle}> - {match.server}</MyText>

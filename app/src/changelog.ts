@@ -105,6 +105,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '64.0.0': [
+        {
+            type: 'bugfix',
+            title: 'All maps should show correct name and image',
+        },
+    ],
     '63.0.0': [
         {
             type: 'minor',

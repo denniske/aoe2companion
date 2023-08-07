@@ -21,7 +21,7 @@ function Row({data}: IRowProps) {
             <View style={styles.row}>
                 <View style={styles.cellLeaderboard}>
                     <Image fadeDuration={0} style={styles.icon} source={getMapImage(data.map)}/>
-                    <MyText>{getMapName(data.map)}</MyText>
+                    <MyText>{getMapName(data.map, data.ugc, data.rms, data.game_type, data.scenario)}</MyText>
                 </View>
                 <MyText style={styles.cellGames}>
                     {data.games}
