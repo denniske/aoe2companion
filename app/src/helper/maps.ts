@@ -39,11 +39,11 @@ export function getMapName(map: AoeMap, ugc: boolean, rms: string, game_mode: an
     if (appConfig.game === 'aoe2de') {
         if (game_mode === 3) {
             // return 'Scenario: ' + scenario.replace('.aoe2scenario', '');
-            return scenario.replace('.aoe2scenario', '') + ' (Scenario)';
+            return scenario?.replace('.aoe2scenario', '') + ' (Scenario)';
         }
         if (ugc && map as any === -2) {
             // return 'Custom: ' + rms.replace('.rms', '');
-            return rms.replace('.rms', '') + ' (Custom)';
+            return rms?.replace('.rms', '') + ' (Custom)';
         }
         if (map as any === -2) {
             return 'Unknown';
