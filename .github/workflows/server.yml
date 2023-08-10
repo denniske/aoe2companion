@@ -95,7 +95,7 @@ jobs:
             export DATABASE_URL=$DATABASE_URL_AOE4
           fi
 
-          ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku config:set --no-restart --global \
+          ssh -o StrictHostKeyChecking=no root@128.140.125.122 dokku config:set --no-restart --global \
             ELECTROLYTIC_APP_SECRET=$ELECTROLYTIC_APP_SECRET \
             PUSHER_SECRET_KEY=$PUSHER_SECRET_KEY \
             S3_ACCESS_KEY_ID=$S3_ACCESS_KEY_ID \
@@ -106,14 +106,14 @@ jobs:
             STATUS_API_KEY=$STATUS_API_KEY \
             && true
           
-          ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku apps:create $SERVICE_NAME || true
-          ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku proxy:set $SERVICE_NAME caddy
-          ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku checks:disable $SERVICE_NAME SERVICE_NAME=$SERVICE_NAME
-          ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku config:set --no-restart $SERVICE_NAME SERVICE_NAME=$SERVICE_NAME
-          ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku config:set --no-restart $SERVICE_NAME DATABASE_URL=$DATABASE_URL
-          ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku domains:set $SERVICE_NAME $SUBDOMAIN.${AOE}companion.com
-          ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku resource:limit --cpu 1 --memory 500 $SERVICE_NAME
-          ssh -o StrictHostKeyChecking=no root@49.12.204.123 dokku git:from-image $SERVICE_NAME denniske/aoe2companion-$SERVICE_NAME:$COMMIT_SHA1
+          ssh -o StrictHostKeyChecking=no root@128.140.125.122 dokku apps:create $SERVICE_NAME || true
+          ssh -o StrictHostKeyChecking=no root@128.140.125.122 dokku proxy:set $SERVICE_NAME caddy
+          ssh -o StrictHostKeyChecking=no root@128.140.125.122 dokku checks:disable $SERVICE_NAME SERVICE_NAME=$SERVICE_NAME
+          ssh -o StrictHostKeyChecking=no root@128.140.125.122 dokku config:set --no-restart $SERVICE_NAME SERVICE_NAME=$SERVICE_NAME
+          ssh -o StrictHostKeyChecking=no root@128.140.125.122 dokku config:set --no-restart $SERVICE_NAME DATABASE_URL=$DATABASE_URL
+          ssh -o StrictHostKeyChecking=no root@128.140.125.122 dokku domains:set $SERVICE_NAME $SUBDOMAIN.${AOE}companion.com
+          ssh -o StrictHostKeyChecking=no root@128.140.125.122 dokku resource:limit --cpu 1 --memory 500 $SERVICE_NAME
+          ssh -o StrictHostKeyChecking=no root@128.140.125.122 dokku git:from-image $SERVICE_NAME denniske/aoe2companion-$SERVICE_NAME:$COMMIT_SHA1
 
 #          dokku config:set --no-restart --encoded node-js-app KEY="$(base64 ~/.ssh/id_rsa)"
 
@@ -128,10 +128,10 @@ jobs:
 #          envsubst <./docker-compose-single.yml >./docker-compose-single.yml.out && mv ./docker-compose-single.yml.out ./docker-compose-single.yml
 #          envsubst <./docker-compose-worker.yml >./docker-compose-worker.yml.out && mv ./docker-compose-worker.yml.out ./docker-compose-worker.yml
 #
-#          scp -o StrictHostKeyChecking=no docker-compose-worker.yml root@49.12.204.123:/root/docker-compose.yml
-#          scp -o StrictHostKeyChecking=no docker-compose-single.yml root@49.12.204.123:/root/service-$SERVICE_NAME.yml
-#          scp -o StrictHostKeyChecking=no run.sh root@49.12.204.123:/root/run.sh
-#          ssh -o StrictHostKeyChecking=no root@49.12.204.123 sh run.sh
+#          scp -o StrictHostKeyChecking=no docker-compose-worker.yml root@128.140.125.122:/root/docker-compose.yml
+#          scp -o StrictHostKeyChecking=no docker-compose-single.yml root@128.140.125.122:/root/service-$SERVICE_NAME.yml
+#          scp -o StrictHostKeyChecking=no run.sh root@128.140.125.122:/root/run.sh
+#          ssh -o StrictHostKeyChecking=no root@128.140.125.122 sh run.sh
 
 #          export DATABASE_URL=${DATABASE_URL/aoe/aoe4}
 #
