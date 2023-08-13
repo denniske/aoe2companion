@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "deps": "npm install --global eas-cli",
     "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider APP=aoe2 expo start -c --dev-client",
     "start:prod": "cross-env APP=aoe2 expo start -c --no-dev --dev-client",
     "prebuild": "cross-env APP=aoe2 expo prebuild",
@@ -190,7 +191,6 @@
     "babel-loader": "^8.1.0",
     "babel-preset-expo": "~9.2.0",
     "cavy": "^4.0.2",
-    "eas-cli": "^3.16.0",
     "eslint-config-next": "11.0.1",
     "prisma": "3.13.0",
     "react-native-bundle-visualizer": "^2.2.1",
