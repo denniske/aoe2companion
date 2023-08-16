@@ -115,6 +115,11 @@ watchman watch-del-all && watchman shutdown-server
 React 17 JSX transform now enabled by default: this means that you don’t need to write import React from 'react'; at the top of every source file that uses JSX. Learn more about the transform and how you can disable it, if you prefer.
 
 
+op vault delete aoe2companion && op vault create aoe2companion
+op item list
+op item create --category password --title database_url --vault aoe2companion password=$(secrethub read denniske/aoe2companion/database_url)
+
+
 
 git clone --depth 1 file://C:\Users\Dennis\Projects\aoe2companion && cd aoe2companion && yarn && npx eas build --profile development4 --platform android --no-wait
 
