@@ -5,48 +5,6 @@
       "root": "data",
       "sourceRoot": "data/src",
       "projectType": "library"
-    },
-    "graph": {
-      "root": "graph",
-      "sourceRoot": "graph/src",
-      "projectType": "application",
-      "prefix": "graph",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:webpack",
-          "options": {
-            "outputPath": "dist/graph",
-            "main": "graph/src/main.ts",
-            "tsConfig": "graph/tsconfig.app.json",
-            "assets": [
-              "graph/src/assets"
-            ]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "graph/src/environments/environment.ts",
-                  "with": "graph/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          },
-          "outputs": [
-            "{options.outputPath}"
-          ]
-        },
-        "serve": {
-          "builder": "@nrwl/node:node",
-          "options": {
-            "buildTarget": "graph:build"
-          }
-        }
-      }
     }
   }
 }
