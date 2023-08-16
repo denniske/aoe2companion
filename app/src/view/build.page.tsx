@@ -6,10 +6,10 @@ import {fakeBuild, IBuildOrderStep} from "../../../data/src/helper/builds";
 import {getBuildingIcon} from "../helper/buildings";
 import {getOtherIcon, getUnitIcon} from "../helper/units";
 import {getTechIcon} from "../helper/techs";
-import {capitalize} from "@material-ui/core";
 
 function getBuildingIconInternal(building: string) {
-    return getBuildingIcon(capitalize(building) as any);
+    //     return getBuildingIcon(capitalize(building) as any);
+    return getBuildingIcon(building as any);
 }
 
 function getTaskIconInternal(task: string) {

@@ -4,7 +4,6 @@ import {IProfile} from '../view/components/profile';
 import {minifyUserId, UserIdBase} from '../helper/user';
 import {IRatingHistoryEntry, IRatingHistoryEntryRaw} from '@nex/data/api';
 import {parseISO} from "date-fns";
-import request, {gql} from 'graphql-request';
 import {IRatingHistoryRow} from './rating';
 import {appConfig} from "@nex/dataset";
 import {makeQueryString} from "@nex/data";

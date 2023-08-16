@@ -1,6 +1,6 @@
 import {addSeconds, fromUnixTime, getUnixTime, parseISO} from "date-fns";
 import {flatMap, uniqBy} from 'lodash';
-import request, {gql} from "graphql-request";
+// import request, {gql} from "graphql-request";
 import {makeQueryString} from '../lib/util';
 import {getHost} from '../lib/host';
 import {IMatch, IMatchRaw, IPlayer, SlotType} from './api.types';
@@ -46,67 +46,68 @@ export async function fetchMatch(game: string, params: IFetchMatchParams): Promi
 }
 
 export async function fetchMatchWithFallback(game: string, params: IFetchMatchParams): Promise<IMatchRaw> {
-    try {
-        return await fetchMatchNew(game, params);
-    } catch (e) {
-        return await fetchMatch(game, params);
-    }
+    return await fetchMatch(game, params);
+    // try {
+    //     return await fetchMatchNew(game, params);
+    // } catch (e) {
+    //     return await fetchMatch(game, params);
+    // }
 }
 
-export async function fetchMatchNew(game: string, params: IFetchMatchParams): Promise<IMatchRaw> {
-    try {
-        const endpoint = getHost('aoe2companion-graphql');
-        const query = gql`
-            query H2($match_id: String, $match_uuid: String) {
-                match(
-                    match_id: $match_id,
-                    match_uuid: $match_uuid,
-                ) {
-                    match_id
-                    leaderboard_id
-                    name
-                    map_type
-                    speed
-                    num_players
-                    started
-                    finished
-                    checked
-                    players {
-                        profile_id
-                        steam_id
-                        name
-                        country
-                        rating
-                        civ
-                        slot
-                        slot_type
-                        color
-                        won
-                        team
-                        wins
-                        games
-                    }
-                }
-            }
-        `;
-
-        const timeLastDate = new Date();
-        const variables = {...params};
-        console.groupCollapsed('fetchMatch - match()');
-        console.log(query);
-        console.groupEnd();
-        console.log(variables);
-        const data = await request(endpoint, query, variables)
-        console.log('gql', new Date().getTime() - timeLastDate.getTime());
-
-        let json = data.match as IMatchRaw;
-
-        return convertTimestampsToDates2(json);
-    } catch (e) {
-        console.log('ERROR', e);
-    }
-    return null;
-}
+// export async function fetchMatchNew(game: string, params: IFetchMatchParams): Promise<IMatchRaw> {
+//     try {
+//         const endpoint = getHost('aoe2companion-graphql');
+//         const query = gql`
+//             query H2($match_id: String, $match_uuid: String) {
+//                 match(
+//                     match_id: $match_id,
+//                     match_uuid: $match_uuid,
+//                 ) {
+//                     match_id
+//                     leaderboard_id
+//                     name
+//                     map_type
+//                     speed
+//                     num_players
+//                     started
+//                     finished
+//                     checked
+//                     players {
+//                         profile_id
+//                         steam_id
+//                         name
+//                         country
+//                         rating
+//                         civ
+//                         slot
+//                         slot_type
+//                         color
+//                         won
+//                         team
+//                         wins
+//                         games
+//                     }
+//                 }
+//             }
+//         `;
+//
+//         const timeLastDate = new Date();
+//         const variables = {...params};
+//         console.groupCollapsed('fetchMatch - match()');
+//         console.log(query);
+//         console.groupEnd();
+//         console.log(variables);
+//         const data = await request(endpoint, query, variables)
+//         console.log('gql', new Date().getTime() - timeLastDate.getTime());
+//
+//         let json = data.match as IMatchRaw;
+//
+//         return convertTimestampsToDates2(json);
+//     } catch (e) {
+//         console.log('ERROR', e);
+//     }
+//     return null;
+// }
 
 
 export async function triggerMatchRefetch(match_uuid: string, match_id: string): Promise<any> {
