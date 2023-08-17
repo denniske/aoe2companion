@@ -183,7 +183,7 @@ function Leaderboard({leaderboardId}: any) {
     console.log(Constants.expoConfig?.extra?.eas.projectId);
     const myRank = useLazyApi(
         {},
-        fetchLeaderboard, leaderboardId, getParams(1, auth.profileId)
+        fetchLeaderboard, leaderboardId, getParams(1, auth?.profileId)
     );
 
     const matches = useLazyApi(
@@ -247,7 +247,7 @@ function Leaderboard({leaderboardId}: any) {
 
     const _renderRow = (player: ILeaderboardPlayerNew, i: number, isMyRankRow: boolean = false) => {
         // console.log('RENDER ROW', player, i, isMyRankRow);
-        const isMe = player?.profileId === auth.profileId;
+        const isMe = player?.profileId === auth?.profileId;
         const rowStyle = { minHeight: isMyRankRow ? headerMyRankHeight : rowHeight };
         const weightStyle = { fontWeight: isMe ? 'bold' : 'normal' } as TextStyle;
         const rankWidthStyle = { width: isMyRankRow ? undefined : rankWidth } as ViewStyle;

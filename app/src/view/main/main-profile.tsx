@@ -165,10 +165,10 @@ function MainProfileInternal({profileId}: {profileId: number}) {
         'profile', 'rating-header', 'rating',
     ];
 
-    if (profileId !== auth.profileId && auth) {
-        // list.push('matches5-header', ...(matches.data || Array(5).fill(null)), 'matches5-footer');
-        // list.push('matchesVersus-header', ...(matchesVersus.data || Array(5).fill(null)), 'matchesVersus-footer');
-    }
+    // if (profileId !== auth.profileId && auth) {
+    //     // list.push('matches5-header', ...(matches.data || Array(5).fill(null)), 'matches5-footer');
+    //     // list.push('matchesVersus-header', ...(matchesVersus.data || Array(5).fill(null)), 'matchesVersus-footer');
+    // }
 
     // useEffect(() => {
     //     if (!sameUserNull(user, auth) && auth) {

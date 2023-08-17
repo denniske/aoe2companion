@@ -86,7 +86,7 @@ interface ISearchProps {
 
 export default function Search({title, selectedUser, actionText, action}: ISearchProps) {
     const styles = useStyles();
-    const [text, setText] = useState('209525');
+    const [text, setText] = useState('');
     const previousText = usePrevious(text);
     const [fetchingMore, setFetchingMore] = useState(false);
     const [fetchedAll, setFetchedAll] = useState(false);
