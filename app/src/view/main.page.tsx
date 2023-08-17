@@ -1,7 +1,6 @@
 import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Alert, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {UserId} from '../helper/user';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {setAuth, useMutate, useSelector} from '../redux/reducer';
 import {useNavigationState} from "@react-navigation/native";
@@ -68,7 +67,7 @@ export function MainMenu() {
 const Tab = createMaterialTopTabNavigator();
 
 interface MainPageInnerProps {
-    user: UserId;
+    profileId: number;
 }
 
 // export default function MainPage() {
@@ -124,7 +123,7 @@ interface MainPageInnerProps {
 //     // return <MainPageInner user={auth}/>
 // }
 
-export function MainPageInner({ user }: MainPageInnerProps) {
+export function MainPageInner({ profileId }: MainPageInnerProps) {
     const loadingMatchesOrStatsTrigger = useSelector(state => state.loadingMatchesOrStats);
     const leaderboardId = useSelector(state => state.prefs.leaderboardId) ?? leaderboardIdsData[0];
 
@@ -138,7 +137,7 @@ export function MainPageInner({ user }: MainPageInnerProps) {
         return mainState?.index ?? 0;
     });
 
-    console.log('CACHED API ACCESS', user.id);
+    console.log('CACHED API ACCESS', profileId);
 
     // let allMatches = useCachedConservedLazyApi(
     //     [currentTabIndex, loadingMatchesOrStatsTrigger],

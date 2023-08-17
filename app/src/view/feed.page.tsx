@@ -7,7 +7,6 @@ import {fetchPlayerMatchesMultiple} from "@nex/data";
 import {IMatch, IPlayer} from "@nex/data/api";
 import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
 import Search from "./components/search";
-import {sameUser, sameUserNull, UserIdBaseWithName, userIdFromBase} from "../helper/user";
 import {setFollowing, useMutate, useSelector} from "../redux/reducer";
 import {useCachedLazyApi} from "../hooks/use-cached-lazy-api";
 import {Button} from "react-native-paper";
@@ -167,20 +166,20 @@ export function FeedList() {
     };
 
     const filterAndSortPlayers = (players: IPlayer[]) => {
-        let filteredPlayers = players.filter(p => following.filter(f => sameUserNull(p, f)).length > 0 || sameUserNull(p, auth));
-        filteredPlayers = orderBy(filteredPlayers, p => sameUserNull(p, auth));
+        let filteredPlayers = players.filter(p => following.filter(f => f.profileId === p.profile_id).length > 0 || p.profile_id == auth.profile_id);
+        filteredPlayers = orderBy(filteredPlayers, p => p.profile_id == auth.profile_id);
         return filteredPlayers;
     };
 
-    const gotoPlayer = (player: UserIdBaseWithName) => {
+    const gotoPlayer = (profileId: number) => {
         navigation.push('User', {
-            id: userIdFromBase(player),
-            name: player.name,
+            profileId,
+            // name: player.name,
         });
     };
 
-    const formatPlayer = (player: UserIdBaseWithName, i: number) => {
-        return sameUserNull(player, auth) ? (i == 0 ? getTranslation('feed.following.you') : getTranslation('feed.following.you').toLowerCase()) : player.name;
+    const formatPlayer = (player: any, i: number) => {
+        return player.profile_id === auth.profile_id ? (i == 0 ? getTranslation('feed.following.you') : getTranslation('feed.following.you').toLowerCase()) : player.name;
     };
 
     if (following?.length === 0 || list.length === 0) {
@@ -270,15 +269,15 @@ export function FeedList() {
                                                         </MyText>
                                                     )}
                                                     {
-                                                        sameUserNull(filteredPlayers[0], auth) &&
+                                                        filteredPlayers[0].profile_id === auth.profileId &&
                                                         <MyText> {match.finished ? getTranslation('feed.following.yplayed') : getTranslation('feed.following.yplayingnow')}</MyText>
                                                     }
                                                     {
-                                                        !sameUserNull(filteredPlayers[0], auth) && filteredPlayers.length == 1 &&
+                                                        filteredPlayers[0].profile_id !== auth.profileId && filteredPlayers.length == 1 &&
                                                         <MyText> {match.finished ? getTranslation('feed.following.played') : getTranslation('feed.following.playingnow')}</MyText>
                                                     }
                                                     {
-                                                        !sameUserNull(filteredPlayers[0], auth) && filteredPlayers.length > 1 &&
+                                                        !filteredPlayers[0].profile_id !== auth.profileId && filteredPlayers.length > 1 &&
                                                         <MyText> {match.finished ? getTranslation('feed.following.2played') : getTranslation('feed.following.2playingnow')}</MyText>
                                                     }
                                                     {
@@ -312,7 +311,7 @@ export function FeedList() {
 function FeedAction({user}: {user: IPlayerListPlayer}) {
     const mutate = useMutate();
     const following = useSelector(state => state.following);
-    const followingThisUser = following.find(f => sameUser(f, user));
+    const followingThisUser = following.find(f => f.profileId === user.profileId);
     const [loading, setLoading] = useState(false);
 
     const onSelect = async () => {

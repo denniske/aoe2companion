@@ -1,32 +1,28 @@
-import {Image, ImageBackground, Platform, StyleSheet, Text, View} from 'react-native';
-import {formatAgo, getMatchTeamsWithFreeForAll, getString, isMatchFreeForAll} from '@nex/data';
-import React, {useEffect} from 'react';
+import {Image, ImageBackground, StyleSheet, View} from 'react-native';
+import {formatAgo, getString, isMatchFreeForAll} from '@nex/data';
+import React from 'react';
 import {Player, PlayerSkeleton} from './player';
 import MyListAccordion from './accordion';
-import {IMatch, IMatchNew, IPlayer} from "@nex/data/api";
-import { getMapImage, getMapName } from "../../helper/maps";
+import {IMatchNew} from "@nex/data/api";
+import {getMapImage} from "../../helper/maps";
 import {TextLoader} from "./loader/text-loader";
 import {ImageLoader} from "./loader/image-loader";
 import {ViewLoader} from "./loader/view-loader";
-import {flatten, groupBy, min, minBy, sortBy} from 'lodash';
+import {flatten, min, sortBy} from 'lodash';
 import {differenceInSeconds} from "date-fns";
-import { MyText } from './my-text';
-import {makeVariants, useAppTheme, useTheme} from "../../theming";
+import {MyText} from './my-text';
+import {useAppTheme} from "../../theming";
 import {FontAwesome5} from "@expo/vector-icons";
-import {sameUser, sameUserNull, UserIdBase} from "../../helper/user";
 import {createStylesheet} from '../../theming-new';
-import {getLeaderboardOrGameType} from '@nex/data';
 import {getTranslation} from '../../helper/translate';
-import {hasRecDict} from '../../api/recording';
-import {useLazyApi} from '../../hooks/use-lazy-api';
 import {AoeSpeed, getSpeedFactor} from '../../helper/speed';
 import {appConfig} from "@nex/dataset";
 
 interface IGameProps {
     match: IMatchNew;
     expanded?: boolean;
-    user?: UserIdBase;
-    highlightedUsers?: UserIdBase[];
+    user?: any;
+    highlightedUsers?: any[];
 }
 
 const formatDuration = (durationInSeconds: number) => {
@@ -107,7 +103,7 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
                                      imageStyle={styles.imageInner}
                                      style={styles.map}>
                         {
-                            players.some(p => sameUserNull(p, user) && p.won === true && (freeForALl || p.team != -1)) &&
+                            players.some(p => p.profileId === user.profileId && p.won === true && (freeForALl || p.team != -1)) &&
                             <FontAwesome5 name="crown" size={14} style={{marginLeft: -7,marginTop:-4}} color="goldenrod" />
                         }
                         {
@@ -115,7 +111,7 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
                             <Image fadeDuration={0} source={require('../../../assets/other/SkullCrown.png')} style={{marginLeft: -6,marginTop:-4, width: 17, height: 17}} />
                         }
                         {
-                            players.some(p => sameUserNull(p, user) && p.won === false && (freeForALl || p.team != -1)) &&
+                            players.some(p => p.profileId === user.profileId && p.won === false && (freeForALl || p.team != -1)) &&
                             <FontAwesome5 name="skull" size={14} style={{marginLeft: -6,marginTop:-4}} color="grey" />
                         }
                     </ImageBackground>
@@ -183,7 +179,7 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
                                     (player, j) =>
                                         <Player
                                             key={j}
-                                            highlight={highlightedUsers?.some(hu => sameUser(hu, player))}
+                                            highlight={highlightedUsers?.some(hu => hu.profileId === player.profileId)}
                                             match={match}
                                             player={player}
                                             freeForALl={freeForALl}

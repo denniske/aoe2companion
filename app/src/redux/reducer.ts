@@ -1,6 +1,5 @@
 import {produce} from "immer";
 import { TypedUseSelectorHook, useDispatch, useSelector as useReduxSelector } from 'react-redux';
-import {UserId} from '../helper/user';
 import { IRatingHistoryRow } from '../service/rating';
 import {ILeaderboard} from "@nex/data";
 import {IMatch, IPlayer, IProfileResponse} from "@nex/data/api";
@@ -55,7 +54,7 @@ export function setPrefValue<T extends keyof IPrefs>(key: T, value: IPrefs[T]) {
   };
 }
 
-export function setAuth(user: UserId | null) {
+export function setAuth(user: any | null) {
   return (state: AppState) => {
     state.auth = user;
   };
@@ -130,15 +129,15 @@ export function setConfig(config: IConfig) {
   };
 }
 
-export function clearStatsPlayer(user: UserId) {
+export function clearStatsPlayer(profileId: number) {
   return (state: AppState) => {
-    set(state, ['statsPlayer', user.id], undefined);
+    set(state, ['statsPlayer', profileId], undefined);
   };
 }
 
-export function clearMatchesPlayer(user: UserId) {
+export function clearMatchesPlayer(profileId: number) {
   return (state: AppState) => {
-    set(state, ['user', user.id, 'matches'], undefined);
+    set(state, ['user', profileId, 'matches'], undefined);
   };
 }
 
@@ -198,7 +197,7 @@ export type DarkMode = 'light' | 'dark' | 'system';
 
 export interface AppState {
   account: IAccount;
-  auth?: UserId | null;
+  auth?: any | null;
   user: IUserDict;
   donation: IDonation;
   statsPlayer: any;

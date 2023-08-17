@@ -1,7 +1,6 @@
 import React from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {userIdFromBase} from '../../helper/user';
 import {FontAwesome5} from "@expo/vector-icons";
 import {useSelector} from "../../redux/reducer";
 import {makeVariants, useAppTheme, useTheme} from "../../theming";
@@ -28,7 +27,7 @@ export function LivePlayer({player}: IPlayerProps) {
     const gotoPlayer = () => {
         if (player == null) return;
         navigation.push('User', {
-            id: userIdFromBase({profile_id: player.profileId}),
+            profileId: player.profileId,
             name: player.name as string,
         });
     };

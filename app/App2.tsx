@@ -14,7 +14,6 @@ import {
 } from 'react-native';
 import {createStackNavigator, StackNavigationProp, TransitionPresets} from '@react-navigation/stack';
 import Header from './src/view/components/header';
-import {composeUserId, parseUserId, sameUserNull, UserId} from './src/helper/user';
 import UserPage, {userMenu} from './src/view/user.page';
 import {useApi} from './src/hooks/use-api';
 import {
@@ -165,13 +164,12 @@ const linking: LinkingOptions = {
     config: {
         screens: {
             User: {
-                path: 'user/:id/:name?',
+                path: 'user/:profile_id',
                 parse: {
-                    id: parseUserId,
-                    name: String,
+                    profile_id: parseInt,
                 },
                 stringify: {
-                    id: composeUserId,
+                    id: x => x.toString(),
                 },
                 screens: {
                     MainProfile: {
@@ -295,7 +293,7 @@ export type RootStackParamList = {
     Building: { building: Building };
     Tech: { tech: Tech };
     Guide: { build?: number };
-    User: { id: UserId, name: string };
+    User: { profileId: number };
     Search: { name?: string };
     OverlaySettings: { };
 };
@@ -403,7 +401,7 @@ export function InnerApp() {
                     component={UserPage}
                     options={props => ({
                         animationEnabled: !!props.route?.params,
-                        title: sameUserNull(auth, props.route.params?.id) || props.route.params == null ? 'Me' : props.route.params.name,
+                        title: 'Me Title', //sameUserNull(auth, props.route.params?.id) || props.route.params == null ? 'Me' : props.route.params.name,
                         headerRight: userMenu(props),
                     })}
                 />

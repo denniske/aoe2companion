@@ -3,7 +3,6 @@ import {FlatList, Image, StyleSheet, TouchableOpacity, View} from 'react-native'
 import {IFetchedUser, loadUser, loadUserByProfileId, loadUserBySteamId} from '../../service/user';
 import {useLazyApi} from '../../hooks/use-lazy-api';
 import {Button, Searchbar} from 'react-native-paper';
-import {composeUserIdFromParts, UserInfo} from '../../helper/user';
 import {MyText} from "./my-text";
 import RefreshControlThemed from "./refresh-control-themed";
 import {usePrevious} from "@nex/data/hooks";
@@ -32,8 +31,6 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
     const onSelect = async () => {
         if (selectedUser == null) return;
         selectedUser({
-            id: composeUserIdFromParts(player.steamId, player.profileId),
-            steamId: player.steamId,
             profileId: player.profileId,
             name: player.name,
         });
@@ -41,7 +38,7 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
 
     return (
             <TouchableOpacity
-                ref={ref => generateTestHook('Search.Player.' + composeUserIdFromParts(player.steamId, player.profileId))({ props: { onPress: onSelect }})}
+                ref={ref => generateTestHook('Search.Player.' + player.profileId)({ props: { onPress: onSelect }})}
                 onPress={onSelect}
             >
                 <View style={styles.row}>
@@ -82,7 +79,7 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
 
 interface ISearchProps {
     title?: string;
-    selectedUser?: (user: UserInfo) => void;
+    selectedUser?: (user: any) => void;
     actionText?: string;
     action?: (player: IFetchedUser) => React.ReactNode;
 }

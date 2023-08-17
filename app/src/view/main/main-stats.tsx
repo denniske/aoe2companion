@@ -1,27 +1,26 @@
-import {FlatList, Linking, Platform, StyleSheet, View} from "react-native";
+import {FlatList, Platform, StyleSheet, View} from "react-native";
 import {
-    clearMatchesPlayer, clearStatsPlayer, setLoadingMatchesOrStats, setPrefValue, useMutate, useSelector
+    clearMatchesPlayer,
+    clearStatsPlayer,
+    setLoadingMatchesOrStats,
+    setPrefValue,
+    useMutate,
+    useSelector
 } from "../../redux/reducer";
-import {keysOf, LeaderboardId} from "@nex/data";
+import {LeaderboardId} from "@nex/data";
 import React, {useEffect, useState} from "react";
 import {RouteProp, useNavigation, useNavigationState, useRoute} from "@react-navigation/native";
 import {get} from 'lodash';
 import {usePrevious} from "@nex/data/hooks";
 import {saveCurrentPrefsToStorage} from "../../service/storage";
 import {MyText} from "../components/my-text";
-import StatsPosition from "../components/stats-position";
 import StatsCiv from "../components/stats-civ";
-import StatsMap from "../components/stats-map";
-import StatsPlayer from "../components/stats-player";
 import TemplatePicker from "../components/template-picker";
-import {TextLoader} from "../components/loader/text-loader";
 import RefreshControlThemed from "../components/refresh-control-themed";
-import {parseUserId} from "../../helper/user";
-import StatsDuration from "../components/stats-duration";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
 import {useNavigationStateExternal} from '../../hooks/use-navigation-state-external';
-import {getPathToRoute, getRoutes, getRoutesFromCurrentActiveStack} from '../../service/navigation';
+import {getPathToRoute, getRoutesFromCurrentActiveStack} from '../../service/navigation';
 import {useTheme} from '../../theming';
 import {appVariants} from '../../styles';
 import {openLink} from "../../helper/url";
@@ -46,9 +45,12 @@ export default function MainStats() {
 
     if (routes == null || routes.length === 0 || routes[0].params == null) return <View/>;
 
-    const user = routes[0].params.id;
+    const profileId = routes[0].params.profileId;
 
-    if (user == null) {
+    if (profileId == null) {
+        // This happens sometimes when clicking notification
+        // Routes will contain "Feed" with match_id
+        // console.log('ROUTES', JSON.stringify(routes));
         return (
             <View style={styles.list}>
                 <MyText>
@@ -58,10 +60,10 @@ export default function MainStats() {
         );
     }
 
-    return <MainStatsInternal user={user}/>;
+    return <MainStatsInternal profileId={profileId}/>;
 }
 
-function MainStatsInternal({user}: { user: any}) {
+function MainStatsInternal({profileId}: {profileId: number}) {
     const styles = useStyles();
     const mutate = useMutate();
     // const prefLeaderboardId = useSelector(state => state.prefs.leaderboardId) ?? leaderboardIdsData[0];
@@ -69,7 +71,7 @@ function MainStatsInternal({user}: { user: any}) {
     const [leaderboardId, setLeaderboardId] = useState(prefLeaderboardId);
 
     const navigation = useNavigation();
-    const userProfile = useSelector(state => state.user[user.id]?.profile);
+    const userProfile = useSelector(state => state.user[profileId]?.profile);
     useEffect(() => {
         if (!userProfile) return;
         navigation.setOptions({
@@ -80,22 +82,22 @@ function MainStatsInternal({user}: { user: any}) {
     const profile = useApi(
         {},
         [],
-        state => state.user[user.id]?.profile,
+        state => state.user[profileId]?.profile,
         (state, value) => {
-            if (state.user[user.id] == null) {
-                state.user[user.id] = {};
+            if (state.user[profileId] == null) {
+                state.user[profileId] = {};
             }
-            state.user[user.id].profile = value;
+            state.user[profileId].profile = value;
         },
-        loadProfile, user
+        loadProfile, profileId
     );
 
     const currentCachedData =
-        useSelector(state => get(state.user, [user.id, 'profile']))?.stats?.find(s => s.leaderboardId === leaderboardId);
+        useSelector(state => get(state.user, [profileId, 'profile']))?.stats?.find(s => s.leaderboardId === leaderboardId);
     const previousCachedData = usePrevious(currentCachedData);
 
     const currentCachedData2 =
-        useSelector(state => get(state.user, [user.id, 'profile']));
+        useSelector(state => get(state.user, [profileId, 'profile']));
 
     console.log('==> profile', profile);
     console.log('==> currentCachedData', currentCachedData);
@@ -154,8 +156,8 @@ function MainStatsInternal({user}: { user: any}) {
 
     const onRefresh = async () => {
         setRefetching(true);
-        await mutate(clearStatsPlayer(user));
-        await mutate(clearMatchesPlayer(user));
+        await mutate(clearStatsPlayer(profileId));
+        await mutate(clearMatchesPlayer(profileId));
         await mutate(setLoadingMatchesOrStats());
     };
 
@@ -189,13 +191,13 @@ function MainStatsInternal({user}: { user: any}) {
                             //     return <MyText>---</MyText>;
                             //     // return <StatsPosition data={statsPosition} user={user} leaderboardId={leaderboardId}/>;
                             case 'stats-civ':
-                                return <StatsCiv data={statsCiv} user={user} title={getTranslation('main.stats.heading.civ')} leaderboardId={leaderboardId}/>;
+                                return <StatsCiv data={statsCiv} user={profileId} title={getTranslation('main.stats.heading.civ')} leaderboardId={leaderboardId}/>;
                             case 'stats-map':
-                                return <StatsCiv data={statsMap} user={user} title={getTranslation('main.stats.heading.map')} leaderboardId={leaderboardId}/>;
+                                return <StatsCiv data={statsMap} user={profileId} title={getTranslation('main.stats.heading.map')} leaderboardId={leaderboardId}/>;
                             case 'stats-ally':
-                                return <StatsCiv data={statsAlly} user={user} title={getTranslation('main.stats.heading.ally')} leaderboardId={leaderboardId}/>;
+                                return <StatsCiv data={statsAlly} user={profileId} title={getTranslation('main.stats.heading.ally')} leaderboardId={leaderboardId}/>;
                             case 'stats-opponent':
-                                return <StatsCiv data={statsOpponent} user={user} title={getTranslation('main.stats.heading.opponent')} leaderboardId={leaderboardId}/>;
+                                return <StatsCiv data={statsOpponent} user={profileId} title={getTranslation('main.stats.heading.opponent')} leaderboardId={leaderboardId}/>;
                             default:
                                 return <View/>;
                         }

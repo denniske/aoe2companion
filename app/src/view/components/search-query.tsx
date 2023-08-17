@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {FlatList, Image, ImageSourcePropType, StyleSheet, TouchableOpacity, View, ViewStyle} from 'react-native';
 import {IFetchedUser} from '../../service/user';
 import {Button, Searchbar, shadow} from 'react-native-paper';
-import {composeUserIdFromParts, UserInfo} from '../../helper/user';
 import {MyText} from "./my-text";
 import {createStylesheet} from '../../theming-new';
 import {useCavy} from '../testing/tester';
@@ -41,7 +40,7 @@ import {CountryImage} from './country-image';
 
 interface IPlayerProps {
     player: IFetchedUser;
-    selectedUser?: (user: UserInfo) => void;
+    selectedUser?: (user: any) => void;
     actionText?: string;
     action?: (player: IFetchedUser) => React.ReactNode;
 }
@@ -52,7 +51,6 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
 
     const onSelect = async () => {
         selectedUser!({
-            id: composeUserIdFromParts(player.steam_id, player.profile_id),
             steam_id: player.steam_id,
             profile_id: player.profile_id,
             name: player.name,
@@ -61,7 +59,7 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
 
     return (
             <TouchableOpacity
-                ref={ref => generateTestHook('Search.Player.' + composeUserIdFromParts(player.steam_id, player.profile_id))({ props: { onPress: onSelect }})}
+                ref={ref => generateTestHook('Search.Player.' + player.profile_id)({ props: { onPress: onSelect }})}
                 onPress={onSelect}
             >
                 <View style={styles.row}>
@@ -102,7 +100,7 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
 
 interface ISearchProps {
     title?: string;
-    selectedUser?: (user: UserInfo) => void;
+    selectedUser?: (user: any) => void;
     actionText?: string;
     action?: (player: IFetchedUser) => React.ReactNode;
 }

@@ -1,29 +1,20 @@
 import {useTheme} from "../../theming";
-import {FlatList, Linking, Platform, StyleSheet, TouchableOpacity, View} from "react-native";
+import {FlatList, Platform, StyleSheet, TouchableOpacity, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import {RouteProp, useNavigation, useNavigationState, useRoute} from "@react-navigation/native";
 import {Game} from "../components/game";
 import RefreshControlThemed from "../components/refresh-control-themed";
-import {
-    clearMatchesPlayer,
-    clearStatsPlayer,
-    setLoadingMatchesOrStats,
-    useMutate,
-    useSelector
-} from "../../redux/reducer";
+import {clearMatchesPlayer, setLoadingMatchesOrStats, useMutate, useSelector} from "../../redux/reducer";
 import {Checkbox, Searchbar} from "react-native-paper";
 import {MyText} from "../components/my-text";
 import {appVariants} from "../../styles";
-import {fetchPlayerMatches, getCivName, LeaderboardId} from "@nex/data";
+import {fetchPlayerMatches, LeaderboardId} from "@nex/data";
 import TemplatePicker from "../components/template-picker";
 import {get, set} from 'lodash';
-import {IMatch, IMatchNew} from "@nex/data/api";
-import {getMapName} from "../../helper/maps";
-import {parseUserId, sameUser} from "../../helper/user";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
 import {useNavigationStateExternal} from '../../hooks/use-navigation-state-external';
-import {getPathToRoute, getRoutes, getRoutesFromCurrentActiveStack} from '../../service/navigation';
+import {getPathToRoute, getRoutesFromCurrentActiveStack} from '../../service/navigation';
 import {openLink} from "../../helper/url";
 import {useWebRefresh} from "../../hooks/use-web-refresh";
 import FlatListLoadingIndicator from "../components/flat-list-loading-indicator";
@@ -46,11 +37,12 @@ export default function MainMatches() {
 
     if (routes == null || routes.length === 0 || routes[0].params == null) return <View/>;
 
-    const user = routes[0].params.id;
+    const profileId = routes[0].params.profileId;
 
-    // console.log('===> user', user);
-
-    if (user == null) {
+    if (profileId == null) {
+        // This happens sometimes when clicking notification
+        // Routes will contain "Feed" with match_id
+        // console.log('ROUTES', JSON.stringify(routes));
         return (
             <View style={styles.list}>
                 <MyText>
@@ -60,10 +52,10 @@ export default function MainMatches() {
         );
     }
 
-    return <MainMatchesInternal user={user}/>;
+    return <MainMatchesInternal profileId={profileId}/>;
 }
 
-function MainMatchesInternal({user}: { user: any}) {
+function MainMatchesInternal({profileId}: {profileId: number}) {
     const styles = useStyles();
     const appStyles = useTheme(appVariants);
     const [text, setText] = useState('');
@@ -75,7 +67,7 @@ function MainMatchesInternal({user}: { user: any}) {
     const loadingMatchesOrStatsTrigger = useSelector(state => state.loadingMatchesOrStats);
 
     const navigation = useNavigation();
-    const userProfile = useSelector(state => state.user[user.id]?.profile);
+    const userProfile = useSelector(state => state.user[profileId]?.profile);
     useEffect(() => {
         if (!userProfile) return;
         navigation.setOptions({
@@ -85,16 +77,16 @@ function MainMatchesInternal({user}: { user: any}) {
 
     const auth = useSelector(state => state.auth);
 
-    // const matches = useSelector(state => get(state.user, [user.id, 'matches']));
+    // const matches = useSelector(state => get(state.user, [profileId, 'matches']));
 
     // console.log('===> user', user);
 
     let matchesHandle = useCachedConservedLazyApi(
         [loadingMatchesOrStatsTrigger],
         () => true,
-        state => get(state, ['user', user.id, 'matches']),
-        (state, value) => set(state, ['user', user.id, 'matches'], value),
-        fetchPlayerMatches, 0, 500, [user.id], text
+        state => get(state, ['user', profileId, 'matches']),
+        (state, value) => set(state, ['user', profileId, 'matches'], value),
+        fetchPlayerMatches, 0, 500, [profileId], text
     );
     const matches = matchesHandle.data;
     const filteredMatches = matches;
@@ -108,7 +100,7 @@ function MainMatchesInternal({user}: { user: any}) {
         if (previousText?.trim() === text.trim()) {
             return;
         }
-        matchesHandle.refetch(0, 500, [user.id], text.trim());
+        matchesHandle.refetch(0, 500, [profileId], text.trim());
         // setFetchedAll(false);
     };
 
@@ -201,7 +193,7 @@ function MainMatchesInternal({user}: { user: any}) {
                     <TemplatePicker value={leaderboardId} values={values} template={renderLeaderboard} onSelect={onLeaderboardSelected}/>
                     <View style={appStyles.expanded}/>
                     {
-                        auth && !sameUser(user, auth) &&
+                        auth && profileId !== auth.profileId &&
                         <View style={styles.row}>
                             <Checkbox.Android
                                 status={withMe ? 'checked' : 'unchecked'}
@@ -234,7 +226,7 @@ function MainMatchesInternal({user}: { user: any}) {
                             case 'header':
                                 return <MyText style={styles.header}>{getTranslation('main.matches.matches', { matches: filteredMatches?.length })}</MyText>
                             default:
-                                return <Game match={item as any} expanded={index === -1} highlightedUsers={[user]} user={user}/>;
+                                return <Game match={item as any} expanded={index === -1} highlightedUsers={[profileId]} user={profileId}/>;
                         }
                     }}
                     keyExtractor={(item, index) => index.toString()}

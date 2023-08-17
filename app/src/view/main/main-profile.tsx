@@ -12,7 +12,6 @@ import Rating from "../components/rating";
 import RefreshControlThemed from "../components/refresh-control-themed";
 import {Game} from "../components/game";
 import {Button} from "react-native-paper";
-import {sameUserNull} from "../../helper/user";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
 import {getPathToRoute, getRoutesFromCurrentActiveStack} from '../../service/navigation';
@@ -61,9 +60,9 @@ export default function MainProfile() {
 
     if (routes == null || routes.length === 0 || routes[0].params == null) return <View/>;
 
-    const user = routes[0].params.id;
+    const profileId = routes[0].params.profileId;
 
-    if (user == null) {
+    if (profileId == null) {
         // This happens sometimes when clicking notification
         // Routes will contain "Feed" with match_id
         // console.log('ROUTES', JSON.stringify(routes));
@@ -76,15 +75,15 @@ export default function MainProfile() {
         );
     }
 
-    return <MainProfileInternal user={user}/>;
+    return <MainProfileInternal profileId={profileId}/>;
 }
 
-function MainProfileInternal({user}: { user: any}) {
+function MainProfileInternal({profileId}: {profileId: number}) {
     const styles = useStyles();
     const auth = useSelector(state => state.auth);
 
     const navigation = useNavigation();
-    const userProfile = useSelector(state => state.user[user.id]?.profile);
+    const userProfile = useSelector(state => state.user[profileId]?.profile);
     useEffect(() => {
         if (!userProfile) return;
         navigation.setOptions({
@@ -95,12 +94,12 @@ function MainProfileInternal({user}: { user: any}) {
     // const rating = useApi(
     //     {},
     //     [],
-    //     state => state.user[user.id]?.rating,
+    //     state => state.user[profileId]?.rating,
     //     (state, value) => {
-    //         if (state.user[user.id] == null) {
-    //             state.user[user.id] = {};
+    //         if (state.user[profileId] == null) {
+    //             state.user[profileId] = {};
     //         }
-    //         state.user[user.id].rating = value;
+    //         state.user[profileId].rating = value;
     //     },
     //     loadRatingHistories, 'aoe2de', user
     // );
@@ -108,14 +107,14 @@ function MainProfileInternal({user}: { user: any}) {
     const profile = useApi(
         {},
         [],
-        state => state.user[user.id]?.profile,
+        state => state.user[profileId]?.profile,
         (state, value) => {
-            if (state.user[user.id] == null) {
-                state.user[user.id] = {};
+            if (state.user[profileId] == null) {
+                state.user[profileId] = {};
             }
-            state.user[user.id].profile = value;
+            state.user[profileId].profile = value;
         },
-        loadProfile, user
+        loadProfile, profileId
     );
 
     const rating = profile.data?.ratings;
@@ -140,24 +139,24 @@ function MainProfileInternal({user}: { user: any}) {
     // const matches = useApi(
     //     {},
     //     [],
-    //     state => state.user[user.id]?.matches5,
+    //     state => state.user[profileId]?.matches5,
     //     (state, value) => {
-    //         if (state.user[user.id] == null) {
-    //             state.user[user.id] = {};
+    //         if (state.user[profileId] == null) {
+    //             state.user[profileId] = {};
     //         }
-    //         state.user[user.id].matches5 = value;
+    //         state.user[profileId].matches5 = value;
     //     },
     //     fetchPlayerMatches, 'aoe2de', 0, 5, [user]
     // );
 
     // const matchesVersus = useCachedLazyApi(
     //     [],
-    //     state => state.user[user.id]?.matchesVersus,
+    //     state => state.user[profileId]?.matchesVersus,
     //     (state, value) => {
-    //         if (state.user[user.id] == null) {
-    //             state.user[user.id] = {};
+    //         if (state.user[profileId] == null) {
+    //             state.user[profileId] = {};
     //         }
-    //         state.user[user.id].matchesVersus = value;
+    //         state.user[profileId].matchesVersus = value;
     //     },
     //     fetchPlayerMatches, 'aoe2de', 0, 5, [user, auth!]
     // );
@@ -166,7 +165,7 @@ function MainProfileInternal({user}: { user: any}) {
         'profile', 'rating-header', 'rating',
     ];
 
-    if (!sameUserNull(user, auth) && auth) {
+    if (profileId !== auth.profileId && auth) {
         // list.push('matches5-header', ...(matches.data || Array(5).fill(null)), 'matches5-footer');
         // list.push('matchesVersus-header', ...(matchesVersus.data || Array(5).fill(null)), 'matchesVersus-footer');
     }
@@ -232,7 +231,7 @@ function MainProfileInternal({user}: { user: any}) {
                                 if (rating?.length === 0) return <View/>;
                                 return <Rating ratingHistories={rating} ready={profile.data != null && rating != null}/>;
                             default:
-                                return <Game match={item as any} expanded={index === -1} highlightedUsers={[user]} user={user}/>;
+                                return <Game match={item as any} expanded={index === -1} highlightedUsers={[profileId]} user={profileId}/>;
                         }
 
                     }}

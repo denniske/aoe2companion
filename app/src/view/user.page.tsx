@@ -6,7 +6,6 @@ import {MainPageInner} from "./main.page";
 import {createStylesheet} from '../theming-new';
 import {setAuth, setPrefValue, useMutate, useSelector} from '../redux/reducer';
 import {useCavy} from './testing/tester';
-import {composeUserId, sameUserNull, UserId, userIdFromBase, UserInfo} from '../helper/user';
 import {clearSettingsInStorage, saveCurrentPrefsToStorage, saveSettingsToStorage} from '../service/storage';
 import Search from './components/search';
 import {loadProfile} from '../service/profile';
@@ -82,7 +81,7 @@ export function UserMenu() {
                 </TouchableOpacity>
             }
             {
-                sameUserNull(user, auth) &&
+                user.profile_id === auth.profileId &&
                 <TouchableOpacity style={styles.menuButton} onPress={deleteUser}>
                     <FontAwesome5 style={styles.menuIcon} name="user-times" size={16} />
                 </TouchableOpacity>
@@ -97,25 +96,26 @@ function isValidUserInfo(userInfo: any) {
 
 export default function UserPage() {
     const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
-    const user: UserId = isValidUserInfo(route.params?.id) ? route.params?.id : undefined as unknown as UserId;
+    const profileId = route.params?.profileId;
     const styles = useStyles();
 
     const mutate = useMutate();
     const auth = useSelector(state => state.auth);
     const account = useSelector(state => state.account);
-    const profile = useSelector(state => state.user[user?.id]?.profile);
+    const profile = useSelector(state => state.user[profileId]?.profile);
     const [hasSteamId, setHasSteamId] = useState(true);
 
-    // console.log('UserPage', route.params, auth);
+    console.log('==> UserPage');
+    console.log(route.params);
+    console.log(auth);
+    console.log(profileId);
 
     const generateTestHook = useCavy();
     const navigation = useNavigation<RootStackProp>();
     generateTestHook('Navigation')(navigation);
 
-    const onSelect = async (user: UserInfo) => {
+    const onSelect = async (user: any) => {
         await saveSettingsToStorage({
-            id: composeUserId(user),
-            steamId: user.steamId,
             profileId: user.profileId,
         });
         mutate(setAuth(user));
@@ -136,14 +136,14 @@ export default function UserPage() {
         console.log('==> NAVIGATE');
         // @ts-ignore
         navigation.navigate('User', {
-            id: userIdFromBase(auth!),
+            profileId: auth?.profileId,
             // name: profile?.name,
         });
         console.log('==> NAVIGATED');
     };
 
     useEffect(() => {
-        if (auth != null && user == null) {
+        if (auth != null && profileId == null) {
             navigateToAuthUser();
         }
     }, [auth]);
@@ -154,7 +154,7 @@ export default function UserPage() {
         if (profile != null) {
             // @ts-ignore
             navigation.setParams({
-                id: userIdFromBase(profile),
+                profileId: profile.profileId,
                 name: profile.name
             });
         }
@@ -164,58 +164,53 @@ export default function UserPage() {
 
     const completeUserIdInfo = async () => {
         // console.log('completeUserIdInfo');
-        const loadedProfile = profile ?? await loadProfile('aoe2de', user!);
+        const loadedProfile = profile ?? await loadProfile(profileId);
         if (loadedProfile) {
-            const loadedProfileId = composeUserId(loadedProfile);
-
             mutate(state => {
-                if (state.user[loadedProfileId] == null) {
-                    state.user[loadedProfileId] = {};
+                if (state.user[loadedProfile.profileId] == null) {
+                    state.user[loadedProfile.profileId] = {};
                 }
-                state.user[loadedProfileId].profile = loadedProfile;
+                state.user[loadedProfile.profileId].profile = loadedProfile;
             });
         }
 
-        if (!loadedProfile?.steamId) {
-            setHasSteamId(false);
-        }
+        // if (!loadedProfile?.steamId) {
+        //     setHasSteamId(false);
+        // }
 
         if (loadedProfile) {
             // @ts-ignore
             navigation.setParams({
-                id: userIdFromBase(loadedProfile!),
+                profileId: loadedProfile.profileId,
                 name: loadedProfile?.name,
             });
         }
     }
 
     useEffect(() => {
-        if (user != null && user.profileId == null) {
+        if (profileId == null) {
             completeUserIdInfo();
         }
-        if (user != null && user.steamId == null && hasSteamId) {
-            completeUserIdInfo();
-        }
-    }, [user, hasSteamId]);
+    }, [profileId, hasSteamId]);
 
-    if (user) {
-        if (user.profileId == null) {
-            return <View style={styles.container}><MyText>Loading profile by Steam ID...</MyText></View>;
-        }
-        if (user.steamId == null && hasSteamId) {
-            return <View style={styles.container}><MyText>Loading profile by profile ID...</MyText></View>;
-        }
-    }
+    // if (profileId) {
+    //     if (profileId == null) {
+    //         return <View style={styles.container}><MyText>Loading profile by Steam ID...</MyText></View>;
+    //     }
+    //     if (user.steamId == null && hasSteamId) {
+    //         return <View style={styles.container}><MyText>Loading profile by profile ID...</MyText></View>;
+    //     }
+    // }
 
-    if (user) {
-        return <MainPageInner user={user}/>;
+    if (profileId) {
+        return <MainPageInner profileId={profileId}/>;
     }
 
     if (auth == null) {
         return <Search title="Enter your AoE username to track your games:" selectedUser={onSelect} actionText="Choose" />;
     }
 
-    return <MainPageInner user={auth}/>;
+    return <MainPageInner profileId={profileId}/>;
 }
 
 const useStyles = createStylesheet(theme => StyleSheet.create({

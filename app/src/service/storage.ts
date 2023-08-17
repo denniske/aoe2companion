@@ -33,7 +33,6 @@ export interface IPrefs {
 }
 
 export interface ISettings {
-    id: string;
     steamId?: string;
     profileId?: number;
 
@@ -47,7 +46,6 @@ export interface IAccount {
 }
 
 export interface IFollowingEntry {
-    id?: string;
     steamId?: string;
     profileId: number;
     steam_id?: string;
@@ -131,12 +129,15 @@ export const loadSettingsFromStorage = async () => {
     if (settings.profileId == null && settings.profile_id != null) {
         settings.profileId = settings.profile_id;
     }
-    if (settings.steamId == null && settings.steam_id != null) {
-        settings.steamId = settings.steam_id;
-    }
+    // if (settings.steamId == null && settings.steam_id != null) {
+    //     settings.steamId = settings.steam_id;
+    // }
 
-    await sendSettingsToElectron(settings);
-    return settings;
+    // delete settings.profile_id;
+    // delete settings.steam_id;
+
+    await sendSettingsToElectron({ profileId: settings.profileId });
+    return { profileId: settings.profileId };
 };
 
 export const loadFollowingFromStorage = async () => {

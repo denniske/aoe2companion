@@ -1,5 +1,4 @@
 import {IPlayerListPlayer} from "../view/components/player-list";
-import {composeUserId, sameUser} from "../helper/user";
 import {loadFollowingFromStorage, saveFollowingToStorage} from "./storage";
 import {follow, unfollow} from "../api/following";
 import store from "../redux/store";
@@ -25,12 +24,11 @@ export const toggleFollowing = async (user: IPlayerListPlayer) => {
     }
 
     const following2 = await loadFollowingFromStorage();
-    const index2 = following2.findIndex(f => sameUser(f, user));
+    const index2 = following2.findIndex(f => f.profileId === user.profileId);
     if (index2 > -1) {
         following2.splice(index2, 1);
     } else {
         following2.push({
-            id: composeUserId(user),
             steam_id: user.steamId,
             profile_id: user.profileId,
             name: user.name,

@@ -12,7 +12,6 @@ import {differenceInSeconds} from "date-fns";
 import {MyText} from './my-text';
 import {BorderText} from './border-text';
 import {makeVariants, useAppTheme, useTheme} from "../../theming";
-import {sameUser, sameUserNull, UserIdBase} from "../../helper/user";
 import {createStylesheet} from '../../theming-new';
 import {getLeaderboardOrGameType} from '@nex/data';
 import {getTranslation} from '../../helper/translate';

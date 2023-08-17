@@ -1,7 +1,6 @@
 import React from 'react';
 import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Button} from 'react-native-paper';
-import {composeUserIdFromParts, UserInfo} from '../../helper/user';
 import {MyText} from "./my-text";
 import {Flag} from '@nex/data';
 import {getTranslation} from '../../helper/translate';
@@ -18,7 +17,7 @@ export interface IPlayerListPlayer {
 
 interface IPlayerProps {
     player: IPlayerListPlayer;
-    selectedUser?: (user: UserInfo) => void;
+    selectedUser?: (user: any) => void;
     actionText?: string;
     action?: (player: IPlayerListPlayer) => React.ReactNode;
 }
@@ -28,8 +27,6 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
 
     const onSelect = async () => {
         selectedUser!({
-            id: composeUserIdFromParts(player.steamId, player.profileId),
-            steamId: player.steamId,
             profileId: player.profileId,
             name: player.name,
         });
@@ -37,7 +34,7 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
 
     return (
             <TouchableOpacity
-                ref={ref => generateTestHook('Search.Player.' + composeUserIdFromParts(player.steamId, player.profileId))({ props: { onPress: onSelect }})}
+                ref={ref => generateTestHook('Search.Player.' + player.profileId)({ props: { onPress: onSelect }})}
                 onPress={onSelect}
             >
                 <View style={styles.row}>
@@ -72,7 +69,7 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
 
 interface ISearchProps {
     list: IPlayerListPlayer[];
-    selectedUser?: (user: UserInfo) => void;
+    selectedUser?: (user: any) => void;
     actionText?: string;
     action?: (player: IPlayerListPlayer) => React.ReactNode;
 }

@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {Image, Linking, Platform, StyleSheet, TextStyle, TouchableOpacity, View} from 'react-native';
 import {getPlayerBackgroundColor} from '../../helper/colors';
 import {useNavigation} from '@react-navigation/native';
-import {userIdFromBase} from '../../helper/user';
 import {civs, civsAoeNet, getCivName, getCivNameById, isBirthday, isVerifiedPlayer, moProfileId, noop} from '@nex/data';
 import {RootStackProp} from '../../../App2';
 import {getSlotTypeName, IPlayer, IMatch, IMatchNew, IPlayerNew} from "@nex/data/api";
@@ -59,7 +58,7 @@ export function Player({match, player, highlight, freeForALl, canDownloadRec}: I
 
     const gotoPlayer = () => {
         navigation.push('User', {
-            id: userIdFromBase(player),
+            profileId: player.profileId,
             name: player.name,
         });
     };

@@ -4,7 +4,6 @@ import {
     Platform, StyleSheet, TextStyle, TouchableOpacity, View, ViewStyle
 } from 'react-native';
 import {useNavigation, useNavigationState} from '@react-navigation/native';
-import {minifyUserId, sameUserNull, userIdFromBase} from "../helper/user";
 import {getCountryName} from "../helper/flags";
 import {countriesDistinct, Country, ILeaderboardPlayer} from "@nex/data";
 import {RootStackProp} from "../../App";
@@ -238,13 +237,13 @@ function Leaderboard({leaderboardId}: any) {
 
     const onSelect = async (player: ILeaderboardPlayer) => {
         navigation.push('User', {
-            id: userIdFromBase(player),
+            profileId: player.profile_id,
             name: player.name,
         });
     };
 
     const _renderRow = (player: ILeaderboardPlayer, i: number, isMyRankRow: boolean = false) => {
-        const isMe = sameUserNull(player, auth);
+        const isMe = player.profile_id === auth.profileId;
         const rowStyle = { height: isMyRankRow ? headerMyRankHeight : rowHeight };
         const weightStyle = { fontWeight: isMe ? 'bold' : 'normal' } as TextStyle;
         const rankWidthStyle = { width: isMyRankRow ? undefined : rankWidth } as ViewStyle;

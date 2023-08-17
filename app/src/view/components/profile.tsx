@@ -13,7 +13,6 @@ import {ImageLoader} from "./loader/image-loader";
 import {TextLoader} from "./loader/text-loader";
 import {FontAwesome5} from "@expo/vector-icons";
 import {setFollowing, setPrefValue, useMutate, useSelector} from "../../redux/reducer";
-import {sameUser} from "../../helper/user";
 import {MyText} from "./my-text";
 import {formatLeaderboardId} from "@nex/data";
 import {useAppTheme, usePaperTheme} from "../../theming";
@@ -165,7 +164,7 @@ export default function Profile({data, ready}: IProfileProps) {
     const mutate = useMutate();
     const auth = useSelector(state => state.auth);
     const following = useSelector(state => state.following);
-    const followingThisUser = !!following.find(f => data && sameUser(f, data));
+    const followingThisUser = !!following.find(f => data && f.profileId === data.profileId);
     const authCountry = useSelector(state => state.prefs.country);
 
     // console.log('==> data', data);
@@ -217,7 +216,7 @@ export default function Profile({data, ready}: IProfileProps) {
                         </View>
                         <View style={styles.expanded}/>
                         {
-                            data && (auth == null || !sameUser(auth, data)) &&
+                            data && (auth == null || auth.profileId !== data.profileId) &&
                             <TouchableOpacity onPress={ToggleFollowing}>
                                 <View style={styles.followButton}>
                                     <FontAwesome5 solid={followingThisUser} name="heart" size={22} style={styles.followButtonIcon}/>

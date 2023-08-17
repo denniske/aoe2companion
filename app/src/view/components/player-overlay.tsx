@@ -2,7 +2,6 @@ import React from 'react';
 import {Linking, StyleSheet, TextStyle, TouchableOpacity, View} from 'react-native';
 import {getPlayerBackgroundColor} from '../../helper/colors';
 import {useNavigation} from '@react-navigation/native';
-import {userIdFromBase} from '../../helper/user';
 import {
     civs, civsAoeNet, getCivName, getCivNameById, isBirthday, isVerifiedPlayer, moProfileId
 } from '@nex/data';
@@ -55,7 +54,7 @@ export function PlayerOverlay({match, player, highlight, freeForALl, canDownload
 
     const gotoPlayer = () => {
         navigation.push('User', {
-            id: userIdFromBase(player),
+            profileId: player.profileId,
             name: player.name,
         });
     };

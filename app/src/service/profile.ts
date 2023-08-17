@@ -1,14 +1,6 @@
-import {fetchLeaderboardLegacy} from '../api/leaderboard';
-import {sortBy, sumBy} from 'lodash';
-import {IProfile} from '../view/components/profile';
-import {minifyUserId, UserIdBase} from '../helper/user';
-import {IMatchesResponse, IProfileResponse, IRatingHistoryEntry, IRatingHistoryEntryRaw} from '@nex/data/api';
-import {parseISO} from "date-fns";
-import {IRatingHistoryRow} from './rating';
-import {appConfig} from "@nex/dataset";
-import {dateReviver, getHost, makeQueryString} from "@nex/data";
+import {IProfileResponse} from '@nex/data/api';
+import {dateReviver, getHost} from "@nex/data";
 import {fetchJson2} from "../api/util";
-import {Aoe4WorldProfile} from "../../../data/src/api/api4.types";
 import {camelizeKeys} from "humps";
 
 // const aoe4WorldLeaderboardMap = {
@@ -106,10 +98,10 @@ import {camelizeKeys} from "humps";
 // }
 
 
-export async function loadProfile(userId: UserIdBase): Promise<IProfileResponse | null> {
-    if (userId.profileId == null) return null;
+export async function loadProfile(profileId: number): Promise<IProfileResponse | null> {
+    if (profileId == null) return null;
 
-    const url = getHost('aoe2companion-data') + `api/profiles/${userId.profileId}`;
+    const url = getHost('aoe2companion-data') + `api/profiles/${profileId}`;
     let json = camelizeKeys(await fetchJson2('loadProfile', url, undefined, dateReviver)) as IProfileResponse;
 
     // console.log('=========> RESPONSE <==========');

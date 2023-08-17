@@ -1,5 +1,4 @@
 import React from 'react';
-import {sameUserNull} from '../helper/user';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackProp} from '../../App';
 import {Game} from "./components/game";
@@ -30,8 +29,9 @@ export default function MatchPage() {
     }
 
     const filterAndSortPlayers = (players: IPlayer[]) => {
-        let filteredPlayers = players.filter(p => following.filter(f => sameUserNull(p, f)).length > 0 || sameUserNull(p, auth));
-        filteredPlayers = orderBy(filteredPlayers, p => sameUserNull(p, auth));
+        let filteredPlayers = players.filter(p =>
+            following.filter(f => p.profileId === f.profileId).length > 0 || p.profileId === auth.profileId);
+        filteredPlayers = orderBy(filteredPlayers, p => p.profileId === auth.profileId);
         return filteredPlayers;
     };
 

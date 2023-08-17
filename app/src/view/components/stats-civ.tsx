@@ -1,18 +1,15 @@
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
-import React, {Fragment} from 'react';
-import {IMatch, IStatAlly, IStatCiv, IStatMap, IStatOpponent} from "@nex/data/api";
+import React from 'react';
+import {IStatAlly, IStatCiv, IStatMap, IStatOpponent} from "@nex/data/api";
 import {TextLoader} from "./loader/text-loader";
-import {Civ} from "@nex/data";
+import {Civ, LeaderboardId} from "@nex/data";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App";
-import {UserIdBase, userIdFromBase} from "../../helper/user";
 import {MyText} from "./my-text";
-import {IRow} from "../../service/stats/stats-civ";
 import Space from "./space";
 import {getCivIcon} from "../../helper/civs";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
-import {LeaderboardId} from '@nex/data';
 import {getMapImage} from "../../helper/maps";
 import {CountryImage} from "./country-image";
 
@@ -31,7 +28,7 @@ function Row({data}: IRowProps) {
         }
         if (data.profileId) {
             navigation.push('User', {
-                id: userIdFromBase(data),
+                profile_id: data.profileId,
                 name: data.name,
             });
         }
