@@ -1,28 +1,8 @@
-import {getHost, ILeaderboardPlayer, makeQueryString, sleep, time} from '@nex/data';
-import {ILeaderboard, ILeaderboardRaw} from "@nex/data";
-import {fromUnixTime} from "date-fns";
-import {fetchJson} from "./util";
+import {dateReviver, getHost, makeQueryString} from '@nex/data';
+import {fetchJson, fetchJson2} from "./util";
 import {appConfig} from "@nex/dataset";
-import {Aoe4WorldGame, Aoe4WorldLeaderboard} from "../../../data/src/api/api4.types";
-
-
-function mapEventLeaderboardIdToLeaderboardId(leaderboard_id: any) {
-    if (leaderboard_id === 1) return 1001;
-    return -1;
-}
-
-function convertTimestampsToDates(leaderboardRaw: ILeaderboardRaw): ILeaderboard {
-    return {
-        ...leaderboardRaw,
-        leaderboard_id: leaderboardRaw.leaderboard_id ?? mapEventLeaderboardIdToLeaderboardId(leaderboardRaw.event_leaderboard_id),
-        updated: leaderboardRaw.updated ? fromUnixTime(leaderboardRaw.updated) : undefined,
-        leaderboard: leaderboardRaw.leaderboard.map(leaderboardPlayerRaw => ({
-            ...leaderboardPlayerRaw,
-            leaderboard_id: leaderboardRaw.leaderboard_id ?? mapEventLeaderboardIdToLeaderboardId(leaderboardRaw.event_leaderboard_id),
-            last_match: fromUnixTime(leaderboardPlayerRaw.last_match),
-        })),
-    };
-}
+import {camelizeKeys, decamelize, decamelizeKeys} from "humps";
+import {ILeaderboardResponse, IMatchesResponse} from "@nex/data/api";
 
 export interface IFetchLeaderboardParams {
     start?: number;
@@ -33,124 +13,16 @@ export interface IFetchLeaderboardParams {
     country?: string;
 }
 
-function mapLeaderboardIdToEventLeaderboardId(leaderboard_id: any) {
-    if (leaderboard_id === 1001) return 1;
-    return -1;
-}
-
-// https://aoe4world.com/api/v0/leaderboards/:leaderboard
-
-const aoe4WorldLeaderboardMapReverse = {
-    0: 'custom',
-    17: 'qm_1v1',
-    18: 'qm_2v2',
-    19: 'qm_3v3',
-    20: 'qm_4v4',
-    1001: 'rm_1v1',
-    1002: 'rm_solo',
-    1003: 'rm_team',
-    1010: 'rm_1v1_elo',
-    1011: 'rm_2v2_elo',
-    1012: 'rm_3v3_elo',
-    1013: 'rm_4v4_elo',
-};
-
-const aoe4WorldLeaderboardMap = {
-    'custom': 0,
-    'qm_1v1': 17,
-    'qm_2v2': 18,
-    'qm_3v3': 19,
-    'qm_4v4': 20,
-    'rm_1v1': 1001,
-    'rm_solo': 1002,
-    'rm_team': 1003,
-    'rm_1v1_elo': 1010,
-    'rm_2v2_elo': 1011,
-    'rm_3v3_elo': 1012,
-    'rm_4v4_elo': 1013,
-};
-
-function aoe4worldLeaderboardToAoe2NetLeaderboard(leaderboard4: Aoe4WorldLeaderboard) {
-    const result: ILeaderboard = {
-        count: leaderboard4.count,
-        event_leaderboard_id: 0,
-        leaderboard: leaderboard4.players.map(p4 => ({
-            clan: "",
-            country: undefined,
-            drops: 0,
-            games: p4.games_count,
-            highest_rating: 0,
-            highest_streak: 0,
-            icon: undefined,
-            last_match: undefined,
-            last_match_time: p4.last_game_at,
-            losses: p4.losses_count,
-            lowest_streak: 0,
-            name: p4.name,
-            previous_rating: 0,
-            profile_id: p4.profile_id,
-            rank: p4.rank,
-            rating: p4.rating,
-            steam_id: p4.steam_id,
-            streak: p4.streak,
-            wins: p4.wins_count
-        })),
-        leaderboard_id: aoe4WorldLeaderboardMap[leaderboard4.key],
-        start: leaderboard4.offset,
-        total: leaderboard4.total_count,
-        updated: undefined,
-    };
-    return result;
-}
-
-async function fetchLeaderboardInternal4(leaderboard_id: number, params: IFetchLeaderboardParams) {
-
-    const page = params.start ? Math.ceil(params.start / 50) : 1;
-    const query: any = {
-        per_page: 50,
-        page,
-    };
-    if (params.profile_id) {
-        query.profile_id = params.profile_id;
-    }
-    const leaderboard = aoe4WorldLeaderboardMapReverse[leaderboard_id];
-    const queryString = makeQueryString(query);
-    const url = `https://aoe4world.com/api/v0/leaderboards/${leaderboard}?${queryString}`;
-    const json = await fetchJson('fetchLeaderboard', url);
-
-    console.log('fetchLeaderboard', json);
-
-    // time();
-    return aoe4worldLeaderboardToAoe2NetLeaderboard(json);
-}
-
-async function fetchLeaderboardInternal(baseUrl: string, game: string, leaderboard_id: number, params: IFetchLeaderboardParams) {
-    if (appConfig.game == 'aoe4') return fetchLeaderboardInternal4(leaderboard_id, params);
-
-    const query: any = {
+export async function fetchLeaderboard(leaderboard_id: number, params: IFetchLeaderboardParams): Promise<ILeaderboardResponse> {
+    const query: any = decamelizeKeys({
         game: appConfig.game,
-        leaderboard_id,
         ...params,
-    };
+    });
     const queryString = makeQueryString(query);
-    const url = baseUrl + `api/leaderboard?${queryString}`;
-    const json = await fetchJson('fetchLeaderboard', url);
+    const url = getHost('aoe2companion-data') + `api/leaderboards/${leaderboard_id}?${queryString}`;
+    let json = camelizeKeys(await fetchJson2('fetchLeaderboard', url, undefined, dateReviver)) as ILeaderboardResponse;
 
-    return convertTimestampsToDates(json);
-}
+    console.log(json);
 
-export async function fetchLeaderboard(game: string, leaderboard_id: number, params: IFetchLeaderboardParams) {
-    // await sleep(4000);
-    try {
-        return await fetchLeaderboardInternal(getHost('aoe2net'), game, leaderboard_id, params);
-    } catch (e) {
-        if (params.country == null) {
-            return await fetchLeaderboardInternal(getHost('aoe2net'), game, leaderboard_id, params);
-        }
-        throw e;
-    }
-}
-
-export async function fetchLeaderboardLegacy(game: string, leaderboard_id: number, params: IFetchLeaderboardParams) {
-    return await fetchLeaderboardInternal(getHost('aoe2net'), game, leaderboard_id, params);
+    return json;
 }

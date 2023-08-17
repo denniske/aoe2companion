@@ -3,7 +3,8 @@ import {
     Flag, formatAgo, getDiscordInvitationId, getDoyouChannel, getTwitchChannel, getYoutubeChannel
 } from '@nex/data';
 import {
-    IPlayer
+    ILeaderboardNew,
+    IPlayer, IProfileResponse
 } from '@nex/data/api';
 import React, {useEffect} from 'react';
 import {getLeaderboardTextColor} from '../../helper/colors';
@@ -31,7 +32,7 @@ import {openLink} from "../../helper/url";
 import {CountryImageLoader} from './country-image';
 
 interface ILeaderboardRowProps {
-    data: ILeaderboard;
+    data: ILeaderboardNew;
 }
 
 const formatStreak = (streak: number) => {
@@ -46,14 +47,13 @@ function LeaderboardRow1({data}: ILeaderboardRowProps) {
     const theme = usePaperTheme();
     const styles = useStyles();
 
-    const leaderboardInfo = data.leaderboard[0];
-    // const leaderboardInfo = data;
-    const color = {color: getLeaderboardTextColor(data.leaderboard_id, theme.dark)};
+    const leaderboardInfo = data;
+    const color = {color: getLeaderboardTextColor(data.leaderboardId, theme.dark)};
 
     return (
             <View style={styles.leaderboardRow}>
                 <MyText style={StyleSheet.flatten([styles.cellLeaderboard, color])}>
-                    {formatLeaderboardId(data.leaderboard_id)}
+                    {data.abbreviation}
                 </MyText>
                 <MyText style={StyleSheet.flatten([styles.cellRank, color])}>
                     #{leaderboardInfo.rank}
@@ -62,11 +62,11 @@ function LeaderboardRow1({data}: ILeaderboardRowProps) {
                     {leaderboardInfo.rating}
                 </MyText>
                 <MyText style={StyleSheet.flatten([styles.cellRating2, color])}>
-                    {leaderboardInfo.highest_rating == leaderboardInfo.rating ? '←' : leaderboardInfo.highest_rating || '-'}
+                    {leaderboardInfo.maxRating == leaderboardInfo.rating ? '←' : leaderboardInfo.maxRating || '-'}
                 </MyText>
-                <MyText style={StyleSheet.flatten([styles.cellRatingChange, color])}>
-                    {leaderboardInfo.previous_rating ? formatStreak(leaderboardInfo.rating-leaderboardInfo.previous_rating) : '-'}
-                </MyText>
+                {/*<MyText style={StyleSheet.flatten([styles.cellRatingChange, color])}>*/}
+                {/*    {leaderboardInfo.previousRating ? formatStreak(leaderboardInfo.rating-leaderboardInfo.previousRating) : '-'}*/}
+                {/*</MyText>*/}
             </View>
     )
 }
@@ -76,13 +76,13 @@ function LeaderboardRow2({data}: ILeaderboardRowProps) {
     const theme = usePaperTheme();
     const styles = useStyles();
 
-    const leaderboardInfo = data.leaderboard[0];
-    const color = {color: getLeaderboardTextColor(data.leaderboard_id, theme.dark)};
+    const leaderboardInfo = data;
+    const color = {color: getLeaderboardTextColor(data.leaderboardId, theme.dark)};
 
     return (
             <View style={styles.leaderboardRow}>
                 <MyText style={StyleSheet.flatten([styles.cellLeaderboard, color])}>
-                    {formatLeaderboardId(data.leaderboard_id)}
+                    {data.abbreviation}
                 </MyText>
                 <MyText style={StyleSheet.flatten([styles.cellGames, color])}>
                     {leaderboardInfo.games}
@@ -94,65 +94,67 @@ function LeaderboardRow2({data}: ILeaderboardRowProps) {
                     {formatStreak(leaderboardInfo?.streak)}
                 </MyText>
                 {/*<MyText style={StyleSheet.flatten([styles.cellStreak, color])} numberOfLines={1}>*/}
-                {/*    {leaderboardInfo.highest_streak == leaderboardInfo.streak ? '←' : formatStreak(leaderboardInfo.highest_streak)}*/}
+                {/*    {leaderboardInfo.highestStreak == leaderboardInfo.streak ? '←' : formatStreak(leaderboardInfo.highestStreak)}*/}
                 {/*</MyText>*/}
                 {/*<MyText style={StyleSheet.flatten([styles.cellLastMatch, color])} numberOfLines={1}>*/}
-                {/*    {formatAgo(leaderboardInfo.last_match)}*/}
+                {/*    {formatAgo(leaderboardInfo.lastMatch)}*/}
                 {/*</MyText>*/}
             </View>
     )
 }
 
 
-export interface IProfile {
-    clan: string;
-    country: Flag;
-    icon: any;
-    name: string;
-    profile_id: number;
-    steam_id: string;
-    leaderboards: ILeaderboard[];
-    games: number;
-    drops: number;
-}
+// export interface IProfile {
+//     clan: string;
+//     country: Flag;
+//     icon: any;
+//     name: string;
+//     profileId: number;
+//     steamId: string;
+//     leaderboards: ILeaderboard[];
+//     games: number;
+//     drops: number;
+// }
 
 interface IProfileProps {
-    data?: IProfile | null;
+    data?: IProfileResponse | null;
     ready: boolean;
 }
 
 export function ProfileLive({data} : {data: IPlayer}) {
     const styles = useStyles();
-    const verifiedPlayer = data ? getVerifiedPlayer(data?.profile_id!) : null;
+    // const verifiedPlayer = data ? getVerifiedPlayer(data?.profileId!) : null;
+    //
+    // const playerTwitchLive = useLazyApi(
+    //     {},
+    //     twitchLive, verifiedPlayer ? getTwitchChannel(verifiedPlayer) : ''
+    // );
+    //
+    // useEffect(() => {
+    //     if (verifiedPlayer && getTwitchChannel(verifiedPlayer)) {
+    //         playerTwitchLive.reload();
+    //     }
+    // }, [verifiedPlayer]);
 
-    const playerTwitchLive = useLazyApi(
-        {},
-        twitchLive, verifiedPlayer ? getTwitchChannel(verifiedPlayer) : ''
-    );
+    return <MyText/>;
 
-    useEffect(() => {
-        if (verifiedPlayer && getTwitchChannel(verifiedPlayer)) {
-            playerTwitchLive.reload();
-        }
-    }, [verifiedPlayer]);
-
-    if (!verifiedPlayer?.['twitch']) {
-        return <MyText/>;
-    }
-
-    return (
-            <MyText style={styles.row} onPress={() => openLink(verifiedPlayer?.twitch)}>
-                {
-                    playerTwitchLive.data?.type === 'live' &&
-                    <>
-                        <MyText style={{color: '#e91a16'}}> ● </MyText>
-                        <MyText>{playerTwitchLive.data.viewer_count} </MyText>
-                        <FontAwesome5 solid name="twitch" size={14} style={styles.twitchIcon} />
-                        <MyText> </MyText>
-                    </>
-                }
-            </MyText>
-    )
+    // if (!verifiedPlayer?.['twitch']) {
+    //     return <MyText/>;
+    // }
+    //
+    // return (
+    //         <MyText style={styles.row} onPress={() => openLink(verifiedPlayer?.twitch)}>
+    //             {
+    //                 playerTwitchLive.data?.type === 'live' &&
+    //                 <>
+    //                     <MyText style={{color: '#e91a16'}}> ● </MyText>
+    //                     <MyText>{playerTwitchLive.data.viewerCount} </MyText>
+    //                     <FontAwesome5 solid name="twitch" size={14} style={styles.twitchIcon} />
+    //                     <MyText> </MyText>
+    //                 </>
+    //             }
+    //         </MyText>
+    // )
 }
 
 export default function Profile({data, ready}: IProfileProps) {
@@ -168,7 +170,7 @@ export default function Profile({data, ready}: IProfileProps) {
 
     // console.log('==> data', data);
 
-    const _toggleFollowing = async () => {
+    const ToggleFollowing = async () => {
         const following = await toggleFollowing(data!);
         if (following) {
             mutate(setFollowing(following));
@@ -182,8 +184,6 @@ export default function Profile({data, ready}: IProfileProps) {
             saveCurrentPrefsToStorage();
         }
     }, [data]);
-
-    const verifiedPlayer = data ? getVerifiedPlayer(data?.profile_id!) : null;
 
     // console.log('DATA===>', data);
 
@@ -199,7 +199,7 @@ export default function Profile({data, ready}: IProfileProps) {
 
                                 <TextLoader width={100}>{data?.name}</TextLoader>
                                 {
-                                    verifiedPlayer &&
+                                    data?.verified &&
                                     <FontAwesome5 solid name="check-circle" size={14} style={styles.verifiedIcon} />
                                 }
                                 {
@@ -218,7 +218,7 @@ export default function Profile({data, ready}: IProfileProps) {
                         <View style={styles.expanded}/>
                         {
                             data && (auth == null || !sameUser(auth, data)) &&
-                            <TouchableOpacity onPress={_toggleFollowing}>
+                            <TouchableOpacity onPress={ToggleFollowing}>
                                 <View style={styles.followButton}>
                                     <FontAwesome5 solid={followingThisUser} name="heart" size={22} style={styles.followButtonIcon}/>
                                     <MyText style={styles.followButtonText}>
@@ -231,32 +231,32 @@ export default function Profile({data, ready}: IProfileProps) {
 
                     <Space/>
 
-                    <View style={styles.row}>
-                        {
-                            verifiedPlayer?.discord &&
-                            <View style={styles.badge}>
-                                <DiscordBadge serverId={verifiedPlayer?.discordServerId} invitationId={getDiscordInvitationId(verifiedPlayer)} />
-                            </View>
-                        }
-                        {
-                            verifiedPlayer?.youtube &&
-                            <View style={styles.badge}>
-                                <YoutubeBadge channel={getYoutubeChannel(verifiedPlayer)} />
-                            </View>
-                        }
-                        {
-                            verifiedPlayer?.douyu &&
-                            <View style={styles.badge}>
-                                <DouyuBadge channel={getDoyouChannel(verifiedPlayer)} />
-                            </View>
-                        }
-                        {
-                            verifiedPlayer?.twitch != null &&
-                            <View style={styles.badge}>
-                                <TwitchBadge channel={getTwitchChannel(verifiedPlayer)} />
-                            </View>
-                        }
-                    </View>
+                    {/*<View style={styles.row}>*/}
+                    {/*    {*/}
+                    {/*        verifiedPlayer?.discord &&*/}
+                    {/*        <View style={styles.badge}>*/}
+                    {/*            <DiscordBadge serverId={verifiedPlayer?.discordServerId} invitationId={getDiscordInvitationId(verifiedPlayer)} />*/}
+                    {/*        </View>*/}
+                    {/*    }*/}
+                    {/*    {*/}
+                    {/*        verifiedPlayer?.youtube &&*/}
+                    {/*        <View style={styles.badge}>*/}
+                    {/*            <YoutubeBadge channel={getYoutubeChannel(verifiedPlayer)} />*/}
+                    {/*        </View>*/}
+                    {/*    }*/}
+                    {/*    {*/}
+                    {/*        verifiedPlayer?.douyu &&*/}
+                    {/*        <View style={styles.badge}>*/}
+                    {/*            <DouyuBadge channel={getDoyouChannel(verifiedPlayer)} />*/}
+                    {/*        </View>*/}
+                    {/*    }*/}
+                    {/*    {*/}
+                    {/*        verifiedPlayer?.twitch != null &&*/}
+                    {/*        <View style={styles.badge}>*/}
+                    {/*            <TwitchBadge channel={getTwitchChannel(verifiedPlayer)} />*/}
+                    {/*        </View>*/}
+                    {/*    }*/}
+                    {/*</View>*/}
 
                     <Space/>
 
@@ -272,7 +272,7 @@ export default function Profile({data, ready}: IProfileProps) {
                     {/*    </View>*/}
                     {/*    {*/}
                     {/*        data?.leaderboards.map(leaderboard =>*/}
-                    {/*                <LeaderboardRow key={leaderboard.leaderboard_id} data={leaderboard}/>*/}
+                    {/*                <LeaderboardRow key={leaderboard.leaderboardId} data={leaderboard}/>*/}
                     {/*        )*/}
                     {/*    }*/}
                     {/*</ScrollView>*/}
@@ -286,7 +286,7 @@ export default function Profile({data, ready}: IProfileProps) {
                     </View>
                     {
                         data?.leaderboards.map(leaderboard =>
-                                <LeaderboardRow1 key={leaderboard.leaderboard_id} data={leaderboard}/>
+                                <LeaderboardRow1 key={leaderboard.leaderboardId} data={leaderboard}/>
                         )
                     }
 
@@ -313,7 +313,7 @@ export default function Profile({data, ready}: IProfileProps) {
                     </View>
                     {
                         data?.leaderboards.map(leaderboard =>
-                                <LeaderboardRow2 key={leaderboard.leaderboard_id} data={leaderboard}/>
+                                <LeaderboardRow2 key={leaderboard.leaderboardId} data={leaderboard}/>
                         )
                     }
 

@@ -60,9 +60,10 @@ const darkLeaderboardColors: Record<number, string> = {
     1003: '#86d06d',
 };
 
-export function getLeaderboardColor(leaderboard_id: number, darkMode: boolean) {
-    const colors = darkMode ? darkLeaderboardColors : leaderboardColors;
-    return colors[leaderboard_id];
+export function getLeaderboardColor(leaderboard_id: string, darkMode: boolean) {
+    return '#8e8e8e';
+    // const colors = darkMode ? darkLeaderboardColors : leaderboardColors;
+    // return colors[leaderboard_id];
 }
 
 // Darker / More saturated colors for text
@@ -105,8 +106,9 @@ const darkLeaderboardTextColors: Record<number, string> = {
     1003: '#86d06d',
 };
 
-export function getLeaderboardTextColor(leaderboard_id: number, darkMode: boolean) {
-    console.log('getLeaderboardTextColor', leaderboard_id, darkMode);
-    const colors = darkMode ? darkLeaderboardTextColors : leaderboardTextColors;
-    return colors[leaderboard_id];
+export function getLeaderboardTextColor(leaderboard_id: string, darkMode: boolean) {
+    return '#8e8e8e';
+    // console.log('getLeaderboardTextColor', leaderboard_id, darkMode);
+    // const colors = darkMode ? darkLeaderboardTextColors : leaderboardTextColors;
+    // return colors[leaderboard_id];
 }

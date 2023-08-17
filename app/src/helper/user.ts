@@ -1,7 +1,7 @@
 
 export interface UserIdBase {
-    steam_id?: string;
-    profile_id?: number;
+    steamId?: string;
+    profileId?: number;
 }
 
 export interface UserId extends UserIdBase {
@@ -27,59 +27,59 @@ export function parseUserId(str: string): UserId {
         }
     }
     const parsedUserBase = {
-        profile_id: (parts[0] === 'null' || parts[0] === 'undefined') ? undefined : parseInt(parts[0]),
-        steam_id: (parts[1] === 'null' || parts[1] === 'undefined') ? undefined : parts[1],
+        profileId: (parts[0] === 'null' || parts[0] === 'undefined') ? undefined : parseInt(parts[0]),
+        steamId: (parts[1] === 'null' || parts[1] === 'undefined') ? undefined : parts[1],
     };
     return userIdFromBase(parsedUserBase);
 }
 
 export function userIdFromBase(base: UserIdBase): UserId {
     return {
-        steam_id: base.steam_id,
-        profile_id: base.profile_id,
+        steamId: base.steamId,
+        profileId: base.profileId,
         id: composeUserId(base),
     };
 }
 
 export function composeUserId(id: UserIdBase): string {
-    if (id.steam_id) {
-        return id.profile_id + '-' + id.steam_id;
+    if (id.steamId) {
+        return id.profileId + '-' + id.steamId;
     }
-    return `${id.profile_id}`;
+    return `${id.profileId}`;
 }
 
 export function minifyUserId(id: UserIdBase): UserIdBase {
-    // if (id.steam_id) {
+    // if (id.steamId) {
     //     return {
-    //         steam_id: id.steam_id,
+    //         steamId: id.steamId,
     //     };
     // }
     return {
-        profile_id: id.profile_id,
+        profileId: id.profileId,
     };
 }
 
-export function composeUserIdFromParts(steam_id?: string, profile_id?: number): string {
-    if (steam_id) {
-        return profile_id + '-' + steam_id;
+export function composeUserIdFromParts(steamId?: string, profileId?: number): string {
+    if (steamId) {
+        return profileId + '-' + steamId;
     }
-    return `${profile_id}`;
+    return `${profileId}`;
 }
 
 export function userIdEmpty(userId: UserIdBase) {
-    return userId.steam_id != null || userId.profile_id != null;
+    return userId.steamId != null || userId.profileId != null;
 }
 
 export function sameUser(userA: UserIdBase, userB: UserIdBase) {
    return (
-       (userA.steam_id != null && userB.steam_id != null && userA.steam_id === userB.steam_id) ||
-       (userA.profile_id != null && userB.profile_id != null && userA.profile_id === userB.profile_id)
+       (userA.steamId != null && userB.steamId != null && userA.steamId === userB.steamId) ||
+       (userA.profileId != null && userB.profileId != null && userA.profileId === userB.profileId)
    );
 }
 
 export function sameUserNull(userA?: UserIdBase | null, userB?: UserIdBase | null) {
    return (
-       (userA?.steam_id != null && userB?.steam_id != null && userA.steam_id === userB.steam_id) ||
-       (userA?.profile_id != null && userB?.profile_id != null && userA.profile_id === userB.profile_id)
+       (userA?.steamId != null && userB?.steamId != null && userA.steamId === userB.steamId) ||
+       (userA?.profileId != null && userB?.profileId != null && userA.profileId === userB.profileId)
    );
 }

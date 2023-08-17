@@ -16,9 +16,10 @@ import {isAfter, subDays, subMonths, subWeeks} from "date-fns";
 import {VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTheme} from "../../helper/victory";
 import {windowWidth} from "../leaderboard.page";
 import {getTranslation} from '../../helper/translate';
+import {IRatingNew} from "@nex/data/api";
 
 interface IRatingProps {
-    ratingHistories: IRatingHistoryRow[] | null;
+    ratingHistories: IRatingNew[] | null;
     ready: boolean;
 }
 
@@ -119,8 +120,9 @@ export default function Rating({ratingHistories, ready}: IRatingProps) {
 
     if (ratingHistories && since != null) {
         ratingHistories = ratingHistories.map(r => ({
-            leaderboard_id: r.leaderboard_id,
-            data: r.data.filter(d => isAfter(d.timestamp!, since)),
+            ...r,
+            leaderboardId: r.leaderboardId,
+            data: r.ratings.filter(d => isAfter(d.date!, since)),
         }));
     }
 
@@ -141,29 +143,29 @@ export default function Rating({ratingHistories, ready}: IRatingProps) {
                         <VictoryAxis crossAxis tickFormat={formatTick} fixLabelOverlap={true} />
                         <VictoryAxis dependentAxis crossAxis />
                         {
-                            ratingHistories?.filter(rh => !hiddenLeaderboardIds.includes(rh.leaderboard_id)).map(ratingHistory => (
+                            ratingHistories?.filter(rh => !hiddenLeaderboardIds.includes(rh.leaderboardId)).map(ratingHistory => (
                                 <VictoryLine
-                                    name={'line-' + ratingHistory.leaderboard_id}
-                                    key={'line-' + ratingHistory.leaderboard_id}
-                                    data={ratingHistory.data}
+                                    name={'line-' + ratingHistory.leaderboardId}
+                                    key={'line-' + ratingHistory.leaderboardId}
+                                    data={ratingHistory.ratings}
                                     x="timestamp"
                                     y="rating" style={{
-                                    data: {stroke: getLeaderboardColor(ratingHistory.leaderboard_id, paperTheme.dark)}
+                                    data: {stroke: getLeaderboardColor(ratingHistory.leaderboardId, paperTheme.dark)}
                                 }}
                                 />
                             ))
                         }
                         {
-                            ratingHistories?.filter(rh => !hiddenLeaderboardIds.includes(rh.leaderboard_id)).map(ratingHistory => (
+                            ratingHistories?.filter(rh => !hiddenLeaderboardIds.includes(rh.leaderboardId)).map(ratingHistory => (
                                 <VictoryScatter
-                                    name={'scatter-' + ratingHistory.leaderboard_id}
-                                    key={'scatter-' + ratingHistory.leaderboard_id}
-                                    data={ratingHistory.data}
+                                    name={'scatter-' + ratingHistory.leaderboardId}
+                                    key={'scatter-' + ratingHistory.leaderboardId}
+                                    data={ratingHistory.ratings}
                                     x="timestamp"
                                     y="rating"
                                     size={1.5}
                                     style={{
-                                        data: {fill: getLeaderboardColor(ratingHistory.leaderboard_id, paperTheme.dark)}
+                                        data: {fill: getLeaderboardColor(ratingHistory.leaderboardId, paperTheme.dark)}
                                     }}
                                 />
                             ))
@@ -173,19 +175,19 @@ export default function Rating({ratingHistories, ready}: IRatingProps) {
                 <View style={styles.legend}>
                     {
                         (ratingHistories || Array(2).fill(0)).map((ratingHistory, i) => (
-                            <TouchableOpacity key={'legend-' + i} onPress={() => toggleLeaderboard(ratingHistory.leaderboard_id)}>
+                            <TouchableOpacity key={'legend-' + i} onPress={() => toggleLeaderboard(ratingHistory.leaderboardId)}>
                                 <TextLoader
                                     width={100}
                                     key={'legend-' + i}
                                     style={{
-                                        opacity: hiddenLeaderboardIds.includes(ratingHistory.leaderboard_id) ? 0.5 : 1,
+                                        opacity: hiddenLeaderboardIds.includes(ratingHistory.leaderboardId) ? 0.5 : 1,
                                         paddingHorizontal: 10,
                                         paddingVertical: 5,
                                         fontSize: 12,
-                                        color: getLeaderboardTextColor(ratingHistory.leaderboard_id, paperTheme.dark)
+                                        color: getLeaderboardTextColor(ratingHistory.leaderboardId, paperTheme.dark)
                                     }}
                                 >
-                                    {formatLeaderboardId(ratingHistory.leaderboard_id)}
+                                    {ratingHistory.abbreviation}
                                 </TextLoader>
                             </TouchableOpacity>
                         ))

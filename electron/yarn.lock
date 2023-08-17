@@ -541,9 +541,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aoe2companion@workspace:.":
+"aoe2companion-desktop@workspace:.":
   version: 0.0.0-use.local
-  resolution: "aoe2companion@workspace:."
+  resolution: "aoe2companion-desktop@workspace:."
   dependencies:
     "@sentry/cli": ^1.63.1
     "@sentry/electron": ^2.4.0

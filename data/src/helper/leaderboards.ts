@@ -2,15 +2,17 @@ import {getString, getUiTranslation} from '../lib/aoe-data';
 import {abbreviationsData, appConfig} from "@nex/dataset";
 
 
-export enum LeaderboardId {
-    Unranked = 0,
-    DM1v1 = 1,
-    DMTeam = 2,
-    RM1v1 = 3,
-    RMTeam = 4,
-    EW1v1 = 13,
-    EWTeam = 14,
-}
+// export enum LeaderboardId {
+//     Unranked = 0,
+//     DM1v1 = 1,
+//     DMTeam = 2,
+//     RM1v1 = 3,
+//     RMTeam = 4,
+//     EW1v1 = 13,
+//     EWTeam = 14,
+// }
+
+export type LeaderboardId = string;
 
 const abbreviations = abbreviationsData;
 
@@ -38,7 +40,7 @@ export function getLeaderboardOrGameType(leaderboard_id: LeaderboardId, game_typ
             return mapping[leaderboard_id];
         }
 
-        return getString('leaderboard', leaderboard_id);
+        return getString('leaderboard', leaderboard_id as any);
     }
 
     const gameTypeStr = getString('game_type', game_type);

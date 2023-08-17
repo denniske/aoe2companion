@@ -5,7 +5,6 @@ import {
 import {keysOf, LeaderboardId} from "@nex/data";
 import React, {useEffect, useState} from "react";
 import {RouteProp, useNavigation, useNavigationState, useRoute} from "@react-navigation/native";
-import {RootStackParamList, RootTabParamList} from "../../../App";
 import {get} from 'lodash';
 import {usePrevious} from "@nex/data/hooks";
 import {saveCurrentPrefsToStorage} from "../../service/storage";
@@ -30,6 +29,9 @@ import FlatListLoadingIndicator from "../components/flat-list-loading-indicator"
 import {useWebRefresh} from "../../hooks/use-web-refresh";
 import {leaderboardIdsData, leaderboardMappingData} from "@nex/dataset";
 import Constants from 'expo-constants';
+import {RootStackParamList} from "../../../App2";
+import {useApi} from "../../hooks/use-api";
+import {loadProfile} from "../../service/profile";
 
 
 export default function MainStats() {
@@ -62,7 +64,8 @@ export default function MainStats() {
 function MainStatsInternal({user}: { user: any}) {
     const styles = useStyles();
     const mutate = useMutate();
-    const prefLeaderboardId = useSelector(state => state.prefs.leaderboardId) ?? leaderboardIdsData[0];
+    // const prefLeaderboardId = useSelector(state => state.prefs.leaderboardId) ?? leaderboardIdsData[0];
+    const prefLeaderboardId = leaderboardIdsData[0];
     const [leaderboardId, setLeaderboardId] = useState(prefLeaderboardId);
 
     const navigation = useNavigation();
@@ -74,20 +77,44 @@ function MainStatsInternal({user}: { user: any}) {
         });
     }, [userProfile]);
 
-    const currentCachedData = useSelector(state => get(state.statsPlayer, [user.id, leaderboardId]));
+    const profile = useApi(
+        {},
+        [],
+        state => state.user[user.id]?.profile,
+        (state, value) => {
+            if (state.user[user.id] == null) {
+                state.user[user.id] = {};
+            }
+            state.user[user.id].profile = value;
+        },
+        loadProfile, user
+    );
+
+    const currentCachedData =
+        useSelector(state => get(state.user, [user.id, 'profile']))?.stats?.find(s => s.leaderboardId === leaderboardId);
     const previousCachedData = usePrevious(currentCachedData);
+
+    const currentCachedData2 =
+        useSelector(state => get(state.user, [user.id, 'profile']));
+
+    console.log('==> profile', profile);
+    console.log('==> currentCachedData', currentCachedData);
+    console.log('==> currentCachedData2', currentCachedData2);
+    console.log('==> leaderboardId', leaderboardId);
 
     const cachedData = currentCachedData ?? previousCachedData;
 
-    let statsDuration = cachedData?.statsDuration;
-    let statsPosition = cachedData?.statsPosition;
-    let statsPlayer = cachedData?.statsPlayer;
-    let statsCiv = cachedData?.statsCiv;
-    let statsMap = cachedData?.statsMap;
+    // let statsDuration = cachedData?.statsDuration;
+    // let statsPosition = cachedData?.statsPosition;
+    // let statsPlayer = cachedData?.statsPlayer;
+    let statsCiv = cachedData?.civ;
+    let statsMap = cachedData?.map;
+    let statsAlly = cachedData?.allies;
+    let statsOpponent = cachedData?.opponents;
 
     const hasStats = cachedData != null;
 
-    const list = ['stats-header', 'stats-duration', 'stats-position', 'stats-player', 'stats-civ', 'stats-map'];
+    const list = ['stats-header', 'stats-duration', 'stats-position', 'stats-ally', 'stats-opponent', 'stats-civ', 'stats-map'];
 
     const onLeaderboardSelected = async (leaderboardId: LeaderboardId) => {
         mutate(setPrefValue('leaderboardId', leaderboardId));
@@ -149,22 +176,26 @@ function MainStatsInternal({user}: { user: any}) {
                                     <View style={styles.pickerRow}>
                                         <TemplatePicker value={leaderboardId} values={values} template={renderLeaderboard} onSelect={onLeaderboardSelected}/>
                                     </View>
-                                    <TextLoader ready={hasStats} style={styles.info}>
-                                        {statsPlayer?.matchCount > 0 ?
-                                            getTranslation('main.stats.thelastmatches', { matches: statsPlayer?.matchCount }) :
-                                            getTranslation('main.stats.nomatches') + leaderboardTitle}
-                                    </TextLoader>
+                                    {/*<TextLoader ready={hasStats} style={styles.info}>*/}
+                                    {/*    {statsPlayer?.matchCount > 0 ?*/}
+                                    {/*        getTranslation('main.stats.thelastmatches', { matches: statsPlayer?.matchCount }) :*/}
+                                    {/*        getTranslation('main.stats.nomatches') + leaderboardTitle}*/}
+                                    {/*</TextLoader>*/}
                                 </View>;
-                            case 'stats-duration':
-                                return <StatsDuration data={statsDuration} user={user}/>;
-                            case 'stats-position':
-                                return <StatsPosition data={statsPosition} user={user} leaderboardId={leaderboardId}/>;
+                            // case 'stats-duration':
+                            //     return <MyText>---</MyText>;
+                            //     // return <StatsDuration data={statsDuration} user={user}/>;
+                            // case 'stats-position':
+                            //     return <MyText>---</MyText>;
+                            //     // return <StatsPosition data={statsPosition} user={user} leaderboardId={leaderboardId}/>;
                             case 'stats-civ':
-                                return <StatsCiv data={statsCiv} user={user} leaderboardId={leaderboardId}/>;
+                                return <StatsCiv data={statsCiv} user={user} title={getTranslation('main.stats.heading.civ')} leaderboardId={leaderboardId}/>;
                             case 'stats-map':
-                                return <StatsMap data={statsMap} user={user}/>;
-                            case 'stats-player':
-                                return <StatsPlayer data={statsPlayer} user={user} leaderboardId={leaderboardId}/>;
+                                return <StatsCiv data={statsMap} user={user} title={getTranslation('main.stats.heading.map')} leaderboardId={leaderboardId}/>;
+                            case 'stats-ally':
+                                return <StatsCiv data={statsAlly} user={user} title={getTranslation('main.stats.heading.ally')} leaderboardId={leaderboardId}/>;
+                            case 'stats-opponent':
+                                return <StatsCiv data={statsOpponent} user={user} title={getTranslation('main.stats.heading.opponent')} leaderboardId={leaderboardId}/>;
                             default:
                                 return <View/>;
                         }

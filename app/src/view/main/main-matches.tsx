@@ -2,7 +2,6 @@ import {useTheme} from "../../theming";
 import {FlatList, Linking, Platform, StyleSheet, TouchableOpacity, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import {RouteProp, useNavigation, useNavigationState, useRoute} from "@react-navigation/native";
-import {RootStackParamList, RootTabParamList} from "../../../App";
 import {Game} from "../components/game";
 import RefreshControlThemed from "../components/refresh-control-themed";
 import {
@@ -15,10 +14,10 @@ import {
 import {Checkbox, Searchbar} from "react-native-paper";
 import {MyText} from "../components/my-text";
 import {appVariants} from "../../styles";
-import {getCivName, LeaderboardId} from "@nex/data";
+import {fetchPlayerMatches, getCivName, LeaderboardId} from "@nex/data";
 import TemplatePicker from "../components/template-picker";
-import {get} from 'lodash';
-import {IMatch} from "@nex/data/api";
+import {get, set} from 'lodash';
+import {IMatch, IMatchNew} from "@nex/data/api";
 import {getMapName} from "../../helper/maps";
 import {parseUserId, sameUser} from "../../helper/user";
 import {createStylesheet} from '../../theming-new';
@@ -30,6 +29,9 @@ import {useWebRefresh} from "../../hooks/use-web-refresh";
 import FlatListLoadingIndicator from "../components/flat-list-loading-indicator";
 import {leaderboardIdsData, leaderboardMappingData} from "@nex/dataset";
 import Constants from 'expo-constants';
+import {RootStackParamList} from "../../../App2";
+import {useCachedConservedLazyApi} from "../../hooks/use-cached-conserved-lazy-api";
+import {usePrevious} from "@nex/data/hooks";
 
 
 export default function MainMatches() {
@@ -45,6 +47,8 @@ export default function MainMatches() {
     if (routes == null || routes.length === 0 || routes[0].params == null) return <View/>;
 
     const user = routes[0].params.id;
+
+    // console.log('===> user', user);
 
     if (user == null) {
         return (
@@ -63,10 +67,12 @@ function MainMatchesInternal({user}: { user: any}) {
     const styles = useStyles();
     const appStyles = useTheme(appVariants);
     const [text, setText] = useState('');
+    const previousText = usePrevious(text);
     const mutate = useMutate();
-    const [leaderboardId, setLeaderboardId] = useState<LeaderboardId>();
-    const [filteredMatches, setFilteredMatches] = useState<IMatch[]>();
+    const [leaderboardId, setLeaderboardId] = useState<string>();
+    // const [filteredMatches, setFilteredMatches] = useState<IMatchNew[]>();
     const [withMe, setWithMe] = useState(false);
+    const loadingMatchesOrStatsTrigger = useSelector(state => state.loadingMatchesOrStats);
 
     const navigation = useNavigation();
     const userProfile = useSelector(state => state.user[user.id]?.profile);
@@ -79,41 +85,73 @@ function MainMatchesInternal({user}: { user: any}) {
 
     const auth = useSelector(state => state.auth);
 
-    const matches = useSelector(state => get(state.user, [user.id, 'matches']));
+    // const matches = useSelector(state => get(state.user, [user.id, 'matches']));
+
+    // console.log('===> user', user);
+
+    let matchesHandle = useCachedConservedLazyApi(
+        [loadingMatchesOrStatsTrigger],
+        () => true,
+        state => get(state, ['user', user.id, 'matches']),
+        (state, value) => set(state, ['user', user.id, 'matches'], value),
+        fetchPlayerMatches, 0, 500, [user.id], text
+    );
+    const matches = matchesHandle.data;
+    const filteredMatches = matches;
+
+
+    const refresh = () => {
+        if (text.length < 3) {
+            // matchesHandle.reset();
+            return;
+        }
+        if (previousText?.trim() === text.trim()) {
+            return;
+        }
+        matchesHandle.refetch(0, 500, [user.id], text.trim());
+        // setFetchedAll(false);
+    };
 
     useEffect(() => {
-        if (matches == null) return;
+        refresh();
+    }, [text]);
 
-        let filtered = matches;
 
-        if (leaderboardId != null) {
-            filtered = filtered.filter(m => m.leaderboard_id == leaderboardId);
-        }
+    // useEffect(() => {
+    //     if (matches == null) return;
+    //
+    //     let filtered = matches;
+    //
+    //     if (leaderboardId != null) {
+    //         filtered = filtered.filter(m => m.leaderboardId == leaderboardId);
+    //     }
+    //
+    //     if (text.trim().length > 0) {
+    //         const parts = text.toLowerCase().split(' ');
+    //         filtered = filtered.filter(m => {
+    //             return parts.every(part => {
+    //                 return m.name.toLowerCase().indexOf(part) >= 0 ||
+    //                     (getMapName(m.map_type, m.ugc, m.rms, m.game_type, m.scenario) || '').toLowerCase().indexOf(part) >= 0 ||
+    //                     m.players.some(p => p.name?.toLowerCase().indexOf(part) >= 0) ||
+    //                     m.players.some(p => p.civ != null && getCivName(p.civ) && getCivName(p.civ)!.toLowerCase()?.indexOf(part) >= 0);
+    //             });
+    //         });
+    //     }
+    //
+    //     if (withMe && auth) {
+    //         filtered = filtered.filter(m => m.players.some(p => sameUser(p, auth)));
+    //     }
+    //
+    //     setFilteredMatches(filtered);
+    // }, [text, leaderboardId, withMe, matches]);
 
-        if (text.trim().length > 0) {
-            const parts = text.toLowerCase().split(' ');
-            filtered = filtered.filter(m => {
-                return parts.every(part => {
-                    return m.name.toLowerCase().indexOf(part) >= 0 ||
-                        (getMapName(m.map_type, m.ugc, m.rms, m.game_type, m.scenario) || '').toLowerCase().indexOf(part) >= 0 ||
-                        m.players.some(p => p.name?.toLowerCase().indexOf(part) >= 0) ||
-                        m.players.some(p => p.civ != null && getCivName(p.civ) && getCivName(p.civ)!.toLowerCase()?.indexOf(part) >= 0);
-                });
-            });
-        }
-
-        if (withMe && auth) {
-            filtered = filtered.filter(m => m.players.some(p => sameUser(p, auth)));
-        }
-
-        setFilteredMatches(filtered);
-    }, [text, leaderboardId, withMe, matches]);
+    // console.log('matches', matches);
 
     const list = [...(filteredMatches ? ['header'] : []), ...(filteredMatches || Array(15).fill(null))];
 
     const toggleWithMe = () => setWithMe(!withMe);
 
-    const onLeaderboardSelected = async (selLeaderboardId: LeaderboardId) => {
+    const onLeaderboardSelected = async (selLeaderboardId: string) => {
         console.log('==>', leaderboardId, selLeaderboardId);
         if (leaderboardId === selLeaderboardId) {
             setLeaderboardId(undefined);

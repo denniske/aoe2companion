@@ -34,8 +34,8 @@ export function UserMenu() {
     const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
     const user = route.params.id;
     const auth = useSelector(state => state.auth!);
-    const steamProfileUrl = 'https://steamcommunity.com/profiles/' + user.steam_id;
-    const xboxProfileUrl = 'https://www.ageofempires.com/stats/?game=age2&profileId=' + user.profile_id;
+    const steamProfileUrl = 'https://steamcommunity.com/profiles/' + user.steamId;
+    const xboxProfileUrl = 'https://www.ageofempires.com/stats/?game=age2&profileId=' + user.profileId;
     const account = useSelector(state => state.account);
 
     const mutate = useMutate();
@@ -64,19 +64,19 @@ export function UserMenu() {
             index: 0,
             routes: [{name: 'User'}],
         });
-        setAccountProfile(account.id, { profile_id: null, steam_id: null });
+        setAccountProfile(account.id, { profileId: null, steamId: null });
     };
 
     return (
         <View style={styles.menu}>
             {
-                !!user.profile_id &&
+                !!user.profileId &&
                 <TouchableOpacity style={styles.menuButton} onPress={() => openLink(xboxProfileUrl)}>
                     <FontAwesome5 style={styles.menuIcon} name="xbox" size={20} />
                 </TouchableOpacity>
             }
             {
-                !!user.steam_id &&
+                !!user.steamId &&
                 <TouchableOpacity style={styles.menuButton}  onPress={() => openLink(steamProfileUrl)}>
                     <FontAwesome5 style={styles.menuIcon} name="steam" size={20} />
                 </TouchableOpacity>
@@ -92,7 +92,7 @@ export function UserMenu() {
 }
 
 function isValidUserInfo(userInfo: any) {
-    return userInfo && (userInfo.steam_id || userInfo.profile_id);
+    return userInfo && (userInfo.steamId || userInfo.profileId);
 }
 
 export default function UserPage() {
@@ -106,7 +106,7 @@ export default function UserPage() {
     const profile = useSelector(state => state.user[user?.id]?.profile);
     const [hasSteamId, setHasSteamId] = useState(true);
 
-    console.log('UserPage', route.params, auth);
+    // console.log('UserPage', route.params, auth);
 
     const generateTestHook = useCavy();
     const navigation = useNavigation<RootStackProp>();
@@ -115,11 +115,11 @@ export default function UserPage() {
     const onSelect = async (user: UserInfo) => {
         await saveSettingsToStorage({
             id: composeUserId(user),
-            steam_id: user.steam_id,
-            profile_id: user.profile_id,
+            steamId: user.steamId,
+            profileId: user.profileId,
         });
         mutate(setAuth(user));
-        setAccountProfile(account.id, { profile_id: user.profile_id!, steam_id: user.steam_id });
+        setAccountProfile(account.id, { profileId: user.profileId!, steamId: user.steamId });
     };
 
     // Reset country for use in leaderboard country dropdown
@@ -134,6 +134,7 @@ export default function UserPage() {
 
     const navigateToAuthUser = async () => {
         console.log('==> NAVIGATE');
+        // @ts-ignore
         navigation.navigate('User', {
             id: userIdFromBase(auth!),
             // name: profile?.name,
@@ -151,6 +152,7 @@ export default function UserPage() {
 
     useEffect(() => {
         if (profile != null) {
+            // @ts-ignore
             navigation.setParams({
                 id: userIdFromBase(profile),
                 name: profile.name
@@ -158,10 +160,10 @@ export default function UserPage() {
         }
     }, [profile]);
 
-    // When visiting user page with only profile_id / steam_id
+    // When visiting user page with only profileId / steamId
 
     const completeUserIdInfo = async () => {
-        console.log('completeUserIdInfo');
+        // console.log('completeUserIdInfo');
         const loadedProfile = profile ?? await loadProfile('aoe2de', user!);
         if (loadedProfile) {
             const loadedProfileId = composeUserId(loadedProfile);
@@ -174,11 +176,12 @@ export default function UserPage() {
             });
         }
 
-        if (!loadedProfile?.steam_id) {
+        if (!loadedProfile?.steamId) {
             setHasSteamId(false);
         }
 
         if (loadedProfile) {
+            // @ts-ignore
             navigation.setParams({
                 id: userIdFromBase(loadedProfile!),
                 name: loadedProfile?.name,
@@ -187,19 +190,19 @@ export default function UserPage() {
     }
 
     useEffect(() => {
-        if (user != null && user.profile_id == null) {
+        if (user != null && user.profileId == null) {
             completeUserIdInfo();
         }
-        if (user != null && user.steam_id == null && hasSteamId) {
+        if (user != null && user.steamId == null && hasSteamId) {
             completeUserIdInfo();
         }
     }, [user, hasSteamId]);
 
     if (user) {
-        if (user.profile_id == null) {
+        if (user.profileId == null) {
             return <View style={styles.container}><MyText>Loading profile by Steam ID...</MyText></View>;
         }
-        if (user.steam_id == null && hasSteamId) {
+        if (user.steamId == null && hasSteamId) {
             return <View style={styles.container}><MyText>Loading profile by profile ID...</MyText></View>;
         }
     }

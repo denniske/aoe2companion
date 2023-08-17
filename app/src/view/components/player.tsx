@@ -5,7 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 import {userIdFromBase} from '../../helper/user';
 import {civs, civsAoeNet, getCivName, getCivNameById, isBirthday, isVerifiedPlayer, moProfileId, noop} from '@nex/data';
 import {RootStackProp} from '../../../App2';
-import {getSlotTypeName, IPlayer, IMatch} from "@nex/data/api";
+import {getSlotTypeName, IPlayer, IMatch, IMatchNew, IPlayerNew} from "@nex/data/api";
 import {TextLoader} from "./loader/text-loader";
 import {FontAwesome5} from "@expo/vector-icons";
 import {MyText} from "./my-text";
@@ -16,8 +16,8 @@ import {appConfig} from "@nex/dataset";
 
 
 interface IPlayerProps {
-    match: IMatch;
-    player: IPlayer;
+    match: IMatchNew;
+    player: IPlayerNew;
     highlight?: boolean;
     freeForALl?: boolean;
     canDownloadRec?: boolean;
@@ -55,7 +55,7 @@ export function Player({match, player, highlight, freeForALl, canDownloadRec}: I
 
     const boxStyle = [styles.square, {backgroundColor: getPlayerBackgroundColor(player.color)}];
     const playerNameStyle = [{textDecorationLine: highlight ? 'underline' : 'none'}] as TextStyle;
-    const playerRatingDiffStyle = [{color: player.rating_diff > 0 ? '#22c55e' : '#ef4444'}] as TextStyle;
+    const playerRatingDiffStyle = [{color: player.ratingDiff > 0 ? '#22c55e' : '#ef4444'}] as TextStyle;
 
     const gotoPlayer = () => {
         navigation.push('User', {
@@ -65,13 +65,13 @@ export function Player({match, player, highlight, freeForALl, canDownloadRec}: I
     };
 
     const downloadRec = async () => {
-        const url = `https://aoe.ms/replay/?gameId=${match.match_id}&profileId=${player.profile_id}`;
+        const url = `https://aoe.ms/replay/?gameId=${match.matchId}&profileId=${player.profileId}`;
         await openLink(url);
     };
 
     return (
         <View style={styles.player}>
-            <TouchableOpacity style={styles.playerCol} disabled={player.slot_type != 1} onPress={gotoPlayer}>
+            <TouchableOpacity style={styles.playerCol} disabled={player.status != 0} onPress={gotoPlayer}>
                 <View style={styles.playerWonCol}>
                     {
                         player.won === true && (freeForALl || player.team != -1) &&
@@ -95,23 +95,23 @@ export function Player({match, player, highlight, freeForALl, canDownloadRec}: I
                 <MyText style={styles.playerRatingCol}>{player.rating}</MyText>
 
                 {
-                    player.profile_id === moProfileId && isBirthday() &&
+                    player.profileId === moProfileId && isBirthday() &&
                     <MyText style={[styles.playerNameColBirthday]} numberOfLines={1}>
                         🥳
                     </MyText>
                 }
                 <MyText style={styles.playerNameCol} numberOfLines={1}>
                     <MyText style={playerNameStyle}>
-                        {player.slot_type != 1 ? getSlotTypeName(player.slot_type) : player.name}
+                        {player.status != 0 ? getSlotTypeName(player.status) : player.name}
                     </MyText>
                     {
-                        player.slot_type === 1 && isVerifiedPlayer(player.profile_id) &&
+                        player.status === 0 && isVerifiedPlayer(player.profileId) &&
                         <> <FontAwesome5 solid name="check-circle" size={14} style={styles.verifiedIcon} /></>
                     }
                 </MyText>
             </TouchableOpacity>
 
-            <MyText style={[styles.playerRatingCol, playerRatingDiffStyle]}>{signed(player.rating_diff)}</MyText>
+            <MyText style={[styles.playerRatingCol, playerRatingDiffStyle]}>{signed(player.ratingDiff)}</MyText>
 
             {
                 Platform.OS === 'web' && appConfig.game === 'aoe2de' &&

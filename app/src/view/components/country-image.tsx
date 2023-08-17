@@ -6,7 +6,7 @@ import {TextLoader} from './loader/text-loader';
 
 
 export interface Props {
-    country?: Flag;
+    country?: string;
 }
 
 export interface LoaderProps extends Props {
@@ -21,7 +21,7 @@ export function CountryImage(props: Props) {
             transform: [{ scale: 1.3 }],
             marginLeft: 3,
             marginRight: 4+3,
-        }}>{country ? flagEmojiDict[country.toUpperCase()] : '🏳'}</MyText>
+        }}>{country ? flagEmojiDict[country.toUpperCase() as any] : '🏳'}</MyText>
     );
 }
 

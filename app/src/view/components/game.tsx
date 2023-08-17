@@ -3,12 +3,12 @@ import {formatAgo, getMatchTeamsWithFreeForAll, getString, isMatchFreeForAll} fr
 import React, {useEffect} from 'react';
 import {Player, PlayerSkeleton} from './player';
 import MyListAccordion from './accordion';
-import {IMatch, IPlayer} from "@nex/data/api";
+import {IMatch, IMatchNew, IPlayer} from "@nex/data/api";
 import { getMapImage, getMapName } from "../../helper/maps";
 import {TextLoader} from "./loader/text-loader";
 import {ImageLoader} from "./loader/image-loader";
 import {ViewLoader} from "./loader/view-loader";
-import {groupBy, min, minBy, sortBy} from 'lodash';
+import {flatten, groupBy, min, minBy, sortBy} from 'lodash';
 import {differenceInSeconds} from "date-fns";
 import { MyText } from './my-text';
 import {makeVariants, useAppTheme, useTheme} from "../../theming";
@@ -23,7 +23,7 @@ import {AoeSpeed, getSpeedFactor} from '../../helper/speed';
 import {appConfig} from "@nex/dataset";
 
 interface IGameProps {
-    match: IMatch;
+    match: IMatchNew;
     expanded?: boolean;
     user?: UserIdBase;
     highlightedUsers?: UserIdBase[];
@@ -39,19 +39,6 @@ const formatDuration = (durationInSeconds: number) => {
 export function Game({match, user, highlightedUsers, expanded = false}: IGameProps) {
     const theme = useAppTheme();
     const styles = useStyles();
-
-    const canDownloadRecDict = useLazyApi(
-        {},
-        hasRecDict, match
-    );
-
-    useEffect(() => {
-        if (!match) return;
-        if (!expanded) return;
-        if (Platform.OS !== 'web') return;
-        if (canDownloadRecDict.loading || canDownloadRecDict.touched || canDownloadRecDict.error) return;
-        canDownloadRecDict.reload();
-    }, [match, expanded])
 
     if (match == null) {
         const playersInTeam1 = Array(3).fill(0);
@@ -90,7 +77,7 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
     }
 
     const freeForALl = isMatchFreeForAll(match);
-    const teams = getMatchTeamsWithFreeForAll(match);
+    // const teams = getMatchTeamsWithFreeForAll(match);
 
     // const teams = Object.entries(groupBy(match.players, p => p.team));
 
@@ -101,57 +88,49 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
     }
     if (appConfig.game !== 'aoe2de') duration = '';
 
-    const checkRecAvailability = () => {
-        if (Platform.OS !== 'web') return;
-        if (appConfig.game !== 'aoe2de') return;
-        if (canDownloadRecDict.loading || canDownloadRecDict.touched || canDownloadRecDict.error) return;
-        canDownloadRecDict.reload();
-    };
-
-    const canDownloadRec = (player: IPlayer) => {
-        return canDownloadRecDict.data?.includes(player.profile_id);
-    };
+    // if (Platform.OS !== 'web') return;
 
     // console.log('MATCH', match);
+
+    const players = flatten(match.teams.map(t => t.players));
 
     return (
         <MyListAccordion
             style={styles.accordion}
-            onPress={checkRecAvailability}
             expanded={expanded}
             expandable={true}
             left={props => (
                 <View style={styles.row}>
 
                     <ImageBackground fadeDuration={0}
-                                     source={getMapImage(match.map_type)}
+                                     source={getMapImage(match)}
                                      imageStyle={styles.imageInner}
                                      style={styles.map}>
                         {
-                            match.players.some(p => sameUserNull(p, user) && p.won === true && (freeForALl || p.team != -1)) &&
+                            players.some(p => sameUserNull(p, user) && p.won === true && (freeForALl || p.team != -1)) &&
                             <FontAwesome5 name="crown" size={14} style={{marginLeft: -7,marginTop:-4}} color="goldenrod" />
                         }
                         {
-                            user == null && (match.players.some(p => p.won != null)) &&
+                            user == null && (players.some(p => p.won != null)) &&
                             <Image fadeDuration={0} source={require('../../../assets/other/SkullCrown.png')} style={{marginLeft: -6,marginTop:-4, width: 17, height: 17}} />
                         }
                         {
-                            match.players.some(p => sameUserNull(p, user) && p.won === false && (freeForALl || p.team != -1)) &&
+                            players.some(p => sameUserNull(p, user) && p.won === false && (freeForALl || p.team != -1)) &&
                             <FontAwesome5 name="skull" size={14} style={{marginLeft: -6,marginTop:-4}} color="grey" />
                         }
                     </ImageBackground>
 
                     <View style={styles.header}>
                         <MyText numberOfLines={1} style={styles.matchTitle}>
-                            {match.game_variant === 1 && 'RoR - '}
-                            {getMapName(match.map_type, match.ugc, match.rms, match.game_mode, match.scenario)} - {match.match_id}
+                            {match.gameVariant === 1 && 'RoR - '}
+                            {match.mapName} - {match.matchId}
                             {
                                 match.server &&
                                 <MyText> - {match.server}</MyText>
                             }
                         </MyText>
                         <MyText numberOfLines={1} style={styles.matchContent}>
-                            {getLeaderboardOrGameType(match.leaderboard_id, match.game_type)}
+                            {match.leaderboardName}
                         </MyText>
                         <MyText numberOfLines={1} style={styles.matchContent}>
                             {
@@ -174,7 +153,7 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
                         <FontAwesome5 name="clock" size={11.5} color={theme.textNoteColor}/>
                         <MyText style={styles.duration}> {duration}   </MyText>
                         <FontAwesome5 name="running" size={11.5} color={theme.textNoteColor}/>
-                        <MyText style={styles.speed}> {getString('speed', match.speed)}   </MyText>
+                        <MyText style={styles.speed}> {getString('speed', match.speed as any)}   </MyText>
                         {/*{*/}
                         {/*    __DEV__ &&*/}
                         {/*    <>*/}
@@ -197,13 +176,23 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
                     </View>
                 }
                 {
-                    sortBy(teams, ([team, players], i) => min(players.map(p => p.color))).map(([team, players], i) =>
-                        <View key={team}>
+                    sortBy(match.teams, ({teamId, players}, i) => min(players.map(p => p.color))).map(({teamId, players}, i) =>
+                        <View key={teamId}>
                             {
-                                sortBy(players, p => p.color).map((player, j) => <Player key={j} highlight={highlightedUsers?.some(hu => sameUser(hu, player))} match={match} player={player} freeForALl={freeForALl} canDownloadRec={canDownloadRec(player)}/>)
+                                sortBy(players, p => p.color).map(
+                                    (player, j) =>
+                                        <Player
+                                            key={j}
+                                            highlight={highlightedUsers?.some(hu => sameUser(hu, player))}
+                                            match={match}
+                                            player={player}
+                                            freeForALl={freeForALl}
+                                            canDownloadRec={player.replay}
+                                        />
+                                )
                             }
                             {
-                                i < teams.length-1 &&
+                                i < match.teams.length-1 &&
                                 <View style={styles.versus}>
                                     <MyText style={styles.versusText}>{getTranslation('match.versus')}</MyText>
                                 </View>

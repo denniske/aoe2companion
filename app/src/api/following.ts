@@ -128,8 +128,8 @@ export async function sendTestPushNotificationElectron(push_token_electron: stri
 }
 
 export interface IAccountProfile {
-    profile_id?: number | null;
-    steam_id?: string | null;
+    profileId?: number | null;
+    steamId?: string | null;
     overlay?: boolean;
 }
 

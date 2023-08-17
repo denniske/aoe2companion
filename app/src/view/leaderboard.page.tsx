@@ -4,7 +4,6 @@ import {
     Platform, StyleSheet, TextStyle, TouchableOpacity, View, ViewStyle
 } from 'react-native';
 import {useNavigation, useNavigationState} from '@react-navigation/native';
-import {fetchLeaderboard} from "../api/leaderboard";
 import {minifyUserId, sameUserNull, userIdFromBase} from "../helper/user";
 import {getCountryName} from "../helper/flags";
 import {countriesDistinct, Country, ILeaderboardPlayer} from "@nex/data";
@@ -29,16 +28,17 @@ import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';
 import {appConfig} from "@nex/dataset";
 import {CountryImage, CountryImageLoader} from './components/country-image';
+import {fetchLeaderboard} from "../api/leaderboard";
 
 type TabParamList = {
-    LeaderboardRmSolo: { leaderboardId: number };
-    LeaderboardRm1v1: { leaderboardId: number };
-    LeaderboardRmTeam: { leaderboardId: number };
-    LeaderboardEw1v1: { leaderboardId: number };
-    LeaderboardEwTeam: { leaderboardId: number };
-    LeaderboardRoR1v1: { leaderboardId: number };
-    LeaderboardRoRTeam: { leaderboardId: number };
-    LeaderboardUnranked: { leaderboardId: number };
+    LeaderboardRmSolo: { leaderboardId: string };
+    LeaderboardRm1v1: { leaderboardId: string };
+    LeaderboardRmTeam: { leaderboardId: string };
+    LeaderboardEw1v1: { leaderboardId: string };
+    LeaderboardEwTeam: { leaderboardId: string };
+    LeaderboardRoR1v1: { leaderboardId: string };
+    LeaderboardRoRTeam: { leaderboardId: string };
+    LeaderboardUnranked: { leaderboardId: string };
 };
 
 const Tab = createMaterialTopTabNavigator<TabParamList>();
@@ -108,16 +108,16 @@ export default function LeaderboardPage() {
     if (appConfig.game === 'aoe2de')
     return (
         <Tab.Navigator lazy={true} swipeEnabled={false}>
-            <Tab.Screen name="LeaderboardRm1v1" initialParams={{leaderboardId: 3}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rm1v1')}/>}}>
+            <Tab.Screen name="LeaderboardRm1v1" initialParams={{leaderboardId: 'rm_1v1'}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rm1v1')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
-            <Tab.Screen name="LeaderboardRmTeam" initialParams={{leaderboardId: 4}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rmteam')}/>}}>
+            <Tab.Screen name="LeaderboardRmTeam" initialParams={{leaderboardId: 'rm_team'}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rmteam')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
-            <Tab.Screen name="LeaderboardEw1v1" initialParams={{leaderboardId: 13}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.ew1v1')}/>}}>
+            <Tab.Screen name="LeaderboardEw1v1" initialParams={{leaderboardId: 'ew_1v1'}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.ew1v1')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
-            <Tab.Screen name="LeaderboardEwTeam" initialParams={{leaderboardId: 14}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.ewteam')}/>}}>
+            <Tab.Screen name="LeaderboardEwTeam" initialParams={{leaderboardId: 'ew_team'}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.ewteam')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
             {/*<Tab.Screen name="LeaderboardRoR1v1" initialParams={{leaderboardId: 25}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.ror1v1')}/>}}>*/}
@@ -126,7 +126,7 @@ export default function LeaderboardPage() {
             {/*<Tab.Screen name="LeaderboardRoRTeam" initialParams={{leaderboardId: 26}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rorteam')}/>}}>*/}
             {/*    {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}*/}
             {/*</Tab.Screen>*/}
-            <Tab.Screen name="LeaderboardUnranked" initialParams={{leaderboardId: 0}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.unranked')}/>}}>
+            <Tab.Screen name="LeaderboardUnranked" initialParams={{leaderboardId: 'unranked'}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.unranked')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
         </Tab.Navigator>
@@ -134,24 +134,24 @@ export default function LeaderboardPage() {
 
     return (
         <Tab.Navigator lazy={true} swipeEnabled={false}>
-            <Tab.Screen name="LeaderboardRmSolo" initialParams={{leaderboardId: 1002}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rmsolo')}/>}}>
-                {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
-            </Tab.Screen>
-            <Tab.Screen name="LeaderboardRm1v1" initialParams={{leaderboardId: 1003}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rmteam')}/>}}>
-                {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
-            </Tab.Screen>
-            <Tab.Screen name="LeaderboardRmTeam" initialParams={{leaderboardId: 17}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.1v1')}/>}}>
-                {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
-            </Tab.Screen>
-            <Tab.Screen name="LeaderboardEw1v1" initialParams={{leaderboardId: 18}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.2v2')}/>}}>
-                {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
-            </Tab.Screen>
-            <Tab.Screen name="LeaderboardEwTeam" initialParams={{leaderboardId: 19}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.3v3')}/>}}>
-                {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
-            </Tab.Screen>
-            <Tab.Screen name="LeaderboardUnranked" initialParams={{leaderboardId: 20}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.4v4')}/>}}>
-                {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
-            </Tab.Screen>
+            {/*<Tab.Screen name="LeaderboardRmSolo" initialParams={{leaderboardId: 1002}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rmsolo')}/>}}>*/}
+            {/*    {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}*/}
+            {/*</Tab.Screen>*/}
+            {/*<Tab.Screen name="LeaderboardRm1v1" initialParams={{leaderboardId: 1003}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rmteam')}/>}}>*/}
+            {/*    {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}*/}
+            {/*</Tab.Screen>*/}
+            {/*<Tab.Screen name="LeaderboardRmTeam" initialParams={{leaderboardId: 17}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.1v1')}/>}}>*/}
+            {/*    {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}*/}
+            {/*</Tab.Screen>*/}
+            {/*<Tab.Screen name="LeaderboardEw1v1" initialParams={{leaderboardId: 18}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.2v2')}/>}}>*/}
+            {/*    {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}*/}
+            {/*</Tab.Screen>*/}
+            {/*<Tab.Screen name="LeaderboardEwTeam" initialParams={{leaderboardId: 19}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.3v3')}/>}}>*/}
+            {/*    {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}*/}
+            {/*</Tab.Screen>*/}
+            {/*<Tab.Screen name="LeaderboardUnranked" initialParams={{leaderboardId: 20}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.4v4')}/>}}>*/}
+            {/*    {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}*/}
+            {/*</Tab.Screen>*/}
         </Tab.Navigator>
     );
 }
@@ -173,17 +173,17 @@ function Leaderboard({leaderboardId}: any) {
 
     const currentRouteLeaderboardId = useNavigationState(state => (state.routes[state.index].params as any)?.leaderboardId);
 
-    const getParams = (start: number, count: number, rest: object = {}) => {
+    const getParams = (start: number, count: number, profileId?: number) => {
         // start -= 1;
         if (leaderboardCountry == countryEarth) {
-            return {start, count, ...rest};
+            return {start, count, profileId};
         }
-        return {start, count, ...rest, country: leaderboardCountry};
+        return {start, count, profileId, country: leaderboardCountry};
     }
 
     const myRank = useLazyApi(
         {},
-        fetchLeaderboard, 'aoe2de', leaderboardId, getParams(1, 1, auth ? minifyUserId(auth) : {})
+        fetchLeaderboard, leaderboardId, getParams(1, 1, auth.profileId)
     );
 
     const matches = useLazyApi(
@@ -191,12 +191,12 @@ function Leaderboard({leaderboardId}: any) {
             append: (data, newData, args) => {
                 const [game, leaderboard_id, params] = args;
                 console.log('APPEND', data, newData, params);
-                newData.leaderboard.forEach((value, index) => data.leaderboard[index+params.start!-1] = value);
+                newData.players.forEach((value, index) => data.players[index+params.start!-1] = value);
                 console.log('APPENDED', params);
                 return data;
             },
         },
-        fetchLeaderboard, 'aoe2de', leaderboardId, getParams(1, pageSize)
+        fetchLeaderboard, leaderboardId, getParams(1, pageSize)
     );
 
     const onRefresh = async () => {
@@ -206,7 +206,7 @@ function Leaderboard({leaderboardId}: any) {
     };
 
     const rowHeight = 50;
-    const headerMyRankHeight = myRank.data?.leaderboard.length > 0 ? 64 : 0;
+    const headerMyRankHeight = myRank.data?.players.length > 0 ? 64 : 0;
     const headerInfoHeight = 30;
     const headerHeight = headerInfoHeight + headerMyRankHeight;
 
@@ -215,7 +215,7 @@ function Leaderboard({leaderboardId}: any) {
     };
 
     const scrollToMe = () => {
-        scrollToIndex(myRank.data.leaderboard[0].rank-1);
+        scrollToIndex(myRank.data.players[0].rank-1);
     };
 
     useEffect(() => {
@@ -230,7 +230,9 @@ function Leaderboard({leaderboardId}: any) {
 
     const total = useRef<any>();
 
-    const list = matches.data?.leaderboard || [];
+    console.log('==> data', matches.data);
+
+    const list = matches.data?.players || [];
     list.length = matches.data?.total || 200;
     total.current = matches.data?.total || 200;
 
@@ -274,7 +276,7 @@ function Leaderboard({leaderboardId}: any) {
                         {matches.data?.total ? players : ''}{matches.data?.updated ? ' (' + updated + ')' : ''}
                     </MyText>
                 </View>
-                {myRank.data?.leaderboard.length > 0 && _renderRow(myRank.data.leaderboard[0], 0, true)}
+                {myRank.data?.players.length > 0 && _renderRow(myRank.data.players[0], 0, true)}
             </>
         )
     };

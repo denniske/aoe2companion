@@ -1,4 +1,4 @@
-import {format, formatDistanceToNowStrict, fromUnixTime} from "date-fns";
+import {format, formatDistanceToNowStrict, fromUnixTime, parseISO} from "date-fns";
 import {getLanguage} from './aoe-data';
 
 // Explicitly importing the languages here so that they are tree shaked.
@@ -32,6 +32,16 @@ export function isBirthday() {
 
 export function clamp(value, a, b) {
     return Math.max(Math.min(value, b), a);
+}
+
+export function dateReviver(key: string, value: any) {
+    if (typeof value === 'string') {
+        // Check if the string is in ISO date format
+        if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(.\d{3})?Z?$/.test(value)) {
+            return parseISO(value);
+        }
+    }
+    return value;
 }
 
 const localeMapping = {

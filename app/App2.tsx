@@ -78,7 +78,7 @@ import OverlayPage from "./src/view/overlay.page";
 import IntroPage from "./src/view/intro.page";
 import {Roboto_400Regular, Roboto_700Bold, useFonts} from "@expo-google-fonts/roboto";
 import {getAllInternalStrings, getInternalString, loadStringsAsync} from './src/helper/strings';
-import { fetchJson } from './src/api/util';
+import {fetchJson, fetchJson2} from './src/api/util';
 import UpdateElectronSnackbar from "./src/view/components/snackbar/update-electron-snackbar";
 import OverlaySettingsPage from "./src/view/overlay.settings.page";
 import QueryPage from "./src/view/query.page";
@@ -118,8 +118,8 @@ if (Platform.OS !== 'web') {
 }
 
 class HttpService implements IHttpService {
-    async fetchJson(title: string, input: RequestInfo, init?: RequestInit) {
-        return fetchJson(title, input, init);
+    async fetchJson(title: string, input: RequestInfo, init?: RequestInit, reviver?: any) {
+        return fetchJson2(title, input, init, reviver);
     }
 }
 
@@ -151,7 +151,7 @@ class HostService implements IHostService {
     }
 }
 
-console.log('REGISTERING MAIN SERVICES');
+// console.log('REGISTERING MAIN SERVICES');
 
 registerService(SERVICE_NAME.TRANSLATION_SERVICE, new AoeDataService(), true);
 registerService(SERVICE_NAME.HOST_SERVICE, new HostService(), true);
@@ -787,7 +787,7 @@ export function AppWrapper() {
     // AsyncStorage.removeItem('following');
     // AsyncStorage.removeItem('config');
 
-    console.log(' ');
+    // console.log(' ');
 
     const mutate = useMutate();
 
@@ -817,11 +817,11 @@ export function AppWrapper() {
     useEffect(() => {
         if (config == null) return;
 
-        console.log('LOCAL ==> Localization.locale', Localization.locale);
-        console.log('LOCAL ==> Localization.locales', Localization.locales);
+        // console.log('LOCAL ==> Localization.locale', Localization.locale);
+        // console.log('LOCAL ==> Localization.locales', Localization.locales);
 
         const language = config.language == 'system' ? getLanguageFromSystemLocale2(Localization.locale) : config.language;
-        console.log('LOCAL ==> Loading AoeStrings for ' + language + ' (config.language: ' + config.language + ')');
+        // console.log('LOCAL ==> Loading AoeStrings for ' + language + ' (config.language: ' + config.language + ')');
         setInternalLanguage(language);
         Promise.all([loadAoeStringsAsync(language), loadStringsAsync(language)]).then(() => mutate(addLoadedLanguage(language)));
         fetchAoeReferenceData();
@@ -839,7 +839,7 @@ export function AppWrapper() {
     }, [auth, following, config, prefs, loadedLanguages]);
 
     const onLayoutRootView = useCallback(async () => {
-        console.log('onLayoutRootView', appIsReady);
+        // console.log('onLayoutRootView', appIsReady);
         if (appIsReady) {
             await SplashScreen.hideAsync();
         }
@@ -856,7 +856,7 @@ export function AppWrapper() {
 
     const appType = getAppType();
 
-    console.log('global.location', JSON.stringify((global as any).location));
+    // console.log('global.location', JSON.stringify((global as any).location));
 
     return (
         <NavigationContainer ref={navigationRef}

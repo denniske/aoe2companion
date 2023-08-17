@@ -140,21 +140,21 @@ export function MainPageInner({ user }: MainPageInnerProps) {
 
     console.log('CACHED API ACCESS', user.id);
 
-    let allMatches = useCachedConservedLazyApi(
-        [currentTabIndex, loadingMatchesOrStatsTrigger],
-        () => currentTabIndex > 0,
-        state => get(state, ['user', user.id, 'matches']),
-        (state, value) => set(state, ['user', user.id, 'matches'], value),
-        fetchPlayerMatches, 'aoe2de', 0, 500, [user]
-    );
-
-    useCachedConservedLazyApi(
-        [allMatches.data, leaderboardId],
-        () => allMatches.data != null,
-        state => get(state, ['statsPlayer', user.id, leaderboardId]),
-        (state, value) => set(state, ['statsPlayer', user.id, leaderboardId], value),
-        getStats, {matches: allMatches.data, user: user, leaderboardId}
-    );
+    // let allMatches = useCachedConservedLazyApi(
+    //     [currentTabIndex, loadingMatchesOrStatsTrigger],
+    //     () => currentTabIndex > 0,
+    //     state => get(state, ['user', user.id, 'matches']),
+    //     (state, value) => set(state, ['user', user.id, 'matches'], value),
+    //     fetchPlayerMatches, 'aoe2de', 0, 500, [user]
+    // );
+    //
+    // useCachedConservedLazyApi(
+    //     [allMatches.data, leaderboardId],
+    //     () => allMatches.data != null,
+    //     state => get(state, ['statsPlayer', user.id, leaderboardId]),
+    //     (state, value) => set(state, ['statsPlayer', user.id, leaderboardId], value),
+    //     getStats, {matches: allMatches.data, user: user, leaderboardId}
+    // );
 
     const appName = Constants.manifest?.name || Constants.manifest2?.extra?.expoClient?.name;
 

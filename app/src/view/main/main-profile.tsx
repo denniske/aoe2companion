@@ -92,18 +92,18 @@ function MainProfileInternal({user}: { user: any}) {
         });
     }, [userProfile]);
 
-    const rating = useApi(
-        {},
-        [],
-        state => state.user[user.id]?.rating,
-        (state, value) => {
-            if (state.user[user.id] == null) {
-                state.user[user.id] = {};
-            }
-            state.user[user.id].rating = value;
-        },
-        loadRatingHistories, 'aoe2de', user
-    );
+    // const rating = useApi(
+    //     {},
+    //     [],
+    //     state => state.user[user.id]?.rating,
+    //     (state, value) => {
+    //         if (state.user[user.id] == null) {
+    //             state.user[user.id] = {};
+    //         }
+    //         state.user[user.id].rating = value;
+    //     },
+    //     loadRatingHistories, 'aoe2de', user
+    // );
 
     const profile = useApi(
         {},
@@ -115,8 +115,10 @@ function MainProfileInternal({user}: { user: any}) {
             }
             state.user[user.id].profile = value;
         },
-        loadProfile, 'aoe2de', user
+        loadProfile, user
     );
+
+    const rating = profile.data?.ratings;
 
     const route = useRoute();
     const state = useNavigationState(state => state);
@@ -131,7 +133,7 @@ function MainProfileInternal({user}: { user: any}) {
     const onRefresh = async () => {
         console.log('REFRESHING MAIN PROFILE', userProfile?.name);
         setRefetching(true);
-        await Promise.all([rating.reload(), profile.reload()]);
+        await Promise.all([profile.reload()]);
         setRefetching(false);
     };
 
@@ -195,10 +197,10 @@ function MainProfileInternal({user}: { user: any}) {
                     renderItem={({item, index}) => {
                         switch (item) {
                             case 'rating-header':
-                                if (rating.data?.length === 0) return <View/>;
+                                if (rating?.length === 0) return <View/>;
                                 return <MyText style={styles.sectionHeader}>{getTranslation('main.profile.ratinghistory.heading')}</MyText>;
                             case 'matches5-header':
-                                if (rating.data?.length === 0) return <View/>;
+                                if (rating?.length === 0) return <View/>;
                                 return <MyText style={styles.sectionHeader}>{getTranslation('main.profile.recentmatches.heading')}</MyText>;
                             case 'matches5-footer':
                                 return <Button
@@ -211,7 +213,7 @@ function MainProfileInternal({user}: { user: any}) {
                                     View All
                                 </Button>;
                             case 'matchesVersus-header':
-                                if (rating.data?.length === 0) return <View/>;
+                                if (rating?.length === 0) return <View/>;
                                 return <MyText style={styles.sectionHeader}>Recent matches with you</MyText>;
                             case 'matchesVersus-footer':
                                 return <Button
@@ -225,10 +227,10 @@ function MainProfileInternal({user}: { user: any}) {
                                 </Button>;
                             case 'profile':
                                 if (profile.data === null) return <View style={styles.container}><MyText>No leaderboard data yet.</MyText></View>;;
-                                return <Profile data={profile.data} ready={profile.data != null && rating.data != null}/>;
+                                return <Profile data={profile.data} ready={profile.data != null && rating != null}/>;
                             case 'rating':
-                                if (rating.data?.length === 0) return <View/>;
-                                return <Rating ratingHistories={rating.data} ready={profile.data != null && rating.data != null}/>;
+                                if (rating?.length === 0) return <View/>;
+                                return <Rating ratingHistories={rating} ready={profile.data != null && rating != null}/>;
                             default:
                                 return <Game match={item as any} expanded={index === -1} highlightedUsers={[user]} user={user}/>;
                         }

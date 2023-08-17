@@ -508,7 +508,7 @@ const countryNames = {
 
 export const countriesDistinct = uniq(keysOf(countryNames)) as Country[];
 
-export type Flag = keyof typeof flagList;
+export type Flag = string;
 export type Country = keyof typeof countryNames;
 
 export function getCountryName(country: Country) {

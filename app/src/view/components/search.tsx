@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {FlatList, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {IFetchedUser, loadUser} from '../../service/user';
+import {IFetchedUser, loadUser, loadUserByProfileId, loadUserBySteamId} from '../../service/user';
 import {useLazyApi} from '../../hooks/use-lazy-api';
 import {Button, Searchbar} from 'react-native-paper';
 import {composeUserIdFromParts, UserInfo} from '../../helper/user';
@@ -14,31 +14,34 @@ import { useCavy } from '../testing/tester';
 import {FontAwesome5} from "@expo/vector-icons";
 import {isVerifiedPlayer} from '@nex/data';
 import {CountryImage} from './country-image';
+import {IProfileItemNew} from "@nex/data/api";
 
 interface IPlayerProps {
-    player: IFetchedUser;
+    player: IProfileItemNew;
     selectedUser?: (user: UserInfo) => void;
     actionText?: string;
-    action?: (player: IFetchedUser) => React.ReactNode;
+    action?: (player: IProfileItemNew) => React.ReactNode;
 }
 
 function Player({player, selectedUser, actionText, action}: IPlayerProps) {
     const generateTestHook = useCavy();
     const styles = useStyles();
 
+    // console.log('player', player)
+
     const onSelect = async () => {
         if (selectedUser == null) return;
         selectedUser({
-            id: composeUserIdFromParts(player.steam_id, player.profile_id),
-            steam_id: player.steam_id,
-            profile_id: player.profile_id,
+            id: composeUserIdFromParts(player.steamId, player.profileId),
+            steamId: player.steamId,
+            profileId: player.profileId,
             name: player.name,
         });
     };
 
     return (
             <TouchableOpacity
-                ref={ref => generateTestHook('Search.Player.' + composeUserIdFromParts(player.steam_id, player.profile_id))({ props: { onPress: onSelect }})}
+                ref={ref => generateTestHook('Search.Player.' + composeUserIdFromParts(player.steamId, player.profileId))({ props: { onPress: onSelect }})}
                 onPress={onSelect}
             >
                 <View style={styles.row}>
@@ -47,7 +50,7 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
                         <MyText style={styles.name} numberOfLines={1}>
                             {player.name}
                             {
-                                isVerifiedPlayer(player.profile_id) &&
+                                player.verified &&
                                 <> <FontAwesome5 solid name="check-circle" size={14} style={styles.verifiedIcon} /></>
                             }
                         </MyText>
@@ -86,14 +89,37 @@ interface ISearchProps {
 
 export default function Search({title, selectedUser, actionText, action}: ISearchProps) {
     const styles = useStyles();
-    const [text, setText] = useState('');
+    const [text, setText] = useState('209525');
     const previousText = usePrevious(text);
     const [fetchingMore, setFetchingMore] = useState(false);
     const [fetchedAll, setFetchedAll] = useState(false);
+    const [fetching, setFetching] = useState(false);
+    const [profiles, setProfiles] = useState<any[]>([]);
+    const flatListRef = React.useRef<any>()
 
-    const user = useLazyApi({}, loadUser, 'aoe2de', 1, 50, text);
+    const user = useLazyApi(
+        {
+            append: (data, newData, args) => {
+                data.profiles.push(...newData.profiles);
+                data.hasMore = newData.hasMore;
+                data.page = newData.page;
+                data.count = data.count + newData.count;
+                return data;
+            },
+        },
+        loadUser, 1, text);
 
-    const refresh = () => {
+    const userByProfileId = useLazyApi(
+        {},
+        loadUserByProfileId, text
+    );
+
+    const userBySteamId = useLazyApi(
+        {},
+        loadUserBySteamId, text
+    );
+
+    const refresh = async () => {
         if (text.length < 3) {
             user.reset();
             return;
@@ -101,9 +127,47 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
         if (previousText?.trim() === text.trim()) {
             return;
         }
-        user.refetch('aoe2de', 1, 50, text.trim());
-        setFetchedAll(false);
+        setFetching(true);
+        await Promise.all([
+            userByProfileId.refetch(text.trim()),
+            userBySteamId.refetch(text.trim()),
+            user.refetch(1, text.trim()),
+        ]);
+        setFetching(false);
+
+        flatListRef.current.scrollToOffset({ animated: false, offset: 0 });
+
+        // if (newUsersData!.profiles!.length < newUsersData!.perPage) {
+        //     setFetchedAll(true);
+        // } else {
+        //     setFetchedAll(false);
+        // }
+
     };
+
+    useEffect(() => {
+
+        // console.log('==> fetching:', fetching);
+        // console.log('==> user.data:', user.data);
+        // console.log('==> userByProfileId.data:', userByProfileId.data);
+        // console.log('==> userBySteamId.data:', userBySteamId.data);
+
+        if (fetching) return;
+        // if (user.data == null) return;
+        // if (userByProfileId.data == null) return;
+        // if (userBySteamId.data == null) return;
+
+        setProfiles(user.data ? [
+            ...(userByProfileId.data ? [userByProfileId.data] : []),
+            ...(userBySteamId.data ? [userBySteamId.data] : []),
+            ...user.data?.profiles ?? [],
+        ] : []);
+
+        // console.log('newUsersData', newUsersData);
+        // console.log('===> newUsersData!.hasMore', newUsersData!.hasMore);
+        setFetchedAll(!user.data?.hasMore);
+
+    }, [fetching, user.data, userByProfileId.data, userBySteamId.data]);
 
     const generateTestHook = useCavy();
 
@@ -111,8 +175,17 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
         refresh();
     }, [text]);
 
-    let list: any[] = user.data ? [...user.data]:[];
-    if (user.touched && (user.data == null || user.data.length === 0)) {
+    // let list: any[] = user.data ? [
+    //     ...(userByProfileId.data ? [userByProfileId.data] : []),
+    //     ...(userBySteamId.data ? [userBySteamId.data] : []),
+    //     ...user.data?.profiles ?? [],
+    // ] : [];
+
+    let list = profiles;
+
+    // console.log('list', list)
+
+    if (user.touched && list.length === 0) {
         list.push({
             type: 'text',
             content: <MyText style={styles.centerText}>{getTranslation('search.nouserfound')}</MyText>,
@@ -142,14 +215,18 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
     const onEndReached = async () => {
         // console.log('onEndReached', text);
         // console.log('fetchingMore', fetchingMore);
-        // console.log('user.data', user.data?.length);
-        if (text.length < 3 || fetchingMore || user.data?.length < 50) return;
+        // console.log('user.data?.profiles?.length', user.data?.profiles?.length);
+        // console.log('fetchedAll', fetchedAll);
+        // if (text.length < 3 || fetchingMore || user.data?.profiles?.length < 50) return;
+        if (text.length < 3 || fetchingMore || fetchedAll || user.data == null) return;
         setFetchingMore(true);
-        const usersLength = user.data?.length ?? 0;
-        const newUsersData = await user.refetch('aoe2de', 1, (user.data?.length ?? 0) + 50, text.trim());
-        if (usersLength === newUsersData?.length) {
-            setFetchedAll(true);
-        }
+        setFetching(true);
+        await Promise.all([
+            userByProfileId.refetch(text.trim()),
+            userBySteamId.refetch(text.trim()),
+            user.refetchAppend(user.data?.page + 1, text.trim()),
+        ]);
+        setFetching(false);
         setFetchingMore(false);
     };
 
@@ -176,15 +253,17 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
                 />
 
                 {
-                    user.data && user.data.length > 0 && text.length >= 3 &&
+                    list.length > 0 && text.length >= 3 &&
                     <View style={styles.headerRow}>
                         <MyText style={styles.cellName}>{getTranslation('search.heading.name')}</MyText>
                         <MyText style={styles.cellGames}>{getTranslation('search.heading.games')}</MyText>
                         <MyText style={styles.cellAction}/>
                     </View>
                 }
+                {/*key={text}*/}
 
                 <FlatList
+                        ref={flatListRef as any}
                         keyboardShouldPersistTaps={'always'}
                         contentContainerStyle={styles.list}
                         data={list}

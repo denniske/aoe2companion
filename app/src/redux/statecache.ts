@@ -4,13 +4,13 @@ let mycache: any = undefined;
 
 export function setcache(value: any) {
     mycache = value;
-    console.log('setcache');
+    // console.log('setcache');
     // console.log('setcache', value);
 }
 
 export function getcache() {
     // console.log('getcache', mycache);
-    console.log('getcache');
+    // console.log('getcache');
     return mycache;
 }
 
@@ -37,7 +37,7 @@ let internalStrings: any = {};
 
 export function getInternalStrings() {
     // console.log('getlanguage', mylanguage);
-    console.log('getInternalStrings');
+    // console.log('getInternalStrings');
     return internalStrings;
 }
 
@@ -46,6 +46,6 @@ let internalAoeStrings: any = {};
 
 export function getInternalAoeStrings() {
     // console.log('getlanguage', mylanguage);
-    console.log('getInternalAoeStrings');
+    // console.log('getInternalAoeStrings');
     return internalAoeStrings;
 }

@@ -12,7 +12,7 @@ export const slotTypes = {
 
 export type SlotType = keyof typeof slotTypes;
 
-export function getSlotTypeName(slotType: SlotType) {
+export function getSlotTypeName(slotType: any) {
     return slotTypes[slotType] ? getUiTranslation(`enum.slottype.${slotTypes[slotType]}`) : slotType;
 }
 
@@ -169,4 +169,268 @@ export interface ILeaderboardInfoRaw {
     steam_id: string;
     streak: number;
     wins: number;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export interface IProfileResponse {
+    clan: string; // Todo
+    drops: number; // Todo
+
+    profileId: number
+    name: string
+    country: string
+    games: number
+    verified: boolean
+    countryIcon: string
+    leaderboards: ILeaderboardNew[]
+    ratings: IRatingNew[]
+    stats: IStatNew[]
+}
+
+export interface ILeaderboardNew {
+    leaderboardId: string
+    profileId: number
+    name: string
+    rank: number
+    rating: number
+    lastMatchTime: string
+    drops: number
+    losses: number
+    games: number
+    streak: number
+    wins: number
+    updatedAt: string
+    rankCountry: number
+    leaderboardName: string
+    abbreviation: string
+    maxRating: number
+}
+
+export interface IRatingNew {
+    leaderboardId: string
+    leaderboardName: string
+    abbreviation: string
+    ratings: IRatingList[]
+}
+
+export interface IRatingList {
+    profileId: number
+    games: number
+    rating: number
+    date: Date
+    leaderboardId: number
+    ratingDiff?: number
+}
+
+export interface IStatNew {
+    leaderboardId: string
+    leaderboardName: string
+    abbreviation: string
+    civ: IStatCiv[]
+    map: IStatMap[]
+    allies: IStatAlly[]
+    opponents: IStatOpponent[]
+}
+
+export interface IStatCiv {
+    civ: number
+    civName: string
+    civImageUrl: string
+    games: number
+    wins: number
+}
+
+export interface IStatMap {
+    map: string
+    mapName: string
+    mapImageUrl: string
+    location?: number
+    games: number
+    wins: number
+    losses: number
+}
+
+export interface IStatAlly {
+    verified: boolean
+    countryIcon?: string
+    profileId: number
+    name: string
+    country?: string
+    games: number
+    wins: number
+    losses: number
+}
+
+export interface IStatOpponent {
+    verified: boolean
+    countryIcon: string
+    profileId: number
+    name: string
+    country: string
+    games: number
+    wins: number
+    losses: number
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export interface IMatchesResponse {
+    page: number
+    perPage: number
+    matches: IMatchNew[]
+}
+
+export interface IMatchNew {
+    matchId: number
+    started: Date
+    finished?: Date
+    leaderboardId: string
+    leaderboardName: string
+    name: string
+    server?: string
+    internalLeaderboardId: number
+    difficulty: number
+    startingAge: number
+    fullTechTree: boolean
+    allowCheats: boolean
+    empireWarsMode?: boolean
+    endingAge?: number
+    gameMode: number
+    lockSpeed: boolean
+    lockTeams: boolean
+    mapSize: number
+    map: string
+    mapName: string
+    mapImageUrl: string
+    population: number
+    recordGame: boolean
+    regicideMode?: boolean
+    gameVariant?: number
+    resources?: number
+    sharedExploration: boolean
+    speed?: number
+    suddenDeathMode?: boolean
+    teamPositions: boolean
+    teamTogether: boolean
+    treatyLength: number
+    turboMode: boolean
+    victory: number
+    revealMap: number
+    privacy: number
+    teams: ITeamNew[]
+}
+
+export interface ITeamNew {
+    teamId?: number
+    players: IPlayerNew[]
+}
+
+export interface IPlayerNew {
+    profileId: number
+    name: string
+    rating?: number
+    ratingDiff: number
+    civFix: number
+    civ: number
+    civName: string
+    civImageUrl: string
+    color: number
+    colorHex: string
+    status: number
+    slot: number
+    team?: number
+    won?: boolean
+    replay?: boolean
+    verified: boolean
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+export interface ILeaderboardResponse {
+    leaderboardId: string
+    total: number
+    start: number
+    count: number
+    country: any
+    page: number
+    players: ILeaderboardPlayer[]
+}
+
+export interface ILeaderboardPlayer {
+    leaderboardId: string
+    profileId: number
+    name: string
+    rank: number
+    rating: number
+    lastMatchTime: string
+    drops: number
+    losses: number
+    streak: number
+    wins: number
+    updatedAt: string
+    rankCountry: number
+    games: number
+    country: string
+}
+
+
+
+export interface IProfilesResponse {
+    page: number
+    perPage: number
+    count: number
+    offset: number
+    hasMore: boolean
+    profiles: IProfileItemNew[]
+}
+
+export interface IProfileItemNew {
+    profileId: number
+    steamId: string
+    name: string
+    country: string
+    games: number
+    drops: number
+    clan: string
+    avatarhash: string
+    verified: boolean
 }

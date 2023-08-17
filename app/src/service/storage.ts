@@ -24,7 +24,7 @@ export interface IConfig {
 
 export interface IPrefs {
     guideFavorites: string[];
-    country?: Flag;
+    country?: string;
     leaderboardId?: LeaderboardId;
     changelogLastVersionRead?: string;
     birthdayRead?: boolean;
@@ -34,6 +34,10 @@ export interface IPrefs {
 
 export interface ISettings {
     id: string;
+    steamId?: string;
+    profileId?: number;
+
+    // Deprecated
     steam_id?: string;
     profile_id?: number;
 }
@@ -44,6 +48,8 @@ export interface IAccount {
 
 export interface IFollowingEntry {
     id?: string;
+    steamId?: string;
+    profileId: number;
     steam_id?: string;
     profile_id: number;
     name: string;
@@ -121,6 +127,14 @@ export const loadSettingsFromStorage = async () => {
         return null;
     }
     const settings = JSON.parse(entry) as ISettings;
+
+    if (settings.profileId == null && settings.profile_id != null) {
+        settings.profileId = settings.profile_id;
+    }
+    if (settings.steamId == null && settings.steam_id != null) {
+        settings.steamId = settings.steam_id;
+    }
+
     await sendSettingsToElectron(settings);
     return settings;
 };
@@ -130,7 +144,18 @@ export const loadFollowingFromStorage = async () => {
     if (entry == null) {
         return [];
     }
-    return JSON.parse(entry) as IFollowingEntry[];
+    const entries = JSON.parse(entry) as IFollowingEntry[];
+
+    for (const entry of entries) {
+        if (entry.profileId == null && entry.profile_id != null) {
+            entry.profileId = entry.profile_id;
+        }
+        if (entry.steamId == null && entry.steam_id != null) {
+            entry.steamId = entry.steam_id;
+        }
+    }
+
+    return entries;
 };
 
 export const saveFollowingToStorage = async (following: IFollowingEntry[]) => {

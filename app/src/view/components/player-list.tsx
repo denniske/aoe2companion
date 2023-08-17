@@ -9,11 +9,11 @@ import {useCavy} from '../testing/tester';
 import {CountryImage} from './country-image';
 
 export interface IPlayerListPlayer {
-    country: Flag;
+    country: string;
     games: number;
     name: string;
-    profile_id: number;
-    steam_id?: string;
+    profileId: number;
+    steamId?: string;
 }
 
 interface IPlayerProps {
@@ -28,16 +28,16 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
 
     const onSelect = async () => {
         selectedUser!({
-            id: composeUserIdFromParts(player.steam_id, player.profile_id),
-            steam_id: player.steam_id,
-            profile_id: player.profile_id,
+            id: composeUserIdFromParts(player.steamId, player.profileId),
+            steamId: player.steamId,
+            profileId: player.profileId,
             name: player.name,
         });
     };
 
     return (
             <TouchableOpacity
-                ref={ref => generateTestHook('Search.Player.' + composeUserIdFromParts(player.steam_id, player.profile_id))({ props: { onPress: onSelect }})}
+                ref={ref => generateTestHook('Search.Player.' + composeUserIdFromParts(player.steamId, player.profileId))({ props: { onPress: onSelect }})}
                 onPress={onSelect}
             >
                 <View style={styles.row}>

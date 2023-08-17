@@ -1,7 +1,7 @@
 import {getService, SERVICE_NAME} from "./di";
 import {appConfig} from "@nex/dataset";
 
-export type Host = 'aoe4world' | 'aoe2companion' | 'aoe2companion-api' | 'aoe2companion-graphql' | 'aoe2net';
+export type Host = 'aoe4world' | 'aoe2companion' | 'aoe2companion-api' | 'aoe2companion-graphql' | 'aoe2companion-data' | 'aoe2net';
 export type OS = 'windows' | 'macos' | 'android' | 'ios' | 'web';
 export type Environment = 'development' | 'production';
 
@@ -59,6 +59,16 @@ export function getHost(host: Host) {
             //     return 'http://localhost:3333/graphql';
             // }
             return `https://graph.${appConfig.hostAoeCompanion}/graphql`;
+        }
+        case "aoe2companion-data": {
+            // if (__DEV__ && Constants.isDevice) {
+            //     const platformHost = '192.168.178.41';
+            //     return `http://${platformHost}:3003/`;
+            // }
+            if (dev) {
+                return 'http://localhost:3335/';
+            }
+            return `https://data.${appConfig.hostAoeCompanion}/`;
         }
         case "aoe2net": {
             console.log('appConfig', appConfig);

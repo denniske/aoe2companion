@@ -5,23 +5,27 @@ import {appConfig, mapsData, mapsFallbackData} from "@nex/dataset";
 export const maps = mapsData;
 export const mapsFallback = mapsFallbackData;
 
-export function getMapImage(map: AoeMap) {
-
-    if (appConfig.game === 'aoe2de') {
-        if (map as any === -2) {
-            return mapsFallback;
-        }
-        const mapRoR = allMapsDe.find(m => m.mapIdRoR === map);
-        if (mapRoR) {
-            map = mapRoR.mapId as any;
-        }
-    }
-
-    if (map == null || !(map in maps)) {
-        return mapsFallback;
-    }
-    return maps[map];
+export function getMapImage(data: { map: any, mapImageUrl: string }) {
+    return { uri: data.mapImageUrl };
 }
+
+// export function getMapImage(map: AoeMap) {
+//
+//     if (appConfig.game === 'aoe2de') {
+//         if (map as any === -2) {
+//             return mapsFallback;
+//         }
+//         const mapRoR = allMapsDe.find(m => m.mapIdRoR === map);
+//         if (mapRoR) {
+//             map = mapRoR.mapId as any;
+//         }
+//     }
+//
+//     if (map == null || !(map in maps)) {
+//         return mapsFallback;
+//     }
+//     return maps[map];
+// }
 
 export function getMapImageByLocationString(map: string) {
     if (map == null) {

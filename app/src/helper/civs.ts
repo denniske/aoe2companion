@@ -71,17 +71,21 @@ export const civImageRoRList = [
 ];
 
 export function getCivIconByIndex(civ: number) {
-    console.log('getCivIconByIndex', civ, civsAoeNet[civ]);
+    // console.log('getCivIconByIndex', civ, civsAoeNet[civ]);
     if (civ >= 10000) {
         return civImageRoRList[civ - 10000];
     }
     return civIconList[civsAoeNet[civ] as Civ];
 }
 
-export function getCivIcon(civ: Civ) {
-    console.log('getCivIcon', civ);
-    return civIconList[civ];
+export function getCivIcon(data: { civ: any, civImageUrl: string }) {
+    return { uri: data.civImageUrl };
 }
+
+// export function getCivIcon(civ: Civ) {
+//     console.log('getCivIcon', civ);
+//     return civIconList[civ];
+// }
 
 export function getCivHistoryImage(civ: Civ) {
     return civHistoryList[civs.indexOf(civ as any)];

@@ -15,13 +15,13 @@ export const toggleFollowing = async (user: IPlayerListPlayer) => {
     const following = await loadFollowingFromStorage();
     const index = following.findIndex(f => sameUser(f, user));
     if (index > -1) {
-        await unfollow(account_id, [user.profile_id]);
+        await unfollow(account_id, [user.profileId]);
     } else {
         if (following.length >= maxFollowing) {
             alert(`You can follow a maximum of ${maxFollowing} users. Unfollow a user first to follow a new one.`);
             return;
         }
-        await follow(account_id, [user.profile_id], pushNotificationsEnabled);
+        await follow(account_id, [user.profileId], pushNotificationsEnabled);
     }
 
     const following2 = await loadFollowingFromStorage();
@@ -31,8 +31,8 @@ export const toggleFollowing = async (user: IPlayerListPlayer) => {
     } else {
         following2.push({
             id: composeUserId(user),
-            steam_id: user.steam_id,
-            profile_id: user.profile_id,
+            steam_id: user.steamId,
+            profile_id: user.profileId,
             name: user.name,
             games: user.games,
             country: user.country,

@@ -64,27 +64,27 @@ export async function loadRatingHistoriesLegacy4(userId: UserIdBase): Promise<IR
 
 
 export async function loadRatingHistoriesLegacy(game: string, userId: UserIdBase): Promise<IRatingHistoryRow[]> {
-    if (appConfig.game == 'aoe4') return loadRatingHistoriesLegacy4(userId);
-    // console.log("loading ratings", game, composeUserId(userId));
+    // if (appConfig.game == 'aoe4') return loadRatingHistoriesLegacy4(userId);
+    // // console.log("loading ratings", game, composeUserId(userId));
+    //
+    // // console.time('=> loadRatingHistories');
+    //
+    // let ratingHistories = await Promise.all(
+    //     appConfig.leaderboards.map(leaderbard => fetchRatingHistory(game, leaderbard.id, 0, 500, minifyUserId(userId)))
+    // );
+    //
+    // let ratingHistoryRows = ratingHistories.map((rh, i) => ({
+    //     leaderboard_id: appConfig.leaderboards[i].id as LeaderboardId,
+    //     data: rh,
+    // }));
+    //
+    // ratingHistoryRows = ratingHistoryRows.filter(rh => rh.data?.length);
+    //
+    // // console.timeEnd('=> loadRatingHistories');
+    //
+    // // console.log("RETURNING ratingHistoryRows", ratingHistoryRows);
 
-    // console.time('=> loadRatingHistories');
-
-    let ratingHistories = await Promise.all(
-        appConfig.leaderboards.map(leaderbard => fetchRatingHistory(game, leaderbard.id, 0, 500, minifyUserId(userId)))
-    );
-
-    let ratingHistoryRows = ratingHistories.map((rh, i) => ({
-        leaderboard_id: appConfig.leaderboards[i].id as LeaderboardId,
-        data: rh,
-    }));
-
-    ratingHistoryRows = ratingHistoryRows.filter(rh => rh.data?.length);
-
-    // console.timeEnd('=> loadRatingHistories');
-
-    // console.log("RETURNING ratingHistoryRows", ratingHistoryRows);
-
-    return ratingHistoryRows;
+    return []; //ratingHistoryRows;
 }
 
 

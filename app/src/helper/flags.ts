@@ -251,7 +251,7 @@ export const flagEmojiDict = {
     'ZA': '🇿🇦',
     'ZM': '🇿🇲',
     'ZW': '🇿🇼',
-};
+} as Record<string, string>;
 
 export function getCountryName(country: Country) {
     return getTranslation(`country.${country.toLowerCase()}` as any);

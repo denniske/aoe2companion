@@ -38,7 +38,7 @@ export async function fetchJson(title: string, input: RequestInfo, init?: Reques
     }
 }
 
-export async function fetchJson2(title: string, input: RequestInfo, init?: RequestInit) {
+export async function fetchJson2(title: string, input: RequestInfo, init?: RequestInit, reviver?: any) {
     if (init) {
         console.log('fetchJson2', input, init);
     } else {
@@ -50,7 +50,7 @@ export async function fetchJson2(title: string, input: RequestInfo, init?: Reque
     try {
         response = await fetch(input, init);
         text = await response.text();
-        return JSON.parse(text);
+        return JSON.parse(text, reviver);
     } catch (e) {
         store.dispatch(exec(setError({
             error: e,

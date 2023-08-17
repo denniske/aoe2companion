@@ -1,10 +1,9 @@
 import {produce} from "immer";
 import { TypedUseSelectorHook, useDispatch, useSelector as useReduxSelector } from 'react-redux';
 import {UserId} from '../helper/user';
-import { IProfile } from '../view/components/profile';
 import { IRatingHistoryRow } from '../service/rating';
 import {ILeaderboard} from "@nex/data";
-import {IMatch, IPlayer} from "@nex/data/api";
+import {IMatch, IPlayer, IProfileResponse} from "@nex/data/api";
 import {IAccount, IConfig, IFollowingEntry, IPrefs} from "../service/storage";
 import {Manifest} from "expo-updates/build/Updates.types";
 import {set} from 'lodash';
@@ -170,7 +169,7 @@ interface INote {
 }
 
 interface IUser {
-  profile?: IProfile;
+  profile?: IProfileResponse;
   rating?: IRatingHistoryRow[];
   matches?: IMatch[];
   matches5?: IMatch[];

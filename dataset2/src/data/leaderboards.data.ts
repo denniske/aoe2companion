@@ -10,23 +10,23 @@ export const abbreviationsData = {
 };
 
 export const leaderboardMappingData = {
-    3: {
+    'rm_1v1': {
         title: 'RM',
         subtitle: '1v1',
     },
-    4: {
+    'rm_team': {
         title: 'RM',
         subtitle: 'Team',
     },
-    13: {
+    'ew_1v1': {
         title: 'EW',
         subtitle: '1v1',
     },
-    14: {
+    'ew_team': {
         title: 'EW',
         subtitle: 'Team',
     },
-    0: {
+    'unranked': {
         title: 'UNR',
         subtitle: 'Unranked',
     },
@@ -40,4 +40,4 @@ export const leaderboardMappingData = {
     // },
 };
 
-export const leaderboardIdsData = [3, 4, 13, 14, 0];
+export const leaderboardIdsData = ['rm_1v1', 'rm_team', 'ew_1v1', 'ew_team', 'unranked'];

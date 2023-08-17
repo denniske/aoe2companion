@@ -34,7 +34,10 @@ export function useLazyApi<A extends (...args: any) => any>(options: ILazyApiOpt
             let newData = await action(...(args as any)) as UnPromisify<ReturnType<A>>;
 
             if (append) {
-                if (!options.append) throw new Error('options.append not defined');
+                if (!options.append) {
+                    console.log('options.append not defined');
+                    throw new Error('options.append not defined');
+                }
                 newData = options.append(data, newData, args);
             }
 
