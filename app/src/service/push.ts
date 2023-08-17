@@ -13,7 +13,10 @@ export function maskToken(token: string) {
 export async function getToken() {
     if (!Constants.isDevice) return null;
     try {
-        return (await Notifications.getExpoPushTokenAsync({ experienceId: Constants.manifest?.extra?.experienceId })).data;
+        return (await Notifications.getExpoPushTokenAsync({
+            experienceId: Constants.manifest?.extra?.experienceId,
+            projectId: Constants.manifest?.extra?.eas.projectId,
+        })).data;
     } catch (e) {
         return null;
     }

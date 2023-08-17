@@ -29,6 +29,7 @@ import {appConfig} from "@nex/dataset";
 import {CountryImage, CountryImageLoader} from './components/country-image';
 import {fetchLeaderboard} from "../api/leaderboard";
 import {ILeaderboardPlayerNew} from "@nex/data/api";
+import Constants from "expo-constants";
 
 type TabParamList = {
     LeaderboardRmSolo: { leaderboardId: string };
@@ -179,7 +180,7 @@ function Leaderboard({leaderboardId}: any) {
         }
         return {page, profileId, country: leaderboardCountry};
     }
-
+    console.log(Constants.expoConfig?.extra?.eas.projectId);
     const myRank = useLazyApi(
         {},
         fetchLeaderboard, leaderboardId, getParams(1, auth.profileId)
