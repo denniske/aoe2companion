@@ -164,9 +164,9 @@ const linking: LinkingOptions = {
     config: {
         screens: {
             User: {
-                path: 'user/:profile_id',
+                path: 'user/:profileId',
                 parse: {
-                    profile_id: parseInt,
+                    profileId: parseInt,
                 },
                 stringify: {
                     id: x => x.toString(),

@@ -502,13 +502,16 @@ export async function fetchPlayerMatchesNew(game: string, start: number, count: 
     return [];
 }
 
-export async function fetchPlayerMatchesMultiple(game: string, start: number, count: number, params: IFetchMatchesParams[]): Promise<IMatch[]> {
-    if (appConfig.game == 'aoe4') return await fetchPlayerMatchesLegacyMultiple4(game, start, count, params);
-    return await fetchPlayerMatchesLegacy(game, start, count, params);
-}
+// export async function fetchPlayerMatchesMultiple(start: number, count: number, profileIds: string[]): Promise<IMatch[]> {
+//     // if (appConfig.game == 'aoe4') return await fetchPlayerMatchesLegacyMultiple4(game, start, count, params);
+//     // return await fetchPlayerMatchesLegacy(game, start, count, params);
+//
+//
+//     return await fetchPlayerMatches(start, count, profileIds);
+// }
 
 
-export async function fetchPlayerMatches(start: number, count: number, profileIds: string[], search: string = ''): Promise<IMatchNew[]> {
+export async function fetchPlayerMatches(start: number, count: number, profileIds: number[], search: string = ''): Promise<IMatchNew[]> {
     if (profileIds.length === 0) {
         return [];
     }

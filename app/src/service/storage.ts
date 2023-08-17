@@ -46,10 +46,9 @@ export interface IAccount {
 }
 
 export interface IFollowingEntry {
-    steamId?: string;
     profileId: number;
     steam_id?: string;
-    profile_id: number;
+    profile_id?: number;
     name: string;
     games: number;
     country: Flag;
@@ -150,10 +149,12 @@ export const loadFollowingFromStorage = async () => {
     for (const entry of entries) {
         if (entry.profileId == null && entry.profile_id != null) {
             entry.profileId = entry.profile_id;
+            delete entry.profile_id;
         }
-        if (entry.steamId == null && entry.steam_id != null) {
-            entry.steamId = entry.steam_id;
-        }
+        delete entry.steam_id;
+        // if (entry.steamId == null && entry.steam_id != null) {
+        //     entry.steamId = entry.steam_id;
+        // }
     }
 
     return entries;

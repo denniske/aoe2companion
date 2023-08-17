@@ -3,8 +3,8 @@ import {FlatList, Linking, Platform, StyleSheet, TouchableOpacity, View} from 'r
 import {RootStackParamList, RootStackProp} from '../../App';
 import {RouteProp, useNavigation, useNavigationState, useRoute} from '@react-navigation/native';
 import {Game} from './components/game';
-import {fetchPlayerMatchesMultiple} from "@nex/data";
-import {IMatch, IPlayer} from "@nex/data/api";
+import {fetchPlayerMatches, fetchPlayerMatchesMultiple} from "@nex/data";
+import {IMatch, IMatchNew, IPlayer, IPlayerNew} from "@nex/data/api";
 import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
 import Search from "./components/search";
 import {setFollowing, useMutate, useSelector} from "../redux/reducer";
@@ -13,7 +13,7 @@ import {Button} from "react-native-paper";
 import {IFetchedUser} from "../service/user";
 import PlayerList, {IPlayerListPlayer} from "./components/player-list";
 import {MyText} from "./components/my-text";
-import {isEqual, orderBy, uniq} from 'lodash';
+import {flatten, isEqual, orderBy, uniq} from 'lodash';
 import {FontAwesome} from "@expo/vector-icons";
 import RefreshControlThemed from "./components/refresh-control-themed";
 import {toggleFollowing} from "../service/following";
@@ -80,13 +80,15 @@ export function FeedList() {
     const [prevFollowing, setPrevFollowing] = useState<IFollowingEntry[] | null>(null);
     const [prevMatchId, setPrevMatchId] = useState<string>();
 
+    console.log('following', following);
+
     const matches = useCachedLazyApi(
         [],
         state => state.followedMatches,
         (state, value) => {
             state.followedMatches = value;
         },
-        fetchPlayerMatchesMultiple, 'aoe2de', 0, 15, following
+        fetchPlayerMatches, 0, 15, following?.map(f => f.profileId),
     );
 
     const refetch = async () => {
@@ -106,7 +108,7 @@ export function FeedList() {
         // Do not load from cache when notification was tapped
         if (prevFollowing == null && isEqual(prevMatchId, matchId)) {
             // console.log('INIT');
-            matches.init('aoe2de', 0, 15, following);
+            matches.init(0, 15, following.map(f => f.profileId));
             setFetchedAll(false);
         } else {
             refetch();
@@ -151,7 +153,7 @@ export function FeedList() {
         setFetchingMore(true);
         // console.log("FEEDLIST", 'onEndReached');
         const matchesLength = matches.data?.length ?? 0;
-        const newMatchesData = await matches.refetch('aoe2de', 0, (matches.data?.length ?? 0) + 15, following);
+        const newMatchesData = await matches.refetch(0, (matches.data?.length ?? 0) + 15, following.map(f => f.profileId));
         if (matchesLength === newMatchesData?.length) {
             setFetchedAll(true);
         }
@@ -165,9 +167,9 @@ export function FeedList() {
         return <FlatListLoadingIndicator />;
     };
 
-    const filterAndSortPlayers = (players: IPlayer[]) => {
-        let filteredPlayers = players.filter(p => following.filter(f => f.profileId === p.profile_id).length > 0 || p.profile_id == auth.profile_id);
-        filteredPlayers = orderBy(filteredPlayers, p => p.profile_id == auth.profile_id);
+    const filterAndSortPlayers = (players: IPlayerNew[]) => {
+        let filteredPlayers = players.filter(p => following.filter(f => f.profileId === p.profileId).length > 0 || p.profileId == auth.profileId);
+        filteredPlayers = orderBy(filteredPlayers, p => p.profileId == auth.profileId);
         return filteredPlayers;
     };
 
@@ -179,7 +181,7 @@ export function FeedList() {
     };
 
     const formatPlayer = (player: any, i: number) => {
-        return player.profile_id === auth.profile_id ? (i == 0 ? getTranslation('feed.following.you') : getTranslation('feed.following.you').toLowerCase()) : player.name;
+        return player.profileId === auth.profileId ? (i == 0 ? getTranslation('feed.following.you') : getTranslation('feed.following.you').toLowerCase()) : player.name;
     };
 
     if (following?.length === 0 || list.length === 0) {
@@ -213,26 +215,28 @@ export function FeedList() {
                             renderItem={({item, index}) => {
                                 switch (item) {
                                     default:
-                                        const match = item as IMatch;
+                                        const match = item as IMatchNew;
 
                                         if (match == null) {
                                             return <Game match={item as IMatch}/>;
                                         }
 
-                                        const filteredPlayers = filterAndSortPlayers(match.players);
+                                        const players = flatten(match.teams.map(t => t.players));
+                                        const filteredPlayers = filterAndSortPlayers(players);
                                         const len = filteredPlayers.length;
 
                                         let samePlayers = false;
                                         if (index > 0) {
                                             const previousMatch = list[index-1];
-                                            const previousFilteredPlayers = filterAndSortPlayers(previousMatch.players);
+                                            const previousPlayers = flatten(previousMatch.teams.map(t => t.players));
+                                            const previousFilteredPlayers = filterAndSortPlayers(previousPlayers);
 
                                             // console.log('match', index, match.match_id);
                                             // console.log('previousMatchFilteredPlayers.length', previousFilteredPlayers.length);
                                             // console.log('filteredPlayers.length', filteredPlayers.length);
-                                            // console.log('uniq', uniq([...filteredPlayers, ...previousFilteredPlayers].map(p => p.profile_id)));
+                                            // console.log('uniq', uniq([...filteredPlayers, ...previousFilteredPlayers].map(p => p.profileId)));
 
-                                            const overlapPlayers = uniq([...filteredPlayers, ...previousFilteredPlayers].map(p => p.profile_id));
+                                            const overlapPlayers = uniq([...filteredPlayers, ...previousFilteredPlayers].map(p => p.profileId));
 
                                             if (!!match.finished == !!previousMatch.finished &&
                                                 previousFilteredPlayers.length == filteredPlayers.length &&
@@ -269,15 +273,15 @@ export function FeedList() {
                                                         </MyText>
                                                     )}
                                                     {
-                                                        filteredPlayers[0].profile_id === auth.profileId &&
+                                                        filteredPlayers[0].profileId === auth.profileId &&
                                                         <MyText> {match.finished ? getTranslation('feed.following.yplayed') : getTranslation('feed.following.yplayingnow')}</MyText>
                                                     }
                                                     {
-                                                        filteredPlayers[0].profile_id !== auth.profileId && filteredPlayers.length == 1 &&
+                                                        filteredPlayers[0].profileId !== auth.profileId && filteredPlayers.length == 1 &&
                                                         <MyText> {match.finished ? getTranslation('feed.following.played') : getTranslation('feed.following.playingnow')}</MyText>
                                                     }
                                                     {
-                                                        !filteredPlayers[0].profile_id !== auth.profileId && filteredPlayers.length > 1 &&
+                                                        !filteredPlayers[0].profileId !== auth.profileId && filteredPlayers.length > 1 &&
                                                         <MyText> {match.finished ? getTranslation('feed.following.2played') : getTranslation('feed.following.2playingnow')}</MyText>
                                                     }
                                                     {
@@ -287,7 +291,7 @@ export function FeedList() {
                                                 </MyText>
                                             }
                                             <View style={styles.game}>
-                                                <Game expanded={item.match_id === matchId} match={item as IMatch} highlightedUsers={filteredPlayers} user={relevantUser}/>
+                                                <Game expanded={item.matchId === matchId} match={item as IMatchNew} highlightedUsers={filteredPlayers} user={relevantUser}/>
                                             </View>
                                         </View>;
                                 }
