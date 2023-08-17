@@ -392,10 +392,10 @@ export interface ILeaderboardResponse {
     count: number
     country: any
     page: number
-    players: ILeaderboardPlayer[]
+    players: ILeaderboardPlayerNew[]
 }
 
-export interface ILeaderboardPlayer {
+export interface ILeaderboardPlayerNew {
     leaderboardId: string
     profileId: number
     name: string

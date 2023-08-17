@@ -5,8 +5,9 @@ import {camelizeKeys, decamelize, decamelizeKeys} from "humps";
 import {ILeaderboardResponse, IMatchesResponse} from "@nex/data/api";
 
 export interface IFetchLeaderboardParams {
-    start?: number;
-    count: number;
+    // start?: number;
+    // count: number;
+    page: number;
     search?: string;
     steam_id?: string;
     profile_id?: number;

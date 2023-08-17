@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import {useNavigation, useNavigationState} from '@react-navigation/native';
 import {getCountryName} from "../helper/flags";
-import {countriesDistinct, Country, ILeaderboardPlayer} from "@nex/data";
+import {countriesDistinct, Country} from "@nex/data";
 import {RootStackProp} from "../../App";
 import {FontAwesome} from "@expo/vector-icons";
 import {FontAwesome5} from "@expo/vector-icons";
@@ -28,6 +28,7 @@ import {getTranslation} from '../helper/translate';
 import {appConfig} from "@nex/dataset";
 import {CountryImage, CountryImageLoader} from './components/country-image';
 import {fetchLeaderboard} from "../api/leaderboard";
+import {ILeaderboardPlayerNew} from "@nex/data/api";
 
 type TabParamList = {
     LeaderboardRmSolo: { leaderboardId: string };
@@ -157,7 +158,7 @@ export default function LeaderboardPage() {
 
 export const windowWidth = Platform.OS === 'web' ? 450 : Dimensions.get('window').width;
 
-const pageSize = 50;
+const pageSize = 100;
 
 function Leaderboard({leaderboardId}: any) {
     const styles = useStyles();
@@ -172,30 +173,29 @@ function Leaderboard({leaderboardId}: any) {
 
     const currentRouteLeaderboardId = useNavigationState(state => (state.routes[state.index].params as any)?.leaderboardId);
 
-    const getParams = (start: number, count: number, profileId?: number) => {
-        // start -= 1;
+    const getParams = (page: number, profileId?: number) => {
         if (leaderboardCountry == countryEarth) {
-            return {start, count, profileId};
+            return {page, profileId};
         }
-        return {start, count, profileId, country: leaderboardCountry};
+        return {page, profileId, country: leaderboardCountry};
     }
 
     const myRank = useLazyApi(
         {},
-        fetchLeaderboard, leaderboardId, getParams(1, 1, auth.profileId)
+        fetchLeaderboard, leaderboardId, getParams(1, auth.profileId)
     );
 
     const matches = useLazyApi(
         {
             append: (data, newData, args) => {
-                const [game, leaderboard_id, params] = args;
-                console.log('APPEND', data, newData, params);
-                newData.players.forEach((value, index) => data.players[index+params.start!-1] = value);
-                console.log('APPENDED', params);
+                const [leaderboardId, params] = args;
+                // console.log('APPEND', data, newData, args);
+                newData.players.forEach((value, index) => data.players[params.page*pageSize+index] = value);
+                // console.log('APPENDED', params);
                 return data;
             },
         },
-        fetchLeaderboard, leaderboardId, getParams(1, pageSize)
+        fetchLeaderboard, leaderboardId, getParams(1)
     );
 
     const onRefresh = async () => {
@@ -204,7 +204,7 @@ function Leaderboard({leaderboardId}: any) {
         setRefetching(false);
     };
 
-    const rowHeight = 50;
+    const rowHeight = 45; //45.5; //50;
     const headerMyRankHeight = myRank.data?.players.length > 0 ? 64 : 0;
     const headerInfoHeight = 30;
     const headerHeight = headerInfoHeight + headerMyRankHeight;
@@ -229,22 +229,25 @@ function Leaderboard({leaderboardId}: any) {
 
     const total = useRef<any>();
 
-    console.log('==> data', matches.data);
+    // console.log('==> data', matches.data);
 
     const list = matches.data?.players || [];
     list.length = matches.data?.total || 200;
     total.current = matches.data?.total || 200;
 
-    const onSelect = async (player: ILeaderboardPlayer) => {
+    // console.log('==> list', list.length);
+
+    const onSelect = async (player: ILeaderboardPlayerNew) => {
         navigation.push('User', {
-            profileId: player.profile_id,
+            profileId: player.profileId,
             name: player.name,
         });
     };
 
-    const _renderRow = (player: ILeaderboardPlayer, i: number, isMyRankRow: boolean = false) => {
-        const isMe = player.profile_id === auth.profileId;
-        const rowStyle = { height: isMyRankRow ? headerMyRankHeight : rowHeight };
+    const _renderRow = (player: ILeaderboardPlayerNew, i: number, isMyRankRow: boolean = false) => {
+        // console.log('RENDER ROW', player, i, isMyRankRow);
+        const isMe = player?.profileId === auth.profileId;
+        const rowStyle = { minHeight: isMyRankRow ? headerMyRankHeight : rowHeight };
         const weightStyle = { fontWeight: isMe ? 'bold' : 'normal' } as TextStyle;
         const rankWidthStyle = { width: isMyRankRow ? undefined : rankWidth } as ViewStyle;
         return (
@@ -284,16 +287,18 @@ function Leaderboard({leaderboardId}: any) {
     const fetchPage = async (page: number) => {
         if (fetchingPage !== undefined) return;
         if (matches.loading) return;
-        console.log('FETCHPAGE', page);
+        // console.log('FETCHPAGE', page);
         setFetchingPage(page);
-        await matches.refetchAppend('aoe2de', leaderboardId, getParams(page * pageSize + 1, pageSize));
+        await matches.refetchAppend(leaderboardId, getParams(page));
         setFetchingPage(undefined);
     };
 
     const fetchByContentOffset = (contentOffsetY: number) => {
         if (!matches.touched) return;
+        // console.log('contentOffsetY', contentOffsetY);
 
         contentOffsetY -= headerHeight;
+        contentOffsetY -= 20; // padding top
 
         const index = Math.floor(contentOffsetY/rowHeight);
         const indexTop = Math.max(0, index);
@@ -301,6 +306,9 @@ function Leaderboard({leaderboardId}: any) {
 
         const rankLen = indexBottom.toFixed(0).length;
         setRankWidth((rankLen+1) * 10);
+
+        // console.log('indexTop', indexTop);
+        // console.log('indexBottom', indexBottom);
 
         if (!list[indexTop]) {
             fetchPage(Math.floor(indexTop / pageSize));
@@ -422,7 +430,7 @@ function Leaderboard({leaderboardId}: any) {
                         data={list}
                         getItemLayout={(data: any, index: number) => ({length: rowHeight, offset: rowHeight * index, index})}
                         renderItem={({item, index}: any) => _renderRow(item, index)}
-                        keyExtractor={(item: { profile_id: any; }, index: any) => (item?.profile_id || index).toString()}
+                        keyExtractor={(item: { profileId: any; }, index: any) => (item?.profileId || index).toString()}
                         refreshControl={
                             <RefreshControlThemed
                                 onRefresh={onRefresh}
