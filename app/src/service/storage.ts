@@ -46,8 +46,8 @@ export interface IAccount {
 }
 
 export interface IFollowingEntry {
-    profileId: number;
     steam_id?: string;
+    profileId: number;
     profile_id?: number;
     name: string;
     games: number;

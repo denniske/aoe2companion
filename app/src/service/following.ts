@@ -12,7 +12,7 @@ export const toggleFollowing = async (user: IPlayerListPlayer) => {
     const account_id = store.getState().account!.id;
 
     const following = await loadFollowingFromStorage();
-    const index = following.findIndex(f => sameUser(f, user));
+    const index = following.findIndex(f => f.profileId, user.profileId);
     if (index > -1) {
         await unfollow(account_id, [user.profileId]);
     } else {
@@ -30,6 +30,7 @@ export const toggleFollowing = async (user: IPlayerListPlayer) => {
     } else {
         following2.push({
             steam_id: user.steamId,
+            profileId: user.profileId,
             profile_id: user.profileId,
             name: user.name,
             games: user.games,

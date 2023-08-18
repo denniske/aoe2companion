@@ -66,7 +66,7 @@ export function UserMenu() {
             index: 0,
             routes: [{name: 'User'}],
         });
-        setAccountProfile(account.id, { profileId: null, steamId: null });
+        setAccountProfile(account.id, { profile_id: null, steam_id: null });
     };
 
     return (
@@ -93,10 +93,6 @@ export function UserMenu() {
     );
 }
 
-function isValidUserInfo(userInfo: any) {
-    return userInfo && (userInfo.steamId || userInfo.profileId);
-}
-
 export default function UserPage() {
     const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
     const profileId = route.params?.profileId;
@@ -106,12 +102,12 @@ export default function UserPage() {
     const auth = useSelector(state => state.auth);
     const account = useSelector(state => state.account);
     const profile = useSelector(state => state.user[profileId]?.profile);
-    const [hasSteamId, setHasSteamId] = useState(true);
 
     console.log('==> UserPage');
     console.log(route.params);
     console.log(auth);
     console.log(profileId);
+
 
     const generateTestHook = useCavy();
     const navigation = useNavigation<RootStackProp>();
@@ -122,7 +118,7 @@ export default function UserPage() {
             profileId: user.profileId,
         });
         mutate(setAuth(user));
-        setAccountProfile(account.id, { profileId: user.profileId!, steamId: user.steamId });
+        setAccountProfile(account.id, { profile_id: user.profileId!, steam_id: user.steamId });
     };
 
     // Reset country for use in leaderboard country dropdown

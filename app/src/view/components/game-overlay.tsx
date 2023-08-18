@@ -200,7 +200,7 @@ export function GameOverlay({match, user, highlightedUsers, expanded = false}: I
                     sortBy(teams, ([team, players], i) => min(players.map(p => p.color))).map(([team, players], i) =>
                         <View key={team}>
                             {
-                                sortBy(players, p => p.color).map((player, j) => <Player key={j} highlight={highlightedUsers?.some(hu => sameUser(hu, player))} match={match} player={player} freeForALl={freeForALl} canDownloadRec={canDownloadRec(player)}/>)
+                                sortBy(players, p => p.color).map((player, j) => <Player key={j} highlight={highlightedUsers?.some(hu => hu.profileId === player.profile_id)} match={match} player={player} freeForALl={freeForALl} canDownloadRec={canDownloadRec(player)}/>)
                             }
                             {
                                 i < teams.length-1 &&
