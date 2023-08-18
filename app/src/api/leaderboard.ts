@@ -23,7 +23,7 @@ export async function fetchLeaderboard(leaderboard_id: number, params: IFetchLea
     const url = getHost('aoe2companion-data') + `api/leaderboards/${leaderboard_id}?${queryString}`;
     let json = camelizeKeys(await fetchJson2('fetchLeaderboard', url, undefined, dateReviver)) as ILeaderboardResponse;
 
-    console.log(json);
+    // console.log(json);
 
     return json;
 }

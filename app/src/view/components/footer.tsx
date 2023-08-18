@@ -36,8 +36,6 @@ export default function Footer() {
     const mutate = useMutate();
     const generateTestHook = useCavy();
 
-    console.log('render footer', menu);
-
     const nav = async (route: keyof RootStackParamList, params?: any) => {
         const navigation = getRootNavigation();
         navigation.reset({

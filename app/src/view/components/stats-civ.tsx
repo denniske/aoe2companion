@@ -97,7 +97,7 @@ export default function StatsCiv(props: IProps) {
 
     // const hasAgainstCiv = [LeaderboardId.RM1v1, LeaderboardId.DM1v1].includes(leaderboardId);
 
-    console.log('data', title, data);
+    // console.log('data', title, data);
 
     if (data?.length === 0) {
         return <View/>;

@@ -2,7 +2,6 @@ import {FlatList, Platform, StyleSheet, View} from "react-native";
 import {
     clearMatchesPlayer,
     clearStatsPlayer,
-    setLoadingMatchesOrStats,
     setPrefValue,
     useMutate,
     useSelector
@@ -153,7 +152,6 @@ function MainStatsInternal({profileId}: {profileId: number}) {
         setRefetching(true);
         await mutate(clearStatsPlayer(profileId));
         await mutate(clearMatchesPlayer(profileId));
-        await mutate(setLoadingMatchesOrStats());
     };
 
     return (

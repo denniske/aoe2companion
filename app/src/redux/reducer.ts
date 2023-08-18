@@ -60,12 +60,6 @@ export function setAuth(user: any | null) {
   };
 }
 
-export function setLoadingMatchesOrStats() {
-  return (state: AppState) => {
-    state.loadingMatchesOrStats = new Date();
-  };
-}
-
 export function setLeaderboardCountry(country?: string | null) {
   return (state: AppState) => {
     state.leaderboardCountry = country;
@@ -202,7 +196,6 @@ export interface AppState {
   user: IUserDict;
   donation: IDonation;
   statsPlayer: any;
-  loadingMatchesOrStats: Date;
 
   error?: IError | null;
   errors?: IError[] | null;

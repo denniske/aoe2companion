@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import {RouteProp, useNavigation, useNavigationState, useRoute} from "@react-navigation/native";
 import {Game} from "../components/game";
 import RefreshControlThemed from "../components/refresh-control-themed";
-import {clearMatchesPlayer, setLoadingMatchesOrStats, useMutate, useSelector} from "../../redux/reducer";
+import {clearMatchesPlayer, useMutate, useSelector} from "../../redux/reducer";
 import {Checkbox, Searchbar} from "react-native-paper";
 import {MyText} from "../components/my-text";
 import {appVariants} from "../../styles";
@@ -64,7 +64,6 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
     const [leaderboardId, setLeaderboardId] = useState<string>();
     // const [filteredMatches, setFilteredMatches] = useState<IMatchNew[]>();
     const [withMe, setWithMe] = useState(false);
-    const loadingMatchesOrStatsTrigger = useSelector(state => state.loadingMatchesOrStats);
 
     const navigation = useNavigation();
     const userProfile = useSelector(state => state.user[profileId]?.profile);
@@ -82,7 +81,7 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
     // console.log('===> user', user);
 
     let matchesHandle = useCachedConservedLazyApi(
-        [loadingMatchesOrStatsTrigger],
+        [],
         () => true,
         state => get(state, ['user', profileId, 'matches']),
         (state, value) => set(state, ['user', profileId, 'matches'], value),
@@ -183,7 +182,6 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
     const onRefresh = async () => {
         setRefetching(true);
         await mutate(clearMatchesPlayer(user));
-        await mutate(setLoadingMatchesOrStats());
     };
 
     return (

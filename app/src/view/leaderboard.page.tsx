@@ -60,7 +60,7 @@ export function LeaderboardMenu() {
     const authCountry = useSelector(state => state.prefs.country);
 
     // Todo: Implement or remove
-    const loadingMatchesOrStats = false;
+    const loadingLeaderboard = false;
 
     const formatCountry = (x: (string | null), inList?: boolean) => {
         if (x == countryEarth) {
@@ -92,8 +92,8 @@ export function LeaderboardMenu() {
     return (
         <View style={styles.menu}>
             <View style={styles.pickerRow}>
-                <ActivityIndicator animating={loadingMatchesOrStats} size="small" color="#999"/>
-                <Picker itemHeight={40} textMinWidth={150} container="flatlist" divider={divider} icon={icon} disabled={loadingMatchesOrStats} value={country} values={countryList} formatter={formatCountry} onSelect={onCountrySelected}/>
+                <ActivityIndicator animating={loadingLeaderboard} size="small" color="#999"/>
+                <Picker itemHeight={40} textMinWidth={150} container="flatlist" divider={divider} icon={icon} disabled={loadingLeaderboard} value={country} values={countryList} formatter={formatCountry} onSelect={onCountrySelected}/>
             </View>
         </View>
     );
@@ -173,9 +173,6 @@ function Leaderboard({leaderboardId}: any) {
     const [rankWidth, setRankWidth] = useState<number>(43);
 
     const isFocused = useIsFocused();
-    console.log('isFocused ' + leaderboardId, isFocused);
-
-    // const currentRouteLeaderboardId = useNavigationState(state => (state.routes[state.index].params as any)?.leaderboardId);
 
     const getParams = (page: number, profileId?: number) => {
         if (leaderboardCountry == countryEarth) {
@@ -233,13 +230,9 @@ function Leaderboard({leaderboardId}: any) {
 
     const total = useRef<any>();
 
-    // console.log('==> data', matches.data);
-
     const list = leaderboard.data?.players || [];
     list.length = leaderboard.data?.total || 200;
     total.current = leaderboard.data?.total || 200;
-
-    // console.log('==> list', list.length);
 
     const onSelect = async (player: ILeaderboardPlayerNew) => {
         navigation.push('User', {
@@ -248,7 +241,6 @@ function Leaderboard({leaderboardId}: any) {
     };
 
     const _renderRow = (player: ILeaderboardPlayerNew, i: number, isMyRankRow: boolean = false) => {
-        // console.log('RENDER ROW', player, i, isMyRankRow);
         const isMe = player?.profileId === auth?.profileId;
         const rowStyle = { minHeight: isMyRankRow ? headerMyRankHeight : rowHeight };
         const weightStyle = { fontWeight: isMe ? 'bold' : 'normal' } as TextStyle;
@@ -273,12 +265,12 @@ function Leaderboard({leaderboardId}: any) {
 
     const _renderHeader = () => {
         const players = getTranslation('leaderboard.players', { players: leaderboard.data?.total });
-        const updated = leaderboard.data?.updated ? getTranslation('leaderboard.updated', { updated: formatAgo(leaderboard.data.updated) }) : '';
+        // const updated = leaderboard.data?.updated ? getTranslation('leaderboard.updated', { updated: formatAgo(leaderboard.data.updated) }) : '';
         return (
             <>
                 <View style={{height: headerInfoHeight}}>
                     <MyText style={styles.info}>
-                        {leaderboard.data?.total ? players : ''}{leaderboard.data?.updated ? ' (' + updated + ')' : ''}
+                        {leaderboard.data?.total ? players : ''}{/*{leaderboard.data?.updated ? ' (' + updated + ')' : ''}*/}
                     </MyText>
                 </View>
                 {myRank.data?.players.length > 0 && _renderRow(myRank.data.players[0], 0, true)}
@@ -298,7 +290,6 @@ function Leaderboard({leaderboardId}: any) {
 
     const fetchByContentOffset = (contentOffsetY: number) => {
         if (!leaderboard.touched) return;
-        // console.log('contentOffsetY', contentOffsetY);
 
         contentOffsetY -= headerHeight;
         contentOffsetY -= 20; // padding top

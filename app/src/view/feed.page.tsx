@@ -80,7 +80,7 @@ export function FeedList() {
     const [prevFollowing, setPrevFollowing] = useState<IFollowingEntry[] | null>(null);
     const [prevMatchId, setPrevMatchId] = useState<string>();
 
-    console.log('following', following);
+    // console.log('following', following);
 
     const matches = useCachedLazyApi(
         [],

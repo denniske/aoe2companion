@@ -25,37 +25,6 @@ interface MainPageInnerProps {
 }
 
 export function MainPageInner({ profileId }: MainPageInnerProps) {
-    const loadingMatchesOrStatsTrigger = useSelector(state => state.loadingMatchesOrStats);
-    const leaderboardId = useSelector(state => state.prefs.leaderboardId) ?? leaderboardIdsData[0];
-
-    const currentTabIndex = useNavigationState(state => {
-        const mainState = state.routes[state.index].state;
-
-        // Direct navigation to child tab via web browser
-        if (mainState && mainState.index == null && mainState.routes.length === 1) {
-            return ['MainProfile', 'MainStats', 'MainMatches'].indexOf(mainState.routes[0].name);
-        }
-        return mainState?.index ?? 0;
-    });
-
-    console.log('CACHED API ACCESS', profileId);
-
-    // let allMatches = useCachedConservedLazyApi(
-    //     [currentTabIndex, loadingMatchesOrStatsTrigger],
-    //     () => currentTabIndex > 0,
-    //     state => get(state, ['user', user.id, 'matches']),
-    //     (state, value) => set(state, ['user', user.id, 'matches'], value),
-    //     fetchPlayerMatches, 'aoe2de', 0, 500, [user]
-    // );
-    //
-    // useCachedConservedLazyApi(
-    //     [allMatches.data, leaderboardId],
-    //     () => allMatches.data != null,
-    //     state => get(state, ['statsPlayer', user.id, leaderboardId]),
-    //     (state, value) => set(state, ['statsPlayer', user.id, leaderboardId], value),
-    //     getStats, {matches: allMatches.data, user: user, leaderboardId}
-    // );
-
     const appName = Constants.expoConfig?.name || Constants.expoConfig2?.extra?.expoClient?.name;
 
     return (
