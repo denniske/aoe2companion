@@ -38,6 +38,8 @@ export default function MainProfile() {
     // const route = useRoute<RouteProp<RootTabParamList, 'MainProfile'>>() as any;
     // const user = parseUserId(route.params.user);
 
+    console.log('MainProfile');
+
     const styles = useStyles();
     const appStyles = useTheme(appVariants);
 

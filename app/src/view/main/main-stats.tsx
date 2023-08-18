@@ -34,6 +34,8 @@ import {loadProfile} from "../../service/profile";
 
 
 export default function MainStats() {
+    console.log('MainStats');
+
     const styles = useStyles();
     const appStyles = useTheme(appVariants);
     const route = useRoute();
@@ -78,23 +80,6 @@ function MainStatsInternal({profileId}: {profileId: number}) {
             title: userProfile?.name + ' - ' + (Constants.expoConfig?.name || Constants.expoConfig2?.extra?.expoClient?.name),
         });
     }, [userProfile]);
-
-    const profile = useApi(
-        {},
-        [],
-        state => state.user[profileId]?.profile,
-        (state, value) => {
-            if (state.user[profileId] == null) {
-                state.user[profileId] = {};
-            }
-            state.user[profileId].profile = value;
-            // state.user[profileId].profile = {
-            //     ...state.user[profileId].profile,
-            //     ...value,
-            // };
-        },
-        loadProfile, profileId
-    );
 
     const profileWithStats = useApi(
         {},

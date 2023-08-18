@@ -59,7 +59,7 @@ export function MainPageInner({ profileId }: MainPageInnerProps) {
     const appName = Constants.expoConfig?.name || Constants.expoConfig2?.extra?.expoClient?.name;
 
     return (
-            <Tab.Navigator screenOptions={{ lazy:true, swipeEnabled: true }}>
+            <Tab.Navigator screenOptions={{ lazy:false, swipeEnabled: true }}>
                 <Tab.Screen name="MainProfile" options={{title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.profile')}/>}} component={MainProfile} />
                 <Tab.Screen name="MainStats" options={{title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.stats')}/>}} component={MainStats} />
                 <Tab.Screen name="MainMatches" options={{title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.matches')}/>}} component={MainMatches} />
