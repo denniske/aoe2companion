@@ -6,7 +6,7 @@ import IconHeader from "../../../app/src/view/components/navigation-header/icon-
 import {RootStackParamList, RootStackProp} from "../../../app/App2";
 import TextHeader from "../../../app/src/view/components/navigation-header/text-header";
 import {getTranslation} from "../../../app/src/helper/translate";
-import {getCivHistoryImage, getCivIcon} from "../../../app/src/helper/civs";
+import {getCivIconLocal} from "../../../app/src/helper/civs";
 import {MyText} from "../../../app/src/view/components/my-text";
 import {appConfig} from "@nex/dataset";
 import {createStylesheet} from "../../../app/src/theming-new";
@@ -26,7 +26,7 @@ import {civDataMalians} from "../data/malians";
 export function CivTitle(props: any) {
     if (props.route?.params?.civ) {
         return <IconHeader
-            icon={getCivIcon(props.route?.params?.civ)}
+            icon={getCivIconLocal(props.route?.params?.civ)}
             text={getCivNameById(props.route.params?.civ)}
             onLayout={props.titleProps.onLayout}
         />;
@@ -94,7 +94,7 @@ export function CivList() {
     const renderItem = (civ: Civ) => (
         <TouchableOpacity key={civ} onPress={() => navigation.push('Civ', {civ})}>
             <View style={styles.civBlock}>
-                <Image fadeDuration={0} style={styles.icon} source={getCivIcon(civ)}/>
+                <Image fadeDuration={0} style={styles.icon} source={getCivIconLocal(civ)}/>
                 <View style={styles.civRow}>
                     <MyText style={styles.name}>{getCivNameById(civ)}</MyText>
                     <MyText style={styles.small} numberOfLines={1}>

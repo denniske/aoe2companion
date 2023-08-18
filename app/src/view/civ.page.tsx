@@ -20,7 +20,7 @@ import {TechTree} from "./components/tech-tree";
 import {MyText} from "./components/my-text";
 import {createStylesheet} from "../theming-new";
 import {HighlightUnitAndTechs} from "../helper/highlight";
-import {getCivHistoryImage, getCivIcon} from "../helper/civs";
+import {getCivHistoryImage, getCivIconLocal} from "../helper/civs";
 import {UnitCompBig} from './unit/unit-comp';
 import {TechCompBig} from './tech/tech-comp';
 import {getTranslation} from '../helper/translate';
@@ -31,7 +31,7 @@ import {Searchbar} from 'react-native-paper';
 export function CivTitle(props: any) {
     if (props.route?.params?.civ) {
         return <IconHeader
-            icon={getCivIcon(props.route?.params?.civ)}
+            icon={getCivIconLocal(props.route?.params?.civ)}
             text={getCivNameById(props.route.params?.civ)}
             onLayout={props.titleProps.onLayout}
         />;
@@ -110,7 +110,7 @@ export function CivCompBig({civ}: ICivCompProps) {
     return (
         <TouchableOpacity key={civ} onPress={() => navigation.push('Civ', {civ})}>
             <View style={styles.civBlock}>
-                <Image fadeDuration={0} style={styles.icon} source={getCivIcon(civ)}/>
+                <Image fadeDuration={0} style={styles.icon} source={getCivIconLocal(civ)}/>
                 <View style={styles.civRow}>
                     <MyText style={styles.name}>{getCivNameById(civ)}</MyText>
                     <MyText style={styles.small} numberOfLines={1}>{getCivTeamBonus(civ) ?? ''}</MyText>
@@ -147,7 +147,7 @@ export function CivList() {
     const renderItem = (civ: Civ) => (
         <TouchableOpacity key={civ} onPress={() => navigation.push('Civ', {civ})}>
             <View style={styles.civBlock}>
-                <Image fadeDuration={0} style={styles.icon} source={getCivIcon(civ)}/>
+                <Image fadeDuration={0} style={styles.icon} source={getCivIconLocal(civ)}/>
                 <View style={styles.civRow}>
                     <MyText style={styles.name}>{getCivNameById(civ)}</MyText>
                     <MyText style={styles.small} numberOfLines={1}>{getCivTeamBonus(civ) ?? ''}</MyText>

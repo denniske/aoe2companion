@@ -132,7 +132,7 @@
   "main.profile.recentmatches.heading": "Recent matches",
   "main.profile.follow": "Follow",
   "main.profile.unfollow": "Unfollow",
-  "main.matches.search.placeholder": "name, map, player",
+  "main.matches.search.placeholder": "player",
   "main.matches.withme": "w/ me",
   "main.matches.matches": "{matches} matches",
 

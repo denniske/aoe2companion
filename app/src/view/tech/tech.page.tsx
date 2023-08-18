@@ -8,7 +8,7 @@ import TextHeader from "../components/navigation-header/text-header";
 import TechDetails from "./tech-details";
 import TechList from "./tech-list";
 import {getTechIcon} from "../../helper/techs";
-import {getCivIcon} from "../../helper/civs";
+import {getCivIconLocal} from "../../helper/civs";
 import {getTranslation} from '../../helper/translate';
 
 
@@ -18,7 +18,7 @@ export function TechTitle(props: any) {
         const techInfo = techs[tech];
         if (techInfo.civ) {
             return <IconHeader
-                badgeIcon={techInfo.civ ? getCivIcon(techInfo.civ) : null}
+                badgeIcon={techInfo.civ ? getCivIconLocal(techInfo.civ) : null}
                 icon={getTechIcon(tech)}
                 text={getTechName(props.route.params?.tech)}
                 subtitle={techInfo.civ + ' unique tech (' + techInfo.age +  ' age)'}

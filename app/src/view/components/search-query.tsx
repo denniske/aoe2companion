@@ -24,13 +24,11 @@ import {
     techSections,
     Unit
 } from '@nex/data';
-import {useNavigation} from "@react-navigation/native";
-import {RootStackProp} from "../../../App2";
 import {getUnitIcon} from "../../helper/units";
 import {getTechIcon} from "../../helper/techs";
 import {getBuildingIcon} from "../../helper/buildings";
 import {Highlight} from "../../helper/highlight";
-import {getCivIcon} from "../../helper/civs";
+import {getCivIconLocal} from "../../helper/civs";
 import {queryItemCanceledAsync, queryItemHoveredAsync, queryItemSelectedAsync} from "../../helper/electron";
 import {fakeBuilds} from "../../../../data/src/helper/builds";
 import {useAppTheme} from "../../theming";
@@ -130,7 +128,7 @@ interface ItemProps {
 export function getItemIcon({civ, tech, unit, building, image}: ItemProps): ImageSourcePropType {
     if (civ) {
         console.log('civ', civ);
-        return getCivIcon(civ);
+        return getCivIconLocal(civ);
     }
     if (tech) {
         return getTechIcon(tech);

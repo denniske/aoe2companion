@@ -6,7 +6,7 @@ import {getTechDescription, getTechName, iconHeight, iconWidth, Tech, techs} fro
 import {MyText} from "../components/my-text";
 import {createStylesheet} from "../../theming-new";
 import {getTechIcon} from "../../helper/techs";
-import {getCivIcon} from "../../helper/civs";
+import {getCivIconLocal} from "../../helper/civs";
 
 
 export function TechIcon({tech: tech} : any) {
@@ -17,7 +17,7 @@ export function TechIcon({tech: tech} : any) {
         return (
             <View>
                 <Image fadeDuration={0} style={styles.unitIconBig} source={getTechIcon(tech)}/>
-                <Image fadeDuration={0} style={styles.unitIconBigBanner} source={getCivIcon(techInfo.civ)}/>
+                <Image fadeDuration={0} style={styles.unitIconBigBanner} source={getCivIconLocal(techInfo.civ)}/>
             </View>
         );
     }

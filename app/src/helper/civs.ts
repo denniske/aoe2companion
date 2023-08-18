@@ -51,23 +51,23 @@ export const civHistoryList = [
 ];
 
 export const civImageRoRList = [
-    require('../../../app/assets/civilizations/egyptian.png'),
-    require('../../../app/assets/civilizations/greek.png'),
-    require('../../../app/assets/civilizations/babylonian.png'),
-    require('../../../app/assets/civilizations/assyrian.png'),
-    require('../../../app/assets/civilizations/minoan.png'),
-    require('../../../app/assets/civilizations/hittite.png'),
-    require('../../../app/assets/civilizations/phoenician.png'),
-    require('../../../app/assets/civilizations/sumerian.png'),
-    require('../../../app/assets/civilizations/persian.png'),
-    require('../../../app/assets/civilizations/shang.png'),
-    require('../../../app/assets/civilizations/yamato.png'),
-    require('../../../app/assets/civilizations/choson.png'),
-    require('../../../app/assets/civilizations/romans.png'),
-    require('../../../app/assets/civilizations/carthaginian.png'),
-    require('../../../app/assets/civilizations/palmyran.png'),
-    require('../../../app/assets/civilizations/macedonian.png'),
-    require('../../../app/assets/civilizations/lacviet.png'),
+    require('../../assets/civilizations/ror/egyptians.png'),
+    require('../../assets/civilizations/ror/greeks.png'),
+    require('../../assets/civilizations/ror/babylonians.png'),
+    require('../../assets/civilizations/ror/assyrians.png'),
+    require('../../assets/civilizations/ror/minoans.png'),
+    require('../../assets/civilizations/ror/hittites.png'),
+    require('../../assets/civilizations/ror/phoenicians.png'),
+    require('../../assets/civilizations/ror/sumerians.png'),
+    require('../../assets/civilizations/ror/persians.png'),
+    require('../../assets/civilizations/ror/shang.png'),
+    require('../../assets/civilizations/ror/yamato.png'),
+    require('../../assets/civilizations/ror/choson.png'),
+    require('../../assets/civilizations/ror/romans.png'),
+    require('../../assets/civilizations/ror/carthaginians.png'),
+    require('../../assets/civilizations/ror/palmyrans.png'),
+    require('../../assets/civilizations/ror/macedonians.png'),
+    require('../../assets/civilizations/ror/lacviet.png'),
 ];
 
 export function getCivIconByIndex(civ: number) {
@@ -80,6 +80,11 @@ export function getCivIconByIndex(civ: number) {
 
 export function getCivIcon(data: { civ: any, civImageUrl: string }) {
     return { uri: data.civImageUrl };
+}
+
+export function getCivIconLocal(civ: string) {
+    console.log('getCivIconLocal', civ);
+    return civIconList[civ];
 }
 
 // export function getCivIcon(civ: Civ) {

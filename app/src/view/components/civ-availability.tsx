@@ -5,7 +5,7 @@ import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import {MyText} from "./my-text";
 import React from "react";
 import Space from "./space";
-import {getCivIcon} from "../../helper/civs";
+import {getCivIconLocal} from "../../helper/civs";
 import {createStylesheet} from "../../theming-new";
 import {getTranslation} from '../../helper/translate';
 
@@ -39,7 +39,7 @@ export default function CivAvailability({tech, unit, building}: CivAvailabilityP
                     orderCivs(civAvailable).map(civ =>
                         <TouchableOpacity key={civ} style={styles.civCol} onPress={() => navigation.push('Civ', {civ})}>
                             <View style={styles.row}>
-                                <Image fadeDuration={0} style={styles.civIcon} source={getCivIcon(civ) as any}/>
+                                <Image fadeDuration={0} style={styles.civIcon} source={getCivIconLocal(civ) as any}/>
                                 <MyText> {getCivNameById(civ)}</MyText>
                             </View>
                         </TouchableOpacity>
@@ -53,7 +53,7 @@ export default function CivAvailability({tech, unit, building}: CivAvailabilityP
                     !availableForOneCivs && orderCivs(civUnavailable).map(civ =>
                         <TouchableOpacity key={civ} style={styles.civCol} onPress={() => navigation.push('Civ', {civ})}>
                             <View style={styles.row}>
-                                <Image fadeDuration={0} style={styles.civIcon} source={getCivIcon(civ) as any}/>
+                                <Image fadeDuration={0} style={styles.civIcon} source={getCivIconLocal(civ) as any}/>
                                 <MyText> {getCivNameById(civ)}</MyText>
                             </View>
                         </TouchableOpacity>
