@@ -169,7 +169,7 @@ const linking: LinkingOptions = {
                     profileId: parseInt,
                 },
                 stringify: {
-                    id: x => x.toString(),
+                    id: (x: number) => x.toString(),
                 },
                 screens: {
                     MainProfile: {
@@ -232,6 +232,26 @@ const linking: LinkingOptions = {
             },
             Leaderboard: {
                 path: 'leaderboard',
+                screens: {
+                    LeaderboardRm1v1: {
+                        path: 'rm_1v1',
+                    },
+                    LeaderboardRmTeam: {
+                        path: 'rm_team',
+                    },
+                    LeaderboardEw1v1: {
+                        path: 'ew_1v1',
+                    },
+                    LeaderboardEwTeam: {
+                        path: 'ew_team',
+                    },
+                    LeaderboardRoR1v1: {
+                        path: 'ror_1v1',
+                    },
+                    LeaderboardRoRTeam: {
+                        path: 'ror_team',
+                    },
+                }
             },
             Civ: {
                 path: 'civ/:civ?',
@@ -287,7 +307,7 @@ export type RootStackParamList = {
     Main: undefined;
     Winrates: undefined;
     Feed: { action?: string, match_id?: string };
-    Leaderboard: undefined;
+    Leaderboard: { leaderboardId: number }
     Civ: { civ: Civ };
     Unit: { unit: Unit };
     Building: { building: Building };

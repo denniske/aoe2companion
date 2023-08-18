@@ -103,11 +103,10 @@ export default function UserPage() {
     const account = useSelector(state => state.account);
     const profile = useSelector(state => state.user[profileId]?.profile);
 
-    console.log('==> UserPage');
-    console.log(route.params);
-    console.log(auth);
-    console.log(profileId);
-
+    // console.log('==> UserPage');
+    // console.log(route.params);
+    // console.log(auth);
+    // console.log(profileId);
 
     const generateTestHook = useCavy();
     const navigation = useNavigation<RootStackProp>();
@@ -159,7 +158,6 @@ export default function UserPage() {
             // @ts-ignore
             navigation.setParams({
                 profileId: profile.profileId,
-                name: profile.name
             });
         }
     }, [profile]);

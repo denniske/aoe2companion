@@ -5811,7 +5811,7 @@ __metadata:
     react-native-tab-view: ^3.5.2
     react-native-vector-icons: ^9.0.0
     react-native-view-shot: 3.7.0
-    react-native-web: ~0.19.6
+    react-native-web: ~0.19.7
     react-native-webview: 13.2.2
     react-redux: 8.0.2
     redux: 4.0.5
@@ -18363,7 +18363,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-web@npm:~0.19.6":
+"react-native-web@npm:~0.19.7":
   version: 0.19.7
   resolution: "react-native-web@npm:0.19.7"
   dependencies:

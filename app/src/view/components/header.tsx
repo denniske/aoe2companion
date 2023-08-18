@@ -1,6 +1,6 @@
 import {Image, Platform, StyleSheet, TouchableOpacity, View, ViewStyle} from 'react-native';
 import React, {useState} from 'react';
-import {RootStackParamList} from '../../../App';
+import {RootStackParamList} from '../../../App2';
 import {getRootNavigation} from "../../service/navigation";
 import {MyText} from "./my-text";
 import {iconHeight, iconWidth} from "@nex/data";

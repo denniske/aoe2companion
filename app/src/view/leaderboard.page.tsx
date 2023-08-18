@@ -3,10 +3,10 @@ import {
     ActivityIndicator, Animated, Dimensions, FlatList, Image, NativeScrollEvent, NativeSyntheticEvent, PanResponder,
     Platform, StyleSheet, TextStyle, TouchableOpacity, View, ViewStyle
 } from 'react-native';
-import {useIsFocused, useNavigation, useNavigationState} from '@react-navigation/native';
+import {RouteProp, useIsFocused, useNavigation, useNavigationState, useRoute} from '@react-navigation/native';
 import {getCountryName} from "../helper/flags";
 import {countriesDistinct, Country} from "@nex/data";
-import {RootStackProp} from "../../App2";
+import {RootStackParamList, RootStackProp} from "../../App2";
 import {FontAwesome} from "@expo/vector-icons";
 import {FontAwesome5} from "@expo/vector-icons";
 import {useLazyApi} from "../hooks/use-lazy-api";
@@ -77,7 +77,7 @@ export function LeaderboardMenu() {
     const divider = (x: any, i: number) => i < (authCountry ? 2 : 1);
     const icon = (x: any) => {
         if (x == countryEarth) {
-            return <FontAwesome name="globe" size={21} style={{paddingLeft: 2, paddingRight: 12}} color={theme.colors.text} />;
+            return <FontAwesome name="globe" size={21} style={{paddingLeft: 2, paddingRight: 12}} color={theme.colors.onBackground} />;
         }
         return <CountryImage country={x} />;
     };
@@ -106,29 +106,35 @@ export function LeaderboardTitle(props: any) {
 export default function LeaderboardPage() {
     const styles = useStyles();
 
+    // const route = useRoute<RouteProp<RootStackParamList, 'Leaderboard'>>();
+    // const leaderboardId = route.params?.leaderboardId;
+    // console.log('LeaderboardPage', leaderboardId);
+
     if (appConfig.game === 'aoe2de')
     return (
         <Tab.Navigator screenOptions={{ lazy: false, swipeEnabled: false }} >
-            <Tab.Screen name="LeaderboardRm1v1" initialParams={{leaderboardId: 'rm_1v1'}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rm1v1')}/>}}>
-                {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
+            <Tab.Screen name="LeaderboardRm1v1" options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rm1v1')}/>}}>
+                {props => <Leaderboard leaderboardId={'rm_1v1'}/>}
             </Tab.Screen>
-            <Tab.Screen name="LeaderboardRmTeam" initialParams={{leaderboardId: 'rm_team'}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rmteam')}/>}}>
-                {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
+            <Tab.Screen name="LeaderboardRmTeam" options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rmteam')}/>}}>
+                {props => <Leaderboard leaderboardId={'rm_team'}/>}
             </Tab.Screen>
-            <Tab.Screen name="LeaderboardEw1v1" initialParams={{leaderboardId: 'ew_1v1'}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.ew1v1')}/>}}>
-                {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
+            <Tab.Screen name="LeaderboardEw1v1" options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.ew1v1')}/>}}>
+                {props => <Leaderboard leaderboardId={'ew_1v1'}/>}
             </Tab.Screen>
-            <Tab.Screen name="LeaderboardEwTeam" initialParams={{leaderboardId: 'ew_team'}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.ewteam')}/>}}>
-                {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
+            <Tab.Screen name="LeaderboardEwTeam" options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.ewteam')}/>}}>
+                {props => <Leaderboard leaderboardId={'ew_team'}/>}
             </Tab.Screen>
-            {/*<Tab.Screen name="LeaderboardRoR1v1" initialParams={{leaderboardId: 25}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.ror1v1')}/>}}>*/}
-            {/*    {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}*/}
+
+            {/*<Tab.Screen name="LeaderboardRoR1v1" options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.ror1v1')}/>}}>*/}
+            {/*    {props => <Leaderboard leaderboardId={'ror_1v1'}/>}*/}
             {/*</Tab.Screen>*/}
-            {/*<Tab.Screen name="LeaderboardRoRTeam" initialParams={{leaderboardId: 26}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rorteam')}/>}}>*/}
-            {/*    {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}*/}
+            {/*<Tab.Screen name="LeaderboardRoRTeam" options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rorteam')}/>}}>*/}
+            {/*    {props => <Leaderboard leaderboardId={'ror_team'}/>}*/}
             {/*</Tab.Screen>*/}
-            <Tab.Screen name="LeaderboardUnranked" initialParams={{leaderboardId: 'unranked'}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.unranked')}/>}}>
-                {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
+
+            <Tab.Screen name="LeaderboardUnranked" options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.unranked')}/>}}>
+                {props => <Leaderboard leaderboardId={'unranked'}/>}
             </Tab.Screen>
         </Tab.Navigator>
     );
