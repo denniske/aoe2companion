@@ -2,7 +2,7 @@ import {FlatList, Linking, Platform, StyleSheet, View} from "react-native";
 import {useSelector} from "../../redux/reducer";
 import React, {useEffect, useState} from "react";
 import {RouteProp, useNavigation, useNavigationState, useRoute} from "@react-navigation/native";
-import {RootStackParamList, RootTabParamList} from "../../../App";
+import {RootStackParamList, RootTabParamList} from "../../../App2";
 import {useApi} from "../../hooks/use-api";
 import {loadRatingHistories} from "../../service/rating";
 import {loadProfile} from "../../service/profile";

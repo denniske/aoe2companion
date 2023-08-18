@@ -5,7 +5,7 @@ import Snackbar from "../snackbar";
 import {setIngame, useMutate, useSelector} from "../../../redux/reducer";
 import {getMapName} from "../../../helper/maps";
 import {formatAgo, moProfileId} from "@nex/data";
-import {RootStackParamList} from "../../../../App";
+import {RootStackParamList} from "../../../../App2";
 import {getRootNavigation} from "../../../service/navigation";
 
 export default function CurrentMatchSnackbar() {

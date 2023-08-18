@@ -3,7 +3,7 @@ import {FlatList, Linking, StyleSheet, View, ViewStyle} from 'react-native';
 import {MyText} from "./components/my-text";
 import {changelog, changelog4, IChange} from "../changelog";
 import {RouteProp, useRoute} from "@react-navigation/native";
-import {RootStackParamList} from "../../App";
+import {RootStackParamList} from "../../App2";
 import {lt} from "semver";
 import {createStylesheet} from '../theming-new';
 import {useSelector} from '../redux/reducer';

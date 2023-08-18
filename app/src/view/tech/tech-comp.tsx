@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
-import {RootStackProp} from "../../../App";
+import {RootStackProp} from "../../../App2";
 import {getTechDescription, getTechName, iconHeight, iconWidth, Tech, techs} from "@nex/data";
 import {MyText} from "../components/my-text";
 import {createStylesheet} from "../../theming-new";

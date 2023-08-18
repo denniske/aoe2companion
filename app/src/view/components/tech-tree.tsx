@@ -3,7 +3,7 @@ import {
     getUnitLineForUnit, ITechTreeRow, Other, Tech, Unit
 } from "@nex/data";
 import {useNavigation} from "@react-navigation/native";
-import {RootStackProp} from "../../../App";
+import {RootStackProp} from "../../../App2";
 import {Image, ImageBackground, StyleSheet, TouchableOpacity, View} from "react-native";
 import React, {Fragment} from "react";
 import {MyText} from "./my-text";

@@ -21,7 +21,7 @@ import React from "react";
 import {useTheme} from "../../theming";
 import {appVariants} from "../../styles";
 import {useNavigation} from "@react-navigation/native";
-import {RootStackProp} from "../../../App";
+import {RootStackProp} from "../../../App2";
 import Space from "../components/space";
 import {Costs} from "./unit-costs";
 import {getTechIcon} from "../../helper/techs";

@@ -6,7 +6,7 @@ import {useLazyApi} from "../hooks/use-lazy-api";
 import {fetchMatchWithFallback} from "@nex/data";
 import {GameIntro} from "./components/game-intro";
 import {RouteProp, useRoute} from "@react-navigation/native";
-import {RootStackParamList} from "../../App";
+import {RootStackParamList} from "../../App2";
 import {closeOverlayWindow, isElectron} from "../helper/electron";
 import {useSelector} from "../redux/reducer";
 

@@ -6,7 +6,7 @@ import {
 import {useNavigation, useNavigationState} from '@react-navigation/native';
 import {getCountryName} from "../helper/flags";
 import {countriesDistinct, Country} from "@nex/data";
-import {RootStackProp} from "../../App";
+import {RootStackProp} from "../../App2";
 import {FontAwesome} from "@expo/vector-icons";
 import {FontAwesome5} from "@expo/vector-icons";
 import {useLazyApi} from "../hooks/use-lazy-api";

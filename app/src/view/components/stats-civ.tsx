@@ -4,7 +4,7 @@ import {IStatAlly, IStatCiv, IStatMap, IStatOpponent} from "@nex/data/api";
 import {TextLoader} from "./loader/text-loader";
 import {Civ, LeaderboardId} from "@nex/data";
 import {useNavigation} from "@react-navigation/native";
-import {RootStackProp} from "../../../App";
+import {RootStackProp} from "../../../App2";
 import {MyText} from "./my-text";
 import Space from "./space";
 import {getCivIcon} from "../../helper/civs";

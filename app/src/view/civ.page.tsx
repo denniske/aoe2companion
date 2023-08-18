@@ -13,7 +13,7 @@ import {
     parseCivDescription
 } from "@nex/data";
 import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
-import {RootStackParamList, RootStackProp} from "../../App";
+import {RootStackParamList, RootStackProp} from "../../App2";
 import IconHeader from "./components/navigation-header/icon-header";
 import TextHeader from "./components/navigation-header/text-header";
 import {TechTree} from "./components/tech-tree";

@@ -7,7 +7,7 @@ const b3 = 0;
 // import {TextLoader} from "./loader/text-loader";
 // import {orderBy, uniqBy} from 'lodash';
 // import {useNavigation} from "@react-navigation/native";
-// import {RootStackProp} from "../../../App";
+// import {RootStackProp} from "../../../App2";
 // import {MyText} from "./my-text";
 // import {makeVariants, useAppTheme, usePaperTheme, useTheme} from "../../theming";
 // import {LeaderboardId} from "@nex/data";

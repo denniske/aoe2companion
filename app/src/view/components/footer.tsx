@@ -5,7 +5,7 @@ import {Divider, Menu} from 'react-native-paper';
 import {getRootNavigation} from "../../service/navigation";
 import {useNavigationStateExternal} from "../../hooks/use-navigation-state-external";
 import * as Notifications from "expo-notifications";
-import {RootStackParamList} from "../../../App";
+import {RootStackParamList} from "../../../App2";
 import Space from "./space";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
-import {RootStackProp} from "../../../App";
+import {RootStackProp} from "../../../App2";
 import {
     getUnitLineIdForUnit, getUnitLineName, iconSmallHeight, iconSmallWidth, sortUnitCounter, Unit, UnitLine, unitLines
 } from "@nex/data";

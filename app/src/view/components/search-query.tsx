@@ -25,7 +25,7 @@ import {
     Unit
 } from '@nex/data';
 import {useNavigation} from "@react-navigation/native";
-import {RootStackProp} from "../../../App";
+import {RootStackProp} from "../../../App2";
 import {getUnitIcon} from "../../helper/units";
 import {getTechIcon} from "../../helper/techs";
 import {getBuildingIcon} from "../../helper/buildings";

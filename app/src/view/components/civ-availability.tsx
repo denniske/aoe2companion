@@ -1,6 +1,6 @@
 import {Building, Civ, civs, getAbilityEnabled, getCivNameById, orderCivs, Tech, Unit} from "@nex/data";
 import {useNavigation} from "@react-navigation/native";
-import {RootStackProp} from "../../../App";
+import {RootStackProp} from "../../../App2";
 import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import {MyText} from "./my-text";
 import React from "react";
