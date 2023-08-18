@@ -176,7 +176,6 @@ export function FeedList() {
     const gotoPlayer = (profileId: number) => {
         navigation.push('User', {
             profileId,
-            // name: player.name,
         });
     };
 

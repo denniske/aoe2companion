@@ -55,7 +55,6 @@ export function PlayerOverlay({match, player, highlight, freeForALl, canDownload
     const gotoPlayer = () => {
         navigation.push('User', {
             profileId: player.profileId,
-            name: player.name,
         });
     };
 

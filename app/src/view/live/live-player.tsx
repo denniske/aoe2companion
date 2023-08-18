@@ -28,7 +28,6 @@ export function LivePlayer({player}: IPlayerProps) {
         if (player == null) return;
         navigation.push('User', {
             profileId: player.profileId,
-            name: player.name as string,
         });
     };
 

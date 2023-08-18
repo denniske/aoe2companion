@@ -244,7 +244,6 @@ function Leaderboard({leaderboardId}: any) {
     const onSelect = async (player: ILeaderboardPlayerNew) => {
         navigation.push('User', {
             profileId: player.profileId,
-            name: player.name,
         });
     };
 

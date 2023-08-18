@@ -28,8 +28,7 @@ function Row({data}: IRowProps) {
         }
         if (data.profileId) {
             navigation.push('User', {
-                profile_id: data.profileId,
-                name: data.name,
+                profileId: data.profileId,
             });
         }
     };

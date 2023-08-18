@@ -59,7 +59,6 @@ export function Player({match, player, highlight, freeForALl, canDownloadRec}: I
     const gotoPlayer = () => {
         navigation.push('User', {
             profileId: player.profileId,
-            name: player.name,
         });
     };
 

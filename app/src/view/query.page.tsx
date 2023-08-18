@@ -12,7 +12,6 @@ export default function QueryPage() {
     const onSelect = async (user: any) => {
         navigation.push('User', {
             profileId: user.profileId,
-            name: user.name,
         });
     };
 

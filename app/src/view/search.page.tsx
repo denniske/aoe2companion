@@ -11,7 +11,6 @@ export default function SearchPage() {
     const onSelect = async (user: any) => {
         navigation.push('User', {
             profileId: user.profileId,
-            name: user.name,
         });
     };
 
