@@ -249,27 +249,27 @@ export default function Footer() {
                                     <View><Space/></View>
                                 }
                         >
-                            <Menu.Item icon={useIcon('hands-helping')} titleStyle={iconPopupStyle('')} onPress={() => { openLink('https://discord.com/invite/gCunWKx'); setMenu(false); }} title={getTranslation('footer.help')} />
-                            {/*<Menu.Item icon={useIcon('coffee')} titleStyle={iconPopupStyle('')} onPress={() => { nav('Donation'); setMenu(false); }} title={getTranslation('footer.buymeacoffee')} />*/}
+                            <Menu.Item leadingIcon={useIcon('hands-helping')} titleStyle={iconPopupStyle('')} onPress={() => { openLink('https://discord.com/invite/gCunWKx'); setMenu(false); }} title={getTranslation('footer.help')} />
+                            {/*<Menu.Item leadingIcon={useIcon('coffee')} titleStyle={iconPopupStyle('')} onPress={() => { nav('Donation'); setMenu(false); }} title={getTranslation('footer.buymeacoffee')} />*/}
                             {
                                !(Platform.OS === 'ios' && isMajorRelease) &&
-                               <Menu.Item icon={useIcon('coffee')} titleStyle={iconPopupStyle('')} onPress={() => { openLink('https://www.buymeacoffee.com/denniskeil'); setMenu(false); }} title={getTranslation('footer.buymeacoffee')} />
+                               <Menu.Item leadingIcon={useIcon('coffee')} titleStyle={iconPopupStyle('')} onPress={() => { openLink('https://www.buymeacoffee.com/denniskeil'); setMenu(false); }} title={getTranslation('footer.buymeacoffee')} />
                             }
                             <Divider />
-                            <Menu.Item icon={useIcon('question-circle', 'About')} titleStyle={iconPopupStyle('About')} onPress={() => { nav('About'); setMenu(false); }} title={getTranslation('footer.about')} />
-                            <Menu.Item icon={useIcon('exchange-alt', 'Changelog')} titleStyle={iconPopupStyle('Changelog')} onPress={() => { nav('Changelog'); setMenu(false); }} title={getTranslation('footer.changelog')} />
+                            <Menu.Item leadingIcon={useIcon('question-circle', 'About')} titleStyle={iconPopupStyle('About')} onPress={() => { nav('About'); setMenu(false); }} title={getTranslation('footer.about')} />
+                            <Menu.Item leadingIcon={useIcon('exchange-alt', 'Changelog')} titleStyle={iconPopupStyle('Changelog')} onPress={() => { nav('Changelog'); setMenu(false); }} title={getTranslation('footer.changelog')} />
                             <Divider />
-                            <Menu.Item icon={useIcon('cog', 'Settings')} titleStyle={iconPopupStyle('Settings')} onPress={() => { nav('Settings'); setMenu(false); }} title={getTranslation('footer.settings')} />
+                            <Menu.Item leadingIcon={useIcon('cog', 'Settings')} titleStyle={iconPopupStyle('Settings')} onPress={() => { nav('Settings'); setMenu(false); }} title={getTranslation('footer.settings')} />
                             <Divider />
-                            <Menu.Item icon={useIcon('lightbulb', 'Tips')} titleStyle={iconPopupStyle('Tips')} onPress={() => { nav('Tips'); setMenu(false); }} title={getTranslation('footer.tips')} />
+                            <Menu.Item leadingIcon={useIcon('lightbulb', 'Tips')} titleStyle={iconPopupStyle('Tips')} onPress={() => { nav('Tips'); setMenu(false); }} title={getTranslation('footer.tips')} />
                             <Divider />
-                            <Menu.Item icon={useIcon('play', 'Live')} titleStyle={iconPopupStyle('Live')} onPress={() => { nav('Live'); setMenu(false); }} title={getTranslation('footer.lobbies')} />
+                            <Menu.Item leadingIcon={useIcon('play', 'Live')} titleStyle={iconPopupStyle('Live')} onPress={() => { nav('Live'); setMenu(false); }} title={getTranslation('footer.lobbies')} />
                             <Divider />
-                            <Menu.Item icon={useIcon('archway', 'Building')} titleStyle={iconPopupStyle('Building')} onPress={() => { nav('Building'); setMenu(false); }} title={getTranslation('footer.buildings')} />
-                            <Menu.Item icon={useIcon('flask', 'Tech')} titleStyle={iconPopupStyle('Tech')} onPress={() => { nav('Tech'); setMenu(false); }} title={getTranslation('footer.techs')} />
-                            <Menu.Item icon={useIcon('fist-raised', 'Unit')} titleStyle={iconPopupStyle('Unit')} onPress={() => { nav('Unit'); setMenu(false); }} title={getTranslation('footer.units')} />
+                            <Menu.Item leadingIcon={useIcon('archway', 'Building')} titleStyle={iconPopupStyle('Building')} onPress={() => { nav('Building'); setMenu(false); }} title={getTranslation('footer.buildings')} />
+                            <Menu.Item leadingIcon={useIcon('flask', 'Tech')} titleStyle={iconPopupStyle('Tech')} onPress={() => { nav('Tech'); setMenu(false); }} title={getTranslation('footer.techs')} />
+                            <Menu.Item leadingIcon={useIcon('fist-raised', 'Unit')} titleStyle={iconPopupStyle('Unit')} onPress={() => { nav('Unit'); setMenu(false); }} title={getTranslation('footer.units')} />
                             <Divider />
-                            <Menu.Item icon={useIcon('trophy', 'Winrates')} titleStyle={iconPopupStyle('Winrates')} onPress={() => { nav('Winrates'); setMenu(false); }} title={getTranslation('footer.winrates')} />
+                            <Menu.Item leadingIcon={useIcon('trophy', 'Winrates')} titleStyle={iconPopupStyle('Winrates')} onPress={() => { nav('Winrates'); setMenu(false); }} title={getTranslation('footer.winrates')} />
                         </Menu>
                     }
                     {
@@ -283,12 +283,12 @@ export default function Footer() {
                                     <View><Space/></View>
                                 }
                         >
-                            <Menu.Item icon={useIcon('hands-helping')} titleStyle={iconPopupStyle('')} onPress={() => { openLink('https://discord.com/invite/gCunWKx'); setMenu(false); }} title={getTranslation('footer.help')} />
+                            <Menu.Item leadingIcon={useIcon('hands-helping')} titleStyle={iconPopupStyle('')} onPress={() => { openLink('https://discord.com/invite/gCunWKx'); setMenu(false); }} title={getTranslation('footer.help')} />
                             <Divider />
-                            <Menu.Item icon={useIcon('question-circle', 'About')} titleStyle={iconPopupStyle('About')} onPress={() => { nav('About'); setMenu(false); }} title={getTranslation('footer.about')} />
-                            <Menu.Item icon={useIcon('exchange-alt', 'Changelog')} titleStyle={iconPopupStyle('Changelog')} onPress={() => { nav('Changelog'); setMenu(false); }} title={getTranslation('footer.changelog')} />
+                            <Menu.Item leadingIcon={useIcon('question-circle', 'About')} titleStyle={iconPopupStyle('About')} onPress={() => { nav('About'); setMenu(false); }} title={getTranslation('footer.about')} />
+                            <Menu.Item leadingIcon={useIcon('exchange-alt', 'Changelog')} titleStyle={iconPopupStyle('Changelog')} onPress={() => { nav('Changelog'); setMenu(false); }} title={getTranslation('footer.changelog')} />
                             <Divider />
-                            <Menu.Item icon={useIcon('cog', 'Settings')} titleStyle={iconPopupStyle('Settings')} onPress={() => { nav('Settings'); setMenu(false); }} title={getTranslation('footer.settings')} />
+                            <Menu.Item leadingIcon={useIcon('cog', 'Settings')} titleStyle={iconPopupStyle('Settings')} onPress={() => { nav('Settings'); setMenu(false); }} title={getTranslation('footer.settings')} />
                         </Menu>
                     }
 

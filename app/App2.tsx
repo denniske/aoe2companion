@@ -26,7 +26,7 @@ import AboutPage from './src/view/about.page';
 import store from './src/redux/store';
 import {Provider as ReduxProvider} from 'react-redux';
 import {
-    DefaultTheme as PaperDefaultTheme, DarkTheme as PaperDarkTheme, Provider as PaperProvider, Portal
+    MD2LightTheme as PaperDefaultTheme, MD2DarkTheme as PaperDarkTheme, Provider as PaperProvider, Portal
 } from 'react-native-paper';
 import {addLoadedLanguage, useMutate, useSelector} from './src/redux/reducer';
 import SearchPage from './src/view/search.page';

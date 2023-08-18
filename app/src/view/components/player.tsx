@@ -101,7 +101,7 @@ export function Player({match, player, highlight, freeForALl, canDownloadRec}: I
                 }
                 <MyText style={styles.playerNameCol} numberOfLines={1}>
                     <MyText style={playerNameStyle}>
-                        {player.status != 0 ? getSlotTypeName(player.status) : player.name}
+                        {player.name}
                     </MyText>
                     {
                         player.status === 0 && isVerifiedPlayer(player.profileId) &&

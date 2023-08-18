@@ -17,9 +17,7 @@ export default function ButtonPicker<T>(props: IPickerProps<T>) {
     const paperTheme = usePaperTheme();
     const theme = useAppTheme();
 
-    const { value, values, onSelect, style, disabled, formatter = (x) => x} = props;
-
-    const color = disabled ? paperTheme.colors.disabled : paperTheme.colors.text;
+    const { value, values, onSelect, style, disabled, formatter = (x) => `${x}`} = props;
 
     const renderItem = (v: T, i: number) => {
         let style: ViewStyle = {};
@@ -44,7 +42,7 @@ export default function ButtonPicker<T>(props: IPickerProps<T>) {
                 compact
                 uppercase={false}
                 dark={true}
-                color={selected ? paperTheme.colors.primary : theme.lightBackgroundColor}
+                buttonColor={selected ? paperTheme.colors.primary : theme.lightBackgroundColor}
             >
                 {formatter(v)}
             </Button>
