@@ -1,7 +1,8 @@
 import {IProfileResponse} from '@nex/data/api';
-import {dateReviver, getHost} from "@nex/data";
+import {dateReviver, getHost, makeQueryString} from "@nex/data";
 import {fetchJson2} from "../api/util";
-import {camelizeKeys} from "humps";
+import {camelizeKeys, decamelizeKeys} from "humps";
+import {appConfig} from "@nex/dataset";
 
 // const aoe4WorldLeaderboardMap = {
 //     'custom': 0,
@@ -98,10 +99,13 @@ import {camelizeKeys} from "humps";
 // }
 
 
-export async function loadProfile(profileId: number): Promise<IProfileResponse | null> {
+export async function loadProfile(profileId: number, extend: string = ''): Promise<IProfileResponse | null> {
     if (profileId == null) return null;
-
-    const url = getHost('aoe2companion-data') + `api/profiles/${profileId}`;
+    const query: any = decamelizeKeys({
+        extend,
+    });
+    const queryString = makeQueryString(query);
+    const url = getHost('aoe2companion-data') + `api/profiles/${profileId}?${queryString}`;
     let json = camelizeKeys(await fetchJson2('loadProfile', url, undefined, dateReviver)) as IProfileResponse;
 
     // console.log('=========> RESPONSE <==========');

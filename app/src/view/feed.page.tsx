@@ -168,8 +168,8 @@ export function FeedList() {
     };
 
     const filterAndSortPlayers = (players: IPlayerNew[]) => {
-        let filteredPlayers = players.filter(p => following.filter(f => f.profileId === p.profileId).length > 0 || p.profileId == auth.profileId);
-        filteredPlayers = orderBy(filteredPlayers, p => p.profileId == auth.profileId);
+        let filteredPlayers = players.filter(p => following.filter(f => f.profileId === p.profileId).length > 0 || p.profileId == auth?.profileId);
+        filteredPlayers = orderBy(filteredPlayers, p => p.profileId == auth?.profileId);
         return filteredPlayers;
     };
 
@@ -181,7 +181,7 @@ export function FeedList() {
     };
 
     const formatPlayer = (player: any, i: number) => {
-        return player.profileId === auth.profileId ? (i == 0 ? getTranslation('feed.following.you') : getTranslation('feed.following.you').toLowerCase()) : player.name;
+        return player.profileId === auth?.profileId ? (i == 0 ? getTranslation('feed.following.you') : getTranslation('feed.following.you').toLowerCase()) : player.name;
     };
 
     if (following?.length === 0 || list.length === 0) {
@@ -273,15 +273,15 @@ export function FeedList() {
                                                         </MyText>
                                                     )}
                                                     {
-                                                        filteredPlayers[0].profileId === auth.profileId &&
+                                                        filteredPlayers[0].profileId === auth?.profileId &&
                                                         <MyText> {match.finished ? getTranslation('feed.following.yplayed') : getTranslation('feed.following.yplayingnow')}</MyText>
                                                     }
                                                     {
-                                                        filteredPlayers[0].profileId !== auth.profileId && filteredPlayers.length == 1 &&
+                                                        filteredPlayers[0].profileId !== auth?.profileId && filteredPlayers.length == 1 &&
                                                         <MyText> {match.finished ? getTranslation('feed.following.played') : getTranslation('feed.following.playingnow')}</MyText>
                                                     }
                                                     {
-                                                        !filteredPlayers[0].profileId !== auth.profileId && filteredPlayers.length > 1 &&
+                                                        !filteredPlayers[0].profileId !== auth?.profileId && filteredPlayers.length > 1 &&
                                                         <MyText> {match.finished ? getTranslation('feed.following.2played') : getTranslation('feed.following.2playingnow')}</MyText>
                                                     }
                                                     {

@@ -216,7 +216,7 @@ export default function Profile({data, ready}: IProfileProps) {
                         </View>
                         <View style={styles.expanded}/>
                         {
-                            data && (auth == null || auth.profileId !== data.profileId) &&
+                            data && (auth == null || auth?.profileId !== data.profileId) &&
                             <TouchableOpacity onPress={ToggleFollowing}>
                                 <View style={styles.followButton}>
                                     <FontAwesome5 solid={followingThisUser} name="heart" size={22} style={styles.followButtonIcon}/>

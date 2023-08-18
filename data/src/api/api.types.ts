@@ -191,6 +191,7 @@ export interface IProfileResponse {
     drops: number; // Todo
 
     profileId: number
+    steamId: number
     name: string
     country: string
     games: number

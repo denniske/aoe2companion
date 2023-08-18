@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Alert, Linking, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {RootStackParamList} from '../../App';
+import {RootStackParamList} from '../../App2';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {MainPageInner} from "./main.page";
 import {createStylesheet} from '../theming-new';
@@ -23,7 +23,7 @@ import {set} from "lodash";
 
 export function userMenu(props: any) {
     return () => {
-        if (props.route?.params?.id) {
+        if (props.route?.params?.profileId) {
             return <UserMenu/>;
         }
         return <View/>;
@@ -33,11 +33,12 @@ export function userMenu(props: any) {
 export function UserMenu() {
     const styles = useStyles();
     const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
-    const user = route.params.id;
+    const profileId = route.params.profileId;
     const auth = useSelector(state => state.auth!);
-    const steamProfileUrl = 'https://steamcommunity.com/profiles/' + user.steamId;
-    const xboxProfileUrl = 'https://www.ageofempires.com/stats/?game=age2&profileId=' + user.profileId;
     const account = useSelector(state => state.account);
+    const profile = useSelector(state => state.user[profileId]?.profile);
+    const steamProfileUrl = 'https://steamcommunity.com/profiles/' + profile?.steamId;
+    const xboxProfileUrl = 'https://www.ageofempires.com/stats/?game=age2&profileId=' + profile?.profileId;
 
     const mutate = useMutate();
 
@@ -71,19 +72,19 @@ export function UserMenu() {
     return (
         <View style={styles.menu}>
             {
-                !!user.profileId &&
+                !!profile?.profileId &&
                 <TouchableOpacity style={styles.menuButton} onPress={() => openLink(xboxProfileUrl)}>
                     <FontAwesome5 style={styles.menuIcon} name="xbox" size={20} />
                 </TouchableOpacity>
             }
             {
-                !!user.steamId &&
+                !!profile?.steamId &&
                 <TouchableOpacity style={styles.menuButton}  onPress={() => openLink(steamProfileUrl)}>
                     <FontAwesome5 style={styles.menuIcon} name="steam" size={20} />
                 </TouchableOpacity>
             }
             {
-                user.profile_id === auth.profileId &&
+                profileId === auth?.profileId &&
                 <TouchableOpacity style={styles.menuButton} onPress={deleteUser}>
                     <FontAwesome5 style={styles.menuIcon} name="user-times" size={16} />
                 </TouchableOpacity>

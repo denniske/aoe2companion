@@ -15,6 +15,6 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 13,
         textAlign: 'center',
-        whiteSpace: 'pre-line',
+        // whiteSpace: 'pre-line',
     },
 });

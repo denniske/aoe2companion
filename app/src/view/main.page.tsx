@@ -18,110 +18,11 @@ import {getTranslation} from '../helper/translate';
 import Constants from 'expo-constants';
 import {leaderboardIdsData} from '@nex/dataset';
 
-
-export function mainMenu() {
-    return () => {
-        return <MainMenu/>;
-    }
-}
-
-export function MainMenu() {
-    const styles = useStyles();
-    const mutate = useMutate();
-    const auth = useSelector(state => state.auth!);
-
-    const deleteUser = () => {
-        if (Platform.OS === 'web') {
-            if (confirm("Do you want to reset me page?")){
-                doDeleteUser();
-            }
-        } else {
-            Alert.alert(getTranslation('main.profile.reset.title'), getTranslation('main.profile.reset.note'),
-                [
-                    {text: getTranslation('main.profile.reset.action.cancel'), style: "cancel"},
-                    {text: getTranslation('main.profile.reset.action.reset'), onPress: doDeleteUser,}
-                ],
-                {cancelable: false}
-            );
-        }
-    };
-
-    const doDeleteUser = async () => {
-        await AsyncStorage.removeItem('settings');
-        mutate(setAuth(null))
-    };
-
-    if (auth == null) {
-        return <View/>;
-    }
-
-    return (
-        <View style={styles.menu}>
-            <TouchableOpacity style={styles.menuButton} onPress={deleteUser}>
-                <FontAwesome5 style={styles.menuIcon} name="user-times" size={16} />
-            </TouchableOpacity>
-        </View>
-    );
-}
-
 const Tab = createMaterialTopTabNavigator();
 
 interface MainPageInnerProps {
     profileId: number;
 }
-
-// export default function MainPage() {
-//     const mutate = useMutate();
-//     const auth = useSelector(state => state.auth);
-//
-//     const generateTestHook = useCavy();
-//     const navigation = useNavigation<RootStackProp>();
-//     generateTestHook('Navigation')(navigation);
-//
-//     const onSelect = async (user: UserInfo) => {
-//         await saveSettingsToStorage({
-//             id: composeUserId(user),
-//             steam_id: user.steam_id,
-//             profile_id: user.profile_id,
-//         });
-//         mutate(setAuth(user));
-//     };
-//
-//
-//     const nav = async (route: keyof RootStackParamList, params: any) => {
-//         // const navigation = getRootNavigation();
-//         navigation.reset({
-//             index: 0,
-//             routes: [{name: route, params}],
-//             stale: true,
-//         });
-//     };
-//
-//     // Reset country for use in leaderboard country dropdown
-//     useEffect(() => {
-//         if (auth == null) {
-//             mutate(setPrefValue('country', undefined));
-//             saveCurrentPrefsToStorage();
-//         }
-//     }, [auth]);
-//
-//     useEffect(() => {
-//         if (auth != null) {
-//             nav('User', {
-//                 id: userIdFromBase(auth),
-//                 name: 'Walter White',
-//             });
-//         }
-//     }, [auth]);
-//
-//     if (auth == null) {
-//         return <Search title="Enter your AoE username to track your games:" selectedUser={onSelect} actionText="Choose" />;
-//     }
-//
-//     return <View><MyText>Redirecting to user page...</MyText></View>
-//
-//     // return <MainPageInner user={auth}/>
-// }
 
 export function MainPageInner({ profileId }: MainPageInnerProps) {
     const loadingMatchesOrStatsTrigger = useSelector(state => state.loadingMatchesOrStats);
@@ -158,7 +59,7 @@ export function MainPageInner({ profileId }: MainPageInnerProps) {
     const appName = Constants.expoConfig?.name || Constants.expoConfig2?.extra?.expoClient?.name;
 
     return (
-            <Tab.Navigator lazy={true} swipeEnabled={true}>
+            <Tab.Navigator screenOptions={{ lazy:true, swipeEnabled: true }}>
                 <Tab.Screen name="MainProfile" options={{title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.profile')}/>}} component={MainProfile} />
                 <Tab.Screen name="MainStats" options={{title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.stats')}/>}} component={MainStats} />
                 <Tab.Screen name="MainMatches" options={{title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.matches')}/>}} component={MainMatches} />

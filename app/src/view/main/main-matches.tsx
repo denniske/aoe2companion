@@ -193,7 +193,7 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
                     <TemplatePicker value={leaderboardId} values={values} template={renderLeaderboard} onSelect={onLeaderboardSelected}/>
                     <View style={appStyles.expanded}/>
                     {
-                        auth && profileId !== auth.profileId &&
+                        auth && profileId !== auth?.profileId &&
                         <View style={styles.row}>
                             <Checkbox.Android
                                 status={withMe ? 'checked' : 'unchecked'}

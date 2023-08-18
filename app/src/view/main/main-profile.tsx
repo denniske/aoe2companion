@@ -112,10 +112,16 @@ function MainProfileInternal({profileId}: {profileId: number}) {
             if (state.user[profileId] == null) {
                 state.user[profileId] = {};
             }
-            state.user[profileId].profile = value;
+            // state.user[profileId].profile = value;
+            state.user[profileId].profile = {
+                ...state.user[profileId].profile,
+                ...value,
+            };
         },
         loadProfile, profileId
     );
+
+    console.log('==> profile', profile.data);
 
     // useEffect(() => {
     //     navigation.setOptions({ title: 'Updated!' + profile.data?.name });
@@ -170,7 +176,7 @@ function MainProfileInternal({profileId}: {profileId: number}) {
         'profile', 'rating-header', 'rating',
     ];
 
-    // if (profileId !== auth.profileId && auth) {
+    // if (profileId !== auth?.profileId && auth) {
     //     // list.push('matches5-header', ...(matches.data || Array(5).fill(null)), 'matches5-footer');
     //     // list.push('matchesVersus-header', ...(matchesVersus.data || Array(5).fill(null)), 'matchesVersus-footer');
     // }

@@ -90,7 +90,7 @@ export default function DonationPage(props: any) {
 //
 //             {
 //                 purchaserInfo != null &&
-//                 <Tab.Navigator lazy={true} swipeEnabled={true} initialRouteName={hasActiveSubscription ? 'DonationMembership' : 'DonationSupport'}>
+//                 <Tab.Navigator screenOptions={{ lazy:true, swipeEnabled: true }} initialRouteName={hasActiveSubscription ? 'DonationMembership' : 'DonationSupport'}>
 //                     <Tab.Screen name="DonationMembership" options={{title: '', tabBarLabel: (x) => <TabBarLabel {...x} title="Membership"/>}} component={DonationMembership} />
 //                     <Tab.Screen name="DonationSupport" options={{title: '', tabBarLabel: (x) => <TabBarLabel {...x} title="Support"/>}} component={DonationSupport} />
 //                 </Tab.Navigator>

@@ -108,7 +108,7 @@ export default function LeaderboardPage() {
 
     if (appConfig.game === 'aoe2de')
     return (
-        <Tab.Navigator lazy={true} swipeEnabled={false}>
+        <Tab.Navigator screenOptions={{ lazy:true, swipeEnabled: false }} >
             <Tab.Screen name="LeaderboardRm1v1" initialParams={{leaderboardId: 'rm_1v1'}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rm1v1')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
@@ -134,7 +134,7 @@ export default function LeaderboardPage() {
     );
 
     return (
-        <Tab.Navigator lazy={true} swipeEnabled={false}>
+        <Tab.Navigator screenOptions={{ lazy:true, swipeEnabled: false }}>
             {/*<Tab.Screen name="LeaderboardRmSolo" initialParams={{leaderboardId: 1002}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rmsolo')}/>}}>*/}
             {/*    {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}*/}
             {/*</Tab.Screen>*/}

@@ -169,6 +169,7 @@ interface INote {
 
 interface IUser {
   profile?: IProfileResponse;
+  profileWithStats?: IProfileResponse;
   rating?: IRatingHistoryRow[];
   matches?: IMatch[];
   matches5?: IMatch[];

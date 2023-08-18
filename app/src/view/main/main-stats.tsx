@@ -88,21 +88,33 @@ function MainStatsInternal({profileId}: {profileId: number}) {
                 state.user[profileId] = {};
             }
             state.user[profileId].profile = value;
+            // state.user[profileId].profile = {
+            //     ...state.user[profileId].profile,
+            //     ...value,
+            // };
         },
         loadProfile, profileId
     );
 
+    const profileWithStats = useApi(
+        {},
+        [],
+        state => state.user[profileId]?.profileWithStats,
+        (state, value) => {
+            if (state.user[profileId] == null) {
+                state.user[profileId] = {};
+            }
+            state.user[profileId].profileWithStats = value;
+        },
+        loadProfile, profileId, 'stats'
+    );
+
     const currentCachedData =
-        useSelector(state => get(state.user, [profileId, 'profile']))?.stats?.find(s => s.leaderboardId === leaderboardId);
+        useSelector(state => get(state.user, [profileId, 'profileWithStats']))?.stats?.find(s => s.leaderboardId === leaderboardId);
     const previousCachedData = usePrevious(currentCachedData);
 
-    const currentCachedData2 =
-        useSelector(state => get(state.user, [profileId, 'profile']));
-
-    console.log('==> profile', profile);
-    console.log('==> currentCachedData', currentCachedData);
-    console.log('==> currentCachedData2', currentCachedData2);
-    console.log('==> leaderboardId', leaderboardId);
+    // console.log('==> profile', profile.data);
+    // console.log('==> profileWithStats', profileWithStats.data);
 
     const cachedData = currentCachedData ?? previousCachedData;
 

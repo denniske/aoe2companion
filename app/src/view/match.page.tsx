@@ -30,8 +30,8 @@ export default function MatchPage() {
 
     const filterAndSortPlayers = (players: IPlayer[]) => {
         let filteredPlayers = players.filter(p =>
-            following.filter(f => p.profileId === f.profileId).length > 0 || p.profileId === auth.profileId);
-        filteredPlayers = orderBy(filteredPlayers, p => p.profileId === auth.profileId);
+            following.filter(f => p.profileId === f.profileId).length > 0 || p.profileId === auth?.profileId);
+        filteredPlayers = orderBy(filteredPlayers, p => p.profileId === auth?.profileId);
         return filteredPlayers;
     };
 
