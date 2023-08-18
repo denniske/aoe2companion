@@ -93,8 +93,8 @@ export default function AboutPage() {
         // }
 
         try {
-            delete Constants.manifest?.assets;
-            setDebugManifest(JSON.stringify(Constants.manifest || { empty: true }, null, 4));
+            delete Constants.expoConfig?.assets;
+            setDebugManifest(JSON.stringify(Constants.expoConfig || { empty: true }, null, 4));
         } catch (e) {}
     };
 
@@ -148,12 +148,12 @@ export default function AboutPage() {
         init();
     });
 
-    // console.log('Constants.manifest2', JSON.stringify(Constants.manifest2, null, 2));
+    // console.log('Constants.expoConfig2', JSON.stringify(Constants.expoConfig2, null, 2));
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <MyText style={styles.title}>
-                {Constants.manifest?.name || Constants.manifest2?.extra?.expoClient?.name}
+                {Constants.expoConfig?.name || Constants.expoConfig2?.extra?.expoClient?.name}
             </MyText>
 
             <MyText style={styles.heading}>{getTranslation('about.heading.createdby')}</MyText>
@@ -229,16 +229,16 @@ export default function AboutPage() {
             <TouchableOpacity onPress={incrementVersionClickCount}>
                 {
                     isElectron() &&
-                    <MyText style={styles.content}>{Constants.manifest?.releaseChannel || 'dev'}-{Constants.manifest?.version}n{electronVersion}</MyText>
+                    <MyText style={styles.content}>{Constants.expoConfig?.releaseChannel || 'dev'}-{Constants.expoConfig?.version}n{electronVersion}</MyText>
                 }
                 {
                     !isElectron() &&
                     <MyText style={styles.content}>
-                        {Constants.manifest?.releaseChannel || channel || 'dev'}
+                        {Constants.expoConfig?.releaseChannel || channel || 'dev'}
                         {' '}
-                        {Constants.manifest?.version || Constants.manifest2?.extra?.expoClient?.version}
+                        {Constants.expoConfig?.version || Constants.expoConfig2?.extra?.expoClient?.version}
                         {' '}
-                        ({Constants.manifest?.runtimeVersion || runtimeVersion || 'dev'})
+                        ({Constants.expoConfig?.runtimeVersion || runtimeVersion || 'dev'})
                     </MyText>
                 }
                 {/*<MyText style={styles.content}>n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}</MyText>*/}
@@ -249,8 +249,8 @@ export default function AboutPage() {
                 <MyText style={styles.content}>{updateId}</MyText>
             }
 
-            {/*<MyText style={styles.content}>{(Constants.manifest2?.metadata as any)?.branchName || 'dev'}</MyText>*/}
-            {/*<MyText style={styles.content}>{(Constants.manifest2?.metadata as any)?.updateGroup || 'dev'}</MyText>*/}
+            {/*<MyText style={styles.content}>{(Constants.expoConfig2?.metadata as any)?.branchName || 'dev'}</MyText>*/}
+            {/*<MyText style={styles.content}>{(Constants.expoConfig2?.metadata as any)?.updateGroup || 'dev'}</MyText>*/}
 
             {
                 (Platform.OS !== 'web' || isElectron()) && state === '' &&

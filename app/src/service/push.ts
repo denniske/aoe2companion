@@ -14,7 +14,7 @@ export async function getToken() {
     if (!Constants.isDevice) return null;
     try {
         return (await Notifications.getExpoPushTokenAsync({
-            // projectId: Constants.manifest?.extra?.eas.projectId,
+            // projectId: Constants.expoConfig?.extra?.eas.projectId,
             projectId: Constants.expoConfig?.extra?.eas.projectId,
         })).data;
     } catch (e) {

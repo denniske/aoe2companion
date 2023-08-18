@@ -155,7 +155,7 @@ export function MainPageInner({ profileId }: MainPageInnerProps) {
     //     getStats, {matches: allMatches.data, user: user, leaderboardId}
     // );
 
-    const appName = Constants.manifest?.name || Constants.manifest2?.extra?.expoClient?.name;
+    const appName = Constants.expoConfig?.name || Constants.expoConfig2?.extra?.expoClient?.name;
 
     return (
             <Tab.Navigator lazy={true} swipeEnabled={true}>

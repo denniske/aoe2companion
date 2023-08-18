@@ -4,7 +4,7 @@ import {sleep} from "@nex/data";
 import {checkForUpdateAsync, fetchUpdateAsync, UpdateCheckResult} from "expo-updates";
 import {lt} from "semver";
 
-const packageName = Constants.manifest?.android?.package;
+const packageName = Constants.expoConfig?.android?.package;
 
 export async function doCheckForUpdateAsync() {
     // if (__DEV__) {
@@ -30,7 +30,7 @@ export async function doFetchUpdateAsync() {
 }
 
 export async function doCheckForStoreUpdate() {
-    if (Constants.manifest == null) return null;
+    if (Constants.expoConfig == null) return null;
     switch (Platform.OS) {
         case 'android': {
             const updateUrl = `https://play.google.com/store/apps/details?id=${packageName}&hl=en`;
@@ -40,7 +40,7 @@ export async function doCheckForStoreUpdate() {
             if (match) {
                 const version = match[1].trim();
                 return {
-                    isAvailable: lt(Constants.manifest.version!, version),
+                    isAvailable: lt(Constants.expoConfig.version!, version),
                     version,
                     storeUrl: updateUrl,
                     url: updateUrl,
@@ -58,7 +58,7 @@ export async function doCheckForStoreUpdate() {
                 const storeUrl = `itms-apps://apps.apple.com/app/id${appId}`;
                 const url = `https://apps.apple.com/app/id${appId}`;
                 return {
-                    isAvailable: lt(Constants.manifest.version!, version),
+                    isAvailable: lt(Constants.expoConfig.version!, version),
                     version,
                     storeUrl,
                     url,

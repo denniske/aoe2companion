@@ -96,7 +96,7 @@ export default function PushPage() {
             // throw "Deliberate Error!";
 
             token = (await Notifications.getExpoPushTokenAsync({
-                // projectId: Constants.manifest?.extra?.eas.projectId,
+                // projectId: Constants.expoConfig?.extra?.eas.projectId,
                 projectId: Constants.expoConfig?.extra?.eas.projectId,
             })).data;
             log(maskToken(token));

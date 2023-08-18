@@ -156,8 +156,8 @@ registerService(SERVICE_NAME.TRANSLATION_SERVICE, new AoeDataService(), true);
 registerService(SERVICE_NAME.HOST_SERVICE, new HostService(), true);
 registerService(SERVICE_NAME.HTTP_SERVICE, new HttpService(), true);
 
-const scheme = Constants.manifest?.scheme;
-const website = Constants.manifest?.extra?.website;
+const scheme = Constants.expoConfig?.scheme;
+const website = Constants.expoConfig?.extra?.website;
 
 const linking: LinkingOptions = {
     prefixes: [`https://${website}`, `${scheme}://`],

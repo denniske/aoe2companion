@@ -5,7 +5,7 @@ import { WebView } from 'react-native-webview';
 import Constants from 'expo-constants';
 
 export default function PrivacyPage() {
-    const htmlContent = privacyHtmlEn.replace('{APP}', Constants.manifest?.scheme || '');
+    const htmlContent = privacyHtmlEn.replace('{APP}', Constants.expoConfig?.scheme || '');
     return (
             <WebView
                     source={{html: htmlContent}}

@@ -75,7 +75,7 @@ function MainStatsInternal({profileId}: {profileId: number}) {
     useEffect(() => {
         if (!userProfile) return;
         navigation.setOptions({
-            title: userProfile?.name + ' - ' + (Constants.manifest?.name || Constants.manifest2?.extra?.expoClient?.name),
+            title: userProfile?.name + ' - ' + (Constants.expoConfig?.name || Constants.expoConfig2?.extra?.expoClient?.name),
         });
     }, [userProfile]);
 

@@ -69,7 +69,7 @@ export default function Header() {
             <View style={styles.container}>
                 <View style={styles.header}>
                     <Image fadeDuration={0} style={styles.icon} source={appIconData}/>
-                    <MyText>{Constants.manifest?.name}</MyText>
+                    <MyText>{Constants.expoConfig?.name}</MyText>
 
                     <View style={appStyles.expanded}/>
 

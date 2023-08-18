@@ -39,7 +39,7 @@ export default function ChangelogSnackbar() {
     const initVersion = async () => {
         // Hack: Prevent harmless webkit-app-region css warning
         await sleep(100);
-        setCurrentVersion(isElectron() ? await getElectronVersion() : Constants.manifest?.version);
+        setCurrentVersion(isElectron() ? await getElectronVersion() : Constants.expoConfig?.version);
     };
 
     useEffect(() => {

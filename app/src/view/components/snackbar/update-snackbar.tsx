@@ -20,7 +20,7 @@ export default function UpdateSnackbar() {
     const mutate = useMutate();
 
     const init = async () => {
-        if (Constants.manifest == null) return;
+        if (Constants.expoConfig == null) return;
         if (updateManifest !== undefined) return;
 
         try {

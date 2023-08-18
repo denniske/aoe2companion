@@ -171,7 +171,7 @@ export default function Footer() {
     //     onMouseLeave: () => console.log('LEFT'),
     // };
 
-    const isMajorRelease = Constants.manifest?.version?.includes('.0.0');
+    const isMajorRelease = Constants.expoConfig?.version?.includes('.0.0');
 
     return (
             <View style={styles.container}>
