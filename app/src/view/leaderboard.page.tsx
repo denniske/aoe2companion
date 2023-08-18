@@ -3,7 +3,7 @@ import {
     ActivityIndicator, Animated, Dimensions, FlatList, Image, NativeScrollEvent, NativeSyntheticEvent, PanResponder,
     Platform, StyleSheet, TextStyle, TouchableOpacity, View, ViewStyle
 } from 'react-native';
-import {useNavigation, useNavigationState} from '@react-navigation/native';
+import {useIsFocused, useNavigation, useNavigationState} from '@react-navigation/native';
 import {getCountryName} from "../helper/flags";
 import {countriesDistinct, Country} from "@nex/data";
 import {RootStackProp} from "../../App2";
@@ -108,7 +108,7 @@ export default function LeaderboardPage() {
 
     if (appConfig.game === 'aoe2de')
     return (
-        <Tab.Navigator screenOptions={{ lazy:true, swipeEnabled: false }} >
+        <Tab.Navigator screenOptions={{ lazy: false, swipeEnabled: false }} >
             <Tab.Screen name="LeaderboardRm1v1" initialParams={{leaderboardId: 'rm_1v1'}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rm1v1')}/>}}>
                 {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}
             </Tab.Screen>
@@ -134,7 +134,7 @@ export default function LeaderboardPage() {
     );
 
     return (
-        <Tab.Navigator screenOptions={{ lazy:true, swipeEnabled: false }}>
+        <Tab.Navigator screenOptions={{ lazy: false, swipeEnabled: false }}>
             {/*<Tab.Screen name="LeaderboardRmSolo" initialParams={{leaderboardId: 1002}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rmsolo')}/>}}>*/}
             {/*    {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}*/}
             {/*</Tab.Screen>*/}
@@ -172,7 +172,10 @@ function Leaderboard({leaderboardId}: any) {
     const [contentOffsetY, setContentOffsetY] = useState<number>();
     const [rankWidth, setRankWidth] = useState<number>(43);
 
-    const currentRouteLeaderboardId = useNavigationState(state => (state.routes[state.index].params as any)?.leaderboardId);
+    const isFocused = useIsFocused();
+    console.log('isFocused ' + leaderboardId, isFocused);
+
+    // const currentRouteLeaderboardId = useNavigationState(state => (state.routes[state.index].params as any)?.leaderboardId);
 
     const getParams = (page: number, profileId?: number) => {
         if (leaderboardCountry == countryEarth) {
@@ -186,7 +189,7 @@ function Leaderboard({leaderboardId}: any) {
         fetchLeaderboard, leaderboardId, getParams(1, auth?.profileId)
     );
 
-    const matches = useLazyApi(
+    const leaderboard = useLazyApi(
         {
             append: (data, newData, args) => {
                 const [leaderboardId, params] = args;
@@ -201,11 +204,11 @@ function Leaderboard({leaderboardId}: any) {
 
     const onRefresh = async () => {
         setRefetching(true);
-        await Promise.all([matches.reload(), auth ? myRank.reload() : noop()]);
+        await Promise.all([leaderboard.reload(), auth ? myRank.reload() : noop()]);
         setRefetching(false);
     };
 
-    const rowHeight = 45; //45.5; //50;
+    const rowHeight = 45;
     const headerMyRankHeight = myRank.data?.players.length > 0 ? 64 : 0;
     const headerInfoHeight = 30;
     const headerHeight = headerInfoHeight + headerMyRankHeight;
@@ -219,22 +222,22 @@ function Leaderboard({leaderboardId}: any) {
     };
 
     useEffect(() => {
-        if (currentRouteLeaderboardId != leaderboardId) return;
-        if (matches.touched && matches.lastParams?.leaderboardCountry === leaderboardCountry) return;
-        matches.reload();
+        if (!isFocused) return;
+        if (leaderboard.touched && leaderboard.lastParams?.leaderboardCountry === leaderboardCountry) return;
+        leaderboard.reload();
         if (auth) {
             myRank.reload();
         }
         flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
-    }, [currentRouteLeaderboardId, leaderboardCountry]);
+    }, [isFocused, leaderboardCountry]);
 
     const total = useRef<any>();
 
     // console.log('==> data', matches.data);
 
-    const list = matches.data?.players || [];
-    list.length = matches.data?.total || 200;
-    total.current = matches.data?.total || 200;
+    const list = leaderboard.data?.players || [];
+    list.length = leaderboard.data?.total || 200;
+    total.current = leaderboard.data?.total || 200;
 
     // console.log('==> list', list.length);
 
@@ -270,13 +273,13 @@ function Leaderboard({leaderboardId}: any) {
     };
 
     const _renderHeader = () => {
-        const players = getTranslation('leaderboard.players', { players: matches.data?.total });
-        const updated = matches.data?.updated ? getTranslation('leaderboard.updated', { updated: formatAgo(matches.data.updated) }) : '';
+        const players = getTranslation('leaderboard.players', { players: leaderboard.data?.total });
+        const updated = leaderboard.data?.updated ? getTranslation('leaderboard.updated', { updated: formatAgo(leaderboard.data.updated) }) : '';
         return (
             <>
                 <View style={{height: headerInfoHeight}}>
                     <MyText style={styles.info}>
-                        {matches.data?.total ? players : ''}{matches.data?.updated ? ' (' + updated + ')' : ''}
+                        {leaderboard.data?.total ? players : ''}{leaderboard.data?.updated ? ' (' + updated + ')' : ''}
                     </MyText>
                 </View>
                 {myRank.data?.players.length > 0 && _renderRow(myRank.data.players[0], 0, true)}
@@ -287,15 +290,15 @@ function Leaderboard({leaderboardId}: any) {
 
     const fetchPage = async (page: number) => {
         if (fetchingPage !== undefined) return;
-        if (matches.loading) return;
+        if (leaderboard.loading) return;
         // console.log('FETCHPAGE', page);
         setFetchingPage(page);
-        await matches.refetchAppend(leaderboardId, getParams(page));
+        await leaderboard.refetchAppend(leaderboardId, getParams(page));
         setFetchingPage(undefined);
     };
 
     const fetchByContentOffset = (contentOffsetY: number) => {
-        if (!matches.touched) return;
+        if (!leaderboard.touched) return;
         // console.log('contentOffsetY', contentOffsetY);
 
         contentOffsetY -= headerHeight;
@@ -303,7 +306,7 @@ function Leaderboard({leaderboardId}: any) {
 
         const index = Math.floor(contentOffsetY/rowHeight);
         const indexTop = Math.max(0, index);
-        const indexBottom = Math.min(matches.data.total-1, index+15);
+        const indexBottom = Math.min(leaderboard.data.total-1, index+15);
 
         const rankLen = indexBottom.toFixed(0).length;
         setRankWidth((rankLen+1) * 10);
@@ -401,21 +404,21 @@ function Leaderboard({leaderboardId}: any) {
 
     return (
         <View style={styles.container2}>
-            <View style={[styles.content, {opacity: matches.loading ? 0.7 : 1}]}>
+            <View style={[styles.content, {opacity: leaderboard.loading ? 0.7 : 1}]}>
                 {
-                    matches.error &&
+                    leaderboard.error &&
                     <View style={styles.centered}>
                         <MyText>{getTranslation('leaderboard.error')}</MyText>
                     </View>
                 }
                 {
-                    matches.data?.total === 0 &&
+                    leaderboard.data?.total === 0 &&
                     <View style={styles.centered}>
                         <MyText>{getTranslation('leaderboard.noplayerfound')}</MyText>
                     </View>
                 }
                 {
-                    matches.data?.total !== 0 &&
+                    leaderboard.data?.total !== 0 &&
                     <FlatList
                         ref={flatListRef}
                         onScrollEndDrag={handleOnScrollEndDrag}
