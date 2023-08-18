@@ -25,40 +25,16 @@ import Constants from 'expo-constants';
 
 
 export default function MainProfile() {
-    // const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
-    // const user = route.params.id;
-    // console.log('MainProfile', route);
-
-    // const user = {
-    //     id: '76561198400058723-2858362',
-    //     steam_id: '76561198400058723',
-    //     profile_id: 2858362,
-    // };
-
-    // const route = useRoute<RouteProp<RootTabParamList, 'MainProfile'>>() as any;
-    // const user = parseUserId(route.params.user);
-
-    console.log('MainProfile');
-
     const styles = useStyles();
     const appStyles = useTheme(appVariants);
 
     const route = useRoute();
     const navigationState = useNavigationStateExternal();
     let routes = getPathToRoute(navigationState, route.key);
-    // console.log('STATE', navigationState);
-    // console.log('STATE PATH', routes);
-    // console.log('route', route);
 
     if (routes.length === 0) {
         routes = getRoutesFromCurrentActiveStack(navigationState);
-        // console.log('STATE PATH FALLBACK', routes);
     }
-
-    // const navigation = useNavigation();
-    // const parent = navigation.dangerouslyGetParent();
-    // console.log('parent.state', parent?.dangerouslyGetState());
-    // console.log('parent', parent);
 
     if (routes == null || routes.length === 0 || routes[0].params == null) return <View/>;
 
@@ -93,19 +69,6 @@ function MainProfileInternal({profileId}: {profileId: number}) {
         });
     }, [userProfile]);
 
-    // const rating = useApi(
-    //     {},
-    //     [],
-    //     state => state.user[profileId]?.rating,
-    //     (state, value) => {
-    //         if (state.user[profileId] == null) {
-    //             state.user[profileId] = {};
-    //         }
-    //         state.user[profileId].rating = value;
-    //     },
-    //     loadRatingHistories, 'aoe2de', user
-    // );
-
     const profile = useApi(
         {},
         [],
@@ -122,13 +85,6 @@ function MainProfileInternal({profileId}: {profileId: number}) {
         },
         loadProfile, profileId
     );
-
-    console.log('==> profile', profile.data);
-
-    // useEffect(() => {
-    //     navigation.setOptions({ title: 'Updated!' + profile.data?.name });
-    //     console.log('PROFILE UPDATED', profile.data?.name);
-    // }, [profile.data]);
 
     const rating = profile.data?.ratings;
 

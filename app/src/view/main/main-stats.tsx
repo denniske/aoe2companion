@@ -34,8 +34,6 @@ import {loadProfile} from "../../service/profile";
 
 
 export default function MainStats() {
-    console.log('MainStats');
-
     const styles = useStyles();
     const appStyles = useTheme(appVariants);
     const route = useRoute();
