@@ -180,7 +180,7 @@ function Leaderboard({leaderboardId}: any) {
         }
         return {page, profileId, country: leaderboardCountry};
     }
-    console.log(Constants.expoConfig?.extra?.eas.projectId);
+
     const myRank = useLazyApi(
         {},
         fetchLeaderboard, leaderboardId, getParams(1, auth?.profileId)
@@ -308,15 +308,14 @@ function Leaderboard({leaderboardId}: any) {
         const rankLen = indexBottom.toFixed(0).length;
         setRankWidth((rankLen+1) * 10);
 
-        // console.log('indexTop', indexTop);
-        // console.log('indexBottom', indexBottom);
+        // console.log('indexTop', indexTop, '-', indexBottom);
 
         if (!list[indexTop]) {
-            fetchPage(Math.floor(indexTop / pageSize));
+            fetchPage(Math.ceil(indexTop / pageSize));
             return;
         }
         if (!list[indexBottom]) {
-            fetchPage(Math.floor(indexBottom / pageSize));
+            fetchPage(Math.ceil(indexBottom / pageSize));
         }
     };
 

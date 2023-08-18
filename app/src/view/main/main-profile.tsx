@@ -117,6 +117,11 @@ function MainProfileInternal({profileId}: {profileId: number}) {
         loadProfile, profileId
     );
 
+    // useEffect(() => {
+    //     navigation.setOptions({ title: 'Updated!' + profile.data?.name });
+    //     console.log('PROFILE UPDATED', profile.data?.name);
+    // }, [profile.data]);
+
     const rating = profile.data?.ratings;
 
     const route = useRoute();

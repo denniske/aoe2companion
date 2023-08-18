@@ -401,7 +401,7 @@ export function InnerApp() {
                     component={UserPage}
                     options={props => ({
                         animationEnabled: !!props.route?.params,
-                        title: 'Me Title', //sameUserNull(auth, props.route.params?.id) || props.route.params == null ? 'Me' : props.route.params.name,
+                        title: ' ',
                         headerRight: userMenu(props),
                     })}
                 />

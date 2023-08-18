@@ -18,6 +18,8 @@ import {getRootNavigation} from '../service/navigation';
 import {setAccountProfile} from "../api/following";
 import {openLink} from "../helper/url";
 import {RootStackProp} from '../../App2';
+import {fetchProfile} from "../api/profile";
+import {set} from "lodash";
 
 export function userMenu(props: any) {
     return () => {
@@ -130,6 +132,11 @@ export default function UserPage() {
         }
     }, [auth]);
 
+    // useEffect(() => {
+    //     navigation.setOptions({ title: profile?.name || ' ' });
+    //     console.log('PROFILE UPDATED', profile?.name);
+    // }, [profile]);
+
     // When user is not set but we have auth
 
     const navigateToAuthUser = async () => {
@@ -164,34 +171,37 @@ export default function UserPage() {
 
     const completeUserIdInfo = async () => {
         // console.log('completeUserIdInfo');
-        const loadedProfile = profile ?? await loadProfile(profileId);
+
+        const loadedProfile = await fetchProfile({profile_id: profileId});
         if (loadedProfile) {
-            mutate(state => {
-                if (state.user[loadedProfile.profileId] == null) {
-                    state.user[loadedProfile.profileId] = {};
-                }
-                state.user[loadedProfile.profileId].profile = loadedProfile;
-            });
+            const name = loadedProfile?.profiles?.[0]?.name;
+            navigation.setOptions({ title: name || ' ' });
+            // console.log('PROFILE UPDATED', name);
+            // mutate(state => {
+            //     set(state.cache, ['profile', profileId, 'name'], loadedProfile.profiles[0].name);
+            // });
         }
+        // console.log(loadedProfile);
 
         // if (!loadedProfile?.steamId) {
         //     setHasSteamId(false);
         // }
 
-        if (loadedProfile) {
-            // @ts-ignore
-            navigation.setParams({
-                profileId: loadedProfile.profileId,
-                name: loadedProfile?.name,
-            });
-        }
+        // if (loadedProfile) {
+        //     // @ts-ignore
+        //     navigation.setParams({
+        //         profileId: loadedProfile.profileId,
+        //         name: loadedProfile?.name,
+        //     });
+        // }
     }
 
     useEffect(() => {
-        if (profileId == null) {
+        // const hasInCache = false;
+        // if (!hasInCache) {
             completeUserIdInfo();
-        }
-    }, [profileId, hasSteamId]);
+        // }
+    }, [profileId]);
 
     // if (profileId) {
     //     if (profileId == null) {
