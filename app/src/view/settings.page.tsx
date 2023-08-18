@@ -168,6 +168,14 @@ export default function SettingsPage() {
         setLoadingPushNotificationEnabled(true);
         try {
             if (pushNotificationsEnabled) {
+                if (__DEV__) {
+                    if (auth && auth.profile_id) {
+                        await setAccountProfile(accountId, { profile_id: auth.profile_id, steam_id: auth.steam_id });
+                    }
+                    await follow(accountId, following.map(p => p.profile_id), true);
+                    return;
+                }
+
                 const token = await initPusher();
 
                 await setAccountPushTokenWeb(accountId, token);
