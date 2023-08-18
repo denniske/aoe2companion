@@ -4,7 +4,7 @@ import {
 } from '@nex/data';
 import {
     ILeaderboardNew,
-    IPlayer, IProfileResponse
+    IPlayer, IPlayerNew, IProfileResponse
 } from '@nex/data/api';
 import React, {useEffect} from 'react';
 import {getLeaderboardTextColor} from '../../helper/colors';
@@ -120,40 +120,38 @@ interface IProfileProps {
     ready: boolean;
 }
 
-export function ProfileLive({data} : {data: IPlayer}) {
+export function ProfileLive({data} : {data: IPlayerNew}) {
     const styles = useStyles();
-    // const verifiedPlayer = data ? getVerifiedPlayer(data?.profileId!) : null;
-    //
-    // const playerTwitchLive = useLazyApi(
-    //     {},
-    //     twitchLive, verifiedPlayer ? getTwitchChannel(verifiedPlayer) : ''
-    // );
-    //
-    // useEffect(() => {
-    //     if (verifiedPlayer && getTwitchChannel(verifiedPlayer)) {
-    //         playerTwitchLive.reload();
-    //     }
-    // }, [verifiedPlayer]);
+    const verifiedPlayer = data ? getVerifiedPlayer(data?.profileId!) : null;
 
-    return <MyText/>;
+    const playerTwitchLive = useLazyApi(
+        {},
+        twitchLive, verifiedPlayer ? getTwitchChannel(verifiedPlayer) : ''
+    );
 
-    // if (!verifiedPlayer?.['twitch']) {
-    //     return <MyText/>;
-    // }
-    //
-    // return (
-    //         <MyText style={styles.row} onPress={() => openLink(verifiedPlayer?.twitch)}>
-    //             {
-    //                 playerTwitchLive.data?.type === 'live' &&
-    //                 <>
-    //                     <MyText style={{color: '#e91a16'}}> ● </MyText>
-    //                     <MyText>{playerTwitchLive.data.viewerCount} </MyText>
-    //                     <FontAwesome5 solid name="twitch" size={14} style={styles.twitchIcon} />
-    //                     <MyText> </MyText>
-    //                 </>
-    //             }
-    //         </MyText>
-    // )
+    useEffect(() => {
+        if (verifiedPlayer && getTwitchChannel(verifiedPlayer)) {
+            playerTwitchLive.reload();
+        }
+    }, [verifiedPlayer]);
+
+    if (!verifiedPlayer?.['twitch']) {
+        return <MyText/>;
+    }
+
+    return (
+            <MyText style={styles.row} onPress={() => openLink(verifiedPlayer?.twitch)}>
+                {
+                    playerTwitchLive.data?.type === 'live' &&
+                    <>
+                        <MyText style={{color: '#e91a16'}}> ● </MyText>
+                        <MyText>{playerTwitchLive.data.viewer_count} </MyText>
+                        <FontAwesome5 solid name="twitch" size={14} style={styles.twitchIcon} />
+                        <MyText> </MyText>
+                    </>
+                }
+            </MyText>
+    )
 }
 
 export default function Profile({data, ready}: IProfileProps) {
@@ -166,6 +164,8 @@ export default function Profile({data, ready}: IProfileProps) {
     const following = useSelector(state => state.following);
     const followingThisUser = !!following.find(f => data && f.profileId === data.profileId);
     const authCountry = useSelector(state => state.prefs.country);
+
+    const verifiedPlayer = data ? getVerifiedPlayer(data?.profileId!) : null;
 
     // console.log('==> data', data);
 
@@ -230,32 +230,32 @@ export default function Profile({data, ready}: IProfileProps) {
 
                     <Space/>
 
-                    {/*<View style={styles.row}>*/}
-                    {/*    {*/}
-                    {/*        verifiedPlayer?.discord &&*/}
-                    {/*        <View style={styles.badge}>*/}
-                    {/*            <DiscordBadge serverId={verifiedPlayer?.discordServerId} invitationId={getDiscordInvitationId(verifiedPlayer)} />*/}
-                    {/*        </View>*/}
-                    {/*    }*/}
-                    {/*    {*/}
-                    {/*        verifiedPlayer?.youtube &&*/}
-                    {/*        <View style={styles.badge}>*/}
-                    {/*            <YoutubeBadge channel={getYoutubeChannel(verifiedPlayer)} />*/}
-                    {/*        </View>*/}
-                    {/*    }*/}
-                    {/*    {*/}
-                    {/*        verifiedPlayer?.douyu &&*/}
-                    {/*        <View style={styles.badge}>*/}
-                    {/*            <DouyuBadge channel={getDoyouChannel(verifiedPlayer)} />*/}
-                    {/*        </View>*/}
-                    {/*    }*/}
-                    {/*    {*/}
-                    {/*        verifiedPlayer?.twitch != null &&*/}
-                    {/*        <View style={styles.badge}>*/}
-                    {/*            <TwitchBadge channel={getTwitchChannel(verifiedPlayer)} />*/}
-                    {/*        </View>*/}
-                    {/*    }*/}
-                    {/*</View>*/}
+                    <View style={styles.row}>
+                        {
+                            verifiedPlayer?.discord &&
+                            <View style={styles.badge}>
+                                <DiscordBadge serverId={verifiedPlayer?.discordServerId} invitationId={getDiscordInvitationId(verifiedPlayer)} />
+                            </View>
+                        }
+                        {
+                            verifiedPlayer?.youtube &&
+                            <View style={styles.badge}>
+                                <YoutubeBadge channel={getYoutubeChannel(verifiedPlayer)} />
+                            </View>
+                        }
+                        {
+                            verifiedPlayer?.douyu &&
+                            <View style={styles.badge}>
+                                <DouyuBadge channel={getDoyouChannel(verifiedPlayer)} />
+                            </View>
+                        }
+                        {
+                            verifiedPlayer?.twitch != null &&
+                            <View style={styles.badge}>
+                                <TwitchBadge channel={getTwitchChannel(verifiedPlayer)} />
+                            </View>
+                        }
+                    </View>
 
                     <Space/>
 

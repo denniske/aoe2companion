@@ -186,7 +186,8 @@ export interface ITwitchChannel {
     tag_ids: string[];
 }
 
-export async function twitchLive(channel: string): Promise<ITwitchChannel> {
+export async function twitchLive(channel?: string): Promise<ITwitchChannel> {
+    if (channel == null || channel.length === 0) return {} as any;
     // return new Promise((resolve) => resolve({
     //   type: 'live',
     //   viewer_count: 320,

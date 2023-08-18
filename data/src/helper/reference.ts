@@ -67,7 +67,7 @@ export function getVerifiedPlayer(profileId: number) {
     return verifiedPlayer;
 }
 
-export function getTwitchChannel(verifiedPlayer: IReferencePlayer) {
+export function getTwitchChannel(verifiedPlayer?: IReferencePlayer) {
     try {
         return verifiedPlayer?.twitch?.[0]
             ?.replace('http://', '')
