@@ -1,11 +1,5 @@
 import {FlatList, Platform, StyleSheet, View} from "react-native";
-import {
-    clearMatchesPlayer,
-    clearStatsPlayer,
-    setPrefValue,
-    useMutate,
-    useSelector
-} from "../../redux/reducer";
+import {clearMatchesPlayer, clearStatsPlayer, setPrefValue, useMutate, useSelector} from "../../redux/reducer";
 import {LeaderboardId} from "@nex/data";
 import React, {useEffect, useState} from "react";
 import {RouteProp, useNavigation, useNavigationState, useRoute} from "@react-navigation/native";
@@ -18,8 +12,6 @@ import TemplatePicker from "../components/template-picker";
 import RefreshControlThemed from "../components/refresh-control-themed";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
-import {useNavigationStateExternal} from '../../hooks/use-navigation-state-external';
-import {getPathToRoute, getRoutesFromCurrentActiveStack} from '../../service/navigation';
 import {useTheme} from '../../theming';
 import {appVariants} from '../../styles';
 import {openLink} from "../../helper/url";
@@ -30,21 +22,16 @@ import Constants from 'expo-constants';
 import {RootStackParamList} from "../../../App2";
 import {useApi} from "../../hooks/use-api";
 import {loadProfile} from "../../service/profile";
+import {TextLoader} from "../components/loader/text-loader";
 
 
-export default function MainStats() {
+interface Props {
+    profileId: number;
+}
+
+export default function MainStats({ profileId }: Props) {
     const styles = useStyles();
     const appStyles = useTheme(appVariants);
-    const route = useRoute();
-    const navigationState = useNavigationStateExternal();
-    let routes = getPathToRoute(navigationState, route.key);
-    if (routes.length === 0) {
-        routes = getRoutesFromCurrentActiveStack(navigationState);
-    }
-
-    if (routes == null || routes.length === 0 || routes[0].params == null) return <View/>;
-
-    const profileId = routes[0].params.profileId;
 
     if (profileId == null) {
         // This happens sometimes when clicking notification
@@ -171,11 +158,13 @@ function MainStatsInternal({profileId}: {profileId: number}) {
                                     <View style={styles.pickerRow}>
                                         <TemplatePicker value={leaderboardId} values={values} template={renderLeaderboard} onSelect={onLeaderboardSelected}/>
                                     </View>
-                                    {/*<TextLoader ready={hasStats} style={styles.info}>*/}
-                                    {/*    {statsPlayer?.matchCount > 0 ?*/}
-                                    {/*        getTranslation('main.stats.thelastmatches', { matches: statsPlayer?.matchCount }) :*/}
-                                    {/*        getTranslation('main.stats.nomatches') + leaderboardTitle}*/}
-                                    {/*</TextLoader>*/}
+                                    <TextLoader ready={hasStats} style={styles.info}>
+                                        {/*{statsMap && statsMap.length > 0 ?*/}
+                                        {/*    getTranslation('main.stats.thelastmatches', { matches: statsPlayer?.matchCount }) :*/}
+                                        {/*    getTranslation('main.stats.nomatches') + leaderboardTitle}   */}
+                                        {statsMap && statsMap.length === 0 ?
+                                            getTranslation('main.stats.nomatches') + leaderboardTitle : 'Stats for ' + leaderboardTitle}
+                                    </TextLoader>
                                 </View>;
                             // case 'stats-duration':
                             //     return <MyText>---</MyText>;

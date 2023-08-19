@@ -7,7 +7,7 @@ interface ILazyApiOptions<A extends (...args: any) => any> {
     append?: (data: UnPromisify<ReturnType<A>>, newData: UnPromisify<ReturnType<A>>, args: Parameters<A>) => UnPromisify<ReturnType<A>>;
 }
 
-export function useLazyApi<A extends (...args: any) => any>(options: ILazyApiOptions<A>, action: A, ...defArgs: Parameters<A>) {
+export function useLazyAppendApi<A extends (...args: any) => any>(options: ILazyApiOptions<A>, action: A, ...defArgs: Parameters<A>) {
     const [data, setData] = useState(null as UnPromisify<ReturnType<A>>);
     const [loading, setLoading] = useState(false);
     const [touched, setTouched] = useState(false);
@@ -18,8 +18,6 @@ export function useLazyApi<A extends (...args: any) => any>(options: ILazyApiOpt
 
     const load = async (append: boolean, ...args: Parameters<A>) => {
         if (!mountedRef.current) return null;
-
-        console.log('LOAD', append);
 
         // Save current request ref
         requestRef.current++;
@@ -66,11 +64,11 @@ export function useLazyApi<A extends (...args: any) => any>(options: ILazyApiOpt
     }
 
     const reload = async () => {
-        await load(false, ...defArgs);
+        await load(true, ...defArgs);
     }
 
     const refetch = async (...args: Parameters<A>) => {
-        return await load(false, ...args);
+        return await load(true, ...args);
     }
 
     const refetchAppend = async (...args: Parameters<A>) => {

@@ -192,11 +192,11 @@ export default function Profile({data, ready}: IProfileProps) {
 
                     <View style={styles.row}>
                         {/*<ImageLoader style={styles.profileIcon} ready={data} source={{ uri: 'https://github.com/SiegeEngineers/aoc-reference-data/raw/master/data/photos/players/theviper.jpg'}}/>*/}
-                        <View>
+                        <View style={{flex: 1}}>
                             <View style={styles.row}>
                                 <CountryImageLoader country={data?.country} ready={data} />
 
-                                <TextLoader width={100}>{data?.name}</TextLoader>
+                                <TextLoader>{data?.name}</TextLoader>
                                 {
                                     data?.verified &&
                                     <FontAwesome5 solid name="check-circle" size={14} style={styles.verifiedIcon} />
@@ -207,14 +207,14 @@ export default function Profile({data, ready}: IProfileProps) {
                                 }
                             </View>
                             <View style={styles.row}>
-                                <TextLoader width={180} ready={data}>
+                                <TextLoader ready={data}>
                                     {getTranslation('main.profile.games', { games: data?.games })},
                                     {' '}{getTranslation('main.profile.drops', { drops: data?.drops })}
                                     {' '}({(data?.drops as any / (data?.games as any) * 100).toFixed(2)} %)
                                 </TextLoader>
                             </View>
                         </View>
-                        <View style={styles.expanded}/>
+                        {/*<View style={styles.expanded}/>*/}
                         {
                             data && (auth == null || auth?.profileId !== data.profileId) &&
                             <TouchableOpacity onPress={ToggleFollowing}>

@@ -29,9 +29,15 @@ export function MainPageInner({ profileId }: MainPageInnerProps) {
 
     return (
             <Tab.Navigator screenOptions={{ lazy:false, swipeEnabled: true }}>
-                <Tab.Screen name="MainProfile" options={{title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.profile')}/>}} component={MainProfile} />
-                <Tab.Screen name="MainStats" options={{title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.stats')}/>}} component={MainStats} />
-                <Tab.Screen name="MainMatches" options={{title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.matches')}/>}} component={MainMatches} />
+                <Tab.Screen name="MainProfile" options={{title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.profile')}/>}}>
+                    {() => <MainProfile profileId={profileId}/>}
+                </Tab.Screen>
+                <Tab.Screen name="MainStats" options={{title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.stats')}/>}}>
+                    {() => <MainStats profileId={profileId}/>}
+                </Tab.Screen>
+                <Tab.Screen name="MainMatches" options={{title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.matches')}/>}}>
+                    {() => <MainMatches profileId={profileId}/>}
+                </Tab.Screen>
             </Tab.Navigator>
     );
 }

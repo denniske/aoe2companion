@@ -98,6 +98,8 @@ export default function UserPage() {
     const profileId = route.params?.profileId;
     const styles = useStyles();
 
+    console.log('==> UserPage', profileId);
+
     const mutate = useMutate();
     const auth = useSelector(state => state.auth);
     const account = useSelector(state => state.account);
@@ -153,19 +155,19 @@ export default function UserPage() {
 
     // When name is not set yet
 
-    useEffect(() => {
-        if (profile != null) {
-            // @ts-ignore
-            navigation.setParams({
-                profileId: profile.profileId,
-            });
-        }
-    }, [profile]);
+    // useEffect(() => {
+    //     if (profile != null) {
+    //         // @ts-ignore
+    //         navigation.setParams({
+    //             profileId: profile.profileId,
+    //         });
+    //     }
+    // }, [profile]);
 
     // When visiting user page with only profileId / steamId
 
     const completeUserIdInfo = async () => {
-        // console.log('completeUserIdInfo');
+        console.log('completeUserIdInfo');
 
         const loadedProfile = await fetchProfile({profile_id: profileId});
         if (loadedProfile) {
@@ -176,7 +178,7 @@ export default function UserPage() {
             //     set(state.cache, ['profile', profileId, 'name'], loadedProfile.profiles[0].name);
             // });
         }
-        // console.log(loadedProfile);
+        console.log(loadedProfile);
 
         // if (!loadedProfile?.steamId) {
         //     setHasSteamId(false);

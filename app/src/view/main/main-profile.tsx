@@ -1,10 +1,9 @@
-import {FlatList, Linking, Platform, StyleSheet, View} from "react-native";
+import {FlatList, Platform, StyleSheet, View} from "react-native";
 import {useSelector} from "../../redux/reducer";
 import React, {useEffect, useState} from "react";
 import {RouteProp, useNavigation, useNavigationState, useRoute} from "@react-navigation/native";
 import {RootStackParamList, RootTabParamList} from "../../../App2";
 import {useApi} from "../../hooks/use-api";
-import {loadRatingHistories} from "../../service/rating";
 import {loadProfile} from "../../service/profile";
 import {MyText} from "../components/my-text";
 import Profile from "../components/profile";
@@ -14,8 +13,6 @@ import {Game} from "../components/game";
 import {Button} from "react-native-paper";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
-import {getPathToRoute, getRoutesFromCurrentActiveStack} from '../../service/navigation';
-import {useNavigationStateExternal} from '../../hooks/use-navigation-state-external';
 import {useTheme} from '../../theming';
 import {appVariants} from '../../styles';
 import {openLink} from "../../helper/url";
@@ -23,22 +20,13 @@ import {useWebRefresh} from "../../hooks/use-web-refresh";
 import FlatListLoadingIndicator from "../components/flat-list-loading-indicator";
 import Constants from 'expo-constants';
 
+interface Props {
+    profileId: number;
+}
 
-export default function MainProfile() {
+export default function MainProfile({ profileId }: Props) {
     const styles = useStyles();
     const appStyles = useTheme(appVariants);
-
-    const route = useRoute();
-    const navigationState = useNavigationStateExternal();
-    let routes = getPathToRoute(navigationState, route.key);
-
-    if (routes.length === 0) {
-        routes = getRoutesFromCurrentActiveStack(navigationState);
-    }
-
-    if (routes == null || routes.length === 0 || routes[0].params == null) return <View/>;
-
-    const profileId = routes[0].params.profileId;
 
     if (profileId == null) {
         // This happens sometimes when clicking notification
