@@ -23,6 +23,7 @@ import {RootStackParamList} from "../../../App2";
 import {useApi} from "../../hooks/use-api";
 import {loadProfile} from "../../service/profile";
 import {TextLoader} from "../components/loader/text-loader";
+import {Button} from "react-native-paper";
 
 
 interface Props {
@@ -65,6 +66,10 @@ function MainStatsInternal({profileId}: {profileId: number}) {
         });
     }, [userProfile]);
 
+    const currentCachedData =
+        useSelector(state => get(state.user, [profileId, 'profileWithStats']))?.stats?.find(s => s.leaderboardId === leaderboardId);
+    const previousCachedData = usePrevious(currentCachedData);
+
     const profileWithStats = useApi(
         {},
         [],
@@ -77,10 +82,6 @@ function MainStatsInternal({profileId}: {profileId: number}) {
         },
         loadProfile, profileId, 'stats'
     );
-
-    const currentCachedData =
-        useSelector(state => get(state.user, [profileId, 'profileWithStats']))?.stats?.find(s => s.leaderboardId === leaderboardId);
-    const previousCachedData = usePrevious(currentCachedData);
 
     // console.log('==> profile', profile.data);
     // console.log('==> profileWithStats', profileWithStats.data);
@@ -138,7 +139,7 @@ function MainStatsInternal({profileId}: {profileId: number}) {
     const onRefresh = async () => {
         setRefetching(true);
         await mutate(clearStatsPlayer(profileId));
-        await mutate(clearMatchesPlayer(profileId));
+        profileWithStats.reload();
     };
 
     return (

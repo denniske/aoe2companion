@@ -26,7 +26,7 @@ export function useCachedConservedLazyApi<A extends (...args: any) => any>(dep: 
 
         // If load is called in useEffect() it may be run synchronously if action is an synchronous function.
         // So we call an async function to force running asynchronously.
-        await sleep(1000);
+        await sleep(0);
 
         const data = await action(...(args as any));
 

@@ -5,7 +5,7 @@ import {RouteProp, useNavigation, useNavigationState, useRoute} from "@react-nav
 import {Game} from "../components/game";
 import RefreshControlThemed from "../components/refresh-control-themed";
 import {clearMatchesPlayer, useMutate, useSelector} from "../../redux/reducer";
-import {Checkbox, Searchbar} from "react-native-paper";
+import {Button, Checkbox, Searchbar} from "react-native-paper";
 import {MyText} from "../components/my-text";
 import {appVariants} from "../../styles";
 import {fetchPlayerMatches, LeaderboardId} from "@nex/data";
@@ -85,7 +85,7 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
 
     const refresh = () => {
         if (text.length < 3) {
-            // matchesHandle.reset();
+            matchesHandle.refetch(0, 500, [profileId], '');
             return;
         }
         if (previousText?.trim() === text.trim()) {
@@ -173,12 +173,15 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
 
     const onRefresh = async () => {
         setRefetching(true);
-        await mutate(clearMatchesPlayer(user));
+        await mutate(clearMatchesPlayer(profileId));
+        await matchesHandle.refetch(0, 500, [profileId], text.trim().length >= 3 ? text.trim() : '');
+        setRefetching(false);
     };
 
     return (
         <View style={styles.container}>
             <View style={styles.content}>
+                {/*<Button onPress={onRefresh}>REFRESH</Button>*/}
                 <View style={styles.pickerRow}>
                     <TemplatePicker value={leaderboardId} values={values} template={renderLeaderboard} onSelect={onLeaderboardSelected}/>
                     <View style={appStyles.expanded}/>
