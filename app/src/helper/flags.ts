@@ -2,6 +2,7 @@ import {Country, Flag} from "@nex/data";
 import {getTranslation} from './translate';
 
 export const flagEmojiDict = {
+    'EARTH': '🌎',
     'AD': '🇦🇩',
     'AE': '🇦🇪',
     'AF': '🇦🇫',

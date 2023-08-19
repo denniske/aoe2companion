@@ -7,6 +7,9 @@ module.exports = async function (env, argv) {
             ...env,
             // Passing true will enable the default Workbox + Expo SW configuration.
             // offline: true,
+            babel: {
+                dangerouslyAddModulePathsToTranspile: ['@ui-kitten/components']
+            }
         },
         argv
     );
@@ -20,3 +23,14 @@ module.exports = async function (env, argv) {
     // }
     return config;
 };
+
+
+// module.exports = async function(env, argv) {
+//     const config = await createExpoWebpackConfigAsync({
+//         ...env,
+//         babel: {
+//             dangerouslyAddModulePathsToTranspile: ['@ui-kitten/components']
+//         }
+//     }, argv);
+//     return config;
+// };

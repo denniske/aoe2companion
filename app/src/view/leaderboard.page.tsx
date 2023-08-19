@@ -30,6 +30,7 @@ import {CountryImage, CountryImageLoader} from './components/country-image';
 import {fetchLeaderboard} from "../api/leaderboard";
 import {ILeaderboardPlayerNew} from "@nex/data/api";
 import Constants from "expo-constants";
+import {IndexPath, Layout, Select, SelectItem} from "@ui-kitten/components";
 
 type TabParamList = {
     LeaderboardRmSolo: { leaderboardId: string };
@@ -59,6 +60,8 @@ export function LeaderboardMenu() {
     const country = useSelector(state => state.leaderboardCountry) || null;
     const authCountry = useSelector(state => state.prefs.country);
 
+    const [selectedIndex, setSelectedIndex] = React.useState<IndexPath | IndexPath[]>(new IndexPath(0));
+
     // Todo: Implement or remove
     const loadingLeaderboard = false;
 
@@ -66,7 +69,7 @@ export function LeaderboardMenu() {
         if (x == countryEarth) {
             return getTranslation('country.earth');
         }
-        return inList ? getCountryName(x as Country) : x;
+        return inList ? getCountryName(x as Country) : x?.toUpperCase();
     };
     const orderedCountriesDistinct = countriesDistinct.sort((a, b) => formatCountry(a, true).localeCompare(formatCountry(b, true)));
     const countryList: (string | null)[] = [
@@ -77,7 +80,7 @@ export function LeaderboardMenu() {
     const divider = (x: any, i: number) => i < (authCountry ? 2 : 1);
     const icon = (x: any) => {
         if (x == countryEarth) {
-            return <FontAwesome name="globe" size={21} style={{paddingLeft: 2, paddingRight: 12}} color={theme.colors.onBackground} />;
+            return <CountryImage country={'EARTH'} />;
         }
         return <CountryImage country={x} />;
     };
@@ -89,15 +92,59 @@ export function LeaderboardMenu() {
         return <View></View>;
     }
 
+    // console.log('country', country);
+    // console.log('countryList', countryList);
+
     return (
-        <View style={styles.menu}>
-            <View style={styles.pickerRow}>
-                <ActivityIndicator animating={loadingLeaderboard} size="small" color="#999"/>
-                <Picker itemHeight={40} textMinWidth={150} container="flatlist" divider={divider} icon={icon} disabled={loadingLeaderboard} value={country} values={countryList} formatter={formatCountry} onSelect={onCountrySelected}/>
-            </View>
-        </View>
+        <Select
+            style={{width: 190, marginRight: 16}}
+            size={'small'}
+            selectedIndex={new IndexPath(countryList.indexOf(country))}
+            onSelect={index => onCountrySelected(countryList[(index as IndexPath).row])}
+            value={formatCountry(country, true)}
+            accessoryLeft={icon(country)}
+        >
+            {
+                countryList.map((country, i) => {
+                    return <SelectItem key={i} title={formatCountry(country, true)} accessoryLeft={icon(country)} />
+                })
+            }
+        </Select>
+
+        // <SelectSimpleUsageShowcase/>
+        // <View style={styles.menu}>
+        //     <View style={styles.pickerRow}>
+        //         <ActivityIndicator animating={loadingLeaderboard} size="small" color="#999"/>
+        //         <Picker itemHeight={40} textMinWidth={150} container="flatlist" divider={divider} icon={icon} disabled={loadingLeaderboard} value={country} values={countryList} formatter={formatCountry} onSelect={onCountrySelected}/>
+        //     </View>
+        // </View>
     );
 }
+
+// const styles = StyleSheet.create({
+//     container: {
+//         // minHeight: 128,
+//     },
+// });
+
+// export const SelectSimpleUsageShowcase = (): React.ReactElement => {
+//     return (
+//         // <Layout
+//         //     style={styles.container}
+//         //     level='1'
+//         // >
+//             <Select
+//                 style={{width: 200}}
+//                 selectedIndex={selectedIndex}
+//                 onSelect={index => setSelectedIndex(index)}
+//             >
+//                 <SelectItem title='Option 1' />
+//                 <SelectItem title='Option 2' />
+//                 <SelectItem title='Option 3' />
+//             </Select>
+//         // </Layout>
+//     );
+// };
 
 export function LeaderboardTitle(props: any) {
     return <TextHeader text={getTranslation('leaderboard.title')} onLayout={props.titleProps.onLayout}/>;
@@ -168,296 +215,297 @@ export const windowWidth = Platform.OS === 'web' ? 450 : Dimensions.get('window'
 const pageSize = 100;
 
 function Leaderboard({leaderboardId}: any) {
-    const styles = useStyles();
-    const auth = useSelector(state => state.auth!);
-    const [refetching, setRefetching] = useState(false);
-    const leaderboardCountry = useSelector(state => state.leaderboardCountry) || null;
-    const navigation = useNavigation<RootStackProp>();
-    const flatListRef = React.useRef<FlatList>(null);
-    const [fetchingPage, setFetchingPage] = useState<number>();
-    const [contentOffsetY, setContentOffsetY] = useState<number>();
-    const [rankWidth, setRankWidth] = useState<number>(43);
-
-    const isFocused = useIsFocused();
-
-    const getParams = (page: number, profileId?: number) => {
-        if (leaderboardCountry == countryEarth) {
-            return {page, profileId};
-        }
-        return {page, profileId, country: leaderboardCountry};
-    }
-
-    const myRank = useLazyApi(
-        {},
-        fetchLeaderboard, leaderboardId, getParams(1, auth?.profileId)
-    );
-
-    const leaderboard = useLazyApi(
-        {
-            append: (data, newData, args) => {
-                const [leaderboardId, params] = args;
-                // console.log('APPEND', data, newData, args);
-                newData.players.forEach((value, index) => data.players[params.page*pageSize+index] = value);
-                // console.log('APPENDED', params);
-                return data;
-            },
-        },
-        fetchLeaderboard, leaderboardId, getParams(1)
-    );
-
-    const onRefresh = async () => {
-        setRefetching(true);
-        await Promise.all([leaderboard.reload(), auth ? myRank.reload() : noop()]);
-        setRefetching(false);
-    };
-
-    const rowHeight = 45;
-    const headerMyRankHeight = myRank.data?.players.length > 0 ? 64 : 0;
-    const headerInfoHeight = 30;
-    const headerHeight = headerInfoHeight + headerMyRankHeight;
-
-    const scrollToIndex = (index: number) => {
-        flatListRef.current?.scrollToIndex({ animated: true, index: index, viewOffset: -headerHeight-5 });
-    };
-
-    const scrollToMe = () => {
-        scrollToIndex(myRank.data.players[0].rank-1);
-    };
-
-    useEffect(() => {
-        if (!isFocused) return;
-        if (leaderboard.touched && leaderboard.lastParams?.leaderboardCountry === leaderboardCountry) return;
-        leaderboard.reload();
-        if (auth) {
-            myRank.reload();
-        }
-        flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
-    }, [isFocused, leaderboardCountry]);
-
-    const total = useRef<any>();
-
-    const list = leaderboard.data?.players || [];
-    list.length = leaderboard.data?.total || 200;
-    total.current = leaderboard.data?.total || 200;
-
-    const onSelect = async (player: ILeaderboardPlayerNew) => {
-        navigation.push('User', {
-            profileId: player.profileId,
-        });
-    };
-
-    const _renderRow = (player: ILeaderboardPlayerNew, i: number, isMyRankRow: boolean = false) => {
-        const isMe = player?.profileId === auth?.profileId;
-        const rowStyle = { minHeight: isMyRankRow ? headerMyRankHeight : rowHeight };
-        const weightStyle = { fontWeight: isMe ? 'bold' : 'normal' } as TextStyle;
-        const rankWidthStyle = { width: isMyRankRow ? undefined : rankWidth } as ViewStyle;
-        return (
-            <TouchableOpacity style={[styles.row, rowStyle]} disabled={player == null} onPress={() => isMyRankRow ? scrollToMe() : onSelect(player)}>
-                <View style={isMyRankRow ? styles.innerRow : styles.innerRowWithBorder}>
-                    <TextLoader numberOfLines={1} style={[styles.cellRank, weightStyle, rankWidthStyle]}>#{player?.rank || i+1}</TextLoader>
-                    <TextLoader style={isMe ? styles.cellRatingMe : styles.cellRating}>{player?.rating}</TextLoader>
-                    <View style={styles.cellName}>
-                        <CountryImageLoader country={player?.country} ready={player} />
-                        <TextLoader style={isMe ? styles.nameMe : styles.name} numberOfLines={1}>{player?.name}</TextLoader>
-                    </View>
-                    {
-                        windowWidth >= 360 &&
-                        <TextLoader ready={player?.games} style={styles.cellGames}>{getTranslation('leaderboard.games', { games: player?.games })}</TextLoader>
-                    }
-                </View>
-            </TouchableOpacity>
-        );
-    };
-
-    const _renderHeader = () => {
-        const players = getTranslation('leaderboard.players', { players: leaderboard.data?.total });
-        // const updated = leaderboard.data?.updated ? getTranslation('leaderboard.updated', { updated: formatAgo(leaderboard.data.updated) }) : '';
-        return (
-            <>
-                <View style={{height: headerInfoHeight}}>
-                    <MyText style={styles.info}>
-                        {leaderboard.data?.total ? players : ''}{/*{leaderboard.data?.updated ? ' (' + updated + ')' : ''}*/}
-                    </MyText>
-                </View>
-                {myRank.data?.players.length > 0 && _renderRow(myRank.data.players[0], 0, true)}
-            </>
-        )
-    };
-
-
-    const fetchPage = async (page: number) => {
-        if (fetchingPage !== undefined) return;
-        if (leaderboard.loading) return;
-        // console.log('FETCHPAGE', page);
-        setFetchingPage(page);
-        await leaderboard.refetchAppend(leaderboardId, getParams(page));
-        setFetchingPage(undefined);
-    };
-
-    const fetchByContentOffset = (contentOffsetY: number) => {
-        if (!leaderboard.touched) return;
-
-        contentOffsetY -= headerHeight;
-        contentOffsetY -= 20; // padding top
-
-        const index = Math.floor(contentOffsetY/rowHeight);
-        const indexTop = Math.max(0, index);
-        const indexBottom = Math.min(leaderboard.data.total-1, index+15);
-
-        const rankLen = indexBottom.toFixed(0).length;
-        setRankWidth((rankLen+1) * 10);
-
-        // console.log('indexTop', indexTop, '-', indexBottom);
-
-        if (!list[indexTop]) {
-            fetchPage(Math.ceil(indexTop / pageSize));
-            return;
-        }
-        if (!list[indexBottom]) {
-            fetchPage(Math.ceil(indexBottom / pageSize));
-        }
-    };
-
-    useEffect(() => {
-        if (contentOffsetY === undefined) return;
-        fetchByContentOffset(contentOffsetY);
-    }, [contentOffsetY, fetchingPage])
-
-    const updateScrollHandlePosition = (contentOffsetY: number) => {
-        if (movingScrollHandle.current) return;
-        position.setValue({x: 0, y: contentOffsetY / (list.length * rowHeight) * scrollRange.current});
-    };
-
-    const handleOnScrollEndDrag = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-        setContentOffsetY(event.nativeEvent.contentOffset.y);
-        updateTimer();
-        updateScrollHandlePosition(event.nativeEvent.contentOffset.y);
-    };
-
-    const handleOnMomentumScrollBegin = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-        setContentOffsetY(event.nativeEvent.contentOffset.y);
-        updateTimer();
-        scollingFlatlist.current = true;
-    };
-
-    const handleOnMomentumScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-        setContentOffsetY(event.nativeEvent.contentOffset.y);
-        updateTimer();
-        updateScrollHandlePosition(event.nativeEvent.contentOffset.y);
-        scollingFlatlist.current = false;
-    };
-
-    const handleOnScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-        setContentOffsetY(event.nativeEvent.contentOffset.y);
-        if (scollingFlatlist.current) {
-            updateTimer();
-        }
-        updateScrollHandlePosition(event.nativeEvent.contentOffset.y);
-    };
-
-    const inactivityTimeout = useRef<any>();
-    const scrollRange = useRef<number>(0);
-    const handleOffsetY = useRef<number>();
-    const movingScrollHandle = useRef<boolean>();
-    const scollingFlatlist = useRef<boolean>();
-    const [handleVisible, setHandleVisible] = useState(true);
-    const [baseMoving, setBaseMoving] = useState(false);
-
-    const position = useRef(new Animated.ValueXY()).current;
-    const panResponder = useMemo(() => PanResponder.create({
-        onStartShouldSetPanResponder: () => true,
-        onMoveShouldSetPanResponder: () => true,
-        onPanResponderMove: (evt, gestureState) => {
-            const min = -handleOffsetY.current!;
-            const max = min + scrollRange.current;
-            position.setValue({x: gestureState.dx, y: Math.max(Math.min(gestureState.dy, max), min)});
-        },
-        onPanResponderGrant: () => {
-            handleOffsetY.current = getValue(position.y);
-            position.setOffset({
-                x: getValue(position.x),
-                y: getValue(position.y),
-            });
-            movingScrollHandle.current = true;
-            setBaseMoving(true);
-        },
-        onPanResponderRelease: () => {
-            position.flattenOffset();
-            const offset = getValue(position.y);
-            const newOffset = (offset / scrollRange.current) * total.current * rowHeight;
-            flatListRef.current?.scrollToOffset({ animated: false, offset: newOffset });
-            movingScrollHandle.current = false;
-            setBaseMoving(false);
-            handleOffsetY.current = 0;
-        },
-    }), []);
-
-    const updateTimer = () => {
-        setHandleVisible(false);
-        if (inactivityTimeout.current) clearTimeout(inactivityTimeout.current);
-        inactivityTimeout.current = setTimeout(() => setHandleVisible(true), 1000);
-    };
-
-    return (
-        <View style={styles.container2}>
-            <View style={[styles.content, {opacity: leaderboard.loading ? 0.7 : 1}]}>
-                {
-                    leaderboard.error &&
-                    <View style={styles.centered}>
-                        <MyText>{getTranslation('leaderboard.error')}</MyText>
-                    </View>
-                }
-                {
-                    leaderboard.data?.total === 0 &&
-                    <View style={styles.centered}>
-                        <MyText>{getTranslation('leaderboard.noplayerfound')}</MyText>
-                    </View>
-                }
-                {
-                    leaderboard.data?.total !== 0 &&
-                    <FlatList
-                        ref={flatListRef}
-                        onScrollEndDrag={handleOnScrollEndDrag}
-                        onMomentumScrollBegin={handleOnMomentumScrollBegin}
-                        onMomentumScrollEnd={handleOnMomentumScrollEnd}
-                        onScroll={handleOnScroll}
-                        onLayout={({nativeEvent: {layout}}: any) => {
-                            scrollRange.current = layout.height-HANDLE_RADIUS*2;
-                        }}
-                        scrollEventThrottle={500}
-                        contentContainerStyle={styles.list}
-                        data={list}
-                        getItemLayout={(data: any, index: number) => ({length: rowHeight, offset: rowHeight * index, index})}
-                        renderItem={({item, index}: any) => _renderRow(item, index)}
-                        keyExtractor={(item: { profileId: any; }, index: any) => (item?.profileId || index).toString()}
-                        refreshControl={
-                            <RefreshControlThemed
-                                onRefresh={onRefresh}
-                                refreshing={refetching}
-                            />
-                        }
-                        ListHeaderComponent={_renderHeader}
-                        showsVerticalScrollIndicator={!handleVisible}
-                    />
-                }
-            </View>
-            <View style={styles.handleContainer} pointerEvents="box-none">
-                <Animated.View
-                    {...panResponder.panHandlers}
-                    style={[{top: position.y, right: -HANDLE_RADIUS, opacity: handleVisible ? 1 : 0}, styles.handle]}>
-                    <FontAwesome5 name="arrows-alt-v" size={26} style={styles.arrows}/>
-                    {
-                        baseMoving &&
-                        <View style={styles.textContainer}>
-                            <View style={styles.textBox}>
-                                <AnimatedValueText value={position.y} formatter={(offset: number) => ((offset / scrollRange.current) * list.length).toFixed()} style={styles.text}/>
-                            </View>
-                        </View>
-                    }
-                </Animated.View>
-            </View>
-        </View>
-    );
+    return <MyText>Leaderboard {leaderboardId}</MyText>;
+    // const styles = useStyles();
+    // const auth = useSelector(state => state.auth!);
+    // const [refetching, setRefetching] = useState(false);
+    // const leaderboardCountry = useSelector(state => state.leaderboardCountry) || null;
+    // const navigation = useNavigation<RootStackProp>();
+    // const flatListRef = React.useRef<FlatList>(null);
+    // const [fetchingPage, setFetchingPage] = useState<number>();
+    // const [contentOffsetY, setContentOffsetY] = useState<number>();
+    // const [rankWidth, setRankWidth] = useState<number>(43);
+    //
+    // const isFocused = useIsFocused();
+    //
+    // const getParams = (page: number, profileId?: number) => {
+    //     if (leaderboardCountry == countryEarth) {
+    //         return {page, profileId};
+    //     }
+    //     return {page, profileId, country: leaderboardCountry};
+    // }
+    //
+    // const myRank = useLazyApi(
+    //     {},
+    //     fetchLeaderboard, leaderboardId, getParams(1, auth?.profileId)
+    // );
+    //
+    // const leaderboard = useLazyApi(
+    //     {
+    //         append: (data, newData, args) => {
+    //             const [leaderboardId, params] = args;
+    //             // console.log('APPEND', data, newData, args);
+    //             newData.players.forEach((value, index) => data.players[params.page*pageSize+index] = value);
+    //             // console.log('APPENDED', params);
+    //             return data;
+    //         },
+    //     },
+    //     fetchLeaderboard, leaderboardId, getParams(1)
+    // );
+    //
+    // const onRefresh = async () => {
+    //     setRefetching(true);
+    //     await Promise.all([leaderboard.reload(), auth ? myRank.reload() : noop()]);
+    //     setRefetching(false);
+    // };
+    //
+    // const rowHeight = 45;
+    // const headerMyRankHeight = myRank.data?.players.length > 0 ? 64 : 0;
+    // const headerInfoHeight = 30;
+    // const headerHeight = headerInfoHeight + headerMyRankHeight;
+    //
+    // const scrollToIndex = (index: number) => {
+    //     flatListRef.current?.scrollToIndex({ animated: true, index: index, viewOffset: -headerHeight-5 });
+    // };
+    //
+    // const scrollToMe = () => {
+    //     scrollToIndex(myRank.data.players[0].rank-1);
+    // };
+    //
+    // useEffect(() => {
+    //     if (!isFocused) return;
+    //     if (leaderboard.touched && leaderboard.lastParams?.leaderboardCountry === leaderboardCountry) return;
+    //     leaderboard.reload();
+    //     if (auth) {
+    //         myRank.reload();
+    //     }
+    //     flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
+    // }, [isFocused, leaderboardCountry]);
+    //
+    // const total = useRef<any>();
+    //
+    // const list = leaderboard.data?.players || [];
+    // list.length = leaderboard.data?.total || 200;
+    // total.current = leaderboard.data?.total || 200;
+    //
+    // const onSelect = async (player: ILeaderboardPlayerNew) => {
+    //     navigation.push('User', {
+    //         profileId: player.profileId,
+    //     });
+    // };
+    //
+    // const _renderRow = (player: ILeaderboardPlayerNew, i: number, isMyRankRow: boolean = false) => {
+    //     const isMe = player?.profileId === auth?.profileId;
+    //     const rowStyle = { minHeight: isMyRankRow ? headerMyRankHeight : rowHeight };
+    //     const weightStyle = { fontWeight: isMe ? 'bold' : 'normal' } as TextStyle;
+    //     const rankWidthStyle = { width: isMyRankRow ? undefined : rankWidth } as ViewStyle;
+    //     return (
+    //         <TouchableOpacity style={[styles.row, rowStyle]} disabled={player == null} onPress={() => isMyRankRow ? scrollToMe() : onSelect(player)}>
+    //             <View style={isMyRankRow ? styles.innerRow : styles.innerRowWithBorder}>
+    //                 <TextLoader numberOfLines={1} style={[styles.cellRank, weightStyle, rankWidthStyle]}>#{player?.rank || i+1}</TextLoader>
+    //                 <TextLoader style={isMe ? styles.cellRatingMe : styles.cellRating}>{player?.rating}</TextLoader>
+    //                 <View style={styles.cellName}>
+    //                     <CountryImageLoader country={player?.country} ready={player} />
+    //                     <TextLoader style={isMe ? styles.nameMe : styles.name} numberOfLines={1}>{player?.name}</TextLoader>
+    //                 </View>
+    //                 {
+    //                     windowWidth >= 360 &&
+    //                     <TextLoader ready={player?.games} style={styles.cellGames}>{getTranslation('leaderboard.games', { games: player?.games })}</TextLoader>
+    //                 }
+    //             </View>
+    //         </TouchableOpacity>
+    //     );
+    // };
+    //
+    // const _renderHeader = () => {
+    //     const players = getTranslation('leaderboard.players', { players: leaderboard.data?.total });
+    //     // const updated = leaderboard.data?.updated ? getTranslation('leaderboard.updated', { updated: formatAgo(leaderboard.data.updated) }) : '';
+    //     return (
+    //         <>
+    //             <View style={{height: headerInfoHeight}}>
+    //                 <MyText style={styles.info}>
+    //                     {leaderboard.data?.total ? players : ''}{/*{leaderboard.data?.updated ? ' (' + updated + ')' : ''}*/}
+    //                 </MyText>
+    //             </View>
+    //             {myRank.data?.players.length > 0 && _renderRow(myRank.data.players[0], 0, true)}
+    //         </>
+    //     )
+    // };
+    //
+    //
+    // const fetchPage = async (page: number) => {
+    //     if (fetchingPage !== undefined) return;
+    //     if (leaderboard.loading) return;
+    //     // console.log('FETCHPAGE', page);
+    //     setFetchingPage(page);
+    //     await leaderboard.refetchAppend(leaderboardId, getParams(page));
+    //     setFetchingPage(undefined);
+    // };
+    //
+    // const fetchByContentOffset = (contentOffsetY: number) => {
+    //     if (!leaderboard.touched) return;
+    //
+    //     contentOffsetY -= headerHeight;
+    //     contentOffsetY -= 20; // padding top
+    //
+    //     const index = Math.floor(contentOffsetY/rowHeight);
+    //     const indexTop = Math.max(0, index);
+    //     const indexBottom = Math.min(leaderboard.data.total-1, index+15);
+    //
+    //     const rankLen = indexBottom.toFixed(0).length;
+    //     setRankWidth((rankLen+1) * 10);
+    //
+    //     // console.log('indexTop', indexTop, '-', indexBottom);
+    //
+    //     if (!list[indexTop]) {
+    //         fetchPage(Math.ceil(indexTop / pageSize));
+    //         return;
+    //     }
+    //     if (!list[indexBottom]) {
+    //         fetchPage(Math.ceil(indexBottom / pageSize));
+    //     }
+    // };
+    //
+    // useEffect(() => {
+    //     if (contentOffsetY === undefined) return;
+    //     fetchByContentOffset(contentOffsetY);
+    // }, [contentOffsetY, fetchingPage])
+    //
+    // const updateScrollHandlePosition = (contentOffsetY: number) => {
+    //     if (movingScrollHandle.current) return;
+    //     position.setValue({x: 0, y: contentOffsetY / (list.length * rowHeight) * scrollRange.current});
+    // };
+    //
+    // const handleOnScrollEndDrag = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    //     setContentOffsetY(event.nativeEvent.contentOffset.y);
+    //     updateTimer();
+    //     updateScrollHandlePosition(event.nativeEvent.contentOffset.y);
+    // };
+    //
+    // const handleOnMomentumScrollBegin = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    //     setContentOffsetY(event.nativeEvent.contentOffset.y);
+    //     updateTimer();
+    //     scollingFlatlist.current = true;
+    // };
+    //
+    // const handleOnMomentumScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    //     setContentOffsetY(event.nativeEvent.contentOffset.y);
+    //     updateTimer();
+    //     updateScrollHandlePosition(event.nativeEvent.contentOffset.y);
+    //     scollingFlatlist.current = false;
+    // };
+    //
+    // const handleOnScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    //     setContentOffsetY(event.nativeEvent.contentOffset.y);
+    //     if (scollingFlatlist.current) {
+    //         updateTimer();
+    //     }
+    //     updateScrollHandlePosition(event.nativeEvent.contentOffset.y);
+    // };
+    //
+    // const inactivityTimeout = useRef<any>();
+    // const scrollRange = useRef<number>(0);
+    // const handleOffsetY = useRef<number>();
+    // const movingScrollHandle = useRef<boolean>();
+    // const scollingFlatlist = useRef<boolean>();
+    // const [handleVisible, setHandleVisible] = useState(true);
+    // const [baseMoving, setBaseMoving] = useState(false);
+    //
+    // const position = useRef(new Animated.ValueXY()).current;
+    // const panResponder = useMemo(() => PanResponder.create({
+    //     onStartShouldSetPanResponder: () => true,
+    //     onMoveShouldSetPanResponder: () => true,
+    //     onPanResponderMove: (evt, gestureState) => {
+    //         const min = -handleOffsetY.current!;
+    //         const max = min + scrollRange.current;
+    //         position.setValue({x: gestureState.dx, y: Math.max(Math.min(gestureState.dy, max), min)});
+    //     },
+    //     onPanResponderGrant: () => {
+    //         handleOffsetY.current = getValue(position.y);
+    //         position.setOffset({
+    //             x: getValue(position.x),
+    //             y: getValue(position.y),
+    //         });
+    //         movingScrollHandle.current = true;
+    //         setBaseMoving(true);
+    //     },
+    //     onPanResponderRelease: () => {
+    //         position.flattenOffset();
+    //         const offset = getValue(position.y);
+    //         const newOffset = (offset / scrollRange.current) * total.current * rowHeight;
+    //         flatListRef.current?.scrollToOffset({ animated: false, offset: newOffset });
+    //         movingScrollHandle.current = false;
+    //         setBaseMoving(false);
+    //         handleOffsetY.current = 0;
+    //     },
+    // }), []);
+    //
+    // const updateTimer = () => {
+    //     setHandleVisible(false);
+    //     if (inactivityTimeout.current) clearTimeout(inactivityTimeout.current);
+    //     inactivityTimeout.current = setTimeout(() => setHandleVisible(true), 1000);
+    // };
+    //
+    // return (
+    //     <View style={styles.container2}>
+    //         <View style={[styles.content, {opacity: leaderboard.loading ? 0.7 : 1}]}>
+    //             {
+    //                 leaderboard.error &&
+    //                 <View style={styles.centered}>
+    //                     <MyText>{getTranslation('leaderboard.error')}</MyText>
+    //                 </View>
+    //             }
+    //             {
+    //                 leaderboard.data?.total === 0 &&
+    //                 <View style={styles.centered}>
+    //                     <MyText>{getTranslation('leaderboard.noplayerfound')}</MyText>
+    //                 </View>
+    //             }
+    //             {
+    //                 leaderboard.data?.total !== 0 &&
+    //                 <FlatList
+    //                     ref={flatListRef}
+    //                     onScrollEndDrag={handleOnScrollEndDrag}
+    //                     onMomentumScrollBegin={handleOnMomentumScrollBegin}
+    //                     onMomentumScrollEnd={handleOnMomentumScrollEnd}
+    //                     onScroll={handleOnScroll}
+    //                     onLayout={({nativeEvent: {layout}}: any) => {
+    //                         scrollRange.current = layout.height-HANDLE_RADIUS*2;
+    //                     }}
+    //                     scrollEventThrottle={500}
+    //                     contentContainerStyle={styles.list}
+    //                     data={list}
+    //                     getItemLayout={(data: any, index: number) => ({length: rowHeight, offset: rowHeight * index, index})}
+    //                     renderItem={({item, index}: any) => _renderRow(item, index)}
+    //                     keyExtractor={(item: { profileId: any; }, index: any) => (item?.profileId || index).toString()}
+    //                     refreshControl={
+    //                         <RefreshControlThemed
+    //                             onRefresh={onRefresh}
+    //                             refreshing={refetching}
+    //                         />
+    //                     }
+    //                     ListHeaderComponent={_renderHeader}
+    //                     showsVerticalScrollIndicator={!handleVisible}
+    //                 />
+    //             }
+    //         </View>
+    //         <View style={styles.handleContainer} pointerEvents="box-none">
+    //             <Animated.View
+    //                 {...panResponder.panHandlers}
+    //                 style={[{top: position.y, right: -HANDLE_RADIUS, opacity: handleVisible ? 1 : 0}, styles.handle]}>
+    //                 <FontAwesome5 name="arrows-alt-v" size={26} style={styles.arrows}/>
+    //                 {
+    //                     baseMoving &&
+    //                     <View style={styles.textContainer}>
+    //                         <View style={styles.textBox}>
+    //                             <AnimatedValueText value={position.y} formatter={(offset: number) => ((offset / scrollRange.current) * list.length).toFixed()} style={styles.text}/>
+    //                         </View>
+    //                     </View>
+    //                 }
+    //             </Animated.View>
+    //         </View>
+    //     </View>
+    // );
 }
 
 const HANDLE_RADIUS = 36;

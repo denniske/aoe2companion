@@ -1832,6 +1832,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@eva-design/dss@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "@eva-design/dss@npm:2.2.0"
+  checksum: 79a3c848fd7dfb58baea5b7e14beb6e639e3086da7d0352b4c6cb1c97616100b6460b158a51b757575191a75cd47a4a224a175d60b9029ebd6505f7479cfc0d4
+  languageName: node
+  linkType: hard
+
+"@eva-design/eva@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "@eva-design/eva@npm:2.2.0"
+  checksum: 6d5db86cf2deeee3186c3496ac614a2beb92d90a2a0ed1446b92665ed506ccba3ff64c7878eec6517c54cdb4d14368456045580e01f3a9c3e57f6607ec6cabdd
+  languageName: node
+  linkType: hard
+
+"@eva-design/processor@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "@eva-design/processor@npm:2.2.0"
+  checksum: 04afa0aa16d1327d2a2e014cdf3ded5a9e2938cdcfec9faf50988e1e20abbaf9592759bf1fa05311156d3f545292886b17967ffe2ae78f0db6879a5f229a9165
+  languageName: node
+  linkType: hard
+
 "@expo-google-fonts/roboto@npm:^0.1.0":
   version: 0.1.0
   resolution: "@expo-google-fonts/roboto@npm:0.1.0"
@@ -4961,6 +4982,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ui-kitten/components@npm:^5.3.1":
+  version: 5.3.1
+  resolution: "@ui-kitten/components@npm:5.3.1"
+  dependencies:
+    "@eva-design/dss": ^2.2.0
+    "@eva-design/processor": ^2.2.0
+    fecha: 3.0.3
+    hoist-non-react-statics: ^3.2.1
+    lodash.merge: ^4.6.1
+  peerDependencies:
+    react-native-svg: "*"
+  checksum: 4c0adf1728f5c1264e41bd3827c48c80692bbc0d82c67ce404e1271d3723ede27cda9690bde725952fdee9e009dafc4e52e81fa4d0cff51ac3ced92e6b4eea8f
+  languageName: node
+  linkType: hard
+
 "@urql/core@npm:2.3.6":
   version: 2.3.6
   resolution: "@urql/core@npm:2.3.6"
@@ -5739,6 +5775,7 @@ __metadata:
     "@babel/plugin-proposal-decorators": ^7.10.5
     "@babel/preset-env": ^7.10.4
     "@babel/preset-typescript": ^7.10.4
+    "@eva-design/eva": ^2.2.0
     "@expo-google-fonts/roboto": ^0.1.0
     "@expo/metro-config": ^0.10.7
     "@expo/webpack-config": ^0.17.0
@@ -5769,6 +5806,7 @@ __metadata:
     "@types/react-redux": 7.1.11
     "@types/semver": ^7.3.1
     "@types/uuid": ^3.4.9
+    "@ui-kitten/components": ^5.3.1
     array-flat-polyfill: ^1.0.1
     babel-loader: ^8.1.0
     babel-plugin-transform-typescript-metadata: ^0.3.0
@@ -5807,7 +5845,7 @@ __metadata:
     react-native-reanimated: ~3.3.0
     react-native-safe-area-context: 4.6.3
     react-native-screens: ~3.22.0
-    react-native-svg: 13.9.0
+    react-native-svg: ^13.11.0
     react-native-tab-view: ^3.5.2
     react-native-vector-icons: ^9.0.0
     react-native-view-shot: 3.7.0
@@ -10647,6 +10685,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fecha@npm:3.0.3":
+  version: 3.0.3
+  resolution: "fecha@npm:3.0.3"
+  checksum: a258640f0ca1b2907c4c09be5ad39ad83d23e0d9654776ca0f3003e34f2bc14ceac31e03c4cb3f7394b2c81b12129b05052ac4bd67b17ebfb59edf0cc6be31a8
+  languageName: node
+  linkType: hard
+
 "fetch-retry@npm:^4.1.1":
   version: 4.1.1
   resolution: "fetch-retry@npm:4.1.1"
@@ -11789,7 +11834,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hoist-non-react-statics@npm:^3.3.0, hoist-non-react-statics@npm:^3.3.2":
+"hoist-non-react-statics@npm:^3.2.1, hoist-non-react-statics@npm:^3.3.0, hoist-non-react-statics@npm:^3.3.2":
   version: 3.3.2
   resolution: "hoist-non-react-statics@npm:3.3.2"
   dependencies:
@@ -14348,6 +14393,13 @@ __metadata:
   version: 4.1.2
   resolution: "lodash.memoize@npm:4.1.2"
   checksum: 9ff3942feeccffa4f1fafa88d32f0d24fdc62fd15ded5a74a5f950ff5f0c6f61916157246744c620173dddf38d37095a92327d5fd3861e2063e736a5c207d089
+  languageName: node
+  linkType: hard
+
+"lodash.merge@npm:^4.6.1":
+  version: 4.6.2
+  resolution: "lodash.merge@npm:4.6.2"
+  checksum: ad580b4bdbb7ca1f7abf7e1bce63a9a0b98e370cf40194b03380a46b4ed799c9573029599caebc1b14e3f24b111aef72b96674a56cfa105e0f5ac70546cdc005
   languageName: node
   linkType: hard
 
@@ -18312,16 +18364,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-svg@npm:13.9.0":
-  version: 13.9.0
-  resolution: "react-native-svg@npm:13.9.0"
+"react-native-svg@npm:^13.11.0":
+  version: 13.11.0
+  resolution: "react-native-svg@npm:13.11.0"
   dependencies:
     css-select: ^5.1.0
     css-tree: ^1.1.3
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: f4fe1c9e802d7ea86b9efef74313a80fb75d486f40ca79aaa04d42ffd3f6e462a3f37ee54018fae9fd1efdc2d8b005d1e71b02bb266c0ab8baec70d9a5730892
+  checksum: b6969e8a425a9f05ca368ba6fb7ea2c1dd759e1659b9270b967555a77ac82df91d287689c963b295b8281a713044c49090435a04742c20203469605a16b38821
   languageName: node
   linkType: hard
 

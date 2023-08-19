@@ -90,6 +90,8 @@ import {registerRootComponent} from "expo";
 import Constants from 'expo-constants';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import * as SplashScreen from 'expo-splash-screen';
+import * as eva from '@eva-design/eva';
+import { ApplicationProvider, Layout } from '@ui-kitten/components';
 
 initSentry();
 
@@ -483,6 +485,7 @@ export function InnerApp() {
                     component={LeaderboardPage}
                     options={props => ({
                         title: getTranslation('leaderboard.title'),
+                        headerTitleAlign: 'left',
                         headerRight: leaderboardMenu(props),
                         headerTitle: titleProps => <LeaderboardTitle {...props} titleProps={titleProps} />,
                     })}
@@ -888,6 +891,7 @@ export function AppWrapper() {
                         icon: props => <FontAwesome5 {...props} />,
                     }}
                 >
+                    <ApplicationProvider {...eva} theme={eva.light}>
                     <GestureHandlerRootView style={{ flex: 1 }}>
                     <StatusBar barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'} backgroundColor="transparent" translucent={true} />
                     {/*<StatusBar barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'} backgroundColor="transparent" translucent={true} />*/}
@@ -912,6 +916,7 @@ export function AppWrapper() {
                         }
                     </View>
                     </GestureHandlerRootView>
+                    </ApplicationProvider>
                 </PaperProvider>
             </ConditionalTester>
         </NavigationContainer>
