@@ -94,7 +94,7 @@ export function FeedList() {
     const refetch = async () => {
         console.log('REFETCH');
         setRefetching(true);
-        await matches.refetch('aoe2de', 0, 15, following);
+        await matches.refetch(0, 15, following?.map(f => f.profileId));
         console.log('REFETCH DONE');
         setRefetching(false);
         setFetchedAll(false);
