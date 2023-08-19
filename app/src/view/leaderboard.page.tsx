@@ -60,11 +60,6 @@ export function LeaderboardMenu() {
     const country = useSelector(state => state.leaderboardCountry) || null;
     const authCountry = useSelector(state => state.prefs.country);
 
-    const [selectedIndex, setSelectedIndex] = React.useState<IndexPath | IndexPath[]>(new IndexPath(0));
-
-    // Todo: Implement or remove
-    const loadingLeaderboard = false;
-
     const formatCountry = (x: (string | null), inList?: boolean) => {
         if (x == countryEarth) {
             return getTranslation('country.earth');
@@ -92,9 +87,6 @@ export function LeaderboardMenu() {
         return <View></View>;
     }
 
-    // console.log('country', country);
-    // console.log('countryList', countryList);
-
     return (
         <Select
             style={{width: 190, marginRight: 16}}
@@ -110,41 +102,8 @@ export function LeaderboardMenu() {
                 })
             }
         </Select>
-
-        // <SelectSimpleUsageShowcase/>
-        // <View style={styles.menu}>
-        //     <View style={styles.pickerRow}>
-        //         <ActivityIndicator animating={loadingLeaderboard} size="small" color="#999"/>
-        //         <Picker itemHeight={40} textMinWidth={150} container="flatlist" divider={divider} icon={icon} disabled={loadingLeaderboard} value={country} values={countryList} formatter={formatCountry} onSelect={onCountrySelected}/>
-        //     </View>
-        // </View>
     );
 }
-
-// const styles = StyleSheet.create({
-//     container: {
-//         // minHeight: 128,
-//     },
-// });
-
-// export const SelectSimpleUsageShowcase = (): React.ReactElement => {
-//     return (
-//         // <Layout
-//         //     style={styles.container}
-//         //     level='1'
-//         // >
-//             <Select
-//                 style={{width: 200}}
-//                 selectedIndex={selectedIndex}
-//                 onSelect={index => setSelectedIndex(index)}
-//             >
-//                 <SelectItem title='Option 1' />
-//                 <SelectItem title='Option 2' />
-//                 <SelectItem title='Option 3' />
-//             </Select>
-//         // </Layout>
-//     );
-// };
 
 export function LeaderboardTitle(props: any) {
     return <TextHeader text={getTranslation('leaderboard.title')} onLayout={props.titleProps.onLayout}/>;

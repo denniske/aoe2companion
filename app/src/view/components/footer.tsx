@@ -24,6 +24,7 @@ import {openLink} from "../../helper/url";
 import {appConfig} from "@nex/dataset";
 import {useCavy} from '../testing/tester';
 import Constants from "expo-constants";
+import {MenuItem, OverflowMenu} from "@ui-kitten/components";
 
 
 export default function Footer() {
@@ -87,7 +88,7 @@ export default function Footer() {
         return isActiveRoute ? styles.iconActive2 : styles.icon2;
     };
 
-    const iconPopupStyle = (...routes: string[]) => {
+    const iconPopupStyle = (...routes: string[]): any => {
         const isActiveRoute = routes.includes(activeRoute?.name!);
         return isActiveRoute ? styles.iconActive : styles.iconInPopup;
     };
@@ -235,6 +236,45 @@ export default function Footer() {
                         </>
                     }
 
+                    {/*<OverflowMenu*/}
+                    {/*    anchor={*/}
+                    {/*        () => <View><Space/></View>*/}
+                    {/*    }*/}
+                    {/*    visible={menu}*/}
+                    {/*    placement={'top end'}*/}
+                    {/*    onBackdropPress={() => setMenu(false)}*/}
+
+                    {/*    style={{maxHeight: 500, flexGrow: 1}}*/}
+                    {/*    contentContainerStyle={{}}*/}
+                    {/*    appearance={'noDivider'}*/}
+                    {/*>*/}
+                    {/*    /!*<MenuItem title='Users' />*!/*/}
+                    {/*    /!*<MenuItem title='Orders' />*!/*/}
+                    {/*    /!*<MenuItem title='Transactions' />*!/*/}
+
+                    {/*    <MenuItem accessoryLeft={useIcon('hands-helping')}  style={iconPopupStyle('')} onPress={() => { openLink('https://discord.com/invite/gCunWKx'); setMenu(false); }} title={getTranslation('footer.help')} />*/}
+                    {/*    /!*<MenuItem accessoryLeft={useIcon('coffee')} style={iconPopupStyle('')} onPress={() => { nav('Donation'); setMenu(false); }} title={getTranslation('footer.buymeacoffee')} />*!/*/}
+                    {/*    /!*{*!/*/}
+                    {/*    /!*   !(Platform.OS === 'ios' && isMajorRelease) &&*!/*/}
+                    {/*    /!*   <MenuItem accessoryLeft={useIcon('coffee')} style={iconPopupStyle('')} onPress={() => { openLink('https://www.buymeacoffee.com/denniskeil'); setMenu(false); }} title={getTranslation('footer.buymeacoffee')} />*!/*/}
+                    {/*    /!*}*!/*/}
+                    {/*    /!*<Divider />*!/*/}
+                    {/*    <MenuItem accessoryLeft={useIcon('question-circle', 'About')} style={iconPopupStyle('About')} onPress={() => { nav('About'); setMenu(false); }} title={getTranslation('footer.about')} />*/}
+                    {/*    <MenuItem accessoryLeft={useIcon('exchange-alt', 'Changelog')} style={iconPopupStyle('Changelog')} onPress={() => { nav('Changelog'); setMenu(false); }} title={getTranslation('footer.changelog')} />*/}
+                    {/*    /!*<Divider />*!/*/}
+                    {/*    <MenuItem accessoryLeft={useIcon('cog', 'Settings')} style={iconPopupStyle('Settings')} onPress={() => { nav('Settings'); setMenu(false); }} title={getTranslation('footer.settings')} />*/}
+                    {/*    /!*<Divider />*!/*/}
+                    {/*    <MenuItem accessoryLeft={useIcon('lightbulb', 'Tips')} style={iconPopupStyle('Tips')} onPress={() => { nav('Tips'); setMenu(false); }} title={getTranslation('footer.tips')} />*/}
+                    {/*    /!*<Divider />*!/*/}
+                    {/*    <MenuItem accessoryLeft={useIcon('play', 'Live')} style={iconPopupStyle('Live')} onPress={() => { nav('Live'); setMenu(false); }} title={getTranslation('footer.lobbies')} />*/}
+                    {/*    /!*<Divider />*!/*/}
+                    {/*    <MenuItem accessoryLeft={useIcon('archway', 'Building')} style={iconPopupStyle('Building')} onPress={() => { nav('Building'); setMenu(false); }} title={getTranslation('footer.buildings')} />*/}
+                    {/*    <MenuItem accessoryLeft={useIcon('flask', 'Tech')} style={iconPopupStyle('Tech')} onPress={() => { nav('Tech'); setMenu(false); }} title={getTranslation('footer.techs')} />*/}
+                    {/*    <MenuItem accessoryLeft={useIcon('fist-raised', 'Unit')} style={iconPopupStyle('Unit')} onPress={() => { nav('Unit'); setMenu(false); }} title={getTranslation('footer.units')} />*/}
+                    {/*    /!*<Divider />*!/*/}
+                    {/*    <MenuItem accessoryLeft={useIcon('trophy', 'Winrates')} style={iconPopupStyle('Winrates')} onPress={() => { nav('Winrates'); setMenu(false); }} title={getTranslation('footer.winrates')} />*/}
+
+                    {/*</OverflowMenu>*/}
 
                     {
                         appConfig.game === 'aoe2de' &&
@@ -289,8 +329,6 @@ export default function Footer() {
                             <Menu.Item leadingIcon={useIcon('cog', 'Settings')} titleStyle={iconPopupStyle('Settings')} onPress={() => { nav('Settings'); setMenu(false); }} title={getTranslation('footer.settings')} />
                         </Menu>
                     }
-
-
                 </View>
             </View>
     );
