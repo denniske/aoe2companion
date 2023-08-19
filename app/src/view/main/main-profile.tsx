@@ -142,6 +142,7 @@ function MainProfileInternal({profileId}: {profileId: number}) {
     return (
         <View style={styles.container}>
             <View style={styles.content}>
+                {/*<Button onPress={onRefresh}>REFRESH</Button>*/}
                 {
                     Platform.OS === 'web' && refetching &&
                     <FlatListLoadingIndicator/>

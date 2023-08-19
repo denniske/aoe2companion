@@ -36,6 +36,7 @@ import {fetchLeaderboard} from "../api/leaderboard";
 import {ILeaderboardPlayerNew} from "@nex/data/api";
 import {IndexPath, Select, SelectItem} from "@ui-kitten/components";
 import {useLazyAppendApi} from "../hooks/use-lazy-append-api";
+import {Button} from "react-native-paper";
 
 type TabParamList = {
     LeaderboardRmSolo: { leaderboardId: string };
@@ -420,6 +421,7 @@ function Leaderboard({leaderboardId}: any) {
 
     return (
         <View style={styles.container2}>
+            {/*<Button onPress={onRefresh}>REFRESH</Button>*/}
             <View style={[styles.content, {opacity: leaderboard.loading ? 0.7 : 1}]}>
                 {
                     leaderboard.error &&

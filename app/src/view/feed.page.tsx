@@ -204,6 +204,7 @@ export function FeedList() {
     return (
             <View style={styles.container}>
                 <View style={styles.content}>
+                    {/*<Button onPress={onRefresh}>REFRESH</Button>*/}
                     {
                         Platform.OS === 'web' && refetching &&
                         <FlatListLoadingIndicator/>
