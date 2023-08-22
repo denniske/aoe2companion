@@ -1,3 +1,6 @@
+import {openLink} from "./helper/url";
+import {MyText} from "./view/components/my-text";
+import React from "react";
 
 export interface IChange {
     type: 'feature' | 'bugfix' | 'minor';
@@ -14,6 +17,12 @@ export interface IChangelog {
 // https://www.ageofempires.com/news/age-of-empires-iv-season-one-update-release-notes/
 
 export const changelog4: IChangelog = {
+    '12.0.0': [
+        {
+            type: 'feature',
+            title: 'Using new backend. Moved some calculations to the server for better performance. Some features likes searching for maps and match names in match list are not ready yet and have been disabled for now. Historical data will be imported in the next weeks. For more information and roadmap see [Discord](https://discord.gg/gCunWKx)',
+        },
+    ],
     '11.0.0': [
         {
             type: 'bugfix',
@@ -105,6 +114,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '65.0.0': [
+        {
+            type: 'feature',
+            title: 'Moved some calculations to the server for better performance. Some features likes searching for maps and match names in match list are not ready yet and have been disabled for now. For more information and roadmap see [Discord](https://discord.gg/gCunWKx)',
+        },
+    ],
     '64.0.0': [
         {
             type: 'minor',
