@@ -1,20 +1,18 @@
-import {Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {
-    Flag, formatAgo, getDiscordInvitationId, getDoyouChannel, getTwitchChannel, getYoutubeChannel
+    getDiscordInvitationId,
+    getDoyouChannel,
+    getTwitchChannel,
+    getVerifiedPlayer,
+    getYoutubeChannel
 } from '@nex/data';
-import {
-    ILeaderboardNew,
-    IPlayer, IPlayerNew, IProfileResponse
-} from '@nex/data/api';
+import {ILeaderboardNew, IPlayerNew, IProfileResponse} from '@nex/data/api';
 import React, {useEffect} from 'react';
 import {getLeaderboardTextColor} from '../../helper/colors';
-import {ILeaderboard, getVerifiedPlayer} from "@nex/data";
-import {ImageLoader} from "./loader/image-loader";
 import {TextLoader} from "./loader/text-loader";
 import {FontAwesome5} from "@expo/vector-icons";
 import {setFollowing, setPrefValue, useMutate, useSelector} from "../../redux/reducer";
 import {MyText} from "./my-text";
-import {formatLeaderboardId} from "@nex/data";
 import {useAppTheme, usePaperTheme} from "../../theming";
 import {toggleFollowing} from "../../service/following";
 import Space from "./space";
@@ -29,6 +27,7 @@ import TwitchBadge from './badge/twitch-badge';
 import DouyuBadge from './badge/doyou-badge';
 import {openLink} from "../../helper/url";
 import {CountryImageLoader} from './country-image';
+import {Image} from 'expo-image';
 
 interface ILeaderboardRowProps {
     data: ILeaderboardNew;
@@ -67,6 +66,29 @@ function LeaderboardRow1({data}: ILeaderboardRowProps) {
                 {/*    {leaderboardInfo.previousRating ? formatStreak(leaderboardInfo.rating-leaderboardInfo.previousRating) : '-'}*/}
                 {/*</MyText>*/}
             </View>
+    )
+}
+
+function LeaderboardRowSeason({data}: ILeaderboardRowProps) {
+    const theme = usePaperTheme();
+    const styles = useStyles();
+
+    const leaderboardInfo = data;
+    const color = {color: getLeaderboardTextColor(data.leaderboardId, theme.dark)};
+
+    const bannerUrl = 'https://static.aoe4world.com/assets/rank_levels/season_3/solo_conqueror_3-7bfca5cbf4863241844cfc355340bcf5209c36d93bc747c5d96e33704349e65a.svg';
+
+    return (
+        <>
+            <View style={[styles.icontainer, { backgroundColor: data.rankLevelBackgroundColor }]}>
+                <Image
+                    style={styles.image}
+                    source={data.rankLevelImageUrl}
+                    contentFit="contain"
+                />
+                <MyText style={[styles.itext, { color: data.rankLevelColor }]}>{data.rankLevelName}</MyText>
+            </View>
+        </>
     )
 }
 
@@ -276,6 +298,23 @@ export default function Profile({data, ready}: IProfileProps) {
                     {/*    }*/}
                     {/*</ScrollView>*/}
 
+
+
+                    {/*style={styles.logo}*/}
+                    {/*<SvgUri width={14} height={14} uri={bannerUrl}/>*/}
+
+                        {/*placeholder={blurhash}*/}
+                        {/*style={styles.image}*/}
+
+                    {
+                        data?.leaderboards.filter(l => l.season != null).map(leaderboard =>
+                            <LeaderboardRowSeason key={leaderboard.leaderboardId} data={leaderboard}/>
+                        )
+                    }
+
+
+                    {/*<MyText>ggg</MyText>*/}
+
                     <View style={styles.leaderboardRow}>
                         <MyText numberOfLines={1} style={styles.cellLeaderboard}>{getTranslation('main.profile.heading.board')}</MyText>
                         <MyText numberOfLines={1} style={styles.cellRank}>{getTranslation('main.profile.heading.rank')}</MyText>
@@ -332,6 +371,23 @@ export default function Profile({data, ready}: IProfileProps) {
 }
 
 const useStyles = createStylesheet(theme => StyleSheet.create({
+    icontainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 100,
+        marginBottom: 10,
+        padding: 5,
+        borderRadius: 5,
+    },
+    itext: {
+        fontWeight: 'bold',
+        fontSize: 18,
+    },
+    image: {
+        flex: 1,
+        width: '100%',
+        // backgroundColor: '#0553',
+    },
     sectionHeader: {
         marginVertical: 25,
         fontSize: 15,

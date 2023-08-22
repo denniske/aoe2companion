@@ -207,6 +207,11 @@ export interface ILeaderboardNew {
     profileId: number
     name: string
     rank: number
+    rankLevel: string
+    rankLevelName: string
+    rankLevelImageUrl: string
+    rankLevelColor: string
+    rankLevelBackgroundColor: string
     rating: number
     lastMatchTime: string
     drops: number
@@ -219,6 +224,8 @@ export interface ILeaderboardNew {
     leaderboardName: string
     abbreviation: string
     maxRating: number
+    season: number
+    internalLeaderboardId: number
 }
 
 export interface IRatingNew {
