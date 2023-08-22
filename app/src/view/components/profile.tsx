@@ -50,10 +50,13 @@ function LeaderboardRow1({data}: ILeaderboardRowProps) {
 
     return (
             <View style={styles.leaderboardRow}>
+                {/*<MyText tw="flex font-bold text-2xl" style={StyleSheet.flatten([styles.cellLeaderboard, color])}>*/}
+                {/*    {data.abbreviation}*/}
+                {/*</MyText>*/}
                 <MyText style={StyleSheet.flatten([styles.cellLeaderboard, color])}>
                     {data.abbreviation}
                 </MyText>
-                <MyText style={StyleSheet.flatten([styles.cellRank, color])}>
+                <MyText  style={StyleSheet.flatten([styles.cellRank, color])}>
                     #{leaderboardInfo.rank}
                 </MyText>
                 <MyText style={StyleSheet.flatten([styles.cellRating, color])}>
@@ -73,25 +76,28 @@ function LeaderboardRowSeason({data}: ILeaderboardRowProps) {
     const theme = usePaperTheme();
     const styles = useStyles();
 
-    const leaderboardInfo = data;
-    const color = {color: getLeaderboardTextColor(data.leaderboardId, theme.dark)};
-
-    const bannerUrl = 'https://static.aoe4world.com/assets/rank_levels/season_3/solo_conqueror_3-7bfca5cbf4863241844cfc355340bcf5209c36d93bc747c5d96e33704349e65a.svg';
+    // style={{ backgroundColor: data.rankLevelBackgroundColor }}
 
     return (
-        <>
-            <View style={[styles.icontainer, { backgroundColor: data.rankLevelBackgroundColor }]}>
-                <Image
-                    style={styles.image}
-                    source={data.rankLevelImageUrl}
-                    contentFit="contain"
-                />
-                <MyText style={[styles.itext, { color: data.rankLevelColor }]}>{data.rankLevelName}</MyText>
+        <View className="flex-1 flex-col rounded p-2">
+            <MyText className="text-white font-bold mb-2">{data.leaderboardName}</MyText>
+            <View className="flex-1 flex-row w-20 h-20">
+                <View className="flex w-20 h-20">
+                    <Image
+                        style={styles.image}
+                        source={data.rankLevelImageUrl}
+                        contentFit="contain"
+                    />
+                </View>
+                <View tw="flex">
+                <MyText tw="flex font-bold text-2xl" style={{ color: data.rankLevelColor }}>
+                    {data.rankLevelName}
+                </MyText>
+                </View>
             </View>
-        </>
+        </View>
     )
 }
-
 
 function LeaderboardRow2({data}: ILeaderboardRowProps) {
     const theme = usePaperTheme();
@@ -299,21 +305,13 @@ export default function Profile({data, ready}: IProfileProps) {
                     {/*</ScrollView>*/}
 
 
-
-                    {/*style={styles.logo}*/}
-                    {/*<SvgUri width={14} height={14} uri={bannerUrl}/>*/}
-
-                        {/*placeholder={blurhash}*/}
-                        {/*style={styles.image}*/}
-
-                    {
-                        data?.leaderboards.filter(l => l.season != null).map(leaderboard =>
-                            <LeaderboardRowSeason key={leaderboard.leaderboardId} data={leaderboard}/>
-                        )
-                    }
-
-
-                    {/*<MyText>ggg</MyText>*/}
+                    {/*<View className="flex-1 flex-col space-y-2">*/}
+                    {/*{*/}
+                    {/*    data?.leaderboards.filter(l => l.season != null).map(leaderboard =>*/}
+                    {/*        <LeaderboardRowSeason key={leaderboard.leaderboardId} data={leaderboard}/>*/}
+                    {/*    )*/}
+                    {/*}*/}
+                    {/*</View>*/}
 
                     <View style={styles.leaderboardRow}>
                         <MyText numberOfLines={1} style={styles.cellLeaderboard}>{getTranslation('main.profile.heading.board')}</MyText>
@@ -386,6 +384,9 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     image: {
         flex: 1,
         width: '100%',
+        // width: 100,
+        // height: 100,
+        // width: '100%',
         // backgroundColor: '#0553',
     },
     sectionHeader: {

@@ -118,6 +118,10 @@ op item list
 op item create --category password --title database_url --vault aoe2companion password=$(secrethub read denniske/aoe2companion/database_url)
 
 
+tailwind
+https://aoe4world.com/players/14553404
+https://aoe4world.com/players/14589700-BlueBlackFox
+
 
 git clone --depth 1 file://C:\Users\Dennis\Projects\aoe2companion && cd aoe2companion && yarn && npx eas build --profile development4 --platform android --no-wait
 

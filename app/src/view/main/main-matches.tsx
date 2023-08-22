@@ -91,14 +91,13 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
         }, {
             getNextPageParam: (lastPage, pages) => lastPage.matches.length === lastPage.perPage ? lastPage.page + 1 : null,
             keepPreviousData: true,
-        })
+        });
 
-    // console.log('data', data);
+    console.log('data', data);
 
     const toggleWithMe = () => setWithMe(!withMe);
 
     const onLeaderboardSelected = async (selLeaderboardId: string) => {
-        console.log('==>', leaderboardId, selLeaderboardId);
         if (leaderboardId === selLeaderboardId) {
             setLeaderboardId(undefined);
         } else {

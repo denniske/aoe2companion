@@ -95,6 +95,7 @@ import { ApplicationProvider, Layout } from '@ui-kitten/components';
 import {cloneDeep} from "lodash";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
+
 initSentry();
 
 try {

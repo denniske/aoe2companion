@@ -8,7 +8,7 @@ module.exports = async function (env, argv) {
             // Passing true will enable the default Workbox + Expo SW configuration.
             // offline: true,
             babel: {
-                dangerouslyAddModulePathsToTranspile: ['@ui-kitten/components']
+                dangerouslyAddModulePathsToTranspile: ['@ui-kitten/components', "nativewind"]
             }
         },
         argv
@@ -21,6 +21,13 @@ module.exports = async function (env, argv) {
     //         })
     //     );
     // }
+
+
+    config.module.rules.push({
+        test: /\.css$/i,
+        use: ["postcss-loader"],
+    });
+
     return config;
 };
 
