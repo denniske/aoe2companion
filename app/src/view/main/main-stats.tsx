@@ -24,6 +24,7 @@ import {useApi} from "../../hooks/use-api";
 import {loadProfile} from "../../service/profile";
 import {TextLoader} from "../components/loader/text-loader";
 import {Button} from "react-native-paper";
+import {fetchLeaderboards} from "../../api/leaderboard";
 
 
 interface Props {
@@ -54,8 +55,8 @@ function MainStatsInternal({profileId}: {profileId: number}) {
     const styles = useStyles();
     const mutate = useMutate();
     // const prefLeaderboardId = useSelector(state => state.prefs.leaderboardId) ?? leaderboardIdsData[0];
-    const prefLeaderboardId = leaderboardIdsData[0];
-    const [leaderboardId, setLeaderboardId] = useState(prefLeaderboardId);
+    // const prefLeaderboardId = leaderboardIdsData[0];
+    const [leaderboardId, setLeaderboardId] = useState<string>();
 
     const navigation = useNavigation();
     const userProfile = useSelector(state => state.user[profileId]?.profile);
@@ -65,6 +66,34 @@ function MainStatsInternal({profileId}: {profileId: number}) {
             title: userProfile?.name + ' - ' + (Constants.expoConfig?.name || Constants.expoConfig2?.extra?.expoClient?.name),
         });
     }, [userProfile]);
+
+    console.log('==> leaderboardId', leaderboardId);
+
+    const leaderboards = useApi(
+        {},
+        [],
+        state => state.leaderboards,
+        (state, value) => {
+            state.leaderboards = value;
+        },
+        fetchLeaderboards
+    );
+
+    const renderLeaderboard = (value: string, selected: boolean) => {
+        return <View style={styles.col}>
+            <MyText style={[styles.h1, { fontWeight: selected ? 'bold' : 'normal'}]}>{leaderboards.data.find(l => l.leaderboardId === value)?.abbreviationTitle}</MyText>
+            <MyText style={[styles.h2, { fontWeight: selected ? 'bold' : 'normal'}]}>{leaderboards.data.find(l => l.leaderboardId === value)?.abbreviationSubtitle}</MyText>
+        </View>;
+    };
+
+    const leaderboardTitle = leaderboards.data?.find(l => l.leaderboardId === leaderboardId)?.leaderboardName;
+
+    useEffect(() => {
+        if (leaderboards.data == null) return;
+        if (leaderboardId == null) {
+            setLeaderboardId(leaderboards.data[0]?.leaderboardId);
+        }
+    }, [leaderboards.data]);
 
     const currentCachedData =
         useSelector(state => get(state.user, [profileId, 'profileWithStats']))?.stats?.find(s => s.leaderboardId === leaderboardId);
@@ -105,19 +134,6 @@ function MainStatsInternal({profileId}: {profileId: number}) {
         await saveCurrentPrefsToStorage();
         setLeaderboardId(leaderboardId);
     };
-
-    const valueMapping: any = leaderboardMappingData;
-    const values: any[] = leaderboardIdsData;
-
-    const renderLeaderboard = (value: LeaderboardId, selected: boolean) => {
-        return <View style={styles.col}>
-            <MyText style={[styles.h1, { fontWeight: selected ? 'bold' : 'normal'}]}>{valueMapping[value].title}</MyText>
-            <MyText style={[styles.h2, { fontWeight: selected ? 'bold' : 'normal'}]}>{valueMapping[value].subtitle}</MyText>
-        </View>;
-    };
-
-    const leaderboardTitle = valueMapping?.[leaderboardId]?.title + ' ' + valueMapping?.[leaderboardId]?.subtitle;
-
     const [refetching, setRefetching] = useState(false);
 
     useEffect(() => {
@@ -142,6 +158,10 @@ function MainStatsInternal({profileId}: {profileId: number}) {
         profileWithStats.reload();
     };
 
+    if (!leaderboards.data){
+        return <View></View>;
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.content}>
@@ -157,7 +177,7 @@ function MainStatsInternal({profileId}: {profileId: number}) {
                             case 'stats-header':
                                 return <View>
                                     <View style={styles.pickerRow}>
-                                        <TemplatePicker value={leaderboardId} values={values} template={renderLeaderboard} onSelect={onLeaderboardSelected}/>
+                                        <TemplatePicker value={leaderboardId} values={leaderboards.data.map(l => l.leaderboardId)} template={renderLeaderboard} onSelect={onLeaderboardSelected}/>
                                     </View>
                                     <TextLoader ready={hasStats} style={styles.info}>
                                         {/*{statsMap && statsMap.length > 0 ?*/}
@@ -174,13 +194,13 @@ function MainStatsInternal({profileId}: {profileId: number}) {
                             //     return <MyText>---</MyText>;
                             //     // return <StatsPosition data={statsPosition} user={user} leaderboardId={leaderboardId}/>;
                             case 'stats-civ':
-                                return <StatsCiv data={statsCiv} user={profileId} title={getTranslation('main.stats.heading.civ')} leaderboardId={leaderboardId}/>;
+                                return <StatsCiv data={statsCiv} type={'civ'} user={profileId} title={getTranslation('main.stats.heading.civ')} leaderboardId={leaderboardId}/>;
                             case 'stats-map':
-                                return <StatsCiv data={statsMap} user={profileId} title={getTranslation('main.stats.heading.map')} leaderboardId={leaderboardId}/>;
+                                return <StatsCiv data={statsMap} type={'map'} user={profileId} title={getTranslation('main.stats.heading.map')} leaderboardId={leaderboardId}/>;
                             case 'stats-ally':
-                                return <StatsCiv data={statsAlly} user={profileId} title={getTranslation('main.stats.heading.ally')} leaderboardId={leaderboardId}/>;
+                                return <StatsCiv data={statsAlly} type={'ally'} user={profileId} title={getTranslation('main.stats.heading.ally')} leaderboardId={leaderboardId}/>;
                             case 'stats-opponent':
-                                return <StatsCiv data={statsOpponent} user={profileId} title={getTranslation('main.stats.heading.opponent')} leaderboardId={leaderboardId}/>;
+                                return <StatsCiv data={statsOpponent} type={'opponent'} user={profileId} title={getTranslation('main.stats.heading.opponent')} leaderboardId={leaderboardId}/>;
                             default:
                                 return <View/>;
                         }

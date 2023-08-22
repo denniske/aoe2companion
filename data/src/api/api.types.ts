@@ -385,6 +385,15 @@ export interface IPlayerNew {
 
 
 
+export type ILeaderboardsResponse = {
+    leaderboardId: string
+    leaderboardName: string
+    abbreviation: string
+    abbreviationTitle: string
+    abbreviationSubtitle: string
+    active: boolean
+}[];
+
 
 export interface ILeaderboardResponse {
     leaderboardId: string

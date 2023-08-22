@@ -32,24 +32,13 @@ import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';
 import {appConfig} from "@nex/dataset";
 import {CountryImage, CountryImageLoader} from './components/country-image';
-import {fetchLeaderboard} from "../api/leaderboard";
+import {fetchLeaderboard, fetchLeaderboards} from "../api/leaderboard";
 import {ILeaderboardPlayerNew} from "@nex/data/api";
 import {IndexPath, Select, SelectItem} from "@ui-kitten/components";
 import {useLazyAppendApi} from "../hooks/use-lazy-append-api";
-import {Button} from "react-native-paper";
+import {useApi} from "../hooks/use-api";
 
-type TabParamList = {
-    LeaderboardRmSolo: { leaderboardId: string };
-    LeaderboardRm1v1: { leaderboardId: string };
-    LeaderboardRmTeam: { leaderboardId: string };
-    LeaderboardEw1v1: { leaderboardId: string };
-    LeaderboardEwTeam: { leaderboardId: string };
-    LeaderboardRoR1v1: { leaderboardId: string };
-    LeaderboardRoRTeam: { leaderboardId: string };
-    LeaderboardUnranked: { leaderboardId: string };
-};
-
-const Tab = createMaterialTopTabNavigator<TabParamList>();
+const Tab = createMaterialTopTabNavigator<any>();
 
 export function leaderboardMenu() {
     return () => {
@@ -114,61 +103,30 @@ export function LeaderboardTitle(props: any) {
 }
 
 export default function LeaderboardPage() {
-    // const styles = useStyles();
 
-    // const route = useRoute<RouteProp<RootStackParamList, 'Leaderboard'>>();
-    // const leaderboardId = route.params?.leaderboardId;
-    // console.log('LeaderboardPage', leaderboardId);
-
-    if (appConfig.game === 'aoe2de')
-    return (
-        <Tab.Navigator screenOptions={{ lazy: false, swipeEnabled: false }} >
-            <Tab.Screen name="LeaderboardRm1v1" options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rm1v1')}/>}}>
-                {() => <Leaderboard leaderboardId={'rm_1v1'}/>}
-            </Tab.Screen>
-            <Tab.Screen name="LeaderboardRmTeam" options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rmteam')}/>}}>
-                {() => <Leaderboard leaderboardId={'rm_team'}/>}
-            </Tab.Screen>
-            <Tab.Screen name="LeaderboardEw1v1" options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.ew1v1')}/>}}>
-                {() => <Leaderboard leaderboardId={'ew_1v1'}/>}
-            </Tab.Screen>
-            <Tab.Screen name="LeaderboardEwTeam" options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.ewteam')}/>}}>
-                {() => <Leaderboard leaderboardId={'ew_team'}/>}
-            </Tab.Screen>
-
-            {/*<Tab.Screen name="LeaderboardRoR1v1" options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.ror1v1')}/>}}>*/}
-            {/*    {() => <Leaderboard leaderboardId={'ror_1v1'}/>}*/}
-            {/*</Tab.Screen>*/}
-            {/*<Tab.Screen name="LeaderboardRoRTeam" options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rorteam')}/>}}>*/}
-            {/*    {() => <Leaderboard leaderboardId={'ror_team'}/>}*/}
-            {/*</Tab.Screen>*/}
-
-            <Tab.Screen name="LeaderboardUnranked" options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.unranked')}/>}}>
-                {() => <Leaderboard leaderboardId={'unranked'}/>}
-            </Tab.Screen>
-        </Tab.Navigator>
+    const leaderboards = useApi(
+        {},
+        [],
+        state => state.leaderboards,
+        (state, value) => {
+            state.leaderboards = value;
+        },
+        fetchLeaderboards
     );
+
+    if (!leaderboards.data) {
+        return <View></View>;
+    }
 
     return (
         <Tab.Navigator screenOptions={{ lazy: false, swipeEnabled: false }}>
-            {/*<Tab.Screen name="LeaderboardRmSolo" initialParams={{leaderboardId: 1002}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rmsolo')}/>}}>*/}
-            {/*    {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}*/}
-            {/*</Tab.Screen>*/}
-            {/*<Tab.Screen name="LeaderboardRm1v1" initialParams={{leaderboardId: 1003}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.rmteam')}/>}}>*/}
-            {/*    {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}*/}
-            {/*</Tab.Screen>*/}
-            {/*<Tab.Screen name="LeaderboardRmTeam" initialParams={{leaderboardId: 17}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.1v1')}/>}}>*/}
-            {/*    {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}*/}
-            {/*</Tab.Screen>*/}
-            {/*<Tab.Screen name="LeaderboardEw1v1" initialParams={{leaderboardId: 18}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.2v2')}/>}}>*/}
-            {/*    {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}*/}
-            {/*</Tab.Screen>*/}
-            {/*<Tab.Screen name="LeaderboardEwTeam" initialParams={{leaderboardId: 19}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.3v3')}/>}}>*/}
-            {/*    {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}*/}
-            {/*</Tab.Screen>*/}
-            {/*<Tab.Screen name="LeaderboardUnranked" initialParams={{leaderboardId: 20}} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('leaderboard.heading.4v4')}/>}}>*/}
-            {/*    {props => <Leaderboard leaderboardId={props.route?.params?.leaderboardId}/>}*/}
-            {/*</Tab.Screen>*/}
+            {
+                leaderboards.data.filter(leaderboard => leaderboard.active).map((leaderboard, i) => {
+                    return <Tab.Screen key={i} name={`${leaderboard.leaderboardId}`} options={{tabBarLabel: (x) => <TabBarLabel {...x} title={leaderboard.abbreviation}/>}}>
+                        {() => <Leaderboard leaderboardId={leaderboard.leaderboardId}/>}
+                    </Tab.Screen>
+                })
+            }
         </Tab.Navigator>
     );
 }

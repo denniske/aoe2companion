@@ -511,15 +511,17 @@ export async function fetchPlayerMatchesNew(game: string, start: number, count: 
 // }
 
 
-export async function fetchPlayerMatches(start: number, count: number, profileIds: number[], search: string = ''): Promise<IMatchNew[]> {
+export async function fetchPlayerMatches(start: number, count: number, profileIds: number[], leaderboardIds?: string[], search: string = ''): Promise<IMatchNew[]> {
     if (profileIds.length === 0) {
         return [];
     }
+    console.log('fetchPlayerMatches', start, count, profileIds, leaderboardIds, search);
     const args = {
         game: appConfig.game,
         start,
         count,
         profile_ids: profileIds,
+        leaderboard_ids: leaderboardIds,
         search,
     };
     const queryString = makeQueryString(args);

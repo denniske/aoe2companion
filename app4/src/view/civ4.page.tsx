@@ -21,6 +21,9 @@ import {civDataRus} from '../data/rus';
 import {civDataEnglish} from '../data/english';
 import {civDataOttomans} from "../data/ottomans";
 import {civDataMalians} from "../data/malians";
+import {useApi} from "../../../app/src/hooks/use-api";
+import {fetchLeaderboards} from "../../../app/src/api/leaderboard";
+import {fetchJson2} from "../../../app/src/api/util";
 
 
 export function CivTitle(props: any) {
@@ -60,14 +63,39 @@ interface ICivInfoItem {
 export function CivDetails({civ}: {civ: aoeCivKey}) {
     const styles = useStyles();
 
-    const civData = aoe4CivInfo[civ];
+    const civDataFileMapping = {
+        'AbbasidDynasty': 'abbasid',
+        'Chinese': 'chinese',
+        'DelhiSultanate': 'delhi',
+        'English': 'english',
+        'French': 'french',
+        'HolyRomanEmpire': 'hre',
+        'Mongols': 'mongols',
+        'Rus': 'rus',
+        'Malians': 'malians',
+        'Ottomans': 'ottomans',
+    } as any;
+
+    const civInfos = useApi(
+        {},
+        [civ],
+        state => state.civInfos[civ],
+        (state, value) => {
+            state.civInfos[civ] = value;
+        },
+        fetchJson2, 'fetchCivInfos' , `https://raw.githubusercontent.com/aoe4world/data/main/civilizations/${civDataFileMapping[civ]}.json`, null, null, null
+    );
+
+    const civData = civInfos.data;
+
+    if (!civData) return null;
 
     return (
         <View style={styles.detailsContainer}>
             <MyText style={styles.contentDescription}>{civData.description}</MyText>
 
             {
-                civData.overview.map((item: ICivInfoItem) => (
+                civData.overview.map((item: ICivInfoItem, i) => (
                     <Fragment key={item.title}>
                         <MyText style={styles.infoTitle}>{item.title}</MyText>
                         {
@@ -76,8 +104,8 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
                         }
                         {
                             item.list != null &&
-                            item.list.map(str => (
-                                <MyText style={styles.content}>• {str}</MyText>
+                            item.list.map((str, i) => (
+                                <MyText key={i} style={styles.content}>• {str}</MyText>
                             ))
                         }
                     </Fragment>

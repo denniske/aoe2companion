@@ -204,9 +204,9 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
 const useStyles = createStylesheet(theme => StyleSheet.create({
     imageInner: appConfig.game === 'aoe2de' ? {
         // backgroundColor: 'blue',
-        resizeMode: "contain",
+        resizeMode: "cover",
     } : {
-        resizeMode: "contain",
+        resizeMode: "cover",
         // borderColor: '#3A506A',
         borderColor: '#C19049',
         borderWidth: 1.2,

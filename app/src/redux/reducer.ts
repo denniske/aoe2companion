@@ -2,7 +2,7 @@ import {produce} from "immer";
 import { TypedUseSelectorHook, useDispatch, useSelector as useReduxSelector } from 'react-redux';
 import { IRatingHistoryRow } from '../service/rating';
 import {ILeaderboard} from "@nex/data";
-import {IMatch, IPlayer, IProfileResponse} from "@nex/data/api";
+import {ILeaderboardsResponse, IMatch, IPlayer, IProfileResponse} from "@nex/data/api";
 import {IAccount, IConfig, IFollowingEntry, IPrefs} from "../service/storage";
 import {Manifest} from "expo-updates/build/Updates.types";
 import {set} from 'lodash';
@@ -196,6 +196,8 @@ export interface AppState {
   user: IUserDict;
   donation: IDonation;
   statsPlayer: any;
+  leaderboards: ILeaderboardsResponse;
+  civInfos: any;
 
   error?: IError | null;
   errors?: IError[] | null;
@@ -232,6 +234,7 @@ const initialState: Partial<AppState> = {
   leaderboard: {},
   auth: undefined,
   statsPlayer: undefined,
+  civInfos: {},
 };
 
 

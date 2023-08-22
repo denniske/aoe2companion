@@ -132,6 +132,7 @@ interface IParams {
 
 export function makeQueryString(params: IParams) {
     return Object.keys(params)
+            .filter(k => params[k] != null)
             .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
             .join('&');
 }

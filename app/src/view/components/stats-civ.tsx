@@ -12,21 +12,23 @@ import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
 import {getMapImage} from "../../helper/maps";
 import {CountryImage} from "./country-image";
+import {appConfig} from "@nex/dataset";
 
 
 interface IRowProps {
     data: IStatCiv & IStatMap & IStatAlly & IStatOpponent;
+    type: 'civ' | 'map' | 'ally' | 'opponent';
 }
 
-function Row({data}: IRowProps) {
+function Row({type, data}: IRowProps) {
     const styles = useStyles();
     const navigation = useNavigation<RootStackProp>();
 
     const gotoEntity = () => {
-        if (data.civ) {
+        if (type === 'civ') {
             navigation.push('Civ', { civ: data.civ });
         }
-        if (data.profileId) {
+        if ((type === 'ally' || type === 'opponent') && data.profileId) {
             navigation.push('User', {
                 profileId: data.profileId,
             });
@@ -34,22 +36,22 @@ function Row({data}: IRowProps) {
     };
 
     const getIcon = () => {
-        if (data.civ) {
+        if (type === 'civ') {
             return getCivIcon(data);
         }
-        if (data.map) {
+        if (type === 'map') {
             return getMapImage(data);
         }
     };
 
     const getName = () => {
-        if (data.civ) {
+        if (type === 'civ') {
             return data.civName;
         }
-        if (data.map) {
+        if (type === 'map') {
             return data.mapName;
         }
-        if (data.profileId) {
+        if ((type === 'ally' || type === 'opponent') && data.profileId) {
             return data.name;
         }
     };
@@ -61,12 +63,12 @@ function Row({data}: IRowProps) {
                 <TouchableOpacity style={styles.cellLeaderboard} onPress={gotoEntity}>
                     <View style={styles.row}>
                         {
-                            data.country &&
+                            (type === 'ally' || type === 'opponent') &&
                             <CountryImage country={data.country} />
                         }
                         {
-                            (data.civ || data.map) &&
-                            <Image fadeDuration={0} style={styles.icon} source={getIcon()}/>
+                            (type === 'civ' || type === 'map') &&
+                            <Image fadeDuration={0} style={data.civ ? styles.civIcon : styles.icon} source={getIcon()}/>
                         }
                         <MyText>{getName()}</MyText>
                     </View>
@@ -84,6 +86,7 @@ function Row({data}: IRowProps) {
 
 interface IProps {
     user: UserIdBase;
+    type: 'civ' | 'map' | 'ally' | 'opponent';
     title: string;
     leaderboardId: LeaderboardId;
     data: IStatCiv[];
@@ -92,7 +95,7 @@ interface IProps {
 export default function StatsCiv(props: IProps) {
     const styles = useStyles();
 
-    const { data, user, title } = props;
+    const { type, data, user, title } = props;
     // let { rowsWithCiv, rowsAgainstCiv, leaderboardId } = data || { leaderboardId: props.leaderboardId };
 
     // const hasAgainstCiv = [LeaderboardId.RM1v1, LeaderboardId.DM1v1].includes(leaderboardId);
@@ -126,7 +129,7 @@ export default function StatsCiv(props: IProps) {
 
                 {
                     data && data.map((row, i) =>
-                        <Row key={i} data={row}/>
+                        <Row key={i} type={type} data={row}/>
                     )
                 }
 
@@ -202,9 +205,24 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     container: {
         // backgroundColor: 'red',
     },
-    icon: {
-        width: 22,
-        height: 22,
+    civIcon: appConfig.game === 'aoe2de' ? {
+        width: 20,
+        height: 20,
+        marginRight: 5,
+    } : {
+        width: 36,
+        height: 20,
+        marginRight: 5,
+    },
+    icon: appConfig.game === 'aoe2de' ? {
+        width: 20,
+        height: 20,
+        marginRight: 5,
+    } : {
+        borderColor: '#C19049',
+        borderWidth: 1.2,
+        width: 20,
+        height: 20,
         marginRight: 5,
     },
 }));

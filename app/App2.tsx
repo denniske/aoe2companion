@@ -92,6 +92,7 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import * as SplashScreen from 'expo-splash-screen';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, Layout } from '@ui-kitten/components';
+import {cloneDeep} from "lodash";
 
 initSentry();
 
@@ -234,7 +235,11 @@ const linking: LinkingOptions = {
             },
             Leaderboard: {
                 path: 'leaderboard',
+                // Just for debugging in web
                 screens: {
+                    Leaderboardunranked: {
+                        path: 'unranked',
+                    },
                     LeaderboardRm1v1: {
                         path: 'rm_1v1',
                     },
@@ -252,6 +257,40 @@ const linking: LinkingOptions = {
                     },
                     LeaderboardRoRTeam: {
                         path: 'ror_team',
+                    },
+
+                    LeaderboardRmSolo: {
+                        path: 'rm_solo',
+                    },
+                    // LeaderboardRmTeam: {
+                    //     path: 'rm_team',
+                    // },
+                    // LeaderboardRm1v1: {
+                    //     path: 'rm_1v1',
+                    // },
+                    LeaderboardRm2v2: {
+                        path: 'rm_2v2',
+                    },
+                    LeaderboardRm3v3: {
+                        path: 'rm_3v3',
+                    },
+                    LeaderboardRm4v4: {
+                        path: 'rm_4v4',
+                    },
+                    LeaderboardQm1v1: {
+                        path: 'qm_1v1',
+                    },
+                    LeaderboardQm2v2: {
+                        path: 'qm_2v2',
+                    },
+                    LeaderboardQm3v3: {
+                        path: 'qm_3v3',
+                    },
+                    LeaderboardQm4v4: {
+                        path: 'qm_4v4',
+                    },
+                    LeaderboardRmSolo: {
+                        path: 'rm_solo',
                     },
                 }
             },
@@ -865,6 +904,21 @@ export function AppWrapper() {
             await SplashScreen.hideAsync();
         }
     }, [appIsReady]);
+
+    // const list = [{"leaderboardId":"unranked","leaderboardName":"Unranked","abbreviation":"UNR"},{"leaderboardId":"rm_1v1","leaderboardName":"Ranked Elo 1v1","abbreviation":"RM 1v1"},{"leaderboardId":"rm_2v2","leaderboardName":"Ranked Elo 2v2","abbreviation":"RM 2v2"},{"leaderboardId":"rm_3v3","leaderboardName":"Ranked Elo 3v3","abbreviation":"RM 3v3"},{"leaderboardId":"rm_4v4","leaderboardName":"Ranked Elo 4v4","abbreviation":"RM 4v4"},{"leaderboardId":"qm_1v1","leaderboardName":"Quick Match 1v1","abbreviation":"QM 1v1"},{"leaderboardId":"qm_2v2","leaderboardName":"Quick Match 2v2","abbreviation":"QM 2v2"},{"leaderboardId":"qm_3v3","leaderboardName":"Quick Match 3v3","abbreviation":"QM 3v3"},{"leaderboardId":"qm_4v4","leaderboardName":"Quick Match 4v4","abbreviation":"QM 4v4"}];
+
+    // useEffect(() => {
+    //     if (!appIsReady) return;
+    //     const newLinking = cloneDeep(linking);
+    //     newLinking.config.screens.Leaderboard.screens = {};
+    //     list.forEach(leaderboard => {
+    //         newLinking.config.screens.Leaderboard.screens[`Leaderboard${leaderboard.leaderboardId}`] = {
+    //             path: `${leaderboard.leaderboardId}`,
+    //         };
+    //     });
+    //     // setMyLinking(newLinking);
+    //     console.log(newLinking);
+    // }, [appIsReady]);
 
     if (!appIsReady) {
         return null;

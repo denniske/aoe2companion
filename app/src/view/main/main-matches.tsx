@@ -21,6 +21,8 @@ import Constants from 'expo-constants';
 import {RootStackParamList} from "../../../App2";
 import {useCachedConservedLazyApi} from "../../hooks/use-cached-conserved-lazy-api";
 import {usePrevious} from "@nex/data/hooks";
+import {useApi} from "../../hooks/use-api";
+import {fetchLeaderboards} from "../../api/leaderboard";
 
 
 interface Props {
@@ -54,8 +56,12 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
     const previousText = usePrevious(text);
     const mutate = useMutate();
     const [leaderboardId, setLeaderboardId] = useState<string>();
+    const previousLeaderboardId = usePrevious(leaderboardId);
     // const [filteredMatches, setFilteredMatches] = useState<IMatchNew[]>();
     const [withMe, setWithMe] = useState(false);
+    const [fetchingMore, setFetchingMore] = useState(false);
+    const [fetchedAll, setFetchedAll] = useState(false);
+    const [fetching, setFetching] = useState(false);
 
     const navigation = useNavigation();
     const userProfile = useSelector(state => state.user[profileId]?.profile);
@@ -73,32 +79,62 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
     // console.log('===> user', user);
 
     let matchesHandle = useCachedConservedLazyApi(
-        [],
+        [leaderboardId],
         () => true,
         state => get(state, ['user', profileId, 'matches']),
         (state, value) => set(state, ['user', profileId, 'matches'], value),
-        fetchPlayerMatches, 0, 500, [profileId], text
+        fetchPlayerMatches, 0, 500, [profileId], (leaderboardId == null ? undefined : [leaderboardId]), text
     );
     const matches = matchesHandle.data;
     const filteredMatches = matches;
 
 
     const refresh = () => {
+        if (previousText?.trim() === text.trim() && previousLeaderboardId === leaderboardId) {
+            return;
+        }
         if (text.length < 3) {
-            matchesHandle.refetch(0, 500, [profileId], '');
+            matchesHandle.refetch(0, 500, [profileId], (leaderboardId == null ? undefined : [leaderboardId]), '');
             return;
         }
-        if (previousText?.trim() === text.trim()) {
-            return;
-        }
-        matchesHandle.refetch(0, 500, [profileId], text.trim());
+        matchesHandle.refetch(0, 500, [profileId], (leaderboardId == null ? undefined : [leaderboardId]), text.trim());
         // setFetchedAll(false);
     };
 
     useEffect(() => {
         refresh();
+    }, [leaderboardId]);
+
+    useEffect(() => {
+        refresh();
     }, [text]);
 
+    const toggleWithMe = () => setWithMe(!withMe);
+
+    const onLeaderboardSelected = async (selLeaderboardId: string) => {
+        console.log('==>', leaderboardId, selLeaderboardId);
+        if (leaderboardId === selLeaderboardId) {
+            setLeaderboardId(undefined);
+        } else {
+            setLeaderboardId(selLeaderboardId);
+        }
+    };
+    const leaderboards = useApi(
+        {},
+        [],
+        state => state.leaderboards,
+        (state, value) => {
+            state.leaderboards = value;
+        },
+        fetchLeaderboards
+    );
+
+    const renderLeaderboard = (value: string, selected: boolean) => {
+        return <View style={styles.col}>
+            <MyText style={[styles.h1, { fontWeight: selected ? 'bold' : 'normal'}]}>{leaderboards.data.find(l => l.leaderboardId === value)?.abbreviationTitle}</MyText>
+            <MyText style={[styles.h2, { fontWeight: selected ? 'bold' : 'normal'}]}>{leaderboards.data.find(l => l.leaderboardId === value)?.abbreviationSubtitle}</MyText>
+        </View>;
+    };
 
     // useEffect(() => {
     //     if (matches == null) return;
@@ -132,27 +168,6 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
 
     const list = [...(filteredMatches ? ['header'] : []), ...(filteredMatches || Array(15).fill(null))];
 
-    const toggleWithMe = () => setWithMe(!withMe);
-
-    const onLeaderboardSelected = async (selLeaderboardId: string) => {
-        console.log('==>', leaderboardId, selLeaderboardId);
-        if (leaderboardId === selLeaderboardId) {
-            setLeaderboardId(undefined);
-        } else {
-            setLeaderboardId(selLeaderboardId);
-        }
-    };
-
-    const valueMapping: any = leaderboardMappingData;
-    const values: any[] = leaderboardIdsData;
-
-    const renderLeaderboard = (value: LeaderboardId, selected: boolean) => {
-        return <View style={styles.col}>
-            <MyText style={[styles.h1, { fontWeight: selected ? 'bold' : 'normal'}]}>{valueMapping[value].title}</MyText>
-            <MyText style={[styles.h2, { fontWeight: selected ? 'bold' : 'normal'}]}>{valueMapping[value].subtitle}</MyText>
-        </View>;
-    };
-
     const [refetching, setRefetching] = useState(false);
 
     useEffect(() => {
@@ -178,12 +193,33 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
         setRefetching(false);
     };
 
+    if (!leaderboards.data){
+        return <View></View>;
+    }
+
+    const onEndReached = async () => {
+        if (fetchingMore || !matchesHandle.data) return;
+        setFetchingMore(true);
+        // console.log("FEEDLIST", 'onEndReached');
+        const matchesLength = matchesHandle.data?.length ?? 0;
+        const newMatchesData = await matchesHandle.refetch(0, (matchesHandle.data?.length ?? 0) + 15, following.map(f => f.profileId));
+        if (matchesLength === newMatchesData?.length) {
+            setFetchedAll(true);
+        }
+        setFetchingMore(false);
+    };
+
+    const _renderFooter = () => {
+        if (!fetchingMore) return null;
+        return <FlatListLoadingIndicator />;
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.content}>
                 {/*<Button onPress={onRefresh}>REFRESH</Button>*/}
                 <View style={styles.pickerRow}>
-                    <TemplatePicker value={leaderboardId} values={values} template={renderLeaderboard} onSelect={onLeaderboardSelected}/>
+                    <TemplatePicker value={leaderboardId} values={leaderboards.data.map(l => l.leaderboardId)} template={renderLeaderboard} onSelect={onLeaderboardSelected}/>
                     <View style={appStyles.expanded}/>
                     {/*{*/}
                     {/*    auth && profileId !== auth?.profileId &&*/}
@@ -222,6 +258,9 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
                                 return <Game match={item as any} expanded={index === -1} highlightedUsers={[profileId]} user={profileId}/>;
                         }
                     }}
+                    ListFooterComponent={_renderFooter}
+                    onEndReached={fetchedAll ? null : onEndReached}
+                    onEndReachedThreshold={0.1}
                     keyExtractor={(item, index) => index.toString()}
                     refreshControl={
                         <RefreshControlThemed

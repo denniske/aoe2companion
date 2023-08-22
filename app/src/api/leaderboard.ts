@@ -2,7 +2,7 @@ import {dateReviver, getHost, makeQueryString} from '@nex/data';
 import {fetchJson, fetchJson2} from "./util";
 import {appConfig} from "@nex/dataset";
 import {camelizeKeys, decamelize, decamelizeKeys} from "humps";
-import {ILeaderboardResponse, IMatchesResponse} from "@nex/data/api";
+import {ILeaderboardResponse, ILeaderboardsResponse, IMatchesResponse} from "@nex/data/api";
 
 export interface IFetchLeaderboardParams {
     // start?: number;
@@ -22,6 +22,15 @@ export async function fetchLeaderboard(leaderboard_id: number, params: IFetchLea
     const queryString = makeQueryString(query);
     const url = getHost('aoe2companion-data') + `api/leaderboards/${leaderboard_id}?${queryString}`;
     let json = camelizeKeys(await fetchJson2('fetchLeaderboard', url, undefined, dateReviver)) as ILeaderboardResponse;
+
+    // console.log(json);
+
+    return json;
+}
+
+export async function fetchLeaderboards(): Promise<ILeaderboardsResponse> {
+    const url = getHost('aoe2companion-data') + `api/leaderboards`;
+    let json = camelizeKeys(await fetchJson2('fetchLeaderboards', url, undefined, dateReviver)) as ILeaderboardsResponse;
 
     // console.log(json);
 
