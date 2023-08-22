@@ -93,6 +93,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, Layout } from '@ui-kitten/components';
 import {cloneDeep} from "lodash";
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 initSentry();
 
@@ -841,6 +842,8 @@ function getAppType(): AppType {
     return 'app';
 }
 
+const queryClient = new QueryClient();
+
 export function AppWrapper() {
     // AsyncStorage.removeItem('prefs');
     // AsyncStorage.removeItem('settings');
@@ -946,30 +949,30 @@ export function AppWrapper() {
                     }}
                 >
                     <ApplicationProvider {...eva} theme={eva.light}>
-                    <GestureHandlerRootView style={{ flex: 1 }}>
-                    <StatusBar barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'} backgroundColor="transparent" translucent={true} />
-                    {/*<StatusBar barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'} backgroundColor="transparent" translucent={true} />*/}
-                    {/*<StatusBar barStyle="dark-content" backgroundColor="white" />*/}
-                    {/*<StatusBar barStyle="light-content" backgroundColor="transparent" />*/}
-                    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-                        {
-                            appType == 'query' &&
-                            <InnerAppForQuery/>
-                        }
-                        {
-                            appType == 'build' &&
-                            <InnerAppForBuild/>
-                        }
-                        {
-                            appType == 'intro' &&
-                            <InnerAppForIntro/>
-                        }
-                        {
-                            appType == 'app' &&
-                            <InnerApp/>
-                        }
-                    </View>
-                    </GestureHandlerRootView>
+                        <QueryClientProvider client={queryClient}>
+                            <GestureHandlerRootView style={{flex: 1}}>
+                                <StatusBar barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'}
+                                           backgroundColor="transparent" translucent={true}/>
+                                <View style={{flex: 1}} onLayout={onLayoutRootView}>
+                                    {
+                                        appType == 'query' &&
+                                        <InnerAppForQuery/>
+                                    }
+                                    {
+                                        appType == 'build' &&
+                                        <InnerAppForBuild/>
+                                    }
+                                    {
+                                        appType == 'intro' &&
+                                        <InnerAppForIntro/>
+                                    }
+                                    {
+                                        appType == 'app' &&
+                                        <InnerApp/>
+                                    }
+                                </View>
+                            </GestureHandlerRootView>
+                        </QueryClientProvider>
                     </ApplicationProvider>
                 </PaperProvider>
             </ConditionalTester>

@@ -10,7 +10,7 @@ import {MyText} from "../components/my-text";
 import {appVariants} from "../../styles";
 import {fetchPlayerMatches, LeaderboardId} from "@nex/data";
 import TemplatePicker from "../components/template-picker";
-import {get, set} from 'lodash';
+import {flatten, get, set} from 'lodash';
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
 import {openLink} from "../../helper/url";
@@ -23,6 +23,10 @@ import {useCachedConservedLazyApi} from "../../hooks/use-cached-conserved-lazy-a
 import {usePrevious} from "@nex/data/hooks";
 import {useApi} from "../../hooks/use-api";
 import {fetchLeaderboards} from "../../api/leaderboard";
+import {useLazyAppendApi} from "../../hooks/use-lazy-append-api";
+import {useInfiniteQuery} from "@tanstack/react-query";
+import useDebounce from "../../hooks/use-debounce";
+import {fetchMatches} from "../../api/helper/api";
 
 
 interface Props {
@@ -53,15 +57,9 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
     const styles = useStyles();
     const appStyles = useTheme(appVariants);
     const [text, setText] = useState('');
-    const previousText = usePrevious(text);
-    const mutate = useMutate();
     const [leaderboardId, setLeaderboardId] = useState<string>();
-    const previousLeaderboardId = usePrevious(leaderboardId);
-    // const [filteredMatches, setFilteredMatches] = useState<IMatchNew[]>();
     const [withMe, setWithMe] = useState(false);
-    const [fetchingMore, setFetchingMore] = useState(false);
-    const [fetchedAll, setFetchedAll] = useState(false);
-    const [fetching, setFetching] = useState(false);
+    const [reloading, setReloading] = useState(false);
 
     const navigation = useNavigation();
     const userProfile = useSelector(state => state.user[profileId]?.profile);
@@ -72,42 +70,34 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
         });
     }, [userProfile]);
 
-    const auth = useSelector(state => state.auth);
+    const realText = text.trim().length < 3 ? '' : text.trim();
+    const debouncedSearch = useDebounce(realText, 600);
 
-    // const matches = useSelector(state => get(state.user, [profileId, 'matches']));
+    const {
+        data,
+        error,
+        fetchNextPage,
+        hasNextPage,
+        isFetching,
+        isFetchingNextPage,
+        status,
+        refetch,
+        isRefetching,
+    } = useInfiniteQuery(
+        ['matches', profileId, debouncedSearch, leaderboardId],
+        (context) => {
+            return fetchMatches({
+                ...context,
+                profileIds: [context.queryKey[1] as number],
+                search: context.queryKey[2] as string,
+                leaderboardIds: [context.queryKey[3] as number],
+            });
+        }, {
+            getNextPageParam: (lastPage, pages) => lastPage.matches.length === lastPage.perPage ? lastPage.page + 1 : null,
+            keepPreviousData: true,
+        })
 
-    // console.log('===> user', user);
-
-    let matchesHandle = useCachedConservedLazyApi(
-        [leaderboardId],
-        () => true,
-        state => get(state, ['user', profileId, 'matches']),
-        (state, value) => set(state, ['user', profileId, 'matches'], value),
-        fetchPlayerMatches, 0, 500, [profileId], (leaderboardId == null ? undefined : [leaderboardId]), text
-    );
-    const matches = matchesHandle.data;
-    const filteredMatches = matches;
-
-
-    const refresh = () => {
-        if (previousText?.trim() === text.trim() && previousLeaderboardId === leaderboardId) {
-            return;
-        }
-        if (text.length < 3) {
-            matchesHandle.refetch(0, 500, [profileId], (leaderboardId == null ? undefined : [leaderboardId]), '');
-            return;
-        }
-        matchesHandle.refetch(0, 500, [profileId], (leaderboardId == null ? undefined : [leaderboardId]), text.trim());
-        // setFetchedAll(false);
-    };
-
-    useEffect(() => {
-        refresh();
-    }, [leaderboardId]);
-
-    useEffect(() => {
-        refresh();
-    }, [text]);
+    // console.log('data', data);
 
     const toggleWithMe = () => setWithMe(!withMe);
 
@@ -136,15 +126,6 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
         </View>;
     };
 
-    // useEffect(() => {
-    //     if (matches == null) return;
-    //
-    //     let filtered = matches;
-    //
-    //     if (leaderboardId != null) {
-    //         filtered = filtered.filter(m => m.leaderboardId == leaderboardId);
-    //     }
-    //
     //     if (text.trim().length > 0) {
     //         const parts = text.toLowerCase().split(' ');
     //         filtered = filtered.filter(m => {
@@ -156,25 +137,12 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
     //             });
     //         });
     //     }
-    //
     //     if (withMe && auth) {
     //         filtered = filtered.filter(m => m.players.some(p => sameUser(p, auth)));
     //     }
-    //
-    //     setFilteredMatches(filtered);
-    // }, [text, leaderboardId, withMe, matches]);
 
-    // console.log('matches', matches);
-
-    const list = [...(filteredMatches ? ['header'] : []), ...(filteredMatches || Array(15).fill(null))];
-
-    const [refetching, setRefetching] = useState(false);
-
-    useEffect(() => {
-        if (matches) {
-            setRefetching(false);
-        }
-    }, [matches])
+    const list = flatten(data?.pages?.map(p => p.matches) || Array(15).fill(null));
+    // const list = [...(filteredMatches ? ['header'] : []), ...(filteredMatches || Array(15).fill(null))];
 
     const route = useRoute();
     const state = useNavigationState(state => state);
@@ -187,10 +155,9 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
     }, [isActiveRoute]);
 
     const onRefresh = async () => {
-        setRefetching(true);
-        await mutate(clearMatchesPlayer(profileId));
-        await matchesHandle.refetch(0, 500, [profileId], text.trim().length >= 3 ? text.trim() : '');
-        setRefetching(false);
+        setReloading(true);
+        await refetch();
+        setReloading(false);
     };
 
     if (!leaderboards.data){
@@ -198,19 +165,12 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
     }
 
     const onEndReached = async () => {
-        if (fetchingMore || !matchesHandle.data) return;
-        setFetchingMore(true);
-        // console.log("FEEDLIST", 'onEndReached');
-        const matchesLength = matchesHandle.data?.length ?? 0;
-        const newMatchesData = await matchesHandle.refetch(0, (matchesHandle.data?.length ?? 0) + 15, following.map(f => f.profileId));
-        if (matchesLength === newMatchesData?.length) {
-            setFetchedAll(true);
-        }
-        setFetchingMore(false);
+        if (!hasNextPage || isFetchingNextPage) return;
+        fetchNextPage();
     };
 
     const _renderFooter = () => {
-        if (!fetchingMore) return null;
+        if (!isFetchingNextPage) return null;
         return <FlatListLoadingIndicator />;
     };
 
@@ -242,7 +202,7 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
                     value={text}
                 />
                 {
-                    Platform.OS === 'web' && refetching &&
+                    Platform.OS === 'web' && reloading &&
                     <FlatListLoadingIndicator/>
                 }
                 <FlatList
@@ -259,13 +219,13 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
                         }
                     }}
                     ListFooterComponent={_renderFooter}
-                    onEndReached={fetchedAll ? null : onEndReached}
+                    onEndReached={onEndReached}
                     onEndReachedThreshold={0.1}
                     keyExtractor={(item, index) => index.toString()}
                     refreshControl={
                         <RefreshControlThemed
                             onRefresh={onRefresh}
-                            refreshing={refetching}
+                            refreshing={reloading}
                         />
                     }
                 />
@@ -305,11 +265,9 @@ const useStyles = createStylesheet((theme, mode) => StyleSheet.create({
     h2: {
         fontSize: 11,
     },
-
     pickerRow: {
         // backgroundColor: 'yellow',
         flexDirection: 'row',
-        // justifyContent: 'center',
         alignItems: 'center',
         paddingLeft: 20,
         paddingRight: 20,
