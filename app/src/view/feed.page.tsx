@@ -24,6 +24,8 @@ import {ProfileLive} from './components/profile';
 import {useWebRefresh} from "../hooks/use-web-refresh";
 import {isElectron, useLastNotificationReceivedElectron} from "../helper/electron";
 import {openLink} from "../helper/url";
+import {useInfiniteQuery} from "@tanstack/react-query";
+import {fetchMatches} from "../api/helper/api";
 
 
 export function feedTitle(props: any) {
@@ -68,8 +70,6 @@ export function FeedList() {
     const matchId = route.params?.match_id;
 
     const [refetching, setRefetching] = useState(false);
-    const [fetchingMore, setFetchingMore] = useState(false);
-    const [fetchedAll, setFetchedAll] = useState(false);
 
     const state = useNavigationState(state => state);
     const activeRoute = state.routes[state.index] as RouteProp<RootStackParamList, 'Feed'>;
@@ -77,53 +77,24 @@ export function FeedList() {
 
     const auth = useSelector(state => state.auth);
     const following = useSelector(state => state.following);
-    const [prevFollowing, setPrevFollowing] = useState<IFollowingEntry[] | null>(null);
-    const [prevMatchId, setPrevMatchId] = useState<string>();
 
-    // console.log('following', following);
-
-    const matches = useCachedLazyApi(
-        [],
-        state => state.followedMatches,
-        (state, value) => {
-            state.followedMatches = value;
-        },
-        fetchPlayerMatches, 0, 15, following?.map(f => f.profileId),
-    );
-
-    const refetch = async () => {
-        console.log('REFETCH');
-        setRefetching(true);
-        await matches.refetch(0, 15, following?.map(f => f.profileId));
-        console.log('REFETCH DONE');
-        setRefetching(false);
-        setFetchedAll(false);
-    };
-
-    const refresh = () => {
-        if (!isActiveRoute) return;
-
-        if (isEqual(prevFollowing, following) && isEqual(prevMatchId, matchId)) return;
-
-        // Do not load from cache when notification was tapped
-        if (prevFollowing == null && isEqual(prevMatchId, matchId)) {
-            // console.log('INIT');
-            matches.init(0, 15, following.map(f => f.profileId));
-            setFetchedAll(false);
-        } else {
-            refetch();
-        }
-
-        setPrevFollowing(following);
-        setPrevMatchId(matchId);
-    };
-
-    // console.log('matches', matches);
-    // console.log(matches.data);
-
-    useEffect(() => {
-        refresh();
-    }, [following, isActiveRoute]);
+    const {
+        data,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage,
+        refetch,
+    } = useInfiniteQuery(
+        ['feed-matches', following?.map(f => f.profileId)],
+        (context) => {
+            return fetchMatches({
+                ...context,
+                profileIds: context.queryKey[1] as number[],
+            });
+        }, {
+            getNextPageParam: (lastPage, pages) => lastPage.matches.length === lastPage.perPage ? lastPage.page + 1 : null,
+            keepPreviousData: true,
+        });
 
     if (isElectron()) {
         const lastNotificationReceivedElectron = useLastNotificationReceivedElectron();
@@ -144,26 +115,19 @@ export function FeedList() {
 
     const onRefresh = async () => {
         setRefetching(true);
-        await Promise.all([matches.reload()]);
+        await refetch();
         setRefetching(false);
     };
 
     const onEndReached = async () => {
-        if (fetchingMore || !matches.data) return;
-        setFetchingMore(true);
-        // console.log("FEEDLIST", 'onEndReached');
-        const matchesLength = matches.data?.length ?? 0;
-        const newMatchesData = await matches.refetch(0, (matches.data?.length ?? 0) + 15, following.map(f => f.profileId));
-        if (matchesLength === newMatchesData?.length) {
-            setFetchedAll(true);
-        }
-        setFetchingMore(false);
+        if (!hasNextPage || isFetchingNextPage) return;
+        fetchNextPage();
     };
 
-    const list = [...(matches.data || Array(15).fill(null))];
+    const list = flatten(data?.pages?.map(p => p.matches) || Array(15).fill(null));
 
     const _renderFooter = () => {
-        if (!fetchingMore) return null;
+        if (!isFetchingNextPage) return null;
         return <FlatListLoadingIndicator />;
     };
 
@@ -180,7 +144,7 @@ export function FeedList() {
     };
 
     const formatPlayer = (player: any, i: number) => {
-        return player.profileId === auth?.profileId ? (i == 0 ? getTranslation('feed.following.you') : getTranslation('feed.following.you').toLowerCase()) : player.name;
+        return player?.profileId === auth?.profileId ? (i == 0 ? getTranslation('feed.following.you') : getTranslation('feed.following.you').toLowerCase()) : player.name;
     };
 
     if (following?.length === 0 || list.length === 0) {
@@ -297,7 +261,7 @@ export function FeedList() {
                                 }
                             }}
                             ListFooterComponent={_renderFooter}
-                            onEndReached={fetchedAll ? null : onEndReached}
+                            onEndReached={onEndReached}
                             onEndReachedThreshold={0.1}
                             keyExtractor={(item, index) => index.toString()}
                             refreshControl={

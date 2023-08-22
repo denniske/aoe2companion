@@ -75,14 +75,10 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
 
     const {
         data,
-        error,
         fetchNextPage,
         hasNextPage,
-        isFetching,
         isFetchingNextPage,
-        status,
         refetch,
-        isRefetching,
     } = useInfiniteQuery(
         ['matches', profileId, debouncedSearch, leaderboardId],
         (context) => {

@@ -19,7 +19,7 @@ export async function fetchProfileRatings(params: IFetchProfileRatingParams) {
         page: params.pageParam || 1,
     }));
     const url = `${getHost('aoe2companion-data')}api/profile/${params.profileId}/ratings?${queryString}`;
-    return camelizeKeys(await fetchJson2('fetchProfileRatings', url, null, dateReviver)) as IProfileRatingsResult;
+    return camelizeKeys(await fetchJson2('fetchProfileRatings', url, undefined, dateReviver)) as IProfileRatingsResult;
 }
 
 // export async function fetchProfileLeaderboard(params: IFetchProfileRatingParams) {
@@ -29,7 +29,7 @@ export async function fetchProfileRatings(params: IFetchProfileRatingParams) {
 //         page: params.pageParam || 1,
 //     }));
 //     const url = `${getHost('aoe2companion-data')}api/profile/ratings?${queryString}`;
-//     return camelizeKeys(await fetchJson2('fetchProfileLeaderboard', url, null, dateReviver)) as IProfileRatingsResult;
+//     return camelizeKeys(await fetchJson2('fetchProfileLeaderboard', url, undefined, dateReviver)) as IProfileRatingsResult;
 // }
 
 export async function fetchProfile(params: IFetchProfileParams) {
@@ -39,7 +39,7 @@ export async function fetchProfile(params: IFetchProfileParams) {
         page: params.pageParam || 1,
     }));
     const url = `${getHost('aoe2companion-data')}api/profiles/${params.profileId}?${queryString}`;
-    return camelizeKeys(await fetchJson2('fetchProfile', url, null, dateReviver)) as IProfileResult;
+    return camelizeKeys(await fetchJson2('fetchProfile', url, undefined, dateReviver)) as IProfileResult;
 }
 
 export async function fetchProfiles(params: IFetchProfileParams) {
@@ -49,7 +49,7 @@ export async function fetchProfiles(params: IFetchProfileParams) {
         page: params.pageParam || 1,
     }));
     const url = `${getHost('aoe2companion-data')}api/profiles?${queryString}`;
-    return camelizeKeys(await fetchJson2('fetchProfile', url, null, dateReviver)) as IProfilesResult;
+    return camelizeKeys(await fetchJson2('fetchProfile', url, undefined, dateReviver)) as IProfilesResult;
 }
 
 // export async function fetchProfile(params: IFetchProfileParams) {
@@ -59,7 +59,7 @@ export async function fetchProfiles(params: IFetchProfileParams) {
 //         page: params.pageParam || 1,
 //     }));
 //     const url = `${getHost('aoe2companion-data')}api/profile?${queryString}`;
-//     return camelizeKeys(await fetchJson2('fetchProfile', url, null, dateReviver)) as IProfilesResult;
+//     return camelizeKeys(await fetchJson2('fetchProfile', url, undefined, dateReviver)) as IProfilesResult;
 // }
 
 export async function fetchMatches(params: IFetchMatchesParams) {
@@ -69,7 +69,7 @@ export async function fetchMatches(params: IFetchMatchesParams) {
         page: params.pageParam || 1,
     }));
     const url = `${getHost('aoe2companion-data')}api/matches?${queryString}`;
-    return camelizeKeys(await fetchJson2('fetchMatches', url, null, dateReviver)) as IMatchesResult;
+    return camelizeKeys(await fetchJson2('fetchMatches', url, undefined, dateReviver)) as IMatchesResult;
 }
 
 export async function fetchLeaderboard(params: IFetchLeaderboardParams) {
@@ -78,11 +78,11 @@ export async function fetchLeaderboard(params: IFetchLeaderboardParams) {
         page: params.pageParam || 1,
     }));
     const url = `${getHost('aoe2companion-data')}api/leaderboards/${params.leaderboardId}?${queryString}`;
-    return camelizeKeys(await fetchJson2('fetchLeaderboard', url, null, dateReviver)) as ILeaderboard;
+    return camelizeKeys(await fetchJson2('fetchLeaderboard', url, undefined, dateReviver)) as ILeaderboard;
 }
 
 export async function fetchLeaderboards() {
     const url = `${getHost('aoe2companion-data')}api/leaderboards`;
-    return camelizeKeys(await fetchJson2('fetchLeaderboards', url, null, dateReviver)) as ILeaderboardDef[];
+    return camelizeKeys(await fetchJson2('fetchLeaderboards', url, undefined, dateReviver)) as ILeaderboardDef[];
 }
 

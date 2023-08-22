@@ -103,7 +103,7 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
                                      imageStyle={styles.imageInner}
                                      style={styles.map}>
                         {
-                            players.some(p => p.profileId === user.profileId && p.won === true && (freeForALl || p.team != -1)) &&
+                            players.some(p => p.profileId === user?.profileId && p.won === true && (freeForALl || p.team != -1)) &&
                             <FontAwesome5 name="crown" size={14} style={{marginLeft: -7,marginTop:-4}} color="goldenrod" />
                         }
                         {
@@ -111,7 +111,7 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
                             <Image fadeDuration={0} source={require('../../../assets/other/SkullCrown.png')} style={{marginLeft: -6,marginTop:-4, width: 17, height: 17}} />
                         }
                         {
-                            players.some(p => p.profileId === user.profileId && p.won === false && (freeForALl || p.team != -1)) &&
+                            players.some(p => p.profileId === user?.profileId && p.won === false && (freeForALl || p.team != -1)) &&
                             <FontAwesome5 name="skull" size={14} style={{marginLeft: -6,marginTop:-4}} color="grey" />
                         }
                     </ImageBackground>
