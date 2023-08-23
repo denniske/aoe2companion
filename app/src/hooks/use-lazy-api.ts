@@ -19,7 +19,7 @@ export function useLazyApi<A extends (...args: any) => any>(options: ILazyApiOpt
     const load = async (append: boolean, ...args: Parameters<A>) => {
         if (!mountedRef.current) return null;
 
-        console.log('LOAD', append);
+        // console.log('LOAD', append);
 
         // Save current request ref
         requestRef.current++;

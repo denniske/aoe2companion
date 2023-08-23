@@ -67,7 +67,7 @@ function MainStatsInternal({profileId}: {profileId: number}) {
         });
     }, [userProfile]);
 
-    console.log('==> leaderboardId', leaderboardId);
+    // console.log('==> leaderboardId', leaderboardId);
 
     const leaderboards = useApi(
         {},

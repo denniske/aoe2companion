@@ -167,7 +167,7 @@ export default function UserPage() {
     // When visiting user page with only profileId / steamId
 
     const completeUserIdInfo = async () => {
-        console.log('completeUserIdInfo');
+        // console.log('completeUserIdInfo');
 
         const loadedProfile = await fetchProfile({profile_id: profileId});
         if (loadedProfile) {
@@ -178,7 +178,7 @@ export default function UserPage() {
             //     set(state.cache, ['profile', profileId, 'name'], loadedProfile.profiles[0].name);
             // });
         }
-        console.log(loadedProfile);
+        // console.log(loadedProfile);
 
         // if (!loadedProfile?.steamId) {
         //     setHasSteamId(false);

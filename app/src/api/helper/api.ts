@@ -63,7 +63,7 @@ export async function fetchProfiles(params: IFetchProfileParams) {
 // }
 
 export async function fetchMatches(params: IFetchMatchesParams) {
-    console.log('fetchMatches', params);
+//    console.log('fetchMatches', params);
     const queryString = makeQueryString(decamelizeKeys({
         ...removeReactQueryParams(params),
         page: params.pageParam || 1,

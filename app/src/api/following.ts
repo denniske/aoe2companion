@@ -194,7 +194,7 @@ export async function twitchLive(channel?: string): Promise<ITwitchChannel> {
     // } as any));
 
     const url = getHost('aoe2companion-api') + `twitch/live?channel=${channel}`;
-    console.log(url);
+    // console.log(url);
     return await fetchJson('twitchLive', url, {
         method: 'GET',
         headers: {
@@ -236,7 +236,7 @@ export interface IDiscordInfo {
 
 export async function discordOnline(serverId: string): Promise<IDiscordInfo> {
     const url = `https://discord.com/api/v6/guilds/${serverId}/widget.json`;
-    console.log(url);
+    // console.log(url);
     return await fetchJson('discordOnline', url, {
         method: 'GET',
         headers: {
