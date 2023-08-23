@@ -79,6 +79,7 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
         hasNextPage,
         isFetchingNextPage,
         refetch,
+        isRefetching,
     } = useInfiniteQuery(
         ['matches', profileId, debouncedSearch, leaderboardId],
         (context) => {
@@ -200,30 +201,36 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
                     Platform.OS === 'web' && reloading &&
                     <FlatListLoadingIndicator/>
                 }
-                <FlatList
-                    contentContainerStyle={styles.list}
-                    initialNumToRender={10}
-                    windowSize={2}
-                    data={list}
-                    renderItem={({item, index}) => {
-                        switch (item) {
-                            case 'header':
-                                return <MyText style={styles.header}>{getTranslation('main.matches.matches', { matches: filteredMatches?.length })}</MyText>
-                            default:
-                                return <Game match={item as any} expanded={index === -1} highlightedUsers={[profileId]} user={profileId}/>;
-                        }
-                    }}
-                    ListFooterComponent={_renderFooter}
-                    onEndReached={onEndReached}
-                    onEndReachedThreshold={0.1}
-                    keyExtractor={(item, index) => index.toString()}
-                    refreshControl={
-                        <RefreshControlThemed
-                            onRefresh={onRefresh}
-                            refreshing={reloading}
-                        />
+                <View style={{flex: 1, opacity: isRefetching ? 0.7 : 1}}>
+                    {
+                        list.length === 0 &&
+                        <MyText style={styles.header}>{getTranslation('main.matches.nomatches')}</MyText>
                     }
-                />
+                    <FlatList
+                        contentContainerStyle={styles.list}
+                        initialNumToRender={10}
+                        windowSize={2}
+                        data={list}
+                        renderItem={({item, index}) => {
+                            switch (item) {
+                                case 'header':
+                                    return <MyText style={styles.header}>{getTranslation('main.matches.matches', { matches: filteredMatches?.length })}</MyText>
+                                default:
+                                    return <Game match={item as any} expanded={index === -1} highlightedUsers={[profileId]} user={profileId}/>;
+                            }
+                        }}
+                        ListFooterComponent={_renderFooter}
+                        onEndReached={onEndReached}
+                        onEndReachedThreshold={0.1}
+                        keyExtractor={(item, index) => index.toString()}
+                        refreshControl={
+                            <RefreshControlThemed
+                                onRefresh={onRefresh}
+                                refreshing={reloading}
+                            />
+                        }
+                    />
+                </View>
             </View>
         </View>
     );
@@ -237,7 +244,7 @@ const useStyles = createStylesheet((theme, mode) => StyleSheet.create({
     },
     header: {
         textAlign: 'center',
-        marginBottom: 15,
+        padding: 20,
     },
 
     info: {
