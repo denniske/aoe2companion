@@ -30,7 +30,7 @@ export function isBirthday() {
     return new Date().getDate() === moDate && new Date().getMonth() === moMonth;
 }
 
-export function clamp(value, a, b) {
+export function clamp(value: number, a: number, b: number) {
     return Math.max(Math.min(value, b), a);
 }
 

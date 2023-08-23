@@ -93,7 +93,7 @@ export default function AboutPage() {
         // }
 
         try {
-            delete Constants.expoConfig?.assets;
+            // delete Constants.expoConfig?.assets;
             setDebugManifest(JSON.stringify(Constants.expoConfig || { empty: true }, null, 4));
         } catch (e) {}
     };
@@ -227,20 +227,20 @@ export default function AboutPage() {
 
             <MyText style={styles.heading}>{getTranslation('about.heading.version')}</MyText>
             <TouchableOpacity onPress={incrementVersionClickCount}>
-                {
-                    isElectron() &&
-                    <MyText style={styles.content}>{Constants.expoConfig?.releaseChannel || 'dev'}-{Constants.expoConfig?.version}n{electronVersion}</MyText>
-                }
-                {
-                    !isElectron() &&
-                    <MyText style={styles.content}>
-                        {Constants.expoConfig?.releaseChannel || channel || 'dev'}
-                        {' '}
-                        {Constants.expoConfig?.version || Constants.expoConfig2?.extra?.expoClient?.version}
-                        {' '}
-                        ({Constants.expoConfig?.runtimeVersion || runtimeVersion || 'dev'})
-                    </MyText>
-                }
+                {/*{*/}
+                {/*    isElectron() &&*/}
+                {/*    <MyText style={styles.content}>{Constants.expoConfig?.releaseChannel || 'dev'}-{Constants.expoConfig?.version}n{electronVersion}</MyText>*/}
+                {/*}*/}
+                {/*{*/}
+                {/*    !isElectron() &&*/}
+                {/*    <MyText style={styles.content}>*/}
+                {/*        {Constants.expoConfig?.releaseChannel || channel || 'dev'}*/}
+                {/*        {' '}*/}
+                {/*        {Constants.expoConfig?.version || Constants.expoConfig2?.extra?.expoClient?.version}*/}
+                {/*        {' '}*/}
+                {/*        ({Constants.expoConfig?.runtimeVersion || runtimeVersion || 'dev'})*/}
+                {/*    </MyText>*/}
+                {/*}*/}
                 {/*<MyText style={styles.content}>n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}</MyText>*/}
             </TouchableOpacity>
 

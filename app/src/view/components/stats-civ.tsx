@@ -15,12 +15,32 @@ import {CountryImage} from "./country-image";
 import {appConfig} from "@nex/dataset";
 
 
-interface IRowProps {
-    data: IStatCiv & IStatMap & IStatAlly & IStatOpponent;
-    type: 'civ' | 'map' | 'ally' | 'opponent';
+interface IRowPropsCiv {
+    data: IStatCiv;
+    type: 'civ';
 }
 
-function Row({type, data}: IRowProps) {
+interface IRowPropsMap {
+    data: IStatMap;
+    type: 'map';
+}
+
+interface IRowPropsAlly {
+    data: IStatAlly;
+    type: 'ally';
+}
+
+interface IRowPropsOpponent {
+    data: IStatOpponent;
+    type: 'opponent';
+}
+
+// interface IRowProps {
+//     data: IStatCiv | IStatMap | IStatAlly | IStatOpponent;
+//     type: 'civ' | 'map' | 'ally' | 'opponent';
+// }
+
+function Row({type, data}: IRowPropsCiv | IRowPropsMap | IRowPropsAlly | IRowPropsOpponent) {
     const styles = useStyles();
     const navigation = useNavigation<RootStackProp>();
 
@@ -85,38 +105,20 @@ function Row({type, data}: IRowProps) {
 
 
 interface IProps {
-    user: UserIdBase;
     type: 'civ' | 'map' | 'ally' | 'opponent';
     title: string;
-    leaderboardId: LeaderboardId;
-    data: IStatCiv[];
+    leaderboardId?: LeaderboardId;
+    data?: IStatCiv[] | IStatMap[] | IStatAlly[] | IStatOpponent[];
 }
 
 export default function StatsCiv(props: IProps) {
     const styles = useStyles();
 
-    const { type, data, user, title } = props;
-    // let { rowsWithCiv, rowsAgainstCiv, leaderboardId } = data || { leaderboardId: props.leaderboardId };
-
-    // const hasAgainstCiv = [LeaderboardId.RM1v1, LeaderboardId.DM1v1].includes(leaderboardId);
-
-    // console.log('data', title, data);
+    const { type, data, title } = props;
 
     if (data?.length === 0) {
         return <View/>;
     }
-
-    // const getKey = (data: any) => {
-    //     if (data.civ) {
-    //         return data.civ;
-    //     }
-    //     if (data.map) {
-    //         return data.map;
-    //     }
-    //     if (data.profileId) {
-    //         return data.profileId;
-    //     }
-    // };
 
     return (
             <View style={styles.container}>

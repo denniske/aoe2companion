@@ -38,16 +38,18 @@ export default function MyListAccordion(props: Props) {
                 <TouchableRipple
                         style={[styles.container]}
                         onPress={handlePress}
-                        accessibilityTraits="button"
-                        accessibilityComponentType="button"
-                        accessibilityRole="button"
                 >
                     <View style={styles.row} pointerEvents="none">
                         <View style={[styles.item, styles.content]}>
                             {left ? left({}):null}
                         </View>
                         <View style={styles.item}>
-                            <MaterialCommunityIcons name={expanded ? 'chevron-up':'chevron-down'} color={expandable ? paperTheme.colors.text : theme.skeletonColor} style={{opacity: expandable ? 1 : 1}} size={30}/>
+                            <MaterialCommunityIcons
+                                name={expanded ? 'chevron-up':'chevron-down'}
+                                color={expandable ? paperTheme.colors.onSurface : theme.skeletonColor}
+                                style={{opacity: expandable ? 1 : 1}}
+                                size={30}
+                            />
                         </View>
                     </View>
                 </TouchableRipple>
@@ -58,7 +60,7 @@ export default function MyListAccordion(props: Props) {
                                 if (React.isValidElement(child)) {
                                     return React.cloneElement(child, {
                                         style: [styles.child, child.props.style],
-                                    });
+                                    } as any);
                                 }
                                 return child;
                             })

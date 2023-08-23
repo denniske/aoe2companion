@@ -11,7 +11,7 @@ import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
 import {setIngame, setPrefValue, useMutate, useSelector} from '../../redux/reducer';
 import {saveCurrentPrefsToStorage} from '../../service/storage';
-import {fetchMatchWithFallback, isBirthday, moProfileId} from '@nex/data';
+import {isBirthday, moProfileId} from '@nex/data';
 import {
     getElectron,
     isElectron,
@@ -114,17 +114,17 @@ export default function Footer() {
         }, [response]);
     }
 
-    if (isElectron()) {
-        const receivedNotification = useLastNotificationReceivedElectron();
-        useEffect(() => {
-            if (receivedNotification) {
-                console.log('received (FOOTER)', receivedNotification);
-                fetchMatchWithFallback('aoe2de', { match_id: receivedNotification.data.match_id }).then(match => {
-                    mutate(setIngame(match, match.players.find(p => p.profile_id === auth?.profile_id)!));
-                });
-            }
-        }, [receivedNotification]);
-    }
+    // if (isElectron()) {
+    //     const receivedNotification = useLastNotificationReceivedElectron();
+    //     useEffect(() => {
+    //         if (receivedNotification) {
+    //             console.log('received (FOOTER)', receivedNotification);
+    //             fetchMatchWithFallback('aoe2de', { match_id: receivedNotification.data.match_id }).then(match => {
+    //                 mutate(setIngame(match, match.players.find(p => p.profile_id === auth?.profile_id)!));
+    //             });
+    //         }
+    //     }, [receivedNotification]);
+    // }
 
     if (Platform.OS === 'web' && !isElectron()) {
         const response = useLastNotificationResponseWeb();

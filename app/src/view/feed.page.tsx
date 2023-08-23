@@ -1,23 +1,20 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, Linking, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {RootStackParamList, RootStackProp} from '../../App';
+import {FlatList, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {RootStackParamList, RootStackProp} from '../../App2';
 import {RouteProp, useNavigation, useNavigationState, useRoute} from '@react-navigation/native';
 import {Game} from './components/game';
-import {fetchPlayerMatches, fetchPlayerMatchesMultiple} from "@nex/data";
-import {IMatch, IMatchNew, IPlayer, IPlayerNew} from "@nex/data/api";
+import {IMatch, IMatchNew, IPlayerNew} from "@nex/data/api";
 import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
 import Search from "./components/search";
 import {setFollowing, useMutate, useSelector} from "../redux/reducer";
-import {useCachedLazyApi} from "../hooks/use-cached-lazy-api";
 import {Button} from "react-native-paper";
 import {IFetchedUser} from "../service/user";
 import PlayerList, {IPlayerListPlayer} from "./components/player-list";
 import {MyText} from "./components/my-text";
-import {flatten, isEqual, orderBy, uniq} from 'lodash';
+import {flatten, orderBy, uniq} from 'lodash';
 import {FontAwesome} from "@expo/vector-icons";
 import RefreshControlThemed from "./components/refresh-control-themed";
 import {toggleFollowing} from "../service/following";
-import {IFollowingEntry} from "../service/storage";
 import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';
 import {ProfileLive} from './components/profile';
@@ -182,7 +179,7 @@ export function FeedList() {
                                         const match = item as IMatchNew;
 
                                         if (match == null) {
-                                            return <Game match={item as IMatch}/>;
+                                            return <Game match={item}/>;
                                         }
 
                                         const players = flatten(match.teams.map(t => t.players));

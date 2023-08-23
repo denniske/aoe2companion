@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {FontAwesome} from "@expo/vector-icons";
-import { RootStackParamList, RootStackProp } from '../../App';
+import { RootStackParamList, RootStackProp } from '../../App2';
 import {MyText} from "./components/my-text";
 import Space from "./components/space";
 

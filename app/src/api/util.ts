@@ -26,7 +26,7 @@ export async function fetchJson(title: string, input: RequestInfo, init?: Reques
             return await fetchJson2(title, input, init);
         } else {
             store.dispatch(exec(setError({
-                error: e,
+                error: e as Error,
                 title: 'Network Request Failed: ' + title,
                 extra: {
                     url: input,
@@ -53,7 +53,7 @@ export async function fetchJson2(title: string, input: RequestInfo, init?: Reque
         return JSON.parse(text, reviver);
     } catch (e) {
         store.dispatch(exec(setError({
-            error: e,
+            error: e as Error,
             title: 'Network Request Failed: ' + title,
             extra: {
                 url: input,

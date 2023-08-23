@@ -6,6 +6,7 @@ import {fakeBuild, IBuildOrderStep} from "../../../data/src/helper/builds";
 import {getBuildingIcon} from "../helper/buildings";
 import {getOtherIcon, getUnitIcon} from "../helper/units";
 import {getTechIcon} from "../helper/techs";
+import {capitalize} from "lodash";
 
 function getBuildingIconInternal(building: string) {
     //     return getBuildingIcon(capitalize(building) as any);

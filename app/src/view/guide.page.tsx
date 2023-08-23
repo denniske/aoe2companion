@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
 import { WebView } from 'react-native-webview';
 import {BackHandler, Image, Linking, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {activateKeepAwake, deactivateKeepAwake} from "expo-keep-awake";
+import {activateKeepAwake, activateKeepAwakeAsync, deactivateKeepAwake} from "expo-keep-awake";
 import { setPrefValue, useMutate, useSelector} from "../redux/reducer";
 import {useTheme} from '../theming';
 import {appVariants} from '../styles';
@@ -166,9 +166,9 @@ export default function GuidePage() {
 
     useEffect(() => {
         if (config.preventScreenLockOnGuidePage) {
-            activateKeepAwake();
+            activateKeepAwakeAsync('guide-page');
         }
-        return () => deactivateKeepAwake();
+        return () => { deactivateKeepAwake('guide-page'); }
     });
 
     useFocusEffect(useCallback(() => {

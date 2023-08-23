@@ -1,7 +1,7 @@
 import React from 'react';
 import Search from './components/search';
 import { useNavigation } from '@react-navigation/native';
-import { RootStackProp } from '../../App';
+import { RootStackProp } from '../../App2';
 import {getTranslation} from '../helper/translate';
 
 

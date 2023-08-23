@@ -2,7 +2,7 @@ import * as React from 'react';
 import { NavigationContainerRef, NavigationState } from '@react-navigation/native';
 import {PartialState, Route} from '@react-navigation/routers/src/types';
 
-export const navigationRef = React.createRef<NavigationContainerRef>();
+export const navigationRef = React.createRef<NavigationContainerRef<any>>();
 
 // export function navigate(name: any, params: any) {
 //     navigationRef.current?.navigate(name, params);

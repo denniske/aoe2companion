@@ -19,7 +19,7 @@ import {getTranslation} from '../../helper/translate';
 import {IRatingNew} from "@nex/data/api";
 
 interface IRatingProps {
-    ratingHistories: IRatingNew[] | null;
+    ratingHistories?: IRatingNew[] | null;
     ready: boolean;
 }
 

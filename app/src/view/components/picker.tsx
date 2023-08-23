@@ -50,7 +50,7 @@ export default function  Picker<T>(props: IPickerProps<T>) {
             textMinWidth = 0, itemHeight, anchor, anchorStyle
     } = props;
 
-    const color = disabled ? theme.colors.disabled : theme.colors.text;
+    const color = disabled ? theme.colors.onSurfaceDisabled : theme.colors.onSurface;
 
     const renderItem = (v: T, i: number) => (
         <View key={i} style={{ height: itemHeight, flexDirection: 'column' }}>

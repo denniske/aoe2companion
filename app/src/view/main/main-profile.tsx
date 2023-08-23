@@ -48,7 +48,7 @@ function MainProfileInternal({profileId}: {profileId: number}) {
     const styles = useStyles();
     const auth = useSelector(state => state.auth);
 
-    const navigation = useNavigation();
+    const navigation = useNavigation<any>();
     const userProfile = useSelector(state => state.user[profileId]?.profile);
     useEffect(() => {
         if (!userProfile) return;

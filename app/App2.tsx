@@ -3,15 +3,12 @@ import 'array-flat-polyfill'
 
 import 'react-native-gesture-handler';
 import {
-    DefaultTheme as NavigationDefaultTheme,
     DarkTheme as NavigationDarkTheme,
+    DefaultTheme as NavigationDefaultTheme,
     NavigationContainer
 } from '@react-navigation/native';
 import React, {useCallback, useEffect, useState} from 'react';
-import {
-    BackHandler,
-    Linking, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, useColorScheme, View
-} from 'react-native';
+import {BackHandler, LogBox, Platform, SafeAreaView, StatusBar, StyleSheet, useColorScheme, View} from 'react-native';
 import {createStackNavigator, StackNavigationProp, TransitionPresets} from '@react-navigation/stack';
 import Header from './src/view/components/header';
 import UserPage, {userMenu} from './src/view/user.page';
@@ -20,13 +17,19 @@ import {
     IAccount,
     IConfig,
     loadAccountFromStorage,
-    loadConfigFromStorage, loadFollowingFromStorage, loadPrefsFromStorage, loadSettingsFromStorage
+    loadConfigFromStorage,
+    loadFollowingFromStorage,
+    loadPrefsFromStorage,
+    loadSettingsFromStorage
 } from './src/service/storage';
 import AboutPage from './src/view/about.page';
 import store from './src/redux/store';
 import {Provider as ReduxProvider} from 'react-redux';
 import {
-    MD2LightTheme as PaperDefaultTheme, MD2DarkTheme as PaperDarkTheme, Provider as PaperProvider, Portal
+    MD2DarkTheme as PaperDarkTheme,
+    MD2LightTheme as PaperDefaultTheme,
+    Portal,
+    Provider as PaperProvider
 } from 'react-native-paper';
 import {addLoadedLanguage, useMutate, useSelector} from './src/redux/reducer';
 import SearchPage from './src/view/search.page';
@@ -36,21 +39,29 @@ import LeaderboardPage, {leaderboardMenu, LeaderboardTitle} from "./src/view/lea
 import GuidePage, {GuideTitle} from "./src/view/guide.page";
 import {CivPage, CivTitle, civTitle} from "@nex/app/view";
 import {
-    Civ, Environment, IHostService, IHttpService, IStrings, OS, registerService, SERVICE_NAME
+    Building,
+    Civ,
+    Environment,
+    IHostService,
+    IHttpService,
+    IStrings,
+    ITranslationService,
+    OS,
+    registerService,
+    SERVICE_NAME,
+    Tech,
+    Unit
 } from "@nex/data";
 import UnitPage, {UnitTitle, unitTitle} from "./src/view/unit/unit.page";
-import {Unit} from "@nex/data";
 import {navigationRef} from "./src/service/navigation";
 import Footer from "./src/view/components/footer";
-import {Tech} from "@nex/data";
 import TechPage, {techTitle, TechTitle} from "./src/view/tech/tech.page";
 import FeedPage, {feedMenu, feedTitle} from "./src/view/feed.page";
 import UpdateSnackbar from "./src/view/components/snackbar/update-snackbar";
-import { useAppThemeInverted} from "./src/theming";
+import {useAppThemeInverted} from "./src/theming";
 import SettingsPage from "./src/view/settings.page";
 import ChangelogPage from "./src/view/changelog.page";
 import ChangelogSnackbar from "./src/view/components/snackbar/changelog-snackbar";
-import {Building} from "@nex/data";
 import BuildingPage, {BuildingTitle, buildingTitle} from "./src/view/building/building.page";
 import LivePage from "./src/view/live.page";
 import PushPage from "./src/view/push.page";
@@ -64,20 +75,16 @@ import initSentry from "./src/helper/sentry";
 import * as Device from 'expo-device';
 import {LinkingOptions} from "@react-navigation/native/lib/typescript/src/types";
 import {createStylesheet} from './src/theming-new';
-import { LogBox } from "react-native";
 import {getLanguageFromSystemLocale2, getTranslation} from './src/helper/translate';
 import {getInternalAoeString, loadAoeStringsAsync} from './src/helper/translate-data';
 import * as Localization from 'expo-localization';
 import {getInternalLanguage, setInternalLanguage} from './src/redux/statecache';
-import {ITranslationService} from '@nex/data';
 import {ConditionalTester} from "./src/view/testing/tester";
 import {getElectronPushToken, isElectron} from './src/helper/electron';
 import {setAccountPushTokenElectron} from './src/api/following';
-import OverlayPage from "./src/view/overlay.page";
-import IntroPage from "./src/view/intro.page";
-import {Roboto_400Regular, Roboto_700Bold, useFonts} from "@expo-google-fonts/roboto";
+import {Roboto_700Bold, useFonts} from "@expo-google-fonts/roboto";
 import {getAllInternalStrings, getInternalString, loadStringsAsync} from './src/helper/strings';
-import {fetchJson, fetchJson2} from './src/api/util';
+import {fetchJson2} from './src/api/util';
 import UpdateElectronSnackbar from "./src/view/components/snackbar/update-electron-snackbar";
 import OverlaySettingsPage from "./src/view/overlay.settings.page";
 import QueryPage from "./src/view/query.page";
@@ -86,13 +93,11 @@ import MatchPage from "./src/view/match.page";
 import BuildPage from "./src/view/build.page";
 import {fetchAoeReferenceData} from './src/helper/reference';
 import DonationPage from './src/view/donation.page';
-import {registerRootComponent} from "expo";
 import Constants from 'expo-constants';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import * as SplashScreen from 'expo-splash-screen';
 import * as eva from '@eva-design/eva';
-import { ApplicationProvider, Layout } from '@ui-kitten/components';
-import {cloneDeep} from "lodash";
+import {ApplicationProvider} from '@ui-kitten/components';
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 
@@ -164,7 +169,7 @@ registerService(SERVICE_NAME.HTTP_SERVICE, new HttpService(), true);
 const scheme = Constants.expoConfig?.scheme;
 const website = Constants.expoConfig?.extra?.website;
 
-const linking: LinkingOptions = {
+const linking: LinkingOptions<any> = {
     prefixes: [`https://${website}`, `${scheme}://`],
     config: {
         screens: {
@@ -290,9 +295,6 @@ const linking: LinkingOptions = {
                     },
                     LeaderboardQm4v4: {
                         path: 'qm_4v4',
-                    },
-                    LeaderboardRmSolo: {
-                        path: 'rm_solo',
                     },
                 }
             },
@@ -479,13 +481,13 @@ export function InnerApp() {
                     })}
                 />
 
-                <Stack.Screen
-                    name="Match"
-                    component={MatchPage}
-                    options={{
-                        title: getTranslation('match.title'),
-                    }}
-                />
+                {/*<Stack.Screen*/}
+                {/*    name="Match"*/}
+                {/*    component={MatchPage}*/}
+                {/*    options={{*/}
+                {/*        title: getTranslation('match.title'),*/}
+                {/*    }}*/}
+                {/*/>*/}
 
                 <Stack.Screen
                     name="Changelog"
@@ -527,7 +529,7 @@ export function InnerApp() {
                     options={props => ({
                         title: getTranslation('leaderboard.title'),
                         headerTitleAlign: 'left',
-                        headerRight: leaderboardMenu(props),
+                        headerRight: leaderboardMenu(),
                         headerTitle: titleProps => <LeaderboardTitle {...props} titleProps={titleProps} />,
                     })}
                 />
@@ -653,35 +655,35 @@ export function InnerApp() {
     );
 }
 
-export function InnerAppForIntro() {
-    const styles = useStyles();
-
-    let [fontsLoaded] = useFonts({
-        Roboto: Roboto_700Bold,
-    });
-
-    return (
-        <View style={styles.containerIntro} nativeID="container">
-            <Stack.Navigator screenOptions={{
-                ...TransitionPresets.SlideFromRightIOS,
-                headerStatusBarHeight: 0,
-                animationEnabled: false,
-            }}>
-                <Stack.Screen
-                    name="Intro"
-                    component={IntroPage}
-                    options={{
-                        title: 'Intro',
-                        headerShown: false,
-                        cardShadowEnabled: false,
-                        cardOverlayEnabled: false,
-                        cardStyle: { backgroundColor: 'rgba(0,0,0,0)' }
-                    }}
-                />
-            </Stack.Navigator>
-        </View>
-    );
-}
+// export function InnerAppForIntro() {
+//     const styles = useStyles();
+//
+//     let [fontsLoaded] = useFonts({
+//         Roboto: Roboto_700Bold,
+//     });
+//
+//     return (
+//         <View style={styles.containerIntro} nativeID="container">
+//             <Stack.Navigator screenOptions={{
+//                 ...TransitionPresets.SlideFromRightIOS,
+//                 headerStatusBarHeight: 0,
+//                 animationEnabled: false,
+//             }}>
+//                 <Stack.Screen
+//                     name="Intro"
+//                     component={IntroPage}
+//                     options={{
+//                         title: 'Intro',
+//                         headerShown: false,
+//                         cardShadowEnabled: false,
+//                         cardOverlayEnabled: false,
+//                         cardStyle: { backgroundColor: 'rgba(0,0,0,0)' }
+//                     }}
+//                 />
+//             </Stack.Navigator>
+//         </View>
+//     );
+// }
 
 export function InnerAppForBuild() {
     const styles = useStyles();
@@ -963,10 +965,10 @@ export function AppWrapper() {
                                         appType == 'build' &&
                                         <InnerAppForBuild/>
                                     }
-                                    {
-                                        appType == 'intro' &&
-                                        <InnerAppForIntro/>
-                                    }
+                                    {/*{*/}
+                                    {/*    appType == 'intro' &&*/}
+                                    {/*    <InnerAppForIntro/>*/}
+                                    {/*}*/}
                                     {
                                         appType == 'app' &&
                                         <InnerApp/>

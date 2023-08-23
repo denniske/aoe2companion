@@ -10,7 +10,7 @@ import {useSelector} from "../redux/reducer";
 import Space from "./components/space";
 import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';
-import {RootStackParamList} from '../../App';
+import {RootStackParamList} from '../../App2';
 import {getRootNavigation} from '../service/navigation';
 import {sendTestPushNotificationElectron, sendTestPushNotificationWeb} from '../api/following';
 import {initPusher} from '../helper/pusher';

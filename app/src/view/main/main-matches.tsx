@@ -1,29 +1,24 @@
 import {useTheme} from "../../theming";
-import {FlatList, Platform, StyleSheet, TouchableOpacity, View} from "react-native";
+import {FlatList, Platform, StyleSheet, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import {RouteProp, useNavigation, useNavigationState, useRoute} from "@react-navigation/native";
 import {Game} from "../components/game";
 import RefreshControlThemed from "../components/refresh-control-themed";
-import {clearMatchesPlayer, useMutate, useSelector} from "../../redux/reducer";
-import {Button, Checkbox, Searchbar} from "react-native-paper";
+import {useSelector} from "../../redux/reducer";
+import {Searchbar} from "react-native-paper";
 import {MyText} from "../components/my-text";
 import {appVariants} from "../../styles";
-import {fetchPlayerMatches, LeaderboardId} from "@nex/data";
 import TemplatePicker from "../components/template-picker";
-import {flatten, get, set} from 'lodash';
+import {flatten} from 'lodash';
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
 import {openLink} from "../../helper/url";
 import {useWebRefresh} from "../../hooks/use-web-refresh";
 import FlatListLoadingIndicator from "../components/flat-list-loading-indicator";
-import {leaderboardIdsData, leaderboardMappingData} from "@nex/dataset";
 import Constants from 'expo-constants';
 import {RootStackParamList} from "../../../App2";
-import {useCachedConservedLazyApi} from "../../hooks/use-cached-conserved-lazy-api";
-import {usePrevious} from "@nex/data/hooks";
 import {useApi} from "../../hooks/use-api";
 import {fetchLeaderboards} from "../../api/leaderboard";
-import {useLazyAppendApi} from "../../hooks/use-lazy-append-api";
 import {useInfiniteQuery} from "@tanstack/react-query";
 import useDebounce from "../../hooks/use-debounce";
 import {fetchMatches} from "../../api/helper/api";
@@ -213,8 +208,8 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
                         data={list}
                         renderItem={({item, index}) => {
                             switch (item) {
-                                case 'header':
-                                    return <MyText style={styles.header}>{getTranslation('main.matches.matches', { matches: filteredMatches?.length })}</MyText>
+                                // case 'header':
+                                //     return <MyText style={styles.header}>{getTranslation('main.matches.matches', { matches: filteredMatches?.length })}</MyText>
                                 default:
                                     return <Game match={item as any} expanded={index === -1} highlightedUsers={[profileId]} user={profileId}/>;
                             }

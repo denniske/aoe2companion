@@ -6,8 +6,8 @@ import {usePaperTheme} from "../../theming";
 export default function RefreshControlThemed(props: RefreshControlProps) {
     const paperTheme = usePaperTheme();
     return <RefreshControl
-        tintColor={paperTheme.colors.text}
-        titleColor={paperTheme.colors.text}
+        tintColor={paperTheme.colors.onSurface}
+        titleColor={paperTheme.colors.onSurface}
         {...props}
     />
 }

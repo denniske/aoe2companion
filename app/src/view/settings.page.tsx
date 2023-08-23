@@ -29,7 +29,6 @@ import {getElectronPushToken, isElectron} from '../helper/electron';
 import Space from "./components/space";
 import {isEmpty, merge} from 'lodash';
 import {clamp} from "@nex/data";
-import {clearMatchCache, getMatchCacheSize} from "../service/match-cache";
 
 
 export default function SettingsPage() {
@@ -38,7 +37,7 @@ export default function SettingsPage() {
     const auth = useSelector(state => state.auth);
     const config = useSelector(state => state.config);
     const accountId = useSelector(state => state.account.id);
-    const navigation = useNavigation();
+    const navigation = useNavigation<any>();
     const appStyles = useTheme(appVariants);
     const following = useSelector(state => state.following);
     const [loadingPushNotificationEnabled, setLoadingPushNotificationEnabled] = useState(false);
@@ -147,7 +146,7 @@ export default function SettingsPage() {
                 if (auth && auth.profile_id) {
                     await setAccountProfile(accountId, { profile_id: auth.profile_id, steam_id: auth.steam_id });
                 }
-                await follow(accountId, following.map(p => p.profile_id), true);
+                await follow(accountId, following.map(p => p.profileId), true);
             }
 
             await setNotificationConfig(accountId, pushNotificationsEnabled);
@@ -172,7 +171,7 @@ export default function SettingsPage() {
                     if (auth && auth.profile_id) {
                         await setAccountProfile(accountId, { profile_id: auth.profile_id, steam_id: auth.steam_id });
                     }
-                    await follow(accountId, following.map(p => p.profile_id), true);
+                    await follow(accountId, following.map(p => p.profileId), true);
                     return;
                 }
 
@@ -182,7 +181,7 @@ export default function SettingsPage() {
                 if (auth && auth.profile_id) {
                     await setAccountProfile(accountId, { profile_id: auth.profile_id, steam_id: auth.steam_id });
                 }
-                await follow(accountId, following.map(p => p.profile_id), true);
+                await follow(accountId, following.map(p => p.profileId), true);
             } else {
                 await deactivatePusher();
             }
@@ -211,7 +210,7 @@ export default function SettingsPage() {
                 if (auth && auth.profile_id) {
                     await setAccountProfile(accountId, { profile_id: auth.profile_id, steam_id: auth.steam_id });
                 }
-                await follow(accountId, following.map(p => p.profile_id), true);
+                await follow(accountId, following.map(p => p.profileId), true);
             }
 
             await setNotificationConfig(accountId, pushNotificationsEnabled);
@@ -265,17 +264,6 @@ export default function SettingsPage() {
         };
         await saveConfigToStorage(newConfig)
         mutate(setConfig(newConfig));
-    };
-
-    useEffect(() => {
-        (async () => {
-            setMatchCacheSize(await getMatchCacheSize());
-        })();
-    }, []);
-
-    const clearCache = async () => {
-        await clearMatchCache();
-        setMatchCacheSize(await getMatchCacheSize());
     };
 
     const languageMap: Record<string, string> = {
@@ -388,128 +376,109 @@ export default function SettingsPage() {
                 </View>
             </View>
 
-            <View style={styles.row}>
-                <View style={styles.cellName}>
-                    <MyText>{getTranslation('settings.cache')}</MyText>
-                    <MyText style={styles.small}>{getTranslation('settings.cache.note')}</MyText>
-                </View>
-                <View style={styles.cellValueCol}>
-                    <Button
-                        onPress={() => clearCache()}
-                        mode="contained"
-                        compact
-                        uppercase={false}
-                        dark={true}
-                        disabled={matchCacheSize === 0}
-                    >
-                        {getTranslation('settings.cache.clear')} {(matchCacheSize / 1000 / 1000).toFixed(1)} MB
-                    </Button>
-                </View>
-            </View>
-
-            {
-                isElectron() &&
-                <View style={styles.row}>
-                    <View style={styles.cellName}>
-                        <MyText>{getTranslation('settings.overlay')}</MyText>
-                        <MyText style={styles.small}>{getTranslation('settings.overlay.note')}</MyText>
-                    </View>
-                    <View style={styles.cellValueCol}>
-                        <View style={styles.row2}>
-                            <Checkbox.Android
-                                disabled={!config.pushNotificationsEnabled}
-                                status={config.overlayEnabled ? 'checked' : 'unchecked'}
-                                onPress={toggleOverlay}
-                            />
-                            <TouchableOpacity onPress={toggleOverlay} disabled={!config.pushNotificationsEnabled}>
-                                <MyText style={[styles.testLink]}>{config.overlayEnabled ? getTranslation('checkbox.active') : getTranslation('checkbox.inactive')}</MyText>
-                            </TouchableOpacity>
-                        </View>
-                        <Button
-                            onPress={() => navigation.navigate('OverlaySettings')}
-                            mode="contained"
-                            compact
-                            uppercase={false}
-                            dark={true}
-                        >
-                            {getTranslation('settings.overlay.action.test')}
-                        </Button>
-                        <Space/>
-                        <TextInput
-                            textAlign="right"
-                            style={{textAlign: 'right'}}
-                            right={<TextInput.Affix text={' %'}/>}
-                            dense={true}
-                            label="Opacity"
-                            value={overlayOpacityStr}
-                            onChangeText={setOverlayOpacityStr}
-                            onBlur={setOverlayOpacity}
-                        />
-                        <Space/>
-                        <TextInput
-                            textAlign="right"
-                            style={{textAlign: 'right'}}
-                            right={<TextInput.Affix text={' %'}/>}
-                            dense={true}
-                            label="Offset Top"
-                            value={overlayOffsetStr}
-                            onChangeText={setOverlayOffsetStr}
-                            onBlur={setOverlayOffset}
-                        />
-                        <Space/>
-                        <TextInput
-                            textAlign="right"
-                            style={{textAlign: 'right'}}
-                            right={<TextInput.Affix text={' s'}/>}
-                            dense={true}
-                            label="Duration"
-                            value={overlayDurationStr}
-                            onChangeText={setOverlayDurationStr}
-                            onBlur={setOverlayDuration}
-                        />
-                    </View>
-                </View>
-            }
-            {
-                isElectron() &&
-                <View style={styles.row}>
-                    <View style={styles.cellName}>
-                        <MyText>{getTranslation('settings.hotkeyShowHide')}</MyText>
-                        <MyText style={styles.small}>{getTranslation('settings.hotkeyShowHide.note')}</MyText>
-                    </View>
-                    <View style={styles.cellValueCol}>
-                        <View style={styles.row2}>
-                            <Checkbox.Android
-                                status={config.hotkeyShowHideEnabled ? 'checked' : 'unchecked'}
-                                onPress={toggleHotkeyShowHide}
-                            />
-                            <TouchableOpacity onPress={toggleHotkeyShowHide}>
-                                <MyText style={[styles.testLink]}>{config.hotkeyShowHideEnabled ? getTranslation('checkbox.active') : getTranslation('checkbox.inactive')}</MyText>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View>
-            }
-            {
-                isElectron() &&
-                <View style={styles.row}>
-                    <View style={styles.cellName}>
-                        <MyText>{getTranslation('settings.hotkeySearch')}</MyText>
-                        <MyText style={styles.small}>{getTranslation('settings.hotkeySearch.note')}</MyText>
-                    </View>
-                    <View style={styles.cellValueCol}>
-                        <View style={styles.row2}>
-                            <Checkbox.Android
-                                status={config.hotkeySearchEnabled ? 'checked' : 'unchecked'}
-                                onPress={toggleHotkeySearch}
-                            />
-                            <TouchableOpacity onPress={toggleHotkeySearch}>
-                                <MyText style={[styles.testLink]}>{config.hotkeySearchEnabled ? getTranslation('checkbox.active') : getTranslation('checkbox.inactive')}</MyText>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View>
-            }
+            {/*{*/}
+            {/*    isElectron() &&*/}
+            {/*    <View style={styles.row}>*/}
+            {/*        <View style={styles.cellName}>*/}
+            {/*            <MyText>{getTranslation('settings.overlay')}</MyText>*/}
+            {/*            <MyText style={styles.small}>{getTranslation('settings.overlay.note')}</MyText>*/}
+            {/*        </View>*/}
+            {/*        <View style={styles.cellValueCol}>*/}
+            {/*            <View style={styles.row2}>*/}
+            {/*                <Checkbox.Android*/}
+            {/*                    disabled={!config.pushNotificationsEnabled}*/}
+            {/*                    status={config.overlayEnabled ? 'checked' : 'unchecked'}*/}
+            {/*                    onPress={toggleOverlay}*/}
+            {/*                />*/}
+            {/*                <TouchableOpacity onPress={toggleOverlay} disabled={!config.pushNotificationsEnabled}>*/}
+            {/*                    <MyText style={[styles.testLink]}>{config.overlayEnabled ? getTranslation('checkbox.active') : getTranslation('checkbox.inactive')}</MyText>*/}
+            {/*                </TouchableOpacity>*/}
+            {/*            </View>*/}
+            {/*            <Button*/}
+            {/*                onPress={() => navigation.navigate('OverlaySettings')}*/}
+            {/*                mode="contained"*/}
+            {/*                compact*/}
+            {/*                uppercase={false}*/}
+            {/*                dark={true}*/}
+            {/*            >*/}
+            {/*                {getTranslation('settings.overlay.action.test')}*/}
+            {/*            </Button>*/}
+            {/*            <Space/>*/}
+            {/*            <TextInput*/}
+            {/*                textAlign="right"*/}
+            {/*                style={{textAlign: 'right'}}*/}
+            {/*                right={<TextInput.Affix text={' %'}/>}*/}
+            {/*                dense={true}*/}
+            {/*                label="Opacity"*/}
+            {/*                value={overlayOpacityStr}*/}
+            {/*                onChangeText={setOverlayOpacityStr}*/}
+            {/*                onBlur={setOverlayOpacity}*/}
+            {/*            />*/}
+            {/*            <Space/>*/}
+            {/*            <TextInput*/}
+            {/*                textAlign="right"*/}
+            {/*                style={{textAlign: 'right'}}*/}
+            {/*                right={<TextInput.Affix text={' %'}/>}*/}
+            {/*                dense={true}*/}
+            {/*                label="Offset Top"*/}
+            {/*                value={overlayOffsetStr}*/}
+            {/*                onChangeText={setOverlayOffsetStr}*/}
+            {/*                onBlur={setOverlayOffset}*/}
+            {/*            />*/}
+            {/*            <Space/>*/}
+            {/*            <TextInput*/}
+            {/*                textAlign="right"*/}
+            {/*                style={{textAlign: 'right'}}*/}
+            {/*                right={<TextInput.Affix text={' s'}/>}*/}
+            {/*                dense={true}*/}
+            {/*                label="Duration"*/}
+            {/*                value={overlayDurationStr}*/}
+            {/*                onChangeText={setOverlayDurationStr}*/}
+            {/*                onBlur={setOverlayDuration}*/}
+            {/*            />*/}
+            {/*        </View>*/}
+            {/*    </View>*/}
+            {/*}*/}
+            {/*{*/}
+            {/*    isElectron() &&*/}
+            {/*    <View style={styles.row}>*/}
+            {/*        <View style={styles.cellName}>*/}
+            {/*            <MyText>{getTranslation('settings.hotkeyShowHide')}</MyText>*/}
+            {/*            <MyText style={styles.small}>{getTranslation('settings.hotkeyShowHide.note')}</MyText>*/}
+            {/*        </View>*/}
+            {/*        <View style={styles.cellValueCol}>*/}
+            {/*            <View style={styles.row2}>*/}
+            {/*                <Checkbox.Android*/}
+            {/*                    status={config.hotkeyShowHideEnabled ? 'checked' : 'unchecked'}*/}
+            {/*                    onPress={toggleHotkeyShowHide}*/}
+            {/*                />*/}
+            {/*                <TouchableOpacity onPress={toggleHotkeyShowHide}>*/}
+            {/*                    <MyText style={[styles.testLink]}>{config.hotkeyShowHideEnabled ? getTranslation('checkbox.active') : getTranslation('checkbox.inactive')}</MyText>*/}
+            {/*                </TouchableOpacity>*/}
+            {/*            </View>*/}
+            {/*        </View>*/}
+            {/*    </View>*/}
+            {/*}*/}
+            {/*{*/}
+            {/*    isElectron() &&*/}
+            {/*    <View style={styles.row}>*/}
+            {/*        <View style={styles.cellName}>*/}
+            {/*            <MyText>{getTranslation('settings.hotkeySearch')}</MyText>*/}
+            {/*            <MyText style={styles.small}>{getTranslation('settings.hotkeySearch.note')}</MyText>*/}
+            {/*        </View>*/}
+            {/*        <View style={styles.cellValueCol}>*/}
+            {/*            <View style={styles.row2}>*/}
+            {/*                <Checkbox.Android*/}
+            {/*                    status={config.hotkeySearchEnabled ? 'checked' : 'unchecked'}*/}
+            {/*                    onPress={toggleHotkeySearch}*/}
+            {/*                />*/}
+            {/*                <TouchableOpacity onPress={toggleHotkeySearch}>*/}
+            {/*                    <MyText style={[styles.testLink]}>{config.hotkeySearchEnabled ? getTranslation('checkbox.active') : getTranslation('checkbox.inactive')}</MyText>*/}
+            {/*                </TouchableOpacity>*/}
+            {/*            </View>*/}
+            {/*        </View>*/}
+            {/*    </View>*/}
+            {/*}*/}
         </ScrollView>
     );
 }
