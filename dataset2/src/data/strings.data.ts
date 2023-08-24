@@ -1,3 +1,5 @@
+declare var require: any
+
 export const stringsSourceData: Record<string, string> = {
     'ms': require('../../../app/assets/strings/ms.json.lazy'),
     'fr': require('../../../app/assets/strings/fr.json.lazy'),

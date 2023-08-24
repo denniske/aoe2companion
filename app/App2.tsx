@@ -89,7 +89,6 @@ import UpdateElectronSnackbar from "./src/view/components/snackbar/update-electr
 import OverlaySettingsPage from "./src/view/overlay.settings.page";
 import QueryPage from "./src/view/query.page";
 import CurrentMatchSnackbar from "./src/view/components/snackbar/current-match-snackbar";
-import MatchPage from "./src/view/match.page";
 import BuildPage from "./src/view/build.page";
 import {fetchAoeReferenceData} from './src/helper/reference';
 import DonationPage from './src/view/donation.page';

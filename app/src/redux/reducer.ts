@@ -1,6 +1,5 @@
 import {produce} from "immer";
 import { TypedUseSelectorHook, useDispatch, useSelector as useReduxSelector } from 'react-redux';
-import { IRatingHistoryRow } from '../service/rating';
 import {ILeaderboard} from "@nex/data";
 import {ILeaderboardsResponse, IMatch, IPlayer, IProfileResponse} from "@nex/data/api";
 import {IAccount, IConfig, IFollowingEntry, IPrefs} from "../service/storage";
@@ -164,7 +163,6 @@ interface INote {
 interface IUser {
   profile?: IProfileResponse;
   profileWithStats?: IProfileResponse;
-  rating?: IRatingHistoryRow[];
   matches?: IMatch[];
   matches5?: IMatch[];
   matchesVersus?: IMatch[];

@@ -30,7 +30,7 @@ export async function loadAoeStringsAsync(language: string) {
             let parsed = JSON.parse(json);
             addAoeStrings(language, parsed);
         }
-    } catch (e) {
+    } catch (e: any) {
         console.log('ERRORED', e.toString());
     }
 }

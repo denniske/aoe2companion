@@ -18,7 +18,7 @@ type Props = React.ComponentProps<typeof Surface> & {
     wrapperStyle?: StyleProp<ViewStyle>;
     style?: StyleProp<ViewStyle>;
     ref?: React.RefObject<View>;
-    theme: ReactNativePaper.Theme;
+    theme: any;
     working?: boolean;
 };
 

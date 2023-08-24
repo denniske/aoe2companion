@@ -1,3 +1,4 @@
+declare var require: any
 
 export const translateStringsSourceData: Record<string, string> = {
     'ms': require('../../../app/assets/data/ms/strings.json.lazy'),

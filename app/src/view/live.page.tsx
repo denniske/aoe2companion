@@ -182,7 +182,7 @@ export default function LivePage() {
                 return match.name.toLowerCase().includes(part.toLowerCase()) ||
                     match.mapName.toLowerCase().includes(part.toLowerCase()) ||
                     match.gameModeName.toLowerCase().includes(part.toLowerCase()) ||
-                    match.server.toLowerCase().includes(part.toLowerCase()) ||
+                    match.server?.toLowerCase().includes(part.toLowerCase()) ||
                     match.players.some((player) => player.name?.toLowerCase().includes(part.toLowerCase()));
             });
         });
@@ -215,7 +215,7 @@ export default function LivePage() {
                                 return <LiveGame data={item as any} expanded={index === -1}/>;
                         }
                     }}
-                    keyExtractor={(item, index) => typeof item === 'string' ? item : item.id}
+                    keyExtractor={(item, index) => typeof item === 'string' ? item : item.matchId?.toString()}
                 />
             </View>
         </View>

@@ -1,13 +1,12 @@
-import {Button, TouchableRipple} from "react-native-paper";
 import {StyleProp, StyleSheet, TouchableHighlight, View, ViewStyle} from "react-native";
-import React from "react";
 import {useAppTheme, usePaperTheme} from "../../theming";
+import {ReactNode} from "react";
 
 
 interface IPickerProps<T> {
     value?: T;
     values: T[];
-    template?: (value: T, selected: boolean) => React.ReactNode;
+    template?: (value: T, selected: boolean) => ReactNode;
     onSelect: (value: T) => void;
     style?: StyleProp<ViewStyle>;
     disabled?: boolean;
@@ -34,7 +33,7 @@ export default function TemplatePicker<T>(props: IPickerProps<T>) {
                 onPress={() => onSelect(v)}
                 underlayColor={theme.hoverBackgroundColor}
             >
-                {template(v, selected)}
+                {template(v, selected) as any}
             </TouchableHighlight>
         );
     };

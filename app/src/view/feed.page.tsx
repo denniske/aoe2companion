@@ -188,7 +188,7 @@ export function FeedList() {
 
                                         let samePlayers = false;
                                         if (index > 0) {
-                                            const previousMatch = list[index-1];
+                                            const previousMatch = list[index-1] as IMatchNew;
                                             const previousPlayers = flatten(previousMatch.teams.map(t => t.players));
                                             const previousFilteredPlayers = filterAndSortPlayers(previousPlayers);
 

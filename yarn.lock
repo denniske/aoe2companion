@@ -4930,6 +4930,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/websocket@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "@types/websocket@npm:1.0.5"
+  dependencies:
+    "@types/node": "*"
+  checksum: 41c7a620f877a0165ff36e713455d888b7f5df9c51e71b5d0f47994f98cf22ccd339b8c6cfdc6bb417e950d40f405693974d393bd916971490553cc5e9e67a9d
+  languageName: node
+  linkType: hard
+
 "@types/ws@npm:^8.5.5":
   version: 8.5.5
   resolution: "@types/ws@npm:8.5.5"
@@ -5860,6 +5869,7 @@ __metadata:
     "@types/react-redux": 7.1.11
     "@types/semver": ^7.3.1
     "@types/uuid": ^3.4.9
+    "@types/websocket": ^1.0.5
     "@ui-kitten/components": ^5.3.1
     array-flat-polyfill: ^1.0.1
     babel-loader: ^8.1.0

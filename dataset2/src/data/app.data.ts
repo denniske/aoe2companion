@@ -1,3 +1,4 @@
+declare var require: any
 
 export const appConfig = {
     game: 'aoe2de',

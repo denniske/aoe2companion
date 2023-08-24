@@ -1,10 +1,17 @@
 import React, {useState} from 'react';
 import {
-    Image, ImageSourcePropType, Linking, Platform, ScrollView, Share, StyleSheet, TouchableOpacity, View
+    Image,
+    ImageSourcePropType,
+    Platform,
+    ScrollView,
+    Share,
+    StyleSheet,
+    TouchableOpacity,
+    View
 } from 'react-native';
-import {makeVariants, useAppTheme, useTheme} from "../theming";
+import {useAppTheme} from "../theming";
 import {MyText} from "./components/my-text";
-import {Video} from "expo-av";
+import {ResizeMode, Video} from "expo-av";
 import {Building, iconHeight, iconWidth, Tech, Unit} from "@nex/data";
 import {FontAwesome5} from "@expo/vector-icons";
 import {AVPlaybackSource} from "expo-av/build/AV";
@@ -207,7 +214,7 @@ export default function TipsPage() {
             } else if (result.action === Share.dismissedAction) {
                 // dismissed
             }
-        } catch (error) {
+        } catch (error: any) {
             alert(error.message);
         }
     };
@@ -239,7 +246,7 @@ export default function TipsPage() {
                     usePoster={true}
                     // source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
                     isMuted={true}
-                    resizeMode="cover"
+                    resizeMode={ResizeMode.COVER}
                     shouldPlay={true}
                     // shouldPlay={false}
                     positionMillis={videoPosition}

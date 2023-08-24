@@ -1,4 +1,4 @@
-import {Civ} from "@nex/data";
+declare var require: any
 
 export const civsData = [
     'Aztecs',

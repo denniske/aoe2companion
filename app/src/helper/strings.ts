@@ -40,7 +40,7 @@ export async function loadStringsAsync(language: string) {
             let parsed = JSON.parse(json);
             addStrings(language, parsed);
         }
-    } catch (e) {
+    } catch (e: any) {
         console.log('ERRORED', e.toString());
     }
 }

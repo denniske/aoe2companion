@@ -2,7 +2,6 @@ import {Dimensions, StyleSheet, Text, TouchableOpacity, View} from 'react-native
 import React, {useState} from 'react';
 import {formatDateShort, formatMonth, formatTime, formatYear, LeaderboardId} from '@nex/data';
 import {getLeaderboardColor, getLeaderboardTextColor} from '../../helper/colors';
-import {IRatingHistoryRow} from '../../service/rating';
 import {TextLoader} from "./loader/text-loader";
 import {ViewLoader} from "./loader/view-loader";
 import {formatLeaderboardId} from "@nex/data";

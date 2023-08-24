@@ -1,3 +1,4 @@
+declare var require: any
 
 export const mapsData = {
     301000: require('../../../app/assets/maps/P_Alliance.png'),
