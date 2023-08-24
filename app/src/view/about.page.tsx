@@ -14,9 +14,8 @@ import {getTranslation} from '../helper/translate';
 import {doCheckForUpdateElectronAsync, getElectronVersion, isElectron} from "../helper/electron";
 import {openLink} from "../helper/url";
 import {appConfig} from "@nex/dataset";
-import {channel, manifest, releaseChannel, updateId} from 'expo-updates';
-import {runtimeVersion} from 'expo-updates/src/Updates';
-
+import {channel, manifest, updateId, runtimeVersion} from 'expo-updates';
+import {nativeApplicationVersion, nativeBuildVersion} from "expo-application";
 
 export default function AboutPage() {
     const styles = useStyles();
@@ -227,21 +226,24 @@ export default function AboutPage() {
 
             <MyText style={styles.heading}>{getTranslation('about.heading.version')}</MyText>
             <TouchableOpacity onPress={incrementVersionClickCount}>
+
                 {/*{*/}
                 {/*    isElectron() &&*/}
                 {/*    <MyText style={styles.content}>{Constants.expoConfig?.releaseChannel || 'dev'}-{Constants.expoConfig?.version}n{electronVersion}</MyText>*/}
                 {/*}*/}
-                {/*{*/}
-                {/*    !isElectron() &&*/}
-                {/*    <MyText style={styles.content}>*/}
-                {/*        {Constants.expoConfig?.releaseChannel || channel || 'dev'}*/}
-                {/*        {' '}*/}
-                {/*        {Constants.expoConfig?.version || Constants.expoConfig2?.extra?.expoClient?.version}*/}
-                {/*        {' '}*/}
-                {/*        ({Constants.expoConfig?.runtimeVersion || runtimeVersion || 'dev'})*/}
-                {/*    </MyText>*/}
-                {/*}*/}
-                {/*<MyText style={styles.content}>n{Constants.nativeAppVersion}+{Constants.nativeBuildVersion}</MyText>*/}
+
+                {
+                    !isElectron() &&
+                    <MyText style={styles.content}>
+                        {channel || 'dev'}
+                        {' '}
+                        {Constants.expoConfig?.version || Constants.expoConfig?.extra?.expoClient?.version}
+                        {' '}
+                        ({Constants.expoConfig?.runtimeVersion || runtimeVersion || 'dev'})
+                    </MyText>
+                }
+                <MyText style={styles.content}>n{nativeApplicationVersion}+{nativeBuildVersion}</MyText>
+
             </TouchableOpacity>
 
             {
