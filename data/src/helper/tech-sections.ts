@@ -138,6 +138,7 @@ export const techSections: ITechSection[] = [
         data: [
             "Tracking",
             "Supplies",
+            "Gambesons",
             "Squires",
             "Arson",
         ],

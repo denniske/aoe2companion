@@ -119,6 +119,10 @@ export const changelog: IChangelog = {
             type: 'feature',
             title: 'Moved some calculations to the server for better performance. Some features likes searching for maps and match names in match list are not ready yet and have been disabled for now. For more information and roadmap see [Discord](https://discord.gg/gCunWKx)',
         },
+        {
+            type: 'bugfix',
+            title: 'Added Gambesons to tech list',
+        },
     ],
     '64.0.0': [
         {
