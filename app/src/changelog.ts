@@ -123,6 +123,10 @@ export const changelog: IChangelog = {
             type: 'bugfix',
             title: 'Added Gambesons to tech list',
         },
+        {
+            type: 'minor',
+            title: 'Implemented [AoE II DE Update 93001](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-93001/)',
+        },
     ],
     '64.0.0': [
         {
