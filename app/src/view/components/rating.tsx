@@ -139,7 +139,7 @@ export default function Rating({ratingHistories, ready}: IRatingProps) {
                     <ButtonPicker value={ratingHistoryDuration} values={values} formatter={formatDuration} onSelect={nav}/>
                 </View>
 
-                <ViewLoader ready={ratingHistories}>
+                <ViewLoader ready={filteredRatingHistories}>
                     <VictoryChart width={windowWidth - 40} height={300} theme={themeWithSystemFont}
                                   padding={{left: 50, bottom: 30, top: 20, right: 20}}
                                   scale={{ x: "time" }}
@@ -150,7 +150,7 @@ export default function Rating({ratingHistories, ready}: IRatingProps) {
                         <VictoryAxis crossAxis tickFormat={formatTick} fixLabelOverlap={true} />
                         <VictoryAxis dependentAxis crossAxis />
                         {
-                            ratingHistories?.filter(rh => !hiddenLeaderboardIds.includes(rh.leaderboardId)).map(ratingHistory => (
+                            filteredRatingHistories?.filter(rh => !hiddenLeaderboardIds.includes(rh.leaderboardId)).map(ratingHistory => (
                                 <VictoryLine
                                     name={'line-' + ratingHistory.leaderboardId}
                                     key={'line-' + ratingHistory.leaderboardId}
@@ -163,7 +163,7 @@ export default function Rating({ratingHistories, ready}: IRatingProps) {
                             ))
                         }
                         {
-                            ratingHistories?.filter(rh => !hiddenLeaderboardIds.includes(rh.leaderboardId)).map(ratingHistory => (
+                            filteredRatingHistories?.filter(rh => !hiddenLeaderboardIds.includes(rh.leaderboardId)).map(ratingHistory => (
                                 <VictoryScatter
                                     name={'scatter-' + ratingHistory.leaderboardId}
                                     key={'scatter-' + ratingHistory.leaderboardId}
@@ -181,7 +181,7 @@ export default function Rating({ratingHistories, ready}: IRatingProps) {
                 </ViewLoader>
                 <View style={styles.legend}>
                     {
-                        (ratingHistories || Array(2).fill(0)).map((ratingHistory, i) => (
+                        (filteredRatingHistories || Array(2).fill(0)).map((ratingHistory, i) => (
                             <TouchableOpacity key={'legend-' + i} onPress={() => toggleLeaderboard(ratingHistory.leaderboardId)}>
                                 <TextLoader
                                     width={100}
