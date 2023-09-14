@@ -1,14 +1,12 @@
-import {Dimensions, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {useState} from 'react';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import {formatDateShort, formatMonth, formatTime, formatYear, LeaderboardId} from '@nex/data';
 import {getLeaderboardColor, getLeaderboardTextColor} from '../../helper/colors';
 import {TextLoader} from "./loader/text-loader";
 import {ViewLoader} from "./loader/view-loader";
-import {formatLeaderboardId} from "@nex/data";
-import {capitalize, merge} from 'lodash';
+import {merge} from 'lodash';
 import {useAppTheme, usePaperTheme} from "../../theming";
 import {setPrefValue, useMutate, useSelector} from "../../redux/reducer";
-import {MyText} from "./my-text";
 import ButtonPicker from "./button-picker";
 import {saveCurrentPrefsToStorage} from "../../service/storage";
 import {isAfter, subDays, subMonths, subWeeks} from "date-fns";
@@ -45,6 +43,7 @@ export default function Rating({ratingHistories, ready}: IRatingProps) {
     const appTheme = useAppTheme();
     const mutate = useMutate();
     const [hiddenLeaderboardIds, setHiddenLeaderboardIds] = useState<LeaderboardId[]>([]);
+    const [filteredRatingHistories, setFilteredRatingHistories] = useState<IRatingNew[] | null>(null);
 
     const ratingHistoryDuration = useSelector(state => state.prefs.ratingHistoryDuration) || 'max';
     const values: string[] = [
@@ -101,29 +100,38 @@ export default function Rating({ratingHistories, ready}: IRatingProps) {
 
     // https://formidable.com/open-source/victory/guides/zoom-on-large-datasets/
 
-    let since: any = null;
-    switch (ratingHistoryDuration) {
-        case '3m':
-            since = subMonths(new Date(), 3);
-            break;
-        case '1m':
-            since = subMonths(new Date(), 1);
-            break;
-        case '1w':
-            since = subWeeks(new Date(), 1);
-            break;
-        case '1d':
-            since = subDays(new Date(), 1);
-            break;
-    }
+    useEffect(() => {
+        let since: any = null;
+        switch (ratingHistoryDuration) {
+            case '3m':
+                since = subMonths(new Date(), 3);
+                break;
+            case '1m':
+                since = subMonths(new Date(), 1);
+                break;
+            case '1w':
+                since = subWeeks(new Date(), 1);
+                break;
+            case '1d':
+                since = subDays(new Date(), 1);
+                break;
+        }
 
-    if (ratingHistories && since != null) {
-        ratingHistories = ratingHistories.map(r => ({
-            ...r,
-            leaderboardId: r.leaderboardId,
-            data: r.ratings.filter(d => isAfter(d.date!, since)),
-        }));
-    }
+        if (ratingHistories && since != null) {
+            // console.log('since', since);
+            // console.log('ratingHistories', ratingHistories[0]);
+            setFilteredRatingHistories(
+                ratingHistories.map(r => ({
+                    ...r,
+                    leaderboardId: r.leaderboardId,
+                    ratings: r.ratings.filter(d => isAfter(d.date!, since)),
+                }))
+            );
+        }
+    }, [ratingHistories, ratingHistoryDuration]);
+
+    // console.log('ratingHistories', ratingHistories[0]);
+    // console.log('filteredRatingHistories', filteredRatingHistories?.[0]);
 
     return (
             <View style={styles.container}>
@@ -147,7 +155,7 @@ export default function Rating({ratingHistories, ready}: IRatingProps) {
                                     name={'line-' + ratingHistory.leaderboardId}
                                     key={'line-' + ratingHistory.leaderboardId}
                                     data={ratingHistory.ratings}
-                                    x="timestamp"
+                                    x="date"
                                     y="rating" style={{
                                     data: {stroke: getLeaderboardColor(ratingHistory.leaderboardId, paperTheme.dark)}
                                 }}
@@ -160,7 +168,7 @@ export default function Rating({ratingHistories, ready}: IRatingProps) {
                                     name={'scatter-' + ratingHistory.leaderboardId}
                                     key={'scatter-' + ratingHistory.leaderboardId}
                                     data={ratingHistory.ratings}
-                                    x="timestamp"
+                                    x="date"
                                     y="rating"
                                     size={1.5}
                                     style={{
