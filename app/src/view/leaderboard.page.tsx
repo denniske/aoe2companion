@@ -388,13 +388,13 @@ function Leaderboard({leaderboardId}: any) {
                     </View>
                 }
                 {
-                    leaderboard.data?.total === 0 &&
+                    total.current === 0 &&
                     <View style={styles.centered}>
                         <MyText>{getTranslation('leaderboard.noplayerfound')}</MyText>
                     </View>
                 }
                 {
-                    leaderboard.data?.total !== 0 &&
+                    total.current !== 0 &&
                     <FlatList
                         ref={flatListRef}
                         onScrollEndDrag={handleOnScrollEndDrag}

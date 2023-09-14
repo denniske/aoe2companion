@@ -20,7 +20,11 @@ export const changelog4: IChangelog = {
     '12.0.0': [
         {
             type: 'feature',
-            title: 'Using new backend. Moved some calculations to the server for better performance. Some features likes searching for maps and match names in match list are not ready yet and have been disabled for now. Historical data will be imported in the next weeks. For more information and roadmap see [Discord](https://discord.gg/gCunWKx)',
+            title: 'Using new backend. Moved some calculations to the server for better performance. Some features likes searching for maps and match names in match list are not ready yet and have been disabled for now. I will check if historical data can be imported. For more information and roadmap see [Discord](https://discord.gg/gCunWKx)',
+        },
+        {
+            type: 'feature',
+            title: 'Now also showing console matches',
         },
     ],
     '11.0.0': [
@@ -114,7 +118,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '65.0.0': [
+    '66.0.0': [
         {
             type: 'feature',
             title: 'Moved some calculations to the server for better performance. Some features likes searching for maps and match names in match list are not ready yet and have been disabled for now. For more information and roadmap see [Discord](https://discord.gg/gCunWKx)',
