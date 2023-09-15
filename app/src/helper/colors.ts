@@ -1,4 +1,4 @@
-import {playerColorsData} from "@nex/dataset";
+import {appConfig, playerColorsData} from "@nex/dataset";
 
 const playerColorsBright = [
     '#6EA6EB',
@@ -21,94 +21,42 @@ export function getPlayerBackgroundColor(playerPosition: number) {
     return playerColors[playerPosition - 1];
 }
 
-
-const leaderboardColors: Record<number, string> = {
-    0: '#757476',
-    1: '#D65154',
-    2: '#E19659',
-    3: '#6188C1',
-    4: '#8970AE',
-    13: '#D65154',
-    14: '#E19659',
-    17: '#385c93',
-    18: '#5f4e79',
-    19: '#95383a',
-    20: '#9d693e',
-    1001: '#328f18',
-    1002: '#328f18',
-    1003: '#86d06d',
-    1010: '#5084d3',
-    1011: '#8560be',
-    1012: '#c52026',
-    1013: '#ff943d',
-};
-
-const darkLeaderboardColors: Record<number, string> = {
-    0: '#8e8e8e',
-    1: '#D65154',
-    2: '#E19659',
-    3: '#6188C1',
-    4: '#8970AE',
-    13: '#D65154',
-    14: '#E19659',
-    17: '#6188C1',
-    18: '#8970AE',
-    19: '#D65154',
-    20: '#E19659',
-    1001: '#328f18',
-    1002: '#328f18',
-    1003: '#86d06d',
-};
-
 export function getLeaderboardColor(leaderboard_id: string, darkMode: boolean) {
-    return '#8e8e8e';
-    // const colors = darkMode ? darkLeaderboardColors : leaderboardColors;
-    // return colors[leaderboard_id];
+    return getLeaderboardTextColor(leaderboard_id, darkMode);
 }
 
-// Darker / More saturated colors for text
-
-const leaderboardTextColors: Record<number, string> = {
-    0: '#525152',
-    1: '#c52026',
-    2: '#ff943d',
-    3: '#5084d3',
-    4: '#8560be',
-    13: '#c52026',
-    14: '#ff943d',
-    17: '#385c93',
-    18: '#5f4e79',
-    19: '#95383a',
-    20: '#9d693e',
-    1001: '#328f18',
-    1002: '#328f18',
-    1003: '#86d06d',
-    1010: '#5084d3',
-    1011: '#8560be',
-    1012: '#c52026',
-    1013: '#ff943d',
+const leaderboardTextColorsAoe2: Record<string, string> = {
+    'unranked': '#525152',
+    'dm_1v1': '#c52026',
+    'dm_team': '#ff943d',
+    'rm_1v1': '#5084d3',
+    'rm_team': '#8560be',
+    'ew_1v1': '#c52026',
+    'ew_team': '#ff943d',
 };
 
-const darkLeaderboardTextColors: Record<number, string> = {
-    0: '#8e8e8e',
-    1: '#c52026',
-    2: '#ff943d',
-    3: '#5084d3',
-    4: '#8560be',
-    13: '#c52026',
-    14: '#ff943d',
-    17: '#5084d3',
-    18: '#8560be',
-    19: '#c52026',
-    20: '#ff943d',
-    1001: '#328f18',
-    1002: '#328f18',
-    1003: '#86d06d',
+const leaderboardTextColorsAoe4: Record<string, string> = {
+    'unranked': '#525152',
+    'rm_1v1': '#385c93',
+    'rm_2v2': '#5f4e79',
+    'rm_3v3': '#95383a',
+    'rm_4v4': '#9d693e',
+    'rm_solo': '#328f18',
+    'rm_team': '#86d06d',
+    'qm_1v1': '#5084d3',
+    'qm_2v2': '#8560be',
+    'qm_3v3': '#c52026',
+    'qm_4v4': '#ff943d',
+};
+
+const darkLeaderboardTextColors: Record<string, string> = {
+    'unranked': '#8e8e8e',
 };
 
 export function getLeaderboardTextColor(leaderboard_id: string, darkMode: boolean) {
-    return '#8e8e8e';
-    // console.log('getLeaderboardTextColor', leaderboard_id, darkMode);
-    // const colors = darkMode ? darkLeaderboardTextColors : leaderboardTextColors;
-    // return colors[leaderboard_id];
+    if (darkMode && darkLeaderboardTextColors[leaderboard_id]) {
+        return darkLeaderboardTextColors[leaderboard_id];
+    }
+    const colors = appConfig.game === 'aoe2de' ? leaderboardTextColorsAoe2 : leaderboardTextColorsAoe4;
+    return colors[leaderboard_id] || '#8e8e8e';
 }
