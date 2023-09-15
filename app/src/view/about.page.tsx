@@ -284,28 +284,28 @@ export default function AboutPage() {
             }
 
             {
-                errorUpdate &&
+                errorUpdate?.length > 0 &&
                 <>
                     <MyText style={styles.heading}>Error Update</MyText>
                     <MyText style={styles.content}>{errorUpdate}</MyText>
                 </>
             }
             {
-                errorStoreUpdate &&
+                errorStoreUpdate?.length > 0 &&
                 <>
                     <MyText style={styles.heading}>Error Store Update</MyText>
                     <MyText style={styles.content}>{errorStoreUpdate}</MyText>
                 </>
             }
             {
-                debugUpdate &&
+                debugUpdate?.length > 0 &&
                 <>
                     <MyText style={styles.heading}>Debug Update</MyText>
                     <MyText style={styles.content}>{debugUpdate}</MyText>
                 </>
             }
             {
-                debugStoreUpdate &&
+                debugStoreUpdate?.length > 0 &&
                 <>
                     <MyText style={styles.heading}>Debug Store Update</MyText>
                     <MyText style={styles.content}>{debugStoreUpdate}</MyText>
@@ -313,7 +313,7 @@ export default function AboutPage() {
             }
 
             {
-                debugManifest &&
+                debugManifest?.length > 0 &&
                 <>
                     <MyText style={styles.heading}>Debug Manifest</MyText>
                     <MyText style={styles.content}>{debugManifest}</MyText>
