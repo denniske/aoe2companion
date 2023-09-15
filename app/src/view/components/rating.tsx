@@ -43,7 +43,7 @@ export default function Rating({ratingHistories, ready}: IRatingProps) {
     const appTheme = useAppTheme();
     const mutate = useMutate();
     const [hiddenLeaderboardIds, setHiddenLeaderboardIds] = useState<LeaderboardId[]>([]);
-    const [filteredRatingHistories, setFilteredRatingHistories] = useState<IRatingNew[] | null>(null);
+    const [filteredRatingHistories, setFilteredRatingHistories] = useState<IRatingNew[] | null | undefined>();
 
     const ratingHistoryDuration = useSelector(state => state.prefs.ratingHistoryDuration) || 'max';
     const values: string[] = [
@@ -117,17 +117,15 @@ export default function Rating({ratingHistories, ready}: IRatingProps) {
                 break;
         }
 
-        if (ratingHistories && since != null) {
-            // console.log('since', since);
-            // console.log('ratingHistories', ratingHistories[0]);
-            setFilteredRatingHistories(
-                ratingHistories.map(r => ({
-                    ...r,
-                    leaderboardId: r.leaderboardId,
-                    ratings: r.ratings.filter(d => isAfter(d.date!, since)),
-                }))
-            );
-        }
+        // console.log('since', since);
+        // console.log('ratingHistories', ratingHistories[0]);
+        setFilteredRatingHistories(
+            ratingHistories?.map(r => ({
+                ...r,
+                leaderboardId: r.leaderboardId,
+                ratings: r.ratings.filter(d => since == null || isAfter(d.date!, since)),
+            }))
+        );
     }, [ratingHistories, ratingHistoryDuration]);
 
     // console.log('ratingHistories', ratingHistories[0]);
