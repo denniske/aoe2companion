@@ -246,7 +246,7 @@ export default function AboutPage() {
                         {' '}
                         {Constants.expoConfig?.version || Constants.expoConfig?.extra?.expoClient?.version}
                         {' '}
-                        ({Constants.expoConfig?.runtimeVersion || runtimeVersion || 'dev'})
+                        ({runtimeVersion || 'dev'})
                     </MyText>
                 }
                 <MyText style={styles.content}>n{nativeApplicationVersion}+{nativeBuildVersion}</MyText>
