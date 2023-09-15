@@ -118,13 +118,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '66.0.1': [
-        {
-            type: 'bugfix',
-            title: 'Fix colors in rating diagram',
-        },
-    ],
-    '66.0.0': [
+    '68.0.0': [
         {
             type: 'feature',
             title: 'Moved some calculations to the server for better performance. Some features likes searching for maps and match names in match list are not ready yet and have been disabled for now. For more information and roadmap see [Discord](https://discord.gg/gCunWKx)',
