@@ -118,6 +118,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '66.0.1': [
+        {
+            type: 'bugfix',
+            title: 'Fix colors in rating diagram',
+        },
+    ],
     '66.0.0': [
         {
             type: 'feature',

@@ -30,7 +30,9 @@ export default {
     },
     "userInterfaceStyle": "automatic",
     "jsEngine": "hermes",
-    "runtimeVersion": process.env.RUNTIME_VERSION,
+    "runtimeVersion": {
+      "policy": "appVersion",
+    },
     "version": "12.0.0",
     "orientation": "portrait",
     "privacy": "public",
