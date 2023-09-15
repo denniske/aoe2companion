@@ -1,4 +1,4 @@
-import {Civ, civs, civsAoeNet} from "@nex/data";
+import {Civ, civs} from "@nex/data";
 import {civIconListData} from "@nex/dataset";
 
 
@@ -70,14 +70,6 @@ export const civImageRoRList = [
     require('../../assets/civilizations/ror/lacviet.png'),
 ];
 
-export function getCivIconByIndex(civ: number) {
-    // console.log('getCivIconByIndex', civ, civsAoeNet[civ]);
-    if (civ >= 10000) {
-        return civImageRoRList[civ - 10000];
-    }
-    return civIconList[civsAoeNet[civ] as Civ];
-}
-
 export function getCivIcon(data: { civ: any, civImageUrl: string }) {
     return { uri: data.civImageUrl };
 }
@@ -86,11 +78,6 @@ export function getCivIconLocal(civ: string) {
     console.log('getCivIconLocal', civ);
     return civIconList[civ];
 }
-
-// export function getCivIcon(civ: Civ) {
-//     console.log('getCivIcon', civ);
-//     return civIconList[civ];
-// }
 
 export function getCivHistoryImage(civ: Civ) {
     return civHistoryList[civs.indexOf(civ as any)];

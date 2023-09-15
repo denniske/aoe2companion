@@ -1,22 +1,13 @@
 import React from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Alert, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {setAuth, useMutate, useSelector} from '../redux/reducer';
-import {useNavigationState} from "@react-navigation/native";
 import {TabBarLabel} from "./components/tab-bar-label";
-import {fetchPlayerMatches, LeaderboardId} from "@nex/data";
-import {useCachedConservedLazyApi} from "../hooks/use-cached-conserved-lazy-api";
-import {get, set} from 'lodash';
-import {getStats} from "../service/stats";
-import {FontAwesome5} from "@expo/vector-icons";
 import MainProfile from "./main/main-profile";
 import MainStats from "./main/main-stats";
 import MainMatches from "./main/main-matches";
 import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';
 import Constants from 'expo-constants';
-import {leaderboardIdsData} from '@nex/dataset';
 
 const Tab = createMaterialTopTabNavigator();
 

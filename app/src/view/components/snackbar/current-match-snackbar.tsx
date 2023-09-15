@@ -1,10 +1,8 @@
 import * as React from 'react';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {Platform, StyleSheet, View, ViewStyle} from 'react-native';
 import Snackbar from "../snackbar";
-import {setIngame, useMutate, useSelector} from "../../../redux/reducer";
-import {getMapName} from "../../../helper/maps";
-import {formatAgo, moProfileId} from "@nex/data";
+import {useMutate, useSelector} from "../../../redux/reducer";
 import {RootStackParamList} from "../../../../App2";
 import {getRootNavigation} from "../../../service/navigation";
 
@@ -37,7 +35,8 @@ export default function CurrentMatchSnackbar() {
 
     if (!match) return <View/>;
 
-    const message = `${getMapName(match.map_type as any, match.ugc, match.rms, match.game_type, match.scenario)} (${match.started ? formatAgo(match.started) : ''})`;
+    // const message = `${getMapName(match.map_type as any, match.ugc, match.rms, match.game_type, match.scenario)} (${match.started ? formatAgo(match.started) : ''})`;
+    const message = `Some Match`;
     const actions = [
         {
             label: 'View',

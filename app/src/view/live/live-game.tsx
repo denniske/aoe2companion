@@ -1,18 +1,13 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
-import {formatAgo, getString} from '@nex/data';
+import {Image, StyleSheet, View} from 'react-native';
 import React from 'react';
 import {LivePlayer} from './live-player';
-import {getMapImage, getMapImageByLocationString, getMapName} from "../../helper/maps";
-import {groupBy} from 'lodash';
 import {differenceInSeconds} from "date-fns";
-import {makeVariants, useTheme} from "../../theming";
 import {TextLoader} from "../components/loader/text-loader";
 import MyListAccordion from "../components/accordion";
 import {ImageLoader} from "../components/loader/image-loader";
 import {MyText} from "../components/my-text";
 import {createStylesheet} from '../../theming-new';
-import {ILobbyMatchRaw} from '../../helper/data';
-import {ILobbiesMatch, IMatchesMatch} from "../../api/new/api.types";
+import {ILobbiesMatch} from "../../api/new/api.types";
 
 interface IGameProps {
     data: ILobbiesMatch;

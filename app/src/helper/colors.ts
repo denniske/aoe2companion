@@ -1,4 +1,4 @@
-import {playerColorsData} from "../../../dataset2/src/data/colors.data";
+import {playerColorsData} from "@nex/dataset";
 
 const playerColorsBright = [
     '#6EA6EB',

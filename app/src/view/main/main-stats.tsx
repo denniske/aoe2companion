@@ -17,7 +17,6 @@ import {appVariants} from '../../styles';
 import {openLink} from "../../helper/url";
 import FlatListLoadingIndicator from "../components/flat-list-loading-indicator";
 import {useWebRefresh} from "../../hooks/use-web-refresh";
-import {leaderboardIdsData, leaderboardMappingData} from "@nex/dataset";
 import Constants from 'expo-constants';
 import {RootStackParamList} from "../../../App2";
 import {useApi} from "../../hooks/use-api";
