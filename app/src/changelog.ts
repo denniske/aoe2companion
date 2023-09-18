@@ -118,6 +118,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '68.0.2': [
+        {
+            type: 'bugfix',
+            title: 'Show win/loss for match list again',
+        },
+    ],
     '68.0.0': [
         {
             type: 'feature',

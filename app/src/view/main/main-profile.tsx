@@ -188,8 +188,8 @@ function MainProfileInternal({profileId}: {profileId: number}) {
                             case 'rating':
                                 if (rating?.length === 0) return <View/>;
                                 return <Rating ratingHistories={rating} ready={profile.data != null && rating != null}/>;
-                            default:
-                                return <Game match={item as any} expanded={index === -1} highlightedUsers={[profileId]} user={profileId}/>;
+                            // default:
+                            //     return <Game match={item as any} expanded={index === -1} highlightedUsers={[profileId]} user={profileId}/>;
                         }
 
                     }}
