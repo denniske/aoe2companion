@@ -103,6 +103,7 @@ import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 initSentry();
 
 
+
 try {
     Notifications.setNotificationHandler({
         handleNotification: async () => ({
