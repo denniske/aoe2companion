@@ -4,7 +4,7 @@
     { "handle": "filesystem" },
     { "src": "/.*", "dest": "/index.html" }
   ],
-  "ignoreCommand": "[ \"$VERCEL_ENV\" != no_auto_deploy ]",
+  "//ignoreCommand": "[ \"$VERCEL_ENV\" != no_auto_deploy ]",
   "github": {
     "silent": true
   }
