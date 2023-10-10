@@ -1,4 +1,8 @@
 
+vercel no auto deploy
+"ignoreCommand": "[ \"$VERCEL_ENV\" != no_auto_deploy ]",
+
+
 - slow query matches with rating
   https://legacy.aoe2companion.com/api/player/matches?game=aoe2de&start=0&count=1000&profile_ids=483559
 
