@@ -27,7 +27,9 @@ import AboutPage from './src/view/about.page';
 import store from './src/redux/store';
 import {Provider as ReduxProvider} from 'react-redux';
 import {
-    DefaultTheme as PaperDefaultTheme, DarkTheme as PaperDarkTheme, Provider as PaperProvider, Portal
+    MD2DarkTheme as PaperDarkTheme,
+    MD2LightTheme as PaperDefaultTheme,
+    Provider as PaperProvider, Portal
 } from 'react-native-paper';
 import {addLoadedLanguage, useMutate, useSelector} from './src/redux/reducer';
 import SearchPage from './src/view/search.page';
@@ -84,7 +86,6 @@ import OverlaySettingsPage from "./src/view/overlay.settings.page";
 import QueryPage from "./src/view/query.page";
 import CurrentMatchSnackbar from "./src/view/components/snackbar/current-match-snackbar";
 import MatchPage from "./src/view/match.page";
-import BuildPage from "./src/view/build.page";
 import {fetchAoeReferenceData} from './src/helper/reference';
 import DonationPage from './src/view/donation.page';
 import {registerRootComponent} from "expo";
@@ -160,7 +161,7 @@ registerService(SERVICE_NAME.HTTP_SERVICE, new HttpService(), true);
 const scheme = Constants.manifest?.scheme;
 const website = Constants.manifest?.extra?.website;
 
-const linking: LinkingOptions = {
+const linking: LinkingOptions<any> = {
     prefixes: [`https://${website}`, `${scheme}://`],
     config: {
         screens: {
@@ -259,9 +260,6 @@ const linking: LinkingOptions = {
             Intro: {
                 path: 'intro/:match_id',
             },
-            Build: {
-                path: 'build',
-            },
             OverlaySettings: {
                 path: 'settings/overlay',
             },
@@ -271,7 +269,6 @@ const linking: LinkingOptions = {
 
 export type RootStackParamList = {
     Query: undefined;
-    Build: undefined;
     Match: { match_id: string };
     Intro: { match_id: string };
     Overlay: undefined;
@@ -621,36 +618,6 @@ export function InnerAppForIntro() {
     );
 }
 
-export function InnerAppForBuild() {
-    const styles = useStyles();
-
-    let [fontsLoaded] = useFonts({
-        Roboto: Roboto_700Bold,
-    });
-
-    return (
-        <View style={styles.containerBuild} nativeID="container">
-            <Stack.Navigator screenOptions={{
-                ...TransitionPresets.SlideFromRightIOS,
-                headerStatusBarHeight: 0,
-                animationEnabled: false,
-            }}>
-                <Stack.Screen
-                    name="Build"
-                    component={BuildPage}
-                    options={{
-                        title: 'Build',
-                        headerShown: false,
-                        cardShadowEnabled: false,
-                        cardOverlayEnabled: false,
-                        cardStyle: { backgroundColor: 'rgba(0,0,0,0)' }
-                    }}
-                />
-            </Stack.Navigator>
-        </View>
-    );
-}
-
 export function InnerAppForQuery() {
     const styles = useStyles();
 
@@ -879,10 +846,6 @@ export function AppWrapper() {
                         {
                             appType == 'query' &&
                             <InnerAppForQuery/>
-                        }
-                        {
-                            appType == 'build' &&
-                            <InnerAppForBuild/>
                         }
                         {
                             appType == 'intro' &&

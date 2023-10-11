@@ -1,7 +1,6 @@
 import {fetchLeaderboardLegacy} from '../api/leaderboard';
 import {groupBy, sortBy, sumBy} from 'lodash';
 import {fetchJson, Flag, getHost, ILeaderboardPlayer, makeQueryString} from "@nex/data";
-import request, {gql} from 'graphql-request';
 import {appConfig} from "@nex/dataset";
 import {minifyUserId} from "../helper/user";
 import {Aoe4WorldFoundPlayer, Aoe4WorldFoundPlayers, IAoe4WorldPlayerMatches} from "../../../data/src/api/api4.types";

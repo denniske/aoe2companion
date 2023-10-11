@@ -1,99 +1,76 @@
 {
   "cli": {
-    "version": ">= 2.3.0"
+    "version": ">= 4.1.0"
   },
   "build": {
-    "development-aoe2": {
-      "channel": "production",
-      "developmentClient": true,
-      "distribution": "internal",
+    "base": {
+      "node": "18.17.0",
       "ios": {
         "resourceClass": "m-medium"
       },
       "env": {
-        "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
+        "YARN_ENABLE_IMMUTABLE_INSTALLS": "false"
+      }
+    },
+    "base-aoe2": {
+      "extends": "base",
+      "env": {
         "APP": "aoe2"
       }
     },
-    "development-aoe4": {
-      "channel": "production",
-      "developmentClient": true,
-      "distribution": "internal",
-      "ios": {
-        "resourceClass": "m-large"
-      },
+    "base-aoe4": {
+      "extends": "base",
       "env": {
-        "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
         "APP": "aoe4"
       }
     },
+    "development-aoe2": {
+      "extends": "base-aoe2",
+      "channel": "production",
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "development-aoe4": {
+      "extends": "base-aoe4",
+      "channel": "production",
+      "developmentClient": true,
+      "distribution": "internal"
+    },
     "development-simulator-aoe2": {
+      "extends": "base-aoe2",
       "channel": "production",
       "developmentClient": true,
       "distribution": "internal",
       "ios": {
-        "resourceClass": "m-large",
         "simulator": true
-      },
-      "env": {
-        "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
-        "APP": "aoe2"
       }
     },
     "development-simulator-aoe4": {
+      "extends": "base-aoe4",
       "channel": "production",
       "developmentClient": true,
       "distribution": "internal",
       "ios": {
-        "resourceClass": "m-large",
         "simulator": true
-      },
-      "env": {
-        "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
-        "APP": "aoe4"
       }
     },
     "internal-aoe2": {
+      "extends": "base-aoe2",
       "channel": "production",
-      "distribution": "internal",
-      "ios": {
-        "resourceClass": "m-large"
-      },
-      "env": {
-        "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
-        "APP": "aoe2"
-      }
+      "distribution": "internal"
     },
     "internal-aoe4": {
+      "extends": "base-aoe4",
       "channel": "production",
-      "distribution": "internal",
-      "ios": {
-        "resourceClass": "m-medium"
-      },
-      "env": {
-        "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
-        "APP": "aoe4"
-      }
+      "distribution": "internal"
     },
     "production-aoe2": {
-      "channel": "production",
-      "ios": {
-        "resourceClass": "m-medium"
-      },
-      "env": {
-        "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
-        "APP": "aoe2"
-      }
+      "extends": "base-aoe2",
+      "channel": "production"
     },
     "production-aoe4": {
-      "channel": "production",
-      "ios": {
-        "resourceClass": "m-medium"
-      },
-      "env": {
-        "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
-        "APP": "aoe4"
-      }
+      "extends": "base-aoe4",
+      "channel": "production"
     }
   },
   "submit": {

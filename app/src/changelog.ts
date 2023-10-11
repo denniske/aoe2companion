@@ -14,6 +14,12 @@ export interface IChangelog {
 // https://www.ageofempires.com/news/age-of-empires-iv-season-one-update-release-notes/
 
 export const changelog4: IChangelog = {
+    '12.0.0': [
+        {
+            type: 'minor',
+            title: 'Internal Framework Update (SDK 46)',
+        },
+    ],
     '11.0.0': [
         {
             type: 'bugfix',
