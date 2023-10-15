@@ -9,8 +9,8 @@ export interface IFetchedUser {
     icon: any;
     last_match: Date;
     name: string;
-    profile_id: number;
-    steam_id: string;
+    profileId: number;
+    steamId: string;
     entries: ILeaderboardPlayer[];
 }
 

@@ -157,7 +157,7 @@ export function FeedList() {
         );
     }
 
-    const spectate = async (match_id: string) => {
+    const spectate = async (match_id: number) => {
         const url = `aoe2de://1/${match_id}`;
         await openLink(url);
     };
@@ -221,7 +221,7 @@ export function FeedList() {
                                                 <MyText style={styles.players}>
                                                     {filteredPlayers.map((p, i) =>
                                                         <MyText key={i} style={styles.players2}>
-                                                            <MyText style={styles.player} onPress={() => gotoPlayer(p)}>{formatPlayer(p, i)}</MyText>
+                                                            <MyText style={styles.player} onPress={() => gotoPlayer(p.profileId)}>{formatPlayer(p, i)}</MyText>
 
                                                             {
                                                                 !match.finished &&
@@ -247,7 +247,7 @@ export function FeedList() {
                                                     }
                                                     {
                                                         Platform.OS === 'web' && !match.finished &&
-                                                        <MyText style={styles.player} onPress={() => spectate(match.match_id)}> (Spectate)</MyText>
+                                                        <MyText style={styles.player} onPress={() => spectate(match.matchId)}> (Spectate)</MyText>
                                                     }
                                                 </MyText>
                                             }

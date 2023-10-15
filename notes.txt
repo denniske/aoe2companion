@@ -1,4 +1,6 @@
 
+https://www.ageofempires.com/news/all-about-seasons-in-age-of-empires-iv/
+
 vercel no auto deploy
 "ignoreCommand": "[ \"$VERCEL_ENV\" != no_auto_deploy ]",
 

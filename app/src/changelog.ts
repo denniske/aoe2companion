@@ -17,7 +17,7 @@ export interface IChangelog {
 // https://www.ageofempires.com/news/age-of-empires-iv-season-one-update-release-notes/
 
 export const changelog4: IChangelog = {
-    '12.0.0': [
+    '13.0.0': [
         {
             type: 'feature',
             title: 'Using new backend. Moved some calculations to the server for better performance. Some features likes searching for maps and match names in match list are not ready yet and have been disabled for now. I will check if historical data can be imported. For more information and roadmap see [Discord](https://discord.gg/gCunWKx)',
@@ -25,6 +25,12 @@ export const changelog4: IChangelog = {
         {
             type: 'feature',
             title: 'Now also showing console matches',
+        },
+    ],
+    '12.0.0': [
+        {
+            type: 'minor',
+            title: 'Internal Framework Update (SDK 46)',
         },
     ],
     '11.0.0': [
@@ -118,6 +124,16 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '68.0.3': [
+        {
+            type: 'bugfix',
+            title: 'Fix crash in lobbies page',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix player count in leaderboard page',
+        },
+    ],
     '68.0.2': [
         {
             type: 'bugfix',

@@ -183,7 +183,7 @@ export default function LivePage() {
                     match.mapName.toLowerCase().includes(part.toLowerCase()) ||
                     match.gameModeName.toLowerCase().includes(part.toLowerCase()) ||
                     match.server?.toLowerCase().includes(part.toLowerCase()) ||
-                    match.players.some((player) => player.name?.toLowerCase().includes(part.toLowerCase()));
+                    match.players?.some((player) => player?.name?.toLowerCase().includes(part.toLowerCase()));
             });
         });
         setFilteredData(filtered);

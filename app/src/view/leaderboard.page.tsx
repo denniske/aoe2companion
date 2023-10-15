@@ -242,13 +242,13 @@ function Leaderboard({leaderboardId}: any) {
     };
 
     const _renderHeader = () => {
-        const players = getTranslation('leaderboard.players', { players: leaderboard.data?.total });
+        const players = getTranslation('leaderboard.players', { players: total.current });
         // const updated = leaderboard.data?.updated ? getTranslation('leaderboard.updated', { updated: formatAgo(leaderboard.data.updated) }) : '';
         return (
             <>
                 <View style={{height: headerInfoHeight}}>
                     <MyText style={styles.info}>
-                        {leaderboard.data?.total ? players : ''}{/*{leaderboard.data?.updated ? ' (' + updated + ')' : ''}*/}
+                        {total.current ? players : ''}{/*{leaderboard.data?.updated ? ' (' + updated + ')' : ''}*/}
                     </MyText>
                 </View>
                 {myRank.data?.players.length > 0 && _renderRow(myRank.data.players[0], 0, true)}
