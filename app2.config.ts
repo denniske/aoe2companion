@@ -47,7 +47,6 @@ export default {
       "app/assets/data/**",
       "app/assets/font/**",
       "app/assets/legal/**",
-      "app/assets/maps/**",
       "app/assets/strings/**",
       "app/assets/buildings/**",
       "app/assets/techs/**",
