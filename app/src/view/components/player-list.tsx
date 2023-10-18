@@ -1,8 +1,7 @@
 import React from 'react';
-import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Button} from 'react-native-paper';
 import {MyText} from "./my-text";
-import {Flag} from '@nex/data';
 import {getTranslation} from '../../helper/translate';
 import {useCavy} from '../testing/tester';
 import {CountryImage} from './country-image';

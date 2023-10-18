@@ -1,4 +1,5 @@
-import {Image, Platform, StyleSheet, TouchableOpacity, View, ViewStyle} from 'react-native';
+import {Platform, StyleSheet, TouchableOpacity, View, ViewStyle} from 'react-native';
+import {Image} from 'expo-image';
 import React, {useState} from 'react';
 import {RootStackParamList} from '../../../App2';
 import {getRootNavigation} from "../../service/navigation";

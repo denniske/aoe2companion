@@ -1,5 +1,6 @@
 import React from 'react';
-import {Dimensions, Image, StyleSheet, TextStyle, View} from 'react-native';
+import {Dimensions, StyleSheet, TextStyle, View} from 'react-native';
+import {Image} from 'expo-image';
 import {civList, getCivNameById, getMatchTeams} from '@nex/data';
 import {getSlotTypeName, IMatch, IPlayer} from '@nex/data/api';
 import {MyText} from "./my-text";

@@ -7,7 +7,7 @@ import {get} from 'lodash';
 import {usePrevious} from "@nex/data/hooks";
 import {saveCurrentPrefsToStorage} from "../../service/storage";
 import {MyText} from "../components/my-text";
-import StatsCiv from "../components/stats-civ";
+import StatsRows from "../components/stats-rows";
 import TemplatePicker from "../components/template-picker";
 import RefreshControlThemed from "../components/refresh-control-themed";
 import {createStylesheet} from '../../theming-new';
@@ -193,13 +193,13 @@ function MainStatsInternal({profileId}: {profileId: number}) {
                             //     return <MyText>---</MyText>;
                             //     // return <StatsPosition data={statsPosition} user={user} leaderboardId={leaderboardId}/>;
                             case 'stats-civ':
-                                return <StatsCiv data={statsCiv} type={'civ'} title={getTranslation('main.stats.heading.civ')} leaderboardId={leaderboardId}/>;
+                                return <StatsRows data={statsCiv} type={'civ'} title={getTranslation('main.stats.heading.civ')} leaderboardId={leaderboardId}/>;
                             case 'stats-map':
-                                return <StatsCiv data={statsMap} type={'map'} title={getTranslation('main.stats.heading.map')} leaderboardId={leaderboardId}/>;
+                                return <StatsRows data={statsMap} type={'map'} title={getTranslation('main.stats.heading.map')} leaderboardId={leaderboardId}/>;
                             case 'stats-ally':
-                                return <StatsCiv data={statsAlly} type={'ally'} title={getTranslation('main.stats.heading.ally')} leaderboardId={leaderboardId}/>;
+                                return <StatsRows data={statsAlly} type={'ally'} title={getTranslation('main.stats.heading.ally')} leaderboardId={leaderboardId}/>;
                             case 'stats-opponent':
-                                return <StatsCiv data={statsOpponent} type={'opponent'} title={getTranslation('main.stats.heading.opponent')} leaderboardId={leaderboardId}/>;
+                                return <StatsRows data={statsOpponent} type={'opponent'} title={getTranslation('main.stats.heading.opponent')} leaderboardId={leaderboardId}/>;
                             default:
                                 return <View/>;
                         }

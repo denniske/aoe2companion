@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Image} from 'expo-image';
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App2";
 import {

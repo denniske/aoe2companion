@@ -1,6 +1,7 @@
 import React, {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
 import { WebView } from 'react-native-webview';
-import {BackHandler, Image, Linking, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {BackHandler, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Image} from 'expo-image';
 import {activateKeepAwake, activateKeepAwakeAsync, deactivateKeepAwake} from "expo-keep-awake";
 import { setPrefValue, useMutate, useSelector} from "../redux/reducer";
 import {useTheme} from '../theming';

@@ -1,4 +1,5 @@
-import {Image, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import {Image} from 'expo-image';
 import React from 'react';
 import {LivePlayer} from './live-player';
 import {differenceInSeconds} from "date-fns";

@@ -1,4 +1,5 @@
-import {Image, ImageBackground, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import {Image, ImageBackground} from 'expo-image';
 import {formatAgo, getString, isMatchFreeForAll} from '@nex/data';
 import React from 'react';
 import {Player, PlayerSkeleton} from './player';

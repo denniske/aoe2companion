@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, Image, ImageBackground, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {FlatList, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Image, ImageBackground} from 'expo-image';
 import {
     aoeCivKey,
     Civ,

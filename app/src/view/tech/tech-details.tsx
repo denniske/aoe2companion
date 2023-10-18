@@ -1,5 +1,6 @@
 import React from 'react';
-import {Image, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import {Image} from 'expo-image';
 import {
     getAffectedUnitInfos, getTechData, getTechDescription, getTechName, getUpgradeList, getUpgradeFormatted, keysOf,
     Other,

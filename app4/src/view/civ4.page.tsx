@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
-import {FlatList, Image, ImageBackground, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {FlatList, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Image} from 'expo-image';
 import {aoeCivKey, Civ, civs, getCivNameById, getCivTeamBonus, iconHeight, iconWidth, orderCivs} from "@nex/data";
 import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import IconHeader from "../../../app/src/view/components/navigation-header/icon-header";

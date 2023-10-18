@@ -1,5 +1,6 @@
 import React from 'react';
-import {Image, Platform, StyleSheet, TextStyle, TouchableOpacity, View} from 'react-native';
+import {Platform, StyleSheet, TextStyle, TouchableOpacity, View} from 'react-native';
+import {Image} from 'expo-image';
 import {getPlayerBackgroundColor} from '../../helper/colors';
 import {useNavigation} from '@react-navigation/native';
 import {civsAoeNet, isBirthday, isVerifiedPlayer, moProfileId} from '@nex/data';

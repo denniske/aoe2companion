@@ -1,4 +1,5 @@
-import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Image} from 'expo-image';
 import React from 'react';
 import {IStatAlly, IStatCiv, IStatMap, IStatOpponent} from "@nex/data/api";
 import {TextLoader} from "./loader/text-loader";
@@ -38,6 +39,65 @@ interface IRowPropsOpponent {
 // interface IRowProps {
 //     data: IStatCiv | IStatMap | IStatAlly | IStatOpponent;
 //     type: 'civ' | 'map' | 'ally' | 'opponent';
+// }
+
+// Stats Position
+//
+// function Row({data}: IRowProps) {
+//     const theme = useAppTheme();
+//     const styles = useStyles();
+//     return (
+//             <View style={styles.row}>
+//                 <View style={styles.cellLeaderboard}>
+//                     <View style={styles.icon}>
+//                         <FontAwesome5 name={data.position == 'flank' ? 'fist-raised' : 'first-aid'} size={14} color={theme.textNoteColor} />
+//                     </View>
+//                     <MyText>{getPositionName(data.position)}</MyText>
+//                 </View>
+//                 <MyText style={styles.cellGames}>
+//                     {data.games}
+//                 </MyText>
+//                 <MyText style={styles.cellWon}>
+//                     {isNaN(data.won) ? '-' : data.won.toFixed(0) + ' %'}
+//                 </MyText>
+//             </View>
+//     )
+// }
+
+// Stats Duration
+//
+// function Row({data}: IRowProps) {
+//     const theme = useAppTheme();
+//     const styles = useStyles();
+//     let marginLeft = 0;
+//     if (data.duration == 'lessThan5Minutes') {
+//         marginLeft = 0;
+//     }
+//     if (data.duration == 'lessThan30Minutes') {
+//         marginLeft = 12.0;
+//     }
+//     if (data.duration == 'lessThan60Minutes') {
+//         marginLeft = 3.0;
+//     }
+//     if (data.duration == 'greaterThan60Minutes') {
+//         marginLeft = 21.5;
+//     }
+//     return (
+//             <View style={styles.row}>
+//                 <View style={styles.cellLeaderboard}>
+//                     <View style={styles.icon}>
+//                         <FontAwesome5 name="clock" size={14} color={theme.textNoteColor}/>
+//                     </View>
+//                     <MyText style={{marginLeft}}>{getTranslation(`main.stats.duration.${data.duration}` as any)}</MyText>
+//                 </View>
+//                 <MyText style={styles.cellGames}>
+//                     {data.games}
+//                 </MyText>
+//                 <MyText style={styles.cellWon}>
+//                     {isNaN(data.won) ? '-' : data.won.toFixed(0) + ' %'}
+//                 </MyText>
+//             </View>
+//     )
 // }
 
 function Row({type, data}: IRowPropsCiv | IRowPropsMap | IRowPropsAlly | IRowPropsOpponent) {
@@ -111,7 +171,7 @@ interface IProps {
     data?: IStatCiv[] | IStatMap[] | IStatAlly[] | IStatOpponent[];
 }
 
-export default function StatsCiv(props: IProps) {
+export default function StatsRows(props: IProps) {
     const styles = useStyles();
 
     const { type, data, title } = props;

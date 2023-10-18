@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, Image, ImageSourcePropType, StyleSheet, TouchableOpacity, View, ViewStyle} from 'react-native';
+import {FlatList, ImageSourcePropType, StyleSheet, TouchableOpacity, View, ViewStyle} from 'react-native';
+import {Image} from 'expo-image';
 import {IFetchedUser} from '../../service/user';
 import {Button, Searchbar, shadow} from 'react-native-paper';
 import {MyText} from "./my-text";

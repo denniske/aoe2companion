@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {getBuildingData, getBuildingDescription, getBuildingName, Building} from "@nex/data";
 import Fandom from "../components/fandom";
 import {Other, sortResources} from "@nex/data";
