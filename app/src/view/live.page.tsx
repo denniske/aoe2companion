@@ -10,6 +10,7 @@ import {getTranslation} from '../helper/translate';
 import {ILobbiesMatch} from '../api/new/api.types';
 import {ICloseEvent, w3cwebsocket} from "websocket";
 import produce from "immer"
+import {getHost} from "@nex/data";
 
 export interface IMatchesMatchPlayer2 {
     matchId: number
@@ -39,7 +40,7 @@ interface IConnectionHandler {
 
 function initConnection(handler: IConnectionHandler): Promise<void> {
     return new Promise(resolve => {
-        const client = new w3cwebsocket(`wss://socket.aoe2companion.com/listen?handler=lobbies`);
+        const client = new w3cwebsocket(`${getHost('aoe2companion-socket')}listen?handler=lobbies`);
 
         client.onopen = () => {
             console.log('WebSocket client connected');

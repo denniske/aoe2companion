@@ -327,6 +327,8 @@ export default function Footer() {
                             <Menu.Item leadingIcon={useIcon('exchange-alt', 'Changelog')} titleStyle={iconPopupStyle('Changelog')} onPress={() => { nav('Changelog'); setMenu(false); }} title={getTranslation('footer.changelog')} />
                             <Divider />
                             <Menu.Item leadingIcon={useIcon('cog', 'Settings')} titleStyle={iconPopupStyle('Settings')} onPress={() => { nav('Settings'); setMenu(false); }} title={getTranslation('footer.settings')} />
+                            <Divider />
+                            <Menu.Item leadingIcon={useIcon('play', 'Live')} titleStyle={iconPopupStyle('Live')} onPress={() => { nav('Live'); setMenu(false); }} title={getTranslation('footer.lobbies')} />
                         </Menu>
                     }
                 </View>

@@ -26,6 +26,10 @@ export const changelog4: IChangelog = {
             type: 'feature',
             title: 'Now also showing console matches',
         },
+        {
+            type: 'feature',
+            title: 'Lobbies page (Three dots > Lobbies)',
+        },
     ],
     '12.0.0': [
         {
