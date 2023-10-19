@@ -16,7 +16,6 @@ import {Building, iconHeight, iconWidth, Tech, Unit} from "@nex/data";
 import {FontAwesome5} from "@expo/vector-icons";
 import {AVPlaybackSource} from "expo-av/build/AV";
 import {getAbilityIcon} from "./components/tech-tree";
-import ImageSized from "./components/image-sized";
 import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';
 import {openLink} from "../helper/url";
@@ -258,7 +257,7 @@ export default function TipsPage() {
             }
             {
                 currentTip.image &&
-                    <ImageSized source={currentTip.image} style={[styles.showcase, { width: '100%', aspectRatio: 16/9, opacity: loading ? 0.5 : 1 }]} />
+                    <Image source={currentTip.image} style={[styles.showcase, { width: '100%', aspectRatio: 16/9, opacity: loading ? 0.5 : 1 }]} />
             }
             </View>
             </View>
