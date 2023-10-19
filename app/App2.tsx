@@ -82,14 +82,11 @@ import {getInternalLanguage, setInternalLanguage} from './src/redux/statecache';
 import {ConditionalTester} from "./src/view/testing/tester";
 import {getElectronPushToken, isElectron} from './src/helper/electron';
 import {setAccountPushTokenElectron} from './src/api/following';
-import {Roboto_700Bold, useFonts} from "@expo-google-fonts/roboto";
 import {getAllInternalStrings, getInternalString, loadStringsAsync} from './src/helper/strings';
 import {fetchJson2} from './src/api/util';
 import UpdateElectronSnackbar from "./src/view/components/snackbar/update-electron-snackbar";
 import OverlaySettingsPage from "./src/view/overlay.settings.page";
-import QueryPage from "./src/view/query.page";
 import CurrentMatchSnackbar from "./src/view/components/snackbar/current-match-snackbar";
-import BuildPage from "./src/view/build.page";
 import {fetchAoeReferenceData} from './src/helper/reference';
 import DonationPage from './src/view/donation.page';
 import Constants from 'expo-constants';
@@ -100,9 +97,9 @@ import {ApplicationProvider} from '@ui-kitten/components';
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 
+SplashScreen.preventAutoHideAsync();
+
 initSentry();
-
-
 
 try {
     Notifications.setNotificationHandler({
@@ -686,84 +683,84 @@ export function InnerApp() {
 //     );
 // }
 
-export function InnerAppForBuild() {
-    const styles = useStyles();
-
-    let [fontsLoaded] = useFonts({
-        Roboto: Roboto_700Bold,
-    });
-
-    return (
-        <View style={styles.containerBuild} nativeID="container">
-            <Stack.Navigator screenOptions={{
-                ...TransitionPresets.SlideFromRightIOS,
-                headerStatusBarHeight: 0,
-                animationEnabled: false,
-            }}>
-                <Stack.Screen
-                    name="Build"
-                    component={BuildPage}
-                    options={{
-                        title: 'Build',
-                        headerShown: false,
-                        cardShadowEnabled: false,
-                        cardOverlayEnabled: false,
-                        cardStyle: { backgroundColor: 'rgba(0,0,0,0)' }
-                    }}
-                />
-            </Stack.Navigator>
-        </View>
-    );
-}
-
-export function InnerAppForQuery() {
-    const styles = useStyles();
-
-    let [fontsLoaded] = useFonts({
-        Roboto: Roboto_700Bold,
-    });
-
-    useEffect(() => {
-        if (Platform.OS !== 'web') return;
-
-        const existingStyle = document.getElementById('scrollbar-style');
-        if (existingStyle) {
-            existingStyle.remove();
-        }
-
-        const style = document.createElement('style');
-        style.id = 'scrollbar-style'
-        style.type = 'text/css';
-        style.innerHTML = `
-                input {outline: none}
-                `;
-        document.getElementsByTagName('head')[0].appendChild(style);
-    }, []);
-
-    return (
-        <View style={[styles.appQuery]}>
-            <View style={[styles.containerQuery]} nativeID="container">
-                <Stack.Navigator screenOptions={{
-                    ...TransitionPresets.SlideFromRightIOS,
-                    headerStatusBarHeight: 0,
-                    animationEnabled: false,
-                }}>
-                    <Stack.Screen
-                        name="Query"
-                        component={QueryPage}
-                        options={{
-                            title: 'Query',
-                            headerShown: false,
-                            cardShadowEnabled: false,
-                            cardOverlayEnabled: false,
-                            cardStyle: { backgroundColor: 'rgba(0,0,0,0)' }
-                        }}
-                    />
-                </Stack.Navigator>
-            </View>
-        </View>
-    );
-}
+// export function InnerAppForBuild() {
+//     const styles = useStyles();
+//
+//     let [fontsLoaded] = useFonts({
+//         Roboto: Roboto_700Bold,
+//     });
+//
+//     return (
+//         <View style={styles.containerBuild} nativeID="container">
+//             <Stack.Navigator screenOptions={{
+//                 ...TransitionPresets.SlideFromRightIOS,
+//                 headerStatusBarHeight: 0,
+//                 animationEnabled: false,
+//             }}>
+//                 <Stack.Screen
+//                     name="Build"
+//                     component={BuildPage}
+//                     options={{
+//                         title: 'Build',
+//                         headerShown: false,
+//                         cardShadowEnabled: false,
+//                         cardOverlayEnabled: false,
+//                         cardStyle: { backgroundColor: 'rgba(0,0,0,0)' }
+//                     }}
+//                 />
+//             </Stack.Navigator>
+//         </View>
+//     );
+// }
+//
+// export function InnerAppForQuery() {
+//     const styles = useStyles();
+//
+//     let [fontsLoaded] = useFonts({
+//         Roboto: Roboto_700Bold,
+//     });
+//
+//     useEffect(() => {
+//         if (Platform.OS !== 'web') return;
+//
+//         const existingStyle = document.getElementById('scrollbar-style');
+//         if (existingStyle) {
+//             existingStyle.remove();
+//         }
+//
+//         const style = document.createElement('style');
+//         style.id = 'scrollbar-style'
+//         style.type = 'text/css';
+//         style.innerHTML = `
+//                 input {outline: none}
+//                 `;
+//         document.getElementsByTagName('head')[0].appendChild(style);
+//     }, []);
+//
+//     return (
+//         <View style={[styles.appQuery]}>
+//             <View style={[styles.containerQuery]} nativeID="container">
+//                 <Stack.Navigator screenOptions={{
+//                     ...TransitionPresets.SlideFromRightIOS,
+//                     headerStatusBarHeight: 0,
+//                     animationEnabled: false,
+//                 }}>
+//                     <Stack.Screen
+//                         name="Query"
+//                         component={QueryPage}
+//                         options={{
+//                             title: 'Query',
+//                             headerShown: false,
+//                             cardShadowEnabled: false,
+//                             cardOverlayEnabled: false,
+//                             cardStyle: { backgroundColor: 'rgba(0,0,0,0)' }
+//                         }}
+//                     />
+//                 </Stack.Navigator>
+//             </View>
+//         </View>
+//     );
+// }
 
 
 // const customPaperTheme = {
@@ -895,10 +892,6 @@ export function AppWrapper() {
     }, [config]);
 
     useEffect(() => {
-        SplashScreen.preventAutoHideAsync();
-    }, []);
-
-    useEffect(() => {
         if (auth === undefined || following === undefined || config === undefined || prefs === undefined || !loadedLanguages) {
             return;
         }
@@ -958,14 +951,14 @@ export function AppWrapper() {
                                 <StatusBar barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'}
                                            backgroundColor="transparent" translucent={true}/>
                                 <View style={{flex: 1}} onLayout={onLayoutRootView}>
-                                    {
-                                        appType == 'query' &&
-                                        <InnerAppForQuery/>
-                                    }
-                                    {
-                                        appType == 'build' &&
-                                        <InnerAppForBuild/>
-                                    }
+                                    {/*{*/}
+                                    {/*    appType == 'query' &&*/}
+                                    {/*    <InnerAppForQuery/>*/}
+                                    {/*}*/}
+                                    {/*{*/}
+                                    {/*    appType == 'build' &&*/}
+                                    {/*    <InnerAppForBuild/>*/}
+                                    {/*}*/}
                                     {/*{*/}
                                     {/*    appType == 'intro' &&*/}
                                     {/*    <InnerAppForIntro/>*/}
