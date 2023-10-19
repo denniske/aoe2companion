@@ -65,9 +65,9 @@ export function getHost(host: Host) {
             //     const platformHost = '192.168.178.41';
             //     return `http://${platformHost}:3003/`;
             // }
-            // if (dev) {
-            //     return 'http://localhost:3335/';
-            // }
+            if (dev) {
+                return 'http://localhost:3335/';
+            }
             return `https://data.${appConfig.hostAoeCompanion}/`;
         }
         case "aoe2companion-socket": {

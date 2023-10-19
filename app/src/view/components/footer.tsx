@@ -1,5 +1,5 @@
-import {Alert, Linking, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
-import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
+import {Alert, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import {FontAwesome, FontAwesome5} from "@expo/vector-icons";
 import {Divider, Menu} from 'react-native-paper';
 import {getRootNavigation} from "../../service/navigation";
@@ -9,22 +9,15 @@ import {RootStackParamList} from "../../../App2";
 import Space from "./space";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
-import {setIngame, setPrefValue, useMutate, useSelector} from '../../redux/reducer';
+import {setPrefValue, useMutate, useSelector} from '../../redux/reducer';
 import {saveCurrentPrefsToStorage} from '../../service/storage';
 import {isBirthday, moProfileId} from '@nex/data';
-import {
-    getElectron,
-    isElectron,
-    useLastNotificationReceivedElectron,
-    useLastNotificationResponseElectron
-} from '../../helper/electron';
+import {isElectron, useLastNotificationResponseElectron} from '../../helper/electron';
 import {useLastNotificationResponseWeb} from '../../helper/pusher';
-import {IQueryRow} from "./search-query";
 import {openLink} from "../../helper/url";
 import {appConfig} from "@nex/dataset";
 import {useCavy} from '../testing/tester';
 import Constants from "expo-constants";
-import {MenuItem, OverflowMenu} from "@ui-kitten/components";
 
 
 export default function Footer() {
@@ -45,36 +38,36 @@ export default function Footer() {
         });
     };
 
-    const nav2 = (event: any, item: IQueryRow) => {
-        const navigation = getRootNavigation();
-        console.log(item);
-        const { unit, building, tech, civ, build } = item;
-        if (civ) {
-            return navigation.navigate('Civ', { civ });
-        }
-        if (unit) {
-            return navigation.navigate('Unit', { unit });
-        }
-        if (building) {
-            return navigation.navigate('Building', { building });
-        }
-        if (tech) {
-            return navigation.navigate('Tech', { tech });
-        }
-        if (build) {
-            return navigation.navigate('Guide', { build });
-        }
-    };
+    // const nav2 = (event: any, item: IQueryRow) => {
+    //     const navigation = getRootNavigation();
+    //     console.log(item);
+    //     const { unit, building, tech, civ, build } = item;
+    //     if (civ) {
+    //         return navigation.navigate('Civ', { civ });
+    //     }
+    //     if (unit) {
+    //         return navigation.navigate('Unit', { unit });
+    //     }
+    //     if (building) {
+    //         return navigation.navigate('Building', { building });
+    //     }
+    //     if (tech) {
+    //         return navigation.navigate('Tech', { tech });
+    //     }
+    //     if (build) {
+    //         return navigation.navigate('Guide', { build });
+    //     }
+    // };
 
-    if (isElectron()) {
-        useLayoutEffect(() => {
-            const ipcRenderer = getElectron().ipcRenderer;
-            ipcRenderer.on('navigate', nav2);
-            return () => {
-                ipcRenderer.removeListener('navigate', nav2);
-            };
-        }, []);
-    }
+    // if (isElectron()) {
+    //     useLayoutEffect(() => {
+    //         const ipcRenderer = getElectron().ipcRenderer;
+    //         ipcRenderer.on('navigate', nav2);
+    //         return () => {
+    //             ipcRenderer.removeListener('navigate', nav2);
+    //         };
+    //     }, []);
+    // }
 
     const iconStyle = (...routes: string[]) => {
         // console.log('currentRoute', activeRoute?.name);

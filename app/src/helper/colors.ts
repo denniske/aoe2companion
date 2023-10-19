@@ -1,25 +1,5 @@
-import {appConfig, playerColorsData} from "@nex/dataset";
+import {appConfig} from "@nex/dataset";
 
-const playerColorsBright = [
-    '#6EA6EB',
-    '#FF6464',
-    '#00FF00',
-    '#FFFF00',
-    '#00FFE1',
-    '#DA62D2',
-    '#989898',
-    '#FFB415',
-];
-
-const playerColors = playerColorsData;
-
-export function getPlayerBackgroundColorBright(playerPosition: number) {
-    return playerColorsBright[playerPosition - 1];
-}
-
-export function getPlayerBackgroundColor(playerPosition: number) {
-    return playerColors[playerPosition - 1];
-}
 
 export function getLeaderboardColor(leaderboard_id: string, darkMode: boolean) {
     return getLeaderboardTextColor(leaderboard_id, darkMode);

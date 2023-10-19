@@ -43,10 +43,10 @@ export default function BuildingList() {
                 sections={list}
                 stickySectionHeadersEnabled={false}
                 renderItem={({item}) => {
-                    return <BuildingCompBig key={item} building={item} showCivBanner={true}/>
+                    return <BuildingCompBig key={item} building={item} />
                 }}
                 renderSectionHeader={({ section: { title } }) => (
-                    <MyText style={styles.heading}>{getTranslation(title)}</MyText>
+                    <MyText style={styles.heading}>{getTranslation(title as any)}</MyText>
                 )}
                 keyExtractor={(item, index) => index.toString()}
             />

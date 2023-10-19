@@ -346,6 +346,7 @@ export interface IMatchNew {
     resources?: number
     sharedExploration: boolean
     speed?: number
+    speedName?: string;
     suddenDeathMode?: boolean
     teamPositions: boolean
     teamTogether: boolean

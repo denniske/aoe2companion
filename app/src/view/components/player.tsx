@@ -1,7 +1,6 @@
 import React from 'react';
 import {Platform, StyleSheet, TextStyle, TouchableOpacity, View} from 'react-native';
 import {Image} from 'expo-image';
-import {getPlayerBackgroundColor} from '../../helper/colors';
 import {useNavigation} from '@react-navigation/native';
 import {civsAoeNet, isBirthday, isVerifiedPlayer, moProfileId} from '@nex/data';
 import {RootStackProp} from '../../../App2';
@@ -53,7 +52,7 @@ export function Player({match, player, highlight, freeForALl, canDownloadRec}: I
     const styles = useStyles();
     const navigation = useNavigation<RootStackProp>();
 
-    const boxStyle = [styles.square, {backgroundColor: getPlayerBackgroundColor(player.color)}];
+    const boxStyle = [styles.square, {backgroundColor: player.colorHex}];
     const playerNameStyle = [{textDecorationLine: highlight ? 'underline' : 'none'}] as TextStyle;
     const playerRatingDiffStyle = [{color: player.ratingDiff > 0 ? '#22c55e' : '#ef4444'}] as TextStyle;
 

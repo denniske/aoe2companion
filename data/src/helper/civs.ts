@@ -2,68 +2,12 @@ import {Tech} from "./techs";
 import {Unit} from "./units";
 import {aoeData} from "../data/data";
 import {removeAccentsAndCase, sanitizeGameDescription, unwrap} from "../lib/util";
-import {getAoeString, getString} from '../lib/aoe-data';
+import {getAoeString} from '../lib/aoe-data';
 import {orderBy} from 'lodash';
-import {getService, SERVICE_NAME} from "../lib/di";
-import {ICivService} from "../lib/host";
 import {appConfig, civsAoeNetData, civsData} from "@nex/dataset";
-
-// export const civs = [
-//     'Aztecs',
-//     'Berbers',
-//     'Bohemians',
-//     'Britons',
-//     'Bulgarians',
-//     'Burgundians',
-//     'Burmese',
-//     'Byzantines',
-//     'Celts',
-//     'Chinese',
-//     'Cumans',
-//     'Ethiopians',
-//     'Franks',
-//     'Goths',
-//     'Huns',
-//     'Incas',
-//     'Indians',
-//     'Italians',
-//     'Japanese',
-//     'Khmer',
-//     'Koreans',
-//     'Lithuanians',
-//     'Magyars',
-//     'Malay',
-//     'Malians',
-//     'Mayans',
-//     'Mongols',
-//     'Persians',
-//     'Poles',
-//     'Portuguese',
-//     'Saracens',
-//     'Sicilians',
-//     'Slavs',
-//     'Spanish',
-//     'Tatars',
-//     'Teutons',
-//     'Turks',
-//     'Vietnamese',
-//     'Vikings',
-// ] as const;
 
 export const civs = civsData;
 export const civsAoeNet = civsAoeNetData;
-
-// export const civs = (()=>{
-//     try {
-//         return (getService(SERVICE_NAME.CIV_SERVICE) as ICivService).getCivs();
-//     } catch (e) {
-//         console.log(e);
-//         return ['Aztecs'];
-//     }
-// })(); // as const;
-
-// console.log('CIVS BEGINNING', civs);
-
 
 export interface ICivEntry {
     name: Civ;
@@ -322,28 +266,25 @@ const rorCivNameDict = {
     16: "LacViet",
 };
 
-export function getCivName(civ: number) {
-    // console.log('getCivName', civ);
-    if (appConfig.game === 'aoe2de') {
-        if (civ >= 10000) {
-            return rorCivNameDict[civ - 10000];
-        }
-        const civNameKey = aoeData.civ_names[civs[civ]];
-        // console.log(civs[civ], civNameKey, getAoeString(civNameKey));
-        return getAoeString(civNameKey);
-    }
-    return getString('civ', civ);
+const aoe4CivNameDict = {
+    0: "Abbasid Dynasty",
+    1: "Chinese",
+    2: "Delhi Sultanate",
+    3: "English",
+    4: "French",
+    5: "Holy Roman",
+    6: "Mongols",
+    7: "Rus",
+    8: "Malians",
+    9: "Ottomans",
 }
 
 export function getCivNameById(civ: Civ) {
-    // console.log('getcivname', civ, civs.indexOf(civ));
     if (appConfig.game === 'aoe2de') {
         const civNameKey = aoeData.civ_names[civ];
         return getAoeString(civNameKey);
     }
-    return getString('civ', civs.indexOf(civ));
-    // const civStringKey = aoeData.civ_names[civ];
-    // return 'byid-'+sanitizeGameDescription(getAoeString(civStringKey));
+    return aoe4CivNameDict[civs.indexOf(civ)];
 }
 
 export function getCivDescription(civ: Civ) {

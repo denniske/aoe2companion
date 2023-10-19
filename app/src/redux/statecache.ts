@@ -33,15 +33,6 @@ export function getInternalLanguage() {
 }
 
 
-let internalStrings: any = {};
-
-export function getInternalStrings() {
-    // console.log('getlanguage', mylanguage);
-    // console.log('getInternalStrings');
-    return internalStrings;
-}
-
-
 let internalAoeStrings: any = {};
 
 export function getInternalAoeStrings() {

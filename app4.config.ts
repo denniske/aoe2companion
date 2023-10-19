@@ -49,7 +49,6 @@ export default {
       "app/assets/legal/**",
       "app/assets/translations/**",
       "app4/assets/civilizations/**",
-      "app4/assets/strings/**",
       "app4/assets/*"
     ],
     "plugins": [

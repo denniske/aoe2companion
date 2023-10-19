@@ -41,7 +41,6 @@ import {
     Environment,
     IHostService,
     IHttpService,
-    IStrings,
     ITranslationService,
     OS,
     registerService,
@@ -79,7 +78,6 @@ import {getInternalLanguage, setInternalLanguage} from './src/redux/statecache';
 import {ConditionalTester} from "./src/view/testing/tester";
 import {getElectronPushToken, isElectron} from './src/helper/electron';
 import {setAccountPushTokenElectron} from './src/api/following';
-import {getAllInternalStrings, getInternalString, loadStringsAsync} from './src/helper/strings';
 import {fetchJson2} from './src/api/util';
 import UpdateElectronSnackbar from "./src/view/components/snackbar/update-electron-snackbar";
 import OverlaySettingsPage from "./src/view/overlay.settings.page";
@@ -133,9 +131,6 @@ class AoeDataService implements ITranslationService {
     }
     getAoeString(str: string): string {
         return getInternalAoeString(str);
-    }
-    getString(category: keyof IStrings, id: number) {
-        return getInternalString(category, id);
     }
     getLanguage(): string {
         return getInternalLanguage();
@@ -881,7 +876,7 @@ export function AppWrapper() {
         const language = config.language == 'system' ? getLanguageFromSystemLocale2(Localization.locale) : config.language;
         // console.log('LOCAL ==> Loading AoeStrings for ' + language + ' (config.language: ' + config.language + ')');
         setInternalLanguage(language);
-        Promise.all([loadAoeStringsAsync(language), loadStringsAsync(language)]).then(() => mutate(addLoadedLanguage(language)));
+        Promise.all([loadAoeStringsAsync(language)]).then(() => mutate(addLoadedLanguage(language)));
         fetchAoeReferenceData();
     }, [config]);
 

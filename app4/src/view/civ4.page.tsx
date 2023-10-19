@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 import {FlatList, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Image} from 'expo-image';
-import {aoeCivKey, Civ, civs, getCivNameById, getCivTeamBonus, iconHeight, iconWidth, orderCivs} from "@nex/data";
+import {aoeCivKey, Civ, civs, getCivNameById, orderCivs} from "@nex/data";
 import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import IconHeader from "../../../app/src/view/components/navigation-header/icon-header";
 import {RootStackParamList, RootStackProp} from "../../../app/App2";
@@ -9,9 +9,8 @@ import TextHeader from "../../../app/src/view/components/navigation-header/text-
 import {getTranslation} from "../../../app/src/helper/translate";
 import {getCivIconLocal} from "../../../app/src/helper/civs";
 import {MyText} from "../../../app/src/view/components/my-text";
-import {appConfig} from "@nex/dataset";
 import {createStylesheet} from "../../../app/src/theming-new";
-import {getCivInfo, getCivStrategies} from "../../../data4/src";
+import {getCivStrategies} from "../../../data4/src";
 import {civDataAbbasidDynasty} from '../data/abbasiddynasty';
 import {civDataChinese} from '../data/chinese';
 import {civDataDelhiSultanate} from '../data/delhisultanate';
@@ -23,7 +22,6 @@ import {civDataEnglish} from '../data/english';
 import {civDataOttomans} from "../data/ottomans";
 import {civDataMalians} from "../data/malians";
 import {useApi} from "../../../app/src/hooks/use-api";
-import {fetchLeaderboards} from "../../../app/src/api/leaderboard";
 import {fetchJson2} from "../../../app/src/api/util";
 
 
@@ -42,6 +40,9 @@ export function civTitle(props: any) {
     return props.route?.params?.civ || getTranslation('civs.title');
 }
 
+// Including this in app because otherwise would need to download
+// all civ infos from raw.githubusercontent.com when civ list
+// is opened
 const aoe4CivInfo = {
     'AbbasidDynasty': civDataAbbasidDynasty,
     'Chinese': civDataChinese,
@@ -84,7 +85,7 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
         (state, value) => {
             state.civInfos[civ] = value;
         },
-        fetchJson2, 'fetchCivInfos' , `https://raw.githubusercontent.com/aoe4world/data/main/civilizations/${civDataFileMapping[civ]}.json`, null, null, null
+        fetchJson2, 'fetchCivInfos' , `https://raw.githubusercontent.com/aoe4world/data/main/civilizations/${civDataFileMapping[civ]}.json`, undefined, null
     );
 
     const civData = civInfos.data;
@@ -96,7 +97,7 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
             <MyText style={styles.contentDescription}>{civData.description}</MyText>
 
             {
-                civData.overview.map((item: ICivInfoItem, i) => (
+                civData.overview.map((item: ICivInfoItem, i: number) => (
                     <Fragment key={item.title}>
                         <MyText style={styles.infoTitle}>{item.title}</MyText>
                         {
@@ -150,7 +151,6 @@ export function CivPage() {
 
     const route = useRoute<RouteProp<RootStackParamList, 'Civ'>>();
     const civ = route.params?.civ as aoeCivKey;
-    const civData = aoe4CivInfo[civ];
 
     // https://www.ageofempires.com/games/age-of-empires-iv/#game-civilizations
     // https://www.ageofempires.com/wp-content/uploads/2021/06/bg-age4-civ-chi-splash-right-mobile.jpg

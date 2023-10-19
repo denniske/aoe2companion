@@ -1,6 +1,6 @@
 import {StyleSheet, View} from 'react-native';
 import {Image, ImageBackground} from 'expo-image';
-import {formatAgo, getString, isMatchFreeForAll} from '@nex/data';
+import {formatAgo, isMatchFreeForAll} from '@nex/data';
 import React from 'react';
 import {Player, PlayerSkeleton} from './player';
 import MyListAccordion from './accordion';
@@ -150,7 +150,7 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
                         <FontAwesome5 name="clock" size={11.5} color={theme.textNoteColor}/>
                         <MyText style={styles.duration}> {duration}   </MyText>
                         <FontAwesome5 name="running" size={11.5} color={theme.textNoteColor}/>
-                        <MyText style={styles.speed}> {getString('speed', match.speed as any)}   </MyText>
+                        <MyText style={styles.speed}> {match.speedName}   </MyText>
                         {/*{*/}
                         {/*    __DEV__ &&*/}
                         {/*    <>*/}

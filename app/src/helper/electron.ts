@@ -1,6 +1,5 @@
 import {useLayoutEffect, useState} from 'react';
 import {Platform} from "react-native";
-import {IQueryRow} from "../view/components/search-query";
 
 export function isElectron() {
     return Platform.OS === 'web' && eval('typeof require !== "undefined" && typeof require("electron") === "object"');
@@ -63,17 +62,17 @@ export async function getElectronPushToken() {
     return getElectron().ipcRenderer.invoke('get-electrolytic-token');
 }
 
-export async function queryItemCanceledAsync() {
-    return getElectron().ipcRenderer.invoke('query-item-canceled');
-}
-
-export async function queryItemSelectedAsync(item: IQueryRow) {
-    return getElectron().ipcRenderer.invoke('query-item-selected', item);
-}
-
-export async function queryItemHoveredAsync(item: IQueryRow) {
-    return getElectron().ipcRenderer.invoke('query-item-hovered', item);
-}
+// export async function queryItemCanceledAsync() {
+//     return getElectron().ipcRenderer.invoke('query-item-canceled');
+// }
+//
+// export async function queryItemSelectedAsync(item: IQueryRow) {
+//     return getElectron().ipcRenderer.invoke('query-item-selected', item);
+// }
+//
+// export async function queryItemHoveredAsync(item: IQueryRow) {
+//     return getElectron().ipcRenderer.invoke('query-item-hovered', item);
+// }
 
 // getElectron().ipcRenderer.on('navigate', () => {
 //     console.log('GOT IT');

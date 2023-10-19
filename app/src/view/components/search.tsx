@@ -17,7 +17,7 @@ import {IProfileItemNew} from "@nex/data/api";
 
 interface IPlayerProps {
     player: IProfileItemNew;
-    selectedUser?: (user: UserInfo) => void;
+    selectedUser?: (user: any) => void;
     actionText?: string;
     action?: (player: IProfileItemNew) => React.ReactNode;
 }

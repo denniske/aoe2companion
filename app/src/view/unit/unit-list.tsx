@@ -46,22 +46,11 @@ export default function UnitList() {
                 sections={list}
                 stickySectionHeadersEnabled={false}
                 renderItem={({item}) => {
-                    // if (unitLines[item] && text.length === 0) {
-                    //     return <UnitLineCompBig key={item} unitLine={item}/>
-                    // }
                     return <UnitCompBig key={item} unit={item}/>
                 }}
                 renderSectionHeader={({ section: { title } }) => {
-                    // if (civ) {
-                    //     return (
-                    //         <View style={styles.row}>
-                    //             {/*<Image fadeDuration={0} source={getCivIcon(civ)} style={styles.unitIcon}/>*/}
-                    //             <Text style={styles.heading}>{title}</Text>
-                    //         </View>
-                    //     );
-                    // }
                     return (
-                        <MyText style={styles.heading}>{getTranslation(title)}</MyText>
+                        <MyText style={styles.heading}>{getTranslation(title as any)}</MyText>
                     );
                 }}
                 keyExtractor={(item, index) => index.toString()}
