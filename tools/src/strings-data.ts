@@ -2,6 +2,7 @@ import axios from "axios"
 import * as fs from "fs"
 import * as path from "path"
 import {execSync} from "child_process";
+import {flatten} from "lodash";
 
 function keysOf<T>(arr: T): Array<keyof T> {
     return Object.keys(arr) as Array<keyof T>;
@@ -219,7 +220,7 @@ const civDescriptionData = {
     ],
 }
 
-const stringKeys = Object.values(civDescriptionData).flat();
+const stringKeys = flatten(Object.values(civDescriptionData));
 
 function sleep(ms: number) {
     return new Promise((resolve) => {

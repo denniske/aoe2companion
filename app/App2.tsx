@@ -1,6 +1,3 @@
-// For less than iOS 12
-import 'array-flat-polyfill'
-
 import 'react-native-gesture-handler';
 import {
     DarkTheme as NavigationDarkTheme,
