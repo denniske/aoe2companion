@@ -1,7 +1,4 @@
 
-- [expo-image]: Prop "resizeMode" is deprecated, use "contentFit" instead
-
-
 https://www.ageofempires.com/news/all-about-seasons-in-age-of-empires-iv/
 
 vercel no auto deploy
