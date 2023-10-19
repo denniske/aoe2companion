@@ -4,7 +4,8 @@ import {
 } from "@nex/data";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App2";
-import {Image, ImageBackground, StyleSheet, TouchableOpacity, View} from "react-native";
+import {StyleSheet, TouchableOpacity, View} from "react-native";
+import {Image, ImageBackground} from "expo-image";
 import React, {Fragment} from "react";
 import {MyText} from "./my-text";
 import {setPrefValue, useMutate, useSelector} from "../../redux/reducer";
@@ -173,7 +174,7 @@ function Ability2({civ, tech, unit, building, unique, dependsOn}: AbilityProps) 
     }
     return (
         <TouchableOpacity style={[styles.imageContainer2, {borderColor, opacity}]} onPress={getAbilityNavCallback({tech, unit, building})}>
-            <ImageBackground fadeDuration={0} source={getAbilityIcon({tech, unit, building})} imageStyle={styles.imageInner2} style={styles.image2}>
+            <ImageBackground fadeDuration={0} source={getAbilityIcon({tech, unit, building})} imageStyle={styles.imageInner2} contentFit="cover" style={styles.image2}>
                 {
                     !enabled &&
                     <Image source={getOtherIcon('Cross' as any)} style={styles.cross}/>
@@ -186,7 +187,7 @@ function Ability2({civ, tech, unit, building, unique, dependsOn}: AbilityProps) 
 function Ability3({age}: Ability3Props) {
     return (
         <TouchableOpacity style={[styles.imageContainer3]}>
-            <ImageBackground fadeDuration={0} source={getOtherIcon(age)} imageStyle={styles.imageInner2} style={styles.image2}/>
+            <ImageBackground fadeDuration={0} source={getOtherIcon(age)} imageStyle={styles.imageInner2} contentFit="cover" style={styles.image2}/>
         </TouchableOpacity>
     );
 }
@@ -197,7 +198,6 @@ const styles = StyleSheet.create({
         fontWeight: '500',
     },
     imageInner2: {
-        resizeMode: "cover",
         alignSelf: 'flex-end',
     },
     imageText: {

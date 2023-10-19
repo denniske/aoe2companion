@@ -102,6 +102,7 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
                     <ImageBackground fadeDuration={0}
                                      source={getMapImage(match)}
                                      imageStyle={styles.imageInner}
+                                     contentFit="cover"
                                      style={styles.map}>
                         {
                             players.some(p => p.profileId === user && p.won === true && (freeForALl || p.team != -1)) &&
@@ -205,9 +206,7 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
 const useStyles = createStylesheet(theme => StyleSheet.create({
     imageInner: appConfig.game === 'aoe2de' ? {
         // backgroundColor: 'blue',
-        resizeMode: "cover",
     } : {
-        resizeMode: "cover",
         // borderColor: '#3A506A',
         borderColor: '#C19049',
         borderWidth: 1.2,

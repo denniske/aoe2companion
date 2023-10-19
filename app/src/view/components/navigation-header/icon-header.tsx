@@ -1,4 +1,5 @@
-import {Image, ImageBackground, ImageSourcePropType, LayoutChangeEvent, Platform, StyleSheet, View} from "react-native";
+import {ImageSourcePropType, LayoutChangeEvent, Platform, StyleSheet, View} from "react-native";
+import {Image, ImageBackground} from "expo-image";
 import React from "react";
 import {MyText} from "../my-text";
 import {iconHeight, iconWidth} from "@nex/data";
@@ -21,6 +22,7 @@ export default function IconHeader(props: IconHeaderProps) {
             <ImageBackground fadeDuration={0}
                              source={icon}
                              imageStyle={styles.imageInner}
+                             contentFit="contain"
                              style={styles.image}>
                 {
                     badgeIcon &&
@@ -61,7 +63,6 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     },
     imageInner: {
         // backgroundColor: 'blue',
-        resizeMode: "contain",
         width: iconWidth,
         left: 5,
     },

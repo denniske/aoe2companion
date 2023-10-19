@@ -156,7 +156,7 @@ export function CivPage() {
     // https://www.ageofempires.com/wp-content/uploads/2021/06/bg-age4-civ-chi-splash-right-mobile.jpg
     if (civ) {
         return (
-            // <ImageBackground imageStyle={styles.imageInner}  source={{uri: civData.backdrop}} style={styles.image}>
+            // <ImageBackground imageStyle={styles.imageInner} contentFit="contain" source={{uri: civData.backdrop}} style={styles.image}>
                 <ScrollView>
                     <CivDetails civ={civ}/>
                 </ScrollView>
@@ -171,7 +171,6 @@ const useStyles = createStylesheet((theme, darkMode) => StyleSheet.create({
     imageInner: {
         // tintColor: darkMode === 'dark' ? 'white' : '#999',
         // opacity: 0.1,
-        resizeMode: "contain",
         alignSelf: 'flex-end',
         bottom: -50,
         top: undefined,
