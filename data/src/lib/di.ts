@@ -42,10 +42,6 @@ class DummyTranslationService implements ITranslationService {
     getString(category: keyof IStrings, id: number): string | undefined {
         return '???';
     }
-
-    getAllStrings(category: keyof IStrings): IStringItem[] {
-        return [];
-    }
 }
 
 registerService(SERVICE_NAME.TRANSLATION_SERVICE, new DummyTranslationService(), true);

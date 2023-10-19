@@ -5,7 +5,6 @@ export interface ITranslationService {
     getUiTranslation(str: string): string;
     getAoeString(str: string): string;
     getString(category: keyof IStrings, id: number): string | undefined;
-    getAllStrings(category: keyof IStrings): IStringItem[];
     getLanguage(): string;
 }
 
@@ -22,11 +21,6 @@ export function getAoeString(str: string) {
 export function getString(category: keyof IStrings, id: number) {
     const aoeDataService = getService(SERVICE_NAME.TRANSLATION_SERVICE) as ITranslationService;
     return aoeDataService.getString(category, id);
-}
-
-export function getAllStrings(category: keyof IStrings) {
-    const aoeDataService = getService(SERVICE_NAME.TRANSLATION_SERVICE) as ITranslationService;
-    return aoeDataService.getAllStrings(category);
 }
 
 export function getLanguage() {

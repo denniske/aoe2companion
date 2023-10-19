@@ -137,9 +137,6 @@ class AoeDataService implements ITranslationService {
     getString(category: keyof IStrings, id: number) {
         return getInternalString(category, id);
     }
-    getAllStrings(category: keyof IStrings) {
-        return getAllInternalStrings(category);
-    }
     getLanguage(): string {
         return getInternalLanguage();
     }
