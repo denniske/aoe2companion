@@ -18,10 +18,9 @@ import FlatListLoadingIndicator from "../components/flat-list-loading-indicator"
 import Constants from 'expo-constants';
 import {RootStackParamList} from "../../../App2";
 import {useApi} from "../../hooks/use-api";
-import {fetchLeaderboards} from "../../api/leaderboard";
 import {useInfiniteQuery} from "@tanstack/react-query";
 import useDebounce from "../../hooks/use-debounce";
-import {fetchMatches} from "../../api/helper/api";
+import {fetchLeaderboards, fetchMatches} from "../../api/helper/api";
 
 
 interface Props {

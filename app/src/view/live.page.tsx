@@ -7,10 +7,10 @@ import {FontAwesome5} from "@expo/vector-icons";
 import {Searchbar} from "react-native-paper";
 import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';
-import {ILobbiesMatch} from '../api/new/api.types';
 import {ICloseEvent, w3cwebsocket} from "websocket";
 import produce from "immer"
 import {getHost} from "@nex/data";
+import {ILobbiesMatch} from "../api/helper/api.types";
 
 export interface IMatchesMatchPlayer2 {
     matchId: number

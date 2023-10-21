@@ -13,10 +13,10 @@ import {isAfter, subDays, subMonths, subWeeks} from "date-fns";
 import {VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTheme} from "../../helper/victory";
 import {windowWidth} from "../leaderboard.page";
 import {getTranslation} from '../../helper/translate';
-import {IRatingNew} from "@nex/data/api";
+import {IProfileRatingsLeaderboard} from "../../api/helper/api.types";
 
 interface IRatingProps {
-    ratingHistories?: IRatingNew[] | null;
+    ratingHistories?: IProfileRatingsLeaderboard[] | null;
     ready: boolean;
 }
 
@@ -43,7 +43,7 @@ export default function Rating({ratingHistories, ready}: IRatingProps) {
     const appTheme = useAppTheme();
     const mutate = useMutate();
     const [hiddenLeaderboardIds, setHiddenLeaderboardIds] = useState<LeaderboardId[]>([]);
-    const [filteredRatingHistories, setFilteredRatingHistories] = useState<IRatingNew[] | null | undefined>();
+    const [filteredRatingHistories, setFilteredRatingHistories] = useState<IProfileRatingsLeaderboard[] | null | undefined>();
 
     const ratingHistoryDuration = useSelector(state => state.prefs.ratingHistoryDuration) || 'max';
     const values: string[] = [

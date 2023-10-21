@@ -79,14 +79,15 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
     const gotoUnit = (unit: Unit) => navigation.push('Unit', {unit: unit});
     const gotoTech = (tech: Tech) => navigation.push('Tech', {tech: tech});
 
-    const { match, player } = useSelector(state => state.ingame ?? {});
+    // const { match, player } = useSelector(state => state.ingame ?? {});
 
     // console.log('player', player);
 
     const hasTech = (tech: Tech) => {
-        if (!player) return true;
-        console.log('hasTech', tech, civsAoeNet[player.civ], getCivHasTech(civsAoeNet[player.civ], tech));
-        return getCivHasTech(civsAoeNet[player.civ], tech);
+        return true;
+        // if (!player) return true;
+        // console.log('hasTech', tech, civsAoeNet[player.civ], getCivHasTech(civsAoeNet[player.civ], tech));
+        // return getCivHasTech(civsAoeNet[player.civ], tech);
     };
 
     return (

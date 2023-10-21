@@ -1,5 +1,5 @@
 import {FlatList, Platform, StyleSheet, View} from "react-native";
-import {clearMatchesPlayer, clearStatsPlayer, setPrefValue, useMutate, useSelector} from "../../redux/reducer";
+import {clearStatsPlayer, setPrefValue, useMutate, useSelector} from "../../redux/reducer";
 import {LeaderboardId} from "@nex/data";
 import React, {useEffect, useState} from "react";
 import {RouteProp, useNavigation, useNavigationState, useRoute} from "@react-navigation/native";
@@ -20,10 +20,8 @@ import {useWebRefresh} from "../../hooks/use-web-refresh";
 import Constants from 'expo-constants';
 import {RootStackParamList} from "../../../App2";
 import {useApi} from "../../hooks/use-api";
-import {loadProfile} from "../../service/profile";
 import {TextLoader} from "../components/loader/text-loader";
-import {Button} from "react-native-paper";
-import {fetchLeaderboards} from "../../api/leaderboard";
+import {fetchLeaderboards, fetchProfile} from "../../api/helper/api";
 
 
 interface Props {
@@ -108,7 +106,7 @@ function MainStatsInternal({profileId}: {profileId: number}) {
             }
             state.user[profileId].profileWithStats = value;
         },
-        loadProfile, profileId, 'stats'
+        fetchProfile, { profileId, extend: 'stats' }
     );
 
     // console.log('==> profile', profile.data);

@@ -2,11 +2,16 @@ import path from 'path';
 import axios from 'axios';
 import {createWriteStream} from 'fs';
 import {finished} from "stream";
-import {sleep} from "expo-cli/build/commands/utils/promise";
 import * as fs from "fs";
 const spawn = require('await-spawn');
 
 require('dotenv').config();
+
+function sleep(ms: number) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
+}
 
 export async function downloadFile(fileUrl: string, outputLocationPath: string): Promise<any> {
     const writer = createWriteStream(outputLocationPath);

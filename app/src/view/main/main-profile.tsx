@@ -4,7 +4,6 @@ import React, {useEffect, useState} from "react";
 import {RouteProp, useNavigation, useNavigationState, useRoute} from "@react-navigation/native";
 import {RootStackParamList, RootTabParamList} from "../../../App2";
 import {useApi} from "../../hooks/use-api";
-import {loadProfile} from "../../service/profile";
 import {MyText} from "../components/my-text";
 import Profile from "../components/profile";
 import Rating from "../components/rating";
@@ -19,6 +18,7 @@ import {openLink} from "../../helper/url";
 import {useWebRefresh} from "../../hooks/use-web-refresh";
 import FlatListLoadingIndicator from "../components/flat-list-loading-indicator";
 import Constants from 'expo-constants';
+import {fetchProfile} from "../../api/helper/api";
 
 interface Props {
     profileId: number;
@@ -71,7 +71,7 @@ function MainProfileInternal({profileId}: {profileId: number}) {
                 ...value,
             };
         },
-        loadProfile, profileId
+        fetchProfile, { profileId }
     );
 
     const rating = profile.data?.ratings;
@@ -183,11 +183,13 @@ function MainProfileInternal({profileId}: {profileId: number}) {
                                     View All
                                 </Button>;
                             case 'profile':
-                                if (profile.data === null) return <View style={styles.container}><MyText>No leaderboard data yet.</MyText></View>;;
+                                if (profile.data === null) return <View style={styles.container}><MyText>No leaderboard data yet.</MyText></View>;
                                 return <Profile data={profile.data} ready={profile.data != null && rating != null}/>;
                             case 'rating':
                                 if (rating?.length === 0) return <View/>;
                                 return <Rating ratingHistories={rating} ready={profile.data != null && rating != null}/>;
+                            default:
+                                return <View/>;
                             // default:
                             //     return <Game match={item as any} expanded={index === -1} highlightedUsers={[profileId]} user={profileId}/>;
                         }

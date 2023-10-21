@@ -1,7 +1,6 @@
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Image} from 'expo-image';
 import React from 'react';
-import {IStatAlly, IStatCiv, IStatMap, IStatOpponent} from "@nex/data/api";
 import {TextLoader} from "./loader/text-loader";
 import {Civ, LeaderboardId} from "@nex/data";
 import {useNavigation} from "@react-navigation/native";
@@ -14,7 +13,48 @@ import {getTranslation} from '../../helper/translate';
 import {getMapImage} from "../../helper/maps";
 import {CountryImage} from "./country-image";
 import {appConfig} from "@nex/dataset";
+import {IStatAlly, IStatCiv, IStatMap, IStatOpponent} from "../../api/helper/api.types";
 
+
+// export interface IStatCiv {
+//     civ: number
+//     civName: string
+//     civImageUrl: string
+//     games: number
+//     wins: number
+// }
+//
+// export interface IStatMap {
+//     map: string
+//     mapName: string
+//     mapImageUrl: string
+//     location?: number
+//     games: number
+//     wins: number
+//     losses: number
+// }
+//
+// export interface IStatAlly {
+//     verified: boolean
+//     countryIcon?: string
+//     profileId: number
+//     name: string
+//     country?: string
+//     games: number
+//     wins: number
+//     losses: number
+// }
+//
+// export interface IStatOpponent {
+//     verified: boolean
+//     countryIcon: string
+//     profileId: number
+//     name: string
+//     country: string
+//     games: number
+//     wins: number
+//     losses: number
+// }
 
 interface IRowPropsCiv {
     data: IStatCiv;

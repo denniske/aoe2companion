@@ -81,7 +81,7 @@ import {setAccountPushTokenElectron} from './src/api/following';
 import {fetchJson2} from './src/api/util';
 import UpdateElectronSnackbar from "./src/view/components/snackbar/update-electron-snackbar";
 import OverlaySettingsPage from "./src/view/overlay.settings.page";
-import CurrentMatchSnackbar from "./src/view/components/snackbar/current-match-snackbar";
+// import CurrentMatchSnackbar from "./src/view/components/snackbar/current-match-snackbar";
 import {fetchAoeReferenceData} from './src/helper/reference';
 import DonationPage from './src/view/donation.page';
 import Constants from 'expo-constants';
@@ -422,10 +422,10 @@ export function InnerApp() {
         <SafeAreaView style={styles.container} nativeID="container">
 
             <Portal>
-                {
-                    isElectron() &&
-                    <CurrentMatchSnackbar/>
-                }
+                {/*{*/}
+                {/*    isElectron() &&*/}
+                {/*    <CurrentMatchSnackbar/>*/}
+                {/*}*/}
                 {
                     isElectron() &&
                     <UpdateElectronSnackbar/>

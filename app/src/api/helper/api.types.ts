@@ -1,49 +1,5 @@
 
 
-export interface ILeaderboardDef {
-    leaderboardId: number;
-    leaderboardName: string;
-    abbreviation: string;
-}
-
-export interface ILeaderboard {
-    leaderboardId: number;
-    total: number;
-    start: number;
-    count: number;
-    page: number;
-    country: string;
-    players: ILeaderboardPlayer[];
-}
-
-export interface ILeaderboardPlayer {
-    leaderboardId: number;
-    profileId: number;
-    name: string;
-    rank: number;
-    rankCountry: number;
-    rating: number;
-    lastMatchTime: Date;
-    streak: number;
-    wins: number;
-    losses: number;
-    drops: number;
-    updatedAt: string;
-    games: number;
-    country: string;
-}
-
-export interface IFetchLeaderboardParams {
-    leaderboardId: number;
-    page?: number;
-    search?: string;
-    steamId?: string;
-    profileId?: number;
-    country?: string;
-
-    pageParam?: string;
-}
-
 
 
 
@@ -93,7 +49,7 @@ export interface ILobbiesMatch {
     victory: number
     revealMap: number
     privacy: number
-    players: IPlayerNew[];
+    players: IMatchesMatchPlayer2[];
 }
 
 
@@ -165,24 +121,38 @@ export interface IMatchesMatchPlayer2 {
 
 
 export interface IProfileLeaderboardResult {
+    maxRating: number; // TODO
+    games: number;
+
+    rankLevel: string
+    rankLevelName: string
+    rankLevelImageUrl: string
+    rankLevelColor: string
+    rankLevelBackgroundColor: string
+
+
     leaderboardId: any
     leaderboardName: string
     abbreviation: string
-    profileId?: number
-    name?: string
-    rank?: number
-    rating?: number
-    lastMatchTime?: string
-    drops?: number
-    losses?: number
-    streak?: number
-    wins?: number
-    updatedAt?: string
-    rankCountry?: number
+    profileId: number
+    name: string
+    rank: number
+    rating: number
+    lastMatchTime: string
+    drops: number
+    losses: number
+    streak: number
+    wins: number
+    updatedAt: string
+    rankCountry: number
 }
 
 export interface IProfileResult {
+    clan: string; // Todo
+    drops: number; // Todo
+
     profileId: number;
+    steamId: string;
     name: string;
     games: number;
     country: string;
@@ -190,48 +160,97 @@ export interface IProfileResult {
     verified: boolean;
     leaderboards: IProfileLeaderboardResult[];
     ratings: IProfileRatingsLeaderboard[];
+    stats: IStatNew[];
 }
 
 
+export interface IStatNew {
+    leaderboardId: string
+    leaderboardName: string
+    abbreviation: string
+    civ: IStatCiv[]
+    map: IStatMap[]
+    allies: IStatAlly[]
+    opponents: IStatOpponent[]
+}
+
+export interface IStatCiv {
+    civ: number
+    civName: string
+    civImageUrl: string
+    games: number
+    wins: number
+}
+
+export interface IStatMap {
+    map: string
+    mapName: string
+    mapImageUrl: string
+    location?: number
+    games: number
+    wins: number
+    losses: number
+}
+
+export interface IStatAlly {
+    verified: boolean
+    countryIcon?: string
+    profileId: number
+    name: string
+    country?: string
+    games: number
+    wins: number
+    losses: number
+}
+
+export interface IStatOpponent {
+    verified: boolean
+    countryIcon: string
+    profileId: number
+    name: string
+    country: string
+    games: number
+    wins: number
+    losses: number
+}
 
 export interface IProfilesResultProfile {
-    profileId: number;
-    name: string;
-    games: number;
-    country: string;
+    // profileId: number;
+    // name: string;
+    // games: number;
+    // country: string;
+
+    profileId: number
+    steamId: string
+    name: string
+    country: string
+    games: number
+    drops: number
+    clan: string
+    avatarhash: string
+    verified: boolean
 }
 
 export interface IProfilesResult {
+    page: number
+    perPage: number
+    count: number
+    offset: number
+    hasMore: boolean
     profiles: IProfilesResultProfile[];
-}
-
-
-
-
-
-
-
-export interface IFetchProfilesProfile {
-    profileId: number;
-    name: string;
-    games: number;
-    country: string;
-}
-
-
-export interface IProfilesResult {
-    page: number;
-    profiles: IFetchProfilesProfile[];
 }
 
 
 export interface IMatchesResult {
     perPage: number;
     page: number;
-    matches: IMatchesMatch[];
+    matches: IMatchNew[];
 }
 
-export interface IMatchesMatch {
+export interface IMatchNew {
+    gameVariant: number; // TODO
+    speedName: string; // TODO
+
     matchId: number
     started: Date
     finished?: Date
@@ -319,6 +338,7 @@ export interface IFetchProfileParams {
     steamId?: string;
     profileId?: number;
     country?: string;
+    extend?: string;
 
     pageParam?: string;
 }
@@ -474,4 +494,87 @@ export interface IProfileRatingsRating {
 }
 
 
+export interface ILeaderboardDef {
+    leaderboardId: string
+    leaderboardName: string
+    abbreviation: string
+    abbreviationTitle: string
+    abbreviationSubtitle: string
+    active: boolean
+}
 
+export interface ILeaderboard {
+    leaderboardId: number;
+    total: number;
+    start: number;
+    count: number;
+    page: number;
+    country: string;
+    players: ILeaderboardPlayer[];
+}
+
+export interface ILeaderboardPlayer {
+    leaderboardId: number;
+    profileId: number;
+    name: string;
+    rank: number;
+    rankCountry: number;
+    rating: number;
+    lastMatchTime: Date;
+    streak: number;
+    wins: number;
+    losses: number;
+    drops: number;
+    updatedAt: string;
+    games: number;
+    country: string;
+}
+
+export interface IFetchLeaderboardParams {
+    leaderboardId: number;
+    page?: number;
+    search?: string;
+    steamId?: string;
+    profileId?: number;
+    country?: string;
+
+    pageParam?: string;
+}
+
+
+// export type ILeaderboardsResponse = {
+//     leaderboardId: string
+//     leaderboardName: string
+//     abbreviation: string
+//     abbreviationTitle: string
+//     abbreviationSubtitle: string
+//     active: boolean
+// }[];
+//
+//
+// export interface ILeaderboardResponse {
+//     leaderboardId: string
+//     total: number
+//     start: number
+//     count: number
+//     country: any
+//     page: number
+//     players: ILeaderboardPlayerNew[]
+// }
+//
+// export interface ILeaderboardPlayerNew {
+//     leaderboardId: string
+//     profileId: number
+//     name: string
+//     rank: number
+//     rating: number
+//     lastMatchTime: string
+//     drops: number
+//     losses: number
+//     streak: number
+//     wins: number
+//     updatedAt: string
+//     rankCountry: number
+//     games: number
+//     country: string
+// }

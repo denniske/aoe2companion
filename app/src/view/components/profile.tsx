@@ -6,7 +6,6 @@ import {
     getVerifiedPlayer,
     getYoutubeChannel
 } from '@nex/data';
-import {ILeaderboardNew, IPlayerNew, IProfileResponse} from '@nex/data/api';
 import React, {useEffect} from 'react';
 import {getLeaderboardTextColor} from '../../helper/colors';
 import {TextLoader} from "./loader/text-loader";
@@ -28,9 +27,10 @@ import DouyuBadge from './badge/doyou-badge';
 import {openLink} from "../../helper/url";
 import {CountryImageLoader} from './country-image';
 import {Image} from 'expo-image';
+import {IPlayerNew, IProfileLeaderboardResult, IProfileResult} from "../../api/helper/api.types";
 
 interface ILeaderboardRowProps {
-    data: ILeaderboardNew;
+    data: IProfileLeaderboardResult;
 }
 
 const formatStreak = (streak: number) => {
@@ -144,7 +144,7 @@ function LeaderboardRow2({data}: ILeaderboardRowProps) {
 // }
 
 interface IProfileProps {
-    data?: IProfileResponse | null;
+    data?: IProfileResult | null;
     ready: boolean;
 }
 

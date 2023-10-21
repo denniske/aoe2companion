@@ -11,12 +11,14 @@ import {
 } from "./api.types";
 import {dateReviver, getHost} from "@nex/data";
 import {fetchJson2} from "../util";
+import {getInternalLanguage} from "../../redux/statecache";
 
 export async function fetchProfileRatings(params: IFetchProfileRatingParams) {
     console.log('fetchProfileRatings', params);
     const queryString = makeQueryString(decamelizeKeys({
         ...removeReactQueryParams(params),
         page: params.pageParam || 1,
+        language: getInternalLanguage(),
     }));
     const url = `${getHost('aoe2companion-data')}api/profile/${params.profileId}/ratings?${queryString}`;
     return camelizeKeys(await fetchJson2('fetchProfileRatings', url, undefined, dateReviver)) as IProfileRatingsResult;
@@ -37,6 +39,7 @@ export async function fetchProfile(params: IFetchProfileParams) {
     const queryString = makeQueryString(decamelizeKeys({
         ...removeReactQueryParams(params),
         page: params.pageParam || 1,
+        language: getInternalLanguage(),
     }));
     const url = `${getHost('aoe2companion-data')}api/profiles/${params.profileId}?${queryString}`;
     return camelizeKeys(await fetchJson2('fetchProfile', url, undefined, dateReviver)) as IProfileResult;
@@ -47,6 +50,7 @@ export async function fetchProfiles(params: IFetchProfileParams) {
     const queryString = makeQueryString(decamelizeKeys({
         ...removeReactQueryParams(params),
         page: params.pageParam || 1,
+        language: getInternalLanguage(),
     }));
     const url = `${getHost('aoe2companion-data')}api/profiles?${queryString}`;
     return camelizeKeys(await fetchJson2('fetchProfile', url, undefined, dateReviver)) as IProfilesResult;
@@ -67,6 +71,7 @@ export async function fetchMatches(params: IFetchMatchesParams) {
     const queryString = makeQueryString(decamelizeKeys({
         ...removeReactQueryParams(params),
         page: params.pageParam || 1,
+        language: getInternalLanguage(),
     }));
     const url = `${getHost('aoe2companion-data')}api/matches?${queryString}`;
     return camelizeKeys(await fetchJson2('fetchMatches', url, undefined, dateReviver)) as IMatchesResult;
@@ -76,13 +81,17 @@ export async function fetchLeaderboard(params: IFetchLeaderboardParams) {
     const queryString = makeQueryString(decamelizeKeys({
         ...removeReactQueryParams(params),
         page: params.pageParam || 1,
+        language: getInternalLanguage(),
     }));
     const url = `${getHost('aoe2companion-data')}api/leaderboards/${params.leaderboardId}?${queryString}`;
     return camelizeKeys(await fetchJson2('fetchLeaderboard', url, undefined, dateReviver)) as ILeaderboard;
 }
 
 export async function fetchLeaderboards() {
-    const url = `${getHost('aoe2companion-data')}api/leaderboards`;
+    const queryString = makeQueryString(decamelizeKeys({
+        language: getInternalLanguage(),
+    }));
+    const url = `${getHost('aoe2companion-data')}api/leaderboards?${queryString}`;
     return camelizeKeys(await fetchJson2('fetchLeaderboards', url, undefined, dateReviver)) as ILeaderboardDef[];
 }
 

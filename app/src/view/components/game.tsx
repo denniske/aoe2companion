@@ -4,7 +4,6 @@ import {formatAgo, isMatchFreeForAll} from '@nex/data';
 import React from 'react';
 import {Player, PlayerSkeleton} from './player';
 import MyListAccordion from './accordion';
-import {IMatchNew} from "@nex/data/api";
 import {getMapImage} from "../../helper/maps";
 import {TextLoader} from "./loader/text-loader";
 import {ImageLoader} from "./loader/image-loader";
@@ -18,6 +17,7 @@ import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
 import {AoeSpeed, getSpeedFactor} from '../../helper/speed';
 import {appConfig} from "@nex/dataset";
+import {IMatchNew} from "../../api/helper/api.types";
 
 interface IGameProps {
     match: IMatchNew;

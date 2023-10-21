@@ -1,13 +1,5 @@
-import {IMatch, IMatchNew} from '../api/api.types';
 import {flatten, groupBy} from 'lodash';
-
-export function getMatchTeams(match: IMatch) {
-    let teamIndex = 5;
-    return Object.entries(groupBy(match.players, p => {
-        if (p.team != -1) return p.team;
-        return teamIndex++;
-    }));
-}
+import {IMatchNew} from "../../../app/src/api/helper/api.types";
 
 // This variant will put all players in same team when FFA.
 // That looks better in the player list in the app version.

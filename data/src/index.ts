@@ -25,4 +25,3 @@ export * from './helper/units';
 export * from './helper/unit-sections';
 export * from './helper/tree';
 export * from './lib/theming';
-export * from './api/player-matches';

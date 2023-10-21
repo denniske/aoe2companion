@@ -1,11 +1,9 @@
 import {TechEffect} from "./techs";
 import {sortBy} from 'lodash';
 import {Civ} from "./civs";
-import {getAllMatches, strRemoveFrom, strRemoveTo, unwrap, ValueOf} from "../lib/util";
+import {strRemoveFrom, strRemoveTo, unwrap, ValueOf} from "../lib/util";
 import {aoeData, aoeUnitDataId} from "../data/data";
 import {getAoeString, getUiTranslation} from '../lib/aoe-data';
-import {slotTypes} from '../api/api.types';
-import {shallowEqual} from 'react-redux';
 import {unitLineIdsData} from "../../../dataset2/src/data/unit.data";
 
 

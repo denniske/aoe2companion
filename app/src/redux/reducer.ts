@@ -1,10 +1,10 @@
 import {produce} from "immer";
 import { TypedUseSelectorHook, useDispatch, useSelector as useReduxSelector } from 'react-redux';
 import {ILeaderboard} from "@nex/data";
-import {ILeaderboardsResponse, IMatch, IPlayer, IProfileResponse} from "@nex/data/api";
 import {IAccount, IConfig, IFollowingEntry, IPrefs} from "../service/storage";
 import {Manifest} from "expo-updates/build/Updates.types";
 import {set} from 'lodash';
+import {ILeaderboardDef, IProfileResult} from "../api/helper/api.types";
 
 
 export const EXEC = 'EXEC'
@@ -68,9 +68,6 @@ export function setLeaderboardCountry(country?: string | null) {
 export function setFollowing(following: IFollowingEntry[]) {
   return (state: AppState) => {
     state.following = following;
-
-    // Invalidate followedMatches cache
-    state.followedMatches = undefined;
   };
 }
 
@@ -128,44 +125,15 @@ export function clearStatsPlayer(profileId: number) {
   };
 }
 
-export function clearMatchesPlayer(profileId: number) {
-  return (state: AppState) => {
-    set(state, ['user', profileId, 'matches'], undefined);
-  };
-}
-
-export function setIngame(match: IMatch, player: IPlayer) {
-  return (state: AppState) => {
-    state.ingame = {
-      match,
-      player,
-    };
-  };
-}
-
 interface IAction {
   type: string;
   id?: string;
-  note?: INote;
   mutation?: any;
 }
 
-interface INoteEntry {
-  id: string;
-  note: INote;
-}
-
-interface INote {
-  noteTitle: string;
-  noteValue: string;
-}
-
 interface IUser {
-  profile?: IProfileResponse;
-  profileWithStats?: IProfileResponse;
-  matches?: IMatch[];
-  matches5?: IMatch[];
-  matchesVersus?: IMatch[];
+  profile?: IProfileResult;
+  profileWithStats?: IProfileResult;
 }
 
 interface IUserDict {
@@ -194,7 +162,7 @@ export interface AppState {
   user: IUserDict;
   donation: IDonation;
   statsPlayer: any;
-  leaderboards: ILeaderboardsResponse;
+  leaderboards: ILeaderboardDef[];
   civInfos: any;
 
   error?: IError | null;
@@ -204,18 +172,12 @@ export interface AppState {
   prefs: IPrefs;
 
   following: IFollowingEntry[];
-  followedMatches?: IMatch[];
 
   leaderboardCountry?: string | null;
 
   leaderboard: ILeaderboardDict;
 
   loadedLanguages: string[];
-
-  ingame: {
-    match: IMatch;
-    player: IPlayer;
-  };
 
   updateState: string;
   updateAvailable: boolean;
@@ -226,7 +188,6 @@ export interface AppState {
 
 const initialState: Partial<AppState> = {
   config: undefined,
-  followedMatches: undefined,
   user: {},
   donation: {},
   leaderboard: {},

@@ -3,18 +3,15 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {FontAwesome5} from "@expo/vector-icons";
 import {useSelector} from "../../redux/reducer";
-import {makeVariants, useAppTheme, useTheme} from "../../theming";
+import {useAppTheme} from "../../theming";
 import {MyText} from "../components/my-text";
 import {createStylesheet} from '../../theming-new';
-import {ILobbyPlayerRaw} from '../../helper/data';
 import {RootStackProp} from '../../../App2';
-import {getSlotTypeName} from '@nex/data/api';
-import {CountryImage} from '../components/country-image';
-import {IMatchesMatchPlayer} from "../../api/new/api.types";
+import {IMatchesMatchPlayer2} from "../../api/helper/api.types";
 
 
 interface IPlayerProps {
-    player: IMatchesMatchPlayer | null;
+    player: IMatchesMatchPlayer2 | null;
 }
 
 export function LivePlayer({player}: IPlayerProps) {

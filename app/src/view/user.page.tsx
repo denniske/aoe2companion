@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {Alert, Linking, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {RootStackParamList} from '../../App2';
+import React, {useEffect} from 'react';
+import {Alert, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {RootStackParamList, RootStackProp} from '../../App2';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {MainPageInner} from "./main.page";
 import {createStylesheet} from '../theming-new';
@@ -8,18 +8,12 @@ import {setAuth, setPrefValue, useMutate, useSelector} from '../redux/reducer';
 import {useCavy} from './testing/tester';
 import {clearSettingsInStorage, saveCurrentPrefsToStorage, saveSettingsToStorage} from '../service/storage';
 import Search from './components/search';
-import {loadProfile} from '../service/profile';
-import {MyText} from './components/my-text';
 import {getTranslation} from '../helper/translate';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {FontAwesome5} from "@expo/vector-icons";
-import {useApi} from '../hooks/use-api';
 import {getRootNavigation} from '../service/navigation';
 import {setAccountProfile} from "../api/following";
 import {openLink} from "../helper/url";
-import {RootStackProp} from '../../App2';
-import {fetchProfile} from "../api/profile";
-import {set} from "lodash";
+import {fetchProfiles} from "../api/helper/api";
 
 export function userMenu(props: any) {
     return () => {
@@ -169,7 +163,7 @@ export default function UserPage() {
     const completeUserIdInfo = async () => {
         // console.log('completeUserIdInfo');
 
-        const loadedProfile = await fetchProfile({profile_id: profileId});
+        const loadedProfile = await fetchProfiles({profileId: profileId});
         if (loadedProfile) {
             const name = loadedProfile?.profiles?.[0]?.name;
             navigation.setOptions({ title: name || ' ' });

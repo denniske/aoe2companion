@@ -4,7 +4,6 @@ import {Image} from 'expo-image';
 import {useNavigation} from '@react-navigation/native';
 import {civsAoeNet, isBirthday, isVerifiedPlayer, moProfileId} from '@nex/data';
 import {RootStackProp} from '../../../App2';
-import {IMatchNew, IPlayerNew} from "@nex/data/api";
 import {TextLoader} from "./loader/text-loader";
 import {FontAwesome5} from "@expo/vector-icons";
 import {MyText} from "./my-text";
@@ -12,6 +11,7 @@ import {getCivIcon} from "../../helper/civs";
 import {createStylesheet} from '../../theming-new';
 import {openLink} from "../../helper/url";
 import {appConfig} from "@nex/dataset";
+import {IMatchNew, IPlayerNew} from "../../api/helper/api.types";
 
 
 interface IPlayerProps {

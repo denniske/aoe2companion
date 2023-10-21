@@ -3,12 +3,10 @@ import {FlatList, Platform, StyleSheet, TouchableOpacity, View} from 'react-nati
 import {RootStackParamList, RootStackProp} from '../../App2';
 import {RouteProp, useNavigation, useNavigationState, useRoute} from '@react-navigation/native';
 import {Game} from './components/game';
-import {IMatch, IMatchNew, IPlayerNew} from "@nex/data/api";
 import FlatListLoadingIndicator from "./components/flat-list-loading-indicator";
 import Search from "./components/search";
 import {setFollowing, useMutate, useSelector} from "../redux/reducer";
 import {Button} from "react-native-paper";
-import {IFetchedUser} from "../service/user";
 import PlayerList, {IPlayerListPlayer} from "./components/player-list";
 import {MyText} from "./components/my-text";
 import {flatten, orderBy, uniq} from 'lodash';
@@ -23,6 +21,7 @@ import {isElectron, useLastNotificationReceivedElectron} from "../helper/electro
 import {openLink} from "../helper/url";
 import {useInfiniteQuery} from "@tanstack/react-query";
 import {fetchMatches} from "../api/helper/api";
+import {IMatchNew, IPlayerNew, IProfilesResultProfile} from "../api/helper/api.types";
 
 
 export function feedTitle(props: any) {
@@ -311,7 +310,7 @@ function FeedAction({user}: {user: IPlayerListPlayer}) {
 export function FeedAdd() {
     return <Search
         action={
-            (user: IFetchedUser) => <FeedAction user={user}/>
+            (user: IProfilesResultProfile) => <FeedAction user={user}/>
         }
     />;
 }

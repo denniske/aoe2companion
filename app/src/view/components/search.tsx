@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {IFetchedUser, loadUser, loadUserByProfileId, loadUserBySteamId} from '../../service/user';
+import {loadUser, loadUserByProfileId, loadUserBySteamId} from '../../service/user';
 import {useLazyApi} from '../../hooks/use-lazy-api';
 import {Button, Searchbar} from 'react-native-paper';
 import {MyText} from "./my-text";
@@ -9,17 +9,16 @@ import {usePrevious} from "@nex/data/hooks";
 import {createStylesheet} from '../../theming-new';
 import FlatListLoadingIndicator from './flat-list-loading-indicator';
 import {getTranslation} from '../../helper/translate';
-import { useCavy } from '../testing/tester';
+import {useCavy} from '../testing/tester';
 import {FontAwesome5} from "@expo/vector-icons";
-import {isVerifiedPlayer} from '@nex/data';
 import {CountryImage} from './country-image';
-import {IProfileItemNew} from "@nex/data/api";
+import {IProfilesResultProfile} from "../../api/helper/api.types";
 
 interface IPlayerProps {
-    player: IProfileItemNew;
+    player: IProfilesResultProfile;
     selectedUser?: (user: any) => void;
     actionText?: string;
-    action?: (player: IProfileItemNew) => React.ReactNode;
+    action?: (player: IProfilesResultProfile) => React.ReactNode;
 }
 
 function Player({player, selectedUser, actionText, action}: IPlayerProps) {
@@ -81,7 +80,7 @@ interface ISearchProps {
     title?: string;
     selectedUser?: (user: any) => void;
     actionText?: string;
-    action?: (player: IFetchedUser) => React.ReactNode;
+    action?: (player: IProfilesResultProfile) => React.ReactNode;
 }
 
 export default function Search({title, selectedUser, actionText, action}: ISearchProps) {

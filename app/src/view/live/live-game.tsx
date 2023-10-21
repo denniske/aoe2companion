@@ -8,7 +8,7 @@ import MyListAccordion from "../components/accordion";
 import {ImageLoader} from "../components/loader/image-loader";
 import {MyText} from "../components/my-text";
 import {createStylesheet} from '../../theming-new';
-import {ILobbiesMatch} from "../../api/new/api.types";
+import {ILobbiesMatch} from "../../api/helper/api.types";
 
 interface IGameProps {
     data: ILobbiesMatch;

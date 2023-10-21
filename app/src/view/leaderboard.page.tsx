@@ -32,11 +32,11 @@ import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';
 import {appConfig} from "@nex/dataset";
 import {CountryImage, CountryImageLoader} from './components/country-image';
-import {fetchLeaderboard, fetchLeaderboards} from "../api/leaderboard";
-import {ILeaderboardPlayerNew} from "@nex/data/api";
 import {IndexPath, Select, SelectItem} from "@ui-kitten/components";
 import {useLazyAppendApi} from "../hooks/use-lazy-append-api";
 import {useApi} from "../hooks/use-api";
+import {fetchLeaderboard, fetchLeaderboards} from '../api/helper/api';
+import {ILeaderboardPlayer} from "../api/helper/api.types";
 
 const Tab = createMaterialTopTabNavigator<any>();
 
@@ -160,25 +160,25 @@ function Leaderboard({leaderboardId}: any) {
 
     const myRank = useLazyApi(
         {},
-        fetchLeaderboard, leaderboardId, getParams(1, auth?.profileId)
+        fetchLeaderboard, { leaderboardId, ...getParams(1, auth?.profileId) }
     );
 
     const leaderboard = useLazyAppendApi(
         {
             append: (data, newData, args) => {
-                const [leaderboardId, params] = args;
+                const [ params ] = args;
                 // console.log('APPEND', data, newData, args);
 
                 total.current = newData.total;
                 list.current.length = newData.total;
-                newData.players.forEach((value, index) => list.current[(params.page-1)*pageSize+index] = value);
+                newData.players.forEach((value, index) => list.current[(params.page!-1)*pageSize+index] = value);
 
                 // console.log('APPENDED', list.current);
                 // console.log('APPENDED', params);
                 return data;
             },
         },
-        fetchLeaderboard, leaderboardId, getParams(1)
+        fetchLeaderboard, { leaderboardId, ...getParams(1) }
     );
 
     const onRefresh = async () => {
@@ -212,13 +212,13 @@ function Leaderboard({leaderboardId}: any) {
 
     const total = useRef<any>();
 
-    const onSelect = async (player: ILeaderboardPlayerNew) => {
+    const onSelect = async (player: ILeaderboardPlayer) => {
         navigation.push('User', {
             profileId: player.profileId,
         });
     };
 
-    const _renderRow = (player: ILeaderboardPlayerNew, i: number, isMyRankRow: boolean = false) => {
+    const _renderRow = (player: ILeaderboardPlayer, i: number, isMyRankRow: boolean = false) => {
         const isMe = player?.profileId === auth?.profileId;
         const rowStyle = { minHeight: isMyRankRow ? headerMyRankHeight : rowHeight };
         const weightStyle = { fontWeight: isMe ? 'bold' : 'normal' } as TextStyle;
@@ -267,7 +267,7 @@ function Leaderboard({leaderboardId}: any) {
         // console.log('HAS', page, 'ALREADY', index, list.current[index]);
 
         fetchingPages.current = [...fetchingPages.current, page];
-        await leaderboard.refetchAppend(leaderboardId, getParams(page));
+        await leaderboard.refetchAppend({ leaderboardId, ...getParams(page) });
         fetchingPages.current = fetchingPages.current.filter(p => p !== page);
 
         setTemp(t => t + 1);
