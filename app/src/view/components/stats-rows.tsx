@@ -2,7 +2,7 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Image} from 'expo-image';
 import React from 'react';
 import {TextLoader} from "./loader/text-loader";
-import {Civ, LeaderboardId} from "@nex/data";
+import {Civ, getCivIdByEnum, LeaderboardId} from "@nex/data";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App2";
 import {MyText} from "./my-text";
@@ -15,46 +15,6 @@ import {CountryImage} from "./country-image";
 import {appConfig} from "@nex/dataset";
 import {IStatAlly, IStatCiv, IStatMap, IStatOpponent} from "../../api/helper/api.types";
 
-
-// export interface IStatCiv {
-//     civ: number
-//     civName: string
-//     civImageUrl: string
-//     games: number
-//     wins: number
-// }
-//
-// export interface IStatMap {
-//     map: string
-//     mapName: string
-//     mapImageUrl: string
-//     location?: number
-//     games: number
-//     wins: number
-//     losses: number
-// }
-//
-// export interface IStatAlly {
-//     verified: boolean
-//     countryIcon?: string
-//     profileId: number
-//     name: string
-//     country?: string
-//     games: number
-//     wins: number
-//     losses: number
-// }
-//
-// export interface IStatOpponent {
-//     verified: boolean
-//     countryIcon: string
-//     profileId: number
-//     name: string
-//     country: string
-//     games: number
-//     wins: number
-//     losses: number
-// }
 
 interface IRowPropsCiv {
     data: IStatCiv;
@@ -76,77 +36,13 @@ interface IRowPropsOpponent {
     type: 'opponent';
 }
 
-// interface IRowProps {
-//     data: IStatCiv | IStatMap | IStatAlly | IStatOpponent;
-//     type: 'civ' | 'map' | 'ally' | 'opponent';
-// }
-
-// Stats Position
-//
-// function Row({data}: IRowProps) {
-//     const theme = useAppTheme();
-//     const styles = useStyles();
-//     return (
-//             <View style={styles.row}>
-//                 <View style={styles.cellLeaderboard}>
-//                     <View style={styles.icon}>
-//                         <FontAwesome5 name={data.position == 'flank' ? 'fist-raised' : 'first-aid'} size={14} color={theme.textNoteColor} />
-//                     </View>
-//                     <MyText>{getPositionName(data.position)}</MyText>
-//                 </View>
-//                 <MyText style={styles.cellGames}>
-//                     {data.games}
-//                 </MyText>
-//                 <MyText style={styles.cellWon}>
-//                     {isNaN(data.won) ? '-' : data.won.toFixed(0) + ' %'}
-//                 </MyText>
-//             </View>
-//     )
-// }
-
-// Stats Duration
-//
-// function Row({data}: IRowProps) {
-//     const theme = useAppTheme();
-//     const styles = useStyles();
-//     let marginLeft = 0;
-//     if (data.duration == 'lessThan5Minutes') {
-//         marginLeft = 0;
-//     }
-//     if (data.duration == 'lessThan30Minutes') {
-//         marginLeft = 12.0;
-//     }
-//     if (data.duration == 'lessThan60Minutes') {
-//         marginLeft = 3.0;
-//     }
-//     if (data.duration == 'greaterThan60Minutes') {
-//         marginLeft = 21.5;
-//     }
-//     return (
-//             <View style={styles.row}>
-//                 <View style={styles.cellLeaderboard}>
-//                     <View style={styles.icon}>
-//                         <FontAwesome5 name="clock" size={14} color={theme.textNoteColor}/>
-//                     </View>
-//                     <MyText style={{marginLeft}}>{getTranslation(`main.stats.duration.${data.duration}` as any)}</MyText>
-//                 </View>
-//                 <MyText style={styles.cellGames}>
-//                     {data.games}
-//                 </MyText>
-//                 <MyText style={styles.cellWon}>
-//                     {isNaN(data.won) ? '-' : data.won.toFixed(0) + ' %'}
-//                 </MyText>
-//             </View>
-//     )
-// }
-
 function Row({type, data}: IRowPropsCiv | IRowPropsMap | IRowPropsAlly | IRowPropsOpponent) {
     const styles = useStyles();
     const navigation = useNavigation<RootStackProp>();
 
     const gotoEntity = () => {
         if (type === 'civ') {
-            navigation.push('Civ', { civ: data.civ });
+            navigation.push('Civ', { civ: getCivIdByEnum(data.civ) });
         }
         if ((type === 'ally' || type === 'opponent') && data.profileId) {
             navigation.push('User', {
@@ -187,8 +83,12 @@ function Row({type, data}: IRowPropsCiv | IRowPropsMap | IRowPropsAlly | IRowPro
                             <CountryImage country={data.country} />
                         }
                         {
-                            (type === 'civ' || type === 'map') &&
-                            <Image fadeDuration={0} style={data.civ ? styles.civIcon : styles.icon} source={getIcon()}/>
+                            (type === 'civ') &&
+                            <Image fadeDuration={0} style={styles.civIcon} source={getIcon()}/>
+                        }
+                        {
+                            (type === 'map') &&
+                            <Image fadeDuration={0} style={styles.icon} source={getIcon()}/>
                         }
                         <MyText>{getName()}</MyText>
                     </View>
@@ -231,7 +131,7 @@ export default function StatsRows(props: IProps) {
 
                 {
                     data && data.map((row, i) =>
-                        <Row key={i} type={type} data={row}/>
+                        <Row key={i} type={type} data={row as any}/>
                     )
                 }
 
@@ -328,3 +228,69 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         marginRight: 5,
     },
 }));
+
+
+
+// interface IRowProps {
+//     data: IStatCiv | IStatMap | IStatAlly | IStatOpponent;
+//     type: 'civ' | 'map' | 'ally' | 'opponent';
+// }
+
+// Stats Position
+//
+// function Row({data}: IRowProps) {
+//     const theme = useAppTheme();
+//     const styles = useStyles();
+//     return (
+//             <View style={styles.row}>
+//                 <View style={styles.cellLeaderboard}>
+//                     <View style={styles.icon}>
+//                         <FontAwesome5 name={data.position == 'flank' ? 'fist-raised' : 'first-aid'} size={14} color={theme.textNoteColor} />
+//                     </View>
+//                     <MyText>{getPositionName(data.position)}</MyText>
+//                 </View>
+//                 <MyText style={styles.cellGames}>
+//                     {data.games}
+//                 </MyText>
+//                 <MyText style={styles.cellWon}>
+//                     {isNaN(data.won) ? '-' : data.won.toFixed(0) + ' %'}
+//                 </MyText>
+//             </View>
+//     )
+// }
+
+// Stats Duration
+//
+// function Row({data}: IRowProps) {
+//     const theme = useAppTheme();
+//     const styles = useStyles();
+//     let marginLeft = 0;
+//     if (data.duration == 'lessThan5Minutes') {
+//         marginLeft = 0;
+//     }
+//     if (data.duration == 'lessThan30Minutes') {
+//         marginLeft = 12.0;
+//     }
+//     if (data.duration == 'lessThan60Minutes') {
+//         marginLeft = 3.0;
+//     }
+//     if (data.duration == 'greaterThan60Minutes') {
+//         marginLeft = 21.5;
+//     }
+//     return (
+//             <View style={styles.row}>
+//                 <View style={styles.cellLeaderboard}>
+//                     <View style={styles.icon}>
+//                         <FontAwesome5 name="clock" size={14} color={theme.textNoteColor}/>
+//                     </View>
+//                     <MyText style={{marginLeft}}>{getTranslation(`main.stats.duration.${data.duration}` as any)}</MyText>
+//                 </View>
+//                 <MyText style={styles.cellGames}>
+//                     {data.games}
+//                 </MyText>
+//                 <MyText style={styles.cellWon}>
+//                     {isNaN(data.won) ? '-' : data.won.toFixed(0) + ' %'}
+//                 </MyText>
+//             </View>
+//     )
+// }

@@ -5,6 +5,8 @@
 
 
 
+export const GAME_VARIANT_AOE2DE = 2;
+export const GAME_VARIANT_AOE2ROR = 1;
 
 
 
@@ -175,7 +177,7 @@ export interface IStatNew {
 }
 
 export interface IStatCiv {
-    civ: number
+    civ: string
     civName: string
     civImageUrl: string
     games: number
@@ -300,7 +302,7 @@ export interface IPlayerNew {
     rating?: number
     ratingDiff: number
     civFix: number
-    civ: number
+    civ: string
     civName: string
     civImageUrl: string
     color: number

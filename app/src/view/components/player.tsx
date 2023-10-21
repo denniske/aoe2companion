@@ -2,7 +2,7 @@ import React from 'react';
 import {Platform, StyleSheet, TextStyle, TouchableOpacity, View} from 'react-native';
 import {Image} from 'expo-image';
 import {useNavigation} from '@react-navigation/native';
-import {civsAoeNet, isBirthday, isVerifiedPlayer, moProfileId} from '@nex/data';
+import {civsAoeNet, getCivIdByEnum, isBirthday, isVerifiedPlayer, moProfileId} from '@nex/data';
 import {RootStackProp} from '../../../App2';
 import {TextLoader} from "./loader/text-loader";
 import {FontAwesome5} from "@expo/vector-icons";
@@ -11,7 +11,7 @@ import {getCivIcon} from "../../helper/civs";
 import {createStylesheet} from '../../theming-new';
 import {openLink} from "../../helper/url";
 import {appConfig} from "@nex/dataset";
-import {IMatchNew, IPlayerNew} from "../../api/helper/api.types";
+import {GAME_VARIANT_AOE2ROR, IMatchNew, IPlayerNew} from "../../api/helper/api.types";
 
 
 interface IPlayerProps {
@@ -59,6 +59,13 @@ export function Player({match, player, highlight, freeForALl, canDownloadRec}: I
     const gotoPlayer = () => {
         navigation.push('User', {
             profileId: player.profileId,
+        });
+    };
+
+    const gotoCiv = () => {
+        if (match.gameVariant === GAME_VARIANT_AOE2ROR) return;
+        navigation.push('Civ', {
+            civ: getCivIdByEnum(player.civ),
         });
     };
 
@@ -127,7 +134,7 @@ export function Player({match, player, highlight, freeForALl, canDownloadRec}: I
                 </>
             }
 
-            <TouchableOpacity style={styles.civCol} onPress={() => player.civ < 10000 && navigation.push('Civ', {civ: civsAoeNet[player.civ]})}>
+            <TouchableOpacity style={styles.civCol} onPress={gotoCiv}>
                 <View style={appConfig.game === 'aoe2de' ? styles.row : styles.row4}>
                     <Image fadeDuration={0} style={styles.countryIcon} source={getCivIcon(player) as any}/>
                     <MyText numberOfLines={1} style={styles.text}>{player.civName}</MyText>

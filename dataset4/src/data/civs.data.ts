@@ -27,3 +27,29 @@ export const civIconListData = {
     'Ottomans': require('../../../app4/assets/civilizations/ottomans.png'),
     'Rus': require('../../../app4/assets/civilizations/rus.png'),
 };
+
+export const civEnumListData: Record<string, any> = {
+    'abbasid_dynasty': 'AbbasidDynasty',
+    'chinese': 'Chinese',
+    'delhi_sultanate': 'DelhiSultanate',
+    'english': 'English',
+    'french': 'French',
+    'holy_roman_empire': 'HolyRomanEmpire',
+    'malians': 'Malians',
+    'mongols': 'Mongols',
+    'ottomans': 'Ottomans',
+    'rus': 'Rus',
+};
+//
+// export const civEnumListData: Record<string, any> = {
+//     'AbbasidDynasty': 'abbasid_dynasty',
+//     'Chinese': 'chinese',
+//     'DelhiSultanate': 'delhi_sultanate',
+//     'English': 'english',
+//     'French': 'french',
+//     'HolyRomanEmpire': 'holy_roman_empire',
+//     'Malians': 'malians',
+//     'Mongols': 'mongols',
+//     'Ottomans': 'ottomans',
+//     'Rus': 'rus',
+// };

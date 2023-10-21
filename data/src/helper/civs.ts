@@ -4,10 +4,11 @@ import {aoeData} from "../data/data";
 import {removeAccentsAndCase, sanitizeGameDescription, unwrap} from "../lib/util";
 import {getAoeString} from '../lib/aoe-data';
 import {orderBy} from 'lodash';
-import {appConfig, civsAoeNetData, civsData} from "@nex/dataset";
+import {appConfig, civsAoeNetData, civsData, civEnumListData} from "@nex/dataset";
 
 export const civs = civsData;
 export const civsAoeNet = civsAoeNetData;
+export const civEnumList = civEnumListData;
 
 export interface ICivEntry {
     name: Civ;
@@ -285,6 +286,14 @@ export function getCivNameById(civ: Civ) {
         return getAoeString(civNameKey);
     }
     return aoe4CivNameDict[civs.indexOf(civ)];
+}
+
+// export function getCivEnumById(civ: Civ) {
+//     return civEnumList[civ];
+// }
+
+export function getCivIdByEnum(civEnum: string): Civ {
+    return civEnumList[civEnum];
 }
 
 export function getCivDescription(civ: Civ) {

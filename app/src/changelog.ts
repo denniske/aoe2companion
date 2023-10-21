@@ -30,6 +30,10 @@ export const changelog4: IChangelog = {
             type: 'feature',
             title: 'Lobbies page (Three dots > Lobbies)',
         },
+        {
+            type: 'bugfix',
+            title: 'Fix navigation to civ page from matches/stats',
+        },
     ],
     '12.0.0': [
         {
@@ -128,6 +132,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '68.0.4': [
+        {
+            type: 'bugfix',
+            title: 'Fix navigation to civ page from matches/stats',
+        },
+    ],
     '68.0.3': [
         {
             type: 'bugfix',
