@@ -934,7 +934,7 @@ export function AppWrapper() {
                         icon: props => <FontAwesome5 {...props} />,
                     }}
                 >
-                    <ApplicationProvider {...eva} theme={eva.light}>
+                    <ApplicationProvider {...eva} theme={finalDarkMode === 'light' ? eva.light : eva.dark}>
                         <QueryClientProvider client={queryClient}>
                             <GestureHandlerRootView style={{flex: 1}}>
                                 <StatusBar barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'}
