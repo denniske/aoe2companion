@@ -34,6 +34,10 @@ export const changelog4: IChangelog = {
             type: 'bugfix',
             title: 'Fix navigation to civ page from matches/stats',
         },
+        {
+            type: 'bugfix',
+            title: 'Fixed navigation to twitch channel from feed page',
+        },
     ],
     '12.0.0': [
         {

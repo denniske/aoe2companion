@@ -167,8 +167,10 @@ export function ProfileLive({data} : {data: IPlayerNew}) {
         return <MyText/>;
     }
 
+    const channel = getTwitchChannel(verifiedPlayer);
+
     return (
-            <MyText style={styles.row} onPress={() => openLink(verifiedPlayer?.twitch)}>
+            <MyText style={styles.row} onPress={() => openLink(`https://www.twitch.tv/${channel}`)}>
                 {
                     playerTwitchLive.data?.type === 'live' &&
                     <>
