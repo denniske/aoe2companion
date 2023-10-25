@@ -131,6 +131,7 @@ export interface IProfileLeaderboardResult {
     rankLevelImageUrl: string
     rankLevelColor: string
     rankLevelBackgroundColor: string
+    season: number
 
 
     leaderboardId: any
