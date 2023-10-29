@@ -853,6 +853,14 @@ const techEffectDictInternal = {
             hitPoints: '+20',
         },
     },
+    'ParthianTactics-Bengalis': {
+        tech: 'ParthianTactics',
+        civ: 'Bengalis',
+        effect: {
+            attack: '+2 attack against Spearmen',
+            armor: '+1/+2',
+        },
+    },
     'ParthianTactics': {
         tech: 'ParthianTactics',
         effect: {
@@ -1159,6 +1167,20 @@ const techEffectDictInternal = {
     },
     'Faith': {
         tech: 'Faith',
+        effect: {
+            conversionDefense: '',
+        },
+    },
+    'Heresy-Malay': {
+        tech: 'Heresy',
+        civ: 'Malay',
+        effect: {
+            conversionDefense: '',
+        },
+    },
+    'Heresy-Gurjaras': {
+        tech: 'Heresy',
+        civ: 'Gurjaras',
         effect: {
             conversionDefense: '',
         },

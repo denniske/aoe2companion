@@ -110,17 +110,22 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                                   <Image fadeDuration={0} style={styles.unitIcon} source={getTechIcon(upgrade.tech)}/>
                                   <MyText style={styles.unitDesc}>
                                       <MyText style={appStyles.link} onPress={() => gotoTech(upgrade.tech!)}>{getTechName(upgrade.tech)}</MyText>
-                                      <MyText size="footnote">
-                                          {upgrade.effect[group.prop] ? ' (' + upgrade.effect[group.prop] : ''}
-                                          {
-                                              upgrade.civ &&
-                                              <>
-                                                  <MyText size="footnote">, only </MyText>
-                                                  <MyText size="footnote" style={appStyles.link} onPress={() => gotoCiv(upgrade.civ!)}>{upgrade.civ}</MyText>
-                                              </>
-                                          }
-                                          {upgrade.effect[group.prop] ? ')' : ''}
-                                      </MyText>
+                                      {
+                                          (upgrade.effect[group.prop] || upgrade.civ) &&
+                                          <MyText size="footnote">
+                                              {' ('}
+                                              {upgrade.effect[group.prop] ? upgrade.effect[group.prop] : ''}
+                                              {upgrade.effect[group.prop] && upgrade.civ ? ', ' : ''}
+                                              {
+                                                  upgrade.civ &&
+                                                  <>
+                                                      <MyText size="footnote">only </MyText>
+                                                      <MyText size="footnote" style={appStyles.link} onPress={() => gotoCiv(upgrade.civ!)}>{upgrade.civ}</MyText>
+                                                  </>
+                                              }
+                                              {')'}
+                                          </MyText>
+                                      }
                                   </MyText>
                               </View>
                           )
