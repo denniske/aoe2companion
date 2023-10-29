@@ -459,6 +459,13 @@ const techEffectDictInternal = {
         },
     },
 
+    'GreekFire-BlastRadius': {
+        tech: 'GreekFire',
+        civ: 'Byzantines',
+        effect: {
+            attack: '+0.2 blast radius',
+        },
+    },
     'GreekFire': {
         tech: 'GreekFire',
         civ: 'Byzantines',
