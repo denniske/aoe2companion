@@ -1,5 +1,5 @@
 import {TechEffect} from "./techs";
-import {sortBy} from 'lodash';
+import {difference, sortBy} from 'lodash';
 import {Civ} from "./civs";
 import {strRemoveFrom, strRemoveTo, unwrap, ValueOf} from "../lib/util";
 import {aoeData, aoeUnitDataId} from "../data/data";
@@ -1085,6 +1085,7 @@ export const unitLines: IUnitLineDict = {
             'BlastFurnace',
             'Arson',
             'GarlandWars',
+            'WootzSteel',
             'Druzhina',
             'Chieftains',
             'ScaleMailArmor',
@@ -1378,6 +1379,7 @@ export const unitLines: IUnitLineDict = {
             'BlastFurnace',
             'Arson',
             'GarlandWars',
+            'WootzSteel',
             'Druzhina',
             'Chieftains',
             'ScaleMailArmor',
@@ -1412,7 +1414,7 @@ export const unitLines: IUnitLineDict = {
             'BallistaElephant',
             'Genitour',
             'Kipchak',
-            'Mangudai'
+            'Mangudai',
         ],
         upgrades: [
             'Forging',
@@ -1435,6 +1437,7 @@ export const unitLines: IUnitLineDict = {
             'Supplies',
             'ForcedLevy',
             'Comitatenses',
+            'WootzSteel',
         ],
     },
     'Legionary': {
@@ -1994,6 +1997,7 @@ export const unitLines: IUnitLineDict = {
             'Chivalry',
             'SteppeHusbandry',
             'LechiticLegacy',
+            'WootzSteel',
         ],
     },
     'Kipchak': {
@@ -2196,6 +2200,7 @@ export const unitLines: IUnitLineDict = {
             'Faith',
             'Conscription',
             'FrontierGuards',
+            'MedicalCorps',
         ],
     },
     'WarWagon': {
@@ -3723,6 +3728,7 @@ export const sortedUnitLines: UnitLine[] = [
     'DemolitionRaft',
     'CannonGalleon',
 
+    'ArmoredElephant',
     'BatteringRam',
     'Mangonel',
     'Scorpion',
@@ -3742,6 +3748,7 @@ export const sortedUnitLines: UnitLine[] = [
     'Caravel',
     'Cataphract',
     'Centurion',
+    'ChakramThrower',
     'ChuKoNu',
     'Condottiero',
     'Conquistador',
@@ -3751,6 +3758,7 @@ export const sortedUnitLines: UnitLine[] = [
     'Gbeto',
     'Genitour',
     'GenoeseCrossbowman',
+    'Ghulam',
     'HussiteWagon',
     'Huskarl',
     'JaguarWarrior',
@@ -3760,6 +3768,7 @@ export const sortedUnitLines: UnitLine[] = [
     'Keshik',
     'Kipchak',
     'Konnik',
+    'KonnikDismounted',
     'Leitis',
     'Longboat',
     'Longbowman',
@@ -3769,18 +3778,25 @@ export const sortedUnitLines: UnitLine[] = [
     'Obuch',
     'OrganGun',
     'PlumedArcher',
+    'Ratha',
     'RattanArcher',
     'Samurai',
     'Serjeant',
     'ShotelWarrior',
+    'ShrivamshaRider',
     'Tarkan',
     'TeutonicKnight',
+    'Thirisadai',
     'ThrowingAxeman',
     'TurtleShip',
+    'UrumiSwordsman',
     'WarElephant',
     'WarWagon',
     'WoadRaider',
 ];
+
+// const missingSortedUnitLines = difference(unitLineIds, sortedUnitLines);
+// console.log('missingSortedUnitLines', missingSortedUnitLines);
 
 export function sortUnitCounter(unitLines: UnitLine[]) {
     return sortBy(unitLines, ul => sortedUnitLines.indexOf(ul));

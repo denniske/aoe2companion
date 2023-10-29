@@ -21,6 +21,9 @@ import {getTranslation} from '../../helper/translate';
 import {ageUpgrades} from '@nex/data';
 import {BuildingCompBig} from '../building/building-comp';
 
+function capitalizeFirstLetter(string: string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 export default function TechDetails({tech}: {tech: Tech}) {
     const styles = useStyles();
@@ -70,7 +73,7 @@ export default function TechDetails({tech}: {tech: Tech}) {
                     {
                         affectedUnitInfos.map(affectedUnit =>
                             <UnitCompBig key={affectedUnit.unitId} unit={affectedUnit.unitId} subtitle={
-                                getUpgradeList(tech, affectedUnit).map(g => g.name + ': ' + capitalize(g.upgrades.join(', '))).join('\n')
+                                getUpgradeList(tech, affectedUnit).map(g => g.name + ': ' + capitalizeFirstLetter(g.upgrades.join(', '))).join('\n')
                             }/>
                         )
                     }
@@ -86,7 +89,7 @@ export default function TechDetails({tech}: {tech: Tech}) {
                     {
                         affectedUnits.map(affectedUnit =>
                             <UnitCompBig key={affectedUnit.unitId} unit={affectedUnit.unitId} subtitle={
-                                affectedUnit.props.map((g: any) => g.name + ': +' + capitalize(g.effect)).join('\n')
+                                affectedUnit.props.map((g: any) => g.name + ': +' + capitalizeFirstLetter(g.effect)).join('\n')
                             }/>
                         )
                     }

@@ -126,7 +126,7 @@ const techEffectDictInternal = {
         tech: 'MedicalCorps',
         civ: 'Dravidians',
         effect: {
-            other: 'regenerate 20 HP per minute',
+            other: 'regenerate 30 HP per minute',
         },
     },
     'WootzSteel': {
@@ -2354,6 +2354,9 @@ export function getTechDescription(tech: Tech) {
 
 
 export function hasUpgrade(unitLineId: UnitLine, tech: Tech) {
+    if (!unitLines[unitLineId]) {
+        console.log(`hasUpgrade ${unitLineId} - no unitLine`);
+    }
     return unitLines[unitLineId].upgrades.some(u => techEffectDict[u].tech == tech);
 }
 

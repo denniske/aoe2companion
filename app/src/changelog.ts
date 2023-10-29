@@ -141,6 +141,10 @@ export const changelog: IChangelog = {
             type: 'bugfix',
             title: 'Fix navigation to civ page from matches/stats',
         },
+        {
+            type: 'bugfix',
+            title: 'Fix affected units for dravidian unique techs',
+        },
     ],
     '68.0.3': [
         {
