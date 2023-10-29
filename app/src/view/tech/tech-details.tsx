@@ -21,8 +21,8 @@ import {getTranslation} from '../../helper/translate';
 import {ageUpgrades} from '@nex/data';
 import {BuildingCompBig} from '../building/building-comp';
 
-function capitalizeFirstLetter(string: string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+function capitalizeFirstLetter(string: string | number) {
+    return string.toString().charAt(0).toUpperCase() + string.toString().slice(1);
 }
 
 export default function TechDetails({tech}: {tech: Tech}) {

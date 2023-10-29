@@ -75,7 +75,6 @@ export function getCivIcon(data: { civ: any, civImageUrl: string }) {
 }
 
 export function getCivIconLocal(civ: string) {
-    console.log('getCivIconLocal', civ);
     return civIconList[civ];
 }
 

@@ -315,8 +315,8 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                 <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.trainedin')}</MyText>
                 {
                     units.map(u =>
-                        <MyText style={styles.cellValue}>
-                            <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="TrainTime" formatter={x => x + 's'}/>
+                        <MyText key={u} style={styles.cellValue}>
+                            <GetUnitValue style={styles.cellValue} unitId={u} prop="TrainTime" formatter={x => x + 's'}/>
                             {
                                 getUnitLineIdForUnit(u) == 'Serjeant' &&
                                 <MyText>
