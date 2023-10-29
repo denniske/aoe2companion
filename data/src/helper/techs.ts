@@ -21,9 +21,9 @@ export type Effect =
     'capacity' |
     'other';
 
-type IEffect = {
-    [key in Effect]: string | undefined;
-};
+type IEffect = Partial<{
+    [key in Effect]: string;
+}>;
 
 export type Age = 'Dark' | 'Feudal' | 'Castle' | 'Imperial';
 
@@ -45,7 +45,7 @@ interface ITech {
 
 export interface ITechEffect {
     name?: string;
-    tech: Tech;
+    tech?: Tech;
     civ?: Civ;
     unit?: Unit;
     effect: IEffect;
@@ -63,15 +63,142 @@ type ITechEffectDict2 = {
 };
 
 // : ITechEffectDict2
-const techEffectDictInternal = {
+const techEffectDictInternal: ITechEffectDict2 = {
 
-    // 'Detinets': {
-    //     tech: 'Detinets',
-    //     civ: 'Slavs',
-    //     effect: {
-    //         other: 'replaces 40% of stone cost with wood',
-    //     },
-    // },
+    // For Buildings
+
+    'Masonry': {
+        tech: 'Masonry',
+        effect: {
+            hitPoints: '+10%',
+        },
+    },
+    'Architecture': {
+        tech: 'Architecture',
+        effect: {
+            hitPoints: '+10%',
+        },
+    },
+    'GreatWall': {
+        tech: 'GreatWall',
+        civ: 'Chinese',
+        effect: {
+            hitPoints: '+30%',
+        },
+    },
+
+    'ArrowSlits': {
+        tech: 'ArrowSlits',
+        effect: {
+            attack: '+1',
+        },
+    },
+    'HeatedShot': {
+        tech: 'HeatedShot',
+        effect: {
+            attack: '+125% attack against ships',
+        },
+    },
+
+    'Yeomen-Tower': {
+        tech: 'Yeomen',
+        civ: 'Britons',
+        effect: {
+            attack: '+2',
+        },
+    },
+    'Yasama': {
+        tech: 'Yasama',
+        civ: 'Japanese',
+        effect: {
+            attack: 'adds two extra arrows',
+        },
+    },
+
+    'Eupseong': {
+        tech: 'Eupseong',
+        civ: 'Koreans',
+        effect: {
+            range: '+2',
+        },
+    },
+
+    'MurderHoles': {
+        tech: 'MurderHoles',
+        effect: {
+            range: 'eliminates minimum range',
+        },
+    },
+
+    'Stronghold-Castle': {
+        tech: 'Stronghold',
+        civ: 'Celts',
+        effect: {
+            other: 'heal allied infantry in a 7 tile radius',
+        },
+    },
+    'Stronghold': {
+        tech: 'Stronghold',
+        civ: 'Celts',
+        effect: {
+            firingRate: '+33%',
+        },
+    },
+
+    'TownWatch': {
+        tech: 'TownWatch',
+        effect: {
+            sight: '+4',
+        },
+    },
+    'TownPatrol': {
+        tech: 'TownPatrol',
+        effect: {
+            sight: '+4',
+        },
+    },
+
+    'HerbalMedicine': {
+        tech: 'HerbalMedicine',
+        civ: 'Aztecs',
+        effect: {
+            other: 'garrisoned units heal faster',
+        },
+    },
+
+    'Crenellations': {
+        tech: 'Crenellations',
+        civ: 'Teutons',
+        effect: {
+            other: 'garrisoned infantry fire arrows',
+        },
+    },
+
+    'Detinets': {
+        tech: 'Detinets',
+        civ: 'Slavs',
+        effect: {
+            other: 'replaces 40% of stone cost with wood',
+        },
+    },
+
+    'Hoardings': {
+        tech: 'Hoardings',
+        effect: {
+            hitPoints: '+21%',
+        },
+    },
+
+    'CumanMercenaries': {
+        tech: 'CumanMercenaries',
+        civ: 'Cumans',
+        effect: {
+            other: 'grants to each ally the possibility to train 5 Elite Kipchaks for free per Castle',
+        },
+    },
+
+
+    // For Units
 
     'Centurion': {
         unit: 'Centurion',
@@ -459,11 +586,18 @@ const techEffectDictInternal = {
         },
     },
 
-    'GreekFire-BlastRadius': {
+    'GreekFire-Dromon': {
         tech: 'GreekFire',
         civ: 'Byzantines',
         effect: {
             attack: '+0.2 blast radius',
+        },
+    },
+    'GreekFire-BombardTower': {
+        tech: 'GreekFire',
+        civ: 'Byzantines',
+        effect: {
+            attack: '+0.5 blast radius with 25% damage',
         },
     },
     'GreekFire': {
@@ -478,13 +612,6 @@ const techEffectDictInternal = {
         civ: 'Portuguese',
         effect: {
             armor: '+1/+1',
-        },
-    },
-    'Eupseong': {
-        tech: 'Eupseong',
-        civ: 'Koreans',
-        effect: {
-            speed: '+15%',
         },
     },
     'Shipwright': {

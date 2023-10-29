@@ -1513,7 +1513,7 @@ export const unitLines: IUnitLineDict = {
             'Faith',
             'Heresy',
             'Shipwright',
-            'GreekFire-BlastRadius',
+            'GreekFire-Dromon',
         ],
     },
     'Keshik': {
