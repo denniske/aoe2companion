@@ -49,6 +49,7 @@ export interface ITechEffect {
     tech?: Tech;
     civ?: Civ;
     unit?: Unit;
+    building?: Building;
     effect: IEffect;
 }
 
@@ -1304,6 +1305,13 @@ const techEffectDictInternal = {
     },
     'Faith': {
         tech: 'Faith',
+        effect: {
+            conversionDefense: '',
+        },
+    },
+    'FirstCrusade': {
+        tech: 'FirstCrusade',
+        civ: 'Silicians',
         effect: {
             conversionDefense: '',
         },

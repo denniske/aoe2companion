@@ -31,38 +31,50 @@ export default function CivAvailability({tech, unit, building}: CivAvailabilityP
     }
 
     return (
-        <View style={styles.civListRow}>
-            <View style={styles.civList}>
-                <MyText>{getTranslation('unit.availability.available')}</MyText>
-                <Space/>
-                {
-                    orderCivs(civAvailable).map(civ =>
-                        <TouchableOpacity key={civ} style={styles.civCol} onPress={() => navigation.push('Civ', {civ})}>
-                            <View style={styles.row}>
-                                <Image fadeDuration={0} style={styles.civIcon} source={getCivIconLocal(civ) as any}/>
-                                <MyText> {getCivNameById(civ)}</MyText>
-                            </View>
-                        </TouchableOpacity>
-                    )
-                }
+        <View className="">
+
+            <View style={styles.row}>
+                <MyText style={styles.header1}>
+                    {getTranslation('unit.heading.availability')}
+                </MyText>
             </View>
-            <View style={styles.civList}>
-                <MyText>{getTranslation('unit.availability.unavailable')}</MyText>
-                <Space/>
-                {
-                    !availableForOneCivs && orderCivs(civUnavailable).map(civ =>
-                        <TouchableOpacity key={civ} style={styles.civCol} onPress={() => navigation.push('Civ', {civ})}>
-                            <View style={styles.row}>
-                                <Image fadeDuration={0} style={styles.civIcon} source={getCivIconLocal(civ) as any}/>
-                                <MyText> {getCivNameById(civ)}</MyText>
-                            </View>
-                        </TouchableOpacity>
-                    )
-                }
-                {
-                    availableForOneCivs &&
-                    <MyText>All other civs</MyText>
-                }
+            <Space/>
+
+            <View style={styles.civListRow}>
+                <View style={styles.civList}>
+                    <MyText>{getTranslation('unit.availability.available')}</MyText>
+                    <Space/>
+                    {
+                        orderCivs(civAvailable).map(civ =>
+                            <TouchableOpacity key={civ} style={styles.civCol}
+                                              onPress={() => navigation.push('Civ', {civ})}>
+                                <View style={styles.row}>
+                                    <Image fadeDuration={0} style={styles.civIcon}
+                                           source={getCivIconLocal(civ) as any}/>
+                                    <MyText> {getCivNameById(civ)}</MyText>
+                                </View>
+                            </TouchableOpacity>
+                        )
+                    }
+                </View>
+                <View style={styles.civList}>
+                    <MyText>{getTranslation('unit.availability.unavailable')}</MyText>
+                    <Space/>
+                    {
+                        !availableForOneCivs && orderCivs(civUnavailable).map(civ =>
+                            <TouchableOpacity key={civ} style={styles.civCol} onPress={() => navigation.push('Civ', {civ})}>
+                                <View style={styles.row}>
+                                    <Image fadeDuration={0} style={styles.civIcon} source={getCivIconLocal(civ) as any}/>
+                                    <MyText> {getCivNameById(civ)}</MyText>
+                                </View>
+                            </TouchableOpacity>
+                        )
+                    }
+                    {
+                        availableForOneCivs &&
+                        <MyText>All other civs</MyText>
+                    }
+                </View>
             </View>
         </View>
     );
@@ -74,6 +86,12 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingVertical: 3,
+    },
+
+    header1: {
+        marginTop: 10,
+        fontSize: 18,
+        fontWeight: '500',
     },
 
     civList: {

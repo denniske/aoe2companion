@@ -29,6 +29,7 @@ export function buildingTitle(props: any) {
 }
 
 export default function BuildingPage() {
+    console.log('BuildingPage');
     const route = useRoute<RouteProp<RootStackParamList, 'Building'>>();
     const building = route.params?.building as Building;
 

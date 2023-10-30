@@ -1,22 +1,26 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {getBuildingData, getBuildingDescription, getBuildingName, Building} from "@nex/data";
+import {
+    Building,
+    getBuildingData,
+    getBuildingDescription,
+    getBuildingLineIdForBuilding,
+    getBuildingName
+} from "@nex/data";
 import Fandom from "../components/fandom";
-import {Other, sortResources} from "@nex/data";
 import {MyText} from "../components/my-text";
-import {keysOf} from "@nex/data";
 import {useTheme} from "../../theming";
 import {appVariants} from "../../styles";
 import CivAvailability from "../components/civ-availability";
 import Space from "../components/space";
 import {BuildingStats} from "./building-stats";
-import {getOtherIcon} from "../../helper/units";
-import {getTranslation} from '../../helper/translate';
+import {BuildingUpgrades} from "./building-upgrades";
 
 
 export default function BuildingDetails({building}: {building: Building}) {
     const appStyles = useTheme(appVariants);
     const data = getBuildingData(building);
+    const buildingLineId = getBuildingLineIdForBuilding(building);
     return (
         <View style={styles.container}>
             {/*<View style={styles.costsRow}>*/}
@@ -35,6 +39,8 @@ export default function BuildingDetails({building}: {building: Building}) {
             <Space/>
 
             <BuildingStats buildingId={building} />
+
+            <BuildingUpgrades buildingLineId={buildingLineId} buildingId={building} />
 
             <CivAvailability building={building}/>
 

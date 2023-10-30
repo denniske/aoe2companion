@@ -48,16 +48,7 @@ export default function UnitDetails({unitName}: {unitName: Unit}) {
 
             {
                 !getAbilityEnabledForAllCivs({unit: unitName}) &&
-                <>
-
-                    <View style={styles.row}>
-                        <MyText style={styles.header1}>
-                            {getTranslation('unit.heading.availability')}
-                        </MyText>
-                    </View>
-                    <Space/>
-                    <CivAvailability unit={unitName}/>
-                </>
+                <CivAvailability unit={unitName}/>
             }
 
             <View style={appStyles.expanded}/>
@@ -72,11 +63,6 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         marginBottom: 5,
         alignItems: 'center',
         // backgroundColor: 'blue',
-    },
-    header1: {
-        marginTop: 10,
-        fontSize: 18,
-        fontWeight: '500',
     },
 
     description: {

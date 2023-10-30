@@ -91,12 +91,6 @@ export const buildingLines: IBuildingLineDict = {
 
         ],
     },
-    'Castle': {
-        buildings: ['Castle'],
-        upgrades: [
-
-        ],
-    },
     'Caravanserai': {
         buildings: ['Caravanserai'],
         upgrades: [
@@ -105,12 +99,6 @@ export const buildingLines: IBuildingLineDict = {
     },
     'Dock': {
         buildings: ['Dock'],
-        upgrades: [
-
-        ],
-    },
-    'Donjon': {
-        buildings: ['Donjon'],
         upgrades: [
 
         ],
@@ -139,12 +127,6 @@ export const buildingLines: IBuildingLineDict = {
 
         ],
     },
-    'Gate': {
-        buildings: ['Gate'],
-        upgrades: [
-
-        ],
-    },
     'Harbor': {
         buildings: ['Harbor'],
         upgrades: [
@@ -153,12 +135,6 @@ export const buildingLines: IBuildingLineDict = {
     },
     'House': {
         buildings: ['House'],
-        upgrades: [
-
-        ],
-    },
-    'Krepost': {
-        buildings: ['Krepost'],
         upgrades: [
 
         ],
@@ -189,24 +165,6 @@ export const buildingLines: IBuildingLineDict = {
     },
     'Monastery': {
         buildings: ['Monastery'],
-        upgrades: [
-
-        ],
-    },
-    'Outpost': {
-        buildings: ['Outpost'],
-        upgrades: [
-
-        ],
-    },
-    'PalisadeGate': {
-        buildings: ['PalisadeGate'],
-        upgrades: [
-
-        ],
-    },
-    'PalisadeWall': {
-        buildings: ['PalisadeWall'],
         upgrades: [
 
         ],
@@ -318,6 +276,79 @@ export const buildingLines: IBuildingLineDict = {
             'CumanMercenaries',
             'Detinets',
             'Stronghold-Castle',
+        ],
+    },
+    'Donjon': {
+        buildings: ['Donjon'],
+        upgrades: [
+            'Masonry',
+            'Hoardings',
+            'Fletching',
+            'BodkinArrow',
+            'Bracer',
+            'Chemistry',
+            'ArrowSlits',
+            'HeatedShot',
+            'MurderHoles',
+            'Ballistics',
+            'TownWatch',
+            'TownPatrol',
+            'Faith',
+            'FirstCrusade',
+            'Conscription',
+            'HerbalMedicine',
+        ],
+    },
+    'Krepost': {
+        buildings: ['Krepost'],
+        upgrades: [
+            'Masonry',
+            'Architecture',
+            'Fletching',
+            'BodkinArrow',
+            'Bracer',
+            'Chemistry',
+            'HeatedShot',
+            'MurderHoles',
+            'Ballistics',
+            'TownWatch',
+            'TownPatrol',
+            'TreadmillCrane',
+            'Conscription',
+            'HerbalMedicine',
+        ],
+    },
+    'PalisadeWall': {
+        buildings: ['PalisadeWall'],
+        upgrades: [
+            'GreatWall',
+            'TreadmillCrane',
+        ],
+    },
+    'PalisadeGate': {
+        buildings: ['PalisadeGate'],
+        upgrades: [
+            'GreatWall',
+            'TreadmillCrane',
+        ],
+    },
+    'Gate': {
+        buildings: ['Gate'],
+        upgrades: [
+            'GreatWall',
+            'TreadmillCrane',
+        ],
+    },
+    'Outpost': {
+        buildings: ['Outpost'],
+        upgrades: [
+            'Masonry',
+            'Architecture',
+            'TownWatch',
+            'TownPatrol',
+            'Faith',
+            'Heresy',
+            'TreadmillCrane',
         ],
     },
 };

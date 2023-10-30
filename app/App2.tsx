@@ -288,6 +288,9 @@ const linking: LinkingOptions<any> = {
             Civ: {
                 path: 'civ/:civ?',
             },
+            Building: {
+                path: 'building/:building?',
+            },
             Unit: {
                 path: 'unit/:unit?',
             },
@@ -309,9 +312,9 @@ const linking: LinkingOptions<any> = {
             Intro: {
                 path: 'intro/:match_id',
             },
-            Build: {
-                path: 'build',
-            },
+            // Build: {
+            //     path: 'build',
+            // },
             OverlaySettings: {
                 path: 'settings/overlay',
             },
@@ -321,7 +324,7 @@ const linking: LinkingOptions<any> = {
 
 export type RootStackParamList = {
     Query: undefined;
-    Build: undefined;
+    // Build: undefined;
     Match: { match_id: string };
     Intro: { match_id: string };
     Overlay: undefined;
@@ -825,9 +828,9 @@ function getAppType(): AppType {
         if ((global as any).location.pathname.startsWith('/query')) {
             return 'query';
         }
-        if ((global as any).location.pathname.startsWith('/build')) {
-            return 'build';
-        }
+        // if ((global as any).location.pathname.startsWith('/build')) {
+        //     return 'build';
+        // }
     }
     return 'app';
 }
