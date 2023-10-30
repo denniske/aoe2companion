@@ -70,49 +70,141 @@ export const buildingLines: IBuildingLineDict = {
     'Wonder': {
         buildings: ['Wonder'],
         upgrades: [
-
-        ],
-    },
-    'ArcheryRange': {
-        buildings: ['ArcheryRange'],
-        upgrades: [
-
+            'Masonry',
+            'Architecture',
+            'TownWatch',
+            'TownPatrol',
+            'TreadmillCrane',
+            'Atheism',
         ],
     },
     'Barracks': {
         buildings: ['Barracks'],
         upgrades: [
-
+            'Masonry',
+            'Architecture',
+            'TownWatch',
+            'TownPatrol',
+            'Faith',
+            'Heresy',
+            'TreadmillCrane',
+            'Conscription',
+            'Perfusion',
+            'Anarchy-Barracks',
+            'FlemishRevolution-Barracks',
         ],
     },
-    'Blacksmith': {
-        buildings: ['Blacksmith'],
+    'ArcheryRange': {
+        buildings: ['ArcheryRange'],
         upgrades: [
-
+            'Masonry',
+            'Architecture',
+            'TownWatch',
+            'TownPatrol',
+            'Faith',
+            'Heresy',
+            'TreadmillCrane',
+            'Conscription',
         ],
     },
-    'Caravanserai': {
-        buildings: ['Caravanserai'],
+    'Stable': {
+        buildings: ['Stable'],
         upgrades: [
-
+            'Masonry',
+            'Architecture',
+            'TownWatch',
+            'TownPatrol',
+            'Faith',
+            'Heresy',
+            'TreadmillCrane',
+            'Conscription',
+            'Chivalry',
+            'Marauders-Stable',
+        ],
+    },
+    'SiegeWorkshop': {
+        buildings: ['SiegeWorkshop'],
+        upgrades: [
+            'Masonry',
+            'Architecture',
+            'TownWatch',
+            'TownPatrol',
+            'Faith',
+            'Heresy',
+            'TreadmillCrane',
         ],
     },
     'Dock': {
         buildings: ['Dock'],
         upgrades: [
-
+            'Masonry',
+            'Architecture',
+            'TownWatch',
+            'TownPatrol',
+            'Faith',
+            'Heresy',
+            'TreadmillCrane',
+            'Shipwright-Harbor',
+            'Thalassocracy',
+        ],
+    },
+    'Harbor': {
+        buildings: ['Harbor'],
+        upgrades: [
+            'Masonry',
+            'Fletching',
+            'BodkinArrow',
+            'Bracer',
+            'HeatedShot',
+            'Chemistry',
+            'MurderHoles',
+            'Ballistics',
+            'Faith',
+            'Heresy',
+            'TreadmillCrane',
+            'Shipwright-Harbor',
+        ],
+    },
+    'Blacksmith': {
+        buildings: ['Blacksmith'],
+        upgrades: [
+            'Masonry',
+            'Architecture',
+            'TownWatch',
+            'TownPatrol',
+            'Faith',
+            'Heresy',
+            'TreadmillCrane',
+        ],
+    },
+    'Caravanserai': {
+        buildings: ['Caravanserai'],
+        upgrades: [
+            'Masonry',
+            'TownWatch',
+            'TownPatrol',
+            'Faith',
         ],
     },
     'Farm': {
         buildings: ['Farm'],
         upgrades: [
-
+            'HorseCollar-Farm',
+            'HeavyPlow-Farm',
+            'CropRotation-Farm',
+            'TreadmillCrane',
         ],
     },
     'Feitoria': {
         buildings: ['Feitoria'],
         upgrades: [
-
+            'Masonry',
+            'Architecture',
+            'TownWatch',
+            'TownPatrol',
+            'Faith',
+            'Heresy',
+            'TreadmillCrane',
         ],
     },
     'FishTrap': {
@@ -121,76 +213,120 @@ export const buildingLines: IBuildingLineDict = {
 
         ],
     },
-    'Folwark': {
-        buildings: ['Folwark'],
-        upgrades: [
-
-        ],
-    },
-    'Harbor': {
-        buildings: ['Harbor'],
-        upgrades: [
-
-        ],
-    },
     'House': {
         buildings: ['House'],
         upgrades: [
-
+            'Masonry',
+            'Architecture',
+            'TownWatch',
+            'TownPatrol',
+            'Faith',
+            'Heresy',
+            'TreadmillCrane',
+            'Nomads',
         ],
     },
     'LumberCamp': {
         buildings: ['LumberCamp'],
         upgrades: [
-
-        ],
-    },
-    'Market': {
-        buildings: ['Market'],
-        upgrades: [
-
-        ],
-    },
-    'Mill': {
-        buildings: ['Mill'],
-        upgrades: [
-
+            'Masonry',
+            'Architecture',
+            'TownWatch',
+            'TownPatrol',
+            'Faith',
+            'Heresy',
+            'TreadmillCrane',
         ],
     },
     'MiningCamp': {
         buildings: ['MiningCamp'],
         upgrades: [
-
+            'Masonry',
+            'Architecture',
+            'TownWatch',
+            'TownPatrol',
+            'Faith',
+            'Heresy',
+            'TreadmillCrane',
+        ],
+    },
+    'Market': {
+        buildings: ['Market'],
+        upgrades: [
+            'Masonry',
+            'Architecture',
+            'TownWatch',
+            'TownPatrol',
+            'Faith',
+            'Heresy',
+            'TreadmillCrane',
+            'Guilds',
+            'GrandTrunkRoad-Market',
+        ],
+    },
+    'Mill': {
+        buildings: ['Mill'],
+        upgrades: [
+            'Masonry',
+            'Architecture',
+            'TownWatch',
+            'TownPatrol',
+            'Faith',
+            'Heresy',
+            'TreadmillCrane',
+        ],
+    },
+    'Folwark': {
+        buildings: ['Folwark'],
+        upgrades: [
+            'Masonry',
+            'TownWatch',
+            'TownPatrol',
+            'Faith',
+            'TreadmillCrane',
         ],
     },
     'Monastery': {
         buildings: ['Monastery'],
         upgrades: [
-
-        ],
-    },
-    'SiegeWorkshop': {
-        buildings: ['SiegeWorkshop'],
-        upgrades: [
-
-        ],
-    },
-    'Stable': {
-        buildings: ['Stable'],
-        upgrades: [
-
+            'Masonry',
+            'Architecture',
+            'TownWatch',
+            'TownPatrol',
+            'TreadmillCrane',
+            'HussiteReforms-Monastery',
+            'GrandTrunkRoad-Monastery',
         ],
     },
     'TownCenter': {
         buildings: ['TownCenter'],
         upgrades: [
-
+            'Masonry',
+            'Architecture',
+            'Fletching-TownCenter',
+            'BodkinArrow-TownCenter',
+            'Bracer-TownCenter',
+            'Chemistry',
+            'Tigui',
+            'HillForts',
+            'Ballistics',
+            'TownWatch',
+            'TownPatrol',
+            'TreadmillCrane',
+            'HerbalMedicine',
+            'FirstCrusade-TownCenter',
         ],
     },
     'University': {
         buildings: ['University'],
         upgrades: [
-
+            'Masonry',
+            'Architecture',
+            'TownWatch',
+            'TownPatrol',
+            'Faith',
+            'Heresy',
+            'TreadmillCrane',
         ],
     },
 
@@ -276,6 +412,7 @@ export const buildingLines: IBuildingLineDict = {
             'CumanMercenaries',
             'Detinets',
             'Stronghold-Castle',
+            'TimuridSiegecraft',
         ],
     },
     'Donjon': {

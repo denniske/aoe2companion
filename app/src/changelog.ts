@@ -138,12 +138,16 @@ export const changelog4: IChangelog = {
 export const changelog: IChangelog = {
     '68.0.4': [
         {
-            type: 'bugfix',
-            title: 'Fix navigation to civ page from matches/stats',
+            type: 'minor',
+            title: 'Add tech upgrade list for buildings',
         },
         {
             type: 'bugfix',
-            title: 'Fix affected units for dravidian unique techs',
+            title: 'Fix affected units list for some techs',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix navigation to civ page from matches/stats',
         },
     ],
     '68.0.3': [

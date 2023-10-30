@@ -71,16 +71,141 @@ const techEffectDictInternal = {
 
     // For Buildings
 
+    'Atheism': {
+        tech: 'Atheism',
+        civ: 'Huns',
+        effect: {
+            other: 'adds 100 years to Wonder victories for all players',
+        },
+    },
+    'Guilds': {
+        tech: 'Guilds',
+        effect: {
+            other: 'reduces commodity trading fee to 15%',
+        },
+    },
+    'FirstCrusade-TownCenter': {
+        tech: 'FirstCrusade',
+        civ: 'Sicilians',
+        effect: {
+            other: 'creates 5 Serjeants once at up to 5 Town Centers each',
+        },
+    },
+    'Fletching-TownCenter': {
+        tech: 'Fletching',
+        effect: {
+            attack: '+1',
+            sight: '+1',
+        },
+    },
+    'BodkinArrow-TownCenter': {
+        tech: 'BodkinArrow',
+        effect: {
+            attack: '+1',
+            sight: '+1',
+        },
+    },
+    'Bracer-TownCenter': {
+        tech: 'Bracer',
+        effect: {
+            attack: '+1',
+            sight: '+1',
+        },
+    },
+    'Tigui': {
+        tech: 'Tigui',
+        civ: 'Malians',
+        effect: {
+            attack: '+8 arrows always',
+        },
+    },
+    'HillForts': {
+        tech: 'HillForts',
+            civ: 'Lithuanians',
+        effect: {
+            range: '+3',
+        },
+    },
+    'HorseCollar-Farm': {
+        tech: 'HorseCollar',
+        effect: {
+            other: '+75 food quantity',
+        },
+    },
+    'HeavyPlow-Farm': {
+        tech: 'HeavyPlow',
+        effect: {
+            other: '+125 food quantity',
+        },
+    },
+    'CropRotation-Farm': {
+        tech: 'CropRotation',
+        effect: {
+            other: '+175 food quantity',
+        },
+    },
+    'Thalassocracy': {
+        tech: 'Thalassocracy',
+        civ: 'Malay',
+        effect: {
+            other: 'upgrades to Harbor',
+        },
+    },
+    'Perfusion': {
+        tech: 'Perfusion',
+        civ: 'Goths',
+        effect: {
+            creationSpeed: '+100%',
+        },
+    },
+    'TimuridSiegecraft': {
+        tech: 'TimuridSiegecraft',
+        civ: 'Tatars',
+        effect: {
+            other: 'allows creation of Flaming Camel',
+        },
+    },
+    'Marauders-Stable': {
+        tech: 'Marauders',
+        civ: 'Huns',
+        effect: {
+            other: 'allows creation of Tarkans',
+        },
+    },
+    'Anarchy-Barracks': {
+        tech: 'Anarchy',
+        civ: 'Goths',
+        effect: {
+            other: 'allows creation of Huskarls',
+        },
+    },
+    'FlemishRevolution-Barracks': {
+        tech: 'FlemishRevolution',
+        civ: 'Burgundians',
+        effect: {
+            other: 'allows creation of Flemish Militia',
+        },
+    },
+
+    'Nomads': {
+        tech: 'Nomads',
+        civ: 'Mongols',
+        effect: {
+            other: 'houses do not lose their population room when destroyed',
+        },
+    },
     'Masonry': {
         tech: 'Masonry',
         effect: {
             hitPoints: '+10%',
+            armor: '+1/+1, +3 building armor',
         },
     },
     'Architecture': {
         tech: 'Architecture',
         effect: {
             hitPoints: '+10%',
+            armor: '+1/+1, +3 building armor',
         },
     },
     'GreatWall': {
@@ -303,6 +428,13 @@ const techEffectDictInternal = {
             speed: '+15%',
         },
     },
+    'HussiteReforms-Monastery': {
+        tech: 'HussiteReforms',
+        civ: 'Bohemians',
+        effect: {
+            other: 'gold cost of monks and techs replaced with food',
+        },
+    },
     'HussiteReforms': {
         tech: 'HussiteReforms',
         civ: 'Bohemians',
@@ -465,14 +597,28 @@ const techEffectDictInternal = {
     },
     'GrandTrunkRoad-GatheringSpeed': {
         tech: 'GrandTrunkRoad',
-        civ: 'Indians',
+        civ: 'Hindustanis',
         effect: {
             gatheringSpeed: 'gold +10%',
         },
     },
+    'GrandTrunkRoad-Monastery': {
+        tech: 'GrandTrunkRoad',
+        civ: 'Hindustanis',
+        effect: {
+            other: '+10% relic gold generation',
+        },
+    },
+    'GrandTrunkRoad-Market': {
+        tech: 'GrandTrunkRoad',
+        civ: 'Hindustanis',
+        effect: {
+            other: 'reduces commodity trading fee to 10%',
+        },
+    },
     'GrandTrunkRoad': {
         tech: 'GrandTrunkRoad',
-        civ: 'Indians',
+        civ: 'Hindustanis',
         effect: {
             other: '+10% gold generation',
         },
@@ -625,6 +771,12 @@ const techEffectDictInternal = {
             other: 'wood cost -20%',
         },
     },
+    'Shipwright-Harbor': {
+        tech: 'Shipwright',
+        effect: {
+            creationSpeed: '+54%',
+        },
+    },
     'Careening-5': {
         tech: 'Careening',
         effect: {
@@ -744,7 +896,7 @@ const techEffectDictInternal = {
     },
     'Shatagni': {
         tech: 'Shatagni',
-        civ: 'Indians',
+        civ: 'Hindustanis',
         effect: {
             range: '+2',
         },
