@@ -1,10 +1,9 @@
 import {TechEffect} from "./techs";
-import {difference, sortBy} from 'lodash';
+import {sortBy} from 'lodash';
 import {Civ} from "./civs";
 import {strRemoveFrom, strRemoveTo, unwrap, ValueOf} from "../lib/util";
 import {aoeData, aoeUnitDataId} from "../data/data";
 import {getAoeString, getUiTranslation} from '../lib/aoe-data';
-import {unitLineIdsData} from "../../../dataset2/src/data/unit.data";
 
 
 export interface IUnitLine {
@@ -24,7 +23,97 @@ interface IUnitLineDict {
     [unit: string]: IUnitLine;
 }
 
-export const unitLineIds = unitLineIdsData;
+export const unitLineIds = [
+    'Ghulam',
+    'ShrivamshaRider',
+    'ChakramThrower',
+    'Thirisadai',
+    'UrumiSwordsman',
+    'ArmoredElephant',
+    'Ratha',
+    'Obuch',
+    'HussiteWagon',
+    'Coustillier',
+    'Serjeant',
+    'FlemishMilitia',
+    'TradeCart',
+    'TradeCog',
+    'FishingShip',
+    'TransportShip',
+    'Villager',
+    'Missionary',
+    'Monk',
+    'DemolitionRaft',
+    'FireGalley',
+    'Galley',
+    'CannonGalleon',
+    'Arambai',
+    'OrganGun',
+    'Caravel',
+    'SiegeTower',
+    'Conquistador',
+    'TurtleShip',
+    'Longboat',
+    'Janissary',
+    'BallistaElephant',
+    'FlamingCamel',
+    'Petard',
+    'Trebuchet',
+    'BombardCannon',
+    'Mangonel',
+    'BatteringRam',
+    'Scorpion',
+    'HandCannoneer',
+    'KarambitWarrior',
+    'Gbeto',
+    'ShotelWarrior',
+    'Condottiero',
+    'JaguarWarrior',
+    'Berserk',
+    'TeutonicKnight',
+    'Samurai',
+    'Huskarl',
+    'ThrowingAxeman',
+    'WoadRaider',
+    'EagleScout',
+    'Spearman',
+    'Militia',
+    'Keshik',
+    'Leitis',
+    'Konnik',
+    'KonnikDismounted',
+    'Boyar',
+    'MagyarHuszar',
+    'Tarkan',
+    'Mameluke',
+    'WarElephant',
+    'Cataphract',
+    'SteppeLancer',
+    'BattleElephant',
+    'CamelRider',
+    'Knight',
+    'XolotlWarrior',
+    'ScoutCavalry',
+    'Kipchak',
+    'RattanArcher',
+    'Genitour',
+    'CamelArcher',
+    'GenoeseCrossbowman',
+    'ElephantArcher',
+    'WarWagon',
+    'Mangudai',
+    'ChuKoNu',
+    'Longbowman',
+    'CavalryArcher',
+    'Skirmisher',
+    'Archer',
+    'PlumedArcher',
+    'Slinger',
+    'Kamayuk',
+    'Legionary',
+    'Centurion',
+    'Dromon',
+] as const;
 
 export const unitLines: IUnitLineDict = {
     'Ghulam': {

@@ -5,7 +5,7 @@ import {
     getAffectedUnitInfos, getTechData, getTechDescription, getTechName, getUpgradeList, getUpgradeFormatted, keysOf,
     Other,
     sortResources,
-    Tech, techsAffectingAllUnits, Unit, units, getAgeFromAgeTech, buildings, Building
+    Tech, techsAffectingAllUnits, Unit, units, getAgeFromAgeTech, buildings, Building, getAffectedBuildingInfos
 } from "@nex/data";
 import Fandom from "../components/fandom";
 import {MyText} from "../components/my-text";
@@ -31,6 +31,7 @@ export default function TechDetails({tech}: {tech: Tech}) {
     const data = getTechData(tech);
 
     const affectedUnitInfos = getAffectedUnitInfos(tech);
+    const affectedBuildingInfos = getAffectedBuildingInfos(tech);
     // console.log(affectedUnitInfos);
 
     let affectedUnits: any[] = [];
@@ -74,6 +75,22 @@ export default function TechDetails({tech}: {tech: Tech}) {
                         affectedUnitInfos.map(affectedUnit =>
                             <UnitCompBig key={affectedUnit.unitId} unit={affectedUnit.unitId} subtitle={
                                 getUpgradeList(tech, affectedUnit).map(g => g.name + ': ' + capitalizeFirstLetter(g.upgrades.join(', '))).join('\n')
+                            }/>
+                        )
+                    }
+                </View>
+            }
+
+            {
+                !techsAffectingAllUnits.includes(tech) && affectedBuildingInfos.length > 0 &&
+                <View>
+                    <Space/>
+                    <MyText>Affected Buildings</MyText>
+                    <Space/>
+                    {
+                        affectedBuildingInfos.map(affectedBuilding =>
+                            <BuildingCompBig key={affectedBuilding.buildingId} building={affectedBuilding.buildingId} subtitle={
+                                getUpgradeList(tech, affectedBuilding).map(g => g.name + ': ' + capitalizeFirstLetter(g.upgrades.join(', '))).join('\n')
                             }/>
                         )
                     }

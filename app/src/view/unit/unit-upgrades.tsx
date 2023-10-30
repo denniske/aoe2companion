@@ -1,4 +1,4 @@
-import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
+import {StyleSheet, TouchableOpacity, View} from "react-native";
 import {MyText} from "../components/my-text";
 import {
     Civ, civs, civsAoeNet,
@@ -28,7 +28,7 @@ import {getTechIcon} from "../../helper/techs";
 import {getEliteUniqueResearchIcon, getUnitIcon} from "../../helper/units";
 import {createStylesheet} from '../../theming-new';
 import {getTranslation} from '../../helper/translate';
-import {useSelector} from "../../redux/reducer";
+import {Image} from "expo-image";
 
 interface Props {
     unitLineId: UnitLine;

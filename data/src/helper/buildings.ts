@@ -1,7 +1,340 @@
-import {ICostDict, IUnitClassPair} from "./units";
+import {ICostDict, IUnitClassPair, Unit, UnitLine, unitLineIds, unitLines, unitList} from "./units";
 import {aoeBuildingDataId, aoeData} from "../data/data";
 import {sanitizeGameDescription, strRemoveFrom, strRemoveTo, unwrap} from "../lib/util";
 import {getAoeString} from '../lib/aoe-data';
+import {Civ} from "./civs";
+import {TechEffect} from "./techs";
+
+
+export interface IBuildingLine {
+    civ?: Civ;
+    unique?: boolean;
+    buildings: Building[];
+    upgrades: TechEffect[];
+}
+
+// type IBuildingLineDict = {
+//     [building in BuildingLine]: IBuildingLine;
+// };
+
+interface IBuildingLineDict {
+    [building: string]: IBuildingLine;
+}
+
+export const buildingLineIds = [
+    'ArcheryRange',
+    'Barracks',
+    'Blacksmith',
+    'Castle',
+    'Caravanserai',
+    'Dock',
+    'Donjon',
+    'Farm',
+    'Feitoria',
+    'FishTrap',
+    'Folwark',
+    'Gate',
+    'Harbor',
+    'House',
+    'Krepost',
+    'LumberCamp',
+    'Market',
+    'Mill',
+    'MiningCamp',
+    'Monastery',
+    'Outpost',
+    'PalisadeGate',
+    'PalisadeWall',
+    'SiegeWorkshop',
+    'Stable',
+    'TownCenter',
+    'University',
+
+    'StoneWall',
+    // 'FortifiedWall',
+
+    'WatchTower',
+    // 'GuardTower',
+    // 'Keep',
+
+    'BombardTower',
+
+    'Wonder',
+];
+
+const BuildingLineUnion = unwrap(buildingLineIds);
+export type BuildingLine = typeof BuildingLineUnion;
+
+export const buildingLines: IBuildingLineDict = {
+
+    'Wonder': {
+        buildings: ['Wonder'],
+        upgrades: [
+
+        ],
+    },
+    'ArcheryRange': {
+        buildings: ['ArcheryRange'],
+        upgrades: [
+
+        ],
+    },
+    'Barracks': {
+        buildings: ['Barracks'],
+        upgrades: [
+
+        ],
+    },
+    'Blacksmith': {
+        buildings: ['Blacksmith'],
+        upgrades: [
+
+        ],
+    },
+    'Castle': {
+        buildings: ['Castle'],
+        upgrades: [
+
+        ],
+    },
+    'Caravanserai': {
+        buildings: ['Caravanserai'],
+        upgrades: [
+
+        ],
+    },
+    'Dock': {
+        buildings: ['Dock'],
+        upgrades: [
+
+        ],
+    },
+    'Donjon': {
+        buildings: ['Donjon'],
+        upgrades: [
+
+        ],
+    },
+    'Farm': {
+        buildings: ['Farm'],
+        upgrades: [
+
+        ],
+    },
+    'Feitoria': {
+        buildings: ['Feitoria'],
+        upgrades: [
+
+        ],
+    },
+    'FishTrap': {
+        buildings: ['FishTrap'],
+        upgrades: [
+
+        ],
+    },
+    'Folwark': {
+        buildings: ['Folwark'],
+        upgrades: [
+
+        ],
+    },
+    'Gate': {
+        buildings: ['Gate'],
+        upgrades: [
+
+        ],
+    },
+    'Harbor': {
+        buildings: ['Harbor'],
+        upgrades: [
+
+        ],
+    },
+    'House': {
+        buildings: ['House'],
+        upgrades: [
+
+        ],
+    },
+    'Krepost': {
+        buildings: ['Krepost'],
+        upgrades: [
+
+        ],
+    },
+    'LumberCamp': {
+        buildings: ['LumberCamp'],
+        upgrades: [
+
+        ],
+    },
+    'Market': {
+        buildings: ['Market'],
+        upgrades: [
+
+        ],
+    },
+    'Mill': {
+        buildings: ['Mill'],
+        upgrades: [
+
+        ],
+    },
+    'MiningCamp': {
+        buildings: ['MiningCamp'],
+        upgrades: [
+
+        ],
+    },
+    'Monastery': {
+        buildings: ['Monastery'],
+        upgrades: [
+
+        ],
+    },
+    'Outpost': {
+        buildings: ['Outpost'],
+        upgrades: [
+
+        ],
+    },
+    'PalisadeGate': {
+        buildings: ['PalisadeGate'],
+        upgrades: [
+
+        ],
+    },
+    'PalisadeWall': {
+        buildings: ['PalisadeWall'],
+        upgrades: [
+
+        ],
+    },
+    'SiegeWorkshop': {
+        buildings: ['SiegeWorkshop'],
+        upgrades: [
+
+        ],
+    },
+    'Stable': {
+        buildings: ['Stable'],
+        upgrades: [
+
+        ],
+    },
+    'TownCenter': {
+        buildings: ['TownCenter'],
+        upgrades: [
+
+        ],
+    },
+    'University': {
+        buildings: ['University'],
+        upgrades: [
+
+        ],
+    },
+
+    'WatchTower': {
+        buildings: ['WatchTower', 'GuardTower', 'Keep'],
+        upgrades: [
+            'Masonry',
+            'Architecture',
+            'GreatWall',
+            'Fletching',
+            'BodkinArrow',
+            'Bracer',
+            'Chemistry',
+            'ArrowSlits',
+            'HeatedShot',
+            'Yeomen',
+            'Yasama',
+            'Eupseong',
+            'MurderHoles',
+            'Stronghold',
+            'Ballistics',
+            'TownWatch',
+            'TownPatrol',
+            'Faith',
+            'Heresy',
+            'TreadmillCrane',
+            'HerbalMedicine',
+            'Detinets', // Except for Keep because Slavs don't have it, but not sure how to implement that
+            'Crenellations',
+        ],
+    },
+    'StoneWall': {
+        buildings: ['StoneWall', 'FortifiedWall'],
+        upgrades: [
+            'GreatWall',
+            'TreadmillCrane',
+        ],
+    },
+    'BombardTower': {
+        buildings: ['BombardTower'],
+        upgrades: [
+            'Masonry',
+            'Architecture',
+            'GreatWall',
+            'Fletching',
+            'BodkinArrow',
+            'Bracer',
+            'Chemistry',
+            'HeatedShot',
+            'GreekFire-BombardTower',
+            'MurderHoles',
+            'Artillery',
+            'Ballistics',
+            'Arquebus',
+            'TownWatch',
+            'TownPatrol',
+            'Faith',
+            'Heresy',
+            'TreadmillCrane',
+        ],
+    },
+    'Castle': {
+        buildings: ['Castle'],
+        upgrades: [
+            'Masonry',
+            'Architecture',
+            'Hoardings',
+            'Fletching',
+            'BodkinArrow',
+            'Bracer',
+            'Chemistry',
+            'HeatedShot',
+            'MurderHoles',
+            'Crenellations',
+            'Stronghold',
+            'Ballistics',
+            'TownWatch',
+            'TownPatrol',
+            'TreadmillCrane',
+            'Conscription',
+            'Kasbah',
+            'HerbalMedicine',
+            'CumanMercenaries',
+            'Detinets',
+            'Stronghold-Castle',
+        ],
+    },
+};
+
+
+export const buildingList = buildingLineIds.map(ul => ({
+    name: ul,
+    ...buildingLines[ul],
+}))
+export function getBuildingLineIdForBuilding(building: Building) {
+    const buildingInfo = buildingList.find(ul => ul.buildings.includes(building));
+    if (buildingInfo == null) {
+        throw new Error(`Building ${building} has no building line.`)
+    }
+    return buildingInfo.name;
+}
+
 
 interface IBuilding {
     dataId: aoeBuildingDataId;
@@ -12,7 +345,7 @@ interface IBuildingDict {
     [building: string]: IBuilding;
 }
 
-export const buildingList: IBuilding[] = [
+export const buildingDefList: IBuilding[] = [
     {
         "dataId": "1189",
         "name": "Harbor",
@@ -152,7 +485,7 @@ export const buildingList: IBuilding[] = [
 ];
 
 
-export const buildings: IBuildingDict = Object.assign({}, ...buildingList.map((x) => ({[x.name]: x})));
+export const buildings: IBuildingDict = Object.assign({}, ...buildingDefList.map((x) => ({[x.name]: x})));
 
 interface BuildingDict {
     [building: string]: any;

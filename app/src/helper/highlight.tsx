@@ -2,7 +2,7 @@ import {useTheme} from "../theming";
 import {appVariants} from "../styles";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../App2";
-import {buildingList, escapeRegExpFn, getBuildingName, getTechName, techList} from "@nex/data";
+import {buildingDefList, escapeRegExpFn, getBuildingName, getTechName, techList} from "@nex/data";
 import {getUnitName, hasUnitLine, Unit, units} from "@nex/data";
 import {MyText} from "../view/components/my-text";
 import React from "react";
@@ -50,7 +50,7 @@ import {getLanguage} from '../../../data/src/lib/aoe-data';
 function createLists() {
     const techReplaceList = techList.map(t => ({ name: t.name, text: getTechName(t.name)}));
     const unitReplaceList = Object.keys(units).filter(t => hasUnitLine(t as Unit)).map(t => ({ name: t, text: getUnitName(t as Unit)}));
-    const buildingReplaceList = buildingList.map(b => ({ name: b.name, text: getBuildingName(b.name)}));
+    const buildingReplaceList = buildingDefList.map(b => ({ name: b.name, text: getBuildingName(b.name)}));
     const reverseTechMap = Object.assign({}, ...techReplaceList.map((x) => ({[x.text.toLowerCase()]: x})));
     const reverseUnitMap = Object.assign({}, ...unitReplaceList.map((x) => ({[x.text.toLowerCase()]: x, [x.text.toLowerCase()+'s']: x})));
     const reverseBuildingMap = Object.assign({}, ...buildingReplaceList.map((x) => ({[x.text.toLowerCase()]: x, [x.text.toLowerCase()+'s']: x})));

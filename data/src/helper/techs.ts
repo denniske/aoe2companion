@@ -4,6 +4,7 @@ import {aoeData, aoeTechDataId} from "../data/data";
 import {keysOf, sanitizeGameDescription, strRemoveTo, unwrap} from "../lib/util";
 import {getAoeString} from '../lib/aoe-data';
 import {flatMap} from 'lodash';
+import {Building, BuildingLine, buildingLineIds, buildingLines, getBuildingLineIdForBuilding} from "./buildings";
 
 export type Effect =
     'carryCapacity' |
@@ -62,8 +63,10 @@ type ITechEffectDict2 = {
     [techEffect: string]: ITechEffect;
 };
 
+// use this when adding tech effects and remove afterwards
 // : ITechEffectDict2
-const techEffectDictInternal: ITechEffectDict2 = {
+
+const techEffectDictInternal = {
 
     // For Buildings
 
@@ -2509,22 +2512,42 @@ export function getTechDescription(tech: Tech) {
 
 
 
-export function hasUpgrade(unitLineId: UnitLine, tech: Tech) {
+export function hasUpgradeForBuildingLine(buildingLineId: BuildingLine, tech: Tech) {
+    if (!buildingLines[buildingLineId]) {
+        console.log(`hasUpgrade ${buildingLineId} - no buildingLine`);
+    }
+    return buildingLines[buildingLineId].upgrades.some(u => techEffectDict[u].tech == tech);
+}
+
+export function getUpgradesForBuildingLine(buildingLineId: BuildingLine, tech: Tech) {
+    return buildingLines[buildingLineId].upgrades.filter(u => techEffectDict[u].tech == tech).map(u => techEffectDict[u]);
+}
+
+export function hasUpgradeForBuilding(buildingId: Building, tech: Tech) {
+    return buildingLines[getBuildingLineIdForBuilding(buildingId)].upgrades.some(u => techEffectDict[u].tech == tech && (!techEffectDict[u].building || techEffectDict[u].building == buildingId));
+}
+
+export function getUpgradesForBuilding(buildingId: Building, tech: Tech) {
+    return buildingLines[getBuildingLineIdForBuilding(buildingId)].upgrades.filter(u => techEffectDict[u].tech == tech && (!techEffectDict[u].building || techEffectDict[u].building == buildingId)).map(u => techEffectDict[u]);
+}
+
+
+export function hasUpgradeForUnitLine(unitLineId: UnitLine, tech: Tech) {
     if (!unitLines[unitLineId]) {
         console.log(`hasUpgrade ${unitLineId} - no unitLine`);
     }
     return unitLines[unitLineId].upgrades.some(u => techEffectDict[u].tech == tech);
 }
 
-export function getUpgrades(unitLineId: UnitLine, tech: Tech) {
+export function getUpgradesForUnitLine(unitLineId: UnitLine, tech: Tech) {
     return unitLines[unitLineId].upgrades.filter(u => techEffectDict[u].tech == tech).map(u => techEffectDict[u]);
 }
 
-export function hasUpgradeUnit(unitId: Unit, tech: Tech) {
+export function hasUpgradeForUnit(unitId: Unit, tech: Tech) {
     return unitLines[getUnitLineIdForUnit(unitId)].upgrades.some(u => techEffectDict[u].tech == tech && (!techEffectDict[u].unit || techEffectDict[u].unit == unitId));
 }
 
-export function getUpgradesUnit(unitId: Unit, tech: Tech) {
+export function getUpgradesForUnit(unitId: Unit, tech: Tech) {
     return unitLines[getUnitLineIdForUnit(unitId)].upgrades.filter(u => techEffectDict[u].tech == tech && (!techEffectDict[u].unit || techEffectDict[u].unit == unitId)).map(u => techEffectDict[u]);
 }
 
@@ -2533,7 +2556,11 @@ interface IAffectedUnit {
     upgrades: ITechEffect[];
 }
 
-export function getUpgradeList(tech: Tech, affectedUnitInfo: IAffectedUnit) {
+interface IAffectedUpgrades {
+    upgrades: ITechEffect[];
+}
+
+export function getUpgradeList(tech: Tech, affectedUnitInfo: IAffectedUpgrades) {
     const techInfo = techs[tech];
 
     const getEffectText = (u: ITechEffect, effect: Effect) => {
@@ -2547,17 +2574,32 @@ export function getUpgradeList(tech: Tech, affectedUnitInfo: IAffectedUnit) {
 }
 
 export function getAffectedUnitInfos(tech: Tech) {
-    const affectedUnitLines = sortedUnitLines.filter(unitLineId => hasUpgrade(unitLineId, tech));
+    const affectedUnitLines = sortedUnitLines.filter(unitLineId => hasUpgradeForUnitLine(unitLineId, tech));
 
     return flatMap(affectedUnitLines, unitLineId => {
-        if (getUpgrades(unitLineId, tech).some(u => u.unit))
+        if (getUpgradesForUnitLine(unitLineId, tech).some(u => u.unit))
             return unitLines[unitLineId].units;
         return [unitLines[unitLineId].units[0]];
     })
-        .filter(unitId => hasUpgradeUnit(unitId, tech))
+        .filter(unitId => hasUpgradeForUnit(unitId, tech))
         .map(unitId => ({
             unitId,
-            upgrades: getUpgradesUnit(unitId, tech),
+            upgrades: getUpgradesForUnit(unitId, tech),
+        }));
+}
+
+export function getAffectedBuildingInfos(tech: Tech) {
+    const affectedBuildingLines = buildingLineIds.filter(buildingLineId => hasUpgradeForBuildingLine(buildingLineId, tech));
+
+    return flatMap(affectedBuildingLines, buildingLineId => {
+        if (getUpgradesForBuildingLine(buildingLineId, tech).some(u => u.unit))
+            return buildingLines[buildingLineId].buildings;
+        return [buildingLines[buildingLineId].buildings[0]];
+    })
+        .filter(buildingId => hasUpgradeForBuilding(buildingId, tech))
+        .map(buildingId => ({
+            buildingId,
+            upgrades: getUpgradesForBuilding(buildingId, tech),
         }));
 }
 
