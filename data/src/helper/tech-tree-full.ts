@@ -3,8 +3,24 @@ import {ICivEntry} from './civs';
 import {IUnitLine, Unit} from './units';
 
 export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITechTreeRow[] {
+
+    // Complete Replacements:
+    //
+    // Burgundians
+    // - Market, Mill
+    // - LumberCamp, MiningCamp, MuleCart
+    // - TownCenter, House
+    //
+    // Persians:
+    // - Barracks
+    // - Archery Range (Techs)
+    //
+    // Cumans:
+    // - Siege Workshop
+
     const hasMuleCart = civInfo.name === 'Armenians' || civInfo.name === 'Georgians';
-    return [
+    const rows: ITechTreeRow[] = [];
+    rows.push(
         {
             title: ''
         },
@@ -47,120 +63,126 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {tech: 'RingArcherArmor'},
             ],
         },
+    );
 
-        ...(civInfo.name !== 'Cumans' ? [{
-            title: ''
-        },
-        {
-            items: [
-                {},
-                {building: 'SiegeWorkshop'},
-            ],
-        },
-        {
-            items: [
-                {age: 'CastleAge'},
-                {unit: 'ArmoredElephant'},
-                {unit: 'BatteringRam'},
-                {unit: 'Mangonel'},
-                {unit: 'Scorpion'},
-                {unit: 'SiegeTower'},
-            ],
-        },
-        {
-            items: [
-                {age: 'ImperialAge'},
-                {unit: 'SiegeElephant'},
-                {unit: 'CappedRam'},
-                {unit: 'Onager'},
-                {unit: 'HeavyScorpion'},
-                {},
-            ],
-        },
-        {
-            items: [
-                {},
-                {},
-                {unit: 'SiegeRam'},
-                {unit: 'SiegeOnager'},
-                {},
-                {unit: 'BombardCannon'},
-            ],
-        },
-        {
-            items: [
-                {},
-                {},
-                {},
-                {},
-                {},
-                {unit: 'Houfnice', unique: true},
-            ],
-        }] as any
-:
-        [{
-            title: ''
-        },
-        {
-            items: [
-                {},
-                {building: 'SiegeWorkshop'},
-            ],
-        },
-        {
-            items: [
-                {age: 'FeudalAge'},
-                {},
-                {unit: 'BatteringRam'},
-                {},
-                {},
-                {},
-            ],
-        },
-        {
-            items: [
-                {age: 'CastleAge'},
-                {unit: 'ArmoredElephant'},
-                {unit: 'CappedRam'},
-                {unit: 'Mangonel'},
-                {unit: 'Scorpion'},
-                {unit: 'SiegeTower'},
-            ],
-        },
-        {
-            items: [
-                {age: 'ImperialAge'},
-                {unit: 'SiegeElephant'},
-                {unit: 'SiegeRam'},
-                {unit: 'Onager'},
-                {unit: 'HeavyScorpion'},
-                {},
-            ],
-        },
-        {
-            items: [
-                {},
-                {},
-                {},
-                {unit: 'SiegeOnager'},
-                {},
-                {unit: 'BombardCannon'},
-            ],
-        },
-        {
-            items: [
-                {},
-                {},
-                {},
-                {},
-                {},
-                {unit: 'Houfnice', unique: true},
-            ],
-        }]),
+    if (civInfo.name !== 'Cumans') {
+        rows.push({
+                title: ''
+            },
+            {
+                items: [
+                    {},
+                    {building: 'SiegeWorkshop'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'CastleAge'},
+                    {unit: 'ArmoredElephant'},
+                    {unit: 'BatteringRam'},
+                    {unit: 'Mangonel'},
+                    {unit: 'Scorpion'},
+                    {unit: 'SiegeTower'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'ImperialAge'},
+                    {unit: 'SiegeElephant'},
+                    {unit: 'CappedRam'},
+                    {unit: 'Onager'},
+                    {unit: 'HeavyScorpion'},
+                    {},
+                ],
+            },
+            {
+                items: [
+                    {},
+                    {},
+                    {unit: 'SiegeRam'},
+                    {unit: 'SiegeOnager'},
+                    {},
+                    {unit: 'BombardCannon'},
+                ],
+            },
+            {
+                items: [
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {unit: 'Houfnice', unique: true},
+                ],
+            },
+        );
+    } else {
+        rows.push(
+            {
+                title: ''
+            },
+            {
+                items: [
+                    {},
+                    {building: 'SiegeWorkshop'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'FeudalAge'},
+                    {},
+                    {unit: 'BatteringRam'},
+                    {},
+                    {},
+                    {},
+                ],
+            },
+            {
+                items: [
+                    {age: 'CastleAge'},
+                    {unit: 'ArmoredElephant'},
+                    {unit: 'CappedRam'},
+                    {unit: 'Mangonel'},
+                    {unit: 'Scorpion'},
+                    {unit: 'SiegeTower'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'ImperialAge'},
+                    {unit: 'SiegeElephant'},
+                    {unit: 'SiegeRam'},
+                    {unit: 'Onager'},
+                    {unit: 'HeavyScorpion'},
+                    {},
+                ],
+            },
+            {
+                items: [
+                    {},
+                    {},
+                    {},
+                    {unit: 'SiegeOnager'},
+                    {},
+                    {unit: 'BombardCannon'},
+                ],
+            },
+            {
+                items: [
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {unit: 'Houfnice', unique: true},
+                ],
+            },
+        );
+    }
 
 
-        ...(civInfo.name === 'Persians' ? [
-
+    if (civInfo.name === 'Persians') {
+        rows.push(
             {
                 title: ''
             },
@@ -221,8 +243,9 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                     {unit: 'FlemishMilitia', unique: true},
                 ],
             },
-        ] : [
-
+        );
+    } else {
+        rows.push(
             {
                 title: ''
             },
@@ -263,7 +286,10 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
             {
                 items: [
                     {age: 'ImperialAge'},
-                    ...(civInfo.name !== 'Romans' ? [{unit: 'TwoHandedSwordsman' as Unit}] : [{unit: 'Legionary' as Unit, unique: true}]),
+                    ...(civInfo.name !== 'Romans' ? [{unit: 'TwoHandedSwordsman' as Unit}] : [{
+                        unit: 'Legionary' as Unit,
+                        unique: true
+                    }]),
                     {unit: 'Halberdier'},
                     {unit: 'EliteEagleWarrior'},
                     {unit: 'Condottiero', unique: true},
@@ -276,9 +302,10 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                     ...(civInfo.name !== 'Romans' ? [{unit: 'Champion' as Unit}] : [{}]),
                 ],
             },
-        ]),
+        );
+    }
 
-
+    rows.push(
         {
             title: ''
         },
@@ -310,7 +337,10 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {unit: 'CamelRider'},
                 {unit: 'BattleElephant'},
                 {unit: 'SteppeLancer'},
-                ...(['Aztecs', 'Mayans', 'Incas'].includes(civInfo.name) ? [{unit: 'XolotlWarrior' as Unit, unique: true}] : []),
+                ...(['Aztecs', 'Mayans', 'Incas'].includes(civInfo.name) ? [{
+                    unit: 'XolotlWarrior' as Unit,
+                    unique: true
+                }] : []),
                 ...(!['Aztecs', 'Mayans', 'Incas'].includes(civInfo.name) && civInfo.name !== 'Gurjaras' ? [{}] : []),
                 {tech: 'Husbandry'},
             ],
@@ -386,8 +416,10 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {unit: 'HandCannoneer'},
             ],
         },
+    );
 
-        ...(civInfo.name === 'Persians' ? [
+    if (civInfo.name === 'Persians') {
+        rows.push(
             {
                 title: ''
             },
@@ -404,8 +436,9 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                     {tech: 'ParthianTactics'},
                 ],
             },
-        ] : [
-
+        );
+    } else {
+        rows.push(
             {
                 title: ''
             },
@@ -427,9 +460,10 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                     {tech: 'ParthianTactics'},
                 ],
             },
-        ]),
+        );
+    }
 
-
+    rows.push(
         {
             title: ''
         },
@@ -480,7 +514,10 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {tech: 'Shipwright'},
                 ...(civInfo.uniqueUnits.includes('Caravel') ? [{unit: 'EliteCaravel' as Unit, unique: true}] : []),
                 ...(civInfo.uniqueUnits.includes('Longboat') ? [{unit: 'EliteLongboat' as Unit, unique: true}] : []),
-                ...(civInfo.uniqueUnits.includes('TurtleShip') ? [{unit: 'EliteTurtleShip' as Unit, unique: true}] : []),
+                ...(civInfo.uniqueUnits.includes('TurtleShip') ? [{
+                    unit: 'EliteTurtleShip' as Unit,
+                    unique: true
+                }] : []),
                 ...(civInfo.uniqueUnits.includes('Thirisadai') ? [{unit: 'Thirisadai' as Unit, unique: true}] : []),
             ],
         },
@@ -680,138 +717,289 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {tech: 'BombardTower'},
             ],
         },
+    );
 
-        {
-            title: ''
-        },
-        {
-            items: [
-                {},
-                {building: 'Market'},
-                {},
-                {},
-                {},
-                {},
-                {building: 'Mill'},
-                {building: 'Folwark'},
-            ],
-        },
-        {
-            items: [
-                {age: 'FeudalAge'},
-                {unit: 'TradeCart'},
-                {},
-                {},
-                {},
-                {},
-                {tech: 'HorseCollar'},
-            ],
-        },
-        {
-            items: [
-                {age: 'CastleAge'},
-                {},
-                {tech: 'Caravan'},
-                {tech: 'Coinage'},
-                {},
-                {},
-                {tech: 'HeavyPlow'},
-            ],
-        },
-        {
-            items: [
-                {age: 'ImperialAge'},
-                {},
-                {},
-                {tech: 'Banking'},
-                {tech: 'Guilds'},
-                {},
-                {tech: 'CropRotation'},
-            ],
-        },
+    if (civInfo.name === 'Burgundians') {
+        rows.push(
+            {
+                title: ''
+            },
+            {
+                items: [
+                    {},
+                    {building: 'Market'},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {building: 'Mill'},
+                    {building: 'Folwark'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'DarkAge'},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {tech: 'HorseCollar'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'FeudalAge'},
+                    {unit: 'TradeCart'},
+                    {tech: 'Caravan'},
+                    {},
+                    {},
+                    {},
+                    {tech: 'HeavyPlow'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'CastleAge'},
+                    {},
+                    {tech: 'Guilds'},
+                    {tech: 'Coinage'},
+                    {},
+                    {},
+                    {tech: 'CropRotation'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'ImperialAge'},
+                    {},
+                    {},
+                    {tech: 'Banking'},
+                    {},
+                    {},
+                    {},
+                ],
+            },
+        );
+        rows.push(
+            {
+                title: ''
+            },
+            {
+                items: [
+                    {},
+                    {building: hasMuleCart ? 'MuleCart' : 'LumberCamp'},
+                    ...(hasMuleCart ? [] : [{}]),
+                    ...(hasMuleCart ? [{}] : [{building: 'MiningCamp'}]),
+                    {},
+                    {},
+                    ...(hasMuleCart ? [{building: 'LumberCamp'}] : [{building: 'MuleCart'}]),
+                    ...(hasMuleCart ? [{building: 'MiningCamp'}] : [{}]),
+                ],
+            } as any,
+            {
+                items: [
+                    {age: 'DarkAge'},
+                    {tech: 'DoubleBitAxe'},
+                    ...(hasMuleCart ? [] : [{}]),
+                    {tech: 'GoldMining'},
+                    {tech: 'StoneMining'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'FeudalAge'},
+                    {tech: 'BowSaw'},
+                    ...(hasMuleCart ? [] : [{}]),
+                    {tech: 'GoldShaftMining'},
+                    {tech: 'StoneShaftMining'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'CastleAge'},
+                    {tech: 'TwoManSaw'},
+                ],
+            },
+        );
+        rows.push(
+            {
+                title: ''
+            },
+            {
+                items: [
+                    {},
+                    {building: 'TownCenter'},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {building: 'House'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'DarkAge'},
+                    {unit: 'Villager'},
+                    {tech: 'Loom'},
+                    {tech: 'Wheelbarrow'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'FeudalAge'},
+                    {},
+                    {},
+                    {tech: 'HandCart'},
+                    {tech: 'TownWatch'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'CastleAge'},
+                    {},
+                    {},
+                    {},
+                    {tech: 'TownPatrol'},
+                ],
+            },
+        );
+    } else {
+        rows.push(
+            {
+                title: ''
+            },
+            {
+                items: [
+                    {},
+                    {building: 'Market'},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {building: 'Mill'},
+                    {building: 'Folwark'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'FeudalAge'},
+                    {unit: 'TradeCart'},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {tech: 'HorseCollar'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'CastleAge'},
+                    {},
+                    {tech: 'Caravan'},
+                    {tech: 'Coinage'},
+                    {},
+                    {},
+                    {tech: 'HeavyPlow'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'ImperialAge'},
+                    {},
+                    {tech: 'Guilds'},
+                    {tech: 'Banking'},
+                    {},
+                    {},
+                    {tech: 'CropRotation'},
+                ],
+            },
+        );
+        rows.push(
+            {
+                title: ''
+            },
+            {
+                items: [
+                    {},
+                    {building: hasMuleCart ? 'MuleCart' : 'LumberCamp'},
+                    ...(hasMuleCart ? [] : [{}]),
+                    ...(hasMuleCart ? [{}] : [{building: 'MiningCamp'}]),
+                    {},
+                    {},
+                    ...(hasMuleCart ? [{building: 'LumberCamp'}] : [{building: 'MuleCart'}]),
+                    ...(hasMuleCart ? [{building: 'MiningCamp'}] : [{}]),
+                ],
+            } as any,
+            {
+                items: [
+                    {age: 'FeudalAge'},
+                    {tech: 'DoubleBitAxe'},
+                    ...(hasMuleCart ? [] : [{}]),
+                    {tech: 'GoldMining'},
+                    {tech: 'StoneMining'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'CastleAge'},
+                    {tech: 'BowSaw'},
+                    ...(hasMuleCart ? [] : [{}]),
+                    {tech: 'GoldShaftMining'},
+                    {tech: 'StoneShaftMining'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'ImperialAge'},
+                    {tech: 'TwoManSaw'},
+                ],
+            },
+        );
+        rows.push(
+            {
+                title: ''
+            },
+            {
+                items: [
+                    {},
+                    {building: 'TownCenter'},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {building: 'House'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'DarkAge'},
+                    {unit: 'Villager'},
+                    {tech: 'Loom'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'FeudalAge'},
+                    {},
+                    {},
+                    {tech: 'Wheelbarrow'},
+                    {tech: 'TownWatch'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'CastleAge'},
+                    {},
+                    {},
+                    {tech: 'HandCart'},
+                    {tech: 'TownPatrol'},
+                ],
+            },
+        );
+    }
 
-        {
-            title: ''
-        },
-        {
-            items: [
-                {},
-                {building: hasMuleCart ? 'MuleCart' : 'LumberCamp'},
-                ...(hasMuleCart ? [] : [{}]),
-                ...(hasMuleCart ? [{}] : [{building: 'MiningCamp'}]),
-                {},
-                {},
-                ...(hasMuleCart ? [{building: 'LumberCamp'}] : [{building: 'MuleCart'}]),
-                ...(hasMuleCart ? [{building: 'MiningCamp'}] : [{}]),
-            ],
-        },
-        {
-            items: [
-                {age: 'FeudalAge'},
-                {tech: 'DoubleBitAxe'},
-                ...(hasMuleCart ? [] : [{}]),
-                {tech: 'GoldMining'},
-                {tech: 'StoneMining'},
-            ],
-        },
-        {
-            items: [
-                {age: 'CastleAge'},
-                {tech: 'BowSaw'},
-                ...(hasMuleCart ? [] : [{}]),
-                {tech: 'GoldShaftMining'},
-                {tech: 'StoneShaftMining'},
-            ],
-        },
-        {
-            items: [
-                {age: 'ImperialAge'},
-                {tech: 'TwoManSaw'},
-            ],
-        },
-
-
-        {
-            title: ''
-        },
-        {
-            items: [
-                {},
-                {building: 'TownCenter'},
-                {},
-                {},
-                {},
-                {},
-                {building: 'House'},
-            ],
-        },
-        {
-            items: [
-                {age: 'DarkAge'},
-                {unit: 'Villager'},
-                {tech: 'Loom'},
-            ],
-        },
-        {
-            items: [
-                {age: 'FeudalAge'},
-                {},
-                {},
-                {tech: 'Wheelbarrow'},
-                {tech: 'TownWatch'},
-            ],
-        },
-        {
-            items: [
-                {age: 'CastleAge'},
-                {},
-                {},
-                {tech: 'HandCart'},
-                {tech: 'TownPatrol'},
-            ],
-        },
-
-
+    rows.push(
         {
             title: ''
         },
@@ -855,8 +1043,9 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {building: 'BombardTower'},
             ],
         },
+    );
 
-
+    rows.push(
         {
             title: ''
         },
@@ -870,5 +1059,6 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {building: 'Caravanserai'},
             ],
         },
-    ];
+    );
+    return rows;
 }
