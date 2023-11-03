@@ -71,6 +71,56 @@ const techEffectDictInternal = {
 
     // For Buildings
 
+
+    'TreadmillCrane-Georgians': {
+        tech: 'TreadmillCrane',
+        civ: 'Georgians',
+        effect: {
+            other: '+20% construction speed',
+        },
+    },
+    'Architecture-Georgians': {
+        tech: 'Architecture',
+        civ: 'Georgians',
+        effect: {
+            hitPoints: '+10%',
+            armor: '+1/+1, +3 building armor',
+        },
+    },
+
+    'Fletching-FortifiedChurch': {
+        tech: 'Fletching',
+        effect: {
+            attack: '+1',
+        },
+    },
+    'BodkinArrow-FortifiedChurch': {
+        tech: 'BodkinArrow',
+        effect: {
+            attack: '+1',
+        },
+    },
+    'Bracer-FortifiedChurch': {
+        tech: 'Bracer',
+        effect: {
+            attack: '+1',
+        },
+    },
+
+    'SvanTowers-Tower': {
+        tech: 'SvanTowers',
+        civ: 'Georgians',
+        effect: {
+            attack: '+2, enables pass-through damage',
+        },
+    },
+    'SvanTowers': {
+        tech: 'SvanTowers',
+        civ: 'Georgians',
+        effect: {
+            attack: '+2',
+        },
+    },
     'Atheism': {
         tech: 'Atheism',
         civ: 'Huns',
@@ -158,7 +208,7 @@ const techEffectDictInternal = {
             creationSpeed: '+100%',
         },
     },
-    'TimuridSiegecraft': {
+    'TimuridSiegecraft-Castle': {
         tech: 'TimuridSiegecraft',
         civ: 'Tatars',
         effect: {
@@ -329,10 +379,47 @@ const techEffectDictInternal = {
 
     // For Units
 
+    'CilicianFleet-BlastRadius': {
+        tech: 'CilicianFleet',
+        civ: 'Armenians',
+        effect: {
+            attack: '+33% blast radius',
+        },
+    },
+    'CilicianFleet-Range': {
+        tech: 'CilicianFleet',
+        civ: 'Armenians',
+        effect: {
+            range: '+1',
+        },
+    },
+
+    'Fereters-HP': {
+        tech: 'Fereters',
+        civ: 'Armenians',
+        effect: {
+            hitPoints: '+30',
+        },
+    },
+
+    'AznauriCavalry': {
+        tech: 'AznauriCavalry',
+        civ: 'Georgians',
+        effect: {
+            other: '-15% population space',
+        },
+    },
+    'Fereters': {
+        tech: 'Fereters',
+        effect: {
+            hitPoints: '+30',
+            other: '+100% heal speed',
+        },
+    },
     'Centurion': {
         unit: 'Centurion',
         effect: {
-            other:  '+10% (+15%) movement speed and +25% (+33%) attack speed within 10 (12) tiles radius of a (Elite) Centurion',
+            other: '+10% (+15%) movement speed and +20% attack speed within 10 (12) tiles radius of a (Elite) Centurion',
         },
     },
     'Comitatenses': {
@@ -486,6 +573,18 @@ const techEffectDictInternal = {
     //         sight: '+2',
     //     },
     // },
+    'Wheelbarrow-Speed': {
+        tech: 'Wheelbarrow',
+        effect: {
+            speed: '+10%',
+        },
+    },
+    'HandCart-Speed': {
+        tech: 'HandCart',
+        effect: {
+            speed: '+10%',
+        },
+    },
     'Wheelbarrow': {
         tech: 'Wheelbarrow',
         effect: {
@@ -979,13 +1078,6 @@ const techEffectDictInternal = {
             other: 'generates gold when killing Villagers, trade units, and Monks',
         },
     },
-    'Perfusion': {
-        tech: 'Perfusion',
-        civ: 'Goths',
-        effect: {
-            creationSpeed: '+100%',
-        },
-    },
     'Supplies': {
         tech: 'Supplies',
         effect: {
@@ -1006,11 +1098,12 @@ const techEffectDictInternal = {
             other: 'allows creation at Stables',
         },
     },
-    'Mahouts': {
-        tech: 'Mahouts',
+    'Citadels': {
+        tech: 'Citadels',
         civ: 'Persians',
         effect: {
-            speed: '+30%',
+            attack: '+4 attack, +3 against rams, +3 against infantry',
+            other: 'receive -25% bonus damage',
         },
     },
     'Logistica': {
@@ -1048,11 +1141,11 @@ const techEffectDictInternal = {
             armor: '+1/+2',
         },
     },
-    'Zealotry': {
-        tech: 'Zealotry',
+    'Bimaristan': {
+        tech: 'Bimaristan',
         civ: 'Saracens',
         effect: {
-            hitPoints: '+20',
+            other: 'monks automatically heal multiple nearby units',
         },
     },
     'Farimba': {
@@ -1513,6 +1606,30 @@ function addNameToTechEffectDict(dict: ITechEffectDict): ITechEffectDict {
 export const techEffectDict = addNameToTechEffectDict(techEffectDictInternal as any) as ITechEffectDict;
 
 export const techList: ITech[] = [
+    {
+        "dataId": "922",
+        "name": "CilicianFleet",
+        "civ": "Armenians",
+        "age": 'Castle',
+    },
+    {
+        "dataId": "921",
+        "name": "Fereters",
+        "civ": "Armenians",
+        "age": 'Castle',
+    },
+    {
+        "dataId": "923",
+        "name": "SvanTowers",
+        "civ": "Georgians",
+        "age": 'Castle',
+    },
+    {
+        "dataId": "924",
+        "name": "AznauriCavalry",
+        "civ": "Georgians",
+        "age": 'Castle',
+    },
     {
         "dataId": "883",
         "name": "Ballistas",
@@ -2092,7 +2209,7 @@ export const techList: ITech[] = [
     },
     {
         "dataId": "7",
-        "name": "Mahouts",
+        "name": "Citadels",
         "civ": "Persians",
         "age": 'Imperial',
     },
@@ -2121,10 +2238,10 @@ export const techList: ITech[] = [
         "age": 'Castle',
     },
     {
-        "dataId": "9",
-        "name": "Zealotry",
+        "dataId": "28",
+        "name": "Bimaristan",
         "civ": "Saracens",
-        "age": 'Imperial',
+        "age": 'Castle',
     },
     {
         "dataId": "577",
@@ -2586,7 +2703,11 @@ const techIds = [
     'Chieftains',
     'WagenburgTactics',
     'SzlachtaPrivileges',
+    'CilicianFleet',
+    'SvanTowers',
 
+    'Fereters',
+    'AznauriCavalry',
     'LechiticLegacy',
     'HussiteReforms',
     'GarlandWars',
@@ -2614,9 +2735,9 @@ const techIds = [
     'Farimba',
     'ElDorado',
     'Drill',
-    'Mahouts',
+    'Citadels',
     'Arquebus',
-    'Zealotry',
+    'Bimaristan',
     'Druzhina',
     'Supremacy',
     'TimuridSiegecraft',

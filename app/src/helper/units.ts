@@ -51,6 +51,10 @@ const unitIcons: UnitIconDict = {
     'SiegeElephant': require('../../assets/units/SiegeElephant.png'),
     'Ratha': require('../../assets/units/Ratha.png'),
 
+    'Savar': require('../../../app/assets/units/Savar.png'),
+    'CompositeBowman': require('../../../app/assets/units/CompositeBowman.png'),
+    'Monaspa': require('../../../app/assets/units/Monaspa.png'),
+    'WarriorPriest': require('../../../app/assets/units/WarriorPriest.png'),
     'Obuch': require('../../../app/assets/units/Obuch.png'),
     'HussiteWagon': require('../../../app/assets/units/HussiteWagon.png'),
     'Houfnice': require('../../../app/assets/units/Houfnice.png'),

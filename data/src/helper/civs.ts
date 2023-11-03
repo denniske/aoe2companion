@@ -18,6 +18,11 @@ export interface ICivEntry {
 
 export const civList: ICivEntry[] = [
     {
+        name: 'Armenians',
+        uniqueUnits: ['CompositeBowman', 'WarriorPriest'],
+        uniqueTechs: ['CilicianFleet', 'Fereters'],
+    },
+    {
         name: 'Aztecs',
         uniqueUnits: ['JaguarWarrior'],
         uniqueTechs: ['Atlatl', 'GarlandWars'],
@@ -98,6 +103,11 @@ export const civList: ICivEntry[] = [
         uniqueTechs: ['BeardedAxe', 'Chivalry'],
     },
     {
+        name: 'Georgians',
+        uniqueUnits: ['Monaspa'],
+        uniqueTechs: ['SvanTowers', 'AznauriCavalry'],
+    },
+    {
         name: 'Goths',
         uniqueUnits: ['Huskarl'],
         uniqueTechs: ['Anarchy', 'Perfusion'],
@@ -170,7 +180,7 @@ export const civList: ICivEntry[] = [
     {
         name: 'Persians',
         uniqueUnits: ['WarElephant'],
-        uniqueTechs: ['Kamandaran', 'Mahouts'],
+        uniqueTechs: ['Kamandaran', 'Citadels'],
     },
     {
         name: 'Poles',
@@ -190,7 +200,7 @@ export const civList: ICivEntry[] = [
     {
         name: 'Saracens',
         uniqueUnits: ['Mameluke'],
-        uniqueTechs: ['Zealotry', 'Counterweights'],
+        uniqueTechs: ['Bimaristan', 'Counterweights'],
     },
     {
         name: 'Sicilians',

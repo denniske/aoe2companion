@@ -1,6 +1,7 @@
 declare var require: any
 
 export const civsData = [
+    'Armenians',
     'Aztecs',
     'Bengalis',
     'Berbers',
@@ -16,6 +17,7 @@ export const civsData = [
     'Dravidians',
     'Ethiopians',
     'Franks',
+    'Georgians',
     'Goths',
     'Gurjaras',
     'Huns',
@@ -50,6 +52,7 @@ export const civsData = [
 export const civsAoeNetData = civsData;
 
 export const civIconListData: Record<string, any> = {
+    'Armenians': require('../../../app/assets/civilizations/de/armenians.png'),
     'Aztecs': require('../../../app/assets/civilizations/de/aztecs.png'),
     'Bengalis': require('../../../app/assets/civilizations/de/bengalis.png'),
     'Berbers': require('../../../app/assets/civilizations/de/berber.png'),
@@ -65,6 +68,7 @@ export const civIconListData: Record<string, any> = {
     'Dravidians': require('../../../app/assets/civilizations/de/dravidians.png'),
     'Ethiopians': require('../../../app/assets/civilizations/de/ethiopians.png'),
     'Franks': require('../../../app/assets/civilizations/de/franks.png'),
+    'Georgians': require('../../../app/assets/civilizations/de/georgians.png'),
     'Goths': require('../../../app/assets/civilizations/de/goths.png'),
     'Gurjaras': require('../../../app/assets/civilizations/de/gurjaras.png'),
     'Huns': require('../../../app/assets/civilizations/de/huns.png'),
@@ -97,6 +101,7 @@ export const civIconListData: Record<string, any> = {
 };
 
 export const civEnumListData: Record<string, any> = {
+    'armenians': 'Armenians',
     'aztecs': 'Aztecs',
     'bengalis': 'Bengalis',
     'berbers': 'Berbers',
@@ -112,6 +117,7 @@ export const civEnumListData: Record<string, any> = {
     'dravidians': 'Dravidians',
     'ethiopians': 'Ethiopians',
     'franks': 'Franks',
+    'georgians': 'Georgians',
     'goths': 'Goths',
     'gurjaras': 'Gurjaras',
     'huns': 'Huns',

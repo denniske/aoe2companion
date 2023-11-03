@@ -3,6 +3,7 @@ import {ICivEntry} from './civs';
 import {IUnitLine, Unit} from './units';
 
 export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITechTreeRow[] {
+    const hasMuleCart = civInfo.name === 'Armenians' || civInfo.name === 'Georgians';
     return [
         {
             title: ''
@@ -157,59 +158,126 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
             ],
         }]),
 
-        {
-            title: ''
-        },
-        {
-            items: [
-                {},
-                {building: 'Barracks'},
-            ],
-        },
-        {
-            items: [
-                {age: 'DarkAge'},
-                {unit: 'Militia'},
-            ],
-        },
-        {
-            items: [
-                {age: 'FeudalAge'},
-                {unit: 'ManAtArms'},
-                {unit: 'Spearman'},
-                {unit: 'EagleScout'},
-                {},
-                {tech: 'Supplies'},
-            ],
-        },
-        {
-            items: [
-                {age: 'CastleAge'},
-                {unit: 'LongSwordsman'},
-                {unit: 'Pikeman'},
-                {unit: 'EagleWarrior'},
-                {},
-                {tech: 'Gambesons'},
-                {tech: 'Squires'},
-                {tech: 'Arson'},
-            ],
-        },
-        {
-            items: [
-                {age: 'ImperialAge'},
-                ...(civInfo.name !== 'Romans' ? [{unit: 'TwoHandedSwordsman' as Unit}] : [{unit: 'Legionary' as Unit, unique: true}]),
-                {unit: 'Halberdier'},
-                {unit: 'EliteEagleWarrior'},
-                {unit: 'Condottiero', unique: true},
-                {unit: 'FlemishMilitia', unique: true},
-            ],
-        },
-        {
-            items: [
-                {},
-                ...(civInfo.name !== 'Romans' ? [{unit: 'Champion' as Unit}] : [{}]),
-            ],
-        },
+
+        ...(civInfo.name === 'Persians' ? [
+
+            {
+                title: ''
+            },
+            {
+                items: [
+                    {},
+                    {building: 'Barracks'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'DarkAge'},
+                    {unit: 'Militia'},
+                    {unit: 'Spearman'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'FeudalAge'},
+                    {unit: 'ManAtArms'},
+                    {unit: 'Pikeman'},
+                    {unit: 'EagleScout'},
+                    {},
+                    {tech: 'Supplies'},
+                ],
+            },
+            {
+                items: [
+                    {},
+                    {unit: 'LongSwordsman'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'CastleAge'},
+                    {unit: 'TwoHandedSwordsman'},
+                    {unit: 'Halberdier'},
+                    {unit: 'EagleWarrior'},
+                    {},
+                    {tech: 'Gambesons'},
+                    {tech: 'Squires'},
+                    {tech: 'Arson'},
+                ],
+            },
+            {
+                items: [
+                    {},
+                    {unit: 'Champion'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'ImperialAge'},
+                    {},
+                    {},
+                    {unit: 'EliteEagleWarrior'},
+                    {unit: 'Condottiero', unique: true},
+                    {unit: 'FlemishMilitia', unique: true},
+                ],
+            },
+        ] : [
+
+            {
+                title: ''
+            },
+            {
+                items: [
+                    {},
+                    {building: 'Barracks'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'DarkAge'},
+                    {unit: 'Militia'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'FeudalAge'},
+                    {unit: 'ManAtArms'},
+                    {unit: 'Spearman'},
+                    {unit: 'EagleScout'},
+                    {},
+                    {tech: 'Supplies'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'CastleAge'},
+                    {unit: 'LongSwordsman'},
+                    {unit: 'Pikeman'},
+                    {unit: 'EagleWarrior'},
+                    {},
+                    {tech: 'Gambesons'},
+                    {tech: 'Squires'},
+                    {tech: 'Arson'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'ImperialAge'},
+                    ...(civInfo.name !== 'Romans' ? [{unit: 'TwoHandedSwordsman' as Unit}] : [{unit: 'Legionary' as Unit, unique: true}]),
+                    {unit: 'Halberdier'},
+                    {unit: 'EliteEagleWarrior'},
+                    {unit: 'Condottiero', unique: true},
+                    {unit: 'FlemishMilitia', unique: true},
+                ],
+            },
+            {
+                items: [
+                    {},
+                    ...(civInfo.name !== 'Romans' ? [{unit: 'Champion' as Unit}] : [{}]),
+                ],
+            },
+        ]),
+
 
         {
             title: ''
@@ -269,6 +337,14 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {},
             ],
         },
+        {
+            items: [
+                {},
+                {},
+                ...(civInfo.name === 'Gurjaras' ? [{}] : []),
+                {unit: 'Savar'},
+            ],
+        },
 
         {
             title: ''
@@ -297,7 +373,6 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {unit: 'ElephantArcher'},
                 {unit: 'Genitour', unique: true},
                 {unit: 'Slinger', unique: true},
-                {tech: 'ThumbRing'},
             ],
         },
         {
@@ -309,9 +384,50 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {unit: 'EliteElephantArcher'},
                 {unit: 'EliteGenitour', unique: true},
                 {unit: 'HandCannoneer'},
-                {tech: 'ParthianTactics'},
             ],
         },
+
+        ...(civInfo.name === 'Persians' ? [
+            {
+                title: ''
+            },
+            {
+                items: [
+                    {},
+                    {building: 'ArcheryRange'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'CastleAge'},
+                    {tech: 'ThumbRing'},
+                    {tech: 'ParthianTactics'},
+                ],
+            },
+        ] : [
+
+            {
+                title: ''
+            },
+            {
+                items: [
+                    {},
+                    {building: 'ArcheryRange'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'CastleAge'},
+                    {tech: 'ThumbRing'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'ImperialAge'},
+                    {tech: 'ParthianTactics'},
+                ],
+            },
+        ]),
 
 
         {
@@ -473,13 +589,34 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {},
-                {building: 'Monastery'},
+                {building: hasMuleCart ? 'FortifiedChurch' : 'Monastery'},
+                // {building: 'Monastery'},
+                // {building: 'FortifiedChurch'},
             ],
         },
         {
             items: [
                 {age: 'CastleAge'},
                 {unit: 'Monk'},
+                {unit: 'WarriorPriest'},
+                {unit: 'Missionary'},
+            ],
+        },
+
+        {
+            title: ''
+        },
+        {
+            items: [
+                {},
+                {building: hasMuleCart ? 'FortifiedChurch' : 'Monastery'},
+                // {building: 'Monastery'},
+                // {building: 'FortifiedChurch'},
+            ],
+        },
+        {
+            items: [
+                {age: 'CastleAge'},
                 {tech: 'Redemption'},
                 {tech: 'Atonement'},
                 {tech: 'HerbalMedicine'},
@@ -491,7 +628,6 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {age: 'ImperialAge'},
-                {unit: 'Missionary', unique: true},
                 {tech: 'Faith'},
                 {tech: 'Illumination'},
                 {tech: 'BlockPrinting'},
@@ -552,12 +688,23 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
             items: [
                 {},
                 {building: 'Market'},
+                {},
+                {},
+                {},
+                {},
+                {building: 'Mill'},
+                {building: 'Folwark'},
             ],
         },
         {
             items: [
                 {age: 'FeudalAge'},
                 {unit: 'TradeCart'},
+                {},
+                {},
+                {},
+                {},
+                {tech: 'HorseCollar'},
             ],
         },
         {
@@ -566,6 +713,9 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {},
                 {tech: 'Caravan'},
                 {tech: 'Coinage'},
+                {},
+                {},
+                {tech: 'HeavyPlow'},
             ],
         },
         {
@@ -576,6 +726,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {tech: 'Banking'},
                 {tech: 'Guilds'},
                 {},
+                {tech: 'CropRotation'},
             ],
         },
 
@@ -585,22 +736,20 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {},
-                {building: 'Mill'},
-                {building: 'Folwark'},
+                {building: hasMuleCart ? 'MuleCart' : 'LumberCamp'},
+                ...(hasMuleCart ? [] : [{}]),
+                ...(hasMuleCart ? [{}] : [{building: 'MiningCamp'}]),
                 {},
-                {building: 'LumberCamp'},
                 {},
-                {building: 'MiningCamp'},
+                ...(hasMuleCart ? [{building: 'LumberCamp'}] : [{building: 'MuleCart'}]),
+                ...(hasMuleCart ? [{building: 'MiningCamp'}] : [{}]),
             ],
         },
         {
             items: [
                 {age: 'FeudalAge'},
-                {tech: 'HorseCollar'},
-                {},
-                {},
                 {tech: 'DoubleBitAxe'},
-                {},
+                ...(hasMuleCart ? [] : [{}]),
                 {tech: 'GoldMining'},
                 {tech: 'StoneMining'},
             ],
@@ -608,11 +757,8 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {age: 'CastleAge'},
-                {tech: 'HeavyPlow'},
-                {},
-                {},
                 {tech: 'BowSaw'},
-                {},
+                ...(hasMuleCart ? [] : [{}]),
                 {tech: 'GoldShaftMining'},
                 {tech: 'StoneShaftMining'},
             ],
@@ -620,9 +766,6 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {age: 'ImperialAge'},
-                {tech: 'CropRotation'},
-                {},
-                {},
                 {tech: 'TwoManSaw'},
             ],
         },

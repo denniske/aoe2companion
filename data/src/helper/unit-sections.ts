@@ -88,6 +88,7 @@ const unitSections: IUnitSection[] = [
                 'DemolitionRaft',
                 'CannonGalleon',
                 'Caravel',
+                'Dromon',
                 'Longboat',
                 'TurtleShip',
                 'Thirisadai',

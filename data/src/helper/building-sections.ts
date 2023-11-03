@@ -53,6 +53,7 @@ export const buildingSections: IBuildingSection[] = [
             "Farm",
             "LumberCamp",
             "MiningCamp",
+            "MuleCart",
         ],
     },
     {
@@ -63,6 +64,7 @@ export const buildingSections: IBuildingSection[] = [
             "Blacksmith",
             "Market",
             "Monastery",
+            "FortifiedChurch",
             "University",
         ],
     },

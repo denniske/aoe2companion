@@ -60,6 +60,8 @@ export const buildingLineIds = [
     'BombardTower',
 
     'Wonder',
+    'FortifiedChurch',
+    'MuleCart',
 ];
 
 const BuildingLineUnion = unwrap(buildingLineIds);
@@ -344,6 +346,7 @@ export const buildingLines: IBuildingLineDict = {
             'HeatedShot',
             'Yeomen',
             'Yasama',
+            'SvanTowers-Tower',
             'Eupseong',
             'MurderHoles',
             'Stronghold',
@@ -399,6 +402,7 @@ export const buildingLines: IBuildingLineDict = {
             'Bracer',
             'Chemistry',
             'HeatedShot',
+            'SvanTowers',
             'MurderHoles',
             'Crenellations',
             'Stronghold',
@@ -412,7 +416,8 @@ export const buildingLines: IBuildingLineDict = {
             'CumanMercenaries',
             'Detinets',
             'Stronghold-Castle',
-            'TimuridSiegecraft',
+            'TimuridSiegecraft-Castle',
+            'Citadels',
         ],
     },
     'Donjon': {
@@ -488,6 +493,38 @@ export const buildingLines: IBuildingLineDict = {
             'TreadmillCrane',
         ],
     },
+    'FortifiedChurch': {
+        buildings: ['FortifiedChurch'],
+        upgrades: [
+            'Masonry',
+            'Architecture-Georgians',
+            'Fletching-FortifiedChurch',
+            'BodkinArrow-FortifiedChurch',
+            'Bracer-FortifiedChurch',
+            'Chemistry',
+            'SvanTowers',
+            'MurderHoles',
+            'Ballistics',
+            'TownWatch',
+            'TownPatrol',
+            'TreadmillCrane-Georgians',
+            'HerbalMedicine',
+        ],
+    },
+    'MuleCart': {
+        buildings: ['MuleCart'],
+        upgrades: [
+            'Masonry',
+            'Architecture-Georgians',
+            'TownWatch',
+            'TownPatrol',
+            'Faith',
+            'Heresy',
+            'Wheelbarrow-Speed',
+            'HandCart-Speed',
+            'TreadmillCrane-Georgians',
+        ],
+    },
 };
 
 
@@ -514,6 +551,14 @@ interface IBuildingDict {
 }
 
 export const buildingDefList: IBuilding[] = [
+    {
+        "dataId": "1806",
+        "name": "FortifiedChurch",
+    },
+    {
+        "dataId": "1808",
+        "name": "MuleCart",
+    },
     {
         "dataId": "1189",
         "name": "Harbor",
@@ -694,6 +739,8 @@ const buildingIds = [
     'University',
     'WatchTower',
     'Wonder',
+    'FortifiedChurch',
+    'MuleCart',
 ] as const;
 
 const BuildingUnion = unwrap(buildingIds);

@@ -48,6 +48,9 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
     const unitIndex = unitLine.units.indexOf(unitId);
 
     let upgradedFrom = unitIndex > 0 ? unitLine.units[unitIndex-1] : null;
+    if (unitId === 'Savar') {
+        upgradedFrom = 'Cavalier' as Unit;
+    }
     if (unitId === 'WingedHussar') {
         upgradedFrom = 'LightCavalry' as Unit;
     }
@@ -57,6 +60,12 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
 
 
     let upgradedToList = unitIndex < unitLine.units.length-1 ? [unitLine.units[unitIndex+1]] : [];
+    if (unitId === 'Cavalier') {
+        upgradedToList = ['Paladin', 'Savar'];
+    }
+    if (unitId === 'Paladin') {
+        upgradedToList = [];
+    }
     if (unitId === 'LightCavalry') {
         upgradedToList = ['Hussar', 'WingedHussar'];
     }

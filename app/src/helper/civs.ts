@@ -5,6 +5,7 @@ import {civIconListData} from "@nex/dataset";
 export const civIconList = civIconListData;
 
 export const civHistoryList = [
+    require('../../../app/assets/history/civs/history_armenians.png'),
     require('../../../app/assets/history/civs/history_aztecs.png'),
     require('../../../app/assets/history/civs/history_bengalis.png'),
     require('../../../app/assets/history/civs/history_berbers.png'),
@@ -20,6 +21,7 @@ export const civHistoryList = [
     require('../../../app/assets/history/civs/history_dravidians.png'),
     require('../../../app/assets/history/civs/history_ethiopians.png'),
     require('../../../app/assets/history/civs/history_franks.png'),
+    require('../../../app/assets/history/civs/history_georgians.png'),
     require('../../../app/assets/history/civs/history_goths.png'),
     require('../../../app/assets/history/civs/history_gurjaras.png'),
     require('../../../app/assets/history/civs/history_huns.png'),

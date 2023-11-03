@@ -150,6 +150,8 @@ export function getCompactTechTree(civInfo: ICivEntry): ITechTreeRow[] {
         {
             items: [
                 {unit: 'WingedHussar'},
+                ...(civInfo.name === 'Gurjaras' ? [{}] : []),
+                {unit: 'Savar'},
             ],
         },
 

@@ -6,6 +6,7 @@ export const aoeDataInternal = {
         "Imperial Age": "4204"
     },
     "civ_helptexts": {
+        "Armenians": "120193",
         "Aztecs": "120164",
         "Bengalis": "120190",
         "Berbers": "120176",
@@ -21,6 +22,7 @@ export const aoeDataInternal = {
         "Dravidians": "120189",
         "Ethiopians": "120174",
         "Franks": "120151",
+        "Georgians": "120194",
         "Goths": "120152",
         "Gurjaras": "120191",
         "Hindustanis": "120169",
@@ -51,6 +53,7 @@ export const aoeDataInternal = {
         "Vikings": "120160"
     },
     "civ_names": {
+        "Armenians": "10314",
         "Aztecs": "10285",
         "Bengalis": "10311",
         "Berbers": "10297",
@@ -66,6 +69,7 @@ export const aoeDataInternal = {
         "Dravidians": "10310",
         "Ethiopians": "10295",
         "Franks": "10272",
+        "Georgians": "10315",
         "Goths": "10273",
         "Gurjaras": "10312",
         "Hindustanis": "10290",
@@ -577,6 +581,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 34
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 1
                     }
                 ],
                 "Cost": {
@@ -1917,6 +1925,102 @@ export const aoeDataInternal = {
                 "ReloadTime": 2.5,
                 "TrainTime": 60,
                 "internal_name": "CARAVANSERAI"
+            },
+            "1806": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 10,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 13
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 5,
+                "Attacks": [
+                    {
+                        "Amount": 5,
+                        "Class": 3
+                    }
+                ],
+                "Cost": {
+                    "Wood": 200
+                },
+                "GarrisonCapacity": 10,
+                "HP": 2400,
+                "ID": 1806,
+                "LanguageHelpId": 26038,
+                "LanguageNameId": 5038,
+                "LineOfSight": 10,
+                "MeleeArmor": 4,
+                "MinRange": 1,
+                "PierceArmor": 10,
+                "Range": 6,
+                "ReloadTime": 2,
+                "TrainTime": 40,
+                "internal_name": "FORTCRCH"
+            },
+            "1808": {
+                "AccuracyPercent": 0,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 1,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 2,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 1,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 0,
+                "Attacks": [],
+                "Cost": {
+                    "Food": 20,
+                    "Wood": 100
+                },
+                "GarrisonCapacity": 0,
+                "HP": 300,
+                "ID": 1808,
+                "LanguageHelpId": 26045,
+                "LanguageNameId": 5045,
+                "LineOfSight": 4,
+                "MeleeArmor": 1,
+                "MinRange": 0,
+                "PierceArmor": 2,
+                "Range": 0,
+                "ReloadTime": 0,
+                "TrainTime": 25,
+                "internal_name": "MULECART"
             }
         },
         "techs": {
@@ -1970,15 +2074,15 @@ export const aoeDataInternal = {
             },
             "7": {
                 "Cost": {
-                    "Food": 300,
-                    "Gold": 300
+                    "Gold": 300,
+                    "Wood": 600
                 },
                 "ID": 7,
                 "LanguageHelpId": 28423,
                 "LanguageNameId": 7423,
                 "Repeatable": true,
                 "ResearchTime": 50,
-                "internal_name": "Persian Mahouts"
+                "internal_name": "Citadels"
             },
             "8": {
                 "Cost": {
@@ -1990,18 +2094,6 @@ export const aoeDataInternal = {
                 "Repeatable": false,
                 "ResearchTime": 25,
                 "internal_name": "Town Watch"
-            },
-            "9": {
-                "Cost": {
-                    "Food": 400,
-                    "Gold": 400
-                },
-                "ID": 9,
-                "LanguageHelpId": 28424,
-                "LanguageNameId": 7424,
-                "Repeatable": true,
-                "ResearchTime": 50,
-                "internal_name": "Saracen Zealotry"
             },
             "10": {
                 "Cost": {
@@ -2157,6 +2249,18 @@ export const aoeDataInternal = {
                 "Repeatable": true,
                 "ResearchTime": 60,
                 "internal_name": "Aztec Garland Wars"
+            },
+            "28": {
+                "Cost": {
+                    "Gold": 200,
+                    "Wood": 300
+                },
+                "ID": 28,
+                "LanguageHelpId": 28451,
+                "LanguageNameId": 7451,
+                "Repeatable": true,
+                "ResearchTime": 50,
+                "internal_name": "Bimaristan"
             },
             "39": {
                 "Cost": {
@@ -3874,6 +3978,54 @@ export const aoeDataInternal = {
                 "Repeatable": true,
                 "ResearchTime": 60,
                 "internal_name": "Comitatenses"
+            },
+            "921": {
+                "Cost": {
+                    "Food": 550,
+                    "Gold": 400
+                },
+                "ID": 921,
+                "LanguageHelpId": 28406,
+                "LanguageNameId": 7406,
+                "Repeatable": true,
+                "ResearchTime": 45,
+                "internal_name": "Fereters"
+            },
+            "922": {
+                "Cost": {
+                    "Gold": 300,
+                    "Wood": 350
+                },
+                "ID": 922,
+                "LanguageHelpId": 28407,
+                "LanguageNameId": 7407,
+                "Repeatable": true,
+                "ResearchTime": 45,
+                "internal_name": "Cilician Fleet"
+            },
+            "923": {
+                "Cost": {
+                    "Food": 300,
+                    "Gold": 200
+                },
+                "ID": 923,
+                "LanguageHelpId": 28440,
+                "LanguageNameId": 7440,
+                "Repeatable": true,
+                "ResearchTime": 45,
+                "internal_name": "Svan Towers"
+            },
+            "924": {
+                "Cost": {
+                    "Food": 750,
+                    "Gold": 250
+                },
+                "ID": 924,
+                "LanguageHelpId": 28441,
+                "LanguageNameId": 7441,
+                "Repeatable": false,
+                "ResearchTime": 45,
+                "internal_name": "Aznauri Cavalry"
             }
         },
         "unit_upgrades": {
@@ -3882,7 +4034,7 @@ export const aoeDataInternal = {
                     "Gold": 130,
                     "Wood": 230
                 },
-                "ID": 901,
+                "ID": 98,
                 "ResearchTime": 50,
                 "internal_name": "Elite Skirmisher"
             },
@@ -3891,7 +4043,7 @@ export const aoeDataInternal = {
                     "Food": 230,
                     "Gold": 100
                 },
-                "ID": 901,
+                "ID": 34,
                 "ResearchTime": 50,
                 "internal_name": "War Galley"
             },
@@ -3900,7 +4052,7 @@ export const aoeDataInternal = {
                     "Food": 175,
                     "Gold": 125
                 },
-                "ID": 901,
+                "ID": 100,
                 "ResearchTime": 35,
                 "internal_name": "Crossbow"
             },
@@ -3909,7 +4061,7 @@ export const aoeDataInternal = {
                     "Food": 100,
                     "Gold": 40
                 },
-                "ID": 901,
+                "ID": 222,
                 "ResearchTime": 40,
                 "internal_name": "Man-At-Arms"
             },
@@ -3918,7 +4070,7 @@ export const aoeDataInternal = {
                     "Food": 150,
                     "Gold": 65
                 },
-                "ID": 901,
+                "ID": 207,
                 "ResearchTime": 40,
                 "internal_name": "Long Swordsman"
             },
@@ -3927,7 +4079,7 @@ export const aoeDataInternal = {
                     "Food": 1000,
                     "Gold": 500
                 },
-                "ID": 901,
+                "ID": 521,
                 "ResearchTime": 125,
                 "internal_name": "Heavy Camel"
             },
@@ -3936,7 +4088,7 @@ export const aoeDataInternal = {
                     "Food": 300,
                     "Gold": 300
                 },
-                "ID": 901,
+                "ID": 209,
                 "ResearchTime": 100,
                 "internal_name": "Cavalier"
             },
@@ -3945,7 +4097,7 @@ export const aoeDataInternal = {
                     "Food": 325,
                     "Gold": 360
                 },
-                "ID": 901,
+                "ID": 236,
                 "ResearchTime": 105,
                 "internal_name": "Heavy Camel"
             },
@@ -3954,7 +4106,7 @@ export const aoeDataInternal = {
                     "Food": 160,
                     "Gold": 90
                 },
-                "ID": 901,
+                "ID": 197,
                 "ResearchTime": 35,
                 "internal_name": "Pikeman"
             },
@@ -3963,13 +4115,13 @@ export const aoeDataInternal = {
                     "Food": 300,
                     "Gold": 600
                 },
-                "ID": 901,
+                "ID": 429,
                 "ResearchTime": 50,
                 "internal_name": "Halberdier"
             },
             "420": {
                 "Cost": {},
-                "ID": 901,
+                "ID": 37,
                 "ResearchTime": 0,
                 "internal_name": "Cannon Galleon"
             },
@@ -3977,7 +4129,7 @@ export const aoeDataInternal = {
                 "Cost": {
                     "Food": 300
                 },
-                "ID": 901,
+                "ID": 96,
                 "ResearchTime": 50,
                 "internal_name": "Capped Ram"
             },
@@ -3986,7 +4138,7 @@ export const aoeDataInternal = {
                     "Food": 500,
                     "Gold": 600
                 },
-                "ID": 901,
+                "ID": 428,
                 "ResearchTime": 50,
                 "internal_name": "Hussar"
             },
@@ -3995,7 +4147,7 @@ export const aoeDataInternal = {
                     "Food": 400,
                     "Wood": 315
                 },
-                "ID": 901,
+                "ID": 35,
                 "ResearchTime": 65,
                 "internal_name": "Galleon"
             },
@@ -4004,7 +4156,7 @@ export const aoeDataInternal = {
                     "Food": 300,
                     "Gold": 100
                 },
-                "ID": 901,
+                "ID": 217,
                 "ResearchTime": 60,
                 "internal_name": "Two-Handed Swordsman"
             },
@@ -4013,7 +4165,7 @@ export const aoeDataInternal = {
                     "Food": 900,
                     "Gold": 500
                 },
-                "ID": 901,
+                "ID": 218,
                 "ResearchTime": 50,
                 "internal_name": "Heavy Cavalry Archer"
             },
@@ -4022,7 +4174,7 @@ export const aoeDataInternal = {
                     "Food": 450,
                     "Gold": 400
                 },
-                "ID": 901,
+                "ID": 237,
                 "ResearchTime": 50,
                 "internal_name": "Arbalest"
             },
@@ -4031,7 +4183,7 @@ export const aoeDataInternal = {
                     "Food": 230,
                     "Gold": 100
                 },
-                "ID": 901,
+                "ID": 34,
                 "ResearchTime": 50,
                 "internal_name": "War Galley"
             },
@@ -4040,7 +4192,7 @@ export const aoeDataInternal = {
                     "Gold": 300,
                     "Wood": 200
                 },
-                "ID": 901,
+                "ID": 244,
                 "ResearchTime": 50,
                 "internal_name": "Heavy Demolition"
             },
@@ -4049,7 +4201,7 @@ export const aoeDataInternal = {
                     "Food": 230,
                     "Gold": 100
                 },
-                "ID": 901,
+                "ID": 34,
                 "ResearchTime": 50,
                 "internal_name": "War Galley"
             },
@@ -4058,7 +4210,7 @@ export const aoeDataInternal = {
                     "Food": 850,
                     "Gold": 850
                 },
-                "ID": 901,
+                "ID": 360,
                 "ResearchTime": 60,
                 "internal_name": "Elite Longbow"
             },
@@ -4067,7 +4219,7 @@ export const aoeDataInternal = {
                     "Food": 1000,
                     "Gold": 750
                 },
-                "ID": 901,
+                "ID": 363,
                 "ResearchTime": 45,
                 "internal_name": "Elite Throwing Axemen"
             },
@@ -4076,7 +4228,7 @@ export const aoeDataInternal = {
                     "Gold": 250,
                     "Wood": 280
                 },
-                "ID": 901,
+                "ID": 246,
                 "ResearchTime": 50,
                 "internal_name": "Fast Fire Ship"
             },
@@ -4085,7 +4237,7 @@ export const aoeDataInternal = {
                     "Food": 750,
                     "Gold": 475
                 },
-                "ID": 901,
+                "ID": 372,
                 "ResearchTime": 60,
                 "internal_name": "Unique Heroic Viking LBT"
             },
@@ -4094,7 +4246,7 @@ export const aoeDataInternal = {
                     "Food": 1000,
                     "Gold": 800
                 },
-                "ID": 901,
+                "ID": 370,
                 "ResearchTime": 45,
                 "internal_name": "Elite Woad Raider"
             },
@@ -4103,7 +4255,7 @@ export const aoeDataInternal = {
                     "Food": 800,
                     "Wood": 900
                 },
-                "ID": 901,
+                "ID": 239,
                 "ResearchTime": 50,
                 "internal_name": "Heavy Scorpion"
             },
@@ -4112,7 +4264,7 @@ export const aoeDataInternal = {
                     "Food": 150,
                     "Gold": 50
                 },
-                "ID": 901,
+                "ID": 254,
                 "ResearchTime": 45,
                 "internal_name": "Light Cavalry"
             },
@@ -4120,7 +4272,7 @@ export const aoeDataInternal = {
                 "Cost": {
                     "Food": 1000
                 },
-                "ID": 901,
+                "ID": 255,
                 "ResearchTime": 75,
                 "internal_name": "Siege Ram"
             },
@@ -4129,7 +4281,7 @@ export const aoeDataInternal = {
                     "Food": 800,
                     "Gold": 500
                 },
-                "ID": 901,
+                "ID": 257,
                 "ResearchTime": 75,
                 "internal_name": "Onager"
             },
@@ -4138,7 +4290,7 @@ export const aoeDataInternal = {
                     "Food": 1200,
                     "Gold": 800
                 },
-                "ID": 901,
+                "ID": 361,
                 "ResearchTime": 50,
                 "internal_name": "Elite Cataphract"
             },
@@ -4147,7 +4299,7 @@ export const aoeDataInternal = {
                     "Food": 950,
                     "Gold": 500
                 },
-                "ID": 901,
+                "ID": 364,
                 "ResearchTime": 50,
                 "internal_name": "Elite Teutonic Knight"
             },
@@ -4156,7 +4308,7 @@ export const aoeDataInternal = {
                     "Food": 1200,
                     "Gold": 550
                 },
-                "ID": 901,
+                "ID": 365,
                 "ResearchTime": 40,
                 "internal_name": "Elite Huskarl"
             },
@@ -4165,7 +4317,7 @@ export const aoeDataInternal = {
                     "Food": 600,
                     "Gold": 500
                 },
-                "ID": 901,
+                "ID": 368,
                 "ResearchTime": 50,
                 "internal_name": "Elite Mameluke"
             },
@@ -4174,16 +4326,16 @@ export const aoeDataInternal = {
                     "Food": 850,
                     "Gold": 750
                 },
-                "ID": 901,
+                "ID": 369,
                 "ResearchTime": 55,
                 "internal_name": "Elite Jannisary"
             },
             "558": {
                 "Cost": {
-                    "Food": 1600,
-                    "Gold": 1200
+                    "Food": 1350,
+                    "Gold": 800
                 },
-                "ID": 901,
+                "ID": 367,
                 "ResearchTime": 75,
                 "internal_name": "Elite War Elephant"
             },
@@ -4192,7 +4344,7 @@ export const aoeDataInternal = {
                     "Food": 950,
                     "Gold": 950
                 },
-                "ID": 901,
+                "ID": 362,
                 "ResearchTime": 50,
                 "internal_name": "Elite Chu Ko Nu"
             },
@@ -4201,7 +4353,7 @@ export const aoeDataInternal = {
                     "Food": 750,
                     "Gold": 650
                 },
-                "ID": 901,
+                "ID": 366,
                 "ResearchTime": 60,
                 "internal_name": "Elite Samurai"
             },
@@ -4210,7 +4362,7 @@ export const aoeDataInternal = {
                     "Food": 1100,
                     "Gold": 675
                 },
-                "ID": 901,
+                "ID": 371,
                 "ResearchTime": 50,
                 "internal_name": "Elite Mangudai"
             },
@@ -4219,7 +4371,7 @@ export const aoeDataInternal = {
                     "Food": 750,
                     "Gold": 350
                 },
-                "ID": 901,
+                "ID": 264,
                 "ResearchTime": 85,
                 "internal_name": "Champion"
             },
@@ -4228,7 +4380,7 @@ export const aoeDataInternal = {
                     "Food": 1300,
                     "Gold": 750
                 },
-                "ID": 901,
+                "ID": 265,
                 "ResearchTime": 170,
                 "internal_name": "Paladin"
             },
@@ -4237,7 +4389,7 @@ export const aoeDataInternal = {
                     "Food": 1450,
                     "Gold": 1000
                 },
-                "ID": 901,
+                "ID": 320,
                 "ResearchTime": 150,
                 "internal_name": "Siege Onager"
             },
@@ -4246,7 +4398,7 @@ export const aoeDataInternal = {
                     "Gold": 500,
                     "Wood": 525
                 },
-                "ID": 901,
+                "ID": 376,
                 "ResearchTime": 30,
                 "internal_name": "Elite Cannon Galley"
             },
@@ -4255,7 +4407,7 @@ export const aoeDataInternal = {
                     "Food": 1075,
                     "Gold": 475
                 },
-                "ID": 901,
+                "ID": 398,
                 "ResearchTime": 45,
                 "internal_name": "Elite Berserk"
             },
@@ -4264,7 +4416,7 @@ export const aoeDataInternal = {
                     "Food": 1000,
                     "Gold": 500
                 },
-                "ID": 901,
+                "ID": 432,
                 "ResearchTime": 45,
                 "internal_name": "Elite Jaguar Man"
             },
@@ -4273,7 +4425,7 @@ export const aoeDataInternal = {
                     "Food": 800,
                     "Gold": 500
                 },
-                "ID": 901,
+                "ID": 434,
                 "ResearchTime": 50,
                 "internal_name": "Elite Eagle Warrior"
             },
@@ -4282,7 +4434,7 @@ export const aoeDataInternal = {
                     "Food": 200,
                     "Gold": 200
                 },
-                "ID": 901,
+                "ID": 384,
                 "ResearchTime": 50,
                 "internal_name": "Heavy Eagle Warrior"
             },
@@ -4291,7 +4443,7 @@ export const aoeDataInternal = {
                     "Food": 1000,
                     "Gold": 500
                 },
-                "ID": 901,
+                "ID": 2,
                 "ResearchTime": 45,
                 "internal_name": "Elite Tarkan"
             },
@@ -4300,7 +4452,7 @@ export const aoeDataInternal = {
                     "Food": 1200,
                     "Gold": 550
                 },
-                "ID": 901,
+                "ID": 365,
                 "ResearchTime": 40,
                 "internal_name": "Elite Huskarl"
             },
@@ -4309,7 +4461,7 @@ export const aoeDataInternal = {
                     "Food": 700,
                     "Wood": 1000
                 },
-                "ID": 901,
+                "ID": 27,
                 "ResearchTime": 45,
                 "internal_name": "Elite Plumed Archer"
             },
@@ -4318,7 +4470,7 @@ export const aoeDataInternal = {
                     "Food": 1200,
                     "Gold": 600
                 },
-                "ID": 901,
+                "ID": 60,
                 "ResearchTime": 60,
                 "internal_name": "Elite Conquistador"
             },
@@ -4327,7 +4479,7 @@ export const aoeDataInternal = {
                     "Gold": 800,
                     "Wood": 1000
                 },
-                "ID": 901,
+                "ID": 450,
                 "ResearchTime": 75,
                 "internal_name": "Elite War Wagon"
             },
@@ -4336,7 +4488,7 @@ export const aoeDataInternal = {
                     "Food": 1000,
                     "Gold": 800
                 },
-                "ID": 901,
+                "ID": 448,
                 "ResearchTime": 65,
                 "internal_name": "Elite Turtle Ship"
             },
@@ -4345,7 +4497,7 @@ export const aoeDataInternal = {
                     "Food": 900,
                     "Gold": 750
                 },
-                "ID": 901,
+                "ID": 468,
                 "ResearchTime": 60,
                 "internal_name": "Elite Genoese Bow"
             },
@@ -4354,7 +4506,7 @@ export const aoeDataInternal = {
                     "Food": 800,
                     "Gold": 600
                 },
-                "ID": 901,
+                "ID": 472,
                 "ResearchTime": 60,
                 "internal_name": "Elite Magyar Huszar"
             },
@@ -4363,7 +4515,7 @@ export const aoeDataInternal = {
                     "Food": 900,
                     "Gold": 500
                 },
-                "ID": 901,
+                "ID": 481,
                 "ResearchTime": 80,
                 "internal_name": "Elite Elephant Archer"
             },
@@ -4372,7 +4524,7 @@ export const aoeDataInternal = {
                     "Food": 1000,
                     "Gold": 600
                 },
-                "ID": 901,
+                "ID": 504,
                 "ResearchTime": 60,
                 "internal_name": "Elite Siege Tower"
             },
@@ -4381,7 +4533,7 @@ export const aoeDataInternal = {
                     "Food": 900,
                     "Gold": 500
                 },
-                "ID": 901,
+                "ID": 509,
                 "ResearchTime": 45,
                 "internal_name": "Elite Kamayuk"
             },
@@ -4390,7 +4542,7 @@ export const aoeDataInternal = {
                     "Food": 1000,
                     "Gold": 500
                 },
-                "ID": 901,
+                "ID": 2,
                 "ResearchTime": 45,
                 "internal_name": "Elite Tarkan"
             },
@@ -4399,7 +4551,7 @@ export const aoeDataInternal = {
                     "Food": 1200,
                     "Gold": 500
                 },
-                "ID": 901,
+                "ID": 563,
                 "ResearchTime": 45,
                 "internal_name": "Elite Organ Gun"
             },
@@ -4408,7 +4560,7 @@ export const aoeDataInternal = {
                     "Food": 700,
                     "Gold": 525
                 },
-                "ID": 901,
+                "ID": 597,
                 "ResearchTime": 60,
                 "internal_name": "Elite Caravel"
             },
@@ -4417,7 +4569,7 @@ export const aoeDataInternal = {
                     "Gold": 500,
                     "Wood": 1000
                 },
-                "ID": 901,
+                "ID": 565,
                 "ResearchTime": 45,
                 "internal_name": "Elite Camel Archer"
             },
@@ -4426,7 +4578,7 @@ export const aoeDataInternal = {
                     "Food": 500,
                     "Wood": 450
                 },
-                "ID": 901,
+                "ID": 599,
                 "ResearchTime": 60,
                 "internal_name": "Elite Genitour"
             },
@@ -4435,7 +4587,7 @@ export const aoeDataInternal = {
                     "Food": 900,
                     "Gold": 600
                 },
-                "ID": 901,
+                "ID": 567,
                 "ResearchTime": 45,
                 "internal_name": "Elite Mali Unit"
             },
@@ -4444,7 +4596,7 @@ export const aoeDataInternal = {
                     "Food": 900,
                     "Gold": 450
                 },
-                "ID": 901,
+                "ID": 569,
                 "ResearchTime": 45,
                 "internal_name": "Elite Ethiopia Unit"
             },
@@ -4453,7 +4605,7 @@ export const aoeDataInternal = {
                     "Food": 1000,
                     "Gold": 500
                 },
-                "ID": 901,
+                "ID": 615,
                 "ResearchTime": 70,
                 "internal_name": "Elite Ballista Elephant"
             },
@@ -4462,7 +4614,7 @@ export const aoeDataInternal = {
                     "Food": 900,
                     "Gold": 600
                 },
-                "ID": 901,
+                "ID": 617,
                 "ResearchTime": 40,
                 "internal_name": "Elite Karambit Warrior"
             },
@@ -4471,7 +4623,7 @@ export const aoeDataInternal = {
                     "Food": 1000,
                     "Gold": 750
                 },
-                "ID": 901,
+                "ID": 619,
                 "ResearchTime": 65,
                 "internal_name": "Elite Arambai"
             },
@@ -4480,13 +4632,13 @@ export const aoeDataInternal = {
                     "Food": 1000,
                     "Gold": 750
                 },
-                "ID": 901,
+                "ID": 621,
                 "ResearchTime": 45,
                 "internal_name": "Elite Rattan Archer"
             },
             "1132": {
                 "Cost": {},
-                "ID": 901,
+                "ID": 630,
                 "ResearchTime": 0,
                 "internal_name": "Battle Elephant (make avail)"
             },
@@ -4495,7 +4647,7 @@ export const aoeDataInternal = {
                     "Food": 1100,
                     "Gold": 700
                 },
-                "ID": 901,
+                "ID": 631,
                 "ResearchTime": 100,
                 "internal_name": "Elite Battle Elephant"
             },
@@ -4504,7 +4656,7 @@ export const aoeDataInternal = {
                     "Gold": 300,
                     "Wood": 300
                 },
-                "ID": 901,
+                "ID": 655,
                 "ResearchTime": 50,
                 "internal_name": "Imperial Skirmisher"
             },
@@ -4513,7 +4665,7 @@ export const aoeDataInternal = {
                     "Food": 1000,
                     "Gold": 750
                 },
-                "ID": 901,
+                "ID": 678,
                 "ResearchTime": 70,
                 "internal_name": "Elite Konnik"
             },
@@ -4522,7 +4674,7 @@ export const aoeDataInternal = {
                     "Food": 700,
                     "Gold": 900
                 },
-                "ID": 901,
+                "ID": 680,
                 "ResearchTime": 40,
                 "internal_name": "Elite Keshik"
             },
@@ -4531,7 +4683,7 @@ export const aoeDataInternal = {
                     "Food": 1100,
                     "Wood": 1000
                 },
-                "ID": 901,
+                "ID": 682,
                 "ResearchTime": 65,
                 "internal_name": "Elite Kipchak"
             },
@@ -4540,7 +4692,7 @@ export const aoeDataInternal = {
                     "Food": 750,
                     "Gold": 750
                 },
-                "ID": 901,
+                "ID": 684,
                 "ResearchTime": 45,
                 "internal_name": "Elite Leitis"
             },
@@ -4549,7 +4701,7 @@ export const aoeDataInternal = {
                     "Food": 1000,
                     "Gold": 750
                 },
-                "ID": 901,
+                "ID": 678,
                 "ResearchTime": 70,
                 "internal_name": "Elite Konnik"
             },
@@ -4558,7 +4710,7 @@ export const aoeDataInternal = {
                     "Food": 900,
                     "Gold": 550
                 },
-                "ID": 901,
+                "ID": 715,
                 "ResearchTime": 55,
                 "internal_name": "Elite Steppe Lancer"
             },
@@ -4567,7 +4719,7 @@ export const aoeDataInternal = {
                     "Food": 1000,
                     "Gold": 800
                 },
-                "ID": 901,
+                "ID": 751,
                 "ResearchTime": 45,
                 "internal_name": "Elite Coustillier"
             },
@@ -4576,7 +4728,7 @@ export const aoeDataInternal = {
                     "Food": 800,
                     "Gold": 675
                 },
-                "ID": 901,
+                "ID": 753,
                 "ResearchTime": 45,
                 "internal_name": "Elite Serjeant"
             },
@@ -4585,7 +4737,7 @@ export const aoeDataInternal = {
                     "Food": 800,
                     "Gold": 675
                 },
-                "ID": 901,
+                "ID": 753,
                 "ResearchTime": 45,
                 "internal_name": "Elite Serjeant"
             },
@@ -4594,7 +4746,7 @@ export const aoeDataInternal = {
                     "Food": 800,
                     "Gold": 600
                 },
-                "ID": 901,
+                "ID": 779,
                 "ResearchTime": 45,
                 "internal_name": "Elite Obuch"
             },
@@ -4603,7 +4755,7 @@ export const aoeDataInternal = {
                     "Gold": 600,
                     "Wood": 800
                 },
-                "ID": 901,
+                "ID": 781,
                 "ResearchTime": 45,
                 "internal_name": "Elite Hussite Wagon"
             },
@@ -4612,7 +4764,7 @@ export const aoeDataInternal = {
                     "Food": 600,
                     "Gold": 800
                 },
-                "ID": 901,
+                "ID": 786,
                 "ResearchTime": 60,
                 "internal_name": "Winged Hussar"
             },
@@ -4621,7 +4773,7 @@ export const aoeDataInternal = {
                     "Food": 1100,
                     "Gold": 800
                 },
-                "ID": 901,
+                "ID": 787,
                 "ResearchTime": 140,
                 "internal_name": "Houfnice"
             },
@@ -4630,7 +4782,7 @@ export const aoeDataInternal = {
                     "Food": 900,
                     "Gold": 450
                 },
-                "ID": 901,
+                "ID": 826,
                 "ResearchTime": 45,
                 "internal_name": "Elite Urumi Swordsman"
             },
@@ -4639,7 +4791,7 @@ export const aoeDataInternal = {
                     "Food": 1000,
                     "Gold": 650
                 },
-                "ID": 901,
+                "ID": 830,
                 "ResearchTime": 45,
                 "internal_name": "Elite Chakram Thrower"
             },
@@ -4647,7 +4799,7 @@ export const aoeDataInternal = {
                 "Cost": {
                     "Food": 850
                 },
-                "ID": 901,
+                "ID": 838,
                 "ResearchTime": 60,
                 "internal_name": "Elite Armored Elephant"
             },
@@ -4656,7 +4808,7 @@ export const aoeDataInternal = {
                     "Food": 950,
                     "Gold": 575
                 },
-                "ID": 901,
+                "ID": 840,
                 "ResearchTime": 45,
                 "internal_name": "Elite Ghulam"
             },
@@ -4665,7 +4817,7 @@ export const aoeDataInternal = {
                     "Food": 850,
                     "Gold": 500
                 },
-                "ID": 901,
+                "ID": 843,
                 "ResearchTime": 45,
                 "internal_name": "Elite Shrivamsha Rider"
             },
@@ -4674,7 +4826,7 @@ export const aoeDataInternal = {
                     "Food": 800,
                     "Wood": 800
                 },
-                "ID": 901,
+                "ID": 828,
                 "ResearchTime": 45,
                 "internal_name": "Elite Ratha"
             },
@@ -4683,7 +4835,7 @@ export const aoeDataInternal = {
                     "Food": 160,
                     "Gold": 90
                 },
-                "ID": 901,
+                "ID": 197,
                 "ResearchTime": 35,
                 "internal_name": "Pikeman"
             },
@@ -4692,7 +4844,7 @@ export const aoeDataInternal = {
                     "Food": 300,
                     "Gold": 600
                 },
-                "ID": 901,
+                "ID": 429,
                 "ResearchTime": 50,
                 "internal_name": "Halberdier"
             },
@@ -4701,7 +4853,7 @@ export const aoeDataInternal = {
                     "Food": 1100,
                     "Gold": 900
                 },
-                "ID": 901,
+                "ID": 882,
                 "ResearchTime": 60,
                 "internal_name": "Elite Centurion"
             },
@@ -4710,9 +4862,36 @@ export const aoeDataInternal = {
                     "Food": 800,
                     "Gold": 400
                 },
-                "ID": 901,
+                "ID": 885,
                 "ResearchTime": 100,
                 "internal_name": "Legionary"
+            },
+            "1802": {
+                "Cost": {
+                    "Gold": 500,
+                    "Wood": 600
+                },
+                "ID": 918,
+                "ResearchTime": 45,
+                "internal_name": "Elite Composite Bowman"
+            },
+            "1805": {
+                "Cost": {
+                    "Food": 1000,
+                    "Gold": 700
+                },
+                "ID": 920,
+                "ResearchTime": 45,
+                "internal_name": "Elite Monaspa"
+            },
+            "1813": {
+                "Cost": {
+                    "Food": 1000,
+                    "Gold": 600
+                },
+                "ID": 526,
+                "ResearchTime": 150,
+                "internal_name": "Savar"
             }
         },
         "units": {
@@ -4892,7 +5071,7 @@ export const aoeDataInternal = {
                         "Class": 28
                     },
                     {
-                        "Amount": 3,
+                        "Amount": 4,
                         "Class": 27
                     },
                     {
@@ -5144,6 +5323,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -5689,6 +5872,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -6832,7 +7019,7 @@ export const aoeDataInternal = {
                 "AttackDelaySeconds": 0,
                 "Attacks": [
                     {
-                        "Amount": 7,
+                        "Amount": 30,
                         "Class": 11
                     },
                     {
@@ -6840,7 +7027,7 @@ export const aoeDataInternal = {
                         "Class": 4
                     },
                     {
-                        "Amount": 7,
+                        "Amount": 30,
                         "Class": 13
                     },
                     {
@@ -6880,7 +7067,7 @@ export const aoeDataInternal = {
                 "Range": 0,
                 "RechargeRate": 0,
                 "ReloadTime": 2,
-                "Speed": 0.6,
+                "Speed": 0.8,
                 "TrainTime": 25,
                 "Trait": 0,
                 "TraitPiece": 0,
@@ -7242,7 +7429,7 @@ export const aoeDataInternal = {
                 },
                 "FrameDelay": 24,
                 "GarrisonCapacity": 0,
-                "HP": 65,
+                "HP": 80,
                 "ID": 282,
                 "LanguageHelpId": 26103,
                 "LanguageNameId": 5103,
@@ -8376,6 +8563,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -9741,7 +9932,7 @@ export const aoeDataInternal = {
                 },
                 "FrameDelay": 12,
                 "GarrisonCapacity": 0,
-                "HP": 80,
+                "HP": 90,
                 "ID": 556,
                 "LanguageHelpId": 26453,
                 "LanguageNameId": 5453,
@@ -9861,7 +10052,7 @@ export const aoeDataInternal = {
                 "AttackDelaySeconds": 0,
                 "Attacks": [
                     {
-                        "Amount": 10,
+                        "Amount": 30,
                         "Class": 11
                     },
                     {
@@ -9869,7 +10060,7 @@ export const aoeDataInternal = {
                         "Class": 4
                     },
                     {
-                        "Amount": 10,
+                        "Amount": 30,
                         "Class": 13
                     },
                     {
@@ -9909,7 +10100,7 @@ export const aoeDataInternal = {
                 "Range": 0,
                 "RechargeRate": 0,
                 "ReloadTime": 2,
-                "Speed": 0.6,
+                "Speed": 0.8,
                 "TrainTime": 25,
                 "Trait": 0,
                 "TraitPiece": 0,
@@ -10129,6 +10320,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -11609,6 +11804,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -11687,6 +11886,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -12070,12 +12273,12 @@ export const aoeDataInternal = {
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 80,
-                    "Gold": 10
+                    "Food": 35,
+                    "Gold": 45
                 },
                 "FrameDelay": 0,
                 "GarrisonCapacity": 0,
-                "HP": 70,
+                "HP": 75,
                 "ID": 869,
                 "LanguageHelpId": 26728,
                 "LanguageNameId": 5728,
@@ -12088,7 +12291,7 @@ export const aoeDataInternal = {
                 "RechargeRate": 0,
                 "ReloadTime": 1.8,
                 "Speed": 1.5,
-                "TrainTime": 16,
+                "TrainTime": 14,
                 "Trait": 0,
                 "TraitPiece": 0,
                 "internal_name": "UMAGYX"
@@ -12152,8 +12355,8 @@ export const aoeDataInternal = {
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 80,
-                    "Gold": 10
+                    "Food": 35,
+                    "Gold": 45
                 },
                 "FrameDelay": 0,
                 "GarrisonCapacity": 0,
@@ -12170,7 +12373,7 @@ export const aoeDataInternal = {
                 "RechargeRate": 0,
                 "ReloadTime": 1.8,
                 "Speed": 1.5,
-                "TrainTime": 16,
+                "TrainTime": 14,
                 "Trait": 0,
                 "TraitPiece": 0,
                 "internal_name": "UMAGYX"
@@ -12225,6 +12428,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -12303,6 +12510,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -13091,6 +13302,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -13189,6 +13404,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -13277,7 +13496,7 @@ export const aoeDataInternal = {
                         "Class": 28
                     },
                     {
-                        "Amount": 2,
+                        "Amount": 3,
                         "Class": 27
                     },
                     {
@@ -13371,7 +13590,7 @@ export const aoeDataInternal = {
                         "Class": 28
                     },
                     {
-                        "Amount": 2,
+                        "Amount": 3,
                         "Class": 27
                     },
                     {
@@ -14666,7 +14885,7 @@ export const aoeDataInternal = {
                 "Range": 0,
                 "RechargeRate": 0,
                 "ReloadTime": 2,
-                "Speed": 0.85,
+                "Speed": 0.88,
                 "TrainTime": 24,
                 "Trait": 0,
                 "TraitPiece": 0,
@@ -14748,7 +14967,7 @@ export const aoeDataInternal = {
                 "Range": 0,
                 "RechargeRate": 0,
                 "ReloadTime": 2,
-                "Speed": 0.85,
+                "Speed": 0.88,
                 "TrainTime": 24,
                 "Trait": 0,
                 "TraitPiece": 0,
@@ -14786,7 +15005,7 @@ export const aoeDataInternal = {
                         "Class": 28
                     },
                     {
-                        "Amount": 3,
+                        "Amount": 4,
                         "Class": 27
                     },
                     {
@@ -15194,6 +15413,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -15272,6 +15495,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -19010,6 +19237,454 @@ export const aoeDataInternal = {
                 "Trait": 2,
                 "TraitPiece": 0,
                 "internal_name": "DROMON"
+            },
+            "1800": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 1,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 4,
+                "AttackDelaySeconds": 0.5,
+                "Attacks": [
+                    {
+                        "Amount": 2,
+                        "Class": 27
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 17
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Gold": 45,
+                    "Wood": 35
+                },
+                "FrameDelay": 12,
+                "GarrisonCapacity": 0,
+                "HP": 40,
+                "ID": 1800,
+                "LanguageHelpId": 26033,
+                "LanguageNameId": 5033,
+                "LineOfSight": 7,
+                "MaxCharge": 0,
+                "MeleeArmor": 1,
+                "MinRange": 0,
+                "PierceArmor": 0,
+                "Range": 4,
+                "RechargeRate": 0,
+                "ReloadTime": 2,
+                "Speed": 0.96,
+                "TrainTime": 12,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "COMPBOW"
+            },
+            "1802": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 2,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 4,
+                "AttackDelaySeconds": 0.5,
+                "Attacks": [
+                    {
+                        "Amount": 2,
+                        "Class": 27
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 17
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Gold": 45,
+                    "Wood": 35
+                },
+                "FrameDelay": 12,
+                "GarrisonCapacity": 0,
+                "HP": 45,
+                "ID": 1802,
+                "LanguageHelpId": 26034,
+                "LanguageNameId": 5034,
+                "LineOfSight": 7,
+                "MaxCharge": 0,
+                "MeleeArmor": 2,
+                "MinRange": 0,
+                "PierceArmor": 0,
+                "Range": 4,
+                "RechargeRate": 0,
+                "ReloadTime": 2,
+                "Speed": 0.96,
+                "TrainTime": 10,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "ECOMPBOW"
+            },
+            "1803": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 3,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 8
+                    },
+                    {
+                        "Amount": 2,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 12,
+                "AttackDelaySeconds": 0,
+                "Attacks": [
+                    {
+                        "Amount": 12,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 38
+                    },
+                    {
+                        "Amount": -3,
+                        "Class": 39
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Food": 60,
+                    "Gold": 45
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 75,
+                "ID": 1803,
+                "LanguageHelpId": 26035,
+                "LanguageNameId": 5035,
+                "LineOfSight": 4,
+                "MaxCharge": 0,
+                "MeleeArmor": 3,
+                "MinRange": 0,
+                "PierceArmor": 2,
+                "Range": 0,
+                "RechargeRate": 0,
+                "ReloadTime": 1.8,
+                "Speed": 1.4,
+                "TrainTime": 11,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "MONASPA"
+            },
+            "1805": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 5,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 8
+                    },
+                    {
+                        "Amount": 2,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 14,
+                "AttackDelaySeconds": 0,
+                "Attacks": [
+                    {
+                        "Amount": 14,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 38
+                    },
+                    {
+                        "Amount": -3,
+                        "Class": 39
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Food": 60,
+                    "Gold": 45
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 90,
+                "ID": 1805,
+                "LanguageHelpId": 26036,
+                "LanguageNameId": 5036,
+                "LineOfSight": 5,
+                "MaxCharge": 0,
+                "MeleeArmor": 5,
+                "MinRange": 0,
+                "PierceArmor": 2,
+                "Range": 0,
+                "RechargeRate": 0,
+                "ReloadTime": 1.8,
+                "Speed": 1.4,
+                "TrainTime": 11,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "EMONASPA"
+            },
+            "1811": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 1
+                    },
+                    {
+                        "Amount": 1,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 1,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 25
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 11,
+                "AttackDelaySeconds": 0,
+                "Attacks": [
+                    {
+                        "Amount": 0,
+                        "Class": 29
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 11,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 8
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 30
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Food": 30,
+                    "Gold": 60
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 80,
+                "ID": 1811,
+                "LanguageHelpId": 26037,
+                "LanguageNameId": 5037,
+                "LineOfSight": 3,
+                "MaxCharge": 0,
+                "MeleeArmor": 1,
+                "MinRange": 0,
+                "PierceArmor": 1,
+                "Range": 0,
+                "RechargeRate": 0,
+                "ReloadTime": 2,
+                "Speed": 0.85,
+                "TrainTime": 30,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "WARRIORPRIEST"
+            },
+            "1813": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 3,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 8
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 14,
+                "AttackDelaySeconds": 0,
+                "Attacks": [
+                    {
+                        "Amount": 14,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 3,
+                        "Class": 15
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 38
+                    },
+                    {
+                        "Amount": -3,
+                        "Class": 39
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Food": 60,
+                    "Gold": 75
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 145,
+                "ID": 1813,
+                "LanguageHelpId": 26703,
+                "LanguageNameId": 5703,
+                "LineOfSight": 5,
+                "MaxCharge": 0,
+                "MeleeArmor": 3,
+                "MinRange": 0,
+                "PierceArmor": 4,
+                "Range": 0,
+                "RechargeRate": 0,
+                "ReloadTime": 1.8,
+                "Speed": 1.35,
+                "TrainTime": 30,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "SAVAR"
             }
         }
     },
@@ -19025,6 +19700,157 @@ export const aoeDataInternal = {
         "mode": "1"
     },
     "techtrees": {
+        "Armenians": {
+            "buildings": [
+                12,
+                45,
+                49,
+                50,
+                68,
+                70,
+                72,
+                79,
+                82,
+                84,
+                87,
+                101,
+                103,
+                109,
+                117,
+                155,
+                199,
+                209,
+                234,
+                236,
+                276,
+                487,
+                598,
+                621,
+                792,
+                1806,
+                1808
+            ],
+            "monkPrefix": "",
+            "techs": [
+                8,
+                13,
+                14,
+                15,
+                17,
+                22,
+                23,
+                39,
+                45,
+                47,
+                48,
+                50,
+                55,
+                64,
+                65,
+                67,
+                68,
+                74,
+                75,
+                76,
+                77,
+                81,
+                82,
+                93,
+                101,
+                102,
+                103,
+                140,
+                182,
+                194,
+                199,
+                200,
+                201,
+                202,
+                203,
+                211,
+                212,
+                213,
+                215,
+                219,
+                221,
+                230,
+                231,
+                233,
+                249,
+                252,
+                278,
+                280,
+                315,
+                316,
+                319,
+                321,
+                322,
+                373,
+                374,
+                375,
+                379,
+                380,
+                408,
+                435,
+                438,
+                439,
+                441,
+                602,
+                716,
+                875
+            ],
+            "unique": {
+                "castleAgeUniqueTech": 922,
+                "castleAgeUniqueUnit": 1800,
+                "imperialAgeUniqueTech": 921,
+                "imperialAgeUniqueUnit": 1802
+            },
+            "units": [
+                4,
+                6,
+                7,
+                13,
+                17,
+                21,
+                24,
+                38,
+                39,
+                74,
+                75,
+                77,
+                83,
+                93,
+                125,
+                128,
+                279,
+                280,
+                283,
+                331,
+                358,
+                359,
+                422,
+                440,
+                442,
+                448,
+                473,
+                492,
+                527,
+                528,
+                529,
+                539,
+                542,
+                545,
+                546,
+                550,
+                567,
+                1103,
+                1104,
+                1105,
+                1258,
+                1795,
+                1811
+            ]
+        },
         "Aztecs": {
             "buildings": [
                 12,
@@ -20477,6 +21303,7 @@ export const aoeDataInternal = {
                 211,
                 212,
                 213,
+                219,
                 231,
                 249,
                 252,
@@ -21303,6 +22130,160 @@ export const aoeDataInternal = {
                 550,
                 567,
                 569,
+                1103,
+                1104,
+                1105,
+                1258
+            ]
+        },
+        "Georgians": {
+            "buildings": [
+                12,
+                45,
+                49,
+                50,
+                68,
+                70,
+                72,
+                79,
+                82,
+                84,
+                87,
+                101,
+                103,
+                109,
+                117,
+                155,
+                199,
+                209,
+                234,
+                235,
+                276,
+                487,
+                598,
+                621,
+                792,
+                1806,
+                1808
+            ],
+            "monkPrefix": "",
+            "techs": [
+                8,
+                12,
+                13,
+                14,
+                15,
+                17,
+                22,
+                23,
+                39,
+                45,
+                47,
+                48,
+                50,
+                51,
+                54,
+                55,
+                63,
+                65,
+                67,
+                68,
+                74,
+                75,
+                76,
+                77,
+                80,
+                81,
+                82,
+                93,
+                101,
+                102,
+                103,
+                140,
+                194,
+                199,
+                200,
+                201,
+                202,
+                203,
+                211,
+                212,
+                213,
+                215,
+                230,
+                231,
+                249,
+                252,
+                278,
+                279,
+                280,
+                315,
+                316,
+                321,
+                322,
+                374,
+                377,
+                379,
+                408,
+                435,
+                436,
+                438,
+                439,
+                441,
+                602,
+                608,
+                716,
+                875
+            ],
+            "unique": {
+                "castleAgeUniqueTech": 923,
+                "castleAgeUniqueUnit": 1803,
+                "imperialAgeUniqueTech": 924,
+                "imperialAgeUniqueUnit": 1805
+            },
+            "units": [
+                4,
+                5,
+                6,
+                7,
+                13,
+                17,
+                21,
+                24,
+                38,
+                39,
+                74,
+                75,
+                77,
+                83,
+                93,
+                125,
+                128,
+                279,
+                280,
+                283,
+                331,
+                358,
+                359,
+                420,
+                422,
+                440,
+                441,
+                442,
+                448,
+                473,
+                474,
+                527,
+                529,
+                532,
+                539,
+                542,
+                545,
+                546,
+                548,
+                550,
+                567,
+                588,
                 1103,
                 1104,
                 1105,
@@ -23586,7 +24567,8 @@ export const aoeDataInternal = {
                 584,
                 598,
                 621,
-                792
+                792,
+                1754
             ],
             "monkPrefix": "",
             "techs": [
@@ -23704,12 +24686,12 @@ export const aoeDataInternal = {
                 546,
                 548,
                 550,
-                569,
                 691,
                 1103,
                 1104,
                 1105,
-                1258
+                1258,
+                1813
             ]
         },
         "Poles": {
@@ -23750,7 +24732,6 @@ export const aoeDataInternal = {
                 12,
                 13,
                 14,
-                15,
                 17,
                 22,
                 23,
@@ -24268,7 +25249,7 @@ export const aoeDataInternal = {
                 875
             ],
             "unique": {
-                "castleAgeUniqueTech": 9,
+                "castleAgeUniqueTech": 28,
                 "castleAgeUniqueUnit": 282,
                 "imperialAgeUniqueTech": 454,
                 "imperialAgeUniqueUnit": 556

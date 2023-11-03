@@ -139,6 +139,10 @@ export const changelog: IChangelog = {
     '68.0.4': [
         {
             type: 'minor',
+            title: 'Implemented [AoE II DE Update 95810](https://www.ageofempires.com/news/preview-age-of-empires-ii-definitive-edition-update-95810/)',
+        },
+        {
+            type: 'minor',
             title: 'Add tech upgrade list for buildings',
         },
         {

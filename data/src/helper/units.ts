@@ -1,5 +1,5 @@
 import {TechEffect} from "./techs";
-import {sortBy} from 'lodash';
+import {difference, sortBy} from 'lodash';
 import {Civ} from "./civs";
 import {strRemoveFrom, strRemoveTo, unwrap, ValueOf} from "../lib/util";
 import {aoeData, aoeUnitDataId} from "../data/data";
@@ -113,6 +113,9 @@ export const unitLineIds = [
     'Legionary',
     'Centurion',
     'Dromon',
+    'CompositeBowman',
+    'Monaspa',
+    'WarriorPriest',
 ] as const;
 
 export const unitLines: IUnitLineDict = {
@@ -518,6 +521,8 @@ export const unitLines: IUnitLineDict = {
             'Inquisition',
             'HussiteReforms',
             'Mahayana',
+            'Bimaristan',
+            'FirstCrusade',
         ],
     },
     'DemolitionRaft': {
@@ -527,6 +532,7 @@ export const unitLines: IUnitLineDict = {
             'Mangonel'
         ],
         upgrades: [
+            'CilicianFleet-BlastRadius',
             'Careening',
             'Carrack',
             'DryDock',
@@ -567,6 +573,7 @@ export const unitLines: IUnitLineDict = {
             'Fletching',
             'BodkinArrow',
             'Bracer',
+            'CilicianFleet-Range',
             'Ballistas',
             'Chemistry',
             'Ballistics',
@@ -1510,6 +1517,7 @@ export const unitLines: IUnitLineDict = {
             'Mangudai',
         ],
         upgrades: [
+            'Fereters-HP',
             'Forging',
             'IronCasting',
             'BlastFurnace',
@@ -1596,6 +1604,7 @@ export const unitLines: IUnitLineDict = {
         ],
         upgrades: [
             'SiegeEngineers-20-1',
+            'CilicianFleet-Range',
             'Chemistry',
             'Careening',
             'DryDock',
@@ -1823,7 +1832,6 @@ export const unitLines: IUnitLineDict = {
         ],
         upgrades: [
             'Bloodlines',
-            'Zealotry',
             'Forging',
             'IronCasting',
             'BlastFurnace',
@@ -1862,7 +1870,6 @@ export const unitLines: IUnitLineDict = {
             'ChainBardingArmor',
             'PlateBardingArmor',
             'Husbandry',
-            'Mahouts',
             'Faith',
             'Conscription',
         ],
@@ -1967,7 +1974,6 @@ export const unitLines: IUnitLineDict = {
         ],
         upgrades: [
             'Bloodlines',
-            'Zealotry',
             'Forging',
             'IronCasting',
             'BlastFurnace',
@@ -1985,7 +1991,7 @@ export const unitLines: IUnitLineDict = {
         ],
     },
     'Knight': {
-        units: ['Knight', 'Cavalier', 'Paladin'],
+        units: ['Knight', 'Cavalier', 'Paladin', 'Savar'],
         counteredBy: [
             'Spearman',
             'FlemishMilitia',
@@ -2019,6 +2025,7 @@ export const unitLines: IUnitLineDict = {
             'Chivalry',
             'SzlachtaPrivileges',
             'Hauberk',
+            'AznauriCavalry',
         ],
     },
     'XolotlWarrior': {
@@ -2067,7 +2074,7 @@ export const unitLines: IUnitLineDict = {
             'Tarkan',
             'Mameluke',
             'SteppeLancer',
-            'Cataphract'
+            'Cataphract',
         ],
         upgrades: [
             // 'FeudalAge-ScoutCavalry',
@@ -2094,6 +2101,7 @@ export const unitLines: IUnitLineDict = {
             'LechiticLegacy',
             'WootzSteel',
             'Kshatriyas',
+            'AznauriCavalry',
         ],
     },
     'Kipchak': {
@@ -2642,9 +2650,105 @@ export const unitLines: IUnitLineDict = {
             'Conscription',
         ],
     },
+    'CompositeBowman': {
+        units: ['CompositeBowman', 'EliteCompositeBowman'],
+        unique: true,
+        civ: 'Armenians',
+        counteredBy: [
+
+        ],
+        upgrades: [
+            'Fletching',
+            'BodkinArrow',
+            'Bracer',
+            'Chemistry',
+            'Ballistics',
+            'PaddedArcherArmor',
+            'LeatherArcherArmor',
+            'RingArcherArmor',
+            'Faith',
+            'Conscription',
+            'Kasbah',
+        ],
+    },
+    'Monaspa': {
+        units: ['Monaspa', 'EliteMonaspa'],
+        unique: true,
+        civ: 'Georgians',
+        counteredBy: [
+
+        ],
+        upgrades: [
+            'Bloodlines',
+            'Forging',
+            'IronCasting',
+            'BlastFurnace',
+            'ScaleBardingArmor',
+            'ChainBardingArmor',
+            'PlateBardingArmor',
+            'Faith',
+            'Heresy',
+            'Husbandry',
+            'Conscription',
+            'Kasbah',
+            'AznauriCavalry',
+        ],
+    },
+    'WarriorPriest': {
+        units: ['WarriorPriest'],
+        unique: true,
+        civ: 'Armenians',
+        counteredBy: [
+            // Infantry
+            // 'ScoutCavalry',
+            // 'EagleScout',
+            // 'Samurai',
+            // 'Cataphract',
+            // 'JaguarWarrior',
+            // 'TeutonicKnight',
+            // 'UrumiSwordsman',
+            // 'CavalryArcher',
+            // 'Mangudai',
+        ],
+        upgrades: [
+            'Sanctity',
+            'Fereters',
+            'Forging',
+            'IronCasting',
+            'BlastFurnace',
+            'Arson',
+            'ScaleMailArmor',
+            'ChainMailArmor',
+            'PlateMailArmor',
+            'Faith',
+            'Heresy',
+            'Tracking',
+            'Squires',
+            'Fervor',
+            'Stronghold',
+        ],
+    },
 };
 
 const unitsInternal = {
+    'Savar': {
+        dataId: '1813',
+    },
+    'WarriorPriest': {
+        dataId: '1811',
+    },
+    'CompositeBowman': {
+        dataId: '1800',
+    },
+    'EliteCompositeBowman': {
+        dataId: '1802',
+    },
+    'Monaspa': {
+        dataId: '1803',
+    },
+    'EliteMonaspa': {
+        dataId: '1805',
+    },
     'Dromon': {
         dataId: '1795',
     },
@@ -3839,6 +3943,8 @@ export const sortedUnitLines: UnitLine[] = [
 
     'XolotlWarrior',
 
+
+
     'Arambai',
     'BallistaElephant',
     'Berserk',
@@ -3849,6 +3955,7 @@ export const sortedUnitLines: UnitLine[] = [
     'Centurion',
     'ChakramThrower',
     'ChuKoNu',
+    'CompositeBowman',
     'Condottiero',
     'Conquistador',
     'Coustillier',
@@ -3874,6 +3981,7 @@ export const sortedUnitLines: UnitLine[] = [
     'MagyarHuszar',
     'Mameluke',
     'Mangudai',
+    'Monaspa',
     'Obuch',
     'OrganGun',
     'PlumedArcher',
@@ -3889,13 +3997,16 @@ export const sortedUnitLines: UnitLine[] = [
     'ThrowingAxeman',
     'TurtleShip',
     'UrumiSwordsman',
+    'WarriorPriest',
     'WarElephant',
     'WarWagon',
     'WoadRaider',
 ];
 
-// const missingSortedUnitLines = difference(unitLineIds, sortedUnitLines);
-// console.log('missingSortedUnitLines', missingSortedUnitLines);
+const missingSortedUnitLines = difference(unitLineIds, sortedUnitLines);
+if (missingSortedUnitLines.length > 0) {
+    console.log('missingSortedUnitLines', missingSortedUnitLines);
+}
 
 export function sortUnitCounter(unitLines: UnitLine[]) {
     return sortBy(unitLines, ul => sortedUnitLines.indexOf(ul));
