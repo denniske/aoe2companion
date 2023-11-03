@@ -109,7 +109,7 @@ npx eas build --profile development-simulator-${AOE} --platform ios --local
 export APP=aoe2 && export AOE=aoe2 && npx eas build --profile development-${AOE} --platform ios --local && npx eas build --profile development-simulator-${AOE} --platform ios --local
 
 Update version in eas config and then
-export APP=aoe2 && export AOE=aoe2 && git tag v68.0.2 && git push --tags && npx eas update --branch production --message "Update v68.0.2"
+export APP=aoe2 && export AOE=aoe2 && git tag v68.0.5 && git push --tags && npx eas update --branch production --message "Update v68.0.5"
 
 export APP=aoe2 && export AOE=aoe2 && npx eas build --profile production-${AOE} --platform ios --auto-submit --no-wait
 

@@ -136,7 +136,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '68.0.4': [
+    '68.0.5': [
         {
             type: 'minor',
             title: 'Implemented [AoE II DE Update 95810](https://www.ageofempires.com/news/preview-age-of-empires-ii-definitive-edition-update-95810/)',

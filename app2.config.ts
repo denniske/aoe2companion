@@ -31,7 +31,7 @@ export default {
     "userInterfaceStyle": "automatic",
     "jsEngine": "hermes",
     "runtimeVersion": "68.0.0",
-    "version": "68.0.3",
+    "version": "68.0.5",
     "orientation": "portrait",
     "privacy": "public",
     "githubUrl": "https://github.com/denniske/aoe2companion",
@@ -71,7 +71,7 @@ export default {
         "foregroundImage": "./app/assets/icon-adaptive.png"
       },
       "package": "com.aoe2companion",
-      "versionCode": 680003,
+      "versionCode": 680005,
       "permissions": [],
       "googleServicesFile": "./google-services2.json",
       "splash": splash,
