@@ -6,13 +6,15 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
 
     // Complete Replacements:
     //
+    // Armenians:
+    // - Barracks
+    //
     // Burgundians
     // - Market, Mill
     // - LumberCamp, MiningCamp, MuleCart
     // - TownCenter, House
     //
     // Persians:
-    // - Barracks
     // - Archery Range (Techs)
     //
     // Cumans:
@@ -181,7 +183,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
     }
 
 
-    if (civInfo.name === 'Persians') {
+    if (civInfo.name === 'Armenians') {
         rows.push(
             {
                 title: ''

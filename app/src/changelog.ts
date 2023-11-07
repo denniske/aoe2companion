@@ -136,10 +136,16 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '68.0.7': [
+        {
+            type: 'bugfix',
+            title: 'Fix earlier militia upgrades for Armenians in tech tree',
+        },
+    ],
     '68.0.6': [
         {
             type: 'bugfix',
-            title: 'Fix earlier eco uogrades for Burgundians in tech tree',
+            title: 'Fix earlier eco upgrades for Burgundians in tech tree',
         },
     ],
     '68.0.5': [
