@@ -6,7 +6,7 @@ export const civDataAbbasidDynasty = {
         {
             "title": "Civilization Bonuses",
             "list": [
-                "17 unique technologies that benefit Camels, Military, Religion, Economy, and Trade.",
+                "Research unique technologies that benefit Camels, Military, Religion, Economy, and Trade.",
                 "Camel units reduce damage by -20% to nearby enemy horse cavalry.",
                 "Mills constructed near Berry Bushes create Orchards, increasing Food capacity by +100.",
                 "Gather from Berry Bushes +30% faster but cannot gather from Boar.",
@@ -19,7 +19,7 @@ export const civDataAbbasidDynasty = {
         },
         {
             "title": "Pursuit of Knowledge",
-            "description": "Embrace the Abbasids' pursuit of knowledge through researching 17 unique technologies that benefit Camels, Military, Religion, Economy, and Trade.\nAdvance the ages by upgrading up to 4 Wings on the House of Wisdom."
+            "description": "Embrace the Abbasids' pursuit of knowledge through researching unique technologies that benefit Camels, Military, Religion, Economy, and Trade.\nAdvance the ages by upgrading up to 4 Wings on the House of Wisdom."
         },
         {
             "title": "Camel Fighters",
@@ -43,11 +43,11 @@ export const civDataAbbasidDynasty = {
         },
         {
             "title": "Golden Age",
-            "description": "Build towards your Golden Age – improving gather, research and production speeds.\nBuildings within the House of Wisdom's influence receive +5 fire armor and contribute one point towards the Golden Age. The threshold for unlocks are 10, 30, and 60 buildings.\n• Tier 1: Villager gather rate +15%\n• Tier 2: Villager gather rate +15%, research speed +15%\n• Tier 3: Villager gather rate +20%, research speed +20%, production speed +20%"
+            "description": "Build towards your Golden Age – improving economy and technology.\nBuildings within the House of Wisdom's influence receive +5 fire armor and contribute one point towards the Golden Age. The threshold for unlocks are 10, 30, and 60 buildings.\n• Tier 1: Villager gather rate +15%\n• Tier 2: Research speed +20%\n• Tier 3: Villager gathering rate +20% for all resources. Research speeds +20%. Production speeds +20%."
         },
         {
             "title": "Unique Units",
-            "description": "Camel Archers: Light ranged cavalry that deals bonus damage to light melee infantry.\nCamel Riders: Light melee cavalry that deals bonus damage to cavalry."
+            "description": "Camel Archers: Light ranged cavalry that deals bonus damage to light melee infantry.\nCamel Riders: Light melee cavalry that deals bonus damage to cavalry.\nGhulam: Tough infantry with a double strike attack."
         }
     ],
     "techtree": {
@@ -69,26 +69,14 @@ export const civDataAbbasidDynasty = {
             "hardened-spearmen-2": null,
             "veteran-spearmen-3": null,
             "elite-spearmen-4": null,
-            "elite-men-at-arms-4": null,
+            "elite-ghulam-4": null,
             "phalanx-2": null,
-            "spearman-1": {
-                "siege-tower-1": null
-            },
-            "spearman-2": {
-                "siege-tower-1": null
-            },
-            "spearman-3": {
-                "siege-tower-1": null
-            },
-            "spearman-4": {
-                "siege-tower-1": null
-            },
-            "man-at-arms-3": {
-                "siege-tower-1": null
-            },
-            "man-at-arms-4": {
-                "siege-tower-1": null
-            }
+            "spearman-1": null,
+            "spearman-2": null,
+            "spearman-3": null,
+            "spearman-4": null,
+            "ghulam-3": null,
+            "ghulam-4": null
         },
         "palisade-wall-1": null,
         "lumber-camp-1": {
@@ -164,24 +152,12 @@ export const civDataAbbasidDynasty = {
             "elite-crossbowmen-4": null,
             "veteran-camel-archers-3": null,
             "elite-camel-archers-4": null,
-            "archer-2": {
-                "siege-tower-1": null
-            },
-            "archer-3": {
-                "siege-tower-1": null
-            },
-            "archer-4": {
-                "siege-tower-1": null
-            },
-            "crossbowman-3": {
-                "siege-tower-1": null
-            },
-            "crossbowman-4": {
-                "siege-tower-1": null
-            },
-            "handcannoneer-4": {
-                "siege-tower-1": null
-            },
+            "archer-2": null,
+            "archer-3": null,
+            "archer-4": null,
+            "crossbowman-3": null,
+            "crossbowman-4": null,
+            "handcannoneer-4": null,
             "camel-archer-2": null,
             "camel-archer-3": null,
             "camel-archer-4": null
@@ -197,6 +173,7 @@ export const civDataAbbasidDynasty = {
             "elite-camel-riders-4": null,
             "camel-rider-barding-4": null,
             "camel-rider-shields-3": null,
+            "spyglass-4": null,
             "horseman-2": null,
             "horseman-3": null,
             "horseman-4": null,

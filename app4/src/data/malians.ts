@@ -10,13 +10,13 @@ export const civDataMalians = {
                 "Produce Cattle from Mills in the Dark Age (I). Malian Villagers harvest Food from Cattle faster than other civilizations or they can be garrisoned in a Cattle Ranch for Food over time.",
                 "Musofadi units can use the Activate Stealth ability to setup ambush attacks.",
                 "Five unique units with a different take on the counter system.",
-                "Veteran unit technologies are half cost.",
+                "Veteran unit technologies are researched in half the time and cost.",
                 "Gold collected from Trader routes reduce the research time of future technologies.",
-                "Traders and Trade Ships that pass by Toll Outposts instantly provide bonus Gold based on the amount of Gold being carried.",
+                "Traders and Trade Ships that pass by Toll Outposts instantly provide bonus Gold based on the amount of Gold being carried. Does not generate any bonus tax if a toll outpost is built within range of another one.",
                 "Movement speed of all ships is increased when near Docks.",
                 "Transport Ships attack with javelins for each unit garrisoned.",
                 "Houses construct twice as fast, but are half cost and provide half the amount of Population.",
-                "Cannot harvest Boar."
+                "Cannot harvest Boar"
             ]
         },
         {
@@ -37,11 +37,11 @@ export const civDataMalians = {
         },
         {
             "title": "Farari's Knowledge",
-            "description": "Veteran unit technologies unlocked in the Castle Age (III) are half cost."
+            "description": "Veteran unit technologies unlocked in the Castle Age (III) are researched at half the time and cost."
         },
         {
             "title": "Toll Outposts",
-            "description": "Traders and Trade Ships that pass by Toll Outposts instantly provide bonus Gold based on the amount of Gold being carried."
+            "description": "Traders and Trade Ships that pass by Toll Outposts instantly provide bonus resources based on the current trade targets. Does not generate any bonus tax if a toll outpost is built within range of another one"
         },
         {
             "title": "Manuscript Trade",
@@ -201,13 +201,14 @@ export const civDataMalians = {
             "upgrade-warrior-scout-2": null,
             "veteran-warrior-scout-3": null,
             "elite-warrior-scout-4": null,
+            "spyglass-4": null,
             "sofa-2": null,
             "sofa-3": null,
             "sofa-4": null,
             "scout-1": null,
-            "scout-2": null,
-            "scout-3": null,
-            "scout-4": null
+            "warrior-scout-2": null,
+            "warrior-scout-3": null,
+            "warrior-scout-4": null
         },
         "stone-wall-2": null,
         "town-center-2": {
@@ -215,18 +216,18 @@ export const civDataMalians = {
             "textiles-2": null,
             "villager-1": null,
             "scout-1": null,
-            "scout-2": null,
-            "scout-3": null,
-            "scout-4": null
+            "warrior-scout-2": null,
+            "warrior-scout-3": null,
+            "warrior-scout-4": null
         },
         "capital-town-center-1": {
             "banco-repairs-2": null,
             "textiles-2": null,
             "villager-1": null,
             "scout-1": null,
-            "scout-2": null,
-            "scout-3": null,
-            "scout-4": null
+            "warrior-scout-2": null,
+            "warrior-scout-3": null,
+            "warrior-scout-4": null
         },
         "stone-wall-gate-2": null,
         "cattle-ranch-2": null,
@@ -237,6 +238,7 @@ export const civDataMalians = {
             "elite-donso-4": null,
             "veteran-musofadi-3": null,
             "elite-musofadi-4": null,
+            "local-knowledge-3": null,
             "donso-1": {
                 "siege-tower-2": null
             },

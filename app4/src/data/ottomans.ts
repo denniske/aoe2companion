@@ -32,7 +32,7 @@ export const civDataOttomans = {
         },
         {
             "title": "Shipping Routes",
-            "description": "Movement speed of Trade Ships and Transport Ships increased."
+            "description": "Movement speed of Trade Ships, Fishing Boats, and Transport Ships increased."
         },
         {
             "title": "Influence",
@@ -160,8 +160,8 @@ export const civDataOttomans = {
             "sipahi-2": null,
             "sipahi-3": null,
             "sipahi-4": null,
-            "knight-3": null,
-            "knight-4": null,
+            "lancer-3": null,
+            "lancer-4": null,
             "mehter-2": null
         },
         "twin-minaret-medrese-1": {
@@ -226,22 +226,41 @@ export const civDataOttomans = {
             "veteran-sipahi-3": null,
             "elite-sipahi-4": null,
             "elite-knights-or-lancers-4": null,
+            "spyglass-4": null,
             "sipahi-2": null,
             "sipahi-3": null,
             "sipahi-4": null,
-            "knight-3": null,
-            "knight-4": null,
+            "lancer-3": null,
+            "lancer-4": null,
             "mehter-2": null,
             "scout-1": null
         },
         "stone-wall-2": null,
         "town-center-2": {
             "textiles-2": null,
+            "advanced-academy-1": null,
+            "janissary-company-1": null,
+            "siege-crews-1": null,
+            "mehter-drums-1": null,
+            "military-campus-1": null,
+            "fast-training-1": null,
+            "field-work-1": null,
+            "trade-bags-1": null,
+            "anatolian-hills-1": null,
             "villager-1": null,
             "scout-1": null
         },
         "capital-town-center-1": {
             "textiles-2": null,
+            "advanced-academy-1": null,
+            "janissary-company-1": null,
+            "siege-crews-1": null,
+            "mehter-drums-1": null,
+            "military-campus-1": null,
+            "fast-training-1": null,
+            "field-work-1": null,
+            "trade-bags-1": null,
+            "anatolian-hills-1": null,
             "villager-1": null,
             "scout-1": null
         },
@@ -270,7 +289,7 @@ export const civDataOttomans = {
         },
         "keep-3": {
             "springald-emplacement-3": null,
-            "cannon-emplacement-4": null,
+            "great-bombard-emplacement-4": null,
             "boiling-oil-3": null
         },
         "mosque-3": {
@@ -289,7 +308,7 @@ export const civDataOttomans = {
         },
         "sea-gate-castle-3": {
             "springald-emplacement-3": null,
-            "cannon-emplacement-4": null,
+            "great-bombard-emplacement-4": null,
             "boiling-oil-3": null
         },
         "university-4": {

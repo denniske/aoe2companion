@@ -1,15 +1,14 @@
-export const civDataFrench = {
-    "name": "French",
-    "description": "The French deploy powerful cavalry units and can boost production in fortified positions. Enemies must be prepared to withstand the charges of powerful Royal Knights and other armored units.",
-    "classes": "Trade, Cavalry, Keeps",
+export const civDataJeanneDArc = {
+    "name": "Jeanne d'Arc",
+    "description": "A spark of hope for the French people, Jeanne d'Arc takes to the battlefield and inspires courage to her followers. Starting as a humble villager, Jeanne begins the Journey of a Hero in the Dark Age. Experience forges Jeanne into a powerful leader, gaining access to trusted companions and powerful abilities which shape the empire she was destined to create.",
+    "classes": "Trade, Cavalry, Hero",
     "overview": [
         {
             "title": "Civilization Bonuses",
             "list": [
+                "Jeanne d'Arc navigates the Journey of a Hero.",
                 "Royal Knights in the Feudal Age (II).",
-                "Town Centers work rate increased per age up +10%, +15%, +20%, +25%.",
-                "Resource drop off buildings -50% cheaper.",
-                "Economic technology -30% cheaper.",
+                "Economic technologies are 30% cheaper.",
                 "Trade Posts are revealed on the minimap.",
                 "Traders can return Food, Wood, or Gold to Markets.",
                 "Trade Ships return +20% resources.",
@@ -17,12 +16,16 @@ export const civDataFrench = {
             ]
         },
         {
+            "title": "Journey of a Hero",
+            "description": "Jeanne d'Arc is present on the battlefield. A heroic unit who gains experience for completing tasks such as gathering resources, constructing buildings, and participating in combat.\nAfter accruing enough experience, Jeanne may level up to obtain powerful economic and combat abilities."
+        },
+        {
             "title": "Royal Stallions",
             "description": "Deploy the Royal Knight in the Feudal Age (II) and research powerful unique technologies for cavalry."
         },
         {
-            "title": "Mainland Economy",
-            "description": "Wield a superior economy with -50% cheaper resource drop-offs and -30% cheaper economic technologies.\nTown Center production speed increased per age +10%, +15%, +20%, +25%."
+            "title": "Galvanized Economy",
+            "description": "The people work harder under Jeanne d'Arc's leadership. Economic upgrades are 30% cheaper."
         },
         {
             "title": "Trade Economy",
@@ -33,16 +36,8 @@ export const civDataFrench = {
             "description": "Blacksmiths grant melee damage technologies for free after each age up."
         },
         {
-            "title": "Influence",
-            "description": "Maintain offensives with Keeps that reduce the cost of units produced from Archery Ranges and Stables within their influence by -20%."
-        },
-        {
             "title": "Unique Units",
-            "description": "Royal Knight: Heavy Cavalry that gains +3 bonus damage for 5 seconds after completing a charge.\nArbalétrier: Crossbowman with +1 melee armor that can deploy a defensive Pavise to provide +5 ranged armor and +1 weapon range for 30 seconds.\nCannon: Bombard replacement with more damage, mobility and no setup time.\nGalleass: Large war galley that has a long range forward mounted bombard.\nWar Cog: Unique Springald Ship with reduced cost and increased ranged armor."
-        },
-        {
-            "title": "(translation not found) (undefined)",
-            "description": "(translation not found) (undefined)"
+            "description": "Jeanne d'Arc: A hero unit that starts as a villager, Jeanne begins the Journey of a Hero to gain powerful abilities.\nJeanne's Rider: Fast Cavalry effective at raiding, flanking, and countering Crossbows, becomes available once Jeanne achieves level 3.\nJeanne's Champion: Tough infantry that excels at countering Spearmen, becomes available once Jeanne achieves level 3.\nRoyal Knight: Heavy Cavalry that gains +3 bonus damage for 5 seconds after completing a charge.\nArbalétrier: Crossbowman with +1 melee armor that can deploy a defensive Pavise to provide +5 ranged armor and +1 weapon range for 30 seconds.\nCannon: Bombard replacement with more damage, mobility and no setup time.\nGalleass: Large war galley that has a long range forward mounted bombard.\nWar Cog: Unique Springald Ship with reduced cost and increased pierce armor."
         }
     ],
     "techtree": {
@@ -135,7 +130,7 @@ export const civDataFrench = {
             "royal-knight-4": null,
             "scout-1": null
         },
-        "chamber-of-commerce-1": {
+        "chamber-of-commerce-2": {
             "merchant-guilds-4": null,
             "trader-1": null
         },
@@ -153,7 +148,8 @@ export const civDataFrench = {
             "platecutter-point-4": null,
             "iron-undermesh-2": null,
             "wedge-rivets-3": null,
-            "angled-surfaces-4": null
+            "angled-surfaces-4": null,
+            "ordinance-company-3": null
         },
         "archery-range-2": {
             "veteran-archers-3": null,
@@ -213,11 +209,12 @@ export const civDataFrench = {
             "scout-1": null
         },
         "stone-wall-gate-2": null,
-        "royal-institute-2": {
+        "royal-institute-3": {
             "royal-bloodlines-3": null,
             "chivalry-3": null,
-            "enlistment-incentives-3": null,
-            "crossbow-stirrups-3": null
+            "ordinance-company-3": null,
+            "crossbow-stirrups-3": null,
+            "companion-equipment-3": null
         },
         "guild-hall-2": null,
         "siege-workshop-3": {
@@ -237,7 +234,15 @@ export const civDataFrench = {
             "springald-emplacement-3": null,
             "cannon-emplacement-4": null,
             "boiling-oil-3": null,
-            "enlistment-incentives-4": null
+            "companion-equipment-3": null,
+            "jeannes-rider-3": null,
+            "jeannes-rider-4": null,
+            "jeannes-champion-3": {
+                "siege-tower-2": null
+            },
+            "jeannes-champion-4": {
+                "siege-tower-2": null
+            }
         },
         "monastery-3": {
             "herbal-medicine-3": null,
@@ -249,9 +254,17 @@ export const civDataFrench = {
             "springald-emplacement-3": null,
             "cannon-emplacement-4": null,
             "boiling-oil-3": null,
-            "enlistment-incentives-4": null
+            "companion-equipment-3": null,
+            "jeannes-rider-3": null,
+            "jeannes-rider-4": null,
+            "jeannes-champion-3": {
+                "siege-tower-2": null
+            },
+            "jeannes-champion-4": {
+                "siege-tower-2": null
+            }
         },
-        "college-of-artillery-3": {
+        "college-of-artillery-4": {
             "chemistry-4": null,
             "royal-cannon-4": null,
             "royal-ribauldequin-4": null,

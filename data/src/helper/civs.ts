@@ -288,6 +288,12 @@ const aoe4CivNameDict = {
     7: "Rus",
     8: "Malians",
     9: "Ottomans",
+    10: 'Byzantines',
+    11: 'Japanese',
+    12: 'JeanneDArc',
+    13: 'Ayyubids',
+    14: 'ZhuXiSLegacy',
+    15: 'OrderOfTheDragon',
 }
 
 export function getCivNameById(civ: Civ) {

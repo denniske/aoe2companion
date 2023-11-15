@@ -1,42 +1,49 @@
-export const civDataChinese = {
-    "name": "Chinese",
-    "description": "The Chinese can shift their focus across the ages, deploying many unique units and building rapidly. Enemies must continually adapt if they want to keep up.",
-    "classes": "Dynasties, Gunpowder, Taxes",
+export const civDataZhuXiSLegacy = {
+    "name": "Zhu Xi's Legacy",
+    "description": "The teachings of philosopher Zhu Xi reshape the Chinese civilization. With Zhu Xi’s Legacy, the Chinese boast a sophisticated administration with superior Imperial Officials and advanced technologies. The brimming treasury helps to establish powerful dynasties and research a breadth of unique technologies. Recruit Palace Guards, Zhuge Nus, and Grenadiers early on to protect the Empire.",
+    "classes": "Dynasties, Taxes, Technology",
     "overview": [
         {
             "title": "Civilization Bonuses",
             "list": [
-                "Begin in the Tang Dynasty - increasing Scouts line of sight by +30% and provides access to the Village.",
+                "Begin in the Tang Dynasty - Landmark costs are reduced by -15% and the Village is unlocked.",
+                "Enter a new Dynasty by building both Landmarks from an Age to unlock special bonuses and buildings.",
                 "Units trained, technologies researched, and resources dropped off generate tax (Gold) that can be collected by Imperial Officials.",
-                "Enter a new Dynasty by building both Landmarks from an Age to unlock special bonuses, unique units, and buildings.",
+                "Unique technologies massively upgrade Imperial Officials, unlock new units and boost military units.",
+                "Early Palace Guards are available in the Feudal Age.",
+                "Access the Zhuge Nu and Grenadier without entering Dynasties.",
                 "Villagers construct defenses +50% faster and all other buildings +100% faster.",
-                "Chemistry technology granted for free in the Dark Age (I) — Town Centers, Keeps, and Outposts use Handcannon Slits instead of Defensive Arrowslits.",
+                "Chemistry technology granted for free in the Dark Age - Town Centers, Keeps, and Outposts use Handcannon Slits instead of Defensive Arrowslits.",
                 "Docks work +20% faster."
             ]
         },
         {
             "title": "Great Dynasties",
-            "description": "Start your journey in the Tang Dynasty — increases Scout line of sight +30% and provides access to the Village.\nConstruct both Landmarks in an Age to start Dynasties with special bonuses, unique buildings, and units.\n• Song Dynasty: Produce Villagers +33% faster — unlocks Granary and Zhuge Nu.\n• Yuan Dynasty: Villagers, Officials and military unit move speed +15% — unlocks Pagoda and Fire Lancer.\n• Ming Dynasty: Military units +10% health — unlocks Grenadier."
+            "description": "Start your journey in the Tang Dynasty - Landmark costs are reduced by -15% and the Village is unlocked.\nConstruct both Landmarks in an Age to start Dynasties with special bonuses, unique buildings, and units.\n• Song: Wood cost of non-military buildings is discounted by -40% - unlocks construction of the Granary.\n• Yuan: 10% discount on all units - unlocks construction of the Pagoda.\n• Ming: Chinese Unique Units deal +15% damage."
         },
         {
-            "title": "Rapid Fabrications",
-            "description": "Villagers construct defenses +50% faster and all other buildings +100% faster.\nDocks work +20% faster."
+            "title": "Taxes",
+            "description": "Units trained, technologies researched, and resources dropped off generate tax (Gold) that can be collected by Imperial Officials. Unique administrative technologies from the Mount Lu Academy and Zhu Xi's Library vastly improve Imperial Officials."
+        },
+        {
+            "title": "Dynasty Units",
+            "description": "Access the Zhuge Nu and the Grenadier without establishing dynasties. Landmarks can unlock powerful Shaolin Monks, Yuan Raiders, and Imperial Guards. Early Palace Guards can be trained in the Feudal Age."
         },
         {
             "title": "Masters of Gunpowder",
             "description": "Begin the game with Chemistry technology granted for free - defensive buildings use Handcannon Slits over Defensive Arrowslits."
         },
         {
-            "title": "Taxes",
-            "description": "Units trained, technologies researched, and resources dropped off generate Tax (Gold) that can be collected by Imperial Officials."
-        },
-        {
-            "title": "Influence",
-            "description": "Construct military and economic buildings within the Imperial Academy Landmark's influence to generate +100% tax Gold."
+            "title": "Rapid Fabrications",
+            "description": "Villagers construct defenses +50% faster and all other buildings +100% faster. Docks work +20% faster."
         },
         {
             "title": "Unique Units",
-            "description": "Imperial Official: Use the Supervise ability to boost production speed of research and military buildings by +150% — supervising economic buildings increases the amount of resources dropped off by Villagers by +20%.\nZhuge Nu: Light ranged infantry with a rapid burst attack effective vs. light units.\nPalace Guard: Man-at-Arms replacement. Heavy melee infantry that exchanges armor for move speed.\nNest of Bees: Mangonel replacement. Siege engine that fires a barrage of rockets, doing area of effect damage.\nFire Lancer: Light cavalry effective vs. siege engines and buildings. Comes with extensive sight range and an explosive charge attack.\nGrenadier: Light ranged gunpowder infantry that throws grenades dealing area of effect damage."
+            "description": "Imperial Official: Use the Supervise ability to boost the production speed of research and military buildings by +150% - supervising economic buildings increases the amount of resources dropped off by Villagers by +20%.\nZhuge Nu: Archer replacement. Light ranged infantry with a rapid burst attack effective vs. light units.\nPalace Guard: Man-at-Arms replacement. Heavy melee infantry that exchanges armor for move speed.\nNest of Bees: Mangonel replacement. Siege engine that fires a barrage of rockets, doing area of effect damage.\nGrenadier: Light ranged gunpowder infantry that throws grenades dealing area of effect damage."
+        },
+        {
+            "title": "Protect the Palace",
+            "description": "Train Early Palace Guards in the Feudal Age (II) to protect the emperor."
         }
     ],
     "techtree": {
@@ -58,8 +65,8 @@ export const civDataChinese = {
             "hardened-spearmen-2": null,
             "veteran-spearmen-3": null,
             "elite-spearmen-4": null,
+            "palace-guards-3": null,
             "elite-palace-guards-4": null,
-            "battle-hardened-4": null,
             "spearman-1": {
                 "siege-tower-2": null
             },
@@ -72,10 +79,13 @@ export const civDataChinese = {
             "spearman-4": {
                 "siege-tower-2": null
             },
-            "palace-guard-3": {
+            "palace-guard-4": {
                 "siege-tower-2": null
             },
-            "palace-guard-4": {
+            "palace-guard-2": {
+                "siege-tower-2": null
+            },
+            "palace-guard-3": {
                 "siege-tower-2": null
             }
         },
@@ -113,28 +123,53 @@ export const civDataChinese = {
             "acid-distillation-3": null,
             "cupellation-4": null
         },
-        "barbican-of-the-sun-1": null,
-        "imperial-academy-1": {
-            "imperial-examinations-2": null,
+        "jiangnan-tower-2": {
+            "spearman-1": {
+                "siege-tower-2": null
+            },
+            "spearman-2": {
+                "siege-tower-2": null
+            },
+            "spearman-3": {
+                "siege-tower-2": null
+            },
+            "spearman-4": {
+                "siege-tower-2": null
+            },
+            "horseman-2": null,
+            "horseman-3": null,
+            "horseman-4": null,
+            "zhuge-nu-2": {
+                "siege-tower-2": null
+            },
+            "zhuge-nu-3": {
+                "siege-tower-2": null
+            },
+            "zhuge-nu-4": {
+                "siege-tower-2": null
+            }
+        },
+        "meditation-gardens-1": null,
+        "shaolin-monastery-2": {
+            "herbal-medicine-3": null,
+            "piety-4": null,
+            "tithe-barns-4": null,
+            "shaolin-monk-3": null
+        },
+        "mount-lu-academy-1": {
+            "single-whip-reform-1": null,
+            "regional-inspection-1": null,
+            "imperial-red-seals-3": null,
+            "military-affairs-bureau-1": null,
             "imperial-official-1": null
         },
-        "imperial-palace-2": null,
-        "astronomical-clocktower-2": {
-            "roller-shutter-triggers-4": null,
-            "greased-axles-3": null,
-            "reload-drills-4": null,
-            "additional-barrels-4": null,
-            "geometry-4": null,
-            "lightweight-beams-4": null,
-            "clocktower-springald-3": null,
-            "clocktower-counterweight-trebuchet-3": null,
-            "clocktower-bombard-4": null,
-            "clocktower-nest-of-bees-3": null,
-            "clocktower-battering-ram-3": null
-        },
-        "great-wall-gatehouse-3": null,
-        "spirit-way-3": {
-            "ancient-techniques-4": null
+        "temple-of-the-sun-3": null,
+        "zhu-xis-library-3": {
+            "dynastic-protectors-4": null,
+            "roar-of-the-dragon-4": null,
+            "advanced-administration-4": null,
+            "cloud-of-terror-4": null,
+            "10000-bolts-4": null
         },
         "village-1": null,
         "blacksmith-2": {
@@ -154,21 +189,9 @@ export const civDataChinese = {
             "angled-surfaces-4": null
         },
         "archery-range-2": {
-            "veteran-archers-3": null,
-            "elite-archers-4": null,
             "elite-crossbowmen-4": null,
             "veteran-zhuge-nu-3": null,
             "elite-zhuge-nu-4": null,
-            "pyrotechnics-4": null,
-            "archer-2": {
-                "siege-tower-2": null
-            },
-            "archer-3": {
-                "siege-tower-2": null
-            },
-            "archer-4": {
-                "siege-tower-2": null
-            },
             "crossbowman-3": {
                 "siege-tower-2": null
             },
@@ -186,9 +209,6 @@ export const civDataChinese = {
             },
             "zhuge-nu-4": {
                 "siege-tower-2": null
-            },
-            "handcannoneer-4": {
-                "siege-tower-2": null
             }
         },
         "stone-wall-tower-2": null,
@@ -199,15 +219,14 @@ export const civDataChinese = {
             "veteran-horsemen-3": null,
             "elite-horsemen-4": null,
             "elite-knights-or-lancers-4": null,
-            "elite-fire-lancers-4": null,
             "spyglass-4": null,
             "horseman-2": null,
             "horseman-3": null,
             "horseman-4": null,
             "lancer-3": null,
             "lancer-4": null,
-            "fire-lancer-3": null,
-            "fire-lancer-4": null,
+            "yuan-raider-4": null,
+            "imperial-guard-1": null,
             "scout-1": null
         },
         "stone-wall-2": null,
@@ -235,8 +254,6 @@ export const civDataChinese = {
         "siege-workshop-3": {
             "roller-shutter-triggers-4": null,
             "greased-axles-3": null,
-            "reload-drills-4": null,
-            "additional-barrels-4": null,
             "geometry-4": null,
             "lightweight-beams-4": null,
             "springald-3": null,
@@ -248,7 +265,6 @@ export const civDataChinese = {
         "keep-3": {
             "springald-emplacement-3": null,
             "cannon-emplacement-4": null,
-            "extra-materials-3": null,
             "boiling-oil-3": null
         },
         "monastery-3": {
@@ -257,12 +273,13 @@ export const civDataChinese = {
             "tithe-barns-4": null,
             "monk-3": null
         },
-        "pagoda-1": null,
+        "pagoda-1": {
+            "shaolin-monk-3": null
+        },
         "university-4": {
             "chemistry-4": null,
             "biology-4": null,
             "court-architects-4": null,
-            "ancient-techniques-4": null,
             "elite-army-tactics-4": null,
             "incendiary-arrows-4": null,
             "siege-works-4": null

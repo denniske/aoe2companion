@@ -9,23 +9,23 @@ export const civDataHolyRomanEmpire = {
                 "Place Relics in Outposts, Stone Towers and Keeps for defensive and economic bonuses.",
                 "Relics placed in Docks increase ship attack speed by +5% per Relic (Max +25%).",
                 "Early Man-at-Arms in the Feudal Age (II).",
-                "Emplacements are -25% cheaper.",
-                "Villagers' carry +40% more resources.",
+                "Emplacements are -25% cheaper. Outpost sight range increased by +25%.",
+                "Villagers carry +40% more resources.",
                 "Prelates can heal and use Holy Inspiration in the Dark Age (I) — inspired Villagers gather +40% faster for 30 seconds.",
                 "Buildings within influence of a Town Center gain the Emergency Repairs ability which can be activated to repair the building."
             ]
         },
         {
             "title": "Religious Zeal",
-            "description": "Demonstrate the might of the empire by placing Relics in Outposts, Towers and Keeps – increasing armor +50%, damage +35%, range +25%, and line of sight +25%.\nRelics placed in Docks increase ship attack speed by +5% per Relic (Max +25%).\nRelics placed in buildings generate +80 Gold per minute."
+            "description": "Demonstrate the might of the empire by placing Relics in Outposts, Towers, and Keeps - increasing their armor by +50%, damage by +35%, range by +25%, and line of sight by +25%.\nRelics placed in Docks increase ship attack speed by +5% per Relic (Max +25%).\nRelics placed in buildings generate +80 Gold per minute."
         },
         {
             "title": "Army of the Empire",
-            "description": "Upgrade your infantry with impactful technologies and field the Early Man-at-Arms in the Feudal Age (II)."
+            "description": "(translation not found) (undefined)"
         },
         {
             "title": "Emplacement Architecture",
-            "description": "All emplacement technologies are -25% cheaper."
+            "description": "All emplacement technologies are -25% cheaper. Outpost sight range increased by +25%."
         },
         {
             "title": "Pushcarts",
@@ -194,6 +194,7 @@ export const civDataHolyRomanEmpire = {
             "veteran-horsemen-3": null,
             "elite-horsemen-4": null,
             "elite-knights-or-lancers-4": null,
+            "spyglass-4": null,
             "horseman-2": null,
             "horseman-3": null,
             "horseman-4": null,
@@ -256,7 +257,6 @@ export const civDataHolyRomanEmpire = {
             "herbal-medicine-3": null,
             "piety-4": null,
             "tithe-barns-4": null,
-            "benediction-3": null,
             "devoutness-3": null,
             "inspired-warriors-3": null,
             "prelate-1": null
@@ -285,7 +285,6 @@ export const civDataHolyRomanEmpire = {
             "herbal-medicine-3": null,
             "piety-4": null,
             "tithe-barns-4": null,
-            "benediction-3": null,
             "devoutness-3": null,
             "inspired-warriors-3": null,
             "prelate-1": null

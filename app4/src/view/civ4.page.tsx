@@ -23,6 +23,12 @@ import {civDataOttomans} from "../data/ottomans";
 import {civDataMalians} from "../data/malians";
 import {useApi} from "../../../app/src/hooks/use-api";
 import {fetchJson2} from "../../../app/src/api/util";
+import {civDataByzantines} from "../data/byzantines";
+import {civDataJapanese} from "../data/japanese";
+import {civDataJeanneDArc} from "../data/jeannedarc";
+import {civDataAyyubids} from "../data/ayyubids";
+import {civDataZhuXiSLegacy} from "../data/zhuxislegacy";
+import {civDataOrderOfTheDragon} from "../data/orderofthedragon";
 
 
 export function CivTitle(props: any) {
@@ -54,6 +60,12 @@ const aoe4CivInfo = {
     'Mongols': civDataMongols,
     'Ottomans': civDataOttomans,
     'Rus': civDataRus,
+    'Byzantines': civDataByzantines,
+    'Japanese': civDataJapanese,
+    'JeanneDArc': civDataJeanneDArc,
+    'Ayyubids': civDataAyyubids,
+    'ZhuXiSLegacy': civDataZhuXiSLegacy,
+    'OrderOfTheDragon': civDataOrderOfTheDragon,
 };
 
 interface ICivInfoItem {
@@ -76,6 +88,12 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
         'Rus': 'rus',
         'Malians': 'malians',
         'Ottomans': 'ottomans',
+        'Byzantines': 'byzantines',
+        'Japanese': 'japanese',
+        'JeanneDArc': 'jeannedarc',
+        'Ayyubids': 'ayyubids',
+        'ZhuXiSLegacy': 'zhuxi',
+        'OrderOfTheDragon': 'orderofthedragon',
     } as any;
 
     const civInfos = useApi(

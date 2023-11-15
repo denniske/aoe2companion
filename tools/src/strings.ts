@@ -168,6 +168,12 @@ const aoe4CivAbbrevi = {
     'Mongols': 'mongols',
     'Ottomans': 'ottomans',
     'Rus': 'rus',
+    'Byzantines': 'byzantines',
+    'Japanese': 'japanese',
+    'JeanneDArc': 'jeannedarc',
+    'Ayyubids': 'ayyubids',
+    'ZhuXiSLegacy': 'zhuxi',
+    'OrderOfTheDragon': 'orderofthedragon',
 };
 
 async function loadStringsAoe4Explorer() {
@@ -195,8 +201,9 @@ async function loadStringAoe4Explorer(civ: string, explorerAbbreviation: string)
 }
 
 // loadStrings4();
-// loadStringsAoe4Explorer();
+loadStringsAoe4Explorer();
 
 // loadStrings();
-loadStringsAoE2TechTree();
-loadDataAoE2TechTree();
+
+// loadStringsAoE2TechTree();
+// loadDataAoE2TechTree();
