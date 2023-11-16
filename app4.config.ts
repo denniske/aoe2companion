@@ -1,10 +1,10 @@
 // Experimental dark splash screen: https://expo.canny.io/feature-requests/p/dark-mode-splash-screen
 const splash = {
-  "image": "./app/assets/splash.png",
+  "image": "./app4/assets/splash.png",
   "resizeMode": "contain",
   "backgroundColor": "#000000",
   "dark": {
-    "image": "./app/assets/splash.png",
+    "image": "./app4/assets/splash.png",
     "resizeMode": "contain",
     "backgroundColor": "#121212",
   },
