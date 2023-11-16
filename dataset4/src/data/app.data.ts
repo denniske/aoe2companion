@@ -1,3 +1,4 @@
+declare var require: any
 
 export const appConfig = {
     game: 'aoe4',
@@ -33,7 +34,10 @@ export const appConfig = {
         ios: {
             bundleId: '1601333682',
         },
-    }
+    },
+    sentry: {
+        dsn: 'https://42a075ff136400cea6b14fbe95b2adf5@o431543.ingest.sentry.io/4506235138080768',
+    },
 };
 
 export const appIconData = require('../../../app4/assets/icon.png');
