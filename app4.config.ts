@@ -86,7 +86,7 @@ export default {
         {
           "file": "sentry-expo/upload-sourcemaps",
           "config": {
-            "organization": "aoe4companion",
+            "organization": "aoe2companion",
             "project": "aoe4companion"
           }
         }
