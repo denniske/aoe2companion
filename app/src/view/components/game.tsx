@@ -225,6 +225,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         height: 50,
     } : {
         marginRight: 10,
+        backgroundColor: '#141723',
         width: 50,
         height: 50,
         // transform: [{ scale: 0.9 }, { translateX: -7 }, { translateY: 6 }, { rotate: "-45deg" }],

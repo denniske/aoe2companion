@@ -17,10 +17,18 @@ export interface IChangelog {
 // https://www.ageofempires.com/news/age-of-empires-iv-season-one-update-release-notes/
 
 export const changelog4: IChangelog = {
-    '13.0.0': [
+    '14.0.0': [
         {
             type: 'feature',
             title: 'Using new backend. Moved some calculations to the server for better performance. Some features likes searching for maps and match names in match list are not ready yet and have been disabled for now. I will check if historical data can be imported. For more information and roadmap see [Discord](https://discord.gg/gCunWKx)',
+        },
+        {
+            type: 'feature',
+            title: 'Implemented [AoE IV Update 9.1.109](https://www.ageofempires.com/news/age-of-empires-iv-update-9-1-109/)',
+        },
+        {
+            type: 'feature',
+            title: 'Implemented [The Sultans Ascend Expansion](https://www.ageofempires.com/news/the-sultans-ascend-everything-in-the-expansion/)',
         },
         {
             type: 'feature',
