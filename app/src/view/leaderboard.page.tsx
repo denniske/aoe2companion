@@ -170,6 +170,7 @@ function Leaderboard({leaderboardId}: any) {
                 // console.log('APPEND', data, newData, args);
 
                 total.current = newData.total;
+                total2.current = newData.total;
                 list.current.length = newData.total;
                 newData.players.forEach((value, index) => list.current[(params.page!-1)*pageSize+index] = value);
 
@@ -208,9 +209,14 @@ function Leaderboard({leaderboardId}: any) {
             myRank.reload();
         }
         flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
+        total2.current = 1000;
     }, [isFocused, leaderboardCountry]);
 
     const total = useRef<any>();
+
+    // When switching from on leaderboard to another we need to set this to something
+    // greater 0 so that a fetch is not prevented
+    const total2 = useRef<any>(1000);
 
     const onSelect = async (player: ILeaderboardPlayer) => {
         navigation.push('User', {
@@ -282,6 +288,8 @@ function Leaderboard({leaderboardId}: any) {
         const index = Math.floor(contentOffsetY/rowHeight);
         const indexTop = Math.max(0, index);
         const indexBottom = Math.min(total.current-1, index+15);
+
+        if (total2.current === 0) return;
 
         const rankLen = indexBottom.toFixed(0).length;
         setRankWidth((rankLen+1) * 10);

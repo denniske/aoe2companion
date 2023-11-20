@@ -1,4 +1,7 @@
 
+- animated unit images
+- https://github.com/wix/react-native-navigation
+
 - use emblems from civs for tech tree background?
 
 https://www.ageofempires.com/news/preview-age-of-empires-ii-definitive-edition-update-95810/
@@ -111,7 +114,7 @@ npx eas build --profile development-simulator-${AOE} --platform ios --local
 export APP=aoe2 && export AOE=aoe2 && npx eas build --profile development-${AOE} --platform ios --local && npx eas build --profile development-simulator-${AOE} --platform ios --local
 
 Update version in eas config and then
-export APP=aoe2 && export AOE=aoe2 && git tag v68.0.5 && git push --tags && npx eas update --branch production --message "Update v68.0.5"
+export APP=aoe2 && export AOE=aoe2 && git tag v68.0.8 && git push --tags && npx eas update --branch production --message "Update v68.0.8"
 
 export APP=aoe2 && export AOE=aoe2 && npx eas build --profile production-${AOE} --platform ios --auto-submit --no-wait
 

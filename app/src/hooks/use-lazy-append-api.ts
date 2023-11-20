@@ -26,6 +26,8 @@ export function useLazyAppendApi<A extends (...args: any) => any>(options: ILazy
         setLoading(true);
         setLastParams(args);
 
+        // console.log('LOAD', append, args);
+
         // If load is called in useEffect() it may be run synchronously if action is an synchronous function.
         // So we call an async function to force running asynchronously.
         await sleep(0);

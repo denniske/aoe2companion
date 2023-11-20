@@ -31,7 +31,7 @@ export function useApi<A extends (...args: any) => any>(options: ILazyApiOptions
         // So we call an async function to force running asynchronously.
         await sleep(0);
 
-        console.log('==> load', args);
+        // console.log('==> load', args);
         let newData = await action(...(args as any)) as UnPromisify<ReturnType<A>>;
 
         if (!mountedRef.current) {

@@ -144,6 +144,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '68.0.8': [
+        {
+            type: 'bugfix',
+            title: 'Fix leaderboard loading of players rank 100 and greater',
+        },
+    ],
     '68.0.7': [
         {
             type: 'bugfix',
