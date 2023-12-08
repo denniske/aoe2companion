@@ -49,6 +49,7 @@ export interface ITechEffect {
     tech?: Tech;
     civ?: Civ;
     unit?: Unit;
+    onlyUnits?: Unit[];
     building?: Building;
     effect: IEffect;
 }
@@ -1045,6 +1046,7 @@ const techEffectDictInternal = {
     'Bagains': {
         tech: 'Bagains',
         civ: 'Bulgarians',
+        onlyUnits: ['TwoHandedSwordsman'],
         effect: {
             armor: '+5/+0',
         },

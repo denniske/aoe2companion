@@ -144,6 +144,16 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '70.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Add Gambesons upgrade to Militia line',
+        },
+        {
+            type: 'bugfix',
+            title: 'Bagains upgrade only affects Two Handed Swordsman',
+        },
+    ],
     '69.0.0': [
         {
             type: 'bugfix',

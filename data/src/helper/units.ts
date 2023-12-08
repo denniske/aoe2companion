@@ -1528,6 +1528,7 @@ export const unitLines: IUnitLineDict = {
             'ScaleMailArmor',
             'ChainMailArmor',
             'PlateMailArmor',
+            'Gambesons',
             'Bagains',
             'Squires',
             'Tracking',

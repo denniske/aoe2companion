@@ -43,7 +43,10 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
 
     const unitLine = unitLines[unitLineId];
 
-    const unitLineUpgrades = unitLine.upgrades.map(u => techEffectDict[u]).filter(u => !u.unit || u.unit == unitId);
+    const unitLineUpgrades = unitLine.upgrades.map(u => techEffectDict[u])
+        .filter(u => !u.onlyUnits || u.onlyUnits.includes(unitId))
+        // Note: Centurion effect is sorted out by the filter (maybe change this)
+        .filter(u => !u.unit || u.unit == unitId);
 
     const unitIndex = unitLine.units.indexOf(unitId);
 
