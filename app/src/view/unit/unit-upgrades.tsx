@@ -118,10 +118,10 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                       </View>
                       {
                           group.upgrades.map(upgrade =>
-                              <View style={[styles.row, { opacity: hasTech(upgrade.tech) ? 1 : 0.5 }]} key={upgrade.name}>
-                                  <Image fadeDuration={0} style={styles.unitIcon} source={getTechIcon(upgrade.tech)}/>
+                              <View style={[styles.row, { opacity: hasTech(upgrade.tech!) ? 1 : 0.5 }]} key={upgrade.name}>
+                                  <Image fadeDuration={0} style={styles.unitIcon} source={getTechIcon(upgrade.tech!)}/>
                                   <MyText style={styles.unitDesc}>
-                                      <MyText style={appStyles.link} onPress={() => gotoTech(upgrade.tech!)}>{getTechName(upgrade.tech)}</MyText>
+                                      <MyText style={appStyles.link} onPress={() => gotoTech(upgrade.tech!)}>{getTechName(upgrade.tech!)}</MyText>
                                       {
                                           (upgrade.effect[group.prop] || upgrade.civ) &&
                                           <MyText size="footnote">
@@ -174,8 +174,8 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                                       <Image fadeDuration={0} style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(upgradedTo)}/>
                                       <MyText style={styles.unitDesc}>{getUnitName(upgradedTo)}</MyText>
                                       {
-                                          getUnitUpgradeCost(unitId, upgradedTo) &&
-                                          <Costs costDict={getUnitUpgradeCost(unitId, upgradedTo)!}/>
+                                          getUnitUpgradeCost(upgradedTo) &&
+                                          <Costs costDict={getUnitUpgradeCost(upgradedTo)!}/>
                                       }
                                   </View>
                               </TouchableOpacity>
@@ -215,7 +215,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         marginRight: 5,
     },
     resDescription: {
-        marginRight: 20,
+        marginRight: 10,
     },
 
     costsRow: {

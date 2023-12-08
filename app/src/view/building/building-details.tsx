@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
         marginRight: 5,
     },
     resDescription: {
-        marginRight: 20,
+        marginRight: 10,
     },
 
     costsRow: {

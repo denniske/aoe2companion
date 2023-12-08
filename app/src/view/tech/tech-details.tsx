@@ -139,7 +139,7 @@ export default function TechDetails({tech}: {tech: Tech}) {
 const useStyles = createStylesheet((theme) => StyleSheet.create({
     resRow: {
         flexDirection: 'row',
-        marginBottom: 5,
+        // marginBottom: 5,
         alignItems: 'center',
         // backgroundColor: 'blue',
     },
@@ -149,12 +149,13 @@ const useStyles = createStylesheet((theme) => StyleSheet.create({
         marginRight: 5,
     },
     resDescription: {
-        marginRight: 20,
+        marginRight: 10,
     },
 
     costsRow: {
         flexDirection: 'row',
-        marginBottom: 5,
+        marginBottom: 10,
+        alignItems: 'center',
         // backgroundColor: 'blue',
     },
 

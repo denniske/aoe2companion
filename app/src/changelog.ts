@@ -146,6 +146,10 @@ export const changelog4: IChangelog = {
 export const changelog: IChangelog = {
     '70.0.0': [
         {
+            type: 'minor',
+            title: 'Show upgrade cost of unit at the top of the unit details page',
+        },
+        {
             type: 'bugfix',
             title: 'Add Gambesons upgrade to Militia line',
         },

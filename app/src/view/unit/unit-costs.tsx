@@ -63,7 +63,7 @@ export function UnitCosts({ unitId, unitLineId }: Props) {
 const useStyles = createStylesheet(theme => StyleSheet.create({
     resRow: {
         flexDirection: 'row',
-        marginBottom: 5,
+        // marginBottom: 5,
         alignItems: 'center',
         // backgroundColor: 'blue',
     },
@@ -73,7 +73,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         marginRight: 5,
     },
     resDescription: {
-        marginRight: 20,
+        marginRight: 10,
     },
 
     row: {
