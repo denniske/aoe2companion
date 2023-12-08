@@ -13,7 +13,7 @@ const splash = {
 export default {
   "expo": {
     "name": "AoE IV Companion",
-    "description": "Track your AoE IV Definitive Edition games. This app fetches information about your games from aoeiv.net so you are always up-to-date.",
+    "description": "Track your AoE IV matches. This app fetches information about your matches so you are always up-to-date.",
     "slug": "aoe4companion",
     "scheme": "aoe4companion",
     "platforms": [
