@@ -16,6 +16,7 @@ export default {
     "description": "Track your AoE II Definitive Edition games. This app fetches information about your games so you are always up-to-date.",
     "slug": "aoe2companion",
     "scheme": "aoe2companion",
+    "owner": "aoecompanion",
     "platforms": [
       "ios",
       "android",
