@@ -50,7 +50,7 @@ import {
 } from "@nex/data";
 import UnitPage, {UnitTitle, unitTitle} from "./src/view/unit/unit.page";
 import {navigationRef} from "./src/service/navigation";
-import Footer from './src/view/components/footer';
+import Footer from "./src/view/components/footer";
 import TechPage, {techTitle, TechTitle} from "./src/view/tech/tech.page";
 import FeedPage, {feedMenu, feedTitle} from "./src/view/feed.page";
 import UpdateSnackbar from "./src/view/components/snackbar/update-snackbar";
