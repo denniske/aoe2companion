@@ -1,5 +1,5 @@
 import { createStylesheet } from "../../../theming-new";
-import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { MyText } from "../my-text";
 import { IBuildOrder } from "../../../../../data/src/helper/builds";
 import { genericCivIcon, getCivIconLocal } from "../../../helper/civs";
@@ -11,8 +11,10 @@ import { getDifficultyIcon } from "../../../helper/difficulties";
 import { getAgeIcon } from "../../..//helper/units";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Tag } from "../tag";
+import { Image } from "expo-image";
+import { memo } from "react";
 
-export const BuildCard: React.FC<
+const BuildCard: React.FC<
   IBuildOrder & { favorited: boolean; toggleFavorite: () => void }
 > = ({ favorited, toggleFavorite, ...build }) => {
   const styles = useStyles();
@@ -85,6 +87,8 @@ export const BuildCard: React.FC<
     </TouchableOpacity>
   );
 };
+
+export default memo(BuildCard);
 
 const useStyles = createStylesheet((theme, darkMode) =>
   StyleSheet.create({

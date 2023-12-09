@@ -1,6 +1,6 @@
 import { createStylesheet } from "../../../theming-new";
 import { IBuildOrderStep } from "data/src/helper/builds";
-import { Image, ImageSourcePropType, StyleSheet, View } from "react-native";
+import { ImageSourcePropType, StyleSheet, View } from "react-native";
 import { getTechIcon } from "../../../helper/techs";
 import { getOtherIcon, getUnitIcon } from "../../../helper/units";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -8,6 +8,7 @@ import { getBuildingIcon } from "../../../helper/buildings";
 import { MyText } from "../my-text";
 import { startCase } from "lodash";
 import { Fragment } from "react";
+import { Image } from "expo-image";
 
 const capitalize = (string: string) =>
   string.charAt(0).toUpperCase() + string.slice(1);

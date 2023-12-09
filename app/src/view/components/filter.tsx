@@ -5,45 +5,52 @@ import {
   View,
   GestureResponderEvent,
   TextInput,
+  ImageSourcePropType,
 } from "react-native";
-import { createStylesheet } from "../../../theming-new";
+import { createStylesheet } from "../../theming-new";
 import { useRef, useState } from "react";
-import { MyText } from "../my-text";
-import { getDifficultyName } from "../../../helper/difficulties";
+import { MyText } from "./my-text";
+import { Image } from "expo-image";
 
-type Difficulty = 1 | 2 | 3 | "All";
-
-interface DifficultyFilterProps {
-  difficulty: Difficulty;
-  onDifficultyChange: (difficulty: Difficulty) => void;
+interface FilterProps<Value> {
+  options: Array<{ value: Value; label: string; icon?: ImageSourcePropType }>;
+  icon?: ImageSourcePropType;
+  label: string;
+  value: Value;
+  onChange: (value: Value) => void;
 }
 
-export const DifficultyFilter: React.FC<DifficultyFilterProps> = ({
-  difficulty,
-  onDifficultyChange,
-}) => {
+export const Filter = <Value,>({
+  options,
+  label,
+  value,
+  onChange,
+  icon,
+}: FilterProps<Value>) => {
   const styles = useStyles();
-  const [search, setSearch] = useState<string>(
-    getDifficultyName(difficulty) ?? "All"
-  );
+  const initialValue = options.find((o) => o.value === value)?.label ?? "";
+  const [search, setSearch] = useState<string>(initialValue);
+  const filterField = useRef<TextInput>(null);
   const [isFocused, setIsFocused] = useState(false);
-  const options: Array<{ label: string; value: Difficulty }> = (
-    ["All", 1, 2, 3] as const
-  ).map((d) => ({ label: getDifficultyName(d) ?? "All", value: d }));
   const filteredOptions = options.filter(
-    (c) =>
-      c.label.toLowerCase().startsWith(search.toLowerCase()) ||
-      c.label === "All" ||
-      (isFocused && options.some((o) => o.label === search))
+    (option) =>
+      option.label.toLowerCase().startsWith(search.toLowerCase()) ||
+      search === "All" ||
+      (isFocused &&
+        search === initialValue &&
+        options.map((o) => o.label).includes(search))
   );
   const topOption = filteredOptions[0];
-  const filterField = useRef<TextInput>(null);
 
   return (
     <>
-      <View style={styles.filterContainer}>
+      <TouchableOpacity
+        style={styles.filterContainer}
+        onPress={() => filterField.current?.focus()}
+      >
+        {icon ? <Image style={styles.filterIcon} source={icon} /> : null}
         <View style={styles.filter}>
-          <MyText style={styles.filterLabel}>Filter by Difficulty</MyText>
+          <MyText style={styles.filterLabel}>{label}</MyText>
           <TextInput
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
@@ -58,25 +65,28 @@ export const DifficultyFilter: React.FC<DifficultyFilterProps> = ({
             onSubmitEditing={() => {
               if (topOption) {
                 setSearch(topOption.label);
-                onDifficultyChange(topOption.value);
+                onChange(topOption.value);
               }
             }}
           />
         </View>
-      </View>
+      </TouchableOpacity>
 
       {isFocused && (
         <View style={styles.results}>
           <FlatList
+            keyboardShouldPersistTaps="handled"
+            style={{ flex: 1 }}
+            scrollEnabled={true}
             data={filteredOptions}
-            keyExtractor={(item) => item.value.toString()}
+            keyExtractor={(item) => String(item.value)}
             renderItem={({ item, index }) => (
-              <SearchRow
+              <ResultRow
                 index={index}
-                difficulty={item.label}
+                {...item}
                 onPress={() => {
                   setSearch(item.label);
-                  onDifficultyChange(item.value);
+                  onChange(item.value);
                   filterField.current?.blur();
                 }}
               />
@@ -88,20 +98,22 @@ export const DifficultyFilter: React.FC<DifficultyFilterProps> = ({
   );
 };
 
-const SearchRow: React.FC<{
+const ResultRow: React.FC<{
   index: number;
-  difficulty: string;
+  label: string;
+  icon?: ImageSourcePropType;
   onPress: (e: GestureResponderEvent) => void;
-}> = ({ difficulty, onPress, index }) => {
+}> = ({ label, icon, onPress, index }) => {
   const styles = useStyles();
 
   return (
     <TouchableOpacity
       activeOpacity={0.95}
-      style={[styles.searchBlock, index === 0 && styles.highlightedSearchBlock]}
+      style={[styles.result, index === 0 && styles.highlightedResult]}
       onPress={onPress}
     >
-      <MyText style={styles.name}>{difficulty}</MyText>
+      {icon && <Image style={styles.icon} source={icon} />}
+      <MyText style={styles.name}>{label}</MyText>
     </TouchableOpacity>
   );
 };
@@ -122,15 +134,16 @@ const useStyles = createStylesheet((theme, darkMode) =>
       top: 30,
       zIndex: 100,
       width: "100%",
+      height: 350,
     },
     name: {
       color: theme.textColor,
     },
-    highlightedSearchBlock: {
+    highlightedResult: {
       borderTopWidth: 0,
       backgroundColor: theme.skeletonColor,
     },
-    searchBlock: {
+    result: {
       flexDirection: "row",
       gap: 8,
       alignItems: "center",
@@ -139,16 +152,26 @@ const useStyles = createStylesheet((theme, darkMode) =>
       padding: 10,
       backgroundColor: theme.backgroundColor,
     },
+    icon: {
+      width: 25,
+      height: 25,
+    },
     filterContainer: {
       flexDirection: "row",
       gap: 8,
       flex: 1,
+    },
+    filterIcon: {
+      width: 25,
+      height: 25,
     },
     filter: {},
     filterLabel: {
       fontSize: 10,
       color: theme.textNoteColor,
     },
-    filterInput: {},
+    filterInput: {
+      color: theme.textColor,
+    },
   })
 );

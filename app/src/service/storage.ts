@@ -211,7 +211,12 @@ export const useFavoritedBuilds = () => {
     }
   };
 
-  return { toggleFavorite, favoriteIds, favorites };
+  return {
+    toggleFavorite,
+    favoriteIds,
+    favorites,
+    refetch: readItemFromStorage,
+  };
 };
 
 export const useFavoritedBuild = (id: FavoriteId) => {

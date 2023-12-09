@@ -1,7 +1,8 @@
 import { createStylesheet } from "../../../theming-new";
-import { Image, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { getOtherIcon } from "../../../helper/units";
 import { MyText } from "../my-text";
+import { Image } from "expo-image";
 
 interface IResourceAllocProps {
   resource: string;

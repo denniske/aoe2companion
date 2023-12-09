@@ -14,11 +14,15 @@ import { FontAwesome5 } from "@expo/vector-icons";
 
 export function BuildMenu(props: any) {
   const { toggleFavorite, isFavorited } = useFavoritedBuild(
-    props.route.params.buildId
+    props.route.params.build
   );
 
   return (
-    <TouchableOpacity hitSlop={10} onPress={toggleFavorite}>
+    <TouchableOpacity
+      hitSlop={10}
+      onPress={toggleFavorite}
+      style={{ paddingRight: 12 }}
+    >
       <FontAwesome5
         solid={isFavorited}
         name="heart"

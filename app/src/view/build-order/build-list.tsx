@@ -1,29 +1,20 @@
-import { BuildCard } from "../components/build-order/build-card";
-import { flatten, reverse, sortBy, startCase, uniq } from "lodash";
+import BuildCard from "../components/build-order/build-card";
+import { reverse, sortBy } from "lodash";
 import { FlatList, StyleSheet, View } from "react-native";
 import { createStylesheet } from "../../theming-new";
 import { buildsData } from "../../../../data/src/data/builds";
 import { useBuildFilters, useFavoritedBuilds } from "../../service/storage";
-import { Button } from "../components/button";
-import { CivFilter } from "../components/build-order/civ-filter";
-import { BuildTypeFilter } from "../components/build-order/build-type-filter";
+import { BuildFilters } from "../components/build-order/build-filters";
 import { MyText } from "../components/my-text";
-import { DifficultyFilter } from "../components/build-order/difficulty-filter";
+import { useFocusEffect } from "@react-navigation/native";
+import { useCallback } from "react";
 
 export const BuildListPage = () => {
   const styles = useStyles();
-  const { favoriteIds, favorites, toggleFavorite } = useFavoritedBuilds();
-  const {
-    setFilter,
-    filters: { civilization, buildType, difficulty },
-    loading,
-  } = useBuildFilters();
-
-  const buildTypeOptions = [
-    "All",
-    "Favorites",
-    ...uniq(flatten(buildsData.map((build) => build.attributes))),
-  ];
+  const { favoriteIds, favorites, toggleFavorite, refetch } =
+    useFavoritedBuilds();
+  const buildFilters = useBuildFilters();
+  const { civilization, buildType, difficulty } = buildFilters.filters;
 
   const formattedBuilds = (
     buildType === "Favorites" ? favorites : buildsData
@@ -47,37 +38,22 @@ export const BuildListPage = () => {
       (difficulty === "All" || difficulty === build.difficulty)
   );
 
-  if (loading) {
+  useFocusEffect(
+    useCallback(() => {
+      refetch();
+    }, [])
+  );
+
+  if (buildFilters.loading) {
     return null;
   }
 
   return (
     <View style={styles.container}>
-      <View style={styles.filtersContainer}>
-        {civilization && (
-          <CivFilter
-            civilization={civilization}
-            onCivilizationChange={(civ) => setFilter("civilization", civ)}
-          />
-        )}
+      <BuildFilters builds={buildsData} {...buildFilters} />
 
-        {difficulty && (
-          <DifficultyFilter
-            difficulty={difficulty}
-            onDifficultyChange={(diff) => setFilter("difficulty", diff)}
-          />
-        )}
-
-        {buildType && (
-          <BuildTypeFilter
-            buildType={buildType}
-            onBuildTypeChange={(type) => setFilter("buildType", type)}
-            options={buildTypeOptions}
-          />
-        )}
-      </View>
       <FlatList
-        keyboardShouldPersistTaps="handled"
+        initialNumToRender={5}
         snapToInterval={150}
         style={styles.container}
         data={filteredBuilds}
@@ -98,15 +74,6 @@ const useStyles = createStylesheet((theme, darkMode) =>
     contentContainer: {
       gap: 15,
       padding: 10,
-    },
-    filtersContainer: {
-      zIndex: 1,
-      gap: 15,
-      padding: 10,
-      position: "relative",
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "center",
     },
   })
 );

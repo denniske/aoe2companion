@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Image, View, Linking } from "react-native";
+import { StyleSheet, View, Linking } from "react-native";
 import { createStylesheet } from "../../theming-new";
 import { IBuildOrder } from "data/src/helper/builds";
 import { MyText } from "../components/my-text";
@@ -20,6 +20,7 @@ import {
 import { reverse, startCase } from "lodash";
 import { getAgeIcon } from "../../helper/units";
 import { BuildRating } from "../components/build-order/build-rating";
+import { Image } from "expo-image";
 
 export const BuildDetail: React.FC<IBuildOrder> = (build) => {
   const styles = useStyles();
