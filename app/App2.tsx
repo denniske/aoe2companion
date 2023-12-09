@@ -50,7 +50,7 @@ import {
 } from "@nex/data";
 import UnitPage, {UnitTitle, unitTitle} from "./src/view/unit/unit.page";
 import {navigationRef} from "./src/service/navigation";
-import Footer from "./src/view/components/footer";
+import Footer from './src/view/components/footer';
 import TechPage, {techTitle, TechTitle} from "./src/view/tech/tech.page";
 import FeedPage, {feedMenu, feedTitle} from "./src/view/feed.page";
 import UpdateSnackbar from "./src/view/components/snackbar/update-snackbar";
@@ -90,6 +90,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import * as eva from '@eva-design/eva';
 import {ApplicationProvider} from '@ui-kitten/components';
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import BuildPage, { BuildTitle } from './src/view/build.page';
 
 
 SplashScreen.preventAutoHideAsync();
@@ -347,7 +348,7 @@ export type RootStackParamList = {
     Unit: { unit: Unit };
     Building: { building: Building };
     Tech: { tech: Tech };
-    Guide: { build?: number };
+    Guide: { build?: number | string, focusMode?: boolean };
     User: { profileId: number };
     Search: { name?: string };
     OverlaySettings: { };
@@ -610,12 +611,12 @@ export function InnerApp() {
                 />
                 <Stack.Screen
                     name="Guide"
-                    component={GuidePage}
-                    options={{
+                    component={BuildPage}
+                    options={props => ({
                         animationEnabled: false,
-                        headerTitle: props => <GuideTitle {...props} />,
                         headerTitleAlign: 'center',
-                    }}
+                        headerTitle: titleProps => <BuildTitle {...props} titleProps={titleProps} />,
+                    })}
                 />
                 <Stack.Screen
                     name="Search"
