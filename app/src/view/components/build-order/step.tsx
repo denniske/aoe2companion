@@ -15,6 +15,7 @@ import { ResourceAlloc } from "./step-resource";
 import { StepActions } from "./step-actions";
 import { useEffect, useRef } from "react";
 import { useAppTheme } from "../../../theming";
+import { getTranslation } from "../../../helper/translate";
 
 export interface StepProps {
   highlighted: boolean;
@@ -65,10 +66,9 @@ export const Step: React.FC<StepProps> = ({
       <Pressable onPress={onPress} style={styles.stepPressable}>
         <View style={styles.stepHeader}>
           <MyText style={styles.text}>
-            Step {index + 1}
+            {getTranslation("builds.step.currentstep", { step: index + 1 })}{" "}
             <MyText style={[styles.text, styles.textNormal]}>
-              {" "}
-              of {count}
+              {getTranslation("builds.step.maxstep", { max: index + 1 })}
             </MyText>
           </MyText>
         </View>

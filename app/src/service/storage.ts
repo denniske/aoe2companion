@@ -1,181 +1,182 @@
-import { DarkMode } from "../redux/reducer";
-import { LeaderboardId } from "@nex/data";
+import {DarkMode} from "../redux/reducer";
+import {Civ, LeaderboardId} from "@nex/data";
 import store from "../redux/store";
-import { v4 as uuidv4 } from "uuid";
-import { Flag } from "@nex/data";
-import AsyncStorage, {
-  useAsyncStorage,
-} from "@react-native-async-storage/async-storage";
-import { isElectron, sendConfig, sendSettings } from "../helper/electron";
-import { merge } from "lodash";
+import {v4 as uuidv4} from "uuid";
+import {Flag} from '@nex/data';
+import AsyncStorage, { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import {isElectron, sendConfig, sendSettings} from "../helper/electron";
+import { merge } from 'lodash';
 import { useEffect, useState } from "react";
 import { buildsData } from "../../../data/src/data/builds";
-import { Civ } from "../../../data/src/helper/civs";
 
 export interface IConfig {
-  hotkeyShowHideEnabled: boolean;
-  hotkeySearchEnabled: boolean;
-  darkMode: DarkMode;
-  pushNotificationsEnabled: boolean;
-  overlayEnabled: boolean;
-  overlay: {
-    opacity: number;
-    offset: number;
-    duration: number;
-  };
-  preventScreenLockOnGuidePage: boolean;
-  language: string;
+    hotkeyShowHideEnabled: boolean;
+    hotkeySearchEnabled: boolean;
+    darkMode: DarkMode;
+    pushNotificationsEnabled: boolean;
+    overlayEnabled: boolean;
+    overlay: {
+        opacity: number;
+        offset: number;
+        duration: number;
+    }
+    preventScreenLockOnGuidePage: boolean;
+    language: string;
 }
 
 export interface IPrefs {
-  guideFavorites: string[];
-  country?: string;
-  leaderboardId?: LeaderboardId;
-  changelogLastVersionRead?: string;
-  birthdayRead?: boolean;
-  techTreeSize?: string;
-  ratingHistoryDuration?: string;
+    guideFavorites: string[];
+    country?: string;
+    leaderboardId?: LeaderboardId;
+    changelogLastVersionRead?: string;
+    birthdayRead?: boolean;
+    techTreeSize?: string;
+    ratingHistoryDuration?: string;
 }
 
 export interface ISettings {
-  steamId?: string;
-  profileId?: number;
+    steamId?: string;
+    profileId?: number;
 
-  // Deprecated
-  steam_id?: string;
-  profile_id?: number;
+    // Deprecated
+    steam_id?: string;
+    profile_id?: number;
 }
 
 export interface IAccount {
-  id: string;
+    id: string;
 }
 
 export interface IFollowingEntry {
-  steam_id?: string;
-  profileId: number;
-  profile_id?: number;
-  name: string;
-  games: number;
-  country: Flag;
+    steam_id?: string;
+    profileId: number;
+    profile_id?: number;
+    name: string;
+    games: number;
+    country: Flag;
 }
 
 export const loadPrefsFromStorage = async () => {
-  const entry = await AsyncStorage.getItem("prefs");
-  if (entry == null) {
-    return {};
-  }
-  return JSON.parse(entry) as IPrefs;
+    const entry = await AsyncStorage.getItem('prefs');
+    if (entry == null) {
+        return {
+
+        };
+    }
+    return JSON.parse(entry) as IPrefs;
 };
 
 export const saveCurrentPrefsToStorage = async () => {
-  const prefs = store.getState().prefs;
-  await AsyncStorage.setItem("prefs", JSON.stringify(prefs));
+    const prefs = store.getState().prefs;
+    await AsyncStorage.setItem('prefs', JSON.stringify(prefs));
 };
 
 export const saveAccountToStorage = async (account: IAccount) => {
-  await AsyncStorage.setItem("account", JSON.stringify(account));
+    await AsyncStorage.setItem('account', JSON.stringify(account));
 };
 
 export const loadAccountFromStorage = async () => {
-  const entry = await AsyncStorage.getItem("account");
-  if (entry == null) {
-    const newAccountId = uuidv4();
-    await saveAccountToStorage({ id: newAccountId });
-    return {
-      id: newAccountId,
-    };
-  }
-  return JSON.parse(entry) as IAccount;
+    const entry = await AsyncStorage.getItem('account');
+    if (entry == null) {
+        const newAccountId = uuidv4();
+        await saveAccountToStorage({ id: newAccountId });
+        return {
+            id: newAccountId,
+        };
+    }
+    return JSON.parse(entry) as IAccount;
 };
 
 export const loadConfigFromStorage = async () => {
-  const entryJson = await AsyncStorage.getItem("config");
-  const entry = (entryJson ? JSON.parse(entryJson) : {}) as IConfig;
-  entry.language = entry.language ?? "en";
-  entry.darkMode = entry.darkMode ?? "system";
-  entry.preventScreenLockOnGuidePage =
-    entry.preventScreenLockOnGuidePage ?? true;
-  entry.pushNotificationsEnabled = entry.pushNotificationsEnabled ?? false;
-  entry.hotkeyShowHideEnabled = entry.hotkeyShowHideEnabled ?? true;
-  entry.hotkeySearchEnabled = entry.hotkeySearchEnabled ?? true;
-  entry.overlay = merge(
-    {
-      opacity: 80,
-      offset: 7,
-      duration: 60,
-    },
-    entry.overlay
-  );
-  await sendConfigToElectron(entry);
-  return entry;
+    const entryJson = await AsyncStorage.getItem('config');
+    const entry = (entryJson ? JSON.parse(entryJson) : {}) as IConfig;
+    entry.language = entry.language ?? 'en';
+    entry.darkMode = entry.darkMode ?? 'system';
+    entry.preventScreenLockOnGuidePage = entry.preventScreenLockOnGuidePage ?? true;
+    entry.pushNotificationsEnabled = entry.pushNotificationsEnabled ?? false;
+    entry.hotkeyShowHideEnabled = entry.hotkeyShowHideEnabled ?? true;
+    entry.hotkeySearchEnabled = entry.hotkeySearchEnabled ?? true;
+    entry.overlay = merge({
+        opacity: 80,
+        offset: 7,
+        duration: 60,
+    }, entry.overlay);
+    await sendConfigToElectron(entry);
+    return entry;
 };
 
 export const saveConfigToStorage = async (config: IConfig) => {
-  await AsyncStorage.setItem("config", JSON.stringify(config));
-  await sendConfigToElectron(config);
+    await AsyncStorage.setItem('config', JSON.stringify(config));
+    await sendConfigToElectron(config);
 };
 
 export const clearSettingsInStorage = async () => {
-  await AsyncStorage.removeItem("settings");
-  await sendSettingsToElectron(null);
+    await AsyncStorage.removeItem('settings');
+    await sendSettingsToElectron(null);
 };
 
 export const saveSettingsToStorage = async (settings: ISettings) => {
-  await AsyncStorage.setItem("settings", JSON.stringify(settings));
-  await sendSettingsToElectron(settings);
+    await AsyncStorage.setItem('settings', JSON.stringify(settings));
+    await sendSettingsToElectron(settings);
 };
 
 export const loadSettingsFromStorage = async () => {
-  const entry = await AsyncStorage.getItem("settings");
-  if (entry == null) {
-    return null;
-  }
-  const settings = JSON.parse(entry) as ISettings;
+    const entry = await AsyncStorage.getItem('settings');
+    if (entry == null) {
+        return null;
+    }
+    const settings = JSON.parse(entry) as ISettings;
 
-  if (settings.profileId == null && settings.profile_id != null) {
-    settings.profileId = settings.profile_id;
-  }
-  // if (settings.steamId == null && settings.steam_id != null) {
-  //     settings.steamId = settings.steam_id;
-  // }
+    if (settings.profileId == null && settings.profile_id != null) {
+        settings.profileId = settings.profile_id;
+    }
+    // if (settings.steamId == null && settings.steam_id != null) {
+    //     settings.steamId = settings.steam_id;
+    // }
 
-  // delete settings.profile_id;
-  // delete settings.steam_id;
+    // delete settings.profile_id;
+    // delete settings.steam_id;
 
-  await sendSettingsToElectron({ profileId: settings.profileId });
-  return { profileId: settings.profileId };
+    await sendSettingsToElectron({ profileId: settings.profileId });
+    return { profileId: settings.profileId };
 };
 
 export const loadFollowingFromStorage = async () => {
-  const entry = await AsyncStorage.getItem("following");
-  if (entry == null) {
-    return [];
-  }
-  const entries = JSON.parse(entry) as IFollowingEntry[];
-
-  for (const entry of entries) {
-    if (entry.profileId == null && entry.profile_id != null) {
-      entry.profileId = entry.profile_id;
-      delete entry.profile_id;
+    const entry = await AsyncStorage.getItem('following');
+    if (entry == null) {
+        return [];
     }
-    delete entry.steam_id;
-    // if (entry.steamId == null && entry.steam_id != null) {
-    //     entry.steamId = entry.steam_id;
-    // }
-  }
+    const entries = JSON.parse(entry) as IFollowingEntry[];
 
-  return entries;
+    for (const entry of entries) {
+        if (entry.profileId == null && entry.profile_id != null) {
+            entry.profileId = entry.profile_id;
+            delete entry.profile_id;
+        }
+        delete entry.steam_id;
+        // if (entry.steamId == null && entry.steam_id != null) {
+        //     entry.steamId = entry.steam_id;
+        // }
+    }
+
+    return entries;
 };
 
 export const saveFollowingToStorage = async (following: IFollowingEntry[]) => {
-  await AsyncStorage.setItem("following", JSON.stringify(following));
+    await AsyncStorage.setItem('following', JSON.stringify(following));
 };
 
 const sendConfigToElectron = async (config: IConfig) => {
-  if (isElectron()) {
-    await sendConfig(config);
-  }
-};
+    if (isElectron()) {
+        await sendConfig(config);
+    }
+}
+
+const sendSettingsToElectron = async (settings: ISettings | null) => {
+    if (isElectron()) {
+        await sendSettings(settings);
+    }
+}
 
 type FavoriteId = number | string;
 export const useFavoritedBuilds = () => {
@@ -229,14 +230,14 @@ export const useFavoritedBuild = (id: FavoriteId) => {
 };
 
 type BuildFilters = {
-  civilization: Civ | "All";
-  buildType: string;
-  difficulty: 1 | 2 | 3 | "All";
+  civilization: Civ | "all";
+  buildType: string | 'favorites' | 'all';
+  difficulty: 1 | 2 | 3 | "all";
 };
 const defaultFilters: BuildFilters = {
-  civilization: "All",
-  buildType: "All",
-  difficulty: "All",
+  civilization: "all",
+  buildType: "all",
+  difficulty: "all",
 };
 export const useBuildFilters = () => {
   const { getItem, setItem } = useAsyncStorage("buildFilters");
@@ -272,10 +273,4 @@ export const useBuildFilters = () => {
     filters: filters ?? defaultFilters,
     loading: !filters,
   };
-};
-
-const sendSettingsToElectron = async (settings: ISettings | null) => {
-  if (isElectron()) {
-    await sendSettings(settings);
-  }
 };

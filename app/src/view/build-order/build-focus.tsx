@@ -15,6 +15,7 @@ import { MyText } from "../components/my-text";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Button } from "../components/button";
+import { getTranslation } from "../../helper/translate";
 
 export const BuildFocus: React.FC<{
   build: IBuildOrder;
@@ -93,14 +94,14 @@ export const BuildFocus: React.FC<{
               disabled={currentStep === 0}
               onPress={() => goToStep(currentStep - 1)}
             >
-              Previous
+              {getTranslation("builds.focus.previous")}
             </Button>
             <Button
               fullWidth
               disabled={currentStep === build.build.length - 1}
               onPress={() => goToStep(currentStep + 1)}
             >
-              Next
+              {getTranslation("builds.focus.next")}
             </Button>
           </View>
         </SafeAreaView>

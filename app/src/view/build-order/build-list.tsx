@@ -8,6 +8,7 @@ import { BuildFilters } from "../components/build-order/build-filters";
 import { MyText } from "../components/my-text";
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback } from "react";
+import { getTranslation } from "../../helper/translate";
 
 export const BuildListPage = () => {
   const styles = useStyles();
@@ -17,7 +18,7 @@ export const BuildListPage = () => {
   const { civilization, buildType, difficulty } = buildFilters.filters;
 
   const formattedBuilds = (
-    buildType === "Favorites" ? favorites : buildsData
+    buildType === "favorites" ? favorites : buildsData
   ).map((build) => ({
     ...build,
     avg_rating: build.avg_rating ?? 0,
@@ -31,11 +32,11 @@ export const BuildListPage = () => {
 
   const filteredBuilds = sortedBuilds.filter(
     (build) =>
-      (civilization === "All" || build.civilization === civilization) &&
-      (buildType === "All" ||
-        buildType === "Favorites" ||
+      (civilization === "all" || build.civilization === civilization) &&
+      (buildType === "all" ||
+        buildType === "favorites" ||
         build.attributes.includes(buildType)) &&
-      (difficulty === "All" || difficulty === build.difficulty)
+      (difficulty === "all" || difficulty === build.difficulty)
   );
 
   useFocusEffect(
@@ -60,7 +61,9 @@ export const BuildListPage = () => {
         renderItem={({ item }) => <BuildCard {...item} />}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.contentContainer}
-        ListEmptyComponent={<MyText>No Results Found</MyText>}
+        ListEmptyComponent={
+          <MyText>{getTranslation("builds.noResults")}</MyText>
+        }
       />
     </View>
   );

@@ -4,9 +4,10 @@ import { flatten, startCase, uniq } from "lodash";
 import { IBuildOrder } from "../../../../../data/src/helper/builds";
 import { useBuildFilters } from "../../../service/storage";
 import { genericCivIcon, getCivIconLocal } from "../../../helper/civs";
-import { Civ, civs, orderCivs } from "@nex/data";
+import { Civ, civs, getCivNameById, orderCivs } from "@nex/data";
 import { Filter } from "../filter";
 import { getDifficultyName } from "../../../helper/difficulties";
+import { getTranslation } from "../../../helper/translate";
 
 type FiltersStore = ReturnType<typeof useBuildFilters>;
 
@@ -21,14 +22,14 @@ export const BuildFilters: React.FC<BuildFiltersProps> = ({
 }) => {
   const styles = useStyles();
   const buildTypeOptions = [
-    "All",
-    "Favorites",
+    "all",
+    "favorites",
     ...uniq(flatten(builds.map((build) => build.attributes))),
-  ];
+  ] as const;
 
   const civIcon = getCivIconLocal(civilization) ?? genericCivIcon;
-  const civOptions: Array<Civ | "All"> = [
-    "All",
+  const civOptions: Array<Civ | "all"> = [
+    "all",
     ...orderCivs(civs.filter((civ) => civ !== "Indians")),
   ];
 
@@ -38,11 +39,14 @@ export const BuildFilters: React.FC<BuildFiltersProps> = ({
         <Filter
           icon={civIcon}
           onChange={(civ) => setFilter("civilization", civ)}
-          label="Filter by Civ"
+          label={getTranslation("builds.filters.civ")}
           value={civilization}
           options={civOptions.map((value) => ({
             value,
-            label: value,
+            label:
+              value === "all"
+                ? getTranslation("builds.filters.all")
+                : getCivNameById(value),
             icon: getCivIconLocal(value) ?? genericCivIcon,
           }))}
         />
@@ -51,10 +55,10 @@ export const BuildFilters: React.FC<BuildFiltersProps> = ({
       {difficulty && (
         <Filter
           onChange={(diff) => setFilter("difficulty", diff)}
-          label="Filter by Difficulty"
+          label={getTranslation("builds.filters.difficulty")}
           value={difficulty}
-          options={(["All", 1, 2, 3] as const).map((d) => ({
-            label: getDifficultyName(d) ?? "All",
+          options={(["all", 1, 2, 3] as const).map((d) => ({
+            label: getDifficultyName(d) ?? getTranslation("builds.filters.all"),
             value: d,
           }))}
         />
@@ -63,11 +67,16 @@ export const BuildFilters: React.FC<BuildFiltersProps> = ({
       {buildType && (
         <Filter
           onChange={(type) => setFilter("buildType", type)}
-          label="Filter by Type"
+          label={getTranslation("builds.filters.type")}
           value={buildType}
           options={buildTypeOptions.map((value) => ({
             value,
-            label: startCase(value),
+            label:
+              value === "all"
+                ? getTranslation("builds.filters.all")
+                : value === "favorites"
+                ? getTranslation("builds.favorites")
+                : startCase(value),
           }))}
         />
       )}

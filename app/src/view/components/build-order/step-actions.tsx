@@ -9,6 +9,7 @@ import { MyText } from "../my-text";
 import { startCase } from "lodash";
 import { Fragment } from "react";
 import { Image } from "expo-image";
+import { getTranslation } from "../../../helper/translate";
 
 const capitalize = (string: string) =>
   string.charAt(0).toUpperCase() + string.slice(1);
@@ -74,7 +75,11 @@ export const StepActions: React.FC<
 
   return (
     <View style={styles.row}>
-      {hasBuildings && <MyText style={styles.text}>Build</MyText>}
+      {hasBuildings && (
+        <MyText style={styles.text}>
+          {getTranslation("builds.step.build")}
+        </MyText>
+      )}
       {buildings?.map((building, index) => (
         <Fragment key={`${building.type}-${index}`}>
           {index > 0 ? <PlusIcon /> : null}
@@ -91,7 +96,11 @@ export const StepActions: React.FC<
         </Fragment>
       ))}
 
-      {hasTech && <MyText style={styles.text}>Research</MyText>}
+      {hasTech && (
+        <MyText style={styles.text}>
+          {getTranslation("builds.step.research")}
+        </MyText>
+      )}
       {tech?.map((tech, index) => (
         <Fragment key={tech}>
           {index > 0 ? <PlusIcon /> : null}
@@ -119,7 +128,9 @@ export const StepActions: React.FC<
 
       {type == "newVillagers" && (
         <>
-          <MyText style={styles.text}>{count} on</MyText>
+          <MyText style={styles.text}>
+            {getTranslation("builds.step.newvills", { count })}
+          </MyText>
           <TaskIcon item={task} />
         </>
       )}
@@ -137,19 +148,33 @@ export const StepActions: React.FC<
         <>
           {count === "∞" ? (
             <MyText style={styles.text}>
-              Start Training {startCase(unit)}s
+              {getTranslation("builds.step.training.start", {
+                unit: startCase(unit),
+              })}
             </MyText>
           ) : (
             <MyText style={styles.text}>
-              Train {count} {startCase(unit)}
-              {count > 1 && "s"}
+              {getTranslation(
+                count === 1
+                  ? "builds.step.training.singular"
+                  : "builds.step.training.plural",
+                {
+                  count,
+                  unit: startCase(unit),
+                }
+              )}
             </MyText>
           )}
         </>
       )}
       {type == "ageUp" && (
         <>
-          <MyText style={styles.text}>Research{pop && ` ${pop} pop`}</MyText>
+          <MyText style={styles.text}>
+            {getTranslation(
+              pop ? "builds.step.ageupwithpop" : "builds.step.ageup",
+              { pop }
+            )}
+          </MyText>
           <Image
             source={getOtherIcon(capitalize(age!) as any)}
             style={styles.pic}
@@ -158,7 +183,12 @@ export const StepActions: React.FC<
       )}
       {type == "newAge" && (
         <>
-          <MyText style={styles.text}>Enter{pop && ` ${pop} pop`}</MyText>
+          <MyText style={styles.text}>
+            {getTranslation(
+              pop ? "builds.step.newagewithpop" : "builds.step.newage",
+              { pop }
+            )}
+          </MyText>
           <Image
             source={getOtherIcon(capitalize(age!) as any)}
             style={styles.pic}

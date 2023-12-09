@@ -21,6 +21,7 @@ import { reverse, startCase } from "lodash";
 import { getAgeIcon } from "../../helper/units";
 import { BuildRating } from "../components/build-order/build-rating";
 import { Image } from "expo-image";
+import { getTranslation } from "../../helper/translate";
 
 export const BuildDetail: React.FC<IBuildOrder> = (build) => {
   const styles = useStyles();
@@ -37,13 +38,13 @@ export const BuildDetail: React.FC<IBuildOrder> = (build) => {
       <MyText>{build.description}</MyText>
 
       <MyText>
-        Created by {build.author}{" "}
+        {getTranslation("builds.detail.createdBy", { author: build.author })}{" "}
         {build.reference && (
           <MyText
             onPress={() => Linking.openURL(build.reference ?? "")}
             style={styles.link}
           >
-            (Source)
+            {getTranslation("builds.detail.source")}
           </MyText>
         )}
       </MyText>
@@ -56,8 +57,15 @@ export const BuildDetail: React.FC<IBuildOrder> = (build) => {
             key={ageName}
             icon={getAgeIcon(startCase(ageName.replace("Age", "")) as any)}
           >
-            {ageName === "feudalAge" ? `${agePop} pop` : `+${agePop} vills`} -{" "}
-            {uptimes[ageName]}
+            {ageName === "feudalAge"
+              ? getTranslation("builds.detail.pop", {
+                  pop: agePop,
+                  age: uptimes[ageName],
+                })
+              : getTranslation("builds.detail.vills", {
+                  pop: agePop,
+                  age: uptimes[ageName],
+                })}
           </Tag>
         ))}
       </View>
@@ -75,7 +83,9 @@ export const BuildDetail: React.FC<IBuildOrder> = (build) => {
         <BuildRating {...build} />
       </View>
 
-      <Button onPress={() => setFocused(true)}>Focus</Button>
+      <Button onPress={() => setFocused(true)}>
+        {getTranslation("builds.detail.focus")}
+      </Button>
 
       <BuildFocus
         build={build}

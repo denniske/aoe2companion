@@ -13,6 +13,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { Tag } from "../tag";
 import { Image } from "expo-image";
 import { memo } from "react";
+import { getTranslation } from "../../../helper/translate";
 
 const BuildCard: React.FC<
   IBuildOrder & { favorited: boolean; toggleFavorite: () => void }
@@ -38,7 +39,9 @@ const BuildCard: React.FC<
             navigation.push("Guide", { build: build.id, focusMode: true })
           }
         >
-          <MyText style={styles.startButtonText}>Start</MyText>
+          <MyText style={styles.startButtonText}>
+            {getTranslation("builds.card.start")}
+          </MyText>
         </TouchableOpacity>
       </View>
 
