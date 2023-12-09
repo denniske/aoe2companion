@@ -7,6 +7,7 @@ export interface ButtonProps {
   children: string;
   onPress?: (event: GestureResponderEvent) => void;
   fullWidth?: boolean;
+  hollow?: boolean;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -14,6 +15,7 @@ export const Button: React.FC<ButtonProps> = ({
   children,
   onPress,
   fullWidth,
+  hollow,
 }) => {
   const styles = useStyles();
 
@@ -24,11 +26,14 @@ export const Button: React.FC<ButtonProps> = ({
         styles.button,
         pressed && styles.buttonPressed,
         disabled && styles.buttonDisabled,
+        hollow && styles.buttonHollow,
         fullWidth && styles.buttonFull,
       ]}
       onPress={onPress}
     >
-      <MyText style={styles.buttonText}>{children}</MyText>
+      <MyText style={[styles.buttonText, hollow && styles.buttonTextHollow]}>
+        {children}
+      </MyText>
     </Pressable>
   );
 };
@@ -36,10 +41,12 @@ export const Button: React.FC<ButtonProps> = ({
 const useStyles = createStylesheet((theme, darkMode) =>
   StyleSheet.create({
     button: {
-      backgroundColor: "black",
+      backgroundColor: theme.hoverBackgroundColor,
       padding: 12,
       alignItems: "center",
       borderRadius: 4,
+      borderWidth: 2,
+      borderColor: "transparent",
     },
     buttonPressed: {
       opacity: 0.6,
@@ -50,10 +57,17 @@ const useStyles = createStylesheet((theme, darkMode) =>
     buttonFull: {
       flex: 1,
     },
+    buttonHollow: {
+      backgroundColor: "transparent",
+      borderColor: theme.borderColor,
+    },
     buttonText: {
-      color: "white",
+      color: theme.textColor,
       textTransform: "uppercase",
       fontWeight: "bold",
+    },
+    buttonTextHollow: {
+      color: theme.textColor,
     },
   })
 );

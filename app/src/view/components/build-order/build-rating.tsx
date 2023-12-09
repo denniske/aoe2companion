@@ -1,7 +1,7 @@
 import { createStylesheet } from "../../../theming-new";
 import { StyleSheet, View } from "react-native";
 import { IBuildOrder } from "../../../../../data/src/helper/builds";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 import { MyText } from "../my-text";
 
 export const BuildRating: React.FC<IBuildOrder> = (build) => {
@@ -15,21 +15,22 @@ export const BuildRating: React.FC<IBuildOrder> = (build) => {
         {Array(filledStars)
           .fill(null)
           .map((_, index) => (
-            <FontAwesome
+            <FontAwesome5
               name="star"
               size={14}
               key={`filled-${index}`}
               color="#f7d305"
+              solid
             />
           ))}
         {Array(unfilledStars)
           .fill(null)
           .map((_, index) => (
-            <FontAwesome
+            <FontAwesome5
               name="star"
               size={14}
               key={`unfilled-${index}`}
-              color="#cbd5e1"
+              color="#f7d305"
             />
           ))}
       </View>

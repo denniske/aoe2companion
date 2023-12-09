@@ -5,22 +5,22 @@ import { IBuildOrder } from "../../../../../data/src/helper/builds";
 import { genericCivIcon, getCivIconLocal } from "../../../helper/civs";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackProp } from "../../../../App2";
-import { reverse, startCase, upperCase } from "lodash";
+import { reverse, startCase } from "lodash";
 import { BuildRating } from "./build-rating";
 import { getDifficultyIcon } from "../../../helper/difficulties";
 import { getAgeIcon } from "../../..//helper/units";
-import { FontAwesome } from "@expo/vector-icons";
-import { useState } from "react";
+import { FontAwesome5 } from "@expo/vector-icons";
 import { Tag } from "../tag";
 
-export const BuildCard: React.FC<IBuildOrder> = (build) => {
+export const BuildCard: React.FC<
+  IBuildOrder & { favorited: boolean; toggleFavorite: () => void }
+> = ({ favorited, toggleFavorite, ...build }) => {
   const styles = useStyles();
   const title = build.title.replace(build.civilization, "");
   const civIcon = getCivIconLocal(build.civilization) ?? genericCivIcon;
   const difficultyIcon = getDifficultyIcon(build.difficulty);
   const navigation = useNavigation<RootStackProp>();
   const ages = reverse(Object.entries(build.pop));
-  const [favorited, setFavorited] = useState(false);
 
   return (
     <TouchableOpacity
@@ -72,12 +72,13 @@ export const BuildCard: React.FC<IBuildOrder> = (build) => {
       <TouchableOpacity
         style={styles.favoriteButton}
         hitSlop={10}
-        onPress={() => setFavorited(!favorited)}
+        onPress={toggleFavorite}
       >
-        <FontAwesome
+        <FontAwesome5
+          solid={favorited}
           name="heart"
           size={20}
-          color={favorited ? "#ef4444" : "#cbd5e1"}
+          color="#ef4444"
         />
       </TouchableOpacity>
       <Image source={{ uri: build.imageURL }} style={styles.mainImage} />
@@ -116,6 +117,7 @@ const useStyles = createStylesheet((theme, darkMode) =>
     author: {
       fontSize: 16,
       color: theme.textNoteColor,
+      flexShrink: 1,
     },
     mainImage: {
       width: 50,

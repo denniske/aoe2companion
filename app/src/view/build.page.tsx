@@ -8,6 +8,26 @@ import TextHeader from "./components/navigation-header/text-header";
 import { getBuildById } from "../../../data/src/helper/builds";
 import { genericCivIcon, getCivIconLocal } from "../helper/civs";
 import IconHeader from "./components/navigation-header/icon-header";
+import { useFavoritedBuild } from "../service/storage";
+import { TouchableOpacity } from "react-native";
+import { FontAwesome5 } from "@expo/vector-icons";
+
+export function BuildMenu(props: any) {
+  const { toggleFavorite, isFavorited } = useFavoritedBuild(
+    props.route.params.buildId
+  );
+
+  return (
+    <TouchableOpacity hitSlop={10} onPress={toggleFavorite}>
+      <FontAwesome5
+        solid={isFavorited}
+        name="heart"
+        size={20}
+        color="#ef4444"
+      />
+    </TouchableOpacity>
+  );
+}
 
 export function BuildTitle(props: any) {
   const build = getBuildById(props.route?.params?.build);

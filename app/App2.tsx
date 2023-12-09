@@ -90,7 +90,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import * as eva from '@eva-design/eva';
 import {ApplicationProvider} from '@ui-kitten/components';
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
-import BuildPage, { BuildTitle } from './src/view/build.page';
+import BuildPage, { BuildTitle, BuildMenu } from './src/view/build.page';
 
 
 SplashScreen.preventAutoHideAsync();
@@ -616,6 +616,7 @@ export function InnerApp() {
                         animationEnabled: false,
                         headerTitleAlign: 'center',
                         headerTitle: titleProps => <BuildTitle {...props} titleProps={titleProps} />,
+                        headerRight: () => props.route?.params?.build ? <BuildMenu {...props} /> : null,
                     })}
                 />
                 <Stack.Screen

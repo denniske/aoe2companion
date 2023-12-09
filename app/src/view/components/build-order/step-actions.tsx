@@ -3,7 +3,7 @@ import { IBuildOrderStep } from "data/src/helper/builds";
 import { Image, ImageSourcePropType, StyleSheet, View } from "react-native";
 import { getTechIcon } from "../../../helper/techs";
 import { getOtherIcon, getUnitIcon } from "../../../helper/units";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 import { getBuildingIcon } from "../../../helper/buildings";
 import { MyText } from "../my-text";
 import { startCase } from "lodash";
@@ -40,7 +40,7 @@ const PlusIcon: React.FC<{ move?: boolean }> = ({ move }) => {
   const styles = useStyles();
 
   return (
-    <FontAwesome
+    <FontAwesome5
       name={move ? "arrow-right" : "plus"}
       size={14}
       style={styles.plusIcon}

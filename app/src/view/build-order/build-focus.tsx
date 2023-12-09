@@ -75,6 +75,7 @@ export const BuildFocus: React.FC<{
             ref={flatListRef}
             renderItem={({ item, index }) => (
               <Step
+                count={build.build.length}
                 build={build}
                 step={item}
                 highlighted={index === currentStep}
