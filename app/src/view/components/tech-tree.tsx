@@ -174,7 +174,7 @@ function Ability2({civ, tech, unit, building, unique, dependsOn}: AbilityProps) 
     }
     return (
         <TouchableOpacity style={[styles.imageContainer2, {borderColor, opacity}]} onPress={getAbilityNavCallback({tech, unit, building})}>
-            <ImageBackground fadeDuration={0} source={getAbilityIcon({tech, unit, building})} imageStyle={styles.imageInner2} contentFit="cover" style={styles.image2}>
+            <ImageBackground source={getAbilityIcon({tech, unit, building})} imageStyle={styles.imageInner2} contentFit="cover" style={styles.image2}>
                 {
                     !enabled &&
                     <Image source={getOtherIcon('Cross' as any)} style={styles.cross}/>
@@ -187,7 +187,7 @@ function Ability2({civ, tech, unit, building, unique, dependsOn}: AbilityProps) 
 function Ability3({age}: Ability3Props) {
     return (
         <TouchableOpacity style={[styles.imageContainer3]}>
-            <ImageBackground fadeDuration={0} source={getOtherIcon(age)} imageStyle={styles.imageInner2} contentFit="cover" style={styles.image2}/>
+            <ImageBackground source={getOtherIcon(age)} imageStyle={styles.imageInner2} contentFit="cover" style={styles.image2}/>
         </TouchableOpacity>
     );
 }

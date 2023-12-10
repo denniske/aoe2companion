@@ -142,7 +142,7 @@ export function CivList() {
     const renderItem = (civ: Civ) => (
         <TouchableOpacity key={civ} onPress={() => navigation.push('Civ', {civ})}>
             <View style={styles.civBlock}>
-                <Image fadeDuration={0} style={styles.icon} source={getCivIconLocal(civ)}/>
+                <Image style={styles.icon} source={getCivIconLocal(civ)}/>
                 <View style={styles.civRow}>
                     <MyText style={styles.name}>{getCivNameById(civ)}</MyText>
                     <MyText style={styles.small} numberOfLines={1}>

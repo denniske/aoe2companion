@@ -84,11 +84,11 @@ function Row({type, data}: IRowPropsCiv | IRowPropsMap | IRowPropsAlly | IRowPro
                         }
                         {
                             (type === 'civ') &&
-                            <Image fadeDuration={0} style={styles.civIcon} source={getIcon()}/>
+                            <Image style={styles.civIcon} source={getIcon()}/>
                         }
                         {
                             (type === 'map') &&
-                            <Image fadeDuration={0} style={styles.icon} source={getIcon()}/>
+                            <Image style={styles.icon} source={getIcon()}/>
                         }
                         <MyText>{getName()}</MyText>
                     </View>

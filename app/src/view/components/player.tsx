@@ -136,7 +136,7 @@ export function Player({match, player, highlight, freeForALl, canDownloadRec}: I
 
             <TouchableOpacity style={styles.civCol} onPress={gotoCiv}>
                 <View style={appConfig.game === 'aoe2de' ? styles.row : styles.row4}>
-                    <Image fadeDuration={0} style={styles.countryIcon} source={getCivIcon(player) as any}/>
+                    <Image style={styles.countryIcon} source={getCivIcon(player) as any}/>
                     <MyText numberOfLines={1} style={styles.text}>{player.civName}</MyText>
                 </View>
             </TouchableOpacity>

@@ -52,7 +52,7 @@ export default function TechDetails({tech}: {tech: Tech}) {
                 {
                     sortResources(keysOf(data.Cost)).map(res =>
                         <View key={res} style={styles.resRow}>
-                            <Image fadeDuration={0} style={styles.resIcon} source={getOtherIcon(res as Other)}/>
+                            <Image style={styles.resIcon} source={getOtherIcon(res as Other)}/>
                             <MyText style={styles.resDescription}>{data.Cost[res]}</MyText>
                         </View>
                     )

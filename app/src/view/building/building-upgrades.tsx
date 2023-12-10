@@ -93,7 +93,7 @@ export function BuildingUpgrades({ buildingLineId, buildingId }: Props) {
                       {
                           group.upgrades.map(upgrade =>
                               <View style={[styles.row, { opacity: hasTech(upgrade.tech) ? 1 : 0.5 }]} key={upgrade.name}>
-                                  <Image fadeDuration={0} style={styles.buildingIcon} source={getTechIcon(upgrade.tech)}/>
+                                  <Image style={styles.buildingIcon} source={getTechIcon(upgrade.tech)}/>
                                   <MyText style={styles.buildingDesc}>
                                       <MyText style={appStyles.link} onPress={() => gotoTech(upgrade.tech!)}>{getTechName(upgrade.tech)}</MyText>
                                       {
@@ -128,7 +128,7 @@ export function BuildingUpgrades({ buildingLineId, buildingId }: Props) {
                   </View>
                   <TouchableOpacity onPress={() => gotoBuilding(upgradedFrom!)}>
                       <View style={styles.row}>
-                          <Image fadeDuration={0} style={styles.buildingIcon} source={buildingLine.unique ? getEliteUniqueResearchIcon() : getBuildingIcon(upgradedFrom)}/>
+                          <Image style={styles.buildingIcon} source={buildingLine.unique ? getEliteUniqueResearchIcon() : getBuildingIcon(upgradedFrom)}/>
                           <MyText style={styles.buildingDesc}>{getBuildingName(upgradedFrom)}</MyText>
                       </View>
                   </TouchableOpacity>
@@ -145,7 +145,7 @@ export function BuildingUpgrades({ buildingLineId, buildingId }: Props) {
                       upgradedToList.map(upgradedTo =>
                               <TouchableOpacity key={upgradedTo} disabled={buildingLine.unique} onPress={() => gotoBuilding(upgradedTo)}>
                                   <View style={styles.row}>
-                                      <Image fadeDuration={0} style={styles.buildingIcon} source={buildingLine.unique ? getEliteUniqueResearchIcon() : getBuildingIcon(upgradedTo)}/>
+                                      <Image style={styles.buildingIcon} source={buildingLine.unique ? getEliteUniqueResearchIcon() : getBuildingIcon(upgradedTo)}/>
                                       <MyText style={styles.buildingDesc}>{getBuildingName(upgradedTo)}</MyText>
                                   </View>
                               </TouchableOpacity>

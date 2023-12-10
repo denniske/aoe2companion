@@ -72,7 +72,7 @@ export const gg = 1;
 //             }
 //             {
 //                 order == 0 &&
-//                 <Image fadeDuration={0} style={[styles.unitIcon, { transform: [{rotateY: '180deg'}] }]} source={getUnitIconColored(civList[player.civ].uniqueUnits[0], player.color) as any}/>
+//                 <Image style={[styles.unitIcon, { transform: [{rotateY: '180deg'}] }]} source={getUnitIconColored(civList[player.civ].uniqueUnits[0], player.color) as any}/>
 //             }
 //             {
 //                 order == 0 &&
@@ -103,7 +103,7 @@ export const gg = 1;
 //             }
 //             {
 //                 order == 1 &&
-//                 <Image fadeDuration={0} style={[styles.unitIcon, { right: 0 }]} source={getUnitIconColored(civList[player.civ].uniqueUnits[0], player.color) as any}/>
+//                 <Image style={[styles.unitIcon, { right: 0 }]} source={getUnitIconColored(civList[player.civ].uniqueUnits[0], player.color) as any}/>
 //             }
 //             {
 //                 order == 1 &&

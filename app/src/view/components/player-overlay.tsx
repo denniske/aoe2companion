@@ -108,8 +108,8 @@ export const zz = 0;
 //
 //             <TouchableOpacity style={styles.civCol} onPress={() => navigation.push('Civ', {civ: civsAoeNet[player.civ]})}>
 //                 <View style={styles.row}>
-//                     {/*<Image fadeDuration={0} style={styles.unitIcon} source={getUnitIcon(civList[player.civ].uniqueUnits[0]) as any}/>*/}
-//                     {/*<Image fadeDuration={0} style={styles.countryIcon} source={getCivIconByIndex(player.civ) as any}/>*/}
+//                     {/*<Image style={styles.unitIcon} source={getUnitIcon(civList[player.civ].uniqueUnits[0]) as any}/>*/}
+//                     {/*<Image style={styles.countryIcon} source={getCivIconByIndex(player.civ) as any}/>*/}
 //                     <BorderText style={[playerNameStyle, {flex: 1}]} numberOfLines={1}>{getCivName(player.civ)}</BorderText>
 //                 </View>
 //             </TouchableOpacity>

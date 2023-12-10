@@ -92,7 +92,7 @@ export function GuideHeaderBookmark(props: IGuideHeaderBookmarkProps) {
         if (guides) {
             const imageUrl = guides.find(g => g.id === x)?.imageURL;
             if (imageUrl) {
-                return <Image fadeDuration={0} style={styles.guideIcon} source={{uri: imageUrl}}/>;
+                return <Image style={styles.guideIcon} source={{uri: imageUrl}}/>;
             }
         }
         return null;

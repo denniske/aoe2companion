@@ -21,7 +21,7 @@ export function Costs({ costDict }: { costDict: ICostDict }) {
             {
                 sortResources(keysOf(costDict)).map(res =>
                     <View key={res} style={styles.resRow}>
-                        <Image fadeDuration={0} style={styles.resIcon} source={getOtherIcon(res as Other)}/>
+                        <Image style={styles.resIcon} source={getOtherIcon(res as Other)}/>
                         <MyText style={styles.resDescription}>{costDict[res]}</MyText>
                     </View>
                 )

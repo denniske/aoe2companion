@@ -17,13 +17,13 @@ export function TechIcon({tech: tech} : any) {
     if (techInfo.civ) {
         return (
             <View>
-                <Image fadeDuration={0} style={styles.unitIconBig} source={getTechIcon(tech)}/>
-                <Image fadeDuration={0} style={styles.unitIconBigBanner} source={getCivIconLocal(techInfo.civ)}/>
+                <Image style={styles.unitIconBig} source={getTechIcon(tech)}/>
+                <Image style={styles.unitIconBigBanner} source={getCivIconLocal(techInfo.civ)}/>
             </View>
         );
     }
 
-    return <Image fadeDuration={0} style={styles.unitIconBig} source={getTechIcon(tech)}/>;
+    return <Image style={styles.unitIconBig} source={getTechIcon(tech)}/>;
 }
 
 export function TechCompBig({tech: tech, showCivBanner: showCivBanner}: any) {

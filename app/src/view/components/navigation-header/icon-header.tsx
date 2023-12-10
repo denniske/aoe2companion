@@ -19,14 +19,14 @@ export default function IconHeader(props: IconHeaderProps) {
     return (
         <View style={styles.container} onLayout={onLayout}>
 
-            <ImageBackground fadeDuration={0}
+            <ImageBackground
                              source={icon}
                              imageStyle={styles.imageInner}
                              contentFit="contain"
                              style={styles.image}>
                 {
                     badgeIcon &&
-                    <Image fadeDuration={0} style={styles.unitIconBigBanner} source={badgeIcon}/>
+                    <Image style={styles.unitIconBigBanner} source={badgeIcon}/>
                 }
                 <MyText style={subtitle ? styles.titleSmall : styles.title} numberOfLines={1}>{text}</MyText>
                 {

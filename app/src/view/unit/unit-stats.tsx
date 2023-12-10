@@ -135,7 +135,7 @@ export function GetValueByPath(props: PathProps) {
                                     <MyText>{"\n"}</MyText>
                                 }
                                 <MyText>{formatter(path(baseData)+getUpgradeOverAges(age))} </MyText>
-                                <Image fadeDuration={0} style={styles.ageIcon} source={getAgeIcon(age)}/>
+                                <Image style={styles.ageIcon} source={getAgeIcon(age)}/>
                                 {/*<MyText>{" "}</MyText>*/}
                             </MyText>
                     )
@@ -160,7 +160,7 @@ export function GetValueByPath(props: PathProps) {
 //         ageList.map(age => hasAgeUpgrade(age) &&
 //             <View key={age} style={styles.resRow}>
 //                 <MyText>{formatter(path(baseData)+path(upgradeByAgeData![age]!))} </MyText>
-//                 <Image fadeDuration={0} style={styles.resIcon} source={getAgeIcon(age)}/>
+//                 <Image style={styles.resIcon} source={getAgeIcon(age)}/>
 //             </View>
 //         )
 //     }
@@ -253,7 +253,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
     };
     const icon = (x: any, inList?: boolean) => {
         if (!inList) return null;
-        return <Image fadeDuration={0} style={styles.unitIcon} source={getUnitIcon(x)}/>;
+        return <Image style={styles.unitIcon} source={getUnitIcon(x)}/>;
     };
     const onComparisonUnitSelected = (unit: Unit) => {
         setComparisonUnit(unit);
@@ -291,7 +291,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                     {
                         sortResources(keysOf(baseData.Cost)).map(res =>
                             <View key={res} style={styles.resRow}>
-                                <Image fadeDuration={0} style={styles.resIcon} source={getOtherIcon(res as Other)}/>
+                                <Image style={styles.resIcon} source={getOtherIcon(res as Other)}/>
                                 <MyText style={styles.resDescription}>{baseData.Cost[res]}</MyText>
                             </View>
                         )
@@ -303,7 +303,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                         {
                             sortResources(keysOf(baseData2!.Cost)).map(res =>
                                 <View key={res} style={styles.resRow}>
-                                    <Image fadeDuration={0} style={styles.resIcon} source={getOtherIcon(res as Other)}/>
+                                    <Image style={styles.resIcon} source={getOtherIcon(res as Other)}/>
                                     <MyText style={styles.resDescription}>{baseData2!.Cost[res]}</MyText>
                                 </View>
                             )

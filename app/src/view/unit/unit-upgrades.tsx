@@ -119,7 +119,7 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                       {
                           group.upgrades.map(upgrade =>
                               <View style={[styles.row, { opacity: hasTech(upgrade.tech!) ? 1 : 0.5 }]} key={upgrade.name}>
-                                  <Image fadeDuration={0} style={styles.unitIcon} source={getTechIcon(upgrade.tech!)}/>
+                                  <Image style={styles.unitIcon} source={getTechIcon(upgrade.tech!)}/>
                                   <MyText style={styles.unitDesc}>
                                       <MyText style={appStyles.link} onPress={() => gotoTech(upgrade.tech!)}>{getTechName(upgrade.tech!)}</MyText>
                                       {
@@ -154,7 +154,7 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                   </View>
                   <TouchableOpacity onPress={() => gotoUnit(upgradedFrom!)}>
                       <View style={styles.row}>
-                          <Image fadeDuration={0} style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(upgradedFrom)}/>
+                          <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(upgradedFrom)}/>
                           <MyText style={styles.unitDesc}>{getUnitName(upgradedFrom)}</MyText>
                       </View>
                   </TouchableOpacity>
@@ -171,7 +171,7 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                       upgradedToList.map(upgradedTo =>
                               <TouchableOpacity key={upgradedTo} disabled={unitLine.unique} onPress={() => gotoUnit(upgradedTo)}>
                                   <View style={styles.row}>
-                                      <Image fadeDuration={0} style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(upgradedTo)}/>
+                                      <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(upgradedTo)}/>
                                       <MyText style={styles.unitDesc}>{getUnitName(upgradedTo)}</MyText>
                                       {
                                           getUnitUpgradeCost(upgradedTo) &&

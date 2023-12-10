@@ -99,7 +99,7 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
             left={props => (
                 <View style={styles.row}>
 
-                    <ImageBackground fadeDuration={0}
+                    <ImageBackground
                                      source={getMapImage(match)}
                                      imageStyle={styles.imageInner}
                                      contentFit="cover"
@@ -110,7 +110,7 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
                         }
                         {
                             user == null && (players.some(p => p.won != null)) &&
-                            <Image fadeDuration={0} source={require('../../../assets/other/SkullCrown.png')} style={{marginLeft: -6,marginTop:-4, width: 17, height: 17}} />
+                            <Image source={require('../../../assets/other/SkullCrown.png')} style={{marginLeft: -6,marginTop:-4, width: 17, height: 17}} />
                         }
                         {
                             players.some(p => p.profileId === user && p.won === false && (freeForALl || p.team != -1)) &&

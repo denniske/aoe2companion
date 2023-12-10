@@ -55,7 +55,7 @@ export function LiveGame({data, expanded = false}: IGameProps) {
             expandable={true}
             left={props => (
                 <View style={styles.row}>
-                    <Image fadeDuration={0} style={styles.map} source={{uri: data.mapImageUrl}}/>
+                    <Image style={styles.map} source={{uri: data.mapImageUrl}}/>
                     <View style={styles.header}>
                         <MyText numberOfLines={1} style={styles.matchTitle}>
                             {data.mapName} - {data.name}

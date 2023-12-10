@@ -49,7 +49,7 @@ export default function CivAvailability({tech, unit, building}: CivAvailabilityP
                             <TouchableOpacity key={civ} style={styles.civCol}
                                               onPress={() => navigation.push('Civ', {civ})}>
                                 <View style={styles.row}>
-                                    <Image fadeDuration={0} style={styles.civIcon}
+                                    <Image style={styles.civIcon}
                                            source={getCivIconLocal(civ) as any}/>
                                     <MyText> {getCivNameById(civ)}</MyText>
                                 </View>
@@ -64,7 +64,7 @@ export default function CivAvailability({tech, unit, building}: CivAvailabilityP
                         !availableForOneCivs && orderCivs(civUnavailable).map(civ =>
                             <TouchableOpacity key={civ} style={styles.civCol} onPress={() => navigation.push('Civ', {civ})}>
                                 <View style={styles.row}>
-                                    <Image fadeDuration={0} style={styles.civIcon} source={getCivIconLocal(civ) as any}/>
+                                    <Image style={styles.civIcon} source={getCivIconLocal(civ) as any}/>
                                     <MyText> {getCivNameById(civ)}</MyText>
                                 </View>
                             </TouchableOpacity>

@@ -155,7 +155,7 @@ export const abc = 5;
 //     return (
 //         <TouchableOpacity onPress={callback}>
 //             <View style={styles.itemRow}>
-//                 <Image fadeDuration={0} style={styles.itemIcon} source={getItemIcon(props)}/>
+//                 <Image style={styles.itemIcon} source={getItemIcon(props)}/>
 //                 <View style={styles.itemIconTitle}>
 //                     <MyText><Highlight str={title} highlight={highlight!}/></MyText>
 //                     {
@@ -378,7 +378,7 @@ export const abc = 5;
 //                 {/*        // if (civ) {*/}
 //                 {/*        //     return (*/}
 //                 {/*        //         <View style={styles.row}>*/}
-//                 {/*        //             /!*<Image fadeDuration={0} source={getCivIcon(civ)} style={styles.unitIcon}/>*!/*/}
+//                 {/*        //             /!*<Image source={getCivIcon(civ)} style={styles.unitIcon}/>*!/*/}
 //                 {/*        //             <Text style={styles.heading}>{title}</Text>*/}
 //                 {/*        //         </View>*/}
 //                 {/*        //     );*/}

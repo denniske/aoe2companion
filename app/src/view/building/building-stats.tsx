@@ -37,7 +37,7 @@ export function BuildingStats({ buildingId }: Props) {
     };
     const icon = (x: any, inList?: boolean) => {
         if (!inList) return null;
-        return <Image fadeDuration={0} style={styles.unitIcon} source={getBuildingIcon(x)}/>;
+        return <Image style={styles.unitIcon} source={getBuildingIcon(x)}/>;
     };
     const onComparisonUnitSelected = (unit: Building) => {
         setComparisonUnit(unit);
@@ -75,7 +75,7 @@ export function BuildingStats({ buildingId }: Props) {
                     {
                         sortResources(keysOf(baseData.Cost)).map(res =>
                             <View key={res} style={styles.resRow}>
-                                <Image fadeDuration={0} style={styles.resIcon} source={getOtherIcon(res as Other)}/>
+                                <Image style={styles.resIcon} source={getOtherIcon(res as Other)}/>
                                 <MyText style={styles.resDescription}>{baseData.Cost[res]}</MyText>
                             </View>
                         )
@@ -87,7 +87,7 @@ export function BuildingStats({ buildingId }: Props) {
                         {
                             sortResources(keysOf(baseData2!.Cost)).map(res =>
                                 <View key={res} style={styles.resRow}>
-                                    <Image fadeDuration={0} style={styles.resIcon} source={getOtherIcon(res as Other)}/>
+                                    <Image style={styles.resIcon} source={getOtherIcon(res as Other)}/>
                                     <MyText style={styles.resDescription}>{baseData2!.Cost[res]}</MyText>
                                 </View>
                             )
