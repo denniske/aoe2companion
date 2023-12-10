@@ -147,6 +147,10 @@ export const changelog: IChangelog = {
     '70.0.0': [
         {
             type: 'feature',
+            title: 'Add new build order guide page (by [Noah Brandyberry](https://github.com/noahbrandyberry))',
+        },
+        {
+            type: 'feature',
             title: 'Add w/me filter on another player matches tab',
         },
         {

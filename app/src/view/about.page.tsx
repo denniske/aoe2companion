@@ -164,6 +164,7 @@ export default function AboutPage() {
             <MyText style={styles.content}>FifthSense</MyText>
             <MyText style={styles.content}>Jeremy Keeler</MyText>
             <MyText style={styles.content}>Johannes Berger</MyText>
+            <MyText style={styles.content}>Noah Brandyberry</MyText>
             <MyText style={styles.content}>Subbramanian Lakshmanan</MyText>
 
             <MyText style={styles.heading}>{getTranslation('about.heading.supporters')}</MyText>
