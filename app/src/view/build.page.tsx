@@ -11,6 +11,13 @@ import IconHeader from './components/navigation-header/icon-header';
 import { useFavoritedBuild } from '../service/storage';
 import { TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
+import {getTimeSinceStartup} from "react-native-startup-time";
+
+// when you app is ready:
+getTimeSinceStartup().then((time) => {
+    console.log(`Time since startup builds: ${time} ms`);
+});
+
 
 export function BuildMenu(props: any) {
     const { toggleFavorite, isFavorited } = useFavoritedBuild(

@@ -18,8 +18,26 @@ import {closeAppWindowAsync, isElectron} from "../../helper/electron";
 import Constants from "expo-constants";
 import {appIconData} from "@nex/dataset";
 import {sleep} from "@nex/data";
-// import {captureImage} from "../../ci/capture";
-// let imageNumber = 0;
+import {getTimeSinceStartup} from "react-native-startup-time";
+// import {captureImage} from '../../ci/capture';
+// let imageNumber = 10;
+
+const StartupTime = ({ ready = true }) => {
+    const [time, setTime] = React.useState(0);
+    const [layoutComplete, setLayoutComplete] = React.useState(false);
+    const state = useSelector(state => state);
+    const onLayout = React.useCallback(() => setLayoutComplete(true), [
+        setLayoutComplete,
+    ]);
+    React.useEffect(() => {
+        if (ready && layoutComplete) {
+            getTimeSinceStartup().then((t) => setTime(t - state.startupTime - state.startupDiff));
+        }
+    }, [ready, layoutComplete, setTime, state.startupTime, state.startupDiff]);
+    return (
+        <MyText onLayout={onLayout}>{`${time} ms`}</MyText>
+    );
+};
 
 export default function Header() {
     const appStyles = useTheme(appVariants);
@@ -74,48 +92,54 @@ export default function Header() {
 
                     <View style={appStyles.expanded}/>
 
-                    {
-                        !__DEV__ && Platform.OS === 'web' &&
-                        <TouchableOpacity style={styles.websiteLink} onPress={() => window.open('https://aoe2companion.com', '_blank')}>
-                            <MyText style={appStyles.link}>aoe2companion.com</MyText>
-                        </TouchableOpacity>
-                    }
+                    <MyText>{state.startupTime}-{state.startupDiff}-</MyText>
+                    <StartupTime
+                        ready={true /* optional, defaults to true */}
+                        // style={styles.startupTime /* optional*/}
+                    />
 
-                    {
-                        __DEV__ && !capturing &&
-                        <MyText>{(JSON.stringify(state).length / 1000).toFixed()} KB</MyText>
-                    }
-                    {
-                        __DEV__ && !capturing &&
-                        <TouchableOpacity onPress={toggleDarkMode}>
-                            <FontAwesome5 style={styles.menuButton} name="lightbulb" color="#666" size={18} />
-                        </TouchableOpacity>
-                    }
-                    {
-                        __DEV__ && !capturing &&
-                        <TouchableOpacity onPress={capture}>
-                            <FontAwesome style={styles.menuButton} name="camera" color="#666" size={18} />
-                        </TouchableOpacity>
-                    }
-                    {
-                        __DEV__ && !capturing &&
-                        <TouchableOpacity onPress={resetState}>
-                            <FontAwesome style={styles.menuButton} name="refresh" color="#666" size={18} />
-                        </TouchableOpacity>
-                    }
-                    {
-                        __DEV__ && !capturing &&
-                        <TouchableOpacity onPress={restart}>
-                            <FontAwesome5 style={styles.menuButton} name="power-off" color="#666" size={18} />
-                        </TouchableOpacity>
-                    }
+                    {/*{*/}
+                    {/*    !__DEV__ && Platform.OS === 'web' &&*/}
+                    {/*    <TouchableOpacity style={styles.websiteLink} onPress={() => window.open('https://aoe2companion.com', '_blank')}>*/}
+                    {/*        <MyText style={appStyles.link}>aoe2companion.com</MyText>*/}
+                    {/*    </TouchableOpacity>*/}
+                    {/*}*/}
 
-                    {
-                        isElectron() &&
-                        <TouchableOpacity onPress={closeAppWindowAsync}>
-                            <FontAwesome5 style={styles.menuButton} name="times" color="#666" size={18} />
-                        </TouchableOpacity>
-                    }
+                    {/*{*/}
+                    {/*    __DEV__ && !capturing &&*/}
+                    {/*    <MyText>{(JSON.stringify(state).length / 1000).toFixed()} KB</MyText>*/}
+                    {/*}*/}
+                    {/*{*/}
+                    {/*    __DEV__ && !capturing &&*/}
+                    {/*    <TouchableOpacity onPress={toggleDarkMode}>*/}
+                    {/*        <FontAwesome5 style={styles.menuButton} name="lightbulb" color="#666" size={18} />*/}
+                    {/*    </TouchableOpacity>*/}
+                    {/*}*/}
+                    {/*{*/}
+                    {/*    __DEV__ && !capturing &&*/}
+                    {/*    <TouchableOpacity onPress={capture}>*/}
+                    {/*        <FontAwesome style={styles.menuButton} name="camera" color="#666" size={18} />*/}
+                    {/*    </TouchableOpacity>*/}
+                    {/*}*/}
+                    {/*{*/}
+                    {/*    __DEV__ && !capturing &&*/}
+                    {/*    <TouchableOpacity onPress={resetState}>*/}
+                    {/*        <FontAwesome style={styles.menuButton} name="refresh" color="#666" size={18} />*/}
+                    {/*    </TouchableOpacity>*/}
+                    {/*}*/}
+                    {/*{*/}
+                    {/*    __DEV__ && !capturing &&*/}
+                    {/*    <TouchableOpacity onPress={restart}>*/}
+                    {/*        <FontAwesome5 style={styles.menuButton} name="power-off" color="#666" size={18} />*/}
+                    {/*    </TouchableOpacity>*/}
+                    {/*}*/}
+
+                    {/*{*/}
+                    {/*    isElectron() &&*/}
+                    {/*    <TouchableOpacity onPress={closeAppWindowAsync}>*/}
+                    {/*        <FontAwesome5 style={styles.menuButton} name="times" color="#666" size={18} />*/}
+                    {/*    </TouchableOpacity>*/}
+                    {/*}*/}
                 </View>
             </View>
     );

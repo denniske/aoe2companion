@@ -47,6 +47,18 @@ export function addLoadedLanguage(language: string) {
   };
 }
 
+export function setStartupTime(time: number) {
+  return (state: AppState) => {
+      state.startupTime = time;
+  };
+}
+
+export function setStartupDiff(time: number) {
+    return (state: AppState) => {
+        state.startupDiff = time;
+    };
+}
+
 export function setPrefValue<T extends keyof IPrefs>(key: T, value: IPrefs[T]) {
   return (state: AppState) => {
     state.prefs[key] = value;
@@ -157,6 +169,8 @@ export interface IDonation {
 export type DarkMode = 'light' | 'dark' | 'system';
 
 export interface AppState {
+    startupDiff: number;
+    startupTime: number;
   account: IAccount;
   auth?: any | null;
   user: IUserDict;
