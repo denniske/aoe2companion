@@ -73,10 +73,10 @@ export function GetValueByPath(props: PathProps) {
     const upgradeByAgeData = getUpgradeByAgeData({ unitId, buildingId });
     const eliteData = unitId ? getEliteData(getUnitLineIdForUnit(unitId)) : null;
 
-    const ageList = ['Feudal', 'Castle', 'Imperial'] as Age[];
+    const ageList = ['Dark', 'Feudal', 'Castle', 'Imperial'] as Age[];
 
-    const hasAgeUpgrade = (age: Age) => upgradeByAgeData?.[age] && path(upgradeByAgeData?.[age]!);
-    const hasAnyAgeUpgrade = hasAgeUpgrade('Feudal') || hasAgeUpgrade('Castle') || hasAgeUpgrade('Imperial');
+    const hasAgeUpgrade = (age: Age) => upgradeByAgeData?.[age] && path(upgradeByAgeData?.[age]!) != null;
+    const hasAnyAgeUpgrade = hasAgeUpgrade('Dark') || hasAgeUpgrade('Feudal') || hasAgeUpgrade('Castle') || hasAgeUpgrade('Imperial');
 
     const getUpgradeOverAges = (age: Age) => {
         let value = 0;
@@ -92,12 +92,16 @@ export function GetValueByPath(props: PathProps) {
         return (
             <MyText style={style}>
                 {/*<MyText>{" "}</MyText>*/}
-                <MyText>{formatter(path(baseData))} </MyText>
+                {/*<MyText>{formatter(path(baseData))} </MyText>*/}
 
                 {
-                    ageList.map(age =>
+                    ageList.filter(age => hasAgeUpgrade(age)).map((age, i) =>
                         hasAgeUpgrade(age) && <MyText key={age}>
-                            <MyText>{"\n"}</MyText>
+                            {
+                                (i > 0) &&
+                                // <MyText>, </MyText>
+                                <MyText>{"\n"}</MyText>
+                            }
                             <MyText>{formatter(path(baseData)+getUpgradeOverAges(age))} </MyText>
                             <MyText style={styles.small}>({age} age)</MyText>
                         </MyText>
@@ -120,22 +124,23 @@ export function GetValueByPath(props: PathProps) {
     } else if (hasAnyAgeUpgrade) {
         return (
             <MyText style={style}>
-                {/*<MyText>{" "}</MyText>*/}
-                {
-                    path(baseData) > 0 &&
-                    <MyText>{formatter(path(baseData))} </MyText>
-                }
+                {/*<MyText>{" has any "}</MyText>*/}
+                {/*{*/}
+                {/*    path(baseData) > 0 &&*/}
+                {/*    <MyText>{formatter(path(baseData))} BASE</MyText>*/}
+                {/*}*/}
 
                 {
                     ageList.filter(age => hasAgeUpgrade(age)).map((age, i) =>
                             <MyText key={age}>
                                 {
-                                    (path(baseData) > 0 || i > 0) &&
+                                    (i > 0) &&
                                     // <MyText>, </MyText>
                                     <MyText>{"\n"}</MyText>
                                 }
-                                <MyText>{formatter(path(baseData)+getUpgradeOverAges(age))} </MyText>
+                                <MyText>​</MyText>
                                 <Image style={styles.ageIcon} source={getAgeIcon(age)}/>
+                                <MyText>{formatter(path(baseData)+getUpgradeOverAges(age))}</MyText>
                                 {/*<MyText>{" "}</MyText>*/}
                             </MyText>
                     )
@@ -318,12 +323,6 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                         <MyText key={u} style={styles.cellValue}>
                             <GetUnitValue style={styles.cellValue} unitId={u} prop="TrainTime" formatter={x => x + 's'}/>
                             {
-                                getUnitLineIdForUnit(u) == 'Serjeant' &&
-                                <MyText>
-                                    <MyText style={styles.small}> ({getBuildingName('Castle')})</MyText>, 20s <MyText style={styles.small}>({getBuildingName('Donjon')})</MyText>
-                                </MyText>
-                            }
-                            {
                                 getUnitLineIdForUnit(u) == 'Tarkan' &&
                                 <MyText>
                                     <MyText style={styles.small}> ({getBuildingName('Castle')})</MyText>, 21s <MyText style={styles.small}>({getBuildingName('Stable')})</MyText>
@@ -477,7 +476,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                             {
                                 getArmourClasses({ unitId: u }).length > 0 && getArmourClasses({ unitId: u }).map(a =>
                                     <MyText key={a.Class}>
-                                        <GetArmourValue unitId={u} unitClassNumber={a.Class}/>
+                                        <GetArmourValue style={styles.cellValue} unitId={u} unitClassNumber={a.Class}/>
                                         <MyText style={styles.small}> ({getUnitClassName(a.Class as UnitClassNumber).toLowerCase()})</MyText>
                                     </MyText>
                                 )

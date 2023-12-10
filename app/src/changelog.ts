@@ -161,6 +161,10 @@ export const changelog: IChangelog = {
             type: 'bugfix',
             title: 'Bagains upgrade only affects Two Handed Swordsman',
         },
+        {
+            type: 'bugfix',
+            title: 'Fix some age upgrades and always show age icon on unit page',
+        },
     ],
     '69.0.0': [
         {

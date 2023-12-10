@@ -8,7 +8,20 @@ type PartialRecord<K extends keyof any, T> =  Partial<Record<K, T>>;
 // Defines increase of attribute per unit at a specific age
 export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Partial<IUnitInfo>>> = {
     'Serjeant': {
+        'Feudal': {
+            "TrainTime": 4,
+            "HP": 0,
+            "Attacks": [
+                {
+                    "Amount": 0,
+                    "Class": 4
+                },
+            ],
+            "MeleeArmor": 0,
+            "PierceArmor": 0,
+        },
         'Castle': {
+            "TrainTime": -4,
             "HP": 20,
             "Attacks": [
                 {
@@ -21,6 +34,19 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
         },
     },
     'EagleScout': {
+        'Dark': {
+            "LineOfSight": 0,
+        },
+        'Feudal': {
+            "TrainTime": 0,
+            "Attacks": [
+                {
+                    "Amount": 0,
+                    "Class": 4
+                },
+            ],
+            "LineOfSight": 1,
+        },
         'Castle': {
             "TrainTime": -25,
             "Attacks": [
@@ -48,6 +74,16 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
         },
     },
     'ScoutCavalry': {
+        'Dark': {
+            "LineOfSight": 0,
+            "Attacks": [
+                {
+                    "Amount": 0,
+                    "Class": 4
+                },
+            ],
+            "Speed": 0,
+        },
         'Feudal': {
             "LineOfSight": 2,
             "Attacks": [
@@ -66,11 +102,17 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
         },
     },
     'LightCavalry': {
+        'Castle': {
+            "LineOfSight": 0,
+        },
         'Imperial': {
             "LineOfSight": 2,
         },
     },
     'Outpost': {
+        'Dark': {
+            "LineOfSight": 0,
+        },
         'Feudal': {
             "LineOfSight": 2,
         },
@@ -82,6 +124,11 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
         },
     },
     'House': {
+        'Dark': {
+            "HP": 0,
+            "MeleeArmor": 0,
+            "PierceArmor": 0,
+        },
         'Feudal': {
             "HP": 200,
             "MeleeArmor": 1,
@@ -99,6 +146,7 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
     },
     'Blacksmith': {
         'Feudal': {
+            "HP": 0,
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
@@ -113,6 +161,11 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
         },
     },
     'Mill': {
+        'Dark': {
+            "HP": 0,
+            "MeleeArmor": 0,
+            "PierceArmor": 0,
+        },
         'Feudal': {
             "HP": 200,
             "MeleeArmor": 1,
@@ -129,6 +182,11 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
         },
     },
     'Folwark': {
+        'Dark': {
+            "HP": 0,
+            "MeleeArmor": 0,
+            "PierceArmor": 0,
+        },
         'Feudal': {
             "HP": 200,
             "MeleeArmor": 1,
@@ -145,6 +203,11 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
         },
     },
     'LumberCamp': {
+        'Dark': {
+            "HP": 0,
+            "MeleeArmor": 0,
+            "PierceArmor": 0,
+        },
         'Feudal': {
             "HP": 200,
             "MeleeArmor": 1,
@@ -161,6 +224,11 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
         },
     },
     'MiningCamp': {
+        'Dark': {
+            "HP": 0,
+            "MeleeArmor": 0,
+            "PierceArmor": 0,
+        },
         'Feudal': {
             "HP": 200,
             "MeleeArmor": 1,
@@ -177,6 +245,11 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
         },
     },
     'Barracks': {
+        'Dark': {
+            "HP": 0,
+            "MeleeArmor": 0,
+            "PierceArmor": 0,
+        },
         'Feudal': {
             "HP": 300,
             "MeleeArmor": 1,
@@ -194,6 +267,11 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
         },
     },
     'ArcheryRange': {
+        'Feudal': {
+            "HP": 0,
+            "MeleeArmor": 0,
+            "PierceArmor": 0,
+        },
         'Castle': {
             "HP": 300,
             "MeleeArmor": 1,
@@ -206,6 +284,11 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
         },
     },
     'Stable': {
+        'Feudal': {
+            "HP": 0,
+            "MeleeArmor": 0,
+            "PierceArmor": 0,
+        },
         'Castle': {
             "HP": 300,
             "MeleeArmor": 1,
@@ -218,6 +301,11 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
         },
     },
     'Market': {
+        'Feudal': {
+            "HP": 0,
+            "MeleeArmor": 0,
+            "PierceArmor": 0,
+        },
         'Castle': {
             "HP": 300,
             "MeleeArmor": 1,
@@ -238,7 +326,21 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
             "PierceArmor": 1,
         },
     },
+    'FortifiedChurch': {
+        'Castle': {
+            "MeleeArmor": 0,
+            "PierceArmor": 0,
+        },
+        'Imperial': {
+            "MeleeArmor": 1,
+            "PierceArmor": 1,
+        },
+    },
     'Dock': {
+        'Dark': {
+            "MeleeArmor": 0,
+            "PierceArmor": 0,
+        },
         'Feudal': {
             "MeleeArmor": 1,
             "PierceArmor": 1,
@@ -253,43 +355,86 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
         },
     },
     'PalisadeWall': {
+        'Dark': {
+            "HP": 0,
+        },
         'Feudal': {
             "HP": 100,
         },
     },
     'PalisadeGate': {
+        'Dark': {
+            "HP": 0,
+        },
         'Feudal': {
             "HP": 160,
         },
     },
     'WatchTower': {
+        'Feudal': {
+            "HP": 0,
+        },
         'Castle': {
-            "HP": 320,
+            "HP": 170,
         },
     },
     'Gate': {
+        'Feudal': {
+            "HP": 0,
+        },
         'Castle': {
-            "HP": 1375,
+            "HP": 1100,
         },
     },
     'StoneWall': {
+        'Feudal': {
+            "HP": 0,
+        },
         'Castle': {
-            "HP": 900,
+            "HP": 720,
         },
     },
     'Donjon': {
+        'Feudal': {
+            "HP": 0,
+            "MeleeArmor": 0,
+            "PierceArmor": 0,
+            // "Attacks": [
+            //     {
+            //         "Amount": 0,
+            //         "Class": 3
+            //     },
+            // ],
+        },
         'Castle': {
-            "HP": 500,
+            "HP": 250,
             "MeleeArmor": 1,
             "PierceArmor": 1,
+            // "Attacks": [
+            //     {
+            //         "Amount": "5 (x2)",
+            //         "Class": 3
+            //     },
+            // ],
         },
         'Imperial': {
             "HP": 750,
             "MeleeArmor": 1,
             "PierceArmor": 1,
+            // "Attacks": [
+            //     {
+            //         "Amount": "5 (x3)",
+            //         "Class": 3
+            //     },
+            // ],
         },
     },
     'SiegeWorkshop': {
+        'Feudal': {
+            "HP": 0,
+            "MeleeArmor": 0,
+            "PierceArmor": 0,
+        },
         'Castle': {
             "HP": 300,
             "MeleeArmor": 1,
@@ -302,12 +447,20 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
         },
     },
     'University': {
+        'Castle': {
+            "MeleeArmor": 0,
+            "PierceArmor": 0,
+        },
         'Imperial': {
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
     },
     'TownCenter': {
+        'Dark': {
+            "MeleeArmor": 0,
+            "PierceArmor": 0,
+        },
         'Feudal': {
             "MeleeArmor": 1,
             "PierceArmor": 1,
