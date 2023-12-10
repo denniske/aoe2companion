@@ -1,3 +1,5 @@
+import { getTimeSinceStartup } from 'react-native-startup-time';
+import store from './src/redux/store';
 import 'react-native-gesture-handler';
 import {
     DarkTheme as NavigationDarkTheme,
@@ -20,7 +22,6 @@ import {
     loadSettingsFromStorage
 } from './src/service/storage';
 import AboutPage from './src/view/about.page';
-import store from './src/redux/store';
 import {Provider as ReduxProvider} from 'react-redux';
 import {
     MD2DarkTheme as PaperDarkTheme,
@@ -28,7 +29,7 @@ import {
     Portal,
     Provider as PaperProvider
 } from 'react-native-paper';
-import {addLoadedLanguage, useMutate, useSelector} from './src/redux/reducer';
+import {addLoadedLanguage, exec, setStartupDiff, useMutate, useSelector} from './src/redux/reducer';
 import SearchPage from './src/view/search.page';
 import PrivacyPage from './src/view/privacy.page';
 import {FontAwesome5} from "@expo/vector-icons";
@@ -1078,3 +1079,9 @@ const useStyles = createStylesheet((theme, darkMode) => StyleSheet.create({
 //     // borderWidth: isMobile ? 0 : 1,
 //     borderRadius: isMobile ? 0 : 10,
 // }
+
+getTimeSinceStartup().then((time) => {
+    console.log(`Time since startup: ${time} ms`);
+    let startupDiff = time - store.getState().startupTime!;
+    store.dispatch(exec(setStartupDiff(startupDiff)));
+});

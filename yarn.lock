@@ -5914,6 +5914,7 @@ __metadata:
     react-native-reanimated: ~3.3.0
     react-native-safe-area-context: 4.6.3
     react-native-screens: ~3.22.0
+    react-native-startup-time: ^2.1.0
     react-native-svg: 13.9.0
     react-native-tab-view: ^3.5.2
     react-native-vector-icons: ^9.0.0
@@ -18699,6 +18700,16 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 3b592ff31d9dfde5e2ce967f85f3ad17a94f4f3bee2248a3dad9ec791e7cda72a431f86b468b3b2a70ebeffb49b462f8162668a58fb9ddabb10b5a369816850d
+  languageName: node
+  linkType: hard
+
+"react-native-startup-time@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "react-native-startup-time@npm:2.1.0"
+  peerDependencies:
+    react: ^16.8.3
+    react-native: ">=0.59.0"
+  checksum: 1c083e51b3e8e42b00839a6242aa56ae7306546cc96c969b356274fd94584b8e385e7c0b7c3a6486e81292a09324605d76f1a7a7955eb1c8cb5782f98f54e7c6
   languageName: node
   linkType: hard
 

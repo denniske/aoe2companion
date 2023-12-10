@@ -91,16 +91,16 @@ export default {
       },
       "splash": splash,
     },
-    "hooks": {
-      "postPublish": [
-        {
-          "file": "sentry-expo/upload-sourcemaps",
-          "config": {
-            "organization": "aoe2companion",
-            "project": "aoe2companion"
-          }
-        }
-      ]
-    }
+    // "hooks": {
+    //   "postPublish": [
+    //     {
+    //       "file": "sentry-expo/upload-sourcemaps",
+    //       "config": {
+    //         "organization": "aoe2companion",
+    //         "project": "aoe2companion"
+    //       }
+    //     }
+    //   ]
+    // }
   }
 };
