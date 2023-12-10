@@ -83,3 +83,5 @@ export function getCivIconLocal(civ: string) {
 export function getCivHistoryImage(civ: Civ) {
     return civHistoryList[civs.indexOf(civ as any)];
 }
+
+export const genericCivIcon = require('../../assets/civilizations/generic.png');

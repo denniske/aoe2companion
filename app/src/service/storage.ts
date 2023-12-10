@@ -1,11 +1,13 @@
 import {DarkMode} from "../redux/reducer";
-import {LeaderboardId} from "@nex/data";
+import {Civ, LeaderboardId} from "@nex/data";
 import store from "../redux/store";
 import {v4 as uuidv4} from "uuid";
 import {Flag} from '@nex/data';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage, { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import {isElectron, sendConfig, sendSettings} from "../helper/electron";
 import { merge } from 'lodash';
+import { useEffect, useState } from "react";
+import { buildsData } from "../../../data/src/data/builds";
 
 export interface IConfig {
     hotkeyShowHideEnabled: boolean;
@@ -175,3 +177,102 @@ const sendSettingsToElectron = async (settings: ISettings | null) => {
         await sendSettings(settings);
     }
 }
+
+type FavoriteId = number | string;
+export const useFavoritedBuilds = () => {
+    const { getItem, setItem } = useAsyncStorage('favoritedBuilds');
+    const [favoriteIds, setFavoriteIds] = useState<FavoriteId[]>([]);
+    const favorites = buildsData.filter((build) =>
+        favoriteIds.includes(build.id)
+    );
+
+    const readItemFromStorage = async () => {
+        const item = await getItem();
+        if (item) {
+            setFavoriteIds(JSON.parse(item));
+        } else {
+            setFavoriteIds([]);
+        }
+    };
+
+    const writeItemToStorage = async (newValue: FavoriteId[]) => {
+        await setItem(JSON.stringify(newValue));
+        setFavoriteIds(newValue);
+    };
+
+    useEffect(() => {
+        readItemFromStorage();
+    }, []);
+
+    const toggleFavorite = (id: FavoriteId) => {
+        if (favoriteIds.includes(id)) {
+            writeItemToStorage(
+                favoriteIds.filter((favoriteId) => favoriteId !== id)
+            );
+        } else {
+            writeItemToStorage([...favoriteIds, id]);
+        }
+    };
+
+    return {
+        toggleFavorite,
+        favoriteIds,
+        favorites,
+        refetch: readItemFromStorage,
+    };
+};
+
+export const useFavoritedBuild = (id: FavoriteId) => {
+    const { favoriteIds, toggleFavorite } = useFavoritedBuilds();
+
+    return {
+        toggleFavorite: () => toggleFavorite(id),
+        isFavorited: favoriteIds.includes(id),
+    };
+};
+
+type BuildFilters = {
+    civilization: Civ | 'all';
+    buildType: string | 'favorites' | 'all';
+    difficulty: 1 | 2 | 3 | 'all';
+};
+const defaultFilters: BuildFilters = {
+    civilization: 'all',
+    buildType: 'all',
+    difficulty: 'all',
+};
+export const useBuildFilters = () => {
+    const { getItem, setItem } = useAsyncStorage('buildFilters');
+    const [filters, setFilters] = useState<BuildFilters>();
+
+    const readItemFromStorage = async () => {
+        const item = await getItem();
+        if (item) {
+            setFilters({ ...defaultFilters, ...JSON.parse(item) });
+        } else {
+            setFilters(defaultFilters);
+        }
+    };
+
+    const writeItemToStorage = async (newValue: BuildFilters) => {
+        await setItem(JSON.stringify(newValue));
+        setFilters(newValue);
+    };
+
+    useEffect(() => {
+        readItemFromStorage();
+    }, []);
+
+    const setFilter = (
+        key: keyof BuildFilters,
+        value: BuildFilters[typeof key]
+    ) => {
+        writeItemToStorage({ ...defaultFilters, ...filters, [key]: value });
+    };
+
+    return {
+        setFilter,
+        filters: filters ?? defaultFilters,
+        loading: !filters,
+    };
+};

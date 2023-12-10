@@ -90,6 +90,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import * as eva from '@eva-design/eva';
 import {ApplicationProvider} from '@ui-kitten/components';
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import BuildPage, { BuildTitle, BuildMenu } from './src/view/build.page';
 
 
 SplashScreen.preventAutoHideAsync();
@@ -347,7 +348,7 @@ export type RootStackParamList = {
     Unit: { unit: Unit };
     Building: { building: Building };
     Tech: { tech: Tech };
-    Guide: { build?: number };
+    Guide: { build?: number | string, focusMode?: boolean };
     User: { profileId: number };
     Search: { name?: string };
     OverlaySettings: { };
@@ -610,12 +611,13 @@ export function InnerApp() {
                 />
                 <Stack.Screen
                     name="Guide"
-                    component={GuidePage}
-                    options={{
+                    component={BuildPage}
+                    options={props => ({
                         animationEnabled: false,
-                        headerTitle: props => <GuideTitle {...props} />,
                         headerTitleAlign: 'center',
-                    }}
+                        headerTitle: titleProps => <BuildTitle {...props} titleProps={titleProps} />,
+                        headerRight: () => props.route?.params?.build ? <BuildMenu {...props} /> : null,
+                    })}
                 />
                 <Stack.Screen
                     name="Search"
