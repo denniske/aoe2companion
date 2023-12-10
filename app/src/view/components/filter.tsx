@@ -53,7 +53,11 @@ export const Filter = <Value,>({
           <MyText style={styles.filterLabel}>{label}</MyText>
           <TextInput
             onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
+            onBlur={() => {
+              setTimeout(() => {
+                setIsFocused(false);
+              }, 250);
+            }}
             ref={filterField}
             selectTextOnFocus
             autoCorrect={false}
@@ -62,6 +66,7 @@ export const Filter = <Value,>({
             onChangeText={setSearch}
             value={search}
             style={styles.filterInput}
+            contextMenuHidden={true}
             onSubmitEditing={() => {
               if (topOption) {
                 setSearch(topOption.label);
@@ -70,30 +75,30 @@ export const Filter = <Value,>({
             }}
           />
         </View>
+        {isFocused && (
+          <View style={styles.results}>
+            <FlatList
+              keyboardShouldPersistTaps="handled"
+              style={{ flex: 1 }}
+              scrollEnabled={true}
+              data={filteredOptions}
+              keyExtractor={(item) => String(item.value)}
+              renderItem={({ item, index }) => (
+                <ResultRow
+                  index={index}
+                  {...item}
+                  onPress={() => {
+                    setSearch(item.label);
+                    onChange(item.value);
+                    setIsFocused(false);
+                    filterField.current?.blur();
+                  }}
+                />
+              )}
+            />
+          </View>
+        )}
       </TouchableOpacity>
-
-      {isFocused && (
-        <View style={styles.results}>
-          <FlatList
-            keyboardShouldPersistTaps="handled"
-            style={{ flex: 1 }}
-            scrollEnabled={true}
-            data={filteredOptions}
-            keyExtractor={(item) => String(item.value)}
-            renderItem={({ item, index }) => (
-              <ResultRow
-                index={index}
-                {...item}
-                onPress={() => {
-                  setSearch(item.label);
-                  onChange(item.value);
-                  filterField.current?.blur();
-                }}
-              />
-            )}
-          />
-        </View>
-      )}
     </>
   );
 };
@@ -108,7 +113,7 @@ const ResultRow: React.FC<{
 
   return (
     <TouchableOpacity
-      activeOpacity={0.95}
+      activeOpacity={0.8}
       style={[styles.result, index === 0 && styles.highlightedResult]}
       onPress={onPress}
     >
@@ -133,8 +138,9 @@ const useStyles = createStylesheet((theme, darkMode) =>
       position: "absolute",
       top: 30,
       zIndex: 100,
-      width: "100%",
+      flex: 1,
       height: 350,
+      left: 0,
     },
     name: {
       color: theme.textColor,
@@ -160,12 +166,15 @@ const useStyles = createStylesheet((theme, darkMode) =>
       flexDirection: "row",
       gap: 8,
       flex: 1,
+      position: "relative",
     },
     filterIcon: {
       width: 25,
       height: 25,
     },
-    filter: {},
+    filter: {
+      flex: 1,
+    },
     filterLabel: {
       fontSize: 10,
       color: theme.textNoteColor,

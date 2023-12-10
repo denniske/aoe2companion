@@ -1,13 +1,13 @@
 import BuildCard from "../components/build-order/build-card";
 import { reverse, sortBy } from "lodash";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, TextInput, View } from "react-native";
 import { createStylesheet } from "../../theming-new";
 import { buildsData } from "../../../../data/src/data/builds";
 import { useBuildFilters, useFavoritedBuilds } from "../../service/storage";
 import { BuildFilters } from "../components/build-order/build-filters";
 import { MyText } from "../components/my-text";
 import { useFocusEffect } from "@react-navigation/native";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { getTranslation } from "../../helper/translate";
 
 export const BuildListPage = () => {
@@ -16,6 +16,7 @@ export const BuildListPage = () => {
     useFavoritedBuilds();
   const buildFilters = useBuildFilters();
   const { civilization, buildType, difficulty } = buildFilters.filters;
+  const [search, setSearch] = useState("");
 
   const formattedBuilds = (
     buildType === "favorites" ? favorites : buildsData
@@ -36,7 +37,11 @@ export const BuildListPage = () => {
       (buildType === "all" ||
         buildType === "favorites" ||
         build.attributes.includes(buildType)) &&
-      (difficulty === "all" || difficulty === build.difficulty)
+      (difficulty === "all" || difficulty === build.difficulty) &&
+      build.title
+        .toLowerCase()
+        .replace(/\W/g, "")
+        .includes(search.toLowerCase().replace(/\W/g, ""))
   );
 
   useFocusEffect(
@@ -52,6 +57,16 @@ export const BuildListPage = () => {
   return (
     <View style={styles.container}>
       <BuildFilters builds={buildsData} {...buildFilters} />
+
+      <View style={styles.searchContainer}>
+        <TextInput
+          autoCorrect={false}
+          value={search}
+          onChangeText={setSearch}
+          style={styles.search}
+          placeholder="Search builds"
+        />
+      </View>
 
       <FlatList
         initialNumToRender={5}
@@ -77,6 +92,16 @@ const useStyles = createStylesheet((theme, darkMode) =>
     contentContainer: {
       gap: 15,
       padding: 10,
+    },
+    searchContainer: {
+      gap: 15,
+      padding: 10,
+    },
+    search: {
+      borderColor: theme.borderColor,
+      borderWidth: 1,
+      padding: 10,
+      borderRadius: 4,
     },
   })
 );
