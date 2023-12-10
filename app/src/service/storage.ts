@@ -180,97 +180,99 @@ const sendSettingsToElectron = async (settings: ISettings | null) => {
 
 type FavoriteId = number | string;
 export const useFavoritedBuilds = () => {
-  const { getItem, setItem } = useAsyncStorage("favoritedBuilds");
-  const [favoriteIds, setFavoriteIds] = useState<FavoriteId[]>([]);
-  const favorites = buildsData.filter((build) =>
-    favoriteIds.includes(build.id)
-  );
+    const { getItem, setItem } = useAsyncStorage('favoritedBuilds');
+    const [favoriteIds, setFavoriteIds] = useState<FavoriteId[]>([]);
+    const favorites = buildsData.filter((build) =>
+        favoriteIds.includes(build.id)
+    );
 
-  const readItemFromStorage = async () => {
-    const item = await getItem();
-    if (item) {
-      setFavoriteIds(JSON.parse(item));
-    } else {
-      setFavoriteIds([]);
-    }
-  };
+    const readItemFromStorage = async () => {
+        const item = await getItem();
+        if (item) {
+            setFavoriteIds(JSON.parse(item));
+        } else {
+            setFavoriteIds([]);
+        }
+    };
 
-  const writeItemToStorage = async (newValue: FavoriteId[]) => {
-    await setItem(JSON.stringify(newValue));
-    setFavoriteIds(newValue);
-  };
+    const writeItemToStorage = async (newValue: FavoriteId[]) => {
+        await setItem(JSON.stringify(newValue));
+        setFavoriteIds(newValue);
+    };
 
-  useEffect(() => {
-    readItemFromStorage();
-  }, []);
+    useEffect(() => {
+        readItemFromStorage();
+    }, []);
 
-  const toggleFavorite = (id: FavoriteId) => {
-    if (favoriteIds.includes(id)) {
-      writeItemToStorage(favoriteIds.filter((favoriteId) => favoriteId !== id));
-    } else {
-      writeItemToStorage([...favoriteIds, id]);
-    }
-  };
+    const toggleFavorite = (id: FavoriteId) => {
+        if (favoriteIds.includes(id)) {
+            writeItemToStorage(
+                favoriteIds.filter((favoriteId) => favoriteId !== id)
+            );
+        } else {
+            writeItemToStorage([...favoriteIds, id]);
+        }
+    };
 
-  return {
-    toggleFavorite,
-    favoriteIds,
-    favorites,
-    refetch: readItemFromStorage,
-  };
+    return {
+        toggleFavorite,
+        favoriteIds,
+        favorites,
+        refetch: readItemFromStorage,
+    };
 };
 
 export const useFavoritedBuild = (id: FavoriteId) => {
-  const { favoriteIds, toggleFavorite } = useFavoritedBuilds();
+    const { favoriteIds, toggleFavorite } = useFavoritedBuilds();
 
-  return {
-    toggleFavorite: () => toggleFavorite(id),
-    isFavorited: favoriteIds.includes(id),
-  };
+    return {
+        toggleFavorite: () => toggleFavorite(id),
+        isFavorited: favoriteIds.includes(id),
+    };
 };
 
 type BuildFilters = {
-  civilization: Civ | "all";
-  buildType: string | 'favorites' | 'all';
-  difficulty: 1 | 2 | 3 | "all";
+    civilization: Civ | 'all';
+    buildType: string | 'favorites' | 'all';
+    difficulty: 1 | 2 | 3 | 'all';
 };
 const defaultFilters: BuildFilters = {
-  civilization: "all",
-  buildType: "all",
-  difficulty: "all",
+    civilization: 'all',
+    buildType: 'all',
+    difficulty: 'all',
 };
 export const useBuildFilters = () => {
-  const { getItem, setItem } = useAsyncStorage("buildFilters");
-  const [filters, setFilters] = useState<BuildFilters>();
+    const { getItem, setItem } = useAsyncStorage('buildFilters');
+    const [filters, setFilters] = useState<BuildFilters>();
 
-  const readItemFromStorage = async () => {
-    const item = await getItem();
-    if (item) {
-      setFilters({ ...defaultFilters, ...JSON.parse(item) });
-    } else {
-      setFilters(defaultFilters);
-    }
-  };
+    const readItemFromStorage = async () => {
+        const item = await getItem();
+        if (item) {
+            setFilters({ ...defaultFilters, ...JSON.parse(item) });
+        } else {
+            setFilters(defaultFilters);
+        }
+    };
 
-  const writeItemToStorage = async (newValue: BuildFilters) => {
-    await setItem(JSON.stringify(newValue));
-    setFilters(newValue);
-  };
+    const writeItemToStorage = async (newValue: BuildFilters) => {
+        await setItem(JSON.stringify(newValue));
+        setFilters(newValue);
+    };
 
-  useEffect(() => {
-    readItemFromStorage();
-  }, []);
+    useEffect(() => {
+        readItemFromStorage();
+    }, []);
 
-  const setFilter = (
-    key: keyof BuildFilters,
-    value: BuildFilters[typeof key]
-  ) => {
-    writeItemToStorage({ ...defaultFilters, ...filters, [key]: value });
-  };
+    const setFilter = (
+        key: keyof BuildFilters,
+        value: BuildFilters[typeof key]
+    ) => {
+        writeItemToStorage({ ...defaultFilters, ...filters, [key]: value });
+    };
 
-  return {
-    setFilter,
-    filters: filters ?? defaultFilters,
-    loading: !filters,
-  };
+    return {
+        setFilter,
+        filters: filters ?? defaultFilters,
+        loading: !filters,
+    };
 };
