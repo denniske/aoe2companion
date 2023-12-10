@@ -328,6 +328,7 @@ export interface IFetchMatchesParams {
     search?: string;
     steamId?: string;
     profileIds?: number[];
+    withProfileIds?: number[];
     country?: string;
 
     pageParam?: string;

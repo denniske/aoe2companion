@@ -146,7 +146,11 @@ export const changelog4: IChangelog = {
 export const changelog: IChangelog = {
     '70.0.0': [
         {
-            type: 'minor',
+            type: 'feature',
+            title: 'Add w/me filter on another player matches tab',
+        },
+        {
+            type: 'feature',
             title: 'Show upgrade cost of unit at the top of the unit details page',
         },
         {

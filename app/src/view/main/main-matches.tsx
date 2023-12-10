@@ -1,11 +1,11 @@
 import {useTheme} from "../../theming";
-import {FlatList, Platform, StyleSheet, View} from "react-native";
+import {FlatList, Platform, StyleSheet, TouchableOpacity, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import {RouteProp, useNavigation, useNavigationState, useRoute} from "@react-navigation/native";
 import {Game} from "../components/game";
 import RefreshControlThemed from "../components/refresh-control-themed";
 import {useSelector} from "../../redux/reducer";
-import {Searchbar} from "react-native-paper";
+import {Checkbox, Searchbar} from "react-native-paper";
 import {MyText} from "../components/my-text";
 import {appVariants} from "../../styles";
 import TemplatePicker from "../components/template-picker";
@@ -52,8 +52,9 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
     const appStyles = useTheme(appVariants);
     const [text, setText] = useState('');
     const [leaderboardId, setLeaderboardId] = useState<string>();
-    const [withMe, setWithMe] = useState(false);
+    const [withMe, setWithMe] = useState(true);
     const [reloading, setReloading] = useState(false);
+    const auth = useSelector(state => state.auth);
 
     const navigation = useNavigation();
     const userProfile = useSelector(state => state.user[profileId]?.profile);
@@ -75,13 +76,14 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
         refetch,
         isRefetching,
     } = useInfiniteQuery(
-        ['matches', profileId, debouncedSearch, leaderboardId],
+        ['matches', profileId, withMe, debouncedSearch, leaderboardId],
         (context) => {
             return fetchMatches({
                 ...context,
                 profileIds: [context.queryKey[1] as number],
-                search: context.queryKey[2] as string,
-                leaderboardIds: [context.queryKey[3] as number],
+                withProfileIds: context.queryKey[2] as boolean ? [auth.profileId] : [],
+                search: context.queryKey[3] as string,
+                leaderboardIds: [context.queryKey[4] as number],
             });
         }, {
             getNextPageParam: (lastPage, pages) => lastPage.matches.length === lastPage.perPage ? lastPage.page + 1 : null,
@@ -171,18 +173,18 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
                 <View style={styles.pickerRow}>
                     <TemplatePicker value={leaderboardId} values={leaderboards.data.map(l => l.leaderboardId)} template={renderLeaderboard} onSelect={onLeaderboardSelected}/>
                     <View style={appStyles.expanded}/>
-                    {/*{*/}
-                    {/*    auth && profileId !== auth?.profileId &&*/}
-                    {/*    <View style={styles.row}>*/}
-                    {/*        <Checkbox.Android*/}
-                    {/*            status={withMe ? 'checked' : 'unchecked'}*/}
-                    {/*            onPress={toggleWithMe}*/}
-                    {/*        />*/}
-                    {/*        <TouchableOpacity onPress={toggleWithMe}>*/}
-                    {/*            <MyText>{getTranslation('main.matches.withme')}</MyText>*/}
-                    {/*        </TouchableOpacity>*/}
-                    {/*    </View>*/}
-                    {/*}*/}
+                    {
+                        auth && profileId !== auth?.profileId &&
+                        <View style={styles.row2}>
+                            <Checkbox.Android
+                                status={withMe ? 'checked' : 'unchecked'}
+                                onPress={toggleWithMe}
+                            />
+                            <TouchableOpacity onPress={toggleWithMe}>
+                                <MyText>{getTranslation('main.matches.withme')}</MyText>
+                            </TouchableOpacity>
+                        </View>
+                    }
                 </View>
                 <Searchbar
                     textAlign="left"
@@ -251,6 +253,10 @@ const useStyles = createStylesheet((theme, mode) => StyleSheet.create({
         paddingHorizontal: 7,
         alignItems: 'center',
     },
+    row2: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
     col: {
         paddingHorizontal: 7,
         alignItems: 'center',
@@ -265,10 +271,11 @@ const useStyles = createStylesheet((theme, mode) => StyleSheet.create({
         // backgroundColor: 'yellow',
         flexDirection: 'row',
         alignItems: 'center',
-        paddingLeft: 20,
-        paddingRight: 20,
+        paddingLeft: 16,
+        paddingRight: 10,
         marginBottom: 20,
         marginTop: 20,
+        flexWrap: 'wrap',
     },
     list: {
         padding: 20,
