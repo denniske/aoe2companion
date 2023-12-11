@@ -185,6 +185,10 @@ export function FeedList() {
                                         const filteredPlayers = filterAndSortPlayers(players);
                                         const len = filteredPlayers.length;
 
+                                        if (len == 0) {
+                                            return <Game match={item}/>;
+                                        }
+
                                         let samePlayers = false;
                                         if (index > 0) {
                                             const previousMatch = list[index-1] as IMatchNew;

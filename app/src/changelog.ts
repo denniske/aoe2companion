@@ -144,7 +144,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '72.0.0': [
+    '73.0.0': [
         {
             type: 'feature',
             title: 'Add new build order guide page (by [Noah Brandyberry](https://github.com/noahbrandyberry))',
@@ -168,6 +168,10 @@ export const changelog: IChangelog = {
         {
             type: 'bugfix',
             title: 'Fix some age upgrades and always show age icon on unit page',
+        },
+        {
+            type: 'bugfix',
+            title: 'Prevent following page crash when unfollowing players',
         },
     ],
     '69.0.0': [
