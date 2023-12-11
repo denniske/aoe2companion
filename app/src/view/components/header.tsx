@@ -1,4 +1,4 @@
-import {Platform, StyleSheet, TouchableOpacity, View, ViewStyle} from 'react-native';
+import {Dimensions, Platform, StyleSheet, TouchableOpacity, View, ViewStyle} from 'react-native';
 import {Image} from 'expo-image';
 import React, {useState} from 'react';
 import {RootStackParamList} from '../../../App2';
@@ -17,11 +17,9 @@ import {createStylesheet} from '../../theming-new';
 import {closeAppWindowAsync, isElectron} from "../../helper/electron";
 import Constants from "expo-constants";
 import {appIconData} from "@nex/dataset";
-
-
 import {sleep} from "@nex/data";
-// import {captureImage} from '../../ci/capture';
-// let imageNumber = 10;
+// import {captureImage} from "../../ci/capture";
+// let imageNumber = 0;
 
 export default function Header() {
     const appStyles = useTheme(appVariants);
@@ -35,7 +33,9 @@ export default function Header() {
         // console.log('CAPTURE');
         // setCapturing(true);
         // await sleep(500);
-        // await captureImage('screen-' + imageNumber++);
+        // const os = Platform.OS;
+        // const width = Math.round(Dimensions.get('window').width);
+        // await captureImage(`${os}-${width}-${imageNumber++}`);
         // setCapturing(false);
     };
 

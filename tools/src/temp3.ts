@@ -34,18 +34,18 @@ async function fetchPage(page: number) {
 
 
 
-async function loadStrings() {
-    const matches: any = [];
-    for (let i = 0; i < 10000; i++) {
-        console.log("Loading strings for " + i);
-        const newMatches = await fetchPage(i);
-        matches.push(...newMatches);
-        await sleep(50);
-        if (newMatches.length === 0) break;
-    }
-    console.log('matches.length', matches.length);
-    fs.writeFileSync("matches.json", JSON.stringify(matches, null, 4));
-}
-
-loadStrings();
+// async function loadStrings() {
+//     const matches: any = [];
+//     for (let i = 0; i < 10000; i++) {
+//         console.log("Loading strings for " + i);
+//         const newMatches = await fetchPage(i);
+//         matches.push(...newMatches);
+//         await sleep(50);
+//         if (newMatches.length === 0) break;
+//     }
+//     console.log('matches.length', matches.length);
+//     fs.writeFileSync("matches.json", JSON.stringify(matches, null, 4));
+// }
+//
+// loadStrings();
 
