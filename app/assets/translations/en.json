@@ -214,6 +214,10 @@
   "lobbies.datausagewarning": "Only use with WiFi.",
   "lobbies.datausagewarning2": "Only use with WiFi. Data usage: {usage} MB",
 
+  "ongoing.title": "Ongoing Matches",
+  "ongoing.description": "View live matches from the players you follow! Click on a row to show player list.",
+  "ongoing.emptydescription": "There are currently no live matches from your followed players. Follow some more players or check back soon!",
+
   "push.title": "Push Notifications",
   "push.error.noaccount": "Could not retrieve account.",
   "push.error.nopushtoken": "Could not retrieve push token.",
@@ -389,6 +393,7 @@
   "footer.settings": "Settings",
   "footer.tips": "Tips & Tricks",
   "footer.lobbies": "Lobbies",
+  "footer.ongoing": "Ongoing",
   "footer.buildings": "Buildings",
   "footer.techs": "Techs",
   "footer.units": "Units",

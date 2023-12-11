@@ -1,13 +1,17 @@
-import {DarkMode} from "../redux/reducer";
-import {Civ, LeaderboardId} from "@nex/data";
-import store from "../redux/store";
-import {v4 as uuidv4} from "uuid";
-import {Flag} from '@nex/data';
+import { DarkMode } from '../redux/reducer';
+import { Civ, LeaderboardId } from '@nex/data';
+import store from '../redux/store';
+import { v4 as uuidv4 } from 'uuid';
+import { Flag } from '@nex/data';
 import AsyncStorage, { useAsyncStorage } from '@react-native-async-storage/async-storage';
-import {isElectron, sendConfig, sendSettings} from "../helper/electron";
-import { merge } from 'lodash';
-import { useEffect, useState } from "react";
-import { buildsData } from "../../../data/src/data/builds";
+import { isElectron, sendConfig, sendSettings } from '../helper/electron';
+import { camelCase, merge } from 'lodash';
+import { useEffect, useState } from 'react';
+import { buildsData } from '../../../data/src/data/builds';
+import { Widget } from '../../../modules/widget';
+import Constants from 'expo-constants';
+import { genericCivIcon, getCivIconLocal } from '../helper/civs';
+import { Image, Platform } from 'react-native';
 
 export interface IConfig {
     hotkeyShowHideEnabled: boolean;
@@ -19,7 +23,7 @@ export interface IConfig {
         opacity: number;
         offset: number;
         duration: number;
-    }
+    };
     preventScreenLockOnGuidePage: boolean;
     language: string;
 }
@@ -59,9 +63,7 @@ export interface IFollowingEntry {
 export const loadPrefsFromStorage = async () => {
     const entry = await AsyncStorage.getItem('prefs');
     if (entry == null) {
-        return {
-
-        };
+        return {};
     }
     return JSON.parse(entry) as IPrefs;
 };
@@ -96,11 +98,14 @@ export const loadConfigFromStorage = async () => {
     entry.pushNotificationsEnabled = entry.pushNotificationsEnabled ?? false;
     entry.hotkeyShowHideEnabled = entry.hotkeyShowHideEnabled ?? true;
     entry.hotkeySearchEnabled = entry.hotkeySearchEnabled ?? true;
-    entry.overlay = merge({
-        opacity: 80,
-        offset: 7,
-        duration: 60,
-    }, entry.overlay);
+    entry.overlay = merge(
+        {
+            opacity: 80,
+            offset: 7,
+            duration: 60,
+        },
+        entry.overlay
+    );
     await sendConfigToElectron(entry);
     return entry;
 };
@@ -170,21 +175,22 @@ const sendConfigToElectron = async (config: IConfig) => {
     if (isElectron()) {
         await sendConfig(config);
     }
-}
+};
 
 const sendSettingsToElectron = async (settings: ISettings | null) => {
     if (isElectron()) {
         await sendSettings(settings);
     }
-}
+};
+
+const GROUP_NAME = `group.${Constants.expoConfig?.ios?.bundleIdentifier}.widget`;
+const widget = new Widget(GROUP_NAME);
 
 type FavoriteId = number | string;
 export const useFavoritedBuilds = () => {
     const { getItem, setItem } = useAsyncStorage('favoritedBuilds');
     const [favoriteIds, setFavoriteIds] = useState<FavoriteId[]>([]);
-    const favorites = buildsData.filter((build) =>
-        favoriteIds.includes(build.id)
-    );
+    const favorites = buildsData.filter((build) => favoriteIds.includes(build.id));
 
     const readItemFromStorage = async () => {
         const item = await getItem();
@@ -196,6 +202,23 @@ export const useFavoritedBuilds = () => {
     };
 
     const writeItemToStorage = async (newValue: FavoriteId[]) => {
+        if (Platform.OS !== 'web') {
+            const newWidgetData = JSON.stringify(
+                buildsData
+                    .filter((build) => newValue.includes(build.id))
+                    .map((build) => ({
+                        id: build.id.toString(),
+                        title: build.title,
+                        civilization: build.civilization,
+                        image: widget.setImage(
+                            Image.resolveAssetSource(getCivIconLocal(build.civilization) ?? genericCivIcon).uri,
+                            `${camelCase(build.civilization)}.png`
+                        ),
+                    }))
+            );
+            widget.setItem('savedData', newWidgetData);
+            widget.reloadAll();
+        }
         await setItem(JSON.stringify(newValue));
         setFavoriteIds(newValue);
     };
@@ -206,9 +229,7 @@ export const useFavoritedBuilds = () => {
 
     const toggleFavorite = (id: FavoriteId) => {
         if (favoriteIds.includes(id)) {
-            writeItemToStorage(
-                favoriteIds.filter((favoriteId) => favoriteId !== id)
-            );
+            writeItemToStorage(favoriteIds.filter((favoriteId) => favoriteId !== id));
         } else {
             writeItemToStorage([...favoriteIds, id]);
         }
@@ -263,10 +284,7 @@ export const useBuildFilters = () => {
         readItemFromStorage();
     }, []);
 
-    const setFilter = (
-        key: keyof BuildFilters,
-        value: BuildFilters[typeof key]
-    ) => {
+    const setFilter = (key: keyof BuildFilters, value: BuildFilters[typeof key]) => {
         writeItemToStorage({ ...defaultFilters, ...filters, [key]: value });
     };
 

@@ -41,7 +41,24 @@ export default {
             "experienceId": "@denniske1001/aoe2companion",
             "eas": {
                 "projectId": "668efd6d-8482-4ad8-8235-e1e94b7d508e",
-            }
+                "build": {
+                    "experimental": {
+                        "ios": {
+                            "appExtensions": [
+                                {
+                                    "targetName": "widget",
+                                    "bundleIdentifier": "com.aoe2companion.widget",
+                                    "entitlements": {
+                                        "com.apple.security.application-groups": [
+                                            "group.com.aoe2companion.widget"
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
         },
         "userInterfaceStyle": "automatic",
         "jsEngine": "hermes",
@@ -77,6 +94,26 @@ export default {
                     "icon": "./app/assets/notification.png"
                 }
             ],
+            [
+                "./app.plugin.js",
+                {
+                    "widgetName": "widget",
+                    "ios": {
+                        "devTeamId": "HAFGZBHF9M",
+                        "appGroupIdentifier": "group.com.aoe2companion.widget",
+                        "topLevelFiles": ["Assets.xcassets", "WidgetBundle.swift"],
+                        "topLevelFolders": ["Widgets", "Helpers"] 
+                    }
+                }
+            ],
+            [
+                "expo-build-properties",
+                {
+                    "ios": {
+                        "deploymentTarget": "13.4"
+                    }
+                }
+            ],
             "expo-localization",
             "sentry-expo"
         ],
@@ -101,7 +138,15 @@ export default {
                 "usesNonExemptEncryption": false
             },
             "infoPlist": {
-                "LSApplicationQueriesSchemes": ["itms-apps"]
+                "LSApplicationQueriesSchemes": ["itms-apps"],
+                "NSSupportsLiveActivities": true,
+                "NSUserActivityTypes": ["BuildsConfigurationIntent"],
+                "UIBackgroundModes": ["remote-notification"]
+            },
+            "entitlements": {
+                "com.apple.security.application-groups": [
+                    "group.com.aoe2companion.widget"
+                ]
             },
             "splash": splash,
         },

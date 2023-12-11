@@ -17,7 +17,9 @@
     "bundle:analyze": "source-map-explorer dist/exported/bundles/ios-*.js dist/exported/bundles/ios-*.map",
     "bundle:app": "npm run bundle:export; npm run bundle:analyze",
     "android": "expo run:android",
-    "ios": "expo run:ios"
+    "ios": "expo run:ios",
+    "build:plugin": "yarn clean:plugin && EXPO_NONINTERACTIVE=1 expo-module build plugin && ./plugin/src/scripts/copy.sh",
+    "clean:plugin": "expo-module clean plugin"
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.10.4",
@@ -42,6 +44,7 @@
     "expo": "~49.0.7",
     "expo-application": "~5.3.0",
     "expo-av": "~13.4.1",
+    "expo-build-properties": "~0.8.3",
     "expo-dev-client": "~2.4.12",
     "expo-device": "~5.4.0",
     "expo-file-system": "~15.4.5",
@@ -54,6 +57,7 @@
     "expo-splash-screen": "~0.20.5",
     "expo-status-bar": "~1.6.0",
     "expo-system-ui": "~2.4.0",
+    "expo-task-manager": "^11.5.0",
     "expo-updates": "~0.18.17",
     "humps": "^2.0.1",
     "immer": "^7.0.0",
@@ -114,6 +118,7 @@
     "babel-preset-expo": "^9.5.0",
     "cavy": "^4.0.2",
     "eslint-config-next": "11.0.1",
+    "expo-module-scripts": "^3.1.0",
     "postcss": "^8.4.28",
     "prisma": "3.13.0",
     "semver": "^7.3.2",
