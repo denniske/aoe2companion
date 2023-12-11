@@ -4,6 +4,11 @@ export function getBuildById(buildId: string | number) {
     return buildsData.find((build) => build.id === buildId);
 }
 
+export const sortBuildAges = (ages: [string, any][]) => {
+    const sortedAges = ['feudalAge', 'castleAge', 'imperialAge'];
+    return ages.sort((a, b) => sortedAges.indexOf(a[0]) - sortedAges.indexOf(b[0]));
+};
+
 export interface IBuildOrderBuilding {
     type: string;
     count: number;

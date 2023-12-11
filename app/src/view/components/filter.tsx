@@ -1,12 +1,4 @@
-import {
-    FlatList,
-    StyleSheet,
-    TouchableOpacity,
-    View,
-    GestureResponderEvent,
-    TextInput,
-    ImageSourcePropType,
-} from 'react-native';
+import { FlatList, StyleSheet, TouchableOpacity, View, GestureResponderEvent, TextInput, ImageSourcePropType } from 'react-native';
 import { createStylesheet } from '../../theming-new';
 import { useRef, useState } from 'react';
 import { MyText } from './my-text';
@@ -20,13 +12,7 @@ interface FilterProps<Value> {
     onChange: (value: Value) => void;
 }
 
-export const Filter = <Value,>({
-    options,
-    label,
-    value,
-    onChange,
-    icon,
-}: FilterProps<Value>) => {
+export const Filter = <Value,>({ options, label, value, onChange, icon }: FilterProps<Value>) => {
     const styles = useStyles();
     const initialValue = options.find((o) => o.value === value)?.label ?? '';
     const [search, setSearch] = useState<string>(initialValue);
@@ -36,21 +22,14 @@ export const Filter = <Value,>({
         (option) =>
             option.label.toLowerCase().startsWith(search.toLowerCase()) ||
             search === 'All' ||
-            (isFocused &&
-                search === initialValue &&
-                options.map((o) => o.label).includes(search))
+            (isFocused && search === initialValue && options.map((o) => o.label).includes(search))
     );
     const topOption = filteredOptions[0];
 
     return (
         <View style={styles.filterContainer}>
-            <TouchableOpacity
-                style={styles.filterPressable}
-                onPress={() => filterField.current?.focus()}
-            >
-                {icon ? (
-                    <Image style={styles.filterIcon} source={icon} />
-                ) : null}
+            <TouchableOpacity style={styles.filterPressable} onPress={() => filterField.current?.focus()}>
+                {icon ? <Image style={styles.filterIcon} source={icon} /> : null}
                 <View style={styles.filter}>
                     <MyText style={styles.filterLabel}>{label}</MyText>
                     <TextInput
@@ -67,7 +46,7 @@ export const Filter = <Value,>({
                         accessibilityRole="search"
                         onChangeText={setSearch}
                         value={search}
-                        style={styles.filterInput}
+                        style={[styles.filterInput, isFocused && styles.filterInputFocused]}
                         contextMenuHidden={true}
                         onSubmitEditing={() => {
                             if (topOption) {
@@ -117,10 +96,7 @@ const ResultRow: React.FC<{
     const styles = useStyles();
 
     return (
-        <TouchableOpacity
-            style={[styles.result, index === 0 && styles.highlightedResult]}
-            onPress={onPress}
-        >
+        <TouchableOpacity style={[styles.result, index === 0 && styles.highlightedResult]} onPress={onPress}>
             {icon && <Image style={styles.icon} source={icon} />}
             <MyText style={styles.name}>{label}</MyText>
         </TouchableOpacity>
@@ -197,6 +173,10 @@ const useStyles = createStylesheet((theme, darkMode) =>
         },
         filterInput: {
             color: theme.textColor,
+            pointerEvents: 'none',
+        },
+        filterInputFocused: {
+            pointerEvents: 'auto',
         },
     })
 );

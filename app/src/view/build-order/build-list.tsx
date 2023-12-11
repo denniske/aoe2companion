@@ -9,37 +9,30 @@ import { MyText } from '../components/my-text';
 import { useFocusEffect } from '@react-navigation/native';
 import { useCallback, useState } from 'react';
 import { getTranslation } from '../../helper/translate';
+import { DismissKeyboard } from '../components/dismiss-keyboard';
 
-const transformSearch = (string: string) =>
-    string.toLowerCase().replace(/\W/g, ' ').replace(/ +/g, ' ');
+const transformSearch = (string: string) => string.toLowerCase().replace(/\W/g, ' ').replace(/ +/g, ' ');
 
 export const BuildListPage = () => {
     const styles = useStyles();
-    const { favoriteIds, favorites, toggleFavorite, refetch } =
-        useFavoritedBuilds();
+    const { favoriteIds, favorites, toggleFavorite, refetch } = useFavoritedBuilds();
     const buildFilters = useBuildFilters();
     const { civilization, buildType, difficulty } = buildFilters.filters;
     const [search, setSearch] = useState('');
 
-    const formattedBuilds = (
-        buildType === 'favorites' ? favorites : buildsData
-    ).map((build) => ({
+    const formattedBuilds = (buildType === 'favorites' ? favorites : buildsData).map((build) => ({
         ...build,
         avg_rating: build.avg_rating ?? 0,
         number_of_ratings: build.number_of_ratings ?? 0,
         favorited: favoriteIds.includes(build.id),
         toggleFavorite: () => toggleFavorite(build.id),
     }));
-    const sortedBuilds = reverse(
-        sortBy(formattedBuilds, ['avg_rating', 'number_of_ratings'])
-    );
+    const sortedBuilds = reverse(sortBy(formattedBuilds, ['avg_rating', 'number_of_ratings']));
 
     const filteredBuilds = sortedBuilds.filter(
         (build) =>
             (civilization === 'all' || build.civilization === civilization) &&
-            (buildType === 'all' ||
-                buildType === 'favorites' ||
-                build.attributes.includes(buildType)) &&
+            (buildType === 'all' || buildType === 'favorites' || build.attributes.includes(buildType)) &&
             (difficulty === 'all' || difficulty === build.difficulty) &&
             transformSearch(build.title).includes(transformSearch(search))
     );
@@ -55,37 +48,31 @@ export const BuildListPage = () => {
     }
 
     return (
-        <View style={styles.container}>
-            <BuildFilters builds={buildsData} {...buildFilters} />
+        <DismissKeyboard>
+            <View style={styles.container}>
+                <BuildFilters builds={buildsData} {...buildFilters} />
 
-            <View style={styles.searchContainer}>
-                <TextInput
-                    autoCorrect={false}
-                    value={search}
-                    onChangeText={setSearch}
-                    style={styles.search}
-                    placeholder="Search builds"
+                <View style={styles.searchContainer}>
+                    <TextInput autoCorrect={false} value={search} onChangeText={setSearch} style={styles.search} placeholder="Search builds" />
+                </View>
+
+                <FlatList
+                    initialNumToRender={5}
+                    snapToInterval={150}
+                    getItemLayout={(_, index) => ({
+                        length: 150,
+                        offset: 150 * index,
+                        index,
+                    })}
+                    style={styles.container}
+                    data={filteredBuilds}
+                    renderItem={({ item }) => <BuildCard {...item} />}
+                    keyExtractor={(item) => item.id.toString()}
+                    contentContainerStyle={styles.contentContainer}
+                    ListEmptyComponent={<MyText>{getTranslation('builds.noResults')}</MyText>}
                 />
             </View>
-
-            <FlatList
-                initialNumToRender={5}
-                snapToInterval={150}
-                getItemLayout={(_, index) => ({
-                    length: 150,
-                    offset: 150 * index,
-                    index,
-                })}
-                style={styles.container}
-                data={filteredBuilds}
-                renderItem={({ item }) => <BuildCard {...item} />}
-                keyExtractor={(item) => item.id.toString()}
-                contentContainerStyle={styles.contentContainer}
-                ListEmptyComponent={
-                    <MyText>{getTranslation('builds.noResults')}</MyText>
-                }
-            />
-        </View>
+        </DismissKeyboard>
     );
 };
 

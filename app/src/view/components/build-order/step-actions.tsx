@@ -11,13 +11,9 @@ import { Fragment } from 'react';
 import { Image } from 'expo-image';
 import { getTranslation } from '../../../helper/translate';
 
-const capitalize = (string: string) =>
-    string.charAt(0).toUpperCase() + string.slice(1);
+const capitalize = (string: string) => string.charAt(0).toUpperCase() + string.slice(1);
 
-const taskMap: Record<
-    NonNullable<IBuildOrderStep['task']>,
-    ImageSourcePropType
-> = {
+const taskMap: Record<NonNullable<IBuildOrderStep['task']>, ImageSourcePropType> = {
     wood: getOtherIcon('Wood'),
     food: getOtherIcon('Food'),
     gold: getOtherIcon('Gold'),
@@ -26,6 +22,7 @@ const taskMap: Record<
     sheep: getUnitIcon('Sheep'),
     farm: getBuildingIcon('Farm'),
     berries: getOtherIcon('BerryBush'),
+    // Need icons for the rest of these units!
     build: 0,
     deer: 0,
     forward: 0,
@@ -41,46 +38,30 @@ const taskMap: Record<
 const PlusIcon: React.FC<{ move?: boolean }> = ({ move }) => {
     const styles = useStyles();
 
-    return (
-        <FontAwesome5
-            name={move ? 'arrow-right' : 'plus'}
-            size={14}
-            style={styles.plusIcon}
-        />
-    );
+    return <FontAwesome5 name={move ? 'arrow-right' : 'plus'} size={14} style={styles.plusIcon} />;
 };
 
 const TaskIcon: React.FC<{ item?: string }> = ({ item }) => {
     const styles = useStyles();
-    const taskIcon = item
-        ? taskMap[item as unknown as NonNullable<IBuildOrderStep['task']>]
-        : getBuildingIcon('House');
+    const taskIcon = item ? taskMap[item as unknown as NonNullable<IBuildOrderStep['task']>] : getBuildingIcon('House');
 
-    return (
-        <Image
-            source={taskIcon}
-            style={item === 'berries' ? styles.pic2 : styles.pic}
-        />
-    );
+    if (!taskIcon) {
+        return <MyText style={styles.text}>{startCase(item)}</MyText>;
+    }
+
+    return <Image source={taskIcon} style={item === 'berries' ? styles.pic2 : styles.pic} />;
 };
 
-export const StepActions: React.FC<
-    IBuildOrderStep & { pop?: string | number }
-> = (step) => {
+export const StepActions: React.FC<IBuildOrderStep & { pop?: string | number }> = (step) => {
     const styles = useStyles();
-    const { buildings, tech, type, count, task, from, to, age, unit, pop } =
-        step;
+    const { buildings, tech, type, count, task, from, to, age, unit, pop } = step;
     const hasBuildings = !!buildings?.length;
     const hasTech = !!tech?.length;
     const hasBuildingsOrTech = hasBuildings || hasTech;
 
     return (
         <View style={styles.row}>
-            {hasBuildings && (
-                <MyText style={styles.text}>
-                    {getTranslation('builds.step.build')}
-                </MyText>
-            )}
+            {hasBuildings && <MyText style={styles.text}>{getTranslation('builds.step.build')}</MyText>}
             {buildings?.map((building, index) => (
                 <Fragment key={`${building.type}-${index}`}>
                     {index > 0 ? <PlusIcon /> : null}
@@ -89,9 +70,7 @@ export const StepActions: React.FC<
                         .map((_, count) => (
                             <Image
                                 key={`${building.type}-${count}-${index}`}
-                                source={getBuildingIcon(
-                                    capitalize(building.type) as any
-                                )}
+                                source={getBuildingIcon(capitalize(building.type) as any)}
                                 style={styles.buildingPic}
                                 alt={building.type}
                             />
@@ -99,41 +78,20 @@ export const StepActions: React.FC<
                 </Fragment>
             ))}
 
-            {hasTech && (
-                <MyText style={styles.text}>
-                    {getTranslation('builds.step.research')}
-                </MyText>
-            )}
+            {hasTech && <MyText style={styles.text}>{getTranslation('builds.step.research')}</MyText>}
             {tech?.map((tech, index) => (
                 <Fragment key={tech}>
                     {index > 0 ? <PlusIcon /> : null}
 
-                    <Image
-                        source={
-                            getTechIcon(capitalize(tech) as any) ||
-                            getUnitIcon(capitalize(tech) as any)
-                        }
-                        style={styles.buildingPic}
-                    />
+                    <Image source={getTechIcon(capitalize(tech) as any) || getUnitIcon(capitalize(tech) as any)} style={styles.buildingPic} />
                 </Fragment>
             ))}
 
-            {hasBuildingsOrTech &&
-            [
-                'newVillagers',
-                'moveVillagers',
-                'trainUnit',
-                'ageUp',
-                'newAge',
-            ].includes(type) ? (
-                <PlusIcon />
-            ) : null}
+            {hasBuildingsOrTech && ['newVillagers', 'moveVillagers', 'trainUnit', 'ageUp', 'newAge'].includes(type) ? <PlusIcon /> : null}
 
             {type == 'newVillagers' && (
                 <>
-                    <MyText style={styles.text}>
-                        {getTranslation('builds.step.newvills', { count })}
-                    </MyText>
+                    <MyText style={styles.text}>{getTranslation('builds.step.newvills', { count })}</MyText>
                     <TaskIcon item={task} />
                 </>
             )}
@@ -157,49 +115,24 @@ export const StepActions: React.FC<
                         </MyText>
                     ) : (
                         <MyText style={styles.text}>
-                            {getTranslation(
-                                count === 1
-                                    ? 'builds.step.training.singular'
-                                    : 'builds.step.training.plural',
-                                {
-                                    count,
-                                    unit: startCase(unit),
-                                }
-                            )}
+                            {getTranslation(count === 1 ? 'builds.step.training.singular' : 'builds.step.training.plural', {
+                                count,
+                                unit: startCase(unit),
+                            })}
                         </MyText>
                     )}
                 </>
             )}
             {type == 'ageUp' && (
                 <>
-                    <MyText style={styles.text}>
-                        {getTranslation(
-                            pop
-                                ? 'builds.step.ageupwithpop'
-                                : 'builds.step.ageup',
-                            { pop }
-                        )}
-                    </MyText>
-                    <Image
-                        source={getOtherIcon(capitalize(age!) as any)}
-                        style={styles.pic}
-                    />
+                    <MyText style={styles.text}>{getTranslation(pop ? 'builds.step.ageupwithpop' : 'builds.step.ageup', { pop })}</MyText>
+                    <Image source={getOtherIcon(capitalize(age!) as any)} style={styles.pic} />
                 </>
             )}
             {type == 'newAge' && (
                 <>
-                    <MyText style={styles.text}>
-                        {getTranslation(
-                            pop
-                                ? 'builds.step.newagewithpop'
-                                : 'builds.step.newage',
-                            { pop }
-                        )}
-                    </MyText>
-                    <Image
-                        source={getOtherIcon(capitalize(age!) as any)}
-                        style={styles.pic}
-                    />
+                    <MyText style={styles.text}>{getTranslation(pop ? 'builds.step.newagewithpop' : 'builds.step.newage', { pop })}</MyText>
+                    <Image source={getOtherIcon(capitalize(age!) as any)} style={styles.pic} />
                 </>
             )}
         </View>

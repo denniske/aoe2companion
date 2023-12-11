@@ -1,15 +1,6 @@
 import { createStylesheet } from '../../../theming-new';
-import {
-    IBuildOrder,
-    IBuildOrderStep,
-} from '../../../../../data/src/helper/builds';
-import {
-    Animated,
-    GestureResponderEvent,
-    Pressable,
-    StyleSheet,
-    View,
-} from 'react-native';
+import { IBuildOrder, IBuildOrderStep } from '../../../../../data/src/helper/builds';
+import { Animated, GestureResponderEvent, Pressable, StyleSheet, View } from 'react-native';
 import { MyText } from '../my-text';
 import { ResourceAlloc } from './step-resource';
 import { StepActions } from './step-actions';
@@ -26,14 +17,7 @@ export interface StepProps {
     onPress: (event: GestureResponderEvent) => void;
 }
 
-export const Step: React.FC<StepProps> = ({
-    highlighted,
-    step,
-    build,
-    onPress,
-    index,
-    count,
-}) => {
+export const Step: React.FC<StepProps> = ({ highlighted, step, build, onPress, index, count }) => {
     const { resources } = step;
     const styles = useStyles();
     const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -58,10 +42,7 @@ export const Step: React.FC<StepProps> = ({
                     }),
                     backgroundColor: fadeAnim.interpolate({
                         inputRange: [0, 1],
-                        outputRange: [
-                            theme.skeletonColor,
-                            theme.backgroundColor,
-                        ],
+                        outputRange: [theme.skeletonColor, theme.backgroundColor],
                     }),
                 },
             ]}
@@ -74,21 +55,14 @@ export const Step: React.FC<StepProps> = ({
                         })}{' '}
                         <MyText style={[styles.text, styles.textNormal]}>
                             {getTranslation('builds.step.maxstep', {
-                                max: index + 1,
+                                max: count,
                             })}
                         </MyText>
                     </MyText>
                 </View>
                 <View style={styles.stepCentered}>
                     <View style={styles.stepBody}>
-                        <StepActions
-                            {...step}
-                            pop={
-                                step.age === 'feudalAge'
-                                    ? build.pop[step.age]
-                                    : undefined
-                            }
-                        />
+                        <StepActions {...step} pop={step.age === 'feudalAge' ? build.pop[step.age] : undefined} />
 
                         <MyText style={styles.text}>{step.text}</MyText>
                     </View>
