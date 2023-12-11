@@ -190,7 +190,7 @@ const linking: LinkingOptions<any> = {
                 path: 'search',
             },
             Guide: {
-                path: 'guide/:id?',
+                path: 'guide/:build?',
             },
             Live: {
                 path: 'live',

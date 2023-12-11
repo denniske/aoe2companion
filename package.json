@@ -17,7 +17,9 @@
     "bundle:analyze": "source-map-explorer dist/exported/bundles/ios-*.js dist/exported/bundles/ios-*.map",
     "bundle:app": "npm run bundle:export; npm run bundle:analyze",
     "android": "expo run:android",
-    "ios": "expo run:ios"
+    "ios": "expo run:ios",
+    "build:plugin": "yarn clean:plugin && EXPO_NONINTERACTIVE=1 expo-module build plugin && ./plugin/src/scripts/copy.sh",
+    "clean:plugin": "expo-module clean plugin"
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.10.4",
@@ -114,6 +116,7 @@
     "babel-preset-expo": "^9.5.0",
     "cavy": "^4.0.2",
     "eslint-config-next": "11.0.1",
+    "expo-module-scripts": "^3.1.0",
     "postcss": "^8.4.28",
     "prisma": "3.13.0",
     "react-native-bundle-visualizer": "^2.2.1",

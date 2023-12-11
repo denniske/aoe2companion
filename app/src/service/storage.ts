@@ -8,6 +8,8 @@ import {isElectron, sendConfig, sendSettings} from "../helper/electron";
 import { merge } from 'lodash';
 import { useEffect, useState } from "react";
 import { buildsData } from "../../../data/src/data/builds";
+import { getItem, reloadAll, setItem } from '../../../modules/widget';
+import Constants from 'expo-constants';
 
 export interface IConfig {
     hotkeyShowHideEnabled: boolean;
@@ -178,6 +180,10 @@ const sendSettingsToElectron = async (settings: ISettings | null) => {
     }
 }
 
+const GROUP_NAME = `group.${Constants.expoConfig?.ios?.bundleIdentifier}.widget`;
+const getSharedData = getItem(GROUP_NAME);
+const setSharedData = setItem(GROUP_NAME);
+
 type FavoriteId = number | string;
 export const useFavoritedBuilds = () => {
     const { getItem, setItem } = useAsyncStorage('favoritedBuilds');
@@ -196,6 +202,13 @@ export const useFavoritedBuilds = () => {
     };
 
     const writeItemToStorage = async (newValue: FavoriteId[]) => {
+        const newWidgetData = JSON.stringify(
+            buildsData
+                .filter((build) => newValue.includes(build.id))
+                .map((build) => ({ id: build.id.toString(), title: build.title, civilization: build.civilization }))
+        );
+        setSharedData('savedData', newWidgetData);
+        reloadAll();
         await setItem(JSON.stringify(newValue));
         setFavoriteIds(newValue);
     };

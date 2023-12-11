@@ -1,4 +1,4 @@
-import { ConfigPlugin } from "@expo/config-plugins";
+import { ConfigPlugin } from '@expo/config-plugins';
 interface Props {
     targetName: string;
     devTeamId: string;

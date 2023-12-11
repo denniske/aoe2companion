@@ -6,8 +6,8 @@ const withWidgetSourceFiles_1 = require("./withWidgetSourceFiles");
 const withWidgetPlist_1 = require("./withWidgetPlist");
 const withWidgetXcodeTarget_1 = require("./withWidgetXcodeTarget");
 // make defaults
-exports.DEFAULT_WIDGET_TARGET_NAME = "widget";
-exports.DEFAULT_TOP_LEVEL_FILES = ["Assets.xcassets", "widget.swift"];
+exports.DEFAULT_WIDGET_TARGET_NAME = 'widget';
+exports.DEFAULT_TOP_LEVEL_FILES = ['Assets.xcassets', 'WidgetBundle.swift'];
 const withWidgetIos = (config, { widgetName, ios }) => {
     const { appGroupIdentifier, devTeamId } = ios;
     const targetName = widgetName ?? exports.DEFAULT_WIDGET_TARGET_NAME;
