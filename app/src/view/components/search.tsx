@@ -88,7 +88,7 @@ export default function Search({ title, selectedUser, actionText, action }: ISea
     const [fetching, setFetching] = useState(false);
     const [profiles, setProfiles] = useState<any[]>([]);
     const flatListRef = React.useRef<any>();
-    const debouncedText = useDebounce(text, 2000);
+    const debouncedText = useDebounce(text, 250);
 
     const user = useLazyApi(
         {
