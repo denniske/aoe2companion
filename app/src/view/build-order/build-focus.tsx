@@ -1,13 +1,5 @@
 import React, { useRef, useState } from 'react';
-import {
-    FlatList,
-    GestureResponderEvent,
-    StyleSheet,
-    TouchableOpacity,
-    View,
-    ViewToken,
-    Modal,
-} from 'react-native';
+import { FlatList, GestureResponderEvent, StyleSheet, TouchableOpacity, View, ViewToken, Modal } from 'react-native';
 import { createStylesheet } from '../../theming-new';
 import { Step } from '../components/build-order/step';
 import { IBuildOrder } from 'data/src/helper/builds';
@@ -26,22 +18,12 @@ export const BuildFocus: React.FC<{
     const [currentStep, setCurrentStep] = useState<number>(0);
     const flatListRef = useRef<FlatList>(null);
 
-    const viewAbilityConfigCallbackPairs = useRef(
-        ({
-            changed,
-            viewableItems,
-        }: {
-            viewableItems: Array<ViewToken>;
-            changed: Array<ViewToken>;
-        }) => {
-            if (changed) {
-                const viewableSteps = viewableItems.map(
-                    (item) => item.index ?? 0
-                );
-                setCurrentStep(viewableSteps[0]);
-            }
+    const viewAbilityConfigCallbackPairs = useRef(({ changed, viewableItems }: { viewableItems: Array<ViewToken>; changed: Array<ViewToken> }) => {
+        if (changed) {
+            const viewableSteps = viewableItems.map((item) => item.index ?? 0);
+            setCurrentStep(viewableSteps[0]);
         }
-    );
+    });
 
     const goToStep = (step: number) => {
         const newStep = Math.max(step, 0);
@@ -62,23 +44,17 @@ export const BuildFocus: React.FC<{
                         <MyText style={styles.heading}>{build.title}</MyText>
 
                         <TouchableOpacity onPress={onClose}>
-                            <FontAwesome5
-                                name="times"
-                                size={24}
-                                style={styles.icon}
-                            />
+                            <FontAwesome5 name="times" size={24} style={styles.icon} />
                         </TouchableOpacity>
                     </View>
 
                     <FlatList
-                        decelerationRate="fast"
+                        decelerationRate={0.1}
                         snapToInterval={250}
                         viewabilityConfig={{
                             itemVisiblePercentThreshold: 100,
                         }}
-                        onViewableItemsChanged={
-                            viewAbilityConfigCallbackPairs.current
-                        }
+                        onViewableItemsChanged={viewAbilityConfigCallbackPairs.current}
                         style={styles.container}
                         data={build.build}
                         ref={flatListRef}
@@ -97,18 +73,10 @@ export const BuildFocus: React.FC<{
                     />
 
                     <View style={styles.buttonsContainer}>
-                        <Button
-                            fullWidth
-                            disabled={currentStep === 0}
-                            onPress={() => goToStep(currentStep - 1)}
-                        >
+                        <Button fullWidth disabled={currentStep === 0} onPress={() => goToStep(currentStep - 1)}>
                             {getTranslation('builds.focus.previous')}
                         </Button>
-                        <Button
-                            fullWidth
-                            disabled={currentStep === build.build.length - 1}
-                            onPress={() => goToStep(currentStep + 1)}
-                        >
+                        <Button fullWidth disabled={currentStep === build.build.length - 1} onPress={() => goToStep(currentStep + 1)}>
                             {getTranslation('builds.focus.next')}
                         </Button>
                     </View>

@@ -33,7 +33,6 @@ import SearchPage from './src/view/search.page';
 import PrivacyPage from './src/view/privacy.page';
 import {FontAwesome5} from "@expo/vector-icons";
 import LeaderboardPage, {leaderboardMenu, LeaderboardTitle} from "./src/view/leaderboard.page";
-import GuidePage, {GuideTitle} from "./src/view/guide.page";
 import {CivPage, CivTitle, civTitle} from "@nex/app/view";
 import {
     Building,
@@ -617,6 +616,7 @@ export function InnerApp() {
                         headerTitleAlign: 'center',
                         headerTitle: titleProps => <BuildTitle {...props} titleProps={titleProps} />,
                         headerRight: () => props.route?.params?.build ? <BuildMenu {...props} /> : null,
+                        headerBackTitle: 'Back'
                     })}
                 />
                 <Stack.Screen

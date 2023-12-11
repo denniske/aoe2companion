@@ -1,11 +1,11 @@
 import { createStylesheet } from '../../../theming-new';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { MyText } from '../my-text';
-import { IBuildOrder } from '../../../../../data/src/helper/builds';
+import { IBuildOrder, sortBuildAges } from '../../../../../data/src/helper/builds';
 import { genericCivIcon, getCivIconLocal } from '../../../helper/civs';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackProp } from '../../../../App2';
-import { reverse, startCase } from 'lodash';
+import { startCase } from 'lodash';
 import { BuildRating } from './build-rating';
 import { getDifficultyIcon } from '../../../helper/difficulties';
 import { getAgeIcon } from '../../..//helper/units';
@@ -15,25 +15,18 @@ import { Image } from 'expo-image';
 import { memo } from 'react';
 import { getTranslation } from '../../../helper/translate';
 
-const BuildCard: React.FC<
-    IBuildOrder & { favorited: boolean; toggleFavorite: () => void }
-> = ({ favorited, toggleFavorite, ...build }) => {
+const BuildCard: React.FC<IBuildOrder & { favorited: boolean; toggleFavorite: () => void }> = ({ favorited, toggleFavorite, ...build }) => {
     const styles = useStyles();
     const title = build.title.replace(build.civilization, '');
     const civIcon = getCivIconLocal(build.civilization) ?? genericCivIcon;
     const difficultyIcon = getDifficultyIcon(build.difficulty);
     const navigation = useNavigation<RootStackProp>();
-    const ages = reverse(Object.entries(build.pop));
+    const ages = sortBuildAges(Object.entries(build.pop));
 
     return (
-        <TouchableOpacity
-            style={styles.card}
-            onPress={() => navigation.push('Guide', { build: build.id })}
-        >
+        <TouchableOpacity style={styles.card} onPress={() => navigation.push('Guide', { build: build.id })}>
             <View style={styles.cardHeader}>
-                {civIcon ? (
-                    <Image style={styles.civImage} source={civIcon} />
-                ) : null}
+                {civIcon ? <Image style={styles.civImage} source={civIcon} /> : null}
                 <MyText style={styles.civName}>{build.civilization}</MyText>
                 <TouchableOpacity
                     hitSlop={12}
@@ -44,9 +37,7 @@ const BuildCard: React.FC<
                         })
                     }
                 >
-                    <MyText style={styles.startButtonText}>
-                        {getTranslation('builds.card.start')}
-                    </MyText>
+                    <MyText style={styles.startButtonText}>{getTranslation('builds.card.start')}</MyText>
                 </TouchableOpacity>
             </View>
 
@@ -65,12 +56,7 @@ const BuildCard: React.FC<
                 <View style={styles.tagsContainer}>
                     {difficultyIcon && <Tag icon={difficultyIcon} />}
                     {ages.map(([ageName, agePop]) => (
-                        <Tag
-                            key={ageName}
-                            icon={getAgeIcon(
-                                startCase(ageName.replace('Age', '')) as any
-                            )}
-                        >
+                        <Tag key={ageName} icon={getAgeIcon(startCase(ageName.replace('Age', '')) as any)}>
                             {ageName === 'feudalAge' ? '' : '+'}
                             {agePop}
                         </Tag>
@@ -81,17 +67,8 @@ const BuildCard: React.FC<
                 </View>
             </View>
 
-            <TouchableOpacity
-                style={styles.favoriteButton}
-                hitSlop={10}
-                onPress={toggleFavorite}
-            >
-                <FontAwesome5
-                    solid={favorited}
-                    name="heart"
-                    size={20}
-                    color="#ef4444"
-                />
+            <TouchableOpacity style={styles.favoriteButton} hitSlop={10} onPress={toggleFavorite}>
+                <FontAwesome5 solid={favorited} name="heart" size={20} color="#ef4444" />
             </TouchableOpacity>
             <Image source={{ uri: build.imageURL }} style={styles.mainImage} />
         </TouchableOpacity>
