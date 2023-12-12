@@ -24,7 +24,7 @@ export class LiveActivity<T> {
         return LiveActivityModule.start(JSON.stringify(data));
     }
 
-    public list(): T {
+    public list(): Array<{ id: string; data: T }> {
         const activities = LiveActivityModule.list();
         return activities.map((activity) => ({
             id: activity.id,
@@ -33,7 +33,7 @@ export class LiveActivity<T> {
     }
 
     public end(id: string): string {
-        return LiveActivityModule.endActivity(id);
+        return LiveActivityModule.end(id);
     }
 
     public update(id: string, data: T): string {

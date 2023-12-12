@@ -60,8 +60,7 @@ public class LiveActivityModule: Module {
                         try Activity
                         .request(attributes: activityAttributes, contentState: initialContentState)
 
-                    return String(describing: activity?.id)
-
+                    return activity?.id
                 } catch (let error) {
                     return error.localizedDescription
                 }
@@ -69,13 +68,12 @@ public class LiveActivityModule: Module {
             return nil
         }
 
-        Function("list") { (value: String, key: String, appGroup: String) -> String? in
+        Function("list") { () -> [[String: String]]? in
             if #available(iOS 16.1, *) {
                 var activities = Activity<MyActivityAttributes>.activities
                 activities.sort { $0.id > $1.id }
 
-                return "[]"
-
+                return activities.map { ["id": $0.id, "data": $0.contentState.data] }
             }
             return nil
         }
@@ -86,7 +84,7 @@ public class LiveActivityModule: Module {
                     await Activity<MyActivityAttributes>.activities.filter { $0.id == id }.first?
                         .end(
                             dismissalPolicy: .immediate)
-                    return "Worked!"
+                    return id
                 }
             }
             return nil
@@ -101,7 +99,7 @@ public class LiveActivityModule: Module {
                     let activities = Activity<MyActivityAttributes>.activities
                     let activity = activities.filter { $0.id == id }.first
                     await activity?.update(using: updatedStatus)
-                    return "updated!"
+                    return id
                 }
             }
             return nil

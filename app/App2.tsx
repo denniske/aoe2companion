@@ -65,6 +65,7 @@ import ErrorSnackbar from "./src/view/components/snackbar/error-snackbar";
 import ErrorPage from "./src/view/error.page";
 import WinratesPage, {WinratesTitle} from "./src/view/winrates.page";
 import * as Notifications from "expo-notifications";
+import * as TaskManager from 'expo-task-manager';
 import TipsPage from "./src/view/tips.page";
 import initSentry from "./src/helper/sentry";
 import * as Device from 'expo-device';
@@ -106,6 +107,19 @@ try {
         handleSuccess: notificationId => console.log('success:' + notificationId),
         handleError: notificationId => console.log('error:' + notificationId),
     });
+
+    const BACKGROUND_NOTIFICATION_TASK = 'BACKGROUND-NOTIFICATION-TASK';
+
+    TaskManager.defineTask(BACKGROUND_NOTIFICATION_TASK, ({ data, error, executionInfo }) => {
+        if (error) {
+            console.log('error occurred');
+        }
+        if (data) {
+            console.log('data-----', data);
+        }
+    });
+
+    Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK);
 } catch(e) {
 
 }

@@ -9,21 +9,21 @@ struct Build: Decodable, Identifiable, Hashable {
 }
 
 struct Provider: TimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), builds: [])
+    func placeholder(in context: Context) -> BuildsEntry {
+        BuildsEntry(date: Date(), builds: [])
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> Void) {
-        let entry = SimpleEntry(date: Date(), builds: [])
+    func getSnapshot(in context: Context, completion: @escaping (BuildsEntry) -> Void) {
+        let entry = BuildsEntry(date: Date(), builds: [])
         completion(entry)
     }
 
-    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> Void) {
+    func getTimeline(in context: Context, completion: @escaping (Timeline<BuildsEntry>) -> Void) {
         let items = getItem()
         let length = context.family == .systemMedium ? 2 : 4
         let builds = items.count > length ? Array(items[0..<length]) : items
 
-        let entry = SimpleEntry(date: Date(), builds: builds)
+        let entry = BuildsEntry(date: Date(), builds: builds)
 
         let timeline = Timeline(entries: [entry], policy: .never)
         completion(timeline)
@@ -45,7 +45,7 @@ struct Provider: TimelineProvider {
 
 }
 
-struct SimpleEntry: TimelineEntry {
+struct BuildsEntry: TimelineEntry {
     let date: Date
     let builds: [Build]
 }
@@ -85,12 +85,6 @@ struct BuildsWidgetEntryView: View {
     }
 }
 
-@available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *)#Preview(
-    traits: .portrait,
-    body: {
-        BuildsWidgetEntryView(entry: SimpleEntry(date: Date(), builds: []))
-    })
-
 struct BuildsWidget: Widget {
     let kind: String = "Builds"
 
@@ -106,20 +100,10 @@ struct BuildsWidget: Widget {
 
 struct BuildsWidget_Previews: PreviewProvider {
     static var previews: some View {
-        BuildsWidgetEntryView(entry: SimpleEntry(date: Date(), builds: []))
+        BuildsWidgetEntryView(entry: BuildsEntry(date: Date(), builds: []))
             .previewContext(
                 WidgetPreviewContext(
                     family: .systemMedium
                 ))
-    }
-}
-
-extension WidgetConfiguration {
-    func contentMarginsDisabledIfAvailable() -> some WidgetConfiguration {
-        if #available(iOSApplicationExtension 17.0, *) {
-            return self.contentMarginsDisabled()
-        } else {
-            return self
-        }
     }
 }

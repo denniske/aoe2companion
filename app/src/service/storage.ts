@@ -207,7 +207,12 @@ export const useFavoritedBuilds = () => {
                 .map((build) => ({ id: build.id.toString(), title: build.title, civilization: build.civilization }))
         );
 
-        liveActivity.start({ name: 'asdf' });
+        // liveActivity.start({ name: 'asdf' });
+        console.log(liveActivity.start({ name: 'Hans' }));
+        console.log(liveActivity.update('32EF79BC-A3A3-43F4-94F0-BE1A6D79FC52', { name: 'Noah' }));
+        // liveActivity.list().forEach((activity) => {
+        //     console.log(liveActivity.end(activity.id))
+        // })
         widget.setItem('savedData', newWidgetData);
         widget.reloadAll();
         await setItem(JSON.stringify(newValue));
