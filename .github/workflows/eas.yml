@@ -8,8 +8,9 @@ env:
     HOMEBREW_NO_AUTO_UPDATE: 1
     NODE_VERSION: 18.17.0
     EXPO_SDK_VERSION: 49.0.0
-    EXPO_CLI_VERSION: 6.0.2
     SECRETHUB_CREDENTIAL: ${{ secrets.SECRETHUB_AOE2COMPANION_CREDENTIAL }}
+
+#    EXPO_CLI_VERSION: 6.0.2
 
 jobs:
 
@@ -73,6 +74,7 @@ jobs:
               with:
                   name: ${{ env.AOE }}companion-development-${{ env.TRAVIS_COMMIT }}.tar.gz
                   path: ${{ env.AOE }}companion-development-${{ env.TRAVIS_COMMIT }}.tar.gz
+
 
 
 
