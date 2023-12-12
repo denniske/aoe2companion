@@ -10,6 +10,20 @@ const splash = {
     },
 };
 
+const hooksProduction = {
+    "postPublish": [
+        {
+            "file": "sentry-expo/upload-sourcemaps",
+            "config": {
+                "organization": "aoe2companion",
+                "project": "aoe4companion"
+            }
+        }
+    ]
+};
+
+const hooks = process.env.EAS_BUILD_PROFILE === 'production' ? hooksProduction : undefined;
+
 export default {
     "expo": {
         "name": "AoE IV Companion",
@@ -81,16 +95,6 @@ export default {
             },
             "splash": splash,
         },
-        "hooks": {
-            "postPublish": [
-                {
-                    "file": "sentry-expo/upload-sourcemaps",
-                    "config": {
-                        "organization": "aoe2companion",
-                        "project": "aoe4companion"
-                    }
-                }
-            ]
-        }
+        hooks,
     }
 };

@@ -10,6 +10,20 @@ const splash = {
     },
 };
 
+const hooksProduction = {
+    "postPublish": [
+        {
+            "file": "sentry-expo/upload-sourcemaps",
+            "config": {
+                "organization": "aoe2companion",
+                "project": "aoe2companion"
+            }
+        }
+    ]
+};
+
+const hooks = process.env.EAS_BUILD_PROFILE === 'production' ? hooksProduction : undefined;
+
 export default {
     "expo": {
         "name": "AoE II Companion",
@@ -91,17 +105,6 @@ export default {
             },
             "splash": splash,
         },
-        // EAS_BUILD_RUNNER == 'eas-build' && EAS_BUILD_PROFILE.includes('production')
-        // "hooks": {
-        //     "postPublish": [
-        //         {
-        //             "file": "sentry-expo/upload-sourcemaps",
-        //             "config": {
-        //                 "organization": "aoe2companion",
-        //                 "project": "aoe2companion"
-        //             }
-        //         }
-        //     ]
-        // }
+        hooks,
     }
 };
