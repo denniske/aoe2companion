@@ -1,32 +1,42 @@
-import WidgetModule from "./src/WidgetModule";
+import { WidgetModule, LiveActivityModule } from './src/WidgetModule';
 
-export function reloadAll(): void {
-  return WidgetModule.reloadAll();
+export class Widget {
+    appGroup: string;
+    constructor(appGroup: string) {
+        this.appGroup = appGroup;
+    }
+
+    public getItem(key: string): string {
+        return WidgetModule.getItem(key, this.appGroup);
+    }
+
+    public setItem(key: string, value: string): void {
+        return WidgetModule.setItem(value, key, this.appGroup);
+    }
+
+    public reloadAll(): void {
+        return WidgetModule.reloadAll();
+    }
 }
-export function setItem(appGroup: string, key: string, value: any): void;
-export function setItem(
-  appGroup: string,
-  key?: string,
-  value?: any
-): (key: string, value: any) => void;
 
-export function setItem(appGroup: string, key?: string, value?: any) {
-  if (typeof key !== "undefined" && typeof value !== "undefined") {
-    return WidgetModule.setItem(value, key, appGroup);
-  }
-  return (key: string, value: any) =>
-    WidgetModule.setItem(value, key, appGroup);
-}
+export class LiveActivity<T> {
+    public start(data: T): string {
+        return LiveActivityModule.start(JSON.stringify(data));
+    }
 
-export function getItem(appGroup: string, key: string): string;
-export function getItem(
-  appGroup: string,
-  key?: string
-): (key: string) => string;
+    public list(): T {
+        const activities = LiveActivityModule.list();
+        return activities.map((activity) => ({
+            id: activity.id,
+            data: JSON.parse(activity.data) as T,
+        }));
+    }
 
-export function getItem(appGroup: string, key?: string) {
-  if (typeof key !== "undefined") {
-    return WidgetModule.getItem(key, appGroup);
-  }
-  return (key: string) => WidgetModule.getItem(key, appGroup);
+    public end(id: string): string {
+        return LiveActivityModule.endActivity(id);
+    }
+
+    public update(id: string, data: T): string {
+        return LiveActivityModule.update(id, JSON.stringify(data));
+    }
 }

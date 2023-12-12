@@ -1,67 +1,67 @@
-//  WidgetBundle.swift
-//  widget
-//
-
-import WidgetKit
-import SwiftUI
+import ActivityKit
 import Foundation
+import SwiftUI
+import WidgetKit
 
-struct GameProvider: TimelineProvider {
-    func placeholder(in context: Context) -> GameSimpleEntry {
-        GameSimpleEntry(date: Date(), text: "Placeholder")
-    }
-    
-    func getSnapshot(in context: Context, completion: @escaping (GameSimpleEntry) -> ()) {
-        let entry = GameSimpleEntry(date: Date(), text: "Live Game Snapshot")
-        completion(entry)
-    }
-    
-    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        let text = getItem()
-        
-        let entry = GameSimpleEntry(date: Date(), text: text)
-        
-        let timeline = Timeline(entries: [entry], policy: .never)
-        completion(timeline)
-    }
-    
-    
-    private func getItem() -> String {
-        let userDefaults = UserDefaults(suiteName: "group.com.example.widget")
-        return userDefaults?.string(forKey: "savedData") ?? ""
-    }
-    
-}
-
-struct GameSimpleEntry: TimelineEntry {
-    let date: Date
-    let text: String
-}
-
-struct GameWidgetEntryView : View {
-    var entry: GameProvider.Entry
-    
-    var body: some View {
-        Text("Game Entry")
+struct MyActivityAttributes: ActivityAttributes {
+    public struct ContentState: Codable, Hashable {
+        var data: String
     }
 }
 
+struct Information: Codable {
+    let name: String
+}
+
+// Data are sent as a string, so we need to convert it to a struct
+func toJson(dataString: String) -> Information {
+    let decoder = JSONDecoder()
+    let stateData = Data(dataString.utf8)
+    let data = try? decoder.decode(Information.self, from: stateData)
+    if data == nil {
+        NSLog("Error: %@ %@", "Data is null")
+        return Information(
+            name: "Kelsie")
+    }
+    return data
+        ?? Information(
+            name: "Noah")
+}
+
+@available(iOS 16.1, *)
 struct LiveGameWidget: Widget {
     let kind: String = "LiveGame"
-    
-    var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: GameProvider()) { entry in
-            GameWidgetEntryView(entry: entry)
-        }
-        .configurationDisplayName("Live Game")
-        .description("Quick access to your live game")
-        .supportedFamilies([.systemSmall])
-    }
-}
 
-struct LiveGameWidget_Previews: PreviewProvider {
-    static var previews: some View {
-        GameWidgetEntryView(entry: GameSimpleEntry(date: Date(), text: "Preview"))
-            .previewContext(WidgetPreviewContext(family: .systemSmall))
+    var body: some WidgetConfiguration {
+        ActivityConfiguration(for: MyActivityAttributes.self) { context in
+            VStack {
+                Text("Hello \(toJson(dataString: context.state.data).name)")
+            }
+            .activityBackgroundTint(Color.cyan)
+            .activitySystemActionForegroundColor(Color.black)
+        } dynamicIsland: { context in
+            DynamicIsland {
+                // Expanded UI goes here. Compose the expanded UI through
+                // various regions, like leading/trailing/center/bottom
+                DynamicIslandExpandedRegion(.leading) {
+                    Text("Leading")
+                }
+                DynamicIslandExpandedRegion(.trailing) {
+                    Text("Trailing")
+                }
+                DynamicIslandExpandedRegion(.bottom) {
+                    Text("Bottom \(toJson(dataString: context.state.data).name)")
+                    // more content
+                }
+            } compactLeading: {
+                Text("L")
+            } compactTrailing: {
+                Text("T \(toJson(dataString: context.state.data).name)")
+            } minimal: {
+                Text(toJson(dataString: context.state.data).name)
+            }
+            .widgetURL(URL(string: "http://www.apple.com"))
+            .keylineTint(Color.red)
+        }
     }
 }

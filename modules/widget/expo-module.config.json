@@ -1,9 +1,9 @@
 {
-  "platforms": ["ios", "android", "web"],
-  "ios": {
-    "modules": ["WidgetModule"]
-  },
-  "android": {
-    "modules": ["expo.modules.widget.WidgetModule"]
-  }
+    "platforms": ["ios", "android", "web"],
+    "ios": {
+        "modules": ["WidgetModule", "LiveActivityModule"]
+    },
+    "android": {
+        "modules": ["expo.modules.widget.WidgetModule"]
+    }
 }
