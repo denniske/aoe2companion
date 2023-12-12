@@ -54,9 +54,6 @@ jobs:
             -   name: 📦 Install dependencies
                 run: yarn install
 
-            -   name: 🚀 Build app
-                run: eas build --non-interactive
-
             - name: Setup Secrets
               run: |
                   brew install --cask 1password/tap/1password-cli
