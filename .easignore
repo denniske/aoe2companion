@@ -17,6 +17,7 @@ web-report/
 
 *.aab
 *.ipa
+*.apk
 *.tar.gz
 *.afdesign
 *.psd
