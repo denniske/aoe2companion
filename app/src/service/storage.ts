@@ -208,8 +208,8 @@ export const useFavoritedBuilds = () => {
         );
 
         // liveActivity.start({ name: 'asdf' });
-        console.log(liveActivity.start({ name: 'Hans' }));
-        console.log(liveActivity.update('32EF79BC-A3A3-43F4-94F0-BE1A6D79FC52', { name: 'Noah' }));
+        // console.log(liveActivity.start({ name: 'Noah' }));
+        // console.log(liveActivity.update('32EF79BC-A3A3-43F4-94F0-BE1A6D79FC52', { name: 'Noah' }));
         // liveActivity.list().forEach((activity) => {
         //     console.log(liveActivity.end(activity.id))
         // })

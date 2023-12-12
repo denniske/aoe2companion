@@ -65,3 +65,26 @@ struct LiveGameWidget: Widget {
         }
     }
 }
+
+#if DEBUG
+    @available(iOSApplicationExtension 16.2, *)
+    struct LocationActivityView_Previews: PreviewProvider {
+
+        static var previews: some View {
+            Group {
+                MyActivityAttributes()
+                    .previewContext(
+                        MyActivityAttributes.ContentState(data: "{\"name\": \"Noah\"}"),
+                        viewKind: .content
+                    )
+
+                MyActivityAttributes()
+                    .previewContext(
+                        MyActivityAttributes.ContentState(data: "{\"name\": \"Noah\"}"),
+                        viewKind: .dynamicIsland(.expanded)
+                    )
+            }
+        }
+    }
+
+#endif

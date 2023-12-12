@@ -2,6 +2,28 @@ import Foundation
 import SwiftUI
 import WidgetKit
 
+extension View {
+    func widgetBackground(_ backgroundView: some View) -> some View {
+        if #available(iOSApplicationExtension 17.0, *) {
+            return containerBackground(for: .widget) {
+                backgroundView
+            }
+        } else {
+            return background(backgroundView)
+        }
+    }
+}
+
+extension WidgetConfiguration {
+    func contentMarginsDisabledIfAvailable() -> some WidgetConfiguration {
+        if #available(iOSApplicationExtension 15.0, *) {
+            return self.contentMarginsDisabled()
+        } else {
+            return self
+        }
+    }
+}
+
 struct Build: Decodable, Identifiable, Hashable {
     let id: String
     let title: String
@@ -55,33 +77,37 @@ struct BuildsWidgetEntryView: View {
 
     var body: some View {
         ZStack {
-            VStack(alignment: .leading, spacing: 10) {
+            VStack(spacing: 12) {
+                Text("Builds Orders")
+                    .foregroundColor(
+                        Color(UIColor.label)
+                    )
+                    .font(.system(size: 18, weight: .bold)).padding(5)
                 ForEach(entry.builds, id: \.self) { build in
                     Link(destination: URL(string: "aoe2companion://guide/\(build.id)")!) {
-                        VStack(alignment: .leading, spacing: 5) {
+                        VStack(alignment: .leading, spacing: 2) {
                             Text(build.title)
                                 .foregroundColor(
-                                    Color(red: 58 / 255, green: 42 / 255, blue: 3 / 255)
+                                    Color(UIColor.label)
                                 )
-                                .font(.system(size: 14, weight: .bold, design: .rounded))
+                                .font(.system(size: 14, weight: .bold))
                             HStack(alignment: .center) {
                                 Text(build.civilization)
-                                    .font(Font.system(size: 12, weight: .regular, design: .rounded))
+                                    .font(Font.system(size: 12, weight: .regular))
                                     .foregroundColor(
-                                        Color(red: 115 / 255, green: 85 / 255, blue: 7 / 255))
+                                        Color(UIColor.secondaryLabel))
                                 Spacer()
                             }
 
                         }
                         .padding(10)
-                        .background(Color(red: 249 / 255, green: 223 / 255, blue: 159 / 255))
+                        .background(Color(UIColor.secondarySystemFill))
                         .cornerRadius(10)
                     }
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-        }
-
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        }.widgetBackground(Color(UIColor.systemBackground))
     }
 }
 
@@ -95,15 +121,25 @@ struct BuildsWidget: Widget {
         .configurationDisplayName("Build Orders")
         .description("Quick access to your favorite build order")
         .supportedFamilies([.systemMedium, .systemLarge])
+        .contentMarginsDisabledIfAvailable()
     }
 }
 
 struct BuildsWidget_Previews: PreviewProvider {
     static var previews: some View {
-        BuildsWidgetEntryView(entry: BuildsEntry(date: Date(), builds: []))
-            .previewContext(
-                WidgetPreviewContext(
-                    family: .systemMedium
-                ))
+        BuildsWidgetEntryView(
+            entry: BuildsEntry(
+                date: Date(),
+                builds: [
+                    Build(id: "1", title: "Fast Castle into Boom", civilization: "Lithuanians"),
+                    Build(id: "2", title: "Men at Arms into Archers", civilization: "Generic"),
+                    Build(id: "3", title: "Fast Imperial", civilization: "Turks"),
+                    Build(id: "4", title: "Fast Scouts", civilization: "Franks"),
+                ])
+        )
+        .previewContext(
+            WidgetPreviewContext(
+                family: .systemLarge
+            ))
     }
 }
