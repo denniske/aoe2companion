@@ -144,7 +144,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '73.0.0': [
+    '74.0.0': [
         {
             type: 'feature',
             title: 'Add new build order guide page (by [Noah Brandyberry](https://github.com/noahbrandyberry))',

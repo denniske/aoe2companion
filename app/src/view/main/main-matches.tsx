@@ -52,7 +52,7 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
     const appStyles = useTheme(appVariants);
     const [text, setText] = useState('');
     const [leaderboardId, setLeaderboardId] = useState<string>();
-    const [withMe, setWithMe] = useState(true);
+    const [withMe, setWithMe] = useState(false);
     const [reloading, setReloading] = useState(false);
     const auth = useSelector(state => state.auth);
 
