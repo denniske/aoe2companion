@@ -65,7 +65,7 @@ jobs:
                   echo "EXPO_TOKEN=$(op read op://aoe2companion/expo_token/password)" >> $GITHUB_ENV
 
             - run: yarn
-            - run: npx eas build --profile development-${AOE} --platform ios --local --non-interactive
+            - run: eas build --profile development-${AOE} --platform ios --local --non-interactive
             - run: mv build-*.tar.gz ${AOE}companion-development-$TRAVIS_COMMIT.tar.gz
 
             - name: Upload Artifact
