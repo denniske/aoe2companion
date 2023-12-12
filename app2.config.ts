@@ -91,6 +91,7 @@ export default {
             },
             "splash": splash,
         },
+        // EAS_BUILD_RUNNER == 'eas-build' && EAS_BUILD_PROFILE.includes('production')
         // "hooks": {
         //     "postPublish": [
         //         {

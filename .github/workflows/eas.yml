@@ -67,13 +67,13 @@ jobs:
 
             - run: yarn
             - run: eas build --profile development-${AOE} --platform ios --local --non-interactive
-            - run: mv build-*.tar.gz ${AOE}companion-development-$TRAVIS_COMMIT.tar.gz
+            - run: mv build-*.ipa ${AOE}companion-development-$TRAVIS_COMMIT.ipa
 
             - name: Upload Artifact
               uses: actions/upload-artifact@v3
               with:
-                  name: ${{ env.AOE }}companion-development-${{ env.TRAVIS_COMMIT }}.tar.gz
-                  path: ${{ env.AOE }}companion-development-${{ env.TRAVIS_COMMIT }}.tar.gz
+                  name: ${{ env.AOE }}companion-development-${{ env.TRAVIS_COMMIT }}.ipa
+                  path: ${{ env.AOE }}companion-development-${{ env.TRAVIS_COMMIT }}.ipa
 
 
 
