@@ -30,7 +30,7 @@ jobs:
 
     build-ios-dev:
         name: Build iOS Dev
-        runs-on: macos-latest-xlarge
+        runs-on: macos-latest
         steps:
 
             -   name: 🏗 Setup repo
