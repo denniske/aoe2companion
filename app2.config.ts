@@ -63,6 +63,24 @@ export default {
                     "icon": "./app/assets/notification.png"
                 }
             ],
+            [
+                "./app.plugin.js",
+                {
+                    "widgetName": "widget",
+                    "ios": {
+                        "devTeamId": "HAFGZBHF9M",
+                        "appGroupIdentifier": "group.com.aoe2companion.widget"
+                    }
+                }
+            ],
+            [
+                "expo-build-properties",
+                {
+                    "ios": {
+                        "deploymentTarget": "13.4"
+                    }
+                }
+            ],
             "expo-localization",
             "sentry-expo"
         ],
@@ -76,6 +94,11 @@ export default {
             "permissions": [],
             "googleServicesFile": "./google-services2.json",
             "splash": splash,
+            "entitlements": {
+                "com.apple.security.application-groups": [
+                    "group.com.aoe2companion.widget"
+                ]
+            },
         },
         "ios": {
             "userInterfaceStyle": "automatic",
@@ -87,7 +110,10 @@ export default {
                 "usesNonExemptEncryption": false
             },
             "infoPlist": {
-                "LSApplicationQueriesSchemes": ["itms-apps"]
+                "LSApplicationQueriesSchemes": ["itms-apps"],
+                "NSSupportsLiveActivities": true,
+                "NSUserActivityTypes": ["BuildsConfigurationIntent"],
+                "UIBackgroundModes": ["remote-notification"]
             },
             "splash": splash,
         },
