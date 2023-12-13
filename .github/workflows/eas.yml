@@ -67,7 +67,7 @@ jobs:
 
             - name: Set Secrets
               run: |
-                  echo "EXPO_TOKEN=${{ secrets.EXPO_TOKEN_ORG_ROBOT_VIEWER }}" >> $GITHUB_ENV
+                  echo "EXPO_TOKEN=${{ secrets.EXPO_TOKEN_ORG_ROBOT_DEVELOPER }}" >> $GITHUB_ENV
 
             - run: yarn
             - run: eas build --profile development-${AOE} --platform ios --local --non-interactive
