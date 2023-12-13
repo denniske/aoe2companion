@@ -55,15 +55,19 @@ jobs:
             -   name: 📦 Install dependencies
                 run: yarn install
 
-            - name: Setup Secrets
-              run: |
-                  brew install --cask 1password/tap/1password-cli
-                  echo "OP_DEVICE=gpz56tma3262vu3z2thwwm57ga" >> $GITHUB_ENV
-                  echo "OP_SECRET_KEY=${{ secrets.ONE_PASSWORD_SECRET_KEY }}" >> $GITHUB_ENV
+#            - name: Setup Secrets
+#              run: |
+#                  brew install --cask 1password/tap/1password-cli
+#                  echo "OP_DEVICE=gpz56tma3262vu3z2thwwm57ga" >> $GITHUB_ENV
+#                  echo "OP_SECRET_KEY=${{ secrets.ONE_PASSWORD_SECRET_KEY }}" >> $GITHUB_ENV
+#            - name: Set Secrets
+#              run: |
+#                  eval $(printf ${{ secrets.ONE_PASSWORD_PASSWORD }} | op account add --address ${{ secrets.ONE_PASSWORD_ADDRESS }} --email ${{ secrets.ONE_PASSWORD_EMAIL }} --signin)
+#                  echo "EXPO_TOKEN=$(op read op://aoe2companion/expo_token/password)" >> $GITHUB_ENV
+
             - name: Set Secrets
               run: |
-                  eval $(printf ${{ secrets.ONE_PASSWORD_PASSWORD }} | op account add --address ${{ secrets.ONE_PASSWORD_ADDRESS }} --email ${{ secrets.ONE_PASSWORD_EMAIL }} --signin)
-                  echo "EXPO_TOKEN=$(op read op://aoe2companion/expo_token/password)" >> $GITHUB_ENV
+                  echo "EXPO_TOKEN=${{ secrets.EXPO_TOKEN_ORG_ROBOT_VIEWER }}" >> $GITHUB_ENV
 
             - run: yarn
             - run: eas build --profile development-${AOE} --platform ios --local --non-interactive
