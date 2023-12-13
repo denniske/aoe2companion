@@ -8,7 +8,7 @@ import { isElectron, sendConfig, sendSettings } from '../helper/electron';
 import { merge, set } from 'lodash';
 import { useEffect, useState } from 'react';
 import { buildsData } from '../../../data/src/data/builds';
-import { LiveActivity, Widget } from '../../../modules/widget';
+import { Widget } from '../../../modules/widget';
 import Constants from 'expo-constants';
 
 export interface IConfig {
@@ -183,7 +183,6 @@ const sendSettingsToElectron = async (settings: ISettings | null) => {
 
 const GROUP_NAME = `group.${Constants.expoConfig?.ios?.bundleIdentifier}.widget`;
 const widget = new Widget(GROUP_NAME);
-const liveActivity = new LiveActivity<{ name: string }>();
 
 type FavoriteId = number | string;
 export const useFavoritedBuilds = () => {
@@ -204,15 +203,13 @@ export const useFavoritedBuilds = () => {
         const newWidgetData = JSON.stringify(
             buildsData
                 .filter((build) => newValue.includes(build.id))
-                .map((build) => ({ id: build.id.toString(), title: build.title, civilization: build.civilization }))
+                .map((build) => ({
+                    id: build.id.toString(),
+                    title: build.title,
+                    civilization: build.civilization,
+                    // image: Image.resolveAssetSource(getCivIconLocal(build.civilization) ?? genericCivIcon).uri,
+                }))
         );
-
-        // liveActivity.start({ name: 'asdf' });
-        // console.log(liveActivity.start({ name: 'Noah' }));
-        // console.log(liveActivity.update('32EF79BC-A3A3-43F4-94F0-BE1A6D79FC52', { name: 'Noah' }));
-        // liveActivity.list().forEach((activity) => {
-        //     console.log(liveActivity.end(activity.id))
-        // })
         widget.setItem('savedData', newWidgetData);
         widget.reloadAll();
         await setItem(JSON.stringify(newValue));

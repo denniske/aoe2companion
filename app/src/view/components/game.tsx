@@ -1,7 +1,7 @@
 import {StyleSheet, View} from 'react-native';
 import {Image, ImageBackground} from 'expo-image';
 import {formatAgo, isMatchFreeForAll} from '@nex/data';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Player, PlayerSkeleton} from './player';
 import MyListAccordion from './accordion';
 import {getMapImage} from "../../helper/maps";
@@ -18,6 +18,7 @@ import {getTranslation} from '../../helper/translate';
 import {AoeSpeed, getSpeedFactor} from '../../helper/speed';
 import {appConfig} from "@nex/dataset";
 import {IMatchNew} from "../../api/helper/api.types";
+import { useLiveGameActivity } from '../../service/live-game-activity';
 
 interface IGameProps {
     match: IMatchNew;
@@ -36,6 +37,9 @@ const formatDuration = (durationInSeconds: number) => {
 export function Game({match, user, highlightedUsers, expanded = false}: IGameProps) {
     const theme = useAppTheme();
     const styles = useStyles();
+    const [isEnabled, setIsEnabled] = useState(expanded)
+
+    useLiveGameActivity(match, isEnabled);
 
     if (match == null) {
         const playersInTeam1 = Array(3).fill(0);
@@ -96,6 +100,7 @@ export function Game({match, user, highlightedUsers, expanded = false}: IGamePro
             style={styles.accordion}
             expanded={expanded}
             expandable={true}
+            onPress={() => setIsEnabled(!isEnabled)}
             left={props => (
                 <View style={styles.row}>
 

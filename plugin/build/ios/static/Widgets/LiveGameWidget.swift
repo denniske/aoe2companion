@@ -9,8 +9,24 @@ struct MyActivityAttributes: ActivityAttributes {
     }
 }
 
-struct Information: Codable {
+struct Player: Codable {
+    let id: Int
     let name: String
+    let civilization: String
+    let rating: Int
+    let color: Int
+}
+
+struct Team: Codable {
+    let teamId: Int
+    let players: [Player]
+}
+
+struct Information: Codable {
+    let map: String
+    let leaderboard: String
+    let currentPlayerId: Int
+    let teams: [Team]
 }
 
 // Data are sent as a string, so we need to convert it to a struct
@@ -18,14 +34,8 @@ func toJson(dataString: String) -> Information {
     let decoder = JSONDecoder()
     let stateData = Data(dataString.utf8)
     let data = try? decoder.decode(Information.self, from: stateData)
-    if data == nil {
-        NSLog("Error: %@ %@", "Data is null")
-        return Information(
-            name: "Kelsie")
-    }
-    return data
-        ?? Information(
-            name: "Noah")
+
+    return data ?? Information(map: "", leaderboard: "", currentPlayerId: 0, teams: [])
 }
 
 @available(iOS 16.1, *)
@@ -34,34 +44,91 @@ struct LiveGameWidget: Widget {
 
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: MyActivityAttributes.self) { context in
-            VStack {
-                Text("Hello \(toJson(dataString: context.state.data).name)")
-            }
-            .activityBackgroundTint(Color.cyan)
-            .activitySystemActionForegroundColor(Color.black)
+            let game = toJson(dataString: context.state.data)
+            let opponents = game.teams.map { "\($0.players.count)" }
+            let opponentsCount = opponents.joined(separator: "v")
+            let players = game.teams.flatMap { $0.players }
+            let opponent = players.first(where: { $0.id != game.currentPlayerId })
+            let opponentString =
+                opponent != nil ? "vs \(opponent?.name ?? "") (\(opponent?.rating ?? 0))" : ""
+            let player = players.first(where: { $0.id == game.currentPlayerId })
+
+            return VStack(spacing: 8) {
+                HStack(alignment: .center) {
+                    Text(game.map).font(.system(size: 14, weight: .bold))
+                    Text(opponentsCount).font(.system(size: 14))
+                    Text(opponentString).font(.system(size: 14, weight: .bold)).foregroundColor(
+                        Color(UIColor.secondaryLabel))
+                }
+
+                HStack(alignment: .center) {
+                    Text(player?.civilization ?? "").font(.system(size: 14, weight: .bold))
+                    Text(game.leaderboard).font(.system(size: 14))
+                }
+            }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top).padding(10)
         } dynamicIsland: { context in
-            DynamicIsland {
-                // Expanded UI goes here. Compose the expanded UI through
-                // various regions, like leading/trailing/center/bottom
-                DynamicIslandExpandedRegion(.leading) {
-                    Text("Leading")
-                }
-                DynamicIslandExpandedRegion(.trailing) {
-                    Text("Trailing")
-                }
+            let game = toJson(dataString: context.state.data)
+            let opponents = game.teams.map { "\($0.players.count)" }
+            let opponentsCount = opponents.joined(separator: "v")
+            let players = game.teams.flatMap { $0.players }
+            let opponent = players.first(where: { $0.id != game.currentPlayerId })
+            let opponentString =
+                opponent != nil ? "vs \(opponent?.name ?? "") (\(opponent?.rating ?? 0))" : ""
+            let player = players.first(where: { $0.id == game.currentPlayerId })
+
+            return DynamicIsland {
                 DynamicIslandExpandedRegion(.bottom) {
-                    Text("Bottom \(toJson(dataString: context.state.data).name)")
-                    // more content
+                    VStack(spacing: 8) {
+                        HStack(alignment: .center) {
+                            Text(game.map).font(.system(size: 14, weight: .bold))
+                            Text(opponentsCount).font(.system(size: 14))
+                            Text(opponentString).font(.system(size: 14, weight: .bold))
+                                .foregroundColor(
+                                    Color(UIColor.secondaryLabel))
+                        }
+
+                        HStack(alignment: .center) {
+                            Text(player?.civilization ?? "").font(.system(size: 14, weight: .bold))
+                            Text(game.leaderboard).font(.system(size: 14))
+                        }
+                    }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top).padding(10)
                 }
             } compactLeading: {
-                Text("L")
+                Text(game.map).font(.system(size: 14, weight: .bold))
             } compactTrailing: {
-                Text("T \(toJson(dataString: context.state.data).name)")
+                Text("\(opponentsCount) - \(opponent?.name ?? "")").font(.system(size: 14))
             } minimal: {
-                Text(toJson(dataString: context.state.data).name)
+                Text(opponentsCount).font(.system(size: 14))
             }
-            .widgetURL(URL(string: "http://www.apple.com"))
-            .keylineTint(Color.red)
         }
     }
 }
+
+#if DEBUG
+    @available(iOSApplicationExtension 16.2, *)
+    struct LiveGameWidget_Previews: PreviewProvider {
+
+        static var previews: some View {
+            Group {
+                MyActivityAttributes()
+                    .previewContext(
+                        MyActivityAttributes.ContentState(
+                            data:
+                                "{\"map\":\"Land Madness\",\"leaderboard\":\"Random Map\",\"currentPlayerId\":1,\"teams\":[{\"teamId\":1,\"players\":[{\"id\":1,\"name\":\"Sonny\",\"civilization\":\"Britons\",\"rating\":1400,\"color\":3}]},{\"teamId\":2,\"players\":[{\"id\":2,\"name\":\"Shadow\",\"civilization\":\"Ethiopians\",\"rating\":1000,\"color\":3}]}]}"
+                        ),
+                        viewKind: .content
+                    )
+
+                MyActivityAttributes()
+                    .previewContext(
+                        MyActivityAttributes.ContentState(
+                            data:
+                                "{\"map\":\"Land Madness\",\"leaderboard\":\"\",\"currentPlayerId\":1,\"teams\":[{\"teamId\":1,\"players\":[{\"id\":1,\"name\":\"Sonny\",\"civilization\":\"Britons\",\"rating\":1400,\"color\":3}]},{\"teamId\":2,\"players\":[{\"id\":2,\"name\":\"Shadow\",\"civilization\":\"Ethiopians\",\"rating\":1000,\"color\":3}]}]}"
+                        ),
+                        viewKind: .dynamicIsland(.expanded)
+                    )
+            }
+        }
+    }
+
+#endif

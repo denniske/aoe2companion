@@ -64,7 +64,7 @@ const addBroadcastExtensionXcodeTarget = async (proj, { appName, extensionName, 
         frameworkPaths: [frameworkFileSwiftUI.path, frameworkFileWidgetKit.path],
     });
     const topLevel = addPbxGroup(proj, productFile, extensionName, topLevelFiles);
-    addChildPbxGroup(proj, productFile, 'Widgets', ['BuildsWidget.swift', 'LiveGameWidget.swift'], topLevel.uuid);
+    addChildPbxGroup(proj, productFile, 'Widgets', ['BuildsWidget.swift', 'LiveGameWidget.swift', 'BuildsWidget.intentdefinition'], topLevel.uuid);
 };
 function quoted(str) {
     return util.format(`"%s"`, str);
@@ -191,7 +191,7 @@ const addTargetDependency = (proj, target) => {
 const addBuildPhases = (proj, { productFile, targetUuid, frameworkPaths, extensionName }) => {
     const buildPath = quoted('');
     // Sources build phase
-    proj.addBuildPhase(['WidgetBundle.swift', 'BuildsWidget.swift', 'LiveGameWidget.swift'], 'PBXSourcesBuildPhase', 'Sources', targetUuid, extensionName, buildPath);
+    proj.addBuildPhase(['WidgetBundle.swift', 'BuildsWidget.swift', 'LiveGameWidget.swift', 'BuildsWidget.intentdefinition'], 'PBXSourcesBuildPhase', 'Sources', targetUuid, extensionName, buildPath);
     // Copy files build phase
     proj.addBuildPhase([productFile.path], 'PBXCopyFilesBuildPhase', 'Copy Files', proj.getFirstTarget().uuid, 'app_extension', buildPath);
     // Frameworks build phase

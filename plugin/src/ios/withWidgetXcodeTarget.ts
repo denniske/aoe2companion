@@ -73,7 +73,7 @@ const addBroadcastExtensionXcodeTarget = async (
     });
 
     const topLevel = addPbxGroup(proj, productFile, extensionName, topLevelFiles);
-    addChildPbxGroup(proj, productFile, 'Widgets', ['BuildsWidget.swift', 'LiveGameWidget.swift'], topLevel.uuid);
+    addChildPbxGroup(proj, productFile, 'Widgets', ['BuildsWidget.swift', 'LiveGameWidget.swift', 'BuildsWidget.intentdefinition'], topLevel.uuid);
 };
 
 export function quoted(str: string) {
@@ -253,7 +253,7 @@ const addBuildPhases = (
 
     // Sources build phase
     proj.addBuildPhase(
-        ['WidgetBundle.swift', 'BuildsWidget.swift', 'LiveGameWidget.swift'],
+        ['WidgetBundle.swift', 'BuildsWidget.swift', 'LiveGameWidget.swift', 'BuildsWidget.intentdefinition'],
         'PBXSourcesBuildPhase',
         'Sources',
         targetUuid,
