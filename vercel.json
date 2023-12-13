@@ -1,10 +1,16 @@
 {
-  "version": 2,
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/.*", "dest": "/index.html" }
-  ],
-  "github": {
-    "silent": true
-  }
+    "version": 2,
+    "routes": [
+        {
+            "handle": "filesystem"
+        },
+        {
+            "src": "/.*",
+            "dest": "/index.html"
+        }
+    ],
+    "github": {
+        "silent": true
+    },
+    "ignoreCommand": "if [ \"$VERCEL_ENV\" == \"production\" ]; then exit 1; else exit 0; fi"
 }
