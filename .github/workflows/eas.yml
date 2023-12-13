@@ -1,6 +1,6 @@
 # https://hackernoon.com/the-only-sane-way-to-setup-fastlane-on-a-mac-4a14cb8549c8
 
-on: push
+on: [push, pull_request]
 
 name: Eas
 
