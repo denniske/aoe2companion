@@ -45,8 +45,8 @@ export default {
         },
         "userInterfaceStyle": "automatic",
         "jsEngine": "hermes",
-        "runtimeVersion": "74.0.0",
-        "version": "74.0.0",
+        "runtimeVersion": "75.0.0",
+        "version": "75.0.0",
         "orientation": "portrait",
         "privacy": "public",
         "githubUrl": "https://github.com/denniske/aoe2companion",
@@ -86,7 +86,7 @@ export default {
                 "foregroundImage": "./app/assets/icon-adaptive.png"
             },
             "package": "com.aoe2companion",
-            "versionCode": 740000,
+            "versionCode": 750000,
             "permissions": [],
             "googleServicesFile": "./google-services2.json",
             "splash": splash,
@@ -95,7 +95,7 @@ export default {
             "userInterfaceStyle": "automatic",
             "icon": "./app/assets/icon-adaptive-no-alpha.png",
             "bundleIdentifier": "com.aoe2companion",
-            "buildNumber": "74.0.0",
+            "buildNumber": "75.0.0",
             "supportsTablet": false,
             "config": {
                 "usesNonExemptEncryption": false

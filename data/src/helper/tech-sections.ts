@@ -68,6 +68,7 @@ export const techSections: ITechSection[] = [
             "Illumination",
             "BlockPrinting",
             "Theocracy",
+            "Devotion",
             "Faith",
             "Heresy",
         ],
@@ -86,6 +87,7 @@ export const techSections: ITechSection[] = [
         data: [
             "Masonry",
             "Architecture",
+            "FortifiedWall",
             "SiegeEngineers",
             "TreadmillCrane",
             "MurderHoles",
@@ -93,6 +95,9 @@ export const techSections: ITechSection[] = [
             "HeatedShot",
             "Ballistics",
             "Chemistry",
+            "GuardTower",
+            "Keep",
+            "BombardTower",
         ],
     },
     {

@@ -384,7 +384,7 @@ const techEffectDictInternal = {
         tech: 'CilicianFleet',
         civ: 'Armenians',
         effect: {
-            attack: '+33% blast radius',
+            attack: '+20% blast radius',
         },
     },
     'CilicianFleet-Range': {
@@ -1556,6 +1556,19 @@ const techEffectDictInternal = {
             conversionDefense: '',
         },
     },
+    'Devotion-5': {
+        tech: 'Devotion',
+        civ: 'Aztecs',
+        effect: {
+            hitPoints: '+5',
+        },
+    },
+    'Devotion': {
+        tech: 'Devotion',
+        effect: {
+            conversionDefense: '',
+        },
+    },
     'FirstCrusade': {
         tech: 'FirstCrusade',
         civ: 'Silicians',
@@ -2460,6 +2473,10 @@ export const techList: ITech[] = [
         "name": "Faith",
     },
     {
+        "dataId": "46",
+        "name": "Devotion",
+    },
+    {
         "dataId": "439",
         "name": "Heresy",
     },
@@ -2622,6 +2639,7 @@ const techIds = [
     'PlateMailArmor',
     'Squires',
     'Tracking',
+    'Devotion',
     'Faith',
     'Heresy',
     'Conscription',
@@ -2886,4 +2904,4 @@ export function getAffectedBuildingInfos(tech: Tech) {
         }));
 }
 
-export const techsAffectingAllUnits: Tech[] = ['Faith', 'Heresy', 'Conscription'];
+export const techsAffectingAllUnits: Tech[] = ['Devotion', 'Faith', 'Heresy', 'Conscription'];

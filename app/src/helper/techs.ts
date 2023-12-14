@@ -37,6 +37,7 @@ const techIcons: TechIconDict = {
     'PlateMailArmor': require('../../../app/assets/techs/PlateMailArmor.png'),
     'Squires': require('../../../app/assets/techs/Squires.png'),
     'Tracking': require('../../../app/assets/techs/Tracking.png'),
+    'Devotion': require('../../../app/assets/techs/Devotion.png'),
     'Faith': require('../../../app/assets/techs/Faith.png'),
     'Heresy': require('../../../app/assets/techs/Heresy.png'),
     'Conscription': require('../../../app/assets/techs/Conscription.png'),

@@ -656,6 +656,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {age: 'CastleAge'},
+                {tech: 'Devotion'},
                 {tech: 'Redemption'},
                 {tech: 'Atonement'},
                 {tech: 'HerbalMedicine'},
