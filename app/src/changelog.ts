@@ -144,6 +144,16 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '76.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix tech tree building/unit/tech availability',
+        },
+        {
+            type: 'bugfix',
+            title: 'Prevent screen lock on build orders page',
+        },
+    ],
     '75.0.0': [
         {
             type: 'minor',

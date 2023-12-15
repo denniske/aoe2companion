@@ -42,7 +42,7 @@ export function getAbilityEnabledForAllCivs(props: AbilityHelperProps) {
 export function getCivHasTech(civ: Civ, tech: Tech) {
     const entry = techs[tech];
 
-    const newVal = aoeData.techtrees[civ].techs.includes(parseInt(entry.dataId) as any)
+    const newVal = aoeData.techtrees[civ].techs.some(t => t.id === parseInt(entry.dataId))
         || aoeData.techtrees[civ].unique.castleAgeUniqueTech === parseInt(entry.dataId) as any
         || aoeData.techtrees[civ].unique.imperialAgeUniqueTech === parseInt(entry.dataId) as any;
 
@@ -84,7 +84,7 @@ export function getCivHasTech(civ: Civ, tech: Tech) {
 export function getCivHasBuilding(civ: Civ, building: Building) {
     const entry = buildings[building];
 
-    const newVal = aoeData.techtrees[civ].buildings.includes(parseInt(entry.dataId) as any);
+    const newVal = aoeData.techtrees[civ].buildings.some(b => b.id === parseInt(entry.dataId));
 
     // const legacyVal = getCivHasBuildingLegacy(civ, building);
     // if (legacyVal !== newVal) {
@@ -120,7 +120,7 @@ export function getCivHasBuilding(civ: Civ, building: Building) {
 export function getCivHasUnit(civ: Civ, unit: Unit) {
     const entry = units[unit];
 
-    const newVal = aoeData.techtrees[civ].units.includes(parseInt(entry.dataId) as any)
+    const newVal = aoeData.techtrees[civ].units.some(u => u.id === parseInt(entry.dataId))
         || aoeData.techtrees[civ].unique.castleAgeUniqueUnit === parseInt(entry.dataId) as any
         || aoeData.techtrees[civ].unique.imperialAgeUniqueUnit === parseInt(entry.dataId) as any;
 
