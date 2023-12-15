@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { buildsData } from '../../../data/src/data/builds';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from 'app/App2';
@@ -11,6 +11,8 @@ import IconHeader from './components/navigation-header/icon-header';
 import { useFavoritedBuild } from '../service/storage';
 import { TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
+import {activateKeepAwakeAsync, deactivateKeepAwake} from "expo-keep-awake";
+import {useSelector} from "../redux/reducer";
 
 export function BuildMenu(props: any) {
     const { toggleFavorite, isFavorited } = useFavoritedBuild(
@@ -57,6 +59,14 @@ export function BuildTitle(props: any) {
 const BuildPage = () => {
     const route = useRoute<RouteProp<RootStackParamList, 'Guide'>>();
     const build = buildsData.find((build) => build.id === route.params?.build);
+    const config = useSelector(state => state.config);
+
+    useEffect(() => {
+        if (config.preventScreenLockOnGuidePage) {
+            activateKeepAwakeAsync('guide-page');
+        }
+        return () => { deactivateKeepAwake('guide-page'); }
+    });
 
     if (build) {
         return <BuildDetail {...build} />;
