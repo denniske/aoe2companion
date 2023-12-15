@@ -60,27 +60,25 @@ export const Filter = <Value,>({ options, label, value, onChange, icon }: Filter
 
             {isFocused && (
                 <View style={styles.resultsContainer}>
-                    <View style={styles.results}>
-                        <FlatList
-                            keyboardShouldPersistTaps="handled"
-                            style={{ flex: 1 }}
-                            scrollEnabled={true}
-                            data={filteredOptions}
-                            keyExtractor={(item) => String(item.value)}
-                            renderItem={({ item, index }) => (
-                                <ResultRow
-                                    index={index}
-                                    {...item}
-                                    onPress={() => {
-                                        setSearch(item.label);
-                                        onChange(item.value);
-                                        setIsFocused(false);
-                                        filterField.current?.blur();
-                                    }}
-                                />
-                            )}
-                        />
-                    </View>
+                    <FlatList
+                        keyboardShouldPersistTaps="handled"
+                        style={styles.results}
+                        scrollEnabled={true}
+                        data={filteredOptions}
+                        keyExtractor={(item) => String(item.value)}
+                        renderItem={({ item, index }) => (
+                            <ResultRow
+                                index={index}
+                                {...item}
+                                onPress={() => {
+                                    setSearch(item.label);
+                                    onChange(item.value);
+                                    setIsFocused(false);
+                                    filterField.current?.blur();
+                                }}
+                            />
+                        )}
+                    />
                 </View>
             )}
         </View>
@@ -119,15 +117,14 @@ const useStyles = createStylesheet((theme, darkMode) =>
             top: 30,
             zIndex: 100,
             flex: 1,
-            maxHeight: 350,
             left: -5,
             right: -5,
         },
         results: {
             borderRadius: 10,
             overflow: 'hidden',
+            maxHeight: 300,
             backgroundColor: 'white',
-            flex: 1,
         },
         name: {
             color: theme.textColor,

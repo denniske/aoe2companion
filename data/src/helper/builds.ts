@@ -32,8 +32,20 @@ export type TaskOutliers =
 
 export interface IBuildOrderStep {
     buildings?: IBuildOrderBuilding[];
-    type: string;
-    subType?: string;
+    type:
+        | 'ageUp'
+        | 'build'
+        | 'collectGold'
+        | 'custom'
+        | 'decision'
+        | 'lure'
+        | 'moveVillagers'
+        | 'newAge'
+        | 'newVillagers'
+        | 'research'
+        | 'trade'
+        | 'trainUnit';
+    subType?: 'moveVillagers' | 'newVillagers';
     task?:
         | 'wood'
         | 'food'
@@ -60,8 +72,8 @@ export interface IBuildOrderStep {
     unit?: string;
     text?: string;
     animal?: string;
-    action?: string;
-    resource?: string;
+    action?: 'sell' | 'buy';
+    resource?: 'wood' | 'food' | 'stone';
 }
 
 export interface AgeData {

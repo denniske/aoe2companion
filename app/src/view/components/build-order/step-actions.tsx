@@ -54,7 +54,7 @@ const TaskIcon: React.FC<{ item?: string }> = ({ item }) => {
 
 export const StepActions: React.FC<IBuildOrderStep & { pop?: string | number }> = (step) => {
     const styles = useStyles();
-    const { buildings, tech, type, count, task, from, to, age, unit, pop } = step;
+    const { buildings, tech, type, count, task, from, to, age, unit, pop, action, resource } = step;
     const hasBuildings = !!buildings?.length;
     const hasTech = !!tech?.length;
     const hasBuildingsOrTech = hasBuildings || hasTech;
@@ -104,6 +104,20 @@ export const StepActions: React.FC<IBuildOrderStep & { pop?: string | number }> 
                     <TaskIcon item={to} />
                 </>
             )}
+            {type == 'lure' && (
+                <>
+                    <MyText style={styles.text}>{getTranslation('builds.step.lure', { count })}</MyText>
+                    <TaskIcon item="deer" />
+                </>
+            )}
+            {type == 'trade' && (
+                <>
+                    <MyText style={styles.text}>{getTranslation('builds.step.trade', { action: startCase(action), count })}</MyText>
+                    <TaskIcon item={resource} />
+                </>
+            )}
+            {type == 'collectGold' && <MyText style={styles.text}>{startCase(task)}</MyText>}
+            {type == 'decision' && <MyText style={styles.text}>{getTranslation('builds.step.decision')}</MyText>}
 
             {type == 'trainUnit' && (
                 <>
