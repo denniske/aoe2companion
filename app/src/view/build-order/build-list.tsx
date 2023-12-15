@@ -1,5 +1,5 @@
 import BuildCard from '../components/build-order/build-card';
-import { head, reverse, sortBy } from 'lodash';
+import { reverse, sortBy } from 'lodash';
 import { FlatList, KeyboardAvoidingView, Platform, StyleSheet, TextInput, View } from 'react-native';
 import { createStylesheet } from '../../theming-new';
 import { buildsData } from '../../../../data/src/data/builds';
