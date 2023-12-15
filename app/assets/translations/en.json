@@ -169,6 +169,9 @@
   "builds.step.newagewithpop": "Enter {pop} pop",
   "builds.step.currentstep": "Step {step}",
   "builds.step.maxstep": "of {max}",
+  "builds.step.lure": "Lure {count}",
+  "builds.step.decision": "Decision",
+  "builds.step.trade": "{action} {count}",
 
   "building.title": "Buildings",
   "building.search.placeholder": "name",

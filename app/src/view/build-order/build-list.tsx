@@ -1,6 +1,6 @@
 import BuildCard from '../components/build-order/build-card';
-import { reverse, sortBy } from 'lodash';
-import { FlatList, StyleSheet, TextInput, View } from 'react-native';
+import { head, reverse, sortBy } from 'lodash';
+import { FlatList, KeyboardAvoidingView, Platform, StyleSheet, TextInput, View } from 'react-native';
 import { createStylesheet } from '../../theming-new';
 import { buildsData } from '../../../../data/src/data/builds';
 import { useBuildFilters, useFavoritedBuilds } from '../../service/storage';
@@ -10,6 +10,8 @@ import { useFocusEffect } from '@react-navigation/native';
 import { useCallback, useState } from 'react';
 import { getTranslation } from '../../helper/translate';
 import { DismissKeyboard } from '../components/dismiss-keyboard';
+import { useHeaderHeight } from '@react-navigation/elements';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const transformSearch = (string: string) => string.toLowerCase().replace(/\W/g, ' ').replace(/ +/g, ' ');
 
@@ -19,6 +21,8 @@ export const BuildListPage = () => {
     const buildFilters = useBuildFilters();
     const { civilization, buildType, difficulty } = buildFilters.filters;
     const [search, setSearch] = useState('');
+    const headerHeight = useHeaderHeight();
+    const insets = useSafeAreaInsets();
 
     const formattedBuilds = (buildType === 'favorites' ? favorites : buildsData).map((build) => ({
         ...build,
@@ -48,31 +52,37 @@ export const BuildListPage = () => {
     }
 
     return (
-        <DismissKeyboard>
-            <View style={styles.container}>
-                <BuildFilters builds={buildsData} {...buildFilters} />
+        <KeyboardAvoidingView
+            behavior={Platform.select({ ios: 'padding', default: 'height' })}
+            style={styles.container}
+            keyboardVerticalOffset={headerHeight + 36 + insets.top}
+        >
+            <DismissKeyboard>
+                <View style={styles.container}>
+                    <BuildFilters builds={buildsData} {...buildFilters} />
 
-                <View style={styles.searchContainer}>
-                    <TextInput autoCorrect={false} value={search} onChangeText={setSearch} style={styles.search} placeholder="Search builds" />
+                    <View style={styles.searchContainer}>
+                        <TextInput autoCorrect={false} value={search} onChangeText={setSearch} style={styles.search} placeholder="Search builds" />
+                    </View>
+
+                    <FlatList
+                        initialNumToRender={5}
+                        snapToInterval={150}
+                        getItemLayout={(_, index) => ({
+                            length: 150,
+                            offset: 150 * index,
+                            index,
+                        })}
+                        style={styles.container}
+                        data={filteredBuilds}
+                        renderItem={({ item }) => <BuildCard {...item} />}
+                        keyExtractor={(item) => item.id.toString()}
+                        contentContainerStyle={styles.contentContainer}
+                        ListEmptyComponent={<MyText>{getTranslation('builds.noResults')}</MyText>}
+                    />
                 </View>
-
-                <FlatList
-                    initialNumToRender={5}
-                    snapToInterval={150}
-                    getItemLayout={(_, index) => ({
-                        length: 150,
-                        offset: 150 * index,
-                        index,
-                    })}
-                    style={styles.container}
-                    data={filteredBuilds}
-                    renderItem={({ item }) => <BuildCard {...item} />}
-                    keyExtractor={(item) => item.id.toString()}
-                    contentContainerStyle={styles.contentContainer}
-                    ListEmptyComponent={<MyText>{getTranslation('builds.noResults')}</MyText>}
-                />
-            </View>
-        </DismissKeyboard>
+            </DismissKeyboard>
+        </KeyboardAvoidingView>
     );
 };
 
