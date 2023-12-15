@@ -149,6 +149,10 @@ export const changelog: IChangelog = {
             type: 'minor',
             title: 'Implemented [AoE II DE Update 99311](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-99311/)',
         },
+        {
+            type: 'bugfix',
+            title: 'Fix wrong unit/building/tech icons in android',
+        },
     ],
     '74.0.0': [
         {
