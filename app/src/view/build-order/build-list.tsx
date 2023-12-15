@@ -105,6 +105,7 @@ const useStyles = createStylesheet((theme, darkMode) =>
             borderWidth: 1,
             padding: 10,
             borderRadius: 4,
+            color: theme.textColor,
         },
     })
 );
