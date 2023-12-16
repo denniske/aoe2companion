@@ -93,6 +93,7 @@ import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import BuildPage, { BuildTitle, BuildMenu } from './src/view/build.page';
 import OngoingMatchesPage from './src/view/ongoing.page';
 import { liveActivity } from './src/service/live-game-activity';
+import TournamentsPage, { TournamentsTitle } from './src/view/tournaments.page';
 
 
 SplashScreen.preventAutoHideAsync();
@@ -321,6 +322,9 @@ const linking: LinkingOptions<any> = {
             Winrates: {
                 path: 'winrates',
             },
+            Tournaments: {
+                path: 'tournaments:tournamentId?',
+            },
             Overlay: {
                 path: 'overlay',
             },
@@ -363,6 +367,7 @@ export type RootStackParamList = {
     Settings: undefined;
     Main: undefined;
     Winrates: undefined;
+    Tournaments: { tournamentId?: string};
     Feed: { action?: string, match_id?: string };
     Leaderboard: { leaderboardId: number }
     Civ: { civ: Civ };
@@ -669,6 +674,16 @@ export function InnerApp() {
                         animationEnabled: false,
                         headerTitle: props => <WinratesTitle {...props} />,
                     }}
+                />
+                <Stack.Screen
+                    name="Tournaments"
+                    component={TournamentsPage}
+                    options={props => ({
+                        title: getTranslation('tournaments.title'),
+                        headerBackTitle: 'Back',
+                        headerTitle: titleProps => <TournamentsTitle {...props} titleProps={titleProps} />,
+
+                    })}
                 />
             </Stack.Navigator>
             <Footer/>

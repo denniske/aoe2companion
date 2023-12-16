@@ -5,13 +5,14 @@ import { MyText } from './my-text';
 export interface TagProps {
     children?: string | string[];
     icon?: ImageSourcePropType;
+    selected?: boolean;
 }
 
-export const Tag: React.FC<TagProps> = ({ children, icon }) => {
+export const Tag: React.FC<TagProps> = ({ children, icon, selected }) => {
     const styles = useStyles();
 
     return (
-        <View style={styles.tag}>
+        <View style={[styles.tag, selected && styles.selectedTag]}>
             {icon && <Image style={styles.tagImage} source={icon} />}
             {children && <MyText style={styles.tagText}>{children}</MyText>}
         </View>
@@ -27,6 +28,9 @@ const useStyles = createStylesheet((theme, darkMode) =>
             padding: 4,
             borderRadius: 4,
             gap: 4,
+        },
+        selectedTag: {
+            backgroundColor: theme.hoverBackgroundColor,
         },
         tagText: {
             color: theme.textNoteColor,

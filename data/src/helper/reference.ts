@@ -66,6 +66,10 @@ export function getVerifiedPlayer(profileId: number) {
     return aoeReferenceDataTyped.players?.find(p => p.platforms?.rl?.includes(profileId.toString()));
 }
 
+export function getVerifiedPlayerBy(findFunction: (player: IReferencePlayer) => boolean) {
+    return aoeReferenceDataTyped.players?.find(findFunction);
+}
+
 export function getTwitchChannel(verifiedPlayer: IReferencePlayer) {
     return verifiedPlayer?.twitch?.[0]
         ?.replace('http://', '')

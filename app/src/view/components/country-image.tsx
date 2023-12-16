@@ -3,10 +3,12 @@ import {flagEmojiDict} from '../../helper/flags';
 import {Flag} from '@nex/data';
 import {MyText} from './my-text';
 import {TextLoader} from './loader/text-loader';
+import { TextStyle } from 'react-native';
 
 
 export interface Props {
     country?: string;
+    style?: TextStyle
 }
 
 export interface LoaderProps extends Props {
@@ -17,7 +19,7 @@ export function CountryImage(props: Props) {
     const { country } = props;
 
     return (
-        <MyText style={{
+        <MyText style={props.style ?? {
             transform: [{ scale: 1.3 }],
             marginLeft: 3,
             marginRight: 4+3,

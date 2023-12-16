@@ -398,6 +398,10 @@
   "footer.techs": "Techs",
   "footer.units": "Units",
   "footer.winrates": "Winrates",
+  "footer.tournaments": "Tournaments",
+
+  "tournaments.title": "Tournaments",
+  "tournaments.tbd": "TBD",
 
   "checkbox.active": "Active",
   "checkbox.inactive": "Inactive",
