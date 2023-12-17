@@ -25,10 +25,6 @@ export const Step: React.FC<StepProps> = ({ highlighted, step, build, onPress, i
     const fadeAnim = useRef(new Animated.Value(0)).current;
     const theme = useAppTheme();
 
-    if (highlighted) {
-        console.log(step);
-    }
-
     useEffect(() => {
         Animated.timing(fadeAnim, {
             toValue: highlighted ? 1 : 0,
