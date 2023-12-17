@@ -154,6 +154,7 @@
   "builds.detail.focus": "Focus",
   "builds.detail.pop": "{pop} pop - {age}",
   "builds.detail.vills": "+{pop} vills - {age}",
+  "builds.detail.beforeAge": "Before {age}",
   "builds.focus.previous": "Previous",
   "builds.focus.next": "Next",
   "builds.card.start": "Start",

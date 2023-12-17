@@ -1,5 +1,5 @@
 import { createStylesheet } from '../../../theming-new';
-import { IBuildOrder, IBuildOrderStep } from '../../../../../data/src/helper/builds';
+import { IBuildOrder, IBuildOrderStandardResources, IBuildOrderStep } from '../../../../../data/src/helper/builds';
 import { Animated, GestureResponderEvent, Pressable, StyleSheet, View } from 'react-native';
 import { MyText } from '../my-text';
 import { ResourceAlloc } from './step-resource';
@@ -7,6 +7,7 @@ import { StepActions } from './step-actions';
 import { useEffect, useRef } from 'react';
 import { useAppTheme } from '../../../theming';
 import { getTranslation } from '../../../helper/translate';
+import { startCase } from 'lodash';
 
 export interface StepProps {
     highlighted: boolean;
@@ -14,14 +15,19 @@ export interface StepProps {
     count: number;
     step: IBuildOrderStep;
     build: IBuildOrder;
+    shownResources: Array<keyof IBuildOrderStandardResources>;
     onPress: (event: GestureResponderEvent) => void;
 }
 
-export const Step: React.FC<StepProps> = ({ highlighted, step, build, onPress, index, count }) => {
+export const Step: React.FC<StepProps> = ({ highlighted, step, build, onPress, index, count, shownResources }) => {
     const { resources } = step;
     const styles = useStyles();
     const fadeAnim = useRef(new Animated.Value(0)).current;
     const theme = useAppTheme();
+
+    if (highlighted) {
+        console.log(step);
+    }
 
     useEffect(() => {
         Animated.timing(fadeAnim, {
@@ -68,9 +74,9 @@ export const Step: React.FC<StepProps> = ({ highlighted, step, build, onPress, i
                     </View>
                 </View>
                 <View style={styles.stepFooter}>
-                    <ResourceAlloc resource="Wood" count={resources.wood} />
-                    <ResourceAlloc resource="Food" count={resources.food} />
-                    <ResourceAlloc resource="Gold" count={resources.gold} />
+                    {shownResources.map((resourceName) => (
+                        <ResourceAlloc resource={startCase(resourceName)} count={resources[resourceName]} key={resourceName} />
+                    ))}
                 </View>
             </Pressable>
         </Animated.View>
