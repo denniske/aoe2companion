@@ -14,6 +14,7 @@ const otherIcons = {
     'Stone': require('../../../app/assets/other/Stone.png'),
     'BerryBush': require('../../../app/assets/other/BerryBush.png'),
     'Cross': require('../../../app/assets/other/Cross.png'),
+    'Build': require('../../../app/assets/other/Build.png'),
 };
 
 

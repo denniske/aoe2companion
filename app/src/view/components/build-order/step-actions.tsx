@@ -11,6 +11,8 @@ import { Fragment } from 'react';
 import { Image } from 'expo-image';
 import { getTranslation } from '../../../helper/translate';
 
+type Size = 'small' | 'large';
+
 const capitalize = (string: string) => string.charAt(0).toUpperCase() + string.slice(1);
 
 const taskMap: Record<NonNullable<IBuildOrderStep['task']>, ImageSourcePropType> = {
@@ -35,100 +37,114 @@ const taskMap: Record<NonNullable<IBuildOrderStep['task']>, ImageSourcePropType>
     collect40GoldWithTwoNewVillagers: 0,
 };
 
-const PlusIcon: React.FC<{ move?: boolean }> = ({ move }) => {
+const PlusIcon: React.FC<{ move?: boolean; size: Size }> = ({ move, size }) => {
     const styles = useStyles();
 
-    return <FontAwesome5 name={move ? 'arrow-right' : 'plus'} size={14} style={styles.plusIcon} />;
+    return <FontAwesome5 name={move ? 'arrow-right' : 'plus'} size={size === 'small' ? 10 : 14} style={styles.plusIcon} />;
 };
 
-const TaskIcon: React.FC<{ item?: string }> = ({ item }) => {
+const TaskIcon: React.FC<{ item?: string; size: Size }> = ({ item, size }) => {
     const styles = useStyles();
     const taskIcon = item ? taskMap[item as unknown as NonNullable<IBuildOrderStep['task']>] : getBuildingIcon('House');
+    const sizeNumber = size === 'small' ? 20 : 30;
+    const textStyle = size === 'small' ? styles.smallText : styles.text;
 
     if (!taskIcon) {
-        return <MyText style={styles.text}>{startCase(item)}</MyText>;
+        return <MyText style={textStyle}>{startCase(item)}</MyText>;
     }
 
-    return <Image source={taskIcon} style={item === 'berries' ? styles.pic2 : styles.pic} />;
+    return <Image source={taskIcon} style={[item === 'berries' ? styles.pic2 : styles.pic, { height: sizeNumber }]} />;
 };
 
-export const StepActions: React.FC<IBuildOrderStep & { pop?: string | number }> = (step) => {
+export const StepActions: React.FC<IBuildOrderStep & { pop?: string | number; size?: Size }> = (step) => {
     const styles = useStyles();
-    const { buildings, tech, type, count, task, from, to, age, unit, pop, action, resource } = step;
+    const { buildings, tech, type, count, task, from, to, age, unit, pop, action, resource, size = 'large' } = step;
     const hasBuildings = !!buildings?.length;
     const hasTech = !!tech?.length;
     const hasBuildingsOrTech = hasBuildings || hasTech;
+    const sizeNumber = size === 'small' ? 20 : 30;
+    const textStyle = size === 'small' ? styles.smallText : styles.text;
 
     return (
-        <View style={styles.row}>
-            {hasBuildings && <MyText style={styles.text}>{getTranslation('builds.step.build')}</MyText>}
+        <View
+            style={[
+                styles.row,
+                {
+                    gap: size === 'small' ? 4 : 8,
+                },
+            ]}
+        >
+            {hasBuildings && <MyText style={textStyle}>{getTranslation('builds.step.build')}</MyText>}
             {buildings?.map((building, index) => (
                 <Fragment key={`${building.type}-${index}`}>
-                    {index > 0 ? <PlusIcon /> : null}
+                    {index > 0 ? <PlusIcon size={size} /> : null}
                     {Array(building.count)
                         .fill(0)
                         .map((_, count) => (
                             <Image
                                 key={`${building.type}-${count}-${index}`}
                                 source={getBuildingIcon(capitalize(building.type) as any)}
-                                style={styles.buildingPic}
+                                style={[styles.buildingPic, { height: size === 'small' ? 20 : 40 }]}
                                 alt={building.type}
                             />
                         ))}
                 </Fragment>
             ))}
 
-            {hasTech && <MyText style={styles.text}>{getTranslation('builds.step.research')}</MyText>}
+            {hasTech && <MyText style={textStyle}>{getTranslation('builds.step.research')}</MyText>}
             {tech?.map((tech, index) => (
                 <Fragment key={tech}>
-                    {index > 0 ? <PlusIcon /> : null}
+                    {index > 0 ? <PlusIcon size={size} /> : null}
 
-                    <Image source={getTechIcon(capitalize(tech) as any) || getUnitIcon(capitalize(tech) as any)} style={styles.buildingPic} />
+                    <Image
+                        source={getTechIcon(capitalize(tech) as any) || getUnitIcon(capitalize(tech) as any)}
+                        style={[styles.buildingPic, { height: size === 'small' ? 20 : 40 }]}
+                    />
                 </Fragment>
             ))}
 
-            {hasBuildingsOrTech && ['newVillagers', 'moveVillagers', 'trainUnit', 'ageUp', 'newAge'].includes(type) ? <PlusIcon /> : null}
+            {hasBuildingsOrTech && ['newVillagers', 'moveVillagers', 'trainUnit', 'ageUp', 'newAge'].includes(type) ? <PlusIcon size={size} /> : null}
 
             {type == 'newVillagers' && (
                 <>
-                    <MyText style={styles.text}>{getTranslation('builds.step.newvills', { count })}</MyText>
-                    <TaskIcon item={task} />
+                    <MyText style={textStyle}>{getTranslation('builds.step.newvills', { count })}</MyText>
+                    <TaskIcon item={task} size={size} />
                 </>
             )}
             {type == 'moveVillagers' && (
                 <>
-                    <MyText style={styles.text}>{count}</MyText>
-                    <TaskIcon item={from} />
-                    <PlusIcon move />
-                    <MyText style={styles.text}>{count}</MyText>
-                    <TaskIcon item={to} />
+                    <MyText style={textStyle}>{count}</MyText>
+                    <TaskIcon item={from} size={size} />
+                    <PlusIcon move size={size} />
+                    <MyText style={textStyle}>{count}</MyText>
+                    <TaskIcon item={to} size={size} />
                 </>
             )}
             {type == 'lure' && (
                 <>
-                    <MyText style={styles.text}>{getTranslation('builds.step.lure', { count })}</MyText>
-                    <TaskIcon item="deer" />
+                    <MyText style={textStyle}>{getTranslation('builds.step.lure', { count })}</MyText>
+                    <TaskIcon item="deer" size={size} />
                 </>
             )}
             {type == 'trade' && (
                 <>
-                    <MyText style={styles.text}>{getTranslation('builds.step.trade', { action: startCase(action), count })}</MyText>
-                    <TaskIcon item={resource} />
+                    <MyText style={textStyle}>{getTranslation('builds.step.trade', { action: startCase(action), count })}</MyText>
+                    <TaskIcon item={resource} size={size} />
                 </>
             )}
-            {type == 'collectGold' && <MyText style={styles.text}>{startCase(task)}</MyText>}
-            {type == 'decision' && <MyText style={styles.text}>{getTranslation('builds.step.decision')}</MyText>}
+            {type == 'collectGold' && <MyText style={textStyle}>{startCase(task)}</MyText>}
+            {type == 'decision' && <MyText style={textStyle}>{getTranslation('builds.step.decision')}</MyText>}
 
             {type == 'trainUnit' && (
                 <>
                     {count === '∞' ? (
-                        <MyText style={styles.text}>
+                        <MyText style={textStyle}>
                             {getTranslation('builds.step.training.start', {
                                 unit: startCase(unit),
                             })}
                         </MyText>
                     ) : (
-                        <MyText style={styles.text}>
+                        <MyText style={textStyle}>
                             {getTranslation(count === 1 ? 'builds.step.training.singular' : 'builds.step.training.plural', {
                                 count,
                                 unit: startCase(unit),
@@ -139,14 +155,14 @@ export const StepActions: React.FC<IBuildOrderStep & { pop?: string | number }> 
             )}
             {type == 'ageUp' && (
                 <>
-                    <MyText style={styles.text}>{getTranslation(pop ? 'builds.step.ageupwithpop' : 'builds.step.ageup', { pop })}</MyText>
-                    <Image source={getOtherIcon(capitalize(age!) as any)} style={styles.pic} />
+                    <MyText style={textStyle}>{getTranslation(pop ? 'builds.step.ageupwithpop' : 'builds.step.ageup', { pop })}</MyText>
+                    <Image source={getOtherIcon(capitalize(age!) as any)} style={[styles.pic, { height: sizeNumber }]} />
                 </>
             )}
             {type == 'newAge' && (
                 <>
-                    <MyText style={styles.text}>{getTranslation(pop ? 'builds.step.newagewithpop' : 'builds.step.newage', { pop })}</MyText>
-                    <Image source={getOtherIcon(capitalize(age!) as any)} style={styles.pic} />
+                    <MyText style={textStyle}>{getTranslation(pop ? 'builds.step.newagewithpop' : 'builds.step.newage', { pop })}</MyText>
+                    <Image source={getOtherIcon(capitalize(age!) as any)} style={[styles.pic, { height: sizeNumber }]} />
                 </>
             )}
         </View>
@@ -155,6 +171,10 @@ export const StepActions: React.FC<IBuildOrderStep & { pop?: string | number }> 
 
 const useStyles = createStylesheet((theme, darkMode) =>
     StyleSheet.create({
+        smallText: {
+            fontSize: 14,
+            fontWeight: '500',
+        },
         text: {
             fontSize: 18,
             fontWeight: 'bold',
@@ -162,21 +182,18 @@ const useStyles = createStylesheet((theme, darkMode) =>
         row: {
             flexDirection: 'row',
             alignItems: 'center',
-            gap: 8,
+            flexWrap: 'wrap',
         },
         buildingPic: {
-            width: 40,
-            height: 40,
+            aspectRatio: 1,
             borderColor: theme.borderColor,
             borderWidth: 1,
         },
         pic: {
-            width: 30,
-            height: 30,
+            aspectRatio: 1,
         },
         pic2: {
-            width: 43,
-            height: 30,
+            aspectRatio: 1.5,
         },
         plusIcon: {
             color: theme.textNoteColor,

@@ -14,15 +14,17 @@ export interface IBuildOrderBuilding {
     count: number;
 }
 
-export type IBuildOrderResources = {
-    [key in TaskOutliers]?: null;
-} & {
+export interface IBuildOrderStandardResources {
     wood: number;
     build: number;
     stone: number;
     gold: number;
     food: number;
-};
+}
+
+export type IBuildOrderResources = {
+    [key in TaskOutliers]?: null;
+} & IBuildOrderStandardResources;
 
 export type TaskOutliers =
     | 'collect10GoldAfterBarracksIsBuilt'

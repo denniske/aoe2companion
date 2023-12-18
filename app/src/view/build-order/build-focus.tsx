@@ -1,8 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { FlatList, GestureResponderEvent, StyleSheet, TouchableOpacity, View, ViewToken, Modal } from 'react-native';
 import { createStylesheet } from '../../theming-new';
 import { Step } from '../components/build-order/step';
-import { IBuildOrder } from 'data/src/helper/builds';
+import { IBuildOrder, IBuildOrderStandardResources, IBuildOrderStep } from 'data/src/helper/builds';
 import { MyText } from '../components/my-text';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -12,8 +12,9 @@ import { getTranslation } from '../../helper/translate';
 export const BuildFocus: React.FC<{
     build: IBuildOrder;
     visible: boolean;
+    shownResources: Array<keyof IBuildOrderStandardResources>;
     onClose: (event: GestureResponderEvent) => void;
-}> = ({ build, visible, onClose }) => {
+}> = ({ build, visible, onClose, shownResources }) => {
     const styles = useStyles();
     const [currentStep, setCurrentStep] = useState<number>(0);
     const flatListRef = useRef<FlatList>(null);
@@ -60,6 +61,7 @@ export const BuildFocus: React.FC<{
                         ref={flatListRef}
                         renderItem={({ item, index }) => (
                             <Step
+                                shownResources={shownResources}
                                 count={build.build.length}
                                 build={build}
                                 step={item}
