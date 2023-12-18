@@ -9,7 +9,7 @@
 
 This is the repository for the [AoE II Companion](https://aoe2companion.com/) app.
 
-[![GitHub workflow](https://img.shields.io/itunes/v/com.aoe2companion)](https://github.com/denniske/aoe2companion/actions?query=workflow%3AApp)
+[![GitHub workflow](https://img.shields.io/itunes/v/1518463195)](https://github.com/denniske/aoe2companion/actions?query=workflow%3AApp)
 
 [![GitHub workflow](https://img.shields.io/github/workflow/status/denniske/aoe2companion/App.svg)](https://github.com/denniske/aoe2companion/actions?query=workflow%3AApp)
 [![Expo version](https://img.shields.io/badge/dynamic/json?label=version&query=expo.version&url=https://raw.githubusercontent.com/denniske/aoe2companion/master/app.json)](https://github.com/denniske/aoe2companion/actions?query=workflow%3AApp)
