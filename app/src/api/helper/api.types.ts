@@ -55,6 +55,7 @@ export interface ILobbiesMatch {
 }
 
 
+export type IMatchesMatch = Pick<ITeamNew, 'players'> & Omit<IMatchNew, 'teams'>;
 
 export interface ILobbiesMatch2 {
     totalSlotCount: number;

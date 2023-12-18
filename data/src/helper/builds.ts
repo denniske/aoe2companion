@@ -1,7 +1,10 @@
 import { buildsData } from '../data/builds';
 
-export function getBuildById(buildId: string | number) {
-    return buildsData.find((build) => build.id === buildId);
+export function getBuildById(buildId?: string | number) {
+    if (!buildId) {
+        return;
+    }
+    return buildsData.find((build) => build.id == buildId);
 }
 
 export const sortBuildAges = (ages: [string, any][]) => {

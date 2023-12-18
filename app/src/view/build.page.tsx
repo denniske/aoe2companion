@@ -1,5 +1,4 @@
-import React, {useEffect} from 'react';
-import { buildsData } from '../../../data/src/data/builds';
+import React, { useEffect } from 'react';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from 'app/App2';
 import { BuildListPage, BuildDetail } from './build-order';
@@ -11,26 +10,15 @@ import IconHeader from './components/navigation-header/icon-header';
 import { useFavoritedBuild } from '../service/storage';
 import { TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
-import {activateKeepAwakeAsync, deactivateKeepAwake} from "expo-keep-awake";
-import {useSelector} from "../redux/reducer";
+import { activateKeepAwakeAsync, deactivateKeepAwake } from 'expo-keep-awake';
+import { useSelector } from '../redux/reducer';
 
 export function BuildMenu(props: any) {
-    const { toggleFavorite, isFavorited } = useFavoritedBuild(
-        props.route.params.build
-    );
+    const { toggleFavorite, isFavorited } = useFavoritedBuild(props.route.params.build);
 
     return (
-        <TouchableOpacity
-            hitSlop={10}
-            onPress={toggleFavorite}
-            style={{ paddingRight: 12 }}
-        >
-            <FontAwesome5
-                solid={isFavorited}
-                name="heart"
-                size={20}
-                color="#ef4444"
-            />
+        <TouchableOpacity hitSlop={10} onPress={toggleFavorite} style={{ paddingRight: 12 }}>
+            <FontAwesome5 solid={isFavorited} name="heart" size={20} color="#ef4444" />
         </TouchableOpacity>
     );
 }
@@ -48,24 +36,21 @@ export function BuildTitle(props: any) {
             />
         );
     }
-    return (
-        <TextHeader
-            text={getTranslation('builds.title')}
-            onLayout={props.titleProps.onLayout}
-        />
-    );
+    return <TextHeader text={getTranslation('builds.title')} onLayout={props.titleProps.onLayout} />;
 }
 
 const BuildPage = () => {
     const route = useRoute<RouteProp<RootStackParamList, 'Guide'>>();
-    const build = buildsData.find((build) => build.id === route.params?.build);
-    const config = useSelector(state => state.config);
+    const build = getBuildById(route.params?.build);
+    const config = useSelector((state) => state.config);
 
     useEffect(() => {
         if (config.preventScreenLockOnGuidePage) {
             activateKeepAwakeAsync('guide-page');
         }
-        return () => { deactivateKeepAwake('guide-page'); }
+        return () => {
+            deactivateKeepAwake('guide-page');
+        };
     });
 
     if (build) {

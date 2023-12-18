@@ -65,6 +65,7 @@ import ErrorSnackbar from "./src/view/components/snackbar/error-snackbar";
 import ErrorPage from "./src/view/error.page";
 import WinratesPage, {WinratesTitle} from "./src/view/winrates.page";
 import * as Notifications from "expo-notifications";
+import * as TaskManager from 'expo-task-manager';
 import TipsPage from "./src/view/tips.page";
 import initSentry from "./src/helper/sentry";
 import * as Device from 'expo-device';
@@ -90,6 +91,8 @@ import * as eva from '@eva-design/eva';
 import {ApplicationProvider} from '@ui-kitten/components';
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import BuildPage, { BuildTitle, BuildMenu } from './src/view/build.page';
+import OngoingMatchesPage from './src/view/ongoing.page';
+import { liveActivity } from './src/service/live-game-activity';
 
 
 SplashScreen.preventAutoHideAsync();
@@ -110,6 +113,8 @@ try {
 
 }
 
+const BACKGROUND_NOTIFICATION_TASK = 'BACKGROUND-NOTIFICATION-TASK';
+
 if (Platform.OS !== 'web') {
     LogBox.ignoreLogs([
         'Native splash screen is already hidden. Call this method before rendering any view.',
@@ -117,6 +122,19 @@ if (Platform.OS !== 'web') {
         'Remote debugger',
         'Unable to activate keep awake',
     ]);
+
+    TaskManager.defineTask(BACKGROUND_NOTIFICATION_TASK, ({ data, error, executionInfo }) => {
+        if (data) {
+            const { body } = data as { body: Record<string, any> };
+            if (body.finished) {
+                liveActivity.list().map((activity) => {
+                    if (activity.data.matchId === body.match_id) {
+                        liveActivity.end(activity.id);
+                    }
+                });
+            }
+        }
+    });
 }
 
 class HttpService implements IHttpService {
@@ -190,10 +208,13 @@ const linking: LinkingOptions<any> = {
                 path: 'search',
             },
             Guide: {
-                path: 'guide/:id?',
+                path: 'guide/:build?',
             },
             Live: {
                 path: 'live',
+            },
+            Ongoing: {
+                path: 'ongoing',
             },
             Tips: {
                 path: 'tips',
@@ -334,6 +355,7 @@ export type RootStackParamList = {
     Tips: undefined;
     Push: undefined;
     Live: undefined;
+    Ongoing: undefined;
     Welcome: undefined;
     Privacy: undefined;
     About: undefined;
@@ -549,6 +571,13 @@ export function InnerApp() {
                     component={LivePage}
                     options={{
                         title: getTranslation('lobbies.title'),
+                    }}
+                />
+                <Stack.Screen
+                    name="Ongoing"
+                    component={OngoingMatchesPage}
+                    options={{
+                        title: getTranslation('ongoing.title'),
                     }}
                 />
                 <Stack.Screen
@@ -977,6 +1006,10 @@ export default function App() {
     // View navigation using back button is still possible.
     useEffect(() => {
         BackHandler.addEventListener('hardwareBackPress', () => true);
+        if (Platform.OS !== 'web') {
+            Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK);
+        }
+
         return () =>
             BackHandler.removeEventListener('hardwareBackPress', () => true);
     }, []);

@@ -255,7 +255,7 @@ export function FeedList() {
                                                 </MyText>
                                             }
                                             <View style={styles.game}>
-                                                <Game expanded={item.matchId === matchId} match={item as IMatchNew} highlightedUsers={filteredPlayers?.map(p => p.profileId)} user={relevantUser?.profileId}/>
+                                                <Game expanded={item.matchId === matchId} match={item as IMatchNew} highlightedUsers={filteredPlayers?.map(p => p.profileId)} user={relevantUser?.profileId} showLiveActivity={!match.finished}/>
                                             </View>
                                         </View>;
                                 }
