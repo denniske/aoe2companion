@@ -9,10 +9,7 @@
 
 This is the repository for the [AoE II Companion](https://aoe2companion.com/) app.
 
-[![GitHub workflow](https://img.shields.io/itunes/v/1518463195)](https://github.com/denniske/aoe2companion/actions?query=workflow%3AApp)
-
-[![GitHub workflow](https://img.shields.io/github/workflow/status/denniske/aoe2companion/App.svg)](https://github.com/denniske/aoe2companion/actions?query=workflow%3AApp)
-[![Expo version](https://img.shields.io/badge/dynamic/json?label=version&query=expo.version&url=https://raw.githubusercontent.com/denniske/aoe2companion/master/app.json)](https://github.com/denniske/aoe2companion/actions?query=workflow%3AApp)
+[![Version](https://img.shields.io/itunes/v/1518463195?logo=apple&label=App%20Store)](https://github.com/denniske/aoe2companion/actions?query=workflow%3AApp)
 [![Discord server](https://img.shields.io/discord/727175083977736262.svg?label=Discord&logo=discord&logoColor=ffffff&labelColor=7289DA&color=2c2f33)](https://discord.gg/gCunWKx)
 [![Buy me a coffee](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshields-io-buymeacoffee.vercel.app%2Fapi%3Fusername%3Ddenniskeil)](https://www.buymeacoffee.com/denniskeil)
 
