@@ -1,9 +1,9 @@
 
 <div align="center">
   
-<img src="/website/public/ios-shot-aoe2companion.png" height="500"/><br/><br/>
+<img src="https://www.aoe2companion.com/web/aoe2/ios-shot.png" height="500"/><br/><br/>
 
-<a href="https://play.google.com/store/apps/details?id=com.aoe2companion"><img src="/website/public/app-button-play-store.png" height="50"></a> <a href="https://apps.apple.com/app/id1518463195"><img src="/website/public/app-button-app-store.png" height="50"></a>
+<a href="https://play.google.com/store/apps/details?id=com.aoe2companion"><img src="https://www.aoe2companion.com/app-button-play-store.png" height="50"></a> <a href="https://apps.apple.com/app/id1518463195"><img src="https://www.aoe2companion.com/app-button-app-store.png" height="50"></a>
 
 # AoE II Companion
 
