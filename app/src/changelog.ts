@@ -6,6 +6,7 @@ export interface IChange {
     type: 'feature' | 'bugfix' | 'minor';
     title: string;
     content?: string;
+    author?: string;
 }
 
 export interface IChangelog {
@@ -144,6 +145,28 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '77.0.0': [
+        {
+            type: 'feature',
+            title: 'Live activity for ongoing matches (iOS)',
+            content: 'Go to ⋮ > Ongoing and select one of the ongoing matches to see live activity',
+            author: '[Noah Brandyberry](https://github.com/noahbrandyberry)',
+        },
+        {
+            type: 'feature',
+            title: 'Build orders widget (iOS)',
+            content: 'Add this widget to your home screen for quick access to the build orders you marked as favourite',
+            author: '[Noah Brandyberry](https://github.com/noahbrandyberry)',
+        },
+        {
+            type: 'minor',
+            title: 'Add list view to build orders page',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix empty steps on build orders page',
+        },
+    ],
     '76.0.0': [
         {
             type: 'bugfix',
@@ -167,7 +190,8 @@ export const changelog: IChangelog = {
     '74.0.0': [
         {
             type: 'feature',
-            title: 'Add new build order guide page (by [Noah Brandyberry](https://github.com/noahbrandyberry))',
+            title: 'New build order guide page',
+            author: '[Noah Brandyberry](https://github.com/noahbrandyberry)',
         },
         {
             type: 'feature',

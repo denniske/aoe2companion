@@ -91,7 +91,15 @@ export default function ChangelogPage() {
                         </View>
                         <View style={styles.textContainer}>
                             <MyText style={styles.title}>{formatTitle(change.title)}</MyText>
-                            <MyText style={styles.content}>{change.content}</MyText>
+                            {
+                                change.content &&
+                                    <MyText style={styles.content2}>{change.content}</MyText>
+                            }
+                            {
+                                change.author &&
+                                <MyText style={styles.content}>by {formatTitle(change.author)}</MyText>
+                                // <MyText style={styles.content}>(by {formatTitle(change.author)})</MyText>
+                            }
                         </View>
                     </View>
                 )
@@ -120,6 +128,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     },
     row: {
         flexDirection: 'row',
+        marginBottom: 4
     },
     label: {
         color: 'white',
@@ -152,6 +161,11 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         lineHeight: 18,
     },
     content: {
+        marginBottom: 5,
+        lineHeight: 18,
+        fontStyle: 'italic',
+    },
+    content2: {
         marginBottom: 5,
         lineHeight: 18,
     },
