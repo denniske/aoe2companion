@@ -367,7 +367,7 @@ export type RootStackParamList = {
     Settings: undefined;
     Main: undefined;
     Winrates: undefined;
-    Tournaments: { tournamentId?: string};
+    Tournaments: { tournamentId?: string, league?: string };
     Feed: { action?: string, match_id?: string };
     Leaderboard: { leaderboardId: number }
     Civ: { civ: Civ };

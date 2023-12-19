@@ -7,11 +7,15 @@ import { useState } from 'react';
 import { Tag } from '../components/tag';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { startCase } from 'lodash';
+import { RouteProp, useRoute } from '@react-navigation/core';
+import { RootStackParamList } from '../../../App2';
 
 export const TournamentsList: React.FC = () => {
     const categories = Object.values(Age2TournamentCategory);
     const styles = useStyles();
-    const [selectedCategory, setSelectedCategory] = useState<TournamentCategory>(Age2TournamentCategory.TierS);
+    const { params = {} } = useRoute<RouteProp<RootStackParamList, 'Tournaments'>>();
+    const { league } = params;
+    const [selectedCategory, setSelectedCategory] = useState<TournamentCategory>((league as TournamentCategory) ?? Age2TournamentCategory.TierS);
     const { data: tournaments, isFetching, refetch } = useTournaments(selectedCategory);
 
     return (
@@ -20,13 +24,15 @@ export const TournamentsList: React.FC = () => {
             onRefresh={refetch}
             refreshing={isFetching}
             ListHeaderComponent={
-                <View style={styles.tagsContainer}>
-                    {categories.map((category) => (
-                        <TouchableOpacity onPress={() => setSelectedCategory(category)} key={category}>
-                            <Tag selected={category === selectedCategory}>{startCase(category.split('/').at(-1)?.split('Tournament')[0])}</Tag>
-                        </TouchableOpacity>
-                    ))}
-                </View>
+                league ? undefined : (
+                    <View style={styles.tagsContainer}>
+                        {categories.map((category) => (
+                            <TouchableOpacity onPress={() => setSelectedCategory(category)} key={category}>
+                                <Tag selected={category === selectedCategory}>{startCase(category.split('/').at(-1)?.split('Tournament')[0])}</Tag>
+                            </TouchableOpacity>
+                        ))}
+                    </View>
+                )
             }
             contentContainerStyle={styles.contentContainer}
             data={tournaments}

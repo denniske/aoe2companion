@@ -9,20 +9,26 @@ import { getTranslation } from '../helper/translate';
 import { useTournament } from '../api/tournaments';
 
 export function TournamentsTitle(props: any) {
-    const id = props.route?.params?.tournamentId;
-    const { data: tournament, isLoading } = useTournament(id, !!id);
+    const { tournamentId: id, league } = props.route?.params ?? {};
+    const { data: tournament } = useTournament(id, !!id);
 
-    if (id || isLoading) {
+    if (id) {
         return (
             <IconHeader
                 icon={{ uri: tournament?.league?.image }}
                 text={tournament?.name ?? ''}
-                // subtitle={build.title.replace(build.civilization, '')}
+                subtitle={tournament?.league?.name}
+                onSubtitlePress={() => tournament?.league?.path && props.navigation.push('Tournaments', { league: tournament.league.path })}
                 onLayout={props.titleProps.onLayout}
             />
         );
     }
-    return <TextHeader text={getTranslation('tournaments.title')} onLayout={props.titleProps.onLayout} />;
+    return (
+        <TextHeader
+            text={league ? decodeURI(league).replaceAll('_', ' ') : getTranslation('tournaments.title')}
+            onLayout={props.titleProps.onLayout}
+        />
+    );
 }
 
 export default function TournamentsPage() {

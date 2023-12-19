@@ -3,9 +3,9 @@ import { TouchableOpacity, View, StyleSheet } from 'react-native';
 import { MyText } from '../components/my-text';
 import { Image } from 'expo-image';
 import { Tournament, TournamentLocationType } from 'liquipedia';
-import { TournamentPlayer } from './tournament-player';
+import { TournamentParticipant } from './tournament-participant';
 import { formatCurrency } from 'react-native-format-currency';
-import { format } from 'date-fns';
+import { format, isPast } from 'date-fns';
 import { CountryImage } from '../components/country-image';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
@@ -14,9 +14,17 @@ import { RootStackProp } from '../../../App2';
 export const TournamentCard: React.FC<Tournament> = (tournament) => {
     const styles = useStyles();
     const navigation = useNavigation<RootStackProp>();
+    const hasTournamentStarted = isPast(tournament.start ?? new Date());
+    const hasTournamentEnded = isPast(tournament.end ?? new Date());
+    const isOngoing = hasTournamentStarted && !hasTournamentEnded;
+    const isUpcoming = !hasTournamentStarted && !hasTournamentEnded;
 
     return (
-        <TouchableOpacity style={styles.card} key={tournament.name} onPress={() => navigation.push('Tournaments', { tournamentId: tournament.path })}>
+        <TouchableOpacity
+            style={[styles.card, isOngoing && styles.ongoingCard, isUpcoming && styles.upcomingCard]}
+            key={tournament.name}
+            onPress={() => navigation.push('Tournaments', { tournamentId: tournament.path })}
+        >
             <View style={styles.cardHeader}>
                 <Image source={{ uri: tournament.league?.image }} style={styles.image} />
                 <MyText style={styles.title}>{tournament.name}</MyText>
@@ -33,10 +41,10 @@ export const TournamentCard: React.FC<Tournament> = (tournament) => {
                         <MyText>{formatCurrency({ ...tournament.prizePool, amount: Math.round(tournament.prizePool.amount) })[0]}</MyText>
                     </View>
                 )}
-                {tournament.participants && (
+                {tournament.participantsCount && (
                     <View style={styles.attribute}>
                         <FontAwesome5 name="users" size={14} style={styles.icon} />
-                        <MyText>{tournament.participants}</MyText>
+                        <MyText>{tournament.participantsCount}</MyText>
                     </View>
                 )}
                 {tournament.location && (
@@ -52,10 +60,11 @@ export const TournamentCard: React.FC<Tournament> = (tournament) => {
                     </View>
                 )}
             </View>
-            {(tournament.winner || tournament.runnerUp) && (
+            {tournament.participants.length > 0 && (
                 <View style={styles.cardFooter}>
-                    {tournament.winner && <TournamentPlayer playerName={tournament.winner} position={1} />}
-                    {tournament.runnerUp && <TournamentPlayer playerName={tournament.runnerUp} position={2} />}
+                    {tournament.participants.map((participant, index) => (
+                        <TournamentParticipant key={participant.name} participant={participant} position={index + 1} />
+                    ))}
                 </View>
             )}
         </TouchableOpacity>
@@ -66,7 +75,7 @@ const useStyles = createStylesheet((theme) =>
     StyleSheet.create({
         card: {
             flex: 1,
-            backgroundColor: theme.backgroundColor,
+            backgroundColor: theme.skeletonColor,
             borderRadius: 4,
             elevation: 4,
             shadowColor: '#000000',
@@ -80,6 +89,12 @@ const useStyles = createStylesheet((theme) =>
             paddingVertical: 12,
             paddingHorizontal: 15,
             gap: 15,
+        },
+        ongoingCard: {
+            backgroundColor: theme.backgroundColor,
+        },
+        upcomingCard: {
+            backgroundColor: theme.backgroundColor,
         },
         cardHeader: {
             flexDirection: 'row',

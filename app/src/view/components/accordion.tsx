@@ -54,18 +54,18 @@ export default function MyListAccordion(props: Props) {
                     </View>
                 </TouchableRipple>
 
-                <View style={styles.row2}>
-                    {expanded
-                            ? React.Children.map(children, child => {
-                                if (React.isValidElement(child)) {
-                                    return React.cloneElement(child, {
-                                        style: [styles.child, child.props.style],
-                                    } as any);
-                                }
-                                return child;
-                            })
-                            :null}
-                </View>
+                {expanded? 
+                    <View style={styles.row2}>
+                        {React.Children.map(children, child => {
+                            if (React.isValidElement(child)) {
+                                return React.cloneElement(child, {
+                                    style: [styles.child, child.props.style],
+                                } as any);
+                            }
+                            return child;
+                        })}
+                    </View>
+                : null}
             </View>
     );
 }

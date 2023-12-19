@@ -302,7 +302,7 @@ export default function Footer() {
                             <Menu.Item leadingIcon={useIcon('fist-raised', 'Unit')} titleStyle={iconPopupStyle('Unit')} onPress={() => { nav('Unit'); setMenu(false); }} title={getTranslation('footer.units')} />
                             <Divider />
                             <Menu.Item leadingIcon={useIcon('medal', 'Winrates')} titleStyle={iconPopupStyle('Winrates')} onPress={() => { nav('Winrates'); setMenu(false); }} title={getTranslation('footer.winrates')} />
-                            <Menu.Item leadingIcon={useIcon('trophy', 'Tournaments')} titleStyle={iconPopupStyle('Tournaments')} onPress={() => { nav('Tournaments'); setMenu(false); }} title={getTranslation('footer.tournaments')} />
+                            {Platform.OS !== 'web' && <Menu.Item leadingIcon={useIcon('project-diagram', 'Tournaments')} titleStyle={iconPopupStyle('Tournaments')} onPress={() => { nav('Tournaments'); setMenu(false); }} title={getTranslation('footer.tournaments')} />}
                         </Menu>
                     }
                     {

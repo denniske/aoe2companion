@@ -1,10 +1,10 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ViewStyle } from 'react-native';
 import { MyText } from '../../components/my-text';
 import { PlayoffRound as IPlayoffRound } from 'liquipedia';
 import { createStylesheet } from '../../../../src/theming-new';
 import { PlayoffMatch } from './match';
 
-export const PlayoffRound: React.FC<{ width: number; round: IPlayoffRound }> = ({ round, width }) => {
+export const PlayoffRound: React.FC<{ width: ViewStyle['width']; round: IPlayoffRound }> = ({ round, width }) => {
     const styles = useStyles();
     return (
         <View style={[{ width }, styles.container]}>

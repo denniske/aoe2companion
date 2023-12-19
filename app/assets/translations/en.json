@@ -402,6 +402,7 @@
 
   "tournaments.title": "Tournaments",
   "tournaments.tbd": "TBD",
+  "tournaments.prizemoney": "{amount} are spread among the participants as seen below:",
 
   "checkbox.active": "Active",
   "checkbox.inactive": "Inactive",
