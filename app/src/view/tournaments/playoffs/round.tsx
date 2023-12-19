@@ -8,7 +8,10 @@ export const PlayoffRound: React.FC<{ width: ViewStyle['width']; round: IPlayoff
     const styles = useStyles();
     return (
         <View style={[{ width }, styles.container]}>
-            <MyText style={styles.name}>{round.name}</MyText>
+            <View style={styles.nameContainer}>
+                <MyText style={styles.name}>{round.name}</MyText>
+                <MyText style={styles.format}>{round.format}</MyText>
+            </View>
 
             <View style={styles.contentContainer}>
                 {round.matches.map((match, index) => (
@@ -31,9 +34,17 @@ const useStyles = createStylesheet((theme) =>
             gap: 8,
             position: 'relative',
         },
+        nameContainer: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+        },
         name: {
             fontWeight: '500',
             fontSize: 16,
+        },
+        format: {
+            fontWeight: '500',
         },
     })
 );

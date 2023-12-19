@@ -6,15 +6,16 @@ export interface TagProps {
     children?: string | string[];
     icon?: ImageSourcePropType;
     selected?: boolean;
+    size?: 'large' | 'small';
 }
 
-export const Tag: React.FC<TagProps> = ({ children, icon, selected }) => {
+export const Tag: React.FC<TagProps> = ({ children, icon, selected, size = 'small' }) => {
     const styles = useStyles();
 
     return (
-        <View style={[styles.tag, selected && styles.selectedTag]}>
+        <View style={[styles.tag, selected && styles.selectedTag, styles[size]]}>
             {icon && <Image style={styles.tagImage} source={icon} />}
-            {children && <MyText style={styles.tagText}>{children}</MyText>}
+            {children && <MyText style={[styles.tagText, size === 'large' && { fontWeight: '600', fontSize: 14 }]}>{children}</MyText>}
         </View>
     );
 };
@@ -28,6 +29,10 @@ const useStyles = createStylesheet((theme, darkMode) =>
             padding: 4,
             borderRadius: 4,
             gap: 4,
+        },
+        small: {},
+        large: {
+            padding: 6,
         },
         selectedTag: {
             backgroundColor: theme.hoverBackgroundColor,

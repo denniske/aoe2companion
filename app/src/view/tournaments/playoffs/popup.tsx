@@ -10,6 +10,7 @@ import { Image } from 'expo-image';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { TournamentMarkdown } from '../tournament-markdown';
 import { PlayoffPlayer } from './player';
+import { getTranslation } from '../../..//helper/translate';
 
 export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; setVisible: (visible: boolean) => void }> = ({
     match,
@@ -24,7 +25,7 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
                 {match.participants.map((participant, index) => (
                     <Fragment key={index}>
                         <PlayoffParticipant participant={participant} size={18} winner={match.winner === index} reversed={index === 0} />
-                        {index === 0 && <MyText style={styles.versus}>vs</MyText>}
+                        {index === 0 && <MyText style={styles.versus}>{getTranslation('match.versus')}</MyText>}
                     </Fragment>
                 ))}
             </View>

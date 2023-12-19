@@ -1,11 +1,11 @@
 import { View, StyleSheet, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
-import { useTournament } from '../../api/tournaments';
+import { useRefreshControl, useTournament } from '../../api/tournaments';
 import { createStylesheet } from '../../theming-new';
 import { MyText } from '../components/my-text';
 import { format } from 'date-fns';
 import { Image } from 'expo-image';
 import MyListAccordion from '../components/accordion';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { PlayoffRound } from './playoffs/round';
 import { TournamentMarkdown } from './tournament-markdown';
 import { Tag } from '../components/tag';
@@ -19,18 +19,20 @@ import { PlayoffMatch } from './playoffs/match';
 import { TournamentPrizes } from './tournament-prizes';
 import { formatCurrency } from 'react-native-format-currency';
 import { getTranslation } from '../../helper/translate';
+import { PlayoffParticipant } from './playoffs/participant';
 
 export const TournamentDetail: React.FC<{ id: string }> = ({ id }) => {
     const styles = useStyles();
-    const { data: tournament, isFetching, refetch } = useTournament(id);
+    const { data: tournament, ...query } = useTournament(id);
     const [playoffRoundWidth, setPlayoffRoundWidth] = useState(0);
     const navigation = useNavigation<StackNavigationProp<RootStackParamList, 'Tournaments'>>();
+    const refreshControlProps = useRefreshControl(query);
 
     return (
         <ScrollView
             style={styles.container}
             contentContainerStyle={styles.contentContainer}
-            refreshControl={<RefreshControl refreshing={isFetching} onRefresh={refetch} />}
+            refreshControl={<RefreshControl {...refreshControlProps} />}
         >
             {tournament ? (
                 <>
@@ -69,20 +71,31 @@ export const TournamentDetail: React.FC<{ id: string }> = ({ id }) => {
                                     <View style={styles.schedule}>
                                         {tournament.schedule.map((event) => (
                                             <View key={event.date.toISOString()} style={styles.event}>
-                                                <MyText>{format(event.date, 'PPP')}</MyText>
+                                                <MyText style={styles.eventDate}>{format(event.date, 'PPP')}</MyText>
+
                                                 <View style={styles.participants}>
-                                                    {event.participants.map((participant, index) => (
-                                                        <View
-                                                            key={`${participant.name}-${index}`}
-                                                            style={[styles.participant, index === 1 && { flexDirection: 'row-reverse' }]}
-                                                        >
-                                                            {participant.image && (
-                                                                <Image source={{ uri: participant.image }} style={styles.participantImage} />
-                                                            )}
-                                                            <MyText>{participant.name}</MyText>
-                                                            <MyText>{participant.score}</MyText>
-                                                        </View>
-                                                    ))}
+                                                    {event.participants.map((participant, index) => {
+                                                        const otherParticipant = event.participants[Math.abs(index - 1)];
+                                                        const winner =
+                                                            participant.score && otherParticipant.score && participant.score > otherParticipant.score;
+                                                        return (
+                                                            <Fragment key={`${participant.name}-${index}`}>
+                                                                <View style={[styles.participant, index === 1 && { flexDirection: 'row-reverse' }]}>
+                                                                    <PlayoffParticipant
+                                                                        reversed={index === 1}
+                                                                        participant={participant}
+                                                                        winner={!!winner}
+                                                                    />
+                                                                    <MyText>{participant.score}</MyText>
+                                                                </View>
+                                                                {index === 0 && (
+                                                                    <View style={styles.participantVersus}>
+                                                                        {event.format ? <MyText>{event.format}</MyText> : <MyText>:</MyText>}
+                                                                    </View>
+                                                                )}
+                                                            </Fragment>
+                                                        );
+                                                    })}
                                                 </View>
                                             </View>
                                         ))}
@@ -181,8 +194,8 @@ export const TournamentDetail: React.FC<{ id: string }> = ({ id }) => {
                                         <View style={styles.group} key={index}>
                                             <View style={styles.groupDetails}>
                                                 <MyText style={styles.groupName}>{group.name}</MyText>
-                                                {group.participants.map((participant) => (
-                                                    <GroupParticipant participant={participant} key={participant.name} />
+                                                {group.participants.map((participant, participantIndex) => (
+                                                    <GroupParticipant participant={participant} key={`${participant.name}-${participantIndex}`} />
                                                 ))}
                                             </View>
 
@@ -219,27 +232,29 @@ export const TournamentDetail: React.FC<{ id: string }> = ({ id }) => {
                             expandable={true}
                             left={() => <MyText style={styles.header}>Playoffs</MyText>}
                             children={
-                                <ScrollView
-                                    style={styles.playoffs}
-                                    horizontal
-                                    onLayout={(e) => setPlayoffRoundWidth(e.nativeEvent.layout.width / 2)}
-                                    snapToInterval={playoffRoundWidth}
-                                    contentContainerStyle={styles.playoffsContent}
-                                >
+                                <View style={styles.playoffs} onLayout={(e) => setPlayoffRoundWidth(e.nativeEvent.layout.width / 2)}>
                                     {tournament.playoffs.map((playoffRow, index) => (
-                                        <View style={styles.playoffRow} key={index}>
-                                            {playoffRow.map((playoffRound) => (
-                                                <PlayoffRound round={playoffRound} width={playoffRoundWidth} key={playoffRound.name} />
-                                            ))}
+                                        <View style={styles.playoffRowContainer} key={index}>
+                                            <MyText style={styles.playoffRowText}>{playoffRow.name}</MyText>
+                                            <ScrollView
+                                                style={styles.playoffRow}
+                                                horizontal
+                                                snapToInterval={playoffRoundWidth}
+                                                contentContainerStyle={styles.playoffsContent}
+                                            >
+                                                {playoffRow.rounds.map((playoffRound) => (
+                                                    <PlayoffRound round={playoffRound} width={playoffRoundWidth} key={playoffRound.name} />
+                                                ))}
+                                            </ScrollView>
                                         </View>
                                     ))}
-                                </ScrollView>
+                                </View>
                             }
                         />
                     )}
                 </>
-            ) : isFetching ? (
-                <MyText>Loading... Please Wait!</MyText>
+            ) : query.isFetching ? (
+                <MyText>{getTranslation('tournaments.loading')}</MyText>
             ) : null}
         </ScrollView>
     );
@@ -258,7 +273,7 @@ const useStyles = createStylesheet((theme) =>
             justifyContent: 'space-between',
         },
         accordion: {
-            borderColor: 'black',
+            borderColor: theme.borderColor,
             borderTopWidth: 1,
             paddingBottom: 15,
             paddingTop: 15,
@@ -291,14 +306,23 @@ const useStyles = createStylesheet((theme) =>
             paddingHorizontal: 12,
             gap: 15,
         },
+        eventDate: {
+            fontWeight: '600',
+            fontSize: 16,
+        },
         participants: {
             flexDirection: 'row',
             justifyContent: 'space-between',
+        },
+        participantVersus: {
+            alignItems: 'center',
+            flex: 1,
         },
         participant: {
             flexDirection: 'row',
             alignItems: 'center',
             gap: 8,
+            flex: 1,
         },
         participantImage: {
             height: 20,
@@ -318,14 +342,22 @@ const useStyles = createStylesheet((theme) =>
             flex: 1,
         },
         playoffs: {
+            width: '100%',
+            gap: 24,
+        },
+        playoffRowContainer: {
+            width: '100%',
+            gap: 8,
+        },
+        playoffRowText: {
+            fontSize: 18,
+            fontWeight: '500',
+        },
+        playoffRow: {
             marginHorizontal: -10,
         },
         playoffsContent: {
             gap: 20,
-            flexDirection: 'column',
-        },
-        playoffRow: {
-            flexDirection: 'row',
         },
         groups: {
             flex: 1,

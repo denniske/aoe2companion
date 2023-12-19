@@ -6400,7 +6400,7 @@ __metadata:
     expo-updates: ~0.18.17
     humps: ^2.0.1
     immer: ^7.0.0
-    liquipedia: ^1.0.0
+    liquipedia: ^1.0.1
     lodash: ^4.17.19
     nativewind: ^2.0.11
     postcss: ^8.4.28
@@ -15873,17 +15873,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"liquipedia@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "liquipedia@npm:1.0.0"
+"liquipedia@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "liquipedia@npm:1.0.1"
   dependencies:
     axios: ^1.6.2
     date-fns: ^2.30.0
     lodash: ^4.17.21
     node-html-markdown: ^1.3.0
     node-html-parser: ^6.1.11
-    srcset-parse: ^1.1.0
-  checksum: 60f3afff9a13dee91ac4c01c4c0d74cdda9f686a2f3619a0d38cf8f784b2021af14b6788f6720261e7aef655a2da00760bd7019f2f29530b1dbcffde8fd82a22
+  checksum: c72b3ecea3b375f5e3d316f3608192e15f5f53a2f4eb3de8e566277779c841137dd2943aa682ff3201ecaec38b718f156a68df5e7f70ca515144dbc6ff49aad4
   languageName: node
   linkType: hard
 
@@ -22125,13 +22124,6 @@ __metadata:
   version: 1.0.3
   resolution: "sprintf-js@npm:1.0.3"
   checksum: 19d79aec211f09b99ec3099b5b2ae2f6e9cdefe50bc91ac4c69144b6d3928a640bb6ae5b3def70c2e85a2c3d9f5ec2719921e3a59d3ca3ef4b2fd1a4656a0df3
-  languageName: node
-  linkType: hard
-
-"srcset-parse@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "srcset-parse@npm:1.1.0"
-  checksum: d17ad3e6b5af2a644ef88f64b252d65eac351362823685bdb481ebc84f9232f675c5140f56e47fe119c09e2f732d90e71ae2b259a44ef13ea049fa35587524cc
   languageName: node
   linkType: hard
 

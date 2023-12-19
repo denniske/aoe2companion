@@ -141,6 +141,7 @@
 
   "builds.title": "Build Orders",
   "builds.noResults": "No Results Found",
+  "builds.search": "Search builds",
   "builds.favorites": "Favorites",
   "builds.filters.all": "All",
   "builds.filters.civ": "Filter by Civ",
@@ -401,6 +402,10 @@
   "footer.tournaments": "Tournaments",
 
   "tournaments.title": "Tournaments",
+  "tournaments.search": "Search Tournaments",
+  "tournaments.noresults": "No Results Found",
+  "tournaments.loading": "Loading...",
+  "tournaments.live": "Live!",
   "tournaments.tbd": "TBD",
   "tournaments.prizemoney": "{amount} are spread among the participants as seen below:",
 

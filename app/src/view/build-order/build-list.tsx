@@ -62,7 +62,13 @@ export const BuildListPage = () => {
                     <BuildFilters builds={buildsData} {...buildFilters} />
 
                     <View style={styles.searchContainer}>
-                        <TextInput autoCorrect={false} value={search} onChangeText={setSearch} style={styles.search} placeholder="Search builds" />
+                        <TextInput
+                            autoCorrect={false}
+                            value={search}
+                            onChangeText={setSearch}
+                            style={styles.search}
+                            placeholder={getTranslation('builds.search')}
+                        />
                     </View>
 
                     <FlatList

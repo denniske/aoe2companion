@@ -13,7 +13,7 @@ export const PlayoffMatch: React.FC<{ match: IPlayoffMatch }> = ({ match }) => {
     return (
         <View style={[styles.container, !!match.name && styles.standaloneContainer]}>
             {match.name && <MyText style={styles.name}>{match.name}</MyText>}
-            <TouchableOpacity style={styles.contentContainer} onPress={() => setVisible(true)}>
+            <TouchableOpacity style={styles.contentContainer} onPress={() => setVisible(true)} disabled={match.participants.length < 2}>
                 {match.participants.map((participant, index) => (
                     <View style={[styles.participant, index > 0 && styles.participantBorder]} key={index}>
                         <PlayoffParticipant size={12} participant={participant} winner={match.winner === index} />

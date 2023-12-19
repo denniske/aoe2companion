@@ -15,7 +15,7 @@ export const TournamentCard: React.FC<Tournament> = (tournament) => {
     const styles = useStyles();
     const navigation = useNavigation<RootStackProp>();
     const hasTournamentStarted = isPast(tournament.start ?? new Date());
-    const hasTournamentEnded = isPast(tournament.end ?? new Date());
+    const hasTournamentEnded = isPast(tournament.end ?? tournament.start ?? new Date());
     const isOngoing = hasTournamentStarted && !hasTournamentEnded;
     const isUpcoming = !hasTournamentStarted && !hasTournamentEnded;
 
@@ -104,6 +104,7 @@ const useStyles = createStylesheet((theme) =>
         image: {
             width: 30,
             height: 30,
+            resizeMode: 'contain',
         },
         title: {
             fontSize: 16,

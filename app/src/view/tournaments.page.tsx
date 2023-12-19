@@ -7,6 +7,11 @@ import IconHeader from './components/navigation-header/icon-header';
 import TextHeader from './components/navigation-header/text-header';
 import { getTranslation } from '../helper/translate';
 import { useTournament } from '../api/tournaments';
+import { createStylesheet } from '../theming-new';
+import { View, StyleSheet, Linking } from 'react-native';
+import { Image } from 'expo-image';
+import { MyText } from './components/my-text';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export function TournamentsTitle(props: any) {
     const { tournamentId: id, league } = props.route?.params ?? {};
@@ -31,13 +36,58 @@ export function TournamentsTitle(props: any) {
     );
 }
 
+export const TournamentsFooter: React.FC = () => {
+    const styles = useStyles();
+
+    return (
+        <TouchableOpacity style={styles.footer} onPress={() => Linking.openURL('https://liquipedia.net/ageofempires/')}>
+            <Image source={require('../../assets/icon/liquipedia.png')} style={styles.footerImage} />
+            <MyText style={styles.footerText}>Tournament content from Liquipedia</MyText>
+        </TouchableOpacity>
+    );
+};
+
 export default function TournamentsPage() {
     const { params = {} } = useRoute<RouteProp<RootStackParamList, 'Tournaments'>>();
     const id = params?.tournamentId;
+    const styles = useStyles();
 
     if (id) {
-        return <TournamentDetail id={id} />;
+        return (
+            <View style={styles.container}>
+                <TournamentDetail id={id} />
+                <TournamentsFooter />
+            </View>
+        );
     }
 
-    return <TournamentsList />;
+    return (
+        <View style={styles.container}>
+            <TournamentsList />
+            <TournamentsFooter />
+        </View>
+    );
 }
+
+const useStyles = createStylesheet((theme, darkMode) =>
+    StyleSheet.create({
+        container: {
+            flex: 1,
+        },
+        footer: {
+            flexDirection: 'row',
+            backgroundColor: darkMode === 'dark' ? '#24355c' : '#31519c',
+            padding: 10,
+            alignItems: 'center',
+            gap: 8,
+            justifyContent: 'center',
+        },
+        footerText: {
+            color: 'white',
+        },
+        footerImage: {
+            height: 20,
+            aspectRatio: 1.5,
+        },
+    })
+);
