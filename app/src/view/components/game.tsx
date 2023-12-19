@@ -46,6 +46,24 @@ export function Game({match, user, highlightedUsers, expanded = false, showLiveA
     const navigation = useNavigation<RootStackProp>();
     useLiveGameActivity({match, currentPlayerId: user ?? 0, isEnabled: isEnabled && showLiveActivity});
 
+    const players = flatten(match?.teams.map((t) => t.players));
+    const { tournament } = useMemo(
+        () =>
+            (match &&
+                players &&
+                tournamentMatches?.find(
+                    (tournamentMatch) =>
+                        tournamentMatch.startTime &&
+                        Math.abs(differenceInMinutes(match.started, tournamentMatch.startTime)) < 150 &&
+                        players.every((player) =>
+                            tournamentMatch.participants
+                                .map((tournamentParticipant) => tournamentParticipant.name)
+                                .includes(getVerifiedPlayer(player.profileId)?.liquipedia ?? '')
+                        )
+                )) ?? { tournament: undefined },
+        [players, tournamentMatches]
+    );
+
     if (match == null) {
         const playersInTeam1 = Array(3).fill(0);
         const playersInTeam2 = Array(3).fill(0);
@@ -97,22 +115,6 @@ export function Game({match, user, highlightedUsers, expanded = false, showLiveA
     // if (Platform.OS !== 'web') return;
 
     // console.log('MATCH', match);
-
-    const players = flatten(match.teams.map((t) => t.players));
-    const { tournament } = useMemo(
-        () =>
-            tournamentMatches?.find(
-                (tournamentMatch) =>
-                    tournamentMatch.startTime &&
-                    Math.abs(differenceInMinutes(match.started, tournamentMatch.startTime)) < 150 &&
-                    players.every((player) =>
-                        tournamentMatch.participants
-                            .map((tournamentParticipant) => tournamentParticipant.name)
-                            .includes(getVerifiedPlayer(player.profileId)?.liquipedia ?? '')
-                    )
-            ) ?? { tournament: undefined },
-        [players, tournamentMatches]
-    );
 
     return (
         <MyListAccordion

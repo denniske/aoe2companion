@@ -5,12 +5,13 @@ import { createStylesheet } from '../../../../src/theming-new';
 import { Fragment } from 'react';
 import BottomSheet from '../../bottom-sheet';
 import { PlayoffParticipant } from './participant';
-import { format } from 'date-fns';
+import { differenceInMinutes, format, isPast } from 'date-fns';
 import { Image } from 'expo-image';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { TournamentMarkdown } from '../tournament-markdown';
 import { PlayoffPlayer } from './player';
-import { getTranslation } from '../../..//helper/translate';
+import { getTranslation } from '../../../helper/translate';
+import { useTournamentMatches } from '../../../api/tournaments';
 
 export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; setVisible: (visible: boolean) => void }> = ({
     match,
@@ -18,6 +19,16 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
     setVisible,
 }) => {
     const styles = useStyles();
+    const { data: tournamentMatches } = useTournamentMatches();
+    const liveOrUpcomingMatch = tournamentMatches?.find(
+        (tournamentMatch) =>
+            match.startTime &&
+            tournamentMatch.startTime &&
+            Math.abs(differenceInMinutes(match.startTime, tournamentMatch.startTime)) < 150 &&
+            match.participants.every((participant) =>
+                tournamentMatch.participants.map((tournamentParticipant) => tournamentParticipant.name).includes(participant.name)
+            )
+    );
 
     return (
         <BottomSheet isActive={visible} onClose={() => setVisible(false)} showHandle style={styles.modal}>
@@ -30,6 +41,9 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
                 ))}
             </View>
             {match.startTime && <MyText style={styles.startTime}>{format(match.startTime, 'PP - p')}</MyText>}
+            {liveOrUpcomingMatch?.startTime && isPast(liveOrUpcomingMatch?.startTime) && (
+                <MyText style={styles.startTime}>{getTranslation('tournaments.live')}</MyText>
+            )}
 
             <View style={styles.games}>
                 {match.games.map((game, index) => {

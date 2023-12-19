@@ -1,6 +1,6 @@
 import { useRefreshControl, useTournaments } from '../../api/tournaments';
 import { createStylesheet } from '../../theming-new';
-import { SectionList, StyleSheet, TextInput, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, SectionList, StyleSheet, TextInput, View } from 'react-native';
 import { TournamentCard } from './tournament-card';
 import { Age2TournamentCategory, TournamentCategory } from 'liquipedia';
 import { useMemo, useState } from 'react';
@@ -11,6 +11,9 @@ import { RouteProp, useRoute } from '@react-navigation/core';
 import { RootStackParamList } from '../../../App2';
 import { MyText } from '../components/my-text';
 import { getTranslation } from '../../helper/translate';
+import { DismissKeyboard } from '../components/dismiss-keyboard';
+import { useHeaderHeight } from '@react-navigation/elements';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const transformSearch = (string: string) => string.toLowerCase().replace(/\'/g, '').replace(/\W/g, ' ').replace(/ +/g, ' ');
 const tournamentAbbreviation = (string: string) =>
@@ -22,6 +25,8 @@ const tournamentAbbreviation = (string: string) =>
 export const TournamentsList: React.FC = () => {
     const categories = Object.values(Age2TournamentCategory);
     const styles = useStyles();
+    const headerHeight = useHeaderHeight();
+    const insets = useSafeAreaInsets();
     const { params = {} } = useRoute<RouteProp<RootStackParamList, 'Tournaments'>>();
     const { league } = params;
     const [selectedCategory, setSelectedCategory] = useState<TournamentCategory | undefined>(
@@ -76,20 +81,28 @@ export const TournamentsList: React.FC = () => {
     );
 
     return (
-        <SectionList
+        <KeyboardAvoidingView
+            behavior={Platform.select({ ios: 'padding', default: 'height' })}
             style={styles.container}
-            {...refreshControlProps}
-            ListHeaderComponent={listHeader}
-            contentContainerStyle={styles.contentContainer}
-            sections={filteredTournaments}
-            renderSectionHeader={({ section: { title } }) => (
-                <View style={styles.headerContainer}>
-                    <MyText style={styles.header}>{title}</MyText>
-                </View>
-            )}
-            keyExtractor={(item) => item.path}
-            renderItem={({ item: tournament }) => <TournamentCard {...tournament} />}
-        />
+            keyboardVerticalOffset={headerHeight + 36 + insets.top}
+        >
+            <DismissKeyboard>
+                <SectionList
+                    style={styles.container}
+                    {...refreshControlProps}
+                    ListHeaderComponent={listHeader}
+                    contentContainerStyle={styles.contentContainer}
+                    sections={filteredTournaments}
+                    renderSectionHeader={({ section: { title } }) => (
+                        <View style={styles.headerContainer}>
+                            <MyText style={styles.header}>{title}</MyText>
+                        </View>
+                    )}
+                    keyExtractor={(item) => item.path}
+                    renderItem={({ item: tournament }) => <TournamentCard {...tournament} />}
+                />
+            </DismissKeyboard>
+        </KeyboardAvoidingView>
     );
 };
 
