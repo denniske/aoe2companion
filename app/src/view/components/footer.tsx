@@ -1,4 +1,4 @@
-import {Alert, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Alert, Linking, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {FontAwesome, FontAwesome5} from "@expo/vector-icons";
 import {Divider, Menu} from 'react-native-paper';
@@ -302,7 +302,7 @@ export default function Footer() {
                             <Menu.Item leadingIcon={useIcon('fist-raised', 'Unit')} titleStyle={iconPopupStyle('Unit')} onPress={() => { nav('Unit'); setMenu(false); }} title={getTranslation('footer.units')} />
                             <Divider />
                             <Menu.Item leadingIcon={useIcon('medal', 'Winrates')} titleStyle={iconPopupStyle('Winrates')} onPress={() => { nav('Winrates'); setMenu(false); }} title={getTranslation('footer.winrates')} />
-                            {Platform.OS !== 'web' && <Menu.Item leadingIcon={useIcon('project-diagram', 'Tournaments')} titleStyle={iconPopupStyle('Tournaments')} onPress={() => { nav('Tournaments'); setMenu(false); }} title={getTranslation('footer.tournaments')} />}
+                            <Menu.Item leadingIcon={useIcon('project-diagram', 'Tournaments')} titleStyle={iconPopupStyle('Tournaments')} onPress={() => { Platform.OS === 'web' ? Linking.openURL('https://liquipedia.net/ageofempires/Age_of_Empires_II/S-Tier_Tournaments') : nav('Tournaments'); setMenu(false); }} title={getTranslation('footer.tournaments')} />
                         </Menu>
                     }
                     {

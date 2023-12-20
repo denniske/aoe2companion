@@ -1,4 +1,4 @@
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Linking, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Image, ImageBackground} from 'expo-image';
 import React, { useState, useMemo } from 'react';
 import {formatAgo, getVerifiedPlayer, isMatchFreeForAll} from '@nex/data';
@@ -171,7 +171,7 @@ export function Game({match, user, highlightedUsers, expanded = false, showLiveA
         >
             <View style={styles.playerList}>
                 {tournament && (
-                    <TouchableOpacity onPress={() => navigation.navigate('Tournaments', {tournamentId: tournament.path})} style={styles.tournament}>
+                    <TouchableOpacity onPress={() => Platform.OS === 'web' ? Linking.openURL(`https://liquipedia.net/ageofempires/${tournament.path}`) :  navigation.navigate('Tournaments', {tournamentId: tournament.path})} style={styles.tournament}>
                         {tournament.image && <Image source={{uri: tournament.image}} style={styles.tournamentImage} />}
                         <MyText style={styles.tournamentName}>{tournament.name}</MyText>
                     </TouchableOpacity>
