@@ -12,7 +12,7 @@ export const Score: React.FC<{ score: IGroupParticipant['gameScore']; style?: Te
     const loss = `-${score.loss}`;
 
     return (
-        <MyText style={style}>
+        <MyText style={[styles.text, style]}>
             {win}
             {loss}
             {draw}
@@ -34,7 +34,7 @@ export const GroupParticipant: React.FC<{ participant: IGroupParticipant }> = ({
         <View style={[styles.participant, { backgroundColor: statusColors[participant.status] }]}>
             <View style={styles.nameContainer}>
                 {participant.image && <Image source={{ uri: participant.image }} style={styles.participantImage} />}
-                <MyText>{participant.name || getTranslation('tournaments.tbd')}</MyText>
+                <MyText style={styles.text}>{participant.name || getTranslation('tournaments.tbd')}</MyText>
             </View>
             <View style={styles.cell}>
                 <Score style={styles.bold} score={participant.matchScore} />
@@ -43,7 +43,7 @@ export const GroupParticipant: React.FC<{ participant: IGroupParticipant }> = ({
                 <Score score={participant.gameScore} />
             </View>
             <View style={styles.cell}>
-                <MyText style={styles.bold}>{participant.points}</MyText>
+                <MyText style={[styles.text, styles.bold]}>{participant.points}</MyText>
             </View>
         </View>
     );
@@ -66,6 +66,7 @@ const useStyles = createStylesheet((theme) =>
             gap: 4,
             alignItems: 'center',
             width: '50%',
+            color: 'black',
         },
         participantImage: {
             height: 15,
@@ -78,6 +79,9 @@ const useStyles = createStylesheet((theme) =>
         },
         bold: {
             fontWeight: '600',
+        },
+        text: {
+            color: 'black',
         },
     })
 );

@@ -680,6 +680,7 @@ export function InnerApp() {
                     component={TournamentsPage}
                     options={props => ({
                         title: getTranslation('tournaments.title'),
+                        headerShown: !props.route.params?.tournamentId,
                         headerBackTitle: 'Back',
                         headerTitle: titleProps => <TournamentsTitle {...props} titleProps={titleProps} />,
 

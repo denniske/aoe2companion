@@ -3,7 +3,7 @@ import { useRefreshControl, useTournament } from '../../api/tournaments';
 import { createStylesheet } from '../../theming-new';
 import { MyText } from '../components/my-text';
 import { format } from 'date-fns';
-import { Image } from 'expo-image';
+import { Image, ImageBackground } from 'expo-image';
 import MyListAccordion from '../components/accordion';
 import { Fragment, useState } from 'react';
 import { PlayoffRound } from './playoffs/round';
@@ -20,6 +20,9 @@ import { TournamentPrizes } from './tournament-prizes';
 import { formatCurrency } from 'react-native-format-currency';
 import { getTranslation } from '../../helper/translate';
 import { PlayoffParticipant } from './playoffs/participant';
+import { LinearGradient } from 'expo-linear-gradient';
+import { usePaperTheme, useAppTheme } from '../../../src/theming';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
 export const TournamentDetail: React.FC<{ id: string }> = ({ id }) => {
     const styles = useStyles();
@@ -27,243 +30,355 @@ export const TournamentDetail: React.FC<{ id: string }> = ({ id }) => {
     const [playoffRoundWidth, setPlayoffRoundWidth] = useState(0);
     const navigation = useNavigation<StackNavigationProp<RootStackParamList, 'Tournaments'>>();
     const refreshControlProps = useRefreshControl(query);
+    const [title, subtitle] = tournament?.name.split(': ') ?? [];
+    const theme = useAppTheme();
+    const { dark } = usePaperTheme();
+    const [isNavbarTransparent, setIsNavbarTransparent] = useState(true);
 
     return (
-        <ScrollView
-            style={styles.container}
-            contentContainerStyle={styles.contentContainer}
-            refreshControl={<RefreshControl {...refreshControlProps} />}
-        >
-            {tournament ? (
-                <>
-                    <View style={styles.tabsContainer}>
-                        {tournament.tabs.map((tabs, index) => (
-                            <View style={styles.tabRow} key={index}>
-                                {tabs.map((tab) => (
-                                    <TouchableOpacity
-                                        onPress={() => navigation.setParams({ tournamentId: tab.path })}
-                                        key={tab.path}
-                                        disabled={tab.active}
-                                    >
-                                        <Tag selected={tab.active}>{tab.name}</Tag>
-                                    </TouchableOpacity>
-                                ))}
+        <View style={styles.container}>
+            <View style={[styles.navbar, isNavbarTransparent && styles.transparentNavbar]}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <FontAwesome5Icon name="angle-left" size={24} color={'white'} />
+                </TouchableOpacity>
+                {tournament?.league?.image && (
+                    <Image source={{ uri: tournament?.league?.image }} style={[styles.navbarImage, isNavbarTransparent && styles.transparentItem]} />
+                )}
+                <View />
+            </View>
+            <ScrollView
+                style={styles.container}
+                contentContainerStyle={tournament && styles.contentContainer}
+                refreshControl={<RefreshControl {...refreshControlProps} />}
+                onScroll={(event) => setIsNavbarTransparent(event.nativeEvent.contentOffset.y < 200)}
+                scrollEventThrottle={24}
+            >
+                {tournament ? (
+                    <>
+                        <ImageBackground source={require('../../../assets/hero.jpg')} style={styles.hero}>
+                            <LinearGradient
+                                style={styles.heroBackground}
+                                locations={[0.75, 1]}
+                                colors={['rgba(0, 0, 0, 0.5)', dark ? 'rgba(0, 0, 0, 0)' : theme.backgroundColor]}
+                            />
+                            <View style={styles.heroContent}>
+                                {tournament?.league?.image && <Image source={{ uri: tournament?.league?.image }} style={styles.heroImage} />}
+                                {title && <MyText style={styles.heroTitle}>{title}</MyText>}
+                                {subtitle && <MyText style={styles.heroSubtitle}>{subtitle}</MyText>}
                             </View>
-                        ))}
-                    </View>
+                        </ImageBackground>
 
-                    <View style={styles.description}>
-                        <View style={styles.dates}>
-                            {tournament.start && <MyText>{format(tournament.start, 'PPP')}</MyText>}
-                            {tournament.start && tournament.end && <MyText>-</MyText>}
-                            {tournament.end && <MyText>{format(tournament.end, 'PPP')}</MyText>}
+                        <View style={styles.tabsContainer}>
+                            {tournament.tabs.map((tabs, index) => (
+                                <View style={styles.tabRow} key={index}>
+                                    {tabs.map((tab) => (
+                                        <TouchableOpacity
+                                            onPress={() => navigation.setParams({ tournamentId: tab.path })}
+                                            key={tab.path}
+                                            disabled={tab.active}
+                                        >
+                                            <Tag selected={tab.active}>{tab.name}</Tag>
+                                        </TouchableOpacity>
+                                    ))}
+                                </View>
+                            ))}
                         </View>
-                        <TournamentMarkdown>{tournament.description}</TournamentMarkdown>
-                    </View>
 
-                    {(tournament.schedule.length || tournament.scheduleNote) && (
-                        <MyListAccordion
-                            style={styles.accordion}
-                            expandable={true}
-                            left={() => <MyText style={styles.header}>Schedule</MyText>}
-                            children={
-                                <View style={styles.container}>
-                                    <View style={styles.schedule}>
-                                        {tournament.schedule.map((event) => (
-                                            <View key={event.date.toISOString()} style={styles.event}>
-                                                <MyText style={styles.eventDate}>{format(event.date, 'PPP')}</MyText>
+                        <TouchableOpacity
+                            onPress={() => tournament?.league?.path && navigation.push('Tournaments', { league: tournament.league.path })}
+                        >
+                            <MyText>{tournament?.league?.name}</MyText>
+                        </TouchableOpacity>
 
-                                                <View style={styles.participants}>
-                                                    {event.participants.map((participant, index) => {
-                                                        const otherParticipant = event.participants[Math.abs(index - 1)];
-                                                        const winner =
-                                                            participant.score && otherParticipant.score && participant.score > otherParticipant.score;
-                                                        return (
-                                                            <Fragment key={`${participant.name}-${index}`}>
-                                                                <View style={[styles.participant, index === 1 && { flexDirection: 'row-reverse' }]}>
-                                                                    <PlayoffParticipant
-                                                                        reversed={index === 1}
-                                                                        participant={participant}
-                                                                        winner={!!winner}
-                                                                    />
-                                                                    <MyText>{participant.score}</MyText>
-                                                                </View>
-                                                                {index === 0 && (
-                                                                    <View style={styles.participantVersus}>
-                                                                        {event.format ? <MyText>{event.format}</MyText> : <MyText>:</MyText>}
+                        <View style={styles.description}>
+                            <View style={styles.dates}>
+                                {tournament.start && <MyText>{format(tournament.start, 'PPP')}</MyText>}
+                                {tournament.start && tournament.end && <MyText>-</MyText>}
+                                {tournament.end && <MyText>{format(tournament.end, 'PPP')}</MyText>}
+                            </View>
+                            <TournamentMarkdown>{tournament.description}</TournamentMarkdown>
+                        </View>
+
+                        {(tournament.schedule.length || tournament.scheduleNote) && (
+                            <MyListAccordion
+                                style={styles.accordion}
+                                expandable={true}
+                                left={() => <MyText style={styles.header}>Schedule</MyText>}
+                                children={
+                                    <View style={styles.container}>
+                                        <View style={styles.schedule}>
+                                            {tournament.schedule.map((event) => (
+                                                <View key={event.date.toISOString()} style={styles.event}>
+                                                    <MyText style={styles.eventDate}>{format(event.date, 'PPP')}</MyText>
+
+                                                    <View style={styles.participants}>
+                                                        {event.participants.map((participant, index) => {
+                                                            const otherParticipant = event.participants[Math.abs(index - 1)];
+                                                            const winner =
+                                                                participant.score &&
+                                                                otherParticipant.score &&
+                                                                participant.score > otherParticipant.score;
+                                                            return (
+                                                                <Fragment key={`${participant.name}-${index}`}>
+                                                                    <View
+                                                                        style={[styles.participant, index === 1 && { flexDirection: 'row-reverse' }]}
+                                                                    >
+                                                                        <PlayoffParticipant
+                                                                            reversed={index === 1}
+                                                                            participant={participant}
+                                                                            winner={!!winner}
+                                                                        />
+                                                                        <MyText>{participant.score}</MyText>
                                                                     </View>
-                                                                )}
-                                                            </Fragment>
-                                                        );
-                                                    })}
+                                                                    {index === 0 && (
+                                                                        <View style={styles.participantVersus}>
+                                                                            {event.format ? <MyText>{event.format}</MyText> : <MyText>:</MyText>}
+                                                                        </View>
+                                                                    )}
+                                                                </Fragment>
+                                                            );
+                                                        })}
+                                                    </View>
+                                                </View>
+                                            ))}
+                                        </View>
+                                        {tournament.scheduleNote && <TournamentMarkdown>{tournament.scheduleNote}</TournamentMarkdown>}
+                                    </View>
+                                }
+                            />
+                        )}
+
+                        {tournament.broadcastTalent && (
+                            <MyListAccordion
+                                style={styles.accordion}
+                                expandable={true}
+                                left={() => <MyText style={styles.header}>Broadcast Talent</MyText>}
+                                children={
+                                    <View style={styles.container}>
+                                        <TournamentMarkdown>{tournament.broadcastTalent}</TournamentMarkdown>
+                                    </View>
+                                }
+                            />
+                        )}
+
+                        {tournament.format && (
+                            <MyListAccordion
+                                style={styles.accordion}
+                                expandable={true}
+                                left={() => <MyText style={styles.header}>Format</MyText>}
+                                children={
+                                    <View style={styles.container}>
+                                        <TournamentMarkdown>{tournament.format}</TournamentMarkdown>
+                                    </View>
+                                }
+                            />
+                        )}
+
+                        {tournament.prizes.length > 0 && (
+                            <MyListAccordion
+                                style={styles.accordion}
+                                expandable={true}
+                                left={() => <MyText style={styles.header}>Prize Pool</MyText>}
+                                children={
+                                    <View style={styles.container}>
+                                        {tournament.prizePool && (
+                                            <MyText style={styles.prizePoolText}>
+                                                {getTranslation('tournaments.prizemoney', { amount: formatCurrency({ ...tournament.prizePool })[0] })}
+                                            </MyText>
+                                        )}
+                                        <TournamentPrizes prizes={tournament.prizes} />
+                                    </View>
+                                }
+                            />
+                        )}
+
+                        {tournament.rules && (
+                            <MyListAccordion
+                                style={styles.accordion}
+                                expandable={true}
+                                left={() => <MyText style={styles.header}>Rules</MyText>}
+                                children={
+                                    <View style={styles.container}>
+                                        <TournamentMarkdown>{tournament.rules}</TournamentMarkdown>
+                                    </View>
+                                }
+                            />
+                        )}
+
+                        {tournament.participants.length > 0 && (
+                            <MyListAccordion
+                                style={styles.accordion}
+                                expandable={true}
+                                left={() => <MyText style={styles.header}>Participants</MyText>}
+                                children={
+                                    <TournamentParticipants participants={tournament.participants} participantsNote={tournament.participantsNote} />
+                                }
+                            />
+                        )}
+
+                        {tournament.maps.length > 0 && (
+                            <MyListAccordion
+                                style={styles.accordion}
+                                expandable={true}
+                                left={() => <MyText style={styles.header}>Maps</MyText>}
+                                children={<TournamentMaps maps={tournament.maps} />}
+                            />
+                        )}
+
+                        {tournament.groups.length > 0 && (
+                            <MyListAccordion
+                                style={styles.accordion}
+                                expandable={true}
+                                left={() => <MyText style={styles.header}>Group Stage</MyText>}
+                                children={
+                                    <View style={styles.groups}>
+                                        {tournament.groups.map((group, index) => (
+                                            <View style={styles.group} key={index}>
+                                                <View style={styles.groupDetails}>
+                                                    <MyText style={styles.groupName}>{group.name}</MyText>
+                                                    {group.participants.map((participant, participantIndex) => (
+                                                        <GroupParticipant participant={participant} key={`${participant.name}-${participantIndex}`} />
+                                                    ))}
+                                                </View>
+
+                                                <View style={styles.groupRounds}>
+                                                    {group.rounds.map((round) => (
+                                                        <PlayoffRound round={round} width="50%" key={round.name} />
+                                                    ))}
                                                 </View>
                                             </View>
                                         ))}
                                     </View>
-                                    {tournament.scheduleNote && <TournamentMarkdown>{tournament.scheduleNote}</TournamentMarkdown>}
-                                </View>
-                            }
-                        />
-                    )}
+                                }
+                            />
+                        )}
 
-                    {tournament.broadcastTalent && (
-                        <MyListAccordion
-                            style={styles.accordion}
-                            expandable={true}
-                            left={() => <MyText style={styles.header}>Broadcast Talent</MyText>}
-                            children={
-                                <View style={styles.container}>
-                                    <TournamentMarkdown>{tournament.broadcastTalent}</TournamentMarkdown>
-                                </View>
-                            }
-                        />
-                    )}
+                        {tournament.results.length > 0 && (
+                            <MyListAccordion
+                                style={styles.accordion}
+                                expandable={true}
+                                left={() => <MyText style={styles.header}>Results</MyText>}
+                                children={
+                                    <View style={styles.container}>
+                                        {tournament.results.map((result, index) => (
+                                            <PlayoffMatch key={index} match={result} />
+                                        ))}
+                                    </View>
+                                }
+                            />
+                        )}
 
-                    {tournament.format && (
-                        <MyListAccordion
-                            style={styles.accordion}
-                            expandable={true}
-                            left={() => <MyText style={styles.header}>Format</MyText>}
-                            children={
-                                <View style={styles.container}>
-                                    <TournamentMarkdown>{tournament.format}</TournamentMarkdown>
-                                </View>
-                            }
-                        />
-                    )}
-
-                    {tournament.prizes.length > 0 && (
-                        <MyListAccordion
-                            style={styles.accordion}
-                            expandable={true}
-                            left={() => <MyText style={styles.header}>Prize Pool</MyText>}
-                            children={
-                                <View style={styles.container}>
-                                    {tournament.prizePool && (
-                                        <MyText style={styles.prizePoolText}>
-                                            {getTranslation('tournaments.prizemoney', { amount: formatCurrency({ ...tournament.prizePool })[0] })}
-                                        </MyText>
-                                    )}
-                                    <TournamentPrizes prizes={tournament.prizes} />
-                                </View>
-                            }
-                        />
-                    )}
-
-                    {tournament.rules && (
-                        <MyListAccordion
-                            style={styles.accordion}
-                            expandable={true}
-                            left={() => <MyText style={styles.header}>Rules</MyText>}
-                            children={
-                                <View style={styles.container}>
-                                    <TournamentMarkdown>{tournament.rules}</TournamentMarkdown>
-                                </View>
-                            }
-                        />
-                    )}
-
-                    {tournament.participants.length > 0 && (
-                        <MyListAccordion
-                            style={styles.accordion}
-                            expandable={true}
-                            left={() => <MyText style={styles.header}>Participants</MyText>}
-                            children={
-                                <TournamentParticipants participants={tournament.participants} participantsNote={tournament.participantsNote} />
-                            }
-                        />
-                    )}
-
-                    {tournament.maps.length > 0 && (
-                        <MyListAccordion
-                            style={styles.accordion}
-                            expandable={true}
-                            left={() => <MyText style={styles.header}>Maps</MyText>}
-                            children={<TournamentMaps maps={tournament.maps} />}
-                        />
-                    )}
-
-                    {tournament.groups.length > 0 && (
-                        <MyListAccordion
-                            style={styles.accordion}
-                            expandable={true}
-                            left={() => <MyText style={styles.header}>Group Stage</MyText>}
-                            children={
-                                <View style={styles.groups}>
-                                    {tournament.groups.map((group, index) => (
-                                        <View style={styles.group} key={index}>
-                                            <View style={styles.groupDetails}>
-                                                <MyText style={styles.groupName}>{group.name}</MyText>
-                                                {group.participants.map((participant, participantIndex) => (
-                                                    <GroupParticipant participant={participant} key={`${participant.name}-${participantIndex}`} />
-                                                ))}
+                        {tournament.playoffs.length > 0 && (
+                            <MyListAccordion
+                                style={styles.accordion}
+                                expandable={true}
+                                left={() => <MyText style={styles.header}>Playoffs</MyText>}
+                                children={
+                                    <View style={styles.playoffs} onLayout={(e) => setPlayoffRoundWidth(e.nativeEvent.layout.width / 2)}>
+                                        {tournament.playoffs.map((playoffRow, index) => (
+                                            <View style={styles.playoffRowContainer} key={index}>
+                                                {playoffRow.name && playoffRow.name !== 'Playoffs' && (
+                                                    <MyText style={styles.playoffRowText}>{playoffRow.name}</MyText>
+                                                )}
+                                                <ScrollView
+                                                    style={styles.playoffRow}
+                                                    horizontal
+                                                    snapToInterval={playoffRoundWidth}
+                                                    contentContainerStyle={styles.playoffsContent}
+                                                >
+                                                    {playoffRow.rounds.map((playoffRound) => (
+                                                        <PlayoffRound round={playoffRound} width={playoffRoundWidth} key={playoffRound.name} />
+                                                    ))}
+                                                </ScrollView>
                                             </View>
-
-                                            <View style={styles.groupRounds}>
-                                                {group.rounds.map((round) => (
-                                                    <PlayoffRound round={round} width="50%" key={round.name} />
-                                                ))}
-                                            </View>
-                                        </View>
-                                    ))}
-                                </View>
-                            }
-                        />
-                    )}
-
-                    {tournament.results.length > 0 && (
-                        <MyListAccordion
-                            style={styles.accordion}
-                            expandable={true}
-                            left={() => <MyText style={styles.header}>Results</MyText>}
-                            children={
-                                <View style={styles.container}>
-                                    {tournament.results.map((result, index) => (
-                                        <PlayoffMatch key={index} match={result} />
-                                    ))}
-                                </View>
-                            }
-                        />
-                    )}
-
-                    {tournament.playoffs.length > 0 && (
-                        <MyListAccordion
-                            style={styles.accordion}
-                            expandable={true}
-                            left={() => <MyText style={styles.header}>Playoffs</MyText>}
-                            children={
-                                <View style={styles.playoffs} onLayout={(e) => setPlayoffRoundWidth(e.nativeEvent.layout.width / 2)}>
-                                    {tournament.playoffs.map((playoffRow, index) => (
-                                        <View style={styles.playoffRowContainer} key={index}>
-                                            <MyText style={styles.playoffRowText}>{playoffRow.name}</MyText>
-                                            <ScrollView
-                                                style={styles.playoffRow}
-                                                horizontal
-                                                snapToInterval={playoffRoundWidth}
-                                                contentContainerStyle={styles.playoffsContent}
-                                            >
-                                                {playoffRow.rounds.map((playoffRound) => (
-                                                    <PlayoffRound round={playoffRound} width={playoffRoundWidth} key={playoffRound.name} />
-                                                ))}
-                                            </ScrollView>
-                                        </View>
-                                    ))}
-                                </View>
-                            }
-                        />
-                    )}
-                </>
-            ) : query.isFetching ? (
-                <MyText>{getTranslation('tournaments.loading')}</MyText>
-            ) : null}
-        </ScrollView>
+                                        ))}
+                                    </View>
+                                }
+                            />
+                        )}
+                    </>
+                ) : null}
+            </ScrollView>
+        </View>
     );
 };
 
-const useStyles = createStylesheet((theme) =>
+const useStyles = createStylesheet((theme, darkMode) =>
     StyleSheet.create({
+        container: {
+            flex: 1,
+        },
+        navbar: {
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            zIndex: 1,
+            padding: 10,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            backgroundColor: theme.backgroundColor,
+        },
+        navbarImage: {
+            height: 30,
+            aspectRatio: 1,
+            resizeMode: 'contain',
+        },
+        transparentNavbar: {
+            backgroundColor: 'transparent',
+        },
+        transparentItem: {
+            opacity: 0,
+        },
+        contentContainer: {
+            padding: 10,
+            backgroundColor: darkMode === 'dark' ? '#181C29' : theme.backgroundColor,
+        },
+        hero: {
+            margin: -10,
+            paddingTop: 20,
+            height: 250,
+            marginBottom: 10,
+        },
+        heroBackground: {
+            ...StyleSheet.absoluteFillObject,
+        },
+        heroContent: {
+            flex: 1,
+            alignItems: 'center',
+        },
+        heroImage: {
+            height: 125,
+            aspectRatio: 1,
+            resizeMode: 'contain',
+            shadowColor: 'white',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.5,
+            shadowRadius: 5,
+            elevation: 5,
+            overflow: 'visible',
+        },
+        heroTitle: {
+            color: 'white',
+            fontSize: 18,
+            fontWeight: '600',
+            paddingTop: 10,
+        },
+        heroSubtitle: {
+            color: 'white',
+            fontSize: 15,
+            fontWeight: '500',
+            paddingTop: 4,
+        },
         tabsContainer: {
             gap: 8,
+        },
+        tabRow: {
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: 6,
         },
         description: {
             paddingVertical: 20,
@@ -278,17 +393,6 @@ const useStyles = createStylesheet((theme) =>
             paddingBottom: 15,
             paddingTop: 15,
             gap: 5,
-        },
-        tabRow: {
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            gap: 6,
-        },
-        container: {
-            flex: 1,
-        },
-        contentContainer: {
-            padding: 10,
         },
         event: {
             flex: 1,

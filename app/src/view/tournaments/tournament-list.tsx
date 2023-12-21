@@ -1,12 +1,9 @@
-import { useRefreshControl, useTournaments } from '../../api/tournaments';
+import { useAllTournaments, useRefreshControl, useTournaments } from '../../api/tournaments';
 import { createStylesheet } from '../../theming-new';
 import { KeyboardAvoidingView, Platform, SectionList, StyleSheet, TextInput, View } from 'react-native';
 import { TournamentCard } from './tournament-card';
-import { Age2TournamentCategory, TournamentCategory } from 'liquipedia';
+import { Tournament, TournamentCategory } from 'liquipedia';
 import { useMemo, useState } from 'react';
-import { Tag } from '../components/tag';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { startCase } from 'lodash';
 import { RouteProp, useRoute } from '@react-navigation/core';
 import { RootStackParamList } from '../../../App2';
 import { MyText } from '../components/my-text';
@@ -14,6 +11,7 @@ import { getTranslation } from '../../helper/translate';
 import { DismissKeyboard } from '../components/dismiss-keyboard';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { isPast } from 'date-fns';
 
 const transformSearch = (string: string) => string.toLowerCase().replace(/\'/g, '').replace(/\W/g, ' ').replace(/ +/g, ' ');
 const tournamentAbbreviation = (string: string) =>
@@ -23,33 +21,59 @@ const tournamentAbbreviation = (string: string) =>
         .toLowerCase() ?? '';
 
 export const TournamentsList: React.FC = () => {
-    const categories = Object.values(Age2TournamentCategory);
     const styles = useStyles();
     const headerHeight = useHeaderHeight();
     const insets = useSafeAreaInsets();
     const { params = {} } = useRoute<RouteProp<RootStackParamList, 'Tournaments'>>();
     const { league } = params;
-    const [selectedCategory, setSelectedCategory] = useState<TournamentCategory | undefined>(
-        (league as TournamentCategory | undefined) ?? Age2TournamentCategory.TierS
-    );
-    const { data: tournaments = [], ...query } = useTournaments(selectedCategory);
+    const { data: tournaments = [], ...leagueQuery } = useTournaments(league as TournamentCategory | undefined);
+    const { data: allTournaments = [], ...allQuery } = useAllTournaments();
+    const query = league ? leagueQuery : allQuery;
     const [search, setSearch] = useState('');
     const filteredTournaments = useMemo(() => {
-        const sections = tournaments
-            ?.map((tournamentSection) => ({
-                ...tournamentSection,
-                data: tournamentSection.data.filter((tournament) => {
-                    return (
-                        transformSearch(tournament.name).includes(transformSearch(search)) ||
-                        tournamentAbbreviation(tournament.name).includes(transformSearch(search))
-                    );
-                }),
-            }))
-            .filter((tournamentSection) => tournamentSection.data.length);
-        return sections.length > 0
-            ? sections
-            : [{ title: query.isFetching ? getTranslation('tournaments.loading') : getTranslation('tournaments.noresults'), data: [] }];
-    }, [tournaments, search, query.isFetching]);
+        if (league) {
+            return tournaments ?? [];
+        }
+        const sections: Array<{ title: string; data: Tournament[] }> = [];
+        const ongoing: Tournament[] = [];
+        const upcoming: Tournament[] = [];
+        const past: Tournament[] = [];
+
+        const filteredTournaments = allTournaments.filter((tournament) => {
+            return (
+                transformSearch(tournament.name).includes(transformSearch(search)) ||
+                tournamentAbbreviation(tournament.name).includes(transformSearch(search))
+            );
+        });
+
+        filteredTournaments.map((tournament) => {
+            const hasTournamentStarted = isPast(tournament.start ?? new Date());
+            const hasTournamentEnded = isPast(tournament.end ?? tournament.start ?? new Date());
+            const isOngoing = hasTournamentStarted && !hasTournamentEnded;
+            const isUpcoming = !hasTournamentStarted && !hasTournamentEnded;
+            if (isOngoing) {
+                ongoing.push(tournament);
+            } else if (isUpcoming) {
+                upcoming.push(tournament);
+            } else {
+                past.push(tournament);
+            }
+        });
+
+        if (ongoing.length > 0) {
+            sections.push({ title: getTranslation('tournaments.ongoing'), data: ongoing });
+        }
+
+        if (upcoming.length > 0) {
+            sections.push({ title: getTranslation('tournaments.upcoming'), data: upcoming });
+        }
+
+        if (past.length > 0) {
+            sections.push({ title: getTranslation('tournaments.past'), data: past });
+        }
+
+        return sections.length > 0 ? sections : query.isFetching ? [] : [{ title: getTranslation('tournaments.noresults'), data: [] }];
+    }, [league, allTournaments, tournaments, search, query.isFetching]);
 
     const refreshControlProps = useRefreshControl(query);
 
@@ -57,15 +81,6 @@ export const TournamentsList: React.FC = () => {
         () =>
             league ? undefined : (
                 <View style={styles.container}>
-                    <View style={styles.tagsContainer}>
-                        {categories.map((category) => (
-                            <TouchableOpacity onPress={() => setSelectedCategory(category)} key={category}>
-                                <Tag size="large" selected={category === selectedCategory}>
-                                    {startCase(category.split('/').at(-1)?.split('Tournament')[0])}
-                                </Tag>
-                            </TouchableOpacity>
-                        ))}
-                    </View>
                     <View style={styles.searchContainer}>
                         <TextInput
                             autoCorrect={false}
@@ -77,13 +92,13 @@ export const TournamentsList: React.FC = () => {
                     </View>
                 </View>
             ),
-        [search, categories, league]
+        [search, league]
     );
 
     return (
         <KeyboardAvoidingView
             behavior={Platform.select({ ios: 'padding', default: 'height' })}
-            style={styles.container}
+            style={[styles.screen, styles.container]}
             keyboardVerticalOffset={headerHeight + 36 + insets.top}
         >
             <DismissKeyboard>
@@ -106,26 +121,22 @@ export const TournamentsList: React.FC = () => {
     );
 };
 
-const useStyles = createStylesheet((theme) =>
+const useStyles = createStylesheet((theme, darkMode) =>
     StyleSheet.create({
+        screen: {
+            backgroundColor: darkMode === 'dark' ? '#181C29' : theme.backgroundColor,
+        },
         container: {
             flex: 1,
         },
         contentContainer: {
             gap: 8,
-            padding: 10,
-        },
-        tagsContainer: {
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            gap: 6,
-            justifyContent: 'center',
+            padding: 15,
         },
         headerContainer: {
-            backgroundColor: theme.lightBorderColor,
-            paddingVertical: 10,
-            marginHorizontal: -10,
-            paddingHorizontal: 10,
+            backgroundColor: darkMode === 'dark' ? '#181C29' : theme.backgroundColor,
+            paddingTop: 10,
+            paddingBottom: 5,
         },
         header: {
             fontSize: 20,

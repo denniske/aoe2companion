@@ -42,7 +42,7 @@ export const TournamentsFooter: React.FC = () => {
     return (
         <TouchableOpacity style={styles.footer} onPress={() => Linking.openURL('https://liquipedia.net/ageofempires/')}>
             <Image source={require('../../assets/icon/liquipedia.png')} style={styles.footerImage} />
-            <MyText style={styles.footerText}>Tournament content from Liquipedia</MyText>
+            <MyText style={styles.footerText}>{getTranslation('tournaments.liquipediadisclaimer')}</MyText>
         </TouchableOpacity>
     );
 };

@@ -54,11 +54,11 @@ export function Game({match, user, highlightedUsers, expanded = false, showLiveA
                 tournamentMatches?.find(
                     (tournamentMatch) =>
                         tournamentMatch.startTime &&
-                        Math.abs(differenceInMinutes(match.started, tournamentMatch.startTime)) < 150 &&
+                        Math.abs(differenceInMinutes(match.started, tournamentMatch.startTime)) < 240 &&
                         players.every((player) =>
                             tournamentMatch.participants
-                                .map((tournamentParticipant) => tournamentParticipant.name)
-                                .includes(getVerifiedPlayer(player.profileId)?.liquipedia ?? '')
+                                .map((tournamentParticipant) => tournamentParticipant.name?.toLowerCase())
+                                .includes(getVerifiedPlayer(player.profileId)?.liquipedia?.toLowerCase() ?? '')
                         )
                 )) ?? { tournament: undefined },
         [players, tournamentMatches]

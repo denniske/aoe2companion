@@ -408,6 +408,11 @@
   "tournaments.live": "Live!",
   "tournaments.tbd": "TBD",
   "tournaments.prizemoney": "{amount} are spread among the participants as seen below:",
+  "tournaments.startsIn": "Starts in {startsIn}",
+  "tournaments.ongoing": "Ongoing",
+  "tournaments.upcoming": "Upcoming",
+  "tournaments.past": "Past",
+  "tournaments.liquipediadisclaimer": "Tournament content from Liquipedia",
 
   "checkbox.active": "Active",
   "checkbox.inactive": "Inactive",
