@@ -1,7 +1,7 @@
-import {StyleSheet, View} from 'react-native';
+import {Linking, Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Image, ImageBackground} from 'expo-image';
-import {formatAgo, isMatchFreeForAll} from '@nex/data';
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
+import {formatAgo, getVerifiedPlayer, isMatchFreeForAll} from '@nex/data';
 import {Player, PlayerSkeleton} from './player';
 import MyListAccordion from './accordion';
 import {getMapImage} from "../../helper/maps";
@@ -9,7 +9,7 @@ import {TextLoader} from "./loader/text-loader";
 import {ImageLoader} from "./loader/image-loader";
 import {ViewLoader} from "./loader/view-loader";
 import {flatten, min, sortBy} from 'lodash';
-import {differenceInSeconds} from "date-fns";
+import {differenceInMinutes, differenceInSeconds} from "date-fns";
 import {MyText} from './my-text';
 import {useAppTheme} from "../../theming";
 import {FontAwesome5} from "@expo/vector-icons";
@@ -19,6 +19,9 @@ import {AoeSpeed, getSpeedFactor} from '../../helper/speed';
 import {appConfig} from "@nex/dataset";
 import {IMatchNew} from "../../api/helper/api.types";
 import { useLiveGameActivity } from '../../service/live-game-activity';
+import { useTournamentMatches } from '../../api/tournaments';
+import { useNavigation } from '@react-navigation/native';
+import { RootStackProp } from '../../../App2';
 
 interface IGameProps {
     match: IMatchNew;
@@ -39,8 +42,27 @@ export function Game({match, user, highlightedUsers, expanded = false, showLiveA
     const theme = useAppTheme();
     const styles = useStyles();
     const [isEnabled, setIsEnabled] = useState(expanded)
-
+    const { data: tournamentMatches } = useTournamentMatches();
+    const navigation = useNavigation<RootStackProp>();
     useLiveGameActivity({match, currentPlayerId: user ?? 0, isEnabled: isEnabled && showLiveActivity});
+
+    const players = flatten(match?.teams.map((t) => t.players));
+    const { tournament } = useMemo(
+        () =>
+            (match &&
+                players &&
+                tournamentMatches?.find(
+                    (tournamentMatch) =>
+                        tournamentMatch.startTime &&
+                        Math.abs(differenceInMinutes(match.started, tournamentMatch.startTime)) < 240 &&
+                        players.every((player) =>
+                            tournamentMatch.participants
+                                .map((tournamentParticipant) => tournamentParticipant.name?.toLowerCase())
+                                .includes(getVerifiedPlayer(player.profileId)?.liquipedia?.toLowerCase() ?? '')
+                        )
+                )) ?? { tournament: undefined },
+        [players, tournamentMatches]
+    );
 
     if (match == null) {
         const playersInTeam1 = Array(3).fill(0);
@@ -94,8 +116,6 @@ export function Game({match, user, highlightedUsers, expanded = false, showLiveA
 
     // console.log('MATCH', match);
 
-    const players = flatten(match.teams.map(t => t.players));
-
     return (
         <MyListAccordion
             style={styles.accordion}
@@ -104,7 +124,6 @@ export function Game({match, user, highlightedUsers, expanded = false, showLiveA
             onPress={() => setIsEnabled(!isEnabled)}
             left={props => (
                 <View style={styles.row}>
-
                     <ImageBackground
                                      source={getMapImage(match)}
                                      imageStyle={styles.imageInner}
@@ -151,6 +170,12 @@ export function Game({match, user, highlightedUsers, expanded = false, showLiveA
             )}
         >
             <View style={styles.playerList}>
+                {tournament && (
+                    <TouchableOpacity onPress={() => Platform.OS === 'web' ? Linking.openURL(`https://liquipedia.net/ageofempires/${tournament.path}`) :  navigation.navigate('Tournaments', {tournamentId: tournament.path})} style={styles.tournament}>
+                        {tournament.image && <Image source={{uri: tournament.image}} style={styles.tournamentImage} />}
+                        <MyText style={styles.tournamentName}>{tournament.name}</MyText>
+                    </TouchableOpacity>
+                )}
                 {
                     appConfig.game === 'aoe2de' &&
                     <View style={[styles.timeRow, {alignItems: 'center'}]}>
@@ -281,4 +306,20 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         color: theme.textNoteColor,
         fontSize: 12,
     },
+    tournament: {
+        flexDirection: 'row',
+        paddingBottom: 15,
+        marginTop: -5,
+        gap: 8,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    tournamentImage: {
+        height: 15,
+        aspectRatio: 1.5,
+        resizeMode: 'contain'
+    },
+    tournamentName: {
+        fontWeight: '500'
+    }
 }));

@@ -8,15 +8,10 @@ export interface ButtonProps {
     onPress?: (event: GestureResponderEvent) => void;
     fullWidth?: boolean;
     hollow?: boolean;
+    size?: 'large' | 'small';
 }
 
-export const Button: React.FC<ButtonProps> = ({
-    disabled,
-    children,
-    onPress,
-    fullWidth,
-    hollow,
-}) => {
+export const Button: React.FC<ButtonProps> = ({ disabled, children, onPress, fullWidth, hollow, size = 'large' }) => {
     const styles = useStyles();
 
     return (
@@ -24,6 +19,7 @@ export const Button: React.FC<ButtonProps> = ({
             disabled={disabled}
             style={({ pressed }) => [
                 styles.button,
+                size === 'small' && styles.buttonSmall,
                 pressed && styles.buttonPressed,
                 disabled && styles.buttonDisabled,
                 hollow && styles.buttonHollow,
@@ -31,11 +27,7 @@ export const Button: React.FC<ButtonProps> = ({
             ]}
             onPress={onPress}
         >
-            <MyText
-                style={[styles.buttonText, hollow && styles.buttonTextHollow]}
-            >
-                {children}
-            </MyText>
+            <MyText style={[styles.buttonText, hollow && styles.buttonTextHollow, size === 'small' && styles.buttonTextSmall]}>{children}</MyText>
         </Pressable>
     );
 };
@@ -49,6 +41,9 @@ const useStyles = createStylesheet((theme, darkMode) =>
             borderRadius: 4,
             borderWidth: 2,
             borderColor: 'transparent',
+        },
+        buttonSmall: {
+            padding: 5,
         },
         buttonPressed: {
             opacity: 0.6,
@@ -70,6 +65,11 @@ const useStyles = createStylesheet((theme, darkMode) =>
         },
         buttonTextHollow: {
             color: theme.textColor,
+        },
+        buttonTextSmall: {
+            fontSize: 12,
+            textTransform: 'none',
+            fontWeight: '500',
         },
     })
 );

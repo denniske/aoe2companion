@@ -1,4 +1,4 @@
-import {ImageSourcePropType, LayoutChangeEvent, Platform, StyleSheet, View} from "react-native";
+import {GestureResponderEvent, ImageSourcePropType, LayoutChangeEvent, Platform, StyleSheet, View} from "react-native";
 import {Image, ImageBackground} from "expo-image";
 import React from "react";
 import {MyText} from "../my-text";
@@ -11,11 +11,12 @@ interface IconHeaderProps {
     text: string;
     subtitle?: string;
     onLayout: (e: LayoutChangeEvent) => void;
+    onSubtitlePress?: () => void
 }
 
 export default function IconHeader(props: IconHeaderProps) {
     const styles = useStyles();
-    const {icon, badgeIcon, text, subtitle, onLayout} = props;
+    const { icon, badgeIcon, text, subtitle, onLayout, onSubtitlePress } = props;
     return (
         <View style={styles.container} onLayout={onLayout}>
 
@@ -31,7 +32,7 @@ export default function IconHeader(props: IconHeaderProps) {
                 <MyText style={subtitle ? styles.titleSmall : styles.title} numberOfLines={1}>{text}</MyText>
                 {
                     subtitle &&
-                    <MyText style={styles.subtitle} numberOfLines={1}>{subtitle}</MyText>
+                    <MyText style={styles.subtitle} numberOfLines={1} onPress={onSubtitlePress}>{subtitle}</MyText>
                 }
             </ImageBackground>
 
