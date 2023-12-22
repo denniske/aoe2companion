@@ -29,55 +29,55 @@ jobs:
 #         op read op://aoe2companion/expo_token/password
 ##      - run: brew install --cask 1password/tap/1password-cli
 
-    build-ios-dev:
-        name: Build iOS Dev
-        runs-on: macos-latest
-        steps:
-
-            -   name: 🏗 Setup repo
-                uses: actions/checkout@v3
-
-            -   name: 🏗 Setup Node
-                uses: actions/setup-node@v3
-                with:
-                    node-version: ${{ env.NODE_VERSION }}
-                    cache: yarn
-
-            -   name: 🏗 Setup EAS
-                uses: expo/expo-github-action@v8
-                with:
-                    eas-version: latest
-                    token: ${{ secrets.EXPO_TOKEN }}
-
-            - name: Setup Env
-              uses: ./.github/actions/setup
-
-            -   name: 📦 Install dependencies
-                run: yarn install
-
-#            - name: Setup Secrets
-#              run: |
-#                  brew install --cask 1password/tap/1password-cli
-#                  echo "OP_DEVICE=gpz56tma3262vu3z2thwwm57ga" >> $GITHUB_ENV
-#                  echo "OP_SECRET_KEY=${{ secrets.ONE_PASSWORD_SECRET_KEY }}" >> $GITHUB_ENV
+#    build-ios-dev:
+#        name: Build iOS Dev
+#        runs-on: macos-latest
+#        steps:
+#
+#            -   name: 🏗 Setup repo
+#                uses: actions/checkout@v3
+#
+#            -   name: 🏗 Setup Node
+#                uses: actions/setup-node@v3
+#                with:
+#                    node-version: ${{ env.NODE_VERSION }}
+#                    cache: yarn
+#
+#            -   name: 🏗 Setup EAS
+#                uses: expo/expo-github-action@v8
+#                with:
+#                    eas-version: latest
+#                    token: ${{ secrets.EXPO_TOKEN }}
+#
+#            - name: Setup Env
+#              uses: ./.github/actions/setup
+#
+#            -   name: 📦 Install dependencies
+#                run: yarn install
+#
+##            - name: Setup Secrets
+##              run: |
+##                  brew install --cask 1password/tap/1password-cli
+##                  echo "OP_DEVICE=gpz56tma3262vu3z2thwwm57ga" >> $GITHUB_ENV
+##                  echo "OP_SECRET_KEY=${{ secrets.ONE_PASSWORD_SECRET_KEY }}" >> $GITHUB_ENV
+##            - name: Set Secrets
+##              run: |
+##                  eval $(printf ${{ secrets.ONE_PASSWORD_PASSWORD }} | op account add --address ${{ secrets.ONE_PASSWORD_ADDRESS }} --email ${{ secrets.ONE_PASSWORD_EMAIL }} --signin)
+##                  echo "EXPO_TOKEN=$(op read op://aoe2companion/expo_token/password)" >> $GITHUB_ENV
+#
 #            - name: Set Secrets
 #              run: |
-#                  eval $(printf ${{ secrets.ONE_PASSWORD_PASSWORD }} | op account add --address ${{ secrets.ONE_PASSWORD_ADDRESS }} --email ${{ secrets.ONE_PASSWORD_EMAIL }} --signin)
-#                  echo "EXPO_TOKEN=$(op read op://aoe2companion/expo_token/password)" >> $GITHUB_ENV
-
-            - name: Set Secrets
-              run: |
-                  echo "EXPO_TOKEN=${{ secrets.EXPO_TOKEN_ORG_ROBOT_DEVELOPER }}" >> $GITHUB_ENV
-
-            - run: yarn
-            - run: eas build --profile development-${AOE} --platform ios --local --non-interactive
-            - run: mv build-*.ipa ${AOE}companion-development-$TRAVIS_COMMIT.ipa
-
-            - name: Upload Artifact
-              uses: actions/upload-artifact@v3
-              with:
-                  name: ${{ env.AOE }}companion-development-${{ env.TRAVIS_COMMIT }}.ipa
-                  path: ${{ env.AOE }}companion-development-${{ env.TRAVIS_COMMIT }}.ipa
+#                  echo "EXPO_TOKEN=${{ secrets.EXPO_TOKEN_ORG_ROBOT_DEVELOPER }}" >> $GITHUB_ENV
+#
+#            - run: yarn
+#            - run: eas build --profile development-${AOE} --platform ios --local --non-interactive
+#            - run: mv build-*.ipa ${AOE}companion-development-$TRAVIS_COMMIT.ipa
+#
+#            - name: Upload Artifact
+#              uses: actions/upload-artifact@v3
+#              with:
+#                  name: ${{ env.AOE }}companion-development-${{ env.TRAVIS_COMMIT }}.ipa
+#                  path: ${{ env.AOE }}companion-development-${{ env.TRAVIS_COMMIT }}.ipa
 
 
 
