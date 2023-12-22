@@ -147,6 +147,12 @@ export const changelog4: IChangelog = {
 export const changelog: IChangelog = {
     '78.0.0': [
         {
+            type: 'feature',
+            title: 'Tournaments Page',
+            content: 'Go to ⋮ > Tournaments to see ongoing and upcoming tournaments from liquipedia',
+            author: '[Noah Brandyberry](https://github.com/noahbrandyberry)',
+        },
+        {
             type: 'bugfix',
             title: 'Fix effect of Stronghold tech on units',
         },
