@@ -137,6 +137,7 @@ export const unitLines: IUnitLineDict = {
             'Faith',
             'Conscription',
             'Kasbah',
+            'Stronghold-Infantry',
         ],
     },
     'ShrivamshaRider': {
@@ -174,6 +175,7 @@ export const unitLines: IUnitLineDict = {
             'Conscription',
             'Kasbah',
             'Kshatriyas',
+            'Stronghold-Infantry',
         ],
     },
     'Thirisadai': {
@@ -214,6 +216,7 @@ export const unitLines: IUnitLineDict = {
             'Faith',
             'Conscription',
             'Kasbah',
+            'Stronghold-Infantry',
         ],
     },
     'ArmoredElephant': {
@@ -287,6 +290,7 @@ export const unitLines: IUnitLineDict = {
             'Devotion',
             'Faith',
             'Conscription',
+            'Stronghold-Infantry',
         ],
     },
     'HussiteWagon': {
@@ -360,6 +364,7 @@ export const unitLines: IUnitLineDict = {
             'Heresy',
             'Tracking',
             'Conscription',
+            'Stronghold-Infantry',
         ],
     },
     'FlemishMilitia': {
@@ -388,6 +393,7 @@ export const unitLines: IUnitLineDict = {
             'Squires',
             'Devotion',
             'Faith',
+            'Stronghold-Infantry',
         ],
     },
     'TradeCart': {
@@ -1141,6 +1147,7 @@ export const unitLines: IUnitLineDict = {
             'Faith',
             'Heresy',
             'Conscription',
+            'Stronghold-Infantry',
         ],
     },
     'Gbeto': {
@@ -1174,6 +1181,7 @@ export const unitLines: IUnitLineDict = {
             'Faith',
             'Heresy',
             'Conscription',
+            'Stronghold-Infantry',
         ],
     },
     'ShotelWarrior': {
@@ -1205,6 +1213,7 @@ export const unitLines: IUnitLineDict = {
             'Heresy',
             'Conscription',
             'RoyalHeirs',
+            'Stronghold-Infantry',
         ],
     },
     'Condottiero': {
@@ -1238,6 +1247,7 @@ export const unitLines: IUnitLineDict = {
             'Heresy',
             'Conscription',
             'Perfusion',
+            'Stronghold-Infantry',
         ],
     },
     'JaguarWarrior': {
@@ -1273,6 +1283,7 @@ export const unitLines: IUnitLineDict = {
             'Faith',
             'Heresy',
             'Conscription',
+            'Stronghold-Infantry',
         ],
     },
     'Berserk': {
@@ -1305,6 +1316,7 @@ export const unitLines: IUnitLineDict = {
             'Faith',
             'Heresy',
             'Conscription',
+            'Stronghold-Infantry',
         ],
     },
     'TeutonicKnight': {
@@ -1342,6 +1354,7 @@ export const unitLines: IUnitLineDict = {
             'Faith',
             'Heresy',
             'Conscription',
+            'Stronghold-Infantry',
         ],
     },
     'Samurai': {
@@ -1366,6 +1379,7 @@ export const unitLines: IUnitLineDict = {
             'Devotion',
             'Faith',
             'Conscription',
+            'Stronghold-Infantry',
         ],
     },
     'Huskarl': {
@@ -1394,6 +1408,7 @@ export const unitLines: IUnitLineDict = {
             'Conscription',
             'Perfusion',
             'Anarchy',
+            'Stronghold-Infantry',
         ],
     },
     'ThrowingAxeman': {
@@ -1429,6 +1444,7 @@ export const unitLines: IUnitLineDict = {
             'Faith',
             'Heresy',
             'Conscription',
+            'Stronghold-Infantry',
         ],
     },
     'WoadRaider': {
@@ -1461,6 +1477,7 @@ export const unitLines: IUnitLineDict = {
             'Faith',
             'Heresy',
             'Conscription',
+            'Stronghold-Infantry',
         ],
     },
     'EagleScout': {
@@ -1497,6 +1514,7 @@ export const unitLines: IUnitLineDict = {
             'Faith',
             'Heresy',
             'Conscription',
+            'Stronghold-Infantry',
         ],
     },
     'Spearman': {
@@ -1542,6 +1560,7 @@ export const unitLines: IUnitLineDict = {
             'Conscription',
             'Perfusion',
             'Kshatriyas',
+            'Stronghold-Infantry',
         ],
     },
     'Militia': {
@@ -1630,6 +1649,7 @@ export const unitLines: IUnitLineDict = {
             'Conscription',
             'Comitatenses',
             'Centurion',
+            'Stronghold-Infantry',
         ],
     },
     'Centurion': {
@@ -1755,6 +1775,7 @@ export const unitLines: IUnitLineDict = {
             'Faith',
             'Heresy',
             'Conscription',
+            'Stronghold-Infantry',
         ],
     },
     'KonnikDismounted': {
@@ -2732,6 +2753,7 @@ export const unitLines: IUnitLineDict = {
             'Faith',
             'Heresy',
             'Conscription',
+            'Stronghold-Infantry',
         ],
     },
     'CompositeBowman': {
@@ -2812,7 +2834,7 @@ export const unitLines: IUnitLineDict = {
             'Tracking',
             'Squires',
             'Fervor',
-            'Stronghold',
+            'Stronghold-Infantry',
         ],
     },
 };

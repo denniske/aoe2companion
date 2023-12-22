@@ -310,14 +310,22 @@ const techEffectDictInternal = {
         },
     },
 
+    'Stronghold-Infantry': {
+        tech: 'Stronghold',
+        civ: 'Celts',
+        effect: {
+            other: 'regenerate 30 HP/min when within 7 tiles radius of a team Celts Castle',
+        },
+    },
     'Stronghold-Castle': {
         tech: 'Stronghold',
         civ: 'Celts',
         effect: {
             other: 'heal allied infantry in a 7 tile radius',
+            firingRate: '+33%',
         },
     },
-    'Stronghold': {
+    'Stronghold-Tower': {
         tech: 'Stronghold',
         civ: 'Celts',
         effect: {
