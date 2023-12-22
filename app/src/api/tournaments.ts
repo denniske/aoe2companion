@@ -15,6 +15,13 @@ export const useTournaments = (category: TournamentCategory | undefined) =>
         enabled: !!category,
     });
 
+export const useUpcomingTournaments = () =>
+    useQuery<Tournament[]>({
+        queryKey: ['tournaments'],
+        staleTime: 120000,
+        queryFn: async () => await liquipedia.aoe.getUpcomingTournaments(),
+    });
+
 export const useAllTournaments = () =>
     useQuery<Tournament[]>({
         queryKey: ['tournaments'],

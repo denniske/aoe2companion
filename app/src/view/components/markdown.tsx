@@ -7,9 +7,10 @@ export interface MarkdownProps {
     children: string;
     baseUrl?: string;
     textAlign?: TextStyle['textAlign'];
+    color?: TextStyle['color'];
 }
 
-export const Markdown: React.FC<MarkdownProps> = ({ children, baseUrl, textAlign = 'left' }) => {
+export const Markdown: React.FC<MarkdownProps> = ({ children, baseUrl, textAlign = 'left', color }) => {
     const styles = useStyles();
 
     return (
@@ -19,7 +20,7 @@ export const Markdown: React.FC<MarkdownProps> = ({ children, baseUrl, textAlign
                 return false;
             }}
             style={{
-                body: styles.text,
+                body: StyleSheet.flatten([styles.text, color ? { color } : undefined]),
                 textgroup: { textAlign, width: '100%' },
             }}
         >

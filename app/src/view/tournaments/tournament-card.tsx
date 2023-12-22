@@ -3,19 +3,15 @@ import { TouchableOpacity, View, StyleSheet } from 'react-native';
 import { MyText } from '../components/my-text';
 import { Image, ImageBackground } from 'expo-image';
 import { Tournament } from 'liquipedia';
-import { formatCurrency } from 'react-native-format-currency';
-import { format, isPast } from 'date-fns';
+import { format } from 'date-fns';
 import { useNavigation } from '@react-navigation/core';
 import { RootStackProp } from '../../../App2';
 import { LinearGradient } from 'expo-linear-gradient';
+import { formatPrizePool, formatTier } from '../../helper/tournaments';
 
 export const TournamentCard: React.FC<Tournament> = (tournament) => {
     const styles = useStyles();
     const navigation = useNavigation<RootStackProp>();
-    const hasTournamentStarted = isPast(tournament.start ?? new Date());
-    const hasTournamentEnded = isPast(tournament.end ?? tournament.start ?? new Date());
-    const isOngoing = hasTournamentStarted && !hasTournamentEnded;
-    const isUpcoming = !hasTournamentStarted && !hasTournamentEnded;
 
     return (
         <TouchableOpacity style={styles.card} key={tournament.name} onPress={() => navigation.push('Tournaments', { tournamentId: tournament.path })}>
@@ -28,10 +24,9 @@ export const TournamentCard: React.FC<Tournament> = (tournament) => {
             <View style={styles.cardBody}>
                 <MyText style={styles.attributes}>
                     {tournament.start && format(tournament.start, 'LLL d')}
-                    {tournament.start && tournament.end && '-'}
-                    {tournament.end && format(tournament.end, 'LLL d')} • {tournament.tier && tournament.tier} •
-                    {tournament.prizePool &&
-                        formatCurrency({ ...tournament.prizePool, amount: Math.round(tournament.prizePool.amount) })[0].replace(/(,\d{3})/i, 'K')}
+                    {tournament.start && tournament.end && ' - '}
+                    {tournament.end && format(tournament.end, 'LLL d')} • {tournament.tier && formatTier(tournament.tier)} •
+                    {tournament.prizePool && formatPrizePool(tournament.prizePool)}
                 </MyText>
                 <MyText style={styles.title}>{tournament.name}</MyText>
             </View>

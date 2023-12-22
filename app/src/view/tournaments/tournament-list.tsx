@@ -1,4 +1,4 @@
-import { useAllTournaments, useRefreshControl, useTournaments } from '../../api/tournaments';
+import { useRefreshControl, useTournaments, useUpcomingTournaments } from '../../api/tournaments';
 import { createStylesheet } from '../../theming-new';
 import { KeyboardAvoidingView, Platform, SectionList, StyleSheet, TextInput, View } from 'react-native';
 import { TournamentCard } from './tournament-card';
@@ -12,13 +12,8 @@ import { DismissKeyboard } from '../components/dismiss-keyboard';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { isPast } from 'date-fns';
-
-const transformSearch = (string: string) => string.toLowerCase().replace(/\'/g, '').replace(/\W/g, ' ').replace(/ +/g, ' ');
-const tournamentAbbreviation = (string: string) =>
-    string
-        .match(/\b([A-Z0-9])/g)
-        ?.join('')
-        .toLowerCase() ?? '';
+import { orderBy } from 'lodash';
+import { sortByTier, tournamentAbbreviation, tournamentStatus, transformSearch } from '../../helper/tournaments';
 
 export const TournamentsList: React.FC = () => {
     const styles = useStyles();
@@ -27,7 +22,7 @@ export const TournamentsList: React.FC = () => {
     const { params = {} } = useRoute<RouteProp<RootStackParamList, 'Tournaments'>>();
     const { league } = params;
     const { data: tournaments = [], ...leagueQuery } = useTournaments(league as TournamentCategory | undefined);
-    const { data: allTournaments = [], ...allQuery } = useAllTournaments();
+    const { data: allTournaments = [], ...allQuery } = useUpcomingTournaments();
     const query = league ? leagueQuery : allQuery;
     const [search, setSearch] = useState('');
     const filteredTournaments = useMemo(() => {
@@ -47,13 +42,11 @@ export const TournamentsList: React.FC = () => {
         });
 
         filteredTournaments.map((tournament) => {
-            const hasTournamentStarted = isPast(tournament.start ?? new Date());
-            const hasTournamentEnded = isPast(tournament.end ?? tournament.start ?? new Date());
-            const isOngoing = hasTournamentStarted && !hasTournamentEnded;
-            const isUpcoming = !hasTournamentStarted && !hasTournamentEnded;
-            if (isOngoing) {
+            const status = tournamentStatus(tournament);
+
+            if (status === 'ongoing') {
                 ongoing.push(tournament);
-            } else if (isUpcoming) {
+            } else if (status === 'upcoming') {
                 upcoming.push(tournament);
             } else {
                 past.push(tournament);
@@ -61,15 +54,24 @@ export const TournamentsList: React.FC = () => {
         });
 
         if (ongoing.length > 0) {
-            sections.push({ title: getTranslation('tournaments.ongoing'), data: ongoing });
+            sections.push({
+                title: getTranslation('tournaments.ongoing'),
+                data: orderBy(ongoing, [sortByTier, (t) => t.end ?? t.start], ['asc', 'asc']),
+            });
         }
 
         if (upcoming.length > 0) {
-            sections.push({ title: getTranslation('tournaments.upcoming'), data: upcoming });
+            sections.push({
+                title: getTranslation('tournaments.upcoming'),
+                data: orderBy(upcoming, ['start', 'end'], ['asc', 'asc']),
+            });
         }
 
         if (past.length > 0) {
-            sections.push({ title: getTranslation('tournaments.past'), data: past });
+            sections.push({
+                title: getTranslation('tournaments.recent'),
+                data: orderBy(past, [(t) => t.end ?? t.start, (t) => t.start], ['desc', 'asc']),
+            });
         }
 
         return sections.length > 0 ? sections : query.isFetching ? [] : [{ title: getTranslation('tournaments.noresults'), data: [] }];
@@ -130,7 +132,7 @@ const useStyles = createStylesheet((theme, darkMode) =>
             flex: 1,
         },
         contentContainer: {
-            gap: 8,
+            gap: 10,
             padding: 15,
         },
         headerContainer: {

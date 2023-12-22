@@ -23,6 +23,11 @@ import { PlayoffParticipant } from './playoffs/participant';
 import { LinearGradient } from 'expo-linear-gradient';
 import { usePaperTheme, useAppTheme } from '../../../src/theming';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import { Slider } from '../components/slider';
+import { formatPrizePool, formatTier } from '../../helper/tournaments';
+import { flagEmojiDict } from '../../helper/flags';
+import { TournamentType } from 'liquipedia';
+import { Button } from '../components/button';
 
 export const TournamentDetail: React.FC<{ id: string }> = ({ id }) => {
     const styles = useStyles();
@@ -34,17 +39,24 @@ export const TournamentDetail: React.FC<{ id: string }> = ({ id }) => {
     const theme = useAppTheme();
     const { dark } = usePaperTheme();
     const [isNavbarTransparent, setIsNavbarTransparent] = useState(true);
+    const [activeSlide, setActiveSlide] = useState(0);
+    const countryCode = tournament?.location?.country?.code;
 
     return (
         <View style={styles.container}>
             <View style={[styles.navbar, isNavbarTransparent && styles.transparentNavbar]}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <FontAwesome5Icon name="angle-left" size={24} color={'white'} />
-                </TouchableOpacity>
+                <View style={styles.navbarItemLeft}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <FontAwesome5Icon name="angle-left" size={24} color={isNavbarTransparent ? 'white' : theme.textColor} />
+                    </TouchableOpacity>
+                </View>
                 {tournament?.league?.image && (
-                    <Image source={{ uri: tournament?.league?.image }} style={[styles.navbarImage, isNavbarTransparent && styles.transparentItem]} />
+                    <Image
+                        source={{ uri: tournament?.league?.image }}
+                        style={[styles.navbarImage, activeSlide === 0 && isNavbarTransparent && styles.transparentItem]}
+                    />
                 )}
-                <View />
+                <View style={styles.navbarItemRight} />
             </View>
             <ScrollView
                 style={styles.container}
@@ -61,43 +73,96 @@ export const TournamentDetail: React.FC<{ id: string }> = ({ id }) => {
                                 locations={[0.75, 1]}
                                 colors={['rgba(0, 0, 0, 0.5)', dark ? 'rgba(0, 0, 0, 0)' : theme.backgroundColor]}
                             />
-                            <View style={styles.heroContent}>
-                                {tournament?.league?.image && <Image source={{ uri: tournament?.league?.image }} style={styles.heroImage} />}
-                                {title && <MyText style={styles.heroTitle}>{title}</MyText>}
-                                {subtitle && <MyText style={styles.heroSubtitle}>{subtitle}</MyText>}
-                            </View>
+                            <Slider
+                                setActiveSlide={setActiveSlide}
+                                slides={[
+                                    <View style={styles.heroContent}>
+                                        {tournament?.league?.image && <Image source={{ uri: tournament?.league?.image }} style={styles.heroImage} />}
+                                        {title && <MyText style={styles.heroTitle}>{title}</MyText>}
+                                        {subtitle && <MyText style={styles.heroSubtitle}>{subtitle}</MyText>}
+                                        <MyText style={styles.heroDate}>
+                                            {tournament.start && format(tournament.start, 'LLL d')}
+                                            {tournament.start && tournament.end && ' - '}
+                                            {tournament.end && format(tournament.end, 'LLL d')}
+                                        </MyText>
+                                    </View>,
+                                    <View style={[styles.heroContent, styles.heroContentCentered]}>
+                                        {title && <MyText style={styles.heroTitle}>{title}</MyText>}
+
+                                        {[TournamentType.Individual, TournamentType.Team].includes(tournament.type) && tournament.organizer && (
+                                            <MyText style={styles.heroAttribute}>
+                                                {tournament.type === TournamentType.Individual
+                                                    ? getTranslation('tournaments.playerscount', { count: tournament.participantsCount })
+                                                    : getTranslation('tournaments.teamscount', { count: tournament.participantsCount })}
+                                            </MyText>
+                                        )}
+                                        {tournament.organizer && (
+                                            <MyText style={styles.heroAttribute}>
+                                                {getTranslation('tournaments.organizer', { organizer: tournament.organizer })}
+                                            </MyText>
+                                        )}
+                                        {tournament.venue && (
+                                            <MyText style={styles.heroAttribute}>
+                                                {getTranslation('tournaments.venue', { venue: tournament.venue })}
+                                            </MyText>
+                                        )}
+                                        <View style={styles.heroTags}>
+                                            {tournament.tier && <Tag>{formatTier(tournament.tier)}</Tag>}
+                                            {tournament.prizePool && <Tag>{formatPrizePool(tournament.prizePool)}</Tag>}
+                                            {tournament.location && (
+                                                <Tag>
+                                                    {countryCode ? `${flagEmojiDict[countryCode]} ` : ''}
+                                                    {tournament.location.name}
+                                                </Tag>
+                                            )}
+                                        </View>
+                                    </View>,
+                                    <View style={[styles.heroContent, styles.heroContentCentered]}>
+                                        <TournamentMarkdown textAlign="center" color="white">
+                                            {tournament.description}
+                                        </TournamentMarkdown>
+                                    </View>,
+                                    tournament?.tabs.length && tournament.league?.name && (
+                                        <View style={styles.heroContent}>
+                                            <View style={styles.tabsContainer}>
+                                                {tournament?.tabs.map((tabs, index) => (
+                                                    <View style={[styles.tabRow]} key={index}>
+                                                        {tabs.map((tab) => (
+                                                            <TouchableOpacity
+                                                                onPress={() => {
+                                                                    navigation.setParams({ tournamentId: tab.path });
+                                                                }}
+                                                                key={tab.path}
+                                                                disabled={tab.active}
+                                                            >
+                                                                <Tag size="small" selected={tab.active}>
+                                                                    {tab.name}
+                                                                </Tag>
+                                                            </TouchableOpacity>
+                                                        ))}
+                                                    </View>
+                                                ))}
+                                            </View>
+
+                                            {tournament.league?.name && (
+                                                <View style={styles.series}>
+                                                    <MyText style={styles.seriesText}>{getTranslation('tournaments.series')}</MyText>
+                                                    <Button
+                                                        size="small"
+                                                        onPress={() =>
+                                                            tournament.league?.path &&
+                                                            navigation.push('Tournaments', { league: tournament.league.path })
+                                                        }
+                                                    >
+                                                        {tournament.league.name}
+                                                    </Button>
+                                                </View>
+                                            )}
+                                        </View>
+                                    ),
+                                ]}
+                            ></Slider>
                         </ImageBackground>
-
-                        <View style={styles.tabsContainer}>
-                            {tournament.tabs.map((tabs, index) => (
-                                <View style={styles.tabRow} key={index}>
-                                    {tabs.map((tab) => (
-                                        <TouchableOpacity
-                                            onPress={() => navigation.setParams({ tournamentId: tab.path })}
-                                            key={tab.path}
-                                            disabled={tab.active}
-                                        >
-                                            <Tag selected={tab.active}>{tab.name}</Tag>
-                                        </TouchableOpacity>
-                                    ))}
-                                </View>
-                            ))}
-                        </View>
-
-                        <TouchableOpacity
-                            onPress={() => tournament?.league?.path && navigation.push('Tournaments', { league: tournament.league.path })}
-                        >
-                            <MyText>{tournament?.league?.name}</MyText>
-                        </TouchableOpacity>
-
-                        <View style={styles.description}>
-                            <View style={styles.dates}>
-                                {tournament.start && <MyText>{format(tournament.start, 'PPP')}</MyText>}
-                                {tournament.start && tournament.end && <MyText>-</MyText>}
-                                {tournament.end && <MyText>{format(tournament.end, 'PPP')}</MyText>}
-                            </View>
-                            <TournamentMarkdown>{tournament.description}</TournamentMarkdown>
-                        </View>
 
                         {(tournament.schedule.length || tournament.scheduleNote) && (
                             <MyListAccordion
@@ -314,19 +379,32 @@ const useStyles = createStylesheet((theme, darkMode) =>
             left: 0,
             right: 0,
             zIndex: 1,
-            padding: 10,
+            paddingHorizontal: 10,
+            paddingVertical: 5,
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'space-between',
             backgroundColor: theme.backgroundColor,
         },
         navbarImage: {
             height: 30,
             aspectRatio: 1,
             resizeMode: 'contain',
+            shadowColor: 'white',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.5,
+            shadowRadius: 2,
+            elevation: 5,
+            overflow: 'visible',
         },
         transparentNavbar: {
             backgroundColor: 'transparent',
+        },
+        navbarItemLeft: {
+            flex: 1,
+        },
+        navbarItemRight: {
+            flex: 1,
+            alignItems: 'flex-end',
         },
         transparentItem: {
             opacity: 0,
@@ -337,7 +415,6 @@ const useStyles = createStylesheet((theme, darkMode) =>
         },
         hero: {
             margin: -10,
-            paddingTop: 20,
             height: 250,
             marginBottom: 10,
         },
@@ -347,9 +424,33 @@ const useStyles = createStylesheet((theme, darkMode) =>
         heroContent: {
             flex: 1,
             alignItems: 'center',
+            paddingHorizontal: 15,
+            paddingTop: 20,
+            shadowColor: 'white',
+            shadowOffset: { width: 0, height: 0 },
+            shadowOpacity: 0.25,
+            shadowRadius: 2,
+            elevation: 5,
+        },
+        heroContentCentered: {
+            paddingTop: 0,
+            paddingBottom: 10,
+            justifyContent: 'center',
+            gap: 4,
+        },
+        heroTags: {
+            flexDirection: 'row',
+            gap: 8,
+            paddingTop: 6,
+            paddingBottom: 6,
+        },
+        heroAttribute: {
+            color: 'white',
+            fontSize: 12,
+            fontWeight: '500',
         },
         heroImage: {
-            height: 125,
+            height: 100,
             aspectRatio: 1,
             resizeMode: 'contain',
             shadowColor: 'white',
@@ -371,14 +472,29 @@ const useStyles = createStylesheet((theme, darkMode) =>
             fontWeight: '500',
             paddingTop: 4,
         },
+        heroDate: {
+            paddingTop: 4,
+            color: '#BBB',
+        },
         tabsContainer: {
             gap: 8,
+            paddingTop: 30,
         },
         tabRow: {
+            gap: 2,
             flexDirection: 'row',
             flexWrap: 'wrap',
             justifyContent: 'center',
-            gap: 6,
+        },
+        series: {
+            paddingTop: 20,
+            gap: 8,
+            alignItems: 'center',
+        },
+        seriesText: {
+            color: 'white',
+            fontSize: 15,
+            fontWeight: '500',
         },
         description: {
             paddingVertical: 20,
