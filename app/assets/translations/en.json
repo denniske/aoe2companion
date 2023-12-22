@@ -419,6 +419,11 @@
   "tournaments.organizer": "Organizer - {organizer}",
   "tournaments.venue": "Venue - {venue}",
   "tournaments.series": "Series",
+  "tournaments.ongoingdate": "Ends {end}",
+  "tournaments.upcomingdate": "Starts {start}",
+  "tournaments.pastdate": "Ended {end}",
+  "tournaments.sortedbydate": "By Date",
+  "tournaments.sortedbytier": "By Tier",
 
   "checkbox.active": "Active",
   "checkbox.inactive": "Inactive",

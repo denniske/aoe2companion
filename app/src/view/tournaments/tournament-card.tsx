@@ -7,11 +7,15 @@ import { format } from 'date-fns';
 import { useNavigation } from '@react-navigation/core';
 import { RootStackProp } from '../../../App2';
 import { LinearGradient } from 'expo-linear-gradient';
-import { formatPrizePool, formatTier } from '../../helper/tournaments';
+import { formatPrizePool, formatTier, tournamentStatus } from '../../helper/tournaments';
+import { getTranslation } from '../../helper/translate';
 
 export const TournamentCard: React.FC<Tournament> = (tournament) => {
     const styles = useStyles();
     const navigation = useNavigation<RootStackProp>();
+    const status = tournamentStatus(tournament);
+    const start = tournament.start && format(tournament.start, 'LLL d');
+    const end = tournament.end && format(tournament.end, 'LLL d');
 
     return (
         <TouchableOpacity style={styles.card} key={tournament.name} onPress={() => navigation.push('Tournaments', { tournamentId: tournament.path })}>
@@ -23,9 +27,7 @@ export const TournamentCard: React.FC<Tournament> = (tournament) => {
             </ImageBackground>
             <View style={styles.cardBody}>
                 <MyText style={styles.attributes}>
-                    {tournament.start && format(tournament.start, 'LLL d')}
-                    {tournament.start && tournament.end && ' - '}
-                    {tournament.end && format(tournament.end, 'LLL d')} • {tournament.tier && formatTier(tournament.tier)} •
+                    {getTranslation(`tournaments.${status}date`, { start, end })} • {tournament.tier && formatTier(tournament.tier)} •
                     {tournament.prizePool && formatPrizePool(tournament.prizePool)}
                 </MyText>
                 <MyText style={styles.title}>{tournament.name}</MyText>

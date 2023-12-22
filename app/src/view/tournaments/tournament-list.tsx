@@ -11,9 +11,9 @@ import { getTranslation } from '../../helper/translate';
 import { DismissKeyboard } from '../components/dismiss-keyboard';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { isPast } from 'date-fns';
 import { orderBy } from 'lodash';
 import { sortByTier, tournamentAbbreviation, tournamentStatus, transformSearch } from '../../helper/tournaments';
+import { useAppTheme } from '../../theming';
 
 export const TournamentsList: React.FC = () => {
     const styles = useStyles();
@@ -25,6 +25,12 @@ export const TournamentsList: React.FC = () => {
     const { data: allTournaments = [], ...allQuery } = useUpcomingTournaments();
     const query = league ? leagueQuery : allQuery;
     const [search, setSearch] = useState('');
+    const theme = useAppTheme();
+    const subtitleMap = {
+        [getTranslation('tournaments.ongoing')]: getTranslation('tournaments.sortedbytier'),
+        [getTranslation('tournaments.upcoming')]: getTranslation('tournaments.sortedbydate'),
+        [getTranslation('tournaments.recent')]: getTranslation('tournaments.sortedbydate'),
+    };
     const filteredTournaments = useMemo(() => {
         if (league) {
             return tournaments ?? [];
@@ -85,6 +91,7 @@ export const TournamentsList: React.FC = () => {
                 <View style={styles.container}>
                     <View style={styles.searchContainer}>
                         <TextInput
+                            placeholderTextColor={theme.textNoteColor}
                             autoCorrect={false}
                             value={search}
                             onChangeText={setSearch}
@@ -113,6 +120,7 @@ export const TournamentsList: React.FC = () => {
                     renderSectionHeader={({ section: { title } }) => (
                         <View style={styles.headerContainer}>
                             <MyText style={styles.header}>{title}</MyText>
+                            {subtitleMap[title] && <MyText style={styles.subtitle}>{subtitleMap[title]}</MyText>}
                         </View>
                     )}
                     keyExtractor={(item) => item.path}
@@ -139,10 +147,16 @@ const useStyles = createStylesheet((theme, darkMode) =>
             backgroundColor: darkMode === 'dark' ? '#181C29' : theme.backgroundColor,
             paddingTop: 10,
             paddingBottom: 5,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
         },
         header: {
             fontSize: 20,
             fontWeight: '600',
+        },
+        subtitle: {
+            fontSize: 10,
         },
         searchContainer: {
             gap: 15,
