@@ -15,7 +15,8 @@ export const TournamentCard: React.FC<Tournament> = (tournament) => {
     const navigation = useNavigation<RootStackProp>();
     const status = tournamentStatus(tournament);
     const start = tournament.start && format(tournament.start, 'LLL d');
-    const end = tournament.end && format(tournament.end, 'LLL d');
+    const endDate = tournament.end || tournament.start;
+    const end = endDate && format(endDate, 'LLL d');
 
     return (
         <TouchableOpacity style={styles.card} key={tournament.name} onPress={() => navigation.push('Tournaments', { tournamentId: tournament.path })}>

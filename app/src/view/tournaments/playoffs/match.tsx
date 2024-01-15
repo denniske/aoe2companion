@@ -6,7 +6,12 @@ import { useState } from 'react';
 import { PlayoffParticipant } from './participant';
 import { PlayoffPopup } from './popup';
 
-export const PlayoffMatch: React.FC<{ match: IPlayoffMatch }> = ({ match }) => {
+export type PlayoffMatchProps = {
+    games?: IPlayoffMatch['games'];
+    links?: IPlayoffMatch['links'];
+} & Omit<IPlayoffMatch, 'games' | 'links'>;
+
+export const PlayoffMatch: React.FC<{ match: PlayoffMatchProps }> = ({ match }) => {
     const styles = useStyles();
     const [visible, setVisible] = useState(false);
 
@@ -23,7 +28,7 @@ export const PlayoffMatch: React.FC<{ match: IPlayoffMatch }> = ({ match }) => {
                 ))}
             </TouchableOpacity>
 
-            <PlayoffPopup visible={visible} setVisible={setVisible} match={match} />
+            {match.games && match.links && <PlayoffPopup visible={visible} setVisible={setVisible} match={match as IPlayoffMatch} />}
         </View>
     );
 };

@@ -1,4 +1,4 @@
-import { isPast } from 'date-fns';
+import { addDays, endOfDay, isPast, startOfDay } from 'date-fns';
 import { Age2TournamentCategory, Tournament, TournamentCategory } from 'liquipedia';
 import { startCase } from 'lodash';
 import { formatCurrency } from 'react-native-format-currency';
@@ -32,8 +32,11 @@ export const formatPrizePool = (prizePool: NonNullable<Tournament['prizePool']>)
 export const formatTier = (tier: TournamentCategory) => startCase(tier.split('/').at(-1)?.split('Tournament')[0]);
 
 export const tournamentStatus = (tournament: Tournament): 'ongoing' | 'upcoming' | 'past' => {
-    const hasTournamentStarted = isPast(tournament.start ?? new Date());
-    const hasTournamentEnded = isPast(tournament.end ?? tournament.start ?? new Date());
+    const startDate = startOfDay(tournament.start ?? new Date());
+    const endDate = endOfDay(tournament.end ?? tournament.start ?? new Date());
+
+    const hasTournamentStarted = isPast(startDate);
+    const hasTournamentEnded = isPast(endDate);
     const isOngoing = hasTournamentStarted && !hasTournamentEnded;
     const isUpcoming = !hasTournamentStarted && !hasTournamentEnded;
 

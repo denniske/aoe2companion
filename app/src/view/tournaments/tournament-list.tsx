@@ -101,7 +101,7 @@ export const TournamentsList: React.FC = () => {
                     </View>
                 </View>
             ),
-        [search, league]
+        [search, league, theme]
     );
 
     return (
