@@ -1228,6 +1228,7 @@ export const unitLines: IUnitLineDict = {
             'Boyar'
         ],
         upgrades: [
+            'Fereters-HP',
             'Forging',
             'IronCasting',
             'BlastFurnace',

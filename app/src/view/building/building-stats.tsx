@@ -65,7 +65,7 @@ export function BuildingStats({ buildingId }: Props) {
                     </>
                 }
                 <View style={styles.cellValue}>
-                    <Picker itemHeight={40} textMinWidth={150} container="sectionlist" icon={icon} value={comparisonUnit} sections={buildingSections} formatter={formaUnit} onSelect={onComparisonUnitSelected}/>
+                    <Picker itemHeight={40} textMinWidth={150} container="sectionlist" icon={icon} value={comparisonUnit} sections={buildingSections} sectionFormatter={str => getTranslation(str as any)} formatter={formaUnit} onSelect={onComparisonUnitSelected}/>
                 </View>
             </View>
 

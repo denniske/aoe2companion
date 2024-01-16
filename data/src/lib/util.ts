@@ -169,7 +169,8 @@ export function sanitizeGameDescription(description: string) {
         .replace(/<\/b>/g, '')
         .replace(/<i>/g, '')
         .replace(/<\/i>/g, '')
-        .replace(/<br>/g, '');
+        .replace(/<br>/g, '')
+        .replace(/‹i›/g, '');
 }
 
 export function removeAccentsAndCase(str: string) {

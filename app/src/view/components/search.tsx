@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { loadUser, loadUserByProfileId, loadUserBySteamId } from '../../service/user';
-import { useLazyApi } from '../../hooks/use-lazy-api';
-import { Button, Searchbar } from 'react-native-paper';
-import { MyText } from './my-text';
+import React, {useEffect, useState} from 'react';
+import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {loadUser, loadUserByProfileId, loadUserBySteamId} from '../../service/user';
+import {useLazyApi} from '../../hooks/use-lazy-api';
+import {Button, Searchbar} from 'react-native-paper';
+import {MyText} from './my-text';
 import RefreshControlThemed from './refresh-control-themed';
-import { createStylesheet } from '../../theming-new';
+import {createStylesheet} from '../../theming-new';
 import FlatListLoadingIndicator from './flat-list-loading-indicator';
-import { getTranslation } from '../../helper/translate';
-import { useCavy } from '../testing/tester';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { CountryImage } from './country-image';
-import { IProfilesResultProfile } from '../../api/helper/api.types';
-import { DismissKeyboard } from './dismiss-keyboard';
+import {getTranslation} from '../../helper/translate';
+import {useCavy} from '../testing/tester';
+import {FontAwesome5} from '@expo/vector-icons';
+import {CountryImage} from './country-image';
+import {IProfilesResultProfile} from '../../api/helper/api.types';
+import {DismissKeyboard} from './dismiss-keyboard';
 import useDebounce from '../../hooks/use-debounce';
 
 interface IPlayerProps {
@@ -22,7 +22,7 @@ interface IPlayerProps {
     action?: (player: IProfilesResultProfile) => React.ReactNode;
 }
 
-function Player({ player, selectedUser, actionText, action }: IPlayerProps) {
+function Player({player, selectedUser, actionText, action}: IPlayerProps) {
     const generateTestHook = useCavy();
     const styles = useStyles();
 
@@ -37,39 +37,43 @@ function Player({ player, selectedUser, actionText, action }: IPlayerProps) {
     };
 
     return (
-        <TouchableOpacity ref={(ref) => generateTestHook('Search.Player.' + player.profileId)({ props: { onPress: onSelect } })} onPress={onSelect}>
-            <View style={styles.row}>
-                <View style={styles.cellName}>
-                    <CountryImage country={player.country} />
-                    <MyText style={styles.name} numberOfLines={1}>
-                        {player.name}
-                        {player.verified && (
-                            <>
-                                {' '}
-                                <FontAwesome5 solid name="check-circle" size={14} style={styles.verifiedIcon} />
-                            </>
-                        )}
-                    </MyText>
+        <View style={styles.row2}>
+            <TouchableOpacity style={styles.cellNameAndGames}
+                              ref={(ref) => generateTestHook('Search.Player.' + player.profileId)({props: {onPress: onSelect}})}
+                              onPress={onSelect}>
+                <View style={styles.row}>
+                    <View style={styles.cellName}>
+                        <CountryImage country={player.country}/>
+                        <MyText style={styles.name} numberOfLines={1}>
+                            {player.name}
+                            {player.verified && (
+                                <>
+                                    {' '}
+                                    <FontAwesome5 solid name="check-circle" size={14} style={styles.verifiedIcon}/>
+                                </>
+                            )}
+                        </MyText>
+                    </View>
+                    <MyText style={styles.cellGames}>{player.games}</MyText>
                 </View>
-                <MyText style={styles.cellGames}>{player.games}</MyText>
-                <View style={styles.cellAction}>
-                    {action && action(player)}
-                    {actionText && selectedUser && (
-                        <Button
-                            labelStyle={{ fontSize: 13, marginVertical: 0 }}
-                            contentStyle={{ height: 22 }}
-                            onPress={onSelect}
-                            mode="contained"
-                            compact
-                            uppercase={false}
-                            dark={true}
-                        >
-                            {actionText}
-                        </Button>
-                    )}
-                </View>
+            </TouchableOpacity>
+            <View style={styles.cellAction}>
+                {action && action(player)}
+                {actionText && selectedUser && (
+                    <Button
+                        labelStyle={{fontSize: 13, marginVertical: 0}}
+                        contentStyle={{height: 22}}
+                        onPress={onSelect}
+                        mode="contained"
+                        compact
+                        uppercase={false}
+                        dark={true}
+                    >
+                        {actionText}
+                    </Button>
+                )}
             </View>
-        </TouchableOpacity>
+        </View>
     );
 }
 
@@ -80,7 +84,7 @@ interface ISearchProps {
     action?: (player: IProfilesResultProfile) => React.ReactNode;
 }
 
-export default function Search({ title, selectedUser, actionText, action }: ISearchProps) {
+export default function Search({title, selectedUser, actionText, action}: ISearchProps) {
     const styles = useStyles();
     const [text, setText] = useState('');
     const [fetchingMore, setFetchingMore] = useState(false);
@@ -118,7 +122,7 @@ export default function Search({ title, selectedUser, actionText, action }: ISea
         await Promise.all([userByProfileId.refetch(text.trim()), userBySteamId.refetch(text.trim()), user.refetch(1, text.trim())]);
         setFetching(false);
 
-        flatListRef.current.scrollToOffset({ animated: false, offset: 0 });
+        flatListRef.current.scrollToOffset({animated: false, offset: 0});
 
         // if (newUsersData!.profiles!.length < newUsersData!.perPage) {
         //     setFetchedAll(true);
@@ -141,10 +145,10 @@ export default function Search({ title, selectedUser, actionText, action }: ISea
         setProfiles(
             user.data
                 ? [
-                      ...(userByProfileId.data ? [userByProfileId.data] : []),
-                      ...(userBySteamId.data ? [userBySteamId.data] : []),
-                      ...(user.data?.profiles ?? []),
-                  ]
+                    ...(userByProfileId.data ? [userByProfileId.data] : []),
+                    ...(userBySteamId.data ? [userBySteamId.data] : []),
+                    ...(user.data?.profiles ?? []),
+                ]
                 : []
         );
 
@@ -221,7 +225,7 @@ export default function Search({ title, selectedUser, actionText, action }: ISea
 
     const _renderFooter = () => {
         if (!fetchingMore) return null;
-        return <FlatListLoadingIndicator />;
+        return <FlatListLoadingIndicator/>;
     };
 
     return (
@@ -232,7 +236,7 @@ export default function Search({ title, selectedUser, actionText, action }: ISea
                 <Searchbar
                     autoCorrect={false}
                     autoFocus={true}
-                    ref={(ref) => generateTestHook('Search.Input')({ props: { onChangeText: setText } })}
+                    ref={(ref) => generateTestHook('Search.Input')({props: {onChangeText: setText}})}
                     style={styles.searchbar}
                     placeholder={getTranslation('search.placeholder')}
                     onChangeText={setText}
@@ -241,9 +245,11 @@ export default function Search({ title, selectedUser, actionText, action }: ISea
 
                 {list.length > 0 && text.length >= 3 && (
                     <View style={styles.headerRow}>
-                        <MyText style={styles.cellName}>{getTranslation('search.heading.name')}</MyText>
-                        <MyText style={styles.cellGames}>{getTranslation('search.heading.games')}</MyText>
-                        <MyText style={styles.cellAction} />
+                        <View style={styles.cellNameAndGames}>
+                            <MyText style={styles.cellName}>{getTranslation('search.heading.name')}</MyText>
+                            <MyText style={styles.cellGames}>{getTranslation('search.heading.games')}</MyText>
+                        </View>
+                        <MyText style={styles.cellAction}/>
                     </View>
                 )}
                 {/*key={text}*/}
@@ -253,17 +259,18 @@ export default function Search({ title, selectedUser, actionText, action }: ISea
                     keyboardShouldPersistTaps={'always'}
                     contentContainerStyle={styles.list}
                     data={list}
-                    renderItem={({ item }) => {
+                    renderItem={({item}) => {
                         if (item.type === 'text') {
                             return item.content;
                         }
-                        return <Player player={item} selectedUser={selectedUser} actionText={actionText} action={action} />;
+                        return <Player player={item} selectedUser={selectedUser} actionText={actionText}
+                                       action={action}/>;
                     }}
                     ListFooterComponent={_renderFooter}
                     onEndReached={fetchedAll ? null : onEndReached}
                     onEndReachedThreshold={0.1}
                     keyExtractor={(item, index) => index.toString()}
-                    refreshControl={<RefreshControlThemed refreshing={user.loading} onRefresh={refresh} />}
+                    refreshControl={<RefreshControlThemed refreshing={user.loading} onRefresh={refresh}/>}
                 />
             </View>
         </DismissKeyboard>
@@ -312,7 +319,7 @@ const useStyles = createStylesheet((theme) =>
             flex: 1.2,
         },
         cellAction: {
-            flex: 1.5,
+            flex: 0.5,
         },
         cellWon: {
             width: 110,
@@ -337,6 +344,16 @@ const useStyles = createStylesheet((theme) =>
             alignItems: 'center',
             marginVertical: 3,
             padding: 3,
+        },
+        row2: {
+            flex: 1,
+            flexDirection: 'row',
+            alignItems: 'center',
+        },
+        cellNameAndGames: {
+            flex: 1,
+            flexDirection: 'row',
+            alignItems: 'center',
         },
         container: {
             paddingTop: 20,

@@ -145,6 +145,24 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '79.0.0': [
+        {
+            type: 'minor',
+            title: 'Clicking on player name in "Manage Follows" opens the player\'s profile',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix building compare list section titles',
+        },
+        {
+            type: 'bugfix',
+            title: 'Remove ‹i› from building description',
+        },
+        {
+            type: 'bugfix',
+            title: 'Add fereters bonus to Condottiero',
+        },
+    ],
     '78.0.0': [
         {
             type: 'feature',

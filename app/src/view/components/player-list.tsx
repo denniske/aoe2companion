@@ -32,37 +32,39 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
     };
 
     return (
-            <TouchableOpacity
-                ref={ref => generateTestHook('Search.Player.' + player.profileId)({ props: { onPress: onSelect }})}
-                onPress={onSelect}
+        <View style={styles.row2}>
+            <TouchableOpacity style={styles.cellNameAndGames}
+                              ref={ref => generateTestHook('Search.Player.' + player.profileId)({props: {onPress: onSelect}})}
+                              onPress={onSelect}
             >
                 <View style={styles.row}>
                     <View style={styles.cellName}>
-                        <CountryImage country={player.country} />
+                        <CountryImage country={player.country}/>
                         <MyText style={styles.name} numberOfLines={1}>{player.name}</MyText>
                     </View>
                     <MyText style={styles.cellGames}>{player.games}</MyText>
-                    <View style={styles.cellAction}>
-                        {
-                            action && action(player)
-                        }
-                        {
-                            actionText && selectedUser &&
-                            <Button
-                                labelStyle={{fontSize: 13, marginVertical: 0}}
-                                contentStyle={{height: 22}}
-                                onPress={onSelect}
-                                mode="contained"
-                                compact
-                                uppercase={false}
-                                dark={true}
-                            >
-                                {actionText}
-                            </Button>
-                        }
-                    </View>
                 </View>
             </TouchableOpacity>
+            <View style={styles.cellAction}>
+                {
+                    action && action(player)
+                }
+                {
+                    actionText && selectedUser &&
+                    <Button
+                        labelStyle={{fontSize: 13, marginVertical: 0}}
+                        contentStyle={{height: 22}}
+                        onPress={onSelect}
+                        mode="contained"
+                        compact
+                        uppercase={false}
+                        dark={true}
+                    >
+                        {actionText}
+                    </Button>
+                }
+            </View>
+        </View>
     );
 }
 
@@ -76,25 +78,28 @@ interface ISearchProps {
 export default function PlayerList({list, selectedUser, actionText, action}: ISearchProps) {
 
     return (
-            <View style={styles.container}>
-                {
-                    list && list.length > 0 &&
-                    <View style={styles.headerRow}>
-                        <MyText style={styles.cellName}>{getTranslation('playerlist.heading.name')}</MyText>
-                        <MyText style={styles.cellGames}>{getTranslation('playerlist.heading.games')}</MyText>
-                        <MyText style={styles.cellAction}/>
+        <View style={styles.container}>
+            {
+                list && list.length > 0 &&
+                <View style={styles.headerRow}>
+                    <View style={styles.cellNameAndGames}>
+                        <MyText style={styles.cellName}>{getTranslation('search.heading.name')}</MyText>
+                        <MyText style={styles.cellGames}>{getTranslation('search.heading.games')}</MyText>
                     </View>
-                }
+                    <MyText style={styles.cellAction}/>
+                </View>
+            }
 
-                <FlatList
-                        keyboardShouldPersistTaps={'always'}
-                        data={list}
-                        renderItem={({item}) => {
-                            return <Player player={item} selectedUser={selectedUser} actionText={actionText} action={action}/>;
-                        }}
-                        keyExtractor={(item, index) => index.toString()}
-                />
-            </View>
+            <FlatList
+                keyboardShouldPersistTaps={'always'}
+                data={list}
+                contentContainerStyle={styles.list}
+                renderItem={({item}) => {
+                    return <Player player={item} selectedUser={selectedUser} actionText={actionText} action={action}/>;
+                }}
+                keyExtractor={(item, index) => index.toString()}
+            />
+        </View>
     );
 }
 
@@ -129,10 +134,15 @@ const styles = StyleSheet.create({
         flex: 1.2,
     },
     cellAction: {
-        flex: 1.5,
+        flex: 0.5,
     },
     cellWon: {
         width: 110,
+    },
+    list: {
+        marginRight: 30,
+        marginLeft: 30,
+        paddingBottom: 20,
     },
     headerRow: {
         flexDirection: 'row',
@@ -144,13 +154,21 @@ const styles = StyleSheet.create({
         marginLeft: 30,
     },
     row: {
-        marginRight: 30,
-        marginLeft: 30,
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 3,
         padding: 3,
+    },
+    row2: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    cellNameAndGames: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     container: {
         paddingTop: 20,

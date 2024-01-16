@@ -312,7 +312,15 @@ function FeedAction({user}: {user: IPlayerListPlayer}) {
 }
 
 export function FeedAdd() {
+    const navigation = useNavigation<RootStackProp>();
+    const onSelect = async (user: any) => {
+        navigation.push('User', {
+            profileId: user.profileId,
+        });
+    };
+
     return <Search
+        selectedUser={onSelect}
         action={
             (user: IProfilesResultProfile) => <FeedAction user={user}/>
         }
@@ -320,9 +328,16 @@ export function FeedAdd() {
 }
 
 export function FeedConfig() {
+    const navigation = useNavigation<RootStackProp>();
+    const onSelect = async (user: any) => {
+        navigation.push('User', {
+            profileId: user.profileId,
+        });
+    };
     const following = useSelector(state => state.following);
     return <PlayerList
         list={following}
+        selectedUser={onSelect}
         action={
             (user: IPlayerListPlayer) => <FeedAction user={user}/>
         }
