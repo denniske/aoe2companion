@@ -31,7 +31,7 @@ import {getValue} from "../helper/util-component";
 import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';
 import {appConfig} from "@nex/dataset";
-import {CountryImage, CountryImageLoader} from './components/country-image';
+import {CountryImageForDropDown, CountryImageLoader} from './components/country-image';
 import {IndexPath, Select, SelectItem} from "@ui-kitten/components";
 import {useLazyAppendApi} from "../hooks/use-lazy-append-api";
 import {useApi} from "../hooks/use-api";
@@ -68,9 +68,9 @@ export function LeaderboardMenu() {
     // const divider = (x: any, i: number) => i < (authCountry ? 2 : 1);
     const icon = (x: any) => {
         if (x == countryEarth) {
-            return <CountryImage country={'EARTH'} />;
+            return <CountryImageForDropDown country={'EARTH'} />;
         }
-        return <CountryImage country={x} />;
+        return <CountryImageForDropDown country={x} />;
     };
     const onCountrySelected = (country: string | null) => {
         mutate(setLeaderboardCountry(country));

@@ -15,6 +15,14 @@ export interface LoaderProps extends Props {
     ready?: any,
 }
 
+export function CountryImageForDropDown(props: Props) {
+    const { country } = props;
+
+    return (
+        <MyText>{country ? flagEmojiDict[country.toUpperCase() as any] : '🏳'}</MyText>
+    );
+}
+
 export function CountryImage(props: Props) {
     const { country } = props;
 
