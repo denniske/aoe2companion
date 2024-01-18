@@ -34,10 +34,10 @@ interface ILeaderboardRowProps {
 }
 
 const formatStreak = (streak: number) => {
-  if (streak > 0) {
-      return '+' + streak;
-  }
-  return streak;
+    if (streak > 0) {
+        return '+' + streak;
+    }
+    return streak;
 };
 
 
@@ -49,26 +49,26 @@ function LeaderboardRow1({data}: ILeaderboardRowProps) {
     const color = {color: getLeaderboardTextColor(data.leaderboardId, theme.dark)};
 
     return (
-            <View style={styles.leaderboardRow}>
-                {/*<MyText tw="flex font-bold text-2xl" style={StyleSheet.flatten([styles.cellLeaderboard, color])}>*/}
-                {/*    {data.abbreviation}*/}
-                {/*</MyText>*/}
-                <MyText style={StyleSheet.flatten([styles.cellLeaderboard, color])}>
-                    {data.abbreviation}
-                </MyText>
-                <MyText  style={StyleSheet.flatten([styles.cellRank, color])}>
-                    #{leaderboardInfo.rank}
-                </MyText>
-                <MyText style={StyleSheet.flatten([styles.cellRating, color])}>
-                    {leaderboardInfo.rating}
-                </MyText>
-                <MyText style={StyleSheet.flatten([styles.cellRating2, color])}>
-                    {leaderboardInfo.maxRating == leaderboardInfo.rating ? '←' : leaderboardInfo.maxRating || '-'}
-                </MyText>
-                {/*<MyText style={StyleSheet.flatten([styles.cellRatingChange, color])}>*/}
-                {/*    {leaderboardInfo.previousRating ? formatStreak(leaderboardInfo.rating-leaderboardInfo.previousRating) : '-'}*/}
-                {/*</MyText>*/}
-            </View>
+        <View style={styles.leaderboardRow}>
+            {/*<MyText tw="flex font-bold text-2xl" style={StyleSheet.flatten([styles.cellLeaderboard, color])}>*/}
+            {/*    {data.abbreviation}*/}
+            {/*</MyText>*/}
+            <MyText style={StyleSheet.flatten([styles.cellLeaderboard, color])}>
+                {data.abbreviation}
+            </MyText>
+            <MyText style={StyleSheet.flatten([styles.cellRank, color])}>
+                #{leaderboardInfo.rank}
+            </MyText>
+            <MyText style={StyleSheet.flatten([styles.cellRating, color])}>
+                {leaderboardInfo.rating}
+            </MyText>
+            <MyText style={StyleSheet.flatten([styles.cellRating2, color])}>
+                {leaderboardInfo.maxRating == leaderboardInfo.rating ? '←' : leaderboardInfo.maxRating || '-'}
+            </MyText>
+            {/*<MyText style={StyleSheet.flatten([styles.cellRatingChange, color])}>*/}
+            {/*    {leaderboardInfo.previousRating ? formatStreak(leaderboardInfo.rating-leaderboardInfo.previousRating) : '-'}*/}
+            {/*</MyText>*/}
+        </View>
     )
 }
 
@@ -90,9 +90,9 @@ function LeaderboardRowSeason({data}: ILeaderboardRowProps) {
                     />
                 </View>
                 <View tw="flex">
-                <MyText tw="flex font-bold text-2xl" style={{ color: data.rankLevelColor }}>
-                    {data.rankLevelName}
-                </MyText>
+                    <MyText tw="flex font-bold text-2xl" style={{color: data.rankLevelColor}}>
+                        {data.rankLevelName}
+                    </MyText>
                 </View>
             </View>
         </View>
@@ -107,26 +107,26 @@ function LeaderboardRow2({data}: ILeaderboardRowProps) {
     const color = {color: getLeaderboardTextColor(data.leaderboardId, theme.dark)};
 
     return (
-            <View style={styles.leaderboardRow}>
-                <MyText style={StyleSheet.flatten([styles.cellLeaderboard, color])}>
-                    {data.abbreviation}
-                </MyText>
-                <MyText style={StyleSheet.flatten([styles.cellGames, color])}>
-                    {leaderboardInfo.games}
-                </MyText>
-                <MyText style={StyleSheet.flatten([styles.cellWon, color])} numberOfLines={1}>
-                    {(leaderboardInfo?.wins / leaderboardInfo?.games * 100).toFixed(2)} %
-                </MyText>
-                <MyText style={StyleSheet.flatten([styles.cellStreak, color])} numberOfLines={1}>
-                    {formatStreak(leaderboardInfo?.streak)}
-                </MyText>
-                {/*<MyText style={StyleSheet.flatten([styles.cellStreak, color])} numberOfLines={1}>*/}
-                {/*    {leaderboardInfo.highestStreak == leaderboardInfo.streak ? '←' : formatStreak(leaderboardInfo.highestStreak)}*/}
-                {/*</MyText>*/}
-                {/*<MyText style={StyleSheet.flatten([styles.cellLastMatch, color])} numberOfLines={1}>*/}
-                {/*    {formatAgo(leaderboardInfo.lastMatch)}*/}
-                {/*</MyText>*/}
-            </View>
+        <View style={styles.leaderboardRow}>
+            <MyText style={StyleSheet.flatten([styles.cellLeaderboard, color])}>
+                {data.abbreviation}
+            </MyText>
+            <MyText style={StyleSheet.flatten([styles.cellGames, color])}>
+                {leaderboardInfo.games}
+            </MyText>
+            <MyText style={StyleSheet.flatten([styles.cellWon, color])} numberOfLines={1}>
+                {(leaderboardInfo?.wins / leaderboardInfo?.games * 100).toFixed(2)} %
+            </MyText>
+            <MyText style={StyleSheet.flatten([styles.cellStreak, color])} numberOfLines={1}>
+                {formatStreak(leaderboardInfo?.streak)}
+            </MyText>
+            {/*<MyText style={StyleSheet.flatten([styles.cellStreak, color])} numberOfLines={1}>*/}
+            {/*    {leaderboardInfo.highestStreak == leaderboardInfo.streak ? '←' : formatStreak(leaderboardInfo.highestStreak)}*/}
+            {/*</MyText>*/}
+            {/*<MyText style={StyleSheet.flatten([styles.cellLastMatch, color])} numberOfLines={1}>*/}
+            {/*    {formatAgo(leaderboardInfo.lastMatch)}*/}
+            {/*</MyText>*/}
+        </View>
     )
 }
 
@@ -148,7 +148,7 @@ interface IProfileProps {
     ready: boolean;
 }
 
-export function ProfileLive({data} : {data: IPlayerNew}) {
+export function ProfileLive({data}: { data: IPlayerNew }) {
     const styles = useStyles();
     const verifiedPlayer = data ? getVerifiedPlayer(data?.profileId!) : null;
 
@@ -170,17 +170,17 @@ export function ProfileLive({data} : {data: IPlayerNew}) {
     const channel = getTwitchChannel(verifiedPlayer);
 
     return (
-            <MyText style={styles.row} onPress={() => openLink(`https://www.twitch.tv/${channel}`)}>
-                {
-                    playerTwitchLive.data?.type === 'live' &&
-                    <>
-                        <MyText style={{color: '#e91a16'}}> ● </MyText>
-                        <MyText>{playerTwitchLive.data.viewer_count} </MyText>
-                        <FontAwesome5 solid name="twitch" size={14} style={styles.twitchIcon} />
-                        <MyText> </MyText>
-                    </>
-                }
-            </MyText>
+        <MyText style={styles.row} onPress={() => openLink(`https://www.twitch.tv/${channel}`)}>
+            {
+                playerTwitchLive.data?.type === 'live' &&
+                <>
+                    <MyText style={{color: '#e91a16'}}> ● </MyText>
+                    <MyText>{playerTwitchLive.data.viewer_count} </MyText>
+                    <FontAwesome5 solid name="twitch" size={14} style={styles.twitchIcon}/>
+                    <MyText> </MyText>
+                </>
+            }
+        </MyText>
     )
 }
 
@@ -194,6 +194,7 @@ export default function Profile({data, ready}: IProfileProps) {
     const following = useSelector(state => state.following);
     const followingThisUser = !!following.find(f => data && f.profileId === data.profileId);
     const authCountry = useSelector(state => state.prefs.country);
+    const authClan = useSelector(state => state.prefs.clan);
 
     const verifiedPlayer = data ? getVerifiedPlayer(data?.profileId!) : null;
 
@@ -208,9 +209,12 @@ export default function Profile({data, ready}: IProfileProps) {
 
     // Set country for use in leaderboard country dropdown
     useEffect(() => {
-        if (data?.country && data.country != authCountry) {
-            mutate(setPrefValue('country', data.country));
-            mutate(setPrefValue('clan', data.clan));
+        if (
+            (data?.country && data.country != authCountry) ||
+            (data?.clan && data.clan != authClan)
+        ) {
+            mutate(setPrefValue('country', data?.country));
+            mutate(setPrefValue('clan', data?.clan));
             saveCurrentPrefsToStorage();
         }
     }, [data]);
@@ -218,156 +222,167 @@ export default function Profile({data, ready}: IProfileProps) {
     // console.log('DATA===>', data);
 
     return (
-            <View style={styles.container}>
-                <View>
+        <View style={styles.container}>
+            <View>
 
-                    <View style={styles.row}>
-                        {/*<ImageLoader style={styles.profileIcon} ready={data} source={{ uri: 'https://github.com/SiegeEngineers/aoc-reference-data/raw/master/data/photos/players/theviper.jpg'}}/>*/}
-                        <View style={{flex: 1}}>
-                            <View style={styles.row}>
-                                <CountryImageLoader country={data?.country} ready={data} />
+                <View style={styles.row}>
+                    {/*<ImageLoader style={styles.profileIcon} ready={data} source={{ uri: 'https://github.com/SiegeEngineers/aoc-reference-data/raw/master/data/photos/players/theviper.jpg'}}/>*/}
+                    <View style={{flex: 1}}>
+                        <View style={styles.row}>
+                            <CountryImageLoader country={data?.country} ready={data}/>
 
-                                <TextLoader>{data?.name}</TextLoader>
-                                {
-                                    data?.verified &&
-                                    <FontAwesome5 solid name="check-circle" size={14} style={styles.verifiedIcon} />
-                                }
-                                {
-                                    !!data?.clan &&
-                                    <MyText> ({getTranslation('main.profile.clan')}: {data?.clan})</MyText>
-                                }
-                            </View>
-                            <View style={styles.row}>
-                                <TextLoader ready={data}>
-                                    {getTranslation('main.profile.games', { games: data?.games })},
-                                    {' '}{getTranslation('main.profile.drops', { drops: data?.drops })}
-                                    {' '}({(data?.drops as any / (data?.games as any) * 100).toFixed(2)} %)
-                                </TextLoader>
-                            </View>
+                            <TextLoader>{data?.name}</TextLoader>
+                            {
+                                data?.verified &&
+                                <FontAwesome5 solid name="check-circle" size={14} style={styles.verifiedIcon}/>
+                            }
+                            {
+                                !!data?.clan &&
+                                <MyText> ({getTranslation('main.profile.clan')}: {data?.clan})</MyText>
+                            }
                         </View>
-                        {/*<View style={styles.expanded}/>*/}
-                        {
-                            data && (auth == null || auth?.profileId !== data.profileId) &&
-                            <TouchableOpacity onPress={ToggleFollowing}>
-                                <View style={styles.followButton}>
-                                    <FontAwesome5 solid={followingThisUser} name="heart" size={22} style={styles.followButtonIcon}/>
-                                    <MyText style={styles.followButtonText}>
-                                        {followingThisUser ? getTranslation('main.profile.unfollow') : getTranslation('main.profile.follow')}
-                                    </MyText>
-                                </View>
-                            </TouchableOpacity>
-                        }
+                        <View style={styles.row}>
+                            <TextLoader ready={data}>
+                                {getTranslation('main.profile.games', {games: data?.games})},
+                                {' '}{getTranslation('main.profile.drops', {drops: data?.drops})}
+                                {' '}({(data?.drops as any / (data?.games as any) * 100).toFixed(2)} %)
+                            </TextLoader>
+                        </View>
                     </View>
-
-                    <Space/>
-
-                    <View style={styles.row}>
-                        {
-                            verifiedPlayer?.discord &&
-                            <View style={styles.badge}>
-                                <DiscordBadge serverId={verifiedPlayer?.discordServerId} invitationId={getDiscordInvitationId(verifiedPlayer)} />
-                            </View>
-                        }
-                        {
-                            verifiedPlayer?.youtube &&
-                            <View style={styles.badge}>
-                                <YoutubeBadge channel={getYoutubeChannel(verifiedPlayer)} />
-                            </View>
-                        }
-                        {
-                            verifiedPlayer?.douyu &&
-                            <View style={styles.badge}>
-                                <DouyuBadge channel={getDoyouChannel(verifiedPlayer)} />
-                            </View>
-                        }
-                        {
-                            verifiedPlayer?.twitch != null &&
-                            <View style={styles.badge}>
-                                <TwitchBadge channel={getTwitchChannel(verifiedPlayer)} />
-                            </View>
-                        }
-                    </View>
-
-                    <Space/>
-
-                    {/*<ScrollView contentContainerStyle={styles.scrollContent} style={styles.scrollContainer} horizontal={true} persistentScrollbar={true}>*/}
-                    {/*    <View style={styles.leaderboardRow}>*/}
-                    {/*        <MyText numberOfLines={1} style={styles.cellLeaderboard}/>*/}
-                    {/*        <MyText numberOfLines={1} style={styles.cellRank}>Rank</MyText>*/}
-                    {/*        <MyText numberOfLines={1} style={styles.cellRating}>Rating</MyText>*/}
-                    {/*        <MyText numberOfLines={1} style={styles.cellGames}><FontAwesome5FA5 name="fist-raised" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
-                    {/*        <MyText numberOfLines={1} style={styles.cellWon}><FontAwesome5FA5 name="crown" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
-                    {/*        <MyText numberOfLines={1} style={styles.cellStreak}> </MyText>*/}
-                    {/*        <MyText numberOfLines={1} style={styles.cellWon}><FontAwesome5FA5 name="clock" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
-                    {/*    </View>*/}
-                    {/*    {*/}
-                    {/*        data?.leaderboards.map(leaderboard =>*/}
-                    {/*                <LeaderboardRow key={leaderboard.leaderboardId} data={leaderboard}/>*/}
-                    {/*        )*/}
-                    {/*    }*/}
-                    {/*</ScrollView>*/}
-
-
-                    {/*<View className="flex-1 flex-col space-y-2">*/}
-                    {/*{*/}
-                    {/*    data?.leaderboards.filter(l => l.season != null).map(leaderboard =>*/}
-                    {/*        <LeaderboardRowSeason key={leaderboard.leaderboardId} data={leaderboard}/>*/}
-                    {/*    )*/}
-                    {/*}*/}
-                    {/*</View>*/}
-
-                    <View style={styles.leaderboardRow}>
-                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>{getTranslation('main.profile.heading.board')}</MyText>
-                        <MyText numberOfLines={1} style={styles.cellRank}>{getTranslation('main.profile.heading.rank')}</MyText>
-                        <MyText numberOfLines={1} style={styles.cellRating}>{getTranslation('main.profile.heading.rating')}</MyText>
-                        <MyText numberOfLines={1} style={styles.cellRating2}>{getTranslation('main.profile.heading.max')}</MyText>
-                        <MyText numberOfLines={1} style={styles.cellRatingChange}>{getTranslation('main.profile.heading.change')}</MyText>
-                    </View>
+                    {/*<View style={styles.expanded}/>*/}
                     {
-                        data?.leaderboards.map(leaderboard =>
-                                <LeaderboardRow1 key={leaderboard.leaderboardId} data={leaderboard}/>
-                        )
-                    }
-
-                    {
-                        !data && Array(2).fill(0).map((a, i) =>
-                            <View key={i} style={styles.row}>
-                                <TextLoader style={styles.cellLeaderboard}/>
-                                <TextLoader style={styles.cellRank}/>
-                                <TextLoader style={styles.cellRating}/>
-                                <TextLoader style={styles.cellRating2}/>
-                                <TextLoader style={styles.cellRatingChange}/>
+                        data && (auth == null || auth?.profileId !== data.profileId) &&
+                        <TouchableOpacity onPress={ToggleFollowing}>
+                            <View style={styles.followButton}>
+                                <FontAwesome5 solid={followingThisUser} name="heart" size={22}
+                                              style={styles.followButtonIcon}/>
+                                <MyText style={styles.followButtonText}>
+                                    {followingThisUser ? getTranslation('main.profile.unfollow') : getTranslation('main.profile.follow')}
+                                </MyText>
                             </View>
-                        )
-                    }
-                    <Space/>
-                    <View style={styles.leaderboardRow}>
-                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>{getTranslation('main.profile.heading.board')}</MyText>
-                        <MyText numberOfLines={1} style={styles.cellGames}>{getTranslation('main.profile.heading.games')}</MyText>
-                        {/*<MyText numberOfLines={1} style={styles.cellWon}><FontAwesome5FA5 name="crown" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
-                        <MyText numberOfLines={1} style={styles.cellWon}>{getTranslation('main.profile.heading.won')}</MyText>
-                        <MyText numberOfLines={1} style={styles.cellStreak}>{getTranslation('main.profile.heading.streak')}</MyText>
-                        {/*<MyText numberOfLines={1} style={styles.cellStreak}>max</MyText>*/}
-                        {/*<MyText numberOfLines={1} style={styles.cellWon}><FontAwesome5FA5 name="clock" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
-                    </View>
-                    {
-                        data?.leaderboards.map(leaderboard =>
-                                <LeaderboardRow2 key={leaderboard.leaderboardId} data={leaderboard}/>
-                        )
-                    }
-
-                    {
-                        !data && Array(2).fill(0).map((a, i) =>
-                            <View key={i} style={styles.row}>
-                                <TextLoader style={styles.cellLeaderboard}/>
-                                <TextLoader style={styles.cellGames}/>
-                                <TextLoader style={styles.cellWon}/>
-                                <TextLoader style={styles.cellStreak}/>
-                            </View>
-                        )
+                        </TouchableOpacity>
                     }
                 </View>
+
+                <Space/>
+
+                <View style={styles.row}>
+                    {
+                        verifiedPlayer?.discord &&
+                        <View style={styles.badge}>
+                            <DiscordBadge serverId={verifiedPlayer?.discordServerId}
+                                          invitationId={getDiscordInvitationId(verifiedPlayer)}/>
+                        </View>
+                    }
+                    {
+                        verifiedPlayer?.youtube &&
+                        <View style={styles.badge}>
+                            <YoutubeBadge channel={getYoutubeChannel(verifiedPlayer)}/>
+                        </View>
+                    }
+                    {
+                        verifiedPlayer?.douyu &&
+                        <View style={styles.badge}>
+                            <DouyuBadge channel={getDoyouChannel(verifiedPlayer)}/>
+                        </View>
+                    }
+                    {
+                        verifiedPlayer?.twitch != null &&
+                        <View style={styles.badge}>
+                            <TwitchBadge channel={getTwitchChannel(verifiedPlayer)}/>
+                        </View>
+                    }
+                </View>
+
+                <Space/>
+
+                {/*<ScrollView contentContainerStyle={styles.scrollContent} style={styles.scrollContainer} horizontal={true} persistentScrollbar={true}>*/}
+                {/*    <View style={styles.leaderboardRow}>*/}
+                {/*        <MyText numberOfLines={1} style={styles.cellLeaderboard}/>*/}
+                {/*        <MyText numberOfLines={1} style={styles.cellRank}>Rank</MyText>*/}
+                {/*        <MyText numberOfLines={1} style={styles.cellRating}>Rating</MyText>*/}
+                {/*        <MyText numberOfLines={1} style={styles.cellGames}><FontAwesome5FA5 name="fist-raised" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
+                {/*        <MyText numberOfLines={1} style={styles.cellWon}><FontAwesome5FA5 name="crown" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
+                {/*        <MyText numberOfLines={1} style={styles.cellStreak}> </MyText>*/}
+                {/*        <MyText numberOfLines={1} style={styles.cellWon}><FontAwesome5FA5 name="clock" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
+                {/*    </View>*/}
+                {/*    {*/}
+                {/*        data?.leaderboards.map(leaderboard =>*/}
+                {/*                <LeaderboardRow key={leaderboard.leaderboardId} data={leaderboard}/>*/}
+                {/*        )*/}
+                {/*    }*/}
+                {/*</ScrollView>*/}
+
+
+                {/*<View className="flex-1 flex-col space-y-2">*/}
+                {/*{*/}
+                {/*    data?.leaderboards.filter(l => l.season != null).map(leaderboard =>*/}
+                {/*        <LeaderboardRowSeason key={leaderboard.leaderboardId} data={leaderboard}/>*/}
+                {/*    )*/}
+                {/*}*/}
+                {/*</View>*/}
+
+                <View style={styles.leaderboardRow}>
+                    <MyText numberOfLines={1}
+                            style={styles.cellLeaderboard}>{getTranslation('main.profile.heading.board')}</MyText>
+                    <MyText numberOfLines={1}
+                            style={styles.cellRank}>{getTranslation('main.profile.heading.rank')}</MyText>
+                    <MyText numberOfLines={1}
+                            style={styles.cellRating}>{getTranslation('main.profile.heading.rating')}</MyText>
+                    <MyText numberOfLines={1}
+                            style={styles.cellRating2}>{getTranslation('main.profile.heading.max')}</MyText>
+                    <MyText numberOfLines={1}
+                            style={styles.cellRatingChange}>{getTranslation('main.profile.heading.change')}</MyText>
+                </View>
+                {
+                    data?.leaderboards.map(leaderboard =>
+                        <LeaderboardRow1 key={leaderboard.leaderboardId} data={leaderboard}/>
+                    )
+                }
+
+                {
+                    !data && Array(2).fill(0).map((a, i) =>
+                        <View key={i} style={styles.row}>
+                            <TextLoader style={styles.cellLeaderboard}/>
+                            <TextLoader style={styles.cellRank}/>
+                            <TextLoader style={styles.cellRating}/>
+                            <TextLoader style={styles.cellRating2}/>
+                            <TextLoader style={styles.cellRatingChange}/>
+                        </View>
+                    )
+                }
+                <Space/>
+                <View style={styles.leaderboardRow}>
+                    <MyText numberOfLines={1}
+                            style={styles.cellLeaderboard}>{getTranslation('main.profile.heading.board')}</MyText>
+                    <MyText numberOfLines={1}
+                            style={styles.cellGames}>{getTranslation('main.profile.heading.games')}</MyText>
+                    {/*<MyText numberOfLines={1} style={styles.cellWon}><FontAwesome5FA5 name="crown" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
+                    <MyText numberOfLines={1}
+                            style={styles.cellWon}>{getTranslation('main.profile.heading.won')}</MyText>
+                    <MyText numberOfLines={1}
+                            style={styles.cellStreak}>{getTranslation('main.profile.heading.streak')}</MyText>
+                    {/*<MyText numberOfLines={1} style={styles.cellStreak}>max</MyText>*/}
+                    {/*<MyText numberOfLines={1} style={styles.cellWon}><FontAwesome5FA5 name="clock" size={14} style={{}} color={theme.textNoteColor} /></MyText>*/}
+                </View>
+                {
+                    data?.leaderboards.map(leaderboard =>
+                        <LeaderboardRow2 key={leaderboard.leaderboardId} data={leaderboard}/>
+                    )
+                }
+
+                {
+                    !data && Array(2).fill(0).map((a, i) =>
+                        <View key={i} style={styles.row}>
+                            <TextLoader style={styles.cellLeaderboard}/>
+                            <TextLoader style={styles.cellGames}/>
+                            <TextLoader style={styles.cellWon}/>
+                            <TextLoader style={styles.cellStreak}/>
+                        </View>
+                    )
+                }
             </View>
+        </View>
     )
 }
 

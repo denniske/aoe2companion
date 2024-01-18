@@ -161,6 +161,7 @@ function Leaderboard({leaderboardId}: any) {
     const flatListRef = React.useRef<FlatList>(null);
     const [contentOffsetY, setContentOffsetY] = useState<number>();
     const [rankWidth, setRankWidth] = useState<number>(43);
+    const [myRankWidth, setMyRankWidth] = useState<number>(0);
     const [temp, setTemp] = useState<number>(43);
 
     const list = useRef<any[]>([]);
@@ -191,8 +192,7 @@ function Leaderboard({leaderboardId}: any) {
     const calcRankWidth = (contentOffsetY: number | undefined) => {
         if (contentOffsetY === undefined) return;
 
-        contentOffsetY -= headerHeight;
-        contentOffsetY -= 20; // padding top
+        contentOffsetY -= headerHeightAndPadding;
 
         const index = Math.floor(contentOffsetY/rowHeight);
         const indexTop = Math.max(0, index);
@@ -237,16 +237,26 @@ function Leaderboard({leaderboardId}: any) {
         setRefetching(false);
     };
 
+    const myRankPlayer = myRank.data?.players[0];
+    const showMyRank = (leaderboardCountry == countryEarth) ||
+        // (leaderboardCountry?.startsWith('clan:') && myRankPlayer?.clan == leaderboardCountry?.replace('clan:', '')) ||
+        (leaderboardCountry == 'following' && following.find(f => f.profile_id == myRankPlayer?.profileId) != null) ||
+        (leaderboardCountry == myRankPlayer?.country);
+
     const rowHeight = 45;
-    const headerMyRankHeight = myRank.data?.players.length > 0 ? 64 : 0;
-    const headerInfoHeight = 30;
-    const headerHeight = headerInfoHeight + headerMyRankHeight;
+    const containerPadding = 20;
+    const headerMyRankHeight = myRank.data?.players.length > 0 && showMyRank ? 52 : 0;
+    const headerInfoHeight = 18;
+    const headerHeightAndPadding = containerPadding + headerInfoHeight + headerMyRankHeight;
 
     const scrollToIndex = (index: number) => {
-        flatListRef.current?.scrollToIndex({ animated: true, index: index, viewOffset: -headerHeight-5 });
+        // TODO: Scrolling position is not accurate because the database is actually missing some ranks (sometimes).
+        // HACK: We use viewPosition: 0.5 so that the user does not notice it.
+        flatListRef.current?.scrollToIndex({ animated: true, index: index, viewPosition: 0.5, viewOffset: -headerHeightAndPadding });
     };
 
     const scrollToMe = () => {
+        // scrollToIndex(10-1);
         scrollToIndex(myRank.data.players[0].rank-1);
     };
 
@@ -277,9 +287,9 @@ function Leaderboard({leaderboardId}: any) {
         const isMe = player?.profileId === auth?.profileId;
         const rowStyle = { minHeight: isMyRankRow ? headerMyRankHeight : rowHeight };
         const weightStyle = { fontWeight: isMe ? 'bold' : 'normal' } as TextStyle;
-        const rankWidthStyle = { width: isMyRankRow ? undefined : rankWidth } as ViewStyle;
+        const rankWidthStyle = { width: Math.max(myRankWidth, rankWidth) } as ViewStyle;
         return (
-            <TouchableOpacity style={[styles.row, rowStyle]} disabled={player == null} onPress={() => isMyRankRow ? scrollToMe() : onSelect(player)}>
+            <TouchableOpacity style={[styles.row, rowStyle]} disabled={player == null} onPress={() => isMyRankRow || true ? scrollToMe() : onSelect(player)}>
                 <View style={isMyRankRow ? styles.innerRow : styles.innerRowWithBorder}>
                     <TextLoader numberOfLines={1} style={[styles.cellRank, weightStyle, rankWidthStyle]}>#{player?.rank || i+1}</TextLoader>
                     <TextLoader style={isMe ? styles.cellRatingMe : styles.cellRating}>{player?.rating}</TextLoader>
@@ -296,11 +306,9 @@ function Leaderboard({leaderboardId}: any) {
         );
     };
 
-    const myRankPlayer = myRank.data?.players[0];
-    const showMyRank = (leaderboardCountry == countryEarth) ||
-        (leaderboardCountry?.startsWith('clan:') && myRankPlayer?.clan == leaderboardCountry?.replace('clan:', '')) ||
-        (leaderboardCountry == 'following' && following.find(f => f.profile_id == myRankPlayer?.profileId) != null) ||
-        (leaderboardCountry == myRankPlayer?.country);
+    useEffect(() => {
+        setMyRankWidth(showMyRank ? (myRankPlayer?.rank.toFixed(0).length+1) * 10 : 0);
+    }, [myRankPlayer, showMyRank]);
 
     const _renderHeader = () => {
         const players = getTranslation('leaderboard.players', { players: total.current });
@@ -337,8 +345,7 @@ function Leaderboard({leaderboardId}: any) {
     const fetchByContentOffset = (contentOffsetY: number) => {
         if (!leaderboard.touched) return;
 
-        contentOffsetY -= headerHeight;
-        contentOffsetY -= 20; // padding top
+        contentOffsetY -= headerHeightAndPadding;
 
         const index = Math.floor(contentOffsetY/rowHeight);
         const indexTop = Math.max(0, index);
@@ -620,7 +627,6 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     cellRank: {
         margin: padding,
         textAlign: 'left',
-        width: 60,
         // backgroundColor: 'yellow',
     },
     cellRating: {
@@ -689,7 +695,6 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         // marginLeft: 30,
         // width: '100%',
         // flex: 3,
-        height: 40,
         flex: 1,
     },
     innerRow: {
@@ -699,7 +704,6 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 15,
-        paddingVertical: 12,
     },
     innerRowWithBorder: {
         // backgroundColor: 'green',
@@ -708,7 +712,6 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 15,
-        paddingVertical: 5,
         borderBottomWidth: 1,
         borderBottomColor: theme.lightBorderColor,
     },
@@ -732,7 +735,6 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
 
     info: {
         textAlign: 'center',
-        marginBottom: 15,
         color: theme.textNoteColor,
         fontSize: 12,
     },
