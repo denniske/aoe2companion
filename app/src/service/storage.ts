@@ -36,6 +36,7 @@ export interface IPrefs {
     birthdayRead?: boolean;
     techTreeSize?: string;
     ratingHistoryDuration?: string;
+    ratingHistoryHiddenLeaderboardIds?: string[];
 }
 
 export interface ISettings {

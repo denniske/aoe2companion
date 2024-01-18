@@ -143,8 +143,8 @@ export default function SettingsPage() {
                 }
 
                 await setAccountPushToken(accountId, token);
-                if (auth && auth.profile_id) {
-                    await setAccountProfile(accountId, { profile_id: auth.profile_id, steam_id: auth.steam_id });
+                if (auth && auth.profileId) {
+                    await setAccountProfile(accountId, { profile_id: auth.profileId });
                 }
                 await follow(accountId, following.map(p => p.profileId), true);
             }
@@ -168,8 +168,8 @@ export default function SettingsPage() {
         try {
             if (pushNotificationsEnabled) {
                 if (__DEV__) {
-                    if (auth && auth.profile_id) {
-                        await setAccountProfile(accountId, { profile_id: auth.profile_id, steam_id: auth.steam_id });
+                    if (auth && auth.profileId) {
+                        await setAccountProfile(accountId, { profile_id: auth.profileId });
                     }
                     await follow(accountId, following.map(p => p.profileId), true);
                     return;
@@ -178,8 +178,8 @@ export default function SettingsPage() {
                 const token = await initPusher();
 
                 await setAccountPushTokenWeb(accountId, token);
-                if (auth && auth.profile_id) {
-                    await setAccountProfile(accountId, { profile_id: auth.profile_id, steam_id: auth.steam_id });
+                if (auth && auth.profileId) {
+                    await setAccountProfile(accountId, { profile_id: auth.profileId });
                 }
                 await follow(accountId, following.map(p => p.profileId), true);
             } else {
@@ -207,8 +207,8 @@ export default function SettingsPage() {
                 const token = await getElectronPushToken();
 
                 await setAccountPushTokenElectron(accountId, token);
-                if (auth && auth.profile_id) {
-                    await setAccountProfile(accountId, { profile_id: auth.profile_id, steam_id: auth.steam_id });
+                if (auth && auth.profileId) {
+                    await setAccountProfile(accountId, { profile_id: auth.profileId });
                 }
                 await follow(accountId, following.map(p => p.profileId), true);
             }
@@ -238,33 +238,33 @@ export default function SettingsPage() {
         return enablePushNotificationsMobile(!config.pushNotificationsEnabled);
     };
 
-    const toggleOverlay = async () => {
-        const newConfig = {
-            ...config,
-            overlayEnabled: !config.overlayEnabled,
-        };
-        await saveConfigToStorage(newConfig)
-        mutate(setConfig(newConfig));
-        await setAccountProfile(accountId, { profile_id: auth?.profile_id, steam_id: auth?.steam_id, overlay: newConfig.overlayEnabled });
-    };
-
-    const toggleHotkeyShowHide = async () => {
-        const newConfig = {
-            ...config,
-            hotkeyShowHideEnabled: !config.hotkeyShowHideEnabled,
-        };
-        await saveConfigToStorage(newConfig)
-        mutate(setConfig(newConfig));
-    };
-
-    const toggleHotkeySearch = async () => {
-        const newConfig = {
-            ...config,
-            hotkeySearchEnabled: !config.hotkeySearchEnabled,
-        };
-        await saveConfigToStorage(newConfig)
-        mutate(setConfig(newConfig));
-    };
+    // const toggleOverlay = async () => {
+    //     const newConfig = {
+    //         ...config,
+    //         overlayEnabled: !config.overlayEnabled,
+    //     };
+    //     await saveConfigToStorage(newConfig)
+    //     mutate(setConfig(newConfig));
+    //     await setAccountProfile(accountId, { profile_id: auth?.profileId, overlay: newConfig.overlayEnabled });
+    // };
+    //
+    // const toggleHotkeyShowHide = async () => {
+    //     const newConfig = {
+    //         ...config,
+    //         hotkeyShowHideEnabled: !config.hotkeyShowHideEnabled,
+    //     };
+    //     await saveConfigToStorage(newConfig)
+    //     mutate(setConfig(newConfig));
+    // };
+    //
+    // const toggleHotkeySearch = async () => {
+    //     const newConfig = {
+    //         ...config,
+    //         hotkeySearchEnabled: !config.hotkeySearchEnabled,
+    //     };
+    //     await saveConfigToStorage(newConfig)
+    //     mutate(setConfig(newConfig));
+    // };
 
     const languageMap: Record<string, string> = {
         'system': 'System (' + Localization.locale + ')',

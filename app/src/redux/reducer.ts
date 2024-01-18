@@ -158,7 +158,7 @@ export type DarkMode = 'light' | 'dark' | 'system';
 
 export interface AppState {
   account: IAccount;
-  auth?: any | null;
+  auth?: { profileId: number } | null;
   user: IUserDict;
   donation: IDonation;
   statsPlayer: any;

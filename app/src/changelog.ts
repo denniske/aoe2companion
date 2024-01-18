@@ -151,6 +151,10 @@ export const changelog: IChangelog = {
             title: 'Clicking on player name in "Manage Follows" opens the player\'s profile',
         },
         {
+            type: 'minor',
+            title: 'Selected leaderboards in rating history are saved for your profile',
+        },
+        {
             type: 'bugfix',
             title: 'Fix building compare list section titles',
         },

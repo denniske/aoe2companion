@@ -187,7 +187,7 @@ function MainProfileInternal({profileId}: {profileId: number}) {
                                 return <Profile data={profile.data} ready={profile.data != null && rating != null}/>;
                             case 'rating':
                                 if (rating?.length === 0) return <View/>;
-                                return <Rating ratingHistories={rating} ready={profile.data != null && rating != null}/>;
+                                return <Rating ratingHistories={rating} profile={profile.data} ready={profile.data != null && rating != null}/>;
                             default:
                                 return <View/>;
                             // default:
