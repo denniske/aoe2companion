@@ -120,6 +120,7 @@ export default function UserPage() {
     useEffect(() => {
         if (auth == null) {
             mutate(setPrefValue('country', undefined));
+            mutate(setPrefValue('clan', undefined));
             saveCurrentPrefsToStorage();
         }
     }, [auth]);

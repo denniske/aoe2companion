@@ -147,6 +147,16 @@ export const changelog4: IChangelog = {
 export const changelog: IChangelog = {
     '79.0.0': [
         {
+            type: 'feature',
+            title: 'Filter leaderboard by followed players',
+            content: 'On leaderboard page choose "Following" in the dropdown. This will show the rating of all players that you are following',
+        },
+        {
+            type: 'feature',
+            title: 'Filter leaderboard by clan',
+            content: 'On leaderboard page choose "Clan:..." in the dropdown. This will show the rating of all players of your clan. Note that filtering by any clan is not possible yet. Only your clan is supported. If are not in a clan, this option will not be shown.',
+        },
+        {
             type: 'minor',
             title: 'Clicking on player name in "Manage Follows" opens the player\'s profile',
         },
@@ -165,6 +175,10 @@ export const changelog: IChangelog = {
         {
             type: 'bugfix',
             title: 'Add fereters bonus to Condottiero',
+        },
+        {
+            type: 'bugfix',
+            title: 'Only show your rank in leaderboard if you are in the leaderboard',
         },
     ],
     '78.0.0': [

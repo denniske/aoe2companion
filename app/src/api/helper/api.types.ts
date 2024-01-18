@@ -519,6 +519,7 @@ export interface ILeaderboard {
 }
 
 export interface ILeaderboardPlayer {
+    clan: string;
     leaderboardId: number;
     profileId: number;
     name: string;

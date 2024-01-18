@@ -31,7 +31,7 @@ import {getValue} from "../helper/util-component";
 import {createStylesheet} from '../theming-new';
 import {getTranslation} from '../helper/translate';
 import {appConfig} from "@nex/dataset";
-import {CountryImageForDropDown, CountryImageLoader} from './components/country-image';
+import {CountryImageForDropDown, CountryImageLoader, SpecialImageForDropDown} from './components/country-image';
 import {IndexPath, Select, SelectItem} from "@ui-kitten/components";
 import {useLazyAppendApi} from "../hooks/use-lazy-append-api";
 import {useApi} from "../hooks/use-api";
@@ -52,16 +52,25 @@ export function LeaderboardMenu() {
     const mutate = useMutate();
     const country = useSelector(state => state.leaderboardCountry) || null;
     const authCountry = useSelector(state => state.prefs.country);
+    const authClan = useSelector(state => state.prefs.clan);
 
     const formatCountry = (x: (string | null), inList?: boolean) => {
         if (x == countryEarth) {
             return getTranslation('country.earth');
+        }
+        if (x == 'following') {
+            return getTranslation('country.following');
+        }
+        if (x.startsWith('clan')) {
+            return x;
         }
         return inList ? getCountryName(x as Country) : x?.toUpperCase();
     };
     const orderedCountriesDistinct = countriesDistinct.sort((a, b) => formatCountry(a, true).localeCompare(formatCountry(b, true)));
     const countryList: (string | null)[] = [
         countryEarth,
+        'following',
+        ...(authClan ? ['clan:' + authClan] : []),
         ...(authCountry ? [authCountry] : []),
         ...orderedCountriesDistinct
     ];
@@ -69,6 +78,14 @@ export function LeaderboardMenu() {
     const icon = (x: any) => {
         if (x == countryEarth) {
             return <CountryImageForDropDown country={'EARTH'} />;
+        }
+        if (x == 'following') {
+            // return <FontAwesome name="heart" size={14} />;
+            return <SpecialImageForDropDown emoji={'🖤'} />;
+        }
+        if (x.startsWith('clan')) {
+            // return <FontAwesome name="trophy" size={14} />;
+            return <SpecialImageForDropDown emoji={'⚔️'} />;
         }
         return <CountryImageForDropDown country={x} />;
     };
@@ -151,7 +168,15 @@ function Leaderboard({leaderboardId}: any) {
 
     const isFocused = useIsFocused();
 
+    const following = useSelector(state => state.following);
+
     const getParams = (page: number, profileId?: number) => {
+        if (leaderboardCountry == 'following') {
+            return {page, profileId, profileIds: following.map(f => f.profile_id)};
+        }
+        if (leaderboardCountry?.startsWith('clan:')) {
+            return {page, profileId, clan: leaderboardCountry?.replace('clan:', '')};
+        }
         if (leaderboardCountry == countryEarth) {
             return {page, profileId};
         }
@@ -163,6 +188,28 @@ function Leaderboard({leaderboardId}: any) {
         fetchLeaderboard, { leaderboardId, ...getParams(1, auth?.profileId) }
     );
 
+    const calcRankWidth = (contentOffsetY: number | undefined) => {
+        if (contentOffsetY === undefined) return;
+
+        contentOffsetY -= headerHeight;
+        contentOffsetY -= 20; // padding top
+
+        const index = Math.floor(contentOffsetY/rowHeight);
+        const indexTop = Math.max(0, index);
+        const indexBottom = Math.min(total.current-1, index+15);
+
+        if (total2.current === 0) return;
+
+        // console.log('contentOffsetY', contentOffsetY);
+        // console.log('current', list.current[indexBottom]?.rank.toFixed(0).length);
+
+        const rankLen = list.current[indexBottom]?.rank.toFixed(0).length;
+        if (rankLen != null) {
+            setRankWidth((rankLen+1) * 10);
+            console.log('setRankWidth', rankLen, (rankLen+1) * 10);
+        }
+    };
+
     const leaderboard = useLazyAppendApi(
         {
             append: (data, newData, args) => {
@@ -173,6 +220,8 @@ function Leaderboard({leaderboardId}: any) {
                 total2.current = newData.total;
                 list.current.length = newData.total;
                 newData.players.forEach((value, index) => list.current[(params.page!-1)*pageSize+index] = value);
+
+                calcRankWidth(contentOffsetY);
 
                 // console.log('APPENDED', list.current);
                 // console.log('APPENDED', params);
@@ -247,6 +296,12 @@ function Leaderboard({leaderboardId}: any) {
         );
     };
 
+    const myRankPlayer = myRank.data?.players[0];
+    const showMyRank = (leaderboardCountry == countryEarth) ||
+        (leaderboardCountry?.startsWith('clan:') && myRankPlayer?.clan == leaderboardCountry?.replace('clan:', '')) ||
+        (leaderboardCountry == 'following' && following.find(f => f.profile_id == myRankPlayer?.profileId) != null) ||
+        (leaderboardCountry == myRankPlayer?.country);
+
     const _renderHeader = () => {
         const players = getTranslation('leaderboard.players', { players: total.current });
         // const updated = leaderboard.data?.updated ? getTranslation('leaderboard.updated', { updated: formatAgo(leaderboard.data.updated) }) : '';
@@ -257,7 +312,7 @@ function Leaderboard({leaderboardId}: any) {
                         {total.current ? players : ''}{/*{leaderboard.data?.updated ? ' (' + updated + ')' : ''}*/}
                     </MyText>
                 </View>
-                {myRank.data?.players.length > 0 && _renderRow(myRank.data.players[0], 0, true)}
+                {myRank.data?.players.length > 0 && showMyRank && _renderRow(myRank.data.players[0], 0, true)}
             </>
         )
     };
@@ -290,9 +345,6 @@ function Leaderboard({leaderboardId}: any) {
         const indexBottom = Math.min(total.current-1, index+15);
 
         if (total2.current === 0) return;
-
-        const rankLen = indexBottom.toFixed(0).length;
-        setRankWidth((rankLen+1) * 10);
 
         // console.log('indexTop', indexTop, '-', indexBottom);
 

@@ -23,6 +23,12 @@ export function CountryImageForDropDown(props: Props) {
     );
 }
 
+export function SpecialImageForDropDown(props: { emoji: string }) {
+    return (
+        <MyText>{props.emoji}</MyText>
+    );
+}
+
 export function CountryImage(props: Props) {
     const { country } = props;
 

@@ -31,6 +31,7 @@ export interface IConfig {
 export interface IPrefs {
     guideFavorites: string[];
     country?: string;
+    clan?: string;
     leaderboardId?: LeaderboardId;
     changelogLastVersionRead?: string;
     birthdayRead?: boolean;

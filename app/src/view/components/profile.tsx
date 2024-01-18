@@ -210,6 +210,7 @@ export default function Profile({data, ready}: IProfileProps) {
     useEffect(() => {
         if (data?.country && data.country != authCountry) {
             mutate(setPrefValue('country', data.country));
+            mutate(setPrefValue('clan', data.clan));
             saveCurrentPrefsToStorage();
         }
     }, [data]);
