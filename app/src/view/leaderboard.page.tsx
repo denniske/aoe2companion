@@ -206,7 +206,6 @@ function Leaderboard({leaderboardId}: any) {
         const rankLen = list.current[indexBottom]?.rank.toFixed(0).length;
         if (rankLen != null) {
             setRankWidth((rankLen+1) * 10);
-            console.log('setRankWidth', rankLen, (rankLen+1) * 10);
         }
     };
 
