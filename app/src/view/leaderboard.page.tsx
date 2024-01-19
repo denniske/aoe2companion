@@ -402,7 +402,9 @@ function Leaderboard({leaderboardId}: any) {
 
     const position = useRef(new Animated.ValueXY()).current;
     const panResponder = useMemo(() => PanResponder.create({
-        onStartShouldSetPanResponder: () => true,
+        // TODO: Currently when start the pan responder the handle is jumping. I think this is due to a bug in react-native-gesture-handler.
+        //       To fix this we only move handle once the user is moving the handle because this will move the handle to the correct position.
+        onStartShouldSetPanResponder: () => false,
         onMoveShouldSetPanResponder: () => true,
         onPanResponderMove: (_evt, gestureState) => {
             const min = -handleOffsetY.current!;
@@ -482,7 +484,7 @@ function Leaderboard({leaderboardId}: any) {
             <View style={styles.handleContainer} pointerEvents="box-none">
                 <Animated.View
                     {...panResponder.panHandlers}
-                    style={[{top: position.y, right: -HANDLE_RADIUS, opacity: handleVisible ? 1 : 0}, styles.handle]}>
+                    style={[{top: position.y, right: 0, opacity: handleVisible ? 1 : 0}, styles.handle]}>
                     <FontAwesome5 name="arrows-alt-v" size={26} style={styles.arrows}/>
                     {
                         baseMoving &&
@@ -573,6 +575,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         top: 0,
         right: 0,
         bottom: 0,
+        width: HANDLE_RADIUS,
     },
     handle: {
         padding: 8,
