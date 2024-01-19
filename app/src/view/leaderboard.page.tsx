@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {
     Animated,
     Dimensions,
@@ -119,6 +119,9 @@ export function LeaderboardTitle(props: any) {
     return <TextHeader text={getTranslation('leaderboard.title')} onLayout={props.titleProps.onLayout}/>;
 }
 
+const ROW_HEIGHT = 45;
+const ROW_HEIGHT_MY_RANK = 52;
+
 export default function LeaderboardPage() {
 
     const leaderboards = useApi(
@@ -194,7 +197,7 @@ function Leaderboard({leaderboardId}: any) {
 
         contentOffsetY -= headerHeightAndPadding;
 
-        const index = Math.floor(contentOffsetY/rowHeight);
+        const index = Math.floor(contentOffsetY/ROW_HEIGHT);
         const indexTop = Math.max(0, index);
         const indexBottom = Math.min(total.current-1, index+15);
 
@@ -242,16 +245,15 @@ function Leaderboard({leaderboardId}: any) {
         (leaderboardCountry == 'following' && following.find(f => f.profile_id == myRankPlayer?.profileId) != null) ||
         (leaderboardCountry == myRankPlayer?.country);
 
-    const rowHeight = 45;
     const containerPadding = 20;
-    const headerMyRankHeight = myRank.data?.players.length > 0 && showMyRank ? 52 : 0;
+    const headerMyRankHeight = myRank.data?.players.length > 0 && showMyRank ? ROW_HEIGHT_MY_RANK : 0;
     const headerInfoHeight = 18;
     const headerHeightAndPadding = containerPadding + headerInfoHeight + headerMyRankHeight;
 
     const scrollToIndex = (index: number) => {
         // TODO: Scrolling position is not accurate because the database is actually missing some ranks (sometimes).
         // HACK: We use viewPosition: 0.5 so that the user does not notice it.
-        flatListRef.current?.scrollToIndex({ animated: true, index: index, viewPosition: 0.5, viewOffset: -headerHeightAndPadding });
+        flatListRef.current?.scrollToIndex({ animated: false, index: index, viewPosition: 0.5, viewOffset: -headerHeightAndPadding });
     };
 
     const scrollToMe = () => {
@@ -266,7 +268,8 @@ function Leaderboard({leaderboardId}: any) {
         if (auth) {
             myRank.reload();
         }
-        flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
+        console.log('RELOADING LEADERBOARD', leaderboardCountry);
+        flatListRef.current?.scrollToOffset({ animated: false, offset: 0 });
         total2.current = 1000;
     }, [isFocused, leaderboardCountry]);
 
@@ -282,28 +285,17 @@ function Leaderboard({leaderboardId}: any) {
         });
     };
 
-    const _renderRow = (player: ILeaderboardPlayer, i: number, isMyRankRow: boolean = false) => {
-        const isMe = player?.profileId === auth?.profileId;
-        const rowStyle = { minHeight: isMyRankRow ? headerMyRankHeight : rowHeight };
-        const weightStyle = { fontWeight: isMe ? 'bold' : 'normal' } as TextStyle;
-        const rankWidthStyle = { width: Math.max(myRankWidth, rankWidth) } as ViewStyle;
-        return (
-            <TouchableOpacity style={[styles.row, rowStyle]} disabled={player == null} onPress={() => isMyRankRow || true ? scrollToMe() : onSelect(player)}>
-                <View style={isMyRankRow ? styles.innerRow : styles.innerRowWithBorder}>
-                    <TextLoader numberOfLines={1} style={[styles.cellRank, weightStyle, rankWidthStyle]}>#{player?.rank || i+1}</TextLoader>
-                    <TextLoader style={isMe ? styles.cellRatingMe : styles.cellRating}>{player?.rating}</TextLoader>
-                    <View style={styles.cellName}>
-                        <CountryImageLoader country={player?.country} ready={player} />
-                        <TextLoader style={isMe ? styles.nameMe : styles.name} numberOfLines={1}>{player?.name}</TextLoader>
-                    </View>
-                    {
-                        windowWidth >= 360 &&
-                        <TextLoader ready={player?.games} style={styles.cellGames}>{getTranslation('leaderboard.games', { games: player?.games })}</TextLoader>
-                    }
-                </View>
-            </TouchableOpacity>
-        );
-    };
+    const _renderRow = useCallback((player: ILeaderboardPlayer, i: number, isMyRankRow?: boolean) => {
+        return <MemoizedRenderRow
+            player={player}
+            i={i}
+            isMyRankRow={isMyRankRow}
+            rankWidth={rankWidth}
+            myRankWidth={myRankWidth}
+            onSelect={onSelect}
+            scrollToMe={scrollToMe}
+        />;
+    }, [myRankWidth, rankWidth]);
 
     useEffect(() => {
         setMyRankWidth(showMyRank ? (myRankPlayer?.rank.toFixed(0).length+1) * 10 : 0);
@@ -346,7 +338,7 @@ function Leaderboard({leaderboardId}: any) {
 
         contentOffsetY -= headerHeightAndPadding;
 
-        const index = Math.floor(contentOffsetY/rowHeight);
+        const index = Math.floor(contentOffsetY/ROW_HEIGHT);
         const indexTop = Math.max(0, index);
         const indexBottom = Math.min(total.current-1, index+15);
 
@@ -370,7 +362,7 @@ function Leaderboard({leaderboardId}: any) {
 
     const updateScrollHandlePosition = (contentOffsetY: number) => {
         if (movingScrollHandle.current) return;
-        position.setValue({x: 0, y: contentOffsetY / (list.current.length * rowHeight) * scrollRange.current});
+        position.setValue({x: 0, y: contentOffsetY / (list.current.length * ROW_HEIGHT) * scrollRange.current});
     };
 
     const handleOnScrollEndDrag = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -429,7 +421,7 @@ function Leaderboard({leaderboardId}: any) {
         onPanResponderRelease: () => {
             position.flattenOffset();
             const offset = getValue(position.y);
-            const newOffset = (offset / scrollRange.current) * total.current * rowHeight;
+            const newOffset = (offset / scrollRange.current) * total.current * ROW_HEIGHT;
             flatListRef.current?.scrollToOffset({ animated: false, offset: newOffset });
             movingScrollHandle.current = false;
             setBaseMoving(false);
@@ -473,7 +465,7 @@ function Leaderboard({leaderboardId}: any) {
                         scrollEventThrottle={500}
                         contentContainerStyle={styles.list}
                         data={list.current}
-                        getItemLayout={(_data: any, index: number) => ({length: rowHeight, offset: rowHeight * index, index})}
+                        getItemLayout={(_data: any, index: number) => ({length: ROW_HEIGHT, offset: ROW_HEIGHT * index, index})}
                         renderItem={({item, index}: any) => _renderRow(item, index)}
                         keyExtractor={(item: { profileId: any; }, index: any) => (item?.profileId || index).toString()}
                         refreshControl={
@@ -505,6 +497,52 @@ function Leaderboard({leaderboardId}: any) {
         </View>
     );
 }
+
+interface RenderRowProps {
+    player: ILeaderboardPlayer;
+    i: number;
+    isMyRankRow?: boolean;
+    rankWidth?: number;
+    myRankWidth?: number;
+    onSelect: (player: ILeaderboardPlayer) => void;
+    scrollToMe: () => void;
+}
+
+
+function RenderRow(props: RenderRowProps) {
+    const { player, i, isMyRankRow, rankWidth, myRankWidth, onSelect, scrollToMe } = props;
+
+    const styles = useStyles();
+    const auth = useSelector(state => state.auth!);
+
+    const isMe = player?.profileId != null && player?.profileId === auth?.profileId;
+    const rowStyle = { minHeight: isMyRankRow ? ROW_HEIGHT_MY_RANK : ROW_HEIGHT };
+    const weightStyle = { fontWeight: isMe ? 'bold' : 'normal' } as TextStyle;
+    const rankWidthStyle = { width: Math.max(myRankWidth || 43, rankWidth || 43) } as ViewStyle;
+
+    // console.log('Math.max(myRankWidth, rankWidth)', myRankWidth, rankWidth);
+    // console.log('Math.max(myRankWidth, rankWidth)', Math.max(myRankWidth, rankWidth));
+    // console.log('RERENDER', i, player != null);
+
+    return (
+        <TouchableOpacity style={[styles.row, rowStyle]} disabled={player == null} onPress={() => isMyRankRow ? scrollToMe() : onSelect(player)}>
+            <View style={isMyRankRow ? styles.innerRow : styles.innerRowWithBorder}>
+                <TextLoader numberOfLines={1} style={[styles.cellRank, weightStyle, rankWidthStyle]}>#{player?.rank || i+1}</TextLoader>
+                <TextLoader style={isMe ? styles.cellRatingMe : styles.cellRating}>{player?.rating}</TextLoader>
+                <View style={styles.cellName}>
+                    <CountryImageLoader country={player?.country} ready={player} />
+                    <TextLoader style={isMe ? styles.nameMe : styles.name} numberOfLines={1}>{player?.name}</TextLoader>
+                </View>
+                {
+                    windowWidth >= 360 &&
+                    <TextLoader ready={player?.games} style={styles.cellGames}>{getTranslation('leaderboard.games', { games: player?.games })}</TextLoader>
+                }
+            </View>
+        </TouchableOpacity>
+    );
+}
+
+const MemoizedRenderRow = React.memo(RenderRow);
 
 const HANDLE_RADIUS = 36;
 
