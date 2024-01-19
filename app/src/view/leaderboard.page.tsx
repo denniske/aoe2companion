@@ -253,12 +253,12 @@ function Leaderboard({leaderboardId}: any) {
     const scrollToIndex = (index: number) => {
         // TODO: Scrolling position is not accurate because the database is actually missing some ranks (sometimes).
         // HACK: We use viewPosition: 0.5 so that the user does not notice it.
-        flatListRef.current?.scrollToIndex({ animated: false, index: index, viewPosition: 0.5, viewOffset: -headerHeightAndPadding });
+        flatListRef.current?.scrollToIndex({ animated: false, index: index, viewPosition: 0, viewOffset: -headerHeightAndPadding });
     };
 
     const scrollToMe = () => {
-        // scrollToIndex(10-1);
-        scrollToIndex(myRank.data.players[0].rank-1);
+        scrollToIndex(101-1);
+        // scrollToIndex(myRank.data.players[0].rank-1);
     };
 
     useEffect(() => {
@@ -317,14 +317,22 @@ function Leaderboard({leaderboardId}: any) {
     };
 
     const fetchPage = async (page: number) => {
-        if (fetchingPages.current.includes(page)) return;
-        if (leaderboard.loading) return;
-        // console.log('FETCHPAGE', page);
+        const index = (page-1)*pageSize+1;
 
-        // const index = (page-1)*pageSize+1;
-        // const has = list.current[index] != null;
+        if (fetchingPages.current.includes(page)) {
+            // console.log('FETCHPAGE', page, 'ALREADY FETCHING');
+            return;
+        }
+        if (list.current[index]) {
+            // console.log('FETCHPAGE', page, 'ALREADY HAVE');
+            return;
+        }
+        if (leaderboard.loading) {
+            // console.log('FETCHPAGE', page, 'LEADERBOARD LOADING');
+            return;
+        }
 
-        // console.log('HAS', page, 'ALREADY', index, list.current[index]);
+        // console.log('FETCHPAGE', page, 'WILL FETCH');
 
         fetchingPages.current = [...fetchingPages.current, page];
         await leaderboard.refetchAppend({ leaderboardId, ...getParams(page) });
@@ -344,15 +352,10 @@ function Leaderboard({leaderboardId}: any) {
 
         if (total2.current === 0) return;
 
-        // console.log('indexTop', indexTop, '-', indexBottom);
+        // console.log('fetchByContentOffset', indexTop, '-', indexBottom);
 
-        if (!list.current[indexTop]) {
-            fetchPage(Math.ceil(indexTop / pageSize));
-            return;
-        }
-        if (!list.current[indexBottom]) {
-            fetchPage(Math.ceil(indexBottom / pageSize));
-        }
+        fetchPage(Math.ceil(indexTop / pageSize));
+        fetchPage(Math.ceil(indexBottom / pageSize));
     };
 
     useEffect(() => {
@@ -527,7 +530,7 @@ function RenderRow(props: RenderRowProps) {
     // console.log('RERENDER', i, player != null);
 
     return (
-        <TouchableOpacity style={[styles.row, rowStyle]} disabled={player == null} onPress={() => isMyRankRow ? scrollToMe() : onSelect(player)}>
+        <TouchableOpacity style={[styles.row, rowStyle]} disabled={player == null} onPress={() => isMyRankRow || true ? scrollToMe() : onSelect(player)}>
             <View style={isMyRankRow ? styles.innerRow : styles.innerRowWithBorder}>
                 <TextLoader numberOfLines={1} style={[styles.cellRank, weightStyle, rankWidthStyle]}>#{player?.rank || i+1}</TextLoader>
                 <TextLoader style={isMe ? styles.cellRatingMe : styles.cellRating}>{player?.rating}</TextLoader>
