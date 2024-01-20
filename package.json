@@ -22,8 +22,6 @@
     "clean:plugin": "expo-module clean plugin"
   },
   "dependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.10.4",
-    "@babel/plugin-proposal-decorators": "^7.10.5",
     "@eva-design/eva": "^2.2.0",
     "@expo-google-fonts/roboto": "^0.1.0",
     "@pusher/push-notifications-web": "^1.1.0",
@@ -34,8 +32,6 @@
     "@react-navigation/stack": "^6.3.17",
     "@sentry/react-native": "^5.16.0",
     "@tanstack/react-query": "^4.33.0",
-    "@types/react-native-htmlview": "^0.12.2",
-    "@types/react-native-vector-icons": "^6.4.5",
     "@ui-kitten/components": "^5.3.1",
     "array-flat-polyfill": "^1.0.1",
     "babel-plugin-module-resolver": "^5.0.0",
@@ -114,6 +110,8 @@
     "@types/lodash": "^4.14.157",
     "@types/node": "^20.5.3",
     "@types/react": "~18.2.14",
+    "@types/react-native-htmlview": "^0.12.2",
+    "@types/react-native-vector-icons": "^6.4.5",
     "@types/react-redux": "7.1.11",
     "@types/semver": "^7.3.1",
     "@types/uuid": "^3.4.9",

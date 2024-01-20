@@ -1,4 +1,10 @@
 
+Migration to Expo Router
+- I think we can remove @react-native-community/masked-view after that
+- Can I use Material Bottom Tabs with expo router and still have the file based routing?
+  This video is exactly what you are looking for: https://www.youtube.com/watch?v=AP08wUBhpKM
+
+
 - donjon attack 5, 5 (x2), 5 (x3)
 
 - animated unit images

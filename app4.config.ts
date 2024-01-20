@@ -19,7 +19,9 @@ const sentryConfigPlugin = [
     }
 ];
 
-const sentryConfigPlugins = process.env.EAS_BUILD_PROFILE?.includes('production') ? [sentryConfigPlugin] : [];
+const isProdBuild = process.env.EAS_BUILD_PROFILE?.includes('production');
+const isRunningInEasCI = process.env.EAS_BUILD_RUNNER === 'eas-build';
+const sentryConfigPlugins = isProdBuild && isRunningInEasCI ? [sentryConfigPlugin] : [];
 
 export default {
     "expo": {
