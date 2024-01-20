@@ -1,4 +1,5 @@
 {
+  "main": "expo-router/entry",
   "scripts": {
     "deps": "npm install --global eas-cli",
     "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider APP=aoe2 expo start -c --dev-client --private-key-path update/private-key.pem",

@@ -9686,7 +9686,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-constants@npm:~15.4.0, expo-constants@npm:~15.4.3":
+"expo-constants@npm:~15.4.0, expo-constants@npm:~15.4.3, expo-constants@npm:~15.4.5":
   version: 15.4.5
   resolution: "expo-constants@npm:15.4.5"
   dependencies:
