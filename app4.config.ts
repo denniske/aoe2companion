@@ -10,19 +10,16 @@ const splash = {
     },
 };
 
-const hooksProduction = {
-    "postPublish": [
-        {
-            "file": "sentry-expo/upload-sourcemaps",
-            "config": {
-                "organization": "aoe2companion",
-                "project": "aoe4companion"
-            }
-        }
-    ]
-};
+const sentryConfigPlugin = [
+    "@sentry/react-native/expo",
+    {
+        "url": "https://sentry.io/",
+        "organization": "aoe2companion",
+        "project": "aoe4companion",
+    }
+];
 
-const hooks = process.env.EAS_BUILD_PROFILE === 'production' ? hooksProduction : undefined;
+const sentryConfigPlugins = process.env.EAS_BUILD_PROFILE?.includes('production') ? [sentryConfigPlugin] : [];
 
 export default {
     "expo": {
@@ -77,6 +74,7 @@ export default {
                     "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone."
                 }
             ],
+            ...sentryConfigPlugins,
             [
                 "expo-build-properties",
                 {
@@ -86,7 +84,6 @@ export default {
                 }
             ],
             "expo-localization",
-            "sentry-expo"
         ],
         "android": {
             "userInterfaceStyle": "automatic",
@@ -110,6 +107,5 @@ export default {
             },
             "splash": splash,
         },
-        hooks,
     }
 };

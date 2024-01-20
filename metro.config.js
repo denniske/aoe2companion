@@ -1,10 +1,10 @@
-const { getDefaultConfig } = require('expo/metro-config');
+const {getSentryExpoConfig} = require("@sentry/react-native/metro");
 
 const exclusionList = require('metro-config/src/defaults/exclusionList');
 
 console.log("Applying metro.config.js");
 
-const defaultConfig = getDefaultConfig(__dirname, {
+const defaultConfig = getSentryExpoConfig(__dirname, {
     // For TailWindCSS
     isCSSEnabled: true,
 });

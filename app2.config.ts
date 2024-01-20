@@ -10,19 +10,16 @@ const splash = {
     },
 };
 
-const hooksProduction = {
-    "postPublish": [
-        {
-            "file": "sentry-expo/upload-sourcemaps",
-            "config": {
-                "organization": "aoe2companion",
-                "project": "aoe2companion"
-            }
-        }
-    ]
-};
+const sentryConfigPlugin = [
+    "@sentry/react-native/expo",
+    {
+        "url": "https://sentry.io/",
+        "organization": "aoe2companion",
+        "project": "aoe2companion",
+    }
+];
 
-const hooks = process.env.EAS_BUILD_PROFILE === 'production' ? hooksProduction : undefined;
+const sentryConfigPlugins = process.env.EAS_BUILD_PROFILE?.includes('production') ? [sentryConfigPlugin] : [];
 
 export default {
     "expo": {
@@ -62,8 +59,8 @@ export default {
         },
         "userInterfaceStyle": "automatic",
         "jsEngine": "hermes",
-        "runtimeVersion": "83.0.0",
-        "version": "83.0.0",
+        "runtimeVersion": "84.0.0",
+        "version": "84.0.0",
         "orientation": "portrait",
         "privacy": "public",
         "githubUrl": "https://github.com/denniske/aoe2companion",
@@ -101,6 +98,7 @@ export default {
                     "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone."
                 }
             ],
+            ...sentryConfigPlugins,
             [
                 "./app.plugin.js",
                 {
@@ -109,7 +107,7 @@ export default {
                         "devTeamId": "HAFGZBHF9M",
                         "appGroupIdentifier": "group.com.aoe2companion.widget",
                         "topLevelFiles": ["Assets.xcassets", "WidgetBundle.swift"],
-                        "topLevelFolders": ["Widgets", "Helpers"] 
+                        "topLevelFolders": ["Widgets", "Helpers"]
                     }
                 }
             ],
@@ -122,7 +120,6 @@ export default {
                 }
             ],
             "expo-localization",
-            "sentry-expo"
         ],
         "android": {
             "userInterfaceStyle": "automatic",
@@ -130,7 +127,7 @@ export default {
                 "foregroundImage": "./app/assets/icon-adaptive.png"
             },
             "package": "com.aoe2companion",
-            "versionCode": 830000,
+            "versionCode": 840000,
             "permissions": [],
             "googleServicesFile": "./google-services2.json",
             "splash": splash,
@@ -139,7 +136,7 @@ export default {
             "userInterfaceStyle": "automatic",
             "icon": "./app/assets/icon-adaptive-no-alpha.png",
             "bundleIdentifier": "com.aoe2companion",
-            "buildNumber": "83.0.0",
+            "buildNumber": "84.0.0",
             "supportsTablet": false,
             "config": {
                 "usesNonExemptEncryption": false
@@ -157,6 +154,5 @@ export default {
             },
             "splash": splash,
         },
-        hooks,
     }
 };

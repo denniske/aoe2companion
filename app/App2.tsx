@@ -94,6 +94,7 @@ import BuildPage, { BuildTitle, BuildMenu } from './src/view/build.page';
 import OngoingMatchesPage from './src/view/ongoing.page';
 import { liveActivity } from './src/service/live-game-activity';
 import TournamentsPage, { TournamentsTitle } from './src/view/tournaments.page';
+import * as Sentry from '@sentry/react-native';
 
 
 SplashScreen.preventAutoHideAsync();
@@ -1015,7 +1016,7 @@ export function AppWrapper() {
 }
 
 
-export default function App() {
+function App() {
     // Prevent closing of app when back button is tapped.
     // View navigation using back button is still possible.
     useEffect(() => {
@@ -1034,6 +1035,8 @@ export default function App() {
         </ReduxProvider>
     );
 }
+
+export default Sentry.wrap(App);
 
 // registerRootComponent(App);
 
