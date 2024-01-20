@@ -118,6 +118,7 @@ export function GuideHeaderBookmark(props: IGuideHeaderBookmarkProps) {
     );
 }
 
+// Not used anymore. Replaced by native BuildPage.
 export default function GuidePage() {
     const route = useRoute<RouteProp<RootStackParamList, 'Guide'>>();
 
