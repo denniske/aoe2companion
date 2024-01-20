@@ -295,7 +295,7 @@ export default function Footer() {
                             <Menu.Item leadingIcon={useIcon('lightbulb', 'Tips')} titleStyle={iconPopupStyle('Tips')} onPress={() => { nav('Tips'); setMenu(false); }} title={getTranslation('footer.tips')} />
                             <Divider />
                             <Menu.Item leadingIcon={useIcon('play', 'Live')} titleStyle={iconPopupStyle('Live')} onPress={() => { nav('Live'); setMenu(false); }} title={getTranslation('footer.lobbies')} />
-                            <Menu.Item leadingIcon={useIcon('headset', 'Ongoing')} titleStyle={iconPopupStyle('Live')} onPress={() => { nav('Ongoing'); setMenu(false); }} title={getTranslation('footer.ongoing')} />
+                            <Menu.Item leadingIcon={useIcon('headset', 'Ongoing')} titleStyle={iconPopupStyle('Ongoing')} onPress={() => { nav('Ongoing'); setMenu(false); }} title={getTranslation('footer.ongoing')} />
                             <Divider />
                             <Menu.Item leadingIcon={useIcon('archway', 'Building')} titleStyle={iconPopupStyle('Building')} onPress={() => { nav('Building'); setMenu(false); }} title={getTranslation('footer.buildings')} />
                             <Menu.Item leadingIcon={useIcon('flask', 'Tech')} titleStyle={iconPopupStyle('Tech')} onPress={() => { nav('Tech'); setMenu(false); }} title={getTranslation('footer.techs')} />
