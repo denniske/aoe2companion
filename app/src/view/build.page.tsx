@@ -49,7 +49,8 @@ const BuildPage = () => {
             activateKeepAwakeAsync('guide-page');
         }
         return () => {
-            deactivateKeepAwake('guide-page');
+            // It may happen that we did not activate the keep awake, so we need to catch the error.
+            deactivateKeepAwake('guide-page').catch(() => {});
         };
     });
 
