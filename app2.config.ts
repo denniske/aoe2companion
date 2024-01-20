@@ -62,8 +62,8 @@ export default {
         },
         "userInterfaceStyle": "automatic",
         "jsEngine": "hermes",
-        "runtimeVersion": "81.0.0",
-        "version": "81.0.0",
+        "runtimeVersion": "83.0.0",
+        "version": "83.0.0",
         "orientation": "portrait",
         "privacy": "public",
         "githubUrl": "https://github.com/denniske/aoe2companion",
@@ -92,6 +92,13 @@ export default {
                 "expo-notifications",
                 {
                     "icon": "./app/assets/notification.png"
+                }
+            ],
+            // Needed since SDK 50. But it should not be needed because this is the default value.
+            [
+                "expo-av",
+                {
+                    "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone."
                 }
             ],
             [
@@ -123,7 +130,7 @@ export default {
                 "foregroundImage": "./app/assets/icon-adaptive.png"
             },
             "package": "com.aoe2companion",
-            "versionCode": 810000,
+            "versionCode": 830000,
             "permissions": [],
             "googleServicesFile": "./google-services2.json",
             "splash": splash,
@@ -132,7 +139,7 @@ export default {
             "userInterfaceStyle": "automatic",
             "icon": "./app/assets/icon-adaptive-no-alpha.png",
             "bundleIdentifier": "com.aoe2companion",
-            "buildNumber": "81.0.0",
+            "buildNumber": "83.0.0",
             "supportsTablet": false,
             "config": {
                 "usesNonExemptEncryption": false

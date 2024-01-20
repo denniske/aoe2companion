@@ -70,6 +70,21 @@ export default {
                     "icon": "./app4/assets/notification.png"
                 }
             ],
+            // Needed since SDK 50. But it should not be needed because this is the default value.
+            [
+                "expo-av",
+                {
+                    "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone."
+                }
+            ],
+            [
+                "expo-build-properties",
+                {
+                    "ios": {
+                        "deploymentTarget": "13.4"
+                    }
+                }
+            ],
             "expo-localization",
             "sentry-expo"
         ],

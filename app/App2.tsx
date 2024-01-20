@@ -986,7 +986,6 @@ export function AppWrapper() {
                 >
                     <ApplicationProvider {...eva} theme={finalDarkMode === 'light' ? eva.light : eva.dark}>
                         <QueryClientProvider client={queryClient}>
-                            <GestureHandlerRootView style={{flex: 1}}>
                                 <StatusBar barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'}
                                            backgroundColor="transparent" translucent={true}/>
                                 <View style={{flex: 1}} onLayout={onLayoutRootView}>
@@ -1007,7 +1006,6 @@ export function AppWrapper() {
                                         <InnerApp/>
                                     }
                                 </View>
-                            </GestureHandlerRootView>
                         </QueryClientProvider>
                     </ApplicationProvider>
                 </PaperProvider>
