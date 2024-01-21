@@ -25,6 +25,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@app/*": ["app/src/*"],
       "@nex/app/view": [
         "app/src/index-view.ts"
       ],

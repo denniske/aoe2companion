@@ -93,6 +93,12 @@ export default {
         ],
         "plugins": [
             [
+                "expo-router",
+                {
+                    "root": "./app/src/app",
+                }
+            ],
+            [
                 "expo-notifications",
                 {
                     "icon": "./app/assets/notification.png"

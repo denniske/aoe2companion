@@ -1,6 +1,5 @@
 import {Age, Other, Unit, UnitLine, unitLines} from "@nex/data";
 import {ImageSourcePropType} from "react-native";
-import {getUnitIconColored} from "./units-colored";
 
 
 const otherIcons = {
