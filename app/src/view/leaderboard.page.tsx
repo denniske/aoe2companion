@@ -256,9 +256,11 @@ function Leaderboard({leaderboardId}: any) {
         flatListRef.current?.scrollToIndex({ animated: false, index: index, viewPosition: 0, viewOffset: -headerHeightAndPadding });
     };
 
+    console.log('THISCOMMENTINPROD-2');
+
     const scrollToMe = () => {
-        scrollToIndex(101-1);
-        // scrollToIndex(myRank.data.players[0].rank-1);
+        // scrollToIndex(101-1);
+        scrollToIndex(myRank.data.players[0].rank-1);
     };
 
     useEffect(() => {
@@ -530,7 +532,7 @@ function RenderRow(props: RenderRowProps) {
     // console.log('RERENDER', i, player != null);
 
     return (
-        <TouchableOpacity style={[styles.row, rowStyle]} disabled={player == null} onPress={() => isMyRankRow || true ? scrollToMe() : onSelect(player)}>
+        <TouchableOpacity style={[styles.row, rowStyle]} disabled={player == null} onPress={() => isMyRankRow ? scrollToMe() : onSelect(player)}>
             <View style={isMyRankRow ? styles.innerRow : styles.innerRowWithBorder}>
                 <TextLoader numberOfLines={1} style={[styles.cellRank, weightStyle, rankWidthStyle]}>#{player?.rank || i+1}</TextLoader>
                 <TextLoader style={isMe ? styles.cellRatingMe : styles.cellRating}>{player?.rating}</TextLoader>

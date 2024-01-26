@@ -145,6 +145,20 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '84.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix navigation to player profiles from leaderboard page',
+        },
+        {
+            type: 'minor',
+            title: 'Use self-hosted server for OTA (over-the-air) updates',
+        },
+        {
+            type: 'minor',
+            title: 'Internal Framework Update (SDK 50)',
+        },
+    ],
     '79.0.0': [
         {
             type: 'feature',

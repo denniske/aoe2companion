@@ -70,7 +70,12 @@ export default {
         "splash": splash,
         "updates": {
             "fallbackToCacheTimeout": 0,
-            "url": "https://u.expo.dev/668efd6d-8482-4ad8-8235-e1e94b7d508e"
+            "url": "https://update.aoe2companion.com/api/manifest",
+            "codeSigningCertificate": "./update/certificate.pem",
+            "codeSigningMetadata": {
+                "keyid": "main",
+                "alg": "rsa-v1_5-sha256"
+            }
         },
         "assetBundlePatterns": [
             "node_modules/**",

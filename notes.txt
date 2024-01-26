@@ -3,6 +3,14 @@ Migration to Expo Router
 - I think we can remove @react-native-community/masked-view after that
 - Can I use Material Bottom Tabs with expo router and still have the file based routing?
   This video is exactly what you are looking for: https://www.youtube.com/watch?v=AP08wUBhpKM
+- Also use react query for data fetching instead useApi
+  https://www.youtube.com/watch?v=vxkbf5QMA2g
+
+- OTA updates repo size deduplication
+  https://stackoverflow.com/a/76682079/1106753
+
+publish ota update
+export APP=aoe2 && export AOE=aoe2 && yarn update
 
 
 - donjon attack 5, 5 (x2), 5 (x3)
