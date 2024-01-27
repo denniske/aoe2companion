@@ -3,18 +3,20 @@ import { Animated, Easing, Modal, View, ScrollView, Pressable, StyleSheet, ViewS
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { createStylesheet } from '../theming-new';
 import { PanGestureHandler } from 'react-native-gesture-handler';
+import { Text } from '@app/components/text';
 
 export type BottomSheetProps = {
+    title?: string;
     isActive?: boolean;
     isFullHeight?: boolean;
     showHandle?: boolean;
     onClose?: () => void;
     onCloseComplete?: () => void;
     children: React.ReactNode;
-    style: ViewStyle;
+    style?: ViewStyle;
 };
 
-function BottomSheet({ onClose, onCloseComplete, showHandle, isActive = false, isFullHeight = false, children, style }: BottomSheetProps) {
+function BottomSheet({ title, onClose, onCloseComplete, showHandle, isActive = false, isFullHeight = false, children, style }: BottomSheetProps) {
     const modalAnimation = useRef(new Animated.Value(0)).current;
     const [isVisible, setIsVisible] = useState(isActive);
     const [height, setHeight] = useState(0);
@@ -71,20 +73,18 @@ function BottomSheet({ onClose, onCloseComplete, showHandle, isActive = false, i
                             }
                             setHeight(newHeight);
                         }}
-                        style={[
-                            styles.animatedContainer,
-                            {
-                                flex: isFullHeight ? 1 : undefined,
-                                marginBottom: modalAnimation.interpolate({
-                                    inputRange: [-1, 0, 1],
-                                    outputRange: [0, 0, -1],
-                                }),
-                                paddingBottom: modalAnimation.interpolate({
-                                    inputRange: [-1, 0, 1],
-                                    outputRange: [1, 0, 0],
-                                }),
-                            },
-                        ]}
+                        className="bg-gold-50 dark:bg-blue-950 rounded-t-lg overflow-hidden max-h-full"
+                        style={{
+                            flex: isFullHeight ? 1 : undefined,
+                            marginBottom: modalAnimation.interpolate({
+                                inputRange: [-1, 0, 1],
+                                outputRange: [0, 0, -1],
+                            }),
+                            paddingBottom: modalAnimation.interpolate({
+                                inputRange: [-1, 0, 1],
+                                outputRange: [1, 0, 0],
+                            }),
+                        }}
                     >
                         <SafeAreaView
                             edges={['bottom']}
@@ -111,7 +111,14 @@ function BottomSheet({ onClose, onCloseComplete, showHandle, isActive = false, i
                                     </Animated.View>
                                 </PanGestureHandler>
                             )}
-                            <ScrollView contentContainerStyle={[styles.contentContainer, style]}>{children}</ScrollView>
+                            <ScrollView contentContainerStyle={[styles.contentContainer, style]}>
+                                {title && (
+                                    <Text color="brand" variant="header-lg" className="text-center">
+                                        {title}
+                                    </Text>
+                                )}
+                                {children}
+                            </ScrollView>
                         </SafeAreaView>
                     </Animated.View>
                 </View>
@@ -139,13 +146,6 @@ const useStyles = createStylesheet((theme) =>
         container: {
             flex: 1,
             justifyContent: 'flex-end',
-        },
-        animatedContainer: {
-            backgroundColor: theme.backgroundColor,
-            borderTopStartRadius: 8,
-            borderTopEndRadius: 8,
-            overflow: 'hidden',
-            maxHeight: '100%',
         },
         contentContainer: {
             padding: 12,

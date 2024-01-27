@@ -1,0 +1,12 @@
+diff --git a/node_modules/nativewind/dist/postcss/to-react-native/is-invalid-property.js b/node_modules/nativewind/dist/postcss/to-react-native/is-invalid-property.js
+index 7d7715b..1a07ec8 100644
+--- a/node_modules/nativewind/dist/postcss/to-react-native/is-invalid-property.js
++++ b/node_modules/nativewind/dist/postcss/to-react-native/is-invalid-property.js
+@@ -53,6 +53,7 @@ const validProps = new Set([
+     "fontStyle",
+     "fontVariant",
+     "fontWeight",
++    "gap",
+     "height",
+     "includeFontPadding",
+     "justifyContent",
