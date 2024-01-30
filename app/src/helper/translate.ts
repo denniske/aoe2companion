@@ -29,7 +29,7 @@ const strings: IStringCollection = {
     // 'vi': require('../../assets/translations/vi.json'),
     // 'tr': require('../../assets/translations/tr.json'),
     // 'de': require('../../assets/translations/de.json'),
-    'en': require('../../assets/translations/en.json'),
+    'en': local001,
     // 'es': require('../../assets/translations/es.json'),
     // 'hi': require('../../assets/translations/hi.json'),
     // 'ja': require('../../assets/translations/ja.json'),

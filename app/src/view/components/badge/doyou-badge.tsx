@@ -18,7 +18,7 @@ export default function DouyuBadge(props: Props) {
                 label="Douyu"
                 labelColor="#FFFFFF"
                 labelTextColor="#000000"
-                logoPng={require('../../../../assets/icon/douyu.png')}
+                logoPng={{ uri: 'https://www.aoe2companion.com/aoe2/de/civilizations/chinese.png' }}
                 logoColor="white" />
         </TouchableOpacity>
     );

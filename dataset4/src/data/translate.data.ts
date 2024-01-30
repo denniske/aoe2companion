@@ -1,5 +1,5 @@
 
-export const translateStringsSourceData: Record<string, string> = {
+export const translateStringsSourceData: Record<string, any> = {
     // 'ms': require('../../../app4/assets/data/ms/strings.json.lazy'),
     // 'fr': require('../../../app4/assets/data/fr/strings.json.lazy'),
     // 'es-mx': require('../../../app4/assets/data/es-mx/strings.json.lazy'),
@@ -9,7 +9,7 @@ export const translateStringsSourceData: Record<string, string> = {
     // 'vi': require('../../../app4/assets/data/vi/strings.json.lazy'),
     // 'tr': require('../../../app4/assets/data/tr/strings.json.lazy'),
     // 'de': require('../../../app4/assets/data/de/strings.json.lazy'),
-    'en': require('../../../app4/assets/data/en/strings.json.lazy'),
+    // 'en': require('../../../app4/assets/data/en/strings.json.lazy'),
     // 'es': require('../../../app4/assets/data/es/strings.json.lazy'),
     // 'hi': require('../../../app4/assets/data/hi/strings.json.lazy'),
     // 'ja': require('../../../app4/assets/data/ja/strings.json.lazy'),

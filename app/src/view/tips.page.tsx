@@ -30,7 +30,7 @@ interface ITip {
     building?: Building;
     tech?: Tech;
     url?: string;
-    imageIcon?: string;
+    imageIcon?: any;
     icon?: string;
 }
 
@@ -49,7 +49,8 @@ const tips: ITip[] = [
     // {
     //     title: 'Defend the drush',
     //     description: 'Move villagers into town center and do quick-walls to win.',
-    //     video: require('../../assets/tips/aoe-1.mp4'),
+    //     video: { uri: 'https://www.aoe2companion.com/aoe2/de/civilizations/chinese.png' }, // Todo: Remove fake url
+        // require('../../assets/tips/aoe-1.mp4'),
     //     video: getVideoUrl('http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'),
     //     url: 'https://www.ageofempires.com/mods/details/2695',
     // },
@@ -57,7 +58,8 @@ const tips: ITip[] = [
         title: getTranslation('tips.item.heading.gatheringefficiently'),
         description: getTranslation('tips.item.note.gatheringefficiently'),
         video: getVideoSource('aoe-sheep.mp4'),
-        videoPoster: require('../../assets/tips/poster/aoe-sheep.png'),
+        videoPoster: { uri: 'https://www.aoe2companion.com/aoe2/de/civilizations/chinese.png' }, // Todo: Remove fake url
+        // require('../../assets/tips/poster/aoe-sheep.png'),
         unit: 'Sheep',
     },
     {
@@ -88,7 +90,8 @@ const tips: ITip[] = [
         title: getTranslation('tips.item.heading.taskqueue'),
         description: getTranslation('tips.item.note.taskqueue'),
         video: getVideoSource('aoe-task-queue.mp4'),
-        imageIcon: require('../../assets/tips/icon/aoe-task-queue.png'),
+        imageIcon: { uri: 'https://www.aoe2companion.com/aoe2/de/civilizations/chinese.png' }, // Todo: Remove fake url
+        // require('../../assets/tips/icon/aoe-task-queue.png'),
     },
     {
         title: getTranslation('tips.item.heading.farmingefficiently'),
@@ -102,28 +105,32 @@ const tips: ITip[] = [
         description: getTranslation('tips.item.note.smalltrees'),
         video: getVideoSource('aoe-small-trees.mp4'),
         url: 'https://www.ageofempires.com/mods/details/790',
-        imageIcon: require('../../assets/tips/icon/aoe-small-trees.png'),
+        imageIcon: { uri: 'https://www.aoe2companion.com/aoe2/de/civilizations/chinese.png' }, // Todo: Remove fake url
+        // require('../../assets/tips/icon/aoe-small-trees.png'),
     },
     {
         title: getTranslation('tips.item.heading.zetnusimprovedgridmod'),
         description: getTranslation('tips.item.note.zetnusimprovedgridmod'),
         image: getImageSource('aoe-grid.png'),
         url: 'https://www.ageofempires.com/mods/details/812',
-        imageIcon: require('../../assets/tips/icon/aoe-grid.png'),
+        imageIcon: { uri: 'https://www.aoe2companion.com/aoe2/de/civilizations/chinese.png' }, // Todo: Remove fake url
+        // require('../../assets/tips/icon/aoe-grid.png'),
     },
     {
         title: getTranslation('tips.item.heading.idlevillagerpointer'),
         description: getTranslation('tips.item.note.idlevillagerpointer'),
         video: getVideoSource('aoe-idle-villager-pointer.mp4'),
         url: 'https://www.ageofempires.com/mods/details/2686',
-        imageIcon: require('../../assets/tips/icon/aoe-idle-villager-pointer.png'),
+        imageIcon: { uri: 'https://www.aoe2companion.com/aoe2/de/civilizations/chinese.png' }, // Todo: Remove fake url
+        // require('../../assets/tips/icon/aoe-idle-villager-pointer.png'),
     },
     {
         title: getTranslation('tips.item.heading.idlevillagerhighlightbyarrow'),
         description: getTranslation('tips.item.note.idlevillagerhighlightbyarrow'),
         image: getImageSource('aoe-idle-villager-arrow.png'),
         url: 'https://www.ageofempires.com/mods/details/3789',
-        imageIcon: require('../../assets/tips/icon/aoe-idle-villager-arrow.png'),
+        imageIcon: { uri: 'https://www.aoe2companion.com/aoe2/de/civilizations/chinese.png' }, // Todo: Remove fake url
+        // require('../../assets/tips/icon/aoe-idle-villager-arrow.png'),
     },
     {
         title: getTranslation('tips.item.heading.nointro'),
@@ -135,7 +142,8 @@ const tips: ITip[] = [
         title: getTranslation('tips.item.heading.hugenumber'),
         description: getTranslation('tips.item.note.hugenumber'),
         url: 'https://www.ageofempires.com/mods/details/1779',
-        imageIcon: require('../../assets/tips/icon/aoe-huge-number.png'),
+        imageIcon: { uri: 'https://www.aoe2companion.com/aoe2/de/civilizations/chinese.png' }, // Todo: Remove fake url
+        // require('../../assets/tips/icon/aoe-huge-number.png'),
     },
     {
         title: getTranslation('tips.item.heading.blacksmithupgrades'),
@@ -155,7 +163,8 @@ const tips: ITip[] = [
     {
         title: getTranslation('tips.item.heading.donotstockpileresources'),
         description: getTranslation('tips.item.note.donotstockpileresources'),
-        imageIcon: require('../../assets/other/Gold.png'),
+        imageIcon: { uri: 'https://www.aoe2companion.com/aoe2/de/civilizations/chinese.png' }, // Todo: Remove fake url
+        // require('../../assets/other/Gold.png'),
     },
 ];
 

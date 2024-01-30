@@ -70,7 +70,7 @@ export const TournamentDetail: React.FC<{ id: string }> = ({ id }) => {
             >
                 {tournament ? (
                     <>
-                        <ImageBackground source={require('../../../assets/hero.jpg')} style={styles.hero}>
+                        <ImageBackground source={{ uri: 'https://www.aoe2companion.com/aoe2/de/civilizations/chinese.png' }} style={styles.hero}>
                             <LinearGradient
                                 style={styles.heroBackground}
                                 locations={[0.75, 1]}

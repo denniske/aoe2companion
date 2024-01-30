@@ -20,7 +20,7 @@ export const TournamentCard: React.FC<Tournament> = (tournament) => {
 
     return (
         <TouchableOpacity style={styles.card} key={tournament.name} onPress={() => navigation.push('Tournaments', { tournamentId: tournament.path })}>
-            <ImageBackground source={require('../../../assets/textile.jpg')} style={styles.imageBackground} imageStyle={styles.repeatableImage}>
+            <ImageBackground source={{ uri: 'https://www.aoe2companion.com/aoe2/de/civilizations/chinese.png' }} style={styles.imageBackground} imageStyle={styles.repeatableImage}>
                 <LinearGradient colors={['#394766', '#181c29']} style={styles.gradient} />
                 <View style={styles.imageContainer}>
                     <Image source={{ uri: tournament.league?.image }} style={styles.image} />

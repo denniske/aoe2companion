@@ -135,8 +135,11 @@ export function Game({match, user, highlightedUsers, expanded = false, showLiveA
                         }
                         {
                             user == null && (players.some(p => p.won != null)) &&
-                            <Image source={require('../../../assets/other/SkullCrown.png')} style={{marginLeft: -6,marginTop:-4, width: 17, height: 17}} />
+                            <Image source={
+                                { uri: 'https://www.aoe2companion.com/aoe2/de/civilizations/chinese.png' } // Todo: Remove fake url
+                            } style={{marginLeft: -6,marginTop:-4, width: 17, height: 17}} />
                         }
+                        {/*require('../../../assets/other/SkullCrown.png')*/}
                         {
                             players.some(p => p.profileId === user && p.won === false && (freeForALl || p.team != -1)) &&
                             <FontAwesome5 name="skull" size={14} style={{marginLeft: -6,marginTop:-4}} color="grey" />

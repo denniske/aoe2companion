@@ -40,4 +40,4 @@ export const appConfig = {
     },
 };
 
-export const appIconData = require('../../../app4/assets/icon.png');
+export const appIconData = { uri: 'https://www.aoe2companion.com/aoe2/de/civilizations/chinese.png' };
