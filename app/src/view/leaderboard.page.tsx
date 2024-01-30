@@ -116,7 +116,7 @@ export function LeaderboardMenu() {
 }
 
 export function LeaderboardTitle(props: any) {
-    return <TextHeader text={getTranslation('leaderboard.title')} onLayout={props.titleProps.onLayout}/>;
+    return <TextHeader text={getTranslation('leaderboard.title') + 'OTA-1'} onLayout={props.titleProps.onLayout}/>;
 }
 
 const ROW_HEIGHT = 45;
@@ -255,8 +255,6 @@ function Leaderboard({leaderboardId}: any) {
         // HACK: We use viewPosition: 0.5 so that the user does not notice it.
         flatListRef.current?.scrollToIndex({ animated: false, index: index, viewPosition: 0, viewOffset: -headerHeightAndPadding });
     };
-
-    console.log('THISCOMMENTINPROD-2');
 
     const scrollToMe = () => {
         // scrollToIndex(101-1);

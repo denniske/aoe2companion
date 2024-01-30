@@ -9,9 +9,6 @@ Migration to Expo Router
 - OTA updates repo size deduplication
   https://stackoverflow.com/a/76682079/1106753
 
-publish ota update
-export APP=aoe2 && export AOE=aoe2 && yarn update
-
 
 - donjon attack 5, 5 (x2), 5 (x3)
 
@@ -109,9 +106,6 @@ https://docs.expo.dev/guides/typescript/
 Eas Build 
 ------------------------------------
 
-Update version in eas config and then
-export APP=aoe2 && export AOE=aoe2 && git tag v68.0.8 && git push --tags && eas update --branch production --message "Update v68.0.8"
-
 export APP=aoe2 && export AOE=aoe2 && eas build --profile development-${AOE} --platform ios --auto-submit --no-wait --non-interactive
 export APP=aoe2 && export AOE=aoe2 && eas build --profile development-simulator-${AOE} --platform ios --auto-submit --no-wait --non-interactive
 
@@ -120,7 +114,13 @@ export APP=aoe2 && export AOE=aoe2 && EXPO_DEBUG=1 EXPO_APP_STORE_DEBUG=1 eas bu
 export APP=aoe2 && export AOE=aoe2 && eas build --profile production-${AOE} --platform ios --auto-submit --no-wait --non-interactive
 export APP=aoe2 && export AOE=aoe2 && eas submit --profile production-${AOE} -p ios --no-wait --non-interactive --path build-1702683414902.ipa
 
+Publish OTA update (self-hosted)
+export APP=aoe2 && export AOE=aoe2 && yarn update
 
+Update version in eas config and then
+export APP=aoe2 && export AOE=aoe2 && git tag v84.0.1 && git push --tags && eas update --branch production --message "Update v84.0.1"
+
+export APP=aoe2 && export AOE=aoe2 && eas update:rollback
 
 
 watchman watch-del-all && watchman shutdown-server
