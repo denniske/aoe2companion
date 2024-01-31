@@ -1129,18 +1129,37 @@
 // //     borderRadius: isMobile ? 0 : 10,
 // // }
 
-import { Text, View } from 'react-native';
-import { useUpdates } from 'expo-updates';
+import { SafeAreaView, ScrollView, Text, View } from 'react-native';
+import { reloadAsync, useUpdates } from 'expo-updates';
+// import { Button } from 'react-native';
+import { Button } from 'react-native-paper';
 
 export default function App() {
     const updates = useUpdates();
 
     const updatesStr = JSON.stringify(updates, null, 2);
 
+    const restart = async () => {
+        await reloadAsync();
+    };
+
     return (
-        <View>
-            <Text>Test</Text>
-            <Text>{updatesStr}</Text>
-        </View>
+        <SafeAreaView style={{
+            flex: 1,
+        }}
+        >
+            <ScrollView>
+                <Text>Test1</Text>
+                <Text>Test2</Text>
+                <Text>Test3</Text>
+                <Text>Test4b</Text>
+                {
+                    updates?.isUpdateAvailable &&
+                    // <Button onPress={restart} title="Restart and apply update" />
+                    <Button onPress={restart} >Restart and apply update</Button>
+                }
+                <Text>{updatesStr}</Text>
+            </ScrollView>
+        </SafeAreaView>
     );
 }
