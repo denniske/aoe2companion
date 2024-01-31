@@ -1129,19 +1129,44 @@
 // //     borderRadius: isMobile ? 0 : 10,
 // // }
 
-import { SafeAreaView, ScrollView, Text, View } from 'react-native';
+import { Platform, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { reloadAsync, useUpdates } from 'expo-updates';
 // import { Button } from 'react-native';
 import { Button } from 'react-native-paper';
+import { Asset } from 'expo-asset';
+import { readAsStringAsync } from 'expo-file-system';
+import { addAoeStrings } from './src/helper/translate-data';
+import { useEffect, useState } from 'react';
+
+export const translateStringsSourceData: Record<string, any> = {
+    'en': require('./assets/data/en/strings.json.lazy'),
+};
+
+export async function loadAoeStringsAsync(language: string) {
+    try {
+        const [{localUri}] = await Asset.loadAsync(translateStringsSourceData[language]);
+
+        let json = await readAsStringAsync(localUri!);
+        let parsed = JSON.parse(json);
+        return parsed['4202'];
+    } catch (e: any) {
+        console.log('ERRORED', e.toString());
+    }
+}
 
 export default function App() {
     const updates = useUpdates();
+    const [aoeStrings, setAoeStrings] = useState<any>(null);
 
     const updatesStr = JSON.stringify(updates, null, 2);
 
     const restart = async () => {
         await reloadAsync();
     };
+
+    useEffect(() => {
+        loadAoeStringsAsync('en').then(setAoeStrings);
+    }, []);
 
     return (
         <SafeAreaView style={{
@@ -1153,6 +1178,8 @@ export default function App() {
                 <Text>Test2</Text>
                 <Text>Test3</Text>
                 <Text>Test4b</Text>
+                <Text>Test5</Text>
+                <Text>aoe strings: {aoeStrings}</Text>
                 {
                     updates?.isUpdateAvailable &&
                     // <Button onPress={restart} title="Restart and apply update" />
