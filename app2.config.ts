@@ -70,7 +70,7 @@ export default {
         "splash": splash,
         "updates": {
             "fallbackToCacheTimeout": 0,
-            "url": "https://coder.aoe2companion.com/api/manifest",
+            "url": "https://update.aoe2companion.com/api/manifest",
             "codeSigningCertificate": "./update/certificate.pem",
             "codeSigningMetadata": {
                 "keyid": "main",

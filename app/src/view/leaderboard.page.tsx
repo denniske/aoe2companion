@@ -116,7 +116,7 @@ export function LeaderboardMenu() {
 }
 
 export function LeaderboardTitle(props: any) {
-    return <TextHeader text={getTranslation('leaderboard.title') + 'OTA-1'} onLayout={props.titleProps.onLayout}/>;
+    return <TextHeader text={getTranslation('leaderboard.title')} onLayout={props.titleProps.onLayout}/>;
 }
 
 const ROW_HEIGHT = 45;
