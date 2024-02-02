@@ -145,7 +145,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '84.0.0': [
+    '85.0.0': [
         {
             type: 'bugfix',
             title: 'Fix navigation to player profiles from leaderboard page',
