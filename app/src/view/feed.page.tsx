@@ -245,7 +245,7 @@ export function FeedList() {
                                                         <MyText> {match.finished ? getTranslation('feed.following.played') : getTranslation('feed.following.playingnow')}</MyText>
                                                     }
                                                     {
-                                                        !filteredPlayers[0].profileId !== auth?.profileId && filteredPlayers.length > 1 &&
+                                                        filteredPlayers[0].profileId !== auth?.profileId && filteredPlayers.length > 1 &&
                                                         <MyText> {match.finished ? getTranslation('feed.following.2played') : getTranslation('feed.following.2playingnow')}</MyText>
                                                     }
                                                     {

@@ -1,4 +1,10 @@
 
+https://www.oldcai.com/server/large-postgresql-database-migration/
+https://endoflife.date/postgresql
+
+Integration of Nest js Logs with ELK Stack A Comprehensive Guide
+https://www.youtube.com/watch?v=7-ZC7fzcMqE
+
 Migration to Expo Router
 - I think we can remove @react-native-community/masked-view after that
 - Can I use Material Bottom Tabs with expo router and still have the file based routing?
