@@ -4294,9 +4294,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/react-native@npm:5.17.0":
-  version: 5.17.0
-  resolution: "@sentry/react-native@npm:5.17.0"
+"@sentry/react-native@npm:5.18.0":
+  version: 5.18.0
+  resolution: "@sentry/react-native@npm:5.18.0"
   dependencies:
     "@sentry/browser": 7.81.1
     "@sentry/cli": 2.25.2
@@ -4315,7 +4315,7 @@ __metadata:
       optional: true
   bin:
     sentry-expo-upload-sourcemaps: scripts/expo-upload-sourcemaps.js
-  checksum: 877854e59bbd09a85e5a94e82302fc33770775a1cd36660921474237a7eccd5a2f67371aab493ae293f89c908c286789e4930d0654e986a18b85cd8bf6acad9e
+  checksum: b1e258f091710b2f41c1559731e77b456bdfbe72d846de62744b51ed7b57b302a6a6509b18f6809f3b64a72e1bf72ea82d27ccbc1e3a3c733255106b845ca5a1
   languageName: node
   linkType: hard
 
@@ -6049,7 +6049,7 @@ __metadata:
     "@react-navigation/material-top-tabs": ^6.6.3
     "@react-navigation/native": ^6.1.7
     "@react-navigation/stack": ^6.3.17
-    "@sentry/react-native": 5.17.0
+    "@sentry/react-native": 5.18.0
     "@tanstack/react-query": ^4.33.0
     "@types/cavy": ^3.2.2
     "@types/humps": ^2.0.2
