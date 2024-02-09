@@ -12,6 +12,7 @@ import { getTranslation } from '../../helper/translate';
 import { DismissKeyboard } from '../components/dismiss-keyboard';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useAppTheme } from '../../theming';
 
 const transformSearch = (string: string) => string.toLowerCase().replace(/\W/g, ' ').replace(/ +/g, ' ');
 
@@ -23,6 +24,7 @@ export const BuildListPage = () => {
     const [search, setSearch] = useState('');
     const headerHeight = useHeaderHeight();
     const insets = useSafeAreaInsets();
+    const theme = useAppTheme();
 
     const formattedBuilds = (buildType === 'favorites' ? favorites : buildsData).map((build) => ({
         ...build,
@@ -68,6 +70,7 @@ export const BuildListPage = () => {
                             onChangeText={setSearch}
                             style={styles.search}
                             placeholder={getTranslation('builds.search')}
+                            placeholderTextColor={theme.textNoteColor}
                         />
                     </View>
 
@@ -107,7 +110,7 @@ const useStyles = createStylesheet((theme, darkMode) =>
             padding: 10,
         },
         search: {
-            borderColor: theme.borderColor,
+            borderColor: theme.lightBackgroundColor,
             borderWidth: 1,
             padding: 10,
             borderRadius: 4,
