@@ -1,4 +1,5 @@
-import { FlatList, StyleSheet, TouchableOpacity, View, GestureResponderEvent, TextInput, ImageSourcePropType } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, GestureResponderEvent, TextInput, ImageSourcePropType } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 import { createStylesheet } from '../../theming-new';
 import { useRef, useState } from 'react';
 import { MyText } from './my-text';
