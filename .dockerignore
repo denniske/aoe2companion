@@ -22,3 +22,5 @@
 
 node_modules
 !node_modules/.prisma
+
+private-key.pem

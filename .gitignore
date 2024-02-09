@@ -23,6 +23,8 @@ npm-debug.*
 web-build/
 web-report/
 
+private-key.pem
+
 *.aab
 *.ipa
 *.apk
