@@ -125,7 +125,7 @@ const useStyles = createStylesheet((theme, darkMode) =>
             borderRadius: 10,
             overflow: 'hidden',
             maxHeight: 300,
-            backgroundColor: 'white',
+            backgroundColor: theme.backgroundColor,
         },
         name: {
             color: theme.textColor,
