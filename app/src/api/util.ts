@@ -49,6 +49,9 @@ export async function fetchJson2(title: string, input: RequestInfo, init?: Reque
     let text = null;
     try {
         response = await fetch(input, init);
+        if (!response.ok) {
+            throw Error(response.statusText);
+        }
         text = await response.text();
         return JSON.parse(text, reviver);
     } catch (e) {

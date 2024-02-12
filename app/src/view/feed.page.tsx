@@ -80,6 +80,7 @@ export function FeedList() {
         hasNextPage,
         isFetchingNextPage,
         refetch,
+        error,
     } = useInfiniteQuery(
         ['feed-matches', following?.map(f => f.profileId)],
         (context) => {
@@ -88,9 +89,12 @@ export function FeedList() {
                 profileIds: context.queryKey[1] as number[],
             });
         }, {
-            getNextPageParam: (lastPage, pages) => lastPage.matches.length === lastPage.perPage ? lastPage.page + 1 : null,
+            getNextPageParam: (lastPage, allPages) => lastPage.matches.length === lastPage.perPage ? lastPage.page + 1 : null,
             keepPreviousData: true,
         });
+
+    // console.log('error', error);
+    // console.log('data', data);
 
     if (isElectron()) {
         const lastNotificationReceivedElectron = useLastNotificationReceivedElectron();
@@ -150,6 +154,18 @@ export function FeedList() {
                     <View style={styles.centered}>
                         <MyText style={styles.sectionHeader}>{getTranslation('feed.following.info.1')}</MyText>
                         <MyText style={styles.sectionHeader}>{getTranslation('feed.following.info.2')}</MyText>
+                    </View>
+                </View>
+            </View>
+        );
+    }
+
+    if (error) {
+        return (
+            <View style={styles.container}>
+                <View style={styles.content}>
+                    <View style={styles.centered}>
+                        <MyText style={styles.sectionHeader}>{getTranslation('leaderboard.error')}</MyText>
                     </View>
                 </View>
             </View>
