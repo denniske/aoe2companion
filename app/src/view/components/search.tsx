@@ -122,13 +122,8 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
         await Promise.all([userByProfileId.refetch(text.trim()), userBySteamId.refetch(text.trim()), user.refetch(1, text.trim())]);
         setFetching(false);
 
-        flatListRef.current.scrollToOffset({animated: false, offset: 0});
-
-        // if (newUsersData!.profiles!.length < newUsersData!.perPage) {
-        //     setFetchedAll(true);
-        // } else {
-        //     setFetchedAll(false);
-        // }
+        // If user switched to another page the flatlist has been destroyed already
+        flatListRef.current?.scrollToOffset({animated: false, offset: 0});
     };
 
     useEffect(() => {
