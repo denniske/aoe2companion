@@ -150,6 +150,10 @@ export const changelog: IChangelog = {
             type: 'bugfix',
             title: 'Fix scrolling in build page filter boxes for android',
         },
+        {
+            type: 'bugfix',
+            title: 'Fix scrolling to your rank on country leaderboard',
+        },
     ],
     '86.0.0': [
         {

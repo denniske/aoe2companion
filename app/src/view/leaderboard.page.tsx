@@ -48,6 +48,10 @@ export function leaderboardMenu() {
 
 const countryEarth = null;
 
+function isCountry(x: string | null) {
+    return countriesDistinct.includes(x?.toUpperCase() as Country);
+}
+
 export function LeaderboardMenu() {
     const mutate = useMutate();
     const country = useSelector(state => state.leaderboardCountry) || null;
@@ -251,6 +255,7 @@ function Leaderboard({leaderboardId}: any) {
     const headerHeightAndPadding = containerPadding + headerInfoHeight + headerMyRankHeight;
 
     const scrollToIndex = (index: number) => {
+        console.log('scrollToIndex', index);
         // TODO: Scrolling position is not accurate because the database is actually missing some ranks (sometimes).
         // HACK: We use viewPosition: 0.5 so that the user does not notice it.
         flatListRef.current?.scrollToIndex({ animated: false, index: index, viewPosition: 0, viewOffset: -headerHeightAndPadding });
@@ -258,7 +263,24 @@ function Leaderboard({leaderboardId}: any) {
 
     const scrollToMe = () => {
         // scrollToIndex(101-1);
-        scrollToIndex(myRank.data.players[0].rank-1);
+
+        // console.log('leaderboardCountry', leaderboardCountry);
+
+        if (leaderboardCountry == 'following') {
+            const meIndex = list.current?.findIndex((p: any) => p.profileId == auth.profileId);
+            if (meIndex >= 0) {
+                scrollToIndex(meIndex);
+            }
+        } else if (leaderboardCountry?.startsWith('clan:')) {
+            const meIndex = list.current?.findIndex((p: any) => p.profileId == auth.profileId);
+            if (meIndex >= 0) {
+                scrollToIndex(meIndex);
+            }
+        } else if (leaderboardCountry == countryEarth) {
+            scrollToIndex(myRank.data.players[0].rank-1);
+        } else {
+            scrollToIndex(myRank.data.players[0].rankCountry-1);
+        }
     };
 
     useEffect(() => {
@@ -289,13 +311,14 @@ function Leaderboard({leaderboardId}: any) {
         return <MemoizedRenderRow
             player={player}
             i={i}
+            leaderboardCountry={leaderboardCountry}
             isMyRankRow={isMyRankRow}
             rankWidth={rankWidth}
             myRankWidth={myRankWidth}
             onSelect={onSelect}
             scrollToMe={scrollToMe}
         />;
-    }, [myRankWidth, rankWidth]);
+    }, [myRankWidth, rankWidth, leaderboardCountry]);
 
     useEffect(() => {
         setMyRankWidth(showMyRank ? (myRankPlayer?.rank.toFixed(0).length+1) * 10 : 0);
@@ -506,6 +529,7 @@ function Leaderboard({leaderboardId}: any) {
 interface RenderRowProps {
     player: ILeaderboardPlayer;
     i: number;
+    leaderboardCountry: string | null;
     isMyRankRow?: boolean;
     rankWidth?: number;
     myRankWidth?: number;
@@ -515,7 +539,7 @@ interface RenderRowProps {
 
 
 function RenderRow(props: RenderRowProps) {
-    const { player, i, isMyRankRow, rankWidth, myRankWidth, onSelect, scrollToMe } = props;
+    const { player, i, isMyRankRow, rankWidth, myRankWidth, onSelect, scrollToMe, leaderboardCountry } = props;
 
     const styles = useStyles();
     const auth = useSelector(state => state.auth!);
@@ -529,10 +553,14 @@ function RenderRow(props: RenderRowProps) {
     // console.log('Math.max(myRankWidth, rankWidth)', Math.max(myRankWidth, rankWidth));
     // console.log('RERENDER', i, player != null);
 
+    // if (isMyRankRow) {
+    //     console.log(isCountry(leaderboardCountry), leaderboardCountry, player?.rankCountry, player?.rank);
+    // }
+
     return (
         <TouchableOpacity style={[styles.row, rowStyle]} disabled={player == null} onPress={() => isMyRankRow ? scrollToMe() : onSelect(player)}>
             <View style={isMyRankRow ? styles.innerRow : styles.innerRowWithBorder}>
-                <TextLoader numberOfLines={1} style={[styles.cellRank, weightStyle, rankWidthStyle]}>#{player?.rank || i+1}</TextLoader>
+                <TextLoader numberOfLines={1} style={[styles.cellRank, weightStyle, rankWidthStyle]}>#{isCountry(leaderboardCountry) ? player?.rankCountry : (player?.rank || i+1)}</TextLoader>
                 <TextLoader style={isMe ? styles.cellRatingMe : styles.cellRating}>{player?.rating}</TextLoader>
                 <View style={styles.cellName}>
                     <CountryImageLoader country={player?.country} ready={player} />
