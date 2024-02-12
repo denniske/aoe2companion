@@ -29,7 +29,7 @@ export class LiveActivity<T> {
     }
 
     public list(): Array<{ id: string; data: T }> {
-        const activities = LiveActivityModule.list();
+        const activities = LiveActivityModule.list() || [];
         return activities.map((activity) => ({
             id: activity.id,
             data: JSON.parse(activity.data) as T,
