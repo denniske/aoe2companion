@@ -145,6 +145,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '90.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix error in leaderboard for followed players',
+        },
+    ],
     '89.0.0': [
         {
             type: 'bugfix',

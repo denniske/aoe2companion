@@ -166,7 +166,7 @@ export const loadFollowingFromStorage = async () => {
         // }
     }
 
-    return entries;
+    return entries.filter(e => e.profileId != null);
 };
 
 export const saveFollowingToStorage = async (following: IFollowingEntry[]) => {
