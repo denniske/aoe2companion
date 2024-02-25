@@ -6140,7 +6140,7 @@ __metadata:
     react-native-gesture-handler: ~2.14.0
     react-native-markdown-display: ^7.0.2
     react-native-pager-view: 6.2.3
-    react-native-paper: ^5.10.1
+    react-native-paper: ^5.12.3
     react-native-reanimated: ~3.6.2
     react-native-safe-area-context: 4.8.2
     react-native-screens: ~3.29.0
@@ -16412,9 +16412,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-paper@npm:^5.10.1":
-  version: 5.12.1
-  resolution: "react-native-paper@npm:5.12.1"
+"react-native-paper@npm:^5.12.3":
+  version: 5.12.3
+  resolution: "react-native-paper@npm:5.12.3"
   dependencies:
     "@callstack/react-theme-provider": ^3.0.9
     color: ^3.1.2
@@ -16424,7 +16424,7 @@ __metadata:
     react-native: "*"
     react-native-safe-area-context: "*"
     react-native-vector-icons: "*"
-  checksum: 5bc29662a4bfa544a3d424e7b15c25acacbe20bb77a082630aa0dda39f29a2d9902090548f265396a882a754b47534b01722df92cbfde020b53ea489fa1f504b
+  checksum: 927a8948d220fb59cb4dae2f12f3b4dc2173b9cd42e38dc74a0f25584a69978555a260c140db973f8401f7fef394dee3ec42c90b6134deeb3aa462291fd0ce5f
   languageName: node
   linkType: hard
 

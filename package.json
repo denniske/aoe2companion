@@ -2,6 +2,7 @@
   "scripts": {
     "deps": "npm install --global eas-cli",
     "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider APP=aoe2 expo start -c --dev-client",
+    "start:private": "cross-env NODE_OPTIONS=--openssl-legacy-provider APP=aoe2 expo start -c --dev-client --private-key-path update/private-key.pem",
     "start:prod": "cross-env APP=aoe2 expo start -c --no-dev --dev-client",
     "prebuild": "cross-env APP=aoe2 expo prebuild",
     "start4": "cross-env NODE_OPTIONS=--openssl-legacy-provider APP=aoe4 expo start -c --dev-client",
@@ -72,7 +73,7 @@
     "react-native-gesture-handler": "~2.14.0",
     "react-native-markdown-display": "^7.0.2",
     "react-native-pager-view": "6.2.3",
-    "react-native-paper": "^5.10.1",
+    "react-native-paper": "^5.12.3",
     "react-native-reanimated": "~3.6.2",
     "react-native-safe-area-context": "4.8.2",
     "react-native-screens": "~3.29.0",
