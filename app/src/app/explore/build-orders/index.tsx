@@ -5,9 +5,8 @@ import { useFocusEffect } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { reverse, sortBy } from 'lodash';
 import { useCallback, useState } from 'react';
-import { FlatList, KeyboardAvoidingView, Platform, StyleSheet, TextInput, View } from 'react-native';
+import { FlatList, KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useAppTheme } from '../../theming';
 
 import { buildsData } from '../../../../../data/src/data/builds';
 import { useBuildFilters, useFavoritedBuilds } from '../../../service/storage';
@@ -15,7 +14,6 @@ import BuildCard from '../../../view/components/build-order/build-card';
 import { BuildFilters } from '../../../view/components/build-order/build-filters';
 import { DismissKeyboard } from '../../../view/components/dismiss-keyboard';
 import { MyText } from '../../../view/components/my-text';
-import { createStylesheet } from 'app/src/theming-new';
 
 const transformSearch = (string: string) => string.toLowerCase().replace(/\W/g, ' ').replace(/ +/g, ' ');
 
@@ -26,8 +24,6 @@ export default function BuildListPage() {
     const [search, setSearch] = useState('');
     const headerHeight = useHeaderHeight();
     const insets = useSafeAreaInsets();
-    const theme = useAppTheme();
-    const styles = useStyles();
 
     const formattedBuilds = (buildType === 'favorites' ? favorites : buildsData).map((build) => ({
         ...build,
@@ -67,15 +63,8 @@ export default function BuildListPage() {
                 <View className="flex-1">
                     <BuildFilters builds={buildsData} {...buildFilters} />
 
-                    <View style={styles.searchContainer}>
-                        <TextInput
-                            autoCorrect={false}
-                            value={search}
-                            onChangeText={setSearch}
-                            style={styles.search}
-                            placeholder={getTranslation('builds.search')}
-                            placeholderTextColor={theme.textNoteColor}
-                        />
+                    <View className="pb-4 px-4">
+                        <Field autoCorrect={false} value={search} onChangeText={setSearch} placeholder={getTranslation('builds.search')} />
                     </View>
 
                     <FlatList
@@ -99,26 +88,10 @@ export default function BuildListPage() {
     );
 }
 
-const useStyles = createStylesheet((theme, darkMode) =>
-    StyleSheet.create({
-        container: {
-            flex: 1,
-        },
-        contentContainer: {
-            gap: 15,
-            paddingHorizontal: 10,
-            paddingVertical: 5,
-        },
-        searchContainer: {
-            gap: 15,
-            padding: 10,
-        },
-        search: {
-            borderColor: theme.lightBackgroundColor,
-            borderWidth: 1,
-            padding: 10,
-            borderRadius: 4,
-            color: theme.textColor,
-        },
-    })
-);
+const styles = StyleSheet.create({
+    contentContainer: {
+        gap: 15,
+        paddingHorizontal: 16,
+        paddingVertical: 5,
+    },
+});
