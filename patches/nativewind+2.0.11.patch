@@ -59,10 +59,10 @@ index 10fb4473622648e9eebafa49bf60ad0b50107e84..7389a93021a2243977819440c8339cb1
 +        gap: (value) => ({
 +            gap: value,
 +        }),
-+        "gap-x": ({
++        "gap-x": (value) => ({
 +            rowGap: value,
 +        }),
-+        "gap-y": ({
++        "gap-y": (value) => ({
 +            columnGap: value,
 +        }),
      }, { values: theme("gap") });

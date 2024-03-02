@@ -9,7 +9,6 @@ export interface ScrollViewProps extends Omit<ScrollViewPropsRN, 'contentContain
 
 export const ScrollView = forwardRef(({ contentContainerStyle, ...props }: ScrollViewProps, ref: React.ForwardedRef<ScrollViewRN>) => {
     const { bottom } = useSafeAreaInsets();
-    console.log(tw.style(contentContainerStyle));
 
     return (
         <ScrollViewRN

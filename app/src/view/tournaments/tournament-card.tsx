@@ -3,7 +3,7 @@ import { Text } from '@app/components/text';
 import { format } from 'date-fns';
 import { Image } from 'expo-image';
 import { Tournament } from 'liquipedia';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 
 import { formatPrizePool, formatTier, tournamentStatus } from '../../helper/tournaments';
 import { getTranslation } from '../../helper/translate';
@@ -16,9 +16,11 @@ export const TournamentCard: React.FC<Tournament & { subtitle?: string }> = (tou
 
     return (
         <Card href={`competitive/tournaments/${encodeURIComponent(tournament.path)}`}>
-            <View className="w-12 aspect-square items-center justify-center">
-                <Image source={{ uri: tournament.league?.image }} className="w-10 aspect-square" contentFit="contain" />
-            </View>
+            {Platform.OS !== 'web' && (
+                <View className="w-12 aspect-square items-center justify-center">
+                    <Image source={{ uri: tournament.league?.image }} className="w-10 aspect-square" contentFit="contain" />
+                </View>
+            )}
             <View className="flex-1 gap-0.5">
                 <Text variant="header-sm">{tournament.name}</Text>
                 <Text variant="body-sm">

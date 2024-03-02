@@ -58,7 +58,7 @@ export const TabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, naviga
                                         <Text
                                             color={isFocused ? 'text-white' : 'brand'}
                                             variant="header-sm"
-                                            className="text-[9px] leading-[12px] uppercase mt-2"
+                                            className="!text-[9px] !leading-[12px] uppercase mt-2"
                                         >
                                             {label}
                                         </Text>

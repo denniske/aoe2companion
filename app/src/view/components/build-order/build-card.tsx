@@ -32,7 +32,7 @@ const BuildCard: React.FC<IBuildOrder & { favorited?: boolean; toggleFavorite?: 
                     {civIcon ? <Image className="w-5 h-5 absolute top-0 left-0" source={civIcon} /> : null}
                 </View>
 
-                <Text variant="label-sm" numberOfLines={2} className="leading-[14px] w-full" align="center">
+                <Text variant="label-sm" numberOfLines={2} className="!leading-[14px] w-full" align="center">
                     {title}
                 </Text>
 

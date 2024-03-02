@@ -74,6 +74,7 @@ export async function fetchMatches(params: IFetchMatchesParams) {
         language: getInternalLanguage(),
     }));
     const url = `${getHost('aoe2companion-data')}api/matches?${queryString}`;
+    console.log(url)
     return camelizeKeys(await fetchJson2('fetchMatches', url, undefined, dateReviver)) as IMatchesResult;
 }
 

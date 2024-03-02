@@ -21,15 +21,17 @@ export default function Page() {
         <ScrollView contentContainerStyle="p-4 gap-5">
             <Tabs.Screen options={{ title: 'Home' }} />
 
-            <View className="gap-2">
-                <Text variant="header-lg">Live and Recent Matches</Text>
-
+            {matches?.length ? (
                 <View className="gap-2">
-                    {matches?.map((match) => (
-                        <Match key={match.matchId} user={match.filteredPlayers[0]} highlightedUsers={match.filteredPlayers} match={match} />
-                    ))}
+                    <Text variant="header-lg">Live and Recent Matches</Text>
+
+                    <View className="gap-2">
+                        {matches?.map((match) => (
+                            <Match key={match.matchId} user={match.filteredPlayers[0]} highlightedUsers={match.filteredPlayers} match={match} />
+                        ))}
+                    </View>
                 </View>
-            </View>
+            ) : null}
 
             <View className="gap-2">
                 <Text variant="header-lg">Featured Tournaments</Text>
@@ -39,13 +41,13 @@ export default function Page() {
             <View className="gap-2">
                 <Text variant="header-lg">Recent News</Text>
 
-                {/* <FlatList
+                <FlatList
                     contentContainerStyle="gap-4"
                     horizontal
                     data={news}
                     renderItem={({ item: post }) => <NewsCard {...post} key={post.id} />}
                     keyExtractor={(post) => post.id.toString()}
-                /> */}
+                />
             </View>
         </ScrollView>
     );

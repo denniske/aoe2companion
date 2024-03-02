@@ -27,7 +27,7 @@ export default function More() {
                 data={links}
                 ItemSeparatorComponent={() => <View className="h-[1px] bg-gray-200 dark:bg-gray-800 w-full" />}
                 renderItem={({ item: { icon, title, path } }) => (
-                    <TouchableOpacity className="flex-row g-3 py-4 items-center" onPress={() => router.push(path)}>
+                    <TouchableOpacity className="flex-row gap-3 py-4 items-center" onPress={() => router.push(path)}>
                         <Icon icon={icon} color="brand" size={24} />
                         <View>
                             <Text variant="header-sm">{title}</Text>

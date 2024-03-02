@@ -48,7 +48,7 @@ import { setAccountPushTokenElectron } from '@app/api/following';
 import { fetchAoeReferenceData } from '@app/helper/reference';
 import { TabBar } from '@app/components/tab-bar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useDeviceContext } from 'twrnc';
+import { useAppColorScheme, useDeviceContext } from 'twrnc';
 import tw from '@app/tailwind';
 
 const queryClient = new QueryClient();
@@ -148,6 +148,7 @@ async function updatePushTokenForElectron(config: IConfig, account: IAccount) {
 function AppWrapper() {
     const mutate = useMutate();
     const { setColorScheme } = useTailwindColorScheme();
+    const [, , setColorTwrncScheme] = useAppColorScheme(tw);
 
     const [appIsReady, setAppIsReady] = useState(false);
     const loadedLanguages = useSelector((state) => state.loadedLanguages);
@@ -234,6 +235,7 @@ function AppWrapper() {
 
     useEffect(() => {
         setColorScheme(finalDarkMode);
+        setColorTwrncScheme(finalDarkMode === 'system' ? 'light' : finalDarkMode);
     }, [finalDarkMode]);
 
     const onLayoutRootView = useCallback(async () => {
@@ -242,7 +244,10 @@ function AppWrapper() {
         }
     }, [appIsReady]);
 
-    // useDeviceContext(tw); // <- 👋
+    useDeviceContext(tw, {
+        observeDeviceColorSchemeChanges: false,
+        initialColorScheme: 'device',
+    });
 
     const customPaperTheme = {
         ...PaperDefaultTheme,
@@ -277,7 +282,11 @@ function AppWrapper() {
                 >
                     <ApplicationProvider {...eva} theme={finalDarkMode === 'light' ? eva.light : eva.dark}>
                         <QueryClientProvider client={queryClient}>
-                            <View className="bg-gold-50 dark:bg-blue-950 flex-1" style={{ paddingTop: insets.top }} onLayout={onLayoutRootView}>
+                            <View
+                                className={`bg-gold-50 dark:bg-blue-950 ${Platform.OS === 'web' && !isElectron() ? 'overflow-hidden w-[450px] max-w-full h-[900px] mx-auto my-auto border border-gray-200 dark:border-gray-800 rounded-lg' : 'flex-1'}`}
+                                style={{ paddingTop: insets.top }}
+                                onLayout={onLayoutRootView}
+                            >
                                 <Tabs
                                     tabBar={(props) => <TabBar {...props} />}
                                     sceneContainerStyle={{ backgroundColor: 'transparent' }}

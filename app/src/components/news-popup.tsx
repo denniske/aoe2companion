@@ -1,8 +1,8 @@
+import tw from '@app/tailwind';
 import { Post } from '@app/utils/news';
 import BottomSheet from '@app/view/bottom-sheet';
 import IframeRenderer, { iframeModel } from '@native-html/iframe-plugin';
 import { decode } from 'html-entities';
-import { useColorScheme } from 'nativewind';
 import { useState } from 'react';
 import { View, useWindowDimensions } from 'react-native';
 import RenderHtml, {
@@ -14,7 +14,6 @@ import RenderHtml, {
 } from 'react-native-render-html';
 import WebView from 'react-native-webview';
 
-import themeColors from '../colors';
 import { textVariantStyles } from '../utils/text.util';
 
 const Article = ({ TDefaultRenderer, ...props }: { TDefaultRenderer: any; [name: string]: any }) => {
@@ -49,7 +48,6 @@ const customHTMLElementModels: HTMLElementModelRecord = {
 
 export const NewsPopup: React.FC<{ post: Post; visible: boolean; onClose: () => void }> = ({ post, visible, onClose }) => {
     const { width } = useWindowDimensions();
-    const { colorScheme } = useColorScheme();
 
     return (
         <BottomSheet showHandle title={decode(post.title.rendered)} isActive={visible} onClose={onClose}>
@@ -66,7 +64,7 @@ export const NewsPopup: React.FC<{ post: Post; visible: boolean; onClose: () => 
                     WebView={WebView}
                     contentWidth={width - 32}
                     source={{ html: post.content.rendered }}
-                    baseStyle={{ color: colorScheme === 'dark' ? themeColors.white : themeColors.black, ...textVariantStyles['body'] }}
+                    baseStyle={{ ...tw`text-black dark:text-white`, ...textVariantStyles['body'] }}
                     tagsStyles={{
                         h1: textVariantStyles.title,
                         h2: textVariantStyles['header-lg'],
@@ -76,39 +74,17 @@ export const NewsPopup: React.FC<{ post: Post; visible: boolean; onClose: () => 
                         h6: textVariantStyles['label'],
                         b: textVariantStyles['header-xs'],
                         strong: textVariantStyles['header-xs'],
-                        blockquote: {
-                            backgroundColor: colorScheme === 'dark' ? themeColors.blue[900] : themeColors.white,
-                            paddingVertical: 6,
-                            paddingHorizontal: 10,
-                            marginVertical: 12,
-                            marginHorizontal: 0,
-                            borderColor: colorScheme === 'dark' ? themeColors.gray[800] : themeColors.gray[200],
-                            borderWidth: 1,
-                            borderRadius: 4,
-                        },
-                        a: {
-                            color: colorScheme === 'dark' ? themeColors.gold[200] : themeColors.blue[600],
-                            textDecorationColor: colorScheme === 'dark' ? themeColors.gold[200] : themeColors.blue[600],
-                        },
+                        blockquote: tw`bg-white dark:bg-blue-900 py-1.5 px-2.5 my-3 mx-0 border border-gray-200 dark:border-gray-800 rounded`,
+                        a: tw`text-blue-600 dark:text-gold-200`,
                         figure: { margin: 0 },
                         iframe: { margin: 0 },
-                        button: {
-                            backgroundColor: colorScheme === 'dark' ? themeColors.gold[700] : themeColors.blue[800],
-                            paddingVertical: 6,
-                            paddingHorizontal: 10,
-                            borderRadius: 4,
-                        },
+                        button: tw`bg-blue-800 dark:bg-gold-700 py-1.5 px-2.5 rounded`,
                     }}
                     classesStyles={{
-                        'wp-block-buttons': { flexDirection: 'row', justifyContent: 'space-around' },
-                        'wp-block-button': {
-                            backgroundColor: colorScheme === 'dark' ? themeColors.gold[700] : themeColors.blue[800],
-                            paddingVertical: 6,
-                            paddingHorizontal: 10,
-                            borderRadius: 4,
-                        },
-                        'wp-block-button__link': { color: themeColors.white, textDecorationLine: 'none', ...textVariantStyles['header-xs'] },
-                        accordion__title: { color: themeColors.white, ...textVariantStyles['header-xs'] },
+                        'wp-block-buttons': tw`flex-row justify-around`,
+                        'wp-block-button': tw`bg-blue-800 dark:bg-gold-700 py-1.5 px-2.5 rounded`,
+                        'wp-block-button__link': { ...tw`text-white no-underline`, ...textVariantStyles['header-xs'] },
+                        accordion__title: { ...tw`text-white`, ...textVariantStyles['header-xs'] },
                     }}
                 />
             </View>

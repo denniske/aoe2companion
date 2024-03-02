@@ -4,6 +4,7 @@ import { ScrollView } from '@app/components/scroll-view';
 import { flagEmojiDict } from '@app/helper/flags';
 import { formatPrizePool, formatTier } from '@app/helper/tournaments';
 import { getTranslation } from '@app/helper/translate';
+import tw from '@app/tailwind';
 import { usePaperTheme, useAppTheme } from '@app/theming';
 import { createStylesheet } from '@app/theming-new';
 import MyListAccordion from '@app/view/components/accordion';
@@ -77,7 +78,7 @@ export default function TournamentDetail() {
                             <LinearGradient
                                 style={styles.heroBackground}
                                 locations={[0.75, 1]}
-                                colors={['rgba(0, 0, 0, 0.5)', dark ? '#0E1017' : '#FFFCF5']}
+                                colors={['rgba(0, 0, 0, 0.5)', tw.style('bg-gold-50 dark:bg-blue-950').backgroundColor as string]}
                             />
                             <Slider
                                 setActiveSlide={setActiveSlide}

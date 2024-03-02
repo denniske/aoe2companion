@@ -1,10 +1,9 @@
+import tw from '@app/tailwind';
 import { Stack as ExpoStack } from 'expo-router';
-import { useColorScheme } from 'nativewind';
 
 import { Header } from './header';
 
 export const Stack = () => {
-    const { colorScheme } = useColorScheme();
-    const backgroundColor = colorScheme === 'dark' ? '#0E1017' : '#FFFCF5';
+    const backgroundColor = tw.style('bg-gold-50 dark:bg-blue-950').backgroundColor as string;
     return <ExpoStack screenOptions={{ header: Header, headerTitle: 'Matches', contentStyle: { backgroundColor } }} />;
 };

@@ -1,3 +1,4 @@
+import tw from '@app/tailwind';
 import { TextColor, textColors } from '@app/utils/text.util';
 import { IconName, IconPrefix } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon, Props } from '@fortawesome/react-native-fontawesome';
@@ -16,5 +17,16 @@ export interface IconProps {
 export const Icon: React.FC<IconProps> = ({ icon, style, color = 'default', prefix = 'fass', ...rest }) => {
     const textColor = textColors[color] ?? color;
 
-    return <StyledComponent component={FontAwesomeIcon} {...rest} className={`${textColor}`} style={style} icon={[prefix, icon]} />;
+    const iconStyle = tw.style(textColor);
+
+    return (
+        <StyledComponent
+            color={iconStyle.color as string}
+            component={FontAwesomeIcon}
+            {...rest}
+            className={`${textColor}`}
+            style={style}
+            icon={[prefix, icon]}
+        />
+    );
 };
