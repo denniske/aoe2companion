@@ -350,7 +350,7 @@
   "settings.darkmode.light": "Light",
   "settings.darkmode.dark": "Dark",
   "settings.darkmode.system": "System",
-  "settings.darkmode.note": "(except build order guides)",
+  "settings.darkmode.note": "(except winrates)",
   "settings.pushnotifications": "Push Notifications",
   "settings.pushnotifications.note": "Receive push notifications when players you are following start a game.",
   "settings.pushnotifications.action.test": "Test",

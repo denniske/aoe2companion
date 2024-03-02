@@ -6,6 +6,7 @@ import { sortByTier, tournamentAbbreviation, tournamentStatus, transformSearch }
 import { getTranslation } from '@app/helper/translate';
 import { useAppTheme } from '@app/theming';
 import { DismissKeyboard } from '@app/view/components/dismiss-keyboard';
+import RefreshControlThemed from '@app/view/components/refresh-control-themed';
 import { TournamentCard } from '@app/view/tournaments/tournament-card';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { Stack, useLocalSearchParams } from 'expo-router';
@@ -108,7 +109,7 @@ export default function TournamentsList() {
             <DismissKeyboard>
                 <SectionList
                     className="flex-1"
-                    {...refreshControlProps}
+                    refreshControl={<RefreshControlThemed {...refreshControlProps} />}
                     ListHeaderComponent={listHeader}
                     contentContainerStyle="p-4 gap-2.5"
                     sections={filteredTournaments}

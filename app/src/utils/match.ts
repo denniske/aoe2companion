@@ -5,9 +5,8 @@ import { useQuery } from '@tanstack/react-query';
 import { flatten, orderBy } from 'lodash';
 
 export const useCurrentMatches = (count: number) => {
-    const following = useSelector((state) => state.following);
     const auth = useSelector((state) => state.auth);
-    const profileIds = following?.map((f) => f.profileId);
+    const profileIds: number[] = [];
     if (auth) {
         profileIds.push(auth?.profileId);
     }
@@ -19,12 +18,10 @@ export const useCurrentMatches = (count: number) => {
                 profileIds,
             }),
     });
-    const matches = data?.matches.slice(0, 2);
+    const matches = data?.matches.slice(0, count);
 
     const filterAndSortPlayers = (players: IPlayerNew[]) => {
-        let filteredPlayers = players.filter(
-            (p) => following.filter((f) => f.profileId === p.profileId).length > 0 || p.profileId == auth?.profileId
-        );
+        let filteredPlayers = players.filter((p) => p.profileId == auth?.profileId);
         filteredPlayers = orderBy(filteredPlayers, (p) => p.profileId == auth?.profileId);
         return filteredPlayers;
     };

@@ -10,6 +10,7 @@ import { createStylesheet } from '@app/theming-new';
 import MyListAccordion from '@app/view/components/accordion';
 import { Button } from '@app/view/components/button';
 import { MyText } from '@app/view/components/my-text';
+import RefreshControlThemed from '@app/view/components/refresh-control-themed';
 import { Slider } from '@app/view/components/slider';
 import { Tag } from '@app/view/components/tag';
 import { GroupParticipant } from '@app/view/tournaments/playoffs/group-participant';
@@ -68,7 +69,7 @@ export default function TournamentDetail() {
                 style={styles.container}
                 className={tournament && 'bg-gold-50 dark:bg-blue-950'}
                 contentContainerStyle={tournament && 'p-2.5'}
-                refreshControl={<RefreshControl {...refreshControlProps} />}
+                refreshControl={<RefreshControlThemed {...refreshControlProps} />}
                 onScroll={(event) => setIsNavbarTransparent(event.nativeEvent.contentOffset.y < 200)}
                 scrollEventThrottle={24}
             >

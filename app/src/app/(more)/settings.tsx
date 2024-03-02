@@ -320,20 +320,22 @@ export default function SettingsPage() {
         <ScrollView contentContainerStyle="min-h-full p-5">
             <Stack.Screen options={{ title: getTranslation('settings.title') }} />
 
-            <View style={styles.row}>
-                <View style={styles.cellName}>
-                    <MyText>{getTranslation('settings.darkmode')}</MyText>
-                    <MyText style={styles.small}>{getTranslation('settings.darkmode.note')}</MyText>
+            {Platform.OS !== 'web' ? (
+                <View style={styles.row}>
+                    <View style={styles.cellName}>
+                        <MyText>{getTranslation('settings.darkmode')}</MyText>
+                        <MyText style={styles.small}>{getTranslation('settings.darkmode.note')}</MyText>
+                    </View>
+                    <View style={styles.cellValue}>
+                        <ButtonPicker
+                            value={config.darkMode}
+                            values={values}
+                            formatter={(x) => getTranslation(`settings.darkmode.${x}` as any)}
+                            onSelect={setDarkMode}
+                        />
+                    </View>
                 </View>
-                <View style={styles.cellValue}>
-                    <ButtonPicker
-                        value={config.darkMode}
-                        values={values}
-                        formatter={(x) => getTranslation(`settings.darkmode.${x}` as any)}
-                        onSelect={setDarkMode}
-                    />
-                </View>
-            </View>
+            ) : null}
 
             <View style={styles.row}>
                 <View style={styles.cellName}>

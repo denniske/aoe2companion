@@ -68,14 +68,8 @@ export default function Header() {
 
     return (
         <View style={styles.header}>
-            {!__DEV__ && Platform.OS === 'web' && (
-                <TouchableOpacity style={styles.websiteLink} onPress={() => window.open('https://aoe2companion.com', '_blank')}>
-                    <MyText style={appStyles.link}>aoe2companion.com</MyText>
-                </TouchableOpacity>
-            )}
-
             {__DEV__ && !capturing && <MyText>{(JSON.stringify(state).length / 1000).toFixed()} KB</MyText>}
-            {__DEV__ && !capturing && (
+            {__DEV__ && !capturing && Platform.OS !== 'web' && (
                 <TouchableOpacity onPress={toggleDarkMode}>
                     <FontAwesome5 style={styles.menuButton} name="lightbulb" color="#666" size={18} />
                 </TouchableOpacity>

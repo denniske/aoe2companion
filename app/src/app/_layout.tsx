@@ -26,7 +26,7 @@ import * as Localization from 'expo-localization';
 import { Tabs } from 'expo-router';
 import { useColorScheme as useTailwindColorScheme } from 'nativewind';
 import { useCallback, useEffect, useState } from 'react';
-import { BackHandler, LogBox, Platform, View, useColorScheme } from 'react-native';
+import { BackHandler, LogBox, Platform, StatusBar, View, useColorScheme } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { PaperProvider, MD2DarkTheme as PaperDarkTheme, MD2LightTheme as PaperDefaultTheme } from 'react-native-paper';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -48,6 +48,7 @@ import { fetchAoeReferenceData } from '@app/helper/reference';
 import { TabBar } from '@app/components/tab-bar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppColorScheme, useDeviceContext } from 'twrnc';
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 
 library.add(fass, fasr);
 
@@ -269,6 +270,22 @@ function AppWrapper() {
         },
     };
 
+    const customTheme = {
+        ...DefaultTheme,
+        colors: {
+            ...DefaultTheme.colors,
+            background: tw.color('gold-50') ?? 'white',
+        },
+    };
+
+    const customDarkTheme = {
+        ...DarkTheme,
+        colors: {
+            ...DarkTheme.colors,
+            background: tw.color('blue-950') ?? 'black',
+        },
+    };
+
     if (!appIsReady) {
         return null;
     }
@@ -284,28 +301,34 @@ function AppWrapper() {
                 >
                     <ApplicationProvider {...eva} theme={finalDarkMode === 'light' ? eva.light : eva.dark}>
                         <QueryClientProvider client={queryClient}>
-                            <View
-                                className={`bg-gold-50 dark:bg-blue-950 ${Platform.OS === 'web' && !isElectron() ? `overflow-hidden w-[450px] max-w-full h-[900px] mx-auto my-auto ${isMobile ? '' : 'border border-gray-200 dark:border-gray-800'} rounded-lg` : 'flex-1'}`}
-                                style={{ paddingTop: insets.top }}
-                                onLayout={onLayoutRootView}
-                            >
-                                <Tabs
-                                    tabBar={(props) => <TabBar {...props} />}
-                                    sceneContainerStyle={{ backgroundColor: 'transparent' }}
-                                    screenOptions={{
-                                        headerShown: false,
-                                    }}
+                            <ThemeProvider value={finalDarkMode === 'dark' ? customDarkTheme : customTheme}>
+                                <View
+                                    className={`bg-gold-50 dark:bg-blue-950 ${Platform.OS === 'web' && !isElectron() ? `overflow-hidden w-[450px] max-w-full h-[900px] mx-auto my-auto ${isMobile ? '' : 'border border-gray-200 dark:border-gray-800'} rounded-lg` : 'flex-1'}`}
+                                    style={{ paddingTop: insets.top }}
+                                    onLayout={onLayoutRootView}
                                 >
-                                    <Tabs.Screen name="index" options={{ headerShown: true, header: Header, tabBarIcon: () => 'home' }} />
-                                    <Tabs.Screen name="matches" options={{ tabBarLabel: 'Matches', tabBarIcon: () => 'chess' }} />
-                                    <Tabs.Screen name="explore" options={{ tabBarLabel: 'Explore', tabBarIcon: () => 'landmark' }} />
-                                    <Tabs.Screen name="statistics" options={{ tabBarLabel: 'Stats', tabBarIcon: () => 'chart-simple' }} />
-                                    <Tabs.Screen name="competitive" options={{ tabBarLabel: 'Pros', tabBarIcon: () => 'ranking-star' }} />
-                                    <Tabs.Screen name="(more)" options={{ tabBarLabel: 'More', tabBarIcon: () => 'bars' }} />
-                                    <Tabs.Screen name="[...unmatched]" options={{ href: null }} />
-                                    <Tabs.Screen name="_sitemap" options={{ href: null }} />
-                                </Tabs>
-                            </View>
+                                    <StatusBar
+                                        barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'}
+                                        backgroundColor="transparent"
+                                        translucent
+                                    />
+                                    <Tabs
+                                        tabBar={(props) => <TabBar {...props} />}
+                                        screenOptions={{
+                                            headerShown: false,
+                                        }}
+                                    >
+                                        <Tabs.Screen name="index" options={{ headerShown: true, header: Header, tabBarIcon: () => 'home' }} />
+                                        <Tabs.Screen name="matches" options={{ tabBarLabel: 'Matches', tabBarIcon: () => 'chess' }} />
+                                        <Tabs.Screen name="explore" options={{ tabBarLabel: 'Explore', tabBarIcon: () => 'landmark' }} />
+                                        <Tabs.Screen name="statistics" options={{ tabBarLabel: 'Stats', tabBarIcon: () => 'chart-simple' }} />
+                                        <Tabs.Screen name="competitive" options={{ tabBarLabel: 'Pros', tabBarIcon: () => 'ranking-star' }} />
+                                        <Tabs.Screen name="(more)" options={{ tabBarLabel: 'More', tabBarIcon: () => 'bars' }} />
+                                        <Tabs.Screen name="[...unmatched]" options={{ href: null }} />
+                                        <Tabs.Screen name="_sitemap" options={{ href: null }} />
+                                    </Tabs>
+                                </View>
+                            </ThemeProvider>
                         </QueryClientProvider>
                     </ApplicationProvider>
                 </PaperProvider>
