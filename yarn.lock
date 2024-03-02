@@ -2998,24 +2998,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsamr/counter-style@npm:^2.0.1":
-  version: 2.0.2
-  resolution: "@jsamr/counter-style@npm:2.0.2"
-  checksum: 9434d6e52dcbf6a3422137e3397d801aa3b4f3fd780fc5a12c47db171502f281eaa8ae69b953a1d1bdaf4effeac7c674e7dbdd8341157a6f21a087ccb7af5bfe
-  languageName: node
-  linkType: hard
-
-"@jsamr/react-native-li@npm:^2.3.0":
-  version: 2.3.1
-  resolution: "@jsamr/react-native-li@npm:2.3.1"
-  peerDependencies:
-    "@jsamr/counter-style": ^1.0.0 || ^2.0.0
-    react: "*"
-    react-native: "*"
-  checksum: 3465ac894d125261660cc5d779c226560578927354c8c661be9bcdc46438121cd5561079dd76ad82bb9970c0adf753e62726d6d8849b1b66484aa8090701916b
-  languageName: node
-  linkType: hard
-
 "@leichtgewicht/ip-codec@npm:^2.0.1":
   version: 2.0.4
   resolution: "@leichtgewicht/ip-codec@npm:2.0.4"
@@ -10075,7 +10057,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-constants@npm:~15.4.0, expo-constants@npm:~15.4.3, expo-constants@npm:~15.4.5":
+"expo-constants@npm:~15.4.0, expo-constants@npm:~15.4.3":
   version: 15.4.5
   resolution: "expo-constants@npm:15.4.5"
   dependencies:
