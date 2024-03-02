@@ -1,13 +1,12 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Image} from 'expo-image';
-import {useNavigation} from "@react-navigation/native";
-import {RootStackProp} from "../../../App2";
 import {getTechDescription, getTechName, iconHeight, iconWidth, Tech, techs} from "@nex/data";
 import {MyText} from "../components/my-text";
 import {createStylesheet} from "../../theming-new";
 import {getTechIcon} from "../../helper/techs";
 import {getCivIconLocal} from "../../helper/civs";
+import { router } from 'expo-router';
 
 
 export function TechIcon({tech: tech} : any) {
@@ -28,10 +27,9 @@ export function TechIcon({tech: tech} : any) {
 
 export function TechCompBig({tech: tech, showCivBanner: showCivBanner}: any) {
     const styles = useStyles();
-    const navigation = useNavigation<RootStackProp>();
 
     return (
-        <TouchableOpacity onPress={() => navigation.push('Tech', {tech: tech})}>
+        <TouchableOpacity onPress={() => router.push(`/explore/technologies/${tech}`)} className="h-10">
             <View style={styles.rowBig}>
                 <TechIcon style={styles.unitIconBig} tech={tech}/>
                 <View style={styles.unitIconBigTitle}>
@@ -51,7 +49,6 @@ const useStyles = createStylesheet((theme, mode) => StyleSheet.create({
     rowBig: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 10,
         // backgroundColor: 'blue',
     },
     unitIconBig: {

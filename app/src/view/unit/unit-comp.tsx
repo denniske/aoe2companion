@@ -9,6 +9,7 @@ import {
 import {MyText} from "../components/my-text";
 import {getUnitIcon, getUnitLineIcon} from "../../helper/units";
 import {createStylesheet} from '../../theming-new';
+import { router } from 'expo-router';
 
 
 function getUnitLineTitle(unitLine: IUnitLine) {
@@ -17,9 +18,8 @@ function getUnitLineTitle(unitLine: IUnitLine) {
 
 export function UnitCompBig({unit, subtitle}: {unit: Unit, subtitle?: string}) {
     const styles = useStyles();
-    const navigation = useNavigation<RootStackProp>();
     return (
-        <TouchableOpacity onPress={() => navigation.push('Unit', {unit: unit})}>
+        <TouchableOpacity onPress={() => router.navigate(`/explore/units/${unit}`)}>
             <View style={styles.rowBig}>
                 <Image style={styles.unitIconBig} source={getUnitIcon(unit)}/>
                 <View style={styles.unitIconBigTitle}>
@@ -39,7 +39,7 @@ export function UnitCompBigWithCiv({unit}: {unit: Unit}) {
     const navigation = useNavigation<RootStackProp>();
     const unitLine = getUnitLineForUnit(unit);
     return (
-        <TouchableOpacity onPress={() => navigation.push('Unit', {unit: unit})}>
+        <TouchableOpacity onPress={() => router.navigate(`/explore/units/${unit}`)}>
             <View style={styles.rowBig}>
                 <Image style={styles.unitIconBig} source={getUnitIcon(unit)}/>
                 <View style={styles.unitIconBigTitle}>
@@ -58,7 +58,7 @@ export function UnitLineCompBig({unitLine}: {unitLine: UnitLine}) {
     const styles = useStyles();
     const navigation = useNavigation<RootStackProp>();
     return (
-        <TouchableOpacity onPress={() => navigation.push('Unit', {unit: unitLine})}>
+        <TouchableOpacity onPress={() => router.navigate(`/explore/units/${unitLine}`)}>
             <View style={styles.rowBig}>
                 <Image style={styles.unitIconBig} source={getUnitLineIcon(unitLine)}/>
                 <View style={styles.unitIconBigTitle}>

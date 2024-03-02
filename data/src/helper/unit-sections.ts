@@ -6,12 +6,14 @@ import {appConfig} from "@nex/dataset";
 
 interface IUnitSection {
     title: string;
+    icon: string;
     data: (UnitLine | Unit)[];
 }
 
 const unitSections: IUnitSection[] = [
     {
         title: 'unit.section.infantry',
+        icon: 'sword',
         data:
             [
                 'Militia',
@@ -23,6 +25,7 @@ const unitSections: IUnitSection[] = [
     },
     {
         title: 'unit.section.archer',
+        icon: 'bow-arrow',
         data:
             [
                 'Archer',
@@ -36,6 +39,7 @@ const unitSections: IUnitSection[] = [
     },
     {
         title: 'unit.section.cavalry',
+        icon: 'horse-head',
         data:
             [
                 'ScoutCavalry',
@@ -49,6 +53,7 @@ const unitSections: IUnitSection[] = [
     },
     {
         title: 'unit.section.siege',
+        icon: 'cannon',
         data:
             [
                 'ArmoredElephant',
@@ -64,6 +69,7 @@ const unitSections: IUnitSection[] = [
     },
     {
         title: 'unit.section.trade',
+        icon: 'scale-unbalanced',
         data:
             [
                 'TradeCart',
@@ -72,6 +78,7 @@ const unitSections: IUnitSection[] = [
     },
     {
         title: 'unit.section.villager',
+        icon: 'hammer',
         data:
             [
                 'Villager',
@@ -79,6 +86,7 @@ const unitSections: IUnitSection[] = [
     },
     {
         title: 'unit.section.navy',
+        icon: 'sailboat',
         data:
             [
                 'FishingShip',
@@ -96,6 +104,7 @@ const unitSections: IUnitSection[] = [
     },
     {
         title: 'unit.section.monk',
+        icon: 'person-praying',
         data:
             [
                 'Monk',
@@ -104,6 +113,7 @@ const unitSections: IUnitSection[] = [
     },
     ...(appConfig.game === 'aoe2de' ? [
         {
+            icon: 'star',
             title: 'unit.section.unique',
             data: sortBy(flatMap(civs.filter(c => c != 'Indians'), civ => getUniqueUnitsForSection(civ))),
         },

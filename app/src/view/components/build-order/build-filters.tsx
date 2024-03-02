@@ -15,23 +15,12 @@ interface BuildFiltersProps extends FiltersStore {
     builds: IBuildOrder[];
 }
 
-export const BuildFilters: React.FC<BuildFiltersProps> = ({
-    builds,
-    filters: { civilization, difficulty, buildType },
-    setFilter,
-}) => {
+export const BuildFilters: React.FC<BuildFiltersProps> = ({ builds, filters: { civilization, difficulty, buildType }, setFilter }) => {
     const styles = useStyles();
-    const buildTypeOptions = [
-        'all',
-        'favorites',
-        ...uniq(flatten(builds.map((build) => build.attributes))),
-    ] as const;
+    const buildTypeOptions = ['all', 'favorites', ...uniq(flatten(builds.map((build) => build.attributes)))] as const;
 
     const civIcon = getCivIconLocal(civilization) ?? genericCivIcon;
-    const civOptions: Array<Civ | 'all'> = [
-        'all',
-        ...orderCivs(civs.filter((civ) => civ !== 'Indians')),
-    ];
+    const civOptions: Array<Civ | 'all'> = ['all', ...orderCivs(civs.filter((civ) => civ !== 'Indians'))];
 
     return (
         <View style={styles.filtersContainer}>
@@ -43,10 +32,7 @@ export const BuildFilters: React.FC<BuildFiltersProps> = ({
                     value={civilization}
                     options={civOptions.map((value) => ({
                         value,
-                        label:
-                            value === 'all'
-                                ? getTranslation('builds.filters.all')
-                                : getCivNameById(value),
+                        label: value === 'all' ? getTranslation('builds.filters.all') : getCivNameById(value),
                         icon: getCivIconLocal(value) ?? genericCivIcon,
                     }))}
                 />
@@ -58,9 +44,7 @@ export const BuildFilters: React.FC<BuildFiltersProps> = ({
                     label={getTranslation('builds.filters.difficulty')}
                     value={difficulty}
                     options={(['all', 1, 2, 3] as const).map((d) => ({
-                        label:
-                            getDifficultyName(d) ??
-                            getTranslation('builds.filters.all'),
+                        label: getDifficultyName(d) ?? getTranslation('builds.filters.all'),
                         value: d,
                     }))}
                 />
@@ -77,8 +61,8 @@ export const BuildFilters: React.FC<BuildFiltersProps> = ({
                             value === 'all'
                                 ? getTranslation('builds.filters.all')
                                 : value === 'favorites'
-                                ? getTranslation('builds.favorites')
-                                : startCase(value),
+                                  ? getTranslation('builds.favorites')
+                                  : startCase(value),
                     }))}
                 />
             )}
@@ -91,7 +75,7 @@ const useStyles = createStylesheet((theme, darkMode) =>
         filtersContainer: {
             zIndex: 1,
             gap: 15,
-            padding: 10,
+            padding: 16,
             position: 'relative',
             flexDirection: 'row',
             alignItems: 'center',

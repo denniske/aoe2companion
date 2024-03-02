@@ -1,10 +1,16 @@
+import { Button } from '@app/components/button';
+import { Card } from '@app/components/card';
+import { FlatList, FlatListRef, FlatListProps } from '@app/components/flat-list';
+import { Icon } from '@app/components/icon';
+import { Text } from '@app/components/text';
+import { useSelector } from '@app/redux/reducer';
+import { isVerifiedPlayer } from '@nex/data';
+import { router } from 'expo-router';
 import React from 'react';
-import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {Button} from 'react-native-paper';
-import {MyText} from "./my-text";
-import {getTranslation} from '../../helper/translate';
-import {useCavy} from '../testing/tester';
-import {CountryImage} from './country-image';
+import { TouchableOpacity, View } from 'react-native';
+
+import { CountryImage } from './country-image';
+import { useCavy } from '../testing/tester';
 
 export interface IPlayerListPlayer {
     country: string;
@@ -14,15 +20,53 @@ export interface IPlayerListPlayer {
     steamId?: string;
 }
 
-interface IPlayerProps {
-    player: IPlayerListPlayer;
+interface IPlayerProps<PlayerType extends IPlayerListPlayer> {
+    player: PlayerType | 'select' | 'follow';
     selectedUser?: (user: any) => void;
     actionText?: string;
-    action?: (player: IPlayerListPlayer) => React.ReactNode;
+    action?: (player: PlayerType) => React.ReactNode;
+    variant?: 'vertical' | 'horizontal';
 }
 
-function Player({player, selectedUser, actionText, action}: IPlayerProps) {
+function Player<PlayerType extends IPlayerListPlayer>({ player, selectedUser, actionText, action, variant }: IPlayerProps<PlayerType>) {
     const generateTestHook = useCavy();
+    const auth = useSelector((state) => state.auth);
+
+    if (player === 'select') {
+        return (
+            <Card
+                direction="vertical"
+                className="items-center justify-center g-1 py-2 px-2.5 w-20"
+                onPress={() => router.navigate('/matches/users/select')}
+            >
+                <Icon icon="user" color="brand" size={24} />
+                <View className="flex-row g-1 items-center">
+                    <Text numberOfLines={1} variant="body-sm">
+                        Find Me
+                    </Text>
+                </View>
+            </Card>
+        );
+    }
+
+    if (player === 'follow') {
+        return (
+            <Card
+                direction="vertical"
+                className="items-center justify-center g-1 py-2 px-2.5 w-20"
+                onPress={() => router.navigate('/matches/users/follow')}
+            >
+                <Icon icon="plus" color="brand" size={24} />
+                <View className="flex-row g-1 items-center">
+                    <Text numberOfLines={1} variant="body-sm">
+                        Add Player
+                    </Text>
+                </View>
+            </Card>
+        );
+    }
+
+    const isMe = player.profileId === auth?.profileId;
 
     const onSelect = async () => {
         selectedUser!({
@@ -31,147 +75,91 @@ function Player({player, selectedUser, actionText, action}: IPlayerProps) {
         });
     };
 
-    return (
-        <View style={styles.row2}>
-            <TouchableOpacity style={styles.cellNameAndGames}
-                              ref={ref => generateTestHook('Search.Player.' + player.profileId)({props: {onPress: onSelect}})}
-                              onPress={onSelect}
-            >
-                <View style={styles.row}>
-                    <View style={styles.cellName}>
-                        <CountryImage country={player.country}/>
-                        <MyText style={styles.name} numberOfLines={1}>{player.name}</MyText>
-                    </View>
-                    <MyText style={styles.cellGames}>{player.games}</MyText>
+    if (variant === 'horizontal') {
+        return (
+            <Card direction="vertical" className="items-center justify-center g-0 pt-1 pb-2 px-2.5 w-20" onPress={onSelect}>
+                <CountryImage style={{ textAlign: 'center', fontSize: 24 }} country={player.country} />
+                <View className="flex-row g-1 items-center">
+                    <Text numberOfLines={1} variant="body-sm">
+                        {player.name}
+                    </Text>
+                    {isMe && <Icon color="brand" icon="user" size={12} />}
+                    {!isMe && player.profileId && isVerifiedPlayer(player.profileId) && <Icon color="brand" icon="circle-check" size={12} />}
                 </View>
-            </TouchableOpacity>
-            <View style={styles.cellAction}>
-                {
-                    action && action(player)
-                }
-                {
-                    actionText && selectedUser &&
-                    <Button
-                        labelStyle={{fontSize: 13, marginVertical: 0}}
-                        contentStyle={{height: 22}}
-                        onPress={onSelect}
-                        mode="contained"
-                        compact
-                        uppercase={false}
-                        dark={true}
-                    >
+
+                <Text color="subtle" variant="body-xs" numberOfLines={1}>
+                    {player.games} Games
+                </Text>
+            </Card>
+        );
+    }
+
+    return (
+        <TouchableOpacity
+            className="flex-row items-center w-full g-2"
+            ref={(ref) => generateTestHook('Search.Player.' + player.profileId)({ props: { onPress: onSelect } })}
+            onPress={onSelect}
+        >
+            <CountryImage style={{ textAlign: 'center', fontSize: 30 }} country={player.country} />
+            <View>
+                <View className="flex-row g-1 items-center">
+                    <Text numberOfLines={1} variant="label">
+                        {player.name}
+                    </Text>
+                    {isMe && <Icon color="brand" icon="user" size={12} />}
+                    {!isMe && player.profileId && isVerifiedPlayer(player.profileId) && <Icon color="brand" icon="circle-check" size={12} />}
+                </View>
+                <Text variant="body-sm" color="subtle">
+                    {player.games} Games
+                </Text>
+            </View>
+            <View className="flex-1 flex-row justify-end g-2">
+                {action && action(player)}
+                {actionText && selectedUser && (
+                    <Button size="small" onPress={onSelect}>
                         {actionText}
                     </Button>
-                }
+                )}
             </View>
-        </View>
+            <Icon icon="angle-right" color="brand" size={20} />
+        </TouchableOpacity>
     );
 }
 
-interface ISearchProps {
-    list: IPlayerListPlayer[];
+interface ISearchProps<PlayerType extends IPlayerListPlayer> extends Omit<FlatListProps<PlayerType | 'select' | 'follow'>, 'data' | 'renderItem'> {
+    list: (PlayerType | 'select' | 'follow')[];
     selectedUser?: (user: any) => void;
     actionText?: string;
-    action?: (player: IPlayerListPlayer) => React.ReactNode;
+    action?: (player: PlayerType) => React.ReactNode;
+    variant?: 'vertical' | 'horizontal';
+    flatListRef?: FlatListRef<PlayerType | 'select' | 'follow'>;
 }
 
-export default function PlayerList({list, selectedUser, actionText, action}: ISearchProps) {
-
+export default function PlayerList<PlayerType extends IPlayerListPlayer>({
+    list,
+    selectedUser,
+    actionText,
+    action,
+    variant = 'vertical',
+    flatListRef,
+    ...props
+}: ISearchProps<PlayerType>) {
     return (
-        <View style={styles.container}>
-            {
-                list && list.length > 0 &&
-                <View style={styles.headerRow}>
-                    <View style={styles.cellNameAndGames}>
-                        <MyText style={styles.cellName}>{getTranslation('search.heading.name')}</MyText>
-                        <MyText style={styles.cellGames}>{getTranslation('search.heading.games')}</MyText>
-                    </View>
-                    <MyText style={styles.cellAction}/>
-                </View>
+        <FlatList
+            ref={flatListRef}
+            data={list}
+            horizontal={variant === 'horizontal'}
+            keyboardShouldPersistTaps="always"
+            ItemSeparatorComponent={() =>
+                variant === 'vertical' ? <View className="h-[1px] bg-gray-200 dark:bg-gray-800 w-full my-2.5" /> : <View className="w-2" />
             }
-
-            <FlatList
-                keyboardShouldPersistTaps={'always'}
-                data={list}
-                contentContainerStyle={styles.list}
-                renderItem={({item}) => {
-                    return <Player player={item} selectedUser={selectedUser} actionText={actionText} action={action}/>;
-                }}
-                keyExtractor={(item, index) => index.toString()}
-            />
-        </View>
+            contentContainerStyle="px-4"
+            renderItem={({ item }) => {
+                return <Player player={item} selectedUser={selectedUser} actionText={actionText} action={action} variant={variant} />;
+            }}
+            keyExtractor={(_item, index) => index.toString()}
+            className={variant === 'horizontal' ? 'flex-none' : ''}
+            {...props}
+        />
     );
 }
-
-const styles = StyleSheet.create({
-    centerText: {
-        textAlign: 'center',
-    },
-    countryIcon: {
-        width: 21,
-        height: 15,
-        marginRight: 5,
-    },
-    searchbar: {
-        marginTop: 15,
-        marginBottom: 15,
-        marginRight: 30,
-        marginLeft: 30,
-    },
-    cellRating: {
-        width: 40,
-    },
-    cellName: {
-        // backgroundColor: 'red',
-        flex: 2.7,
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    name: {
-        flex: 1,
-    },
-    cellGames: {
-        flex: 1.2,
-    },
-    cellAction: {
-        flex: 0.5,
-    },
-    cellWon: {
-        width: 110,
-    },
-    list: {
-        marginRight: 30,
-        marginLeft: 30,
-        paddingBottom: 20,
-    },
-    headerRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 3,
-        padding: 3,
-        borderRadius: 5,
-        marginRight: 30,
-        marginLeft: 30,
-    },
-    row: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 3,
-        padding: 3,
-    },
-    row2: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    cellNameAndGames: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    container: {
-        paddingTop: 20,
-        flex: 1,
-    },
-});

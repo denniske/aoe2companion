@@ -1,15 +1,11 @@
 import 'react-native-gesture-handler';
-import {
-    DarkTheme as NavigationDarkTheme,
-    DefaultTheme as NavigationDefaultTheme,
-    NavigationContainer
-} from '@react-navigation/native';
-import React, {useCallback, useEffect, useState} from 'react';
-import {BackHandler, LogBox, Platform, SafeAreaView, StatusBar, StyleSheet, useColorScheme, View} from 'react-native';
-import {createStackNavigator, StackNavigationProp, TransitionPresets} from '@react-navigation/stack';
+import { DarkTheme as NavigationDarkTheme, DefaultTheme as NavigationDefaultTheme, NavigationContainer } from '@react-navigation/native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { BackHandler, LogBox, Platform, SafeAreaView, StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+import { createStackNavigator, StackNavigationProp, TransitionPresets } from '@react-navigation/stack';
 import Header from './src/view/components/header';
-import UserPage, {userMenu} from './src/view/user.page';
-import {useApi} from './src/hooks/use-api';
+import UserPage, { userMenu } from './src/view/user.page';
+import { useApi } from './src/hooks/use-api';
 import {
     IAccount,
     IConfig,
@@ -17,23 +13,18 @@ import {
     loadConfigFromStorage,
     loadFollowingFromStorage,
     loadPrefsFromStorage,
-    loadSettingsFromStorage
+    loadSettingsFromStorage,
 } from './src/service/storage';
 import AboutPage from './src/view/about.page';
 import store from './src/redux/store';
-import {Provider as ReduxProvider} from 'react-redux';
-import {
-    MD2DarkTheme as PaperDarkTheme,
-    MD2LightTheme as PaperDefaultTheme,
-    Portal,
-    Provider as PaperProvider
-} from 'react-native-paper';
-import {addLoadedLanguage, useMutate, useSelector} from './src/redux/reducer';
+import { Provider as ReduxProvider } from 'react-redux';
+import { MD2DarkTheme as PaperDarkTheme, MD2LightTheme as PaperDefaultTheme, Portal, Provider as PaperProvider } from 'react-native-paper';
+import { addLoadedLanguage, useMutate, useSelector } from './src/redux/reducer';
 import SearchPage from './src/view/search.page';
 import PrivacyPage from './src/view/privacy.page';
-import {FontAwesome5} from "@expo/vector-icons";
-import LeaderboardPage, {leaderboardMenu, LeaderboardTitle} from "./src/view/leaderboard.page";
-import {CivPage, CivTitle, civTitle} from "@nex/app/view";
+import { FontAwesome5 } from '@expo/vector-icons';
+import LeaderboardPage, { leaderboardMenu, LeaderboardTitle } from './src/view/leaderboard.page';
+import { CivPage, CivTitle, civTitle } from '@nex/app/view';
 import {
     Building,
     Civ,
@@ -45,57 +36,56 @@ import {
     registerService,
     SERVICE_NAME,
     Tech,
-    Unit
-} from "@nex/data";
-import UnitPage, {UnitTitle, unitTitle} from "./src/view/unit/unit.page";
-import {navigationRef} from "./src/service/navigation";
-import Footer from "./src/view/components/footer";
-import TechPage, {techTitle, TechTitle} from "./src/view/tech/tech.page";
-import FeedPage, {feedMenu, feedTitle} from "./src/view/feed.page";
-import UpdateSnackbar from "./src/view/components/snackbar/update-snackbar";
-import {useAppThemeInverted} from "./src/theming";
-import SettingsPage from "./src/view/settings.page";
-import ChangelogPage from "./src/view/changelog.page";
-import ChangelogSnackbar from "./src/view/components/snackbar/changelog-snackbar";
-import BuildingPage, {BuildingTitle, buildingTitle} from "./src/view/building/building.page";
-import LivePage from "./src/view/live.page";
-import PushPage from "./src/view/push.page";
-import SplashPage from "./src/view/splash.page";
-import ErrorSnackbar from "./src/view/components/snackbar/error-snackbar";
-import ErrorPage from "./src/view/error.page";
-import WinratesPage, {WinratesTitle} from "./src/view/winrates.page";
-import * as Notifications from "expo-notifications";
+    Unit,
+} from '@nex/data';
+import UnitPage, { UnitTitle, unitTitle } from './src/app/explore/units/unit.page';
+import { navigationRef } from './src/service/navigation';
+import Footer from './src/view/components/footer';
+import TechPage, { techTitle, TechTitle } from './src/app/explore/technologies/tech.page';
+import FeedPage, { feedMenu, feedTitle } from './src/view/feed.page';
+import UpdateSnackbar from './src/view/components/snackbar/update-snackbar';
+import { useAppThemeInverted } from './src/theming';
+import SettingsPage from './src/view/settings.page';
+import ChangelogPage from './src/view/changelog.page';
+import ChangelogSnackbar from './src/view/components/snackbar/changelog-snackbar';
+import BuildingPage, { BuildingTitle, buildingTitle } from './src/app/explore/buildings/building.page';
+import LivePage from './src/view/live.page';
+import PushPage from './src/view/push.page';
+import SplashPage from './src/view/splash.page';
+import ErrorSnackbar from './src/view/components/snackbar/error-snackbar';
+import ErrorPage from './src/view/error.page';
+import WinratesPage, { WinratesTitle } from './src/view/winrates.page';
+import * as Notifications from 'expo-notifications';
 import * as TaskManager from 'expo-task-manager';
-import TipsPage from "./src/view/tips.page";
-import initSentry from "./src/helper/sentry";
+import TipsPage from './src/view/tips.page';
+import initSentry from './src/helper/sentry';
 import * as Device from 'expo-device';
-import {LinkingOptions} from "@react-navigation/native/lib/typescript/src/types";
-import {createStylesheet} from './src/theming-new';
-import {getLanguageFromSystemLocale2, getTranslation} from './src/helper/translate';
-import {getInternalAoeString, loadAoeStringsAsync} from './src/helper/translate-data';
+import { LinkingOptions } from '@react-navigation/native/lib/typescript/src/types';
+import { createStylesheet } from './src/theming-new';
+import { getLanguageFromSystemLocale2, getTranslation } from './src/helper/translate';
+import { getInternalAoeString, loadAoeStringsAsync } from './src/helper/translate-data';
 import * as Localization from 'expo-localization';
-import {getInternalLanguage, setInternalLanguage} from './src/redux/statecache';
-import {ConditionalTester} from "./src/view/testing/tester";
-import {getElectronPushToken, isElectron} from './src/helper/electron';
-import {setAccountPushTokenElectron} from './src/api/following';
-import {fetchJson2} from './src/api/util';
-import UpdateElectronSnackbar from "./src/view/components/snackbar/update-electron-snackbar";
-import OverlaySettingsPage from "./src/view/overlay.settings.page";
+import { getInternalLanguage, setInternalLanguage } from './src/redux/statecache';
+import { ConditionalTester } from './src/view/testing/tester';
+import { getElectronPushToken, isElectron } from './src/helper/electron';
+import { setAccountPushTokenElectron } from './src/api/following';
+import { fetchJson2 } from './src/api/util';
+import UpdateElectronSnackbar from './src/view/components/snackbar/update-electron-snackbar';
+import OverlaySettingsPage from './src/view/overlay.settings.page';
 // import CurrentMatchSnackbar from "./src/view/components/snackbar/current-match-snackbar";
-import {fetchAoeReferenceData} from './src/helper/reference';
+import { fetchAoeReferenceData } from './src/helper/reference';
 import DonationPage from './src/view/donation.page';
 import Constants from 'expo-constants';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import * as SplashScreen from 'expo-splash-screen';
 import * as eva from '@eva-design/eva';
-import {ApplicationProvider} from '@ui-kitten/components';
-import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import { ApplicationProvider } from '@ui-kitten/components';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import BuildPage, { BuildTitle, BuildMenu } from './src/view/build.page';
 import OngoingMatchesPage from './src/view/ongoing.page';
 import { liveActivity } from './src/service/live-game-activity';
 import TournamentsPage, { TournamentsTitle } from './src/view/tournaments.page';
 import * as Sentry from '@sentry/react-native';
-
 
 SplashScreen.preventAutoHideAsync();
 
@@ -108,12 +98,10 @@ try {
             shouldPlaySound: false,
             shouldSetBadge: false,
         }),
-        handleSuccess: notificationId => console.log('success:' + notificationId),
-        handleError: notificationId => console.log('error:' + notificationId),
+        handleSuccess: (notificationId) => console.log('success:' + notificationId),
+        handleError: (notificationId) => console.log('error:' + notificationId),
     });
-} catch(e) {
-
-}
+} catch (e) {}
 
 const BACKGROUND_NOTIFICATION_TASK = 'BACKGROUND-NOTIFICATION-TASK';
 
@@ -198,7 +186,7 @@ const linking: LinkingOptions<any> = {
                     MainMatches: {
                         path: 'matches',
                     },
-                }
+                },
             },
             Settings: {
                 path: 'settings',
@@ -233,7 +221,7 @@ const linking: LinkingOptions<any> = {
                     MainMatches: {
                         path: 'matches',
                     },
-                }
+                },
             },
             Feed: {
                 path: 'feed',
@@ -306,7 +294,7 @@ const linking: LinkingOptions<any> = {
                     LeaderboardQm4v4: {
                         path: 'qm_4v4',
                     },
-                }
+                },
             },
             Civ: {
                 path: 'civ/:civ?',
@@ -368,23 +356,23 @@ export type RootStackParamList = {
     Settings: undefined;
     Main: undefined;
     Winrates: undefined;
-    Tournaments: { tournamentId?: string, league?: string };
-    Feed: { action?: string, match_id?: string };
-    Leaderboard: { leaderboardId: number }
+    Tournaments: { tournamentId?: string; league?: string };
+    Feed: { action?: string; match_id?: string };
+    Leaderboard: { leaderboardId: number };
     Civ: { civ: Civ };
     Unit: { unit: Unit };
     Building: { building: Building };
     Tech: { tech: Tech };
-    Guide: { build?: number | string, focusMode?: boolean };
+    Guide: { build?: number | string; focusMode?: boolean };
     User: { profileId: number };
     Search: { name?: string };
-    OverlaySettings: { };
+    OverlaySettings: {};
 };
 
 export type RootTabParamList = {
-    MainProfile: { };
-    MainStats: { };
-    MainMatches: { };
+    MainProfile: {};
+    MainStats: {};
+    MainMatches: {};
 };
 
 export type RootStackProp = StackNavigationProp<RootStackParamList, 'Main'>;
@@ -406,7 +394,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 export function InnerApp() {
     const styles = useStyles();
     const theme = useAppThemeInverted();
-    const auth = useSelector(state => state.auth);
+    const auth = useSelector((state) => state.auth);
 
     useEffect(() => {
         if (Platform.OS !== 'web') return;
@@ -417,7 +405,7 @@ export function InnerApp() {
         }
 
         const style = document.createElement('style');
-        style.id = 'scrollbar-style'
+        style.id = 'scrollbar-style';
         style.type = 'text/css';
         style.innerHTML = `
                 ::-webkit-scrollbar { height: auto; }
@@ -451,38 +439,29 @@ export function InnerApp() {
 
     return (
         <SafeAreaView style={styles.container} nativeID="container">
-
             <Portal>
                 {/*{*/}
                 {/*    isElectron() &&*/}
                 {/*    <CurrentMatchSnackbar/>*/}
                 {/*}*/}
-                {
-                    isElectron() &&
-                    <UpdateElectronSnackbar/>
-                }
-                {
-                    Platform.OS !== 'web' &&
-                    <UpdateSnackbar/>
-                }
-                {
-                    (Platform.OS !== 'web' || isElectron()) &&
-                    <ChangelogSnackbar/>
-                }
-                <ErrorSnackbar/>
+                {isElectron() && <UpdateElectronSnackbar />}
+                {Platform.OS !== 'web' && <UpdateSnackbar />}
+                {(Platform.OS !== 'web' || isElectron()) && <ChangelogSnackbar />}
+                <ErrorSnackbar />
             </Portal>
 
-            <Header/>
-            <Stack.Navigator screenOptions={{
-                ...TransitionPresets.SlideFromRightIOS,
-                headerStatusBarHeight: 0,
-                animationEnabled: false,
-            }}>
-
+            <Header />
+            <Stack.Navigator
+                screenOptions={{
+                    ...TransitionPresets.SlideFromRightIOS,
+                    headerStatusBarHeight: 0,
+                    animationEnabled: false,
+                }}
+            >
                 <Stack.Screen
                     name="User"
                     component={UserPage}
-                    options={props => ({
+                    options={(props) => ({
                         animationEnabled: !!props.route?.params,
                         title: ' ',
                         headerRight: userMenu(props),
@@ -492,7 +471,7 @@ export function InnerApp() {
                 <Stack.Screen
                     name="Feed"
                     component={FeedPage}
-                    options={props => ({
+                    options={(props) => ({
                         animationEnabled: !!props.route?.params?.action,
                         title: feedTitle(props),
                         headerRight: feedMenu(props),
@@ -544,11 +523,11 @@ export function InnerApp() {
                 <Stack.Screen
                     name="Leaderboard"
                     component={LeaderboardPage}
-                    options={props => ({
+                    options={(props) => ({
                         title: getTranslation('leaderboard.title'),
                         headerTitleAlign: 'left',
                         headerRight: leaderboardMenu(),
-                        headerTitle: titleProps => <LeaderboardTitle {...props} titleProps={titleProps} />,
+                        headerTitle: (titleProps) => <LeaderboardTitle {...props} titleProps={titleProps} />,
                     })}
                 />
                 <Stack.Screen
@@ -610,48 +589,48 @@ export function InnerApp() {
                 <Stack.Screen
                     name="Tech"
                     component={TechPage}
-                    options={props => ({
+                    options={(props) => ({
                         animationEnabled: !!props.route?.params?.tech,
                         title: techTitle(props),
-                        headerTitle: titleProps => <TechTitle {...props} titleProps={titleProps} />,
+                        headerTitle: (titleProps) => <TechTitle {...props} titleProps={titleProps} />,
                     })}
                 />
                 <Stack.Screen
                     name="Unit"
                     component={UnitPage}
-                    options={props => ({
+                    options={(props) => ({
                         animationEnabled: !!props.route?.params?.unit,
                         title: unitTitle(props),
-                        headerTitle: titleProps => <UnitTitle {...props} titleProps={titleProps} />,
+                        headerTitle: (titleProps) => <UnitTitle {...props} titleProps={titleProps} />,
                     })}
                 />
                 <Stack.Screen
                     name="Building"
                     component={BuildingPage}
-                    options={props => ({
+                    options={(props) => ({
                         animationEnabled: !!props.route?.params?.building,
                         title: buildingTitle(props),
-                        headerTitle: titleProps => <BuildingTitle {...props} titleProps={titleProps} />,
+                        headerTitle: (titleProps) => <BuildingTitle {...props} titleProps={titleProps} />,
                     })}
                 />
                 <Stack.Screen
                     name="Civ"
                     component={CivPage}
-                    options={props => ({
+                    options={(props) => ({
                         animationEnabled: !!props.route?.params?.civ,
                         title: civTitle(props),
-                        headerTitle: titleProps => <CivTitle {...props} titleProps={titleProps} />,
+                        headerTitle: (titleProps) => <CivTitle {...props} titleProps={titleProps} />,
                     })}
                 />
                 <Stack.Screen
                     name="Guide"
                     component={BuildPage}
-                    options={props => ({
+                    options={(props) => ({
                         animationEnabled: false,
                         headerTitleAlign: 'center',
-                        headerTitle: titleProps => <BuildTitle {...props} titleProps={titleProps} />,
-                        headerRight: () => props.route?.params?.build ? <BuildMenu {...props} /> : null,
-                        headerBackTitle: 'Back'
+                        headerTitle: (titleProps) => <BuildTitle {...props} titleProps={titleProps} />,
+                        headerRight: () => (props.route?.params?.build ? <BuildMenu {...props} /> : null),
+                        headerBackTitle: 'Back',
                     })}
                 />
                 <Stack.Screen
@@ -673,22 +652,21 @@ export function InnerApp() {
                     component={WinratesPage}
                     options={{
                         animationEnabled: false,
-                        headerTitle: props => <WinratesTitle {...props} />,
+                        headerTitle: (props) => <WinratesTitle {...props} />,
                     }}
                 />
                 <Stack.Screen
                     name="Tournaments"
                     component={TournamentsPage}
-                    options={props => ({
+                    options={(props) => ({
                         title: getTranslation('tournaments.title'),
                         headerShown: !props.route.params?.tournamentId,
                         headerBackTitle: 'Back',
-                        headerTitle: titleProps => <TournamentsTitle {...props} titleProps={titleProps} />,
-
+                        headerTitle: (titleProps) => <TournamentsTitle {...props} titleProps={titleProps} />,
                     })}
                 />
             </Stack.Navigator>
-            <Footer/>
+            <Footer />
         </SafeAreaView>
     );
 }
@@ -802,7 +780,6 @@ export function InnerApp() {
 //     );
 // }
 
-
 // const customPaperTheme = {
 //     ...PaperDarkTheme,
 //     colors: {
@@ -833,7 +810,7 @@ const customNavigationTheme = {
     ...NavigationDefaultTheme,
     colors: {
         ...NavigationDefaultTheme.colors,
-        background: 'white'
+        background: 'white',
         // background: 'rgba(0,0,0,0)'
     },
 };
@@ -896,21 +873,51 @@ export function AppWrapper() {
     const mutate = useMutate();
 
     const [appIsReady, setAppIsReady] = useState(false);
-    const loadedLanguages = useSelector(state => state.loadedLanguages);
-    const account = useSelector(state => state.account);
-    const auth = useSelector(state => state.auth);
-    const following = useSelector(state => state.following);
-    const prefs = useSelector(state => state.prefs);
-    const config = useSelector(state => state.config);
-    const darkMode = useSelector(state => state.config?.darkMode);
+    const loadedLanguages = useSelector((state) => state.loadedLanguages);
+    const account = useSelector((state) => state.account);
+    const auth = useSelector((state) => state.auth);
+    const following = useSelector((state) => state.following);
+    const prefs = useSelector((state) => state.prefs);
+    const config = useSelector((state) => state.config);
+    const darkMode = useSelector((state) => state.config?.darkMode);
     const colorScheme = useColorScheme();
 
     // Trigger loading of auth and following
-    const _account = useApi({}, [account], state => state.account, (state, value) => state.account = value, () => loadAccountFromStorage());
-    const _auth = useApi({}, [auth], state => state.auth, (state, value) => state.auth = value, () => loadSettingsFromStorage());
-    const _following = useApi({}, [following], state => state.following, (state, value) => state.following = value, () => loadFollowingFromStorage());
-    const _prefs = useApi({}, [prefs], state => state.prefs, (state, value) => state.prefs = value, () => loadPrefsFromStorage());
-    const _config = useApi({}, [config], state => state.config, (state, value) => state.config = value, () => loadConfigFromStorage());
+    const _account = useApi(
+        {},
+        [account],
+        (state) => state.account,
+        (state, value) => (state.account = value),
+        () => loadAccountFromStorage()
+    );
+    const _auth = useApi(
+        {},
+        [auth],
+        (state) => state.auth,
+        (state, value) => (state.auth = value),
+        () => loadSettingsFromStorage()
+    );
+    const _following = useApi(
+        {},
+        [following],
+        (state) => state.following,
+        (state, value) => (state.following = value),
+        () => loadFollowingFromStorage()
+    );
+    const _prefs = useApi(
+        {},
+        [prefs],
+        (state) => state.prefs,
+        (state, value) => (state.prefs = value),
+        () => loadPrefsFromStorage()
+    );
+    const _config = useApi(
+        {},
+        [config],
+        (state) => state.config,
+        (state, value) => (state.config = value),
+        () => loadConfigFromStorage()
+    );
 
     useEffect(() => {
         if (config == null) return;
@@ -974,39 +981,40 @@ export function AppWrapper() {
     // console.log('global.location', JSON.stringify((global as any).location));
 
     return (
-        <NavigationContainer ref={navigationRef}
-                             theme={finalDarkMode === 'light' ? customNavigationTheme : customDarkNavigationTheme}
-                             linking={linking}
+        <NavigationContainer
+            ref={navigationRef}
+            theme={finalDarkMode === 'light' ? customNavigationTheme : customDarkNavigationTheme}
+            linking={linking}
         >
             <ConditionalTester>
                 <PaperProvider
                     theme={finalDarkMode === 'light' ? customPaperTheme : customDarkPaperTheme}
                     settings={{
-                        icon: props => <FontAwesome5 {...props} />,
+                        icon: (props) => <FontAwesome5 {...props} />,
                     }}
                 >
                     <ApplicationProvider {...eva} theme={finalDarkMode === 'light' ? eva.light : eva.dark}>
                         <QueryClientProvider client={queryClient}>
-                                <StatusBar barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'}
-                                           backgroundColor="transparent" translucent={true}/>
-                                <View style={{flex: 1}} onLayout={onLayoutRootView}>
-                                    {/*{*/}
-                                    {/*    appType == 'query' &&*/}
-                                    {/*    <InnerAppForQuery/>*/}
-                                    {/*}*/}
-                                    {/*{*/}
-                                    {/*    appType == 'build' &&*/}
-                                    {/*    <InnerAppForBuild/>*/}
-                                    {/*}*/}
-                                    {/*{*/}
-                                    {/*    appType == 'intro' &&*/}
-                                    {/*    <InnerAppForIntro/>*/}
-                                    {/*}*/}
-                                    {
-                                        appType == 'app' &&
-                                        <InnerApp/>
-                                    }
-                                </View>
+                            <StatusBar
+                                barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'}
+                                backgroundColor="transparent"
+                                translucent={true}
+                            />
+                            <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+                                {/*{*/}
+                                {/*    appType == 'query' &&*/}
+                                {/*    <InnerAppForQuery/>*/}
+                                {/*}*/}
+                                {/*{*/}
+                                {/*    appType == 'build' &&*/}
+                                {/*    <InnerAppForBuild/>*/}
+                                {/*}*/}
+                                {/*{*/}
+                                {/*    appType == 'intro' &&*/}
+                                {/*    <InnerAppForIntro/>*/}
+                                {/*}*/}
+                                {appType == 'app' && <InnerApp />}
+                            </View>
                         </QueryClientProvider>
                     </ApplicationProvider>
                 </PaperProvider>
@@ -1025,13 +1033,12 @@ function App() {
             Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK);
         }
 
-        return () =>
-            BackHandler.removeEventListener('hardwareBackPress', () => true);
+        return () => BackHandler.removeEventListener('hardwareBackPress', () => true);
     }, []);
 
     return (
         <ReduxProvider store={store}>
-            <AppWrapper/>
+            <AppWrapper />
         </ReduxProvider>
     );
 }
@@ -1042,79 +1049,82 @@ export default Sentry.wrap(App);
 
 const isMobile = ['Android', 'iOS'].includes(Device.osName!);
 
-const useStyles = createStylesheet((theme, darkMode) => StyleSheet.create({
-    container: {
-        ...(Platform.OS === 'web' && !isElectron() ? {
-                overflow: 'hidden',
-                width: 450,
-                maxWidth: '100%',
-                maxHeight: 900,
-                marginHorizontal: 'auto',
-                marginVertical: 'auto',
-                borderColor: darkMode === 'dark' ? '#444' :  '#CCC',
-                borderWidth: isMobile ? 0 : 1,
-                borderRadius: isMobile ? 0 : 10,
-            } : {}
-        ),
-        ...(Platform.OS === 'web' && isElectron() ? {
-                overflow: 'hidden',
-                width: '100%',
-                height: '100%',
-                marginHorizontal: 'auto',
-                marginVertical: 'auto',
-                borderColor: darkMode === 'dark' ? '#444' :  '#CCC',
-                borderWidth: isMobile ? 0 : 1,
-                borderRadius: isMobile ? 0 : 10,
-            } : {}
-        ),
-        backgroundColor: theme.backgroundColor,
-        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-        flex: 1,
-    },
-    appQuery: {
-        overflow: 'hidden',
-        width: '100%',
-        height: '100%',
-        paddingHorizontal: 5,
-        paddingVertical: 5,
-        flex: 1,
-        // backgroundColor: 'yellow',
-    },
-    containerQuery: {
-        overflow: 'hidden',
-        width: '100%',
-        // height: '100%',
-        // borderColor: darkMode === 'dark' ? '#444' :  '#CCC',
-        // borderWidth: isMobile ? 0 : 1,
-        // borderRadius: isMobile ? 0 : 10,
-        // backgroundColor: theme.backgroundColor,
-        // backgroundColor: 'blue',
-        paddingTop: 0,
-        flex: 1,
-    },
-    containerBuild: {
-        overflow: 'hidden',
-        width: '100%',
-        // height: '100%',
-        // borderColor: darkMode === 'dark' ? '#444' :  '#CCC',
-        // borderWidth: isMobile ? 0 : 1,
-        // borderRadius: isMobile ? 0 : 10,
-        // backgroundColor: theme.backgroundColor,
-        // backgroundColor: 'blue',
-        paddingTop: 0,
-        flex: 1,
-    },
-    containerIntro: {
-        ...(Platform.OS === 'web' ?
-            {
-                overflow: 'hidden',
-                width: '100%',
-                height: '100%',
-            }
-            : {}
-        ),
-    },
-}));
+const useStyles = createStylesheet((theme, darkMode) =>
+    StyleSheet.create({
+        container: {
+            ...(Platform.OS === 'web' && !isElectron()
+                ? {
+                      overflow: 'hidden',
+                      width: 450,
+                      maxWidth: '100%',
+                      maxHeight: 900,
+                      marginHorizontal: 'auto',
+                      marginVertical: 'auto',
+                      borderColor: darkMode === 'dark' ? '#444' : '#CCC',
+                      borderWidth: isMobile ? 0 : 1,
+                      borderRadius: isMobile ? 0 : 10,
+                  }
+                : {}),
+            ...(Platform.OS === 'web' && isElectron()
+                ? {
+                      overflow: 'hidden',
+                      width: '100%',
+                      height: '100%',
+                      marginHorizontal: 'auto',
+                      marginVertical: 'auto',
+                      borderColor: darkMode === 'dark' ? '#444' : '#CCC',
+                      borderWidth: isMobile ? 0 : 1,
+                      borderRadius: isMobile ? 0 : 10,
+                  }
+                : {}),
+            backgroundColor: theme.backgroundColor,
+            paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+            flex: 1,
+        },
+        appQuery: {
+            overflow: 'hidden',
+            width: '100%',
+            height: '100%',
+            paddingHorizontal: 5,
+            paddingVertical: 5,
+            flex: 1,
+            // backgroundColor: 'yellow',
+        },
+        containerQuery: {
+            overflow: 'hidden',
+            width: '100%',
+            // height: '100%',
+            // borderColor: darkMode === 'dark' ? '#444' :  '#CCC',
+            // borderWidth: isMobile ? 0 : 1,
+            // borderRadius: isMobile ? 0 : 10,
+            // backgroundColor: theme.backgroundColor,
+            // backgroundColor: 'blue',
+            paddingTop: 0,
+            flex: 1,
+        },
+        containerBuild: {
+            overflow: 'hidden',
+            width: '100%',
+            // height: '100%',
+            // borderColor: darkMode === 'dark' ? '#444' :  '#CCC',
+            // borderWidth: isMobile ? 0 : 1,
+            // borderRadius: isMobile ? 0 : 10,
+            // backgroundColor: theme.backgroundColor,
+            // backgroundColor: 'blue',
+            paddingTop: 0,
+            flex: 1,
+        },
+        containerIntro: {
+            ...(Platform.OS === 'web'
+                ? {
+                      overflow: 'hidden',
+                      width: '100%',
+                      height: '100%',
+                  }
+                : {}),
+        },
+    })
+);
 
 // Alternative Overlay
 // {

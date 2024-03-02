@@ -10,12 +10,13 @@ import { useTournamentMatches } from '../../api/tournaments';
 import { Text } from '../text';
 import { Icon } from '../icon';
 import BottomSheet, { BottomSheetProps } from '@app/view/bottom-sheet';
-import { MatchCard, MatchCardProps } from './card';
+import { MatchCard } from './card';
 import { MatchPlayer } from './player';
 import { getTranslation } from '@app/helper/translate';
 import { useRouter } from 'expo-router';
+import { MatchProps } from '.';
 
-type MatchPopupProps = Omit<MatchCardProps, 'pressable'> & Pick<BottomSheetProps, 'isActive' | 'onClose'>;
+type MatchPopupProps = MatchProps & Pick<BottomSheetProps, 'isActive' | 'onClose'>;
 
 const formatDuration = (durationInSeconds: number) => {
     if (!durationInSeconds) return '00:00'; // divide by 0 protection
@@ -25,9 +26,11 @@ const formatDuration = (durationInSeconds: number) => {
 };
 
 export function MatchPopup(props: MatchPopupProps) {
-    const { match, highlightedUsers, isActive, onClose } = props;
+    const { match, highlightedUsers, isActive, onClose, user } = props;
     const router = useRouter();
     const { data: tournamentMatches } = useTournamentMatches();
+    const player = match.teams.flatMap((team) => team.players).find((p) => p.profileId === user);
+    const name = player?.name;
 
     const players = flatten(match?.teams.map((t) => t.players));
     const { tournament } = useMemo(
@@ -56,36 +59,37 @@ export function MatchPopup(props: MatchPopupProps) {
     if (appConfig.game !== 'aoe2de') duration = '';
 
     return (
-        <BottomSheet isActive={isActive} onClose={onClose} title="Match">
-            <MatchCard {...props} pressable={false} />
+        <BottomSheet isActive={isActive} onClose={onClose} title={`${name}'s Match`} className="g-4" showHandle>
+            <MatchCard {...props} />
 
-            <View>
+            <View className="g-1">
                 {tournament && (
                     <Pressable
+                        className="flex-row items-center g-2"
                         onPress={() =>
                             Platform.OS === 'web'
                                 ? Linking.openURL(`https://liquipedia.net/ageofempires/${tournament.path}`)
-                                : router.navigate(`/tournaments/${tournament.path}`)
+                                : router.navigate(`/competitive/tournaments/?tournamentId=${tournament.path}`)
                         }
                     >
-                        {tournament.image && <Image source={{ uri: tournament.image }} className="w-4 h-4" />}
-                        <Text>{tournament.name}</Text>
+                        {tournament.image && <Image source={{ uri: tournament.image }} className="w-5 h-5" />}
+                        <Text variant="label">{tournament.name}</Text>
                     </Pressable>
                 )}
                 {appConfig.game === 'aoe2de' && (
-                    <View className="flex-row items-center">
-                        <Icon icon="clock" size={11.5} color="subtle" />
-                        <Text variant="body-sm" color="subtle">
-                            {duration}
-                        </Text>
-                        <Icon icon="running" size={11.5} color="subtle" />
-                        <Text variant="body-sm" color="subtle">
-                            {match.speedName}
-                        </Text>
+                    <View className="flex-row items-center g-4 pb-3">
+                        <View className="flex-row items-center g-1">
+                            <Icon icon="clock" size={14} color="subtle" />
+                            <Text color="subtle">{duration}</Text>
+                        </View>
+                        <View className="flex-row items-center g-1">
+                            <Icon icon="running" size={14} color="subtle" />
+                            <Text color="subtle">{match.speedName}</Text>
+                        </View>
 
                         {match.name !== 'AUTOMATCH' && (
                             <>
-                                <Text variant="body-sm" color="subtle" numberOfLines={1}>
+                                <Text color="subtle" numberOfLines={1}>
                                     {match.name}
                                 </Text>
                             </>
@@ -93,7 +97,7 @@ export function MatchPopup(props: MatchPopupProps) {
                     </View>
                 )}
                 {sortBy(match.teams, ({ teamId, players }, i) => min(players.map((p) => p.color))).map(({ teamId, players }, i) => (
-                    <View key={teamId}>
+                    <View key={teamId} className="g-1">
                         {sortBy(players, (p) => p.color).map((player, j) => (
                             <MatchPlayer
                                 key={j}
@@ -105,7 +109,7 @@ export function MatchPopup(props: MatchPopupProps) {
                             />
                         ))}
                         {i < match.teams.length - 1 && (
-                            <View className="flex-row items-center gap-4">
+                            <View className="flex-row items-center g-4">
                                 <View className="bg-gray-200 dark:bg-gray-800 h-[1px] flex-1" />
                                 <Text variant="header-sm">{getTranslation('match.versus')}</Text>
                                 <View className="bg-gray-200 dark:bg-gray-800 h-[1px] flex-1" />

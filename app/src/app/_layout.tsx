@@ -240,6 +240,24 @@ function AppWrapper() {
         }
     }, [appIsReady]);
 
+    const customPaperTheme = {
+        ...PaperDefaultTheme,
+        colors: {
+            ...PaperDefaultTheme.colors,
+            primary: '#3498db',
+            accent: '#3498db',
+        },
+    };
+
+    const customDarkPaperTheme = {
+        ...PaperDarkTheme,
+        colors: {
+            ...PaperDarkTheme.colors,
+            primary: '#3498db',
+            accent: '#3498db',
+        },
+    };
+
     if (!appIsReady) {
         return null;
     }
@@ -248,14 +266,14 @@ function AppWrapper() {
         <GestureHandlerRootView className="flex-1">
             <ConditionalTester>
                 <PaperProvider
-                    theme={finalDarkMode === 'light' ? PaperDefaultTheme : PaperDarkTheme}
+                    theme={finalDarkMode === 'light' ? customPaperTheme : customDarkPaperTheme}
                     settings={{
                         icon: (props) => <FontAwesome5 {...props} />,
                     }}
                 >
                     <ApplicationProvider {...eva} theme={finalDarkMode === 'light' ? eva.light : eva.dark}>
                         <QueryClientProvider client={queryClient}>
-                            <View className="bg-gold-50 dark:bg-blue-950 flex-1" onLayout={onLayoutRootView}>
+                            <View className="bg-gold-50 dark:bg-blue-950 flex-1" style={{ paddingTop: insets.top }} onLayout={onLayoutRootView}>
                                 <Tabs
                                     tabBar={(props) => <TabBar {...props} />}
                                     sceneContainerStyle={{ backgroundColor: 'transparent' }}

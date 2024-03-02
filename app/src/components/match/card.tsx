@@ -11,15 +11,10 @@ import { IMatchNew } from '../../api/helper/api.types';
 import { Card } from '../card';
 import { Text } from '../text';
 import { Icon } from '../icon';
-import { MatchPopup } from './popup';
+import { MatchProps } from '.';
 
-export interface MatchCardProps {
-    match: IMatchNew;
-    expanded?: boolean;
-    user?: number;
-    highlightedUsers?: number[];
-    showLiveActivity?: boolean;
-    pressable?: boolean;
+export interface MatchCardProps extends MatchProps {
+    onPress?: () => void;
 }
 
 const formatDuration = (durationInSeconds: number) => {
@@ -30,8 +25,7 @@ const formatDuration = (durationInSeconds: number) => {
 };
 
 export function MatchCard(props: MatchCardProps) {
-    const { match, user, highlightedUsers, expanded = false, showLiveActivity = false, pressable = true } = props;
-    const [popupVisible, setPopupVisible] = useState(false);
+    const { match, user, highlightedUsers, expanded = false, showLiveActivity = false, onPress } = props;
     const players = flatten(match?.teams.map((t) => t.players));
     const freeForAll = isMatchFreeForAll(match);
 
@@ -44,7 +38,7 @@ export function MatchCard(props: MatchCardProps) {
 
     return (
         <Card
-            onPress={pressable ? () => setPopupVisible(true) : undefined}
+            onPress={onPress}
             header={
                 <View className="relative">
                     <Image
@@ -79,12 +73,10 @@ export function MatchCard(props: MatchCardProps) {
                     {startCase(match.gameMode.toString())}
                 </Text>
                 <Text numberOfLines={1}>
-                    {match.finished === null && `${duration} ${expanded}`}
+                    {match.finished === null && duration}
                     {match.finished || match.finished === undefined ? (match.started ? formatAgo(match.started) : 'none') : null}
                 </Text>
             </View>
-
-            {pressable && <MatchPopup {...props} isActive={popupVisible} onClose={() => setPopupVisible(false)} />}
         </Card>
     );
 }

@@ -29,6 +29,7 @@ import { getElectronPushToken, isElectron } from '../../helper/electron';
 import Space from '@app/view/components/space';
 import { isEmpty, merge } from 'lodash';
 import { clamp } from '@nex/data';
+import { Stack } from 'expo-router';
 
 export default function SettingsPage() {
     const styles = useStyles();
@@ -316,6 +317,8 @@ export default function SettingsPage() {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
+            <Stack.Screen options={{ title: getTranslation('settings.title') }} />
+
             <View style={styles.row}>
                 <View style={styles.cellName}>
                     <MyText>{getTranslation('settings.darkmode')}</MyText>

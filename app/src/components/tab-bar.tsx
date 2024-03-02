@@ -1,8 +1,9 @@
-import { BottomTabBarProps, BottomTabBarButtonProps } from '@react-navigation/bottom-tabs';
-import { Pressable, View } from 'react-native';
-import React from 'react';
-import { Icon } from './icon';
 import { IconName } from '@fortawesome/fontawesome-svg-core';
+import { BottomTabBarProps, BottomTabBarButtonProps } from '@react-navigation/bottom-tabs';
+import React from 'react';
+import { Pressable, View } from 'react-native';
+
+import { Icon } from './icon';
 import { Text } from './text';
 
 export const TabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigation, insets }) => {
@@ -15,7 +16,7 @@ export const TabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, naviga
                     const {
                         options: {
                             tabBarButton = (props: BottomTabBarButtonProps) => {
-                                return <Pressable {...props}></Pressable>;
+                                return <Pressable {...props} />;
                             },
                             ...options
                         },
@@ -24,8 +25,8 @@ export const TabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, naviga
                         options.tabBarLabel !== undefined
                             ? (options.tabBarLabel as string)
                             : options.title !== undefined
-                            ? options.title
-                            : route.name;
+                              ? options.title
+                              : route.name;
 
                     const isFocused = state.index === index;
 
@@ -49,7 +50,7 @@ export const TabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, naviga
                                 onPress,
                                 children: (
                                     <View
-                                        className={`justify-center items-center py-2 px-3 rounded-lg ${
+                                        className={`justify-center items-center py-2 px-3 min-w-[56px] rounded-lg ${
                                             isFocused ? 'bg-blue-800 dark:bg-gold-700' : ''
                                         }`}
                                     >
@@ -57,7 +58,7 @@ export const TabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, naviga
                                         <Text
                                             color={isFocused ? 'text-white' : 'brand'}
                                             variant="header-sm"
-                                            className={`text-[10px] leading-[12px] uppercase mt-2`}
+                                            className="text-[9px] leading-[12px] uppercase mt-2"
                                         >
                                             {label}
                                         </Text>

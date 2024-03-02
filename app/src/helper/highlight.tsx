@@ -8,6 +8,7 @@ import {MyText} from "../view/components/my-text";
 import React from "react";
 import {memoize} from 'lodash';
 import {getLanguage} from '../../../data/src/lib/aoe-data';
+import { router } from "expo-router";
 
 // export function highlightUnitAndCivs(str: string) {
 //     const appStyles = useTheme(appVariants);
@@ -72,8 +73,6 @@ interface IProps {
 export function HighlightUnitAndTechs(props: IProps) {
     const { str } = props;
     const appStyles = useTheme(appVariants);
-    const navigation = useNavigation<RootStackProp>();
-
     const { regex, reverseTechMap, reverseUnitMap, reverseBuildingMap } = memoizedCreateLists(getLanguage());
 
     const parts = str.split(regex);
@@ -88,17 +87,17 @@ export function HighlightUnitAndTechs(props: IProps) {
             // console.log('part', parts[i]);
             const matchingTech = reverseTechMap[parts[i].toLowerCase()]?.name;
             if (matchingTech) {
-                texts.push(<MyText key={i} style={appStyles.link} onPress={() => navigation.push('Tech', {tech: matchingTech})}>{parts[i]}</MyText>);
+                texts.push(<MyText key={i} style={appStyles.link} onPress={() => router.navigate(`/explore/technologies/${matchingTech}`)}>{parts[i]}</MyText>);
                 continue;
             }
             const matchingUnit = reverseUnitMap[parts[i].toLowerCase()]?.name;
             if (matchingUnit) {
-                texts.push(<MyText key={i} style={appStyles.link} onPress={() => navigation.push('Unit', {unit: matchingUnit})}>{parts[i]}</MyText>);
+                texts.push(<MyText key={i} style={appStyles.link} onPress={() => router.navigate(`/explore/units/${matchingUnit}`)}>{parts[i]}</MyText>);
                 continue;
             }
             const matchingBuilding = reverseBuildingMap[parts[i].toLowerCase()]?.name;
             if (matchingBuilding) {
-                texts.push(<MyText key={i} style={appStyles.link} onPress={() => navigation.push('Building', {building: matchingBuilding})}>{parts[i]}</MyText>);
+                texts.push(<MyText key={i} style={appStyles.link} onPress={() => router.navigate(`/explore/buildings/${matchingBuilding}`)}>{parts[i]}</MyText>);
             }
         }
     }

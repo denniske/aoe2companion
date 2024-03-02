@@ -1,5 +1,5 @@
 import {useTheme} from "../../theming";
-import {FlatList, Platform, StyleSheet, TouchableOpacity, View} from "react-native";
+import {Platform, StyleSheet, TouchableOpacity, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import {RouteProp, useNavigation, useNavigationState, useRoute} from "@react-navigation/native";
 import {Game} from "../components/game";
@@ -21,6 +21,7 @@ import {useApi} from "../../hooks/use-api";
 import {useInfiniteQuery} from "@tanstack/react-query";
 import useDebounce from "../../hooks/use-debounce";
 import {fetchLeaderboards, fetchMatches} from "../../api/helper/api";
+import { FlatList } from "@app/components/flat-list";
 
 
 interface Props {
@@ -203,7 +204,7 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
                         <MyText style={styles.header}>{getTranslation('main.matches.nomatches')}</MyText>
                     }
                     <FlatList
-                        contentContainerStyle={styles.list}
+                        contentContainerStyle="px-4"
                         initialNumToRender={10}
                         windowSize={2}
                         data={list}

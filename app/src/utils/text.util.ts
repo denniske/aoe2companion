@@ -9,12 +9,13 @@ export type TextVariant =
     | 'label-sm'
     | 'label'
     | 'label-lg'
+    | 'header-xs'
     | 'header-sm'
     | 'header'
     | 'header-lg'
     | 'title';
 
-export const textVariantStyles: Record<TextVariant, TextStyle> = {
+export const textVariantStyles: Record<TextVariant, { fontSize: number; lineHeight: number; fontFamily: string }> = {
     'body-xs': { fontSize: 10, lineHeight: 14, fontFamily: 'Roboto_400Regular' },
     'body-sm': { fontSize: 12, lineHeight: 16, fontFamily: 'Roboto_400Regular' },
     body: { fontSize: 14, lineHeight: 20, fontFamily: 'Roboto_400Regular' },
@@ -22,8 +23,9 @@ export const textVariantStyles: Record<TextVariant, TextStyle> = {
     'label-sm': { fontSize: 12, lineHeight: 16, fontFamily: 'Roboto_500Medium' },
     label: { fontSize: 14, lineHeight: 20, fontFamily: 'Roboto_500Medium' },
     'label-lg': { fontSize: 16, lineHeight: 24, fontFamily: 'Roboto_500Medium' },
+    'header-xs': { fontSize: 14, lineHeight: 20, fontFamily: 'Roboto_700Bold' },
     'header-sm': { fontSize: 16, lineHeight: 24, fontFamily: 'Roboto_700Bold' },
-    header: { fontSize: 18, lineHeight: 28, fontFamily: 'Roboto_700Bold' },
+    header: { fontSize: 18, lineHeight: 26, fontFamily: 'Roboto_700Bold' },
     'header-lg': { fontSize: 20, lineHeight: 28, fontFamily: 'Roboto_700Bold' },
     title: { fontSize: 36, lineHeight: 40, fontFamily: 'Roboto_900Black' },
 };

@@ -1,20 +1,18 @@
 import React from 'react';
 import {createStylesheet} from '../../theming-new';
-import {useNavigation} from '@react-navigation/native';
-import {RootStackProp} from '../../../App2';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Image} from 'expo-image';
 import {getBuildingIcon} from '../../helper/buildings';
 import {MyText} from '../components/my-text';
 import {Building, getBuildingDescription, getBuildingName, iconHeight, iconWidth} from '@nex/data';
+import { router } from 'expo-router';
 
 
 export function BuildingCompBig({building, subtitle}: {building: Building, subtitle?: string}) {
     const styles = useStyles();
-    const navigation = useNavigation<RootStackProp>();
 
     return (
-        <TouchableOpacity onPress={() => navigation.push('Building', {building: building})}>
+        <TouchableOpacity className='h-10' onPress={() => router.push(`/explore/buildings/${building}`)}>
             <View style={styles.rowBig}>
                 <Image style={styles.unitIconBig} source={getBuildingIcon(building)}/>
                 <View style={styles.unitIconBigTitle}>
@@ -37,7 +35,6 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     rowBig: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 10,
         // backgroundColor: 'blue',
     },
     unitIconBig: {

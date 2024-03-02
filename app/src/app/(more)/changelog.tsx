@@ -13,6 +13,8 @@ import { appVariants } from '../../styles';
 import { isElectron } from '../../helper/electron';
 import { openLink } from '../../helper/url';
 import { appConfig } from '@nex/dataset';
+import { Stack } from 'expo-router';
+import { getTranslation } from '@app/helper/translate';
 
 interface IChangelogEntry {
     version: string;
@@ -104,13 +106,17 @@ export default function ChangelogPage() {
     const filteredChangelogEntries = isElectron() ? changelogEntries : changelogEntries.filter((e) => !e.version.includes('+'));
 
     return (
-        <FlatList
-            contentContainerStyle={styles.container}
-            keyboardShouldPersistTaps={'always'}
-            data={filteredChangelogEntries}
-            renderItem={({ item, index }) => renderItem(item)}
-            keyExtractor={(item, index) => index.toString()}
-        />
+        <>
+            <Stack.Screen options={{ title: getTranslation('changelog.title') }} />
+            <FlatList
+                contentContainerStyle={styles.container}
+                keyboardShouldPersistTaps={'always'}
+                data={filteredChangelogEntries}
+                renderItem={({ item, index }) => renderItem(item)}
+                keyExtractor={(item, index) => index.toString()}
+            />
+        </>
+        
     );
 }
 

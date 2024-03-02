@@ -2,7 +2,6 @@ import {
     AbilityHelperProps, aoeCivKey, Building, Civ, civDict, getAbilityEnabled, getCompactTechTree, getFullTechTree,
     getUnitLineForUnit, ITechTreeRow, Other, Tech, Unit
 } from "@nex/data";
-import {useNavigation} from "@react-navigation/native";
 import {RootStackProp} from "../../../App2";
 import {StyleSheet, TouchableOpacity, View} from "react-native";
 import {Image, ImageBackground} from "expo-image";
@@ -18,6 +17,7 @@ import {getBuildingIcon} from "../../helper/buildings";
 import {getTranslation} from '../../helper/translate';
 import {isEmpty} from 'lodash';
 import {Delayed} from './delayed';
+import { router } from "expo-router";
 
 
 function TechTreeRow({civ, row}: {civ: aoeCivKey, row: ITechTreeRow}) {
@@ -134,15 +134,14 @@ export function getAbilityIcon({tech, unit, building}: AbilityHelperProps) {
 }
 
 function getAbilityNavCallback({tech, unit, building}: AbilityHelperProps) {
-    const navigation = useNavigation<RootStackProp>();
     if (tech) {
-        return () => navigation.push('Tech', {tech: tech});
+        return () => router.navigate(`/explore/technologies/${tech}`);
     }
     if (unit) {
-        return () => navigation.push('Unit', {unit: unit});
+        return () => router.navigate(`/explore/units/${unit}`);
     }
     if (building) {
-        return () => navigation.push('Building', {building: building});
+        return () => router.navigate(`/explore/buildings/${building}`);
     }
     return () => {};
 }

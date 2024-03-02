@@ -15,6 +15,7 @@ import { getRootNavigation } from '../../service/navigation';
 import { sendTestPushNotificationElectron, sendTestPushNotificationWeb } from '../../api/following';
 import { initPusher } from '../../helper/pusher';
 import { getElectronPushToken, isElectron } from '../../helper/electron';
+import { Stack } from 'expo-router';
 
 interface FirebaseData {
     title?: string;
@@ -182,6 +183,8 @@ export default function PushPage() {
 
     return (
         <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+            <Stack.Screen options={{ title: getTranslation('push.title') }} />
+
             <MyText>{account ? getTranslation('push.heading.account') : ''}</MyText>
             <MyText>{account ? account.id : getTranslation('push.error.noaccount')}</MyText>
             <Space />

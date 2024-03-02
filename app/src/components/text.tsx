@@ -1,7 +1,7 @@
 import { TextColor, TextVariant, textColors, textVariantStyles } from '@app/utils/text.util';
 import { Text as RNText, TextProps as RNTextProps, TextStyle } from 'react-native';
 
-interface TextProps extends RNTextProps {
+export interface TextProps extends RNTextProps {
     align?: NonNullable<TextStyle['textAlign']>;
     color?: TextColor;
     variant?: TextVariant;

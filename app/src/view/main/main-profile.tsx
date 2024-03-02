@@ -1,4 +1,4 @@
-import {FlatList, Platform, StyleSheet, View} from "react-native";
+import { Platform, StyleSheet, View} from "react-native";
 import {useSelector} from "../../redux/reducer";
 import React, {useEffect, useState} from "react";
 import {RouteProp, useNavigation, useNavigationState, useRoute} from "@react-navigation/native";
@@ -19,6 +19,7 @@ import {useWebRefresh} from "../../hooks/use-web-refresh";
 import FlatListLoadingIndicator from "../components/flat-list-loading-indicator";
 import Constants from 'expo-constants';
 import {fetchProfile} from "../../api/helper/api";
+import { FlatList } from "@app/components/flat-list";
 
 interface Props {
     profileId: number;
@@ -149,7 +150,7 @@ function MainProfileInternal({profileId}: {profileId: number}) {
                 }
                 <FlatList
                     // scrollEnabled={false}
-                    contentContainerStyle={styles.list}
+                    contentContainerStyle="p-4"
                     data={list}
                     renderItem={({item, index}) => {
                         switch (item) {

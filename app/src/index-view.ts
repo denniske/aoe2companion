@@ -1,1 +1,1 @@
-export * from './view/civ.page';
+export * from './app/explore/civilizations/civ.page';

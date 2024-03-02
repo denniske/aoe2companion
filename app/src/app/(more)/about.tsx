@@ -16,6 +16,7 @@ import { openLink } from '../../helper/url';
 import { appConfig } from '@nex/dataset';
 import { channel, manifest, updateId, runtimeVersion } from 'expo-updates';
 import { nativeApplicationVersion, nativeBuildVersion } from 'expo-application';
+import { Stack } from 'expo-router';
 
 export default function AboutPage() {
     const styles = useStyles();
@@ -151,6 +152,8 @@ export default function AboutPage() {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
+            <Stack.Screen options={{ title: getTranslation('about.title') }} />
+
             <MyText style={styles.title}>{Constants.expoConfig?.name || Constants.expoConfig2?.extra?.expoClient?.name}</MyText>
 
             <MyText style={styles.heading}>{getTranslation('about.heading.createdby')}</MyText>

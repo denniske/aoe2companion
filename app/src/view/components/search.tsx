@@ -1,81 +1,16 @@
-import React, {useEffect, useState} from 'react';
-import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {loadUser, loadUserByProfileId, loadUserBySteamId} from '../../service/user';
-import {useLazyApi} from '../../hooks/use-lazy-api';
-import {Button, Searchbar} from 'react-native-paper';
-import {MyText} from './my-text';
-import RefreshControlThemed from './refresh-control-themed';
-import {createStylesheet} from '../../theming-new';
+import { Field } from '@app/components/field';
+import { Text } from '@app/components/text';
+import React, { useEffect, useState } from 'react';
+import { FlatList, View } from 'react-native';
+
 import FlatListLoadingIndicator from './flat-list-loading-indicator';
-import {getTranslation} from '../../helper/translate';
-import {useCavy} from '../testing/tester';
-import {FontAwesome5} from '@expo/vector-icons';
-import {CountryImage} from './country-image';
-import {IProfilesResultProfile} from '../../api/helper/api.types';
-import {DismissKeyboard} from './dismiss-keyboard';
+import PlayerList from './player-list';
+import RefreshControlThemed from './refresh-control-themed';
+import { IProfilesResultProfile } from '../../api/helper/api.types';
+import { getTranslation } from '../../helper/translate';
 import useDebounce from '../../hooks/use-debounce';
-
-interface IPlayerProps {
-    player: IProfilesResultProfile;
-    selectedUser?: (user: any) => void;
-    actionText?: string;
-    action?: (player: IProfilesResultProfile) => React.ReactNode;
-}
-
-function Player({player, selectedUser, actionText, action}: IPlayerProps) {
-    const generateTestHook = useCavy();
-    const styles = useStyles();
-
-    // console.log('player', player)
-
-    const onSelect = async () => {
-        if (selectedUser == null) return;
-        selectedUser({
-            profileId: player.profileId,
-            name: player.name,
-        });
-    };
-
-    return (
-        <View style={styles.row2}>
-            <TouchableOpacity style={styles.cellNameAndGames}
-                              ref={(ref) => generateTestHook('Search.Player.' + player.profileId)({props: {onPress: onSelect}})}
-                              onPress={onSelect}>
-                <View style={styles.row}>
-                    <View style={styles.cellName}>
-                        <CountryImage country={player.country}/>
-                        <MyText style={styles.name} numberOfLines={1}>
-                            {player.name}
-                            {player.verified && (
-                                <>
-                                    {' '}
-                                    <FontAwesome5 solid name="check-circle" size={14} style={styles.verifiedIcon}/>
-                                </>
-                            )}
-                        </MyText>
-                    </View>
-                    <MyText style={styles.cellGames}>{player.games}</MyText>
-                </View>
-            </TouchableOpacity>
-            <View style={styles.cellAction}>
-                {action && action(player)}
-                {actionText && selectedUser && (
-                    <Button
-                        labelStyle={{fontSize: 13, marginVertical: 0}}
-                        contentStyle={{height: 22}}
-                        onPress={onSelect}
-                        mode="contained"
-                        compact
-                        uppercase={false}
-                        dark={true}
-                    >
-                        {actionText}
-                    </Button>
-                )}
-            </View>
-        </View>
-    );
-}
+import { useLazyApi } from '../../hooks/use-lazy-api';
+import { loadUser, loadUserByProfileId, loadUserBySteamId } from '../../service/user';
 
 interface ISearchProps {
     title?: string;
@@ -84,14 +19,13 @@ interface ISearchProps {
     action?: (player: IProfilesResultProfile) => React.ReactNode;
 }
 
-export default function Search({title, selectedUser, actionText, action}: ISearchProps) {
-    const styles = useStyles();
+export default function Search({ title, selectedUser, actionText, action }: ISearchProps) {
     const [text, setText] = useState('');
     const [fetchingMore, setFetchingMore] = useState(false);
     const [fetchedAll, setFetchedAll] = useState(false);
     const [fetching, setFetching] = useState(false);
     const [profiles, setProfiles] = useState<any[]>([]);
-    const flatListRef = React.useRef<any>();
+    const flatListRef = React.useRef<FlatList>(null);
     const debouncedText = useDebounce(text, 250);
 
     const user = useLazyApi(
@@ -123,89 +57,32 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
         setFetching(false);
 
         // If user switched to another page the flatlist has been destroyed already
-        flatListRef.current?.scrollToOffset({animated: false, offset: 0});
+        flatListRef.current?.scrollToOffset({ animated: false, offset: 0 });
     };
 
     useEffect(() => {
-        // console.log('==> fetching:', fetching);
-        // console.log('==> user.data:', user.data);
-        // console.log('==> userByProfileId.data:', userByProfileId.data);
-        // console.log('==> userBySteamId.data:', userBySteamId.data);
+        if (!fetching) {
+            setProfiles(
+                user.data
+                    ? [
+                          ...(userByProfileId.data ? [userByProfileId.data] : []),
+                          ...(userBySteamId.data ? [userBySteamId.data] : []),
+                          ...(user.data?.profiles ?? []),
+                      ]
+                    : []
+            );
 
-        if (fetching) return;
-        // if (user.data == null) return;
-        // if (userByProfileId.data == null) return;
-        // if (userBySteamId.data == null) return;
-
-        setProfiles(
-            user.data
-                ? [
-                    ...(userByProfileId.data ? [userByProfileId.data] : []),
-                    ...(userBySteamId.data ? [userBySteamId.data] : []),
-                    ...(user.data?.profiles ?? []),
-                ]
-                : []
-        );
-
-        // console.log('newUsersData', newUsersData);
-        // console.log('===> newUsersData!.hasMore', newUsersData!.hasMore);
-        setFetchedAll(!user.data?.hasMore);
+            setFetchedAll(!user.data?.hasMore);
+        }
     }, [fetching, user.data, userByProfileId.data, userBySteamId.data]);
-
-    const generateTestHook = useCavy();
 
     useEffect(() => {
         refresh();
     }, [debouncedText]);
 
-    // let list: any[] = user.data ? [
-    //     ...(userByProfileId.data ? [userByProfileId.data] : []),
-    //     ...(userBySteamId.data ? [userBySteamId.data] : []),
-    //     ...user.data?.profiles ?? [],
-    // ] : [];
-
-    let list = profiles;
-
-    // console.log('list', list)
-
-    if (user.touched && list.length === 0) {
-        list.push(
-            {
-                type: 'text',
-                content: <MyText style={styles.centerText}>{getTranslation('search.nouserfound')}</MyText>,
-            },
-            {
-                type: 'text',
-                content: (
-                    <>
-                        <View style={styles.headerRow}>
-                            <MyText style={styles.note}>{getTranslation('search.condition.1')}</MyText>
-                        </View>
-                        {/*<View style={styles.headerRow}>*/}
-                        {/*    <MyText style={styles.note}>{getTranslation('search.condition.2')}</MyText>*/}
-                        {/*</View>*/}
-                    </>
-                ),
-            }
-        );
-    }
-    if (text.length < 3) {
-        list = [
-            {
-                type: 'text',
-                content: <MyText style={styles.centerText}>{getTranslation('search.minlength')}</MyText>,
-            },
-        ];
-    }
-
-    // console.log('RENDER', text, list.length);
+    const list = profiles;
 
     const onEndReached = async () => {
-        // console.log('onEndReached', text);
-        // console.log('fetchingMore', fetchingMore);
-        // console.log('user.data?.profiles?.length', user.data?.profiles?.length);
-        // console.log('fetchedAll', fetchedAll);
-        // if (text.length < 3 || fetchingMore || user.data?.profiles?.length < 50) return;
         if (text.length < 3 || fetchingMore || fetchedAll || user.data == null) return;
         setFetchingMore(true);
         setFetching(true);
@@ -220,139 +97,43 @@ export default function Search({title, selectedUser, actionText, action}: ISearc
 
     const _renderFooter = () => {
         if (!fetchingMore) return null;
-        return <FlatListLoadingIndicator/>;
+        return <FlatListLoadingIndicator />;
     };
 
     return (
-        <DismissKeyboard>
-            <View style={styles.container}>
-                {title && <MyText style={styles.centerText}>{title}</MyText>}
+        <View className="flex-1">
+            {title && <Text className="pt-4 text-center">{title}</Text>}
 
-                <Searchbar
-                    autoCorrect={false}
-                    autoFocus={true}
-                    ref={(ref) => generateTestHook('Search.Input')({props: {onChangeText: setText}})}
-                    style={styles.searchbar}
-                    placeholder={getTranslation('search.placeholder')}
-                    onChangeText={setText}
-                    value={text}
-                />
-
-                {list.length > 0 && text.length >= 3 && (
-                    <View style={styles.headerRow}>
-                        <View style={styles.cellNameAndGames}>
-                            <MyText style={styles.cellName}>{getTranslation('search.heading.name')}</MyText>
-                            <MyText style={styles.cellGames}>{getTranslation('search.heading.games')}</MyText>
-                        </View>
-                        <MyText style={styles.cellAction}/>
-                    </View>
-                )}
-                {/*key={text}*/}
-
-                <FlatList
-                    ref={flatListRef as any}
-                    keyboardShouldPersistTaps={'always'}
-                    contentContainerStyle={styles.list}
-                    data={list}
-                    renderItem={({item}) => {
-                        if (item.type === 'text') {
-                            return item.content;
-                        }
-                        return <Player player={item} selectedUser={selectedUser} actionText={actionText}
-                                       action={action}/>;
-                    }}
-                    ListFooterComponent={_renderFooter}
-                    onEndReached={fetchedAll ? null : onEndReached}
-                    onEndReachedThreshold={0.1}
-                    keyExtractor={(item, index) => index.toString()}
-                    refreshControl={<RefreshControlThemed refreshing={user.loading} onRefresh={refresh}/>}
-                />
+            <View className="px-4 py-4">
+                <Field placeholder={getTranslation('search.placeholder')} autoCorrect={false} autoFocus onChangeText={setText} value={text} />
             </View>
-        </DismissKeyboard>
+
+            <PlayerList
+                flatListRef={flatListRef}
+                actionText={actionText}
+                list={list}
+                action={action}
+                selectedUser={selectedUser}
+                ListFooterComponent={_renderFooter}
+                ListEmptyComponent={
+                    text.length < 3 ? (
+                        <Text color="subtle" align="center">
+                            {getTranslation('search.minlength')}
+                        </Text>
+                    ) : user.touched && !fetching ? (
+                        <>
+                            <Text align="center" variant="header-sm">
+                                {getTranslation('search.nouserfound')}
+                            </Text>
+                            <Text align="center">{getTranslation('search.condition.1')}</Text>
+                        </>
+                    ) : null
+                }
+                onEndReached={fetchedAll ? null : onEndReached}
+                onEndReachedThreshold={0.1}
+                keyExtractor={(item, index) => index.toString()}
+                refreshControl={<RefreshControlThemed refreshing={user.loading} onRefresh={refresh} />}
+            />
+        </View>
     );
 }
-
-const useStyles = createStylesheet((theme) =>
-    StyleSheet.create({
-        verifiedIcon: {
-            marginLeft: 5,
-            color: theme.linkColor,
-        },
-        centerText: {
-            textAlign: 'center',
-            marginVertical: 20,
-        },
-        note: {
-            lineHeight: 20,
-            color: theme.textNoteColor,
-        },
-        countryIcon: {
-            width: 21,
-            height: 15,
-            marginRight: 5,
-        },
-        searchbar: {
-            marginTop: 15,
-            marginBottom: 15,
-            marginRight: 30,
-            marginLeft: 30,
-        },
-        cellRating: {
-            width: 40,
-        },
-        cellName: {
-            // backgroundColor: 'red',
-            flex: 2.7,
-            flexDirection: 'row',
-            alignItems: 'center',
-            paddingRight: 5,
-        },
-        name: {
-            flex: 1,
-        },
-        cellGames: {
-            flex: 1.2,
-        },
-        cellAction: {
-            flex: 0.5,
-        },
-        cellWon: {
-            width: 110,
-        },
-        list: {
-            marginRight: 30,
-            marginLeft: 30,
-            paddingBottom: 20,
-        },
-        headerRow: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginVertical: 6,
-            padding: 3,
-            borderRadius: 5,
-            marginRight: 30,
-            marginLeft: 30,
-        },
-        row: {
-            flex: 1,
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginVertical: 3,
-            padding: 3,
-        },
-        row2: {
-            flex: 1,
-            flexDirection: 'row',
-            alignItems: 'center',
-        },
-        cellNameAndGames: {
-            flex: 1,
-            flexDirection: 'row',
-            alignItems: 'center',
-        },
-        container: {
-            paddingTop: 20,
-            flex: 1,
-        },
-    })
-);

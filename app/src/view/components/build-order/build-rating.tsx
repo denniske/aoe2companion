@@ -1,61 +1,32 @@
-import { createStylesheet } from '../../../theming-new';
-import { StyleSheet, View } from 'react-native';
-import { IBuildOrder } from '../../../../../data/src/helper/builds';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { MyText } from '../my-text';
+import { Icon } from '@app/components/icon';
+import { Text } from '@app/components/text';
+import { View } from 'react-native';
 
-export const BuildRating: React.FC<IBuildOrder> = (build) => {
-    const styles = useStyles();
+import { IBuildOrder } from '../../../../../data/src/helper/builds';
+
+export const BuildRating: React.FC<IBuildOrder & { showCount?: boolean }> = ({ showCount = true, ...build }) => {
     const filledStars = Math.round(build.avg_rating ?? 0);
     const unfilledStars = Math.round(5 - filledStars);
 
     return (
-        <View style={styles.ratingsContainer}>
-            <View style={styles.ratings}>
+        <View className="flex-row items-center g-1.5">
+            <View className="flex-row g-0.5">
                 {Array(filledStars)
                     .fill(null)
                     .map((_, index) => (
-                        <FontAwesome5
-                            name="star"
-                            size={14}
-                            key={`filled-${index}`}
-                            color="#f7d305"
-                            solid
-                        />
+                        <Icon icon="star" size={14} key={`filled-${index}`} color="brand" />
                     ))}
                 {Array(unfilledStars)
                     .fill(null)
                     .map((_, index) => (
-                        <FontAwesome5
-                            name="star"
-                            size={14}
-                            key={`unfilled-${index}`}
-                            color="#f7d305"
-                        />
+                        <Icon icon="star" size={14} key={`unfilled-${index}`} color="brand" prefix="fasr" />
                     ))}
             </View>
-            <MyText style={styles.numberOfRatings}>
-                {build.number_of_ratings}
-            </MyText>
+            {showCount && (
+                <Text variant="header-xs" color="subtle">
+                    {build.number_of_ratings}
+                </Text>
+            )}
         </View>
     );
 };
-
-const useStyles = createStylesheet((theme, darkMode) =>
-    StyleSheet.create({
-        ratingsContainer: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 6,
-        },
-        ratings: {
-            flexDirection: 'row',
-            gap: 2,
-        },
-        numberOfRatings: {
-            color: theme.textNoteColor,
-            fontSize: 14,
-            fontWeight: 'bold',
-        },
-    })
-);

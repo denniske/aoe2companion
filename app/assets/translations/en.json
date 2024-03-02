@@ -179,7 +179,7 @@
   "building.search.placeholder": "name",
   "building.section.military": "Military",
   "building.section.economy": "Eco",
-  "building.section.peopleandscience": "People & Science",
+  "building.section.peopleandscience": "Science",
   "building.section.special": "Special",
   "building.section.towers": "Towers",
   "building.section.walls": "Walls",
@@ -234,7 +234,7 @@
   "search.nouserfound": "No user found.",
   "search.condition.1": "A user must have played at least 10 games in a timespan of about 3 months to be found.",
   "search.minlength": "Enter at least 3 chars.",
-  "search.placeholder": "username, steam id, profile id",
+  "search.placeholder": "Search by username, steam id, profile id",
   "search.show": "Show",
   "search.heading.name": "Name",
   "search.heading.games": "Games",
@@ -242,7 +242,7 @@
   "privacy.title": "Privacy",
 
   "unit.title": "Units",
-  "unit.search.placeholder": "name",
+  "unit.search.placeholder": "Search by name",
   "unit.section.infantry": "Infantry",
   "unit.section.archer": "Archer",
   "unit.section.cavalry": "Cavalry",
@@ -325,7 +325,7 @@
   "tips.item.note.donotstockpileresources": "Always try to spend the resources you have, with the exception of saving resources to advance to the next age.",
 
   "tech.title": "Techs",
-  "tech.search.placeholder": "name",
+  "tech.search.placeholder": "Search by name",
 
   "techtree.title": "Tech Tree",
   "techtree.type.compact": "Compact",

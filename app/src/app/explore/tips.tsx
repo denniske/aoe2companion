@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, ImageSourcePropType, Platform, ScrollView, Share, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Image, ImageSourcePropType, Platform, ScrollView, Share, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useAppTheme } from '../../theming';
 import { MyText } from '@app/view/components/my-text';
 import { ResizeMode, Video } from 'expo-av';
@@ -10,6 +10,7 @@ import { getAbilityIcon } from '@app/view/components/tech-tree';
 import { createStylesheet } from '../../theming-new';
 import { getTranslation } from '../../helper/translate';
 import { openLink } from '../../helper/url';
+import { Stack } from 'expo-router';
 
 interface ITip {
     title: string;
@@ -223,8 +224,14 @@ export default function TipsPage() {
 
     return (
         <View style={styles.container}>
+            <Stack.Screen options={{ title: 'Tips' }} />
             <View style={styles.showcaseContainer}>
                 <View style={styles.showcaseInner}>
+                    {loading && (
+                        <View className="w-full h-full absolute items-center justify-center">
+                            <ActivityIndicator size="large" />
+                        </View>
+                    )}
                     {!currentTip.video && !currentTip.image && (
                         <View style={[styles.showcase, { width: '100%', aspectRatio: 16 / 9, opacity: loading ? 0.5 : 1 }]}>
                             <MyText>No Preview</MyText>

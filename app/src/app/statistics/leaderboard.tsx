@@ -19,7 +19,7 @@ import { countriesDistinct, Country, noop } from '@nex/data';
 import { RootStackProp } from '../../../App2';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useLazyApi } from '../../hooks/use-lazy-api';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { MaterialTopTabBar, createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { TextLoader } from '@app/view/components/loader/text-loader';
 import { TabBarLabel } from '@app/view/components/tab-bar-label';
 import { MyText } from '@app/view/components/my-text';
@@ -37,6 +37,7 @@ import { useLazyAppendApi } from '../../hooks/use-lazy-append-api';
 import { useApi } from '../../hooks/use-api';
 import { fetchLeaderboard, fetchLeaderboards } from '../../api/helper/api';
 import { ILeaderboardPlayer } from '../../api/helper/api.types';
+import { Stack } from 'expo-router';
 
 const Tab = createMaterialTopTabNavigator<any>();
 
@@ -136,21 +137,36 @@ export default function LeaderboardPage() {
     }
 
     return (
-        <Tab.Navigator screenOptions={{ lazy: false, swipeEnabled: false }}>
-            {leaderboards.data
-                .filter((leaderboard) => leaderboard.active)
-                .map((leaderboard, i) => {
-                    return (
-                        <Tab.Screen
-                            key={i}
-                            name={`${leaderboard.leaderboardId}`}
-                            options={{ tabBarLabel: (x) => <TabBarLabel {...x} title={leaderboard.abbreviation} /> }}
-                        >
-                            {() => <Leaderboard leaderboardId={leaderboard.leaderboardId} />}
-                        </Tab.Screen>
-                    );
-                })}
-        </Tab.Navigator>
+        <>
+            <Stack.Screen
+                options={{
+                    title: 'Leaderboards',
+                }}
+            />
+            <Tab.Navigator
+                tabBar={(props) => (
+                    <View className="bg-white dark:bg-blue-900 ">
+                        <MaterialTopTabBar {...props} />
+                    </View>
+                )}
+                screenOptions={{ lazy: false, swipeEnabled: false, tabBarStyle: { backgroundColor: 'transparent' }, tabBarActiveTintColor: 'white' }}
+                sceneContainerStyle={{ backgroundColor: 'transparent' }}
+            >
+                {leaderboards.data
+                    .filter((leaderboard) => leaderboard.active)
+                    .map((leaderboard, i) => {
+                        return (
+                            <Tab.Screen
+                                key={i}
+                                name={`${leaderboard.leaderboardId}`}
+                                options={{ tabBarLabel: (x) => <TabBarLabel {...x} title={leaderboard.abbreviation} /> }}
+                            >
+                                {() => <Leaderboard leaderboardId={leaderboard.leaderboardId} />}
+                            </Tab.Screen>
+                        );
+                    })}
+            </Tab.Navigator>
+        </>
     );
 }
 
