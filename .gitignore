@@ -23,7 +23,6 @@ npm-debug.*
 web-build/
 web-report/
 
-update/certificate.pem
 private-key.pem
 
 *.aab
