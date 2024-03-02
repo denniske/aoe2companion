@@ -10,7 +10,6 @@ import {MyText} from "./my-text";
 import {setPrefValue, useMutate, useSelector} from "../../redux/reducer";
 import {saveCurrentPrefsToStorage} from "../../service/storage";
 import ButtonPicker from "./button-picker";
-import {windowWidth} from "../leaderboard.page";
 import {getTechIcon} from "../../helper/techs";
 import {getOtherIcon, getUnitIcon} from "../../helper/units";
 import {getBuildingIcon} from "../../helper/buildings";
@@ -18,6 +17,7 @@ import {getTranslation} from '../../helper/translate';
 import {isEmpty} from 'lodash';
 import {Delayed} from './delayed';
 import { router } from "expo-router";
+import { windowWidth } from "@app/app/statistics/leaderboard";
 
 
 function TechTreeRow({civ, row}: {civ: aoeCivKey, row: ITechTreeRow}) {

@@ -16,15 +16,6 @@ import { openLink } from '../../../helper/url';
 import { fetchProfiles } from '../../../api/helper/api';
 import { router } from 'expo-router';
 
-export function userMenu(props: any) {
-    return () => {
-        if (props.route?.params?.profileId) {
-            return <UserMenu />;
-        }
-        return <View />;
-    };
-}
-
 export function UserMenu() {
     const styles = useStyles();
     const route = useRoute<RouteProp<RootStackParamList, 'User'>>();

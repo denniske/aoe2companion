@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
-import { Animated, Easing, Modal, View, ScrollView, Pressable, StyleSheet, ViewStyle } from 'react-native';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { createStylesheet } from '../theming-new';
-import { PanGestureHandler } from 'react-native-gesture-handler';
 import { Text } from '@app/components/text';
+import { isElectron } from '@app/helper/electron';
 import { styled } from 'nativewind';
+import { useEffect, useRef, useState } from 'react';
+import { Animated, Easing, Modal, View, ScrollView, Pressable, StyleSheet, ViewStyle, Platform } from 'react-native';
+import { PanGestureHandler } from 'react-native-gesture-handler';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+
+import { createStylesheet } from '../theming-new';
 
 export type BottomSheetProps = {
     title?: string;
@@ -71,7 +73,13 @@ function BottomSheetComponent({
 
     return (
         <Modal visible={isVisible} onRequestClose={onClose} animationType="fade" transparent>
-            <SafeAreaProvider>
+            <SafeAreaProvider
+                className={
+                    Platform.OS === 'web' && !isElectron()
+                        ? 'overflow-hidden w-[450px] max-w-full max-h-[900px] mx-auto my-auto border border-gray-200 dark:border-gray-800 rounded-lg pt-12'
+                        : 'flex-1'
+                }
+            >
                 <Pressable disabled={!onClose} onPress={onClose} style={[styles.overlay, StyleSheet.absoluteFill]} />
 
                 <SafeAreaView edges={['top']} style={{ flex: 1 }} pointerEvents="box-none">

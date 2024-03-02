@@ -20,9 +20,9 @@ export const Button: React.FC<ButtonProps> = ({ children, icon, onPress, href, s
     };
 
     const spacingSizes: Record<NonNullable<ButtonProps['size']>, string> = {
-        small: 'g-1 py-1 px-2',
-        medium: 'g-1 py-1.5 px-2.5',
-        large: 'g-2 py-2 px-3 w-full',
+        small: 'gap-1 py-1 px-2',
+        medium: 'gap-1 py-1.5 px-2.5',
+        large: 'gap-2 py-2 px-3 w-full',
     };
 
     const backgroundColor = disabled ? 'bg-gray-500' : 'bg-blue-800 dark:bg-gold-700';

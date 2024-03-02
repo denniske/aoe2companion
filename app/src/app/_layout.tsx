@@ -1,27 +1,8 @@
 import { Header } from '@app/components/header';
-import { Tabs } from 'expo-router';
-import { Provider as ReduxProvider } from 'react-redux';
-import store from '@app/redux/store';
-import { ConditionalTester } from '@app/view/testing/tester';
-import { PaperProvider, MD2DarkTheme as PaperDarkTheme, MD2LightTheme as PaperDefaultTheme } from 'react-native-paper';
-import { ApplicationProvider } from '@ui-kitten/components';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { LogBox, Platform, View, useColorScheme } from 'react-native';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import * as eva from '@eva-design/eva';
-import { useCallback, useEffect, useState } from 'react';
-import { addLoadedLanguage, useMutate, useSelector } from '@app/redux/reducer';
 import { useApi } from '@app/hooks/use-api';
-import * as Localization from 'expo-localization';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fass } from '@fortawesome/sharp-solid-svg-icons';
-import { fasr } from '@fortawesome/sharp-regular-svg-icons';
-import { useColorScheme as useTailwindColorScheme } from 'nativewind';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import '../../../global.css';
-
-library.add(fass, fasr);
-
+import { addLoadedLanguage, useMutate, useSelector } from '@app/redux/reducer';
+import store from '@app/redux/store';
+import { liveActivity } from '@app/service/live-game-activity';
 import {
     IAccount,
     IConfig,
@@ -31,8 +12,27 @@ import {
     loadPrefsFromStorage,
     loadSettingsFromStorage,
 } from '@app/service/storage';
+import tw from '@app/tailwind';
+import { ConditionalTester } from '@app/view/testing/tester';
+import * as eva from '@eva-design/eva';
 import { useFonts, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold, Roboto_900Black } from '@expo-google-fonts/roboto';
-import 'react-native-gesture-handler';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fasr } from '@fortawesome/sharp-regular-svg-icons';
+import { fass } from '@fortawesome/sharp-solid-svg-icons';
+import * as Sentry from '@sentry/react-native';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ApplicationProvider } from '@ui-kitten/components';
+import * as Localization from 'expo-localization';
+import { Tabs } from 'expo-router';
+import { useColorScheme as useTailwindColorScheme } from 'nativewind';
+import { useCallback, useEffect, useState } from 'react';
+import { BackHandler, LogBox, Platform, View, useColorScheme } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { PaperProvider, MD2DarkTheme as PaperDarkTheme, MD2LightTheme as PaperDefaultTheme } from 'react-native-paper';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { Provider as ReduxProvider } from 'react-redux';
+import '../../../global.css';
+import * as Device from 'expo-device';
 import { Environment, IHostService, IHttpService, ITranslationService, OS, registerService, SERVICE_NAME } from '@nex/data';
 import * as Notifications from 'expo-notifications';
 import * as TaskManager from 'expo-task-manager';
@@ -42,14 +42,14 @@ import { getInternalAoeString, loadAoeStringsAsync } from '@app/helper/translate
 import { getInternalLanguage, setInternalLanguage } from '@app/redux/statecache';
 import { fetchJson2 } from '@app/api/util';
 import * as SplashScreen from 'expo-splash-screen';
-import { liveActivity } from '@app/service/live-game-activity';
 import { getElectronPushToken, isElectron } from '@app/helper/electron';
 import { setAccountPushTokenElectron } from '@app/api/following';
 import { fetchAoeReferenceData } from '@app/helper/reference';
 import { TabBar } from '@app/components/tab-bar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppColorScheme, useDeviceContext } from 'twrnc';
-import tw from '@app/tailwind';
+
+library.add(fass, fasr);
 
 const queryClient = new QueryClient();
 SplashScreen.preventAutoHideAsync();
@@ -145,6 +145,8 @@ async function updatePushTokenForElectron(config: IConfig, account: IAccount) {
     updatedPushTokenForElectron = true;
 }
 
+const isMobile = ['Android', 'iOS'].includes(Device.osName!);
+
 function AppWrapper() {
     const mutate = useMutate();
     const { setColorScheme } = useTailwindColorScheme();
@@ -161,7 +163,7 @@ function AppWrapper() {
     const colorScheme = useColorScheme();
     const insets = useSafeAreaInsets();
 
-    let [fontsLoaded] = useFonts({
+    const [fontsLoaded] = useFonts({
         Roboto_400Regular,
         Roboto_500Medium,
         Roboto_700Bold,
@@ -169,35 +171,35 @@ function AppWrapper() {
     });
 
     // Trigger loading of auth and following
-    const _account = useApi(
+    useApi(
         {},
         [account],
         (state) => state.account,
         (state, value) => (state.account = value),
         () => loadAccountFromStorage()
     );
-    const _auth = useApi(
+    useApi(
         {},
         [auth],
         (state) => state.auth,
         (state, value) => (state.auth = value),
         () => loadSettingsFromStorage()
     );
-    const _following = useApi(
+    useApi(
         {},
         [following],
         (state) => state.following,
         (state, value) => (state.following = value),
         () => loadFollowingFromStorage()
     );
-    const _prefs = useApi(
+    useApi(
         {},
         [prefs],
         (state) => state.prefs,
         (state, value) => (state.prefs = value),
         () => loadPrefsFromStorage()
     );
-    const _config = useApi(
+    useApi(
         {},
         [config],
         (state) => state.config,
@@ -217,7 +219,7 @@ function AppWrapper() {
         // console.log('LOCAL ==> Localization.locale', Localization.locale);
         // console.log('LOCAL ==> Localization.locales', Localization.locales);
 
-        const language = config.language == 'system' ? getLanguageFromSystemLocale2(Localization.locale) : config.language;
+        const language = config.language === 'system' ? getLanguageFromSystemLocale2(Localization.locale) : config.language;
         // console.log('LOCAL ==> Loading AoeStrings for ' + language + ' (config.language: ' + config.language + ')');
         setInternalLanguage(language);
         Promise.all([loadAoeStringsAsync(language)]).then(() => mutate(addLoadedLanguage(language)));
@@ -283,7 +285,7 @@ function AppWrapper() {
                     <ApplicationProvider {...eva} theme={finalDarkMode === 'light' ? eva.light : eva.dark}>
                         <QueryClientProvider client={queryClient}>
                             <View
-                                className={`bg-gold-50 dark:bg-blue-950 ${Platform.OS === 'web' && !isElectron() ? 'overflow-hidden w-[450px] max-w-full h-[900px] mx-auto my-auto border border-gray-200 dark:border-gray-800 rounded-lg' : 'flex-1'}`}
+                                className={`bg-gold-50 dark:bg-blue-950 ${Platform.OS === 'web' && !isElectron() ? `overflow-hidden w-[450px] max-w-full h-[900px] mx-auto my-auto ${isMobile ? '' : 'border border-gray-200 dark:border-gray-800'} rounded-lg` : 'flex-1'}`}
                                 style={{ paddingTop: insets.top }}
                                 onLayout={onLayoutRootView}
                             >
@@ -300,6 +302,8 @@ function AppWrapper() {
                                     <Tabs.Screen name="statistics" options={{ tabBarLabel: 'Stats', tabBarIcon: () => 'chart-simple' }} />
                                     <Tabs.Screen name="competitive" options={{ tabBarLabel: 'Pros', tabBarIcon: () => 'ranking-star' }} />
                                     <Tabs.Screen name="(more)" options={{ tabBarLabel: 'More', tabBarIcon: () => 'bars' }} />
+                                    <Tabs.Screen name="[...unmatched]" options={{ href: null }} />
+                                    <Tabs.Screen name="_sitemap" options={{ href: null }} />
                                 </Tabs>
                             </View>
                         </QueryClientProvider>
@@ -310,10 +314,21 @@ function AppWrapper() {
     );
 }
 
-export default function HomeLayout() {
+function HomeLayout() {
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', () => true);
+        if (Platform.OS !== 'web') {
+            Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK);
+        }
+
+        return () => BackHandler.removeEventListener('hardwareBackPress', () => true);
+    }, []);
+
     return (
         <ReduxProvider store={store}>
             <AppWrapper />
         </ReduxProvider>
     );
 }
+
+export default Sentry.wrap(HomeLayout);

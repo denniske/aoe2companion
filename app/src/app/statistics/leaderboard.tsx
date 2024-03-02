@@ -1,8 +1,22 @@
+import { FlatList } from '@app/components/flat-list';
+import { AnimatedValueText } from '@app/view/components/animated-value-text';
+import { CountryImageForDropDown, CountryImageLoader, SpecialImageForDropDown } from '@app/view/components/country-image';
+import { TextLoader } from '@app/view/components/loader/text-loader';
+import { MyText } from '@app/view/components/my-text';
+import RefreshControlThemed from '@app/view/components/refresh-control-themed';
+import { TabBarLabel } from '@app/view/components/tab-bar-label';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { countriesDistinct, Country, noop } from '@nex/data';
+import { appConfig } from '@nex/dataset';
+import { MaterialTopTabBar, createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { useIsFocused } from '@react-navigation/native';
+import { IndexPath, Select, SelectItem } from '@ui-kitten/components';
+import { Stack, router } from 'expo-router';
+import { useColorScheme } from 'nativewind';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
     Animated,
     Dimensions,
-    FlatList,
     NativeScrollEvent,
     NativeSyntheticEvent,
     PanResponder,
@@ -12,41 +26,22 @@ import {
     TouchableOpacity,
     View,
     ViewStyle,
+    FlatList as FlatListRef,
 } from 'react-native';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
-import { getCountryName } from '../../helper/flags';
-import { countriesDistinct, Country, noop } from '@nex/data';
-import { RootStackProp } from '../../../App2';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { useLazyApi } from '../../hooks/use-lazy-api';
-import { MaterialTopTabBar, createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { TextLoader } from '@app/view/components/loader/text-loader';
-import { TabBarLabel } from '@app/view/components/tab-bar-label';
-import { MyText } from '@app/view/components/my-text';
-import { setLeaderboardCountry, useMutate, useSelector } from '../../redux/reducer';
-import TextHeader from '@app/view/components/navigation-header/text-header';
-import RefreshControlThemed from '@app/view/components/refresh-control-themed';
-import { AnimatedValueText } from '@app/view/components/animated-value-text';
-import { getValue } from '../../helper/util-component';
-import { createStylesheet } from '../../theming-new';
-import { getTranslation } from '../../helper/translate';
-import { appConfig } from '@nex/dataset';
-import { CountryImageForDropDown, CountryImageLoader, SpecialImageForDropDown } from '@app/view/components/country-image';
-import { IndexPath, Select, SelectItem } from '@ui-kitten/components';
-import { useLazyAppendApi } from '../../hooks/use-lazy-append-api';
-import { useApi } from '../../hooks/use-api';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 import { fetchLeaderboard, fetchLeaderboards } from '../../api/helper/api';
 import { ILeaderboardPlayer } from '../../api/helper/api.types';
-import { Stack, router } from 'expo-router';
-import { useColorScheme } from 'nativewind';
+import { getCountryName } from '../../helper/flags';
+import { getTranslation } from '../../helper/translate';
+import { getValue } from '../../helper/util-component';
+import { useApi } from '../../hooks/use-api';
+import { useLazyApi } from '../../hooks/use-lazy-api';
+import { useLazyAppendApi } from '../../hooks/use-lazy-append-api';
+import { setLeaderboardCountry, useMutate, useSelector } from '../../redux/reducer';
+import { createStylesheet } from '../../theming-new';
 
 const Tab = createMaterialTopTabNavigator<any>();
-
-export function leaderboardMenu() {
-    return () => {
-        return <LeaderboardMenu />;
-    };
-}
 
 const countryEarth = null;
 
@@ -59,6 +54,7 @@ export function LeaderboardMenu() {
     const country = useSelector((state) => state.leaderboardCountry) || null;
     const authCountry = useSelector((state) => state.prefs.country);
     const authClan = useSelector((state) => state.prefs.clan);
+    const isFocused = useIsFocused();
 
     const formatCountry = (x: string | null, inList?: boolean) => {
         if (x == countryEarth) {
@@ -83,15 +79,15 @@ export function LeaderboardMenu() {
     // const divider = (x: any, i: number) => i < (authCountry ? 2 : 1);
     const icon = (x: any) => {
         if (x == countryEarth) {
-            return <CountryImageForDropDown country={'EARTH'} />;
+            return <CountryImageForDropDown country="EARTH" />;
         }
         if (x == 'following') {
             // return <FontAwesome name="heart" size={14} />;
-            return <SpecialImageForDropDown emoji={'🖤'} />;
+            return <SpecialImageForDropDown emoji="🖤" />;
         }
         if (x.startsWith('clan')) {
             // return <FontAwesome name="trophy" size={14} />;
-            return <SpecialImageForDropDown emoji={'⚔️'} />;
+            return <SpecialImageForDropDown emoji="⚔️" />;
         }
         return <CountryImageForDropDown country={x} />;
     };
@@ -99,14 +95,14 @@ export function LeaderboardMenu() {
         mutate(setLeaderboardCountry(country));
     };
 
-    if (appConfig.game == 'aoe4') {
-        return <View></View>;
+    if (!isFocused || appConfig.game === 'aoe4') {
+        return <View />;
     }
 
     return (
         <Select
-            style={{ width: 190, marginRight: 16 }}
-            size={'small'}
+            style={{ flex: 1, marginRight: 16 }}
+            size="small"
             selectedIndex={new IndexPath(countryList.indexOf(country))}
             onSelect={(index) => onCountrySelected(countryList[(index as IndexPath).row])}
             value={formatCountry(country, true)}
@@ -117,10 +113,6 @@ export function LeaderboardMenu() {
             })}
         </Select>
     );
-}
-
-export function LeaderboardTitle(props: any) {
-    return <TextHeader text={getTranslation('leaderboard.title')} onLayout={props.titleProps.onLayout} />;
 }
 
 const ROW_HEIGHT = 45;
@@ -139,7 +131,7 @@ export default function LeaderboardPage() {
     );
 
     if (!leaderboards.data) {
-        return <View></View>;
+        return <View />;
     }
 
     return (
@@ -191,12 +183,13 @@ function Leaderboard({ leaderboardId }: any) {
     const auth = useSelector((state) => state.auth!);
     const [refetching, setRefetching] = useState(false);
     const leaderboardCountry = useSelector((state) => state.leaderboardCountry) || null;
-    const navigation = useNavigation<RootStackProp>();
-    const flatListRef = React.useRef<FlatList>(null);
+    const insets = useSafeAreaInsets();
+    const flatListRef = React.useRef<FlatListRef>(null);
     const [contentOffsetY, setContentOffsetY] = useState<number>();
     const [rankWidth, setRankWidth] = useState<number>(43);
     const [myRankWidth, setMyRankWidth] = useState<number>(0);
     const [temp, setTemp] = useState<number>(43);
+    const bottom = insets.bottom + 82;
 
     const list = useRef<any[]>([]);
     const fetchingPages = useRef<number[]>([]);
@@ -277,13 +270,13 @@ function Leaderboard({ leaderboardId }: any) {
 
     const containerPadding = 20;
     const headerMyRankHeight = myRank.data?.players.length > 0 && showMyRank ? ROW_HEIGHT_MY_RANK : 0;
-    const headerInfoHeight = 18;
+    const headerInfoHeight = 40;
     const headerHeightAndPadding = containerPadding + headerInfoHeight + headerMyRankHeight;
 
     const scrollToIndex = (index: number) => {
         // TODO: Scrolling position is not accurate because the database is actually missing some ranks (sometimes).
         // HACK: We use viewPosition: 0.5 so that the user does not notice it.
-        flatListRef.current?.scrollToIndex({ animated: false, index: index, viewPosition: 0, viewOffset: -headerHeightAndPadding });
+        flatListRef.current?.scrollToIndex({ animated: false, index, viewPosition: 0, viewOffset: -headerHeightAndPadding });
     };
 
     const scrollToMe = () => {
@@ -358,7 +351,8 @@ function Leaderboard({ leaderboardId }: any) {
         // const updated = leaderboard.data?.updated ? getTranslation('leaderboard.updated', { updated: formatAgo(leaderboard.data.updated) }) : '';
         return (
             <>
-                <View style={{ height: headerInfoHeight }}>
+                <View style={{ height: headerInfoHeight }} className="flex-row justify-between pl-4 pr-12 items-center">
+                    <LeaderboardMenu />
                     <MyText style={styles.info}>
                         {total.current ? players : ''}
                         {/*{leaderboard.data?.updated ? ' (' + updated + ')' : ''}*/}
@@ -501,39 +495,32 @@ function Leaderboard({ leaderboardId }: any) {
         <View style={styles.container2}>
             {/*<Button onPress={onRefresh}>REFRESH</Button>*/}
             <View style={[styles.content, { opacity: leaderboard.loading ? 0.7 : 1 }]}>
-                {leaderboard.error && (
-                    <View style={styles.centered}>
-                        <MyText>{getTranslation('leaderboard.error')}</MyText>
-                    </View>
-                )}
-                {total.current === 0 && (
-                    <View style={styles.centered}>
-                        <MyText>{getTranslation('leaderboard.noplayerfound')}</MyText>
-                    </View>
-                )}
-                {total.current !== 0 && (
-                    <FlatList
-                        ref={flatListRef}
-                        onScrollEndDrag={handleOnScrollEndDrag}
-                        onMomentumScrollBegin={handleOnMomentumScrollBegin}
-                        onMomentumScrollEnd={handleOnMomentumScrollEnd}
-                        onScroll={handleOnScroll}
-                        onLayout={({ nativeEvent: { layout } }: any) => {
-                            scrollRange.current = layout.height - HANDLE_RADIUS * 2;
-                        }}
-                        scrollEventThrottle={500}
-                        contentContainerStyle={styles.list}
-                        data={list.current}
-                        getItemLayout={(_data: any, index: number) => ({ length: ROW_HEIGHT, offset: ROW_HEIGHT * index, index })}
-                        renderItem={({ item, index }: any) => _renderRow(item, index)}
-                        keyExtractor={(item: { profileId: any }, index: any) => (item?.profileId || index).toString()}
-                        refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={refetching} />}
-                        ListHeaderComponent={_renderHeader}
-                        showsVerticalScrollIndicator={!handleVisible}
-                    />
-                )}
+                <FlatList
+                    ref={flatListRef}
+                    onScrollEndDrag={handleOnScrollEndDrag}
+                    onMomentumScrollBegin={handleOnMomentumScrollBegin}
+                    onMomentumScrollEnd={handleOnMomentumScrollEnd}
+                    onScroll={handleOnScroll}
+                    onLayout={({ nativeEvent: { layout } }) => {
+                        scrollRange.current = layout.height - HANDLE_RADIUS * 2 - bottom;
+                    }}
+                    scrollEventThrottle={500}
+                    contentContainerStyle="pt-2 pb-4"
+                    data={list.current}
+                    getItemLayout={(_data: any, index: number) => ({ length: ROW_HEIGHT, offset: ROW_HEIGHT * index, index })}
+                    renderItem={({ item, index }: any) => _renderRow(item, index)}
+                    keyExtractor={(item: { profileId: any }, index: any) => (item?.profileId || index).toString()}
+                    refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={refetching} />}
+                    ListHeaderComponent={_renderHeader}
+                    showsVerticalScrollIndicator={!handleVisible}
+                    ListEmptyComponent={
+                        <View style={styles.centered}>
+                            <MyText>{leaderboard.error ? getTranslation('leaderboard.error') : getTranslation('leaderboard.noplayerfound')}</MyText>
+                        </View>
+                    }
+                />
             </View>
-            <View style={styles.handleContainer} pointerEvents="box-none">
+            <View style={[styles.handleContainer, { bottom }]} pointerEvents="box-none">
                 <Animated.View {...panResponder.panHandlers} style={[{ top: position.y, right: 0, opacity: handleVisible ? 1 : 0 }, styles.handle]}>
                     <FontAwesome5 name="arrows-alt-v" size={26} style={styles.arrows} />
                     {baseMoving && (
@@ -630,7 +617,6 @@ const useStyles = createStylesheet((theme) =>
             color: theme.textNoteColor,
         },
         handleContainer: {
-            // backgroundColor: 'yellow',
             position: 'absolute',
             top: 0,
             right: 0,
@@ -834,9 +820,10 @@ const useStyles = createStylesheet((theme) =>
         },
 
         info: {
-            textAlign: 'center',
+            textAlign: 'right',
             color: theme.textNoteColor,
             fontSize: 12,
+            minWidth: 75,
         },
     })
 );
