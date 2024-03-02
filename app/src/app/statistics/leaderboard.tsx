@@ -37,7 +37,8 @@ import { useLazyAppendApi } from '../../hooks/use-lazy-append-api';
 import { useApi } from '../../hooks/use-api';
 import { fetchLeaderboard, fetchLeaderboards } from '../../api/helper/api';
 import { ILeaderboardPlayer } from '../../api/helper/api.types';
-import { Stack } from 'expo-router';
+import { Stack, router } from 'expo-router';
+import { useColorScheme } from 'nativewind';
 
 const Tab = createMaterialTopTabNavigator<any>();
 
@@ -122,6 +123,7 @@ const ROW_HEIGHT = 45;
 const ROW_HEIGHT_MY_RANK = 52;
 
 export default function LeaderboardPage() {
+    const { colorScheme } = useColorScheme();
     const leaderboards = useApi(
         {},
         [],
@@ -149,7 +151,13 @@ export default function LeaderboardPage() {
                         <MaterialTopTabBar {...props} />
                     </View>
                 )}
-                screenOptions={{ lazy: false, swipeEnabled: false, tabBarStyle: { backgroundColor: 'transparent' }, tabBarActiveTintColor: 'white' }}
+                screenOptions={{
+                    lazy: false,
+                    swipeEnabled: false,
+                    tabBarStyle: { backgroundColor: 'transparent' },
+                    tabBarInactiveTintColor: colorScheme === 'dark' ? 'white' : 'black',
+                    tabBarActiveTintColor: colorScheme === 'dark' ? 'white' : 'black',
+                }}
                 sceneContainerStyle={{ backgroundColor: 'transparent' }}
             >
                 {leaderboards.data
@@ -298,9 +306,8 @@ function Leaderboard({ leaderboardId }: any) {
     const total2 = useRef<any>(1000);
 
     const onSelect = async (player: ILeaderboardPlayer) => {
-        navigation.push('User', {
-            profileId: player.profileId,
-        });
+        console.log('asdf', player.profileId)
+        router.push(`/matches/users/${player.profileId}`);
     };
 
     const _renderRow = useCallback(
@@ -335,7 +342,7 @@ function Leaderboard({ leaderboardId }: any) {
                         {/*{leaderboard.data?.updated ? ' (' + updated + ')' : ''}*/}
                     </MyText>
                 </View>
-                {myRank.data?.players.length > 0 && showMyRank && _renderRow(myRank.data.players[0], 0, true)}
+                {/* {myRank.data?.players.length > 0 && showMyRank && _renderRow(myRank.data.players[0], 0, true)} */}
             </>
         );
     };

@@ -49,19 +49,6 @@ const typeAttributes: Record<Item['type'], { path: string; label: string; title:
     };
 
 const Result: React.FC<{ item: Item }> = ({ item }) => {
-    // const title: Record<Item['type'], (name: Item['title']) => string | undefined> = {
-    //     civ: (name: string) => (name as Civ),
-    //     unit: (name: string) => getUnitName(name as Unit),
-    //     building: 'Building',
-    //     tech: 'Technology',
-    // };
-    // const subtitle: Record<Item['type'], (name: string) => string | undefined> = {
-    //     civ: getCivNameById,
-    //     unit: getUnitName,
-    //     building: 'Building',
-    //     tech: 'Technology',
-    // };
-
     const { path, label, title, icon } = typeAttributes[item.type];
 
     return (
@@ -122,7 +109,15 @@ export default function Explore() {
             />
 
             <View className="px-4">
-                <Field autoCorrect={false} value={search} onChangeText={setSearch} placeholder="Search for civs, units, buildings, or techs" />
+                <Field
+                    enterKeyHint="search"
+                    inputMode="search"
+                    clearButtonMode="always"
+                    autoCorrect={false}
+                    value={search}
+                    onChangeText={setSearch}
+                    placeholder="Search for civs, units, buildings, or techs"
+                />
             </View>
 
             {search ? (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, StyleSheet, View, ViewStyle } from 'react-native';
+import { StyleSheet, View, ViewStyle } from 'react-native';
 import { MyText } from '@app/view/components/my-text';
 import { changelog, changelog4, IChange } from '../../changelog';
 import { RouteProp, useRoute } from '@react-navigation/native';
@@ -15,6 +15,7 @@ import { openLink } from '../../helper/url';
 import { appConfig } from '@nex/dataset';
 import { Stack } from 'expo-router';
 import { getTranslation } from '@app/helper/translate';
+import { FlatList } from '@app/components/flat-list';
 
 interface IChangelogEntry {
     version: string;
@@ -109,7 +110,7 @@ export default function ChangelogPage() {
         <>
             <Stack.Screen options={{ title: getTranslation('changelog.title') }} />
             <FlatList
-                contentContainerStyle={styles.container}
+                contentContainerStyle="min-h-full p-5 pt-2.5"
                 keyboardShouldPersistTaps={'always'}
                 data={filteredChangelogEntries}
                 renderItem={({ item, index }) => renderItem(item)}

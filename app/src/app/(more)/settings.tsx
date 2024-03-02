@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Platform, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { MyText } from '@app/view/components/my-text';
 import { DarkMode, setConfig, useMutate, useSelector } from '../../redux/reducer';
 import { saveConfigToStorage } from '../../service/storage';
@@ -29,7 +29,8 @@ import { getElectronPushToken, isElectron } from '../../helper/electron';
 import Space from '@app/view/components/space';
 import { isEmpty, merge } from 'lodash';
 import { clamp } from '@nex/data';
-import { Stack } from 'expo-router';
+import { Stack, router } from 'expo-router';
+import { ScrollView } from '@app/components/scroll-view';
 
 export default function SettingsPage() {
     const styles = useStyles();
@@ -316,7 +317,7 @@ export default function SettingsPage() {
     };
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
+        <ScrollView contentContainerStyle="min-h-full p-5">
             <Stack.Screen options={{ title: getTranslation('settings.title') }} />
 
             <View style={styles.row}>
@@ -352,7 +353,7 @@ export default function SettingsPage() {
                             </MyText>
                         </TouchableOpacity>
                     </View>
-                    <Button onPress={() => navigation.navigate('Push')} mode="contained" compact uppercase={false} dark={true}>
+                    <Button onPress={() => router.navigate('/push')} mode="contained" compact uppercase={false} dark={true}>
                         {getTranslation('settings.pushnotifications.action.test')}
                     </Button>
                 </View>

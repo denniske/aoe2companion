@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Platform, ScrollView, StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { MyText } from '@app/view/components/my-text';
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
@@ -16,6 +16,7 @@ import { sendTestPushNotificationElectron, sendTestPushNotificationWeb } from '.
 import { initPusher } from '../../helper/pusher';
 import { getElectronPushToken, isElectron } from '../../helper/electron';
 import { Stack } from 'expo-router';
+import { ScrollView } from '@app/components/scroll-view';
 
 interface FirebaseData {
     title?: string;
@@ -182,7 +183,7 @@ export default function PushPage() {
     };
 
     return (
-        <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+        <ScrollView className="flex-1 p-5" contentContainerStyle="items-center">
             <Stack.Screen options={{ title: getTranslation('push.title') }} />
 
             <MyText>{account ? getTranslation('push.heading.account') : ''}</MyText>

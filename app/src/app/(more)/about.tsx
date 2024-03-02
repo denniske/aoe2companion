@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Linking, Platform, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Linking, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Constants from 'expo-constants';
 import { useLinkTo, useNavigation } from '@react-navigation/native';
 import { Button } from 'react-native-paper';
@@ -17,6 +17,7 @@ import { appConfig } from '@nex/dataset';
 import { channel, manifest, updateId, runtimeVersion } from 'expo-updates';
 import { nativeApplicationVersion, nativeBuildVersion } from 'expo-application';
 import { Stack } from 'expo-router';
+import { ScrollView } from '@app/components/scroll-view';
 
 export default function AboutPage() {
     const styles = useStyles();
@@ -151,7 +152,7 @@ export default function AboutPage() {
     // console.log('Constants.expoConfig2', JSON.stringify(Constants.expoConfig2, null, 2));
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
+        <ScrollView contentContainerStyle="min-h-full items-center p-5">
             <Stack.Screen options={{ title: getTranslation('about.title') }} />
 
             <MyText style={styles.title}>{Constants.expoConfig?.name || Constants.expoConfig2?.extra?.expoClient?.name}</MyText>
