@@ -8,7 +8,7 @@ import { Image } from 'expo-image';
 
 export default function StatisticsPage() {
     return (
-        <View className="flex-1 p-4 g-4">
+        <View className="flex-1 p-4 gap-4">
             <Stack.Screen
                 options={{
                     title: 'Statistics',

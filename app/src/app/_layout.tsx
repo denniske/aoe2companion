@@ -48,6 +48,8 @@ import { setAccountPushTokenElectron } from '@app/api/following';
 import { fetchAoeReferenceData } from '@app/helper/reference';
 import { TabBar } from '@app/components/tab-bar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useDeviceContext } from 'twrnc';
+import tw from '@app/tailwind';
 
 const queryClient = new QueryClient();
 SplashScreen.preventAutoHideAsync();
@@ -239,6 +241,8 @@ function AppWrapper() {
             await SplashScreen.hideAsync();
         }
     }, [appIsReady]);
+
+    // useDeviceContext(tw); // <- 👋
 
     const customPaperTheme = {
         ...PaperDefaultTheme,

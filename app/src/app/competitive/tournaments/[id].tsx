@@ -299,7 +299,7 @@ export default function TournamentDetail() {
                                                     style={styles.playoffRow}
                                                     horizontal
                                                     snapToInterval={playoffRoundWidth}
-                                                    contentContainerStyle="g-5"
+                                                    contentContainerStyle="gap-5"
                                                 >
                                                     {playoffRow.rounds.map((playoffRound) => (
                                                         <PlayoffRound round={playoffRound} width={playoffRoundWidth} key={playoffRound.name} />

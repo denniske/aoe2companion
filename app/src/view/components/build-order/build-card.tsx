@@ -26,7 +26,7 @@ const BuildCard: React.FC<IBuildOrder & { favorited?: boolean; toggleFavorite?: 
 
     if (size === 'small') {
         return (
-            <Card href={`/explore/build-orders/${build.id}`} direction="vertical" className="w-24 items-center justify-between g-1">
+            <Card href={`/explore/build-orders/${build.id}`} direction="vertical" className="w-24 items-center justify-between gap-1">
                 <View className="w-full items-center justify-center">
                     <Image source={{ uri: build.imageURL }} className="w-8 h-8" />
                     {civIcon ? <Image className="w-5 h-5 absolute top-0 left-0" source={civIcon} /> : null}
@@ -45,20 +45,20 @@ const BuildCard: React.FC<IBuildOrder & { favorited?: boolean; toggleFavorite?: 
         <Card href={`/explore/build-orders/${build.id}`}>
             <Image source={{ uri: build.imageURL }} className="w-12 h-12" />
 
-            <View className="flex-1 g-0.5">
-                <View className="flex-row justify-between items-center g-2">
+            <View className="flex-1 gap-0.5">
+                <View className="flex-row justify-between items-center gap-2">
                     {civIcon ? <Image className="w-5 h-5" source={civIcon} /> : null}
                     <Text className="flex-1">{build.civilization}</Text>
 
                     <BuildRating {...build} />
                 </View>
 
-                <View className="flex-1 g-1">
+                <View className="flex-1 gap-1">
                     <Text variant="label-lg" numberOfLines={1}>
                         {title}
                     </Text>
 
-                    <View className="flex-row g-1">
+                    <View className="flex-row gap-1">
                         {ages.map(([ageName, agePop]) => (
                             <Tag key={ageName} icon={getAgeIcon(startCase(ageName.replace('Age', '')) as any)}>
                                 {ageName === 'feudalAge' ? '' : '+'}
@@ -72,7 +72,7 @@ const BuildCard: React.FC<IBuildOrder & { favorited?: boolean; toggleFavorite?: 
                 </View>
 
                 {difficultyIcon && (
-                    <View className="absolute bottom-0 right-0 flex-row g-2 items-center">
+                    <View className="absolute bottom-0 right-0 flex-row gap-2 items-center">
                         <Image className="w-6 h-6" source={difficultyIcon} />
                         {toggleFavorite && (
                             <TouchableOpacity hitSlop={10} onPress={toggleFavorite}>

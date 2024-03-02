@@ -36,7 +36,7 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
     const playerColor = playerColors[player.colorHex] ?? player.colorHex;
 
     return (
-        <View className="flex-row items-center g-2">
+        <View className="flex-row items-center gap-2">
             <View className="w-5">
                 {player.won === true && (freeForAll || player.team != -1) && <Icon icon="crown" color="brand" />}
                 {player.won === false && (freeForAll || player.team != -1) && <Icon icon="skull" color="text-gray-500" />}
@@ -54,7 +54,7 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
             </Text>
 
             <Link href={`/matches/user/${player.profileId}`} asChild>
-                <Pressable className="flex-1 flex-row g-1 items-center">
+                <Pressable className="flex-1 flex-row gap-1 items-center">
                     <Text variant="label" numberOfLines={1}>
                         {player.name}
                     </Text>
@@ -72,7 +72,7 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
                 </Pressable>
             )}
 
-            <View className="flex-row flex-1 g-1">
+            <View className="flex-row flex-1 gap-1">
                 <Image className="w-5 h-5" source={getCivIcon(player)} />
                 <Text numberOfLines={1} variant="label">
                     {player.civName}

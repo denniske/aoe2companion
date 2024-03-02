@@ -18,34 +18,34 @@ export default function Page() {
     const { data: news } = useNews(3);
 
     return (
-        <ScrollView contentContainerStyle="p-4 g-5">
+        <ScrollView contentContainerStyle="p-4 gap-5">
             <Tabs.Screen options={{ title: 'Home' }} />
 
-            <View className="g-2">
+            <View className="gap-2">
                 <Text variant="header-lg">Live and Recent Matches</Text>
 
-                <View className="g-2">
+                <View className="gap-2">
                     {matches?.map((match) => (
                         <Match key={match.matchId} user={match.filteredPlayers[0]} highlightedUsers={match.filteredPlayers} match={match} />
                     ))}
                 </View>
             </View>
 
-            <View className="g-2">
+            <View className="gap-2">
                 <Text variant="header-lg">Featured Tournaments</Text>
                 {featuredTournaments?.map((tournament) => <TournamentCardLarge key={tournament.path} id={tournament.path} />)}
             </View>
 
-            <View className="g-2">
+            <View className="gap-2">
                 <Text variant="header-lg">Recent News</Text>
 
-                <FlatList
-                    contentContainerStyle="g-4"
+                {/* <FlatList
+                    contentContainerStyle="gap-4"
                     horizontal
                     data={news}
                     renderItem={({ item: post }) => <NewsCard {...post} key={post.id} />}
                     keyExtractor={(post) => post.id.toString()}
-                />
+                /> */}
             </View>
         </ScrollView>
     );

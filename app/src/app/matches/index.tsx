@@ -156,7 +156,7 @@ export default function Matches() {
                     ),
                 }}
             />
-            <View className="g-2 pb-5 pt-4">
+            <View className="gap-2 pb-5 pt-4">
                 <Text variant="header-lg" className="px-4">
                     Followed Players
                 </Text>
@@ -182,7 +182,7 @@ export default function Matches() {
                     </View>
                 </View>
             ) : following?.length === 0 || list.length === 0 ? (
-                <View className="flex-1 p-4 g-1">
+                <View className="flex-1 p-4 gap-1">
                     <Text variant="label">{getTranslation('feed.following.info.1')}</Text>
                     <Link href="/matches/users/follow">
                         <Text variant="body-sm">{getTranslation('feed.following.info.2')}</Text>
@@ -193,7 +193,7 @@ export default function Matches() {
                     {/*<Button onPress={onRefresh}>REFRESH</Button>*/}
                     {Platform.OS === 'web' && refetching && <FlatListLoadingIndicator />}
                     <FlatList
-                        contentContainerStyle="g-2 px-4 pt-2"
+                        contentContainerStyle="gap-2 px-4 pt-2"
                         data={list}
                         renderItem={({ item, index }) => {
                             const match = item as IMatchNew;

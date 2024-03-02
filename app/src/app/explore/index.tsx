@@ -52,7 +52,7 @@ const Result: React.FC<{ item: Item }> = ({ item }) => {
     const { path, label, title, icon } = typeAttributes[item.type];
 
     return (
-        <TouchableOpacity className="flex-row items-center py-2.5 g-2" onPress={() => router.navigate(`/explore/${path}/${item.name}`)}>
+        <TouchableOpacity className="flex-row items-center py-2.5 gap-2" onPress={() => router.navigate(`/explore/${path}/${item.name}`)}>
             <Image source={icon(item.name)} className="w-8 h-8" />
             <View className="flex-1">
                 <Text variant="label">{title(item.name)}</Text>
@@ -96,7 +96,7 @@ export default function Explore() {
         : [];
 
     return (
-        <View className="flex-1 pt-4  g-5">
+        <View className="flex-1 pt-4  gap-5">
             <Stack.Screen
                 options={{
                     title: 'Explore',
@@ -128,8 +128,8 @@ export default function Explore() {
                     renderItem={({ item }) => <Result item={item} />}
                 />
             ) : (
-                <ScrollView className="flex-1" contentContainerStyle="g-5 pb-4">
-                    <View className="g-2">
+                <ScrollView className="flex-1" contentContainerStyle="gap-5 pb-4">
+                    <View className="gap-2">
                         <View className="flex-row justify-between items-center px-4">
                             <Text variant="header-lg">Civilizations</Text>
                             <Link href="/explore/civilizations">View All</Link>
@@ -140,9 +140,9 @@ export default function Explore() {
                             horizontal
                             keyboardShouldPersistTaps="always"
                             data={orderCivs(civs.filter((c) => c !== 'Indians'))}
-                            contentContainerStyle="g-2.5 px-4"
+                            contentContainerStyle="gap-2.5 px-4"
                             renderItem={({ item: civ }) => (
-                                <Card direction="vertical" className="w-20 items-center py-2.5 px-1 g-1" href={`/explore/civilizations/${civ}`}>
+                                <Card direction="vertical" className="w-20 items-center py-2.5 px-1 gap-1" href={`/explore/civilizations/${civ}`}>
                                     <Image className="w-8 h-8" source={getCivIconLocal(civ)} contentFit="contain" />
                                     <Text variant="label-sm" numberOfLines={1}>
                                         {getCivNameById(civ)}
@@ -153,7 +153,7 @@ export default function Explore() {
                         />
                     </View>
 
-                    <View className="g-2">
+                    <View className="gap-2">
                         <View className="flex-row justify-between items-center px-4">
                             <Text variant="header-lg">Units</Text>
                             <Link href="/explore/units">View All</Link>
@@ -164,9 +164,9 @@ export default function Explore() {
                             horizontal
                             keyboardShouldPersistTaps="always"
                             data={allUnitSections}
-                            contentContainerStyle="g-2.5 px-4"
+                            contentContainerStyle="gap-2.5 px-4"
                             renderItem={({ item: { title, icon } }) => (
-                                <Card direction="vertical" className="w-20 items-center py-2.5 px-1 g-1" href={`/explore/units?section=${title}`}>
+                                <Card direction="vertical" className="w-20 items-center py-2.5 px-1 gap-1" href={`/explore/units?section=${title}`}>
                                     <Icon icon={icon as IconName} size={22} color="brand" />
                                     <Text variant="label-sm" numberOfLines={1}>
                                         {getTranslation(title as any)}
@@ -177,7 +177,7 @@ export default function Explore() {
                         />
                     </View>
 
-                    <View className="g-2">
+                    <View className="gap-2">
                         <View className="flex-row justify-between items-center px-4">
                             <Text variant="header-lg">Buildings</Text>
                             <Link href="/explore/buildings">View All</Link>
@@ -188,9 +188,13 @@ export default function Explore() {
                             horizontal
                             keyboardShouldPersistTaps="always"
                             data={buildingSections}
-                            contentContainerStyle="g-2.5 px-4"
+                            contentContainerStyle="gap-2.5 px-4"
                             renderItem={({ item: { title, icon } }) => (
-                                <Card direction="vertical" className="w-20 items-center py-2.5 px-1 g-1" href={`/explore/buildings?section=${title}`}>
+                                <Card
+                                    direction="vertical"
+                                    className="w-20 items-center py-2.5 px-1 gap-1"
+                                    href={`/explore/buildings?section=${title}`}
+                                >
                                     <Icon icon={icon as IconName} size={22} color="brand" />
                                     <Text variant="label-sm" numberOfLines={1}>
                                         {getTranslation(title as any)}
@@ -201,7 +205,7 @@ export default function Explore() {
                         />
                     </View>
 
-                    <View className="g-2">
+                    <View className="gap-2">
                         <View className="flex-row justify-between items-center px-4">
                             <Text variant="header-lg">Technologies</Text>
                             <Link href="/explore/technologies">View All</Link>
@@ -212,11 +216,11 @@ export default function Explore() {
                             horizontal
                             keyboardShouldPersistTaps="always"
                             data={techSections}
-                            contentContainerStyle="g-2.5 px-4"
+                            contentContainerStyle="gap-2.5 px-4"
                             renderItem={({ item: { building, civ } }) => (
                                 <Card
                                     direction="vertical"
-                                    className="w-20 items-center py-2.5 px-1 g-1"
+                                    className="w-20 items-center py-2.5 px-1 gap-1"
                                     href={`/explore/technologies?section=${building ?? civ}`}
                                 >
                                     <Image
@@ -233,7 +237,7 @@ export default function Explore() {
                         />
                     </View>
 
-                    <View className="g-2">
+                    <View className="gap-2">
                         <View className="flex-row justify-between items-center px-4">
                             <Text variant="header-lg">Build Orders</Text>
                             <Link href="/explore/build-orders">View All</Link>
@@ -244,7 +248,7 @@ export default function Explore() {
                             horizontal
                             keyboardShouldPersistTaps="always"
                             data={sortedBuilds}
-                            contentContainerStyle="g-2.5 px-4"
+                            contentContainerStyle="gap-2.5 px-4"
                             renderItem={({ item }) => <BuildCard size="small" {...item} />}
                             keyExtractor={(item) => item.id.toString()}
                         />

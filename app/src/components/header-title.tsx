@@ -11,7 +11,7 @@ export interface HeaderTitleProps {
 
 export const HeaderTitle: React.FC<HeaderTitleProps> = ({ title, subtitle, icon }) => {
     return (
-        <View className="items-center flex-row g-2">
+        <View className="items-center flex-row gap-2">
             {icon && <Image className="w-8 h-8" source={icon} />}
             <View>
                 <Text variant={subtitle ? 'header' : 'header-lg'} color="brand" numberOfLines={1}>

@@ -97,6 +97,7 @@
     "redux": "4.0.5",
     "source-map-support": "^0.5.10",
     "tslib": "^2.0.0",
+    "twrnc": "^4.0.1",
     "uuid": "^3.4.0",
     "victory-native": "^35.0.1",
     "websocket": "^1.0.34"

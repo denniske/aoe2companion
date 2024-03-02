@@ -9,8 +9,8 @@ export const BuildRating: React.FC<IBuildOrder & { showCount?: boolean }> = ({ s
     const unfilledStars = Math.round(5 - filledStars);
 
     return (
-        <View className="flex-row items-center g-1.5">
-            <View className="flex-row g-0.5">
+        <View className="flex-row items-center gap-1.5">
+            <View className="flex-row gap-0.5">
                 {Array(filledStars)
                     .fill(null)
                     .map((_, index) => (

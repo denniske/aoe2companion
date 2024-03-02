@@ -36,11 +36,11 @@ function Player<PlayerType extends IPlayerListPlayer>({ player, selectedUser, ac
         return (
             <Card
                 direction="vertical"
-                className="items-center justify-center g-1 py-2 px-2.5 w-20"
+                className="items-center justify-center gap-1 py-2 px-2.5 w-20"
                 onPress={() => router.navigate('/matches/users/select')}
             >
                 <Icon icon="user" color="brand" size={24} />
-                <View className="flex-row g-1 items-center">
+                <View className="flex-row gap-1 items-center">
                     <Text numberOfLines={1} variant="body-sm">
                         Find Me
                     </Text>
@@ -53,11 +53,11 @@ function Player<PlayerType extends IPlayerListPlayer>({ player, selectedUser, ac
         return (
             <Card
                 direction="vertical"
-                className="items-center justify-center g-1 py-2 px-2.5 w-20"
+                className="items-center justify-center gap-1 py-2 px-2.5 w-20"
                 onPress={() => router.navigate('/matches/users/follow')}
             >
                 <Icon icon="plus" color="brand" size={24} />
-                <View className="flex-row g-1 items-center">
+                <View className="flex-row gap-1 items-center">
                     <Text numberOfLines={1} variant="body-sm">
                         Add Player
                     </Text>
@@ -77,9 +77,9 @@ function Player<PlayerType extends IPlayerListPlayer>({ player, selectedUser, ac
 
     if (variant === 'horizontal') {
         return (
-            <Card direction="vertical" className="items-center justify-center g-0 pt-1 pb-2 px-2.5 w-20" onPress={onSelect}>
+            <Card direction="vertical" className="items-center justify-center gap-0 pt-1 pb-2 px-2.5 w-20" onPress={onSelect}>
                 <CountryImage style={{ textAlign: 'center', fontSize: 24 }} country={player.country} />
-                <View className="flex-row g-1 items-center">
+                <View className="flex-row gap-1 items-center">
                     <Text numberOfLines={1} variant="body-sm">
                         {player.name}
                     </Text>
@@ -96,13 +96,13 @@ function Player<PlayerType extends IPlayerListPlayer>({ player, selectedUser, ac
 
     return (
         <TouchableOpacity
-            className="flex-row items-center w-full g-2"
+            className="flex-row items-center w-full gap-2"
             ref={(ref) => generateTestHook('Search.Player.' + player.profileId)({ props: { onPress: onSelect } })}
             onPress={onSelect}
         >
             <CountryImage style={{ textAlign: 'center', fontSize: 30 }} country={player.country} />
             <View>
-                <View className="flex-row g-1 items-center">
+                <View className="flex-row gap-1 items-center">
                     <Text numberOfLines={1} variant="label">
                         {player.name}
                     </Text>
@@ -113,7 +113,7 @@ function Player<PlayerType extends IPlayerListPlayer>({ player, selectedUser, ac
                     {player.games} Games
                 </Text>
             </View>
-            <View className="flex-1 flex-row justify-end g-2">
+            <View className="flex-1 flex-row justify-end gap-2">
                 {action && action(player)}
                 {actionText && selectedUser && (
                     <Button size="small" onPress={onSelect}>

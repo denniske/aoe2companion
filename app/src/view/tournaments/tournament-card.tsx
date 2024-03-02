@@ -19,7 +19,7 @@ export const TournamentCard: React.FC<Tournament & { subtitle?: string }> = (tou
             <View className="w-12 aspect-square items-center justify-center">
                 <Image source={{ uri: tournament.league?.image }} className="w-10 aspect-square" contentFit="contain" />
             </View>
-            <View className="flex-1 g-0.5">
+            <View className="flex-1 gap-0.5">
                 <Text variant="header-sm">{tournament.name}</Text>
                 <Text variant="body-sm">
                     {tournament.tier && formatTier(tournament.tier)} • {getTranslation(`tournaments.${status}date`, { start, end })} •{' '}

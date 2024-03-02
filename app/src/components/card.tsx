@@ -22,7 +22,7 @@ export const Card: React.FC<CardProps> = ({ onPress, header, children, footer, d
                 onPress?.(e);
             }}
             {...props}
-            className={`bg-white dark:bg-blue-900 rounded-lg border border-gray-200 dark:border-gray-800 g-2 ${directionStyles}`}
+            className={`bg-white dark:bg-blue-900 rounded-lg border border-gray-200 dark:border-gray-800 gap-2 ${directionStyles}`}
         >
             {header}
             {children}

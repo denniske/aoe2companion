@@ -59,13 +59,13 @@ export function MatchPopup(props: MatchPopupProps) {
     if (appConfig.game !== 'aoe2de') duration = '';
 
     return (
-        <BottomSheet isActive={isActive} onClose={onClose} title={`${name}'s Match`} className="g-4" showHandle>
+        <BottomSheet isActive={isActive} onClose={onClose} title={`${name}'s Match`} className="gap-4" showHandle>
             <MatchCard {...props} />
 
-            <View className="g-1">
+            <View className="gap-1">
                 {tournament && (
                     <Pressable
-                        className="flex-row items-center g-2"
+                        className="flex-row items-center gap-2"
                         onPress={() =>
                             Platform.OS === 'web'
                                 ? Linking.openURL(`https://liquipedia.net/ageofempires/${tournament.path}`)
@@ -77,12 +77,12 @@ export function MatchPopup(props: MatchPopupProps) {
                     </Pressable>
                 )}
                 {appConfig.game === 'aoe2de' && (
-                    <View className="flex-row items-center g-4 pb-3">
-                        <View className="flex-row items-center g-1">
+                    <View className="flex-row items-center gap-4 pb-3">
+                        <View className="flex-row items-center gap-1">
                             <Icon icon="clock" size={14} color="subtle" />
                             <Text color="subtle">{duration}</Text>
                         </View>
-                        <View className="flex-row items-center g-1">
+                        <View className="flex-row items-center gap-1">
                             <Icon icon="running" size={14} color="subtle" />
                             <Text color="subtle">{match.speedName}</Text>
                         </View>
@@ -97,7 +97,7 @@ export function MatchPopup(props: MatchPopupProps) {
                     </View>
                 )}
                 {sortBy(match.teams, ({ teamId, players }, i) => min(players.map((p) => p.color))).map(({ teamId, players }, i) => (
-                    <View key={teamId} className="g-1">
+                    <View key={teamId} className="gap-1">
                         {sortBy(players, (p) => p.color).map((player, j) => (
                             <MatchPlayer
                                 key={j}
@@ -109,7 +109,7 @@ export function MatchPopup(props: MatchPopupProps) {
                             />
                         ))}
                         {i < match.teams.length - 1 && (
-                            <View className="flex-row items-center g-4">
+                            <View className="flex-row items-center gap-4">
                                 <View className="bg-gray-200 dark:bg-gray-800 h-[1px] flex-1" />
                                 <Text variant="header-sm">{getTranslation('match.versus')}</Text>
                                 <View className="bg-gray-200 dark:bg-gray-800 h-[1px] flex-1" />
