@@ -68,7 +68,7 @@ export default function Matches() {
         profileIds.push(auth?.profileId);
     }
 
-    const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } = useInfiniteQuery(
+    const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch, error } = useInfiniteQuery(
         ['feed-matches', profileIds],
         (context) => {
             return fetchMatches({
@@ -77,7 +77,7 @@ export default function Matches() {
             });
         },
         {
-            getNextPageParam: (lastPage, pages) => (lastPage.matches.length === lastPage.perPage ? lastPage.page + 1 : null),
+            getNextPageParam: (lastPage, allPages) => (lastPage.matches.length === lastPage.perPage ? lastPage.page + 1 : null),
             keepPreviousData: true,
         }
     );
@@ -171,7 +171,17 @@ export default function Matches() {
                 Live and Recent Matches
             </Text>
 
-            {following?.length === 0 || list.length === 0 ? (
+            {error ? (
+                <View className="flex-1">
+                    <View className="flex-1">
+                        <View className="h-full items-center justify-center">
+                            <Text className="my-5" variant="label" align="center">
+                                {getTranslation('leaderboard.error')}
+                            </Text>
+                        </View>
+                    </View>
+                </View>
+            ) : following?.length === 0 || list.length === 0 ? (
                 <View className="flex-1 p-4 g-1">
                     <Text variant="label">{getTranslation('feed.following.info.1')}</Text>
                     <Link href="/matches/users/follow">
@@ -265,7 +275,7 @@ export default function Matches() {
                                                         : getTranslation('feed.following.playingnow')}
                                                 </MyText>
                                             )}
-                                            {!(filteredPlayers[0].profileId !== auth?.profileId) && filteredPlayers.length > 1 && (
+                                            {filteredPlayers[0].profileId !== auth?.profileId && filteredPlayers.length > 1 && (
                                                 <MyText>
                                                     {' '}
                                                     {match.finished

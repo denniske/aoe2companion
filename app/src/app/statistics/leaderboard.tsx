@@ -50,6 +50,10 @@ export function leaderboardMenu() {
 
 const countryEarth = null;
 
+function isCountry(x: string | null) {
+    return countriesDistinct.includes(x?.toUpperCase() as Country);
+}
+
 export function LeaderboardMenu() {
     const mutate = useMutate();
     const country = useSelector((state) => state.leaderboardCountry) || null;
@@ -283,8 +287,25 @@ function Leaderboard({ leaderboardId }: any) {
     };
 
     const scrollToMe = () => {
-        scrollToIndex(101 - 1);
-        // scrollToIndex(myRank.data.players[0].rank-1);
+        // scrollToIndex(101-1);
+
+        // console.log('leaderboardCountry', leaderboardCountry);
+
+        if (leaderboardCountry == 'following') {
+            const meIndex = list.current?.findIndex((p: any) => p.profileId == auth.profileId);
+            if (meIndex >= 0) {
+                scrollToIndex(meIndex);
+            }
+        } else if (leaderboardCountry?.startsWith('clan:')) {
+            const meIndex = list.current?.findIndex((p: any) => p.profileId == auth.profileId);
+            if (meIndex >= 0) {
+                scrollToIndex(meIndex);
+            }
+        } else if (leaderboardCountry == countryEarth) {
+            scrollToIndex(myRank.data.players[0].rank - 1);
+        } else {
+            scrollToIndex(myRank.data.players[0].rankCountry - 1);
+        }
     };
 
     useEffect(() => {
@@ -306,7 +327,7 @@ function Leaderboard({ leaderboardId }: any) {
     const total2 = useRef<any>(1000);
 
     const onSelect = async (player: ILeaderboardPlayer) => {
-        console.log('asdf', player.profileId)
+        console.log('asdf', player.profileId);
         router.push(`/matches/users/${player.profileId}`);
     };
 
@@ -316,6 +337,7 @@ function Leaderboard({ leaderboardId }: any) {
                 <MemoizedRenderRow
                     player={player}
                     i={i}
+                    leaderboardCountry={leaderboardCountry}
                     isMyRankRow={isMyRankRow}
                     rankWidth={rankWidth}
                     myRankWidth={myRankWidth}
@@ -324,7 +346,7 @@ function Leaderboard({ leaderboardId }: any) {
                 />
             );
         },
-        [myRankWidth, rankWidth]
+        [myRankWidth, rankWidth, leaderboardCountry]
     );
 
     useEffect(() => {
@@ -534,6 +556,7 @@ function Leaderboard({ leaderboardId }: any) {
 interface RenderRowProps {
     player: ILeaderboardPlayer;
     i: number;
+    leaderboardCountry: string | null;
     isMyRankRow?: boolean;
     rankWidth?: number;
     myRankWidth?: number;
@@ -542,7 +565,7 @@ interface RenderRowProps {
 }
 
 function RenderRow(props: RenderRowProps) {
-    const { player, i, isMyRankRow, rankWidth, myRankWidth, onSelect, scrollToMe } = props;
+    const { player, i, isMyRankRow, rankWidth, myRankWidth, onSelect, scrollToMe, leaderboardCountry } = props;
 
     const styles = useStyles();
     const auth = useSelector((state) => state.auth!);
@@ -557,15 +580,12 @@ function RenderRow(props: RenderRowProps) {
     // console.log('RERENDER', i, player != null);
 
     return (
-        <TouchableOpacity
-            style={[styles.row, rowStyle]}
-            disabled={player == null}
-            onPress={() => (isMyRankRow || true ? scrollToMe() : onSelect(player))}
-        >
+        <TouchableOpacity style={[styles.row, rowStyle]} disabled={player == null} onPress={() => (isMyRankRow ? scrollToMe() : onSelect(player))}>
             <View style={isMyRankRow ? styles.innerRow : styles.innerRowWithBorder}>
                 <TextLoader numberOfLines={1} style={[styles.cellRank, weightStyle, rankWidthStyle]}>
-                    #{player?.rank || i + 1}
+                    #{isCountry(leaderboardCountry) ? player?.rankCountry : player?.rank || i + 1}
                 </TextLoader>
+
                 <TextLoader style={isMe ? styles.cellRatingMe : styles.cellRating}>{player?.rating}</TextLoader>
                 <View style={styles.cellName}>
                     <CountryImageLoader country={player?.country} ready={player} />
