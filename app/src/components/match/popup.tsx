@@ -1,20 +1,21 @@
-import { Linking, Platform, Pressable, View } from 'react-native';
-import { Image } from 'expo-image';
-import React, { useMemo } from 'react';
-import { getVerifiedPlayer, isMatchFreeForAll } from '@nex/data';
-import { flatten, min, sortBy } from 'lodash';
-import { differenceInMinutes, differenceInSeconds } from 'date-fns';
-import { AoeSpeed, getSpeedFactor } from '../../helper/speed';
-import { appConfig } from '@nex/dataset';
-import { useTournamentMatches } from '../../api/tournaments';
-import { Text } from '../text';
-import { Icon } from '../icon';
+import { getTranslation } from '@app/helper/translate';
 import BottomSheet, { BottomSheetProps } from '@app/view/bottom-sheet';
+import { getVerifiedPlayer, isMatchFreeForAll } from '@nex/data';
+import { appConfig } from '@nex/dataset';
+import { differenceInMinutes, differenceInSeconds } from 'date-fns';
+import { Image } from 'expo-image';
+import { useRouter } from 'expo-router';
+import { flatten, min, sortBy } from 'lodash';
+import React, { useMemo } from 'react';
+import { Linking, Platform, Pressable, View } from 'react-native';
+
+import { MatchProps } from '.';
 import { MatchCard } from './card';
 import { MatchPlayer } from './player';
-import { getTranslation } from '@app/helper/translate';
-import { useRouter } from 'expo-router';
-import { MatchProps } from '.';
+import { useTournamentMatches } from '../../api/tournaments';
+import { AoeSpeed, getSpeedFactor } from '../../helper/speed';
+import { Icon } from '../icon';
+import { Text } from '../text';
 
 type MatchPopupProps = MatchProps & Pick<BottomSheetProps, 'isActive' | 'onClose'>;
 
@@ -69,7 +70,7 @@ export function MatchPopup(props: MatchPopupProps) {
                         onPress={() =>
                             Platform.OS === 'web'
                                 ? Linking.openURL(`https://liquipedia.net/ageofempires/${tournament.path}`)
-                                : router.navigate(`/competitive/tournaments/?tournamentId=${tournament.path}`)
+                                : router.navigate(`/competitive/tournaments/${encodeURIComponent(tournament.path)}`)
                         }
                     >
                         {tournament.image && <Image source={{ uri: tournament.image }} className="w-5 h-5" />}
@@ -106,6 +107,7 @@ export function MatchPopup(props: MatchPopupProps) {
                                 player={player}
                                 freeForAll={freeForAll}
                                 canDownloadRec={player.replay}
+                                onClose={onClose}
                             />
                         ))}
                         {i < match.teams.length - 1 && (

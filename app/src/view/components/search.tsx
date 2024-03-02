@@ -105,7 +105,7 @@ export default function Search({ title, selectedUser, actionText, action }: ISea
             {title && <Text className="pt-4 text-center">{title}</Text>}
 
             <View className="px-4 py-4">
-                <Field placeholder={getTranslation('search.placeholder')} autoCorrect={false} autoFocus onChangeText={setText} value={text} />
+                <Field placeholder={getTranslation('search.placeholder')} type="search" autoFocus onChangeText={setText} value={text} />
             </View>
 
             <PlayerList

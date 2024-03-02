@@ -1,3 +1,4 @@
+import tw from '@app/tailwind';
 import { IconName } from '@fortawesome/fontawesome-svg-core';
 import { BottomTabBarProps, BottomTabBarButtonProps } from '@react-navigation/bottom-tabs';
 import React from 'react';
@@ -5,13 +6,15 @@ import { Pressable, View } from 'react-native';
 
 import { Icon } from './icon';
 import { Text } from './text';
+import { textColors } from '@app/utils/text.util';
 
 export const TabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigation, insets }) => {
     const { bottom } = insets;
+    const shadow = tw.style('bg-white dark:bg-blue-900 shadow-lg shadow-blue-50 dark:shadow-blue-950');
 
     return (
-        <View className="absolute px-4 pb-2 w-full" style={{ bottom }}>
-            <View className="flex-row p-2 justify-between bg-white dark:bg-blue-900 rounded-lg shadow-lg shadow-blue-50 dark:shadow-blue-950">
+        <View className="absolute px-4 pb-2 w-full shadow-lg" style={{ bottom }}>
+            <View className="flex-row p-2 rounded-lg " style={shadow}>
                 {state.routes.map((route, index) => {
                     const {
                         options: {
@@ -48,15 +51,15 @@ export const TabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, naviga
                         <React.Fragment key={route.key}>
                             {tabBarButton({
                                 onPress,
+                                style: { flex: 1 },
                                 children: (
                                     <View
-                                        className={`justify-center items-center py-2 px-3 min-w-[56px] rounded-lg ${
-                                            isFocused ? 'bg-blue-800 dark:bg-gold-700' : ''
-                                        }`}
+                                        className="justify-center items-center py-2 rounded-lg flex-1"
+                                        style={tw.style(isFocused && 'bg-blue-800 dark:bg-gold-700')}
                                     >
                                         {iconName && <Icon color={isFocused ? 'text-white' : 'brand'} size={22} icon={iconName} />}
                                         <Text
-                                            color={isFocused ? 'text-white' : 'brand'}
+                                            style={tw.style(isFocused ? 'text-white' : textColors['brand'])}
                                             variant="header-sm"
                                             className="!text-[9px] !leading-[12px] uppercase mt-2"
                                         >

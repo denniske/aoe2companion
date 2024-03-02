@@ -122,10 +122,7 @@ export default function UserPage() {
     const navigateToAuthUser = async () => {
         console.log('==> NAVIGATE');
         // @ts-ignore
-        navigation.navigate('User', {
-            profileId: auth?.profileId,
-            // name: profile?.name,
-        });
+        router.navigate(`/matches/users/${auth?.profileId}`);
         console.log('==> NAVIGATED');
     };
 

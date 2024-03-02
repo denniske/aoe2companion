@@ -1,10 +1,11 @@
 import { HeaderTitle } from '@app/components/header-title';
+import { ScrollView } from '@app/components/scroll-view';
 import { aoeCivKey, civDict, getCivNameById, parseCivDescription } from '@nex/data';
 import { ImageBackground } from 'expo-image';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { getCivHistoryImage, getCivIconLocal } from '../../../helper/civs';
 import { HighlightUnitAndTechs } from '../../../helper/highlight';

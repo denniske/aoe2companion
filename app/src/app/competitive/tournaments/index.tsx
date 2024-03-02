@@ -91,7 +91,7 @@ export default function TournamentsList() {
             league ? undefined : (
                 <View style={styles.container}>
                     <View style={styles.searchContainer}>
-                        <Field autoCorrect={false} value={search} onChangeText={setSearch} placeholder={getTranslation('tournaments.search')} />
+                        <Field type="search" value={search} onChangeText={setSearch} placeholder={getTranslation('tournaments.search')} />
                     </View>
                 </View>
             ),

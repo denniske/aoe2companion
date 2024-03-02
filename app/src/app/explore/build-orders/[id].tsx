@@ -8,7 +8,7 @@ import { activateKeepAwakeAsync, deactivateKeepAwake } from 'expo-keep-awake';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import startCase from 'lodash/startCase';
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
-import { StyleSheet, View, Linking, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Linking, TouchableOpacity } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 import { IBuildOrderStandardResources, sortBuildAges, getBuildById } from '../../../../../data/src/helper/builds';
@@ -23,6 +23,7 @@ import { StepActions } from '../../../view/components/build-order/step-actions';
 import { Button } from '../../../view/components/button';
 import { MyText } from '../../../view/components/my-text';
 import { Tag } from '../../../view/components/tag';
+import { ScrollView } from '@app/components/scroll-view';
 
 const capitalize = (string: string) => string.charAt(0).toUpperCase() + string.slice(1);
 
@@ -93,7 +94,7 @@ export default function BuildDetail() {
     }, [build]);
 
     return (
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        <ScrollView style={styles.container} contentContainerStyle="p-4 gap-4">
             <Stack.Screen
                 options={{
                     headerTitle: () => (

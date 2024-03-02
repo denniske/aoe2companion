@@ -47,7 +47,7 @@ export default function UnitList() {
             <Stack.Screen options={{ title: getTranslation('unit.title') }} />
 
             <View className="pt-4 px-4">
-                <Field placeholder={getTranslation('unit.search.placeholder')} onChangeText={(text) => setText(text)} value={text} />
+                <Field type="search" placeholder={getTranslation('unit.search.placeholder')} onChangeText={(text) => setText(text)} value={text} />
             </View>
 
             <SectionList

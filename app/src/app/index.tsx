@@ -9,7 +9,7 @@ import { useNews } from '@app/utils/news';
 import { TournamentCardLarge } from '@app/view/tournaments/tournament-card-large';
 import { Tabs } from 'expo-router';
 import { Age2TournamentCategory } from 'liquipedia';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 
 export default function Page() {
     const { data: tournaments } = useUpcomingTournaments();
@@ -33,10 +33,12 @@ export default function Page() {
                 </View>
             ) : null}
 
-            <View className="gap-2">
-                <Text variant="header-lg">Featured Tournaments</Text>
-                {featuredTournaments?.map((tournament) => <TournamentCardLarge key={tournament.path} id={tournament.path} />)}
-            </View>
+            {Platform.OS !== 'web' ? (
+                <View className="gap-2">
+                    <Text variant="header-lg">Featured Tournaments</Text>
+                    {featuredTournaments?.map((tournament) => <TournamentCardLarge key={tournament.path} id={tournament.path} />)}
+                </View>
+            ) : null}
 
             <View className="gap-2">
                 <Text variant="header-lg">Recent News</Text>

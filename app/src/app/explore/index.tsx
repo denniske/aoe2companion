@@ -109,15 +109,7 @@ export default function Explore() {
             />
 
             <View className="px-4">
-                <Field
-                    enterKeyHint="search"
-                    inputMode="search"
-                    clearButtonMode="always"
-                    autoCorrect={false}
-                    value={search}
-                    onChangeText={setSearch}
-                    placeholder="Search for civs, units, buildings, or techs"
-                />
+                <Field type="search" value={search} onChangeText={setSearch} placeholder="Search for civs, units, buildings, or techs" />
             </View>
 
             {search ? (

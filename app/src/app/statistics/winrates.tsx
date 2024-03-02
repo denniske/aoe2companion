@@ -5,6 +5,7 @@ import { useTheme } from '../../theming';
 import { appVariants } from '../../styles';
 import { MyText } from '@app/view/components/my-text';
 import { openLink } from '../../helper/url';
+import { Stack } from 'expo-router';
 
 export function WinratesTitle(props: any) {
     const appStyles = useTheme(appVariants);
@@ -46,39 +47,46 @@ export default function WinratesPage() {
     `;
 
     return (
-        <View
-            style={{ minHeight: 300, flex: 1, overflow: 'hidden' }}
-            onLayout={({ nativeEvent: { layout } }: any) => {
-                console.log('layout', layout);
-                setWidth(layout.width);
-                setHeight(layout.height);
-            }}
-        >
-            <WebView
-                allowUniversalAccessFromFileURLs
-                mixedContentMode="compatibility"
-                originWhitelist={['*']}
-                javaScriptEnabled
-                // Needed for injectedJavaScript to work
-                onMessage={(event) => {
-                    console.log('event: ', event);
-                }}
-                injectedJavaScript={runFirst}
-                source={{ uri: 'https://www.ageofstatistics.com/statistics/winrates?game=aoe2&period=p03_v01&filter=rm_solo_all' }}
-                scalesPageToFit={false}
-                style={{
-                    minHeight: 200,
-                    backgroundColor: 'grey',
-                    width: width,
-                    height: height,
-                    borderWidth: 1,
-                    borderColor: 'transparent',
-                }}
-                onShouldStartLoadWithRequest={(event) => {
-                    console.log('onShouldStartLoadWithRequest', event);
-                    return true;
+        <>
+            <Stack.Screen
+                options={{
+                    title: 'Winrates',
                 }}
             />
-        </View>
+            <View
+                style={{ minHeight: 300, flex: 1, overflow: 'hidden' }}
+                onLayout={({ nativeEvent: { layout } }: any) => {
+                    console.log('layout', layout);
+                    setWidth(layout.width);
+                    setHeight(layout.height);
+                }}
+            >
+                <WebView
+                    allowUniversalAccessFromFileURLs
+                    mixedContentMode="compatibility"
+                    originWhitelist={['*']}
+                    javaScriptEnabled
+                    // Needed for injectedJavaScript to work
+                    onMessage={(event) => {
+                        console.log('event: ', event);
+                    }}
+                    injectedJavaScript={runFirst}
+                    source={{ uri: 'https://www.ageofstatistics.com/statistics/winrates?game=aoe2&period=p03_v01&filter=rm_solo_all' }}
+                    scalesPageToFit={false}
+                    style={{
+                        minHeight: 200,
+                        backgroundColor: 'grey',
+                        width: width,
+                        height: height,
+                        borderWidth: 1,
+                        borderColor: 'transparent',
+                    }}
+                    onShouldStartLoadWithRequest={(event) => {
+                        console.log('onShouldStartLoadWithRequest', event);
+                        return true;
+                    }}
+                />
+            </View>
+        </>
     );
 }

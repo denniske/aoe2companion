@@ -126,9 +126,7 @@ export default function Matches() {
     };
 
     const gotoPlayer = (profileId: number) => {
-        navigation.push('User', {
-            profileId,
-        });
+        router.push(`/matches/users/${profileId}`);
     };
 
     const formatPlayer = (player: any, i: number) => {

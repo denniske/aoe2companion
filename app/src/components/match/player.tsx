@@ -1,13 +1,15 @@
 import { IMatchNew, IPlayerNew } from '@app/api/helper/api.types';
-import { Platform, Pressable, View } from 'react-native';
-import { Icon } from '../icon';
-import { Text } from '../text';
-import { appConfig } from '@nex/dataset';
-import { isVerifiedPlayer } from '@nex/data';
-import { openLink } from '@app/helper/url';
 import { getCivIcon } from '@app/helper/civs';
+import { openLink } from '@app/helper/url';
+import { BottomSheetProps } from '@app/view/bottom-sheet';
+import { isVerifiedPlayer } from '@nex/data';
+import { appConfig } from '@nex/dataset';
 import { Image } from 'expo-image';
 import { Link } from 'expo-router';
+import { Platform, Pressable, TouchableOpacity, View } from 'react-native';
+
+import { Icon } from '../icon';
+import { Text } from '../text';
 
 const playerColors: Record<string, string> = {
     '#405BFF': '#4B4AC8',
@@ -26,9 +28,10 @@ interface MatchPlayerProps {
     highlight?: boolean;
     freeForAll?: boolean;
     canDownloadRec?: boolean;
+    onClose: BottomSheetProps['onClose'];
 }
 
-export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlight, freeForAll, canDownloadRec }) => {
+export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlight, freeForAll, canDownloadRec, onClose }) => {
     const downloadRec = async () => {
         const url = `https://aoe.ms/replay/?gameId=${match.matchId}&profileId=${player.profileId}`;
         await openLink(url);
@@ -53,13 +56,13 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
                 {player.rating}
             </Text>
 
-            <Link href={`/matches/user/${player.profileId}`} asChild>
-                <Pressable className="flex-1 flex-row gap-1 items-center">
+            <Link href={`/matches/users/${player.profileId}`} asChild>
+                <TouchableOpacity className="flex-1 flex-row gap-1 items-center" onPress={onClose}>
                     <Text variant="label" numberOfLines={1}>
                         {player.name}
                     </Text>
                     {player.status === 0 && isVerifiedPlayer(player.profileId) && <Icon icon="check-circle" color="brand" size={12} />}
-                </Pressable>
+                </TouchableOpacity>
             </Link>
 
             <Text variant="body" color={player.ratingDiff > 0 ? 'text-green-500' : 'text-red-500'} className="text-center w-8">
@@ -72,12 +75,14 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
                 </Pressable>
             )}
 
-            <View className="flex-row flex-1 gap-1">
-                <Image className="w-5 h-5" source={getCivIcon(player)} />
-                <Text numberOfLines={1} variant="label">
-                    {player.civName}
-                </Text>
-            </View>
+            <Link href={`/explore/civilizations/${player.civName}`} asChild>
+                <TouchableOpacity className="flex-row flex-1 gap-1" onPress={onClose}>
+                    <Image className="w-5 h-5" source={getCivIcon(player)} />
+                    <Text numberOfLines={1} variant="label">
+                        {player.civName}
+                    </Text>
+                </TouchableOpacity>
+            </Link>
         </View>
     );
 };

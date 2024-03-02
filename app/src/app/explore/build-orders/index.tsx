@@ -64,7 +64,7 @@ export default function BuildListPage() {
                     <BuildFilters builds={buildsData} {...buildFilters} />
 
                     <View className="pb-4 px-4">
-                        <Field autoCorrect={false} value={search} onChangeText={setSearch} placeholder={getTranslation('builds.search')} />
+                        <Field type="search" value={search} onChangeText={setSearch} placeholder={getTranslation('builds.search')} />
                     </View>
 
                     <FlatList

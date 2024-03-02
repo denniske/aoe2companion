@@ -15,7 +15,7 @@ export const TournamentCard: React.FC<Tournament & { subtitle?: string }> = (tou
     const end = endDate && format(endDate, 'LLL d');
 
     return (
-        <Card href={`competitive/tournaments/${encodeURIComponent(tournament.path)}`}>
+        <Card href={`/competitive/tournaments/${encodeURIComponent(tournament.path)}`}>
             {Platform.OS !== 'web' && (
                 <View className="w-12 aspect-square items-center justify-center">
                     <Image source={{ uri: tournament.league?.image }} className="w-10 aspect-square" contentFit="contain" />

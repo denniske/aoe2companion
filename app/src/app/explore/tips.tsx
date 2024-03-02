@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ActivityIndicator, Image, ImageSourcePropType, Platform, ScrollView, Share, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Image, ImageSourcePropType, Platform, Share, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useAppTheme } from '../../theming';
 import { MyText } from '@app/view/components/my-text';
 import { ResizeMode, Video } from 'expo-av';
@@ -11,6 +11,7 @@ import { createStylesheet } from '../../theming-new';
 import { getTranslation } from '../../helper/translate';
 import { openLink } from '../../helper/url';
 import { Stack } from 'expo-router';
+import { ScrollView } from '@app/components/scroll-view';
 
 interface ITip {
     title: string;
@@ -265,7 +266,7 @@ export default function TipsPage() {
                     )}
                 </View>
             </View>
-            <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+            <ScrollView style={styles.container} contentContainerStyle="pb-4">
                 {tips.map((tip) => (
                     <View key={tip.title} style={styles.row}>
                         <TouchableOpacity style={styles.tip} onPress={() => setTip(tip)}>
