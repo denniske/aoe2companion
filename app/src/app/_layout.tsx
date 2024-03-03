@@ -49,6 +49,7 @@ import { TabBar } from '@app/components/tab-bar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppColorScheme, useDeviceContext } from 'twrnc';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { ScrollContext, ScrollableContext } from '@app/hooks/use-scrollable';
 
 library.add(fass, fasr);
 
@@ -152,6 +153,7 @@ function AppWrapper() {
     const mutate = useMutate();
     const { setColorScheme } = useTailwindColorScheme();
     const [, , setColorTwrncScheme] = useAppColorScheme(tw);
+    const [scrollPosition, setScrollPosition] = useState(0);
 
     const [appIsReady, setAppIsReady] = useState(false);
     const loadedLanguages = useSelector((state) => state.loadedLanguages);
@@ -249,6 +251,7 @@ function AppWrapper() {
     }, [appIsReady]);
 
     useDeviceContext(tw, {
+        observeDeviceColorSchemeChanges: false,
         initialColorScheme: 'device',
     });
 
@@ -302,32 +305,36 @@ function AppWrapper() {
                     <ApplicationProvider {...eva} theme={finalDarkMode === 'light' ? eva.light : eva.dark}>
                         <QueryClientProvider client={queryClient}>
                             <ThemeProvider value={finalDarkMode === 'dark' ? customDarkTheme : customTheme}>
-                                <View
-                                    className={`bg-gold-50 dark:bg-blue-950 ${Platform.OS === 'web' && !isElectron() ? `overflow-hidden w-[450px] max-w-full h-[900px] mx-auto my-auto ${isMobile ? '' : 'border border-gray-200 dark:border-gray-800'} rounded-lg` : 'flex-1'}`}
-                                    style={{ paddingTop: insets.top }}
-                                    onLayout={onLayoutRootView}
-                                >
-                                    <StatusBar
-                                        barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'}
-                                        backgroundColor="transparent"
-                                        translucent
-                                    />
-                                    <Tabs
-                                        tabBar={(props) => <TabBar {...props} />}
-                                        screenOptions={{
-                                            headerShown: false,
-                                        }}
-                                    >
-                                        <Tabs.Screen name="index" options={{ headerShown: true, header: Header, tabBarIcon: () => 'home' }} />
-                                        <Tabs.Screen name="matches" options={{ tabBarLabel: 'Matches', tabBarIcon: () => 'chess' }} />
-                                        <Tabs.Screen name="explore" options={{ tabBarLabel: 'Explore', tabBarIcon: () => 'landmark' }} />
-                                        <Tabs.Screen name="statistics" options={{ tabBarLabel: 'Stats', tabBarIcon: () => 'chart-simple' }} />
-                                        <Tabs.Screen name="competitive" options={{ tabBarLabel: 'Pros', tabBarIcon: () => 'ranking-star' }} />
-                                        <Tabs.Screen name="(more)" options={{ tabBarLabel: 'More', tabBarIcon: () => 'bars' }} />
-                                        <Tabs.Screen name="[...unmatched]" options={{ href: null }} />
-                                        <Tabs.Screen name="_sitemap" options={{ href: null }} />
-                                    </Tabs>
-                                </View>
+                                <ScrollContext.Provider value={{ setScrollPosition }}>
+                                    <ScrollableContext.Provider value={{ scrollPosition }}>
+                                        <View
+                                            className={`bg-gold-50 dark:bg-blue-950 ${Platform.OS === 'web' && !isElectron() ? `overflow-hidden w-[450px] max-w-full h-[900px] mx-auto my-auto ${isMobile ? '' : 'border border-gray-200 dark:border-gray-800'} rounded-lg` : 'flex-1'}`}
+                                            style={{ paddingTop: insets.top }}
+                                            onLayout={onLayoutRootView}
+                                        >
+                                            <StatusBar
+                                                barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'}
+                                                backgroundColor="transparent"
+                                                translucent
+                                            />
+                                            <Tabs
+                                                tabBar={(props) => <TabBar {...props} />}
+                                                screenOptions={{
+                                                    headerShown: false,
+                                                }}
+                                            >
+                                                <Tabs.Screen name="index" options={{ headerShown: true, header: Header, tabBarIcon: () => 'home' }} />
+                                                <Tabs.Screen name="matches" options={{ tabBarLabel: 'Matches', tabBarIcon: () => 'chess' }} />
+                                                <Tabs.Screen name="explore" options={{ tabBarLabel: 'Explore', tabBarIcon: () => 'landmark' }} />
+                                                <Tabs.Screen name="statistics" options={{ tabBarLabel: 'Stats', tabBarIcon: () => 'chart-simple' }} />
+                                                <Tabs.Screen name="competitive" options={{ tabBarLabel: 'Pros', tabBarIcon: () => 'ranking-star' }} />
+                                                <Tabs.Screen name="(more)" options={{ tabBarLabel: 'More', tabBarIcon: () => 'bars' }} />
+                                                <Tabs.Screen name="[...unmatched]" options={{ href: null }} />
+                                                <Tabs.Screen name="_sitemap" options={{ href: null }} />
+                                            </Tabs>
+                                        </View>
+                                    </ScrollableContext.Provider>
+                                </ScrollContext.Provider>
                             </ThemeProvider>
                         </QueryClientProvider>
                     </ApplicationProvider>

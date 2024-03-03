@@ -204,7 +204,7 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
                         <MyText style={styles.header}>{getTranslation('main.matches.nomatches')}</MyText>
                     }
                     <FlatList
-                        contentContainerStyle="px-4"
+                        contentContainerStyle="p-4"
                         initialNumToRender={10}
                         windowSize={2}
                         data={list}
