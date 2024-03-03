@@ -1,4 +1,5 @@
 import { Field } from '@app/components/field';
+import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { SectionList } from '@app/components/section-list';
 import { Text } from '@app/components/text';
 import { scrollToSection, sectionItemLayout } from '@app/utils/list';
@@ -46,33 +47,38 @@ export default function TechList() {
     }, [section, scrollReady]);
 
     return (
-        <View className="flex-1">
-            <Stack.Screen options={{ title: getTranslation('tech.title') }} />
+        <KeyboardAvoidingView>
+            <View className="flex-1">
+                <Stack.Screen options={{ title: getTranslation('tech.title') }} />
 
-            <View className="pt-4 px-4">
-                <Field type="search" placeholder={getTranslation('tech.search.placeholder')} onChangeText={(text) => setText(text)} value={text} />
+                <View className="pt-4 px-4">
+                    <Field
+                        type="search"
+                        placeholder={getTranslation('tech.search.placeholder')}
+                        onChangeText={(text) => setText(text)}
+                        value={text}
+                    />
+                </View>
+
+                <SectionList
+                    onLayout={() => setScrollReady(true)}
+                    ref={sectionList}
+                    getItemLayout={sectionItemLayout({ getItemHeight: () => 40, getSectionHeaderHeight: () => 40, listHeaderHeight: 16 })}
+                    keyboardShouldPersistTaps="always"
+                    contentContainerStyle="p-4"
+                    sections={list}
+                    stickySectionHeadersEnabled={false}
+                    renderItem={({ item }) => <TechCompBig key={item} tech={item} showCivBanner />}
+                    renderSectionHeader={({ section: { building, civ } }) => (
+                        <View className="h-10 justify-center">
+                            <Text variant="header-sm" color="brand">
+                                {building ? getBuildingName(building) : getCivNameById(civ!)}
+                            </Text>
+                        </View>
+                    )}
+                    keyExtractor={(item, index) => index.toString()}
+                />
             </View>
-
-            <SectionList
-                onLayout={() => setScrollReady(true)}
-                ref={sectionList}
-                getItemLayout={sectionItemLayout({ sectionHeaderHeight: 40, itemHeight: 40, offset: 16 })}
-                keyboardShouldPersistTaps="always"
-                contentContainerStyle="p-4"
-                sections={list}
-                stickySectionHeadersEnabled={false}
-                renderItem={({ item }) => {
-                    return <TechCompBig key={item} tech={item} showCivBanner />;
-                }}
-                renderSectionHeader={({ section: { building, civ } }) => (
-                    <View className="h-10 justify-center">
-                        <Text variant="header-sm" color="brand">
-                            {building ? getBuildingName(building) : getCivNameById(civ!)}
-                        </Text>
-                    </View>
-                )}
-                keyExtractor={(item, index) => index.toString()}
-            />
-        </View>
+        </KeyboardAvoidingView>
     );
 }

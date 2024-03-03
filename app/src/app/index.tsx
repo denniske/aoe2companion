@@ -79,6 +79,7 @@ export default function Page() {
                 <Text variant="header-lg">Recent News</Text>
 
                 <FlatList
+                    showsHorizontalScrollIndicator={false}
                     contentContainerStyle="gap-4"
                     horizontal
                     data={news}

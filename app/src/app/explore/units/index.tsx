@@ -9,6 +9,7 @@ import { SectionList as SectionListRef, View } from 'react-native';
 
 import { getTranslation } from '../../../helper/translate';
 import { UnitCompBig } from '../../../view/unit/unit-comp';
+import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 
 export default function UnitList() {
     const [text, setText] = useState('');
@@ -43,35 +44,42 @@ export default function UnitList() {
     }, [section, scrollReady]);
 
     return (
-        <View className="flex-1">
-            <Stack.Screen options={{ title: getTranslation('unit.title') }} />
+        <KeyboardAvoidingView>
+            <View className="flex-1">
+                <Stack.Screen options={{ title: getTranslation('unit.title') }} />
 
-            <View className="pt-4 px-4">
-                <Field type="search" placeholder={getTranslation('unit.search.placeholder')} onChangeText={(text) => setText(text)} value={text} />
+                <View className="pt-4 px-4">
+                    <Field
+                        type="search"
+                        placeholder={getTranslation('unit.search.placeholder')}
+                        onChangeText={(text) => setText(text)}
+                        value={text}
+                    />
+                </View>
+
+                <SectionList
+                    onLayout={() => setScrollReady(true)}
+                    sections={list}
+                    ref={sectionList}
+                    getItemLayout={sectionItemLayout({ getItemHeight: () => 40, getSectionHeaderHeight: () => 40, listHeaderHeight: 16 })}
+                    keyboardShouldPersistTaps="always"
+                    contentContainerStyle="p-4"
+                    stickySectionHeadersEnabled={false}
+                    renderItem={({ item }) => {
+                        return <UnitCompBig key={item} unit={item} />;
+                    }}
+                    renderSectionHeader={({ section: { title } }) => {
+                        return (
+                            <View className="h-10 justify-center">
+                                <Text variant="header-sm" color="brand">
+                                    {getTranslation(title as any)}
+                                </Text>
+                            </View>
+                        );
+                    }}
+                    keyExtractor={(item, index) => index.toString()}
+                />
             </View>
-
-            <SectionList
-                onLayout={() => setScrollReady(true)}
-                sections={list}
-                ref={sectionList}
-                getItemLayout={sectionItemLayout({ sectionHeaderHeight: 40, itemHeight: 40, offset: 16 })}
-                keyboardShouldPersistTaps="always"
-                contentContainerStyle="p-4"
-                stickySectionHeadersEnabled={false}
-                renderItem={({ item }) => {
-                    return <UnitCompBig key={item} unit={item} />;
-                }}
-                renderSectionHeader={({ section: { title } }) => {
-                    return (
-                        <View className="h-10 justify-center">
-                            <Text variant="header-sm" color="brand">
-                                {getTranslation(title as any)}
-                            </Text>
-                        </View>
-                    );
-                }}
-                keyExtractor={(item, index) => index.toString()}
-            />
-        </View>
+        </KeyboardAvoidingView>
     );
 }

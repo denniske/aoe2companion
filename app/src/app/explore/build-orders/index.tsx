@@ -1,11 +1,12 @@
 import { Field } from '@app/components/field';
+import { FlatList } from '@app/components/flat-list';
 import { getTranslation } from '@app/helper/translate';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useFocusEffect } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { reverse, sortBy } from 'lodash';
 import { useCallback, useState } from 'react';
-import { FlatList, KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { buildsData } from '../../../../../data/src/data/builds';
@@ -14,6 +15,7 @@ import BuildCard from '../../../view/components/build-order/build-card';
 import { BuildFilters } from '../../../view/components/build-order/build-filters';
 import { DismissKeyboard } from '../../../view/components/dismiss-keyboard';
 import { MyText } from '../../../view/components/my-text';
+import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 
 const transformSearch = (string: string) => string.toLowerCase().replace(/\W/g, ' ').replace(/ +/g, ' ');
 
@@ -53,11 +55,7 @@ export default function BuildListPage() {
     }
 
     return (
-        <KeyboardAvoidingView
-            behavior={Platform.select({ ios: 'padding', default: 'height' })}
-            className="flex-1"
-            keyboardVerticalOffset={headerHeight + 36 + insets.top}
-        >
+        <KeyboardAvoidingView>
             <Stack.Screen options={{ title: getTranslation('builds.title') }} />
             <DismissKeyboard>
                 <View className="flex-1">
@@ -79,7 +77,7 @@ export default function BuildListPage() {
                         data={filteredBuilds}
                         renderItem={({ item }) => <BuildCard {...item} />}
                         keyExtractor={(item) => item.id.toString()}
-                        contentContainerStyle={styles.contentContainer}
+                        contentContainerStyle="gap-4 px-4 py-1.5"
                         ListEmptyComponent={<MyText>{getTranslation('builds.noResults')}</MyText>}
                     />
                 </View>
@@ -87,11 +85,3 @@ export default function BuildListPage() {
         </KeyboardAvoidingView>
     );
 }
-
-const styles = StyleSheet.create({
-    contentContainer: {
-        gap: 15,
-        paddingHorizontal: 16,
-        paddingVertical: 5,
-    },
-});

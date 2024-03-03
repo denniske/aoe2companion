@@ -1,5 +1,6 @@
 import { useRefreshControl, useTournaments, useUpcomingTournaments } from '@app/api/tournaments';
 import { Field } from '@app/components/field';
+import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { SectionList } from '@app/components/section-list';
 import { Text } from '@app/components/text';
 import { sortByTier, tournamentAbbreviation, tournamentStatus, transformSearch } from '@app/helper/tournaments';
@@ -13,7 +14,7 @@ import { Stack, useLocalSearchParams } from 'expo-router';
 import { Tournament, TournamentCategory } from 'liquipedia';
 import { orderBy } from 'lodash';
 import { useMemo, useState } from 'react';
-import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 // import { RootStackParamList } from '../../../App2';
@@ -100,11 +101,7 @@ export default function TournamentsList() {
     );
 
     return (
-        <KeyboardAvoidingView
-            behavior={Platform.select({ ios: 'padding', default: 'height' })}
-            className="flex-1"
-            keyboardVerticalOffset={headerHeight + 36 + insets.top}
-        >
+        <KeyboardAvoidingView>
             <Stack.Screen options={{ title: league ? decodeURI(league).replaceAll('_', ' ') : getTranslation('tournaments.title') }} />
             <DismissKeyboard>
                 <SectionList

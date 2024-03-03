@@ -1,20 +1,20 @@
 import tw from '@app/tailwind';
+import { textColors } from '@app/utils/text.util';
 import { IconName } from '@fortawesome/fontawesome-svg-core';
 import { BottomTabBarProps, BottomTabBarButtonProps } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import { Pressable, View } from 'react-native';
+import { Platform, Pressable, View } from 'react-native';
 
 import { Icon } from './icon';
 import { Text } from './text';
-import { textColors } from '@app/utils/text.util';
 
 export const TabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigation, insets }) => {
     const { bottom } = insets;
-    const shadow = tw.style('bg-white dark:bg-blue-900 shadow-lg shadow-blue-50 dark:shadow-blue-950');
+    const shadow = tw.style('bg-white dark:bg-blue-900 shadow-blue-50 dark:shadow-black', Platform.OS === 'web' && 'shadow-2xl');
 
     return (
-        <View className="absolute px-4 pb-2 w-full shadow-lg" style={{ bottom }}>
-            <View className="flex-row p-2 rounded-lg " style={shadow}>
+        <View className="absolute px-4 pb-2 w-full" style={{ bottom }}>
+            <View className="flex-row p-2 rounded-lg shadow-xl" style={shadow}>
                 {state.routes.map((route, index) => {
                     const {
                         options: {

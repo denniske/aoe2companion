@@ -5,7 +5,6 @@ import { flagEmojiDict } from '@app/helper/flags';
 import { formatPrizePool, formatTier } from '@app/helper/tournaments';
 import { getTranslation } from '@app/helper/translate';
 import tw from '@app/tailwind';
-import { usePaperTheme, useAppTheme } from '@app/theming';
 import { createStylesheet } from '@app/theming-new';
 import MyListAccordion from '@app/view/components/accordion';
 import { Button } from '@app/view/components/button';
@@ -27,7 +26,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Stack, router, useLocalSearchParams } from 'expo-router';
 import { TournamentType } from 'liquipedia';
 import { Fragment, useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, RefreshControl } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { formatCurrency } from 'react-native-format-currency';
 
 export default function TournamentDetail() {
@@ -39,8 +38,6 @@ export default function TournamentDetail() {
     const [playoffRoundWidth, setPlayoffRoundWidth] = useState(0);
     const refreshControlProps = useRefreshControl(query);
     const [title, subtitle] = tournament?.name.split(': ') ?? [];
-    const theme = useAppTheme();
-    const { dark } = usePaperTheme();
     const [isNavbarTransparent, setIsNavbarTransparent] = useState(true);
     const [activeSlide, setActiveSlide] = useState(0);
     const countryCode = tournament?.location?.country?.code;

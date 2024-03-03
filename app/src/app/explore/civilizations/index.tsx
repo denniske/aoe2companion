@@ -10,6 +10,7 @@ import { TouchableOpacity, View } from 'react-native';
 
 import { getCivIconLocal } from '../../../helper/civs';
 import { getTranslation } from '../../../helper/translate';
+import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 
 type Mutable<Type> = {
     -readonly [Key in keyof Type]: Type[Key];
@@ -46,27 +47,29 @@ export default function CivList() {
     );
 
     return (
-        <View className="flex-1">
-            <Stack.Screen options={{ title: getTranslation('civs.title') }} />
+        <KeyboardAvoidingView>
+            <View className="flex-1">
+                <Stack.Screen options={{ title: getTranslation('civs.title') }} />
 
-            {appConfig.game === 'aoe2de' && (
-                <View className="pt-4 px-4">
-                    <Field
-                        type="search"
-                        placeholder={getTranslation('unit.search.placeholder')}
-                        onChangeText={(text) => setText(text)}
-                        value={text}
-                    />
-                </View>
-            )}
+                {appConfig.game === 'aoe2de' && (
+                    <View className="pt-4 px-4">
+                        <Field
+                            type="search"
+                            placeholder={getTranslation('unit.search.placeholder')}
+                            onChangeText={(text) => setText(text)}
+                            value={text}
+                        />
+                    </View>
+                )}
 
-            <FlatList
-                contentContainerStyle="p-4"
-                keyboardShouldPersistTaps="always"
-                data={orderCivs(list.filter((c) => c !== 'Indians'))}
-                renderItem={({ item, index }) => renderItem(item)}
-                keyExtractor={(item, index) => index.toString()}
-            />
-        </View>
+                <FlatList
+                    contentContainerStyle="p-4"
+                    keyboardShouldPersistTaps="always"
+                    data={orderCivs(list.filter((c) => c !== 'Indians'))}
+                    renderItem={({ item, index }) => renderItem(item)}
+                    keyExtractor={(item, index) => index.toString()}
+                />
+            </View>
+        </KeyboardAvoidingView>
     );
 }

@@ -238,6 +238,7 @@ function AppWrapper() {
 
     useEffect(() => {
         setColorScheme(finalDarkMode);
+        console.log(finalDarkMode === 'system' ? 'light' : finalDarkMode);
         setColorTwrncScheme(finalDarkMode === 'system' ? 'light' : finalDarkMode);
     }, [finalDarkMode]);
 
@@ -248,7 +249,6 @@ function AppWrapper() {
     }, [appIsReady]);
 
     useDeviceContext(tw, {
-        observeDeviceColorSchemeChanges: false,
         initialColorScheme: 'device',
     });
 

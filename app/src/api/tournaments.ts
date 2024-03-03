@@ -32,7 +32,12 @@ export const useAllTournaments = () =>
 export const useTournament = (id: string, enabled?: boolean) => {
     const [currentId, setCurrentId] = useState(id);
     const queryClient = useQueryClient();
-    const query = useQuery<TournamentDetail>({ queryKey: ['tournament', id], queryFn: async () => await liquipedia.aoe.getTournament(id), enabled });
+    const query = useQuery<TournamentDetail>({
+        queryKey: ['tournament', id],
+        staleTime: 120000,
+        queryFn: async () => await liquipedia.aoe.getTournament(id),
+        enabled,
+    });
 
     useEffect(() => {
         if (!query.isFetching) {

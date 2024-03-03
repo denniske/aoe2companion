@@ -118,7 +118,7 @@ function BottomSheetComponent({
                                             useNativeDriver: false,
                                         })}
                                         onEnded={(e) => {
-                                            const shouldClose = height - Number(e.nativeEvent.translationY) < 100;
+                                            const shouldClose = Number(e.nativeEvent.translationY) > 150;
 
                                             if (shouldClose) {
                                                 onClose?.();

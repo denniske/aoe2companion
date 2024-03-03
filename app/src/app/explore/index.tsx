@@ -3,6 +3,7 @@ import { Card } from '@app/components/card';
 import { Field } from '@app/components/field';
 import { FlatList } from '@app/components/flat-list';
 import { Icon, IconName } from '@app/components/icon';
+import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { Link } from '@app/components/link';
 import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
@@ -96,162 +97,169 @@ export default function Explore() {
         : [];
 
     return (
-        <View className="flex-1 pt-4  gap-5">
-            <Stack.Screen
-                options={{
-                    title: 'Explore',
-                    headerRight: () => (
-                        <Button icon="info-circle" href="/explore/tips">
-                            Tips
-                        </Button>
-                    ),
-                }}
-            />
-
-            <View className="px-4">
-                <Field type="search" value={search} onChangeText={setSearch} placeholder="Search for civs, units, buildings, or techs" />
-            </View>
-
-            {search ? (
-                <FlatList
-                    contentContainerStyle="px-4 pb-4"
-                    data={filteredData}
-                    ItemSeparatorComponent={() => <View className="h-[1px] bg-gray-200 dark:bg-gray-800 w-full" />}
-                    renderItem={({ item }) => <Result item={item} />}
+        <KeyboardAvoidingView>
+            <View className="flex-1 pt-4 gap-5">
+                <Stack.Screen
+                    options={{
+                        title: 'Explore',
+                        headerRight: () => (
+                            <Button icon="info-circle" href="/explore/tips">
+                                Tips
+                            </Button>
+                        ),
+                    }}
                 />
-            ) : (
-                <ScrollView className="flex-1" contentContainerStyle="gap-5 pb-4">
-                    <View className="gap-2">
-                        <View className="flex-row justify-between items-center px-4">
-                            <Text variant="header-lg">Civilizations</Text>
-                            <Link href="/explore/civilizations">View All</Link>
+
+                <View className="px-4">
+                    <Field type="search" value={search} onChangeText={setSearch} placeholder="Search for civs, units, buildings, or techs" />
+                </View>
+
+                {search ? (
+                    <FlatList
+                        keyboardShouldPersistTaps="handled"
+                        contentContainerStyle="px-4 pb-4"
+                        data={filteredData}
+                        ItemSeparatorComponent={() => <View className="h-[1px] bg-gray-200 dark:bg-gray-800 w-full" />}
+                        renderItem={({ item }) => <Result item={item} />}
+                    />
+                ) : (
+                    <ScrollView className="flex-1" contentContainerStyle="gap-5 pb-4" keyboardShouldPersistTaps="handled">
+                        <View className="gap-2">
+                            <View className="flex-row justify-between items-center px-4">
+                                <Text variant="header-lg">Civilizations</Text>
+                                <Link href="/explore/civilizations">View All</Link>
+                            </View>
+
+                            <FlatList
+                                showsHorizontalScrollIndicator={false}
+                                className="flex-none"
+                                horizontal
+                                keyboardShouldPersistTaps="always"
+                                data={orderCivs(civs.filter((c) => c !== 'Indians'))}
+                                contentContainerStyle="gap-2.5 px-4"
+                                renderItem={({ item: civ }) => (
+                                    <Card direction="vertical" className="w-20 items-center py-2.5 px-1 gap-1" href={`/explore/civilizations/${civ}`}>
+                                        <Image className="w-8 h-8" source={getCivIconLocal(civ)} contentFit="contain" />
+                                        <Text variant="label-sm" numberOfLines={1}>
+                                            {getCivNameById(civ)}
+                                        </Text>
+                                    </Card>
+                                )}
+                                keyExtractor={(item) => item}
+                            />
                         </View>
 
-                        <FlatList
-                            showsHorizontalScrollIndicator={false}
-                            className="flex-none"
-                            horizontal
-                            keyboardShouldPersistTaps="always"
-                            data={orderCivs(civs.filter((c) => c !== 'Indians'))}
-                            contentContainerStyle="gap-2.5 px-4"
-                            renderItem={({ item: civ }) => (
-                                <Card direction="vertical" className="w-20 items-center py-2.5 px-1 gap-1" href={`/explore/civilizations/${civ}`}>
-                                    <Image className="w-8 h-8" source={getCivIconLocal(civ)} contentFit="contain" />
-                                    <Text variant="label-sm" numberOfLines={1}>
-                                        {getCivNameById(civ)}
-                                    </Text>
-                                </Card>
-                            )}
-                            keyExtractor={(item) => item}
-                        />
-                    </View>
+                        <View className="gap-2">
+                            <View className="flex-row justify-between items-center px-4">
+                                <Text variant="header-lg">Units</Text>
+                                <Link href="/explore/units">View All</Link>
+                            </View>
 
-                    <View className="gap-2">
-                        <View className="flex-row justify-between items-center px-4">
-                            <Text variant="header-lg">Units</Text>
-                            <Link href="/explore/units">View All</Link>
+                            <FlatList
+                                showsHorizontalScrollIndicator={false}
+                                className="flex-none"
+                                horizontal
+                                keyboardShouldPersistTaps="always"
+                                data={allUnitSections}
+                                contentContainerStyle="gap-2.5 px-4"
+                                renderItem={({ item: { title, icon } }) => (
+                                    <Card
+                                        direction="vertical"
+                                        className="w-20 items-center py-2.5 px-1 gap-1"
+                                        href={`/explore/units?section=${title}`}
+                                    >
+                                        <Icon icon={icon as IconName} size={22} color="brand" />
+                                        <Text variant="label-sm" numberOfLines={1}>
+                                            {getTranslation(title as any)}
+                                        </Text>
+                                    </Card>
+                                )}
+                                keyExtractor={(item) => item.title}
+                            />
                         </View>
 
-                        <FlatList
-                            showsHorizontalScrollIndicator={false}
-                            className="flex-none"
-                            horizontal
-                            keyboardShouldPersistTaps="always"
-                            data={allUnitSections}
-                            contentContainerStyle="gap-2.5 px-4"
-                            renderItem={({ item: { title, icon } }) => (
-                                <Card direction="vertical" className="w-20 items-center py-2.5 px-1 gap-1" href={`/explore/units?section=${title}`}>
-                                    <Icon icon={icon as IconName} size={22} color="brand" />
-                                    <Text variant="label-sm" numberOfLines={1}>
-                                        {getTranslation(title as any)}
-                                    </Text>
-                                </Card>
-                            )}
-                            keyExtractor={(item) => item.title}
-                        />
-                    </View>
+                        <View className="gap-2">
+                            <View className="flex-row justify-between items-center px-4">
+                                <Text variant="header-lg">Buildings</Text>
+                                <Link href="/explore/buildings">View All</Link>
+                            </View>
 
-                    <View className="gap-2">
-                        <View className="flex-row justify-between items-center px-4">
-                            <Text variant="header-lg">Buildings</Text>
-                            <Link href="/explore/buildings">View All</Link>
+                            <FlatList
+                                showsHorizontalScrollIndicator={false}
+                                className="flex-none"
+                                horizontal
+                                keyboardShouldPersistTaps="always"
+                                data={buildingSections}
+                                contentContainerStyle="gap-2.5 px-4"
+                                renderItem={({ item: { title, icon } }) => (
+                                    <Card
+                                        direction="vertical"
+                                        className="w-20 items-center py-2.5 px-1 gap-1"
+                                        href={`/explore/buildings?section=${title}`}
+                                    >
+                                        <Icon icon={icon as IconName} size={22} color="brand" />
+                                        <Text variant="label-sm" numberOfLines={1}>
+                                            {getTranslation(title as any)}
+                                        </Text>
+                                    </Card>
+                                )}
+                                keyExtractor={(item) => item.title}
+                            />
                         </View>
 
-                        <FlatList
-                            showsHorizontalScrollIndicator={false}
-                            className="flex-none"
-                            horizontal
-                            keyboardShouldPersistTaps="always"
-                            data={buildingSections}
-                            contentContainerStyle="gap-2.5 px-4"
-                            renderItem={({ item: { title, icon } }) => (
-                                <Card
-                                    direction="vertical"
-                                    className="w-20 items-center py-2.5 px-1 gap-1"
-                                    href={`/explore/buildings?section=${title}`}
-                                >
-                                    <Icon icon={icon as IconName} size={22} color="brand" />
-                                    <Text variant="label-sm" numberOfLines={1}>
-                                        {getTranslation(title as any)}
-                                    </Text>
-                                </Card>
-                            )}
-                            keyExtractor={(item) => item.title}
-                        />
-                    </View>
+                        <View className="gap-2">
+                            <View className="flex-row justify-between items-center px-4">
+                                <Text variant="header-lg">Technologies</Text>
+                                <Link href="/explore/technologies">View All</Link>
+                            </View>
 
-                    <View className="gap-2">
-                        <View className="flex-row justify-between items-center px-4">
-                            <Text variant="header-lg">Technologies</Text>
-                            <Link href="/explore/technologies">View All</Link>
+                            <FlatList
+                                showsHorizontalScrollIndicator={false}
+                                className="flex-none"
+                                horizontal
+                                keyboardShouldPersistTaps="always"
+                                data={techSections}
+                                contentContainerStyle="gap-2.5 px-4"
+                                renderItem={({ item: { building, civ } }) => (
+                                    <Card
+                                        direction="vertical"
+                                        className="w-20 items-center py-2.5 px-1 gap-1"
+                                        href={`/explore/technologies?section=${building ?? civ}`}
+                                    >
+                                        <Image
+                                            className="w-8 h-8"
+                                            source={building ? getBuildingIcon(building) : getCivIconLocal(civ!)}
+                                            contentFit="contain"
+                                        />
+                                        <Text variant="label-sm" numberOfLines={1}>
+                                            {building ? getBuildingName(building).replace('Camp', '').replace('Range', '') : getCivNameById(civ!)}
+                                        </Text>
+                                    </Card>
+                                )}
+                                keyExtractor={(item) => item.building || item.civ!}
+                            />
                         </View>
 
-                        <FlatList
-                            showsHorizontalScrollIndicator={false}
-                            className="flex-none"
-                            horizontal
-                            keyboardShouldPersistTaps="always"
-                            data={techSections}
-                            contentContainerStyle="gap-2.5 px-4"
-                            renderItem={({ item: { building, civ } }) => (
-                                <Card
-                                    direction="vertical"
-                                    className="w-20 items-center py-2.5 px-1 gap-1"
-                                    href={`/explore/technologies?section=${building ?? civ}`}
-                                >
-                                    <Image
-                                        className="w-8 h-8"
-                                        source={building ? getBuildingIcon(building) : getCivIconLocal(civ!)}
-                                        contentFit="contain"
-                                    />
-                                    <Text variant="label-sm" numberOfLines={1}>
-                                        {building ? getBuildingName(building).replace('Camp', '').replace('Range', '') : getCivNameById(civ!)}
-                                    </Text>
-                                </Card>
-                            )}
-                            keyExtractor={(item) => item.building || item.civ!}
-                        />
-                    </View>
+                        <View className="gap-2">
+                            <View className="flex-row justify-between items-center px-4">
+                                <Text variant="header-lg">Build Orders</Text>
+                                <Link href="/explore/build-orders">View All</Link>
+                            </View>
 
-                    <View className="gap-2">
-                        <View className="flex-row justify-between items-center px-4">
-                            <Text variant="header-lg">Build Orders</Text>
-                            <Link href="/explore/build-orders">View All</Link>
+                            <FlatList
+                                showsHorizontalScrollIndicator={false}
+                                className="flex-none"
+                                horizontal
+                                keyboardShouldPersistTaps="always"
+                                data={sortedBuilds}
+                                contentContainerStyle="gap-2.5 px-4"
+                                renderItem={({ item }) => <BuildCard size="small" {...item} />}
+                                keyExtractor={(item) => item.id.toString()}
+                            />
                         </View>
-
-                        <FlatList
-                            showsHorizontalScrollIndicator={false}
-                            className="flex-none"
-                            horizontal
-                            keyboardShouldPersistTaps="always"
-                            data={sortedBuilds}
-                            contentContainerStyle="gap-2.5 px-4"
-                            renderItem={({ item }) => <BuildCard size="small" {...item} />}
-                            keyExtractor={(item) => item.id.toString()}
-                        />
-                    </View>
-                </ScrollView>
-            )}
-        </View>
+                    </ScrollView>
+                )}
+            </View>
+        </KeyboardAvoidingView>
     );
 }
