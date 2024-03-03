@@ -128,6 +128,7 @@ export default function Explore() {
                         </View>
 
                         <FlatList
+                            showsHorizontalScrollIndicator={false}
                             className="flex-none"
                             horizontal
                             keyboardShouldPersistTaps="always"
@@ -152,6 +153,7 @@ export default function Explore() {
                         </View>
 
                         <FlatList
+                            showsHorizontalScrollIndicator={false}
                             className="flex-none"
                             horizontal
                             keyboardShouldPersistTaps="always"
@@ -176,6 +178,7 @@ export default function Explore() {
                         </View>
 
                         <FlatList
+                            showsHorizontalScrollIndicator={false}
                             className="flex-none"
                             horizontal
                             keyboardShouldPersistTaps="always"
@@ -204,6 +207,7 @@ export default function Explore() {
                         </View>
 
                         <FlatList
+                            showsHorizontalScrollIndicator={false}
                             className="flex-none"
                             horizontal
                             keyboardShouldPersistTaps="always"
@@ -236,6 +240,7 @@ export default function Explore() {
                         </View>
 
                         <FlatList
+                            showsHorizontalScrollIndicator={false}
                             className="flex-none"
                             horizontal
                             keyboardShouldPersistTaps="always"
