@@ -41,9 +41,11 @@ export const Button: React.FC<ButtonProps> = ({ children, icon, onPress, href, s
             }}
         >
             {icon && <Icon color="text-white" icon={icon} size={14} />}
-            <Text variant={textSizes[size]} color={color} className="uppercase">
-                {children}
-            </Text>
+            {children && (
+                <Text variant={textSizes[size]} color={color} className="uppercase">
+                    {children}
+                </Text>
+            )}
         </TouchableOpacity>
     );
 };

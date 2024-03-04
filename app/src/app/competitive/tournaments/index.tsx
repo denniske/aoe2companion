@@ -1,4 +1,5 @@
 import { useRefreshControl, useTournaments, useUpcomingTournaments } from '@app/api/tournaments';
+import { Button } from '@app/components/button';
 import { Field } from '@app/components/field';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { SectionList } from '@app/components/section-list';
@@ -9,19 +10,15 @@ import { useAppTheme } from '@app/theming';
 import { DismissKeyboard } from '@app/view/components/dismiss-keyboard';
 import RefreshControlThemed from '@app/view/components/refresh-control-themed';
 import { TournamentCard } from '@app/view/tournaments/tournament-card';
-import { useHeaderHeight } from '@react-navigation/elements';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { Tournament, TournamentCategory } from 'liquipedia';
 import { orderBy } from 'lodash';
 import { useMemo, useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 // import { RootStackParamList } from '../../../App2';
 
 export default function TournamentsList() {
-    const headerHeight = useHeaderHeight();
-    const insets = useSafeAreaInsets();
     const params = useLocalSearchParams<{ league?: string }>();
     const { league } = params;
     const { data: tournaments = [], ...leagueQuery } = useTournaments(league as TournamentCategory | undefined);
@@ -83,7 +80,11 @@ export default function TournamentsList() {
             });
         }
 
-        return sections.length > 0 ? sections : query.isFetching ? [] : [{ title: getTranslation('tournaments.noresults'), data: [] }];
+        return sections.length > 0
+            ? sections
+            : query.isFetching || Platform.OS === 'web'
+              ? []
+              : [{ title: getTranslation('tournaments.noresults'), data: [] }];
     }, [league, allTournaments, tournaments, search, query.isFetching]);
 
     const refreshControlProps = useRefreshControl(query);
@@ -105,6 +106,16 @@ export default function TournamentsList() {
             <Stack.Screen options={{ title: league ? decodeURI(league).replaceAll('_', ' ') : getTranslation('tournaments.title') }} />
             <DismissKeyboard>
                 <SectionList
+                    ListEmptyComponent={
+                        Platform.OS === 'web' ? (
+                            <View className="items-center gap-4">
+                                <Text variant="label-lg">{getTranslation('tournaments.noweb')}</Text>
+                                <Button href="https://liquipedia.net/ageofempires/Portal:Tournaments">
+                                    {getTranslation('tournaments.gotoliquipedia')}
+                                </Button>
+                            </View>
+                        ) : null
+                    }
                     className="flex-1"
                     refreshControl={<RefreshControlThemed {...refreshControlProps} />}
                     ListHeaderComponent={listHeader}

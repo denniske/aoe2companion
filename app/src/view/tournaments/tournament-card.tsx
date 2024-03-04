@@ -1,4 +1,5 @@
 import { Card } from '@app/components/card';
+import { Skeleton, SkeletonText } from '@app/components/skeleton';
 import { Text } from '@app/components/text';
 import { format } from 'date-fns';
 import { Image } from 'expo-image';
@@ -9,6 +10,10 @@ import { formatPrizePool, formatTier, tournamentStatus } from '../../helper/tour
 import { getTranslation } from '../../helper/translate';
 
 export const TournamentCard: React.FC<Tournament & { subtitle?: string }> = (tournament) => {
+    if (!tournament.path) {
+        return <TournamentSkeletonCard />;
+    }
+
     const status = tournamentStatus(tournament);
     const start = tournament.start && format(tournament.start, 'LLL d');
     const endDate = tournament.end || tournament.start;
@@ -32,6 +37,22 @@ export const TournamentCard: React.FC<Tournament & { subtitle?: string }> = (tou
                         {tournament.subtitle}
                     </Text>
                 )}
+            </View>
+        </Card>
+    );
+};
+
+export const TournamentSkeletonCard = () => {
+    return (
+        <Card>
+            {Platform.OS !== 'web' && (
+                <View className="w-12 aspect-square items-center justify-center">
+                    <Skeleton className="w-10 aspect-square" />
+                </View>
+            )}
+            <View className="flex-1 gap-0.5">
+                <SkeletonText variant="header-sm" />
+                <SkeletonText variant="body-sm" />
             </View>
         </Card>
     );

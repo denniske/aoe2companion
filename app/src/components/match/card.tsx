@@ -12,6 +12,7 @@ import { Card } from '../card';
 import { Text } from '../text';
 import { Icon } from '../icon';
 import { MatchProps } from '.';
+import { Skeleton, SkeletonText } from '../skeleton';
 
 export interface MatchCardProps extends MatchProps {
     onPress?: () => void;
@@ -80,3 +81,21 @@ export function MatchCard(props: MatchCardProps) {
         </Card>
     );
 }
+
+export const MarchCardSkeleton = () => {
+    return (
+        <Card
+            header={
+                <View className="relative">
+                    <Skeleton className="w-14 h-14" />
+                </View>
+            }
+        >
+            <View className="flex-1">
+                <SkeletonText variant="header-sm" />
+                <SkeletonText />
+                <SkeletonText />
+            </View>
+        </Card>
+    );
+};

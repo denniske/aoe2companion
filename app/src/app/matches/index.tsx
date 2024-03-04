@@ -1,23 +1,21 @@
 import { Button } from '@app/components/button';
 import { FlatList } from '@app/components/flat-list';
+import { FollowedPlayers } from '@app/components/followed-players';
 import { Match } from '@app/components/match';
 import { Text } from '@app/components/text';
 import FlatListLoadingIndicator from '@app/view/components/flat-list-loading-indicator';
 import { Game } from '@app/view/components/game';
 import { MyText } from '@app/view/components/my-text';
-import PlayerList from '@app/view/components/player-list';
 import { ProfileLive } from '@app/view/components/profile';
 import RefreshControlThemed from '@app/view/components/refresh-control-themed';
-import { RouteProp, useNavigation, useNavigationState } from '@react-navigation/native';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { Link, Stack, router } from 'expo-router';
 import { flatten, orderBy, uniq } from 'lodash';
 import React, { useEffect, useState } from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { Platform, View } from 'react-native';
 
-import { RootStackParamList, RootStackProp } from '../../../App2';
-import { fetchMatches, fetchProfiles } from '../../api/helper/api';
-import { IMatchNew, IPlayerNew, IProfilesResultProfile } from '../../api/helper/api.types';
+import { fetchMatches } from '../../api/helper/api';
+import { IMatchNew, IPlayerNew } from '../../api/helper/api.types';
 import { isElectron, useLastNotificationReceivedElectron } from '../../helper/electron';
 import { getTranslation } from '../../helper/translate';
 import { openLink } from '../../helper/url';
@@ -36,32 +34,11 @@ export function feedTitle(props: any) {
 }
 
 export default function Matches() {
-    const navigation = useNavigation<RootStackProp>();
-
     const [refetching, setRefetching] = useState(false);
 
-    const state = useNavigationState((state) => state);
-    const activeRoute = state.routes[state.index] as RouteProp<RootStackParamList, 'Feed'>;
-    const isActiveRoute = activeRoute.name === 'Feed' && activeRoute.params?.action == null;
+    const isActiveRoute = true;
 
     const auth = useSelector((state) => state.auth);
-    const [authProfile, setAuthProfile] = useState<IProfilesResultProfile>();
-
-    const completeUserIdInfo = async () => {
-        const loadedProfiles = await fetchProfiles({ profileId: auth?.profileId });
-        if (loadedProfiles) {
-            const profile = loadedProfiles.profiles?.[0];
-            setAuthProfile(profile);
-        }
-    };
-
-    useEffect(() => {
-        if (auth?.profileId) {
-            completeUserIdInfo();
-        } else {
-            setAuthProfile(undefined);
-        }
-    }, [auth]);
     const following = useSelector((state) => state.following);
     const profileIds = following?.map((f) => f.profileId);
     if (auth) {
@@ -110,7 +87,7 @@ export default function Matches() {
         fetchNextPage();
     };
 
-    const list = data?.pages?.flatMap((p) => p.matches) ?? [];
+    const list = data?.pages?.flatMap((p) => p.matches) || Array(15).fill(null);
 
     const _renderFooter = () => {
         if (!isFetchingNextPage) return null;
@@ -154,15 +131,8 @@ export default function Matches() {
                     ),
                 }}
             />
-            <View className="gap-2 pb-5 pt-4">
-                <Text variant="header-lg" className="px-4">
-                    Followed Players
-                </Text>
-                <PlayerList
-                    variant="horizontal"
-                    list={[authProfile || 'select', ...following, 'follow']}
-                    selectedUser={(user) => router.navigate(`/matches/users/${user.profileId}`)}
-                />
+            <View className="pb-5 pt-4">
+                <FollowedPlayers />
             </View>
 
             <Text variant="header-lg" className="px-4">
@@ -179,7 +149,7 @@ export default function Matches() {
                         </View>
                     </View>
                 </View>
-            ) : following?.length === 0 || list.length === 0 ? (
+            ) : profileIds?.length === 0 || list.length === 0 ? (
                 <View className="flex-1 p-4 gap-1">
                     <Text variant="label">{getTranslation('feed.following.info.1')}</Text>
                     <Link href="/matches/users/follow">
@@ -197,15 +167,15 @@ export default function Matches() {
                             const match = item as IMatchNew;
 
                             if (match == null) {
-                                return <Game match={item} />;
+                                return <Match match={item} />;
                             }
 
                             const players = flatten(match.teams.map((t) => t.players));
                             const filteredPlayers = filterAndSortPlayers(players);
                             const len = filteredPlayers.length;
 
-                            if (len == 0) {
-                                return <Game match={item} />;
+                            if (len === 0) {
+                                return <Match match={item} />;
                             }
 
                             let samePlayers = false;
@@ -282,10 +252,7 @@ export default function Matches() {
                                                 </MyText>
                                             )}
                                             {Platform.OS === 'web' && !match.finished && (
-                                                <MyText style={styles.player} onPress={() => spectate(match.matchId)}>
-                                                    {' '}
-                                                    (Spectate)
-                                                </MyText>
+                                                <MyText onPress={() => spectate(match.matchId)}> (Spectate)</MyText>
                                             )}
                                         </Text>
                                     )}

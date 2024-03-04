@@ -1,4 +1,4 @@
-import { addDays, endOfDay, isPast, startOfDay } from 'date-fns';
+import { endOfDay, isPast, startOfDay } from 'date-fns';
 import { Age2TournamentCategory, Tournament, TournamentCategory } from 'liquipedia';
 import { startCase } from 'lodash';
 import { formatCurrency } from 'react-native-format-currency';
@@ -18,8 +18,13 @@ export const sortByTier = (tournament: Tournament) => {
     ];
     return sortedTiers.indexOf(tournament.tier);
 };
+export const sortByStatus = (tournament: Tournament) => {
+    const status = tournamentStatus(tournament);
+    const sortedStatuses = ['ongoing', 'upcoming', 'past'];
+    return sortedStatuses.indexOf(status);
+};
 
-export const transformSearch = (string: string) => string.toLowerCase().replace(/\'/g, '').replace(/\W/g, ' ').replace(/ +/g, ' ');
+export const transformSearch = (string: string) => string.toLowerCase().replace(/'/g, '').replace(/\W/g, ' ').replace(/ +/g, ' ');
 export const tournamentAbbreviation = (string: string) =>
     string
         .match(/\b([A-Z0-9])/g)

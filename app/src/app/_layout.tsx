@@ -154,6 +154,7 @@ function AppWrapper() {
     const { setColorScheme } = useTailwindColorScheme();
     const [, , setColorTwrncScheme] = useAppColorScheme(tw);
     const [scrollPosition, setScrollPosition] = useState(0);
+    const [scrollToTop, setScrollToTop] = useState<string>();
 
     const [appIsReady, setAppIsReady] = useState(false);
     const loadedLanguages = useSelector((state) => state.loadedLanguages);
@@ -240,7 +241,6 @@ function AppWrapper() {
 
     useEffect(() => {
         setColorScheme(finalDarkMode);
-        console.log(finalDarkMode === 'system' ? 'light' : finalDarkMode);
         setColorTwrncScheme(finalDarkMode === 'system' ? 'light' : finalDarkMode);
     }, [finalDarkMode]);
 
@@ -305,8 +305,8 @@ function AppWrapper() {
                     <ApplicationProvider {...eva} theme={finalDarkMode === 'light' ? eva.light : eva.dark}>
                         <QueryClientProvider client={queryClient}>
                             <ThemeProvider value={finalDarkMode === 'dark' ? customDarkTheme : customTheme}>
-                                <ScrollContext.Provider value={{ setScrollPosition }}>
-                                    <ScrollableContext.Provider value={{ scrollPosition }}>
+                                <ScrollContext.Provider value={{ setScrollPosition, scrollToTop }}>
+                                    <ScrollableContext.Provider value={{ scrollPosition, setScrollToTop }}>
                                         <View
                                             className={`bg-gold-50 dark:bg-blue-950 ${Platform.OS === 'web' && !isElectron() ? `overflow-hidden w-[450px] max-w-full h-[900px] mx-auto my-auto ${isMobile ? '' : 'border border-gray-200 dark:border-gray-800'} rounded-lg` : 'flex-1'}`}
                                             style={{ paddingTop: insets.top }}

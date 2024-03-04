@@ -1,5 +1,3 @@
-import { TextStyle } from 'react-native';
-
 export type TextColor = 'default' | 'brand' | 'subtle' | string;
 export type TextVariant =
     | 'body-xs'

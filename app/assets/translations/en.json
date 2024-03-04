@@ -404,6 +404,8 @@
   "tournaments.title": "Tournaments",
   "tournaments.search": "Search Tournaments",
   "tournaments.noresults": "No Results Found",
+  "tournaments.noweb": "Visit Liquipedia to view tournaments on the web",
+  "tournaments.gotoliquipedia": "Go to Liquipedia",
   "tournaments.loading": "Loading...",
   "tournaments.live": "Live!",
   "tournaments.tbd": "TBD",

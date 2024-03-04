@@ -4,10 +4,10 @@ import {sleep, time} from '@nex/data';
 
 export async function fetchJson(title: string, input: RequestInfo, init?: RequestInit) {
     if (init) {
-        console.log(input);
+        // console.log(input);
         // console.log(input, init);
     } else {
-        console.log(input);
+        // console.log(input);
     }
 
     const timeLastDate = new Date();
@@ -16,10 +16,10 @@ export async function fetchJson(title: string, input: RequestInfo, init?: Reques
     try {
         response = await fetch(input, init);
         const json = await response.json();
-        console.log(input, new Date().getTime() - timeLastDate.getTime());
+        // console.log(input, new Date().getTime() - timeLastDate.getTime());
         return json;
     } catch (e) {
-        console.log(input, 'failed', response?.status);
+        // console.log(input, 'failed', response?.status);
         if (response?.status !== 400)
         {
             await sleep(Math.random() * 100);
@@ -40,9 +40,9 @@ export async function fetchJson(title: string, input: RequestInfo, init?: Reques
 
 export async function fetchJson2(title: string, input: RequestInfo, init?: RequestInit, reviver?: any) {
     if (init) {
-        console.log('fetchJson2', input, init);
+        // console.log('fetchJson2', input, init);
     } else {
-        console.log('fetchJson2', input);
+        // console.log('fetchJson2', input);
     }
 
     let response = null;
@@ -63,8 +63,8 @@ export async function fetchJson2(title: string, input: RequestInfo, init?: Reque
                 status: response?.status,
             },
         })));
-        console.log(input, 'failed', response?.status);
-        console.log(text);
+        // console.log(input, 'failed', response?.status);
+        // console.log(text);
         throw e;
     }
 }

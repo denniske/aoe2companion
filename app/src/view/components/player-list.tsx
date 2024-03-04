@@ -11,6 +11,7 @@ import { TouchableOpacity, View } from 'react-native';
 
 import { CountryImage } from './country-image';
 import { useCavy } from '../testing/tester';
+import { Skeleton, SkeletonText } from '@app/components/skeleton';
 
 export interface IPlayerListPlayer {
     country: string;
@@ -21,7 +22,7 @@ export interface IPlayerListPlayer {
 }
 
 interface IPlayerProps<PlayerType extends IPlayerListPlayer> {
-    player: PlayerType | 'select' | 'follow';
+    player: PlayerType | 'select' | 'follow' | 'loading';
     selectedUser?: (user: any) => void;
     actionText?: string;
     action?: (player: PlayerType) => React.ReactNode;
@@ -31,6 +32,21 @@ interface IPlayerProps<PlayerType extends IPlayerListPlayer> {
 function Player<PlayerType extends IPlayerListPlayer>({ player, selectedUser, actionText, action, variant }: IPlayerProps<PlayerType>) {
     const generateTestHook = useCavy();
     const auth = useSelector((state) => state.auth);
+
+    if (player === 'loading') {
+        return (
+            <Card direction="vertical" className="items-center justify-center gap-0 pt-1 pb-2 px-2.5 w-20">
+                <View className="w-[29px] h-[28px] items-center justify-center">
+                    <Skeleton className="w-6 h-6" />
+                </View>
+                <View className="flex-row gap-1 items-center">
+                    <SkeletonText variant="body-sm" />
+                </View>
+
+                <SkeletonText variant="body-xs" />
+            </Card>
+        );
+    }
 
     if (player === 'select') {
         return (
