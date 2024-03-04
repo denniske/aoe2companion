@@ -1,4 +1,4 @@
-import { useScrollable } from '@app/hooks/use-scrollable';
+import { useScroll, useScrollable } from '@app/hooks/use-scrollable';
 import tw from '@app/tailwind';
 import { textColors } from '@app/utils/text.util';
 import { IconName } from '@fortawesome/fontawesome-svg-core';
@@ -23,6 +23,7 @@ export const TabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, naviga
             : [tw.color('gold-50/0') ?? 'white', tw.color('gold-50/90') ?? 'white'];
 
     const { scrollPosition, setScrollToTop } = useScrollable();
+    const { setScrollPosition } = useScroll();
     const showTabBar = scrollPosition === 0;
     const opacity = useRef(new Animated.Value(1)).current;
 
@@ -40,15 +41,21 @@ export const TabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, naviga
             <Animated.View
                 className="absolute px-4 pb-2 w-full"
                 style={{ bottom, opacity: opacity.interpolate({ inputRange: [0, 1], outputRange: [1, 0] }) }}
-                pointerEvents={!showTabBar ? 'auto' : 'none'}
+                pointerEvents="box-none"
             >
-                <View style={{ height: 74 }} className="items-center justify-center">
-                    <Button
-                        className="h-10 w-10 items-center justify-center rounded-full shadow-lg"
-                        icon="arrow-up"
-                        style={shadow}
-                        onPress={() => setScrollToTop(uuidv4())}
-                    />
+                <View style={{ height: 74 }} className="items-center justify-center" pointerEvents="box-none">
+                    <View pointerEvents={!showTabBar ? 'auto' : 'none'}>
+                        <Button
+                            className="h-10 w-10 items-center justify-center rounded-full shadow-lg"
+                            icon="arrow-up"
+                            style={shadow}
+                            hitSlop={10}
+                            onPress={() => {
+                                setScrollPosition(0);
+                                setScrollToTop(uuidv4());
+                            }}
+                        />
+                    </View>
                 </View>
             </Animated.View>
             <Animated.View className="absolute px-4 pb-2 w-full" style={{ bottom, opacity }} pointerEvents={showTabBar ? 'auto' : 'none'}>
