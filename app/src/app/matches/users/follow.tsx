@@ -5,19 +5,21 @@ import { setFollowing, useMutate, useSelector } from '@app/redux/reducer';
 import { toggleFollowing } from '@app/service/following';
 import { IPlayerListPlayer } from '@app/view/components/player-list';
 import Search from '@app/view/components/search';
-import { Stack, router } from 'expo-router';
-import { useState } from 'react';
+import { router, useNavigation } from 'expo-router';
+import { useEffect, useState } from 'react';
 
 export default function Follow() {
-    return (
-        <>
-            <Stack.Screen options={{ title: 'Follow Player' }} />
+    const navigation = useNavigation();
 
-            <Search
-                selectedUser={(user) => router.navigate(`/matches/users/${user.profileId}`)}
-                action={(user: IProfilesResultProfile) => <FeedAction user={user} />}
-            />
-        </>
+    useEffect(() => {
+        navigation.setOptions({ title: 'Follow Player' });
+    }, [navigation]);
+
+    return (
+        <Search
+            selectedUser={(user) => router.navigate(`/matches/users/${user.profileId}`)}
+            action={(user: IProfilesResultProfile) => <FeedAction user={user} />}
+        />
     );
 }
 

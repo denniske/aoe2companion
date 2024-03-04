@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
     },
     imageInner2: {
-        alignSelf: 'flex-end',
+        // alignSelf: 'flex-end',
     },
     imageText: {
         fontSize: 20,

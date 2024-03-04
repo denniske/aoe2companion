@@ -28,7 +28,7 @@ export const useUpcomingTournaments = () =>
 export const useFeaturedTournament = () => {
     const { data: tournaments } = useUpcomingTournaments();
 
-    return orderBy(tournaments, [sortByStatus, sortByTier], ['asc', 'asc'])[0];
+    return orderBy(tournaments, [sortByTier, sortByStatus], ['asc', 'asc'])[0];
 };
 
 export const useAllTournaments = () =>

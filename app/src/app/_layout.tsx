@@ -58,6 +58,11 @@ SplashScreen.preventAutoHideAsync();
 
 initSentry();
 
+export const unstable_settings = {
+    // Ensure any route can link back to `/`
+    initialRouteName: 'index',
+};
+
 try {
     Notifications.setNotificationHandler({
         handleNotification: async () => ({
