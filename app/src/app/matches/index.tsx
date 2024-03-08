@@ -207,6 +207,9 @@ export default function Matches() {
                             if (allFilteredPlayersSameResult) {
                                 relevantUser = filteredPlayers[0];
                             }
+                            if (!match.finished) {
+                                relevantUser = filteredPlayers[0];
+                            }
 
                             return (
                                 <View>
