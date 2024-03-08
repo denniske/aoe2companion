@@ -1,22 +1,28 @@
-import { View, StyleSheet, TextStyle } from 'react-native';
+import { Text } from '@app/components/text';
+import tw from '@app/tailwind';
+import { TextVariant } from '@app/utils/text.util';
 import { Image } from 'expo-image';
 import { GroupParticipant as IGroupParticipant } from 'liquipedia';
-import { MyText } from '../../components/my-text';
-import { createStylesheet } from '../../../theming-new';
-import { getTranslation } from '../../../helper/translate';
+import { View, StyleSheet, TextStyle } from 'react-native';
 
-export const Score: React.FC<{ score: IGroupParticipant['gameScore']; style?: TextStyle }> = ({ score = { win: 0, loss: 0, draw: 0 }, style }) => {
-    const styles = useStyles();
+import { getTranslation } from '../../../helper/translate';
+import { createStylesheet } from '../../../theming-new';
+
+export const Score: React.FC<{ score: IGroupParticipant['gameScore']; style?: TextStyle; variant?: TextVariant }> = ({
+    score = { win: 0, loss: 0, draw: 0 },
+    style,
+    variant,
+}) => {
     const win = score.win;
     const draw = score.draw > 0 ? `-${score.draw}` : '';
     const loss = `-${score.loss}`;
 
     return (
-        <MyText style={[styles.text, style]}>
+        <Text variant={variant} style={style}>
             {win}
             {loss}
             {draw}
-        </MyText>
+        </Text>
     );
 };
 
@@ -29,21 +35,25 @@ const statusColors: Record<IGroupParticipant['status'], string> = {
 
 export const GroupParticipant: React.FC<{ participant: IGroupParticipant }> = ({ participant }) => {
     const styles = useStyles();
+    const backgroundColor = statusColors[participant.status];
+    const textColor = backgroundColor ? 'black' : (tw.style('text-black dark:text-white').color as string);
 
     return (
         <View style={[styles.participant, { backgroundColor: statusColors[participant.status] }]}>
             <View style={styles.nameContainer}>
                 {participant.image && <Image source={{ uri: participant.image }} style={styles.participantImage} />}
-                <MyText style={styles.text}>{participant.name || getTranslation('tournaments.tbd')}</MyText>
+                <Text style={{ color: textColor }}>{participant.name || getTranslation('tournaments.tbd')}</Text>
             </View>
             <View style={styles.cell}>
-                <Score style={styles.bold} score={participant.matchScore} />
+                <Score style={{ color: textColor }} variant="label" score={participant.matchScore} />
             </View>
             <View style={styles.cell}>
-                <Score score={participant.gameScore} />
+                <Score style={{ color: textColor }} score={participant.gameScore} />
             </View>
             <View style={styles.cell}>
-                <MyText style={[styles.text, styles.bold]}>{participant.points}</MyText>
+                <Text variant="label" style={{ color: textColor }}>
+                    {participant.points}
+                </Text>
             </View>
         </View>
     );
@@ -76,12 +86,6 @@ const useStyles = createStylesheet((theme) =>
         cell: {
             flex: 1,
             alignItems: 'center',
-        },
-        bold: {
-            fontWeight: '600',
-        },
-        text: {
-            color: 'black',
         },
     })
 );
