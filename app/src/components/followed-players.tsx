@@ -6,6 +6,7 @@ import { router } from 'expo-router';
 import { View } from 'react-native';
 
 import { Text } from './text';
+import { uniqBy } from 'lodash';
 
 export const FollowedPlayers = () => {
     const following = useSelector((state) => state.following);
@@ -37,7 +38,10 @@ export const FollowedPlayers = () => {
             </Text>
             <PlayerList
                 variant="horizontal"
-                list={[profileId ? authProfile || 'loading' : 'select', ...following, 'follow']}
+                showsHorizontalScrollIndicator={false}
+                list={uniqBy([profileId ? authProfile || 'loading' : 'select', ...following, 'follow'] as const, (profile) =>
+                    typeof profile === 'string' ? profile : profile.profileId
+                )}
                 selectedUser={(user) => router.navigate(`/matches/users/${user.profileId}`)}
             />
         </View>

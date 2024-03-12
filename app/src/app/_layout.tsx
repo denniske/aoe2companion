@@ -335,6 +335,7 @@ function AppWrapper() {
                                                 <Tabs.Screen name="competitive" options={{ tabBarLabel: 'Pros', tabBarIcon: () => 'ranking-star' }} />
                                                 <Tabs.Screen name="(more)" options={{ tabBarLabel: 'More', tabBarIcon: () => 'bars' }} />
                                                 <Tabs.Screen name="[...unmatched]" options={{ href: null }} />
+                                                <Tabs.Screen name="guide/[id]" options={{ href: null }} />
                                                 <Tabs.Screen name="_sitemap" options={{ href: null }} />
                                             </Tabs>
                                         </View>
