@@ -145,7 +145,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '93.0.0': [
+    '94.0.0': [
         {
             type: 'feature',
             title: 'New App Design',

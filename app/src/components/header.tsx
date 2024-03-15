@@ -31,9 +31,9 @@ export const Header: React.FC<NativeStackHeaderProps | (BottomTabHeaderProps & {
                 </Text>
             )}
             <View className={`flex-row items-center gap-2 ${back ? 'flex-1 justify-end' : ''}`}>{options.headerRight?.({ canGoBack: !!back })}</View>
-            <View className="absolute top-0 right-1 w-full flex-row justify-end">
-                <NativeHeader />
-            </View>
+            {/*<View className="absolute top-0 right-1 w-full flex-row justify-end">*/}
+            {/*    <NativeHeader />*/}
+            {/*</View>*/}
         </View>
     );
 };
