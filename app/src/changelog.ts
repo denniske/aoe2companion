@@ -145,6 +145,17 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '93.0.0': [
+        {
+            type: 'feature',
+            title: 'New App Design',
+            author: '[Noah Brandyberry](https://github.com/noahbrandyberry)',
+        },
+        {
+            type: 'minor',
+            title: 'Implemented [AoE II DE Update 107882](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-107882/)',
+        },
+    ],
     '90.0.0': [
         {
             type: 'bugfix',
