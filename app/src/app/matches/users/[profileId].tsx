@@ -91,9 +91,7 @@ export default function UserPage() {
     // console.log(auth);
     // console.log(profileId);
 
-    const generateTestHook = useCavy();
     const navigation = useNavigation<RootStackProp>();
-    generateTestHook('Navigation')(navigation);
 
     const onSelect = async (user: any) => {
         await saveSettingsToStorage({

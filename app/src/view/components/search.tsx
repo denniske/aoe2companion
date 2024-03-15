@@ -11,16 +11,18 @@ import { getTranslation } from '../../helper/translate';
 import useDebounce from '../../hooks/use-debounce';
 import { useLazyApi } from '../../hooks/use-lazy-api';
 import { loadUser, loadUserByProfileId, loadUserBySteamId } from '../../service/user';
+import { useCavy } from '@app/view/testing/tester';
 
 interface ISearchProps {
     title?: string;
     selectedUser?: (user: any) => void;
     actionText?: string;
     action?: (player: IProfilesResultProfile) => React.ReactNode;
+    initialText?: string;
 }
 
-export default function Search({ title, selectedUser, actionText, action }: ISearchProps) {
-    const [text, setText] = useState('');
+export default function Search({ title, selectedUser, actionText, action, initialText }: ISearchProps) {
+    const [text, setText] = useState(initialText ?? '');
     const [fetchingMore, setFetchingMore] = useState(false);
     const [fetchedAll, setFetchedAll] = useState(false);
     const [fetching, setFetching] = useState(false);
@@ -105,7 +107,7 @@ export default function Search({ title, selectedUser, actionText, action }: ISea
             {title && <Text className="pt-4 text-center">{title}</Text>}
 
             <View className="px-4 py-4">
-                <Field placeholder={getTranslation('search.placeholder')} type="search" autoFocus onChangeText={setText} value={text} />
+                <Field placeholder={getTranslation('search.placeholder')} type="search" autoFocus={!initialText} onChangeText={setText} value={text} />
             </View>
 
             <PlayerList
