@@ -19,6 +19,18 @@ const sentryConfigPlugin = [
     }
 ];
 
+const version = '95.0.0';
+const versionParts = version.split('.');
+
+const runtimeVersion = versionParts[0] + '.' + versionParts[1] + '.0';
+
+const runtimeVersionParts = runtimeVersion.split('.');
+const runtimeVersionCode = runtimeVersionParts[0] + runtimeVersionParts[1].padStart(2, '0') + runtimeVersionParts[2].padStart(2, '0');
+
+console.log('Version: ' + version);
+console.log('Runtime version: ' + runtimeVersion);
+console.log('Runtime version code: ' + runtimeVersionCode);
+
 const isProdBuild = process.env.EAS_BUILD_PROFILE?.includes('production');
 const isRunningInEasCI = process.env.EAS_BUILD_RUNNER === 'eas-build';
 const sentryConfigPlugins = isProdBuild && isRunningInEasCI ? [sentryConfigPlugin] : [];
@@ -61,8 +73,8 @@ export default {
         },
         "userInterfaceStyle": "automatic",
         "jsEngine": "hermes",
-        "runtimeVersion": "94.0.0",
-        "version": "94.0.0",
+        "runtimeVersion": runtimeVersion,
+        "version": version,
         "orientation": "portrait",
         "privacy": "public",
         "githubUrl": "https://github.com/denniske/aoe2companion",
@@ -140,7 +152,7 @@ export default {
                 "foregroundImage": "./app/assets/icon-adaptive.png"
             },
             "package": "com.aoe2companion",
-            "versionCode": 940000,
+            "versionCode": runtimeVersionCode,
             "permissions": [],
             "googleServicesFile": "./google-services2.json",
             "splash": splash,
@@ -149,7 +161,7 @@ export default {
             "userInterfaceStyle": "automatic",
             "icon": "./app/assets/icon-adaptive-no-alpha.png",
             "bundleIdentifier": "com.aoe2companion",
-            "buildNumber": "89.0.0",
+            "buildNumber": runtimeVersion,
             "supportsTablet": false,
             "config": {
                 "usesNonExemptEncryption": false
