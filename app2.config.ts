@@ -27,9 +27,9 @@ const runtimeVersion = versionParts[0] + '.' + versionParts[1] + '.0';
 const runtimeVersionParts = runtimeVersion.split('.');
 const runtimeVersionCode = runtimeVersionParts[0] + runtimeVersionParts[1].padStart(2, '0') + runtimeVersionParts[2].padStart(2, '0');
 
-console.log('Version: ' + version);
-console.log('Runtime version: ' + runtimeVersion);
-console.log('Runtime version code: ' + runtimeVersionCode);
+// console.log('Version: ' + version);
+// console.log('Runtime version: ' + runtimeVersion);
+// console.log('Runtime version code: ' + runtimeVersionCode);
 
 const isProdBuild = process.env.EAS_BUILD_PROFILE?.includes('production');
 const isRunningInEasCI = process.env.EAS_BUILD_RUNNER === 'eas-build';
