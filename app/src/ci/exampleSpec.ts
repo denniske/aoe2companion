@@ -41,50 +41,50 @@ export default function (spec: any) {
             route = `/matches`;
             router.navigate(route);
             await sleep(waitTime*2);
-            await capture(routeToScreenshotName(route));
+            await capture('1-' + routeToScreenshotName(route));
             await sleep(1000);
 
-            // route = `/matches/users/select?search=Hera`;
-            // router.navigate(route);
-            // await sleep(waitTime*2);
-            // await capture(routeToScreenshotName(route));
-            // await sleep(1000);
-            //
-            // route = `/matches/users/199325`;
-            // router.navigate(route);
-            // await sleep(waitTime*3);
-            // await capture(routeToScreenshotName(route));
-            // await sleep(1000);
-            //
-            // route = `/matches/users/199325?tab=MainStats`;
-            // router.navigate(route);
-            // await sleep(waitTime*2);
-            // await capture(routeToScreenshotName(route));
-            // await sleep(1000);
-            //
-            // route = `/matches/users/199325?tab=MainMatches`;
-            // router.navigate(route);
-            // await sleep(waitTime*2);
-            // await capture(routeToScreenshotName(route));
-            // await sleep(1000);
-            //
-            // route = `/statistics/leaderboard`;
-            // router.navigate(route);
-            // await sleep(waitTime*2);
-            // await capture(routeToScreenshotName(route));
-            // await sleep(1000);
-            //
-            // route = `/explore/civilizations/Aztecs`;
-            // router.navigate(route);
-            // await sleep(waitTime*2);
-            // await capture(routeToScreenshotName(route));
-            // await sleep(1000);
-            //
-            // route = `/explore/build-orders/17?focusMode=true`;
-            // router.navigate(route);
-            // await sleep(waitTime*2);
-            // await capture(routeToScreenshotName(route));
-            // await sleep(1000);
+            route = `/matches/users/select?search=Hera`;
+            router.navigate(route);
+            await sleep(waitTime*2);
+            await capture('2-' + routeToScreenshotName(route));
+            await sleep(1000);
+
+            route = `/matches/users/199325`;
+            router.navigate(route);
+            await sleep(waitTime*3);
+            await capture('3-' + routeToScreenshotName(route));
+            await sleep(1000);
+
+            route = `/matches/users/199325?tab=MainStats`;
+            router.navigate(route);
+            await sleep(waitTime*2);
+            await capture('4-' + routeToScreenshotName(route));
+            await sleep(1000);
+
+            route = `/matches/users/199325?tab=MainMatches`;
+            router.navigate(route);
+            await sleep(waitTime*2);
+            await capture('5-' + routeToScreenshotName(route));
+            await sleep(1000);
+
+            route = `/statistics/leaderboard`;
+            router.navigate(route);
+            await sleep(waitTime*2);
+            await capture('6-' + routeToScreenshotName(route));
+            await sleep(1000);
+
+            route = `/explore/civilizations/Aztecs`;
+            router.navigate(route);
+            await sleep(waitTime*2);
+            await capture('7-' + routeToScreenshotName(route));
+            await sleep(1000);
+
+            route = `/explore/build-orders/17?focusMode=true`;
+            router.navigate(route);
+            await sleep(waitTime*2);
+            await capture('8-' + routeToScreenshotName(route));
+            await sleep(1000);
         });
     });
 }
