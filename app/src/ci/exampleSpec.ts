@@ -10,16 +10,19 @@ function sleep(ms: number) {
 
 async function capture(name: string) {
     console.log('CAPTURE', name);
-    await captureImage('screen-' + name);
+    await captureImage(name);
 }
 
 const waitTime = 2000;
 
 function routeToScreenshotName(route: string) {
+    route = route.replace(/^\//g, '');
     route = route.replace(/\//g, '-');
-    if (route.includes('?')) {
-        route = route.substring(0, route.indexOf('?'));
-    }
+    route = route.replace(/\?/g, '-');
+    route = route.replace(/=/g, '-');
+    // if (route.includes('?')) {
+    //     route = route.substring(0, route.indexOf('?'));
+    // }
     return route;
 }
 
@@ -35,89 +38,53 @@ export default function (spec: any) {
 
             let route: string;
 
-            // route = `/matches/users/select?search=Hera`;
-            // router.navigate(route);
-            // await sleep(waitTime*2);
-            // await capture(routeToScreenshotName(route));
-            // await sleep(1000);
-
-            // route = `/matches/users/select?search=Hera`;
-            // router.navigate(route);
-            // await sleep(waitTime*2);
-            // await capture(routeToScreenshotName(route));
-            // await sleep(1000);
-
-            // route = `/matches/users/199325`;
-            // router.navigate(route);
-            // await sleep(waitTime*2);
-            // await capture(routeToScreenshotName(route));
-            // await sleep(1000);
-
-            // route = `/statistics/leaderboard`;
-            // router.navigate(route);
-            // await sleep(waitTime*2);
-            // await capture(routeToScreenshotName(route));
-            // await sleep(1000);
-
-            // route = `/explore/civilizations/Aztecs`;
-            // router.navigate(route);
-            // await sleep(waitTime*2);
-            // await capture(routeToScreenshotName(route));
-            // await sleep(1000);
-
-            route = `/explore/build-orders/17`;
+            route = `/matches`;
             router.navigate(route);
             await sleep(waitTime*2);
             await capture(routeToScreenshotName(route));
             await sleep(1000);
 
-            return;
-
-            // tabNavigation.navigate('MainStats' as any);
+            // route = `/matches/users/select?search=Hera`;
+            // router.navigate(route);
             // await sleep(waitTime*2);
-            // await capture();
-            //
-            // tabNavigation.navigate('MainMatches' as any);
-            // await sleep(waitTime);
-            // await capture();
-
-            // navigation.navigate('Search', {});
+            // await capture(routeToScreenshotName(route));
             // await sleep(1000);
             //
-            // await spec.exists('Search.Input');
-            // await spec.fillIn('Search.Input', 'baratticus');
-            // await sleep(waitTime);
+            // route = `/matches/users/199325`;
+            // router.navigate(route);
+            // await sleep(waitTime*3);
+            // await capture(routeToScreenshotName(route));
+            // await sleep(1000);
             //
-            // await spec.exists('Search.Player.76561198116899512-336655');
-            // await spec.press('Search.Player.76561198116899512-336655');
-            // await sleep(waitTime);
-            // await capture();
-
-            // navigation.reset({index: 0, routes: [{name: 'Leaderboard'}]});
+            // route = `/matches/users/199325?tab=MainStats`;
+            // router.navigate(route);
+            // await sleep(waitTime*2);
+            // await capture(routeToScreenshotName(route));
             // await sleep(1000);
-            // await sleep(waitTime);
-            // await capture();
-
-            // navigation.reset({index: 0, routes: [{name: 'Guide'}]});
+            //
+            // route = `/matches/users/199325?tab=MainMatches`;
+            // router.navigate(route);
+            // await sleep(waitTime*2);
+            // await capture(routeToScreenshotName(route));
             // await sleep(1000);
-            // await sleep(waitTime);
-            // await capture();
-
-            // navigation.reset({index: 0, routes: [{name: 'Civ'}]})
+            //
+            // route = `/statistics/leaderboard`;
+            // router.navigate(route);
+            // await sleep(waitTime*2);
+            // await capture(routeToScreenshotName(route));
             // await sleep(1000);
-            // await sleep(waitTime);
-            // await capture();
-
-            // navigation.reset({index: 0, routes: [{name: 'Civ'}, {name: 'Civ', params: {civ: 'Chinese'}}]})
-            // // navigation.reset({index: 0, routes: [{name: 'Civ'}, {name: 'Civ', params: {civ: 'Aztecs'}}]})
+            //
+            // route = `/explore/civilizations/Aztecs`;
+            // router.navigate(route);
+            // await sleep(waitTime*2);
+            // await capture(routeToScreenshotName(route));
             // await sleep(1000);
-            // await sleep(waitTime);
-            // await capture();
-
-            // navigation.reset({index: 0, routes: [{name: 'Unit'}, {name: 'Unit', params: {unit: 'Arambai'}}]})
+            //
+            // route = `/explore/build-orders/17?focusMode=true`;
+            // router.navigate(route);
+            // await sleep(waitTime*2);
+            // await capture(routeToScreenshotName(route));
             // await sleep(1000);
-            // await sleep(waitTime);
-            // await capture();
         });
     });
 }

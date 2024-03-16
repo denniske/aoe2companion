@@ -1,6 +1,6 @@
 import { MaterialTopTabBar, createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Constants from 'expo-constants';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
 
 import { TabBarLabel } from './components/tab-bar-label';
@@ -9,6 +9,8 @@ import MainProfile from './main/main-profile';
 import MainStats from './main/main-stats';
 import { getTranslation } from '../helper/translate';
 import { useColorScheme } from 'nativewind';
+import { useNavigation } from '@react-navigation/native';
+import { useLocalSearchParams } from 'expo-router';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -19,6 +21,15 @@ interface MainPageInnerProps {
 export function MainPageInner({ profileId }: MainPageInnerProps) {
     const appName = Constants.expoConfig?.name || Constants.expoConfig2?.extra?.expoClient?.name;
     const { colorScheme } = useColorScheme();
+    const { tab } = useLocalSearchParams<{ tab: string }>();
+    const navigation = useNavigation();
+
+    useEffect(() => {
+        if (!tab) return;
+        setTimeout(() => {
+            navigation.navigate(tab);
+        });
+    }, [tab]);
 
     return (
         <Tab.Navigator
