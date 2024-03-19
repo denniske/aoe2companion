@@ -3893,6 +3893,13 @@ export function getUnitUpgradeCost(unitTo: Unit): ICostDict | null {
     return upgradeInfo?.Cost;
 }
 
+export function getUnitUpgradeTime(unitTo: Unit): number | null {
+    if (unitTo === 'EliteKonnikDismounted') unitTo = 'EliteKonnik';
+    const data = getUnitData(unitTo as any);
+    const upgradeInfo = aoeData.data.unit_upgrades[data.ID];
+    return upgradeInfo?.ResearchTime;
+}
+
 // const old = unitUpgradeCosts[unitFrom as keyof typeof unitUpgradeCosts] ?? unitUpgradeCosts[`${unitFrom}-${unitTo}`];
 // const new2 = newData?.Cost;
 // console.log(old, new2);

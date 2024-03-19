@@ -12,8 +12,9 @@ import { useCurrentMatches } from '@app/utils/match';
 import { useNews } from '@app/utils/news';
 import BuildCard from '@app/view/components/build-order/build-card';
 import { TournamentCardLarge } from '@app/view/tournaments/tournament-card-large';
-import { Tabs, useFocusEffect } from 'expo-router';
-import { useCallback } from 'react';
+import * as Notifications from 'expo-notifications';
+import { Tabs, useFocusEffect, useRouter } from 'expo-router';
+import { useCallback, useEffect } from 'react';
 import { Platform, View } from 'react-native';
 
 export default function Page() {
@@ -22,6 +23,7 @@ export default function Page() {
     const currentMatch = matches?.length ? matches[0] : null;
     const { data: news = Array(3).fill(null) } = useNews(3);
     const auth = useSelector((state) => state.auth);
+    const router = useRouter();
     const { favorites, refetch } = useFavoritedBuilds();
 
     useFocusEffect(
@@ -29,6 +31,13 @@ export default function Page() {
             refetch();
         }, [])
     );
+
+    const response = Notifications.useLastNotificationResponse();
+    useEffect(() => {
+        if (response && response.actionIdentifier === Notifications.DEFAULT_ACTION_IDENTIFIER) {
+            router.navigate(`/matches?match_id=${response.notification.request.content?.data?.match_id}`);
+        }
+    }, [response]);
 
     return (
         <ScrollView contentContainerStyle="p-4 gap-5">

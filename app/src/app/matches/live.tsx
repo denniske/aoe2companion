@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useAppTheme } from '../../theming';
 import { LiveGame } from '@app/view/live/live-game';
 import { MyText } from '@app/view/components/my-text';
@@ -11,6 +11,10 @@ import { ICloseEvent, w3cwebsocket } from 'websocket';
 import produce from 'immer';
 import { getHost } from '@nex/data';
 import { ILobbiesMatch } from '../../api/helper/api.types';
+import { useNavigation } from 'expo-router';
+import { Field } from '@app/components/field';
+import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
+import { FlatList } from '@app/components/flat-list';
 
 export interface IMatchesMatchPlayer2 {
     matchId: number;
@@ -143,6 +147,12 @@ export function initLobbySubscription(handler: IConnectionHandler): Promise<void
 }
 
 export default function LivePage() {
+    const navigation = useNavigation();
+
+    useEffect(() => {
+        navigation.setOptions({ title: 'Lobbies' });
+    }, [navigation]);
+
     const styles = useStyles();
     const theme = useAppTheme();
     const [usage, setUsage] = useState(0);
@@ -196,33 +206,40 @@ export default function LivePage() {
     const list = ['header', ...(filteredData || Array(15).fill(null))];
 
     return (
-        <View style={styles.container}>
-            <View style={styles.content}>
-                <View style={styles.usageRow}>
-                    <FontAwesome5 style={styles.usageIcon} name="exclamation-triangle" size={14} color={theme.textNoteColor} />
-                    <MyText style={styles.usageText}>{getTranslation('lobbies.datausagewarning', { usage: (usage / 1000000).toFixed(1) })}</MyText>
+        <KeyboardAvoidingView>
+            <View style={styles.container}>
+                <View style={styles.content}>
+                    <View style={styles.usageRow}>
+                        <FontAwesome5 style={styles.usageIcon} name="exclamation-triangle" size={14} color={theme.textNoteColor} />
+                        <MyText style={styles.usageText}>
+                            {getTranslation('lobbies.datausagewarning', { usage: (usage / 1000000).toFixed(1) })}
+                        </MyText>
+                    </View>
+
+                    <View className="pt-4 px-4">
+                        <Field
+                            type="search"
+                            placeholder={getTranslation('lobbies.search.placeholder')}
+                            onChangeText={(text) => setSearch(text)}
+                            value={search}
+                        />
+                    </View>
+                    <FlatList
+                        contentContainerStyle="p-4"
+                        data={list}
+                        renderItem={({ item, index }) => {
+                            switch (item) {
+                                case 'header':
+                                    return <MyText style={styles.header}>{filteredData?.length} lobbies</MyText>;
+                                default:
+                                    return <LiveGame data={item as any} expanded={index === -1} />;
+                            }
+                        }}
+                        keyExtractor={(item, index) => (typeof item === 'string' ? item : item.matchId?.toString())}
+                    />
                 </View>
-                <Searchbar
-                    style={styles.searchbar}
-                    placeholder={getTranslation('lobbies.search.placeholder')}
-                    onChangeText={(text) => setSearch(text)}
-                    value={search}
-                />
-                <FlatList
-                    contentContainerStyle={styles.list}
-                    data={list}
-                    renderItem={({ item, index }) => {
-                        switch (item) {
-                            case 'header':
-                                return <MyText style={styles.header}>{filteredData?.length} lobbies</MyText>;
-                            default:
-                                return <LiveGame data={item as any} expanded={index === -1} />;
-                        }
-                    }}
-                    keyExtractor={(item, index) => (typeof item === 'string' ? item : item.matchId?.toString())}
-                />
             </View>
-        </View>
+        </KeyboardAvoidingView>
     );
 }
 
@@ -253,9 +270,6 @@ const useStyles = createStylesheet((theme) =>
             color: theme.textNoteColor,
         },
 
-        list: {
-            padding: 20,
-        },
         container: {
             flex: 1,
             // backgroundColor: '#B89579',

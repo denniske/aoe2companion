@@ -4,12 +4,11 @@ import { FollowedPlayers } from '@app/components/followed-players';
 import { Match } from '@app/components/match';
 import { Text } from '@app/components/text';
 import FlatListLoadingIndicator from '@app/view/components/flat-list-loading-indicator';
-import { Game } from '@app/view/components/game';
 import { MyText } from '@app/view/components/my-text';
 import { ProfileLive } from '@app/view/components/profile';
 import RefreshControlThemed from '@app/view/components/refresh-control-themed';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { Link, Stack, router } from 'expo-router';
+import { Stack, router, useLocalSearchParams } from 'expo-router';
 import { flatten, orderBy, uniq } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { Platform, View } from 'react-native';
@@ -21,6 +20,7 @@ import { getTranslation } from '../../helper/translate';
 import { openLink } from '../../helper/url';
 import { useWebRefresh } from '../../hooks/use-web-refresh';
 import { useSelector } from '../../redux/reducer';
+import { Link } from '@app/components/link';
 
 export function feedTitle(props: any) {
     switch (props.route?.params?.action) {
@@ -37,6 +37,8 @@ export default function Matches() {
     const [refetching, setRefetching] = useState(false);
 
     const isActiveRoute = true;
+
+    const { match_id: matchId } = useLocalSearchParams<{ match_id: string }>();
 
     const auth = useSelector((state) => state.auth);
     const following = useSelector((state) => state.following);
@@ -135,9 +137,10 @@ export default function Matches() {
                 <FollowedPlayers />
             </View>
 
-            <Text variant="header-lg" className="px-4">
-                Live and Recent Matches
-            </Text>
+            <View className="flex-row justify-between items-center px-4">
+                <Text variant="header-lg">Live and Recent Matches</Text>
+                <Link href="/matches/live">View Lobbies</Link>
+            </View>
 
             {error ? (
                 <View className="flex-1">
@@ -260,6 +263,7 @@ export default function Matches() {
                                         </Text>
                                     )}
                                     <Match
+                                        expanded={Number(item.matchId) === Number(matchId)}
                                         match={item as IMatchNew}
                                         highlightedUsers={filteredPlayers?.map((p) => p.profileId)}
                                         user={relevantUser?.profileId}

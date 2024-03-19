@@ -23,7 +23,7 @@ import * as Sentry from '@sentry/react-native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ApplicationProvider } from '@ui-kitten/components';
 import * as Localization from 'expo-localization';
-import { Tabs } from 'expo-router';
+import { Tabs, useNavigation } from 'expo-router';
 import { useColorScheme as useTailwindColorScheme } from 'nativewind';
 import { useCallback, useEffect, useState } from 'react';
 import { BackHandler, LogBox, Platform, StatusBar, View, useColorScheme } from 'react-native';
@@ -50,6 +50,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppColorScheme, useDeviceContext } from 'twrnc';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { ScrollContext, ScrollableContext } from '@app/hooks/use-scrollable';
+import { Button } from '@app/components/button';
 
 library.add(fass, fasr);
 
@@ -328,7 +329,19 @@ function AppWrapper() {
                                                     headerShown: false,
                                                 }}
                                             >
-                                                <Tabs.Screen name="index" options={{ headerShown: true, header: Header, tabBarIcon: () => 'home' }} />
+                                                <Tabs.Screen
+                                                    name="index"
+                                                    options={{
+                                                        headerShown: true,
+                                                        header: Header,
+                                                        tabBarIcon: () => 'home',
+                                                        headerRight: () => (
+                                                            <Button href="/matches/users/search" icon="search">
+                                                                Find Player
+                                                            </Button>
+                                                        ),
+                                                    }}
+                                                />
                                                 <Tabs.Screen name="matches" options={{ tabBarLabel: 'Matches', tabBarIcon: () => 'chess' }} />
                                                 <Tabs.Screen name="explore" options={{ tabBarLabel: 'Explore', tabBarIcon: () => 'landmark' }} />
                                                 <Tabs.Screen name="statistics" options={{ tabBarLabel: 'Stats', tabBarIcon: () => 'chart-simple' }} />
@@ -351,13 +364,21 @@ function AppWrapper() {
 }
 
 function HomeLayout() {
+    const navigation = useNavigation();
+
     useEffect(() => {
-        BackHandler.addEventListener('hardwareBackPress', () => true);
+        const backAction = () => {
+            navigation.goBack();
+            return true;
+        };
+
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
         if (Platform.OS !== 'web') {
             Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK);
         }
 
-        return () => BackHandler.removeEventListener('hardwareBackPress', () => true);
+        return () => backHandler.remove();
     }, []);
 
     return (

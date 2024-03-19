@@ -216,7 +216,14 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
                                 // case 'header':
                                 //     return <MyText style={styles.header}>{getTranslation('main.matches.matches', { matches: filteredMatches?.length })}</MyText>
                                 default:
-                                    return <Match match={item as any} expanded={index === -1} highlightedUsers={[profileId]} user={profileId}/>;
+                                    return (
+                                        <Match
+                                            match={item as any}
+                                            expanded={index === -1}
+                                            highlightedUsers={[Number(profileId)]}
+                                            user={Number(profileId)}
+                                        />
+                                    );
                             }
                         }}
                         ListFooterComponent={_renderFooter}

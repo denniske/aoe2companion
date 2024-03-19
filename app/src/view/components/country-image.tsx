@@ -3,12 +3,11 @@ import {flagEmojiDict} from '../../helper/flags';
 import {Flag} from '@nex/data';
 import {MyText} from './my-text';
 import {TextLoader} from './loader/text-loader';
-import { TextStyle } from 'react-native';
+import { TextProps } from 'react-native';
 
 
-export interface Props {
+export interface Props extends TextProps {
     country?: string;
-    style?: TextStyle
 }
 
 export interface LoaderProps extends Props {
@@ -29,15 +28,20 @@ export function SpecialImageForDropDown(props: { emoji: string }) {
     );
 }
 
-export function CountryImage(props: Props) {
-    const { country } = props;
-
+export function CountryImage({ country, ...props }: Props) {
     return (
-        <MyText style={props.style ?? {
-            transform: [{ scale: 1.3 }],
+        <MyText
+            {...props}
+            style={
+                props.style ?? {
+                    transform: [{ scale: 1.3 }],
             marginLeft: 3,
-            marginRight: 4+3,
-        }}>{country ? flagEmojiDict[country.toUpperCase() as any] : '🏳'}</MyText>
+                    marginRight: 4 + 3,
+                }
+            }
+        >
+            {country ? flagEmojiDict[country.toUpperCase() as any] : '🏳'}
+        </MyText>
     );
 }
 

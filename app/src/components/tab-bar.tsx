@@ -12,6 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Button } from './button';
 import { Icon } from './icon';
 import { Text } from './text';
+import { clamp } from '../../../data/src/lib/util';
 
 export const TabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigation, insets }) => {
     const { bottom } = insets;
@@ -105,6 +106,7 @@ export const TabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, naviga
                                         >
                                             {iconName && <Icon color={isFocused ? 'text-white' : 'brand'} size={22} icon={iconName} />}
                                             <Text
+                                                allowFontScaling={false}
                                                 style={tw.style(isFocused ? 'text-white' : textColors['brand'])}
                                                 variant="header-sm"
                                                 className="!text-[9px] !leading-[12px] uppercase mt-2"
