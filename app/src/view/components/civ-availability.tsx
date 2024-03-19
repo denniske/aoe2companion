@@ -8,6 +8,7 @@ import Space from "./space";
 import {getCivIconLocal} from "../../helper/civs";
 import {createStylesheet} from "../../theming-new";
 import {getTranslation} from '../../helper/translate';
+import { router } from "expo-router";
 
 
 interface CivAvailabilityProps {
@@ -47,7 +48,7 @@ export default function CivAvailability({tech, unit, building}: CivAvailabilityP
                     {
                         orderCivs(civAvailable).map(civ =>
                             <TouchableOpacity key={civ} style={styles.civCol}
-                                              onPress={() => navigation.push('Civ', {civ})}>
+                                              onPress={() => router.navigate(`/explore/civilizations/${civ}`)}>
                                 <View style={styles.row}>
                                     <Image style={styles.civIcon}
                                            source={getCivIconLocal(civ) as any}/>
@@ -62,7 +63,7 @@ export default function CivAvailability({tech, unit, building}: CivAvailabilityP
                     <Space/>
                     {
                         !availableForOneCivs && orderCivs(civUnavailable).map(civ =>
-                            <TouchableOpacity key={civ} style={styles.civCol} onPress={() => navigation.push('Civ', {civ})}>
+                            <TouchableOpacity key={civ} style={styles.civCol} onPress={() => router.navigate(`/explore/civilizations/${civ}`)}>
                                 <View style={styles.row}>
                                     <Image style={styles.civIcon} source={getCivIconLocal(civ) as any}/>
                                     <MyText> {getCivNameById(civ)}</MyText>

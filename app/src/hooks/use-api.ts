@@ -1,19 +1,28 @@
-import {useEffect, useRef, useState} from 'react';
-import { AppState, useMutate, useSelector } from '../redux/reducer';
-import {sleep} from "@nex/data";
+import { sleep } from '@nex/data';
+import { useEffect, useRef, useState } from 'react';
 
-type UnPromisify<T> = T extends Promise<infer U> ? U:T;
+import { AppState, useMutate, useSelector } from '../redux/reducer';
+
+type UnPromisify<T> = T extends Promise<infer U> ? U : T;
 
 type SelectorFun = (state: AppState) => any;
 type MutatorFun = (state: AppState, value: any) => void;
 
 interface ILazyApiOptions<A extends (...args: any) => any> {
     append?: (data: UnPromisify<ReturnType<A>>, newData: UnPromisify<ReturnType<A>>) => UnPromisify<ReturnType<A>>;
+    enabled?: boolean;
 }
 
-export function useApi<A extends (...args: any) => any>(options: ILazyApiOptions<A>, dep: any, selectorFun: SelectorFun, mutatorFun: MutatorFun, action: A, ...defArgs: Parameters<A>) {
+export function useApi<A extends (...args: any) => any>(
+    { enabled = true, ...options }: ILazyApiOptions<A>,
+    dep: any[],
+    selectorFun: SelectorFun,
+    mutatorFun: MutatorFun,
+    action: A,
+    ...defArgs: Parameters<A>
+) {
     const selectedState = useSelector(selectorFun) as UnPromisify<ReturnType<A>>;
-    const mutate = useMutate()
+    const mutate = useMutate();
 
     // const [data, setData] = useState(selectedState);
     const [loading, setLoading] = useState(selectorFun === undefined);
@@ -32,7 +41,7 @@ export function useApi<A extends (...args: any) => any>(options: ILazyApiOptions
         await sleep(0);
 
         // console.log('==> load', args);
-        let newData = await action(...(args as any)) as UnPromisify<ReturnType<A>>;
+        let newData = (await action(...(args as any))) as UnPromisify<ReturnType<A>>;
 
         if (!mountedRef.current) {
             console.log('unmounted2');
@@ -44,7 +53,7 @@ export function useApi<A extends (...args: any) => any>(options: ILazyApiOptions
             newData = options.append(selectedState, newData);
         }
 
-        mutate(state => {
+        mutate((state) => {
             mutatorFun(state, newData);
         });
 
@@ -55,21 +64,21 @@ export function useApi<A extends (...args: any) => any>(options: ILazyApiOptions
 
     const reload = async () => {
         await load(false, ...defArgs);
-    }
+    };
 
     const refetch = async (...args: Parameters<A>) => {
         return await load(false, ...args);
-    }
+    };
 
     const refetchAppend = async (...args: Parameters<A>) => {
         return await load(true, ...args);
-    }
+    };
 
     useEffect(() => {
         mountedRef.current = true;
 
-        if (selectedState === undefined) {
-            // console.log("useApi wants to load", defArgs);
+        if (selectedState === undefined && enabled) {
+            // console.log('useApi wants to load', defArgs);
             load(false, ...defArgs);
         } else {
             // console.log("useApi has cached all", allState);
@@ -78,8 +87,7 @@ export function useApi<A extends (...args: any) => any>(options: ILazyApiOptions
         return () => {
             mountedRef.current = false;
         };
-    }, dep);
+    }, [...dep, enabled]);
 
-    return {data: selectedState, loading, refetch, reload, refetchAppend};
+    return { data: selectedState, loading, refetch, reload, refetchAppend };
 }
-

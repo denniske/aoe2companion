@@ -11,9 +11,9 @@ import ButtonPicker from "./button-picker";
 import {saveCurrentPrefsToStorage} from "../../service/storage";
 import {isAfter, subDays, subMonths, subWeeks} from "date-fns";
 import {VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTheme} from "../../helper/victory";
-import {windowWidth} from "../leaderboard.page";
 import {getTranslation} from '../../helper/translate';
 import {IProfileRatingsLeaderboard, IProfileResult} from "../../api/helper/api.types";
+import { windowWidth } from '@app/app/statistics/leaderboard';
 
 interface IRatingProps {
     ratingHistories?: IProfileRatingsLeaderboard[] | null;

@@ -1,5 +1,5 @@
 import {useTheme} from "../../theming";
-import {FlatList, Platform, StyleSheet, TouchableOpacity, View} from "react-native";
+import {Platform, StyleSheet, TouchableOpacity, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import {RouteProp, useNavigation, useNavigationState, useRoute} from "@react-navigation/native";
 import {Game} from "../components/game";
@@ -21,6 +21,9 @@ import {useApi} from "../../hooks/use-api";
 import {useInfiniteQuery} from "@tanstack/react-query";
 import useDebounce from "../../hooks/use-debounce";
 import {fetchLeaderboards, fetchMatches} from "../../api/helper/api";
+import { FlatList } from "@app/components/flat-list";
+import { Match } from "@app/components/match";
+import { Field } from "@app/components/field";
 
 
 interface Props {
@@ -186,13 +189,14 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
                         </View>
                     }
                 </View>
-                <Searchbar
-                    textAlign="left"
-                    style={styles.searchbar}
-                    placeholder={getTranslation('main.matches.search.placeholder')}
-                    onChangeText={text => setText(text)}
-                    value={text}
-                />
+                <View className="px-4">
+                    <Field
+                        type="search"
+                        placeholder={getTranslation('main.matches.search.placeholder')}
+                        onChangeText={text => setText(text)}
+                        value={text}
+                    />
+                </View>
                 {
                     Platform.OS === 'web' && reloading &&
                     <FlatListLoadingIndicator/>
@@ -203,7 +207,7 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
                         <MyText style={styles.header}>{getTranslation('main.matches.nomatches')}</MyText>
                     }
                     <FlatList
-                        contentContainerStyle={styles.list}
+                        contentContainerStyle="p-4 gap-2"
                         initialNumToRender={10}
                         windowSize={2}
                         data={list}
@@ -212,7 +216,7 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
                                 // case 'header':
                                 //     return <MyText style={styles.header}>{getTranslation('main.matches.matches', { matches: filteredMatches?.length })}</MyText>
                                 default:
-                                    return <Game match={item as any} expanded={index === -1} highlightedUsers={[profileId]} user={profileId}/>;
+                                    return <Match match={item as any} expanded={index === -1} highlightedUsers={[profileId]} user={profileId}/>;
                             }
                         }}
                         ListFooterComponent={_renderFooter}

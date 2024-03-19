@@ -12,7 +12,10 @@ module.exports = function(api) {
       [
         "module-resolver",
         {
+          extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
+          root: ['.'],
           alias: {
+            "@app": ["./app/src"],
             "@nex/data/hooks": ["./data/src/index-hooks.ts"],
             "@nex/data/api": ["./data/src/index-api.ts"],
             "@nex/data": ["./data/src/index.ts"],

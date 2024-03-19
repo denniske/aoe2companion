@@ -1,4 +1,4 @@
-import {FlatList, Platform, StyleSheet, View} from "react-native";
+import {Platform, StyleSheet, View} from "react-native";
 import {clearStatsPlayer, setPrefValue, useMutate, useSelector} from "../../redux/reducer";
 import {LeaderboardId} from "@nex/data";
 import React, {useEffect, useState} from "react";
@@ -22,6 +22,7 @@ import {RootStackParamList} from "../../../App2";
 import {useApi} from "../../hooks/use-api";
 import {TextLoader} from "../components/loader/text-loader";
 import {fetchLeaderboards, fetchProfile} from "../../api/helper/api";
+import { FlatList } from "@app/components/flat-list";
 
 
 interface Props {
@@ -167,7 +168,7 @@ function MainStatsInternal({profileId}: {profileId: number}) {
                     <FlatListLoadingIndicator/>
                 }
                 <FlatList
-                    contentContainerStyle={styles.list}
+                    contentContainerStyle="p-4"
                     data={list}
                     renderItem={({item, index}) => {
                         switch (item) {

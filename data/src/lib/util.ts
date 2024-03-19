@@ -87,9 +87,9 @@ let timeLastDate: Date | null = null;
 export function time(start?: any) {
     // if (!__DEV__) return;
     if (timeLastDate == null || start) {
-        console.log('- ' + start);
+        // console.log('- ' + start);
     } else {
-        console.log(new Date().getTime() - timeLastDate.getTime());
+        // console.log(new Date().getTime() - timeLastDate.getTime());
     }
     timeLastDate = new Date();
 }

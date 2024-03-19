@@ -26,12 +26,14 @@ export function makeListFromSections<T>(sections: IGenericSection<T>[]) {
 
 interface IBuildingSection {
     title: string;
+    icon: string;
     data: Building[];
 }
 
 export const buildingSections: IBuildingSection[] = [
     {
         title: 'building.section.military',
+        icon: 'swords',
         data: [
             "Barracks",
             "ArcheryRange",
@@ -46,6 +48,7 @@ export const buildingSections: IBuildingSection[] = [
     },
     {
         title: 'building.section.economy',
+        icon: 'leaf',
         data: [
             "FishTrap",
             "Mill",
@@ -58,6 +61,7 @@ export const buildingSections: IBuildingSection[] = [
     },
     {
         title: 'building.section.peopleandscience',
+        icon: 'flask',
         data: [
             "TownCenter",
             "House",
@@ -70,6 +74,7 @@ export const buildingSections: IBuildingSection[] = [
     },
     {
         title: 'building.section.special',
+        icon: 'sparkles',
         data: [
             "Wonder",
             "Feitoria",
@@ -78,6 +83,7 @@ export const buildingSections: IBuildingSection[] = [
     },
     {
         title: 'building.section.towers',
+        icon: 'tower-observation',
         data: [
             "Outpost",
             "WatchTower",
@@ -88,6 +94,7 @@ export const buildingSections: IBuildingSection[] = [
     },
     {
         title: 'building.section.walls',
+        icon: 'block-brick',
         data: [
             "PalisadeWall",
             "StoneWall",
@@ -96,6 +103,7 @@ export const buildingSections: IBuildingSection[] = [
     },
     {
         title: 'building.section.gates',
+        icon: 'door-open',
         data: [
             "PalisadeGate",
             "Gate",

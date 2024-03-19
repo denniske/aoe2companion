@@ -1,20 +1,34 @@
+import { Text } from '@app/components/text';
+import { isElectron } from '@app/helper/electron';
+import { styled } from 'nativewind';
 import { useEffect, useRef, useState } from 'react';
-import { Animated, Easing, Modal, View, ScrollView, Pressable, StyleSheet, ViewStyle } from 'react-native';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { createStylesheet } from '../theming-new';
+import { Animated, Easing, Modal, View, ScrollView, Pressable, StyleSheet, ViewStyle, Platform } from 'react-native';
 import { PanGestureHandler } from 'react-native-gesture-handler';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+
+import { createStylesheet } from '../theming-new';
 
 export type BottomSheetProps = {
+    title?: string;
     isActive?: boolean;
     isFullHeight?: boolean;
     showHandle?: boolean;
     onClose?: () => void;
     onCloseComplete?: () => void;
     children: React.ReactNode;
-    style: ViewStyle;
+    style?: ViewStyle;
 };
 
-function BottomSheet({ onClose, onCloseComplete, showHandle, isActive = false, isFullHeight = false, children, style }: BottomSheetProps) {
+function BottomSheetComponent({
+    title,
+    onClose,
+    onCloseComplete,
+    showHandle,
+    isActive = false,
+    isFullHeight = false,
+    children,
+    style,
+}: BottomSheetProps) {
     const modalAnimation = useRef(new Animated.Value(0)).current;
     const [isVisible, setIsVisible] = useState(isActive);
     const [height, setHeight] = useState(0);
@@ -59,21 +73,27 @@ function BottomSheet({ onClose, onCloseComplete, showHandle, isActive = false, i
 
     return (
         <Modal visible={isVisible} onRequestClose={onClose} animationType="fade" transparent>
-            <SafeAreaProvider>
+            <SafeAreaProvider
+                className={
+                    Platform.OS === 'web' && !isElectron()
+                        ? 'overflow-hidden w-[450px] max-w-full max-h-[900px] mx-auto my-auto border border-gray-200 dark:border-gray-800 rounded-lg pt-12'
+                        : 'flex-1'
+                }
+            >
                 <Pressable disabled={!onClose} onPress={onClose} style={[styles.overlay, StyleSheet.absoluteFill]} />
 
-                <View style={styles.container} pointerEvents="box-none">
-                    <Animated.View
-                        onLayout={(e) => {
-                            const newHeight = Math.round(e.nativeEvent.layout.height);
-                            if (height === 0) {
-                                modalAnimation.setValue(newHeight);
-                            }
-                            setHeight(newHeight);
-                        }}
-                        style={[
-                            styles.animatedContainer,
-                            {
+                <SafeAreaView edges={['top']} style={{ flex: 1 }} pointerEvents="box-none">
+                    <View style={styles.container} pointerEvents="box-none">
+                        <Animated.View
+                            onLayout={(e) => {
+                                const newHeight = Math.round(e.nativeEvent.layout.height);
+                                if (height === 0) {
+                                    modalAnimation.setValue(newHeight);
+                                }
+                                setHeight(newHeight);
+                            }}
+                            className="bg-gold-50 dark:bg-blue-950 rounded-t-lg overflow-hidden max-h-full"
+                            style={{
                                 flex: isFullHeight ? 1 : undefined,
                                 marginBottom: modalAnimation.interpolate({
                                     inputRange: [-1, 0, 1],
@@ -83,38 +103,47 @@ function BottomSheet({ onClose, onCloseComplete, showHandle, isActive = false, i
                                     inputRange: [-1, 0, 1],
                                     outputRange: [1, 0, 0],
                                 }),
-                            },
-                        ]}
-                    >
-                        <SafeAreaView
-                            edges={['bottom']}
-                            style={{
-                                maxHeight: '100%',
-                                flex: isFullHeight ? 1 : undefined,
                             }}
                         >
-                            {showHandle && (
-                                <PanGestureHandler
-                                    onGestureEvent={Animated.event([{ nativeEvent: { translationY: modalAnimation } }], { useNativeDriver: false })}
-                                    onEnded={(e) => {
-                                        const shouldClose = height - Number(e.nativeEvent.translationY) < 100;
+                            <SafeAreaView
+                                edges={['bottom']}
+                                style={{
+                                    maxHeight: '100%',
+                                    flex: isFullHeight ? 1 : undefined,
+                                }}
+                            >
+                                {showHandle && (
+                                    <PanGestureHandler
+                                        onGestureEvent={Animated.event([{ nativeEvent: { translationY: modalAnimation } }], {
+                                            useNativeDriver: false,
+                                        })}
+                                        onEnded={(e) => {
+                                            const shouldClose = Number(e.nativeEvent.translationY) > 150;
 
-                                        if (shouldClose) {
-                                            onClose?.();
-                                        } else {
-                                            triggerOpen();
-                                        }
-                                    }}
-                                >
-                                    <Animated.View style={styles.handleContainer}>
-                                        <View style={styles.handle} />
-                                    </Animated.View>
-                                </PanGestureHandler>
-                            )}
-                            <ScrollView contentContainerStyle={[styles.contentContainer, style]}>{children}</ScrollView>
-                        </SafeAreaView>
-                    </Animated.View>
-                </View>
+                                            if (shouldClose) {
+                                                onClose?.();
+                                            } else {
+                                                triggerOpen();
+                                            }
+                                        }}
+                                    >
+                                        <Animated.View style={styles.handleContainer}>
+                                            <View style={styles.handle} />
+                                        </Animated.View>
+                                    </PanGestureHandler>
+                                )}
+                                <ScrollView contentContainerStyle={[styles.contentContainer, style]}>
+                                    {title && (
+                                        <Text color="brand" variant="header-lg" className="text-center">
+                                            {title}
+                                        </Text>
+                                    )}
+                                    {children}
+                                </ScrollView>
+                            </SafeAreaView>
+                        </Animated.View>
+                    </View>
+                </SafeAreaView>
             </SafeAreaProvider>
         </Modal>
     );
@@ -140,18 +169,13 @@ const useStyles = createStylesheet((theme) =>
             flex: 1,
             justifyContent: 'flex-end',
         },
-        animatedContainer: {
-            backgroundColor: theme.backgroundColor,
-            borderTopStartRadius: 8,
-            borderTopEndRadius: 8,
-            overflow: 'hidden',
-            maxHeight: '100%',
-        },
         contentContainer: {
             padding: 12,
         },
     })
 );
+
+const BottomSheet = styled(BottomSheetComponent);
 
 export { BottomSheet };
 export default BottomSheet;

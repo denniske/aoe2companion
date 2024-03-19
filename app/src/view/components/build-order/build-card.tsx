@@ -1,155 +1,89 @@
-import { createStylesheet } from '../../../theming-new';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { MyText } from '../my-text';
+import { Card } from '@app/components/card';
+import { Text } from '@app/components/text';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { Image } from 'expo-image';
+import { startCase } from 'lodash';
+import { memo } from 'react';
+import { TouchableOpacity, View } from 'react-native';
+
+import { BuildRating } from './build-rating';
+import { getAgeIcon } from '../../..//helper/units';
 import { IBuildOrder, sortBuildAges } from '../../../../../data/src/helper/builds';
 import { genericCivIcon, getCivIconLocal } from '../../../helper/civs';
-import { useNavigation } from '@react-navigation/native';
-import { RootStackProp } from '../../../../App2';
-import { startCase } from 'lodash';
-import { BuildRating } from './build-rating';
 import { getDifficultyIcon } from '../../../helper/difficulties';
-import { getAgeIcon } from '../../..//helper/units';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { Tag } from '../tag';
-import { Image } from 'expo-image';
-import { memo } from 'react';
-import { getTranslation } from '../../../helper/translate';
 
-const BuildCard: React.FC<IBuildOrder & { favorited: boolean; toggleFavorite: () => void }> = ({ favorited, toggleFavorite, ...build }) => {
-    const styles = useStyles();
+const BuildCard: React.FC<IBuildOrder & { favorited?: boolean; toggleFavorite?: () => void; size?: 'small' | 'large' }> = ({
+    favorited,
+    toggleFavorite,
+    size = 'large',
+    ...build
+}) => {
     const title = build.title.replace(build.civilization, '');
     const civIcon = getCivIconLocal(build.civilization) ?? genericCivIcon;
     const difficultyIcon = getDifficultyIcon(build.difficulty);
-    const navigation = useNavigation<RootStackProp>();
     const ages = sortBuildAges(Object.entries(build.pop));
 
-    return (
-        <TouchableOpacity style={styles.card} onPress={() => navigation.push('Guide', { build: build.id })}>
-            <View style={styles.cardHeader}>
-                {civIcon ? <Image style={styles.civImage} source={civIcon} /> : null}
-                <MyText style={styles.civName}>{build.civilization}</MyText>
-                <TouchableOpacity
-                    hitSlop={12}
-                    onPress={() =>
-                        navigation.push('Guide', {
-                            build: build.id,
-                            focusMode: true,
-                        })
-                    }
-                >
-                    <MyText style={styles.startButtonText}>{getTranslation('builds.card.start')}</MyText>
-                </TouchableOpacity>
-            </View>
+    if (size === 'small') {
+        return (
+            <Card href={`/explore/build-orders/${build.id}`} direction="vertical" className="w-24 items-center justify-between gap-1">
+                <View className="w-full items-center justify-center">
+                    <Image source={{ uri: build.imageURL }} className="w-8 h-8" />
+                    {civIcon ? <Image className="w-5 h-5 absolute top-0 left-0" source={civIcon} /> : null}
+                </View>
 
-            <View style={styles.cardBody}>
-                <MyText style={styles.title} numberOfLines={1}>
+                <Text variant="label-sm" numberOfLines={2} className="!leading-[14px] w-full" align="center">
                     {title}
-                </MyText>
+                </Text>
 
-                <View style={styles.row}>
-                    <MyText style={styles.author} numberOfLines={1}>
-                        {build.author}
-                    </MyText>
+                <BuildRating {...build} showCount={false} />
+            </Card>
+        );
+    }
+
+    return (
+        <Card href={`/explore/build-orders/${build.id}`}>
+            <Image source={{ uri: build.imageURL }} className="w-12 h-12" />
+
+            <View className="flex-1 gap-0.5">
+                <View className="flex-row justify-between items-center gap-2">
+                    {civIcon ? <Image className="w-5 h-5" source={civIcon} /> : null}
+                    <Text className="flex-1">{build.civilization}</Text>
+
                     <BuildRating {...build} />
                 </View>
 
-                <View style={styles.tagsContainer}>
-                    {difficultyIcon && <Tag icon={difficultyIcon} />}
-                    {ages.map(([ageName, agePop]) => (
-                        <Tag key={ageName} icon={getAgeIcon(startCase(ageName.replace('Age', '')) as any)}>
-                            {ageName === 'feudalAge' ? '' : '+'}
-                            {agePop}
-                        </Tag>
-                    ))}
-                    {build.attributes.map((attribute) => (
-                        <Tag key={attribute}>{startCase(attribute)}</Tag>
-                    ))}
-                </View>
-            </View>
+                <View className="flex-1 gap-1">
+                    <Text variant="label-lg" numberOfLines={1}>
+                        {title}
+                    </Text>
 
-            <TouchableOpacity style={styles.favoriteButton} hitSlop={10} onPress={toggleFavorite}>
-                <FontAwesome5 solid={favorited} name="heart" size={20} color="#ef4444" />
-            </TouchableOpacity>
-            <Image source={{ uri: build.imageURL }} style={styles.mainImage} />
-        </TouchableOpacity>
+                    <View className="flex-row gap-1">
+                        {ages.map(([ageName, agePop]) => (
+                            <Tag key={ageName} icon={getAgeIcon(startCase(ageName.replace('Age', '')) as any)}>
+                                {ageName === 'feudalAge' ? '' : '+'}
+                                {agePop}
+                            </Tag>
+                        ))}
+                        {build.attributes.map((attribute) => (
+                            <Tag key={attribute}>{startCase(attribute)}</Tag>
+                        ))}
+                    </View>
+                </View>
+
+                {difficultyIcon && (
+                    <View className="absolute bottom-0 right-0 flex-row gap-2 items-center">
+                        <Image className="w-6 h-6" source={difficultyIcon} />
+                        {toggleFavorite && (
+                            <TouchableOpacity hitSlop={10} onPress={toggleFavorite}>
+                                <FontAwesome5 solid={favorited} name="heart" size={20} color="#ef4444" />
+                            </TouchableOpacity>
+                        )}
+                    </View>
+                )}
+            </View>
+        </Card>
     );
 };
 
 export default memo(BuildCard);
-
-const useStyles = createStylesheet((theme, darkMode) =>
-    StyleSheet.create({
-        card: {
-            flex: 1,
-            backgroundColor: theme.backgroundColor,
-            borderRadius: 4,
-            elevation: 4,
-            shadowColor: '#000000',
-            shadowOffset: {
-                width: 0,
-                height: 3,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 4,
-            position: 'relative',
-            minHeight: 135,
-        },
-        cardBody: {
-            marginVertical: 8,
-            marginLeft: 12,
-            marginRight: 50,
-            flex: 1,
-            overflow: 'hidden',
-            justifyContent: 'space-between',
-        },
-        title: {
-            fontSize: 18,
-        },
-        author: {
-            fontSize: 16,
-            color: theme.textNoteColor,
-            flexShrink: 1,
-        },
-        mainImage: {
-            width: 50,
-            height: 50,
-            position: 'absolute',
-            bottom: 0,
-            right: 0,
-        },
-        cardHeader: {
-            gap: 8,
-            flexDirection: 'row',
-            alignItems: 'center',
-            backgroundColor: theme.skeletonColor,
-            paddingHorizontal: 12,
-            paddingVertical: 8,
-        },
-        civImage: {
-            width: 20,
-            height: 20,
-        },
-        civName: {
-            color: theme.textNoteColor,
-            flex: 1,
-        },
-        row: {
-            flexDirection: 'row',
-            gap: 12,
-        },
-        tagsContainer: {
-            flexDirection: 'row',
-            gap: 4,
-        },
-        favoriteButton: {
-            position: 'absolute',
-            right: 0,
-            top: 36,
-            padding: 12,
-        },
-        startButtonText: {
-            color: theme.linkColor,
-            textTransform: 'uppercase',
-        },
-    })
-);
