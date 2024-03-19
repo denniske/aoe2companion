@@ -42,7 +42,7 @@ export const Button: React.FC<ButtonProps> = ({ children, icon, onPress, href, s
         >
             {icon && <Icon color="text-white" icon={icon} size={14} />}
             {children && (
-                <Text variant={textSizes[size]} color={color} className="uppercase">
+                <Text variant={textSizes[size]} color={color} className="uppercase" allowFontScaling={false}>
                     {children}
                 </Text>
             )}

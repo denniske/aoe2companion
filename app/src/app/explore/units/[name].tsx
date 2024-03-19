@@ -7,6 +7,7 @@ import {
     getUnitLineNameForUnit,
     getUnitName,
     getUnitUpgradeCost,
+    getUnitUpgradeTime,
     Unit,
     unitLines,
 } from '@nex/data';
@@ -27,6 +28,7 @@ import UnitRelated from '../../../view/unit/unit-related';
 import { UnitStats } from '../../../view/unit/unit-stats';
 import { UnitUpgrades } from '../../../view/unit/unit-upgrades';
 import { ScrollView } from '@app/components/scroll-view';
+import { getTranslation } from '@app/helper/translate';
 
 export default function UnitDetails() {
     const { name } = useLocalSearchParams<{ name: Unit }>();
@@ -59,6 +61,9 @@ export default function UnitDetails() {
                     <View style={styles.costsRow}>
                         <MyText style={styles.description}>Upgrade cost </MyText>
                         <Costs costDict={getUnitUpgradeCost(unitName)!} />
+                        <MyText style={styles.description}>
+                            {getTranslation('unit.stats.heading.researchedin')} {getUnitUpgradeTime(unitName)}s
+                        </MyText>
                     </View>
                 )}
 

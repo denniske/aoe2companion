@@ -26,7 +26,7 @@ export const Header: React.FC<NativeStackHeaderProps | (BottomTabHeaderProps & {
                     <HeaderTitle title={title} />
                 )
             ) : (
-                <Text variant="title" color="brand" className="flex-1" numberOfLines={1}>
+                <Text variant="title" color="brand" className="flex-1" numberOfLines={1} allowFontScaling={false}>
                     {title}
                 </Text>
             )}

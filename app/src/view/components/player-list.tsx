@@ -2,6 +2,7 @@ import { Button } from '@app/components/button';
 import { Card } from '@app/components/card';
 import { FlatList, FlatListRef, FlatListProps } from '@app/components/flat-list';
 import { Icon } from '@app/components/icon';
+import { Skeleton, SkeletonText } from '@app/components/skeleton';
 import { Text } from '@app/components/text';
 import { useSelector } from '@app/redux/reducer';
 import { isVerifiedPlayer } from '@nex/data';
@@ -11,7 +12,6 @@ import { TouchableOpacity, View } from 'react-native';
 
 import { CountryImage } from './country-image';
 import { useCavy } from '../testing/tester';
-import { Skeleton, SkeletonText } from '@app/components/skeleton';
 
 export interface IPlayerListPlayer {
     country: string;
@@ -57,7 +57,7 @@ function Player<PlayerType extends IPlayerListPlayer>({ player, selectedUser, ac
             >
                 <Icon icon="user" color="brand" size={24} />
                 <View className="flex-row gap-1 items-center">
-                    <Text numberOfLines={1} variant="body-sm">
+                    <Text numberOfLines={1} variant="body-sm" allowFontScaling={false}>
                         Find Me
                     </Text>
                 </View>
@@ -74,7 +74,7 @@ function Player<PlayerType extends IPlayerListPlayer>({ player, selectedUser, ac
             >
                 <Icon icon="plus" color="brand" size={24} />
                 <View className="flex-row gap-1 items-center">
-                    <Text numberOfLines={1} variant="body-sm">
+                    <Text numberOfLines={1} variant="body-sm" allowFontScaling={false}>
                         Add Player
                     </Text>
                 </View>
@@ -94,16 +94,16 @@ function Player<PlayerType extends IPlayerListPlayer>({ player, selectedUser, ac
     if (variant === 'horizontal') {
         return (
             <Card direction="vertical" className="items-center justify-center gap-0 pt-1 pb-2 px-2.5 w-20" onPress={onSelect}>
-                <CountryImage style={{ textAlign: 'center', fontSize: 24 }} country={player.country} />
+                <CountryImage style={{ textAlign: 'center', fontSize: 24 }} country={player.country} allowFontScaling={false} />
                 <View className="flex-row gap-1 items-center">
-                    <Text numberOfLines={1} variant="body-sm">
+                    <Text numberOfLines={1} variant="body-sm" allowFontScaling={false}>
                         {player.name}
                     </Text>
                     {isMe && <Icon color="brand" icon="user" size={12} />}
                     {!isMe && player.profileId && isVerifiedPlayer(player.profileId) && <Icon color="brand" icon="circle-check" size={12} />}
                 </View>
 
-                <Text color="subtle" variant="body-xs" numberOfLines={1}>
+                <Text color="subtle" variant="body-xs" numberOfLines={1} allowFontScaling={false}>
                     {player.games} Games
                 </Text>
             </Card>

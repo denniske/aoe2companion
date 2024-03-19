@@ -14,11 +14,11 @@ export const HeaderTitle: React.FC<HeaderTitleProps> = ({ title, subtitle, icon 
         <View className="items-center flex-row gap-2">
             {icon && <Image className="w-8 h-8" source={icon} />}
             <View>
-                <Text variant={subtitle ? 'header' : 'header-lg'} color="brand" numberOfLines={1}>
+                <Text variant={subtitle ? 'header' : 'header-lg'} color="brand" numberOfLines={1} allowFontScaling={false}>
                     {title}
                 </Text>
                 {subtitle && (
-                    <Text variant="label" numberOfLines={1}>
+                    <Text variant="label" numberOfLines={1} allowFontScaling={false}>
                         {subtitle}
                     </Text>
                 )}
