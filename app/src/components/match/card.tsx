@@ -70,8 +70,13 @@ export function MatchCard(props: MatchCardProps) {
                     {match.server && <Text> - {match.server}</Text>}
                 </Text>
                 <Text numberOfLines={1}>
-                    {teamRatio(match)} - {match.leaderboardName?.includes('Unranked') ? 'Unranked' : 'Ranked'} -{' '}
-                    {startCase(match.gameMode.toString())}
+                    {teamRatio(match)} -{' '}
+                    {match.leaderboardName?.includes('Unranked')
+                        ? 'Unranked'
+                        : match.leaderboardName?.includes('Quick Play')
+                          ? 'Quick Play'
+                          : 'Ranked'}{' '}
+                    - {startCase(match.gameMode.toString())}
                 </Text>
                 <Text numberOfLines={1}>
                     {match.finished === null && duration}

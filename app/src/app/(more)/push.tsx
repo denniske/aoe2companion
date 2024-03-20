@@ -15,7 +15,7 @@ import { getRootNavigation } from '../../service/navigation';
 import { sendTestPushNotificationElectron, sendTestPushNotificationWeb } from '../../api/following';
 import { initPusher } from '../../helper/pusher';
 import { getElectronPushToken, isElectron } from '../../helper/electron';
-import { Stack } from 'expo-router';
+import { Stack, router } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
 
 interface FirebaseData {
@@ -174,14 +174,6 @@ export default function PushPage() {
         }
     }, [lastNotificationResponse]);
 
-    const nav = async (route: keyof RootStackParamList, params: any) => {
-        const navigation = getRootNavigation();
-        navigation.reset({
-            index: 0,
-            routes: [{ name: route, params }],
-        });
-    };
-
     return (
         <ScrollView className="flex-1 p-5" contentContainerStyle="items-center">
             <Stack.Screen options={{ title: getTranslation('push.title') }} />
@@ -230,7 +222,7 @@ export default function PushPage() {
                     <Button
                         mode="outlined"
                         onPress={async () => {
-                            nav('Feed', { match_id: 'xxx' + new Date().getTime() });
+                            router.navigate(`/matches?match_id${'xxx' + new Date().getTime()}`);
                         }}
                     >
                         {getTranslation('push.action.sendtestnotification')} Direct

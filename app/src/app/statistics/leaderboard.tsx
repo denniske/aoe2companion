@@ -40,6 +40,7 @@ import { useLazyApi } from '../../hooks/use-lazy-api';
 import { useLazyAppendApi } from '../../hooks/use-lazy-append-api';
 import { setLeaderboardCountry, useMutate, useSelector } from '../../redux/reducer';
 import { createStylesheet } from '../../theming-new';
+import { uniq, compact } from 'lodash';
 
 const Tab = createMaterialTopTabNavigator<any>();
 
@@ -197,10 +198,11 @@ function Leaderboard({ leaderboardId }: any) {
     const isFocused = useIsFocused();
 
     const following = useSelector((state) => state.following);
+    const followingIds = compact(uniq([auth?.profileId, ...following.map((f) => f.profile_id)]));
 
     const getParams = (page: number, profileId?: number) => {
         if (leaderboardCountry == 'following') {
-            return { page, profileId, profileIds: following.map((f) => f.profile_id) };
+            return { page, profileId, profileIds: followingIds };
         }
         if (leaderboardCountry?.startsWith('clan:')) {
             return { page, profileId, clan: leaderboardCountry?.replace('clan:', '') };
@@ -265,7 +267,7 @@ function Leaderboard({ leaderboardId }: any) {
     const showMyRank =
         leaderboardCountry == countryEarth ||
         // (leaderboardCountry?.startsWith('clan:') && myRankPlayer?.clan == leaderboardCountry?.replace('clan:', '')) ||
-        (leaderboardCountry == 'following' && following.find((f) => f.profile_id == myRankPlayer?.profileId) != null) ||
+        (leaderboardCountry == 'following' && followingIds.find((f) => f == myRankPlayer?.profileId) != null) ||
         leaderboardCountry == myRankPlayer?.country;
 
     const containerPadding = 20;
@@ -304,6 +306,7 @@ function Leaderboard({ leaderboardId }: any) {
     useEffect(() => {
         if (!isFocused) return;
         if (leaderboard.touched && leaderboard.lastParams?.leaderboardCountry === leaderboardCountry) return;
+        list.current.length = Math.min(list.current.length, pageSize);
         leaderboard.reload();
         if (auth) {
             myRank.reload();
@@ -320,7 +323,6 @@ function Leaderboard({ leaderboardId }: any) {
     const total2 = useRef<any>(1000);
 
     const onSelect = async (player: ILeaderboardPlayer) => {
-        console.log('asdf', player.profileId);
         router.push(`/matches/users/${player.profileId}`);
     };
 
