@@ -145,6 +145,36 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '96.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix leaderboard mixup when changing country',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix leaderboard display (quick play / ranked) in match list',
+        },
+        {
+            type: 'bugfix',
+            title: 'Show win/loose for match list again',
+        },
+        {
+            type: 'bugfix',
+            title: 'Click on notification for new match opens match details correctly',
+        },
+        {
+            type: 'bugfix',
+            title: 'Show research time for military upgrades like Man-at-Arms',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix number of games display for followed players on home screen',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix back button (Android)',
+        },
+    ],
     '94.0.0': [
         {
             type: 'feature',
