@@ -19,6 +19,18 @@ const sentryConfigPlugin = [
     }
 ];
 
+const version = '14.0.0';
+const versionParts = version.split('.');
+
+const runtimeVersion = versionParts[0] + '.' + versionParts[1] + '.0';
+
+const runtimeVersionParts = runtimeVersion.split('.');
+const runtimeVersionCode = runtimeVersionParts[0] + runtimeVersionParts[1].padStart(2, '0') + runtimeVersionParts[2].padStart(2, '0');
+
+// console.log('Version: ' + version);
+// console.log('Runtime version: ' + runtimeVersion);
+// console.log('Runtime version code: ' + runtimeVersionCode);
+
 const isProdBuild = process.env.EAS_BUILD_PROFILE?.includes('production');
 const isRunningInEasCI = process.env.EAS_BUILD_RUNNER === 'eas-build';
 const sentryConfigPlugins = isProdBuild && isRunningInEasCI ? [sentryConfigPlugin] : [];
@@ -43,8 +55,8 @@ export default {
         },
         "userInterfaceStyle": "automatic",
         "jsEngine": "hermes",
-        "runtimeVersion": "14.0.0",
-        "version": "14.0.0",
+        "runtimeVersion": runtimeVersion,
+        "version": version,
         "orientation": "portrait",
         "privacy": "public",
         "githubUrl": "https://github.com/denniske/aoe2companion",
@@ -63,6 +75,12 @@ export default {
             "app4/assets/*"
         ],
         "plugins": [
+            [
+                "expo-router",
+                {
+                    "root": "./app/src/app",
+                }
+            ],
             [
                 "expo-notifications",
                 {
@@ -90,7 +108,7 @@ export default {
         "android": {
             "userInterfaceStyle": "automatic",
             "package": "com.aoe4companion",
-            "versionCode": 140000,
+            "versionCode": runtimeVersionCode,
             "permissions": [],
             "googleServicesFile": "./google-services4.json",
             "splash": splash,
@@ -99,13 +117,14 @@ export default {
             "userInterfaceStyle": "automatic",
             "icon": "./app4/assets/icon-no-alpha.png",
             "bundleIdentifier": "com.aoe4companion",
-            "buildNumber": "14.0.0",
+            "buildNumber": runtimeVersion,
             "supportsTablet": false,
             "config": {
                 "usesNonExemptEncryption": false
             },
             "infoPlist": {
-                "LSApplicationQueriesSchemes": ["itms-apps"]
+                "LSApplicationQueriesSchemes": ["itms-apps"],
+                "UIBackgroundModes": ["remote-notification"]
             },
             "splash": splash,
         },
