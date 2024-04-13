@@ -1169,7 +1169,7 @@ const techEffectDictInternal = {
         tech: 'ManipurCavalry',
         civ: 'Burmese',
         effect: {
-            attack: '+5 attack against archers',
+            attack: '+4 attack against archers',
         },
     },
     'Stirrups': {
