@@ -145,6 +145,16 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '97.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix attack bonus for Manipur Cavalry',
+        },
+        {
+            type: 'bugfix',
+            title: 'Add Ballistics and Siege Engineers for Turtle Ship',
+        },
+    ],
     '96.0.0': [
         {
             type: 'bugfix',

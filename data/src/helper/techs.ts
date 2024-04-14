@@ -955,6 +955,12 @@ const techEffectDictInternal = {
             hitPoints: '+40%',
         },
     },
+    'SiegeEngineers-0-1': {
+        tech: 'SiegeEngineers',
+        effect: {
+            range: '+1',
+        },
+    },
     'SiegeEngineers-20-1': {
         tech: 'SiegeEngineers',
         effect: {

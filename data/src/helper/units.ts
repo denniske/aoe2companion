@@ -788,6 +788,8 @@ export const unitLines: IUnitLineDict = {
             'Missionary'
         ],
         upgrades: [
+            'Ballistics',
+            'SiegeEngineers-0-1',
             'Careening',
             'DryDock',
             'Devotion',
