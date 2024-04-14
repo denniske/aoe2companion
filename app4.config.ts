@@ -41,6 +41,7 @@ export default {
         "description": "Track your AoE IV matches. This app fetches information about your matches so you are always up-to-date.",
         "slug": "aoe4companion",
         "scheme": "aoe4companion",
+        "owner": "aoecompanion",
         "platforms": [
             "ios",
             "android",
