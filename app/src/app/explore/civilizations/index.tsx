@@ -1,7 +1,25 @@
 import { Field } from '@app/components/field';
 import { FlatList } from '@app/components/flat-list';
+import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { Text } from '@app/components/text';
+import { civDataAbbasidDynasty } from '@app4/data/abbasiddynasty';
+import { civDataAyyubids } from '@app4/data/ayyubids';
+import { civDataByzantines } from '@app4/data/byzantines';
+import { civDataChinese } from '@app4/data/chinese';
+import { civDataDelhiSultanate } from '@app4/data/delhisultanate';
+import { civDataEnglish } from '@app4/data/english';
+import { civDataFrench } from '@app4/data/french';
+import { civDataHolyRomanEmpire } from '@app4/data/holyromanempire';
+import { civDataJapanese } from '@app4/data/japanese';
+import { civDataJeanneDArc } from '@app4/data/jeannedarc';
+import { civDataMalians } from '@app4/data/malians';
+import { civDataMongols } from '@app4/data/mongols';
+import { civDataOrderOfTheDragon } from '@app4/data/orderofthedragon';
+import { civDataOttomans } from '@app4/data/ottomans';
+import { civDataRus } from '@app4/data/rus';
+import { civDataZhuXiSLegacy } from '@app4/data/zhuxislegacy';
 import { Civ, civs, getCivNameById, getCivTeamBonus, orderCivs } from '@nex/data';
+import { getCivStrategies } from '@nex/data4';
 import { appConfig } from '@nex/dataset';
 import { Image } from 'expo-image';
 import { Stack, router } from 'expo-router';
@@ -10,7 +28,6 @@ import { TouchableOpacity, View } from 'react-native';
 
 import { getCivIconLocal } from '../../../helper/civs';
 import { getTranslation } from '../../../helper/translate';
-import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 
 type Mutable<Type> = {
     -readonly [Key in keyof Type]: Type[Key];
@@ -19,6 +36,25 @@ type Mutable<Type> = {
 function makeMutable<T>(a: T) {
     return a as Mutable<T>;
 }
+
+const aoe4CivInfo = {
+    AbbasidDynasty: civDataAbbasidDynasty,
+    Chinese: civDataChinese,
+    DelhiSultanate: civDataDelhiSultanate,
+    English: civDataEnglish,
+    French: civDataFrench,
+    HolyRomanEmpire: civDataHolyRomanEmpire,
+    Malians: civDataMalians,
+    Mongols: civDataMongols,
+    Ottomans: civDataOttomans,
+    Rus: civDataRus,
+    Byzantines: civDataByzantines,
+    Japanese: civDataJapanese,
+    JeanneDArc: civDataJeanneDArc,
+    Ayyubids: civDataAyyubids,
+    ZhuXiSLegacy: civDataZhuXiSLegacy,
+    OrderOfTheDragon: civDataOrderOfTheDragon,
+};
 
 export default function CivList() {
     const [text, setText] = useState('');
@@ -35,11 +71,11 @@ export default function CivList() {
     const renderItem = (civ: Civ) => (
         <TouchableOpacity key={civ} onPress={() => router.push(`/explore/civilizations/${civ}`)}>
             <View className="flex-row items-center py-1.5">
-                <Image className="w-8 h-8" source={getCivIconLocal(civ)} />
+                <Image className={`${appConfig.game === 'aoe2de' ? 'w-8' : 'w-14'} h-8`} source={getCivIconLocal(civ)} />
                 <View className="flex-1 ml-2.5">
                     <Text variant="label">{getCivNameById(civ)}</Text>
                     <Text variant="body-sm" color="subtle" numberOfLines={1}>
-                        {getCivTeamBonus(civ) ?? ''}
+                        {appConfig.game === 'aoe2de' ? getCivTeamBonus(civ) : getCivStrategies(aoe4CivInfo, civ)}
                     </Text>
                 </View>
             </View>

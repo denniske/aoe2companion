@@ -1,17 +1,16 @@
-// import { useTournament } from '@app/api/tournaments';
-
+import { useTournament } from '@app/api/tournaments';
 import { Tournament } from 'liquipedia';
 
-import { TournamentCard } from './tournament-card';
+import { TournamentCard, TournamentSkeletonCard } from './tournament-card';
 
-export const TournamentCardLarge: React.FC<Tournament> = (tournament) => {
-    // const { data: tournament } = useTournament(id);
+export const TournamentCardLarge: React.FC<Tournament | { path: string }> = ({ path: id, ...rest }) => {
+    const { data: tournament } = useTournament(id, !!id);
 
-    // if (!tournament) {
-    //     return null;
-    // }
+    if (!tournament) {
+        return <TournamentSkeletonCard direction="horizontal" subtitle />;
+    }
 
-    // const participants = tournament.participants.map((participant) => participant.name);
+    const participants = tournament.participants.map((participant) => participant.name);
 
-    return <TournamentCard {...tournament} />;
+    return <TournamentCard {...(rest as Tournament)} {...tournament} subtitle={`Featuring: ${participants.join(', ')}`} />;
 };

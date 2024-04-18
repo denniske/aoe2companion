@@ -1,18 +1,17 @@
 import { HeaderTitle } from '@app/components/header-title';
+import { Icon } from '@app/components/icon';
+import { ScrollView } from '@app/components/scroll-view';
 import { genericCivIcon, getCivIconLocal } from '@app/helper/civs';
 import { useSelector } from '@app/redux/reducer';
 import { useFavoritedBuild } from '@app/service/storage';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { Image } from 'expo-image';
 import { activateKeepAwakeAsync, deactivateKeepAwake } from 'expo-keep-awake';
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { Stack, router, useLocalSearchParams } from 'expo-router';
 import startCase from 'lodash/startCase';
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import { StyleSheet, View, Linking, TouchableOpacity } from 'react-native';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 import { IBuildOrderStandardResources, sortBuildAges, getBuildById } from '../../../../../data/src/helper/builds';
-import { RootStackParamList } from '../../../../App2';
 import { getDifficultyIcon, getDifficultyName } from '../../../helper/difficulties';
 import { getTranslation } from '../../../helper/translate';
 import { getAgeIcon, getOtherIcon } from '../../../helper/units';
@@ -23,7 +22,6 @@ import { StepActions } from '../../../view/components/build-order/step-actions';
 import { Button } from '../../../view/components/button';
 import { MyText } from '../../../view/components/my-text';
 import { Tag } from '../../../view/components/tag';
-import { ScrollView } from '@app/components/scroll-view';
 
 const capitalize = (string: string) => string.charAt(0).toUpperCase() + string.slice(1);
 
@@ -47,7 +45,7 @@ export function FavoriteHeaderButton() {
 
     return (
         <TouchableOpacity hitSlop={10} onPress={toggleFavorite}>
-            <FontAwesome5 solid={isFavorited} name="heart" size={20} color="#ef4444" />
+            <Icon prefix={isFavorited ? 'fass' : 'fasr'} icon="heart" size={20} color="text-[#ef4444]" />
         </TouchableOpacity>
     );
 }
@@ -57,7 +55,6 @@ export default function BuildDetail() {
     const { id = '', focusMode } = useLocalSearchParams<{ id: string; focusMode: string }>();
     const build = getBuildById(id)!;
 
-    const navigation = useNavigation<NavigationProp<RootStackParamList, 'Guide'>>();
     const [focused, setFocused] = useState(!!focusMode);
     const difficultyIcon = getDifficultyIcon(build.difficulty);
     const ages = sortBuildAges(Object.entries(build.pop));
@@ -205,7 +202,7 @@ export default function BuildDetail() {
                 onClose={() => {
                     setFocused(false);
                     if (focusMode) {
-                        navigation.goBack();
+                        router.back();
                     }
                 }}
             />

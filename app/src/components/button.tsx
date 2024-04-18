@@ -3,16 +3,18 @@ import { router } from 'expo-router';
 import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
 
 import { Icon, IconProps } from './icon';
-import { Text } from './text';
+import { Text, TextProps } from './text';
 
 export interface ButtonProps extends Omit<TouchableOpacityProps, 'children'> {
     children?: string;
     icon?: IconProps['icon'];
     href?: string;
     size?: 'small' | 'medium' | 'large';
+    align?: TextProps['align'];
+    textStyle?: TextProps['style'];
 }
 
-export const Button: React.FC<ButtonProps> = ({ children, icon, onPress, href, size = 'medium', disabled, ...props }) => {
+export const Button: React.FC<ButtonProps> = ({ children, icon, onPress, href, size = 'medium', disabled, align, textStyle, ...props }) => {
     const textSizes: Record<NonNullable<ButtonProps['size']>, TextVariant> = {
         small: 'label-sm',
         medium: 'header-xs',
@@ -42,7 +44,14 @@ export const Button: React.FC<ButtonProps> = ({ children, icon, onPress, href, s
         >
             {icon && <Icon color="text-white" icon={icon} size={14} />}
             {children && (
-                <Text variant={textSizes[size]} color={color} className="uppercase" allowFontScaling={false}>
+                <Text
+                    variant={textSizes[size]}
+                    color={color}
+                    className={`uppercase ${align ? 'flex-1' : ''}`}
+                    align={align}
+                    style={textStyle}
+                    allowFontScaling={false}
+                >
                     {children}
                 </Text>
             )}

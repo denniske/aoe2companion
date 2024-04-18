@@ -5,9 +5,12 @@ import { MyText } from '../../components/my-text';
 import { createStylesheet } from '../../../theming-new';
 import { CountryImage } from '../../components/country-image';
 import { getCivIconLocal } from '../../../helper/civs';
+import { civsData } from '@nex/dataset';
 
 export const PlayoffPlayer: React.FC<{ player: EventPlayer; reverse?: boolean }> = ({ player, reverse = false }) => {
     const styles = useStyles();
+    const civ = player.civilization ? civsData.find((civ) => civ.toLocaleLowerCase().startsWith(player.civilization)) : undefined;
+
     return (
         <View style={[styles.player, reverse && { flexDirection: 'row-reverse' }]}>
             {player.country && <CountryImage country={player.country.code} style={{}} />}
@@ -18,7 +21,7 @@ export const PlayoffPlayer: React.FC<{ player: EventPlayer; reverse?: boolean }>
             )}
             {player.civilization && (
                 <Image
-                    source={getCivIconLocal(player.civilization)}
+                    source={getCivIconLocal(civ ?? player.civilization)}
                     style={[styles.civImage, !player.name && styles.civImageLarge]}
                     alt={player.civilization}
                 />

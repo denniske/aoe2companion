@@ -2,11 +2,12 @@ import { Text } from '@app/components/text';
 import { isElectron } from '@app/helper/electron';
 import { styled } from 'nativewind';
 import { useEffect, useRef, useState } from 'react';
-import { Animated, Easing, Modal, View, ScrollView, Pressable, StyleSheet, ViewStyle, Platform } from 'react-native';
+import { Animated, Easing, Modal, View, ScrollView, Pressable, StyleSheet, ViewStyle, Platform, TouchableOpacity } from 'react-native';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 import { createStylesheet } from '../theming-new';
+import { Icon } from '@app/components/icon';
 
 export type BottomSheetProps = {
     title?: string;
@@ -17,6 +18,7 @@ export type BottomSheetProps = {
     onCloseComplete?: () => void;
     children: React.ReactNode;
     style?: ViewStyle;
+    closeButton?: boolean;
 };
 
 function BottomSheetComponent({
@@ -28,6 +30,7 @@ function BottomSheetComponent({
     isFullHeight = false,
     children,
     style,
+    closeButton,
 }: BottomSheetProps) {
     const modalAnimation = useRef(new Animated.Value(0)).current;
     const [isVisible, setIsVisible] = useState(isActive);
@@ -127,16 +130,23 @@ function BottomSheetComponent({
                                             }
                                         }}
                                     >
-                                        <Animated.View style={styles.handleContainer}>
+                                        <Animated.View className={`items-center pt-2 pb-4 ${title ? '-mb-4 z-10' : ''}`}>
                                             <View style={styles.handle} />
                                         </Animated.View>
                                     </PanGestureHandler>
                                 )}
                                 <ScrollView contentContainerStyle={[styles.contentContainer, style]}>
                                     {title && (
-                                        <Text color="brand" variant="header-lg" className="text-center">
-                                            {title}
-                                        </Text>
+                                        <View className={closeButton ? 'relative px-6 flex-row' : 'flex-row'}>
+                                            <Text color="brand" variant="header-lg" className="text-center flex-1">
+                                                {title}
+                                            </Text>
+                                            {closeButton && (
+                                                <TouchableOpacity className="absolute right-0 h-full justify-center" onPress={onClose}>
+                                                    <Icon size={24} prefix="fasr" icon="times" />
+                                                </TouchableOpacity>
+                                            )}
+                                        </View>
                                     )}
                                     {children}
                                 </ScrollView>
@@ -153,11 +163,6 @@ const useStyles = createStylesheet((theme) =>
     StyleSheet.create({
         overlay: {
             backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        },
-        handleContainer: {
-            paddingTop: 8,
-            paddingBottom: 16,
-            alignItems: 'center',
         },
         handle: {
             height: 4,

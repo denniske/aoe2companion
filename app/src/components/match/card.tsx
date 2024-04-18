@@ -1,18 +1,18 @@
-import { View } from 'react-native';
-import { Image } from 'expo-image';
-import React, { useState } from 'react';
-import { formatAgo, isMatchFreeForAll, teamRatio } from '@nex/data';
 import { getMapImage } from '@app/helper/maps';
-import { flatten, startCase } from 'lodash';
-import { differenceInSeconds } from 'date-fns';
-import { AoeSpeed, getSpeedFactor } from '../../helper/speed';
+import { formatAgo, isMatchFreeForAll, teamRatio } from '@nex/data';
 import { appConfig } from '@nex/dataset';
-import { IMatchNew } from '../../api/helper/api.types';
-import { Card } from '../card';
-import { Text } from '../text';
-import { Icon } from '../icon';
+import { differenceInSeconds } from 'date-fns';
+import { Image } from 'expo-image';
+import { flatten, startCase } from 'lodash';
+import React from 'react';
+import { View } from 'react-native';
+
 import { MatchProps } from '.';
+import { AoeSpeed, getSpeedFactor } from '../../helper/speed';
+import { Card } from '../card';
+import { Icon } from '../icon';
 import { Skeleton, SkeletonText } from '../skeleton';
+import { Text } from '../text';
 
 export interface MatchCardProps extends MatchProps {
     onPress?: () => void;
@@ -29,6 +29,18 @@ export function MatchCard(props: MatchCardProps) {
     const { match, user, highlightedUsers, expanded = false, showLiveActivity = false, onPress } = props;
     const players = flatten(match?.teams.map((t) => t.players));
     const freeForAll = isMatchFreeForAll(match);
+    const attributes = [
+        teamRatio(match),
+        match.leaderboardName?.includes('Unranked')
+            ? 'Unranked'
+            : match.leaderboardName?.includes('Quick Play') || match.leaderboardName?.includes('Quick Match')
+              ? 'Quick Play'
+              : 'Ranked',
+    ];
+
+    if (match.gameMode) {
+        attributes.push(startCase(match.gameMode.toString()));
+    }
 
     let duration: string = '';
     if (match.started) {
@@ -47,17 +59,17 @@ export function MatchCard(props: MatchCardProps) {
                         className={`w-14 h-14 ${appConfig.game === 'aoe2de' ? '' : 'border border-gold-500'}`}
                         contentFit="cover"
                     />
-                    <View className="absolute top-0 left-0">
+                    <View className={`absolute ${appConfig.game === 'aoe2de' ? 'top-0 left-0' : 'top-1 left-1'}`}>
                         {players.some((p) => p.profileId === user && p.won === true && (freeForAll || p.team != -1)) && (
-                            <Icon size={12} icon="crown" color="brand" />
+                            <Icon size={12} icon="crown" color={appConfig.game === 'aoe2de' ? 'brand' : 'text-gold-500'} />
                         )}
 
-                        {user == null && players.some((p) => p.won != null) && (
+                        {user == null && players.some((p) => p.won != null) && appConfig.game !== 'aoe2de' && (
                             <Image className="w-3 h-3" source={require('../../../assets/other/SkullCrown.png')} />
                         )}
 
                         {players.some((p) => p.profileId === user && p.won === false && (freeForAll || p.team != -1)) && (
-                            <Icon size={12} icon="skull" color="text-gray-500" />
+                            <Icon size={12} icon="skull" color={appConfig.game === 'aoe2de' ? 'text-gray-500' : 'text-gray-300'} />
                         )}
                     </View>
                 </View>
@@ -69,15 +81,7 @@ export function MatchCard(props: MatchCardProps) {
                     {match.mapName}
                     {match.server && <Text> - {match.server}</Text>}
                 </Text>
-                <Text numberOfLines={1}>
-                    {teamRatio(match)} -{' '}
-                    {match.leaderboardName?.includes('Unranked')
-                        ? 'Unranked'
-                        : match.leaderboardName?.includes('Quick Play')
-                          ? 'Quick Play'
-                          : 'Ranked'}{' '}
-                    - {startCase(match.gameMode.toString())}
-                </Text>
+                <Text numberOfLines={1}>{attributes.join(' - ')}</Text>
                 <Text numberOfLines={1}>
                     {match.finished === null && duration}
                     {match.finished || match.finished === undefined ? (match.started ? formatAgo(match.started) : 'none') : null}

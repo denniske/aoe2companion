@@ -1,23 +1,20 @@
-import {Linking, Platform, StyleSheet, TouchableOpacity} from "react-native";
-import React, {useEffect} from "react";
-import {createStylesheet} from '../../../theming-new';
+import { Linking, Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useEffect } from 'react';
+import { createStylesheet } from '../../../theming-new';
 import Badge from './badge';
-import {useLazyApi} from '../../../hooks/use-lazy-api';
-import {twitchLive} from '../../../api/following';
-import {openLink} from "../../../helper/url";
-
+import { useLazyApi } from '../../../hooks/use-lazy-api';
+import { twitchLive } from '../../../api/following';
+import { openLink } from '../../../helper/url';
 
 interface Props {
     channel: string;
+    condensed?: boolean;
 }
 
 export default function TwitchBadge(props: Props) {
-    const { channel } = props;
+    const { channel, condensed } = props;
 
-    const playerTwitchLive = useLazyApi(
-        {},
-        twitchLive, channel
-    );
+    const playerTwitchLive = useLazyApi({}, twitchLive, channel);
 
     useEffect(() => {
         if (channel) {
@@ -27,21 +24,22 @@ export default function TwitchBadge(props: Props) {
 
     let content = undefined;
     if (playerTwitchLive.data?.viewer_count) {
-        content = `${playerTwitchLive.data?.viewer_count} watching`;
+        content = `${playerTwitchLive.data?.viewer_count}${condensed ? '' : ' watching'}`;
     }
 
     return (
         <TouchableOpacity onPress={() => openLink(`https://www.twitch.tv/${channel}`)}>
             <Badge
-                label="Twitch"
+                label={!condensed ? 'Twitch' : ''}
                 labelColor="#6441a5"
-                content={content}
+                content={content ? content : condensed ? 'Offline' : undefined}
                 contentColor="#333638"
                 logoIcon="twitch"
                 logoColor="white"
-                dot={!!content} />
+                dot={!!content}
+            />
         </TouchableOpacity>
     );
 }
 
-const useStyles = createStylesheet(theme => StyleSheet.create({}));
+const useStyles = createStylesheet((theme) => StyleSheet.create({}));

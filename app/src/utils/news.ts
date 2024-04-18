@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { appConfig } from '@nex/dataset';
 
 export interface Post {
     id: number;
@@ -34,9 +35,12 @@ export const useNews = (count: number) => {
     return useQuery({
         queryKey: ['news'],
         queryFn: async () => {
-            const { data } = await axios.get(`https://www.ageofempires.com/wp-json/wp/v2/posts?per_page=${count}&game=218`);
+            const { data } = await axios.get(
+                `https://www.ageofempires.com/wp-json/wp/v2/posts?per_page=${count}&game=${appConfig.game === 'aoe2de' ? 218 : 164}`
+            );
             return data as Post[];
         },
+        refetchOnWindowFocus: true,
     });
 };
 

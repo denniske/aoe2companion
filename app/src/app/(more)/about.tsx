@@ -119,6 +119,26 @@ export default function AboutPage() {
         await Linking.openURL(url!);
     };
 
+    const openAoe4CompanionInStore = async () => {
+        if (Platform.OS === 'web') {
+            window.open('https://www.aoe4companion.com', '_blank');
+            return;
+        }
+        const storeUrl = Platform.select({
+            android: 'https://play.google.com/store/apps/details?id=com.aoe4companion',
+            ios: 'itms-apps://apps.apple.com/app/id1601333682',
+        });
+        const url = Platform.select({
+            android: 'https://play.google.com/store/apps/details?id=com.aoe4companion',
+            ios: 'https://apps.apple.com/app/id1601333682',
+        });
+        if (await Linking.canOpenURL(storeUrl!)) {
+            await Linking.openURL(storeUrl!);
+            return;
+        }
+        await Linking.openURL(url!);
+    };
+
     const open59SecondsInStore = async () => {
         if (Platform.OS === 'web') {
             window.open('https://59seconds.app', '_blank');
@@ -378,11 +398,18 @@ export default function AboutPage() {
 
             <MyText style={styles.heading}>Checkout my other apps</MyText>
 
-            {appConfig.game === 'aoe4' && (
+            {appConfig.game === 'aoe4' ? (
                 <View style={styles.row}>
                     <MyText style={styles.content}> </MyText>
                     <TouchableOpacity onPress={openAoe2CompanionInStore}>
                         <MyText style={appStyles.link}>AoE II Companion</MyText>
+                    </TouchableOpacity>
+                </View>
+            ) : (
+                <View style={styles.row}>
+                    <MyText style={styles.content}> </MyText>
+                    <TouchableOpacity onPress={openAoe4CompanionInStore}>
+                        <MyText style={appStyles.link}>AoE IV Companion</MyText>
                     </TouchableOpacity>
                 </View>
             )}

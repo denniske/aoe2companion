@@ -25,12 +25,16 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@app4/*": ["app4/src/*"],
       "@app/*": ["app/src/*"],
       "@nex/app/view": [
         "app/src/index-view.ts"
       ],
       "@nex/data": [
         "data/src/index.ts"
+      ],
+      "@nex/data4": [
+        "data4/src/index.ts"
       ],
       "@nex/data/api": [
         "data/src/index-api.ts"

@@ -50,7 +50,7 @@ export const NewsPopup: React.FC<{ post: Post; visible: boolean; onClose: () => 
     const { width } = useWindowDimensions();
 
     return (
-        <BottomSheet showHandle title={decode(post.title.rendered)} isActive={visible} onClose={onClose}>
+        <BottomSheet closeButton title={decode(post.title.rendered)} isActive={visible} onClose={onClose}>
             <View className="pt-4">
                 <RenderHtml
                     systemFonts={['Roboto_400Regular', 'Roboto_500Medium', 'Roboto_700Bold', 'Roboto_900Black']}

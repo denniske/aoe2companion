@@ -1,25 +1,26 @@
-import { useRefreshControl, useUpcomingTournaments } from '@app/api/tournaments';
+import { useRefreshControl, useTournaments } from '@app/api/tournaments';
 import { Button } from '@app/components/button';
+import { Dropdown } from '@app/components/dropdown';
 import { Field } from '@app/components/field';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { SectionList } from '@app/components/section-list';
 import { Text } from '@app/components/text';
-import { sortByTier, tournamentAbbreviation, tournamentStatus, transformSearch } from '@app/helper/tournaments';
+import { formatTier, formatTierShort, sortedTiers, tournamentAbbreviation, transformSearch } from '@app/helper/tournaments';
 import { getTranslation } from '@app/helper/translate';
 import { useAppTheme } from '@app/theming';
 import { DismissKeyboard } from '@app/view/components/dismiss-keyboard';
 import RefreshControlThemed from '@app/view/components/refresh-control-themed';
 import { TournamentCard } from '@app/view/tournaments/tournament-card';
-import { Stack } from 'expo-router';
-import { Tournament } from 'liquipedia';
-import { orderBy } from 'lodash';
+import { Stack, useLocalSearchParams } from 'expo-router';
+import { TournamentCategory } from 'liquipedia';
 import { useMemo, useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 
-// import { RootStackParamList } from '../../../App2';
-
-export default function TournamentsList() {
-    const { data: allTournaments = [], ...query } = useUpcomingTournaments();
+export default function AllTournaments() {
+    const params = useLocalSearchParams<{ league?: string }>();
+    const { league } = params;
+    const [category, setCategory] = useState<TournamentCategory>(sortedTiers[0]);
+    const { data: tournaments = [], ...query } = useTournaments((league as TournamentCategory) || category);
     const [search, setSearch] = useState('');
     const theme = useAppTheme();
     const subtitleMap = {
@@ -28,85 +29,58 @@ export default function TournamentsList() {
         [getTranslation('tournaments.recent')]: getTranslation('tournaments.sortedbydate'),
     };
     const filteredTournaments = useMemo(() => {
-        const sections: { title: string; data: Tournament[] }[] = [];
-        const ongoing: Tournament[] = [];
-        const upcoming: Tournament[] = [];
-        const past: Tournament[] = [];
+        const filteredTournaments = tournaments
+            .map((tournamentsSection) => {
+                return {
+                    ...tournamentsSection,
+                    data: tournamentsSection.data.filter(
+                        (tournament) =>
+                            transformSearch(tournament.name).includes(transformSearch(search)) ||
+                            tournamentAbbreviation(tournament.name).includes(transformSearch(search))
+                    ),
+                };
+            })
+            .filter((tournamentSection) => tournamentSection.data.length);
 
-        const filteredTournaments = allTournaments.filter((tournament) => {
-            return (
-                transformSearch(tournament.name).includes(transformSearch(search)) ||
-                tournamentAbbreviation(tournament.name).includes(transformSearch(search))
-            );
-        });
-
-        filteredTournaments.map((tournament) => {
-            const status = tournamentStatus(tournament);
-
-            if (status === 'ongoing') {
-                ongoing.push(tournament);
-            } else if (status === 'upcoming') {
-                upcoming.push(tournament);
-            } else {
-                past.push(tournament);
-            }
-        });
-
-        if (ongoing.length > 0) {
-            sections.push({
-                title: getTranslation('tournaments.ongoing'),
-                data: orderBy(ongoing, [sortByTier, (t) => t.end ?? t.start], ['asc', 'asc']),
-            });
-        }
-
-        if (upcoming.length > 0) {
-            sections.push({
-                title: getTranslation('tournaments.upcoming'),
-                data: orderBy(upcoming, ['start', 'end'], ['asc', 'asc']),
-            });
-        }
-
-        if (past.length > 0) {
-            sections.push({
-                title: getTranslation('tournaments.recent'),
-                data: orderBy(past, [(t) => t.end ?? t.start, (t) => t.start], ['desc', 'asc']),
-            });
-        }
-
-        return sections.length > 0
-            ? sections
+        return filteredTournaments.length > 0
+            ? filteredTournaments
             : query.isFetching || Platform.OS === 'web'
               ? []
               : [{ title: getTranslation('tournaments.noresults'), data: [] }];
-    }, [allTournaments, search, query.isFetching]);
+    }, [league, tournaments, search, query.isFetching]);
 
     const refreshControlProps = useRefreshControl(query);
 
     const listHeader = useMemo(
-        () => (
-            <View style={styles.container}>
-                <View style={styles.searchContainer}>
-                    <Field type="search" value={search} onChangeText={setSearch} placeholder={getTranslation('tournaments.search')} />
+        () =>
+            league ? undefined : (
+                <View style={styles.container}>
+                    <View style={styles.searchContainer}>
+                        <Dropdown
+                            style={{ minWidth: 100 }}
+                            onChange={setCategory}
+                            options={sortedTiers.map((tier) => ({ value: tier, label: formatTier(tier), abbreviated: formatTierShort(category) }))}
+                            value={category}
+                        />
+                        <Field
+                            className="flex-1"
+                            type="search"
+                            value={search}
+                            onChangeText={setSearch}
+                            placeholder={`Search ${formatTier(category)} Tournaments`}
+                        />
+                    </View>
                 </View>
-            </View>
-        ),
-        [search, theme]
+            ),
+        [search, league, theme, setCategory, category, setSearch, formatTier, sortedTiers]
     );
 
     return (
         <KeyboardAvoidingView>
-            <Stack.Screen
-                options={{
-                    title: getTranslation('tournaments.title'),
-                    headerRight: () => (
-                        <Button size="small" href="/competitive/tournaments/all">
-                            View All
-                        </Button>
-                    ),
-                }}
-            />
+            <Stack.Screen options={{ title: league ? decodeURI(league).replaceAll('_', ' ') : getTranslation('tournaments.alltitle') }} />
             <DismissKeyboard>
                 <SectionList
+                    ListHeaderComponentStyle={{ zIndex: 100 }}
                     ListEmptyComponent={
                         Platform.OS === 'web' ? (
                             <View className="items-center gap-4">
@@ -145,6 +119,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     searchContainer: {
-        gap: 15,
+        flexDirection: 'row',
+        gap: 8,
     },
 });

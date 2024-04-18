@@ -7,6 +7,7 @@ import { NewsCard } from '@app/components/news-card';
 import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
 import { useSelector } from '@app/redux/reducer';
+import { useFollowedTournaments } from '@app/service/followed-tournaments';
 import { useFavoritedBuilds } from '@app/service/storage';
 import { useCurrentMatches } from '@app/utils/match';
 import { useNews } from '@app/utils/news';
@@ -25,10 +26,12 @@ export default function Page() {
     const auth = useSelector((state) => state.auth);
     const router = useRouter();
     const { favorites, refetch } = useFavoritedBuilds();
+    const { followedIds, refetch: refetchTournament } = useFollowedTournaments();
 
     useFocusEffect(
         useCallback(() => {
             refetch();
+            refetchTournament();
         }, [])
     );
 
@@ -79,8 +82,11 @@ export default function Page() {
 
             {Platform.OS !== 'web' ? (
                 <View className="gap-2">
-                    <Text variant="header-lg">Featured Tournament</Text>
-                    <TournamentCardLarge {...tournament} />
+                    <View className="flex-row justify-between items-center">
+                        <Text variant="header-lg">{followedIds[0] ? 'Favorite' : 'Featured'} Tournament</Text>
+                        <Link href="/competitive/tournaments">View All</Link>
+                    </View>
+                    {followedIds[0] ? <TournamentCardLarge path={followedIds[0]} /> : <TournamentCardLarge {...tournament} />}
                 </View>
             ) : null}
 

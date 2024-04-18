@@ -77,8 +77,8 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
 
             <Link href={`/explore/civilizations/${player.civName}`} asChild>
                 <TouchableOpacity className="flex-row flex-1 gap-1" onPress={onClose}>
-                    <Image className="w-5 h-5" source={getCivIcon(player)} />
-                    <Text numberOfLines={1} variant="label">
+                    <Image className={appConfig.game === 'aoe2de' ? 'w-5 h-5' : 'w-8 h-5'} source={getCivIcon(player)} contentFit="contain" />
+                    <Text numberOfLines={1} variant="label" className="flex-1">
                         {player.civName}
                     </Text>
                 </TouchableOpacity>

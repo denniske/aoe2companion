@@ -1,4 +1,4 @@
-import {flatMap} from 'lodash';
+import { flatMap } from 'lodash';
 
 export interface IReferencePlayer {
     name: string;
@@ -11,7 +11,7 @@ export interface IReferencePlayer {
     discord: string;
     discordServerId: string;
     platforms: {
-        rl?: string[],
+        rl?: string[];
     };
     aka: string[];
     douyu: string;
@@ -30,27 +30,21 @@ export interface IReferenceData {
 }
 
 export function setAoeReferenceData(data: any) {
-    aoeReferenceDataTyped = Object.assign(
-        {},
-        data,
-        {
-            players: [
-                ...data.players,
-                {
-                    "name": "aoe2companion",
-                    "country": "de",
-                    "discord": "https://discord.gg/gCunWKx",
-                    "discordServerId": "727175083977736262",
-                    "platforms": {
-                        "rl": [
-                            "209525"
-                        ]
-                    }
+    aoeReferenceDataTyped = Object.assign({}, data, {
+        players: [
+            ...data.players,
+            {
+                name: 'aoe2companion',
+                country: 'de',
+                discord: 'https://discord.gg/gCunWKx',
+                discordServerId: '727175083977736262',
+                platforms: {
+                    rl: ['209525'],
                 },
-            ]
-        }
-    ) as unknown as IReferenceData;
-    verifiedProfileIds = flatMap(aoeReferenceDataTyped.players, p => p.platforms.rl);
+            },
+        ],
+    }) as unknown as IReferenceData;
+    verifiedProfileIds = flatMap(aoeReferenceDataTyped.players, (p) => p.platforms.rl);
     // console.log('verifiedProfileIds', verifiedProfileIds);
 }
 
@@ -63,7 +57,17 @@ export function isVerifiedPlayer(profileId: number) {
 
 export function getVerifiedPlayer(profileId: number) {
     // console.log(profileId, verifiedPlayer);
-    return aoeReferenceDataTyped.players?.find(p => p.platforms?.rl?.includes(profileId.toString()));
+    return aoeReferenceDataTyped.players?.find((p) => p.platforms?.rl?.includes(profileId.toString()));
+}
+
+export function getVerifiedPlayerBy(predicate: (value: IReferencePlayer, index: number) => unknown) {
+    // console.log(profileId, verifiedPlayer);
+    return aoeReferenceDataTyped.players?.find(predicate);
+}
+
+export function getVerifiedPlayerIds() {
+    // console.log(profileId, verifiedPlayer);
+    return verifiedProfileIds;
 }
 
 export function getTwitchChannel(verifiedPlayer: IReferencePlayer) {

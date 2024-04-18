@@ -1,24 +1,26 @@
-import { Image } from 'expo-image';
+import { Image, ImageProps } from 'expo-image';
 import { ImageSourcePropType, View } from 'react-native';
 
-import { Text } from './text';
+import { Text, TextProps } from './text';
 
 export interface HeaderTitleProps {
     title: string;
-    subtitle?: string;
+    subtitle?: string | React.ReactNode;
     icon?: ImageSourcePropType;
+    iconStyle?: ImageProps['style'];
+    align?: TextProps['align'];
 }
 
-export const HeaderTitle: React.FC<HeaderTitleProps> = ({ title, subtitle, icon }) => {
+export const HeaderTitle: React.FC<HeaderTitleProps> = ({ title, subtitle, icon, iconStyle, align = 'left' }) => {
     return (
-        <View className="items-center flex-row gap-2">
-            {icon && <Image className="w-8 h-8" source={icon} />}
-            <View>
-                <Text variant={subtitle ? 'header' : 'header-lg'} color="brand" numberOfLines={1} allowFontScaling={false}>
+        <View className="items-center flex-row gap-2 flex-1">
+            {icon && <Image className="w-8 h-8" style={iconStyle} source={icon} />}
+            <View className="flex-1">
+                <Text variant={subtitle ? 'header' : 'header-lg'} color="brand" numberOfLines={1} allowFontScaling={false} align={align}>
                     {title}
                 </Text>
                 {subtitle && (
-                    <Text variant="label" numberOfLines={1} allowFontScaling={false}>
+                    <Text variant="label" numberOfLines={1} allowFontScaling={false} align={align}>
                         {subtitle}
                     </Text>
                 )}
