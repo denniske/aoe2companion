@@ -22,7 +22,7 @@ export const Field: React.FC<FieldProps> = ({ type: inputType = 'default', style
     };
 
     return (
-        <View className="relative" style={style}>
+        <View className="relative h-[45px]" style={style}>
             {inputType === 'search' ? (
                 <View className="absolute left-3 top-0 h-full justify-center z-10">
                     <Icon icon="search" color="subtle" />

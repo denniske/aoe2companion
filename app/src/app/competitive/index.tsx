@@ -16,7 +16,7 @@ import { appConfig } from '@nex/dataset';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Image } from 'expo-image';
-import { Redirect, Stack, router, useFocusEffect } from 'expo-router';
+import { Stack, router, useFocusEffect } from 'expo-router';
 import { orderBy } from 'lodash';
 import compact from 'lodash/compact';
 import { useCallback, useEffect, useState } from 'react';
@@ -24,14 +24,10 @@ import { Platform, TouchableOpacity, View } from 'react-native';
 import WebView from 'react-native-webview';
 
 export default function Competitive() {
-    if (appConfig.game !== 'aoe2de') {
-        return <Redirect href="/competitive/tournaments" />;
-    }
-
     const [isVideoPlaying, setIsVideoPlaying] = useState(false);
     const proPlayerIds = compact(getVerifiedPlayerIds().map((id) => id?.toString()));
     const { matches } = useOngoing(proPlayerIds);
-    const { data: tournamentMatches } = useTournamentMatches();
+    const { data: tournamentMatches, isLoading: isLoadingUpcomingMatches } = useTournamentMatches();
     const filteredMatches = tournamentMatches
         ?.filter((match) => match.startTime && match.tournament)
         .map((match) => ({ ...match, header: { name: match.tournament.name } }));
@@ -92,20 +88,22 @@ export default function Competitive() {
             />
 
             <View className="flex-1 pt-4 gap-5">
-                <View className="gap-2">
-                    <View className="flex-row justify-between items-center px-4">
-                        <Text variant="header-lg">Online Verified Players</Text>
-                        <Link href="/competitive/games">View Games</Link>
-                    </View>
+                {appConfig.game === 'aoe2de' && (
+                    <View className="gap-2">
+                        <View className="flex-row justify-between items-center px-4">
+                            <Text variant="header-lg">Online Verified Players</Text>
+                            <Link href="/competitive/games">View Games</Link>
+                        </View>
 
-                    <PlayerList
-                        hideIcons
-                        selectedUser={(user) => router.navigate(`/matches/users/${user.profileId}`)}
-                        list={activePlayers.length > 0 ? activePlayers : ['loading', 'loading', 'loading', 'loading', 'loading']}
-                        variant="horizontal"
-                        footer={(player) => (player?.isLive ? <View className="top-1 right-1 w-2 h-2 rounded-full bg-red-600 absolute" /> : null)}
-                    />
-                </View>
+                        <PlayerList
+                            hideIcons
+                            selectedUser={(user) => router.navigate(`/matches/users/${user.profileId}`)}
+                            list={activePlayers.length > 0 ? activePlayers : ['loading', 'loading', 'loading', 'loading', 'loading']}
+                            variant="horizontal"
+                            footer={(player) => (player?.isLive ? <View className="top-1 right-1 w-2 h-2 rounded-full bg-red-600 absolute" /> : null)}
+                        />
+                    </View>
+                )}
 
                 {Platform.OS !== 'web' && (
                     <View className="gap-2">
@@ -134,7 +132,7 @@ export default function Competitive() {
                         </Text>
 
                         <FlatList
-                            data={filteredMatches}
+                            data={isLoadingUpcomingMatches ? Array(10).fill(null) : filteredMatches}
                             renderItem={(match) => (
                                 <TournamentMatch
                                     onPress={() => router.navigate(`/competitive/tournaments/${encodeURIComponent(match.item.tournament.path)}`)}
@@ -145,6 +143,7 @@ export default function Competitive() {
                             )}
                             contentContainerStyle="gap-2.5 px-4"
                             horizontal
+                            ListEmptyComponent={<Text>No upcoming matches right now. Check back later!</Text>}
                         />
                     </View>
                 )}

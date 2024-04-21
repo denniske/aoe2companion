@@ -65,14 +65,23 @@ export const useTournament = (id: string, enabled?: boolean) => {
     return { ...query, data };
 };
 
-export const useTournamentMatches = (enabled?: boolean) =>
-    useQuery<Match[]>({
+export const useTournamentMatches = (enabled?: boolean) => {
+    const { data: upcomingTournaments, isLoading: isLoadingTournaments } = useUpcomingTournaments();
+    const { data, isLoading, ...query } = useQuery<Match[]>({
         queryKey: ['tournament', 'matches'],
         queryFn: async () => await liquipedia.aoe.getMatches(),
         enabled: Platform.OS === 'web' ? false : enabled,
         staleTime: 60000,
         refetchOnWindowFocus: true,
     });
+    const upcomingTournamentIds = upcomingTournaments?.map((tournament) => encodeURIComponent(tournament.path));
+
+    return {
+        data: data?.filter((match) => upcomingTournamentIds?.includes(encodeURIComponent(match.tournament.path))),
+        isLoading: isLoadingTournaments || isLoading,
+        ...query,
+    };
+};
 
 export function useRefreshControl({ isFetching, refetch }: Pick<UseQueryResult, 'isFetching' | 'refetch'>) {
     const [refreshing, setFetching] = useState(!!isFetching);

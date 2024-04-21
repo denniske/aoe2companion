@@ -94,7 +94,7 @@ export default function AllTournaments() {
                     className="flex-1"
                     refreshControl={<RefreshControlThemed {...refreshControlProps} />}
                     ListHeaderComponent={listHeader}
-                    contentContainerStyle="p-4 gap-2.5"
+                    contentContainerStyle="p-4 gap-2.5 flex-grow"
                     sections={filteredTournaments}
                     renderSectionHeader={({ section: { title } }) => (
                         <View className="bg-gold-50 dark:bg-blue-950 pt-2.5 pb-1 flex-row items-center justify-between">

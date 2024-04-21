@@ -1,4 +1,5 @@
 import { Card } from '@app/components/card';
+import { SkeletonText } from '@app/components/skeleton';
 import { Text } from '@app/components/text';
 import { format } from 'date-fns';
 import { PlayoffMatch as IPlayoffMatch } from 'liquipedia';
@@ -15,6 +16,10 @@ export type TournamentMatchProps = {
 
 export const TournamentMatch: React.FC<{ match: TournamentMatchProps; style?: ViewStyle; onPress?: () => void }> = ({ match, style, onPress }) => {
     const [visible, setVisible] = useState(false);
+
+    if (!match) {
+        return <TournamentMatchSkeleton style={style} header />;
+    }
 
     return (
         <Card direction="vertical" onPress={onPress ?? (() => setVisible(true))} disabled={match.participants.length < 2} style={style}>
@@ -39,3 +44,18 @@ export const TournamentMatch: React.FC<{ match: TournamentMatchProps; style?: Vi
         </Card>
     );
 };
+
+export const TournamentMatchSkeleton: React.FC<{ style?: ViewStyle; header?: boolean }> = ({ style, header }) => (
+    <Card direction="vertical" disabled style={style}>
+        {header && (
+            <View className="flex-row justify-between">
+                <SkeletonText variant="label-sm" />
+                <SkeletonText variant="body-sm" />
+            </View>
+        )}
+
+        <SkeletonText />
+        <SkeletonText />
+        <SkeletonText />
+    </Card>
+);

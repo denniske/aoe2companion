@@ -31,7 +31,7 @@ export default function OngoingMatchesPage() {
                     const highlightedUsers = proPlayerIds.filter((playerId) => match.players.some((player) => player.profileId === playerId));
                     return (
                         <View className="gap-2">
-                            <View className="flex-row gap-2 items-center flex-wrap">
+                            <View className="flex-row items-center flex-wrap" style={{ columnGap: 8 }}>
                                 {highlightedUsers.map((playerId, index) => (
                                     <Fragment key={playerId.toString()}>
                                         {index !== 0 && <Icon prefix="fasr" icon="plus" size={10} />}

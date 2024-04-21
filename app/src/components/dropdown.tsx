@@ -1,9 +1,10 @@
 import { textColors } from '@app/utils/text.util';
 import { useState } from 'react';
-import { FlatList, Pressable, View, ViewStyle } from 'react-native';
+import { Pressable, View, ViewStyle } from 'react-native';
 
 import { Icon } from './icon';
 import { Text } from './text';
+import { FlatList } from 'react-native-gesture-handler';
 
 interface Item<ValueType extends string> {
     value: ValueType;
@@ -56,7 +57,7 @@ export const Dropdown = <ValueType extends string>({
                         keyboardShouldPersistTaps="handled"
                         scrollEnabled
                         data={options}
-                        className="bg-white dark:bg-blue-900 rounded-lg border border-gray-200 dark:border-gray-800"
+                        className="bg-white dark:bg-blue-900 rounded-lg border border-gray-200 dark:border-gray-800 max-h-[300px] overflow-hidden"
                         keyExtractor={(item) => String(item.value)}
                         renderItem={({ item }) => (
                             <Pressable

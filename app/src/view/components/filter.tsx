@@ -64,7 +64,7 @@ export const Filter = <Value,>({ options, label, value, onChange, icon }: Filter
                     <FlatList
                         keyboardShouldPersistTaps="handled"
                         style={styles.results}
-                        scrollEnabled={true}
+                        scrollEnabled
                         data={filteredOptions}
                         keyExtractor={(item) => String(item.value)}
                         renderItem={({ item, index }) => (
