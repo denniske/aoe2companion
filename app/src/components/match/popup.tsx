@@ -16,6 +16,7 @@ import { useTournamentMatches } from '../../api/tournaments';
 import { AoeSpeed, getSpeedFactor } from '../../helper/speed';
 import { Icon } from '../icon';
 import { Text } from '../text';
+import { ScrollView } from '../scroll-view';
 
 type MatchPopupProps = MatchProps & Pick<BottomSheetProps, 'isActive' | 'onClose'>;
 
@@ -57,7 +58,6 @@ export function MatchPopup(props: MatchPopupProps) {
         const finished = match.finished || new Date();
         duration = formatDuration(differenceInSeconds(finished, match.started) * getSpeedFactor(match.speed as AoeSpeed));
     }
-    if (appConfig.game !== 'aoe2de') duration = '';
 
     return (
         <BottomSheet isActive={isActive} onClose={onClose} title={`${name}'s Match`} className="gap-4" showHandle>
@@ -77,26 +77,32 @@ export function MatchPopup(props: MatchPopupProps) {
                         <Text variant="label">{tournament.name}</Text>
                     </Pressable>
                 )}
-                {appConfig.game === 'aoe2de' && (
-                    <View className="flex-row items-center gap-4 pb-3">
-                        <View className="flex-row items-center gap-1">
-                            <Icon icon="clock" size={14} color="subtle" />
-                            <Text color="subtle">{duration}</Text>
-                        </View>
+
+                <ScrollView horizontal contentContainerStyle="items-center gap-4 pb-3">
+                    <View className="flex-row items-center gap-1">
+                        <Icon icon="clock" size={14} color="subtle" />
+                        <Text color="subtle">{duration}</Text>
+                    </View>
+                    {appConfig.game === 'aoe2de' && (
                         <View className="flex-row items-center gap-1">
                             <Icon icon="running" size={14} color="subtle" />
                             <Text color="subtle">{match.speedName}</Text>
                         </View>
+                    )}
 
-                        {match.name !== 'AUTOMATCH' && (
-                            <>
-                                <Text color="subtle" numberOfLines={1}>
-                                    {match.name}
-                                </Text>
-                            </>
-                        )}
+                    <View className="flex-row items-center gap-1">
+                        <Icon icon="memo-circle-info" size={14} color="subtle" />
+                        <Text color="subtle" numberOfLines={1} selectable>
+                            {match.matchId}
+                        </Text>
                     </View>
-                )}
+
+                    {match.name !== 'AUTOMATCH' && (
+                        <Text color="subtle" numberOfLines={1}>
+                            {match.name}
+                        </Text>
+                    )}
+                </ScrollView>
                 {sortBy(match.teams, ({ teamId, players }, i) => min(players.map((p) => p.color))).map(({ teamId, players }, i) => (
                     <View key={teamId} className="gap-1">
                         {sortBy(players, (p) => p.color).map((player, j) => (

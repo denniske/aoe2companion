@@ -20,13 +20,13 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fasr } from '@fortawesome/sharp-regular-svg-icons';
 import { fass } from '@fortawesome/sharp-solid-svg-icons';
 import * as Sentry from '@sentry/react-native';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider, focusManager } from '@tanstack/react-query';
 import { ApplicationProvider } from '@ui-kitten/components';
 import * as Localization from 'expo-localization';
 import { Tabs, useNavigation } from 'expo-router';
 import { useColorScheme as useTailwindColorScheme } from 'nativewind';
 import { useCallback, useEffect, useState } from 'react';
-import { BackHandler, LogBox, Platform, StatusBar, View, useColorScheme } from 'react-native';
+import { BackHandler, LogBox, Platform, StatusBar, View, useColorScheme, AppState, AppStateStatus } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { PaperProvider, MD2DarkTheme as PaperDarkTheme, MD2LightTheme as PaperDefaultTheme } from 'react-native-paper';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -52,9 +52,21 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { ScrollContext, ScrollableContext } from '@app/hooks/use-scrollable';
 import { Button } from '@app/components/button';
 
+function onAppStateChange(status: AppStateStatus) {
+    if (Platform.OS !== 'web') {
+        focusManager.setFocused(status === 'active');
+    }
+}
+
 library.add(fass, fasr);
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            refetchOnWindowFocus: false,
+        },
+    },
+});
 SplashScreen.preventAutoHideAsync();
 
 initSentry();
@@ -179,6 +191,12 @@ function AppWrapper() {
         Roboto_700Bold,
         Roboto_900Black,
     });
+
+    useEffect(() => {
+        const subscription = AppState.addEventListener('change', onAppStateChange);
+
+        return () => subscription.remove();
+    }, []);
 
     // Trigger loading of auth and following
     useApi(

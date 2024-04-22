@@ -1,7 +1,8 @@
-import { sortByStatus, sortByTier } from '@app/helper/tournaments';
+import { sortByStatus, sortByTier, sortedTiers } from '@app/helper/tournaments';
+import { appConfig } from '@nex/dataset';
 import { UseQueryResult, useQuery, useQueryClient } from '@tanstack/react-query';
 import * as Application from 'expo-application';
-import { Liquipedia, Match, Tournament, TournamentCategory, TournamentDetail, TournamentSection } from 'liquipedia';
+import { GameVersion, Liquipedia, Match, Tournament, TournamentCategory, TournamentDetail, TournamentSection } from 'liquipedia';
 import { orderBy } from 'lodash';
 import { useEffect, useState } from 'react';
 import { Platform } from 'react-native';
@@ -13,7 +14,7 @@ const liquipedia = new Liquipedia({
 export const useTournaments = (category: TournamentCategory | undefined) =>
     useQuery<TournamentSection[]>({
         queryKey: ['tournaments', category],
-        queryFn: async () => await liquipedia.aoe.getTournaments(category),
+        queryFn: async () => await liquipedia.aoe.getTournaments(category ?? sortedTiers[0]),
         enabled: Platform.OS === 'web' ? false : !!category,
     });
 
@@ -21,14 +22,18 @@ export const useUpcomingTournaments = () =>
     useQuery<Tournament[]>({
         queryKey: ['tournaments'],
         staleTime: 120000,
-        queryFn: async () => await liquipedia.aoe.getUpcomingTournaments(),
+        queryFn: async () => await liquipedia.aoe.getUpcomingTournaments(appConfig.game === 'aoe2de' ? GameVersion.Age2 : GameVersion.Age4),
         enabled: Platform.OS === 'web' ? false : undefined,
     });
 
 export const useFeaturedTournament = () => {
-    const { data: tournaments } = useUpcomingTournaments();
+    return useFeaturedTournaments().data[0];
+};
 
-    return orderBy(tournaments, [sortByTier, sortByStatus], ['asc', 'asc'])[0];
+export const useFeaturedTournaments = () => {
+    const { data: tournaments, ...query } = useUpcomingTournaments();
+
+    return { data: orderBy(tournaments, [sortByTier, sortByStatus], ['asc', 'asc']), ...query };
 };
 
 export const useAllTournaments = () =>
@@ -53,20 +58,30 @@ export const useTournament = (id: string, enabled?: boolean) => {
         if (!query.isFetching) {
             setCurrentId(id);
         }
-    }, [query.isFetching]);
+    }, [query.isFetching, id]);
     const cachedData: TournamentDetail | undefined = queryClient.getQueryData(['tournament', currentId]);
     const data: TournamentDetail | undefined = query.data ?? cachedData;
 
     return { ...query, data };
 };
 
-export const useTournamentMatches = (enabled?: boolean) =>
-    useQuery<Match[]>({
+export const useTournamentMatches = (enabled?: boolean) => {
+    const { data: upcomingTournaments, isLoading: isLoadingTournaments } = useUpcomingTournaments();
+    const { data, isLoading, ...query } = useQuery<Match[]>({
         queryKey: ['tournament', 'matches'],
         queryFn: async () => await liquipedia.aoe.getMatches(),
         enabled: Platform.OS === 'web' ? false : enabled,
         staleTime: 60000,
+        refetchOnWindowFocus: true,
     });
+    const upcomingTournamentIds = upcomingTournaments?.map((tournament) => encodeURIComponent(tournament.path));
+
+    return {
+        data: data?.filter((match) => upcomingTournamentIds?.includes(encodeURIComponent(match.tournament.path))),
+        isLoading: isLoadingTournaments || isLoading,
+        ...query,
+    };
+};
 
 export function useRefreshControl({ isFetching, refetch }: Pick<UseQueryResult, 'isFetching' | 'refetch'>) {
     const [refreshing, setFetching] = useState(!!isFetching);

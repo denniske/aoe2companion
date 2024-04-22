@@ -39,7 +39,7 @@ export const GroupParticipant: React.FC<{ participant: IGroupParticipant }> = ({
     const textColor = backgroundColor ? 'black' : (tw.style('text-black dark:text-white').color as string);
 
     return (
-        <View style={[styles.participant, { backgroundColor: statusColors[participant.status] }]}>
+        <View style={[styles.participant, { backgroundColor: statusColors[participant.status] }]} className="border-gray-200 dark:border-gray-800">
             <View style={styles.nameContainer}>
                 {participant.image && <Image source={{ uri: participant.image }} style={styles.participantImage} />}
                 <Text style={{ color: textColor }}>{participant.name || getTranslation('tournaments.tbd')}</Text>
@@ -68,7 +68,6 @@ const useStyles = createStylesheet((theme) =>
             flex: 1,
             paddingVertical: 10,
             paddingHorizontal: 15,
-            borderColor: theme.borderColor,
             borderTopWidth: 1,
         },
         nameContainer: {

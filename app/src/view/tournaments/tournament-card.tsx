@@ -9,9 +9,12 @@ import { Platform, View } from 'react-native';
 import { formatPrizePool, formatTier, tournamentStatus } from '../../helper/tournaments';
 import { getTranslation } from '../../helper/translate';
 
-export const TournamentCard: React.FC<Tournament & { subtitle?: string }> = (tournament) => {
+export const TournamentCard: React.FC<Tournament & { subtitle?: string; direction?: 'vertical' | 'horizontal' }> = ({
+    direction = 'horizontal',
+    ...tournament
+}) => {
     if (!tournament.path) {
-        return <TournamentSkeletonCard />;
+        return <TournamentSkeletonCard subtitle={!!tournament.subtitle} direction={direction} />;
     }
 
     const status = tournamentStatus(tournament);
@@ -20,20 +23,30 @@ export const TournamentCard: React.FC<Tournament & { subtitle?: string }> = (tou
     const end = endDate && format(endDate, 'LLL d');
 
     return (
-        <Card href={`/competitive/tournaments/${encodeURIComponent(tournament.path)}`}>
+        <Card
+            href={`/competitive/tournaments/${encodeURIComponent(tournament.path)}`}
+            direction={direction}
+            className={direction === 'horizontal' ? '' : 'items-center w-36'}
+        >
             {Platform.OS !== 'web' && (
-                <View className="w-12 aspect-square items-center justify-center">
-                    <Image source={{ uri: tournament.league?.image }} className="w-10 aspect-square" contentFit="contain" />
+                <View className={`${direction === 'horizontal' ? 'w-12' : ''} aspect-square items-center justify-center`}>
+                    <Image
+                        source={{ uri: tournament.league?.image }}
+                        className={`${direction === 'horizontal' ? 'w-12' : 'w-16'} aspect-square`}
+                        contentFit="contain"
+                    />
                 </View>
             )}
-            <View className="flex-1 gap-0.5">
-                <Text variant="header-sm">{tournament.name}</Text>
-                <Text variant="body-sm">
+            <View className={direction === 'horizontal' ? 'flex-1 gap-0.5' : 'items-center'}>
+                <Text variant={direction === 'horizontal' ? 'header-sm' : 'header-xs'} numberOfLines={1}>
+                    {tournament.name}
+                </Text>
+                <Text variant={direction === 'horizontal' ? 'body-sm' : 'body-xs'} numberOfLines={1}>
                     {tournament.tier && formatTier(tournament.tier)} • {getTranslation(`tournaments.${status}date`, { start, end })} •{' '}
                     {tournament.prizePool && formatPrizePool(tournament.prizePool)}
                 </Text>
                 {tournament.subtitle && (
-                    <Text variant="body-sm" numberOfLines={1}>
+                    <Text variant={direction === 'horizontal' ? 'body-sm' : 'body-xs'} numberOfLines={1}>
                         {tournament.subtitle}
                     </Text>
                 )}
@@ -42,17 +55,18 @@ export const TournamentCard: React.FC<Tournament & { subtitle?: string }> = (tou
     );
 };
 
-export const TournamentSkeletonCard = () => {
+export const TournamentSkeletonCard: React.FC<{ direction: 'horizontal' | 'vertical'; subtitle: boolean }> = ({ direction, subtitle }) => {
     return (
-        <Card>
+        <Card direction={direction} className={direction === 'horizontal' ? '' : 'items-center w-36'}>
             {Platform.OS !== 'web' && (
-                <View className="w-12 aspect-square items-center justify-center">
-                    <Skeleton className="w-10 aspect-square" />
+                <View className={`${direction === 'horizontal' ? 'w-12' : ''} aspect-square items-center justify-center`}>
+                    <Skeleton className={`${direction === 'horizontal' ? 'w-12' : 'w-16'} aspect-square`} />
                 </View>
             )}
-            <View className="flex-1 gap-0.5">
-                <SkeletonText variant="header-sm" />
-                <SkeletonText variant="body-sm" />
+            <View className={direction === 'horizontal' ? 'flex-1 gap-0.5' : 'items-center'}>
+                <SkeletonText variant={direction === 'horizontal' ? 'header-sm' : 'header-xs'} />
+                <SkeletonText variant={direction === 'horizontal' ? 'body-sm' : 'body-xs'} />
+                {subtitle && <SkeletonText variant={direction === 'horizontal' ? 'body-sm' : 'body-xs'} />}
             </View>
         </Card>
     );

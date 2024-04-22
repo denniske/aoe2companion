@@ -341,7 +341,7 @@ export interface IFetchProfileParams {
     page?: number;
     search?: string;
     steamId?: string;
-    profileId?: number;
+    profileId?: number | string;
     country?: string;
     extend?: string;
 

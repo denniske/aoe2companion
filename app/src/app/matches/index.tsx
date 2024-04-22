@@ -22,17 +22,6 @@ import { useWebRefresh } from '../../hooks/use-web-refresh';
 import { useSelector } from '../../redux/reducer';
 import { Link } from '@app/components/link';
 
-export function feedTitle(props: any) {
-    switch (props.route?.params?.action) {
-        case 'add':
-            return getTranslation('feed.follow.title');
-        case 'config':
-            return getTranslation('feed.manage.title');
-        default:
-            return getTranslation('feed.following.title');
-    }
-}
-
 export default function Matches() {
     const [refetching, setRefetching] = useState(false);
 
@@ -83,6 +72,12 @@ export default function Matches() {
         await refetch();
         setRefetching(false);
     };
+
+    useEffect(() => {
+        if (matchId && !refetching) {
+            onRefresh();
+        }
+    }, [matchId]);
 
     const onEndReached = async () => {
         if (!hasNextPage || isFetchingNextPage) return;
@@ -205,12 +200,13 @@ export default function Matches() {
 
                             const allFilteredPlayersSameResult =
                                 filteredPlayers.every((p) => p.won === true) || filteredPlayers.every((p) => p.won === false);
+                            const highlightedUsers = filteredPlayers?.map((p) => p.profileId);
 
                             let relevantUser = undefined;
-                            if (allFilteredPlayersSameResult) {
-                                relevantUser = filteredPlayers[0];
-                            }
-                            if (!match.finished) {
+
+                            if (auth?.profileId && highlightedUsers.includes(auth.profileId)) {
+                                relevantUser = auth;
+                            } else if (allFilteredPlayersSameResult || !match.finished) {
                                 relevantUser = filteredPlayers[0];
                             }
 
@@ -265,8 +261,8 @@ export default function Matches() {
                                     <Match
                                         expanded={Number(item.matchId) === Number(matchId)}
                                         match={item as IMatchNew}
-                                        highlightedUsers={filteredPlayers?.map((p) => p.profileId)}
-                                        user={relevantUser?.profileId}
+                                        highlightedUsers={highlightedUsers}
+                                        user={relevantUser?.profileId ?? filteredPlayers[0]?.profileId}
                                         showLiveActivity={!match.finished}
                                     />
                                 </View>

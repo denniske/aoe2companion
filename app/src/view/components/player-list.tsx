@@ -5,7 +5,7 @@ import { Icon } from '@app/components/icon';
 import { Skeleton, SkeletonText } from '@app/components/skeleton';
 import { Text } from '@app/components/text';
 import { useSelector } from '@app/redux/reducer';
-import { isVerifiedPlayer } from '@nex/data';
+import { getVerifiedPlayer, isVerifiedPlayer } from '@nex/data';
 import { router } from 'expo-router';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
@@ -14,9 +14,9 @@ import { CountryImage } from './country-image';
 import { useCavy } from '../testing/tester';
 
 export interface IPlayerListPlayer {
-    country: string;
-    games: number;
-    name: string;
+    country?: string;
+    games?: number;
+    name?: string;
     profileId: number;
     steamId?: string;
 }
@@ -26,10 +26,22 @@ interface IPlayerProps<PlayerType extends IPlayerListPlayer> {
     selectedUser?: (user: any) => void;
     actionText?: string;
     action?: (player: PlayerType) => React.ReactNode;
+    footer?: (player?: PlayerType) => React.ReactNode;
+    image?: (player?: PlayerType) => React.ReactNode;
     variant?: 'vertical' | 'horizontal';
+    hideIcons?: boolean;
 }
 
-function Player<PlayerType extends IPlayerListPlayer>({ player, selectedUser, actionText, action, variant }: IPlayerProps<PlayerType>) {
+function Player<PlayerType extends IPlayerListPlayer>({
+    player,
+    selectedUser,
+    actionText,
+    action,
+    variant,
+    footer,
+    image,
+    hideIcons,
+}: IPlayerProps<PlayerType>) {
     const generateTestHook = useCavy();
     const auth = useSelector((state) => state.auth);
 
@@ -43,7 +55,7 @@ function Player<PlayerType extends IPlayerListPlayer>({ player, selectedUser, ac
                     <SkeletonText variant="body-sm" />
                 </View>
 
-                <SkeletonText variant="body-xs" />
+                {footer ? footer() : <SkeletonText variant="body-xs" />}
             </Card>
         );
     }
@@ -91,21 +103,37 @@ function Player<PlayerType extends IPlayerListPlayer>({ player, selectedUser, ac
         });
     };
 
+    const isVerified = isVerifiedPlayer(player.profileId);
+    const verifiedPlayer = getVerifiedPlayer(player.profileId);
+    const name = isVerified && verifiedPlayer?.platforms.rl?.[0] === player.profileId.toString() ? verifiedPlayer?.name : player.name;
+
     if (variant === 'horizontal') {
         return (
             <Card direction="vertical" className="items-center justify-center gap-0 pt-1 pb-2 px-2.5 w-20" onPress={onSelect}>
-                <CountryImage style={{ textAlign: 'center', fontSize: 24 }} country={player.country} allowFontScaling={false} />
+                {image ? (
+                    image(player)
+                ) : (
+                    <CountryImage
+                        style={{ textAlign: 'center', fontSize: 24 }}
+                        country={verifiedPlayer ? verifiedPlayer?.country : player.country}
+                        allowFontScaling={false}
+                    />
+                )}
                 <View className="flex-row gap-1 items-center">
                     <Text numberOfLines={1} variant="body-sm" allowFontScaling={false}>
-                        {player.name}
+                        {name}
                     </Text>
-                    {isMe && <Icon color="brand" icon="user" size={12} />}
-                    {!isMe && player.profileId && isVerifiedPlayer(player.profileId) && <Icon color="brand" icon="circle-check" size={12} />}
+                    {isMe && !hideIcons && <Icon color="brand" icon="user" size={12} />}
+                    {!isMe && !hideIcons && player.profileId && isVerified && <Icon color="brand" icon="circle-check" size={12} />}
                 </View>
 
-                <Text color="subtle" variant="body-xs" numberOfLines={1} allowFontScaling={false}>
-                    {player.games} Games
-                </Text>
+                {footer ? (
+                    footer(player)
+                ) : (
+                    <Text color="subtle" variant="body-xs" numberOfLines={1} allowFontScaling={false}>
+                        {player.games} Games
+                    </Text>
+                )}
             </Card>
         );
     }
@@ -116,18 +144,26 @@ function Player<PlayerType extends IPlayerListPlayer>({ player, selectedUser, ac
             ref={(ref) => generateTestHook('Search.Player.' + player.profileId)({ props: { onPress: onSelect } })}
             onPress={onSelect}
         >
-            <CountryImage style={{ textAlign: 'center', fontSize: 30 }} country={player.country} />
+            {image ? (
+                image(player)
+            ) : (
+                <CountryImage style={{ textAlign: 'center', fontSize: 30 }} country={isVerified ? verifiedPlayer?.country : player.country} />
+            )}
             <View>
                 <View className="flex-row gap-1 items-center">
                     <Text numberOfLines={1} variant="label">
-                        {player.name}
+                        {name}
                     </Text>
-                    {isMe && <Icon color="brand" icon="user" size={12} />}
-                    {!isMe && player.profileId && isVerifiedPlayer(player.profileId) && <Icon color="brand" icon="circle-check" size={12} />}
+                    {isMe && !hideIcons && <Icon color="brand" icon="user" size={12} />}
+                    {!isMe && !hideIcons && player.profileId && isVerified && <Icon color="brand" icon="circle-check" size={12} />}
                 </View>
-                <Text variant="body-sm" color="subtle">
-                    {player.games} Games
-                </Text>
+                {footer ? (
+                    footer(player)
+                ) : (
+                    <Text variant="body-sm" color="subtle">
+                        {player.games} Games
+                    </Text>
+                )}
             </View>
             <View className="flex-1 flex-row justify-end gap-2">
                 {action && action(player)}
@@ -142,13 +178,17 @@ function Player<PlayerType extends IPlayerListPlayer>({ player, selectedUser, ac
     );
 }
 
-interface ISearchProps<PlayerType extends IPlayerListPlayer> extends Omit<FlatListProps<PlayerType | 'select' | 'follow'>, 'data' | 'renderItem'> {
-    list: (PlayerType | 'select' | 'follow')[];
+interface ISearchProps<PlayerType extends IPlayerListPlayer>
+    extends Omit<FlatListProps<PlayerType | 'select' | 'follow' | 'loading'>, 'data' | 'renderItem'> {
+    list: (PlayerType | 'select' | 'follow' | 'loading')[];
     selectedUser?: (user: any) => void;
     actionText?: string;
     action?: (player: PlayerType) => React.ReactNode;
+    footer?: (player?: PlayerType) => React.ReactNode;
+    image?: (player?: PlayerType) => React.ReactNode;
     variant?: 'vertical' | 'horizontal';
-    flatListRef?: FlatListRef<PlayerType | 'select' | 'follow'>;
+    flatListRef?: FlatListRef<PlayerType | 'select' | 'follow' | 'loading'>;
+    hideIcons?: boolean;
 }
 
 export default function PlayerList<PlayerType extends IPlayerListPlayer>({
@@ -158,6 +198,9 @@ export default function PlayerList<PlayerType extends IPlayerListPlayer>({
     action,
     variant = 'vertical',
     flatListRef,
+    footer,
+    image,
+    hideIcons,
     ...props
 }: ISearchProps<PlayerType>) {
     return (
@@ -171,7 +214,18 @@ export default function PlayerList<PlayerType extends IPlayerListPlayer>({
             }
             contentContainerStyle="px-4"
             renderItem={({ item }) => {
-                return <Player player={item} selectedUser={selectedUser} actionText={actionText} action={action} variant={variant} />;
+                return (
+                    <Player
+                        player={item}
+                        selectedUser={selectedUser}
+                        actionText={actionText}
+                        action={action}
+                        footer={footer}
+                        image={image}
+                        variant={variant}
+                        hideIcons={hideIcons}
+                    />
+                );
             }}
             keyExtractor={(_item, index) => index.toString()}
             className={variant === 'horizontal' ? 'flex-none' : ''}

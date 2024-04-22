@@ -7,7 +7,7 @@ export interface FieldProps extends TextInputProps {
     type?: 'default' | 'search';
 }
 
-export const Field: React.FC<FieldProps> = ({ type: inputType = 'default', ...props }) => {
+export const Field: React.FC<FieldProps> = ({ type: inputType = 'default', style, ...props }) => {
     const color = textColors['default'];
     const typeOptions: Record<NonNullable<FieldProps['type']>, TextInputProps> = {
         default: {},
@@ -22,7 +22,7 @@ export const Field: React.FC<FieldProps> = ({ type: inputType = 'default', ...pr
     };
 
     return (
-        <View className="relative">
+        <View className="relative h-[45px]" style={style}>
             {inputType === 'search' ? (
                 <View className="absolute left-3 top-0 h-full justify-center z-10">
                     <Icon icon="search" color="subtle" />

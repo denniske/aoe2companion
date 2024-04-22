@@ -50,7 +50,7 @@ export default function Badge(props: Props) {
                     logoIcon &&
                     <FontAwesome5 style={styles.logo} name={logoIcon} color={logoColor} />
                 }
-                <MyText style={[styles.labelText, { color: labelTextColor }]}>{label}</MyText>
+                {label && <MyText style={[styles.labelText, { color: labelTextColor }]}>{label}</MyText>}
             </LinearGradient>
             {
                 content &&
@@ -89,7 +89,6 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         fontSize: 11,
     },
     logo: {
-        marginRight: 4,
         width: 14,
         height: 14,
         ...(Platform.OS === 'web' ? {filter: 'brightness(0) invert()'} : {}),
@@ -99,6 +98,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         alignItems: 'center',
         padding: 4,
         paddingLeft: 6,
+        gap: 4,
     },
     content: {
         flexDirection: 'row',

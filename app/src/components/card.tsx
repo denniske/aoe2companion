@@ -7,6 +7,7 @@ export interface CardProps extends ViewProps {
     footer?: React.ReactNode;
     direction?: 'horizontal' | 'vertical';
     href?: string;
+    disabled?: boolean;
 }
 
 export const Card: React.FC<CardProps> = ({ onPress, header, children, footer, direction = 'horizontal', href, ...props }) => {

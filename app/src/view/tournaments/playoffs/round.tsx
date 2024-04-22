@@ -6,6 +6,7 @@ import { PlayoffMatch } from './match';
 
 export const PlayoffRound: React.FC<{ width: ViewStyle['width']; round: IPlayoffRound }> = ({ round, width }) => {
     const styles = useStyles();
+    const containsAdditionalHeader = round.matches.some((match) => match.header);
     return (
         <View style={[{ width }, styles.container]}>
             <View style={styles.nameContainer}>
@@ -14,9 +15,26 @@ export const PlayoffRound: React.FC<{ width: ViewStyle['width']; round: IPlayoff
             </View>
 
             <View style={styles.contentContainer}>
-                {round.matches.map((match, index) => (
-                    <PlayoffMatch match={match} key={index} />
-                ))}
+                {round.matches.map((match, index) => {
+                    const style: ViewStyle = {};
+
+                    if (index === 0) {
+                        style.marginTop = 'auto';
+                    }
+
+                    const next = round.matches[index + 1];
+
+                    if (match.header && index === round.matches.length - 1) {
+                        style.position = 'absolute';
+                        style.bottom = 0;
+                    }
+
+                    if ((index === round.matches.length - 1 && !containsAdditionalHeader) || next?.header) {
+                        style.marginBottom = 'auto';
+                    }
+
+                    return <PlayoffMatch match={match} key={index} style={style} />;
+                })}
             </View>
         </View>
     );
@@ -30,7 +48,6 @@ const useStyles = createStylesheet((theme) =>
         },
         contentContainer: {
             flex: 1,
-            justifyContent: 'center',
             gap: 8,
             position: 'relative',
         },

@@ -34,6 +34,7 @@ const useStyles = createStylesheet((theme) =>
             flexWrap: 'wrap',
             justifyContent: 'space-between',
             rowGap: 4,
+            width: '100%',
         },
         participant: {
             width: '30%',

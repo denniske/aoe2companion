@@ -1,7 +1,8 @@
 import { StyleSheet, TextStyle } from 'react-native';
-import { createStylesheet } from '../../theming-new';
 import MarkdownComponent from 'react-native-markdown-display';
+
 import { openLink } from '../../helper/url';
+import { createStylesheet } from '../../theming-new';
 
 export interface MarkdownProps {
     children: string;

@@ -76,7 +76,7 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
             {match.note && <TournamentMarkdown>{match.note}</TournamentMarkdown>}
             <View style={styles.linksContainer}>
                 {match.links.map((link) => (
-                    <TouchableOpacity key={link.url} onPress={() => Linking.openURL(link.url)}>
+                    <TouchableOpacity key={link.text} onPress={() => Linking.openURL(link.url)}>
                         <Image source={{ uri: link.image }} alt={link.text} style={styles.linkImage} />
                     </TouchableOpacity>
                 ))}

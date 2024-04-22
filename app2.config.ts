@@ -2,11 +2,11 @@
 const splash = {
     "image": "./app/assets/splash.png",
     "resizeMode": "contain",
-    "backgroundColor": "#000000",
+    "backgroundColor": "#ffebc7",
     "dark": {
         "image": "./app/assets/splash.png",
         "resizeMode": "contain",
-        "backgroundColor": "#121212",
+        "backgroundColor": "#181C29",
     },
 };
 

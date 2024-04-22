@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
-import { WebView } from 'react-native-webview';
-import { Platform, TouchableOpacity, View } from 'react-native';
 import { Card } from '@app/components/card';
-import { Stack } from 'expo-router';
 import { Text } from '@app/components/text';
+import { appConfig } from '@nex/dataset';
 import { Image } from 'expo-image';
+import { Redirect, Stack } from 'expo-router';
+import React from 'react';
+import { View } from 'react-native';
 
 export default function StatisticsPage() {
+    if (appConfig.game !== 'aoe2de') {
+        return <Redirect href="/statistics/leaderboard" />;
+    }
+
     return (
         <View className="flex-1 p-4 gap-4">
             <Stack.Screen

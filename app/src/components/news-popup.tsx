@@ -50,7 +50,7 @@ export const NewsPopup: React.FC<{ post: Post; visible: boolean; onClose: () => 
     const { width } = useWindowDimensions();
 
     return (
-        <BottomSheet showHandle title={decode(post.title.rendered)} isActive={visible} onClose={onClose}>
+        <BottomSheet closeButton title={decode(post.title.rendered)} isActive={visible} onClose={onClose}>
             <View className="pt-4">
                 <RenderHtml
                     systemFonts={['Roboto_400Regular', 'Roboto_500Medium', 'Roboto_700Bold', 'Roboto_900Black']}
@@ -75,7 +75,7 @@ export const NewsPopup: React.FC<{ post: Post; visible: boolean; onClose: () => 
                         b: textVariantStyles['header-xs'],
                         strong: textVariantStyles['header-xs'],
                         blockquote: tw`bg-white dark:bg-blue-900 py-1.5 px-2.5 my-3 mx-0 border border-gray-200 dark:border-gray-800 rounded`,
-                        a: tw`text-blue-600 dark:text-gold-200`,
+                        a: tw`text-blue-600 dark:text-gold-200 no-underline`,
                         figure: { margin: 0 },
                         iframe: { margin: 0 },
                         button: tw`bg-blue-800 dark:bg-gold-700 py-1.5 px-2.5 rounded`,

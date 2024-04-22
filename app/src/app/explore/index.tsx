@@ -28,9 +28,10 @@ import {
     getUnitName,
     getTechName,
 } from '@nex/data';
+import { appConfig } from '@nex/dataset';
 import { buildsData } from 'data/src/data/builds';
 import { Image } from 'expo-image';
-import { Stack, router } from 'expo-router';
+import { Redirect, Stack, router } from 'expo-router';
 import { reverse, sortBy, uniq } from 'lodash';
 import { useState } from 'react';
 import { ImageSourcePropType, TouchableOpacity, View } from 'react-native';
@@ -95,6 +96,10 @@ export default function Explore() {
               ...allData.filter((item) => item.type !== 'civ' && item.section?.toLowerCase().includes(search.toLowerCase())),
           ])
         : [];
+
+    if (appConfig.game !== 'aoe2de') {
+        return <Redirect href="/explore/civilizations" />;
+    }
 
     return (
         <KeyboardAvoidingView>

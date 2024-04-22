@@ -17,7 +17,9 @@ export const useCurrentMatches = (count: number) => {
             fetchMatches({
                 profileIds,
             }),
+        refetchOnWindowFocus: true,
     });
+
     const matches = data?.matches.slice(0, count);
 
     const filterAndSortPlayers = (players: IPlayerNew[]) => {
