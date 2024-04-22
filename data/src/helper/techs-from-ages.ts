@@ -45,7 +45,7 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
                     "Class": 4
                 },
             ],
-            "LineOfSight": 1,
+            "LineOfSight": 3, // Implicit Tracking
         },
         'Castle': {
             "TrainTime": -25,
@@ -71,6 +71,22 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
                     "Class": 34
                 },
             ],
+        },
+    },
+    'Militia': {
+        'Dark': {
+            "LineOfSight": 0,
+        },
+        'Feudal': {
+            "LineOfSight": 2, // Implicit Tracking
+        },
+    },
+    'Spearman': {
+        'Dark': {
+            "LineOfSight": 0,
+        },
+        'Feudal': {
+            "LineOfSight": 2, // Implicit Tracking
         },
     },
     'ScoutCavalry': {

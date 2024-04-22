@@ -1551,12 +1551,6 @@ const techEffectDictInternal = {
             speed: '+10%',
         },
     },
-    'Tracking': {
-        tech: 'Tracking',
-        effect: {
-            sight: '+2',
-        },
-    },
     'Faith-5': {
         tech: 'Faith',
         civ: 'Aztecs',
@@ -2479,10 +2473,6 @@ export const techList: ITech[] = [
         "name": "Squires"
     },
     {
-        "dataId": "90",
-        "name": "Tracking"
-    },
-    {
         "dataId": "45",
         "name": "Faith",
     },
@@ -2652,7 +2642,6 @@ const techIds = [
     'ChainMailArmor',
     'PlateMailArmor',
     'Squires',
-    'Tracking',
     'Devotion',
     'Faith',
     'Heresy',
