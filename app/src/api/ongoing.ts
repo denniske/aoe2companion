@@ -8,6 +8,7 @@ import { IMatchesMatch } from './helper/api.types';
 
 interface IConnectionHandler {
     onOpen?: () => void;
+    onMessage?: (message: any) => void;
     onMatches?: (_matches: any[]) => void;
     onClose?: (event: ICloseEvent) => void;
 }
@@ -23,6 +24,7 @@ function initConnection(handler: IConnectionHandler, followingIds: number[]): Pr
 
         client.onmessage = (messageEvent) => {
             const message = JSON.parse(messageEvent.data as string, dateReviver);
+            handler.onMessage?.(message);
             if (message.type != 'pong') {
                 handler.onMatches?.(message);
             }
@@ -82,6 +84,7 @@ export function initMatchSubscription(handler: IConnectionHandler, followingIds:
                 });
                 handler.onMatches?.(_matches);
             },
+            onMessage: handler.onMessage,
         },
         followingIds
     );
@@ -90,6 +93,7 @@ export function initMatchSubscription(handler: IConnectionHandler, followingIds:
 export const useOngoing = (profileIds: number[]) => {
     const [matches, setMatches] = useState<IMatchesMatch[]>([]);
     const [connected, setConnected] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     const connect = async (followingIds: number[]) => {
         return await initMatchSubscription(
@@ -102,6 +106,9 @@ export const useOngoing = (profileIds: number[]) => {
                 },
                 onMatches: (newMatches: IMatchesMatch[]) => {
                     setMatches(newMatches);
+                },
+                onMessage: () => {
+                    setIsLoading(false);
                 },
             },
             followingIds
@@ -118,5 +125,5 @@ export const useOngoing = (profileIds: number[]) => {
         }, [])
     );
 
-    return { matches, connected };
+    return { matches, connected, isLoading };
 };

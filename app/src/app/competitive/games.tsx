@@ -14,18 +14,18 @@ import { View } from 'react-native';
 export default function OngoingMatchesPage() {
     const proPlayerIds: number[] = compact(getVerifiedPlayerIds()).map((id) => Number(id));
 
-    const { matches, connected } = useOngoing(proPlayerIds);
+    const { matches, isLoading } = useOngoing(proPlayerIds);
 
     return (
         <>
             <Stack.Screen options={{ title: 'Active Competitive Games' }} />
 
             <FlatList
-                refreshControl={<RefreshControlThemed refreshing={!connected} />}
-                refreshing={!connected}
+                refreshControl={<RefreshControlThemed refreshing={isLoading} />}
+                refreshing={isLoading}
                 className="flex-1"
                 contentContainerStyle="p-4 gap-2"
-                ListEmptyComponent={connected ? <Text>No active games.</Text> : null}
+                ListEmptyComponent={isLoading ? null : <Text>No active games.</Text>}
                 data={matches}
                 renderItem={({ item: match }) => {
                     const highlightedUsers = proPlayerIds.filter((playerId) => match.players.some((player) => player.profileId === playerId));

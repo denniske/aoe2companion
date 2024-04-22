@@ -40,10 +40,12 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
 
     return (
         <View className="flex-row items-center gap-2">
-            <View className="w-5">
-                {player.won === true && (freeForAll || player.team != -1) && <Icon icon="crown" color="brand" />}
-                {player.won === false && (freeForAll || player.team != -1) && <Icon icon="skull" color="text-gray-500" />}
-            </View>
+            {match.finished && (
+                <View className="w-5">
+                    {player.won === true && (freeForAll || player.team != -1) && <Icon icon="crown" color="brand" />}
+                    {player.won === false && (freeForAll || player.team != -1) && <Icon icon="skull" color="text-gray-500" />}
+                </View>
+            )}
             {appConfig.game === 'aoe2de' && (
                 <View className="w-5 h-5 items-center justify-center" style={{ backgroundColor: playerColor }}>
                     <Text variant="title" className="text-sm" color="text-white">

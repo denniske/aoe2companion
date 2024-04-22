@@ -8,7 +8,7 @@ import { useSelector } from '@app/redux/reducer';
 import { getVerifiedPlayer, isVerifiedPlayer } from '@nex/data';
 import { router } from 'expo-router';
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import { CountryImage } from './country-image';
 import { useCavy } from '../testing/tester';
@@ -30,6 +30,7 @@ interface IPlayerProps<PlayerType extends IPlayerListPlayer> {
     image?: (player?: PlayerType) => React.ReactNode;
     variant?: 'vertical' | 'horizontal';
     hideIcons?: boolean;
+    playerStyle?: ViewStyle;
 }
 
 function Player<PlayerType extends IPlayerListPlayer>({
@@ -41,13 +42,14 @@ function Player<PlayerType extends IPlayerListPlayer>({
     footer,
     image,
     hideIcons,
+    playerStyle,
 }: IPlayerProps<PlayerType>) {
     const generateTestHook = useCavy();
     const auth = useSelector((state) => state.auth);
 
     if (player === 'loading') {
         return (
-            <Card direction="vertical" className="items-center justify-center gap-0 pt-1 pb-2 px-2.5 w-20">
+            <Card direction="vertical" className="items-center justify-center gap-0 pt-1 pb-2 px-2.5 w-20" style={playerStyle}>
                 <View className="w-[29px] h-[28px] items-center justify-center">
                     <Skeleton className="w-6 h-6" />
                 </View>
@@ -66,6 +68,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
                 direction="vertical"
                 className="items-center justify-center gap-1 py-2 px-2.5 w-20"
                 onPress={() => router.navigate('/matches/users/select')}
+                style={playerStyle}
             >
                 <Icon icon="user" color="brand" size={24} />
                 <View className="flex-row gap-1 items-center">
@@ -83,6 +86,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
                 direction="vertical"
                 className="items-center justify-center gap-1 py-2 px-2.5 w-20"
                 onPress={() => router.navigate('/matches/users/follow')}
+                style={playerStyle}
             >
                 <Icon icon="plus" color="brand" size={24} />
                 <View className="flex-row gap-1 items-center">
@@ -97,10 +101,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
     const isMe = player.profileId === auth?.profileId;
 
     const onSelect = async () => {
-        selectedUser!({
-            profileId: player.profileId,
-            name: player.name,
-        });
+        selectedUser!(player);
     };
 
     const isVerified = isVerifiedPlayer(player.profileId);
@@ -109,7 +110,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
 
     if (variant === 'horizontal') {
         return (
-            <Card direction="vertical" className="items-center justify-center gap-0 pt-1 pb-2 px-2.5 w-20" onPress={onSelect}>
+            <Card direction="vertical" className="items-center justify-center gap-0 pt-1 pb-2 px-2.5 w-20" style={playerStyle} onPress={onSelect}>
                 {image ? (
                     image(player)
                 ) : (
@@ -143,6 +144,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
             className="flex-row items-center w-full gap-2"
             ref={(ref) => generateTestHook('Search.Player.' + player.profileId)({ props: { onPress: onSelect } })}
             onPress={onSelect}
+            style={playerStyle}
         >
             {image ? (
                 image(player)
@@ -189,6 +191,7 @@ interface ISearchProps<PlayerType extends IPlayerListPlayer>
     variant?: 'vertical' | 'horizontal';
     flatListRef?: FlatListRef<PlayerType | 'select' | 'follow' | 'loading'>;
     hideIcons?: boolean;
+    playerStyle?: ViewStyle;
 }
 
 export default function PlayerList<PlayerType extends IPlayerListPlayer>({
@@ -201,6 +204,7 @@ export default function PlayerList<PlayerType extends IPlayerListPlayer>({
     footer,
     image,
     hideIcons,
+    playerStyle,
     ...props
 }: ISearchProps<PlayerType>) {
     return (
@@ -224,6 +228,7 @@ export default function PlayerList<PlayerType extends IPlayerListPlayer>({
                         image={image}
                         variant={variant}
                         hideIcons={hideIcons}
+                        playerStyle={playerStyle}
                     />
                 );
             }}

@@ -149,7 +149,8 @@ export default {
         "android": {
             "userInterfaceStyle": "automatic",
             "adaptiveIcon": {
-                "foregroundImage": "./app/assets/icon-adaptive.png"
+                "foregroundImage": "./app/assets/icon-adaptive.png",
+                "backgroundColor": "#fbebd3"
             },
             "package": "com.aoe2companion",
             "versionCode": runtimeVersionCode,

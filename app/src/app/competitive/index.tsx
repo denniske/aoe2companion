@@ -1,23 +1,26 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { ITwitchChannel } from '@app/api/following';
+import { IMatchesMatch } from '@app/api/helper/api.types';
 import { useOngoing } from '@app/api/ongoing';
 import { useFeaturedTournaments, useTournamentMatches } from '@app/api/tournaments';
 import { FlatList } from '@app/components/flat-list';
 import { Icon } from '@app/components/icon';
 import { Link } from '@app/components/link';
+import { MatchPopup } from '@app/components/match/popup';
 import { ScrollView } from '@app/components/scroll-view';
+import { SkeletonText } from '@app/components/skeleton';
 import { Text } from '@app/components/text';
 import PlayerList from '@app/view/components/player-list';
 import { Tag } from '@app/view/components/tag';
 import { TournamentCard } from '@app/view/tournaments/tournament-card';
 import { TournamentMatch } from '@app/view/tournaments/tournament-match';
-import { getHost, getTwitchChannel, getVerifiedPlayer, getVerifiedPlayerIds } from '@nex/data';
+import { getHost, getTwitchChannel, getVerifiedPlayer, getVerifiedPlayerIds, matchAttributes } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Image } from 'expo-image';
 import { Stack, router, useFocusEffect } from 'expo-router';
-import { orderBy } from 'lodash';
+import { groupBy, orderBy } from 'lodash';
 import compact from 'lodash/compact';
 import { useCallback, useEffect, useState } from 'react';
 import { Platform, TouchableOpacity, View } from 'react-native';
@@ -32,7 +35,12 @@ export default function Competitive() {
         ?.filter((match) => match.startTime && match.tournament)
         .map((match) => ({ ...match, header: { name: match.tournament.name } }));
 
-    const activePlayerIds = matches.flatMap((match) => match.players.map((p) => p.profileId.toString())).filter((p) => proPlayerIds.includes(p));
+    const activePlayerIds = matches
+        .flatMap((match) => match.players.map((p) => ({ profileId: p.profileId.toString(), match })))
+        .filter(({ profileId }) => proPlayerIds.includes(profileId));
+
+    const [selectedMatch, setSelectedMatch] = useState<{ match: IMatchesMatch; profileId: number }>();
+    const [showMatchPopup, setShowMatchPopup] = useState(false);
 
     const { data: liveTwitchAccounts } = useQuery({
         queryKey: ['twitch', 'all'],
@@ -46,12 +54,13 @@ export default function Competitive() {
     });
     const activePlayers = orderBy(
         compact(
-            activePlayerIds.map((id) => {
-                const player = getVerifiedPlayer(Number(id));
+            activePlayerIds.map(({ profileId, match }) => {
+                const player = getVerifiedPlayer(Number(profileId));
                 const twitch = player && liveTwitchAccounts?.find((twitch) => twitch.user_login === getTwitchChannel(player));
                 return {
-                    profileId: Number(id),
+                    profileId: Number(profileId),
                     ...player,
+                    match,
                     isLive: !!twitch,
                     viewerCount: twitch ? twitch.viewer_count : 0,
                 };
@@ -66,6 +75,10 @@ export default function Competitive() {
     useEffect(() => {
         setIsVideoPlaying(false);
     }, [liveTwitch]);
+
+    useEffect(() => {
+        setShowMatchPopup(true);
+    }, [selectedMatch]);
 
     useFocusEffect(
         useCallback(() => {
@@ -87,6 +100,22 @@ export default function Competitive() {
                 }}
             />
 
+            {selectedMatch && (
+                <MatchPopup
+                    isActive={showMatchPopup}
+                    onClose={() => setShowMatchPopup(false)}
+                    user={selectedMatch.profileId}
+                    highlightedUsers={proPlayerIds}
+                    match={{
+                        ...selectedMatch.match,
+                        teams: Object.entries(groupBy(selectedMatch.match.players, 'team')).map(([teamId, players]) => ({
+                            teamId: Number(teamId),
+                            players,
+                        })),
+                    }}
+                />
+            )}
+
             <View className="flex-1 pt-4 gap-5">
                 {appConfig.game === 'aoe2de' && (
                     <View className="gap-2">
@@ -97,10 +126,34 @@ export default function Competitive() {
 
                         <PlayerList
                             hideIcons
-                            selectedUser={(user) => router.navigate(`/matches/users/${user.profileId}`)}
+                            selectedUser={(user) => setSelectedMatch({ profileId: user.profileId, match: user.match })}
                             list={activePlayers.length > 0 ? activePlayers : ['loading', 'loading', 'loading', 'loading', 'loading']}
                             variant="horizontal"
-                            footer={(player) => (player?.isLive ? <View className="top-1 right-1 w-2 h-2 rounded-full bg-red-600 absolute" /> : null)}
+                            playerStyle={{ width: 100 }}
+                            footer={(player) =>
+                                player ? (
+                                    <>
+                                        <Text color="subtle" variant="body-xs" numberOfLines={1}>
+                                            {matchAttributes({
+                                                ...player.match,
+                                                teams: Object.entries(groupBy(player.match.players, 'team')).map(([teamId, players]) => ({
+                                                    teamId: Number(teamId),
+                                                    players,
+                                                })),
+                                            }).join(' - ')}
+                                        </Text>
+                                        <Text color="subtle" variant="body-xs" numberOfLines={1}>
+                                            {player.match.mapName}
+                                        </Text>
+                                        {player.isLive ? <View className="top-1 right-1 w-2 h-2 rounded-full bg-red-600 absolute" /> : null}
+                                    </>
+                                ) : (
+                                    <>
+                                        <SkeletonText variant="body-xs" />
+                                        <SkeletonText variant="body-xs" />
+                                    </>
+                                )
+                            }
                         />
                     </View>
                 )}

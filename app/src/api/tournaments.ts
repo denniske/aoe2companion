@@ -2,7 +2,7 @@ import { sortByStatus, sortByTier, sortedTiers } from '@app/helper/tournaments';
 import { appConfig } from '@nex/dataset';
 import { UseQueryResult, useQuery, useQueryClient } from '@tanstack/react-query';
 import * as Application from 'expo-application';
-import { GameVersion, Liquipedia, Match, Tournament, TournamentCategory, TournamentDetail, TournamentSection } from 'liquipedia';
+import { GameVersion, Liquipedia, MapDetail, Match, Tournament, TournamentCategory, TournamentDetail, TournamentSection } from 'liquipedia';
 import { orderBy } from 'lodash';
 import { useEffect, useState } from 'react';
 import { Platform } from 'react-native';
@@ -82,6 +82,13 @@ export const useTournamentMatches = (enabled?: boolean) => {
         ...query,
     };
 };
+
+export const useMap = (path: string, enabled?: boolean) =>
+    useQuery<MapDetail>({
+        queryKey: ['tournament', 'maps', path],
+        queryFn: async () => await liquipedia.aoe.getMap(path),
+        enabled: Platform.OS === 'web' ? false : enabled,
+    });
 
 export function useRefreshControl({ isFetching, refetch }: Pick<UseQueryResult, 'isFetching' | 'refetch'>) {
     const [refreshing, setFetching] = useState(!!isFetching);

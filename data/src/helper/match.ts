@@ -29,3 +29,14 @@ export function teamRatio(match: IMatchNew) {
 
     return teamCounts.join('v');
 }
+
+export function matchAttributes(match: IMatchNew) {
+    return [
+        teamRatio(match),
+        match.leaderboardName?.includes('Unranked')
+            ? 'Unranked'
+            : match.leaderboardName?.includes('Quick Play') || match.leaderboardName?.includes('Quick Match')
+              ? 'Quick Play'
+              : 'Ranked',
+    ];
+}

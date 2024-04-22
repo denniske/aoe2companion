@@ -1,6 +1,6 @@
-import {openLink} from "./helper/url";
-import {MyText} from "./view/components/my-text";
-import React from "react";
+import { openLink } from './helper/url';
+import { MyText } from './view/components/my-text';
+import React from 'react';
 
 export interface IChange {
     type: 'feature' | 'bugfix' | 'minor';
@@ -18,6 +18,17 @@ export interface IChangelog {
 // https://www.ageofempires.com/news/age-of-empires-iv-season-one-update-release-notes/
 
 export const changelog4: IChangelog = {
+    '15.0.0': [
+        {
+            type: 'feature',
+            title: 'New App Design',
+            author: '[Noah Brandyberry](https://github.com/noahbrandyberry)',
+        },
+        {
+            type: 'feature',
+            title: 'Added new "Pros" tab',
+        },
+    ],
     '14.0.0': [
         {
             type: 'feature',
@@ -152,6 +163,10 @@ export const changelog: IChangelog = {
         },
         {
             type: 'minor',
+            title: 'Reworked tournament screen',
+        },
+        {
+            type: 'minor',
             title: 'Remove Tracking tech and add implicit tracking line of sight bonus to unit stats directly',
         },
         {
@@ -243,7 +258,8 @@ export const changelog: IChangelog = {
         {
             type: 'feature',
             title: 'Filter leaderboard by clan',
-            content: 'On leaderboard page choose "Clan:..." in the dropdown. This will show the rating of all players of your clan. Note that filtering by any clan is not possible yet. Only your clan is supported. If are not in a clan, this option will not be shown.',
+            content:
+                'On leaderboard page choose "Clan:..." in the dropdown. This will show the rating of all players of your clan. Note that filtering by any clan is not possible yet. Only your clan is supported. If are not in a clan, this option will not be shown.',
         },
         {
             type: 'minor',
