@@ -148,6 +148,10 @@ export const changelog: IChangelog = {
     '97.0.0': [
         {
             type: 'minor',
+            title: 'Reworked "Pros" tab',
+        },
+        {
+            type: 'minor',
             title: 'Remove Tracking tech and add implicit tracking line of sight bonus to unit stats directly',
         },
         {
