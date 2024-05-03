@@ -75,7 +75,7 @@ export const FollowedPlayers = () => {
                 list={uniqBy([profileId ? authProfile || 'loading' : 'select', ...following, 'follow'] as const, (profile) =>
                     typeof profile === 'string' ? profile : profile.profileId
                 )}
-                selectedUser={(user) => router.navigate(`/matches/users/${user.profileId}`)}
+                selectedUser={(user) => router.navigate(`/matches/users/${user.profileId}?name=${user.name}&country=${user.country}`)}
             />
         </View>
     );

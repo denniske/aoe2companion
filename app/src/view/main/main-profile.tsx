@@ -51,12 +51,12 @@ function MainProfileInternal({profileId}: {profileId: number}) {
 
     const navigation = useNavigation<any>();
     const userProfile = useSelector(state => state.user[profileId]?.profile);
-    useEffect(() => {
-        if (!userProfile) return;
-        navigation.setOptions({
-            title: userProfile?.name + ' - ' + (Constants.expoConfig?.name || Constants.expoConfig2?.extra?.expoClient?.name),
-        });
-    }, [userProfile]);
+    // useEffect(() => {
+    //     if (!userProfile) return;
+    //     navigation.setOptions({
+    //         title: userProfile?.name + ' - ' + (Constants.expoConfig?.name || Constants.expoConfig2?.extra?.expoClient?.name),
+    //     });
+    // }, [userProfile]);
 
     const profile = useApi(
         {},

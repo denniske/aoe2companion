@@ -54,7 +54,7 @@ export function Player({ match, player, highlight, freeForALl, canDownloadRec }:
     const playerRatingDiffStyle = [{ color: player.ratingDiff > 0 ? '#22c55e' : '#ef4444' }] as TextStyle;
 
     const gotoPlayer = () => {
-        router.push(`/matches/users/${player.profileId}`);
+        router.push(`/matches/users/${player.profileId}?name=${player.name}`);
     };
 
     const gotoCiv = () => {

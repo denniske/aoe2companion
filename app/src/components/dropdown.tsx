@@ -49,7 +49,7 @@ export const Dropdown = <ValueType extends string>({
 
                     {/* Ensures width doesn't change when switching items */}
                     {options.map((option) => (
-                        <Text variant={variant} key={option.value} style={{ height: 0 }}>
+                        <Text variant={variant} key={option.value} style={{ height: 0, color: 'transparent' }}>
                             {option.abbreviated ?? option.label}
                         </Text>
                     ))}

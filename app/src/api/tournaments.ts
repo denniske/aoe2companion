@@ -68,6 +68,14 @@ export const useTournamentDetail = (id: string, enabled?: boolean) =>
         enabled: Platform.OS === 'web' ? false : enabled,
     });
 
+export const useTournamentPlayer = (id?: string) =>
+    useQuery({
+        queryKey: ['player', id],
+        staleTime: 120000,
+        queryFn: async () => await liquipedia.aoe.getPlayer(id ?? ''),
+        enabled: Platform.OS === 'web' ? false : !!id,
+    });
+
 export const useTournamentMatches = (enabled?: boolean) => {
     const { data: upcomingTournaments, isLoading: isLoadingTournaments } = useUpcomingTournaments();
     const { data, isLoading, ...query } = useQuery<Match[]>({

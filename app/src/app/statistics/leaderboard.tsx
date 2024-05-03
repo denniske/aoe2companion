@@ -42,6 +42,7 @@ import { setLeaderboardCountry, useMutate, useSelector } from '../../redux/reduc
 import { createStylesheet } from '../../theming-new';
 import { uniq, compact } from 'lodash';
 import { Dropdown } from '@app/components/dropdown';
+import { leaderboardsByType } from '@app/helper/leaderboard';
 
 const Tab = createMaterialTopTabNavigator<any>();
 
@@ -171,24 +172,17 @@ export default function LeaderboardPage() {
                 }}
                 sceneContainerStyle={{ backgroundColor: 'transparent' }}
             >
-                {leaderboards.data
-                    .filter(
-                        (leaderboard) =>
-                            leaderboard.active &&
-                            ((leaderboardType === 'xbox' && leaderboard.abbreviation.includes('🎮')) ||
-                                (leaderboardType !== 'xbox' && !leaderboard.abbreviation.includes('🎮')))
-                    )
-                    .map((leaderboard, i) => {
-                        return (
-                            <Tab.Screen
-                                key={i}
-                                name={`${leaderboard.leaderboardId}`}
-                                options={{ tabBarLabel: (x) => <TabBarLabel {...x} title={leaderboard.abbreviation.replace('🎮', '').trim()} /> }}
-                            >
-                                {() => <Leaderboard leaderboardId={leaderboard.leaderboardId} />}
-                            </Tab.Screen>
-                        );
-                    })}
+                {leaderboardsByType(leaderboards.data, leaderboardType).map((leaderboard, i) => {
+                    return (
+                        <Tab.Screen
+                            key={i}
+                            name={`${leaderboard.leaderboardId}`}
+                            options={{ tabBarLabel: (x) => <TabBarLabel {...x} title={leaderboard.abbreviation.replace('🎮', '').trim()} /> }}
+                        >
+                            {() => <Leaderboard leaderboardId={leaderboard.leaderboardId} />}
+                        </Tab.Screen>
+                    );
+                })}
             </Tab.Navigator>
         </>
     );
@@ -342,7 +336,7 @@ function Leaderboard({ leaderboardId }: any) {
     const total2 = useRef<any>(1000);
 
     const onSelect = async (player: ILeaderboardPlayer) => {
-        router.push(`/matches/users/${player.profileId}`);
+        router.push(`/matches/users/${player.profileId}?name=${player.name}&country=${player.country}`);
     };
 
     const _renderRow = useCallback(
