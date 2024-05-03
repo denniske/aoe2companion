@@ -5,11 +5,11 @@ import { MyText } from '../../components/my-text';
 import { createStylesheet } from '../../../theming-new';
 import { CountryImage } from '../../components/country-image';
 import { getCivIconLocal } from '../../../helper/civs';
-import { civsData } from '@nex/dataset';
+import { civAbbrEnumListData } from '@nex/dataset';
 
 export const PlayoffPlayer: React.FC<{ player: EventPlayer; reverse?: boolean }> = ({ player, reverse = false }) => {
     const styles = useStyles();
-    const civ = player.civilization ? civsData.find((civ) => civ.toLocaleLowerCase().startsWith(player.civilization)) : undefined;
+    const civ = player.civilization ? civAbbrEnumListData[player.civilization] : undefined;
 
     return (
         <View style={[styles.player, reverse && { flexDirection: 'row-reverse' }]}>

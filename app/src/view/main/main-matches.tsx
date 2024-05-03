@@ -24,6 +24,7 @@ import {fetchLeaderboards, fetchMatches} from "../../api/helper/api";
 import { FlatList } from "@app/components/flat-list";
 import { Match } from "@app/components/match";
 import { Field } from "@app/components/field";
+import { Dropdown } from "@app/components/dropdown";
 
 
 interface Props {
@@ -58,6 +59,7 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
     const [withMe, setWithMe] = useState(false);
     const [reloading, setReloading] = useState(false);
     const auth = useSelector(state => state.auth);
+    const [leaderboardType, setLeaderboardType] = useState<'pc' | 'xbox'>('pc');
 
     const navigation = useNavigation();
     const userProfile = useSelector(state => state.user[profileId]?.profile);
@@ -174,7 +176,18 @@ function MainMatchesInternal({profileId}: {profileId: number}) {
             <View style={styles.content}>
                 {/*<Button onPress={onRefresh}>REFRESH</Button>*/}
                 <View style={styles.pickerRow}>
-                    <TemplatePicker value={leaderboardId} values={leaderboards.data.map(l => l.leaderboardId)} template={renderLeaderboard} onSelect={onLeaderboardSelected}/>
+                    <Dropdown
+                        textVariant="label-sm"
+                        style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 10, paddingBottom: 8, marginRight: 6 }}
+                        value={leaderboardType}
+                        onChange={setLeaderboardType}
+                        options={[
+                            { value: 'pc', label: 'PC' },
+                            { value: 'xbox', label: 'Xbox' },
+                        ]}
+                    />
+                    <TemplatePicker value={leaderboardId} values={leaderboards.data.filter(leaderboard => ((leaderboardType === 'xbox' && leaderboard.abbreviation.includes('🎮')) ||
+                                (leaderboardType !== 'xbox' && !leaderboard.abbreviation.includes('🎮')))).map(l => l.leaderboardId)} template={renderLeaderboard} onSelect={onLeaderboardSelected}/>
                     <View style={appStyles.expanded}/>
                     {
                         auth && profileId !== auth?.profileId &&
@@ -279,11 +292,12 @@ const useStyles = createStylesheet((theme, mode) => StyleSheet.create({
         fontSize: 11,
     },
     pickerRow: {
+        zIndex: 100,
         // backgroundColor: 'yellow',
         flexDirection: 'row',
         alignItems: 'center',
         paddingLeft: 16,
-        paddingRight: 10,
+        paddingRight: 16,
         marginBottom: 20,
         marginTop: 20,
         flexWrap: 'wrap',

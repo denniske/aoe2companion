@@ -161,6 +161,18 @@ export const changelog: IChangelog = {
             type: 'minor',
             title: 'Implemented [AoE II DE Update 111772](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-111772/)',
         },
+        {
+            type: 'minor',
+            title: 'Added PC/Xbox filter to Leaderboards',
+        },
+        {
+            type: 'bugfix',
+            title: 'Re-added "Find Player" functionality',
+        },
+        {
+            type: 'bugfix',
+            title: 'Cleaned up tournament details to account for upcoming tournaments with TBD information',
+        },
     ],
     '97.0.0': [
         {

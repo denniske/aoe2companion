@@ -144,6 +144,7 @@ export default function LeaderboardPage() {
                     title: 'Leaderboards',
                     headerRight: () => (
                         <Dropdown
+                            style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 6 }}
                             value={leaderboardType}
                             onChange={setLeaderboardType}
                             options={[
@@ -155,6 +156,7 @@ export default function LeaderboardPage() {
                 }}
             />
             <Tab.Navigator
+                key={leaderboardType}
                 tabBar={(props) => (
                     <View className="bg-white dark:bg-blue-900 ">
                         <MaterialTopTabBar {...props} />

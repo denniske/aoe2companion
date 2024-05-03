@@ -12,7 +12,7 @@ import { DismissKeyboard } from '@app/view/components/dismiss-keyboard';
 import RefreshControlThemed from '@app/view/components/refresh-control-themed';
 import { TournamentCard } from '@app/view/tournaments/tournament-card';
 import { Stack, useLocalSearchParams } from 'expo-router';
-import { TournamentCategory } from 'liquipedia';
+import { GameVersion, TournamentCategory } from 'liquipedia';
 import { useMemo, useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 
@@ -35,8 +35,9 @@ export default function AllTournaments() {
                     ...tournamentsSection,
                     data: tournamentsSection.data.filter(
                         (tournament) =>
-                            transformSearch(tournament.name).includes(transformSearch(search)) ||
-                            tournamentAbbreviation(tournament.name).includes(transformSearch(search))
+                            tournament.game === GameVersion.Age2 &&
+                            (transformSearch(tournament.name).includes(transformSearch(search)) ||
+                                tournamentAbbreviation(tournament.name).includes(transformSearch(search)))
                     ),
                 };
             })
@@ -57,7 +58,7 @@ export default function AllTournaments() {
                 <View style={styles.container}>
                     <View style={styles.searchContainer}>
                         <Dropdown
-                            style={{ minWidth: 100 }}
+                            style={{ minWidth: 100, height: 45 }}
                             onChange={setCategory}
                             options={sortedTiers.map((tier) => ({ value: tier, label: formatTier(tier), abbreviated: formatTierShort(category) }))}
                             value={category}
