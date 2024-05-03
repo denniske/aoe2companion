@@ -11,6 +11,7 @@ import { useAppTheme } from '@app/theming';
 import { DismissKeyboard } from '@app/view/components/dismiss-keyboard';
 import RefreshControlThemed from '@app/view/components/refresh-control-themed';
 import { TournamentCard } from '@app/view/tournaments/tournament-card';
+import { appConfig } from '@nex/dataset';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { GameVersion, TournamentCategory } from 'liquipedia';
 import { useMemo, useState } from 'react';
@@ -35,7 +36,7 @@ export default function AllTournaments() {
                     ...tournamentsSection,
                     data: tournamentsSection.data.filter(
                         (tournament) =>
-                            tournament.game === GameVersion.Age2 &&
+                            tournament.game === (appConfig.game === 'aoe2de' ? GameVersion.Age2 : GameVersion.Age4) &&
                             (transformSearch(tournament.name).includes(transformSearch(search)) ||
                                 tournamentAbbreviation(tournament.name).includes(transformSearch(search)))
                     ),
