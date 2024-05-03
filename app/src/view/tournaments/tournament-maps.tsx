@@ -8,7 +8,7 @@ export const TournamentMaps: React.FC<{ maps: TournamentDetail['maps'] }> = ({ m
         <FlatList
             horizontal
             data={maps}
-            contentContainerStyle="gap-2"
+            contentContainerStyle="gap-2 px-4"
             keyExtractor={(map) => map.name}
             renderItem={({ item: map }) => <MapCard map={map} />}
         />

@@ -15,8 +15,8 @@ import { MatchPlayer } from './player';
 import { useTournamentMatches } from '../../api/tournaments';
 import { AoeSpeed, getSpeedFactor } from '../../helper/speed';
 import { Icon } from '../icon';
-import { Text } from '../text';
 import { ScrollView } from '../scroll-view';
+import { Text } from '../text';
 
 type MatchPopupProps = MatchProps & Pick<BottomSheetProps, 'isActive' | 'onClose'>;
 
@@ -35,7 +35,7 @@ export function MatchPopup(props: MatchPopupProps) {
     const name = player?.name;
 
     const players = flatten(match?.teams.map((t) => t.players));
-    const { tournament } = useMemo(
+    const { tournament, format } = useMemo(
         () =>
             (match &&
                 players &&
@@ -48,7 +48,7 @@ export function MatchPopup(props: MatchPopupProps) {
                                 .map((tournamentParticipant) => tournamentParticipant.name?.toLowerCase())
                                 .includes(getVerifiedPlayer(player.profileId)?.liquipedia?.toLowerCase() ?? '')
                         )
-                )) ?? { tournament: undefined },
+                )) ?? { tournament: undefined, format: undefined },
         [players, tournamentMatches]
     );
     const freeForAll = isMatchFreeForAll(match);
@@ -66,7 +66,7 @@ export function MatchPopup(props: MatchPopupProps) {
             <View className="gap-1">
                 {tournament && (
                     <Pressable
-                        className="flex-row items-center gap-2"
+                        className="flex-row items-center gap-2 mb-2"
                         onPress={() =>
                             Platform.OS === 'web'
                                 ? Linking.openURL(`https://liquipedia.net/ageofempires/${tournament.path}`)
@@ -75,6 +75,7 @@ export function MatchPopup(props: MatchPopupProps) {
                     >
                         {tournament.image && <Image source={{ uri: tournament.image }} className="w-5 h-5" />}
                         <Text variant="label">{tournament.name}</Text>
+                        {format && <Text variant="body-sm">({format})</Text>}
                     </Pressable>
                 )}
 

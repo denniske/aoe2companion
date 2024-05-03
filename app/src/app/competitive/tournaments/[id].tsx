@@ -1,4 +1,4 @@
-import { useRefreshControl, useTournament } from '@app/api/tournaments';
+import { useRefreshControl, useTournament, useTournamentMatches } from '@app/api/tournaments';
 import { Button } from '@app/components/button';
 import { Card } from '@app/components/card';
 import { FlatList } from '@app/components/flat-list';
@@ -7,7 +7,7 @@ import { Icon } from '@app/components/icon';
 import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
 import { flagEmojiDict } from '@app/helper/flags';
-import { formatPrizePool, formatTier } from '@app/helper/tournaments';
+import { findFullMatch, formatPrizePool, formatTier, getAllTournamentMatches, getMatches } from '@app/helper/tournaments';
 import { getTranslation } from '@app/helper/translate';
 import { useFollowedTournament } from '@app/service/followed-tournaments';
 import tw from '@app/tailwind';
@@ -28,27 +28,12 @@ import { getVerifiedPlayerBy } from '@nex/data';
 import { format, isPast } from 'date-fns';
 import { Image } from 'expo-image';
 import { Stack, router, useLocalSearchParams } from 'expo-router';
-import { Playoff, TournamentType } from 'liquipedia';
+import { TournamentType } from 'liquipedia';
 import { orderBy, reverse } from 'lodash';
 import { useColorScheme } from 'nativewind';
 import { useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { formatCurrency } from 'react-native-format-currency';
-
-const getMatches = (playoffs: Playoff[] | undefined) =>
-    orderBy(
-        playoffs
-            ?.flatMap((playoff) =>
-                playoff.rounds.flatMap((round) =>
-                    round.matches.map((match) => ({
-                        ...match,
-                        header: match.header ?? { name: playoff.name ? `${playoff.name} ${round.name}` : round.name, format: round.format },
-                    }))
-                )
-            )
-            .filter((match) => match.startTime),
-        'startTime'
-    );
 
 export default function TournamentDetail() {
     const params = useLocalSearchParams<{ id: string[] }>();
@@ -62,12 +47,32 @@ export default function TournamentDetail() {
     const [showFormatNote, setShowFormatNote] = useState(false);
     const [visiblePopup, setVisiblePopup] = useState<string>();
     const [playoffRoundWidth, setPlayoffRoundWidth] = useState(0);
+    const { data: tournamentMatches } = useTournamentMatches();
 
     const playoffMatches = getMatches(tournament?.playoffs);
     const groupMatches = getMatches(tournament?.groups);
-    const matches = orderBy([...playoffMatches, ...groupMatches], 'startTime');
+
+    const matches = getAllTournamentMatches(tournament);
+
     const past = isPast(matches[matches.length - 1]?.startTime ?? new Date());
-    const filteredMatches = past ? matches : matches.filter((match) => !isPast(match?.startTime ?? new Date()));
+    const filteredMatches = past
+        ? matches
+        : orderBy(
+              matches.filter(
+                  (match) =>
+                      !isPast(match?.startTime ?? new Date()) ||
+                      findFullMatch(
+                          {
+                              ...match,
+                              tournament: { name: tournament?.name ?? '', path: tournament?.path ?? '' },
+                              participants: [match.participants[0], match.participants[1] || match.participants[0]],
+                          },
+                          tournamentMatches
+                      )
+              ),
+              'startTime',
+              'desc'
+          );
     const start = tournament?.start ?? mainTournament?.start;
     const end = tournament?.end ?? mainTournament?.end;
     const countryCode = tournament?.location?.country?.code;
@@ -93,7 +98,7 @@ export default function TournamentDetail() {
     return (
         <ScrollView
             className="flex-1"
-            contentContainerStyle={tournament && 'p-4 gap-5'}
+            contentContainerStyle={tournament && 'gap-5 py-4'}
             refreshControl={<RefreshControlThemed {...refreshControlProps} />}
         >
             <Stack.Screen
@@ -125,7 +130,7 @@ export default function TournamentDetail() {
                 scrollEnabled={false}
                 equalizeHeights={false}
                 pagination={(scrollTo, current) => (
-                    <View className="rounded-lg overflow-hidden flex-row bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 mb-4">
+                    <View className="rounded-lg overflow-hidden flex-row bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 mb-4 mx-4">
                         {tabs.map((tab, index) => (
                             <Button
                                 align="center"
@@ -143,18 +148,21 @@ export default function TournamentDetail() {
                     <View className="gap-5">
                         {filteredMatches.length ? (
                             <View className="gap-2">
-                                <Text variant="header">{past ? 'Past Matches' : 'Next Scheduled Matches'}</Text>
+                                <Text variant="header" className="px-4">
+                                    {past ? 'Past Matches' : 'Next Scheduled Matches'}
+                                </Text>
                                 <FlatList
                                     data={filteredMatches ? reverse(filteredMatches) : filteredMatches}
                                     renderItem={(match) => <TournamentMatch style={{ width: 250 }} key={match.index} match={match.item} />}
-                                    contentContainerStyle="gap-2"
+                                    contentContainerStyle="gap-2 px-4"
                                     horizontal
+                                    showsHorizontalScrollIndicator={false}
                                 />
                             </View>
                         ) : null}
                         {tournament.participants.length > 0 && (
                             <View className="gap-2">
-                                <View className="flex-row items-center justify-between">
+                                <View className="flex-row items-center justify-between px-4">
                                     <Text variant="header">{getTranslation('tournaments.participants')}</Text>
                                     {tournament.participantsNote && (
                                         <TouchableOpacity onPress={() => setShowParticipantsNote((val) => !val)}>
@@ -174,7 +182,6 @@ export default function TournamentDetail() {
                                             router.navigate(`/matches/users/${playerId}`);
                                         }
                                     }}
-                                    contentContainerStyle="px-0"
                                     variant="horizontal"
                                     list={tournament.participants.map((participant) => ({ profileId: -1, ...participant }))}
                                     footer={() => null}
@@ -182,7 +189,7 @@ export default function TournamentDetail() {
                                 />
 
                                 {tournament.participantsNote && showParticipantsNote && (
-                                    <View className="pb-4">
+                                    <View className="pb-4 px-4">
                                         <TournamentMarkdown>{tournament.participantsNote}</TournamentMarkdown>
                                     </View>
                                 )}
@@ -190,7 +197,7 @@ export default function TournamentDetail() {
                         )}
 
                         {tournament.prizePool && (
-                            <View>
+                            <View className="px-4">
                                 <Button align="center" onPress={() => setVisiblePopup('prizepool')}>
                                     View Prizes
                                 </Button>
@@ -210,12 +217,14 @@ export default function TournamentDetail() {
 
                         {tournament.maps.length > 0 && (
                             <View className="gap-2">
-                                <Text variant="header">{getTranslation('tournaments.maps')}</Text>
+                                <Text variant="header" className="px-4">
+                                    {getTranslation('tournaments.maps')}
+                                </Text>
                                 <TournamentMaps maps={tournament.maps} />
                             </View>
                         )}
 
-                        <View className="gap-2">
+                        <View className="gap-2 px-4">
                             <View className="flex-row items-center justify-between">
                                 <Text variant="header">Results</Text>
                                 {tournament.format && (
@@ -298,6 +307,7 @@ export default function TournamentDetail() {
                                                     <ScrollView
                                                         className="-mx-3"
                                                         horizontal
+                                                        showsHorizontalScrollIndicator={false}
                                                         snapToInterval={playoffRoundWidth}
                                                         contentContainerStyle="gap-5"
                                                     >
@@ -334,6 +344,7 @@ export default function TournamentDetail() {
                                                 )}
                                                 contentContainerStyle="gap-2"
                                                 horizontal
+                                                showsHorizontalScrollIndicator={false}
                                             />
                                             {tournament.resultsNote && (
                                                 <View className="pt-4">
@@ -346,9 +357,9 @@ export default function TournamentDetail() {
                             )}
                         </View>
                     </View>,
-                    <View className="gap-2">
+                    <View className="gap-2 px-4">
                         <Text variant="header">{getTranslation('tournaments.fullschedule')}</Text>
-                        {!tournament.scheduleNote || tournament.schedule.length === 0 ? <Text>Schedule not available</Text> : null}
+                        {!tournament.scheduleNote && tournament.schedule.length === 0 ? <Text>Schedule not available</Text> : null}
 
                         {tournament.scheduleNote && (
                             <View className="pb-4">
@@ -373,7 +384,7 @@ export default function TournamentDetail() {
                             ))}
                         </View>
                     </View>,
-                    <View className="gap-5">
+                    <View className="gap-5 px-4">
                         {(tournament?.tabs.length || tournament.league?.name) && (
                             <View className="gap-2">
                                 {tournament?.tabs.map((tabs, index) => (
@@ -436,6 +447,23 @@ export default function TournamentDetail() {
                                             ? getTranslation('tournaments.playerscount', { count: tournament.participantsCount })
                                             : getTranslation('tournaments.teamscount', { count: tournament.participantsCount })}
                                     </Text>
+                                )}
+
+                                {tournament.league?.name && (
+                                    <View className="flex-row gap-2 mb-2 items-center">
+                                        <Text variant="label-lg" align="center">
+                                            {getTranslation('tournaments.series')}
+                                        </Text>
+                                        <Button
+                                            size="small"
+                                            onPress={() =>
+                                                tournament.league?.path &&
+                                                router.push(`/competitive/tournaments/all?league=${tournament.league.path}`)
+                                            }
+                                        >
+                                            {tournament.league.name}
+                                        </Button>
+                                    </View>
                                 )}
 
                                 {tournament.broadcastTalent?.length ? (

@@ -1,7 +1,7 @@
 import { appConfig } from '@nex/dataset';
 import { endOfDay, isPast, startOfDay } from 'date-fns';
-import { Age2TournamentCategory, Age4TournamentCategory, Tournament, TournamentCategory } from 'liquipedia';
-import { startCase } from 'lodash';
+import { Age2TournamentCategory, Age4TournamentCategory, Match, Playoff, Tournament, TournamentCategory, TournamentDetail } from 'liquipedia';
+import { orderBy, startCase } from 'lodash';
 import { formatCurrency } from 'react-native-format-currency';
 
 export const sortedTiers: TournamentCategory[] =
@@ -52,6 +52,43 @@ export const formatPrizePool = (prizePool: NonNullable<Tournament['prizePool']>)
 
 export const formatTier = (tier: TournamentCategory) => startCase(tier.split('/').at(-1)?.split('Tournament')[0]);
 
+export const getMatches = (playoffs: Playoff[] | undefined) =>
+    orderBy(
+        playoffs
+            ?.flatMap((playoff) =>
+                playoff.rounds.flatMap((round) =>
+                    round.matches.map((match) => ({
+                        ...match,
+                        header: match.header ?? { name: playoff.name ? `${playoff.name} ${round.name}` : round.name, format: round.format },
+                    }))
+                )
+            )
+            .filter((match) => match.startTime),
+        'startTime'
+    );
+export const getAllTournamentMatches = (tournament?: TournamentDetail) => {
+    const playoffMatches = getMatches(tournament?.playoffs);
+    const groupMatches = getMatches(tournament?.groups);
+    return orderBy([...playoffMatches, ...groupMatches], 'startTime');
+};
+
+export const findFullMatch = (match: Match, matchesList?: Match[]) =>
+    matchesList?.find(
+        (m) =>
+            match.tournament.path === m.tournament.path &&
+            match.startTime?.getTime() === m.startTime?.getTime() &&
+            match.participants.every((p) => m.participants.map((participant) => participant.name).includes(p.name))
+    );
+
+export const findTournamentMatch = (match: Omit<Match, 'tournament'>, tournament?: TournamentDetail) => {
+    const matches = getAllTournamentMatches(tournament);
+    return matches.find(
+        (m) =>
+            match.startTime?.getTime() === m.startTime?.getTime() &&
+            match.participants.every((p) => m.participants.map((participant) => participant.name).includes(p.name))
+    );
+};
+
 export const formatTierShort = (tier: TournamentCategory) => formatTier(tier).replace('ellaneous', '').replace('Show Matches', 'SM');
 
 export const tournamentStatus = (tournament: Tournament): 'ongoing' | 'upcoming' | 'past' => timeStatus(tournament.start, tournament.end);
@@ -60,8 +97,8 @@ export const timeStatus = (start?: Date, end?: Date): 'ongoing' | 'upcoming' | '
     const startDate = startOfDay(start ?? new Date());
     const endDate = endOfDay(end ?? start ?? new Date());
 
-    const hasTournamentStarted = isPast(startDate);
-    const hasTournamentEnded = isPast(endDate);
+    const hasTournamentStarted = start && isPast(startDate);
+    const hasTournamentEnded = (end || start) && isPast(endDate);
     const isOngoing = hasTournamentStarted && !hasTournamentEnded;
     const isUpcoming = !hasTournamentStarted && !hasTournamentEnded;
 

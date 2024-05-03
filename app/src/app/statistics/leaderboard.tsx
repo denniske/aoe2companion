@@ -41,6 +41,7 @@ import { useLazyAppendApi } from '../../hooks/use-lazy-append-api';
 import { setLeaderboardCountry, useMutate, useSelector } from '../../redux/reducer';
 import { createStylesheet } from '../../theming-new';
 import { uniq, compact } from 'lodash';
+import { Dropdown } from '@app/components/dropdown';
 
 const Tab = createMaterialTopTabNavigator<any>();
 
@@ -130,6 +131,7 @@ export default function LeaderboardPage() {
         },
         fetchLeaderboards
     );
+    const [leaderboardType, setLeaderboardType] = useState<'pc' | 'xbox'>('pc');
 
     if (!leaderboards.data) {
         return <View />;
@@ -140,6 +142,16 @@ export default function LeaderboardPage() {
             <Stack.Screen
                 options={{
                     title: 'Leaderboards',
+                    headerRight: () => (
+                        <Dropdown
+                            value={leaderboardType}
+                            onChange={setLeaderboardType}
+                            options={[
+                                { value: 'pc', label: 'PC' },
+                                { value: 'xbox', label: 'Xbox' },
+                            ]}
+                        />
+                    ),
                 }}
             />
             <Tab.Navigator
@@ -158,13 +170,18 @@ export default function LeaderboardPage() {
                 sceneContainerStyle={{ backgroundColor: 'transparent' }}
             >
                 {leaderboards.data
-                    .filter((leaderboard) => leaderboard.active)
+                    .filter(
+                        (leaderboard) =>
+                            leaderboard.active &&
+                            ((leaderboardType === 'xbox' && leaderboard.abbreviation.includes('🎮')) ||
+                                (leaderboardType !== 'xbox' && !leaderboard.abbreviation.includes('🎮')))
+                    )
                     .map((leaderboard, i) => {
                         return (
                             <Tab.Screen
                                 key={i}
                                 name={`${leaderboard.leaderboardId}`}
-                                options={{ tabBarLabel: (x) => <TabBarLabel {...x} title={leaderboard.abbreviation} /> }}
+                                options={{ tabBarLabel: (x) => <TabBarLabel {...x} title={leaderboard.abbreviation.replace('🎮', '').trim()} /> }}
                             >
                                 {() => <Leaderboard leaderboardId={leaderboard.leaderboardId} />}
                             </Tab.Screen>

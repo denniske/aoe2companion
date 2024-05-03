@@ -32,7 +32,7 @@ export const Header: React.FC<NativeStackHeaderProps | (BottomTabHeaderProps & {
                     {title}
                 </Text>
             )}
-            {back ? <View className="flex-row items-center gap-2 min-w-[22px]">{headerRight}</View> : null}
+            {back || headerRight ? <View className="flex-row items-center gap-2 min-w-[22px]">{headerRight}</View> : null}
         </View>
     );
 };

@@ -66,13 +66,6 @@ export default function BuildListPage() {
                     </View>
 
                     <FlatList
-                        initialNumToRender={5}
-                        snapToInterval={150}
-                        getItemLayout={(_, index) => ({
-                            length: 150,
-                            offset: 150 * index,
-                            index,
-                        })}
                         className="flex-1"
                         data={filteredBuilds}
                         renderItem={({ item }) => <BuildCard {...item} />}

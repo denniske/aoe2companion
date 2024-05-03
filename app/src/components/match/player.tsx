@@ -54,13 +54,13 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
                 </View>
             )}
 
-            <Text variant="label" className="w-10">
+            <Text variant={highlight ? 'label' : 'body'} className="w-10">
                 {player.rating}
             </Text>
 
             <Link href={`/matches/users/${player.profileId}`} asChild>
                 <TouchableOpacity className="flex-1 flex-row gap-1 items-center" onPress={onClose}>
-                    <Text variant="label" numberOfLines={1}>
+                    <Text variant={highlight ? 'header-xs' : 'body'} numberOfLines={1}>
                         {player.name}
                     </Text>
                     {player.status === 0 && isVerifiedPlayer(player.profileId) && <Icon icon="check-circle" color="brand" size={12} />}
@@ -80,7 +80,7 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
             <Link href={`/explore/civilizations/${player.civName}`} asChild>
                 <TouchableOpacity className="flex-row flex-1 gap-1" onPress={onClose}>
                     <Image className={appConfig.game === 'aoe2de' ? 'w-5 h-5' : 'w-8 h-5'} source={getCivIcon(player)} contentFit="contain" />
-                    <Text numberOfLines={1} variant="label" className="flex-1">
+                    <Text numberOfLines={1} variant={highlight ? 'label' : 'body'} className="flex-1">
                         {player.civName}
                     </Text>
                 </TouchableOpacity>
