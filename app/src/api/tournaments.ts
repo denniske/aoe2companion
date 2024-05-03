@@ -47,12 +47,7 @@ export const useAllTournaments = () =>
 export const useTournament = (id: string, enabled?: boolean) => {
     const [currentId, setCurrentId] = useState(id);
     const queryClient = useQueryClient();
-    const query = useQuery<TournamentDetail>({
-        queryKey: ['tournament', id],
-        staleTime: 120000,
-        queryFn: async () => await liquipedia.aoe.getTournament(id),
-        enabled: Platform.OS === 'web' ? false : enabled,
-    });
+    const query = useTournamentDetail(id, enabled);
 
     useEffect(() => {
         if (!query.isFetching) {
@@ -64,6 +59,14 @@ export const useTournament = (id: string, enabled?: boolean) => {
 
     return { ...query, data };
 };
+
+export const useTournamentDetail = (id: string, enabled?: boolean) =>
+    useQuery<TournamentDetail>({
+        queryKey: ['tournament', id],
+        staleTime: 120000,
+        queryFn: async () => await liquipedia.aoe.getTournament(id),
+        enabled: Platform.OS === 'web' ? false : enabled,
+    });
 
 export const useTournamentMatches = (enabled?: boolean) => {
     const { data: upcomingTournaments, isLoading: isLoadingTournaments } = useUpcomingTournaments();

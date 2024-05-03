@@ -1,8 +1,11 @@
 import { Card } from '@app/components/card';
 import { Text } from '@app/components/text';
+import tw from '@app/tailwind';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Image } from 'expo-image';
+import { LinearGradient } from 'expo-linear-gradient';
 import { startCase } from 'lodash';
+import { useColorScheme } from 'nativewind';
 import { memo } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
@@ -23,6 +26,7 @@ const BuildCard: React.FC<IBuildOrder & { favorited?: boolean; toggleFavorite?: 
     const civIcon = getCivIconLocal(build.civilization) ?? genericCivIcon;
     const difficultyIcon = getDifficultyIcon(build.difficulty);
     const ages = sortBuildAges(Object.entries(build.pop));
+    const { colorScheme } = useColorScheme();
 
     if (size === 'small') {
         return (
@@ -40,6 +44,11 @@ const BuildCard: React.FC<IBuildOrder & { favorited?: boolean; toggleFavorite?: 
             </Card>
         );
     }
+
+    const gradient =
+        colorScheme === 'dark'
+            ? [tw.color('blue-900/0') ?? 'black', tw.color('blue-900/100') ?? 'black']
+            : [tw.color('white/0') ?? 'white', tw.color('white/100') ?? 'white'];
 
     return (
         <Card href={`/explore/build-orders/${build.id}`}>
@@ -59,28 +68,30 @@ const BuildCard: React.FC<IBuildOrder & { favorited?: boolean; toggleFavorite?: 
                     </Text>
 
                     <View className="flex-row gap-1">
-                        {ages.map(([ageName, agePop]) => (
-                            <Tag key={ageName} icon={getAgeIcon(startCase(ageName.replace('Age', '')) as any)}>
-                                {ageName === 'feudalAge' ? '' : '+'}
-                                {agePop}
-                            </Tag>
-                        ))}
-                        {build.attributes.map((attribute) => (
-                            <Tag key={attribute}>{startCase(attribute)}</Tag>
-                        ))}
+                        <View className="flex-row gap-1 flex-1 overflow-hidden relative">
+                            {ages.map(([ageName, agePop]) => (
+                                <Tag key={ageName} icon={getAgeIcon(startCase(ageName.replace('Age', '')) as any)}>
+                                    {ageName === 'feudalAge' ? '' : '+'}
+                                    {agePop}
+                                </Tag>
+                            ))}
+                            {build.attributes.map((attribute) => (
+                                <Tag key={attribute}>{startCase(attribute)}</Tag>
+                            ))}
+
+                            <LinearGradient className="absolute top-0 right-0 h-full w-4" colors={gradient} start={[0, 0]} end={[1, 0]} />
+                        </View>
+                        <View className="flex-row gap-2 items-center">
+                            {difficultyIcon && <Image className="w-6 h-6" source={difficultyIcon} />}
+
+                            {toggleFavorite && (
+                                <TouchableOpacity hitSlop={10} onPress={toggleFavorite}>
+                                    <FontAwesome5 solid={favorited} name="heart" size={20} color="#ef4444" />
+                                </TouchableOpacity>
+                            )}
+                        </View>
                     </View>
                 </View>
-
-                {difficultyIcon && (
-                    <View className="absolute bottom-0 right-0 flex-row gap-2 items-center">
-                        <Image className="w-6 h-6" source={difficultyIcon} />
-                        {toggleFavorite && (
-                            <TouchableOpacity hitSlop={10} onPress={toggleFavorite}>
-                                <FontAwesome5 solid={favorited} name="heart" size={20} color="#ef4444" />
-                            </TouchableOpacity>
-                        )}
-                    </View>
-                )}
             </View>
         </Card>
     );

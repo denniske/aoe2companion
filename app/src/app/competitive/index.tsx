@@ -12,6 +12,7 @@ import { SkeletonText } from '@app/components/skeleton';
 import { Text } from '@app/components/text';
 import PlayerList from '@app/view/components/player-list';
 import { Tag } from '@app/view/components/tag';
+import { PlayoffPopup } from '@app/view/tournaments/playoffs/popup';
 import { TournamentCard } from '@app/view/tournaments/tournament-card';
 import { TournamentMatch } from '@app/view/tournaments/tournament-match';
 import { getHost, getTwitchChannel, getVerifiedPlayer, getVerifiedPlayerIds, matchAttributes } from '@nex/data';
@@ -20,6 +21,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Image } from 'expo-image';
 import { Stack, router, useFocusEffect } from 'expo-router';
+import { PlayoffMatch } from 'liquipedia';
 import { groupBy, orderBy } from 'lodash';
 import compact from 'lodash/compact';
 import { useCallback, useEffect, useState } from 'react';
@@ -41,6 +43,9 @@ export default function Competitive() {
 
     const [selectedMatch, setSelectedMatch] = useState<{ match: IMatchesMatch; profileId: number }>();
     const [showMatchPopup, setShowMatchPopup] = useState(false);
+
+    const [selectedSet, setSelectedSet] = useState<{ match: PlayoffMatch; tournamentPath: string }>();
+    const [showSetPopup, setShowSetPopup] = useState(false);
 
     const { data: liveTwitchAccounts } = useQuery({
         queryKey: ['twitch', 'all'],
@@ -80,6 +85,10 @@ export default function Competitive() {
         setShowMatchPopup(true);
     }, [selectedMatch]);
 
+    useEffect(() => {
+        setShowSetPopup(true);
+    }, [selectedSet]);
+
     useFocusEffect(
         useCallback(() => {
             setIsVideoPlaying(false);
@@ -105,7 +114,7 @@ export default function Competitive() {
                     isActive={showMatchPopup}
                     onClose={() => setShowMatchPopup(false)}
                     user={selectedMatch.profileId}
-                    highlightedUsers={proPlayerIds}
+                    highlightedUsers={[selectedMatch.profileId]}
                     match={{
                         ...selectedMatch.match,
                         teams: Object.entries(groupBy(selectedMatch.match.players, 'team')).map(([teamId, players]) => ({
@@ -113,6 +122,15 @@ export default function Competitive() {
                             players,
                         })),
                     }}
+                />
+            )}
+
+            {selectedSet && (
+                <PlayoffPopup
+                    visible={showSetPopup}
+                    setVisible={setShowSetPopup}
+                    match={selectedSet.match}
+                    tournamentPath={selectedSet.tournamentPath}
                 />
             )}
 
@@ -188,14 +206,20 @@ export default function Competitive() {
                             data={isLoadingUpcomingMatches ? Array(10).fill(null) : filteredMatches}
                             renderItem={(match) => (
                                 <TournamentMatch
-                                    onPress={() => router.navigate(`/competitive/tournaments/${encodeURIComponent(match.item.tournament.path)}`)}
-                                    style={{ width: 250 }}
+                                    onPress={() =>
+                                        setSelectedSet({
+                                            match: match.item as PlayoffMatch,
+                                            tournamentPath: encodeURIComponent(match.item.tournament?.path),
+                                        })
+                                    }
+                                    style={{ width: 200 }}
                                     key={match.index}
                                     match={match.item}
                                 />
                             )}
                             contentContainerStyle="gap-2.5 px-4"
                             horizontal
+                            showsHorizontalScrollIndicator={false}
                             ListEmptyComponent={<Text>No upcoming matches right now. Check back later!</Text>}
                         />
                     </View>

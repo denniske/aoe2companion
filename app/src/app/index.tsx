@@ -95,7 +95,8 @@ export default function Page() {
 
                 <FlatList
                     showsHorizontalScrollIndicator={false}
-                    contentContainerStyle="gap-4"
+                    contentContainerStyle="gap-4 px-4"
+                    className="-mx-4"
                     horizontal
                     data={news}
                     renderItem={({ item: post }) => <NewsCard {...post} />}
