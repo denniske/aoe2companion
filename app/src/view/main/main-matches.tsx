@@ -3,9 +3,8 @@ import { Field } from '@app/components/field';
 import { FlatList } from '@app/components/flat-list';
 import { Match } from '@app/components/match';
 import { leaderboardIdsByType } from '@app/helper/leaderboard';
-import { useNavigation, useNavigationState, useRoute } from '@react-navigation/native';
+import { useNavigationState, useRoute } from '@react-navigation/native';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import Constants from 'expo-constants';
 import { flatten } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -63,15 +62,6 @@ function MainMatchesInternal({ profileId }: { profileId: number }) {
     const [reloading, setReloading] = useState(false);
     const auth = useSelector((state) => state.auth);
     const [leaderboardType, setLeaderboardType] = useState<'pc' | 'xbox'>('pc');
-
-    const navigation = useNavigation();
-    const userProfile = useSelector((state) => state.user[profileId]?.profile);
-    useEffect(() => {
-        if (!userProfile) return;
-        navigation.setOptions({
-            title: userProfile?.name + ' - ' + (Constants.expoConfig?.name || Constants.expoConfig2?.extra?.expoClient?.name),
-        });
-    }, [userProfile]);
 
     const realText = text.trim().length < 3 ? '' : text.trim();
     const debouncedSearch = useDebounce(realText, 600);

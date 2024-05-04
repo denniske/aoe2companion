@@ -3,8 +3,7 @@ import { FlatList } from '@app/components/flat-list';
 import { leaderboardIdsByType } from '@app/helper/leaderboard';
 import { LeaderboardId } from '@nex/data';
 import { usePrevious } from '@nex/data/hooks';
-import { useNavigation, useNavigationState, useRoute } from '@react-navigation/native';
-import Constants from 'expo-constants';
+import { useNavigationState, useRoute } from '@react-navigation/native';
 import { get } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
@@ -60,15 +59,6 @@ function MainStatsInternal({ profileId }: { profileId: number }) {
     // const prefLeaderboardId = useSelector(state => state.prefs.leaderboardId) ?? leaderboardIdsData[0];
     // const prefLeaderboardId = leaderboardIdsData[0];
     const [leaderboardId, setLeaderboardId] = useState<string>();
-
-    const navigation = useNavigation();
-    const userProfile = useSelector((state) => state.user[profileId]?.profile);
-    useEffect(() => {
-        if (!userProfile) return;
-        navigation.setOptions({
-            title: userProfile?.name + ' - ' + (Constants.expoConfig?.name || Constants.expoConfig2?.extra?.expoClient?.name),
-        });
-    }, [userProfile]);
 
     const [leaderboardType, setLeaderboardType] = useState<'pc' | 'xbox'>('pc');
 

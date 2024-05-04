@@ -3,7 +3,7 @@ import { Icon } from '@app/components/icon';
 import { toggleFollowing } from '@app/service/following';
 import Search from '@app/view/components/search';
 import { MainPageInner } from '@app/view/main.page';
-import { Stack, router, useLocalSearchParams } from 'expo-router';
+import { Stack, router, useLocalSearchParams, useNavigation } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, Platform, TouchableOpacity } from 'react-native';
 
@@ -132,33 +132,32 @@ export default function UserPage() {
         }
     };
 
+    const navigation = useNavigation();
+
+    useEffect(() => {
+        navigation.setOptions({
+            headerTitle: () => (
+                <HeaderTitle
+                    iconComponent={
+                        <CountryImage
+                            style={{ transform: [{ scale: 1.5 }] }}
+                            country={getVerifiedPlayer(profileId)?.country || loadedProfile?.country || country}
+                        />
+                    }
+                    title={loadedProfile?.name || name || ''}
+                    subtitle={isVerified && !isMainAccount && `${getVerifiedPlayer(profileId)?.name} - Alternate account`}
+                />
+            ),
+            headerRight: () => <UserMenu />,
+        });
+    }, [navigation, loadedProfile, isVerified, isMainAccount, country, name]);
+
     useEffect(() => {
         completeUserIdInfo();
     }, [profileId]);
 
     if (profileId) {
-        return (
-            <>
-                <Stack.Screen
-                    options={{
-                        headerTitle: () => (
-                            <HeaderTitle
-                                iconComponent={
-                                    <CountryImage
-                                        style={{ transform: [{ scale: 1.5 }] }}
-                                        country={getVerifiedPlayer(profileId)?.country || loadedProfile?.country || country}
-                                    />
-                                }
-                                title={loadedProfile?.name || name || ''}
-                                subtitle={isVerified && !isMainAccount && `${getVerifiedPlayer(profileId)?.name} - Alternate account`}
-                            />
-                        ),
-                        headerRight: () => <UserMenu />,
-                    }}
-                />
-                <MainPageInner profileId={profileId} />
-            </>
-        );
+        return <MainPageInner profileId={profileId} />;
     }
 
     if (auth == null) {
