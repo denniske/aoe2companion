@@ -19,7 +19,7 @@ const SelectProfilePage = () => {
         });
         mutate(setAuth(user));
         setAccountProfile(account.id, { profile_id: user.profileId!, steam_id: user.steamId });
-        router.navigate(`/matches/users/${user.profileId!}`);
+        router.navigate(`/matches/users/${user.profileId!}?name=${user.name}&country=${user.country}`);
     };
 
     const navigation = useNavigation();
@@ -28,12 +28,9 @@ const SelectProfilePage = () => {
         navigation.setOptions({ title: 'Find My Account' });
     }, [navigation]);
 
-    return <Search
-        title="Enter your AoE username to track your games"
-        selectedUser={onSelect}
-        actionText="Choose"
-        initialText={route.params?.search}
-    />;
+    return (
+        <Search title="Enter your AoE username to track your games" selectedUser={onSelect} actionText="Choose" initialText={route.params?.search} />
+    );
 };
 
 export default SelectProfilePage;

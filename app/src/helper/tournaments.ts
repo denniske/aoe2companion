@@ -85,7 +85,7 @@ export const findTournamentMatch = (match: Omit<Match, 'tournament'>, tournament
     return matches.find(
         (m) =>
             match.startTime?.getTime() === m.startTime?.getTime() &&
-            match.participants.every((p) => m.participants.map((participant) => participant.name).includes(p.name))
+            match.participants.every((p) => m.participants.map((participant) => participant.name.toLowerCase()).includes(p.name.toLowerCase()))
     );
 };
 

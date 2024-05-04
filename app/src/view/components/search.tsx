@@ -50,7 +50,7 @@ export default function Search({ title, selectedUser, actionText, action, initia
     const userBySteamId = useLazyApi({}, loadUserBySteamId, text);
 
     const refresh = async () => {
-        if (text.length < 3) {
+        if (text.length < 2) {
             user.reset();
             return;
         }
@@ -85,7 +85,7 @@ export default function Search({ title, selectedUser, actionText, action, initia
     const list = profiles;
 
     const onEndReached = async () => {
-        if (text.length < 3 || fetchingMore || fetchedAll || user.data == null) return;
+        if (text.length < 2 || fetchingMore || fetchedAll || user.data == null) return;
         setFetchingMore(true);
         setFetching(true);
         await Promise.all([
@@ -107,7 +107,13 @@ export default function Search({ title, selectedUser, actionText, action, initia
             {title && <Text className="pt-4 text-center">{title}</Text>}
 
             <View className="px-4 py-4">
-                <Field placeholder={getTranslation('search.placeholder')} type="search" autoFocus={!initialText} onChangeText={setText} value={text} />
+                <Field
+                    placeholder={getTranslation('search.placeholder')}
+                    type="search"
+                    autoFocus={!initialText}
+                    onChangeText={setText}
+                    value={text}
+                />
             </View>
 
             <PlayerList
@@ -118,7 +124,7 @@ export default function Search({ title, selectedUser, actionText, action, initia
                 selectedUser={selectedUser}
                 ListFooterComponent={_renderFooter}
                 ListEmptyComponent={
-                    text.length < 3 ? (
+                    text.length < 2 ? (
                         <Text color="subtle" align="center">
                             {getTranslation('search.minlength')}
                         </Text>

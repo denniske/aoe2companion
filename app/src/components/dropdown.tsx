@@ -1,10 +1,10 @@
-import { textColors } from '@app/utils/text.util';
+import { TextVariant, textColors } from '@app/utils/text.util';
 import { useState } from 'react';
 import { Pressable, View, ViewStyle } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 
 import { Icon } from './icon';
 import { Text } from './text';
-import { FlatList } from 'react-native-gesture-handler';
 
 interface Item<ValueType extends string> {
     value: ValueType;
@@ -18,6 +18,7 @@ export interface DropdownProps<ValueType extends string> {
     value?: ValueType;
     options: Item<ValueType>[];
     onChange?: (value: Item<ValueType>['value'], item: Item<ValueType>) => void;
+    textVariant?: TextVariant;
 }
 
 export const Dropdown = <ValueType extends string>({
@@ -26,29 +27,35 @@ export const Dropdown = <ValueType extends string>({
     placeholder = 'Select',
     onChange = () => {},
     style,
+    textVariant,
 }: DropdownProps<ValueType>) => {
     const color = textColors['default'];
     const selected = options.find((option) => option.value === value);
     const [isOpen, setIsOpen] = useState(false);
+    const variant = textVariant ?? 'body';
+    const isSmall = variant.includes('sm');
 
     return (
-        <View className="relative" style={style}>
+        <View className="relative">
             <Pressable
                 onPress={() => setIsOpen((prev) => !prev)}
-                className="bg-white dark:bg-blue-900 rounded-lg border border-gray-200 dark:border-gray-800 py-3.5 px-4 h-[45px] flex-row items-center justify-between gap-1.5 active:bg-gray-50 dark:active:bg-gray-900"
+                style={style}
+                className={`bg-white dark:bg-blue-900 rounded-lg border border-gray-200 dark:border-gray-800 py-3.5 px-4 flex-row items-center justify-between active:bg-gray-50 dark:active:bg-gray-900 ${isSmall ? 'gap-1' : 'gap-1.5'}`}
             >
                 <View style={{ marginTop: -2 }}>
-                    <Text color={selected ? color : 'text-[#a3a3a3]'}>{selected?.abbreviated ?? selected?.label ?? placeholder}</Text>
+                    <Text variant={variant} color={selected ? color : 'text-[#a3a3a3]'}>
+                        {selected?.abbreviated ?? selected?.label ?? placeholder}
+                    </Text>
 
                     {/* Ensures width doesn't change when switching items */}
                     {options.map((option) => (
-                        <Text key={option.value} style={{ height: 0 }}>
+                        <Text variant={variant} key={option.value} style={{ height: 0, color: 'transparent' }}>
                             {option.abbreviated ?? option.label}
                         </Text>
                     ))}
                 </View>
 
-                <Icon icon="angle-down" />
+                <Icon size={isSmall ? 14 : 16} prefix={isSmall ? 'fasr' : 'fass'} icon="angle-down" />
             </Pressable>
 
             {isOpen && (
@@ -68,7 +75,7 @@ export const Dropdown = <ValueType extends string>({
                                 className="px-2.5 py-2 border-b border-gray-200 dark:border-gray-800 active:bg-gray-50 dark:active:bg-gray-900"
                                 key={item.value}
                             >
-                                <Text variant="label-sm" numberOfLines={1}>
+                                <Text variant={textVariant ?? 'label-sm'} numberOfLines={1}>
                                     {item.label}
                                 </Text>
                             </Pressable>

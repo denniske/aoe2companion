@@ -28,7 +28,7 @@ import { getVerifiedPlayerBy } from '@nex/data';
 import { format, isPast } from 'date-fns';
 import { Image } from 'expo-image';
 import { Stack, router, useLocalSearchParams } from 'expo-router';
-import { TournamentType } from 'liquipedia';
+import { GameVersion, TournamentType } from 'liquipedia';
 import { orderBy, reverse } from 'lodash';
 import { useColorScheme } from 'nativewind';
 import { useState } from 'react';
@@ -48,11 +48,17 @@ export default function TournamentDetail() {
     const [visiblePopup, setVisiblePopup] = useState<string>();
     const [playoffRoundWidth, setPlayoffRoundWidth] = useState(0);
     const { data: tournamentMatches } = useTournamentMatches();
+    const tournamentTabs =
+        tournament?.tabs.filter(
+            (tabs) => !tabs.some((tab) => [GameVersion.Age1, GameVersion.Age2, GameVersion.Age3, GameVersion.Age4].includes(tab.name as GameVersion))
+        ) ?? [];
 
     const playoffMatches = getMatches(tournament?.playoffs);
     const groupMatches = getMatches(tournament?.groups);
 
     const matches = getAllTournamentMatches(tournament);
+
+    const hasResults = tournament?.groups.length || tournament?.playoffs.length || tournament?.results.length;
 
     const past = isPast(matches[matches.length - 1]?.startTime ?? new Date());
     const filteredMatches = past
@@ -116,7 +122,7 @@ export default function TournamentDetail() {
                                         {start && end && ' - '}
                                         {end && format(end, 'LLL d')}
                                         {subtitle && (start || end) && ' - '}
-                                        <Text variant="label-sm">{subtitle}</Text>
+                                        {subtitle && <Text variant="label-sm">{subtitle.replace(tournament?.game ?? '', '').trim()}</Text>}
                                     </Text>
                                 }
                             />
@@ -224,138 +230,143 @@ export default function TournamentDetail() {
                             </View>
                         )}
 
-                        <View className="gap-2 px-4">
-                            <View className="flex-row items-center justify-between">
-                                <Text variant="header">Results</Text>
-                                {tournament.format && (
-                                    <TouchableOpacity onPress={() => setShowFormatNote((val) => !val)}>
-                                        <Icon prefix="fasr" icon="info-circle" color="brand" />
-                                    </TouchableOpacity>
+                        {hasResults || tournament.format ? (
+                            <View className="gap-2 px-4">
+                                <View className="flex-row items-center justify-between">
+                                    <Text variant="header">Results</Text>
+                                    {tournament.format && hasResults ? (
+                                        <TouchableOpacity onPress={() => setShowFormatNote((val) => !val)}>
+                                            <Icon prefix="fasr" icon="info-circle" color="brand" />
+                                        </TouchableOpacity>
+                                    ) : null}
+                                </View>
+                                {tournament.format && (showFormatNote || !hasResults) ? (
+                                    <Card direction="vertical">
+                                        <Text variant="label-lg" className="px-2">
+                                            {getTranslation('tournaments.format')}
+                                        </Text>
+
+                                        <TournamentMarkdown>{tournament.format}</TournamentMarkdown>
+                                    </Card>
+                                ) : null}
+
+                                {tournament.groups.length > 0 && (
+                                    <View>
+                                        <StageCard title="Group Stage" matches={groupMatches} onPress={() => setVisiblePopup('group')} />
+
+                                        <BottomSheet
+                                            isActive={visiblePopup === 'group'}
+                                            title="Group Stage"
+                                            closeButton
+                                            onClose={() => setVisiblePopup(undefined)}
+                                        >
+                                            <View className="mt-4">
+                                                {tournament.groups.map((group, index) => (
+                                                    <View key={index}>
+                                                        <Card direction="vertical" className="gap-0 mb-2 px-0 py-0">
+                                                            <Text variant="header-xs" className="px-4 py-3">
+                                                                {group.name}
+                                                            </Text>
+                                                            {group.participants.map((participant, participantIndex) => (
+                                                                <GroupParticipant
+                                                                    participant={participant}
+                                                                    key={`${participant.name}-${participantIndex}`}
+                                                                />
+                                                            ))}
+                                                        </Card>
+
+                                                        <View className="flex-row flex-wrap mb-4" style={{ rowGap: 12 }}>
+                                                            {group.rounds.map((round) => (
+                                                                <PlayoffRound round={round} width="50%" key={round.id} />
+                                                            ))}
+                                                        </View>
+                                                    </View>
+                                                ))}
+                                            </View>
+                                        </BottomSheet>
+                                    </View>
+                                )}
+
+                                {tournament.playoffs.length > 0 && (
+                                    <View>
+                                        <StageCard title="Playoffs" matches={playoffMatches} onPress={() => setVisiblePopup('playoffs')} />
+
+                                        <BottomSheet
+                                            isActive={visiblePopup === 'playoffs'}
+                                            title="Playoffs"
+                                            closeButton
+                                            onClose={() => setVisiblePopup(undefined)}
+                                        >
+                                            <View
+                                                className="w-full mt-4 gap-6"
+                                                onLayout={(e) => setPlayoffRoundWidth(e.nativeEvent.layout.width / 2)}
+                                            >
+                                                {tournament.playoffs.map((playoffRow, index) => (
+                                                    <View className="w-full gap-2" key={index}>
+                                                        {playoffRow.name && playoffRow.name !== 'Playoffs' && (
+                                                            <View className="flex-row justify-between">
+                                                                <Text variant="label-lg">{playoffRow.name}</Text>
+                                                                {playoffRow.advances?.length ? (
+                                                                    <Text>
+                                                                        {playoffRow.advances.map((player) => player.name).join(', ')}{' '}
+                                                                        {playoffRow.advances.length === 1 ? 'advances' : 'advance'}
+                                                                    </Text>
+                                                                ) : null}
+                                                            </View>
+                                                        )}
+                                                        <ScrollView
+                                                            className="-mx-3"
+                                                            horizontal
+                                                            showsHorizontalScrollIndicator={false}
+                                                            snapToInterval={playoffRoundWidth}
+                                                            contentContainerStyle="gap-5"
+                                                        >
+                                                            {playoffRow.rounds.map((playoffRound) => (
+                                                                <PlayoffRound round={playoffRound} width={playoffRoundWidth} key={playoffRound.id} />
+                                                            ))}
+                                                        </ScrollView>
+                                                    </View>
+                                                ))}
+                                            </View>
+                                        </BottomSheet>
+                                    </View>
+                                )}
+
+                                {tournament.results.length > 0 && (
+                                    <View>
+                                        <StageCard
+                                            title={getTranslation('tournaments.showmatch')}
+                                            matches={tournament.results}
+                                            onPress={() => setVisiblePopup('showmatch')}
+                                        />
+
+                                        <BottomSheet
+                                            isActive={visiblePopup === 'showmatch'}
+                                            title={getTranslation('tournaments.showmatch')}
+                                            closeButton
+                                            onClose={() => setVisiblePopup(undefined)}
+                                        >
+                                            <View className="gap-2 mt-4">
+                                                <FlatList
+                                                    data={tournament.results}
+                                                    renderItem={(match) => (
+                                                        <TournamentMatch style={{ width: 250 }} key={match.index} match={match.item} />
+                                                    )}
+                                                    contentContainerStyle="gap-2"
+                                                    horizontal
+                                                    showsHorizontalScrollIndicator={false}
+                                                />
+                                                {tournament.resultsNote && (
+                                                    <View className="pt-4">
+                                                        <TournamentMarkdown>{tournament.resultsNote}</TournamentMarkdown>
+                                                    </View>
+                                                )}
+                                            </View>
+                                        </BottomSheet>
+                                    </View>
                                 )}
                             </View>
-                            {showFormatNote && tournament.format && (
-                                <Card direction="vertical">
-                                    <Text variant="label-lg" className="px-2">
-                                        {getTranslation('tournaments.format')}
-                                    </Text>
-
-                                    <TournamentMarkdown>{tournament.format}</TournamentMarkdown>
-                                </Card>
-                            )}
-
-                            {tournament.groups.length > 0 && (
-                                <View>
-                                    <StageCard title="Group Stage" matches={groupMatches} onPress={() => setVisiblePopup('group')} />
-
-                                    <BottomSheet
-                                        isActive={visiblePopup === 'group'}
-                                        title="Group Stage"
-                                        closeButton
-                                        onClose={() => setVisiblePopup(undefined)}
-                                    >
-                                        <View className="mt-4">
-                                            {tournament.groups.map((group, index) => (
-                                                <View key={index}>
-                                                    <Card direction="vertical" className="gap-0 mb-2 px-0 py-0">
-                                                        <Text variant="header-xs" className="px-4 py-3">
-                                                            {group.name}
-                                                        </Text>
-                                                        {group.participants.map((participant, participantIndex) => (
-                                                            <GroupParticipant
-                                                                participant={participant}
-                                                                key={`${participant.name}-${participantIndex}`}
-                                                            />
-                                                        ))}
-                                                    </Card>
-
-                                                    <View className="flex-row flex-wrap mb-4" style={{ rowGap: 12 }}>
-                                                        {group.rounds.map((round) => (
-                                                            <PlayoffRound round={round} width="50%" key={round.id} />
-                                                        ))}
-                                                    </View>
-                                                </View>
-                                            ))}
-                                        </View>
-                                    </BottomSheet>
-                                </View>
-                            )}
-
-                            {tournament.playoffs.length > 0 && (
-                                <View>
-                                    <StageCard title="Playoffs" matches={playoffMatches} onPress={() => setVisiblePopup('playoffs')} />
-
-                                    <BottomSheet
-                                        isActive={visiblePopup === 'playoffs'}
-                                        title="Playoffs"
-                                        closeButton
-                                        onClose={() => setVisiblePopup(undefined)}
-                                    >
-                                        <View className="w-full mt-4 gap-6" onLayout={(e) => setPlayoffRoundWidth(e.nativeEvent.layout.width / 2)}>
-                                            {tournament.playoffs.map((playoffRow, index) => (
-                                                <View className="w-full gap-2" key={index}>
-                                                    {playoffRow.name && playoffRow.name !== 'Playoffs' && (
-                                                        <View className="flex-row justify-between">
-                                                            <Text variant="label-lg">{playoffRow.name}</Text>
-                                                            {playoffRow.advances?.length ? (
-                                                                <Text>
-                                                                    {playoffRow.advances.map((player) => player.name).join(', ')}{' '}
-                                                                    {playoffRow.advances.length === 1 ? 'advances' : 'advance'}
-                                                                </Text>
-                                                            ) : null}
-                                                        </View>
-                                                    )}
-                                                    <ScrollView
-                                                        className="-mx-3"
-                                                        horizontal
-                                                        showsHorizontalScrollIndicator={false}
-                                                        snapToInterval={playoffRoundWidth}
-                                                        contentContainerStyle="gap-5"
-                                                    >
-                                                        {playoffRow.rounds.map((playoffRound) => (
-                                                            <PlayoffRound round={playoffRound} width={playoffRoundWidth} key={playoffRound.id} />
-                                                        ))}
-                                                    </ScrollView>
-                                                </View>
-                                            ))}
-                                        </View>
-                                    </BottomSheet>
-                                </View>
-                            )}
-
-                            {tournament.results.length > 0 && (
-                                <View>
-                                    <StageCard
-                                        title={getTranslation('tournaments.showmatch')}
-                                        matches={tournament.results}
-                                        onPress={() => setVisiblePopup('showmatch')}
-                                    />
-
-                                    <BottomSheet
-                                        isActive={visiblePopup === 'showmatch'}
-                                        title={getTranslation('tournaments.showmatch')}
-                                        closeButton
-                                        onClose={() => setVisiblePopup(undefined)}
-                                    >
-                                        <View className="gap-2 mt-4">
-                                            <FlatList
-                                                data={tournament.results}
-                                                renderItem={(match) => (
-                                                    <TournamentMatch style={{ width: 250 }} key={match.index} match={match.item} />
-                                                )}
-                                                contentContainerStyle="gap-2"
-                                                horizontal
-                                                showsHorizontalScrollIndicator={false}
-                                            />
-                                            {tournament.resultsNote && (
-                                                <View className="pt-4">
-                                                    <TournamentMarkdown>{tournament.resultsNote}</TournamentMarkdown>
-                                                </View>
-                                            )}
-                                        </View>
-                                    </BottomSheet>
-                                </View>
-                            )}
-                        </View>
+                        ) : null}
                     </View>,
                     <View className="gap-2 px-4">
                         <Text variant="header">{getTranslation('tournaments.fullschedule')}</Text>
@@ -385,9 +396,9 @@ export default function TournamentDetail() {
                         </View>
                     </View>,
                     <View className="gap-5 px-4">
-                        {(tournament?.tabs.length || tournament.league?.name) && (
+                        {tournamentTabs.length > 0 && (
                             <View className="gap-2">
-                                {tournament?.tabs.map((tabs, index) => (
+                                {tournamentTabs.map((tabs, index) => (
                                     <View className="flex-row gap-1 justify-center flex-wrap" key={index}>
                                         {tabs.map((tab) => (
                                             <TouchableOpacity

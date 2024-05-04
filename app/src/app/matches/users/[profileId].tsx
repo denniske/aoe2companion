@@ -1,30 +1,30 @@
-import React, { useEffect } from 'react';
-import { Alert, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { RootStackParamList, RootStackProp } from '../../../../App2';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import { MainPageInner } from '@app/view/main.page';
-import { createStylesheet } from '../../../theming-new';
-import { setAuth, setPrefValue, useMutate, useSelector } from '../../../redux/reducer';
-import { useCavy } from '@app/view/testing/tester';
-import { clearSettingsInStorage, saveCurrentPrefsToStorage, saveSettingsToStorage } from '../../../service/storage';
+import { IProfilesResult, IProfilesResultProfile } from '@app/api/helper/api.types';
+import { Icon } from '@app/components/icon';
+import { toggleFollowing } from '@app/service/following';
 import Search from '@app/view/components/search';
-import { getTranslation } from '../../../helper/translate';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { getRootNavigation } from '../../../service/navigation';
+import { MainPageInner } from '@app/view/main.page';
+import { Stack, router, useLocalSearchParams } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Alert, Platform, TouchableOpacity } from 'react-native';
+
 import { setAccountProfile } from '../../../api/following';
-import { openLink } from '../../../helper/url';
 import { fetchProfiles } from '../../../api/helper/api';
-import { router } from 'expo-router';
+import { getTranslation } from '../../../helper/translate';
+import { setAuth, setFollowing, setPrefValue, useMutate, useSelector } from '../../../redux/reducer';
+import { clearSettingsInStorage, saveCurrentPrefsToStorage, saveSettingsToStorage } from '../../../service/storage';
+import { HeaderTitle } from '@app/components/header-title';
+import { CountryImage } from '../../../view/components/country-image';
+import { getVerifiedPlayer, isVerifiedPlayer } from '@nex/data';
 
 export function UserMenu() {
-    const styles = useStyles();
-    const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
-    const profileId = route.params.profileId;
+    const { profileId: profileIdParam } = useLocalSearchParams<{ profileId: string }>();
+    const profileId = Number(profileIdParam ?? 0);
     const auth = useSelector((state) => state.auth!);
     const account = useSelector((state) => state.account);
     const profile = useSelector((state) => state.user[profileId]?.profile);
-    const steamProfileUrl = 'https://steamcommunity.com/profiles/' + profile?.steamId;
-    const xboxProfileUrl = 'https://www.ageofempires.com/stats/?game=age2&profileId=' + profile?.profileId;
+    const following = useSelector((state) => state.following);
+    const [isFollowingLoading, setIsFollowingLoading] = useState<boolean>(false);
+    const followingThisUser = !!following.find((f) => profile && f.profileId === profile.profileId);
 
     const mutate = useMutate();
 
@@ -53,45 +53,47 @@ export function UserMenu() {
         setAccountProfile(account.id, { profile_id: null, steam_id: null });
     };
 
-    return (
-        <View style={styles.menu}>
-            {!!profile?.profileId && (
-                <TouchableOpacity style={styles.menuButton} onPress={() => openLink(xboxProfileUrl)}>
-                    <FontAwesome5 style={styles.menuIcon} name="xbox" size={20} />
-                </TouchableOpacity>
-            )}
-            {!!profile?.steamId && (
-                <TouchableOpacity style={styles.menuButton} onPress={() => openLink(steamProfileUrl)}>
-                    <FontAwesome5 style={styles.menuIcon} name="steam" size={20} />
-                </TouchableOpacity>
-            )}
-            {!!profile?.profileId && Number(profileId) === Number(auth?.profileId) && (
-                <TouchableOpacity style={styles.menuButton} onPress={deleteUser}>
-                    <FontAwesome5 style={styles.menuIcon} name="user-times" size={16} />
-                </TouchableOpacity>
-            )}
-        </View>
-    );
+    const ToggleFollowing = async () => {
+        setIsFollowingLoading(true);
+        const following = await toggleFollowing(profile!);
+        if (following) {
+            setIsFollowingLoading(false);
+            mutate(setFollowing(following));
+        }
+    };
+
+    if (!profile) {
+        return null;
+    }
+
+    if (Number(profileId) === Number(auth?.profileId)) {
+        return (
+            <TouchableOpacity onPress={deleteUser}>
+                <Icon icon="user-times" size={20} color="subtle" />
+            </TouchableOpacity>
+        );
+    } else {
+        return isFollowingLoading ? (
+            <ActivityIndicator size={20} />
+        ) : (
+            <TouchableOpacity hitSlop={10} onPress={ToggleFollowing}>
+                <Icon prefix={followingThisUser ? 'fass' : 'fasr'} icon="heart" size={20} color="text-[#ef4444]" />
+            </TouchableOpacity>
+        );
+    }
 }
 
 export default function UserPage() {
-    const route = useRoute<RouteProp<RootStackParamList, 'User'>>();
-    const profileId = route.params?.profileId;
-    const styles = useStyles();
-
-    console.log('==> UserPage', profileId);
+    const { profileId: profileIdParam, name, country } = useLocalSearchParams<{ profileId: string; name?: string; country?: string }>();
+    const profileId = Number(profileIdParam ?? 0);
 
     const mutate = useMutate();
+    const [loadedProfile, setLoadedProfile] = useState<IProfilesResultProfile>();
     const auth = useSelector((state) => state.auth);
     const account = useSelector((state) => state.account);
-    const profile = useSelector((state) => state.user[profileId]?.profile);
-
-    // console.log('==> UserPage');
-    // console.log(route.params);
-    // console.log(auth);
-    // console.log(profileId);
-
-    const navigation = useNavigation<RootStackProp>();
+    const isVerified = isVerifiedPlayer(profileId);
+    const verified = getVerifiedPlayer(profileId);
+    const isMainAccount = verified?.platforms.rl?.[0] === profileIdParam;
 
     const onSelect = async (user: any) => {
         await saveSettingsToStorage({
@@ -110,13 +112,6 @@ export default function UserPage() {
         }
     }, [auth]);
 
-    // useEffect(() => {
-    //     navigation.setOptions({ title: profile?.name || ' ' });
-    //     console.log('PROFILE UPDATED', profile?.name);
-    // }, [profile]);
-
-    // When user is not set but we have auth
-
     const navigateToAuthUser = async () => {
         console.log('==> NAVIGATE');
         // @ts-ignore
@@ -130,94 +125,45 @@ export default function UserPage() {
         }
     }, [auth]);
 
-    // When name is not set yet
-
-    // useEffect(() => {
-    //     if (profile != null) {
-    //         // @ts-ignore
-    //         navigation.setParams({
-    //             profileId: profile.profileId,
-    //         });
-    //     }
-    // }, [profile]);
-
-    // When visiting user page with only profileId / steamId
-
     const completeUserIdInfo = async () => {
-        // console.log('completeUserIdInfo');
-
-        const loadedProfile = await fetchProfiles({ profileId: profileId });
-        if (loadedProfile) {
-            const name = loadedProfile?.profiles?.[0]?.name;
-            navigation.setOptions({ title: name || ' ', headerRight: () => <UserMenu /> });
-            // console.log('PROFILE UPDATED', name);
-            // mutate(state => {
-            //     set(state.cache, ['profile', profileId, 'name'], loadedProfile.profiles[0].name);
-            // });
+        const loaded = await fetchProfiles({ profileId });
+        if (loaded) {
+            setLoadedProfile(loaded.profiles[0]);
         }
-        // console.log(loadedProfile);
-
-        // if (!loadedProfile?.steamId) {
-        //     setHasSteamId(false);
-        // }
-
-        // if (loadedProfile) {
-        //     // @ts-ignore
-        //     navigation.setParams({
-        //         profileId: loadedProfile.profileId,
-        //         name: loadedProfile?.name,
-        //     });
-        // }
     };
 
     useEffect(() => {
-        // const hasInCache = false;
-        // if (!hasInCache) {
         completeUserIdInfo();
-        // }
     }, [profileId]);
 
-    // if (profileId) {
-    //     if (profileId == null) {
-    //         return <View style={styles.container}><MyText>Loading profile by Steam ID...</MyText></View>;
-    //     }
-    //     if (user.steamId == null && hasSteamId) {
-    //         return <View style={styles.container}><MyText>Loading profile by profile ID...</MyText></View>;
-    //     }
-    // }
-
     if (profileId) {
-        return <MainPageInner profileId={profileId} />;
+        return (
+            <>
+                <Stack.Screen
+                    options={{
+                        headerTitle: () => (
+                            <HeaderTitle
+                                iconComponent={
+                                    <CountryImage
+                                        style={{ transform: [{ scale: 1.5 }] }}
+                                        country={getVerifiedPlayer(profileId)?.country || loadedProfile?.country || country}
+                                    />
+                                }
+                                title={loadedProfile?.name || name || ''}
+                                subtitle={isVerified && !isMainAccount && `${getVerifiedPlayer(profileId)?.name} - Alternate account`}
+                            />
+                        ),
+                        headerRight: () => <UserMenu />,
+                    }}
+                />
+                <MainPageInner profileId={profileId} />
+            </>
+        );
     }
 
     if (auth == null) {
         return <Search title="Enter your AoE username to track your games:" selectedUser={onSelect} actionText="Choose" />;
     }
 
-    return <MainPageInner profileId={profileId} />;
+    return null;
 }
-
-const useStyles = createStylesheet((theme) =>
-    StyleSheet.create({
-        container: {
-            padding: 20,
-        },
-        menu: {
-            // backgroundColor: 'red',
-            flexDirection: 'row',
-            // flex: 1,
-            // marginRight: 10,
-        },
-        menuButton: {
-            // backgroundColor: 'blue',
-            width: 35,
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: 0,
-            marginHorizontal: 2,
-        },
-        menuIcon: {
-            color: theme.textNoteColor,
-        },
-    })
-);

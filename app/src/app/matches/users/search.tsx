@@ -5,7 +5,7 @@ export default function SearchPage() {
     return (
         <>
             <Stack.Screen options={{ title: 'Find Player' }} />
-            <Search selectedUser={(user) => router.navigate(`/matches/users/${user.profileId}`)} />
+            <Search selectedUser={(user) => router.navigate(`/matches/users/${user.profileId}?name=${user.name}&country=${user.country}`)} />
         </>
     );
 }

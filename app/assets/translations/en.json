@@ -133,7 +133,7 @@
   "main.profile.recentmatches.heading": "Recent matches",
   "main.profile.follow": "Follow",
   "main.profile.unfollow": "Unfollow",
-  "main.matches.search.placeholder": "player",
+  "main.matches.search.placeholder": "Search by player",
   "main.matches.withme": "me",
   "main.matches.matches": "{matches} matches",
 
@@ -233,7 +233,7 @@
   "search.title": "Search",
   "search.nouserfound": "No user found.",
   "search.condition.1": "A user must have played at least 10 games in a timespan of about 3 months to be found.",
-  "search.minlength": "Enter at least 3 chars.",
+  "search.minlength": "Enter at least 2 chars.",
   "search.placeholder": "Search by username, steam id, profile id",
   "search.show": "Show",
   "search.heading.name": "Name",

@@ -43,7 +43,7 @@ function Row({ type, data }: IRowPropsCiv | IRowPropsMap | IRowPropsAlly | IRowP
             router.push(`/explore/civilizations/${getCivIdByEnum(data.civ)}`);
         }
         if ((type === 'ally' || type === 'opponent') && data.profileId) {
-            router.push(`/matches/users/${data.profileId}`);
+            router.push(`/matches/users/${data.profileId}?name=${data.name}&country=${data.country}`);
         }
     };
 

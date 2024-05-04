@@ -29,17 +29,22 @@ export function MatchCard(props: MatchCardProps) {
     const { match, user, highlightedUsers, expanded = false, showLiveActivity = false, onPress } = props;
     const players = flatten(match?.teams.map((t) => t.players));
     const freeForAll = isMatchFreeForAll(match);
-    const attributes = [
-        teamRatio(match),
-        match.leaderboardName?.includes('Unranked')
-            ? 'Unranked'
-            : match.leaderboardName?.includes('Quick Play') || match.leaderboardName?.includes('Quick Match')
-              ? 'Quick Play'
-              : 'Ranked',
-    ];
+    const attributes = [teamRatio(match)];
+
+    if (match.leaderboardName?.includes('Unranked')) {
+        attributes.push('Unranked');
+    } else if (match.leaderboardName?.includes('Quick Play') || match.leaderboardName?.includes('Quick Match')) {
+        attributes.push('Quick Play');
+    } else {
+        attributes.push('Ranked');
+    }
 
     if (match.gameMode) {
-        attributes.push(startCase(match.gameMode.toString()));
+        if (match.leaderboardName && !match.leaderboardName.includes(match.gameMode.toString())) {
+            attributes.push(match.leaderboardName.replace('1v1', '').replace('Team', ''));
+        } else {
+            attributes.push(startCase(match.gameMode.toString()));
+        }
     }
 
     let duration: string = '';

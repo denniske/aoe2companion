@@ -1,29 +1,30 @@
-import {Platform, StyleSheet, View} from "react-native";
-import {clearStatsPlayer, setPrefValue, useMutate, useSelector} from "../../redux/reducer";
-import {LeaderboardId} from "@nex/data";
-import React, {useEffect, useState} from "react";
-import {RouteProp, useNavigation, useNavigationState, useRoute} from "@react-navigation/native";
-import {get} from 'lodash';
-import {usePrevious} from "@nex/data/hooks";
-import {saveCurrentPrefsToStorage} from "../../service/storage";
-import {MyText} from "../components/my-text";
-import StatsRows from "../components/stats-rows";
-import TemplatePicker from "../components/template-picker";
-import RefreshControlThemed from "../components/refresh-control-themed";
-import {createStylesheet} from '../../theming-new';
-import {getTranslation} from '../../helper/translate';
-import {useTheme} from '../../theming';
-import {appVariants} from '../../styles';
-import {openLink} from "../../helper/url";
-import FlatListLoadingIndicator from "../components/flat-list-loading-indicator";
-import {useWebRefresh} from "../../hooks/use-web-refresh";
+import { Dropdown } from '@app/components/dropdown';
+import { FlatList } from '@app/components/flat-list';
+import { leaderboardIdsByType } from '@app/helper/leaderboard';
+import { LeaderboardId } from '@nex/data';
+import { usePrevious } from '@nex/data/hooks';
+import { useNavigation, useNavigationState, useRoute } from '@react-navigation/native';
 import Constants from 'expo-constants';
-import {RootStackParamList} from "../../../App2";
-import {useApi} from "../../hooks/use-api";
-import {TextLoader} from "../components/loader/text-loader";
-import {fetchLeaderboards, fetchProfile} from "../../api/helper/api";
-import { FlatList } from "@app/components/flat-list";
+import { get } from 'lodash';
+import React, { useEffect, useState } from 'react';
+import { Platform, StyleSheet, View } from 'react-native';
 
+import { fetchLeaderboards, fetchProfile } from '../../api/helper/api';
+import { getTranslation } from '../../helper/translate';
+import { openLink } from '../../helper/url';
+import { useApi } from '../../hooks/use-api';
+import { useWebRefresh } from '../../hooks/use-web-refresh';
+import { clearStatsPlayer, setPrefValue, useMutate, useSelector } from '../../redux/reducer';
+import { saveCurrentPrefsToStorage } from '../../service/storage';
+import { appVariants } from '../../styles';
+import { useTheme } from '../../theming';
+import { createStylesheet } from '../../theming-new';
+import FlatListLoadingIndicator from '../components/flat-list-loading-indicator';
+import { TextLoader } from '../components/loader/text-loader';
+import { MyText } from '../components/my-text';
+import RefreshControlThemed from '../components/refresh-control-themed';
+import StatsRows from '../components/stats-rows';
+import TemplatePicker from '../components/template-picker';
 
 interface Props {
     profileId: number;
@@ -40,16 +41,20 @@ export default function MainStats({ profileId }: Props) {
         return (
             <View style={styles.list}>
                 <MyText>
-                    If you see this screen instead of a user profile, report a bug in the <MyText style={appStyles.link} onPress={() => openLink('https://discord.com/invite/gCunWKx')}>discord</MyText>.
+                    If you see this screen instead of a user profile, report a bug in the{' '}
+                    <MyText style={appStyles.link} onPress={() => openLink('https://discord.com/invite/gCunWKx')}>
+                        discord
+                    </MyText>
+                    .
                 </MyText>
             </View>
         );
     }
 
-    return <MainStatsInternal profileId={profileId}/>;
+    return <MainStatsInternal profileId={profileId} />;
 }
 
-function MainStatsInternal({profileId}: {profileId: number}) {
+function MainStatsInternal({ profileId }: { profileId: number }) {
     const styles = useStyles();
     const mutate = useMutate();
     // const prefLeaderboardId = useSelector(state => state.prefs.leaderboardId) ?? leaderboardIdsData[0];
@@ -57,7 +62,7 @@ function MainStatsInternal({profileId}: {profileId: number}) {
     const [leaderboardId, setLeaderboardId] = useState<string>();
 
     const navigation = useNavigation();
-    const userProfile = useSelector(state => state.user[profileId]?.profile);
+    const userProfile = useSelector((state) => state.user[profileId]?.profile);
     useEffect(() => {
         if (!userProfile) return;
         navigation.setOptions({
@@ -65,12 +70,14 @@ function MainStatsInternal({profileId}: {profileId: number}) {
         });
     }, [userProfile]);
 
+    const [leaderboardType, setLeaderboardType] = useState<'pc' | 'xbox'>('pc');
+
     // console.log('==> leaderboardId', leaderboardId);
 
     const leaderboards = useApi(
         {},
         [],
-        state => state.leaderboards,
+        (state) => state.leaderboards,
         (state, value) => {
             state.leaderboards = value;
         },
@@ -78,36 +85,44 @@ function MainStatsInternal({profileId}: {profileId: number}) {
     );
 
     const renderLeaderboard = (value: string, selected: boolean) => {
-        return <View style={styles.col}>
-            <MyText style={[styles.h1, { fontWeight: selected ? 'bold' : 'normal'}]}>{leaderboards.data.find(l => l.leaderboardId === value)?.abbreviationTitle}</MyText>
-            <MyText style={[styles.h2, { fontWeight: selected ? 'bold' : 'normal'}]}>{leaderboards.data.find(l => l.leaderboardId === value)?.abbreviationSubtitle}</MyText>
-        </View>;
+        return (
+            <View style={styles.col}>
+                <MyText style={[styles.h1, { fontWeight: selected ? 'bold' : 'normal' }]}>
+                    {leaderboards.data.find((l) => l.leaderboardId === value)?.abbreviationTitle}
+                </MyText>
+                <MyText style={[styles.h2, { fontWeight: selected ? 'bold' : 'normal' }]}>
+                    {leaderboards.data.find((l) => l.leaderboardId === value)?.abbreviationSubtitle}
+                </MyText>
+            </View>
+        );
     };
 
-    const leaderboardTitle = leaderboards.data?.find(l => l.leaderboardId === leaderboardId)?.leaderboardName;
+    const leaderboardTitle = leaderboards.data?.find((l) => l.leaderboardId === leaderboardId)?.leaderboardName;
 
     useEffect(() => {
         if (leaderboards.data == null) return;
         if (leaderboardId == null) {
-            setLeaderboardId(leaderboards.data[0]?.leaderboardId);
+            setLeaderboardId(leaderboardIdsByType(leaderboards.data, leaderboardType)[0]);
         }
     }, [leaderboards.data]);
 
-    const currentCachedData =
-        useSelector(state => get(state.user, [profileId, 'profileWithStats']))?.stats?.find(s => s.leaderboardId === leaderboardId);
+    const currentCachedData = useSelector((state) => get(state.user, [profileId, 'profileWithStats']))?.stats?.find(
+        (s) => s.leaderboardId === leaderboardId
+    );
     const previousCachedData = usePrevious(currentCachedData);
 
     const profileWithStats = useApi(
         {},
         [],
-        state => state.user[profileId]?.profileWithStats,
+        (state) => state.user[profileId]?.profileWithStats,
         (state, value) => {
             if (state.user[profileId] == null) {
                 state.user[profileId] = {};
             }
             state.user[profileId].profileWithStats = value;
         },
-        fetchProfile, { profileId, extend: 'stats' }
+        fetchProfile,
+        { profileId, extend: 'stats' }
     );
 
     // console.log('==> profile', profile.data);
@@ -118,10 +133,10 @@ function MainStatsInternal({profileId}: {profileId: number}) {
     // let statsDuration = cachedData?.statsDuration;
     // let statsPosition = cachedData?.statsPosition;
     // let statsPlayer = cachedData?.statsPlayer;
-    let statsCiv = cachedData?.civ;
-    let statsMap = cachedData?.map;
-    let statsAlly = cachedData?.allies;
-    let statsOpponent = cachedData?.opponents;
+    const statsCiv = cachedData?.civ;
+    const statsMap = cachedData?.map;
+    const statsAlly = cachedData?.allies;
+    const statsOpponent = cachedData?.opponents;
 
     const hasStats = cachedData != null;
 
@@ -138,11 +153,11 @@ function MainStatsInternal({profileId}: {profileId: number}) {
         if (currentCachedData) {
             setRefetching(false);
         }
-    }, [currentCachedData])
+    }, [currentCachedData]);
 
     const route = useRoute();
-    const state = useNavigationState(state => state);
-    const activeRoute = state.routes[state.index] as RouteProp<RootStackParamList, 'Main'>;
+    const state = useNavigationState((state) => state);
+    const activeRoute = state.routes[state.index];
     const isActiveRoute = route?.key === activeRoute?.key;
 
     useWebRefresh(() => {
@@ -156,35 +171,64 @@ function MainStatsInternal({profileId}: {profileId: number}) {
         profileWithStats.reload();
     };
 
-    if (!leaderboards.data){
-        return <View></View>;
+    if (!leaderboards.data) {
+        return <View />;
     }
 
     return (
         <View style={styles.container}>
             <View style={styles.content}>
-                {
-                    Platform.OS === 'web' && refetching &&
-                    <FlatListLoadingIndicator/>
-                }
+                {Platform.OS === 'web' && refetching && <FlatListLoadingIndicator />}
                 <FlatList
                     contentContainerStyle="p-4"
                     data={list}
-                    renderItem={({item, index}) => {
+                    CellRendererComponent={({ children, index, style, ...props }) => (
+                        <View style={[style, { zIndex: list.length - index }]} {...props}>
+                            {children}
+                        </View>
+                    )}
+                    renderItem={({ item, index }) => {
                         switch (item) {
                             case 'stats-header':
-                                return <View>
-                                    <View style={styles.pickerRow}>
-                                        <TemplatePicker value={leaderboardId} values={leaderboards.data.map(l => l.leaderboardId)} template={renderLeaderboard} onSelect={onLeaderboardSelected}/>
+                                return (
+                                    <View>
+                                        <View style={styles.pickerRow}>
+                                            <Dropdown
+                                                textVariant="label-sm"
+                                                style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 10, paddingBottom: 8, marginRight: 6 }}
+                                                value={leaderboardType}
+                                                onChange={(lType) => {
+                                                    setLeaderboardType(lType);
+                                                    setLeaderboardId(leaderboardIdsByType(leaderboards.data, lType)[0]);
+                                                }}
+                                                options={[
+                                                    { value: 'pc', label: 'PC' },
+                                                    { value: 'xbox', label: 'Xbox' },
+                                                ]}
+                                            />
+                                            <TemplatePicker
+                                                value={leaderboardId}
+                                                values={leaderboards.data
+                                                    .filter(
+                                                        (leaderboard) =>
+                                                            (leaderboardType === 'xbox' && leaderboard.abbreviation.includes('🎮')) ||
+                                                            (leaderboardType !== 'xbox' && !leaderboard.abbreviation.includes('🎮'))
+                                                    )
+                                                    .map((l) => l.leaderboardId)}
+                                                template={renderLeaderboard}
+                                                onSelect={onLeaderboardSelected}
+                                            />
+                                        </View>
+                                        <TextLoader ready={hasStats} style={styles.info}>
+                                            {/*{statsMap && statsMap.length > 0 ?*/}
+                                            {/*    getTranslation('main.stats.thelastmatches', { matches: statsPlayer?.matchCount }) :*/}
+                                            {/*    getTranslation('main.stats.nomatches') + leaderboardTitle}   */}
+                                            {statsMap && statsMap.length === 0
+                                                ? getTranslation('main.stats.nomatches') + leaderboardTitle
+                                                : 'Stats for ' + leaderboardTitle}
+                                        </TextLoader>
                                     </View>
-                                    <TextLoader ready={hasStats} style={styles.info}>
-                                        {/*{statsMap && statsMap.length > 0 ?*/}
-                                        {/*    getTranslation('main.stats.thelastmatches', { matches: statsPlayer?.matchCount }) :*/}
-                                        {/*    getTranslation('main.stats.nomatches') + leaderboardTitle}   */}
-                                        {statsMap && statsMap.length === 0 ?
-                                            getTranslation('main.stats.nomatches') + leaderboardTitle : 'Stats for ' + leaderboardTitle}
-                                    </TextLoader>
-                                </View>;
+                                );
                             // case 'stats-duration':
                             //     return <MyText>---</MyText>;
                             //     // return <StatsDuration data={statsDuration} user={user}/>;
@@ -192,63 +236,86 @@ function MainStatsInternal({profileId}: {profileId: number}) {
                             //     return <MyText>---</MyText>;
                             //     // return <StatsPosition data={statsPosition} user={user} leaderboardId={leaderboardId}/>;
                             case 'stats-civ':
-                                return <StatsRows data={statsCiv} type={'civ'} title={getTranslation('main.stats.heading.civ')} leaderboardId={leaderboardId}/>;
+                                return (
+                                    <StatsRows
+                                        data={statsCiv}
+                                        type="civ"
+                                        title={getTranslation('main.stats.heading.civ')}
+                                        leaderboardId={leaderboardId}
+                                    />
+                                );
                             case 'stats-map':
-                                return <StatsRows data={statsMap} type={'map'} title={getTranslation('main.stats.heading.map')} leaderboardId={leaderboardId}/>;
+                                return (
+                                    <StatsRows
+                                        data={statsMap}
+                                        type="map"
+                                        title={getTranslation('main.stats.heading.map')}
+                                        leaderboardId={leaderboardId}
+                                    />
+                                );
                             case 'stats-ally':
-                                return <StatsRows data={statsAlly} type={'ally'} title={getTranslation('main.stats.heading.ally')} leaderboardId={leaderboardId}/>;
+                                return (
+                                    <StatsRows
+                                        data={statsAlly}
+                                        type="ally"
+                                        title={getTranslation('main.stats.heading.ally')}
+                                        leaderboardId={leaderboardId}
+                                    />
+                                );
                             case 'stats-opponent':
-                                return <StatsRows data={statsOpponent} type={'opponent'} title={getTranslation('main.stats.heading.opponent')} leaderboardId={leaderboardId}/>;
+                                return (
+                                    <StatsRows
+                                        data={statsOpponent}
+                                        type="opponent"
+                                        title={getTranslation('main.stats.heading.opponent')}
+                                        leaderboardId={leaderboardId}
+                                    />
+                                );
                             default:
-                                return <View/>;
+                                return <View />;
                         }
                     }}
                     keyExtractor={(item, index) => index.toString()}
-                    refreshControl={
-                        <RefreshControlThemed
-                            onRefresh={onRefresh}
-                            refreshing={refetching}
-                        />
-                    }
+                    refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={refetching} />}
                 />
             </View>
         </View>
     );
 }
 
+const useStyles = createStylesheet((theme) =>
+    StyleSheet.create({
+        info: {
+            marginBottom: 10,
+            marginLeft: 5,
+        },
 
-const useStyles = createStylesheet(theme => StyleSheet.create({
-    info: {
-        marginBottom: 10,
-        marginLeft: 5,
-    },
+        col: {
+            paddingHorizontal: 7,
+            alignItems: 'center',
+        },
+        h1: {},
+        h2: {
+            fontSize: 11,
+        },
 
-    col: {
-        paddingHorizontal: 7,
-        alignItems: 'center',
-    },
-    h1: {
-
-    },
-    h2: {
-        fontSize: 11,
-    },
-
-    pickerRow: {
-        // backgroundColor: 'yellow',
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingRight: 20,
-        marginBottom: 20,
-    },
-    list: {
-        padding: 20,
-    },
-    container: {
-        flex: 1,
-        // backgroundColor: '#B89579',
-    },
-    content: {
-        flex: 1,
-    },
-}));
+        pickerRow: {
+            // backgroundColor: 'yellow',
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingRight: 20,
+            marginBottom: 20,
+            zIndex: 100,
+        },
+        list: {
+            padding: 20,
+        },
+        container: {
+            flex: 1,
+            // backgroundColor: '#B89579',
+        },
+        content: {
+            flex: 1,
+        },
+    })
+);

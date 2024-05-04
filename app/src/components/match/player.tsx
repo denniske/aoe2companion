@@ -58,7 +58,7 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
                 {player.rating}
             </Text>
 
-            <Link href={`/matches/users/${player.profileId}`} asChild>
+            <Link href={`/matches/users/${player.profileId}?name=${player.name}`} asChild>
                 <TouchableOpacity className="flex-1 flex-row gap-1 items-center" onPress={onClose}>
                     <Text variant={highlight ? 'header-xs' : 'body'} numberOfLines={1}>
                         {player.name}
