@@ -25,7 +25,9 @@ export const TournamentMatch: React.FC<{ match: TournamentMatchProps; style?: Vi
         <Card direction="vertical" onPress={onPress ?? (() => setVisible(true))} disabled={match.participants.length < 2} style={style}>
             {match.header && (
                 <View className="flex-row justify-between">
-                    <Text variant="label-sm">{match.header.name}</Text>
+                    <Text variant="label-sm" numberOfLines={1}>
+                        {match.header.name}
+                    </Text>
                     <Text variant="body-sm" color="subtle">
                         {match.header.format}
                     </Text>

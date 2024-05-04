@@ -20,7 +20,7 @@ import { appConfig } from '@nex/dataset';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Image } from 'expo-image';
-import { Stack, router, useFocusEffect } from 'expo-router';
+import { Stack, useFocusEffect } from 'expo-router';
 import { PlayoffMatch } from 'liquipedia';
 import { groupBy, orderBy } from 'lodash';
 import compact from 'lodash/compact';

@@ -1,5 +1,7 @@
+import { Text } from '@app/components/text';
+import TwitchBadge from '@app/view/components/badge/twitch-badge';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { differenceInMinutes, format, isPast } from 'date-fns';
+import { format, isPast } from 'date-fns';
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import { PlayoffMatch as IPlayoffMatch } from 'liquipedia';
@@ -10,7 +12,7 @@ import { PlayoffParticipant } from './participant';
 import { PlayoffPlayer } from './player';
 import { createStylesheet } from '../../../../src/theming-new';
 import { useTournamentDetail, useTournamentMatches } from '../../../api/tournaments';
-import { findTournamentMatch } from '../../../helper/tournaments';
+import { findTournamentMatch, getLiveOrUpcomingMatch } from '../../../helper/tournaments';
 import { getTranslation } from '../../../helper/translate';
 import BottomSheet from '../../bottom-sheet';
 import { MyText } from '../../components/my-text';
@@ -32,15 +34,7 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
           )
         : selectedMatch;
 
-    const liveOrUpcomingMatch = tournamentMatches?.find(
-        (tournamentMatch) =>
-            match?.startTime &&
-            tournamentMatch.startTime &&
-            Math.abs(differenceInMinutes(match.startTime, tournamentMatch.startTime)) < 150 &&
-            match.participants.every((participant) =>
-                tournamentMatch.participants.map((tournamentParticipant) => tournamentParticipant.name).includes(participant.name)
-            )
-    );
+    const liveOrUpcomingMatch = getLiveOrUpcomingMatch(match, tournamentMatches);
 
     useEffect(() => {
         if (visible && tournamentPath && tournament && !match) {
@@ -48,6 +42,11 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
             router.navigate(`/competitive/tournaments/${encodeURIComponent(tournament.path)}`);
         }
     }, [tournamentPath, match, tournament, visible]);
+
+    const twitch = match?.links
+        .find((link) => link.text === 'Twitch')
+        ?.url.split('/')
+        .pop();
 
     return (
         <BottomSheet isActive={visible} onClose={() => setVisible(false)} showHandle style={styles.modal}>
@@ -61,9 +60,19 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
                             </Fragment>
                         ))}
                     </View>
-                    {match.startTime && <MyText style={styles.startTime}>{format(match.startTime, 'PP - p')}</MyText>}
+                    {match.startTime && (
+                        <Text variant="label" align="center">
+                            {format(match.startTime, 'PP - p')}
+                        </Text>
+                    )}
                     {liveOrUpcomingMatch?.startTime && isPast(liveOrUpcomingMatch?.startTime) && (
-                        <MyText style={styles.startTime}>{getTranslation('tournaments.live')}</MyText>
+                        <View className="justify-center flex-row gap-4">
+                            <Text variant="label" className="uppercase" color="brand">
+                                {getTranslation('tournaments.live')}
+                            </Text>
+
+                            {twitch && <TwitchBadge channel={twitch} />}
+                        </View>
                     )}
 
                     <View style={styles.games}>
@@ -96,11 +105,13 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
                     </View>
                     {match.note && <TournamentMarkdown>{match.note}</TournamentMarkdown>}
                     <View style={styles.linksContainer}>
-                        {match.links.map((link) => (
-                            <TouchableOpacity key={link.text} onPress={() => Linking.openURL(link.url)}>
-                                <Image source={{ uri: link.image }} alt={link.text} style={styles.linkImage} />
-                            </TouchableOpacity>
-                        ))}
+                        {match.links
+                            .filter((link) => link.image)
+                            .map((link) => (
+                                <TouchableOpacity key={link.text} onPress={() => Linking.openURL(link.url)}>
+                                    <Image source={{ uri: link.image }} alt={link.text} style={styles.linkImage} />
+                                </TouchableOpacity>
+                            ))}
                     </View>
                 </>
             ) : (
@@ -123,10 +134,6 @@ const useStyles = createStylesheet((theme) =>
             justifyContent: 'center',
             gap: 8,
             alignItems: 'center',
-        },
-        startTime: {
-            textAlign: 'center',
-            fontWeight: '600',
         },
         games: {
             gap: 12,

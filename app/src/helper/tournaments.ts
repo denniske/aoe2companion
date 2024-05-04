@@ -1,6 +1,15 @@
 import { appConfig } from '@nex/dataset';
-import { endOfDay, isPast, startOfDay } from 'date-fns';
-import { Age2TournamentCategory, Age4TournamentCategory, Match, Playoff, Tournament, TournamentCategory, TournamentDetail } from 'liquipedia';
+import { differenceInMinutes, endOfDay, isPast, startOfDay } from 'date-fns';
+import {
+    Age2TournamentCategory,
+    Age4TournamentCategory,
+    Match,
+    Playoff,
+    PlayoffMatch,
+    Tournament,
+    TournamentCategory,
+    TournamentDetail,
+} from 'liquipedia';
 import { orderBy, startCase } from 'lodash';
 import { formatCurrency } from 'react-native-format-currency';
 
@@ -110,3 +119,14 @@ export const timeStatus = (start?: Date, end?: Date): 'ongoing' | 'upcoming' | '
 
     return 'past';
 };
+
+export const getLiveOrUpcomingMatch = (match?: PlayoffMatch, tournamentMatches?: Match[]) =>
+    tournamentMatches?.find(
+        (tournamentMatch) =>
+            match?.startTime &&
+            tournamentMatch.startTime &&
+            Math.abs(differenceInMinutes(match.startTime, tournamentMatch.startTime)) < 150 &&
+            match.participants.every((participant) =>
+                tournamentMatch.participants.map((tournamentParticipant) => tournamentParticipant.name).includes(participant.name)
+            )
+    );
