@@ -2,7 +2,12 @@ import { FlatList } from '@app/components/flat-list';
 import { Icon, IconName } from '@app/components/icon';
 import { Text } from '@app/components/text';
 import { Stack, router } from 'expo-router';
-import { TouchableOpacity, View } from 'react-native';
+import { Platform, TouchableOpacity, View } from 'react-native';
+import { Menu } from 'react-native-paper';
+import { openLink } from '@app/helper/url';
+import { getTranslation } from '@app/helper/translate';
+import React from 'react';
+import Constants from 'expo-constants';
 
 interface Link {
     icon: IconName;
@@ -11,12 +16,18 @@ interface Link {
 }
 
 export default function More() {
+    const isMajorRelease = Constants.expoConfig?.version?.includes('.0.0');
+
     const links: Link[] = [
         { icon: 'cog', title: 'Settings', path: '/settings' },
         { icon: 'question-circle', title: 'About', path: '/about' },
         { icon: 'exchange-alt', title: 'Changelog', path: '/changelog' },
         { icon: 'hands-helping', title: 'Help', path: 'https://discord.com/invite/gCunWKx' },
-        { icon: 'coffee', title: 'Buy me a coffee', path: 'https://www.buymeacoffee.com/denniskeil' },
+
+        ...(
+            !(Platform.OS === 'ios' && isMajorRelease) ?
+            [{ icon: 'coffee', title: 'Buy me a coffee', path: 'https://www.buymeacoffee.com/denniskeil' } as Link] : []
+        ),
     ];
 
     return (

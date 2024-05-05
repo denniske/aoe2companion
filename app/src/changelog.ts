@@ -156,6 +156,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '101.0.0': [
+        {
+            type: 'minor',
+            title: 'Small fix for app guidelines (iOS)',
+        },
+    ],
     '100.0.0': [
         {
             type: 'minor',
