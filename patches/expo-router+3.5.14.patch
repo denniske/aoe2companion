@@ -1,0 +1,14 @@
+diff --git a/node_modules/expo-router/build/global-state/routing.js b/node_modules/expo-router/build/global-state/routing.js
+index 764db0b..1dfc216 100644
+--- a/node_modules/expo-router/build/global-state/routing.js
++++ b/node_modules/expo-router/build/global-state/routing.js
+@@ -226,6 +226,9 @@ function getNavigateAction(actionState, navigationState, type = 'NAVIGATE') {
+     if (type === 'REPLACE' && navigationState.type === 'tab') {
+         type = 'JUMP_TO';
+     }
++
++    rootPayload.params.initial = false
++    
+     return {
+         type,
+         target: navigationState.key,
