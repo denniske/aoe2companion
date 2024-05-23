@@ -13,7 +13,7 @@ import {isAfter, subDays, subMonths, subWeeks} from "date-fns";
 import {VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTheme} from "../../helper/victory";
 import {getTranslation} from '../../helper/translate';
 import {IProfileRatingsLeaderboard, IProfileResult} from "../../api/helper/api.types";
-import { windowWidth } from '@app/app/statistics/leaderboard';
+import { windowWidth } from '@app/app/statistics';
 
 interface IRatingProps {
     ratingHistories?: IProfileRatingsLeaderboard[] | null;

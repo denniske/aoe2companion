@@ -362,7 +362,7 @@ function AppWrapper() {
                                                 />
                                                 <Tabs.Screen name="matches" options={{ tabBarLabel: 'Matches', tabBarIcon: () => 'chess' }} />
                                                 <Tabs.Screen name="explore" options={{ tabBarLabel: 'Explore', tabBarIcon: () => 'landmark' }} />
-                                                <Tabs.Screen name="statistics" options={{ tabBarLabel: 'Stats', tabBarIcon: () => 'chart-simple' }} />
+                                                <Tabs.Screen name="statistics" options={{ tabBarLabel: 'Board', tabBarIcon: () => 'chart-simple' }} />
                                                 <Tabs.Screen name="competitive" options={{ tabBarLabel: 'Pros', tabBarIcon: () => 'ranking-star' }} />
                                                 <Tabs.Screen name="(more)" options={{ tabBarLabel: 'More', tabBarIcon: () => 'bars' }} />
                                                 <Tabs.Screen name="[...unmatched]" options={{ href: null }} />
