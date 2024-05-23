@@ -14,10 +14,9 @@ export interface IconProps {
     prefix?: IconPrefix;
 }
 
-export const Icon: React.FC<IconProps> = ({ icon, style, color = 'default', prefix = 'fass', ...rest }) => {
+export const Icon: React.FC<IconProps> = ({ icon, color = 'default', prefix = 'fass', ...rest }) => {
     useColorScheme();
     const textColor = textColors[color] ?? color;
     const iconStyle = tw.style(textColor);
-
-    return <FontAwesomeIcon {...rest} color={iconStyle.color as string} style={style} icon={[prefix, icon]} />;
+    return <FontAwesomeIcon {...rest} color={iconStyle.color as string} icon={[prefix, icon]}/>;
 };
