@@ -344,7 +344,7 @@ export const buildingLines: IBuildingLineDict = {
             'Chemistry',
             'ArrowSlits',
             'HeatedShot',
-            'Yeomen',
+            'Yeomen-Tower',
             'Yasama',
             'SvanTowers-Tower',
             'Eupseong',

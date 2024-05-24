@@ -2713,7 +2713,7 @@ export const unitLines: IUnitLineDict = {
             'Chemistry',
             'AndeanSling-1',
             'AndeanSling',
-            'ThumbRing-18',
+            'ThumbRing-No',
             'Ballistics',
             'PaddedArcherArmor',
             'LeatherArcherArmor',

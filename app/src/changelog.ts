@@ -156,6 +156,24 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '103.0.0': [
+        {
+            type: 'minor',
+            title: 'Internal Framework Update (SDK 51)',
+        },
+        {
+            type: 'minor',
+            title: 'Removed outdated win rates page and made leaderboard accessible directly from the footer',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fixed Yeomen attack bonus for tower',
+        },
+        {
+            type: 'bugfix',
+            title: 'Thumb Ring bonus is now being correctly nullified for Slingers',
+        },
+    ],
     '101.0.0': [
         {
             type: 'minor',
