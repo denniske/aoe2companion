@@ -7,14 +7,17 @@ import {openLink} from "../../helper/url";
 
 interface FandomProps {
     articleName: string;
+    articleLink: string;
 }
 
 export default function Fandom(props: FandomProps) {
     const styles = useStyles();
-    const { articleName } = props;
+    const { articleName, articleLink } = props;
     return (
         <MyText style={styles.container}>
-            <MyText style={styles.text}>This article uses material from the "{articleName}" article on the </MyText>
+            <MyText style={styles.text}>This article uses material from the </MyText>
+            <MyText style={styles.link} onPress={() => openLink(articleLink)}>{articleName}</MyText>
+            <MyText style={styles.text}> article on the </MyText>
             <MyText style={styles.link} onPress={() => openLink('https://ageofempires.fandom.com/wiki/Age_of_Empires_II:Portal')}>Age of Empires II Wiki</MyText>
             <MyText style={styles.text}> at </MyText>
             <MyText style={styles.link} onPress={() => openLink('https://www.fandom.com/')}>Fandom</MyText>

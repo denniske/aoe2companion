@@ -166,6 +166,10 @@ export const changelog: IChangelog = {
             title: 'Removed outdated win rates page and made leaderboard accessible directly from the footer',
         },
         {
+            type: 'minor',
+            title: 'The source on each unit/building/tech page now links to the fandom page directly',
+        },
+        {
             type: 'bugfix',
             title: 'Fixed Yeomen attack bonus for tower',
         },

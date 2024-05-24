@@ -24,4 +24,5 @@ export * from './helper/tech-sections';
 export * from './helper/units';
 export * from './helper/unit-sections';
 export * from './helper/tree';
+export * from './helper/wiki-links';
 export * from './lib/theming';

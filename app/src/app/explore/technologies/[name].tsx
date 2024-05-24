@@ -38,6 +38,7 @@ import { Stack, useLocalSearchParams } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
 import { HeaderTitle } from '@app/components/header-title';
 import { getTechIcon } from '@app/helper/techs';
+import { getWikiLinkForTech } from '@nex/data';
 
 function capitalizeFirstLetter(string: string | number) {
     return string.toString().charAt(0).toUpperCase() + string.toString().slice(1);
@@ -163,7 +164,7 @@ export default function TechDetails() {
                 )}
 
                 <View style={appStyles.expanded} />
-                <Fandom articleName={getTechName(tech)} />
+                <Fandom articleName={getTechName(tech)} articleLink={getWikiLinkForTech(tech)} />
             </View>
         </ScrollView>
     );

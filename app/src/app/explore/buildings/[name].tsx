@@ -14,6 +14,7 @@ import CivAvailability from '../../../view/components/civ-availability';
 import Fandom from '../../../view/components/fandom';
 import { MyText } from '../../../view/components/my-text';
 import Space from '../../../view/components/space';
+import { getWikiLinkForBuilding } from '@nex/data';
 
 export default function BuildingDetails() {
     const { name } = useLocalSearchParams<{ name: Building }>();
@@ -51,7 +52,7 @@ export default function BuildingDetails() {
                 <CivAvailability building={building} />
 
                 <View style={appStyles.expanded} />
-                <Fandom articleName={getBuildingName(building)} />
+                <Fandom articleName={getBuildingName(building)} articleLink={getWikiLinkForBuilding(building)} />
             </View>
         </ScrollView>
     );

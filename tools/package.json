@@ -21,7 +21,8 @@
     "executor": "ts-node src/executor.ts",
     "translate": "ts-node src/translate.ts",
     "reference": "ts-node src/reference.ts",
-    "ages": "ts-node src/ages.ts"
+    "ages": "ts-node src/ages.ts",
+    "fandom": "ts-node src/fandom.ts"
   },
   "author": "",
   "license": "ISC",
