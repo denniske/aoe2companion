@@ -358,21 +358,14 @@ export default function AboutPage() {
                             <MyText style={appStyles.link}>Fandom</MyText>
                         </TouchableOpacity>
                     </View>
-
-                    <View style={styles.row}>
-                        <MyText style={styles.content}>Flag Icons from </MyText>
-                        <TouchableOpacity onPress={() => openLink('https://github.com/madebybowtie/FlagKit')}>
-                            <MyText style={appStyles.link}>FlagKit</MyText>
-                        </TouchableOpacity>
-                    </View>
                 </>
             )}
             {appConfig.game === 'aoe4' && (
                 <>
                     <View style={styles.row}>
-                        <MyText style={styles.content}>Stats from </MyText>
-                        <TouchableOpacity onPress={() => openLink('https://aoeiv.net')}>
-                            <MyText style={appStyles.link}>aoeiv.net</MyText>
+                        <MyText style={styles.content}>Match data from </MyText>
+                        <TouchableOpacity onPress={() => openLink('https://aoe4world.com/')}>
+                            <MyText style={appStyles.link}>aoe4world.com</MyText>
                         </TouchableOpacity>
                     </View>
 
@@ -384,13 +377,6 @@ export default function AboutPage() {
                         <MyText style={styles.content}> at </MyText>
                         <TouchableOpacity onPress={() => openLink('https://www.fandom.com/')}>
                             <MyText style={appStyles.link}>Fandom</MyText>
-                        </TouchableOpacity>
-                    </View>
-
-                    <View style={styles.row}>
-                        <MyText style={styles.content}>Flag Icons from </MyText>
-                        <TouchableOpacity onPress={() => openLink('https://github.com/madebybowtie/FlagKit')}>
-                            <MyText style={appStyles.link}>FlagKit</MyText>
                         </TouchableOpacity>
                     </View>
                 </>
