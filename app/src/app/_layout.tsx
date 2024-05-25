@@ -96,6 +96,10 @@ if (Platform.OS !== 'web') {
         'Your project is accessing the following APIs from a deprecated global rather than a module import: Constants (expo- constants).',
         'Remote debugger',
         'Unable to activate keep awake',
+
+        // Just for making screenshots
+        // 'Function components cannot be given',
+        // 'Support for defaultProps',
     ]);
 
     TaskManager.defineTask(BACKGROUND_NOTIFICATION_TASK, ({ data, error, executionInfo }) => {
