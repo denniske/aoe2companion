@@ -74,7 +74,7 @@ const aoe2techtreeLanguageMap = {
 };
 
 async function loadStringsForLanguage(language: keyof typeof aoe2netLanguageMap) {
-    const filePath = path.resolve(__dirname, '..', '..', 'app', 'assets', 'strings', aoe2netLanguageMap[language] + '.json.lazy');
+    const filePath = path.resolve(__dirname, '..', '..', 'app', 'assets', 'strings', aoe2netLanguageMap[language] + '.json');
     const response = await axios({
         method: 'GET',
         url: `http://aoe2.net/api/strings?game=aoe2de&language=${language}`,
@@ -94,7 +94,7 @@ async function loadStrings() {
 
 
 async function loadStringsForLanguage4(language: keyof typeof aoe2netLanguageMap) {
-    const filePath = path.resolve(__dirname, '..', '..', 'app4', 'assets', 'strings', aoe2netLanguageMap[language] + '.json.lazy');
+    const filePath = path.resolve(__dirname, '..', '..', 'app4', 'assets', 'strings', aoe2netLanguageMap[language] + '.json');
     const response = await axios({
         method: 'GET',
         url: `http://aoeiv.net/api/strings?game=aoe4&language=${language}`,
@@ -115,7 +115,7 @@ async function loadStrings4() {
 
 async function loadStringsAoE2TechTreeForLanguage(language: keyof typeof aoe2techtreeLanguageMap) {
     const dirPath = path.resolve(__dirname, '..', '..', 'app', 'assets', 'data', aoe2techtreeLanguageMap[language]);
-    const filePath = path.resolve(__dirname, '..', '..', 'app', 'assets', 'data', aoe2techtreeLanguageMap[language], 'strings.json.lazy');
+    const filePath = path.resolve(__dirname, '..', '..', 'app', 'assets', 'data', aoe2techtreeLanguageMap[language], 'strings.json');
     const response = await axios({
         method: 'GET',
         url: `https://raw.githubusercontent.com/SiegeEngineers/aoe2techtree/master/data/locales/${language}/strings.json`,

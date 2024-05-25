@@ -10,6 +10,5 @@ const defaultConfig = getSentryExpoConfig(__dirname, {
 });
 
 defaultConfig.resolver.blacklistRE = exclusionList([/^tools\/.*/]);
-defaultConfig.resolver.assetExts.push('lazy');
 
 module.exports = defaultConfig;

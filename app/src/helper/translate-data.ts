@@ -7,6 +7,8 @@ import {translateStringsSourceData} from "@nex/dataset";
 
 const stringsSource = translateStringsSourceData;
 
+console.log(stringsSource['en']);
+
 let strings: IStringCollection = getInternalAoeStrings();
 
 interface IStringCollection {
@@ -15,6 +17,10 @@ interface IStringCollection {
 
 export function addAoeStrings(language: string, data: Record<string, string>) {
     strings[language] = data;
+}
+
+for (const key in stringsSource) {
+    strings[key as any] = stringsSource[key];
 }
 
 export async function loadAoeStringsAsync(language: string) {

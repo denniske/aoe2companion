@@ -282,7 +282,7 @@ async function loadStringsData4(file: string, language: string) {
     console.log(stringKeys);
     console.log(keyValueTranslations);
 
-    const filePath = path.resolve(__dirname, '..', '..', 'app4', 'assets', 'data', language, 'strings.json.lazy');
+    const filePath = path.resolve(__dirname, '..', '..', 'app4', 'assets', 'data', language, 'strings.json');
     fs.mkdirSync(path.dirname(filePath), { recursive: true });
     // await sleep(100);
     fs.writeFileSync(filePath, JSON.stringify(keyValueTranslations, null, 4));

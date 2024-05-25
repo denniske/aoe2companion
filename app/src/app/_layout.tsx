@@ -98,8 +98,8 @@ if (Platform.OS !== 'web') {
         'Unable to activate keep awake',
 
         // Just for making screenshots
-        // 'Function components cannot be given',
-        // 'Support for defaultProps',
+        'Function components cannot be given',
+        'Support for defaultProps',
     ]);
 
     TaskManager.defineTask(BACKGROUND_NOTIFICATION_TASK, ({ data, error, executionInfo }) => {
@@ -254,12 +254,11 @@ function AppWrapper() {
         const language = config.language === 'system' ? getLanguageFromSystemLocale2(Localization.locale) : config.language;
         // console.log('LOCAL ==> Loading AoeStrings for ' + language + ' (config.language: ' + config.language + ')');
         setInternalLanguage(language);
-        Promise.all([loadAoeStringsAsync(language)]).then(() => mutate(addLoadedLanguage(language)));
         fetchAoeReferenceData();
     }, [config]);
 
     useEffect(() => {
-        if (auth === undefined || following === undefined || config === undefined || prefs === undefined || !loadedLanguages || !fontsLoaded) {
+        if (auth === undefined || following === undefined || config === undefined || prefs === undefined || !fontsLoaded) {
             return;
         }
         setAppIsReady(true);
