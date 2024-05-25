@@ -4,6 +4,7 @@ Screenshots:
 - app/_layout.tsx -> comment out LogBox.ignoreLogs for screenshots
 - tester.tsx -> comment out "const testHookStore = new TestHookStore();"
 - can use iPhone 15 Pro and iPhone 8
+  https://developer.apple.com/help/app-store-connect/reference/screenshot-specifications
 
 aoe OTA update
 cc1271b48e4a0690511d54b41a63ceb9.Jsh1IP-avYMq5AsEcFQVNn_yrB2P9jP6wEZaWnw79fY.bundle

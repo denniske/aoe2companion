@@ -283,17 +283,17 @@ const aoe4CivNameDict = {
     2: "Delhi Sultanate",
     3: "English",
     4: "French",
-    5: "Holy Roman",
+    5: "Holy Roman Empire",
     6: "Mongols",
     7: "Rus",
     8: "Malians",
     9: "Ottomans",
     10: 'Byzantines',
     11: 'Japanese',
-    12: 'JeanneDArc',
+    12: 'Jeanne d\'Arc',
     13: 'Ayyubids',
-    14: 'ZhuXiSLegacy',
-    15: 'OrderOfTheDragon',
+    14: 'Zhu Xi\'s Legacy',
+    15: 'Order of the Dragon',
 }
 
 export function getCivNameById(civ: Civ) {
@@ -310,6 +310,13 @@ export function getCivNameById(civ: Civ) {
 
 export function getCivIdByEnum(civEnum: string): Civ {
     return civEnumList[civEnum];
+}
+
+export function getLocalCivEnum(serverCivEnum: string): string {
+    // jeanne_d_arc -> JeanneDArc
+    return serverCivEnum
+        .replace(/_(.)/g, (match, group1) => group1.toUpperCase())
+        .replace(/^(.)/, (match, group1) => group1.toUpperCase());
 }
 
 export function getCivDescription(civ: Civ) {

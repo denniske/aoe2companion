@@ -2,7 +2,7 @@ import { IMatchNew, IPlayerNew } from '@app/api/helper/api.types';
 import { getCivIcon } from '@app/helper/civs';
 import { openLink } from '@app/helper/url';
 import { BottomSheetProps } from '@app/view/bottom-sheet';
-import { isVerifiedPlayer } from '@nex/data';
+import { getLocalCivEnum, isVerifiedPlayer } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { Image } from 'expo-image';
 import { Link } from 'expo-router';
@@ -77,7 +77,7 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
                 </Pressable>
             )}
 
-            <Link href={`/explore/civilizations/${player.civName}`} asChild>
+            <Link href={`/explore/civilizations/${getLocalCivEnum(player.civ)}`} asChild>
                 <TouchableOpacity className="flex-row flex-1 gap-1" onPress={onClose}>
                     <Image className={appConfig.game === 'aoe2de' ? 'w-5 h-5' : 'w-8 h-5'} source={getCivIcon(player)} contentFit="contain" />
                     <Text numberOfLines={1} variant={highlight ? 'label' : 'body'} className="flex-1">
