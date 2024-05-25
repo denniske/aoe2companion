@@ -18,7 +18,7 @@ export interface IChangelog {
 // https://www.ageofempires.com/news/age-of-empires-iv-season-one-update-release-notes/
 
 export const changelog4: IChangelog = {
-    '15.0.0': [
+    '16.0.0': [
         {
             type: 'feature',
             title: 'New App Design',
