@@ -1,4 +1,7 @@
 
+Todo:
+- animated unit images
+
 Screenshots:
 - "cd tools" and "yarn server"
 - app/_layout.tsx -> comment out LogBox.ignoreLogs for screenshots
@@ -33,7 +36,6 @@ Migration to Expo Router
 
 - donjon attack 5, 5 (x2), 5 (x3)
 
-- animated unit images
 - https://github.com/wix/react-native-navigation
 
 - use emblems from civs for tech tree background?
