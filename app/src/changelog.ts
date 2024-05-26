@@ -156,7 +156,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '104.0.0': [
+    '105.0.0': [
         {
             type: 'minor',
             title: 'Internal Framework Update (SDK 51)',
@@ -168,6 +168,10 @@ export const changelog: IChangelog = {
         {
             type: 'minor',
             title: 'The source on each unit/building/tech page now links to the fandom page directly',
+        },
+        {
+            type: 'bugfix',
+            title: 'The search on the explore page now uses translated names',
         },
         {
             type: 'bugfix',

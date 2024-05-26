@@ -37,10 +37,10 @@ import { useState } from 'react';
 import { ImageSourcePropType, TouchableOpacity, View } from 'react-native';
 
 type Item =
-    | { name: Civ; type: 'civ' }
-    | { name: Unit; type: 'unit'; section: string }
-    | { name: Building; type: 'building'; section: string }
-    | { name: Tech; type: 'tech'; section?: string };
+    | { name: Civ; title: string; type: 'civ' }
+    | { name: Unit; title: string; type: 'unit'; section: string }
+    | { name: Building; title: string; type: 'building'; section: string }
+    | { name: Tech; title: string; type: 'tech'; section?: string };
 
 const typeAttributes: Record<Item['type'], { path: string; label: string; title: (name: any) => string; icon: (name: any) => ImageSourcePropType }> =
     {
@@ -75,16 +75,17 @@ export default function Explore() {
     const sortedBuilds = reverse(sortBy(formattedBuilds, ['avg_rating', 'number_of_ratings']));
     const [search, setSearch] = useState('');
     const allData: Item[] = [
-        ...civs.map<Item>((civ) => ({ name: civ, type: 'civ' })),
+        ...civs.map<Item>((civ) => ({ name: civ, title: getCivNameById(civ), type: 'civ' })),
         ...allUnitSections.flatMap((section) =>
-            section.data.map<Item>((unit) => ({ name: unit, type: 'unit', section: getTranslation(section.title as any) }))
+            section.data.map<Item>((unit) => ({ name: unit, title: getUnitName(unit), type: 'unit', section: getTranslation(section.title as any) }))
         ),
         ...buildingSections.flatMap((section) =>
-            section.data.map<Item>((building) => ({ name: building, type: 'building', section: getTranslation(section.title as any) }))
+            section.data.map<Item>((building) => ({ name: building, title: getBuildingName(building), type: 'building', section: getTranslation(section.title as any) }))
         ),
         ...techSections.flatMap((section) =>
             section.data.map<Item>((tech) => ({
                 name: tech,
+                title: getTechName(tech),
                 type: 'tech',
                 section: section.building ? getBuildingName(section.building) : getCivNameById(section.civ!),
             }))
@@ -92,7 +93,7 @@ export default function Explore() {
     ];
     const filteredData = search
         ? uniq([
-              ...allData.filter((item) => item.name.toLowerCase().includes(search.toLowerCase())),
+              ...allData.filter((item) => item.title.toLowerCase().includes(search.toLowerCase())),
               ...allData.filter((item) => item.type !== 'civ' && item.section?.toLowerCase().includes(search.toLowerCase())),
           ])
         : [];
