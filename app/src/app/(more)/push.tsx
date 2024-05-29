@@ -5,7 +5,7 @@ import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import { Button } from 'react-native-paper';
 import { AndroidNotificationPriority } from 'expo-notifications';
-import { maskToken } from '../../service/push';
+import { maskAccountId, maskToken } from '../../service/push';
 import { useSelector } from '../../redux/reducer';
 import Space from '@app/view/components/space';
 import { createStylesheet } from '../../theming-new';
@@ -179,7 +179,7 @@ export default function PushPage() {
             <Stack.Screen options={{ title: getTranslation('push.title') }} />
 
             <MyText>{account ? getTranslation('push.heading.account') : ''}</MyText>
-            <MyText>{account ? account.id : getTranslation('push.error.noaccount')}</MyText>
+            <MyText>{account ? maskAccountId(account.id) : getTranslation('push.error.noaccount')}</MyText>
             <Space />
             <MyText>{pushToken ? maskToken(pushToken) : getTranslation('push.error.nopushtoken')}</MyText>
             {notification && (

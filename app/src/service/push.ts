@@ -1,6 +1,11 @@
 import * as Notifications from "expo-notifications";
 import Constants from "expo-constants";
 
+export function maskAccountId(accountId: string) {
+    if (accountId == null) return null;
+    return `${accountId.substring(0, 8)}-****-****-****-************`;
+}
+
 export function maskToken(token: string) {
     if (token == null) return null;
     return token.replace(/ExponentPushToken\[(.+)\]/, (matched: string, group: string, index: number) => {
