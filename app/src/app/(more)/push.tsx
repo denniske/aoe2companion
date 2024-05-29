@@ -17,6 +17,7 @@ import { initPusher } from '../../helper/pusher';
 import { getElectronPushToken, isElectron } from '../../helper/electron';
 import { Stack, router } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
+import * as Device from 'expo-device';
 
 interface FirebaseData {
     title?: string;
@@ -65,7 +66,7 @@ export default function PushPage() {
 
     const registerForPushNotificationsAsync = async () => {
         let token;
-        if (Constants.isDevice) {
+        if (Device.isDevice) {
             // const settings = await Notifications.getPermissionsAsync();
             // let newStatus = settings.granted || settings.ios?.status === IosAuthorizationStatus.PROVISIONAL;
             // log('newPermission', newStatus);
@@ -94,11 +95,16 @@ export default function PushPage() {
             }
 
             // throw "Deliberate Error!";
-
+            const projectId =
+                Constants?.expoConfig?.extra?.eas?.projectId ??
+                Constants?.easConfig?.projectId;
+            if (!projectId) {
+                throw new Error('Project ID not found');
+            }
+            log('projectId: ', projectId);
             token = (
                 await Notifications.getExpoPushTokenAsync({
-                    // projectId: Constants.expoConfig?.extra?.eas.projectId,
-                    projectId: Constants.expoConfig?.extra?.eas.projectId,
+                    projectId,
                 })
             ).data;
             log(maskToken(token));
@@ -127,7 +133,7 @@ export default function PushPage() {
     useEffect(() => {
         log('registerForPushNotificationsAsync');
 
-        if (Constants.isDevice) {
+        if (Device.isDevice) {
             if (Platform.OS === 'web') {
                 if (isElectron()) {
                     registerForPushNotificationsElectronAsync()

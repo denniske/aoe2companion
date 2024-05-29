@@ -145,7 +145,7 @@ export APP=aoe2 && export AOE=aoe2 && git tag v84.0.1 && git push --tags && eas 
 
 export APP=aoe2 && export AOE=aoe2 && eas update:rollback
 
-
+export NAME=$(date "+%Y-%m-%d-%H:%M:%S").ipa && export APP=aoe2 && eas build --profile production-${APP} --platform ios --local --non-interactive --output $NAME && eas submit --profile production-${APP} -p ios --no-wait --non-interactive --path $NAME
 
 
 nano /etc/caddy/Caddyfile && sudo systemctl reload caddy

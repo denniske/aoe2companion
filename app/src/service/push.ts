@@ -1,5 +1,6 @@
 import * as Notifications from "expo-notifications";
 import Constants from "expo-constants";
+import * as Device from 'expo-device';
 
 export function maskAccountId(accountId: string) {
     if (accountId == null) return null;
@@ -16,11 +17,13 @@ export function maskToken(token: string) {
 }
 
 export async function getToken() {
-    if (!Constants.isDevice) return null;
+    if (!Device.isDevice) return null;
     try {
+        const projectId =
+            Constants?.expoConfig?.extra?.eas?.projectId ??
+            Constants?.easConfig?.projectId;
         return (await Notifications.getExpoPushTokenAsync({
-            // projectId: Constants.expoConfig?.extra?.eas.projectId,
-            projectId: Constants.expoConfig?.extra?.eas.projectId,
+            projectId,
         })).data;
     } catch (e) {
         return null;

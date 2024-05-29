@@ -23,16 +23,16 @@ export function getHost(host: Host) {
             return `https://aoe4world.com/api/v0/`;
         }
         case "aoe2companion": {
-            // if (__DEV__ && !Constants.isDevice) {
+            // if (__DEV__ && !Device.isDevice) {
             //     const platformHost = Platform.select({ios: 'localhost', android: '10.0.2.2'});
             //     return `http://${platformHost}:3000/dev/`;
             // }
             // if (__DEV__) {
-            //     const platformHost = Constants.isDevice ? '192.168.178.41' : Platform.select({ios: 'localhost', android: '10.0.2.2'});
+            //     const platformHost = Device.isDevice ? '192.168.178.41' : Platform.select({ios: 'localhost', android: '10.0.2.2'});
             //     return `http://${platformHost}:3004/`;
             // }
             // if (__DEV__) {
-            //     const platformHost = Constants.isDevice ? '192.168.178.41' : Platform.select({ios: 'localhost', android: '10.0.2.2'});
+            //     const platformHost = Device.isDevice ? '192.168.178.41' : Platform.select({ios: 'localhost', android: '10.0.2.2'});
             //     return `http://${platformHost}:3000/dev/`;
             // }
             // if (dev) {
@@ -41,7 +41,7 @@ export function getHost(host: Host) {
             return `https://function.${appConfig.hostAoeCompanion}/`;
         }
         case "aoe2companion-api": {
-            // if (__DEV__ && Constants.isDevice) {
+            // if (__DEV__ && Device.isDevice) {
             //     const platformHost = '192.168.178.41';
             //     return `http://${platformHost}:3003/`;
             // }
@@ -51,7 +51,7 @@ export function getHost(host: Host) {
             return `https://api.${appConfig.hostAoeCompanion}/`;
         }
         case "aoe2companion-graphql": {
-            // if (__DEV__ && Constants.isDevice) {
+            // if (__DEV__ && Device.isDevice) {
             //     const platformHost = '192.168.178.41';
             //     return `http://${platformHost}:3003/`;
             // }
@@ -61,7 +61,7 @@ export function getHost(host: Host) {
             return `https://graph.${appConfig.hostAoeCompanion}/graphql`;
         }
         case "aoe2companion-data": {
-            // if (__DEV__ && Constants.isDevice) {
+            // if (__DEV__ && Device.isDevice) {
             //     const platformHost = '192.168.178.41';
             //     return `http://${platformHost}:3003/`;
             // }
@@ -71,7 +71,7 @@ export function getHost(host: Host) {
             return `https://data.${appConfig.hostAoeCompanion}/`;
         }
         case "aoe2companion-socket": {
-            // if (__DEV__ && Constants.isDevice) {
+            // if (__DEV__ && Device.isDevice) {
             //     const platformHost = '192.168.178.41';
             //     return `http://${platformHost}:3003/`;
             // }

@@ -156,6 +156,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '108.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fixed push notifications',
+        },
+    ],
     '105.0.0': [
         {
             type: 'minor',
