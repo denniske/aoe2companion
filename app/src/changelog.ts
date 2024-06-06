@@ -156,6 +156,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '109.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fixed Counterweights to have Saracen icon',
+        },
+    ],
     '108.0.0': [
         {
             type: 'bugfix',

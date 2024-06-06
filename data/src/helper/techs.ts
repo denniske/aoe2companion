@@ -1728,7 +1728,7 @@ export const techList: ITech[] = [
     {
         "dataId": "454",
         "name": "Counterweights",
-        "civ": "Slavs",
+        "civ": "Saracens",
         "age": 'Castle',
     },
 
