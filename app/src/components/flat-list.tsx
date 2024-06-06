@@ -1,7 +1,7 @@
 import { useScrollView } from '@app/hooks/use-scroll-view';
 import { forwardRef } from 'react';
 import { FlatListProps as FlatListPropsRN } from 'react-native';
-import { FlatList as FlatListRN } from 'react-native-gesture-handler';
+import { FlatList as FlatListRN } from 'react-native';
 
 export type FlatListRef<ItemT = any> = React.RefObject<FlatListRN<ItemT> | null>;
 export interface FlatListProps<ItemT> extends Omit<FlatListPropsRN<ItemT>, 'contentContainerStyle'> {

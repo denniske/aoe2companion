@@ -161,6 +161,10 @@ export const changelog: IChangelog = {
             type: 'bugfix',
             title: 'Fixed Counterweights to have Saracen icon',
         },
+        {
+            type: 'bugfix',
+            title: 'Fixed Pull-To-Refresh for matches list, etc. (Android)',
+        },
     ],
     '108.0.0': [
         {
