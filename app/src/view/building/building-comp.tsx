@@ -12,7 +12,7 @@ export function BuildingCompBig({building, subtitle}: {building: Building, subti
     const styles = useStyles();
 
     return (
-        <TouchableOpacity className='h-10' onPress={() => router.push(`/explore/buildings/${building}`)}>
+        <TouchableOpacity className='pt-1 pb-1' onPress={() => router.push(`/explore/buildings/${building}`)}>
             <View style={styles.rowBig}>
                 <Image style={styles.unitIconBig} source={getBuildingIcon(building)}/>
                 <View style={styles.unitIconBigTitle}>
