@@ -321,7 +321,7 @@ function AppWrapper() {
     }
 
     return (
-        <GestureHandlerRootView className="flex-1">
+        <GestureHandlerRootView className={`flex-1 ${Platform.OS === 'web' && !isElectron() ? `bg-white dark:bg-black` : ``}`}>
             <ConditionalTester>
                 <PaperProvider
                     theme={finalDarkMode === 'light' ? customPaperTheme : customDarkPaperTheme}
