@@ -16,7 +16,7 @@ export const useScrollView = ({
     onScroll,
     onLayout,
     ref,
-}: UseScrollViewProps): ScrollViewProps & { ref: React.RefObject<any> } => {
+}: UseScrollViewProps): Omit<ScrollViewProps, 'hitSlop'> & { ref: React.RefObject<any> } => {
     const scrollViewRef = useRef<ScrollView>(null);
     const { bottom } = useSafeAreaInsets();
     const style = tw.style(contentContainerStyle);

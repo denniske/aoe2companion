@@ -1,14 +1,17 @@
+import { ScrollView } from '@app/components/scroll-view';
+import ButtonPicker from '@app/view/components/button-picker';
+import { MyText } from '@app/view/components/my-text';
+import Picker from '@app/view/components/picker';
+import { clamp } from '@nex/data';
+import { useNavigation } from '@react-navigation/native';
+import * as Localization from 'expo-localization';
+import * as Notifications from 'expo-notifications';
+import { Stack, router } from 'expo-router';
+import { capitalize, merge } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { MyText } from '@app/view/components/my-text';
-import { DarkMode, setConfig, useMutate, useSelector } from '../../redux/reducer';
-import { saveConfigToStorage } from '../../service/storage';
-import Picker from '@app/view/components/picker';
-import { useTheme } from '../../theming';
-import { Button, Checkbox, TextInput } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
-import { appVariants } from '../../styles';
-import { getToken } from '../../service/push';
+import { Button, Checkbox } from 'react-native-paper';
+
 import {
     follow,
     setAccountProfile,
@@ -17,20 +20,16 @@ import {
     setAccountPushTokenWeb,
     setNotificationConfig,
 } from '../../api/following';
-import * as Notifications from 'expo-notifications';
-import { IosAuthorizationStatus } from 'expo-notifications/build/NotificationPermissions.types';
-import ButtonPicker from '@app/view/components/button-picker';
-import { createStylesheet } from '../../theming-new';
-import { getLanguageFromSystemLocale2, getTranslation } from '../../helper/translate';
-import { setInternalLanguage } from '../../redux/statecache';
-import * as Localization from 'expo-localization';
-import { deactivatePusher, initPusher } from '../../helper/pusher';
 import { getElectronPushToken, isElectron } from '../../helper/electron';
-import Space from '@app/view/components/space';
-import { isEmpty, merge } from 'lodash';
-import { clamp } from '@nex/data';
-import { Stack, router } from 'expo-router';
-import { ScrollView } from '@app/components/scroll-view';
+import { deactivatePusher, initPusher } from '../../helper/pusher';
+import { getLanguageFromSystemLocale2, getTranslation } from '../../helper/translate';
+import { DarkMode, setConfig, useMutate, useSelector } from '../../redux/reducer';
+import { setInternalLanguage } from '../../redux/statecache';
+import { getToken } from '../../service/push';
+import { saveConfigToStorage } from '../../service/storage';
+import { appVariants } from '../../styles';
+import { useTheme } from '../../theming';
+import { createStylesheet } from '../../theming-new';
 
 export default function SettingsPage() {
     const styles = useStyles();
@@ -315,6 +314,14 @@ export default function SettingsPage() {
         await saveConfigToStorage(newConfig);
         mutate(setConfig(newConfig));
     };
+    const onMainPageSelected = async (page: string) => {
+        const newConfig = {
+            ...config,
+            mainPage: page,
+        };
+        await saveConfigToStorage(newConfig);
+        mutate(setConfig(newConfig));
+    };
 
     return (
         <ScrollView contentContainerStyle="min-h-full p-5">
@@ -355,7 +362,7 @@ export default function SettingsPage() {
                             </MyText>
                         </TouchableOpacity>
                     </View>
-                    <Button onPress={() => router.navigate('/push')} mode="contained" compact uppercase={false} dark={true}>
+                    <Button onPress={() => router.navigate('/push')} mode="contained" compact uppercase={false} dark>
                         {getTranslation('settings.pushnotifications.action.test')}
                     </Button>
                 </View>
@@ -397,6 +404,48 @@ export default function SettingsPage() {
                         values={languageList}
                         formatter={formatLanguage}
                         onSelect={onLanguageSelected}
+                    />
+                </View>
+            </View>
+
+            <View style={styles.row}>
+                <View style={styles.cellName}>
+                    <MyText>{getTranslation('settings.mainpage')}</MyText>
+                    <MyText style={styles.small}>{getTranslation('settings.mainpage.note')}</MyText>
+                </View>
+                <View style={styles.cellValueCol}>
+                    <Picker
+                        itemHeight={40}
+                        textMinWidth={150}
+                        divider={divider}
+                        value={config.mainPage || '/'}
+                        values={[
+                            '/',
+                            '/matches',
+                            '/matches/live',
+                            '/matches/users',
+                            '/explore',
+                            '/explore/civilizations',
+                            '/explore/units',
+                            '/explore/buildings',
+                            '/explore/technologies',
+                            '/explore/build-orders',
+                            '/explore/tips',
+                            '/statistics',
+                            '/competitive',
+                            '/competitive/games',
+                            '/competitive/tournaments',
+                        ]}
+                        formatter={(value) =>
+                            value === '/'
+                                ? 'Home'
+                                : value
+                                      .split('/')
+                                      .map((segment) => capitalize(segment.replace('-', ' ')))
+                                      .filter((segment) => segment)
+                                      .join(' > ')
+                        }
+                        onSelect={onMainPageSelected}
                     />
                 </View>
             </View>

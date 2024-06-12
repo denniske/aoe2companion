@@ -120,13 +120,15 @@ function Player<PlayerType extends IPlayerListPlayer>({
                         allowFontScaling={false}
                     />
                 )}
-                <View className="flex-row gap-1 items-center">
-                    <Text numberOfLines={1} variant="body-sm" allowFontScaling={false}>
-                        {name}
-                    </Text>
-                    {isMe && !hideIcons && <Icon color="brand" icon="user" size={12} />}
-                    {!isMe && !hideIcons && player.profileId && isVerified && <Icon color="brand" icon="circle-check" size={12} />}
-                </View>
+                {name && (
+                    <View className="flex-row gap-1 items-center">
+                        <Text numberOfLines={1} variant="body-sm" allowFontScaling={false}>
+                            {name}
+                        </Text>
+                        {isMe && !hideIcons && <Icon color="brand" icon="user" size={12} />}
+                        {!isMe && !hideIcons && player.profileId && isVerified && <Icon color="brand" icon="circle-check" size={12} />}
+                    </View>
+                )}
 
                 {footer ? (
                     footer(player)

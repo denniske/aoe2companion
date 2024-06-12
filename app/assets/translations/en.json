@@ -361,6 +361,8 @@
   "settings.preventscreenlock.note": "Prevent screen lock on build order screen",
   "settings.language": "Language",
   "settings.language.note": "(except build order guides)",
+  "settings.mainpage": "Main Page",
+  "settings.mainpage.note": "The page to default to when the app is opened",
   "settings.cache": "Cache",
   "settings.cache.note": "(for matches)",
   "settings.cache.clear": "Clear",

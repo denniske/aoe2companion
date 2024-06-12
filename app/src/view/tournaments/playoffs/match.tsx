@@ -55,12 +55,13 @@ const styles = StyleSheet.create({
     nameContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        gap: 8,
         paddingVertical: 8,
     },
     name: {
         fontWeight: '500',
         fontSize: 16,
+        flex: 1,
     },
     format: {
         fontWeight: '500',

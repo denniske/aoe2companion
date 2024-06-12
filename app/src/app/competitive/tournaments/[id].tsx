@@ -189,8 +189,22 @@ export default function TournamentDetail() {
                                         }
                                     }}
                                     variant="horizontal"
-                                    list={tournament.participants.map((participant) => ({ profileId: -1, ...participant }))}
-                                    footer={() => null}
+                                    list={tournament.participants.map((participant) => ({
+                                        profileId: -1,
+                                        ...participant,
+                                        name: '',
+                                        participant: participant.name,
+                                    }))}
+                                    footer={(player) => (
+                                        <View className="flex-row gap-1 items-center">
+                                            <Text numberOfLines={1} variant="body-sm" allowFontScaling={false}>
+                                                {player?.participant}
+                                            </Text>
+                                            <Text variant="label-xs" className="-mt-1">
+                                                {player?.note}
+                                            </Text>
+                                        </View>
+                                    )}
                                     image={(player) => <Image source={{ uri: player?.image }} className="w-7 h-3.5 my-2" contentFit="contain" />}
                                 />
 

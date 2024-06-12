@@ -26,6 +26,7 @@ export interface IConfig {
     };
     preventScreenLockOnGuidePage: boolean;
     language: string;
+    mainPage: string;
 }
 
 export interface IPrefs {

@@ -4,6 +4,7 @@ export type TextVariant =
     | 'body-sm'
     | 'body'
     | 'body-lg'
+    | 'label-xs'
     | 'label-sm'
     | 'label'
     | 'label-lg'
@@ -18,6 +19,7 @@ export const textVariantStyles: Record<TextVariant, { fontSize: number; lineHeig
     'body-sm': { fontSize: 12, lineHeight: 16, fontFamily: 'Roboto_400Regular' },
     body: { fontSize: 14, lineHeight: 20, fontFamily: 'Roboto_400Regular' },
     'body-lg': { fontSize: 16, lineHeight: 24, fontFamily: 'Roboto_400Regular' },
+    'label-xs': { fontSize: 10, lineHeight: 14, fontFamily: 'Roboto_500Medium' },
     'label-sm': { fontSize: 12, lineHeight: 16, fontFamily: 'Roboto_500Medium' },
     label: { fontSize: 14, lineHeight: 20, fontFamily: 'Roboto_500Medium' },
     'label-lg': { fontSize: 16, lineHeight: 24, fontFamily: 'Roboto_500Medium' },

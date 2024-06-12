@@ -184,6 +184,7 @@ export interface AppState {
   updateManifest?: Manifest | null;
   updateStoreManifest?: any | null;
   updateElectronManifest?: any | null;
+  mainPage: string;
 }
 
 const initialState: Partial<AppState> = {
