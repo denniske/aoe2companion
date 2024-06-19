@@ -17,6 +17,7 @@ import * as Notifications from 'expo-notifications';
 import { Tabs, useFocusEffect, useRootNavigationState, useRouter } from 'expo-router';
 import { useCallback, useEffect } from 'react';
 import { Platform, View } from 'react-native';
+import { Button } from 'react-native-paper';
 
 export default function Page() {
     const tournament = useFeaturedTournament();
@@ -48,7 +49,9 @@ export default function Page() {
     useEffect(() => {
         if (isNavigationReady) {
             if (config.mainPage) {
-                router.navigate(config.mainPage);
+                // console.log('Navigating to main page', config.mainPage);
+                // setTimeout(() => router.navigate(config.mainPage), 5000);
+                // router.navigate(config.mainPage);
             }
         }
     }, [isNavigationReady]);
@@ -56,6 +59,8 @@ export default function Page() {
     return (
         <ScrollView contentContainerStyle="p-4 gap-5">
             <Tabs.Screen options={{ title: 'Home' }} />
+
+            <Button onPress={() => router.navigate('/matches')}>Matches</Button>
 
             <View className="-mx-4">
                 <FollowedPlayers />
