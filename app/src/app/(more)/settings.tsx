@@ -408,47 +408,49 @@ export default function SettingsPage() {
                 </View>
             </View>
 
-            <View style={styles.row}>
-                <View style={styles.cellName}>
-                    <MyText>{getTranslation('settings.mainpage')}</MyText>
-                    <MyText style={styles.small}>{getTranslation('settings.mainpage.note')}</MyText>
+            {Platform.OS !== 'web' && (
+                <View style={styles.row}>
+                    <View style={styles.cellName}>
+                        <MyText>{getTranslation('settings.mainpage')}</MyText>
+                        <MyText style={styles.small}>{getTranslation('settings.mainpage.note')}</MyText>
+                    </View>
+                    <View style={styles.cellValueCol}>
+                        <Picker
+                            itemHeight={40}
+                            textMinWidth={150}
+                            divider={divider}
+                            value={config.mainPage || '/'}
+                            values={[
+                                '/',
+                                '/matches',
+                                '/matches/live',
+                                '/matches/users',
+                                '/explore',
+                                '/explore/civilizations',
+                                '/explore/units',
+                                '/explore/buildings',
+                                '/explore/technologies',
+                                '/explore/build-orders',
+                                '/explore/tips',
+                                '/statistics',
+                                '/competitive',
+                                '/competitive/games',
+                                '/competitive/tournaments',
+                            ]}
+                            formatter={(value) =>
+                                value === '/'
+                                    ? 'Home'
+                                    : value
+                                          .split('/')
+                                          .map((segment) => capitalize(segment.replace('-', ' ')))
+                                          .filter((segment) => segment)
+                                          .join(' > ')
+                            }
+                            onSelect={onMainPageSelected}
+                        />
+                    </View>
                 </View>
-                <View style={styles.cellValueCol}>
-                    <Picker
-                        itemHeight={40}
-                        textMinWidth={150}
-                        divider={divider}
-                        value={config.mainPage || '/'}
-                        values={[
-                            '/',
-                            '/matches',
-                            '/matches/live',
-                            '/matches/users',
-                            '/explore',
-                            '/explore/civilizations',
-                            '/explore/units',
-                            '/explore/buildings',
-                            '/explore/technologies',
-                            '/explore/build-orders',
-                            '/explore/tips',
-                            '/statistics',
-                            '/competitive',
-                            '/competitive/games',
-                            '/competitive/tournaments',
-                        ]}
-                        formatter={(value) =>
-                            value === '/'
-                                ? 'Home'
-                                : value
-                                      .split('/')
-                                      .map((segment) => capitalize(segment.replace('-', ' ')))
-                                      .filter((segment) => segment)
-                                      .join(' > ')
-                        }
-                        onSelect={onMainPageSelected}
-                    />
-                </View>
-            </View>
+            )}
 
             {/*{*/}
             {/*    isElectron() &&*/}

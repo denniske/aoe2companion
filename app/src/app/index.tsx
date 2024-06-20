@@ -46,10 +46,8 @@ export default function Page() {
     }, [response]);
 
     useEffect(() => {
-        if (isNavigationReady) {
-            if (config.mainPage) {
-                router.navigate(config.mainPage);
-            }
+        if (Platform.OS !== 'web' && isNavigationReady && config.mainPage) {
+            router.navigate(config.mainPage);
         }
     }, [isNavigationReady]);
 
