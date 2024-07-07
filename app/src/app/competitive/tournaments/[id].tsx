@@ -32,7 +32,7 @@ import { GameVersion, TournamentType } from 'liquipedia';
 import { orderBy, reverse } from 'lodash';
 import { useColorScheme } from 'nativewind';
 import { useState } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { Linking, TouchableOpacity, View } from 'react-native';
 import { formatCurrency } from 'react-native-format-currency';
 
 export default function TournamentDetail() {
@@ -128,7 +128,7 @@ export default function TournamentDetail() {
                             />
                         </View>
                     ),
-                    headerRight: () => <FollowHeaderButton id={mainTournament?.path ?? id} />,
+                    headerRight: () => <HeaderButtons id={mainTournament?.path ?? id} />,
                 }}
             />
 
@@ -546,12 +546,21 @@ export default function TournamentDetail() {
     );
 }
 
-function FollowHeaderButton({ id }: { id: string }) {
+function HeaderButtons({ id }: { id: string }) {
     const { toggleFollow, isFollowed } = useFollowedTournament(id);
 
+    const openInBrowser = () => {
+        Linking.openURL('https://liquipedia.net/ageofempires/' + id);
+    };
+
     return (
-        <TouchableOpacity hitSlop={10} onPress={toggleFollow}>
-            <Icon prefix={isFollowed ? 'fass' : 'fasr'} icon="heart" size={20} color="text-[#ef4444]" />
-        </TouchableOpacity>
+        <View className="flex-row gap-4">
+            <TouchableOpacity hitSlop={10} onPress={openInBrowser}>
+                <Image style={{ width: 28, height: 20 }} source={require('../../../../assets/icon/liquipedia.png')} />
+            </TouchableOpacity>
+            <TouchableOpacity hitSlop={10} onPress={toggleFollow}>
+                <Icon prefix={isFollowed ? 'fass' : 'fasr'} icon="heart" size={20} color="text-[#ef4444]" />
+            </TouchableOpacity>
+        </View>
     );
 }

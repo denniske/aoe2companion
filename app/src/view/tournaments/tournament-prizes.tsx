@@ -53,6 +53,7 @@ const useStyles = createStylesheet((theme) =>
     StyleSheet.create({
         place: {
             fontWeight: '600',
+            textAlign: 'center',
         },
         prizeRow: {
             flexDirection: 'row',

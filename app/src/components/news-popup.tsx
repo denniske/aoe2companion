@@ -85,6 +85,9 @@ export const NewsPopup: React.FC<{ post: Post; visible: boolean; onClose: () => 
                         'wp-block-button': tw`bg-blue-800 dark:bg-gold-700 py-1.5 px-2.5 rounded`,
                         'wp-block-button__link': { ...tw`text-white no-underline`, ...textVariantStyles['header-xs'] },
                         accordion__title: { ...tw`text-white`, ...textVariantStyles['header-xs'] },
+                        article__info: tw`flex-row mb-4 items-center`,
+                        article__author__avatar: tw`rounded-full mr-2 overflow-hidden`,
+                        avatar: tw`h-8 w-8`,
                     }}
                 />
             </View>
