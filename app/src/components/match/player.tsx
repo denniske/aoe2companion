@@ -1,8 +1,9 @@
 import { IMatchNew, IPlayerNew } from '@app/api/helper/api.types';
+import { useLiveTwitchAccounts } from '@app/api/live';
 import { getCivIcon } from '@app/helper/civs';
 import { openLink } from '@app/helper/url';
 import { BottomSheetProps } from '@app/view/bottom-sheet';
-import { getLocalCivEnum, isVerifiedPlayer } from '@nex/data';
+import { getLocalCivEnum, getTwitchChannel, getVerifiedPlayer, isVerifiedPlayer } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { Image } from 'expo-image';
 import { Link } from 'expo-router';
@@ -10,6 +11,7 @@ import { Platform, Pressable, TouchableOpacity, View } from 'react-native';
 
 import { Icon } from '../icon';
 import { Text } from '../text';
+import TwitchBadge from '@app/view/components/badge/twitch-badge';
 
 const playerColors: Record<string, string> = {
     '#405BFF': '#4B4AC8',
@@ -37,6 +39,9 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
         await openLink(url);
     };
     const playerColor = playerColors[player.colorHex] ?? player.colorHex;
+    const { liveTwitchAccounts } = useLiveTwitchAccounts();
+    const verifiedPlayer = getVerifiedPlayer(Number(player.profileId));
+    const twitch = verifiedPlayer && liveTwitchAccounts?.find((twitch) => twitch.user_login === getTwitchChannel(verifiedPlayer));
 
     return (
         <View className="flex-row items-center gap-2">
@@ -61,9 +66,14 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
             <Link href={`/matches/users/${player.profileId}?name=${player.name}`} asChild>
                 <TouchableOpacity className="flex-1 flex-row gap-1 items-center" onPress={onClose}>
                     <Text variant={highlight ? 'header-xs' : 'body'} numberOfLines={1}>
-                        {player.name}
+                        {verifiedPlayer ? verifiedPlayer.name : player.name}
                     </Text>
                     {player.status === 0 && isVerifiedPlayer(player.profileId) && <Icon icon="check-circle" color="brand" size={12} />}
+                    {twitch && (
+                        <View className="ml-2">
+                            <TwitchBadge channel={twitch.user_login} condensed />
+                        </View>
+                    )}
                 </TouchableOpacity>
             </Link>
 

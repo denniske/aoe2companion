@@ -68,9 +68,9 @@ export default function CivList() {
         refresh();
     }, [text]);
 
-    const renderItem = (civ: Civ) => (
+    const renderItem = (civ: Civ, index: number) => (
         <TouchableOpacity key={civ} onPress={() => router.push(`/explore/civilizations/${civ}`)}>
-            <View className="flex-row items-center py-1.5">
+            <View className={`flex-row items-center py-1.5 -mx-4 px-4 ${text && index === 0 ? 'bg-gold-100 dark:bg-blue-900' : ''}`}>
                 <Image className={`${appConfig.game === 'aoe2de' ? 'w-8' : 'w-14'} h-8`} source={getCivIconLocal(civ)} />
                 <View className="flex-1 ml-2.5">
                     <Text variant="label">{getCivNameById(civ)}</Text>
@@ -94,6 +94,12 @@ export default function CivList() {
                             placeholder={getTranslation('unit.search.placeholder')}
                             onChangeText={(text) => setText(text)}
                             value={text}
+                            onSubmitEditing={() => {
+                                const topResult = list[0];
+                                if (topResult) {
+                                    router.navigate(`/explore/civilizations/${topResult}`);
+                                }
+                            }}
                         />
                     </View>
                 )}
@@ -102,7 +108,7 @@ export default function CivList() {
                     contentContainerStyle="p-4"
                     keyboardShouldPersistTaps="always"
                     data={orderCivs(list.filter((c) => c !== 'Indians'))}
-                    renderItem={({ item, index }) => renderItem(item)}
+                    renderItem={({ item, index }) => renderItem(item, index)}
                     keyExtractor={(item, index) => index.toString()}
                 />
             </View>

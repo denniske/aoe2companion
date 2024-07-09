@@ -1,6 +1,6 @@
 import { compact } from 'lodash';
 import { useRef, useState } from 'react';
-import { NativeScrollEvent, NativeSyntheticEvent, StyleSheet, View, TouchableOpacity, ScrollView } from 'react-native';
+import { NativeScrollEvent, NativeSyntheticEvent, StyleSheet, View, TouchableOpacity, ScrollView, ViewStyle } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { ViewProps } from 'react-native-svg/lib/typescript/fabric/utils';
 
@@ -10,6 +10,7 @@ export interface SliderProps extends Omit<ViewProps, 'children'> {
     pagination?: (scrollTo: (index: number) => void, current: number) => React.ReactElement;
     equalizeHeights?: boolean;
     scrollEnabled?: boolean;
+    paginationStyle?: ViewStyle;
 }
 
 export const Slider: React.FC<SliderProps> = ({
@@ -19,6 +20,7 @@ export const Slider: React.FC<SliderProps> = ({
     scrollEnabled = true,
     equalizeHeights = true,
     style,
+    paginationStyle,
     ...props
 }) => {
     const scrollView = useRef<FlatList>(null);
@@ -44,7 +46,7 @@ export const Slider: React.FC<SliderProps> = ({
                 (pagination ? (
                     pagination(scrollToIndex, activeIndex)
                 ) : (
-                    <View style={styles.pagination}>
+                    <View style={[styles.pagination, paginationStyle]}>
                         {slides.map((_, index) => (
                             <TouchableOpacity hitSlop={15} key={index} style={styles.page} onPress={() => scrollToIndex(index)}>
                                 {activeIndex === index && <View style={styles.activePage} />}

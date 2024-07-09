@@ -1,12 +1,13 @@
 import { Field } from '@app/components/field';
 import { FlatList } from '@app/components/flat-list';
+import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { getTranslation } from '@app/helper/translate';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useFocusEffect } from '@react-navigation/native';
-import { Stack } from 'expo-router';
+import { Stack, router } from 'expo-router';
 import { reverse, sortBy } from 'lodash';
 import { useCallback, useState } from 'react';
-import { Platform, View } from 'react-native';
+import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { buildsData } from '../../../../../data/src/data/builds';
@@ -15,7 +16,6 @@ import BuildCard from '../../../view/components/build-order/build-card';
 import { BuildFilters } from '../../../view/components/build-order/build-filters';
 import { DismissKeyboard } from '../../../view/components/dismiss-keyboard';
 import { MyText } from '../../../view/components/my-text';
-import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 
 const transformSearch = (string: string) => string.toLowerCase().replace(/\W/g, ' ').replace(/ +/g, ' ');
 
@@ -62,7 +62,18 @@ export default function BuildListPage() {
                     <BuildFilters builds={buildsData} {...buildFilters} />
 
                     <View className="pb-4 px-4">
-                        <Field type="search" value={search} onChangeText={setSearch} placeholder={getTranslation('builds.search')} />
+                        <Field
+                            type="search"
+                            value={search}
+                            onChangeText={setSearch}
+                            placeholder={getTranslation('builds.search')}
+                            onSubmitEditing={() => {
+                                const topResult = filteredBuilds[0];
+                                if (topResult) {
+                                    router.navigate(`/explore/build-orders/${topResult.id}`);
+                                }
+                            }}
+                        />
                     </View>
 
                     <FlatList

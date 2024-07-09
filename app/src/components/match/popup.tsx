@@ -32,25 +32,28 @@ export function MatchPopup(props: MatchPopupProps) {
     const router = useRouter();
     const { data: tournamentMatches } = useTournamentMatches();
     const player = match.teams.flatMap((team) => team.players).find((p) => p.profileId === user);
-    const name = player?.name;
+    const verifiedPlayer = getVerifiedPlayer(Number(player?.profileId));
+    const name = verifiedPlayer?.name ?? player?.name;
 
     const players = flatten(match?.teams.map((t) => t.players));
-    const { tournament, format } = useMemo(
+    const tournamentMatch = useMemo(
         () =>
-            (match &&
-                players &&
-                tournamentMatches?.find(
-                    (tournamentMatch) =>
-                        tournamentMatch.startTime &&
-                        Math.abs(differenceInMinutes(match.started, tournamentMatch.startTime)) < 240 &&
-                        players.every((player) =>
-                            tournamentMatch.participants
-                                .map((tournamentParticipant) => tournamentParticipant.name?.toLowerCase())
-                                .includes(getVerifiedPlayer(player.profileId)?.liquipedia?.toLowerCase() ?? '')
-                        )
-                )) ?? { tournament: undefined, format: undefined },
+            match &&
+            players &&
+            tournamentMatches?.find(
+                (tournamentMatch) =>
+                    tournamentMatch.startTime &&
+                    Math.abs(differenceInMinutes(match.started, tournamentMatch.startTime)) < 240 &&
+                    players.every((player) =>
+                        tournamentMatch.participants
+                            .map((tournamentParticipant) => tournamentParticipant.name?.toLowerCase())
+                            .includes(getVerifiedPlayer(player.profileId)?.liquipedia?.toLowerCase()?.replaceAll('_', '') ?? '')
+                    )
+            ),
         [players, tournamentMatches]
     );
+
+    const { tournament, format } = tournamentMatch ?? { tournament: undefined, format: undefined };
     const freeForAll = isMatchFreeForAll(match);
 
     let duration: string = '';
@@ -64,22 +67,22 @@ export function MatchPopup(props: MatchPopupProps) {
             <MatchCard {...props} />
 
             <View className="gap-1">
-                {tournament && (
-                    <Pressable
-                        className="flex-row items-center gap-2 mb-2"
-                        onPress={() =>
-                            Platform.OS === 'web'
-                                ? Linking.openURL(`https://liquipedia.net/ageofempires/${tournament.path}`)
-                                : router.navigate(`/competitive/tournaments/${encodeURIComponent(tournament.path)}`)
-                        }
-                    >
-                        {tournament.image && <Image source={{ uri: tournament.image }} className="w-5 h-5" />}
-                        <Text variant="label">{tournament.name}</Text>
-                        {format && <Text variant="body-sm">({format})</Text>}
-                    </Pressable>
-                )}
-
                 <ScrollView horizontal contentContainerStyle="items-center gap-4 pb-3">
+                    {tournament && (
+                        <Pressable
+                            className="flex-row items-center gap-1"
+                            onPress={() =>
+                                Platform.OS === 'web'
+                                    ? Linking.openURL(`https://liquipedia.net/ageofempires/${tournament.path}`)
+                                    : router.navigate(`/competitive/tournaments/${encodeURIComponent(tournament.path)}`)
+                            }
+                        >
+                            {tournament.image && <Image source={{ uri: tournament.image }} className="w-5 h-5" />}
+                            <Text color="subtle">
+                                {tournament.name} ({format})
+                            </Text>
+                        </Pressable>
+                    )}
                     <View className="flex-row items-center gap-1">
                         <Icon icon="clock" size={14} color="subtle" />
                         <Text color="subtle">{duration}</Text>

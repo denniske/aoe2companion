@@ -258,7 +258,7 @@ export default function Profile({ data, ready }: IProfileProps) {
                         <TournamentMarkdown>{liquipediaProfile.overview ?? ''}</TournamentMarkdown>
 
                         <Button onPress={() => setShowTournamentPlayer(true)} align="center" size="small">
-                            Tournaments Overview
+                            Competitive Overview
                         </Button>
 
                         <TournamentPlayerPopup

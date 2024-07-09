@@ -17,7 +17,7 @@ import {getTranslation} from '../../helper/translate';
 import {isEmpty} from 'lodash';
 import {Delayed} from './delayed';
 import { router } from "expo-router";
-import { windowWidth } from "@app/app/statistics";
+import { windowWidth } from "@app/app/statistics/leaderboard";
 
 
 function TechTreeRow({civ, row}: {civ: aoeCivKey, row: ITechTreeRow}) {

@@ -15,6 +15,8 @@ import { clearSettingsInStorage, saveCurrentPrefsToStorage, saveSettingsToStorag
 import { HeaderTitle } from '@app/components/header-title';
 import { CountryImage } from '../../../view/components/country-image';
 import { getVerifiedPlayer, isVerifiedPlayer } from '@nex/data';
+import { Text } from '@app/components/text';
+import { Link } from '@app/components/link';
 
 export function UserMenu() {
     const { profileId: profileIdParam } = useLocalSearchParams<{ profileId: string }>();
@@ -145,7 +147,17 @@ export default function UserPage() {
                         />
                     }
                     title={loadedProfile?.name || name || ''}
-                    subtitle={isVerified && !isMainAccount && `${getVerifiedPlayer(profileId)?.name} - Alternate account`}
+                    subtitle={
+                        isVerified &&
+                        !isMainAccount && (
+                            <Text variant="label" numberOfLines={1} allowFontScaling={false}>
+                                <Link href={`/matches/users/${getVerifiedPlayer(profileId)?.platforms.rl?.[0]}`}>
+                                    {getVerifiedPlayer(profileId)?.name}
+                                </Link>{' '}
+                                - Alternate account
+                            </Text>
+                        )
+                    }
                 />
             ),
             headerRight: () => <UserMenu />,

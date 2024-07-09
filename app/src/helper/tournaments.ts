@@ -89,12 +89,16 @@ export const findFullMatch = (match: Match, matchesList?: Match[]) =>
             match.participants.every((p) => m.participants.map((participant) => participant.name).includes(p.name))
     );
 
+export const playerNameForSearch = (name: string) => name?.toLowerCase().replace(/^(the)/, '');
+
 export const findTournamentMatch = (match: Omit<Match, 'tournament'>, tournament?: TournamentDetail) => {
     const matches = getAllTournamentMatches(tournament);
     return matches.find(
         (m) =>
             match.startTime?.getTime() === m.startTime?.getTime() &&
-            match.participants.every((p) => m.participants.map((participant) => participant.name.toLowerCase()).includes(p.name.toLowerCase()))
+            match.participants.every((p) =>
+                m.participants.map((participant) => playerNameForSearch(participant.name)).includes(playerNameForSearch(p.name))
+            )
     );
 };
 
@@ -127,6 +131,8 @@ export const getLiveOrUpcomingMatch = (match?: PlayoffMatch, tournamentMatches?:
             tournamentMatch.startTime &&
             Math.abs(differenceInMinutes(match.startTime, tournamentMatch.startTime)) < 150 &&
             match.participants.every((participant) =>
-                tournamentMatch.participants.map((tournamentParticipant) => tournamentParticipant.name).includes(participant.name)
+                tournamentMatch.participants
+                    .map((tournamentParticipant) => playerNameForSearch(tournamentParticipant.name))
+                    .includes(playerNameForSearch(participant.name))
             )
     );

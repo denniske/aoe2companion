@@ -228,12 +228,7 @@ function MainMatchesInternal({ profileId }: { profileId: number }) {
                                 //     return <MyText style={styles.header}>{getTranslation('main.matches.matches', { matches: filteredMatches?.length })}</MyText>
                                 default:
                                     return (
-                                        <Match
-                                            match={item as any}
-                                            expanded={index === -1}
-                                            highlightedUsers={[Number(profileId)]}
-                                            user={Number(profileId)}
-                                        />
+                                        <Match match={item as any} expanded={false} highlightedUsers={[Number(profileId)]} user={Number(profileId)} />
                                     );
                             }
                         }}

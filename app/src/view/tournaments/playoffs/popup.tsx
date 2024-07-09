@@ -6,7 +6,7 @@ import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import { PlayoffMatch as IPlayoffMatch } from 'liquipedia';
 import { Fragment, useEffect } from 'react';
-import { View, StyleSheet, TouchableOpacity, Linking, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Linking, ActivityIndicator, Pressable, Platform } from 'react-native';
 
 import { PlayoffParticipant } from './participant';
 import { PlayoffPlayer } from './player';
@@ -35,6 +35,7 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
         : selectedMatch;
 
     const liveOrUpcomingMatch = getLiveOrUpcomingMatch(match, tournamentMatches);
+    const isLive = liveOrUpcomingMatch?.startTime && isPast(liveOrUpcomingMatch?.startTime);
 
     useEffect(() => {
         if (visible && tournamentPath && tournament && !match) {
@@ -52,6 +53,19 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
         <BottomSheet isActive={visible} onClose={() => setVisible(false)} showHandle style={styles.modal}>
             {match ? (
                 <>
+                    {tournamentPath && tournament && (
+                        <Pressable
+                            className="flex-row items-center justify-center gap-2 mb-2"
+                            onPress={() =>
+                                Platform.OS === 'web'
+                                    ? Linking.openURL(`https://liquipedia.net/ageofempires/${tournament.path}`)
+                                    : router.navigate(`/competitive/tournaments/${encodeURIComponent(tournament.path)}`)
+                            }
+                        >
+                            {tournament.league?.image && <Image source={{ uri: tournament.league.image }} className="w-5 h-5" />}
+                            <Text variant="label">{tournament.name}</Text>
+                        </Pressable>
+                    )}
                     <View style={styles.modalHeader}>
                         {match.participants.map((participant, index) => (
                             <Fragment key={index}>
@@ -60,12 +74,20 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
                             </Fragment>
                         ))}
                     </View>
-                    {match.startTime && (
-                        <Text variant="label" align="center">
-                            {format(match.startTime, 'PP - p')}
-                        </Text>
-                    )}
-                    {liveOrUpcomingMatch?.startTime && isPast(liveOrUpcomingMatch?.startTime) && (
+                    <View className="flex-row items-center justify-center gap-6">
+                        {match.startTime && (
+                            <Text variant="label" align="center">
+                                {format(match.startTime, 'PP - p')}
+                            </Text>
+                        )}
+                        {match.bestOf && (
+                            <Text variant="body" align="center">
+                                Best of {match.bestOf}
+                            </Text>
+                        )}
+                    </View>
+
+                    {isLive && (
                         <View className="justify-center flex-row gap-4">
                             <Text variant="label" className="uppercase" color="brand">
                                 {getTranslation('tournaments.live')}
@@ -78,7 +100,7 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
                     <View style={styles.games}>
                         {match.games.map((game, index) => {
                             const [leftPlayers = [], rightPlayers = []] = game.players ?? [];
-                            const notPlayed = !leftPlayers.length || !rightPlayers.length;
+                            const notPlayed = (!leftPlayers.length || !rightPlayers.length) && isPast(match.startTime ?? new Date()) && !isLive;
 
                             return (
                                 <View style={styles.game} key={index}>

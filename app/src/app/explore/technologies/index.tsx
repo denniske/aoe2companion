@@ -4,7 +4,7 @@ import { SectionList } from '@app/components/section-list';
 import { Text } from '@app/components/text';
 import { scrollToSection, sectionItemLayout } from '@app/utils/list';
 import { getBuildingName, getTechName, getCivNameById, techSections } from '@nex/data';
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { router, Stack, useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
 import { View, SectionList as SectionListRef } from 'react-native';
 
@@ -57,6 +57,12 @@ export default function TechList() {
                         placeholder={getTranslation('tech.search.placeholder')}
                         onChangeText={(text) => setText(text)}
                         value={text}
+                        onSubmitEditing={() => {
+                            const topResult = list[0]?.data?.[0];
+                            if (topResult) {
+                                router.navigate(`/explore/technologies/${topResult}`);
+                            }
+                        }}
                     />
                 </View>
 

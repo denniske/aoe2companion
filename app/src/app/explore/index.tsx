@@ -50,11 +50,14 @@ const typeAttributes: Record<Item['type'], { path: string; label: string; title:
         tech: { path: 'technologies', label: 'Tech', title: getTechName, icon: getTechIcon },
     };
 
-const Result: React.FC<{ item: Item }> = ({ item }) => {
+const Result: React.FC<{ item: Item; index: number }> = ({ item, index }) => {
     const { path, label, title, icon } = typeAttributes[item.type];
 
     return (
-        <TouchableOpacity className="flex-row items-center py-2.5 gap-2" onPress={() => router.navigate(`/explore/${path}/${item.name}`)}>
+        <TouchableOpacity
+            className={`flex-row items-center py-2.5 gap-2 -mx-4 px-4 -mb-px ${index === 0 ? 'bg-gold-100 dark:bg-blue-900 z-10' : ''}`}
+            onPress={() => router.navigate(`/explore/${path}/${item.name}`)}
+        >
             <Image source={icon(item.name)} className="w-8 h-8" />
             <View className="flex-1">
                 <Text variant="label">{title(item.name)}</Text>
@@ -80,7 +83,12 @@ export default function Explore() {
             section.data.map<Item>((unit) => ({ name: unit, title: getUnitName(unit), type: 'unit', section: getTranslation(section.title as any) }))
         ),
         ...buildingSections.flatMap((section) =>
-            section.data.map<Item>((building) => ({ name: building, title: getBuildingName(building), type: 'building', section: getTranslation(section.title as any) }))
+            section.data.map<Item>((building) => ({
+                name: building,
+                title: getBuildingName(building),
+                type: 'building',
+                section: getTranslation(section.title as any),
+            }))
         ),
         ...techSections.flatMap((section) =>
             section.data.map<Item>((tech) => ({
@@ -117,7 +125,19 @@ export default function Explore() {
                 />
 
                 <View className="px-4">
-                    <Field type="search" value={search} onChangeText={setSearch} placeholder="Search for civs, units, buildings, or techs" />
+                    <Field
+                        type="search"
+                        value={search}
+                        onSubmitEditing={() => {
+                            const topResult = filteredData[0];
+                            if (topResult) {
+                                const { path } = typeAttributes[topResult.type];
+                                router.navigate(`/explore/${path}/${topResult.name}`);
+                            }
+                        }}
+                        onChangeText={setSearch}
+                        placeholder="Search for civs, units, buildings, or techs"
+                    />
                 </View>
 
                 {search ? (
@@ -126,7 +146,7 @@ export default function Explore() {
                         contentContainerStyle="px-4 pb-4"
                         data={filteredData}
                         ItemSeparatorComponent={() => <View className="h-[1px] bg-gray-200 dark:bg-gray-800 w-full" />}
-                        renderItem={({ item }) => <Result item={item} />}
+                        renderItem={(props) => <Result {...props} />}
                     />
                 ) : (
                     <ScrollView className="flex-1" contentContainerStyle="gap-5 pb-4" keyboardShouldPersistTaps="handled">

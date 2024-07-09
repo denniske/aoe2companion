@@ -332,7 +332,6 @@ export default function TournamentDetail() {
                                                             className="-mx-3"
                                                             horizontal
                                                             showsHorizontalScrollIndicator={false}
-                                                            snapToInterval={playoffRoundWidth}
                                                             contentContainerStyle="gap-5"
                                                         >
                                                             {playoffRow.rounds.map((playoffRound) => (

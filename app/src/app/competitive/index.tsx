@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { ITwitchChannel } from '@app/api/following';
 import { IMatchesMatch } from '@app/api/helper/api.types';
+import { useLiveTwitchAccounts } from '@app/api/live';
 import { useOngoing } from '@app/api/ongoing';
 import { useFeaturedTournaments, useTournamentMatches } from '@app/api/tournaments';
 import { FlatList } from '@app/components/flat-list';
@@ -15,10 +15,8 @@ import { Tag } from '@app/view/components/tag';
 import { PlayoffPopup } from '@app/view/tournaments/playoffs/popup';
 import { TournamentCard } from '@app/view/tournaments/tournament-card';
 import { TournamentMatch } from '@app/view/tournaments/tournament-match';
-import { getHost, getTwitchChannel, getVerifiedPlayer, getVerifiedPlayerIds, matchAttributes } from '@nex/data';
+import { getTwitchChannel, getVerifiedPlayer, getVerifiedPlayerIds, matchAttributes } from '@nex/data';
 import { appConfig } from '@nex/dataset';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { Image } from 'expo-image';
 import { Stack, useFocusEffect } from 'expo-router';
 import { PlayoffMatch } from 'liquipedia';
@@ -47,16 +45,8 @@ export default function Competitive() {
     const [selectedSet, setSelectedSet] = useState<{ match: PlayoffMatch; tournamentPath: string }>();
     const [showSetPopup, setShowSetPopup] = useState(false);
 
-    const { data: liveTwitchAccounts } = useQuery({
-        queryKey: ['twitch', 'all'],
-        queryFn: async () => {
-            const url = getHost('aoe2companion-api') + `twitch/live?game=${appConfig.game === 'aoe2de' ? '13389' : '498482'}`;
+    const { liveTwitchAccounts } = useLiveTwitchAccounts();
 
-            const { data } = await axios.get(url);
-            return (Array.isArray(data) ? data : []) as ITwitchChannel[];
-        },
-        refetchOnWindowFocus: true,
-    });
     const activePlayers = orderBy(
         compact(
             activePlayerIds.map(({ profileId, match }) => {
@@ -108,7 +98,6 @@ export default function Competitive() {
                     title: 'Competitive',
                 }}
             />
-
             {selectedMatch && (
                 <MatchPopup
                     isActive={showMatchPopup}
@@ -124,7 +113,6 @@ export default function Competitive() {
                     }}
                 />
             )}
-
             {selectedSet && (
                 <PlayoffPopup
                     visible={showSetPopup}
@@ -133,7 +121,6 @@ export default function Competitive() {
                     tournamentPath={selectedSet.tournamentPath}
                 />
             )}
-
             <View className="flex-1 pt-4 gap-5">
                 {appConfig.game === 'aoe2de' && (
                     <View className="gap-2">
@@ -252,6 +239,12 @@ export default function Competitive() {
                     </View>
                 )}
             </View>
+            <Text variant="body-sm" className="px-4 text-center mt-6">
+                Tournament data provided by{' '}
+                <Link variant="body-sm" href="https://liquipedia.net/ageofempires">
+                    liquipedia.net
+                </Link>
+            </Text>
         </ScrollView>
     );
 }
