@@ -86,10 +86,16 @@ export const findFullMatch = (match: Match, matchesList?: Match[]) =>
         (m) =>
             match.tournament.path === m.tournament.path &&
             match.startTime?.getTime() === m.startTime?.getTime() &&
-            match.participants.every((p) => m.participants.map((participant) => participant.name).includes(p.name))
+            match.participants.every((p) =>
+                m.participants.map((participant) => playerNameForSearch(participant.name)).includes(playerNameForSearch(p.name))
+            )
     );
 
-export const playerNameForSearch = (name: string) => name?.toLowerCase().replace(/^(the)/, '');
+export const playerNameForSearch = (name: string) =>
+    name
+        ?.toLowerCase()
+        .replace(/^(the)/, '')
+        .replace(/[0-9]/g, '');
 
 export const findTournamentMatch = (match: Omit<Match, 'tournament'>, tournament?: TournamentDetail) => {
     const matches = getAllTournamentMatches(tournament);

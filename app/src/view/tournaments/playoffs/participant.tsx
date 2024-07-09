@@ -27,7 +27,7 @@ export const PlayoffParticipant: React.FC<{ size?: number; participant: EventPar
                 verifiedPlayer && <CountryImage country={verifiedPlayer.country} />
             )}
             <MyText numberOfLines={1} style={[{ fontSize: size, flex: 1, textAlign: reversed ? 'right' : 'left' }, winner && styles.winner]}>
-                {participant.name || getTranslation('tournaments.tbd')}
+                {verifiedPlayer?.name ?? (participant.name || getTranslation('tournaments.tbd'))}
             </MyText>
         </View>
     );
