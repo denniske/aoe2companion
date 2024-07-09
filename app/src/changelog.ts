@@ -156,6 +156,20 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '111.0.0': [
+        {
+            type: 'feature',
+            title: 'Integrated with [aoestats.io](https://aoestats.io) to add new Stats > Winrates screen',
+        },
+        {
+            type: 'minor',
+            title: 'Cleanup competitive players tournament games',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fixed some group stages not showing up',
+        },
+    ],
     '110.0.0': [
         {
             type: 'feature',
