@@ -22,7 +22,7 @@ const BuildCard: React.FC<IBuildOrder & { favorited?: boolean; toggleFavorite?: 
     size = 'large',
     ...build
 }) => {
-    const title = build.title.replace(build.civilization, '');
+    const title = build.title.replace(build.civilization, '').trim();
     const civIcon = getCivIconLocal(build.civilization) ?? genericCivIcon;
     const difficultyIcon = getDifficultyIcon(build.difficulty);
     const ages = sortBuildAges(Object.entries(build.pop));

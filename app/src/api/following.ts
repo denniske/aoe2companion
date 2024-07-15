@@ -57,6 +57,44 @@ export async function setAccountPushToken(account_id: string, push_token: string
     })
 }
 
+export async function setAccountLiveActivityToken(account_id: string, live_activity_token: string): Promise<any> {
+    const url = getHost('aoe2companion-api') + `account/live_activity_token`;
+
+    const data = {
+        account_id,
+        live_activity_token,
+    };
+
+    return await fetchJson('setAccountLiveActivityToken', url, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+}
+
+export async function storeLiveActivityStarted(account_id: string, live_activity_id: string, activity_type: string, object_id: string): Promise<any> {
+    const url = getHost('aoe2companion-api') + `account/live_activity_started`;
+
+    const data = {
+        account_id,
+        live_activity_id,
+        activity_type,
+        object_id,
+    };
+
+    return await fetchJson('storeLiveActivityStarted', url, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+}
+
 export async function setAccountPushTokenWeb(account_id: string, push_token_web: string): Promise<any> {
     const url = getHost('aoe2companion-api') + `account/push_token_web`;
 

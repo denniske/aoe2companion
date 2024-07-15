@@ -9,7 +9,7 @@ internal class VersionException: Exception {
     }
 }
 
-struct MyActivityAttributes: ActivityAttributes {
+struct LiveGameAttributes: ActivityAttributes {
     public struct ContentState: Codable, Hashable {
         var data: String
     }
@@ -55,63 +55,36 @@ public class WidgetModule: Module {
 public class LiveActivityModule: Module {
     public func definition() -> ModuleDefinition {
         Name("LiveActivity")
+        Events("onTokenChanged", "onActivityStarted")
 
-        Function("start") { (data: String) -> String? in
-            if #available(iOS 16.1, *) {
-                var activity: Activity<MyActivityAttributes>?
-                let initialContentState =
-                    MyActivityAttributes
-                    .ContentState(data: data)
-                let activityAttributes = MyActivityAttributes()
-
-                do {
-                    activity =
-                        try Activity
-                        .request(attributes: activityAttributes, contentState: initialContentState)
-
-                    return activity?.id
-                } catch (let error) {
-                    return error.localizedDescription
-                }
-            }
-            return nil
-        }
-
-        Function("list") { () -> [[String: String]]? in
-            if #available(iOS 16.1, *) {
-                var activities = Activity<MyActivityAttributes>.activities
-                activities.sort { $0.id > $1.id }
-
-                return activities.map { ["id": $0.id, "data": $0.contentState.data] }
-            }
-            return nil
-        }
-
-        Function("end") { (id: String) -> String? in
-            if #available(iOS 16.1, *) {
+        Function("enable") { () -> Void in
+            if #available(iOS 17.2, *) {
                 Task {
-                    await Activity<MyActivityAttributes>.activities.filter { $0.id == id }.first?
-                        .end(
-                            dismissalPolicy: .immediate)
-                    return id
-                }
-            }
-            return nil
-        }
+                    for await data in Activity<LiveGameAttributes>.pushToStartTokenUpdates {
+                        let token = data.map { String(format: "%02x", $0) }.joined()
 
-        Function("update") { (id: String, data: String) -> String? in
-            if #available(iOS 16.1, *) {
+                        sendEvent("onTokenChanged", ["token": token])
+
+                    }
+                }
+
                 Task {
-                    let updatedStatus =
-                        MyActivityAttributes
-                        .ContentState(data: data)
-                    let activities = Activity<MyActivityAttributes>.activities
-                    let activity = activities.filter { $0.id == id }.first
-                    await activity?.update(using: updatedStatus)
-                    return id
+                    for await activityData in Activity<LiveGameAttributes>.activityUpdates {
+                        Task {
+                            for await tokenData in activityData.pushTokenUpdates {
+                                let token = tokenData.map { String(format: "%02x", $0) }.joined()
+
+                                sendEvent(
+                                    "onActivityStarted",
+                                    [
+                                        "token": token, "type": "live-game",
+                                        "data": activityData.content.state.data,
+                                    ])
+                            }
+                        }
+                    }
                 }
             }
-            return nil
         }
     }
 }

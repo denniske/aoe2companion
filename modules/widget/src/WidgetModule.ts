@@ -5,8 +5,5 @@ export const WidgetModule = {
     reloadAll: () => {},
 };
 export const LiveActivityModule = {
-    start: (...args: string[]) => '',
-    list: () => [],
-    end: (...args: string[]) => '',
-    update: (...args: string[]) => '',
+    enable: () => undefined,
 };

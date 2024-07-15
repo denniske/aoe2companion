@@ -1,8 +1,18 @@
+import { setAccountLiveActivityToken, setAccountPushTokenElectron, storeLiveActivityStarted } from '@app/api/following';
+import { fetchJson2 } from '@app/api/util';
+import { Button } from '@app/components/button';
 import { Header } from '@app/components/header';
+import { TabBar } from '@app/components/tab-bar';
+import { getElectronPushToken, isElectron } from '@app/helper/electron';
+import { fetchAoeReferenceData } from '@app/helper/reference';
+import initSentry from '@app/helper/sentry';
+import { getLanguageFromSystemLocale2, getTranslation } from '@app/helper/translate';
+import { getInternalAoeString } from '@app/helper/translate-data';
 import { useApi } from '@app/hooks/use-api';
-import { addLoadedLanguage, useMutate, useSelector } from '@app/redux/reducer';
+import { ScrollContext, ScrollableContext } from '@app/hooks/use-scrollable';
+import { useSelector } from '@app/redux/reducer';
+import { getInternalLanguage, setInternalLanguage } from '@app/redux/statecache';
 import store from '@app/redux/store';
-import { liveActivity } from '@app/service/live-game-activity';
 import {
     IAccount,
     IConfig,
@@ -19,38 +29,27 @@ import { useFonts, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold, Roboto_9
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fasr } from '@fortawesome/sharp-regular-svg-icons';
 import { fass } from '@fortawesome/sharp-solid-svg-icons';
+import { Environment, IHostService, IHttpService, ITranslationService, OS, registerService, SERVICE_NAME } from '@nex/data';
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import * as Sentry from '@sentry/react-native';
 import { QueryClient, QueryClientProvider, focusManager } from '@tanstack/react-query';
 import { ApplicationProvider } from '@ui-kitten/components';
+import * as Device from 'expo-device';
 import * as Localization from 'expo-localization';
+import * as Notifications from 'expo-notifications';
 import { Tabs, useNavigation } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
+import { LiveActivity } from 'modules/widget';
 import { useColorScheme as useTailwindColorScheme } from 'nativewind';
 import { useCallback, useEffect, useState } from 'react';
 import { BackHandler, LogBox, Platform, StatusBar, View, useColorScheme, AppState, AppStateStatus } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { PaperProvider, MD2DarkTheme as PaperDarkTheme, MD2LightTheme as PaperDefaultTheme } from 'react-native-paper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { Provider as ReduxProvider } from 'react-redux';
 import '../../../global.css';
-import * as Device from 'expo-device';
-import { Environment, IHostService, IHttpService, ITranslationService, OS, registerService, SERVICE_NAME } from '@nex/data';
-import * as Notifications from 'expo-notifications';
-import * as TaskManager from 'expo-task-manager';
-import initSentry from '@app/helper/sentry';
-import { getLanguageFromSystemLocale2, getTranslation } from '@app/helper/translate';
-import { getInternalAoeString, loadAoeStringsAsync } from '@app/helper/translate-data';
-import { getInternalLanguage, setInternalLanguage } from '@app/redux/statecache';
-import { fetchJson2 } from '@app/api/util';
-import * as SplashScreen from 'expo-splash-screen';
-import { getElectronPushToken, isElectron } from '@app/helper/electron';
-import { setAccountPushTokenElectron } from '@app/api/following';
-import { fetchAoeReferenceData } from '@app/helper/reference';
-import { TabBar } from '@app/components/tab-bar';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppColorScheme, useDeviceContext } from 'twrnc';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { ScrollContext, ScrollableContext } from '@app/hooks/use-scrollable';
-import { Button } from '@app/components/button';
 
 function onAppStateChange(status: AppStateStatus) {
     if (Platform.OS !== 'web') {
@@ -86,9 +85,8 @@ try {
         handleSuccess: (notificationId) => console.log('success:' + notificationId),
         handleError: (notificationId) => console.log('error:' + notificationId),
     });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
 } catch (e) {}
-
-const BACKGROUND_NOTIFICATION_TASK = 'BACKGROUND-NOTIFICATION-TASK';
 
 if (Platform.OS !== 'web') {
     LogBox.ignoreLogs([
@@ -101,19 +99,6 @@ if (Platform.OS !== 'web') {
         'Function components cannot be given',
         'Support for defaultProps',
     ]);
-
-    TaskManager.defineTask(BACKGROUND_NOTIFICATION_TASK, ({ data, error, executionInfo }) => {
-        if (data) {
-            const { body } = data as { body: Record<string, any> };
-            if (body.finished) {
-                liveActivity.list().map((activity) => {
-                    if (activity.data.matchId === body.match_id) {
-                        liveActivity.end(activity.id);
-                    }
-                });
-            }
-        }
-    });
 }
 
 class HttpService implements IHttpService {
@@ -172,7 +157,6 @@ async function updatePushTokenForElectron(config: IConfig, account: IAccount) {
 const isMobile = ['Android', 'iOS'].includes(Device.osName!);
 
 function AppWrapper() {
-    const mutate = useMutate();
     const { setColorScheme } = useTailwindColorScheme();
     const [, , setColorTwrncScheme] = useAppColorScheme(tw);
     const [scrollPosition, setScrollPosition] = useState(0);
@@ -244,6 +228,26 @@ function AppWrapper() {
         if (account == null) return;
         updatePushTokenForElectron(config, account);
     }, [config, account]);
+
+    useEffect(() => {
+        if (account) {
+            const activity = new LiveActivity();
+            activity.emitter.addListener<{ token: string }>('onTokenChanged', async ({ token }) => {
+                console.log('onActivityStarted', account.id, token);
+                if (token) {
+                    await setAccountLiveActivityToken(account.id, token);
+                }
+            });
+            activity.emitter.addListener<{ type: string; token: string; data: string }>('onActivityStarted', async ({ token, data, type }) => {
+                const { match } = JSON.parse(data);
+                console.log('onActivityStarted', account.id, token, type, match.matchId);
+                if (token && type && match) {
+                    await storeLiveActivityStarted(account.id, token, type, match.matchId);
+                }
+            });
+            activity.enable();
+        }
+    }, [account]);
 
     useEffect(() => {
         if (config == null) return;
@@ -394,10 +398,6 @@ function HomeLayout() {
         };
 
         const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
-
-        if (Platform.OS !== 'web') {
-            Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK);
-        }
 
         return () => backHandler.remove();
     }, []);

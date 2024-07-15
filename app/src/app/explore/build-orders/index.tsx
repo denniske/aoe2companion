@@ -2,13 +2,11 @@ import { Field } from '@app/components/field';
 import { FlatList } from '@app/components/flat-list';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { getTranslation } from '@app/helper/translate';
-import { useHeaderHeight } from '@react-navigation/elements';
 import { useFocusEffect } from '@react-navigation/native';
 import { Stack, router } from 'expo-router';
-import { reverse, sortBy } from 'lodash';
+import { reverse, sortBy, startCase } from 'lodash';
 import { useCallback, useState } from 'react';
 import { View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { buildsData } from '../../../../../data/src/data/builds';
 import { useBuildFilters, useFavoritedBuilds } from '../../../service/storage';
@@ -24,8 +22,6 @@ export default function BuildListPage() {
     const buildFilters = useBuildFilters();
     const { civilization, buildType, difficulty } = buildFilters.filters;
     const [search, setSearch] = useState('');
-    const headerHeight = useHeaderHeight();
-    const insets = useSafeAreaInsets();
 
     const formattedBuilds = (buildType === 'favorites' ? favorites : buildsData).map((build) => ({
         ...build,
@@ -41,7 +37,9 @@ export default function BuildListPage() {
             (civilization === 'all' || build.civilization === civilization) &&
             (buildType === 'all' || buildType === 'favorites' || build.attributes.includes(buildType)) &&
             (difficulty === 'all' || difficulty === build.difficulty) &&
-            transformSearch(build.title).includes(transformSearch(search))
+            (transformSearch(build.title).includes(transformSearch(search)) ||
+                transformSearch(build.civilization).includes(transformSearch(search)) ||
+                build.attributes.some((attribute) => transformSearch(startCase(attribute)).includes(transformSearch(search))))
     );
 
     useFocusEffect(

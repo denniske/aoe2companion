@@ -1,17 +1,17 @@
-import { DarkMode } from '../redux/reducer';
-import { Civ, LeaderboardId } from '@nex/data';
-import store from '../redux/store';
-import { v4 as uuidv4 } from 'uuid';
-import { Flag } from '@nex/data';
+import { Civ, LeaderboardId, Flag } from '@nex/data';
 import AsyncStorage, { useAsyncStorage } from '@react-native-async-storage/async-storage';
-import { isElectron, sendConfig, sendSettings } from '../helper/electron';
+import Constants from 'expo-constants';
 import { camelCase, merge } from 'lodash';
 import { useEffect, useState } from 'react';
+import { Image, Platform } from 'react-native';
+import { v4 as uuidv4 } from 'uuid';
+
 import { buildsData } from '../../../data/src/data/builds';
 import { Widget } from '../../../modules/widget';
-import Constants from 'expo-constants';
 import { genericCivIcon, getCivIconLocal } from '../helper/civs';
-import { Image, Platform } from 'react-native';
+import { isElectron, sendConfig, sendSettings } from '../helper/electron';
+import { DarkMode } from '../redux/reducer';
+import store from '../redux/store';
 
 export interface IConfig {
     hotkeyShowHideEnabled: boolean;
@@ -167,7 +167,7 @@ export const loadFollowingFromStorage = async () => {
         // }
     }
 
-    return entries.filter(e => e.profileId != null);
+    return entries.filter((e) => e.profileId != null);
 };
 
 export const saveFollowingToStorage = async (following: IFollowingEntry[]) => {
@@ -216,6 +216,12 @@ export const useFavoritedBuilds = () => {
                         image: widget.setImage(
                             Image.resolveAssetSource(getCivIconLocal(build.civilization) ?? genericCivIcon).uri,
                             `${camelCase(build.civilization)}.png`
+                        ),
+                        icon: widget.setImage(
+                            Image.resolveAssetSource({
+                                uri: build.imageURL,
+                            }).uri,
+                            `${camelCase(build.image.toString())}.png`
                         ),
                     }))
             );

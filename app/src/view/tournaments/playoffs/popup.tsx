@@ -54,17 +54,25 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
             {match ? (
                 <>
                     {tournamentPath && tournament && (
-                        <Pressable
-                            className="flex-row items-center justify-center gap-2 mb-2"
-                            onPress={() =>
-                                Platform.OS === 'web'
-                                    ? Linking.openURL(`https://liquipedia.net/ageofempires/${tournament.path}`)
-                                    : router.navigate(`/competitive/tournaments/${encodeURIComponent(tournament.path)}`)
-                            }
-                        >
-                            {tournament.league?.image && <Image source={{ uri: tournament.league.image }} className="w-5 h-5" />}
-                            <Text variant="label">{tournament.name}</Text>
-                        </Pressable>
+                        <View className="flex-row gap-2 justify-center">
+                            <Pressable
+                                className="flex-row items-center justify-center gap-2 mb-2"
+                                onPress={() =>
+                                    Platform.OS === 'web'
+                                        ? Linking.openURL(`https://liquipedia.net/ageofempires/${tournament.path}`)
+                                        : router.navigate(`/competitive/tournaments/${encodeURIComponent(tournament.path)}`)
+                                }
+                            >
+                                {tournament.league?.image && <Image source={{ uri: tournament.league.image }} className="w-6 h-6" />}
+                                <Text variant="label-lg">{tournament.name}</Text>
+                            </Pressable>
+
+                            {match.header && (
+                                <Text variant="body-lg" color="subtle">
+                                    {match.header.name}
+                                </Text>
+                            )}
+                        </View>
                     )}
                     <View style={styles.modalHeader}>
                         {match.participants.map((participant, index) => (
