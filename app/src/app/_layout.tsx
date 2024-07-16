@@ -230,7 +230,7 @@ function AppWrapper() {
     }, [config, account]);
 
     useEffect(() => {
-        if (account) {
+        if (Platform.OS === 'ios' && account) {
             const activity = new LiveActivity();
             activity.emitter.addListener<{ token: string }>('onTokenChanged', async ({ token }) => {
                 console.log('onActivityStarted', account.id, token);

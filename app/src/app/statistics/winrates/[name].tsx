@@ -15,7 +15,7 @@ import { ProgressBar } from '@app/components/progress-bar';
 import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
 import { getCivHistoryImage, getCivIconLocal } from '@app/helper/civs';
-import { VictoryChart, VictoryTheme, VictoryBar, VictoryAxis, VictoryArea, VictoryLine } from '@app/helper/victory';
+import { VictoryChart, VictoryTheme, VictoryBar, VictoryAxis, VictoryArea, VictoryLine, LineSegment } from '@app/helper/victory';
 import { useSelector } from '@app/redux/reducer';
 import tw from '@app/tailwind';
 import { Slider } from '@app/view/components/slider';
@@ -138,7 +138,7 @@ const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingRe
                                 <VictoryAxis dependentAxis crossAxis tickFormat={tickFormat} />
                                 <VictoryAxis
                                     crossAxis
-                                    gridComponent={<View />}
+                                    gridComponent={<LineSegment active={false} style={{ stroke: 'transparent' }} />}
                                     tickFormat={(x) => grouping.elo_groupings.find((eg) => eg.name === x)?.label.replace(/ *\([^)]*\) */g, '') ?? ''}
                                 />
 
@@ -190,7 +190,7 @@ const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown;
                                 theme={colorScheme === 'dark' ? VictoryTheme.customDark : VictoryTheme.custom}
                             >
                                 <VictoryAxis dependentAxis crossAxis tickFormat={tickFormat} />
-                                <VictoryAxis crossAxis gridComponent={<View />} tickFormat={(x) => format(new Date(x), 'M/d')} />
+                                <VictoryAxis crossAxis tickFormat={(x) => format(new Date(x), 'M/d')} />
 
                                 {domain[0] > domain[1] ? (
                                     <VictoryLine

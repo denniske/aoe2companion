@@ -2,7 +2,7 @@ import tw from '@app/tailwind';
 import { cloneDeep, merge } from 'lodash';
 import { VictoryTheme } from 'victory-native';
 
-export { VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryBar, VictoryArea } from 'victory-native';
+export { VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryBar, VictoryArea, LineSegment } from 'victory-native';
 
 function replaceRobotoWithSystemFont(obj: any) {
     const keys = Object.keys(obj);
