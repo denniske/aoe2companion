@@ -30,6 +30,7 @@ import { saveConfigToStorage } from '../../service/storage';
 import { appVariants } from '../../styles';
 import { useTheme } from '../../theming';
 import { createStylesheet } from '../../theming-new';
+import { appConfig } from '@nex/dataset';
 
 export default function SettingsPage() {
     const styles = useStyles();
@@ -420,7 +421,7 @@ export default function SettingsPage() {
                             textMinWidth={150}
                             divider={divider}
                             value={config.mainPage || '/'}
-                            values={[
+                            values={appConfig.game === 'aoe2de' ? [
                                 '/',
                                 '/matches',
                                 '/matches/live',
@@ -435,6 +436,22 @@ export default function SettingsPage() {
                                 '/statistics',
                                 '/competitive',
                                 '/competitive/games',
+                                '/competitive/tournaments',
+                            ] : [
+                                '/',
+                                '/matches',
+                                '/matches/live',
+                                '/matches/users',
+                                '/explore',
+                                // '/explore/civilizations',
+                                // '/explore/units',
+                                // '/explore/buildings',
+                                // '/explore/technologies',
+                                // '/explore/build-orders',
+                                // '/explore/tips',
+                                '/statistics',
+                                '/competitive',
+                                // '/competitive/games',
                                 '/competitive/tournaments',
                             ]}
                             formatter={(value) =>
