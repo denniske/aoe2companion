@@ -18,6 +18,24 @@ export interface IChangelog {
 // https://www.ageofempires.com/news/age-of-empires-iv-season-one-update-release-notes/
 
 export const changelog4: IChangelog = {
+    '17.0.0': [
+        {
+            type: 'feature',
+            title: 'Show showmatches in Pro tab',
+        },
+        {
+            type: 'feature',
+            title: 'Choose main page (the page that is shown when the app is opened) in settings (iOS, Android)',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fixed Pull-To-Refresh for matches list, etc. (Android)',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fixed push notifications',
+        },
+    ],
     '16.0.0': [
         {
             type: 'feature',
