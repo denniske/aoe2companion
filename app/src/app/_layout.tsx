@@ -50,6 +50,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { Provider as ReduxProvider } from 'react-redux';
 import '../../../global.css';
 import { useAppColorScheme, useDeviceContext } from 'twrnc';
+import { appConfig } from '@nex/dataset';
 
 function onAppStateChange(status: AppStateStatus) {
     if (Platform.OS !== 'web') {
@@ -230,7 +231,7 @@ function AppWrapper() {
     }, [config, account]);
 
     useEffect(() => {
-        if (Platform.OS === 'ios' && account) {
+        if (Platform.OS === 'ios' && appConfig.game === 'aoe2de' && account) {
             const activity = new LiveActivity();
             activity.emitter.addListener<{ token: string }>('onTokenChanged', async ({ token }) => {
                 console.log('onActivityStarted', account.id, token);
