@@ -868,6 +868,7 @@ export const unitLines: IUnitLineDict = {
         upgrades: [
             'Bloodlines',
             'SiegeEngineers-20-1',
+            'Ballistics',
             'Chemistry',
             'DoubleCrossbow',
             'ScaleBardingArmor',
@@ -1078,6 +1079,7 @@ export const unitLines: IUnitLineDict = {
         upgrades: [
             'FurorCeltica',
             'SiegeEngineers-20-1',
+            'Ballistics',
             'Chemistry',
             'Rocketry-4',
             'TorsionEngines',

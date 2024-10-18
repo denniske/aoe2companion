@@ -174,6 +174,16 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '112.0.0': [
+        {
+            type: 'minor',
+            title: 'Implemented [AoE II DE Update 125283](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-preview-125283/)',
+        },
+        // {
+        //     type: 'bugfix',
+        //     title: 'Re-added "Find Player" functionality',
+        // },
+    ],
     '111.0.0': [
         {
             type: 'feature',
