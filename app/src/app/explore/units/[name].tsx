@@ -40,9 +40,9 @@ export default function UnitDetails() {
     const unitLineName = getUnitLineNameForUnit(unitName);
     const unitLine = unitLines[unitLineId];
 
-    console.log('unitLine', unitLine);
-    console.log('unitLineId', unitLineId);
-    console.log('unitLineName', unitLineName);
+    // console.log('unitLine', unitLine);
+    // console.log('unitLineId', unitLineId);
+    // console.log('unitLineName', unitLineName);
 
     return (
         <ScrollView>
