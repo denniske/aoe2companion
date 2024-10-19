@@ -360,6 +360,7 @@ function AppWrapper() {
                                                     options={{
                                                         headerShown: true,
                                                         header: Header,
+                                                        tabBarLabel: 'Home',
                                                         tabBarIcon: () => 'home',
                                                         headerRight: () => (
                                                             <Button href="/matches/users/search" icon="search">
