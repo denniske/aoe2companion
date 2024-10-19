@@ -180,8 +180,8 @@ export const changelog: IChangelog = {
             title: 'Implemented [AoE II DE Update 125283](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-preview-125283/)',
         },
         // {
-        //     type: 'bugfix',
-        //     title: 'Re-added "Find Player" functionality',
+        //     type: 'minor',
+        //     title: 'Load news faster',
         // },
     ],
     '111.0.0': [
