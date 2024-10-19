@@ -363,12 +363,13 @@ function AppWrapper() {
                                                         tabBarLabel: 'Home',
                                                         tabBarIcon: () => 'home',
                                                         headerRight: () => (
-                                                            <Button href="/matches/users/search" icon="search">
+                                                            <Button href={Platform.OS !== 'web' ? "/matches/users/search" : "/search"} icon="search">
                                                                 Find Player
                                                             </Button>
                                                         ),
                                                     }}
                                                 />
+                                                <Tabs.Screen name="search" options={{ href: null }} />
                                                 <Tabs.Screen name="matches" options={{ tabBarLabel: 'Matches', tabBarIcon: () => 'chess' }} />
                                                 <Tabs.Screen name="explore" options={{ tabBarLabel: 'Explore', tabBarIcon: () => 'landmark' }} />
                                                 <Tabs.Screen name="statistics" options={{ tabBarLabel: 'Stats', tabBarIcon: () => 'chart-simple' }} />
