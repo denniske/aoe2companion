@@ -21,8 +21,21 @@
     "ios": "expo run:ios",
     "build:plugin": "yarn clean:plugin && EXPO_NONINTERACTIVE=1 expo-module build plugin && ./plugin/src/scripts/copy.sh",
     "clean:plugin": "expo-module clean plugin",
-    "postinstall": "patch-package",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "postinstall": "patch-package && npx --yes copy-files-from-to"
+  },
+  "copyFiles": [
+      {
+          "from": "node_modules/react-native-vector-icons/Fonts/FontAwesome6_Regular.ttf",
+          "to": "node_modules/react-native-vector-icons/Fonts/FontAwesome6_Solid.ttf"
+      },
+      {
+          "from": "node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/FontAwesome6_Regular.ttf",
+          "to": "node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/FontAwesome6_Solid.ttf"
+      }
+  ],
+  "copyFilesSettings": {
+      "whenFileExists": "overwrite"
   },
   "dependencies": {
     "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
