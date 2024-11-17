@@ -1,0 +1,775 @@
+
+- expo router forward button not working (web)
+  https://github.com/expo/expo/issues/31747
+
+- react native paper button background color does not change in new arch
+  https://github.com/callstack/react-native-paper/issues/4520
+
+- victory native is blocked for web:
+  https://github.com/FormidableLabs/victory-native-xl/issues/305
+  https://commerce.nearform.com/open-source/victory-native/docs/cartesian/cartesian-chart
+  https://github.com/FormidableLabs/victory-native-xl/issues/260
+
+expo-app-update
+
+npm pack
+yarn add ../expo-app-update/expo-app-update-51.0.1.tgz
+
+run example:
+
+npm run build
+cd example
+npx expo run:android --device SM_G935F
+npx expo run:ios --device 00008130-001839181061401C
+
+open in native editor:
+
+cd example
+xed ios
+
+cd example/android
+studio
+
+
+
+
+
+
+
+
+
+
+Todo:
+- animated unit images
+
+Screenshots:
+- "cd tools" and "yarn server"
+- app/_layout.tsx -> comment out LogBox.ignoreLogs for screenshots
+- tester.tsx -> comment out "const testHookStore = new TestHookStore();"
+- can use iPhone 15 Pro and iPhone 8
+  https://developer.apple.com/help/app-store-connect/reference/screenshot-specifications
+
+aoe OTA update
+cc1271b48e4a0690511d54b41a63ceb9.Jsh1IP-avYMq5AsEcFQVNn_yrB2P9jP6wEZaWnw79fY.bundle
+has no content type...
+
+
+- /matches apis is slow for many profile_ids
+
+
+https://www.oldcai.com/server/large-postgresql-database-migration/
+https://endoflife.date/postgresql
+
+Integration of Nest js Logs with ELK Stack A Comprehensive Guide
+https://www.youtube.com/watch?v=7-ZC7fzcMqE
+
+Migration to Expo Router
+- I think we can remove @react-native-community/masked-view after that
+- Can I use Material Bottom Tabs with expo router and still have the file based routing?
+  This video is exactly what you are looking for: https://www.youtube.com/watch?v=AP08wUBhpKM
+- Also use react query for data fetching instead useApi
+  https://www.youtube.com/watch?v=vxkbf5QMA2g
+
+- OTA updates repo size deduplication
+  https://stackoverflow.com/a/76682079/1106753
+
+
+- donjon attack 5, 5 (x2), 5 (x3)
+
+- https://github.com/wix/react-native-navigation
+
+- use emblems from civs for tech tree background?
+
+https://www.ageofempires.com/news/preview-age-of-empires-ii-definitive-edition-update-95810/
+https://github.com/SiegeEngineers/aoe2techtree
+
+https://www.ageofempires.com/news/all-about-seasons-in-age-of-empires-iv/
+
+vercel no auto deploy
+"ignoreCommand": "[ \"$VERCEL_ENV\" != no_auto_deploy ]",
+
+
+- slow query matches with rating
+  https://legacy.aoe2companion.com/api/player/matches?game=aoe2de&start=0&count=1000&profile_ids=483559
+
+x return of rome
+x localization for newly found maps 34-48 and 127-131
+
+- Spies/Treason cost
+- Flemish Revolution cost
+- Flemish Militia barracks?
+
+- slot_type column was removed and is just set to 1
+- centurion effect on militia in unit page
+- counter for dromon centurion legionary
+- wootz steel in unit ugrades list
+
+eval $(op signin)
+op read op://aoe2companion/.../password
+
+https://github.com/transparencies/unique-unit-masks
+
+Aoe 2 Maps
+C:\Program Files (x86)\Steam\steamapps\common\AoE2DE\resources\_common\wpfg\resources\mapicons
+
+Aoe 4
+
+echo 'regex:Locale.*' > C:\Users\Dennis\Downloads\depotdownloader-2.4.7\DepotDownloader\in\filelist.txt
+C:\Users\Dennis\Downloads\depotdownloader-2.4.7\DepotDownloader -dir "C:\Users\Dennis\Downloads\depotdownloader-2.4.7\out" -username XXX -password "XXX" -app 1466860 -filelist "C:\Users\Dennis\Downloads\depotdownloader-2.4.7\in\filelist.txt" -all-languages
+
+C:\Users\Dennis\Downloads\AOEMods.Essence-0.6.0\AOEMods.Essence-0.6.0\AOEMods.Essence.CLI.exe sga-unpack "C:\Program Files (x86)\Steam\steamapps\common\Age of Empires IV\cardinal\archives\LocaleEnglish.sga" C:\Users\Dennis\Projects\unpacked\locale-english
+cd tools
+npm run strings-data
+
+maps
+C:\Users\Dennis\Downloads\AOEMods.Essence-0.6.0\AOEMods.Essence-0.6.0\AOEMods.Essence.CLI.exe sga-unpack "C:\Program Files (x86)\Steam\steamapps\common\Age of Empires IV\cardinal\archives\UIArt.sga" C:\Users\Dennis\Projects\unpacked\new-uiart
+
+C:\Users\Dennis\Downloads\AOEMods.Essence-0.6.0\AOEMods.Essence-0.6.0\AOEMods.Essence.CLI.exe rrtex-decode "C:\Users\Dennis\Downloads\depotdownloader-2.4.7\out-map" "C:\Users\Dennis\Downloads\depotdownloader-2.4.7\out-ui2" -v
+
+
+app store reviews
+- search in civs page
+
+
+feedaction in search also on click?
+
+screenshots
+experienceId
+website+privacy
+email
+
+Scrubbing the history of .yarn
+https://github.com/solidjs/solid-playground/issues/13
+
+codexmodalpage
+- CivTraitsTemplate
+mainmenupagelearnpane
+
+https://ageofempires.fandom.com/wiki/Abbasid_Dynasty#cite_note-Abbasid_Dynasty-1
+https://www.ageofempires.com/games/age-of-empires-iv/civilizations/abbasid-dynasty//
+
+
+House of Wisdom
+https://aktaboot.github.io/index.html
+
+https://aoe2recs.com/dashboard/
+
+https://github.com/SiegeEngineers/spectator-dashboard-ui
+
+https://aoeiv.net/
+
+Turnspender's Aoe4 Data Sheet - Patch 9369 (2021/12/09-)
+https://docs.google.com/spreadsheets/d/1oIkBHSYGMyxx-yRL_cmhnx7nV_afCMSyjaXX0mL_4Kk/htmlview?usp=sharing&pru=AAABfd04Et4*wqbygY5A4Pbi7l0OfmP9eQ#
+
+
+Typescript config files for expo
+https://docs.expo.dev/guides/typescript/
+
+------------------------------------
+Eas Build 
+------------------------------------
+
+export APP=aoe2 && export AOE=aoe2 && eas build --profile development-${AOE} --platform ios --auto-submit --no-wait --non-interactive
+export APP=aoe2 && export AOE=aoe2 && eas build --profile development-simulator-${AOE} --platform ios --auto-submit --no-wait --non-interactive
+
+export APP=aoe2 && export AOE=aoe2 && EXPO_DEBUG=1 EXPO_APP_STORE_DEBUG=1 eas build --profile production-${AOE} --platform ios --local --non-interactive
+
+export APP=aoe2 && export AOE=aoe2 && eas build --profile production-${AOE} --platform ios --auto-submit --no-wait --non-interactive
+export APP=aoe2 && export AOE=aoe2 && eas submit --profile production-${AOE} -p ios --no-wait --non-interactive --path build-1702683414902.ipa
+
+Publish OTA update (self-hosted)
+export APP=aoe2 && export AOE=aoe2 && yarn update
+
+Update version in eas config and then
+export APP=aoe2 && export AOE=aoe2 && git tag v84.0.1 && git push --tags && eas update --branch production --message "Update v84.0.1"
+
+export APP=aoe2 && export AOE=aoe2 && eas update:rollback
+
+export NAME=$(date "+%Y-%m-%d-%H:%M:%S").ipa && export APP=aoe2 && eas build --profile production-${APP} --platform ios --local --non-interactive --output $NAME && eas submit --profile production-${APP} -p ios --no-wait --non-interactive --path $NAME
+
+
+nano /etc/caddy/Caddyfile && sudo systemctl reload caddy
+lt --port 3000
+
+coder.aoe2companion.com {
+        reverse_proxy * https://...lt  {
+                header_up Host {http.reverse_proxy.upstream.hostport}
+        }
+}
+
+
+watchman watch-del-all && watchman shutdown-server
+
+React 17 JSX transform now enabled by default: this means that you don’t need to write import React from 'react'; at the top of every source file that uses JSX. Learn more about the transform and how you can disable it, if you prefer.
+
+
+op vault delete aoe2companion && op vault create aoe2companion
+op item list
+op item create --category password --title database_url --vault aoe2companion password=$(secrethub read denniske/aoe2companion/database_url)
+
+
+tailwind
+https://aoe4world.com/players/14553404
+https://aoe4world.com/players/14589700-BlueBlackFox
+
+
+git clone --depth 1 file://C:\Users\Dennis\Projects\aoe2companion && cd aoe2companion && yarn && npx eas build --profile development4 --platform android --no-wait
+
+git clone --depth 1 file:///Users/dennis/Projects/aoe2companion && cd aoe2companion && yarn && npx eas build --profile development-simulator4 --platform ios --no-wait
+
+yarn set version berry
+
+In App Purchase
+
+x Retrieve Purchases
+- Play Console Pricing?
+
+EAS
+
+https://forums.expo.dev/t/has-anyone-successfully-adopted-iap-with-eas-build-for-their-managed-app/54047/24
+https://medium.com/@jonathan.payet/expo-in-app-purchase-for-managed-app-cdcd643de28d
+
+https://docs.expo.dev/build-reference/local-builds/
+
+
+Aoe 4
+
+https://aoe2recs.com/dashboard/
+https://github.com/SiegeEngineers/spectator-dashboard-ui
+
+https://aoeiv.net/
+
+https://aoe4-info.vercel.app/
+
+https://github.com/y4qub/coh2ladders
+https://coh2stats.com/leaderboards
+
+https://github.com/codereversing/aoe4_socketspy
+
+
+x quick play leaderboard id format
+x search aoe2
+x leaderboard country
+
+x recheck tech effects of bohemians / poles
+x unit upgrade costs (lightcav -> hussar / wingedhussar)
+- units colored
+
+223576,76561198001031686,Sihing Mo
+336655,76561198116899512,Baratticus
+209525,76561197995781128,aoe2companion.com
+
+ratha kasbah with berber allies
+unique building for civ page
+
+
+
+git tag v38.0.0 && git push --tags
+git tag -d v38.0.0 && git push --delete origin v38.0.0
+git tag -d api-v26.0.20 && git push --delete origin api-v26.0.20 && git tag api-v26.0.20 && git push --tags
+git tag -d desktop-v49.0.0+0 && git push --delete origin desktop-v49.0.0+0 && git tag desktop-v49.0.0+0 && git push --tags
+git tag -d notify-v49.0.2 && git push --delete origin notify-v49.0.2 && git tag notify-v49.0.2 && git push --tags
+git tag -d aoe4-v7.0.0 && git push --delete origin aoe4-v7.0.0 && git tag aoe4-v7.0.0 && git push --tags
+
+git tag -d v42.0.0 && git push --delete origin v42.0.0 && git tag v42.0.0 && git push --tags
+
+cp ./node_modules/hermes-engine/linux64-bin/hermesc ./node_modules/react-native/sdks/hermesc/linux64-bin/hermesc
+
+
+docker-compose up -d --remove-orphans
+ssh root@95.217.215.149 docker logs root_replay_1 -f
+
+flags to base64
+for i in *.png ; do echo "$i: data:image/png;base64,$(base64 < $i)" ; done > datas.txt
+
+- update
+- on close save pref in will-quit
+- set always on top
+
+- search
+  https://www.algolia.com/doc/guides/getting-started/what-is-algolia/?q=pla
+
+
+- link to specific game
+
+- app testing with detox
+  https://www.google.com/search?q=detox+expo&rlz=1C5CHFA_enDE884DE884&oq=detox+expo&aqs=chrome..69i57j0i19l3j0i10i19i22i30j0i19i22i30l5.1496j0j7&sourceid=chrome&ie=UTF-8
+- yarn 2
+- github actions with services
+- dependency subsets
+  https://stackoverflow.com/questions/40886871/install-subset-of-dependencies-with-npm
+
+npm run electron:build && release\aoe2companion-22.0.8+0
+
+
+unit production number of vills
+https://grishrl.github.io/
+
+
+bundle size
+
+Bundle                     Size
+┌ index.ios.js          5.71 MB
+├ index.android.js      5.71 MB
+├ index.ios.js.map      17.2 MB
+└ index.android.js.map  17.2 MB
+
+when removing victory native:
+
+Bundle                     Size
+┌ index.ios.js          4.83 MB
+├ index.android.js      4.84 MB
+├ index.ios.js.map        14 MB
+└ index.android.js.map    14 MB
+
+
+font
+- serif
+  - georgia
+
+- global.location on ios/android ok?
+
+Use dataloader for GraphQL
+- https://spin.atomicobject.com/2017/05/15/optimize-graphql-queries/
+
+vipers game 64282000 which maps was this (130)?
+
+https://www.aoezone.net/threads/age-of-empires-ii-de-game-lobby-notifier.169836/
+
+Show message in profile?
+- wodkakurva too few games
+- in game 73416909
+
+- autostart
+
+web
+- pull to refresh flatlist
+  https://github.com/necolas/react-native-web/issues/1027
+x f5 reload same page
+x notification click
+
+ideas
+x 1v1 opponent stats
+- number of follows
+
+overlay
+- winrate
+- winrate for map
+- vs games, allied games
+- win/loose rate
+
+- centered top view
+
+- 1v1 rating
+
+https://www.aoezone.net/threads/finally-overlays-polskafan-de.172372/
+
+de update
+x aoe2techtree
+- fetch aoe2net localizations
+x HulcheJavelineers skirmisher from wiki
+x unit page attack bonus elite missing
+
+
+
+translations
+- use getTranslation everywhere
+- lineHeight for zh / ru?
+- order civ by name
+- fandom link
+
+improvements
+- history images high res?
+- Panokseon rename on aoe2techtree
+- unit page serjeant castle age upgrades
+- changelog linking
+- town center?
+
+
+npx expo build:ios --type simulator --release-channel temp
+
+
+country name translations from:
+https://github.com/onomojo/i18n-country-translations/tree/master/rails/locale/iso_639-1
+
+https://forums.expo.io/t/how-to-lazy-load-json/28961
+
+web ui
+- core ui admin template
+- ant design pro
+
+db
+- multiple profile_id per match_id 34275971
+- player table match_id is null
+- 2 missing matches before 1737998
+
+indices
+- player.match_id
+  - civ stats
+  - map stats
+- player.profile_id
+  - player recent matches
+
+missing data
+- leaderboards 1, 2, 3, 4 missing rating change (needed for rating history)
+- leaderboard 0 missing won (use .rec files?)
+
+users
+- viper 196240
+- hera
+- t90 197930
+
+
+ab -n 100 http://www.google.com/
+
+
+paging
+https://medium.com/swlh/how-to-implement-cursor-pagination-like-a-pro-513140b65f32
+
+
+rm -rf dist/exported && npx expo export --output-dir dist/exported -p https://www.example.com/
+
+
+https://applepaydemo.apple.com/
+https://www.netlify.com/blog/2020/05/21/learn-to-add-apple-pay-and-google-pay-to-react-websites/
+
+
+
+https://github.com/nrwl/nx-react-native
+
+intellij material ui theme
+jetbrains mono
+
+- hide crown/skull when game is still running
+
+------------------
+-- postgres vps
+------------------
+
+sudo nano /etc/hosts
+
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+
+sudo -u postgres psql postgres
+\password postgres
+\q
+
+allow remote connections
+https://docs.boundlessgeo.com/suite/1.1.1/dataadmin/pgGettingStarted/firstconnect.html
+
+ssh root@...
+nano /etc/postgresql/12/main/pg_hba.conf
+service postgresql reload
+
+https://o7planning.org/de/11913/sichern-und-wiederherstellen-der-postgres-datenbank-mit-pgadmin
+
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04-de
+
+DNS
+CNAME function d-3dn5qeufzf.execute-api.eu-central-1.amazonaws.com 60
+
+// aoe2companion-dev-match
+aoe2companion-dev-leaderboard
+aoe2companion-dev-ingest
+// aoe2companion-dev-custom-resource-apigw-cw-role
+// aoe2companion-dev-leaderboardTable
+// aoe2companion-dev-hello3
+
+
+
+$cert = New-SelfSignedCertificate -DnsName aoe2companion.com -Type CodeSigning -CertStoreLocation Cert:\CurrentUser\My
+$CertPassword = ConvertTo-SecureString -String "..." -Force -AsPlainText
+Export-PfxCertificate -Cert "cert:\CurrentUser\My\$($cert.Thumbprint)" -FilePath certificate.pfx -Password $CertPassword
+base64 certificate.pfx -w 0 | secrethub write denniske/aoe2companion/electron_windows_cert_base64
+
+Thumbprint AB32AF37C94F82F33133CCEC6AA0337F43F0B3CA
+
+
+
+// aoe2companion-graphql
+// aoe2companion-mgz
+aoe2companion-import
+aoe2companion-notify
+aoe2companion-leaderboard
+aoe2companion-proxy
+aoe2companion-api
+
+
+mgz mgx format
+https://web.archive.org/web/20090215065209/http://members.at.infoseek.co.jp/aocai/mgx_format.html
+
+
+add content
+- error when data cannot be loaded (implemented in leaderboard already)
+- leaderboard rating distribution
+- lobbies online players per mode
+- infer match results from rating change
+- testflight
+- matomo
+- metabase
+
+- rating history # of games
+
+
+apt update
+apt install git
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash
+nvm install --lts
+
+
+sam build --use-container
+sam deploy
+
+
+
+
+docker build -t denniske/aoe2companion-mgz-pypy:6 . && docker push denniske/aoe2companion-mgz-pypy:6
+docker container kill $(docker ps -q) && docker run -p 0.0.0.0:80:80 -d denniske/aoe2companion-mgz-pypy:6
+
+
+cd /var/lib/docker/overlay2/cb275f85f57636b78ccac70ad5e401045e95d785127d6b9abdd8a701d9c37834/merged/app/src/recs
+rm *.aoe2record
+docker system prune --all
+service docker restart
+
+
+pip3 install -r requirements.txt
+
+pip install -e .
+
+python setup.py install
+python mgzdb reset
+python -m mgzdb add match de 3677645
+
+mgz-parser
+66987287 relic win => all winners same
+65251233 all null
+65235171
+64668419
+64027056
+63510355
+
+66784934 2v2v2v2 team 3&4 marked as won although only team 3 won
+
+-   -1
+-   -1
+?    2
+1    1
+2    2
+
+
+https://exp.host/@denniske1001/aoe2companion/index.exp?release-channel=prod-v21&sdkVersion=40.0.0
+https://expo.io/@denniske1001/projects/aoe2companion?release-channel=prod-v21
+
+
+Arabia 66922089
+
+seaton                ?
+yutong 1825 - 1822    loose
+lucifer 1532 - 1532   ?
+sss   1765 -  1763    loose
+
+Do recorded games vanish?
+33113299 3146184 31.01.2021 was there
+https://aoe.ms/replay/?gameId=33113299&profileId=8155
+
+
+wget https://downloads.python.org/pypy/pypy3.7-v7.3.3-linux64.tar.bz2
+tar xvjf pypy3.7-v7.3.3-linux64.tar.bz2
+mv pypy3.7-v7.3.3-linux64 pypy-latest-linux64
+rm pypy3.7-v7.3.3-linux64.tar.bz2
+ln -s /root/pypy-latest-linux64/bin/pypy /usr/local/bin
+pypy -m ensurepip
+apt update
+apt install git gcc python3-dev gunicorn -y
+git clone https://github.com/denniske/aoe2companion.git
+cd aoe2companion/mgz
+
+pypy -m pip install -r requirements.txt
+
+#pypy -m pip install virtualenv
+#pypy -m virtualenv env
+
+nano ~/.bashrc
+export PATH="/root/pypy-latest-linux64/bin:$PATH"
+source ~/.bashrc
+
+gunicorn --bind 0.0.0.0:80 app:app --threads 6
+
+
+killall gunicorn
+cd aoe2companion/mgz && nohup gunicorn --bind 0.0.0.0:80 app:app --threads 10 &
+tail -f nohup.out
+
+
+~/Downloads/pypy-latest-osx64/bin/pypy -m ensurepip
+~/Downloads/pypy-latest-osx64/bin/pypy -mpip install -r requirements.txt
+
+~/Downloads/pypy3.7-v7.3.2-osx64/bin/pypy -m ensurepip
+~/Downloads/pypy3.7-v7.3.2-osx64/bin/pypy -mpip install -e .
+~/Downloads/pypy3.7-v7.3.2-osx64/bin/pypy -mpip install -r requirements.txt
+~/Downloads/pypy3.7-v7.3.2-osx64/bin/pypy main.py > temp.txt
+
+
+. veee/bin/activate
+
+git clone https://github.com/SiegeEngineers/aoc-mgz-db.git
+virtualenv env && source env/bin/activate
+virtualenv env && source env/bin/activate && pip3 install -r requirements.txt
+
+
+https://www.andreagrandi.it/2018/12/19/installing-python-and-virtualenv-on-osx/
+
+base64 aoe2companion_dist.p12
+base64 apple-certificate.p12 | secrethub write denniske/aoe2companion/electron_apple_cert_base64
+
+secrethub read denniske/aoe2companion/expo_ios_dist_p12_base64
+secrethub read denniske/aoe2companion/expo_ios_prov_profile_base64
+
+npx expo build:ios
+npx expo fetch:ios:certs
+base64 aoe2companion_dist.p12 | secrethub write denniske/aoe2companion/expo_ios_dist_p12_base64
+base64 aoe2companion.mobileprovision | secrethub write denniske/aoe2companion/expo_ios_prov_profile_base64
+
+secrethub service init --description=github-actions-abc --permission=read denniske/aoe2companion
+
+/Library/Developer/CoreSimulator/Profiles/Runtimes
+
+https://aoe2de-head2head.herokuapp.com/#Hera,solo
+https://aoenexus.com/
+
+npx npkill
+
+https://medium.com/foxintelligence-inside/how-we-reduced-lambda-functions-costs-by-thousands-of-dollars-8279b0a69931
+
+https://www.reddit.com/r/aoe2/comments/99rhrv/how_can_i_set_the_tech_tree_like_this_while/
+
+doctl auth init
+doctl kubernetes cluster kubeconfig save kubernetes-fra1
+
+https://www.digitalocean.com/community/tutorials/how-to-automate-deployments-to-digitalocean-kubernetes-with-circleci
+
+travis
+https://codeburst.io/dockerize-deploy-1cfc4f0e7c72
+
+domain
+https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nginx-ingress-on-digitalocean-kubernetes-using-helm
+https://www.digitalocean.com/community/tutorials/how-to-install-software-on-kubernetes-clusters-with-the-helm-3-package-manager
+
+npx expo build:web
+npx expo start:web --no-dev
+
+
+user count 16.30: 198938 users
+
+21.07.2020
+user count 14.30: 203966 users
+
+
+function.aoe2companion.com
+
+sls invoke local -f hello2 -l -r eu-central-1
+
+xcrun simctl boot 05D9592C-5EC4-4547-A519-8B6748CACBEE
+open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/
+
+aoe2net /player/matches does ignore the "start" parameter.
+the following request results return the same match "abc [DMWC3_Prairie]":
+https://aoe2.net/api/player/matches?game=aoe2de&start=1&count=1&id=76561197984749679-196240&steam_id=76561197984749679&profile_id=196240
+https://aoe2.net/api/player/matches?game=aoe2de&start=2&count=1&id=76561197984749679-196240&steam_id=76561197984749679&profile_id=196240
+
+Expo 38
+https://dev.to/expo/expo-sdk-38-is-now-available-5aa0
+
+- steam counter list
+- liquipedia
+  https://liquipedia.net/ageofempires/Main_Page
+
+
+- OTA Update Size
+  https://stackoverflow.com/questions/57597051/find-the-size-of-expo-react-native-ota-update
+
+cat ~/.zsh_history | grep mogrify
+mogrify -format jpg *.png
+mogrify -crop 1242x2208+0+0 -path ./cropped *.jpg
+
+
+
+cat /var/log/postgresql/postgresql-12-main.log
+
+SELECT pg_stat_statements_reset();
+
+
+defaults read -g com.apple.keyboard.fnState
+defaults write -g com.apple.keyboard.fnState true
+defaults write -g com.apple.keyboard.fnState -bool TRUE
+defaults write -g com.apple.keyboard.fnState -bool FALSE
+
+defaults -currentHost write -globalDomain AppleFontSmoothing -int 1
+defaults -currentHost write -globalDomain AppleFontSmoothing -int 2
+defaults -currentHost write -globalDomain AppleFontSmoothing -int 3
+
+sudo defaults delete /Library/Preferences/com.apple.keyboardtype
+
+- Tech Tree UI
+- C:\Users\Dennis\Games\Age of Empires 2 DE\76561197995781128\mods\subscribed\1062_Improved Tech Tree UI Mod\widgetui\textures\ingame\emblems
+
+wget -i temp.txt
+for file in *; do mv "$file" "$file.png"; done
+
+Age of Empires 2 Visual Counter List 2.0
+https://docs.google.com/spreadsheets/d/1XMFVhx-bJQJ3PbZEbJ4C4Bpw1CY5dKFiE6sr9MWpJME/edit#gid=0
+
+https://github.com/JacksonCohen/aoe2-companion-app
+https://aoe2.club/playerprofile/196240
+
+637 23,5mb
+
+600
++ 35 history civ
++ 1 data.json
+
+"assets/**/*"
+
+- User without steam_id
+  - Baalrahab 2194579
+
+- Game Duration
+
+// const game = 'aoe2de';
+// const steam_id = '76561197995781128';
+// const profile_id = 209525;
+
+https://github.com/facebook/react-native/issues/11989
+My practical solution was to edit react-native source code at:
+node-modules/react-native/Libraries/Components/Touchable/Touchable.js
+
+Here I've changed "console.error" to "console.log" at line 628, this way I receive the message, however my app is not interrupted and the error is "dissmissed"
+
+
+/Users/denniskeil/Library/KeyBindings/DefaultKeyBinding.dict
+
+{
+
+  "\UF729"  = moveToBeginningOfLine:; // home
+  "\UF72B"  = moveToEndOfLine:; // end
+  "$\UF729" = moveToBeginningOfParagraphAndModifySelection:; // shift-home
+  "$\UF72B" = moveToEndOfParagraphAndModifySelection:; // shift-end
+  "^\UF729" = moveToBeginningOfDocument:; // ctrl-home
+  "^\UF72B" = moveToEndOfDocument:; // ctrl-end
+  "^$\UF729" = moveToBeginningOfDocumentAndModifySelection:; // ctrl-shift-home
+  "^$\UF72B" = moveToEndOfDocumentAndModifySelection:; // ctrl-shift-end
+  ”^\UF702” = (moveWordLeft:); // ctrl-left
+  “^\UF703” = (moveWordRight:); // ctrl-right
+  “^$\UF702” = (moveWordLeftAndModifySelection:); // ctrl-shift-left
+  “^$\UF703” = (moveWordRightAndModifySelection:); // ctrl-shift-right
+}
+
+keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore com.aoe2companion2.apk alias_name
+adb install com.aoe2companionv2.apk
+
+adb -d shell "run-as com.aoe2companion cat /data/data/com.aoe2companion/databases/updates.db-shm" > updates.db-shm
+run-as com.aoe2companion ls -alh databases
+run-as com.aoe2companion du -s databases

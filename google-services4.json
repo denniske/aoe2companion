@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "112649881253",
+    "project_id": "aoe4companion",
+    "storage_bucket": "aoe4companion.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:112649881253:android:71a561434bd8a4a8d5ef4c",
+        "android_client_info": {
+          "package_name": "com.aoe4companion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "112649881253-v0ate2vslqnspaolbldjohjapkcvhm24.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjaRK68anKkafE5o2aTTNrZr27VNMlE9E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "112649881253-v0ate2vslqnspaolbldjohjapkcvhm24.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

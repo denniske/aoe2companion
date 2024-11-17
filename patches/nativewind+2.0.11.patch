@@ -1,0 +1,70 @@
+diff --git a/node_modules/nativewind/dist/postcss/to-react-native/is-invalid-property.js b/node_modules/nativewind/dist/postcss/to-react-native/is-invalid-property.js
+index 7d7715b..1a07ec8 100644
+--- a/node_modules/nativewind/dist/postcss/to-react-native/is-invalid-property.js
++++ b/node_modules/nativewind/dist/postcss/to-react-native/is-invalid-property.js
+@@ -53,6 +53,7 @@ const validProps = new Set([
+     "fontStyle",
+     "fontVariant",
+     "fontWeight",
++    "gap",
+     "height",
+     "includeFontPadding",
+     "justifyContent",
+diff --git a/node_modules/nativewind/dist/tailwind/native/gap.js b/dist/tailwind/native/gap.js
+index 10fb4473622648e9eebafa49bf60ad0b50107e84..7389a93021a2243977819440c8339cb1ce361f04 100644
+--- a/node_modules/nativewind/dist/tailwind/native/gap.js
++++ b/node_modules/nativewind/dist/tailwind/native/gap.js
+@@ -3,44 +3,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.gap = void 0;
+ const gap = ({ matchUtilities, theme }) => {
+     matchUtilities({
+-        gap: (value) => {
+-            value = value === "0" ? "0px" : value;
+-            value = value === "px" ? "1px" : value;
+-            return {
+-                "&": {
+-                    marginLeft: `-${value}`,
+-                    marginTop: `-${value}`,
+-                    "@selector (> *)": {
+-                        marginLeft: value,
+-                        marginTop: value,
+-                    },
+-                },
+-            };
+-        },
+-        "gap-x": (value) => {
+-            value = value === "0" ? "0px" : value;
+-            value = value === "px" ? "1px" : value;
+-            return {
+-                "&": {
+-                    "margin-left": `-${value}`,
+-                    "@selector (> *)": {
+-                        "margin-left": value,
+-                    },
+-                },
+-            };
+-        },
+-        "gap-y": (value) => {
+-            value = value === "0" ? "0px" : value;
+-            value = value === "px" ? "1px" : value;
+-            return {
+-                "&": {
+-                    "margin-top": `-${value}`,
+-                    "@selector (> *)": {
+-                        "margin-top": value,
+-                    },
+-                },
+-            };
+-        },
++        gap: (value) => ({
++            gap: value,
++        }),
++        "gap-x": (value) => ({
++            rowGap: value,
++        }),
++        "gap-y": (value) => ({
++            columnGap: value,
++        }),
+     }, { values: theme("gap") });
+ };
+ exports.gap = gap;

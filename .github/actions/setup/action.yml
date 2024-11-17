@@ -1,0 +1,38 @@
+name: Setup
+description: Setup will export some environment variables for the other jobs
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        echo "COMMIT_SHA1=$GITHUB_SHA" >> $GITHUB_ENV
+        echo "TRAVIS_COMMIT=$GITHUB_SHA" >> $GITHUB_ENV
+        echo "TRAVIS_BRANCH=$(node deploy/script/clean-tag.js $GITHUB_REF)" >> $GITHUB_ENV
+      shell: bash
+
+    - run: |
+        cd deploy
+        npm i
+        cd ..
+
+        # echo "CHANNEL=master" >> $GITHUB_ENV
+        echo "AOE=$(node deploy/script/aoe-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
+        echo "APP=$(node deploy/script/aoe-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
+        echo "CHANNEL=$(node deploy/script/channel-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
+        echo "RUNTIME_VERSION=$(node deploy/script/runtime-version-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
+
+        echo "$(yarn global bin)" >> $GITHUB_PATH
+      shell: bash
+
+    - run:  echo TRAVIS_BRANCH $TRAVIS_BRANCH
+      shell: bash
+
+    - run:  echo AOE $AOE
+      shell: bash
+
+    - run:  echo CHANNEL $CHANNEL
+      shell: bash
+
+    - run:  echo RUNTIME_VERSION $RUNTIME_VERSION
+      shell: bash
+
+# echo "DOCKERHUB_USERNAME=$(secrethub read denniske/dockerhub/username)" >> $GITHUB_ENV

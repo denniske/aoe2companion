@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "projects": {
+    "data": {
+      "root": "data",
+      "sourceRoot": "data/src",
+      "projectType": "library"
+    }
+  }
+}

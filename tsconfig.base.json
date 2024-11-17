@@ -1,0 +1,56 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strict": true,
+    "jsx": "react-native",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2017",
+      "dom",
+      "dom.iterable"
+    ],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@app4/*": ["app4/src/*"],
+      "@app/*": ["app/src/*"],
+      "@nex/app/view": [
+        "app/src/index-view.ts"
+      ],
+      "@nex/data": [
+        "data/src/index.ts"
+      ],
+      "@nex/data4": [
+        "data4/src/index.ts"
+      ],
+      "@nex/data/api": [
+        "data/src/index-api.ts"
+      ],
+      "@nex/data/hooks": [
+        "data/src/index-hooks.ts"
+      ],
+      "@nex/dataset": [
+        "dataset2/src/index.ts"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "tmp",
+    "tools"
+  ]
+}
