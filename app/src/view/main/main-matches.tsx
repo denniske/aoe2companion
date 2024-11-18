@@ -80,6 +80,7 @@ function MainMatchesInternal({ profileId }: { profileId: number }) {
         {
             getNextPageParam: (lastPage, pages) => (lastPage.matches.length === lastPage.perPage ? lastPage.page + 1 : null),
             keepPreviousData: true,
+            enabled: leaderboardIds.length > 0,
         }
     );
 
