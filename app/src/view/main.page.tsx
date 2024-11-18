@@ -39,13 +39,11 @@ export function MainPageInner({ profileId }: MainPageInnerProps) {
                 </View>
             )}
             screenOptions={{
-                lazy: true,
+                lazy: false,
                 swipeEnabled: true,
-                tabBarStyle: { backgroundColor: 'transparent' },
                 tabBarInactiveTintColor: colorScheme === 'dark' ? 'white' : 'black',
                 tabBarActiveTintColor: colorScheme === 'dark' ? 'white' : 'black',
             }}
-            sceneContainerStyle={{ backgroundColor: 'transparent' }}
         >
             <Tab.Screen
                 name="MainProfile"
