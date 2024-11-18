@@ -14,7 +14,6 @@ import { IChangelogPageParams } from '@app/app/more/changelog';
 
 export default function ChangelogSnackbar() {
     const updateAvailable = useSelector(state => state.updateAvailable);
-    const prefs = useSelector(state => state.prefs);
     const changelogLastVersionRead = useSelector(state => state.prefs.changelogLastVersionRead);
     const [currentVersion, setCurrentVersion] = useState<string>();
     const mutate = useMutate();
