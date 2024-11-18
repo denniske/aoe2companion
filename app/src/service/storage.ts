@@ -43,6 +43,11 @@ export interface IPrefs {
     ratingHistoryHiddenLeaderboardIds?: string[];
 }
 
+export interface IScroll {
+    scrollPosition: number;
+    scrollToTop?: string;
+}
+
 export interface ISettings {
     steamId?: string;
     profileId?: number;

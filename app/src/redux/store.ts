@@ -1,9 +1,9 @@
 import { createStore } from 'redux'
-import notesReducer from './reducer'
+import notesReducer, { initialState } from './reducer';
 import {getcache, setcache} from "./statecache";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const store = createStore(notesReducer, getcache());
+const store = createStore(notesReducer, getcache() ?? initialState);
 
 store.subscribe(() => setcache(store.getState()));
 

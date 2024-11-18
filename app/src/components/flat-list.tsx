@@ -12,6 +12,7 @@ export const FlatList = forwardRef(FlatListInner) as <ItemT>(
     props: FlatListProps<ItemT> & { ref?: React.ForwardedRef<FlatListRN<ItemT>> }
 ) => ReturnType<typeof FlatListInner>;
 
+// We can try to omit `useScrollView` for horizontal FlatList completely
 function FlatListInner<ItemT>({ contentContainerStyle, hitSlop, ...props }: FlatListProps<ItemT>, ref: React.ForwardedRef<FlatListRN<ItemT>>) {
     const Component = props.horizontal ? FlatListGH : FlatListRN;
     const scrollViewProps = useScrollView({ contentContainerStyle, ref, ...props });

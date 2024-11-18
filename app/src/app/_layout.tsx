@@ -6,7 +6,6 @@ import { fetchAoeReferenceData } from '@app/helper/reference';
 import initSentry from '@app/helper/sentry';
 import { getLanguageFromSystemLocale2, getTranslation } from '@app/helper/translate';
 import { getInternalAoeString } from '@app/helper/translate-data';
-import { ScrollableContext, ScrollContext } from '@app/hooks/use-scrollable';
 import { useMutate, useSelector } from '@app/redux/reducer';
 import { getInternalLanguage, setInternalLanguage } from '@app/redux/statecache';
 import store from '@app/redux/store';
@@ -212,8 +211,6 @@ function LiveActivityController() {
 function AppWrapper() {
     const { setColorScheme } = useTailwindColorScheme();
     const [, , setColorTwrncScheme] = useAppColorScheme(tw);
-    const [scrollPosition, setScrollPosition] = useState(0);
-    const [scrollToTop, setScrollToTop] = useState<string>();
     const [appIsReady, setAppIsReady] = useState(false);
     const darkMode = useSelector((state) => state.config?.darkMode);
     const colorScheme = useColorScheme();
@@ -323,7 +320,7 @@ function AppWrapper() {
 
     console.log();
     console.log();
-    console.log('ROOT RENDER scrollPosition', scrollPosition);
+    console.log('ROOT RENDER');
     console.log();
     console.log();
 
@@ -339,34 +336,30 @@ function AppWrapper() {
                     <ApplicationProvider {...eva} theme={finalDarkMode === 'light' ? eva.light : eva.dark}>
                         <QueryClientProvider client={queryClient}>
                             <ThemeProvider value={finalDarkMode === 'dark' ? customDarkTheme : customTheme}>
-                                <ScrollContext.Provider value={{ setScrollPosition, scrollToTop }}>
-                                    <ScrollableContext.Provider value={{ scrollPosition, setScrollToTop }}>
-                                        <View
-                                            className={`bg-gold-50 dark:bg-blue-950 ${Platform.OS === 'web' ? `overflow-hidden w-[450px] max-w-full h-[900px] mx-auto my-auto ${isMobile ? '' : 'border border-gray-200 dark:border-gray-800'} rounded-lg` : 'flex-1'}`}
-                                            style={{ paddingTop: insets.top }}
-                                            onLayout={onLayoutRootView}
-                                        >
-                                            <StatusBar
-                                                barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'}
-                                                backgroundColor="transparent"
-                                                translucent
-                                            />
+                                <View
+                                    className={`bg-gold-50 dark:bg-blue-950 ${Platform.OS === 'web' ? `overflow-hidden w-[450px] max-w-full h-[900px] mx-auto my-auto ${isMobile ? '' : 'border border-gray-200 dark:border-gray-800'} rounded-lg` : 'flex-1'}`}
+                                    style={{ paddingTop: insets.top }}
+                                    onLayout={onLayoutRootView}
+                                >
+                                    <StatusBar
+                                        barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'}
+                                        backgroundColor="transparent"
+                                        translucent
+                                    />
 
-                                            <LanguageController />
-                                            <LiveActivityController />
+                                    <LanguageController />
+                                    <LiveActivityController />
 
-                                            <Portal>
-                                                {Platform.OS !== 'web' && <UpdateSnackbar />}
-                                                {Platform.OS !== 'web' && <ChangelogSnackbar />}
-                                                <ErrorSnackbar />
-                                            </Portal>
+                                    <Portal>
+                                        {Platform.OS !== 'web' && <UpdateSnackbar />}
+                                        {Platform.OS !== 'web' && <ChangelogSnackbar />}
+                                        <ErrorSnackbar />
+                                    </Portal>
 
-                                            <Stack screenOptions={{ header: Header,  }}></Stack>
+                                    <Stack screenOptions={{ header: Header,  }}></Stack>
 
-                                            <TabBar></TabBar>
-                                        </View>
-                                    </ScrollableContext.Provider>
-                                </ScrollContext.Provider>
+                                    <TabBar></TabBar>
+                                </View>
                             </ThemeProvider>
                         </QueryClientProvider>
                     </ApplicationProvider>

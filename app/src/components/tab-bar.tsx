@@ -1,4 +1,3 @@
-import { useScroll, useScrollable } from '@app/hooks/use-scrollable';
 import tw from '@app/tailwind';
 import { textColors } from '@app/utils/text.util';
 import { IconName } from '@fortawesome/fontawesome-svg-core';
@@ -11,17 +10,15 @@ import { v4 as uuidv4 } from 'uuid';
 import { Button } from './button';
 import { Icon } from './icon';
 import { Text } from './text';
-import { useRouter, usePathname, useNavigation, useRootNavigationState } from 'expo-router';
+import { useRootNavigationState, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useMutateScroll, useScrollPosition } from '@app/redux/reducer';
 
-
-export const TabBar: React.FC = ({ }) => {
+export const TabBar: React.FC = ({}) => {
     const insets = useSafeAreaInsets();
     const { bottom } = insets;
     const router = useRouter();
-    // const pathname = usePathname();
     const rootNavigationState = useRootNavigationState();
-    // const navigation = useNavigation();
     const shadow = tw.style('shadow-blue-50 dark:shadow-black', Platform.OS === 'web' && 'shadow-2xl');
     const { colorScheme } = useColorScheme();
     const gradient =
@@ -29,8 +26,11 @@ export const TabBar: React.FC = ({ }) => {
             ? [tw.color('blue-950/0') ?? 'black', tw.color('blue-950/90') ?? 'black']
             : [tw.color('gold-50/0') ?? 'white', tw.color('gold-50/90') ?? 'white'];
 
-    const { scrollPosition, setScrollToTop } = useScrollable();
-    const { setScrollPosition } = useScroll();
+    const scrollPosition = useScrollPosition();
+    const { setScrollPosition, setScrollToTop } = useMutateScroll();
+
+    // console.log('USE TAB BAR', scrollPosition);
+
     const showTabBar = scrollPosition === 0;
     const opacity = useRef(new Animated.Value(1)).current;
 
@@ -88,7 +88,7 @@ export const TabBar: React.FC = ({ }) => {
             tabBarIcon: () => 'bars',
             path: '/more',
         },
-    ]
+    ];
     return (
         <>
             <Animated.View
@@ -131,24 +131,21 @@ export const TabBar: React.FC = ({ }) => {
 
                         return (
                             <React.Fragment key={route.label}>
-                                <Pressable
-                                    onPress={() => onPress()}
-                                    style={{ flex: 1 }}
+                                <Pressable onPress={() => onPress()} style={{ flex: 1 }}>
+                                    <View
+                                        className="justify-center items-center py-2 rounded-lg flex-1"
+                                        style={tw.style(isFocused && 'bg-blue-800 dark:bg-gold-700')}
                                     >
-                                        <View
-                                            className="justify-center items-center py-2 rounded-lg flex-1"
-                                            style={tw.style(isFocused && 'bg-blue-800 dark:bg-gold-700')}
+                                        {iconName && <Icon color={isFocused ? 'text-white' : 'brand'} size={22} icon={iconName} />}
+                                        <Text
+                                            allowFontScaling={false}
+                                            style={tw.style(isFocused ? 'text-white' : textColors['brand'])}
+                                            variant="header-sm"
+                                            className="!text-[9px] !leading-[12px] uppercase mt-2"
                                         >
-                                            {iconName && <Icon color={isFocused ? 'text-white' : 'brand'} size={22} icon={iconName} />}
-                                            <Text
-                                                allowFontScaling={false}
-                                                style={tw.style(isFocused ? 'text-white' : textColors['brand'])}
-                                                variant="header-sm"
-                                                className="!text-[9px] !leading-[12px] uppercase mt-2"
-                                            >
-                                                {label}
-                                            </Text>
-                                        </View>
+                                            {label}
+                                        </Text>
+                                    </View>
                                 </Pressable>
                             </React.Fragment>
                         );
