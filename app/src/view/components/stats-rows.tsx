@@ -1,9 +1,9 @@
 import { getCivIdByEnum, LeaderboardId } from '@nex/data';
 import { appConfig } from '@nex/dataset';
-import { Image } from 'expo-image';
+import {  } from 'expo-image';
 import { router } from 'expo-router';
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Image } from 'react-native';
 
 import { CountryImage } from './country-image';
 import { TextLoader } from './loader/text-loader';
@@ -101,6 +101,9 @@ export default function StatsRows(props: IProps) {
     if (data?.length === 0) {
         return <View />;
     }
+
+    // For performance it might make sense to render rows of all stats blocks together in one
+    // FlatList
 
     return (
         <View style={styles.container}>
