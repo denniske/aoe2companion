@@ -39,7 +39,7 @@ export function MainPageInner({ profileId }: MainPageInnerProps) {
                 </View>
             )}
             screenOptions={{
-                lazy: false,
+                lazy: true,
                 swipeEnabled: true,
                 tabBarStyle: { backgroundColor: 'transparent' },
                 tabBarInactiveTintColor: colorScheme === 'dark' ? 'white' : 'black',
