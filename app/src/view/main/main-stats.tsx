@@ -22,7 +22,7 @@ import FlatListLoadingIndicator from '../components/flat-list-loading-indicator'
 import { TextLoader } from '../components/loader/text-loader';
 import { MyText } from '../components/my-text';
 import RefreshControlThemed from '../components/refresh-control-themed';
-import StatsRows from '../components/stats-rows';
+import StatsRows, { StatsHeader, StatsRow } from '../components/stats-rows';
 import TemplatePicker from '../components/template-picker';
 
 interface Props {
@@ -61,8 +61,6 @@ function MainStatsInternal({ profileId }: { profileId: number }) {
     const [leaderboardId, setLeaderboardId] = useState<string>();
 
     const [leaderboardType, setLeaderboardType] = useState<'pc' | 'xbox'>('pc');
-
-    // console.log('==> leaderboardId', leaderboardId);
 
     const leaderboards = useApi(
         {},
@@ -115,14 +113,8 @@ function MainStatsInternal({ profileId }: { profileId: number }) {
         { profileId, extend: 'stats' }
     );
 
-    // console.log('==> profile', profile.data);
-    // console.log('==> profileWithStats', profileWithStats.data);
-
     const cachedData = currentCachedData ?? previousCachedData;
 
-    // let statsDuration = cachedData?.statsDuration;
-    // let statsPosition = cachedData?.statsPosition;
-    // let statsPlayer = cachedData?.statsPlayer;
     const statsCiv = cachedData?.civ;
     const statsMap = cachedData?.map;
     const statsAlly = cachedData?.allies;
@@ -130,7 +122,19 @@ function MainStatsInternal({ profileId }: { profileId: number }) {
 
     const hasStats = cachedData != null;
 
-    const list = ['stats-header', 'stats-duration', 'stats-position', 'stats-ally', 'stats-opponent', 'stats-civ', 'stats-map'];
+    // const list = ['stats-header', 'stats-duration', 'stats-position', 'stats-ally', 'stats-opponent', 'stats-civ', 'stats-map'];
+
+    const list = [
+        { type: 'stats-header' as const},
+        ...(statsAlly?.length !== 0 ? [{ type: 'header' as const, title: getTranslation('main.stats.heading.ally') }] : []),
+        ...(statsAlly?.map((row) => ({ type: 'ally' as const, data: row })) ?? Array(8).fill({ type: 'ally' as const, data: null })),
+        { type: 'header' as const, title: getTranslation('main.stats.heading.opponent') },
+        ...(statsOpponent?.map((row) => ({ type: 'opponent' as const, data: row })) ?? Array(8).fill({ type: 'opponent' as const, data: null })),
+        { type: 'header' as const, title: getTranslation('main.stats.heading.civ') },
+        ...(statsCiv?.map((row) => ({ type: 'civ' as const, data: row })) ?? Array(8).fill({ type: 'civ' as const, data: null })),
+        { type: 'header' as const, title: getTranslation('main.stats.heading.map') },
+        ...(statsMap?.map((row) => ({ type: 'map' as const, data: row })) ?? Array(8).fill({ type: 'map' as const, data: null })),
+    ];
 
     const onLeaderboardSelected = async (leaderboardId: LeaderboardId) => {
         mutate(setPrefValue('leaderboardId', leaderboardId));
@@ -178,7 +182,7 @@ function MainStatsInternal({ profileId }: { profileId: number }) {
                         </View>
                     )}
                     renderItem={({ item, index }) => {
-                        switch (item) {
+                        switch (item.type) {
                             case 'stats-header':
                                 return (
                                     <View>
@@ -210,59 +214,25 @@ function MainStatsInternal({ profileId }: { profileId: number }) {
                                             />
                                         </View>
                                         <TextLoader ready={hasStats} style={styles.info}>
-                                            {/*{statsMap && statsMap.length > 0 ?*/}
-                                            {/*    getTranslation('main.stats.thelastmatches', { matches: statsPlayer?.matchCount }) :*/}
-                                            {/*    getTranslation('main.stats.nomatches') + leaderboardTitle}   */}
                                             {statsMap && statsMap.length === 0
                                                 ? getTranslation('main.stats.nomatches') + leaderboardTitle
                                                 : 'Stats for ' + leaderboardTitle}
                                         </TextLoader>
                                     </View>
                                 );
-                            // case 'stats-duration':
-                            //     return <MyText>---</MyText>;
-                            //     // return <StatsDuration data={statsDuration} user={user}/>;
-                            // case 'stats-position':
-                            //     return <MyText>---</MyText>;
-                            //     // return <StatsPosition data={statsPosition} user={user} leaderboardId={leaderboardId}/>;
-                            case 'stats-civ':
+                            case 'header':
                                 return (
-                                    <StatsRows
-                                        data={statsCiv}
-                                        type="civ"
-                                        title={getTranslation('main.stats.heading.civ')}
-                                        leaderboardId={leaderboardId}
-                                    />
-                                );
-                            case 'stats-map':
-                                return (
-                                    <StatsRows
-                                        data={statsMap}
-                                        type="map"
-                                        title={getTranslation('main.stats.heading.map')}
-                                        leaderboardId={leaderboardId}
-                                    />
-                                );
-                            case 'stats-ally':
-                                return (
-                                    <StatsRows
-                                        data={statsAlly}
-                                        type="ally"
-                                        title={getTranslation('main.stats.heading.ally')}
-                                        leaderboardId={leaderboardId}
-                                    />
-                                );
-                            case 'stats-opponent':
-                                return (
-                                    <StatsRows
-                                        data={statsOpponent}
-                                        type="opponent"
-                                        title={getTranslation('main.stats.heading.opponent')}
-                                        leaderboardId={leaderboardId}
+                                    <StatsHeader
+                                        title={item.title}
                                     />
                                 );
                             default:
-                                return <View />;
+                                return (
+                                    <StatsRow
+                                        data={item.data}
+                                        type={item.type}
+                                    />
+                                );
                         }
                     }}
                     keyExtractor={(item, index) => index.toString()}
@@ -307,5 +277,5 @@ const useStyles = createStylesheet((theme) =>
         content: {
             flex: 1,
         },
-    })
+    } as const)
 );

@@ -1,10 +1,8 @@
 import { getCivIdByEnum, LeaderboardId } from '@nex/data';
 import { appConfig } from '@nex/dataset';
-import {  } from 'expo-image';
 import { router } from 'expo-router';
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View, Image } from 'react-native';
-
+import { StyleSheet, TouchableOpacity, View, Image, ViewStyle } from 'react-native';
 import { CountryImage } from './country-image';
 import { TextLoader } from './loader/text-loader';
 import { MyText } from './my-text';
@@ -35,8 +33,38 @@ interface IRowPropsOpponent {
     type: 'opponent';
 }
 
-function Row({ type, data }: IRowPropsCiv | IRowPropsMap | IRowPropsAlly | IRowPropsOpponent) {
+export function StatsHeader({ title }: any) {
     const styles = useStyles();
+    return (
+        <>
+            <Space />
+            <View style={styles.row}>
+                <MyText numberOfLines={1} style={styles.cellLeaderboard}>
+                    {title}
+                </MyText>
+                <MyText numberOfLines={1} style={styles.cellGames}>
+                    {getTranslation('main.stats.heading.games')}
+                </MyText>
+                <MyText numberOfLines={1} style={styles.cellWon}>
+                    {getTranslation('main.stats.heading.won')}*
+                </MyText>
+            </View>
+        </>
+    )
+}
+
+export function StatsRow({ type, data }: IRowPropsCiv | IRowPropsMap | IRowPropsAlly | IRowPropsOpponent) {
+    const styles = useStyles();
+
+    if (!data) {
+        return (
+            <View style={styles.row}>
+                <TextLoader style={styles.cellLeaderboard} />
+                <TextLoader style={styles.cellGames} />
+                <TextLoader style={styles.cellWon} />
+            </View>
+        );
+    }
 
     const gotoEntity = () => {
         if (type === 'civ') {
@@ -108,59 +136,20 @@ export default function StatsRows(props: IProps) {
     return (
         <View style={styles.container}>
             <Space />
-            <View style={styles.row}>
-                <MyText numberOfLines={1} style={styles.cellLeaderboard}>
-                    {title}
-                </MyText>
-                <MyText numberOfLines={1} style={styles.cellGames}>
-                    {getTranslation('main.stats.heading.games')}
-                </MyText>
-                <MyText numberOfLines={1} style={styles.cellWon}>
-                    {getTranslation('main.stats.heading.won')}*
-                </MyText>
-            </View>
 
-            {data && data.map((row, i) => <Row key={i} type={type} data={row as any} />)}
+            {data && data.map((row, i) => <StatsRow key={i} type={type} data={row as any} />)}
 
-            {!data &&
-                Array(8)
-                    .fill(0)
-                    .map((a, i) => (
-                        <View key={i} style={styles.row}>
-                            <TextLoader style={styles.cellLeaderboard} />
-                            <TextLoader style={styles.cellGames} />
-                            <TextLoader style={styles.cellWon} />
-                        </View>
-                    ))}
+            {/*{!data &&*/}
+            {/*    Array(8)*/}
+            {/*        .fill(0)*/}
+            {/*        .map((a, i) => (*/}
+            {/*            <View key={i} style={styles.row}>*/}
+            {/*                <TextLoader style={styles.cellLeaderboard} />*/}
+            {/*                <TextLoader style={styles.cellGames} />*/}
+            {/*                <TextLoader style={styles.cellWon} />*/}
+            {/*            </View>*/}
+            {/*        ))}*/}
 
-            {/*{*/}
-            {/*    hasAgainstCiv &&*/}
-            {/*    <Space/>*/}
-            {/*}*/}
-            {/*{*/}
-            {/*    hasAgainstCiv &&*/}
-            {/*    <View style={styles.row}>*/}
-            {/*        <MyText numberOfLines={1} style={styles.cellLeaderboard}>{getTranslation('main.stats.heading.againstciv')}</MyText>*/}
-            {/*        <MyText numberOfLines={1} style={styles.cellGames}>{getTranslation('main.stats.heading.games')}</MyText>*/}
-            {/*        <MyText numberOfLines={1} style={styles.cellWon}>{getTranslation('main.stats.heading.won')}*</MyText>*/}
-            {/*    </View>*/}
-            {/*}*/}
-
-            {/*{*/}
-            {/*    hasAgainstCiv && rowsAgainstCiv && rowsAgainstCiv.map(leaderboard =>*/}
-            {/*            <Row key={leaderboard.civ.toString()} data={leaderboard}/>*/}
-            {/*    )*/}
-            {/*}*/}
-
-            {/*{*/}
-            {/*    hasAgainstCiv && !rowsAgainstCiv && Array(8).fill(0).map((a, i) =>*/}
-            {/*        <View key={i} style={styles.row}>*/}
-            {/*            <TextLoader style={styles.cellLeaderboard}/>*/}
-            {/*            <TextLoader style={styles.cellGames}/>*/}
-            {/*            <TextLoader style={styles.cellWon}/>*/}
-            {/*        </View>*/}
-            {/*    )*/}
-            {/*}*/}
         </View>
     );
 }
@@ -223,6 +212,37 @@ const useStyles = createStylesheet((theme) =>
                   },
     })
 );
+
+
+
+// {/*{*/}
+// {/*    hasAgainstCiv &&*/}
+// {/*    <Space/>*/}
+// {/*}*/}
+// {/*{*/}
+// {/*    hasAgainstCiv &&*/}
+// {/*    <View style={styles.row}>*/}
+// {/*        <MyText numberOfLines={1} style={styles.cellLeaderboard}>{getTranslation('main.stats.heading.againstciv')}</MyText>*/}
+// {/*        <MyText numberOfLines={1} style={styles.cellGames}>{getTranslation('main.stats.heading.games')}</MyText>*/}
+// {/*        <MyText numberOfLines={1} style={styles.cellWon}>{getTranslation('main.stats.heading.won')}*</MyText>*/}
+// {/*    </View>*/}
+// {/*}*/}
+//
+// {/*{*/}
+// {/*    hasAgainstCiv && rowsAgainstCiv && rowsAgainstCiv.map(leaderboard =>*/}
+// {/*            <Row key={leaderboard.civ.toString()} data={leaderboard}/>*/}
+// {/*    )*/}
+// {/*}*/}
+//
+// {/*{*/}
+// {/*    hasAgainstCiv && !rowsAgainstCiv && Array(8).fill(0).map((a, i) =>*/}
+// {/*        <View key={i} style={styles.row}>*/}
+// {/*            <TextLoader style={styles.cellLeaderboard}/>*/}
+// {/*            <TextLoader style={styles.cellGames}/>*/}
+// {/*            <TextLoader style={styles.cellWon}/>*/}
+// {/*        </View>*/}
+// {/*    )*/}
+// {/*}*/}
 
 // interface IRowProps {
 //     data: IStatCiv | IStatMap | IStatAlly | IStatOpponent;
