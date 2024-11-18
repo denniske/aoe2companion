@@ -1,4 +1,4 @@
-import { useTournamentPlayer } from '@app/api/tournaments';
+import { useTournamentPlayer, useTournamentPlayerOverview } from '@app/api/tournaments';
 import { Button } from '@app/components/button';
 import { FontAwesome5, FontAwesome6 } from '@expo/vector-icons';
 import {
@@ -185,7 +185,7 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
 
     const verifiedPlayer = getVerifiedPlayer(profileId!);
     const { data: liquipediaProfile } = useTournamentPlayer(verifiedPlayer?.liquipedia);
-    // const { data: liquipediaProfileOverview } = useTournamentPlayerOverview(verifiedPlayer?.liquipedia);
+    const { data: liquipediaProfileOverview } = useTournamentPlayerOverview(verifiedPlayer?.liquipedia);
 
     // Set country for use in leaderboard country dropdown
     useEffect(() => {
@@ -269,9 +269,9 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                     </View>
                 }
 
-                {liquipediaProfile && (
+                {liquipediaProfileOverview && (
                     <View className="justify-center">
-                        <TournamentMarkdown>{liquipediaProfile.overview ?? ''}</TournamentMarkdown>
+                        <TournamentMarkdown>{liquipediaProfileOverview}</TournamentMarkdown>
 
                         <Button onPress={() => setShowTournamentPlayer(true)} align="center" size="small">
                             Competitive Overview

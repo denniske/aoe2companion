@@ -76,13 +76,13 @@ export const useTournamentPlayer = (id?: string) =>
         enabled: Platform.OS === 'web' ? false : !!id,
     });
 
-// export const useTournamentPlayerOverview = (id?: string) =>
-//     useQuery({
-//         queryKey: ['player', 'overview', id],
-//         staleTime: 120000,
-//         queryFn: async () => await liquipedia.aoe.getPlayerOverview(id ?? ''),
-//         enabled: Platform.OS === 'web' ? false : !!id,
-//     });
+export const useTournamentPlayerOverview = (id?: string) =>
+    useQuery({
+        queryKey: ['player', 'overview', id],
+        staleTime: 120000,
+        queryFn: async () => await liquipedia.aoe.getPlayerOverview(id ?? ''),
+        enabled: Platform.OS === 'web' ? false : !!id,
+    });
 
 export const useTournamentMatches = (enabled?: boolean) => {
     const { data: upcomingTournaments, isLoading: isLoadingTournaments } = useUpcomingTournaments();
