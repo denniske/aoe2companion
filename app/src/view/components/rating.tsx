@@ -37,7 +37,6 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
     ratingHistories = ready ? ratingHistories : null;
 
     const paperTheme = usePaperTheme();
-    const { colorScheme } = useColorScheme();
     const mutate = useMutate();
     const auth = useSelector((state) => state.auth);
 
@@ -133,7 +132,7 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
         const data = orderBy(
             filteredRatingHistories
                 .flatMap((o) => o.ratings.map((r) => ({
-                    x: r.date!, //.getTime(),
+                    x: r.date!,
                     [o.leaderboardId]: r.rating,
                 }))),
             ['x'],
@@ -155,16 +154,18 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
     //     return <View></View>;
     // }
 
+    // console.log('data', dataset);
+
     return (
         <View style={styles.container}>
             <View style={styles.durationRow}>
                 <ButtonPicker value={ratingHistoryDuration} values={values} formatter={formatDuration} onSelect={nav} />
             </View>
 
-            <ViewLoader ready={!!filteredRatingHistories?.[0]}>
+            <ViewLoader ready={dataset.data?.length > 0}>
                 <View style={{ width: windowWidth - 40, height: 300 }}>
                     {
-                        !!filteredRatingHistories?.[0] &&
+                        dataset.data?.length > 0 &&
                         <CartesianChart
                             data={dataset.data}
                             xKey={"x" as never}

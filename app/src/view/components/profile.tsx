@@ -197,6 +197,8 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
     }, [data]);
 
     // console.log('verifiedPlayer===>', verifiedPlayer);
+    
+    console.log('data?.linkedProfiles===>', data?.linkedProfiles);
 
     return (
         <View style={styles.container}>
@@ -208,10 +210,12 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                             <CountryImageLoader country={verifiedPlayer?.country || data?.country} ready={data} />
 
                             <TextLoader>{data?.name}</TextLoader>
-                            {data?.verified && <Icon icon="check-circle" color="brand" size={14}
-                                                     style={styles.verifiedIcon as FontAwesomeIconStyle} />}
-                            {!data?.verified && data?.shared && <Icon icon="family" color="brand" size={14}
-                                                                      style={styles.verifiedIcon as FontAwesomeIconStyle} />}
+                            {data?.verified && (
+                                <Icon icon="check-circle" color="brand" size={14} style={styles.verifiedIcon as FontAwesomeIconStyle} />
+                            )}
+                            {!data?.verified && data?.shared && (
+                                <Icon icon="family" color="brand" size={14} style={styles.verifiedIcon as FontAwesomeIconStyle} />
+                            )}
                             {!!data?.clan && (
                                 <MyText>
                                     {' '}
@@ -242,13 +246,11 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                     </View>
                 </View>
 
-                {
-                    (verifiedPlayer?.discord || verifiedPlayer?.youtube || verifiedPlayer?.douyu || verifiedPlayer?.twitch != null) &&
+                {(verifiedPlayer?.discord || verifiedPlayer?.youtube || verifiedPlayer?.douyu || verifiedPlayer?.twitch != null) && (
                     <View style={styles.row}>
                         {verifiedPlayer?.discord && (
                             <View style={styles.badge}>
-                                <DiscordBadge serverId={verifiedPlayer?.discordServerId}
-                                              invitationId={getDiscordInvitationId(verifiedPlayer)} />
+                                <DiscordBadge serverId={verifiedPlayer?.discordServerId} invitationId={getDiscordInvitationId(verifiedPlayer)} />
                             </View>
                         )}
                         {verifiedPlayer?.youtube && (
@@ -267,7 +269,7 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                             </View>
                         )}
                     </View>
-                }
+                )}
 
                 {liquipediaProfileOverview && (
                     <View className="justify-center">
@@ -277,57 +279,53 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                             Competitive Overview
                         </Button>
 
-                        {
-                            liquipediaProfile &&
+                        {liquipediaProfile && (
                             <TournamentPlayerPopup
                                 id={liquipediaProfile.name}
                                 title={liquipediaProfile.name}
                                 isActive={showTournamentPlayer}
                                 onClose={() => setShowTournamentPlayer(false)}
                             />
-                        }
+                        )}
                     </View>
                 )}
 
-                {
-                    (data?.linkedProfiles?.length || 0) > 0 &&
+                {(data?.linkedProfiles?.length || 0) > 0 && (
                     <View className="space-y-1">
                         <MyText>Linked</MyText>
-                        {
-                            data?.linkedProfiles?.map((data) => (
-                                <Link key={data?.profileId}
-                                      href={`/matches/users/${data?.profileId}?name=${data?.name}`}
-                                      asChild>
+                        {data?.linkedProfiles?.map((linkedProfile) => {
+                            console.log('linkedProfile', linkedProfile);
+                            return (
+                                <Link key={linkedProfile?.profileId} href={`/matches/users/${linkedProfile?.profileId}?name=${linkedProfile?.name}`} asChild>
                                     <TouchableOpacity className="flex-1 flex-row gap-1 items-center">
-                                        <CountryImageLoader country={verifiedPlayer?.country || data?.country}
-                                                            ready={data} />
+                                        <CountryImageLoader country={verifiedPlayer?.country || linkedProfile?.country} ready={linkedProfile} />
 
-                                        <TextLoader>{data?.name}</TextLoader>
-                                        {data?.verified && <Icon icon="check-circle" color="brand" size={14}
-                                                                 style={styles.verifiedIcon as FontAwesomeIconStyle} />}
-                                        {!data?.verified && data?.shared && <Icon icon="family" color="brand" size={14}
-                                                                                  style={styles.verifiedIcon as FontAwesomeIconStyle} />}
-                                        {!!data?.clan && (
+                                        <TextLoader>{linkedProfile?.name}</TextLoader>
+                                        {linkedProfile?.verified && (
+                                            <Icon icon="check-circle" color="brand" size={14} style={styles.verifiedIcon as FontAwesomeIconStyle} />
+                                        )}
+                                        {!linkedProfile?.verified && linkedProfile?.shared && (
+                                            <Icon icon="family" color="brand" size={14} style={styles.verifiedIcon as FontAwesomeIconStyle} />
+                                        )}
+                                        {!!linkedProfile?.clan && (
                                             <MyText>
                                                 {' '}
-                                                ({getTranslation('main.profile.clan')}: {data?.clan})
+                                                ({getTranslation('main.profile.clan')}: {linkedProfile?.clan})
                                             </MyText>
                                         )}
                                     </TouchableOpacity>
                                 </Link>
-                            ))
-                        }
+                            );
+                        })}
                     </View>
-                }
+                )}
 
-                {
-                    !data?.verified && data?.shared &&
+                {!data?.verified && data?.shared && (
                     <View className="flex-row items-center space-x-2">
                         <Icon icon="family" color="brand" size={14} />
                         <MyText>Steam Family Sharing</MyText>
                     </View>
-
-                }
+                )}
 
                 <View>
                     <View style={styles.leaderboardRow}>
@@ -347,8 +345,7 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                             {getTranslation('main.profile.heading.change')}
                         </MyText>
                     </View>
-                    {data?.leaderboards.map((leaderboard) => <LeaderboardRow1 key={leaderboard.leaderboardId}
-                                                                              data={leaderboard} />)}
+                    {data?.leaderboards.map((leaderboard) => <LeaderboardRow1 key={leaderboard.leaderboardId} data={leaderboard} />)}
 
                     {!data &&
                         Array(2)
@@ -379,8 +376,7 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                             {getTranslation('main.profile.heading.streak')}
                         </MyText>
                     </View>
-                    {data?.leaderboards.map((leaderboard) => <LeaderboardRow2 key={leaderboard.leaderboardId}
-                                                                              data={leaderboard} />)}
+                    {data?.leaderboards.map((leaderboard) => <LeaderboardRow2 key={leaderboard.leaderboardId} data={leaderboard} />)}
 
                     {!data &&
                         Array(2)

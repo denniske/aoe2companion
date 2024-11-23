@@ -174,6 +174,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '120.0.0': [
+        {
+            type: 'minor',
+            title: 'Profile page chart rendering performance improvements',
+        },
+    ],
     '119.0.0': [
         {
             type: 'feature',

@@ -320,7 +320,7 @@ function AppWrapper() {
 
     console.log();
     console.log();
-    console.log('ROOT RENDER');
+    console.log('ROOT RENDER', appConfig.game);
     console.log();
     console.log();
 
