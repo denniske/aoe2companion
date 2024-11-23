@@ -47,7 +47,7 @@ import { ApplicationProvider } from '@ui-kitten/components';
 import * as Device from 'expo-device';
 import * as Localization from 'expo-localization';
 import * as Notifications from '../service/notifications';
-import { SplashScreen, Stack, useNavigation } from 'expo-router';
+import { SplashScreen, Stack, useNavigation, useRouter } from 'expo-router';
 import { LiveActivity } from 'modules/widget';
 import { useColorScheme as useTailwindColorScheme } from 'nativewind';
 import { useCallback, useEffect, useState } from 'react';
@@ -371,10 +371,15 @@ function AppWrapper() {
 
 function HomeLayout() {
     const navigation = useNavigation();
+    const router = useRouter();
 
     useEffect(() => {
         const backAction = () => {
-            navigation.goBack();
+            if (navigation.canGoBack()) {
+                navigation.goBack();
+            } else {
+                router.replace('/');
+            }
             return true;
         };
 
