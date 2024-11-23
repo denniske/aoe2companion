@@ -179,6 +179,14 @@ export const changelog: IChangelog = {
             type: 'minor',
             title: 'Profile page chart rendering performance improvements',
         },
+        {
+            type: 'bugfix',
+            title: 'Navigate to home page when there is no other page to go back (android)',
+        },
+        {
+            type: 'bugfix',
+            title: 'Pressing the home page button in the navigation footer should navigate to home page (not start page)',
+        },
     ],
     '119.0.0': [
         {
@@ -188,7 +196,12 @@ export const changelog: IChangelog = {
         },
         {
             type: 'minor',
-            title: 'Implemented [AoE II DE Update 128442](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-128442/)',
+            title: '[AoE II DE Update 128442](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-128442/)',
+            content: 'There were no changes applied in this update',
+        },
+        {
+            type: 'minor',
+            title: 'Fixed some changes from previous AoE II DE Updates and updated translations',
         },
         {
             type: 'minor',
