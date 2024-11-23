@@ -86,6 +86,12 @@ export function setAuth(user: any | null) {
     };
 }
 
+export function setMainPageShown(mainPageShown: boolean) {
+    return (state: AppState) => {
+        state.mainPageShown = mainPageShown;
+    };
+}
+
 export function setLeaderboardCountry(country?: string | null) {
     return (state: AppState) => {
         state.leaderboardCountry = country;
@@ -204,6 +210,7 @@ export interface AppState {
     updateManifest?: Manifest | null;
     updateStoreManifest?: any | null;
     mainPage: string;
+    mainPageShown?: boolean;
 }
 
 export const initialState: Partial<AppState> = {

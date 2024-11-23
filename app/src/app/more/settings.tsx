@@ -21,7 +21,7 @@ import {
 } from '../../api/following';
 import { deactivatePusher, initPusher } from '../../helper/pusher';
 import { getLanguageFromSystemLocale2, getTranslation } from '../../helper/translate';
-import { DarkMode, setConfig, useMutate, useSelector } from '../../redux/reducer';
+import { DarkMode, setConfig, setMainPageShown, useMutate, useSelector } from '../../redux/reducer';
 import { setInternalLanguage } from '../../redux/statecache';
 import { getToken } from '../../service/push';
 import { saveConfigToStorage } from '../../service/storage';
@@ -259,6 +259,7 @@ export default function SettingsPage() {
         };
         await saveConfigToStorage(newConfig);
         mutate(setConfig(newConfig));
+        mutate(setMainPageShown(true));
     };
 
     return (

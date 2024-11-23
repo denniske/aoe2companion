@@ -6,7 +6,7 @@ import { Match } from '@app/components/match';
 import { NewsCard } from '@app/components/news-card';
 import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
-import { useSelector } from '@app/redux/reducer';
+import { setMainPageShown, useMutate, useSelector } from '@app/redux/reducer';
 import { useFollowedTournaments } from '@app/service/followed-tournaments';
 import { useFavoritedBuilds } from '@app/service/storage';
 import { useCurrentMatches } from '@app/utils/match';
@@ -19,7 +19,6 @@ import { useCallback, useEffect } from 'react';
 import { Platform, View } from 'react-native';
 import { Button } from '@app/components/button';
 
-
 export default function Page() {
     const tournament = useFeaturedTournament();
     const matches = useCurrentMatches(1);
@@ -29,9 +28,11 @@ export default function Page() {
     const router = useRouter();
     const { favorites, refetch } = useFavoritedBuilds();
     const { followedIds, refetch: refetchTournament } = useFollowedTournaments();
-    const config = useSelector((state) => state.config);
+    const configMainPage = useSelector((state) => state.config.mainPage);
+    const mainPageShown = useSelector((state) => state.mainPageShown);
     const rootNavigation = useRootNavigationState();
     const isNavigationReady = rootNavigation?.key != null;
+    const mutate = useMutate();
 
     useFocusEffect(
         useCallback(() => {
@@ -48,22 +49,25 @@ export default function Page() {
     }, [response]);
 
     useEffect(() => {
-        if (Platform.OS !== 'web' && isNavigationReady && config.mainPage) {
-            router.navigate(config.mainPage);
+        if (Platform.OS !== 'web' && isNavigationReady && configMainPage && mainPageShown !== true) {
+            router.navigate(configMainPage);
+            mutate(setMainPageShown(true));
         }
     }, [isNavigationReady]);
 
     return (
         <ScrollView contentContainerStyle="p-4 gap-5">
-            <Stack.Screen options={{
-                animation: 'none',
-                headerRight: () => (
-                    <Button href={"/matches/users/search"} icon="search">
-                        Find Player
-                    </Button>
-                ),
-                title: 'Home',
-            }} />
+            <Stack.Screen
+                options={{
+                    animation: 'none',
+                    headerRight: () => (
+                        <Button href={'/matches/users/search'} icon="search">
+                            Find Player
+                        </Button>
+                    ),
+                    title: 'Home',
+                }}
+            />
 
             <View className="-mx-4">
                 <FollowedPlayers />
