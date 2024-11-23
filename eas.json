@@ -1,109 +1,117 @@
 {
-  "cli": {
-    "version": ">= 4.1.0",
-    "appVersionSource": "local"
-  },
-  "build": {
-    "base": {
-      "node": "18.17.0",
-      "ios": {
-        "resourceClass": "m-medium"
-      },
-      "env": {
-        "YARN_ENABLE_IMMUTABLE_INSTALLS": "false"
-      }
+    "cli": {
+        "version": ">= 4.1.0",
+        "appVersionSource": "local"
     },
-    "base-aoe2": {
-      "extends": "base",
-      "env": {
-        "APP": "aoe2"
-      }
+    "build": {
+        "base": {
+            "node": "18.17.0",
+            "ios": {
+                "resourceClass": "m-medium"
+            },
+            "env": {
+                "YARN_ENABLE_IMMUTABLE_INSTALLS": "false"
+            }
+        },
+        "base-aoe2": {
+            "extends": "base",
+            "env": {
+                "APP": "aoe2"
+            }
+        },
+        "base-aoe4": {
+            "extends": "base",
+            "env": {
+                "APP": "aoe4"
+            }
+        },
+        "development-aoe2": {
+            "extends": "base-aoe2",
+            "channel": "production",
+            "developmentClient": true,
+            "distribution": "internal",
+            "environment": "development"
+        },
+        "development-aoe4": {
+            "extends": "base-aoe4",
+            "channel": "production",
+            "developmentClient": true,
+            "distribution": "internal",
+            "environment": "development"
+        },
+        "development-simulator-aoe2": {
+            "extends": "base-aoe2",
+            "channel": "production",
+            "developmentClient": true,
+            "distribution": "internal",,
+            "environment": "development",
+            "ios": {
+                "simulator": true
+            }
+        },
+        "development-simulator-aoe4": {
+            "extends": "base-aoe4",
+            "channel": "production",
+            "developmentClient": true,
+            "distribution": "internal",,
+            "environment": "development",
+            "ios": {
+                "simulator": true
+            }
+        },
+        "internal-aoe2": {
+            "extends": "base-aoe2",
+            "channel": "production",
+            "distribution": "internal",
+            "environment": "internal"
+        },
+        "internal-aoe4": {
+            "extends": "base-aoe4",
+            "channel": "production",
+            "distribution": "internal",
+            "environment": "internal"
+        },
+        "production-aoe2": {
+            "extends": "base-aoe2",
+            "channel": "production",
+            "environment": "production"
+        },
+        "production-aoe4": {
+            "extends": "base-aoe4",
+            "channel": "production",
+            "environment": "production"
+        }
     },
-    "base-aoe4": {
-      "extends": "base",
-      "env": {
-        "APP": "aoe4"
-      }
-    },
-    "development-aoe2": {
-      "extends": "base-aoe2",
-      "channel": "production",
-      "developmentClient": true,
-      "distribution": "internal"
-    },
-    "development-aoe4": {
-      "extends": "base-aoe4",
-      "channel": "production",
-      "developmentClient": true,
-      "distribution": "internal"
-    },
-    "development-simulator-aoe2": {
-      "extends": "base-aoe2",
-      "channel": "production",
-      "developmentClient": true,
-      "distribution": "internal",
-      "ios": {
-        "simulator": true
-      }
-    },
-    "development-simulator-aoe4": {
-      "extends": "base-aoe4",
-      "channel": "production",
-      "developmentClient": true,
-      "distribution": "internal",
-      "ios": {
-        "simulator": true
-      }
-    },
-    "internal-aoe2": {
-      "extends": "base-aoe2",
-      "channel": "production",
-      "distribution": "internal"
-    },
-    "internal-aoe4": {
-      "extends": "base-aoe4",
-      "channel": "production",
-      "distribution": "internal"
-    },
-    "production-aoe2": {
-      "extends": "base-aoe2",
-      "channel": "production"
-    },
-    "production-aoe4": {
-      "extends": "base-aoe4",
-      "channel": "production"
+    "submit": {
+        "production-aoe2": {
+            "android": {
+                "track": "production",
+                "releaseStatus": "draft",
+                "serviceAccountKeyPath": "play-store-service-account.json"
+            },
+            "ios": {
+                "ascAppId": "1518463195",
+                "appleTeamId": "HAFGZBHF9M",
+                "sku": "com.aoe2companion",
+                "ascApiKeyPath": "auth_key.p8",
+                "ascApiKeyIssuerId": "fb7451c8-c140-408a-be1d-375ba4e5045c",
+                "ascApiKeyId": "VJ4G795F6S"
+            }
+        },
+        "production-aoe4": {
+            "android": {
+                "track": "production",
+                "releaseStatus": "draft",
+                "serviceAccountKeyPath": "play-store-service-account.json"
+            },
+            "ios": {
+                "ascAppId": "1601333682",
+                "appleTeamId": "HAFGZBHF9M",
+                "sku": "com.aoe4companion",
+                "ascApiKeyPath": "auth_key.p8",
+                "ascApiKeyIssuerId": "fb7451c8-c140-408a-be1d-375ba4e5045c",
+                "ascApiKeyId": "VJ4G795F6S"
+            }
+        }
     }
-  },
-  "submit": {
-    "production-aoe2": {
-      "android": {
-        "track": "production",
-        "releaseStatus": "draft",
-        "serviceAccountKeyPath": "play-store-service-account.json"
-      },
-      "ios": {
-        "ascAppId": "1518463195",
-        "appleTeamId": "HAFGZBHF9M",
-        "sku": "com.aoe2companion",
-        "ascApiKeyPath": "auth_key.p8",
-        "ascApiKeyIssuerId": "fb7451c8-c140-408a-be1d-375ba4e5045c",
-        "ascApiKeyId": "VJ4G795F6S"
-      }
-    },
-    "production-aoe4": {
-      "android": {
-        "track": "production",
-        "releaseStatus": "draft",
-        "serviceAccountKeyPath": "play-store-service-account.json"
-      },
-      "ios": {
-        "ascAppId": "1601333682",
-        "appleTeamId": "HAFGZBHF9M",
-        "sku": "com.aoe4companion",
-        "ascApiKeyPath": "auth_key.p8",
-        "ascApiKeyIssuerId": "fb7451c8-c140-408a-be1d-375ba4e5045c",
-        "ascApiKeyId": "VJ4G795F6S"
-      }
-    }
-  }
 }
