@@ -151,10 +151,17 @@ function getUniqueUnitsForSection(civ: Civ) {
     return allUnits;
 }
 
+const nonExtendedUnitsInSections = [
+    'ElephantArcher',
+    'BattleElephant',
+    'CannonGalleon',
+    'SteppeLancer',
+];
+
 export const allUnitSections = unitSections.map(section => ({
     ...section,
     data: flatMap(section.data.map(u => {
-        if (unitLines[u] && !unitLines[u].unique && u !== 'ElephantArcher') {
+        if (unitLines[u] && !unitLines[u].unique && !nonExtendedUnitsInSections.includes(u)) {
             return unitLines[u].units;
         }
         return [u];

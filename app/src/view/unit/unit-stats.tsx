@@ -24,9 +24,17 @@ interface Props {
 
 type IFormatter = (x: number) => string;
 
+
+const includeEliteDataUnitLines = [
+    'ElephantArcher',
+    'BattleElephant',
+    'CannonGalleon',
+    'SteppeLancer',
+];
+
 function getEliteData(unitLineId: UnitLine) {
     const unitLine = unitLines[unitLineId];
-    const eliteUnit = unitLine.unique ? unitLine.units[1] : null;
+    const eliteUnit = unitLine.unique || includeEliteDataUnitLines.includes(unitLineId) ? unitLine.units[1] : null;
     return eliteUnit ? getUnitData(eliteUnit) : undefined;
 }
 

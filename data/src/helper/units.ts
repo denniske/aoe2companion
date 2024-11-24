@@ -1987,7 +1987,6 @@ export const unitLines: IUnitLineDict = {
     },
     'SteppeLancer': {
         units: ['SteppeLancer', 'EliteSteppeLancer'],
-        unique: true,
         counteredBy: [
             'Militia',
             'Spearman',

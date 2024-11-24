@@ -37,6 +37,7 @@ interface UnitIconDict {
     [unit: string]: ImageSourcePropType;
 }
 
+// Use .webp for smaller files later
 const unitIcons: UnitIconDict = {
     'Centurion': require('../../assets/units/Centurion.png'),
     'Legionary': require('../../assets/units/Legionary.png'),
@@ -79,7 +80,8 @@ const unitIcons: UnitIconDict = {
     'ChuKoNu': require('../../../app/assets/units/ChuKoNu.png'),
     'Mangudai': require('../../../app/assets/units/Mangudai.png'),
     'WarWagon': require('../../../app/assets/units/WarWagon.png'),
-    'ElephantArcher': require('../../../app/assets/units/ElephantArcher.png'),
+    'ElephantArcher': require('../../assets/units/ElephantArcher.png'),
+    'EliteElephantArcher': require('../../assets/units/EliteElephantArcher.png'),
     'GenoeseCrossbowman': require('../../../app/assets/units/GenoeseCrossbowman.png'),
     'CamelArcher': require('../../../app/assets/units/CamelArcher.png'),
     'Genitour': require('../../../app/assets/units/Genitour.png'),

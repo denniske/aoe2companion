@@ -179,6 +179,18 @@ export const changelog: IChangelog = {
             type: 'bugfix',
             title: 'Fix algorithm for matching players to verified players',
         },
+        {
+            type: 'bugfix',
+            title: 'Mark Steppe Lancer as not unique',
+        },
+        {
+            type: 'bugfix',
+            title: 'Remove elite units from unit list (except for skirmisher and eagle warrior)',
+        },
+        {
+            type: 'bugfix',
+            title: 'On Unit page show elite upgrades for more units',
+        },
     ],
     '120.0.0': [
         {
