@@ -44,6 +44,14 @@ export function setAoeReferenceData(data: any) {
             },
         ],
     }) as unknown as IReferenceData;
+
+    // Some profile ids have a suffix like -hc which we need to remove so we can match them
+    aoeReferenceDataTyped.players.forEach((p) => {
+        p.platforms.rl = p.platforms.rl?.map((rl) => rl.split('-')[0]);
+    });
+
+    // console.log('aoeReferenceDataTyped', aoeReferenceDataTyped.players.flatMap(p => p.platforms.rl));
+
     verifiedProfileIds = removeNulls(flatMap(aoeReferenceDataTyped.players, (p) => p.platforms.rl));
     // console.log('verifiedProfileIds', verifiedProfileIds);
 }
@@ -64,7 +72,7 @@ export function isVerifiedPlayer(profileId: number) {
 export function getVerifiedPlayer(profileId: number) {
     // console.log(profileId);
     // console.log(aoeReferenceDataTyped.players);
-    return aoeReferenceDataTyped.players?.find((p) => p.platforms?.rl?.some(rl => rl.includes(profileId.toString())));
+    return aoeReferenceDataTyped.players?.find((p) => p.platforms?.rl?.some(rl => rl === profileId.toString()));
 }
 
 export function getVerifiedPlayerBy(predicate: (value: IReferencePlayer, index: number) => unknown) {

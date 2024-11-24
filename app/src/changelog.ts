@@ -174,6 +174,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '121.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix algorithm for matching players to verified players',
+        },
+    ],
     '120.0.0': [
         {
             type: 'minor',
