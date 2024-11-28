@@ -43,7 +43,7 @@
             "extends": "base-aoe2",
             "channel": "production",
             "developmentClient": true,
-            "distribution": "internal",,
+            "distribution": "internal",
             "environment": "development",
             "ios": {
                 "simulator": true
@@ -53,7 +53,7 @@
             "extends": "base-aoe4",
             "channel": "production",
             "developmentClient": true,
-            "distribution": "internal",,
+            "distribution": "internal",
             "environment": "development",
             "ios": {
                 "simulator": true
@@ -63,13 +63,13 @@
             "extends": "base-aoe2",
             "channel": "production",
             "distribution": "internal",
-            "environment": "internal"
+            "environment": "preview"
         },
         "internal-aoe4": {
             "extends": "base-aoe4",
             "channel": "production",
             "distribution": "internal",
-            "environment": "internal"
+            "environment": "preview"
         },
         "production-aoe2": {
             "extends": "base-aoe2",
