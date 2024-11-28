@@ -174,6 +174,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '122.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix toggle following (heart icon) on player page',
+        },
+    ],
     '121.0.0': [
         {
             type: 'bugfix',

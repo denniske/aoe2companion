@@ -46,7 +46,7 @@ export function getHost(host: Host) {
             //     return `http://${platformHost}:3003/`;
             // }
             // if (dev) {
-            //     return 'http://localhost:3333/';
+            //     return 'http://localhost:3332/';
             // }
             return `https://api.${appConfig.hostAoeCompanion}/`;
         }
