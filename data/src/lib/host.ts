@@ -38,7 +38,7 @@ export function getHost(host: Host) {
             // if (dev) {
             //     return 'http://localhost:3333/';
             // }
-            return `https://function.${appConfig.hostAoeCompanion}/`;
+            return `https://${appConfig.hostAoeCompanion}/`;
         }
         case "aoe2companion-api": {
             // if (__DEV__ && Device.isDevice) {

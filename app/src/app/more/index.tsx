@@ -19,6 +19,7 @@ export default function More() {
     const isMajorRelease = Constants.expoConfig?.version?.includes('.0.0');
 
     const links: Link[] = [
+        { icon: 'user', title: 'Account', path: '/more/account' },
         { icon: 'cog', title: 'Settings', path: '/more/settings' },
         { icon: 'question-circle', title: 'About', path: '/more/about' },
         { icon: 'exchange-alt', title: 'Changelog', path: '/more/changelog' },
