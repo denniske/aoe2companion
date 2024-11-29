@@ -4,6 +4,7 @@ import { supabaseClient } from '../../../data/src/helper/supabase';
 import { Button } from 'react-native-paper';
 import { MyText } from '@app/view/components/my-text';
 import { Field } from '@app/components/field';
+import { useQueryClient } from '@tanstack/react-query';
 
 // Tells Supabase Auth to continuously refresh the session automatically if
 // the app is in the foreground. When this is added, you will continue to receive
@@ -21,6 +22,7 @@ export default function Login() {
     const [email, setEmail] = useState('dennis.keil10+1@gmail.com')
     const [password, setPassword] = useState('123abc')
     const [loading, setLoading] = useState(false)
+    const queryClient = useQueryClient();
 
     async function signInWithEmail() {
         setLoading(true)
@@ -31,6 +33,8 @@ export default function Login() {
 
         if (error) Alert.alert(error.message)
         setLoading(false)
+
+        await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' })
     }
 
     async function signUpWithEmail() {
@@ -46,6 +50,8 @@ export default function Login() {
         if (error) Alert.alert(error.message)
         if (!session) Alert.alert('Please check your inbox for email verification!')
         setLoading(false)
+
+        await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' })
     }
 
     return (

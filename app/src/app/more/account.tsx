@@ -16,6 +16,7 @@ import { appVariants } from '@app/styles';
 import { QUERY_KEY_ACCOUNT, useAccount } from '@app/app/_layout';
 import { accountUnlinkPatreon, accountUnlinkSteam, fetchAccount } from '@app/api/account';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { supabaseClient } from '../../../../data/src/helper/supabase';
 
 function getPatreonLoginUrl() {
     const queryString = new URLSearchParams({
@@ -69,7 +70,7 @@ export default function AccountPage() {
     // });
 
     // console.log('user', user);
-    // console.log('account', account);
+    console.log('account', account);
 
     const unlinkSteam = async () => {
         await accountUnlinkSteam();
@@ -81,15 +82,22 @@ export default function AccountPage() {
         await account.refetch();
     }
 
+    const logout = async () => {
+        const { error } = await supabaseClient.auth.signOut();
+        await account.refetch();
+    }
+
+    const loggedIn = user && account.data;
+
     return (
         <ScrollView contentContainerStyle="min-h-full items-center p-5">
             <Stack.Screen options={{ title: getTranslation('account.title') }} />
 
             <MyText style={styles.title}>{Constants.expoConfig?.name || Constants.expoConfig2?.extra?.expoClient?.name}</MyText>
 
-            {!user && <Login />}
+            {!loggedIn && <Login />}
 
-            {user && (
+            {loggedIn && (
                 <View>
                     <MyText style={styles.content}>{user.email}</MyText>
 
@@ -128,6 +136,11 @@ export default function AccountPage() {
                             <MyText style={appStyles.link}>Link Steam</MyText>
                         </TouchableOpacity>
                     }
+
+                    <Space />
+                    <TouchableOpacity onPress={() => logout()}>
+                        <MyText style={appStyles.link}>Logout</MyText>
+                    </TouchableOpacity>
 
                     {/*<Space />*/}
                     {/*<Space />*/}

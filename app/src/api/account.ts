@@ -12,7 +12,7 @@ export async function fetchAccount(): Promise<any> {
 
     };
 
-    return await fetchJson('account', url, {
+    const result = await fetch(url, {
         method: 'GET',
         headers: {
             'Authorization': `bearer ${session?.data?.session?.access_token}`,
@@ -21,6 +21,23 @@ export async function fetchAccount(): Promise<any> {
         },
         // body: JSON.stringify(data),
     });
+
+    if (result.status === 401) {
+        // throw new Error('Unauthorized');
+        return null;
+    }
+
+    return await result.json();
+
+    // return await fetchJson('account', url, {
+    //     method: 'GET',
+    //     headers: {
+    //         'Authorization': `bearer ${session?.data?.session?.access_token}`,
+    //         'Accept': 'application/json',
+    //         'Content-Type': 'application/json'
+    //     },
+    //     // body: JSON.stringify(data),
+    // });
 }
 
 export async function accountUnlinkSteam(): Promise<any> {
