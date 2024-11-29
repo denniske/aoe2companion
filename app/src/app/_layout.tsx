@@ -69,7 +69,7 @@ import UpdateSnackbar from '@app/view/components/snackbar/update-snackbar';
 import ChangelogSnackbar from '@app/view/components/snackbar/changelog-snackbar';
 import ErrorSnackbar from '@app/view/components/snackbar/error-snackbar';
 import { useEventListener } from 'expo';
-import { account, authLinkSteam } from '@app/api/account';
+import { authLinkSteam, fetchAccount } from '@app/api/account';
 
 initSentry();
 
@@ -184,8 +184,7 @@ function LanguageController() {
 // a rerender of the AppWrapper which costs performance.
 function AccountController() {
     const account = useAccount();
-    console.log('account in layout', account);
-
+    // console.log('account in layout', account);
     return <View />;
 }
 
@@ -218,12 +217,13 @@ function LiveActivityController() {
     return <View />;
 }
 
+export const QUERY_KEY_ACCOUNT = 'account';
 
 export const useAccount = () =>
     useQuery({
-        queryKey: ['account'],
+        queryKey: [QUERY_KEY_ACCOUNT],
         // staleTime: 120000,
-        queryFn: async () => await account(),
+        queryFn: async () => await fetchAccount(),
     });
 
 export const useAuthLinkSteam = (params: any) =>

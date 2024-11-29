@@ -13,8 +13,9 @@ import Space from '@app/view/components/space';
 import { openLink } from '@app/helper/url';
 import { useTheme } from '@app/theming';
 import { appVariants } from '@app/styles';
-import { useAccount } from '@app/app/_layout';
-import { accountUnlinkSteam } from '@app/api/account';
+import { QUERY_KEY_ACCOUNT, useAccount } from '@app/app/_layout';
+import { accountUnlinkPatreon, accountUnlinkSteam, fetchAccount } from '@app/api/account';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 function getPatreonLoginUrl() {
     const queryString = new URLSearchParams({
@@ -60,13 +61,30 @@ export default function AccountPage() {
     const user = useAuth();
     const account = useAccount();
 
-    console.log('user', user);
-    console.log('account', account);
+    // const account = useQuery({
+    //     queryKey: [QUERY_KEY_ACCOUNT],
+    //     staleTime: 0,
+    //     queryFn: async () => await fetchAccount(),
+    //     refetchOnMount: true,
+    // });
+
+    // console.log('user', user);
+    // console.log('account', account);
 
     const unlinkSteam = async () => {
         await accountUnlinkSteam();
         await account.refetch();
     }
+
+    const unlinkPatreon = async () => {
+        await accountUnlinkPatreon();
+        await account.refetch();
+    }
+
+    const queryClient = useQueryClient();
+    const cache = queryClient.getQueryCache().queries.map(e => e.queryKey.toString());
+
+    console.log('====> cache', cache);
 
     return (
         <ScrollView contentContainerStyle="min-h-full items-center p-5">
@@ -82,23 +100,35 @@ export default function AccountPage() {
 
                     <Space />
 
-                    <TouchableOpacity onPress={() => openLink(getPatreonLoginUrl())}>
-                        <MyText style={appStyles.link}>Link Patreon</MyText>
-                    </TouchableOpacity>
+                    {
+                        account.data?.patreonId &&
+                        <>
+                            <MyText style={styles.heading}>Patreon ID: {account.data.patreonId}</MyText>
+                            <TouchableOpacity onPress={() => unlinkPatreon()}>
+                                <MyText style={appStyles.link}>Unlink Patreon</MyText>
+                            </TouchableOpacity>
+                        </>
+                    }
+                    {
+                        !account.data?.patreonId &&
+                        <TouchableOpacity onPress={() => openLink(getPatreonLoginUrl())}>
+                            <MyText style={appStyles.link}>Link Patreon</MyText>
+                        </TouchableOpacity>
+                    }
 
                     <Space />
 
                     {
-                        account.data?.account.steamId &&
+                        account.data?.steamId &&
                         <>
-                            <MyText style={styles.heading}>Steam ID: {account.data.account.steamId}</MyText>
+                            <MyText style={styles.heading}>Steam ID: {account.data.steamId}</MyText>
                             <TouchableOpacity onPress={() => unlinkSteam()}>
                                 <MyText style={appStyles.link}>Unlink Steam</MyText>
                             </TouchableOpacity>
                         </>
                     }
                     {
-                        !account.data?.account.steamId &&
+                        !account.data?.steamId &&
                         <TouchableOpacity onPress={() => openLink(getSteamLoginUrl())}>
                             <MyText style={appStyles.link}>Link Steam</MyText>
                         </TouchableOpacity>
