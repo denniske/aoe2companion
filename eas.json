@@ -10,7 +10,8 @@
                 "resourceClass": "m-medium"
             },
             "env": {
-                "YARN_ENABLE_IMMUTABLE_INSTALLS": "false"
+                "YARN_ENABLE_IMMUTABLE_INSTALLS": "false",
+                "EAS_SKIP_AUTO_FINGERPRINT": "1"
             }
         },
         "base-aoe2": {

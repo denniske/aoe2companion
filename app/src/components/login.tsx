@@ -3,6 +3,7 @@ import { Alert, StyleSheet, View, AppState } from 'react-native'
 import { supabaseClient } from '../../../data/src/helper/supabase';
 import { Button } from 'react-native-paper';
 import { MyText } from '@app/view/components/my-text';
+import { Field } from '@app/components/field';
 
 // Tells Supabase Auth to continuously refresh the session automatically if
 // the app is in the foreground. When this is added, you will continue to receive
@@ -52,22 +53,24 @@ export default function Login() {
             <View style={[styles.verticallySpaced, styles.mt20]}>
                 {/*leftIcon={{ type: 'font-awesome', name: 'envelope' }}*/}
                 <MyText>Email</MyText>
-                <input
-                    onChange={(text) => setEmail(text.target.value)}
-                    value={email}
+
+                <Field
                     placeholder="email@address.com"
-                    autoCapitalize={'none'}
+                    type="default"
+                    autoFocus={true}
+                    onChangeText={setEmail}
+                    value={email}
                 />
             </View>
             <View style={styles.verticallySpaced}>
                 {/*leftIcon={{ type: 'font-awesome', name: 'lock' }}*/}
                 <MyText>Password</MyText>
-                <input
-                    onChange={(text) => setPassword(text.target.value)}
-                    value={password}
-                    type={'password'}
+                <Field
                     placeholder="Password"
-                    autoCapitalize={'none'}
+                    type="default"
+                    autoFocus={true}
+                    onChangeText={setPassword}
+                    value={password}
                 />
             </View>
             <View style={[styles.verticallySpaced, styles.mt20]}>

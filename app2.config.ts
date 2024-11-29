@@ -185,6 +185,7 @@ export default {
                     "group.com.aoe2companion.widget"
                 ]
             },
+            "associatedDomains": ["applinks:www.aoe2companion.com"],
             "appleTeamId": "HAFGZBHF9M",
         },
     } as ExpoConfig

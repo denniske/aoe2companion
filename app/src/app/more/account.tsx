@@ -4,7 +4,7 @@ import Constants from 'expo-constants';
 import { MyText } from '@app/view/components/my-text';
 import { createStylesheet } from '../../theming-new';
 import { getTranslation } from '../../helper/translate';
-import { Stack } from 'expo-router';
+import { Link, Stack } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
 import useAuth from '../../../../data/src/hooks/use-auth';
 import Login from '@app/components/login';
@@ -13,6 +13,7 @@ import Space from '@app/view/components/space';
 import { openLink } from '@app/helper/url';
 import { useTheme } from '@app/theming';
 import { appVariants } from '@app/styles';
+import { useAccount } from '@app/app/_layout';
 
 function getPatreonLoginUrl() {
     const queryString = new URLSearchParams({
@@ -27,8 +28,10 @@ function getPatreonLoginUrl() {
 }
 
 function getSteamLoginUrl() {
-    let realm = getHost('aoe2companion');
-    let returnUrl = `${getHost('aoe2companion')}auth/link/steam`;
+    // let realm = getHost('aoe2companion');
+    // let returnUrl = `${getHost('aoe2companion')}auth/link/steam`;
+    let realm = `https://www.aoe2companion.com`;
+    let returnUrl = `https://www.aoe2companion.com/auth/link/steam`;
 
     let match = realm.match(/^(https?:\/\/[^:/]+)/);
     if (!match) {
@@ -54,8 +57,10 @@ export default function AccountPage() {
     // const [state, setState] = useState('');
 
     const user = useAuth();
+    const account = useAccount();
 
     console.log('user', user);
+    console.log('account', account);
 
     return (
         <ScrollView contentContainerStyle="min-h-full items-center p-5">
@@ -77,9 +82,25 @@ export default function AccountPage() {
 
                     <Space />
 
-                    <TouchableOpacity onPress={() => openLink(getSteamLoginUrl())}>
-                        <MyText style={appStyles.link}>Link Steam</MyText>
-                    </TouchableOpacity>
+                    {
+                        account.data?.account.steamId &&
+                        <>
+                            <MyText style={styles.heading}>Steam ID: {account.data.account.steamId}</MyText>
+                            <TouchableOpacity onPress={() => openLink(getSteamLoginUrl())}>
+                                <MyText style={appStyles.link}>Unlink Steam</MyText>
+                            </TouchableOpacity>
+                        </>
+                    }
+                    {
+                        !account.data?.account.steamId &&
+                        <TouchableOpacity onPress={() => openLink(getSteamLoginUrl())}>
+                            <MyText style={appStyles.link}>Link Steam</MyText>
+                        </TouchableOpacity>
+                    }
+
+                    <Space />
+                    <Space />
+                    <Link href={'https://www.aoe2companion.com/auth/link/steam'}>TEST</Link>
 
                     {/*<a href={getPatreonLoginUrl()}>Link Patreon</a>*/}
                     {/*<Space />*/}

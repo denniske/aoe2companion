@@ -42,7 +42,7 @@ import {
 } from '@nex/data';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import * as Sentry from '@sentry/react-native';
-import { focusManager, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { focusManager, QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
 import { ApplicationProvider } from '@ui-kitten/components';
 import * as Device from 'expo-device';
 import * as Localization from 'expo-localization';
@@ -69,6 +69,7 @@ import UpdateSnackbar from '@app/view/components/snackbar/update-snackbar';
 import ChangelogSnackbar from '@app/view/components/snackbar/changelog-snackbar';
 import ErrorSnackbar from '@app/view/components/snackbar/error-snackbar';
 import { useEventListener } from 'expo';
+import { account, authLinkSteam } from '@app/api/account';
 
 initSentry();
 
@@ -179,6 +180,15 @@ function LanguageController() {
     return <View />;
 }
 
+// If we use these hooks in the AppWrapper, every change will trigger
+// a rerender of the AppWrapper which costs performance.
+function AccountController() {
+    const account = useAccount();
+    console.log('account', account);
+
+    return <View />;
+}
+
 function LiveActivityController() {
     const account = useSelector((state) => state.account);
 
@@ -207,6 +217,21 @@ function LiveActivityController() {
 
     return <View />;
 }
+
+
+export const useAccount = () =>
+    useQuery({
+        queryKey: ['account'],
+        // staleTime: 120000,
+        queryFn: async () => await account(),
+    });
+
+export const useAuthLinkSteam = (params: any) =>
+    useQuery({
+        queryKey: ['authLinkSteam'],
+        // staleTime: 120000,
+        queryFn: async () => await authLinkSteam(params),
+    });
 
 function AppWrapper() {
     const { setColorScheme } = useTailwindColorScheme();
@@ -349,6 +374,7 @@ function AppWrapper() {
 
                                     <LanguageController />
                                     <LiveActivityController />
+                                    <AccountController />
 
                                     <Portal>
                                         {Platform.OS !== 'web' && <UpdateSnackbar />}
