@@ -23,6 +23,26 @@ export async function account(): Promise<any> {
     });
 }
 
+export async function accountUnlinkSteam(): Promise<any> {
+    const url = getHost('aoe2companion-api') + `v2/account/unlink/steam`;
+
+    const session = await supabaseClient.auth.getSession();
+
+    const data = {
+
+    };
+
+    return await fetchJson('accountUnlinkSteam', url, {
+        method: 'POST',
+        headers: {
+            'Authorization': `bearer ${session?.data?.session?.access_token}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        // body: JSON.stringify(data),
+    });
+}
+
 export async function authLinkSteam(params: any): Promise<any> {
     const url = getHost('aoe2companion-api') + `auth/link/steam?${makeQueryString(params)}`;
 

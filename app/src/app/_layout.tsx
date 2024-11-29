@@ -184,7 +184,7 @@ function LanguageController() {
 // a rerender of the AppWrapper which costs performance.
 function AccountController() {
     const account = useAccount();
-    console.log('account', account);
+    console.log('account in layout', account);
 
     return <View />;
 }

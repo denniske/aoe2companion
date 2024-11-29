@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Constants from 'expo-constants';
 import { MyText } from '@app/view/components/my-text';
 import { createStylesheet } from '../../theming-new';
 import { getTranslation } from '../../helper/translate';
-import { Link, Stack } from 'expo-router';
+import { Link, Stack, useGlobalSearchParams } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
 import useAuth from '../../../../data/src/hooks/use-auth';
 import Login from '@app/components/login';
@@ -14,14 +14,17 @@ import { openLink } from '@app/helper/url';
 import { useTheme } from '@app/theming';
 import { appVariants } from '@app/styles';
 import { useAccount } from '@app/app/_layout';
+import { accountUnlinkSteam } from '@app/api/account';
 
 function getPatreonLoginUrl() {
     const queryString = new URLSearchParams({
         response_type: 'code',
         client_id: 'jsn5ztplpiU4BZ1PxAzOnK5ZyXti69KhEFGQpZSNCt2ahACRi1LMo6kMKmxLFVmn',
-        redirect_uri: `${getHost('aoe2companion')}auth/link/patreon`,
+        // redirect_uri: `${getHost('aoe2companion')}auth/link/patreon`,
+        redirect_uri: `https://www.aoe2companion.com/auth/link/patreon`,
         scope: 'identity identity.memberships',
         allow_signup: 'false',
+        state: 'link-patreon',
     }).toString();
 
     return `https://www.patreon.com/oauth2/authorize?${queryString}`;
@@ -32,6 +35,7 @@ function getSteamLoginUrl() {
     // let returnUrl = `${getHost('aoe2companion')}auth/link/steam`;
     let realm = `https://www.aoe2companion.com`;
     let returnUrl = `https://www.aoe2companion.com/auth/link/steam`;
+    // let returnUrl = `https://www.aoe2companion.com/more/account`;
 
     let match = realm.match(/^(https?:\/\/[^:/]+)/);
     if (!match) {
@@ -46,6 +50,7 @@ function getSteamLoginUrl() {
         'openid.ns': 'http://specs.openid.net/auth/2.0',
         'openid.realm': realm,
         'openid.return_to': returnUrl,
+        'openid.state': 'link-steam',
     });
 
     return 'https://steamcommunity.com/openid/login?' + queryString;
@@ -54,13 +59,17 @@ function getSteamLoginUrl() {
 export default function AccountPage() {
     const styles = useStyles();
     const appStyles = useTheme(appVariants);
-    // const [state, setState] = useState('');
 
     const user = useAuth();
     const account = useAccount();
 
     console.log('user', user);
     console.log('account', account);
+
+    const unlinkSteam = async () => {
+        await accountUnlinkSteam();
+        await account.refetch();
+    }
 
     return (
         <ScrollView contentContainerStyle="min-h-full items-center p-5">
@@ -86,7 +95,7 @@ export default function AccountPage() {
                         account.data?.account.steamId &&
                         <>
                             <MyText style={styles.heading}>Steam ID: {account.data.account.steamId}</MyText>
-                            <TouchableOpacity onPress={() => openLink(getSteamLoginUrl())}>
+                            <TouchableOpacity onPress={() => unlinkSteam()}>
                                 <MyText style={appStyles.link}>Unlink Steam</MyText>
                             </TouchableOpacity>
                         </>
@@ -101,10 +110,6 @@ export default function AccountPage() {
                     <Space />
                     <Space />
                     <Link href={'https://www.aoe2companion.com/auth/link/steam'}>TEST</Link>
-
-                    {/*<a href={getPatreonLoginUrl()}>Link Patreon</a>*/}
-                    {/*<Space />*/}
-                    {/*<a href={getSteamLoginUrl()}>Link Steam</a>*/}
                 </View>
             )}
         </ScrollView>
