@@ -30,7 +30,11 @@ export default function AuthLinkPatreon() {
     return (
         <View>
             <Stack.Screen options={{
-                animation: 'none', title: 'Account', headerShown: true, header: Header }} />
+                animation: 'none',
+                title: 'Account',
+                headerShown: true,
+                header: Header
+            }} />
 
             <View className="flex w-full pt-20 items-center justify-center">
                 <ActivityIndicator />

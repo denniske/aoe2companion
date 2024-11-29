@@ -81,11 +81,6 @@ export default function AccountPage() {
         await account.refetch();
     }
 
-    const queryClient = useQueryClient();
-    const cache = queryClient.getQueryCache().queries.map(e => e.queryKey.toString());
-
-    console.log('====> cache', cache);
-
     return (
         <ScrollView contentContainerStyle="min-h-full items-center p-5">
             <Stack.Screen options={{ title: getTranslation('account.title') }} />
@@ -134,9 +129,9 @@ export default function AccountPage() {
                         </TouchableOpacity>
                     }
 
-                    <Space />
-                    <Space />
-                    <Link href={'https://www.aoe2companion.com/auth/link/steam'}>TEST</Link>
+                    {/*<Space />*/}
+                    {/*<Space />*/}
+                    {/*<Link href={'https://www.aoe2companion.com/auth/link/steam'}>TEST</Link>*/}
                 </View>
             )}
         </ScrollView>
