@@ -24,7 +24,6 @@ function getPatreonLoginUrl() {
         redirect_uri: `https://www.aoe2companion.com/auth/link/patreon`,
         scope: 'identity identity.memberships',
         allow_signup: 'false',
-        state: 'link-patreon',
     }).toString();
 
     return `https://www.patreon.com/oauth2/authorize?${queryString}`;
@@ -35,7 +34,6 @@ function getSteamLoginUrl() {
     // let returnUrl = `${getHost('aoe2companion')}auth/link/steam`;
     let realm = `https://www.aoe2companion.com`;
     let returnUrl = `https://www.aoe2companion.com/auth/link/steam`;
-    // let returnUrl = `https://www.aoe2companion.com/more/account`;
 
     let match = realm.match(/^(https?:\/\/[^:/]+)/);
     if (!match) {
@@ -50,7 +48,6 @@ function getSteamLoginUrl() {
         'openid.ns': 'http://specs.openid.net/auth/2.0',
         'openid.realm': realm,
         'openid.return_to': returnUrl,
-        'openid.state': 'link-steam',
     });
 
     return 'https://steamcommunity.com/openid/login?' + queryString;
