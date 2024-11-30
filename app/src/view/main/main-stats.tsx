@@ -97,6 +97,7 @@ function MainStatsInternal({ profileId }: { profileId: number }) {
     const { data: profileWithStats, refetch, isRefetching } = useQuery({
         queryKey: ['profile-with-stats', profileId],
         queryFn: () => fetchProfile({ profileId, extend: 'stats' }),
+        enabled: false, // Remove this
     });
 
     const cachedData = profileWithStats?.stats.find((s) => s.leaderboardId === leaderboardId); //currentCachedData ?? previousCachedData;

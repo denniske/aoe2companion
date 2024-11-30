@@ -6,7 +6,7 @@ import {
     loadAccountFromStorage, loadConfigFromStorage,
     loadFollowingFromStorage,
     loadPrefsFromStorage,
-    loadAuthFromStorage, saveConfigToStorage, saveFollowingToStorage,
+    loadAuthFromStorage, saveConfigToStorage, saveFollowingToStorage, saveAuthToStorage,
 } from '@app/service/storage';
 import { DarkMode } from '@app/redux/reducer';
 
@@ -110,10 +110,18 @@ export async function saveAccount(account: IAccount): Promise<IResult> {
             mainPage: account.mainPage,
         });
 
+        await saveAuthToStorage({
+            profileId: account.profileId,
+        });
+
         // saveCurrentPrefsToStorage();
 
         // profileId: auth.profileId,
         // followedPlayers: following,
+
+        return {
+            result: 'success',
+        };
     }
 
     const data = {
