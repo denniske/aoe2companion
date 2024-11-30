@@ -1,42 +1,54 @@
-import { IProfilesResult, IProfilesResultProfile } from '@app/api/helper/api.types';
+import { IProfilesResultProfile } from '@app/api/helper/api.types';
 import { Icon } from '@app/components/icon';
-import Search from '@app/view/components/search';
-import { MainPageInner } from '@app/view/main.page';
-import { router, useLocalSearchParams, useNavigation } from 'expo-router';
-import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, Platform, TouchableOpacity } from 'react-native';
-
-import { setAccountProfile } from '../../../api/following';
+import { useLocalSearchParams, useNavigation } from 'expo-router';
+import React, { useEffect } from 'react';
+import { Alert, Platform, TouchableOpacity, View } from 'react-native';
 import { fetchProfiles } from '../../../api/helper/api';
 import { getTranslation } from '../../../helper/translate';
-import { setAuth, setFollowing, setPrefValue, useMutate, useSelector } from '../../../redux/reducer';
-import { clearSettingsInStorage, saveCurrentPrefsToStorage, saveAuthToStorage } from '../../../service/storage';
+import { useSelector } from '../../../redux/reducer';
 import { HeaderTitle } from '@app/components/header-title';
 import { CountryImage } from '../../../view/components/country-image';
 import { getVerifiedPlayer, isVerifiedPlayer } from '@nex/data';
 import { Text } from '@app/components/text';
 import { Link } from '@app/components/link';
-import { QUERY_KEY_ACCOUNT, useAccount } from '@app/app/_layout';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { followV2, IAccount, saveAccountThrottled, unfollowV2 } from '@app/api/account';
-import produce from 'immer';
+import { useAccount } from '@app/app/_layout';
+import { useQuery } from '@tanstack/react-query';
 import { useFollowMutation } from '@app/mutations/follow';
 import { useUnfollowMutation } from '@app/mutations/unfollow';
+import { createMaterialTopTabNavigator, MaterialTopTabBar } from '@react-navigation/material-top-tabs';
+import Constants from 'expo-constants';
+import { useColorScheme } from 'nativewind';
+import { TabBarLabel } from '@app/view/components/tab-bar-label';
+import MainProfile from '@app/view/main/main-profile';
+import MainStats from '@app/view/main/main-stats';
+import MainMatches from '@app/view/main/main-matches';
 
 interface UserMenuProps {
-    profileId: number;
+    profile?: IProfilesResultProfile;
 }
 
 // Due to some bug in expo-router we cannot use useLocalSearchParams
 // so we need to pass the params as a prop
-export function UserMenu({ profileId }: UserMenuProps) {
+export function UserMenu({ profile }: UserMenuProps) {
+    const profileId = profile?.profileId;
     const auth = useSelector((state) => state.auth!);
 
     const { data: account } = useAccount();
+    console.log('account?.followedPlayers', account?.followedPlayers);
+
     const followingThisUser = !!account?.followedPlayers.find((f) => f.profileId === profileId);
 
     const followMutation = useFollowMutation();
     const unfollowMutation = useUnfollowMutation();
+
+    // Reset country for use in leaderboard country dropdown
+    // useEffect(() => {
+    //     if (auth == null) {
+    //         mutate(setPrefValue('country', undefined));
+    //         mutate(setPrefValue('clan', undefined));
+    //         saveCurrentPrefsToStorage();
+    //     }
+    // }, [auth]);
 
     const deleteUser = () => {
         if (account?.steamId) {
@@ -107,114 +119,100 @@ export function UserMenu({ profileId }: UserMenuProps) {
     }
 }
 
+const Tab = createMaterialTopTabNavigator();
+
 type UserPageParams = {
     profileId: string;
-    name?: string;
-    country?: string
+}
+
+function UserTitle({ profile }: UserMenuProps) {
+    const profileId = profile?.profileId;
+    const isVerified = profileId ? isVerifiedPlayer(profileId) : false;
+    const verifiedPlayer = profileId ? getVerifiedPlayer(profileId) : null;
+    const isMainAccount = verifiedPlayer?.platforms.rl?.[0] === profileId;
+    return (
+        <HeaderTitle
+            iconComponent={
+                <CountryImage
+                    style={{ fontSize: 21 }}
+                    country={verifiedPlayer?.country || profile?.country}
+                />
+            }
+            title={profile?.name || name || ''}
+            subtitle={
+                isVerified &&
+                !isMainAccount && (
+                    <Text variant="label" numberOfLines={1} allowFontScaling={false}>
+                        <Link href={`/matches/users/${verifiedPlayer?.platforms.rl?.[0]}`}>
+                            {verifiedPlayer?.name}
+                        </Link>{' '}
+                        - Alternate account
+                    </Text>
+                )
+            }
+        />
+    );
 }
 
 export default function UserPage() {
     const params = useLocalSearchParams<UserPageParams>();
-    const profileId = Number(params.profileId ?? 0);
-    const name = params.name;
-    const country = params.country;
-
-    const mutate = useMutate();
-    const [loadedProfile, setLoadedProfile] = useState<IProfilesResultProfile>();
-    const auth = useSelector((state) => state.auth);
-    const account = useSelector((state) => state.account);
-    const isVerified = isVerifiedPlayer(profileId);
-    const verified = getVerifiedPlayer(profileId);
-    const isMainAccount = verified?.platforms.rl?.[0] === params.profileId;
-
-    const onSelect = async (user: any) => {
-        await saveAuthToStorage({
-            profileId: user.profileId,
-        });
-        mutate(setAuth(user));
-        setAccountProfile(account.id, { profile_id: user.profileId!, steam_id: user.steamId });
-    };
-
-    // Reset country for use in leaderboard country dropdown
-    useEffect(() => {
-        if (auth == null) {
-            mutate(setPrefValue('country', undefined));
-            mutate(setPrefValue('clan', undefined));
-            saveCurrentPrefsToStorage();
-        }
-    }, [auth]);
-
-    const navigateToAuthUser = async () => {
-        console.log('==> NAVIGATE');
-        // @ts-ignore
-        router.navigate(`/matches/users/${auth?.profileId}`);
-        console.log('==> NAVIGATED');
-    };
-
-    useEffect(() => {
-        if (auth != null && profileId == null) {
-            navigateToAuthUser();
-        }
-    }, [auth]);
-
-    const completeUserIdInfo = async () => {
-        const loaded = await fetchProfiles({ profileId });
-        if (loaded) {
-            setLoadedProfile(loaded.profiles[0]);
-        }
-    };
-
+    const profileId = parseInt(params.profileId);
+    const appName = Constants.expoConfig?.name || Constants.expoConfig2?.extra?.expoClient?.name;
+    const { colorScheme } = useColorScheme();
+    const { tab } = useLocalSearchParams<{ tab: string }>();
     const navigation = useNavigation();
 
     useEffect(() => {
-        navigation.setOptions({
-            headerTitle: () => (
-                <HeaderTitle
-                    iconComponent={
-                        <CountryImage
-                            style={{ fontSize: 21 }}
-                            country={getVerifiedPlayer(profileId)?.country || loadedProfile?.country || country}
-                        />
-                    }
-                    title={loadedProfile?.name || name || ''}
-                    subtitle={
-                        isVerified &&
-                        !isMainAccount && (
-                            <Text variant="label" numberOfLines={1} allowFontScaling={false}>
-                                <Link href={`/matches/users/${getVerifiedPlayer(profileId)?.platforms.rl?.[0]}`}>
-                                    {getVerifiedPlayer(profileId)?.name}
-                                </Link>{' '}
-                                - Alternate account
-                            </Text>
-                        )
-                    }
-                />
-            ),
-            headerRight: () => <UserMenu profileId={profileId} />,
+        if (!tab) return;
+        setTimeout(() => {
+            navigation.navigate(tab as never);
         });
-    }, [navigation, loadedProfile, isVerified, isMainAccount, country, name]);
+    }, [tab]);
+
+    const { data: profile } = useQuery({
+        queryKey: ['profile', profileId],
+        queryFn: async () => { return (await fetchProfiles({ profileId })).profiles[0]; },
+    });
 
     useEffect(() => {
-        completeUserIdInfo();
-    }, [profileId]);
+        navigation.setOptions({
+            headerTitle: () => <UserTitle profile={profile} />,
+            headerRight: () => <UserMenu profile={profile} />,
+        });
+    }, [profile]);
 
-    if (profileId) {
-        return <MainPageInner profileId={profileId} />;
-    }
-
-    console.log('NO AUTH IN PROFILE PAGE');
-    console.log('NO AUTH IN PROFILE PAGE');
-    console.log('NO AUTH IN PROFILE PAGE');
-    console.log('NO AUTH IN PROFILE PAGE');
-    console.log('NO AUTH IN PROFILE PAGE');
-    console.log('NO AUTH IN PROFILE PAGE');
-    console.log('NO AUTH IN PROFILE PAGE');
-    console.log('NO AUTH IN PROFILE PAGE');
-    console.log('NO AUTH IN PROFILE PAGE');
-
-    if (auth == null) {
-        return <Search title="Enter your AoE username to track your games:" selectedUser={onSelect} actionText="Choose" />;
-    }
-
-    return null;
+    return (
+        <Tab.Navigator
+            tabBar={(props) => (
+                <View className="bg-white dark:bg-blue-900 ">
+                    <MaterialTopTabBar {...props} />
+                </View>
+            )}
+            screenOptions={{
+                lazy: false,
+                swipeEnabled: true,
+                tabBarInactiveTintColor: colorScheme === 'dark' ? 'white' : 'black',
+                tabBarActiveTintColor: colorScheme === 'dark' ? 'white' : 'black',
+            }}
+         >
+            <Tab.Screen
+                name="MainProfile"
+                options={{ title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.profile')} /> }}
+            >
+                {() => <MainProfile profileId={profileId} />}
+            </Tab.Screen>
+            <Tab.Screen
+                name="MainStats"
+                options={{ title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.stats')} /> }}
+            >
+                {() => <MainStats profileId={profileId} />}
+            </Tab.Screen>
+            <Tab.Screen
+                name="MainMatches"
+                options={{ title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.matches')} /> }}
+            >
+                {() => <MainMatches profileId={profileId} />}
+            </Tab.Screen>
+        </Tab.Navigator>
+    );
 }

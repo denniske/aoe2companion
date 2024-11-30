@@ -114,8 +114,8 @@ export const saveAuthToStorage = async (settings: ISettings) => {
 export const loadAuthFromStorage = async () => {
     const entry = await AsyncStorage.getItem('settings');
     if (entry == null) {
-        // return null;
-        return { profileId: undefined };
+        return null;
+        // return { profileId: undefined };
     }
     const settings = JSON.parse(entry) as ISettings;
 
