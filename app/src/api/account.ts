@@ -112,3 +112,19 @@ export async function authLinkPatreon(params: any): Promise<any> {
         // body: JSON.stringify(data),
     });
 }
+
+// export async function authConfirm(params: any): Promise<any> {
+//     const url = getHost('aoe2companion-api') + `auth/confirm?${makeQueryString(params)}`;
+//
+//     const session = await supabaseClient.auth.getSession();
+//
+//     return await fetch(url, {
+//         method: 'GET',
+//         headers: {
+//             'Authorization': `bearer ${session?.data?.session?.access_token}`,
+//             'Accept': 'application/json',
+//             'Content-Type': 'application/json'
+//         },
+//         // body: JSON.stringify(data),
+//     });
+// }

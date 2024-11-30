@@ -19,7 +19,7 @@ AppState.addEventListener('change', (state) => {
 })
 
 export default function Login() {
-    const [email, setEmail] = useState('dennis.keil10+1@gmail.com')
+    const [email, setEmail] = useState('dennis.keil10+4@gmail.com')
     const [password, setPassword] = useState('123abc')
     const [loading, setLoading] = useState(false)
     const queryClient = useQueryClient();
@@ -45,6 +45,9 @@ export default function Login() {
         } = await supabaseClient.auth.signUp({
             email: email,
             password: password,
+            options: {
+                emailRedirectTo: 'https://www.aoe2companion.com',
+            }
         })
 
         if (error) Alert.alert(error.message)
