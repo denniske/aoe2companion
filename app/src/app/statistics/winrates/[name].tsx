@@ -27,6 +27,7 @@ import { Stack, useLocalSearchParams } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { useAccountData } from '@app/queries/all';
 
 export default function CivDetails() {
     const { name } = useLocalSearchParams<{ name: aoeCivKey }>();
@@ -38,7 +39,7 @@ export default function CivDetails() {
     const [width, setWidth] = useState(0);
     const grouping = groupings?.find((g) => g.name === WinrateGrouping['1v1Random']);
 
-    const config = useSelector((state) => state.config);
+    const language = useAccountData((data) => data.language);
     const stats = winrates?.civs.find((civ) => civ.civ_name === nameLower);
 
     const civ = name!;
@@ -81,7 +82,7 @@ export default function CivDetails() {
 
                         <ProgressBar percent={stats.win_rate * 100} status={stats.win_rate >= 0.5 ? 'positive' : 'negative'} />
 
-                        <Text className="self-center">{stats.wins.toLocaleString(config.language)} wins</Text>
+                        <Text className="self-center">{stats.wins.toLocaleString(language)} wins</Text>
                     </Card>
 
                     <Card direction="vertical" className="px-4 py-3 flex-1">
@@ -90,7 +91,7 @@ export default function CivDetails() {
                         </Text>
 
                         <ProgressBar percent={stats.play_rate * 100} max={8} />
-                        <Text className="self-center">{stats.num_games.toLocaleString(config.language)} wins</Text>
+                        <Text className="self-center">{stats.num_games.toLocaleString(language)} wins</Text>
                     </Card>
                 </View>
 

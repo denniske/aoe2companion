@@ -325,7 +325,6 @@ function AppWrapper() {
             state.auth = auth as any;
             state.following = following;
             state.prefs = prefs as IPrefs;
-            // state.config = config;
         });
 
         setInitalized(true);

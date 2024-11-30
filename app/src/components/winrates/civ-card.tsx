@@ -10,9 +10,10 @@ import { Card } from '../card';
 import { ProgressBar } from '../progress-bar';
 import { Skeleton, SkeletonText } from '../skeleton';
 import { Text } from '../text';
+import { useAccountData } from '@app/queries/all';
 
 export const CivWinrateCard = ({ civ }: { civ?: WinrateCiv }) => {
-    const config = useSelector((state) => state.config);
+    const language = useAccountData(data => data.language);
 
     if (!civ) {
         return (
@@ -56,7 +57,7 @@ export const CivWinrateCard = ({ civ }: { civ?: WinrateCiv }) => {
                 <Text variant="label-lg" numberOfLines={1}>
                     {getCivNameById(capitalize(civ.civ_name) as Civ)}
                 </Text>
-                <Text>Picks: {civ.num_games.toLocaleString(config.language)}</Text>
+                <Text>Picks: {civ.num_games.toLocaleString(language)}</Text>
             </View>
         </Card>
     );

@@ -66,12 +66,10 @@ export default function BuildDetail() {
     const ages = sortBuildAges(Object.entries(build.pop));
     const uptimes: Record<string, any> = build.uptime;
 
-    const config = useSelector((state) => state.config);
-
     useEffect(() => {
-        if (config.preventScreenLockOnGuidePage) {
+        // if (config.preventScreenLockOnGuidePage) {
             activateKeepAwakeAsync('guide-page');
-        }
+        // }
         return () => {
             // It may happen that we did not activate the keep awake, so we need to catch the error.
             deactivateKeepAwake('guide-page').catch(() => {});
