@@ -20,7 +20,6 @@ import {civDataRus} from '../data/rus';
 import {civDataEnglish} from '../data/english';
 import {civDataOttomans} from "../data/ottomans";
 import {civDataMalians} from "../data/malians";
-import {useApi} from "../../../app/src/hooks/use-api";
 import {fetchJson2} from "../../../app/src/api/util";
 import {civDataByzantines} from "../data/byzantines";
 import {civDataJapanese} from "../data/japanese";
@@ -28,6 +27,7 @@ import {civDataJeanneDArc} from "../data/jeannedarc";
 import {civDataAyyubids} from "../data/ayyubids";
 import {civDataZhuXiSLegacy} from "../data/zhuxislegacy";
 import {civDataOrderOfTheDragon} from "../data/orderofthedragon";
+import { useQuery } from '@tanstack/react-query';
 
 
 export function CivTitle(props: any) {
@@ -95,17 +95,16 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
         'OrderOfTheDragon': 'orderofthedragon',
     } as any;
 
-    const civInfos = useApi(
-        {},
-        [civ],
-        state => state.civInfos[civ],
-        (state, value) => {
-            state.civInfos[civ] = value;
-        },
-        fetchJson2, 'fetchCivInfos' , `https://raw.githubusercontent.com/aoe4world/data/main/civilizations/${civDataFileMapping[civ]}.json`, undefined, null
-    );
-
-    const civData = civInfos.data;
+    const { data: civData } = useQuery({
+        queryKey: ['leaderboards'],
+        queryFn: () =>
+            fetchJson2(
+                'fetchCivInfos',
+                `https://raw.githubusercontent.com/aoe4world/data/main/civilizations/${civDataFileMapping[civ]}.json`,
+                undefined,
+                null
+            ),
+    });
 
     if (!civData) return null;
 

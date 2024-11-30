@@ -12,7 +12,6 @@ import { Checkbox } from 'react-native-paper';
 import { fetchLeaderboards, fetchMatches } from '../../api/helper/api';
 import { getTranslation } from '../../helper/translate';
 import { openLink } from '../../helper/url';
-import { useApi } from '../../hooks/use-api';
 import useDebounce from '../../hooks/use-debounce';
 import { useWebRefresh } from '../../hooks/use-web-refresh';
 import { useSelector } from '../../redux/reducer';
@@ -67,15 +66,14 @@ function MainMatchesInternal({ profileId }: { profileId: number }) {
 
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch, isRefetching } = useInfiniteQuery({
         queryKey: ['matches', profileId, withMe, debouncedSearch, leaderboardIds],
-        queryFn: (context) => {
-            return fetchMatches({
+        queryFn: (context) =>
+            fetchMatches({
                 ...context,
-                profileIds: [context.queryKey[1] as number],
-                withProfileIds: (context.queryKey[2] as boolean) ? [auth?.profileId ?? 0] : [],
-                search: context.queryKey[3] as string,
-                leaderboardIds: context.queryKey[4] as unknown as number[],
-            });
-        },
+                profileIds: [profileId],
+                withProfileIds: withMe ? [auth?.profileId ?? 0] : [],
+                search: debouncedSearch,
+                leaderboardIds: leaderboardIds,
+            }),
         initialPageParam: 1,
         getNextPageParam: (lastPage, pages) => (lastPage.matches.length === lastPage.perPage ? lastPage.page + 1 : null),
         placeholderData: keepPreviousData,

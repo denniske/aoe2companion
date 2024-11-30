@@ -1,10 +1,10 @@
-import { Linking, Platform, StyleSheet, TouchableOpacity } from 'react-native';
-import React, { useEffect } from 'react';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import React from 'react';
 import { createStylesheet } from '../../../theming-new';
 import Badge from './badge';
-import { useLazyApi } from '../../../hooks/use-lazy-api';
 import { twitchLive } from '../../../api/following';
 import { openLink } from '../../../helper/url';
+import { useQuery } from '@tanstack/react-query';
 
 interface Props {
     channel: string;
@@ -14,17 +14,14 @@ interface Props {
 export default function TwitchBadge(props: Props) {
     const { channel, condensed } = props;
 
-    const playerTwitchLive = useLazyApi({}, twitchLive, channel);
-
-    useEffect(() => {
-        if (channel) {
-            playerTwitchLive.reload();
-        }
-    }, [channel]);
+    const { data: playerTwitchLive } = useQuery({
+        queryKey: ['twitch-live', channel],
+        queryFn: () => twitchLive(channel),
+    });
 
     let content = undefined;
-    if (playerTwitchLive.data?.viewer_count) {
-        content = `${playerTwitchLive.data?.viewer_count}${condensed ? '' : ' watching'}`;
+    if (playerTwitchLive?.viewer_count) {
+        content = `${playerTwitchLive?.viewer_count}${condensed ? '' : ' watching'}`;
     }
 
     return (

@@ -29,20 +29,18 @@ import {
     FlatList as FlatListRef,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
 import { fetchLeaderboard, fetchLeaderboards } from '../../api/helper/api';
 import { ILeaderboardPlayer } from '../../api/helper/api.types';
 import { getCountryName } from '../../helper/flags';
 import { getTranslation } from '../../helper/translate';
 import { getValue } from '../../helper/util-component';
-import { useApi } from '../../hooks/use-api';
-import { useLazyApi } from '../../hooks/use-lazy-api';
 import { useLazyAppendApi } from '../../hooks/use-lazy-append-api';
 import { setLeaderboardCountry, useMutate, useSelector } from '../../redux/reducer';
 import { createStylesheet } from '../../theming-new';
 import { uniq, compact } from 'lodash';
 import { Dropdown } from '@app/components/dropdown';
 import { leaderboardsByType } from '@app/helper/leaderboard';
+import { useQuery } from '@tanstack/react-query';
 
 const Tab = createMaterialTopTabNavigator<any>();
 
@@ -126,18 +124,15 @@ const ROW_HEIGHT_MY_RANK = 52;
 
 export default function LeaderboardPage() {
     const { colorScheme } = useColorScheme();
-    const leaderboards = useApi(
-        {},
-        [],
-        (state) => state.leaderboards,
-        (state, value) => {
-            state.leaderboards = value;
-        },
-        fetchLeaderboards
-    );
+
+    const { data: leaderboards } = useQuery({
+        queryKey: ['leaderboards'],
+        queryFn: fetchLeaderboards,
+    });
+
     const [leaderboardType, setLeaderboardType] = useState<'pc' | 'xbox'>('pc');
 
-    if (!leaderboards.data) {
+    if (!leaderboards) {
         return <View />;
     }
 
@@ -175,7 +170,7 @@ export default function LeaderboardPage() {
                 }}
                 sceneContainerStyle={{ backgroundColor: 'transparent' }}
             >
-                {leaderboardsByType(leaderboards.data, leaderboardType).map((leaderboard, i) => {
+                {leaderboardsByType(leaderboards, leaderboardType).map((leaderboard, i) => {
                     return (
                         <Tab.Screen
                             key={i}
@@ -230,7 +225,7 @@ function Leaderboard({ leaderboardId }: any) {
         return { page, profileId, country: leaderboardCountry };
     };
 
-    const myRank = useLazyApi({}, fetchLeaderboard, { leaderboardId, ...getParams(1, auth?.profileId) });
+    // const myRank = useLazyApi({}, fetchLeaderboard, { leaderboardId, ...getParams(1, auth?.profileId) });
 
     const calcRankWidth = (contentOffsetY: number | undefined) => {
         if (contentOffsetY === undefined) return;
@@ -278,19 +273,20 @@ function Leaderboard({ leaderboardId }: any) {
 
     const onRefresh = async () => {
         setRefetching(true);
-        await Promise.all([leaderboard.reload(), auth ? myRank.reload() : noop()]);
+        // await Promise.all([leaderboard.reload(), auth ? myRank.reload() : noop()]);
+        await Promise.all([leaderboard.reload()]);
         setRefetching(false);
     };
 
-    const myRankPlayer = myRank.data?.players[0];
-    const showMyRank =
-        leaderboardCountry == countryEarth ||
-        // (leaderboardCountry?.startsWith('clan:') && myRankPlayer?.clan == leaderboardCountry?.replace('clan:', '')) ||
-        (leaderboardCountry == 'following' && followingIds.find((f) => f == myRankPlayer?.profileId) != null) ||
-        leaderboardCountry == myRankPlayer?.country;
+    // const myRankPlayer = myRank.data?.players[0];
+    // const showMyRank =
+    //     leaderboardCountry == countryEarth ||
+    //     // (leaderboardCountry?.startsWith('clan:') && myRankPlayer?.clan == leaderboardCountry?.replace('clan:', '')) ||
+    //     (leaderboardCountry == 'following' && followingIds.find((f) => f == myRankPlayer?.profileId) != null) ||
+    //     leaderboardCountry == myRankPlayer?.country;
 
     const containerPadding = 20;
-    const headerMyRankHeight = myRank.data?.players.length > 0 && showMyRank ? ROW_HEIGHT_MY_RANK : 0;
+    const headerMyRankHeight = 0; //myRank.data?.players.length > 0 && showMyRank ? ROW_HEIGHT_MY_RANK : 0;
     const headerInfoHeight = 40;
     const headerHeightAndPadding = containerPadding + headerInfoHeight + headerMyRankHeight;
 
@@ -305,21 +301,21 @@ function Leaderboard({ leaderboardId }: any) {
 
         // console.log('leaderboardCountry', leaderboardCountry);
 
-        if (leaderboardCountry == 'following') {
-            const meIndex = list.current?.findIndex((p: any) => p.profileId == auth.profileId);
-            if (meIndex >= 0) {
-                scrollToIndex(meIndex);
-            }
-        } else if (leaderboardCountry?.startsWith('clan:')) {
-            const meIndex = list.current?.findIndex((p: any) => p.profileId == auth.profileId);
-            if (meIndex >= 0) {
-                scrollToIndex(meIndex);
-            }
-        } else if (leaderboardCountry == countryEarth) {
-            scrollToIndex(myRank.data.players[0].rank - 1);
-        } else {
-            scrollToIndex(myRank.data.players[0].rankCountry - 1);
-        }
+        // if (leaderboardCountry == 'following') {
+        //     const meIndex = list.current?.findIndex((p: any) => p.profileId == auth.profileId);
+        //     if (meIndex >= 0) {
+        //         scrollToIndex(meIndex);
+        //     }
+        // } else if (leaderboardCountry?.startsWith('clan:')) {
+        //     const meIndex = list.current?.findIndex((p: any) => p.profileId == auth.profileId);
+        //     if (meIndex >= 0) {
+        //         scrollToIndex(meIndex);
+        //     }
+        // } else if (leaderboardCountry == countryEarth) {
+        //     scrollToIndex(myRank.data.players[0].rank - 1);
+        // } else {
+        //     scrollToIndex(myRank.data.players[0].rankCountry - 1);
+        // }
     };
 
     useEffect(() => {
@@ -327,9 +323,9 @@ function Leaderboard({ leaderboardId }: any) {
         if (leaderboard.touched && leaderboard.lastParams?.leaderboardCountry === leaderboardCountry) return;
         list.current.length = Math.min(list.current.length, pageSize);
         leaderboard.reload();
-        if (auth) {
-            myRank.reload();
-        }
+        // if (auth) {
+        //     myRank.reload();
+        // }
         console.log('RELOADING LEADERBOARD', leaderboardCountry);
         flatListRef.current?.scrollToOffset({ animated: false, offset: 0 });
         total2.current = 1000;
@@ -599,7 +595,7 @@ function RenderRow(props: RenderRowProps) {
     const isMe = player?.profileId != null && player?.profileId === auth?.profileId;
     const rowStyle = { minHeight: isMyRankRow ? ROW_HEIGHT_MY_RANK : ROW_HEIGHT };
     const weightStyle = { fontWeight: isMe ? 'bold' : 'normal' } as TextStyle;
-    const rankWidthStyle = { width: Math.max(myRankWidth || 43, rankWidth || 43) } as ViewStyle;
+    const rankWidthStyle = { width: Math.max(myRankWidth || 43, rankWidth || 43) } as TextStyle;
 
     // console.log('Math.max(myRankWidth, rankWidth)', myRankWidth, rankWidth);
     // console.log('Math.max(myRankWidth, rankWidth)', Math.max(myRankWidth, rankWidth));
@@ -865,5 +861,5 @@ const useStyles = createStylesheet((theme) =>
             fontSize: 12,
             minWidth: 75,
         },
-    })
+    } as const)
 );

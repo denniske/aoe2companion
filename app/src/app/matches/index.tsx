@@ -7,8 +7,8 @@ import FlatListLoadingIndicator from '@app/view/components/flat-list-loading-ind
 import { MyText } from '@app/view/components/my-text';
 import { ProfileLive } from '@app/view/components/profile';
 import RefreshControlThemed from '@app/view/components/refresh-control-themed';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { Stack, router, useLocalSearchParams } from 'expo-router';
+import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
+import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { flatten, orderBy, uniq } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { Platform, View } from 'react-native';
@@ -35,19 +35,17 @@ export default function Matches() {
         profileIds.push(auth?.profileId);
     }
 
-    const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch, error } = useInfiniteQuery(
-        ['feed-matches', profileIds],
-        (context) => {
-            return fetchMatches({
+    const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch, error } = useInfiniteQuery({
+        queryKey: ['feed-matches', profileIds],
+        queryFn: (context) =>
+            fetchMatches({
                 ...context,
-                profileIds: context.queryKey[1] as number[],
-            });
-        },
-        {
-            getNextPageParam: (lastPage, allPages) => (lastPage.matches.length === lastPage.perPage ? lastPage.page + 1 : null),
-            keepPreviousData: true,
-        }
-    );
+                profileIds,
+            }),
+        initialPageParam: 1,
+        getNextPageParam: (lastPage, allPages) => (lastPage.matches.length === lastPage.perPage ? lastPage.page + 1 : null),
+        placeholderData: keepPreviousData,
+    });
 
     useWebRefresh(() => {
         if (!isActiveRoute) return;

@@ -7,7 +7,6 @@ import { Button } from 'react-native-paper';
 import { fetchProfile } from '../../api/helper/api';
 import { getTranslation } from '../../helper/translate';
 import { openLink } from '../../helper/url';
-import { useApi } from '../../hooks/use-api';
 import { useWebRefresh } from '../../hooks/use-web-refresh';
 import { useSelector } from '../../redux/reducer';
 import { appVariants } from '../../styles';

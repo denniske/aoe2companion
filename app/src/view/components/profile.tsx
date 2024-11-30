@@ -1,13 +1,7 @@
 import { useTournamentPlayer, useTournamentPlayerOverview } from '@app/api/tournaments';
 import { Button } from '@app/components/button';
-import { FontAwesome5, FontAwesome6 } from '@expo/vector-icons';
-import {
-    getDiscordInvitationId,
-    getDoyouChannel,
-    getTwitchChannel,
-    getVerifiedPlayer,
-    getYoutubeChannel,
-} from '@nex/data';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { getDiscordInvitationId, getDoyouChannel, getTwitchChannel, getVerifiedPlayer, getYoutubeChannel } from '@nex/data';
 import { Image, ImageStyle } from 'expo-image';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -19,13 +13,11 @@ import YoutubeBadge from './badge/youtube-badge';
 import { CountryImageLoader } from './country-image';
 import { TextLoader } from './loader/text-loader';
 import { MyText } from './my-text';
-import Space from './space';
 import { twitchLive } from '../../api/following';
 import { IPlayerNew, IProfileLeaderboardResult, IProfileResult } from '../../api/helper/api.types';
 import { getLeaderboardTextColor } from '../../helper/colors';
 import { getTranslation } from '../../helper/translate';
 import { openLink } from '../../helper/url';
-import { useLazyApi } from '../../hooks/use-lazy-api';
 import { setPrefValue, useMutate, useSelector } from '../../redux/reducer';
 import { saveCurrentPrefsToStorage } from '../../service/storage';
 import { usePaperTheme } from '../../theming';
@@ -35,6 +27,7 @@ import { TournamentMarkdown } from '../tournaments/tournament-markdown';
 import { Icon } from '@app/components/icon';
 import { FontAwesomeIconStyle } from '@fortawesome/react-native-fontawesome';
 import { Link } from 'expo-router';
+import { useQuery } from '@tanstack/react-query';
 
 interface ILeaderboardRowProps {
     data: IProfileLeaderboardResult;
@@ -144,26 +137,24 @@ export function ProfileLive({ data }: { data: IPlayerNew }) {
     const styles = useStyles();
     const verifiedPlayer = data ? getVerifiedPlayer(data?.profileId!) : null;
 
-    const playerTwitchLive = useLazyApi({}, twitchLive, verifiedPlayer ? getTwitchChannel(verifiedPlayer) : '');
-
-    useEffect(() => {
-        if (verifiedPlayer && getTwitchChannel(verifiedPlayer)) {
-            playerTwitchLive.reload();
-        }
-    }, [verifiedPlayer]);
-
-    if (!verifiedPlayer?.['twitch']) {
+    const channel = verifiedPlayer ? getTwitchChannel(verifiedPlayer) : '';
+    
+    const { data: playerTwitchLive } = useQuery({
+        queryKey: ['twitch-live', channel],
+        queryFn: () => twitchLive(channel),
+        enabled: !!channel,
+    });
+    
+    if (!playerTwitchLive) {
         return <MyText />;
     }
 
-    const channel = getTwitchChannel(verifiedPlayer);
-
     return (
         <MyText style={styles.row} onPress={() => openLink(`https://www.twitch.tv/${channel}`)}>
-            {playerTwitchLive.data?.type === 'live' && (
+            {playerTwitchLive?.type === 'live' && (
                 <>
                     <MyText style={{ color: '#e91a16' }}> ● </MyText>
-                    <MyText>{playerTwitchLive.data.viewer_count} </MyText>
+                    <MyText>{playerTwitchLive.viewer_count} </MyText>
                     <FontAwesome5 solid name="twitch" size={14} style={styles.twitchIcon} />
                     <MyText> </MyText>
                 </>

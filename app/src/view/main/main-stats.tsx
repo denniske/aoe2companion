@@ -11,7 +11,6 @@ import { Platform, StyleSheet, View } from 'react-native';
 import { fetchLeaderboards, fetchProfile } from '../../api/helper/api';
 import { getTranslation } from '../../helper/translate';
 import { openLink } from '../../helper/url';
-import { useApi } from '../../hooks/use-api';
 import { useWebRefresh } from '../../hooks/use-web-refresh';
 import { clearStatsPlayer, setPrefValue, useMutate, useSelector } from '../../redux/reducer';
 import { saveCurrentPrefsToStorage } from '../../service/storage';

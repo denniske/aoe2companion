@@ -1,11 +1,10 @@
-import {Linking, Platform, StyleSheet, TouchableOpacity} from "react-native";
-import React, {useEffect} from "react";
-import {createStylesheet} from '../../../theming-new';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { createStylesheet } from '../../../theming-new';
 import Badge from './badge';
-import {useLazyApi} from '../../../hooks/use-lazy-api';
-import {discordOnline} from '../../../api/following';
-import {openLink} from "../../../helper/url";
-
+import { discordOnline } from '../../../api/following';
+import { openLink } from '../../../helper/url';
+import { useQuery } from '@tanstack/react-query';
 
 interface Props {
     serverId?: string;
@@ -15,20 +14,14 @@ interface Props {
 export default function DiscordBadge(props: Props) {
     const { serverId, invitationId } = props;
 
-    const info = useLazyApi(
-        {},
-        discordOnline, serverId!
-    );
-
-    useEffect(() => {
-        if (serverId) {
-            info.reload();
-        }
-    }, [serverId]);
+    const { data: info } = useQuery({
+        queryKey: ['discord-online', serverId!],
+        queryFn: () => discordOnline(serverId!),
+    });
 
     let content = undefined;
-    if (info.data?.presence_count) {
-        content = `${info.data?.presence_count} online`;
+    if (info?.presence_count) {
+        content = `${info?.presence_count} online`;
     }
 
     return (
