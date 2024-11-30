@@ -358,7 +358,7 @@ export interface IFetchMatchesParams {
     withProfileIds?: number[];
     country?: string;
 
-    pageParam?: string;
+    pageParam?: number;
 }
 
 
@@ -371,7 +371,7 @@ export interface IFetchProfileParams {
     country?: string;
     extend?: string;
 
-    pageParam?: string;
+    pageParam?: number;
 }
 
 export interface IFetchProfileRatingParams {
@@ -381,7 +381,7 @@ export interface IFetchProfileRatingParams {
     profileId?: number;
     country?: string;
 
-    pageParam?: string;
+    pageParam?: number;
 }
 
 

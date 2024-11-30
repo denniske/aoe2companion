@@ -59,6 +59,10 @@ export function UserMenu({ profileId }: UserMenuProps) {
         setAccountProfile(account.id, { profile_id: null, steam_id: null });
     };
 
+
+
+
+
     const ToggleFollowing = async () => {
         setIsFollowingLoading(true);
         const following = await toggleFollowing(profile!);

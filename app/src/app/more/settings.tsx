@@ -8,7 +8,6 @@ import { capitalize } from 'lodash';
 import React, { useState } from 'react';
 import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Button, Checkbox } from 'react-native-paper';
-import { follow, setAccountProfile } from '@app/api/following';
 import { deactivatePusher, initPusher } from '@app/helper/pusher';
 import { getTranslation } from '@app/helper/translate';
 import { DarkMode, setMainPageShown, useMutate, useSelector } from '@app/redux/reducer';
@@ -113,17 +112,17 @@ export default function SettingsPage() {
             let token: string | undefined = undefined;
 
             if (notificationsEnabled) {
-                if (__DEV__) {
-                    if (auth && auth.profileId) {
-                        await setAccountProfile(accountId, { profile_id: auth.profileId });
-                    }
-                    await follow(
-                        accountId,
-                        following.map((p) => p.profileId),
-                        true
-                    );
-                    return;
-                }
+                // if (__DEV__) {
+                //     if (auth && auth.profileId) {
+                //         await setAccountProfile(accountId, { profile_id: auth.profileId });
+                //     }
+                //     await follow(
+                //         accountId,
+                //         following.map((p) => p.profileId),
+                //         true
+                //     );
+                //     return;
+                // }
 
                 token = await initPusher();
             } else {

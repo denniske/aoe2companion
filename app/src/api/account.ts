@@ -3,6 +3,13 @@ import { getHost, makeQueryString } from '@nex/data';
 import { supabaseClient } from '../../../data/src/helper/supabase';
 import throttle from '@jcoreio/async-throttle';
 
+export interface IAccountFollowedPlayer {
+    profileId: number;
+    name: string;
+    country: string;
+    games: number;
+}
+
 export interface IAccount {
     accountId: string;
     profileId: string;
@@ -16,6 +23,7 @@ export interface IAccount {
     mainPage: string;
     patreonId: string;
     patreonTier: string;
+    followedPlayers: IAccountFollowedPlayer[];
 
     email: string;
     emailVerified: boolean;

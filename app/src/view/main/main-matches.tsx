@@ -4,7 +4,7 @@ import { FlatList } from '@app/components/flat-list';
 import { Match } from '@app/components/match';
 import { leaderboardIdsByType } from '@app/helper/leaderboard';
 import { useNavigationState, useRoute } from '@react-navigation/native';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
 import { flatten } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -66,9 +66,9 @@ function MainMatchesInternal({ profileId }: { profileId: number }) {
     const realText = text.trim().length < 3 ? '' : text.trim();
     const debouncedSearch = useDebounce(realText, 600);
 
-    const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch, isRefetching } = useInfiniteQuery(
-        ['matches', profileId, withMe, debouncedSearch, leaderboardIds],
-        (context) => {
+    const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch, isRefetching } = useInfiniteQuery({
+        queryKey: ['matches', profileId, withMe, debouncedSearch, leaderboardIds],
+        queryFn: (context) => {
             return fetchMatches({
                 ...context,
                 profileIds: [context.queryKey[1] as number],
@@ -77,12 +77,11 @@ function MainMatchesInternal({ profileId }: { profileId: number }) {
                 leaderboardIds: context.queryKey[4] as unknown as number[],
             });
         },
-        {
-            getNextPageParam: (lastPage, pages) => (lastPage.matches.length === lastPage.perPage ? lastPage.page + 1 : null),
-            keepPreviousData: true,
-            enabled: leaderboardIds.length > 0,
-        }
-    );
+        initialPageParam: 1,
+        getNextPageParam: (lastPage, pages) => (lastPage.matches.length === lastPage.perPage ? lastPage.page + 1 : null),
+        placeholderData: keepPreviousData,
+        enabled: leaderboardIds.length > 0,
+    });
 
     // console.log('data', data);
 
