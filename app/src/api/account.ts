@@ -42,7 +42,7 @@ export async function fetchAccount(): Promise<IAccount> {
     const { data: session } = await supabaseClient.auth.getSession();
 
     if (!session.session) {
-        console.log('fetchAccount: no session');
+        // console.log('fetchAccount: no session');
 
         const [account, auth, following, prefs, config] = await Promise.all([
             loadAccountFromStorage(),
@@ -52,9 +52,11 @@ export async function fetchAccount(): Promise<IAccount> {
             loadConfigFromStorage(),
         ]);
 
+        // console.log('following', following);
+
         return {
             accountId: account.id,
-            profileId: auth.profileId,
+            profileId: auth?.profileId,
             steamId: undefined,
             pushToken: undefined,
             pushTokenWeb: undefined,

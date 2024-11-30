@@ -6,14 +6,14 @@ import {openLink} from "../../../helper/url";
 
 
 interface Props {
-    channel: string;
+    path: string;
 }
 
 export default function YoutubeBadge(props: Props) {
-    const { channel } = props;
+    const { path } = props;
 
     return (
-        <TouchableOpacity onPress={() => openLink(`https://www.youtube.com/channel/${channel}`)}>
+        <TouchableOpacity onPress={() => openLink(`https://www.youtube.com/${path}`)}>
             <Badge
                 label="Youtube"
                 labelColor="#FF0000"

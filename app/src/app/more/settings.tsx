@@ -18,42 +18,16 @@ import { appConfig } from '@nex/dataset';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { IAccount, saveAccount, saveAccountThrottled } from '@app/api/account';
 import { QUERY_KEY_ACCOUNT, useAccount } from '@app/app/_layout';
+import { useSaveAccountMutation } from '@app/mutations/save-account';
 
 
 export default function SettingsPage() {
     const styles = useStyles();
     const mutate = useMutate();
-    const auth = useSelector((state) => state.auth);
-    const accountId = useSelector((state) => state.account.id);
-    const following = useSelector((state) => state.following);
     const [loadingPushNotificationEnabled, setLoadingPushNotificationEnabled] = useState(false);
     const { data: account } = useAccount();
 
-    const queryClient = useQueryClient();
-
-    const saveAccountMutation = useMutation({
-        mutationKey: ['saveAccount'],
-        mutationFn: saveAccountThrottled,
-        onMutate: async (_account) => {
-            console.log('ON MUTATE', _account.darkMode);
-            await queryClient.cancelQueries({ queryKey: QUERY_KEY_ACCOUNT() });
-            const previousAccount = queryClient.getQueryData(QUERY_KEY_ACCOUNT());
-            queryClient.setQueryData(QUERY_KEY_ACCOUNT(), _account);
-            return { previousAccount, _account };
-        },
-        onError: (err, _account, context) => {
-            console.log('ON ERROR');
-            queryClient.setQueryData(QUERY_KEY_ACCOUNT(), context?.previousAccount);
-        },
-        onSettled: async (_account) => {
-            console.log('ON SETTLED');
-            console.log('ON SETTLED IS PENDING', queryClient.isMutating({ mutationKey: ['saveAccount'] }));
-            if (queryClient.isMutating({ mutationKey: ['saveAccount'] }) === 1) {
-                await queryClient.invalidateQueries({ queryKey: QUERY_KEY_ACCOUNT() }); // , refetchType: 'all'
-                console.log('ON SETTLED INVALIDATED');
-            }
-        },
-    });
+    const saveAccountMutation = useSaveAccountMutation();
 
     // const togglePreventScreenLockOnGuidePage = async () => {
     //     const newConfig = {

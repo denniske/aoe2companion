@@ -1,7 +1,7 @@
 import { useTournamentPlayer, useTournamentPlayerOverview } from '@app/api/tournaments';
 import { Button } from '@app/components/button';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { getDiscordInvitationId, getDoyouChannel, getTwitchChannel, getVerifiedPlayer, getYoutubeChannel } from '@nex/data';
+import { getDiscordInvitationId, getDoyouChannel, getTwitchChannel, getVerifiedPlayer, getYoutubePath } from '@nex/data';
 import { Image, ImageStyle } from 'expo-image';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -187,9 +187,8 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
         }
     }, [data]);
 
-    // console.log('verifiedPlayer===>', verifiedPlayer);
-    
-    console.log('data?.linkedProfiles===>', data?.linkedProfiles);
+    console.log('verifiedPlayer===>', verifiedPlayer);
+    // console.log('data?.linkedProfiles===>', data?.linkedProfiles);
 
     return (
         <View style={styles.container}>
@@ -246,7 +245,7 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                         )}
                         {verifiedPlayer?.youtube && (
                             <View style={styles.badge}>
-                                <YoutubeBadge channel={getYoutubeChannel(verifiedPlayer)} />
+                                <YoutubeBadge path={getYoutubePath(verifiedPlayer)} />
                             </View>
                         )}
                         {verifiedPlayer?.douyu && (
@@ -285,7 +284,6 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                     <View className="space-y-1">
                         <MyText>Linked</MyText>
                         {data?.linkedProfiles?.map((linkedProfile) => {
-                            console.log('linkedProfile', linkedProfile);
                             return (
                                 <Link key={linkedProfile?.profileId} href={`/matches/users/${linkedProfile?.profileId}?name=${linkedProfile?.name}`} asChild>
                                     <TouchableOpacity className="flex-1 flex-row gap-1 items-center">

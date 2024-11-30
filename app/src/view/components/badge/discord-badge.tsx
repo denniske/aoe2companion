@@ -15,13 +15,13 @@ export default function DiscordBadge(props: Props) {
     const { serverId, invitationId } = props;
 
     const { data: info } = useQuery({
-        queryKey: ['discord-online', serverId!],
-        queryFn: () => discordOnline(serverId!),
+        queryKey: ['discord-online', invitationId!],
+        queryFn: () => discordOnline(invitationId!),
     });
 
     let content = undefined;
-    if (info?.presence_count) {
-        content = `${info?.presence_count} online`;
+    if (info?.approximate_presence_count) {
+        content = `${info?.approximate_presence_count} online`;
     }
 
     return (

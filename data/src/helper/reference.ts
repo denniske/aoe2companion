@@ -9,7 +9,6 @@ export interface IReferencePlayer {
     twitch: string;
     youtube: string;
     discord: string;
-    discordServerId: string;
     platforms: {
         rl?: string[];
     };
@@ -36,8 +35,7 @@ export function setAoeReferenceData(data: any) {
             {
                 name: 'aoe2companion',
                 country: 'de',
-                discord: 'https://discord.gg/gCunWKx',
-                discordServerId: '727175083977736262',
+                discord: ['https://discord.gg/gCunWKx'],
                 platforms: {
                     rl: ['209525'],
                 },
@@ -95,21 +93,28 @@ export function getTwitchChannel(verifiedPlayer: IReferencePlayer) {
 }
 
 export function getDiscordInvitationId(verifiedPlayer: IReferencePlayer) {
-    return verifiedPlayer?.discord?.[0]
+
+    console.log('getDiscordInvitationId');
+    console.log(verifiedPlayer);
+
+    const test =  verifiedPlayer?.discord?.[0]
         ?.replace('http://', '')
         ?.replace('https://', '')
         ?.replace('www.', '')
         ?.replace('discord.gg/', '')
         ?.replace('/', '');
+    console.log(test);
+    return test;
 }
 
-export function getYoutubeChannel(verifiedPlayer: IReferencePlayer) {
+// "https://www.youtube.com/user/TheViperAOC"
+
+export function getYoutubePath(verifiedPlayer: IReferencePlayer) {
     return verifiedPlayer?.youtube?.[0]
         ?.replace('http://', '')
         ?.replace('https://', '')
         ?.replace('www.', '')
-        ?.replace('youtube.com/channel/', '')
-        ?.replace('/', '');
+        ?.replace('youtube.com/', '');
 }
 
 export function getDoyouChannel(verifiedPlayer: IReferencePlayer) {

@@ -1,29 +1,25 @@
-import { setAccountProfile } from '@app/api/following';
-import { setAuth, useMutate, useSelector } from '@app/redux/reducer';
-import { saveAuthToStorage } from '@app/service/storage';
 import Search from '@app/view/components/search';
 import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import { useEffect } from 'react';
+import { useSaveAccountMutation } from '@app/mutations/save-account';
+import { useAccount } from '@app/app/_layout';
 
 export type ISearchProfilePageParams = {
     search?: string;
-}
+};
 
 const SelectProfilePage = () => {
-    console.log('SelectProfilePage');
-
-    const mutate = useMutate();
-    const account = useSelector((state) => state.account);
-
     const { search } = useLocalSearchParams<ISearchProfilePageParams>();
+    const { data: account } = useAccount();
+    const saveAccountMutation = useSaveAccountMutation();
 
     const onSelect = async (user: any) => {
-        await saveAuthToStorage({
+        console.log('SELECTED', user);
+        saveAccountMutation.mutate({
+            ...account!,
             profileId: user.profileId,
         });
-        mutate(setAuth(user));
-        setAccountProfile(account.id, { profile_id: user.profileId!, steam_id: user.steamId });
-        router.navigate(`/matches/users/${user.profileId!}?name=${user.name}&country=${user.country}`);
+        router.navigate(`/matches/users/${user.profileId!}`);
     };
 
     const navigation = useNavigation();
