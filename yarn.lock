@@ -3195,6 +3195,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@jcoreio/async-throttle@npm:^1.6.1":
+  version: 1.6.1
+  resolution: "@jcoreio/async-throttle@npm:1.6.1"
+  dependencies:
+    "@babel/runtime": ^7.18.6
+  checksum: 705106d200676579790bad90c44147594f2faf6ea517668b3fe3bf668f96805268ac91fdb5fff5b44331157b64e5b2b0b0c78e435e0908543df7b4b52c2e8a9e
+  languageName: node
+  linkType: hard
+
 "@jest/console@npm:^29.7.0":
   version: 29.7.0
   resolution: "@jest/console@npm:29.7.0"
@@ -4485,29 +4494,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/query-core@npm:4.36.1":
-  version: 4.36.1
-  resolution: "@tanstack/query-core@npm:4.36.1"
-  checksum: 47672094da20d89402d9fe03bb7b0462be73a76ff9ca715169738bc600a719d064d106d083a8eedae22a2c22de22f87d5eb5d31ef447aba771d9190f2117ed10
+"@tanstack/query-core@npm:5.62.0":
+  version: 5.62.0
+  resolution: "@tanstack/query-core@npm:5.62.0"
+  checksum: e071653bd29cfb713dc9f5641d2308e731d195129c5c5382826917573ae963033afa6f97605668824e7deb7aa1349b7355992aef0d8c1cb7da7793ef2ce2011e
   languageName: node
   linkType: hard
 
-"@tanstack/react-query@npm:^4.33.0":
-  version: 4.36.1
-  resolution: "@tanstack/react-query@npm:4.36.1"
+"@tanstack/react-query@npm:^5.62.0":
+  version: 5.62.0
+  resolution: "@tanstack/react-query@npm:5.62.0"
   dependencies:
-    "@tanstack/query-core": 4.36.1
-    use-sync-external-store: ^1.2.0
+    "@tanstack/query-core": 5.62.0
   peerDependencies:
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-    react-native: "*"
-  peerDependenciesMeta:
-    react-dom:
-      optional: true
-    react-native:
-      optional: true
-  checksum: 1aff0a476859386f8d32253fa0d0bde7b81769a6d4d4d9cbd78778f0f955459a3bdb7ee27a0d2ee7373090f12998b45df80db0b5b313bd0a7a39d36c6e8e51c5
+    react: ^18 || ^19
+  checksum: 5ef06034a415c710b44014a138051d2d15e6a8d4bd9d82988e9b780b90bcd25e78bf64032e2dbbd1ff96351f14a142e5f0d1d3f5b0be1e983c6d5c87535f603d
   languageName: node
   linkType: hard
 
@@ -5673,6 +5674,7 @@ __metadata:
     "@fortawesome/react-native-fontawesome": ^0.3.1
     "@fortawesome/sharp-regular-svg-icons": ^6.5.2
     "@fortawesome/sharp-solid-svg-icons": ^6.5.2
+    "@jcoreio/async-throttle": ^1.6.1
     "@native-html/iframe-plugin": ^2.6.1
     "@pusher/push-notifications-web": ^1.1.0
     "@react-native-async-storage/async-storage": 1.23.1
@@ -5683,7 +5685,7 @@ __metadata:
     "@sentry/react-native": ~6.1.0
     "@shopify/react-native-skia": 1.5.0
     "@supabase/supabase-js": ^2.46.2
-    "@tanstack/react-query": ^4.33.0
+    "@tanstack/react-query": ^5.62.0
     "@types/cavy": ^3.2.2
     "@types/humps": ^2.0.2
     "@types/lodash": ^4.14.157
@@ -16670,7 +16672,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-sync-external-store@npm:^1.0.0, use-sync-external-store@npm:^1.1.0, use-sync-external-store@npm:^1.2.0, use-sync-external-store@npm:^1.2.2":
+"use-sync-external-store@npm:^1.0.0, use-sync-external-store@npm:^1.1.0, use-sync-external-store@npm:^1.2.2":
   version: 1.2.2
   resolution: "use-sync-external-store@npm:1.2.2"
   peerDependencies:

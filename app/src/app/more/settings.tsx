@@ -29,6 +29,9 @@ import { appVariants } from '../../styles';
 import { useTheme } from '../../theming';
 import { createStylesheet } from '../../theming-new';
 import { appConfig } from '@nex/dataset';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { IAccount, saveAccount, saveAccountThrottled } from '@app/api/account';
+import { QUERY_KEY_ACCOUNT, useAccount } from '@app/app/_layout';
 
 export default function SettingsPage() {
     const styles = useStyles();
@@ -44,6 +47,7 @@ export default function SettingsPage() {
     const [overlayOffsetStr, setOverlayOffsetStr] = useState('');
     const [overlayDurationStr, setOverlayDurationStr] = useState('');
     const [matchCacheSize, setMatchCacheSize] = useState(0);
+    const { data: account } = useAccount();
 
     useEffect(() => {
         setOverlayOpacityStr(`${config.overlay.opacity}`);
@@ -68,17 +72,6 @@ export default function SettingsPage() {
     const setOverlayDuration = async (event: any) => {
         const duration = clamp(parseInt(event.target.value), 5, 1000);
         const newConfig = merge({}, config, { overlay: { duration } });
-        await saveConfigToStorage(newConfig);
-        mutate(setConfig(newConfig));
-    };
-
-    const values: DarkMode[] = ['light', 'dark', 'system'];
-
-    const setDarkMode = async (darkMode: any) => {
-        const newConfig = {
-            ...config,
-            darkMode: darkMode.toLowerCase(),
-        };
         await saveConfigToStorage(newConfig);
         mutate(setConfig(newConfig));
     };
@@ -215,7 +208,6 @@ export default function SettingsPage() {
     };
 
     const languageMap: Record<string, string> = {
-        system: 'System (' + Localization.locale + ')',
         ms: 'Bahasa Melayu',
         de: 'Deutsch',
         en: 'English',
@@ -239,6 +231,45 @@ export default function SettingsPage() {
     };
     const languageList: string[] = Object.keys(languageMap);
     const divider = (x: any, i: number) => i === 0;
+
+    const values: DarkMode[] = ['light', 'dark', 'system'];
+
+    const queryClient = useQueryClient();
+
+    const mutation = useMutation({
+        mutationKey: ['saveAccount'],
+        mutationFn: (_account: IAccount) => saveAccountThrottled(_account),
+        onMutate: async (_account) => {
+            console.log('ON MUTATE', _account.darkMode);
+            await queryClient.cancelQueries({ queryKey: QUERY_KEY_ACCOUNT() })
+            const previousAccount = queryClient.getQueryData(QUERY_KEY_ACCOUNT())
+            queryClient.setQueryData(QUERY_KEY_ACCOUNT(), _account)
+            return { previousAccount, _account }
+        },
+        onError: (err, _account, context) => {
+            console.log('ON ERROR');
+            queryClient.setQueryData(
+                QUERY_KEY_ACCOUNT(),
+                context?.previousAccount,
+            )
+        },
+        onSettled: async (_account) => {
+            console.log('ON SETTLED');
+            console.log('ON SETTLED IS PENDING', queryClient.isMutating({ mutationKey: ['saveAccount'] }));
+            if (queryClient.isMutating({ mutationKey: ['saveAccount'] }) === 1) {
+                await queryClient.invalidateQueries({ queryKey: QUERY_KEY_ACCOUNT() }) // , refetchType: 'all'
+                console.log('ON SETTLED INVALIDATED');
+            }
+        },
+    })
+
+    const setDarkMode = async (darkMode: any) => {
+        mutation.mutate({
+            ...account!,
+            darkMode: darkMode.toLowerCase(),
+        });
+    };
+
     const onLanguageSelected = async (language: string) => {
         const resultingLanguage = language == 'system' ? getLanguageFromSystemLocale2(Localization.locale) : language;
         setInternalLanguage(resultingLanguage);
@@ -252,6 +283,7 @@ export default function SettingsPage() {
 
         setAccountLanguage(accountId, resultingLanguage);
     };
+
     const onMainPageSelected = async (page: string) => {
         const newConfig = {
             ...config,
@@ -274,7 +306,7 @@ export default function SettingsPage() {
                     </View>
                     <View style={styles.cellValue}>
                         <ButtonPicker
-                            value={config.darkMode}
+                            value={account?.darkMode}
                             values={values}
                             formatter={(x) => getTranslation(`settings.darkmode.${x}` as any)}
                             onSelect={setDarkMode}
@@ -339,7 +371,7 @@ export default function SettingsPage() {
                         itemHeight={40}
                         textMinWidth={150}
                         divider={divider}
-                        value={config.language || 'en'}
+                        value={account?.language}
                         values={languageList}
                         formatter={formatLanguage}
                         onSelect={onLanguageSelected}

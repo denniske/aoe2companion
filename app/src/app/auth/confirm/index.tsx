@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import Space from '@app/view/components/space';
 import { supabaseClient } from '@nex/data';
-import { EmailOtpType } from '@supabase/supabase-js';
+import { authConfirm } from '@app/api/account';
 
 export default function AuthConfirm() {
     const router = useRouter();
@@ -14,12 +14,12 @@ export default function AuthConfirm() {
     const queryClient = useQueryClient();
 
     const init = async () => {
-        const authResponse = await supabaseClient.auth.verifyOtp({
-            type: params.type as EmailOtpType,
-            token_hash: params.token_hash as string,
-        });
+        console.log('authConfirm', params);
+        const result = await authConfirm(params);
+        const data = await result.json();
+        console.log('authConfirm', data);
+        const authResponse = await supabaseClient.auth.setSession(data.session);
         console.log('authConfirm', authResponse);
-
         await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' });
         router.dismiss();
     };

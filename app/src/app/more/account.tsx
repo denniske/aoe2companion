@@ -63,7 +63,7 @@ export default function AccountPage() {
     const account = useAccount();
 
     // const account = useQuery({
-    //     queryKey: [QUERY_KEY_ACCOUNT],
+    //     queryKey: QUERY_KEY_ACCOUNT(),
     //     staleTime: 0,
     //     queryFn: async () => await fetchAccount(),
     //     refetchOnMount: true,

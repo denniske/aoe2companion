@@ -1,9 +1,26 @@
 import {fetchJson} from "./util";
 import { getHost, makeQueryString } from '@nex/data';
 import { supabaseClient } from '../../../data/src/helper/supabase';
+import throttle from '@jcoreio/async-throttle';
 
+export interface IAccount {
+    accountId: string;
+    profileId: string;
+    steamId: string;
+    pushToken: string;
+    liveActivityToken: string;
+    notificationsEnabled: string;
+    language: string;
+    darkMode: string;
+    mainPage: string;
+    patreonId: string;
+    patreonTier: string;
 
-export async function fetchAccount(): Promise<any> {
+    email: string;
+    emailVerified: boolean;
+}
+
+export async function fetchAccount(): Promise<IAccount> {
     const url = getHost('aoe2companion-api') + `v2/account`;
 
     const session = await supabaseClient.auth.getSession();
@@ -38,6 +55,32 @@ export async function fetchAccount(): Promise<any> {
     //     },
     //     // body: JSON.stringify(data),
     // });
+}
+
+export const saveAccountThrottled = throttle(saveAccount, 1000);
+
+interface IResult {
+    result: string;
+}
+
+export async function saveAccount(account: IAccount): Promise<IResult> {
+    const url = getHost('aoe2companion-api') + `v2/account`;
+
+    const session = await supabaseClient.auth.getSession();
+
+    const data = {
+        ...account,
+    };
+
+    return await fetchJson('saveAccount', url, {
+        method: 'POST',
+        headers: {
+            'Authorization': `bearer ${session?.data?.session?.access_token}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+    });
 }
 
 export async function accountUnlinkSteam(): Promise<any> {
@@ -113,18 +156,18 @@ export async function authLinkPatreon(params: any): Promise<any> {
     });
 }
 
-// export async function authConfirm(params: any): Promise<any> {
-//     const url = getHost('aoe2companion-api') + `auth/confirm?${makeQueryString(params)}`;
-//
-//     const session = await supabaseClient.auth.getSession();
-//
-//     return await fetch(url, {
-//         method: 'GET',
-//         headers: {
-//             'Authorization': `bearer ${session?.data?.session?.access_token}`,
-//             'Accept': 'application/json',
-//             'Content-Type': 'application/json'
-//         },
-//         // body: JSON.stringify(data),
-//     });
-// }
+export async function authConfirm(params: any): Promise<any> {
+    const url = getHost('aoe2companion-api') + `auth/confirm?${makeQueryString(params)}`;
+
+    const session = await supabaseClient.auth.getSession();
+
+    return await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Authorization': `bearer ${session?.data?.session?.access_token}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        // body: JSON.stringify(data),
+    });
+}

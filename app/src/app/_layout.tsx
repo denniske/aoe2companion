@@ -222,11 +222,12 @@ function LiveActivityController() {
     return <View />;
 }
 
-export const QUERY_KEY_ACCOUNT = 'account';
+export const QUERY_KEY_ACCOUNT = () => ['account'];
+// export const QUERY_KEY_TODO = (todoId?: number) => ['todo', todoId];
 
 export const useAccount = () =>
     useQuery({
-        queryKey: [QUERY_KEY_ACCOUNT],
+        queryKey: QUERY_KEY_ACCOUNT(),
         // staleTime: 120000,
         queryFn: async () => await fetchAccount(),
     });
