@@ -1,6 +1,5 @@
 import { IProfilesResult, IProfilesResultProfile } from '@app/api/helper/api.types';
 import { Icon } from '@app/components/icon';
-import { toggleFollowing } from '@app/service/following';
 import Search from '@app/view/components/search';
 import { MainPageInner } from '@app/view/main.page';
 import { router, useLocalSearchParams, useNavigation } from 'expo-router';

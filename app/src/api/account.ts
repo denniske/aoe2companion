@@ -92,6 +92,11 @@ export async function saveAccount(account: IAccount): Promise<IResult> {
     });
 }
 
+// if (following.length >= maxFollowing) {
+//     alert(`You can follow a maximum of ${maxFollowing} users. Unfollow a user first to follow a new one.`);
+//     return;
+// }
+
 export async function followV2(profileId: number): Promise<IResult> {
     const url = getHost('aoe2companion-api') + `v2/follow`;
 

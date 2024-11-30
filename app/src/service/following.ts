@@ -14,8 +14,6 @@ export const toggleFollowing = async (user: IPlayerListPlayer) => {
     const following = await loadFollowingFromStorage();
     const index = following.findIndex(f => f.profileId === user.profileId);
 
-    // console.log('toggleFollowing', user.profileId, following.map(f => f.profileId), index);
-
     if (index > -1) {
         await unfollow(account_id, [user.profileId]);
     } else {
