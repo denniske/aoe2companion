@@ -1,6 +1,5 @@
 import { produce } from 'immer';
 import { TypedUseSelectorHook, useDispatch, useSelector as useReduxSelector } from 'react-redux';
-import { ILeaderboard } from '@nex/data';
 import { IAccount, IConfig, IFollowingEntry, IPrefs, IScroll } from '../service/storage';
 import { Manifest } from 'expo-updates/build/Updates.types';
 import { set } from 'lodash';
@@ -156,19 +155,6 @@ interface IAction {
     mutation?: any;
 }
 
-interface IUser {
-    profile?: IProfileResult;
-    profileWithStats?: IProfileResult;
-}
-
-interface IUserDict {
-    [key: string]: IUser;
-}
-
-interface ILeaderboardDict {
-    [key: string]: ILeaderboard;
-}
-
 export interface IError {
     title: string;
     extra: any;
@@ -184,7 +170,6 @@ export type DarkMode = 'light' | 'dark' | 'system';
 export interface AppState {
     account: IAccount;
     auth?: { profileId: number } | null;
-    user: IUserDict;
     donation: IDonation;
     statsPlayer: any;
     leaderboards: ILeaderboardDef[];
@@ -201,8 +186,6 @@ export interface AppState {
 
     leaderboardCountry?: string | null;
 
-    leaderboard: ILeaderboardDict;
-
     loadedLanguages: string[];
 
     updateState: string;
@@ -215,20 +198,18 @@ export interface AppState {
 
 export const initialState: Partial<AppState> = {
     config: undefined,
-    user: {},
     donation: {},
-    leaderboard: {},
     scroll: { scrollPosition: 0 },
     auth: undefined,
     statsPlayer: undefined,
     civInfos: {},
 };
 
-export function setInitialState() {
-    return (state: AppState) => {
-        Object.assign(state, initialState);
-    };
-}
+// export function setInitialState() {
+//     return (state: AppState) => {
+//         Object.assign(state, initialState);
+//     };
+// }
 
 function notesReducer(state = initialState, action: IAction) {
     switch (action.type) {

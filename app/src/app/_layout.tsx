@@ -16,7 +16,7 @@ import {
     loadConfigFromStorage,
     loadFollowingFromStorage,
     loadPrefsFromStorage,
-    loadSettingsFromStorage,
+    loadAuthFromStorage,
 } from '@app/service/storage';
 import tw from '@app/tailwind';
 import { ConditionalTester } from '@app/view/testing/tester';
@@ -228,14 +228,12 @@ export const QUERY_KEY_ACCOUNT = () => ['account'];
 export const useAccount = () =>
     useQuery({
         queryKey: QUERY_KEY_ACCOUNT(),
-        // staleTime: 120000,
         queryFn: async () => await fetchAccount(),
     });
 
 export const useAuthLinkSteam = (params: any) =>
     useQuery({
         queryKey: ['authLinkSteam'],
-        // staleTime: 120000,
         queryFn: async () => await authLinkSteam(params),
     });
 
@@ -266,7 +264,7 @@ function AppWrapper() {
 
         const [account, auth, following, prefs, config] = await Promise.all([
             loadAccountFromStorage(),
-            loadSettingsFromStorage(),
+            loadAuthFromStorage(),
             loadFollowingFromStorage(),
             loadPrefsFromStorage(),
             loadConfigFromStorage(),

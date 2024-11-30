@@ -201,7 +201,7 @@ export default function SettingsPage() {
         <ScrollView contentContainerStyle="min-h-full p-5">
             <Stack.Screen options={{ title: getTranslation('settings.title') }} />
 
-            {Platform.OS !== 'web' ? (
+            {(true || Platform.OS !== 'web') ? (
                 <View style={styles.row}>
                     <View style={styles.cellName}>
                         <MyText>{getTranslation('settings.darkmode')}</MyText>

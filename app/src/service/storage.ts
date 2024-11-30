@@ -18,17 +18,9 @@ import { getLanguageFromSystemLocale2 } from '@app/helper/translate';
 import * as Localization from 'expo-localization';
 
 export interface IConfig {
-    hotkeyShowHideEnabled: boolean;
-    hotkeySearchEnabled: boolean;
     darkMode: DarkMode;
     pushNotificationsEnabled: boolean;
-    overlayEnabled: boolean;
-    overlay: {
-        opacity: number;
-        offset: number;
-        duration: number;
-    };
-    preventScreenLockOnGuidePage: boolean;
+    // preventScreenLockOnGuidePage: boolean;
     language: string;
     mainPage: string;
 }
@@ -85,15 +77,11 @@ export const saveCurrentPrefsToStorage = async () => {
     await AsyncStorage.setItem('prefs', JSON.stringify(prefs));
 };
 
-export const saveAccountToStorage = async (account: IAccount) => {
-    await AsyncStorage.setItem('account', JSON.stringify(account));
-};
-
 export const loadAccountFromStorage = async () => {
     const entry = await AsyncStorage.getItem('account');
     if (entry == null) {
         const newAccountId = uuidv4();
-        await saveAccountToStorage({ id: newAccountId });
+        await AsyncStorage.setItem('account', JSON.stringify({ id: newAccountId }));
         return {
             id: newAccountId,
         };
@@ -101,24 +89,13 @@ export const loadAccountFromStorage = async () => {
     return JSON.parse(entry) as IAccount;
 };
 
-
 export const loadConfigFromStorage = async () => {
     const entryJson = await AsyncStorage.getItem('config');
     const entry = (entryJson ? JSON.parse(entryJson) : {}) as IConfig;
     entry.language = entry.language ?? getLanguageFromSystemLocale2(Localization.getLocales()[0].languageTag);
     entry.darkMode = entry.darkMode ?? 'system';
-    entry.preventScreenLockOnGuidePage = entry.preventScreenLockOnGuidePage ?? true;
+    // entry.preventScreenLockOnGuidePage = entry.preventScreenLockOnGuidePage ?? true;
     entry.pushNotificationsEnabled = entry.pushNotificationsEnabled ?? false;
-    entry.hotkeyShowHideEnabled = entry.hotkeyShowHideEnabled ?? true;
-    entry.hotkeySearchEnabled = entry.hotkeySearchEnabled ?? true;
-    entry.overlay = merge(
-        {
-            opacity: 80,
-            offset: 7,
-            duration: 60,
-        },
-        entry.overlay
-    );
     return entry;
 };
 
@@ -130,26 +107,20 @@ export const clearSettingsInStorage = async () => {
     await AsyncStorage.removeItem('settings');
 };
 
-export const saveSettingsToStorage = async (settings: ISettings) => {
+export const saveAuthToStorage = async (settings: ISettings) => {
     await AsyncStorage.setItem('settings', JSON.stringify(settings));
 };
 
-export const loadSettingsFromStorage = async () => {
+export const loadAuthFromStorage = async () => {
     const entry = await AsyncStorage.getItem('settings');
     if (entry == null) {
-        return null;
+        return { profileId: undefined };
     }
     const settings = JSON.parse(entry) as ISettings;
 
     if (settings.profileId == null && settings.profile_id != null) {
         settings.profileId = settings.profile_id;
     }
-    // if (settings.steamId == null && settings.steam_id != null) {
-    //     settings.steamId = settings.steam_id;
-    // }
-
-    // delete settings.profile_id;
-    // delete settings.steam_id;
 
     return { profileId: settings.profileId };
 };
@@ -167,9 +138,6 @@ export const loadFollowingFromStorage = async () => {
             delete entry.profile_id;
         }
         delete entry.steam_id;
-        // if (entry.steamId == null && entry.steam_id != null) {
-        //     entry.steamId = entry.steam_id;
-        // }
     }
 
     return entries.filter((e) => e.profileId != null);
@@ -178,6 +146,10 @@ export const loadFollowingFromStorage = async () => {
 export const saveFollowingToStorage = async (following: IFollowingEntry[]) => {
     await AsyncStorage.setItem('following', JSON.stringify(following));
 };
+
+
+
+
 
 if (Platform.OS === 'ios' && appConfig.game === 'aoe2de') {
     Widget.setAppGroup(`group.${Constants.expoConfig?.ios?.bundleIdentifier}.widget`);
@@ -279,11 +251,13 @@ type BuildFilters = {
     buildType: string | 'favorites' | 'all';
     difficulty: 1 | 2 | 3 | 'all';
 };
+
 const defaultFilters: BuildFilters = {
     civilization: 'all',
     buildType: 'all',
     difficulty: 'all',
 };
+
 export const useBuildFilters = () => {
     const { getItem, setItem } = useAsyncStorage('buildFilters');
     const [filters, setFilters] = useState<BuildFilters>();

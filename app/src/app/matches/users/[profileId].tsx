@@ -10,7 +10,7 @@ import { setAccountProfile } from '../../../api/following';
 import { fetchProfiles } from '../../../api/helper/api';
 import { getTranslation } from '../../../helper/translate';
 import { setAuth, setFollowing, setPrefValue, useMutate, useSelector } from '../../../redux/reducer';
-import { clearSettingsInStorage, saveCurrentPrefsToStorage, saveSettingsToStorage } from '../../../service/storage';
+import { clearSettingsInStorage, saveCurrentPrefsToStorage, saveAuthToStorage } from '../../../service/storage';
 import { HeaderTitle } from '@app/components/header-title';
 import { CountryImage } from '../../../view/components/country-image';
 import { getVerifiedPlayer, isVerifiedPlayer } from '@nex/data';
@@ -31,10 +31,9 @@ interface UserMenuProps {
 // so we need to pass the params as a prop
 export function UserMenu({ profileId }: UserMenuProps) {
     const auth = useSelector((state) => state.auth!);
-    const profile = useSelector((state) => state.user[profileId]?.profile);
 
     const { data: account } = useAccount();
-    const followingThisUser = !!account?.followedPlayers.find((f) => profile && f.profileId === profile.profileId);
+    const followingThisUser = !!account?.followedPlayers.find((f) => f.profileId === profileId);
 
     const followMutation = useFollowMutation();
     const unfollowMutation = useUnfollowMutation();
@@ -129,7 +128,7 @@ export default function UserPage() {
     const isMainAccount = verified?.platforms.rl?.[0] === params.profileId;
 
     const onSelect = async (user: any) => {
-        await saveSettingsToStorage({
+        await saveAuthToStorage({
             profileId: user.profileId,
         });
         mutate(setAuth(user));
@@ -202,6 +201,16 @@ export default function UserPage() {
     if (profileId) {
         return <MainPageInner profileId={profileId} />;
     }
+
+    console.log('NO AUTH IN PROFILE PAGE');
+    console.log('NO AUTH IN PROFILE PAGE');
+    console.log('NO AUTH IN PROFILE PAGE');
+    console.log('NO AUTH IN PROFILE PAGE');
+    console.log('NO AUTH IN PROFILE PAGE');
+    console.log('NO AUTH IN PROFILE PAGE');
+    console.log('NO AUTH IN PROFILE PAGE');
+    console.log('NO AUTH IN PROFILE PAGE');
+    console.log('NO AUTH IN PROFILE PAGE');
 
     if (auth == null) {
         return <Search title="Enter your AoE username to track your games:" selectedUser={onSelect} actionText="Choose" />;

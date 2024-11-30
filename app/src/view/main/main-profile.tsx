@@ -49,9 +49,7 @@ export default function MainProfile({ profileId }: Props) {
 
 function MainProfileInternal({ profileId }: { profileId: number }) {
     const styles = useStyles();
-
     const navigation = useNavigation<any>();
-    const userProfile = useSelector((state) => state.user[profileId]?.profile);
 
     const { data: profile, refetch, isRefetching } = useQuery({
         queryKey: ['profile', profileId],
@@ -71,7 +69,7 @@ function MainProfileInternal({ profileId }: { profileId: number }) {
     }, [isActiveRoute]);
 
     const onRefresh = async () => {
-        console.log('REFRESHING MAIN PROFILE', userProfile?.name);
+        console.log('REFRESHING MAIN PROFILE');
         await Promise.all([refetch()]);
     };
 

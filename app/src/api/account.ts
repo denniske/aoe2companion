@@ -2,6 +2,13 @@ import {fetchJson} from "./util";
 import { getHost, makeQueryString } from '@nex/data';
 import { supabaseClient } from '../../../data/src/helper/supabase';
 import throttle from '@jcoreio/async-throttle';
+import {
+    loadAccountFromStorage, loadConfigFromStorage,
+    loadFollowingFromStorage,
+    loadPrefsFromStorage,
+    loadAuthFromStorage, saveConfigToStorage, saveFollowingToStorage,
+} from '@app/service/storage';
+import { DarkMode } from '@app/redux/reducer';
 
 export interface IAccountFollowedPlayer {
     profileId: number;
@@ -12,17 +19,17 @@ export interface IAccountFollowedPlayer {
 
 export interface IAccount {
     accountId: string;
-    profileId: string;
-    steamId: string;
+    profileId?: number;
+    steamId?: string;
     pushToken?: string;
     pushTokenWeb?: string;
-    liveActivityToken: string;
+    liveActivityToken?: string;
     notificationsEnabled: boolean;
     language: string;
-    darkMode: string;
+    darkMode: DarkMode;
     mainPage: string;
-    patreonId: string;
-    patreonTier: string;
+    patreonId?: string;
+    patreonTier?: string;
     followedPlayers: IAccountFollowedPlayer[];
 
     email: string;
@@ -32,38 +39,52 @@ export interface IAccount {
 export async function fetchAccount(): Promise<IAccount> {
     const url = getHost('aoe2companion-api') + `v2/account`;
 
-    const session = await supabaseClient.auth.getSession();
+    const { data: session } = await supabaseClient.auth.getSession();
 
-    const data = {
+    if (!session.session) {
+        console.log('fetchAccount: no session');
 
-    };
+        const [account, auth, following, prefs, config] = await Promise.all([
+            loadAccountFromStorage(),
+            loadAuthFromStorage(),
+            loadFollowingFromStorage(),
+            loadPrefsFromStorage(),
+            loadConfigFromStorage(),
+        ]);
+
+        return {
+            accountId: account.id,
+            profileId: auth.profileId,
+            steamId: undefined,
+            pushToken: undefined,
+            pushTokenWeb: undefined,
+            liveActivityToken: undefined,
+            notificationsEnabled: config.pushNotificationsEnabled,
+            language: config.language,
+            darkMode: config.darkMode,
+            mainPage: config.mainPage,
+            patreonId: undefined,
+            patreonTier: undefined,
+            followedPlayers: following,
+            email: '',
+            emailVerified: false,
+        };
+    }
 
     const result = await fetch(url, {
         method: 'GET',
         headers: {
-            'Authorization': `bearer ${session?.data?.session?.access_token}`,
+            'Authorization': `bearer ${session.session?.access_token}`,
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        // body: JSON.stringify(data),
     });
 
     if (result.status === 401) {
-        // throw new Error('Unauthorized');
-        return null;
+        throw new Error('Unauthorized');
     }
 
     return await result.json();
-
-    // return await fetchJson('account', url, {
-    //     method: 'GET',
-    //     headers: {
-    //         'Authorization': `bearer ${session?.data?.session?.access_token}`,
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json'
-    //     },
-    //     // body: JSON.stringify(data),
-    // });
 }
 
 interface IResult {
@@ -75,7 +96,23 @@ export const saveAccountThrottled = throttle(saveAccount, 1000);
 export async function saveAccount(account: IAccount): Promise<IResult> {
     const url = getHost('aoe2companion-api') + `v2/account`;
 
-    const session = await supabaseClient.auth.getSession();
+    const { data: session } = await supabaseClient.auth.getSession();
+
+    if (!session.session) {
+        console.log('saveAccount: no session');
+
+        await saveConfigToStorage({
+            pushNotificationsEnabled: account.notificationsEnabled,
+            language: account.language,
+            darkMode: account.darkMode,
+            mainPage: account.mainPage,
+        });
+
+        // saveCurrentPrefsToStorage();
+
+        // profileId: auth.profileId,
+        // followedPlayers: following,
+    }
 
     const data = {
         ...account,
@@ -84,7 +121,7 @@ export async function saveAccount(account: IAccount): Promise<IResult> {
     return await fetchJson('saveAccount', url, {
         method: 'POST',
         headers: {
-            'Authorization': `bearer ${session?.data?.session?.access_token}`,
+            'Authorization': `bearer ${session?.session?.access_token}`,
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
@@ -100,7 +137,22 @@ export async function saveAccount(account: IAccount): Promise<IResult> {
 export async function followV2(profileId: number): Promise<IResult> {
     const url = getHost('aoe2companion-api') + `v2/follow`;
 
-    const session = await supabaseClient.auth.getSession();
+    const { data: session } = await supabaseClient.auth.getSession();
+
+    if (!session.session) {
+        console.log('followV2: no session');
+
+        await saveFollowingToStorage({
+            pushNotificationsEnabled: account.notificationsEnabled,
+            language: account.language,
+            darkMode: account.darkMode,
+            mainPage: account.mainPage,
+        });
+
+        // accountId: account.id,
+        // profileId: auth.profileId,
+        // followedPlayers: following,
+    }
 
     const data = {
         profileId,
@@ -109,7 +161,7 @@ export async function followV2(profileId: number): Promise<IResult> {
     return await fetchJson('followV2', url, {
         method: 'POST',
         headers: {
-            'Authorization': `bearer ${session?.data?.session?.access_token}`,
+            'Authorization': `bearer ${session?.session?.access_token}`,
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
@@ -120,7 +172,7 @@ export async function followV2(profileId: number): Promise<IResult> {
 export async function unfollowV2(profileId: number): Promise<IResult> {
     const url = getHost('aoe2companion-api') + `v2/unfollow`;
 
-    const session = await supabaseClient.auth.getSession();
+    const { data: session } = await supabaseClient.auth.getSession();
 
     const data = {
         profileId,
@@ -129,7 +181,7 @@ export async function unfollowV2(profileId: number): Promise<IResult> {
     return await fetchJson('unfollowV2', url, {
         method: 'POST',
         headers: {
-            'Authorization': `bearer ${session?.data?.session?.access_token}`,
+            'Authorization': `bearer ${session?.session?.access_token}`,
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
@@ -140,7 +192,7 @@ export async function unfollowV2(profileId: number): Promise<IResult> {
 export async function accountUnlinkSteam(): Promise<any> {
     const url = getHost('aoe2companion-api') + `v2/account/unlink/steam`;
 
-    const session = await supabaseClient.auth.getSession();
+    const { data: session } = await supabaseClient.auth.getSession();
 
     const data = {
 
@@ -149,7 +201,7 @@ export async function accountUnlinkSteam(): Promise<any> {
     return await fetchJson('accountUnlinkSteam', url, {
         method: 'POST',
         headers: {
-            'Authorization': `bearer ${session?.data?.session?.access_token}`,
+            'Authorization': `bearer ${session?.session?.access_token}`,
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
@@ -160,7 +212,7 @@ export async function accountUnlinkSteam(): Promise<any> {
 export async function accountUnlinkPatreon(): Promise<any> {
     const url = getHost('aoe2companion-api') + `v2/account/unlink/patreon`;
 
-    const session = await supabaseClient.auth.getSession();
+    const { data: session } = await supabaseClient.auth.getSession();
 
     const data = {
 
@@ -169,7 +221,7 @@ export async function accountUnlinkPatreon(): Promise<any> {
     return await fetchJson('accountUnlinkPatreon', url, {
         method: 'POST',
         headers: {
-            'Authorization': `bearer ${session?.data?.session?.access_token}`,
+            'Authorization': `bearer ${session?.session?.access_token}`,
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
@@ -180,12 +232,12 @@ export async function accountUnlinkPatreon(): Promise<any> {
 export async function authLinkSteam(params: any): Promise<any> {
     const url = getHost('aoe2companion-api') + `auth/link/steam?${makeQueryString(params)}`;
 
-    const session = await supabaseClient.auth.getSession();
+    const { data: session } = await supabaseClient.auth.getSession();
 
     return await fetch(url, {
         method: 'GET',
         headers: {
-            'Authorization': `bearer ${session?.data?.session?.access_token}`,
+            'Authorization': `bearer ${session?.session?.access_token}`,
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
@@ -197,12 +249,12 @@ export async function authLinkSteam(params: any): Promise<any> {
 export async function authLinkPatreon(params: any): Promise<any> {
     const url = getHost('aoe2companion-api') + `auth/link/patreon?${makeQueryString(params)}`;
 
-    const session = await supabaseClient.auth.getSession();
+    const { data: session } = await supabaseClient.auth.getSession();
 
     return await fetch(url, {
         method: 'GET',
         headers: {
-            'Authorization': `bearer ${session?.data?.session?.access_token}`,
+            'Authorization': `bearer ${session?.session?.access_token}`,
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
@@ -213,12 +265,12 @@ export async function authLinkPatreon(params: any): Promise<any> {
 export async function authConfirm(params: any): Promise<any> {
     const url = getHost('aoe2companion-api') + `auth/confirm?${makeQueryString(params)}`;
 
-    const session = await supabaseClient.auth.getSession();
+    const { data: session } = await supabaseClient.auth.getSession();
 
     return await fetch(url, {
         method: 'GET',
         headers: {
-            'Authorization': `bearer ${session?.data?.session?.access_token}`,
+            'Authorization': `bearer ${session?.session?.access_token}`,
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },

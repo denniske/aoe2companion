@@ -1,6 +1,6 @@
 import { setAccountProfile } from '@app/api/following';
 import { setAuth, useMutate, useSelector } from '@app/redux/reducer';
-import { saveSettingsToStorage } from '@app/service/storage';
+import { saveAuthToStorage } from '@app/service/storage';
 import Search from '@app/view/components/search';
 import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import { useEffect } from 'react';
@@ -10,13 +10,15 @@ export type ISearchProfilePageParams = {
 }
 
 const SelectProfilePage = () => {
+    console.log('SelectProfilePage');
+
     const mutate = useMutate();
     const account = useSelector((state) => state.account);
 
     const { search } = useLocalSearchParams<ISearchProfilePageParams>();
 
     const onSelect = async (user: any) => {
-        await saveSettingsToStorage({
+        await saveAuthToStorage({
             profileId: user.profileId,
         });
         mutate(setAuth(user));
