@@ -7,9 +7,10 @@ export interface IAccount {
     accountId: string;
     profileId: string;
     steamId: string;
-    pushToken: string;
+    pushToken?: string;
+    pushTokenWeb?: string;
     liveActivityToken: string;
-    notificationsEnabled: string;
+    notificationsEnabled: boolean;
     language: string;
     darkMode: string;
     mainPage: string;
@@ -57,11 +58,11 @@ export async function fetchAccount(): Promise<IAccount> {
     // });
 }
 
-export const saveAccountThrottled = throttle(saveAccount, 1000);
-
 interface IResult {
     result: string;
 }
+
+export const saveAccountThrottled = throttle(saveAccount, 1000);
 
 export async function saveAccount(account: IAccount): Promise<IResult> {
     const url = getHost('aoe2companion-api') + `v2/account`;

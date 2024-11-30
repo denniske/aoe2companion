@@ -2,109 +2,74 @@ import { ScrollView } from '@app/components/scroll-view';
 import ButtonPicker from '@app/view/components/button-picker';
 import { MyText } from '@app/view/components/my-text';
 import Picker from '@app/view/components/picker';
-import { clamp } from '@nex/data';
-import { useNavigation } from '@react-navigation/native';
-import * as Localization from 'expo-localization';
 import * as Notifications from '../../service/notifications';
-import { Stack, router } from 'expo-router';
-import { capitalize, merge } from 'lodash';
-import React, { useEffect, useState } from 'react';
+import { router, Stack } from 'expo-router';
+import { capitalize } from 'lodash';
+import React, { useState } from 'react';
 import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Button, Checkbox } from 'react-native-paper';
-
-import {
-    follow, setAccountLanguage,
-    setAccountProfile,
-    setAccountPushToken,
-    setAccountPushTokenWeb,
-    setNotificationConfig,
-} from '../../api/following';
-import { deactivatePusher, initPusher } from '../../helper/pusher';
-import { getLanguageFromSystemLocale2, getTranslation } from '../../helper/translate';
-import { DarkMode, setConfig, setMainPageShown, useMutate, useSelector } from '../../redux/reducer';
-import { setInternalLanguage } from '../../redux/statecache';
-import { getToken } from '../../service/push';
-import { saveConfigToStorage } from '../../service/storage';
-import { appVariants } from '../../styles';
-import { useTheme } from '../../theming';
-import { createStylesheet } from '../../theming-new';
+import { follow, setAccountProfile } from '@app/api/following';
+import { deactivatePusher, initPusher } from '@app/helper/pusher';
+import { getTranslation } from '@app/helper/translate';
+import { DarkMode, setMainPageShown, useMutate, useSelector } from '@app/redux/reducer';
+import { setInternalLanguage } from '@app/redux/statecache';
+import { getToken } from '@app/service/push';
+import { createStylesheet } from '@app/theming-new';
 import { appConfig } from '@nex/dataset';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { IAccount, saveAccount, saveAccountThrottled } from '@app/api/account';
 import { QUERY_KEY_ACCOUNT, useAccount } from '@app/app/_layout';
 
+
 export default function SettingsPage() {
     const styles = useStyles();
     const mutate = useMutate();
     const auth = useSelector((state) => state.auth);
-    const config = useSelector((state) => state.config);
     const accountId = useSelector((state) => state.account.id);
-    const navigation = useNavigation<any>();
-    const appStyles = useTheme(appVariants);
     const following = useSelector((state) => state.following);
     const [loadingPushNotificationEnabled, setLoadingPushNotificationEnabled] = useState(false);
-    const [overlayOpacityStr, setOverlayOpacityStr] = useState('');
-    const [overlayOffsetStr, setOverlayOffsetStr] = useState('');
-    const [overlayDurationStr, setOverlayDurationStr] = useState('');
-    const [matchCacheSize, setMatchCacheSize] = useState(0);
     const { data: account } = useAccount();
 
-    useEffect(() => {
-        setOverlayOpacityStr(`${config.overlay.opacity}`);
-        setOverlayOffsetStr(`${config.overlay.offset}`);
-        setOverlayDurationStr(`${config.overlay.duration}`);
-    }, [config]);
+    const queryClient = useQueryClient();
 
-    const setOverlayOpacity = async (event: any) => {
-        const opacity = clamp(parseInt(event.target.value), 1, 100);
-        const newConfig = merge({}, config, { overlay: { opacity } });
-        await saveConfigToStorage(newConfig);
-        mutate(setConfig(newConfig));
-    };
+    const saveAccountMutation = useMutation({
+        mutationKey: ['saveAccount'],
+        mutationFn: (_account: IAccount) => saveAccountThrottled(_account),
+        onMutate: async (_account) => {
+            console.log('ON MUTATE', _account.darkMode);
+            await queryClient.cancelQueries({ queryKey: QUERY_KEY_ACCOUNT() });
+            const previousAccount = queryClient.getQueryData(QUERY_KEY_ACCOUNT());
+            queryClient.setQueryData(QUERY_KEY_ACCOUNT(), _account);
+            return { previousAccount, _account };
+        },
+        onError: (err, _account, context) => {
+            console.log('ON ERROR');
+            queryClient.setQueryData(QUERY_KEY_ACCOUNT(), context?.previousAccount);
+        },
+        onSettled: async (_account) => {
+            console.log('ON SETTLED');
+            console.log('ON SETTLED IS PENDING', queryClient.isMutating({ mutationKey: ['saveAccount'] }));
+            if (queryClient.isMutating({ mutationKey: ['saveAccount'] }) === 1) {
+                await queryClient.invalidateQueries({ queryKey: QUERY_KEY_ACCOUNT() }); // , refetchType: 'all'
+                console.log('ON SETTLED INVALIDATED');
+            }
+        },
+    });
 
-    const setOverlayOffset = async (event: any) => {
-        const offset = clamp(parseInt(event.target.value), 0, 90);
-        const newConfig = merge({}, config, { overlay: { offset } });
-        await saveConfigToStorage(newConfig);
-        mutate(setConfig(newConfig));
-    };
+    // const togglePreventScreenLockOnGuidePage = async () => {
+    //     const newConfig = {
+    //         ...config,
+    //         preventScreenLockOnGuidePage: !config.preventScreenLockOnGuidePage,
+    //     };
+    //     await saveConfigToStorage(newConfig);
+    //     mutate(setConfig(newConfig));
+    // };
 
-    const setOverlayDuration = async (event: any) => {
-        const duration = clamp(parseInt(event.target.value), 5, 1000);
-        const newConfig = merge({}, config, { overlay: { duration } });
-        await saveConfigToStorage(newConfig);
-        mutate(setConfig(newConfig));
-    };
-
-    const togglePreventScreenLockOnGuidePage = async () => {
-        const newConfig = {
-            ...config,
-            preventScreenLockOnGuidePage: !config.preventScreenLockOnGuidePage,
-        };
-        await saveConfigToStorage(newConfig);
-        mutate(setConfig(newConfig));
-    };
-
-    const enablePushNotificationsMobile = async (pushNotificationsEnabled: any) => {
+    const enablePushNotificationsMobile = async (notificationsEnabled: any) => {
         setLoadingPushNotificationEnabled(true);
         try {
-            if (pushNotificationsEnabled) {
-                // const settings = await Notifications.getPermissionsAsync();
-                // let newStatus = settings.granted || settings.ios?.status === IosAuthorizationStatus.PROVISIONAL;
-                // console.log('newPermission', newStatus);
-                // const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-                // console.log('existingPermission', existingStatus);
-                // let finalStatus = existingStatus;
-                // if (existingStatus !== 'granted') {
-                //     const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-                //     finalStatus = status;
-                // }
-                // console.log('finalPermission', finalStatus);
-                // if (finalStatus !== 'granted') {
-                //     console.log('Failed to get push token for push notification!');
-                //     return;
-                // }
-
+            let token: string | undefined = undefined;
+            if (notificationsEnabled) {
                 const { status: existingStatus } = await Notifications.getPermissionsAsync();
                 let finalStatus = existingStatus;
                 if (existingStatus !== 'granted') {
@@ -116,7 +81,7 @@ export default function SettingsPage() {
                     return;
                 }
 
-                const token = await getToken();
+                token = await getToken();
                 if (!token) {
                     throw 'Could not create token';
                 }
@@ -129,36 +94,25 @@ export default function SettingsPage() {
                         lightColor: '#FF231F7C',
                     });
                 }
-
-                await setAccountPushToken(accountId, token);
-                if (auth && auth.profileId) {
-                    await setAccountProfile(accountId, { profile_id: auth.profileId });
-                }
-                await follow(
-                    accountId,
-                    following.map((p) => p.profileId),
-                    true
-                );
             }
 
-            await setNotificationConfig(accountId, pushNotificationsEnabled);
-
-            const newConfig = {
-                ...config,
-                pushNotificationsEnabled,
-            };
-            await saveConfigToStorage(newConfig);
-            mutate(setConfig(newConfig));
+            saveAccountMutation.mutate({
+                ...account!,
+                notificationsEnabled,
+                pushToken: token,
+            });
         } catch (e) {
             alert('Changing Push Notification setting failed.\n\n' + e);
         }
         setLoadingPushNotificationEnabled(false);
     };
 
-    const enablePushNotificationsWeb = async (pushNotificationsEnabled: any) => {
+    const enablePushNotificationsWeb = async (notificationsEnabled: any) => {
         setLoadingPushNotificationEnabled(true);
         try {
-            if (pushNotificationsEnabled) {
+            let token: string | undefined = undefined;
+
+            if (notificationsEnabled) {
                 if (__DEV__) {
                     if (auth && auth.profileId) {
                         await setAccountProfile(accountId, { profile_id: auth.profileId });
@@ -171,29 +125,16 @@ export default function SettingsPage() {
                     return;
                 }
 
-                const token = await initPusher();
-
-                await setAccountPushTokenWeb(accountId, token);
-                if (auth && auth.profileId) {
-                    await setAccountProfile(accountId, { profile_id: auth.profileId });
-                }
-                await follow(
-                    accountId,
-                    following.map((p) => p.profileId),
-                    true
-                );
+                token = await initPusher();
             } else {
                 await deactivatePusher();
             }
 
-            await setNotificationConfig(accountId, pushNotificationsEnabled);
-
-            const newConfig = {
-                ...config,
-                pushNotificationsEnabled,
-            };
-            await saveConfigToStorage(newConfig);
-            mutate(setConfig(newConfig));
+            saveAccountMutation.mutate({
+                ...account!,
+                notificationsEnabled,
+                pushTokenWeb: token,
+            });
         } catch (e) {
             alert('Changing Push Notification setting failed.\n\n' + e);
         }
@@ -202,9 +143,9 @@ export default function SettingsPage() {
 
     const togglePushNotifications = () => {
         if (Platform.OS === 'web') {
-            return enablePushNotificationsWeb(!config.pushNotificationsEnabled);
+            return enablePushNotificationsWeb(!account?.notificationsEnabled);
         }
-        return enablePushNotificationsMobile(!config.pushNotificationsEnabled);
+        return enablePushNotificationsMobile(!account?.notificationsEnabled);
     };
 
     const languageMap: Record<string, string> = {
@@ -234,63 +175,26 @@ export default function SettingsPage() {
 
     const values: DarkMode[] = ['light', 'dark', 'system'];
 
-    const queryClient = useQueryClient();
-
-    const mutation = useMutation({
-        mutationKey: ['saveAccount'],
-        mutationFn: (_account: IAccount) => saveAccountThrottled(_account),
-        onMutate: async (_account) => {
-            console.log('ON MUTATE', _account.darkMode);
-            await queryClient.cancelQueries({ queryKey: QUERY_KEY_ACCOUNT() })
-            const previousAccount = queryClient.getQueryData(QUERY_KEY_ACCOUNT())
-            queryClient.setQueryData(QUERY_KEY_ACCOUNT(), _account)
-            return { previousAccount, _account }
-        },
-        onError: (err, _account, context) => {
-            console.log('ON ERROR');
-            queryClient.setQueryData(
-                QUERY_KEY_ACCOUNT(),
-                context?.previousAccount,
-            )
-        },
-        onSettled: async (_account) => {
-            console.log('ON SETTLED');
-            console.log('ON SETTLED IS PENDING', queryClient.isMutating({ mutationKey: ['saveAccount'] }));
-            if (queryClient.isMutating({ mutationKey: ['saveAccount'] }) === 1) {
-                await queryClient.invalidateQueries({ queryKey: QUERY_KEY_ACCOUNT() }) // , refetchType: 'all'
-                console.log('ON SETTLED INVALIDATED');
-            }
-        },
-    })
-
     const setDarkMode = async (darkMode: any) => {
-        mutation.mutate({
+        saveAccountMutation.mutate({
             ...account!,
-            darkMode: darkMode.toLowerCase(),
+            darkMode,
         });
     };
 
     const onLanguageSelected = async (language: string) => {
-        const resultingLanguage = language == 'system' ? getLanguageFromSystemLocale2(Localization.locale) : language;
-        setInternalLanguage(resultingLanguage);
-
-        const newConfig = {
-            ...config,
-            language: language!.toLowerCase(),
-        };
-        await saveConfigToStorage(newConfig);
-        mutate(setConfig(newConfig));
-
-        setAccountLanguage(accountId, resultingLanguage);
+        saveAccountMutation.mutate({
+            ...account!,
+            language,
+        });
+        setInternalLanguage(language);
     };
 
-    const onMainPageSelected = async (page: string) => {
-        const newConfig = {
-            ...config,
-            mainPage: page,
-        };
-        await saveConfigToStorage(newConfig);
-        mutate(setConfig(newConfig));
+    const onMainPageSelected = async (mainPage: string) => {
+        saveAccountMutation.mutate({
+            ...account!,
+            mainPage,
+        });
         mutate(setMainPageShown(true));
     };
 
@@ -324,12 +228,12 @@ export default function SettingsPage() {
                     <View style={styles.row2}>
                         <Checkbox.Android
                             disabled={loadingPushNotificationEnabled}
-                            status={config.pushNotificationsEnabled ? 'checked' : 'unchecked'}
+                            status={account?.notificationsEnabled ? 'checked' : 'unchecked'}
                             onPress={togglePushNotifications}
                         />
                         <TouchableOpacity onPress={togglePushNotifications} disabled={loadingPushNotificationEnabled}>
                             <MyText style={[styles.testLink]}>
-                                {config.pushNotificationsEnabled ? getTranslation('checkbox.active') : getTranslation('checkbox.inactive')}
+                                {account?.notificationsEnabled ? getTranslation('checkbox.active') : getTranslation('checkbox.inactive')}
                             </MyText>
                         </TouchableOpacity>
                     </View>
@@ -339,27 +243,25 @@ export default function SettingsPage() {
                 </View>
             </View>
 
-            {Platform.OS === 'web' && (
-                <View style={styles.row}>
-                    <View style={styles.cellName}>
-                        <MyText>{getTranslation('settings.preventscreenlock')}</MyText>
-                        <MyText style={styles.small}>{getTranslation('settings.preventscreenlock.note')}</MyText>
-                    </View>
-                    <View style={styles.cellValueCol}>
-                        <View style={styles.row2}>
-                            <Checkbox.Android
-                                status={config.preventScreenLockOnGuidePage ? 'checked' : 'unchecked'}
-                                onPress={togglePreventScreenLockOnGuidePage}
-                            />
-                            <TouchableOpacity onPress={togglePreventScreenLockOnGuidePage} disabled={Platform.OS === 'web'}>
-                                <MyText style={[styles.testLink]}>
-                                    {config.preventScreenLockOnGuidePage ? getTranslation('checkbox.active') : getTranslation('checkbox.inactive')}
-                                </MyText>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View>
-            )}
+            {/*<View style={styles.row}>*/}
+            {/*    <View style={styles.cellName}>*/}
+            {/*        <MyText>{getTranslation('settings.preventscreenlock')}</MyText>*/}
+            {/*        <MyText style={styles.small}>{getTranslation('settings.preventscreenlock.note')}</MyText>*/}
+            {/*    </View>*/}
+            {/*    <View style={styles.cellValueCol}>*/}
+            {/*        <View style={styles.row2}>*/}
+            {/*            <Checkbox.Android*/}
+            {/*                status={config.preventScreenLockOnGuidePage ? 'checked' : 'unchecked'}*/}
+            {/*                onPress={togglePreventScreenLockOnGuidePage}*/}
+            {/*            />*/}
+            {/*            <TouchableOpacity onPress={togglePreventScreenLockOnGuidePage} disabled={Platform.OS === 'web'}>*/}
+            {/*                <MyText style={[styles.testLink]}>*/}
+            {/*                    {config.preventScreenLockOnGuidePage ? getTranslation('checkbox.active') : getTranslation('checkbox.inactive')}*/}
+            {/*                </MyText>*/}
+            {/*            </TouchableOpacity>*/}
+            {/*        </View>*/}
+            {/*    </View>*/}
+            {/*</View>*/}
 
             <View style={styles.row}>
                 <View style={styles.cellName}>
@@ -390,40 +292,44 @@ export default function SettingsPage() {
                             itemHeight={40}
                             textMinWidth={150}
                             divider={divider}
-                            value={config.mainPage || '/'}
-                            values={appConfig.game === 'aoe2de' ? [
-                                '/',
-                                '/matches',
-                                '/matches/live',
-                                '/matches/users',
-                                '/explore',
-                                '/explore/civilizations',
-                                '/explore/units',
-                                '/explore/buildings',
-                                '/explore/technologies',
-                                '/explore/build-orders',
-                                '/explore/tips',
-                                '/statistics',
-                                '/competitive',
-                                '/competitive/games',
-                                '/competitive/tournaments',
-                            ] : [
-                                '/',
-                                '/matches',
-                                '/matches/live',
-                                '/matches/users',
-                                '/explore',
-                                // '/explore/civilizations',
-                                // '/explore/units',
-                                // '/explore/buildings',
-                                // '/explore/technologies',
-                                // '/explore/build-orders',
-                                // '/explore/tips',
-                                '/statistics',
-                                '/competitive',
-                                // '/competitive/games',
-                                '/competitive/tournaments',
-                            ]}
+                            value={account?.mainPage || '/'}
+                            values={
+                                appConfig.game === 'aoe2de'
+                                    ? [
+                                          '/',
+                                          '/matches',
+                                          '/matches/live',
+                                          '/matches/users',
+                                          '/explore',
+                                          '/explore/civilizations',
+                                          '/explore/units',
+                                          '/explore/buildings',
+                                          '/explore/technologies',
+                                          '/explore/build-orders',
+                                          '/explore/tips',
+                                          '/statistics',
+                                          '/competitive',
+                                          '/competitive/games',
+                                          '/competitive/tournaments',
+                                      ]
+                                    : [
+                                          '/',
+                                          '/matches',
+                                          '/matches/live',
+                                          '/matches/users',
+                                          '/explore',
+                                          // '/explore/civilizations',
+                                          // '/explore/units',
+                                          // '/explore/buildings',
+                                          // '/explore/technologies',
+                                          // '/explore/build-orders',
+                                          // '/explore/tips',
+                                          '/statistics',
+                                          '/competitive',
+                                          // '/competitive/games',
+                                          '/competitive/tournaments',
+                                      ]
+                            }
                             formatter={(value) =>
                                 value === '/'
                                     ? 'Home'

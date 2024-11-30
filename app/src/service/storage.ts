@@ -14,6 +14,8 @@ import store from '../redux/store';
 import { fetchAssets } from '@app/api/helper/api';
 import * as Crypto from 'expo-crypto';
 import { appConfig } from '@nex/dataset';
+import { getLanguageFromSystemLocale2 } from '@app/helper/translate';
+import * as Localization from 'expo-localization';
 
 export interface IConfig {
     hotkeyShowHideEnabled: boolean;
@@ -99,10 +101,11 @@ export const loadAccountFromStorage = async () => {
     return JSON.parse(entry) as IAccount;
 };
 
+
 export const loadConfigFromStorage = async () => {
     const entryJson = await AsyncStorage.getItem('config');
     const entry = (entryJson ? JSON.parse(entryJson) : {}) as IConfig;
-    entry.language = entry.language ?? 'en';
+    entry.language = entry.language ?? getLanguageFromSystemLocale2(Localization.getLocales()[0].languageTag);
     entry.darkMode = entry.darkMode ?? 'system';
     entry.preventScreenLockOnGuidePage = entry.preventScreenLockOnGuidePage ?? true;
     entry.pushNotificationsEnabled = entry.pushNotificationsEnabled ?? false;

@@ -17,7 +17,7 @@ export function maskToken(token: string) {
 }
 
 export async function getToken() {
-    if (!Device.isDevice) return null;
+    if (!Device.isDevice) return undefined;
     try {
         const projectId =
             Constants?.expoConfig?.extra?.eas?.projectId ??
@@ -26,6 +26,6 @@ export async function getToken() {
             projectId,
         })).data;
     } catch (e) {
-        return null;
+        return undefined;
     }
 }
