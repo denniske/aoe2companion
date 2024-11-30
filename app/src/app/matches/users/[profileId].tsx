@@ -88,7 +88,7 @@ export function UserMenu({ profileId }: UserMenuProps) {
         // setAccountProfile(account.id, { profile_id: null, steam_id: null });
     };
 
-    if (!profile) {
+    if (!profileId) {
         return null;
     }
 

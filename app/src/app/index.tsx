@@ -55,6 +55,8 @@ export default function Page() {
         }
     }, [isNavigationReady]);
 
+    console.log('AUTH', auth);
+
     return (
         <ScrollView contentContainerStyle="p-4 gap-5">
             <Stack.Screen

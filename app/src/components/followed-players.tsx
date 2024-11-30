@@ -14,7 +14,7 @@ export const FollowedPlayers = () => {
 
     const { data: account } = useAccount();
 
-    console.log('followed players account', account?.followedPlayers.length);
+    // console.log('followed players account', account?.followedPlayers.length);
 
     const { data: authProfile } = useQuery({
         queryKey: ['profile', auth?.profileId],

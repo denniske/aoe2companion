@@ -101,7 +101,7 @@ export const MarchCardSkeleton = () => {
         <Card
             header={
                 <View className="relative">
-                    <Skeleton className="w-14 h-14" />
+                    <Skeleton className="w-14 h-[57px]" />
                 </View>
             }
         >
