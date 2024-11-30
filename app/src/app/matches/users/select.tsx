@@ -2,7 +2,7 @@ import Search from '@app/view/components/search';
 import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import { useEffect } from 'react';
 import { useSaveAccountMutation } from '@app/mutations/save-account';
-import { useAccount } from '@app/app/_layout';
+import { useAccount } from '@app/queries/all';
 
 export type ISearchProfilePageParams = {
     search?: string;

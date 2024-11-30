@@ -19,7 +19,7 @@ import { getLeaderboardTextColor } from '../../helper/colors';
 import { getTranslation } from '../../helper/translate';
 import { openLink } from '../../helper/url';
 import { setPrefValue, useMutate, useSelector } from '../../redux/reducer';
-import { saveCurrentPrefsToStorage } from '../../service/storage';
+import { savePrefsToStorage } from '../../service/storage';
 import { usePaperTheme } from '../../theming';
 import { createStylesheet } from '../../theming-new';
 import { TournamentPlayerPopup } from '../tournaments/player-popup';
@@ -179,15 +179,15 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
     const { data: liquipediaProfileOverview } = useTournamentPlayerOverview(verifiedPlayer?.liquipedia);
 
     // Set country for use in leaderboard country dropdown
-    useEffect(() => {
-        if ((data?.country && data.country != authCountry) || (data?.clan && data.clan != authClan)) {
-            mutate(setPrefValue('country', data?.country));
-            mutate(setPrefValue('clan', data?.clan));
-            saveCurrentPrefsToStorage();
-        }
-    }, [data]);
+    // useEffect(() => {
+    //     if ((data?.country && data.country != authCountry) || (data?.clan && data.clan != authClan)) {
+    //         mutate(setPrefValue('country', data?.country));
+    //         mutate(setPrefValue('clan', data?.clan));
+    //         savePrefsToStorage();
+    //     }
+    // }, [data]);
 
-    console.log('verifiedPlayer===>', verifiedPlayer);
+    // console.log('verifiedPlayer===>', verifiedPlayer);
     // console.log('data?.linkedProfiles===>', data?.linkedProfiles);
 
     return (

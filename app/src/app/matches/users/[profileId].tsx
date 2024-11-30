@@ -11,7 +11,7 @@ import { CountryImage } from '../../../view/components/country-image';
 import { getVerifiedPlayer, isVerifiedPlayer } from '@nex/data';
 import { Text } from '@app/components/text';
 import { Link } from '@app/components/link';
-import { useAccount } from '@app/app/_layout';
+import { useAccount } from '@app/queries/all';
 import { useQuery } from '@tanstack/react-query';
 import { useFollowMutation } from '@app/mutations/follow';
 import { useUnfollowMutation } from '@app/mutations/unfollow';
@@ -22,6 +22,7 @@ import { TabBarLabel } from '@app/view/components/tab-bar-label';
 import MainProfile from '@app/view/main/main-profile';
 import MainStats from '@app/view/main/main-stats';
 import MainMatches from '@app/view/main/main-matches';
+import { useProfileFast } from '@app/queries/all';
 
 interface UserMenuProps {
     profile?: IProfilesResultProfile;
@@ -169,10 +170,7 @@ export default function UserPage() {
         });
     }, [tab]);
 
-    const { data: profile } = useQuery({
-        queryKey: ['profile', profileId],
-        queryFn: async () => { return (await fetchProfiles({ profileId })).profiles[0]; },
-    });
+    const { data: profile } = useProfileFast(profileId);
 
     useEffect(() => {
         navigation.setOptions({

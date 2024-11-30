@@ -7,7 +7,7 @@ import {Image, ImageBackground} from "expo-image";
 import React, {Fragment} from "react";
 import {MyText} from "./my-text";
 import {setPrefValue, useMutate, useSelector} from "../../redux/reducer";
-import {saveCurrentPrefsToStorage} from "../../service/storage";
+import {savePrefsToStorage} from "../../service/storage";
 import ButtonPicker from "./button-picker";
 import {getTechIcon} from "../../helper/techs";
 import {getOtherIcon, getUnitIcon} from "../../helper/units";
@@ -70,7 +70,7 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
 
     const nav = async (str: any) => {
         mutate(setPrefValue('techTreeSize', str));
-        await saveCurrentPrefsToStorage();
+        await savePrefsToStorage();
     };
 
     const compactTechTree = getCompactTechTree(civInfo);

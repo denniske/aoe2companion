@@ -6,7 +6,7 @@ import { IPlayerListPlayer } from '@app/view/components/player-list';
 import Search from '@app/view/components/search';
 import { router, useNavigation } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { useAccount } from '@app/app/_layout';
+import { useAccount } from '@app/queries/all';
 import { useFollowMutation } from '@app/mutations/follow';
 import { useUnfollowMutation } from '@app/mutations/unfollow';
 

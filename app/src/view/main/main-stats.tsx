@@ -13,7 +13,7 @@ import { getTranslation } from '../../helper/translate';
 import { openLink } from '../../helper/url';
 import { useWebRefresh } from '../../hooks/use-web-refresh';
 import { clearStatsPlayer, setPrefValue, useMutate, useSelector } from '../../redux/reducer';
-import { saveCurrentPrefsToStorage } from '../../service/storage';
+import { savePrefsToStorage } from '../../service/storage';
 import { appVariants } from '../../styles';
 import { useTheme } from '../../theming';
 import { createStylesheet } from '../../theming-new';
@@ -24,6 +24,7 @@ import RefreshControlThemed from '../components/refresh-control-themed';
 import StatsRows, { StatsHeader, StatsRow } from '../components/stats-rows';
 import TemplatePicker from '../components/template-picker';
 import { useQuery } from '@tanstack/react-query';
+import { useProfileWithStats } from '@app/queries/all';
 
 interface Props {
     profileId: number;
@@ -94,11 +95,7 @@ function MainStatsInternal({ profileId }: { profileId: number }) {
     // );
     // const previousCachedData = usePrevious(currentCachedData);
 
-    const { data: profileWithStats, refetch, isRefetching } = useQuery({
-        queryKey: ['profile-with-stats', profileId],
-        queryFn: () => fetchProfile({ profileId, extend: 'stats' }),
-        enabled: false, // Remove this
-    });
+    const { data: profileWithStats, refetch, isRefetching } = useProfileWithStats(profileId);
 
     const cachedData = profileWithStats?.stats.find((s) => s.leaderboardId === leaderboardId); //currentCachedData ?? previousCachedData;
 
@@ -125,7 +122,7 @@ function MainStatsInternal({ profileId }: { profileId: number }) {
 
     const onLeaderboardSelected = async (leaderboardId: LeaderboardId) => {
         mutate(setPrefValue('leaderboardId', leaderboardId));
-        await saveCurrentPrefsToStorage();
+        await savePrefsToStorage();
         setLeaderboardId(leaderboardId);
     };
 

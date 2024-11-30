@@ -4,7 +4,7 @@ import Snackbar from "../snackbar";
 import {setPrefValue, useMutate, useSelector} from "../../../redux/reducer";
 import {compareBuild} from "semver";
 import Constants from "expo-constants";
-import {saveCurrentPrefsToStorage} from '../../../service/storage';
+import {savePrefsToStorage} from '../../../service/storage';
 import {getTranslation} from '../../../helper/translate';
 import {useEffect, useState} from "react";
 import { sleep } from '@nex/data';
@@ -45,7 +45,7 @@ export default function ChangelogSnackbar() {
 
     const close = () => {
         mutate(setPrefValue('changelogLastVersionRead', currentVersion));
-        saveCurrentPrefsToStorage();
+        savePrefsToStorage();
     };
 
     let message = getTranslation('changelogsnackbar.appupdated');

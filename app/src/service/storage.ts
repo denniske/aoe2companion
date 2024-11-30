@@ -72,7 +72,7 @@ export const loadPrefsFromStorage = async () => {
     return JSON.parse(entry) as IPrefs;
 };
 
-export const saveCurrentPrefsToStorage = async () => {
+export const savePrefsToStorage = async () => {
     const prefs = store.getState().prefs;
     await AsyncStorage.setItem('prefs', JSON.stringify(prefs));
 };

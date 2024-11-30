@@ -18,6 +18,7 @@ import Profile from '../components/profile';
 import Rating from '../components/rating';
 import RefreshControlThemed from '../components/refresh-control-themed';
 import { useQuery } from '@tanstack/react-query';
+import { useProfile } from '@app/queries/all';
 
 interface Props {
     profileId: number;
@@ -51,10 +52,7 @@ function MainProfileInternal({ profileId }: { profileId: number }) {
     const styles = useStyles();
     const navigation = useNavigation<any>();
 
-    const { data: profile, refetch, isRefetching } = useQuery({
-        queryKey: ['profile', profileId],
-        queryFn: () => fetchProfile({ profileId }),
-    });
+    const { data: profile, refetch, isRefetching } = useProfile(profileId);
 
     const rating = profile?.ratings;
 

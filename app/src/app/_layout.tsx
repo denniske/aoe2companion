@@ -70,6 +70,7 @@ import ChangelogSnackbar from '@app/view/components/snackbar/changelog-snackbar'
 import ErrorSnackbar from '@app/view/components/snackbar/error-snackbar';
 import { useEventListener } from 'expo';
 import { authLinkSteam, fetchAccount } from '@app/api/account';
+import { useAccount } from '@app/queries/all';
 
 initSentry();
 
@@ -222,29 +223,72 @@ function LiveActivityController() {
     return <View />;
 }
 
-export const QUERY_KEY_ACCOUNT = () => ['account'];
-// export const QUERY_KEY_TODO = (todoId?: number) => ['todo', todoId];
+const customPaperTheme = {
+    ...PaperDefaultTheme,
+    colors: {
+        ...PaperDefaultTheme.colors,
+        primary: '#3498db',
+        accent: '#3498db',
+    },
+};
 
-export const useAccount = () =>
-    useQuery({
-        queryKey: QUERY_KEY_ACCOUNT(),
-        queryFn: async () => await fetchAccount(),
+const customDarkPaperTheme = {
+    ...PaperDarkTheme,
+    colors: {
+        ...PaperDarkTheme.colors,
+        primary: '#3498db',
+        accent: '#3498db',
+    },
+};
+
+const customLightTheme = {
+    ...DefaultTheme,
+    colors: {
+        ...DefaultTheme.colors,
+        background: tw.color('gold-50') ?? 'white',
+    },
+};
+
+const customDarkTheme = {
+    ...DarkTheme,
+    colors: {
+        ...DarkTheme.colors,
+        background: tw.color('blue-950') ?? 'black',
+    },
+};
+
+function useColorSchemes() {
+    useDeviceContext(tw, {
+        observeDeviceColorSchemeChanges: false,
+        initialColorScheme: 'device',
     });
 
-export const useAuthLinkSteam = (params: any) =>
-    useQuery({
-        queryKey: ['authLinkSteam'],
-        queryFn: async () => await authLinkSteam(params),
-    });
+    const { data: account } = useAccount();
+
+    const { setColorScheme: setTailwindColorScheme } = useTailwindColorScheme();
+    const [, , setTailwindReactNativeColorScheme] = useAppColorScheme(tw);
+    const deviceColorScheme = useColorScheme();
+
+    const finalDarkMode = (account?.darkMode === 'system' ? deviceColorScheme : account?.darkMode) || 'light';
+
+    useEffect(() => {
+        setTailwindColorScheme(finalDarkMode);
+        setTailwindReactNativeColorScheme(finalDarkMode);
+    }, [finalDarkMode]);
+
+    return {
+        paperTheme: finalDarkMode === 'light' ? customPaperTheme : customDarkPaperTheme,
+        evaTheme: finalDarkMode === 'light' ? eva.light : eva.dark,
+        customTheme: finalDarkMode === 'light' ? customLightTheme : customDarkTheme,
+        contentTheme: finalDarkMode === 'light' ? 'dark-content' : 'light-content',
+    } as const;
+}
 
 function AppWrapper() {
-    const { setColorScheme } = useTailwindColorScheme();
-    const [, , setColorTwrncScheme] = useAppColorScheme(tw);
     const [appIsReady, setAppIsReady] = useState(false);
-    const darkMode = useSelector((state) => state.config?.darkMode);
-    const colorScheme = useColorScheme();
     const insets = useSafeAreaInsets();
     const mutate = useMutate();
+    const { paperTheme, evaTheme, customTheme, contentTheme } = useColorSchemes();
 
     const [fontsLoaded] = useFonts({
         Roboto_400Regular,
@@ -275,7 +319,7 @@ function AppWrapper() {
             state.auth = auth as any;
             state.following = following;
             state.prefs = prefs as IPrefs;
-            state.config = config;
+            // state.config = config;
         });
 
         setInitalized(true);
@@ -291,57 +335,11 @@ function AppWrapper() {
         }
     }, [initalized, fontsLoaded]);
 
-    const finalDarkMode = darkMode === 'system' && (colorScheme === 'light' || colorScheme === 'dark') ? colorScheme : darkMode;
-
-    useEffect(() => {
-        setColorScheme(finalDarkMode);
-        setColorTwrncScheme(finalDarkMode === 'system' ? 'light' : finalDarkMode);
-    }, [finalDarkMode]);
-
     const onLayoutRootView = useCallback(async () => {
         if (appIsReady) {
             SplashScreen.hide();
         }
     }, [appIsReady]);
-
-    useDeviceContext(tw, {
-        observeDeviceColorSchemeChanges: false,
-        initialColorScheme: 'device',
-    });
-
-    const customPaperTheme = {
-        ...PaperDefaultTheme,
-        colors: {
-            ...PaperDefaultTheme.colors,
-            primary: '#3498db',
-            accent: '#3498db',
-        },
-    };
-
-    const customDarkPaperTheme = {
-        ...PaperDarkTheme,
-        colors: {
-            ...PaperDarkTheme.colors,
-            primary: '#3498db',
-            accent: '#3498db',
-        },
-    };
-
-    const customTheme = {
-        ...DefaultTheme,
-        colors: {
-            ...DefaultTheme.colors,
-            background: tw.color('gold-50') ?? 'white',
-        },
-    };
-
-    const customDarkTheme = {
-        ...DarkTheme,
-        colors: {
-            ...DarkTheme.colors,
-            background: tw.color('blue-950') ?? 'black',
-        },
-    };
 
     if (!appIsReady) {
         return null;
@@ -353,45 +351,44 @@ function AppWrapper() {
     console.log();
     console.log();
 
+
     return (
         <GestureHandlerRootView className={`flex-1 ${Platform.OS === 'web' ? `bg-white dark:bg-black` : ``}`}>
             <ConditionalTester>
                 <PaperProvider
-                    theme={finalDarkMode === 'light' ? customPaperTheme : customDarkPaperTheme}
+                    theme={paperTheme}
                     settings={{
                         icon: (props) => <FontAwesome5 {...props} />,
                     }}
                 >
-                    <ApplicationProvider {...eva} theme={finalDarkMode === 'light' ? eva.light : eva.dark}>
-                        <QueryClientProvider client={queryClient}>
-                            <ThemeProvider value={finalDarkMode === 'dark' ? customDarkTheme : customTheme}>
-                                <View
-                                    className={`bg-gold-50 dark:bg-blue-950 ${Platform.OS === 'web' ? `overflow-hidden w-[450px] max-w-full h-[900px] mx-auto my-auto ${isMobile ? '' : 'border border-gray-200 dark:border-gray-800'} rounded-lg` : 'flex-1'}`}
-                                    style={{ paddingTop: insets.top }}
-                                    onLayout={onLayoutRootView}
-                                >
-                                    <StatusBar
-                                        barStyle={finalDarkMode === 'light' ? 'dark-content' : 'light-content'}
-                                        backgroundColor="transparent"
-                                        translucent
-                                    />
+                    <ApplicationProvider {...eva} theme={evaTheme}>
+                        <ThemeProvider value={customTheme}>
+                            <View
+                                className={`bg-gold-50 dark:bg-blue-950 ${Platform.OS === 'web' ? `overflow-hidden w-[450px] max-w-full h-[900px] mx-auto my-auto ${isMobile ? '' : 'border border-gray-200 dark:border-gray-800'} rounded-lg` : 'flex-1'}`}
+                                style={{ paddingTop: insets.top }}
+                                onLayout={onLayoutRootView}
+                            >
+                                <StatusBar
+                                    barStyle={contentTheme}
+                                    backgroundColor="transparent"
+                                    translucent
+                                />
 
-                                    <LanguageController />
-                                    <LiveActivityController />
-                                    <AccountController />
+                                <LanguageController />
+                                <LiveActivityController />
+                                <AccountController />
 
-                                    <Portal>
-                                        {Platform.OS !== 'web' && <UpdateSnackbar />}
-                                        {Platform.OS !== 'web' && <ChangelogSnackbar />}
-                                        <ErrorSnackbar />
-                                    </Portal>
+                                <Portal>
+                                    {Platform.OS !== 'web' && <UpdateSnackbar />}
+                                    {Platform.OS !== 'web' && <ChangelogSnackbar />}
+                                    <ErrorSnackbar />
+                                </Portal>
 
-                                    <Stack screenOptions={{ header: Header,  }}></Stack>
+                                <Stack screenOptions={{ header: Header,  }}></Stack>
 
-                                    <TabBar></TabBar>
-                                </View>
-                            </ThemeProvider>
-                        </QueryClientProvider>
+                                <TabBar></TabBar>
+                            </View>
+                        </ThemeProvider>
                     </ApplicationProvider>
                 </PaperProvider>
             </ConditionalTester>
@@ -420,7 +417,9 @@ function HomeLayout() {
 
     return (
         <ReduxProvider store={store}>
-            <Dummy />
+            <QueryClientProvider client={queryClient}>
+                <Dummy />
+            </QueryClientProvider>
         </ReduxProvider>
     );
 }

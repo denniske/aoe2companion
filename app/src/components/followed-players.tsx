@@ -6,7 +6,7 @@ import { View } from 'react-native';
 import { Text } from './text';
 import { uniqBy } from 'lodash';
 import { useQuery } from '@tanstack/react-query';
-import { useAccount } from '@app/app/_layout';
+import { useAccount } from '@app/queries/all';
 
 export const FollowedPlayers = () => {
     const auth = useSelector((state) => state.auth);

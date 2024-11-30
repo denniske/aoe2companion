@@ -6,7 +6,7 @@ import { TextLoader } from './loader/text-loader';
 import { usePaperTheme } from '../../theming';
 import { setPrefValue, useMutate, useSelector } from '../../redux/reducer';
 import ButtonPicker from './button-picker';
-import { saveCurrentPrefsToStorage } from '../../service/storage';
+import { savePrefsToStorage } from '../../service/storage';
 import { isAfter, subDays, subMonths, subWeeks } from 'date-fns';
 
 
@@ -112,7 +112,7 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
         } else {
             if (isAuthProfile) {
                 mutate(setPrefValue('ratingHistoryHiddenLeaderboardIds', hiddenLeaderboardIds));
-                saveCurrentPrefsToStorage();
+                savePrefsToStorage();
             }
         }
     }, [auth, profile, hiddenLeaderboardIds]);
@@ -126,7 +126,7 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
     const nav = async (str: any) => {
         setRatingHistoryDuration(str);
         mutate(setPrefValue('ratingHistoryDuration', str));
-        await saveCurrentPrefsToStorage();
+        await savePrefsToStorage();
     };
 
     const toggleLeaderboard = (leaderboardId: LeaderboardId) => {

@@ -6,7 +6,7 @@ import {
     loadAccountFromStorage, loadConfigFromStorage,
     loadFollowingFromStorage,
     loadPrefsFromStorage,
-    loadAuthFromStorage, saveConfigToStorage, saveFollowingToStorage, saveAuthToStorage,
+    loadAuthFromStorage, saveConfigToStorage, saveFollowingToStorage, saveAuthToStorage, savePrefsToStorage,
 } from '@app/service/storage';
 import { DarkMode } from '@app/redux/reducer';
 
@@ -30,6 +30,7 @@ export interface IAccount {
     mainPage: string;
     patreonId?: string;
     patreonTier?: string;
+    preferences?: any;
     followedPlayers: IAccountFollowedPlayer[];
 
     email: string;
@@ -44,7 +45,7 @@ export async function fetchAccount(): Promise<IAccount> {
     if (!session.session) {
         // console.log('fetchAccount: no session');
 
-        const [account, auth, following, prefs, config] = await Promise.all([
+        const [account, auth, following, preferences, config] = await Promise.all([
             loadAccountFromStorage(),
             loadAuthFromStorage(),
             loadFollowingFromStorage(),
@@ -67,6 +68,7 @@ export async function fetchAccount(): Promise<IAccount> {
             mainPage: config.mainPage,
             patreonId: undefined,
             patreonTier: undefined,
+            preferences,
             followedPlayers: following,
             email: '',
             emailVerified: false,
@@ -113,6 +115,8 @@ export async function saveAccount(account: IAccount): Promise<IResult> {
         await saveAuthToStorage({
             profileId: account.profileId,
         });
+
+        // await savePrefsToStorage(account.preferences);
 
         // saveCurrentPrefsToStorage();
 

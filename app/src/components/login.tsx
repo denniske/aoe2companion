@@ -5,7 +5,7 @@ import { Button } from 'react-native-paper';
 import { MyText } from '@app/view/components/my-text';
 import { Field } from '@app/components/field';
 import { useQueryClient } from '@tanstack/react-query';
-import { useAccount } from '@app/app/_layout';
+import { useAccount } from '@app/queries/all';
 
 // Tells Supabase Auth to continuously refresh the session automatically if
 // the app is in the foreground. When this is added, you will continue to receive
