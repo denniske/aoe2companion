@@ -97,7 +97,7 @@ interface IResult {
 
 export const saveAccountThrottled = throttle(saveAccount, 1000);
 
-export async function saveAccount(account: IAccount): Promise<IResult> {
+export async function saveAccount(account: Partial<IAccount>): Promise<IResult> {
     const url = getHost('aoe2companion-api') + `v2/account`;
 
     const { data: session } = await supabaseClient.auth.getSession();
@@ -105,6 +105,7 @@ export async function saveAccount(account: IAccount): Promise<IResult> {
     if (!session.session) {
         console.log('saveAccount: no session');
 
+        // Merge
         await saveConfigToStorage({
             pushNotificationsEnabled: account.notificationsEnabled,
             language: account.language,
@@ -112,9 +113,11 @@ export async function saveAccount(account: IAccount): Promise<IResult> {
             mainPage: account.mainPage,
         });
 
-        await saveAuthToStorage({
-            profileId: account.profileId,
-        });
+        if ('profileId' in account) {
+            await saveAuthToStorage({
+                profileId: account.profileId,
+            });
+        }
 
         // await savePrefsToStorage(account.preferences);
 

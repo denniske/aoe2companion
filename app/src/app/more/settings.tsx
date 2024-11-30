@@ -17,8 +17,8 @@ import { createStylesheet } from '@app/theming-new';
 import { appConfig } from '@nex/dataset';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { IAccount, saveAccount, saveAccountThrottled } from '@app/api/account';
-import { QUERY_KEY_ACCOUNT, useAccount } from '@app/app/_layout';
 import { useSaveAccountMutation } from '@app/mutations/save-account';
+import { useAccount } from '@app/queries/all';
 
 
 export default function SettingsPage() {

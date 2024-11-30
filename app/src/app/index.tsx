@@ -18,6 +18,7 @@ import { Stack, useFocusEffect, useRootNavigationState, useRouter } from 'expo-r
 import { useCallback, useEffect } from 'react';
 import { Platform, View } from 'react-native';
 import { Button } from '@app/components/button';
+import { useAccountData } from '@app/queries/all';
 
 export default function Page() {
     const tournament = useFeaturedTournament();
@@ -28,7 +29,7 @@ export default function Page() {
     const router = useRouter();
     const { favorites, refetch } = useFavoritedBuilds();
     const { followedIds, refetch: refetchTournament } = useFollowedTournaments();
-    const configMainPage = useSelector((state) => state.config.mainPage);
+    const configMainPage = useAccountData(data => data.mainPage);
     const mainPageShown = useSelector((state) => state.mainPageShown);
     const rootNavigation = useRootNavigationState();
     const isNavigationReady = rootNavigation?.key != null;

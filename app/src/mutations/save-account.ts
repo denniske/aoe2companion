@@ -1,22 +1,25 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { saveAccountThrottled } from '@app/api/account';
-import { QUERY_KEY_ACCOUNT } from '@app/app/_layout';
+import { saveAccount, saveAccountThrottled } from '@app/api/account';
+import { QUERY_KEY_ACCOUNT } from '@app/queries/all';
 
 export const useSaveAccountMutation = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
         mutationKey: ['saveAccount'],
-        mutationFn: saveAccountThrottled,
+        mutationFn: saveAccount,
         onMutate: async (_account) => {
             console.log('ON MUTATE');
             await queryClient.cancelQueries({ queryKey: QUERY_KEY_ACCOUNT() });
-            const previousAccount = queryClient.getQueryData(QUERY_KEY_ACCOUNT());
-            queryClient.setQueryData(QUERY_KEY_ACCOUNT(), _account);
+            const previousAccount = queryClient.getQueryData(QUERY_KEY_ACCOUNT()) as {};
+            queryClient.setQueryData(QUERY_KEY_ACCOUNT(), {
+                ...previousAccount,
+                _account
+            });
             return { previousAccount, _account };
         },
         onError: (err, _account, context) => {
-            console.log('ON ERROR');
+            console.log('ON ERROR', err);
             queryClient.setQueryData(QUERY_KEY_ACCOUNT(), context?.previousAccount);
         },
         onSettled: async (_account) => {

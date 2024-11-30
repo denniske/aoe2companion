@@ -99,8 +99,9 @@ export const loadConfigFromStorage = async () => {
     return entry;
 };
 
-export const saveConfigToStorage = async (config: IConfig) => {
-    await AsyncStorage.setItem('config', JSON.stringify(config));
+export const saveConfigToStorage = async (config: Partial<IConfig>) => {
+    // await AsyncStorage.setItem('config', JSON.stringify(config));
+    await AsyncStorage.mergeItem('config', JSON.stringify(config));
 };
 
 export const clearSettingsInStorage = async () => {

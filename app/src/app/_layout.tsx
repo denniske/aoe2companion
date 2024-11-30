@@ -70,7 +70,7 @@ import ChangelogSnackbar from '@app/view/components/snackbar/changelog-snackbar'
 import ErrorSnackbar from '@app/view/components/snackbar/error-snackbar';
 import { useEventListener } from 'expo';
 import { authLinkSteam, fetchAccount } from '@app/api/account';
-import { useAccount } from '@app/queries/all';
+import { useAccount, useAccountData } from '@app/queries/all';
 
 initSentry();
 
@@ -174,14 +174,13 @@ const isMobile = ['Android', 'iOS'].includes(Device.osName!);
 // If we use these hooks in the AppWrapper, every change will trigger
 // a rerender of the AppWrapper which costs performance.
 function LanguageController() {
-    const config = useSelector((state) => state.config);
+    const language = useAccountData(account => account.language);
 
     useEffect(() => {
-        if (config == null) return;
-        const language = config.language === 'system' ? getLanguageFromSystemLocale2(Localization.locale) : config.language;
+        if (!language) return;
         setInternalLanguage(language);
         fetchAoeReferenceData();
-    }, [config]);
+    }, [language]);
 
     return <View />;
 }
@@ -189,7 +188,14 @@ function LanguageController() {
 // If we use these hooks in the AppWrapper, every change will trigger
 // a rerender of the AppWrapper which costs performance.
 function AccountController() {
-    const account = useAccount();
+
+    // const { data: configMainPage } = useAccount(data => data.mainPage);
+    // console.log('ACCOUNT in layout configMainPage', configMainPage);
+
+    // console.log('ACCOUNT in layout configMainPage');
+
+
+    // const account = useAccount();
     // console.log('account in layout', account);
     return <View />;
 }
@@ -263,13 +269,13 @@ function useColorSchemes() {
         initialColorScheme: 'device',
     });
 
-    const { data: account } = useAccount();
+    const darkMode = useAccountData(account => account.darkMode);
 
     const { setColorScheme: setTailwindColorScheme } = useTailwindColorScheme();
     const [, , setTailwindReactNativeColorScheme] = useAppColorScheme(tw);
     const deviceColorScheme = useColorScheme();
 
-    const finalDarkMode = (account?.darkMode === 'system' ? deviceColorScheme : account?.darkMode) || 'light';
+    const finalDarkMode = (darkMode === 'system' ? deviceColorScheme : darkMode) || 'light';
 
     useEffect(() => {
         setTailwindColorScheme(finalDarkMode);

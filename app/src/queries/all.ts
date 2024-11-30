@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchProfile, fetchProfiles } from '@app/api/helper/api';
-import { authLinkSteam, fetchAccount } from '@app/api/account';
+import { authLinkSteam, fetchAccount, IAccount } from '@app/api/account';
 
 
 export const QUERY_KEY_ACCOUNT = () => ['account'];
@@ -11,6 +11,13 @@ export const useAccount = () =>
         queryKey: QUERY_KEY_ACCOUNT(),
         queryFn: async () => await fetchAccount(),
     });
+
+export const useAccountData = (select?: (data: IAccount) => any) =>
+    useQuery({
+        queryKey: QUERY_KEY_ACCOUNT(),
+        queryFn: async () => await fetchAccount(),
+        select,
+    }).data;
 
 export const useAuthLinkSteam = (params: any) =>
     useQuery({
