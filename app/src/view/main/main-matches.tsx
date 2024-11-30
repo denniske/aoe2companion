@@ -4,12 +4,11 @@ import { FlatList } from '@app/components/flat-list';
 import { Match } from '@app/components/match';
 import { leaderboardIdsByType } from '@app/helper/leaderboard';
 import { useNavigationState, useRoute } from '@react-navigation/native';
-import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
+import { keepPreviousData, useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { flatten } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Checkbox } from 'react-native-paper';
-
 import { fetchLeaderboards, fetchMatches } from '../../api/helper/api';
 import { getTranslation } from '../../helper/translate';
 import { openLink } from '../../helper/url';
@@ -89,36 +88,32 @@ function MainMatchesInternal({ profileId }: { profileId: number }) {
 
     const onLeaderboardSelected = async (selLeaderboardId: string) => {
         if (leaderboardIds.length === 1 && leaderboardIds[0] === selLeaderboardId) {
-            setLeaderboardIds(leaderboardIdsByType(leaderboards.data, leaderboardType));
+            setLeaderboardIds(leaderboardIdsByType(leaderboards || [], leaderboardType));
         } else {
             setLeaderboardIds([selLeaderboardId]);
         }
     };
-    const leaderboards = useApi(
-        {},
-        [],
-        (state) => state.leaderboards,
-        (state, value) => {
-            state.leaderboards = value;
-        },
-        fetchLeaderboards
-    );
+
+    const { data: leaderboards } = useQuery({
+        queryKey: ['leaderboards'],
+        queryFn: fetchLeaderboards,
+    });
 
     useEffect(() => {
-        if (leaderboards.data == null) return;
+        if (leaderboards == null) return;
         if (leaderboardIds.length === 0) {
-            setLeaderboardIds(leaderboardIdsByType(leaderboards.data, leaderboardType));
+            setLeaderboardIds(leaderboardIdsByType(leaderboards, leaderboardType));
         }
-    }, [leaderboards.data]);
+    }, [leaderboards]);
 
     const renderLeaderboard = (value: string, selected: boolean) => {
         return (
             <View style={styles.col}>
                 <MyText style={[styles.h1, { fontWeight: selected ? 'bold' : 'normal' }]}>
-                    {leaderboards.data.find((l) => l.leaderboardId === value)?.abbreviationTitle}
+                    {leaderboards?.find((l) => l.leaderboardId === value)?.abbreviationTitle}
                 </MyText>
                 <MyText style={[styles.h2, { fontWeight: selected ? 'bold' : 'normal' }]}>
-                    {leaderboards.data.find((l) => l.leaderboardId === value)?.abbreviationSubtitle}
+                    {leaderboards?.find((l) => l.leaderboardId === value)?.abbreviationSubtitle}
                 </MyText>
             </View>
         );
@@ -158,7 +153,7 @@ function MainMatchesInternal({ profileId }: { profileId: number }) {
         setReloading(false);
     };
 
-    if (!leaderboards.data) {
+    if (!leaderboards) {
         return <View />;
     }
 
@@ -183,7 +178,7 @@ function MainMatchesInternal({ profileId }: { profileId: number }) {
                         value={leaderboardType}
                         onChange={(lType) => {
                             setLeaderboardType(lType);
-                            setLeaderboardIds(leaderboardIdsByType(leaderboards.data, lType));
+                            setLeaderboardIds(leaderboardIdsByType(leaderboards, lType));
                         }}
                         options={[
                             { value: 'pc', label: 'PC' },
@@ -192,7 +187,7 @@ function MainMatchesInternal({ profileId }: { profileId: number }) {
                     />
                     <TemplatePicker
                         value={leaderboardIds.length > 1 ? undefined : leaderboardIds[0]}
-                        values={leaderboardIdsByType(leaderboards.data, leaderboardType)}
+                        values={leaderboardIdsByType(leaderboards, leaderboardType)}
                         template={renderLeaderboard}
                         onSelect={onLeaderboardSelected}
                     />
@@ -298,5 +293,5 @@ const useStyles = createStylesheet((theme, mode) =>
         content: {
             flex: 1,
         },
-    })
+    } as const)
 );

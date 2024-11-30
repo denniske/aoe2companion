@@ -24,6 +24,7 @@ import { MyText } from '../components/my-text';
 import RefreshControlThemed from '../components/refresh-control-themed';
 import StatsRows, { StatsHeader, StatsRow } from '../components/stats-rows';
 import TemplatePicker from '../components/template-picker';
+import { useQuery } from '@tanstack/react-query';
 
 interface Props {
     profileId: number;
@@ -62,58 +63,44 @@ function MainStatsInternal({ profileId }: { profileId: number }) {
 
     const [leaderboardType, setLeaderboardType] = useState<'pc' | 'xbox'>('pc');
 
-    const leaderboards = useApi(
-        {},
-        [],
-        (state) => state.leaderboards,
-        (state, value) => {
-            state.leaderboards = value;
-        },
-        fetchLeaderboards
-    );
+    const { data: leaderboards } = useQuery({
+        queryKey: ['leaderboards'],
+        queryFn: fetchLeaderboards,
+    });
 
     const renderLeaderboard = (value: string, selected: boolean) => {
         return (
             <View style={styles.col}>
                 <MyText style={[styles.h1, { fontWeight: selected ? 'bold' : 'normal' }]}>
-                    {leaderboards.data.find((l) => l.leaderboardId === value)?.abbreviationTitle}
+                    {leaderboards?.find((l) => l.leaderboardId === value)?.abbreviationTitle}
                 </MyText>
                 <MyText style={[styles.h2, { fontWeight: selected ? 'bold' : 'normal' }]}>
-                    {leaderboards.data.find((l) => l.leaderboardId === value)?.abbreviationSubtitle}
+                    {leaderboards?.find((l) => l.leaderboardId === value)?.abbreviationSubtitle}
                 </MyText>
             </View>
         );
     };
 
-    const leaderboardTitle = leaderboards.data?.find((l) => l.leaderboardId === leaderboardId)?.leaderboardName;
+    const leaderboardTitle = leaderboards?.find((l) => l.leaderboardId === leaderboardId)?.leaderboardName;
 
     useEffect(() => {
-        if (leaderboards.data == null) return;
+        if (leaderboards == null) return;
         if (leaderboardId == null) {
-            setLeaderboardId(leaderboardIdsByType(leaderboards.data, leaderboardType)[0]);
+            setLeaderboardId(leaderboardIdsByType(leaderboards, leaderboardType)[0]);
         }
-    }, [leaderboards.data]);
+    }, [leaderboards]);
 
-    const currentCachedData = useSelector((state) => get(state.user, [profileId, 'profileWithStats']))?.stats?.find(
-        (s) => s.leaderboardId === leaderboardId
-    );
-    const previousCachedData = usePrevious(currentCachedData);
+    // const currentCachedData = useSelector((state) => get(state.user, [profileId, 'profileWithStats']))?.stats?.find(
+    //     (s) => s.leaderboardId === leaderboardId
+    // );
+    // const previousCachedData = usePrevious(currentCachedData);
 
-    const profileWithStats = useApi(
-        {},
-        [],
-        (state) => state.user[profileId]?.profileWithStats,
-        (state, value) => {
-            if (state.user[profileId] == null) {
-                state.user[profileId] = {};
-            }
-            state.user[profileId].profileWithStats = value;
-        },
-        fetchProfile,
-        { profileId, extend: 'stats' }
-    );
+    const { data: profileWithStats, refetch, isRefetching } = useQuery({
+        queryKey: ['profile-with-stats', profileId],
+        queryFn: () => fetchProfile({ profileId, extend: 'stats' }),
+    });
 
-    const cachedData = currentCachedData ?? previousCachedData;
+    const cachedData = profileWithStats?.stats.find((s) => s.leaderboardId === leaderboardId); //currentCachedData ?? previousCachedData;
 
     const statsCiv = cachedData?.civ;
     const statsMap = cachedData?.map;
@@ -141,13 +128,12 @@ function MainStatsInternal({ profileId }: { profileId: number }) {
         await saveCurrentPrefsToStorage();
         setLeaderboardId(leaderboardId);
     };
-    const [refetching, setRefetching] = useState(false);
 
-    useEffect(() => {
-        if (currentCachedData) {
-            setRefetching(false);
-        }
-    }, [currentCachedData]);
+    // useEffect(() => {
+    //     if (currentCachedData) {
+    //         setRefetching(false);
+    //     }
+    // }, [currentCachedData]);
 
     const route = useRoute();
     const state = useNavigationState((state) => state);
@@ -160,19 +146,17 @@ function MainStatsInternal({ profileId }: { profileId: number }) {
     }, [isActiveRoute]);
 
     const onRefresh = async () => {
-        setRefetching(true);
-        await mutate(clearStatsPlayer(profileId));
-        profileWithStats.reload();
+        refetch();
     };
 
-    if (!leaderboards.data) {
+    if (!leaderboards) {
         return <View />;
     }
 
     return (
         <View style={styles.container}>
             <View style={styles.content}>
-                {Platform.OS === 'web' && refetching && <FlatListLoadingIndicator />}
+                {Platform.OS === 'web' && isRefetching && <FlatListLoadingIndicator />}
                 <FlatList
                     contentContainerStyle="p-4"
                     data={list}
@@ -193,7 +177,7 @@ function MainStatsInternal({ profileId }: { profileId: number }) {
                                                 value={leaderboardType}
                                                 onChange={(lType) => {
                                                     setLeaderboardType(lType);
-                                                    setLeaderboardId(leaderboardIdsByType(leaderboards.data, lType)[0]);
+                                                    setLeaderboardId(leaderboardIdsByType(leaderboards, lType)[0]);
                                                 }}
                                                 options={[
                                                     { value: 'pc', label: 'PC' },
@@ -202,7 +186,7 @@ function MainStatsInternal({ profileId }: { profileId: number }) {
                                             />
                                             <TemplatePicker
                                                 value={leaderboardId}
-                                                values={leaderboards.data
+                                                values={leaderboards
                                                     .filter(
                                                         (leaderboard) =>
                                                             (leaderboardType === 'xbox' && leaderboard.abbreviation.includes('🎮')) ||
@@ -236,7 +220,7 @@ function MainStatsInternal({ profileId }: { profileId: number }) {
                         }
                     }}
                     keyExtractor={(item, index) => index.toString()}
-                    refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={refetching} />}
+                    refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={isRefetching} />}
                 />
             </View>
         </View>

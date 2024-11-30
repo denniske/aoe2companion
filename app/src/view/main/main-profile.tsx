@@ -18,6 +18,7 @@ import { MyText } from '../components/my-text';
 import Profile from '../components/profile';
 import Rating from '../components/rating';
 import RefreshControlThemed from '../components/refresh-control-themed';
+import { useQuery } from '@tanstack/react-query';
 
 interface Props {
     profileId: number;
@@ -53,24 +54,12 @@ function MainProfileInternal({ profileId }: { profileId: number }) {
     const navigation = useNavigation<any>();
     const userProfile = useSelector((state) => state.user[profileId]?.profile);
 
-    const profile = useApi(
-        {},
-        [],
-        (state) => state.user[profileId]?.profile,
-        (state, value) => {
-            if (state.user[profileId] == null) {
-                state.user[profileId] = {};
-            }
-            state.user[profileId].profile = {
-                ...state.user[profileId].profile,
-                ...value,
-            };
-        },
-        fetchProfile,
-        { profileId }
-    );
+    const { data: profile, refetch, isRefetching } = useQuery({
+        queryKey: ['profile', profileId],
+        queryFn: () => fetchProfile({ profileId }),
+    });
 
-    const rating = profile.data?.ratings;
+    const rating = profile?.ratings;
 
     const route = useRoute();
     const state = useNavigationState((state) => state);
@@ -84,14 +73,10 @@ function MainProfileInternal({ profileId }: { profileId: number }) {
 
     const onRefresh = async () => {
         console.log('REFRESHING MAIN PROFILE', userProfile?.name);
-        setRefetching(true);
-        await Promise.all([profile.reload()]);
-        setRefetching(false);
+        await Promise.all([refetch()]);
     };
 
     const list: any = ['profile', 'rating-header', 'rating'];
-
-    const [refetching, setRefetching] = useState(false);
 
     const nav = async (route: string) => {
         navigation.navigate(route);
@@ -101,7 +86,7 @@ function MainProfileInternal({ profileId }: { profileId: number }) {
         <View style={styles.container}>
             <View style={styles.content}>
                 {/*<Button onPress={onRefresh}>REFRESH</Button>*/}
-                {Platform.OS === 'web' && refetching && <FlatListLoadingIndicator />}
+                {Platform.OS === 'web' && isRefetching && <FlatListLoadingIndicator />}
                 <FlatList
                     // scrollEnabled={false}
                     contentContainerStyle="p-4"
@@ -130,16 +115,16 @@ function MainProfileInternal({ profileId }: { profileId: number }) {
                                     </Button>
                                 );
                             case 'profile':
-                                if (profile.data === null)
+                                if (profile === null)
                                     return (
                                         <View style={styles.container}>
                                             <MyText>No leaderboard data yet.</MyText>
                                         </View>
                                     );
-                                return <Profile data={profile.data} profileId={profileId} ready={profile.data != null && rating != null} />;
+                                return <Profile data={profile} profileId={profileId} ready={profile != null && rating != null} />;
                             case 'rating':
                                 if (rating?.length === 0) return <View />;
-                                return <Rating ratingHistories={rating} profile={profile.data} ready={profile.data != null && rating != null} />;
+                                return <Rating ratingHistories={rating} profile={profile} ready={profile != null && rating != null} />;
                             default:
                                 return <View />;
                             // default:
@@ -147,7 +132,7 @@ function MainProfileInternal({ profileId }: { profileId: number }) {
                         }
                     }}
                     keyExtractor={(item, index) => index.toString()}
-                    refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={refetching} />}
+                    refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={isRefetching} />}
                 />
             </View>
         </View>
@@ -195,5 +180,5 @@ const useStyles = createStylesheet((theme) =>
         content: {
             flex: 1,
         },
-    })
+    } as const)
 );
