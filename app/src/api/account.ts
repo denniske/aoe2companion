@@ -5,9 +5,9 @@ import throttle from '@jcoreio/async-throttle';
 
 export interface IAccountFollowedPlayer {
     profileId: number;
-    name: string;
-    country: string;
-    games: number;
+    name?: string;
+    country?: string;
+    games?: number;
 }
 
 export interface IAccount {
@@ -82,6 +82,46 @@ export async function saveAccount(account: IAccount): Promise<IResult> {
     };
 
     return await fetchJson('saveAccount', url, {
+        method: 'POST',
+        headers: {
+            'Authorization': `bearer ${session?.data?.session?.access_token}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+    });
+}
+
+export async function followV2(profileId: number): Promise<IResult> {
+    const url = getHost('aoe2companion-api') + `v2/follow`;
+
+    const session = await supabaseClient.auth.getSession();
+
+    const data = {
+        profileId,
+    };
+
+    return await fetchJson('followV2', url, {
+        method: 'POST',
+        headers: {
+            'Authorization': `bearer ${session?.data?.session?.access_token}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+    });
+}
+
+export async function unfollowV2(profileId: number): Promise<IResult> {
+    const url = getHost('aoe2companion-api') + `v2/unfollow`;
+
+    const session = await supabaseClient.auth.getSession();
+
+    const data = {
+        profileId,
+    };
+
+    return await fetchJson('unfollowV2', url, {
         method: 'POST',
         headers: {
             'Authorization': `bearer ${session?.data?.session?.access_token}`,

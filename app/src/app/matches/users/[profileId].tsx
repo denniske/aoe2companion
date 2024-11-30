@@ -17,6 +17,12 @@ import { CountryImage } from '../../../view/components/country-image';
 import { getVerifiedPlayer, isVerifiedPlayer } from '@nex/data';
 import { Text } from '@app/components/text';
 import { Link } from '@app/components/link';
+import { QUERY_KEY_ACCOUNT, useAccount } from '@app/app/_layout';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { followV2, IAccount, saveAccountThrottled, unfollowV2 } from '@app/api/account';
+import produce from 'immer';
+import { useFollowMutation } from '@app/mutations/follow';
+import { useUnfollowMutation } from '@app/mutations/unfollow';
 
 interface UserMenuProps {
     profileId: number;
@@ -26,50 +32,62 @@ interface UserMenuProps {
 // so we need to pass the params as a prop
 export function UserMenu({ profileId }: UserMenuProps) {
     const auth = useSelector((state) => state.auth!);
-    const account = useSelector((state) => state.account);
     const profile = useSelector((state) => state.user[profileId]?.profile);
-    const following = useSelector((state) => state.following);
-    const [isFollowingLoading, setIsFollowingLoading] = useState<boolean>(false);
-    const followingThisUser = !!following.find((f) => profile && f.profileId === profile.profileId);
 
-    const mutate = useMutate();
+    const { data: account } = useAccount();
+    const followingThisUser = !!account?.followedPlayers.find((f) => profile && f.profileId === profile.profileId);
+
+    const followMutation = useFollowMutation();
+    const unfollowMutation = useUnfollowMutation();
 
     const deleteUser = () => {
-        if (Platform.OS === 'web') {
-            if (confirm('Do you want to reset me page?')) {
-                doDeleteUser();
+        if (account?.steamId) {
+            if (Platform.OS === 'web') {
+                if (confirm('Do you really want to unlink your steam account?')) {
+                    doUnlinkSteam();
+                }
+            } else {
+                Alert.alert(
+                    getTranslation('main.profile.reset.title'),
+                    getTranslation('main.profile.reset.note'),
+                    [
+                        { text: getTranslation('main.profile.reset.action.cancel'), style: 'cancel' },
+                        { text: getTranslation('main.profile.reset.action.reset'), onPress: doUnlinkSteam },
+                    ],
+                    { cancelable: false }
+                );
             }
         } else {
-            Alert.alert(
-                getTranslation('main.profile.reset.title'),
-                getTranslation('main.profile.reset.note'),
-                [
-                    { text: getTranslation('main.profile.reset.action.cancel'), style: 'cancel' },
-                    { text: getTranslation('main.profile.reset.action.reset'), onPress: doDeleteUser },
-                ],
-                { cancelable: false }
-            );
+            if (Platform.OS === 'web') {
+                if (confirm('Do you want to reset me page?')) {
+                    doDeleteUser();
+                }
+            } else {
+                Alert.alert(
+                    getTranslation('main.profile.reset.title'),
+                    getTranslation('main.profile.reset.note'),
+                    [
+                        { text: getTranslation('main.profile.reset.action.cancel'), style: 'cancel' },
+                        { text: getTranslation('main.profile.reset.action.reset'), onPress: doDeleteUser },
+                    ],
+                    { cancelable: false }
+                );
+            }
         }
+    };
+
+    const doUnlinkSteam = async () => {
+        // await clearSettingsInStorage();
+        // mutate(setAuth(null));
+        // router.replace('/matches/users/select');
+        // setAccountProfile(account.id, { profile_id: null, steam_id: null });
     };
 
     const doDeleteUser = async () => {
-        await clearSettingsInStorage();
-        mutate(setAuth(null));
-        router.replace('/matches/users/select');
-        setAccountProfile(account.id, { profile_id: null, steam_id: null });
-    };
-
-
-
-
-
-    const ToggleFollowing = async () => {
-        setIsFollowingLoading(true);
-        const following = await toggleFollowing(profile!);
-        if (following) {
-            setIsFollowingLoading(false);
-            mutate(setFollowing(following));
-        }
+        // await clearSettingsInStorage();
+        // mutate(setAuth(null));
+        // router.replace('/matches/users/select');
+        // setAccountProfile(account.id, { profile_id: null, steam_id: null });
     };
 
     if (!profile) {
@@ -83,10 +101,8 @@ export function UserMenu({ profileId }: UserMenuProps) {
             </TouchableOpacity>
         );
     } else {
-        return isFollowingLoading ? (
-            <ActivityIndicator size={20} />
-        ) : (
-            <TouchableOpacity hitSlop={10} onPress={ToggleFollowing}>
+        return (
+            <TouchableOpacity hitSlop={10} onPress={followingThisUser ? () => unfollowMutation.mutate(profileId) : () => followMutation.mutate(profileId)}>
                 <Icon prefix={followingThisUser ? 'fass' : 'fasr'} icon="heart" size={20} color="text-[#ef4444]" />
             </TouchableOpacity>
         );

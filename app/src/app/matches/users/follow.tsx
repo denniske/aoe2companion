@@ -7,6 +7,9 @@ import { IPlayerListPlayer } from '@app/view/components/player-list';
 import Search from '@app/view/components/search';
 import { router, useNavigation } from 'expo-router';
 import { useEffect, useState } from 'react';
+import { useAccount } from '@app/app/_layout';
+import { useFollowMutation } from '@app/mutations/follow';
+import { useUnfollowMutation } from '@app/mutations/unfollow';
 
 export default function Follow() {
     const navigation = useNavigation();
@@ -24,28 +27,29 @@ export default function Follow() {
 }
 
 function FeedAction({ user }: { user: IPlayerListPlayer }) {
-    const mutate = useMutate();
-    const following = useSelector((state) => state.following);
     const auth = useSelector((state) => state.auth);
     const isMe = auth?.profileId === user.profileId;
-    const followingThisUser = following.find((f) => f.profileId === user.profileId);
-    const [loading, setLoading] = useState(false);
+
+    const { data: account } = useAccount();
+    const followingThisUser = !!account?.followedPlayers.find((f) => f.profileId === user.profileId);
+
+    const followMutation = useFollowMutation();
+    const unfollowMutation = useUnfollowMutation();
 
     const onSelect = async () => {
-        setLoading(true);
         try {
-            const following = await toggleFollowing(user);
-            if (following) {
-                mutate(setFollowing(following));
+            if (followingThisUser) {
+                await unfollowMutation.mutateAsync(user.profileId);
+            } else {
+                await followMutation.mutateAsync(user.profileId);
             }
         } catch (e) {
             alert(getTranslation('feed.follow.error') + '\n\n' + e);
         }
-        setLoading(false);
     };
 
     return (
-        <Button onPress={onSelect} disabled={loading || isMe} size="small">
+        <Button onPress={onSelect} disabled={isMe} size="small">
             {isMe
                 ? getTranslation('feed.following.you')
                 : followingThisUser

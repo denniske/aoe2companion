@@ -33,7 +33,7 @@ export default function SettingsPage() {
 
     const saveAccountMutation = useMutation({
         mutationKey: ['saveAccount'],
-        mutationFn: (_account: IAccount) => saveAccountThrottled(_account),
+        mutationFn: saveAccountThrottled,
         onMutate: async (_account) => {
             console.log('ON MUTATE', _account.darkMode);
             await queryClient.cancelQueries({ queryKey: QUERY_KEY_ACCOUNT() });
