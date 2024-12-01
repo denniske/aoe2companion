@@ -19,8 +19,6 @@ export default function DiscordBadge(props: Props) {
         enabled: !!invitationId && !__DEV__,
     });
 
-    console.log('__DEV__', __DEV__);
-
     let content = undefined;
     if (info?.approximate_presence_count) {
         content = `${info?.approximate_presence_count} online`;
