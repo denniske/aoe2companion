@@ -3,29 +3,42 @@ import { Icon } from '@app/components/icon';
 import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
 import { Alert, Platform, TouchableOpacity, View } from 'react-native';
-import { fetchProfiles } from '../../../api/helper/api';
-import { getTranslation } from '../../../helper/translate';
-import { useSelector } from '../../../redux/reducer';
+import { getTranslation } from '@app/helper/translate';
 import { HeaderTitle } from '@app/components/header-title';
-import { CountryImage } from '../../../view/components/country-image';
+import { CountryImage } from '@app/view/components/country-image';
 import { getVerifiedPlayer, isVerifiedPlayer } from '@nex/data';
 import { Text } from '@app/components/text';
 import { Link } from '@app/components/link';
-import { useAccount, useAuthProfileId } from '@app/queries/all';
-import { useQuery } from '@tanstack/react-query';
+import { useAccount, useAuthProfileId, useProfileFast } from '@app/queries/all';
 import { useFollowMutation } from '@app/mutations/follow';
 import { useUnfollowMutation } from '@app/mutations/unfollow';
-import { createMaterialTopTabNavigator, MaterialTopTabBar } from '@react-navigation/material-top-tabs';
+// import { createMaterialTopTabNavigator, MaterialTopTabBar } from '@react-navigation/material-top-tabs';
 import Constants from 'expo-constants';
 import { useColorScheme } from 'nativewind';
 import { TabBarLabel } from '@app/view/components/tab-bar-label';
-import MainProfile from '@app/view/main/main-profile';
-import MainStats from '@app/view/main/main-stats';
-import MainMatches from '@app/view/main/main-matches';
-import { useProfileFast } from '@app/queries/all';
+import MainProfile from '@app/app/matches/users/[profileId]/(tabs)/main-profile';
+import MainStats from '@app/app/matches/users/[profileId]/(tabs)/main-stats';
+import MainMatches from '@app/app/matches/users/[profileId]/(tabs)/main-matches';
 import { useSaveAccountMutation } from '@app/mutations/save-account';
-import { accountUnlinkSteam } from '@app/api/account';
 import { useUnlinkSteamMutation } from '@app/mutations/unlink-steam';
+
+import {
+    MaterialTopTabNavigationEventMap,
+    MaterialTopTabNavigationOptions,
+    createMaterialTopTabNavigator, MaterialTopTabBar,
+} from '@react-navigation/material-top-tabs';
+import { withLayoutContext } from "expo-router";
+import { ParamListBase, TabNavigationState } from "@react-navigation/native";
+
+const { Navigator } = createMaterialTopTabNavigator();
+
+export const MaterialTopTabs = withLayoutContext<
+    MaterialTopTabNavigationOptions,
+    typeof Navigator,
+    TabNavigationState<ParamListBase>,
+    MaterialTopTabNavigationEventMap
+>(Navigator);
+
 
 interface UserMenuProps {
     profile?: IProfilesResultProfile;
@@ -159,20 +172,23 @@ function UserTitle({ profile }: UserMenuProps) {
     );
 }
 
+
 export default function UserPage() {
     const params = useLocalSearchParams<UserPageParams>();
     const profileId = parseInt(params.profileId);
     const appName = Constants.expoConfig?.name || Constants.expoConfig2?.extra?.expoClient?.name;
     const { colorScheme } = useColorScheme();
-    const { tab } = useLocalSearchParams<{ tab: string }>();
+    // const { tab } = useLocalSearchParams<{ tab: string }>();
     const navigation = useNavigation();
 
-    useEffect(() => {
-        if (!tab) return;
-        setTimeout(() => {
-            navigation.navigate(tab as never);
-        });
-    }, [tab]);
+    // console.log('LAYOUT params', params)
+
+    // useEffect(() => {
+    //     if (!tab) return;
+    //     setTimeout(() => {
+    //         navigation.navigate(tab as never);
+    //     });
+    // }, [tab]);
 
     const { data: profile } = useProfileFast(profileId);
 
@@ -183,38 +199,59 @@ export default function UserPage() {
         });
     }, [profile]);
 
+    // console.log('PROFILE LAYOUT', profileId);
+
     return (
-        <Tab.Navigator
+        <MaterialTopTabs
             tabBar={(props) => (
                 <View className="bg-white dark:bg-blue-900 ">
                     <MaterialTopTabBar {...props} />
                 </View>
             )}
             screenOptions={{
+
                 lazy: false,
                 swipeEnabled: true,
                 tabBarInactiveTintColor: colorScheme === 'dark' ? 'white' : 'black',
                 tabBarActiveTintColor: colorScheme === 'dark' ? 'white' : 'black',
             }}
-         >
-            <Tab.Screen
-                name="MainProfile"
-                options={{ title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.profile')} /> }}
-            >
-                {() => <MainProfile profileId={profileId} />}
-            </Tab.Screen>
-            <Tab.Screen
-                name="MainStats"
-                options={{ title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.stats')} /> }}
-            >
-                {() => <MainStats profileId={profileId} />}
-            </Tab.Screen>
-            <Tab.Screen
-                name="MainMatches"
-                options={{ title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.matches')} /> }}
-            >
-                {() => <MainMatches profileId={profileId} />}
-            </Tab.Screen>
-        </Tab.Navigator>
+        >
+            <MaterialTopTabs.Screen name="main-profile" initialParams={{profileId}} options={{ title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.profile')} /> }} />
+            <MaterialTopTabs.Screen name="main-stats" initialParams={{profileId}} options={{ title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.stats')} /> }} />
+            <MaterialTopTabs.Screen name="main-matches" initialParams={{profileId}} options={{ title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.matches')} /> }} />
+        </MaterialTopTabs>
     );
 }
+
+
+
+// <Tab.Navigator
+//     tabBar={(props) => (
+//         <View className="bg-white dark:bg-blue-900 ">
+//             <MaterialTopTabBar {...props} />
+//         </View>
+//     )}
+//     screenOptions={{
+//         lazy: false,
+//         swipeEnabled: true,
+//         tabBarInactiveTintColor: colorScheme === 'dark' ? 'white' : 'black',
+//         tabBarActiveTintColor: colorScheme === 'dark' ? 'white' : 'black',
+//     }}
+// >
+//     <Tab.Screen
+//         name="MainProfile"
+//         options={{ title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.profile')} /> }}
+//     >
+//         {() => <MainProfile profileId={profileId} />}
+//     </Tab.Screen>
+//     <Tab.Screen
+//         name="stats"
+//         options={{ title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.stats')} /> }}
+//     />
+//     <Tab.Screen
+//         name="MainMatches"
+//         options={{ title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.matches')} /> }}
+//     >
+//         {() => <MainMatches profileId={profileId} />}
+//     </Tab.Screen>
+// </Tab.Navigator>

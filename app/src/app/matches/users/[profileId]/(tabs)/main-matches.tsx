@@ -9,26 +9,25 @@ import { flatten } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Checkbox } from 'react-native-paper';
-import { fetchLeaderboards, fetchMatches } from '../../api/helper/api';
-import { getTranslation } from '../../helper/translate';
-import { openLink } from '../../helper/url';
-import useDebounce from '../../hooks/use-debounce';
-import { useWebRefresh } from '../../hooks/use-web-refresh';
-import { useSelector } from '../../redux/reducer';
-import { appVariants } from '../../styles';
-import { useTheme } from '../../theming';
-import { createStylesheet } from '../../theming-new';
-import FlatListLoadingIndicator from '../components/flat-list-loading-indicator';
-import { MyText } from '../components/my-text';
-import RefreshControlThemed from '../components/refresh-control-themed';
-import TemplatePicker from '../components/template-picker';
+import { fetchLeaderboards, fetchMatches } from '../../../../../api/helper/api';
+import { getTranslation } from '../../../../../helper/translate';
+import { openLink } from '../../../../../helper/url';
+import useDebounce from '../../../../../hooks/use-debounce';
+import { useWebRefresh } from '../../../../../hooks/use-web-refresh';
+import { useSelector } from '../../../../../redux/reducer';
+import { appVariants } from '../../../../../styles';
+import { useTheme } from '../../../../../theming';
+import { createStylesheet } from '../../../../../theming-new';
+import FlatListLoadingIndicator from '../../../../../view/components/flat-list-loading-indicator';
+import { MyText } from '../../../../../view/components/my-text';
+import RefreshControlThemed from '../../../../../view/components/refresh-control-themed';
+import TemplatePicker from '../../../../../view/components/template-picker';
 import { useAuthProfileId } from '@app/queries/all';
+import { useLocalSearchParams } from 'expo-router';
 
-interface Props {
-    profileId: number;
-}
-
-export default function MainMatches({ profileId }: Props) {
+export default function MainMatches() {
+    const params = useLocalSearchParams<{ profileId: string }>();
+    const profileId = parseInt(params.profileId);
     const styles = useStyles();
     const appStyles = useTheme(appVariants);
     const [text, setText] = useState('');

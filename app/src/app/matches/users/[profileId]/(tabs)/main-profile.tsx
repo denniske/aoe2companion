@@ -4,34 +4,37 @@ import React, { useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-paper';
 
-import { fetchProfile } from '../../api/helper/api';
-import { getTranslation } from '../../helper/translate';
-import { openLink } from '../../helper/url';
-import { useWebRefresh } from '../../hooks/use-web-refresh';
-import { useSelector } from '../../redux/reducer';
-import { appVariants } from '../../styles';
-import { useTheme } from '../../theming';
-import { createStylesheet } from '../../theming-new';
-import FlatListLoadingIndicator from '../components/flat-list-loading-indicator';
-import { MyText } from '../components/my-text';
-import Profile from '../components/profile';
-import Rating from '../components/rating';
-import RefreshControlThemed from '../components/refresh-control-themed';
+import { fetchProfile } from '../../../../../api/helper/api';
+import { getTranslation } from '../../../../../helper/translate';
+import { openLink } from '../../../../../helper/url';
+import { useWebRefresh } from '../../../../../hooks/use-web-refresh';
+import { useSelector } from '../../../../../redux/reducer';
+import { appVariants } from '../../../../../styles';
+import { useTheme } from '../../../../../theming';
+import { createStylesheet } from '../../../../../theming-new';
+import FlatListLoadingIndicator from '../../../../../view/components/flat-list-loading-indicator';
+import { MyText } from '../../../../../view/components/my-text';
+import Profile from '../../../../../view/components/profile';
+import Rating from '../../../../../view/components/rating';
+import RefreshControlThemed from '../../../../../view/components/refresh-control-themed';
 import { useQuery } from '@tanstack/react-query';
 import { useProfile, withRefetching } from '@app/queries/all';
 import type { UseQueryResult } from '@tanstack/react-query/src/types';
+import { useGlobalSearchParams, useLocalSearchParams } from 'expo-router';
 
-interface Props {
-    profileId: number;
-}
+export default function MainProfile() {
+    const params = useLocalSearchParams<{ profileId: string }>();
+    const profileId = parseInt(params.profileId);
 
-export default function MainProfile({ profileId }: Props) {
     const styles = useStyles();
     const navigation = useNavigation<any>();
 
     const { data: profile, refetch, isRefetching } = withRefetching(useProfile(profileId));
 
-    // console.log('PROFILE', profileId);
+    // const myParams = useGlobalSearchParams();
+    // const myParams2 = useLocalSearchParams();
+
+    // console.log('PROFILE', props, myParams, myParams2);
     // console.log('PROFILE', profile);
 
     const rating = profile?.ratings;

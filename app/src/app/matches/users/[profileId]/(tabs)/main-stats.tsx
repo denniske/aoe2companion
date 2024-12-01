@@ -6,28 +6,27 @@ import { useIsFocused, useNavigationState, useRoute } from '@react-navigation/na
 import React, { useEffect, useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 
-import { fetchLeaderboards } from '../../api/helper/api';
-import { getTranslation } from '../../helper/translate';
-import { openLink } from '../../helper/url';
-import { useWebRefresh } from '../../hooks/use-web-refresh';
-import { useMutate } from '../../redux/reducer';
-import { appVariants } from '../../styles';
-import { useTheme } from '../../theming';
-import { createStylesheet } from '../../theming-new';
-import FlatListLoadingIndicator from '../components/flat-list-loading-indicator';
-import { TextLoader } from '../components/loader/text-loader';
-import { MyText } from '../components/my-text';
-import RefreshControlThemed from '../components/refresh-control-themed';
-import { StatsHeader, StatsRow } from '../components/stats-rows';
-import TemplatePicker from '../components/template-picker';
+import { fetchLeaderboards } from '../../../../../api/helper/api';
+import { getTranslation } from '../../../../../helper/translate';
+import { openLink } from '../../../../../helper/url';
+import { useWebRefresh } from '../../../../../hooks/use-web-refresh';
+import { useMutate } from '../../../../../redux/reducer';
+import { appVariants } from '../../../../../styles';
+import { useTheme } from '../../../../../theming';
+import { createStylesheet } from '../../../../../theming-new';
+import FlatListLoadingIndicator from '../../../../../view/components/flat-list-loading-indicator';
+import { TextLoader } from '../../../../../view/components/loader/text-loader';
+import { MyText } from '../../../../../view/components/my-text';
+import RefreshControlThemed from '../../../../../view/components/refresh-control-themed';
+import { StatsHeader, StatsRow } from '../../../../../view/components/stats-rows';
+import TemplatePicker from '../../../../../view/components/template-picker';
 import { useQuery } from '@tanstack/react-query';
 import { useProfileWithStats, withRefetching } from '@app/queries/all';
+import { useLocalSearchParams } from 'expo-router';
 
-interface Props {
-    profileId: number;
-}
-
-export default function MainStats({ profileId }: Props) {
+export default function MainStats() {
+    const params = useLocalSearchParams<{ profileId: string }>();
+    const profileId = parseInt(params.profileId);
     const styles = useStyles();
     // const prefLeaderboardId = useSelector(state => state.prefs.leaderboardId) ?? leaderboardIdsData[0];
     // const prefLeaderboardId = leaderboardIdsData[0];
