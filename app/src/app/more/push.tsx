@@ -14,6 +14,7 @@ import { initPusher } from '../../helper/pusher';
 import { Stack, router } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
 import * as Device from 'expo-device';
+import { useAccountData } from '@app/queries/all';
 
 // Can use this function below, OR use Expo's Push Notification Tool-> https://expo.io/dashboard/notifications
 async function sendTestPushNotification(expoPushToken: string) {
@@ -43,7 +44,7 @@ export default function PushPage() {
     const [notification, setNotification] = useState<Notifications.Notification>();
     const notificationListener = useRef<any>();
     const lastNotificationResponse = Notifications.useLastNotificationResponse();
-    const account = useSelector((state) => state.account);
+    const accountId = useAccountData((state) => state.accountId);
 
     const log = (...message: any) => {
         console.log('push', ...message);
@@ -160,8 +161,8 @@ export default function PushPage() {
         <ScrollView className="flex-1 p-5" contentContainerStyle="items-center">
             <Stack.Screen options={{ title: getTranslation('push.title') }} />
 
-            <MyText>{account ? getTranslation('push.heading.account') : ''}</MyText>
-            <MyText>{account ? maskAccountId(account.id) : getTranslation('push.error.noaccount')}</MyText>
+            <MyText>{accountId ? getTranslation('push.heading.account') : ''}</MyText>
+            <MyText>{accountId ? maskAccountId(accountId) : getTranslation('push.error.noaccount')}</MyText>
             <Space />
             <MyText>{pushToken ? maskToken(pushToken) : getTranslation('push.error.nopushtoken')}</MyText>
             {notification && (
@@ -233,5 +234,5 @@ const useStyles = createStylesheet((theme) =>
             color: theme.textNoteColor,
             textAlign: 'center',
         },
-    })
+    } as const)
 );

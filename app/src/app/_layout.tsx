@@ -201,30 +201,30 @@ function AccountController() {
 }
 
 function LiveActivityController() {
-    const account = useSelector((state) => state.account);
+    const accountId = useAccountData((state) => state.accountId);
 
     useEventListener(LiveActivity, 'onTokenChanged', async ({ token }) => {
-        console.log('onTokenChanged', account.id, token);
+        console.log('onTokenChanged', accountId, token);
         if (token) {
-            await setAccountLiveActivityToken(account.id, token);
+            await setAccountLiveActivityToken(accountId!, token);
         }
     });
 
     useEventListener(LiveActivity, 'onActivityStarted', async ({ token, data, type }) => {
         const { match } = JSON.parse(data);
-        console.log('onActivityStarted', account.id, token, type, match.matchId);
+        console.log('onActivityStarted', accountId, token, type, match.matchId);
         if (token && type && match) {
-            await storeLiveActivityStarted(account.id, token, type, match.matchId);
+            await storeLiveActivityStarted(accountId!, token, type, match.matchId);
         }
     });
 
     useEffect(() => {
-        if (Platform.OS === 'ios' && appConfig.game === 'aoe2de' && account) {
-            console.log('Registering LiveActivity for', account.id);
+        if (Platform.OS === 'ios' && appConfig.game === 'aoe2de' && accountId) {
+            console.log('Registering LiveActivity for', accountId);
             LiveActivity.enable();
             cacheLiveActivityAssets();
         }
-    }, [account]);
+    }, [accountId]);
 
     return <View />;
 }
@@ -312,16 +312,11 @@ function AppWrapper() {
 
     const loadFromStorage = async () => {
 
-        const [account, auth, following, prefs, config] = await Promise.all([
-            loadAccountFromStorage(),
-            loadAuthFromStorage(),
-            loadFollowingFromStorage(),
+        const [prefs] = await Promise.all([
             loadPrefsFromStorage(),
-            loadConfigFromStorage(),
         ]);
 
         mutate(state => {
-            state.account = account;
             state.prefs = prefs as IPrefs;
         });
 
