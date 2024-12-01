@@ -4,48 +4,25 @@ import { Header } from '@app/components/header';
 import { TabBar } from '@app/components/tab-bar';
 import { fetchAoeReferenceData } from '@app/helper/reference';
 import initSentry from '@app/helper/sentry';
-import { getLanguageFromSystemLocale2, getTranslation } from '@app/helper/translate';
+import { getTranslation } from '@app/helper/translate';
 import { getInternalAoeString } from '@app/helper/translate-data';
-import { useMutate, useSelector } from '@app/redux/reducer';
+import { useMutate } from '@app/redux/reducer';
 import { getInternalLanguage, setInternalLanguage } from '@app/redux/statecache';
 import store from '@app/redux/store';
-import {
-    cacheLiveActivityAssets,
-    IPrefs,
-    loadAccountFromStorage,
-    loadConfigFromStorage,
-    loadFollowingFromStorage,
-    loadPrefsFromStorage,
-    loadAuthFromStorage,
-} from '@app/service/storage';
+import { cacheLiveActivityAssets } from '@app/service/storage';
 import tw from '@app/tailwind';
 import { ConditionalTester } from '@app/view/testing/tester';
 import * as eva from '@eva-design/eva';
-import {
-    Roboto_400Regular,
-    Roboto_500Medium,
-    Roboto_700Bold,
-    Roboto_900Black,
-    useFonts,
-} from '@expo-google-fonts/roboto';
+import { Roboto_400Regular, Roboto_500Medium, Roboto_700Bold, Roboto_900Black, useFonts } from '@expo-google-fonts/roboto';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fasr } from '@fortawesome/sharp-regular-svg-icons';
 import { fass } from '@fortawesome/sharp-solid-svg-icons';
-import {
-    Environment,
-    IHostService,
-    IHttpService,
-    ITranslationService,
-    OS,
-    registerService,
-    SERVICE_NAME,
-} from '@nex/data';
+import { Environment, IHostService, IHttpService, ITranslationService, OS, registerService, SERVICE_NAME } from '@nex/data';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import * as Sentry from '@sentry/react-native';
-import { focusManager, QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
+import { focusManager, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ApplicationProvider } from '@ui-kitten/components';
 import * as Device from 'expo-device';
-import * as Localization from 'expo-localization';
 import * as Notifications from '../service/notifications';
 import { SplashScreen, Stack, useNavigation, useRouter } from 'expo-router';
 import { LiveActivity } from 'modules/widget';
@@ -53,12 +30,7 @@ import { useColorScheme as useTailwindColorScheme } from 'nativewind';
 import { useCallback, useEffect, useState } from 'react';
 import { AppState, AppStateStatus, BackHandler, LogBox, Platform, StatusBar, useColorScheme, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import {
-    MD2DarkTheme as PaperDarkTheme,
-    MD2LightTheme as PaperDefaultTheme,
-    PaperProvider,
-    Portal,
-} from 'react-native-paper';
+import { MD2DarkTheme as PaperDarkTheme, MD2LightTheme as PaperDefaultTheme, PaperProvider, Portal } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { Provider as ReduxProvider } from 'react-redux';
@@ -69,8 +41,7 @@ import UpdateSnackbar from '@app/view/components/snackbar/update-snackbar';
 import ChangelogSnackbar from '@app/view/components/snackbar/changelog-snackbar';
 import ErrorSnackbar from '@app/view/components/snackbar/error-snackbar';
 import { useEventListener } from 'expo';
-import { authLinkSteam, fetchAccount } from '@app/api/account';
-import { useAccount, useAccountData } from '@app/queries/all';
+import { useAccountData } from '@app/queries/all';
 
 initSentry();
 
@@ -308,30 +279,11 @@ function AppWrapper() {
         return () => subscription.remove();
     }, []);
 
-    const [initalized, setInitalized] = useState(false);
-
-    const loadFromStorage = async () => {
-
-        const [prefs] = await Promise.all([
-            loadPrefsFromStorage(),
-        ]);
-
-        mutate(state => {
-            state.prefs = prefs as IPrefs;
-        });
-
-        setInitalized(true);
-    }
-
     useEffect(() => {
-        loadFromStorage();
-    }, []);
-
-    useEffect(() => {
-        if (initalized && fontsLoaded) {
+        if (fontsLoaded) {
             setAppIsReady(true);
         }
-    }, [initalized, fontsLoaded]);
+    }, [fontsLoaded]);
 
     const onLayoutRootView = useCallback(async () => {
         if (appIsReady) {

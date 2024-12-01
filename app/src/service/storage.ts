@@ -25,18 +25,6 @@ export interface IConfig {
     mainPage: string;
 }
 
-export interface IPrefs {
-    guideFavorites: string[];
-    country?: string;
-    clan?: string;
-    leaderboardId?: LeaderboardId;
-    changelogLastVersionRead?: string;
-    birthdayRead?: boolean;
-    techTreeSize?: string;
-    ratingHistoryDuration?: string;
-    ratingHistoryHiddenLeaderboardIds?: string[];
-}
-
 export interface IScroll {
     scrollPosition: number;
     scrollToTop?: string;
@@ -64,18 +52,6 @@ export interface IFollowingEntry {
     country: Flag;
 }
 
-export const loadPrefsFromStorage = async () => {
-    const entry = await AsyncStorage.getItem('prefs');
-    if (entry == null) {
-        return {};
-    }
-    return JSON.parse(entry) as IPrefs;
-};
-
-export const savePrefsToStorage = async () => {
-    const prefs = store.getState().prefs;
-    await AsyncStorage.setItem('prefs', JSON.stringify(prefs));
-};
 
 export const loadAccountFromStorage = async () => {
     const entry = await AsyncStorage.getItem('account');

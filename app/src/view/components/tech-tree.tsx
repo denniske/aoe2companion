@@ -1,64 +1,54 @@
 import {
-    AbilityHelperProps, aoeCivKey, Building, Civ, civDict, getAbilityEnabled, getCompactTechTree, getFullTechTree,
-    getUnitLineForUnit, ITechTreeRow, Other, Tech, Unit
-} from "@nex/data";
-import {StyleSheet, TouchableOpacity, View} from "react-native";
-import {Image, ImageBackground} from "expo-image";
-import React, {Fragment} from "react";
-import {MyText} from "./my-text";
-import {setPrefValue, useMutate, useSelector} from "../../redux/reducer";
-import {savePrefsToStorage} from "../../service/storage";
-import ButtonPicker from "./button-picker";
-import {getTechIcon} from "../../helper/techs";
-import {getOtherIcon, getUnitIcon} from "../../helper/units";
-import {getBuildingIcon} from "../../helper/buildings";
-import {getTranslation} from '../../helper/translate';
-import {isEmpty} from 'lodash';
-import {Delayed} from './delayed';
-import { router } from "expo-router";
-import { windowWidth } from "@app/app/statistics/leaderboard";
+    AbilityHelperProps,
+    aoeCivKey,
+    Building,
+    Civ,
+    civDict,
+    getAbilityEnabled,
+    getCompactTechTree,
+    getFullTechTree,
+    getUnitLineForUnit,
+    ITechTreeRow,
+    Other,
+    Tech,
+    Unit,
+} from '@nex/data';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, ImageBackground } from 'expo-image';
+import React, { Fragment } from 'react';
+import { MyText } from './my-text';
+import ButtonPicker from './button-picker';
+import { getTechIcon } from '../../helper/techs';
+import { getOtherIcon, getUnitIcon } from '../../helper/units';
+import { getBuildingIcon } from '../../helper/buildings';
+import { getTranslation } from '../../helper/translate';
+import { isEmpty } from 'lodash';
+import { Delayed } from './delayed';
+import { router } from 'expo-router';
+import { windowWidth } from '@app/app/statistics/leaderboard';
+import { useTechTreeSize } from '@app/queries/prefs';
+import { useSavePrefsMutation } from '@app/mutations/save-prefs';
 
-
-function TechTreeRow({civ, row}: {civ: aoeCivKey, row: ITechTreeRow}) {
+function TechTreeRow({ civ, row }: { civ: aoeCivKey; row: ITechTreeRow }) {
     return (
         <View style={styles.row}>
-            {
-                row.title !== undefined &&
-                <MyText style={styles.heading}>{getTranslation(row.title as any)}</MyText>
-            }
-            {
-                row.items?.map((item, i) =>
-                    <Fragment key={i}>
-                        {
-                            isEmpty(item) &&
-                            <Ability0 />
-                        }
-                        {
-                            item.age &&
-                            <Ability3 age={item.age}/>
-                        }
-                        {
-                            item.unit &&
-                            <Ability2 civ={civ} unit={item.unit as any} unique={item.unique} dependsOn={item.dependsOn}/>
-                        }
-                        {
-                            item.tech &&
-                            <Ability2 civ={civ} tech={item.tech as any} unique={item.unique} dependsOn={item.dependsOn}/>
-                        }
-                        {
-                            item.building &&
-                            <Ability2 civ={civ} building={item.building as any} unique={item.unique} dependsOn={item.dependsOn}/>
-                        }
-                    </Fragment>
-                )
-            }
+            {row.title !== undefined && <MyText style={styles.heading}>{getTranslation(row.title as any)}</MyText>}
+            {row.items?.map((item, i) => (
+                <Fragment key={i}>
+                    {isEmpty(item) && <Ability0 />}
+                    {item.age && <Ability3 age={item.age} />}
+                    {item.unit && <Ability2 civ={civ} unit={item.unit as any} unique={item.unique} dependsOn={item.dependsOn} />}
+                    {item.tech && <Ability2 civ={civ} tech={item.tech as any} unique={item.unique} dependsOn={item.dependsOn} />}
+                    {item.building && <Ability2 civ={civ} building={item.building as any} unique={item.unique} dependsOn={item.dependsOn} />}
+                </Fragment>
+            ))}
         </View>
     );
 }
 
 export function TechTree({civ}: {civ: aoeCivKey}) {
-    const mutate = useMutate();
-    const techTreeSize = useSelector(state => state.prefs.techTreeSize) || 'full';
+    const techTreeSize = useTechTreeSize() || 'full';
+    const savePrefsMutation = useSavePrefsMutation();
 
     const civInfo = civDict[civ];
     const uniqueLine = getUnitLineForUnit(civInfo.uniqueUnits[0]);
@@ -68,9 +58,8 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
         'full',
     ];
 
-    const nav = async (str: any) => {
-        mutate(setPrefValue('techTreeSize', str));
-        await savePrefsToStorage();
+    const nav = async (techTreeSize: string) => {
+        savePrefsMutation.mutate({techTreeSize});
     };
 
     const compactTechTree = getCompactTechTree(civInfo);
