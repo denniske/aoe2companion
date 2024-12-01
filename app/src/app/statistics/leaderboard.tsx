@@ -41,6 +41,7 @@ import { uniq, compact } from 'lodash';
 import { Dropdown } from '@app/components/dropdown';
 import { leaderboardsByType } from '@app/helper/leaderboard';
 import { useQuery } from '@tanstack/react-query';
+import { useFollowedAndMeProfileIds } from '@app/queries/all';
 
 const Tab = createMaterialTopTabNavigator<any>();
 
@@ -209,8 +210,7 @@ function Leaderboard({ leaderboardId }: any) {
 
     const isFocused = useIsFocused();
 
-    const following = useSelector((state) => state.following);
-    const followingIds = compact(uniq([auth?.profileId, ...following.map((f) => f.profile_id)]));
+    const followingIds = useFollowedAndMeProfileIds();
 
     const getParams = (page: number, profileId?: number) => {
         if (leaderboardCountry == 'following') {

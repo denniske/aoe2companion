@@ -323,7 +323,6 @@ function AppWrapper() {
         mutate(state => {
             state.account = account;
             state.auth = auth as any;
-            state.following = following;
             state.prefs = prefs as IPrefs;
         });
 

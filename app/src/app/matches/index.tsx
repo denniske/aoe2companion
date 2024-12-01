@@ -12,14 +12,13 @@ import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { flatten, orderBy, uniq } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { Platform, View } from 'react-native';
-
 import { fetchMatches } from '../../api/helper/api';
 import { IMatchNew, IPlayerNew } from '../../api/helper/api.types';
 import { getTranslation } from '../../helper/translate';
 import { openLink } from '../../helper/url';
 import { useWebRefresh } from '../../hooks/use-web-refresh';
-import { useSelector } from '../../redux/reducer';
 import { Link } from '@app/components/link';
+import { useAccountData, useFollowedAndMeProfileIds } from '@app/queries/all';
 
 export default function Matches() {
     const [refetching, setRefetching] = useState(false);
@@ -28,12 +27,9 @@ export default function Matches() {
 
     const { match_id: matchId } = useLocalSearchParams<{ match_id: string }>();
 
-    const auth = useSelector((state) => state.auth);
-    const following = useSelector((state) => state.following);
-    const profileIds = following?.map((f) => f.profileId);
-    if (auth) {
-        profileIds.push(auth?.profileId);
-    }
+    const authProfileId = useAccountData((data) => data.profileId);
+    const followedPlayers = useAccountData((data) => data.followedPlayers);
+    const profileIds = useFollowedAndMeProfileIds();
 
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch, error } = useInfiniteQuery({
         queryKey: ['feed-matches', profileIds],
@@ -78,9 +74,9 @@ export default function Matches() {
 
     const filterAndSortPlayers = (players: IPlayerNew[]) => {
         let filteredPlayers = players.filter(
-            (p) => following.filter((f) => f.profileId === p.profileId).length > 0 || p.profileId == auth?.profileId
+            (p) => followedPlayers.filter((f) => f.profileId === p.profileId).length > 0 || p.profileId == authProfileId
         );
-        filteredPlayers = orderBy(filteredPlayers, (p) => p.profileId == auth?.profileId);
+        filteredPlayers = orderBy(filteredPlayers, (p) => p.profileId == authProfileId);
         return filteredPlayers;
     };
 
@@ -89,7 +85,7 @@ export default function Matches() {
     };
 
     const formatPlayer = (player: any, i: number) => {
-        return player?.profileId === auth?.profileId
+        return player?.profileId === authProfileId
             ? i == 0
                 ? getTranslation('feed.following.you')
                 : getTranslation('feed.following.you').toLowerCase()
@@ -190,8 +186,8 @@ export default function Matches() {
 
                             let relevantUser = undefined;
 
-                            if (auth?.profileId && highlightedUsers.includes(auth.profileId)) {
-                                relevantUser = auth;
+                            if (authProfileId && highlightedUsers.includes(authProfileId)) {
+                                relevantUser = { profileId: authProfileId };
                             } else if (allFilteredPlayersSameResult || !match.finished) {
                                 relevantUser = filteredPlayers[0];
                             }
@@ -215,7 +211,7 @@ export default function Matches() {
                                                     {i == len - 2 && <MyText> {getTranslation('feed.following.and')} </MyText>}
                                                 </MyText>
                                             ))}
-                                            {filteredPlayers[0].profileId === auth?.profileId && (
+                                            {filteredPlayers[0].profileId === authProfileId && (
                                                 <MyText>
                                                     {' '}
                                                     {match.finished
@@ -223,7 +219,7 @@ export default function Matches() {
                                                         : getTranslation('feed.following.yplayingnow')}
                                                 </MyText>
                                             )}
-                                            {filteredPlayers[0].profileId !== auth?.profileId && filteredPlayers.length == 1 && (
+                                            {filteredPlayers[0].profileId !== authProfileId && filteredPlayers.length == 1 && (
                                                 <MyText>
                                                     {' '}
                                                     {match.finished
@@ -231,7 +227,7 @@ export default function Matches() {
                                                         : getTranslation('feed.following.playingnow')}
                                                 </MyText>
                                             )}
-                                            {filteredPlayers[0].profileId !== auth?.profileId && filteredPlayers.length > 1 && (
+                                            {filteredPlayers[0].profileId !== authProfileId && filteredPlayers.length > 1 && (
                                                 <MyText>
                                                     {' '}
                                                     {match.finished

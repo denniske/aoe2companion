@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchProfile, fetchProfiles } from '@app/api/helper/api';
 import { authLinkSteam, fetchAccount, IAccount } from '@app/api/account';
+import { compact, uniq } from 'lodash';
 
 
 export const QUERY_KEY_ACCOUNT = () => ['account'];
@@ -12,12 +13,16 @@ export const useAccount = () =>
         queryFn: async () => await fetchAccount(),
     });
 
-export const useAccountData = (select?: (data: IAccount) => any) =>
+export const useAccountData = <T>(select?: (data: IAccount) => T) =>
     useQuery({
         queryKey: QUERY_KEY_ACCOUNT(),
         queryFn: async () => await fetchAccount(),
         select,
     }).data;
+
+export const useFollowedAndMeProfileIds = () => useAccountData((data) => {
+    return compact(uniq([data.profileId, ...data.followedPlayers.map((f) => f.profileId)]))
+});
 
 export const useAuthLinkSteam = (params: any) =>
     useQuery({
