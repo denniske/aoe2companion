@@ -22,7 +22,7 @@ import { useProfile, withRefetching } from '@app/queries/all';
 import type { UseQueryResult } from '@tanstack/react-query/src/types';
 import { useGlobalSearchParams, useLocalSearchParams } from 'expo-router';
 
-export default function MainProfile() {
+export default function MainProfile(props: any) {
     const params = useLocalSearchParams<{ profileId: string }>();
     const profileId = parseInt(params.profileId);
 
@@ -31,10 +31,10 @@ export default function MainProfile() {
 
     const { data: profile, refetch, isRefetching } = withRefetching(useProfile(profileId));
 
-    // const myParams = useGlobalSearchParams();
-    // const myParams2 = useLocalSearchParams();
+    const myParams = useGlobalSearchParams();
+    const myParams2 = useLocalSearchParams();
 
-    // console.log('PROFILE', props, myParams, myParams2);
+    console.log('PROFILE', props, myParams, myParams2);
     // console.log('PROFILE', profile);
 
     const rating = profile?.ratings;

@@ -67,7 +67,8 @@ export function isVerifiedPlayer(profileId: number) {
     return verifiedProfileIds.includes(profileId.toString());
 }
 
-export function getVerifiedPlayer(profileId: number) {
+export function getVerifiedPlayer(profileId?: number) {
+    if (!profileId) return;
     // console.log(profileId);
     // console.log(aoeReferenceDataTyped.players);
     return aoeReferenceDataTyped.players?.find((p) => p.platforms?.rl?.some(rl => rl === profileId.toString()));

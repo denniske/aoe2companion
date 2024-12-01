@@ -1,15 +1,15 @@
 import { IProfilesResultProfile } from '@app/api/helper/api.types';
 import { Icon } from '@app/components/icon';
 import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router';
-import React, { useEffect } from 'react';
-import { Alert, Platform, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Alert, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { getTranslation } from '@app/helper/translate';
 import { HeaderTitle } from '@app/components/header-title';
 import { CountryImage } from '@app/view/components/country-image';
-import { getVerifiedPlayer, isVerifiedPlayer } from '@nex/data';
+import { Country, getVerifiedPlayer, isVerifiedPlayer } from '@nex/data';
 import { Text } from '@app/components/text';
 import { Link } from '@app/components/link';
-import { useAccount, useAuthProfileId, useProfileFast } from '@app/queries/all';
+import { useAccount, useAuthProfileId, useProfile, useProfileFast, withRefetching } from '@app/queries/all';
 import { useFollowMutation } from '@app/mutations/follow';
 import { useUnfollowMutation } from '@app/mutations/unfollow';
 // import { createMaterialTopTabNavigator, MaterialTopTabBar } from '@react-navigation/material-top-tabs';
@@ -29,6 +29,16 @@ import {
 } from '@react-navigation/material-top-tabs';
 import { withLayoutContext } from "expo-router";
 import { ParamListBase, TabNavigationState } from "@react-navigation/native";
+import { openLink } from '@app/helper/url';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { createStylesheet } from '@app/theming-new';
+import { useTournamentPlayer, useTournamentPlayerOverview } from '@app/api/tournaments';
+import { Button } from '@app/components/button';
+import { TournamentPlayerPopup } from '@app/view/tournaments/player-popup';
+import { FontAwesomeIconStyle } from '@fortawesome/react-native-fontawesome';
+import { MyText } from '@app/view/components/my-text';
+import { Image } from 'expo-image';
+import { getCountryName } from '@app/helper/flags';
 
 const { Navigator } = createMaterialTopTabNavigator();
 
@@ -49,6 +59,7 @@ interface UserMenuProps {
 export function UserMenu({ profile }: UserMenuProps) {
     const profileId = profile?.profileId;
     const authProfileId = useAuthProfileId();
+    const styles = useStyles();
 
     const { data: account } = useAccount();
     // console.log('account?.followedPlayers', account?.followedPlayers);
@@ -62,6 +73,13 @@ export function UserMenu({ profile }: UserMenuProps) {
     const unlinkSteamMutation = useUnlinkSteamMutation();
 
     const router = useRouter();
+
+    const verifiedPlayer = getVerifiedPlayer(profileId!);
+    const { data: liquipediaProfile } = useTournamentPlayer(verifiedPlayer?.liquipedia);
+
+
+    const { data: profileFull } = useProfile(profileId!);
+
 
     // Reset country for use in leaderboard country dropdown
     // useEffect(() => {
@@ -118,9 +136,14 @@ export function UserMenu({ profile }: UserMenuProps) {
         router.replace('/matches/users/select');
     };
 
-    if (!profileId) {
+    const [showTournamentPlayer, setShowTournamentPlayer] = useState(false);
+
+    if (!profileId || !profile) {
         return null;
     }
+
+    const steamProfileUrl = 'https://steamcommunity.com/profiles/' + profile?.steamId;
+    const xboxProfileUrl = 'https://www.ageofempires.com/stats/?game=age2&profileId=' + profile?.profileId;
 
     if (profileId === authProfileId) {
         return (
@@ -130,12 +153,88 @@ export function UserMenu({ profile }: UserMenuProps) {
         );
     } else {
         return (
-            <TouchableOpacity hitSlop={10} onPress={followingThisUser ? () => unfollowMutation.mutate(profileId) : () => followMutation.mutate(profileId)}>
-                <Icon prefix={followingThisUser ? 'fass' : 'fasr'} icon="heart" size={20} color="text-[#ef4444]" />
-            </TouchableOpacity>
+            <View
+                className="flex flex-row gap-2"
+            >
+                {liquipediaProfile && (
+                    <TournamentPlayerPopup
+                        id={liquipediaProfile.name}
+                        title={liquipediaProfile.name}
+                        isActive={showTournamentPlayer}
+                        onClose={() => setShowTournamentPlayer(false)}
+                    />
+                )}
+
+                {
+                    (profileFull?.linkedProfiles?.length || 0) > 0 && !profile.verified && (
+                        <TouchableOpacity style={styles.menuButton} onPress={() => setShowTournamentPlayer(true)}>
+                            <Icon icon="family" color="brand" size={20}  />
+                            {/*<FontAwesome5 style={styles.menuIcon} name="check-circle" color="brand" size={20} />*/}
+                        </TouchableOpacity>
+                    )
+                }
+                {
+                    profile.verified && (
+                        <TouchableOpacity style={styles.menuButton} onPress={() => setShowTournamentPlayer(true)}>
+                            <Icon icon="check-circle" color="brand" size={20}  />
+                            {/*<FontAwesome5 style={styles.menuIcon} name="check-circle" color="brand" size={20} />*/}
+                        </TouchableOpacity>
+                    )
+                }
+                {
+                    profileId && (
+                        <TouchableOpacity style={styles.menuButton} onPress={() => openLink(xboxProfileUrl)}>
+                            <FontAwesome5 style={styles.menuIcon} name="link" size={20} />
+                        </TouchableOpacity>
+                    )
+                }
+                {/*{*/}
+                {/*    profileId && (*/}
+                {/*        <TouchableOpacity style={styles.menuButton} onPress={() => openLink(xboxProfileUrl)}>*/}
+                {/*            <FontAwesome5 style={styles.menuIcon} name="xbox" size={20} />*/}
+                {/*        </TouchableOpacity>*/}
+                {/*    )*/}
+                {/*}*/}
+                {/*{*/}
+                {/*    profile?.steamId && (*/}
+                {/*        <TouchableOpacity style={styles.menuButton} onPress={() => openLink(steamProfileUrl)}>*/}
+                {/*            <FontAwesome5 style={styles.menuIcon} name="steam" size={20} />*/}
+                {/*        </TouchableOpacity>*/}
+                {/*    )*/}
+                {/*}*/}
+                <TouchableOpacity style={styles.menuButton} hitSlop={10} onPress={followingThisUser ? () => unfollowMutation.mutate(profileId) : () => followMutation.mutate(profileId)}>
+                    <Icon prefix={followingThisUser ? 'fass' : 'fasr'} icon="heart" size={20} color="text-[#ef4444]" />
+                </TouchableOpacity>
+            </View>
         );
     }
 }
+
+
+
+const useStyles = createStylesheet((theme) =>
+    StyleSheet.create({
+        menu: {
+            // backgroundColor: 'red',
+            flexDirection: 'row',
+            // flex: 1,
+            // marginRight: 10,
+        },
+        menuButton: {
+            // backgroundColor: 'blue',
+            width: 32,
+            justifyContent: 'center',
+            alignItems: 'center',
+            // margin: 0,
+            // marginHorizontal: 2,
+        },
+        menuIcon: {
+            color: theme.textNoteColor,
+        },
+    } as const),
+);
+
+
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -148,30 +247,45 @@ function UserTitle({ profile }: UserMenuProps) {
     const isVerified = profileId ? isVerifiedPlayer(profileId) : false;
     const verifiedPlayer = profileId ? getVerifiedPlayer(profileId) : null;
     const isMainAccount = verifiedPlayer?.platforms.rl?.[0] === profileId;
+
+    const avatarUrl = `https://avatars.akamai.steamstatic.com/${profile?.avatarhash}_full.jpg`;
+
+    if (!profile) {
+        return <View />;
+    }
+
     return (
         <HeaderTitle
             iconComponent={
-                <CountryImage
-                    style={{ fontSize: 21 }}
-                    country={verifiedPlayer?.country || profile?.country}
+                <Image
+                    source={{ uri: avatarUrl }}
+                    style={{ width: 38, height: 38 }}
+                    className="rounded-full"
                 />
             }
             title={profile?.name || ''}
             subtitle={
-                isVerified &&
-                !isMainAccount && (
-                    <Text variant="label" numberOfLines={1} allowFontScaling={false}>
-                        <Link href={`/matches/users/${verifiedPlayer?.platforms.rl?.[0]}`}>
-                            {verifiedPlayer?.name}
-                        </Link>{' '}
-                        - Alternate account
-                    </Text>
-                )
+            <>
+                <CountryImage
+                    style={{ fontSize: 14 }}
+                    country={verifiedPlayer?.country || profile?.country}
+                />
+                <MyText> {getCountryName(profile.country as Country)}</MyText>
+            </>
             }
         />
     );
 }
 
+// isVerified &&
+// !isMainAccount && (
+//     <Text variant="label" numberOfLines={1} allowFontScaling={false}>
+//         <Link href={`/matches/users/${verifiedPlayer?.platforms.rl?.[0]}`}>
+//             {verifiedPlayer?.name}
+//         </Link>{' '}
+//         - Alternate account
+//     </Text>
+// )
 
 export default function UserPage() {
     const params = useLocalSearchParams<UserPageParams>();

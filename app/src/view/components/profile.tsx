@@ -188,48 +188,47 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
     return (
         <View style={styles.container}>
             <View className="space-y-3">
-                <View style={styles.row}>
-                    {/*<ImageLoader style={styles.profileIcon} ready={data} source={{ uri: 'https://github.com/SiegeEngineers/aoc-reference-data/raw/master/data/photos/players/theviper.jpg'}}/>*/}
-                    <View style={{ flex: 1 }}>
-                        <View style={styles.row}>
-                            <CountryImageLoader country={verifiedPlayer?.country || data?.country} ready={data} />
+                {/*<View style={styles.row}>*/}
+                {/*    <View style={{ flex: 1 }}>*/}
+                {/*        <View style={styles.row}>*/}
+                {/*            <CountryImageLoader country={verifiedPlayer?.country || data?.country} ready={data} />*/}
 
-                            <TextLoader>{data?.name}</TextLoader>
-                            {data?.verified && (
-                                <Icon icon="check-circle" color="brand" size={14} style={styles.verifiedIcon as FontAwesomeIconStyle} />
-                            )}
-                            {!data?.verified && data?.shared && (
-                                <Icon icon="family" color="brand" size={14} style={styles.verifiedIcon as FontAwesomeIconStyle} />
-                            )}
-                            {!!data?.clan && (
-                                <MyText>
-                                    {' '}
-                                    ({getTranslation('main.profile.clan')}: {data?.clan})
-                                </MyText>
-                            )}
-                        </View>
-                        <View style={styles.row}>
-                            <TextLoader ready={data}>
-                                {getTranslation('main.profile.games', { games: data?.games })},{' '}
-                                {getTranslation('main.profile.drops', { drops: data?.drops })} (
-                                {(((data?.drops as any) / (data?.games as any)) * 100).toFixed(2)} %)
-                            </TextLoader>
-                        </View>
-                    </View>
-                    {/*<View style={styles.expanded}/>*/}
-                    <View style={styles.menu}>
-                        {!!data?.profileId && (
-                            <TouchableOpacity style={styles.menuButton} onPress={() => openLink(xboxProfileUrl)}>
-                                <FontAwesome5 style={styles.menuIcon} name="xbox" size={20} />
-                            </TouchableOpacity>
-                        )}
-                        {!!data?.steamId && (
-                            <TouchableOpacity style={styles.menuButton} onPress={() => openLink(steamProfileUrl)}>
-                                <FontAwesome5 style={styles.menuIcon} name="steam" size={20} />
-                            </TouchableOpacity>
-                        )}
-                    </View>
-                </View>
+                {/*            <TextLoader>{data?.name}</TextLoader>*/}
+                {/*            {data?.verified && (*/}
+                {/*                <Icon icon="check-circle" color="brand" size={14} style={styles.verifiedIcon as FontAwesomeIconStyle} />*/}
+                {/*            )}*/}
+                {/*            {!data?.verified && data?.shared && (*/}
+                {/*                <Icon icon="family" color="brand" size={14} style={styles.verifiedIcon as FontAwesomeIconStyle} />*/}
+                {/*            )}*/}
+                {/*            {!!data?.clan && (*/}
+                {/*                <MyText>*/}
+                {/*                    {' '}*/}
+                {/*                    ({getTranslation('main.profile.clan')}: {data?.clan})*/}
+                {/*                </MyText>*/}
+                {/*            )}*/}
+                {/*        </View>*/}
+                {/*        <View style={styles.row}>*/}
+                {/*            <TextLoader ready={data}>*/}
+                {/*                {getTranslation('main.profile.games', { games: data?.games })},{' '}*/}
+                {/*                {getTranslation('main.profile.drops', { drops: data?.drops })} (*/}
+                {/*                {(((data?.drops as any) / (data?.games as any)) * 100).toFixed(2)} %)*/}
+                {/*            </TextLoader>*/}
+                {/*        </View>*/}
+                {/*    </View>*/}
+                {/*    /!*<View style={styles.expanded}/>*!/*/}
+                {/*    <View style={styles.menu}>*/}
+                {/*        {!!data?.profileId && (*/}
+                {/*            <TouchableOpacity style={styles.menuButton} onPress={() => openLink(xboxProfileUrl)}>*/}
+                {/*                <FontAwesome5 style={styles.menuIcon} name="xbox" size={20} />*/}
+                {/*            </TouchableOpacity>*/}
+                {/*        )}*/}
+                {/*        {!!data?.steamId && (*/}
+                {/*            <TouchableOpacity style={styles.menuButton} onPress={() => openLink(steamProfileUrl)}>*/}
+                {/*                <FontAwesome5 style={styles.menuIcon} name="steam" size={20} />*/}
+                {/*            </TouchableOpacity>*/}
+                {/*        )}*/}
+                {/*    </View>*/}
+                {/*</View>*/}
 
                 {(verifiedPlayer?.discord || verifiedPlayer?.youtube || verifiedPlayer?.douyu || verifiedPlayer?.twitch != null) && (
                     <View style={styles.row}>
@@ -256,60 +255,60 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                     </View>
                 )}
 
-                {liquipediaProfileOverview && (
-                    <View className="justify-center">
-                        <TournamentMarkdown>{liquipediaProfileOverview}</TournamentMarkdown>
+                {/*{liquipediaProfileOverview && (*/}
+                {/*    <View className="justify-center">*/}
+                {/*        <TournamentMarkdown>{liquipediaProfileOverview}</TournamentMarkdown>*/}
 
-                        <Button onPress={() => setShowTournamentPlayer(true)} align="center" size="small">
-                            Competitive Overview
-                        </Button>
+                {/*        <Button onPress={() => setShowTournamentPlayer(true)} align="center" size="small">*/}
+                {/*            Competitive Overview*/}
+                {/*        </Button>*/}
 
-                        {liquipediaProfile && (
-                            <TournamentPlayerPopup
-                                id={liquipediaProfile.name}
-                                title={liquipediaProfile.name}
-                                isActive={showTournamentPlayer}
-                                onClose={() => setShowTournamentPlayer(false)}
-                            />
-                        )}
-                    </View>
-                )}
+                {/*        {liquipediaProfile && (*/}
+                {/*            <TournamentPlayerPopup*/}
+                {/*                id={liquipediaProfile.name}*/}
+                {/*                title={liquipediaProfile.name}*/}
+                {/*                isActive={showTournamentPlayer}*/}
+                {/*                onClose={() => setShowTournamentPlayer(false)}*/}
+                {/*            />*/}
+                {/*        )}*/}
+                {/*    </View>*/}
+                {/*)}*/}
 
-                {(data?.linkedProfiles?.length || 0) > 0 && (
-                    <View className="space-y-1">
-                        <MyText>Linked</MyText>
-                        {data?.linkedProfiles?.map((linkedProfile) => {
-                            return (
-                                <Link key={linkedProfile?.profileId} href={`/matches/users/${linkedProfile?.profileId}?name=${linkedProfile?.name}`} asChild>
-                                    <TouchableOpacity className="flex-1 flex-row gap-1 items-center">
-                                        <CountryImageLoader country={verifiedPlayer?.country || linkedProfile?.country} ready={linkedProfile} />
+                {/*{(data?.linkedProfiles?.length || 0) > 0 && (*/}
+                {/*    <View className="space-y-1">*/}
+                {/*        <MyText>Linked</MyText>*/}
+                {/*        {data?.linkedProfiles?.map((linkedProfile) => {*/}
+                {/*            return (*/}
+                {/*                <Link key={linkedProfile?.profileId} href={`/matches/users/${linkedProfile?.profileId}?name=${linkedProfile?.name}`} asChild>*/}
+                {/*                    <TouchableOpacity className="flex-1 flex-row gap-1 items-center">*/}
+                {/*                        <CountryImageLoader country={verifiedPlayer?.country || linkedProfile?.country} ready={linkedProfile} />*/}
 
-                                        <TextLoader>{linkedProfile?.name}</TextLoader>
-                                        {linkedProfile?.verified && (
-                                            <Icon icon="check-circle" color="brand" size={14} style={styles.verifiedIcon as FontAwesomeIconStyle} />
-                                        )}
-                                        {!linkedProfile?.verified && linkedProfile?.shared && (
-                                            <Icon icon="family" color="brand" size={14} style={styles.verifiedIcon as FontAwesomeIconStyle} />
-                                        )}
-                                        {!!linkedProfile?.clan && (
-                                            <MyText>
-                                                {' '}
-                                                ({getTranslation('main.profile.clan')}: {linkedProfile?.clan})
-                                            </MyText>
-                                        )}
-                                    </TouchableOpacity>
-                                </Link>
-                            );
-                        })}
-                    </View>
-                )}
+                {/*                        <TextLoader>{linkedProfile?.name}</TextLoader>*/}
+                {/*                        {linkedProfile?.verified && (*/}
+                {/*                            <Icon icon="check-circle" color="brand" size={14} style={styles.verifiedIcon as FontAwesomeIconStyle} />*/}
+                {/*                        )}*/}
+                {/*                        {!linkedProfile?.verified && linkedProfile?.shared && (*/}
+                {/*                            <Icon icon="family" color="brand" size={14} style={styles.verifiedIcon as FontAwesomeIconStyle} />*/}
+                {/*                        )}*/}
+                {/*                        {!!linkedProfile?.clan && (*/}
+                {/*                            <MyText>*/}
+                {/*                                {' '}*/}
+                {/*                                ({getTranslation('main.profile.clan')}: {linkedProfile?.clan})*/}
+                {/*                            </MyText>*/}
+                {/*                        )}*/}
+                {/*                    </TouchableOpacity>*/}
+                {/*                </Link>*/}
+                {/*            );*/}
+                {/*        })}*/}
+                {/*    </View>*/}
+                {/*)}*/}
 
-                {!data?.verified && data?.shared && (
-                    <View className="flex-row items-center space-x-2">
-                        <Icon icon="family" color="brand" size={14} />
-                        <MyText>Steam Family Sharing</MyText>
-                    </View>
-                )}
+                {/*{!data?.verified && data?.shared && (*/}
+                {/*    <View className="flex-row items-center space-x-2">*/}
+                {/*        <Icon icon="family" color="brand" size={14} />*/}
+                {/*        <MyText>Steam Family Sharing</MyText>*/}
+                {/*    </View>*/}
+                {/*)}*/}
 
                 <View>
                     <View style={styles.leaderboardRow}>

@@ -38,6 +38,7 @@ export const useProfile = (profileId: number) =>
     useQuery({
         queryKey: ['profile', profileId],
         queryFn: () => fetchProfile({ profileId }),
+        enabled: !!profileId,
     });
 
 export const useProfileFast = (profileId?: number) =>
