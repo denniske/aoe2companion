@@ -1,19 +1,14 @@
-import { fetchProfile } from '@app/api/helper/api';
-import { useSelector } from '@app/redux/reducer';
 import PlayerList from '@app/view/components/player-list';
 import { router } from 'expo-router';
 import { View } from 'react-native';
 import { Text } from './text';
 import { uniqBy } from 'lodash';
-import { useQuery } from '@tanstack/react-query';
 import { useAccount, useAuthProfileId, useProfileFast } from '@app/queries/all';
 
 export const FollowedPlayers = () => {
     const authProfileId = useAuthProfileId();
 
     const { data: account, error } = useAccount();
-    // console.log('account', account);
-    // console.log('error', error);
 
     // console.log('followed players account', account?.followedPlayers.length);
 
@@ -34,8 +29,9 @@ export const FollowedPlayers = () => {
                 }}
                 variant="horizontal"
                 showsHorizontalScrollIndicator={false}
-                list={uniqBy([authProfileId ? authProfile || 'loading' : 'select', ...(account?.followedPlayers || []), 'follow'] as const, (profile) =>
-                    typeof profile === 'string' ? profile : profile.profileId
+                list={uniqBy(
+                    [authProfileId ? authProfile || 'loading' : 'select', ...(account?.followedPlayers || []), 'follow'] as const,
+                    (profile) => (typeof profile === 'string' ? profile : profile.profileId)
                 )}
                 selectedUser={(user) => router.navigate(`/matches/users/${user.profileId}?name=${user.name}&country=${user.country}`)}
             />

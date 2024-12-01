@@ -163,16 +163,9 @@ export async function followV2(profileId: number): Promise<IResult> {
     if (!session.session) {
         console.log('followV2: no session');
 
-        await saveFollowingToStorage({
-            pushNotificationsEnabled: account.notificationsEnabled,
-            language: account.language,
-            darkMode: account.darkMode,
-            mainPage: account.mainPage,
-        });
-
-        // accountId: account.id,
-        // profileId: auth.profileId,
-        // followedPlayers: following,
+        const following = await loadFollowingFromStorage();
+        following.push({profileId});
+        await saveFollowingToStorage(following);
     }
 
     const data = {

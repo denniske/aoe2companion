@@ -3,7 +3,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector as useReduxSelector } fr
 import { IAccount, IConfig, IFollowingEntry, IPrefs, IScroll } from '../service/storage';
 import { Manifest } from 'expo-updates/build/Updates.types';
 import { set } from 'lodash';
-import { ILeaderboardDef, IProfileResult } from '../api/helper/api.types';
+import { ILeaderboardDef } from '../api/helper/api.types';
 
 export const EXEC = 'EXEC';
 
@@ -67,24 +67,6 @@ export function setError(error: IError | null) {
     };
 }
 
-export function addLoadedLanguage(language: string) {
-    return (state: AppState) => {
-        state.loadedLanguages = [...(state.loadedLanguages?.filter((l) => l !== language) || []), language];
-    };
-}
-
-export function setPrefValue<T extends keyof IPrefs>(key: T, value: IPrefs[T]) {
-    return (state: AppState) => {
-        state.prefs[key] = value;
-    };
-}
-
-export function setAuth(user: any | null) {
-    return (state: AppState) => {
-        state.auth = user;
-    };
-}
-
 export function setMainPageShown(mainPageShown: boolean) {
     return (state: AppState) => {
         state.mainPageShown = mainPageShown;
@@ -97,17 +79,11 @@ export function setLeaderboardCountry(country?: string | null) {
     };
 }
 
-export function setFollowing(following: IFollowingEntry[]) {
-    return (state: AppState) => {
-        state.following = following;
-    };
-}
-
-export function setPurchaserInfo(purchaserInfo: any | null) {
-    return (state: AppState) => {
-        state.donation.purchaserInfo = purchaserInfo;
-    };
-}
+// export function setPurchaserInfo(purchaserInfo: any | null) {
+//     return (state: AppState) => {
+//         state.donation.purchaserInfo = purchaserInfo;
+//     };
+// }
 
 export function setUpdateManifest(updateManifest: Manifest | null) {
     return (state: AppState) => {
@@ -134,18 +110,6 @@ export function setUpdateAvailable(updateAvailable: boolean) {
 export function setUpdateState(updateState: string) {
     return (state: AppState) => {
         state.updateState = updateState;
-    };
-}
-
-export function setConfig(config: IConfig) {
-    return (state: AppState) => {
-        state.config = config;
-    };
-}
-
-export function clearStatsPlayer(profileId: number) {
-    return (state: AppState) => {
-        set(state, ['statsPlayer', profileId], undefined);
     };
 }
 
@@ -204,12 +168,6 @@ export const initialState: Partial<AppState> = {
     statsPlayer: undefined,
     civInfos: {},
 };
-
-// export function setInitialState() {
-//     return (state: AppState) => {
-//         Object.assign(state, initialState);
-//     };
-// }
 
 function notesReducer(state = initialState, action: IAction) {
     switch (action.type) {

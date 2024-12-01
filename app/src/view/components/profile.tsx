@@ -18,8 +18,6 @@ import { IPlayerNew, IProfileLeaderboardResult, IProfileResult } from '../../api
 import { getLeaderboardTextColor } from '../../helper/colors';
 import { getTranslation } from '../../helper/translate';
 import { openLink } from '../../helper/url';
-import { setPrefValue, useMutate, useSelector } from '../../redux/reducer';
-import { savePrefsToStorage } from '../../service/storage';
 import { usePaperTheme } from '../../theming';
 import { createStylesheet } from '../../theming-new';
 import { TournamentPlayerPopup } from '../tournaments/player-popup';

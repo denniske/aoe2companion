@@ -1,7 +1,6 @@
 import { IProfilesResultProfile } from '@app/api/helper/api.types';
 import { Button } from '@app/components/button';
 import { getTranslation } from '@app/helper/translate';
-import { setFollowing, useMutate, useSelector } from '@app/redux/reducer';
 import { IPlayerListPlayer } from '@app/view/components/player-list';
 import Search from '@app/view/components/search';
 import { router, useNavigation } from 'expo-router';

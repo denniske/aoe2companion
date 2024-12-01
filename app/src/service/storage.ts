@@ -44,12 +44,10 @@ export interface IAccount {
 }
 
 export interface IFollowingEntry {
-    steam_id?: string;
     profileId: number;
-    profile_id?: number;
-    name: string;
-    games: number;
-    country: Flag;
+    name?: string;
+    games?: number;
+    country?: Flag;
 }
 
 
@@ -80,10 +78,6 @@ export const saveConfigToStorage = async (config: Partial<IConfig>) => {
     await AsyncStorage.mergeItem('config', JSON.stringify(config));
 };
 
-export const clearSettingsInStorage = async () => {
-    await AsyncStorage.removeItem('settings');
-};
-
 export const saveAuthToStorage = async (settings: ISettings) => {
     await AsyncStorage.setItem('settings', JSON.stringify(settings));
 };
@@ -92,14 +86,8 @@ export const loadAuthFromStorage = async () => {
     const entry = await AsyncStorage.getItem('settings');
     if (entry == null) {
         return null;
-        // return { profileId: undefined };
     }
     const settings = JSON.parse(entry) as ISettings;
-
-    if (settings.profileId == null && settings.profile_id != null) {
-        settings.profileId = settings.profile_id;
-    }
-
     return { profileId: settings.profileId };
 };
 
@@ -109,15 +97,6 @@ export const loadFollowingFromStorage = async () => {
         return [];
     }
     const entries = JSON.parse(entry) as IFollowingEntry[];
-
-    for (const entry of entries) {
-        if (entry.profileId == null && entry.profile_id != null) {
-            entry.profileId = entry.profile_id;
-            delete entry.profile_id;
-        }
-        delete entry.steam_id;
-    }
-
     return entries.filter((e) => e.profileId != null);
 };
 

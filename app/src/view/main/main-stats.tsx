@@ -2,18 +2,15 @@ import { Dropdown } from '@app/components/dropdown';
 import { FlatList } from '@app/components/flat-list';
 import { leaderboardIdsByType } from '@app/helper/leaderboard';
 import { LeaderboardId } from '@nex/data';
-import { usePrevious } from '@nex/data/hooks';
 import { useNavigationState, useRoute } from '@react-navigation/native';
-import { get } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 
-import { fetchLeaderboards, fetchProfile } from '../../api/helper/api';
+import { fetchLeaderboards } from '../../api/helper/api';
 import { getTranslation } from '../../helper/translate';
 import { openLink } from '../../helper/url';
 import { useWebRefresh } from '../../hooks/use-web-refresh';
-import { clearStatsPlayer, setPrefValue, useMutate, useSelector } from '../../redux/reducer';
-import { savePrefsToStorage } from '../../service/storage';
+import { useMutate } from '../../redux/reducer';
 import { appVariants } from '../../styles';
 import { useTheme } from '../../theming';
 import { createStylesheet } from '../../theming-new';
@@ -21,7 +18,7 @@ import FlatListLoadingIndicator from '../components/flat-list-loading-indicator'
 import { TextLoader } from '../components/loader/text-loader';
 import { MyText } from '../components/my-text';
 import RefreshControlThemed from '../components/refresh-control-themed';
-import StatsRows, { StatsHeader, StatsRow } from '../components/stats-rows';
+import { StatsHeader, StatsRow } from '../components/stats-rows';
 import TemplatePicker from '../components/template-picker';
 import { useQuery } from '@tanstack/react-query';
 import { useProfileWithStats } from '@app/queries/all';
@@ -121,8 +118,8 @@ function MainStatsInternal({ profileId }: { profileId: number }) {
     ];
 
     const onLeaderboardSelected = async (leaderboardId: LeaderboardId) => {
-        mutate(setPrefValue('leaderboardId', leaderboardId));
-        await savePrefsToStorage();
+        // mutate(setPrefValue('leaderboardId', leaderboardId));
+        // await savePrefsToStorage();
         setLeaderboardId(leaderboardId);
     };
 
