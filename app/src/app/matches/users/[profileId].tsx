@@ -35,7 +35,7 @@ export function UserMenu({ profile }: UserMenuProps) {
     const authProfileId = useAuthProfileId();
 
     const { data: account } = useAccount();
-    console.log('account?.followedPlayers', account?.followedPlayers);
+    // console.log('account?.followedPlayers', account?.followedPlayers);
 
     const followingThisUser = !!account?.followedPlayers.find((f) => f.profileId === profileId);
 
@@ -139,7 +139,7 @@ function UserTitle({ profile }: UserMenuProps) {
                     country={verifiedPlayer?.country || profile?.country}
                 />
             }
-            title={profile?.name || name || ''}
+            title={profile?.name || ''}
             subtitle={
                 isVerified &&
                 !isMainAccount && (

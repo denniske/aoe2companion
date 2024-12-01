@@ -2,6 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchProfile, fetchProfiles } from '@app/api/helper/api';
 import { authLinkSteam, fetchAccount, IAccount } from '@app/api/account';
 import { compact, uniq } from 'lodash';
+import type { UseQueryResult } from '@tanstack/react-query/src/types';
+import { useState } from 'react';
 
 
 export const QUERY_KEY_ACCOUNT = () => ['account'];
@@ -45,10 +47,24 @@ export const useProfileFast = (profileId?: number) =>
         enabled: !!profileId,
     });
 
-export const useProfileWithStats = (profileId: number) =>
+export const useProfileWithStats = (profileId: number, isFocused: boolean) =>
     useQuery({
         queryKey: ['profile-with-stats', profileId],
         queryFn: () => fetchProfile({ profileId, extend: 'stats' }),
-        enabled: false, // Remove this
+        enabled: isFocused,
     });
 
+
+export function withRefetching<TData, TError>(result: UseQueryResult<TData, TError>) {
+    const [isRefetching, setIsRefetching] = useState(false);
+    const refetch = async () => {
+        setIsRefetching(true);
+        await result.refetch();
+        setIsRefetching(false);
+    }
+    return {
+        ...result,
+        refetch,
+        isRefetching,
+    };
+}

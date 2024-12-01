@@ -235,7 +235,7 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                     <View style={styles.row}>
                         {verifiedPlayer?.discord && (
                             <View style={styles.badge}>
-                                <DiscordBadge serverId={verifiedPlayer?.discordServerId} invitationId={getDiscordInvitationId(verifiedPlayer)} />
+                                <DiscordBadge invitationId={getDiscordInvitationId(verifiedPlayer)} />
                             </View>
                         )}
                         {verifiedPlayer?.youtube && (

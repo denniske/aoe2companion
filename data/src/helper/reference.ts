@@ -93,18 +93,12 @@ export function getTwitchChannel(verifiedPlayer: IReferencePlayer) {
 }
 
 export function getDiscordInvitationId(verifiedPlayer: IReferencePlayer) {
-
-    console.log('getDiscordInvitationId');
-    console.log(verifiedPlayer);
-
-    const test =  verifiedPlayer?.discord?.[0]
+    return verifiedPlayer?.discord?.[0]
         ?.replace('http://', '')
         ?.replace('https://', '')
         ?.replace('www.', '')
         ?.replace('discord.gg/', '')
         ?.replace('/', '');
-    console.log(test);
-    return test;
 }
 
 // "https://www.youtube.com/user/TheViperAOC"

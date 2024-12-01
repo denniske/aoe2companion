@@ -107,10 +107,6 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
             } else {
                 setHiddenLeaderboardIds([]);
             }
-        } else {
-            if (isAuthProfile) {
-                savePrefsMutation.mutate({ ratingHistoryHiddenLeaderboardIds: hiddenLeaderboardIds });
-            }
         }
     }, [authProfileId, profile, hiddenLeaderboardIds]);
 
@@ -126,10 +122,15 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
     };
 
     const toggleLeaderboard = (leaderboardId: LeaderboardId) => {
+        let ids = [];
         if (hiddenLeaderboardIds!.includes(leaderboardId)) {
-            setHiddenLeaderboardIds(hiddenLeaderboardIds!.filter((id) => id != leaderboardId));
+            ids = hiddenLeaderboardIds!.filter((id) => id != leaderboardId);
         } else {
-            setHiddenLeaderboardIds([...hiddenLeaderboardIds!, leaderboardId]);
+            ids = [...hiddenLeaderboardIds!, leaderboardId];
+        }
+        setHiddenLeaderboardIds(ids);
+        if (authProfileId === profile?.profileId) {
+            savePrefsMutation.mutate({ ratingHistoryHiddenLeaderboardIds: hiddenLeaderboardIds });
         }
     };
 

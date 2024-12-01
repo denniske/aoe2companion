@@ -7,16 +7,16 @@ import { openLink } from '../../../helper/url';
 import { useQuery } from '@tanstack/react-query';
 
 interface Props {
-    serverId?: string;
     invitationId?: string;
 }
 
 export default function DiscordBadge(props: Props) {
-    const { serverId, invitationId } = props;
+    const { invitationId } = props;
 
     const { data: info } = useQuery({
         queryKey: ['discord-online', invitationId!],
         queryFn: () => discordOnline(invitationId!),
+        enabled: !!invitationId && !__DEV__,
     });
 
     let content = undefined;

@@ -5,8 +5,6 @@ import { Header } from '@app/components/header';
 import { useEffect } from 'react';
 import { authLinkPatreon, authLinkSteam } from '@app/api/account';
 import { useQueryClient } from '@tanstack/react-query';
-import { QUERY_KEY_ACCOUNT } from '@app/app/_layout';
-import RefreshControlThemed from '@app/view/components/refresh-control-themed';
 import Space from '@app/view/components/space';
 
 export default function AuthLinkPatreon() {

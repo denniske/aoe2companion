@@ -2,7 +2,7 @@ import { Dropdown } from '@app/components/dropdown';
 import { FlatList } from '@app/components/flat-list';
 import { leaderboardIdsByType } from '@app/helper/leaderboard';
 import { LeaderboardId } from '@nex/data';
-import { useNavigationState, useRoute } from '@react-navigation/native';
+import { useIsFocused, useNavigationState, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 
@@ -21,7 +21,7 @@ import RefreshControlThemed from '../components/refresh-control-themed';
 import { StatsHeader, StatsRow } from '../components/stats-rows';
 import TemplatePicker from '../components/template-picker';
 import { useQuery } from '@tanstack/react-query';
-import { useProfileWithStats } from '@app/queries/all';
+import { useProfileWithStats, withRefetching } from '@app/queries/all';
 
 interface Props {
     profileId: number;
@@ -92,7 +92,10 @@ function MainStatsInternal({ profileId }: { profileId: number }) {
     // );
     // const previousCachedData = usePrevious(currentCachedData);
 
-    const { data: profileWithStats, refetch, isRefetching } = useProfileWithStats(profileId);
+    const isFocused = useIsFocused();
+    const { data: profileWithStats, refetch, isRefetching } = withRefetching(useProfileWithStats(profileId, isFocused));
+    console.log('profileWithStats', profileWithStats);
+    console.log('profileId', profileId);
 
     const cachedData = profileWithStats?.stats.find((s) => s.leaderboardId === leaderboardId); //currentCachedData ?? previousCachedData;
 

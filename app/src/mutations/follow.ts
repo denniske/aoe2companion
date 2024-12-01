@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { followV2, IAccount } from '@app/api/account';
-import { QUERY_KEY_ACCOUNT } from '@app/app/_layout';
 import produce from 'immer';
+import { QUERY_KEY_ACCOUNT } from '@app/queries/all';
 
 
 export const useFollowMutation = () => {
