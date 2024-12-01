@@ -1,5 +1,4 @@
 import { ScrollView } from '@app/components/scroll-view';
-import ButtonPicker from '@app/view/components/button-picker';
 import { MyText } from '@app/view/components/my-text';
 import Picker from '@app/view/components/picker';
 import * as Notifications from '../../service/notifications';
@@ -10,16 +9,13 @@ import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Button, Checkbox } from 'react-native-paper';
 import { deactivatePusher, initPusher } from '@app/helper/pusher';
 import { getTranslation } from '@app/helper/translate';
-import { DarkMode, setMainPageShown, useMutate, useSelector } from '@app/redux/reducer';
+import { setMainPageShown, useMutate } from '@app/redux/reducer';
 import { setInternalLanguage } from '@app/redux/statecache';
 import { getToken } from '@app/service/push';
 import { createStylesheet } from '@app/theming-new';
 import { appConfig } from '@nex/dataset';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { IAccount, saveAccount, saveAccountThrottled } from '@app/api/account';
 import { useSaveAccountMutation } from '@app/mutations/save-account';
 import { useAccount } from '@app/queries/all';
-
 
 export default function SettingsPage() {
     const styles = useStyles();
@@ -146,15 +142,6 @@ export default function SettingsPage() {
     const languageList: string[] = Object.keys(languageMap);
     const divider = (x: any, i: number) => i === 0;
 
-    const values: DarkMode[] = ['light', 'dark', 'system'];
-
-    const setDarkMode = async (darkMode: any) => {
-        saveAccountMutation.mutate({
-            ...account!,
-            darkMode,
-        });
-    };
-
     const onLanguageSelected = async (language: string) => {
         saveAccountMutation.mutate({
             ...account!,
@@ -174,23 +161,6 @@ export default function SettingsPage() {
     return (
         <ScrollView contentContainerStyle="min-h-full p-5">
             <Stack.Screen options={{ title: getTranslation('settings.title') }} />
-
-            {(true || Platform.OS !== 'web') ? (
-                <View style={styles.row}>
-                    <View style={styles.cellName}>
-                        <MyText>{getTranslation('settings.darkmode')}</MyText>
-                        <MyText style={styles.small}>{getTranslation('settings.darkmode.note')}</MyText>
-                    </View>
-                    <View style={styles.cellValue}>
-                        <ButtonPicker
-                            value={account?.darkMode}
-                            values={values}
-                            formatter={(x) => getTranslation(`settings.darkmode.${x}` as any)}
-                            onSelect={setDarkMode}
-                        />
-                    </View>
-                </View>
-            ) : null}
 
             <View style={styles.row}>
                 <View style={styles.cellName}>

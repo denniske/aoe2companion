@@ -235,29 +235,22 @@ const customDarkTheme = {
 };
 
 function useColorSchemes() {
-    useDeviceContext(tw, {
-        observeDeviceColorSchemeChanges: false,
-        initialColorScheme: 'device',
-    });
-
-    const darkMode = useAccountData(account => account.darkMode);
-
     const { setColorScheme: setTailwindColorScheme } = useTailwindColorScheme();
-    const [, , setTailwindReactNativeColorScheme] = useAppColorScheme(tw);
+    const [ , , setTailwindReactNativeColorScheme] = useAppColorScheme(tw);
     const deviceColorScheme = useColorScheme();
 
-    const finalDarkMode = (darkMode === 'system' ? deviceColorScheme : darkMode) || 'light';
+    const darkMode = deviceColorScheme || 'light';
 
     useEffect(() => {
-        setTailwindColorScheme(finalDarkMode);
-        setTailwindReactNativeColorScheme(finalDarkMode);
-    }, [finalDarkMode]);
+        setTailwindColorScheme(darkMode);
+        setTailwindReactNativeColorScheme(darkMode);
+    }, [darkMode]);
 
     return {
-        paperTheme: finalDarkMode === 'light' ? customPaperTheme : customDarkPaperTheme,
-        evaTheme: finalDarkMode === 'light' ? eva.light : eva.dark,
-        customTheme: finalDarkMode === 'light' ? customLightTheme : customDarkTheme,
-        contentTheme: finalDarkMode === 'light' ? 'dark-content' : 'light-content',
+        paperTheme: darkMode === 'light' ? customPaperTheme : customDarkPaperTheme,
+        evaTheme: darkMode === 'light' ? eva.light : eva.dark,
+        customTheme: darkMode === 'light' ? customLightTheme : customDarkTheme,
+        contentTheme: darkMode === 'light' ? 'dark-content' : 'light-content',
     } as const;
 }
 
