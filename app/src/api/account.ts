@@ -1,14 +1,18 @@
-import {fetchJson} from "./util";
+import { fetchJson } from './util';
 import { getHost, makeQueryString } from '@nex/data';
 import { supabaseClient } from '../../../data/src/helper/supabase';
 import throttle from '@jcoreio/async-throttle';
 import {
-    loadAccountFromStorage, loadConfigFromStorage,
+    loadAccountFromStorage,
+    loadAuthFromStorage,
+    loadConfigFromStorage,
     loadFollowingFromStorage,
-    loadPrefsFromStorage,
-    loadAuthFromStorage, saveConfigToStorage, saveFollowingToStorage, saveAuthToStorage, savePrefsToStorage,
+    saveAuthToStorage,
+    saveConfigToStorage,
+    saveFollowingToStorage,
 } from '@app/service/storage';
 import { DarkMode } from '@app/redux/reducer';
+import { loadPrefsFromStorage } from '@app/queries/prefs';
 
 export interface IAccountFollowedPlayer {
     profileId: number;

@@ -6,17 +6,18 @@ import { MyText } from '@app/view/components/my-text';
 import RefreshControlThemed from '@app/view/components/refresh-control-themed';
 import { TabBarLabel } from '@app/view/components/tab-bar-label';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { countriesDistinct, Country, noop } from '@nex/data';
+import { countriesDistinct, Country } from '@nex/data';
 import { appConfig } from '@nex/dataset';
-import { MaterialTopTabBar, createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { createMaterialTopTabNavigator, MaterialTopTabBar } from '@react-navigation/material-top-tabs';
 import { useIsFocused } from '@react-navigation/native';
 import { IndexPath, Select, SelectItem } from '@ui-kitten/components';
-import { Stack, router } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
     Animated,
     Dimensions,
+    FlatList as FlatListRef,
     NativeScrollEvent,
     NativeSyntheticEvent,
     PanResponder,
@@ -25,8 +26,6 @@ import {
     TextStyle,
     TouchableOpacity,
     View,
-    ViewStyle,
-    FlatList as FlatListRef,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { fetchLeaderboard, fetchLeaderboards } from '../../api/helper/api';
@@ -37,11 +36,10 @@ import { getValue } from '../../helper/util-component';
 import { useLazyAppendApi } from '../../hooks/use-lazy-append-api';
 import { setLeaderboardCountry, useMutate, useSelector } from '../../redux/reducer';
 import { createStylesheet } from '../../theming-new';
-import { uniq, compact } from 'lodash';
 import { Dropdown } from '@app/components/dropdown';
 import { leaderboardsByType } from '@app/helper/leaderboard';
 import { useQuery } from '@tanstack/react-query';
-import { useAuthProfileId, useFollowedAndMeProfileIds } from '@app/queries/all';
+import { useAuthProfileId, useFollowedAndMeProfileIds, useProfileFast } from '@app/queries/all';
 
 const Tab = createMaterialTopTabNavigator<any>();
 
@@ -55,11 +53,14 @@ function isCountry(x: string | null) {
 export function LeaderboardMenu() {
     const mutate = useMutate();
     const country = useSelector((state) => state.leaderboardCountry) || null;
-    const authCountry = useSelector((state) => state.prefs.country);
-    const authClan = useSelector((state) => state.prefs.clan);
     const isFocused = useIsFocused();
 
     // console.log('LeaderboardMenu', country);
+    
+    const authProfileId = useAuthProfileId();
+    const { data: authProfile } = useProfileFast(authProfileId);
+    const authCountry = authProfile?.country;
+    const authClan = authProfile?.clan;
 
     const formatCountry = (x: string | null, inList?: boolean) => {
         if (x == countryEarth) {
@@ -169,7 +170,6 @@ export default function LeaderboardPage() {
                     tabBarInactiveTintColor: colorScheme === 'dark' ? 'white' : 'black',
                     tabBarActiveTintColor: colorScheme === 'dark' ? 'white' : 'black',
                 }}
-                sceneContainerStyle={{ backgroundColor: 'transparent' }}
             >
                 {leaderboardsByType(leaderboards, leaderboardType).map((leaderboard, i) => {
                     return (

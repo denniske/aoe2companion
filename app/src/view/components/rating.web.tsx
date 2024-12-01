@@ -1,28 +1,25 @@
-import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
-import React, { Fragment, useEffect, useMemo, useState } from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useMemo, useState } from 'react';
 import { formatDateShort, formatMonth, formatTime, formatYear, LeaderboardId } from '@nex/data';
 import { getLeaderboardColor, getLeaderboardTextColor } from '../../helper/colors';
 import { TextLoader } from './loader/text-loader';
 import { usePaperTheme } from '../../theming';
-import { setPrefValue, useMutate, useSelector } from '../../redux/reducer';
 import ButtonPicker from './button-picker';
-import { savePrefsToStorage } from '../../service/storage';
 import { isAfter, subDays, subMonths, subWeeks } from 'date-fns';
 
-
 import { VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTheme } from 'victory-native';
-
 
 import { getTranslation } from '../../helper/translate';
 import { IProfileRatingsLeaderboard, IProfileResult } from '../../api/helper/api.types';
 import { windowWidth } from '@app/app/statistics/leaderboard';
 import { useColorScheme } from 'nativewind';
-import { orderBy } from 'lodash';
+import { cloneDeep, merge } from 'lodash';
 import { ViewLoader } from '@app/view/components/loader/view-loader';
 
 import tw from '@app/tailwind';
-import { cloneDeep, merge } from 'lodash';
 import { useAuthProfileId } from '@app/queries/all';
+import { usePrefData } from '@app/queries/prefs';
+import { useSavePrefsMutation } from '@app/mutations/save-prefs';
 
 function replaceRobotoWithSystemFont(obj: any) {
     const keys = Object.keys(obj);
@@ -93,10 +90,10 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
 
     const paperTheme = usePaperTheme();
     const { colorScheme } = useColorScheme();
-    const mutate = useMutate();
     const authProfileId = useAuthProfileId();
 
-    const prefHiddenLeaderboardIds = useSelector((state) => state.prefs.ratingHistoryHiddenLeaderboardIds);
+    const prefHiddenLeaderboardIds = usePrefData((state) => state.ratingHistoryHiddenLeaderboardIds);
+    const savePrefsMutation = useSavePrefsMutation();
     const [hiddenLeaderboardIds, setHiddenLeaderboardIds] = useState<LeaderboardId[]>();
 
     useEffect(() => {
@@ -112,8 +109,7 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
             }
         } else {
             if (isAuthProfile) {
-                mutate(setPrefValue('ratingHistoryHiddenLeaderboardIds', hiddenLeaderboardIds));
-                savePrefsToStorage();
+                savePrefsMutation.mutate({ ratingHistoryHiddenLeaderboardIds: hiddenLeaderboardIds });
             }
         }
     }, [authProfileId, profile, hiddenLeaderboardIds]);
@@ -126,8 +122,7 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
 
     const nav = async (str: any) => {
         setRatingHistoryDuration(str);
-        mutate(setPrefValue('ratingHistoryDuration', str));
-        await savePrefsToStorage();
+        savePrefsMutation.mutate({ ratingHistoryDuration: str });
     };
 
     const toggleLeaderboard = (leaderboardId: LeaderboardId) => {

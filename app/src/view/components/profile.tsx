@@ -167,9 +167,6 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
     data = ready ? data : null;
 
     const styles = useStyles();
-    const mutate = useMutate();
-    const authCountry = useSelector((state) => state.prefs.country);
-    const authClan = useSelector((state) => state.prefs.clan);
     const steamProfileUrl = 'https://steamcommunity.com/profiles/' + data?.steamId;
     const xboxProfileUrl = 'https://www.ageofempires.com/stats/?game=age2&profileId=' + data?.profileId;
     const [showTournamentPlayer, setShowTournamentPlayer] = useState(false);

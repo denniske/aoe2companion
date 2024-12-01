@@ -11,7 +11,9 @@ import { useAccount, useAuthProfileId, useProfileFast } from '@app/queries/all';
 export const FollowedPlayers = () => {
     const authProfileId = useAuthProfileId();
 
-    const { data: account } = useAccount();
+    const { data: account, error } = useAccount();
+    // console.log('account', account);
+    // console.log('error', error);
 
     // console.log('followed players account', account?.followedPlayers.length);
 

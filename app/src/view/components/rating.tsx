@@ -4,22 +4,20 @@ import { formatDateShort, formatMonth, formatTime, formatYear, LeaderboardId } f
 import { getLeaderboardColor, getLeaderboardTextColor } from '../../helper/colors';
 import { TextLoader } from './loader/text-loader';
 import { usePaperTheme } from '../../theming';
-import { setPrefValue, useMutate, useSelector } from '../../redux/reducer';
 import ButtonPicker from './button-picker';
-import { savePrefsToStorage } from '../../service/storage';
 import { isAfter, subDays, subMonths, subWeeks } from 'date-fns';
-import { getTranslation } from '../../helper/translate';
 import { IProfileRatingsLeaderboard, IProfileResult } from '../../api/helper/api.types';
 import { windowWidth } from '@app/app/statistics/leaderboard';
-import { useColorScheme } from 'nativewind';
 import { orderBy } from 'lodash';
 
 import { CartesianChart, Line, Scatter } from 'victory-native-date';
 import { matchFont } from '@shopify/react-native-skia';
 import { ViewLoader } from '@app/view/components/loader/view-loader';
 import { useAuthProfileId } from '@app/queries/all';
+import { usePrefData } from '@app/queries/prefs';
+import { useSavePrefsMutation } from '@app/mutations/save-prefs';
 
-const fontFamily = Platform.select({ ios: "Helvetica", default: "serif" });
+const fontFamily = Platform.select({ ios: 'Helvetica', default: 'serif' });
 const fontStyle = {
     fontFamily,
     fontSize: 11,
@@ -38,10 +36,10 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
     ratingHistories = ready ? ratingHistories : null;
 
     const paperTheme = usePaperTheme();
-    const mutate = useMutate();
     const authProfileId = useAuthProfileId();
 
-    const prefHiddenLeaderboardIds = useSelector((state) => state.prefs.ratingHistoryHiddenLeaderboardIds);
+    const prefHiddenLeaderboardIds = usePrefData((state) => state.ratingHistoryHiddenLeaderboardIds);
+    const savePrefsMutation = useSavePrefsMutation();
     const [hiddenLeaderboardIds, setHiddenLeaderboardIds] = useState<LeaderboardId[]>();
 
     useEffect(() => {
@@ -57,8 +55,7 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
             }
         } else {
             if (isAuthProfile) {
-                mutate(setPrefValue('ratingHistoryHiddenLeaderboardIds', hiddenLeaderboardIds));
-                savePrefsToStorage();
+                savePrefsMutation.mutate({ ratingHistoryHiddenLeaderboardIds: hiddenLeaderboardIds });
             }
         }
     }, [authProfileId, profile, hiddenLeaderboardIds]);
@@ -71,8 +68,7 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
 
     const nav = async (str: any) => {
         setRatingHistoryDuration(str);
-        mutate(setPrefValue('ratingHistoryDuration', str));
-        await savePrefsToStorage();
+        savePrefsMutation.mutate({ ratingHistoryDuration: str });
     };
 
     const toggleLeaderboard = (leaderboardId: LeaderboardId) => {

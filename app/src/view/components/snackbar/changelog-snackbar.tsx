@@ -1,33 +1,31 @@
 import * as React from 'react';
-import {Platform, StyleSheet, ViewStyle} from 'react-native';
-import Snackbar from "../snackbar";
-import {setPrefValue, useMutate, useSelector} from "../../../redux/reducer";
-import {compareBuild} from "semver";
-import Constants from "expo-constants";
-import {savePrefsToStorage} from '../../../service/storage';
-import {getTranslation} from '../../../helper/translate';
-import {useEffect, useState} from "react";
+import { useEffect, useState } from 'react';
+import { Platform, StyleSheet, ViewStyle } from 'react-native';
+import Snackbar from '../snackbar';
+import { useSelector } from '../../../redux/reducer';
+import { compareBuild } from 'semver';
+import Constants from 'expo-constants';
+import { getTranslation } from '../../../helper/translate';
 import { sleep } from '@nex/data';
 import { router } from 'expo-router';
 import { IChangelogPageParams } from '@app/app/more/changelog';
-
+import { usePrefData } from '@app/queries/prefs';
+import { useSavePrefsMutation } from '@app/mutations/save-prefs';
 
 export default function ChangelogSnackbar() {
-    const updateAvailable = useSelector(state => state.updateAvailable);
-    const changelogLastVersionRead = useSelector(state => state.prefs.changelogLastVersionRead);
+    const updateAvailable = useSelector((state) => state.updateAvailable);
+    const changelogLastVersionRead = usePrefData((state) => state.changelogLastVersionRead);
     const [currentVersion, setCurrentVersion] = useState<string>();
-    const mutate = useMutate();
-
-    // mutate(setPrefValue('changelogLastVersionRead', '10.0.5'));
-    // console.log('changelogLastVersionRead', changelogLastVersionRead);
+    const savePrefsMutation = useSavePrefsMutation();
 
     console.log('currentVersion', currentVersion);
 
     const lessThan = -1;
-    const visible = currentVersion != null && (changelogLastVersionRead == null || compareBuild(changelogLastVersionRead, currentVersion) === lessThan);
+    const visible =
+        currentVersion != null && (changelogLastVersionRead == null || compareBuild(changelogLastVersionRead, currentVersion) === lessThan);
 
     const openChangelog = () => {
-        router.push({pathname: '/more/changelog', params: {changelogLastVersionRead} as IChangelogPageParams});
+        router.push({ pathname: '/more/changelog', params: { changelogLastVersionRead } as IChangelogPageParams });
         close();
     };
 
@@ -39,33 +37,27 @@ export default function ChangelogSnackbar() {
 
     useEffect(() => {
         initVersion();
-        // mutate(setPrefValue('changelogLastVersionRead', '26.0.0+0'));
-        // saveCurrentPrefsToStorage();
-    }, [])
+        // savePrefsMutation.mutate({changelogLastVersionRead: '26.0.0+0'});
+    }, []);
 
     const close = () => {
-        mutate(setPrefValue('changelogLastVersionRead', currentVersion));
-        savePrefsToStorage();
+        savePrefsMutation.mutate({ changelogLastVersionRead: currentVersion });
     };
 
     let message = getTranslation('changelogsnackbar.appupdated');
     let actions: any = [
-                {
-                    label: getTranslation('changelogsnackbar.showchanges'),
-                    onPress: openChangelog,
-                },
-                {
-                    label: 'X',
-                    onPress: close,
-                },
-            ];
+        {
+            label: getTranslation('changelogsnackbar.showchanges'),
+            onPress: openChangelog,
+        },
+        {
+            label: 'X',
+            onPress: close,
+        },
+    ];
 
     return (
-        <Snackbar
-            style={styles.bar}
-            visible={visible && !updateAvailable}
-            onDismiss={close}
-            actions={actions}>
+        <Snackbar style={styles.bar} visible={visible && !updateAvailable} onDismiss={close} actions={actions}>
             {message}
         </Snackbar>
     );

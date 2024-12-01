@@ -1,22 +1,21 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Constants from 'expo-constants';
 import { MyText } from '@app/view/components/my-text';
 import { createStylesheet } from '../../theming-new';
 import { getTranslation } from '../../helper/translate';
-import { Link, Stack, useGlobalSearchParams } from 'expo-router';
+import { Stack } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
 import useAuth from '../../../../data/src/hooks/use-auth';
 import Login from '@app/components/login';
-import { getHost, makeQueryString } from '@nex/data';
+import { makeQueryString } from '@nex/data';
 import Space from '@app/view/components/space';
 import { openLink } from '@app/helper/url';
 import { useTheme } from '@app/theming';
 import { appVariants } from '@app/styles';
-import { QUERY_KEY_ACCOUNT, useAccount } from '@app/app/_layout';
-import { accountUnlinkPatreon, accountUnlinkSteam, fetchAccount } from '@app/api/account';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { accountUnlinkPatreon, accountUnlinkSteam } from '@app/api/account';
 import { supabaseClient } from '../../../../data/src/helper/supabase';
+import { useAccount } from '@app/queries/all';
 
 function getPatreonLoginUrl() {
     const queryString = new URLSearchParams({
