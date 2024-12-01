@@ -11,7 +11,7 @@ import { CountryImage } from '../../../view/components/country-image';
 import { getVerifiedPlayer, isVerifiedPlayer } from '@nex/data';
 import { Text } from '@app/components/text';
 import { Link } from '@app/components/link';
-import { useAccount } from '@app/queries/all';
+import { useAccount, useAuthProfileId } from '@app/queries/all';
 import { useQuery } from '@tanstack/react-query';
 import { useFollowMutation } from '@app/mutations/follow';
 import { useUnfollowMutation } from '@app/mutations/unfollow';
@@ -32,7 +32,7 @@ interface UserMenuProps {
 // so we need to pass the params as a prop
 export function UserMenu({ profile }: UserMenuProps) {
     const profileId = profile?.profileId;
-    const auth = useSelector((state) => state.auth!);
+    const authProfileId = useAuthProfileId();
 
     const { data: account } = useAccount();
     console.log('account?.followedPlayers', account?.followedPlayers);
@@ -105,7 +105,7 @@ export function UserMenu({ profile }: UserMenuProps) {
         return null;
     }
 
-    if (Number(profileId) === Number(auth?.profileId)) {
+    if (profileId === authProfileId) {
         return (
             <TouchableOpacity onPress={deleteUser}>
                 <Icon icon="user-times" size={20} color="subtle" />

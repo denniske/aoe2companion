@@ -322,7 +322,6 @@ function AppWrapper() {
 
         mutate(state => {
             state.account = account;
-            state.auth = auth as any;
             state.prefs = prefs as IPrefs;
         });
 

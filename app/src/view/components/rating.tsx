@@ -17,6 +17,7 @@ import { orderBy } from 'lodash';
 import { CartesianChart, Line, Scatter } from 'victory-native-date';
 import { matchFont } from '@shopify/react-native-skia';
 import { ViewLoader } from '@app/view/components/loader/view-loader';
+import { useAuthProfileId } from '@app/queries/all';
 
 const fontFamily = Platform.select({ ios: "Helvetica", default: "serif" });
 const fontStyle = {
@@ -38,16 +39,16 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
 
     const paperTheme = usePaperTheme();
     const mutate = useMutate();
-    const auth = useSelector((state) => state.auth);
+    const authProfileId = useAuthProfileId();
 
     const prefHiddenLeaderboardIds = useSelector((state) => state.prefs.ratingHistoryHiddenLeaderboardIds);
     const [hiddenLeaderboardIds, setHiddenLeaderboardIds] = useState<LeaderboardId[]>();
 
     useEffect(() => {
-        if (!auth) return;
+        if (!authProfileId) return;
         if (!profile) return;
 
-        const isAuthProfile = auth?.profileId === profile?.profileId;
+        const isAuthProfile = authProfileId === profile?.profileId;
         if (hiddenLeaderboardIds == null) {
             if (isAuthProfile) {
                 setHiddenLeaderboardIds(prefHiddenLeaderboardIds || []);
@@ -60,7 +61,7 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
                 savePrefsToStorage();
             }
         }
-    }, [auth, profile, hiddenLeaderboardIds]);
+    }, [authProfileId, profile, hiddenLeaderboardIds]);
 
     // Changing the pref will trigger a rerender on every chart. Should we do this?
     // const ratingHistoryDuration = useSelector((state) => state.prefs.ratingHistoryDuration) || 'max';

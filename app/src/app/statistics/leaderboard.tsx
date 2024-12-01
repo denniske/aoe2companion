@@ -41,7 +41,7 @@ import { uniq, compact } from 'lodash';
 import { Dropdown } from '@app/components/dropdown';
 import { leaderboardsByType } from '@app/helper/leaderboard';
 import { useQuery } from '@tanstack/react-query';
-import { useFollowedAndMeProfileIds } from '@app/queries/all';
+import { useAuthProfileId, useFollowedAndMeProfileIds } from '@app/queries/all';
 
 const Tab = createMaterialTopTabNavigator<any>();
 
@@ -193,7 +193,6 @@ const pageSize = 100;
 
 function Leaderboard({ leaderboardId }: any) {
     const styles = useStyles();
-    const auth = useSelector((state) => state.auth!);
     const [refetching, setRefetching] = useState(false);
     const leaderboardCountry = useSelector((state) => state.leaderboardCountry) || null;
     const [loadedLeaderboardCountry, setLoadedLeaderboardCountry] = useState(leaderboardCountry);
@@ -590,9 +589,9 @@ function RenderRow(props: RenderRowProps) {
     const { player, i, isMyRankRow, rankWidth, myRankWidth, onSelect, scrollToMe, leaderboardCountry } = props;
 
     const styles = useStyles();
-    const auth = useSelector((state) => state.auth!);
+    const authProfileId = useAuthProfileId();
 
-    const isMe = player?.profileId != null && player?.profileId === auth?.profileId;
+    const isMe = player?.profileId != null && player?.profileId === authProfileId;
     const rowStyle = { minHeight: isMyRankRow ? ROW_HEIGHT_MY_RANK : ROW_HEIGHT };
     const weightStyle = { fontWeight: isMe ? 'bold' : 'normal' } as TextStyle;
     const rankWidthStyle = { width: Math.max(myRankWidth || 43, rankWidth || 43) } as TextStyle;

@@ -6,7 +6,7 @@ import { IPlayerListPlayer } from '@app/view/components/player-list';
 import Search from '@app/view/components/search';
 import { router, useNavigation } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { useAccount } from '@app/queries/all';
+import { useAccount, useAuthProfileId } from '@app/queries/all';
 import { useFollowMutation } from '@app/mutations/follow';
 import { useUnfollowMutation } from '@app/mutations/unfollow';
 
@@ -26,8 +26,8 @@ export default function Follow() {
 }
 
 function FeedAction({ user }: { user: IPlayerListPlayer }) {
-    const auth = useSelector((state) => state.auth);
-    const isMe = auth?.profileId === user.profileId;
+    const authProfileId = useAuthProfileId();
+    const isMe = authProfileId === user.profileId;
 
     const { data: account } = useAccount();
     const followingThisUser = !!account?.followedPlayers.find((f) => f.profileId === user.profileId);

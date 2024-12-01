@@ -22,6 +22,7 @@ import FlatListLoadingIndicator from '../components/flat-list-loading-indicator'
 import { MyText } from '../components/my-text';
 import RefreshControlThemed from '../components/refresh-control-themed';
 import TemplatePicker from '../components/template-picker';
+import { useAuthProfileId } from '@app/queries/all';
 
 interface Props {
     profileId: number;
@@ -58,7 +59,7 @@ function MainMatchesInternal({ profileId }: { profileId: number }) {
     const [leaderboardIds, setLeaderboardIds] = useState<string[]>([]);
     const [withMe, setWithMe] = useState(false);
     const [reloading, setReloading] = useState(false);
-    const auth = useSelector((state) => state.auth);
+    const authProfileId = useAuthProfileId();
     const [leaderboardType, setLeaderboardType] = useState<'pc' | 'xbox'>('pc');
 
     const realText = text.trim().length < 3 ? '' : text.trim();
@@ -70,7 +71,7 @@ function MainMatchesInternal({ profileId }: { profileId: number }) {
             fetchMatches({
                 ...context,
                 profileIds: [profileId],
-                withProfileIds: withMe ? [auth?.profileId ?? 0] : [],
+                withProfileIds: withMe ? [authProfileId!] : [],
                 search: debouncedSearch,
                 leaderboardIds: leaderboardIds,
             }),
@@ -190,7 +191,7 @@ function MainMatchesInternal({ profileId }: { profileId: number }) {
                         onSelect={onLeaderboardSelected}
                     />
                     <View style={appStyles.expanded} />
-                    {auth && profileId !== auth?.profileId && (
+                    {authProfileId && profileId !== authProfileId && (
                         <View style={styles.row2}>
                             <Checkbox.Android status={withMe ? 'checked' : 'unchecked'} onPress={toggleWithMe} />
                             <TouchableOpacity onPress={toggleWithMe}>

@@ -20,6 +20,8 @@ export const useAccountData = <T>(select?: (data: IAccount) => T) =>
         select,
     }).data;
 
+export const useAuthProfileId = () => useAccountData((data) => data.profileId);
+
 export const useFollowedAndMeProfileIds = () => useAccountData((data) => {
     return compact(uniq([data.profileId, ...data.followedPlayers.map((f) => f.profileId)]))
 });
@@ -36,10 +38,11 @@ export const useProfile = (profileId: number) =>
         queryFn: () => fetchProfile({ profileId }),
     });
 
-export const useProfileFast = (profileId: number) =>
+export const useProfileFast = (profileId?: number) =>
     useQuery({
         queryKey: ['profile', profileId],
         queryFn: async () => { return (await fetchProfiles({ profileId })).profiles[0]; },
+        enabled: !!profileId,
     });
 
 export const useProfileWithStats = (profileId: number) =>

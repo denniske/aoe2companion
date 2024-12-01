@@ -12,6 +12,7 @@ import { TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import { CountryImage } from './country-image';
 import { useCavy } from '../testing/tester';
+import { useAuthProfileId } from '@app/queries/all';
 
 export interface IPlayerListPlayer {
     country?: string;
@@ -45,7 +46,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
     playerStyle,
 }: IPlayerProps<PlayerType>) {
     const generateTestHook = useCavy();
-    const auth = useSelector((state) => state.auth);
+    const authProfileId = useAuthProfileId();
 
     if (player === 'loading') {
         return (
@@ -98,7 +99,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
         );
     }
 
-    const isMe = player.profileId === auth?.profileId;
+    const isMe = player.profileId === authProfileId;
 
     const onSelect = async () => {
         selectedUser!(player);

@@ -18,14 +18,14 @@ import { Stack, useFocusEffect, useRootNavigationState, useRouter } from 'expo-r
 import { useCallback, useEffect } from 'react';
 import { Platform, View } from 'react-native';
 import { Button } from '@app/components/button';
-import { useAccountData } from '@app/queries/all';
+import { useAccountData, useAuthProfileId } from '@app/queries/all';
 
 export default function Page() {
+    const authProfileId = useAuthProfileId();
     const tournament = useFeaturedTournament();
     const matches = useCurrentMatches(1);
     const currentMatch = matches?.length ? matches[0] : null;
     const { data: news = Array(3).fill(null) } = useNews(3);
-    const auth = useSelector((state) => state.auth);
     const router = useRouter();
     const { favorites, refetch } = useFavoritedBuilds();
     const { followedIds, refetch: refetchTournament } = useFollowedTournaments();
@@ -56,8 +56,6 @@ export default function Page() {
         }
     }, [isNavigationReady]);
 
-    console.log('AUTH', auth);
-
     return (
         <ScrollView contentContainerStyle="p-4 gap-5">
             <Stack.Screen
@@ -76,7 +74,7 @@ export default function Page() {
                 <FollowedPlayers />
             </View>
 
-            {auth && (
+            {authProfileId && (
                 <View className="gap-2">
                     <Text variant="header-lg">{currentMatch?.finished === null ? 'Current' : 'Most Recent'} Match</Text>
 

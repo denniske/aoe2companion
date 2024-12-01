@@ -3,13 +3,11 @@ import { IPlayerNew } from '@app/api/helper/api.types';
 import { useSelector } from '@app/redux/reducer';
 import { useQuery } from '@tanstack/react-query';
 import { flatten, orderBy } from 'lodash';
+import { useAuthProfileId } from '@app/queries/all';
 
 export const useCurrentMatches = (count: number) => {
-    const auth = useSelector((state) => state.auth);
-    const profileIds: number[] = [];
-    if (auth) {
-        profileIds.push(auth?.profileId);
-    }
+    const authProfileId = useAuthProfileId();
+    const profileIds: number[] = authProfileId ? [authProfileId] : [];
 
     const { data } = useQuery({
         queryKey: ['current-matches', profileIds],
@@ -23,8 +21,8 @@ export const useCurrentMatches = (count: number) => {
     const matches = data?.matches.slice(0, count);
 
     const filterAndSortPlayers = (players: IPlayerNew[]) => {
-        let filteredPlayers = players.filter((p) => p.profileId == auth?.profileId);
-        filteredPlayers = orderBy(filteredPlayers, (p) => p.profileId == auth?.profileId);
+        let filteredPlayers = players.filter((p) => p.profileId == authProfileId);
+        filteredPlayers = orderBy(filteredPlayers, (p) => p.profileId == authProfileId);
         return filteredPlayers;
     };
 

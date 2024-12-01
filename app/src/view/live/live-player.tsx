@@ -16,7 +16,6 @@ interface IPlayerProps {
 export function LivePlayer({ player }: IPlayerProps) {
     const theme = useAppTheme();
     const styles = useStyles();
-    const auth = useSelector((state) => state.auth);
 
     const gotoPlayer = () => {
         if (player == null) return;
