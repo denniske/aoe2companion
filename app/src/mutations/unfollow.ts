@@ -26,7 +26,7 @@ export const useUnfollowMutation = () => {
             queryClient.setQueryData(QUERY_KEY_ACCOUNT(), context?.previousAccount);
         },
         onSettled: async (_profileId) => {
-            if ((queryClient.isMutating({ mutationKey: ['follow'] }) + queryClient.isMutating({ mutationKey: ['unfollow'] })) === 1) {
+            if ((queryClient.isMutating({ mutationKey: ['unfollow'] }) + queryClient.isMutating({ mutationKey: ['unfollow'] })) === 1) {
                 await queryClient.invalidateQueries({ queryKey: QUERY_KEY_ACCOUNT(), refetchType: 'all' });
             }
         },

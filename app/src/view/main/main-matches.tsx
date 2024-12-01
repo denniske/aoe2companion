@@ -31,30 +31,6 @@ interface Props {
 export default function MainMatches({ profileId }: Props) {
     const styles = useStyles();
     const appStyles = useTheme(appVariants);
-
-    if (profileId == null) {
-        // This happens sometimes when clicking notification
-        // Routes will contain "Feed" with match_id
-        // console.log('ROUTES', JSON.stringify(routes));
-        return (
-            <View style={styles.list}>
-                <MyText>
-                    If you see this screen instead of a user profile, report a bug in the{' '}
-                    <MyText style={appStyles.link} onPress={() => openLink('https://discord.com/invite/gCunWKx')}>
-                        discord
-                    </MyText>
-                    .
-                </MyText>
-            </View>
-        );
-    }
-
-    return <MainMatchesInternal profileId={profileId} />;
-}
-
-function MainMatchesInternal({ profileId }: { profileId: number }) {
-    const styles = useStyles();
-    const appStyles = useTheme(appVariants);
     const [text, setText] = useState('');
     const [leaderboardIds, setLeaderboardIds] = useState<string[]>([]);
     const [withMe, setWithMe] = useState(false);

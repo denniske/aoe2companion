@@ -42,6 +42,10 @@
   "main.profile.reset.note": "Do you want to reset profile page?",
   "main.profile.reset.action.cancel": "Cancel",
   "main.profile.reset.action.reset": "Reset",
+  "main.profile.unlink.title": "Unlink steam account?",
+  "main.profile.unlink.note": "Do you really want to unlink your steam account?",
+  "main.profile.unlink.action.cancel": "Cancel",
+  "main.profile.unlink.action.reset": "Unlink",
   "main.matches.nomatches": "No matches.",
 
   "enum.slottype.player": "Player",

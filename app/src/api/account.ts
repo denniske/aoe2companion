@@ -123,13 +123,6 @@ export async function saveAccount(account: Partial<IAccount>): Promise<IResult> 
             });
         }
 
-        // await savePrefsToStorage(account.preferences);
-
-        // saveCurrentPrefsToStorage();
-
-        // profileId: auth.profileId,
-        // followedPlayers: following,
-
         return {
             result: 'success',
         };
@@ -139,6 +132,11 @@ export async function saveAccount(account: Partial<IAccount>): Promise<IResult> 
         ...account,
     };
 
+    // https://stackoverflow.com/questions/31284216/why-does-json-stringify-ignore-keys-whose-values-are-undefined
+    const replaceUndefinedWithNull = (key: string, value: any) => {
+        return value === undefined ? null : value;
+    };
+
     return await fetchJson('saveAccount', url, {
         method: 'POST',
         headers: {
@@ -146,7 +144,7 @@ export async function saveAccount(account: Partial<IAccount>): Promise<IResult> 
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(data, replaceUndefinedWithNull),
     });
 }
 

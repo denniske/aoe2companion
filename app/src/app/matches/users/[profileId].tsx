@@ -1,6 +1,6 @@
 import { IProfilesResultProfile } from '@app/api/helper/api.types';
 import { Icon } from '@app/components/icon';
-import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
 import { Alert, Platform, TouchableOpacity, View } from 'react-native';
 import { fetchProfiles } from '../../../api/helper/api';
@@ -23,6 +23,9 @@ import MainProfile from '@app/view/main/main-profile';
 import MainStats from '@app/view/main/main-stats';
 import MainMatches from '@app/view/main/main-matches';
 import { useProfileFast } from '@app/queries/all';
+import { useSaveAccountMutation } from '@app/mutations/save-account';
+import { accountUnlinkSteam } from '@app/api/account';
+import { useUnlinkSteamMutation } from '@app/mutations/unlink-steam';
 
 interface UserMenuProps {
     profile?: IProfilesResultProfile;
@@ -42,6 +45,11 @@ export function UserMenu({ profile }: UserMenuProps) {
     const followMutation = useFollowMutation();
     const unfollowMutation = useUnfollowMutation();
 
+    const saveAccountMutation = useSaveAccountMutation();
+    const unlinkSteamMutation = useUnlinkSteamMutation();
+
+    const router = useRouter();
+
     // Reset country for use in leaderboard country dropdown
     // useEffect(() => {
     //     if (auth == null) {
@@ -51,27 +59,27 @@ export function UserMenu({ profile }: UserMenuProps) {
     //     }
     // }, [auth]);
 
-    const deleteUser = () => {
+    const showResetOrUnlinkDialog = () => {
         if (account?.steamId) {
             if (Platform.OS === 'web') {
-                if (confirm('Do you really want to unlink your steam account?')) {
-                    doUnlinkSteam();
+                if (confirm(getTranslation('main.profile.unlink.note'))) {
+                    unlinkSteam();
                 }
             } else {
                 Alert.alert(
-                    getTranslation('main.profile.reset.title'),
-                    getTranslation('main.profile.reset.note'),
+                    getTranslation('main.profile.unlink.title'),
+                    getTranslation('main.profile.unlink.note'),
                     [
-                        { text: getTranslation('main.profile.reset.action.cancel'), style: 'cancel' },
-                        { text: getTranslation('main.profile.reset.action.reset'), onPress: doUnlinkSteam },
+                        { text: getTranslation('main.profile.unlink.action.cancel'), style: 'cancel' },
+                        { text: getTranslation('main.profile.unlink.action.reset'), onPress: unlinkSteam },
                     ],
                     { cancelable: false }
                 );
             }
         } else {
             if (Platform.OS === 'web') {
-                if (confirm('Do you want to reset me page?')) {
-                    doDeleteUser();
+                if (confirm(getTranslation('main.profile.reset.note'))) {
+                    resetUser();
                 }
             } else {
                 Alert.alert(
@@ -79,7 +87,7 @@ export function UserMenu({ profile }: UserMenuProps) {
                     getTranslation('main.profile.reset.note'),
                     [
                         { text: getTranslation('main.profile.reset.action.cancel'), style: 'cancel' },
-                        { text: getTranslation('main.profile.reset.action.reset'), onPress: doDeleteUser },
+                        { text: getTranslation('main.profile.reset.action.reset'), onPress: resetUser },
                     ],
                     { cancelable: false }
                 );
@@ -87,18 +95,14 @@ export function UserMenu({ profile }: UserMenuProps) {
         }
     };
 
-    const doUnlinkSteam = async () => {
-        // await clearSettingsInStorage();
-        // mutate(setAuth(null));
-        // router.replace('/matches/users/select');
-        // setAccountProfile(account.id, { profile_id: null, steam_id: null });
+    const unlinkSteam = async () => {
+        unlinkSteamMutation.mutate();
+        router.replace('/matches/users/select');
     };
 
-    const doDeleteUser = async () => {
-        // await clearSettingsInStorage();
-        // mutate(setAuth(null));
-        // router.replace('/matches/users/select');
-        // setAccountProfile(account.id, { profile_id: null, steam_id: null });
+    const resetUser = async () => {
+        saveAccountMutation.mutate({ profileId: undefined });
+        router.replace('/matches/users/select');
     };
 
     if (!profileId) {
@@ -107,7 +111,7 @@ export function UserMenu({ profile }: UserMenuProps) {
 
     if (profileId === authProfileId) {
         return (
-            <TouchableOpacity onPress={deleteUser}>
+            <TouchableOpacity onPress={showResetOrUnlinkDialog}>
                 <Icon icon="user-times" size={20} color="subtle" />
             </TouchableOpacity>
         );

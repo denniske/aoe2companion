@@ -16,7 +16,6 @@ const SelectProfilePage = () => {
     const onSelect = async (user: any) => {
         console.log('SELECTED', user);
         saveAccountMutation.mutate({
-            ...account!,
             profileId: user.profileId,
         });
         router.navigate(`/matches/users/${user.profileId!}`);

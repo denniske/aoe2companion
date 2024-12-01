@@ -3,7 +3,7 @@ import { router } from 'expo-router';
 import { View } from 'react-native';
 import { Text } from './text';
 import { uniqBy } from 'lodash';
-import { useAccount, useAuthProfileId, useProfileFast } from '@app/queries/all';
+import { useAccount, useAuthProfileId, useProfileFast, useProfiles } from '@app/queries/all';
 
 export const FollowedPlayers = () => {
     const authProfileId = useAuthProfileId();
@@ -13,6 +13,10 @@ export const FollowedPlayers = () => {
     // console.log('followed players account', account?.followedPlayers.length);
 
     const { data: authProfile } = useProfileFast(authProfileId);
+    const { data: followedProfiles } = useProfiles(account?.followedPlayers.map((f) => f.profileId));
+
+    // console.log('account.profileId', account?.profileId);
+    // console.log('authProfile', authProfile);
 
     return (
         <View className="gap-2">
@@ -30,7 +34,7 @@ export const FollowedPlayers = () => {
                 variant="horizontal"
                 showsHorizontalScrollIndicator={false}
                 list={uniqBy(
-                    [authProfileId ? authProfile || 'loading' : 'select', ...(account?.followedPlayers || []), 'follow'] as const,
+                    [authProfileId ? authProfile || 'loading' : 'select', ...(followedProfiles || []), 'follow'] as const,
                     (profile) => (typeof profile === 'string' ? profile : profile.profileId)
                 )}
                 selectedUser={(user) => router.navigate(`/matches/users/${user.profileId}?name=${user.name}&country=${user.country}`)}

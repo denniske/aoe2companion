@@ -42,9 +42,16 @@ export const useProfile = (profileId: number) =>
 
 export const useProfileFast = (profileId?: number) =>
     useQuery({
-        queryKey: ['profile', profileId],
+        queryKey: ['profile-fast', profileId],
         queryFn: async () => { return (await fetchProfiles({ profileId })).profiles[0]; },
         enabled: !!profileId,
+    });
+
+export const useProfiles = (profileIds?: number[]) =>
+    useQuery({
+        queryKey: ['profiles', profileIds?.join(',')],
+        queryFn: async () => { return (await fetchProfiles({ profileId: profileIds?.join(',') })).profiles; },
+        // enabled: !!profileId,
     });
 
 export const useProfileWithStats = (profileId: number, isFocused: boolean) =>
