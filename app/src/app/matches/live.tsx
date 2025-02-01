@@ -4,7 +4,6 @@ import { useAppTheme } from '../../theming';
 import { LiveGame } from '@app/view/live/live-game';
 import { MyText } from '@app/view/components/my-text';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { Searchbar } from 'react-native-paper';
 import { createStylesheet } from '../../theming-new';
 import { getTranslation } from '../../helper/translate';
 import { ICloseEvent, w3cwebsocket } from 'websocket';

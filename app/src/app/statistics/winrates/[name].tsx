@@ -26,6 +26,9 @@ import { ImageBackground } from 'expo-image';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 import React, { useState } from 'react';
+import { Platform, StyleSheet, View } from 'react-native';
+import { Area, Bar, CartesianChart, Line } from 'victory-native-current';
+import { DashPathEffect, matchFont } from '@shopify/react-native-skia';
 import { StyleSheet, View } from 'react-native';
 
 export default function CivDetails() {
@@ -101,6 +104,23 @@ export default function CivDetails() {
     );
 }
 
+
+const DATA = (length: number = 10) =>
+    Array.from({ length }, (_, index) => ({
+        month: index + 1,
+        listenCount: Math.floor(Math.random() * (100 - 50 + 1)) + 50,
+    }));
+
+
+const fontFamily = Platform.select({ ios: 'Helvetica', default: 'serif' });
+const fontStyle = {
+    fontFamily,
+    fontSize: 11,
+    fontStyle: "normal",
+    fontWeight: "normal",
+};
+const font = matchFont(fontStyle as any);
+
 const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingResponse; breakdown: WinrateBreakdown; civ: string }> = ({
     width,
     grouping,
@@ -118,46 +138,65 @@ const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingRe
             paginationStyle={{ bottom: 0 }}
             className="-mx-4 pb-6"
             slides={graphs.map(({ label, key, domain, tickFormat }) => {
-                const data = Object.values(breakdown.byRating).map((byRating) => ({
+                const data = Object.values(breakdown.byRating).map((byRating, i) => ({
+                    index: i,
                     elo: byRating.elo_range,
                     [key]: byRating.civ_stats[civ][key],
                 }));
+
+
                 return (
-                    <Card className="p-0 gap-0 mx-4" direction="vertical">
-                        <Text variant="header" className="pt-4 -mb-6" align="center">
+                    <Card className="p-0 gap-0 mx-4 h-80" direction="vertical">
+                        <Text variant="header" className="pt-4 mb-2" align="center">
                             {label}
                         </Text>
-
+                        {width > 0 && (
+                            <>
+                                <CartesianChart data={data}
+                                                padding={15}
+                                                domain={{
+                                                    x: [-0.5, data.length-0.5],
+                                                    y: domain
+                                                }}
+                                                xAxis={{
+                                                    font,
+                                                    tickCount: data.length,
+                                                    labelColor: '#000',
+                                                    lineWidth: 0,
+                                                    formatXLabel: (x) => grouping.elo_groupings.find((eg) => eg.name === data[x].elo)?.label.replace(/ *\([^)]*\) */g, '') ?? '',
+                                                    linePathEffect: <DashPathEffect intervals={[4, 4]} />,
+                                                }}
+                                                yAxis={[
+                                                    {
+                                                        font,
+                                                        yKeys: [key],
+                                                        linePathEffect: <DashPathEffect intervals={[4, 4]} />,
+                                                        formatYLabel: tickFormat,
+                                                    },
+                                                ]}
+                                                xKey="index"
+                                                yKeys={[key]}
+                                >
+                                    {({ points, chartBounds }) => {
+                                        console.log('points', points);
+                                        return (
+                                            <Bar
+                                                points={points[key]}
+                                                chartBounds={chartBounds}
+                                                barWidth={width / (data.length+3)}
+                                                color={colorScheme === 'dark' ? tw.color('gold-200') : tw.color('blue-500')}
+                                            />
+                                        );
+                                    }}
+                                </CartesianChart>
+                            </>
+                        )}
                     </Card>
                 );
             })}
         />
     );
 };
-
-// {/*{width > 0 && (*/}
-// {/*    <VictoryChart*/}
-// {/*        height={300}*/}
-// {/*        width={width}*/}
-// {/*        domainPadding={{ x: 10 }}*/}
-// {/*        domain={{ y: domain }}*/}
-// {/*        theme={colorScheme === 'dark' ? VictoryTheme.customDark : VictoryTheme.custom}*/}
-// {/*    >*/}
-// {/*        <VictoryAxis dependentAxis crossAxis tickFormat={tickFormat} />*/}
-// {/*        <VictoryAxis*/}
-// {/*            crossAxis*/}
-// {/*            gridComponent={<LineSegment active={false} style={{ stroke: 'transparent' }} />}*/}
-// {/*            tickFormat={(x) => grouping.elo_groupings.find((eg) => eg.name === x)?.label.replace(/ *\([^)]*\) */g, '') ?? ''}*/}
-// {/*        />*/}
-//
-// {/*        <VictoryBar*/}
-// {/*            data={data}*/}
-// {/*            x="elo"*/}
-// {/*            y={key}*/}
-// {/*            style={{ data: { fill: colorScheme === 'dark' ? tw.color('gold-200') : tw.color('blue-500') } }}*/}
-// {/*        />*/}
-// {/*    </VictoryChart>*/}
-// {/*)}*/}
 
 const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown; civ: string }> = ({ width, breakdown, civ }) => {
     const { colorScheme } = useColorScheme();
@@ -178,43 +217,61 @@ const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown;
                     date: patches?.find((patch) => patch.number === prior.patch)?.release_date,
                     [key]: prior.civ_stats[civ][key],
                 }));
+                console.log(data);
 
                 return (
-                    <Card className="p-0 gap-0 mx-4" direction="vertical">
-                        <Text variant="header" className="pt-4 -mb-6" align="center">
+                    <Card className="p-0 gap-0 mx-4 h-80" direction="vertical">
+                        <Text variant="header" className="pt-4 mb-2" align="center">
                             {label}
                         </Text>
                         {width > 0 && (
-                            <VictoryChart
-                                height={300}
-                                width={width}
-                                domain={{ y: domain }}
-                                theme={colorScheme === 'dark' ? VictoryTheme.customDark : VictoryTheme.custom}
-                            >
-                                <VictoryAxis dependentAxis crossAxis tickFormat={tickFormat} />
-                                <VictoryAxis crossAxis tickFormat={(x) => format(new Date(x), 'M/d')} />
-
-                                {domain[0] > domain[1] ? (
-                                    <VictoryLine
-                                        data={data}
-                                        x="date"
-                                        y={key}
-                                        style={{ data: { stroke: colorScheme === 'dark' ? tw.color('gold-200') : tw.color('blue-500') } }}
-                                    />
-                                ) : (
-                                    <VictoryArea
-                                        data={data}
-                                        x="date"
-                                        y={key}
-                                        style={{
-                                            data: {
-                                                stroke: colorScheme === 'dark' ? tw.color('gold-200') : tw.color('blue-400'),
-                                                fill: colorScheme === 'dark' ? tw.color('gold-200/80') : tw.color('blue-400/80'),
-                                            },
-                                        }}
-                                    />
-                                )}
-                            </VictoryChart>
+                            <>
+                                <CartesianChart data={data}
+                                                padding={15}
+                                                domain={{
+                                                    x: [-0.5, data.length-0.5],
+                                                    y: domain
+                                                }}
+                                                xAxis={{
+                                                    font,
+                                                    tickCount: data.length,
+                                                    labelColor: '#000',
+                                                    lineWidth: 0,
+                                                    formatXLabel: (x) => format(new Date(x), 'yy-MMM'),
+                                                    // formatXLabel: (x) => format(new Date(x), 'yyyy MMM d'),
+                                                    linePathEffect: <DashPathEffect intervals={[4, 4]} />,
+                                                    labelRotate: 0, //-90,
+                                                }}
+                                                yAxis={[
+                                                    {
+                                                        font,
+                                                        yKeys: [key],
+                                                        linePathEffect: <DashPathEffect intervals={[4, 4]} />,
+                                                        formatYLabel: tickFormat,
+                                                    },
+                                                ]}
+                                                xKey="date"
+                                                yKeys={[key]}
+                                >
+                                    {({ points, chartBounds }) => {
+                                        console.log('points', points);
+                                        return domain[0] < domain[1] ? (
+                                                <Area
+                                                    points={points[key]}
+                                                    y0={chartBounds.bottom}
+                                                    animate={{ type: "timing", duration: 300 }}
+                                                    color={colorScheme === 'dark' ? tw.color('gold-200') : tw.color('blue-500')}
+                                                />) : (
+                                                <Line
+                                                    points={points[key]}
+                                                    color={colorScheme === 'dark' ? tw.color('gold-200') : tw.color('blue-500')}
+                                                    strokeWidth={3}
+                                                    animate={{ type: "timing", duration: 300 }}
+                                                />
+                                                );
+                                    }}
+                                </CartesianChart>
+                            </>
                         )}
                     </Card>
                 );
