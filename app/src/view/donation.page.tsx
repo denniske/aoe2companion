@@ -6,7 +6,6 @@ export const donationABC = 1;
 // import {MyText} from "./components/my-text";
 // import {createStylesheet} from '../theming-new';
 // // import Purchases, {PURCHASE_TYPE, PurchaserInfo, PurchasesProduct} from 'react-native-purchases';
-// import {Button} from 'react-native-paper';
 // import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 // import {TabBarLabel} from './components/tab-bar-label';
 // import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';

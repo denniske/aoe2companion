@@ -119,6 +119,7 @@
     "twrnc": "^4.0.1",
     "uuid": "^3.4.0",
     "victory-native": "^37.3.1",
+    "victory-native-current": "npm:victory-native@^41.16.0",
     "victory-native-date": "^45.0.0",
     "websocket": "^1.0.34"
   },

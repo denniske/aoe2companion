@@ -79,7 +79,9 @@ export const Slider: React.FC<SliderProps> = ({
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        // flex: 1,
+        // backgroundColor: 'red',
+        // height: 300,
     },
     pagination: {
         position: 'absolute',
