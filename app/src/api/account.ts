@@ -1,5 +1,5 @@
 import { fetchJson } from './util';
-import { getHost, makeQueryString } from '@nex/data';
+import { getHost, makeQueryString, sleep } from '@nex/data';
 import { supabaseClient } from '../../../data/src/helper/supabase';
 import throttle from '@jcoreio/async-throttle';
 import {
@@ -13,6 +13,7 @@ import {
 } from '@app/service/storage';
 import { DarkMode } from '@app/redux/reducer';
 import { loadPrefsFromStorage } from '@app/queries/prefs';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface IAccountFollowedPlayer {
     profileId: number;
@@ -41,13 +42,56 @@ export interface IAccount {
     emailVerified: boolean;
 }
 
+// async function setFakeStorage() {
+//     await AsyncStorage.setItem('account', '{"id":"f0ca3509-5337-43d2-9b9f-b99efec3e3de"}');
+//     await AsyncStorage.setItem('config', '{"language":"de","darkMode":"system","preventScreenLockOnGuidePage":true,"pushNotificationsEnabled":false,"hotkeyShowHideEnabled":true,"hotkeySearchEnabled":true,"overlay":{"opacity":80,"offset":7,"duration":60}}');
+//     await AsyncStorage.setItem('settings', '{"profileId":223576}');
+//     await AsyncStorage.setItem('following', '[{"profileId":196240,"profile_id":196240,"name":"GL.TheViper","games":6248,"country":"de"},{"profileId":199325,"profile_id":199325,"name":"aM.Hera","games":8529,"country":"ca"},{"steam_id":"76561199043161086","profileId":2202814,"profile_id":2202814,"name":"Ems","games":780,"country":"ie"}]');
+//     await AsyncStorage.setItem('prefs', '{"country":"de","ratingHistoryHiddenLeaderboardIds":[],"clan":"AE2C","ratingHistoryDuration":"3m"}');
+// }
+
+// setFakeStorage();
+
+// async function logCurrentStorage() {
+//     console.log(`await AsyncStorage.setItem('account', '${JSON.stringify(await AsyncStorage.getItem('account'))}');`);
+//     console.log(`await AsyncStorage.setItem('config', '${JSON.stringify(await AsyncStorage.getItem('config'))}');`);
+//     console.log(`await AsyncStorage.setItem('settings', '${JSON.stringify(await AsyncStorage.getItem('settings'))}');`);
+//     console.log(`await AsyncStorage.setItem('following', '${JSON.stringify(await AsyncStorage.getItem('following'))}');`);
+//     console.log(`await AsyncStorage.setItem('prefs', '${JSON.stringify(await AsyncStorage.getItem('prefs'))}');`);
+// }
+//
+// logCurrentStorage();
+
 export async function fetchAccount(): Promise<IAccount> {
+    console.trace('fetchAccount START');
     const url = getHost('aoe2companion-api') + `v2/account`;
 
-    const { data: session } = await supabaseClient.auth.getSession();
+    // await supabaseClient.auth.signOut();
+
+    let { data: session } = await supabaseClient.auth.getSession();
+
+    console.log('session', session);
 
     if (!session.session) {
-        // console.log('fetchAccount: no session');
+        console.log('fetchAccount: no session');
+
+        const { error, data } = await supabaseClient.auth.signInAnonymously({
+            options: {
+                data: {
+
+                }
+            }
+        })
+
+        session = data;
+
+        // console.log('data.session', data.session);
+        // console.log('error', error);
+
+        if (error) {
+            console.log('fetchAccount: session creation failed', error);
+            throw error;
+        }
 
         const [account, auth, following, preferences, config] = await Promise.all([
             loadAccountFromStorage(),
@@ -57,9 +101,7 @@ export async function fetchAccount(): Promise<IAccount> {
             loadConfigFromStorage(),
         ]);
 
-        // console.log('following', following);
-
-        return {
+        const accountData = {
             accountId: account.id,
             profileId: auth?.profileId,
             steamId: undefined,
@@ -73,10 +115,15 @@ export async function fetchAccount(): Promise<IAccount> {
             patreonId: undefined,
             patreonTier: undefined,
             preferences,
-            followedPlayers: following,
             email: '',
             emailVerified: false,
         };
+
+        console.log('accountData', accountData);
+
+        console.log('fetchAccount SAVING ACCOUNT');
+        await saveAccount(accountData);
+        await followV2(following.map(f => f.profileId));
     }
 
     const result = await fetch(url, {
@@ -88,9 +135,13 @@ export async function fetchAccount(): Promise<IAccount> {
         },
     });
 
+    // await sleep(3000);
+
     if (result.status === 401) {
         throw new Error('Unauthorized');
     }
+
+    console.log('fetchAccount END');
 
     return await result.json();
 }
@@ -108,24 +159,7 @@ export async function saveAccount(account: Partial<IAccount>): Promise<IResult> 
 
     if (!session.session) {
         console.log('saveAccount: no session');
-
-        // Merge
-        await saveConfigToStorage({
-            pushNotificationsEnabled: account.notificationsEnabled,
-            language: account.language,
-            darkMode: account.darkMode,
-            mainPage: account.mainPage,
-        });
-
-        if ('profileId' in account) {
-            await saveAuthToStorage({
-                profileId: account.profileId,
-            });
-        }
-
-        return {
-            result: 'success',
-        };
+        throw new Error('saveAccount: no session');
     }
 
     const data = {
@@ -153,21 +187,13 @@ export async function saveAccount(account: Partial<IAccount>): Promise<IResult> 
 //     return;
 // }
 
-export async function followV2(profileId: number): Promise<IResult> {
+export async function followV2(profileIds: number[]): Promise<IResult> {
     const url = getHost('aoe2companion-api') + `v2/follow`;
 
     const { data: session } = await supabaseClient.auth.getSession();
 
-    if (!session.session) {
-        console.log('followV2: no session');
-
-        const following = await loadFollowingFromStorage();
-        following.push({profileId});
-        await saveFollowingToStorage(following);
-    }
-
     const data = {
-        profileId,
+        profileIds,
     };
 
     return await fetchJson('followV2', url, {
@@ -181,13 +207,13 @@ export async function followV2(profileId: number): Promise<IResult> {
     });
 }
 
-export async function unfollowV2(profileId: number): Promise<IResult> {
+export async function unfollowV2(profileIds: number[]): Promise<IResult> {
     const url = getHost('aoe2companion-api') + `v2/unfollow`;
 
     const { data: session } = await supabaseClient.auth.getSession();
 
     const data = {
-        profileId,
+        profileIds,
     };
 
     return await fetchJson('unfollowV2', url, {

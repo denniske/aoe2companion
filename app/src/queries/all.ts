@@ -13,6 +13,7 @@ export const useAccount = () =>
     useQuery({
         queryKey: QUERY_KEY_ACCOUNT(),
         queryFn: async () => await fetchAccount(),
+        staleTime: 10 * 1000, // 10s
     });
 
 export const useAccountData = <T>(select?: (data: IAccount) => T) =>
@@ -20,6 +21,7 @@ export const useAccountData = <T>(select?: (data: IAccount) => T) =>
         queryKey: QUERY_KEY_ACCOUNT(),
         queryFn: async () => await fetchAccount(),
         select,
+        staleTime: 10 * 1000, // 10s
     }).data;
 
 export const useAuthProfileId = () => useAccountData((data) => data.profileId);

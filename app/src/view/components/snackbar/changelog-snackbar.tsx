@@ -18,7 +18,7 @@ export default function ChangelogSnackbar() {
     const [currentVersion, setCurrentVersion] = useState<string>();
     const savePrefsMutation = useSavePrefsMutation();
 
-    console.log('currentVersion', currentVersion);
+    // console.log('currentVersion', currentVersion);
 
     const lessThan = -1;
     const visible =

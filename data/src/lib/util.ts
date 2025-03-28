@@ -34,6 +34,10 @@ export function clamp(value: number, a: number, b: number) {
     return Math.max(Math.min(value, b), a);
 }
 
+export function parseISONullable(value: string | null | undefined) {
+    return value ? parseISO(value) : null;
+}
+
 export function dateReviver(key: string, value: any) {
     if (typeof value === 'string') {
         // Check if the string is in ISO date format

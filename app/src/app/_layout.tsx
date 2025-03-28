@@ -6,7 +6,6 @@ import { fetchAoeReferenceData } from '@app/helper/reference';
 import initSentry from '@app/helper/sentry';
 import { getTranslation } from '@app/helper/translate';
 import { getInternalAoeString } from '@app/helper/translate-data';
-import { useMutate } from '@app/redux/reducer';
 import { getInternalLanguage, setInternalLanguage } from '@app/redux/statecache';
 import store from '@app/redux/store';
 import { cacheLiveActivityAssets } from '@app/service/storage';
@@ -257,7 +256,6 @@ function useColorSchemes() {
 function AppWrapper() {
     const [appIsReady, setAppIsReady] = useState(false);
     const insets = useSafeAreaInsets();
-    const mutate = useMutate();
     const { paperTheme, evaTheme, customTheme, contentTheme } = useColorSchemes();
 
     const [fontsLoaded] = useFonts({

@@ -20,8 +20,8 @@ AppState.addEventListener('change', (state) => {
 })
 
 export default function Login() {
-    const [email, setEmail] = useState('dennis.keil10+4@gmail.com')
-    const [password, setPassword] = useState('123abc')
+    const [email, setEmail] = useState('dennis.keil10+12@gmail.com')
+    const [password, setPassword] = useState('test1234')
     const [loading, setLoading] = useState(false)
     const account = useAccount();
     const queryClient = useQueryClient();
@@ -43,22 +43,43 @@ export default function Login() {
 
     async function signUpWithEmail() {
         setLoading(true)
-        const {
-            data: { session },
-            error,
-        } = await supabaseClient.auth.signUp({
-            email: email,
-            password: password,
-            options: {
-                data: {
-                    ...account,
-                },
+
+        const { data, error } = await supabaseClient.auth.updateUser(
+            {
+                email,
+                password,
+            },
+            {
                 emailRedirectTo: 'https://www.aoe2companion.com',
             }
-        })
+        );
 
-        if (error) Alert.alert(error.message)
-        if (!session) Alert.alert('Please check your inbox for email verification!')
+        console.log('data', data)
+        console.log('error', error)
+
+        if (error) {
+            Alert.alert(error.message)
+        } else {
+            Alert.alert('Please check your inbox for email verification!')
+        }
+
+        // const {
+        //     data: { session },
+        //     error,
+        // } = await supabaseClient.auth.signUp({
+        //     email: email,
+        //     password: password,
+        //     options: {
+        //         data: {
+        //             ...account,
+        //         },
+        //         emailRedirectTo: 'https://www.aoe2companion.com',
+        //     }
+        // })
+        //
+        // if (error) Alert.alert(error.message)
+        // if (!session) Alert.alert('Please check your inbox for email verification!')
+
         setLoading(false)
 
         await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' })

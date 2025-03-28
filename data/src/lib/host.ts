@@ -20,6 +20,7 @@ export function getHost(host: Host) {
     const hostService = getService(SERVICE_NAME.HOST_SERVICE) as IHostService;
     const platform = hostService.getPlatform();
     const dev = hostService.getEnvironment() == 'development';
+    const platformHost = Device.isDevice ? '192.168.178.21' : Platform.select({ios: 'localhost', android: '10.0.2.2'});
     switch (host) {
         case "aoe4world": {
             return `https://aoe4world.com/api/v0/`;
@@ -46,7 +47,6 @@ export function getHost(host: Host) {
         }
         case "aoe2companion-api": {
             if (dev) {
-                const platformHost = Device.isDevice ? '192.168.10.30' : Platform.select({ios: 'localhost', android: '10.0.2.2'});
                 return `http://${platformHost}:3332/`;
                 // return 'http://localhost:3332/';
             }
@@ -67,9 +67,10 @@ export function getHost(host: Host) {
             //     const platformHost = '192.168.178.41';
             //     return `http://${platformHost}:3003/`;
             // }
-            // if (dev) {
-            //     return 'http://localhost:3335/';
-            // }
+            if (dev) {
+                return `http://${platformHost}:3335/`;
+                // return 'http://localhost:3335/';
+            }
             return `https://data.${appConfig.hostAoeCompanion}/`;
         }
         case "aoe2companion-socket": {

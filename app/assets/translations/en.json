@@ -193,6 +193,8 @@
   "changelog.title": "Changelog",
 
   "account.title": "Account",
+  "signup.title": "Sign Up",
+  "login.title": "Login",
 
   "about.title": "About",
   "about.heading.createdby": "Created by",

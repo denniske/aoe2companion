@@ -37,11 +37,12 @@ function FeedAction({ user }: { user: IPlayerListPlayer }) {
     const onSelect = async () => {
         try {
             if (followingThisUser) {
-                await unfollowMutation.mutateAsync(user.profileId);
+                await unfollowMutation.mutateAsync([user.profileId]);
             } else {
-                await followMutation.mutateAsync(user.profileId);
+                await followMutation.mutateAsync([user.profileId]);
             }
         } catch (e) {
+            console.error(e);
             alert(getTranslation('feed.follow.error') + '\n\n' + e);
         }
     };

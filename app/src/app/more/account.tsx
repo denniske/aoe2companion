@@ -82,17 +82,15 @@ export default function AccountPage() {
     }
 
     const logout = async () => {
-        const { error } = await supabaseClient.auth.signOut();
+        await supabaseClient.auth.signOut();
         await account.refetch();
     }
 
-    const loggedIn = user && account.data;
+    const loggedIn = user && !user.is_anonymous && account.data;
 
     return (
         <ScrollView contentContainerStyle="min-h-full items-center p-5">
             <Stack.Screen options={{ title: getTranslation('account.title') }} />
-
-            <MyText style={styles.title}>{Constants.expoConfig?.name || Constants.expoConfig2?.extra?.expoClient?.name}</MyText>
 
             {!loggedIn && <Login />}
 

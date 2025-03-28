@@ -44,7 +44,7 @@ export async function doCheckForStoreUpdate() {
     if (Constants.expoConfig == null) return null;
     try {
         const appUpdateInfo = await getAppUpdateInfo();
-        console.log('appUpdateInfo', appUpdateInfo);
+        // console.log('appUpdateInfo', appUpdateInfo);
 
         return {
             isAvailable: appUpdateInfo.updateAvailable,

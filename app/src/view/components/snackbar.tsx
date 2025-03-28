@@ -38,7 +38,7 @@ function Snackbar(props: Props) {
     }, [props.visible]);
 
     const show = () => {
-        console.log("show");
+        // console.log("show");
         setHidden(false);
         const {scale} = props.theme.animation;
         Animated.timing(opacity, {
