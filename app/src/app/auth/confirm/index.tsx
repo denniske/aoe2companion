@@ -18,7 +18,10 @@ export default function AuthConfirm() {
         const result = await authConfirm(params);
         const data = await result.json();
         console.log('authConfirm', data);
-        const authResponse = await supabaseClient.auth.setSession(data.session);
+        const authResponse = await supabaseClient.auth.setSession({
+            access_token: data.session.accessToken,
+            refresh_token: data.session.refreshToken,
+        });
         console.log('authConfirm', authResponse);
         await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' });
         router.dismiss();
