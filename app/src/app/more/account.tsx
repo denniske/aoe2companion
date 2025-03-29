@@ -16,6 +16,7 @@ import { appVariants } from '@app/styles';
 import { accountUnlinkPatreon, accountUnlinkSteam } from '@app/api/account';
 import { supabaseClient } from '../../../../data/src/helper/supabase';
 import { useAccount } from '@app/queries/all';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function getPatreonLoginUrl() {
     const queryString = new URLSearchParams({
@@ -69,7 +70,7 @@ export default function AccountPage() {
     // });
 
     // console.log('user', user);
-    console.log('account', account);
+    console.log('accountId', account.data?.accountId);
 
     const unlinkSteam = async () => {
         await accountUnlinkSteam();
@@ -83,14 +84,22 @@ export default function AccountPage() {
 
     const logout = async () => {
         await supabaseClient.auth.signOut();
+
+        await AsyncStorage.removeItem('account');
+        await AsyncStorage.removeItem('config');
+        await AsyncStorage.removeItem('settings');
+        await AsyncStorage.removeItem('following');
+        await AsyncStorage.removeItem('prefs');
+
         await account.refetch();
     }
 
     const loggedIn = user && !user.is_anonymous && account.data;
 
     return (
-        <ScrollView contentContainerStyle="min-h-full items-center p-5">
-            <Stack.Screen options={{ title: getTranslation('account.title') }} />
+        <ScrollView contentContainerStyle="min-h-full p-5">
+            {/*<Stack.Screen options={{ title: getTranslation('account.title') }} />*/}
+            <Stack.Screen options={{ title: 'Sign In' }} />
 
             {!loggedIn && <Login />}
 

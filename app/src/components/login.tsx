@@ -6,6 +6,7 @@ import { MyText } from '@app/view/components/my-text';
 import { Field } from '@app/components/field';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAccount } from '@app/queries/all';
+import { usePaperTheme } from '@app/theming';
 
 // Tells Supabase Auth to continuously refresh the session automatically if
 // the app is in the foreground. When this is added, you will continue to receive
@@ -25,6 +26,8 @@ export default function Login() {
     const [loading, setLoading] = useState(false)
     const account = useAccount();
     const queryClient = useQueryClient();
+
+    const paperTheme = usePaperTheme();
 
     // console.log('LOGIN account', account.data);
 
@@ -89,32 +92,45 @@ export default function Login() {
         <View style={styles.container}>
             <View style={[styles.verticallySpaced, styles.mt20]}>
                 {/*leftIcon={{ type: 'font-awesome', name: 'envelope' }}*/}
-                <MyText>Email</MyText>
+                {/*<MyText>Email</MyText>*/}
 
                 <Field
                     placeholder="email@address.com"
                     type="default"
-                    autoFocus={true}
+                    // autoFocus={true}
                     onChangeText={setEmail}
                     value={email}
                 />
             </View>
             <View style={styles.verticallySpaced}>
                 {/*leftIcon={{ type: 'font-awesome', name: 'lock' }}*/}
-                <MyText>Password</MyText>
+                {/*<MyText>Password</MyText>*/}
                 <Field
                     placeholder="Password"
-                    type="default"
-                    autoFocus={true}
+                    type="password"
                     onChangeText={setPassword}
                     value={password}
                 />
             </View>
             <View style={[styles.verticallySpaced, styles.mt20]}>
-                <Button disabled={loading} onPress={() => signInWithEmail()} >Sign in</Button>
+                <Button disabled={loading} onPress={() => signInWithEmail()}
+                        mode="contained"
+                        uppercase={false}
+                        dark={true}
+                        buttonColor={paperTheme.colors.primary}
+                >
+                    Sign in
+                </Button>
             </View>
-            <View style={styles.verticallySpaced}>
-                <Button disabled={loading} onPress={() => signUpWithEmail()} >Sign up</Button>
+            <View style={[styles.verticallySpaced, styles.mt20]}>
+                <Button disabled={loading} onPress={() => signUpWithEmail()}
+                        mode="contained"
+                        uppercase={false}
+                        dark={true}
+                        buttonColor={paperTheme.colors.primary}
+                >
+                    Sign up
+                </Button>
             </View>
         </View>
     )
@@ -122,7 +138,8 @@ export default function Login() {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 40,
+        // backgroundColor: 'yellow',
+        // marginTop: 40,
         padding: 12,
     },
     verticallySpaced: {
