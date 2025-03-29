@@ -1,11 +1,14 @@
 import { textColors } from '@app/utils/text.util';
-import { TextInput, TextInputProps, TouchableOpacity, View } from 'react-native';
+import { TextInput, TextInputProps, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import { Icon } from './icon';
 import { useState } from 'react';
 
-export interface FieldProps extends TextInputProps {
+type BaseProps = Omit<TextInputProps, 'style'>;
+
+export interface FieldProps extends BaseProps {
     type?: 'default' | 'search' | 'password';
+    style?: ViewStyle;
 }
 
 export const Field: React.FC<FieldProps> = ({ type: inputType = 'default', style, ...props }) => {
