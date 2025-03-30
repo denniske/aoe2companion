@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { Alert, StyleSheet, View, AppState } from 'react-native'
+import { Alert, StyleSheet, View, AppState, TouchableOpacity } from 'react-native';
 import { supabaseClient } from '../../../data/src/helper/supabase';
 import { Button } from 'react-native-paper';
-import { MyText } from '@app/view/components/my-text';
 import { Field } from '@app/components/field';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAccount } from '@app/queries/all';
 import { usePaperTheme } from '@app/theming';
+import { Text } from '@app/components/text';
 
 // Tells Supabase Auth to continuously refresh the session automatically if
 // the app is in the foreground. When this is added, you will continue to receive
@@ -30,6 +30,39 @@ export default function Login() {
     const paperTheme = usePaperTheme();
 
     // console.log('LOGIN account', account.data);
+
+    async function resetPassword() {
+        setLoading(true)
+
+        const { error } = await supabaseClient.auth.resetPasswordForEmail(
+            email,
+            {
+                redirectTo: 'https://www.aoe2companion.com',
+            }
+        );
+
+        if (error) {
+            Alert.alert(error.message)
+        } else {
+            Alert.alert('Please check your inbox for resetting your password!')
+        }
+
+        setLoading(false)
+
+        await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' })
+    }
+
+    async function forgotPassword() {
+        Alert.alert(
+            'Reset password',
+            `Are you sure you want to reset your password for ${email}?`,
+            [
+                { text: 'Cancel', style: 'cancel' },
+                { text: 'Reset password', onPress: resetPassword },
+            ],
+            { cancelable: false }
+        );
+    }
 
     async function signInWithEmail() {
         setLoading(true)
@@ -91,19 +124,16 @@ export default function Login() {
     return (
         <View style={styles.container}>
             <View style={[styles.verticallySpaced, styles.mt20]}>
-                {/*leftIcon={{ type: 'font-awesome', name: 'envelope' }}*/}
                 {/*<MyText>Email</MyText>*/}
-
                 <Field
                     placeholder="email@address.com"
                     type="email"
-                    // autoFocus={true}
+                    autoFocus={!__DEV__}
                     onChangeText={setEmail}
                     value={email}
                 />
             </View>
             <View style={styles.verticallySpaced}>
-                {/*leftIcon={{ type: 'font-awesome', name: 'lock' }}*/}
                 {/*<MyText>Password</MyText>*/}
                 <Field
                     placeholder="Password"
@@ -112,6 +142,13 @@ export default function Login() {
                     value={password}
                 />
             </View>
+
+            <View className="flex-row justify-end">
+                <TouchableOpacity className="p-2" onPress={() => forgotPassword()}>
+                    <Text variant="body">Forgot password?</Text>
+                </TouchableOpacity>
+            </View>
+
             <View style={[styles.verticallySpaced, styles.mt20]}>
                 <Button disabled={loading}
                         onPress={() => signInWithEmail()}

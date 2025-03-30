@@ -1,4 +1,4 @@
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, Alert, View } from 'react-native';
 import { MyText } from '@app/view/components/my-text';
 import { Stack, useGlobalSearchParams, useRouter } from 'expo-router';
 import { Header } from '@app/components/header';
@@ -18,13 +18,23 @@ export default function AuthConfirm() {
         const result = await authConfirm(params);
         const data = await result.json();
         console.log('authConfirm', data);
+
+        if (data.error) {
+            Alert.alert(data.error.code)
+        }
+
         const authResponse = await supabaseClient.auth.setSession({
             access_token: data.session.accessToken,
             refresh_token: data.session.refreshToken,
         });
         console.log('authConfirm', authResponse);
         await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' });
-        router.dismiss();
+
+        if (params.type === 'recovery') {
+            router.replace('/more/reset-password');
+        } else {
+            router.dismiss();
+        }
     };
 
     useEffect(() => {
