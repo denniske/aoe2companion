@@ -16,7 +16,6 @@ import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
 import { getCivHistoryImage, getCivIconLocal } from '@app/helper/civs';
 import { VictoryChart, VictoryTheme, VictoryBar, VictoryAxis, VictoryArea, VictoryLine, LineSegment } from 'victory-native';
-import { useSelector } from '@app/redux/reducer';
 import tw from '@app/tailwind';
 import { Slider } from '@app/view/components/slider';
 import { aoeCivKey, getCivNameById } from '@nex/data';
@@ -28,6 +27,63 @@ import { useColorScheme } from 'nativewind';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useAccountData } from '@app/queries/all';
+import { cloneDeep, merge } from 'lodash';
+
+
+function replaceRobotoWithSystemFont(obj: any) {
+    const keys = Object.keys(obj);
+    keys.forEach(function (key) {
+        const value = obj[key];
+        if (key === 'fontFamily') {
+            obj[key] = obj[key].replace("'Roboto',", "'System',");
+        }
+        if (typeof value === 'object') {
+            replaceRobotoWithSystemFont(obj[key]);
+        }
+    });
+    return obj;
+}
+
+let themeWithSystemFont = replaceRobotoWithSystemFont(cloneDeep(VictoryTheme.material));
+
+themeWithSystemFont = merge(themeWithSystemFont, {
+    axis: {
+        style: {
+            tickLabels: {
+                fill: tw.color('text-black'),
+            },
+        },
+    },
+    line: {
+        style: {
+            labels: {
+                fill: tw.color('text-black'),
+            },
+        },
+    },
+});
+
+let themeWithSystemFontDark = replaceRobotoWithSystemFont(cloneDeep(VictoryTheme.material));
+
+themeWithSystemFontDark = merge(themeWithSystemFontDark, {
+    axis: {
+        style: {
+            tickLabels: {
+                fill: tw.color('text-white'),
+            },
+        },
+    },
+    line: {
+        style: {
+            labels: {
+                fill: tw.color('text-white'),
+            },
+        },
+    },
+});
+
+const NewVictoryTheme = { ...VictoryTheme, custom: themeWithSystemFont, customDark: themeWithSystemFontDark };
+
 
 export default function CivDetails() {
     const { name } = useLocalSearchParams<{ name: aoeCivKey }>();
@@ -138,7 +194,7 @@ const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingRe
                                 width={width}
                                 domainPadding={{ x: 10 }}
                                 domain={{ y: domain }}
-                                theme={colorScheme === 'dark' ? VictoryTheme.customDark : VictoryTheme.custom}
+                                theme={colorScheme === 'dark' ? NewVictoryTheme.customDark : NewVictoryTheme.custom}
                             >
                                 <VictoryAxis dependentAxis crossAxis tickFormat={tickFormat} />
                                 <VictoryAxis
@@ -195,7 +251,7 @@ const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown;
                                 height={300}
                                 width={width}
                                 domain={{ y: domain }}
-                                theme={colorScheme === 'dark' ? VictoryTheme.customDark : VictoryTheme.custom}
+                                theme={colorScheme === 'dark' ? NewVictoryTheme.customDark : NewVictoryTheme.custom}
                             >
                                 <VictoryAxis dependentAxis crossAxis tickFormat={tickFormat} />
                                 <VictoryAxis crossAxis tickFormat={(x) => format(new Date(x), 'M/d')} />
