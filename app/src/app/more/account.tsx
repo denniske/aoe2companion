@@ -11,13 +11,15 @@ import Login from '@app/components/login';
 import { makeQueryString } from '@nex/data';
 import Space from '@app/view/components/space';
 import { openLink } from '@app/helper/url';
-import { usePaperTheme, useTheme } from '@app/theming';
+import { useAppTheme, usePaperTheme, useTheme } from '@app/theming';
 import { appVariants } from '@app/styles';
 import { accountUnlinkPatreon, accountUnlinkSteam } from '@app/api/account';
 import { supabaseClient } from '../../../../data/src/helper/supabase';
 import { useAccount } from '@app/queries/all';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button } from 'react-native-paper';
+import { Text } from '@app/components/text';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 function getPatreonLoginUrl() {
     const queryString = new URLSearchParams({
@@ -60,6 +62,7 @@ export default function AccountPage() {
     const styles = useStyles();
     const appStyles = useTheme(appVariants);
     const paperTheme = usePaperTheme();
+    const theme = useAppTheme();
 
     const user = useAuth();
     const account = useAccount();
@@ -100,75 +103,105 @@ export default function AccountPage() {
 
     return (
         <ScrollView contentContainerStyle="min-h-full p-5">
-            {/*<Stack.Screen options={{ title: getTranslation('account.title') }} />*/}
             <Stack.Screen options={{ title: !loggedIn ? 'Sign In' : getTranslation('account.title')}} />
 
             {!loggedIn && <Login />}
 
             {loggedIn && (
-                <View>
-                    <MyText style={styles.content}>{user.email}</MyText>
+                <View className="gap-6">
+                    <View className="gap-2">
+                        <Text variant="header-sm">Profile Information</Text>
+                        <Text variant="label">Email</Text>
+                        <MyText style={styles.content}>{user.email}</MyText>
+                    </View>
 
-                    <Space />
-
-                    {
-                        account.data?.patreonId &&
-                        <>
-                            <MyText style={styles.heading}>Patreon ID: {account.data.patreonId}</MyText>
-                            <TouchableOpacity onPress={() => unlinkPatreon()}>
-                                <MyText style={appStyles.link}>Unlink Patreon</MyText>
-                            </TouchableOpacity>
-                        </>
-                    }
-                    {
-                        !account.data?.patreonId &&
-                        <Button onPress={() => openLink(getPatreonLoginUrl())}
-                            mode="contained"
-                            uppercase={false}
-                            dark={true}
-                            icon={'patreon'}
-                            className={'w-40'}
-                            buttonColor={paperTheme.colors.primary}
-                        >
-                            Link Patreon
-                        </Button>
-                    }
-
-                    <Space />
-
-                    {
-                        account.data?.steamId &&
-                        <>
-                            <MyText style={styles.heading}>Steam ID: {account.data.steamId}</MyText>
-                            <Button onPress={() => unlinkSteam()}
+                    <View className="gap-2">
+                        <Text variant="header-sm">Patreon</Text>
+                        <Text variant="body">Link your Patreon account to access exclusive benefits</Text>
+                        {
+                            account.data?.patreonId &&
+                            <>
+                                <Text variant="label">Membership Status</Text>
+                                <View className="flex-row gap-2 items-center">
+                                    <FontAwesome5 name="heart" size={14} color={theme.textNoteColor} />
+                                    <Text variant="body">Free Membership</Text>
+                                </View>
+                                <Button onPress={() => unlinkPatreon()}
+                                        mode="contained"
+                                        uppercase={false}
+                                        dark={true}
+                                        className={'w-60 mt-2'}
+                                        buttonColor={paperTheme.colors.error}
+                                >
+                                    Unlink Patreon Account
+                                </Button>
+                            </>
+                        }
+                        {
+                            !account.data?.patreonId &&
+                            <Button onPress={() => openLink(getSteamLoginUrl())}
                                     mode="contained"
                                     uppercase={false}
                                     dark={true}
-                                    icon={'steam'}
+                                    icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}
                                     className={'w-40'}
                                     buttonColor={paperTheme.colors.primary}
                             >
-                                Unlink Steam
+                                Link Patreon
                             </Button>
-                        </>
-                    }
-                    {
-                        !account.data?.steamId &&
-                        <TouchableOpacity onPress={() => openLink(getSteamLoginUrl())}>
-                            <MyText style={appStyles.link}>Link Steam</MyText>
-                        </TouchableOpacity>
-                    }
+                        }
+                    </View>
 
-                    <Space />
-                    <Button onPress={() => logout()}
-                            mode="contained"
-                            uppercase={false}
-                            dark={true}
-                            className={'w-40'}
-                            buttonColor={paperTheme.colors.primary}
-                    >
-                        Logout
-                    </Button>
+                    <View className="gap-2">
+                        <Text variant="header-sm">Steam</Text>
+                        <Text variant="body">Link your Steam account to sync your game data</Text>
+                        {
+                            account.data?.steamId &&
+                            <>
+                                <Text variant="label">Steam ID</Text>
+                                <View className="flex-row gap-2 items-center">
+                                    <FontAwesome5 name="steam" size={14} color={theme.textNoteColor} />
+                                    <Text variant="body">{account.data.steamId}</Text>
+                                </View>
+                                <Button onPress={() => unlinkSteam()}
+                                        mode="contained"
+                                        uppercase={false}
+                                        dark={true}
+                                        className={'w-60 mt-2'}
+                                        buttonColor={paperTheme.colors.error}
+                                >
+                                    Unlink Steam Account
+                                </Button>
+                            </>
+                        }
+                        {
+                            !account.data?.steamId &&
+                            <Button onPress={() => openLink(getSteamLoginUrl())}
+                                    mode="contained"
+                                    uppercase={false}
+                                    dark={true}
+                                    icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}
+                                    className={'w-40'}
+                                    buttonColor={paperTheme.colors.primary}
+                            >
+                                Link Steam
+                            </Button>
+                        }
+                    </View>
+
+                    <View className="gap-2">
+                        <Text variant="header-sm"></Text>
+                        <Button onPress={() => logout()}
+                                mode="outlined"
+                                uppercase={false}
+                                icon={''}
+                                dark={true}
+                                className={'w-40'}
+                                textColor={paperTheme.colors.onSurface}
+                        >
+                            Logout
+                        </Button>
+                    </View>
                 </View>
             )}
         </ScrollView>
