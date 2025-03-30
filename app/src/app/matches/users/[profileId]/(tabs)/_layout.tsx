@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { Alert, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { getTranslation } from '@app/helper/translate';
 import { HeaderTitle } from '@app/components/header-title';
-import { CountryImage } from '@app/view/components/country-image';
+import { CountryImage, CountryImageLoader } from '@app/view/components/country-image';
 import { Country, getVerifiedPlayer, isVerifiedPlayer } from '@nex/data';
 import { Text } from '@app/components/text';
 import { Link } from '@app/components/link';
@@ -30,7 +30,7 @@ import {
 import { withLayoutContext } from "expo-router";
 import { ParamListBase, TabNavigationState } from "@react-navigation/native";
 import { openLink } from '@app/helper/url';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 import { createStylesheet } from '@app/theming-new';
 import { useTournamentPlayer, useTournamentPlayerOverview } from '@app/api/tournaments';
 import { Button } from '@app/components/button';
@@ -39,6 +39,9 @@ import { FontAwesomeIconStyle } from '@fortawesome/react-native-fontawesome';
 import { MyText } from '@app/view/components/my-text';
 import { Image } from 'expo-image';
 import { getCountryName } from '@app/helper/flags';
+import { Divider, Menu } from 'react-native-paper';
+import { TextLoader } from '@app/view/components/loader/text-loader';
+import { useAppTheme } from '@app/theming';
 
 const { Navigator } = createMaterialTopTabNavigator();
 
@@ -60,6 +63,8 @@ export function UserMenu({ profile }: UserMenuProps) {
     const profileId = profile?.profileId;
     const authProfileId = useAuthProfileId();
     const styles = useStyles();
+    const [linkedProfilesVisible, setLinkedProfilesVisible] = useState(false);
+    const theme = useAppTheme();
 
     const { data: account } = useAccount();
     // console.log('account?.followedPlayers', account?.followedPlayers);
@@ -138,12 +143,23 @@ export function UserMenu({ profile }: UserMenuProps) {
 
     const [showTournamentPlayer, setShowTournamentPlayer] = useState(false);
 
+    const [visible, setVisible] = useState(false);
+
+    const openMenu = () => setVisible(true);
+
+    const closeMenu = () => setVisible(false);
+
     if (!profileId || !profile) {
         return null;
     }
 
     const steamProfileUrl = 'https://steamcommunity.com/profiles/' + profile?.steamId;
     const xboxProfileUrl = 'https://www.ageofempires.com/stats/?game=age2&profileId=' + profile?.profileId;
+
+    const navigateToLinkedProfile = (profileId: number | undefined) => {
+        setLinkedProfilesVisible(false);
+        router.navigate(`/matches/users/${profileId}`);
+    };
 
     if (profileId === authProfileId) {
         return (
@@ -165,14 +181,7 @@ export function UserMenu({ profile }: UserMenuProps) {
                     />
                 )}
 
-                {
-                    (profileFull?.linkedProfiles?.length || 0) > 0 && !profile.verified && (
-                        <TouchableOpacity style={styles.menuButton} onPress={() => setShowTournamentPlayer(true)}>
-                            <Icon icon="family" color="brand" size={20}  />
-                            {/*<FontAwesome5 style={styles.menuIcon} name="check-circle" color="brand" size={20} />*/}
-                        </TouchableOpacity>
-                    )
-                }
+
                 {
                     profile.verified && (
                         <TouchableOpacity style={styles.menuButton} onPress={() => setShowTournamentPlayer(true)}>
@@ -181,13 +190,104 @@ export function UserMenu({ profile }: UserMenuProps) {
                         </TouchableOpacity>
                     )
                 }
-                {
-                    profileId && (
-                        <TouchableOpacity style={styles.menuButton} onPress={() => openLink(xboxProfileUrl)}>
-                            <FontAwesome5 style={styles.menuIcon} name="link" size={20} />
+
+                {/*<Menu*/}
+                {/*    visible={visible}*/}
+                {/*    onDismiss={closeMenu}*/}
+                {/*    anchor={<Button onPress={openMenu}>Show menu</Button>}>*/}
+                {/*    <Menu.Item onPress={() => {}} title="Item 1" />*/}
+                {/*    <Menu.Item onPress={() => {}} title="Item 2" />*/}
+                {/*    <Divider />*/}
+                {/*    <Menu.Item onPress={() => {}} title="Item 3" />*/}
+                {/*</Menu>*/}
+
+                <Menu
+                    contentStyle={{marginLeft: 0, marginTop: 38, padding: 15, paddingTop: 15, paddingBottom: 15 }}
+                    visible={linkedProfilesVisible}
+                    onDismiss={() => setLinkedProfilesVisible(false)}
+                    anchor={
+                        <TouchableOpacity style={styles.menuButton} onPress={() => setLinkedProfilesVisible(true)}>
+                            <Icon icon="family" color="brand" size={20}  />
                         </TouchableOpacity>
-                    )
-                }
+                    }
+                >
+                    <View className="w-60">
+                        {(profileFull?.linkedProfiles?.length || 0) > 0 && (
+                            <View className="gap-3">
+                                {
+                                    profile?.steamId &&
+                                    <>
+                                        <Text variant="header-sm">Steam</Text>
+                                        <TouchableOpacity className="flex-row gap-2 items-center" onPress={() => openLink(steamProfileUrl)}>
+                                            <FontAwesome5 name="steam" size={14} color={theme.textNoteColor} />
+                                            <Text variant="body">{profile?.steamId}</Text>
+                                        </TouchableOpacity>
+                                    </>
+                                }
+
+                                {
+                                    profileId &&
+                                    <>
+                                        <Text variant="header-sm">ageofempires.com</Text>
+                                        <TouchableOpacity className="flex-row gap-2 items-center" onPress={() => openLink(xboxProfileUrl)}>
+                                            <FontAwesome5 name="xbox" size={14} color={theme.textNoteColor} />
+                                            <Text variant="body">{profileId}</Text>
+                                        </TouchableOpacity>
+                                    </>
+                                }
+
+                                <Text variant="header-sm">Linked Profiles</Text>
+
+                                {profileFull?.linkedProfiles?.map((linkedProfile) => {
+                                    return (
+                                            <TouchableOpacity className="flex-1 flex-row gap-1 items-center" onPress={() => navigateToLinkedProfile(linkedProfile?.profileId)}>
+                                                <CountryImageLoader country={verifiedPlayer?.country || linkedProfile?.country} ready={linkedProfile} />
+
+                                                <TextLoader>{linkedProfile?.name}</TextLoader>
+                                                {linkedProfile?.verified && (
+                                                    <Icon icon="check-circle" color="brand" size={14} style={styles.verifiedIcon as FontAwesomeIconStyle} />
+                                                )}
+                                                {!linkedProfile?.verified && linkedProfile?.shared && (
+                                                    <Icon icon="family" color="brand" size={14} style={styles.verifiedIcon as FontAwesomeIconStyle} />
+                                                )}
+                                                {!!linkedProfile?.clan && (
+                                                    <MyText>
+                                                        {' '}
+                                                        ({getTranslation('main.profile.clan')}: {linkedProfile?.clan})
+                                                    </MyText>
+                                                )}
+                                            </TouchableOpacity>
+                                    );
+                                })}
+
+                                {!profileFull?.verified && profileFull?.shared && (
+                                    <View className="flex-row items-center space-x-2">
+                                        <Icon icon="family" color="brand" size={14} />
+                                        <MyText>Steam Family Sharing</MyText>
+                                    </View>
+                                )}
+                            </View>
+                        )}
+
+                    </View>
+                </Menu>
+
+
+                {/*{*/}
+                {/*    (profileFull?.linkedProfiles?.length || 0) > 0 && profile.verified && (*/}
+                {/*        <TouchableOpacity style={styles.menuButton} onPress={() => setShowTournamentPlayer(true)}>*/}
+                {/*            <Icon icon="family" color="brand" size={20}  />*/}
+                {/*            /!*<FontAwesome5 style={styles.menuIcon} name="check-circle" color="brand" size={20} />*!/*/}
+                {/*        </TouchableOpacity>*/}
+                {/*    )*/}
+                {/*}*/}
+                {/*{*/}
+                {/*    profileId && (*/}
+                {/*        <TouchableOpacity style={styles.menuButton} onPress={() => openLink(xboxProfileUrl)}>*/}
+                {/*            <FontAwesome5 style={styles.menuIcon} name="link" size={20} />*/}
+                {/*        </TouchableOpacity>*/}
+                {/*    )*/}
+                {/*}*/}
                 {/*{*/}
                 {/*    profileId && (*/}
                 {/*        <TouchableOpacity style={styles.menuButton} onPress={() => openLink(xboxProfileUrl)}>*/}
@@ -231,6 +331,10 @@ const useStyles = createStylesheet((theme) =>
         menuIcon: {
             color: theme.textNoteColor,
         },
+        verifiedIcon: {
+            marginLeft: 5,
+            color: theme.linkColor,
+        },
     } as const),
 );
 
@@ -254,6 +358,8 @@ function UserTitle({ profile }: UserMenuProps) {
         return <View />;
     }
 
+    console.log('profile.country', profile.country);
+
     return (
         <HeaderTitle
             iconComponent={
@@ -270,7 +376,7 @@ function UserTitle({ profile }: UserMenuProps) {
                     style={{ fontSize: 14 }}
                     country={verifiedPlayer?.country || profile?.country}
                 />
-                <MyText> {getCountryName(profile.country as Country)}</MyText>
+                <MyText> {getCountryName((verifiedPlayer?.country || profile.country) as Country)}</MyText>
             </>
             }
         />

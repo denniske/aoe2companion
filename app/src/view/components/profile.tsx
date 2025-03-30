@@ -303,7 +303,7 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                 {/*    </View>*/}
                 {/*)}*/}
 
-                {/*{!data?.verified && data?.shared && (*/}
+                {/*{data?.verified && data?.shared && (*/}
                 {/*    <View className="flex-row items-center space-x-2">*/}
                 {/*        <Icon icon="family" color="brand" size={14} />*/}
                 {/*        <MyText>Steam Family Sharing</MyText>*/}

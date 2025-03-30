@@ -255,5 +255,6 @@ export const flagEmojiDict = {
 } as Record<string, string>;
 
 export function getCountryName(country: Country) {
+    if (country == null) return 'unknown';
     return getTranslation(`country.${country.toLowerCase()}` as any);
 }
