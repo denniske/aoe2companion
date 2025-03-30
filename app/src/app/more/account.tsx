@@ -154,7 +154,7 @@ export default function AccountPage() {
 
                     <View className="gap-2">
                         <Text variant="header-sm">Steam</Text>
-                        <Text variant="body">Link your Steam account to sync your game data</Text>
+                        <Text variant="body">Link your Steam account</Text>
                         {
                             account.data?.steamId &&
                             <>

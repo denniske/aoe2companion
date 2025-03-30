@@ -179,6 +179,29 @@ export const changelog: IChangelog = {
             type: 'bugfix',
             title: 'Fix toggle following (heart icon) on player page',
         },
+        {
+            type: 'bugfix',
+            title: 'Fix missing quick play matches on player matches tab',
+        },
+        {
+            type: 'minor',
+            title: 'Redesigned profile page header',
+        },
+        {
+            type: 'feature',
+            title: 'Account creation',
+            content: 'You can now create an account to save your settings and followed players across devices',
+        },
+        {
+            type: 'feature',
+            title: 'Link steam account',
+            content: 'Link your Steam account to prove ownership of your profile'
+        },
+        {
+            type: 'feature',
+            title: 'Link patreon account',
+            content: 'Link your Patreon account to access exclusive benefits'
+        },
     ],
     '121.0.0': [
         {

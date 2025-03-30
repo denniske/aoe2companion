@@ -35,13 +35,13 @@ export default function MainMatches() {
     const [withMe, setWithMe] = useState(false);
     const [reloading, setReloading] = useState(false);
     const authProfileId = useAuthProfileId();
-    const [leaderboardType, setLeaderboardType] = useState<'pc' | 'xbox'>('pc');
+    const [platform, setPlatform] = useState<'pc' | 'xbox'>('pc');
 
     const realText = text.trim().length < 3 ? '' : text.trim();
     const debouncedSearch = useDebounce(realText, 600);
 
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch, isRefetching } = useInfiniteQuery({
-        queryKey: ['matches', profileId, withMe, debouncedSearch, leaderboardIds],
+        queryKey: ['matches', profileId, withMe, debouncedSearch, leaderboardIds, platform],
         queryFn: (context) =>
             fetchMatches({
                 ...context,
@@ -49,11 +49,11 @@ export default function MainMatches() {
                 withProfileIds: withMe ? [authProfileId!] : [],
                 search: debouncedSearch,
                 leaderboardIds: leaderboardIds,
+                platform: platform === 'pc' ? 'pc' : 'console',
             }),
         initialPageParam: 1,
         getNextPageParam: (lastPage, pages) => (lastPage.matches.length === lastPage.perPage ? lastPage.page + 1 : null),
         placeholderData: keepPreviousData,
-        enabled: leaderboardIds.length > 0,
     });
 
     // console.log('data', data);
@@ -62,7 +62,7 @@ export default function MainMatches() {
 
     const onLeaderboardSelected = async (selLeaderboardId: string) => {
         if (leaderboardIds.length === 1 && leaderboardIds[0] === selLeaderboardId) {
-            setLeaderboardIds(leaderboardIdsByType(leaderboards || [], leaderboardType));
+            setLeaderboardIds([]);
         } else {
             setLeaderboardIds([selLeaderboardId]);
         }
@@ -72,13 +72,6 @@ export default function MainMatches() {
         queryKey: ['leaderboards'],
         queryFn: fetchLeaderboards,
     });
-
-    useEffect(() => {
-        if (leaderboards == null) return;
-        if (leaderboardIds.length === 0) {
-            setLeaderboardIds(leaderboardIdsByType(leaderboards, leaderboardType));
-        }
-    }, [leaderboards]);
 
     const renderLeaderboard = (value: string, selected: boolean) => {
         return (
@@ -149,10 +142,10 @@ export default function MainMatches() {
                     <Dropdown
                         textVariant="label-sm"
                         style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 10, paddingBottom: 8, marginRight: 6 }}
-                        value={leaderboardType}
+                        value={platform}
                         onChange={(lType) => {
-                            setLeaderboardType(lType);
-                            setLeaderboardIds(leaderboardIdsByType(leaderboards, lType));
+                            setPlatform(lType);
+                            setLeaderboardIds([]);
                         }}
                         options={[
                             { value: 'pc', label: 'PC' },
@@ -161,7 +154,7 @@ export default function MainMatches() {
                     />
                     <TemplatePicker
                         value={leaderboardIds.length > 1 ? undefined : leaderboardIds[0]}
-                        values={leaderboardIdsByType(leaderboards, leaderboardType)}
+                        values={leaderboardIdsByType(leaderboards, platform)}
                         template={renderLeaderboard}
                         onSelect={onLeaderboardSelected}
                     />
