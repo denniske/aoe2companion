@@ -15,8 +15,8 @@ import {
     IProfilesResult,
 } from './api.types';
 import { dateReviver, getHost } from '@nex/data';
-import { fetchJson2 } from '../util';
 import { getInternalLanguage } from '../../redux/statecache';
+import { fetchJson } from '@app/api/util';
 
 export async function fetchProfileRatings(params: IFetchProfileRatingParams) {
     console.log('fetchProfileRatings', params);
@@ -28,7 +28,7 @@ export async function fetchProfileRatings(params: IFetchProfileRatingParams) {
         })
     );
     const url = `${getHost('aoe2companion-data')}api/profile/${params.profileId}/ratings?${queryString}`;
-    return camelizeKeys(await fetchJson2('fetchProfileRatings', url, undefined, dateReviver)) as IProfileRatingsResult;
+    return camelizeKeys(await fetchJson('fetchProfileRatings', url, undefined, dateReviver)) as IProfileRatingsResult;
 }
 
 // export async function fetchProfileLeaderboard(params: IFetchProfileRatingParams) {
@@ -38,12 +38,12 @@ export async function fetchProfileRatings(params: IFetchProfileRatingParams) {
 //         page: params.page || params.pageParam || 1,
 //     }));
 //     const url = `${getHost('aoe2companion-data')}api/profile/ratings?${queryString}`;
-//     return camelizeKeys(await fetchJson2('fetchProfileLeaderboard', url, undefined, dateReviver)) as IProfileRatingsResult;
+//     return camelizeKeys(await fetchJson('fetchProfileLeaderboard', url, undefined, dateReviver)) as IProfileRatingsResult;
 // }
 
 export async function fetchAssets() {
     const url = `${getHost('aoe2companion-data')}api/assets`;
-    return camelizeKeys(await fetchJson2('fetchAssets', url, undefined, dateReviver)) as IAssetsResult;
+    return camelizeKeys(await fetchJson('fetchAssets', url, undefined, dateReviver)) as IAssetsResult;
 }
 
 export async function fetchProfile(params: IFetchProfileParams) {
@@ -56,7 +56,7 @@ export async function fetchProfile(params: IFetchProfileParams) {
         })
     );
     const url = `${getHost('aoe2companion-data')}api/profiles/${params.profileId}?${queryString}`;
-    return camelizeKeys(await fetchJson2('fetchProfile', url, undefined, dateReviver)) as IProfileResult;
+    return camelizeKeys(await fetchJson('fetchProfile', url, undefined, dateReviver)) as IProfileResult;
 }
 
 export async function fetchProfiles(params: IFetchProfileParams) {
@@ -68,7 +68,7 @@ export async function fetchProfiles(params: IFetchProfileParams) {
         })
     );
     const url = `${getHost('aoe2companion-data')}api/profiles?${queryString}`;
-    return camelizeKeys(await fetchJson2('fetchProfile', url, undefined, dateReviver)) as IProfilesResult;
+    return camelizeKeys(await fetchJson('fetchProfile', url, undefined, dateReviver)) as IProfilesResult;
 }
 
 // export async function fetchProfile(params: IFetchProfileParams) {
@@ -78,7 +78,7 @@ export async function fetchProfiles(params: IFetchProfileParams) {
 //         page: params.page || params.pageParam || 1,
 //     }));
 //     const url = `${getHost('aoe2companion-data')}api/profile?${queryString}`;
-//     return camelizeKeys(await fetchJson2('fetchProfile', url, undefined, dateReviver)) as IProfilesResult;
+//     return camelizeKeys(await fetchJson('fetchProfile', url, undefined, dateReviver)) as IProfilesResult;
 // }
 
 export async function fetchMatches(params: IFetchMatchesParams) {
@@ -91,7 +91,7 @@ export async function fetchMatches(params: IFetchMatchesParams) {
         })
     );
     const url = `${getHost('aoe2companion-data')}api/matches?${queryString}`;
-    return camelizeKeys(await fetchJson2('fetchMatches', url, undefined, dateReviver)) as IMatchesResult;
+    return camelizeKeys(await fetchJson('fetchMatches', url, undefined, dateReviver)) as IMatchesResult;
 }
 
 export async function fetchLeaderboard(params: IFetchLeaderboardParams) {
@@ -103,7 +103,7 @@ export async function fetchLeaderboard(params: IFetchLeaderboardParams) {
         })
     );
     const url = `${getHost('aoe2companion-data')}api/leaderboards/${params.leaderboardId}?${queryString}`;
-    return camelizeKeys(await fetchJson2('fetchLeaderboard', url, undefined, dateReviver)) as ILeaderboard;
+    return camelizeKeys(await fetchJson('fetchLeaderboard', url, undefined, dateReviver)) as ILeaderboard;
 }
 
 export async function fetchLeaderboards() {
@@ -113,5 +113,5 @@ export async function fetchLeaderboards() {
         })
     );
     const url = `${getHost('aoe2companion-data')}api/leaderboards?${queryString}`;
-    return camelizeKeys(await fetchJson2('fetchLeaderboards', url, undefined, dateReviver)) as ILeaderboardDef[];
+    return camelizeKeys(await fetchJson('fetchLeaderboards', url, undefined, dateReviver)) as ILeaderboardDef[];
 }

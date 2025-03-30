@@ -1,5 +1,5 @@
 import { setAccountLiveActivityToken, storeLiveActivityStarted } from '@app/api/following';
-import { fetchJson2 } from '@app/api/util';
+import { fetchJson } from '@app/api/util';
 import { Header } from '@app/components/header';
 import { TabBar } from '@app/components/tab-bar';
 import { fetchAoeReferenceData } from '@app/helper/reference';
@@ -109,7 +109,7 @@ if (Platform.OS !== 'web') {
 
 class HttpService implements IHttpService {
     async fetchJson(title: string, input: RequestInfo, init?: RequestInit, reviver?: any) {
-        return fetchJson2(title, input, init, reviver);
+        return fetchJson(title, input, init, reviver);
     }
 }
 
