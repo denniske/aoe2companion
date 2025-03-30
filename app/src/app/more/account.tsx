@@ -11,12 +11,13 @@ import Login from '@app/components/login';
 import { makeQueryString } from '@nex/data';
 import Space from '@app/view/components/space';
 import { openLink } from '@app/helper/url';
-import { useTheme } from '@app/theming';
+import { usePaperTheme, useTheme } from '@app/theming';
 import { appVariants } from '@app/styles';
 import { accountUnlinkPatreon, accountUnlinkSteam } from '@app/api/account';
 import { supabaseClient } from '../../../../data/src/helper/supabase';
 import { useAccount } from '@app/queries/all';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Button } from 'react-native-paper';
 
 function getPatreonLoginUrl() {
     const queryString = new URLSearchParams({
@@ -58,6 +59,7 @@ function getSteamLoginUrl() {
 export default function AccountPage() {
     const styles = useStyles();
     const appStyles = useTheme(appVariants);
+    const paperTheme = usePaperTheme();
 
     const user = useAuth();
     const account = useAccount();
@@ -99,7 +101,7 @@ export default function AccountPage() {
     return (
         <ScrollView contentContainerStyle="min-h-full p-5">
             {/*<Stack.Screen options={{ title: getTranslation('account.title') }} />*/}
-            <Stack.Screen options={{ title: 'Sign In' }} />
+            <Stack.Screen options={{ title: !loggedIn ? 'Sign In' : getTranslation('account.title')}} />
 
             {!loggedIn && <Login />}
 
@@ -120,9 +122,16 @@ export default function AccountPage() {
                     }
                     {
                         !account.data?.patreonId &&
-                        <TouchableOpacity onPress={() => openLink(getPatreonLoginUrl())}>
-                            <MyText style={appStyles.link}>Link Patreon</MyText>
-                        </TouchableOpacity>
+                        <Button onPress={() => openLink(getPatreonLoginUrl())}
+                            mode="contained"
+                            uppercase={false}
+                            dark={true}
+                            icon={'patreon'}
+                            className={'w-40'}
+                            buttonColor={paperTheme.colors.primary}
+                        >
+                            Link Patreon
+                        </Button>
                     }
 
                     <Space />
@@ -131,9 +140,16 @@ export default function AccountPage() {
                         account.data?.steamId &&
                         <>
                             <MyText style={styles.heading}>Steam ID: {account.data.steamId}</MyText>
-                            <TouchableOpacity onPress={() => unlinkSteam()}>
-                                <MyText style={appStyles.link}>Unlink Steam</MyText>
-                            </TouchableOpacity>
+                            <Button onPress={() => unlinkSteam()}
+                                    mode="contained"
+                                    uppercase={false}
+                                    dark={true}
+                                    icon={'steam'}
+                                    className={'w-40'}
+                                    buttonColor={paperTheme.colors.primary}
+                            >
+                                Unlink Steam
+                            </Button>
                         </>
                     }
                     {
@@ -144,13 +160,15 @@ export default function AccountPage() {
                     }
 
                     <Space />
-                    <TouchableOpacity onPress={() => logout()}>
-                        <MyText style={appStyles.link}>Logout</MyText>
-                    </TouchableOpacity>
-
-                    {/*<Space />*/}
-                    {/*<Space />*/}
-                    {/*<Link href={'https://www.aoe2companion.com/auth/link/steam'}>TEST</Link>*/}
+                    <Button onPress={() => logout()}
+                            mode="contained"
+                            uppercase={false}
+                            dark={true}
+                            className={'w-40'}
+                            buttonColor={paperTheme.colors.primary}
+                    >
+                        Logout
+                    </Button>
                 </View>
             )}
         </ScrollView>

@@ -96,7 +96,7 @@ export default function Login() {
 
                 <Field
                     placeholder="email@address.com"
-                    type="default"
+                    type="email"
                     // autoFocus={true}
                     onChangeText={setEmail}
                     value={email}
@@ -113,7 +113,8 @@ export default function Login() {
                 />
             </View>
             <View style={[styles.verticallySpaced, styles.mt20]}>
-                <Button disabled={loading} onPress={() => signInWithEmail()}
+                <Button disabled={loading}
+                        onPress={() => signInWithEmail()}
                         mode="contained"
                         uppercase={false}
                         dark={true}
@@ -123,13 +124,14 @@ export default function Login() {
                 </Button>
             </View>
             <View style={[styles.verticallySpaced, styles.mt20]}>
-                <Button disabled={loading} onPress={() => signUpWithEmail()}
+                <Button disabled={loading}
+                        onPress={() => signUpWithEmail()}
                         mode="contained"
                         uppercase={false}
                         dark={true}
                         buttonColor={paperTheme.colors.primary}
                 >
-                    Sign up
+                    Create new account
                 </Button>
             </View>
         </View>

@@ -126,7 +126,7 @@ export async function fetchAccount(): Promise<IAccount> {
         await followV2(following.map(f => f.profileId));
     }
 
-    const result = await fetch(url, {
+    return await fetchJson('account', url, {
         method: 'GET',
         headers: {
             'Authorization': `bearer ${session.session?.access_token}`,
@@ -134,16 +134,6 @@ export async function fetchAccount(): Promise<IAccount> {
             'Content-Type': 'application/json'
         },
     });
-
-    // await sleep(3000);
-
-    if (result.status === 401) {
-        throw new Error('Unauthorized');
-    }
-
-    console.log('fetchAccount END');
-
-    return await result.json();
 }
 
 interface IResult {

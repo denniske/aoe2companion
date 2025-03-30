@@ -1,4 +1,4 @@
-import { fetchJson2 } from '@app/api/util';
+import { fetchJson } from '@app/api/util';
 import { HeaderTitle } from '@app/components/header-title';
 import { ScrollView } from '@app/components/scroll-view';
 import { aoeCivKey, civDict, getCivNameById, parseCivDescription } from '@nex/data';
@@ -16,7 +16,6 @@ import { TechTree } from '../../../view/components/tech-tree';
 import { TechCompBig } from '../../../view/tech/tech-comp';
 import { UnitCompBig } from '../../../view/unit/unit-comp';
 import { useQuery } from '@tanstack/react-query';
-import { fetchLeaderboards } from '@app/api/helper/api';
 
 export default function CivDetails() {
     const { name } = useLocalSearchParams<{ name: aoeCivKey }>();
@@ -123,11 +122,10 @@ export function Civ4Details({ civ }: { civ: aoeCivKey }) {
     const { data: civData } = useQuery({
         queryKey: ['leaderboards'],
         queryFn: () =>
-            fetchJson2(
+            fetchJson(
                 'fetchCivInfos',
                 `https://raw.githubusercontent.com/aoe4world/data/main/civilizations/${civDataFileMapping[civ]}.json`,
                 undefined,
-                null
             ),
     });
 

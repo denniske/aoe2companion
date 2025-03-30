@@ -20,6 +20,15 @@ import { Platform, View } from 'react-native';
 import { Button } from '@app/components/button';
 import { useAccountData, useAuthProfileId } from '@app/queries/all';
 
+// export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
+//     return (
+//         <View style={{ flex: 1, backgroundColor: "red" }}>
+//             <Text>{error.message}</Text>
+//             <Text onPress={retry}>Try Again?</Text>
+//         </View>
+//     );
+// }
+
 export default function Page() {
     const authProfileId = useAuthProfileId();
     const tournament = useFeaturedTournament();

@@ -1,26 +1,29 @@
-import {fetchJson} from '../lib/fetch-json';
 
-export interface IGuide {
-    id: string;
-    status: string;
-    author: string;
-    publisher: string;
-    title: string;
-    imageURL: string;
-}
+export const abc = 1;
 
-export interface IRemoteGuides {
-    documents: IRemoteGuide[];
-}
-
-export interface IRemoteGuide {
-    fields: {
-        [key: string]: {
-            stringValue?: string;
-            integerValue?: string;
-        }
-    }
-}
+// import {fetchJson} from '../lib/fetch-json';
+//
+// export interface IGuide {
+//     id: string;
+//     status: string;
+//     author: string;
+//     publisher: string;
+//     title: string;
+//     imageURL: string;
+// }
+//
+// export interface IRemoteGuides {
+//     documents: IRemoteGuide[];
+// }
+//
+// export interface IRemoteGuide {
+//     fields: {
+//         [key: string]: {
+//             stringValue?: string;
+//             integerValue?: string;
+//         }
+//     }
+// }
 
 // export async function fetchGuides(): Promise<IGuide[]> {
 //

@@ -20,7 +20,6 @@ import {civDataRus} from '../data/rus';
 import {civDataEnglish} from '../data/english';
 import {civDataOttomans} from "../data/ottomans";
 import {civDataMalians} from "../data/malians";
-import {fetchJson2} from "../../../app/src/api/util";
 import {civDataByzantines} from "../data/byzantines";
 import {civDataJapanese} from "../data/japanese";
 import {civDataJeanneDArc} from "../data/jeannedarc";
@@ -28,6 +27,7 @@ import {civDataAyyubids} from "../data/ayyubids";
 import {civDataZhuXiSLegacy} from "../data/zhuxislegacy";
 import {civDataOrderOfTheDragon} from "../data/orderofthedragon";
 import { useQuery } from '@tanstack/react-query';
+import { fetchJson } from '@app/api/util';
 
 
 export function CivTitle(props: any) {
@@ -98,11 +98,10 @@ export function CivDetails({civ}: {civ: aoeCivKey}) {
     const { data: civData } = useQuery({
         queryKey: ['leaderboards'],
         queryFn: () =>
-            fetchJson2(
+            fetchJson(
                 'fetchCivInfos',
                 `https://raw.githubusercontent.com/aoe4world/data/main/civilizations/${civDataFileMapping[civ]}.json`,
                 undefined,
-                null
             ),
     });
 
