@@ -182,7 +182,7 @@ async function md5(contents: string) {
 
 export const cacheLiveActivityAssets = async () => {
     const assets = await fetchAssets();
-    console.log('cacheLiveActivityAssets', new Date());
+    // console.log('cacheLiveActivityAssets', new Date());
     for (const asset of assets) {
         if (!Widget.hasImage(await md5(asset.imageUrl))) {
             const url = Widget.setImage(asset.imageUrl, await md5(asset.imageUrl));
@@ -191,7 +191,7 @@ export const cacheLiveActivityAssets = async () => {
             // console.log('cacheLiveActivityAssets already cached', await md5(asset.imageUrl));
         }
     }
-    console.log('cacheLiveActivityAssets finish', new Date());
+    // console.log('cacheLiveActivityAssets finish', new Date());
 };
 
 export const useFavoritedBuild = (id: FavoriteId) => {

@@ -16,8 +16,8 @@ export const FollowedPlayers = () => {
     const { data: followedProfiles } = useProfiles(account?.followedPlayers.map((f) => f.profileId));
 
     // console.log('account.profileId', account?.profileId);
-    console.log('authProfileId', authProfileId);
-    console.log('authProfile', authProfile);
+    // console.log('authProfileId', authProfileId);
+    // console.log('authProfile', authProfile);
 
     return (
         <View className="gap-2">

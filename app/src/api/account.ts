@@ -63,14 +63,14 @@ export interface IAccount {
 // logCurrentStorage();
 
 export async function fetchAccount(): Promise<IAccount> {
-    console.trace('fetchAccount START');
+    // console.trace('fetchAccount START');
     const url = getHost('aoe2companion-api') + `v2/account`;
 
     // await supabaseClient.auth.signOut();
 
     let { data: session } = await supabaseClient.auth.getSession();
 
-    console.log('session', session);
+    // console.log('session', session);
 
     if (!session.session) {
         console.log('fetchAccount: no session');
@@ -119,9 +119,9 @@ export async function fetchAccount(): Promise<IAccount> {
             emailVerified: false,
         };
 
-        console.log('accountData', accountData);
+        // console.log('accountData', accountData);
+        // console.log('fetchAccount SAVING ACCOUNT');
 
-        console.log('fetchAccount SAVING ACCOUNT');
         await saveAccount(accountData);
         await followV2(following.map(f => f.profileId));
     }
