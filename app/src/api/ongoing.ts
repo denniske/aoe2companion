@@ -5,6 +5,8 @@ import { useCallback, useState } from 'react';
 import { ICloseEvent, w3cwebsocket } from 'websocket';
 
 import { IMatchesMatch } from './helper/api.types';
+import { makeQueryString } from '@app/api/helper/util';
+import { decamelizeKeys } from 'humps';
 
 interface IConnectionHandler {
     onOpen?: () => void;
@@ -13,9 +15,18 @@ interface IConnectionHandler {
     onClose?: (event: ICloseEvent) => void;
 }
 
-function initConnection(handler: IConnectionHandler, followingIds: number[]): Promise<w3cwebsocket> {
+function initConnection(handler: IConnectionHandler, profileIds?: number[], verified?: boolean): Promise<w3cwebsocket> {
     return new Promise((resolve) => {
-        const client = new w3cwebsocket(`${getHost('aoe2companion-socket')}listen?handler=ongoing-matches&profile_ids=${followingIds.join(',')}`);
+        const queryString = makeQueryString(
+            decamelizeKeys({
+                handler: 'ongoing-matches',
+                profileIds,
+                verified,
+            })
+        );
+        const url = `${getHost('aoe2companion-socket')}listen?${queryString}`;
+        console.log('WebSocket URL', url);
+        const client = new w3cwebsocket(url);
 
         client.onopen = () => {
             handler.onOpen?.();
@@ -57,7 +68,7 @@ interface IMatchRemovedEvent {
 
 type IMatchEvent = IMatchAddedEvent | IMatchUpdatedEvent | IMatchRemovedEvent;
 
-export function initMatchSubscription(handler: IConnectionHandler, followingIds: number[]): Promise<w3cwebsocket> {
+export function initMatchSubscription(handler: IConnectionHandler, profileIds?: number[], verified?: boolean): Promise<w3cwebsocket> {
     let _matches: any[] = [];
 
     return initConnection(
@@ -86,16 +97,22 @@ export function initMatchSubscription(handler: IConnectionHandler, followingIds:
             },
             onMessage: handler.onMessage,
         },
-        followingIds
+        profileIds,
+        verified,
     );
 }
 
-export const useOngoing = (profileIds: number[]) => {
+interface IUseOngoingParams {
+    profileIds?: number[];
+    verified?: boolean;
+}
+
+export const useOngoing = ({profileIds, verified}: IUseOngoingParams) => {
     const [matches, setMatches] = useState<IMatchesMatch[]>([]);
     const [connected, setConnected] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
-    const connect = async (followingIds: number[]) => {
+    const connect = async (_profileIds?: number[], _verified?: boolean) => {
         return await initMatchSubscription(
             {
                 onOpen: () => {
@@ -111,14 +128,15 @@ export const useOngoing = (profileIds: number[]) => {
                     setIsLoading(false);
                 },
             },
-            followingIds
+            _profileIds,
+            _verified,
         );
     };
 
     useFocusEffect(
         useCallback(() => {
             let socket: w3cwebsocket;
-            connect(profileIds).then((s) => (socket = s));
+            connect(profileIds, verified).then((s) => (socket = s));
             return () => {
                 socket?.close();
             };

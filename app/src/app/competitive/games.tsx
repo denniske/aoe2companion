@@ -12,9 +12,7 @@ import React, { Fragment } from 'react';
 import { View } from 'react-native';
 
 export default function OngoingMatchesPage() {
-    const proPlayerIds: number[] = compact(getVerifiedPlayerIds()).map((id) => Number(id));
-
-    const { matches, isLoading } = useOngoing(proPlayerIds);
+    const { matches, isLoading } = useOngoing({ verified: true });
 
     return (
         <>
@@ -28,7 +26,7 @@ export default function OngoingMatchesPage() {
                 ListEmptyComponent={isLoading ? null : <Text>No active games.</Text>}
                 data={matches}
                 renderItem={({ item: match }) => {
-                    const highlightedUsers = proPlayerIds.filter((playerId) => match.players.some((player) => player.profileId === playerId));
+                    const highlightedUsers = match.players.filter(p => p.verified).map(p => p.profileId);
                     return (
                         <View className="gap-2">
                             <View className="flex-row items-center flex-wrap" style={{ columnGap: 8 }}>

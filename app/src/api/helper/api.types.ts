@@ -334,7 +334,7 @@ export interface IPlayerNew {
     civImageUrl: string
     color: number
     colorHex: string
-    status: number
+    status: string
     slot: number
     team?: number
     won?: boolean

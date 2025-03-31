@@ -28,16 +28,15 @@ import WebView from 'react-native-webview';
 
 export default function Competitive() {
     const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-    const proPlayerIds = compact(getVerifiedPlayerIds().map((id) => id?.toString()));
-    const { matches } = useOngoing(proPlayerIds);
+    const { matches } = useOngoing({ verified: true });
     const { data: tournamentMatches, isLoading: isLoadingUpcomingMatches } = useTournamentMatches();
     const filteredMatches = tournamentMatches
         ?.filter((match) => match.startTime && match.tournament)
         .map((match) => ({ ...match, header: { name: match.tournament.name } }));
 
     const activePlayerIds = matches
-        .flatMap((match) => match.players.map((p) => ({ profileId: p.profileId.toString(), match })))
-        .filter(({ profileId }) => proPlayerIds.includes(profileId));
+        .flatMap((match) => match.players.map((p) => ({ player: p, match })))
+        .filter(({ player }) => player.verified);
 
     const [selectedMatch, setSelectedMatch] = useState<{ match: IMatchesMatch; profileId: number }>();
     const [showMatchPopup, setShowMatchPopup] = useState(false);
@@ -49,12 +48,12 @@ export default function Competitive() {
 
     const activePlayers = orderBy(
         compact(
-            activePlayerIds.map(({ profileId, match }) => {
-                const player = getVerifiedPlayer(Number(profileId));
-                const twitch = player && liveTwitchAccounts?.find((twitch) => twitch.user_login === getTwitchChannel(player));
+            activePlayerIds.map(({ player, match }) => {
+                const verifiedPlayer = getVerifiedPlayer(player.profileId);
+                const twitch = verifiedPlayer && liveTwitchAccounts?.find((twitch) => twitch.user_login === getTwitchChannel(verifiedPlayer));
                 return {
-                    profileId: Number(profileId),
-                    ...player,
+                    profileId: player.profileId,
+                    ...verifiedPlayer,
                     match,
                     isLive: !!twitch,
                     viewerCount: twitch ? twitch.viewer_count : 0,

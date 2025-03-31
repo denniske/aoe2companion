@@ -165,13 +165,8 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
     data = ready ? data : null;
 
     const styles = useStyles();
-    const steamProfileUrl = 'https://steamcommunity.com/profiles/' + data?.steamId;
-    const xboxProfileUrl = 'https://www.ageofempires.com/stats/?game=age2&profileId=' + data?.profileId;
-    const [showTournamentPlayer, setShowTournamentPlayer] = useState(false);
 
     const verifiedPlayer = getVerifiedPlayer(profileId!);
-    const { data: liquipediaProfile } = useTournamentPlayer(verifiedPlayer?.liquipedia);
-    const { data: liquipediaProfileOverview } = useTournamentPlayerOverview(verifiedPlayer?.liquipedia);
 
     // Set country for use in leaderboard country dropdown
     // useEffect(() => {
