@@ -150,42 +150,41 @@ const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingRe
                         </Text>
                         {width > 0 && (
                             <>
-                                <CartesianChart data={data}
-                                                padding={15}
-                                                domain={{
-                                                    x: [-0.5, data.length-0.5],
-                                                    y: domain
-                                                }}
-                                                xAxis={{
-                                                    font,
-                                                    tickCount: data.length,
-                                                    labelColor: '#000',
-                                                    lineWidth: 0,
-                                                    formatXLabel: (x) => grouping.elo_groupings.find((eg) => eg.name === data[x].elo)?.label.replace(/ *\([^)]*\) */g, '') ?? '',
-                                                    linePathEffect: <DashPathEffect intervals={[4, 4]} />,
-                                                }}
-                                                yAxis={[
-                                                    {
-                                                        font,
-                                                        yKeys: [key],
-                                                        linePathEffect: <DashPathEffect intervals={[4, 4]} />,
-                                                        formatYLabel: tickFormat,
-                                                    },
-                                                ]}
-                                                xKey="index"
-                                                yKeys={[key]}
-                                >
-                                    {({ points, chartBounds }) => {
-                                        console.log('points', points);
-                                        return (
-                                            <Bar
-                                                points={points[key]}
-                                                chartBounds={chartBounds}
-                                                barWidth={width / (data.length+3)}
-                                                color={colorScheme === 'dark' ? tw.color('gold-200') : tw.color('blue-500')}
-                                            />
-                                        );
+                                <CartesianChart
+                                    data={data}
+                                    padding={15}
+                                    domain={{
+                                        x: [-0.5, data.length - 0.5],
+                                        y: domain,
                                     }}
+                                    xAxis={{
+                                        font,
+                                        tickCount: data.length,
+                                        labelColor: '#000',
+                                        lineWidth: 0,
+                                        formatXLabel: (x) =>
+                                            grouping.elo_groupings.find((eg) => eg.name === data[x].elo)?.label.replace(/ *\([^)]*\) */g, '') ?? '',
+                                        linePathEffect: <DashPathEffect intervals={[4, 4]} />,
+                                    }}
+                                    yAxis={[
+                                        {
+                                            font,
+                                            yKeys: [key],
+                                            linePathEffect: <DashPathEffect intervals={[4, 4]} />,
+                                            formatYLabel: tickFormat,
+                                        },
+                                    ]}
+                                    xKey="index"
+                                    yKeys={[key]}
+                                >
+                                    {({ points, chartBounds }) => (
+                                        <Bar
+                                            points={points[key]}
+                                            chartBounds={chartBounds}
+                                            barWidth={width / (data.length + 3)}
+                                            color={colorScheme === 'dark' ? tw.color('gold-200') : tw.color('blue-500')}
+                                        />
+                                    )}
                                 </CartesianChart>
                             </>
                         )}
@@ -215,7 +214,6 @@ const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown;
                     date: patches?.find((patch) => patch.number === prior.patch)?.release_date,
                     [key]: prior.civ_stats[civ][key],
                 }));
-                console.log(data);
 
                 return (
                     <Card className="p-0 gap-0 mx-4 h-80" direction="vertical">
@@ -224,50 +222,51 @@ const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown;
                         </Text>
                         {width > 0 && (
                             <>
-                                <CartesianChart data={data}
-                                                padding={15}
-                                                domain={{
-                                                    x: [-0.5, data.length-0.5],
-                                                    y: domain
-                                                }}
-                                                xAxis={{
-                                                    font,
-                                                    tickCount: data.length,
-                                                    labelColor: '#000',
-                                                    lineWidth: 0,
-                                                    formatXLabel: (x) => format(new Date(x), 'yy-MMM'),
-                                                    // formatXLabel: (x) => format(new Date(x), 'yyyy MMM d'),
-                                                    linePathEffect: <DashPathEffect intervals={[4, 4]} />,
-                                                    labelRotate: 0, //-90,
-                                                }}
-                                                yAxis={[
-                                                    {
-                                                        font,
-                                                        yKeys: [key],
-                                                        linePathEffect: <DashPathEffect intervals={[4, 4]} />,
-                                                        formatYLabel: tickFormat,
-                                                    },
-                                                ]}
-                                                xKey="date"
-                                                yKeys={[key]}
-                                >
-                                    {({ points, chartBounds }) => {
-                                        console.log('points', points);
-                                        return domain[0] < domain[1] ? (
-                                                <Area
-                                                    points={points[key]}
-                                                    y0={chartBounds.bottom}
-                                                    animate={{ type: "timing", duration: 300 }}
-                                                    color={colorScheme === 'dark' ? tw.color('gold-200') : tw.color('blue-500')}
-                                                />) : (
-                                                <Line
-                                                    points={points[key]}
-                                                    color={colorScheme === 'dark' ? tw.color('gold-200') : tw.color('blue-500')}
-                                                    strokeWidth={3}
-                                                    animate={{ type: "timing", duration: 300 }}
-                                                />
-                                                );
+                                <CartesianChart
+                                    data={data}
+                                    padding={15}
+                                    domain={{
+                                        x: [-0.5, data.length - 0.5],
+                                        y: domain,
                                     }}
+                                    xAxis={{
+                                        font,
+                                        tickCount: data.length,
+                                        labelColor: '#000',
+                                        lineWidth: 0,
+                                        formatXLabel: (x) => format(new Date(x), 'yy-MMM'),
+                                        // formatXLabel: (x) => format(new Date(x), 'yyyy MMM d'),
+                                        linePathEffect: <DashPathEffect intervals={[4, 4]} />,
+                                        labelRotate: 0, //-90,
+                                    }}
+                                    yAxis={[
+                                        {
+                                            font,
+                                            yKeys: [key],
+                                            linePathEffect: <DashPathEffect intervals={[4, 4]} />,
+                                            formatYLabel: tickFormat,
+                                        },
+                                    ]}
+                                    xKey="date"
+                                    yKeys={[key]}
+                                >
+                                    {({ points, chartBounds }) =>
+                                        domain[0] < domain[1] ? (
+                                            <Area
+                                                points={points[key]}
+                                                y0={chartBounds.bottom}
+                                                animate={{ type: 'timing', duration: 300 }}
+                                                color={colorScheme === 'dark' ? tw.color('gold-200') : tw.color('blue-500')}
+                                            />
+                                        ) : (
+                                            <Line
+                                                points={points[key]}
+                                                color={colorScheme === 'dark' ? tw.color('gold-200') : tw.color('blue-500')}
+                                                strokeWidth={3}
+                                                animate={{ type: 'timing', duration: 300 }}
+                                            />
+                                        )
+                                    }
                                 </CartesianChart>
                             </>
                         )}
