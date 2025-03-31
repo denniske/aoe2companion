@@ -184,6 +184,10 @@ export const changelog: IChangelog = {
             title: 'Fix missing quick play matches on player matches tab',
         },
         {
+            type: 'bugfix',
+            title: 'Fix crash on stats > winrates > civ page',
+        },
+        {
             type: 'minor',
             title: 'Redesigned profile page header',
         },
