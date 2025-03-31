@@ -15,7 +15,16 @@ export function removeReactQueryParams(params: any) {
 }
 
 export function makeQueryString(params: IParams) {
-    return  new URLSearchParams(params).toString();
+
+    // remove all keys with null or undefined values
+    Object.keys(params).forEach(key => {
+        if (params[key] == null) {
+            delete params[key];
+        }
+    });
+
+    return new URLSearchParams(params).toString();
+
     // return Object.keys(params)
     //     .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
     //     .join('&');
