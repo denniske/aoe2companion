@@ -3,7 +3,7 @@ import { useLiveTwitchAccounts } from '@app/api/live';
 import { getCivIcon } from '@app/helper/civs';
 import { openLink } from '@app/helper/url';
 import { BottomSheetProps } from '@app/view/bottom-sheet';
-import { getLocalCivEnum, getTwitchChannel, getVerifiedPlayer, isVerifiedPlayer } from '@nex/data';
+import { getLocalCivEnum, getTwitchChannel, getVerifiedPlayer } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { Image } from 'expo-image';
 import { Link } from 'expo-router';
@@ -68,13 +68,13 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
                     <Text variant={highlight ? 'header-xs' : 'body'} numberOfLines={1}>
                         {verifiedPlayer ? verifiedPlayer.name : player.name}
                     </Text>
-                    {player.status === 'player' && isVerifiedPlayer(player.profileId) && <Icon icon="check-circle" color="brand" size={12} />}
+                    {player.status === 'player' && player.verified && <Icon icon="check-circle" color="brand" size={12} />}
                     {twitch && (
                         <View className="ml-2">
                             <TwitchBadge channel={twitch.user_login} condensed />
                         </View>
                     )}
-                    {player.status === 'player' && !isVerifiedPlayer(player.profileId) && player.shared && <Icon icon="family" color="brand" size={12} />}
+                    {player.status === 'player' && !player.verified && player.shared && <Icon icon="family" color="brand" size={12} />}
                 </TouchableOpacity>
             </Link>
 

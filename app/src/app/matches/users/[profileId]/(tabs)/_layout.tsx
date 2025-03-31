@@ -1,45 +1,40 @@
 import { IProfilesResultProfile } from '@app/api/helper/api.types';
 import { Icon } from '@app/components/icon';
-import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router';
+import { useLocalSearchParams, useNavigation, useRouter, withLayoutContext } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Alert, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { getTranslation } from '@app/helper/translate';
 import { HeaderTitle } from '@app/components/header-title';
 import { CountryImage, CountryImageLoader } from '@app/view/components/country-image';
-import { Country, getVerifiedPlayer, isVerifiedPlayer } from '@nex/data';
+import { Country, getVerifiedPlayer } from '@nex/data';
 import { Text } from '@app/components/text';
-import { Link } from '@app/components/link';
-import { useAccount, useAuthProfileId, useProfile, useProfileFast, withRefetching } from '@app/queries/all';
+import { useAccount, useAuthProfileId, useProfile, useProfileFast } from '@app/queries/all';
 import { useFollowMutation } from '@app/mutations/follow';
 import { useUnfollowMutation } from '@app/mutations/unfollow';
 // import { createMaterialTopTabNavigator, MaterialTopTabBar } from '@react-navigation/material-top-tabs';
 import Constants from 'expo-constants';
 import { useColorScheme } from 'nativewind';
 import { TabBarLabel } from '@app/view/components/tab-bar-label';
-import MainProfile from '@app/app/matches/users/[profileId]/(tabs)/main-profile';
-import MainStats from '@app/app/matches/users/[profileId]/(tabs)/main-stats';
-import MainMatches from '@app/app/matches/users/[profileId]/(tabs)/main-matches';
 import { useSaveAccountMutation } from '@app/mutations/save-account';
 import { useUnlinkSteamMutation } from '@app/mutations/unlink-steam';
 
 import {
+    createMaterialTopTabNavigator,
+    MaterialTopTabBar,
     MaterialTopTabNavigationEventMap,
     MaterialTopTabNavigationOptions,
-    createMaterialTopTabNavigator, MaterialTopTabBar,
 } from '@react-navigation/material-top-tabs';
-import { withLayoutContext } from "expo-router";
-import { ParamListBase, TabNavigationState } from "@react-navigation/native";
+import { ParamListBase, TabNavigationState } from '@react-navigation/native';
 import { openLink } from '@app/helper/url';
-import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import { createStylesheet } from '@app/theming-new';
-import { useTournamentPlayer, useTournamentPlayerOverview } from '@app/api/tournaments';
-import { Button } from '@app/components/button';
+import { useTournamentPlayer } from '@app/api/tournaments';
 import { TournamentPlayerPopup } from '@app/view/tournaments/player-popup';
 import { FontAwesomeIconStyle } from '@fortawesome/react-native-fontawesome';
 import { MyText } from '@app/view/components/my-text';
 import { Image } from 'expo-image';
 import { getCountryName } from '@app/helper/flags';
-import { Divider, Menu } from 'react-native-paper';
+import { Menu } from 'react-native-paper';
 import { TextLoader } from '@app/view/components/loader/text-loader';
 import { useAppTheme } from '@app/theming';
 
@@ -348,9 +343,7 @@ type UserPageParams = {
 
 function UserTitle({ profile }: UserMenuProps) {
     const profileId = profile?.profileId;
-    const isVerified = profileId ? isVerifiedPlayer(profileId) : false;
     const verifiedPlayer = profileId ? getVerifiedPlayer(profileId) : null;
-    const isMainAccount = verifiedPlayer?.platforms.rl?.[0] === profileId;
 
     const avatarUrl = `https://avatars.akamai.steamstatic.com/${profile?.avatarhash}_full.jpg`;
 

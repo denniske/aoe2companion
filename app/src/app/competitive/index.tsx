@@ -52,7 +52,7 @@ export default function Competitive() {
                 const verifiedPlayer = getVerifiedPlayer(player.profileId);
                 const twitch = verifiedPlayer && liveTwitchAccounts?.find((twitch) => twitch.user_login === getTwitchChannel(verifiedPlayer));
                 return {
-                    profileId: player.profileId,
+                    ...player,
                     ...verifiedPlayer,
                     match,
                     isLive: !!twitch,
