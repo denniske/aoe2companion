@@ -30,7 +30,7 @@ interface MatchPlayerProps {
     highlight?: boolean;
     freeForAll?: boolean;
     canDownloadRec?: boolean;
-    onClose: BottomSheetProps['onClose'];
+    onClose?: BottomSheetProps['onClose'];
 }
 
 export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlight, freeForAll, canDownloadRec, onClose }) => {

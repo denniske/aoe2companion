@@ -1,5 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchProfile, fetchProfiles } from '@app/api/helper/api';
+import {
+    fetchMatch,
+    fetchMatchAnalysis,
+    fetchMatchAnalysisSvg,
+    fetchProfile,
+    fetchProfiles,
+} from '@app/api/helper/api';
 import { authLinkSteam, fetchAccount, IAccount } from '@app/api/account';
 import { compact, uniq } from 'lodash';
 import type { UseQueryResult } from '@tanstack/react-query/src/types';
@@ -41,6 +47,27 @@ export const useProfile = (profileId: number) =>
         queryKey: ['profile', profileId],
         queryFn: () => fetchProfile({ profileId }),
         enabled: !!profileId,
+    });
+
+export const useMatch = (matchId: number) =>
+    useQuery({
+        queryKey: ['match', matchId],
+        queryFn: () => fetchMatch({ matchId }),
+        enabled: !!matchId,
+    });
+
+export const useMatchAnalysis = (matchId: number) =>
+    useQuery({
+        queryKey: ['match', matchId, 'analysis'],
+        queryFn: () => fetchMatchAnalysis({ matchId }),
+        enabled: !!matchId,
+    });
+
+export const useMatchAnalysisSvg = (matchId: number, enabled: boolean) =>
+    useQuery({
+        queryKey: ['match', matchId, 'analysis', 'svg'],
+        queryFn: () => fetchMatchAnalysisSvg({ matchId }),
+        enabled: !!matchId && enabled,
     });
 
 export const useProfileFast = (profileId?: number) =>

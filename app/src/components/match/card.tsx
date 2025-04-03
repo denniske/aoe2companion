@@ -16,6 +16,7 @@ import { Text } from '../text';
 
 export interface MatchCardProps extends MatchProps {
     onPress?: () => void;
+    flat?: boolean;
 }
 
 const formatDuration = (durationInSeconds: number) => {

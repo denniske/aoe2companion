@@ -118,7 +118,7 @@ export const TabBar: React.FC = ({}) => {
                         // console.log('ROUTE', route);
 
                         const label = route.label;
-                        const isFocused = rootNavigationState.routes[rootNavigationState.index || 0].name.startsWith(route.key);
+                        const isFocused = rootNavigationState?.routes[rootNavigationState.index || 0].name.startsWith(route.key);
 
                         const onPress = () => {
                             if (router.canDismiss()) {

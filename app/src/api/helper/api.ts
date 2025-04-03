@@ -4,12 +4,12 @@ import { camelizeKeys, decamelizeKeys } from 'humps';
 import {
     IAssetsResult,
     IFetchLeaderboardParams,
-    IFetchMatchesParams,
+    IFetchMatchesParams, IFetchMatchParams,
     IFetchProfileParams,
     IFetchProfileRatingParams,
     ILeaderboard,
     ILeaderboardDef,
-    IMatchesResult,
+    IMatchesResult, IMatchNew,
     IProfileRatingsResult,
     IProfileResult,
     IProfilesResult,
@@ -80,6 +80,34 @@ export async function fetchProfiles(params: IFetchProfileParams) {
 //     const url = `${getHost('aoe2companion-data')}api/profile?${queryString}`;
 //     return camelizeKeys(await fetchJson('fetchProfile', url, undefined, dateReviver)) as IProfilesResult;
 // }
+
+export async function fetchMatch(params: IFetchMatchParams) {
+    //    console.log('fetchMatch', params);
+    const queryString = makeQueryString(
+        decamelizeKeys({
+            ...removeReactQueryParams(params),
+            language: getInternalLanguage(),
+        })
+    );
+    const url = `${getHost('aoe2companion-data')}api/matches/${params.matchId}?${queryString}`;
+    return camelizeKeys(await fetchJson('fetchMatch', url, undefined, dateReviver)) as IMatchNew;
+}
+
+export async function fetchMatchAnalysis(params: IFetchMatchParams) {
+    //    console.log('fetchMatchAnalysis', params);
+    const queryString = makeQueryString(
+        decamelizeKeys({
+            ...removeReactQueryParams(params),
+            language: getInternalLanguage(),
+        })
+    );
+    const url = `${getHost('aoe2companion-data')}api/matches/${params.matchId}/analysis?${queryString}`;
+    return camelizeKeys(await fetchJson('fetchMatchAnalysis', url, undefined, dateReviver)) as IMatchNew;
+}
+
+export async function fetchMatchAnalysisSvg(params: IFetchMatchParams) {
+    return `${getHost('aoe2companion-data')}api/matches/${params.matchId}/analysis/svg`;
+}
 
 export async function fetchMatches(params: IFetchMatchesParams) {
     //    console.log('fetchMatches', params);

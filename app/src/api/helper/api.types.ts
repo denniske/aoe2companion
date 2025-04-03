@@ -277,6 +277,8 @@ export interface IMatchesResult {
 }
 
 export interface IMatchNew {
+    gameModeName: string;
+
     gameVariant: number; // TODO
     speedName: string; // TODO
 
@@ -363,6 +365,11 @@ export interface IFetchMatchesParams {
 }
 
 
+
+export interface IFetchMatchParams {
+    matchId?: number;
+    extend?: string;
+}
 
 export interface IFetchProfileParams {
     page?: number;
@@ -611,3 +618,132 @@ export interface IFetchLeaderboardParams {
 //     games: number
 //     country: string
 // }
+
+
+export type IAnalysis = {
+    guid: string
+    version: string
+    gaia?: Array<{
+        classId: number
+        index: number
+        instanceId: number
+        name: string
+        objectId: number
+        position: {
+            x: number
+            y: number
+        }
+    }>
+    players: Array<{
+        civilization?: string
+        civilizationId?: number
+        color?: string
+        colorId?: number
+        eapm?: number
+        name?: string
+        number?: number
+        objects?: Array<{
+            classId: number
+            index: number
+            instanceId: number
+            name: string
+            objectId: number
+            position: {
+                x: number
+                y: number
+            }
+        }>
+        position?: {}
+        preferRandom?: boolean
+        profileId?: number
+        rateSnapshot?: number
+        team?: [
+            number,
+            {
+                civilization: string
+                civilizationId: number
+                color: string
+                colorId: number
+                eapm: number
+                name: string
+                number: number
+                objects: Array<{
+                    classId: number
+                    index: number
+                    instanceId: number
+                    name: string
+                    objectId: number
+                    position: {
+                        x: number
+                        y: number
+                    }
+                }>
+                position: {}
+                preferRandom: boolean
+                profileId: number
+                rateSnapshot: number
+                team: Array<number>
+                teamId: Array<number>
+                winner: boolean
+            }
+        ]
+        teamId?: Array<number>
+        winner?: boolean
+        unknown: Array<{
+            payload: {
+                sequence: number
+                targets: Array<number>
+            }
+            player: number
+            position: {
+                x: number
+                y: number
+            }
+            timestamp: string
+            type: string
+        }>
+        queuedUnits: Array<{
+            timestamp: string
+            unit: string
+        }>
+        queuedTechs: Array<{
+            timestamp: string
+            unit: string
+        }>
+        queuedBuildings: Array<{
+            timestamp: string
+            position: {
+                x: number
+                y: number
+            }
+            unit: string
+        }>
+        market: Array<{
+            timestamp: string
+            unit: string
+            amount: number
+            type: string
+        }>
+        chat: Array<{
+            timestamp: string
+            audience: string
+            message: string
+            origination: string
+        }>
+        viewLocks: Array<any>
+    }>
+    map: {
+        custom: boolean
+        dimension: number
+        id: number
+        modes: {
+            directPlacement: boolean
+            effectQuantity: boolean
+            fixedPositions: boolean
+            guardState: boolean
+        }
+        name: string
+        size: string
+        zr: boolean
+    }
+}

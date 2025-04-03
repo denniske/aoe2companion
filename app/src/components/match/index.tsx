@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { MarchCardSkeleton, MatchCard } from './card';
 import { MatchPopup } from './popup';
+import { useRouter } from 'expo-router';
 
 export interface MatchProps {
     match: IMatchNew;
@@ -19,6 +20,7 @@ interface Props extends Omit<MatchProps, 'match'> {
 
 export const Match: React.FC<Props> = ({ match, expanded, ...props }) => {
     const [popupVisible, setPopupVisible] = useState(false);
+    const router = useRouter();
 
     useEffect(() => {
         if (expanded) {
@@ -28,13 +30,18 @@ export const Match: React.FC<Props> = ({ match, expanded, ...props }) => {
         }
     }, [expanded]);
 
+    const openMatch = () => {
+        router.push(`/matches/single/${match?.matchId}`);
+    };
+
     if (!match) {
         return <MarchCardSkeleton />;
     }
 
     return (
         <>
-            <MatchCard match={match} {...props} onPress={() => setPopupVisible(true)} />
+            <MatchCard match={match} {...props} onPress={() => openMatch()} />
+            {/*<MatchCard match={match} {...props} onPress={() => setPopupVisible(true)} />*/}
             <MatchPopup match={match} {...props} isActive={popupVisible} onClose={() => setPopupVisible(false)} />
         </>
     );

@@ -19,6 +19,7 @@ import { useCallback, useEffect } from 'react';
 import { Platform, View } from 'react-native';
 import { Button } from '@app/components/button';
 import { useAccountData, useAuthProfileId } from '@app/queries/all';
+import MatchMap2 from '@app/view/components/match-map2';
 
 // export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
 //     return (
@@ -65,6 +66,22 @@ export default function Page() {
         }
     }, [isNavigationReady]);
 
+
+    const openMatch = (matchId: number) => {
+        router.push(`/matches/single/${matchId}`);
+    };
+
+    useEffect(() => {
+        // setTimeout(() => openMatch(382667281), 1000); // some water
+        // setTimeout(() => openMatch(382486559), 1000); // some water
+        // setTimeout(() => openMatch(382688100), 1000); // dennis gaia
+        // setTimeout(() => openMatch(380883300), 1000); // mo 2v2 nomad water
+        // setTimeout(() => openMatch(382250871), 1000); // mo 3v3 megarandom
+        // setTimeout(() => openMatch(382255089), 1000); // mo 3v3
+        // setTimeout(() => openMatch(382486559), 1000); // nomad
+        // setTimeout(() => openMatch(357687089), 1000);
+    }, [isNavigationReady]);
+
     return (
         <ScrollView contentContainerStyle="p-4 gap-5">
             <Stack.Screen
@@ -78,6 +95,8 @@ export default function Page() {
                     title: 'Home',
                 }}
             />
+
+            <MatchMap2></MatchMap2>
 
             <View className="-mx-4">
                 <FollowedPlayers />
