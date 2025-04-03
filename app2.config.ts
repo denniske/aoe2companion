@@ -148,6 +148,7 @@ export default {
                     "imageWidth": 200
                 }
             ],
+            "expo-video",
             "expo-localization",
         ],
         "android": {

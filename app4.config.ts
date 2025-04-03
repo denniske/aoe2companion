@@ -97,6 +97,7 @@ export default {
                     }
                 }
             ],
+            "expo-video",
             "expo-localization",
         ],
         "android": {
