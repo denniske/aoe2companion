@@ -21,7 +21,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { useAppTheme } from '@app/theming';
 import Space from '@app/view/components/space';
 import { SvgUri } from 'react-native-svg';
-import MatchMap from '@app/view/components/match-map';
+import MatchMap from '@app/view/components/match-map/match-map';
 
 type MatchPopupProps = MatchProps & Pick<BottomSheetProps, 'isActive' | 'onClose'>;
 

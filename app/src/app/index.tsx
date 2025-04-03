@@ -26,8 +26,8 @@ import {
     useMatchAnalysisSvg,
     withRefetching,
 } from '@app/queries/all';
-import MatchMap2 from '@app/view/components/match-map2';
-import MatchMap from '@app/view/components/match-map';
+import MatchMap2 from '@app/view/components/match-map/match-map2';
+import MatchMap from '@app/view/components/match-map/match-map';
 
 // export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
 //     return (
@@ -110,13 +110,13 @@ export default function Page() {
                 }}
             />
 
-            <MatchMap2></MatchMap2>
+            {/*<MatchMap2></MatchMap2>*/}
 
-            {/*<MatchMap*/}
-            {/*    match={match}*/}
-            {/*    analysis={analysis}*/}
-            {/*    analysisSvgUrl={analysisSvgUrl}*/}
-            {/*/>*/}
+            <MatchMap
+                match={match}
+                analysis={analysis}
+                analysisSvgUrl={analysisSvgUrl}
+            />
 
             {/*<View className="-mx-4">*/}
             {/*    <FollowedPlayers />*/}
