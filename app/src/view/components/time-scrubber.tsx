@@ -6,7 +6,7 @@ import Animated, {
     useAnimatedStyle,
     cancelAnimation,
     runOnJS,
-    Easing, useAnimatedProps,
+    Easing, useAnimatedProps, SharedValue,
 } from 'react-native-reanimated';
 import {
     GestureDetector,
@@ -18,7 +18,7 @@ const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 const DURATION = 30 * 60 * 1000; // 30min
 
 interface Props {
-    time: Animated.SharedValue<number>;
+    time: SharedValue<number>;
 }
 
 export default function TimeScrubber({time} : Props) {
@@ -49,24 +49,12 @@ export default function TimeScrubber({time} : Props) {
             cancelAnimation(time);
         })
         .onUpdate((e) => {
-            // console.log('translationX', e.translationX);
-            console.log('x', e.x);
-            // console.log('absoluteX', e.absoluteX);
-            // console.log('velocityX', e.velocityX);
-
-
-            console.log('barWidth', barWidth.value);
-
             time.value = Math.max(0, Math.min(DURATION, e.x / barWidth.value * DURATION));
-
-            // let newX = Math.max(0, Math.min(barWidth.value, e.translationX + progress.value));
-            // time.value = (newX / barWidth.value) * DURATION;
         })
         .onEnd(() => {
             progress.value = (time.value / DURATION) * barWidth.value;
         });
 
-    // Progress bar animation based on time
     const progressStyle = useAnimatedStyle(() => {
         const width = (time.value / DURATION) * barWidth.value;
         progress.value = width;
@@ -81,8 +69,6 @@ export default function TimeScrubber({time} : Props) {
         };
     });
 
-
-
     const animatedProps = useAnimatedProps(() => {
         const formatTime = (milliseconds: number) => {
             const seconds = Math.floor((milliseconds / 1000) % 60);
@@ -93,7 +79,6 @@ export default function TimeScrubber({time} : Props) {
         }
         return {
             text: `${formatTime(time.value)} / ${formatTime(DURATION)}`, // this won't work with Text, only TextInput's "value"
-            // value: `${time.value}s`,
         };
     });
 
@@ -103,9 +88,6 @@ export default function TimeScrubber({time} : Props) {
                 <View style={styles.barContainer}
                       onLayout={(event) => {
                           barWidth.value = event.nativeEvent.layout.width;
-                          // console.log('barWidth event', JSON.stringify(event));
-                          console.log('layout', event.nativeEvent.layout.width);
-                          console.log('barWidth', barWidth.value);
                       }}
                 >
                     <View style={styles.track} />
@@ -137,7 +119,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 30,
-        // alignItems: 'center',
         backgroundColor: 'yellow',
     },
     barContainer: {
