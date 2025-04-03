@@ -8,6 +8,7 @@ import { Button } from 'react-native-paper';
 import { usePaperTheme } from '@app/theming';
 // import Animated, { useAnimatedProps, useDerivedValue, useSharedValue, withDelay, withTiming } from 'react-native-reanimated';
 import { useDerivedValue, useSharedValue, withDelay, withTiming } from 'react-native-reanimated';
+import { compact } from 'lodash';
 
 
 // import { Text as Text2 } from 'react-native';
@@ -47,19 +48,18 @@ export default function MatchMap(props: Props) {
     // Sheep are sometimes gaia and when game starts become player sheep
     // Gurjaras start with two Forage Bushes
 
-    const townCenters = analysis.players
+    const townCenters = compact(analysis.players
         .flatMap((p) => {
             return p.objects
                 ?.filter((o) => o.name === 'Town Center' && o.objectId === 620)
-                .map((o) => ({
+                ?.map((o) => ({
                     x: o.position.x,
                     y: o.position.y,
                     color: p.color,
                 }));
-        })
-        .filter((x) => x);
+        }));
 
-    const gaiaObjects = {
+    const gaiaObjects: Record<string, { names: string[]; objectIds?: number[]; color: string }> = {
         bush: {
             names: [
                 'Forage Bush', 'Fruit Bush',
@@ -164,7 +164,7 @@ export default function MatchMap(props: Props) {
             ],
             color: '#FFF',
         },
-    };
+    } as const;
 
     const gaiaDraw = Object.keys(gaiaObjects).map((key) => {
         const info = gaiaObjects[key as keyof typeof gaiaObjects];

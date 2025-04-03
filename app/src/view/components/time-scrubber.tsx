@@ -118,10 +118,9 @@ export default function TimeScrubber({time} : Props) {
                 <Pressable style={styles.button} onPress={togglePlay}>
                     <Text style={styles.buttonText}>{isPlaying ? 'Pause' : 'Play'}</Text>
                 </Pressable>
-
                 <AnimatedTextInput
                     editable={false}
-                    animatedProps={animatedProps}
+                    animatedProps={animatedProps as any}
                     style={{
                         fontSize: 16,
                         fontWeight: 'bold',
