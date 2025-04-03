@@ -90,7 +90,8 @@ export default function Page() {
         // setTimeout(() => openMatch(357687089), 1000);
     }, [isNavigationReady]);
 
-    const matchId = 382486559;
+    // const matchId = 382486559; nomad with water 4 players
+    const matchId = 382919732;
 
     const { data: match } = withRefetching(useMatch(matchId));
     const { data: analysis } = withRefetching(useMatchAnalysis(matchId));

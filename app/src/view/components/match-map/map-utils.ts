@@ -25,6 +25,100 @@
 //     return () => clearInterval(interval);
 // }, []);
 
+export function getBuildingSize(name: string): { width: number, height: number } {
+    const building = Object.values(buildingSizes).find((b) => b.names.includes(name));
+    return building?.size ?? { width: 1, height: 1 };
+}
+
+// building_id for palisade gates 4x
+// normal gates
+
+export const buildingSizes: Record<string, { names: string[]; objectIds?: number[]; size: { width: number, height: number } }> = {
+    '1x1': {
+        names: [
+            'Bombard Tower',
+            'Fish Trap',
+            'Guard Tower',
+            'Keep',
+            'Outpost',
+            'Watch Tower',
+        ],
+        size: {
+            width: 1,
+            height: 1,
+        },
+    },
+    '2x2': {
+        names: [
+            'Donjon',
+            'House',
+            'Mill',
+            'Lumber Camp',
+            'Mining Camp',
+        ],
+        size: {
+            width: 2,
+            height: 2,
+        },
+    },
+    '3x3': {
+        names: [
+            'Archery Range',
+            'Barracks',
+            'Blacksmith',
+            'Dock',
+            'Farm',
+            'Folwark',
+            'Fortified Church',
+            'Harbor',
+            'Krepost',
+            'Monastery',
+            'Port',
+            'Rice Farm',
+            'Stable',
+            'Siege Workshop',
+        ],
+        size: {
+            width: 3,
+            height: 3,
+        },
+    },
+    '4x4': {
+        names: [
+            'Castle',
+            'Caravanserai',
+            'Dock',
+            'Market',
+            'Port',
+            'Siege Workshop',
+            'Town Center',
+            'University',
+        ],
+        size: {
+            width: 4,
+            height: 4,
+        },
+    },
+    '5x5': {
+        names: [
+            'Feitoria',
+            'Wonder',
+        ],
+        size: {
+            width: 5,
+            height: 5,
+        },
+    },
+    '8x8': {
+        names: [
+            'Cathedral',
+        ],
+        size: {
+            width: 8,
+            height: 8,
+        },
+    },
+};
 
 export const gaiaObjects: Record<string, { names: string[]; objectIds?: number[]; color: string }> = {
     bush: {

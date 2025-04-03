@@ -717,6 +717,19 @@ export type IAnalysis = {
                 y: number
             }
             unit: string
+            unitId: number
+        }>
+        queuedWalls: Array<{
+            timestamp: string
+            position: {
+                x: number
+                y: number
+            }
+            positionEnd: {
+                x: number
+                y: number
+            }
+            unit: string
         }>
         market: Array<{
             timestamp: string
