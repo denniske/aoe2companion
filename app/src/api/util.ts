@@ -21,6 +21,8 @@ async function fetchAndParseJson(input: RequestInfo, init?: RequestInit, reviver
     return JSON.parse(text, reviver);
 }
 
+// Here we implement a retry mechanism for network requests.
+// So we set QueryClientProvider retry to 0 for react query in _layout.tsx.
 export async function fetchJson(title: string, input: RequestInfo, init?: RequestInit, reviver?: any) {
     try {
         return await fetchAndParseJson(input, init, reviver);

@@ -15,11 +15,19 @@ import BuildCard from '@app/view/components/build-order/build-card';
 import { TournamentCardLarge } from '@app/view/tournaments/tournament-card-large';
 import * as Notifications from '../service/notifications';
 import { Stack, useFocusEffect, useRootNavigationState, useRouter } from 'expo-router';
-import { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Platform, View } from 'react-native';
 import { Button } from '@app/components/button';
-import { useAccountData, useAuthProfileId } from '@app/queries/all';
+import {
+    useAccountData,
+    useAuthProfileId,
+    useMatch,
+    useMatchAnalysis,
+    useMatchAnalysisSvg,
+    withRefetching,
+} from '@app/queries/all';
 import MatchMap2 from '@app/view/components/match-map2';
+import MatchMap from '@app/view/components/match-map';
 
 // export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
 //     return (
@@ -82,6 +90,12 @@ export default function Page() {
         // setTimeout(() => openMatch(357687089), 1000);
     }, [isNavigationReady]);
 
+    const matchId = 382486559;
+
+    const { data: match } = withRefetching(useMatch(matchId));
+    const { data: analysis } = withRefetching(useMatchAnalysis(matchId));
+    const { data: analysisSvgUrl } = withRefetching(useMatchAnalysisSvg(matchId, !!analysis));
+
     return (
         <ScrollView contentContainerStyle="p-4 gap-5">
             <Stack.Screen
@@ -98,62 +112,68 @@ export default function Page() {
 
             <MatchMap2></MatchMap2>
 
-            <View className="-mx-4">
-                <FollowedPlayers />
-            </View>
+            {/*<MatchMap*/}
+            {/*    match={match}*/}
+            {/*    analysis={analysis}*/}
+            {/*    analysisSvgUrl={analysisSvgUrl}*/}
+            {/*/>*/}
 
-            {authProfileId && (
-                <View className="gap-2">
-                    <Text variant="header-lg">{currentMatch?.finished === null ? 'Current' : 'Most Recent'} Match</Text>
+            {/*<View className="-mx-4">*/}
+            {/*    <FollowedPlayers />*/}
+            {/*</View>*/}
 
-                    <View className="gap-2">
-                        <Match user={currentMatch?.filteredPlayers[0]} highlightedUsers={currentMatch?.filteredPlayers} match={currentMatch} />
-                    </View>
-                </View>
-            )}
+            {/*{authProfileId && (*/}
+            {/*    <View className="gap-2">*/}
+            {/*        <Text variant="header-lg">{currentMatch?.finished === null ? 'Current' : 'Most Recent'} Match</Text>*/}
 
-            {favorites.length > 0 && (
-                <View className="gap-2">
-                    <View className="flex-row justify-between items-center">
-                        <Text variant="header-lg">Favorite Build Orders</Text>
-                        <Link href="/explore/build-orders">View All</Link>
-                    </View>
+            {/*        <View className="gap-2">*/}
+            {/*            <Match user={currentMatch?.filteredPlayers[0]} highlightedUsers={currentMatch?.filteredPlayers} match={currentMatch} />*/}
+            {/*        </View>*/}
+            {/*    </View>*/}
+            {/*)}*/}
 
-                    <FlatList
-                        showsHorizontalScrollIndicator={false}
-                        className="flex-none"
-                        horizontal
-                        keyboardShouldPersistTaps="always"
-                        data={favorites}
-                        contentContainerStyle="gap-2.5"
-                        renderItem={({ item }) => <BuildCard size="small" {...item} />}
-                        keyExtractor={(item) => item.id.toString()}
-                    />
-                </View>
-            )}
+            {/*{favorites.length > 0 && (*/}
+            {/*    <View className="gap-2">*/}
+            {/*        <View className="flex-row justify-between items-center">*/}
+            {/*            <Text variant="header-lg">Favorite Build Orders</Text>*/}
+            {/*            <Link href="/explore/build-orders">View All</Link>*/}
+            {/*        </View>*/}
 
-            {Platform.OS !== 'web' ? (
-                <View className="gap-2">
-                    <View className="flex-row justify-between items-center">
-                        <Text variant="header-lg">{followedIds[0] ? 'Favorite' : 'Featured'} Tournament</Text>
-                        <Link href="/competitive/tournaments">View All</Link>
-                    </View>
-                    {followedIds[0] ? <TournamentCardLarge path={followedIds[0]} /> : <TournamentCardLarge {...tournament} />}
-                </View>
-            ) : null}
+            {/*        <FlatList*/}
+            {/*            showsHorizontalScrollIndicator={false}*/}
+            {/*            className="flex-none"*/}
+            {/*            horizontal*/}
+            {/*            keyboardShouldPersistTaps="always"*/}
+            {/*            data={favorites}*/}
+            {/*            contentContainerStyle="gap-2.5"*/}
+            {/*            renderItem={({ item }) => <BuildCard size="small" {...item} />}*/}
+            {/*            keyExtractor={(item) => item.id.toString()}*/}
+            {/*        />*/}
+            {/*    </View>*/}
+            {/*)}*/}
 
-            <View className="gap-2">
-                <Text variant="header-lg">Recent News</Text>
+            {/*{Platform.OS !== 'web' ? (*/}
+            {/*    <View className="gap-2">*/}
+            {/*        <View className="flex-row justify-between items-center">*/}
+            {/*            <Text variant="header-lg">{followedIds[0] ? 'Favorite' : 'Featured'} Tournament</Text>*/}
+            {/*            <Link href="/competitive/tournaments">View All</Link>*/}
+            {/*        </View>*/}
+            {/*        {followedIds[0] ? <TournamentCardLarge path={followedIds[0]} /> : <TournamentCardLarge {...tournament} />}*/}
+            {/*    </View>*/}
+            {/*) : null}*/}
 
-                <FlatList
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle="gap-4 px-4"
-                    className="-mx-4"
-                    horizontal
-                    data={news}
-                    renderItem={({ item: post }) => <NewsCard {...post} />}
-                />
-            </View>
+            {/*<View className="gap-2">*/}
+            {/*    <Text variant="header-lg">Recent News</Text>*/}
+
+            {/*    <FlatList*/}
+            {/*        showsHorizontalScrollIndicator={false}*/}
+            {/*        contentContainerStyle="gap-4 px-4"*/}
+            {/*        className="-mx-4"*/}
+            {/*        horizontal*/}
+            {/*        data={news}*/}
+            {/*        renderItem={({ item: post }) => <NewsCard {...post} />}*/}
+            {/*    />*/}
+            {/*</View>*/}
         </ScrollView>
     );
 }

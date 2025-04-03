@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Pressable, Text } from 'react-native';
+import { View, StyleSheet, Pressable, Text, TextInput } from 'react-native';
 import Animated, {
     useSharedValue,
     withTiming,
     useAnimatedStyle,
     cancelAnimation,
     runOnJS,
-    Easing,
+    Easing, useAnimatedProps,
 } from 'react-native-reanimated';
 import {
     GestureDetector,
     Gesture,
 } from 'react-native-gesture-handler';
 
-const DURATION = 10000; // 10 seconds
-const BAR_WIDTH = 300;
+const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
+
+const DURATION = 30 * 60 * 1000; // 30min
 
 interface Props {
     time: Animated.SharedValue<number>;
@@ -23,6 +24,7 @@ interface Props {
 export default function TimeScrubber({time} : Props) {
     const [isPlaying, setIsPlaying] = useState(false);
 
+    const barWidth = useSharedValue(0);
     const progress = useSharedValue(0);
 
     const play = () => {
@@ -52,18 +54,21 @@ export default function TimeScrubber({time} : Props) {
             // console.log('absoluteX', e.absoluteX);
             // console.log('velocityX', e.velocityX);
 
-            time.value = Math.max(0, Math.min(DURATION, e.x / BAR_WIDTH * DURATION));
 
-            // let newX = Math.max(0, Math.min(BAR_WIDTH, e.translationX + progress.value));
-            // time.value = (newX / BAR_WIDTH) * DURATION;
+            console.log('barWidth', barWidth.value);
+
+            time.value = Math.max(0, Math.min(DURATION, e.x / barWidth.value * DURATION));
+
+            // let newX = Math.max(0, Math.min(barWidth.value, e.translationX + progress.value));
+            // time.value = (newX / barWidth.value) * DURATION;
         })
         .onEnd(() => {
-            progress.value = (time.value / DURATION) * BAR_WIDTH;
+            progress.value = (time.value / DURATION) * barWidth.value;
         });
 
     // Progress bar animation based on time
     const progressStyle = useAnimatedStyle(() => {
-        const width = (time.value / DURATION) * BAR_WIDTH;
+        const width = (time.value / DURATION) * barWidth.value;
         progress.value = width;
         return {
             width,
@@ -76,33 +81,71 @@ export default function TimeScrubber({time} : Props) {
         };
     });
 
+
+
+    const animatedProps = useAnimatedProps(() => {
+        const formatTime = (milliseconds: number) => {
+            const seconds = Math.floor((milliseconds / 1000) % 60);
+            const minutes = Math.floor((milliseconds / (1000 * 60)) % 60);
+            const hours = Math.floor((milliseconds / (1000 * 60 * 60)) % 24);
+
+            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+        }
+        return {
+            text: `${formatTime(time.value)} / ${formatTime(DURATION)}`, // this won't work with Text, only TextInput's "value"
+            // value: `${time.value}s`,
+        };
+    });
+
     return (
         <View style={styles.container}>
             <GestureDetector gesture={panGesture}>
-                <View style={styles.barContainer}>
+                <View style={styles.barContainer}
+                      onLayout={(event) => {
+                          barWidth.value = event.nativeEvent.layout.width;
+                          // console.log('barWidth event', JSON.stringify(event));
+                          console.log('layout', event.nativeEvent.layout.width);
+                          console.log('barWidth', barWidth.value);
+                      }}
+                >
                     <View style={styles.track} />
                     <Animated.View style={[styles.progress, progressStyle]} />
                     <Animated.View style={[styles.handle, handleStyle]} />
                 </View>
             </GestureDetector>
 
-            <Pressable style={styles.button} onPress={togglePlay}>
-                <Text style={styles.buttonText}>{isPlaying ? 'Pause' : 'Play'}</Text>
-            </Pressable>
+            <View className="flex-row gap-2 items-center">
+                <Pressable style={styles.button} onPress={togglePlay}>
+                    <Text style={styles.buttonText}>{isPlaying ? 'Pause' : 'Play'}</Text>
+                </Pressable>
+
+                <AnimatedTextInput
+                    editable={false}
+                    animatedProps={animatedProps}
+                    style={{
+                        fontSize: 16,
+                        fontWeight: 'bold',
+                        color: 'black',
+                        top: 8,
+                    }}
+                />
+            </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         padding: 30,
-        alignItems: 'center',
+        // alignItems: 'center',
+        backgroundColor: 'yellow',
     },
     barContainer: {
-        width: BAR_WIDTH,
+        flex: 1,
         height: 30,
         justifyContent: 'center',
-        backgroundColor: 'yellow',
+        backgroundColor: 'red',
     },
     track: {
         height: 4,
