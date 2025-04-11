@@ -17,6 +17,8 @@ export const civsData = [
     'Ayyubids',
     'ZhuXiSLegacy',
     'OrderOfTheDragon',
+    'HouseOfLancaster',
+    'KnightsTemplar',
 ] as const;
 
 export const civsAoeNetData = civsData;
@@ -38,6 +40,8 @@ export const civIconListData = {
     'Ayyubids': require('../../../app4/assets/civilizations/ayyubids.png'),
     'ZhuXiSLegacy': require('../../../app4/assets/civilizations/zhu_xi_s_legacy.png'),
     'OrderOfTheDragon': require('../../../app4/assets/civilizations/order_of_the_dragon.png'),
+    'HouseOfLancaster': require('../../../app4/assets/civilizations/house_of_lancaster.png'),
+    'KnightsTemplar': require('../../../app4/assets/civilizations/knights_templar.png'),
 };
 
 export const civEnumListData: Record<string, any> = {
@@ -57,4 +61,6 @@ export const civEnumListData: Record<string, any> = {
     'ayyubids': 'Ayyubids',
     'zhu_xi_s_legacy': 'ZhuXiSLegacy',
     'order_of_the_dragon': 'OrderOfTheDragon',
+    'house_of_lancaster': 'HouseOfLancaster',
+    'knights_templar': 'KnightsTemplar',
 };

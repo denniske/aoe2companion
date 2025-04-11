@@ -18,6 +18,12 @@ export interface IChangelog {
 // https://www.ageofempires.com/news/age-of-empires-iv-season-one-update-release-notes/
 
 export const changelog4: IChangelog = {
+    '18.0.0': [
+        {
+            type: 'feature',
+            title: 'Implemented [Knights of Cross and Rose Expansion](https://www.ageofempires.com/news/age-of-empires-iv-knights-of-cross-and-rose-available-now/)',
+        },
+    ],
     '17.0.0': [
         {
             type: 'feature',
@@ -174,10 +180,44 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    // '123.0.0': [
+    //     {
+    //         type: 'minor',
+    //         title: 'Redesigned profile page header',
+    //     },
+    //     {
+    //         type: 'feature',
+    //         title: 'Account creation',
+    //         content: 'You can now create an account to save your settings and followed players across devices',
+    //     },
+    //     {
+    //         type: 'feature',
+    //         title: 'Link steam account',
+    //         content: 'Link your Steam account to prove ownership of your profile'
+    //     },
+    //     {
+    //         type: 'feature',
+    //         title: 'Link patreon account',
+    //         content: 'Link your Patreon account to access exclusive benefits'
+    //     },
+    // ],
     '122.0.0': [
+        {
+            type: 'minor',
+            title: '[AoE II DE Update 141935](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-141935/)',
+            content: '...need to pull from aoe2techtree',
+        },
         {
             type: 'bugfix',
             title: 'Fix toggle following (heart icon) on player page',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix missing quick play matches on player matches tab',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix crash on stats > winrates > civ page',
         },
     ],
     '121.0.0': [
