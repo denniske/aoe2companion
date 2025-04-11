@@ -351,6 +351,7 @@ export interface IPlayerNew {
 
 export interface IFetchMatchesParams {
     leaderboardIds?: number[];
+    platform?: string;
     page?: number;
     search?: string;
     steamId?: string;

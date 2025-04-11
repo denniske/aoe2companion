@@ -61,13 +61,13 @@ function MainMatchesInternal({ profileId }: { profileId: number }) {
     const [withMe, setWithMe] = useState(false);
     const [reloading, setReloading] = useState(false);
     const auth = useSelector((state) => state.auth);
-    const [leaderboardType, setLeaderboardType] = useState<'pc' | 'xbox'>('pc');
+    const [platform, setPlatform] = useState<'pc' | 'xbox'>('pc');
 
     const realText = text.trim().length < 3 ? '' : text.trim();
     const debouncedSearch = useDebounce(realText, 600);
 
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch, isRefetching } = useInfiniteQuery(
-        ['matches', profileId, withMe, debouncedSearch, leaderboardIds],
+        ['matches', profileId, withMe, debouncedSearch, leaderboardIds, platform],
         (context) => {
             return fetchMatches({
                 ...context,
@@ -75,6 +75,7 @@ function MainMatchesInternal({ profileId }: { profileId: number }) {
                 withProfileIds: (context.queryKey[2] as boolean) ? [auth?.profileId ?? 0] : [],
                 search: context.queryKey[3] as string,
                 leaderboardIds: context.queryKey[4] as unknown as number[],
+                platform: context.queryKey[5] === 'pc' ? 'pc' : 'console',
             });
         },
         {
@@ -90,7 +91,7 @@ function MainMatchesInternal({ profileId }: { profileId: number }) {
 
     const onLeaderboardSelected = async (selLeaderboardId: string) => {
         if (leaderboardIds.length === 1 && leaderboardIds[0] === selLeaderboardId) {
-            setLeaderboardIds(leaderboardIdsByType(leaderboards.data, leaderboardType));
+            setLeaderboardIds([]);
         } else {
             setLeaderboardIds([selLeaderboardId]);
         }
@@ -105,12 +106,6 @@ function MainMatchesInternal({ profileId }: { profileId: number }) {
         fetchLeaderboards
     );
 
-    useEffect(() => {
-        if (leaderboards.data == null) return;
-        if (leaderboardIds.length === 0) {
-            setLeaderboardIds(leaderboardIdsByType(leaderboards.data, leaderboardType));
-        }
-    }, [leaderboards.data]);
 
     const renderLeaderboard = (value: string, selected: boolean) => {
         return (
@@ -181,10 +176,10 @@ function MainMatchesInternal({ profileId }: { profileId: number }) {
                     <Dropdown
                         textVariant="label-sm"
                         style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 10, paddingBottom: 8, marginRight: 6 }}
-                        value={leaderboardType}
+                        value={platform}
                         onChange={(lType) => {
-                            setLeaderboardType(lType);
-                            setLeaderboardIds(leaderboardIdsByType(leaderboards.data, lType));
+                            setPlatform(lType);
+                            setLeaderboardIds([]);
                         }}
                         options={[
                             { value: 'pc', label: 'PC' },
@@ -193,7 +188,7 @@ function MainMatchesInternal({ profileId }: { profileId: number }) {
                     />
                     <TemplatePicker
                         value={leaderboardIds.length > 1 ? undefined : leaderboardIds[0]}
-                        values={leaderboardIdsByType(leaderboards.data, leaderboardType)}
+                        values={leaderboardIdsByType(leaderboards.data, platform)}
                         template={renderLeaderboard}
                         onSelect={onLeaderboardSelected}
                     />
