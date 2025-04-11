@@ -17,8 +17,8 @@ export const NewsCard: React.FC<Post> = (post) => {
 
     useEffect(() => {
         if (data) {
-            if (data.media_details?.sizes) {
-                const validSizes = Object.values(data.media_details.sizes).filter((size) => size.width > 500);
+            const validSizes = Object.values(data.media_details?.sizes ?? {}).filter((size) => size.width > 500);
+            if (validSizes?.length > 0) {
                 const orderedSizes = sortBy(validSizes, s => s.filesize);
                 setImageUrl(orderedSizes[0]?.source_url);
             } else {
