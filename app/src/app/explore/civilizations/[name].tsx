@@ -117,6 +117,8 @@ export function Civ4Details({ civ }: { civ: aoeCivKey }) {
         Ayyubids: 'ayyubids',
         ZhuXiSLegacy: 'zhuxi',
         OrderOfTheDragon: 'orderofthedragon',
+        HouseOfLancaster: 'lancaster',
+        KnightsTemplar: 'templar',
     } as any;
 
     const { data: civData } = useQuery({
