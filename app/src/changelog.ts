@@ -180,6 +180,23 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    // '123.0.0': [
+    //     {
+    //         type: 'feature',
+    //         title: 'Account creation',
+    //         content: 'You can now create an account to save your settings and followed players across devices',
+    //     },
+    //     {
+    //         type: 'feature',
+    //         title: 'Link steam account',
+    //         content: 'Link your Steam account to prove ownership of your profile'
+    //     },
+    //     {
+    //         type: 'feature',
+    //         title: 'Link patreon account',
+    //         content: 'Link your Patreon account to access exclusive benefits'
+    //     },
+    // ],
     '122.0.0': [
         {
             type: 'bugfix',
@@ -198,19 +215,9 @@ export const changelog: IChangelog = {
             title: 'Redesigned profile page header',
         },
         {
-            type: 'feature',
-            title: 'Account creation',
-            content: 'You can now create an account to save your settings and followed players across devices',
-        },
-        {
-            type: 'feature',
-            title: 'Link steam account',
-            content: 'Link your Steam account to prove ownership of your profile'
-        },
-        {
-            type: 'feature',
-            title: 'Link patreon account',
-            content: 'Link your Patreon account to access exclusive benefits'
+            type: 'minor',
+            title: 'Changed the way profile, followed players and settings are stored',
+            content: 'If you notice any errors please post on [Discord](https://discord.gg/gCunWKx)',
         },
     ],
     '121.0.0': [

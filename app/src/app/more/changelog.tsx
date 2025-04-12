@@ -77,7 +77,7 @@ export default function ChangelogPage() {
                     </View>
                     <View style={styles.textContainer}>
                         <MyText style={styles.title}>{formatTitle(change.title)}</MyText>
-                        {change.content && <MyText style={styles.content2}>{change.content}</MyText>}
+                        {change.content && <MyText style={styles.content2}>{formatTitle(change.content)}</MyText>}
                         {
                             change.author && <MyText style={styles.content}>by {formatTitle(change.author)}</MyText>
                         }

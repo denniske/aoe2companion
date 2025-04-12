@@ -351,24 +351,17 @@ function HomeLayout() {
             }
             return true;
         };
-
         const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
-
         return () => backHandler.remove();
     }, []);
 
     return (
         <ReduxProvider store={store}>
             <QueryClientProvider client={queryClient}>
-                <Dummy />
+                <AppWrapper />
             </QueryClientProvider>
         </ReduxProvider>
     );
-}
-
-// Can be removed later. Is just for checking rerender lag reason.
-function Dummy() {
-    return <AppWrapper />;
 }
 
 export default Sentry.wrap(HomeLayout);
