@@ -20,7 +20,7 @@ import { useWebRefresh } from '../../hooks/use-web-refresh';
 import { Link } from '@app/components/link';
 import { useAccountData, useFollowedAndMeProfileIds } from '@app/queries/all';
 
-export default function Matches() {
+export default function MatchesPage() {
     const [refetching, setRefetching] = useState(false);
 
     const isActiveRoute = true;

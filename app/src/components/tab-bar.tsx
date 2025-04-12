@@ -12,7 +12,8 @@ import { Icon } from './icon';
 import { Text } from './text';
 import { useRootNavigationState, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useMutateScroll, useScrollPosition } from '@app/redux/reducer';
+import { setMainPageShown, useMutate, useMutateScroll, useScrollPosition, useSelector } from '@app/redux/reducer';
+import { useAccountData } from '@app/queries/all';
 
 export const TabBar: React.FC = ({}) => {
     const insets = useSafeAreaInsets();
@@ -33,6 +34,18 @@ export const TabBar: React.FC = ({}) => {
 
     const showTabBar = scrollPosition === 0;
     const opacity = useRef(new Animated.Value(1)).current;
+
+    const configMainPage = useAccountData(data => data.mainPage);
+    const mainPageShown = useSelector((state) => state.mainPageShown);
+    const isNavigationReady = rootNavigationState?.key != null;
+    const mutate = useMutate();
+
+    useEffect(() => {
+        if (Platform.OS !== 'web' && isNavigationReady && configMainPage && mainPageShown !== true) {
+            router.navigate(configMainPage);
+            mutate(setMainPageShown(true));
+        }
+    }, [isNavigationReady]);
 
     useEffect(() => {
         const toValue = showTabBar ? 1 : 0;

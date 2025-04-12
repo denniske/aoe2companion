@@ -30,9 +30,9 @@ export const Match: React.FC<Props> = ({ match, expanded, ...props }) => {
         }
     }, [expanded]);
 
-    const openMatch = () => {
-        router.push(`/matches/single/${match?.matchId}`);
-    };
+    // const openMatch = () => {
+    //     router.push(`/matches/single/${match?.matchId}`);
+    // };
 
     if (!match) {
         return <MarchCardSkeleton />;
@@ -40,8 +40,8 @@ export const Match: React.FC<Props> = ({ match, expanded, ...props }) => {
 
     return (
         <>
-            <MatchCard match={match} {...props} onPress={() => openMatch()} />
-            {/*<MatchCard match={match} {...props} onPress={() => setPopupVisible(true)} />*/}
+            {/*<MatchCard match={match} {...props} onPress={() => openMatch()} />*/}
+            <MatchCard match={match} {...props} onPress={() => setPopupVisible(true)} />
             <MatchPopup match={match} {...props} isActive={popupVisible} onClose={() => setPopupVisible(false)} />
         </>
     );

@@ -38,7 +38,7 @@ import MatchMap from '@app/view/components/match-map/match-map';
 //     );
 // }
 
-export default function Page() {
+export default function IndexPage() {
     const authProfileId = useAuthProfileId();
     const tournament = useFeaturedTournament();
     const matches = useCurrentMatches(1);
@@ -49,9 +49,9 @@ export default function Page() {
     const { followedIds, refetch: refetchTournament } = useFollowedTournaments();
     const configMainPage = useAccountData(data => data.mainPage);
     const mainPageShown = useSelector((state) => state.mainPageShown);
-    const rootNavigation = useRootNavigationState();
-    const isNavigationReady = rootNavigation?.key != null;
-    const mutate = useMutate();
+    // const rootNavigation = useRootNavigationState();
+    // const isNavigationReady = rootNavigation?.key != null;
+    // const mutate = useMutate();
 
     useFocusEffect(
         useCallback(() => {
@@ -67,35 +67,35 @@ export default function Page() {
         }
     }, [response]);
 
-    useEffect(() => {
-        if (Platform.OS !== 'web' && isNavigationReady && configMainPage && mainPageShown !== true) {
-            router.navigate(configMainPage);
-            mutate(setMainPageShown(true));
-        }
-    }, [isNavigationReady]);
+    // useEffect(() => {
+    //     if (Platform.OS !== 'web' && isNavigationReady && configMainPage && mainPageShown !== true) {
+    //         router.navigate(configMainPage);
+    //         mutate(setMainPageShown(true));
+    //     }
+    // }, [isNavigationReady]);
 
 
-    const openMatch = (matchId: number) => {
-        router.push(`/matches/single/${matchId}`);
-    };
-
-    useEffect(() => {
-        // setTimeout(() => openMatch(382667281), 1000); // some water
-        // setTimeout(() => openMatch(382486559), 1000); // some water
-        // setTimeout(() => openMatch(382688100), 1000); // dennis gaia
-        // setTimeout(() => openMatch(380883300), 1000); // mo 2v2 nomad water
-        // setTimeout(() => openMatch(382250871), 1000); // mo 3v3 megarandom
-        // setTimeout(() => openMatch(382255089), 1000); // mo 3v3
-        // setTimeout(() => openMatch(382486559), 1000); // nomad
-        // setTimeout(() => openMatch(357687089), 1000);
-    }, [isNavigationReady]);
-
-    // const matchId = 382486559; nomad with water 4 players
-    const matchId = 382919732;
-
-    const { data: match } = withRefetching(useMatch(matchId));
-    const { data: analysis } = withRefetching(useMatchAnalysis(matchId));
-    const { data: analysisSvgUrl } = withRefetching(useMatchAnalysisSvg(matchId, !!analysis));
+    // const openMatch = (matchId: number) => {
+    //     router.push(`/matches/single/${matchId}`);
+    // };
+    //
+    // useEffect(() => {
+    //     // setTimeout(() => openMatch(382667281), 1000); // some water
+    //     // setTimeout(() => openMatch(382486559), 1000); // some water
+    //     // setTimeout(() => openMatch(382688100), 1000); // dennis gaia
+    //     // setTimeout(() => openMatch(380883300), 1000); // mo 2v2 nomad water
+    //     // setTimeout(() => openMatch(382250871), 1000); // mo 3v3 megarandom
+    //     // setTimeout(() => openMatch(382255089), 1000); // mo 3v3
+    //     // setTimeout(() => openMatch(382486559), 1000); // nomad
+    //     // setTimeout(() => openMatch(357687089), 1000);
+    // }, [isNavigationReady]);
+    //
+    // // const matchId = 382486559; nomad with water 4 players
+    // const matchId = 382919732;
+    //
+    // const { data: match } = withRefetching(useMatch(matchId));
+    // const { data: analysis } = withRefetching(useMatchAnalysis(matchId));
+    // const { data: analysisSvgUrl } = withRefetching(useMatchAnalysisSvg(matchId, !!analysis));
 
     return (
         <ScrollView contentContainerStyle="p-4 gap-5">
@@ -113,68 +113,68 @@ export default function Page() {
 
             {/*<MatchMap2></MatchMap2>*/}
 
-            <MatchMap
-                match={match}
-                analysis={analysis}
-                analysisSvgUrl={analysisSvgUrl}
-            />
+            {/*<MatchMap*/}
+            {/*    match={match}*/}
+            {/*    analysis={analysis}*/}
+            {/*    analysisSvgUrl={analysisSvgUrl}*/}
+            {/*/>*/}
 
-            {/*<View className="-mx-4">*/}
-            {/*    <FollowedPlayers />*/}
-            {/*</View>*/}
+            <View className="-mx-4">
+                <FollowedPlayers />
+            </View>
 
-            {/*{authProfileId && (*/}
-            {/*    <View className="gap-2">*/}
-            {/*        <Text variant="header-lg">{currentMatch?.finished === null ? 'Current' : 'Most Recent'} Match</Text>*/}
+            {authProfileId && (
+                <View className="gap-2">
+                    <Text variant="header-lg">{currentMatch?.finished === null ? 'Current' : 'Most Recent'} Match</Text>
 
-            {/*        <View className="gap-2">*/}
-            {/*            <Match user={currentMatch?.filteredPlayers[0]} highlightedUsers={currentMatch?.filteredPlayers} match={currentMatch} />*/}
-            {/*        </View>*/}
-            {/*    </View>*/}
-            {/*)}*/}
+                    <View className="gap-2">
+                        <Match user={currentMatch?.filteredPlayers[0]} highlightedUsers={currentMatch?.filteredPlayers} match={currentMatch} />
+                    </View>
+                </View>
+            )}
 
-            {/*{favorites.length > 0 && (*/}
-            {/*    <View className="gap-2">*/}
-            {/*        <View className="flex-row justify-between items-center">*/}
-            {/*            <Text variant="header-lg">Favorite Build Orders</Text>*/}
-            {/*            <Link href="/explore/build-orders">View All</Link>*/}
-            {/*        </View>*/}
+            {favorites.length > 0 && (
+                <View className="gap-2">
+                    <View className="flex-row justify-between items-center">
+                        <Text variant="header-lg">Favorite Build Orders</Text>
+                        <Link href="/explore/build-orders">View All</Link>
+                    </View>
 
-            {/*        <FlatList*/}
-            {/*            showsHorizontalScrollIndicator={false}*/}
-            {/*            className="flex-none"*/}
-            {/*            horizontal*/}
-            {/*            keyboardShouldPersistTaps="always"*/}
-            {/*            data={favorites}*/}
-            {/*            contentContainerStyle="gap-2.5"*/}
-            {/*            renderItem={({ item }) => <BuildCard size="small" {...item} />}*/}
-            {/*            keyExtractor={(item) => item.id.toString()}*/}
-            {/*        />*/}
-            {/*    </View>*/}
-            {/*)}*/}
+                    <FlatList
+                        showsHorizontalScrollIndicator={false}
+                        className="flex-none"
+                        horizontal
+                        keyboardShouldPersistTaps="always"
+                        data={favorites}
+                        contentContainerStyle="gap-2.5"
+                        renderItem={({ item }) => <BuildCard size="small" {...item} />}
+                        keyExtractor={(item) => item.id.toString()}
+                    />
+                </View>
+            )}
 
-            {/*{Platform.OS !== 'web' ? (*/}
-            {/*    <View className="gap-2">*/}
-            {/*        <View className="flex-row justify-between items-center">*/}
-            {/*            <Text variant="header-lg">{followedIds[0] ? 'Favorite' : 'Featured'} Tournament</Text>*/}
-            {/*            <Link href="/competitive/tournaments">View All</Link>*/}
-            {/*        </View>*/}
-            {/*        {followedIds[0] ? <TournamentCardLarge path={followedIds[0]} /> : <TournamentCardLarge {...tournament} />}*/}
-            {/*    </View>*/}
-            {/*) : null}*/}
+            {Platform.OS !== 'web' ? (
+                <View className="gap-2">
+                    <View className="flex-row justify-between items-center">
+                        <Text variant="header-lg">{followedIds[0] ? 'Favorite' : 'Featured'} Tournament</Text>
+                        <Link href="/competitive/tournaments">View All</Link>
+                    </View>
+                    {followedIds[0] ? <TournamentCardLarge path={followedIds[0]} /> : <TournamentCardLarge {...tournament} />}
+                </View>
+            ) : null}
 
-            {/*<View className="gap-2">*/}
-            {/*    <Text variant="header-lg">Recent News</Text>*/}
+            <View className="gap-2">
+                <Text variant="header-lg">Recent News</Text>
 
-            {/*    <FlatList*/}
-            {/*        showsHorizontalScrollIndicator={false}*/}
-            {/*        contentContainerStyle="gap-4 px-4"*/}
-            {/*        className="-mx-4"*/}
-            {/*        horizontal*/}
-            {/*        data={news}*/}
-            {/*        renderItem={({ item: post }) => <NewsCard {...post} />}*/}
-            {/*    />*/}
-            {/*</View>*/}
+                <FlatList
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle="gap-4 px-4"
+                    className="-mx-4"
+                    horizontal
+                    data={news}
+                    renderItem={({ item: post }) => <NewsCard {...post} />}
+                />
+            </View>
         </ScrollView>
     );
 }
