@@ -1,6 +1,6 @@
 import { createStylesheet } from '../../../theming-new';
 import { IBuildOrder, IBuildOrderStandardResources, IBuildOrderStep } from '../../../../../data/src/helper/builds';
-import { Animated, GestureResponderEvent, Pressable, StyleSheet, View } from 'react-native';
+import { Animated, GestureResponderEvent, Platform, Pressable, StyleSheet, View } from 'react-native';
 import { MyText } from '../my-text';
 import { ResourceAlloc } from './step-resource';
 import { StepActions } from './step-actions';
@@ -29,7 +29,7 @@ export const Step: React.FC<StepProps> = ({ highlighted, step, build, onPress, i
         Animated.timing(fadeAnim, {
             toValue: highlighted ? 1 : 0,
             duration: 250,
-            useNativeDriver: true,
+            useNativeDriver: Platform.OS !== 'web',
         }).start();
     }, [fadeAnim, highlighted]);
 

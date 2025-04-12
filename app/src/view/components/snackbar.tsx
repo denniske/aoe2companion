@@ -44,7 +44,7 @@ function Snackbar(props: Props) {
         Animated.timing(opacity, {
             toValue: 1,
             duration: 200 * scale,
-            useNativeDriver: true,
+            useNativeDriver: Platform.OS !== 'web',
         }).start(({finished}) => {
             if (finished) {
 
@@ -57,7 +57,7 @@ function Snackbar(props: Props) {
         Animated.timing(opacity, {
             toValue: 0,
             duration: 100 * scale,
-            useNativeDriver: true,
+            useNativeDriver: Platform.OS !== 'web',
         }).start(({finished}) => {
             if (finished) {
                 setHidden(true);

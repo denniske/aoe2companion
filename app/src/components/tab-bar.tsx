@@ -52,7 +52,7 @@ export const TabBar: React.FC = ({}) => {
         Animated.timing(opacity, {
             toValue,
             duration: 500,
-            useNativeDriver: true,
+            useNativeDriver: Platform.OS !== 'web',
         }).start();
     }, [showTabBar]);
 
