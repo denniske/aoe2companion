@@ -4,16 +4,17 @@ import { View } from 'react-native';
 import { Image } from 'expo-image';
 import { IAnalysis } from '@app/api/helper/api.types';
 import { Text } from '@app/components/text';
-import { compact, uniq } from 'lodash';
+import { compact, sortBy, uniq } from 'lodash';
 import { gaiaObjects, getBuildingSize } from '@app/view/components/match-map/map-utils';
 import { getPath, getTileMap, setTiles, splitPath } from '@app/view/components/match-map/match-map3';
 import groupBy from 'lodash/groupBy';
-import { useDerivedValue, useSharedValue } from 'react-native-reanimated';
+import { runOnJS, useAnimatedReaction, useDerivedValue, useSharedValue } from 'react-native-reanimated';
 import TimeScrubber from '@app/view/components/match-map/time-scrubber';
 import Faded from './draw/faded';
 import Wall, { getWallOrigin } from './draw/wall';
 import Building, { getBuildingOrigin } from '@app/view/components/match-map/draw/building';
 import Special, { getSpecialOrigin } from '@app/view/components/match-map/draw/special';
+import Chat from '@app/view/components/match-map/chat';
 
 interface Props {
     match: any;
@@ -265,6 +266,21 @@ export default function MatchMap(props: Props) {
     const coord = (x: number) => x / dimension * size;
 
 
+    const chat = sortBy(compact(
+        analysis.players.flatMap((p) => {
+            return p.chat
+                // ?.filter((o) => o.name === 'Town Center' && o.objectId === 620)
+                ?.map((o) => ({
+                    ...o,
+                    time: getTimestampMs(o.timestamp),
+                    color: p.color,
+                    playerName: p.name,
+                }));
+        })
+    ), c => c.time);
+
+    console.log('RERENDER MAP');
+
     return (
         <View>
             <View className="flex-row justify-center border0 border-gray-300">
@@ -411,6 +427,8 @@ export default function MatchMap(props: Props) {
                         </Canvas>
                     </View>
                 </View>
+                <Chat time={time} chat={chat} />
+
             </View>
             <TimeScrubber time={time} duration={duration}></TimeScrubber>
         </View>

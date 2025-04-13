@@ -91,7 +91,7 @@ export default function TimeScrubber({time, duration} : Props) {
     return (
         <View style={styles.container}>
             <GestureDetector gesture={panGesture}>
-                <View style={styles.barContainer} className="mx-5"
+                <View style={styles.barContainer} className="mx-3"
                       onLayout={(event) => {
                           barWidth.value = event.nativeEvent.layout.width;
                       }}
@@ -106,7 +106,7 @@ export default function TimeScrubber({time, duration} : Props) {
                 {/*<Pressable style={styles.button} onPress={togglePlay}>*/}
                 {/*    <Text style={styles.buttonText}>{isPlaying ? 'Pause' : 'Play'}</Text>*/}
                 {/*</Pressable>*/}
-                <TouchableOpacity className="p-5" onPress={togglePlay}>
+                <TouchableOpacity className="py-5 px-3" onPress={togglePlay}>
                     <FontAwesome5 name={isPlaying ? 'pause' : 'play'} size={14} color={theme.textNoteColor} />
                 </TouchableOpacity>
                 <AnimatedTextInput
