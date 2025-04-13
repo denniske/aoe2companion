@@ -3320,11 +3320,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@shopify/react-native-skia@npm:^1.12.2":
-  version: 1.12.3
-  resolution: "@shopify/react-native-skia@npm:1.12.3"
+"@shopify/react-native-skia@npm:1.12.2":
+  version: 1.12.2
+  resolution: "@shopify/react-native-skia@npm:1.12.2"
   dependencies:
-    canvaskit-wasm: "npm:0.40.0"
+    canvaskit-wasm: "npm:0.39.1"
     react-reconciler: "npm:0.27.0"
   peerDependencies:
     react: ">=18.0 <19.0.0"
@@ -3337,7 +3337,7 @@ __metadata:
       optional: true
   bin:
     setup-skia-web: scripts/setup-canvaskit.js
-  checksum: 10/4e1c103a31d32fb4f309047bab85fadc5c20aa56d82788dba9c12330d529e6391218806fa13784315c62b35b5ea9f2c0adbcecd3d04e1ee4df855044774136d4
+  checksum: 10/0a9b258ad936d37a08b108324d8a4764cf9c0151e8d000df7bc598e75896f62131e07ee72ec6f18d7bf18dd5899dca8581fdacdaf35ba4ef43781d934b0c5ac4
   languageName: node
   linkType: hard
 
@@ -4609,7 +4609,7 @@ __metadata:
     "@react-navigation/native": "npm:^7.0.0"
     "@react-navigation/stack": "npm:^7.0.0"
     "@sentry/react-native": "npm:~6.3.0"
-    "@shopify/react-native-skia": "npm:^1.12.2"
+    "@shopify/react-native-skia": "npm:1.12.2"
     "@supabase/supabase-js": "npm:^2.46.2"
     "@tanstack/react-query": "npm:^5.62.0"
     "@types/cavy": "npm:^3.2.2"
@@ -5570,12 +5570,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"canvaskit-wasm@npm:0.40.0":
-  version: 0.40.0
-  resolution: "canvaskit-wasm@npm:0.40.0"
+"canvaskit-wasm@npm:0.39.1":
+  version: 0.39.1
+  resolution: "canvaskit-wasm@npm:0.39.1"
   dependencies:
     "@webgpu/types": "npm:0.1.21"
-  checksum: 10/2bdd0607a0e8e55a40e53be1693e59ee39cc99191dc53a265fdd12842d0f77b20f87862bfe9ecc432ad7f0079dc275505d2d5a828451bccd4f597fc12f14ebb7
+  checksum: 10/962f0ec74717eabd7de196a3397215f34fd6b8e9cfc1781c00d0f61695cc7521a77e7c80db061ec9cd6e92774db835edb7f6bed9ea69457ef7cceb08caad8aac
   languageName: node
   linkType: hard
 

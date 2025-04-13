@@ -28,6 +28,9 @@ import {
 } from '@app/queries/all';
 import MatchMap2 from '@app/view/components/match-map/match-map2';
 import MatchMap from '@app/view/components/match-map/match-map';
+import MatchMap3 from '@app/view/components/match-map/match-map3';
+// import { WithSkiaWeb } from '@shopify/react-native-skia/lib/module/web';
+// import { version } from 'canvaskit-wasm/package.json';
 
 // export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
 //     return (
@@ -75,10 +78,6 @@ export default function IndexPage() {
     // }, [isNavigationReady]);
 
 
-    // const openMatch = (matchId: number) => {
-    //     router.push(`/matches/single/${matchId}`);
-    // };
-    //
     // useEffect(() => {
     //     // setTimeout(() => openMatch(382667281), 1000); // some water
     //     // setTimeout(() => openMatch(382486559), 1000); // some water
@@ -89,13 +88,14 @@ export default function IndexPage() {
     //     // setTimeout(() => openMatch(382486559), 1000); // nomad
     //     // setTimeout(() => openMatch(357687089), 1000);
     // }, [isNavigationReady]);
-    //
-    // // const matchId = 382486559; nomad with water 4 players
+
+    // const matchId = 384963389; // me trying walls
+    const matchId = 382486559; // nomad with water 4 players
     // const matchId = 382919732;
-    //
-    // const { data: match } = withRefetching(useMatch(matchId));
-    // const { data: analysis } = withRefetching(useMatchAnalysis(matchId));
-    // const { data: analysisSvgUrl } = withRefetching(useMatchAnalysisSvg(matchId, !!analysis));
+
+    const { data: match } = withRefetching(useMatch(matchId));
+    const { data: analysis } = withRefetching(useMatchAnalysis(matchId));
+    const { data: analysisSvgUrl } = withRefetching(useMatchAnalysisSvg(matchId, !!analysis));
 
     return (
         <ScrollView contentContainerStyle="p-4 gap-5">
@@ -111,70 +111,89 @@ export default function IndexPage() {
                 }}
             />
 
+            {/*<MatchMap3></MatchMap3>*/}
             {/*<MatchMap2></MatchMap2>*/}
 
-            {/*<MatchMap*/}
-            {/*    match={match}*/}
-            {/*    analysis={analysis}*/}
-            {/*    analysisSvgUrl={analysisSvgUrl}*/}
+            {/*<WithSkiaWeb*/}
+            {/*    opts={{ locateFile: (file) => `https://cdn.jsdelivr.net/npm/canvaskit-wasm@${version}/bin/full/${file}` }}*/}
+            {/*    getComponent={() => import('@app/view/components/match-map/match-map')}*/}
+            {/*    fallback={<Text style={{ textAlign: 'center' }}>Loading Skia...</Text>}*/}
+            {/*    componentProps={{*/}
+            {/*        match,*/}
+            {/*        analysis,*/}
+            {/*        analysisSvgUrl,*/}
+            {/*    }}*/}
             {/*/>*/}
 
-            <View className="-mx-4">
-                <FollowedPlayers />
-            </View>
+            {/*<WithSkiaWeb*/}
+            {/*    opts={{ locateFile: (file) => `https://cdn.jsdelivr.net/npm/canvaskit-wasm@${version}/bin/full/${file}` }}*/}
+            {/*    getComponent={() => import('@app/view/components/match-map/match-map2')}*/}
+            {/*    fallback={<Text style={{ textAlign: 'center' }}>Loading Skia...</Text>}*/}
+            {/*/>*/}
 
-            {authProfileId && (
-                <View className="gap-2">
-                    <Text variant="header-lg">{currentMatch?.finished === null ? 'Current' : 'Most Recent'} Match</Text>
+            <MatchMap
+                match={match}
+                analysis={analysis}
+                analysisSvgUrl={analysisSvgUrl}
+            />
 
-                    <View className="gap-2">
-                        <Match user={currentMatch?.filteredPlayers[0]} highlightedUsers={currentMatch?.filteredPlayers} match={currentMatch} />
-                    </View>
-                </View>
-            )}
 
-            {favorites.length > 0 && (
-                <View className="gap-2">
-                    <View className="flex-row justify-between items-center">
-                        <Text variant="header-lg">Favorite Build Orders</Text>
-                        <Link href="/explore/build-orders">View All</Link>
-                    </View>
+            {/*<View className="-mx-4">*/}
+            {/*    <FollowedPlayers />*/}
+            {/*</View>*/}
 
-                    <FlatList
-                        showsHorizontalScrollIndicator={false}
-                        className="flex-none"
-                        horizontal
-                        keyboardShouldPersistTaps="always"
-                        data={favorites}
-                        contentContainerStyle="gap-2.5"
-                        renderItem={({ item }) => <BuildCard size="small" {...item} />}
-                        keyExtractor={(item) => item.id.toString()}
-                    />
-                </View>
-            )}
+            {/*{authProfileId && (*/}
+            {/*    <View className="gap-2">*/}
+            {/*        <Text variant="header-lg">{currentMatch?.finished === null ? 'Current' : 'Most Recent'} Match</Text>*/}
 
-            {Platform.OS !== 'web' ? (
-                <View className="gap-2">
-                    <View className="flex-row justify-between items-center">
-                        <Text variant="header-lg">{followedIds[0] ? 'Favorite' : 'Featured'} Tournament</Text>
-                        <Link href="/competitive/tournaments">View All</Link>
-                    </View>
-                    {followedIds[0] ? <TournamentCardLarge path={followedIds[0]} /> : <TournamentCardLarge {...tournament} />}
-                </View>
-            ) : null}
+            {/*        <View className="gap-2">*/}
+            {/*            <Match user={currentMatch?.filteredPlayers[0]} highlightedUsers={currentMatch?.filteredPlayers} match={currentMatch} />*/}
+            {/*        </View>*/}
+            {/*    </View>*/}
+            {/*)}*/}
 
-            <View className="gap-2">
-                <Text variant="header-lg">Recent News</Text>
+            {/*{favorites.length > 0 && (*/}
+            {/*    <View className="gap-2">*/}
+            {/*        <View className="flex-row justify-between items-center">*/}
+            {/*            <Text variant="header-lg">Favorite Build Orders</Text>*/}
+            {/*            <Link href="/explore/build-orders">View All</Link>*/}
+            {/*        </View>*/}
 
-                <FlatList
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle="gap-4 px-4"
-                    className="-mx-4"
-                    horizontal
-                    data={news}
-                    renderItem={({ item: post }) => <NewsCard {...post} />}
-                />
-            </View>
+            {/*        <FlatList*/}
+            {/*            showsHorizontalScrollIndicator={false}*/}
+            {/*            className="flex-none"*/}
+            {/*            horizontal*/}
+            {/*            keyboardShouldPersistTaps="always"*/}
+            {/*            data={favorites}*/}
+            {/*            contentContainerStyle="gap-2.5"*/}
+            {/*            renderItem={({ item }) => <BuildCard size="small" {...item} />}*/}
+            {/*            keyExtractor={(item) => item.id.toString()}*/}
+            {/*        />*/}
+            {/*    </View>*/}
+            {/*)}*/}
+
+            {/*{Platform.OS !== 'web' ? (*/}
+            {/*    <View className="gap-2">*/}
+            {/*        <View className="flex-row justify-between items-center">*/}
+            {/*            <Text variant="header-lg">{followedIds[0] ? 'Favorite' : 'Featured'} Tournament</Text>*/}
+            {/*            <Link href="/competitive/tournaments">View All</Link>*/}
+            {/*        </View>*/}
+            {/*        {followedIds[0] ? <TournamentCardLarge path={followedIds[0]} /> : <TournamentCardLarge {...tournament} />}*/}
+            {/*    </View>*/}
+            {/*) : null}*/}
+
+            {/*<View className="gap-2">*/}
+            {/*    <Text variant="header-lg">Recent News</Text>*/}
+
+            {/*    <FlatList*/}
+            {/*        showsHorizontalScrollIndicator={false}*/}
+            {/*        contentContainerStyle="gap-4 px-4"*/}
+            {/*        className="-mx-4"*/}
+            {/*        horizontal*/}
+            {/*        data={news}*/}
+            {/*        renderItem={({ item: post }) => <NewsCard {...post} />}*/}
+            {/*    />*/}
+            {/*</View>*/}
         </ScrollView>
     );
 }

@@ -623,6 +623,7 @@ export interface IFetchLeaderboardParams {
 export type IAnalysis = {
     guid: string
     version: string
+    duration: string
     gaia?: Array<{
         classId: number
         index: number
@@ -755,6 +756,14 @@ export type IAnalysis = {
             fixedPositions: boolean
             guardState: boolean
         }
+        tiles: Array<{
+            elevation: number
+            position: {
+                x: number
+                y: number
+            }
+            terrain: number
+        }>
         name: string
         size: string
         zr: boolean

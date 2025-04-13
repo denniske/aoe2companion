@@ -2,6 +2,7 @@ import { fromUnixTime } from 'date-fns';
 import { makeQueryString, removeReactQueryParams } from './util';
 import { camelizeKeys, decamelizeKeys } from 'humps';
 import {
+    IAnalysis,
     IAssetsResult,
     IFetchLeaderboardParams,
     IFetchMatchesParams, IFetchMatchParams,
@@ -100,7 +101,7 @@ export async function fetchMatchAnalysis(params: IFetchMatchParams) {
         })
     );
     const url = `${getHost('aoe2companion-data')}api/matches/${params.matchId}/analysis?${queryString}`;
-    return camelizeKeys(await fetchJson('fetchMatchAnalysis', url, undefined, dateReviver)) as IMatchNew;
+    return camelizeKeys(await fetchJson('fetchMatchAnalysis', url, undefined, dateReviver)) as IAnalysis;
 }
 
 export async function fetchMatchAnalysisSvg(params: IFetchMatchParams) {
