@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Canvas, Rect, vec, Line, Group, Circle, useSVG, ImageSVG } from '@shopify/react-native-skia';
 import { View } from 'react-native';
 import { Image } from 'expo-image';
-import { IAnalysis } from '@app/api/helper/api.types';
+import { IAnalysis, IMatchNew } from '@app/api/helper/api.types';
 import { Text } from '@app/components/text';
 import { compact, sortBy, uniq } from 'lodash';
 import { gaiaObjects, getBuildingSize } from '@app/view/components/match-map/map-utils';
@@ -15,14 +15,17 @@ import Wall, { getWallOrigin } from './draw/wall';
 import Building, { getBuildingOrigin } from '@app/view/components/match-map/draw/building';
 import Special, { getSpecialOrigin } from '@app/view/components/match-map/draw/special';
 import Chat from '@app/view/components/match-map/chat';
+import Legend from './legend';
+import Uptimes from '@app/view/components/match-map/uptimes';
+import Eapm from '@app/view/components/match-map/eapm';
 
 interface Props {
-    match: any;
+    match?: IMatchNew;
     analysis?: IAnalysis;
     analysisSvgUrl?: string;
 }
 
-function getTimestampMs(timestamp: string) {
+export function getTimestampMs(timestamp: string) {
     // timestamp = "0:12:24.994000"
     const parts = timestamp.replace('.', ':').split(':');
     const hours = parseInt(parts[0]);
@@ -38,7 +41,7 @@ export default function MatchMap(props: Props) {
     const time = useSharedValue<number>(0);
 
 
-    if (!analysis || !analysisSvgUrl) {
+    if (!match || !analysis || !analysisSvgUrl) {
         return <Text>Loading...</Text>;
     }
 
@@ -75,6 +78,44 @@ export default function MatchMap(props: Props) {
         })
     );
 
+    const getAnalysisPlayer = (color: number) => analysis.players.find(p => (p.colorId ?? 0)+1 === color);
+
+    const teams = match.teams.map(team => ({
+        teamId: team.teamId,
+        players: team.players.map(player => ({
+            profileId: player.profileId,
+            name: player.name,
+            color: getAnalysisPlayer(player.color)?.color,
+            civImageUrl: player.civImageUrl,
+            eapmPerMinute: getAnalysisPlayer(player.color)?.eapmPerMinute,
+            resignation: getAnalysisPlayer(player.color)?.resignation,
+            uptimes: getAnalysisPlayer(player.color)?.queuedTechs
+                ?.filter((o) => ['Feudal Age', 'Castle Age', 'Imperial Age'].includes(o.unit))
+                ?.map((o) => ({
+                    timestamp: o.timestamp,
+                    time: getTimestampMs(o.timestamp),
+                    // color: p.color,
+                    unit: o.unit,
+                }))
+        })),
+    }));
+
+    // const legend = compact(
+    //     analysis.players.flatMap((p) => {
+    //
+    //         return p.queuedTechs
+    //             ?.filter((o) => ['Feudal Age', 'Castle Age', 'Imperial Age'].includes(o.unit))
+    //             ?.map((o) => ({
+    //                 timestamp: o.timestamp,
+    //                 time: getTimestampMs(o.timestamp),
+    //                 color: p.color,
+    //                 unit: o.unit,
+    //             }));
+    //     })
+    // );
+
+    console.log('teams', teams);
+
     const specials = compact(
         analysis.players.flatMap((p) => {
             return p.queuedBuildings
@@ -90,8 +131,8 @@ export default function MatchMap(props: Props) {
         })
     );
 
-    console.log('buildings', uniq(buildings.map(b => b.unit)));
-    console.log('specials', specials.map(b => b.unit));
+    // console.log('buildings', uniq(buildings.map(b => b.unit)));
+    // console.log('specials', specials.map(b => b.unit));
 
     const gates: Record<number, any> = {
         63: { objectId: 63, name: 'Fortified Gate (up.)', angle: 'up' },
@@ -428,9 +469,45 @@ export default function MatchMap(props: Props) {
                     </View>
                 </View>
                 <Chat time={time} chat={chat} />
-
+                <Legend time={time} legendInfo={teams} />
             </View>
             <TimeScrubber time={time} duration={duration}></TimeScrubber>
+            <Eapm teams={teams} />
+            <Uptimes time={time} teams={teams} />
         </View>
     );
 }
+
+export const formatTimeFromMs = (milliseconds: number) => {
+    'worklet';
+    // return Math.round(milliseconds);
+    const seconds = Math.floor((milliseconds / 1000) % 60);
+    const minutes = Math.floor((milliseconds / (1000 * 60)) % 60);
+    const hours = Math.floor((milliseconds / (1000 * 60 * 60)) % 24);
+
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+}
+
+export type ILegendInfo = Array<{
+    teamId?: number
+    players: Array<{
+        profileId: number
+        name: string
+        civImageUrl: string
+        color: string
+        eapmPerMinute: Record<string, number>
+        resignation?: {
+            payload: {
+                sequence: number
+            }
+            player: number
+            timestamp: string
+            type: string
+        }
+        uptimes: Array<{
+            timestamp: string
+            time: number
+            unit: string
+        }>
+    }>
+}>

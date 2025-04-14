@@ -636,6 +636,7 @@ export type IAnalysis = {
         }
     }>
     players: Array<{
+        eapmPerMinute: Record<string, number>
         civilization?: string
         civilizationId?: number
         color?: string
@@ -711,6 +712,9 @@ export type IAnalysis = {
             timestamp: string
             unit: string
         }>
+        resignation?: {
+            timestamp: string
+        }
         queuedBuildings: Array<{
             timestamp: string
             position: {

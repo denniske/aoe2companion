@@ -14,6 +14,7 @@ import {
 } from 'react-native-gesture-handler';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useAppTheme } from '@app/theming';
+import { formatTimeFromMs } from '@app/view/components/match-map/match-map';
 
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 
@@ -75,16 +76,8 @@ export default function TimeScrubber({time, duration} : Props) {
     });
 
     const animatedProps = useAnimatedProps(() => {
-        const formatTime = (milliseconds: number) => {
-            // return Math.round(milliseconds);
-            const seconds = Math.floor((milliseconds / 1000) % 60);
-            const minutes = Math.floor((milliseconds / (1000 * 60)) % 60);
-            const hours = Math.floor((milliseconds / (1000 * 60 * 60)) % 24);
-
-            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
-        }
         return {
-            text: `${formatTime(time.value)} / ${formatTime(duration)}`, // this won't work with Text, only TextInput's "value"
+            text: `${formatTimeFromMs(time.value)} / ${formatTimeFromMs(duration)}`, // this won't work with Text, only TextInput's "value"
         };
     });
 
@@ -115,8 +108,7 @@ export default function TimeScrubber({time, duration} : Props) {
                     style={{
                         fontSize: 16,
                         fontWeight: 'bold',
-                        color: 'black',
-                        // top: 8,
+                        color: theme.textNoteColor,
                     }}
                 />
             </View>

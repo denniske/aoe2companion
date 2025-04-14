@@ -64,10 +64,10 @@ export default function Chat({ time, chat }: Props) {
                 position: 'absolute',
                 left: 0,
                 bottom: 0,
-                width: 200,
+                width: 150,
                 display: currentMessages.length > 0 ? 'flex' : 'none',
             }}
-            className="mx-3 bg-gray-400/60 gap-1 p-2"
+            className="mx-3 bg-gray-800/60 gap-1 p-2"
         >
             {currentMessages.map((item) => (
                 <Text
@@ -77,7 +77,7 @@ export default function Chat({ time, chat }: Props) {
                         fontSize: 10,
                     }}
                 >
-                    {item.playerName}: {item.message}
+                    {item.origination} - {item.playerName}: {item.message}
                 </Text>
             ))}
         </View>
