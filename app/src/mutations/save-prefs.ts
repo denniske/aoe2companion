@@ -15,16 +15,16 @@ export const useSavePrefsMutation = () => {
         onMutate: async (_prefs) => {
             console.log('ON MUTATE');
             await queryClient.cancelQueries({ queryKey: QUERY_KEY_PREFS() });
-            const previousAccount = queryClient.getQueryData(QUERY_KEY_PREFS()) as {};
+            const previousPrefs = queryClient.getQueryData(QUERY_KEY_PREFS()) as {};
             queryClient.setQueryData(QUERY_KEY_PREFS(), {
-                ...previousAccount,
+                ...previousPrefs,
                 _prefs
             });
-            return { previousAccount, _prefs };
+            return { previousPrefs, _prefs };
         },
         onError: (err, _prefs, context) => {
             console.log('ON ERROR', err);
-            queryClient.setQueryData(QUERY_KEY_PREFS(), context?.previousAccount);
+            queryClient.setQueryData(QUERY_KEY_PREFS(), context?.previousPrefs);
         },
         onSettled: async (_prefs) => {
             console.log('ON SETTLED');
