@@ -1,10 +1,12 @@
 import * as React from 'react';
 import {
-    Animated, SafeAreaView, StyleProp, StyleSheet, ViewStyle, View, ActivityIndicator, Platform, StatusBar
+    Animated, SafeAreaView, Text, StyleProp, StyleSheet, ViewStyle, View, ActivityIndicator, Platform, StatusBar
 } from 'react-native';
-import {Button, Surface, Text, withTheme} from "react-native-paper";
+import { Surface} from "react-native-paper";
 import {useEffect, useState} from "react";
 import {usePrevious} from "@nex/data/hooks";
+import { usePaperTheme } from '@app/theming';
+import { Button } from '@app/components/button';
 
 type Props = React.ComponentProps<typeof Surface> & {
     visible: boolean;
@@ -18,11 +20,11 @@ type Props = React.ComponentProps<typeof Surface> & {
     wrapperStyle?: StyleProp<ViewStyle>;
     style?: StyleProp<ViewStyle>;
     ref?: React.RefObject<View>;
-    theme: any;
     working?: boolean;
 };
 
-function Snackbar(props: Props) {
+
+export default function Snackbar(props: Props) {
     const [opacity, setOpacity] = useState(new Animated.Value(0.0));
     const [hidden, setHidden] = useState(!props.visible);
     const prevVisible = usePrevious(props.visible);
@@ -40,7 +42,7 @@ function Snackbar(props: Props) {
     const show = () => {
         // console.log("show");
         setHidden(false);
-        const {scale} = props.theme.animation;
+        const scale = 1;
         Animated.timing(opacity, {
             toValue: 1,
             duration: 200 * scale,
@@ -53,7 +55,7 @@ function Snackbar(props: Props) {
     };
 
     const hide = () => {
-        const {scale} = props.theme.animation;
+        const scale = 1;
         Animated.timing(opacity, {
             toValue: 0,
             duration: 100 * scale,
@@ -77,7 +79,19 @@ function Snackbar(props: Props) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         ...rest
     } = props;
-    const {colors, roundness, dark} = theme;
+
+    const paperTheme = usePaperTheme();
+    const dark = paperTheme.dark;
+    const roundness = 4;
+    const colors = dark ? {
+        "accent": "#3498db",
+        "onSurface": "#FFFFFF",
+        "surface": "#121212",
+    } : {
+        "accent": "#3498db",
+        "onSurface": "#000000",
+        "surface": "#ffffff",
+    }
 
     if (hidden) {
         return null;
@@ -135,9 +149,6 @@ function Snackbar(props: Props) {
                             // onDismiss();
                         }}
                         style={styles.button}
-                        color={colors.accent}
-                        compact
-                        mode="text"
                     >
                         {action.label}
                     </Button>
@@ -180,4 +191,92 @@ const styles = StyleSheet.create({
     },
 });
 
-export default withTheme(Snackbar);
+
+
+
+
+
+// {
+//     "dark": true,
+//     "roundness": 4,
+//     "version": 2,
+//     "isV3": false,
+//     "colors": {
+//     "primary": "#3498db",
+//         "accent": "#3498db",
+//         "background": "#121212",
+//         "surface": "#121212",
+//         "error": "#CF6679",
+//         "text": "#ffffff",
+//         "onSurface": "#FFFFFF",
+//         "disabled": "rgba(255, 255, 255, 0.38)",
+//         "placeholder": "rgba(255, 255, 255, 0.54)",
+//         "backdrop": "rgba(0, 0, 0, 0.5)",
+//         "notification": "#ff80ab",
+//         "tooltip": "rgba(230, 225, 229, 1)"
+// },
+//     "fonts": {
+//     "regular": {
+//         "fontFamily": "Roboto, \"Helvetica Neue\", Helvetica, Arial, sans-serif",
+//             "fontWeight": "400"
+//     },
+//     "medium": {
+//         "fontFamily": "Roboto, \"Helvetica Neue\", Helvetica, Arial, sans-serif",
+//             "fontWeight": "500"
+//     },
+//     "light": {
+//         "fontFamily": "Roboto, \"Helvetica Neue\", Helvetica, Arial, sans-serif",
+//             "fontWeight": "300"
+//     },
+//     "thin": {
+//         "fontFamily": "Roboto, \"Helvetica Neue\", Helvetica, Arial, sans-serif",
+//             "fontWeight": "100"
+//     }
+// },
+//     "animation": {
+//     "scale": 1
+// },
+//     "mode": "adaptive"
+// }
+
+// {
+//     "dark": false,
+//     "roundness": 4,
+//     "version": 2,
+//     "isV3": false,
+//     "colors": {
+//     "primary": "#3498db",
+//         "accent": "#3498db",
+//         "background": "#f6f6f6",
+//         "surface": "#ffffff",
+//         "error": "#B00020",
+//         "text": "#000000",
+//         "onSurface": "#000000",
+//         "disabled": "rgba(0, 0, 0, 0.26)",
+//         "placeholder": "rgba(0, 0, 0, 0.54)",
+//         "backdrop": "rgba(0, 0, 0, 0.5)",
+//         "notification": "#f50057",
+//         "tooltip": "rgba(28, 27, 31, 1)"
+// },
+//     "fonts": {
+//     "regular": {
+//         "fontFamily": "Roboto, \"Helvetica Neue\", Helvetica, Arial, sans-serif",
+//             "fontWeight": "400"
+//     },
+//     "medium": {
+//         "fontFamily": "Roboto, \"Helvetica Neue\", Helvetica, Arial, sans-serif",
+//             "fontWeight": "500"
+//     },
+//     "light": {
+//         "fontFamily": "Roboto, \"Helvetica Neue\", Helvetica, Arial, sans-serif",
+//             "fontWeight": "300"
+//     },
+//     "thin": {
+//         "fontFamily": "Roboto, \"Helvetica Neue\", Helvetica, Arial, sans-serif",
+//             "fontWeight": "100"
+//     }
+// },
+//     "animation": {
+//     "scale": 1
+// }
+// }
