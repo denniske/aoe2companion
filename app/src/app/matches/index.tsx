@@ -38,6 +38,7 @@ export default function MatchesPage() {
                 ...context,
                 profileIds,
             }),
+        enabled: !!profileIds,
         initialPageParam: 1,
         getNextPageParam: (lastPage, allPages) => (lastPage.matches.length === lastPage.perPage ? lastPage.page + 1 : null),
         placeholderData: keepPreviousData,
