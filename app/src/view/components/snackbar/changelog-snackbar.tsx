@@ -10,11 +10,11 @@ import { sleep } from '@nex/data';
 import { router } from 'expo-router';
 import { IChangelogPageParams } from '@app/app/more/changelog';
 import { usePrefData } from '@app/queries/prefs';
-import { useSavePrefsMutation } from '@app/mutations/save-prefs';
+import { useSavePrefsMutation } from '@app/mutations/save-account';
 
 export default function ChangelogSnackbar() {
     const updateAvailable = useSelector((state) => state.updateAvailable);
-    const changelogLastVersionRead = usePrefData((state) => state.changelogLastVersionRead);
+    const changelogLastVersionRead = usePrefData((state) => state?.changelogLastVersionRead);
     const [currentVersion, setCurrentVersion] = useState<string>();
     const savePrefsMutation = useSavePrefsMutation();
 

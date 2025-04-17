@@ -19,7 +19,7 @@ import { ViewLoader } from '@app/view/components/loader/view-loader';
 import tw from '@app/tailwind';
 import { useAuthProfileId } from '@app/queries/all';
 import { usePrefData } from '@app/queries/prefs';
-import { useSavePrefsMutation } from '@app/mutations/save-prefs';
+import { useSavePrefsMutation } from '@app/mutations/save-account';
 
 function replaceRobotoWithSystemFont(obj: any) {
     const keys = Object.keys(obj);
@@ -92,7 +92,7 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
     const { colorScheme } = useColorScheme();
     const authProfileId = useAuthProfileId();
 
-    const prefHiddenLeaderboardIds = usePrefData((state) => state.ratingHistoryHiddenLeaderboardIds);
+    const prefHiddenLeaderboardIds = usePrefData((state) => state?.ratingHistoryHiddenLeaderboardIds);
     const savePrefsMutation = useSavePrefsMutation();
     const [hiddenLeaderboardIds, setHiddenLeaderboardIds] = useState<LeaderboardId[]>();
 
