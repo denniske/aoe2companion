@@ -17,7 +17,7 @@ import { accountUnlinkPatreon, accountUnlinkSteam } from '@app/api/account';
 import { supabaseClient } from '../../../../data/src/helper/supabase';
 import { useAccount } from '@app/queries/all';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Button } from 'react-native-paper';
+import { Button } from '@app/components/button';
 import { Text } from '@app/components/text';
 import { FontAwesome5 } from '@expo/vector-icons';
 
@@ -127,11 +127,8 @@ export default function AccountPage() {
                                     <Text variant="body">Free Membership</Text>
                                 </View>
                                 <Button onPress={() => unlinkPatreon()}
-                                        mode="contained"
-                                        uppercase={false}
-                                        dark={true}
                                         className={'w-60 mt-2'}
-                                        buttonColor={paperTheme.colors.error}
+                                        // buttonColor={paperTheme.colors.error}
                                 >
                                     Unlink Patreon Account
                                 </Button>
@@ -140,12 +137,9 @@ export default function AccountPage() {
                         {
                             !account.data?.patreonId &&
                             <Button onPress={() => openLink(getSteamLoginUrl())}
-                                    mode="contained"
-                                    uppercase={false}
-                                    dark={true}
-                                    icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}
+                                    // icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}
                                     className={'w-40'}
-                                    buttonColor={paperTheme.colors.primary}
+                                    // buttonColor={paperTheme.colors.primary}
                             >
                                 Link Patreon
                             </Button>
@@ -164,11 +158,8 @@ export default function AccountPage() {
                                     <Text variant="body">{account.data.steamId}</Text>
                                 </View>
                                 <Button onPress={() => unlinkSteam()}
-                                        mode="contained"
-                                        uppercase={false}
-                                        dark={true}
                                         className={'w-60 mt-2'}
-                                        buttonColor={paperTheme.colors.error}
+                                        // buttonColor={paperTheme.colors.error}
                                 >
                                     Unlink Steam Account
                                 </Button>
@@ -177,12 +168,9 @@ export default function AccountPage() {
                         {
                             !account.data?.steamId &&
                             <Button onPress={() => openLink(getSteamLoginUrl())}
-                                    mode="contained"
-                                    uppercase={false}
-                                    dark={true}
-                                    icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}
+                                    // icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}
                                     className={'w-40'}
-                                    buttonColor={paperTheme.colors.primary}
+                                    // buttonColor={paperTheme.colors.primary}
                             >
                                 Link Steam
                             </Button>
@@ -192,12 +180,8 @@ export default function AccountPage() {
                     <View className="gap-2">
                         <Text variant="header-sm"></Text>
                         <Button onPress={() => logout()}
-                                mode="outlined"
-                                uppercase={false}
-                                icon={''}
-                                dark={true}
                                 className={'w-40'}
-                                textColor={paperTheme.colors.onSurface}
+                                // textColor={paperTheme.colors.onSurface}
                         >
                             Logout
                         </Button>

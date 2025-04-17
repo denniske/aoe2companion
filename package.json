@@ -23,19 +23,6 @@
     "lint": "eslint .",
     "postinstall": "patch-package && npx --yes copy-files-from-to"
   },
-  "copyFiles": [
-    {
-      "from": "node_modules/react-native-vector-icons/Fonts/FontAwesome6_Regular.ttf",
-      "to": "node_modules/react-native-vector-icons/Fonts/FontAwesome6_Solid.ttf"
-    },
-    {
-      "from": "node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/FontAwesome6_Regular.ttf",
-      "to": "node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/FontAwesome6_Solid.ttf"
-    }
-  ],
-  "copyFilesSettings": {
-    "whenFileExists": "overwrite"
-  },
   "dependencies": {
     "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
     "@eva-design/eva": "^2.2.0",
@@ -108,7 +95,6 @@
     "react-native-screens": "~4.4.0",
     "react-native-svg": "15.8.0",
     "react-native-tab-view": "^3.5.2",
-    "react-native-vector-icons": "^10.2.0",
     "react-native-view-shot": "~4.0.3",
     "react-native-web": "~0.19.13",
     "react-native-webview": "13.12.5",

@@ -6,7 +6,7 @@ import { router, Stack } from 'expo-router';
 import { capitalize } from 'lodash';
 import React, { useState } from 'react';
 import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Button, Checkbox } from 'react-native-paper';
+import { Button } from '@app/components/button';
 import { deactivatePusher, initPusher } from '@app/helper/pusher';
 import { getTranslation } from '@app/helper/translate';
 import { setMainPageShown, useMutate } from '@app/redux/reducer';
@@ -16,12 +16,17 @@ import { createStylesheet } from '@app/theming-new';
 import { appConfig } from '@nex/dataset';
 import { useSaveAccountMutation } from '@app/mutations/save-account';
 import { useAccount } from '@app/queries/all';
+import { FontAwesome, FontAwesome5, FontAwesome6 } from '@expo/vector-icons';
+import { useAppTheme } from '@app/theming';
+import { Icon } from '@app/components/icon';
+import { Checkbox as CheckboxNew } from '@app/components/checkbox';
 
 export default function SettingsPage() {
     const styles = useStyles();
     const mutate = useMutate();
     const [loadingPushNotificationEnabled, setLoadingPushNotificationEnabled] = useState(false);
     const { data: account } = useAccount();
+    const theme = useAppTheme();
 
     const saveAccountMutation = useSaveAccountMutation();
 
@@ -158,6 +163,8 @@ export default function SettingsPage() {
         mutate(setMainPageShown(true));
     };
 
+    // const [booly, setBooly] = useState(false);
+
     return (
         <ScrollView contentContainerStyle="min-h-full p-5">
             <Stack.Screen options={{ title: getTranslation('settings.title') }} />
@@ -169,20 +176,42 @@ export default function SettingsPage() {
                 </View>
                 <View style={styles.cellValueCol}>
                     <View style={styles.row2}>
-                        <Checkbox.Android
+                        <CheckboxNew
                             disabled={loadingPushNotificationEnabled}
-                            status={account?.notificationsEnabled ? 'checked' : 'unchecked'}
+                            checked={account?.notificationsEnabled}
                             onPress={togglePushNotifications}
                         />
-                        <TouchableOpacity onPress={togglePushNotifications} disabled={loadingPushNotificationEnabled}>
-                            <MyText style={[styles.testLink]}>
-                                {account?.notificationsEnabled ? getTranslation('checkbox.active') : getTranslation('checkbox.inactive')}
-                            </MyText>
-                        </TouchableOpacity>
+                        <View className="flex-1" />
+                        <Button onPress={() => router.navigate('/more/push')}>
+                            {getTranslation('settings.pushnotifications.action.test')}
+                        </Button>
                     </View>
-                    <Button onPress={() => router.navigate('/more/push')} mode="contained" compact uppercase={false} dark>
-                        {getTranslation('settings.pushnotifications.action.test')}
-                    </Button>
+                    {/*<View style={styles.row2}>*/}
+                    {/*    <CheckboxNew checked={booly} onPress={() => setBooly(!booly)} />*/}
+                    {/*</View>*/}
+                    {/*<View style={styles.row2}>*/}
+                    {/*    /!*<FontAwesome6 name="check" size={14} color={theme.textNoteColor} />*!/*/}
+                    {/*    /!*<FontAwesome5 name="check" size={14} color={theme.textNoteColor} />*!/*/}
+                    {/*    /!*<FontAwesome name="check"  size={14} color={theme.textNoteColor}/>*!/*/}
+                    {/*    /!*<FontAwesome6 name="square-check" size={24} color="black" />*!/*/}
+                    {/*    /!*<FontAwesome6 name="check" size={24} color="black" />*!/*/}
+                    {/*    /!*<Icon icon="check-circle" color="brand" size={20}  />*!/*/}
+                    {/*    /!*<Icon icon="check" color="brand" size={20}  />*!/*/}
+                    {/*    /!*<Icon icon="square" color="brand" size={20}  />*!/*/}
+                    {/*    /!*<Icon icon="square" color="brand" prefix="fass" size={20}  />*!/*/}
+                    {/*    <Icon icon="square-check" color="brand" size={20}  />*/}
+                    {/*    <Icon icon="square-check" color="brand" prefix="fasr" size={20}  />*/}
+                    {/*    <Icon icon="square" color="brand" prefix="fasr" size={20}  />*/}
+                    {/*</View>*/}
+
+
+                    {/*<Button onPress={() => router.navigate('/more/push')}>*/}
+                    {/*    {getTranslation('settings.pushnotifications.action.test')}*/}
+                    {/*</Button>*/}
+
+                    {/*<Button onPress={() => router.navigate('/more/push')} mode="contained" compact uppercase={false} dark>*/}
+                    {/*    {getTranslation('settings.pushnotifications.action.test')}*/}
+                    {/*</Button>*/}
                 </View>
             </View>
 
@@ -311,19 +340,13 @@ const useStyles = createStylesheet((theme) =>
             paddingVertical,
             flex: 1,
         },
-        cellValueRow: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            paddingHorizontal,
-            paddingVertical,
-            flex: 1,
-        },
         cellValueCol: {
             // backgroundColor: 'grey',
             // flexDirection: 'column',
             // alignItems: 'center',
+            // justifyContent: 'flex-start',
             paddingHorizontal,
-            paddingVertical,
+            // paddingVertical,
             flex: 1,
         },
         row: {

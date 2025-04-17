@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { StyleProp, StyleSheet, View, ViewStyle, } from 'react-native';
-import { TouchableRipple } from 'react-native-paper';
+import { StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
 import {useAppTheme, usePaperTheme} from "../../theming";
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 
@@ -35,7 +34,8 @@ export default function MyListAccordion(props: Props) {
 
     return (
             <View style={style}>
-                <TouchableRipple
+                <TouchableOpacity
+                        activeOpacity={1}
                         style={[styles.container]}
                         onPress={handlePress}
                 >
@@ -52,7 +52,7 @@ export default function MyListAccordion(props: Props) {
                             />
                         </View>
                     </View>
-                </TouchableRipple>
+                </TouchableOpacity>
 
                 {expanded? 
                     <View style={styles.row2}>

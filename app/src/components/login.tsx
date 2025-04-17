@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Alert, StyleSheet, View, AppState, TouchableOpacity } from 'react-native';
 import { supabaseClient } from '../../../data/src/helper/supabase';
-import { Button } from 'react-native-paper';
+import { Button } from '@app/components/button';
 import { Field } from '@app/components/field';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAccount } from '@app/queries/all';
@@ -150,23 +150,19 @@ export default function Login() {
             </View>
 
             <View style={[styles.verticallySpaced, styles.mt20]}>
-                <Button disabled={loading}
+                <Button align="center"
+                        disabled={loading}
                         onPress={() => signInWithEmail()}
-                        mode="contained"
-                        uppercase={false}
-                        dark={true}
-                        buttonColor={paperTheme.colors.primary}
+                        // buttonColor={paperTheme.colors.primary}
                 >
                     Sign in
                 </Button>
             </View>
             <View style={[styles.verticallySpaced, styles.mt20]}>
-                <Button disabled={loading}
+                <Button align="center"
+                        disabled={loading}
                         onPress={() => signUpWithEmail()}
-                        mode="contained"
-                        uppercase={false}
-                        dark={true}
-                        buttonColor={paperTheme.colors.primary}
+                        // buttonColor={paperTheme.colors.primary}
                 >
                     Create new account
                 </Button>

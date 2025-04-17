@@ -7,7 +7,7 @@ import useAuth from '../../../../data/src/hooks/use-auth';
 import { usePaperTheme } from '@app/theming';
 import { supabaseClient } from '../../../../data/src/helper/supabase';
 import { useAccount } from '@app/queries/all';
-import { Button } from 'react-native-paper';
+import { Button } from '@app/components/button';
 import { Field } from '@app/components/field';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -57,10 +57,7 @@ export default function ResetPasswordPage() {
                     <Button
                         disabled={loading}
                         onPress={() => changePassword()}
-                        mode="contained"
-                        uppercase={false}
-                        dark={true}
-                        buttonColor={paperTheme.colors.primary}
+                        // buttonColor={paperTheme.colors.primary}
                     >
                         Change password
                     </Button>

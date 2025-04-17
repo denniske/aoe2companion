@@ -14,11 +14,12 @@ import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Checkbox } from 'react-native-paper';
 
 import { getUnitLineIcon } from '../../helper/units';
 import { createStylesheet } from '../../theming-new';
 import { MyText } from '../components/my-text';
+import { Checkbox as CheckboxNew } from '@app/components/checkbox';
+import { getTranslation } from '@app/helper/translate';
 
 function CounterUnit({ unitLineId }: { unitLineId: UnitLine }) {
     const styles = useStyles();
@@ -56,11 +57,8 @@ export default function UnitCounters({ unitId }: { unitId: Unit }) {
             </View>
             <View style={styles.row}>
                 <View style={styles.checkboxCell}>
-                    <Checkbox.Android status={showUniqueUnits ? 'checked' : 'unchecked'} onPress={toggleUniqueUnits} />
+                    <CheckboxNew checked={showUniqueUnits} onPress={toggleUniqueUnits} text={'Display Unique Units'} />
                 </View>
-                <TouchableOpacity style={styles.checkboxDesc} onPress={toggleUniqueUnits}>
-                    <MyText style={styles.small}>Display Unique Units</MyText>
-                </TouchableOpacity>
             </View>
             <View>
                 <View style={styles.row}>
@@ -98,7 +96,7 @@ const useStyles = createStylesheet((theme) =>
         },
         checkboxCell: {
             flex: 1,
-            marginLeft: -6,
+            marginLeft: -8,
         },
         checkboxDesc: {
             flex: 11,

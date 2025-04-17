@@ -4,7 +4,6 @@ import { TextInput, View } from 'react-native';
 import { Image } from 'expo-image';
 import { IAnalysis } from '@app/api/helper/api.types';
 import { Text } from '@app/components/text';
-import { Button } from 'react-native-paper';
 import { usePaperTheme } from '@app/theming';
 import Animated, { Easing, useAnimatedProps, useDerivedValue, useSharedValue, withDelay, withTiming } from 'react-native-reanimated';
 import TimeScrubber from '@app/view/components/match-map/time-scrubber';

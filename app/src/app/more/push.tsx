@@ -3,7 +3,7 @@ import { Platform, StyleSheet, View } from 'react-native';
 import { MyText } from '@app/view/components/my-text';
 import Constants from 'expo-constants';
 import * as Notifications from '../../service/notifications';
-import { Button } from 'react-native-paper';
+import { Button } from '@app/components/button';
 import { maskAccountId, maskToken } from '../../service/push';
 import { useSelector } from '../../redux/reducer';
 import Space from '@app/view/components/space';
@@ -180,7 +180,6 @@ export default function PushPage() {
             {pushToken && (
                 <>
                     <Button
-                        mode="outlined"
                         onPress={async () => {
                             if (Platform.OS === 'web') {
                                 await sendTestPushNotificationWeb(pushToken);
@@ -199,7 +198,6 @@ export default function PushPage() {
                 <>
                     <Space />
                     <Button
-                        mode="outlined"
                         onPress={async () => {
                             router.navigate(`/matches?match_id${'xxx' + new Date().getTime()}`);
                         }}

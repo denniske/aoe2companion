@@ -2,7 +2,7 @@ import { FlatList } from '@app/components/flat-list';
 import { useNavigation, useNavigationState, useRoute } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
-import { Button } from 'react-native-paper';
+
 
 import { fetchProfile } from '../../../../../api/helper/api';
 import { getTranslation } from '../../../../../helper/translate';
@@ -74,24 +74,24 @@ export default function MainProfile(props: any) {
                             case 'rating-header':
                                 if (rating?.length === 0) return <View />;
                                 return <MyText style={styles.sectionHeader}>{getTranslation('main.profile.ratinghistory.heading')}</MyText>;
-                            case 'matches5-header':
-                                if (rating?.length === 0) return <View />;
-                                return <MyText style={styles.sectionHeader}>{getTranslation('main.profile.recentmatches.heading')}</MyText>;
-                            case 'matches5-footer':
-                                return (
-                                    <Button onPress={() => nav('MainMatches')} mode="contained" compact uppercase={false} dark>
-                                        View All
-                                    </Button>
-                                );
-                            case 'matchesVersus-header':
-                                if (rating?.length === 0) return <View />;
-                                return <MyText style={styles.sectionHeader}>Recent matches with you</MyText>;
-                            case 'matchesVersus-footer':
-                                return (
-                                    <Button onPress={() => nav('MainMatches')} mode="contained" compact uppercase={false} dark>
-                                        View All
-                                    </Button>
-                                );
+                            // case 'matches5-header':
+                            //     if (rating?.length === 0) return <View />;
+                            //     return <MyText style={styles.sectionHeader}>{getTranslation('main.profile.recentmatches.heading')}</MyText>;
+                            // case 'matches5-footer':
+                            //     return (
+                            //         <Button onPress={() => nav('MainMatches')} mode="contained" compact uppercase={false} dark>
+                            //             View All
+                            //         </Button>
+                            //     );
+                            // case 'matchesVersus-header':
+                            //     if (rating?.length === 0) return <View />;
+                            //     return <MyText style={styles.sectionHeader}>Recent matches with you</MyText>;
+                            // case 'matchesVersus-footer':
+                            //     return (
+                            //         <Button onPress={() => nav('MainMatches')} mode="contained" compact uppercase={false} dark>
+                            //             View All
+                            //         </Button>
+                            //     );
                             case 'profile':
                                 if (profile === null)
                                     return (

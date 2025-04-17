@@ -1,5 +1,3 @@
-import { useTournamentPlayer, useTournamentPlayerOverview } from '@app/api/tournaments';
-import { Button } from '@app/components/button';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { getDiscordInvitationId, getDoyouChannel, getTwitchChannel, getVerifiedPlayer, getYoutubePath } from '@nex/data';
 import { Image, ImageStyle } from 'expo-image';

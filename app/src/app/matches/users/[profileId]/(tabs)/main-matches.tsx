@@ -8,7 +8,6 @@ import { keepPreviousData, useInfiniteQuery, useQuery } from '@tanstack/react-qu
 import { flatten } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Checkbox } from 'react-native-paper';
 import { fetchLeaderboards, fetchMatches } from '../../../../../api/helper/api';
 import { getTranslation } from '../../../../../helper/translate';
 import { openLink } from '../../../../../helper/url';
@@ -24,6 +23,7 @@ import RefreshControlThemed from '../../../../../view/components/refresh-control
 import TemplatePicker from '../../../../../view/components/template-picker';
 import { useAuthProfileId } from '@app/queries/all';
 import { useLocalSearchParams } from 'expo-router';
+import { Checkbox as CheckboxNew } from '@app/components/checkbox';
 
 export default function MainMatches() {
     const params = useLocalSearchParams<{ profileId: string }>();
@@ -161,10 +161,7 @@ export default function MainMatches() {
                     <View style={appStyles.expanded} />
                     {authProfileId && profileId !== authProfileId && (
                         <View style={styles.row2}>
-                            <Checkbox.Android status={withMe ? 'checked' : 'unchecked'} onPress={toggleWithMe} />
-                            <TouchableOpacity onPress={toggleWithMe}>
-                                <MyText>{getTranslation('main.matches.withme')}</MyText>
-                            </TouchableOpacity>
+                            <CheckboxNew checked={withMe} onPress={toggleWithMe} text={getTranslation('main.matches.withme')} />
                         </View>
                     )}
                 </View>

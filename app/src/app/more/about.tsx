@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Linking, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Constants from 'expo-constants';
 import { useLinkTo, useNavigation } from '@react-navigation/native';
-import { Button } from 'react-native-paper';
+import { Button } from '@app/components/button';
 import { MyText } from '@app/view/components/my-text';
 import { setUpdateManifest, setUpdateStoreManifest, useMutate } from '../../redux/reducer';
 import { doCheckForStoreUpdate, doCheckForUpdateAsync } from '../../service/update';
@@ -246,10 +246,10 @@ export default function AboutPage() {
             {/*<MyText style={styles.content}>{(Constants.expoConfig2?.metadata as any)?.branchName || 'dev'}</MyText>*/}
             {/*<MyText style={styles.content}>{(Constants.expoConfig2?.metadata as any)?.updateGroup || 'dev'}</MyText>*/}
 
-            {Platform.OS !== 'web' && state === '' && (
+            {Platform.OS === 'web' && state === '' && (
                 <View>
                     <Space />
-                    <Button onPress={checkForUpdate} mode="contained" dark={true}>
+                    <Button onPress={checkForUpdate}>
                         {getTranslation('about.update.checkforupdate')}
                     </Button>
                 </View>

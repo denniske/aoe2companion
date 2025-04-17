@@ -3320,11 +3320,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@shopify/react-native-skia@npm:1.12.2":
-  version: 1.12.2
-  resolution: "@shopify/react-native-skia@npm:1.12.2"
+"@shopify/react-native-skia@npm:^1.12.2":
+  version: 1.12.4
+  resolution: "@shopify/react-native-skia@npm:1.12.4"
   dependencies:
-    canvaskit-wasm: "npm:0.39.1"
+    canvaskit-wasm: "npm:0.40.0"
     react-reconciler: "npm:0.27.0"
   peerDependencies:
     react: ">=18.0 <19.0.0"
@@ -3337,7 +3337,7 @@ __metadata:
       optional: true
   bin:
     setup-skia-web: scripts/setup-canvaskit.js
-  checksum: 10/0a9b258ad936d37a08b108324d8a4764cf9c0151e8d000df7bc598e75896f62131e07ee72ec6f18d7bf18dd5899dca8581fdacdaf35ba4ef43781d934b0c5ac4
+  checksum: 10/e73d893199b70a6437aafae7ab6e65109ba02ac597114594bbe98ddfd8fb5283c39a44208a35ff9dc34feb18de777f310cba5454de97f22f2abe66e2cb011568
   languageName: node
   linkType: hard
 
@@ -4609,7 +4609,7 @@ __metadata:
     "@react-navigation/native": "npm:^7.0.0"
     "@react-navigation/stack": "npm:^7.0.0"
     "@sentry/react-native": "npm:~6.3.0"
-    "@shopify/react-native-skia": "npm:1.12.2"
+    "@shopify/react-native-skia": "npm:^1.12.2"
     "@supabase/supabase-js": "npm:^2.46.2"
     "@tanstack/react-query": "npm:^5.62.0"
     "@types/cavy": "npm:^3.2.2"
@@ -4686,7 +4686,6 @@ __metadata:
     react-native-screens: "npm:~4.4.0"
     react-native-svg: "npm:15.8.0"
     react-native-tab-view: "npm:^3.5.2"
-    react-native-vector-icons: "npm:^10.2.0"
     react-native-view-shot: "npm:~4.0.3"
     react-native-web: "npm:~0.19.13"
     react-native-webview: "npm:13.12.5"
@@ -5570,12 +5569,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"canvaskit-wasm@npm:0.39.1":
-  version: 0.39.1
-  resolution: "canvaskit-wasm@npm:0.39.1"
+"canvaskit-wasm@npm:0.40.0":
+  version: 0.40.0
+  resolution: "canvaskit-wasm@npm:0.40.0"
   dependencies:
     "@webgpu/types": "npm:0.1.21"
-  checksum: 10/962f0ec74717eabd7de196a3397215f34fd6b8e9cfc1781c00d0f61695cc7521a77e7c80db061ec9cd6e92774db835edb7f6bed9ea69457ef7cceb08caad8aac
+  checksum: 10/2bdd0607a0e8e55a40e53be1693e59ee39cc99191dc53a265fdd12842d0f77b20f87862bfe9ecc432ad7f0079dc275505d2d5a828451bccd4f597fc12f14ebb7
   languageName: node
   linkType: hard
 
@@ -12828,21 +12827,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-vector-icons@npm:^10.2.0":
-  version: 10.2.0
-  resolution: "react-native-vector-icons@npm:10.2.0"
-  dependencies:
-    prop-types: "npm:^15.7.2"
-    yargs: "npm:^16.1.1"
-  bin:
-    fa-upgrade.sh: bin/fa-upgrade.sh
-    fa5-upgrade: bin/fa5-upgrade.sh
-    fa6-upgrade: bin/fa6-upgrade.sh
-    generate-icon: bin/generate-icon.js
-  checksum: 10/ac3b05bb353807d0ed94256bd6de4291e8261afb320ce69c06270fba3be2ed3c7b3a81ecbda29191cfe906e89bf853d4b4f016465b6b56a428315c7b6630eff1
-  languageName: node
-  linkType: hard
-
 "react-native-view-shot@npm:~4.0.3":
   version: 4.0.3
   resolution: "react-native-view-shot@npm:4.0.3"
@@ -16328,7 +16312,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs@npm:^16.1.1, yargs@npm:^16.2.0":
+"yargs@npm:^16.2.0":
   version: 16.2.0
   resolution: "yargs@npm:16.2.0"
   dependencies:
