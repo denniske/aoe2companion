@@ -29,7 +29,7 @@ import { useColorScheme as useTailwindColorScheme } from 'nativewind';
 import { useCallback, useEffect, useState } from 'react';
 import { AppState, AppStateStatus, BackHandler, LogBox, Platform, StatusBar, useColorScheme, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { MD2DarkTheme as PaperDarkTheme, MD2LightTheme as PaperDefaultTheme, PaperProvider, Portal } from 'react-native-paper';
+import { MD2DarkTheme as PaperDarkTheme, MD2LightTheme as PaperDefaultTheme, PaperProvider } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { Provider as ReduxProvider } from 'react-redux';
@@ -320,11 +320,18 @@ function AppWrapper() {
                                 <LiveActivityController />
                                 <AccountController />
 
-                                <Portal>
+                                <View
+                                    style={{
+                                        position: 'absolute',
+                                        top: 0,
+                                        width: '100%',
+                                        zIndex: 9999,
+                                    }}
+                                >
                                     {Platform.OS !== 'web' && <UpdateSnackbar />}
                                     {Platform.OS !== 'web' && <ChangelogSnackbar />}
                                     <ErrorSnackbar />
-                                </Portal>
+                                </View>
 
                                 <Stack screenOptions={{ header: Header,  }}></Stack>
 
