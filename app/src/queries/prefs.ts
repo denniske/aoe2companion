@@ -1,24 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
 import { LeaderboardId } from '@nex/data';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useAccountData } from '@app/queries/all';
 
-export const QUERY_KEY_PREFS = () => ['prefs'];
-// export const QUERY_KEY_TODO = (todoId?: number) => ['todo', todoId];
+export function usePrefData(): IPrefs | undefined;
+export function usePrefData<T>(select: (data?: IPrefs) => T): T;
+export function usePrefData<T>(select?: (data?: IPrefs) => T): T | IPrefs | undefined {
+    return useAccountData((account) =>
+        select ? select(account?.preferences) : account?.preferences
+    );
+}
 
-export const usePrefs = () =>
-    useQuery({
-        queryKey: QUERY_KEY_PREFS(),
-        queryFn: async () => await loadPrefsFromStorage(),
-    });
-
-export const usePrefData = <T>(select?: (data: IPrefs) => T) =>
-    useQuery({
-        queryKey: QUERY_KEY_PREFS(),
-        queryFn: async () => await loadPrefsFromStorage(),
-        select,
-    }).data;
-
-export const useTechTreeSize = () => usePrefData((data) => data.techTreeSize);
+export const useTechTreeSize = () => usePrefData((data) => data?.techTreeSize);
 
 export const loadPrefsFromStorage = async () => {
     const entry = await AsyncStorage.getItem('prefs');

@@ -27,7 +27,7 @@ import { Delayed } from './delayed';
 import { router } from 'expo-router';
 import { windowWidth } from '@app/app/statistics/leaderboard';
 import { useTechTreeSize } from '@app/queries/prefs';
-import { useSavePrefsMutation } from '@app/mutations/save-prefs';
+import { useSavePrefsMutation } from '@app/mutations/save-account';
 
 function TechTreeRow({ civ, row }: { civ: aoeCivKey; row: ITechTreeRow }) {
     return (

@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { saveAccount, saveAccountThrottled } from '@app/api/account';
 import { QUERY_KEY_ACCOUNT } from '@app/queries/all';
+import { IPrefs } from '@app/queries/prefs';
 
 export const useSaveAccountMutation = () => {
     const queryClient = useQueryClient();
@@ -14,7 +15,7 @@ export const useSaveAccountMutation = () => {
             const previousAccount = queryClient.getQueryData(QUERY_KEY_ACCOUNT()) as {};
             queryClient.setQueryData(QUERY_KEY_ACCOUNT(), {
                 ...previousAccount,
-                _account
+                ..._account,
             });
             return { previousAccount, _account };
         },
@@ -31,4 +32,18 @@ export const useSaveAccountMutation = () => {
             }
         },
     });
+};
+
+export const useSavePrefsMutation = () => {
+    const saveAccountMutation = useSaveAccountMutation();
+
+    return {
+        ...saveAccountMutation,
+        mutate: (preferences: Partial<IPrefs>) => {
+            saveAccountMutation.mutate({ preferences });
+        },
+        mutateAsync: async (preferences: Partial<IPrefs>) => {
+            return saveAccountMutation.mutateAsync({ preferences });
+        }
+    };
 };

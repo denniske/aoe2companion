@@ -12,7 +12,7 @@ import {
     saveFollowingToStorage,
 } from '@app/service/storage';
 import { DarkMode } from '@app/redux/reducer';
-import { loadPrefsFromStorage } from '@app/queries/prefs';
+import { IPrefs, loadPrefsFromStorage } from '@app/queries/prefs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface IAccountFollowedPlayer {
@@ -35,7 +35,7 @@ export interface IAccount {
     mainPage: string;
     patreonId?: string;
     patreonTier?: string;
-    preferences?: any;
+    preferences?: IPrefs;
     followedPlayers: IAccountFollowedPlayer[];
 
     email: string;
@@ -142,7 +142,11 @@ interface IResult {
 
 export const saveAccountThrottled = throttle(saveAccount, 1000);
 
-export async function saveAccount(account: Partial<IAccount>): Promise<IResult> {
+type PartialAccountWithPartialPrefs = Omit<Partial<IAccount>, 'preferences'> & {
+    preferences?: Partial<IAccount['preferences']>;
+};
+
+export async function saveAccount(account: PartialAccountWithPartialPrefs): Promise<IResult> {
     const url = getHost('aoe2companion-api') + `v2/account`;
 
     const { data: session } = await supabaseClient.auth.getSession();
