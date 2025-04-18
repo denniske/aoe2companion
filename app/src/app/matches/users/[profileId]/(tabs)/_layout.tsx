@@ -37,6 +37,7 @@ import { getCountryName } from '@app/helper/flags';
 import { Menu } from 'react-native-paper';
 import { TextLoader } from '@app/view/components/loader/text-loader';
 import { useAppTheme } from '@app/theming';
+import { MenuNew } from '@app/components/menu';
 
 const { Navigator } = createMaterialTopTabNavigator();
 
@@ -196,8 +197,80 @@ export function UserMenu({ profile }: UserMenuProps) {
                 {/*    <Menu.Item onPress={() => {}} title="Item 3" />*/}
                 {/*</Menu>*/}
 
-                <Menu
-                    contentStyle={{marginLeft: 0, marginTop: 38, padding: 15, paddingTop: 15, paddingBottom: 15 }}
+                {/*<Menu*/}
+                {/*    contentStyle={{marginLeft: 0, marginTop: 38, padding: 15, paddingTop: 15, paddingBottom: 15 }}*/}
+                {/*    visible={linkedProfilesVisible}*/}
+                {/*    onDismiss={() => setLinkedProfilesVisible(false)}*/}
+                {/*    anchor={*/}
+                {/*        <TouchableOpacity style={styles.menuButton} onPress={() => setLinkedProfilesVisible(true)}>*/}
+                {/*            <Icon icon="family" color="brand" size={20}  />*/}
+                {/*        </TouchableOpacity>*/}
+                {/*    }*/}
+                {/*>*/}
+                {/*    <View className="w-60">*/}
+                {/*        {(profileFull?.linkedProfiles?.length || 0) > 0 && (*/}
+                {/*            <View className="gap-3">*/}
+                {/*                {*/}
+                {/*                    profile?.steamId &&*/}
+                {/*                    <>*/}
+                {/*                        <Text variant="header-sm">Steam</Text>*/}
+                {/*                        <TouchableOpacity className="flex-row gap-2 items-center" onPress={() => openLink(steamProfileUrl)}>*/}
+                {/*                            <FontAwesome5 name="steam" size={14} color={theme.textNoteColor} />*/}
+                {/*                            <Text variant="body">{profile?.steamId}</Text>*/}
+                {/*                        </TouchableOpacity>*/}
+                {/*                    </>*/}
+                {/*                }*/}
+
+                {/*                {*/}
+                {/*                    profileId &&*/}
+                {/*                    <>*/}
+                {/*                        <Text variant="header-sm">ageofempires.com</Text>*/}
+                {/*                        <TouchableOpacity className="flex-row gap-2 items-center" onPress={() => openLink(xboxProfileUrl)}>*/}
+                {/*                            <FontAwesome5 name="xbox" size={14} color={theme.textNoteColor} />*/}
+                {/*                            <Text variant="body">{profileId}</Text>*/}
+                {/*                        </TouchableOpacity>*/}
+                {/*                    </>*/}
+                {/*                }*/}
+
+                {/*                <Text variant="header-sm">Linked Profiles</Text>*/}
+
+                {/*                {profileFull?.linkedProfiles?.map((linkedProfile) => {*/}
+                {/*                    return (*/}
+                {/*                            <TouchableOpacity className="flex-1 flex-row gap-1 items-center" onPress={() => navigateToLinkedProfile(linkedProfile?.profileId)}>*/}
+                {/*                                <CountryImageLoader country={verifiedPlayer?.country || linkedProfile?.country} ready={linkedProfile} />*/}
+
+                {/*                                <TextLoader>{linkedProfile?.name}</TextLoader>*/}
+                {/*                                {linkedProfile?.verified && (*/}
+                {/*                                    <Icon icon="check-circle" color="brand" size={14} style={styles.verifiedIcon as FontAwesomeIconStyle} />*/}
+                {/*                                )}*/}
+                {/*                                {!linkedProfile?.verified && linkedProfile?.shared && (*/}
+                {/*                                    <Icon icon="family" color="brand" size={14} style={styles.verifiedIcon as FontAwesomeIconStyle} />*/}
+                {/*                                )}*/}
+                {/*                                {!!linkedProfile?.clan && (*/}
+                {/*                                    <MyText>*/}
+                {/*                                        {' '}*/}
+                {/*                                        ({getTranslation('main.profile.clan')}: {linkedProfile?.clan})*/}
+                {/*                                    </MyText>*/}
+                {/*                                )}*/}
+                {/*                            </TouchableOpacity>*/}
+                {/*                    );*/}
+                {/*                })}*/}
+
+                {/*                {!profileFull?.verified && profileFull?.shared && (*/}
+                {/*                    <View className="flex-row items-center space-x-2">*/}
+                {/*                        <Icon icon="family" color="brand" size={14} />*/}
+                {/*                        <MyText>Steam Family Sharing</MyText>*/}
+                {/*                    </View>*/}
+                {/*                )}*/}
+                {/*            </View>*/}
+                {/*        )}*/}
+
+                {/*    </View>*/}
+                {/*</Menu>*/}
+
+
+                <MenuNew
+                    contentStyle={{ padding: 15, paddingTop: 15, paddingBottom: 15, left: 'auto' }}
                     visible={linkedProfilesVisible}
                     onDismiss={() => setLinkedProfilesVisible(false)}
                     anchor={
@@ -265,7 +338,7 @@ export function UserMenu({ profile }: UserMenuProps) {
                         )}
 
                     </View>
-                </Menu>
+                </MenuNew>
 
 
                 {/*{*/}
