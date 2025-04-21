@@ -294,6 +294,8 @@ const aoe4CivNameDict = {
     13: 'Ayyubids',
     14: 'Zhu Xi\'s Legacy',
     15: 'Order of the Dragon',
+    16: 'House of Lancaster',
+    17: 'Knights Templar',
 }
 
 export function getCivNameById(civ: Civ) {

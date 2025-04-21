@@ -28,6 +28,8 @@ import { TouchableOpacity, View } from 'react-native';
 
 import { getCivIconLocal } from '../../../helper/civs';
 import { getTranslation } from '../../../helper/translate';
+import { civDataHouseOfLancaster } from '@app4/data/lancaster';
+import { civDataKnightsTemplar } from '@app4/data/templar';
 
 type Mutable<Type> = {
     -readonly [Key in keyof Type]: Type[Key];
@@ -54,6 +56,8 @@ const aoe4CivInfo = {
     Ayyubids: civDataAyyubids,
     ZhuXiSLegacy: civDataZhuXiSLegacy,
     OrderOfTheDragon: civDataOrderOfTheDragon,
+    HouseOfLancaster: civDataHouseOfLancaster,
+    KnightsTemplar: civDataKnightsTemplar,
 };
 
 export default function CivList() {
