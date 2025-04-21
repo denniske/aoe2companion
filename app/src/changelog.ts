@@ -23,6 +23,10 @@ export const changelog4: IChangelog = {
             type: 'feature',
             title: 'Implemented [Knights of Cross and Rose Expansion](https://www.ageofempires.com/news/age-of-empires-iv-knights-of-cross-and-rose-available-now/)',
         },
+        {
+            type: 'feature',
+            title: 'Implemented [AoE IV Update 13.0.4343](https://www.ageofempires.com/news/age-of-empires-iv-patch-13-0-4343/)',
+        },
     ],
     '17.0.0': [
         {
