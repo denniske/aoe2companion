@@ -571,7 +571,7 @@ export interface ILeaderboardPlayer {
 }
 
 export interface IFetchLeaderboardParams {
-    leaderboardId: number;
+    leaderboardId: string;
     page?: number;
     search?: string;
     steamId?: string;
