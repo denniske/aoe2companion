@@ -18,7 +18,7 @@ export interface IChangelog {
 // https://www.ageofempires.com/news/age-of-empires-iv-season-one-update-release-notes/
 
 export const changelog4: IChangelog = {
-    '18.0.0': [
+    '19.0.0': [
         {
             type: 'feature',
             title: 'Implemented [Knights of Cross and Rose Expansion](https://www.ageofempires.com/news/age-of-empires-iv-knights-of-cross-and-rose-available-now/)',

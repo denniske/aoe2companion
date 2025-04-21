@@ -19,7 +19,7 @@ const sentryConfigPlugin = [
     }
 ];
 
-const version = '18.0.0';
+const version = '19.0.0';
 const versionParts = version.split('.');
 
 const runtimeVersion = versionParts[0] + '.' + versionParts[1] + '.0';
