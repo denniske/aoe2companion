@@ -15,8 +15,8 @@ export interface IHostService {
 export function getHost(host: Host) {
     const hostService = getService(SERVICE_NAME.HOST_SERVICE) as IHostService;
     const platform = hostService.getPlatform();
-    const dev = hostService.getEnvironment() == 'development';
-    const platformHost = Device.isDevice ? '192.168.178.20' : Platform.select({ios: 'localhost', android: '10.0.2.2'});
+    const dev = false && hostService.getEnvironment() == 'development';
+    const platformHost = Device.isDevice ? '192.168.10.22' : Platform.select({ios: 'localhost', android: '10.0.2.2'});
     switch (host) {
         case "aoe4world": {
             return `https://aoe4world.com/api/v0/`;

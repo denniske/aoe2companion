@@ -18,7 +18,6 @@ const fontStyle = {
     fontStyle: 'normal',
     fontWeight: 'normal',
 };
-const font = matchFont(fontStyle as any);
 
 interface Props {
     teams: ILegendInfo;
@@ -27,6 +26,8 @@ interface Props {
 
 export default function Eapm({ teams }: Props) {
     const paperTheme = usePaperTheme();
+
+    const font = matchFont(fontStyle as any);
 
     // We need to supply our custom tick formatter because otherwise victory native will
     // print too much ticks on the x-axis.
