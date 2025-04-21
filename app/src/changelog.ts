@@ -27,6 +27,15 @@ export const changelog4: IChangelog = {
             type: 'feature',
             title: 'Implemented [AoE IV Update 13.0.4343](https://www.ageofempires.com/news/age-of-empires-iv-patch-13-0-4343/)',
         },
+        {
+            type: 'minor',
+            title: 'Redesigned profile page header',
+        },
+        {
+            type: 'minor',
+            title: 'Changed the way profile, followed players and settings are stored',
+            content: 'If you notice any errors please post on [Discord](https://discord.gg/gCunWKx)',
+        },
     ],
     '17.0.0': [
         {
