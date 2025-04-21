@@ -135,62 +135,62 @@ export default function IndexPage() {
             {/*/>*/}
 
 
-            {/*<View className="-mx-4">*/}
-            {/*    <FollowedPlayers />*/}
-            {/*</View>*/}
+            <View className="-mx-4">
+                <FollowedPlayers />
+            </View>
 
-            {/*{authProfileId && (*/}
-            {/*    <View className="gap-2">*/}
-            {/*        <Text variant="header-lg">{currentMatch?.finished === null ? 'Current' : 'Most Recent'} Match</Text>*/}
+            {authProfileId && (
+                <View className="gap-2">
+                    <Text variant="header-lg">{currentMatch?.finished === null ? 'Current' : 'Most Recent'} Match</Text>
 
-            {/*        <View className="gap-2">*/}
-            {/*            <Match user={currentMatch?.filteredPlayers[0]} highlightedUsers={currentMatch?.filteredPlayers} match={currentMatch} />*/}
-            {/*        </View>*/}
-            {/*    </View>*/}
-            {/*)}*/}
+                    <View className="gap-2">
+                        <Match user={currentMatch?.filteredPlayers[0]} highlightedUsers={currentMatch?.filteredPlayers} match={currentMatch} />
+                    </View>
+                </View>
+            )}
 
-            {/*{favorites.length > 0 && (*/}
-            {/*    <View className="gap-2">*/}
-            {/*        <View className="flex-row justify-between items-center">*/}
-            {/*            <Text variant="header-lg">Favorite Build Orders</Text>*/}
-            {/*            <Link href="/explore/build-orders">View All</Link>*/}
-            {/*        </View>*/}
+            {favorites.length > 0 && (
+                <View className="gap-2">
+                    <View className="flex-row justify-between items-center">
+                        <Text variant="header-lg">Favorite Build Orders</Text>
+                        <Link href="/explore/build-orders">View All</Link>
+                    </View>
 
-            {/*        <FlatList*/}
-            {/*            showsHorizontalScrollIndicator={false}*/}
-            {/*            className="flex-none"*/}
-            {/*            horizontal*/}
-            {/*            keyboardShouldPersistTaps="always"*/}
-            {/*            data={favorites}*/}
-            {/*            contentContainerStyle="gap-2.5"*/}
-            {/*            renderItem={({ item }) => <BuildCard size="small" {...item} />}*/}
-            {/*            keyExtractor={(item) => item.id.toString()}*/}
-            {/*        />*/}
-            {/*    </View>*/}
-            {/*)}*/}
+                    <FlatList
+                        showsHorizontalScrollIndicator={false}
+                        className="flex-none"
+                        horizontal
+                        keyboardShouldPersistTaps="always"
+                        data={favorites}
+                        contentContainerStyle="gap-2.5"
+                        renderItem={({ item }) => <BuildCard size="small" {...item} />}
+                        keyExtractor={(item) => item.id.toString()}
+                    />
+                </View>
+            )}
 
-            {/*{Platform.OS !== 'web' ? (*/}
-            {/*    <View className="gap-2">*/}
-            {/*        <View className="flex-row justify-between items-center">*/}
-            {/*            <Text variant="header-lg">{followedIds[0] ? 'Favorite' : 'Featured'} Tournament</Text>*/}
-            {/*            <Link href="/competitive/tournaments">View All</Link>*/}
-            {/*        </View>*/}
-            {/*        {followedIds[0] ? <TournamentCardLarge path={followedIds[0]} /> : <TournamentCardLarge {...tournament} />}*/}
-            {/*    </View>*/}
-            {/*) : null}*/}
+            {Platform.OS !== 'web' ? (
+                <View className="gap-2">
+                    <View className="flex-row justify-between items-center">
+                        <Text variant="header-lg">{followedIds[0] ? 'Favorite' : 'Featured'} Tournament</Text>
+                        <Link href="/competitive/tournaments">View All</Link>
+                    </View>
+                    {followedIds[0] ? <TournamentCardLarge path={followedIds[0]} /> : <TournamentCardLarge {...tournament} />}
+                </View>
+            ) : null}
 
-            {/*<View className="gap-2">*/}
-            {/*    <Text variant="header-lg">Recent News</Text>*/}
+            <View className="gap-2">
+                <Text variant="header-lg">Recent News</Text>
 
-            {/*    <FlatList*/}
-            {/*        showsHorizontalScrollIndicator={false}*/}
-            {/*        contentContainerStyle="gap-4 px-4"*/}
-            {/*        className="-mx-4"*/}
-            {/*        horizontal*/}
-            {/*        data={news}*/}
-            {/*        renderItem={({ item: post }) => <NewsCard {...post} />}*/}
-            {/*    />*/}
-            {/*</View>*/}
+                <FlatList
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle="gap-4 px-4"
+                    className="-mx-4"
+                    horizontal
+                    data={news}
+                    renderItem={({ item: post }) => <NewsCard {...post} />}
+                />
+            </View>
         </ScrollView>
     );
 }
