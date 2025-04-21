@@ -122,7 +122,7 @@ export function Civ4Details({ civ }: { civ: aoeCivKey }) {
     } as any;
 
     const { data: civData } = useQuery({
-        queryKey: ['leaderboards'],
+        queryKey: ['civ-infos', civ],
         queryFn: () =>
             fetchJson(
                 'fetchCivInfos',

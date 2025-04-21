@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { saveAccount, saveAccountThrottled } from '@app/api/account';
+import { PartialAccountWithPartialPrefs, saveAccount, saveAccountThrottled } from '@app/api/account';
 import { QUERY_KEY_ACCOUNT } from '@app/queries/all';
 import { IPrefs } from '@app/queries/prefs';
 
@@ -12,10 +12,14 @@ export const useSaveAccountMutation = () => {
         onMutate: async (_account) => {
             console.log('ON MUTATE');
             await queryClient.cancelQueries({ queryKey: QUERY_KEY_ACCOUNT() });
-            const previousAccount = queryClient.getQueryData(QUERY_KEY_ACCOUNT()) as {};
+            const previousAccount = queryClient.getQueryData(QUERY_KEY_ACCOUNT()) as PartialAccountWithPartialPrefs;
             queryClient.setQueryData(QUERY_KEY_ACCOUNT(), {
                 ...previousAccount,
                 ..._account,
+                preferences: {
+                    ...previousAccount?.preferences,
+                    ..._account?.preferences,
+                }
             });
             return { previousAccount, _account };
         },

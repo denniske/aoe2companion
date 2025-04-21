@@ -142,7 +142,7 @@ interface IResult {
 
 export const saveAccountThrottled = throttle(saveAccount, 1000);
 
-type PartialAccountWithPartialPrefs = Omit<Partial<IAccount>, 'preferences'> & {
+export type PartialAccountWithPartialPrefs = Omit<Partial<IAccount>, 'preferences'> & {
     preferences?: Partial<IAccount['preferences']>;
 };
 

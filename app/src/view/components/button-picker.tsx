@@ -1,9 +1,7 @@
-import { Button } from '@app/components/button';
+import {Button} from "react-native-paper";
 import {StyleProp, StyleSheet, View, ViewStyle} from "react-native";
 import React from "react";
 import {useAppTheme, usePaperTheme} from "../../theming";
-import tw from '@app/tailwind';
-import { textColors } from '@app/utils/text.util';
 
 
 interface IPickerProps<T> {
@@ -21,13 +19,44 @@ export default function ButtonPicker<T>(props: IPickerProps<T>) {
 
     const { value, values, onSelect, style, disabled, formatter = (x) => `${x}`} = props;
 
+    const renderItem = (v: T, i: number) => {
+        let style: ViewStyle = {};
+        const first = i === 0;
+        const last = i === values.length - 1;
+        const selected = v == value;
+        if (!first) {
+            style.borderTopLeftRadius = 0;
+            style.borderBottomLeftRadius = 0;
+        }
+        if (!last) {
+            style.borderTopRightRadius = 0;
+            style.borderBottomRightRadius = 0;
+        }
+        return (
+            <Button
+                key={i}
+                labelStyle={{fontSize: 13, marginVertical: 6}}
+                style={style}
+                onPress={() => onSelect(v)}
+                mode="contained"
+                compact
+                uppercase={false}
+                dark={true}
+                buttonColor={selected ? paperTheme.colors.primary : theme.lightBackgroundColor}
+            >
+                {formatter(v)}
+            </Button>
+        );
+    };
+
     return (
-        <View className="rounded-lg overflow-hidden flex-row bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
-        {
+        <View style={[styles.row, style]}>
+            {
                 values!.map((val, i) =>
                     <ButtonPickerItem key={i} v={val} i={i} {...props}></ButtonPickerItem>
                 )
             }
+            {/*{values!.map((val, i) => renderItem(val, i))}*/}
         </View>
     );
 }
@@ -50,13 +79,16 @@ const ButtonPickerItem = <T,>({ v, i, value, values, onSelect, formatter }: IPic
     }
     return (
         <Button
-            key={i}
-            align="center"
-            className={`flex-1 p-2 px-6 justify-center ${selected ? '' : 'bg-transparent'}`}
+            labelStyle={{ fontSize: 13, marginVertical: 6 }}
+            style={style}
             onPress={() => onSelect(v)}
-            textStyle={tw.style(selected ? 'text-white' : textColors.subtle)}
+            mode="contained"
+            compact
+            uppercase={false}
+            dark={true}
+            buttonColor={selected ? paperTheme.colors.primary : theme.lightBackgroundColor}
         >
-            {formatter?.(v)}
+            {formatter(v)}
         </Button>
     );
 };

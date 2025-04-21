@@ -34,10 +34,10 @@ import { FontAwesomeIconStyle } from '@fortawesome/react-native-fontawesome';
 import { MyText } from '@app/view/components/my-text';
 import { Image } from 'expo-image';
 import { getCountryName } from '@app/helper/flags';
-import { Menu } from 'react-native-paper';
 import { TextLoader } from '@app/view/components/loader/text-loader';
 import { useAppTheme } from '@app/theming';
 import { MenuNew } from '@app/components/menu';
+import { Menu } from 'react-native-paper';
 
 const { Navigator } = createMaterialTopTabNavigator();
 
@@ -47,7 +47,6 @@ export const MaterialTopTabs = withLayoutContext<
     TabNavigationState<ParamListBase>,
     MaterialTopTabNavigationEventMap
 >(Navigator);
-
 
 interface UserMenuProps {
     profile?: IProfilesResultProfile;
@@ -78,9 +77,7 @@ export function UserMenu({ profile }: UserMenuProps) {
     const verifiedPlayer = getVerifiedPlayer(profileId!);
     const { data: liquipediaProfile } = useTournamentPlayer(verifiedPlayer?.liquipedia);
 
-
     const { data: profileFull } = useProfile(profileId!);
-
 
     // Reset country for use in leaderboard country dropdown
     // useEffect(() => {
@@ -165,9 +162,7 @@ export function UserMenu({ profile }: UserMenuProps) {
         );
     } else {
         return (
-            <View
-                className="flex flex-row gap-2"
-            >
+            <View className="flex flex-row gap-2">
                 {liquipediaProfile && (
                     <TournamentPlayerPopup
                         id={liquipediaProfile.name}
@@ -177,15 +172,12 @@ export function UserMenu({ profile }: UserMenuProps) {
                     />
                 )}
 
-
-                {
-                    profile.verified && (
-                        <TouchableOpacity style={styles.menuButton} onPress={() => setShowTournamentPlayer(true)}>
-                            <Icon icon="check-circle" color="brand" size={20}  />
-                            {/*<FontAwesome5 style={styles.menuIcon} name="check-circle" color="brand" size={20} />*/}
-                        </TouchableOpacity>
-                    )
-                }
+                {profile.verified && (
+                    <TouchableOpacity style={styles.menuButton} onPress={() => setShowTournamentPlayer(true)}>
+                        <Icon icon="check-circle" color="brand" size={20} />
+                        {/*<FontAwesome5 style={styles.menuIcon} name="check-circle" color="brand" size={20} />*/}
+                    </TouchableOpacity>
+                )}
 
                 {/*<Menu*/}
                 {/*    visible={visible}*/}
@@ -268,52 +260,61 @@ export function UserMenu({ profile }: UserMenuProps) {
                 {/*    </View>*/}
                 {/*</Menu>*/}
 
-
-                <MenuNew
+                <Menu
                     contentStyle={{ padding: 15, paddingTop: 15, paddingBottom: 15, left: 'auto' }}
                     visible={linkedProfilesVisible}
                     onDismiss={() => setLinkedProfilesVisible(false)}
                     anchor={
                         <TouchableOpacity style={styles.menuButton} onPress={() => setLinkedProfilesVisible(true)}>
-                            <Icon icon="family" color="brand" size={20}  />
+                            <Icon icon="family" color="brand" size={20} />
                         </TouchableOpacity>
                     }
                 >
                     <View className="w-60">
-                        {(profileFull?.linkedProfiles?.length || 0) > 0 && (
-                            <View className="gap-3">
-                                {
-                                    profile?.steamId &&
-                                    <>
-                                        <Text variant="header-sm">Steam</Text>
-                                        <TouchableOpacity className="flex-row gap-2 items-center" onPress={() => openLink(steamProfileUrl)}>
-                                            <FontAwesome5 name="steam" size={14} color={theme.textNoteColor} />
-                                            <Text variant="body">{profile?.steamId}</Text>
-                                        </TouchableOpacity>
-                                    </>
-                                }
+                        <View className="gap-3">
+                            {profile?.steamId && (
+                                <>
+                                    <Text variant="header-sm">Steam</Text>
+                                    <TouchableOpacity className="flex-row gap-2 items-center" onPress={() => openLink(steamProfileUrl)}>
+                                        <FontAwesome5 name="steam" size={14} color={theme.textNoteColor} />
+                                        <Text variant="body">{profile?.steamId}</Text>
+                                    </TouchableOpacity>
+                                </>
+                            )}
 
-                                {
-                                    profileId &&
-                                    <>
-                                        <Text variant="header-sm">ageofempires.com</Text>
-                                        <TouchableOpacity className="flex-row gap-2 items-center" onPress={() => openLink(xboxProfileUrl)}>
-                                            <FontAwesome5 name="xbox" size={14} color={theme.textNoteColor} />
-                                            <Text variant="body">{profileId}</Text>
-                                        </TouchableOpacity>
-                                    </>
-                                }
+                            {profileId && (
+                                <>
+                                    <Text variant="header-sm">ageofempires.com</Text>
+                                    <TouchableOpacity className="flex-row gap-2 items-center" onPress={() => openLink(xboxProfileUrl)}>
+                                        <FontAwesome5 name="xbox" size={14} color={theme.textNoteColor} />
+                                        <Text variant="body">{profileId}</Text>
+                                    </TouchableOpacity>
+                                </>
+                            )}
 
-                                <Text variant="header-sm">Linked Profiles</Text>
+                            {(profileFull?.linkedProfiles?.length || 0) > 0 && (
+                                <>
+                                    <Text variant="header-sm">Linked Profiles</Text>
 
-                                {profileFull?.linkedProfiles?.map((linkedProfile) => {
-                                    return (
-                                            <TouchableOpacity className="flex-1 flex-row gap-1 items-center" onPress={() => navigateToLinkedProfile(linkedProfile?.profileId)}>
-                                                <CountryImageLoader country={verifiedPlayer?.country || linkedProfile?.country} ready={linkedProfile} />
+                                    {profileFull?.linkedProfiles?.map((linkedProfile) => {
+                                        return (
+                                            <TouchableOpacity
+                                                className="flex-1 flex-row gap-1 items-center"
+                                                onPress={() => navigateToLinkedProfile(linkedProfile?.profileId)}
+                                            >
+                                                <CountryImageLoader
+                                                    country={verifiedPlayer?.country || linkedProfile?.country}
+                                                    ready={linkedProfile}
+                                                />
 
                                                 <TextLoader>{linkedProfile?.name}</TextLoader>
                                                 {linkedProfile?.verified && (
-                                                    <Icon icon="check-circle" color="brand" size={14} style={styles.verifiedIcon as FontAwesomeIconStyle} />
+                                                    <Icon
+                                                        icon="check-circle"
+                                                        color="brand"
+                                                        size={14}
+                                                        style={styles.verifiedIcon as FontAwesomeIconStyle}
+                                                    />
                                                 )}
                                                 {!linkedProfile?.verified && linkedProfile?.shared && (
                                                     <Icon icon="family" color="brand" size={14} style={styles.verifiedIcon as FontAwesomeIconStyle} />
@@ -325,21 +326,20 @@ export function UserMenu({ profile }: UserMenuProps) {
                                                     </MyText>
                                                 )}
                                             </TouchableOpacity>
-                                    );
-                                })}
+                                        );
+                                    })}
 
-                                {!profileFull?.verified && profileFull?.shared && (
-                                    <View className="flex-row items-center space-x-2">
-                                        <Icon icon="family" color="brand" size={14} />
-                                        <MyText>Steam Family Sharing</MyText>
-                                    </View>
-                                )}
-                            </View>
-                        )}
-
+                                    {!profileFull?.verified && profileFull?.shared && (
+                                        <View className="flex-row items-center space-x-2">
+                                            <Icon icon="family" color="brand" size={14} />
+                                            <MyText>Steam Family Sharing</MyText>
+                                        </View>
+                                    )}
+                                </>
+                            )}
+                        </View>
                     </View>
-                </MenuNew>
-
+                </Menu>
 
                 {/*{*/}
                 {/*    (profileFull?.linkedProfiles?.length || 0) > 0 && profile.verified && (*/}
@@ -370,15 +370,17 @@ export function UserMenu({ profile }: UserMenuProps) {
                 {/*        </TouchableOpacity>*/}
                 {/*    )*/}
                 {/*}*/}
-                <TouchableOpacity style={styles.menuButton} hitSlop={10} onPress={followingThisUser ? () => unfollowMutation.mutate([profileId]) : () => followMutation.mutate([profileId])}>
+                <TouchableOpacity
+                    style={styles.menuButton}
+                    hitSlop={10}
+                    onPress={followingThisUser ? () => unfollowMutation.mutate([profileId]) : () => followMutation.mutate([profileId])}
+                >
                     <Icon prefix={followingThisUser ? 'fass' : 'fasr'} icon="heart" size={20} color="text-[#ef4444]" />
                 </TouchableOpacity>
             </View>
         );
     }
 }
-
-
 
 const useStyles = createStylesheet((theme) =>
     StyleSheet.create({
@@ -403,16 +405,14 @@ const useStyles = createStylesheet((theme) =>
             marginLeft: 5,
             color: theme.linkColor,
         },
-    } as const),
+    } as const)
 );
-
-
 
 const Tab = createMaterialTopTabNavigator();
 
 type UserPageParams = {
     profileId: string;
-}
+};
 
 function UserTitle({ profile }: UserMenuProps) {
     const profileId = profile?.profileId;
@@ -428,22 +428,13 @@ function UserTitle({ profile }: UserMenuProps) {
 
     return (
         <HeaderTitle
-            iconComponent={
-                <Image
-                    source={{ uri: avatarUrl }}
-                    style={{ width: 38, height: 38 }}
-                    className="rounded-full"
-                />
-            }
+            iconComponent={<Image source={{ uri: avatarUrl }} style={{ width: 38, height: 38 }} className="rounded-full" />}
             title={profile?.name || ''}
             subtitle={
-            <>
-                <CountryImage
-                    style={{ fontSize: 14 }}
-                    country={verifiedPlayer?.country || profile?.country}
-                />
-                <MyText> {getCountryName((verifiedPlayer?.country || profile.country) as Country)}</MyText>
-            </>
+                <>
+                    <CountryImage style={{ fontSize: 14 }} country={verifiedPlayer?.country || profile?.country} />
+                    <MyText> {getCountryName((verifiedPlayer?.country || profile.country) as Country)}</MyText>
+                </>
             }
         />
     );
@@ -495,21 +486,39 @@ export default function UserPage() {
                 </View>
             )}
             screenOptions={{
-
                 lazy: false,
                 swipeEnabled: true,
                 tabBarInactiveTintColor: colorScheme === 'dark' ? 'white' : 'black',
                 tabBarActiveTintColor: colorScheme === 'dark' ? 'white' : 'black',
             }}
         >
-            <MaterialTopTabs.Screen name="main-profile" initialParams={{profileId}} options={{ title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.profile')} /> }} />
-            <MaterialTopTabs.Screen name="main-stats" initialParams={{profileId}} options={{ title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.stats')} /> }} />
-            <MaterialTopTabs.Screen name="main-matches" initialParams={{profileId}} options={{ title: appName, tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.matches')} /> }} />
+            <MaterialTopTabs.Screen
+                name="main-profile"
+                initialParams={{ profileId }}
+                options={{
+                    title: appName,
+                    tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.profile')} />,
+                }}
+            />
+            <MaterialTopTabs.Screen
+                name="main-stats"
+                initialParams={{ profileId }}
+                options={{
+                    title: appName,
+                    tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.stats')} />,
+                }}
+            />
+            <MaterialTopTabs.Screen
+                name="main-matches"
+                initialParams={{ profileId }}
+                options={{
+                    title: appName,
+                    tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.matches')} />,
+                }}
+            />
         </MaterialTopTabs>
     );
 }
-
-
 
 // <Tab.Navigator
 //     tabBar={(props) => (
