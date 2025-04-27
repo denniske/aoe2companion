@@ -292,23 +292,24 @@ export function UserMenu({ profile }: UserMenuProps) {
                                 </>
                             )}
 
-                            {(profileFull?.linkedProfiles?.length || 0) > 0 && (
+                            {profileFull && profileFull.linkedProfiles && profileFull.linkedProfiles.length > 0 && (
                                 <>
                                     <Text variant="header-sm">Linked Profiles</Text>
 
-                                    {profileFull?.linkedProfiles?.map((linkedProfile) => {
+                                    {profileFull.linkedProfiles.map((linkedProfile) => {
                                         return (
                                             <TouchableOpacity
+                                                key={linkedProfile.profileId}
                                                 className="flex-1 flex-row gap-1 items-center"
-                                                onPress={() => navigateToLinkedProfile(linkedProfile?.profileId)}
+                                                onPress={() => navigateToLinkedProfile(linkedProfile.profileId)}
                                             >
                                                 <CountryImageLoader
-                                                    country={verifiedPlayer?.country || linkedProfile?.country}
+                                                    country={verifiedPlayer?.country || linkedProfile.country}
                                                     ready={linkedProfile}
                                                 />
 
-                                                <TextLoader>{linkedProfile?.name}</TextLoader>
-                                                {linkedProfile?.verified && (
+                                                <TextLoader>{linkedProfile.name}</TextLoader>
+                                                {linkedProfile.verified && (
                                                     <Icon
                                                         icon="check-circle"
                                                         color="brand"
@@ -316,13 +317,13 @@ export function UserMenu({ profile }: UserMenuProps) {
                                                         style={styles.verifiedIcon as FontAwesomeIconStyle}
                                                     />
                                                 )}
-                                                {!linkedProfile?.verified && linkedProfile?.shared && (
+                                                {!linkedProfile.verified && linkedProfile.shared && (
                                                     <Icon icon="family" color="brand" size={14} style={styles.verifiedIcon as FontAwesomeIconStyle} />
                                                 )}
-                                                {!!linkedProfile?.clan && (
+                                                {!!linkedProfile.clan && (
                                                     <MyText>
                                                         {' '}
-                                                        ({getTranslation('main.profile.clan')}: {linkedProfile?.clan})
+                                                        ({getTranslation('main.profile.clan')}: {linkedProfile.clan})
                                                     </MyText>
                                                 )}
                                             </TouchableOpacity>
