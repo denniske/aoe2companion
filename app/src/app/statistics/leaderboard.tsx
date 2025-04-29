@@ -5,8 +5,8 @@ import { TextLoader } from '@app/view/components/loader/text-loader';
 import { MyText } from '@app/view/components/my-text';
 import RefreshControlThemed from '@app/view/components/refresh-control-themed';
 import { TabBarLabel } from '@app/view/components/tab-bar-label';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { countriesDistinct, Country } from '@nex/data';
+import { FontAwesome, FontAwesome5, FontAwesome6 } from '@expo/vector-icons';
+import { countriesDistinct, Country, getCivNameById } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { createMaterialTopTabNavigator, MaterialTopTabBar } from '@react-navigation/material-top-tabs';
 import { useIsFocused } from '@react-navigation/native';
@@ -15,6 +15,7 @@ import { router, Stack } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
+    ActivityIndicator,
     Animated,
     Dimensions,
     FlatList as FlatListRef,
@@ -29,17 +30,22 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { fetchLeaderboard, fetchLeaderboards } from '../../api/helper/api';
-import { ILeaderboardPlayer } from '../../api/helper/api.types';
+import { ILeaderboardDef, ILeaderboardPlayer } from '../../api/helper/api.types';
 import { getCountryName } from '../../helper/flags';
 import { getTranslation } from '../../helper/translate';
 import { getValue } from '../../helper/util-component';
 import { useLazyAppendApi } from '../../hooks/use-lazy-append-api';
-import { setLeaderboardCountry, useMutate, useSelector } from '../../redux/reducer';
+import { setLeaderboardCountry, setLeaderboardId, useMutate, useSelector } from '../../redux/reducer';
 import { createStylesheet } from '../../theming-new';
 import { Dropdown } from '@app/components/dropdown';
-import { leaderboardsByType } from '@app/helper/leaderboard';
+import { leaderboardIdsByType, leaderboardsByType } from '@app/helper/leaderboard';
 import { useQuery } from '@tanstack/react-query';
 import { useAuthProfileId, useFollowedAndMeProfileIds, useProfileFast } from '@app/queries/all';
+import TemplatePicker from '@app/view/components/template-picker';
+import { Checkbox as CheckboxNew } from '@app/components/checkbox';
+import Picker from '@app/view/components/picker';
+import { HeaderTitle } from '@app/components/header-title';
+import { getCivIconLocal } from '@app/helper/civs';
 
 const Tab = createMaterialTopTabNavigator<any>();
 
@@ -55,6 +61,8 @@ export function LeaderboardMenu() {
     const country = useSelector((state) => state.leaderboardCountry) || null;
     const isFocused = useIsFocused();
 
+    const styles = useStyles();
+
     // console.log('LeaderboardMenu', country);
     
     const authProfileId = useAuthProfileId();
@@ -69,16 +77,18 @@ export function LeaderboardMenu() {
         if (x == 'following') {
             return getTranslation('country.following');
         }
-        if (x.startsWith('clan')) {
+        if (x.startsWith('Clan')) {
             return x;
         }
-        return inList ? getCountryName(x as Country) : x?.toUpperCase();
+        return getCountryName(x as Country);
+        // return true ? getCountryName(x as Country) : x?.toUpperCase();
+        // return inList ? getCountryName(x as Country) : x?.toUpperCase();
     };
     const orderedCountriesDistinct = countriesDistinct.sort((a, b) => formatCountry(a, true).localeCompare(formatCountry(b, true)));
     const countryList: (string | null)[] = [
         countryEarth,
         'following',
-        ...(authClan ? ['clan:' + authClan] : []),
+        ...(authClan ? ['Clan ' + authClan] : []),
         ...(authCountry ? [authCountry] : []),
         ...orderedCountriesDistinct,
     ];
@@ -91,7 +101,7 @@ export function LeaderboardMenu() {
             // return <FontAwesome name="heart" size={14} />;
             return <SpecialImageForDropDown emoji="🖤" />;
         }
-        if (x.startsWith('clan')) {
+        if (x.startsWith('Clan')) {
             // return <FontAwesome name="trophy" size={14} />;
             return <SpecialImageForDropDown emoji="⚔️" />;
         }
@@ -101,100 +111,145 @@ export function LeaderboardMenu() {
         mutate(setLeaderboardCountry(country));
     };
 
+    const divider = (x: any, i: number) => i < (authCountry ? 3 : 2);
+
     if (appConfig.game === 'aoe4') {
         return <View />;
     }
 
+    const loadingLeaderboard = false;
+    // <ActivityIndicator animating={loadingLeaderboard} size="small" color="#999"/>
+
     return (
-        <Select
-            style={{ flex: 1, marginRight: 16 }}
-            size="small"
-            selectedIndex={new IndexPath(countryList.indexOf(country))}
-            onSelect={(index) => onCountrySelected(countryList[(index as IndexPath).row])}
-            value={formatCountry(country, true)}
-            accessoryLeft={icon(country)}
-        >
-            {countryList.map((country, i) => {
-                return <SelectItem key={i} title={formatCountry(country, true)} accessoryLeft={icon(country)} />;
-            })}
-        </Select>
+
+        <View style={styles.menu}>
+            <View style={styles.pickerRow}>
+                <Picker
+                    popupAlign="right"
+                    itemHeight={40}
+                    textMinWidth={150}
+                    container="flatlist"
+                    divider={divider}
+                    icon={icon}
+                    disabled={loadingLeaderboard}
+                    value={country}
+                    values={countryList}
+                    formatter={formatCountry}
+                    onSelect={onCountrySelected}
+                    style={{ width: 170 }}
+                />
+            </View>
+        </View>
     );
 }
 
-const ROW_HEIGHT = 45;
-const ROW_HEIGHT_MY_RANK = 52;
-
-export default function LeaderboardPage() {
-    const { colorScheme } = useColorScheme();
+// Memoize? Maybe not needed because of react 19
+export function LeaderboardMenu2() {
+    const mutate = useMutate();
+    const leaderboardId = useSelector((state) => state.leaderboardId) || null;
 
     const { data: leaderboards } = useQuery({
         queryKey: ['leaderboards'],
         queryFn: fetchLeaderboards,
     });
 
-    const [leaderboardType, setLeaderboardType] = useState<'pc' | 'xbox'>('pc');
+    const selectedLeaderboard = leaderboards?.find(l => l.leaderboardId === leaderboardId);
 
-    if (!leaderboards) {
-        return <View />;
-    }
+    const styles = useStyles();
+
+    const formatLeaderboard = (x: ILeaderboardDef, inList?: boolean) => {
+        // if (x.abbreviation.includes('🎮')) {
+        //
+        // }
+        return x.abbreviationTitle + ' ' + x.abbreviationSubtitle;
+        // return x.abbreviation;
+        // return x.leaderboardName;
+    };
+
+    const icon = (x: any) => {
+        if (x.abbreviation.includes('🎮')) {
+            return <FontAwesome6 name="gamepad" size={16} style={{paddingRight: 10, paddingVertical:8}} className="pr-2 mr-2 border-2 border-amber-200" />;
+        } else {
+            return <FontAwesome6 name="computer-mouse" size={16} style={{paddingRight: 10, paddingVertical:8}} className="pr-2 mr-2 border-2 border-amber-200" />;
+        }
+    };
+
+    const onLeaderboardIdSelected = (leaderboard: ILeaderboardDef | null) => {
+        mutate(setLeaderboardId(leaderboard?.leaderboardId));
+    };
+
+    const loadingLeaderboard = false;
+    // <ActivityIndicator animating={loadingLeaderboard} size="small" color="#999"/>
+
+
+    const sections = [
+        {
+            title: 'PC',
+            icon: 'swords',
+            data: leaderboardsByType(leaderboards ?? [], 'pc'),
+        },
+        {
+            title: 'Console',
+            icon: 'swords',
+            data: leaderboardsByType(leaderboards ?? [], 'xbox'),
+        },
+    ];
+
 
     return (
-        <>
-            <Stack.Screen
-                options={{
-                    title: 'Leaderboards',
-                    headerRight: () => (
-                        <Dropdown
-                            style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 6 }}
-                            value={leaderboardType}
-                            onChange={setLeaderboardType}
-                            options={[
-                                { value: 'pc', label: 'PC' },
-                                { value: 'xbox', label: 'Xbox' },
-                            ]}
-                        />
-                    ),
-                }}
-            />
-            <Tab.Navigator
-                key={leaderboardType}
-                tabBar={(props) => (
-                    <View className="bg-white dark:bg-blue-900 ">
-                        <MaterialTopTabBar {...props} />
-                    </View>
-                )}
-                screenOptions={{
-                    lazy: false,
-                    swipeEnabled: false,
-                    tabBarStyle: { backgroundColor: 'transparent' },
-                    tabBarInactiveTintColor: colorScheme === 'dark' ? 'white' : 'black',
-                    tabBarActiveTintColor: colorScheme === 'dark' ? 'white' : 'black',
-                }}
-            >
-                {leaderboardsByType(leaderboards, leaderboardType).map((leaderboard, i) => {
-                    return (
-                        <Tab.Screen
-                            key={i}
-                            name={`${leaderboard.leaderboardId}`}
-                            options={{ tabBarLabel: (x) => <TabBarLabel {...x} title={leaderboard.abbreviation.replace('🎮', '').trim()} /> }}
-                        >
-                            {() => <Leaderboard leaderboardId={leaderboard.leaderboardId} />}
-                        </Tab.Screen>
-                    );
-                })}
-            </Tab.Navigator>
-        </>
+
+        <View style={styles.menu}>
+            <View style={styles.pickerRow}>
+                <Picker
+                    popupAlign="left"
+                    itemHeight={40}
+                    textMinWidth={250}
+                    container="sectionlist"
+                    sections={sections}
+                    icon={icon}
+                    // container="flatlist"
+                    disabled={loadingLeaderboard}
+                    value={selectedLeaderboard}
+                    values={leaderboards}
+                    formatter={formatLeaderboard}
+                    onSelect={onLeaderboardIdSelected}
+                    style={{ width: 250 }}
+                />
+            </View>
+        </View>
     );
 }
+
+const ROW_HEIGHT = 45;
+const ROW_HEIGHT_MY_RANK = 52;
 
 export const windowWidth = Platform.OS === 'web' ? 450 : Dimensions.get('window').width;
 
 const pageSize = 100;
 
-function Leaderboard({ leaderboardId }: any) {
+
+export default function LeaderboardPage() {
+    const { colorScheme } = useColorScheme();
+
+    const mutate = useMutate();
+
+    const { data: leaderboards } = useQuery({
+        queryKey: ['leaderboards'],
+        queryFn: fetchLeaderboards,
+    });
+
+    // const [leaderboardType, setLeaderboardType] = useState<'pc' | 'xbox'>('pc');
+    // const leaderboardId = leaderboardsByType(leaderboards ?? [], leaderboardType)?.[0]?.leaderboardId;
+
+    useEffect(() => {
+        const firstLeaderboardId = leaderboardsByType(leaderboards ?? [], 'pc')?.[0]?.leaderboardId;
+        mutate(setLeaderboardId(firstLeaderboardId));
+    }, [leaderboards]);
+
     const styles = useStyles();
     const [refetching, setRefetching] = useState(false);
     const leaderboardCountry = useSelector((state) => state.leaderboardCountry) || null;
+    const leaderboardId = useSelector((state) => state.leaderboardId) || null;
     const [loadedLeaderboardCountry, setLoadedLeaderboardCountry] = useState(leaderboardCountry);
     const insets = useSafeAreaInsets();
     const flatListRef = React.useRef<FlatListRef>(null);
@@ -215,8 +270,8 @@ function Leaderboard({ leaderboardId }: any) {
         if (leaderboardCountry == 'following') {
             return { page, profileId, profileIds: followingIds };
         }
-        if (leaderboardCountry?.startsWith('clan:')) {
-            return { page, profileId, clan: leaderboardCountry?.replace('clan:', '') };
+        if (leaderboardCountry?.startsWith('Clan ')) {
+            return { page, profileId, clan: leaderboardCountry?.replace('Clan ', '') };
         }
         if (leaderboardCountry == countryEarth) {
             return { page, profileId };
@@ -250,7 +305,7 @@ function Leaderboard({ leaderboardId }: any) {
         {
             append: (data, newData, args) => {
                 const [params] = args;
-                // console.log('APPEND', data, newData, args);
+                console.log('APPEND', data, newData, args);
 
                 total.current = newData.total;
                 total2.current = newData.total;
@@ -261,13 +316,13 @@ function Leaderboard({ leaderboardId }: any) {
 
                 setLoadedLeaderboardCountry(leaderboardCountry);
 
-                // console.log('APPENDED', list.current);
-                // console.log('APPENDED', params);
+                console.log('APPENDED', list.current);
+                console.log('APPENDED', params);
                 return data;
             },
         },
         fetchLeaderboard,
-        { leaderboardId, ...getParams(1) }
+        { leaderboardId: leaderboardId ?? '', ...getParams(1) }
     );
 
     const onRefresh = async () => {
@@ -318,6 +373,7 @@ function Leaderboard({ leaderboardId }: any) {
     };
 
     useEffect(() => {
+        if (!leaderboardId) return;
         if (!isFocused) return;
         if (leaderboard.touched && leaderboard.lastParams?.leaderboardCountry === leaderboardCountry) return;
         list.current.length = Math.min(list.current.length, pageSize);
@@ -328,7 +384,7 @@ function Leaderboard({ leaderboardId }: any) {
         console.log('RELOADING LEADERBOARD', leaderboardCountry);
         flatListRef.current?.scrollToOffset({ animated: false, offset: 0 });
         total2.current = 1000;
-    }, [isFocused, leaderboardCountry]);
+    }, [isFocused, leaderboardCountry, leaderboardId]);
 
     const total = useRef<any>();
 
@@ -368,8 +424,8 @@ function Leaderboard({ leaderboardId }: any) {
         // const updated = leaderboard.data?.updated ? getTranslation('leaderboard.updated', { updated: formatAgo(leaderboard.data.updated) }) : '';
         return (
             <>
-                <View style={{ height: headerInfoHeight }} className="flex-row justify-between pl-4 pr-12 items-center">
-                    <LeaderboardMenu />
+                <View style={{ height: headerInfoHeight }} className="flex-row justify-center pl-4 pr-12 items-center">
+
                     <MyText style={styles.info}>
                         {total.current ? players : ''}
                         {/*{leaderboard.data?.updated ? ' (' + updated + ')' : ''}*/}
@@ -399,7 +455,7 @@ function Leaderboard({ leaderboardId }: any) {
         // console.log('FETCHPAGE', page, 'WILL FETCH');
 
         fetchingPages.current = [...fetchingPages.current, page];
-        await leaderboard.refetchAppend({ leaderboardId, ...getParams(page) });
+        await leaderboard.refetchAppend({ leaderboardId: leaderboardId ?? '', ...getParams(page) });
         fetchingPages.current = fetchingPages.current.filter((p) => p !== page);
 
         setTemp((t) => t + 1);
@@ -518,8 +574,83 @@ function Leaderboard({ leaderboardId }: any) {
         return getTranslation('leaderboard.noplayerfound');
     };
 
+    const [platform, setPlatform] = useState<'pc' | 'xbox'>('pc');
+    const [leaderboardIds, setLeaderboardIds] = useState<string[]>([]);
+
+    const onLeaderboardSelected = async (selLeaderboardId: string) => {
+        if (leaderboardIds.length === 1 && leaderboardIds[0] === selLeaderboardId) {
+            setLeaderboardIds([]);
+        } else {
+            setLeaderboardIds([selLeaderboardId]);
+        }
+    };
+
+    if (!leaderboards || !leaderboardId) {
+        return <View />;
+    }
+
+    const renderLeaderboard = (value: string, selected: boolean) => {
+        return (
+            <View style={styles.col}>
+                <MyText style={[styles.h1, { fontWeight: selected ? 'bold' : 'normal' }]}>
+                    {leaderboards?.find((l) => l.leaderboardId === value)?.abbreviationTitle}
+                </MyText>
+                <MyText style={[styles.h2, { fontWeight: selected ? 'bold' : 'normal' }]}>
+                    {leaderboards?.find((l) => l.leaderboardId === value)?.abbreviationSubtitle}
+                </MyText>
+            </View>
+        );
+    };
+
     return (
         <View style={styles.container2}>
+
+            <Stack.Screen
+                options={{
+                    headerTitle: () => <HeaderTitle title="Leaderboards" />,
+
+                    // title: 'Leaderboards',
+                //     headerRight: () => (
+                //         <Dropdown
+                //             style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 6 }}
+                //             value={leaderboardType}
+                //             onChange={setLeaderboardType}
+                //             options={[
+                //                 { value: 'pc', label: 'PC' },
+                //                 { value: 'xbox', label: 'Xbox' },
+                //             ]}
+                //         />
+                //     ),
+                }}
+            />
+
+            <View style={styles.pickerRow2}>
+                <LeaderboardMenu2 />
+                <LeaderboardMenu />
+
+                {/*<Dropdown*/}
+                {/*    textVariant="label-sm"*/}
+                {/*    style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 10, paddingBottom: 8, marginRight: 6 }}*/}
+                {/*    value={platform}*/}
+                {/*    onChange={(lType) => {*/}
+                {/*        setPlatform(lType);*/}
+                {/*        setLeaderboardIds([]);*/}
+                {/*    }}*/}
+                {/*    options={[*/}
+                {/*        { value: 'pc', label: 'PC' },*/}
+                {/*        { value: 'xbox', label: 'Xbox' },*/}
+                {/*    ]}*/}
+                {/*/>*/}
+                {/*<TemplatePicker*/}
+                {/*    value={leaderboardIds.length > 1 ? undefined : leaderboardIds[0]}*/}
+                {/*    values={leaderboardIdsByType(leaderboards, platform)}*/}
+                {/*    template={renderLeaderboard}*/}
+                {/*    onSelect={onLeaderboardSelected}*/}
+                {/*/>*/}
+            </View>
+
+
+
             {/*<Button onPress={onRefresh}>REFRESH</Button>*/}
             <View style={[styles.content, { opacity: leaderboard.loading ? 0.7 : 1 }]}>
                 <FlatList
@@ -682,20 +813,31 @@ const useStyles = createStylesheet((theme) =>
             flex: 1,
         },
 
+        pickerRow2: {
+            // backgroundColor: 'yellow',
+            flexDirection: 'row',
+            // justifyContent: 'center',
+            alignItems: 'center',
+            // paddingRight: 20,
+            gap: 10,
+            padding: 10,
+        },
+
         pickerRow: {
             // backgroundColor: 'yellow',
             flexDirection: 'row',
-            justifyContent: 'center',
+            // justifyContent: 'center',
             alignItems: 'center',
-            paddingRight: 20,
+            // paddingRight: 20,
+            flex: 1,
         },
 
         menu: {
             // backgroundColor: 'red',
             flexDirection: 'row',
             alignItems: 'center',
-            flex: 1,
-            marginRight: 10,
+            // flex: 1,
+            // marginRight: 10,
         },
         menuButton: {
             // backgroundColor: 'blue',
@@ -855,10 +997,21 @@ const useStyles = createStylesheet((theme) =>
         },
 
         info: {
-            textAlign: 'right',
+            textAlign: 'center',
             color: theme.textNoteColor,
             fontSize: 12,
             minWidth: 75,
+        },
+
+
+
+        col: {
+            paddingHorizontal: 7,
+            alignItems: 'center',
+        },
+        h1: {},
+        h2: {
+            fontSize: 11,
         },
     } as const)
 );

@@ -34,7 +34,7 @@ export default function MainProfile(props: any) {
     const myParams = useGlobalSearchParams();
     const myParams2 = useLocalSearchParams();
 
-    console.log('PROFILE', props, myParams, myParams2);
+    // console.log('PROFILE', props, myParams, myParams2);
     // console.log('PROFILE', profile);
 
     const rating = profile?.ratings;

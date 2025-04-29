@@ -79,6 +79,12 @@ export function setLeaderboardCountry(country?: string | null) {
     };
 }
 
+export function setLeaderboardId(id?: string | null) {
+    return (state: AppState) => {
+        state.leaderboardId = id;
+    };
+}
+
 // export function setPurchaserInfo(purchaserInfo: any | null) {
 //     return (state: AppState) => {
 //         state.donation.purchaserInfo = purchaserInfo;
@@ -149,6 +155,7 @@ export interface AppState {
     following: IFollowingEntry[];
 
     leaderboardCountry?: string | null;
+    leaderboardId?: string | null;
 
     loadedLanguages: string[];
 

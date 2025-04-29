@@ -41,6 +41,7 @@ import ChangelogSnackbar from '@app/view/components/snackbar/changelog-snackbar'
 import ErrorSnackbar from '@app/view/components/snackbar/error-snackbar';
 import { useEventListener } from 'expo';
 import { useAccountData } from '@app/queries/all';
+import { PortalProvider } from '@app/components/portal/portal-host';
 
 initSentry();
 
@@ -293,7 +294,6 @@ function AppWrapper() {
     console.log();
     console.log();
 
-
     return (
         <GestureHandlerRootView className={`flex-1 ${Platform.OS === 'web' ? `bg-white dark:bg-black` : ``}`}>
             <ConditionalTester>
@@ -333,9 +333,12 @@ function AppWrapper() {
                                     <ErrorSnackbar />
                                 </View>
 
-                                <Stack screenOptions={{ header: Header,  }}></Stack>
-
-                                <TabBar></TabBar>
+                                <PortalProvider>
+                                    <>
+                                        <Stack screenOptions={{ header: Header,  }}></Stack>
+                                        <TabBar></TabBar>
+                                    </>
+                                </PortalProvider>
                             </View>
                         </ThemeProvider>
                     </ApplicationProvider>

@@ -17,14 +17,16 @@ export interface LoaderProps extends Props {
 export function CountryImageForDropDown(props: Props) {
     const { country } = props;
 
+    const fontSize = country == 'EARTH' ? 16 : 24;
+
     return (
-        <MyText>{country ? flagEmojiDict[country.toUpperCase() as any] : '🏳'}</MyText>
+        <MyText style={{ fontSize, textAlign: 'center', paddingVertical: 6 }} className="w-7 mr-2">{country ? flagEmojiDict[country.toUpperCase() as any] : '🏳'}</MyText>
     );
 }
 
 export function SpecialImageForDropDown(props: { emoji: string }) {
     return (
-        <MyText>{props.emoji}</MyText>
+        <MyText style={{ fontSize: 16, textAlign: 'center', paddingVertical: 6 }} className="w-7 mr-2">{props.emoji}</MyText>
     );
 }
 

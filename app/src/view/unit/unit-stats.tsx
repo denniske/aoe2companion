@@ -294,7 +294,18 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                     </>
                 }
                 <View style={styles.cellValue}>
-                    <Picker itemHeight={40} textMinWidth={150} container="sectionlist" icon={icon} value={comparisonUnit} sections={allUnitSections} sectionFormatter={str => getTranslation(str as any)} formatter={formatUnit} onSelect={onComparisonUnitSelected}/>
+                    <Picker
+                        popupAlign="right"
+                        itemHeight={40}
+                        textMinWidth={150}
+                        container="sectionlist"
+                        icon={icon}
+                        value={comparisonUnit}
+                        sections={allUnitSections}
+                        sectionFormatter={str => getTranslation(str as any)}
+                        formatter={formatUnit}
+                        onSelect={onComparisonUnitSelected}
+                    />
                 </View>
             </View>
 

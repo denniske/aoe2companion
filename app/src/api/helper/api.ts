@@ -48,7 +48,7 @@ export async function fetchAssets() {
 }
 
 export async function fetchProfile(params: IFetchProfileParams) {
-    console.log('fetchProfile', params);
+    // console.log('fetchProfile', params);
     const queryString = makeQueryString(
         decamelizeKeys({
             ...removeReactQueryParams(params),

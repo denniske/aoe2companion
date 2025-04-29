@@ -242,6 +242,8 @@ export default function SettingsPage() {
                 </View>
                 <View style={styles.cellValueCol}>
                     <Picker
+                        popupAlign="right"
+                        container="flatlist"
                         itemHeight={40}
                         textMinWidth={150}
                         divider={divider}
@@ -261,6 +263,8 @@ export default function SettingsPage() {
                     </View>
                     <View style={styles.cellValueCol}>
                         <Picker
+                            popupAlign="right"
+                            container="flatlist"
                             itemHeight={40}
                             textMinWidth={150}
                             divider={divider}

@@ -260,8 +260,13 @@ export function UserMenu({ profile }: UserMenuProps) {
                 {/*    </View>*/}
                 {/*</Menu>*/}
 
-                <Menu
-                    contentStyle={{ padding: 15, paddingTop: 15, paddingBottom: 15, left: 'auto' }}
+                <MenuNew
+                    contentStyle={{
+                        padding: 15,
+                        paddingTop: 15,
+                        paddingBottom: 15,
+                        left: 'auto',
+                    }}
                     visible={linkedProfilesVisible}
                     onDismiss={() => setLinkedProfilesVisible(false)}
                     anchor={
@@ -340,7 +345,7 @@ export function UserMenu({ profile }: UserMenuProps) {
                             )}
                         </View>
                     </View>
-                </Menu>
+                </MenuNew>
 
                 {/*{*/}
                 {/*    (profileFull?.linkedProfiles?.length || 0) > 0 && profile.verified && (*/}
@@ -425,7 +430,7 @@ function UserTitle({ profile }: UserMenuProps) {
         return <View />;
     }
 
-    console.log('profile.country', profile.country);
+    // console.log('profile.country', profile.country);
 
     return (
         <HeaderTitle

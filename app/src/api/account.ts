@@ -70,7 +70,7 @@ export async function fetchAccount(): Promise<IAccount> {
 
     let { data: session } = await supabaseClient.auth.getSession();
 
-    console.log('session', session);
+    // console.log('session', session);
 
     if (!session.session) {
         console.log('fetchAccount: no session');
