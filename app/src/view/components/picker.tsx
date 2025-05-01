@@ -93,9 +93,8 @@ export default function Picker<T>(props: IPickerProps<T>) {
 
     const contentStyleForAlign = popupAlign === 'left' ? { right: 'auto' } : { left: 'auto' };
 
-    console.log('VALUES', values?.length);
     const valuesHeight = values ? values.length * (itemHeight || 40) : 100;
-    const sectionsHeight = sections ? sections.length * (itemHeight || 40) : 0;
+    const sectionsHeight = sections ? sections.filter(s => s.title != null).length * (itemHeight || 40) : 0;
     const valuesAndSectionsHeight = valuesHeight + sectionsHeight;
 
     return (
@@ -150,7 +149,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
                             keyboardShouldPersistTaps={'always'}
                             sections={sections!}
                             renderItem={({item, index}) => renderItem(item, index)}
-                            renderSectionHeader={({section: { title }}) => renderSectionHeader(title)}
+                            renderSectionHeader={({section: { title }}) => title ? renderSectionHeader(title) : null}
                             keyExtractor={(item, index) => index.toString()}
                         />
                     </View>
@@ -189,6 +188,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
+        height: 33,
     },
     text: {
         // backgroundColor: 'red',

@@ -46,6 +46,7 @@ import { Checkbox as CheckboxNew } from '@app/components/checkbox';
 import Picker from '@app/view/components/picker';
 import { HeaderTitle } from '@app/components/header-title';
 import { getCivIconLocal } from '@app/helper/civs';
+import { LeaderboardSelect } from '@app/components/select/leaderboard-select';
 
 const Tab = createMaterialTopTabNavigator<any>();
 
@@ -55,7 +56,6 @@ function isCountry(x: string | null) {
     return countriesDistinct.includes(x?.toUpperCase() as Country);
 }
 
-// Memoize? Maybe not needed because of react 19
 export function LeaderboardMenu() {
     const mutate = useMutate();
     const country = useSelector((state) => state.leaderboardCountry) || null;
@@ -143,83 +143,6 @@ export function LeaderboardMenu() {
     );
 }
 
-// Memoize? Maybe not needed because of react 19
-export function LeaderboardMenu2() {
-    const mutate = useMutate();
-    const leaderboardId = useSelector((state) => state.leaderboardId) || null;
-
-    const { data: leaderboards } = useQuery({
-        queryKey: ['leaderboards'],
-        queryFn: fetchLeaderboards,
-    });
-
-    const selectedLeaderboard = leaderboards?.find(l => l.leaderboardId === leaderboardId);
-
-    const styles = useStyles();
-
-    const formatLeaderboard = (x: ILeaderboardDef, inList?: boolean) => {
-        // if (x.abbreviation.includes('🎮')) {
-        //
-        // }
-        return x.abbreviationTitle + ' ' + x.abbreviationSubtitle;
-        // return x.abbreviation;
-        // return x.leaderboardName;
-    };
-
-    const icon = (x: any) => {
-        if (x.abbreviation.includes('🎮')) {
-            return <FontAwesome6 name="gamepad" size={16} style={{paddingRight: 10, paddingVertical:8}} className="pr-2 mr-2 border-2 border-amber-200" />;
-        } else {
-            return <FontAwesome6 name="computer-mouse" size={16} style={{paddingRight: 10, paddingVertical:8}} className="pr-2 mr-2 border-2 border-amber-200" />;
-        }
-    };
-
-    const onLeaderboardIdSelected = (leaderboard: ILeaderboardDef | null) => {
-        mutate(setLeaderboardId(leaderboard?.leaderboardId));
-    };
-
-    const loadingLeaderboard = false;
-    // <ActivityIndicator animating={loadingLeaderboard} size="small" color="#999"/>
-
-
-    const sections = [
-        {
-            title: 'PC',
-            icon: 'swords',
-            data: leaderboardsByType(leaderboards ?? [], 'pc'),
-        },
-        {
-            title: 'Console',
-            icon: 'swords',
-            data: leaderboardsByType(leaderboards ?? [], 'xbox'),
-        },
-    ];
-
-
-    return (
-
-        <View style={styles.menu}>
-            <View style={styles.pickerRow}>
-                <Picker
-                    popupAlign="left"
-                    itemHeight={40}
-                    textMinWidth={250}
-                    container="sectionlist"
-                    sections={sections}
-                    icon={icon}
-                    // container="flatlist"
-                    disabled={loadingLeaderboard}
-                    value={selectedLeaderboard}
-                    values={leaderboards}
-                    formatter={formatLeaderboard}
-                    onSelect={onLeaderboardIdSelected}
-                    style={{ width: 250 }}
-                />
-            </View>
-        </View>
-    );
-}
-
 const ROW_HEIGHT = 45;
 const ROW_HEIGHT_MY_RANK = 52;
 
@@ -238,18 +161,19 @@ export default function LeaderboardPage() {
         queryFn: fetchLeaderboards,
     });
 
+    const [leaderboardId, setLeaderboardId] = useState<string | null>(null);
+
     // const [leaderboardType, setLeaderboardType] = useState<'pc' | 'xbox'>('pc');
     // const leaderboardId = leaderboardsByType(leaderboards ?? [], leaderboardType)?.[0]?.leaderboardId;
 
     useEffect(() => {
         const firstLeaderboardId = leaderboardsByType(leaderboards ?? [], 'pc')?.[0]?.leaderboardId;
-        mutate(setLeaderboardId(firstLeaderboardId));
+        setLeaderboardId(firstLeaderboardId);
     }, [leaderboards]);
 
     const styles = useStyles();
     const [refetching, setRefetching] = useState(false);
     const leaderboardCountry = useSelector((state) => state.leaderboardCountry) || null;
-    const leaderboardId = useSelector((state) => state.leaderboardId) || null;
     const [loadedLeaderboardCountry, setLoadedLeaderboardCountry] = useState(leaderboardCountry);
     const insets = useSafeAreaInsets();
     const flatListRef = React.useRef<FlatListRef>(null);
@@ -625,7 +549,10 @@ export default function LeaderboardPage() {
             />
 
             <View style={styles.pickerRow2}>
-                <LeaderboardMenu2 />
+                <LeaderboardSelect
+                    leaderboardId={leaderboardId}
+                    onLeaderboardIdChange={setLeaderboardId}
+                />
                 <LeaderboardMenu />
 
                 {/*<Dropdown*/}

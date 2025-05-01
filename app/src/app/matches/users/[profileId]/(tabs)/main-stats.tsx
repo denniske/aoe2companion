@@ -23,6 +23,7 @@ import TemplatePicker from '../../../../../view/components/template-picker';
 import { useQuery } from '@tanstack/react-query';
 import { useProfileWithStats, withRefetching } from '@app/queries/all';
 import { useLocalSearchParams } from 'expo-router';
+import { LeaderboardSelect } from '@app/components/select/leaderboard-select';
 
 export default function MainStats() {
     const params = useLocalSearchParams<{ profileId: string }>();
@@ -142,30 +143,9 @@ export default function MainStats() {
                                 return (
                                     <View>
                                         <View style={styles.pickerRow}>
-                                            <Dropdown
-                                                textVariant="label-sm"
-                                                style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 10, paddingBottom: 8, marginRight: 6 }}
-                                                value={leaderboardType}
-                                                onChange={(lType) => {
-                                                    setLeaderboardType(lType);
-                                                    setLeaderboardId(leaderboardIdsByType(leaderboards, lType)[0]);
-                                                }}
-                                                options={[
-                                                    { value: 'pc', label: 'PC' },
-                                                    { value: 'xbox', label: 'Xbox' },
-                                                ]}
-                                            />
-                                            <TemplatePicker
-                                                value={leaderboardId}
-                                                values={leaderboards
-                                                    .filter(
-                                                        (leaderboard) =>
-                                                            (leaderboardType === 'xbox' && leaderboard.abbreviation.includes('🎮')) ||
-                                                            (leaderboardType !== 'xbox' && !leaderboard.abbreviation.includes('🎮'))
-                                                    )
-                                                    .map((l) => l.leaderboardId)}
-                                                template={renderLeaderboard}
-                                                onSelect={onLeaderboardSelected}
+                                            <LeaderboardSelect
+                                                leaderboardId={leaderboardId}
+                                                onLeaderboardIdChange={x => setLeaderboardId(x ?? undefined)}
                                             />
                                         </View>
                                         <TextLoader ready={hasStats} style={styles.info}>

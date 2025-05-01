@@ -24,6 +24,7 @@ import TemplatePicker from '../../../../../view/components/template-picker';
 import { useAuthProfileId } from '@app/queries/all';
 import { useLocalSearchParams } from 'expo-router';
 import { Checkbox as CheckboxNew } from '@app/components/checkbox';
+import { LeaderboardsSelect } from '@app/components/select/leaderboards-select';
 
 export default function MainMatches() {
     const params = useLocalSearchParams<{ profileId: string }>();
@@ -59,14 +60,6 @@ export default function MainMatches() {
     // console.log('data', data);
 
     const toggleWithMe = () => setWithMe(!withMe);
-
-    const onLeaderboardSelected = async (selLeaderboardId: string) => {
-        if (leaderboardIds.length === 1 && leaderboardIds[0] === selLeaderboardId) {
-            setLeaderboardIds([]);
-        } else {
-            setLeaderboardIds([selLeaderboardId]);
-        }
-    };
 
     const { data: leaderboards } = useQuery({
         queryKey: ['leaderboards'],
@@ -139,24 +132,9 @@ export default function MainMatches() {
             <View style={styles.content}>
                 {/*<Button onPress={onRefresh}>REFRESH</Button>*/}
                 <View style={styles.pickerRow}>
-                    <Dropdown
-                        textVariant="label-sm"
-                        style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 10, paddingBottom: 8, marginRight: 6 }}
-                        value={platform}
-                        onChange={(lType) => {
-                            setPlatform(lType);
-                            setLeaderboardIds([]);
-                        }}
-                        options={[
-                            { value: 'pc', label: 'PC' },
-                            { value: 'xbox', label: 'Xbox' },
-                        ]}
-                    />
-                    <TemplatePicker
-                        value={leaderboardIds.length > 1 ? undefined : leaderboardIds[0]}
-                        values={leaderboardIdsByType(leaderboards, platform)}
-                        template={renderLeaderboard}
-                        onSelect={onLeaderboardSelected}
+                    <LeaderboardsSelect
+                        leaderboardIdList={leaderboardIds}
+                        onLeaderboardIdChange={setLeaderboardIds}
                     />
                     <View style={appStyles.expanded} />
                     {authProfileId && profileId !== authProfileId && (
