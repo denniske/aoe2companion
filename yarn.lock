@@ -1664,18 +1664,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@callstack/react-theme-provider@npm:^3.0.9":
-  version: 3.0.9
-  resolution: "@callstack/react-theme-provider@npm:3.0.9"
-  dependencies:
-    deepmerge: "npm:^3.2.0"
-    hoist-non-react-statics: "npm:^3.3.0"
-  peerDependencies:
-    react: ">=16.3.0"
-  checksum: 10/91f21e3a2f2e70abd85d741438f61ad8d942bc787cc8f4e2b9634da9fb96903d34a90f1defd4a4d642b714503422fcab323dc71a638cb2032af1d0655907ecf6
-  languageName: node
-  linkType: hard
-
 "@cspotcode/source-map-support@npm:^0.8.0":
   version: 0.8.1
   resolution: "@cspotcode/source-map-support@npm:0.8.1"
@@ -4679,7 +4667,6 @@ __metadata:
     react-native-gesture-handler: "npm:~2.20.2"
     react-native-markdown-display: "npm:^7.0.2"
     react-native-pager-view: "npm:6.5.1"
-    react-native-paper: "npm:^5.12.5"
     react-native-reanimated: "npm:~3.16.1"
     react-native-render-html: "npm:^6.3.4"
     react-native-safe-area-context: "npm:4.12.0"
@@ -5809,7 +5796,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"color-convert@npm:^1.9.0, color-convert@npm:^1.9.3":
+"color-convert@npm:^1.9.0":
   version: 1.9.3
   resolution: "color-convert@npm:1.9.3"
   dependencies:
@@ -5841,23 +5828,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"color-string@npm:^1.6.0, color-string@npm:^1.9.0":
+"color-string@npm:^1.9.0":
   version: 1.9.1
   resolution: "color-string@npm:1.9.1"
   dependencies:
     color-name: "npm:^1.0.0"
     simple-swizzle: "npm:^0.2.2"
   checksum: 10/72aa0b81ee71b3f4fb1ac9cd839cdbd7a011a7d318ef58e6cb13b3708dca75c7e45029697260488709f1b1c7ac4e35489a87e528156c1e365917d1c4ccb9b9cd
-  languageName: node
-  linkType: hard
-
-"color@npm:^3.1.2":
-  version: 3.2.1
-  resolution: "color@npm:3.2.1"
-  dependencies:
-    color-convert: "npm:^1.9.3"
-    color-string: "npm:^1.6.0"
-  checksum: 10/bf70438e0192f4f62f4bfbb303e7231289e8cc0d15ff6b6cbdb722d51f680049f38d4fdfc057a99cb641895cf5e350478c61d98586400b060043afc44285e7ae
   languageName: node
   linkType: hard
 
@@ -6489,13 +6466,6 @@ __metadata:
   version: 0.1.4
   resolution: "deep-is@npm:0.1.4"
   checksum: 10/ec12d074aef5ae5e81fa470b9317c313142c9e8e2afe3f8efa124db309720db96d1d222b82b84c834e5f87e7a614b44a4684b6683583118b87c833b3be40d4d8
-  languageName: node
-  linkType: hard
-
-"deepmerge@npm:^3.2.0":
-  version: 3.3.0
-  resolution: "deepmerge@npm:3.3.0"
-  checksum: 10/a75f4e2f95f0439c62d1e52000862fa4f0bdd78bacdcfcfd0e5bd58c65a9f91ce45c2b661a8fd9a621c732bd36764c945567c99d987f5403774ea409e6598663
   languageName: node
   linkType: hard
 
@@ -12702,22 +12672,6 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10/3edba80853d8b3b42b3d64cda99894ef75c5e1190321b4f20c85bee289d0f28d7fe6a0736606eecf900522ffb368e4de7ef01d143ea1f67325f76e91168f4e5e
-  languageName: node
-  linkType: hard
-
-"react-native-paper@npm:^5.12.5":
-  version: 5.13.1
-  resolution: "react-native-paper@npm:5.13.1"
-  dependencies:
-    "@callstack/react-theme-provider": "npm:^3.0.9"
-    color: "npm:^3.1.2"
-    use-latest-callback: "npm:^0.1.5"
-  peerDependencies:
-    react: "*"
-    react-native: "*"
-    react-native-safe-area-context: "*"
-    react-native-vector-icons: "*"
-  checksum: 10/704a516d06304a2687146a6cc2d3ccd710ee19abc00a00878d28e2a6e64636f9ee1a1831cc6510b43a68abe30425d41a9739a0b325508fcd69db9d1a3a223763
   languageName: node
   linkType: hard
 

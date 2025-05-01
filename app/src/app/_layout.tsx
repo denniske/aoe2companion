@@ -29,7 +29,6 @@ import { useColorScheme as useTailwindColorScheme } from 'nativewind';
 import { useCallback, useEffect, useState } from 'react';
 import { AppState, AppStateStatus, BackHandler, LogBox, Platform, StatusBar, useColorScheme, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { MD2DarkTheme as PaperDarkTheme, MD2LightTheme as PaperDefaultTheme, PaperProvider } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { Provider as ReduxProvider } from 'react-redux';
@@ -201,24 +200,6 @@ function LiveActivityController() {
     return <View />;
 }
 
-const customPaperTheme = {
-    ...PaperDefaultTheme,
-    colors: {
-        ...PaperDefaultTheme.colors,
-        primary: '#3498db',
-        accent: '#3498db',
-    },
-};
-
-const customDarkPaperTheme = {
-    ...PaperDarkTheme,
-    colors: {
-        ...PaperDarkTheme.colors,
-        primary: '#3498db',
-        accent: '#3498db',
-    },
-};
-
 const customLightTheme = {
     ...DefaultTheme,
     colors: {
@@ -251,7 +232,6 @@ function useColorSchemes() {
     }, [darkMode]);
 
     return {
-        paperTheme: darkMode === 'light' ? customPaperTheme : customDarkPaperTheme,
         evaTheme: darkMode === 'light' ? eva.light : eva.dark,
         customTheme: darkMode === 'light' ? customLightTheme : customDarkTheme,
         contentTheme: darkMode === 'light' ? 'dark-content' : 'light-content',
@@ -261,7 +241,7 @@ function useColorSchemes() {
 function AppWrapper() {
     const [appIsReady, setAppIsReady] = useState(false);
     const insets = useSafeAreaInsets();
-    const { paperTheme, evaTheme, customTheme, contentTheme } = useColorSchemes();
+    const { evaTheme, customTheme, contentTheme } = useColorSchemes();
 
     const [fontsLoaded] = useFonts({
         Roboto_400Regular,
@@ -300,52 +280,45 @@ function AppWrapper() {
     return (
         <GestureHandlerRootView className={`flex-1 ${Platform.OS === 'web' ? `bg-white dark:bg-black` : ``}`}>
             <ConditionalTester>
-                <PaperProvider
-                    theme={paperTheme}
-                    settings={{
-                        icon: (props) => <FontAwesome5 {...props} />,
-                    }}
-                >
-                    <ApplicationProvider {...eva} theme={evaTheme}>
-                        <ThemeProvider value={customTheme}>
+                <ApplicationProvider {...eva} theme={evaTheme}>
+                    <ThemeProvider value={customTheme}>
+                        <View
+                            className={`bg-gold-50 dark:bg-blue-950 ${Platform.OS === 'web' ? `overflow-hidden w-[450px] max-w-full h-[900px] mx-auto my-auto ${isMobile ? '' : 'border border-gray-200 dark:border-gray-800'} rounded-lg` : 'flex-1'}`}
+                            style={{ paddingTop: insets.top }}
+                            onLayout={onLayoutRootView}
+                        >
+                            <StatusBar
+                                barStyle={contentTheme}
+                                backgroundColor="transparent"
+                                translucent
+                            />
+
+                            <LanguageController />
+                            <LiveActivityController />
+                            <AccountController />
+
                             <View
-                                className={`bg-gold-50 dark:bg-blue-950 ${Platform.OS === 'web' ? `overflow-hidden w-[450px] max-w-full h-[900px] mx-auto my-auto ${isMobile ? '' : 'border border-gray-200 dark:border-gray-800'} rounded-lg` : 'flex-1'}`}
-                                style={{ paddingTop: insets.top }}
-                                onLayout={onLayoutRootView}
+                                style={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    width: '100%',
+                                    zIndex: 9999,
+                                }}
                             >
-                                <StatusBar
-                                    barStyle={contentTheme}
-                                    backgroundColor="transparent"
-                                    translucent
-                                />
-
-                                <LanguageController />
-                                <LiveActivityController />
-                                <AccountController />
-
-                                <View
-                                    style={{
-                                        position: 'absolute',
-                                        top: 0,
-                                        width: '100%',
-                                        zIndex: 9999,
-                                    }}
-                                >
-                                    {Platform.OS !== 'web' && <UpdateSnackbar />}
-                                    {Platform.OS !== 'web' && <ChangelogSnackbar />}
-                                    <ErrorSnackbar />
-                                </View>
-
-                                <PortalProvider>
-                                    <>
-                                        <Stack screenOptions={{ header: Header,  }}></Stack>
-                                        <TabBar></TabBar>
-                                    </>
-                                </PortalProvider>
+                                {Platform.OS !== 'web' && <UpdateSnackbar />}
+                                {Platform.OS !== 'web' && <ChangelogSnackbar />}
+                                <ErrorSnackbar />
                             </View>
-                        </ThemeProvider>
-                    </ApplicationProvider>
-                </PaperProvider>
+
+                            <PortalProvider>
+                                <>
+                                    <Stack screenOptions={{ header: Header,  }}></Stack>
+                                    <TabBar></TabBar>
+                                </>
+                            </PortalProvider>
+                        </View>
+                    </ThemeProvider>
+                </ApplicationProvider>
             </ConditionalTester>
         </GestureHandlerRootView>
     );
