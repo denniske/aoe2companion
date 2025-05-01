@@ -1,4 +1,3 @@
-import {Divider, Menu} from "react-native-paper";
 import {
     Dimensions, FlatList, FlatListProps, SectionList, SectionListData, StyleProp, StyleSheet, Text, TouchableOpacity,
     View,
@@ -61,7 +60,9 @@ export default function Picker<T>(props: IPickerProps<T>) {
             </TouchableOpacity>
             {
                 divider && divider(v, i) &&
-                <Divider/>
+                <View
+                    style={{height: 1, backgroundColor: 'rgba(0, 0, 0, 0.08)'}}
+                ></View>
             }
         </View>
     );
