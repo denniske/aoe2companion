@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, TextProps, View} from 'react-native';
-import {usePaperTheme} from "../../theming";
+import { useAppTheme } from '../../theming';
 
 // Body 17
 
@@ -26,7 +26,7 @@ const fontDict = {
 export type MyFontSize = keyof typeof fontDict;
 
 export function MyText(props: MyTextProps) {
-    const paperTheme = usePaperTheme();
+    const theme = useAppTheme();
     const { children, style, size, ...rest } = props;
 
     let fontStyle: any = fontDict['body'];
@@ -37,7 +37,7 @@ export function MyText(props: MyTextProps) {
 
     fontStyle = {
         fontSize: 14,
-        color: paperTheme.colors.onSurface,
+        color: theme.textColor,
     };
 
     return (

@@ -16,7 +16,7 @@ import { IPlayerNew, IProfileLeaderboardResult, IProfileResult } from '../../api
 import { getLeaderboardTextColor } from '../../helper/colors';
 import { getTranslation } from '../../helper/translate';
 import { openLink } from '../../helper/url';
-import { usePaperTheme } from '../../theming';
+import { useAppTheme } from '../../theming';
 import { createStylesheet } from '../../theming-new';
 import { TournamentPlayerPopup } from '../tournaments/player-popup';
 import { TournamentMarkdown } from '../tournaments/tournament-markdown';
@@ -37,11 +37,11 @@ const formatStreak = (streak: number) => {
 };
 
 function LeaderboardRow1({ data }: ILeaderboardRowProps) {
-    const paperTheme = usePaperTheme();
+    const theme = useAppTheme();
     const styles = useStyles();
 
     const leaderboardInfo = data;
-    const color = { color: getLeaderboardTextColor(data.leaderboardId, paperTheme.dark) };
+    const color = { color: getLeaderboardTextColor(data.leaderboardId, theme.dark) };
 
     return (
         <View style={styles.leaderboardRow}>
@@ -84,11 +84,11 @@ function LeaderboardRowSeason({ data }: ILeaderboardRowProps) {
 }
 
 function LeaderboardRow2({ data }: ILeaderboardRowProps) {
-    const paperTheme = usePaperTheme();
+    const theme = useAppTheme();
     const styles = useStyles();
 
     const leaderboardInfo = data;
-    const color = { color: getLeaderboardTextColor(data.leaderboardId, paperTheme.dark) };
+    const color = { color: getLeaderboardTextColor(data.leaderboardId, theme.dark) };
 
     return (
         <View style={styles.leaderboardRow}>

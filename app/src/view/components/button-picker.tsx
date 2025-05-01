@@ -26,7 +26,7 @@ export default function ButtonPicker<T>(props: IPickerProps<T>) {
                     return (
                         <Button
                             key={i}
-                            className={`py-2 px-6 justify-center ${selected ? '' : 'bg-transparent'}`}
+                            className={`py-2 px-6 justify-center ${selected ? '' : 'bg-transparent dark:bg-transparent'}`}
                             onPress={() => onSelect(val)}
                             textStyle={tw.style(selected ? 'text-white' : textColors.subtle)}
                         >

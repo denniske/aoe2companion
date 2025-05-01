@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { formatDateShort, formatMonth, formatTime, formatYear, LeaderboardId } from '@nex/data';
 import { getLeaderboardColor, getLeaderboardTextColor } from '../../helper/colors';
 import { TextLoader } from './loader/text-loader';
-import { usePaperTheme } from '../../theming';
+import { useAppTheme } from '../../theming';
 import ButtonPicker from './button-picker';
 import { isAfter, subDays, subMonths, subWeeks } from 'date-fns';
 
@@ -88,7 +88,7 @@ interface IRatingProps {
 export default function Rating({ ratingHistories, profile, ready }: IRatingProps) {
     ratingHistories = ready ? ratingHistories : null;
 
-    const paperTheme = usePaperTheme();
+    const theme = useAppTheme();
     const { colorScheme } = useColorScheme();
     const authProfileId = useAuthProfileId();
 
@@ -214,7 +214,7 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
                                         x="date"
                                         y="rating"
                                         style={{
-                                            data: { stroke: getLeaderboardColor(ratingHistory.leaderboardId, paperTheme.dark) },
+                                            data: { stroke: getLeaderboardColor(ratingHistory.leaderboardId, theme.dark) },
                                         }}
                                     />
                                 ))}
@@ -229,7 +229,7 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
                                         y="rating"
                                         size={1.5}
                                         style={{
-                                            data: { fill: getLeaderboardColor(ratingHistory.leaderboardId, paperTheme.dark) },
+                                            data: { fill: getLeaderboardColor(ratingHistory.leaderboardId, theme.dark) },
                                         }}
                                     />
                                 ))}
@@ -249,7 +249,7 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
                                 paddingHorizontal: 10,
                                 paddingVertical: 5,
                                 fontSize: 12,
-                                color: getLeaderboardTextColor(ratingHistory.leaderboardId, paperTheme.dark),
+                                color: getLeaderboardTextColor(ratingHistory.leaderboardId, theme.dark),
                             }}
                         >
                             {ratingHistory.abbreviation}

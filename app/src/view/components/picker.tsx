@@ -6,7 +6,7 @@ import {
 import {MyText} from "./my-text";
 import {FontAwesome} from "@expo/vector-icons";
 import React, {useState} from "react";
-import {usePaperTheme} from "../../theming";
+import { useAppTheme } from '../../theming';
 import { MenuNew } from '@app/components/menu';
 
 interface IPickerProps<T> {
@@ -43,7 +43,7 @@ function defaultCell(props: any) {
 }
 
 export default function Picker<T>(props: IPickerProps<T>) {
-    const paperTheme = usePaperTheme();
+    const theme = useAppTheme();
     const [menu, setMenu] = useState(false);
 
     const { value, values, sections, onSelect, style, disabled,
@@ -51,21 +51,36 @@ export default function Picker<T>(props: IPickerProps<T>) {
             textMinWidth = 0, itemHeight, anchor, anchorStyle, popupAlign = 'left'
     } = props;
 
-    const color = disabled ? paperTheme.colors.onSurfaceDisabled : paperTheme.colors.onSurface;
+    const color = disabled ? undefined : theme.textColor;
+    
+    console.log('picker color', color);
 
-    const renderItem = (v: T, i: number) => (
-        <View key={i} style={{ height: itemHeight, flexDirection: 'column' }}>
-            <TouchableOpacity onPress={() => {onSelect(v); setMenu(false);}} disabled={disabled} style={styles.menuItem}>
-                {cell({value: v, selected: v == value, formatter: (x: any, i: any) => formatter(x, true), color, icon: (x: any, i: any) => icon(x, true), textMinWidth})}
-            </TouchableOpacity>
-            {
-                divider && divider(v, i) &&
-                <View
-                    style={{height: 1, backgroundColor: 'rgba(0, 0, 0, 0.08)'}}
-                ></View>
-            }
-        </View>
-    );
+    const renderItem = (v: T, i: number) => {
+        console.log('render item color', color);
+
+        return (
+            <View key={i} style={{ height: itemHeight, flexDirection: 'column' }}>
+                <TouchableOpacity
+                    onPress={() => {
+                        onSelect(v);
+                        setMenu(false);
+                    }}
+                    disabled={disabled}
+                    style={styles.menuItem}
+                >
+                    {cell({
+                        value: v,
+                        selected: v == value,
+                        formatter: (x: any, i: any) => formatter(x, true),
+                        color,
+                        icon: (x: any, i: any) => icon(x, true),
+                        textMinWidth,
+                    })}
+                </TouchableOpacity>
+                {divider && divider(v, i) && <View style={{ height: 1, backgroundColor: theme.lightBackgroundColor }}></View>}
+            </View>
+        );
+    };
 
     const renderSectionHeader = (title: string) => (
         <View key={title} style={{ height: itemHeight }}>
@@ -104,7 +119,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
                 contentStyle={{
                     ...contentStyleForAlign,
                     padding: 0,
-                    borderColor: '#EEE',
+                    borderColor: theme.hoverBackgroundColor, // '#EEE',
                     borderWidth: 1,
                 } as ViewStyle}
                 visible={menu}
@@ -112,7 +127,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
                 anchor={
                     <TouchableOpacity
                         className="px-2.5 py-1 rounded-lg border border-gray-200 dark:border-gray-800"
-                        style={[styles.anchor, anchorStyle]}
+                        style={[styles.anchor, anchorStyle, {backgroundColor: theme.backgroundColor}]}
                         onPress={() => setMenu(true)}
                         disabled={disabled}
                     >

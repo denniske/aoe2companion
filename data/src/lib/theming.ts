@@ -2,6 +2,7 @@
 export type FinalDarkMode = 'light' | 'dark';
 
 export const light: ITheme = {
+    dark: false,
     backgroundColor: "white",
     textColor: "black",
     textNoteColor: "#333",
@@ -14,6 +15,7 @@ export const light: ITheme = {
 };
 
 export const dark: ITheme = {
+    dark: true,
     backgroundColor: "#121212",
     textColor: "white",
     textNoteColor: "#BBB",
@@ -27,6 +29,7 @@ export const dark: ITheme = {
 };
 
 export interface ITheme {
+    dark: boolean;
     backgroundColor: string;
     textColor: string;
     textNoteColor: string;

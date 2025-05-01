@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
-import {useAppTheme, usePaperTheme} from "../../theming";
+import {useAppTheme} from "../../theming";
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 
 
@@ -15,7 +15,6 @@ type Props = {
 };
 
 export default function MyListAccordion(props: Props) {
-    const paperTheme = usePaperTheme();
     const theme = useAppTheme();
     const [expanded, setExpanded] = useState(props.expanded);
 
@@ -46,7 +45,7 @@ export default function MyListAccordion(props: Props) {
                         <View style={styles.item}>
                             <MaterialCommunityIcons
                                 name={expanded ? 'chevron-up':'chevron-down'}
-                                color={expandable ? paperTheme.colors.onSurface : theme.skeletonColor}
+                                color={expandable ? theme.textColor : theme.skeletonColor}
                                 style={{opacity: expandable ? 1 : 1}}
                                 size={30}
                             />

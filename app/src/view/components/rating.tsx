@@ -3,7 +3,7 @@ import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import { formatDateShort, formatMonth, formatTime, formatYear, LeaderboardId } from '@nex/data';
 import { getLeaderboardColor, getLeaderboardTextColor } from '../../helper/colors';
 import { TextLoader } from './loader/text-loader';
-import { usePaperTheme } from '../../theming';
+import { useAppTheme } from '../../theming';
 import ButtonPicker from './button-picker';
 import { isAfter, subDays, subMonths, subWeeks } from 'date-fns';
 import { IProfileRatingsLeaderboard, IProfileResult } from '../../api/helper/api.types';
@@ -36,7 +36,7 @@ interface IRatingProps {
 export default function Rating({ ratingHistories, profile, ready }: IRatingProps) {
     ratingHistories = ready ? ratingHistories : null;
 
-    const paperTheme = usePaperTheme();
+    const theme = useAppTheme();
     const authProfileId = useAuthProfileId();
 
     const prefHiddenLeaderboardIds = usePrefData((state) => state?.ratingHistoryHiddenLeaderboardIds);
@@ -174,14 +174,14 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
                             }}
                             xAxis={{
                                 font,
-                                labelColor: paperTheme.colors.onSurface,
+                                labelColor: theme.textColor,
                                 formatXLabel: formatTick,
-                                lineColor: paperTheme.dark? '#454545' : '#BBB',
+                                lineColor: theme.dark? '#454545' : '#BBB',
                             }}
                             yAxis={[{
                                 font,
-                                labelColor: paperTheme.colors.onSurface,
-                                lineColor: paperTheme.dark? '#454545' : '#BBB',
+                                labelColor: theme.textColor,
+                                lineColor: theme.dark? '#454545' : '#BBB',
                             }]}
                         >
                             {({ points }) => (
@@ -189,8 +189,8 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
                                     {
                                         dataset.yKeys.filter(key => !hiddenLeaderboardIds?.includes(key)).map((key) => (
                                             <Fragment key={key}>
-                                                <Line points={(points as any)[key].filter((p: any) => p.yValue != null)} color={getLeaderboardColor(key, paperTheme.dark)} strokeWidth={1.25} />
-                                                <Scatter points={(points as any)[key]} shape="circle" radius={1} style="fill" color={getLeaderboardColor(key, paperTheme.dark)} />
+                                                <Line points={(points as any)[key].filter((p: any) => p.yValue != null)} color={getLeaderboardColor(key, theme.dark)} strokeWidth={1.25} />
+                                                <Scatter points={(points as any)[key]} shape="circle" radius={1} style="fill" color={getLeaderboardColor(key, theme.dark)} />
                                             </Fragment>
                                         ))
                                     }
@@ -212,7 +212,7 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
                                 paddingHorizontal: 10,
                                 paddingVertical: 5,
                                 fontSize: 12,
-                                color: getLeaderboardTextColor(ratingHistory.leaderboardId, paperTheme.dark),
+                                color: getLeaderboardTextColor(ratingHistory.leaderboardId, theme.dark),
                             }}
                         >
                             {ratingHistory.abbreviation}

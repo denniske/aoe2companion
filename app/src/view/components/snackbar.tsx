@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import {useEffect, useState} from "react";
 import {usePrevious} from "@nex/data/hooks";
-import { usePaperTheme } from '@app/theming';
+import { useAppTheme } from '@app/theming';
 import { Button } from '@app/components/button';
 import { v3Shadow } from '@app/components/shadow';
 
@@ -79,8 +79,8 @@ export default function Snackbar(props: Props) {
         ...rest
     } = props;
 
-    const paperTheme = usePaperTheme();
-    const dark = paperTheme.dark;
+    const theme = useAppTheme();
+    const dark = theme.dark;
     const roundness = 4;
     const colors = dark ? {
         "accent": "#3498db",

@@ -8,7 +8,7 @@ import { CartesianChart, Line, Scatter } from 'victory-native-current';
 import { matchFont } from '@shopify/react-native-skia';
 import { ViewLoader } from '@app/view/components/loader/view-loader';
 import { ILegendInfo } from '@app/view/components/match-map/match-map';
-import { usePaperTheme } from '@app/theming';
+import { useAppTheme } from '@app/theming';
 import { Text } from '@app/components/text';
 
 const fontFamily = Platform.select({ ios: 'Helvetica', default: 'serif' });
@@ -25,7 +25,7 @@ interface Props {
 }
 
 export default function Eapm({ teams }: Props) {
-    const paperTheme = usePaperTheme();
+    const theme = useAppTheme();
 
     const font = matchFont(fontStyle as any);
 
@@ -106,14 +106,14 @@ export default function Eapm({ teams }: Props) {
                             }
                             xAxis={{
                                 font,
-                                labelColor: paperTheme.colors.onSurface,
-                                lineColor: paperTheme.dark ? '#454545' : '#BBB',
+                                labelColor: theme.textColor,
+                                lineColor: theme.dark ? '#454545' : '#BBB',
                             }}
                             yAxis={[
                                 {
                                     font,
-                                    labelColor: paperTheme.colors.onSurface,
-                                    lineColor: paperTheme.dark ? '#454545' : '#BBB',
+                                    labelColor: theme.textColor,
+                                    lineColor: theme.dark ? '#454545' : '#BBB',
                                 },
                             ]}
                         >

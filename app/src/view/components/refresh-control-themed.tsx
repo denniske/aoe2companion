@@ -1,13 +1,13 @@
 import {RefreshControl, RefreshControlProps} from "react-native";
 import React from "react";
-import {usePaperTheme} from "../../theming";
+import { useAppTheme } from '../../theming';
 
 
 export default function RefreshControlThemed(props: RefreshControlProps) {
-    const paperTheme = usePaperTheme();
+    const theme = useAppTheme();
     return <RefreshControl
-        tintColor={paperTheme.colors.onSurface}
-        titleColor={paperTheme.colors.onSurface}
+        tintColor={theme.textColor}
+        titleColor={theme.textColor}
         {...props}
     />
 }

@@ -235,12 +235,15 @@ const customDarkTheme = {
     },
 };
 
+export function useDarkMode() {
+    const deviceColorScheme = useColorScheme();
+    return deviceColorScheme || 'light';
+}
+
 function useColorSchemes() {
     const { setColorScheme: setTailwindColorScheme } = useTailwindColorScheme();
     const [ , , setTailwindReactNativeColorScheme] = useAppColorScheme(tw);
-    const deviceColorScheme = useColorScheme();
-
-    const darkMode = deviceColorScheme || 'light';
+    const darkMode = useDarkMode();
 
     useEffect(() => {
         setTailwindColorScheme(darkMode);
