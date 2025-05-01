@@ -37,7 +37,6 @@ import { getCountryName } from '@app/helper/flags';
 import { TextLoader } from '@app/view/components/loader/text-loader';
 import { useAppTheme } from '@app/theming';
 import { MenuNew } from '@app/components/menu';
-import { Menu } from 'react-native-paper';
 
 const { Navigator } = createMaterialTopTabNavigator();
 

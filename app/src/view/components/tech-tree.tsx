@@ -259,6 +259,8 @@ const styles = StyleSheet.create({
         marginBottom: 2,
         marginLeft: 0,
         // backgroundColor: 'yellow',
+        // flex: 1,
+        // width: 100,
     },
     compactTechTree: {
         marginTop: 20,
