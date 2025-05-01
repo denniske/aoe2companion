@@ -1,5 +1,5 @@
 import {StyleProp, StyleSheet, TouchableHighlight, View, ViewStyle} from "react-native";
-import {useAppTheme, usePaperTheme} from "../../theming";
+import {useAppTheme} from "../../theming";
 import {ReactNode} from "react";
 
 
@@ -13,7 +13,6 @@ interface IPickerProps<T> {
 }
 
 export default function TemplatePicker<T>(props: IPickerProps<T>) {
-    const paperTheme = usePaperTheme();
     const theme = useAppTheme();
 
     const { value, values, onSelect, style, disabled, template = (x) => x} = props;

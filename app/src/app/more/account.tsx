@@ -11,7 +11,7 @@ import Login from '@app/components/login';
 import { makeQueryString } from '@nex/data';
 import Space from '@app/view/components/space';
 import { openLink } from '@app/helper/url';
-import { useAppTheme, usePaperTheme, useTheme } from '@app/theming';
+import { useAppTheme, useTheme } from '@app/theming';
 import { appVariants } from '@app/styles';
 import { accountUnlinkPatreon, accountUnlinkSteam } from '@app/api/account';
 import { supabaseClient } from '../../../../data/src/helper/supabase';
@@ -61,7 +61,6 @@ function getSteamLoginUrl() {
 export default function AccountPage() {
     const styles = useStyles();
     const appStyles = useTheme(appVariants);
-    const paperTheme = usePaperTheme();
     const theme = useAppTheme();
 
     const user = useAuth();
@@ -128,7 +127,6 @@ export default function AccountPage() {
                                 </View>
                                 <Button onPress={() => unlinkPatreon()}
                                         className={'w-60 mt-2'}
-                                        // buttonColor={paperTheme.colors.error}
                                 >
                                     Unlink Patreon Account
                                 </Button>
@@ -139,7 +137,6 @@ export default function AccountPage() {
                             <Button onPress={() => openLink(getSteamLoginUrl())}
                                     // icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}
                                     className={'w-40'}
-                                    // buttonColor={paperTheme.colors.primary}
                             >
                                 Link Patreon
                             </Button>
@@ -159,7 +156,6 @@ export default function AccountPage() {
                                 </View>
                                 <Button onPress={() => unlinkSteam()}
                                         className={'w-60 mt-2'}
-                                        // buttonColor={paperTheme.colors.error}
                                 >
                                     Unlink Steam Account
                                 </Button>
@@ -170,7 +166,6 @@ export default function AccountPage() {
                             <Button onPress={() => openLink(getSteamLoginUrl())}
                                     // icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}
                                     className={'w-40'}
-                                    // buttonColor={paperTheme.colors.primary}
                             >
                                 Link Steam
                             </Button>
@@ -181,7 +176,6 @@ export default function AccountPage() {
                         <Text variant="header-sm"></Text>
                         <Button onPress={() => logout()}
                                 className={'w-40'}
-                                // textColor={paperTheme.colors.onSurface}
                         >
                             Logout
                         </Button>

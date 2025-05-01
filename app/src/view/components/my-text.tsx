@@ -35,8 +35,6 @@ export function MyText(props: MyTextProps) {
         fontStyle = fontDict[size];
     }
 
-    // console.log('paperTheme.colors.onSurface', paperTheme.colors.onSurface);
-
     fontStyle = {
         fontSize: 14,
         color: paperTheme.colors.onSurface,

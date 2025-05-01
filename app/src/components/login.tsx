@@ -5,7 +5,6 @@ import { Button } from '@app/components/button';
 import { Field } from '@app/components/field';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAccount } from '@app/queries/all';
-import { usePaperTheme } from '@app/theming';
 import { Text } from '@app/components/text';
 
 // Tells Supabase Auth to continuously refresh the session automatically if
@@ -26,8 +25,6 @@ export default function Login() {
     const [loading, setLoading] = useState(false)
     const account = useAccount();
     const queryClient = useQueryClient();
-
-    const paperTheme = usePaperTheme();
 
     // console.log('LOGIN account', account.data);
 
@@ -153,7 +150,6 @@ export default function Login() {
                 <Button align="center"
                         disabled={loading}
                         onPress={() => signInWithEmail()}
-                        // buttonColor={paperTheme.colors.primary}
                 >
                     Sign in
                 </Button>
@@ -162,7 +158,6 @@ export default function Login() {
                 <Button align="center"
                         disabled={loading}
                         onPress={() => signUpWithEmail()}
-                        // buttonColor={paperTheme.colors.primary}
                 >
                     Create new account
                 </Button>

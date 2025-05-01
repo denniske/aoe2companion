@@ -43,7 +43,7 @@ function defaultCell(props: any) {
 }
 
 export default function Picker<T>(props: IPickerProps<T>) {
-    const theme = usePaperTheme();
+    const paperTheme = usePaperTheme();
     const [menu, setMenu] = useState(false);
 
     const { value, values, sections, onSelect, style, disabled,
@@ -51,7 +51,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
             textMinWidth = 0, itemHeight, anchor, anchorStyle, popupAlign = 'left'
     } = props;
 
-    const color = disabled ? theme.colors.onSurfaceDisabled : theme.colors.onSurface;
+    const color = disabled ? paperTheme.colors.onSurfaceDisabled : paperTheme.colors.onSurface;
 
     const renderItem = (v: T, i: number) => (
         <View key={i} style={{ height: itemHeight, flexDirection: 'column' }}>

@@ -4,7 +4,6 @@ import { createStylesheet } from '../../theming-new';
 import { Stack, useRouter } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
 import useAuth from '../../../../data/src/hooks/use-auth';
-import { usePaperTheme } from '@app/theming';
 import { supabaseClient } from '../../../../data/src/helper/supabase';
 import { useAccount } from '@app/queries/all';
 import { Button } from '@app/components/button';
@@ -13,7 +12,6 @@ import { useQueryClient } from '@tanstack/react-query';
 
 export default function ResetPasswordPage() {
     const styles = useStyles();
-    const paperTheme = usePaperTheme();
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const router = useRouter();
@@ -57,7 +55,6 @@ export default function ResetPasswordPage() {
                     <Button
                         disabled={loading}
                         onPress={() => changePassword()}
-                        // buttonColor={paperTheme.colors.primary}
                     >
                         Change password
                     </Button>

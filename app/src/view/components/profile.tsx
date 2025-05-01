@@ -37,11 +37,11 @@ const formatStreak = (streak: number) => {
 };
 
 function LeaderboardRow1({ data }: ILeaderboardRowProps) {
-    const theme = usePaperTheme();
+    const paperTheme = usePaperTheme();
     const styles = useStyles();
 
     const leaderboardInfo = data;
-    const color = { color: getLeaderboardTextColor(data.leaderboardId, theme.dark) };
+    const color = { color: getLeaderboardTextColor(data.leaderboardId, paperTheme.dark) };
 
     return (
         <View style={styles.leaderboardRow}>
@@ -62,7 +62,6 @@ function LeaderboardRow1({ data }: ILeaderboardRowProps) {
 }
 
 function LeaderboardRowSeason({ data }: ILeaderboardRowProps) {
-    const theme = usePaperTheme();
     const styles = useStyles();
 
     // style={{ backgroundColor: data.rankLevelBackgroundColor }}
@@ -85,11 +84,11 @@ function LeaderboardRowSeason({ data }: ILeaderboardRowProps) {
 }
 
 function LeaderboardRow2({ data }: ILeaderboardRowProps) {
-    const theme = usePaperTheme();
+    const paperTheme = usePaperTheme();
     const styles = useStyles();
 
     const leaderboardInfo = data;
-    const color = { color: getLeaderboardTextColor(data.leaderboardId, theme.dark) };
+    const color = { color: getLeaderboardTextColor(data.leaderboardId, paperTheme.dark) };
 
     return (
         <View style={styles.leaderboardRow}>
