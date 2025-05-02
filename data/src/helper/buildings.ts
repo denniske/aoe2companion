@@ -62,6 +62,7 @@ export const buildingLineIds = [
     'Wonder',
     'FortifiedChurch',
     'MuleCart',
+    'Pasture',
 ];
 
 const BuildingLineUnion = unwrap(buildingLineIds);
@@ -69,6 +70,15 @@ export type BuildingLine = typeof BuildingLineUnion;
 
 export const buildingLines: IBuildingLineDict = {
 
+    'Pasture': {
+        buildings: ['Pasture'],
+        upgrades: [
+            'Domestication-Pasture',
+            'Pastoralism-Pasture',
+            'Transhumance-Pasture',
+            'TreadmillCrane',
+        ],
+    },
     'Wonder': {
         buildings: ['Wonder'],
         upgrades: [
@@ -551,6 +561,10 @@ interface IBuildingDict {
 
 export const buildingDefList: IBuilding[] = [
     {
+        "dataId": "1889",
+        "name": "Pasture",
+    },
+    {
         "dataId": "1806",
         "name": "FortifiedChurch",
     },
@@ -740,6 +754,7 @@ const buildingIds = [
     'Wonder',
     'FortifiedChurch',
     'MuleCart',
+    'Pasture',
 ] as const;
 
 const BuildingUnion = unwrap(buildingIds);

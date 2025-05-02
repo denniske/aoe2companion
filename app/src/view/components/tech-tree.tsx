@@ -3,7 +3,7 @@ import {
     aoeCivKey,
     Building,
     Civ,
-    civDict,
+    civDict, getAbilityAge,
     getAbilityEnabled,
     getCompactTechTree,
     getFullTechTree,
@@ -19,7 +19,7 @@ import React, { Fragment } from 'react';
 import { MyText } from './my-text';
 import ButtonPicker from './button-picker';
 import { getTechIcon } from '../../helper/techs';
-import { getOtherIcon, getUnitIcon } from '../../helper/units';
+import { getAgeIcon, getOtherIcon, getUnitIcon } from '../../helper/units';
 import { getBuildingIcon } from '../../helper/buildings';
 import { getTranslation } from '../../helper/translate';
 import { isEmpty } from 'lodash';
@@ -36,10 +36,10 @@ function TechTreeRow({ civ, row }: { civ: aoeCivKey; row: ITechTreeRow }) {
             {row.items?.map((item, i) => (
                 <Fragment key={i}>
                     {isEmpty(item) && <Ability0 />}
-                    {item.age && <Ability3 age={item.age} />}
-                    {item.unit && <Ability2 civ={civ} unit={item.unit as any} unique={item.unique} dependsOn={item.dependsOn} />}
-                    {item.tech && <Ability2 civ={civ} tech={item.tech as any} unique={item.unique} dependsOn={item.dependsOn} />}
-                    {item.building && <Ability2 civ={civ} building={item.building as any} unique={item.unique} dependsOn={item.dependsOn} />}
+                    {item.unit && <Ability2 civ={civ} age={item.age} unit={item.unit as any} unique={item.unique} dependsOn={item.dependsOn} />}
+                    {item.tech && <Ability2 civ={civ} age={item.age} tech={item.tech as any} unique={item.unique} dependsOn={item.dependsOn} />}
+                    {item.building && <Ability2 civ={civ} age={item.age} building={item.building as any} unique={item.unique} dependsOn={item.dependsOn} />}
+                    {item.age && (!item.unit && !item.tech && !item.building) && <Ability3 age={item.age} />}
                 </Fragment>
             ))}
         </View>
@@ -100,6 +100,7 @@ interface Ability3Props {
 }
 
 interface AbilityProps {
+    age?: Other;
     civ?: Civ;
     tech?: Tech;
     unit?: Unit;
@@ -144,10 +145,11 @@ const techTreeWidth = windowWidth - 28;
 const colSize = (techTreeWidth / 8)-4;
 const colSize2 = colSize-6;
 
-function Ability2({civ, tech, unit, building, unique, dependsOn}: AbilityProps) {
+function Ability2({civ, age, tech, unit, building, unique, dependsOn}: AbilityProps) {
     if (!civ) return Ability0();
     if (!tech && !unit && !building) return Ability0();
     const enabled = getAbilityEnabled({civ, tech, unit, building, dependsOn});
+    const availableAge = getAbilityAge({civ, tech, unit, building, dependsOn});
     let borderColor = '#555';
     const opacity = enabled ? 1 : 0.4;
     if (tech) {
@@ -165,6 +167,10 @@ function Ability2({civ, tech, unit, building, unique, dependsOn}: AbilityProps) 
                 {
                     !enabled &&
                     <Image source={getOtherIcon('Cross' as any)} style={styles.cross}/>
+                }
+                {
+                    age !== availableAge &&
+                    <Image source={getOtherIcon(availableAge as any)} style={styles.availableAge}/>
                 }
             </ImageBackground>
         </TouchableOpacity>
@@ -222,6 +228,13 @@ const styles = StyleSheet.create({
     cross: {
         width: 28,
         height: 28,
+    },
+    availableAge: {
+        position: 'absolute',
+        top: -8,
+        right: -8,
+        width: 16,
+        height: 16,
     },
     imageContainer3: {
         // backgroundColor: 'yellow',

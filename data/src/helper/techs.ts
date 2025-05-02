@@ -242,6 +242,24 @@ const techEffectDictInternal = {
             other: '+175 food quantity',
         },
     },
+    'Domestication-Pasture': {
+        tech: 'Domestication',
+        effect: {
+            other: '+1 animal = +105 food quantity',
+        },
+    },
+    'Pastoralism-Pasture': {
+        tech: 'Pastoralism',
+        effect: {
+            other: '+2 animals = +210 food quantity',
+        },
+    },
+    'Transhumance-Pasture': {
+        tech: 'Transhumance',
+        effect: {
+            other: '+3 animals = +315 food quantity',
+        },
+    },
     'Thalassocracy': {
         tech: 'Thalassocracy',
         civ: 'Malay',
@@ -1963,6 +1981,18 @@ export const techList: ITech[] = [
         "name": "HorseCollar",
     },
     {
+        "dataId": "1014",
+        "name": "Domestication",
+    },
+    {
+        "dataId": "1013",
+        "name": "Pastoralism",
+    },
+    {
+        "dataId": "1012",
+        "name": "Transhumance",
+    },
+    {
         "dataId": "12",
         "name": "CropRotation",
     },
@@ -2730,6 +2760,9 @@ const techIds = [
     'SpiesTreason',
     'HorseCollar',
     'CropRotation',
+    'Domestication',
+    'Pastoralism',
+    'Transhumance',
     'Forging',
     'IronCasting',
     'BlastFurnace',

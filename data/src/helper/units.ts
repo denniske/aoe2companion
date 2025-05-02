@@ -34,6 +34,7 @@ export const unitLineIds = [
     'FireArcher',
     'Grenadier',
     'MountedTrebuchet',
+    'TractionTrebuchet',
     'WarChariot',
     'XianbeiRaider',
     'JianSwordsman',
@@ -2963,6 +2964,24 @@ export const unitLines: IUnitLineDict = {
             'Husbandry',
         ],
     },
+    'TractionTrebuchet': {
+        units: ['TractionTrebuchet'],
+        // unique: true,
+        // civ: 'Khitans',
+        counteredBy: [
+        ],
+        upgrades: [
+            'Chemistry',
+            'SiegeEngineers-20-1',
+            'ScaleBardingArmor',
+            'ChainBardingArmor',
+            'PlateBardingArmor',
+            'Devotion',
+            'Faith',
+            'Heresy', // ?
+            'SittingTiger',
+        ],
+    },
     'WarChariot': {
         units: ['WarChariot'],
         // unique: true,
@@ -3180,6 +3199,9 @@ const unitsInternal = {
     },
     'MountedTrebuchet': {
         dataId: '1923',
+    },
+    'TractionTrebuchet': {
+        dataId: '1942',
     },
     'WarChariot': {
         dataId: '1962',
@@ -4477,6 +4499,7 @@ export const sortedUnitLines: UnitLine[] = [
     'Mangudai',
     'Monaspa',
     'MountedTrebuchet',
+    'TractionTrebuchet',
     'Obuch',
     'OrganGun',
     'PlumedArcher',

@@ -36,6 +36,19 @@ export function getAbilityEnabled({civ, tech, unit, building, dependsOn}: Abilit
     return false;
 }
 
+export function getAbilityAge({civ, tech, unit, building, dependsOn}: AbilityProps2) {
+    if (tech) {
+        return getCivTechAge(civ, tech);
+    }
+    if (unit) {
+        return getCivUnitAge(civ, unit);
+    }
+    if (building) {
+        return getCivBuildingAge(civ, building);
+    }
+    return '';
+}
+
 export function getAbilityEnabledForAllCivs(props: AbilityHelperProps) {
     return civs.filter(c => c != 'Indians').every(civ => getAbilityEnabled({civ, ...props}));
 }
@@ -137,6 +150,56 @@ export function getCivHasUnit(civ: Civ, unit: Unit) {
     // }
 
     return newVal;
+}
+
+const ageIdToEnumMapping = {
+    1: 'DarkAge',
+    2: 'FeudalAge',
+    3: 'CastleAge',
+    4: 'ImperialAge',
+}
+
+export function getCivBuildingAge(civ: Civ, building: Building) {
+    const entry = buildings[building];
+
+    const civTechTree = aoeData.techtrees[civ as any as TechTreeKey];
+    const info = civTechTree.buildings.find(u => u.id === parseInt(entry.dataId));
+
+    if (!info?.age) {
+        return undefined;
+    }
+
+    return ageIdToEnumMapping[info.age];
+}
+
+export function getCivUnitAge(civ: Civ, unit: Unit) {
+    const entry = units[unit];
+
+    const civTechTree = aoeData.techtrees[civ as any as TechTreeKey];
+    const info = civTechTree.units.find(u => u.id === parseInt(entry.dataId));
+
+    if (!info?.age) {
+        return undefined;
+    }
+
+    return ageIdToEnumMapping[info.age];
+}
+
+export function getCivTechAge(civ: Civ, tech: Tech) {
+    const entry = techs[tech];
+
+    const civTechTree = aoeData.techtrees[civ as any as TechTreeKey];
+
+    const info = civTechTree.techs.find(u => u.id === parseInt(entry.dataId));
+
+    console.log('civTechTree.techs', civTechTree.techs)
+    console.log('entry.dataId', entry.dataId)
+
+    if (!info?.age) {
+        return undefined;
+    }
+
+    return ageIdToEnumMapping[info.age];
 }
 
 export function getCivMonkType(civ: Civ) {

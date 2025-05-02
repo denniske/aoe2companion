@@ -70,6 +70,7 @@ const unitIcons: UnitIconDict = {
     'WhiteFeatherGuard': require('../../assets/units/WhiteFeatherGuard.png'),
     'Grenadier': require('../../assets/units/Grenadier.png'),
     'MountedTrebuchet': require('../../assets/units/MountedTrebuchet.png'),
+    'TractionTrebuchet': require('../../assets/units/TractionTrebuchet.png'),
     'WarChariot': require('../../assets/units/WarChariot.png'),
     'XianbeiRaider': require('../../assets/units/XianbeiRaider.png'),
 
