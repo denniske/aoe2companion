@@ -58,98 +58,39 @@ type TechTreeKey = keyof typeof aoeData.techtrees;
 export function getCivHasTech(civ: Civ, tech: Tech) {
     const entry = techs[tech];
 
+    if (!entry) {
+        console.log(`Tech ${tech} not in the units list`);
+    }
+
     const civTechTree = aoeData.techtrees[civ as any as TechTreeKey];
 
-    const newVal = civTechTree.techs.some(t => t.id === parseInt(entry.dataId))
+    return civTechTree.techs.some(t => t.id === parseInt(entry.dataId))
         || civTechTree.unique.castleAgeUniqueTech === parseInt(entry.dataId) as any
         || civTechTree.unique.imperialAgeUniqueTech === parseInt(entry.dataId) as any;
-
-    // const legacyVal = getCivHasTechLegacy(civ, tech);
-    // if (legacyVal !== newVal) {
-    //     console.log(`AVAILABILITY CHANGE FOR TECH ${tech} FROM ${legacyVal} to ${newVal}`);
-    // }
-
-    return newVal;
 }
-
-// function getCivHasTechLegacy(civ: Civ, tech: Tech) {
-//     const entry = techs[tech];
-//     const civConfig = civsConfig[civ];
-//
-//     if ((civConfig as any).enabled?.techs?.includes(parseInt(entry.dataId))) {
-//         return true;
-//     }
-//
-//     if ((civConfig as any).disabled?.techs?.includes(parseInt(entry.dataId))) {
-//         return false;
-//     }
-//
-//     if (civDict[civ].uniqueTechs.includes(tech)) {
-//         return true;
-//     }
-//
-//     if ((civConfig as any).disableHorses && horseDisabledTechs.includes(parseInt(entry.dataId))) {
-//         return false;
-//     }
-//
-//     if (techs[tech].civ != null) {
-//         return techs[tech].civ === civ;
-//     }
-//
-//     return true;
-// }
 
 export function getCivHasBuilding(civ: Civ, building: Building) {
     const entry = buildings[building];
 
+    if (!entry) {
+        console.log(`Building ${building} not in the units list`);
+    }
+
     const civTechTree = aoeData.techtrees[civ as any as TechTreeKey];
-    const newVal = civTechTree.buildings.some(b => b.id === parseInt(entry.dataId));
-
-    // const legacyVal = getCivHasBuildingLegacy(civ, building);
-    // if (legacyVal !== newVal) {
-    //     console.log(`AVAILABILITY CHANGE FOR BUILDING ${building} FROM ${legacyVal} to ${newVal}`);
-    // }
-
-    return newVal;
+    return civTechTree.buildings.some(b => b.id === parseInt(entry.dataId));
 }
-
-// function getCivHasBuildingLegacy(civ: Civ, building: Building) {
-//     const entry = buildings[building];
-//     const civConfig = civsConfig[civ];
-//
-//     if ((civConfig as any).enabled?.buildings?.includes(parseInt(entry.dataId))) {
-//         return true;
-//     }
-//
-//     if ((civConfig as any).disabled?.buildings?.includes(parseInt(entry.dataId))) {
-//         return false;
-//     }
-//
-//     if (defaultDisabledBuildings.includes(parseInt(entry.dataId))) {
-//         return false;
-//     }
-//
-//     if ((civConfig as any).disableHorses && horseDisabledBuildings.includes(parseInt(entry.dataId))) {
-//         return false;
-//     }
-//
-//     return true;
-// }
 
 export function getCivHasUnit(civ: Civ, unit: Unit) {
     const entry = units[unit];
 
+    if (!entry) {
+        console.log(`Unit ${unit} not in the units list`);
+    }
+
     const civTechTree = aoeData.techtrees[civ as any as TechTreeKey];
-    const newVal = civTechTree.units.some(u => u.id === parseInt(entry.dataId))
+    return civTechTree.units.some(u => u.id === parseInt(entry.dataId))
         || civTechTree.unique.castleAgeUniqueUnit === parseInt(entry.dataId) as any
         || civTechTree.unique.imperialAgeUniqueUnit === parseInt(entry.dataId) as any;
-
-    // const legacyVal = getCivHasUnitLegacy(civ, unit);
-    // if (legacyVal !== newVal) {
-    //     console.log(`AVAILABILITY CHANGE FOR UNIT ${unit} FROM ${legacyVal} to ${newVal}`);
-    // }
-
-    return newVal;
 }
 
 const ageIdToEnumMapping = {
@@ -191,9 +132,6 @@ export function getCivTechAge(civ: Civ, tech: Tech) {
     const civTechTree = aoeData.techtrees[civ as any as TechTreeKey];
 
     const info = civTechTree.techs.find(u => u.id === parseInt(entry.dataId));
-
-    console.log('civTechTree.techs', civTechTree.techs)
-    console.log('entry.dataId', entry.dataId)
 
     if (!info?.age) {
         return undefined;

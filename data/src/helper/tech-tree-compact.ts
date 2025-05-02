@@ -1,6 +1,7 @@
 import {ITechTreeRow} from './tech-tree.type';
 import {ICivEntry} from "./civs";
 import {Unit} from "./units";
+import { getCivHasUnit } from './tree';
 
 export function getCompactTechTree(civInfo: ICivEntry): ITechTreeRow[] {
     return [
@@ -61,6 +62,7 @@ export function getCompactTechTree(civInfo: ICivEntry): ITechTreeRow[] {
                 {age: 'CastleAge', unit: 'ArmoredElephant'},
                 {age: 'CastleAge', unit: 'BatteringRam'},
                 {age: 'CastleAge', unit: 'Mangonel'},
+                {age: 'CastleAge', unit: 'RocketCart'},
                 {age: 'CastleAge', unit: 'Scorpion'},
                 {},
                 {age: 'CastleAge', tech: 'Ballistics'},
@@ -71,6 +73,7 @@ export function getCompactTechTree(civInfo: ICivEntry): ITechTreeRow[] {
                 {age: 'ImperialAge', unit: 'SiegeElephant'},
                 {age: 'ImperialAge', unit: 'CappedRam'},
                 {age: 'ImperialAge', unit: 'Onager'},
+                {age: 'ImperialAge', unit: 'HeavyRocketCart'},
                 {age: 'ImperialAge', unit: 'HeavyScorpion'},
                 {age: 'ImperialAge', unit: 'BombardCannon'},
                 {age: 'ImperialAge', tech: 'SiegeEngineers'},
@@ -82,7 +85,15 @@ export function getCompactTechTree(civInfo: ICivEntry): ITechTreeRow[] {
                 {age: 'ImperialAge', unit: 'SiegeRam'},
                 {age: 'ImperialAge', unit: 'SiegeOnager'},
                 {},
+                {},
                 {age: 'ImperialAge', unit: 'Houfnice', unique: true},
+            ],
+        },
+        {
+            items: [
+                {age: 'ImperialAge', unit: 'FlamingCamel'},
+                {age: 'ImperialAge', unit: 'MountedTrebuchet'},
+                {age: 'ImperialAge', unit: 'TractionTrebuchet'},
             ],
         },
 
@@ -92,15 +103,32 @@ export function getCompactTechTree(civInfo: ICivEntry): ITechTreeRow[] {
         {
             items: [
                 {age: 'CastleAge', unit: 'LongSwordsman'},
-                {age: 'DarkAge', unit: 'Spearman'},
-                {age: 'DarkAge', unit: 'EagleScout'},
+                {age: 'FeudalAge', unit: 'Spearman'},
+                {age: 'FeudalAge', unit: 'EagleScout'},
+
+                ...(['Burgundians'].includes(civInfo.name) ? [{
+                    age: 'FeudalAge' as any,
+                    unit: 'FlemishMilitia' as Unit,
+                    unique: true
+                }] : [{}]),
             ],
         },
         {
             items: [
-                ...(civInfo.name !== 'Romans' ? [{age: 'ImperialAge' as any, unit: 'TwoHandedSwordsman' as Unit}] : [{unit: 'Legionary' as Unit, unique: true}]),
+                ...(civInfo.name !== 'Romans' ? [{age: 'ImperialAge' as any, unit: 'TwoHandedSwordsman' as Unit}] : [{age: 'ImperialAge' as any, unit: 'Legionary' as Unit, unique: true}]),
                 {age: 'CastleAge', unit: 'Pikeman'},
                 {age: 'CastleAge', unit: 'EagleWarrior'},
+
+                ...(['Wu'].includes(civInfo.name) ? [{
+                    age: 'CastleAge' as any,
+                    unit: 'JianSwordsman' as Unit,
+                    unique: true
+                }] : []),
+                ...(['Chinese', 'Jurchens', 'Khitans', 'Koreans', 'Vietnamese'].includes(civInfo.name) ? [{
+                    age: 'CastleAge' as any,
+                    unit: 'FireLancer' as Unit,
+                    unique: true
+                }] : []),
             ],
         },
         {
@@ -108,8 +136,17 @@ export function getCompactTechTree(civInfo: ICivEntry): ITechTreeRow[] {
                 ...(civInfo.name !== 'Romans' ? [{age: 'ImperialAge' as any, unit: 'Champion' as Unit}] : [{}]),
                 {age: 'ImperialAge', unit: 'Halberdier'},
                 {age: 'ImperialAge', unit: 'EliteEagleWarrior'},
-                {age: 'ImperialAge', unit: 'Condottiero', unique: true},
-                {age: 'ImperialAge', unit: 'FlemishMilitia', unique: true},
+
+                ...(['Chinese', 'Jurchens', 'Khitans', 'Koreans', 'Vietnamese'].includes(civInfo.name) ? [{
+                    age: 'ImperialAge' as any,
+                    unit: 'EliteFireLancer' as Unit,
+                    unique: true
+                }] : []),
+                ...(['Italians'].includes(civInfo.name) ? [{
+                    age: 'ImperialAge' as any,
+                    unit: 'Condottiero' as Unit,
+                    unique: true
+                }] : []),
             ],
         },
 
@@ -119,28 +156,43 @@ export function getCompactTechTree(civInfo: ICivEntry): ITechTreeRow[] {
         {
             items: [
                 {age: 'FeudalAge', unit: 'ScoutCavalry'},
-                ...(civInfo.name === 'Gurjaras' ? [{unit: 'ShrivamshaRider' as Unit, unique: true}] : []),
                 {age: 'CastleAge', unit: 'Knight'},
                 {age: 'CastleAge', unit: 'CamelRider'},
                 {age: 'CastleAge', unit: 'BattleElephant'},
                 {age: 'CastleAge', unit: 'SteppeLancer'},
-                {age: 'CastleAge', unit: 'XolotlWarrior'},
+
+                ...(civInfo.name === 'Gurjaras' ? [{age: 'CastleAge' as any, unit: 'ShrivamshaRider' as Unit, unique: true}] : []),
+                ...(['Aztecs', 'Mayans', 'Incas'].includes(civInfo.name) ? [{
+                    age: 'CastleAge' as any,
+                    unit: 'XolotlWarrior' as Unit,
+                    unique: true
+                }] : []),
+                ...(['Shu', 'Wei', 'Wu'].includes(civInfo.name) ? [{
+                    age: 'CastleAge' as any,
+                    unit: 'HeiGuangCavalry' as Unit,
+                    unique: true
+                }] : []),
             ],
         },
         {
             items: [
                 {age: 'CastleAge', unit: 'LightCavalry'},
-                ...(civInfo.name === 'Gurjaras' ? [{age: 'ImperialAge' as any, unit: 'EliteShrivamshaRider' as Unit, unique: true}] : []),
                 {age: 'ImperialAge', unit: 'Cavalier'},
                 {age: 'ImperialAge', unit: 'HeavyCamelRider'},
                 {age: 'ImperialAge', unit: 'EliteBattleElephant'},
                 {age: 'ImperialAge', unit: 'EliteSteppeLancer'},
+
+                ...(civInfo.name === 'Gurjaras' ? [{age: 'ImperialAge' as any, unit: 'EliteShrivamshaRider' as Unit, unique: true}] : []),
+                ...(['Shu', 'Wei', 'Wu'].includes(civInfo.name) ? [{
+                    age: 'ImperialAge' as any,
+                    unit: 'HeavyHeiGuangCavalry' as Unit,
+                    unique: true
+                }] : []),
             ],
         },
         {
             items: [
                 {age: 'ImperialAge', unit: 'Hussar'},
-                ...(civInfo.name === 'Gurjaras' ? [{}] : []),
                 {age: 'ImperialAge', unit: 'Paladin'},
                 {age: 'ImperialAge', unit: 'ImperialCamelRider', unique: true},
                 {},
@@ -173,7 +225,10 @@ export function getCompactTechTree(civInfo: ICivEntry): ITechTreeRow[] {
                 {age: 'CastleAge', unit: 'ElephantArcher'},
                 {age: 'CastleAge', unit: 'CavalryArcher'},
                 {},
-                {age: 'CastleAge', unit: 'Genitour', unique: true},
+                ...(getCivHasUnit(civInfo.name, 'Genitour') ? [{age: 'CastleAge' as any, unit: 'Genitour' as Unit, unique: true}] : [{}]),
+                ...(getCivHasUnit(civInfo.name, 'Slinger') ? [{age: 'CastleAge' as any, unit: 'Slinger' as Unit, unique: true}] : []),
+                ...(getCivHasUnit(civInfo.name, 'Grenadier') ? [{age: 'CastleAge' as any, unit: 'Grenadier' as Unit, unique: true}] : []),
+                ...(getCivHasUnit(civInfo.name, 'XianbeiRaider') ? [{age: 'CastleAge' as any, unit: 'XianbeiRaider' as Unit, unique: true}] : []),
             ],
         },
         {
@@ -183,7 +238,7 @@ export function getCompactTechTree(civInfo: ICivEntry): ITechTreeRow[] {
                 {age: 'ImperialAge', unit: 'EliteElephantArcher'},
                 {age: 'ImperialAge', unit: 'HeavyCavalryArcher'},
                 {age: 'ImperialAge', unit: 'HandCannoneer'},
-                {age: 'ImperialAge', unit: 'EliteGenitour', unique: true},
+                ...(getCivHasUnit(civInfo.name, 'EliteGenitour') ? [{age: 'ImperialAge' as any, unit: 'EliteGenitour' as Unit, unique: true}] : [{}]),
             ],
         },
     ];

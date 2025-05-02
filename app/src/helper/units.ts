@@ -67,6 +67,8 @@ const unitIcons: UnitIconDict = {
     'LiaoDao': require('../../assets/units/LiaoDao.png'),
     'FireArcher': require('../../assets/units/FireArcher.png'),
     'TigerCavalry': require('../../assets/units/TigerCavalry.png'),
+    'HeiGuangCavalry': require('../../assets/units/HeiGuangCavalry.png'),
+    'HeavyHeiGuangCavalry': require('../../assets/units/HeavyHeiGuangCavalry.png'),
     'WhiteFeatherGuard': require('../../assets/units/WhiteFeatherGuard.png'),
     'Grenadier': require('../../assets/units/Grenadier.png'),
     'MountedTrebuchet': require('../../assets/units/MountedTrebuchet.png'),

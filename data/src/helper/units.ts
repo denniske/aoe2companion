@@ -31,6 +31,7 @@ export const unitLineIds = [
     'LiaoDao',
     'WhiteFeatherGuard',
     'TigerCavalry',
+    'HeiGuangCavalry',
     'FireArcher',
     'Grenadier',
     'MountedTrebuchet',
@@ -3051,6 +3052,29 @@ export const unitLines: IUnitLineDict = {
             'Shipwright',
         ],
     },
+    'HeiGuangCavalry': {
+        units: ['HeiGuangCavalry', 'HeavyHeiGuangCavalry'],
+        // unique: true,
+        // civ: 'Chinese',
+        counteredBy: [
+        ],
+        upgrades: [
+            'Bloodlines',
+            'Forging',
+            'IronCasting',
+            'BlastFurnace',
+            'IronCasting',
+            'ScaleBardingArmor',
+            'ChainBardingArmor',
+            'PlateBardingArmor',
+            'MingGuangArmor',
+            'Devotion',
+            'Faith',
+            'Heresy',
+            'Husbandry',
+            'Conscription',
+        ],
+    },
 
     'LiuBei': {
         units: ['LiuBei'],
@@ -3185,6 +3209,12 @@ const unitsInternal = {
     },
     'EliteTigerCavalry': {
         dataId: '1951',
+    },
+    'HeiGuangCavalry': {
+        dataId: '1944',
+    },
+    'HeavyHeiGuangCavalry': {
+        dataId: '1946',
     },
     'FireArcher': {
         dataId: '1968',
@@ -4512,6 +4542,7 @@ export const sortedUnitLines: UnitLine[] = [
     'Tarkan',
     'TeutonicKnight',
     'TigerCavalry',
+    'HeiGuangCavalry',
     'Thirisadai',
     'ThrowingAxeman',
     'TurtleShip',

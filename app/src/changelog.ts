@@ -214,6 +214,7 @@ export const changelog: IChangelog = {
         {
             type: 'minor',
             title: 'Implemented [AoE II DE Update 141935](https://www.ageofempires.com/news/a-sneak-peek-at-new-content-coming-to-age-of-empires-ii-definitive-edition/)',
+            content: 'Note there are some missing unit upgrades that will be added later',
         },
     ],
     '122.0.0': [
