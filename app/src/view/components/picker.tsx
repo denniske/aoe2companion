@@ -52,12 +52,8 @@ export default function Picker<T>(props: IPickerProps<T>) {
     } = props;
 
     const color = disabled ? undefined : theme.textColor;
-    
-    console.log('picker color', color);
 
     const renderItem = (v: T, i: number) => {
-        console.log('render item color', color);
-
         return (
             <View key={i} style={{ height: itemHeight, flexDirection: 'column' }}>
                 <TouchableOpacity
