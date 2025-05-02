@@ -24,6 +24,23 @@ interface IUnitLineDict {
 }
 
 export const unitLineIds = [
+    'FireLancer',
+    'RocketCart',
+    'LouChuan',
+    'IronPagoda',
+    'LiaoDao',
+    'WhiteFeatherGuard',
+    'TigerCavalry',
+    'FireArcher',
+    'Grenadier',
+    'MountedTrebuchet',
+    'WarChariot',
+    'XianbeiRaider',
+    'JianSwordsman',
+    'DragonShip',
+    'LiuBei',
+    'CaoCao',
+    'SunJian',
     'Ghulam',
     'ShrivamshaRider',
     'ChakramThrower',
@@ -438,9 +455,7 @@ export const unitLines: IUnitLineDict = {
     'TransportShip': {
         units: ['TransportShip'],
         upgrades: [
-            'Careening-5',
             'Carrack',
-            'DryDock-10',
             'Devotion',
             'Faith',
             'Heresy',
@@ -498,6 +513,9 @@ export const unitLines: IUnitLineDict = {
             'Sanctity',
             'Bloodlines',
             'BlockPrinting',
+            'ScaleBardingArmor',
+            'ChainBardingArmor',
+            'PlateBardingArmor',
             'Fervor',
             'Husbandry',
             'Redemption',
@@ -795,6 +813,7 @@ export const unitLines: IUnitLineDict = {
             'Devotion',
             'Faith',
             'Shipwright',
+            'Shinkichon-TurtleShip',
         ],
     },
     'Longboat': {
@@ -1017,7 +1036,6 @@ export const unitLines: IUnitLineDict = {
             'SiegeEngineers-20-1',
             'Chemistry',
             'TorsionEngines',
-            'Shinkichon',
             'Ironclad',
             'Drill',
             'Devotion',
@@ -1081,7 +1099,7 @@ export const unitLines: IUnitLineDict = {
             'SiegeEngineers-20-1',
             'Ballistics',
             'Chemistry',
-            'Rocketry-4',
+            'Rocketry-25',
             'TorsionEngines',
             'DoubleCrossbow',
             'Ballistas',
@@ -1114,6 +1132,7 @@ export const unitLines: IUnitLineDict = {
             'Heresy',
             'Conscription',
             'WagenburgTactics',
+            'Pirotechnia',
         ],
     },
     'KarambitWarrior': {
@@ -1244,9 +1263,7 @@ export const unitLines: IUnitLineDict = {
             'ScaleMailArmor',
             'ChainMailArmor',
             'PlateMailArmor',
-            'Pavise',
             'Squires',
-            // 'Tracking',
             'Devotion',
             'Faith',
             'Heresy',
@@ -1566,6 +1583,7 @@ export const unitLines: IUnitLineDict = {
             'Perfusion',
             'Kshatriyas',
             'Stronghold-Infantry',
+            'CoiledSerpentArray',
         ],
     },
     'Militia': {
@@ -1605,13 +1623,11 @@ export const unitLines: IUnitLineDict = {
             'Gambesons',
             'Bagains',
             'Squires',
-            // 'Tracking',
             'Devotion',
             'Faith',
             'Heresy',
             'Conscription',
             'Perfusion',
-            'Supplies',
             'ForcedLevy',
             'Comitatenses',
             'WootzSteel',
@@ -2365,7 +2381,6 @@ export const unitLines: IUnitLineDict = {
             'PaddedArcherArmor',
             'LeatherArcherArmor',
             'RingArcherArmor',
-            'Pavise',
             'Devotion',
             'Faith',
             'Conscription',
@@ -2497,7 +2512,6 @@ export const unitLines: IUnitLineDict = {
             'BodkinArrow',
             'Bracer',
             'Chemistry',
-            'Rocketry-2',
             'ThumbRing-25',
             'Ballistics',
             'PaddedArcherArmor',
@@ -2648,7 +2662,6 @@ export const unitLines: IUnitLineDict = {
             'PaddedArcherArmor',
             'LeatherArcherArmor',
             'RingArcherArmor',
-            'Pavise',
             'Devotion',
             'Faith',
             'Heresy',
@@ -2842,9 +2855,361 @@ export const unitLines: IUnitLineDict = {
             'Stronghold-Infantry',
         ],
     },
+    'IronPagoda': {
+        units: ['IronPagoda', 'EliteIronPagoda'],
+        unique: true,
+        civ: 'Jurchens',
+        counteredBy: [
+        ],
+        upgrades: [
+            'Bloodlines',
+            'Forging',
+            'IronCasting',
+            'BlastFurnace',
+            'ScaleBardingArmor',
+            'ChainBardingArmor',
+            'PlateBardingArmor',
+            'Devotion',
+            'Faith',
+            'Husbandry',
+            'Conscription',
+        ],
+    },
+    'LiaoDao': {
+        units: ['LiaoDao', 'EliteLiaoDao'],
+        unique: true,
+        civ: 'Khitans',
+        counteredBy: [
+        ],
+        upgrades: [
+        ],
+    },
+    'WhiteFeatherGuard': {
+        units: ['WhiteFeatherGuard', 'EliteWhiteFeatherGuard'],
+        unique: true,
+        civ: 'Shu',
+        counteredBy: [
+        ],
+        upgrades: [
+            'Forging',
+            'Arson',
+            'IronCasting',
+            'BlastFurnace',
+            'ScaleMailArmor',
+            'ChainMailArmor',
+            'PlateMailArmor',
+            'Devotion',
+            'Faith',
+            'Heresy', // ?
+            'Squires',
+            'Conscription',
+            'CoiledSerpentArray',
+        ],
+    },
+    'TigerCavalry': {
+        units: ['TigerCavalry', 'EliteTigerCavalry'],
+        unique: true,
+        civ: 'Wei',
+        counteredBy: [
+        ],
+        upgrades: [
+            'Bloodlines',
+            'Forging',
+            'IronCasting',
+            'BlastFurnace',
+            'IronCasting',
+            'ScaleBardingArmor',
+            'ChainBardingArmor',
+            'MingGuangArmor',
+            'Husbandry',
+            'Conscription',
+            'Tuntian',
+        ],
+    },
+    'FireArcher': {
+        units: ['FireArcher', 'EliteFireArcher'],
+        unique: true,
+        civ: 'Wu',
+        counteredBy: [
+        ],
+        upgrades: [
+        ],
+    },
+
+    'Grenadier': {
+        units: ['Grenadier'],
+        // unique: true,
+        // civ: 'Jurchens',
+        counteredBy: [
+        ],
+        upgrades: [
+        ],
+    },
+    'MountedTrebuchet': {
+        units: ['MountedTrebuchet'],
+        // unique: true,
+        // civ: 'Khitans',
+        counteredBy: [
+        ],
+        upgrades: [
+            'Chemistry',
+            'SiegeEngineers-20-1',
+            'ScaleBardingArmor',
+            'ChainBardingArmor',
+            'PlateBardingArmor',
+            'Devotion',
+            'Faith',
+            'Heresy', // ?
+            'Husbandry',
+        ],
+    },
+    'WarChariot': {
+        units: ['WarChariot'],
+        // unique: true,
+        // civ: 'Shu',
+        counteredBy: [
+        ],
+        upgrades: [
+            'Chemistry',
+            'SiegeEngineers-0-1',
+            'Ballistics',
+            'BoltMagazine',
+            'ScaleBardingArmor',
+            'ChainBardingArmor',
+            'PlateBardingArmor',
+            'Devotion',
+            'Faith',
+            'Heresy', // ?
+            'Husbandry',
+        ],
+    },
+    'XianbeiRaider': {
+        units: ['XianbeiRaider'],
+        // unique: true,
+        // civ: 'Wei',
+        counteredBy: [
+        ],
+        upgrades: [
+            'Bloodlines',
+            'Fletching',
+            'BodkinArrow',
+            'Bracer',
+            'Chemistry',
+            'ParthianTactics',
+            'ThumbRing-18',
+            'Ballistics',
+            'PaddedArcherArmor',
+            'LeatherArcherArmor',
+            'RingArcherArmor',
+            'MingGuangArmor',
+            'Devotion',
+            'Faith',
+            'Husbandry',
+            'Conscription',
+            'Tuntian',
+        ],
+    },
+    'JianSwordsman': {
+        units: ['JianSwordsman'],
+        // unique: true,
+        // civ: 'Wu',
+        counteredBy: [
+        ],
+        upgrades: [
+        ],
+    },
+    'DragonShip': {
+        units: ['DragonShip'],
+        // unique: true,
+        // civ: 'Chinese',
+        counteredBy: [
+        ],
+        upgrades: [
+            'Careening',
+            'Devotion',
+            'Faith',
+            'DryDock',
+            'Shipwright',
+        ],
+    },
+
+    'LiuBei': {
+        units: ['LiuBei'],
+        // unique: true,
+        // civ: 'Chinese',
+        counteredBy: [
+        ],
+        upgrades: [
+        ],
+    },
+    'CaoCao': {
+        units: ['CaoCao'],
+        // unique: true,
+        // civ: 'Chinese',
+        counteredBy: [
+        ],
+        upgrades: [
+        ],
+    },
+    'SunJian': {
+        units: ['SunJian'],
+        // unique: true,
+        // civ: 'Chinese',
+        counteredBy: [
+        ],
+        upgrades: [
+        ],
+    },
+
+
+    'FireLancer': {
+        units: ['FireLancer', 'EliteFireLancer'],
+        // unique: true,
+        // civ: 'Chinese',
+        counteredBy: [
+        ],
+        upgrades: [
+            'Forging',
+            'Arson',
+            'IronCasting',
+            'BlastFurnace',
+            'ScaleMailArmor',
+            'ChainMailArmor',
+            'PlateMailArmor',
+            'Gambesons', // ?
+            'Devotion',
+            'Faith',
+            'Heresy', // ?
+            'Squires',
+            'Conscription',
+        ],
+    },
+    'RocketCart': {
+        units: ['RocketCart', 'HeavyRocketCart'],
+        // unique: true,
+        // civ: 'Chinese',
+        counteredBy: [
+        ],
+        upgrades: [
+            'SiegeEngineers-20-1',
+            'Rocketry-25',
+            'Shinkichon-RocketCart',
+            'ThunderclapBombs',
+        ],
+    },
+    'LouChuan': {
+        units: ['LouChuan'],
+        // unique: true,
+        // civ: 'Chinese',
+        counteredBy: [
+        ],
+        upgrades: [
+            'Fletching',   // anti unit
+            'BodkinArrow', // anti unit
+            'Bracer',      // anti unit
+            'Chemistry',   // both
+            'SiegeEngineers-20-1', // both?
+            'Ballistics',  // anti unit
+            'BoltMagazine', // anti unit
+            'SittingTiger', // anti building
+            'Careening',
+            'Devotion',
+            'Faith',
+            'Heresy',      // ?
+            'DryDock',
+            'Shipwright',
+            'ThunderclapBombs',
+            'Rocketry-LouChuan',
+        ],
+    },
+
 };
 
 const unitsInternal = {
+
+    'FireLancer': {
+        dataId: '1901',
+    },
+    'EliteFireLancer': {
+        dataId: '1903',
+    },
+    'RocketCart': {
+        dataId: '1904',
+    },
+    'HeavyRocketCart': {
+        dataId: '1907',
+    },
+    'LouChuan': {
+        dataId: '1948',
+    },
+
+    'IronPagoda': {
+        dataId: '1908',
+    },
+    'EliteIronPagoda': {
+        dataId: '1910',
+    },
+    'LiaoDao': {
+        dataId: '1920',
+    },
+    'EliteLiaoDao': {
+        dataId: '1922',
+    },
+    'WhiteFeatherGuard': {
+        dataId: '1959',
+    },
+    'EliteWhiteFeatherGuard': {
+        dataId: '1961',
+    },
+    'TigerCavalry': {
+        dataId: '1949',
+    },
+    'EliteTigerCavalry': {
+        dataId: '1951',
+    },
+    'FireArcher': {
+        dataId: '1968',
+    },
+    'EliteFireArcher': {
+        dataId: '1970',
+    },
+
+
+    'Grenadier': {
+        dataId: '1911',
+    },
+    'MountedTrebuchet': {
+        dataId: '1923',
+    },
+    'WarChariot': {
+        dataId: '1962',
+    },
+    'XianbeiRaider': {
+        dataId: '1952',
+    },
+    'JianSwordsman': {
+        dataId: '1974',
+    },
+    'DragonShip': {
+        dataId: '1302',
+    },
+
+    'LiuBei': {
+        dataId: '1966',
+    },
+    'CaoCao': {
+        dataId: '1954',
+    },
+    'SunJian': {
+        dataId: '1978',
+    },
+
+
+
+
+
+
+
     'Savar': {
         dataId: '1813',
     },
@@ -3884,7 +4249,7 @@ export function getUnitDescription(unit: Unit) {
     // console.log('description', description);
 
     description = strRemoveTo(description, '<br>\n');
-    description = strRemoveFrom(description, '<i>'); // <i>Upgrades:
+    description = strRemoveFrom(description, '<br>\n<i>'); // <i>Upgrades:
 
     description = description.trim();
 
@@ -4028,6 +4393,7 @@ export const sortedUnitLines: UnitLine[] = [
     'Legionary',
     'Spearman',
     'EagleScout',
+    'FireLancer',
 
     'Archer',
     'Skirmisher',
@@ -4056,6 +4422,7 @@ export const sortedUnitLines: UnitLine[] = [
     'ArmoredElephant',
     'BatteringRam',
     'Mangonel',
+    'RocketCart',
     'Scorpion',
     'BombardCannon',
     'Trebuchet',
@@ -4064,8 +4431,6 @@ export const sortedUnitLines: UnitLine[] = [
     'SiegeTower',
 
     'XolotlWarrior',
-
-
 
     'Arambai',
     'BallistaElephant',
@@ -4081,16 +4446,21 @@ export const sortedUnitLines: UnitLine[] = [
     'Condottiero',
     'Conquistador',
     'Coustillier',
+    'DragonShip',
     'ElephantArcher',
+    'FireArcher',
     'FlemishMilitia',
     'Gbeto',
     'Genitour',
     'GenoeseCrossbowman',
     'Ghulam',
+    'Grenadier',
     'HussiteWagon',
     'Huskarl',
     'JaguarWarrior',
     'Janissary',
+    'JianSwordsman',
+    'IronPagoda',
     'Kamayuk',
     'KarambitWarrior',
     'Keshik',
@@ -4098,12 +4468,15 @@ export const sortedUnitLines: UnitLine[] = [
     'Konnik',
     'KonnikDismounted',
     'Leitis',
+    'LiaoDao',
     'Longboat',
     'Longbowman',
+    'LouChuan',
     'MagyarHuszar',
     'Mameluke',
     'Mangudai',
     'Monaspa',
+    'MountedTrebuchet',
     'Obuch',
     'OrganGun',
     'PlumedArcher',
@@ -4115,14 +4488,22 @@ export const sortedUnitLines: UnitLine[] = [
     'ShrivamshaRider',
     'Tarkan',
     'TeutonicKnight',
+    'TigerCavalry',
     'Thirisadai',
     'ThrowingAxeman',
     'TurtleShip',
     'UrumiSwordsman',
     'WarriorPriest',
+    'WarChariot',
     'WarElephant',
     'WarWagon',
+    'WhiteFeatherGuard',
     'WoadRaider',
+    'XianbeiRaider',
+
+    'LiuBei',
+    'CaoCao',
+    'SunJian',
 ];
 
 const missingSortedUnitLines = difference(unitLineIds, sortedUnitLines);

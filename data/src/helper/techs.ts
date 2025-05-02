@@ -73,6 +73,53 @@ const techEffectDictInternal = {
     // For Buildings
 
 
+    'SittingTiger': {
+        tech: 'SittingTiger',
+        civ: 'Wu',
+        effect: {
+            other: '+2 projectiles each of which deal 10 melee attack and +40 vs buildings, anti-building mode',
+        },
+    },
+
+    'ThunderclapBombs': {
+        tech: 'ThunderclapBombs',
+        civ: 'Jurchens',
+        effect: {
+            other: 'projectiles detonate some time after landing, Lou Chuans detonate when destroyed',
+        },
+    },
+
+    'BoltMagazine': {
+        tech: 'BoltMagazine',
+        civ: 'Shu',
+        effect: {
+            firingRate: 'side effect: +0.5 reload time in Focus Fire mode, +0.75 reload time in Barrage mode',
+            other: 'Additional Projectiles: +2 in Focus Fire mode, +3 in Barrage mode',
+        },
+    },
+    'MingGuangArmor': {
+        tech: 'MingGuangArmor',
+        civ: 'Wei',
+        effect: {
+            armor: '+4/+0',
+        },
+    },
+    'Tuntian': {
+        tech: 'Tuntian',
+        civ: 'Wei',
+        effect: {
+            other: 'generates 1.2 food per minute',
+        },
+    },
+
+    'CoiledSerpentArray': {
+        tech: 'CoiledSerpentArray',
+        civ: 'Shu',
+        effect: {
+            other: 'Gains extra hit points when near other White Feather Guards or Spearman-line units',
+        },
+    },
+
     'TreadmillCrane-Georgians': {
         tech: 'TreadmillCrane',
         civ: 'Georgians',
@@ -693,7 +740,7 @@ const techEffectDictInternal = {
     'Caravan': {
         tech: 'Caravan',
         effect: {
-            speed: '+50%',
+            speed: '+20%',
         },
     },
     'SilkRoad': {
@@ -701,6 +748,14 @@ const techEffectDictInternal = {
         civ: 'Italians',
         effect: {
             other: '-50% cost',
+        },
+    },
+    'Pirotechnia': {
+        tech: 'Pirotechnia',
+        civ: 'Italians',
+        effect: {
+            accuracy: '90%',
+            other: 'Hand Cannoneers deal +15% pass through damage',
         },
     },
     'GrandTrunkRoad-GatheringSpeed': {
@@ -885,24 +940,10 @@ const techEffectDictInternal = {
             creationSpeed: '+54%',
         },
     },
-    'Careening-5': {
-        tech: 'Careening',
-        effect: {
-            armor: '+0/+1',
-            capacity: '+5',
-        },
-    },
     'Careening': {
         tech: 'Careening',
         effect: {
             armor: '+0/+1',
-        },
-    },
-    'DryDock-10': {
-        tech: 'DryDock',
-        effect: {
-            speed: '+15%',
-            capacity: '+10',
         },
     },
     'DryDock': {
@@ -941,11 +982,21 @@ const techEffectDictInternal = {
             range: '+2',
         },
     },
-    'Shinkichon': {
+    'Shinkichon-RocketCart': {
         tech: 'Shinkichon',
         civ: 'Koreans',
         effect: {
             range: '+1',
+            other: '+6 additional projectiles',
+            firingRate: 'side effect from additional projectiles: +0.2 reload time',
+        },
+    },
+    'Shinkichon-TurtleShip': {
+        tech: 'Shinkichon',
+        civ: 'Koreans',
+        effect: {
+            range: '+1',
+            other: '+2 additional projectiles',
         },
     },
     'FurorCeltica': {
@@ -1094,12 +1145,6 @@ const techEffectDictInternal = {
             other: 'generates gold when killing Villagers, trade units, and Monks',
         },
     },
-    'Supplies': {
-        tech: 'Supplies',
-        effect: {
-            other: '-15 food cost',
-        },
-    },
     'CorvinianArmy': {
         tech: 'CorvinianArmy',
         civ: 'Magyars',
@@ -1225,18 +1270,19 @@ const techEffectDictInternal = {
             other: 'gives regeneration ability',
         },
     },
-    'Rocketry-2': {
+    'Rocketry-25': {
         tech: 'Rocketry',
         civ: 'Chinese',
         effect: {
-            attack: '+2',
+            attack: '+25%',
         },
     },
-    'Rocketry-4': {
+    'Rocketry-LouChuan': {
         tech: 'Rocketry',
         civ: 'Chinese',
         effect: {
-            attack: '+4',
+            attack: '+25%, except for the anti-unit pierce attack',
+            other: '+0.3 tiles, 85% chance, tapering effect, anti-unit attack',
         },
     },
     'Bloodlines': {
@@ -1323,13 +1369,6 @@ const techEffectDictInternal = {
         civ: 'Britons',
         effect: {
             range: '+1',
-        },
-    },
-    'Pavise': {
-        tech: 'Pavise',
-        civ: 'Italians',
-        effect: {
-            armor: '+1/+1',
         },
     },
     'Kamandaran': {
@@ -1629,6 +1668,67 @@ function addNameToTechEffectDict(dict: ITechEffectDict): ITechEffectDict {
 export const techEffectDict = addNameToTechEffectDict(techEffectDictInternal as any) as ITechEffectDict;
 
 export const techList: ITech[] = [
+    {
+        "dataId": "996",
+        "name": "FortifiedBastions",
+        "civ": "Jurchens",
+        "age": 'Castle',
+    },
+    {
+        "dataId": "997",
+        "name": "ThunderclapBombs",
+        "civ": "Jurchens",
+        "age": 'Imperial',
+    },
+    {
+        "dataId": "1006",
+        "name": "LamellarArmor",
+        "civ": "Khitans",
+        "age": 'Castle',
+    },
+    {
+        "dataId": "1007",
+        "name": "OrdoCavalry",
+        "civ": "Khitans",
+        "age": 'Imperial',
+    },
+    {
+        "dataId": "1070",
+        "name": "CoiledSerpentArray",
+        "civ": "Shu",
+        "age": 'Castle',
+    },
+    {
+        "dataId": "1069",
+        "name": "BoltMagazine",
+        "civ": "Shu",
+        "age": 'Imperial',
+    },
+    {
+        "dataId": "1061",
+        "name": "Tuntian",
+        "civ": "Wei",
+        "age": 'Castle',
+    },
+    {
+        "dataId": "1062",
+        "name": "MingGuangArmor",
+        "civ": "Wei",
+        "age": 'Imperial',
+    },
+    {
+        "dataId": "1080",
+        "name": "RedCliffsTactics",
+        "civ": "Wu",
+        "age": 'Castle',
+    },
+    {
+        "dataId": "1081",
+        "name": "SittingTiger",
+        "civ": "Wu",
+        "age": 'Imperial',
+    },
+
     {
         "dataId": "922",
         "name": "CilicianFleet",
@@ -2002,7 +2102,7 @@ export const techList: ITech[] = [
         "dataId": "499",
         "name": "SilkRoad",
         "civ": "Italians",
-        "age": 'Imperial',
+        "age": 'Castle',
     },
     {
         "dataId": "231",
@@ -2215,10 +2315,6 @@ export const techList: ITech[] = [
         "age": 'Imperial',
     },
     {
-        "dataId": "716",
-        "name": "Supplies"
-    },
-    {
         "dataId": "514",
         "name": "CorvinianArmy",
         "civ": "Magyars",
@@ -2381,10 +2477,10 @@ export const techList: ITech[] = [
         "age": 'Castle',
     },
     {
-        "dataId": "494",
-        "name": "Pavise",
+        "dataId": "902",
+        "name": "Pirotechnia",
         "civ": "Italians",
-        "age": 'Castle',
+        "age": 'Imperial',
     },
     {
         "dataId": "488",
@@ -2661,7 +2757,6 @@ const techIds = [
     'ScaleBardingArmor',
     'ChainBardingArmor',
     'PlateBardingArmor',
-    'Supplies',
     'SiegeEngineers',
     'Careening',
     'DryDock',
@@ -2705,7 +2800,6 @@ const techIds = [
     'Marauders',
     'AndeanSling',
     'GrandTrunkRoad',
-    'Pavise',
     'Yasama',
     'TuskSwords',
     'Eupseong',
@@ -2749,6 +2843,7 @@ const techIds = [
     'FabricShields',
     'Shatagni',
     'SilkRoad',
+    'Pirotechnia',
     'Kataparuto',
     'DoubleCrossbow',
     'Shinkichon',
@@ -2768,6 +2863,16 @@ const techIds = [
     'Artillery',
     'PaperMoney',
     'Bogsveigar',
+    'FortifiedBastions',
+    'ThunderclapBombs',
+    'LamellarArmor',
+    'OrdoCavalry',
+    'CoiledSerpentArray',
+    'BoltMagazine',
+    'Tuntian',
+    'MingGuangArmor',
+    'RedCliffsTactics',
+    'SittingTiger',
 ] as const;
 
 const TechUnion = unwrap(techIds);
@@ -2785,13 +2890,17 @@ export interface ITechInfo {
 export function getTechData(tech: Tech) {
     const techEntry = techs[tech];
     if (techEntry == null) {
-        throw Error(`getTechName ${tech} - no dataId`);
+        throw Error(`getTechData ${tech} - no dataId`);
     }
     const dataId = techEntry.dataId;
     if (dataId == null) {
-        throw Error(`getTechName ${tech} - no dataId`);
+        throw Error(`getTechData ${tech} - no dataId`);
     }
-    return aoeData.data.techs[dataId] as ITechInfo;
+    const data = aoeData.data.techs[dataId] as ITechInfo;
+    if (data == null) {
+        throw Error(`getTechData ${tech} - no data`);
+    }
+    return data;
 }
 
 export function getTechName(tech: Tech) {

@@ -30,6 +30,8 @@ export const aoeDataInternal = {
         "Incas": "120170",
         "Italians": "120168",
         "Japanese": "120154",
+        "Jurchens": "120201",
+        "Khitans": "120202",
         "Khmer": "120177",
         "Koreans": "120167",
         "Lithuanians": "120184",
@@ -43,6 +45,7 @@ export const aoeDataInternal = {
         "Portuguese": "120173",
         "Romans": "120192",
         "Saracens": "120158",
+        "Shu": "120198",
         "Sicilians": "120186",
         "Slavs": "120172",
         "Spanish": "120163",
@@ -50,7 +53,9 @@ export const aoeDataInternal = {
         "Teutons": "120153",
         "Turks": "120159",
         "Vietnamese": "120180",
-        "Vikings": "120160"
+        "Vikings": "120160",
+        "Wei": "120200",
+        "Wu": "120199"
     },
     "civ_names": {
         "Armenians": "10314",
@@ -77,6 +82,8 @@ export const aoeDataInternal = {
         "Incas": "10291",
         "Italians": "10289",
         "Japanese": "10275",
+        "Jurchens": "10322",
+        "Khitans": "10323",
         "Khmer": "10298",
         "Koreans": "10288",
         "Lithuanians": "10305",
@@ -90,6 +97,7 @@ export const aoeDataInternal = {
         "Portuguese": "10294",
         "Romans": "10313",
         "Saracens": "10279",
+        "Shu": "10319",
         "Sicilians": "10307",
         "Slavs": "10293",
         "Spanish": "10284",
@@ -97,7 +105,9 @@ export const aoeDataInternal = {
         "Teutons": "10274",
         "Turks": "10280",
         "Vietnamese": "10301",
-        "Vikings": "10281"
+        "Vikings": "10281",
+        "Wei": "10321",
+        "Wu": "10320"
     },
     "data": {
         "buildings": {
@@ -1786,11 +1796,11 @@ export const aoeDataInternal = {
                         "Class": 11
                     },
                     {
-                        "Amount": 1,
+                        "Amount": 0,
                         "Class": 4
                     },
                     {
-                        "Amount": 7,
+                        "Amount": 6,
                         "Class": 3
                     },
                     {
@@ -1802,10 +1812,10 @@ export const aoeDataInternal = {
                         "Class": 31
                     }
                 ],
-                "Attack": 5,
+                "Attack": 0,
                 "Attacks": [
                     {
-                        "Amount": 2,
+                        "Amount": 0,
                         "Class": 27
                     },
                     {
@@ -1813,19 +1823,19 @@ export const aoeDataInternal = {
                         "Class": 11
                     },
                     {
-                        "Amount": 7,
+                        "Amount": 0,
                         "Class": 16
                     },
                     {
-                        "Amount": 5,
+                        "Amount": 0,
                         "Class": 3
                     },
                     {
-                        "Amount": 1,
+                        "Amount": 0,
                         "Class": 30
                     },
                     {
-                        "Amount": 7,
+                        "Amount": 0,
                         "Class": 34
                     }
                 ],
@@ -1834,15 +1844,15 @@ export const aoeDataInternal = {
                     "Wood": 50
                 },
                 "GarrisonCapacity": 10,
-                "HP": 1250,
+                "HP": 625,
                 "ID": 1665,
                 "LanguageHelpId": 26544,
                 "LanguageNameId": 5544,
                 "LineOfSight": 10,
-                "MeleeArmor": 1,
+                "MeleeArmor": 0,
                 "MinRange": 1,
-                "PierceArmor": 7,
-                "Range": 8,
+                "PierceArmor": 6,
+                "Range": 0,
                 "ReloadTime": 2,
                 "TrainTime": 125,
                 "internal_name": "DONJON"
@@ -2029,6 +2039,49 @@ export const aoeDataInternal = {
                 "ReloadTime": 0,
                 "TrainTime": 25,
                 "internal_name": "MULECART"
+            },
+            "1889": {
+                "AccuracyPercent": 0,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 0,
+                "Attacks": [],
+                "Cost": {
+                    "Wood": 100
+                },
+                "GarrisonCapacity": 0,
+                "HP": 560,
+                "ID": 1889,
+                "LanguageHelpId": 26895,
+                "LanguageNameId": 5895,
+                "LineOfSight": 1,
+                "MeleeArmor": 0,
+                "MinRange": 0,
+                "PierceArmor": 0,
+                "Range": 0,
+                "ReloadTime": 0,
+                "TrainTime": 18,
+                "internal_name": "PASTURE_BUILD"
             }
         },
         "techs": {
@@ -2367,8 +2420,8 @@ export const aoeDataInternal = {
             },
             "52": {
                 "Cost": {
-                    "Gold": 750,
-                    "Wood": 750
+                    "Food": 1100,
+                    "Gold": 900
                 },
                 "ID": 52,
                 "LanguageHelpId": 28432,
@@ -3125,8 +3178,8 @@ export const aoeDataInternal = {
             },
             "445": {
                 "Cost": {
-                    "Gold": 500,
-                    "Wood": 800
+                    "Food": 1100,
+                    "Gold": 800
                 },
                 "ID": 445,
                 "LanguageHelpId": 28438,
@@ -3363,21 +3416,9 @@ export const aoeDataInternal = {
                 "ResearchTime": 40,
                 "internal_name": "Franks UT"
             },
-            "494": {
-                "Cost": {
-                    "Gold": 150,
-                    "Wood": 200
-                },
-                "ID": 494,
-                "LanguageHelpId": 28272,
-                "LanguageNameId": 7272,
-                "Repeatable": true,
-                "ResearchTime": 40,
-                "internal_name": "Pavise"
-            },
             "499": {
                 "Cost": {
-                    "Food": 500,
+                    "Food": 250,
                     "Gold": 250
                 },
                 "ID": 499,
@@ -3569,8 +3610,8 @@ export const aoeDataInternal = {
             },
             "602": {
                 "Cost": {
-                    "Food": 150,
-                    "Gold": 50
+                    "Food": 75,
+                    "Gold": 25
                 },
                 "ID": 602,
                 "LanguageHelpId": 28258,
@@ -3783,18 +3824,6 @@ export const aoeDataInternal = {
                 "ResearchTime": 40,
                 "internal_name": "Vietnamese UT"
             },
-            "716": {
-                "Cost": {
-                    "Food": 75,
-                    "Gold": 75
-                },
-                "ID": 716,
-                "LanguageHelpId": 28403,
-                "LanguageNameId": 7403,
-                "Repeatable": false,
-                "ResearchTime": 20,
-                "internal_name": "Supplies"
-            },
             "754": {
                 "Cost": {
                     "Food": 400,
@@ -3999,6 +4028,18 @@ export const aoeDataInternal = {
                 "ResearchTime": 60,
                 "internal_name": "Comitatenses"
             },
+            "902": {
+                "Cost": {
+                    "Food": 650,
+                    "Gold": 500
+                },
+                "ID": 902,
+                "LanguageHelpId": 28084,
+                "LanguageNameId": 7084,
+                "Repeatable": false,
+                "ResearchTime": 50,
+                "internal_name": "Pirotecnia"
+            },
             "921": {
                 "Cost": {
                     "Food": 550,
@@ -4046,6 +4087,162 @@ export const aoeDataInternal = {
                 "Repeatable": false,
                 "ResearchTime": 45,
                 "internal_name": "Aznauri Cavalry"
+            },
+            "996": {
+                "Cost": {
+                    "Food": 350,
+                    "Wood": 250
+                },
+                "ID": 996,
+                "LanguageHelpId": 28466,
+                "LanguageNameId": 7466,
+                "Repeatable": true,
+                "ResearchTime": 40,
+                "internal_name": "Fortifed Bastions"
+            },
+            "997": {
+                "Cost": {
+                    "Food": 900,
+                    "Gold": 600
+                },
+                "ID": 997,
+                "LanguageHelpId": 28467,
+                "LanguageNameId": 7467,
+                "Repeatable": false,
+                "ResearchTime": 50,
+                "internal_name": "Thunderclap Bombs"
+            },
+            "1006": {
+                "Cost": {
+                    "Food": 450,
+                    "Gold": 300
+                },
+                "ID": 1006,
+                "LanguageHelpId": 28468,
+                "LanguageNameId": 7468,
+                "Repeatable": true,
+                "ResearchTime": 45,
+                "internal_name": "Lamellar Armor"
+            },
+            "1007": {
+                "Cost": {
+                    "Food": 600,
+                    "Gold": 300
+                },
+                "ID": 1007,
+                "LanguageHelpId": 28469,
+                "LanguageNameId": 7469,
+                "Repeatable": false,
+                "ResearchTime": 45,
+                "internal_name": "Ordo Cavalry"
+            },
+            "1012": {
+                "Cost": {
+                    "Food": 175,
+                    "Wood": 325
+                },
+                "ID": 1012,
+                "LanguageHelpId": 28486,
+                "LanguageNameId": 7486,
+                "Repeatable": true,
+                "ResearchTime": 70,
+                "internal_name": "Grazing Grasslands"
+            },
+            "1013": {
+                "Cost": {
+                    "Food": 100,
+                    "Wood": 150
+                },
+                "ID": 1013,
+                "LanguageHelpId": 28485,
+                "LanguageNameId": 7485,
+                "Repeatable": true,
+                "ResearchTime": 40,
+                "internal_name": "Enclosures"
+            },
+            "1014": {
+                "Cost": {
+                    "Food": 50,
+                    "Wood": 100
+                },
+                "ID": 1014,
+                "LanguageHelpId": 28484,
+                "LanguageNameId": 7484,
+                "Repeatable": true,
+                "ResearchTime": 20,
+                "internal_name": "Livestock Husbandry"
+            },
+            "1061": {
+                "Cost": {
+                    "Food": 250,
+                    "Gold": 300
+                },
+                "ID": 1061,
+                "LanguageHelpId": 28473,
+                "LanguageNameId": 7473,
+                "Repeatable": true,
+                "ResearchTime": 40,
+                "internal_name": "Tuntian"
+            },
+            "1062": {
+                "Cost": {
+                    "Food": 600,
+                    "Gold": 450
+                },
+                "ID": 1062,
+                "LanguageHelpId": 28474,
+                "LanguageNameId": 7474,
+                "Repeatable": true,
+                "ResearchTime": 65,
+                "internal_name": "Ming-Kuang Armor"
+            },
+            "1069": {
+                "Cost": {
+                    "Food": 650,
+                    "Gold": 750
+                },
+                "ID": 1069,
+                "LanguageHelpId": 28476,
+                "LanguageNameId": 7476,
+                "Repeatable": true,
+                "ResearchTime": 40,
+                "internal_name": "Bolt Magazine"
+            },
+            "1070": {
+                "Cost": {
+                    "Food": 350,
+                    "Gold": 300
+                },
+                "ID": 1070,
+                "LanguageHelpId": 28477,
+                "LanguageNameId": 7477,
+                "Repeatable": false,
+                "ResearchTime": 40,
+                "internal_name": "Coiled Serpent Array"
+            },
+            "1080": {
+                "Cost": {
+                    "Food": 400,
+                    "Gold": 250
+                },
+                "ID": 1080,
+                "LanguageHelpId": 28480,
+                "LanguageNameId": 7480,
+                "Repeatable": false,
+                "ResearchTime": 40,
+                "internal_name": "Red Cliffs Tactics"
+            },
+            "1081": {
+                "Cost": {
+                    "Gold": 300,
+                    "Wood": 600
+                },
+                "ID": 1081,
+                "LanguageHelpId": 28481,
+                "LanguageNameId": 7481,
+                "Repeatable": true,
+                "ResearchTime": 40,
+                "internal_name": "Ming-Kuang Armor"
             }
         },
         "unit_upgrades": {
@@ -4139,12 +4336,6 @@ export const aoeDataInternal = {
                 "ResearchTime": 50,
                 "internal_name": "Halberdier"
             },
-            "420": {
-                "Cost": {},
-                "ID": 37,
-                "ResearchTime": 0,
-                "internal_name": "Cannon Galleon"
-            },
             "422": {
                 "Cost": {
                     "Food": 300
@@ -4173,11 +4364,11 @@ export const aoeDataInternal = {
             },
             "473": {
                 "Cost": {
-                    "Food": 300,
+                    "Food": 200,
                     "Gold": 100
                 },
                 "ID": 217,
-                "ResearchTime": 60,
+                "ResearchTime": 45,
                 "internal_name": "Two-Handed Swordsman"
             },
             "474": {
@@ -4361,8 +4552,8 @@ export const aoeDataInternal = {
             },
             "559": {
                 "Cost": {
-                    "Food": 950,
-                    "Gold": 950
+                    "Food": 1300,
+                    "Gold": 1300
                 },
                 "ID": 362,
                 "ResearchTime": 50,
@@ -4388,11 +4579,11 @@ export const aoeDataInternal = {
             },
             "567": {
                 "Cost": {
-                    "Food": 750,
+                    "Food": 650,
                     "Gold": 350
                 },
                 "ID": 264,
-                "ResearchTime": 85,
+                "ResearchTime": 70,
                 "internal_name": "Champion"
             },
             "569": {
@@ -4725,9 +4916,18 @@ export const aoeDataInternal = {
                 "ResearchTime": 70,
                 "internal_name": "Elite Konnik"
             },
+            "1302": {
+                "Cost": {
+                    "Gold": 300,
+                    "Wood": 350
+                },
+                "ID": 1010,
+                "ResearchTime": 60,
+                "internal_name": "Dragon Ship"
+            },
             "1372": {
                 "Cost": {
-                    "Food": 900,
+                    "Food": 600,
                     "Gold": 550
                 },
                 "ID": 715,
@@ -4912,6 +5112,84 @@ export const aoeDataInternal = {
                 "ID": 526,
                 "ResearchTime": 160,
                 "internal_name": "Savar"
+            },
+            "1903": {
+                "Cost": {
+                    "Food": 650,
+                    "Gold": 400
+                },
+                "ID": 982,
+                "ResearchTime": 50,
+                "internal_name": "Elite Fire Lancer"
+            },
+            "1907": {
+                "Cost": {
+                    "Gold": 750,
+                    "Wood": 800
+                },
+                "ID": 980,
+                "ResearchTime": 75,
+                "internal_name": "Heavy Rocket Cart"
+            },
+            "1910": {
+                "Cost": {
+                    "Food": 950,
+                    "Gold": 750
+                },
+                "ID": 991,
+                "ResearchTime": 45,
+                "internal_name": "Elite Iron Pagoda"
+            },
+            "1922": {
+                "Cost": {
+                    "Food": 800,
+                    "Gold": 650
+                },
+                "ID": 1002,
+                "ResearchTime": 45,
+                "internal_name": "Elite Liao Dao"
+            },
+            "1946": {
+                "Cost": {
+                    "Food": 350,
+                    "Gold": 250
+                },
+                "ID": 1033,
+                "ResearchTime": 70,
+                "internal_name": "Heavy Hei-Kuang Cavalry"
+            },
+            "1951": {
+                "Cost": {
+                    "Food": 1000,
+                    "Gold": 800
+                },
+                "ID": 1036,
+                "ResearchTime": 50,
+                "internal_name": "Elite Tiger Cavalry"
+            },
+            "1961": {
+                "Cost": {
+                    "Food": 900,
+                    "Gold": 500
+                },
+                "ID": 1064,
+                "ResearchTime": 45,
+                "internal_name": "Elite White Feather Guard"
+            },
+            "1970": {
+                "Cost": {
+                    "Food": 800,
+                    "Gold": 800
+                },
+                "ID": 1074,
+                "ResearchTime": 45,
+                "internal_name": "Elite Fire Archer"
+            },
+            "1974": {
+                "Cost": {},
+                "ID": 1156,
+                "ResearchTime": 0,
+                "internal_name": ""
             }
         },
         "units": {
@@ -5470,7 +5748,7 @@ export const aoeDataInternal = {
                 "Range": 0,
                 "RechargeRate": 0,
                 "ReloadTime": 0,
-                "Speed": 1.32,
+                "Speed": 1.65,
                 "TrainTime": 36,
                 "Trait": 2,
                 "TraitPiece": 0,
@@ -5662,6 +5940,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -5672,7 +5954,7 @@ export const aoeDataInternal = {
                 },
                 "FrameDelay": 0,
                 "GarrisonCapacity": 0,
-                "HP": 80,
+                "HP": 90,
                 "ID": 25,
                 "LanguageHelpId": 26112,
                 "LanguageNameId": 5112,
@@ -5793,7 +6075,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 10,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.6716666666666667,
                 "Attacks": [
                     {
                         "Amount": 10,
@@ -5818,6 +6100,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -5826,7 +6112,7 @@ export const aoeDataInternal = {
                     "Food": 60,
                     "Gold": 75
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 13,
                 "GarrisonCapacity": 0,
                 "HP": 100,
                 "ID": 38,
@@ -5927,7 +6213,7 @@ export const aoeDataInternal = {
                 "RechargeRate": 0,
                 "ReloadTime": 2,
                 "Speed": 1.4,
-                "TrainTime": 34,
+                "TrainTime": 37,
                 "Trait": 0,
                 "TraitPiece": 0,
                 "internal_name": "CVRCH"
@@ -5990,6 +6276,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -6068,13 +6358,17 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 80,
-                    "Gold": 40
+                    "Food": 75,
+                    "Gold": 35
                 },
                 "FrameDelay": 0,
                 "GarrisonCapacity": 0,
@@ -6091,7 +6385,7 @@ export const aoeDataInternal = {
                 "RechargeRate": 0,
                 "ReloadTime": 2,
                 "Speed": 1.05,
-                "TrainTime": 16,
+                "TrainTime": 13,
                 "Trait": 0,
                 "TraitPiece": 0,
                 "internal_name": "GBRSK"
@@ -6348,12 +6642,16 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 60,
+                    "Food": 50,
                     "Gold": 20
                 },
                 "FrameDelay": 0,
@@ -6418,12 +6716,16 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 60,
+                    "Food": 50,
                     "Gold": 20
                 },
                 "FrameDelay": 0,
@@ -6440,7 +6742,7 @@ export const aoeDataInternal = {
                 "Range": 0,
                 "RechargeRate": 0,
                 "ReloadTime": 2,
-                "Speed": 0.9,
+                "Speed": 0.96,
                 "TrainTime": 21,
                 "Trait": 0,
                 "TraitPiece": 0,
@@ -6488,12 +6790,16 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 60,
+                    "Food": 50,
                     "Gold": 20
                 },
                 "FrameDelay": 0,
@@ -6510,7 +6816,7 @@ export const aoeDataInternal = {
                 "Range": 0,
                 "RechargeRate": 0,
                 "ReloadTime": 2,
-                "Speed": 0.9,
+                "Speed": 0.96,
                 "TrainTime": 21,
                 "Trait": 0,
                 "TraitPiece": 0,
@@ -6647,6 +6953,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 9,
                         "Class": 34
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -6717,7 +7027,7 @@ export const aoeDataInternal = {
                 "PierceArmor": 0,
                 "Range": 9,
                 "RechargeRate": 0,
-                "ReloadTime": 1,
+                "ReloadTime": 1.6,
                 "Speed": 0.7,
                 "TrainTime": 51,
                 "Trait": 0,
@@ -6763,7 +7073,7 @@ export const aoeDataInternal = {
                 "Range": 0,
                 "RechargeRate": 0,
                 "ReloadTime": 0,
-                "Speed": 1,
+                "Speed": 1.25,
                 "TrainTime": 51,
                 "Trait": 0,
                 "TraitPiece": 0,
@@ -6872,7 +7182,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 8,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.5,
                 "Attacks": [
                     {
                         "Amount": 8,
@@ -6913,6 +7223,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -6921,7 +7235,7 @@ export const aoeDataInternal = {
                     "Food": 55,
                     "Gold": 60
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 20,
                 "GarrisonCapacity": 1,
                 "HP": 140,
                 "ID": 207,
@@ -6987,12 +7301,16 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 65,
+                    "Food": 70,
                     "Gold": 25
                 },
                 "FrameDelay": 0,
@@ -7009,7 +7327,7 @@ export const aoeDataInternal = {
                 "Range": 0,
                 "RechargeRate": 0,
                 "ReloadTime": 2,
-                "Speed": 1.2,
+                "Speed": 1.17,
                 "TrainTime": 10,
                 "Trait": 0,
                 "TraitPiece": 0,
@@ -7073,6 +7391,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -7195,15 +7517,15 @@ export const aoeDataInternal = {
                         "Class": 31
                     }
                 ],
-                "Attack": 12,
-                "AttackDelaySeconds": 0.21,
+                "Attack": 11,
+                "AttackDelaySeconds": 0.16000000000000003,
                 "Attacks": [
                     {
-                        "Amount": 2,
+                        "Amount": 3,
                         "Class": 11
                     },
                     {
-                        "Amount": 6,
+                        "Amount": 7,
                         "Class": 5
                     },
                     {
@@ -7211,12 +7533,16 @@ export const aoeDataInternal = {
                         "Class": 4
                     },
                     {
-                        "Amount": 12,
+                        "Amount": 11,
                         "Class": 3
                     },
                     {
                         "Amount": 1,
                         "Class": 17
+                    },
+                    {
+                        "Amount": 1,
+                        "Class": 1
                     }
                 ],
                 "ChargeEvent": 0,
@@ -7225,7 +7551,7 @@ export const aoeDataInternal = {
                     "Gold": 75,
                     "Wood": 75
                 },
-                "FrameDelay": 42,
+                "FrameDelay": 12,
                 "GarrisonCapacity": 0,
                 "HP": 40,
                 "ID": 279,
@@ -7283,6 +7609,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 40,
                         "Class": 37
+                    },
+                    {
+                        "Amount": -1,
+                        "Class": 25
                     }
                 ],
                 "ChargeEvent": 0,
@@ -7447,6 +7777,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -7496,7 +7830,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 12,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.6716666666666667,
                 "Attacks": [
                     {
                         "Amount": 12,
@@ -7521,6 +7855,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -7529,7 +7867,7 @@ export const aoeDataInternal = {
                     "Food": 60,
                     "Gold": 75
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 26,
                 "GarrisonCapacity": 0,
                 "HP": 120,
                 "ID": 283,
@@ -7599,12 +7937,16 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
-                "ChargeType": 0,
+                "ChargeType": 1,
                 "Cost": {
-                    "Food": 50,
+                    "Food": 45,
                     "Gold": 30
                 },
                 "FrameDelay": 0,
@@ -7614,12 +7956,13 @@ export const aoeDataInternal = {
                 "LanguageHelpId": 26110,
                 "LanguageNameId": 5110,
                 "LineOfSight": 4,
-                "MaxCharge": 0,
+                "MaxCharge": 1,
                 "MeleeArmor": 1,
                 "MinRange": 0,
                 "PierceArmor": 1,
                 "Range": 0,
-                "RechargeRate": 0,
+                "RechargeDuration": 30.000030000029998,
+                "RechargeRate": 0.0333333,
                 "ReloadTime": 1.9,
                 "Speed": 1,
                 "TrainTime": 9,
@@ -7652,7 +7995,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 6,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.5,
                 "Attacks": [
                     {
                         "Amount": 6,
@@ -7689,6 +8032,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -7697,7 +8044,7 @@ export const aoeDataInternal = {
                     "Food": 55,
                     "Gold": 60
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 20,
                 "GarrisonCapacity": 1,
                 "HP": 100,
                 "ID": 329,
@@ -7742,7 +8089,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 7,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.5,
                 "Attacks": [
                     {
                         "Amount": 7,
@@ -7783,6 +8130,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -7791,7 +8142,7 @@ export const aoeDataInternal = {
                     "Food": 55,
                     "Gold": 60
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 20,
                 "GarrisonCapacity": 1,
                 "HP": 120,
                 "ID": 330,
@@ -7931,6 +8282,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 16,
                         "Class": 34
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -8021,6 +8376,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 17,
                         "Class": 34
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -8268,7 +8627,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 7,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.5,
                 "Attacks": [
                     {
                         "Amount": 12,
@@ -8297,6 +8656,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -8304,7 +8667,7 @@ export const aoeDataInternal = {
                 "Cost": {
                     "Food": 80
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 10,
                 "GarrisonCapacity": 0,
                 "HP": 75,
                 "ID": 441,
@@ -8415,7 +8778,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 3,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.6,
                 "Attacks": [
                     {
                         "Amount": 6,
@@ -8444,6 +8807,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -8451,7 +8818,7 @@ export const aoeDataInternal = {
                 "Cost": {
                     "Food": 80
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 12,
                 "GarrisonCapacity": 0,
                 "HP": 45,
                 "ID": 448,
@@ -8513,17 +8880,21 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 60,
+                    "Food": 50,
                     "Gold": 20
                 },
                 "FrameDelay": 0,
                 "GarrisonCapacity": 0,
-                "HP": 60,
+                "HP": 65,
                 "ID": 473,
                 "LanguageHelpId": 26411,
                 "LanguageNameId": 5411,
@@ -8535,7 +8906,7 @@ export const aoeDataInternal = {
                 "Range": 0,
                 "RechargeRate": 0,
                 "ReloadTime": 2,
-                "Speed": 0.9,
+                "Speed": 0.96,
                 "TrainTime": 21,
                 "Trait": 0,
                 "TraitPiece": 0,
@@ -8622,7 +8993,7 @@ export const aoeDataInternal = {
                 "RechargeRate": 0,
                 "ReloadTime": 2,
                 "Speed": 1.4,
-                "TrainTime": 27,
+                "TrainTime": 30,
                 "Trait": 0,
                 "TraitPiece": 0,
                 "internal_name": "HCVAR"
@@ -9207,7 +9578,7 @@ export const aoeDataInternal = {
                         "Class": 31
                     }
                 ],
-                "Attack": 14,
+                "Attack": 15,
                 "AttackDelaySeconds": 0,
                 "Attacks": [
                     {
@@ -9219,7 +9590,7 @@ export const aoeDataInternal = {
                         "Class": 21
                     },
                     {
-                        "Amount": 14,
+                        "Amount": 15,
                         "Class": 4
                     },
                     {
@@ -9229,12 +9600,16 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 65,
+                    "Food": 70,
                     "Gold": 25
                 },
                 "FrameDelay": 0,
@@ -9251,7 +9626,7 @@ export const aoeDataInternal = {
                 "Range": 0,
                 "RechargeRate": 0,
                 "ReloadTime": 2,
-                "Speed": 1.2,
+                "Speed": 1.17,
                 "TrainTime": 10,
                 "Trait": 0,
                 "TraitPiece": 0,
@@ -9347,15 +9722,15 @@ export const aoeDataInternal = {
                         "Class": 31
                     }
                 ],
-                "Attack": 16,
-                "AttackDelaySeconds": 0.20800000000000002,
+                "Attack": 14,
+                "AttackDelaySeconds": 0.16000000000000003,
                 "Attacks": [
                     {
-                        "Amount": 4,
+                        "Amount": 6,
                         "Class": 11
                     },
                     {
-                        "Amount": 8,
+                        "Amount": 10,
                         "Class": 5
                     },
                     {
@@ -9363,12 +9738,16 @@ export const aoeDataInternal = {
                         "Class": 4
                     },
                     {
-                        "Amount": 16,
+                        "Amount": 14,
                         "Class": 3
                     },
                     {
                         "Amount": 2,
                         "Class": 17
+                    },
+                    {
+                        "Amount": 2,
+                        "Class": 1
                     }
                 ],
                 "ChargeEvent": 0,
@@ -9377,7 +9756,7 @@ export const aoeDataInternal = {
                     "Gold": 75,
                     "Wood": 75
                 },
-                "FrameDelay": 26,
+                "FrameDelay": 6,
                 "GarrisonCapacity": 0,
                 "HP": 60,
                 "ID": 542,
@@ -9426,7 +9805,7 @@ export const aoeDataInternal = {
                     "Wood": 125
                 },
                 "FrameDelay": 0,
-                "GarrisonCapacity": 5,
+                "GarrisonCapacity": 20,
                 "HP": 100,
                 "ID": 545,
                 "LanguageHelpId": 26443,
@@ -9466,7 +9845,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 7,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.5,
                 "Attacks": [
                     {
                         "Amount": 10,
@@ -9495,6 +9874,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -9502,7 +9885,7 @@ export const aoeDataInternal = {
                 "Cost": {
                     "Food": 80
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 10,
                 "GarrisonCapacity": 0,
                 "HP": 60,
                 "ID": 546,
@@ -9712,6 +10095,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -9786,6 +10173,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -9796,7 +10187,7 @@ export const aoeDataInternal = {
                 },
                 "FrameDelay": 0,
                 "GarrisonCapacity": 0,
-                "HP": 100,
+                "HP": 110,
                 "ID": 554,
                 "LanguageHelpId": 26462,
                 "LanguageNameId": 5462,
@@ -9869,8 +10260,8 @@ export const aoeDataInternal = {
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 80,
-                    "Gold": 40
+                    "Food": 75,
+                    "Gold": 35
                 },
                 "FrameDelay": 0,
                 "GarrisonCapacity": 0,
@@ -9887,7 +10278,7 @@ export const aoeDataInternal = {
                 "RechargeRate": 0,
                 "ReloadTime": 2,
                 "Speed": 1.05,
-                "TrainTime": 16,
+                "TrainTime": 13,
                 "Trait": 0,
                 "TraitPiece": 0,
                 "internal_name": "UGBRS"
@@ -9954,6 +10345,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -10110,6 +10505,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -10162,7 +10561,7 @@ export const aoeDataInternal = {
                         "Class": 31
                     }
                 ],
-                "Attack": 8,
+                "Attack": 10,
                 "AttackDelaySeconds": 0.22166666666666665,
                 "Attacks": [
                     {
@@ -10182,7 +10581,7 @@ export const aoeDataInternal = {
                         "Class": 8
                     },
                     {
-                        "Amount": 8,
+                        "Amount": 10,
                         "Class": 3
                     },
                     {
@@ -10266,12 +10665,16 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
-                "ChargeType": 0,
+                "ChargeType": 1,
                 "Cost": {
-                    "Food": 50,
+                    "Food": 45,
                     "Gold": 30
                 },
                 "FrameDelay": 0,
@@ -10281,12 +10684,13 @@ export const aoeDataInternal = {
                 "LanguageHelpId": 26460,
                 "LanguageNameId": 5460,
                 "LineOfSight": 5,
-                "MaxCharge": 0,
+                "MaxCharge": 1,
                 "MeleeArmor": 1,
                 "MinRange": 0,
                 "PierceArmor": 1,
                 "Range": 0,
-                "RechargeRate": 0,
+                "RechargeDuration": 30.000030000029998,
+                "RechargeRate": 0.0333333,
                 "ReloadTime": 1.9,
                 "Speed": 1,
                 "TrainTime": 9,
@@ -10408,7 +10812,7 @@ export const aoeDataInternal = {
                         "Class": 31
                     }
                 ],
-                "Attack": 13,
+                "Attack": 14,
                 "AttackDelaySeconds": 0,
                 "Attacks": [
                     {
@@ -10420,7 +10824,7 @@ export const aoeDataInternal = {
                         "Class": 21
                     },
                     {
-                        "Amount": 13,
+                        "Amount": 14,
                         "Class": 4
                     },
                     {
@@ -10430,12 +10834,16 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 60,
+                    "Food": 50,
                     "Gold": 20
                 },
                 "FrameDelay": 0,
@@ -10452,7 +10860,7 @@ export const aoeDataInternal = {
                 "Range": 0,
                 "RechargeRate": 0,
                 "ReloadTime": 2,
-                "Speed": 0.9,
+                "Speed": 0.96,
                 "TrainTime": 21,
                 "Trait": 0,
                 "TraitPiece": 0,
@@ -10479,7 +10887,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 14,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.6716666666666667,
                 "Attacks": [
                     {
                         "Amount": 14,
@@ -10504,6 +10912,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -10512,7 +10924,7 @@ export const aoeDataInternal = {
                     "Food": 60,
                     "Gold": 75
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 13,
                 "GarrisonCapacity": 0,
                 "HP": 160,
                 "ID": 569,
@@ -10710,13 +11122,17 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
                     "Food": 65,
-                    "Gold": 25
+                    "Gold": 20
                 },
                 "FrameDelay": 0,
                 "GarrisonCapacity": 0,
@@ -10784,13 +11200,17 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
                     "Food": 65,
-                    "Gold": 25
+                    "Gold": 20
                 },
                 "FrameDelay": 0,
                 "GarrisonCapacity": 0,
@@ -10836,7 +11256,7 @@ export const aoeDataInternal = {
                         "Class": 31
                     }
                 ],
-                "Attack": 10,
+                "Attack": 15,
                 "AttackDelaySeconds": 0,
                 "Attacks": [
                     {
@@ -10848,11 +11268,11 @@ export const aoeDataInternal = {
                         "Class": 21
                     },
                     {
-                        "Amount": 10,
+                        "Amount": 5,
                         "Class": 1
                     },
                     {
-                        "Amount": 10,
+                        "Amount": 15,
                         "Class": 4
                     },
                     {
@@ -10860,12 +11280,16 @@ export const aoeDataInternal = {
                         "Class": 8
                     },
                     {
-                        "Amount": 10,
+                        "Amount": 5,
                         "Class": 32
                     },
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -10918,7 +11342,7 @@ export const aoeDataInternal = {
                         "Class": 31
                     }
                 ],
-                "Attack": 12,
+                "Attack": 19,
                 "AttackDelaySeconds": 0,
                 "Attacks": [
                     {
@@ -10930,11 +11354,11 @@ export const aoeDataInternal = {
                         "Class": 21
                     },
                     {
-                        "Amount": 11,
+                        "Amount": 6,
                         "Class": 1
                     },
                     {
-                        "Amount": 12,
+                        "Amount": 19,
                         "Class": 4
                     },
                     {
@@ -10942,12 +11366,16 @@ export const aoeDataInternal = {
                         "Class": 8
                     },
                     {
-                        "Amount": 10,
+                        "Amount": 6,
                         "Class": 32
                     },
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -11034,6 +11462,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 34
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -11057,7 +11489,7 @@ export const aoeDataInternal = {
                 "RechargeRate": 0,
                 "ReloadTime": 2,
                 "Speed": 1.1,
-                "TrainTime": 60,
+                "TrainTime": 50,
                 "Trait": 16,
                 "TraitPiece": 0,
                 "internal_name": "EAGLE"
@@ -11120,6 +11552,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 2,
                         "Class": 34
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -11206,6 +11642,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 1,
                         "Class": 34
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -11296,6 +11736,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -11317,7 +11761,7 @@ export const aoeDataInternal = {
                 "PierceArmor": 3,
                 "Range": 0,
                 "RechargeRate": 0,
-                "ReloadTime": 2.1,
+                "ReloadTime": 1.9,
                 "Speed": 1.4,
                 "TrainTime": 14,
                 "Trait": 0,
@@ -11386,6 +11830,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -11407,7 +11855,7 @@ export const aoeDataInternal = {
                 "PierceArmor": 4,
                 "Range": 0,
                 "RechargeRate": 0,
-                "ReloadTime": 2.1,
+                "ReloadTime": 1.9,
                 "Speed": 1.4,
                 "TrainTime": 14,
                 "Trait": 0,
@@ -11783,7 +12231,7 @@ export const aoeDataInternal = {
                 "PierceArmor": 0,
                 "Range": 7,
                 "RechargeRate": 0,
-                "ReloadTime": 1,
+                "ReloadTime": 1.6,
                 "Speed": 1.1,
                 "TrainTime": 51,
                 "Trait": 0,
@@ -11826,7 +12274,7 @@ export const aoeDataInternal = {
                 "AttackDelaySeconds": 0.9955555555555555,
                 "Attacks": [
                     {
-                        "Amount": 5,
+                        "Amount": 2,
                         "Class": 21
                     },
                     {
@@ -11912,7 +12360,7 @@ export const aoeDataInternal = {
                 "AttackDelaySeconds": 0.9955555555555555,
                 "Attacks": [
                     {
-                        "Amount": 5,
+                        "Amount": 2,
                         "Class": 21
                     },
                     {
@@ -11978,7 +12426,7 @@ export const aoeDataInternal = {
                         "Class": 4
                     },
                     {
-                        "Amount": 5,
+                        "Amount": 7,
                         "Class": 3
                     },
                     {
@@ -11994,34 +12442,63 @@ export const aoeDataInternal = {
                         "Class": 31
                     }
                 ],
-                "Attack": 50,
-                "AttackDelaySeconds": 0,
+                "Attack": 6,
+                "AttackDelaySeconds": 0.15,
                 "Attacks": [
                     {
-                        "Amount": 50,
-                        "Class": 4
+                        "Amount": 7,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 6,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 2,
+                        "Class": 20
+                    },
+                    {
+                        "Amount": 2,
+                        "Class": 37
+                    },
+                    {
+                        "Amount": 7,
+                        "Class": 26
+                    },
+                    {
+                        "Amount": 6,
+                        "Class": 22
+                    },
+                    {
+                        "Amount": 5,
+                        "Class": 16
+                    },
+                    {
+                        "Amount": 5,
+                        "Class": 34
                     }
                 ],
                 "ChargeEvent": 0,
-                "ChargeType": 0,
+                "ChargeType": 7,
                 "Cost": {
                     "Gold": 180,
                     "Wood": 190
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 1,
                 "GarrisonCapacity": 0,
                 "HP": 200,
                 "ID": 831,
                 "LanguageHelpId": 26731,
                 "LanguageNameId": 5731,
                 "LineOfSight": 8,
-                "MaxCharge": 0,
+                "MaxCharge": 1,
                 "MeleeArmor": 6,
                 "MinRange": 0,
-                "PierceArmor": 5,
+                "PierceArmor": 7,
                 "Range": 6,
-                "RechargeRate": 0,
-                "ReloadTime": 6,
+                "RechargeDuration": 6.000024000096,
+                "RechargeRate": 0.166666,
+                "ReloadTime": 2,
                 "Speed": 1.05,
                 "TrainTime": 50,
                 "Trait": 2,
@@ -12032,11 +12509,11 @@ export const aoeDataInternal = {
                 "AccuracyPercent": 100,
                 "Armours": [
                     {
-                        "Amount": 11,
+                        "Amount": 10,
                         "Class": 16
                     },
                     {
-                        "Amount": 1,
+                        "Amount": 0,
                         "Class": 2
                     },
                     {
@@ -12044,7 +12521,7 @@ export const aoeDataInternal = {
                         "Class": 4
                     },
                     {
-                        "Amount": 6,
+                        "Amount": 8,
                         "Class": 3
                     },
                     {
@@ -12060,34 +12537,63 @@ export const aoeDataInternal = {
                         "Class": 31
                     }
                 ],
-                "Attack": 50,
-                "AttackDelaySeconds": 0,
+                "Attack": 8,
+                "AttackDelaySeconds": 0.15,
                 "Attacks": [
                     {
-                        "Amount": 50,
-                        "Class": 4
+                        "Amount": 7,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 8,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 3,
+                        "Class": 20
+                    },
+                    {
+                        "Amount": 3,
+                        "Class": 37
+                    },
+                    {
+                        "Amount": 7,
+                        "Class": 26
+                    },
+                    {
+                        "Amount": 6,
+                        "Class": 22
+                    },
+                    {
+                        "Amount": 6,
+                        "Class": 16
+                    },
+                    {
+                        "Amount": 6,
+                        "Class": 34
                     }
                 ],
                 "ChargeEvent": 0,
-                "ChargeType": 0,
+                "ChargeType": 7,
                 "Cost": {
                     "Gold": 180,
                     "Wood": 190
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 1,
                 "GarrisonCapacity": 0,
                 "HP": 300,
                 "ID": 832,
                 "LanguageHelpId": 26732,
                 "LanguageNameId": 5732,
                 "LineOfSight": 9,
-                "MaxCharge": 0,
+                "MaxCharge": 1,
                 "MeleeArmor": 8,
                 "MinRange": 0,
-                "PierceArmor": 6,
+                "PierceArmor": 8,
                 "Range": 7,
-                "RechargeRate": 0,
-                "ReloadTime": 6,
+                "RechargeDuration": 6.000024000096,
+                "RechargeRate": 0.166666,
+                "ReloadTime": 2,
                 "Speed": 1.05,
                 "TrainTime": 50,
                 "Trait": 2,
@@ -12312,6 +12818,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -12394,6 +12904,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -12485,8 +12999,8 @@ export const aoeDataInternal = {
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 80,
-                    "Gold": 70
+                    "Food": 60,
+                    "Gold": 80
                 },
                 "FrameDelay": 12,
                 "GarrisonCapacity": 0,
@@ -12571,8 +13085,8 @@ export const aoeDataInternal = {
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 80,
-                    "Gold": 70
+                    "Food": 60,
+                    "Gold": 80
                 },
                 "FrameDelay": 24,
                 "GarrisonCapacity": 0,
@@ -12644,6 +13158,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -12722,6 +13240,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -12775,7 +13297,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 7,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.4,
                 "Attacks": [
                     {
                         "Amount": 7,
@@ -12796,6 +13318,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 20,
                         "Class": 5
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -12804,7 +13330,7 @@ export const aoeDataInternal = {
                     "Food": 60,
                     "Gold": 30
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 24,
                 "GarrisonCapacity": 0,
                 "HP": 70,
                 "ID": 879,
@@ -12849,7 +13375,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 8,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.4,
                 "Attacks": [
                     {
                         "Amount": 8,
@@ -12874,6 +13400,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 1,
                         "Class": 35
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -12882,7 +13412,7 @@ export const aoeDataInternal = {
                     "Food": 60,
                     "Gold": 30
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 24,
                 "GarrisonCapacity": 0,
                 "HP": 80,
                 "ID": 881,
@@ -12952,6 +13482,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 8
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -13040,7 +13574,7 @@ export const aoeDataInternal = {
                 },
                 "FrameDelay": 12,
                 "GarrisonCapacity": 0,
-                "HP": 60,
+                "HP": 50,
                 "ID": 1001,
                 "LanguageHelpId": 26129,
                 "LanguageNameId": 5129,
@@ -13898,6 +14432,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -13976,6 +14514,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -14225,7 +14767,7 @@ export const aoeDataInternal = {
                         "Class": 37
                     }
                 ],
-                "Attack": 10,
+                "Attack": 9,
                 "AttackDelaySeconds": 0.394,
                 "Attacks": [
                     {
@@ -14233,7 +14775,7 @@ export const aoeDataInternal = {
                         "Class": 21
                     },
                     {
-                        "Amount": 10,
+                        "Amount": 9,
                         "Class": 3
                     },
                     {
@@ -14331,7 +14873,7 @@ export const aoeDataInternal = {
                         "Class": 37
                     }
                 ],
-                "Attack": 11,
+                "Attack": 10,
                 "AttackDelaySeconds": 0.394,
                 "Attacks": [
                     {
@@ -14339,7 +14881,7 @@ export const aoeDataInternal = {
                         "Class": 21
                     },
                     {
-                        "Amount": 11,
+                        "Amount": 10,
                         "Class": 3
                     },
                     {
@@ -14447,6 +14989,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -14521,6 +15067,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -14902,7 +15452,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 12,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.5,
                 "Attacks": [
                     {
                         "Amount": 4,
@@ -14931,6 +15481,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -14939,7 +15493,7 @@ export const aoeDataInternal = {
                     "Food": 100,
                     "Gold": 70
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 20,
                 "GarrisonCapacity": 0,
                 "HP": 250,
                 "ID": 1132,
@@ -14984,7 +15538,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 14,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.5,
                 "Attacks": [
                     {
                         "Amount": 7,
@@ -15013,6 +15567,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -15021,7 +15579,7 @@ export const aoeDataInternal = {
                     "Food": 100,
                     "Gold": 70
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 10,
                 "GarrisonCapacity": 0,
                 "HP": 300,
                 "ID": 1134,
@@ -15131,7 +15689,7 @@ export const aoeDataInternal = {
                         "Class": 8
                     },
                     {
-                        "Amount": 1,
+                        "Amount": 2,
                         "Class": 3
                     },
                     {
@@ -15144,7 +15702,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 12,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.78,
                 "Attacks": [
                     {
                         "Amount": 12,
@@ -15169,6 +15727,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -15177,7 +15739,7 @@ export const aoeDataInternal = {
                     "Food": 60,
                     "Gold": 70
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 13,
                 "GarrisonCapacity": 0,
                 "HP": 100,
                 "ID": 1225,
@@ -15187,7 +15749,7 @@ export const aoeDataInternal = {
                 "MaxCharge": 0,
                 "MeleeArmor": 2,
                 "MinRange": 0,
-                "PierceArmor": 1,
+                "PierceArmor": 2,
                 "Range": 0,
                 "RechargeRate": 0,
                 "ReloadTime": 2.4,
@@ -15222,7 +15784,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 14,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.78,
                 "Attacks": [
                     {
                         "Amount": 14,
@@ -15247,6 +15809,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -15255,7 +15821,7 @@ export const aoeDataInternal = {
                     "Food": 60,
                     "Gold": 70
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 13,
                 "GarrisonCapacity": 0,
                 "HP": 120,
                 "ID": 1227,
@@ -15325,6 +15891,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -15403,6 +15973,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -15653,6 +16227,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -15731,6 +16309,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -15771,7 +16353,7 @@ export const aoeDataInternal = {
                         "Class": 4
                     },
                     {
-                        "Amount": 1,
+                        "Amount": 2,
                         "Class": 3
                     },
                     {
@@ -15784,7 +16366,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 12,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.76,
                 "Attacks": [
                     {
                         "Amount": 0,
@@ -15805,6 +16387,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -15813,7 +16399,7 @@ export const aoeDataInternal = {
                     "Food": 0,
                     "Gold": 0
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 19,
                 "GarrisonCapacity": 0,
                 "HP": 45,
                 "ID": 1252,
@@ -15823,7 +16409,7 @@ export const aoeDataInternal = {
                 "MaxCharge": 0,
                 "MeleeArmor": 2,
                 "MinRange": 0,
-                "PierceArmor": 1,
+                "PierceArmor": 2,
                 "Range": 0,
                 "RechargeRate": 0,
                 "ReloadTime": 2.4,
@@ -15858,7 +16444,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 13,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.76,
                 "Attacks": [
                     {
                         "Amount": 0,
@@ -15879,6 +16465,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -15887,7 +16477,7 @@ export const aoeDataInternal = {
                     "Food": 0,
                     "Gold": 0
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 19,
                 "GarrisonCapacity": 0,
                 "HP": 50,
                 "ID": 1253,
@@ -15919,7 +16509,7 @@ export const aoeDataInternal = {
                         "Class": 8
                     },
                     {
-                        "Amount": 1,
+                        "Amount": 2,
                         "Class": 3
                     },
                     {
@@ -15932,7 +16522,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 12,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.78,
                 "Attacks": [
                     {
                         "Amount": 12,
@@ -15957,6 +16547,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -15965,7 +16559,7 @@ export const aoeDataInternal = {
                     "Food": 60,
                     "Gold": 70
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 13,
                 "GarrisonCapacity": 0,
                 "HP": 100,
                 "ID": 1254,
@@ -15975,7 +16569,7 @@ export const aoeDataInternal = {
                 "MaxCharge": 0,
                 "MeleeArmor": 2,
                 "MinRange": 0,
-                "PierceArmor": 1,
+                "PierceArmor": 2,
                 "Range": 0,
                 "RechargeRate": 0,
                 "ReloadTime": 2.4,
@@ -16010,7 +16604,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 14,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.78,
                 "Attacks": [
                     {
                         "Amount": 14,
@@ -16035,6 +16629,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -16043,7 +16641,7 @@ export const aoeDataInternal = {
                     "Food": 60,
                     "Gold": 70
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 13,
                 "GarrisonCapacity": 0,
                 "HP": 120,
                 "ID": 1255,
@@ -16215,6 +16813,80 @@ export const aoeDataInternal = {
                 "TraitPiece": 0,
                 "internal_name": "FCAMEL"
             },
+            "1302": {
+                "AccuracyPercent": 0,
+                "Armours": [
+                    {
+                        "Amount": 9,
+                        "Class": 16
+                    },
+                    {
+                        "Amount": 2,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 8,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 4,
+                "AttackDelaySeconds": 0,
+                "Attacks": [
+                    {
+                        "Amount": 4,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 16
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 2
+                    },
+                    {
+                        "Amount": 1,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 34
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Gold": 45,
+                    "Wood": 75
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 150,
+                "ID": 1302,
+                "LanguageHelpId": 26739,
+                "LanguageNameId": 5739,
+                "LineOfSight": 6,
+                "MaxCharge": 0,
+                "MeleeArmor": 2,
+                "MinRange": 0,
+                "PierceArmor": 8,
+                "Range": 3,
+                "RechargeRate": 0,
+                "ReloadTime": 0.25,
+                "Speed": 1.4,
+                "TrainTime": 36,
+                "Trait": 2,
+                "TraitPiece": 0,
+                "internal_name": "DRAGS"
+            },
             "1370": {
                 "AccuracyPercent": 100,
                 "Armours": [
@@ -16236,7 +16908,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 9,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.65,
                 "Attacks": [
                     {
                         "Amount": 9,
@@ -16261,6 +16933,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -16269,7 +16945,7 @@ export const aoeDataInternal = {
                     "Food": 70,
                     "Gold": 40
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 13,
                 "GarrisonCapacity": 0,
                 "HP": 60,
                 "ID": 1370,
@@ -16310,7 +16986,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 11,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.325,
                 "Attacks": [
                     {
                         "Amount": 11,
@@ -16335,6 +17011,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -16343,7 +17023,7 @@ export const aoeDataInternal = {
                     "Food": 70,
                     "Gold": 40
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 13,
                 "GarrisonCapacity": 0,
                 "HP": 80,
                 "ID": 1372,
@@ -16409,6 +17089,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -16487,6 +17171,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 1,
@@ -16566,6 +17254,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 1,
@@ -16607,7 +17299,7 @@ export const aoeDataInternal = {
                         "Class": 4
                     },
                     {
-                        "Amount": 2,
+                        "Amount": 1,
                         "Class": 3
                     },
                     {
@@ -16641,13 +17333,17 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 50,
-                    "Gold": 35
+                    "Food": 60,
+                    "Gold": 25
                 },
                 "FrameDelay": 0,
                 "GarrisonCapacity": 0,
@@ -16659,11 +17355,11 @@ export const aoeDataInternal = {
                 "MaxCharge": 0,
                 "MeleeArmor": 2,
                 "MinRange": 0,
-                "PierceArmor": 2,
+                "PierceArmor": 1,
                 "Range": 0,
                 "RechargeRate": 0,
                 "ReloadTime": 2,
-                "Speed": 0.9,
+                "Speed": 0.95,
                 "TrainTime": 12,
                 "Trait": 4,
                 "TraitPiece": 1665,
@@ -16677,11 +17373,11 @@ export const aoeDataInternal = {
                         "Class": 1
                     },
                     {
-                        "Amount": 4,
+                        "Amount": 6,
                         "Class": 4
                     },
                     {
-                        "Amount": 4,
+                        "Amount": 3,
                         "Class": 3
                     },
                     {
@@ -16715,13 +17411,17 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 50,
-                    "Gold": 35
+                    "Food": 60,
+                    "Gold": 25
                 },
                 "FrameDelay": 0,
                 "GarrisonCapacity": 0,
@@ -16731,13 +17431,13 @@ export const aoeDataInternal = {
                 "LanguageNameId": 5540,
                 "LineOfSight": 5,
                 "MaxCharge": 0,
-                "MeleeArmor": 4,
+                "MeleeArmor": 6,
                 "MinRange": 0,
-                "PierceArmor": 4,
+                "PierceArmor": 3,
                 "Range": 0,
                 "RechargeRate": 0,
                 "ReloadTime": 2,
-                "Speed": 0.9,
+                "Speed": 0.95,
                 "TrainTime": 12,
                 "Trait": 4,
                 "TraitPiece": 1665,
@@ -16755,7 +17455,7 @@ export const aoeDataInternal = {
                         "Class": 4
                     },
                     {
-                        "Amount": 2,
+                        "Amount": 1,
                         "Class": 3
                     },
                     {
@@ -16789,13 +17489,17 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 50,
-                    "Gold": 35
+                    "Food": 60,
+                    "Gold": 25
                 },
                 "FrameDelay": 0,
                 "GarrisonCapacity": 0,
@@ -16807,11 +17511,11 @@ export const aoeDataInternal = {
                 "MaxCharge": 0,
                 "MeleeArmor": 2,
                 "MinRange": 0,
-                "PierceArmor": 2,
+                "PierceArmor": 1,
                 "Range": 0,
                 "RechargeRate": 0,
                 "ReloadTime": 2,
-                "Speed": 0.9,
+                "Speed": 0.95,
                 "TrainTime": 16,
                 "Trait": 4,
                 "TraitPiece": 1665,
@@ -16825,11 +17529,11 @@ export const aoeDataInternal = {
                         "Class": 1
                     },
                     {
-                        "Amount": 4,
+                        "Amount": 6,
                         "Class": 4
                     },
                     {
-                        "Amount": 4,
+                        "Amount": 3,
                         "Class": 3
                     },
                     {
@@ -16863,13 +17567,17 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 50,
-                    "Gold": 35
+                    "Food": 60,
+                    "Gold": 25
                 },
                 "FrameDelay": 0,
                 "GarrisonCapacity": 0,
@@ -16879,13 +17587,13 @@ export const aoeDataInternal = {
                 "LanguageNameId": 5540,
                 "LineOfSight": 5,
                 "MaxCharge": 0,
-                "MeleeArmor": 4,
+                "MeleeArmor": 6,
                 "MinRange": 0,
-                "PierceArmor": 4,
+                "PierceArmor": 3,
                 "Range": 0,
                 "RechargeRate": 0,
                 "ReloadTime": 2,
-                "Speed": 0.9,
+                "Speed": 0.95,
                 "TrainTime": 12,
                 "Trait": 4,
                 "TraitPiece": 1665,
@@ -16903,7 +17611,7 @@ export const aoeDataInternal = {
                         "Class": 4
                     },
                     {
-                        "Amount": 0,
+                        "Amount": 1,
                         "Class": 3
                     },
                     {
@@ -16913,9 +17621,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 31
+                    },
+                    {
+                        "Amount": 1,
+                        "Class": 27
                     }
                 ],
-                "Attack": 11,
+                "Attack": 5,
                 "AttackDelaySeconds": 0,
                 "Attacks": [
                     {
@@ -16927,39 +17639,43 @@ export const aoeDataInternal = {
                         "Class": 21
                     },
                     {
-                        "Amount": 11,
+                        "Amount": 5,
                         "Class": 4
                     },
                     {
-                        "Amount": 8,
+                        "Amount": 6,
                         "Class": 8
                     },
                     {
-                        "Amount": 6,
+                        "Amount": 4,
                         "Class": 16
                     },
                     {
-                        "Amount": 6,
+                        "Amount": 4,
                         "Class": 30
                     },
                     {
-                        "Amount": 8,
+                        "Amount": 6,
                         "Class": 5
                     },
                     {
-                        "Amount": 6,
+                        "Amount": 4,
                         "Class": 34
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 50,
-                    "Gold": 15
+                    "Food": 30,
+                    "Gold": 30
                 },
                 "FrameDelay": 0,
                 "GarrisonCapacity": 0,
-                "HP": 60,
+                "HP": 45,
                 "ID": 1699,
                 "LanguageHelpId": 26542,
                 "LanguageNameId": 5542,
@@ -16967,7 +17683,7 @@ export const aoeDataInternal = {
                 "MaxCharge": 0,
                 "MeleeArmor": 1,
                 "MinRange": 0,
-                "PierceArmor": 0,
+                "PierceArmor": 1,
                 "Range": 0,
                 "RechargeRate": 0,
                 "ReloadTime": 2,
@@ -17023,6 +17739,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -17097,6 +17817,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -17294,7 +18018,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 9,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.5,
                 "Attacks": [
                     {
                         "Amount": 14,
@@ -17327,6 +18051,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -17334,7 +18062,7 @@ export const aoeDataInternal = {
                 "Cost": {
                     "Food": 80
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 10,
                 "GarrisonCapacity": 0,
                 "HP": 80,
                 "ID": 1707,
@@ -17460,11 +18188,11 @@ export const aoeDataInternal = {
                         "Class": 31
                     }
                 ],
-                "Attack": 8,
+                "Attack": 9,
                 "AttackDelaySeconds": 0,
                 "Attacks": [
                     {
-                        "Amount": 8,
+                        "Amount": 9,
                         "Class": 4
                     },
                     {
@@ -17482,6 +18210,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 1,
@@ -17505,7 +18237,7 @@ export const aoeDataInternal = {
                 "RechargeDuration": 24,
                 "RechargeRate": 0.5,
                 "ReloadTime": 2,
-                "Speed": 1.05,
+                "Speed": 1.1,
                 "TrainTime": 9,
                 "Trait": 0,
                 "TraitPiece": 0,
@@ -17535,11 +18267,11 @@ export const aoeDataInternal = {
                         "Class": 31
                     }
                 ],
-                "Attack": 10,
+                "Attack": 11,
                 "AttackDelaySeconds": 0,
                 "Attacks": [
                     {
-                        "Amount": 10,
+                        "Amount": 11,
                         "Class": 4
                     },
                     {
@@ -17557,6 +18289,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 1,
@@ -17580,7 +18316,7 @@ export const aoeDataInternal = {
                 "RechargeDuration": 20,
                 "RechargeRate": 0.75,
                 "ReloadTime": 2,
-                "Speed": 1.05,
+                "Speed": 1.1,
                 "TrainTime": 9,
                 "Trait": 0,
                 "TraitPiece": 0,
@@ -17648,6 +18384,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -17658,7 +18398,7 @@ export const aoeDataInternal = {
                 },
                 "FrameDelay": 0,
                 "GarrisonCapacity": 0,
-                "HP": 105,
+                "HP": 100,
                 "ID": 1738,
                 "LanguageHelpId": 42096,
                 "LanguageNameId": 21096,
@@ -17671,7 +18411,7 @@ export const aoeDataInternal = {
                 "RechargeRate": 0,
                 "ReloadTime": 2,
                 "Speed": 1.3,
-                "TrainTime": 18,
+                "TrainTime": 20,
                 "Trait": 8,
                 "TraitPiece": 1759,
                 "internal_name": "RATHA"
@@ -17738,6 +18478,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -17820,6 +18564,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -17902,6 +18650,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -17988,6 +18740,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -18074,6 +18830,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -18127,7 +18887,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 9,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.4,
                 "Attacks": [
                     {
                         "Amount": 9,
@@ -18160,7 +18920,7 @@ export const aoeDataInternal = {
                     "Food": 30,
                     "Gold": 45
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 12,
                 "GarrisonCapacity": 0,
                 "HP": 60,
                 "ID": 1747,
@@ -18205,7 +18965,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 11,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.4,
                 "Attacks": [
                     {
                         "Amount": 11,
@@ -18238,7 +18998,7 @@ export const aoeDataInternal = {
                     "Food": 30,
                     "Gold": 45
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 12,
                 "GarrisonCapacity": 0,
                 "HP": 70,
                 "ID": 1749,
@@ -18386,6 +19146,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -18465,6 +19229,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -18519,7 +19287,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 2,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.5,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -18556,6 +19324,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -18564,7 +19336,7 @@ export const aoeDataInternal = {
                     "Food": 55,
                     "Gold": 60
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 10,
                 "GarrisonCapacity": 1,
                 "HP": 70,
                 "ID": 1755,
@@ -18656,7 +19428,7 @@ export const aoeDataInternal = {
                 },
                 "FrameDelay": 14,
                 "GarrisonCapacity": 0,
-                "HP": 105,
+                "HP": 100,
                 "ID": 1759,
                 "LanguageHelpId": 42104,
                 "LanguageNameId": 21104,
@@ -18669,7 +19441,7 @@ export const aoeDataInternal = {
                 "RechargeRate": 0,
                 "ReloadTime": 2,
                 "Speed": 1.3,
-                "TrainTime": 18,
+                "TrainTime": 20,
                 "Trait": 8,
                 "TraitPiece": 1738,
                 "internal_name": "RATHA2"
@@ -18826,6 +19598,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 9,
                         "Class": 34
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -18916,6 +19692,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 16,
                         "Class": 34
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -19006,6 +19786,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 17,
                         "Class": 34
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -19080,6 +19864,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -19154,6 +19942,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -19232,12 +20024,16 @@ export const aoeDataInternal = {
                     {
                         "Amount": 4,
                         "Class": 32
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 60,
+                    "Food": 50,
                     "Gold": 20
                 },
                 "FrameDelay": 0,
@@ -19254,7 +20050,7 @@ export const aoeDataInternal = {
                 "Range": 0,
                 "RechargeRate": 0,
                 "ReloadTime": 2,
-                "Speed": 0.9,
+                "Speed": 0.96,
                 "TrainTime": 21,
                 "Trait": 0,
                 "TraitPiece": 0,
@@ -19520,6 +20316,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -19598,6 +20398,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -19676,6 +20480,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
                     }
                 ],
                 "ChargeEvent": 0,
@@ -19725,7 +20533,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 14,
-                "AttackDelaySeconds": 0,
+                "AttackDelaySeconds": 0.6716666666666667,
                 "Attacks": [
                     {
                         "Amount": 14,
@@ -19750,6 +20558,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
                     }
                 ],
                 "ChargeEvent": 0,
@@ -19758,7 +20570,7 @@ export const aoeDataInternal = {
                     "Food": 60,
                     "Gold": 75
                 },
-                "FrameDelay": 0,
+                "FrameDelay": 13,
                 "GarrisonCapacity": 0,
                 "HP": 145,
                 "ID": 1813,
@@ -19777,6 +20589,2192 @@ export const aoeDataInternal = {
                 "Trait": 0,
                 "TraitPiece": 0,
                 "internal_name": "SAVAR"
+            },
+            "1901": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 29
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 1
+                    },
+                    {
+                        "Amount": 1,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 23
+                    }
+                ],
+                "Attack": 8,
+                "AttackDelaySeconds": 0.4166666666666667,
+                "Attacks": [
+                    {
+                        "Amount": 1,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 8,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 5,
+                        "Class": 8
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 16
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 30
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 34
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 23
+                    },
+                    {
+                        "Amount": 5,
+                        "Class": 5
+                    }
+                ],
+                "ChargeEvent": 4,
+                "ChargeType": 6,
+                "Cost": {
+                    "Gold": 50,
+                    "Wood": 40
+                },
+                "FrameDelay": 10,
+                "GarrisonCapacity": 0,
+                "HP": 65,
+                "ID": 1901,
+                "LanguageHelpId": 26066,
+                "LanguageNameId": 5066,
+                "LineOfSight": 5,
+                "MaxCharge": 1,
+                "MeleeArmor": 1,
+                "MinRange": 0,
+                "PierceArmor": 0,
+                "Range": 0,
+                "RechargeDuration": 30.000030000029998,
+                "RechargeRate": 0.0333333,
+                "ReloadTime": 2,
+                "Speed": 0.96,
+                "TrainTime": 32,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "FLNCER"
+            },
+            "1903": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 29
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 1
+                    },
+                    {
+                        "Amount": 2,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 1,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 23
+                    }
+                ],
+                "Attack": 10,
+                "AttackDelaySeconds": 0.4166666666666667,
+                "Attacks": [
+                    {
+                        "Amount": 1,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 10,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 15,
+                        "Class": 8
+                    },
+                    {
+                        "Amount": 12,
+                        "Class": 16
+                    },
+                    {
+                        "Amount": 12,
+                        "Class": 30
+                    },
+                    {
+                        "Amount": 12,
+                        "Class": 34
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 23
+                    },
+                    {
+                        "Amount": 15,
+                        "Class": 5
+                    }
+                ],
+                "ChargeEvent": 5,
+                "ChargeType": 6,
+                "Cost": {
+                    "Gold": 50,
+                    "Wood": 40
+                },
+                "FrameDelay": 10,
+                "GarrisonCapacity": 0,
+                "HP": 85,
+                "ID": 1903,
+                "LanguageHelpId": 26717,
+                "LanguageNameId": 5717,
+                "LineOfSight": 6,
+                "MaxCharge": 1,
+                "MeleeArmor": 2,
+                "MinRange": 0,
+                "PierceArmor": 1,
+                "Range": 0,
+                "RechargeDuration": 30.000030000029998,
+                "RechargeRate": 0.0333333,
+                "ReloadTime": 2,
+                "Speed": 0.96,
+                "TrainTime": 25,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "EFLNCER"
+            },
+            "1904": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 6,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 23
+                    }
+                ],
+                "Attack": 5,
+                "AttackDelaySeconds": 0.03333333333333333,
+                "Attacks": [
+                    {
+                        "Amount": 7,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 5,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 2,
+                        "Class": 20
+                    },
+                    {
+                        "Amount": 5,
+                        "Class": 37
+                    },
+                    {
+                        "Amount": 7,
+                        "Class": 26
+                    },
+                    {
+                        "Amount": 6,
+                        "Class": 22
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Gold": 155,
+                    "Wood": 130
+                },
+                "FrameDelay": 1,
+                "GarrisonCapacity": 0,
+                "HP": 45,
+                "ID": 1904,
+                "LanguageHelpId": 26064,
+                "LanguageNameId": 5064,
+                "LineOfSight": 9,
+                "MaxCharge": 0,
+                "MeleeArmor": 0,
+                "MinRange": 2.5,
+                "PierceArmor": 6,
+                "Range": 7,
+                "RechargeRate": 0,
+                "ReloadTime": 5.5,
+                "Speed": 0.6,
+                "TrainTime": 40,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "RCKTCRT"
+            },
+            "1907": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 8,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 23
+                    }
+                ],
+                "Attack": 5,
+                "AttackDelaySeconds": 0.03333333333333333,
+                "Attacks": [
+                    {
+                        "Amount": 12,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 5,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 2,
+                        "Class": 20
+                    },
+                    {
+                        "Amount": 5,
+                        "Class": 37
+                    },
+                    {
+                        "Amount": 7,
+                        "Class": 26
+                    },
+                    {
+                        "Amount": 7,
+                        "Class": 22
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Gold": 155,
+                    "Wood": 130
+                },
+                "FrameDelay": 1,
+                "GarrisonCapacity": 0,
+                "HP": 65,
+                "ID": 1907,
+                "LanguageHelpId": 26065,
+                "LanguageNameId": 5065,
+                "LineOfSight": 10,
+                "MaxCharge": 0,
+                "MeleeArmor": 0,
+                "MinRange": 2.5,
+                "PierceArmor": 8,
+                "Range": 8,
+                "RechargeRate": 0,
+                "ReloadTime": 5.35,
+                "Speed": 0.6,
+                "TrainTime": 40,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "HRCKTCRT"
+            },
+            "1908": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 1,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 8
+                    },
+                    {
+                        "Amount": 3,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 12,
+                "AttackDelaySeconds": 0,
+                "Attacks": [
+                    {
+                        "Amount": 12,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 38
+                    },
+                    {
+                        "Amount": -3,
+                        "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 5,
+                "Cost": {
+                    "Food": 80,
+                    "Gold": 55
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 115,
+                "ID": 1908,
+                "LanguageHelpId": 26594,
+                "LanguageNameId": 5594,
+                "LineOfSight": 5,
+                "MaxCharge": 1,
+                "MeleeArmor": 1,
+                "MinRange": 0,
+                "PierceArmor": 3,
+                "Range": 0,
+                "RechargeDuration": 59.999880000240005,
+                "RechargeRate": 0.0166667,
+                "ReloadTime": 2.28,
+                "Speed": 1.4,
+                "TrainTime": 14,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "IRONPAG"
+            },
+            "1910": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 2,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 8
+                    },
+                    {
+                        "Amount": 3,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 13,
+                "AttackDelaySeconds": 0,
+                "Attacks": [
+                    {
+                        "Amount": 13,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 38
+                    },
+                    {
+                        "Amount": -3,
+                        "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 5,
+                "Cost": {
+                    "Food": 80,
+                    "Gold": 55
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 140,
+                "ID": 1910,
+                "LanguageHelpId": 26595,
+                "LanguageNameId": 5595,
+                "LineOfSight": 5,
+                "MaxCharge": 1,
+                "MeleeArmor": 2,
+                "MinRange": 0,
+                "PierceArmor": 3,
+                "Range": 0,
+                "RechargeDuration": 50,
+                "RechargeRate": 0.02,
+                "ReloadTime": 2.28,
+                "Speed": 1.4,
+                "TrainTime": 14,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "EIRONPAG"
+            },
+            "1911": {
+                "AccuracyPercent": 0,
+                "Armours": [
+                    {
+                        "Amount": 1,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
+                    },
+                    {
+                        "Amount": 1,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 23
+                    }
+                ],
+                "Attack": 11,
+                "AttackDelaySeconds": 0.4666666666666667,
+                "Attacks": [
+                    {
+                        "Amount": 1,
+                        "Class": 27
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 11,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 3,
+                        "Class": 17
+                    },
+                    {
+                        "Amount": 9,
+                        "Class": 1
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 32
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Food": 35,
+                    "Gold": 70
+                },
+                "FrameDelay": 14,
+                "GarrisonCapacity": 0,
+                "HP": 35,
+                "ID": 1911,
+                "LanguageHelpId": 26596,
+                "LanguageNameId": 5596,
+                "LineOfSight": 7,
+                "MaxCharge": 0,
+                "MeleeArmor": 1,
+                "MinRange": 1,
+                "PierceArmor": 1,
+                "Range": 6,
+                "RechargeRate": 0,
+                "ReloadTime": 3.45,
+                "Speed": 0.96,
+                "TrainTime": 21,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "GRNADR"
+            },
+            "1920": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 1
+                    },
+                    {
+                        "Amount": 3,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 1,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 9,
+                "AttackDelaySeconds": 0,
+                "Attacks": [
+                    {
+                        "Amount": 2,
+                        "Class": 29
+                    },
+                    {
+                        "Amount": 2,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 9,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 8
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Food": 40,
+                    "Gold": 40
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 75,
+                "ID": 1920,
+                "LanguageHelpId": 26692,
+                "LanguageNameId": 5692,
+                "LineOfSight": 3,
+                "MaxCharge": 0,
+                "MeleeArmor": 3,
+                "MinRange": 0,
+                "PierceArmor": 1,
+                "Range": 0,
+                "RechargeRate": 0,
+                "ReloadTime": 2.4,
+                "Speed": 1,
+                "TrainTime": 12,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "LIAODAO"
+            },
+            "1922": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 1
+                    },
+                    {
+                        "Amount": 3,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 1,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 13,
+                "AttackDelaySeconds": 0,
+                "Attacks": [
+                    {
+                        "Amount": 3,
+                        "Class": 29
+                    },
+                    {
+                        "Amount": 3,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 13,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 8
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 30
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Food": 40,
+                    "Gold": 40
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 85,
+                "ID": 1922,
+                "LanguageHelpId": 26696,
+                "LanguageNameId": 5696,
+                "LineOfSight": 3,
+                "MaxCharge": 0,
+                "MeleeArmor": 3,
+                "MinRange": 0,
+                "PierceArmor": 1,
+                "Range": 0,
+                "RechargeRate": 0,
+                "ReloadTime": 2.4,
+                "Speed": 1,
+                "TrainTime": 12,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "ELIAODAO"
+            },
+            "1923": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 2,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 37
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 30
+                    }
+                ],
+                "Attack": 30,
+                "AttackDelaySeconds": 0.7,
+                "Attacks": [
+                    {
+                        "Amount": 10,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 30,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 30,
+                        "Class": 20
+                    },
+                    {
+                        "Amount": 30,
+                        "Class": 37
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Food": 175,
+                    "Gold": 175
+                },
+                "FrameDelay": 21,
+                "GarrisonCapacity": 0,
+                "HP": 75,
+                "ID": 1923,
+                "LanguageHelpId": 26698,
+                "LanguageNameId": 5698,
+                "LineOfSight": 13,
+                "MaxCharge": 0,
+                "MeleeArmor": 2,
+                "MinRange": 3,
+                "PierceArmor": 4,
+                "Range": 10,
+                "RechargeRate": 0,
+                "ReloadTime": 6.5,
+                "Speed": 0.8,
+                "TrainTime": 46,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "SIEGECAMEL"
+            },
+            "1942": {
+                "AccuracyPercent": 30,
+                "Armours": [
+                    {
+                        "Amount": 1,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 8,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 17
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 50,
+                "AttackDelaySeconds": 0.6666666666666666,
+                "Attacks": [
+                    {
+                        "Amount": 175,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 50,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 37
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Gold": 210,
+                    "Wood": 175
+                },
+                "FrameDelay": 20,
+                "GarrisonCapacity": 0,
+                "HP": 115,
+                "ID": 1942,
+                "LanguageHelpId": 26598,
+                "LanguageNameId": 5598,
+                "LineOfSight": 18,
+                "MaxCharge": 0,
+                "MeleeArmor": 1,
+                "MinRange": 4,
+                "PierceArmor": 8,
+                "Range": 14,
+                "RechargeRate": 0,
+                "ReloadTime": 9,
+                "Speed": 0.6,
+                "TrainTime": 70,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "TRTREB"
+            },
+            "1944": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 4,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 8
+                    },
+                    {
+                        "Amount": 3,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 11,
+                "AttackDelaySeconds": 0,
+                "Attacks": [
+                    {
+                        "Amount": 11,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 38
+                    },
+                    {
+                        "Amount": -3,
+                        "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 1
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Food": 65,
+                    "Gold": 65
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 60,
+                "ID": 1944,
+                "LanguageHelpId": 26599,
+                "LanguageNameId": 5599,
+                "LineOfSight": 4,
+                "MaxCharge": 0,
+                "MeleeArmor": 4,
+                "MinRange": 0,
+                "PierceArmor": 3,
+                "Range": 0,
+                "RechargeRate": 0,
+                "ReloadTime": 1.8,
+                "Speed": 1.35,
+                "TrainTime": 28,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "HKUCAV"
+            },
+            "1946": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 4,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 8
+                    },
+                    {
+                        "Amount": 3,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 12,
+                "AttackDelaySeconds": 0,
+                "Attacks": [
+                    {
+                        "Amount": 12,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 38
+                    },
+                    {
+                        "Amount": -3,
+                        "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
+                    },
+                    {
+                        "Amount": 1,
+                        "Class": 1
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Food": 65,
+                    "Gold": 65
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 90,
+                "ID": 1946,
+                "LanguageHelpId": 26600,
+                "LanguageNameId": 5600,
+                "LineOfSight": 4,
+                "MaxCharge": 0,
+                "MeleeArmor": 4,
+                "MinRange": 0,
+                "PierceArmor": 3,
+                "Range": 0,
+                "RechargeRate": 0,
+                "ReloadTime": 1.8,
+                "Speed": 1.35,
+                "TrainTime": 28,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "HHKUCAV"
+            },
+            "1948": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 16
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 9,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 25,
+                "AttackDelaySeconds": 0.36,
+                "Attacks": [
+                    {
+                        "Amount": 25,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 230,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 10,
+                        "Class": 20
+                    }
+                ],
+                "ChargeEvent": -3,
+                "ChargeType": 6,
+                "Cost": {
+                    "Gold": 225,
+                    "Wood": 250
+                },
+                "FrameDelay": 18,
+                "GarrisonCapacity": 0,
+                "HP": 175,
+                "ID": 1948,
+                "LanguageHelpId": 26601,
+                "LanguageNameId": 5601,
+                "LineOfSight": 15,
+                "MaxCharge": 1,
+                "MeleeArmor": 0,
+                "MinRange": 3,
+                "PierceArmor": 9,
+                "Range": 10,
+                "RechargeDuration": 0.00001,
+                "RechargeRate": 100000,
+                "ReloadTime": 5,
+                "Speed": 1.15,
+                "TrainTime": 60,
+                "Trait": 2,
+                "TraitPiece": 0,
+                "internal_name": "LOUCHUAN"
+            },
+            "1949": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 8
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 11,
+                "AttackDelaySeconds": 0,
+                "Attacks": [
+                    {
+                        "Amount": 11,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 6,
+                        "Class": 15
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 38
+                    },
+                    {
+                        "Amount": -3,
+                        "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Food": 60,
+                    "Gold": 80
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 115,
+                "ID": 1949,
+                "LanguageHelpId": 26074,
+                "LanguageNameId": 5074,
+                "LineOfSight": 5,
+                "MaxCharge": 0,
+                "MeleeArmor": 0,
+                "MinRange": 0,
+                "PierceArmor": 4,
+                "Range": 0,
+                "RechargeRate": 0,
+                "ReloadTime": 1.9,
+                "Speed": 1.35,
+                "TrainTime": 15,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "TIGERCAV"
+            },
+            "1951": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 8
+                    },
+                    {
+                        "Amount": 5,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 13,
+                "AttackDelaySeconds": 0,
+                "Attacks": [
+                    {
+                        "Amount": 13,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 7,
+                        "Class": 15
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 38
+                    },
+                    {
+                        "Amount": -3,
+                        "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Food": 60,
+                    "Gold": 80
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 130,
+                "ID": 1951,
+                "LanguageHelpId": 26153,
+                "LanguageNameId": 5153,
+                "LineOfSight": 5,
+                "MaxCharge": 0,
+                "MeleeArmor": 0,
+                "MinRange": 0,
+                "PierceArmor": 5,
+                "Range": 0,
+                "RechargeRate": 0,
+                "ReloadTime": 1.9,
+                "Speed": 1.35,
+                "TrainTime": 15,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "ETIGERCAV"
+            },
+            "1952": {
+                "AccuracyPercent": 80,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 28
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 8
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 4,
+                "AttackDelaySeconds": 0.9099999999999999,
+                "Attacks": [
+                    {
+                        "Amount": 3,
+                        "Class": 27
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 17
+                    },
+                    {
+                        "Amount": -3,
+                        "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
+                    },
+                    {
+                        "Amount": 1,
+                        "Class": 1
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 6,
+                "Cost": {
+                    "Gold": 25,
+                    "Wood": 60
+                },
+                "FrameDelay": 35,
+                "GarrisonCapacity": 0,
+                "HP": 30,
+                "ID": 1952,
+                "LanguageHelpId": 26286,
+                "LanguageNameId": 5286,
+                "LineOfSight": 6,
+                "MaxCharge": 1,
+                "MeleeArmor": 0,
+                "MinRange": 0,
+                "PierceArmor": 0,
+                "Range": 4,
+                "RechargeDuration": 30.000030000029998,
+                "RechargeRate": 0.0333333,
+                "ReloadTime": 1.8,
+                "Speed": 1.4,
+                "TrainTime": 26,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "XIANBEI"
+            },
+            "1954": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 8
+                    },
+                    {
+                        "Amount": 3,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 3,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 36
+                    }
+                ],
+                "Attack": 14,
+                "AttackDelaySeconds": 0,
+                "Attacks": [
+                    {
+                        "Amount": 0,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 14,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 3,
+                        "Class": 15
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 38
+                    },
+                    {
+                        "Amount": -3,
+                        "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Food": 500,
+                    "Gold": 500
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 475,
+                "ID": 1954,
+                "LanguageHelpId": 26323,
+                "LanguageNameId": 5323,
+                "LineOfSight": 5,
+                "MaxCharge": 0,
+                "MeleeArmor": 3,
+                "MinRange": 0,
+                "PierceArmor": 3,
+                "Range": 0,
+                "RechargeRate": 0,
+                "ReloadTime": 2,
+                "Speed": 1.3,
+                "TrainTime": 60,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "CAOCAO"
+            },
+            "1959": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 1
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 2,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 7,
+                "AttackDelaySeconds": 0,
+                "Attacks": [
+                    {
+                        "Amount": 4,
+                        "Class": 29
+                    },
+                    {
+                        "Amount": 2,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 7,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 8,
+                        "Class": 8
+                    },
+                    {
+                        "Amount": 6,
+                        "Class": 30
+                    },
+                    {
+                        "Amount": 8,
+                        "Class": 5
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Food": 60,
+                    "Gold": 15
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 95,
+                "ID": 1959,
+                "LanguageHelpId": 26362,
+                "LanguageNameId": 5362,
+                "LineOfSight": 4,
+                "MaxCharge": 0,
+                "MeleeArmor": 0,
+                "MinRange": 0,
+                "PierceArmor": 2,
+                "Range": 0,
+                "RechargeRate": 0,
+                "ReloadTime": 2,
+                "Speed": 0.95,
+                "TrainTime": 11,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "WHTFTHRG"
+            },
+            "1961": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 1
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 3,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 8,
+                "AttackDelaySeconds": 0,
+                "Attacks": [
+                    {
+                        "Amount": 4,
+                        "Class": 29
+                    },
+                    {
+                        "Amount": 2,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 8,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 8,
+                        "Class": 8
+                    },
+                    {
+                        "Amount": 7,
+                        "Class": 30
+                    },
+                    {
+                        "Amount": 8,
+                        "Class": 5
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Food": 60,
+                    "Gold": 15
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 100,
+                "ID": 1961,
+                "LanguageHelpId": 26363,
+                "LanguageNameId": 5363,
+                "LineOfSight": 5,
+                "MaxCharge": 0,
+                "MeleeArmor": 0,
+                "MinRange": 0,
+                "PierceArmor": 3,
+                "Range": 0,
+                "RechargeRate": 0,
+                "ReloadTime": 2,
+                "Speed": 0.95,
+                "TrainTime": 11,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "EWHTFTHRG"
+            },
+            "1962": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 8
+                    },
+                    {
+                        "Amount": 5,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 37
+                    }
+                ],
+                "Attack": 8,
+                "AttackDelaySeconds": 0.25,
+                "Attacks": [
+                    {
+                        "Amount": 8,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 2,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 27
+                    },
+                    {
+                        "Amount": -3,
+                        "Class": 39
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Food": 50,
+                    "Gold": 90
+                },
+                "FrameDelay": 3,
+                "GarrisonCapacity": 0,
+                "HP": 65,
+                "ID": 1962,
+                "LanguageHelpId": 26364,
+                "LanguageNameId": 5364,
+                "LineOfSight": 8,
+                "MaxCharge": 0,
+                "MeleeArmor": 0,
+                "MinRange": 1,
+                "PierceArmor": 5,
+                "Range": 6,
+                "RechargeRate": 0,
+                "ReloadTime": 8,
+                "Speed": 0.8,
+                "TrainTime": 28,
+                "Trait": 8,
+                "TraitPiece": 1980,
+                "internal_name": "WARCHAR"
+            },
+            "1966": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 1
+                    },
+                    {
+                        "Amount": 3,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 3,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 36
+                    }
+                ],
+                "Attack": 15,
+                "AttackDelaySeconds": 0,
+                "Attacks": [
+                    {
+                        "Amount": 0,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 15,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 3,
+                        "Class": 29
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 38
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Food": 500,
+                    "Gold": 500
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 425,
+                "ID": 1966,
+                "LanguageHelpId": 26365,
+                "LanguageNameId": 5365,
+                "LineOfSight": 5,
+                "MaxCharge": 0,
+                "MeleeArmor": 3,
+                "MinRange": 0,
+                "PierceArmor": 3,
+                "Range": 0,
+                "RechargeRate": 0,
+                "ReloadTime": 2,
+                "Speed": 0.9,
+                "TrainTime": 60,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "LIUBEI"
+            },
+            "1968": {
+                "AccuracyPercent": 80,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 4,
+                "AttackDelaySeconds": 0.5,
+                "Attacks": [
+                    {
+                        "Amount": 2,
+                        "Class": 27
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 17
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
+                    },
+                    {
+                        "Amount": 3,
+                        "Class": 16
+                    },
+                    {
+                        "Amount": 3,
+                        "Class": 34
+                    }
+                ],
+                "ChargeEvent": -4,
+                "ChargeType": 6,
+                "Cost": {
+                    "Gold": 45,
+                    "Wood": 45
+                },
+                "FrameDelay": 10,
+                "GarrisonCapacity": 0,
+                "HP": 35,
+                "ID": 1968,
+                "LanguageHelpId": 26366,
+                "LanguageNameId": 5366,
+                "LineOfSight": 10,
+                "MaxCharge": 20,
+                "MeleeArmor": 0,
+                "MinRange": 0,
+                "PierceArmor": 0,
+                "Range": 5,
+                "RechargeDuration": 6.25e-18,
+                "RechargeRate": 3200000000000000000,
+                "ReloadTime": 3.5,
+                "Speed": 0.96,
+                "TrainTime": 17,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "FIREARCHER"
+            },
+            "1970": {
+                "AccuracyPercent": 85,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    }
+                ],
+                "Attack": 5,
+                "AttackDelaySeconds": 0.5,
+                "Attacks": [
+                    {
+                        "Amount": 2,
+                        "Class": 27
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 5,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 17
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 16
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 34
+                    }
+                ],
+                "ChargeEvent": -4,
+                "ChargeType": 6,
+                "Cost": {
+                    "Gold": 45,
+                    "Wood": 45
+                },
+                "FrameDelay": 10,
+                "GarrisonCapacity": 0,
+                "HP": 40,
+                "ID": 1970,
+                "LanguageHelpId": 26367,
+                "LanguageNameId": 5367,
+                "LineOfSight": 11,
+                "MaxCharge": 20,
+                "MeleeArmor": 0,
+                "MinRange": 0,
+                "PierceArmor": 0,
+                "Range": 6,
+                "RechargeDuration": 6.25e-18,
+                "RechargeRate": 3200000000000000000,
+                "ReloadTime": 3.5,
+                "Speed": 0.96,
+                "TrainTime": 17,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "EFIREARCHER"
+            },
+            "1974": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 1
+                    },
+                    {
+                        "Amount": 3,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 5,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    },
+                    {
+                        "Amount": 1,
+                        "Class": 29
+                    }
+                ],
+                "Attack": 8,
+                "AttackDelaySeconds": 0,
+                "Attacks": [
+                    {
+                        "Amount": 2,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 8,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 8
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 30
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 15
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Food": 45,
+                    "Gold": 50
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 70,
+                "ID": 1974,
+                "LanguageHelpId": 26368,
+                "LanguageNameId": 5368,
+                "LineOfSight": 4,
+                "MaxCharge": 0,
+                "MeleeArmor": 3,
+                "MinRange": 0,
+                "PierceArmor": 5,
+                "Range": 0,
+                "RechargeRate": 0,
+                "ReloadTime": 2,
+                "Speed": 1,
+                "TrainTime": 27,
+                "Trait": 0,
+                "TraitPiece": 1976,
+                "internal_name": "JIANSWDS"
+            },
+            "1978": {
+                "AccuracyPercent": 100,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 8
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 4,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 36
+                    }
+                ],
+                "Attack": 15,
+                "AttackDelaySeconds": 0,
+                "Attacks": [
+                    {
+                        "Amount": 0,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 15,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 15
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 38
+                    },
+                    {
+                        "Amount": -3,
+                        "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Food": 500,
+                    "Gold": 500
+                },
+                "FrameDelay": 0,
+                "GarrisonCapacity": 0,
+                "HP": 400,
+                "ID": 1978,
+                "LanguageHelpId": 26370,
+                "LanguageNameId": 5370,
+                "LineOfSight": 5,
+                "MaxCharge": 0,
+                "MeleeArmor": 4,
+                "MinRange": 0,
+                "PierceArmor": 4,
+                "Range": 0,
+                "RechargeRate": 0,
+                "ReloadTime": 2,
+                "Speed": 1.55,
+                "TrainTime": 60,
+                "Trait": 0,
+                "TraitPiece": 0,
+                "internal_name": "SUNJIAN"
+            },
+            "1980": {
+                "AccuracyPercent": 0,
+                "Armours": [
+                    {
+                        "Amount": 0,
+                        "Class": 4
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 8
+                    },
+                    {
+                        "Amount": 5,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 37
+                    }
+                ],
+                "Attack": 8,
+                "AttackDelaySeconds": 0.25,
+                "Attacks": [
+                    {
+                        "Amount": 8,
+                        "Class": 3
+                    },
+                    {
+                        "Amount": 2,
+                        "Class": 11
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 21
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 27
+                    },
+                    {
+                        "Amount": -3,
+                        "Class": 39
+                    }
+                ],
+                "ChargeEvent": 0,
+                "ChargeType": 0,
+                "Cost": {
+                    "Food": 50,
+                    "Gold": 90
+                },
+                "FrameDelay": 3,
+                "GarrisonCapacity": 0,
+                "HP": 65,
+                "ID": 1980,
+                "LanguageHelpId": 42198,
+                "LanguageNameId": 21198,
+                "LineOfSight": 8,
+                "MaxCharge": 0,
+                "MeleeArmor": 0,
+                "MinRange": 1,
+                "PierceArmor": 5,
+                "Range": 6,
+                "RechargeRate": 0,
+                "ReloadTime": 8,
+                "Speed": 0.8,
+                "TrainTime": 28,
+                "Trait": 8,
+                "TraitPiece": 1962,
+                "internal_name": "WARCHAR"
             }
         }
     },
@@ -19903,7 +22901,7 @@ export const aoeDataInternal = {
                     "id": 1808
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_292",
             "techs": [
                 {
                     "age": 2,
@@ -20071,6 +23069,10 @@ export const aoeDataInternal = {
                 },
                 {
                     "age": 4,
+                    "id": 221
+                },
+                {
+                    "age": 4,
                     "id": 230
                 },
                 {
@@ -20154,12 +23156,8 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
-                    "id": 602
-                },
-                {
                     "age": 2,
-                    "id": 716
+                    "id": 602
                 },
                 {
                     "age": 3,
@@ -20454,7 +23452,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "meso_",
+            "monkSuffix": "_131",
             "techs": [
                 {
                     "age": 2,
@@ -20689,16 +23687,12 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 },
                 {
                     "age": 4,
                     "id": 608
-                },
-                {
-                    "age": 2,
-                    "id": 716
                 },
                 {
                     "age": 3,
@@ -20985,7 +23979,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_218",
             "techs": [
                 {
                     "age": 2,
@@ -21248,16 +24242,12 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 },
                 {
                     "age": 4,
                     "id": 608
-                },
-                {
-                    "age": 2,
-                    "id": 716
                 },
                 {
                     "age": 3,
@@ -21560,7 +24550,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_169",
             "techs": [
                 {
                     "age": 2,
@@ -21823,16 +24813,12 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 },
                 {
                     "age": 4,
                     "id": 608
-                },
-                {
-                    "age": 2,
-                    "id": 716
                 }
             ],
             "unique": {
@@ -22163,7 +25149,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_33",
             "techs": [
                 {
                     "age": 2,
@@ -22422,16 +25408,12 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 },
                 {
                     "age": 4,
                     "id": 608
-                },
-                {
-                    "age": 2,
-                    "id": 716
                 }
             ],
             "unique": {
@@ -22734,7 +25716,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_33",
             "techs": [
                 {
                     "age": 2,
@@ -22993,16 +25975,12 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 },
                 {
                     "age": 4,
                     "id": 608
-                },
-                {
-                    "age": 2,
-                    "id": 716
                 },
                 {
                     "age": 3,
@@ -23309,7 +26287,7 @@ export const aoeDataInternal = {
                     "id": 1251
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_292",
             "techs": [
                 {
                     "age": 2,
@@ -23326,6 +26304,10 @@ export const aoeDataInternal = {
                 {
                     "age": 2,
                     "id": 14
+                },
+                {
+                    "age": 4,
+                    "id": 15
                 },
                 {
                     "age": 4,
@@ -23504,6 +26486,10 @@ export const aoeDataInternal = {
                     "id": 316
                 },
                 {
+                    "age": 4,
+                    "id": 321
+                },
+                {
                     "age": 3,
                     "id": 322
                 },
@@ -23548,12 +26534,8 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
-                    "id": 602
-                },
-                {
                     "age": 2,
-                    "id": 716
+                    "id": 602
                 },
                 {
                     "age": 3,
@@ -23864,7 +26846,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_33",
             "techs": [
                 {
                     "age": 2,
@@ -23943,7 +26925,7 @@ export const aoeDataInternal = {
                     "id": 64
                 },
                 {
-                    "age": 2,
+                    "age": 3,
                     "id": 65
                 },
                 {
@@ -24119,7 +27101,7 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 },
                 {
@@ -24315,7 +27297,7 @@ export const aoeDataInternal = {
                     "id": 1258
                 },
                 {
-                    "age": 4,
+                    "age": 2,
                     "id": 1699
                 }
             ]
@@ -24435,7 +27417,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_218",
             "techs": [
                 {
                     "age": 2,
@@ -24658,6 +27640,10 @@ export const aoeDataInternal = {
                     "id": 322
                 },
                 {
+                    "age": 4,
+                    "id": 373
+                },
+                {
                     "age": 3,
                     "id": 374
                 },
@@ -24694,12 +27680,8 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
-                    "id": 602
-                },
-                {
                     "age": 2,
-                    "id": 716
+                    "id": 602
                 },
                 {
                     "age": 3,
@@ -25018,7 +28000,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_292",
             "techs": [
                 {
                     "age": 2,
@@ -25277,16 +28259,12 @@ export const aoeDataInternal = {
                     "id": 439
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 },
                 {
                     "age": 4,
                     "id": 608
-                },
-                {
-                    "age": 2,
-                    "id": 716
                 },
                 {
                     "age": 3,
@@ -25617,7 +28595,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_33",
             "techs": [
                 {
                     "age": 2,
@@ -25852,16 +28830,12 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 },
                 {
                     "age": 4,
                     "id": 608
-                },
-                {
-                    "age": 2,
-                    "id": 716
                 },
                 {
                     "age": 3,
@@ -26180,7 +29154,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_218",
             "techs": [
                 {
                     "age": 2,
@@ -26443,7 +29417,7 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 },
                 {
@@ -26527,20 +29501,8 @@ export const aoeDataInternal = {
                     "id": 279
                 },
                 {
-                    "age": 3,
-                    "id": 280
-                },
-                {
                     "age": 4,
                     "id": 283
-                },
-                {
-                    "age": 3,
-                    "id": 329
-                },
-                {
-                    "age": 4,
-                    "id": 330
                 },
                 {
                     "age": 4,
@@ -26553,10 +29515,6 @@ export const aoeDataInternal = {
                 {
                     "age": 4,
                     "id": 359
-                },
-                {
-                    "age": 4,
-                    "id": 420
                 },
                 {
                     "age": 4,
@@ -26620,10 +29578,6 @@ export const aoeDataInternal = {
                 },
                 {
                     "age": 4,
-                    "id": 550
-                },
-                {
-                    "age": 4,
                     "id": 567
                 },
                 {
@@ -26641,6 +29595,30 @@ export const aoeDataInternal = {
                 {
                     "age": 3,
                     "id": 1258
+                },
+                {
+                    "age": 4,
+                    "id": 1302
+                },
+                {
+                    "age": 3,
+                    "id": 1901
+                },
+                {
+                    "age": 4,
+                    "id": 1903
+                },
+                {
+                    "age": 3,
+                    "id": 1904
+                },
+                {
+                    "age": 4,
+                    "id": 1907
+                },
+                {
+                    "age": 4,
+                    "id": 1948
                 }
             ]
         },
@@ -26731,7 +29709,7 @@ export const aoeDataInternal = {
                     "id": 598
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 621
                 },
                 {
@@ -26739,7 +29717,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_293",
             "techs": [
                 {
                     "age": 2,
@@ -26970,7 +29948,7 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 }
             ],
@@ -27290,7 +30268,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_290",
             "techs": [
                 {
                     "age": 2,
@@ -27319,6 +30297,10 @@ export const aoeDataInternal = {
                 {
                     "age": 3,
                     "id": 23
+                },
+                {
+                    "age": 3,
+                    "id": 39
                 },
                 {
                     "age": 4,
@@ -27525,16 +30507,12 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 },
                 {
                     "age": 4,
                     "id": 608
-                },
-                {
-                    "age": 2,
-                    "id": 716
                 },
                 {
                     "age": 3,
@@ -27857,7 +30835,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_122",
             "techs": [
                 {
                     "age": 2,
@@ -28116,12 +31094,8 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
-                    "id": 602
-                },
-                {
                     "age": 2,
-                    "id": 716
+                    "id": 602
                 }
             ],
             "unique": {
@@ -28432,7 +31406,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_33",
             "techs": [
                 {
                     "age": 2,
@@ -28627,6 +31601,10 @@ export const aoeDataInternal = {
                     "id": 315
                 },
                 {
+                    "age": 4,
+                    "id": 321
+                },
+                {
                     "age": 3,
                     "id": 322
                 },
@@ -28663,16 +31641,12 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 },
                 {
                     "age": 4,
                     "id": 608
-                },
-                {
-                    "age": 2,
-                    "id": 716
                 },
                 {
                     "age": 3,
@@ -28983,7 +31957,7 @@ export const aoeDataInternal = {
                     "id": 1808
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_292",
             "techs": [
                 {
                     "age": 2,
@@ -29238,16 +32212,12 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 },
                 {
                     "age": 4,
                     "id": 608
-                },
-                {
-                    "age": 2,
-                    "id": 716
                 },
                 {
                     "age": 3,
@@ -29542,7 +32512,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_33",
             "techs": [
                 {
                     "age": 2,
@@ -30077,7 +33047,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_290",
             "techs": [
                 {
                     "age": 2,
@@ -30280,10 +33250,6 @@ export const aoeDataInternal = {
                     "id": 319
                 },
                 {
-                    "age": 4,
-                    "id": 321
-                },
-                {
                     "age": 3,
                     "id": 322
                 },
@@ -30328,12 +33294,8 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
-                    "id": 602
-                },
-                {
                     "age": 2,
-                    "id": 716
+                    "id": 602
                 }
             ],
             "unique": {
@@ -30609,6 +33571,10 @@ export const aoeDataInternal = {
                 },
                 {
                     "age": 4,
+                    "id": 235
+                },
+                {
+                    "age": 4,
                     "id": 276
                 },
                 {
@@ -30640,7 +33606,7 @@ export const aoeDataInternal = {
                     "id": 1754
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_169",
             "techs": [
                 {
                     "age": 2,
@@ -30879,12 +33845,8 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
-                    "id": 602
-                },
-                {
                     "age": 2,
-                    "id": 716
+                    "id": 602
                 }
             ],
             "unique": {
@@ -31171,7 +34133,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_293",
             "techs": [
                 {
                     "age": 2,
@@ -31366,6 +34328,10 @@ export const aoeDataInternal = {
                     "id": 322
                 },
                 {
+                    "age": 4,
+                    "id": 373
+                },
+                {
                     "age": 3,
                     "id": 374
                 },
@@ -31394,7 +34360,7 @@ export const aoeDataInternal = {
                     "id": 439
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 }
             ],
@@ -31686,7 +34652,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "meso_",
+            "monkSuffix": "_131",
             "techs": [
                 {
                     "age": 2,
@@ -31937,7 +34903,7 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 },
                 {
@@ -32241,7 +35207,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_291",
             "techs": [
                 {
                     "age": 2,
@@ -32516,22 +35482,18 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 },
                 {
                     "age": 4,
                     "id": 608
-                },
-                {
-                    "age": 2,
-                    "id": 716
                 }
             ],
             "unique": {
-                "castleAgeUniqueTech": 494,
+                "castleAgeUniqueTech": 499,
                 "castleAgeUniqueUnit": 866,
-                "imperialAgeUniqueTech": 499,
+                "imperialAgeUniqueTech": 902,
                 "imperialAgeUniqueUnit": 868
             },
             "units": [
@@ -32832,7 +35794,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_218",
             "techs": [
                 {
                     "age": 2,
@@ -32845,6 +35807,10 @@ export const aoeDataInternal = {
                 {
                     "age": 2,
                     "id": 14
+                },
+                {
+                    "age": 4,
+                    "id": 15
                 },
                 {
                     "age": 4,
@@ -33091,16 +36057,12 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 },
                 {
                     "age": 4,
                     "id": 608
-                },
-                {
-                    "age": 2,
-                    "id": 716
                 },
                 {
                     "age": 3,
@@ -33263,6 +36225,10 @@ export const aoeDataInternal = {
                     "id": 545
                 },
                 {
+                    "age": 1,
+                    "id": 545
+                },
+                {
                     "age": 3,
                     "id": 546
                 },
@@ -33293,6 +36259,1144 @@ export const aoeDataInternal = {
                 {
                     "age": 3,
                     "id": 1258
+                }
+            ]
+        },
+        "Jurchens": {
+            "buildings": [
+                {
+                    "age": 1,
+                    "id": 12
+                },
+                {
+                    "age": 1,
+                    "id": 45
+                },
+                {
+                    "age": 3,
+                    "id": 49
+                },
+                {
+                    "age": 1,
+                    "id": 50
+                },
+                {
+                    "age": 1,
+                    "id": 68
+                },
+                {
+                    "age": 1,
+                    "id": 70
+                },
+                {
+                    "age": 1,
+                    "id": 72
+                },
+                {
+                    "age": 2,
+                    "id": 79
+                },
+                {
+                    "age": 3,
+                    "id": 82
+                },
+                {
+                    "age": 2,
+                    "id": 84
+                },
+                {
+                    "age": 2,
+                    "id": 87
+                },
+                {
+                    "age": 2,
+                    "id": 101
+                },
+                {
+                    "age": 2,
+                    "id": 103
+                },
+                {
+                    "age": 3,
+                    "id": 104
+                },
+                {
+                    "age": 1,
+                    "id": 109
+                },
+                {
+                    "age": 2,
+                    "id": 117
+                },
+                {
+                    "age": 3,
+                    "id": 155
+                },
+                {
+                    "age": 2,
+                    "id": 199
+                },
+                {
+                    "age": 3,
+                    "id": 209
+                },
+                {
+                    "age": 3,
+                    "id": 234
+                },
+                {
+                    "age": 4,
+                    "id": 235
+                },
+                {
+                    "age": 4,
+                    "id": 276
+                },
+                {
+                    "age": 2,
+                    "id": 487
+                },
+                {
+                    "age": 1,
+                    "id": 562
+                },
+                {
+                    "age": 1,
+                    "id": 584
+                },
+                {
+                    "age": 1,
+                    "id": 598
+                },
+                {
+                    "age": 3,
+                    "id": 621
+                },
+                {
+                    "age": 1,
+                    "id": 792
+                }
+            ],
+            "monkSuffix": "_293",
+            "techs": [
+                {
+                    "age": 2,
+                    "id": 8
+                },
+                {
+                    "age": 4,
+                    "id": 12
+                },
+                {
+                    "age": 3,
+                    "id": 13
+                },
+                {
+                    "age": 2,
+                    "id": 14
+                },
+                {
+                    "age": 4,
+                    "id": 15
+                },
+                {
+                    "age": 4,
+                    "id": 17
+                },
+                {
+                    "age": 1,
+                    "id": 22
+                },
+                {
+                    "age": 3,
+                    "id": 23
+                },
+                {
+                    "age": 3,
+                    "id": 39
+                },
+                {
+                    "age": 4,
+                    "id": 45
+                },
+                {
+                    "age": 3,
+                    "id": 46
+                },
+                {
+                    "age": 4,
+                    "id": 47
+                },
+                {
+                    "age": 3,
+                    "id": 48
+                },
+                {
+                    "age": 3,
+                    "id": 50
+                },
+                {
+                    "age": 4,
+                    "id": 51
+                },
+                {
+                    "age": 3,
+                    "id": 54
+                },
+                {
+                    "age": 2,
+                    "id": 55
+                },
+                {
+                    "age": 4,
+                    "id": 63
+                },
+                {
+                    "age": 3,
+                    "id": 65
+                },
+                {
+                    "age": 2,
+                    "id": 67
+                },
+                {
+                    "age": 3,
+                    "id": 68
+                },
+                {
+                    "age": 2,
+                    "id": 74
+                },
+                {
+                    "age": 4,
+                    "id": 75
+                },
+                {
+                    "age": 3,
+                    "id": 76
+                },
+                {
+                    "age": 4,
+                    "id": 80
+                },
+                {
+                    "age": 2,
+                    "id": 81
+                },
+                {
+                    "age": 3,
+                    "id": 82
+                },
+                {
+                    "age": 3,
+                    "id": 93
+                },
+                {
+                    "age": 1,
+                    "id": 101
+                },
+                {
+                    "age": 2,
+                    "id": 102
+                },
+                {
+                    "age": 3,
+                    "id": 103
+                },
+                {
+                    "age": 3,
+                    "id": 140
+                },
+                {
+                    "age": 3,
+                    "id": 182
+                },
+                {
+                    "age": 3,
+                    "id": 194
+                },
+                {
+                    "age": 2,
+                    "id": 199
+                },
+                {
+                    "age": 3,
+                    "id": 200
+                },
+                {
+                    "age": 4,
+                    "id": 201
+                },
+                {
+                    "age": 2,
+                    "id": 202
+                },
+                {
+                    "age": 3,
+                    "id": 203
+                },
+                {
+                    "age": 2,
+                    "id": 211
+                },
+                {
+                    "age": 3,
+                    "id": 212
+                },
+                {
+                    "age": 2,
+                    "id": 213
+                },
+                {
+                    "age": 3,
+                    "id": 215
+                },
+                {
+                    "age": 4,
+                    "id": 219
+                },
+                {
+                    "age": 4,
+                    "id": 221
+                },
+                {
+                    "age": 4,
+                    "id": 230
+                },
+                {
+                    "age": 3,
+                    "id": 231
+                },
+                {
+                    "age": 4,
+                    "id": 233
+                },
+                {
+                    "age": 3,
+                    "id": 249
+                },
+                {
+                    "age": 3,
+                    "id": 252
+                },
+                {
+                    "age": 2,
+                    "id": 278
+                },
+                {
+                    "age": 3,
+                    "id": 279
+                },
+                {
+                    "age": 3,
+                    "id": 280
+                },
+                {
+                    "age": 4,
+                    "id": 315
+                },
+                {
+                    "age": 3,
+                    "id": 319
+                },
+                {
+                    "age": 3,
+                    "id": 322
+                },
+                {
+                    "age": 3,
+                    "id": 374
+                },
+                {
+                    "age": 4,
+                    "id": 375
+                },
+                {
+                    "age": 3,
+                    "id": 377
+                },
+                {
+                    "age": 4,
+                    "id": 379
+                },
+                {
+                    "age": 4,
+                    "id": 408
+                },
+                {
+                    "age": 2,
+                    "id": 435
+                },
+                {
+                    "age": 4,
+                    "id": 438
+                },
+                {
+                    "age": 3,
+                    "id": 441
+                },
+                {
+                    "age": 2,
+                    "id": 602
+                },
+                {
+                    "age": 4,
+                    "id": 608
+                },
+                {
+                    "age": 3,
+                    "id": 875
+                }
+            ],
+            "unique": {
+                "castleAgeUniqueTech": 996,
+                "castleAgeUniqueUnit": 1908,
+                "imperialAgeUniqueTech": 997,
+                "imperialAgeUniqueUnit": 1910
+            },
+            "units": [
+                {
+                    "age": 2,
+                    "id": 4
+                },
+                {
+                    "age": 3,
+                    "id": 6
+                },
+                {
+                    "age": 2,
+                    "id": 7
+                },
+                {
+                    "age": 1,
+                    "id": 13
+                },
+                {
+                    "age": 2,
+                    "id": 17
+                },
+                {
+                    "age": 3,
+                    "id": 21
+                },
+                {
+                    "age": 3,
+                    "id": 24
+                },
+                {
+                    "age": 4,
+                    "id": 36
+                },
+                {
+                    "age": 3,
+                    "id": 39
+                },
+                {
+                    "age": 1,
+                    "id": 74
+                },
+                {
+                    "age": 2,
+                    "id": 75
+                },
+                {
+                    "age": 1,
+                    "id": 83
+                },
+                {
+                    "age": 2,
+                    "id": 93
+                },
+                {
+                    "age": 3,
+                    "id": 125
+                },
+                {
+                    "age": 2,
+                    "id": 128
+                },
+                {
+                    "age": 3,
+                    "id": 279
+                },
+                {
+                    "age": 4,
+                    "id": 331
+                },
+                {
+                    "age": 3,
+                    "id": 358
+                },
+                {
+                    "age": 4,
+                    "id": 359
+                },
+                {
+                    "age": 4,
+                    "id": 422
+                },
+                {
+                    "age": 3,
+                    "id": 440
+                },
+                {
+                    "age": 4,
+                    "id": 441
+                },
+                {
+                    "age": 4,
+                    "id": 442
+                },
+                {
+                    "age": 2,
+                    "id": 448
+                },
+                {
+                    "age": 4,
+                    "id": 474
+                },
+                {
+                    "age": 3,
+                    "id": 527
+                },
+                {
+                    "age": 4,
+                    "id": 528
+                },
+                {
+                    "age": 3,
+                    "id": 529
+                },
+                {
+                    "age": 2,
+                    "id": 539
+                },
+                {
+                    "age": 4,
+                    "id": 542
+                },
+                {
+                    "age": 1,
+                    "id": 545
+                },
+                {
+                    "age": 3,
+                    "id": 546
+                },
+                {
+                    "age": 4,
+                    "id": 548
+                },
+                {
+                    "age": 2,
+                    "id": 1103
+                },
+                {
+                    "age": 2,
+                    "id": 1104
+                },
+                {
+                    "age": 3,
+                    "id": 1105
+                },
+                {
+                    "age": 3,
+                    "id": 1258
+                },
+                {
+                    "age": 3,
+                    "id": 1370
+                },
+                {
+                    "age": 4,
+                    "id": 1372
+                },
+                {
+                    "age": 3,
+                    "id": 1901
+                },
+                {
+                    "age": 4,
+                    "id": 1903
+                },
+                {
+                    "age": 3,
+                    "id": 1904
+                },
+                {
+                    "age": 4,
+                    "id": 1907
+                },
+                {
+                    "age": 3,
+                    "id": 1911
+                },
+                {
+                    "age": 4,
+                    "id": 1948
+                }
+            ]
+        },
+        "Khitans": {
+            "buildings": [
+                {
+                    "age": 1,
+                    "id": 12
+                },
+                {
+                    "age": 1,
+                    "id": 45
+                },
+                {
+                    "age": 3,
+                    "id": 49
+                },
+                {
+                    "age": 1,
+                    "id": 68
+                },
+                {
+                    "age": 1,
+                    "id": 70
+                },
+                {
+                    "age": 1,
+                    "id": 72
+                },
+                {
+                    "age": 2,
+                    "id": 79
+                },
+                {
+                    "age": 3,
+                    "id": 82
+                },
+                {
+                    "age": 2,
+                    "id": 84
+                },
+                {
+                    "age": 2,
+                    "id": 87
+                },
+                {
+                    "age": 2,
+                    "id": 101
+                },
+                {
+                    "age": 2,
+                    "id": 103
+                },
+                {
+                    "age": 3,
+                    "id": 104
+                },
+                {
+                    "age": 1,
+                    "id": 109
+                },
+                {
+                    "age": 2,
+                    "id": 117
+                },
+                {
+                    "age": 3,
+                    "id": 155
+                },
+                {
+                    "age": 2,
+                    "id": 199
+                },
+                {
+                    "age": 3,
+                    "id": 209
+                },
+                {
+                    "age": 3,
+                    "id": 234
+                },
+                {
+                    "age": 4,
+                    "id": 235
+                },
+                {
+                    "age": 4,
+                    "id": 276
+                },
+                {
+                    "age": 2,
+                    "id": 487
+                },
+                {
+                    "age": 1,
+                    "id": 562
+                },
+                {
+                    "age": 1,
+                    "id": 584
+                },
+                {
+                    "age": 1,
+                    "id": 598
+                },
+                {
+                    "age": 3,
+                    "id": 621
+                },
+                {
+                    "age": 1,
+                    "id": 792
+                },
+                {
+                    "age": 1,
+                    "id": 1889
+                }
+            ],
+            "monkSuffix": "_293",
+            "techs": [
+                {
+                    "age": 2,
+                    "id": 8
+                },
+                {
+                    "age": 4,
+                    "id": 15
+                },
+                {
+                    "age": 4,
+                    "id": 17
+                },
+                {
+                    "age": 1,
+                    "id": 22
+                },
+                {
+                    "age": 3,
+                    "id": 23
+                },
+                {
+                    "age": 3,
+                    "id": 39
+                },
+                {
+                    "age": 4,
+                    "id": 45
+                },
+                {
+                    "age": 3,
+                    "id": 46
+                },
+                {
+                    "age": 4,
+                    "id": 47
+                },
+                {
+                    "age": 3,
+                    "id": 48
+                },
+                {
+                    "age": 3,
+                    "id": 50
+                },
+                {
+                    "age": 2,
+                    "id": 55
+                },
+                {
+                    "age": 3,
+                    "id": 65
+                },
+                {
+                    "age": 2,
+                    "id": 67
+                },
+                {
+                    "age": 3,
+                    "id": 68
+                },
+                {
+                    "age": 2,
+                    "id": 74
+                },
+                {
+                    "age": 3,
+                    "id": 76
+                },
+                {
+                    "age": 4,
+                    "id": 77
+                },
+                {
+                    "age": 4,
+                    "id": 80
+                },
+                {
+                    "age": 2,
+                    "id": 81
+                },
+                {
+                    "age": 3,
+                    "id": 82
+                },
+                {
+                    "age": 3,
+                    "id": 93
+                },
+                {
+                    "age": 1,
+                    "id": 101
+                },
+                {
+                    "age": 2,
+                    "id": 102
+                },
+                {
+                    "age": 3,
+                    "id": 103
+                },
+                {
+                    "age": 3,
+                    "id": 140
+                },
+                {
+                    "age": 3,
+                    "id": 194
+                },
+                {
+                    "age": 2,
+                    "id": 199
+                },
+                {
+                    "age": 3,
+                    "id": 200
+                },
+                {
+                    "age": 4,
+                    "id": 201
+                },
+                {
+                    "age": 2,
+                    "id": 202
+                },
+                {
+                    "age": 3,
+                    "id": 203
+                },
+                {
+                    "age": 2,
+                    "id": 211
+                },
+                {
+                    "age": 3,
+                    "id": 212
+                },
+                {
+                    "age": 2,
+                    "id": 213
+                },
+                {
+                    "age": 3,
+                    "id": 215
+                },
+                {
+                    "age": 4,
+                    "id": 219
+                },
+                {
+                    "age": 4,
+                    "id": 221
+                },
+                {
+                    "age": 3,
+                    "id": 231
+                },
+                {
+                    "age": 4,
+                    "id": 233
+                },
+                {
+                    "age": 3,
+                    "id": 249
+                },
+                {
+                    "age": 3,
+                    "id": 252
+                },
+                {
+                    "age": 2,
+                    "id": 278
+                },
+                {
+                    "age": 3,
+                    "id": 279
+                },
+                {
+                    "age": 3,
+                    "id": 280
+                },
+                {
+                    "age": 4,
+                    "id": 315
+                },
+                {
+                    "age": 3,
+                    "id": 319
+                },
+                {
+                    "age": 4,
+                    "id": 321
+                },
+                {
+                    "age": 3,
+                    "id": 322
+                },
+                {
+                    "age": 3,
+                    "id": 374
+                },
+                {
+                    "age": 4,
+                    "id": 377
+                },
+                {
+                    "age": 4,
+                    "id": 379
+                },
+                {
+                    "age": 3,
+                    "id": 380
+                },
+                {
+                    "age": 4,
+                    "id": 408
+                },
+                {
+                    "age": 4,
+                    "id": 436
+                },
+                {
+                    "age": 3,
+                    "id": 437
+                },
+                {
+                    "age": 4,
+                    "id": 438
+                },
+                {
+                    "age": 3,
+                    "id": 439
+                },
+                {
+                    "age": 2,
+                    "id": 602
+                },
+                {
+                    "age": 3,
+                    "id": 875
+                },
+                {
+                    "age": 4,
+                    "id": 1012
+                },
+                {
+                    "age": 3,
+                    "id": 1013
+                },
+                {
+                    "age": 2,
+                    "id": 1014
+                }
+            ],
+            "unique": {
+                "castleAgeUniqueTech": 1006,
+                "castleAgeUniqueUnit": 1920,
+                "imperialAgeUniqueTech": 1007,
+                "imperialAgeUniqueUnit": 1922
+            },
+            "units": [
+                {
+                    "age": 2,
+                    "id": 4
+                },
+                {
+                    "age": 3,
+                    "id": 6
+                },
+                {
+                    "age": 2,
+                    "id": 7
+                },
+                {
+                    "age": 1,
+                    "id": 13
+                },
+                {
+                    "age": 2,
+                    "id": 17
+                },
+                {
+                    "age": 3,
+                    "id": 21
+                },
+                {
+                    "age": 3,
+                    "id": 24
+                },
+                {
+                    "age": 3,
+                    "id": 39
+                },
+                {
+                    "age": 1,
+                    "id": 74
+                },
+                {
+                    "age": 2,
+                    "id": 75
+                },
+                {
+                    "age": 3,
+                    "id": 77
+                },
+                {
+                    "age": 1,
+                    "id": 83
+                },
+                {
+                    "age": 2,
+                    "id": 93
+                },
+                {
+                    "age": 3,
+                    "id": 125
+                },
+                {
+                    "age": 2,
+                    "id": 128
+                },
+                {
+                    "age": 3,
+                    "id": 279
+                },
+                {
+                    "age": 3,
+                    "id": 329
+                },
+                {
+                    "age": 4,
+                    "id": 330
+                },
+                {
+                    "age": 4,
+                    "id": 331
+                },
+                {
+                    "age": 3,
+                    "id": 358
+                },
+                {
+                    "age": 4,
+                    "id": 420
+                },
+                {
+                    "age": 4,
+                    "id": 422
+                },
+                {
+                    "age": 3,
+                    "id": 440
+                },
+                {
+                    "age": 4,
+                    "id": 441
+                },
+                {
+                    "age": 2,
+                    "id": 448
+                },
+                {
+                    "age": 4,
+                    "id": 473
+                },
+                {
+                    "age": 3,
+                    "id": 474
+                },
+                {
+                    "age": 3,
+                    "id": 527
+                },
+                {
+                    "age": 3,
+                    "id": 529
+                },
+                {
+                    "age": 4,
+                    "id": 532
+                },
+                {
+                    "age": 2,
+                    "id": 539
+                },
+                {
+                    "age": 1,
+                    "id": 545
+                },
+                {
+                    "age": 3,
+                    "id": 546
+                },
+                {
+                    "age": 4,
+                    "id": 548
+                },
+                {
+                    "age": 4,
+                    "id": 567
+                },
+                {
+                    "age": 2,
+                    "id": 1103
+                },
+                {
+                    "age": 2,
+                    "id": 1104
+                },
+                {
+                    "age": 3,
+                    "id": 1105
+                },
+                {
+                    "age": 3,
+                    "id": 1258
+                },
+                {
+                    "age": 3,
+                    "id": 1370
+                },
+                {
+                    "age": 4,
+                    "id": 1372
+                },
+                {
+                    "age": 3,
+                    "id": 1901
+                },
+                {
+                    "age": 4,
+                    "id": 1903
+                },
+                {
+                    "age": 3,
+                    "id": 1904
+                },
+                {
+                    "age": 4,
+                    "id": 1907
+                },
+                {
+                    "age": 4,
+                    "id": 1923
                 }
             ]
         },
@@ -33411,7 +37515,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_290",
             "techs": [
                 {
                     "age": 2,
@@ -33662,7 +37766,7 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 }
             ],
@@ -33986,7 +38090,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_218",
             "techs": [
                 {
                     "age": 2,
@@ -34237,16 +38341,8 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
-                    "id": 602
-                },
-                {
                     "age": 4,
                     "id": 608
-                },
-                {
-                    "age": 2,
-                    "id": 716
                 },
                 {
                     "age": 3,
@@ -34337,10 +38433,6 @@ export const aoeDataInternal = {
                     "id": 279
                 },
                 {
-                    "age": 3,
-                    "id": 280
-                },
-                {
                     "age": 4,
                     "id": 283
                 },
@@ -34414,19 +38506,7 @@ export const aoeDataInternal = {
                 },
                 {
                     "age": 4,
-                    "id": 550
-                },
-                {
-                    "age": 4,
                     "id": 567
-                },
-                {
-                    "age": 4,
-                    "id": 588
-                },
-                {
-                    "age": 4,
-                    "id": 691
                 },
                 {
                     "age": 3,
@@ -34447,6 +38527,22 @@ export const aoeDataInternal = {
                 {
                     "age": 3,
                     "id": 1258
+                },
+                {
+                    "age": 3,
+                    "id": 1901
+                },
+                {
+                    "age": 4,
+                    "id": 1903
+                },
+                {
+                    "age": 3,
+                    "id": 1904
+                },
+                {
+                    "age": 4,
+                    "id": 1907
                 }
             ]
         },
@@ -34569,7 +38665,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_33",
             "techs": [
                 {
                     "age": 2,
@@ -34836,7 +38932,7 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 }
             ],
@@ -35140,7 +39236,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_33",
             "techs": [
                 {
                     "age": 2,
@@ -35391,12 +39487,8 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
-                    "id": 602
-                },
-                {
                     "age": 2,
-                    "id": 716
+                    "id": 602
                 }
             ],
             "unique": {
@@ -35707,7 +39799,7 @@ export const aoeDataInternal = {
                     "id": 1189
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_218",
             "techs": [
                 {
                     "age": 2,
@@ -35724,10 +39816,6 @@ export const aoeDataInternal = {
                 {
                     "age": 2,
                     "id": 14
-                },
-                {
-                    "age": 4,
-                    "id": 15
                 },
                 {
                     "age": 4,
@@ -35962,12 +40050,8 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
-                    "id": 602
-                },
-                {
                     "age": 2,
-                    "id": 716
+                    "id": 602
                 }
             ],
             "unique": {
@@ -36274,7 +40358,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_122",
             "techs": [
                 {
                     "age": 2,
@@ -36537,12 +40621,8 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
-                    "id": 602
-                },
-                {
                     "age": 2,
-                    "id": 716
+                    "id": 602
                 }
             ],
             "unique": {
@@ -36849,7 +40929,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "meso_",
+            "monkSuffix": "_131",
             "techs": [
                 {
                     "age": 2,
@@ -37100,7 +41180,7 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 }
             ],
@@ -37388,7 +41468,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_293",
             "techs": [
                 {
                     "age": 2,
@@ -37619,7 +41699,7 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 }
             ],
@@ -37943,7 +42023,7 @@ export const aoeDataInternal = {
                     "id": 1754
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_169",
             "techs": [
                 {
                     "age": 2,
@@ -38190,12 +42270,8 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
-                    "id": 602
-                },
-                {
                     "age": 2,
-                    "id": 716
+                    "id": 602
                 },
                 {
                     "age": 3,
@@ -38526,7 +42602,7 @@ export const aoeDataInternal = {
                     "id": 1734
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_33",
             "techs": [
                 {
                     "age": 2,
@@ -38769,16 +42845,12 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 },
                 {
                     "age": 4,
                     "id": 608
-                },
-                {
-                    "age": 2,
-                    "id": 716
                 }
             ],
             "unique": {
@@ -39089,7 +43161,7 @@ export const aoeDataInternal = {
                     "id": 1021
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_291",
             "techs": [
                 {
                     "age": 2,
@@ -39360,12 +43432,8 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
-                    "id": 602
-                },
-                {
                     "age": 2,
-                    "id": 716
+                    "id": 602
                 },
                 {
                     "age": 3,
@@ -39680,7 +43748,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_33",
             "techs": [
                 {
                     "age": 2,
@@ -39917,10 +43985,6 @@ export const aoeDataInternal = {
                 {
                     "age": 3,
                     "id": 441
-                },
-                {
-                    "age": 3,
-                    "id": 602
                 }
             ],
             "unique": {
@@ -40207,7 +44271,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_169",
             "techs": [
                 {
                     "age": 2,
@@ -40422,6 +44486,10 @@ export const aoeDataInternal = {
                     "id": 319
                 },
                 {
+                    "age": 4,
+                    "id": 321
+                },
+                {
                     "age": 3,
                     "id": 322
                 },
@@ -40470,16 +44538,12 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 },
                 {
                     "age": 4,
                     "id": 608
-                },
-                {
-                    "age": 2,
-                    "id": 716
                 },
                 {
                     "age": 3,
@@ -40687,6 +44751,553 @@ export const aoeDataInternal = {
                 }
             ]
         },
+        "Shu": {
+            "buildings": [
+                {
+                    "age": 1,
+                    "id": 12
+                },
+                {
+                    "age": 1,
+                    "id": 45
+                },
+                {
+                    "age": 3,
+                    "id": 49
+                },
+                {
+                    "age": 1,
+                    "id": 50
+                },
+                {
+                    "age": 1,
+                    "id": 68
+                },
+                {
+                    "age": 1,
+                    "id": 70
+                },
+                {
+                    "age": 1,
+                    "id": 72
+                },
+                {
+                    "age": 2,
+                    "id": 79
+                },
+                {
+                    "age": 3,
+                    "id": 82
+                },
+                {
+                    "age": 2,
+                    "id": 84
+                },
+                {
+                    "age": 2,
+                    "id": 87
+                },
+                {
+                    "age": 2,
+                    "id": 101
+                },
+                {
+                    "age": 2,
+                    "id": 103
+                },
+                {
+                    "age": 3,
+                    "id": 104
+                },
+                {
+                    "age": 1,
+                    "id": 109
+                },
+                {
+                    "age": 2,
+                    "id": 117
+                },
+                {
+                    "age": 3,
+                    "id": 155
+                },
+                {
+                    "age": 2,
+                    "id": 199
+                },
+                {
+                    "age": 3,
+                    "id": 209
+                },
+                {
+                    "age": 3,
+                    "id": 234
+                },
+                {
+                    "age": 4,
+                    "id": 276
+                },
+                {
+                    "age": 2,
+                    "id": 487
+                },
+                {
+                    "age": 1,
+                    "id": 562
+                },
+                {
+                    "age": 1,
+                    "id": 584
+                },
+                {
+                    "age": 1,
+                    "id": 598
+                },
+                {
+                    "age": 3,
+                    "id": 621
+                },
+                {
+                    "age": 1,
+                    "id": 792
+                }
+            ],
+            "monkSuffix": "_218",
+            "techs": [
+                {
+                    "age": 2,
+                    "id": 8
+                },
+                {
+                    "age": 3,
+                    "id": 13
+                },
+                {
+                    "age": 2,
+                    "id": 14
+                },
+                {
+                    "age": 4,
+                    "id": 15
+                },
+                {
+                    "age": 4,
+                    "id": 17
+                },
+                {
+                    "age": 1,
+                    "id": 22
+                },
+                {
+                    "age": 3,
+                    "id": 23
+                },
+                {
+                    "age": 3,
+                    "id": 39
+                },
+                {
+                    "age": 4,
+                    "id": 45
+                },
+                {
+                    "age": 3,
+                    "id": 46
+                },
+                {
+                    "age": 4,
+                    "id": 47
+                },
+                {
+                    "age": 3,
+                    "id": 48
+                },
+                {
+                    "age": 3,
+                    "id": 50
+                },
+                {
+                    "age": 4,
+                    "id": 51
+                },
+                {
+                    "age": 2,
+                    "id": 55
+                },
+                {
+                    "age": 3,
+                    "id": 65
+                },
+                {
+                    "age": 2,
+                    "id": 67
+                },
+                {
+                    "age": 2,
+                    "id": 74
+                },
+                {
+                    "age": 3,
+                    "id": 76
+                },
+                {
+                    "age": 4,
+                    "id": 77
+                },
+                {
+                    "age": 4,
+                    "id": 80
+                },
+                {
+                    "age": 2,
+                    "id": 81
+                },
+                {
+                    "age": 3,
+                    "id": 82
+                },
+                {
+                    "age": 3,
+                    "id": 93
+                },
+                {
+                    "age": 1,
+                    "id": 101
+                },
+                {
+                    "age": 2,
+                    "id": 102
+                },
+                {
+                    "age": 3,
+                    "id": 103
+                },
+                {
+                    "age": 3,
+                    "id": 140
+                },
+                {
+                    "age": 3,
+                    "id": 182
+                },
+                {
+                    "age": 3,
+                    "id": 194
+                },
+                {
+                    "age": 2,
+                    "id": 199
+                },
+                {
+                    "age": 3,
+                    "id": 200
+                },
+                {
+                    "age": 4,
+                    "id": 201
+                },
+                {
+                    "age": 2,
+                    "id": 202
+                },
+                {
+                    "age": 3,
+                    "id": 203
+                },
+                {
+                    "age": 2,
+                    "id": 211
+                },
+                {
+                    "age": 3,
+                    "id": 212
+                },
+                {
+                    "age": 2,
+                    "id": 213
+                },
+                {
+                    "age": 3,
+                    "id": 215
+                },
+                {
+                    "age": 4,
+                    "id": 219
+                },
+                {
+                    "age": 4,
+                    "id": 221
+                },
+                {
+                    "age": 3,
+                    "id": 249
+                },
+                {
+                    "age": 3,
+                    "id": 252
+                },
+                {
+                    "age": 2,
+                    "id": 278
+                },
+                {
+                    "age": 3,
+                    "id": 280
+                },
+                {
+                    "age": 4,
+                    "id": 315
+                },
+                {
+                    "age": 3,
+                    "id": 319
+                },
+                {
+                    "age": 3,
+                    "id": 322
+                },
+                {
+                    "age": 4,
+                    "id": 373
+                },
+                {
+                    "age": 3,
+                    "id": 374
+                },
+                {
+                    "age": 4,
+                    "id": 375
+                },
+                {
+                    "age": 4,
+                    "id": 377
+                },
+                {
+                    "age": 4,
+                    "id": 379
+                },
+                {
+                    "age": 3,
+                    "id": 380
+                },
+                {
+                    "age": 4,
+                    "id": 408
+                },
+                {
+                    "age": 3,
+                    "id": 437
+                },
+                {
+                    "age": 4,
+                    "id": 438
+                },
+                {
+                    "age": 3,
+                    "id": 439
+                },
+                {
+                    "age": 3,
+                    "id": 441
+                },
+                {
+                    "age": 2,
+                    "id": 602
+                },
+                {
+                    "age": 4,
+                    "id": 608
+                },
+                {
+                    "age": 3,
+                    "id": 875
+                }
+            ],
+            "unique": {
+                "castleAgeUniqueTech": 1070,
+                "castleAgeUniqueUnit": 1959,
+                "imperialAgeUniqueTech": 1069,
+                "imperialAgeUniqueUnit": 1961
+            },
+            "units": [
+                {
+                    "age": 2,
+                    "id": 4
+                },
+                {
+                    "age": 3,
+                    "id": 6
+                },
+                {
+                    "age": 2,
+                    "id": 7
+                },
+                {
+                    "age": 1,
+                    "id": 13
+                },
+                {
+                    "age": 2,
+                    "id": 17
+                },
+                {
+                    "age": 3,
+                    "id": 21
+                },
+                {
+                    "age": 3,
+                    "id": 24
+                },
+                {
+                    "age": 3,
+                    "id": 39
+                },
+                {
+                    "age": 1,
+                    "id": 74
+                },
+                {
+                    "age": 2,
+                    "id": 75
+                },
+                {
+                    "age": 3,
+                    "id": 77
+                },
+                {
+                    "age": 1,
+                    "id": 83
+                },
+                {
+                    "age": 2,
+                    "id": 93
+                },
+                {
+                    "age": 3,
+                    "id": 125
+                },
+                {
+                    "age": 2,
+                    "id": 128
+                },
+                {
+                    "age": 3,
+                    "id": 280
+                },
+                {
+                    "age": 3,
+                    "id": 358
+                },
+                {
+                    "age": 4,
+                    "id": 359
+                },
+                {
+                    "age": 4,
+                    "id": 422
+                },
+                {
+                    "age": 3,
+                    "id": 440
+                },
+                {
+                    "age": 4,
+                    "id": 442
+                },
+                {
+                    "age": 2,
+                    "id": 448
+                },
+                {
+                    "age": 4,
+                    "id": 473
+                },
+                {
+                    "age": 4,
+                    "id": 474
+                },
+                {
+                    "age": 4,
+                    "id": 492
+                },
+                {
+                    "age": 3,
+                    "id": 527
+                },
+                {
+                    "age": 4,
+                    "id": 528
+                },
+                {
+                    "age": 3,
+                    "id": 529
+                },
+                {
+                    "age": 2,
+                    "id": 539
+                },
+                {
+                    "age": 1,
+                    "id": 545
+                },
+                {
+                    "age": 3,
+                    "id": 546
+                },
+                {
+                    "age": 4,
+                    "id": 548
+                },
+                {
+                    "age": 4,
+                    "id": 550
+                },
+                {
+                    "age": 4,
+                    "id": 567
+                },
+                {
+                    "age": 2,
+                    "id": 1103
+                },
+                {
+                    "age": 2,
+                    "id": 1104
+                },
+                {
+                    "age": 3,
+                    "id": 1105
+                },
+                {
+                    "age": 3,
+                    "id": 1258
+                },
+                {
+                    "age": 4,
+                    "id": 1942
+                },
+                {
+                    "age": 3,
+                    "id": 1944
+                },
+                {
+                    "age": 4,
+                    "id": 1946
+                },
+                {
+                    "age": 4,
+                    "id": 1948
+                },
+                {
+                    "age": 3,
+                    "id": 1962
+                },
+                {
+                    "age": 4,
+                    "id": 1966
+                }
+            ]
+        },
         "Sicilians": {
             "buildings": [
                 {
@@ -40786,11 +45397,11 @@ export const aoeDataInternal = {
                     "id": 792
                 },
                 {
-                    "age": 2,
+                    "age": 1,
                     "id": 1665
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_33",
             "techs": [
                 {
                     "age": 2,
@@ -41025,16 +45636,12 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 },
                 {
                     "age": 4,
                     "id": 608
-                },
-                {
-                    "age": 2,
-                    "id": 716
                 },
                 {
                     "age": 3,
@@ -41361,7 +45968,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_292",
             "techs": [
                 {
                     "age": 2,
@@ -41604,12 +46211,8 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
-                    "id": 602
-                },
-                {
                     "age": 2,
-                    "id": 716
+                    "id": 602
                 },
                 {
                     "age": 3,
@@ -41924,7 +46527,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_291",
             "techs": [
                 {
                     "age": 2,
@@ -42195,16 +46798,12 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 },
                 {
                     "age": 4,
                     "id": 608
-                },
-                {
-                    "age": 2,
-                    "id": 716
                 },
                 {
                     "age": 3,
@@ -42527,7 +47126,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_169",
             "techs": [
                 {
                     "age": 2,
@@ -42770,7 +47369,7 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 }
             ],
@@ -42950,10 +47549,6 @@ export const aoeDataInternal = {
                     "id": 550
                 },
                 {
-                    "age": 4,
-                    "id": 691
-                },
-                {
                     "age": 2,
                     "id": 1103
                 },
@@ -43102,7 +47697,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_33",
             "techs": [
                 {
                     "age": 2,
@@ -43361,16 +47956,12 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 },
                 {
                     "age": 4,
                     "id": 608
-                },
-                {
-                    "age": 2,
-                    "id": 716
                 },
                 {
                     "age": 3,
@@ -43685,7 +48276,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_169",
             "techs": [
                 {
                     "age": 2,
@@ -43956,16 +48547,12 @@ export const aoeDataInternal = {
                     "id": 439
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 },
                 {
                     "age": 4,
                     "id": 608
-                },
-                {
-                    "age": 2,
-                    "id": 716
                 }
             ],
             "unique": {
@@ -44276,7 +48863,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_218",
             "techs": [
                 {
                     "age": 2,
@@ -44535,16 +49122,12 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 },
                 {
                     "age": 4,
                     "id": 608
-                },
-                {
-                    "age": 2,
-                    "id": 716
                 }
             ],
             "unique": {
@@ -44741,6 +49324,14 @@ export const aoeDataInternal = {
                 {
                     "age": 3,
                     "id": 1258
+                },
+                {
+                    "age": 3,
+                    "id": 1901
+                },
+                {
+                    "age": 4,
+                    "id": 1903
                 }
             ]
         },
@@ -44855,7 +49446,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkPrefix": "",
+            "monkSuffix": "_33",
             "techs": [
                 {
                     "age": 2,
@@ -45090,16 +49681,12 @@ export const aoeDataInternal = {
                     "id": 439
                 },
                 {
-                    "age": 3,
+                    "age": 2,
                     "id": 602
                 },
                 {
                     "age": 4,
                     "id": 608
-                },
-                {
-                    "age": 2,
-                    "id": 716
                 },
                 {
                     "age": 3,
@@ -45270,8 +49857,515 @@ export const aoeDataInternal = {
                     "id": 567
                 },
                 {
+                    "age": 2,
+                    "id": 1104
+                },
+                {
+                    "age": 3,
+                    "id": 1105
+                },
+                {
+                    "age": 3,
+                    "id": 1258
+                }
+            ]
+        },
+        "Wei": {
+            "buildings": [
+                {
+                    "age": 1,
+                    "id": 12
+                },
+                {
+                    "age": 1,
+                    "id": 45
+                },
+                {
+                    "age": 3,
+                    "id": 49
+                },
+                {
+                    "age": 1,
+                    "id": 50
+                },
+                {
+                    "age": 1,
+                    "id": 68
+                },
+                {
+                    "age": 1,
+                    "id": 70
+                },
+                {
+                    "age": 1,
+                    "id": 72
+                },
+                {
+                    "age": 2,
+                    "id": 79
+                },
+                {
+                    "age": 3,
+                    "id": 82
+                },
+                {
+                    "age": 2,
+                    "id": 84
+                },
+                {
+                    "age": 2,
+                    "id": 87
+                },
+                {
+                    "age": 2,
+                    "id": 101
+                },
+                {
+                    "age": 2,
+                    "id": 103
+                },
+                {
+                    "age": 3,
+                    "id": 104
+                },
+                {
+                    "age": 1,
+                    "id": 109
+                },
+                {
+                    "age": 2,
+                    "id": 117
+                },
+                {
+                    "age": 3,
+                    "id": 155
+                },
+                {
+                    "age": 2,
+                    "id": 199
+                },
+                {
+                    "age": 3,
+                    "id": 209
+                },
+                {
+                    "age": 3,
+                    "id": 234
+                },
+                {
                     "age": 4,
-                    "id": 691
+                    "id": 235
+                },
+                {
+                    "age": 4,
+                    "id": 276
+                },
+                {
+                    "age": 2,
+                    "id": 487
+                },
+                {
+                    "age": 1,
+                    "id": 562
+                },
+                {
+                    "age": 1,
+                    "id": 584
+                },
+                {
+                    "age": 1,
+                    "id": 598
+                },
+                {
+                    "age": 3,
+                    "id": 621
+                },
+                {
+                    "age": 1,
+                    "id": 792
+                }
+            ],
+            "monkSuffix": "_218",
+            "techs": [
+                {
+                    "age": 2,
+                    "id": 8
+                },
+                {
+                    "age": 4,
+                    "id": 12
+                },
+                {
+                    "age": 3,
+                    "id": 13
+                },
+                {
+                    "age": 2,
+                    "id": 14
+                },
+                {
+                    "age": 4,
+                    "id": 17
+                },
+                {
+                    "age": 1,
+                    "id": 22
+                },
+                {
+                    "age": 3,
+                    "id": 23
+                },
+                {
+                    "age": 3,
+                    "id": 39
+                },
+                {
+                    "age": 4,
+                    "id": 45
+                },
+                {
+                    "age": 3,
+                    "id": 46
+                },
+                {
+                    "age": 4,
+                    "id": 47
+                },
+                {
+                    "age": 3,
+                    "id": 48
+                },
+                {
+                    "age": 3,
+                    "id": 50
+                },
+                {
+                    "age": 3,
+                    "id": 54
+                },
+                {
+                    "age": 2,
+                    "id": 55
+                },
+                {
+                    "age": 4,
+                    "id": 63
+                },
+                {
+                    "age": 3,
+                    "id": 65
+                },
+                {
+                    "age": 2,
+                    "id": 67
+                },
+                {
+                    "age": 3,
+                    "id": 68
+                },
+                {
+                    "age": 2,
+                    "id": 74
+                },
+                {
+                    "age": 4,
+                    "id": 75
+                },
+                {
+                    "age": 3,
+                    "id": 76
+                },
+                {
+                    "age": 2,
+                    "id": 81
+                },
+                {
+                    "age": 3,
+                    "id": 82
+                },
+                {
+                    "age": 3,
+                    "id": 93
+                },
+                {
+                    "age": 1,
+                    "id": 101
+                },
+                {
+                    "age": 2,
+                    "id": 102
+                },
+                {
+                    "age": 3,
+                    "id": 103
+                },
+                {
+                    "age": 3,
+                    "id": 140
+                },
+                {
+                    "age": 3,
+                    "id": 194
+                },
+                {
+                    "age": 2,
+                    "id": 199
+                },
+                {
+                    "age": 3,
+                    "id": 200
+                },
+                {
+                    "age": 4,
+                    "id": 201
+                },
+                {
+                    "age": 2,
+                    "id": 202
+                },
+                {
+                    "age": 3,
+                    "id": 203
+                },
+                {
+                    "age": 2,
+                    "id": 211
+                },
+                {
+                    "age": 3,
+                    "id": 212
+                },
+                {
+                    "age": 2,
+                    "id": 213
+                },
+                {
+                    "age": 3,
+                    "id": 215
+                },
+                {
+                    "age": 4,
+                    "id": 219
+                },
+                {
+                    "age": 4,
+                    "id": 230
+                },
+                {
+                    "age": 3,
+                    "id": 231
+                },
+                {
+                    "age": 4,
+                    "id": 233
+                },
+                {
+                    "age": 3,
+                    "id": 249
+                },
+                {
+                    "age": 3,
+                    "id": 252
+                },
+                {
+                    "age": 2,
+                    "id": 278
+                },
+                {
+                    "age": 3,
+                    "id": 279
+                },
+                {
+                    "age": 3,
+                    "id": 280
+                },
+                {
+                    "age": 4,
+                    "id": 315
+                },
+                {
+                    "age": 3,
+                    "id": 322
+                },
+                {
+                    "age": 3,
+                    "id": 374
+                },
+                {
+                    "age": 4,
+                    "id": 379
+                },
+                {
+                    "age": 3,
+                    "id": 380
+                },
+                {
+                    "age": 4,
+                    "id": 408
+                },
+                {
+                    "age": 2,
+                    "id": 435
+                },
+                {
+                    "age": 4,
+                    "id": 436
+                },
+                {
+                    "age": 3,
+                    "id": 437
+                },
+                {
+                    "age": 4,
+                    "id": 438
+                },
+                {
+                    "age": 2,
+                    "id": 602
+                }
+            ],
+            "unique": {
+                "castleAgeUniqueTech": 1061,
+                "castleAgeUniqueUnit": 1949,
+                "imperialAgeUniqueTech": 1062,
+                "imperialAgeUniqueUnit": 1951
+            },
+            "units": [
+                {
+                    "age": 2,
+                    "id": 4
+                },
+                {
+                    "age": 3,
+                    "id": 6
+                },
+                {
+                    "age": 2,
+                    "id": 7
+                },
+                {
+                    "age": 1,
+                    "id": 13
+                },
+                {
+                    "age": 2,
+                    "id": 17
+                },
+                {
+                    "age": 3,
+                    "id": 21
+                },
+                {
+                    "age": 3,
+                    "id": 24
+                },
+                {
+                    "age": 1,
+                    "id": 74
+                },
+                {
+                    "age": 2,
+                    "id": 75
+                },
+                {
+                    "age": 3,
+                    "id": 77
+                },
+                {
+                    "age": 1,
+                    "id": 83
+                },
+                {
+                    "age": 2,
+                    "id": 93
+                },
+                {
+                    "age": 3,
+                    "id": 125
+                },
+                {
+                    "age": 2,
+                    "id": 128
+                },
+                {
+                    "age": 3,
+                    "id": 279
+                },
+                {
+                    "age": 3,
+                    "id": 280
+                },
+                {
+                    "age": 3,
+                    "id": 358
+                },
+                {
+                    "age": 4,
+                    "id": 359
+                },
+                {
+                    "age": 4,
+                    "id": 422
+                },
+                {
+                    "age": 3,
+                    "id": 440
+                },
+                {
+                    "age": 4,
+                    "id": 441
+                },
+                {
+                    "age": 4,
+                    "id": 442
+                },
+                {
+                    "age": 2,
+                    "id": 448
+                },
+                {
+                    "age": 4,
+                    "id": 473
+                },
+                {
+                    "age": 3,
+                    "id": 527
+                },
+                {
+                    "age": 3,
+                    "id": 529
+                },
+                {
+                    "age": 4,
+                    "id": 532
+                },
+                {
+                    "age": 2,
+                    "id": 539
+                },
+                {
+                    "age": 4,
+                    "id": 542
+                },
+                {
+                    "age": 1,
+                    "id": 545
+                },
+                {
+                    "age": 3,
+                    "id": 546
+                },
+                {
+                    "age": 4,
+                    "id": 548
+                },
+                {
+                    "age": 4,
+                    "id": 550
+                },
+                {
+                    "age": 2,
+                    "id": 1103
                 },
                 {
                     "age": 2,
@@ -45284,6 +50378,585 @@ export const aoeDataInternal = {
                 {
                     "age": 3,
                     "id": 1258
+                },
+                {
+                    "age": 4,
+                    "id": 1942
+                },
+                {
+                    "age": 3,
+                    "id": 1944
+                },
+                {
+                    "age": 4,
+                    "id": 1946
+                },
+                {
+                    "age": 4,
+                    "id": 1948
+                },
+                {
+                    "age": 3,
+                    "id": 1952
+                },
+                {
+                    "age": 4,
+                    "id": 1954
+                }
+            ]
+        },
+        "Wu": {
+            "buildings": [
+                {
+                    "age": 1,
+                    "id": 12
+                },
+                {
+                    "age": 1,
+                    "id": 45
+                },
+                {
+                    "age": 3,
+                    "id": 49
+                },
+                {
+                    "age": 1,
+                    "id": 50
+                },
+                {
+                    "age": 1,
+                    "id": 68
+                },
+                {
+                    "age": 1,
+                    "id": 70
+                },
+                {
+                    "age": 1,
+                    "id": 72
+                },
+                {
+                    "age": 2,
+                    "id": 79
+                },
+                {
+                    "age": 3,
+                    "id": 82
+                },
+                {
+                    "age": 2,
+                    "id": 84
+                },
+                {
+                    "age": 2,
+                    "id": 87
+                },
+                {
+                    "age": 2,
+                    "id": 101
+                },
+                {
+                    "age": 2,
+                    "id": 103
+                },
+                {
+                    "age": 3,
+                    "id": 104
+                },
+                {
+                    "age": 1,
+                    "id": 109
+                },
+                {
+                    "age": 2,
+                    "id": 117
+                },
+                {
+                    "age": 2,
+                    "id": 199
+                },
+                {
+                    "age": 3,
+                    "id": 209
+                },
+                {
+                    "age": 3,
+                    "id": 234
+                },
+                {
+                    "age": 4,
+                    "id": 235
+                },
+                {
+                    "age": 4,
+                    "id": 276
+                },
+                {
+                    "age": 2,
+                    "id": 487
+                },
+                {
+                    "age": 1,
+                    "id": 562
+                },
+                {
+                    "age": 1,
+                    "id": 584
+                },
+                {
+                    "age": 1,
+                    "id": 598
+                },
+                {
+                    "age": 3,
+                    "id": 621
+                },
+                {
+                    "age": 1,
+                    "id": 792
+                }
+            ],
+            "monkSuffix": "_218",
+            "techs": [
+                {
+                    "age": 2,
+                    "id": 8
+                },
+                {
+                    "age": 3,
+                    "id": 13
+                },
+                {
+                    "age": 2,
+                    "id": 14
+                },
+                {
+                    "age": 4,
+                    "id": 15
+                },
+                {
+                    "age": 4,
+                    "id": 17
+                },
+                {
+                    "age": 1,
+                    "id": 22
+                },
+                {
+                    "age": 3,
+                    "id": 23
+                },
+                {
+                    "age": 3,
+                    "id": 39
+                },
+                {
+                    "age": 4,
+                    "id": 45
+                },
+                {
+                    "age": 3,
+                    "id": 46
+                },
+                {
+                    "age": 4,
+                    "id": 47
+                },
+                {
+                    "age": 3,
+                    "id": 48
+                },
+                {
+                    "age": 3,
+                    "id": 50
+                },
+                {
+                    "age": 4,
+                    "id": 51
+                },
+                {
+                    "age": 3,
+                    "id": 54
+                },
+                {
+                    "age": 2,
+                    "id": 55
+                },
+                {
+                    "age": 4,
+                    "id": 63
+                },
+                {
+                    "age": 3,
+                    "id": 65
+                },
+                {
+                    "age": 2,
+                    "id": 67
+                },
+                {
+                    "age": 3,
+                    "id": 68
+                },
+                {
+                    "age": 2,
+                    "id": 74
+                },
+                {
+                    "age": 4,
+                    "id": 75
+                },
+                {
+                    "age": 3,
+                    "id": 76
+                },
+                {
+                    "age": 4,
+                    "id": 77
+                },
+                {
+                    "age": 4,
+                    "id": 80
+                },
+                {
+                    "age": 2,
+                    "id": 81
+                },
+                {
+                    "age": 3,
+                    "id": 82
+                },
+                {
+                    "age": 3,
+                    "id": 93
+                },
+                {
+                    "age": 1,
+                    "id": 101
+                },
+                {
+                    "age": 2,
+                    "id": 102
+                },
+                {
+                    "age": 3,
+                    "id": 103
+                },
+                {
+                    "age": 3,
+                    "id": 140
+                },
+                {
+                    "age": 3,
+                    "id": 182
+                },
+                {
+                    "age": 2,
+                    "id": 199
+                },
+                {
+                    "age": 3,
+                    "id": 200
+                },
+                {
+                    "age": 4,
+                    "id": 201
+                },
+                {
+                    "age": 2,
+                    "id": 202
+                },
+                {
+                    "age": 3,
+                    "id": 203
+                },
+                {
+                    "age": 2,
+                    "id": 211
+                },
+                {
+                    "age": 3,
+                    "id": 212
+                },
+                {
+                    "age": 2,
+                    "id": 213
+                },
+                {
+                    "age": 3,
+                    "id": 215
+                },
+                {
+                    "age": 4,
+                    "id": 221
+                },
+                {
+                    "age": 4,
+                    "id": 230
+                },
+                {
+                    "age": 3,
+                    "id": 231
+                },
+                {
+                    "age": 4,
+                    "id": 233
+                },
+                {
+                    "age": 3,
+                    "id": 249
+                },
+                {
+                    "age": 3,
+                    "id": 252
+                },
+                {
+                    "age": 2,
+                    "id": 278
+                },
+                {
+                    "age": 3,
+                    "id": 279
+                },
+                {
+                    "age": 3,
+                    "id": 280
+                },
+                {
+                    "age": 4,
+                    "id": 315
+                },
+                {
+                    "age": 3,
+                    "id": 316
+                },
+                {
+                    "age": 3,
+                    "id": 319
+                },
+                {
+                    "age": 3,
+                    "id": 322
+                },
+                {
+                    "age": 2,
+                    "id": 374
+                },
+                {
+                    "age": 3,
+                    "id": 375
+                },
+                {
+                    "age": 3,
+                    "id": 380
+                },
+                {
+                    "age": 4,
+                    "id": 408
+                },
+                {
+                    "age": 2,
+                    "id": 435
+                },
+                {
+                    "age": 4,
+                    "id": 438
+                },
+                {
+                    "age": 3,
+                    "id": 441
+                },
+                {
+                    "age": 2,
+                    "id": 602
+                }
+            ],
+            "unique": {
+                "castleAgeUniqueTech": 1080,
+                "castleAgeUniqueUnit": 1968,
+                "imperialAgeUniqueTech": 1081,
+                "imperialAgeUniqueUnit": 1970
+            },
+            "units": [
+                {
+                    "age": 2,
+                    "id": 4
+                },
+                {
+                    "age": 3,
+                    "id": 6
+                },
+                {
+                    "age": 2,
+                    "id": 7
+                },
+                {
+                    "age": 1,
+                    "id": 13
+                },
+                {
+                    "age": 2,
+                    "id": 17
+                },
+                {
+                    "age": 3,
+                    "id": 21
+                },
+                {
+                    "age": 3,
+                    "id": 24
+                },
+                {
+                    "age": 3,
+                    "id": 39
+                },
+                {
+                    "age": 1,
+                    "id": 74
+                },
+                {
+                    "age": 2,
+                    "id": 75
+                },
+                {
+                    "age": 3,
+                    "id": 77
+                },
+                {
+                    "age": 1,
+                    "id": 83
+                },
+                {
+                    "age": 2,
+                    "id": 93
+                },
+                {
+                    "age": 3,
+                    "id": 125
+                },
+                {
+                    "age": 2,
+                    "id": 128
+                },
+                {
+                    "age": 3,
+                    "id": 279
+                },
+                {
+                    "age": 3,
+                    "id": 280
+                },
+                {
+                    "age": 3,
+                    "id": 358
+                },
+                {
+                    "age": 4,
+                    "id": 359
+                },
+                {
+                    "age": 3,
+                    "id": 440
+                },
+                {
+                    "age": 4,
+                    "id": 441
+                },
+                {
+                    "age": 4,
+                    "id": 442
+                },
+                {
+                    "age": 2,
+                    "id": 448
+                },
+                {
+                    "age": 4,
+                    "id": 473
+                },
+                {
+                    "age": 4,
+                    "id": 492
+                },
+                {
+                    "age": 3,
+                    "id": 527
+                },
+                {
+                    "age": 4,
+                    "id": 528
+                },
+                {
+                    "age": 3,
+                    "id": 529
+                },
+                {
+                    "age": 4,
+                    "id": 532
+                },
+                {
+                    "age": 2,
+                    "id": 539
+                },
+                {
+                    "age": 4,
+                    "id": 542
+                },
+                {
+                    "age": 1,
+                    "id": 545
+                },
+                {
+                    "age": 3,
+                    "id": 546
+                },
+                {
+                    "age": 4,
+                    "id": 550
+                },
+                {
+                    "age": 4,
+                    "id": 567
+                },
+                {
+                    "age": 2,
+                    "id": 1103
+                },
+                {
+                    "age": 2,
+                    "id": 1104
+                },
+                {
+                    "age": 3,
+                    "id": 1105
+                },
+                {
+                    "age": 3,
+                    "id": 1258
+                },
+                {
+                    "age": 4,
+                    "id": 1942
+                },
+                {
+                    "age": 3,
+                    "id": 1944
+                },
+                {
+                    "age": 4,
+                    "id": 1946
+                },
+                {
+                    "age": 4,
+                    "id": 1948
+                },
+                {
+                    "age": 3,
+                    "id": 1974
+                },
+                {
+                    "age": 4,
+                    "id": 1978
                 }
             ]
         }

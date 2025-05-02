@@ -19,6 +19,7 @@ const unitSections: IUnitSection[] = [
                 'Militia',
                 'Spearman',
                 'EagleScout',
+                'FireLancer',
                 'Condottiero',
                 'FlemishMilitia',
             ],
@@ -59,6 +60,7 @@ const unitSections: IUnitSection[] = [
                 'ArmoredElephant',
                 'BatteringRam',
                 'Mangonel',
+                'RocketCart',
                 'Scorpion',
                 'SiegeTower',
                 'BombardCannon',
@@ -95,6 +97,7 @@ const unitSections: IUnitSection[] = [
                 'FireGalley',
                 'DemolitionRaft',
                 'CannonGalleon',
+                'LouChuan',
                 'Caravel',
                 'Dromon',
                 'Longboat',
@@ -155,6 +158,7 @@ const nonExtendedUnitsInSections = [
     'ElephantArcher',
     'BattleElephant',
     'CannonGalleon',
+    'FireLancer',
     'SteppeLancer',
 ];
 

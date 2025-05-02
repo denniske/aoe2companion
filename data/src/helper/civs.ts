@@ -84,7 +84,7 @@ export const civList: ICivEntry[] = [
     },
     {
         name: 'Chinese',
-        uniqueUnits: ['ChuKoNu'],
+        uniqueUnits: ['ChuKoNu', 'DragonShip'],
         uniqueTechs: ['GreatWall', 'Rocketry'],
     },
     {
@@ -130,12 +130,37 @@ export const civList: ICivEntry[] = [
     {
         name: 'Italians',
         uniqueUnits: ['GenoeseCrossbowman', 'Condottiero'],
-        uniqueTechs: ['Pavise', 'SilkRoad'],
+        uniqueTechs: ['SilkRoad', 'Pirotechnia'],
     },
     {
         name: 'Japanese',
         uniqueUnits: ['Samurai'],
         uniqueTechs: ['Yasama', 'Kataparuto'],
+    },
+    {
+        name: 'Jurchens',
+        uniqueUnits: ['IronPagoda', 'Grenadier'],
+        uniqueTechs: ['FortifiedBastions', 'ThunderclapBombs'],
+    },
+    {
+        name: 'Khitans',
+        uniqueUnits: ['LiaoDao', 'MountedTrebuchet'],
+        uniqueTechs: ['LamellarArmor', 'OrdoCavalry'],
+    },
+    {
+        name: 'Shu',
+        uniqueUnits: ['WhiteFeatherGuard', 'WarChariot', 'LiuBei'],
+        uniqueTechs: ['CoiledSerpentArray', 'BoltMagazine'],
+    },
+    {
+        name: 'Wei',
+        uniqueUnits: ['TigerCavalry', 'XianbeiRaider', 'CaoCao'],
+        uniqueTechs: ['Tuntian', 'MingGuangArmor'],
+    },
+    {
+        name: 'Wu',
+        uniqueUnits: ['FireArcher', 'JianSwordsman', 'SunJian'],
+        uniqueTechs: ['RedCliffsTactics', 'SittingTiger'],
     },
     {
         name: 'Khmer',

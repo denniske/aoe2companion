@@ -141,7 +141,6 @@ export const techSections: ITechSection[] = [
     {
         building: 'Barracks',
         data: [
-            "Supplies",
             "Gambesons",
             "Squires",
             "Arson",

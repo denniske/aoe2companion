@@ -207,8 +207,10 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                     {unit: 'ManAtArms'},
                     {unit: 'Pikeman'},
                     {unit: 'EagleScout'},
+                    {unit: 'FlemishMilitia', unique: true},
                     {},
-                    {tech: 'Supplies'},
+                    {},
+                    {tech: 'Arson'},
                 ],
             },
             {
@@ -223,10 +225,10 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                     {unit: 'TwoHandedSwordsman'},
                     {unit: 'Halberdier'},
                     {unit: 'EagleWarrior'},
-                    {},
+                    // {unit: 'FireLancer'},
+                    // {unit: 'JianWarrior'},
                     {tech: 'Gambesons'},
                     {tech: 'Squires'},
-                    {tech: 'Arson'},
                 ],
             },
             {
@@ -241,8 +243,8 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                     {},
                     {},
                     {unit: 'EliteEagleWarrior'},
+                    // {unit: 'EliteFireLancer'},
                     {unit: 'Condottiero', unique: true},
-                    {unit: 'FlemishMilitia', unique: true},
                 ],
             },
         );
@@ -269,8 +271,10 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                     {unit: 'ManAtArms'},
                     {unit: 'Spearman'},
                     {unit: 'EagleScout'},
+                    {unit: 'FlemishMilitia', unique: true},
                     {},
-                    {tech: 'Supplies'},
+                    {},
+                    {tech: 'Arson'},
                 ],
             },
             {
@@ -282,7 +286,6 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                     {},
                     {tech: 'Gambesons'},
                     {tech: 'Squires'},
-                    {tech: 'Arson'},
                 ],
             },
             {
@@ -295,7 +298,6 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                     {unit: 'Halberdier'},
                     {unit: 'EliteEagleWarrior'},
                     {unit: 'Condottiero', unique: true},
-                    {unit: 'FlemishMilitia', unique: true},
                 ],
             },
             {
