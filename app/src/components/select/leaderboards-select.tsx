@@ -7,6 +7,7 @@ import { leaderboardsByType } from '@app/helper/leaderboard';
 import { View } from 'react-native';
 import Picker from '@app/view/components/picker';
 import React from 'react';
+import { useAppTheme } from '@app/theming';
 
 interface Props {
     leaderboardIdList: string[];
@@ -15,6 +16,7 @@ interface Props {
 
 export function LeaderboardsSelect(props: Props) {
     const { leaderboardIdList, onLeaderboardIdChange } = props;
+    const theme = useAppTheme();
 
     const { data: leaderboards } = useQuery({
         queryKey: ['leaderboards'],
@@ -30,11 +32,10 @@ export function LeaderboardsSelect(props: Props) {
 
     const icon = (x: any) => {
         if (x == null) return null;
-        console.log('x', x)
         if (x.abbreviation.includes('🎮')) {
-            return <FontAwesome6 name="gamepad" size={16} style={{paddingRight: 10, paddingVertical:8}} className="pr-2 mr-2 border-2 border-amber-200" />;
+            return <FontAwesome6 name="gamepad" size={16} style={{paddingRight: 10, paddingVertical:8, color: theme.textColor}} />;
         } else {
-            return <FontAwesome6 name="computer-mouse" size={16} style={{paddingRight: 10, paddingVertical:8}} className="pr-2 mr-2 border-2 border-amber-200" />;
+            return <FontAwesome6 name="computer-mouse" size={16} style={{paddingRight: 10, paddingVertical:8, color: theme.textColor}} />;
         }
     };
 
