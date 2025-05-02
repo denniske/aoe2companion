@@ -264,6 +264,7 @@ export function UserMenu({ profile }: UserMenuProps) {
                         padding: 15,
                         paddingTop: 15,
                         paddingBottom: 15,
+                        marginTop: 30,
                         left: 'auto',
                     }}
                     visible={linkedProfilesVisible}
