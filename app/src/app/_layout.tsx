@@ -11,7 +11,6 @@ import store from '@app/redux/store';
 import { cacheLiveActivityAssets } from '@app/service/storage';
 import tw from '@app/tailwind';
 import { ConditionalTester } from '@app/view/testing/tester';
-import * as eva from '@eva-design/eva';
 import { Roboto_400Regular, Roboto_500Medium, Roboto_700Bold, Roboto_900Black, useFonts } from '@expo-google-fonts/roboto';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fasr } from '@fortawesome/sharp-regular-svg-icons';
@@ -20,7 +19,6 @@ import { Environment, IHostService, IHttpService, ITranslationService, OS, regis
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import * as Sentry from '@sentry/react-native';
 import { focusManager, QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ApplicationProvider } from '@ui-kitten/components';
 import * as Device from 'expo-device';
 import * as Notifications from '../service/notifications';
 import { SplashScreen, Stack, useNavigation, useRouter } from 'expo-router';
@@ -232,7 +230,6 @@ function useColorSchemes() {
     }, [darkMode]);
 
     return {
-        evaTheme: darkMode === 'light' ? eva.light : eva.dark,
         customTheme: darkMode === 'light' ? customLightTheme : customDarkTheme,
         contentTheme: darkMode === 'light' ? 'dark-content' : 'light-content',
     } as const;
@@ -241,7 +238,7 @@ function useColorSchemes() {
 function AppWrapper() {
     const [appIsReady, setAppIsReady] = useState(false);
     const insets = useSafeAreaInsets();
-    const { evaTheme, customTheme, contentTheme } = useColorSchemes();
+    const { customTheme, contentTheme } = useColorSchemes();
 
     const [fontsLoaded] = useFonts({
         Roboto_400Regular,
@@ -280,45 +277,43 @@ function AppWrapper() {
     return (
         <GestureHandlerRootView className={`flex-1 ${Platform.OS === 'web' ? `bg-white dark:bg-black` : ``}`}>
             <ConditionalTester>
-                <ApplicationProvider {...eva} theme={evaTheme}>
-                    <ThemeProvider value={customTheme}>
+                <ThemeProvider value={customTheme}>
+                    <View
+                        className={`bg-gold-50 dark:bg-blue-950 ${Platform.OS === 'web' ? `overflow-hidden w-[450px] max-w-full h-[900px] mx-auto my-auto ${isMobile ? '' : 'border border-gray-200 dark:border-gray-800'} rounded-lg` : 'flex-1'}`}
+                        style={{ paddingTop: insets.top }}
+                        onLayout={onLayoutRootView}
+                    >
+                        <StatusBar
+                            barStyle={contentTheme}
+                            backgroundColor="transparent"
+                            translucent
+                        />
+
+                        <LanguageController />
+                        <LiveActivityController />
+                        <AccountController />
+
                         <View
-                            className={`bg-gold-50 dark:bg-blue-950 ${Platform.OS === 'web' ? `overflow-hidden w-[450px] max-w-full h-[900px] mx-auto my-auto ${isMobile ? '' : 'border border-gray-200 dark:border-gray-800'} rounded-lg` : 'flex-1'}`}
-                            style={{ paddingTop: insets.top }}
-                            onLayout={onLayoutRootView}
+                            style={{
+                                position: 'absolute',
+                                top: 0,
+                                width: '100%',
+                                zIndex: 9999,
+                            }}
                         >
-                            <StatusBar
-                                barStyle={contentTheme}
-                                backgroundColor="transparent"
-                                translucent
-                            />
-
-                            <LanguageController />
-                            <LiveActivityController />
-                            <AccountController />
-
-                            <View
-                                style={{
-                                    position: 'absolute',
-                                    top: 0,
-                                    width: '100%',
-                                    zIndex: 9999,
-                                }}
-                            >
-                                {Platform.OS !== 'web' && <UpdateSnackbar />}
-                                {Platform.OS !== 'web' && <ChangelogSnackbar />}
-                                <ErrorSnackbar />
-                            </View>
-
-                            <PortalProvider>
-                                <>
-                                    <Stack screenOptions={{ header: Header,  }}></Stack>
-                                    <TabBar></TabBar>
-                                </>
-                            </PortalProvider>
+                            {Platform.OS !== 'web' && <UpdateSnackbar />}
+                            {Platform.OS !== 'web' && <ChangelogSnackbar />}
+                            <ErrorSnackbar />
                         </View>
-                    </ThemeProvider>
-                </ApplicationProvider>
+
+                        <PortalProvider>
+                            <>
+                                <Stack screenOptions={{ header: Header,  }}></Stack>
+                                <TabBar></TabBar>
+                            </>
+                        </PortalProvider>
+                    </View>
+                </ThemeProvider>
             </ConditionalTester>
         </GestureHandlerRootView>
     );

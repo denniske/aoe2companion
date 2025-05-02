@@ -10,7 +10,6 @@ import { countriesDistinct, Country, getCivNameById } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { createMaterialTopTabNavigator, MaterialTopTabBar } from '@react-navigation/material-top-tabs';
 import { useIsFocused } from '@react-navigation/native';
-import { IndexPath, Select, SelectItem } from '@ui-kitten/components';
 import { router, Stack } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
