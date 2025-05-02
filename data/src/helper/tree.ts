@@ -14,6 +14,7 @@ export interface AbilityProps2 {
 }
 
 export interface AbilityHelperProps {
+    civ?: Civ;
     tech?: Tech;
     unit?: Unit;
     building?: Building;
@@ -136,6 +137,24 @@ export function getCivHasUnit(civ: Civ, unit: Unit) {
     // }
 
     return newVal;
+}
+
+export function getCivMonkType(civ: Civ) {
+    const civTechTree = aoeData.techtrees[civ as any as TechTreeKey];
+
+    const mapping = {
+        '_33': 'Generic',
+        '_122': 'African',
+        '_293': 'Tengri',
+        '_218': 'Buddhist',
+        '_291': 'Catholic',
+        '_290': 'Hindu',
+        '_169': 'Muslim',
+        '_131': 'Native',
+        '_292': 'Orthodox',
+    } as const;
+
+    return mapping[civTechTree.monkSuffix];
 }
 
 // function getCivHasUnitLegacy(civ: Civ, unit: Unit) {

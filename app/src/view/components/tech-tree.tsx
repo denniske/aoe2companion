@@ -108,12 +108,12 @@ interface AbilityProps {
     dependsOn?: any;
 }
 
-export function getAbilityIcon({tech, unit, building}: AbilityHelperProps) {
+export function getAbilityIcon({civ, tech, unit, building}: AbilityHelperProps) {
     if (tech) {
         return getTechIcon(tech);
     }
     if (unit) {
-        return getUnitIcon(unit);
+        return getUnitIcon(unit, civ);
     }
     if (building) {
         return getBuildingIcon(building);
@@ -161,7 +161,7 @@ function Ability2({civ, tech, unit, building, unique, dependsOn}: AbilityProps) 
     }
     return (
         <TouchableOpacity style={[styles.imageContainer2, {borderColor, opacity}]} onPress={getAbilityNavCallback({tech, unit, building})}>
-            <ImageBackground source={getAbilityIcon({tech, unit, building})} imageStyle={styles.imageInner2} contentFit="cover" style={styles.image2}>
+            <ImageBackground source={getAbilityIcon({civ, tech, unit, building})} imageStyle={styles.imageInner2} contentFit="cover" style={styles.image2}>
                 {
                     !enabled &&
                     <Image source={getOtherIcon('Cross' as any)} style={styles.cross}/>

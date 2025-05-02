@@ -1,4 +1,4 @@
-import {Age, Other, Unit, UnitLine, unitLines} from "@nex/data";
+import { Age, Civ, getCivMonkType, Other, Unit, UnitLine, unitLines } from '@nex/data';
 import {ImageSourcePropType} from "react-native";
 
 
@@ -188,6 +188,7 @@ const unitIcons: UnitIconDict = {
     'CannonGalleon': require('../../../app/assets/units/CannonGalleon.png'),
     'EliteCannonGalleon': require('../../../app/assets/units/EliteCannonGalleon.png'),
     'Monk': require('../../../app/assets/units/Monk.png'),
+    'MonkGeneric': require('../../../app/assets/units/Monk.png'),
     'MonkTengri': require('../../../app/assets/units/MonkTengri.png'),
     'MonkAfrican': require('../../../app/assets/units/MonkAfrican.png'),
     'MonkBuddhist': require('../../../app/assets/units/MonkBuddhist.png'),
@@ -224,7 +225,11 @@ const playerColors = [
     'orange',
 ];
 
-export function getUnitIcon(unit: Unit) {
+export function getUnitIcon(unit: Unit, civ?: Civ) {
     if (unitIcons[unit] == null) return require('../../../app/assets/units/EliteUniqueResearch.png');
+    if (unit === 'Monk' && civ) {
+        const monkType = getCivMonkType(civ);
+        return unitIcons['Monk' + monkType];
+    }
     return unitIcons[unit];
 }
