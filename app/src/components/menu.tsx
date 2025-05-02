@@ -1,27 +1,25 @@
 import { TextVariant } from '@app/utils/text.util';
-import { router } from 'expo-router';
 import {
-    Animated,
-    Dimensions, EmitterSubscription, Keyboard,
-    LayoutRectangle, NativeEventSubscription, Platform,
+    Dimensions,
+    EmitterSubscription,
+    LayoutRectangle,
+    NativeEventSubscription,
+    Platform,
     StyleProp,
-    TouchableOpacity,
     TouchableOpacityProps,
     View,
     ViewProps,
     ViewStyle,
 } from 'react-native';
 
-import { Icon, IconProps } from './icon';
-import { Text, TextProps } from './text';
+import { IconProps } from './icon';
+import { TextProps } from './text';
 import { useAppTheme } from '@app/theming';
 import { v3Shadow } from '@app/components/shadow';
 import { TapGestureHandler } from 'react-native-gesture-handler';
 import { RenderInPortal } from '@app/components/portal/render-in-portal';
 import * as React from 'react';
 import { FC, MutableRefObject, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
-import { addEventListener } from 'react-native-paper/src/utils/addEventListener';
-import { BackHandler } from 'react-native-paper/src/utils/BackHandler/BackHandler';
 import { KeyboardEvent as RNKeyboardEvent } from 'react-native/Libraries/Components/Keyboard/Keyboard';
 
 const WINDOW_LAYOUT = Dimensions.get('window');
@@ -39,7 +37,21 @@ export interface MenuProps extends Omit<TouchableOpacityProps, 'children'> {
     onDismiss?: () => void;
 }
 
-export const MenuNew: FC<MenuProps> = ({ anchor, onDismiss, visible, contentStyle, children, icon, onPress, href, size = 'medium', disabled, align, textStyle, ...props }) => {
+export const MenuNew: FC<MenuProps> = ({
+    anchor,
+    onDismiss,
+    visible,
+    contentStyle,
+    children,
+    icon,
+    onPress,
+    href,
+    size = 'medium',
+    disabled,
+    align,
+    textStyle,
+    ...props
+}) => {
     const theme = useAppTheme();
 
     const textSizes: Record<NonNullable<MenuProps['size']>, TextVariant> = {
@@ -75,7 +87,6 @@ export const MenuNew: FC<MenuProps> = ({ anchor, onDismiss, visible, contentStyl
         height: WINDOW_LAYOUT.height,
     });
 
-
     const keyboardHeightRef = useRef(0);
     const prevVisible = useRef<boolean | null>(null);
     const anchorRef = useRef<View | null>(null);
@@ -91,19 +102,11 @@ export const MenuNew: FC<MenuProps> = ({ anchor, onDismiss, visible, contentStyl
         keyboardHeightRef.current = 0;
     }, []);
 
-    const keyboardDidShowListenerRef: MutableRefObject<
-        EmitterSubscription | undefined
-    > = useRef();
-    const keyboardDidHideListenerRef: MutableRefObject<
-        EmitterSubscription | undefined
-    > = useRef();
+    const keyboardDidShowListenerRef: MutableRefObject<EmitterSubscription | undefined> = useRef();
+    const keyboardDidHideListenerRef: MutableRefObject<EmitterSubscription | undefined> = useRef();
 
-    const backHandlerSubscriptionRef: MutableRefObject<
-        NativeEventSubscription | undefined
-    > = useRef();
-    const dimensionsSubscriptionRef: MutableRefObject<
-        NativeEventSubscription | undefined
-    > = useRef();
+    const backHandlerSubscriptionRef: MutableRefObject<NativeEventSubscription | undefined> = useRef();
+    const dimensionsSubscriptionRef: MutableRefObject<NativeEventSubscription | undefined> = useRef();
 
     const handleDismiss = useCallback(() => {
         if (visible) {
@@ -119,7 +122,6 @@ export const MenuNew: FC<MenuProps> = ({ anchor, onDismiss, visible, contentStyl
         },
         [onDismiss]
     );
-
 
     const removeListeners = useCallback(() => {
         // backHandlerSubscriptionRef.current?.remove();
@@ -171,10 +173,7 @@ export const MenuNew: FC<MenuProps> = ({ anchor, onDismiss, visible, contentStyl
         // console.log('==> SHOW');
 
         const windowLayoutResult = Dimensions.get('window');
-        const [menuLayoutResult, anchorLayoutResult] = await Promise.all([
-            measureMenuLayout(),
-            measureAnchorLayout(),
-        ]);
+        const [menuLayoutResult, anchorLayoutResult] = await Promise.all([measureMenuLayout(), measureAnchorLayout()]);
 
         // When visible is true for first render
         // native views can be still not rendered and
@@ -197,7 +196,6 @@ export const MenuNew: FC<MenuProps> = ({ anchor, onDismiss, visible, contentStyl
 
         // console.log('anchorLayoutResult.x', anchorLayoutResult.x)
         // console.log('anchorLayoutResult.width', anchorLayoutResult.width)
-
 
         const webMarginX = Platform.OS === 'web' ? (windowLayout.width - 450) / 2 : 0;
         const webMarginY = Platform.OS === 'web' ? (windowLayout.height - 900) / 2 : 0;
@@ -223,7 +221,6 @@ export const MenuNew: FC<MenuProps> = ({ anchor, onDismiss, visible, contentStyl
         // console.log('_left', _left)
         // console.log('anchorLayout.width', anchorLayout.width)
         // console.log('webMarginX', webMarginX)
-
 
         setAnchorLayout({
             height: anchorLayoutResult.height,
@@ -350,7 +347,6 @@ export const MenuNew: FC<MenuProps> = ({ anchor, onDismiss, visible, contentStyl
         updateVisibility(rendered);
     }, [rendered, updateVisibility]);
 
-
     const stopPropagation = (event: any) => {
         event.nativeEvent.stopHandling = true;
         // console.log('stopPropagation: Tapped inside component.');
@@ -361,33 +357,34 @@ export const MenuNew: FC<MenuProps> = ({ anchor, onDismiss, visible, contentStyl
             <View ref={(ref) => (anchorRef.current = ref)} collapsable={false}>
                 {anchor == null ? null : anchor}
             </View>
-            {
-                visible &&
+            {visible && (
                 <>
                     <RenderInPortal>
                         <TapGestureHandler onActivated={onDismiss} numberOfTaps={1}>
-                            <View style={{
-                                width: '100%',
-                                height:'100%',
-                                backgroundColor: 'rgba(0, 0, 0, 0.2)'
-                            }} >
+                            <View
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                                }}
+                            >
                                 <View
-
                                     ref={(ref) => (menuRef.current = ref)}
-
-                                    style={[
-                                        {
-                                            position: 'absolute',
-                                            top: top,
-                                            left: left,
-                                            right: right,
-                                            backgroundColor: theme.backgroundColor,
-                                            zIndex: 110000,
-                                            borderRadius: roundness,
-                                        },
-                                        contentStyle,
-                                        v3Shadow(3),
-                                    ] as StyleProp<ViewStyle>}
+                                    style={
+                                        [
+                                            {
+                                                position: 'absolute',
+                                                top: top,
+                                                left: left,
+                                                right: right,
+                                                backgroundColor: theme.backgroundColor,
+                                                zIndex: 110000,
+                                                borderRadius: roundness,
+                                            },
+                                            contentStyle,
+                                            v3Shadow(3),
+                                        ] as StyleProp<ViewStyle>
+                                    }
                                 >
                                     {children}
                                 </View>
@@ -395,7 +392,7 @@ export const MenuNew: FC<MenuProps> = ({ anchor, onDismiss, visible, contentStyl
                         </TapGestureHandler>
                     </RenderInPortal>
                 </>
-            }
+            )}
         </View>
     );
 };
