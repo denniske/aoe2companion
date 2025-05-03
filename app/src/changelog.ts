@@ -210,7 +210,7 @@ export const changelog: IChangelog = {
     //         content: 'Link your Patreon account to access exclusive benefits'
     //     },
     // ],
-    '124.0.0': [
+    '125.0.0': [
         {
             type: 'minor',
             title: 'Implemented [AoE II DE Update 141935](https://www.ageofempires.com/news/a-sneak-peek-at-new-content-coming-to-age-of-empires-ii-definitive-edition/)',
