@@ -61,24 +61,19 @@ export function LeaderboardSelect(props: Props) {
     ];
 
     return (
-
-        <View className="flex-row items-center">
-            <View className="flex-1 flex-row items-center">
-                <Picker
-                    popupAlign="left"
-                    itemHeight={40}
-                    textMinWidth={250}
-                    container="sectionlist"
-                    sections={sections}
-                    icon={icon}
-                    disabled={loadingLeaderboard}
-                    value={selectedLeaderboard}
-                    values={leaderboards}
-                    formatter={formatLeaderboard}
-                    onSelect={onLeaderboardIdSelected}
-                    style={{ width: 250 }}
-                />
-            </View>
-        </View>
+        <Picker
+            popupAlign="left"
+            itemHeight={40}
+            textMinWidth={150}
+            container="sectionlist"
+            sections={sections}
+            icon={icon}
+            disabled={loadingLeaderboard}
+            value={selectedLeaderboard}
+            values={leaderboards}
+            formatter={formatLeaderboard}
+            onSelect={onLeaderboardIdSelected}
+            style={{ width: 150 }}
+        />
     );
 }

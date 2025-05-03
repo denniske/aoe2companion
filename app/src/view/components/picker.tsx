@@ -35,9 +35,7 @@ function defaultCell(props: any) {
     return (
         <View style={styles.row}>
             {icon && icon(value)}
-            <View style={styles.row}>
-                <MyText numberOfLines={1} style={[styles.text, { minWidth: textMinWidth, color: color, fontWeight: selected ? 'bold' : 'normal' }]}>{formatter(value)}</MyText>
-            </View>
+            <MyText numberOfLines={1} style={[styles.text, { minWidth: textMinWidth, color: color, fontWeight: selected ? 'bold' : 'normal' }]}>{formatter(value)}</MyText>
         </View>
     );
 }
@@ -189,6 +187,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         paddingVertical: 10,
         flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     anchor: {
         // backgroundColor: 'pink',

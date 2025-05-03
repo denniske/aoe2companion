@@ -4,17 +4,15 @@ import { CountryImageForDropDown, CountryImageLoader, SpecialImageForDropDown } 
 import { TextLoader } from '@app/view/components/loader/text-loader';
 import { MyText } from '@app/view/components/my-text';
 import RefreshControlThemed from '@app/view/components/refresh-control-themed';
-import { TabBarLabel } from '@app/view/components/tab-bar-label';
-import { FontAwesome, FontAwesome5, FontAwesome6 } from '@expo/vector-icons';
-import { countriesDistinct, Country, getCivNameById } from '@nex/data';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { countriesDistinct, Country } from '@nex/data';
 import { appConfig } from '@nex/dataset';
-import { createMaterialTopTabNavigator, MaterialTopTabBar } from '@react-navigation/material-top-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useIsFocused } from '@react-navigation/native';
 import { router, Stack } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
-    ActivityIndicator,
     Animated,
     Dimensions,
     FlatList as FlatListRef,
@@ -29,118 +27,20 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { fetchLeaderboard, fetchLeaderboards } from '../../api/helper/api';
-import { ILeaderboardDef, ILeaderboardPlayer } from '../../api/helper/api.types';
+import { ILeaderboardPlayer } from '../../api/helper/api.types';
 import { getCountryName } from '../../helper/flags';
 import { getTranslation } from '../../helper/translate';
 import { getValue } from '../../helper/util-component';
 import { useLazyAppendApi } from '../../hooks/use-lazy-append-api';
-import { setLeaderboardCountry, setLeaderboardId, useMutate, useSelector } from '../../redux/reducer';
+import { setLeaderboardCountry, useMutate, useSelector } from '../../redux/reducer';
 import { createStylesheet } from '../../theming-new';
-import { Dropdown } from '@app/components/dropdown';
-import { leaderboardIdsByType, leaderboardsByType } from '@app/helper/leaderboard';
+import { leaderboardsByType } from '@app/helper/leaderboard';
 import { useQuery } from '@tanstack/react-query';
 import { useAuthProfileId, useFollowedAndMeProfileIds, useProfileFast } from '@app/queries/all';
-import TemplatePicker from '@app/view/components/template-picker';
-import { Checkbox as CheckboxNew } from '@app/components/checkbox';
 import Picker from '@app/view/components/picker';
 import { HeaderTitle } from '@app/components/header-title';
-import { getCivIconLocal } from '@app/helper/civs';
 import { LeaderboardSelect } from '@app/components/select/leaderboard-select';
-
-const Tab = createMaterialTopTabNavigator<any>();
-
-const countryEarth = null;
-
-function isCountry(x: string | null) {
-    return countriesDistinct.includes(x?.toUpperCase() as Country);
-}
-
-export function LeaderboardMenu() {
-    const mutate = useMutate();
-    const country = useSelector((state) => state.leaderboardCountry) || null;
-    const isFocused = useIsFocused();
-
-    const styles = useStyles();
-
-    // console.log('LeaderboardMenu', country);
-    
-    const authProfileId = useAuthProfileId();
-    const { data: authProfile } = useProfileFast(authProfileId);
-    const authCountry = authProfile?.country;
-    const authClan = authProfile?.clan;
-
-    const formatCountry = (x: string | null, inList?: boolean) => {
-        if (x == countryEarth) {
-            return getTranslation('country.earth');
-        }
-        if (x == 'following') {
-            return getTranslation('country.following');
-        }
-        if (x.startsWith('Clan')) {
-            return x;
-        }
-        return getCountryName(x as Country);
-        // return true ? getCountryName(x as Country) : x?.toUpperCase();
-        // return inList ? getCountryName(x as Country) : x?.toUpperCase();
-    };
-    const orderedCountriesDistinct = countriesDistinct.sort((a, b) => formatCountry(a, true).localeCompare(formatCountry(b, true)));
-    const countryList: (string | null)[] = [
-        countryEarth,
-        'following',
-        ...(authClan ? ['Clan ' + authClan] : []),
-        ...(authCountry ? [authCountry] : []),
-        ...orderedCountriesDistinct,
-    ];
-    // const divider = (x: any, i: number) => i < (authCountry ? 2 : 1);
-    const icon = (x: any) => {
-        if (x == countryEarth) {
-            return <CountryImageForDropDown country="EARTH" />;
-        }
-        if (x == 'following') {
-            // return <FontAwesome name="heart" size={14} />;
-            return <SpecialImageForDropDown emoji="🖤" />;
-        }
-        if (x.startsWith('Clan')) {
-            // return <FontAwesome name="trophy" size={14} />;
-            return <SpecialImageForDropDown emoji="⚔️" />;
-        }
-        return <CountryImageForDropDown country={x} />;
-    };
-    const onCountrySelected = (country: string | null) => {
-        mutate(setLeaderboardCountry(country));
-    };
-
-    const divider = (x: any, i: number) => i < (authCountry ? 3 : 2);
-
-    if (appConfig.game === 'aoe4') {
-        return <View />;
-    }
-
-    const loadingLeaderboard = false;
-    // <ActivityIndicator animating={loadingLeaderboard} size="small" color="#999"/>
-
-    return (
-
-        <View style={styles.menu}>
-            <View style={styles.pickerRow}>
-                <Picker
-                    popupAlign="right"
-                    itemHeight={40}
-                    textMinWidth={150}
-                    container="flatlist"
-                    divider={divider}
-                    icon={icon}
-                    disabled={loadingLeaderboard}
-                    value={country}
-                    values={countryList}
-                    formatter={formatCountry}
-                    onSelect={onCountrySelected}
-                    style={{ width: 170 }}
-                />
-            </View>
-        </View>
-    );
-}
+import { CountrySelect, countryEarth, isCountry } from '@app/components/select/country-select';
 
 const ROW_HEIGHT = 45;
 const ROW_HEIGHT_MY_RANK = 52;
@@ -148,7 +48,6 @@ const ROW_HEIGHT_MY_RANK = 52;
 export const windowWidth = Platform.OS === 'web' ? 450 : Dimensions.get('window').width;
 
 const pageSize = 100;
-
 
 export default function LeaderboardPage() {
     const { colorScheme } = useColorScheme();
@@ -228,7 +127,7 @@ export default function LeaderboardPage() {
         {
             append: (data, newData, args) => {
                 const [params] = args;
-                console.log('APPEND', data, newData, args);
+                // console.log('APPEND', data, newData, args);
 
                 total.current = newData.total;
                 total2.current = newData.total;
@@ -239,8 +138,8 @@ export default function LeaderboardPage() {
 
                 setLoadedLeaderboardCountry(leaderboardCountry);
 
-                console.log('APPENDED', list.current);
-                console.log('APPENDED', params);
+                // console.log('APPENDED', list.current);
+                // console.log('APPENDED', params);
                 return data;
             },
         },
@@ -275,9 +174,7 @@ export default function LeaderboardPage() {
 
     const scrollToMe = () => {
         // scrollToIndex(101-1);
-
         // console.log('leaderboardCountry', leaderboardCountry);
-
         // if (leaderboardCountry == 'following') {
         //     const meIndex = list.current?.findIndex((p: any) => p.profileId == auth.profileId);
         //     if (meIndex >= 0) {
@@ -348,7 +245,6 @@ export default function LeaderboardPage() {
         return (
             <>
                 <View style={{ height: headerInfoHeight }} className="flex-row justify-center pl-4 pr-12 items-center">
-
                     <MyText style={styles.info}>
                         {total.current ? players : ''}
                         {/*{leaderboard.data?.updated ? ' (' + updated + ')' : ''}*/}
@@ -527,55 +423,29 @@ export default function LeaderboardPage() {
 
     return (
         <View style={styles.container2}>
-
             <Stack.Screen
                 options={{
                     headerTitle: () => <HeaderTitle title="Leaderboards" />,
 
                     // title: 'Leaderboards',
-                //     headerRight: () => (
-                //         <Dropdown
-                //             style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 6 }}
-                //             value={leaderboardType}
-                //             onChange={setLeaderboardType}
-                //             options={[
-                //                 { value: 'pc', label: 'PC' },
-                //                 { value: 'xbox', label: 'Xbox' },
-                //             ]}
-                //         />
-                //     ),
+                    //     headerRight: () => (
+                    //         <Dropdown
+                    //             style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 6 }}
+                    //             value={leaderboardType}
+                    //             onChange={setLeaderboardType}
+                    //             options={[
+                    //                 { value: 'pc', label: 'PC' },
+                    //                 { value: 'xbox', label: 'Xbox' },
+                    //             ]}
+                    //         />
+                    //     ),
                 }}
             />
 
             <View style={styles.pickerRow2}>
-                <LeaderboardSelect
-                    leaderboardId={leaderboardId}
-                    onLeaderboardIdChange={setLeaderboardId}
-                />
-                <LeaderboardMenu />
-
-                {/*<Dropdown*/}
-                {/*    textVariant="label-sm"*/}
-                {/*    style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 10, paddingBottom: 8, marginRight: 6 }}*/}
-                {/*    value={platform}*/}
-                {/*    onChange={(lType) => {*/}
-                {/*        setPlatform(lType);*/}
-                {/*        setLeaderboardIds([]);*/}
-                {/*    }}*/}
-                {/*    options={[*/}
-                {/*        { value: 'pc', label: 'PC' },*/}
-                {/*        { value: 'xbox', label: 'Xbox' },*/}
-                {/*    ]}*/}
-                {/*/>*/}
-                {/*<TemplatePicker*/}
-                {/*    value={leaderboardIds.length > 1 ? undefined : leaderboardIds[0]}*/}
-                {/*    values={leaderboardIdsByType(leaderboards, platform)}*/}
-                {/*    template={renderLeaderboard}*/}
-                {/*    onSelect={onLeaderboardSelected}*/}
-                {/*/>*/}
+                <LeaderboardSelect leaderboardId={leaderboardId} onLeaderboardIdChange={setLeaderboardId} />
+                <CountrySelect />
             </View>
-
-
 
             {/*<Button onPress={onRefresh}>REFRESH</Button>*/}
             <View style={[styles.content, { opacity: leaderboard.loading ? 0.7 : 1 }]}>
@@ -733,6 +603,8 @@ const useStyles = createStylesheet((theme) =>
         },
         container2: {
             flex: 1,
+            flexDirection: 'column',
+            alignItems: 'stretch',
             // backgroundColor: '#B89579',
         },
         content: {
@@ -742,29 +614,11 @@ const useStyles = createStylesheet((theme) =>
         pickerRow2: {
             // backgroundColor: 'yellow',
             flexDirection: 'row',
-            // justifyContent: 'center',
             alignItems: 'center',
-            // paddingRight: 20,
             gap: 10,
             padding: 10,
         },
 
-        pickerRow: {
-            // backgroundColor: 'yellow',
-            flexDirection: 'row',
-            // justifyContent: 'center',
-            alignItems: 'center',
-            // paddingRight: 20,
-            flex: 1,
-        },
-
-        menu: {
-            // backgroundColor: 'red',
-            flexDirection: 'row',
-            alignItems: 'center',
-            // flex: 1,
-            // marginRight: 10,
-        },
         menuButton: {
             // backgroundColor: 'blue',
             width: 40,
@@ -928,8 +782,6 @@ const useStyles = createStylesheet((theme) =>
             fontSize: 12,
             minWidth: 75,
         },
-
-
 
         col: {
             paddingHorizontal: 7,

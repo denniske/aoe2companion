@@ -179,9 +179,7 @@ const styles = StyleSheet.create({
     content: {
         flexDirection: 'row',
         alignItems: 'center',
-        // marginLeft: 16,
-        marginVertical: 15,
-        // minHeight: 30,
+        marginVertical: 16,
         flexWrap: 'wrap',
         flex: 1,
     },
