@@ -1,4 +1,8 @@
 
+# for over internet dev mode
+expo run -- -m tunnel
+
+
 - expo router forward button not working (web)
   https://github.com/expo/expo/issues/31747
 
