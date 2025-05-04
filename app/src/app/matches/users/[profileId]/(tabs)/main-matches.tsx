@@ -36,13 +36,12 @@ export default function MainMatches() {
     const [withMe, setWithMe] = useState(false);
     const [reloading, setReloading] = useState(false);
     const authProfileId = useAuthProfileId();
-    const [platform, setPlatform] = useState<'pc' | 'xbox'>('pc');
 
     const realText = text.trim().length < 3 ? '' : text.trim();
     const debouncedSearch = useDebounce(realText, 600);
 
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch, isRefetching } = useInfiniteQuery({
-        queryKey: ['matches', profileId, withMe, debouncedSearch, leaderboardIds, platform],
+        queryKey: ['matches', profileId, withMe, debouncedSearch, leaderboardIds],
         queryFn: (context) =>
             fetchMatches({
                 ...context,
@@ -50,7 +49,6 @@ export default function MainMatches() {
                 withProfileIds: withMe ? [authProfileId!] : [],
                 search: debouncedSearch,
                 leaderboardIds: leaderboardIds,
-                platform: platform === 'pc' ? 'pc' : 'console',
             }),
         initialPageParam: 1,
         getNextPageParam: (lastPage, pages) => (lastPage.matches.length === lastPage.perPage ? lastPage.page + 1 : null),
