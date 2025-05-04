@@ -210,10 +210,14 @@ export const changelog: IChangelog = {
     //         content: 'Link your Patreon account to access exclusive benefits'
     //     },
     // ],
-    '126.0.0': [
+    '127.0.0': [
         {
             type: 'bugfix',
-            title: 'Console matches are now showing up correctly again on player matches list',
+            title: 'Fix console matches on player matches list',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix changelog notification flickering on startup',
         },
     ],
     '125.0.0': [
