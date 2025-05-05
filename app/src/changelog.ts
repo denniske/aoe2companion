@@ -210,6 +210,12 @@ export const changelog: IChangelog = {
     //         content: 'Link your Patreon account to access exclusive benefits'
     //     },
     // ],
+    '128.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix linked profiles popup',
+        },
+    ],
     '127.0.0': [
         {
             type: 'bugfix',

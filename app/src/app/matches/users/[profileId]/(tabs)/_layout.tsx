@@ -308,12 +308,10 @@ export function UserMenu({ profile }: UserMenuProps) {
                                                 className="flex-1 flex-row gap-1 items-center"
                                                 onPress={() => navigateToLinkedProfile(linkedProfile.profileId)}
                                             >
-                                                <CountryImageLoader
+                                                <CountryImage
                                                     country={verifiedPlayer?.country || linkedProfile.country}
-                                                    ready={linkedProfile}
                                                 />
-
-                                                <TextLoader>{linkedProfile.name}</TextLoader>
+                                                <MyText>{linkedProfile.name}</MyText>
                                                 {linkedProfile.verified && (
                                                     <Icon
                                                         icon="check-circle"
