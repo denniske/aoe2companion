@@ -311,7 +311,7 @@ export function UserMenu({ profile }: UserMenuProps) {
                                                 <CountryImage
                                                     country={verifiedPlayer?.country || linkedProfile.country}
                                                 />
-                                                <Text variant="body" style={{backgroundColor: 'green'}}>{linkedProfile.name}</Text>
+                                                <Text variant="body">{linkedProfile.name}</Text>
                                                 {linkedProfile.verified && (
                                                     <Icon
                                                         icon="check-circle"
