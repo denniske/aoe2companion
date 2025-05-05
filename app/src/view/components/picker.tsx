@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
         height: 33,
     },
     text: {
-        // backgroundColor: 'red',
+        // backgroundColor: 'violet',
         maxWidth: 160,
     },
     handle: {

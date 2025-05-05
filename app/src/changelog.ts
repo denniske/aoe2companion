@@ -215,6 +215,10 @@ export const changelog: IChangelog = {
             type: 'bugfix',
             title: 'Fix linked profiles popup',
         },
+        {
+            type: 'bugfix',
+            title: 'Fix vertical align of country flags in country selector on leaderboard page',
+        },
     ],
     '127.0.0': [
         {
