@@ -312,42 +312,6 @@ export function UserMenu({ profile }: UserMenuProps) {
                                                     country={verifiedPlayer?.country || linkedProfile.country}
                                                 />
                                                 <MyText>{linkedProfile.name}</MyText>
-                                                <Text variant="body">{linkedProfile.name + 1}</Text>
-                                                {linkedProfile.verified && (
-                                                    <Icon
-                                                        icon="check-circle"
-                                                        color="brand"
-                                                        size={14}
-                                                        style={styles.verifiedIcon as FontAwesomeIconStyle}
-                                                    />
-                                                )}
-                                                {!linkedProfile.verified && linkedProfile.shared && (
-                                                    <Icon icon="family" color="brand" size={14} style={styles.verifiedIcon as FontAwesomeIconStyle} />
-                                                )}
-                                                {!!linkedProfile.clan && (
-                                                    <MyText>
-                                                        {' '}
-                                                        ({getTranslation('main.profile.clan')}: {linkedProfile.clan})
-                                                    </MyText>
-                                                )}
-                                            </TouchableOpacity>
-                                        );
-                                    })}
-
-                                    <Text variant="header-sm">Linked Profiles</Text>
-
-                                    {profileFull.linkedProfiles.map((linkedProfile) => {
-                                        return (
-                                            <TouchableOpacity
-                                                key={linkedProfile.profileId}
-                                                className="flex-1 flex-row gap-1 items-center"
-                                                onPress={() => navigateToLinkedProfile(linkedProfile.profileId)}
-                                            >
-                                                <CountryImage
-                                                    country={verifiedPlayer?.country || linkedProfile.country}
-                                                />
-                                                <MyText style={{flex: 1}}>{linkedProfile.name}</MyText>
-                                                <Text variant="body">{linkedProfile.name + 1}</Text>
                                                 {linkedProfile.verified && (
                                                     <Icon
                                                         icon="check-circle"
