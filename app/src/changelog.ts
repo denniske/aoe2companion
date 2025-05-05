@@ -219,6 +219,10 @@ export const changelog: IChangelog = {
             type: 'bugfix',
             title: 'Fix vertical align of country flags in country selector on leaderboard page',
         },
+        {
+            type: 'bugfix',
+            title: 'Fix text ellipsis for long options in all selectors',
+        },
     ],
     '127.0.0': [
         {

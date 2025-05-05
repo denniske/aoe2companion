@@ -205,6 +205,7 @@ const styles = StyleSheet.create({
     text: {
         // backgroundColor: 'violet',
         maxWidth: 160,
+        flex: 1,
     },
     handle: {
         // backgroundColor: 'red',
