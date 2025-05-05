@@ -354,6 +354,9 @@ export default function LeaderboardPage() {
                     const min = -handleOffsetY.current!;
                     const max = min + scrollRange.current;
                     position.setValue({ x: gestureState.dx, y: Math.max(Math.min(gestureState.dy, max), min) });
+
+                    // console.log('onPanResponderMove', min, '-', max)
+                    // console.log('onPanResponderMove', { x: gestureState.dx, y: Math.max(Math.min(gestureState.dy, max), min) })
                 },
                 onPanResponderGrant: () => {
                     handleOffsetY.current = getValue(position.y);
@@ -363,6 +366,11 @@ export default function LeaderboardPage() {
                     });
                     movingScrollHandle.current = true;
                     setBaseMoving(true);
+
+                    // console.log('onPanResponderGrant', {
+                    //     x: getValue(position.x),
+                    //     y: getValue(position.y),
+                    // })
                 },
                 onPanResponderRelease: () => {
                     position.flattenOffset();
@@ -372,6 +380,8 @@ export default function LeaderboardPage() {
                     movingScrollHandle.current = false;
                     setBaseMoving(false);
                     handleOffsetY.current = 0;
+
+                    // console.log('onPanResponderRelease', { animated: false, offset: newOffset })
                 },
             }),
         []
@@ -455,7 +465,15 @@ export default function LeaderboardPage() {
                     onMomentumScrollBegin={handleOnMomentumScrollBegin}
                     onMomentumScrollEnd={handleOnMomentumScrollEnd}
                     onScroll={handleOnScroll}
-                    onLayout={({ nativeEvent: { layout } }) => {
+                    onLayout={({ nativeEvent: { layout }, currentTarget, ...rest }) => {
+                        // console.log('FlatList onLayout', layout, currentTarget, rest);
+
+                        // onLayout gets also called for the header component which we want to ignore
+                        // on mobile the header is not scrollable
+                        // on web currentTarget is null for both header and body, but the body layout gets
+                        // called later so it will work anyway
+                        if (currentTarget && !(currentTarget as any)?.scrollTo) return;
+
                         scrollRange.current = layout.height - HANDLE_RADIUS * 2 - bottom;
                     }}
                     scrollEventThrottle={500}
