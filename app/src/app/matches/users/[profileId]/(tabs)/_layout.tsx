@@ -305,13 +305,13 @@ export function UserMenu({ profile }: UserMenuProps) {
                                         return (
                                             <TouchableOpacity
                                                 key={linkedProfile.profileId}
-                                                className="flex-1 flex-row gap-1 items-center"
+                                                className="flex-row gap-1 items-center"
                                                 onPress={() => navigateToLinkedProfile(linkedProfile.profileId)}
                                             >
                                                 <CountryImage
                                                     country={verifiedPlayer?.country || linkedProfile.country}
                                                 />
-                                                <MyText>{linkedProfile.name}</MyText>
+                                                <Text variant="body" style={{backgroundColor: 'green'}}>{linkedProfile.name}</Text>
                                                 {linkedProfile.verified && (
                                                     <Icon
                                                         icon="check-circle"
