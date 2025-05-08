@@ -303,7 +303,7 @@ function AppWrapper() {
                         >
                             {Platform.OS !== 'web' && <UpdateSnackbar />}
                             {Platform.OS !== 'web' && <ChangelogSnackbar />}
-                            <ErrorSnackbar />
+                            {/*<ErrorSnackbar />*/}
                         </View>
 
                         <PortalProvider>

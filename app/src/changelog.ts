@@ -210,6 +210,12 @@ export const changelog: IChangelog = {
     //         content: 'Link your Patreon account to access exclusive benefits'
     //     },
     // ],
+    '130.0.0': [
+        {
+            type: 'minor',
+            title: 'Hide error snackbar',
+        },
+    ],
     '129.0.0': [
         {
             type: 'bugfix',
