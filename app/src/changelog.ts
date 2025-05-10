@@ -21,12 +21,7 @@ export const changelog4: IChangelog = {
     '20.0.0': [
         {
             type: 'feature',
-            title: 'Add country/following/clan filter on leaderboard page',
-            content: 'The clan filter is only available if you are in a clan and you can only filter for the players in your clan',
-        },
-        {
-            type: 'bugfix',
-            title: 'Add clan name to player profile page',
+            title: 'Add country/following filter on leaderboard page',
         },
         {
             type: 'minor',
