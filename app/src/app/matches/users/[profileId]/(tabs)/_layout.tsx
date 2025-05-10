@@ -438,6 +438,7 @@ function UserTitle({ profile }: UserMenuProps) {
                 <>
                     <CountryImage style={{ fontSize: 14 }} country={verifiedPlayer?.country || profile?.country} />
                     <MyText> {getCountryName((verifiedPlayer?.country || profile.country) as Country)}</MyText>
+                    <MyText>{profile.clan ? ', '+getTranslation('main.profile.clan')+' ' + profile.clan : ''}</MyText>
                 </>
             }
         />

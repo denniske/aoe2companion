@@ -210,6 +210,12 @@ export const changelog: IChangelog = {
     //         content: 'Link your Patreon account to access exclusive benefits'
     //     },
     // ],
+    '131.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Add clan name to player profile page',
+        },
+    ],
     '130.0.0': [
         {
             type: 'minor',
