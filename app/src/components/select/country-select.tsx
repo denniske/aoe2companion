@@ -68,10 +68,6 @@ export function CountrySelect() {
 
     const divider = (x: any, i: number) => i < (authCountry ? 3 : 2);
 
-    if (appConfig.game === 'aoe4') {
-        return <View />;
-    }
-
     const loadingLeaderboard = false;
     // <ActivityIndicator animating={loadingLeaderboard} size="small" color="#999"/>
 

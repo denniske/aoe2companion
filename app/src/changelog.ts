@@ -18,6 +18,37 @@ export interface IChangelog {
 // https://www.ageofempires.com/news/age-of-empires-iv-season-one-update-release-notes/
 
 export const changelog4: IChangelog = {
+    '20.0.0': [
+        {
+            type: 'feature',
+            title: 'Add country/following/clan filter on leaderboard page',
+            content: 'The clan filter is only available if you are in a clan and you can only filter for the players in your clan',
+        },
+        {
+            type: 'bugfix',
+            title: 'Add clan name to player profile page',
+        },
+        {
+            type: 'minor',
+            title: 'Hide error snackbar',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix scrolling using up/down handle on leaderboard page',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix text ellipsis for long options in all selectors',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix console matches on player matches list',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix changelog notification flickering on startup',
+        },
+    ],
     '19.0.0': [
         {
             type: 'feature',
