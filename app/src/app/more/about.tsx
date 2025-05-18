@@ -158,6 +158,7 @@ export default function AboutPage() {
             <MyText style={styles.content}>Niklas Ohlrogge</MyText>
 
             <MyText style={styles.heading}>{getTranslation('about.heading.contributors')}</MyText>
+            <MyText style={styles.content}>Aftermath</MyText>
             <MyText style={styles.content}>Enver Arco</MyText>
             <MyText style={styles.content}>FifthSense</MyText>
             <MyText style={styles.content}>Jeremy Keeler</MyText>
@@ -167,25 +168,33 @@ export default function AboutPage() {
 
             <MyText style={styles.heading}>{getTranslation('about.heading.supporters')}</MyText>
             <MyText style={styles.content}>Akita_AoE</MyText>
+            <MyText style={styles.content}>Ak-guy</MyText>
+            <MyText style={styles.content}>AnziehenOnMe</MyText>
             <MyText style={styles.content}>Amberk</MyText>
             <MyText style={styles.content}>Andreas Teppe</MyText>
             <MyText style={styles.content}>axør</MyText>
             <MyText style={styles.content}>BananaBenito</MyText>
+            <MyText style={styles.content}>Chillingsith</MyText>
+            <MyText style={styles.content}>Christian Jimenez</MyText>
             <MyText style={styles.content}>Colin</MyText>
             <MyText style={styles.content}>Darkwest</MyText>
             <MyText style={styles.content}>ddk_deepak</MyText>
             <MyText style={styles.content}>Dr. Bounty</MyText>
             <MyText style={styles.content}>Dumb Ian</MyText>
             <MyText style={styles.content}>edvorg</MyText>
+            <MyText style={styles.content}>EhBahSuper</MyText>
             <MyText style={styles.content}>El Alejandro campeador</MyText>
+            <MyText style={styles.content}>elite4seth</MyText>
             <MyText style={styles.content}>eltrevador</MyText>
             <MyText style={styles.content}>Fabian Riebe</MyText>
             <MyText style={styles.content}>Freddy Rayes</MyText>
             <MyText style={styles.content}>Gareth Deacon'</MyText>
             <MyText style={styles.content}>|GZ| tAMe</MyText>
             <MyText style={styles.content}>Hans</MyText>
+            <MyText style={styles.content}>Hestia</MyText>
             <MyText style={styles.content}>Jannis V</MyText>
             <MyText style={styles.content}>John</MyText>
+            <MyText style={styles.content}>Jolann</MyText>
             <MyText style={styles.content}>Jonas</MyText>
             <MyText style={styles.content}>JJ_Ronda</MyText>
             <MyText style={styles.content}>Kloakan</MyText>
@@ -205,6 +214,7 @@ export default function AboutPage() {
             <MyText style={styles.content}>moleMTL</MyText>
             <MyText style={styles.content}>momobo96</MyText>
             <MyText style={styles.content}>Mrandreagalassi</MyText>
+            <MyText style={styles.content}>Noel</MyText>
             <MyText style={styles.content}>Noorulhuda Paleja</MyText>
             <MyText style={styles.content}>Pedro Bessone Bessone Tepedino</MyText>
             <MyText style={styles.content}>Pikmans030</MyText>
@@ -218,9 +228,13 @@ export default function AboutPage() {
             <MyText style={styles.content}>S1nglecut</MyText>
             <MyText style={styles.content}>Sebastian Janus</MyText>
             <MyText style={styles.content}>Sebastiaan Van Hoorebeke</MyText>
+            <MyText style={styles.content}>Spirit Airlinez</MyText>
             <MyText style={styles.content}>Stormtrooper</MyText>
+            <MyText style={styles.content}>The Lag Monster</MyText>
             <MyText style={styles.content}>Tom B</MyText>
+            <MyText style={styles.content}>Triftransbar</MyText>
             <MyText style={styles.content}>Ultima Gaina</MyText>
+            <MyText style={styles.content}>Vianney</MyText>
             <MyText style={styles.content}>Zachary Bird</MyText>
             <MyText style={styles.content}>@compumaster</MyText>
             <MyText style={styles.content}>@cooljoe</MyText>
