@@ -8,16 +8,19 @@ import { useAccount, useAuthProfileId, useProfileFast, useProfiles } from '@app/
 export const FollowedPlayers = () => {
     const authProfileId = useAuthProfileId();
 
-    const { data: account, error } = useAccount();
+    const { data: account, error, isLoading: isLoadingAccount } = useAccount();
 
     // console.log('followed players account', account?.followedPlayers.length);
 
-    const { data: authProfile } = useProfileFast(authProfileId);
-    const { data: followedProfiles } = useProfiles(account?.followedPlayers.map((f) => f.profileId));
+    const { data: authProfile, isLoading: isLoadingAuthProfile } = useProfileFast(authProfileId);
+    const { data: followedProfiles, isLoading: isLoadingFollowedProfiles } = useProfiles(account?.followedPlayers.map((f) => f.profileId));
 
     // console.log('account.profileId', account?.profileId);
     // console.log('authProfileId', authProfileId);
     // console.log('authProfile', authProfile);
+
+    const isLoading = isLoadingAccount || isLoadingAuthProfile || isLoadingFollowedProfiles;
+    const profileIdList = isLoading ? ['loading', 'loading'] : [authProfileId ? authProfile! : 'select', ...(followedProfiles || []), 'follow'];
 
     return (
         <View className="gap-2">
@@ -34,10 +37,7 @@ export const FollowedPlayers = () => {
                 }}
                 variant="horizontal"
                 showsHorizontalScrollIndicator={false}
-                list={uniqBy(
-                    [authProfileId ? authProfile || 'loading' : 'select', ...(followedProfiles || []), 'follow'] as const,
-                    (profile) => (typeof profile === 'string' ? profile : profile.profileId)
-                )}
+                list={profileIdList as any}
                 selectedUser={(user) => router.navigate(`/matches/users/${user.profileId}?name=${user.name}&country=${user.country}`)}
             />
         </View>

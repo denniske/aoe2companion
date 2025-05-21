@@ -238,6 +238,14 @@ export const changelog: IChangelog = {
     // ],
     '131.0.0': [
         {
+            type: 'minor',
+            title: 'Add loading indicator to followed players',
+        },
+        {
+            type: 'minor',
+            title: 'Update country names',
+        },
+        {
             type: 'bugfix',
             title: 'Add clan name to player profile page',
         },

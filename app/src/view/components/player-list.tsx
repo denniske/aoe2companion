@@ -13,6 +13,7 @@ import { TouchableOpacity, View, ViewStyle } from 'react-native';
 import { CountryImage } from './country-image';
 import { useCavy } from '../testing/tester';
 import { useAuthProfileId } from '@app/queries/all';
+import { TextLoader } from '@app/view/components/loader/text-loader';
 
 export interface IPlayerListPlayer {
     country?: string;
@@ -54,11 +55,8 @@ function Player<PlayerType extends IPlayerListPlayer>({
                 <View className="w-[29px] h-[28px] items-center justify-center">
                     <Skeleton className="w-6 h-6" />
                 </View>
-                <View className="flex-row gap-1 items-center">
-                    <SkeletonText variant="body-sm" />
-                </View>
-
-                {footer ? footer() : <SkeletonText variant="body-xs" />}
+                <TextLoader />
+                {footer ? footer() : <TextLoader />}
             </Card>
         );
     }
