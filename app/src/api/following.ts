@@ -39,30 +39,11 @@ export async function unfollow(account_id: string, profile_ids: number[]): Promi
     })
 }
 
-export async function setAccountPushToken(account_id: string, push_token: string): Promise<any> {
-    const url = getHost('aoe2companion-api') + `account/push_token`;
+export async function setAccountLiveActivityToken(liveActivityToken: string): Promise<any> {
+    const url = getHost('aoe2companion-api') + `v2/account/live_activity_token`;
 
     const data = {
-        account_id,
-        push_token,
-    };
-
-    return await fetchJson('setAccountPushToken', url, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data),
-    })
-}
-
-export async function setAccountLiveActivityToken(account_id: string, live_activity_token: string): Promise<any> {
-    const url = getHost('aoe2companion-api') + `account/live_activity_token`;
-
-    const data = {
-        account_id,
-        live_activity_token,
+        liveActivityToken,
     };
 
     return await fetchJson('setAccountLiveActivityToken', url, {
@@ -75,14 +56,13 @@ export async function setAccountLiveActivityToken(account_id: string, live_activ
     });
 }
 
-export async function storeLiveActivityStarted(account_id: string, live_activity_id: string, activity_type: string, object_id: string): Promise<any> {
-    const url = getHost('aoe2companion-api') + `account/live_activity_started`;
+export async function storeLiveActivityStarted(liveActivityId: string, activityType: string, objectId: string): Promise<any> {
+    const url = getHost('aoe2companion-api') + `v2/account/live_activity_started`;
 
     const data = {
-        account_id,
-        live_activity_id,
-        activity_type,
-        object_id,
+        liveActivityId,
+        activityType,
+        objectId,
     };
 
     return await fetchJson('storeLiveActivityStarted', url, {
@@ -93,42 +73,6 @@ export async function storeLiveActivityStarted(account_id: string, live_activity
         },
         body: JSON.stringify(data),
     });
-}
-
-export async function setAccountPushTokenWeb(account_id: string, push_token_web: string): Promise<any> {
-    const url = getHost('aoe2companion-api') + `account/push_token_web`;
-
-    const data = {
-        account_id,
-        push_token_web,
-    };
-
-    return await fetchJson('setAccountPushTokenWeb', url, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data),
-    })
-}
-
-export async function setAccountPushTokenElectron(account_id: string, push_token_electron: string): Promise<any> {
-    const url = getHost('aoe2companion-api') + `account/push_token_electron`;
-
-    const data = {
-        account_id,
-        push_token_electron,
-    };
-
-    return await fetchJson('setAccountPushTokenElectron', url, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data),
-    })
 }
 
 export async function sendTestPushNotificationWeb(push_token_web: string): Promise<any> {
@@ -164,67 +108,6 @@ export async function sendTestPushNotificationElectron(push_token_electron: stri
         body: JSON.stringify(data),
     })
 }
-
-export interface IAccountProfile {
-    profile_id?: number | null;
-    steam_id?: string | null;
-    overlay?: boolean;
-}
-
-export async function setAccountProfile(account_id: string, profile: IAccountProfile): Promise<any> {
-    const url = getHost('aoe2companion-api') + `account/profile`;
-
-    const data = {
-        account_id,
-        ...profile
-    };
-
-    return await fetchJson('setAccountProfile', url, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data),
-    })
-}
-
-export async function setAccountLanguage(account_id: string, language: string): Promise<any> {
-    const url = getHost('aoe2companion-api') + `account/language`;
-
-    const data = {
-        account_id,
-        language
-    };
-
-    return await fetchJson('setAccountLanguage', url, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data),
-    })
-}
-
-export async function setNotificationConfig(account_id: string, push_enabled: boolean): Promise<any> {
-    const url = getHost('aoe2companion-api') + `notification/config`;
-
-    const data = {
-        account_id,
-        push_enabled,
-    };
-
-    return await fetchJson('setNotificationConfig', url, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data),
-    })
-}
-
 
 export interface ITwitchChannel {
     id: string;

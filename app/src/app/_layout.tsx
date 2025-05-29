@@ -175,7 +175,7 @@ function LiveActivityController() {
     useEventListener(LiveActivity, 'onTokenChanged', async ({ token }) => {
         console.log('onTokenChanged', accountId, token);
         if (token) {
-            await setAccountLiveActivityToken(accountId!, token);
+            await setAccountLiveActivityToken(token);
         }
     });
 
@@ -183,7 +183,7 @@ function LiveActivityController() {
         const { match } = JSON.parse(data);
         console.log('onActivityStarted', accountId, token, type, match.matchId);
         if (token && type && match) {
-            await storeLiveActivityStarted(accountId!, token, type, match.matchId);
+            await storeLiveActivityStarted(token, type, match.matchId);
         }
     });
 

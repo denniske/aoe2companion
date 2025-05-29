@@ -236,6 +236,12 @@ export const changelog: IChangelog = {
     //         content: 'Link your Patreon account to access exclusive benefits'
     //     },
     // ],
+    '132.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix push notifications',
+        },
+    ],
     '131.0.0': [
         {
             type: 'minor',
