@@ -1,4 +1,3 @@
-import { setAccountLiveActivityToken, storeLiveActivityStarted } from '@app/api/following';
 import { fetchJson } from '@app/api/util';
 import { Header } from '@app/components/header';
 import { TabBar } from '@app/components/tab-bar';
@@ -39,6 +38,7 @@ import ErrorSnackbar from '@app/view/components/snackbar/error-snackbar';
 import { useEventListener } from 'expo';
 import { useAccountData } from '@app/queries/all';
 import { PortalProvider } from '@app/components/portal/portal-host';
+import { setAccountLiveActivityToken, storeLiveActivityStarted } from '@app/api/account';
 
 initSentry();
 

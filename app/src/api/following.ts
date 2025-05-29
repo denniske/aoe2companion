@@ -1,79 +1,5 @@
 import {fetchJson} from "./util";
-import {getHost} from "@nex/data";
-
-
-export async function follow(account_id: string, profile_ids: number[], enabled: boolean): Promise<any> {
-    const url = getHost('aoe2companion-api') + `follow`;
-
-    const data = {
-        account_id,
-        profile_ids,
-        enabled,
-    };
-
-    return await fetchJson('follow', url, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data),
-    });
-}
-
-export async function unfollow(account_id: string, profile_ids: number[]): Promise<any> {
-    const url = getHost('aoe2companion-api') + `unfollow`;
-
-    const data = {
-        account_id,
-        profile_ids,
-    };
-
-    return await fetchJson('unfollow', url, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data),
-    })
-}
-
-export async function setAccountLiveActivityToken(liveActivityToken: string): Promise<any> {
-    const url = getHost('aoe2companion-api') + `v2/account/live_activity_token`;
-
-    const data = {
-        liveActivityToken,
-    };
-
-    return await fetchJson('setAccountLiveActivityToken', url, {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    });
-}
-
-export async function storeLiveActivityStarted(liveActivityId: string, activityType: string, objectId: string): Promise<any> {
-    const url = getHost('aoe2companion-api') + `v2/account/live_activity_started`;
-
-    const data = {
-        liveActivityId,
-        activityType,
-        objectId,
-    };
-
-    return await fetchJson('storeLiveActivityStarted', url, {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    });
-}
+import { getHost } from '@nex/data';
 
 export async function sendTestPushNotificationWeb(push_token_web: string): Promise<any> {
     const url = getHost('aoe2companion-api') + `notification/send_test_web`;
@@ -83,23 +9,6 @@ export async function sendTestPushNotificationWeb(push_token_web: string): Promi
     };
 
     return await fetchJson('sendTestPushNotificationWeb', url, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data),
-    })
-}
-
-export async function sendTestPushNotificationElectron(push_token_electron: string): Promise<any> {
-    const url = getHost('aoe2companion-api') + `notification/send_test_electron`;
-
-    const data = {
-        push_token_electron: push_token_electron,
-    };
-
-    return await fetchJson('sendTestPushNotificationElectron', url, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',

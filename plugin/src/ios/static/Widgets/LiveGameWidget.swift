@@ -40,7 +40,7 @@ struct LiveGame: Codable {
 struct Match: Codable {
   let matchId: Int
   let started: String
-  let finished, leaderboardId, leaderboardName: String?
+  let finished, leaderboard, leaderboardName: String?
   let name: String?
   let server: String?
   let internalLeaderboardId: Int?
@@ -78,7 +78,8 @@ struct Player: Codable {
   let civImageUrl: String
   let color: Int
   let colorHex: String
-  let slot, status, team: Int
+  let slot, team: Int
+  let status: String
   let replay: Bool
   let won: Bool?
   let country: String?

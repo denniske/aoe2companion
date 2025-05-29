@@ -309,3 +309,45 @@ export async function authConfirm(params: any): Promise<any> {
         // body: JSON.stringify(data),
     });
 }
+
+export async function setAccountLiveActivityToken(liveActivityToken: string): Promise<any> {
+    const url = getHost('aoe2companion-api') + `v2/account/live_activity_token`;
+
+    let { data: session } = await supabaseClient.auth.getSession();
+
+    const data = {
+        liveActivityToken,
+    };
+
+    return await fetchJson('setAccountLiveActivityToken', url, {
+        method: 'POST',
+        headers: {
+            'Authorization': `bearer ${session.session?.access_token}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+}
+
+export async function storeLiveActivityStarted(liveActivityId: string, activityType: string, objectId: string): Promise<any> {
+    const url = getHost('aoe2companion-api') + `v2/account/live_activity_started`;
+
+    let { data: session } = await supabaseClient.auth.getSession();
+
+    const data = {
+        liveActivityId,
+        activityType,
+        objectId,
+    };
+
+    return await fetchJson('storeLiveActivityStarted', url, {
+        method: 'POST',
+        headers: {
+            'Authorization': `bearer ${session.session?.access_token}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+}
