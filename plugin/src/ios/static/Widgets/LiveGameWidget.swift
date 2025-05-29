@@ -153,6 +153,14 @@ struct LiveGameWidget: Widget {
       let match = data?.match
       let currentPlayer = data?.playerId
 
+//       Text("State: \(String(describing: context.state))")
+//           .font(.system(size: 8))
+//           .foregroundColor(.red)
+//
+//       Text("Data2: \(String(describing: data))")
+//           .font(.system(size: 8))
+//           .foregroundColor(.red)
+
       if match != nil {
         let game = match!
 
