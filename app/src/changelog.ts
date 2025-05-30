@@ -18,6 +18,20 @@ export interface IChangelog {
 // https://www.ageofempires.com/news/age-of-empires-iv-season-one-update-release-notes/
 
 export const changelog4: IChangelog = {
+    '21.0.0': [
+        {
+            type: 'minor',
+            title: 'Add loading indicator to followed players',
+        },
+        {
+            type: 'minor',
+            title: 'Update country names',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix push notifications',
+        },
+    ],
     '20.0.0': [
         {
             type: 'feature',
