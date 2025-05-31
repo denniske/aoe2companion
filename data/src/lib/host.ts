@@ -3,7 +3,7 @@ import {appConfig} from "@nex/dataset";
 import { Platform } from 'react-native';
 import * as Device from 'expo-device';
 
-export type Host = 'aoe4world' | 'aoe2companion' | 'aoe2companion-api' | 'aoe2companion-graphql' | 'aoe2companion-data' | 'aoe2companion-socket' | 'aoe2net';
+export type Host = 'aoe4world' | 'aoe2companion' | 'aoe2companion-api' | 'aoe2companion-graphql' | 'aoe2companion-data' | 'aoe2companion-socket';
 export type OS = 'windows' | 'macos' | 'android' | 'ios' | 'web';
 export type Environment = 'development' | 'production';
 
@@ -47,13 +47,6 @@ export function getHost(host: Host) {
             //     return `http://${platformHost}:3336/`;
             // }
             return `wss://socket.${appConfig.hostAoeCompanion}/`;
-        }
-        case "aoe2net": {
-            console.log('appConfig', appConfig);
-            if (platform === 'web') {
-                return `https://${appConfig.hostAoeNet}/`;
-            }
-            return `http://${appConfig.hostAoeNet}/`;
         }
     }
 }

@@ -189,5 +189,4 @@ export const ggNew = 1;
 //         "civ": 10,
 //         "won": true
 //     }],
-//     "source": "aoe2net"
 // };

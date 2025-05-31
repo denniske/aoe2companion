@@ -4,7 +4,6 @@ export const appConfig = {
     game: 'aoe4',
     gameTitle: 'Age of Empires IV',
     hostAoeCompanion: 'aoe4companion.com',
-    hostAoeNet: 'aoeiv.net',
     leaderboards: [
         // {
         //     id: 0,

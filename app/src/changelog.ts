@@ -253,6 +253,30 @@ export const changelog: IChangelog = {
     '132.0.0': [
         {
             type: 'bugfix',
+            title: 'Fix effects for various units',
+        },
+        {
+            type: 'minor',
+            title: 'Specify which effects apply on Lou Chuan in anti-unit / anti-building mode',
+        },
+        {
+            type: 'minor',
+            title: 'Add better conversion resistance description to units for Devotion, Faith, Heresy and First Crusade',
+        },
+        {
+            type: 'minor',
+            title: 'Add description for conscription that it also applies to upgrade speed [source](https://ageofempires.fandom.com/wiki/Conscription_(Age_of_Empires_II)',
+        },
+        {
+            type: 'bugfix',
+            title: 'Add Mounted Trebuchet, Traction Trebuchet, Hei Guang Cavalry to unit list on explore page',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix bolt magazine effect on units',
+        },
+        {
+            type: 'bugfix',
             title: 'Fix push notifications',
         },
     ],

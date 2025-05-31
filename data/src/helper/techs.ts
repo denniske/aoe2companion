@@ -73,11 +73,18 @@ const techEffectDictInternal = {
     // For Buildings
 
 
-    'SittingTiger': {
+    'SittingTiger-louchuan': {
         tech: 'SittingTiger',
         civ: 'Wu',
         effect: {
             other: '+2 projectiles each of which deal 10 melee attack and +40 vs buildings, anti-building mode',
+        },
+    },
+    'SittingTiger-tractiontrebuchet': {
+        tech: 'SittingTiger',
+        civ: 'Wu',
+        effect: {
+            other: '+2 projectiles each of which deal 10 melee attack and +40 vs buildings',
         },
     },
 
@@ -85,18 +92,34 @@ const techEffectDictInternal = {
         tech: 'ThunderclapBombs',
         civ: 'Jurchens',
         effect: {
-            other: 'projectiles detonate some time after landing, Lou Chuans detonate when destroyed',
+            other: 'projectiles detonate some time after landing, unit detonates when destroyed',
         },
     },
 
-    'BoltMagazine': {
+    'BoltMagazine-archer': {
         tech: 'BoltMagazine',
         civ: 'Shu',
         effect: {
-            firingRate: 'side effect: +0.5 reload time in Focus Fire mode, +0.75 reload time in Barrage mode',
-            other: 'Additional Projectiles: +2 in Focus Fire mode, +3 in Barrage mode',
+            firingRate: 'side effect: +0.7s reload time',
+            other: '+2 projectiles',
         },
     },
+    'BoltMagazine-warchariot': {
+        tech: 'BoltMagazine',
+        civ: 'Shu',
+        effect: {
+            firingRate: 'side effect: +0.5s reload time in Focus Fire mode, +0.75s reload time in Barrage mode',
+            other: '+2 projectiles in Focus Fire mode, +3 projectiles in Barrage mode',
+        },
+    },
+    'BoltMagazine-louchuan': {
+        tech: 'BoltMagazine',
+        civ: 'Shu',
+        effect: {
+            other: '+3 projectiles, anti-unit mode',
+        },
+    },
+
     'MingGuangArmor': {
         tech: 'MingGuangArmor',
         civ: 'Wei',
@@ -1005,8 +1028,8 @@ const techEffectDictInternal = {
         civ: 'Koreans',
         effect: {
             range: '+1',
-            other: '+6 additional projectiles',
-            firingRate: 'side effect from additional projectiles: +0.2 reload time',
+            other: '+6 projectiles',
+            firingRate: 'side effect: +0.2s reload time',
         },
     },
     'Shinkichon-TurtleShip': {
@@ -1014,7 +1037,7 @@ const techEffectDictInternal = {
         civ: 'Koreans',
         effect: {
             range: '+1',
-            other: '+2 additional projectiles',
+            other: '+2 projectiles',
         },
     },
     'FurorCeltica': {
@@ -1047,6 +1070,13 @@ const techEffectDictInternal = {
         tech: 'SiegeEngineers',
         effect: {
             attack: '+40% attack against buildings',
+        },
+    },
+    'SiegeEngineers-louchuan': {
+        tech: 'SiegeEngineers',
+        effect: {
+            attack: '+20%, anti-building mode',
+            range: '+1, anti-building mode',
         },
     },
     'TorsionEngines': {
@@ -1331,6 +1361,25 @@ const techEffectDictInternal = {
             armor: '+1/+2',
         },
     },
+    'ParthianTactics-xianbeiraider': {
+        tech: 'ParthianTactics',
+        effect: {
+            attack: '+2 attack against Spearmen, regular attack only',
+            armor: '+1/+2',
+        },
+    },
+    'RedCliffsTactics-firearcher': {
+        tech: 'RedCliffsTactics',
+        effect: {
+            attack: 'attacks deal an additional 1 damage per second for 5 seconds',
+        },
+    },
+    'RedCliffsTactics-demolitionraft': {
+        tech: 'RedCliffsTactics',
+        effect: {
+            attack: 'attacks deal an additional 5 damage per second for 5 seconds',
+        },
+    },
     'RecurveBow': {
         tech: 'RecurveBow',
         civ: 'Magyars',
@@ -1442,6 +1491,12 @@ const techEffectDictInternal = {
             accuracy: 'hit moving targets',
         },
     },
+    'Ballistics-louchuan': {
+        tech: 'Ballistics',
+        effect: {
+            accuracy: 'hit moving targets, anit-unit mode',
+        },
+    },
     'AndeanSling': {
         tech: 'AndeanSling',
         civ: 'Incas',
@@ -1498,10 +1553,66 @@ const techEffectDictInternal = {
         },
     },
 
+    'Fletching-xianbeiraider': {
+        tech: 'Fletching',
+        effect: {
+            attack: '+1, regular and charged attack',
+            range: '+1',
+        },
+    },
+    'BodkinArrow-xianbeiraider': {
+        tech: 'BodkinArrow',
+        effect: {
+            attack: '+1, regular and charged attack',
+            range: '+1',
+        },
+    },
+    'Bracer-xianbeiraider': {
+        tech: 'Bracer',
+        effect: {
+            attack: '+1, regular and charged attack',
+            range: '+1',
+        },
+    },
+
+    'Fletching-louchuan': {
+        tech: 'Fletching',
+        effect: {
+            attack: '+1, anti-unit mode',
+            range: '+1, anti-unit mode',
+        },
+    },
+    'BodkinArrow-louchuan': {
+        tech: 'BodkinArrow',
+        effect: {
+            attack: '+1, anti-unit mode',
+            range: '+1, anti-unit mode',
+        },
+    },
+    'Bracer-louchuan': {
+        tech: 'Bracer',
+        effect: {
+            attack: '+1, anti-unit mode',
+            range: '+1, anti-unit mode',
+        },
+    },
+
     'Chemistry': {
         tech: 'Chemistry',
         effect: {
             attack: '+1',
+        },
+    },
+    'Chemistry-xianbeiraider': {
+        tech: 'Chemistry',
+        effect: {
+            attack: '+1, regular and charged attack',
+        },
+    },
+    'Chemistry-louchuan': {
+        tech: 'Chemistry',
+        effect: {
+            attack: '+1, both modes',
         },
     },
 
@@ -1618,7 +1729,7 @@ const techEffectDictInternal = {
     'Faith': {
         tech: 'Faith',
         effect: {
-            conversionDefense: '',
+            conversionDefense: '+4s average conversion time',
         },
     },
     'Devotion-5': {
@@ -1631,28 +1742,28 @@ const techEffectDictInternal = {
     'Devotion': {
         tech: 'Devotion',
         effect: {
-            conversionDefense: '',
+            conversionDefense: '+1s average conversion time',
         },
     },
     'FirstCrusade': {
         tech: 'FirstCrusade',
         civ: 'Silicians',
         effect: {
-            conversionDefense: '',
+            conversionDefense: '+4s average conversion time',
         },
     },
     'Heresy-Malay': {
         tech: 'Heresy',
         civ: 'Malay',
         effect: {
-            conversionDefense: '',
+            conversionDefense: 'die upon getting converted',
         },
     },
     'Heresy-Gurjaras': {
         tech: 'Heresy',
         civ: 'Gurjaras',
         effect: {
-            conversionDefense: '',
+            conversionDefense: 'die upon getting converted',
         },
     },
     'Heresy-5': {
@@ -1665,13 +1776,13 @@ const techEffectDictInternal = {
     'Heresy': {
         tech: 'Heresy',
         effect: {
-            conversionDefense: '',
+            conversionDefense: 'die upon getting converted',
         },
     },
     'Conscription': {
         tech: 'Conscription',
         effect: {
-            creationSpeed: '+33%',
+            creationSpeed: '+33% creation speed and upgrading speed',
         },
     },
 };

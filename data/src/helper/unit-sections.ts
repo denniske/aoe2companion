@@ -48,6 +48,7 @@ const unitSections: IUnitSection[] = [
                 'CamelRider',
                 'SteppeLancer',
                 'BattleElephant',
+                'HeiGuangCavalry',
                 'ShrivamshaRider',
                 'XolotlWarrior',
             ],
@@ -66,6 +67,8 @@ const unitSections: IUnitSection[] = [
                 'BombardCannon',
                 'Trebuchet',
                 'Petard',
+                'MountedTrebuchet',
+                'TractionTrebuchet',
                 'FlamingCamel',
             ],
     },
@@ -124,7 +127,7 @@ const unitSections: IUnitSection[] = [
 ];
 
 function getUniqueUnitsForSection(civ: Civ) {
-    const excluded = [
+    const excluded: Unit[] = [
         'Thirisadai',
         'CamelScout',
         'Genitour',
@@ -140,6 +143,8 @@ function getUniqueUnitsForSection(civ: Civ) {
         'FlamingCamel',
         'Longboat',
         'Houfnice',
+        'MountedTrebuchet',
+        'TractionTrebuchet',
     ];
 
     const allUnits = [];

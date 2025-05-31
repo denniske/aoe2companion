@@ -576,6 +576,8 @@ export const unitLines: IUnitLineDict = {
             'Mangonel'
         ],
         upgrades: [
+            'RedCliffsTactics-demolitionraft',
+            'SiegeEngineers-40',
             'CilicianFleet-BlastRadius',
             'Careening',
             'Carrack',
@@ -583,6 +585,7 @@ export const unitLines: IUnitLineDict = {
             'Devotion',
             'Faith',
             'Heresy',
+            'FirstCrusade',
             'Shipwright',
         ],
     },
@@ -2658,6 +2661,7 @@ export const unitLines: IUnitLineDict = {
             'BodkinArrow',
             'Bracer',
             'Chemistry',
+            'BoltMagazine-archer',
             'Yeomen',
             'ThumbRing-18',
             'Ballistics',
@@ -2857,6 +2861,8 @@ export const unitLines: IUnitLineDict = {
             'Stronghold-Infantry',
         ],
     },
+
+
     'IronPagoda': {
         units: ['IronPagoda', 'EliteIronPagoda'],
         unique: true,
@@ -2895,14 +2901,12 @@ export const unitLines: IUnitLineDict = {
         upgrades: [
             'Forging',
             'Arson',
-            'IronCasting',
-            'BlastFurnace',
             'ScaleMailArmor',
             'ChainMailArmor',
             'PlateMailArmor',
             'Devotion',
             'Faith',
-            'Heresy', // ?
+            'Heresy',
             'Squires',
             'Conscription',
             'CoiledSerpentArray',
@@ -2919,10 +2923,11 @@ export const unitLines: IUnitLineDict = {
             'Forging',
             'IronCasting',
             'BlastFurnace',
-            'IronCasting',
             'ScaleBardingArmor',
             'ChainBardingArmor',
             'MingGuangArmor',
+            'Devotion',
+            'Faith',
             'Husbandry',
             'Conscription',
             'Tuntian',
@@ -2935,9 +2940,20 @@ export const unitLines: IUnitLineDict = {
         counteredBy: [
         ],
         upgrades: [
+            'Fletching',
+            'BodkinArrow',
+            'Bracer',
+            'Chemistry',
+            'RedCliffsTactics-firearcher',
+            'Ballistics',
+            'PaddedArcherArmor',
+            'LeatherArcherArmor',
+            'Devotion',
+            'Faith',
+            'Heresy',
+            'Conscription',
         ],
     },
-
     'Grenadier': {
         units: ['Grenadier'],
         // unique: true,
@@ -2945,6 +2961,15 @@ export const unitLines: IUnitLineDict = {
         counteredBy: [
         ],
         upgrades: [
+            'Ballistics',
+            'SiegeEngineers-20-1',
+            'ThunderclapBombs',
+            'PaddedArcherArmor',
+            'LeatherArcherArmor',
+            'RingArcherArmor',
+            'Devotion',
+            'Faith',
+            'Conscription',
         ],
     },
     'MountedTrebuchet': {
@@ -2961,7 +2986,7 @@ export const unitLines: IUnitLineDict = {
             'PlateBardingArmor',
             'Devotion',
             'Faith',
-            'Heresy', // ?
+            'Heresy',
             'Husbandry',
         ],
     },
@@ -2974,13 +2999,10 @@ export const unitLines: IUnitLineDict = {
         upgrades: [
             'Chemistry',
             'SiegeEngineers-20-1',
-            'ScaleBardingArmor',
-            'ChainBardingArmor',
-            'PlateBardingArmor',
             'Devotion',
             'Faith',
-            'Heresy', // ?
-            'SittingTiger',
+            'Heresy',
+            'SittingTiger-tractiontrebuchet',
         ],
     },
     'WarChariot': {
@@ -2993,13 +3015,13 @@ export const unitLines: IUnitLineDict = {
             'Chemistry',
             'SiegeEngineers-0-1',
             'Ballistics',
-            'BoltMagazine',
+            'BoltMagazine-warchariot',
             'ScaleBardingArmor',
             'ChainBardingArmor',
             'PlateBardingArmor',
             'Devotion',
             'Faith',
-            'Heresy', // ?
+            'Heresy',
             'Husbandry',
         ],
     },
@@ -3011,11 +3033,11 @@ export const unitLines: IUnitLineDict = {
         ],
         upgrades: [
             'Bloodlines',
-            'Fletching',
-            'BodkinArrow',
-            'Bracer',
-            'Chemistry',
-            'ParthianTactics',
+            'Fletching-xianbeiraider',
+            'BodkinArrow-xianbeiraider',
+            'Bracer-xianbeiraider',
+            'Chemistry-xianbeiraider',
+            'ParthianTactics-xianbeiraider',
             'ThumbRing-18',
             'Ballistics',
             'PaddedArcherArmor',
@@ -3036,6 +3058,17 @@ export const unitLines: IUnitLineDict = {
         counteredBy: [
         ],
         upgrades: [
+            'Forging',
+            'IronCasting',
+            'BlastFurnace',
+            'Arson',
+            'ScaleMailArmor',
+            'ChainMailArmor',
+            'PlateMailArmor',
+            'Devotion',
+            'Faith',
+            'Squires',
+            'Conscription',
         ],
     },
     'DragonShip': {
@@ -3063,7 +3096,6 @@ export const unitLines: IUnitLineDict = {
             'Forging',
             'IronCasting',
             'BlastFurnace',
-            'IronCasting',
             'ScaleBardingArmor',
             'ChainBardingArmor',
             'PlateBardingArmor',
@@ -3113,16 +3145,16 @@ export const unitLines: IUnitLineDict = {
         ],
         upgrades: [
             'Forging',
-            'Arson',
             'IronCasting',
             'BlastFurnace',
+            'Arson',
             'ScaleMailArmor',
             'ChainMailArmor',
             'PlateMailArmor',
-            'Gambesons', // ?
+            'Gambesons',
             'Devotion',
             'Faith',
-            'Heresy', // ?
+            'Heresy',
             'Squires',
             'Conscription',
         ],
@@ -3147,14 +3179,14 @@ export const unitLines: IUnitLineDict = {
         counteredBy: [
         ],
         upgrades: [
-            'Fletching',   // anti unit
-            'BodkinArrow', // anti unit
-            'Bracer',      // anti unit
-            'Chemistry',   // both
-            'SiegeEngineers-20-1', // both?
-            'Ballistics',  // anti unit
-            'BoltMagazine', // anti unit
-            'SittingTiger', // anti building
+            'Fletching-louchuan',   // anti unit
+            'BodkinArrow-louchuan', // anti unit
+            'Bracer-louchuan',      // anti unit
+            'Chemistry-louchuan',   // both
+            'SiegeEngineers-louchuan', // both?
+            'Ballistics-louchuan',  // anti unit
+            'BoltMagazine-louchuan', // anti unit
+            'SittingTiger-louchuan', // anti building
             'Careening',
             'Devotion',
             'Faith',
