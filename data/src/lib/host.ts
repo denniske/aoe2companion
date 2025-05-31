@@ -2,6 +2,7 @@ import {getService, SERVICE_NAME} from "./di";
 import {appConfig} from "@nex/dataset";
 import { Platform } from 'react-native';
 import * as Device from 'expo-device';
+import Constants from 'expo-constants';
 
 export type Host = 'aoe4world' | 'aoe2companion' | 'aoe2companion-api' | 'aoe2companion-graphql' | 'aoe2companion-data' | 'aoe2companion-socket';
 export type OS = 'windows' | 'macos' | 'android' | 'ios' | 'web';
@@ -16,7 +17,10 @@ export function getHost(host: Host) {
     const hostService = getService(SERVICE_NAME.HOST_SERVICE) as IHostService;
     const platform = hostService.getPlatform();
     const dev = false && hostService.getEnvironment() == 'development';
-    const platformHost = Device.isDevice ? '192.168.10.22' : Platform.select({ios: 'localhost', android: '10.0.2.2'});
+    const hostIP = Constants.expoConfig?.hostUri?.split(':')[0];
+    const platformHost = Device.isDevice ? hostIP : Platform.select({ios: 'localhost', android: '10.0.2.2'});
+    // console.log('Metro IP via Constants:', hostIP);
+
     switch (host) {
         case "aoe4world": {
             return `https://aoe4world.com/api/v0/`;
