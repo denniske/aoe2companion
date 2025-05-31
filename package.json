@@ -2,10 +2,10 @@
   "main": "expo-router/entry",
   "scripts": {
     "deps": "npm install --global eas-cli",
-    "start": "APP=aoe2 expo start -c --dev-client --private-key-path update/private-key.pem",
+    "start": "APP=aoe2 expo start -c --scheme exp+aoe2companion --dev-client --private-key-path update/private-key.pem",
     "start:prod": "cross-env APP=aoe2 expo start -c --no-dev --dev-client",
     "prebuild": "cross-env APP=aoe2 expo prebuild",
-    "start4": "APP=aoe4 expo start -c --dev-client",
+    "start4": "APP=aoe4 expo start -c --scheme exp+aoe4companion --dev-client",
     "start4:go": "cross-env APP=aoe4 expo start -c",
     "eject": "expo eject",
     "build:web": "expo build:web",
