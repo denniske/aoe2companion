@@ -1,10 +1,14 @@
 
+https://expo.dev/blog/best-practices-for-reducing-lag-in-expo-apps
+
 react compiler
 
 lint
 NODE_OPTIONS="--max-old-space-size=8192" npx eslint app/src --ext .tsx --rule "react-hooks/rules-of-hooks:error" --rule "react-hooks/exhaustive-deps:error"
 npx react-compiler-healthcheck@latest
 
+https://github.com/facebook/react/issues/29078
+request: [compiler] react-compiler-healthcheck display the list of compiled files. #29078
 
 rm -rf ios/Pods ios/Podfile.lock && cd ios && pod install --repo-update && cd ..
 

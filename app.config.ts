@@ -100,6 +100,11 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     // new arch scroll up on leaderboard page
     // https://github.com/facebook/react-native/issues/49077
     newArchEnabled: false,
+    experiments: {
+        // react-compiler-runtime needs to be installed for android
+        // but then android fails with wierd async storage error
+        reactCompiler: false,
+    },
     name: app.name,
     description: app.description,
     slug: app.slug,
