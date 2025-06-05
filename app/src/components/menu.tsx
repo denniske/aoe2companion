@@ -348,9 +348,11 @@ export const MenuNew: FC<MenuProps> = ({
     }, [rendered, updateVisibility]);
 
     const tapGesture = Gesture.Tap()
+        .runOnJS(true)
         .numberOfTaps(1)
         .shouldCancelWhenOutside(true)
         .onEnd((event, success) => {
+            // 'worklet';
             console.log('ondismiss', event, success);
             if (success) {
                 onDismiss?.();
