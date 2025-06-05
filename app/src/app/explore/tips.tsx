@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Image, ImageSourcePropType, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useAppTheme } from '../../theming';
 import { MyText } from '@app/view/components/my-text';
@@ -199,14 +199,14 @@ function VideoTip(props: any) {
             // console.log(tip.video.uri.replace(videoBaseUrl, ''), 'REPLAY');
             player.play();
         }
-    }, [active, status]);
+    }, [player, active, status]);
 
     useEffect(() => {
         if (!active) {
             player.pause();
             player.currentTime = 0;
         }
-    }, [active]);
+    }, [player, active]);
 
     return (
         <>
@@ -239,31 +239,37 @@ function VideoTip(props: any) {
 function ImageTip(props: any) {
     const { tip, active } = props;
     const styles = useStyles();
-    const [status, setStatus] = useState('readyToPlay');
 
     return (
         <Image
             source={tip.image}
-            style={[styles.showcase,
-                getTipStyle(active, status), {
-                width: '100%',
-                aspectRatio: 16 / 9,
-            }]}
+            style={[
+                styles.showcase,
+                getTipStyle(active, 'readyToPlay'),
+                {
+                    width: '100%',
+                    aspectRatio: 16 / 9,
+                },
+            ]}
         />
     );
 }
 
 function NoPreviewTip(props: any) {
-    const { tip, active } = props;
+    const { active } = props;
     const styles = useStyles();
-    const [status, setStatus] = useState('readyToPlay');
 
     return (
-        <View style={[styles.showcase,
-            getTipStyle(active, status), {
-            width: '100%',
-            aspectRatio: 16 / 9,
-        }]}>
+        <View
+            style={[
+                styles.showcase,
+                getTipStyle(active, 'readyToPlay'),
+                {
+                    width: '100%',
+                    aspectRatio: 16 / 9,
+                },
+            ]}
+        >
             <MyText>No Preview</MyText>
         </View>
     );
@@ -273,7 +279,6 @@ export default function TipsPage() {
     const styles = useStyles();
     const theme = useAppTheme();
     const [currentTip, setCurrentTip] = useState(tips[0]);
-    const [loading, setLoading] = useState(true);
 
     const onOpen = async (tip: any) => {
         await openLink(tip.url);
@@ -284,27 +289,26 @@ export default function TipsPage() {
             <Stack.Screen options={{ title: 'Tips' }} />
             <View style={styles.showcaseContainer}>
                 <View style={styles.showcaseInner}>
-                    {loading && (
-                        <Image
-                            source={require('../../../assets/tips/poster/aoe-sheep.webp')}
-                            style={[styles.showcase, {
+                    <Image
+                        source={require('../../../assets/tips/poster/aoe-sheep.webp')}
+                        style={[
+                            styles.showcase,
+                            {
                                 width: '100%',
                                 height: 'auto',
                                 aspectRatio: 16 / 9,
                                 opacity: 1,
                                 zIndex: 1,
-                            }]}
-                        />
-                    )}
-                    {
-                        tips.map((tip, i) => (
-                            <Delayed key={i} delay={i * 100}>
-                                {tip.video && <VideoTip tip={tip} active={tip === currentTip} />}
-                                {tip.image && <ImageTip tip={tip} active={tip === currentTip} />}
-                                {!tip.video && !tip.image && <NoPreviewTip tip={tip} active={tip === currentTip} />}
-                            </Delayed>
-                        ))
-                    }
+                            },
+                        ]}
+                    />
+                    {tips.map((tip, i) => (
+                        <Delayed key={i} delay={i * 100}>
+                            {tip.video && <VideoTip tip={tip} active={tip === currentTip} />}
+                            {tip.image && <ImageTip tip={tip} active={tip === currentTip} />}
+                            {!tip.video && !tip.image && <NoPreviewTip tip={tip} active={tip === currentTip} />}
+                        </Delayed>
+                    ))}
                 </View>
             </View>
             <ScrollView style={styles.container} contentContainerStyle="pb-4">
@@ -317,11 +321,9 @@ export default function TipsPage() {
                                         <FontAwesome5 name="video" size={14} color={theme.textNoteColor} />
                                     </View>
                                 )}
-                                {!tip.icon && <Image style={styles.unitIconBig}
-                                                     source={tip.imageIcon ? tip.imageIcon : getAbilityIcon(tip)} />}
+                                {!tip.icon && <Image style={styles.unitIconBig} source={tip.imageIcon ? tip.imageIcon : getAbilityIcon(tip)} />}
                                 <View style={styles.textContainer}>
-                                    <MyText
-                                        style={[styles.title, { fontWeight: currentTip.title == tip.title ? 'bold' : 'normal' }]}>
+                                    <MyText style={[styles.title, { fontWeight: currentTip.title === tip.title ? 'bold' : 'normal' }]}>
                                         {tip.title}
                                     </MyText>
                                     <MyText style={styles.description}>{tip.description}</MyText>
@@ -399,5 +401,5 @@ const useStyles = createStylesheet((theme) =>
             lineHeight: 16,
             fontSize: 12,
         },
-    } as const),
+    } as const)
 );
