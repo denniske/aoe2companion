@@ -1,6 +1,6 @@
 // PortalHost.tsx
-import { createContext, useContext, useState, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { createContext, use, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 
 type PortalItem = {
     key: number;
@@ -57,4 +57,4 @@ export const PortalProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     );
 };
 
-export const usePortalManager = () => useContext(PortalContext);
+export const usePortalManager = () => use(PortalContext);
