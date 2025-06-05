@@ -19,7 +19,7 @@ export const TabBar: React.FC = ({}) => {
     const insets = useSafeAreaInsets();
     const { bottom } = insets;
     const router = useRouter();
-    const rootNavigationState = useRootNavigationState();
+    const rootNavigationState = null; //useRootNavigationState();
     const shadow = tw.style('shadow-blue-50 dark:shadow-black', Platform.OS === 'web' && 'shadow-2xl');
     const { colorScheme } = useColorScheme();
     const gradient =

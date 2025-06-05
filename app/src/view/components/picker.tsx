@@ -56,6 +56,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
             <View key={i} style={{ height: itemHeight, flexDirection: 'column' }}>
                 <TouchableOpacity
                     onPress={() => {
+                        console.log('onSelect', v);
                         onSelect(v);
                         setMenu(false);
                     }}

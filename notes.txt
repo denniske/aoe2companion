@@ -27,7 +27,7 @@ so thats why we hardcode it in package.json
 expo-app-update
 
 npm pack
-yarn add ../expo-app-update/expo-app-update-51.0.1.tgz
+yarn add ../expo-app-update/expo-app-update-51.0.7.tgz
 
 run example:
 
@@ -44,7 +44,7 @@ xed ios
 cd example/android
 studio
 
-
+npm publish --access=public
 
 
 

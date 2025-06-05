@@ -18,6 +18,12 @@ export interface IChangelog {
 // https://www.ageofempires.com/news/age-of-empires-iv-season-one-update-release-notes/
 
 export const changelog4: IChangelog = {
+    '22.0.0': [
+        {
+            type: 'minor',
+            title: 'Internal Framework Update (SDK 53)',
+        },
+    ],
     '21.0.0': [
         {
             type: 'minor',
@@ -250,6 +256,12 @@ export const changelog: IChangelog = {
     //         content: 'Link your Patreon account to access exclusive benefits'
     //     },
     // ],
+    '133.0.0': [
+        {
+            type: 'minor',
+            title: 'Internal Framework Update (SDK 53)',
+        },
+    ],
     '132.0.0': [
         {
             type: 'bugfix',

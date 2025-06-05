@@ -16,7 +16,7 @@ import { IconProps } from './icon';
 import { TextProps } from './text';
 import { useAppTheme } from '@app/theming';
 import { v3Shadow } from '@app/components/shadow';
-import { TapGestureHandler } from 'react-native-gesture-handler';
+import { Gesture, GestureDetector, TapGestureHandler } from 'react-native-gesture-handler';
 import { RenderInPortal } from '@app/components/portal/render-in-portal';
 import * as React from 'react';
 import { FC, MutableRefObject, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
@@ -347,10 +347,19 @@ export const MenuNew: FC<MenuProps> = ({
         updateVisibility(rendered);
     }, [rendered, updateVisibility]);
 
-    const stopPropagation = (event: any) => {
-        event.nativeEvent.stopHandling = true;
-        // console.log('stopPropagation: Tapped inside component.');
-    };
+    const tapGesture = Gesture.Tap()
+        .numberOfTaps(1)
+        .shouldCancelWhenOutside(true)
+        .onEnd((event, success) => {
+            console.log('ondismiss', event, success);
+            if (success) {
+                onDismiss?.();
+            }
+        });
+
+    const noopGesture = Gesture.Tap().onEnd(() => {
+        // do nothing
+    });
 
     return (
         <View>
@@ -360,7 +369,7 @@ export const MenuNew: FC<MenuProps> = ({
             {visible && (
                 <>
                     <RenderInPortal>
-                        <TapGestureHandler onActivated={onDismiss} numberOfTaps={1}>
+                        <GestureDetector gesture={tapGesture}>
                             <View
                                 style={{
                                     width: '100%',
@@ -368,28 +377,30 @@ export const MenuNew: FC<MenuProps> = ({
                                     backgroundColor: 'rgba(0, 0, 0, 0.2)',
                                 }}
                             >
-                                <View
-                                    ref={(ref) => (menuRef.current = ref)}
-                                    style={
-                                        [
-                                            {
-                                                position: 'absolute',
-                                                top: top,
-                                                left: left,
-                                                right: right,
-                                                backgroundColor: theme.backgroundColor,
-                                                zIndex: 110000,
-                                                borderRadius: roundness,
-                                            },
-                                            contentStyle,
-                                            v3Shadow(3),
-                                        ] as StyleProp<ViewStyle>
-                                    }
-                                >
-                                    {children}
-                                </View>
+                                <GestureDetector gesture={noopGesture}>
+                                    <View
+                                        ref={(ref) => (menuRef.current = ref)}
+                                        style={
+                                            [
+                                                {
+                                                    position: 'absolute',
+                                                    top: top,
+                                                    left: left,
+                                                    right: right,
+                                                    backgroundColor: theme.backgroundColor,
+                                                    zIndex: 110000,
+                                                    borderRadius: roundness,
+                                                },
+                                                contentStyle,
+                                                v3Shadow(3),
+                                            ] as StyleProp<ViewStyle>
+                                        }
+                                    >
+                                        {children}
+                                    </View>
+                                </GestureDetector>
                             </View>
-                        </TapGestureHandler>
+                        </GestureDetector>
                     </RenderInPortal>
                 </>
             )}
