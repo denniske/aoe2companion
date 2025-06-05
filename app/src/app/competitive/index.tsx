@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { IMatchesMatch } from '@app/api/helper/api.types';
 import { useLiveTwitchAccounts } from '@app/api/live';
 import { useOngoing } from '@app/api/ongoing';

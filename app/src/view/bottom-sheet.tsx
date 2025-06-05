@@ -64,7 +64,6 @@ function BottomSheetComponent({
         if (shouldTriggerClose) {
             triggerClose();
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [shouldTriggerOpen, shouldTriggerClose]);
 
     useEffect(() => {
