@@ -1,11 +1,18 @@
 import {
-    Dimensions, FlatList, FlatListProps, SectionList, SectionListData, StyleProp, StyleSheet, Text, TouchableOpacity,
+    Dimensions,
+    FlatList,
+    FlatListProps,
+    SectionList,
+    SectionListData,
+    StyleProp,
+    StyleSheet,
+    TouchableOpacity,
     View,
-    ViewStyle
-} from "react-native";
-import {MyText} from "./my-text";
-import {FontAwesome} from "@expo/vector-icons";
-import React, {useState} from "react";
+    ViewStyle,
+} from 'react-native';
+import { MyText } from './my-text';
+import { FontAwesome } from '@expo/vector-icons';
+import React, { useState } from 'react';
 import { useAppTheme } from '../../theming';
 import { MenuNew } from '@app/components/menu';
 
@@ -17,8 +24,8 @@ interface IPickerProps<T> {
     sectionFormatter?: (value: string) => string;
     icon?: (value: T, inList?: boolean) => React.ReactNode;
     divider?: (value: T, index: number) => boolean;
-    cell?: (props: {}) => React.ReactNode;
-    anchor?: (props: {}) => React.ReactNode;
+    cell?: (props: object) => React.ReactNode;
+    anchor?: (props: object) => React.ReactNode;
     onSelect: (value: T) => void;
     style?: StyleProp<ViewStyle>;
     anchorStyle?: StyleProp<ViewStyle>;
@@ -29,13 +36,14 @@ interface IPickerProps<T> {
     popupAlign?: 'left' | 'right';
 }
 
-
 function defaultCell(props: any) {
-    const {value, color, icon, formatter, selected, textMinWidth} = props;
+    const { value, color, icon, formatter, selected, textMinWidth } = props;
     return (
         <View style={styles.row}>
             {icon && icon(value)}
-            <MyText numberOfLines={1} style={[styles.text, { minWidth: textMinWidth, color: color, fontWeight: selected ? 'bold' : 'normal' }]}>{formatter(value)}</MyText>
+            <MyText numberOfLines={1} style={[styles.text, { minWidth: textMinWidth, color: color, fontWeight: selected ? 'bold' : 'normal' }]}>
+                {formatter(value)}
+            </MyText>
         </View>
     );
 }
@@ -44,9 +52,24 @@ export default function Picker<T>(props: IPickerProps<T>) {
     const theme = useAppTheme();
     const [menu, setMenu] = useState(false);
 
-    const { value, values, sections, onSelect, style, disabled,
-            formatter = (x) => x, sectionFormatter = (x) => x, icon = x => undefined, cell = defaultCell, divider = x => false, container,
-            textMinWidth = 0, itemHeight, anchor, anchorStyle, popupAlign = 'left'
+    const {
+        value,
+        values,
+        sections,
+        onSelect,
+        style,
+        disabled,
+        formatter = (x) => x,
+        sectionFormatter = (x) => x,
+        icon = (x) => undefined,
+        cell = defaultCell,
+        divider = (x) => false,
+        container,
+        textMinWidth = 0,
+        itemHeight,
+        anchor,
+        anchorStyle,
+        popupAlign = 'left',
     } = props;
 
     const color = disabled ? undefined : theme.textColor;
@@ -81,7 +104,9 @@ export default function Picker<T>(props: IPickerProps<T>) {
         <View key={title} style={{ height: itemHeight }}>
             <View style={styles.menuItem}>
                 <View style={styles.row}>
-                    <MyText numberOfLines={1} style={[styles.text, { minWidth: textMinWidth, color: color }]}>{sectionFormatter(title)}</MyText>
+                    <MyText numberOfLines={1} style={[styles.text, { minWidth: textMinWidth, color: color }]}>
+                        {sectionFormatter(title)}
+                    </MyText>
                 </View>
             </View>
         </View>
@@ -89,9 +114,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
 
     const flatListProps: Partial<FlatListProps<T>> = {};
     if (container === 'flatlist' && itemHeight) {
-        flatListProps.getItemLayout = (data, index) => (
-            {length: itemHeight, offset: itemHeight * index, index}
-        );
+        flatListProps.getItemLayout = (data, index) => ({ length: itemHeight, offset: itemHeight * index, index });
 
         // flatListProps.initialScrollIndex = value !== undefined ? Math.max(0, values!.indexOf(value)) : 0;
 
@@ -105,41 +128,47 @@ export default function Picker<T>(props: IPickerProps<T>) {
     const contentStyleForAlign = popupAlign === 'left' ? { right: 'auto' } : { left: 'auto' };
 
     const valuesHeight = values ? values.length * (itemHeight || 40) : 100;
-    const sectionsHeight = sections ? sections.filter(s => s.title != null).length * (itemHeight || 40) : 0;
+    const sectionsHeight = sections ? sections.filter((s) => s.title != null).length * (itemHeight || 40) : 0;
     const valuesAndSectionsHeight = valuesHeight + sectionsHeight;
 
     return (
         <View style={[style]}>
             <MenuNew
-                contentStyle={{
-                    ...contentStyleForAlign,
-                    padding: 0,
-                    borderColor: theme.hoverBackgroundColor, // '#EEE',
-                    borderWidth: 1,
-                } as ViewStyle}
+                contentStyle={
+                    {
+                        ...contentStyleForAlign,
+                        padding: 0,
+                        borderColor: theme.hoverBackgroundColor, // '#EEE',
+                        borderWidth: 1,
+                    } as ViewStyle
+                }
                 visible={menu}
                 onDismiss={() => setMenu(false)}
                 anchor={
                     <TouchableOpacity
                         className="px-2.5 py-1 rounded-lg border border-gray-200 dark:border-gray-800"
-                        style={[styles.anchor, anchorStyle, {backgroundColor: theme.backgroundColor}]}
+                        style={[styles.anchor, anchorStyle, { backgroundColor: theme.backgroundColor }]}
                         onPress={() => setMenu(true)}
                         disabled={disabled}
                     >
-                        { anchor && anchor({}) }
-                        {
-                            !anchor &&
+                        {anchor && anchor({})}
+                        {!anchor && (
                             <View style={styles.row}>
-                                {cell({value, formatter: (x: any, i: any) => formatter(x, false), color, icon})}
+                                {cell({ value, formatter: (x: any, i: any) => formatter(x, false), color, icon })}
                                 <FontAwesome style={styles.handle} name="chevron-down" color={color} size={12} />
                             </View>
-                        }
+                        )}
                     </TouchableOpacity>
                 }
             >
-                {
-                    container === 'flatlist' &&
-                    <View style={{height: Math.min(valuesAndSectionsHeight, Dimensions.get('window').height-350), minWidth: 210, overflow: 'hidden'}}>
+                {container === 'flatlist' && (
+                    <View
+                        style={{
+                            height: Math.min(valuesAndSectionsHeight, Dimensions.get('window').height - 350),
+                            minWidth: 210,
+                            overflow: 'hidden',
+                        }}
+                    >
                         <FlatList
                             {...flatListProps}
                             style={{ flex: 1 }}
@@ -147,30 +176,24 @@ export default function Picker<T>(props: IPickerProps<T>) {
                             // style={{height: Dimensions.get('window').height-360}}
                             keyboardShouldPersistTaps={'always'}
                             data={values}
-                            renderItem={({item, index}) => renderItem(item, index)}
+                            renderItem={({ item, index }) => renderItem(item, index)}
                             keyExtractor={(item, index) => index.toString()}
                         />
                     </View>
-                }
-                {
-                    container === 'sectionlist' &&
-                    <View style={{height: Math.min(valuesAndSectionsHeight, Dimensions.get('window').height-350), minWidth: 210}}>
+                )}
+                {container === 'sectionlist' && (
+                    <View style={{ height: Math.min(valuesAndSectionsHeight, Dimensions.get('window').height - 350), minWidth: 210 }}>
                         <SectionList
                             stickySectionHeadersEnabled={false}
                             keyboardShouldPersistTaps={'always'}
                             sections={sections!}
-                            renderItem={({item, index}) => renderItem(item, index)}
-                            renderSectionHeader={({section: { title }}) => title ? renderSectionHeader(title) : null}
+                            renderItem={({ item, index }) => renderItem(item, index)}
+                            renderSectionHeader={({ section: { title } }) => (title ? renderSectionHeader(title) : null)}
                             keyExtractor={(item, index) => index.toString()}
                         />
                     </View>
-                }
-                {
-                    !container &&
-                    <View style={{minWidth: 210}}>
-                        {values!.map(renderItem)}
-                    </View>
-                }
+                )}
+                {!container && <View style={{ minWidth: 210 }}>{values!.map(renderItem)}</View>}
                 {/*{*/}
                 {/*    values.map((v, i) =>*/}
                 {/*        <Menu.Item titleStyle={[styles.menuItem, {fontWeight: v == value ? 'bold' : 'normal'}]}*/}

@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
-import {useAppTheme} from "../../theming";
-import {MaterialCommunityIcons} from '@expo/vector-icons';
-
+import { useAppTheme } from '../../theming';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 type Props = {
-    left?: (props: {}) => React.ReactNode;
+    left?: (props: object) => React.ReactNode;
     expanded?: boolean;
     expandable?: boolean;
     onPress?: () => void;
@@ -18,13 +17,7 @@ export default function MyListAccordion(props: Props) {
     const theme = useAppTheme();
     const [expanded, setExpanded] = useState(props.expanded);
 
-    const {
-        left,
-        children,
-        style,
-        expandable,
-        onPress,
-    } = props;
+    const { left, children, style, expandable, onPress } = props;
 
     const handlePress = () => {
         setExpanded(!expanded);
@@ -32,40 +25,34 @@ export default function MyListAccordion(props: Props) {
     };
 
     return (
-            <View style={style}>
-                <TouchableOpacity
-                        activeOpacity={1}
-                        style={[styles.container]}
-                        onPress={handlePress}
-                >
-                    <View style={styles.row} pointerEvents="none">
-                        <View style={[styles.item, styles.content]}>
-                            {left ? left({}):null}
-                        </View>
-                        <View style={styles.item}>
-                            <MaterialCommunityIcons
-                                name={expanded ? 'chevron-up':'chevron-down'}
-                                color={expandable ? theme.textColor : theme.skeletonColor}
-                                style={{opacity: expandable ? 1 : 1}}
-                                size={30}
-                            />
-                        </View>
+        <View style={style}>
+            <TouchableOpacity activeOpacity={1} style={[styles.container]} onPress={handlePress}>
+                <View style={styles.row} pointerEvents="none">
+                    <View style={[styles.item, styles.content]}>{left ? left({}) : null}</View>
+                    <View style={styles.item}>
+                        <MaterialCommunityIcons
+                            name={expanded ? 'chevron-up' : 'chevron-down'}
+                            color={expandable ? theme.textColor : theme.skeletonColor}
+                            style={{ opacity: expandable ? 1 : 1 }}
+                            size={30}
+                        />
                     </View>
-                </TouchableOpacity>
+                </View>
+            </TouchableOpacity>
 
-                {expanded? 
-                    <View style={styles.row2}>
-                        {React.Children.map(children, child => {
-                            if (React.isValidElement(child)) {
-                                return React.cloneElement(child, {
-                                    style: [styles.child, child.props.style],
-                                } as any);
-                            }
-                            return child;
-                        })}
-                    </View>
-                : null}
-            </View>
+            {expanded ? (
+                <View style={styles.row2}>
+                    {React.Children.map(children, (child) => {
+                        if (React.isValidElement(child)) {
+                            return React.cloneElement(child, {
+                                style: [styles.child, child.props.style],
+                            } as any);
+                        }
+                        return child;
+                    })}
+                </View>
+            ) : null}
+        </View>
     );
 }
 
@@ -81,7 +68,6 @@ const styles = StyleSheet.create({
     row2: {
         flexDirection: 'row',
         // backgroundColor: 'green'
-
     },
     multiline: {
         height: 40,

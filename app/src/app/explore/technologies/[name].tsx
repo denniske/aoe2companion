@@ -2,24 +2,26 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Image } from 'expo-image';
 import {
+    ageUpgrades,
+    Building,
+    buildings,
+    getAffectedBuildingInfos,
     getAffectedUnitInfos,
+    getAgeFromAgeTech,
     getTechData,
     getTechDescription,
     getTechName,
-    getUpgradeList,
     getUpgradeFormatted,
+    getUpgradeList,
+    getWikiLinkForTech,
     keysOf,
     Other,
     sortResources,
     Tech,
+    techs,
     techsAffectingAllUnits,
     Unit,
     units,
-    getAgeFromAgeTech,
-    buildings,
-    Building,
-    getAffectedBuildingInfos,
-    techs,
 } from '@nex/data';
 import Fandom from '../../../view/components/fandom';
 import { MyText } from '../../../view/components/my-text';
@@ -32,13 +34,11 @@ import { getOtherIcon } from '../../../helper/units';
 import { useTheme } from '../../../theming';
 import { UnitCompBig } from '../../../view/unit/unit-comp';
 import { getTranslation } from '../../../helper/translate';
-import { ageUpgrades } from '@nex/data';
 import { BuildingCompBig } from '../../../view/building/building-comp';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
 import { HeaderTitle } from '@app/components/header-title';
 import { getTechIcon } from '@app/helper/techs';
-import { getWikiLinkForTech } from '@nex/data';
 
 function capitalizeFirstLetter(string: string | number) {
     return string.toString().charAt(0).toUpperCase() + string.toString().slice(1);

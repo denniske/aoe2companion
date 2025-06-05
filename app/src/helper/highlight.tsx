@@ -1,12 +1,11 @@
-import {useTheme} from "../theming";
-import {appVariants} from "../styles";
-import {buildingDefList, escapeRegExpFn, getBuildingName, getTechName, techList} from "@nex/data";
-import {getUnitName, hasUnitLine, Unit, units} from "@nex/data";
-import {MyText} from "../view/components/my-text";
-import React from "react";
-import {memoize} from 'lodash';
-import {getLanguage} from '../../../data/src/lib/aoe-data';
-import { router } from "expo-router";
+import { useTheme } from '../theming';
+import { appVariants } from '../styles';
+import { buildingDefList, escapeRegExpFn, getBuildingName, getTechName, getUnitName, hasUnitLine, techList, Unit, units } from '@nex/data';
+import { MyText } from '../view/components/my-text';
+import React from 'react';
+import { memoize } from 'lodash';
+import { getLanguage } from '../../../data/src/lib/aoe-data';
+import { router } from 'expo-router';
 
 // export function highlightUnitAndCivs(str: string) {
 //     const appStyles = useTheme(appVariants);
@@ -44,19 +43,19 @@ import { router } from "expo-router";
 //     return texts;
 // }
 
-
-
 function createLists() {
-    const techReplaceList = techList.map(t => ({ name: t.name, text: getTechName(t.name)}));
-    const unitReplaceList = Object.keys(units).filter(t => hasUnitLine(t as Unit)).map(t => ({ name: t, text: getUnitName(t as Unit)}));
-    const buildingReplaceList = buildingDefList.map(b => ({ name: b.name, text: getBuildingName(b.name)}));
-    const reverseTechMap = Object.assign({}, ...techReplaceList.map((x) => ({[x.text.toLowerCase()]: x})));
-    const reverseUnitMap = Object.assign({}, ...unitReplaceList.map((x) => ({[x.text.toLowerCase()]: x, [x.text.toLowerCase()+'s']: x})));
-    const reverseBuildingMap = Object.assign({}, ...buildingReplaceList.map((x) => ({[x.text.toLowerCase()]: x, [x.text.toLowerCase()+'s']: x})));
+    const techReplaceList = techList.map((t) => ({ name: t.name, text: getTechName(t.name) }));
+    const unitReplaceList = Object.keys(units)
+        .filter((t) => hasUnitLine(t as Unit))
+        .map((t) => ({ name: t, text: getUnitName(t as Unit) }));
+    const buildingReplaceList = buildingDefList.map((b) => ({ name: b.name, text: getBuildingName(b.name) }));
+    const reverseTechMap = Object.assign({}, ...techReplaceList.map((x) => ({ [x.text.toLowerCase()]: x })));
+    const reverseUnitMap = Object.assign({}, ...unitReplaceList.map((x) => ({ [x.text.toLowerCase()]: x, [x.text.toLowerCase() + 's']: x })));
+    const reverseBuildingMap = Object.assign({}, ...buildingReplaceList.map((x) => ({ [x.text.toLowerCase()]: x, [x.text.toLowerCase() + 's']: x })));
 
     const allReplaceList = [...techReplaceList, ...unitReplaceList, ...buildingReplaceList];
 
-    const regex = new RegExp('('+allReplaceList.map(m => '\\b'+escapeRegExpFn(m.text)+'s?\\b').join("|")+')', 'i');
+    const regex = new RegExp('(' + allReplaceList.map((m) => '\\b' + escapeRegExpFn(m.text) + 's?\\b').join('|') + ')', 'i');
 
     return { regex, reverseTechMap, reverseUnitMap, reverseBuildingMap };
 }
@@ -85,24 +84,34 @@ export function HighlightUnitAndTechs(props: IProps) {
             // console.log('part', parts[i]);
             const matchingTech = reverseTechMap[parts[i].toLowerCase()]?.name;
             if (matchingTech) {
-                texts.push(<MyText key={i} style={appStyles.link} onPress={() => router.navigate(`/explore/technologies/${matchingTech}`)}>{parts[i]}</MyText>);
+                texts.push(
+                    <MyText key={i} style={appStyles.link} onPress={() => router.navigate(`/explore/technologies/${matchingTech}`)}>
+                        {parts[i]}
+                    </MyText>
+                );
                 continue;
             }
             const matchingUnit = reverseUnitMap[parts[i].toLowerCase()]?.name;
             if (matchingUnit) {
-                texts.push(<MyText key={i} style={appStyles.link} onPress={() => router.navigate(`/explore/units/${matchingUnit}`)}>{parts[i]}</MyText>);
+                texts.push(
+                    <MyText key={i} style={appStyles.link} onPress={() => router.navigate(`/explore/units/${matchingUnit}`)}>
+                        {parts[i]}
+                    </MyText>
+                );
                 continue;
             }
             const matchingBuilding = reverseBuildingMap[parts[i].toLowerCase()]?.name;
             if (matchingBuilding) {
-                texts.push(<MyText key={i} style={appStyles.link} onPress={() => router.navigate(`/explore/buildings/${matchingBuilding}`)}>{parts[i]}</MyText>);
+                texts.push(
+                    <MyText key={i} style={appStyles.link} onPress={() => router.navigate(`/explore/buildings/${matchingBuilding}`)}>
+                        {parts[i]}
+                    </MyText>
+                );
             }
         }
     }
     return <MyText>{texts}</MyText>;
 }
-
-
 
 interface IProps2 {
     str: string;
@@ -114,7 +123,7 @@ export function Highlight(props: IProps2) {
     const appStyles = useTheme(appVariants);
 
     // const regex = new RegExp('(\\b'+escapeRegExpFn(highlight)+'s?\\b)', 'i');
-    const regex = new RegExp('('+escapeRegExpFn(highlight)+')', 'i');
+    const regex = new RegExp('(' + escapeRegExpFn(highlight) + ')', 'i');
     const parts = str.split(regex);
     // console.log('parts', regex);
     // console.log('parts', parts);
@@ -125,7 +134,11 @@ export function Highlight(props: IProps2) {
         if (i % 2 == 0) {
             texts.push(<MyText key={i}>{parts[i]}</MyText>);
         } else {
-            texts.push(<MyText key={i} style={{fontWeight: 'bold'}}>{parts[i]}</MyText>);
+            texts.push(
+                <MyText key={i} style={{ fontWeight: 'bold' }}>
+                    {parts[i]}
+                </MyText>
+            );
             // console.log('part', parts[i]);
             // const matchingTech = reverseTechMap[parts[i].toLowerCase()]?.name;
             // if (matchingTech) {

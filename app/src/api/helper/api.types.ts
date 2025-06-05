@@ -655,7 +655,7 @@ export type IAnalysis = {
                 y: number
             }
         }>
-        position?: {}
+        position?: object
         preferRandom?: boolean
         profileId?: number
         rateSnapshot?: number
@@ -680,7 +680,7 @@ export type IAnalysis = {
                         y: number
                     }
                 }>
-                position: {}
+                position: object
                 preferRandom: boolean
                 profileId: number
                 rateSnapshot: number

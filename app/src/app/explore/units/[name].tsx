@@ -8,6 +8,7 @@ import {
     getUnitName,
     getUnitUpgradeCost,
     getUnitUpgradeTime,
+    getWikiLinkForUnit,
     Unit,
     unitLines,
 } from '@nex/data';
@@ -29,7 +30,6 @@ import { UnitStats } from '../../../view/unit/unit-stats';
 import { UnitUpgrades } from '../../../view/unit/unit-upgrades';
 import { ScrollView } from '@app/components/scroll-view';
 import { getTranslation } from '@app/helper/translate';
-import { getWikiLinkForUnit } from '@nex/data';
 
 export default function UnitDetails() {
     const { name } = useLocalSearchParams<{ name: Unit }>();
