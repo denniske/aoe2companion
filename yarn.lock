@@ -4608,7 +4608,7 @@ __metadata:
     expo-atlas: "npm:^0.4.0"
     expo-build-properties: "npm:~0.14.6"
     expo-constants: "npm:~17.1.6"
-    expo-crypto: "npm:~14.1.4"
+    expo-crypto: "npm:~14.0.2"
     expo-dev-client: "npm:~5.2.0"
     expo-device: "npm:~7.1.4"
     expo-file-system: "npm:~18.1.10"
@@ -7671,14 +7671,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-crypto@npm:~14.1.4":
-  version: 14.1.4
-  resolution: "expo-crypto@npm:14.1.4"
+"expo-crypto@npm:~14.0.2":
+  version: 14.0.2
+  resolution: "expo-crypto@npm:14.0.2"
   dependencies:
     base64-js: "npm:^1.3.0"
   peerDependencies:
     expo: "*"
-  checksum: 10/65c4357559265073a85eb5fb2c747203ffad5bc62b4e8a11d5fee2651714e7f36de0954f5498318958b97298e8e9075e9c9c91bba33d88b68d5d8dbca82484bd
+  checksum: 10/2e6bfd0e0cbcd0dd6870660580940c0f1eb50472f096e2eedf0de591e76b3d92cdd3be8a11614c79ec4d7159ecfaf13d2518e653df176c2b1804ecf3e9167f2a
   languageName: node
   linkType: hard
 
