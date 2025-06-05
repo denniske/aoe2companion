@@ -16,7 +16,7 @@ import { Icon } from '@app/components/icon';
 import { appConfig } from '@nex/dataset';
 import { MatchPlayer } from '@app/components/match/player';
 import { getTranslation } from '@app/helper/translate';
-import { useMatch, useMatchAnalysis, useMatchAnalysisSvg, withRefetching } from '@app/queries/all';
+import { useMatch, useMatchAnalysis, useMatchAnalysisSvg, useWithRefetching } from '@app/queries/all';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useAppTheme } from '@app/theming';
 import Space from '@app/view/components/space';
@@ -42,9 +42,9 @@ export default function MatchPage() {
 
     const theme = useAppTheme();
 
-    const { data: match, refetch, isRefetching } = withRefetching(useMatch(matchId));
-    const { data: analysis } = withRefetching(useMatchAnalysis(matchId));
-    const { data: analysisSvgUrl } = withRefetching(useMatchAnalysisSvg(matchId, !!analysis));
+    const { data: match, refetch, isRefetching } = useWithRefetching(useMatch(matchId));
+    const { data: analysis } = useWithRefetching(useMatchAnalysis(matchId));
+    const { data: analysisSvgUrl } = useWithRefetching(useMatchAnalysisSvg(matchId, !!analysis));
 
     // const { match, highlightedUsers, user } = props;
 

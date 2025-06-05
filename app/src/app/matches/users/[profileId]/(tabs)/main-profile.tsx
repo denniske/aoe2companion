@@ -18,7 +18,7 @@ import Profile from '../../../../../view/components/profile';
 import Rating from '../../../../../view/components/rating';
 import RefreshControlThemed from '../../../../../view/components/refresh-control-themed';
 import { useQuery } from '@tanstack/react-query';
-import { useProfile, withRefetching } from '@app/queries/all';
+import { useProfile, useWithRefetching } from '@app/queries/all';
 import type { UseQueryResult } from '@tanstack/react-query/src/types';
 import { useGlobalSearchParams, useLocalSearchParams } from 'expo-router';
 
@@ -29,7 +29,7 @@ export default function MainProfile(props: any) {
     const styles = useStyles();
     const navigation = useNavigation<any>();
 
-    const { data: profile, refetch, isRefetching } = withRefetching(useProfile(profileId));
+    const { data: profile, refetch, isRefetching } = useWithRefetching(useProfile(profileId));
 
     const myParams = useGlobalSearchParams();
     const myParams2 = useLocalSearchParams();

@@ -21,7 +21,7 @@ import RefreshControlThemed from '../../../../../view/components/refresh-control
 import { StatsHeader, StatsRow } from '../../../../../view/components/stats-rows';
 import TemplatePicker from '../../../../../view/components/template-picker';
 import { useQuery } from '@tanstack/react-query';
-import { useProfileWithStats, withRefetching } from '@app/queries/all';
+import { useProfileWithStats, useWithRefetching } from '@app/queries/all';
 import { useLocalSearchParams } from 'expo-router';
 import { LeaderboardSelect } from '@app/components/select/leaderboard-select';
 
@@ -68,7 +68,7 @@ export default function MainStats() {
     // const previousCachedData = usePrevious(currentCachedData);
 
     const isFocused = useIsFocused();
-    const { data: profileWithStats, refetch, isRefetching } = withRefetching(useProfileWithStats(profileId, isFocused));
+    const { data: profileWithStats, refetch, isRefetching } = useWithRefetching(useProfileWithStats(profileId, isFocused));
     // console.log('profileWithStats', profileWithStats);
     // console.log('profileId', profileId);
 

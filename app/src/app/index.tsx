@@ -24,7 +24,7 @@ import {
     useMatch,
     useMatchAnalysis,
     useMatchAnalysisSvg,
-    withRefetching,
+    useWithRefetching,
 } from '@app/queries/all';
 // import { WithSkiaWeb } from '@shopify/react-native-skia/lib/module/web';
 // import { version } from 'canvaskit-wasm/package.json';

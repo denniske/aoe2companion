@@ -92,7 +92,7 @@ export const useProfileWithStats = (profileId: number, isFocused: boolean) =>
     });
 
 
-export function withRefetching<TData, TError>(result: UseQueryResult<TData, TError>) {
+export function useWithRefetching<TData, TError>(result: UseQueryResult<TData, TError>) {
     const [isRefetching, setIsRefetching] = useState(false);
     const refetch = async () => {
         setIsRefetching(true);
