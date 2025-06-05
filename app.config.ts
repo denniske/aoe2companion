@@ -97,6 +97,9 @@ const appConfigPlugins = process.env.APP === 'aoe2' ? [appPlugin] : [];
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
     ...config,
+    // new arch scroll up on leaderboard page
+    // https://github.com/facebook/react-native/issues/49077
+    newArchEnabled: false,
     name: app.name,
     description: app.description,
     slug: app.slug,
