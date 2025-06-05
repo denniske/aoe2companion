@@ -4837,7 +4837,7 @@ __metadata:
     array-flat-polyfill: "npm:^1.0.1"
     babel-loader: "npm:^8.1.0"
     babel-plugin-module-resolver: "npm:^5.0.0"
-    babel-plugin-react-compiler: "npm:19.0.0-beta-af1b7da-20250417"
+    babel-plugin-react-compiler: "npm:19.1.0-rc.2"
     babel-plugin-transform-typescript-metadata: "npm:^0.3.0"
     babel-preset-expo: "npm:~13.0.0"
     cavy: "npm:^4.0.2"
@@ -4888,7 +4888,6 @@ __metadata:
     prisma: "npm:3.13.0"
     react: "npm:19.0.0"
     react-compiler-healthcheck: "npm:^19.1.0-rc.2"
-    react-compiler-runtime: "npm:19.0.0-beta-af1b7da-20250417"
     react-dom: "npm:19.0.0"
     react-native: "npm:0.79.3"
     react-native-edge-to-edge: "npm:1.6.0"
@@ -5290,12 +5289,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-react-compiler@npm:19.0.0-beta-af1b7da-20250417":
-  version: 19.0.0-beta-af1b7da-20250417
-  resolution: "babel-plugin-react-compiler@npm:19.0.0-beta-af1b7da-20250417"
+"babel-plugin-react-compiler@npm:19.1.0-rc.2":
+  version: 19.1.0-rc.2
+  resolution: "babel-plugin-react-compiler@npm:19.1.0-rc.2"
   dependencies:
     "@babel/types": "npm:^7.26.0"
-  checksum: 10/d1443b95a00202d3305888fc73c3771d30e5165b08b7636dadd318df31a34f848d4086deaff7552993eda3fa36c8c8a217f42a0653fcfbdf53fa04eb76365bd6
+  checksum: 10/4904021f1e47a8e7f9eb251b48b4c9c9cc3c9c91ff6ab4c8969ac5b6d0b34d91f3137770ba3e4d267a5ee2c113d938b99615f0e3ea3aa9a0948b87085710ef28
   languageName: node
   linkType: hard
 
@@ -12642,15 +12641,6 @@ __metadata:
   bin:
     react-compiler-healthcheck: dist/index.js
   checksum: 10/01fa07d7f906848fdf07f2d0ef33d765bf2a94a77b0742d1a6b35c9e6ec9aa68a3f17494eb9bd22a6fe7dd45a4300dfb0422bb8f709b12bebced7c4ef148327c
-  languageName: node
-  linkType: hard
-
-"react-compiler-runtime@npm:19.0.0-beta-af1b7da-20250417":
-  version: 19.0.0-beta-af1b7da-20250417
-  resolution: "react-compiler-runtime@npm:19.0.0-beta-af1b7da-20250417"
-  peerDependencies:
-    react: ^17.0.0 || ^18.0.0 || ^19.0.0 || ^0.0.0-experimental
-  checksum: 10/1c876cc122f1f8dbc93cf04d4910d6dae2c9d6cd434e1d116975c1561c02e42804d3e4138fc96bfdce64ad2867946dc0f86efbe271e52790da532fbeaad7c822
   languageName: node
   linkType: hard
 
