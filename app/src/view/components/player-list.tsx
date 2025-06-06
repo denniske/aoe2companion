@@ -210,6 +210,7 @@ export default function PlayerList<PlayerType extends IPlayerListPlayer>({
 }: ISearchProps<PlayerType>) {
     return (
         <FlatList
+            initialNumToRender={variant === 'horizontal' ? 5 : undefined}
             ref={flatListRef}
             data={list}
             horizontal={variant === 'horizontal'}

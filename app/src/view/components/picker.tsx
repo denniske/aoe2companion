@@ -95,7 +95,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
                         textMinWidth,
                     })}
                 </TouchableOpacity>
-                {divider && divider(v, i) && <View style={{ height: 1, backgroundColor: theme.lightBackgroundColor }}></View>}
+                {divider && divider(v, i) && <View style={{ height: 1, backgroundColor: theme.lightBorderColor }}></View>}
             </View>
         );
     };
@@ -184,6 +184,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
                 {container === 'sectionlist' && (
                     <View style={{ height: Math.min(valuesAndSectionsHeight, Dimensions.get('window').height - 350), minWidth: 210 }}>
                         <SectionList
+                            initialNumToRender={15}
                             stickySectionHeadersEnabled={false}
                             keyboardShouldPersistTaps={'always'}
                             sections={sections!}

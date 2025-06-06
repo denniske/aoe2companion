@@ -170,6 +170,7 @@ export default function Competitive() {
                         </View>
 
                         <FlatList
+                            initialNumToRender={3}
                             showsHorizontalScrollIndicator={false}
                             className="flex-none"
                             horizontal
