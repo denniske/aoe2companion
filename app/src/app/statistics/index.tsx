@@ -22,13 +22,13 @@ export default function StatisticsPage() {
 
             <Card href="/statistics/leaderboard" direction="vertical" className="overflow-hidden">
                 <View className="-mx-2 -mt-3 mb-1">
-                    <Image source={require('../../../assets/hero.jpg')} className="h-36 w-full" />
+                    <Image source={require('../../../assets/statistics/hero.webp')} className="h-36 w-full" />
                 </View>
                 <Text variant="label-lg">Leaderboards</Text>
             </Card>
             <Card href={Platform.OS === 'web' ? 'https://aoestats.io' : '/statistics/winrates'} direction="vertical" className="overflow-hidden">
                 <View className="-mx-2 -mt-3 mb-1">
-                    <Image source={require('../../../assets/gameplay/armenians.jpg')} className="h-36 w-full" />
+                    <Image source={require('../../../assets/statistics/armenians.webp')} className="h-36 w-full" />
                 </View>
                 <Text variant="label-lg">Winrates</Text>
             </Card>
