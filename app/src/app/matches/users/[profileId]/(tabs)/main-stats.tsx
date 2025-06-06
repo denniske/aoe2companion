@@ -1,25 +1,18 @@
-import { Dropdown } from '@app/components/dropdown';
 import { FlatList } from '@app/components/flat-list';
 import { leaderboardIdsByType } from '@app/helper/leaderboard';
-import { LeaderboardId } from '@nex/data';
 import { useIsFocused, useNavigationState, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 
 import { fetchLeaderboards } from '../../../../../api/helper/api';
 import { getTranslation } from '../../../../../helper/translate';
-import { openLink } from '../../../../../helper/url';
 import { useWebRefresh } from '../../../../../hooks/use-web-refresh';
-import { useMutate } from '../../../../../redux/reducer';
-import { appVariants } from '../../../../../styles';
-import { useTheme } from '../../../../../theming';
 import { createStylesheet } from '../../../../../theming-new';
 import FlatListLoadingIndicator from '../../../../../view/components/flat-list-loading-indicator';
 import { TextLoader } from '../../../../../view/components/loader/text-loader';
 import { MyText } from '../../../../../view/components/my-text';
 import RefreshControlThemed from '../../../../../view/components/refresh-control-themed';
 import { StatsHeader, StatsRow } from '../../../../../view/components/stats-rows';
-import TemplatePicker from '../../../../../view/components/template-picker';
 import { useQuery } from '@tanstack/react-query';
 import { useProfileWithStats, useWithRefetching } from '@app/queries/all';
 import { useLocalSearchParams } from 'expo-router';
@@ -29,50 +22,26 @@ export default function MainStats() {
     const params = useLocalSearchParams<{ profileId: string }>();
     const profileId = parseInt(params.profileId);
     const styles = useStyles();
-    // const prefLeaderboardId = useSelector(state => state.prefs.leaderboardId) ?? leaderboardIdsData[0];
-    // const prefLeaderboardId = leaderboardIdsData[0];
     const [leaderboardId, setLeaderboardId] = useState<string>();
-
-    const [leaderboardType, setLeaderboardType] = useState<'pc' | 'xbox'>('pc');
 
     const { data: leaderboards } = useQuery({
         queryKey: ['leaderboards'],
         queryFn: fetchLeaderboards,
     });
 
-    const renderLeaderboard = (value: string, selected: boolean) => {
-        return (
-            <View style={styles.col}>
-                <MyText style={[styles.h1, { fontWeight: selected ? 'bold' : 'normal' }]}>
-                    {leaderboards?.find((l) => l.leaderboardId === value)?.abbreviationTitle}
-                </MyText>
-                <MyText style={[styles.h2, { fontWeight: selected ? 'bold' : 'normal' }]}>
-                    {leaderboards?.find((l) => l.leaderboardId === value)?.abbreviationSubtitle}
-                </MyText>
-            </View>
-        );
-    };
-
     const leaderboardTitle = leaderboards?.find((l) => l.leaderboardId === leaderboardId)?.leaderboardName;
 
     useEffect(() => {
         if (leaderboards == null) return;
         if (leaderboardId == null) {
-            setLeaderboardId(leaderboardIdsByType(leaderboards, leaderboardType)[0]);
+            setLeaderboardId(leaderboardIdsByType(leaderboards, 'pc')[0]);
         }
     }, [leaderboards]);
 
-    // const currentCachedData = useSelector((state) => get(state.user, [profileId, 'profileWithStats']))?.stats?.find(
-    //     (s) => s.leaderboardId === leaderboardId
-    // );
-    // const previousCachedData = usePrevious(currentCachedData);
-
     const isFocused = useIsFocused();
     const { data: profileWithStats, refetch, isRefetching } = useWithRefetching(useProfileWithStats(profileId, isFocused));
-    // console.log('profileWithStats', profileWithStats);
-    // console.log('profileId', profileId);
 
-    const cachedData = profileWithStats?.stats.find((s) => s.leaderboardId === leaderboardId); //currentCachedData ?? previousCachedData;
+    const cachedData = profileWithStats?.stats.find((s) => s.leaderboardId === leaderboardId);
 
     const statsCiv = cachedData?.civ;
     const statsMap = cachedData?.map;
@@ -81,10 +50,8 @@ export default function MainStats() {
 
     const hasStats = cachedData != null;
 
-    // const list = ['stats-header', 'stats-duration', 'stats-position', 'stats-ally', 'stats-opponent', 'stats-civ', 'stats-map'];
-
     const list = [
-        { type: 'stats-header' as const},
+        { type: 'stats-header' as const },
         ...(statsAlly?.length !== 0 ? [{ type: 'header' as const, title: getTranslation('main.stats.heading.ally') }] : []),
         ...(statsAlly?.map((row) => ({ type: 'ally' as const, data: row })) ?? Array(8).fill({ type: 'ally' as const, data: null })),
         { type: 'header' as const, title: getTranslation('main.stats.heading.opponent') },
@@ -94,18 +61,6 @@ export default function MainStats() {
         { type: 'header' as const, title: getTranslation('main.stats.heading.map') },
         ...(statsMap?.map((row) => ({ type: 'map' as const, data: row })) ?? Array(8).fill({ type: 'map' as const, data: null })),
     ];
-
-    const onLeaderboardSelected = async (leaderboardId: LeaderboardId) => {
-        // mutate(setPrefValue('leaderboardId', leaderboardId));
-        // await savePrefsToStorage();
-        setLeaderboardId(leaderboardId);
-    };
-
-    // useEffect(() => {
-    //     if (currentCachedData) {
-    //         setRefetching(false);
-    //     }
-    // }, [currentCachedData]);
 
     const route = useRoute();
     const state = useNavigationState((state) => state);
@@ -130,6 +85,7 @@ export default function MainStats() {
             <View style={styles.content}>
                 {Platform.OS === 'web' && isRefetching && <FlatListLoadingIndicator />}
                 <FlatList
+                    initialNumToRender={10}
                     contentContainerStyle="p-4"
                     data={list}
                     CellRendererComponent={({ children, index, style, ...props }) => (
@@ -145,7 +101,7 @@ export default function MainStats() {
                                         <View style={styles.pickerRow}>
                                             <LeaderboardSelect
                                                 leaderboardId={leaderboardId}
-                                                onLeaderboardIdChange={x => setLeaderboardId(x ?? undefined)}
+                                                onLeaderboardIdChange={(x) => setLeaderboardId(x ?? undefined)}
                                             />
                                         </View>
                                         <TextLoader ready={hasStats} style={styles.info}>
@@ -156,18 +112,9 @@ export default function MainStats() {
                                     </View>
                                 );
                             case 'header':
-                                return (
-                                    <StatsHeader
-                                        title={item.title}
-                                    />
-                                );
+                                return <StatsHeader title={item.title} />;
                             default:
-                                return (
-                                    <StatsRow
-                                        data={item.data}
-                                        type={item.type}
-                                    />
-                                );
+                                return <StatsRow data={item.data} type={item.type} />;
                         }
                     }}
                     keyExtractor={(item, index) => index.toString()}
