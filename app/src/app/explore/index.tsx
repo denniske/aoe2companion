@@ -158,6 +158,7 @@ export default function Explore() {
                             </View>
 
                             <FlatList
+                                initialNumToRender={5}
                                 showsHorizontalScrollIndicator={false}
                                 className="flex-none"
                                 horizontal
@@ -183,6 +184,7 @@ export default function Explore() {
                             </View>
 
                             <FlatList
+                                initialNumToRender={5}
                                 showsHorizontalScrollIndicator={false}
                                 className="flex-none"
                                 horizontal
@@ -212,6 +214,7 @@ export default function Explore() {
                             </View>
 
                             <FlatList
+                                initialNumToRender={5}
                                 showsHorizontalScrollIndicator={false}
                                 className="flex-none"
                                 horizontal
@@ -241,6 +244,7 @@ export default function Explore() {
                             </View>
 
                             <FlatList
+                                initialNumToRender={5}
                                 showsHorizontalScrollIndicator={false}
                                 className="flex-none"
                                 horizontal
@@ -274,6 +278,7 @@ export default function Explore() {
                             </View>
 
                             <FlatList
+                                initialNumToRender={5}
                                 showsHorizontalScrollIndicator={false}
                                 className="flex-none"
                                 horizontal
