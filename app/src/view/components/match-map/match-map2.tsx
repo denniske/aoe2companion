@@ -50,7 +50,7 @@ export default function MatchMap2() {
                         </Canvas>
                 </View>
             </View>
-            <TimeScrubber time={time}></TimeScrubber>
+            <TimeScrubber time={time} duration={100 * 1000}></TimeScrubber>
         </View>
     );
 }
