@@ -13,10 +13,35 @@ import { Card } from '../card';
 import { Icon } from '../icon';
 import { Skeleton, SkeletonText } from '../skeleton';
 import { Text } from '../text';
+import { IMatchNew } from '@app/api/helper/api.types';
 
 export interface MatchCardProps extends MatchProps {
     onPress?: () => void;
     flat?: boolean;
+}
+
+export function matchIsFinishedOrTimedOut(match: IMatchNew) {
+    if (match.finished) {
+        return true;
+    }
+    if (match.started) {
+        const finished = match.finished || new Date();
+        const duration = differenceInSeconds(finished, match.started) * getSpeedFactor(match.speed as AoeSpeed);
+        return duration > 60 * 60 * 24; // 24 hours
+    }
+    return false;
+}
+
+export function matchTimedOut(match: IMatchNew) {
+    if (match.finished) {
+        return false;
+    }
+    if (match.started) {
+        const finished = match.finished || new Date();
+        const duration = differenceInSeconds(finished, match.started) * getSpeedFactor(match.speed as AoeSpeed);
+        return duration > 60 * 60 * 24; // 24 hours
+    }
+    return false;
 }
 
 const formatDuration = (durationInSeconds: number) => {
@@ -89,8 +114,8 @@ export function MatchCard(props: MatchCardProps) {
                 </Text>
                 <Text numberOfLines={1}>{attributes.join(' - ')}</Text>
                 <Text numberOfLines={1}>
-                    {match.finished === null && duration}
-                    {match.finished || match.finished === undefined ? (match.started ? formatAgo(match.started) : 'none') : null}
+                    {!matchIsFinishedOrTimedOut(match) && duration}
+                    {matchIsFinishedOrTimedOut(match) ? (match.started ? formatAgo(match.started) : 'none') : null}
                 </Text>
             </View>
         </Card>

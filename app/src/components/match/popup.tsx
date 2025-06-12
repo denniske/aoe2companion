@@ -10,7 +10,7 @@ import React, { useMemo } from 'react';
 import { Linking, Platform, Pressable, View } from 'react-native';
 
 import { MatchProps } from '.';
-import { MatchCard } from './card';
+import { MatchCard, matchIsFinishedOrTimedOut, matchTimedOut } from './card';
 import { MatchPlayer } from './player';
 import { useTournamentMatches } from '../../api/tournaments';
 import { AoeSpeed, getSpeedFactor } from '../../helper/speed';
@@ -56,8 +56,8 @@ export function MatchPopup(props: MatchPopupProps) {
     const { tournament, format } = tournamentMatch ?? { tournament: undefined, format: undefined };
     const freeForAll = isMatchFreeForAll(match);
 
-    let duration: string = '';
-    if (match.started) {
+    let duration: string = 'Unknown';
+    if (match.started && !matchTimedOut(match)) {
         const finished = match.finished || new Date();
         duration = formatDuration(differenceInSeconds(finished, match.started) * getSpeedFactor(match.speed as AoeSpeed));
     }

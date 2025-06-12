@@ -29,7 +29,7 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
                     "Class": 4
                 },
             ],
-            "MeleeArmor": 1,
+            "MeleeArmor": 2,
             "PierceArmor": 1,
         },
     },

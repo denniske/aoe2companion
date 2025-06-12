@@ -8,6 +8,12 @@ export type aoeCivKey = keyof typeof aoeData.civ_helptexts;
 
 export const aoeData = merge(aoeDataInternal, {
     "data": {
+        "buildings": {
+            // Fix build time to 150s for town center
+            "109": {
+                "TrainTime": 150,
+            },
+        },
         "units": {
             // Fix line of sight for light cavalry and hussar and winged hussar
             "546": {

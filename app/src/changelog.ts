@@ -261,6 +261,14 @@ export const changelog: IChangelog = {
             type: 'minor',
             title: 'Internal Framework Update (SDK 53)',
         },
+        {
+            type: 'minor',
+            title: 'Show "Unknown" duration if match goes beyond 24 hours and we have no match result from the server',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix stats of Town Center and Serjeant',
+        },
     ],
     '132.0.0': [
         {
