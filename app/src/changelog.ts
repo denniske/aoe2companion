@@ -256,7 +256,7 @@ export const changelog: IChangelog = {
     //         content: 'Link your Patreon account to access exclusive benefits'
     //     },
     // ],
-    '133.0.0': [
+    '134.0.0': [
         {
             type: 'minor',
             title: 'Internal Framework Update (SDK 53)',
@@ -268,6 +268,10 @@ export const changelog: IChangelog = {
         {
             type: 'bugfix',
             title: 'Fix stats of Town Center and Serjeant',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix live notifications (iOS)',
         },
     ],
     '132.0.0': [
