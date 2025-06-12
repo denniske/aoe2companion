@@ -1,0 +1,1 @@
+{"root":["./src/index.ts","./src/ios/withwidgetentitlements.ts","./src/ios/withwidgetios.ts","./src/ios/withwidgetplist.ts","./src/ios/withwidgetsourcefiles.ts","./src/ios/withwidgetxcodetarget.ts"],"version":"5.8.3"}
