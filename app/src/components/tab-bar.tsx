@@ -4,40 +4,71 @@ import { IconName } from '@fortawesome/fontawesome-svg-core';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useColorScheme } from 'nativewind';
 import React, { useEffect, useRef } from 'react';
-import { Animated, Platform, Pressable, View } from 'react-native';
+import { Animated, ColorValue, Platform, Pressable, View } from 'react-native';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Button } from './button';
 import { Icon } from './icon';
 import { Text } from './text';
-import { useRootNavigationState, useRouter } from 'expo-router';
+import { usePathname, useRootNavigationState, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { setMainPageShown, useMutate, useMutateScroll, useScrollPosition, useSelector } from '@app/redux/reducer';
 import { useAccountData } from '@app/queries/all';
+
+
+function useCurrentTabName() {
+    // useRootNavigationState does not trigger a re-render when the route changes, but usePathname does
+    const pathname = usePathname();
+
+    const rootNavigationState = useRootNavigationState();
+    if (!rootNavigationState || !rootNavigationState.routes || rootNavigationState.routes.length === 0) {
+        return null;
+    }
+
+    // console.log('ROUTE', rootNavigationState.index);
+    // console.log('ROUTE', rootNavigationState);
+    // console.log('ROUTE', rootNavigationState?.routes[rootNavigationState.index || 0]);
+    // console.log('ROUTE', rootNavigationState?.routes[rootNavigationState.index || 0].name);
+
+    const name = rootNavigationState?.routes[rootNavigationState.index || 0].name;
+
+    if (name === '__root') {
+        const childIndex = rootNavigationState?.routes[rootNavigationState.index || 0].state?.index;
+        return rootNavigationState?.routes[rootNavigationState.index || 0].state?.routes[childIndex || 0].name;
+    }
+
+    return name;
+}
+
+function useIsNavigationReady() {
+    // useRootNavigationState does not trigger a re-render when the route changes, but usePathname does
+    const pathname = usePathname();
+
+    const rootNavigationState = useRootNavigationState();
+    return rootNavigationState?.key != null;
+}
 
 export const TabBar: React.FC = ({}) => {
     const insets = useSafeAreaInsets();
     const { bottom } = insets;
     const router = useRouter();
-    const rootNavigationState = null; //useRootNavigationState();
+    const routeName = useCurrentTabName();
+    const isNavigationReady = useIsNavigationReady();
     const shadow = tw.style('shadow-blue-50 dark:shadow-black', Platform.OS === 'web' && 'shadow-2xl');
     const { colorScheme } = useColorScheme();
     const gradient =
         colorScheme === 'dark'
-            ? [tw.color('blue-950/0') ?? 'black', tw.color('blue-950/90') ?? 'black']
-            : [tw.color('gold-50/0') ?? 'white', tw.color('gold-50/90') ?? 'white'];
+            ? [tw.color('blue-950/0') ?? 'black', tw.color('blue-950/90') ?? 'black'] as const
+            : [tw.color('gold-50/0') ?? 'white', tw.color('gold-50/90') ?? 'white'] as const;
 
     const scrollPosition = useScrollPosition();
     const { setScrollPosition, setScrollToTop } = useMutateScroll();
-
-    // console.log('USE TAB BAR', scrollPosition);
 
     const showTabBar = scrollPosition === 0;
     const opacity = useRef(new Animated.Value(1)).current;
 
     const configMainPage = useAccountData(data => data.mainPage);
     const mainPageShown = useSelector((state) => state.mainPageShown);
-    const isNavigationReady = rootNavigationState?.key != null;
     const mutate = useMutate();
 
     useEffect(() => {
@@ -63,42 +94,45 @@ export const TabBar: React.FC = ({}) => {
 
     // console.log(navigation);
     // console.log(rootNavigationState);
+    // console.log('pathname', pathname);
+    // console.log('segments', segments);
+    // console.log('routeName', routeName);
 
     const routes = [
         {
             key: 'index',
             label: 'Home',
-            tabBarIcon: () => 'home',
+            icon: 'home',
             path: '/',
         },
         {
             key: 'matches',
             label: 'Matches',
-            tabBarIcon: () => 'chess',
+            icon: 'chess',
             path: '/matches',
         },
         {
             key: 'explore',
             label: 'Explore',
-            tabBarIcon: () => 'landmark',
+            icon: 'landmark',
             path: '/explore',
         },
         {
             key: 'statistics',
             label: 'Stats',
-            tabBarIcon: () => 'chart-simple',
+            icon: 'chart-simple',
             path: '/statistics',
         },
         {
             key: 'competitive',
             label: 'Pros',
-            tabBarIcon: () => 'ranking-star',
+            icon: 'ranking-star',
             path: '/competitive',
         },
         {
             key: 'more',
             label: 'More',
-            tabBarIcon: () => 'bars',
+            icon: 'bars',
             path: '/more',
         },
     ];
@@ -129,9 +163,10 @@ export const TabBar: React.FC = ({}) => {
                 <View className="flex-row p-2 rounded-lg shadow-xl bg-white dark:bg-blue-900" style={shadow}>
                     {routes.map((route) => {
                         // console.log('ROUTE', route);
+                        // console.log('ROUTE', route.key, route.path);
 
                         const label = route.label;
-                        const isFocused = rootNavigationState?.routes[rootNavigationState.index || 0].name.startsWith(route.key);
+                        const isFocused = routeName?.startsWith(route.key);
 
                         const onPress = () => {
                             if (router.canDismiss()) {
@@ -140,8 +175,6 @@ export const TabBar: React.FC = ({}) => {
                             router.replace(route.path);
                         };
 
-                        const iconName = route.tabBarIcon?.({ focused: true, color: '', size: 0 }) as IconName;
-
                         return (
                             <React.Fragment key={route.label}>
                                 <Pressable onPress={() => onPress()} style={{ flex: 1 }}>
@@ -149,7 +182,7 @@ export const TabBar: React.FC = ({}) => {
                                         className="justify-center items-center py-2 rounded-lg flex-1"
                                         style={tw.style(isFocused && 'bg-blue-800 dark:bg-gold-700')}
                                     >
-                                        {iconName && <Icon color={isFocused ? 'text-white' : 'brand'} size={22} icon={iconName} />}
+                                        {route.icon && <Icon color={isFocused ? 'text-white' : 'brand'} size={22} icon={route.icon as IconName} />}
                                         <Text
                                             allowFontScaling={false}
                                             style={tw.style(isFocused ? 'text-white' : textColors['brand'])}
