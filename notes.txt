@@ -15,6 +15,8 @@ rm -rf ios/Pods ios/Podfile.lock && cd ios && pod install --repo-update && cd ..
 plugin folder
 https://docs.expo.dev/modules/config-plugin-and-native-module-tutorial/
 
+yarn widget && npx expo prebuild
+
 
 # for over internet dev mode
 expo run -- -m tunnel
