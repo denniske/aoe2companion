@@ -4879,7 +4879,7 @@ __metadata:
     html-entities: "npm:^2.4.0"
     humps: "npm:^2.0.1"
     immer: "npm:^7.0.0"
-    liquipedia: "npm:^1.1.9"
+    liquipedia: "npm:^1.2.0"
     lodash: "npm:^4.17.19"
     nativewind: "npm:^2.0.11"
     patch-package: "npm:^8.0.0"
@@ -10692,16 +10692,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"liquipedia@npm:^1.1.9":
-  version: 1.1.9
-  resolution: "liquipedia@npm:1.1.9"
+"liquipedia@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "liquipedia@npm:1.2.0"
   dependencies:
     axios: "npm:^1.6.2"
     date-fns: "npm:^2.30.0"
     lodash: "npm:^4.17.21"
     node-html-markdown: "npm:^1.3.0"
     node-html-parser: "npm:^6.1.11"
-  checksum: 10/d98a6a11d4e0892871d9dabe5d35ec3fb9dc34a1b75b01302dd5b9efc1f86a49e83c4aae1b8f7b270e6b96f530078c976e2c220fc6e3cb1c7d50ce76c5ad1614
+  checksum: 10/bfc39b5ba84d1e587c3701ed825e811262ca0dcf08d5d0a4dd17d9b6578f52478921b7f9ea8e91eb46779d664ad7f9597f2f6bb61c1efd4589f91f672eab100b
   languageName: node
   linkType: hard
 
