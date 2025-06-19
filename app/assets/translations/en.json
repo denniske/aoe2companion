@@ -6,6 +6,8 @@
   "leaderboard.players": "{players} players",
   "leaderboard.updated": "updated {updated}",
 
+  "home.followedPlayers": "Followed Players",
+
   "main.title": "Me",
   "main.heading.profile": "Profile",
   "main.heading.stats": "Stats",
