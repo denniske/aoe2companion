@@ -7,6 +7,8 @@ import { orderBy } from 'lodash';
 import { useEffect, useState } from 'react';
 import { Platform } from 'react-native';
 
+export const tournamentsEnabled = __DEV__ || Platform.OS !== 'web';
+
 const liquipedia = new Liquipedia({
     USER_AGENT: `${Application.applicationName}/${Application.nativeApplicationVersion} (hello@aoe2companion.com)`,
 });
@@ -15,7 +17,7 @@ export const useTournaments = (category: TournamentCategory | undefined) =>
     useQuery<TournamentSection[]>({
         queryKey: ['tournaments', category],
         queryFn: async () => await liquipedia.aoe.getTournaments(category ?? sortedTiers[0]),
-        enabled: Platform.OS === 'web' ? false : !!category,
+        enabled: tournamentsEnabled && !!category,
     });
 
 export const useUpcomingTournaments = () =>
@@ -23,7 +25,7 @@ export const useUpcomingTournaments = () =>
         queryKey: ['tournaments'],
         staleTime: 120000,
         queryFn: async () => await liquipedia.aoe.getUpcomingTournaments(appConfig.game === 'aoe2de' ? GameVersion.Age2 : GameVersion.Age4),
-        enabled: Platform.OS === 'web' ? false : undefined,
+        enabled: tournamentsEnabled,
     });
 
 export const useFeaturedTournament = () => {
@@ -41,7 +43,7 @@ export const useAllTournaments = () =>
         queryKey: ['tournaments'],
         staleTime: 120000,
         queryFn: async () => await liquipedia.aoe.getAllTournaments(),
-        enabled: Platform.OS === 'web' ? false : undefined,
+        enabled: tournamentsEnabled,
     });
 
 export const useTournament = (id: string, enabled?: boolean) => {
@@ -65,7 +67,7 @@ export const useTournamentDetail = (id: string, enabled?: boolean) =>
         queryKey: ['tournament', id],
         staleTime: 120000,
         queryFn: async () => await liquipedia.aoe.getTournament(id),
-        enabled: Platform.OS === 'web' ? false : enabled,
+        enabled: tournamentsEnabled && enabled,
     });
 
 export const useTournamentPlayer = (id?: string) =>
@@ -73,7 +75,7 @@ export const useTournamentPlayer = (id?: string) =>
         queryKey: ['player', id],
         staleTime: 120000,
         queryFn: async () => await liquipedia.aoe.getPlayer(id ?? ''),
-        enabled: Platform.OS === 'web' ? false : !!id,
+        enabled: tournamentsEnabled && !!id,
     });
 
 export const useTournamentPlayerOverview = (id?: string) =>
@@ -81,7 +83,7 @@ export const useTournamentPlayerOverview = (id?: string) =>
         queryKey: ['player', 'overview', id],
         staleTime: 120000,
         queryFn: async () => await liquipedia.aoe.getPlayerOverview(id ?? ''),
-        enabled: Platform.OS === 'web' ? false : !!id,
+        enabled: tournamentsEnabled && !!id,
     });
 
 export const useTournamentMatches = (enabled?: boolean) => {
@@ -89,7 +91,7 @@ export const useTournamentMatches = (enabled?: boolean) => {
     const { data, isLoading, ...query } = useQuery<Match[]>({
         queryKey: ['tournament', 'matches'],
         queryFn: async () => await liquipedia.aoe.getMatches(),
-        enabled: Platform.OS === 'web' ? false : enabled,
+        enabled: tournamentsEnabled && enabled,
         staleTime: 60000,
         refetchOnWindowFocus: true,
     });
@@ -106,7 +108,7 @@ export const useMap = (path: string, enabled?: boolean) =>
     useQuery<MapDetail>({
         queryKey: ['tournament', 'maps', path],
         queryFn: async () => await liquipedia.aoe.getMap(path),
-        enabled: Platform.OS === 'web' ? false : enabled,
+        enabled: tournamentsEnabled && enabled,
     });
 
 export function useRefreshControl({ isFetching, refetch }: Pick<UseQueryResult, 'isFetching' | 'refetch'>) {

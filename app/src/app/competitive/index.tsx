@@ -1,7 +1,7 @@
 import { IMatchesMatch } from '@app/api/helper/api.types';
 import { useLiveTwitchAccounts } from '@app/api/live';
 import { useOngoing } from '@app/api/ongoing';
-import { useFeaturedTournaments, useTournamentMatches } from '@app/api/tournaments';
+import { tournamentsEnabled, useFeaturedTournaments, useTournamentMatches } from '@app/api/tournaments';
 import { FlatList } from '@app/components/flat-list';
 import { Icon } from '@app/components/icon';
 import { Link } from '@app/components/link';
@@ -162,7 +162,7 @@ export default function Competitive() {
                     </View>
                 )}
 
-                {Platform.OS !== 'web' && (
+                {tournamentsEnabled && (
                     <View className="gap-2">
                         <View className="flex-row justify-between items-center px-4">
                             <Text variant="header-lg">Featured Tournaments</Text>
@@ -183,7 +183,7 @@ export default function Competitive() {
                     </View>
                 )}
 
-                {Platform.OS !== 'web' && (
+                {tournamentsEnabled && (
                     <View className="gap-2">
                         <Text className="px-4" variant="header-lg">
                             Upcoming Tournament Matches
