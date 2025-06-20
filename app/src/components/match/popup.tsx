@@ -1,4 +1,3 @@
-import { getTranslation } from '@app/helper/translate';
 import BottomSheet, { BottomSheetProps } from '@app/view/bottom-sheet';
 import { getVerifiedPlayer, isMatchFreeForAll } from '@nex/data';
 import { appConfig } from '@nex/dataset';
@@ -17,6 +16,7 @@ import { AoeSpeed, getSpeedFactor } from '../../helper/speed';
 import { Icon } from '../icon';
 import { ScrollView } from '../scroll-view';
 import { Text } from '../text';
+import { useTranslation } from '@app/helper/translate';
 
 type MatchPopupProps = MatchProps & Pick<BottomSheetProps, 'isActive' | 'onClose'>;
 
@@ -28,6 +28,7 @@ const formatDuration = (durationInSeconds: number) => {
 };
 
 export function MatchPopup(props: MatchPopupProps) {
+    const getTranslation = useTranslation();
     const { match, highlightedUsers, isActive, onClose, user } = props;
     const router = useRouter();
     const { data: tournamentMatches } = useTournamentMatches();

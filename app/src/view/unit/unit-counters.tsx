@@ -19,7 +19,6 @@ import { getUnitLineIcon } from '../../helper/units';
 import { createStylesheet } from '../../theming-new';
 import { MyText } from '../components/my-text';
 import { Checkbox as CheckboxNew } from '@app/components/checkbox';
-import { getTranslation } from '@app/helper/translate';
 
 function CounterUnit({ unitLineId }: { unitLineId: UnitLine }) {
     const styles = useStyles();

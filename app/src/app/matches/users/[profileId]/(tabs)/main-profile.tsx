@@ -5,7 +5,6 @@ import { Platform, StyleSheet, View } from 'react-native';
 
 
 import { fetchProfile } from '../../../../../api/helper/api';
-import { getTranslation } from '../../../../../helper/translate';
 import { openLink } from '../../../../../helper/url';
 import { useWebRefresh } from '../../../../../hooks/use-web-refresh';
 import { useSelector } from '../../../../../redux/reducer';
@@ -21,8 +20,10 @@ import { useQuery } from '@tanstack/react-query';
 import { useProfile, useWithRefetching } from '@app/queries/all';
 import type { UseQueryResult } from '@tanstack/react-query/src/types';
 import { useGlobalSearchParams, useLocalSearchParams } from 'expo-router';
+import { useTranslation } from '@app/helper/translate';
 
 export default function MainProfile(props: any) {
+    const getTranslation = useTranslation();
     const params = useLocalSearchParams<{ profileId: string }>();
     const profileId = parseInt(params.profileId);
 

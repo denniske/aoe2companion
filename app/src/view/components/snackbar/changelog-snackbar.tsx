@@ -5,14 +5,15 @@ import Snackbar from '../snackbar';
 import { useSelector } from '../../../redux/reducer';
 import { compareBuild } from 'semver';
 import Constants from 'expo-constants';
-import { getTranslation } from '../../../helper/translate';
 import { router } from 'expo-router';
 import { IChangelogPageParams } from '@app/app/more/changelog';
 import { usePrefData } from '@app/queries/prefs';
 import { useSavePrefsMutation } from '@app/mutations/save-account';
 import { useAccountData } from '@app/queries/all';
+import { useTranslation } from '@app/helper/translate';
 
 export default function ChangelogSnackbar() {
+    const getTranslation = useTranslation();
     const updateAvailable = useSelector((state) => state.updateAvailable);
     const accountId = useAccountData((state) => state?.accountId);
     const accountLoaded = accountId != null;

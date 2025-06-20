@@ -3,7 +3,11 @@ import { Header } from '@app/components/header';
 import { TabBar } from '@app/components/tab-bar';
 import { fetchAoeReferenceData } from '@app/helper/reference';
 import initSentry from '@app/helper/sentry';
-import { getTranslation } from '@app/helper/translate';
+import {
+    getTranslationInternal,
+    loadTranslatonStringsAsync,
+    useSetTranslationStrings,
+} from '@app/helper/translate';
 import { getInternalAoeString } from '@app/helper/translate-data';
 import { getInternalLanguage, setInternalLanguage } from '@app/redux/statecache';
 import store from '@app/redux/store';
@@ -27,18 +31,17 @@ import { useCallback, useEffect, useState } from 'react';
 import { AppState, AppStateStatus, BackHandler, LogBox, Platform, StatusBar, useColorScheme, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { Provider as ReduxProvider } from 'react-redux';
 import '../../../global.css';
-import { useAppColorScheme, useDeviceContext } from 'twrnc';
+import { useAppColorScheme } from 'twrnc';
 import { appConfig } from '@nex/dataset';
 import UpdateSnackbar from '@app/view/components/snackbar/update-snackbar';
 import ChangelogSnackbar from '@app/view/components/snackbar/changelog-snackbar';
-import ErrorSnackbar from '@app/view/components/snackbar/error-snackbar';
 import { useEventListener } from 'expo';
 import { useAccountData } from '@app/queries/all';
 import { PortalProvider } from '@app/components/portal/portal-host';
 import { setAccountLiveActivityToken, storeLiveActivityStarted } from '@app/api/account';
+import { useMMKVString } from 'react-native-mmkv';
 
 initSentry();
 
@@ -115,7 +118,7 @@ class HttpService implements IHttpService {
 
 class AoeDataService implements ITranslationService {
     getUiTranslation(str: string): string {
-        return getTranslation(str as any);
+        return getTranslationInternal(str as any);
     }
     getAoeString(str: string): string {
         return getInternalAoeString(str);
@@ -144,12 +147,17 @@ const isMobile = ['Android', 'iOS'].includes(Device.osName!);
 // If we use these hooks in the AppWrapper, every change will trigger
 // a rerender of the AppWrapper which costs performance.
 function LanguageController() {
-    const language = useAccountData(account => account.language);
+    const [cachedLanguage, setCachedLanguage] = useMMKVString('language');
+
+    const language = useAccountData((account) => account.language);
 
     useEffect(() => {
         if (!language) return;
         setInternalLanguage(language);
+        console.log('ACCOUNT language', language);
         fetchAoeReferenceData();
+        loadTranslatonStringsAsync(language);
+        setCachedLanguage(language);
     }, [language]);
 
     return <View />;
@@ -157,18 +165,13 @@ function LanguageController() {
 
 // If we use these hooks in the AppWrapper, every change will trigger
 // a rerender of the AppWrapper which costs performance.
-function AccountController() {
-
-    // const { data: configMainPage } = useAccount(data => data.mainPage);
-    // console.log('ACCOUNT in layout configMainPage', configMainPage);
-
-    // console.log('ACCOUNT in layout configMainPage');
-
-
-    // const account = useAccount();
-    // console.log('account in layout', account);
-    return <View />;
-}
+// function AccountController() {
+//     // const { data: configMainPage } = useAccount(data => data.mainPage);
+//     // console.log('ACCOUNT in layout configMainPage', configMainPage);
+//     // console.log('ACCOUNT in layout configMainPage');
+//     // console.log('account in layout', account);
+//     return <View />;
+// }
 
 function LiveActivityController() {
     const accountId = useAccountData((state) => state.accountId);
@@ -222,7 +225,7 @@ export function useDarkMode() {
 
 function useColorSchemes() {
     const { setColorScheme: setTailwindColorScheme } = useTailwindColorScheme();
-    const [ , , setTailwindReactNativeColorScheme] = useAppColorScheme(tw);
+    const [, , setTailwindReactNativeColorScheme] = useAppColorScheme(tw);
     const darkMode = useDarkMode();
 
     useEffect(() => {
@@ -236,10 +239,76 @@ function useColorSchemes() {
     } as const;
 }
 
+// export function useTranslations() {
+//     const setTranslationStrings = useSetTranslationStrings();
+//
+//     useEffect(() => {
+//         function handleMessage(event: MessageEvent) {
+//             if (event.origin !== 'http://localhost:5173') return;
+//
+//             if (event.data?.type === 'translations') {
+//                 console.log('✅ Translations received from', event.origin);
+//                 console.log('📦', event.data.data);
+//                 setTranslationStrings('de', event.data.data);
+//             }
+//         }
+//
+//         window.addEventListener('message', handleMessage);
+//
+//         return () => {
+//             window.removeEventListener('message', handleMessage);
+//         };
+//     }, []);
+// }
+
+export function useTranslations() {
+    const setTranslationStrings = useSetTranslationStrings();
+
+    useEffect(() => {
+        if (Platform.OS !== 'web') return;
+
+        if (window.self !== window.parent) {
+            console.log("🧭 Inside iframe – requesting translations");
+
+            window.parent.postMessage(
+                { type: 'request-translations' },
+                '*' // or your known parent origin
+            );
+        }
+
+        const handleMessage = (event: MessageEvent) => {
+            if (event.data?.type === 'translations') {
+                console.log('✅ Translations received:', event.data.data);
+                setTranslationStrings('de', event.data.data);
+            }
+        };
+
+        window.addEventListener('message', handleMessage);
+        return () => window.removeEventListener('message', handleMessage);
+    }, []);
+}
+
 function AppWrapper() {
+    console.log('AppWrapper...');
+
+    const [loadedLanguage, setLoadedLanguage] = useState(false);
     const [appIsReady, setAppIsReady] = useState(false);
     const insets = useSafeAreaInsets();
     const { customTheme, contentTheme } = useColorSchemes();
+
+    const [rerender] = useMMKVString('rerender');
+    const [cachedLanguage, setCachedLanguage] = useMMKVString('language');
+
+    useEffect(() => {
+        console.log('CACHED language', cachedLanguage);
+        if (!cachedLanguage) return;
+        setInternalLanguage(cachedLanguage);
+        loadTranslatonStringsAsync(cachedLanguage, () => {
+            setLoadedLanguage(true);
+        });
+    }, [cachedLanguage]);
+
+    useTranslations();
 
     const [fontsLoaded] = useFonts({
         Roboto_400Regular,
@@ -255,6 +324,7 @@ function AppWrapper() {
 
     useEffect(() => {
         if (fontsLoaded) {
+            console.log('Fonts loaded');
             setAppIsReady(true);
         }
     }, [fontsLoaded]);
@@ -265,7 +335,7 @@ function AppWrapper() {
         }
     }, [appIsReady]);
 
-    if (!appIsReady) {
+    if (!appIsReady || !loadedLanguage) {
         return null;
     }
 
@@ -284,15 +354,11 @@ function AppWrapper() {
                         style={{ paddingTop: insets.top }}
                         onLayout={onLayoutRootView}
                     >
-                        <StatusBar
-                            barStyle={contentTheme}
-                            backgroundColor="transparent"
-                            translucent
-                        />
+                        <StatusBar barStyle={contentTheme} backgroundColor="transparent" translucent />
 
                         <LanguageController />
                         <LiveActivityController />
-                        <AccountController />
+                        {/*<AccountController />*/}
 
                         <View
                             style={{
@@ -309,7 +375,7 @@ function AppWrapper() {
 
                         <PortalProvider>
                             <>
-                                <Stack screenOptions={{ header: Header,  }}></Stack>
+                                <Stack screenOptions={{ header: Header }}></Stack>
                                 <TabBar></TabBar>
                             </>
                         </PortalProvider>

@@ -14,7 +14,6 @@ import { MyText } from './my-text';
 import { twitchLive } from '../../api/following';
 import { IPlayerNew, IProfileLeaderboardResult, IProfileResult } from '../../api/helper/api.types';
 import { getLeaderboardTextColor } from '../../helper/colors';
-import { getTranslation } from '../../helper/translate';
 import { openLink } from '../../helper/url';
 import { useAppTheme } from '../../theming';
 import { createStylesheet } from '../../theming-new';
@@ -24,6 +23,7 @@ import { Icon } from '@app/components/icon';
 import { FontAwesomeIconStyle } from '@fortawesome/react-native-fontawesome';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from '@app/helper/translate';
 
 interface ILeaderboardRowProps {
     data: IProfileLeaderboardResult;
@@ -159,6 +159,7 @@ export function ProfileLive({ data }: { data: IPlayerNew }) {
 }
 
 export default function Profile({ data, ready, profileId }: IProfileProps) {
+    const getTranslation = useTranslation();
     data = ready ? data : null;
 
     const styles = useStyles();

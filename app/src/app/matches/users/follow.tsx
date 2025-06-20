@@ -1,6 +1,5 @@
 import { IProfilesResultProfile } from '@app/api/helper/api.types';
 import { Button } from '@app/components/button';
-import { getTranslation } from '@app/helper/translate';
 import { IPlayerListPlayer } from '@app/view/components/player-list';
 import Search from '@app/view/components/search';
 import { router, useNavigation } from 'expo-router';
@@ -8,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { useAccount, useAuthProfileId } from '@app/queries/all';
 import { useFollowMutation } from '@app/mutations/follow';
 import { useUnfollowMutation } from '@app/mutations/unfollow';
+import { useTranslation } from '@app/helper/translate';
 
 export default function Follow() {
     const navigation = useNavigation();
@@ -25,6 +25,7 @@ export default function Follow() {
 }
 
 function FeedAction({ user }: { user: IPlayerListPlayer }) {
+    const getTranslation = useTranslation();
     const authProfileId = useAuthProfileId();
     const isMe = authProfileId === user.profileId;
 

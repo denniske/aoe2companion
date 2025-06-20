@@ -1,7 +1,6 @@
 import { Field } from '@app/components/field';
 import { FlatList } from '@app/components/flat-list';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
-import { getTranslation } from '@app/helper/translate';
 import { useFocusEffect } from '@react-navigation/native';
 import { Stack, router } from 'expo-router';
 import { reverse, sortBy, startCase } from 'lodash';
@@ -14,10 +13,12 @@ import BuildCard from '../../../view/components/build-order/build-card';
 import { BuildFilters } from '../../../view/components/build-order/build-filters';
 import { DismissKeyboard } from '../../../view/components/dismiss-keyboard';
 import { MyText } from '../../../view/components/my-text';
+import { useTranslation } from '@app/helper/translate';
 
 const transformSearch = (string: string) => string.toLowerCase().replace(/\W/g, ' ').replace(/ +/g, ' ');
 
 export default function BuildListPage() {
+    const getTranslation = useTranslation();
     const { favoriteIds, favorites, toggleFavorite, refetch } = useFavoritedBuilds();
     const buildFilters = useBuildFilters();
     const { civilization, buildType, difficulty } = buildFilters.filters;

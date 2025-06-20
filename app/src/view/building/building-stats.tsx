@@ -13,13 +13,14 @@ import {
 import {getBuildingIcon} from "../../helper/buildings";
 import {getOtherIcon} from "../../helper/units";
 import {createStylesheet} from '../../theming-new';
-import {getTranslation} from '../../helper/translate';
+import { useTranslation } from '@app/helper/translate';
 
 interface Props {
     buildingId: Building;
 }
 
 export function BuildingStats({ buildingId }: Props) {
+    const getTranslation = useTranslation();
     const styles = useStyles();
 
     const [comparisonUnit, setComparisonUnit] = useState<Building>();

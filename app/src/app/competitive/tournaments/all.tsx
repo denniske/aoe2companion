@@ -6,7 +6,6 @@ import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { SectionList } from '@app/components/section-list';
 import { Text } from '@app/components/text';
 import { formatTier, formatTierShort, sortedTiers, tournamentAbbreviation, transformSearch } from '@app/helper/tournaments';
-import { getTranslation } from '@app/helper/translate';
 import { useAppTheme } from '@app/theming';
 import { DismissKeyboard } from '@app/view/components/dismiss-keyboard';
 import RefreshControlThemed from '@app/view/components/refresh-control-themed';
@@ -16,8 +15,10 @@ import { Stack, useLocalSearchParams } from 'expo-router';
 import { GameVersion, TournamentCategory } from 'liquipedia';
 import { useMemo, useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
+import { useTranslation } from '@app/helper/translate';
 
 export default function AllTournaments() {
+    const getTranslation = useTranslation();
     const params = useLocalSearchParams<{ league?: string }>();
     const { league } = params;
     const [category, setCategory] = useState<TournamentCategory>(sortedTiers[0]);

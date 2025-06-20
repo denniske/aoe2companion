@@ -33,18 +33,19 @@ import Space from '../../../view/components/space';
 import { getOtherIcon } from '../../../helper/units';
 import { useTheme } from '../../../theming';
 import { UnitCompBig } from '../../../view/unit/unit-comp';
-import { getTranslation } from '../../../helper/translate';
 import { BuildingCompBig } from '../../../view/building/building-comp';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
 import { HeaderTitle } from '@app/components/header-title';
 import { getTechIcon } from '@app/helper/techs';
+import { useTranslation } from '@app/helper/translate';
 
 function capitalizeFirstLetter(string: string | number) {
     return string.toString().charAt(0).toUpperCase() + string.toString().slice(1);
 }
 
 export default function TechDetails() {
+    const getTranslation = useTranslation();
     const { name } = useLocalSearchParams<{ name: Tech }>();
     const tech = name!;
     const styles = useStyles();

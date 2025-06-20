@@ -7,11 +7,12 @@ import { router, Stack, useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
 import { SectionList as SectionListRef, View } from 'react-native';
 
-import { getTranslation } from '../../../helper/translate';
 import { UnitCompBig } from '../../../view/unit/unit-comp';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
+import { useTranslation } from '@app/helper/translate';
 
 export default function UnitList() {
+    const getTranslation = useTranslation();
     const [text, setText] = useState('');
     const [scrollReady, setScrollReady] = useState(false);
     const [list, setList] = useState(allUnitSections);

@@ -27,9 +27,9 @@ import { Costs } from './unit-costs';
 import { getTechIcon } from '../../helper/techs';
 import { getEliteUniqueResearchIcon, getUnitIcon } from '../../helper/units';
 import { createStylesheet } from '../../theming-new';
-import { getTranslation } from '../../helper/translate';
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
+import { useTranslation } from '@app/helper/translate';
 
 interface Props {
     unitLineId: UnitLine;
@@ -37,6 +37,7 @@ interface Props {
 }
 
 export function UnitUpgrades({ unitLineId, unitId }: Props) {
+    const getTranslation = useTranslation();
     const styles = useStyles();
     const appStyles = useTheme(appVariants);
 

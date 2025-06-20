@@ -27,9 +27,9 @@ import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
 import { getCivIconLocal } from '../../../helper/civs';
-import { getTranslation } from '../../../helper/translate';
 import { civDataHouseOfLancaster } from '@app4/data/lancaster';
 import { civDataKnightsTemplar } from '@app4/data/templar';
+import { useTranslation } from '@app/helper/translate';
 
 type Mutable<Type> = {
     -readonly [Key in keyof Type]: Type[Key];
@@ -61,6 +61,7 @@ const aoe4CivInfo = {
 };
 
 export default function CivList() {
+    const getTranslation = useTranslation();
     const [text, setText] = useState('');
     const [list, setList] = useState(makeMutable(civs) as Civ[]);
 

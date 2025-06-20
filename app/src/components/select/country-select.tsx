@@ -1,6 +1,5 @@
 import { setLeaderboardCountry, useMutate, useSelector } from '@app/redux/reducer';
 import { useAuthProfileId, useProfileFast } from '@app/queries/all';
-import { getTranslation } from '@app/helper/translate';
 import { getCountryName } from '@app/helper/flags';
 import { countriesDistinct, Country } from '@nex/data';
 import { CountryImageForDropDown, SpecialImageForDropDown } from '@app/view/components/country-image';
@@ -9,6 +8,7 @@ import { StyleSheet, View } from 'react-native';
 import Picker from '@app/view/components/picker';
 import React from 'react';
 import { createStylesheet } from '@app/theming-new';
+import { useTranslation } from '@app/helper/translate';
 
 export const countryEarth = null;
 
@@ -17,6 +17,7 @@ export function isCountry(x: string | null) {
 }
 
 export function CountrySelect() {
+    const getTranslation = useTranslation();
     const mutate = useMutate();
     const country = useSelector((state) => state.leaderboardCountry) || null;
 

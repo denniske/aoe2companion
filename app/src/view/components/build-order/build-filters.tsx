@@ -7,7 +7,7 @@ import { genericCivIcon, getCivIconLocal } from '../../../helper/civs';
 import { Civ, civs, getCivNameById, orderCivs } from '@nex/data';
 import { Filter } from '../filter';
 import { getDifficultyName } from '../../../helper/difficulties';
-import { getTranslation } from '../../../helper/translate';
+import { useTranslation } from '@app/helper/translate';
 
 type FiltersStore = ReturnType<typeof useBuildFilters>;
 
@@ -16,6 +16,7 @@ interface BuildFiltersProps extends FiltersStore {
 }
 
 export const BuildFilters: React.FC<BuildFiltersProps> = ({ builds, filters: { civilization, difficulty, buildType }, setFilter }) => {
+    const getTranslation = useTranslation();
     const styles = useStyles();
     const buildTypeOptions = ['all', 'favorites', ...uniq(flatten(builds.map((build) => build.attributes)))] as const;
 

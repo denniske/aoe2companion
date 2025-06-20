@@ -3,7 +3,6 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Constants from 'expo-constants';
 import { MyText } from '@app/view/components/my-text';
 import { createStylesheet } from '../../theming-new';
-import { getTranslation } from '../../helper/translate';
 import { Stack } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
 import useAuth from '../../../../data/src/hooks/use-auth';
@@ -20,6 +19,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button } from '@app/components/button';
 import { Text } from '@app/components/text';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { useTranslation } from '@app/helper/translate';
 
 function getPatreonLoginUrl() {
     const queryString = new URLSearchParams({
@@ -59,6 +59,7 @@ function getSteamLoginUrl() {
 }
 
 export default function AccountPage() {
+    const getTranslation = useTranslation();
     const styles = useStyles();
     const appStyles = useTheme(appVariants);
     const theme = useAppTheme();

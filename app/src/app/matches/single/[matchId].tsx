@@ -15,13 +15,13 @@ import { Text } from '@app/components/text';
 import { Icon } from '@app/components/icon';
 import { appConfig } from '@nex/dataset';
 import { MatchPlayer } from '@app/components/match/player';
-import { getTranslation } from '@app/helper/translate';
 import { useMatch, useMatchAnalysis, useMatchAnalysisSvg, useWithRefetching } from '@app/queries/all';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useAppTheme } from '@app/theming';
 import Space from '@app/view/components/space';
 import { SvgUri } from 'react-native-svg';
 import MatchMap from '@app/view/components/match-map/match-map';
+import { useTranslation } from '@app/helper/translate';
 
 type MatchPopupProps = MatchProps & Pick<BottomSheetProps, 'isActive' | 'onClose'>;
 
@@ -37,6 +37,7 @@ type MatchPageParams = {
 };
 
 export default function MatchPage() {
+    const getTranslation = useTranslation();
     const params = useLocalSearchParams<MatchPageParams>();
     const matchId = parseInt(params.matchId);
 

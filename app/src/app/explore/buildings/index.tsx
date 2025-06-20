@@ -7,11 +7,12 @@ import { router, Stack, useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
 import { View, SectionList as SectionListRef } from 'react-native';
 
-import { getTranslation } from '../../../helper/translate';
 import { BuildingCompBig } from '../../../view/building/building-comp';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
+import { useTranslation } from '@app/helper/translate';
 
 export default function BuildingList() {
+    const getTranslation = useTranslation();
     const [text, setText] = useState('');
     const [list, setList] = useState(buildingSections);
     const [scrollReady, setScrollReady] = useState(false);

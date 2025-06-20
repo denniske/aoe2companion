@@ -14,13 +14,14 @@ import React, { useEffect, useState } from 'react';
 import { Platform, View } from 'react-native';
 import { fetchMatches } from '../../api/helper/api';
 import { IMatchNew, IPlayerNew } from '../../api/helper/api.types';
-import { getTranslation } from '../../helper/translate';
 import { openLink } from '../../helper/url';
 import { useWebRefresh } from '../../hooks/use-web-refresh';
 import { Link } from '@app/components/link';
 import { useAccountData, useFollowedAndMeProfileIds } from '@app/queries/all';
+import { useTranslation } from '@app/helper/translate';
 
 export default function MatchesPage() {
+    const getTranslation = useTranslation();
     const [refetching, setRefetching] = useState(false);
 
     const isActiveRoute = true;

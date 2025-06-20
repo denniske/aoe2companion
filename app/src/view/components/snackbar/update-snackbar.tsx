@@ -18,11 +18,12 @@ import {
     doStoreUpdate,
 } from '../../../service/update';
 import Constants from 'expo-constants';
-import { getTranslation } from '../../../helper/translate';
 import { openAppInStore } from 'expo-app-update';
+import { useTranslation } from '@app/helper/translate';
 
 
 export default function UpdateSnackbar() {
+    const getTranslation = useTranslation();
     const updateManifest = useSelector(state => state.updateManifest);
     const updateStoreManifest = useSelector(state => state.updateStoreManifest);
     const updateAvailable = useSelector(state => state.updateAvailable);

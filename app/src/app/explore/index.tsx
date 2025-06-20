@@ -10,7 +10,6 @@ import { Text } from '@app/components/text';
 import { getBuildingIcon } from '@app/helper/buildings';
 import { getCivIconLocal } from '@app/helper/civs';
 import { getTechIcon } from '@app/helper/techs';
-import { getTranslation } from '@app/helper/translate';
 import { getUnitIcon } from '@app/helper/units';
 import BuildCard from '@app/view/components/build-order/build-card';
 import {
@@ -35,6 +34,7 @@ import { Redirect, Stack, router } from 'expo-router';
 import { reverse, sortBy, uniq } from 'lodash';
 import { useState } from 'react';
 import { ImageSourcePropType, TouchableOpacity, View } from 'react-native';
+import { useTranslation } from '@app/helper/translate';
 
 type Item =
     | { name: Civ; title: string; type: 'civ' }
@@ -70,6 +70,7 @@ const Result: React.FC<{ item: Item; index: number }> = ({ item, index }) => {
 };
 
 export default function Explore() {
+    const getTranslation = useTranslation();
     const formattedBuilds = buildsData.map((build) => ({
         ...build,
         avg_rating: build.avg_rating ?? 0,

@@ -1,12 +1,45 @@
-import * as local001 from '../../assets/translations/en.json'
+import * as local001 from '../../assets/translations/en.json';
+import { getLanguage } from '@nex/data';
+import { useMMKVString } from 'react-native-mmkv';
+import { Platform } from 'react-native';
 
 interface IStringCollection {
     [key: string]: Record<string, string>;
 }
 
-export function getTranslation(str: keyof typeof local001, params?: Record<string, any>) {
-    const translations = strings['en']; // getlanguage()];
-    let translated = (translations && str in translations) ? translations[str] : strings['en'][str];
+export function useTranslation() {
+    const [version, setVersion] = useMMKVString('translationVersion');
+
+    return (str: keyof typeof local001, params?: Record<string, any>) => {
+        return getTranslationInternal(str, params);
+    };
+}
+
+export function useSetTranslationStrings() {
+    const [version, setVersion] = useMMKVString('translationVersion');
+
+    return (language: string, data: Record<string, string>) => {
+        console.log('setTranslationStrings', language, data);
+        strings[language] = data;
+        setVersion(new Date().toISOString());
+    };
+}
+
+function setTranslationStrings(language: string, data: Record<string, string>) {
+    console.log('setTranslationStrings', language, data);
+    strings[language] = data;
+    // triggerRerenderByTranslation();
+}
+
+export function getTranslationInternal(str: keyof typeof local001, params?: Record<string, any>) {
+    const language = getLanguage();
+
+    console.log('getTranslation', language, str);
+
+    if (!language) return '\u00A0';
+
+    const translations = strings[language];
+    let translated = translations && str in translations ? translations[str] : strings['en'][str];
 
     // return translated ? '###' : '#?.' + str;
 
@@ -29,7 +62,7 @@ const strings: IStringCollection = {
     // 'vi': require('../../assets/translations/vi.json'),
     // 'tr': require('../../assets/translations/tr.json'),
     // 'de': require('../../assets/translations/de.json'),
-    'en': require('../../assets/translations/en.json'),
+    en: require('../../assets/translations/en.json'),
     // 'es': require('../../assets/translations/es.json'),
     // 'hi': require('../../assets/translations/hi.json'),
     // 'ja': require('../../assets/translations/ja.json'),
@@ -38,22 +71,7 @@ const strings: IStringCollection = {
     // 'zh-hant': require('../../assets/translations/zh-hant.json'),
 };
 
-export const supportedMainLocales = [
-    'ms',
-    'fr',
-    'es',
-    'it',
-    'pt',
-    'ru',
-    'vi',
-    'tr',
-    'de',
-    'en',
-    'es',
-    'hi',
-    'ja',
-    'ko',
-];
+export const supportedMainLocales = ['ms', 'fr', 'es', 'it', 'pt', 'ru', 'vi', 'tr', 'de', 'en', 'es', 'hi', 'ja', 'ko'];
 
 export function getLanguageFromSystemLocale(locale: string) {
     locale = locale.toLowerCase();
@@ -81,3 +99,25 @@ export function getLanguageFromSystemLocale2(locale: string) {
     return getLanguageFromSystemLocale(locale);
 }
 
+export function addTranslatonStrings(language: string, data: Record<string, string>) {
+    strings[language] = data;
+}
+
+export async function loadTranslatonStringsAsync(language: string, callback?: () => void) {
+    try {
+        if (Platform.OS === 'web' && window.self !== window.parent) {
+            console.log('Skipping translation strings loading in iframe');
+        } else {
+            console.log('Loading translation strings for', language);
+            let response = await fetch(
+                `https://raw.githubusercontent.com/denniske/aoe2companion/refs/heads/main/app/assets/translations/${language}.json`
+            );
+            let parsed = await response.json();
+            addTranslatonStrings(language, parsed);
+            console.log('Loaded translation strings for', language);
+        }
+        callback?.();
+    } catch (e: any) {
+        console.log('ERRORED', e.toString());
+    }
+}

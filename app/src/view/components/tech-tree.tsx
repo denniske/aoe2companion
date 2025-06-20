@@ -21,13 +21,13 @@ import ButtonPicker from './button-picker';
 import { getTechIcon } from '../../helper/techs';
 import { getAgeIcon, getOtherIcon, getUnitIcon } from '../../helper/units';
 import { getBuildingIcon } from '../../helper/buildings';
-import { getTranslation } from '../../helper/translate';
 import { isEmpty } from 'lodash';
 import { Delayed } from './delayed';
 import { router } from 'expo-router';
 import { windowWidth } from '@app/app/statistics/leaderboard';
 import { useTechTreeSize } from '@app/queries/prefs';
 import { useSavePrefsMutation } from '@app/mutations/save-account';
+import { useTranslation } from '@app/helper/translate';
 
 function TechTreeRow({ civ, row }: { civ: aoeCivKey; row: ITechTreeRow }) {
     return (
@@ -47,6 +47,7 @@ function TechTreeRow({ civ, row }: { civ: aoeCivKey; row: ITechTreeRow }) {
 }
 
 export function TechTree({civ}: {civ: aoeCivKey}) {
+    const getTranslation = useTranslation();
     const techTreeSize = useTechTreeSize() || 'full';
     const savePrefsMutation = useSavePrefsMutation();
 

@@ -9,7 +9,7 @@ import { MyText } from '../my-text';
 import { startCase } from 'lodash';
 import { Fragment } from 'react';
 import { Image } from 'expo-image';
-import { getTranslation } from '../../../helper/translate';
+import { useTranslation } from '@app/helper/translate';
 
 type Size = 'small' | 'large';
 
@@ -57,6 +57,7 @@ const TaskIcon: React.FC<{ item?: string; size: Size }> = ({ item, size }) => {
 };
 
 export const StepActions: React.FC<IBuildOrderStep & { pop?: string | number; size?: Size }> = (step) => {
+    const getTranslation = useTranslation();
     const styles = useStyles();
     const { buildings, tech, type, count, task, from, to, age, unit, pop, action, resource, size = 'large' } = step;
     const hasBuildings = !!buildings?.length;

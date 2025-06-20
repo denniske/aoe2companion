@@ -8,13 +8,13 @@ import { maskAccountId, maskToken } from '../../service/push';
 import { useSelector } from '../../redux/reducer';
 import Space from '@app/view/components/space';
 import { createStylesheet } from '../../theming-new';
-import { getTranslation } from '../../helper/translate';
 import { sendTestPushNotificationWeb } from '../../api/following';
 import { initPusher } from '../../helper/pusher';
 import { Stack, router } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
 import * as Device from 'expo-device';
 import { useAccountData } from '@app/queries/all';
+import { useTranslation } from '@app/helper/translate';
 
 // Can use this function below, OR use Expo's Push Notification Tool-> https://expo.io/dashboard/notifications
 async function sendTestPushNotification(expoPushToken: string) {
@@ -38,6 +38,7 @@ async function sendTestPushNotification(expoPushToken: string) {
 }
 
 export default function PushPage() {
+    const getTranslation = useTranslation();
     const styles = useStyles();
     const [messages, setMessages] = useState<string[]>([]);
     const [pushToken, setPushToken] = useState<string>();

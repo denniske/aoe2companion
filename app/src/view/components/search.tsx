@@ -7,11 +7,11 @@ import FlatListLoadingIndicator from './flat-list-loading-indicator';
 import PlayerList from './player-list';
 import RefreshControlThemed from './refresh-control-themed';
 import { IProfilesResultProfile } from '../../api/helper/api.types';
-import { getTranslation } from '../../helper/translate';
 import useDebounce from '../../hooks/use-debounce';
 import { useLazyApi } from '../../hooks/use-lazy-api';
 import { loadUser, loadUserByProfileId, loadUserBySteamId } from '../../service/user';
 import { useCavy } from '@app/view/testing/tester';
+import { useTranslation } from '@app/helper/translate';
 
 interface ISearchProps {
     title?: string;
@@ -22,6 +22,7 @@ interface ISearchProps {
 }
 
 export default function Search({ title, selectedUser, actionText, action, initialText }: ISearchProps) {
+    const getTranslation = useTranslation();
     const [text, setText] = useState(initialText ?? '');
     const [fetchingMore, setFetchingMore] = useState(false);
     const [fetchedAll, setFetchedAll] = useState(false);

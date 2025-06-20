@@ -5,8 +5,8 @@ import { Image } from 'expo-image';
 import { GroupParticipant as IGroupParticipant } from 'liquipedia';
 import { View, StyleSheet, TextStyle } from 'react-native';
 
-import { getTranslation } from '../../../helper/translate';
 import { createStylesheet } from '../../../theming-new';
+import { useTranslation } from '@app/helper/translate';
 
 export const Score: React.FC<{ score: IGroupParticipant['gameScore']; style?: TextStyle; variant?: TextVariant }> = ({
     score = { win: 0, loss: 0, draw: 0 },
@@ -34,6 +34,7 @@ const statusColors: Record<IGroupParticipant['status'], string> = {
 };
 
 export const GroupParticipant: React.FC<{ participant: IGroupParticipant }> = ({ participant }) => {
+    const getTranslation = useTranslation();
     const styles = useStyles();
     const backgroundColor = statusColors[participant.status];
     const textColor = backgroundColor ? 'black' : (tw.style('text-black dark:text-white').color as string);

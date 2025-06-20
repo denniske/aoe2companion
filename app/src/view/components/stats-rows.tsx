@@ -10,8 +10,8 @@ import Space from './space';
 import { IStatAlly, IStatCiv, IStatMap, IStatOpponent } from '../../api/helper/api.types';
 import { getCivIcon } from '../../helper/civs';
 import { getMapImage } from '../../helper/maps';
-import { getTranslation } from '../../helper/translate';
 import { createStylesheet } from '../../theming-new';
+import { useTranslation } from '@app/helper/translate';
 
 interface IRowPropsCiv {
     data: IStatCiv;
@@ -122,6 +122,7 @@ interface IProps {
 }
 
 export default function StatsRows(props: IProps) {
+    const getTranslation = useTranslation();
     const styles = useStyles();
 
     const { type, data, title } = props;

@@ -4,8 +4,11 @@ import { View } from 'react-native';
 import { Text } from './text';
 import { uniqBy } from 'lodash';
 import { useAccount, useAuthProfileId, useProfileFast, useProfiles } from '@app/queries/all';
+import { useTranslation } from '@app/helper/translate';
 
 export const FollowedPlayers = () => {
+    const getTranslation = useTranslation();
+
     const authProfileId = useAuthProfileId();
 
     const { data: account, error, isLoading: isLoadingAccount } = useAccount();
@@ -25,7 +28,7 @@ export const FollowedPlayers = () => {
     return (
         <View className="gap-2">
             <Text variant="header-lg" className="px-4">
-                Followed Players
+                {getTranslation('home.followedPlayers')}
             </Text>
             <PlayerList
                 footer={(player) => {

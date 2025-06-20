@@ -16,7 +16,7 @@ import { ViewLoader } from '@app/view/components/loader/view-loader';
 import { useAuthProfileId } from '@app/queries/all';
 import { usePrefData } from '@app/queries/prefs';
 import { useSavePrefsMutation } from '@app/mutations/save-account';
-import { getTranslation } from '@app/helper/translate';
+import { useTranslation } from '@app/helper/translate';
 
 const fontFamily = Platform.select({ ios: 'Helvetica', default: 'serif' });
 const fontStyle = {
@@ -34,6 +34,7 @@ interface IRatingProps {
 }
 
 export default function Rating({ ratingHistories, profile, ready }: IRatingProps) {
+    const getTranslation = useTranslation();
     ratingHistories = ready ? ratingHistories : null;
 
     const theme = useAppTheme();

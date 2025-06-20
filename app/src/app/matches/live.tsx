@@ -5,7 +5,6 @@ import { LiveGame } from '@app/view/live/live-game';
 import { MyText } from '@app/view/components/my-text';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { createStylesheet } from '../../theming-new';
-import { getTranslation } from '../../helper/translate';
 import { ICloseEvent, w3cwebsocket } from 'websocket';
 import produce from 'immer';
 import { getHost } from '@nex/data';
@@ -14,6 +13,7 @@ import { useNavigation } from 'expo-router';
 import { Field } from '@app/components/field';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { FlatList } from '@app/components/flat-list';
+import { useTranslation } from '@app/helper/translate';
 
 export interface IMatchesMatchPlayer2 {
     matchId: number;
@@ -146,6 +146,7 @@ export function initLobbySubscription(handler: IConnectionHandler): Promise<void
 }
 
 export default function LivePage() {
+    const getTranslation = useTranslation();
     const navigation = useNavigation();
 
     useEffect(() => {

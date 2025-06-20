@@ -9,8 +9,8 @@ import { appVariants } from '../../styles';
 import { openLink } from '../../helper/url';
 import { appConfig } from '@nex/dataset';
 import { Stack, useLocalSearchParams } from 'expo-router';
-import { getTranslation } from '@app/helper/translate';
 import { FlatList } from '@app/components/flat-list';
+import { useTranslation } from '@app/helper/translate';
 
 interface IChangelogEntry {
     version: string;
@@ -22,6 +22,7 @@ export type IChangelogPageParams = {
 }
 
 export default function ChangelogPage() {
+    const getTranslation = useTranslation();
     const appStyles = useTheme(appVariants);
     const styles = useStyles();
     const { changelogLastVersionRead } = useLocalSearchParams<IChangelogPageParams>();

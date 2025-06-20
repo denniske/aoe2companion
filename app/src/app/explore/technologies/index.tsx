@@ -8,10 +8,11 @@ import { router, Stack, useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
 import { View, SectionList as SectionListRef } from 'react-native';
 
-import { getTranslation } from '../../../helper/translate';
 import { TechCompBig } from '../../../view/tech/tech-comp';
+import { useTranslation } from '@app/helper/translate';
 
 export default function TechList() {
+    const getTranslation = useTranslation();
     const [text, setText] = useState('');
     const [list, setList] = useState(techSections);
     const [scrollReady, setScrollReady] = useState(false);

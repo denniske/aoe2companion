@@ -6,12 +6,12 @@ import { Building, iconHeight, iconWidth, Tech, Unit } from '@nex/data';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { getAbilityIcon } from '@app/view/components/tech-tree';
 import { createStylesheet } from '../../theming-new';
-import { getTranslation } from '../../helper/translate';
 import { openLink } from '../../helper/url';
 import { Stack } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
 import { useVideoPlayer, VideoPlayer, VideoView } from 'expo-video';
 import { Delayed } from '@app/view/components/delayed';
+import { getTranslationInternal } from '@app/helper/translate';
 
 interface ITip {
     title: string;
@@ -48,106 +48,106 @@ const tips: ITip[] = [
     //     url: 'https://www.ageofempires.com/mods/details/2695',
     // },
     {
-        title: getTranslation('tips.item.heading.gatheringefficiently'),
-        description: getTranslation('tips.item.note.gatheringefficiently'),
+        title: getTranslationInternal('tips.item.heading.gatheringefficiently'),
+        description: getTranslationInternal('tips.item.note.gatheringefficiently'),
         video: getVideoSource('aoe-sheep.mp4'),
         unit: 'Sheep',
     },
     {
-        title: getTranslation('tips.item.heading.savevillagerfromboar'),
-        description: getTranslation('tips.item.note.savevillagerfromboar'),
+        title: getTranslationInternal('tips.item.heading.savevillagerfromboar'),
+        description: getTranslationInternal('tips.item.note.savevillagerfromboar'),
         video: getVideoSource('aoe-boar.mp4'),
         unit: 'Boar',
     },
     {
-        title: getTranslation('tips.item.heading.autoscout'),
-        description: getTranslation('tips.item.note.autoscout'),
+        title: getTranslationInternal('tips.item.heading.autoscout'),
+        description: getTranslationInternal('tips.item.note.autoscout'),
         video: getVideoSource('aoe-auto-scout.mp4'),
         unit: 'ScoutCavalry',
     },
     {
-        title: getTranslation('tips.item.heading.automaticfarmseeding'),
-        description: getTranslation('tips.item.note.automaticfarmseeding'),
+        title: getTranslationInternal('tips.item.heading.automaticfarmseeding'),
+        description: getTranslationInternal('tips.item.note.automaticfarmseeding'),
         video: getVideoSource('aoe-auto-seed.mp4'),
         building: 'Farm',
     },
     {
-        title: getTranslation('tips.item.heading.rotategates'),
-        description: getTranslation('tips.item.note.rotategates'),
+        title: getTranslationInternal('tips.item.heading.rotategates'),
+        description: getTranslationInternal('tips.item.note.rotategates'),
         video: getVideoSource('aoe-gate.mp4'),
         building: 'PalisadeGate',
     },
     {
-        title: getTranslation('tips.item.heading.taskqueue'),
-        description: getTranslation('tips.item.note.taskqueue'),
+        title: getTranslationInternal('tips.item.heading.taskqueue'),
+        description: getTranslationInternal('tips.item.note.taskqueue'),
         video: getVideoSource('aoe-task-queue.mp4'),
         imageIcon: require('../../../assets/tips/icon/aoe-task-queue.png'),
     },
     {
-        title: getTranslation('tips.item.heading.farmingefficiently'),
-        description: getTranslation('tips.item.note.farmingefficiently'),
+        title: getTranslationInternal('tips.item.heading.farmingefficiently'),
+        description: getTranslationInternal('tips.item.note.farmingefficiently'),
         image: getImageSource('aoe-farm.webp'),
         building: 'Farm',
     },
 
     {
-        title: getTranslation('tips.item.heading.smalltrees'),
-        description: getTranslation('tips.item.note.smalltrees'),
+        title: getTranslationInternal('tips.item.heading.smalltrees'),
+        description: getTranslationInternal('tips.item.note.smalltrees'),
         video: getVideoSource('aoe-small-trees.mp4'),
         url: 'https://www.ageofempires.com/mods/details/790',
         imageIcon: require('../../../assets/tips/icon/aoe-small-trees.png'),
     },
     {
-        title: getTranslation('tips.item.heading.zetnusimprovedgridmod'),
-        description: getTranslation('tips.item.note.zetnusimprovedgridmod'),
+        title: getTranslationInternal('tips.item.heading.zetnusimprovedgridmod'),
+        description: getTranslationInternal('tips.item.note.zetnusimprovedgridmod'),
         image: getImageSource('aoe-grid.webp'),
         url: 'https://www.ageofempires.com/mods/details/812',
         imageIcon: require('../../../assets/tips/icon/aoe-grid.png'),
     },
     {
-        title: getTranslation('tips.item.heading.idlevillagerpointer'),
-        description: getTranslation('tips.item.note.idlevillagerpointer'),
+        title: getTranslationInternal('tips.item.heading.idlevillagerpointer'),
+        description: getTranslationInternal('tips.item.note.idlevillagerpointer'),
         video: getVideoSource('aoe-idle-villager-pointer.mp4'),
         url: 'https://www.ageofempires.com/mods/details/2686',
         imageIcon: require('../../../assets/tips/icon/aoe-idle-villager-pointer.png'),
     },
     {
-        title: getTranslation('tips.item.heading.idlevillagerhighlightbyarrow'),
-        description: getTranslation('tips.item.note.idlevillagerhighlightbyarrow'),
+        title: getTranslationInternal('tips.item.heading.idlevillagerhighlightbyarrow'),
+        description: getTranslationInternal('tips.item.note.idlevillagerhighlightbyarrow'),
         image: getImageSource('aoe-idle-villager-arrow.webp'),
         url: 'https://www.ageofempires.com/mods/details/3789',
         imageIcon: require('../../../assets/tips/icon/aoe-idle-villager-arrow.png'),
     },
     {
-        title: getTranslation('tips.item.heading.nointro'),
-        description: getTranslation('tips.item.note.nointro'),
+        title: getTranslationInternal('tips.item.heading.nointro'),
+        description: getTranslationInternal('tips.item.note.nointro'),
         url: 'https://www.ageofempires.com/mods/details/2416',
         icon: 'video',
     },
     {
-        title: getTranslation('tips.item.heading.hugenumber'),
-        description: getTranslation('tips.item.note.hugenumber'),
+        title: getTranslationInternal('tips.item.heading.hugenumber'),
+        description: getTranslationInternal('tips.item.note.hugenumber'),
         url: 'https://www.ageofempires.com/mods/details/1779',
         imageIcon: require('../../../assets/tips/icon/aoe-huge-number.png'),
     },
     {
-        title: getTranslation('tips.item.heading.blacksmithupgrades'),
-        description: getTranslation('tips.item.note.blacksmithupgrades'),
+        title: getTranslationInternal('tips.item.heading.blacksmithupgrades'),
+        description: getTranslationInternal('tips.item.note.blacksmithupgrades'),
         building: 'Blacksmith',
     },
     {
-        title: getTranslation('tips.item.heading.selectingallidlevillagers'),
-        description: getTranslation('tips.item.note.selectingallidlevillagers'),
+        title: getTranslationInternal('tips.item.heading.selectingallidlevillagers'),
+        description: getTranslationInternal('tips.item.note.selectingallidlevillagers'),
         unit: 'Villager',
     },
     {
-        title: getTranslation('tips.item.heading.selectingalllandmilitaryunits'),
-        description: getTranslation('tips.item.note.selectingalllandmilitaryunits'),
+        title: getTranslationInternal('tips.item.heading.selectingalllandmilitaryunits'),
+        description: getTranslationInternal('tips.item.note.selectingalllandmilitaryunits'),
         unit: 'ManAtArms',
     },
     {
-        title: getTranslation('tips.item.heading.donotstockpileresources'),
-        description: getTranslation('tips.item.note.donotstockpileresources'),
+        title: getTranslationInternal('tips.item.heading.donotstockpileresources'),
+        description: getTranslationInternal('tips.item.note.donotstockpileresources'),
         imageIcon: require('../../../assets/other/Gold.png'),
     },
 ];

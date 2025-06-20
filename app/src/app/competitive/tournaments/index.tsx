@@ -5,7 +5,6 @@ import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { SectionList } from '@app/components/section-list';
 import { Text } from '@app/components/text';
 import { sortByTier, tournamentAbbreviation, tournamentStatus, transformSearch } from '@app/helper/tournaments';
-import { getTranslation } from '@app/helper/translate';
 import { useAppTheme } from '@app/theming';
 import { DismissKeyboard } from '@app/view/components/dismiss-keyboard';
 import RefreshControlThemed from '@app/view/components/refresh-control-themed';
@@ -15,9 +14,11 @@ import { Tournament } from 'liquipedia';
 import { orderBy } from 'lodash';
 import { useMemo, useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
+import { useTranslation } from '@app/helper/translate';
 
 
 export default function TournamentsList() {
+    const getTranslation = useTranslation();
     const { data: allTournaments = [], ...query } = useUpcomingTournaments();
     const [search, setSearch] = useState('');
     const theme = useAppTheme();

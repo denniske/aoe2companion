@@ -7,7 +7,7 @@ import { Tournament } from 'liquipedia';
 import { Platform, View } from 'react-native';
 
 import { formatPrizePool, formatTier, tournamentStatus } from '../../helper/tournaments';
-import { getTranslation } from '../../helper/translate';
+import { useTranslation } from '@app/helper/translate';
 
 export const TournamentCard: React.FC<Tournament & { subtitle?: string; direction?: 'vertical' | 'horizontal' }> = ({
     direction = 'horizontal',
@@ -17,6 +17,7 @@ export const TournamentCard: React.FC<Tournament & { subtitle?: string; directio
         return <TournamentSkeletonCard subtitle={!!tournament.subtitle} direction={direction} />;
     }
 
+    const getTranslation = useTranslation();
     const status = tournamentStatus(tournament);
     const start = tournament.start && format(tournament.start, 'LLL d');
     const endDate = tournament.end || tournament.start;

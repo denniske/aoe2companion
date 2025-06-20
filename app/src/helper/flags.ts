@@ -1,5 +1,5 @@
 import {Country, Flag} from "@nex/data";
-import {getTranslation} from './translate';
+import { getTranslationInternal } from '@app/helper/translate';
 
 export const flagEmojiDict = {
     'EARTH': '🌎',
@@ -256,5 +256,5 @@ export const flagEmojiDict = {
 
 export function getCountryName(country: Country) {
     if (country == null) return 'unknown';
-    return getTranslation(`country.${country.toLowerCase()}` as any);
+    return getTranslationInternal(`country.${country.toLowerCase()}` as any);
 }

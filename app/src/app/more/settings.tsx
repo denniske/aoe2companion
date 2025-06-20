@@ -8,7 +8,6 @@ import React, { useState } from 'react';
 import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Button } from '@app/components/button';
 import { deactivatePusher, initPusher } from '@app/helper/pusher';
-import { getTranslation } from '@app/helper/translate';
 import { setMainPageShown, useMutate } from '@app/redux/reducer';
 import { setInternalLanguage } from '@app/redux/statecache';
 import { getToken } from '@app/service/push';
@@ -20,8 +19,10 @@ import { FontAwesome, FontAwesome5, FontAwesome6 } from '@expo/vector-icons';
 import { useAppTheme } from '@app/theming';
 import { Icon } from '@app/components/icon';
 import { Checkbox as CheckboxNew } from '@app/components/checkbox';
+import { useTranslation } from '@app/helper/translate';
 
 export default function SettingsPage() {
+    const getTranslation = useTranslation();
     const styles = useStyles();
     const mutate = useMutate();
     const [loadingPushNotificationEnabled, setLoadingPushNotificationEnabled] = useState(false);

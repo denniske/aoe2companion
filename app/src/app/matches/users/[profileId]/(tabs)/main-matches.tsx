@@ -9,7 +9,6 @@ import { flatten } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { fetchLeaderboards, fetchMatches } from '../../../../../api/helper/api';
-import { getTranslation } from '../../../../../helper/translate';
 import { openLink } from '../../../../../helper/url';
 import useDebounce from '../../../../../hooks/use-debounce';
 import { useWebRefresh } from '../../../../../hooks/use-web-refresh';
@@ -25,8 +24,10 @@ import { useAuthProfileId } from '@app/queries/all';
 import { useLocalSearchParams } from 'expo-router';
 import { Checkbox as CheckboxNew } from '@app/components/checkbox';
 import { LeaderboardsSelect } from '@app/components/select/leaderboards-select';
+import { useTranslation } from '@app/helper/translate';
 
 export default function MainMatches() {
+    const getTranslation = useTranslation();
     const params = useLocalSearchParams<{ profileId: string }>();
     const profileId = parseInt(params.profileId);
     const styles = useStyles();

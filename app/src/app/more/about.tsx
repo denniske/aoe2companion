@@ -10,15 +10,16 @@ import { useTheme } from '../../theming';
 import { appVariants } from '../../styles';
 import Space from '@app/view/components/space';
 import { createStylesheet } from '../../theming-new';
-import { getTranslation } from '../../helper/translate';
 import { openLink } from '../../helper/url';
 import { appConfig } from '@nex/dataset';
 import { channel, manifest, updateId, runtimeVersion } from 'expo-updates';
 import { nativeApplicationVersion, nativeBuildVersion } from 'expo-application';
 import { Stack } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
+import { useTranslation } from '@app/helper/translate';
 
 export default function AboutPage() {
+    const getTranslation = useTranslation();
     const styles = useStyles();
     const appStyles = useTheme(appVariants);
     const linkTo = useLinkTo();

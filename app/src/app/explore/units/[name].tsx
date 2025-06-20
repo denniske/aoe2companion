@@ -29,9 +29,10 @@ import UnitRelated from '../../../view/unit/unit-related';
 import { UnitStats } from '../../../view/unit/unit-stats';
 import { UnitUpgrades } from '../../../view/unit/unit-upgrades';
 import { ScrollView } from '@app/components/scroll-view';
-import { getTranslation } from '@app/helper/translate';
+import { useTranslation } from '@app/helper/translate';
 
 export default function UnitDetails() {
+    const getTranslation = useTranslation();
     const { name } = useLocalSearchParams<{ name: Unit }>();
     const unitName = name!;
     const appStyles = useTheme(appVariants);

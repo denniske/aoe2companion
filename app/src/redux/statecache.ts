@@ -17,7 +17,8 @@ export function getcache() {
 
 
 
-let mylanguage: any = 'en';
+// let mylanguage: any = 'en';
+let mylanguage: any = '';
 
 
 export function setInternalLanguage(value: any) {

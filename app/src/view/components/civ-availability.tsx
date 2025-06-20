@@ -5,8 +5,8 @@ import React from "react";
 import Space from "./space";
 import {getCivIconLocal} from "../../helper/civs";
 import {createStylesheet} from "../../theming-new";
-import {getTranslation} from '../../helper/translate';
 import { router } from "expo-router";
+import { useTranslation } from '@app/helper/translate';
 
 
 interface CivAvailabilityProps {
@@ -16,6 +16,7 @@ interface CivAvailabilityProps {
 }
 
 export default function CivAvailability({tech, unit, building}: CivAvailabilityProps) {
+    const getTranslation = useTranslation();
     const styles = useStyles();
 
     const civAvailable = civs.filter(c => c != 'Indians').filter(civ => getAbilityEnabled({civ, tech, unit, building}));

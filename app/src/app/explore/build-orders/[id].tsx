@@ -13,7 +13,6 @@ import { StyleSheet, View, Linking, TouchableOpacity } from 'react-native';
 
 import { IBuildOrderStandardResources, sortBuildAges, getBuildById } from '../../../../../data/src/helper/builds';
 import { getDifficultyIcon, getDifficultyName } from '../../../helper/difficulties';
-import { getTranslation } from '../../../helper/translate';
 import { getAgeIcon, getOtherIcon } from '../../../helper/units';
 import { createStylesheet } from '../../../theming-new';
 import { BuildFocus } from '../../../view/build-order/build-focus';
@@ -22,6 +21,7 @@ import { StepActions } from '../../../view/components/build-order/step-actions';
 import { Button } from '../../../view/components/button';
 import { MyText } from '../../../view/components/my-text';
 import { Tag } from '../../../view/components/tag';
+import { useTranslation } from '@app/helper/translate';
 
 const capitalize = (string: string) => string.charAt(0).toUpperCase() + string.slice(1);
 
@@ -57,6 +57,7 @@ export function FavoriteHeaderButton(props: FavoriteHeaderButtonProps) {
 }
 
 export default function BuildDetail() {
+    const getTranslation = useTranslation();
     const styles = useStyles();
     const { id = '', focusMode } = useLocalSearchParams<{ id: string; focusMode: string }>();
     const build = getBuildById(id)!;

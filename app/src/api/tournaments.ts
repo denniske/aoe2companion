@@ -7,7 +7,7 @@ import { orderBy } from 'lodash';
 import { useEffect, useState } from 'react';
 import { Platform } from 'react-native';
 
-export const tournamentsEnabled = __DEV__ || Platform.OS !== 'web';
+export const tournamentsEnabled = false && __DEV__ || Platform.OS !== 'web';
 
 const liquipedia = new Liquipedia({
     USER_AGENT: `${Application.applicationName}/${Application.nativeApplicationVersion} (hello@aoe2companion.com)`,

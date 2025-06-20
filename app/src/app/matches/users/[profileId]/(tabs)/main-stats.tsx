@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 
 import { fetchLeaderboards } from '../../../../../api/helper/api';
-import { getTranslation } from '../../../../../helper/translate';
 import { useWebRefresh } from '../../../../../hooks/use-web-refresh';
 import { createStylesheet } from '../../../../../theming-new';
 import FlatListLoadingIndicator from '../../../../../view/components/flat-list-loading-indicator';
@@ -17,8 +16,10 @@ import { useQuery } from '@tanstack/react-query';
 import { useProfileWithStats, useWithRefetching } from '@app/queries/all';
 import { useLocalSearchParams } from 'expo-router';
 import { LeaderboardSelect } from '@app/components/select/leaderboard-select';
+import { useTranslation } from '@app/helper/translate';
 
 export default function MainStats() {
+    const getTranslation = useTranslation();
     const params = useLocalSearchParams<{ profileId: string }>();
     const profileId = parseInt(params.profileId);
     const styles = useStyles();

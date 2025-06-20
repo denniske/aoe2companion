@@ -1,9 +1,9 @@
 import { IconName, IconPrefix } from '@fortawesome/fontawesome-svg-core';
 import { MyText } from '@app/view/components/my-text';
-import { getTranslation } from '@app/helper/translate';
 import { GestureResponderEvent, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { Icon } from '@app/components/icon';
+import { useTranslation } from '@app/helper/translate';
 
 export { IconName, IconPrefix };
 
@@ -15,6 +15,7 @@ export interface CheckboxProps {
 }
 
 export const Checkbox: React.FC<CheckboxProps> = ({ checked, onPress, text, disabled }) => {
+    const getTranslation = useTranslation();
     return (
         <TouchableOpacity activeOpacity={1} onPress={onPress} disabled={disabled}>
             <View className="flex flex-row items-center gap-2 p-2">

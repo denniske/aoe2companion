@@ -25,10 +25,10 @@ import Space from '../components/space';
 import { getTechIcon } from '../../helper/techs';
 import { getEliteUniqueResearchIcon } from '../../helper/units';
 import { createStylesheet } from '../../theming-new';
-import { getTranslation } from '../../helper/translate';
 import { Image } from 'expo-image';
 import { getBuildingIcon } from '../../helper/buildings';
 import { router } from 'expo-router';
+import { useTranslation } from '@app/helper/translate';
 
 interface Props {
     buildingLineId: BuildingLine;
@@ -36,6 +36,7 @@ interface Props {
 }
 
 export function BuildingUpgrades({ buildingLineId, buildingId }: Props) {
+    const getTranslation = useTranslation();
     const styles = useStyles();
     const appStyles = useTheme(appVariants);
 

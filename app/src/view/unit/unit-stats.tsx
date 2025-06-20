@@ -28,7 +28,7 @@ import Space from '../components/space';
 import { getAgeIcon, getOtherIcon, getUnitIcon } from '../../helper/units';
 import { createStylesheet } from '../../theming-new';
 import { uniq } from 'lodash';
-import { getTranslation } from '../../helper/translate';
+import { getTranslationInternal, useTranslation } from '@app/helper/translate';
 
 interface Props {
     unitId: Unit;
@@ -81,6 +81,7 @@ export function getUpgradeByAgeData(params: GetDataParams) {
 }
 
 export function GetValueByPath(props: PathProps) {
+    const getTranslation = useTranslation();
     const { style, unitId, buildingId, path, formatter = (x) => (x || 0).toString() } = props;
     const styles = useStyles();
     const baseData = getData({ unitId, buildingId }) as IUnitInfo;
@@ -291,10 +292,11 @@ function formatChargeType(chargeType: number) {
         3: 'areaattack',
         4: 'projectiledodging',
     };
-    return getTranslation(`unit.stats.heading.chargetype.${chargeTypeMap[chargeType]}` as any);
+    return getTranslationInternal(`unit.stats.heading.chargetype.${chargeTypeMap[chargeType]}` as any);
 }
 
 export function UnitStats({ unitId, unitLineId }: Props) {
+    const getTranslation = useTranslation();
     const styles = useStyles();
 
     const [comparisonUnit, setComparisonUnit] = useState<Unit>();

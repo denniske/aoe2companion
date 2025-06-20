@@ -3,7 +3,6 @@ import { Icon } from '@app/components/icon';
 import { useLocalSearchParams, useNavigation, useRouter, withLayoutContext } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Alert, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { getTranslation } from '@app/helper/translate';
 import { HeaderTitle } from '@app/components/header-title';
 import { CountryImage, CountryImageLoader } from '@app/view/components/country-image';
 import { Country, getVerifiedPlayer } from '@nex/data';
@@ -37,6 +36,7 @@ import { getCountryName } from '@app/helper/flags';
 import { TextLoader } from '@app/view/components/loader/text-loader';
 import { useAppTheme } from '@app/theming';
 import { MenuNew } from '@app/components/menu';
+import { useTranslation } from '@app/helper/translate';
 
 const { Navigator } = createMaterialTopTabNavigator();
 
@@ -54,6 +54,7 @@ interface UserMenuProps {
 // Due to some bug in expo-router we cannot use useLocalSearchParams
 // so we need to pass the params as a prop
 export function UserMenu({ profile }: UserMenuProps) {
+    const getTranslation = useTranslation();
     const profileId = profile?.profileId;
     const authProfileId = useAuthProfileId();
     const styles = useStyles();
@@ -419,6 +420,7 @@ type UserPageParams = {
 };
 
 function UserTitle({ profile }: UserMenuProps) {
+    const getTranslation = useTranslation();
     const profileId = profile?.profileId;
     const verifiedPlayer = profileId ? getVerifiedPlayer(profileId) : null;
 

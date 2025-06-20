@@ -6,8 +6,8 @@ import { ResourceAlloc } from './step-resource';
 import { StepActions } from './step-actions';
 import { useEffect, useRef } from 'react';
 import { useAppTheme } from '../../../theming';
-import { getTranslation } from '../../../helper/translate';
 import { startCase } from 'lodash';
+import { useTranslation } from '@app/helper/translate';
 
 export interface StepProps {
     highlighted: boolean;
@@ -20,6 +20,7 @@ export interface StepProps {
 }
 
 export const Step: React.FC<StepProps> = ({ highlighted, step, build, onPress, index, count, shownResources }) => {
+    const getTranslation = useTranslation();
     const { resources } = step;
     const styles = useStyles();
     const fadeAnim = useRef(new Animated.Value(0)).current;

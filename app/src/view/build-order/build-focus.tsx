@@ -7,7 +7,7 @@ import { MyText } from '../components/my-text';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Button } from '../components/button';
-import { getTranslation } from '../../helper/translate';
+import { useTranslation } from '@app/helper/translate';
 
 export const BuildFocus: React.FC<{
     build: IBuildOrder;
@@ -15,6 +15,7 @@ export const BuildFocus: React.FC<{
     shownResources: Array<keyof IBuildOrderStandardResources>;
     onClose: (event: GestureResponderEvent) => void;
 }> = ({ build, visible, onClose, shownResources }) => {
+    const getTranslation = useTranslation();
     const styles = useStyles();
     const [currentStep, setCurrentStep] = useState<number>(0);
     const flatListRef = useRef<FlatList>(null);

@@ -8,7 +8,6 @@ import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
 import { flagEmojiDict } from '@app/helper/flags';
 import { findFullMatch, formatPrizePool, formatTier, getAllTournamentMatches, getMatches } from '@app/helper/tournaments';
-import { getTranslation } from '@app/helper/translate';
 import { useFollowedTournament } from '@app/service/followed-tournaments';
 import tw from '@app/tailwind';
 import { textColors } from '@app/utils/text.util';
@@ -34,8 +33,10 @@ import { useColorScheme } from 'nativewind';
 import { useState } from 'react';
 import { Linking, TouchableOpacity, View } from 'react-native';
 import { formatCurrency } from 'react-native-format-currency';
+import { useTranslation } from '@app/helper/translate';
 
 export default function TournamentDetail() {
+    const getTranslation = useTranslation();
     const params = useLocalSearchParams<{ id: string[] }>();
     const id = typeof params.id === 'string' ? params.id : params.id?.join('/') ?? '';
     const { data: tournament, ...query } = useTournament(id);

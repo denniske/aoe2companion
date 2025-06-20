@@ -9,7 +9,6 @@ import { isAfter, subDays, subMonths, subWeeks } from 'date-fns';
 
 import { VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTheme } from 'victory-native';
 
-import { getTranslation } from '../../helper/translate';
 import { IProfileRatingsLeaderboard, IProfileResult } from '../../api/helper/api.types';
 import { windowWidth } from '@app/app/statistics/leaderboard';
 import { useColorScheme } from 'nativewind';
@@ -20,6 +19,7 @@ import tw from '@app/tailwind';
 import { useAuthProfileId } from '@app/queries/all';
 import { usePrefData } from '@app/queries/prefs';
 import { useSavePrefsMutation } from '@app/mutations/save-account';
+import { useTranslation } from '@app/helper/translate';
 
 function replaceRobotoWithSystemFont(obj: any) {
     const keys = Object.keys(obj);
@@ -86,6 +86,7 @@ interface IRatingProps {
 }
 
 export default function Rating({ ratingHistories, profile, ready }: IRatingProps) {
+    const getTranslation = useTranslation();
     ratingHistories = ready ? ratingHistories : null;
 
     const theme = useAppTheme();

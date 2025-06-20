@@ -13,10 +13,10 @@ import { PlayoffPlayer } from './player';
 import { createStylesheet } from '../../../../src/theming-new';
 import { useTournamentDetail, useTournamentMatches } from '../../../api/tournaments';
 import { findTournamentMatch, getLiveOrUpcomingMatch } from '../../../helper/tournaments';
-import { getTranslation } from '../../../helper/translate';
 import BottomSheet from '../../bottom-sheet';
 import { MyText } from '../../components/my-text';
 import { TournamentMarkdown } from '../tournament-markdown';
+import { useTranslation } from '@app/helper/translate';
 
 export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; setVisible: (visible: boolean) => void; tournamentPath?: string }> = ({
     match: selectedMatch,
@@ -24,6 +24,7 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
     setVisible,
     tournamentPath,
 }) => {
+    const getTranslation = useTranslation();
     const styles = useStyles();
     const { data: tournamentMatches } = useTournamentMatches();
     const { data: tournament } = useTournamentDetail(tournamentPath ?? '', !!tournamentPath);

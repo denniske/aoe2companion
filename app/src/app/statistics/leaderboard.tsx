@@ -29,7 +29,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { fetchLeaderboard, fetchLeaderboards } from '../../api/helper/api';
 import { ILeaderboardPlayer } from '../../api/helper/api.types';
 import { getCountryName } from '../../helper/flags';
-import { getTranslation } from '../../helper/translate';
 import { getValue } from '../../helper/util-component';
 import { useLazyAppendApi } from '../../hooks/use-lazy-append-api';
 import { setLeaderboardCountry, useMutate, useSelector } from '../../redux/reducer';
@@ -41,6 +40,7 @@ import Picker from '@app/view/components/picker';
 import { HeaderTitle } from '@app/components/header-title';
 import { LeaderboardSelect } from '@app/components/select/leaderboard-select';
 import { CountrySelect, countryEarth, isCountry } from '@app/components/select/country-select';
+import { useTranslation } from '@app/helper/translate';
 
 const ROW_HEIGHT = 45;
 const ROW_HEIGHT_MY_RANK = 52;
@@ -50,6 +50,7 @@ export const windowWidth = Platform.OS === 'web' ? 450 : Dimensions.get('window'
 const pageSize = 100;
 
 export default function LeaderboardPage() {
+    const getTranslation = useTranslation();
     const { colorScheme } = useColorScheme();
 
     const mutate = useMutate();

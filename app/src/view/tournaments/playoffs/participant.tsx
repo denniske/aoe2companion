@@ -3,10 +3,10 @@ import { Image } from 'expo-image';
 import { EventParticipant } from 'liquipedia';
 import { MyText } from '../../components/my-text';
 import { createStylesheet } from '../../../theming-new';
-import { getTranslation } from '../../../helper/translate';
 import { getVerifiedPlayerBy } from '@nex/data';
 import { CountryImage } from '@app/view/components/country-image';
 import { playerNameForSearch } from '@app/helper/tournaments';
+import { useTranslation } from '@app/helper/translate';
 
 export const PlayoffParticipant: React.FC<{ size?: number; participant: EventParticipant; winner: boolean; reversed?: boolean }> = ({
     participant,
@@ -14,6 +14,7 @@ export const PlayoffParticipant: React.FC<{ size?: number; participant: EventPar
     winner,
     reversed,
 }) => {
+    const getTranslation = useTranslation();
     const styles = useStyles();
     const verifiedPlayer = getVerifiedPlayerBy(
         (player) => player.liquipedia === participant.name || playerNameForSearch(player.name) === playerNameForSearch(participant.name)

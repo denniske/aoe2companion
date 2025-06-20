@@ -5,7 +5,6 @@ import {aoeCivKey, Civ, civs, getCivNameById, orderCivs} from "@nex/data";
 import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import IconHeader from "../../../app/src/view/components/navigation-header/icon-header";
 import TextHeader from "../../../app/src/view/components/navigation-header/text-header";
-import {getTranslation} from "../../../app/src/helper/translate";
 import {getCivIconLocal} from "../../../app/src/helper/civs";
 import {MyText} from "../../../app/src/view/components/my-text";
 import {createStylesheet} from "../../../app/src/theming-new";
@@ -30,20 +29,21 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchJson } from '@app/api/util';
 
 
-export function CivTitle(props: any) {
-    if (props.route?.params?.civ) {
-        return <IconHeader
-            icon={getCivIconLocal(props.route?.params?.civ)}
-            text={getCivNameById(props.route.params?.civ)}
-            onLayout={props.titleProps.onLayout}
-        />;
-    }
-    return <TextHeader text={getTranslation('civs.title')} onLayout={props.titleProps.onLayout}/>;
-}
-
-export function civTitle(props: any) {
-    return props.route?.params?.civ || getTranslation('civs.title');
-}
+// export function CivTitle(props: any) {
+//     const getTranslation = useTranslation();
+//     if (props.route?.params?.civ) {
+//         return <IconHeader
+//             icon={getCivIconLocal(props.route?.params?.civ)}
+//             text={getCivNameById(props.route.params?.civ)}
+//             onLayout={props.titleProps.onLayout}
+//         />;
+//     }
+//     return <TextHeader text={getTranslation('civs.title')} onLayout={props.titleProps.onLayout}/>;
+// }
+//
+// export function civTitle(props: any) {
+//     return props.route?.params?.civ || getTranslation('civs.title');
+// }
 
 // Including this in app because otherwise would need to download
 // all civ infos from raw.githubusercontent.com when civ list
