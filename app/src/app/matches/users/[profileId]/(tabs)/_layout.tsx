@@ -458,6 +458,7 @@ function UserTitle({ profile }: UserMenuProps) {
 // )
 
 export default function UserPage() {
+    const getTranslation = useTranslation();
     const params = useLocalSearchParams<UserPageParams>();
     const profileId = parseInt(params.profileId);
     const appName = Constants.expoConfig?.name || Constants.expoConfig2?.extra?.expoClient?.name;

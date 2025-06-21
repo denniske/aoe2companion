@@ -532,6 +532,7 @@ function logPlayer(str: string, i: number, player: ILeaderboardPlayer, leaderboa
 }
 
 function RenderRow(props: RenderRowProps) {
+    const getTranslation = useTranslation();
     const { player, i, isMyRankRow, rankWidth, myRankWidth, onSelect, scrollToMe, leaderboardCountry } = props;
 
     const styles = useStyles();

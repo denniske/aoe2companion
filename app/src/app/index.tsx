@@ -26,6 +26,7 @@ import {
     useMatchAnalysisSvg,
     useWithRefetching,
 } from '@app/queries/all';
+import { useTranslation } from '@app/helper/translate';
 // import { WithSkiaWeb } from '@shopify/react-native-skia/lib/module/web';
 // import { version } from 'canvaskit-wasm/package.json';
 
@@ -39,6 +40,7 @@ import {
 // }
 
 export default function IndexPage() {
+    const getTranslation = useTranslation();
     const authProfileId = useAuthProfileId();
     const tournament = useFeaturedTournament();
     const matches = useCurrentMatches(1);
@@ -101,10 +103,11 @@ export default function IndexPage() {
                     animation: 'none',
                     headerRight: () => (
                         <Button href={'/matches/users/search'} icon="search">
-                            Find Player
+                            {getTranslation('home.findPlayer')}
                         </Button>
                     ),
-                    title: 'Home',
+                    title: getTranslation('home.title'),
+                    // headerTitle: () => (<span>{getTranslation('home.title')}</span>),
                 }}
             />
 

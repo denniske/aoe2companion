@@ -27,8 +27,18 @@ import * as Notifications from '../service/notifications';
 import { SplashScreen, Stack, useNavigation, useRouter } from 'expo-router';
 import { LiveActivity } from 'modules/widget';
 import { useColorScheme as useTailwindColorScheme } from 'nativewind';
-import { useCallback, useEffect, useState } from 'react';
-import { AppState, AppStateStatus, BackHandler, LogBox, Platform, StatusBar, useColorScheme, View } from 'react-native';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+    AppState,
+    AppStateStatus,
+    BackHandler,
+    LogBox,
+    Platform,
+    Pressable,
+    StatusBar,
+    useColorScheme,
+    View,
+} from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Provider as ReduxProvider } from 'react-redux';
@@ -272,7 +282,7 @@ export function useTranslations() {
 
             window.parent.postMessage(
                 { type: 'request-translations' },
-                '*' // or your known parent origin
+                '*'
             );
         }
 
@@ -288,6 +298,84 @@ export function useTranslations() {
     }, []);
 }
 
+export function TranslationModeOverlay() {
+    const [mode, setMode] = useMMKVString('translationMode');
+    const keyHeldRef = useRef(false);
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.repeat) return; // Ignore repeated key presses
+
+            if (e.key === "Control" || e.key === "Meta") {
+                keyHeldRef.current = true;
+                setMode('key');
+                console.log('Translation mode activated');
+            }
+        };
+        const handleKeyUp = (e: KeyboardEvent) => {
+            if (e.key === "Control" || e.key === "Meta") {
+                keyHeldRef.current = false;
+                setMode(undefined);
+            }
+        };
+
+        const handleClick = (e: MouseEvent) => {
+            if (keyHeldRef.current) {
+                e.stopPropagation()
+                e.preventDefault()
+                // console.log('Clicked translation key:', e.target);
+                const target = e.target as HTMLElement;
+                const key = target?.textContent?.trim();
+                if (key) {
+                    console.log('Clicked translation key:', key);
+                    window.parent.postMessage(
+                        { type: 'request-key', key },
+                        '*'
+                    );
+                    keyHeldRef.current = false;
+                    setMode(undefined);
+                }
+            }
+        };
+
+        if (Platform.OS === 'web') {
+            console.log('ADD LISTENERS');
+            window.addEventListener('keydown', handleKeyDown);
+            window.addEventListener('keyup', handleKeyUp);
+            window.addEventListener('click', handleClick, true);
+        }
+
+        return () => {
+            if (Platform.OS === 'web') {
+                window.removeEventListener('keydown', handleKeyDown);
+                window.removeEventListener('keyup', handleKeyUp);
+                window.removeEventListener('click', handleClick, true);
+            }
+        };
+    }, []);
+
+    if (mode !== 'key') return null;
+
+    return (
+        <View
+            pointerEvents="none"
+            // style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0, 0, 0, 0.5)', zIndex: 9999 }}
+        >
+            {/*<Pressable*/}
+            {/*    onPress={(e) => {*/}
+            {/*        console.log('Clicked translation key:', e.target);*/}
+            {/*        const target = e.target as HTMLElement;*/}
+            {/*        const text = target?.textContent;*/}
+            {/*        if (text) {*/}
+            {/*            console.log('Clicked translation key:', text);*/}
+            {/*        }*/}
+            {/*    }}*/}
+            {/*    style={{ flex: 1, backgroundColor: 'rgba(255, 0, 0, 0.5)' }}*/}
+            {/*/>*/}
+        </View>
+    );
+}
+
 function AppWrapper() {
     console.log('AppWrapper...');
 
@@ -301,7 +389,11 @@ function AppWrapper() {
 
     useEffect(() => {
         console.log('CACHED language', cachedLanguage);
-        if (!cachedLanguage) return;
+        if (!cachedLanguage) {
+            // Is this good?
+            setLoadedLanguage(true);
+            return;
+        }
         setInternalLanguage(cachedLanguage);
         loadTranslatonStringsAsync(cachedLanguage, () => {
             setLoadedLanguage(true);
@@ -372,6 +464,9 @@ function AppWrapper() {
                             {Platform.OS !== 'web' && <ChangelogSnackbar />}
                             {/*<ErrorSnackbar />*/}
                         </View>
+
+
+                        <TranslationModeOverlay />
 
                         <PortalProvider>
                             <>

@@ -6,7 +6,11 @@
   "leaderboard.players": "{players} players",
   "leaderboard.updated": "updated {updated}",
 
+  "home.title": "Home2",
   "home.followedPlayers": "Followed Players",
+  "home.findPlayer": "Find Player",
+
+  "matches.findPlayer": "Find Player",
 
   "main.title": "Me",
   "main.heading.profile": "Profile",

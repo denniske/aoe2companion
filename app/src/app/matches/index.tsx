@@ -107,7 +107,7 @@ export default function MatchesPage() {
                     title: 'Matches',
                     headerRight: () => (
                         <Button href="/matches/users/search" icon="search">
-                            Find Player
+                            {getTranslation('matches.findPlayer')}
                         </Button>
                     ),
                 }}

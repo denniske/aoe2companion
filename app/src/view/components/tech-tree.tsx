@@ -30,6 +30,7 @@ import { useSavePrefsMutation } from '@app/mutations/save-account';
 import { useTranslation } from '@app/helper/translate';
 
 function TechTreeRow({ civ, row }: { civ: aoeCivKey; row: ITechTreeRow }) {
+    const getTranslation = useTranslation();
     return (
         <View style={styles.row}>
             {row.title !== undefined && <MyText style={styles.heading}>{getTranslation(row.title as any)}</MyText>}

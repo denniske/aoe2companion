@@ -34,6 +34,7 @@ interface IRowPropsOpponent {
 }
 
 export function StatsHeader({ title }: any) {
+    const getTranslation = useTranslation();
     const styles = useStyles();
     return (
         <>
@@ -122,7 +123,6 @@ interface IProps {
 }
 
 export default function StatsRows(props: IProps) {
-    const getTranslation = useTranslation();
     const styles = useStyles();
 
     const { type, data, title } = props;

@@ -9,9 +9,18 @@ interface IStringCollection {
 
 export function useTranslation() {
     const [version, setVersion] = useMMKVString('translationVersion');
+    const [mode, setMode] = useMMKVString('translationMode');
 
-    return (str: keyof typeof local001, params?: Record<string, any>) => {
-        return getTranslationInternal(str, params);
+    console.log('useTranslation', version, mode);
+
+    if (mode === 'key') {
+        return (key: keyof typeof local001, params?: Record<string, any>) => {
+            return key;
+        };
+    }
+
+    return (key: keyof typeof local001, params?: Record<string, any>) => {
+        return getTranslationInternal(key, params);
     };
 }
 
