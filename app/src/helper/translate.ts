@@ -118,8 +118,11 @@ export async function loadTranslatonStringsAsync(language: string, callback?: ()
             console.log('Skipping translation strings loading in iframe');
         } else {
             console.log('Loading translation strings for', language);
+            // let response = await fetch(
+            //     `https://raw.githubusercontent.com/denniske/aoe2companion/refs/heads/main/app/assets/translations/${language}.json`
+            // );
             let response = await fetch(
-                `https://raw.githubusercontent.com/denniske/aoe2companion/refs/heads/main/app/assets/translations/${language}.json`
+                `https://i18n.cdn.aoe2companion.com/translations/${language}.json`
             );
             let parsed = await response.json();
             addTranslatonStrings(language, parsed);
