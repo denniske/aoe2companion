@@ -35,14 +35,14 @@ export function setTranslations(language: string, newTranslations: Record<string
 
 export function getInternalLanguage() {
     const account = queryClient.getQueryData<Record<string, string>>(QUERY_KEY_ACCOUNT());
-    console.log('getlanguage', account?.language || 'en');
+    // console.log('getlanguage', account?.language || 'en');
     return account?.language || 'en';
 }
 
 export function getTranslationInternal(key: keyof typeof local001, params?: Record<string, any>) {
     const language = getLanguage();
 
-    console.log('getTranslation', language, key);
+    // console.log('getTranslation', language, key);
 
     if (!language) return '\u00A0';
 
@@ -63,6 +63,7 @@ export function useTranslation() {
     const { data: translations } = useTranslations(language);
     const { data: translationsEn } = useTranslations('en');
 
+
     return (key: string, params?: Record<string, string | number>) => {
         let translated = translations && key in translations ? translations[key] : translationsEn?.[key];
         if (translated && params) {
@@ -70,6 +71,7 @@ export function useTranslation() {
                 translated = translated.replace(new RegExp(`\{${key}\}`, 'gi'), params![key]);
             }
         }
+        console.log('getTranslation', language, key, translated);
         return translated;
     };
 }
@@ -86,6 +88,9 @@ export function useTranslations(language?: string) {
 export async function loadTranslatonStringsAsync(language: string) {
     if (Platform.OS === 'web' && window.self !== window.parent) {
         console.log('Skipping translation strings loading in iframe');
+    }
+    else if (language === 'en') {
+        console.log('Skipping translation strings loading for EN');
     } else {
         console.log('Loading translation strings for', language);
         let response = await fetch(
