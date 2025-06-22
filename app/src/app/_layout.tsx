@@ -5,8 +5,7 @@ import { fetchAoeReferenceData } from '@app/helper/reference';
 import initSentry from '@app/helper/sentry';
 import {
     getTranslationInternal,
-    loadTranslatonStringsAsync,
-    useSetTranslationStrings,
+    useSetTranslationStrings, useTranslations,
 } from '@app/helper/translate';
 import { getInternalAoeString } from '@app/helper/translate-data';
 import { getInternalLanguage, setInternalLanguage } from '@app/redux/statecache';
@@ -52,6 +51,7 @@ import { useAccountData } from '@app/queries/all';
 import { PortalProvider } from '@app/components/portal/portal-host';
 import { setAccountLiveActivityToken, storeLiveActivityStarted } from '@app/api/account';
 import { useMMKVString } from 'react-native-mmkv';
+import { queryClient } from '@app/service/query-client';
 
 initSentry();
 
@@ -71,19 +71,6 @@ function onAppStateChange(status: AppStateStatus) {
 
 library.add(fass, fasr);
 
-const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            refetchOnWindowFocus: false,
-            retry: 0,
-            // retry: (failureCount, error) => {
-            //     if (error.message == 'Unauthorized') return false;
-            //     if (failureCount < 2) return true;
-            //     return false;
-            // }
-        },
-    },
-});
 
 SplashScreen.preventAutoHideAsync();
 
@@ -160,15 +147,17 @@ function LanguageController() {
     const [cachedLanguage, setCachedLanguage] = useMMKVString('language');
 
     const language = useAccountData((account) => account.language);
+    useTranslations(language);
 
-    useEffect(() => {
-        if (!language) return;
-        setInternalLanguage(language);
-        console.log('ACCOUNT language', language);
-        fetchAoeReferenceData();
-        loadTranslatonStringsAsync(language);
-        setCachedLanguage(language);
-    }, [language]);
+    // useEffect(() => {
+    //     console.log('ACCOUNT language', language);
+    //     if (!language) return;
+    //     console.log('ACCOUNT loading language');
+    //     setInternalLanguage(language);
+    //     fetchAoeReferenceData();
+    //     loadTranslatonStringsAsync(language);
+    //     setCachedLanguage(language);
+    // }, [language]);
 
     return <View />;
 }
@@ -271,12 +260,10 @@ function useColorSchemes() {
 //     }, []);
 // }
 
-export function useTranslations() {
+function PostMessageTranslationsController() {
     const setTranslationStrings = useSetTranslationStrings();
 
     useEffect(() => {
-        if (Platform.OS !== 'web') return;
-
         if (window.self !== window.parent) {
             console.log("🧭 Inside iframe – requesting translations");
 
@@ -296,6 +283,8 @@ export function useTranslations() {
         window.addEventListener('message', handleMessage);
         return () => window.removeEventListener('message', handleMessage);
     }, []);
+
+    return <View />;
 }
 
 export function TranslationModeOverlay() {
@@ -379,28 +368,24 @@ export function TranslationModeOverlay() {
 function AppWrapper() {
     console.log('AppWrapper...');
 
-    const [loadedLanguage, setLoadedLanguage] = useState(false);
-    const [appIsReady, setAppIsReady] = useState(false);
+    // const [languageLoaded, setLanguageLoaded] = useState(false);
+    // const [appIsReady, setAppIsReady] = useState(false);
     const insets = useSafeAreaInsets();
     const { customTheme, contentTheme } = useColorSchemes();
 
-    const [rerender] = useMMKVString('rerender');
-    const [cachedLanguage, setCachedLanguage] = useMMKVString('language');
-
-    useEffect(() => {
-        console.log('CACHED language', cachedLanguage);
-        if (!cachedLanguage) {
-            // Is this good?
-            setLoadedLanguage(true);
-            return;
-        }
-        setInternalLanguage(cachedLanguage);
-        loadTranslatonStringsAsync(cachedLanguage, () => {
-            setLoadedLanguage(true);
-        });
-    }, [cachedLanguage]);
-
-    useTranslations();
+    // const [rerender] = useMMKVString('rerender');
+    // const [cachedLanguage, setCachedLanguage] = useMMKVString('language');
+    // useEffect(() => {
+    //     if (languageLoaded) return;
+    //     if (!cachedLanguage) return;
+    //     console.log('CACHED language', cachedLanguage);
+    //     setInternalLanguage(cachedLanguage);
+    //     loadTranslatonStringsAsync(cachedLanguage, () => {
+    //         setLanguageLoaded(true);
+    //     });
+    // }, [cachedLanguage]);
+    //
+    // useTranslations();
 
     const [fontsLoaded] = useFonts({
         Roboto_400Regular,
@@ -414,20 +399,21 @@ function AppWrapper() {
         return () => subscription.remove();
     }, []);
 
-    useEffect(() => {
+    // useEffect(() => {
+    //     if (fontsLoaded) {
+    //         console.log('Fonts loaded');
+    //         setAppIsReady(true);
+    //     }
+    // }, [fontsLoaded]);
+
+    const onLayoutRootView = useCallback(async () => {
         if (fontsLoaded) {
-            console.log('Fonts loaded');
-            setAppIsReady(true);
+            SplashScreen.hide();
         }
     }, [fontsLoaded]);
 
-    const onLayoutRootView = useCallback(async () => {
-        if (appIsReady) {
-            SplashScreen.hide();
-        }
-    }, [appIsReady]);
-
-    if (!appIsReady || !loadedLanguage) {
+    // if (!fontsLoaded || (cachedLanguage && !languageLoaded)) {
+    if (!fontsLoaded) {
         return null;
     }
 
@@ -451,6 +437,7 @@ function AppWrapper() {
                         <LanguageController />
                         <LiveActivityController />
                         {/*<AccountController />*/}
+                        {Platform.OS === 'web' && <PostMessageTranslationsController />}
 
                         <View
                             style={{
