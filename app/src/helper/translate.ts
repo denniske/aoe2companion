@@ -4,6 +4,8 @@ import { Platform } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { queryClient } from '@app/service/query-client';
 import { QUERY_KEY_ACCOUNT, useLanguage } from '@app/queries/all';
+import { MMKV, useMMKV } from 'react-native-mmkv';
+import { useEffect } from 'react';
 
 export const supportedMainLocales = ['ms', 'fr', 'es', 'it', 'pt', 'ru', 'vi', 'tr', 'de', 'en', 'es', 'hi', 'ja', 'ko'];
 
@@ -58,11 +60,28 @@ export function getTranslationInternal(key: keyof typeof local001, params?: Reco
     return translated;
 }
 
+const defaultInstance = new MMKV();
+const mmkvLanguage = defaultInstance.getString('language');
+console.log('mmkvLanguage', mmkvLanguage);
+
+if (mmkvLanguage) {
+    const translations = defaultInstance.getString('translations');
+    if (translations) {
+        try {
+            setTranslations(mmkvLanguage, JSON.parse(translations));
+        }
+        catch (error) {
+            console.error('Failed to parse cached translations for language', mmkvLanguage, error);
+        }
+    }
+}
+
 export function useTranslation() {
-    const language = useLanguage();
+    const language = useLanguage() || mmkvLanguage;
     const { data: translations } = useTranslations(language);
     const { data: translationsEn } = useTranslations('en');
 
+    // console.log('useTranslation', language, translations, translationsEn);
 
     return (key: string, params?: Record<string, string | number>) => {
         let translated = translations && key in translations ? translations[key] : translationsEn?.[key];
@@ -98,6 +117,25 @@ export async function loadTranslatonStringsAsync(language: string) {
         );
         return await response.json();
     }
+}
+
+
+export function useMMKWTranslationCache() {
+    const language = useLanguage();
+    const { data: translations } = useTranslations(language);
+
+    const mmkv = useMMKV();
+    const setCachedLanguage = (value: string) => mmkv.set('language', value);
+    const setCachedTranslations = (value: string) => mmkv.set('translations', value);
+
+    useEffect(() => {
+        if (!language || !translations) {
+            console.log('No language or translations available, skipping cache update');
+            return;
+        }
+        setCachedLanguage(language);
+        setCachedTranslations(JSON.stringify(translations));
+    }, [language, translations]);
 }
 
 setTranslations('en', require('../../assets/translations/en.json'));

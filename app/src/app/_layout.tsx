@@ -2,7 +2,13 @@ import { fetchJson } from '@app/api/util';
 import { Header } from '@app/components/header';
 import { TabBar } from '@app/components/tab-bar';
 import initSentry from '@app/helper/sentry';
-import { getInternalLanguage, getTranslationInternal, setTranslations, useTranslations } from '@app/helper/translate';
+import {
+    getInternalLanguage,
+    getTranslationInternal,
+    setTranslations,
+    useMMKWTranslationCache,
+    useTranslations,
+} from '@app/helper/translate';
 import { getInternalAoeString } from '@app/helper/translate-data';
 import store from '@app/redux/store';
 import { cacheLiveActivityAssets } from '@app/service/storage';
@@ -128,20 +134,7 @@ const isMobile = ['Android', 'iOS'].includes(Device.osName!);
 // If we use these hooks in the AppWrapper, every change will trigger
 // a rerender of the AppWrapper which costs performance.
 function LanguageController() {
-    const [cachedLanguage, setCachedLanguage] = useMMKVString('language');
-
-    const language = useAccountData((account) => account.language);
-    useTranslations(language);
-
-    // useEffect(() => {
-    //     console.log('ACCOUNT language', language);
-    //     if (!language) return;
-    //     console.log('ACCOUNT loading language');
-    //     setInternalLanguage(language);
-    //     fetchAoeReferenceData();
-    //     loadTranslatonStringsAsync(language);
-    //     setCachedLanguage(language);
-    // }, [language]);
+    useMMKWTranslationCache();
 
     return <View />;
 }
@@ -221,28 +214,6 @@ function useColorSchemes() {
         contentTheme: darkMode === 'light' ? 'dark-content' : 'light-content',
     } as const;
 }
-
-// export function useTranslations() {
-//     const setTranslationStrings = useSetTranslationStrings();
-//
-//     useEffect(() => {
-//         function handleMessage(event: MessageEvent) {
-//             if (event.origin !== 'http://localhost:5173') return;
-//
-//             if (event.data?.type === 'translations') {
-//                 console.log('✅ Translations received from', event.origin);
-//                 console.log('📦', event.data.data);
-//                 setTranslationStrings('de', event.data.data);
-//             }
-//         }
-//
-//         window.addEventListener('message', handleMessage);
-//
-//         return () => {
-//             window.removeEventListener('message', handleMessage);
-//         };
-//     }, []);
-// }
 
 function PostMessageTranslationsController() {
     useEffect(() => {
@@ -324,20 +295,7 @@ export function TranslationModeOverlay() {
     return (
         <View
             pointerEvents="none"
-            // style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0, 0, 0, 0.5)', zIndex: 9999 }}
-        >
-            {/*<Pressable*/}
-            {/*    onPress={(e) => {*/}
-            {/*        console.log('Clicked translation key:', e.target);*/}
-            {/*        const target = e.target as HTMLElement;*/}
-            {/*        const text = target?.textContent;*/}
-            {/*        if (text) {*/}
-            {/*            console.log('Clicked translation key:', text);*/}
-            {/*        }*/}
-            {/*    }}*/}
-            {/*    style={{ flex: 1, backgroundColor: 'rgba(255, 0, 0, 0.5)' }}*/}
-            {/*/>*/}
-        </View>
+        ></View>
     );
 }
 
