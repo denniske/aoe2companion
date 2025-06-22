@@ -17,22 +17,6 @@ export function getcache() {
 
 
 
-// let mylanguage: any = 'en';
-let mylanguage: any = '';
-
-
-export function setInternalLanguage(value: any) {
-    mylanguage = value;
-    // console.log('setlanguage');
-    // console.log('setlanguage', value);
-}
-
-export function getInternalLanguage() {
-    // console.log('getlanguage', mylanguage);
-    // console.log('getlanguage');
-    return mylanguage;
-}
-
 
 let internalAoeStrings: any = {};
 

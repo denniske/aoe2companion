@@ -1,14 +1,9 @@
 import { fetchJson } from '@app/api/util';
 import { Header } from '@app/components/header';
 import { TabBar } from '@app/components/tab-bar';
-import { fetchAoeReferenceData } from '@app/helper/reference';
 import initSentry from '@app/helper/sentry';
-import {
-    getTranslationInternal,
-    useSetTranslationStrings, useTranslations,
-} from '@app/helper/translate';
+import { getInternalLanguage, getTranslationInternal, setTranslations, useTranslations } from '@app/helper/translate';
 import { getInternalAoeString } from '@app/helper/translate-data';
-import { getInternalLanguage, setInternalLanguage } from '@app/redux/statecache';
 import store from '@app/redux/store';
 import { cacheLiveActivityAssets } from '@app/service/storage';
 import tw from '@app/tailwind';
@@ -20,24 +15,14 @@ import { fass } from '@fortawesome/sharp-solid-svg-icons';
 import { Environment, IHostService, IHttpService, ITranslationService, OS, registerService, SERVICE_NAME } from '@nex/data';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import * as Sentry from '@sentry/react-native';
-import { focusManager, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { focusManager, QueryClientProvider } from '@tanstack/react-query';
 import * as Device from 'expo-device';
 import * as Notifications from '../service/notifications';
 import { SplashScreen, Stack, useNavigation, useRouter } from 'expo-router';
 import { LiveActivity } from 'modules/widget';
 import { useColorScheme as useTailwindColorScheme } from 'nativewind';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import {
-    AppState,
-    AppStateStatus,
-    BackHandler,
-    LogBox,
-    Platform,
-    Pressable,
-    StatusBar,
-    useColorScheme,
-    View,
-} from 'react-native';
+import { useCallback, useEffect, useRef } from 'react';
+import { AppState, AppStateStatus, BackHandler, LogBox, Platform, StatusBar, useColorScheme, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Provider as ReduxProvider } from 'react-redux';
@@ -70,7 +55,6 @@ function onAppStateChange(status: AppStateStatus) {
 }
 
 library.add(fass, fasr);
-
 
 SplashScreen.preventAutoHideAsync();
 
@@ -261,22 +245,17 @@ function useColorSchemes() {
 // }
 
 function PostMessageTranslationsController() {
-    const setTranslationStrings = useSetTranslationStrings();
-
     useEffect(() => {
         if (window.self !== window.parent) {
-            console.log("🧭 Inside iframe – requesting translations");
+            console.log('🧭 Inside iframe – requesting translations');
 
-            window.parent.postMessage(
-                { type: 'request-translations' },
-                '*'
-            );
+            window.parent.postMessage({ type: 'request-translations' }, '*');
         }
 
         const handleMessage = (event: MessageEvent) => {
             if (event.data?.type === 'translations') {
                 console.log('✅ Translations received:', event.data.data);
-                setTranslationStrings('de', event.data.data);
+                setTranslations('de', event.data.data);
             }
         };
 
@@ -295,14 +274,14 @@ export function TranslationModeOverlay() {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.repeat) return; // Ignore repeated key presses
 
-            if (e.key === "Control" || e.key === "Meta") {
+            if (e.key === 'Control' || e.key === 'Meta') {
                 keyHeldRef.current = true;
                 setMode('key');
                 console.log('Translation mode activated');
             }
         };
         const handleKeyUp = (e: KeyboardEvent) => {
-            if (e.key === "Control" || e.key === "Meta") {
+            if (e.key === 'Control' || e.key === 'Meta') {
                 keyHeldRef.current = false;
                 setMode(undefined);
             }
@@ -310,17 +289,14 @@ export function TranslationModeOverlay() {
 
         const handleClick = (e: MouseEvent) => {
             if (keyHeldRef.current) {
-                e.stopPropagation()
-                e.preventDefault()
+                e.stopPropagation();
+                e.preventDefault();
                 // console.log('Clicked translation key:', e.target);
                 const target = e.target as HTMLElement;
                 const key = target?.textContent?.trim();
                 if (key) {
                     console.log('Clicked translation key:', key);
-                    window.parent.postMessage(
-                        { type: 'request-key', key },
-                        '*'
-                    );
+                    window.parent.postMessage({ type: 'request-key', key }, '*');
                     keyHeldRef.current = false;
                     setMode(undefined);
                 }
@@ -451,7 +427,6 @@ function AppWrapper() {
                             {Platform.OS !== 'web' && <ChangelogSnackbar />}
                             {/*<ErrorSnackbar />*/}
                         </View>
-
 
                         <TranslationModeOverlay />
 

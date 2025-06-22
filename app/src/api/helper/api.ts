@@ -16,8 +16,8 @@ import {
     IProfilesResult,
 } from './api.types';
 import { dateReviver, getHost } from '@nex/data';
-import { getInternalLanguage } from '../../redux/statecache';
 import { fetchJson } from '@app/api/util';
+import { getInternalLanguage } from '@app/helper/translate';
 
 export async function fetchProfileRatings(params: IFetchProfileRatingParams) {
     console.log('fetchProfileRatings', params);

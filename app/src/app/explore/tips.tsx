@@ -27,7 +27,6 @@ interface ITip {
     icon?: string;
 }
 
-// const videoBaseUrl = 'https://pub-a991fc2193ea4fcabbd20a360421353c.r2.dev/public/aoe2/de/tips/video/';
 const videoBaseUrl = 'https://frontend.cdn.aoe2companion.com/public/aoe2/de/tips/video/';
 const imageBaseUrl = 'https://frontend.cdn.aoe2companion.com/public/aoe2/de/tips/image/';
 
@@ -40,116 +39,109 @@ function getVideoSource(name: string) {
 }
 
 const tips: ITip[] = [
-    // {
-    //     title: 'Defend the drush',
-    //     description: 'Move villagers into town center and do quick-walls to win.',
-    //     video: require('../../assets/tips/aoe-1.mp4'),
-    //     video: getVideoUrl('http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'),
-    //     url: 'https://www.ageofempires.com/mods/details/2695',
-    // },
     {
         title: getTranslationInternal('tips.item.heading.gatheringefficiently'),
         description: getTranslationInternal('tips.item.note.gatheringefficiently'),
         video: getVideoSource('aoe-sheep.mp4'),
         unit: 'Sheep',
     },
-    {
-        title: getTranslationInternal('tips.item.heading.savevillagerfromboar'),
-        description: getTranslationInternal('tips.item.note.savevillagerfromboar'),
-        video: getVideoSource('aoe-boar.mp4'),
-        unit: 'Boar',
-    },
-    {
-        title: getTranslationInternal('tips.item.heading.autoscout'),
-        description: getTranslationInternal('tips.item.note.autoscout'),
-        video: getVideoSource('aoe-auto-scout.mp4'),
-        unit: 'ScoutCavalry',
-    },
-    {
-        title: getTranslationInternal('tips.item.heading.automaticfarmseeding'),
-        description: getTranslationInternal('tips.item.note.automaticfarmseeding'),
-        video: getVideoSource('aoe-auto-seed.mp4'),
-        building: 'Farm',
-    },
-    {
-        title: getTranslationInternal('tips.item.heading.rotategates'),
-        description: getTranslationInternal('tips.item.note.rotategates'),
-        video: getVideoSource('aoe-gate.mp4'),
-        building: 'PalisadeGate',
-    },
-    {
-        title: getTranslationInternal('tips.item.heading.taskqueue'),
-        description: getTranslationInternal('tips.item.note.taskqueue'),
-        video: getVideoSource('aoe-task-queue.mp4'),
-        imageIcon: require('../../../assets/tips/icon/aoe-task-queue.png'),
-    },
-    {
-        title: getTranslationInternal('tips.item.heading.farmingefficiently'),
-        description: getTranslationInternal('tips.item.note.farmingefficiently'),
-        image: getImageSource('aoe-farm.webp'),
-        building: 'Farm',
-    },
-
-    {
-        title: getTranslationInternal('tips.item.heading.smalltrees'),
-        description: getTranslationInternal('tips.item.note.smalltrees'),
-        video: getVideoSource('aoe-small-trees.mp4'),
-        url: 'https://www.ageofempires.com/mods/details/790',
-        imageIcon: require('../../../assets/tips/icon/aoe-small-trees.png'),
-    },
-    {
-        title: getTranslationInternal('tips.item.heading.zetnusimprovedgridmod'),
-        description: getTranslationInternal('tips.item.note.zetnusimprovedgridmod'),
-        image: getImageSource('aoe-grid.webp'),
-        url: 'https://www.ageofempires.com/mods/details/812',
-        imageIcon: require('../../../assets/tips/icon/aoe-grid.png'),
-    },
-    {
-        title: getTranslationInternal('tips.item.heading.idlevillagerpointer'),
-        description: getTranslationInternal('tips.item.note.idlevillagerpointer'),
-        video: getVideoSource('aoe-idle-villager-pointer.mp4'),
-        url: 'https://www.ageofempires.com/mods/details/2686',
-        imageIcon: require('../../../assets/tips/icon/aoe-idle-villager-pointer.png'),
-    },
-    {
-        title: getTranslationInternal('tips.item.heading.idlevillagerhighlightbyarrow'),
-        description: getTranslationInternal('tips.item.note.idlevillagerhighlightbyarrow'),
-        image: getImageSource('aoe-idle-villager-arrow.webp'),
-        url: 'https://www.ageofempires.com/mods/details/3789',
-        imageIcon: require('../../../assets/tips/icon/aoe-idle-villager-arrow.png'),
-    },
-    {
-        title: getTranslationInternal('tips.item.heading.nointro'),
-        description: getTranslationInternal('tips.item.note.nointro'),
-        url: 'https://www.ageofempires.com/mods/details/2416',
-        icon: 'video',
-    },
-    {
-        title: getTranslationInternal('tips.item.heading.hugenumber'),
-        description: getTranslationInternal('tips.item.note.hugenumber'),
-        url: 'https://www.ageofempires.com/mods/details/1779',
-        imageIcon: require('../../../assets/tips/icon/aoe-huge-number.png'),
-    },
-    {
-        title: getTranslationInternal('tips.item.heading.blacksmithupgrades'),
-        description: getTranslationInternal('tips.item.note.blacksmithupgrades'),
-        building: 'Blacksmith',
-    },
-    {
-        title: getTranslationInternal('tips.item.heading.selectingallidlevillagers'),
-        description: getTranslationInternal('tips.item.note.selectingallidlevillagers'),
-        unit: 'Villager',
-    },
-    {
-        title: getTranslationInternal('tips.item.heading.selectingalllandmilitaryunits'),
-        description: getTranslationInternal('tips.item.note.selectingalllandmilitaryunits'),
-        unit: 'ManAtArms',
-    },
-    {
-        title: getTranslationInternal('tips.item.heading.donotstockpileresources'),
-        description: getTranslationInternal('tips.item.note.donotstockpileresources'),
-        imageIcon: require('../../../assets/other/Gold.png'),
-    },
+    // {
+    //     title: getTranslationInternal('tips.item.heading.savevillagerfromboar'),
+    //     description: getTranslationInternal('tips.item.note.savevillagerfromboar'),
+    //     video: getVideoSource('aoe-boar.mp4'),
+    //     unit: 'Boar',
+    // },
+    // {
+    //     title: getTranslationInternal('tips.item.heading.autoscout'),
+    //     description: getTranslationInternal('tips.item.note.autoscout'),
+    //     video: getVideoSource('aoe-auto-scout.mp4'),
+    //     unit: 'ScoutCavalry',
+    // },
+    // {
+    //     title: getTranslationInternal('tips.item.heading.automaticfarmseeding'),
+    //     description: getTranslationInternal('tips.item.note.automaticfarmseeding'),
+    //     video: getVideoSource('aoe-auto-seed.mp4'),
+    //     building: 'Farm',
+    // },
+    // {
+    //     title: getTranslationInternal('tips.item.heading.rotategates'),
+    //     description: getTranslationInternal('tips.item.note.rotategates'),
+    //     video: getVideoSource('aoe-gate.mp4'),
+    //     building: 'PalisadeGate',
+    // },
+    // {
+    //     title: getTranslationInternal('tips.item.heading.taskqueue'),
+    //     description: getTranslationInternal('tips.item.note.taskqueue'),
+    //     video: getVideoSource('aoe-task-queue.mp4'),
+    //     imageIcon: require('../../../assets/tips/icon/aoe-task-queue.png'),
+    // },
+    // {
+    //     title: getTranslationInternal('tips.item.heading.farmingefficiently'),
+    //     description: getTranslationInternal('tips.item.note.farmingefficiently'),
+    //     image: getImageSource('aoe-farm.webp'),
+    //     building: 'Farm',
+    // },
+    //
+    // {
+    //     title: getTranslationInternal('tips.item.heading.smalltrees'),
+    //     description: getTranslationInternal('tips.item.note.smalltrees'),
+    //     video: getVideoSource('aoe-small-trees.mp4'),
+    //     url: 'https://www.ageofempires.com/mods/details/790',
+    //     imageIcon: require('../../../assets/tips/icon/aoe-small-trees.png'),
+    // },
+    // {
+    //     title: getTranslationInternal('tips.item.heading.zetnusimprovedgridmod'),
+    //     description: getTranslationInternal('tips.item.note.zetnusimprovedgridmod'),
+    //     image: getImageSource('aoe-grid.webp'),
+    //     url: 'https://www.ageofempires.com/mods/details/812',
+    //     imageIcon: require('../../../assets/tips/icon/aoe-grid.png'),
+    // },
+    // {
+    //     title: getTranslationInternal('tips.item.heading.idlevillagerpointer'),
+    //     description: getTranslationInternal('tips.item.note.idlevillagerpointer'),
+    //     video: getVideoSource('aoe-idle-villager-pointer.mp4'),
+    //     url: 'https://www.ageofempires.com/mods/details/2686',
+    //     imageIcon: require('../../../assets/tips/icon/aoe-idle-villager-pointer.png'),
+    // },
+    // {
+    //     title: getTranslationInternal('tips.item.heading.idlevillagerhighlightbyarrow'),
+    //     description: getTranslationInternal('tips.item.note.idlevillagerhighlightbyarrow'),
+    //     image: getImageSource('aoe-idle-villager-arrow.webp'),
+    //     url: 'https://www.ageofempires.com/mods/details/3789',
+    //     imageIcon: require('../../../assets/tips/icon/aoe-idle-villager-arrow.png'),
+    // },
+    // {
+    //     title: getTranslationInternal('tips.item.heading.nointro'),
+    //     description: getTranslationInternal('tips.item.note.nointro'),
+    //     url: 'https://www.ageofempires.com/mods/details/2416',
+    //     icon: 'video',
+    // },
+    // {
+    //     title: getTranslationInternal('tips.item.heading.hugenumber'),
+    //     description: getTranslationInternal('tips.item.note.hugenumber'),
+    //     url: 'https://www.ageofempires.com/mods/details/1779',
+    //     imageIcon: require('../../../assets/tips/icon/aoe-huge-number.png'),
+    // },
+    // {
+    //     title: getTranslationInternal('tips.item.heading.blacksmithupgrades'),
+    //     description: getTranslationInternal('tips.item.note.blacksmithupgrades'),
+    //     building: 'Blacksmith',
+    // },
+    // {
+    //     title: getTranslationInternal('tips.item.heading.selectingallidlevillagers'),
+    //     description: getTranslationInternal('tips.item.note.selectingallidlevillagers'),
+    //     unit: 'Villager',
+    // },
+    // {
+    //     title: getTranslationInternal('tips.item.heading.selectingalllandmilitaryunits'),
+    //     description: getTranslationInternal('tips.item.note.selectingalllandmilitaryunits'),
+    //     unit: 'ManAtArms',
+    // },
+    // {
+    //     title: getTranslationInternal('tips.item.heading.donotstockpileresources'),
+    //     description: getTranslationInternal('tips.item.note.donotstockpileresources'),
+    //     imageIcon: require('../../../assets/other/Gold.png'),
+    // },
 ];
 
 function getTipStyle(active: boolean, status: string) {

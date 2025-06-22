@@ -9,7 +9,6 @@ import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Button } from '@app/components/button';
 import { deactivatePusher, initPusher } from '@app/helper/pusher';
 import { setMainPageShown, useMutate } from '@app/redux/reducer';
-import { setInternalLanguage } from '@app/redux/statecache';
 import { getToken } from '@app/service/push';
 import { createStylesheet } from '@app/theming-new';
 import { appConfig } from '@nex/dataset';
@@ -153,7 +152,6 @@ export default function SettingsPage() {
             ...account!,
             language,
         });
-        setInternalLanguage(language);
     };
 
     const onMainPageSelected = async (mainPage: string) => {

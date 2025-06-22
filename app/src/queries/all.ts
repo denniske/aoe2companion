@@ -31,6 +31,7 @@ export const useAccountData = <T>(select?: (data: IAccount) => T) =>
     }).data;
 
 export const useAuthProfileId = () => useAccountData((data) => data.profileId);
+export const useLanguage = () => useAccountData((data) => data.language);
 
 export const useFollowedAndMeProfileIds = () => useAccountData((data) => {
     return compact(uniq([data.profileId, ...data.followedPlayers.map((f) => f.profileId)]))
