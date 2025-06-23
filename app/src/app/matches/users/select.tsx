@@ -1,6 +1,7 @@
 import Search from '@app/view/components/search';
 import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import { useEffect } from 'react';
+import { useTranslation } from '@app/helper/translate';
 import { useSaveAccountMutation } from '@app/mutations/save-account';
 import { useAccount } from '@app/queries/all';
 
@@ -12,6 +13,7 @@ const SelectProfilePage = () => {
     const { search } = useLocalSearchParams<ISearchProfilePageParams>();
     const { data: account } = useAccount();
     const saveAccountMutation = useSaveAccountMutation();
+    const getTranslation = useTranslation();
 
     const onSelect = async (user: any) => {
         console.log('SELECTED', user);
@@ -24,11 +26,16 @@ const SelectProfilePage = () => {
     const navigation = useNavigation();
 
     useEffect(() => {
-        navigation.setOptions({ title: 'Find My Account' });
-    }, [navigation]);
+        navigation.setOptions({ title: getTranslation('search.findmyaccount.title') });
+    }, [navigation, getTranslation]);
 
     return (
-        <Search title="Enter your AoE username to track your games" selectedUser={onSelect} actionText="Choose" initialText={search} />
+        <Search
+            title={getTranslation('search.findmyaccount.description')}
+            selectedUser={onSelect}
+            actionText={getTranslation('search.findmyaccount.action')}
+            initialText={search}
+        />
     );
 };
 

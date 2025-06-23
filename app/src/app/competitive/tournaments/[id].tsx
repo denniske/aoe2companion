@@ -390,7 +390,9 @@ export default function TournamentDetail() {
                     </View>,
                     <View className="gap-2 px-4">
                         <Text variant="header">{getTranslation('tournaments.fullschedule')}</Text>
-                        {!tournament.scheduleNote && tournament.schedule.length === 0 ? <Text>Schedule not available</Text> : null}
+                        {!tournament.scheduleNote && tournament.schedule.length === 0 ? (
+                            <Text>{getTranslation('tournaments.schedulenotavailable')}</Text>
+                        ) : null}
 
                         {tournament.scheduleNote && (
                             <View className="pb-4">

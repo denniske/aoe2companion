@@ -144,7 +144,14 @@ export default function IndexPage() {
 
             {authProfileId && (
                 <View className="gap-2">
-                    <Text variant="header-lg">{currentMatch?.finished === null ? 'Current' : 'Most Recent'} Match</Text>
+                    <Text variant="header-lg">
+                        {getTranslation(
+                            currentMatch?.finished === null
+                                ? 'home.current'
+                                : 'home.mostRecent'
+                        )}{' '}
+                        Match
+                    </Text>
 
                     <View className="gap-2">
                         <Match user={currentMatch?.filteredPlayers[0]} highlightedUsers={currentMatch?.filteredPlayers} match={currentMatch} />
@@ -155,8 +162,12 @@ export default function IndexPage() {
             {favorites.length > 0 && (
                 <View className="gap-2">
                     <View className="flex-row justify-between items-center">
-                        <Text variant="header-lg">Favorite Build Orders</Text>
-                        <Link href="/explore/build-orders">View All</Link>
+                        <Text variant="header-lg">
+                            {getTranslation('home.favoriteBuildOrders')}
+                        </Text>
+                        <Link href="/explore/build-orders">
+                            {getTranslation('home.viewAll')}
+                        </Link>
                     </View>
 
                     <FlatList
@@ -176,7 +187,9 @@ export default function IndexPage() {
                 <View className="gap-2">
                     <View className="flex-row justify-between items-center">
                         <Text variant="header-lg">{followedIds[0] ? 'Favorite' : 'Featured'} Tournament</Text>
-                        <Link href="/competitive/tournaments">View All</Link>
+                        <Link href="/competitive/tournaments">
+                            {getTranslation('home.viewAll')}
+                        </Link>
                     </View>
                     {followedIds[0] ? <TournamentCardLarge path={followedIds[0]} /> : <TournamentCardLarge {...tournament} />}
                 </View>
