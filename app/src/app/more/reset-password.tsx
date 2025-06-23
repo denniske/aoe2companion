@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
+import { useTranslation } from '@app/helper/translate';
 import { createStylesheet } from '../../theming-new';
 import { Stack, useRouter } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
@@ -14,6 +15,7 @@ export default function ResetPasswordPage() {
     const styles = useStyles();
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
+    const getTranslation = useTranslation();
     const router = useRouter();
 
     const queryClient = useQueryClient();
@@ -33,7 +35,7 @@ export default function ResetPasswordPage() {
         if (error) {
             Alert.alert(error.message);
         } else {
-            Alert.alert('Your password has been changed!');
+            Alert.alert(getTranslation('resetpassword.changed'));
             await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' });
             router.replace('/more/account');
         }
@@ -43,12 +45,12 @@ export default function ResetPasswordPage() {
 
     return (
         <ScrollView contentContainerStyle="min-h-full p-5">
-            <Stack.Screen options={{ title: 'Reset Password' }} />
+            <Stack.Screen options={{ title: getTranslation('resetpassword.title') }} />
 
             <View style={styles.container}>
                 <View style={[styles.verticallySpaced, styles.mt20]}>
                     {/*<MyText>Password</MyText>*/}
-                    <Field placeholder="New password" type="password" onChangeText={setPassword} value={password} autoFocus={true} />
+                    <Field placeholder={getTranslation('resetpassword.placeholder.newpassword')} type="password" onChangeText={setPassword} value={password} autoFocus={true} />
                 </View>
 
                 <View style={[styles.verticallySpaced, styles.mt20]}>
@@ -56,7 +58,7 @@ export default function ResetPasswordPage() {
                         disabled={loading}
                         onPress={() => changePassword()}
                     >
-                        Change password
+                        {getTranslation('resetpassword.button.change')}
                     </Button>
                 </View>
             </View>

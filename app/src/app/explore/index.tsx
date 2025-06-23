@@ -154,8 +154,8 @@ export default function Explore() {
                     <ScrollView className="flex-1" contentContainerStyle="gap-5 pb-4" keyboardShouldPersistTaps="handled">
                         <View className="gap-2">
                             <View className="flex-row justify-between items-center px-4">
-                                <Text variant="header-lg">Civilizations</Text>
-                                <Link href="/explore/civilizations">View All</Link>
+                                <Text variant="header-lg">{getTranslation('explore.civilizations')}</Text>
+                                <Link href="/explore/civilizations">{getTranslation('explore.viewall')}</Link>
                             </View>
 
                             <FlatList
@@ -180,8 +180,8 @@ export default function Explore() {
 
                         <View className="gap-2">
                             <View className="flex-row justify-between items-center px-4">
-                                <Text variant="header-lg">Units</Text>
-                                <Link href="/explore/units">View All</Link>
+                                <Text variant="header-lg">{getTranslation('explore.units')}</Text>
+                                <Link href="/explore/units">{getTranslation('explore.viewall')}</Link>
                             </View>
 
                             <FlatList
@@ -210,8 +210,8 @@ export default function Explore() {
 
                         <View className="gap-2">
                             <View className="flex-row justify-between items-center px-4">
-                                <Text variant="header-lg">Buildings</Text>
-                                <Link href="/explore/buildings">View All</Link>
+                                <Text variant="header-lg">{getTranslation('explore.buildings')}</Text>
+                                <Link href="/explore/buildings">{getTranslation('explore.viewall')}</Link>
                             </View>
 
                             <FlatList
@@ -240,8 +240,8 @@ export default function Explore() {
 
                         <View className="gap-2">
                             <View className="flex-row justify-between items-center px-4">
-                                <Text variant="header-lg">Technologies</Text>
-                                <Link href="/explore/technologies">View All</Link>
+                                <Text variant="header-lg">{getTranslation('explore.technologies')}</Text>
+                                <Link href="/explore/technologies">{getTranslation('explore.viewall')}</Link>
                             </View>
 
                             <FlatList
@@ -274,8 +274,8 @@ export default function Explore() {
 
                         <View className="gap-2">
                             <View className="flex-row justify-between items-center px-4">
-                                <Text variant="header-lg">Build Orders</Text>
-                                <Link href="/explore/build-orders">View All</Link>
+                                <Text variant="header-lg">{getTranslation('explore.buildorders')}</Text>
+                                <Link href="/explore/build-orders">{getTranslation('explore.viewall')}</Link>
                             </View>
 
                             <FlatList

@@ -7,11 +7,13 @@ import { useQueryClient } from '@tanstack/react-query';
 import Space from '@app/view/components/space';
 import { supabaseClient } from '@nex/data';
 import { authConfirm } from '@app/api/account';
+import { useTranslation } from '@app/helper/translate';
 
 export default function AuthConfirm() {
     const router = useRouter();
     const params = useGlobalSearchParams();
     const queryClient = useQueryClient();
+    const getTranslation = useTranslation();
 
     const init = async () => {
         console.log('authConfirm', params);
@@ -46,7 +48,7 @@ export default function AuthConfirm() {
             <Stack.Screen
                 options={{
                     animation: 'none',
-                    title: 'Account',
+                    title: getTranslation('account.title'),
                     headerShown: true,
                     header: Header,
                 }}
@@ -55,7 +57,7 @@ export default function AuthConfirm() {
             <View className="flex w-full pt-20 items-center justify-center">
                 <ActivityIndicator />
                 <Space />
-                <MyText>Confirming email...</MyText>
+                <MyText>{getTranslation('authconfirm.confirming')}</MyText>
             </View>
         </View>
     );

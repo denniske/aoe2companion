@@ -5,6 +5,7 @@ import { Stack, router } from 'expo-router';
 import { Platform, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import Constants from 'expo-constants';
+import { useTranslation } from '@app/helper/translate';
 
 interface Link {
     icon: IconName;
@@ -14,17 +15,18 @@ interface Link {
 
 export default function More() {
     const isMajorRelease = Constants.expoConfig?.version?.includes('.0.0');
+    const getTranslation = useTranslation();
 
     const links: Link[] = [
         // { icon: 'user', title: 'Account', path: '/more/account' },
-        { icon: 'cog', title: 'Settings', path: '/more/settings' },
-        { icon: 'question-circle', title: 'About', path: '/more/about' },
-        { icon: 'exchange-alt', title: 'Changelog', path: '/more/changelog' },
-        { icon: 'hands-helping', title: 'Help', path: 'https://discord.com/invite/gCunWKx' },
+        { icon: 'cog', title: getTranslation('settings.title'), path: '/more/settings' },
+        { icon: 'question-circle', title: getTranslation('about.title'), path: '/more/about' },
+        { icon: 'exchange-alt', title: getTranslation('changelog.title'), path: '/more/changelog' },
+        { icon: 'hands-helping', title: getTranslation('footer.help'), path: 'https://discord.com/invite/gCunWKx' },
 
         ...(
             !(Platform.OS === 'ios' && isMajorRelease) ?
-            [{ icon: 'coffee', title: 'Buy me a coffee', path: 'https://www.buymeacoffee.com/denniskeil' } as Link] : []
+            [{ icon: 'coffee', title: getTranslation('footer.buymeacoffee'), path: 'https://www.buymeacoffee.com/denniskeil' } as Link] : []
         ),
     ];
 
@@ -32,7 +34,7 @@ export default function More() {
         <>
             <Stack.Screen options={{
                 animation: 'none',
-                title: 'More',
+                title: getTranslation('more.title'),
             }} />
             <FlatList
                 contentContainerStyle="p-4"
