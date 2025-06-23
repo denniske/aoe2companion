@@ -4,7 +4,7 @@ import { Platform } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { queryClient } from '@app/service/query-client';
 import { QUERY_KEY_ACCOUNT, useLanguage } from '@app/queries/all';
-import { MMKV, useMMKV } from 'react-native-mmkv';
+import { MMKV, useMMKV, useMMKVString } from 'react-native-mmkv';
 import { useEffect } from 'react';
 
 export const supportedMainLocales = ['ms', 'fr', 'es', 'it', 'pt', 'ru', 'vi', 'tr', 'de', 'en', 'es', 'hi', 'ja', 'ko'];
@@ -48,6 +48,11 @@ export function getTranslationInternal(key: keyof typeof local001, params?: Reco
 
     // console.log('getTranslation', language, key);
 
+    const mode = defaultInstance.getString('translationMode')
+    if (mode === 'key') {
+        return key;
+    }
+
     if (!language) return '\u00A0';
 
     const translations = queryClient.getQueryData<Record<string, string>>(['translations', language]);
@@ -85,6 +90,13 @@ export function useTranslation() {
 
     // console.log('useTranslation', language, translations, translationsEn);
 
+    const [mode] = useMMKVString('translationMode');
+    if (mode === 'key') {
+        return (key: keyof typeof local001, params?: Record<string, any>) => {
+            return key;
+        };
+    }
+
     return (key: keyof typeof local001, params?: Record<string, string | number>) => {
         let translated = translations && key in translations ? translations[key] : translationsEn?.[key];
         if (translated && params) {
@@ -92,7 +104,7 @@ export function useTranslation() {
                 translated = translated.replace(new RegExp(`\{${key}\}`, 'gi'), params![key]);
             }
         }
-        console.log('getTranslation', language, key, translated);
+        // console.log('getTranslation', language, key, translated);
         return translated;
     };
 }

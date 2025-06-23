@@ -43,6 +43,8 @@ import { PortalProvider } from '@app/components/portal/portal-host';
 import { setAccountLiveActivityToken, storeLiveActivityStarted } from '@app/api/account';
 import { useMMKVString } from 'react-native-mmkv';
 import { queryClient } from '@app/service/query-client';
+import { TranslationModeOverlay } from '@app/components/translation/translation-mode-overlay';
+import { PostMessageTranslationsController } from '@app/components/translation/post-message-translation';
 
 initSentry();
 
@@ -215,90 +217,6 @@ function useColorSchemes() {
     } as const;
 }
 
-function PostMessageTranslationsController() {
-    useEffect(() => {
-        if (window.self !== window.parent) {
-            console.log('🧭 Inside iframe – requesting translations');
-
-            window.parent.postMessage({ type: 'request-translations' }, '*');
-        }
-
-        const handleMessage = (event: MessageEvent) => {
-            if (event.data?.type === 'translations') {
-                console.log('✅ Translations received:', event.data.data);
-                setTranslations('de', event.data.data);
-            }
-        };
-
-        window.addEventListener('message', handleMessage);
-        return () => window.removeEventListener('message', handleMessage);
-    }, []);
-
-    return <View />;
-}
-
-export function TranslationModeOverlay() {
-    const [mode, setMode] = useMMKVString('translationMode');
-    const keyHeldRef = useRef(false);
-
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.repeat) return; // Ignore repeated key presses
-
-            if (e.key === 'Control' || e.key === 'Meta') {
-                keyHeldRef.current = true;
-                setMode('key');
-                console.log('Translation mode activated');
-            }
-        };
-        const handleKeyUp = (e: KeyboardEvent) => {
-            if (e.key === 'Control' || e.key === 'Meta') {
-                keyHeldRef.current = false;
-                setMode(undefined);
-            }
-        };
-
-        const handleClick = (e: MouseEvent) => {
-            if (keyHeldRef.current) {
-                e.stopPropagation();
-                e.preventDefault();
-                // console.log('Clicked translation key:', e.target);
-                const target = e.target as HTMLElement;
-                const key = target?.textContent?.trim();
-                if (key) {
-                    console.log('Clicked translation key:', key);
-                    window.parent.postMessage({ type: 'request-key', key }, '*');
-                    keyHeldRef.current = false;
-                    setMode(undefined);
-                }
-            }
-        };
-
-        if (Platform.OS === 'web') {
-            console.log('ADD LISTENERS');
-            window.addEventListener('keydown', handleKeyDown);
-            window.addEventListener('keyup', handleKeyUp);
-            window.addEventListener('click', handleClick, true);
-        }
-
-        return () => {
-            if (Platform.OS === 'web') {
-                window.removeEventListener('keydown', handleKeyDown);
-                window.removeEventListener('keyup', handleKeyUp);
-                window.removeEventListener('click', handleClick, true);
-            }
-        };
-    }, []);
-
-    if (mode !== 'key') return null;
-
-    return (
-        <View
-            pointerEvents="none"
-        ></View>
-    );
-}
-
 function AppWrapper() {
     console.log('AppWrapper...');
 
@@ -372,6 +290,7 @@ function AppWrapper() {
                         <LiveActivityController />
                         {/*<AccountController />*/}
                         {Platform.OS === 'web' && <PostMessageTranslationsController />}
+                        {Platform.OS === 'web' && <TranslationModeOverlay />}
 
                         <View
                             style={{
@@ -386,7 +305,6 @@ function AppWrapper() {
                             {/*<ErrorSnackbar />*/}
                         </View>
 
-                        <TranslationModeOverlay />
 
                         <PortalProvider>
                             <>
