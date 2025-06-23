@@ -54,7 +54,7 @@ export default function UnitDetails() {
                             <HeaderTitle
                                 icon={getUnitIcon(unitName)}
                                 title={getUnitName(unitName)}
-                                subtitle={unitLine.civ ? unitLine.civ + ' unique unit' : undefined}
+                                subtitle={unitLine.civ ? unitLine.civ + ' ' + getTranslation('explore.units.uniqueunit') : undefined}
                             />
                         ),
                     }}

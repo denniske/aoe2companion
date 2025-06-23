@@ -244,12 +244,17 @@
     "account.action.logout": "Logout",
 
     "more.title": "More",
+    "explore.title": "Explore",
     "explore.civilizations": "Civilizations",
     "explore.units": "Units",
     "explore.buildings": "Buildings",
     "explore.technologies": "Technologies",
     "explore.buildorders": "Build Orders",
     "explore.viewall": "View All",
+    "explore.tips": "Tips",
+    "explore.search.placeholder": "Search for civs, units, buildings, or techs",
+    "explore.units.uniqueunit": "unique unit",
+    "explore.techs.uniquetech": "unique tech",
 
     "about.title": "About",
     "about.heading.createdby": "Created by",

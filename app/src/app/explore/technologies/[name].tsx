@@ -7,7 +7,7 @@ import {
     buildings,
     getAffectedBuildingInfos,
     getAffectedUnitInfos,
-    getAgeFromAgeTech,
+    getAgeFromAgeTech, getAgeName,
     getTechData,
     getTechDescription,
     getTechName,
@@ -78,7 +78,7 @@ export default function TechDetails() {
                             <HeaderTitle
                                 icon={getTechIcon(tech)}
                                 title={getTechName(tech)}
-                                subtitle={techInfo.civ ? techInfo.civ + ' unique tech (' + techInfo.age + ' age)' : undefined}
+                                subtitle={techInfo.civ ? techInfo.civ + ' ' + getTranslation('explore.techs.uniquetech') + ' (' + getAgeName(techInfo.age) + ')' : undefined}
                             />
                         ),
                     }}

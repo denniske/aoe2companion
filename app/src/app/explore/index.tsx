@@ -31,7 +31,7 @@ import { appConfig } from '@nex/dataset';
 import { buildsData } from 'data/src/data/builds';
 import { Image } from 'expo-image';
 import { Redirect, Stack, router } from 'expo-router';
-import { reverse, sortBy, uniq } from 'lodash';
+import { get, reverse, sortBy, uniq } from 'lodash';
 import { useState } from 'react';
 import { ImageSourcePropType, TouchableOpacity, View } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
@@ -42,16 +42,17 @@ type Item =
     | { name: Building; title: string; type: 'building'; section: string }
     | { name: Tech; title: string; type: 'tech'; section?: string };
 
-const typeAttributes: Record<Item['type'], { path: string; label: string; title: (name: any) => string; icon: (name: any) => ImageSourcePropType }> =
+const typeAttributes: Record<Item['type'], { path: string; labelKey: string; title: (name: any) => string; icon: (name: any) => ImageSourcePropType }> =
     {
-        civ: { path: 'civilizations', label: 'Civilization', title: getCivNameById, icon: getCivIconLocal },
-        unit: { path: 'units', label: 'Unit', title: getUnitName, icon: getUnitIcon },
-        building: { path: 'buildings', label: 'Building', title: getBuildingName, icon: getBuildingIcon },
-        tech: { path: 'technologies', label: 'Tech', title: getTechName, icon: getTechIcon },
+        civ: { path: 'civilizations', labelKey: 'explore.civilization', title: getCivNameById, icon: getCivIconLocal },
+        unit: { path: 'units', labelKey: 'explore.unit', title: getUnitName, icon: getUnitIcon },
+        building: { path: 'buildings', labelKey: 'explore.building', title: getBuildingName, icon: getBuildingIcon },
+        tech: { path: 'technologies', labelKey: 'explore.tech', title: getTechName, icon: getTechIcon },
     };
 
 const Result: React.FC<{ item: Item; index: number }> = ({ item, index }) => {
-    const { path, label, title, icon } = typeAttributes[item.type];
+    const getTranslation = useTranslation();
+    const { path, labelKey, title, icon } = typeAttributes[item.type];
 
     return (
         <TouchableOpacity
@@ -63,7 +64,7 @@ const Result: React.FC<{ item: Item; index: number }> = ({ item, index }) => {
                 <Text variant="label">{title(item.name)}</Text>
             </View>
             <Text color="subtle" variant="body-sm">
-                {item.type !== 'civ' && item.section && item.section} {label}
+                {item.type !== 'civ' && item.section && item.section} {getTranslation(labelKey as any)}
             </Text>
         </TouchableOpacity>
     );
@@ -117,10 +118,10 @@ export default function Explore() {
                 <Stack.Screen
                     options={{
                         animation: 'none',
-                        title: 'Explore',
+                        title: getTranslation('explore.title'),
                         headerRight: () => (
                             <Button icon="info-circle" href="/explore/tips">
-                                Tips
+                                {getTranslation('explore.tips')}
                             </Button>
                         ),
                     }}
@@ -138,7 +139,7 @@ export default function Explore() {
                             }
                         }}
                         onChangeText={setSearch}
-                        placeholder="Search for civs, units, buildings, or techs"
+                        placeholder={getTranslation('explore.search.placeholder')}
                     />
                 </View>
 

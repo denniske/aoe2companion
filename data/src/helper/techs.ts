@@ -1,5 +1,5 @@
 import {Civ} from "./civs";
-import {getUnitLineIdForUnit, ICostDict, sortedUnitLines, Unit, UnitLine, unitLines} from "./units";
+import { getUnitData, getUnitLineIdForUnit, ICostDict, sortedUnitLines, Unit, UnitLine, unitLines } from './units';
 import {aoeData, aoeTechDataId} from "../data/data";
 import {keysOf, sanitizeGameDescription, strRemoveTo, unwrap} from "../lib/util";
 import {getAoeString} from '../lib/aoe-data';
@@ -34,6 +34,18 @@ export function getAgeFromAgeTech(ageTech: Tech) {
     if (ageTech === 'CastleAge') return 'Castle';
     if (ageTech === 'ImperialAge') return 'Imperial';
     return null;
+}
+
+const ageNameMap = {
+    "Dark": 4201,
+    "Feudal": 4202,
+    "Castle": 4203,
+    "Imperial": 4204,
+}
+
+export function getAgeName(age?: Age) {
+    if (!age) return '';
+    return getAoeString(ageNameMap[age].toString());
 }
 
 interface ITech {
