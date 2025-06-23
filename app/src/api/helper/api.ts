@@ -122,14 +122,15 @@ export async function fetchMatches(params: IFetchMatchesParams) {
 }
 
 export async function fetchLeaderboard(params: IFetchLeaderboardParams) {
+    const { leaderboardId, ...restParams } = params;
     const queryString = makeQueryString(
         decamelizeKeys({
-            ...removeReactQueryParams(params),
-            page: params.page || params.pageParam || 1,
+            ...removeReactQueryParams(restParams),
+            page: restParams.page || restParams.pageParam || 1,
             language: getInternalLanguage(),
         })
     );
-    const url = `${getHost('aoe2companion-data')}api/leaderboards/${params.leaderboardId}?${queryString}`;
+    const url = `${getHost('aoe2companion-data')}api/leaderboards/${leaderboardId}?${queryString}`;
     return camelizeKeys(await fetchJson('fetchLeaderboard', url, undefined, dateReviver)) as ILeaderboard;
 }
 

@@ -14,6 +14,7 @@ import { usePathname, useRootNavigationState, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { setMainPageShown, useMutate, useMutateScroll, useScrollPosition, useSelector } from '@app/redux/reducer';
 import { useAccountData } from '@app/queries/all';
+import { useTranslation } from '@app/helper/translate';
 
 
 function useCurrentTabName() {
@@ -49,6 +50,7 @@ function useIsNavigationReady() {
 }
 
 export const TabBar: React.FC = ({}) => {
+    const getTranslation = useTranslation();
     const insets = useSafeAreaInsets();
     const { bottom } = insets;
     const router = useRouter();
@@ -101,37 +103,37 @@ export const TabBar: React.FC = ({}) => {
     const routes = [
         {
             key: 'index',
-            label: 'Home',
+            label: getTranslation('nav.home'),
             icon: 'home',
             path: '/',
         },
         {
             key: 'matches',
-            label: 'Matches',
+            label: getTranslation('nav.matches'),
             icon: 'chess',
             path: '/matches',
         },
         {
             key: 'explore',
-            label: 'Explore',
+            label: getTranslation('nav.explore'),
             icon: 'landmark',
             path: '/explore',
         },
         {
             key: 'statistics',
-            label: 'Stats',
+            label: getTranslation('nav.stats'),
             icon: 'chart-simple',
             path: '/statistics',
         },
         {
             key: 'competitive',
-            label: 'Pros',
+            label: getTranslation('nav.pros'),
             icon: 'ranking-star',
             path: '/competitive',
         },
         {
             key: 'more',
-            label: 'More',
+            label: getTranslation('nav.more'),
             icon: 'bars',
             path: '/more',
         },

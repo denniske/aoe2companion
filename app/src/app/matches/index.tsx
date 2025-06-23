@@ -104,7 +104,7 @@ export default function MatchesPage() {
             <Stack.Screen
                 options={{
                     animation: 'none',
-                    title: 'Matches',
+                    title: getTranslation('matches.title'),
                     headerRight: () => (
                         <Button href="/matches/users/search" icon="search">
                             {getTranslation('matches.findPlayer')}

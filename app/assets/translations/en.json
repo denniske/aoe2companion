@@ -16,6 +16,14 @@
     "home.featuredTournaments": "Featured Tournaments",
     "home.viewAll": "View All",
 
+    "nav.home": "Home",
+    "nav.matches": "Matches",
+    "nav.explore": "Explore",
+    "nav.stats": "Stats",
+    "nav.pros": "Pros",
+    "nav.more": "More",
+
+    "matches.title": "Matches",
     "matches.search.title": "Find Player",
 
     "matches.follow.title": "Follow Player",
