@@ -9,6 +9,8 @@ import { useEffect } from 'react';
 
 export const supportedMainLocales = ['ms', 'fr', 'es', 'it', 'pt', 'ru', 'vi', 'tr', 'de', 'en', 'es', 'hi', 'ja', 'ko'];
 
+export type IGetTranslation = (key: keyof typeof local001, params?: Record<string, string | number>) => string;
+
 export function getLanguageFromSystemLocale(locale: string) {
     locale = locale.toLowerCase();
 
@@ -57,7 +59,7 @@ export function getTranslationInternal(key: keyof typeof local001, params?: Reco
             translated = translated.replace(new RegExp(`\{${key}\}`, 'gi'), params![key]);
         }
     }
-    return translated;
+    return translated || '';
 }
 
 const defaultInstance = new MMKV();

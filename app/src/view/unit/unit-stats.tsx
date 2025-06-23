@@ -28,7 +28,7 @@ import Space from '../components/space';
 import { getAgeIcon, getOtherIcon, getUnitIcon } from '../../helper/units';
 import { createStylesheet } from '../../theming-new';
 import { uniq } from 'lodash';
-import { getTranslationInternal, useTranslation } from '@app/helper/translate';
+import { getTranslationInternal, IGetTranslation, useTranslation } from '@app/helper/translate';
 
 interface Props {
     unitId: Unit;
@@ -286,13 +286,13 @@ export function getArmourClasses(params: GetDataParams) {
     return data.Armours.filter((a) => !hiddenArmourClasses.includes(getUnitClassName(a.Class as UnitClassNumber)));
 }
 
-function formatChargeType(chargeType: number) {
+function formatChargeType(getTranslation: IGetTranslation, chargeType: number) {
     const chargeTypeMap: any = {
         1: 'attack',
         3: 'areaattack',
         4: 'projectiledodging',
     };
-    return getTranslationInternal(`unit.stats.heading.chargetype.${chargeTypeMap[chargeType]}` as any);
+    return getTranslation(`unit.stats.heading.chargetype.${chargeTypeMap[chargeType]}` as any);
 }
 
 export function UnitStats({ unitId, unitLineId }: Props) {
@@ -440,7 +440,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                 <View style={styles.statsRow}>
                     <MyText style={[styles.cellName, styles.small]}>{getTranslation('unit.stats.heading.chargetype')}</MyText>
                     {units.map((u) => (
-                        <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="ChargeType" formatter={formatChargeType} />
+                        <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="ChargeType" formatter={(x) => formatChargeType(getTranslation, x)} />
                     ))}
                 </View>
             )}
