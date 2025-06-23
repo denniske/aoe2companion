@@ -28,7 +28,7 @@ export const FollowedPlayers = () => {
     return (
         <View className="gap-2">
             <Text variant="header-lg" className="px-4">
-                {getTranslation('home.followedPlayers')}
+                {getTranslation('home.followedplayers')}
             </Text>
             <PlayerList
                 footer={(player) => {
