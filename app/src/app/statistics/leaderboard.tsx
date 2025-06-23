@@ -437,19 +437,6 @@ export default function LeaderboardPage() {
             <Stack.Screen
                 options={{
                     headerTitle: () => <HeaderTitle title="Leaderboards" />,
-
-                    // title: 'Leaderboards',
-                    //     headerRight: () => (
-                    //         <Dropdown
-                    //             style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 6 }}
-                    //             value={leaderboardType}
-                    //             onChange={setLeaderboardType}
-                    //             options={[
-                    //                 { value: 'pc', label: 'PC' },
-                    //                 { value: 'xbox', label: 'Xbox' },
-                    //             ]}
-                    //         />
-                    //     ),
                 }}
             />
 

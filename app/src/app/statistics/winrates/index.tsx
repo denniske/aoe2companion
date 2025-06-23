@@ -8,8 +8,10 @@ import { Stack } from 'expo-router';
 import { sortBy } from 'lodash';
 import React from 'react';
 import { View } from 'react-native';
+import { useTranslation } from '@app/helper/translate';
 
 export default function WinratesPage() {
+    const getTranslation = useTranslation();
     const { winrates } = useWinrates();
     const sortedWinrates = winrates ? sortBy(winrates?.civs, 'win_rate') : Array(5).fill(null);
     const sortedPlayrates = winrates ? sortBy(winrates?.civs, 'play_rate') : Array(5).fill(null);
@@ -18,12 +20,12 @@ export default function WinratesPage() {
         <ScrollView className="flex-1" contentContainerStyle="pt-4 gap-5">
             <Stack.Screen
                 options={{
-                    title: 'Winrates',
+                    title: getTranslation('winrates.title'),
                 }}
             />
             <View className="gap-2">
                 <View className="flex-row justify-between items-center px-4">
-                    <Text variant="header-lg">Highest Win Rates</Text>
+                    <Text variant="header-lg">{getTranslation('winrates.highestwinrates')}</Text>
                 </View>
                 <Slider
                     className="pb-6"
@@ -39,7 +41,7 @@ export default function WinratesPage() {
 
             <View className="gap-2">
                 <View className="flex-row justify-between items-center px-4">
-                    <Text variant="header-lg">Lowest Win Rates</Text>
+                    <Text variant="header-lg">{getTranslation('winrates.lowestwinrates')}</Text>
                 </View>
                 <Slider
                     className="pb-6"
@@ -52,7 +54,7 @@ export default function WinratesPage() {
 
             <View className="gap-2">
                 <View className="flex-row justify-between items-center px-4">
-                    <Text variant="header-lg">Most Played Civilizations</Text>
+                    <Text variant="header-lg">{getTranslation('winrates.mostplayedcivilizations')}</Text>
                 </View>
                 <Slider
                     className="pb-6"
@@ -68,7 +70,7 @@ export default function WinratesPage() {
 
             <View className="gap-2">
                 <View className="flex-row justify-between items-center px-4">
-                    <Text variant="header-lg">Least Played Civilizations</Text>
+                    <Text variant="header-lg">{getTranslation('winrates.leastplayedcivilizations')}</Text>
                 </View>
                 <Slider
                     className="pb-6"

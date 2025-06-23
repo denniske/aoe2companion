@@ -200,6 +200,16 @@
     "builds.step.decision": "Decision",
     "builds.step.trade": "{action} {count}",
 
+    "statistics.title": "Statistics",
+
+    "leaderboards.title": "Leaderboards",
+
+    "winrates.title": "Winrates",
+    "winrates.highestwinrates": "Highest Win Rates",
+    "winrates.lowestwinrates": "Lowest Win Rates",
+    "winrates.mostplayedcivilizations": "Most Played Civilizations",
+    "winrates.leastplayedcivilizations": "Least Played Civilizations",
+
     "building.title": "Buildings",
     "building.search.placeholder": "name",
     "building.section.military": "Military",
