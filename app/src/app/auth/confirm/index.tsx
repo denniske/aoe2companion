@@ -57,7 +57,7 @@ export default function AuthConfirm() {
             <View className="flex w-full pt-20 items-center justify-center">
                 <ActivityIndicator />
                 <Space />
-                <MyText>{getTranslation('authconfirm.confirming')}</MyText>
+                <MyText>{getTranslation('auth.confirmingEmail')}</MyText>
             </View>
         </View>
     );

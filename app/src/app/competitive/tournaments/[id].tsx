@@ -86,7 +86,11 @@ export default function TournamentDetail() {
     const start = tournament?.start ?? mainTournament?.start;
     const end = tournament?.end ?? mainTournament?.end;
     const countryCode = tournament?.location?.country?.code;
-    const tabs = ['Overview', 'Schedule', 'More Info'];
+    const tabs = [
+        getTranslation('tournaments.overview'),
+        getTranslation('tournaments.schedule'),
+        getTranslation('tournaments.moreinfo'),
+    ];
     useColorScheme();
 
     if (!tournament) {
@@ -162,7 +166,11 @@ export default function TournamentDetail() {
                         {filteredMatches.length ? (
                             <View className="gap-2">
                                 <Text variant="header" className="px-4">
-                                    {past ? 'Past Matches' : 'Next Scheduled Matches'}
+                                    {
+                                        past ?
+                                        getTranslation('tournaments.pastMatches') :
+                                        getTranslation('tournaments.nextScheduledMatches')
+                                    }
                                 </Text>
                                 <FlatList
                                     data={filteredMatches ? reverse(filteredMatches) : filteredMatches}
@@ -226,11 +234,11 @@ export default function TournamentDetail() {
                         {tournament.prizePool && (
                             <View className="px-4">
                                 <Button align="center" onPress={() => setVisiblePopup('prizepool')}>
-                                    View Prizes
+                                    {getTranslation('tournaments.viewPrizes')}
                                 </Button>
                                 <BottomSheet
                                     isActive={visiblePopup === 'prizepool'}
-                                    title="Prizes"
+                                    title={getTranslation('tournaments.prizes')}
                                     closeButton
                                     onClose={() => setVisiblePopup(undefined)}
                                 >
@@ -273,11 +281,11 @@ export default function TournamentDetail() {
 
                                 {tournament.groups.length > 0 && (
                                     <View>
-                                        <StageCard title="Group Stage" matches={groupMatches} onPress={() => setVisiblePopup('group')} />
+                                        <StageCard title={getTranslation('tournaments.groupstage')} matches={groupMatches} onPress={() => setVisiblePopup('group')} />
 
                                         <BottomSheet
                                             isActive={visiblePopup === 'group'}
-                                            title="Group Stage"
+                                            title={getTranslation('tournaments.groupstage')}
                                             closeButton
                                             onClose={() => setVisiblePopup(undefined)}
                                         >
@@ -310,11 +318,11 @@ export default function TournamentDetail() {
 
                                 {tournament.playoffs.length > 0 && (
                                     <View>
-                                        <StageCard title="Playoffs" matches={playoffMatches} onPress={() => setVisiblePopup('playoffs')} />
+                                        <StageCard title={getTranslation('tournaments.playoffs')} matches={playoffMatches} onPress={() => setVisiblePopup('playoffs')} />
 
                                         <BottomSheet
                                             isActive={visiblePopup === 'playoffs'}
-                                            title="Playoffs"
+                                            title={getTranslation('tournaments.playoffs')}
                                             closeButton
                                             onClose={() => setVisiblePopup(undefined)}
                                         >

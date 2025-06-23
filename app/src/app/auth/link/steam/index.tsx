@@ -6,11 +6,13 @@ import { useEffect } from 'react';
 import { authLinkSteam } from '@app/api/account';
 import { useQueryClient } from '@tanstack/react-query';
 import Space from '@app/view/components/space';
+import { useTranslation } from '@app/helper/translate';
 
 export default function AuthLinkSteam() {
     const router = useRouter();
     const params = useGlobalSearchParams();
     const queryClient = useQueryClient()
+    const getTranslation = useTranslation();
 
     const init = async () => {
         const result = await authLinkSteam(params);
@@ -36,7 +38,7 @@ export default function AuthLinkSteam() {
             <View className="flex w-full pt-20 items-center justify-center">
                 <ActivityIndicator />
                 <Space />
-                <MyText>Linking steam profile...</MyText>
+                <MyText>{getTranslation('auth.linkingSteam')}</MyText>
             </View>
         </View>
     );

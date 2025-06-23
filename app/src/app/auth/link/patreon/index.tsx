@@ -6,11 +6,13 @@ import { useEffect } from 'react';
 import { authLinkPatreon, authLinkSteam } from '@app/api/account';
 import { useQueryClient } from '@tanstack/react-query';
 import Space from '@app/view/components/space';
+import { useTranslation } from '@app/helper/translate';
 
 export default function AuthLinkPatreon() {
     const router = useRouter();
     const params = useGlobalSearchParams();
     const queryClient = useQueryClient();
+    const getTranslation = useTranslation();
 
     const init = async () => {
         console.log('authLinkPatreon', params);
@@ -37,7 +39,7 @@ export default function AuthLinkPatreon() {
             <View className="flex w-full pt-20 items-center justify-center">
                 <ActivityIndicator />
                 <Space />
-                <MyText>Linking patreon profile...</MyText>
+                <MyText>{getTranslation('auth.linkingPatreon')}</MyText>
             </View>
         </View>
     );

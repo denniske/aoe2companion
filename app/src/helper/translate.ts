@@ -83,7 +83,7 @@ export function useTranslation() {
 
     // console.log('useTranslation', language, translations, translationsEn);
 
-    return (key: string, params?: Record<string, string | number>) => {
+    return (key: keyof typeof local001, params?: Record<string, string | number>) => {
         let translated = translations && key in translations ? translations[key] : translationsEn?.[key];
         if (translated && params) {
             for (const key in params) {

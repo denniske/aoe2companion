@@ -126,8 +126,8 @@ export default function Competitive() {
                 {appConfig.game === 'aoe2de' && (
                     <View className="gap-2">
                         <View className="flex-row justify-between items-center px-4">
-                            <Text variant="header-lg">Online Verified Players</Text>
-                            <Link href="/competitive/games">View Games</Link>
+                            <Text variant="header-lg">{getTranslation('competitive.onlineVerifiedPlayers.title')}</Text>
+                            <Link href="/competitive/games">{getTranslation('competitive.onlineVerifiedPlayers.viewGames')}</Link>
                         </View>
 
                         <PlayerList

@@ -70,7 +70,7 @@ export default function AllTournaments() {
                             type="search"
                             value={search}
                             onChangeText={setSearch}
-                            placeholder={`Search ${formatTier(category)} Tournaments`}
+                            placeholder={getTranslation('tournaments.searchTierTournaments', { tier: formatTierShort(category) })}
                         />
                     </View>
                 </View>
