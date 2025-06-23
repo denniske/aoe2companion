@@ -291,6 +291,7 @@ function formatChargeType(getTranslation: IGetTranslation, chargeType: number) {
         1: 'attack',
         3: 'areaattack',
         4: 'projectiledodging',
+        6: 'ranged',
     };
     return getTranslation(`unit.stats.heading.chargetype.${chargeTypeMap[chargeType]}` as any);
 }
@@ -431,6 +432,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                     </View>
                 ))}
             </View>
+
             {baseData.MaxCharge > 0 && (
                 <View style={styles.statsRow}>
                     <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.charge')}</MyText>
@@ -461,7 +463,10 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                             style={styles.cellValue}
                             unitId={u}
                             prop="RechargeRate"
-                            formatter={(x) => (x ? x.toFixed(2) + ' s' : '')}
+                            formatter={(x) => {
+                                if (!isFinite(x) || x > Number.MAX_SAFE_INTEGER) return '∞';
+                                return x ? x.toFixed(2) + ' s' : '';
+                            }}
                         />
                     ))}
                 </View>
@@ -480,6 +485,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                     ))}
                 </View>
             )}
+
             <View style={styles.statsRow}>
                 <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.rateoffire')}</MyText>
                 {units.map((u) => (

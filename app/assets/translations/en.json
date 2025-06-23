@@ -389,6 +389,7 @@
     "unit.stats.heading.chargetype.attack": "attack",
     "unit.stats.heading.chargetype.areaattack": "area attack",
     "unit.stats.heading.chargetype.projectiledodging": "projectile dodging",
+    "unit.stats.heading.chargetype.ranged": "ranged",
 
     "tips.title": "Tips & Tricks",
     "tips.item.heading.gatheringefficiently": "Gathering efficiently",

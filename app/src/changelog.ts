@@ -256,6 +256,16 @@ export const changelog: IChangelog = {
     //         content: 'Link your Patreon account to access exclusive benefits'
     //     },
     // ],
+    '135.0.0': [
+        {
+            type: 'feature',
+            title: 'UI translation',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix charge attack stats for Fire Archer',
+        },
+    ],
     '134.0.0': [
         {
             type: 'minor',
